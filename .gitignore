@@ -1,0 +1,3 @@
+/target
+/crates/kazan/src/generated/vk
+/crates/kazan-sys/src/generated/vk

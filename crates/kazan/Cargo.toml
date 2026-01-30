@@ -1,0 +1,10 @@
+[package]
+name = "kazan"
+version.workspace = true
+authors.workspace = true
+license.workspace = true
+edition.workspace = true
+
+[dependencies]
+kazan-sys = { version = "0.1.0", path = "../kazan-sys" }
+bitflags = "2.10"

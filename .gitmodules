@@ -1,0 +1,3 @@
+[submodule "crates/generator/external/Vulkan-Headers"]
+	path = crates/generator/external/Vulkan-Headers
+	url = https://github.com/KhronosGroup/Vulkan-Headers.git
