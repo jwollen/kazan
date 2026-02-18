@@ -18,11 +18,6 @@ fn main() {
     generate(&[analysis.vk_xml(), analysis.video_xml()]);
 }
 
-enum ItemScope<'a> {
-    Vendor(&'a str),
-    FeatureOrExtension(FeatureOrExtension<'a>),
-}
-
 #[derive(Copy, Clone)]
 enum FeatureOrExtension<'a> {
     Feature(&'a xml::Feature),
