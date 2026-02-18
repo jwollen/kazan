@@ -2,6 +2,27 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use std::ffi::{c_char, c_int, c_void};
+pub const STD_VIDEO_AV1_NUM_REF_FRAMES: u32 = 8;
+pub const STD_VIDEO_AV1_REFS_PER_FRAME: u32 = 7;
+pub const STD_VIDEO_AV1_TOTAL_REFS_PER_FRAME: u32 = 8;
+pub const STD_VIDEO_AV1_MAX_TILE_COLS: u32 = 64;
+pub const STD_VIDEO_AV1_MAX_TILE_ROWS: u32 = 64;
+pub const STD_VIDEO_AV1_MAX_SEGMENTS: u32 = 8;
+pub const STD_VIDEO_AV1_SEG_LVL_MAX: u32 = 8;
+pub const STD_VIDEO_AV1_PRIMARY_REF_NONE: u8 = 7;
+pub const STD_VIDEO_AV1_SELECT_INTEGER_MV: u8 = 2;
+pub const STD_VIDEO_AV1_SELECT_SCREEN_CONTENT_TOOLS: u32 = 2;
+pub const STD_VIDEO_AV1_SKIP_MODE_FRAMES: u32 = 2;
+pub const STD_VIDEO_AV1_MAX_LOOP_FILTER_STRENGTHS: u32 = 4;
+pub const STD_VIDEO_AV1_LOOP_FILTER_ADJUSTMENTS: u32 = 2;
+pub const STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS: u32 = 8;
+pub const STD_VIDEO_AV1_MAX_NUM_PLANES: u32 = 3;
+pub const STD_VIDEO_AV1_GLOBAL_MOTION_PARAMS: u32 = 6;
+pub const STD_VIDEO_AV1_MAX_NUM_Y_POINTS: u32 = 14;
+pub const STD_VIDEO_AV1_MAX_NUM_CB_POINTS: u32 = 10;
+pub const STD_VIDEO_AV1_MAX_NUM_CR_POINTS: u32 = 10;
+pub const STD_VIDEO_AV1_MAX_NUM_POS_LUMA: u32 = 24;
+pub const STD_VIDEO_AV1_MAX_NUM_POS_CHROMA: u32 = 25;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct StdVideoAV1ColorConfigFlags {

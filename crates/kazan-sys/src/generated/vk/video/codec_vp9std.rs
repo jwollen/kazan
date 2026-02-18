@@ -2,6 +2,14 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use std::ffi::{c_char, c_int, c_void};
+pub const STD_VIDEO_VP9_NUM_REF_FRAMES: u32 = 8;
+pub const STD_VIDEO_VP9_REFS_PER_FRAME: u32 = 3;
+pub const STD_VIDEO_VP9_MAX_REF_FRAMES: u32 = 4;
+pub const STD_VIDEO_VP9_LOOP_FILTER_ADJUSTMENTS: u32 = 2;
+pub const STD_VIDEO_VP9_MAX_SEGMENTS: u32 = 8;
+pub const STD_VIDEO_VP9_SEG_LVL_MAX: u32 = 4;
+pub const STD_VIDEO_VP9_MAX_SEGMENTATION_TREE_PROBS: u32 = 7;
+pub const STD_VIDEO_VP9_MAX_SEGMENTATION_PRED_PROB: u32 = 3;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct StdVideoVP9ColorConfigFlags {

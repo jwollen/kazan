@@ -467,7 +467,7 @@ impl Structure {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Constant {
     pub ty: &'static str,
     pub value: &'static str,
@@ -638,6 +638,7 @@ pub struct RequireConstant {
     pub name: &'static str,
     /// `Some` indicates a new constant being defined here.
     pub value: Option<&'static str>,
+    pub ty: Option<&'static str>,
 }
 
 impl RequireConstant {
@@ -645,6 +646,7 @@ impl RequireConstant {
         RequireConstant {
             name: attribute(node, "name").unwrap(),
             value: attribute(node, "value"),
+            ty: attribute(node, "type"),
         }
     }
 }

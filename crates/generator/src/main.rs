@@ -6,6 +6,8 @@ use std::{
 
 use heck::{ToShoutySnakeCase, ToSnakeCase};
 
+use crate::xml::Constant;
+
 mod analysis;
 mod cdecl;
 mod xml;
@@ -75,17 +77,29 @@ fn generate(xmls: &[&xml::Registry]) {
                 .iter()
                 .map(|r| &r.constants)
                 .flatten()
-                .filter(|constant| {
-                    xml.constants
+                .filter_map(|constant| {
+                    let global_api_constant = xml
+                        .constants
                         .iter()
-                        .find(|api_constant| api_constant.name == constant.name)
-                        .is_some()
+                        .find(|api_constant| api_constant.name == constant.name);
+
+                    if let Some(global_api_constant) = global_api_constant {
+                        Some(global_api_constant.clone())
+                    } else if let (Some(ty), Some(value)) = (constant.ty, constant.value) {
+                        Some(Constant {
+                            name: constant.name,
+                            ty,
+                            value,
+                        })
+                    } else {
+                        None
+                    }
                 });
 
             let new_items = required_types
                 .map(|ty| ty.name)
                 .chain(required_commands.map(|cmd| cmd.name))
-                .chain(required_api_constants.map(|constant| constant.name))
+                .chain(required_api_constants.clone().map(|constant| constant.name))
                 .filter(|name| visited_items.insert(*name))
                 .collect::<HashSet<_>>();
 
@@ -140,10 +154,8 @@ fn generate(xmls: &[&xml::Registry]) {
                 writeln!(sys_file, "use bitflags::bitflags;").unwrap();
                 writeln!(sys_file, "use crate::{{*, vk::*}};").unwrap();
 
-                let constants = xml
-                    .constants
-                    .iter()
-                    .filter(|constant| new_items.contains(constant.name));
+                let constants =
+                    required_api_constants.filter(|constant| new_items.contains(constant.name));
 
                 for constant in constants {
                     writeln!(

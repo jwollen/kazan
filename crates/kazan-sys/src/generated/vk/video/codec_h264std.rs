@@ -2,6 +2,14 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use std::ffi::{c_char, c_int, c_void};
+pub const STD_VIDEO_H264_CPB_CNT_LIST_SIZE: u32 = 32;
+pub const STD_VIDEO_H264_SCALING_LIST_4X4_NUM_LISTS: u32 = 6;
+pub const STD_VIDEO_H264_SCALING_LIST_4X4_NUM_ELEMENTS: u32 = 16;
+pub const STD_VIDEO_H264_SCALING_LIST_8X8_NUM_LISTS: u32 = 6;
+pub const STD_VIDEO_H264_SCALING_LIST_8X8_NUM_ELEMENTS: u32 = 64;
+pub const STD_VIDEO_H264_MAX_NUM_LIST_REF: u32 = 32;
+pub const STD_VIDEO_H264_MAX_CHROMA_PLANES: u32 = 2;
+pub const STD_VIDEO_H264_NO_REFERENCE_PICTURE: u8 = 0xF;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct StdVideoH264SpsVuiFlags {
