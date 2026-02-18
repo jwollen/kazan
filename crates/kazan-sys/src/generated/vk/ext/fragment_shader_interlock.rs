@@ -1,0 +1,13 @@
+#![allow(non_camel_case_types, unused_imports)]
+use crate::{vk::*, *};
+use bitflags::bitflags;
+use std::ffi::{c_char, c_int, c_void};
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PhysicalDeviceFragmentShaderInterlockFeaturesEXT {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub fragment_shader_sample_interlock: Bool32,
+    pub fragment_shader_pixel_interlock: Bool32,
+    pub fragment_shader_shading_rate_interlock: Bool32,
+}

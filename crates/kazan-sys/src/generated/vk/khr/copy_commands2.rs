@@ -1,0 +1,21 @@
+#![allow(non_camel_case_types, unused_imports)]
+use crate::{vk::*, *};
+use bitflags::bitflags;
+use std::ffi::{c_char, c_int, c_void};
+pub type BufferCopy2KHR = BufferCopy2;
+pub type ImageCopy2KHR = ImageCopy2;
+pub type ImageBlit2KHR = ImageBlit2;
+pub type BufferImageCopy2KHR = BufferImageCopy2;
+pub type ImageResolve2KHR = ImageResolve2;
+pub type CopyBufferInfo2KHR = CopyBufferInfo2;
+pub type CopyImageInfo2KHR = CopyImageInfo2;
+pub type BlitImageInfo2KHR = BlitImageInfo2;
+pub type CopyBufferToImageInfo2KHR = CopyBufferToImageInfo2;
+pub type CopyImageToBufferInfo2KHR = CopyImageToBufferInfo2;
+pub type ResolveImageInfo2KHR = ResolveImageInfo2;
+pub type PFN_vkCmdCopyBuffer2KHR = PFN_vkCmdCopyBuffer2;
+pub type PFN_vkCmdCopyImage2KHR = PFN_vkCmdCopyImage2;
+pub type PFN_vkCmdBlitImage2KHR = PFN_vkCmdBlitImage2;
+pub type PFN_vkCmdCopyBufferToImage2KHR = PFN_vkCmdCopyBufferToImage2;
+pub type PFN_vkCmdCopyImageToBuffer2KHR = PFN_vkCmdCopyImageToBuffer2;
+pub type PFN_vkCmdResolveImage2KHR = PFN_vkCmdResolveImage2;

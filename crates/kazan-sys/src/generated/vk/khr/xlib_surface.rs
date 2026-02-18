@@ -1,0 +1,31 @@
+#![allow(non_camel_case_types, unused_imports)]
+use crate::{vk::*, *};
+use bitflags::bitflags;
+use std::ffi::{c_char, c_int, c_void};
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct XlibSurfaceCreateInfoKHR {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub flags: XlibSurfaceCreateFlagsKHR,
+    pub dpy: *mut Display,
+    pub window: Window,
+}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct XlibSurfaceCreateFlagsKHR: Flags {
+    }
+}
+pub type PFN_vkCreateXlibSurfaceKHR = unsafe extern "system" fn(
+    instance: Instance,
+    p_create_info: *const XlibSurfaceCreateInfoKHR,
+    p_allocator: *const AllocationCallbacks,
+    p_surface: *mut SurfaceKHR,
+) -> Result;
+pub type PFN_vkGetPhysicalDeviceXlibPresentationSupportKHR = unsafe extern "system" fn(
+    physical_device: PhysicalDevice,
+    queue_family_index: u32,
+    dpy: *mut Display,
+    visual_id: VisualID,
+) -> Bool32;

@@ -1,0 +1,22 @@
+#![allow(non_camel_case_types, unused_imports)]
+use crate::{vk::*, *};
+use bitflags::bitflags;
+use std::ffi::{c_char, c_int, c_void};
+pub type PhysicalDeviceHostImageCopyFeaturesEXT = PhysicalDeviceHostImageCopyFeatures;
+pub type PhysicalDeviceHostImageCopyPropertiesEXT = PhysicalDeviceHostImageCopyProperties;
+pub type MemoryToImageCopyEXT = MemoryToImageCopy;
+pub type ImageToMemoryCopyEXT = ImageToMemoryCopy;
+pub type CopyMemoryToImageInfoEXT = CopyMemoryToImageInfo;
+pub type CopyImageToMemoryInfoEXT = CopyImageToMemoryInfo;
+pub type CopyImageToImageInfoEXT = CopyImageToImageInfo;
+pub type HostImageLayoutTransitionInfoEXT = HostImageLayoutTransitionInfo;
+pub type SubresourceHostMemcpySizeEXT = SubresourceHostMemcpySize;
+pub type HostImageCopyDevicePerformanceQueryEXT = HostImageCopyDevicePerformanceQuery;
+pub type ImageSubresource2EXT = ImageSubresource2;
+pub type SubresourceLayout2EXT = SubresourceLayout2;
+pub type HostImageCopyFlagsEXT = HostImageCopyFlags;
+pub type PFN_vkCopyMemoryToImageEXT = PFN_vkCopyMemoryToImage;
+pub type PFN_vkCopyImageToMemoryEXT = PFN_vkCopyImageToMemory;
+pub type PFN_vkCopyImageToImageEXT = PFN_vkCopyImageToImage;
+pub type PFN_vkTransitionImageLayoutEXT = PFN_vkTransitionImageLayout;
+pub type PFN_vkGetImageSubresourceLayout2EXT = PFN_vkGetImageSubresourceLayout2;

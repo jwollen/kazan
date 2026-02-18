@@ -1,0 +1,21 @@
+#![allow(non_camel_case_types, unused_imports)]
+use crate::{vk::*, *};
+use bitflags::bitflags;
+use std::ffi::{c_char, c_int, c_void};
+pub type MemoryBarrier2KHR = MemoryBarrier2;
+pub type ImageMemoryBarrier2KHR = ImageMemoryBarrier2;
+pub type BufferMemoryBarrier2KHR = BufferMemoryBarrier2;
+pub type DependencyInfoKHR = DependencyInfo;
+pub type SemaphoreSubmitInfoKHR = SemaphoreSubmitInfo;
+pub type CommandBufferSubmitInfoKHR = CommandBufferSubmitInfo;
+pub type SubmitInfo2KHR = SubmitInfo2;
+pub type PhysicalDeviceSynchronization2FeaturesKHR = PhysicalDeviceSynchronization2Features;
+pub type AccessFlags2KHR = AccessFlags2;
+pub type PipelineStageFlags2KHR = PipelineStageFlags2;
+pub type SubmitFlagsKHR = SubmitFlags;
+pub type PFN_vkCmdSetEvent2KHR = PFN_vkCmdSetEvent2;
+pub type PFN_vkCmdResetEvent2KHR = PFN_vkCmdResetEvent2;
+pub type PFN_vkCmdWaitEvents2KHR = PFN_vkCmdWaitEvents2;
+pub type PFN_vkCmdPipelineBarrier2KHR = PFN_vkCmdPipelineBarrier2;
+pub type PFN_vkQueueSubmit2KHR = PFN_vkQueueSubmit2;
+pub type PFN_vkCmdWriteTimestamp2KHR = PFN_vkCmdWriteTimestamp2;

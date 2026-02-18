@@ -1,0 +1,91 @@
+#![allow(non_camel_case_types, unused_imports)]
+use crate::{vk::*, *};
+use bitflags::bitflags;
+use std::ffi::{c_char, c_int, c_void};
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct CudaModuleNV(u64);
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct CudaFunctionNV(u64);
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct CudaModuleCreateInfoNV {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub data_size: usize,
+    pub p_data: *const c_void,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct CudaFunctionCreateInfoNV {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub module: CudaModuleNV,
+    pub p_name: *const c_char,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct CudaLaunchInfoNV {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub function: CudaFunctionNV,
+    pub grid_dim_x: u32,
+    pub grid_dim_y: u32,
+    pub grid_dim_z: u32,
+    pub block_dim_x: u32,
+    pub block_dim_y: u32,
+    pub block_dim_z: u32,
+    pub shared_mem_bytes: u32,
+    pub param_count: usize,
+    pub p_params: *const *const c_void,
+    pub extra_count: usize,
+    pub p_extras: *const *const c_void,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PhysicalDeviceCudaKernelLaunchFeaturesNV {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub cuda_kernel_launch_features: Bool32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PhysicalDeviceCudaKernelLaunchPropertiesNV {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub compute_capability_minor: u32,
+    pub compute_capability_major: u32,
+}
+pub type PFN_vkCreateCudaModuleNV = unsafe extern "system" fn(
+    device: Device,
+    p_create_info: *const CudaModuleCreateInfoNV,
+    p_allocator: *const AllocationCallbacks,
+    p_module: *mut CudaModuleNV,
+) -> Result;
+pub type PFN_vkGetCudaModuleCacheNV = unsafe extern "system" fn(
+    device: Device,
+    module: CudaModuleNV,
+    p_cache_size: *mut usize,
+    p_cache_data: *mut c_void,
+) -> Result;
+pub type PFN_vkCreateCudaFunctionNV = unsafe extern "system" fn(
+    device: Device,
+    p_create_info: *const CudaFunctionCreateInfoNV,
+    p_allocator: *const AllocationCallbacks,
+    p_function: *mut CudaFunctionNV,
+) -> Result;
+pub type PFN_vkDestroyCudaModuleNV = unsafe extern "system" fn(
+    device: Device,
+    module: CudaModuleNV,
+    p_allocator: *const AllocationCallbacks,
+);
+pub type PFN_vkDestroyCudaFunctionNV = unsafe extern "system" fn(
+    device: Device,
+    function: CudaFunctionNV,
+    p_allocator: *const AllocationCallbacks,
+);
+pub type PFN_vkCmdCudaLaunchKernelNV = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    p_launch_info: *const CudaLaunchInfoNV,
+);

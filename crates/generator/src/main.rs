@@ -1,5 +1,5 @@
 use std::{
-    collections::{HashMap, HashSet},
+    collections::{BTreeMap, HashMap, HashSet},
     io::Write,
 };
 
@@ -44,8 +44,8 @@ fn generate(xmls: &[&xml::Registry]) {
     std::fs::remove_dir_all(sys_output_dir).unwrap();
     std::fs::remove_dir_all(output_dir).unwrap();
 
-    let mut sys_vendor_modules = HashMap::new();
-    let mut vendor_modules = HashMap::new();
+    let mut sys_vendor_modules = BTreeMap::new();
+    let mut vendor_modules = BTreeMap::new();
 
     let mut visited_items = HashSet::new();
 
@@ -489,6 +489,15 @@ fn generate(xmls: &[&xml::Registry]) {
             writeln!(file, "pub use {}::*;", name).unwrap();
         }
     }
+
+    std::process::Command::new("rustfmt")
+        .arg(format!("{}/mod.rs", output_dir))
+        .output()
+        .unwrap();
+    std::process::Command::new("rustfmt")
+        .arg(format!("{}/mod.rs", sys_output_dir))
+        .output()
+        .unwrap();
 }
 
 fn strip_vendor_suffix(name: &str) -> &str {

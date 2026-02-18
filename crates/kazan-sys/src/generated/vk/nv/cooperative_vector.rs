@@ -1,0 +1,92 @@
+#![allow(non_camel_case_types, unused_imports)]
+use crate::{vk::*, *};
+use bitflags::bitflags;
+use std::ffi::{c_char, c_int, c_void};
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PhysicalDeviceCooperativeVectorFeaturesNV {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub cooperative_vector: Bool32,
+    pub cooperative_vector_training: Bool32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct CooperativeVectorPropertiesNV {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub input_type: ComponentTypeKHR,
+    pub input_interpretation: ComponentTypeKHR,
+    pub matrix_interpretation: ComponentTypeKHR,
+    pub bias_interpretation: ComponentTypeKHR,
+    pub result_type: ComponentTypeKHR,
+    pub transpose: Bool32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PhysicalDeviceCooperativeVectorPropertiesNV {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub cooperative_vector_supported_stages: ShaderStageFlags,
+    pub cooperative_vector_training_float16_accumulation: Bool32,
+    pub cooperative_vector_training_float32_accumulation: Bool32,
+    pub max_cooperative_vector_components: u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct ConvertCooperativeVectorMatrixInfoNV {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub src_size: usize,
+    pub src_data: DeviceOrHostAddressConstKHR,
+    pub p_dst_size: *mut usize,
+    pub dst_data: DeviceOrHostAddressKHR,
+    pub src_component_type: ComponentTypeKHR,
+    pub dst_component_type: ComponentTypeKHR,
+    pub num_rows: u32,
+    pub num_columns: u32,
+    pub src_layout: CooperativeVectorMatrixLayoutNV,
+    pub src_stride: usize,
+    pub dst_layout: CooperativeVectorMatrixLayoutNV,
+    pub dst_stride: usize,
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ComponentTypeKHR(i32);
+impl ComponentTypeKHR {
+    pub const FLOAT16_KHR: Self = Self(0);
+    pub const FLOAT32_KHR: Self = Self(1);
+    pub const FLOAT64_KHR: Self = Self(2);
+    pub const SINT8_KHR: Self = Self(3);
+    pub const SINT16_KHR: Self = Self(4);
+    pub const SINT32_KHR: Self = Self(5);
+    pub const SINT64_KHR: Self = Self(6);
+    pub const UINT8_KHR: Self = Self(7);
+    pub const UINT16_KHR: Self = Self(8);
+    pub const UINT32_KHR: Self = Self(9);
+    pub const UINT64_KHR: Self = Self(10);
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct CooperativeVectorMatrixLayoutNV(i32);
+impl CooperativeVectorMatrixLayoutNV {
+    pub const ROW_MAJOR_NV: Self = Self(0);
+    pub const COLUMN_MAJOR_NV: Self = Self(1);
+    pub const INFERENCING_OPTIMAL_NV: Self = Self(2);
+    pub const TRAINING_OPTIMAL_NV: Self = Self(3);
+}
+pub type PFN_vkGetPhysicalDeviceCooperativeVectorPropertiesNV = unsafe extern "system" fn(
+    physical_device: PhysicalDevice,
+    p_property_count: *mut u32,
+    p_properties: *mut CooperativeVectorPropertiesNV,
+)
+    -> Result;
+pub type PFN_vkConvertCooperativeVectorMatrixNV = unsafe extern "system" fn(
+    device: Device,
+    p_info: *const ConvertCooperativeVectorMatrixInfoNV,
+) -> Result;
+pub type PFN_vkCmdConvertCooperativeVectorMatrixNV = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    info_count: u32,
+    p_infos: *const ConvertCooperativeVectorMatrixInfoNV,
+);
