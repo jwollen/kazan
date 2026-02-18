@@ -1,6 +1,59 @@
-pub struct Device {}
-impl Device {
-    pub fn vk_cmd_draw_mesh_tasks_nv(&self);
-    pub fn vk_cmd_draw_mesh_tasks_indirect_nv(&self);
-    pub fn vk_cmd_draw_mesh_tasks_indirect_count_nv(&self);
+#![allow(unused_imports)]
+use crate::*;
+use kazan_sys::{vk::*, *};
+use std::ffi::{c_char, c_int, c_void, CStr};
+pub struct DeviceFn {
+    cmd_draw_mesh_tasks_nv: PFN_vkCmdDrawMeshTasksNV,
+    cmd_draw_mesh_tasks_indirect_nv: PFN_vkCmdDrawMeshTasksIndirectNV,
+    cmd_draw_mesh_tasks_indirect_count_nv: PFN_vkCmdDrawMeshTasksIndirectCountNV,
+}
+impl DeviceFn {
+    pub unsafe fn cmd_draw_mesh_tasks_nv(
+        &self,
+        command_buffer: CommandBuffer,
+        task_count: u32,
+        first_task: u32,
+    ) {
+        unsafe { (self.cmd_draw_mesh_tasks_nv)(command_buffer, task_count, first_task) }
+    }
+    pub unsafe fn cmd_draw_mesh_tasks_indirect_nv(
+        &self,
+        command_buffer: CommandBuffer,
+        buffer: Buffer,
+        offset: DeviceSize,
+        draw_count: u32,
+        stride: u32,
+    ) {
+        unsafe {
+            (self.cmd_draw_mesh_tasks_indirect_nv)(
+                command_buffer,
+                buffer,
+                offset,
+                draw_count,
+                stride,
+            )
+        }
+    }
+    pub unsafe fn cmd_draw_mesh_tasks_indirect_count_nv(
+        &self,
+        command_buffer: CommandBuffer,
+        buffer: Buffer,
+        offset: DeviceSize,
+        count_buffer: Buffer,
+        count_buffer_offset: DeviceSize,
+        max_draw_count: u32,
+        stride: u32,
+    ) {
+        unsafe {
+            (self.cmd_draw_mesh_tasks_indirect_count_nv)(
+                command_buffer,
+                buffer,
+                offset,
+                count_buffer,
+                count_buffer_offset,
+                max_draw_count,
+                stride,
+            )
+        }
+    }
 }

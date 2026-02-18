@@ -1,2 +1,1 @@
-mod performance_query;
-pub use performance_query::*;
+pub mod performance_query;

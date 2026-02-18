@@ -1,4 +1,17 @@
-pub struct Device {}
-impl Device {
-    pub fn vk_get_device_fault_info_ext(&self);
+#![allow(unused_imports)]
+use crate::*;
+use kazan_sys::{vk::*, *};
+use std::ffi::{c_char, c_int, c_void, CStr};
+pub struct DeviceFn {
+    get_device_fault_info_ext: PFN_vkGetDeviceFaultInfoEXT,
+}
+impl DeviceFn {
+    pub unsafe fn get_device_fault_info_ext(
+        &self,
+        device: Device,
+        fault_counts: &mut DeviceFaultCountsEXT,
+        fault_info: &mut DeviceFaultInfoEXT,
+    ) -> Result {
+        unsafe { (self.get_device_fault_info_ext)(device, fault_counts, fault_info) }
+    }
 }

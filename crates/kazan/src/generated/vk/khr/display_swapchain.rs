@@ -1,4 +1,26 @@
-pub struct Device {}
-impl Device {
-    pub fn vk_create_shared_swapchains_khr(&self);
+#![allow(unused_imports)]
+use crate::*;
+use kazan_sys::{vk::*, *};
+use std::ffi::{c_char, c_int, c_void, CStr};
+pub struct DeviceFn {
+    create_shared_swapchains_khr: PFN_vkCreateSharedSwapchainsKHR,
+}
+impl DeviceFn {
+    pub unsafe fn create_shared_swapchains_khr(
+        &self,
+        device: Device,
+        create_infos: &[SwapchainCreateInfoKHR],
+        allocator: &AllocationCallbacks,
+        swapchains: &mut [SwapchainKHR],
+    ) -> Result {
+        unsafe {
+            (self.create_shared_swapchains_khr)(
+                device,
+                create_infos.len().try_into().unwrap(),
+                create_infos.as_ptr() as _,
+                allocator,
+                swapchains.as_mut_ptr() as _,
+            )
+        }
+    }
 }

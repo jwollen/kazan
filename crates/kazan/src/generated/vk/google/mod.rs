@@ -1,2 +1,1 @@
-mod display_timing;
-pub use display_timing::*;
+pub mod display_timing;

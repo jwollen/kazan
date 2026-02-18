@@ -1,4 +1,16 @@
-pub struct Device {}
-impl Device {
-    pub fn vk_cmd_set_depth_bias2_ext(&self);
+#![allow(unused_imports)]
+use crate::*;
+use kazan_sys::{vk::*, *};
+use std::ffi::{c_char, c_int, c_void, CStr};
+pub struct DeviceFn {
+    cmd_set_depth_bias2_ext: PFN_vkCmdSetDepthBias2EXT,
+}
+impl DeviceFn {
+    pub unsafe fn cmd_set_depth_bias2_ext(
+        &self,
+        command_buffer: CommandBuffer,
+        depth_bias_info: &DepthBiasInfoEXT,
+    ) {
+        unsafe { (self.cmd_set_depth_bias2_ext)(command_buffer, depth_bias_info) }
+    }
 }

@@ -1,2 +1,27 @@
-pub struct Device {}
-impl Device {}
+#![allow(unused_imports)]
+use crate::*;
+use kazan_sys::{vk::*, *};
+use std::ffi::{c_char, c_int, c_void, CStr};
+pub struct InstanceFn {
+    acquire_xlib_display_ext: PFN_vkAcquireXlibDisplayEXT,
+    get_rand_r_output_display_ext: PFN_vkGetRandROutputDisplayEXT,
+}
+impl InstanceFn {
+    pub unsafe fn acquire_xlib_display_ext(
+        &self,
+        physical_device: PhysicalDevice,
+        dpy: &mut Display,
+        display: DisplayKHR,
+    ) -> Result {
+        unsafe { (self.acquire_xlib_display_ext)(physical_device, dpy, display) }
+    }
+    pub unsafe fn get_rand_r_output_display_ext(
+        &self,
+        physical_device: PhysicalDevice,
+        dpy: &mut Display,
+        rr_output: RROutput,
+        display: &mut DisplayKHR,
+    ) -> Result {
+        unsafe { (self.get_rand_r_output_display_ext)(physical_device, dpy, rr_output, display) }
+    }
+}

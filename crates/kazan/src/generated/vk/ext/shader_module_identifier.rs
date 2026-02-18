@@ -1,5 +1,28 @@
-pub struct Device {}
-impl Device {
-    pub fn vk_get_shader_module_identifier_ext(&self);
-    pub fn vk_get_shader_module_create_info_identifier_ext(&self);
+#![allow(unused_imports)]
+use crate::*;
+use kazan_sys::{vk::*, *};
+use std::ffi::{c_char, c_int, c_void, CStr};
+pub struct DeviceFn {
+    get_shader_module_identifier_ext: PFN_vkGetShaderModuleIdentifierEXT,
+    get_shader_module_create_info_identifier_ext: PFN_vkGetShaderModuleCreateInfoIdentifierEXT,
+}
+impl DeviceFn {
+    pub unsafe fn get_shader_module_identifier_ext(
+        &self,
+        device: Device,
+        shader_module: ShaderModule,
+        identifier: &mut ShaderModuleIdentifierEXT,
+    ) {
+        unsafe { (self.get_shader_module_identifier_ext)(device, shader_module, identifier) }
+    }
+    pub unsafe fn get_shader_module_create_info_identifier_ext(
+        &self,
+        device: Device,
+        create_info: &ShaderModuleCreateInfo,
+        identifier: &mut ShaderModuleIdentifierEXT,
+    ) {
+        unsafe {
+            (self.get_shader_module_create_info_identifier_ext)(device, create_info, identifier)
+        }
+    }
 }

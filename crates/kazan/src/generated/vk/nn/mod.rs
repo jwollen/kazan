@@ -1,2 +1,1 @@
-mod vi_surface;
-pub use vi_surface::*;
+pub mod vi_surface;

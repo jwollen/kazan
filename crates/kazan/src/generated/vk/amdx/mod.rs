@@ -1,2 +1,1 @@
-mod shader_enqueue;
-pub use shader_enqueue::*;
+pub mod shader_enqueue;

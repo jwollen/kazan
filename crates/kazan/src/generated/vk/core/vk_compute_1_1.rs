@@ -1,10 +1,106 @@
-pub struct Device {}
-impl Device {
-    pub fn vk_cmd_dispatch_base(&self);
-    pub fn vk_create_descriptor_update_template(&self);
-    pub fn vk_destroy_descriptor_update_template(&self);
-    pub fn vk_update_descriptor_set_with_template(&self);
-    pub fn vk_create_sampler_ycbcr_conversion(&self);
-    pub fn vk_destroy_sampler_ycbcr_conversion(&self);
-    pub fn vk_get_descriptor_set_layout_support(&self);
+#![allow(unused_imports)]
+use crate::*;
+use kazan_sys::{vk::*, *};
+use std::ffi::{c_char, c_int, c_void, CStr};
+pub struct DeviceFn {
+    cmd_dispatch_base: PFN_vkCmdDispatchBase,
+    create_descriptor_update_template: PFN_vkCreateDescriptorUpdateTemplate,
+    destroy_descriptor_update_template: PFN_vkDestroyDescriptorUpdateTemplate,
+    update_descriptor_set_with_template: PFN_vkUpdateDescriptorSetWithTemplate,
+    create_sampler_ycbcr_conversion: PFN_vkCreateSamplerYcbcrConversion,
+    destroy_sampler_ycbcr_conversion: PFN_vkDestroySamplerYcbcrConversion,
+    get_descriptor_set_layout_support: PFN_vkGetDescriptorSetLayoutSupport,
+}
+impl DeviceFn {
+    pub unsafe fn cmd_dispatch_base(
+        &self,
+        command_buffer: CommandBuffer,
+        base_group_x: u32,
+        base_group_y: u32,
+        base_group_z: u32,
+        group_count_x: u32,
+        group_count_y: u32,
+        group_count_z: u32,
+    ) {
+        unsafe {
+            (self.cmd_dispatch_base)(
+                command_buffer,
+                base_group_x,
+                base_group_y,
+                base_group_z,
+                group_count_x,
+                group_count_y,
+                group_count_z,
+            )
+        }
+    }
+    pub unsafe fn create_descriptor_update_template(
+        &self,
+        device: Device,
+        create_info: &DescriptorUpdateTemplateCreateInfo,
+        allocator: &AllocationCallbacks,
+        descriptor_update_template: &mut DescriptorUpdateTemplate,
+    ) -> Result {
+        unsafe {
+            (self.create_descriptor_update_template)(
+                device,
+                create_info,
+                allocator,
+                descriptor_update_template,
+            )
+        }
+    }
+    pub unsafe fn destroy_descriptor_update_template(
+        &self,
+        device: Device,
+        descriptor_update_template: DescriptorUpdateTemplate,
+        allocator: &AllocationCallbacks,
+    ) {
+        unsafe {
+            (self.destroy_descriptor_update_template)(device, descriptor_update_template, allocator)
+        }
+    }
+    pub unsafe fn update_descriptor_set_with_template(
+        &self,
+        device: Device,
+        descriptor_set: DescriptorSet,
+        descriptor_update_template: DescriptorUpdateTemplate,
+        data: &c_void,
+    ) {
+        unsafe {
+            (self.update_descriptor_set_with_template)(
+                device,
+                descriptor_set,
+                descriptor_update_template,
+                data,
+            )
+        }
+    }
+    pub unsafe fn create_sampler_ycbcr_conversion(
+        &self,
+        device: Device,
+        create_info: &SamplerYcbcrConversionCreateInfo,
+        allocator: &AllocationCallbacks,
+        ycbcr_conversion: &mut SamplerYcbcrConversion,
+    ) -> Result {
+        unsafe {
+            (self.create_sampler_ycbcr_conversion)(device, create_info, allocator, ycbcr_conversion)
+        }
+    }
+    pub unsafe fn destroy_sampler_ycbcr_conversion(
+        &self,
+        device: Device,
+        ycbcr_conversion: SamplerYcbcrConversion,
+        allocator: &AllocationCallbacks,
+    ) {
+        unsafe { (self.destroy_sampler_ycbcr_conversion)(device, ycbcr_conversion, allocator) }
+    }
+    pub unsafe fn get_descriptor_set_layout_support(
+        &self,
+        device: Device,
+        create_info: &DescriptorSetLayoutCreateInfo,
+        support: &mut DescriptorSetLayoutSupport,
+    ) {
+        unsafe { (self.get_descriptor_set_layout_support)(device, create_info, support) }
+    }
 }

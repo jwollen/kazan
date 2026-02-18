@@ -1,7 +1,66 @@
-pub struct Device {}
-impl Device {
-    pub fn vk_set_swapchain_present_timing_queue_size_ext(&self);
-    pub fn vk_get_swapchain_timing_properties_ext(&self);
-    pub fn vk_get_swapchain_time_domain_properties_ext(&self);
-    pub fn vk_get_past_presentation_timing_ext(&self);
+#![allow(unused_imports)]
+use crate::*;
+use kazan_sys::{vk::*, *};
+use std::ffi::{c_char, c_int, c_void, CStr};
+pub struct DeviceFn {
+    set_swapchain_present_timing_queue_size_ext: PFN_vkSetSwapchainPresentTimingQueueSizeEXT,
+    get_swapchain_timing_properties_ext: PFN_vkGetSwapchainTimingPropertiesEXT,
+    get_swapchain_time_domain_properties_ext: PFN_vkGetSwapchainTimeDomainPropertiesEXT,
+    get_past_presentation_timing_ext: PFN_vkGetPastPresentationTimingEXT,
+}
+impl DeviceFn {
+    pub unsafe fn set_swapchain_present_timing_queue_size_ext(
+        &self,
+        device: Device,
+        swapchain: SwapchainKHR,
+        size: u32,
+    ) -> Result {
+        unsafe { (self.set_swapchain_present_timing_queue_size_ext)(device, swapchain, size) }
+    }
+    pub unsafe fn get_swapchain_timing_properties_ext(
+        &self,
+        device: Device,
+        swapchain: SwapchainKHR,
+        swapchain_timing_properties: &mut SwapchainTimingPropertiesEXT,
+        swapchain_timing_properties_counter: &mut u64,
+    ) -> Result {
+        unsafe {
+            (self.get_swapchain_timing_properties_ext)(
+                device,
+                swapchain,
+                swapchain_timing_properties,
+                swapchain_timing_properties_counter,
+            )
+        }
+    }
+    pub unsafe fn get_swapchain_time_domain_properties_ext(
+        &self,
+        device: Device,
+        swapchain: SwapchainKHR,
+        swapchain_time_domain_properties: &mut SwapchainTimeDomainPropertiesEXT,
+        time_domains_counter: &mut u64,
+    ) -> Result {
+        unsafe {
+            (self.get_swapchain_time_domain_properties_ext)(
+                device,
+                swapchain,
+                swapchain_time_domain_properties,
+                time_domains_counter,
+            )
+        }
+    }
+    pub unsafe fn get_past_presentation_timing_ext(
+        &self,
+        device: Device,
+        past_presentation_timing_info: &PastPresentationTimingInfoEXT,
+        past_presentation_timing_properties: &mut PastPresentationTimingPropertiesEXT,
+    ) -> Result {
+        unsafe {
+            (self.get_past_presentation_timing_ext)(
+                device,
+                past_presentation_timing_info,
+                past_presentation_timing_properties,
+            )
+        }
+    }
 }

@@ -1,2 +1,54 @@
-pub struct Device {}
-impl Device {}
+#![allow(unused_imports)]
+use crate::*;
+use kazan_sys::{vk::*, *};
+use std::ffi::{c_char, c_int, c_void, CStr};
+pub struct InstanceFn {
+    create_debug_report_callback_ext: PFN_vkCreateDebugReportCallbackEXT,
+    destroy_debug_report_callback_ext: PFN_vkDestroyDebugReportCallbackEXT,
+    debug_report_message_ext: PFN_vkDebugReportMessageEXT,
+}
+impl InstanceFn {
+    pub unsafe fn create_debug_report_callback_ext(
+        &self,
+        instance: Instance,
+        create_info: &DebugReportCallbackCreateInfoEXT,
+        allocator: &AllocationCallbacks,
+        callback: &mut DebugReportCallbackEXT,
+    ) -> Result {
+        unsafe {
+            (self.create_debug_report_callback_ext)(instance, create_info, allocator, callback)
+        }
+    }
+    pub unsafe fn destroy_debug_report_callback_ext(
+        &self,
+        instance: Instance,
+        callback: DebugReportCallbackEXT,
+        allocator: &AllocationCallbacks,
+    ) {
+        unsafe { (self.destroy_debug_report_callback_ext)(instance, callback, allocator) }
+    }
+    pub unsafe fn debug_report_message_ext(
+        &self,
+        instance: Instance,
+        flags: DebugReportFlagsEXT,
+        object_type: DebugReportObjectTypeEXT,
+        object: u64,
+        location: usize,
+        message_code: i32,
+        layer_prefix: &CStr,
+        message: &CStr,
+    ) {
+        unsafe {
+            (self.debug_report_message_ext)(
+                instance,
+                flags,
+                object_type,
+                object,
+                location,
+                message_code,
+                layer_prefix.as_ptr() as _,
+                message.as_ptr() as _,
+            )
+        }
+    }
+}

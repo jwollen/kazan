@@ -1,5 +1,25 @@
-pub struct Device {}
-impl Device {
-    pub fn vk_get_fence_fd_khr(&self);
-    pub fn vk_import_fence_fd_khr(&self);
+#![allow(unused_imports)]
+use crate::*;
+use kazan_sys::{vk::*, *};
+use std::ffi::{c_char, c_int, c_void, CStr};
+pub struct DeviceFn {
+    get_fence_fd_khr: PFN_vkGetFenceFdKHR,
+    import_fence_fd_khr: PFN_vkImportFenceFdKHR,
+}
+impl DeviceFn {
+    pub unsafe fn get_fence_fd_khr(
+        &self,
+        device: Device,
+        get_fd_info: &FenceGetFdInfoKHR,
+        fd: &mut c_int,
+    ) -> Result {
+        unsafe { (self.get_fence_fd_khr)(device, get_fd_info, fd) }
+    }
+    pub unsafe fn import_fence_fd_khr(
+        &self,
+        device: Device,
+        import_fence_fd_info: &ImportFenceFdInfoKHR,
+    ) -> Result {
+        unsafe { (self.import_fence_fd_khr)(device, import_fence_fd_info) }
+    }
 }

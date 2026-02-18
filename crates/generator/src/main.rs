@@ -6,7 +6,7 @@ use std::{
 
 use heck::{ToShoutySnakeCase, ToSnakeCase};
 
-use crate::xml::Constant;
+use crate::{cdecl::CType, xml::Constant};
 
 mod analysis;
 mod cdecl;
@@ -33,6 +33,12 @@ impl<'a> FeatureOrExtension<'a> {
     }
 }
 
+#[derive(Copy, Clone, Debug, Eq, PartialEq)]
+enum CommandType {
+    Instance,
+    Device,
+}
+
 fn generate(xmls: &[&xml::Registry]) {
     let trailing_number = regex::Regex::new(r"(\d+)$").unwrap();
 
@@ -46,6 +52,27 @@ fn generate(xmls: &[&xml::Registry]) {
     let mut vendor_modules = BTreeMap::new();
 
     let mut visited_items = HashSet::new();
+
+    // For each handle type, determine if it is a device child
+    use std::collections::VecDeque;
+    let mut handle_command_types = HashMap::new();
+    for xml in xmls {
+        let mut pending_handles = xml.handles.iter().collect::<VecDeque<_>>();
+        while let Some(handle) = pending_handles.pop_front() {
+            if handle.name == "VkInstance" {
+                handle_command_types.insert(handle.name, CommandType::Instance);
+            } else if handle.name == "VkDevice" {
+                handle_command_types.insert(handle.name, CommandType::Device);
+            } else {
+                let parent = handle.parent.unwrap();
+                if let Some(parent_command_type) = handle_command_types.get(parent) {
+                    handle_command_types.insert(handle.name, *parent_command_type);
+                } else {
+                    pending_handles.push_back(handle);
+                }
+            }
+        }
+    }
 
     for xml in xmls {
         let features_and_extensions = xml
@@ -418,14 +445,14 @@ fn generate(xmls: &[&xml::Registry]) {
                     }
                 }
 
-                for ty in commands.clone() {
+                for command in commands.clone() {
                     writeln!(
                         sys_file,
                         "pub type PFN_{} = unsafe extern \"system\" fn(",
-                        ty.name
+                        command.name
                     )
                     .unwrap();
-                    for param in &ty.params {
+                    for param in &command.params {
                         writeln!(
                             sys_file,
                             "    {}: {},",
@@ -434,7 +461,7 @@ fn generate(xmls: &[&xml::Registry]) {
                         )
                         .unwrap();
                     }
-                    if let Some(ref return_type) = ty.return_type {
+                    if let Some(ref return_type) = command.return_type {
                         writeln!(sys_file, ") -> {};", ctype_to_rust_type(&return_type)).unwrap();
                     } else {
                         writeln!(sys_file, ");").unwrap();
@@ -448,49 +475,48 @@ fn generate(xmls: &[&xml::Registry]) {
                     .or_insert_with(Vec::new)
                     .push(module_name.clone());
 
-                #[derive(Copy, Clone, Debug)]
-                enum CommandType {
-                    Instance,
-                    Device,
-                }
-
                 std::fs::create_dir_all(format!("{}/{}", output_dir, vendor)).unwrap();
                 let mut file =
                     std::fs::File::create(format!("{}/{}/{}.rs", output_dir, vendor, module_name))
                         .unwrap();
 
-                // For each handle type, determine if it is a device child
-                use std::collections::VecDeque;
-                let mut handle_command_types = HashMap::new();
-                let mut pending_handles = xml.handles.iter().collect::<VecDeque<_>>();
-                while let Some(handle) = pending_handles.pop_front() {
-                    if handle.name == "VkInstance" {
-                        handle_command_types.insert(handle.name, CommandType::Instance);
-                    } else if handle.name == "VkDevice" {
-                        handle_command_types.insert(handle.name, CommandType::Device);
-                    } else {
-                        let parent = handle.parent.unwrap();
-                        if let Some(parent_command_type) = handle_command_types.get(parent) {
-                            handle_command_types.insert(handle.name, *parent_command_type);
+                writeln!(file, "#![allow(unused_imports)]").unwrap();
+                writeln!(file, "use std::ffi::{{c_char, c_int, c_void, CStr}};").unwrap();
+                writeln!(file, "use kazan_sys::{{*, vk::*}};").unwrap();
+                writeln!(file, "use crate::*;").unwrap();
+
+                let mut generate_commands = |cmd_type: Option<CommandType>, fn_type_name: &str| {
+                    let commands = commands.clone().filter(|command| {
+                        let ty = &command.params.iter().next().unwrap().c_decl.ty;
+                        if let CType::Base(base) = ty {
+                            handle_command_types.get(base.name).copied() == cmd_type
                         } else {
-                            pending_handles.push_back(handle);
+                            cmd_type.is_none()
                         }
+                    });
+
+                    if commands.clone().next().is_none() {
+                        return;
                     }
-                }
 
-                let device_commands = commands.clone().filter(|command| {
-                let ty = &command.params.iter().next().unwrap().c_decl.ty;
-                matches!(ty, cdecl::CType::Base(base) if matches!(handle_command_types.get(base.name), Some(CommandType::Device)))});
+                    writeln!(file, "pub struct {} {{", fn_type_name).unwrap();
+                    for command in commands.clone() {
+                        let name = normalize_command_name(command.name);
+                        writeln!(file, "{}: PFN_{},", name, normalize_ty_name(command.name))
+                            .unwrap();
+                    }
+                    writeln!(file, "}}").unwrap();
 
-                writeln!(file, "pub struct Device {{").unwrap();
-                writeln!(file, "}}").unwrap();
+                    writeln!(file, "impl {} {{", fn_type_name).unwrap();
+                    for command in commands {
+                        write_command_wrapper(&mut file, command, &xml.structs);
+                    }
+                    writeln!(file, "}}").unwrap();
+                };
 
-                writeln!(file, "impl Device {{").unwrap();
-                for command in device_commands {
-                    writeln!(file, "pub fn {}(&self,", normalize_name(command.name)).unwrap();
-                    writeln!(file, ");").unwrap();
-                }
-                writeln!(file, "}}").unwrap();
+                generate_commands(None, "EntryFn");
+                generate_commands(Some(CommandType::Instance), "InstanceFn");
+                generate_commands(Some(CommandType::Device), "DeviceFn");
             }
         }
     }
@@ -498,7 +524,6 @@ fn generate(xmls: &[&xml::Registry]) {
     std::fs::create_dir_all(sys_output_dir).unwrap();
     let mut sys_mod_file = std::fs::File::create(format!("{}/mod.rs", sys_output_dir)).unwrap();
     let mut mod_file = std::fs::File::create(format!("{}/mod.rs", output_dir)).unwrap();
-    //writeln!(mod_file, "pub use core::*;").unwrap();
 
     for (vendor, names) in sys_vendor_modules {
         writeln!(sys_mod_file, "mod {};", vendor).unwrap();
@@ -515,15 +540,15 @@ fn generate(xmls: &[&xml::Registry]) {
     }
 
     for (vendor, names) in vendor_modules {
-        writeln!(mod_file, "mod {};", vendor).unwrap();
-        writeln!(mod_file, "pub use {}::*;", vendor).unwrap();
+        writeln!(mod_file, "pub mod {};", vendor).unwrap();
+        //writeln!(mod_file, "pub use {}::*;", vendor).unwrap();
 
         std::fs::create_dir_all(format!("{}/{}", output_dir, vendor)).unwrap();
         let mut file = std::fs::File::create(format!("{}/{}/mod.rs", output_dir, vendor)).unwrap();
 
         for name in names {
-            writeln!(file, "mod {};", name).unwrap();
-            writeln!(file, "pub use {}::*;", name).unwrap();
+            writeln!(file, "pub mod {};", name).unwrap();
+            //writeln!(file, "pub use {}::*;", name).unwrap();
         }
     }
 
@@ -625,6 +650,19 @@ fn normalize_name(name: &str) -> String {
     }
 }
 
+fn normalize_param_name(name: &str) -> String {
+    let name = normalize_name(name);
+
+    name.strip_prefix("pp_")
+        .or_else(|| name.strip_prefix("p_"))
+        .unwrap_or(name.as_str())
+        .to_string()
+}
+
+fn normalize_command_name(name: &str) -> String {
+    name.strip_prefix("vk").unwrap().to_snake_case()
+}
+
 fn normalize_const_name(name: &str) -> &str {
     name.strip_prefix("VK_").unwrap_or(name)
 }
@@ -655,10 +693,256 @@ fn ctype_to_rust_type_str(name: &str) -> String {
     .replace("FlagBits", "Flags")
 }
 
-fn ctype_to_rust_type(ty: &cdecl::CType) -> String {
+struct CommandInfo<'a> {
+    // The original xml command
+    command: &'a xml::Command,
+
+    // The normalized command name
+    name: String,
+
+    // Info about functions that can either output a length or enumerate items
+    enumeration_info: Option<EnumerationCommandInfo>,
+
+    wrapper_params: Vec<WrapperParamInfo<'a>>,
+    params: Vec<ParamInfo<'a>>,
+}
+
+struct EnumerationCommandInfo {
+    len_param: usize,
+    array_params: Vec<usize>,
+}
+
+struct WrapperParamInfo<'a> {
+    name: String,
+    param: &'a xml::CommandParam,
+    ty: String,
+}
+
+struct ParamInfo<'a> {
+    name: String,
+    param: &'a xml::CommandParam,
+    ty: String,
+    len: Option<LengthKind<'a>>,
+}
+
+#[derive(Clone)]
+enum LengthKind<'a> {
+    NullTerminated,
+    Literal(u32),
+    Param {
+        index: usize,
+        param: &'a xml::CommandParam,
+    },
+    ParamField {
+        index: usize,
+        param: &'a xml::CommandParam,
+        field: &'a xml::StructureMember,
+    },
+    Unknown(&'static str),
+}
+
+impl<'a> LengthKind<'a> {
+    fn ty(&self) -> Option<&CType> {
+        match self {
+            LengthKind::Param { param, .. } => Some(&param.c_decl.ty),
+            LengthKind::ParamField { field, .. } => Some(&field.c_decl.ty),
+            _ => None,
+        }
+    }
+}
+
+fn get_param_index(command: &xml::Command, param_name: &str) -> Option<usize> {
+    command
+        .params
+        .iter()
+        .enumerate()
+        .find_map(|(index, other_param)| {
+            if other_param.c_decl.name == param_name {
+                Some(index)
+            } else {
+                None
+            }
+        })
+}
+
+fn get_len_kind<'a>(
+    command: &'a xml::Command,
+    structs: &'a [xml::Structure],
+    len: &'static str,
+) -> LengthKind<'a> {
+    if len == "null-terminated" {
+        LengthKind::NullTerminated
+    } else if let Ok(len) = len.parse() {
+        LengthKind::Literal(len)
+    } else if let Some((param_name, field_name)) = len.split_once("->")
+        && let Some(index) = get_param_index(command, param_name)
+    {
+        let param = &command.params[index];
+        let param_ty = &param.c_decl.ty;
+        let CType::Ptr { pointee, .. } = param_ty else {
+            panic!("expected pointer type, got {:?}", param_ty);
+        };
+        let CType::Base(base) = pointee.as_ref() else {
+            panic!("expected base type, got {:?}", pointee);
+        };
+
+        let struct_ty = structs
+            .iter()
+            .find(|ty| ty.name == base.name)
+            .unwrap_or_else(|| panic!("failed to find struct {}", base.name));
+
+        let field = struct_ty
+            .members
+            .iter()
+            .find(|field| field.c_decl.name == field_name)
+            .unwrap_or_else(|| panic!("failed to find field {}", field_name));
+
+        LengthKind::ParamField {
+            index,
+            param,
+            field,
+        }
+    } else if let Some(index) = get_param_index(command, len) {
+        let param = &command.params[index];
+        LengthKind::Param { index, param }
+    } else {
+        LengthKind::Unknown(len)
+    }
+}
+
+fn analyze_command<'a>(
+    command: &'a xml::Command,
+    structs: &'a [xml::Structure],
+) -> CommandInfo<'a> {
+    let len_kinds: Vec<_> = command
+        .params
+        .iter()
+        .map(|param| param.len.map(|len| get_len_kind(command, structs, len)))
+        .collect();
+
+    let enumeration_len_param = len_kinds.iter().find_map(|len_kind| match len_kind {
+        Some(LengthKind::Param { index, param }) => {
+            let param_ty = &param.c_decl.ty;
+            match param_ty {
+                CType::Ptr { is_const, .. } if !*is_const => Some(*index),
+                _ => None,
+            }
+        }
+        _ => None,
+    });
+
+    let enumeration_info = enumeration_len_param.map(|len_param| {
+        let array_params = len_kinds
+            .iter()
+            .enumerate()
+            .filter_map(|(param_index, len_kind)| match len_kind {
+                Some(LengthKind::Param { index, .. }) if *index == len_param => Some(param_index),
+                _ => None,
+            })
+            .collect();
+        EnumerationCommandInfo {
+            len_param,
+            array_params,
+        }
+    });
+
+    let mut wrapper_params = Vec::new();
+    let mut params = Vec::new();
+
+    for (param_index, param) in command.params.iter().enumerate() {
+        let name = normalize_param_name(param.c_decl.name);
+
+        let is_implicit_length = len_kinds.iter().any(
+            |len| matches!(len, Some(LengthKind::Param { index, .. }) if *index == param_index),
+        );
+
+        if !is_implicit_length {
+            let name = normalize_param_name(param.c_decl.name);
+            let wrapper_ty = convert_param_type(&param.c_decl.ty, len_kinds[param_index].as_ref());
+
+            wrapper_params.push(WrapperParamInfo {
+                name: name.clone(),
+                param,
+                ty: wrapper_ty,
+            });
+        }
+
+        params.push(ParamInfo {
+            name,
+            param,
+            ty: ctype_to_rust_type(&param.c_decl.ty),
+            len: len_kinds[param_index].clone(),
+        });
+    }
+
+    let name = normalize_command_name(command.name);
+
+    CommandInfo {
+        command,
+        name,
+        enumeration_info,
+        wrapper_params,
+        params,
+    }
+}
+
+fn convert_param_type(ty: &CType, len: Option<&LengthKind<'_>>) -> String {
+    if let Some(len) = len
+        && !matches!(len, LengthKind::Literal(1))
+    {
+        let CType::Ptr {
+            pointee, is_const, ..
+        } = ty
+        else {
+            panic!();
+        };
+
+        if matches!(pointee.as_ref(), cdecl::CType::Base(base) if base.name == "char") {
+            let pointee = "CStr";
+            if *is_const {
+                format!("&{}", pointee)
+            } else {
+                format!("&mut {}", pointee)
+            }
+        } else {
+            let element_ty = ctype_to_rust_type(pointee.as_ref());
+            let element_ty = if element_ty == "c_void" {
+                "u8"
+            } else {
+                &element_ty
+            };
+
+            if *is_const {
+                format!("&[{}]", element_ty)
+            } else {
+                if matches!(len.ty(), Some(cdecl::CType::Base { .. })) {
+                    format!("&mut [{}]", element_ty)
+                } else {
+                    assert!(matches!(len.ty(), Some(cdecl::CType::Ptr { .. })));
+                    format!("impl ExtendUninit<{}>", element_ty)
+                }
+            }
+        }
+    } else if let CType::Ptr {
+        pointee, is_const, ..
+    } = ty
+    {
+        let pointee = ctype_to_rust_type(&pointee);
+
+        if *is_const {
+            format!("&{}", pointee)
+        } else {
+            format!("&mut {}", pointee)
+        }
+    } else {
+        ctype_to_rust_type(ty)
+    }
+}
+
+fn ctype_to_rust_type(ty: &CType) -> String {
     match ty {
-        cdecl::CType::Base(base) => ctype_to_rust_type_str(base.name),
-        cdecl::CType::Ptr {
+        CType::Base(base) => ctype_to_rust_type_str(base.name),
+        CType::Ptr {
             pointee,
             implicit_for_decay,
             is_const,
@@ -671,7 +955,7 @@ fn ctype_to_rust_type(ty: &cdecl::CType) -> String {
                 format!("*mut {}", pointee).to_string()
             }
         }
-        cdecl::CType::Array { element, len } => {
+        CType::Array { element, len } => {
             let element_ty = ctype_to_rust_type(element.as_ref());
             match len {
                 cdecl::CArrayLen::Named(name) => {
@@ -680,6 +964,114 @@ fn ctype_to_rust_type(ty: &cdecl::CType) -> String {
                 cdecl::CArrayLen::Literal(len) => format!("[{}; {}]", element_ty, len),
             }
         }
-        cdecl::CType::Func { ret_ty, params, .. } => todo!(),
+        CType::Func { ret_ty, params, .. } => todo!(),
     }
+}
+
+fn write_command_wrapper(
+    file: &mut impl std::io::Write,
+    command: &xml::Command,
+    structs: &[xml::Structure],
+) {
+    let command_info = analyze_command(command, structs);
+
+    writeln!(file, "pub unsafe fn {}(&self,", command_info.name).unwrap();
+
+    for param in &command_info.wrapper_params {
+        writeln!(file, "{}: {},", param.name, param.ty).unwrap();
+    }
+
+    if let Some(ref return_type) = command.return_type {
+        writeln!(file, ") -> {} {{", ctype_to_rust_type(&return_type)).unwrap();
+    } else {
+        writeln!(file, ") {{").unwrap();
+    }
+
+    writeln!(file, "unsafe {{").unwrap();
+
+    if let Some(enumeration_info) = &command_info.enumeration_info {
+        let has_result = if let Some(ret_type) = &command.return_type {
+            if let CType::Base(base) = ret_type {
+                base.name == "VkResult"
+            } else {
+                false
+            }
+        } else {
+            false
+        };
+
+        let extend_fn_name = if has_result {
+            match enumeration_info.array_params.len() {
+                1 => "try_extend_uninit",
+                2 => "try_extend_uninit2",
+                _ => todo!(),
+            }
+        } else {
+            match enumeration_info.array_params.len() {
+                1 => "extend_uninit",
+                _ => todo!(),
+            }
+        };
+
+        let len_param = &command_info.params[enumeration_info.len_param];
+        let array_params = enumeration_info
+            .array_params
+            .iter()
+            .map(|i| command_info.params[*i].name.as_str())
+            .collect::<Vec<_>>()
+            .join(", ");
+
+        writeln!(
+            file,
+            "{}({}, |{}, {}| {{",
+            extend_fn_name, array_params, len_param.name, array_params
+        )
+        .unwrap();
+        write_fn_call(file, &command_info);
+        writeln!(file, "}})").unwrap();
+    } else {
+        write_fn_call(file, &command_info);
+    }
+
+    writeln!(file, "}}").unwrap();
+    writeln!(file, "}}").unwrap();
+}
+
+fn write_fn_call(file: &mut impl std::io::Write, command_info: &CommandInfo) {
+    writeln!(file, "(self.{})(", command_info.name).unwrap();
+    for (param_index, param) in command_info.params.iter().enumerate() {
+        let array_param = command_info.params.iter().find(
+            |p| matches!(p.len, Some(LengthKind::Param { index, .. }) if index == param_index),
+        );
+
+        if let Some(array_param) = array_param {
+            if matches!(param.param.c_decl.ty, CType::Ptr { .. }) {
+                writeln!(file, "{},", param.name).unwrap();
+            } else {
+                writeln!(file, "{}.len().try_into().unwrap(),", array_param.name).unwrap();
+            }
+        } else {
+            if let Some(enumeration_info) = &command_info.enumeration_info
+                && enumeration_info.array_params.contains(&param_index)
+            {
+                writeln!(file, "{} as _,", param.name).unwrap();
+            } else if let Some(len) = &param.len
+                && !matches!(len, LengthKind::Literal(1))
+            {
+                let ty = &param.param.c_decl.ty;
+                let CType::Ptr { is_const, .. } = ty else {
+                    panic!();
+                };
+
+                if *is_const {
+                    writeln!(file, "{}.as_ptr() as _,", param.name).unwrap();
+                } else {
+                    writeln!(file, "{}.as_mut_ptr() as _,", param.name).unwrap();
+                }
+            } else {
+                writeln!(file, "{},", param.name).unwrap();
+            }
+        }
+    }
+    writeln!(file, ")").unwrap();
 }

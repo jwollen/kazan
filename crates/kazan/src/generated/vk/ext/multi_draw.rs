@@ -1,5 +1,50 @@
-pub struct Device {}
-impl Device {
-    pub fn vk_cmd_draw_multi_ext(&self);
-    pub fn vk_cmd_draw_multi_indexed_ext(&self);
+#![allow(unused_imports)]
+use crate::*;
+use kazan_sys::{vk::*, *};
+use std::ffi::{c_char, c_int, c_void, CStr};
+pub struct DeviceFn {
+    cmd_draw_multi_ext: PFN_vkCmdDrawMultiEXT,
+    cmd_draw_multi_indexed_ext: PFN_vkCmdDrawMultiIndexedEXT,
+}
+impl DeviceFn {
+    pub unsafe fn cmd_draw_multi_ext(
+        &self,
+        command_buffer: CommandBuffer,
+        vertex_info: &[MultiDrawInfoEXT],
+        instance_count: u32,
+        first_instance: u32,
+        stride: u32,
+    ) {
+        unsafe {
+            (self.cmd_draw_multi_ext)(
+                command_buffer,
+                vertex_info.len().try_into().unwrap(),
+                vertex_info.as_ptr() as _,
+                instance_count,
+                first_instance,
+                stride,
+            )
+        }
+    }
+    pub unsafe fn cmd_draw_multi_indexed_ext(
+        &self,
+        command_buffer: CommandBuffer,
+        index_info: &[MultiDrawIndexedInfoEXT],
+        instance_count: u32,
+        first_instance: u32,
+        stride: u32,
+        vertex_offset: &i32,
+    ) {
+        unsafe {
+            (self.cmd_draw_multi_indexed_ext)(
+                command_buffer,
+                index_info.len().try_into().unwrap(),
+                index_info.as_ptr() as _,
+                instance_count,
+                first_instance,
+                stride,
+                vertex_offset,
+            )
+        }
+    }
 }
