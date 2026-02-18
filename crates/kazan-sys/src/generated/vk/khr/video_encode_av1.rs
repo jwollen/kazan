@@ -94,7 +94,7 @@ pub struct VideoEncodeAV1PictureInfoKHR {
     pub rate_control_group: VideoEncodeAV1RateControlGroupKHR,
     pub constant_q_index: u32,
     pub p_std_picture_info: *const StdVideoEncodeAV1PictureInfo,
-    pub reference_name_slot_indices: i32,
+    pub reference_name_slot_indices: [i32; MAX_VIDEO_AV1_REFERENCES_PER_FRAME_KHR as usize],
     pub primary_reference_cdf_only: Bool32,
     pub generate_obu_extension_header: Bool32,
 }

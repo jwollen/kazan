@@ -15,7 +15,7 @@ pub struct PhysicalDeviceShaderModuleIdentifierFeaturesEXT {
 pub struct PhysicalDeviceShaderModuleIdentifierPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
-    pub shader_module_identifier_algorithm_uuid: u8,
+    pub shader_module_identifier_algorithm_uuid: [u8; UUID_SIZE as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -31,7 +31,7 @@ pub struct ShaderModuleIdentifierEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub identifier_size: u32,
-    pub identifier: u8,
+    pub identifier: [u8; MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT as usize],
 }
 pub type PFN_vkGetShaderModuleIdentifierEXT = unsafe extern "system" fn(
     device: Device,

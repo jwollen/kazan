@@ -25,7 +25,7 @@ pub struct PipelineFragmentShadingRateEnumStateCreateInfoNV {
     pub p_next: *const c_void,
     pub shading_rate_type: FragmentShadingRateTypeNV,
     pub shading_rate: FragmentShadingRateNV,
-    pub combiner_ops: FragmentShadingRateCombinerOpKHR,
+    pub combiner_ops: [FragmentShadingRateCombinerOpKHR; 2],
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -54,5 +54,5 @@ impl FragmentShadingRateTypeNV {
 pub type PFN_vkCmdSetFragmentShadingRateEnumNV = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
     shading_rate: FragmentShadingRateNV,
-    combiner_ops: *const FragmentShadingRateCombinerOpKHR,
+    combiner_ops: *const [FragmentShadingRateCombinerOpKHR; 2],
 );

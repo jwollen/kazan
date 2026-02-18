@@ -33,9 +33,9 @@ pub struct StdVideoH264HrdParameters {
     pub bit_rate_scale: u8,
     pub cpb_size_scale: u8,
     pub reserved1: u8,
-    pub bit_rate_value_minus1: u32,
-    pub cpb_size_value_minus1: u32,
-    pub cbr_flag: u8,
+    pub bit_rate_value_minus1: [u32; STD_VIDEO_H264_CPB_CNT_LIST_SIZE as usize],
+    pub cpb_size_value_minus1: [u32; STD_VIDEO_H264_CPB_CNT_LIST_SIZE as usize],
+    pub cbr_flag: [u8; STD_VIDEO_H264_CPB_CNT_LIST_SIZE as usize],
     pub initial_cpb_removal_delay_length_minus1: u32,
     pub cpb_removal_delay_length_minus1: u32,
     pub dpb_output_delay_length_minus1: u32,
@@ -86,8 +86,10 @@ pub struct StdVideoH264SpsFlags {
 pub struct StdVideoH264ScalingLists {
     pub scaling_list_present_mask: u16,
     pub use_default_scaling_matrix_mask: u16,
-    pub scaling_list4x4: u8,
-    pub scaling_list8x8: u8,
+    pub scaling_list4x4: [[u8; STD_VIDEO_H264_SCALING_LIST_4X4_NUM_ELEMENTS as usize];
+        STD_VIDEO_H264_SCALING_LIST_4X4_NUM_LISTS as usize],
+    pub scaling_list8x8: [[u8; STD_VIDEO_H264_SCALING_LIST_8X8_NUM_ELEMENTS as usize];
+        STD_VIDEO_H264_SCALING_LIST_8X8_NUM_LISTS as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

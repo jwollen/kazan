@@ -55,7 +55,7 @@ pub struct PhysicalDeviceSampleLocationsPropertiesEXT {
     pub p_next: *mut c_void,
     pub sample_location_sample_counts: SampleCountFlags,
     pub max_sample_location_grid_size: Extent2D,
-    pub sample_location_coordinate_range: f32,
+    pub sample_location_coordinate_range: [f32; 2],
     pub sample_location_sub_pixel_bits: u32,
     pub variable_sample_locations: Bool32,
 }

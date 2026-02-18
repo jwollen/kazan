@@ -40,9 +40,9 @@ pub struct StdVideoVP9LoopFilter {
     pub loop_filter_level: u8,
     pub loop_filter_sharpness: u8,
     pub update_ref_delta: u8,
-    pub loop_filter_ref_deltas: i8,
+    pub loop_filter_ref_deltas: [i8; STD_VIDEO_VP9_MAX_REF_FRAMES as usize],
     pub update_mode_delta: u8,
-    pub loop_filter_mode_deltas: i8,
+    pub loop_filter_mode_deltas: [i8; STD_VIDEO_VP9_LOOP_FILTER_ADJUSTMENTS as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -57,10 +57,11 @@ pub struct StdVideoVP9SegmentationFlags {
 #[derive(Copy, Clone)]
 pub struct StdVideoVP9Segmentation {
     pub flags: StdVideoVP9SegmentationFlags,
-    pub segmentation_tree_probs: u8,
-    pub segmentation_pred_prob: u8,
-    pub feature_enabled: u8,
-    pub feature_data: i16,
+    pub segmentation_tree_probs: [u8; STD_VIDEO_VP9_MAX_SEGMENTATION_TREE_PROBS as usize],
+    pub segmentation_pred_prob: [u8; STD_VIDEO_VP9_MAX_SEGMENTATION_PRED_PROB as usize],
+    pub feature_enabled: [u8; STD_VIDEO_VP9_MAX_SEGMENTS as usize],
+    pub feature_data:
+        [[i16; STD_VIDEO_VP9_SEG_LVL_MAX as usize]; STD_VIDEO_VP9_MAX_SEGMENTS as usize],
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]

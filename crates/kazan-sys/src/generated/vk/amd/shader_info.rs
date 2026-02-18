@@ -20,7 +20,7 @@ pub struct ShaderStatisticsInfoAMD {
     pub num_physical_sgprs: u32,
     pub num_available_vgprs: u32,
     pub num_available_sgprs: u32,
-    pub compute_work_group_size: u32,
+    pub compute_work_group_size: [u32; 3],
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]

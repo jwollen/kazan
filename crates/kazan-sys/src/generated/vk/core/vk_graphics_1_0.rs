@@ -32,9 +32,9 @@ pub struct ClearRect {
 #[derive(Copy, Clone)]
 pub struct ImageBlit {
     pub src_subresource: ImageSubresourceLayers,
-    pub src_offsets: Offset3D,
+    pub src_offsets: [Offset3D; 2],
     pub dst_subresource: ImageSubresourceLayers,
-    pub dst_offsets: Offset3D,
+    pub dst_offsets: [Offset3D; 2],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -151,7 +151,7 @@ pub struct PipelineColorBlendStateCreateInfo {
     pub logic_op: LogicOp,
     pub attachment_count: u32,
     pub p_attachments: *const PipelineColorBlendAttachmentState,
-    pub blend_constants: f32,
+    pub blend_constants: [f32; 4],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -636,7 +636,7 @@ pub type PFN_vkCmdSetDepthBias = unsafe extern "system" fn(
     depth_bias_slope_factor: f32,
 );
 pub type PFN_vkCmdSetBlendConstants =
-    unsafe extern "system" fn(command_buffer: CommandBuffer, blend_constants: *const f32);
+    unsafe extern "system" fn(command_buffer: CommandBuffer, blend_constants: *const [f32; 4]);
 pub type PFN_vkCmdSetDepthBounds = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
     min_depth_bounds: f32,

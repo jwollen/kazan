@@ -676,7 +676,15 @@ fn ctype_to_rust_type(ty: &cdecl::CType) -> String {
                 format!("*mut {}", pointee).to_string()
             }
         }
-        cdecl::CType::Array { element, len, .. } => ctype_to_rust_type(element.as_ref()),
+        cdecl::CType::Array { element, len } => {
+            let element_ty = ctype_to_rust_type(element.as_ref());
+            match len {
+                cdecl::CArrayLen::Named(name) => {
+                    format!("[{}; {} as usize]", element_ty, normalize_const_name(name))
+                }
+                cdecl::CArrayLen::Literal(len) => format!("[{}; {}]", element_ty, len),
+            }
+        }
         cdecl::CType::Func { ret_ty, params, .. } => "fn".to_string(),
     }
 }

@@ -35,7 +35,7 @@ pub struct PartitionedAccelerationStructureFlagsNV {
 #[derive(Copy, Clone)]
 pub struct PartitionedAccelerationStructureWriteInstanceDataNV {
     pub transform: TransformMatrixKHR,
-    pub explicit_aabb: f32,
+    pub explicit_aabb: [f32; 6],
     pub instance_id: u32,
     pub instance_mask: u32,
     pub instance_contribution_to_hit_group_index: u32,
@@ -55,7 +55,7 @@ pub struct PartitionedAccelerationStructureUpdateInstanceDataNV {
 #[derive(Copy, Clone)]
 pub struct PartitionedAccelerationStructureWritePartitionTranslationDataNV {
     pub partition_index: u32,
-    pub partition_translation: f32,
+    pub partition_translation: [f32; 3],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

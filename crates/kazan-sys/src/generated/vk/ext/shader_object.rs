@@ -19,7 +19,7 @@ pub struct PhysicalDeviceShaderObjectFeaturesEXT {
 pub struct PhysicalDeviceShaderObjectPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
-    pub shader_binary_uuid: u8,
+    pub shader_binary_uuid: [u8; UUID_SIZE as usize],
     pub shader_binary_version: u32,
 }
 #[repr(C)]

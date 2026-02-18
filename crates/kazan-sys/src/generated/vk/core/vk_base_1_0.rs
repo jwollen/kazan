@@ -118,24 +118,24 @@ pub struct PhysicalDeviceProperties {
     pub vendor_id: u32,
     pub device_id: u32,
     pub device_type: PhysicalDeviceType,
-    pub device_name: c_char,
-    pub pipeline_cache_uuid: u8,
+    pub device_name: [c_char; MAX_PHYSICAL_DEVICE_NAME_SIZE as usize],
+    pub pipeline_cache_uuid: [u8; UUID_SIZE as usize],
     pub limits: PhysicalDeviceLimits,
     pub sparse_properties: PhysicalDeviceSparseProperties,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ExtensionProperties {
-    pub extension_name: c_char,
+    pub extension_name: [c_char; MAX_EXTENSION_NAME_SIZE as usize],
     pub spec_version: u32,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct LayerProperties {
-    pub layer_name: c_char,
+    pub layer_name: [c_char; MAX_EXTENSION_NAME_SIZE as usize],
     pub spec_version: u32,
     pub implementation_version: u32,
-    pub description: c_char,
+    pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -206,9 +206,9 @@ pub struct QueueFamilyProperties {
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceMemoryProperties {
     pub memory_type_count: u32,
-    pub memory_types: MemoryType,
+    pub memory_types: [MemoryType; MAX_MEMORY_TYPES as usize],
     pub memory_heap_count: u32,
-    pub memory_heaps: MemoryHeap,
+    pub memory_heaps: [MemoryHeap; MAX_MEMORY_HEAPS as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -638,9 +638,9 @@ pub struct PhysicalDeviceLimits {
     pub max_fragment_dual_src_attachments: u32,
     pub max_fragment_combined_output_resources: u32,
     pub max_compute_shared_memory_size: u32,
-    pub max_compute_work_group_count: u32,
+    pub max_compute_work_group_count: [u32; 3],
     pub max_compute_work_group_invocations: u32,
-    pub max_compute_work_group_size: u32,
+    pub max_compute_work_group_size: [u32; 3],
     pub sub_pixel_precision_bits: u32,
     pub sub_texel_precision_bits: u32,
     pub mipmap_precision_bits: u32,
@@ -649,8 +649,8 @@ pub struct PhysicalDeviceLimits {
     pub max_sampler_lod_bias: f32,
     pub max_sampler_anisotropy: f32,
     pub max_viewports: u32,
-    pub max_viewport_dimensions: u32,
-    pub viewport_bounds_range: f32,
+    pub max_viewport_dimensions: [u32; 2],
+    pub viewport_bounds_range: [f32; 2],
     pub viewport_sub_pixel_bits: u32,
     pub min_memory_map_alignment: usize,
     pub min_texel_buffer_offset_alignment: DeviceSize,
@@ -683,8 +683,8 @@ pub struct PhysicalDeviceLimits {
     pub max_cull_distances: u32,
     pub max_combined_clip_and_cull_distances: u32,
     pub discrete_queue_priorities: u32,
-    pub point_size_range: f32,
-    pub line_width_range: f32,
+    pub point_size_range: [f32; 2],
+    pub line_width_range: [f32; 2],
     pub point_size_granularity: f32,
     pub line_width_granularity: f32,
     pub strict_lines: Bool32,

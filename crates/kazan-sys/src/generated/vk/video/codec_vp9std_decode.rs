@@ -32,7 +32,7 @@ pub struct StdVideoDecodeVP9PictureInfo {
     pub delta_q_uv_ac: i8,
     pub tile_cols_log2: u8,
     pub tile_rows_log2: u8,
-    pub reserved1: u16,
+    pub reserved1: [u16; 3],
     pub p_color_config: *const StdVideoVP9ColorConfig,
     pub p_loop_filter: *const StdVideoVP9LoopFilter,
     pub p_segmentation: *const StdVideoVP9Segmentation,

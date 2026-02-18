@@ -7,8 +7,8 @@ use std::ffi::{c_char, c_int, c_void};
 pub struct PhysicalDeviceClusterCullingShaderPropertiesHUAWEI {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
-    pub max_work_group_count: u32,
-    pub max_work_group_size: u32,
+    pub max_work_group_count: [u32; 3],
+    pub max_work_group_size: [u32; 3],
     pub max_output_cluster_count: u32,
     pub indirect_buffer_offset_alignment: DeviceSize,
 }

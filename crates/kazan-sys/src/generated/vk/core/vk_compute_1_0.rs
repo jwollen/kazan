@@ -189,7 +189,7 @@ pub struct PipelineCacheHeaderVersionOne {
     pub header_version: PipelineCacheHeaderVersion,
     pub vendor_id: u32,
     pub device_id: u32,
-    pub pipeline_cache_uuid: u8,
+    pub pipeline_cache_uuid: [u8; UUID_SIZE as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -248,9 +248,9 @@ pub struct DispatchIndirectCommand {
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union ClearColorValue {
-    pub float32: f32,
-    pub int32: i32,
-    pub uint32: u32,
+    pub float32: [f32; 4],
+    pub int32: [i32; 4],
+    pub uint32: [u32; 4],
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]

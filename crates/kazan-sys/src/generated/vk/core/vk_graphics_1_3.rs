@@ -8,9 +8,9 @@ pub struct ImageBlit2 {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub src_subresource: ImageSubresourceLayers,
-    pub src_offsets: Offset3D,
+    pub src_offsets: [Offset3D; 2],
     pub dst_subresource: ImageSubresourceLayers,
-    pub dst_offsets: Offset3D,
+    pub dst_offsets: [Offset3D; 2],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

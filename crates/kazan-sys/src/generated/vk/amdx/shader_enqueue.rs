@@ -13,7 +13,7 @@ pub struct PhysicalDeviceShaderEnqueuePropertiesAMDX {
     pub max_execution_graph_shader_payload_size: u32,
     pub max_execution_graph_shader_payload_count: u32,
     pub execution_graph_dispatch_address_alignment: u32,
-    pub max_execution_graph_workgroup_count: u32,
+    pub max_execution_graph_workgroup_count: [u32; 3],
     pub max_execution_graph_workgroups: u32,
 }
 #[repr(C)]

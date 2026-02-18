@@ -25,7 +25,7 @@ pub struct RenderPassCreationFeedbackCreateInfoEXT {
 #[derive(Copy, Clone)]
 pub struct RenderPassSubpassFeedbackInfoEXT {
     pub subpass_merge_status: SubpassMergeStatusEXT,
-    pub description: c_char,
+    pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
     pub post_merge_index: u32,
 }
 #[repr(C)]

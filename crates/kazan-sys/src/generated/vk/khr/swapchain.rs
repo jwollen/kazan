@@ -44,7 +44,7 @@ pub struct PresentInfoKHR {
 pub struct DeviceGroupPresentCapabilitiesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
-    pub present_mask: u32,
+    pub present_mask: [u32; MAX_DEVICE_GROUP_SIZE as usize],
     pub modes: DeviceGroupPresentModeFlagsKHR,
 }
 #[repr(C)]

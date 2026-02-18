@@ -65,7 +65,7 @@ pub struct QueueFamilyGlobalPriorityProperties {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub priority_count: u32,
-    pub priorities: QueueGlobalPriority,
+    pub priorities: [QueueGlobalPriority; MAX_GLOBAL_PRIORITY_SIZE as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -129,7 +129,7 @@ pub struct PhysicalDeviceVulkan14Properties {
     pub p_copy_src_layouts: *mut ImageLayout,
     pub copy_dst_layout_count: u32,
     pub p_copy_dst_layouts: *mut ImageLayout,
-    pub optimal_tiling_layout_uuid: u8,
+    pub optimal_tiling_layout_uuid: [u8; UUID_SIZE as usize],
     pub identical_memory_type_requirements: Bool32,
 }
 #[repr(C)]
@@ -148,7 +148,7 @@ pub struct PhysicalDeviceHostImageCopyProperties {
     pub p_copy_src_layouts: *mut ImageLayout,
     pub copy_dst_layout_count: u32,
     pub p_copy_dst_layouts: *mut ImageLayout,
-    pub optimal_tiling_layout_uuid: u8,
+    pub optimal_tiling_layout_uuid: [u8; UUID_SIZE as usize],
     pub identical_memory_type_requirements: Bool32,
 }
 #[repr(C)]

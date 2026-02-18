@@ -118,9 +118,9 @@ pub struct ExternalBufferProperties {
 pub struct PhysicalDeviceIDProperties {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
-    pub device_uuid: u8,
-    pub driver_uuid: u8,
-    pub device_luid: u8,
+    pub device_uuid: [u8; UUID_SIZE as usize],
+    pub driver_uuid: [u8; UUID_SIZE as usize],
+    pub device_luid: [u8; LUID_SIZE as usize],
     pub device_node_mask: u32,
     pub device_luid_valid: Bool32,
 }
@@ -197,7 +197,7 @@ pub struct PhysicalDeviceGroupProperties {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub physical_device_count: u32,
-    pub physical_devices: PhysicalDevice,
+    pub physical_devices: [PhysicalDevice; MAX_DEVICE_GROUP_SIZE as usize],
     pub subset_allocation: Bool32,
 }
 #[repr(C)]

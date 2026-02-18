@@ -31,7 +31,7 @@ pub struct DebugUtilsLabelEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_label_name: *const c_char,
-    pub color: f32,
+    pub color: [f32; 4],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

@@ -31,7 +31,7 @@ pub struct VideoDecodeAV1PictureInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_std_picture_info: *const StdVideoDecodeAV1PictureInfo,
-    pub reference_name_slot_indices: i32,
+    pub reference_name_slot_indices: [i32; MAX_VIDEO_AV1_REFERENCES_PER_FRAME_KHR as usize],
     pub frame_header_offset: u32,
     pub tile_count: u32,
     pub p_tile_offsets: *const u32,

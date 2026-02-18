@@ -10,7 +10,7 @@ pub struct PipelineCacheHeaderVersionDataGraphQCOM {
     pub header_version: PipelineCacheHeaderVersion,
     pub cache_type: DataGraphModelCacheTypeQCOM,
     pub cache_version: u32,
-    pub toolchain_version: u32,
+    pub toolchain_version: [u32; DATA_GRAPH_MODEL_TOOLCHAIN_VERSION_LENGTH_QCOM as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

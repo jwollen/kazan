@@ -30,7 +30,7 @@ pub struct VideoDecodeVP9PictureInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_std_picture_info: *const StdVideoDecodeVP9PictureInfo,
-    pub reference_name_slot_indices: i32,
+    pub reference_name_slot_indices: [i32; MAX_VIDEO_VP9_REFERENCES_PER_FRAME_KHR as usize],
     pub uncompressed_header_offset: u32,
     pub compressed_header_offset: u32,
     pub tiles_offset: u32,

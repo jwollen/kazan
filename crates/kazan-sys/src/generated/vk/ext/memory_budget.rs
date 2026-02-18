@@ -7,6 +7,6 @@ use std::ffi::{c_char, c_int, c_void};
 pub struct PhysicalDeviceMemoryBudgetPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
-    pub heap_budget: DeviceSize,
-    pub heap_usage: DeviceSize,
+    pub heap_budget: [DeviceSize; MAX_MEMORY_HEAPS as usize],
+    pub heap_usage: [DeviceSize; MAX_MEMORY_HEAPS as usize],
 }

@@ -44,17 +44,17 @@ pub struct StdVideoH265ProfileTierLevel {
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct StdVideoH265DecPicBufMgr {
-    pub max_latency_increase_plus1: u32,
-    pub max_dec_pic_buffering_minus1: u8,
-    pub max_num_reorder_pics: u8,
+    pub max_latency_increase_plus1: [u32; STD_VIDEO_H265_SUBLAYERS_LIST_SIZE as usize],
+    pub max_dec_pic_buffering_minus1: [u8; STD_VIDEO_H265_SUBLAYERS_LIST_SIZE as usize],
+    pub max_num_reorder_pics: [u8; STD_VIDEO_H265_SUBLAYERS_LIST_SIZE as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct StdVideoH265SubLayerHrdParameters {
-    pub bit_rate_value_minus1: u32,
-    pub cpb_size_value_minus1: u32,
-    pub cpb_size_du_value_minus1: u32,
-    pub bit_rate_du_value_minus1: u32,
+    pub bit_rate_value_minus1: [u32; STD_VIDEO_H265_CPB_CNT_LIST_SIZE as usize],
+    pub cpb_size_value_minus1: [u32; STD_VIDEO_H265_CPB_CNT_LIST_SIZE as usize],
+    pub cpb_size_du_value_minus1: [u32; STD_VIDEO_H265_CPB_CNT_LIST_SIZE as usize],
+    pub bit_rate_du_value_minus1: [u32; STD_VIDEO_H265_CPB_CNT_LIST_SIZE as usize],
     pub cbr_flag: u32,
 }
 #[repr(C)]
@@ -81,9 +81,9 @@ pub struct StdVideoH265HrdParameters {
     pub initial_cpb_removal_delay_length_minus1: u8,
     pub au_cpb_removal_delay_length_minus1: u8,
     pub dpb_output_delay_length_minus1: u8,
-    pub cpb_cnt_minus1: u8,
-    pub elemental_duration_in_tc_minus1: u16,
-    pub reserved: u16,
+    pub cpb_cnt_minus1: [u8; STD_VIDEO_H265_SUBLAYERS_LIST_SIZE as usize],
+    pub elemental_duration_in_tc_minus1: [u16; STD_VIDEO_H265_SUBLAYERS_LIST_SIZE as usize],
+    pub reserved: [u16; 3],
     pub p_sub_layer_hrd_parameters_nal: *const StdVideoH265SubLayerHrdParameters,
     pub p_sub_layer_hrd_parameters_vcl: *const StdVideoH265SubLayerHrdParameters,
 }
@@ -114,12 +114,16 @@ pub struct StdVideoH265VideoParameterSet {
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct StdVideoH265ScalingLists {
-    pub scaling_list4x4: u8,
-    pub scaling_list8x8: u8,
-    pub scaling_list16x16: u8,
-    pub scaling_list32x32: u8,
-    pub scaling_list_dc_coef16x16: u8,
-    pub scaling_list_dc_coef32x32: u8,
+    pub scaling_list4x4: [[u8; STD_VIDEO_H265_SCALING_LIST_4X4_NUM_ELEMENTS as usize];
+        STD_VIDEO_H265_SCALING_LIST_4X4_NUM_LISTS as usize],
+    pub scaling_list8x8: [[u8; STD_VIDEO_H265_SCALING_LIST_8X8_NUM_ELEMENTS as usize];
+        STD_VIDEO_H265_SCALING_LIST_8X8_NUM_LISTS as usize],
+    pub scaling_list16x16: [[u8; STD_VIDEO_H265_SCALING_LIST_16X16_NUM_ELEMENTS as usize];
+        STD_VIDEO_H265_SCALING_LIST_16X16_NUM_LISTS as usize],
+    pub scaling_list32x32: [[u8; STD_VIDEO_H265_SCALING_LIST_32X32_NUM_ELEMENTS as usize];
+        STD_VIDEO_H265_SCALING_LIST_32X32_NUM_LISTS as usize],
+    pub scaling_list_dc_coef16x16: [u8; STD_VIDEO_H265_SCALING_LIST_16X16_NUM_LISTS as usize],
+    pub scaling_list_dc_coef32x32: [u8; STD_VIDEO_H265_SCALING_LIST_32X32_NUM_LISTS as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -142,14 +146,14 @@ pub struct StdVideoH265ShortTermRefPicSet {
     pub reserved3: u8,
     pub num_negative_pics: u8,
     pub num_positive_pics: u8,
-    pub delta_poc_s0_minus1: u16,
-    pub delta_poc_s1_minus1: u16,
+    pub delta_poc_s0_minus1: [u16; STD_VIDEO_H265_MAX_DPB_SIZE as usize],
+    pub delta_poc_s1_minus1: [u16; STD_VIDEO_H265_MAX_DPB_SIZE as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct StdVideoH265LongTermRefPicsSps {
     pub used_by_curr_pic_lt_sps_flag: u32,
-    pub lt_ref_pic_poc_lsb_sps: u32,
+    pub lt_ref_pic_poc_lsb_sps: [u32; STD_VIDEO_H265_MAX_LONG_TERM_REF_PICS_SPS as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -206,7 +210,9 @@ pub struct StdVideoH265SequenceParameterSetVui {
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct StdVideoH265PredictorPaletteEntries {
-    pub predictor_palette_entries: u16,
+    pub predictor_palette_entries: [[u16; STD_VIDEO_H265_PREDICTOR_PALETTE_COMP_ENTRIES_LIST_SIZE
+        as usize];
+        STD_VIDEO_H265_PREDICTOR_PALETTE_COMPONENTS_LIST_SIZE as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -340,8 +346,8 @@ pub struct StdVideoH265PictureParameterSet {
     pub log2_max_transform_skip_block_size_minus2: u8,
     pub diff_cu_chroma_qp_offset_depth: u8,
     pub chroma_qp_offset_list_len_minus1: u8,
-    pub cb_qp_offset_list: i8,
-    pub cr_qp_offset_list: i8,
+    pub cb_qp_offset_list: [i8; STD_VIDEO_H265_CHROMA_QP_OFFSET_LIST_SIZE as usize],
+    pub cr_qp_offset_list: [i8; STD_VIDEO_H265_CHROMA_QP_OFFSET_LIST_SIZE as usize],
     pub log2_sao_offset_scale_luma: u8,
     pub log2_sao_offset_scale_chroma: u8,
     pub pps_act_y_qp_offset_plus5: i8,
@@ -354,8 +360,8 @@ pub struct StdVideoH265PictureParameterSet {
     pub num_tile_rows_minus1: u8,
     pub reserved1: u8,
     pub reserved2: u8,
-    pub column_width_minus1: u16,
-    pub row_height_minus1: u16,
+    pub column_width_minus1: [u16; STD_VIDEO_H265_CHROMA_QP_OFFSET_TILE_COLS_LIST_SIZE as usize],
+    pub row_height_minus1: [u16; STD_VIDEO_H265_CHROMA_QP_OFFSET_TILE_ROWS_LIST_SIZE as usize],
     pub reserved3: u32,
     pub p_scaling_lists: *const StdVideoH265ScalingLists,
     pub p_predictor_palette_entries: *const StdVideoH265PredictorPaletteEntries,

@@ -157,7 +157,7 @@ pub struct PhysicalDeviceDataGraphProcessingEngineARM {
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceDataGraphOperationSupportARM {
     pub operation_type: PhysicalDeviceDataGraphOperationTypeARM,
-    pub name: c_char,
+    pub name: [c_char; MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM as usize],
     pub version: u32,
 }
 #[repr(C)]

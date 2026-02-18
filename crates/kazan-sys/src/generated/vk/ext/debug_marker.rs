@@ -28,7 +28,7 @@ pub struct DebugMarkerMarkerInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_marker_name: *const c_char,
-    pub color: f32,
+    pub color: [f32; 4],
 }
 pub type PFN_vkDebugMarkerSetObjectNameEXT = unsafe extern "system" fn(
     device: Device,

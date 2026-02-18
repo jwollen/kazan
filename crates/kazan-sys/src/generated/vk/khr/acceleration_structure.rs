@@ -124,7 +124,7 @@ pub struct AabbPositionsKHR {
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct TransformMatrixKHR {
-    pub matrix: f32,
+    pub matrix: [[f32; 4]; 3],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

@@ -8,7 +8,7 @@ pub type PipelineInfoEXT = PipelineInfoKHR;
 pub struct PipelinePropertiesIdentifierEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
-    pub pipeline_identifier: u8,
+    pub pipeline_identifier: [u8; UUID_SIZE as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

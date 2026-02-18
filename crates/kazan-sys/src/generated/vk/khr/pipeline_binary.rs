@@ -42,7 +42,7 @@ pub struct PipelineBinaryKeyKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub key_size: u32,
-    pub key: u8,
+    pub key: [u8; MAX_PIPELINE_BINARY_KEY_SIZE_KHR as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

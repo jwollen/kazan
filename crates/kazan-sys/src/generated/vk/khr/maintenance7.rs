@@ -39,7 +39,7 @@ pub struct PhysicalDeviceLayeredApiPropertiesKHR {
     pub vendor_id: u32,
     pub device_id: u32,
     pub layered_api: PhysicalDeviceLayeredApiKHR,
-    pub device_name: c_char,
+    pub device_name: [c_char; MAX_PHYSICAL_DEVICE_NAME_SIZE as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

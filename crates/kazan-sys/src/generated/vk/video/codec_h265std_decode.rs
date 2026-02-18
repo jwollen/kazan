@@ -22,9 +22,9 @@ pub struct StdVideoDecodeH265PictureInfo {
     pub pic_order_cnt_val: i32,
     pub num_bits_for_st_ref_pic_set_in_slice: u16,
     pub reserved: u16,
-    pub ref_pic_set_st_curr_before: u8,
-    pub ref_pic_set_st_curr_after: u8,
-    pub ref_pic_set_lt_curr: u8,
+    pub ref_pic_set_st_curr_before: [u8; STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE as usize],
+    pub ref_pic_set_st_curr_after: [u8; STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE as usize],
+    pub ref_pic_set_lt_curr: [u8; STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

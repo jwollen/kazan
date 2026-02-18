@@ -20,7 +20,7 @@ pub struct DeviceFaultAddressInfoEXT {
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DeviceFaultVendorInfoEXT {
-    pub description: c_char,
+    pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
     pub vendor_fault_code: u64,
     pub vendor_fault_data: u64,
 }
@@ -38,7 +38,7 @@ pub struct DeviceFaultCountsEXT {
 pub struct DeviceFaultInfoEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
-    pub description: c_char,
+    pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
     pub p_address_infos: *mut DeviceFaultAddressInfoEXT,
     pub p_vendor_infos: *mut DeviceFaultVendorInfoEXT,
     pub p_vendor_binary_data: *mut c_void,
@@ -51,7 +51,7 @@ pub struct DeviceFaultVendorBinaryHeaderVersionOneEXT {
     pub vendor_id: u32,
     pub device_id: u32,
     pub driver_version: u32,
-    pub pipeline_cache_uuid: u8,
+    pub pipeline_cache_uuid: [u8; UUID_SIZE as usize],
     pub application_name_offset: u32,
     pub application_version: u32,
     pub engine_name_offset: u32,

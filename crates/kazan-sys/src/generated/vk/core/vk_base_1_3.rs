@@ -141,11 +141,11 @@ pub struct PhysicalDeviceVulkan13Properties {
 pub struct PhysicalDeviceToolProperties {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
-    pub name: c_char,
-    pub version: c_char,
+    pub name: [c_char; MAX_EXTENSION_NAME_SIZE as usize],
+    pub version: [c_char; MAX_EXTENSION_NAME_SIZE as usize],
     pub purposes: ToolPurposeFlags,
-    pub description: c_char,
-    pub layer: c_char,
+    pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
+    pub layer: [c_char; MAX_EXTENSION_NAME_SIZE as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

@@ -25,7 +25,7 @@ pub struct PerformanceCounterKHR {
     pub unit: PerformanceCounterUnitKHR,
     pub scope: PerformanceCounterScopeKHR,
     pub storage: PerformanceCounterStorageKHR,
-    pub uuid: u8,
+    pub uuid: [u8; UUID_SIZE as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -33,9 +33,9 @@ pub struct PerformanceCounterDescriptionKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub flags: PerformanceCounterDescriptionFlagsKHR,
-    pub name: c_char,
-    pub category: c_char,
-    pub description: c_char,
+    pub name: [c_char; MAX_DESCRIPTION_SIZE as usize],
+    pub category: [c_char; MAX_DESCRIPTION_SIZE as usize],
+    pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

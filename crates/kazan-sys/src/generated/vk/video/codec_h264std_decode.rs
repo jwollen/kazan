@@ -23,7 +23,7 @@ pub struct StdVideoDecodeH264PictureInfo {
     pub reserved2: u8,
     pub frame_num: u16,
     pub idr_pic_id: u16,
-    pub pic_order_cnt: i32,
+    pub pic_order_cnt: [i32; STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -39,7 +39,7 @@ pub struct StdVideoDecodeH264ReferenceInfo {
     pub flags: StdVideoDecodeH264ReferenceInfoFlags,
     pub frame_num: u16,
     pub reserved: u16,
-    pub pic_order_cnt: i32,
+    pub pic_order_cnt: [i32; STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE as usize],
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]

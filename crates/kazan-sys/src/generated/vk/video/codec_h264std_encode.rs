@@ -16,14 +16,18 @@ pub struct StdVideoEncodeH264WeightTable {
     pub flags: StdVideoEncodeH264WeightTableFlags,
     pub luma_log2_weight_denom: u8,
     pub chroma_log2_weight_denom: u8,
-    pub luma_weight_l0: i8,
-    pub luma_offset_l0: i8,
-    pub chroma_weight_l0: i8,
-    pub chroma_offset_l0: i8,
-    pub luma_weight_l1: i8,
-    pub luma_offset_l1: i8,
-    pub chroma_weight_l1: i8,
-    pub chroma_offset_l1: i8,
+    pub luma_weight_l0: [i8; STD_VIDEO_H264_MAX_NUM_LIST_REF as usize],
+    pub luma_offset_l0: [i8; STD_VIDEO_H264_MAX_NUM_LIST_REF as usize],
+    pub chroma_weight_l0:
+        [[i8; STD_VIDEO_H264_MAX_CHROMA_PLANES as usize]; STD_VIDEO_H264_MAX_NUM_LIST_REF as usize],
+    pub chroma_offset_l0:
+        [[i8; STD_VIDEO_H264_MAX_CHROMA_PLANES as usize]; STD_VIDEO_H264_MAX_NUM_LIST_REF as usize],
+    pub luma_weight_l1: [i8; STD_VIDEO_H264_MAX_NUM_LIST_REF as usize],
+    pub luma_offset_l1: [i8; STD_VIDEO_H264_MAX_NUM_LIST_REF as usize],
+    pub chroma_weight_l1:
+        [[i8; STD_VIDEO_H264_MAX_CHROMA_PLANES as usize]; STD_VIDEO_H264_MAX_NUM_LIST_REF as usize],
+    pub chroma_offset_l1:
+        [[i8; STD_VIDEO_H264_MAX_CHROMA_PLANES as usize]; STD_VIDEO_H264_MAX_NUM_LIST_REF as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -77,12 +81,12 @@ pub struct StdVideoEncodeH264ReferenceListsInfo {
     pub flags: StdVideoEncodeH264ReferenceListsInfoFlags,
     pub num_ref_idx_l0_active_minus1: u8,
     pub num_ref_idx_l1_active_minus1: u8,
-    pub ref_pic_list0: u8,
-    pub ref_pic_list1: u8,
+    pub ref_pic_list0: [u8; STD_VIDEO_H264_MAX_NUM_LIST_REF as usize],
+    pub ref_pic_list1: [u8; STD_VIDEO_H264_MAX_NUM_LIST_REF as usize],
     pub ref_list0_mod_op_count: u8,
     pub ref_list1_mod_op_count: u8,
     pub ref_pic_marking_op_count: u8,
-    pub reserved1: u8,
+    pub reserved1: [u8; 7],
     pub p_ref_list0_mod_operations: *const StdVideoEncodeH264RefListModEntry,
     pub p_ref_list1_mod_operations: *const StdVideoEncodeH264RefListModEntry,
     pub p_ref_pic_marking_operations: *const StdVideoEncodeH264RefPicMarkingEntry,
@@ -98,7 +102,7 @@ pub struct StdVideoEncodeH264PictureInfo {
     pub frame_num: u32,
     pub pic_order_cnt: i32,
     pub temporal_id: u8,
-    pub reserved1: u8,
+    pub reserved1: [u8; 3],
     pub p_ref_lists: *const StdVideoEncodeH264ReferenceListsInfo,
 }
 #[repr(C)]

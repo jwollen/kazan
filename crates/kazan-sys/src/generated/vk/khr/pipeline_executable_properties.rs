@@ -22,8 +22,8 @@ pub struct PipelineExecutablePropertiesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub stages: ShaderStageFlags,
-    pub name: c_char,
-    pub description: c_char,
+    pub name: [c_char; MAX_DESCRIPTION_SIZE as usize],
+    pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
     pub subgroup_size: u32,
 }
 #[repr(C)]
@@ -39,8 +39,8 @@ pub struct PipelineExecutableInfoKHR {
 pub struct PipelineExecutableStatisticKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
-    pub name: c_char,
-    pub description: c_char,
+    pub name: [c_char; MAX_DESCRIPTION_SIZE as usize],
+    pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
     pub format: PipelineExecutableStatisticFormatKHR,
     pub value: PipelineExecutableStatisticValueKHR,
 }
@@ -49,8 +49,8 @@ pub struct PipelineExecutableStatisticKHR {
 pub struct PipelineExecutableInternalRepresentationKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
-    pub name: c_char,
-    pub description: c_char,
+    pub name: [c_char; MAX_DESCRIPTION_SIZE as usize],
+    pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
     pub is_text: Bool32,
     pub data_size: usize,
     pub p_data: *mut c_void,

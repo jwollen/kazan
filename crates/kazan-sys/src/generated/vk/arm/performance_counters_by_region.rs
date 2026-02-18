@@ -33,7 +33,7 @@ pub struct PerformanceCounterDescriptionARM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub flags: PerformanceCounterDescriptionFlagsARM,
-    pub name: c_char,
+    pub name: [c_char; MAX_DESCRIPTION_SIZE as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

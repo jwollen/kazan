@@ -16,7 +16,7 @@ pub struct PipelineFragmentShadingRateStateCreateInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub fragment_size: Extent2D,
-    pub combiner_ops: FragmentShadingRateCombinerOpKHR,
+    pub combiner_ops: [FragmentShadingRateCombinerOpKHR; 2],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -80,7 +80,7 @@ impl FragmentShadingRateCombinerOpKHR {
 pub type PFN_vkCmdSetFragmentShadingRateKHR = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
     p_fragment_size: *const Extent2D,
-    combiner_ops: *const FragmentShadingRateCombinerOpKHR,
+    combiner_ops: *const [FragmentShadingRateCombinerOpKHR; 2],
 );
 pub type PFN_vkGetPhysicalDeviceFragmentShadingRatesKHR = unsafe extern "system" fn(
     physical_device: PhysicalDevice,

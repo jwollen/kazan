@@ -97,7 +97,7 @@ pub struct StdVideoAV1SequenceHeader {
     pub order_hint_bits_minus_1: u8,
     pub seq_force_integer_mv: u8,
     pub seq_force_screen_content_tools: u8,
-    pub reserved1: u8,
+    pub reserved1: [u8; 5],
     pub p_color_config: *const StdVideoAV1ColorConfig,
     pub p_timing_info: *const StdVideoAV1TimingInfo,
 }
@@ -112,12 +112,12 @@ pub struct StdVideoAV1LoopFilterFlags {
 #[derive(Copy, Clone)]
 pub struct StdVideoAV1LoopFilter {
     pub flags: StdVideoAV1LoopFilterFlags,
-    pub loop_filter_level: u8,
+    pub loop_filter_level: [u8; STD_VIDEO_AV1_MAX_LOOP_FILTER_STRENGTHS as usize],
     pub loop_filter_sharpness: u8,
     pub update_ref_delta: u8,
-    pub loop_filter_ref_deltas: i8,
+    pub loop_filter_ref_deltas: [i8; STD_VIDEO_AV1_TOTAL_REFS_PER_FRAME as usize],
     pub update_mode_delta: u8,
-    pub loop_filter_mode_deltas: i8,
+    pub loop_filter_mode_deltas: [i8; STD_VIDEO_AV1_LOOP_FILTER_ADJUSTMENTS as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -143,8 +143,9 @@ pub struct StdVideoAV1Quantization {
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct StdVideoAV1Segmentation {
-    pub feature_enabled: u8,
-    pub feature_data: i16,
+    pub feature_enabled: [u8; STD_VIDEO_AV1_MAX_SEGMENTS as usize],
+    pub feature_data:
+        [[i16; STD_VIDEO_AV1_SEG_LVL_MAX as usize]; STD_VIDEO_AV1_MAX_SEGMENTS as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -160,7 +161,7 @@ pub struct StdVideoAV1TileInfo {
     pub tile_rows: u8,
     pub context_update_tile_id: u16,
     pub tile_size_bytes_minus_1: u8,
-    pub reserved1: u8,
+    pub reserved1: [u8; 7],
     pub p_mi_col_starts: *const u16,
     pub p_mi_row_starts: *const u16,
     pub p_width_in_sbs_minus1: *const u16,
@@ -171,22 +172,24 @@ pub struct StdVideoAV1TileInfo {
 pub struct StdVideoAV1CDEF {
     pub cdef_damping_minus_3: u8,
     pub cdef_bits: u8,
-    pub cdef_y_pri_strength: u8,
-    pub cdef_y_sec_strength: u8,
-    pub cdef_uv_pri_strength: u8,
-    pub cdef_uv_sec_strength: u8,
+    pub cdef_y_pri_strength: [u8; STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS as usize],
+    pub cdef_y_sec_strength: [u8; STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS as usize],
+    pub cdef_uv_pri_strength: [u8; STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS as usize],
+    pub cdef_uv_sec_strength: [u8; STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct StdVideoAV1LoopRestoration {
-    pub frame_restoration_type: StdVideoAV1FrameRestorationType,
-    pub loop_restoration_size: u16,
+    pub frame_restoration_type:
+        [StdVideoAV1FrameRestorationType; STD_VIDEO_AV1_MAX_NUM_PLANES as usize],
+    pub loop_restoration_size: [u16; STD_VIDEO_AV1_MAX_NUM_PLANES as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct StdVideoAV1GlobalMotion {
-    pub gm_type: u8,
-    pub gm_params: i32,
+    pub gm_type: [u8; STD_VIDEO_AV1_NUM_REF_FRAMES as usize],
+    pub gm_params:
+        [[i32; STD_VIDEO_AV1_GLOBAL_MOTION_PARAMS as usize]; STD_VIDEO_AV1_NUM_REF_FRAMES as usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -208,17 +211,17 @@ pub struct StdVideoAV1FilmGrain {
     pub grain_seed: u16,
     pub film_grain_params_ref_idx: u8,
     pub num_y_points: u8,
-    pub point_y_value: u8,
-    pub point_y_scaling: u8,
+    pub point_y_value: [u8; STD_VIDEO_AV1_MAX_NUM_Y_POINTS as usize],
+    pub point_y_scaling: [u8; STD_VIDEO_AV1_MAX_NUM_Y_POINTS as usize],
     pub num_cb_points: u8,
-    pub point_cb_value: u8,
-    pub point_cb_scaling: u8,
+    pub point_cb_value: [u8; STD_VIDEO_AV1_MAX_NUM_CB_POINTS as usize],
+    pub point_cb_scaling: [u8; STD_VIDEO_AV1_MAX_NUM_CB_POINTS as usize],
     pub num_cr_points: u8,
-    pub point_cr_value: u8,
-    pub point_cr_scaling: u8,
-    pub ar_coeffs_y_plus_128: i8,
-    pub ar_coeffs_cb_plus_128: i8,
-    pub ar_coeffs_cr_plus_128: i8,
+    pub point_cr_value: [u8; STD_VIDEO_AV1_MAX_NUM_CR_POINTS as usize],
+    pub point_cr_scaling: [u8; STD_VIDEO_AV1_MAX_NUM_CR_POINTS as usize],
+    pub ar_coeffs_y_plus_128: [i8; STD_VIDEO_AV1_MAX_NUM_POS_LUMA as usize],
+    pub ar_coeffs_cb_plus_128: [i8; STD_VIDEO_AV1_MAX_NUM_POS_CHROMA as usize],
+    pub ar_coeffs_cr_plus_128: [i8; STD_VIDEO_AV1_MAX_NUM_POS_CHROMA as usize],
     pub cb_mult: u8,
     pub cb_luma_mult: u8,
     pub cb_offset: u16,
