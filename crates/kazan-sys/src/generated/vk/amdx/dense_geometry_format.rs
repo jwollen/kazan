@@ -2,6 +2,8 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use std::ffi::{c_char, c_int, c_void};
+pub const COMPRESSED_TRIANGLE_FORMAT_DGF1_BYTE_ALIGNMENT_AMDX: u32 = 128;
+pub const COMPRESSED_TRIANGLE_FORMAT_DGF1_BYTE_STRIDE_AMDX: u32 = 128;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceDenseGeometryFormatFeaturesAMDX {

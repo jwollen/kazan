@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use std::ffi::{c_char, c_int, c_void};
+pub const MAX_GLOBAL_PRIORITY_SIZE: u32 = 16;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct BufferUsageFlags2CreateInfo {

@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use std::ffi::{c_char, c_int, c_void};
+pub const DATA_GRAPH_MODEL_TOOLCHAIN_VERSION_LENGTH_QCOM: u32 = 3;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PipelineCacheHeaderVersionDataGraphQCOM {

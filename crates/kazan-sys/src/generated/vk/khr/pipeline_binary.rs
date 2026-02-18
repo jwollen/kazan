@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use std::ffi::{c_char, c_int, c_void};
+pub const MAX_PIPELINE_BINARY_KEY_SIZE_KHR: u32 = 32;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PipelineBinaryKHR(u64);

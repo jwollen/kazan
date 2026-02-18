@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use std::ffi::{c_char, c_int, c_void};
+pub const MAX_VIDEO_AV1_REFERENCES_PER_FRAME_KHR: u32 = 7;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VideoDecodeAV1ProfileInfoKHR {

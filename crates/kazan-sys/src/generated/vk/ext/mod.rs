@@ -30,6 +30,8 @@ mod depth_clip_enable;
 pub use depth_clip_enable::*;
 mod hdr_metadata;
 pub use hdr_metadata::*;
+mod queue_family_foreign;
+pub use queue_family_foreign::*;
 mod debug_utils;
 pub use debug_utils::*;
 mod sampler_filter_minmax;

@@ -2,6 +2,8 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use std::ffi::{c_char, c_int, c_void};
+pub const ATTACHMENT_UNUSED: u32 = !0;
+pub const SUBPASS_EXTERNAL: u32 = !0;
 pub type SampleMask = u32;
 #[repr(C)]
 #[derive(Copy, Clone)]

@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use std::ffi::{c_char, c_int, c_void};
+pub const MAX_VIDEO_VP9_REFERENCES_PER_FRAME_KHR: u32 = 3;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceVideoDecodeVP9FeaturesKHR {

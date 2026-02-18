@@ -215,7 +215,7 @@ impl Registry {
                         Some("bitmask") => registry
                             .bitmasks
                             .push(BitMask::from_node(registry_child, api)),
-                        None if registry_child.attribute("name") == Some("API Constants") => {
+                        Some("constants") => {
                             for enum_node in registry_child
                                 .children()
                                 .filter(|node| node.has_tag_name("enum"))

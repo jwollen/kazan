@@ -1,4 +1,5 @@
 use std::{
+    borrow::Cow,
     collections::{BTreeMap, HashMap, HashSet},
     io::Write,
 };
@@ -69,9 +70,22 @@ fn generate(xmls: &[&xml::Registry]) {
                 .map(|r| &r.commands)
                 .flatten();
 
+            let required_api_constants = feature_or_extension
+                .requires()
+                .iter()
+                .map(|r| &r.constants)
+                .flatten()
+                .filter(|constant| {
+                    xml.constants
+                        .iter()
+                        .find(|api_constant| api_constant.name == constant.name)
+                        .is_some()
+                });
+
             let new_items = required_types
                 .map(|ty| ty.name)
                 .chain(required_commands.map(|cmd| cmd.name))
+                .chain(required_api_constants.map(|constant| constant.name))
                 .filter(|name| visited_items.insert(*name))
                 .collect::<HashSet<_>>();
 
@@ -125,6 +139,22 @@ fn generate(xmls: &[&xml::Registry]) {
                 writeln!(sys_file, "use std::ffi::{{c_char, c_int, c_void}};").unwrap();
                 writeln!(sys_file, "use bitflags::bitflags;").unwrap();
                 writeln!(sys_file, "use crate::{{*, vk::*}};").unwrap();
+
+                let constants = xml
+                    .constants
+                    .iter()
+                    .filter(|constant| new_items.contains(constant.name));
+
+                for constant in constants {
+                    writeln!(
+                        sys_file,
+                        "pub const {}: {} = {};",
+                        normalize_const_name(constant.name),
+                        ctype_to_rust_type_str(constant.ty),
+                        convert_c_expr(constant.value),
+                    )
+                    .unwrap();
+                }
 
                 let basetypes = xml
                     .basetypes
@@ -500,6 +530,27 @@ fn generate(xmls: &[&xml::Registry]) {
         .unwrap();
 }
 
+fn convert_c_expr<'a>(expr: &'a str) -> Cow<'a, str> {
+    let expr = expr
+        .strip_prefix('(')
+        .and_then(|expr| expr.strip_suffix(')'))
+        .unwrap_or(expr);
+
+    let expr = expr
+        .strip_suffix('f')
+        .or_else(|| expr.strip_suffix('F'))
+        .or_else(|| expr.strip_suffix("ULL"))
+        .or_else(|| expr.strip_suffix("LL"))
+        .or_else(|| expr.strip_suffix('U'))
+        .unwrap_or(expr);
+
+    if let Some(expr) = expr.strip_prefix("~") {
+        Cow::Owned(format!("!{}", expr))
+    } else {
+        Cow::Borrowed(expr)
+    }
+}
+
 fn strip_vendor_suffix(name: &str) -> &str {
     let vendors = [
         "AMD",
@@ -565,6 +616,10 @@ fn normalize_name(name: &str) -> String {
         "type" => "ty".to_string(),
         _ => name.to_snake_case(),
     }
+}
+
+fn normalize_const_name(name: &str) -> &str {
+    name.strip_prefix("VK_").unwrap_or(name)
 }
 
 fn normalize_ty_name(name: &str) -> &str {

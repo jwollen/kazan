@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use std::ffi::{c_char, c_int, c_void};
+pub const MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT: u32 = 32;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderModuleIdentifierFeaturesEXT {

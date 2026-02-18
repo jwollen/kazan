@@ -2,6 +2,9 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use std::ffi::{c_char, c_int, c_void};
+pub const COMPUTE_OCCUPANCY_PRIORITY_LOW_NV: f32 = 0.25;
+pub const COMPUTE_OCCUPANCY_PRIORITY_NORMAL_NV: f32 = 0.50;
+pub const COMPUTE_OCCUPANCY_PRIORITY_HIGH_NV: f32 = 0.75;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ComputeOccupancyPriorityParametersNV {

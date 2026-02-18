@@ -2,6 +2,9 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use std::ffi::{c_char, c_int, c_void};
+pub const MAX_DEVICE_GROUP_SIZE: u32 = 32;
+pub const LUID_SIZE: u32 = 8;
+pub const QUEUE_FAMILY_EXTERNAL: u32 = !1;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceFeatures2 {

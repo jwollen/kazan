@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use std::ffi::{c_char, c_int, c_void};
+pub const REMAINING_3D_SLICES_EXT: u32 = !0;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ImageViewSlicedCreateInfoEXT {
