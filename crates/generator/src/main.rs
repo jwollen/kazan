@@ -680,6 +680,6 @@ fn ctype_to_rust_type(ty: &cdecl::CType) -> String {
                 cdecl::CArrayLen::Literal(len) => format!("[{}; {}]", element_ty, len),
             }
         }
-        cdecl::CType::Func { ret_ty, params, .. } => "fn".to_string(),
+        cdecl::CType::Func { ret_ty, params, .. } => todo!(),
     }
 }
