@@ -208,24 +208,38 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ClusterAccelerationStructureGeometryFlagsNV: Flags {
+        const CULL_DISABLE_NV = 1 << 0;
+        const NO_DUPLICATE_ANYHIT_INVOCATION_NV = 1 << 1;
+        const OPAQUE_NV = 1 << 2;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ClusterAccelerationStructureClusterFlagsNV: Flags {
+        const ALLOW_DISABLE_OPACITY_MICROMAPS_NV = 1 << 0;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ClusterAccelerationStructureAddressResolutionFlagsNV: Flags {
+        const INDIRECTED_DST_IMPLICIT_DATA_NV = 1 << 0;
+        const INDIRECTED_SCRATCH_DATA_NV = 1 << 1;
+        const INDIRECTED_DST_ADDRESS_ARRAY_NV = 1 << 2;
+        const INDIRECTED_DST_SIZES_ARRAY_NV = 1 << 3;
+        const INDIRECTED_SRC_INFOS_ARRAY_NV = 1 << 4;
+        const INDIRECTED_SRC_INFOS_COUNT_NV = 1 << 5;
+        const NONE = 0;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ClusterAccelerationStructureIndexFormatFlagsNV: Flags {
+        const _8BIT_NV = 1 << 0;
+        const _16BIT_NV = 1 << 1;
+        const _32BIT_NV = 1 << 2;
     }
 }
 pub type PFN_vkGetClusterAccelerationStructureBuildSizesNV = unsafe extern "system" fn(

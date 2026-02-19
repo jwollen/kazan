@@ -154,12 +154,16 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct IndirectCommandsLayoutUsageFlagsNV: Flags {
+        const EXPLICIT_PREPROCESS_NV = 1 << 0;
+        const INDEXED_SEQUENCES_NV = 1 << 1;
+        const UNORDERED_SEQUENCES_NV = 1 << 2;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct IndirectStateFlagsNV: Flags {
+        const FLAG_FRONTFACE_NV = 1 << 0;
     }
 }
 pub type PFN_vkCmdExecuteGeneratedCommandsNV = unsafe extern "system" fn(

@@ -173,6 +173,11 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ResolveModeFlags: Flags {
+        const SAMPLE_ZERO = 1 << 0;
+        const AVERAGE = 1 << 1;
+        const MIN = 1 << 2;
+        const MAX = 1 << 3;
+        const NONE = 0;
     }
 }
 pub type PFN_vkCreateRenderPass2 = unsafe extern "system" fn(

@@ -44,6 +44,10 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct CompositeAlphaFlagsKHR: Flags {
+        const OPAQUE_KHR = 1 << 0;
+        const PRE_MULTIPLIED_KHR = 1 << 1;
+        const POST_MULTIPLIED_KHR = 1 << 2;
+        const INHERIT_KHR = 1 << 3;
     }
 }
 pub type PFN_vkDestroySurfaceKHR = unsafe extern "system" fn(

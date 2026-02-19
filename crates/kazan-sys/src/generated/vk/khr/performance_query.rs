@@ -110,6 +110,8 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct PerformanceCounterDescriptionFlagsKHR: Flags {
+        const PERFORMANCE_IMPACTING_KHR = 1 << 0;
+        const CONCURRENTLY_IMPACTED_KHR = 1 << 1;
     }
 }
 bitflags! {

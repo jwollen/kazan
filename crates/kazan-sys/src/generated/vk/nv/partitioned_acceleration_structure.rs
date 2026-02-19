@@ -100,6 +100,11 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct PartitionedAccelerationStructureInstanceFlagsNV: Flags {
+        const FLAG_TRIANGLE_FACING_CULL_DISABLE_NV = 1 << 0;
+        const FLAG_TRIANGLE_FLIP_FACING_NV = 1 << 1;
+        const FLAG_FORCE_OPAQUE_NV = 1 << 2;
+        const FLAG_FORCE_NO_OPAQUE_NV = 1 << 3;
+        const FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV = 1 << 4;
     }
 }
 pub type PFN_vkGetPartitionedAccelerationStructuresBuildSizesNV = unsafe extern "system" fn(

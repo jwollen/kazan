@@ -554,6 +554,10 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ColorComponentFlags: Flags {
+        const R = 1 << 0;
+        const G = 1 << 1;
+        const B = 1 << 2;
+        const A = 1 << 3;
     }
 }
 bitflags! {
@@ -566,18 +570,26 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct AttachmentDescriptionFlags: Flags {
+        const MAY_ALIAS = 1 << 0;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct StencilFaceFlags: Flags {
+        const FRONT = 1 << 0;
+        const BACK = 1 << 1;
+        const FRONT_AND_BACK = 0x00000003;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct CullModeFlags: Flags {
+        const FRONT = 1 << 0;
+        const BACK = 1 << 1;
+        const NONE = 0;
+        const FRONT_AND_BACK = 0x00000003;
     }
 }
 pub type PFN_vkCreateGraphicsPipelines = unsafe extern "system" fn(

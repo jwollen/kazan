@@ -346,14 +346,15 @@ fn generate(xmls: &[&xml::Registry]) {
                     .iter()
                     .filter(|ty| new_items.contains(ty.name));
                 for ty in bitmask_types {
-                    let bitmask = ty.bitvalues.map(|b| {
+                    let bitmask = ty.bitvalues.or(ty.requires).map(|b| {
                         xml.bitmasks
                             .iter()
                             .find(|bitmask| bitmask.name == b)
                             .unwrap()
                     });
 
-                    let name = normalize_ty_name(ty.name).replace("FlagBits", "Flags");
+                    let name = normalize_ty_name(ty.name);
+                    
                     //let bitwidth = ty.bitwidth.unwrap_or(32);
                     writeln!(sys_file, "bitflags! {{").unwrap();
                     writeln!(sys_file, "    #[repr(transparent)]").unwrap();

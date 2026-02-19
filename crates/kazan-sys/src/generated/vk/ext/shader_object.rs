@@ -51,6 +51,7 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ShaderCreateFlagsEXT: Flags {
+        const LINK_STAGE_EXT = 1 << 0;
     }
 }
 pub type PFN_vkCreateShadersEXT = unsafe extern "system" fn(

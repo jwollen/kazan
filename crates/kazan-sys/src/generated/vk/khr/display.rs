@@ -76,12 +76,25 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct DisplayPlaneAlphaFlagsKHR: Flags {
+        const OPAQUE_KHR = 1 << 0;
+        const GLOBAL_KHR = 1 << 1;
+        const PER_PIXEL_KHR = 1 << 2;
+        const PER_PIXEL_PREMULTIPLIED_KHR = 1 << 3;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct SurfaceTransformFlagsKHR: Flags {
+        const IDENTITY_KHR = 1 << 0;
+        const ROTATE_90_KHR = 1 << 1;
+        const ROTATE_180_KHR = 1 << 2;
+        const ROTATE_270_KHR = 1 << 3;
+        const HORIZONTAL_MIRROR_KHR = 1 << 4;
+        const HORIZONTAL_MIRROR_ROTATE_90_KHR = 1 << 5;
+        const HORIZONTAL_MIRROR_ROTATE_180_KHR = 1 << 6;
+        const HORIZONTAL_MIRROR_ROTATE_270_KHR = 1 << 7;
+        const INHERIT_KHR = 1 << 8;
     }
 }
 bitflags! {

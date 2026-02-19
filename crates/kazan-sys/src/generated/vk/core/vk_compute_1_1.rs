@@ -145,6 +145,14 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct SubgroupFeatureFlags: Flags {
+        const BASIC = 1 << 0;
+        const VOTE = 1 << 1;
+        const ARITHMETIC = 1 << 2;
+        const BALLOT = 1 << 3;
+        const SHUFFLE = 1 << 4;
+        const SHUFFLE_RELATIVE = 1 << 5;
+        const CLUSTERED = 1 << 6;
+        const QUAD = 1 << 7;
     }
 }
 bitflags! {

@@ -99,6 +99,10 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct DeviceGroupPresentModeFlagsKHR: Flags {
+        const LOCAL_KHR = 1 << 0;
+        const REMOTE_KHR = 1 << 1;
+        const SUM_KHR = 1 << 2;
+        const LOCAL_MULTI_DEVICE_KHR = 1 << 3;
     }
 }
 pub type PFN_vkCreateSwapchainKHR = unsafe extern "system" fn(

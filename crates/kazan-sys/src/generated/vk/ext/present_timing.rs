@@ -107,18 +107,26 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct PresentStageFlagsEXT: Flags {
+        const QUEUE_OPERATIONS_END_EXT = 1 << 0;
+        const REQUEST_DEQUEUED_EXT = 1 << 1;
+        const IMAGE_FIRST_PIXEL_OUT_EXT = 1 << 2;
+        const IMAGE_FIRST_PIXEL_VISIBLE_EXT = 1 << 3;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct PastPresentationTimingFlagsEXT: Flags {
+        const ALLOW_PARTIAL_RESULTS_EXT = 1 << 0;
+        const ALLOW_OUT_OF_ORDER_RESULTS_EXT = 1 << 1;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct PresentTimingInfoFlagsEXT: Flags {
+        const PRESENT_AT_RELATIVE_TIME_EXT = 1 << 0;
+        const PRESENT_AT_NEAREST_REFRESH_CYCLE_EXT = 1 << 1;
     }
 }
 pub type PFN_vkSetSwapchainPresentTimingQueueSizeEXT =

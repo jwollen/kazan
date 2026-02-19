@@ -57,5 +57,8 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoDecodeH264PictureLayoutFlagsKHR: Flags {
+        const INTERLACED_INTERLEAVED_LINES_KHR = 1 << 0;
+        const INTERLACED_SEPARATE_PLANES_KHR = 1 << 1;
+        const PROGRESSIVE = 0;
     }
 }

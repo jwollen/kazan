@@ -173,23 +173,38 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeAV1CapabilityFlagsKHR: Flags {
+        const PER_RATE_CONTROL_GROUP_MIN_MAX_Q_INDEX_KHR = 1 << 0;
+        const GENERATE_OBU_EXTENSION_HEADER_KHR = 1 << 1;
+        const PRIMARY_REFERENCE_CDF_ONLY_KHR = 1 << 2;
+        const FRAME_SIZE_OVERRIDE_KHR = 1 << 3;
+        const MOTION_VECTOR_SCALING_KHR = 1 << 4;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeAV1StdFlagsKHR: Flags {
+        const UNIFORM_TILE_SPACING_FLAG_SET_KHR = 1 << 0;
+        const SKIP_MODE_PRESENT_UNSET_KHR = 1 << 1;
+        const PRIMARY_REF_FRAME_KHR = 1 << 2;
+        const DELTA_Q_KHR = 1 << 3;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeAV1RateControlFlagsKHR: Flags {
+        const REGULAR_GOP_KHR = 1 << 0;
+        const TEMPORAL_LAYER_PATTERN_DYADIC_KHR = 1 << 1;
+        const REFERENCE_PATTERN_FLAT_KHR = 1 << 2;
+        const REFERENCE_PATTERN_DYADIC_KHR = 1 << 3;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeAV1SuperblockSizeFlagsKHR: Flags {
+        const _64_KHR = 1 << 0;
+        const _128_KHR = 1 << 1;
     }
 }

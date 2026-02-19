@@ -55,6 +55,11 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct DebugReportFlagsEXT: Flags {
+        const INFORMATION_EXT = 1 << 0;
+        const WARNING_EXT = 1 << 1;
+        const PERFORMANCE_WARNING_EXT = 1 << 2;
+        const ERROR_EXT = 1 << 3;
+        const DEBUG_EXT = 1 << 4;
     }
 }
 pub type PFN_vkDebugReportCallbackEXT = unsafe extern "system" fn(

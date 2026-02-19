@@ -111,6 +111,9 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct RenderingFlags: Flags {
+        const CONTENTS_SECONDARY_COMMAND_BUFFERS = 1 << 0;
+        const SUSPENDING = 1 << 1;
+        const RESUMING = 1 << 2;
     }
 }
 pub type PFN_vkCmdSetCullMode =

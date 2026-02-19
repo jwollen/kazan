@@ -105,6 +105,12 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ExportMetalObjectTypeFlagsEXT: Flags {
+        const METAL_DEVICE_EXT = 1 << 0;
+        const METAL_COMMAND_QUEUE_EXT = 1 << 1;
+        const METAL_BUFFER_EXT = 1 << 2;
+        const METAL_TEXTURE_EXT = 1 << 3;
+        const METAL_IOSURFACE_EXT = 1 << 4;
+        const METAL_SHARED_EVENT_EXT = 1 << 5;
     }
 }
 pub type PFN_vkExportMetalObjectsEXT =

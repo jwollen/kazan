@@ -385,12 +385,17 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct PeerMemoryFeatureFlags: Flags {
+        const COPY_SRC = 1 << 0;
+        const COPY_DST = 1 << 1;
+        const GENERIC_SRC = 1 << 2;
+        const GENERIC_DST = 1 << 3;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct MemoryAllocateFlags: Flags {
+        const DEVICE_MASK = 1 << 0;
     }
 }
 bitflags! {
@@ -403,48 +408,73 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ExternalMemoryHandleTypeFlags: Flags {
+        const OPAQUE_FD = 1 << 0;
+        const OPAQUE_WIN32 = 1 << 1;
+        const OPAQUE_WIN32_KMT = 1 << 2;
+        const D3D11_TEXTURE = 1 << 3;
+        const D3D11_TEXTURE_KMT = 1 << 4;
+        const D3D12_HEAP = 1 << 5;
+        const D3D12_RESOURCE = 1 << 6;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ExternalMemoryFeatureFlags: Flags {
+        const DEDICATED_ONLY = 1 << 0;
+        const EXPORTABLE = 1 << 1;
+        const IMPORTABLE = 1 << 2;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ExternalSemaphoreHandleTypeFlags: Flags {
+        const OPAQUE_FD = 1 << 0;
+        const OPAQUE_WIN32 = 1 << 1;
+        const OPAQUE_WIN32_KMT = 1 << 2;
+        const D3D12_FENCE = 1 << 3;
+        const SYNC_FD = 1 << 4;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ExternalSemaphoreFeatureFlags: Flags {
+        const EXPORTABLE = 1 << 0;
+        const IMPORTABLE = 1 << 1;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct SemaphoreImportFlags: Flags {
+        const TEMPORARY = 1 << 0;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ExternalFenceHandleTypeFlags: Flags {
+        const OPAQUE_FD = 1 << 0;
+        const OPAQUE_WIN32 = 1 << 1;
+        const OPAQUE_WIN32_KMT = 1 << 2;
+        const SYNC_FD = 1 << 3;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ExternalFenceFeatureFlags: Flags {
+        const EXPORTABLE = 1 << 0;
+        const IMPORTABLE = 1 << 1;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct FenceImportFlags: Flags {
+        const TEMPORARY = 1 << 0;
     }
 }
 pub type PFN_vkEnumerateInstanceVersion =

@@ -1171,48 +1171,100 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct QueueFlags: Flags {
+        const GRAPHICS = 1 << 0;
+        const COMPUTE = 1 << 1;
+        const TRANSFER = 1 << 2;
+        const SPARSE_BINDING = 1 << 3;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct MemoryPropertyFlags: Flags {
+        const DEVICE_LOCAL = 1 << 0;
+        const HOST_VISIBLE = 1 << 1;
+        const HOST_COHERENT = 1 << 2;
+        const HOST_CACHED = 1 << 3;
+        const LAZILY_ALLOCATED = 1 << 4;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct MemoryHeapFlags: Flags {
+        const DEVICE_LOCAL = 1 << 0;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct AccessFlags: Flags {
+        const INDIRECT_COMMAND_READ = 1 << 0;
+        const INDEX_READ = 1 << 1;
+        const VERTEX_ATTRIBUTE_READ = 1 << 2;
+        const UNIFORM_READ = 1 << 3;
+        const INPUT_ATTACHMENT_READ = 1 << 4;
+        const SHADER_READ = 1 << 5;
+        const SHADER_WRITE = 1 << 6;
+        const COLOR_ATTACHMENT_READ = 1 << 7;
+        const COLOR_ATTACHMENT_WRITE = 1 << 8;
+        const DEPTH_STENCIL_ATTACHMENT_READ = 1 << 9;
+        const DEPTH_STENCIL_ATTACHMENT_WRITE = 1 << 10;
+        const TRANSFER_READ = 1 << 11;
+        const TRANSFER_WRITE = 1 << 12;
+        const HOST_READ = 1 << 13;
+        const HOST_WRITE = 1 << 14;
+        const MEMORY_READ = 1 << 15;
+        const MEMORY_WRITE = 1 << 16;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct BufferUsageFlags: Flags {
+        const TRANSFER_SRC = 1 << 0;
+        const TRANSFER_DST = 1 << 1;
+        const UNIFORM_TEXEL_BUFFER = 1 << 2;
+        const STORAGE_TEXEL_BUFFER = 1 << 3;
+        const UNIFORM_BUFFER = 1 << 4;
+        const STORAGE_BUFFER = 1 << 5;
+        const INDEX_BUFFER = 1 << 6;
+        const VERTEX_BUFFER = 1 << 7;
+        const INDIRECT_BUFFER = 1 << 8;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct BufferCreateFlags: Flags {
+        const SPARSE_BINDING = 1 << 0;
+        const SPARSE_RESIDENCY = 1 << 1;
+        const SPARSE_ALIASED = 1 << 2;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ImageUsageFlags: Flags {
+        const TRANSFER_SRC = 1 << 0;
+        const TRANSFER_DST = 1 << 1;
+        const SAMPLED = 1 << 2;
+        const STORAGE = 1 << 3;
+        const COLOR_ATTACHMENT = 1 << 4;
+        const DEPTH_STENCIL_ATTACHMENT = 1 << 5;
+        const TRANSIENT_ATTACHMENT = 1 << 6;
+        const INPUT_ATTACHMENT = 1 << 7;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ImageCreateFlags: Flags {
+        const SPARSE_BINDING = 1 << 0;
+        const SPARSE_RESIDENCY = 1 << 1;
+        const SPARSE_ALIASED = 1 << 2;
+        const MUTABLE_FORMAT = 1 << 3;
+        const CUBE_COMPATIBLE = 1 << 4;
     }
 }
 bitflags! {
@@ -1225,6 +1277,7 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct FenceCreateFlags: Flags {
+        const SIGNALED = 1 << 0;
     }
 }
 bitflags! {
@@ -1237,42 +1290,67 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct FormatFeatureFlags: Flags {
+        const SAMPLED_IMAGE = 1 << 0;
+        const STORAGE_IMAGE = 1 << 1;
+        const STORAGE_IMAGE_ATOMIC = 1 << 2;
+        const UNIFORM_TEXEL_BUFFER = 1 << 3;
+        const STORAGE_TEXEL_BUFFER = 1 << 4;
+        const STORAGE_TEXEL_BUFFER_ATOMIC = 1 << 5;
+        const VERTEX_BUFFER = 1 << 6;
+        const COLOR_ATTACHMENT = 1 << 7;
+        const COLOR_ATTACHMENT_BLEND = 1 << 8;
+        const DEPTH_STENCIL_ATTACHMENT = 1 << 9;
+        const BLIT_SRC = 1 << 10;
+        const BLIT_DST = 1 << 11;
+        const SAMPLED_IMAGE_FILTER_LINEAR = 1 << 12;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct QueryControlFlags: Flags {
+        const PRECISE = 1 << 0;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct QueryResultFlags: Flags {
+        const _64 = 1 << 0;
+        const WAIT = 1 << 1;
+        const WITH_AVAILABILITY = 1 << 2;
+        const PARTIAL = 1 << 3;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct CommandPoolCreateFlags: Flags {
+        const TRANSIENT = 1 << 0;
+        const RESET_COMMAND_BUFFER = 1 << 1;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct CommandPoolResetFlags: Flags {
+        const RELEASE_RESOURCES = 1 << 0;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct CommandBufferResetFlags: Flags {
+        const RELEASE_RESOURCES = 1 << 0;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct CommandBufferUsageFlags: Flags {
+        const ONE_TIME_SUBMIT = 1 << 0;
+        const RENDER_PASS_CONTINUE = 1 << 1;
+        const SIMULTANEOUS_USE = 1 << 2;
     }
 }
 bitflags! {
@@ -1285,36 +1363,69 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ImageAspectFlags: Flags {
+        const COLOR = 1 << 0;
+        const DEPTH = 1 << 1;
+        const STENCIL = 1 << 2;
+        const METADATA = 1 << 3;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct SparseMemoryBindFlags: Flags {
+        const METADATA = 1 << 0;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct SparseImageFormatFlags: Flags {
+        const SINGLE_MIPTAIL = 1 << 0;
+        const ALIGNED_MIP_SIZE = 1 << 1;
+        const NONSTANDARD_BLOCK_SIZE = 1 << 2;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct PipelineStageFlags: Flags {
+        const TOP_OF_PIPE = 1 << 0;
+        const DRAW_INDIRECT = 1 << 1;
+        const VERTEX_INPUT = 1 << 2;
+        const VERTEX_SHADER = 1 << 3;
+        const TESSELLATION_CONTROL_SHADER = 1 << 4;
+        const TESSELLATION_EVALUATION_SHADER = 1 << 5;
+        const GEOMETRY_SHADER = 1 << 6;
+        const FRAGMENT_SHADER = 1 << 7;
+        const EARLY_FRAGMENT_TESTS = 1 << 8;
+        const LATE_FRAGMENT_TESTS = 1 << 9;
+        const COLOR_ATTACHMENT_OUTPUT = 1 << 10;
+        const COMPUTE_SHADER = 1 << 11;
+        const TRANSFER = 1 << 12;
+        const BOTTOM_OF_PIPE = 1 << 13;
+        const HOST = 1 << 14;
+        const ALL_GRAPHICS = 1 << 15;
+        const ALL_COMMANDS = 1 << 16;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct SampleCountFlags: Flags {
+        const _1 = 1 << 0;
+        const _2 = 1 << 1;
+        const _4 = 1 << 2;
+        const _8 = 1 << 3;
+        const _16 = 1 << 4;
+        const _32 = 1 << 5;
+        const _64 = 1 << 6;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct DependencyFlags: Flags {
+        const BY_REGION = 1 << 0;
     }
 }
 pub type PFN_vkInternalAllocationNotification = unsafe extern "system" fn(

@@ -230,12 +230,16 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct IndirectCommandsLayoutUsageFlagsEXT: Flags {
+        const EXPLICIT_PREPROCESS_EXT = 1 << 0;
+        const UNORDERED_SEQUENCES_EXT = 1 << 1;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct IndirectCommandsInputModeFlagsEXT: Flags {
+        const VULKAN_INDEX_BUFFER_EXT = 1 << 0;
+        const DXGI_INDEX_BUFFER_EXT = 1 << 1;
     }
 }
 pub type PFN_vkCmdExecuteGeneratedCommandsEXT = unsafe extern "system" fn(

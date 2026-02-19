@@ -163,12 +163,16 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct BuildMicromapFlagsEXT: Flags {
+        const PREFER_FAST_TRACE_EXT = 1 << 0;
+        const PREFER_FAST_BUILD_EXT = 1 << 1;
+        const ALLOW_COMPACTION_EXT = 1 << 2;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct MicromapCreateFlagsEXT: Flags {
+        const DEVICE_ADDRESS_CAPTURE_REPLAY_EXT = 1 << 0;
     }
 }
 pub type PFN_vkCreateMicromapEXT = unsafe extern "system" fn(

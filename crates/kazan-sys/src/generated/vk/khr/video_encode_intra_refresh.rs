@@ -46,5 +46,10 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeIntraRefreshModeFlagsKHR: Flags {
+        const PER_PICTURE_PARTITION_KHR = 1 << 0;
+        const BLOCK_BASED_KHR = 1 << 1;
+        const BLOCK_ROW_BASED_KHR = 1 << 2;
+        const BLOCK_COLUMN_BASED_KHR = 1 << 3;
+        const NONE = 0;
     }
 }

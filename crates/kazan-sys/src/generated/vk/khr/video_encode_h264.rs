@@ -164,17 +164,51 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeH264CapabilityFlagsKHR: Flags {
+        const HRD_COMPLIANCE_KHR = 1 << 0;
+        const PREDICTION_WEIGHT_TABLE_GENERATED_KHR = 1 << 1;
+        const ROW_UNALIGNED_SLICE_KHR = 1 << 2;
+        const DIFFERENT_SLICE_TYPE_KHR = 1 << 3;
+        const B_FRAME_IN_L0_LIST_KHR = 1 << 4;
+        const B_FRAME_IN_L1_LIST_KHR = 1 << 5;
+        const PER_PICTURE_TYPE_MIN_MAX_QP_KHR = 1 << 6;
+        const PER_SLICE_CONSTANT_QP_KHR = 1 << 7;
+        const GENERATE_PREFIX_NALU_KHR = 1 << 8;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeH264StdFlagsKHR: Flags {
+        const SEPARATE_COLOR_PLANE_FLAG_SET_KHR = 1 << 0;
+        const QPPRIME_Y_ZERO_TRANSFORM_BYPASS_FLAG_SET_KHR = 1 << 1;
+        const SCALING_MATRIX_PRESENT_FLAG_SET_KHR = 1 << 2;
+        const CHROMA_QP_INDEX_OFFSET_KHR = 1 << 3;
+        const SECOND_CHROMA_QP_INDEX_OFFSET_KHR = 1 << 4;
+        const PIC_INIT_QP_MINUS26_KHR = 1 << 5;
+        const WEIGHTED_PRED_FLAG_SET_KHR = 1 << 6;
+        const WEIGHTED_BIPRED_IDC_EXPLICIT_KHR = 1 << 7;
+        const WEIGHTED_BIPRED_IDC_IMPLICIT_KHR = 1 << 8;
+        const TRANSFORM_8X8_MODE_FLAG_SET_KHR = 1 << 9;
+        const DIRECT_SPATIAL_MV_PRED_FLAG_UNSET_KHR = 1 << 10;
+        const ENTROPY_CODING_MODE_FLAG_UNSET_KHR = 1 << 11;
+        const ENTROPY_CODING_MODE_FLAG_SET_KHR = 1 << 12;
+        const DIRECT_8X8_INFERENCE_FLAG_UNSET_KHR = 1 << 13;
+        const CONSTRAINED_INTRA_PRED_FLAG_SET_KHR = 1 << 14;
+        const DEBLOCKING_FILTER_DISABLED_KHR = 1 << 15;
+        const DEBLOCKING_FILTER_ENABLED_KHR = 1 << 16;
+        const DEBLOCKING_FILTER_PARTIAL_KHR = 1 << 17;
+        const SLICE_QP_DELTA_KHR = 1 << 19;
+        const DIFFERENT_SLICE_QP_DELTA_KHR = 1 << 20;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeH264RateControlFlagsKHR: Flags {
+        const ATTEMPT_HRD_COMPLIANCE_KHR = 1 << 0;
+        const REGULAR_GOP_KHR = 1 << 1;
+        const REFERENCE_PATTERN_FLAT_KHR = 1 << 2;
+        const REFERENCE_PATTERN_DYADIC_KHR = 1 << 3;
+        const TEMPORAL_LAYER_PATTERN_DYADIC_KHR = 1 << 4;
     }
 }

@@ -424,12 +424,18 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ToolPurposeFlags: Flags {
+        const VALIDATION = 1 << 0;
+        const PROFILING = 1 << 1;
+        const TRACING = 1 << 2;
+        const ADDITIONAL_FEATURES = 1 << 3;
+        const MODIFYING_FEATURES = 1 << 4;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct SubmitFlags: Flags {
+        const PROTECTED = 1 << 0;
     }
 }
 pub type PFN_vkGetDeviceBufferMemoryRequirements = unsafe extern "system" fn(

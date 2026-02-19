@@ -254,24 +254,36 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct GeometryFlagsKHR: Flags {
+        const OPAQUE_KHR = 1 << 0;
+        const NO_DUPLICATE_ANY_HIT_INVOCATION_KHR = 1 << 1;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct GeometryInstanceFlagsKHR: Flags {
+        const TRIANGLE_FACING_CULL_DISABLE_KHR = 1 << 0;
+        const TRIANGLE_FLIP_FACING_KHR = 1 << 1;
+        const FORCE_OPAQUE_KHR = 1 << 2;
+        const FORCE_NO_OPAQUE_KHR = 1 << 3;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct BuildAccelerationStructureFlagsKHR: Flags {
+        const ALLOW_UPDATE_KHR = 1 << 0;
+        const ALLOW_COMPACTION_KHR = 1 << 1;
+        const PREFER_FAST_TRACE_KHR = 1 << 2;
+        const PREFER_FAST_BUILD_KHR = 1 << 3;
+        const LOW_MEMORY_KHR = 1 << 4;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct AccelerationStructureCreateFlagsKHR: Flags {
+        const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR = 1 << 0;
     }
 }
 pub type PFN_vkDestroyAccelerationStructureKHR = unsafe extern "system" fn(

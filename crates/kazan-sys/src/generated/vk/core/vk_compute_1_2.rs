@@ -184,5 +184,9 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct DescriptorBindingFlags: Flags {
+        const UPDATE_AFTER_BIND = 1 << 0;
+        const UPDATE_UNUSED_WHILE_PENDING = 1 << 1;
+        const PARTIALLY_BOUND = 1 << 2;
+        const VARIABLE_DESCRIPTOR_COUNT = 1 << 3;
     }
 }

@@ -23,6 +23,7 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct SurfaceCounterFlagsEXT: Flags {
+        const VBLANK_EXT = 1 << 0;
     }
 }
 pub type PFN_vkGetPhysicalDeviceSurfaceCapabilities2EXT = unsafe extern "system" fn(

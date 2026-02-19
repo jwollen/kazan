@@ -62,6 +62,8 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct TileShadingRenderPassFlagsQCOM: Flags {
+        const ENABLE_QCOM = 1 << 0;
+        const PER_TILE_EXECUTION_QCOM = 1 << 1;
     }
 }
 pub type PFN_vkCmdDispatchTileQCOM = unsafe extern "system" fn(

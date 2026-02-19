@@ -178,18 +178,22 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoCodecOperationFlagsKHR: Flags {
+        const NONE = 0;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoCapabilityFlagsKHR: Flags {
+        const PROTECTED_CONTENT_KHR = 1 << 0;
+        const SEPARATE_REFERENCE_IMAGES_KHR = 1 << 1;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoSessionCreateFlagsKHR: Flags {
+        const PROTECTED_CONTENT_KHR = 1 << 0;
     }
 }
 bitflags! {
@@ -214,18 +218,28 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoCodingControlFlagsKHR: Flags {
+        const RESET_KHR = 1 << 0;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoChromaSubsamplingFlagsKHR: Flags {
+        const MONOCHROME_KHR = 1 << 0;
+        const _420_KHR = 1 << 1;
+        const _422_KHR = 1 << 2;
+        const _444_KHR = 1 << 3;
+        const INVALID = 0;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoComponentBitDepthFlagsKHR: Flags {
+        const _8_KHR = 1 << 0;
+        const _10_KHR = 1 << 2;
+        const _12_KHR = 1 << 4;
+        const INVALID = 0;
     }
 }
 pub type PFN_vkGetPhysicalDeviceVideoCapabilitiesKHR = unsafe extern "system" fn(

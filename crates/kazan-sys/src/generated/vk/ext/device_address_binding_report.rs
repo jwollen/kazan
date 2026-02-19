@@ -30,5 +30,6 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct DeviceAddressBindingFlagsEXT: Flags {
+        const INTERNAL_OBJECT_EXT = 1 << 0;
     }
 }

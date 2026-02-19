@@ -34,12 +34,18 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoDecodeUsageFlagsKHR: Flags {
+        const TRANSCODING_KHR = 1 << 0;
+        const OFFLINE_KHR = 1 << 1;
+        const STREAMING_KHR = 1 << 2;
+        const DEFAULT = 0;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoDecodeCapabilityFlagsKHR: Flags {
+        const DPB_AND_OUTPUT_COINCIDE_KHR = 1 << 0;
+        const DPB_AND_OUTPUT_DISTINCT_KHR = 1 << 1;
     }
 }
 bitflags! {

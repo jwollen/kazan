@@ -103,24 +103,41 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct OpticalFlowGridSizeFlagsNV: Flags {
+        const _1X1_NV = 1 << 0;
+        const _2X2_NV = 1 << 1;
+        const _4X4_NV = 1 << 2;
+        const _8X8_NV = 1 << 3;
+        const UNKNOWN = 0;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct OpticalFlowUsageFlagsNV: Flags {
+        const INPUT_NV = 1 << 0;
+        const OUTPUT_NV = 1 << 1;
+        const HINT_NV = 1 << 2;
+        const COST_NV = 1 << 3;
+        const GLOBAL_FLOW_NV = 1 << 4;
+        const UNKNOWN = 0;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct OpticalFlowSessionCreateFlagsNV: Flags {
+        const ENABLE_HINT_NV = 1 << 0;
+        const ENABLE_COST_NV = 1 << 1;
+        const ENABLE_GLOBAL_FLOW_NV = 1 << 2;
+        const ALLOW_REGIONS_NV = 1 << 3;
+        const BOTH_DIRECTIONS_NV = 1 << 4;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct OpticalFlowExecuteFlagsNV: Flags {
+        const DISABLE_TEMPORAL_HINTS_NV = 1 << 0;
     }
 }
 pub type PFN_vkGetPhysicalDeviceOpticalFlowImageFormatsNV = unsafe extern "system" fn(

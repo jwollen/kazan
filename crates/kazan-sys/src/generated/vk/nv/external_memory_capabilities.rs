@@ -14,12 +14,19 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ExternalMemoryHandleTypeFlagsNV: Flags {
+        const OPAQUE_WIN32_NV = 1 << 0;
+        const OPAQUE_WIN32_KMT_NV = 1 << 1;
+        const D3D11_IMAGE_NV = 1 << 2;
+        const D3D11_IMAGE_KMT_NV = 1 << 3;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ExternalMemoryFeatureFlagsNV: Flags {
+        const DEDICATED_ONLY_NV = 1 << 0;
+        const EXPORTABLE_NV = 1 << 1;
+        const IMPORTABLE_NV = 1 << 2;
     }
 }
 pub type PFN_vkGetPhysicalDeviceExternalImageFormatPropertiesNV =

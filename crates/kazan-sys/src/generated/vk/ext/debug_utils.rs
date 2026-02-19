@@ -64,12 +64,19 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct DebugUtilsMessageSeverityFlagsEXT: Flags {
+        const VERBOSE_EXT = 1 << 0;
+        const INFO_EXT = 1 << 4;
+        const WARNING_EXT = 1 << 8;
+        const ERROR_EXT = 1 << 12;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct DebugUtilsMessageTypeFlagsEXT: Flags {
+        const GENERAL_EXT = 1 << 0;
+        const VALIDATION_EXT = 1 << 1;
+        const PERFORMANCE_EXT = 1 << 2;
     }
 }
 bitflags! {

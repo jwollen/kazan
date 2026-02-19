@@ -125,24 +125,38 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeUsageFlagsKHR: Flags {
+        const TRANSCODING_KHR = 1 << 0;
+        const STREAMING_KHR = 1 << 1;
+        const RECORDING_KHR = 1 << 2;
+        const CONFERENCING_KHR = 1 << 3;
+        const DEFAULT = 0;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeContentFlagsKHR: Flags {
+        const CAMERA_KHR = 1 << 0;
+        const DESKTOP_KHR = 1 << 1;
+        const RENDERED_KHR = 1 << 2;
+        const DEFAULT = 0;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeCapabilityFlagsKHR: Flags {
+        const PRECEDING_EXTERNALLY_ENCODED_BYTES_KHR = 1 << 0;
+        const INSUFFICIENTSTREAM_BUFFER_RANGE_DETECTION_KHR = 1 << 1;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeFeedbackFlagsKHR: Flags {
+        const BITSTREAM_BUFFER_OFFSET_KHR = 1 << 0;
+        const BITSTREAM_BYTES_WRITTEN_KHR = 1 << 1;
+        const BITSTREAM_HAS_OVERRIDES_KHR = 1 << 2;
     }
 }
 bitflags! {
@@ -155,6 +169,10 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeRateControlModeFlagsKHR: Flags {
+        const DISABLED_KHR = 1 << 0;
+        const CBR_KHR = 1 << 1;
+        const VBR_KHR = 1 << 2;
+        const DEFAULT = 0;
     }
 }
 pub type PFN_vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR =

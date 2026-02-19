@@ -169,6 +169,9 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct PipelineCreationFeedbackFlags: Flags {
+        const VALID = 1 << 0;
+        const APPLICATION_PIPELINE_CACHE_HIT = 1 << 1;
+        const BASE_PIPELINE_ACCELERATION = 1 << 2;
     }
 }
 pub type PFN_vkCmdSetEvent2 = unsafe extern "system" fn(

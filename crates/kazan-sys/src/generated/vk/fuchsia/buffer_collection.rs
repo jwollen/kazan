@@ -112,6 +112,11 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ImageConstraintsInfoFlagsFUCHSIA: Flags {
+        const CPU_READ_RARELY_FUCHSIA = 1 << 0;
+        const CPU_READ_OFTEN_FUCHSIA = 1 << 1;
+        const CPU_WRITE_RARELY_FUCHSIA = 1 << 2;
+        const CPU_WRITE_OFTEN_FUCHSIA = 1 << 3;
+        const PROTECTED_OPTIONAL_FUCHSIA = 1 << 4;
     }
 }
 pub type PFN_vkCreateBufferCollectionFUCHSIA = unsafe extern "system" fn(

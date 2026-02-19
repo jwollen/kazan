@@ -327,6 +327,7 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct SemaphoreWaitFlags: Flags {
+        const ANY = 1 << 0;
     }
 }
 pub type PFN_vkResetQueryPool = unsafe extern "system" fn(

@@ -40,17 +40,26 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeRgbModelConversionFlagsVALVE: Flags {
+        const RGB_IDENTITY_VALVE = 1 << 0;
+        const YCBCR_IDENTITY_VALVE = 1 << 1;
+        const YCBCR_709_VALVE = 1 << 2;
+        const YCBCR_601_VALVE = 1 << 3;
+        const YCBCR_2020_VALVE = 1 << 4;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeRgbRangeCompressionFlagsVALVE: Flags {
+        const FULL_RANGE_VALVE = 1 << 0;
+        const NARROW_RANGE_VALVE = 1 << 1;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeRgbChromaOffsetFlagsVALVE: Flags {
+        const COSITED_EVEN_VALVE = 1 << 0;
+        const MIDPOINT_VALVE = 1 << 1;
     }
 }

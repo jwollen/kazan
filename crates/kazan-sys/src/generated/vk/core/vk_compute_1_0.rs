@@ -355,12 +355,23 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ShaderStageFlags: Flags {
+        const VERTEX = 1 << 0;
+        const TESSELLATION_CONTROL = 1 << 1;
+        const TESSELLATION_EVALUATION = 1 << 2;
+        const GEOMETRY = 1 << 3;
+        const FRAGMENT = 1 << 4;
+        const COMPUTE = 1 << 5;
+        const ALL_GRAPHICS = 0x0000001F;
+        const ALL = 0x7FFFFFFF;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct PipelineCreateFlags: Flags {
+        const DISABLE_OPTIMIZATION = 1 << 0;
+        const ALLOW_DERIVATIVES = 1 << 1;
+        const DERIVATIVE = 1 << 2;
     }
 }
 bitflags! {
@@ -379,12 +390,24 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct QueryPipelineStatisticFlags: Flags {
+        const INPUT_ASSEMBLY_VERTICES = 1 << 0;
+        const INPUT_ASSEMBLY_PRIMITIVES = 1 << 1;
+        const VERTEX_SHADER_INVOCATIONS = 1 << 2;
+        const GEOMETRY_SHADER_INVOCATIONS = 1 << 3;
+        const GEOMETRY_SHADER_PRIMITIVES = 1 << 4;
+        const CLIPPING_INVOCATIONS = 1 << 5;
+        const CLIPPING_PRIMITIVES = 1 << 6;
+        const FRAGMENT_SHADER_INVOCATIONS = 1 << 7;
+        const TESSELLATION_CONTROL_SHADER_PATCHES = 1 << 8;
+        const TESSELLATION_EVALUATION_SHADER_INVOCATIONS = 1 << 9;
+        const COMPUTE_SHADER_INVOCATIONS = 1 << 10;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct DescriptorPoolCreateFlags: Flags {
+        const FREE_DESCRIPTOR_SET = 1 << 0;
     }
 }
 bitflags! {

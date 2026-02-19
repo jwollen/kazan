@@ -20,5 +20,9 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct DeviceDiagnosticsConfigFlagsNV: Flags {
+        const ENABLE_SHADER_DEBUG_INFO_NV = 1 << 0;
+        const ENABLE_RESOURCE_TRACKING_NV = 1 << 1;
+        const ENABLE_AUTOMATIC_CHECKPOINTS_NV = 1 << 2;
+        const ENABLE_SHADER_ERROR_REPORTING_NV = 1 << 3;
     }
 }

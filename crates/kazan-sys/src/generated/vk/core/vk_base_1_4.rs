@@ -316,6 +316,7 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct HostImageCopyFlags: Flags {
+        const MEMCPY = 1 << 0;
     }
 }
 pub type PFN_vkCopyMemoryToImage = unsafe extern "system" fn(

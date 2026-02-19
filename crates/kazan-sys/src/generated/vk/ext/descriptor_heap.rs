@@ -297,6 +297,15 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct SpirvResourceTypeFlagsEXT: Flags {
+        const SAMPLER_EXT = 1 << 0;
+        const SAMPLED_IMAGE_EXT = 1 << 1;
+        const READ_ONLY_IMAGE_EXT = 1 << 2;
+        const READ_WRITE_IMAGE_EXT = 1 << 3;
+        const COMBINED_SAMPLED_IMAGE_EXT = 1 << 4;
+        const UNIFORM_BUFFER_EXT = 1 << 5;
+        const READ_ONLY_STORAGE_BUFFER_EXT = 1 << 6;
+        const READ_WRITE_STORAGE_BUFFER_EXT = 1 << 7;
+        const ALL = 0x7FFFFFFF;
     }
 }
 pub type PFN_vkWriteSamplerDescriptorsEXT = unsafe extern "system" fn(

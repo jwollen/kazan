@@ -32,11 +32,17 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct PresentScalingFlagsKHR: Flags {
+        const ONE_TO_ONE_KHR = 1 << 0;
+        const ASPECT_RATIO_STRETCH_KHR = 1 << 1;
+        const STRETCH_KHR = 1 << 2;
     }
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct PresentGravityFlagsKHR: Flags {
+        const MIN_KHR = 1 << 0;
+        const MAX_KHR = 1 << 1;
+        const CENTERED_KHR = 1 << 2;
     }
 }

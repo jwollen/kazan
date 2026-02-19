@@ -67,6 +67,9 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct AddressCopyFlagsKHR: Flags {
+        const DEVICE_LOCAL_KHR = 1 << 0;
+        const SPARSE_KHR = 1 << 1;
+        const PROTECTED_KHR = 1 << 2;
     }
 }
 pub type PFN_vkCmdCopyMemoryIndirectKHR = unsafe extern "system" fn(
