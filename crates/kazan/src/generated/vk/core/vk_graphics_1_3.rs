@@ -73,8 +73,8 @@ impl DeviceFn {
         first_binding: u32,
         buffers: &[Buffer],
         offsets: &[DeviceSize],
-        sizes: &[DeviceSize],
-        strides: &[DeviceSize],
+        sizes: Option<&[DeviceSize]>,
+        strides: Option<&[DeviceSize]>,
     ) {
         unsafe {
             (self.cmd_bind_vertex_buffers2)(
@@ -83,8 +83,8 @@ impl DeviceFn {
                 buffers.len().try_into().unwrap(),
                 buffers.as_ptr() as _,
                 offsets.as_ptr() as _,
-                sizes.as_ptr() as _,
-                strides.as_ptr() as _,
+                sizes.to_raw_ptr(),
+                strides.to_raw_ptr(),
             )
         }
     }

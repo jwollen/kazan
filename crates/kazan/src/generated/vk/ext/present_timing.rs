@@ -22,14 +22,14 @@ impl DeviceFn {
         device: Device,
         swapchain: SwapchainKHR,
         swapchain_timing_properties: &mut SwapchainTimingPropertiesEXT,
-        swapchain_timing_properties_counter: &mut u64,
+        swapchain_timing_properties_counter: Option<&mut u64>,
     ) -> Result {
         unsafe {
             (self.get_swapchain_timing_properties_ext)(
                 device,
                 swapchain,
                 swapchain_timing_properties,
-                swapchain_timing_properties_counter,
+                swapchain_timing_properties_counter.to_raw_mut_ptr(),
             )
         }
     }
@@ -38,14 +38,14 @@ impl DeviceFn {
         device: Device,
         swapchain: SwapchainKHR,
         swapchain_time_domain_properties: &mut SwapchainTimeDomainPropertiesEXT,
-        time_domains_counter: &mut u64,
+        time_domains_counter: Option<&mut u64>,
     ) -> Result {
         unsafe {
             (self.get_swapchain_time_domain_properties_ext)(
                 device,
                 swapchain,
                 swapchain_time_domain_properties,
-                time_domains_counter,
+                time_domains_counter.to_raw_mut_ptr(),
             )
         }
     }

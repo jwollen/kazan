@@ -12,20 +12,27 @@ impl InstanceFn {
         &self,
         instance: Instance,
         create_info: &DebugReportCallbackCreateInfoEXT,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         callback: &mut DebugReportCallbackEXT,
     ) -> Result {
         unsafe {
-            (self.create_debug_report_callback_ext)(instance, create_info, allocator, callback)
+            (self.create_debug_report_callback_ext)(
+                instance,
+                create_info,
+                allocator.to_raw_ptr(),
+                callback,
+            )
         }
     }
     pub unsafe fn destroy_debug_report_callback_ext(
         &self,
         instance: Instance,
         callback: DebugReportCallbackEXT,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_debug_report_callback_ext)(instance, callback, allocator) }
+        unsafe {
+            (self.destroy_debug_report_callback_ext)(instance, callback, allocator.to_raw_ptr())
+        }
     }
     pub unsafe fn debug_report_message_ext(
         &self,

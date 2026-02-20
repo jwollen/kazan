@@ -45,18 +45,18 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &EventCreateInfo,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         event: &mut Event,
     ) -> Result {
-        unsafe { (self.create_event)(device, create_info, allocator, event) }
+        unsafe { (self.create_event)(device, create_info, allocator.to_raw_ptr(), event) }
     }
     pub unsafe fn destroy_event(
         &self,
         device: Device,
         event: Event,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_event)(device, event, allocator) }
+        unsafe { (self.destroy_event)(device, event, allocator.to_raw_ptr()) }
     }
     pub unsafe fn get_event_status(&self, device: Device, event: Event) -> Result {
         unsafe { (self.get_event_status)(device, event) }
@@ -71,52 +71,61 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &BufferViewCreateInfo,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         view: &mut BufferView,
     ) -> Result {
-        unsafe { (self.create_buffer_view)(device, create_info, allocator, view) }
+        unsafe { (self.create_buffer_view)(device, create_info, allocator.to_raw_ptr(), view) }
     }
     pub unsafe fn destroy_buffer_view(
         &self,
         device: Device,
         buffer_view: BufferView,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_buffer_view)(device, buffer_view, allocator) }
+        unsafe { (self.destroy_buffer_view)(device, buffer_view, allocator.to_raw_ptr()) }
     }
     pub unsafe fn create_shader_module(
         &self,
         device: Device,
         create_info: &ShaderModuleCreateInfo,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         shader_module: &mut ShaderModule,
     ) -> Result {
-        unsafe { (self.create_shader_module)(device, create_info, allocator, shader_module) }
+        unsafe {
+            (self.create_shader_module)(device, create_info, allocator.to_raw_ptr(), shader_module)
+        }
     }
     pub unsafe fn destroy_shader_module(
         &self,
         device: Device,
         shader_module: ShaderModule,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_shader_module)(device, shader_module, allocator) }
+        unsafe { (self.destroy_shader_module)(device, shader_module, allocator.to_raw_ptr()) }
     }
     pub unsafe fn create_pipeline_cache(
         &self,
         device: Device,
         create_info: &PipelineCacheCreateInfo,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         pipeline_cache: &mut PipelineCache,
     ) -> Result {
-        unsafe { (self.create_pipeline_cache)(device, create_info, allocator, pipeline_cache) }
+        unsafe {
+            (self.create_pipeline_cache)(
+                device,
+                create_info,
+                allocator.to_raw_ptr(),
+                pipeline_cache,
+            )
+        }
     }
     pub unsafe fn destroy_pipeline_cache(
         &self,
         device: Device,
         pipeline_cache: PipelineCache,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_pipeline_cache)(device, pipeline_cache, allocator) }
+        unsafe { (self.destroy_pipeline_cache)(device, pipeline_cache, allocator.to_raw_ptr()) }
     }
     pub unsafe fn get_pipeline_cache_data(
         &self,
@@ -150,7 +159,7 @@ impl DeviceFn {
         device: Device,
         pipeline_cache: PipelineCache,
         create_infos: &[ComputePipelineCreateInfo],
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         pipelines: &mut [Pipeline],
     ) -> Result {
         unsafe {
@@ -159,7 +168,7 @@ impl DeviceFn {
                 pipeline_cache,
                 create_infos.len().try_into().unwrap(),
                 create_infos.as_ptr() as _,
-                allocator,
+                allocator.to_raw_ptr(),
                 pipelines.as_mut_ptr() as _,
             )
         }
@@ -168,77 +177,104 @@ impl DeviceFn {
         &self,
         device: Device,
         pipeline: Pipeline,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_pipeline)(device, pipeline, allocator) }
+        unsafe { (self.destroy_pipeline)(device, pipeline, allocator.to_raw_ptr()) }
     }
     pub unsafe fn create_pipeline_layout(
         &self,
         device: Device,
         create_info: &PipelineLayoutCreateInfo,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         pipeline_layout: &mut PipelineLayout,
     ) -> Result {
-        unsafe { (self.create_pipeline_layout)(device, create_info, allocator, pipeline_layout) }
+        unsafe {
+            (self.create_pipeline_layout)(
+                device,
+                create_info,
+                allocator.to_raw_ptr(),
+                pipeline_layout,
+            )
+        }
     }
     pub unsafe fn destroy_pipeline_layout(
         &self,
         device: Device,
         pipeline_layout: PipelineLayout,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_pipeline_layout)(device, pipeline_layout, allocator) }
+        unsafe { (self.destroy_pipeline_layout)(device, pipeline_layout, allocator.to_raw_ptr()) }
     }
     pub unsafe fn create_sampler(
         &self,
         device: Device,
         create_info: &SamplerCreateInfo,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         sampler: &mut Sampler,
     ) -> Result {
-        unsafe { (self.create_sampler)(device, create_info, allocator, sampler) }
+        unsafe { (self.create_sampler)(device, create_info, allocator.to_raw_ptr(), sampler) }
     }
     pub unsafe fn destroy_sampler(
         &self,
         device: Device,
         sampler: Sampler,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_sampler)(device, sampler, allocator) }
+        unsafe { (self.destroy_sampler)(device, sampler, allocator.to_raw_ptr()) }
     }
     pub unsafe fn create_descriptor_set_layout(
         &self,
         device: Device,
         create_info: &DescriptorSetLayoutCreateInfo,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         set_layout: &mut DescriptorSetLayout,
     ) -> Result {
-        unsafe { (self.create_descriptor_set_layout)(device, create_info, allocator, set_layout) }
+        unsafe {
+            (self.create_descriptor_set_layout)(
+                device,
+                create_info,
+                allocator.to_raw_ptr(),
+                set_layout,
+            )
+        }
     }
     pub unsafe fn destroy_descriptor_set_layout(
         &self,
         device: Device,
         descriptor_set_layout: DescriptorSetLayout,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_descriptor_set_layout)(device, descriptor_set_layout, allocator) }
+        unsafe {
+            (self.destroy_descriptor_set_layout)(
+                device,
+                descriptor_set_layout,
+                allocator.to_raw_ptr(),
+            )
+        }
     }
     pub unsafe fn create_descriptor_pool(
         &self,
         device: Device,
         create_info: &DescriptorPoolCreateInfo,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         descriptor_pool: &mut DescriptorPool,
     ) -> Result {
-        unsafe { (self.create_descriptor_pool)(device, create_info, allocator, descriptor_pool) }
+        unsafe {
+            (self.create_descriptor_pool)(
+                device,
+                create_info,
+                allocator.to_raw_ptr(),
+                descriptor_pool,
+            )
+        }
     }
     pub unsafe fn destroy_descriptor_pool(
         &self,
         device: Device,
         descriptor_pool: DescriptorPool,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_descriptor_pool)(device, descriptor_pool, allocator) }
+        unsafe { (self.destroy_descriptor_pool)(device, descriptor_pool, allocator.to_raw_ptr()) }
     }
     pub unsafe fn reset_descriptor_pool(
         &self,

@@ -39,18 +39,20 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &SwapchainCreateInfoKHR,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         swapchain: &mut SwapchainKHR,
     ) -> Result {
-        unsafe { (self.create_swapchain_khr)(device, create_info, allocator, swapchain) }
+        unsafe {
+            (self.create_swapchain_khr)(device, create_info, allocator.to_raw_ptr(), swapchain)
+        }
     }
     pub unsafe fn destroy_swapchain_khr(
         &self,
         device: Device,
         swapchain: SwapchainKHR,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_swapchain_khr)(device, swapchain, allocator) }
+        unsafe { (self.destroy_swapchain_khr)(device, swapchain, allocator.to_raw_ptr()) }
     }
     pub unsafe fn get_swapchain_images_khr(
         &self,

@@ -64,14 +64,14 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &IndirectCommandsLayoutCreateInfoNV,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         indirect_commands_layout: &mut IndirectCommandsLayoutNV,
     ) -> Result {
         unsafe {
             (self.create_indirect_commands_layout_nv)(
                 device,
                 create_info,
-                allocator,
+                allocator.to_raw_ptr(),
                 indirect_commands_layout,
             )
         }
@@ -80,10 +80,14 @@ impl DeviceFn {
         &self,
         device: Device,
         indirect_commands_layout: IndirectCommandsLayoutNV,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
         unsafe {
-            (self.destroy_indirect_commands_layout_nv)(device, indirect_commands_layout, allocator)
+            (self.destroy_indirect_commands_layout_nv)(
+                device,
+                indirect_commands_layout,
+                allocator.to_raw_ptr(),
+            )
         }
     }
 }

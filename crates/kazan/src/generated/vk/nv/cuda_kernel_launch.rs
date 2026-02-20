@@ -15,10 +15,10 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &CudaModuleCreateInfoNV,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         module: &mut CudaModuleNV,
     ) -> Result {
-        unsafe { (self.create_cuda_module_nv)(device, create_info, allocator, module) }
+        unsafe { (self.create_cuda_module_nv)(device, create_info, allocator.to_raw_ptr(), module) }
     }
     pub unsafe fn get_cuda_module_cache_nv(
         &self,
@@ -36,26 +36,28 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &CudaFunctionCreateInfoNV,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         function: &mut CudaFunctionNV,
     ) -> Result {
-        unsafe { (self.create_cuda_function_nv)(device, create_info, allocator, function) }
+        unsafe {
+            (self.create_cuda_function_nv)(device, create_info, allocator.to_raw_ptr(), function)
+        }
     }
     pub unsafe fn destroy_cuda_module_nv(
         &self,
         device: Device,
         module: CudaModuleNV,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_cuda_module_nv)(device, module, allocator) }
+        unsafe { (self.destroy_cuda_module_nv)(device, module, allocator.to_raw_ptr()) }
     }
     pub unsafe fn destroy_cuda_function_nv(
         &self,
         device: Device,
         function: CudaFunctionNV,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_cuda_function_nv)(device, function, allocator) }
+        unsafe { (self.destroy_cuda_function_nv)(device, function, allocator.to_raw_ptr()) }
     }
     pub unsafe fn cmd_cuda_launch_kernel_nv(
         &self,

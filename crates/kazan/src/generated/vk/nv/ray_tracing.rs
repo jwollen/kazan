@@ -30,14 +30,14 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &AccelerationStructureCreateInfoNV,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         acceleration_structure: &mut AccelerationStructureNV,
     ) -> Result {
         unsafe {
             (self.create_acceleration_structure_nv)(
                 device,
                 create_info,
-                allocator,
+                allocator.to_raw_ptr(),
                 acceleration_structure,
             )
         }
@@ -46,10 +46,14 @@ impl DeviceFn {
         &self,
         device: Device,
         acceleration_structure: AccelerationStructureNV,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
         unsafe {
-            (self.destroy_acceleration_structure_nv)(device, acceleration_structure, allocator)
+            (self.destroy_acceleration_structure_nv)(
+                device,
+                acceleration_structure,
+                allocator.to_raw_ptr(),
+            )
         }
     }
     pub unsafe fn get_acceleration_structure_memory_requirements_nv(
@@ -191,7 +195,7 @@ impl DeviceFn {
         device: Device,
         pipeline_cache: PipelineCache,
         create_infos: &[RayTracingPipelineCreateInfoNV],
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         pipelines: &mut [Pipeline],
     ) -> Result {
         unsafe {
@@ -200,7 +204,7 @@ impl DeviceFn {
                 pipeline_cache,
                 create_infos.len().try_into().unwrap(),
                 create_infos.as_ptr() as _,
-                allocator,
+                allocator.to_raw_ptr(),
                 pipelines.as_mut_ptr() as _,
             )
         }

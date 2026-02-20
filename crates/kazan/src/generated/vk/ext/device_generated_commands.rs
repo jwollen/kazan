@@ -56,14 +56,14 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &IndirectCommandsLayoutCreateInfoEXT,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         indirect_commands_layout: &mut IndirectCommandsLayoutEXT,
     ) -> Result {
         unsafe {
             (self.create_indirect_commands_layout_ext)(
                 device,
                 create_info,
-                allocator,
+                allocator.to_raw_ptr(),
                 indirect_commands_layout,
             )
         }
@@ -72,24 +72,28 @@ impl DeviceFn {
         &self,
         device: Device,
         indirect_commands_layout: IndirectCommandsLayoutEXT,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
         unsafe {
-            (self.destroy_indirect_commands_layout_ext)(device, indirect_commands_layout, allocator)
+            (self.destroy_indirect_commands_layout_ext)(
+                device,
+                indirect_commands_layout,
+                allocator.to_raw_ptr(),
+            )
         }
     }
     pub unsafe fn create_indirect_execution_set_ext(
         &self,
         device: Device,
         create_info: &IndirectExecutionSetCreateInfoEXT,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         indirect_execution_set: &mut IndirectExecutionSetEXT,
     ) -> Result {
         unsafe {
             (self.create_indirect_execution_set_ext)(
                 device,
                 create_info,
-                allocator,
+                allocator.to_raw_ptr(),
                 indirect_execution_set,
             )
         }
@@ -98,10 +102,14 @@ impl DeviceFn {
         &self,
         device: Device,
         indirect_execution_set: IndirectExecutionSetEXT,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
         unsafe {
-            (self.destroy_indirect_execution_set_ext)(device, indirect_execution_set, allocator)
+            (self.destroy_indirect_execution_set_ext)(
+                device,
+                indirect_execution_set,
+                allocator.to_raw_ptr(),
+            )
         }
     }
     pub unsafe fn update_indirect_execution_set_pipeline_ext(

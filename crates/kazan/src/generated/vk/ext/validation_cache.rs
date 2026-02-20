@@ -13,20 +13,27 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &ValidationCacheCreateInfoEXT,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         validation_cache: &mut ValidationCacheEXT,
     ) -> Result {
         unsafe {
-            (self.create_validation_cache_ext)(device, create_info, allocator, validation_cache)
+            (self.create_validation_cache_ext)(
+                device,
+                create_info,
+                allocator.to_raw_ptr(),
+                validation_cache,
+            )
         }
     }
     pub unsafe fn destroy_validation_cache_ext(
         &self,
         device: Device,
         validation_cache: ValidationCacheEXT,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_validation_cache_ext)(device, validation_cache, allocator) }
+        unsafe {
+            (self.destroy_validation_cache_ext)(device, validation_cache, allocator.to_raw_ptr())
+        }
     }
     pub unsafe fn get_validation_cache_data_ext(
         &self,

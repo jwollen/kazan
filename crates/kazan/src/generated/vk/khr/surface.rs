@@ -14,9 +14,9 @@ impl InstanceFn {
         &self,
         instance: Instance,
         surface: SurfaceKHR,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_surface_khr)(instance, surface, allocator) }
+        unsafe { (self.destroy_surface_khr)(instance, surface, allocator.to_raw_ptr()) }
     }
     pub unsafe fn get_physical_device_surface_support_khr(
         &self,

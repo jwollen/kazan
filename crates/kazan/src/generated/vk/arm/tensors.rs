@@ -40,35 +40,35 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &TensorCreateInfoARM,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         tensor: &mut TensorARM,
     ) -> Result {
-        unsafe { (self.create_tensor_arm)(device, create_info, allocator, tensor) }
+        unsafe { (self.create_tensor_arm)(device, create_info, allocator.to_raw_ptr(), tensor) }
     }
     pub unsafe fn destroy_tensor_arm(
         &self,
         device: Device,
         tensor: TensorARM,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_tensor_arm)(device, tensor, allocator) }
+        unsafe { (self.destroy_tensor_arm)(device, tensor, allocator.to_raw_ptr()) }
     }
     pub unsafe fn create_tensor_view_arm(
         &self,
         device: Device,
         create_info: &TensorViewCreateInfoARM,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         view: &mut TensorViewARM,
     ) -> Result {
-        unsafe { (self.create_tensor_view_arm)(device, create_info, allocator, view) }
+        unsafe { (self.create_tensor_view_arm)(device, create_info, allocator.to_raw_ptr(), view) }
     }
     pub unsafe fn destroy_tensor_view_arm(
         &self,
         device: Device,
         tensor_view: TensorViewARM,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_tensor_view_arm)(device, tensor_view, allocator) }
+        unsafe { (self.destroy_tensor_view_arm)(device, tensor_view, allocator.to_raw_ptr()) }
     }
     pub unsafe fn get_tensor_memory_requirements_arm(
         &self,

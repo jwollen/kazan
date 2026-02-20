@@ -31,7 +31,7 @@ impl DeviceFn {
         &self,
         device: Device,
         video_session_parameters_info: &VideoEncodeSessionParametersGetInfoKHR,
-        feedback_info: &mut VideoEncodeSessionParametersFeedbackInfoKHR,
+        feedback_info: Option<&mut VideoEncodeSessionParametersFeedbackInfoKHR>,
         data: impl ExtendUninit<u8>,
     ) -> Result {
         unsafe {
@@ -39,7 +39,7 @@ impl DeviceFn {
                 (self.get_encoded_video_session_parameters_khr)(
                     device,
                     video_session_parameters_info,
-                    feedback_info,
+                    todo!("output parameters in enumeration commands"),
                     data_size,
                     data as _,
                 )

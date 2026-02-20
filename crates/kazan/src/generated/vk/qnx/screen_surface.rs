@@ -12,10 +12,12 @@ impl InstanceFn {
         &self,
         instance: Instance,
         create_info: &ScreenSurfaceCreateInfoQNX,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         surface: &mut SurfaceKHR,
     ) -> Result {
-        unsafe { (self.create_screen_surface_qnx)(instance, create_info, allocator, surface) }
+        unsafe {
+            (self.create_screen_surface_qnx)(instance, create_info, allocator.to_raw_ptr(), surface)
+        }
     }
     pub unsafe fn get_physical_device_screen_presentation_support_qnx(
         &self,

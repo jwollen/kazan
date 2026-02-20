@@ -10,11 +10,16 @@ impl InstanceFn {
         &self,
         instance: Instance,
         create_info: &ImagePipeSurfaceCreateInfoFUCHSIA,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         surface: &mut SurfaceKHR,
     ) -> Result {
         unsafe {
-            (self.create_image_pipe_surface_fuchsia)(instance, create_info, allocator, surface)
+            (self.create_image_pipe_surface_fuchsia)(
+                instance,
+                create_info,
+                allocator.to_raw_ptr(),
+                surface,
+            )
         }
     }
 }

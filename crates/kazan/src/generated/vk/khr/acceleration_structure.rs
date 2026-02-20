@@ -27,10 +27,14 @@ impl DeviceFn {
         &self,
         device: Device,
         acceleration_structure: AccelerationStructureKHR,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
         unsafe {
-            (self.destroy_acceleration_structure_khr)(device, acceleration_structure, allocator)
+            (self.destroy_acceleration_structure_khr)(
+                device,
+                acceleration_structure,
+                allocator.to_raw_ptr(),
+            )
         }
     }
     pub unsafe fn cmd_copy_acceleration_structure_khr(
@@ -139,14 +143,14 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &AccelerationStructureCreateInfoKHR,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         acceleration_structure: &mut AccelerationStructureKHR,
     ) -> Result {
         unsafe {
             (self.create_acceleration_structure_khr)(
                 device,
                 create_info,
-                allocator,
+                allocator.to_raw_ptr(),
                 acceleration_structure,
             )
         }
@@ -214,7 +218,7 @@ impl DeviceFn {
         device: Device,
         build_type: AccelerationStructureBuildTypeKHR,
         build_info: &AccelerationStructureBuildGeometryInfoKHR,
-        max_primitive_counts: &[u32],
+        max_primitive_counts: Option<&[u32]>,
         size_info: &mut AccelerationStructureBuildSizesInfoKHR,
     ) {
         unsafe {
@@ -222,7 +226,7 @@ impl DeviceFn {
                 device,
                 build_type,
                 build_info,
-                max_primitive_counts.as_ptr() as _,
+                max_primitive_counts.to_raw_ptr(),
                 size_info,
             )
         }

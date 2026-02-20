@@ -39,18 +39,25 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &OpticalFlowSessionCreateInfoNV,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         session: &mut OpticalFlowSessionNV,
     ) -> Result {
-        unsafe { (self.create_optical_flow_session_nv)(device, create_info, allocator, session) }
+        unsafe {
+            (self.create_optical_flow_session_nv)(
+                device,
+                create_info,
+                allocator.to_raw_ptr(),
+                session,
+            )
+        }
     }
     pub unsafe fn destroy_optical_flow_session_nv(
         &self,
         device: Device,
         session: OpticalFlowSessionNV,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_optical_flow_session_nv)(device, session, allocator) }
+        unsafe { (self.destroy_optical_flow_session_nv)(device, session, allocator.to_raw_ptr()) }
     }
     pub unsafe fn bind_optical_flow_session_image_nv(
         &self,

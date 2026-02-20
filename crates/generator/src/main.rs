@@ -694,6 +694,22 @@ fn ctype_to_rust_type_str(name: &str) -> String {
     .replace("FlagBits", "Flags")
 }
 
+// struct StructInfo<'a> {
+//     ty: &'a xml::Structure,
+// }
+
+// struct MemberInfo<'a> {
+//     name: String,
+//     ty: String,
+//     len: Option<LengthKind<'a>>,
+// }
+
+// fn analyze_struct<'a>(
+//     ty: &'a xml::Structure,
+// ) -> StructInfo<'a> {
+//     todo!()
+// }
+
 struct CommandInfo<'a> {
     // The original xml command
     command: &'a xml::Command,
@@ -724,6 +740,7 @@ struct ParamInfo<'a> {
     param: &'a xml::CommandParam,
     ty: String,
     len: Option<LengthKind<'a>>,
+    optional: (bool, bool),
 }
 
 #[derive(Clone)]
@@ -853,13 +870,27 @@ fn analyze_command<'a>(
     for (param_index, param) in command.params.iter().enumerate() {
         let name = normalize_param_name(param.c_decl.name);
 
+        let optional = (
+            param
+                .optional
+                .get(0)
+                .and_then(|s| s.parse().ok())
+                .unwrap_or_default(),
+            param
+                .optional
+                .get(1)
+                .and_then(|s| s.parse().ok())
+                .unwrap_or_default(),
+        );
+
         let is_implicit_length = len_kinds.iter().any(
             |len| matches!(len, Some(LengthKind::Param { index, .. }) if *index == param_index),
         );
 
         if !is_implicit_length {
             let name = normalize_param_name(param.c_decl.name);
-            let wrapper_ty = convert_param_type(&param.c_decl.ty, len_kinds[param_index].as_ref());
+            let wrapper_ty =
+                convert_param_type(&param.c_decl.ty, len_kinds[param_index].as_ref(), optional);
 
             wrapper_params.push(WrapperParamInfo {
                 name: name.clone(),
@@ -873,6 +904,7 @@ fn analyze_command<'a>(
             param,
             ty: ctype_to_rust_type(&param.c_decl.ty),
             len: len_kinds[param_index].clone(),
+            optional,
         });
     }
 
@@ -887,7 +919,7 @@ fn analyze_command<'a>(
     }
 }
 
-fn convert_param_type(ty: &CType, len: Option<&LengthKind<'_>>) -> String {
+fn convert_param_type(ty: &CType, len: Option<&LengthKind<'_>>, optional: (bool, bool)) -> String {
     if let Some(len) = len
         && !matches!(len, LengthKind::Literal(1))
     {
@@ -898,7 +930,7 @@ fn convert_param_type(ty: &CType, len: Option<&LengthKind<'_>>) -> String {
             panic!();
         };
 
-        if matches!(pointee.as_ref(), cdecl::CType::Base(base) if base.name == "char") {
+        let ty = if matches!(pointee.as_ref(), cdecl::CType::Base(base) if base.name == "char") {
             let pointee = "CStr";
             if *is_const {
                 format!("&{}", pointee)
@@ -920,9 +952,15 @@ fn convert_param_type(ty: &CType, len: Option<&LengthKind<'_>>) -> String {
                     format!("&mut [{}]", element_ty)
                 } else {
                     assert!(matches!(len.ty(), Some(cdecl::CType::Ptr { .. })));
-                    format!("impl ExtendUninit<{}>", element_ty)
+                    return format!("impl ExtendUninit<{}>", element_ty);
                 }
             }
+        };
+
+        if (optional).0 {
+            format!("Option<{}>", ty)
+        } else {
+            ty
         }
     } else if let CType::Ptr {
         pointee, is_const, ..
@@ -930,10 +968,16 @@ fn convert_param_type(ty: &CType, len: Option<&LengthKind<'_>>) -> String {
     {
         let pointee = ctype_to_rust_type(&pointee);
 
-        if *is_const {
+        let ty = if *is_const {
             format!("&{}", pointee)
         } else {
             format!("&mut {}", pointee)
+        };
+
+        if (optional).0 {
+            format!("Option<{}>", ty)
+        } else {
+            ty
         }
     } else {
         ctype_to_rust_type(ty)
@@ -1045,8 +1089,10 @@ fn write_fn_call(file: &mut impl std::io::Write, command_info: &CommandInfo) {
             |p| matches!(p.len, Some(LengthKind::Param { index, .. }) if index == param_index),
         );
 
+        let ty = &param.param.c_decl.ty;
+
         if let Some(array_param) = array_param {
-            if matches!(param.param.c_decl.ty, CType::Ptr { .. }) {
+            if matches!(ty, CType::Ptr { .. }) {
                 writeln!(file, "{},", param.name).unwrap();
             } else {
                 writeln!(file, "{}.len().try_into().unwrap(),", array_param.name).unwrap();
@@ -1059,18 +1105,43 @@ fn write_fn_call(file: &mut impl std::io::Write, command_info: &CommandInfo) {
             } else if let Some(len) = &param.len
                 && !matches!(len, LengthKind::Literal(1))
             {
-                let ty = &param.param.c_decl.ty;
                 let CType::Ptr { is_const, .. } = ty else {
                     panic!();
                 };
 
-                if *is_const {
-                    writeln!(file, "{}.as_ptr() as _,", param.name).unwrap();
+                if param.optional.0 {
+                    if *is_const {
+                        writeln!(file, "{}.to_raw_ptr(),", param.name).unwrap();
+                    } else {
+                        writeln!(file, "{}.to_raw_mut_ptr(),", param.name).unwrap();
+                    }
                 } else {
-                    writeln!(file, "{}.as_mut_ptr() as _,", param.name).unwrap();
+                    if *is_const {
+                        writeln!(file, "{}.as_ptr() as _,", param.name).unwrap();
+                    } else {
+                        writeln!(file, "{}.as_mut_ptr() as _,", param.name).unwrap();
+                    }
                 }
             } else {
-                writeln!(file, "{},", param.name).unwrap();
+                if let CType::Ptr { is_const, .. } = ty
+                    && param.optional.0
+                {
+                    if *is_const {
+                        writeln!(file, "{}.to_raw_ptr(),", param.name).unwrap();
+                    } else {
+                        if command_info.enumeration_info.is_some() {
+                            writeln!(
+                                file,
+                                "todo!(\"output parameters in enumeration commands\"),"
+                            )
+                            .unwrap();
+                        } else {
+                            writeln!(file, "{}.to_raw_mut_ptr(),", param.name).unwrap();
+                        }
+                    }
+                } else {
+                    writeln!(file, "{},", param.name).unwrap();
+                }
             }
         }
     }

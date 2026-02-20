@@ -10,9 +10,16 @@ impl InstanceFn {
         &self,
         instance: Instance,
         create_info: &AndroidSurfaceCreateInfoKHR,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         surface: &mut SurfaceKHR,
     ) -> Result {
-        unsafe { (self.create_android_surface_khr)(instance, create_info, allocator, surface) }
+        unsafe {
+            (self.create_android_surface_khr)(
+                instance,
+                create_info,
+                allocator.to_raw_ptr(),
+                surface,
+            )
+        }
     }
 }

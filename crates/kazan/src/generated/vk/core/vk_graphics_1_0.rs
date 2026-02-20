@@ -38,7 +38,7 @@ impl DeviceFn {
         device: Device,
         pipeline_cache: PipelineCache,
         create_infos: &[GraphicsPipelineCreateInfo],
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         pipelines: &mut [Pipeline],
     ) -> Result {
         unsafe {
@@ -47,7 +47,7 @@ impl DeviceFn {
                 pipeline_cache,
                 create_infos.len().try_into().unwrap(),
                 create_infos.as_ptr() as _,
-                allocator,
+                allocator.to_raw_ptr(),
                 pipelines.as_mut_ptr() as _,
             )
         }
@@ -56,35 +56,39 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &FramebufferCreateInfo,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         framebuffer: &mut Framebuffer,
     ) -> Result {
-        unsafe { (self.create_framebuffer)(device, create_info, allocator, framebuffer) }
+        unsafe {
+            (self.create_framebuffer)(device, create_info, allocator.to_raw_ptr(), framebuffer)
+        }
     }
     pub unsafe fn destroy_framebuffer(
         &self,
         device: Device,
         framebuffer: Framebuffer,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_framebuffer)(device, framebuffer, allocator) }
+        unsafe { (self.destroy_framebuffer)(device, framebuffer, allocator.to_raw_ptr()) }
     }
     pub unsafe fn create_render_pass(
         &self,
         device: Device,
         create_info: &RenderPassCreateInfo,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         render_pass: &mut RenderPass,
     ) -> Result {
-        unsafe { (self.create_render_pass)(device, create_info, allocator, render_pass) }
+        unsafe {
+            (self.create_render_pass)(device, create_info, allocator.to_raw_ptr(), render_pass)
+        }
     }
     pub unsafe fn destroy_render_pass(
         &self,
         device: Device,
         render_pass: RenderPass,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_render_pass)(device, render_pass, allocator) }
+        unsafe { (self.destroy_render_pass)(device, render_pass, allocator.to_raw_ptr()) }
     }
     pub unsafe fn get_render_area_granularity(
         &self,

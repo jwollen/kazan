@@ -21,21 +21,34 @@ impl DeviceFn {
         &self,
         device: Device,
         device_event_info: &DeviceEventInfoEXT,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         fence: &mut Fence,
     ) -> Result {
-        unsafe { (self.register_device_event_ext)(device, device_event_info, allocator, fence) }
+        unsafe {
+            (self.register_device_event_ext)(
+                device,
+                device_event_info,
+                allocator.to_raw_ptr(),
+                fence,
+            )
+        }
     }
     pub unsafe fn register_display_event_ext(
         &self,
         device: Device,
         display: DisplayKHR,
         display_event_info: &DisplayEventInfoEXT,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         fence: &mut Fence,
     ) -> Result {
         unsafe {
-            (self.register_display_event_ext)(device, display, display_event_info, allocator, fence)
+            (self.register_display_event_ext)(
+                device,
+                display,
+                display_event_info,
+                allocator.to_raw_ptr(),
+                fence,
+            )
         }
     }
     pub unsafe fn get_swapchain_counter_ext(

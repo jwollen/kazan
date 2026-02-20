@@ -60,31 +60,38 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &VideoSessionCreateInfoKHR,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         video_session: &mut VideoSessionKHR,
     ) -> Result {
-        unsafe { (self.create_video_session_khr)(device, create_info, allocator, video_session) }
+        unsafe {
+            (self.create_video_session_khr)(
+                device,
+                create_info,
+                allocator.to_raw_ptr(),
+                video_session,
+            )
+        }
     }
     pub unsafe fn destroy_video_session_khr(
         &self,
         device: Device,
         video_session: VideoSessionKHR,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_video_session_khr)(device, video_session, allocator) }
+        unsafe { (self.destroy_video_session_khr)(device, video_session, allocator.to_raw_ptr()) }
     }
     pub unsafe fn create_video_session_parameters_khr(
         &self,
         device: Device,
         create_info: &VideoSessionParametersCreateInfoKHR,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         video_session_parameters: &mut VideoSessionParametersKHR,
     ) -> Result {
         unsafe {
             (self.create_video_session_parameters_khr)(
                 device,
                 create_info,
-                allocator,
+                allocator.to_raw_ptr(),
                 video_session_parameters,
             )
         }
@@ -107,10 +114,14 @@ impl DeviceFn {
         &self,
         device: Device,
         video_session_parameters: VideoSessionParametersKHR,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
         unsafe {
-            (self.destroy_video_session_parameters_khr)(device, video_session_parameters, allocator)
+            (self.destroy_video_session_parameters_khr)(
+                device,
+                video_session_parameters,
+                allocator.to_raw_ptr(),
+            )
         }
     }
     pub unsafe fn get_video_session_memory_requirements_khr(

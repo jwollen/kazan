@@ -9,8 +9,13 @@ impl DeviceFn {
     pub unsafe fn cmd_begin_custom_resolve_ext(
         &self,
         command_buffer: CommandBuffer,
-        begin_custom_resolve_info: &BeginCustomResolveInfoEXT,
+        begin_custom_resolve_info: Option<&BeginCustomResolveInfoEXT>,
     ) {
-        unsafe { (self.cmd_begin_custom_resolve_ext)(command_buffer, begin_custom_resolve_info) }
+        unsafe {
+            (self.cmd_begin_custom_resolve_ext)(
+                command_buffer,
+                begin_custom_resolve_info.to_raw_ptr(),
+            )
+        }
     }
 }

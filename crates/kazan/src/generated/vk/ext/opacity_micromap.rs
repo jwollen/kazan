@@ -23,10 +23,10 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &MicromapCreateInfoEXT,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         micromap: &mut MicromapEXT,
     ) -> Result {
-        unsafe { (self.create_micromap_ext)(device, create_info, allocator, micromap) }
+        unsafe { (self.create_micromap_ext)(device, create_info, allocator.to_raw_ptr(), micromap) }
     }
     pub unsafe fn cmd_build_micromaps_ext(
         &self,
@@ -60,9 +60,9 @@ impl DeviceFn {
         &self,
         device: Device,
         micromap: MicromapEXT,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_micromap_ext)(device, micromap, allocator) }
+        unsafe { (self.destroy_micromap_ext)(device, micromap, allocator.to_raw_ptr()) }
     }
     pub unsafe fn cmd_copy_micromap_ext(
         &self,

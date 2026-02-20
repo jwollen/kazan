@@ -2,7 +2,7 @@ mod generated;
 pub use generated::*;
 
 use kazan_sys::vk::Result;
-use std::mem::MaybeUninit;
+use std::{ffi::{CStr, c_char}, mem::MaybeUninit, ptr};
 
 pub trait ExtendUninit<T> {
     unsafe fn reserve(&mut self, capacity: usize) -> &mut [MaybeUninit<T>];
@@ -111,4 +111,57 @@ where
     len = data.len().try_into().unwrap();
     f(&mut len, data.as_mut_ptr() as *mut T);
     unsafe { e.set_len(len.try_into().unwrap()) };
+}
+
+pub trait RawPtr<T> {
+    fn to_raw_ptr(self) -> *const T;
+}
+
+impl<T> RawPtr<T> for Option<&T> {
+    fn to_raw_ptr(self) -> *const T {
+        match self {
+            Some(inner) => inner,
+            None => ptr::null(),
+        }
+    }
+}
+
+impl<T> RawPtr<T> for Option<&[T]> {
+    fn to_raw_ptr(self) -> *const T {
+        match self {
+            Some(inner) => inner.as_ptr(),
+            None => ptr::null(),
+        }
+    }
+}
+
+impl RawPtr<c_char> for Option<&CStr> {
+    fn to_raw_ptr(self) -> *const c_char {
+        match self {
+            Some(inner) => inner.as_ptr(),
+            None => ptr::null(),
+        }
+    }
+}
+
+pub trait RawMutPtr<T> {
+    unsafe fn to_raw_mut_ptr(self) -> *mut T;
+}
+
+impl<T> RawMutPtr<T> for Option<&mut T> {
+    unsafe fn to_raw_mut_ptr(self) -> *mut T {
+        match self {
+            Some(inner) => inner,
+            None => ptr::null_mut(),
+        }
+    }
+}
+
+impl<T> RawMutPtr<T> for Option<&mut [T]> {
+    unsafe fn to_raw_mut_ptr(self) -> *mut T {
+        match self {
+            Some(inner) => inner.as_mut_ptr(),
+            None => ptr::null_mut(),
+        }
+    }
 }

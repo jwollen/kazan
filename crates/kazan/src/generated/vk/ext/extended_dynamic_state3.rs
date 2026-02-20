@@ -69,11 +69,9 @@ impl DeviceFn {
         &self,
         command_buffer: CommandBuffer,
         samples: SampleCountFlags,
-        sample_mask: &[SampleMask],
+        sample_mask: Option<&[SampleMask]>,
     ) {
-        unsafe {
-            (self.cmd_set_sample_mask_ext)(command_buffer, samples, sample_mask.as_ptr() as _)
-        }
+        unsafe { (self.cmd_set_sample_mask_ext)(command_buffer, samples, sample_mask.to_raw_ptr()) }
     }
     pub unsafe fn cmd_set_alpha_to_coverage_enable_ext(
         &self,

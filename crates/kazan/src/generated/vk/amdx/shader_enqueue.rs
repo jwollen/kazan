@@ -47,7 +47,7 @@ impl DeviceFn {
         device: Device,
         pipeline_cache: PipelineCache,
         create_infos: &[ExecutionGraphPipelineCreateInfoAMDX],
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         pipelines: &mut [Pipeline],
     ) -> Result {
         unsafe {
@@ -56,7 +56,7 @@ impl DeviceFn {
                 pipeline_cache,
                 create_infos.len().try_into().unwrap(),
                 create_infos.as_ptr() as _,
-                allocator,
+                allocator.to_raw_ptr(),
                 pipelines.as_mut_ptr() as _,
             )
         }

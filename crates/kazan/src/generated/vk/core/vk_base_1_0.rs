@@ -11,10 +11,10 @@ impl EntryFn {
     pub unsafe fn create_instance(
         &self,
         create_info: &InstanceCreateInfo,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         instance: &mut Instance,
     ) -> Result {
-        unsafe { (self.create_instance)(create_info, allocator, instance) }
+        unsafe { (self.create_instance)(create_info, allocator.to_raw_ptr(), instance) }
     }
     pub unsafe fn enumerate_instance_layer_properties(
         &self,
@@ -28,13 +28,13 @@ impl EntryFn {
     }
     pub unsafe fn enumerate_instance_extension_properties(
         &self,
-        layer_name: &CStr,
+        layer_name: Option<&CStr>,
         properties: impl ExtendUninit<ExtensionProperties>,
     ) -> Result {
         unsafe {
             try_extend_uninit(properties, |property_count, properties| {
                 (self.enumerate_instance_extension_properties)(
-                    layer_name.as_ptr() as _,
+                    layer_name.to_raw_ptr(),
                     property_count,
                     properties as _,
                 )
@@ -59,8 +59,12 @@ pub struct InstanceFn {
         PFN_vkGetPhysicalDeviceSparseImageFormatProperties,
 }
 impl InstanceFn {
-    pub unsafe fn destroy_instance(&self, instance: Instance, allocator: &AllocationCallbacks) {
-        unsafe { (self.destroy_instance)(instance, allocator) }
+    pub unsafe fn destroy_instance(
+        &self,
+        instance: Instance,
+        allocator: Option<&AllocationCallbacks>,
+    ) {
+        unsafe { (self.destroy_instance)(instance, allocator.to_raw_ptr()) }
     }
     pub unsafe fn enumerate_physical_devices(
         &self,
@@ -162,10 +166,12 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         create_info: &DeviceCreateInfo,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         device: &mut Device,
     ) -> Result {
-        unsafe { (self.create_device)(physical_device, create_info, allocator, device) }
+        unsafe {
+            (self.create_device)(physical_device, create_info, allocator.to_raw_ptr(), device)
+        }
     }
     pub unsafe fn enumerate_device_layer_properties(
         &self,
@@ -185,14 +191,14 @@ impl InstanceFn {
     pub unsafe fn enumerate_device_extension_properties(
         &self,
         physical_device: PhysicalDevice,
-        layer_name: &CStr,
+        layer_name: Option<&CStr>,
         properties: impl ExtendUninit<ExtensionProperties>,
     ) -> Result {
         unsafe {
             try_extend_uninit(properties, |property_count, properties| {
                 (self.enumerate_device_extension_properties)(
                     physical_device,
-                    layer_name.as_ptr() as _,
+                    layer_name.to_raw_ptr(),
                     property_count,
                     properties as _,
                 )
@@ -288,8 +294,8 @@ impl DeviceFn {
     pub unsafe fn get_device_proc_addr(&self, device: Device, name: &CStr) -> PFN_vkVoidFunction {
         unsafe { (self.get_device_proc_addr)(device, name.as_ptr() as _) }
     }
-    pub unsafe fn destroy_device(&self, device: Device, allocator: &AllocationCallbacks) {
-        unsafe { (self.destroy_device)(device, allocator) }
+    pub unsafe fn destroy_device(&self, device: Device, allocator: Option<&AllocationCallbacks>) {
+        unsafe { (self.destroy_device)(device, allocator.to_raw_ptr()) }
     }
     pub unsafe fn get_device_queue(
         &self,
@@ -325,18 +331,18 @@ impl DeviceFn {
         &self,
         device: Device,
         allocate_info: &MemoryAllocateInfo,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         memory: &mut DeviceMemory,
     ) -> Result {
-        unsafe { (self.allocate_memory)(device, allocate_info, allocator, memory) }
+        unsafe { (self.allocate_memory)(device, allocate_info, allocator.to_raw_ptr(), memory) }
     }
     pub unsafe fn free_memory(
         &self,
         device: Device,
         memory: DeviceMemory,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.free_memory)(device, memory, allocator) }
+        unsafe { (self.free_memory)(device, memory, allocator.to_raw_ptr()) }
     }
     pub unsafe fn map_memory(
         &self,
@@ -459,18 +465,18 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &FenceCreateInfo,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         fence: &mut Fence,
     ) -> Result {
-        unsafe { (self.create_fence)(device, create_info, allocator, fence) }
+        unsafe { (self.create_fence)(device, create_info, allocator.to_raw_ptr(), fence) }
     }
     pub unsafe fn destroy_fence(
         &self,
         device: Device,
         fence: Fence,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_fence)(device, fence, allocator) }
+        unsafe { (self.destroy_fence)(device, fence, allocator.to_raw_ptr()) }
     }
     pub unsafe fn reset_fences(&self, device: Device, fences: &[Fence]) -> Result {
         unsafe {
@@ -505,35 +511,35 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &SemaphoreCreateInfo,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         semaphore: &mut Semaphore,
     ) -> Result {
-        unsafe { (self.create_semaphore)(device, create_info, allocator, semaphore) }
+        unsafe { (self.create_semaphore)(device, create_info, allocator.to_raw_ptr(), semaphore) }
     }
     pub unsafe fn destroy_semaphore(
         &self,
         device: Device,
         semaphore: Semaphore,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_semaphore)(device, semaphore, allocator) }
+        unsafe { (self.destroy_semaphore)(device, semaphore, allocator.to_raw_ptr()) }
     }
     pub unsafe fn create_query_pool(
         &self,
         device: Device,
         create_info: &QueryPoolCreateInfo,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         query_pool: &mut QueryPool,
     ) -> Result {
-        unsafe { (self.create_query_pool)(device, create_info, allocator, query_pool) }
+        unsafe { (self.create_query_pool)(device, create_info, allocator.to_raw_ptr(), query_pool) }
     }
     pub unsafe fn destroy_query_pool(
         &self,
         device: Device,
         query_pool: QueryPool,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_query_pool)(device, query_pool, allocator) }
+        unsafe { (self.destroy_query_pool)(device, query_pool, allocator.to_raw_ptr()) }
     }
     pub unsafe fn get_query_pool_results(
         &self,
@@ -562,35 +568,35 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &BufferCreateInfo,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         buffer: &mut Buffer,
     ) -> Result {
-        unsafe { (self.create_buffer)(device, create_info, allocator, buffer) }
+        unsafe { (self.create_buffer)(device, create_info, allocator.to_raw_ptr(), buffer) }
     }
     pub unsafe fn destroy_buffer(
         &self,
         device: Device,
         buffer: Buffer,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_buffer)(device, buffer, allocator) }
+        unsafe { (self.destroy_buffer)(device, buffer, allocator.to_raw_ptr()) }
     }
     pub unsafe fn create_image(
         &self,
         device: Device,
         create_info: &ImageCreateInfo,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         image: &mut Image,
     ) -> Result {
-        unsafe { (self.create_image)(device, create_info, allocator, image) }
+        unsafe { (self.create_image)(device, create_info, allocator.to_raw_ptr(), image) }
     }
     pub unsafe fn destroy_image(
         &self,
         device: Device,
         image: Image,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_image)(device, image, allocator) }
+        unsafe { (self.destroy_image)(device, image, allocator.to_raw_ptr()) }
     }
     pub unsafe fn get_image_subresource_layout(
         &self,
@@ -605,35 +611,37 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &ImageViewCreateInfo,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         view: &mut ImageView,
     ) -> Result {
-        unsafe { (self.create_image_view)(device, create_info, allocator, view) }
+        unsafe { (self.create_image_view)(device, create_info, allocator.to_raw_ptr(), view) }
     }
     pub unsafe fn destroy_image_view(
         &self,
         device: Device,
         image_view: ImageView,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_image_view)(device, image_view, allocator) }
+        unsafe { (self.destroy_image_view)(device, image_view, allocator.to_raw_ptr()) }
     }
     pub unsafe fn create_command_pool(
         &self,
         device: Device,
         create_info: &CommandPoolCreateInfo,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         command_pool: &mut CommandPool,
     ) -> Result {
-        unsafe { (self.create_command_pool)(device, create_info, allocator, command_pool) }
+        unsafe {
+            (self.create_command_pool)(device, create_info, allocator.to_raw_ptr(), command_pool)
+        }
     }
     pub unsafe fn destroy_command_pool(
         &self,
         device: Device,
         command_pool: CommandPool,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_command_pool)(device, command_pool, allocator) }
+        unsafe { (self.destroy_command_pool)(device, command_pool, allocator.to_raw_ptr()) }
     }
     pub unsafe fn reset_command_pool(
         &self,

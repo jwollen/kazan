@@ -16,11 +16,16 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &BufferCollectionCreateInfoFUCHSIA,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         collection: &mut BufferCollectionFUCHSIA,
     ) -> Result {
         unsafe {
-            (self.create_buffer_collection_fuchsia)(device, create_info, allocator, collection)
+            (self.create_buffer_collection_fuchsia)(
+                device,
+                create_info,
+                allocator.to_raw_ptr(),
+                collection,
+            )
         }
     }
     pub unsafe fn set_buffer_collection_buffer_constraints_fuchsia(
@@ -55,9 +60,11 @@ impl DeviceFn {
         &self,
         device: Device,
         collection: BufferCollectionFUCHSIA,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_buffer_collection_fuchsia)(device, collection, allocator) }
+        unsafe {
+            (self.destroy_buffer_collection_fuchsia)(device, collection, allocator.to_raw_ptr())
+        }
     }
     pub unsafe fn get_buffer_collection_properties_fuchsia(
         &self,

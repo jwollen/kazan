@@ -65,7 +65,7 @@ impl DeviceFn {
         deferred_operation: DeferredOperationKHR,
         pipeline_cache: PipelineCache,
         create_infos: &[DataGraphPipelineCreateInfoARM],
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         pipelines: &mut [Pipeline],
     ) -> Result {
         unsafe {
@@ -75,7 +75,7 @@ impl DeviceFn {
                 pipeline_cache,
                 create_infos.len().try_into().unwrap(),
                 create_infos.as_ptr() as _,
-                allocator,
+                allocator.to_raw_ptr(),
                 pipelines.as_mut_ptr() as _,
             )
         }
@@ -84,11 +84,16 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &DataGraphPipelineSessionCreateInfoARM,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         session: &mut DataGraphPipelineSessionARM,
     ) -> Result {
         unsafe {
-            (self.create_data_graph_pipeline_session_arm)(device, create_info, allocator, session)
+            (self.create_data_graph_pipeline_session_arm)(
+                device,
+                create_info,
+                allocator.to_raw_ptr(),
+                session,
+            )
         }
     }
     pub unsafe fn get_data_graph_pipeline_session_bind_point_requirements_arm(
@@ -142,17 +147,19 @@ impl DeviceFn {
         &self,
         device: Device,
         session: DataGraphPipelineSessionARM,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_data_graph_pipeline_session_arm)(device, session, allocator) }
+        unsafe {
+            (self.destroy_data_graph_pipeline_session_arm)(device, session, allocator.to_raw_ptr())
+        }
     }
     pub unsafe fn cmd_dispatch_data_graph_arm(
         &self,
         command_buffer: CommandBuffer,
         session: DataGraphPipelineSessionARM,
-        info: &DataGraphPipelineDispatchInfoARM,
+        info: Option<&DataGraphPipelineDispatchInfoARM>,
     ) {
-        unsafe { (self.cmd_dispatch_data_graph_arm)(command_buffer, session, info) }
+        unsafe { (self.cmd_dispatch_data_graph_arm)(command_buffer, session, info.to_raw_ptr()) }
     }
     pub unsafe fn get_data_graph_pipeline_available_properties_arm(
         &self,

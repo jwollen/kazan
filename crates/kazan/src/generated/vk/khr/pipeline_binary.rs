@@ -14,26 +14,37 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &PipelineBinaryCreateInfoKHR,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         binaries: &mut PipelineBinaryHandlesInfoKHR,
     ) -> Result {
-        unsafe { (self.create_pipeline_binaries_khr)(device, create_info, allocator, binaries) }
+        unsafe {
+            (self.create_pipeline_binaries_khr)(
+                device,
+                create_info,
+                allocator.to_raw_ptr(),
+                binaries,
+            )
+        }
     }
     pub unsafe fn destroy_pipeline_binary_khr(
         &self,
         device: Device,
         pipeline_binary: PipelineBinaryKHR,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_pipeline_binary_khr)(device, pipeline_binary, allocator) }
+        unsafe {
+            (self.destroy_pipeline_binary_khr)(device, pipeline_binary, allocator.to_raw_ptr())
+        }
     }
     pub unsafe fn get_pipeline_key_khr(
         &self,
         device: Device,
-        pipeline_create_info: &PipelineCreateInfoKHR,
+        pipeline_create_info: Option<&PipelineCreateInfoKHR>,
         pipeline_key: &mut PipelineBinaryKeyKHR,
     ) -> Result {
-        unsafe { (self.get_pipeline_key_khr)(device, pipeline_create_info, pipeline_key) }
+        unsafe {
+            (self.get_pipeline_key_khr)(device, pipeline_create_info.to_raw_ptr(), pipeline_key)
+        }
     }
     pub unsafe fn get_pipeline_binary_data_khr(
         &self,
@@ -61,8 +72,8 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &ReleaseCapturedPipelineDataInfoKHR,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) -> Result {
-        unsafe { (self.release_captured_pipeline_data_khr)(device, info, allocator) }
+        unsafe { (self.release_captured_pipeline_data_khr)(device, info, allocator.to_raw_ptr()) }
     }
 }

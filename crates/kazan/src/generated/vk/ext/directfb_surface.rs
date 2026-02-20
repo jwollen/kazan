@@ -12,10 +12,17 @@ impl InstanceFn {
         &self,
         instance: Instance,
         create_info: &DirectFBSurfaceCreateInfoEXT,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         surface: &mut SurfaceKHR,
     ) -> Result {
-        unsafe { (self.create_direct_fb_surface_ext)(instance, create_info, allocator, surface) }
+        unsafe {
+            (self.create_direct_fb_surface_ext)(
+                instance,
+                create_info,
+                allocator.to_raw_ptr(),
+                surface,
+            )
+        }
     }
     pub unsafe fn get_physical_device_direct_fb_presentation_support_ext(
         &self,

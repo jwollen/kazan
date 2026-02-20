@@ -10,7 +10,7 @@ impl DeviceFn {
         &self,
         device: Device,
         create_infos: &[SwapchainCreateInfoKHR],
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         swapchains: &mut [SwapchainKHR],
     ) -> Result {
         unsafe {
@@ -18,7 +18,7 @@ impl DeviceFn {
                 device,
                 create_infos.len().try_into().unwrap(),
                 create_infos.as_ptr() as _,
-                allocator,
+                allocator.to_raw_ptr(),
                 swapchains.as_mut_ptr() as _,
             )
         }

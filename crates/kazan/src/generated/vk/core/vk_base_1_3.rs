@@ -79,20 +79,27 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &PrivateDataSlotCreateInfo,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         private_data_slot: &mut PrivateDataSlot,
     ) -> Result {
         unsafe {
-            (self.create_private_data_slot)(device, create_info, allocator, private_data_slot)
+            (self.create_private_data_slot)(
+                device,
+                create_info,
+                allocator.to_raw_ptr(),
+                private_data_slot,
+            )
         }
     }
     pub unsafe fn destroy_private_data_slot(
         &self,
         device: Device,
         private_data_slot: PrivateDataSlot,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_private_data_slot)(device, private_data_slot, allocator) }
+        unsafe {
+            (self.destroy_private_data_slot)(device, private_data_slot, allocator.to_raw_ptr())
+        }
     }
     pub unsafe fn set_private_data(
         &self,

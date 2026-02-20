@@ -10,9 +10,16 @@ impl InstanceFn {
         &self,
         instance: Instance,
         create_info: &HeadlessSurfaceCreateInfoEXT,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         surface: &mut SurfaceKHR,
     ) -> Result {
-        unsafe { (self.create_headless_surface_ext)(instance, create_info, allocator, surface) }
+        unsafe {
+            (self.create_headless_surface_ext)(
+                instance,
+                create_info,
+                allocator.to_raw_ptr(),
+                surface,
+            )
+        }
     }
 }

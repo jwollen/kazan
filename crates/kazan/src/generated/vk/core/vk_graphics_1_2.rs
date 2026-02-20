@@ -15,10 +15,12 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &RenderPassCreateInfo2,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         render_pass: &mut RenderPass,
     ) -> Result {
-        unsafe { (self.create_render_pass2)(device, create_info, allocator, render_pass) }
+        unsafe {
+            (self.create_render_pass2)(device, create_info, allocator.to_raw_ptr(), render_pass)
+        }
     }
     pub unsafe fn cmd_begin_render_pass2(
         &self,

@@ -12,20 +12,27 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &ExternalComputeQueueCreateInfoNV,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         external_queue: &mut ExternalComputeQueueNV,
     ) -> Result {
         unsafe {
-            (self.create_external_compute_queue_nv)(device, create_info, allocator, external_queue)
+            (self.create_external_compute_queue_nv)(
+                device,
+                create_info,
+                allocator.to_raw_ptr(),
+                external_queue,
+            )
         }
     }
     pub unsafe fn destroy_external_compute_queue_nv(
         &self,
         device: Device,
         external_queue: ExternalComputeQueueNV,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_external_compute_queue_nv)(device, external_queue, allocator) }
+        unsafe {
+            (self.destroy_external_compute_queue_nv)(device, external_queue, allocator.to_raw_ptr())
+        }
     }
     pub unsafe fn get_external_compute_queue_data_nv(
         &self,

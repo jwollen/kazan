@@ -12,20 +12,27 @@ impl InstanceFn {
         &self,
         instance: Instance,
         create_info: &DebugUtilsMessengerCreateInfoEXT,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         messenger: &mut DebugUtilsMessengerEXT,
     ) -> Result {
         unsafe {
-            (self.create_debug_utils_messenger_ext)(instance, create_info, allocator, messenger)
+            (self.create_debug_utils_messenger_ext)(
+                instance,
+                create_info,
+                allocator.to_raw_ptr(),
+                messenger,
+            )
         }
     }
     pub unsafe fn destroy_debug_utils_messenger_ext(
         &self,
         instance: Instance,
         messenger: DebugUtilsMessengerEXT,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_debug_utils_messenger_ext)(instance, messenger, allocator) }
+        unsafe {
+            (self.destroy_debug_utils_messenger_ext)(instance, messenger, allocator.to_raw_ptr())
+        }
     }
     pub unsafe fn submit_debug_utils_message_ext(
         &self,

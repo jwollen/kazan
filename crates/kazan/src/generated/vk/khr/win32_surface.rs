@@ -12,10 +12,12 @@ impl InstanceFn {
         &self,
         instance: Instance,
         create_info: &Win32SurfaceCreateInfoKHR,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         surface: &mut SurfaceKHR,
     ) -> Result {
-        unsafe { (self.create_win32_surface_khr)(instance, create_info, allocator, surface) }
+        unsafe {
+            (self.create_win32_surface_khr)(instance, create_info, allocator.to_raw_ptr(), surface)
+        }
     }
     pub unsafe fn get_physical_device_win32_presentation_support_khr(
         &self,

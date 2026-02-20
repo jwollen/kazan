@@ -9,8 +9,8 @@ impl DeviceFn {
     pub unsafe fn cmd_end_rendering2_khr(
         &self,
         command_buffer: CommandBuffer,
-        rendering_end_info: &RenderingEndInfoKHR,
+        rendering_end_info: Option<&RenderingEndInfoKHR>,
     ) {
-        unsafe { (self.cmd_end_rendering2_khr)(command_buffer, rendering_end_info) }
+        unsafe { (self.cmd_end_rendering2_khr)(command_buffer, rendering_end_info.to_raw_ptr()) }
     }
 }

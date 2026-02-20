@@ -82,11 +82,17 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         display: DisplayKHR,
         create_info: &DisplayModeCreateInfoKHR,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         mode: &mut DisplayModeKHR,
     ) -> Result {
         unsafe {
-            (self.create_display_mode_khr)(physical_device, display, create_info, allocator, mode)
+            (self.create_display_mode_khr)(
+                physical_device,
+                display,
+                create_info,
+                allocator.to_raw_ptr(),
+                mode,
+            )
         }
     }
     pub unsafe fn get_display_plane_capabilities_khr(
@@ -109,11 +115,16 @@ impl InstanceFn {
         &self,
         instance: Instance,
         create_info: &DisplaySurfaceCreateInfoKHR,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         surface: &mut SurfaceKHR,
     ) -> Result {
         unsafe {
-            (self.create_display_plane_surface_khr)(instance, create_info, allocator, surface)
+            (self.create_display_plane_surface_khr)(
+                instance,
+                create_info,
+                allocator.to_raw_ptr(),
+                surface,
+            )
         }
     }
 }

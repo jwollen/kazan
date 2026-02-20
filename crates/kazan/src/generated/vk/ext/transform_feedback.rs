@@ -17,7 +17,7 @@ impl DeviceFn {
         first_binding: u32,
         buffers: &[Buffer],
         offsets: &[DeviceSize],
-        sizes: &[DeviceSize],
+        sizes: Option<&[DeviceSize]>,
     ) {
         unsafe {
             (self.cmd_bind_transform_feedback_buffers_ext)(
@@ -26,7 +26,7 @@ impl DeviceFn {
                 buffers.len().try_into().unwrap(),
                 buffers.as_ptr() as _,
                 offsets.as_ptr() as _,
-                sizes.as_ptr() as _,
+                sizes.to_raw_ptr(),
             )
         }
     }
@@ -35,7 +35,7 @@ impl DeviceFn {
         command_buffer: CommandBuffer,
         first_counter_buffer: u32,
         counter_buffers: &[Buffer],
-        counter_buffer_offsets: &[DeviceSize],
+        counter_buffer_offsets: Option<&[DeviceSize]>,
     ) {
         unsafe {
             (self.cmd_begin_transform_feedback_ext)(
@@ -43,7 +43,7 @@ impl DeviceFn {
                 first_counter_buffer,
                 counter_buffers.len().try_into().unwrap(),
                 counter_buffers.as_ptr() as _,
-                counter_buffer_offsets.as_ptr() as _,
+                counter_buffer_offsets.to_raw_ptr(),
             )
         }
     }
@@ -52,7 +52,7 @@ impl DeviceFn {
         command_buffer: CommandBuffer,
         first_counter_buffer: u32,
         counter_buffers: &[Buffer],
-        counter_buffer_offsets: &[DeviceSize],
+        counter_buffer_offsets: Option<&[DeviceSize]>,
     ) {
         unsafe {
             (self.cmd_end_transform_feedback_ext)(
@@ -60,7 +60,7 @@ impl DeviceFn {
                 first_counter_buffer,
                 counter_buffers.len().try_into().unwrap(),
                 counter_buffers.as_ptr() as _,
-                counter_buffer_offsets.as_ptr() as _,
+                counter_buffer_offsets.to_raw_ptr(),
             )
         }
     }

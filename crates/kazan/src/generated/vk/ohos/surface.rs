@@ -10,9 +10,11 @@ impl InstanceFn {
         &self,
         instance: Instance,
         create_info: &SurfaceCreateInfoOHOS,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         surface: &mut SurfaceKHR,
     ) -> Result {
-        unsafe { (self.create_surface_ohos)(instance, create_info, allocator, surface) }
+        unsafe {
+            (self.create_surface_ohos)(instance, create_info, allocator.to_raw_ptr(), surface)
+        }
     }
 }

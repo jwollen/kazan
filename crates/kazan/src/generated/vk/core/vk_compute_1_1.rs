@@ -38,14 +38,14 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &DescriptorUpdateTemplateCreateInfo,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         descriptor_update_template: &mut DescriptorUpdateTemplate,
     ) -> Result {
         unsafe {
             (self.create_descriptor_update_template)(
                 device,
                 create_info,
-                allocator,
+                allocator.to_raw_ptr(),
                 descriptor_update_template,
             )
         }
@@ -54,10 +54,14 @@ impl DeviceFn {
         &self,
         device: Device,
         descriptor_update_template: DescriptorUpdateTemplate,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
         unsafe {
-            (self.destroy_descriptor_update_template)(device, descriptor_update_template, allocator)
+            (self.destroy_descriptor_update_template)(
+                device,
+                descriptor_update_template,
+                allocator.to_raw_ptr(),
+            )
         }
     }
     pub unsafe fn update_descriptor_set_with_template(
@@ -80,20 +84,31 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &SamplerYcbcrConversionCreateInfo,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         ycbcr_conversion: &mut SamplerYcbcrConversion,
     ) -> Result {
         unsafe {
-            (self.create_sampler_ycbcr_conversion)(device, create_info, allocator, ycbcr_conversion)
+            (self.create_sampler_ycbcr_conversion)(
+                device,
+                create_info,
+                allocator.to_raw_ptr(),
+                ycbcr_conversion,
+            )
         }
     }
     pub unsafe fn destroy_sampler_ycbcr_conversion(
         &self,
         device: Device,
         ycbcr_conversion: SamplerYcbcrConversion,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_sampler_ycbcr_conversion)(device, ycbcr_conversion, allocator) }
+        unsafe {
+            (self.destroy_sampler_ycbcr_conversion)(
+                device,
+                ycbcr_conversion,
+                allocator.to_raw_ptr(),
+            )
+        }
     }
     pub unsafe fn get_descriptor_set_layout_support(
         &self,

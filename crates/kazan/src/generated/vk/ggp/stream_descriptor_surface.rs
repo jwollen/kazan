@@ -10,11 +10,16 @@ impl InstanceFn {
         &self,
         instance: Instance,
         create_info: &StreamDescriptorSurfaceCreateInfoGGP,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         surface: &mut SurfaceKHR,
     ) -> Result {
         unsafe {
-            (self.create_stream_descriptor_surface_ggp)(instance, create_info, allocator, surface)
+            (self.create_stream_descriptor_surface_ggp)(
+                instance,
+                create_info,
+                allocator.to_raw_ptr(),
+                surface,
+            )
         }
     }
 }

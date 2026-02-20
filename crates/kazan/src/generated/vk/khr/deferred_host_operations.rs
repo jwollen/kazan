@@ -13,18 +13,20 @@ impl DeviceFn {
     pub unsafe fn create_deferred_operation_khr(
         &self,
         device: Device,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         deferred_operation: &mut DeferredOperationKHR,
     ) -> Result {
-        unsafe { (self.create_deferred_operation_khr)(device, allocator, deferred_operation) }
+        unsafe {
+            (self.create_deferred_operation_khr)(device, allocator.to_raw_ptr(), deferred_operation)
+        }
     }
     pub unsafe fn destroy_deferred_operation_khr(
         &self,
         device: Device,
         operation: DeferredOperationKHR,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_deferred_operation_khr)(device, operation, allocator) }
+        unsafe { (self.destroy_deferred_operation_khr)(device, operation, allocator.to_raw_ptr()) }
     }
     pub unsafe fn get_deferred_operation_max_concurrency_khr(
         &self,

@@ -14,7 +14,7 @@ impl DeviceFn {
         &self,
         device: Device,
         create_infos: &[ShaderCreateInfoEXT],
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         shaders: &mut [ShaderEXT],
     ) -> Result {
         unsafe {
@@ -22,7 +22,7 @@ impl DeviceFn {
                 device,
                 create_infos.len().try_into().unwrap(),
                 create_infos.as_ptr() as _,
-                allocator,
+                allocator.to_raw_ptr(),
                 shaders.as_mut_ptr() as _,
             )
         }
@@ -31,9 +31,9 @@ impl DeviceFn {
         &self,
         device: Device,
         shader: ShaderEXT,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
     ) {
-        unsafe { (self.destroy_shader_ext)(device, shader, allocator) }
+        unsafe { (self.destroy_shader_ext)(device, shader, allocator.to_raw_ptr()) }
     }
     pub unsafe fn get_shader_binary_data_ext(
         &self,
@@ -51,14 +51,14 @@ impl DeviceFn {
         &self,
         command_buffer: CommandBuffer,
         stages: &[ShaderStageFlags],
-        shaders: &[ShaderEXT],
+        shaders: Option<&[ShaderEXT]>,
     ) {
         unsafe {
             (self.cmd_bind_shaders_ext)(
                 command_buffer,
                 stages.len().try_into().unwrap(),
                 stages.as_ptr() as _,
-                shaders.as_ptr() as _,
+                shaders.to_raw_ptr(),
             )
         }
     }
@@ -66,13 +66,13 @@ impl DeviceFn {
         &self,
         command_buffer: CommandBuffer,
         depth_clamp_mode: DepthClampModeEXT,
-        depth_clamp_range: &DepthClampRangeEXT,
+        depth_clamp_range: Option<&DepthClampRangeEXT>,
     ) {
         unsafe {
             (self.cmd_set_depth_clamp_range_ext)(
                 command_buffer,
                 depth_clamp_mode,
-                depth_clamp_range,
+                depth_clamp_range.to_raw_ptr(),
             )
         }
     }

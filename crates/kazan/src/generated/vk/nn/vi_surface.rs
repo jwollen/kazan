@@ -10,9 +10,11 @@ impl InstanceFn {
         &self,
         instance: Instance,
         create_info: &ViSurfaceCreateInfoNN,
-        allocator: &AllocationCallbacks,
+        allocator: Option<&AllocationCallbacks>,
         surface: &mut SurfaceKHR,
     ) -> Result {
-        unsafe { (self.create_vi_surface_nn)(instance, create_info, allocator, surface) }
+        unsafe {
+            (self.create_vi_surface_nn)(instance, create_info, allocator.to_raw_ptr(), surface)
+        }
     }
 }

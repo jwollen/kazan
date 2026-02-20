@@ -10,8 +10,10 @@ impl DeviceFn {
         &self,
         device: Device,
         fault_counts: &mut DeviceFaultCountsEXT,
-        fault_info: &mut DeviceFaultInfoEXT,
+        fault_info: Option<&mut DeviceFaultInfoEXT>,
     ) -> Result {
-        unsafe { (self.get_device_fault_info_ext)(device, fault_counts, fault_info) }
+        unsafe {
+            (self.get_device_fault_info_ext)(device, fault_counts, fault_info.to_raw_mut_ptr())
+        }
     }
 }
