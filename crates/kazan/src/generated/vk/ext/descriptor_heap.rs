@@ -21,9 +21,9 @@ pub struct DeviceFn {
     cmd_bind_resource_heap_ext: PFN_vkCmdBindResourceHeapEXT,
     cmd_push_data_ext: PFN_vkCmdPushDataEXT,
     get_image_opaque_capture_data_ext: PFN_vkGetImageOpaqueCaptureDataEXT,
-    register_custom_border_color_ext: PFN_vkRegisterCustomBorderColorEXT,
-    unregister_custom_border_color_ext: PFN_vkUnregisterCustomBorderColorEXT,
-    get_tensor_opaque_capture_data_arm: PFN_vkGetTensorOpaqueCaptureDataARM,
+    register_custom_border_color_ext: Option<PFN_vkRegisterCustomBorderColorEXT>,
+    unregister_custom_border_color_ext: Option<PFN_vkUnregisterCustomBorderColorEXT>,
+    get_tensor_opaque_capture_data_arm: Option<PFN_vkGetTensorOpaqueCaptureDataARM>,
 }
 impl DeviceFn {
     pub unsafe fn write_sampler_descriptors_ext(
@@ -100,11 +100,16 @@ impl DeviceFn {
         index: &mut u32,
     ) -> Result {
         unsafe {
-            (self.register_custom_border_color_ext)(device, border_color, request_index, index)
+            (self.register_custom_border_color_ext.unwrap())(
+                device,
+                border_color,
+                request_index,
+                index,
+            )
         }
     }
     pub unsafe fn unregister_custom_border_color_ext(&self, device: Device, index: u32) {
-        unsafe { (self.unregister_custom_border_color_ext)(device, index) }
+        unsafe { (self.unregister_custom_border_color_ext.unwrap())(device, index) }
     }
     pub unsafe fn get_tensor_opaque_capture_data_arm(
         &self,
@@ -113,7 +118,7 @@ impl DeviceFn {
         datas: &mut [HostAddressRangeEXT],
     ) -> Result {
         unsafe {
-            (self.get_tensor_opaque_capture_data_arm)(
+            (self.get_tensor_opaque_capture_data_arm.unwrap())(
                 device,
                 tensors.len().try_into().unwrap(),
                 tensors.as_ptr() as _,

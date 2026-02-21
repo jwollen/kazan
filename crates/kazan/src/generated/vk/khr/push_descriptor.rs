@@ -4,7 +4,7 @@ use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     cmd_push_descriptor_set: PFN_vkCmdPushDescriptorSet,
-    cmd_push_descriptor_set_with_template: PFN_vkCmdPushDescriptorSetWithTemplate,
+    cmd_push_descriptor_set_with_template: Option<PFN_vkCmdPushDescriptorSetWithTemplate>,
 }
 impl DeviceFn {
     pub unsafe fn cmd_push_descriptor_set_khr(
@@ -35,7 +35,7 @@ impl DeviceFn {
         data: &c_void,
     ) {
         unsafe {
-            (self.cmd_push_descriptor_set_with_template)(
+            (self.cmd_push_descriptor_set_with_template.unwrap())(
                 command_buffer,
                 descriptor_update_template,
                 layout,

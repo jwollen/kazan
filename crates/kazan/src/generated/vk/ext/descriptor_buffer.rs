@@ -16,7 +16,7 @@ pub struct DeviceFn {
         PFN_vkGetImageViewOpaqueCaptureDescriptorDataEXT,
     get_sampler_opaque_capture_descriptor_data_ext: PFN_vkGetSamplerOpaqueCaptureDescriptorDataEXT,
     get_acceleration_structure_opaque_capture_descriptor_data_ext:
-        PFN_vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT,
+        Option<PFN_vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT>,
 }
 impl DeviceFn {
     pub unsafe fn get_descriptor_set_layout_size_ext(
@@ -142,7 +142,9 @@ impl DeviceFn {
         data: &mut c_void,
     ) -> Result {
         unsafe {
-            (self.get_acceleration_structure_opaque_capture_descriptor_data_ext)(device, info, data)
+            (self
+                .get_acceleration_structure_opaque_capture_descriptor_data_ext
+                .unwrap())(device, info, data)
         }
     }
 }

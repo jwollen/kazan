@@ -36,28 +36,31 @@ pub struct DeviceFn {
     cmd_set_color_blend_enable_ext: PFN_vkCmdSetColorBlendEnableEXT,
     cmd_set_color_blend_equation_ext: PFN_vkCmdSetColorBlendEquationEXT,
     cmd_set_color_write_mask_ext: PFN_vkCmdSetColorWriteMaskEXT,
-    cmd_set_rasterization_stream_ext: PFN_vkCmdSetRasterizationStreamEXT,
-    cmd_set_conservative_rasterization_mode_ext: PFN_vkCmdSetConservativeRasterizationModeEXT,
+    cmd_set_rasterization_stream_ext: Option<PFN_vkCmdSetRasterizationStreamEXT>,
+    cmd_set_conservative_rasterization_mode_ext:
+        Option<PFN_vkCmdSetConservativeRasterizationModeEXT>,
     cmd_set_extra_primitive_overestimation_size_ext:
-        PFN_vkCmdSetExtraPrimitiveOverestimationSizeEXT,
-    cmd_set_depth_clip_enable_ext: PFN_vkCmdSetDepthClipEnableEXT,
-    cmd_set_sample_locations_enable_ext: PFN_vkCmdSetSampleLocationsEnableEXT,
-    cmd_set_color_blend_advanced_ext: PFN_vkCmdSetColorBlendAdvancedEXT,
-    cmd_set_provoking_vertex_mode_ext: PFN_vkCmdSetProvokingVertexModeEXT,
-    cmd_set_line_rasterization_mode_ext: PFN_vkCmdSetLineRasterizationModeEXT,
-    cmd_set_line_stipple_enable_ext: PFN_vkCmdSetLineStippleEnableEXT,
-    cmd_set_depth_clip_negative_one_to_one_ext: PFN_vkCmdSetDepthClipNegativeOneToOneEXT,
-    cmd_set_viewport_w_scaling_enable_nv: PFN_vkCmdSetViewportWScalingEnableNV,
-    cmd_set_viewport_swizzle_nv: PFN_vkCmdSetViewportSwizzleNV,
-    cmd_set_coverage_to_color_enable_nv: PFN_vkCmdSetCoverageToColorEnableNV,
-    cmd_set_coverage_to_color_location_nv: PFN_vkCmdSetCoverageToColorLocationNV,
-    cmd_set_coverage_modulation_mode_nv: PFN_vkCmdSetCoverageModulationModeNV,
-    cmd_set_coverage_modulation_table_enable_nv: PFN_vkCmdSetCoverageModulationTableEnableNV,
-    cmd_set_coverage_modulation_table_nv: PFN_vkCmdSetCoverageModulationTableNV,
-    cmd_set_shading_rate_image_enable_nv: PFN_vkCmdSetShadingRateImageEnableNV,
-    cmd_set_representative_fragment_test_enable_nv: PFN_vkCmdSetRepresentativeFragmentTestEnableNV,
-    cmd_set_coverage_reduction_mode_nv: PFN_vkCmdSetCoverageReductionModeNV,
-    cmd_set_depth_clamp_range_ext: PFN_vkCmdSetDepthClampRangeEXT,
+        Option<PFN_vkCmdSetExtraPrimitiveOverestimationSizeEXT>,
+    cmd_set_depth_clip_enable_ext: Option<PFN_vkCmdSetDepthClipEnableEXT>,
+    cmd_set_sample_locations_enable_ext: Option<PFN_vkCmdSetSampleLocationsEnableEXT>,
+    cmd_set_color_blend_advanced_ext: Option<PFN_vkCmdSetColorBlendAdvancedEXT>,
+    cmd_set_provoking_vertex_mode_ext: Option<PFN_vkCmdSetProvokingVertexModeEXT>,
+    cmd_set_line_rasterization_mode_ext: Option<PFN_vkCmdSetLineRasterizationModeEXT>,
+    cmd_set_line_stipple_enable_ext: Option<PFN_vkCmdSetLineStippleEnableEXT>,
+    cmd_set_depth_clip_negative_one_to_one_ext: Option<PFN_vkCmdSetDepthClipNegativeOneToOneEXT>,
+    cmd_set_viewport_w_scaling_enable_nv: Option<PFN_vkCmdSetViewportWScalingEnableNV>,
+    cmd_set_viewport_swizzle_nv: Option<PFN_vkCmdSetViewportSwizzleNV>,
+    cmd_set_coverage_to_color_enable_nv: Option<PFN_vkCmdSetCoverageToColorEnableNV>,
+    cmd_set_coverage_to_color_location_nv: Option<PFN_vkCmdSetCoverageToColorLocationNV>,
+    cmd_set_coverage_modulation_mode_nv: Option<PFN_vkCmdSetCoverageModulationModeNV>,
+    cmd_set_coverage_modulation_table_enable_nv:
+        Option<PFN_vkCmdSetCoverageModulationTableEnableNV>,
+    cmd_set_coverage_modulation_table_nv: Option<PFN_vkCmdSetCoverageModulationTableNV>,
+    cmd_set_shading_rate_image_enable_nv: Option<PFN_vkCmdSetShadingRateImageEnableNV>,
+    cmd_set_representative_fragment_test_enable_nv:
+        Option<PFN_vkCmdSetRepresentativeFragmentTestEnableNV>,
+    cmd_set_coverage_reduction_mode_nv: Option<PFN_vkCmdSetCoverageReductionModeNV>,
+    cmd_set_depth_clamp_range_ext: Option<PFN_vkCmdSetDepthClampRangeEXT>,
 }
 impl DeviceFn {
     pub unsafe fn create_shaders_ext(
@@ -393,7 +396,9 @@ impl DeviceFn {
         command_buffer: CommandBuffer,
         rasterization_stream: u32,
     ) {
-        unsafe { (self.cmd_set_rasterization_stream_ext)(command_buffer, rasterization_stream) }
+        unsafe {
+            (self.cmd_set_rasterization_stream_ext.unwrap())(command_buffer, rasterization_stream)
+        }
     }
     pub unsafe fn cmd_set_conservative_rasterization_mode_ext(
         &self,
@@ -401,7 +406,7 @@ impl DeviceFn {
         conservative_rasterization_mode: ConservativeRasterizationModeEXT,
     ) {
         unsafe {
-            (self.cmd_set_conservative_rasterization_mode_ext)(
+            (self.cmd_set_conservative_rasterization_mode_ext.unwrap())(
                 command_buffer,
                 conservative_rasterization_mode,
             )
@@ -413,10 +418,9 @@ impl DeviceFn {
         extra_primitive_overestimation_size: f32,
     ) {
         unsafe {
-            (self.cmd_set_extra_primitive_overestimation_size_ext)(
-                command_buffer,
-                extra_primitive_overestimation_size,
-            )
+            (self
+                .cmd_set_extra_primitive_overestimation_size_ext
+                .unwrap())(command_buffer, extra_primitive_overestimation_size)
         }
     }
     pub unsafe fn cmd_set_depth_clip_enable_ext(
@@ -424,7 +428,7 @@ impl DeviceFn {
         command_buffer: CommandBuffer,
         depth_clip_enable: Bool32,
     ) {
-        unsafe { (self.cmd_set_depth_clip_enable_ext)(command_buffer, depth_clip_enable) }
+        unsafe { (self.cmd_set_depth_clip_enable_ext.unwrap())(command_buffer, depth_clip_enable) }
     }
     pub unsafe fn cmd_set_sample_locations_enable_ext(
         &self,
@@ -432,7 +436,10 @@ impl DeviceFn {
         sample_locations_enable: Bool32,
     ) {
         unsafe {
-            (self.cmd_set_sample_locations_enable_ext)(command_buffer, sample_locations_enable)
+            (self.cmd_set_sample_locations_enable_ext.unwrap())(
+                command_buffer,
+                sample_locations_enable,
+            )
         }
     }
     pub unsafe fn cmd_set_color_blend_advanced_ext(
@@ -442,7 +449,7 @@ impl DeviceFn {
         color_blend_advanced: &[ColorBlendAdvancedEXT],
     ) {
         unsafe {
-            (self.cmd_set_color_blend_advanced_ext)(
+            (self.cmd_set_color_blend_advanced_ext.unwrap())(
                 command_buffer,
                 first_attachment,
                 color_blend_advanced.len().try_into().unwrap(),
@@ -455,7 +462,9 @@ impl DeviceFn {
         command_buffer: CommandBuffer,
         provoking_vertex_mode: ProvokingVertexModeEXT,
     ) {
-        unsafe { (self.cmd_set_provoking_vertex_mode_ext)(command_buffer, provoking_vertex_mode) }
+        unsafe {
+            (self.cmd_set_provoking_vertex_mode_ext.unwrap())(command_buffer, provoking_vertex_mode)
+        }
     }
     pub unsafe fn cmd_set_line_rasterization_mode_ext(
         &self,
@@ -463,7 +472,10 @@ impl DeviceFn {
         line_rasterization_mode: LineRasterizationModeEXT,
     ) {
         unsafe {
-            (self.cmd_set_line_rasterization_mode_ext)(command_buffer, line_rasterization_mode)
+            (self.cmd_set_line_rasterization_mode_ext.unwrap())(
+                command_buffer,
+                line_rasterization_mode,
+            )
         }
     }
     pub unsafe fn cmd_set_line_stipple_enable_ext(
@@ -471,7 +483,9 @@ impl DeviceFn {
         command_buffer: CommandBuffer,
         stippled_line_enable: Bool32,
     ) {
-        unsafe { (self.cmd_set_line_stipple_enable_ext)(command_buffer, stippled_line_enable) }
+        unsafe {
+            (self.cmd_set_line_stipple_enable_ext.unwrap())(command_buffer, stippled_line_enable)
+        }
     }
     pub unsafe fn cmd_set_depth_clip_negative_one_to_one_ext(
         &self,
@@ -479,7 +493,10 @@ impl DeviceFn {
         negative_one_to_one: Bool32,
     ) {
         unsafe {
-            (self.cmd_set_depth_clip_negative_one_to_one_ext)(command_buffer, negative_one_to_one)
+            (self.cmd_set_depth_clip_negative_one_to_one_ext.unwrap())(
+                command_buffer,
+                negative_one_to_one,
+            )
         }
     }
     pub unsafe fn cmd_set_viewport_w_scaling_enable_nv(
@@ -488,7 +505,10 @@ impl DeviceFn {
         viewport_w_scaling_enable: Bool32,
     ) {
         unsafe {
-            (self.cmd_set_viewport_w_scaling_enable_nv)(command_buffer, viewport_w_scaling_enable)
+            (self.cmd_set_viewport_w_scaling_enable_nv.unwrap())(
+                command_buffer,
+                viewport_w_scaling_enable,
+            )
         }
     }
     pub unsafe fn cmd_set_viewport_swizzle_nv(
@@ -498,7 +518,7 @@ impl DeviceFn {
         viewport_swizzles: &[ViewportSwizzleNV],
     ) {
         unsafe {
-            (self.cmd_set_viewport_swizzle_nv)(
+            (self.cmd_set_viewport_swizzle_nv.unwrap())(
                 command_buffer,
                 first_viewport,
                 viewport_swizzles.len().try_into().unwrap(),
@@ -512,7 +532,10 @@ impl DeviceFn {
         coverage_to_color_enable: Bool32,
     ) {
         unsafe {
-            (self.cmd_set_coverage_to_color_enable_nv)(command_buffer, coverage_to_color_enable)
+            (self.cmd_set_coverage_to_color_enable_nv.unwrap())(
+                command_buffer,
+                coverage_to_color_enable,
+            )
         }
     }
     pub unsafe fn cmd_set_coverage_to_color_location_nv(
@@ -521,7 +544,10 @@ impl DeviceFn {
         coverage_to_color_location: u32,
     ) {
         unsafe {
-            (self.cmd_set_coverage_to_color_location_nv)(command_buffer, coverage_to_color_location)
+            (self.cmd_set_coverage_to_color_location_nv.unwrap())(
+                command_buffer,
+                coverage_to_color_location,
+            )
         }
     }
     pub unsafe fn cmd_set_coverage_modulation_mode_nv(
@@ -530,7 +556,10 @@ impl DeviceFn {
         coverage_modulation_mode: CoverageModulationModeNV,
     ) {
         unsafe {
-            (self.cmd_set_coverage_modulation_mode_nv)(command_buffer, coverage_modulation_mode)
+            (self.cmd_set_coverage_modulation_mode_nv.unwrap())(
+                command_buffer,
+                coverage_modulation_mode,
+            )
         }
     }
     pub unsafe fn cmd_set_coverage_modulation_table_enable_nv(
@@ -539,7 +568,7 @@ impl DeviceFn {
         coverage_modulation_table_enable: Bool32,
     ) {
         unsafe {
-            (self.cmd_set_coverage_modulation_table_enable_nv)(
+            (self.cmd_set_coverage_modulation_table_enable_nv.unwrap())(
                 command_buffer,
                 coverage_modulation_table_enable,
             )
@@ -551,7 +580,7 @@ impl DeviceFn {
         coverage_modulation_table: &[f32],
     ) {
         unsafe {
-            (self.cmd_set_coverage_modulation_table_nv)(
+            (self.cmd_set_coverage_modulation_table_nv.unwrap())(
                 command_buffer,
                 coverage_modulation_table.len().try_into().unwrap(),
                 coverage_modulation_table.as_ptr() as _,
@@ -564,7 +593,10 @@ impl DeviceFn {
         shading_rate_image_enable: Bool32,
     ) {
         unsafe {
-            (self.cmd_set_shading_rate_image_enable_nv)(command_buffer, shading_rate_image_enable)
+            (self.cmd_set_shading_rate_image_enable_nv.unwrap())(
+                command_buffer,
+                shading_rate_image_enable,
+            )
         }
     }
     pub unsafe fn cmd_set_representative_fragment_test_enable_nv(
@@ -573,7 +605,7 @@ impl DeviceFn {
         representative_fragment_test_enable: Bool32,
     ) {
         unsafe {
-            (self.cmd_set_representative_fragment_test_enable_nv)(
+            (self.cmd_set_representative_fragment_test_enable_nv.unwrap())(
                 command_buffer,
                 representative_fragment_test_enable,
             )
@@ -585,7 +617,10 @@ impl DeviceFn {
         coverage_reduction_mode: CoverageReductionModeNV,
     ) {
         unsafe {
-            (self.cmd_set_coverage_reduction_mode_nv)(command_buffer, coverage_reduction_mode)
+            (self.cmd_set_coverage_reduction_mode_nv.unwrap())(
+                command_buffer,
+                coverage_reduction_mode,
+            )
         }
     }
     pub unsafe fn cmd_set_depth_clamp_range_ext(
@@ -595,7 +630,7 @@ impl DeviceFn {
         depth_clamp_range: Option<&DepthClampRangeEXT>,
     ) {
         unsafe {
-            (self.cmd_set_depth_clamp_range_ext)(
+            (self.cmd_set_depth_clamp_range_ext.unwrap())(
                 command_buffer,
                 depth_clamp_mode,
                 depth_clamp_range.to_raw_ptr(),

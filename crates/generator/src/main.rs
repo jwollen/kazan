@@ -513,6 +513,7 @@ fn generate(xmls: &[&xml::Registry]) {
                                     CommandInfo {
                                         alias: req_cmd.name,
                                         command,
+                                        optional: !require.depends.is_empty(),
                                     }
                                 })
                                 .filter(|cmd| {
@@ -545,13 +546,13 @@ fn generate(xmls: &[&xml::Registry]) {
                     for command_group in &command_groups {
                         for command in &command_group.commands {
                             let name = normalize_command_name(command.command.name);
-                            writeln!(
-                                file,
-                                "{}: PFN_{},",
-                                name,
-                                normalize_ty_name(command.command.name)
-                            )
-                            .unwrap();
+                            let ty = format!("PFN_{}", normalize_ty_name(command.command.name));
+                            let ty = if command.optional {
+                                format!("Option<{}>", ty)
+                            } else {
+                                ty
+                            };
+                            writeln!(file, "{}: {},", name, ty).unwrap();
                         }
                     }
                     writeln!(file, "}}").unwrap();
@@ -768,6 +769,7 @@ struct CommandGroup<'a> {
 struct CommandInfo<'a> {
     command: &'a xml::Command,
     alias: &'a str,
+    optional: bool,
 }
 
 struct WrapperCommandInfo<'a> {
@@ -1134,21 +1136,27 @@ fn write_command_wrapper(
             extend_fn_name, array_params, len_param.name, array_params
         )
         .unwrap();
-        write_fn_call(file, &wrapper_info);
+        write_fn_call(file, &wrapper_info, info.optional);
         writeln!(file, "}})").unwrap();
     } else {
-        write_fn_call(file, &wrapper_info);
+        write_fn_call(file, &wrapper_info, info.optional);
     }
 
     writeln!(file, "}}").unwrap();
     writeln!(file, "}}").unwrap();
 }
 
-fn write_fn_call(file: &mut impl std::io::Write, command_info: &WrapperCommandInfo) {
-    let name = normalize_command_name(command_info.command.name);
-    writeln!(file, "(self.{})(", name).unwrap();
-    for (param_index, param) in command_info.params.iter().enumerate() {
-        let array_param = command_info.params.iter().find(
+fn write_fn_call(file: &mut impl std::io::Write, info: &WrapperCommandInfo, optional: bool) {
+    let name = normalize_command_name(info.command.name);
+
+    if optional {
+        writeln!(file, "(self.{}.unwrap())(", name).unwrap();
+    } else {
+        writeln!(file, "(self.{})(", name).unwrap();
+    }
+
+    for (param_index, param) in info.params.iter().enumerate() {
+        let array_param = info.params.iter().find(
             |p| matches!(p.len, Some(LengthKind::Param { index, .. }) if index == param_index),
         );
 
@@ -1161,7 +1169,7 @@ fn write_fn_call(file: &mut impl std::io::Write, command_info: &WrapperCommandIn
                 writeln!(file, "{}.len().try_into().unwrap(),", array_param.name).unwrap();
             }
         } else {
-            if let Some(enumeration_info) = &command_info.enumeration_info
+            if let Some(enumeration_info) = &info.enumeration_info
                 && enumeration_info.array_params.contains(&param_index)
             {
                 writeln!(file, "{} as _,", param.name).unwrap();
@@ -1192,7 +1200,7 @@ fn write_fn_call(file: &mut impl std::io::Write, command_info: &WrapperCommandIn
                     if *is_const {
                         writeln!(file, "{}.to_raw_ptr(),", param.name).unwrap();
                     } else {
-                        if command_info.enumeration_info.is_some() {
+                        if info.enumeration_info.is_some() {
                             writeln!(
                                 file,
                                 "todo!(\"output parameters in enumeration commands\"),"

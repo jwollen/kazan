@@ -6,7 +6,7 @@ pub struct DeviceFn {
     create_descriptor_update_template: PFN_vkCreateDescriptorUpdateTemplate,
     destroy_descriptor_update_template: PFN_vkDestroyDescriptorUpdateTemplate,
     update_descriptor_set_with_template: PFN_vkUpdateDescriptorSetWithTemplate,
-    cmd_push_descriptor_set_with_template: PFN_vkCmdPushDescriptorSetWithTemplate,
+    cmd_push_descriptor_set_with_template: Option<PFN_vkCmdPushDescriptorSetWithTemplate>,
 }
 impl DeviceFn {
     pub unsafe fn create_descriptor_update_template_khr(
@@ -64,7 +64,7 @@ impl DeviceFn {
         data: &c_void,
     ) {
         unsafe {
-            (self.cmd_push_descriptor_set_with_template)(
+            (self.cmd_push_descriptor_set_with_template.unwrap())(
                 command_buffer,
                 descriptor_update_template,
                 layout,

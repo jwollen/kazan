@@ -5,7 +5,7 @@ use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     cmd_draw_mesh_tasks_ext: PFN_vkCmdDrawMeshTasksEXT,
     cmd_draw_mesh_tasks_indirect_ext: PFN_vkCmdDrawMeshTasksIndirectEXT,
-    cmd_draw_mesh_tasks_indirect_count_ext: PFN_vkCmdDrawMeshTasksIndirectCountEXT,
+    cmd_draw_mesh_tasks_indirect_count_ext: Option<PFN_vkCmdDrawMeshTasksIndirectCountEXT>,
 }
 impl DeviceFn {
     pub unsafe fn cmd_draw_mesh_tasks_ext(
@@ -53,7 +53,7 @@ impl DeviceFn {
         stride: u32,
     ) {
         unsafe {
-            (self.cmd_draw_mesh_tasks_indirect_count_ext)(
+            (self.cmd_draw_mesh_tasks_indirect_count_ext.unwrap())(
                 command_buffer,
                 buffer,
                 offset,

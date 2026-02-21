@@ -31,9 +31,10 @@ pub struct DeviceFn {
     bind_tensor_memory_arm: PFN_vkBindTensorMemoryARM,
     get_device_tensor_memory_requirements_arm: PFN_vkGetDeviceTensorMemoryRequirementsARM,
     cmd_copy_tensor_arm: PFN_vkCmdCopyTensorARM,
-    get_tensor_opaque_capture_descriptor_data_arm: PFN_vkGetTensorOpaqueCaptureDescriptorDataARM,
+    get_tensor_opaque_capture_descriptor_data_arm:
+        Option<PFN_vkGetTensorOpaqueCaptureDescriptorDataARM>,
     get_tensor_view_opaque_capture_descriptor_data_arm:
-        PFN_vkGetTensorViewOpaqueCaptureDescriptorDataARM,
+        Option<PFN_vkGetTensorViewOpaqueCaptureDescriptorDataARM>,
 }
 impl DeviceFn {
     pub unsafe fn create_tensor_arm(
@@ -114,7 +115,7 @@ impl DeviceFn {
         info: &TensorCaptureDescriptorDataInfoARM,
         data: &mut c_void,
     ) -> Result {
-        unsafe { (self.get_tensor_opaque_capture_descriptor_data_arm)(device, info, data) }
+        unsafe { (self.get_tensor_opaque_capture_descriptor_data_arm.unwrap())(device, info, data) }
     }
     pub unsafe fn get_tensor_view_opaque_capture_descriptor_data_arm(
         &self,
@@ -122,6 +123,10 @@ impl DeviceFn {
         info: &TensorViewCaptureDescriptorDataInfoARM,
         data: &mut c_void,
     ) -> Result {
-        unsafe { (self.get_tensor_view_opaque_capture_descriptor_data_arm)(device, info, data) }
+        unsafe {
+            (self
+                .get_tensor_view_opaque_capture_descriptor_data_arm
+                .unwrap())(device, info, data)
+        }
     }
 }

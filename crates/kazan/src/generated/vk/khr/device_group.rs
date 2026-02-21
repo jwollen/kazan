@@ -3,7 +3,7 @@ use crate::*;
 use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
 pub struct InstanceFn {
-    get_physical_device_present_rectangles_khr: PFN_vkGetPhysicalDevicePresentRectanglesKHR,
+    get_physical_device_present_rectangles_khr: Option<PFN_vkGetPhysicalDevicePresentRectanglesKHR>,
 }
 impl InstanceFn {
     pub unsafe fn get_physical_device_present_rectangles_khr(
@@ -14,7 +14,7 @@ impl InstanceFn {
     ) -> Result {
         unsafe {
             try_extend_uninit(rects, |rect_count, rects| {
-                (self.get_physical_device_present_rectangles_khr)(
+                (self.get_physical_device_present_rectangles_khr.unwrap())(
                     physical_device,
                     surface,
                     rect_count,
@@ -28,9 +28,9 @@ pub struct DeviceFn {
     get_device_group_peer_memory_features: PFN_vkGetDeviceGroupPeerMemoryFeatures,
     cmd_set_device_mask: PFN_vkCmdSetDeviceMask,
     cmd_dispatch_base: PFN_vkCmdDispatchBase,
-    get_device_group_present_capabilities_khr: PFN_vkGetDeviceGroupPresentCapabilitiesKHR,
-    get_device_group_surface_present_modes_khr: PFN_vkGetDeviceGroupSurfacePresentModesKHR,
-    acquire_next_image2_khr: PFN_vkAcquireNextImage2KHR,
+    get_device_group_present_capabilities_khr: Option<PFN_vkGetDeviceGroupPresentCapabilitiesKHR>,
+    get_device_group_surface_present_modes_khr: Option<PFN_vkGetDeviceGroupSurfacePresentModesKHR>,
+    acquire_next_image2_khr: Option<PFN_vkAcquireNextImage2KHR>,
 }
 impl DeviceFn {
     pub unsafe fn get_device_group_peer_memory_features_khr(
@@ -82,7 +82,7 @@ impl DeviceFn {
         device_group_present_capabilities: &mut DeviceGroupPresentCapabilitiesKHR,
     ) -> Result {
         unsafe {
-            (self.get_device_group_present_capabilities_khr)(
+            (self.get_device_group_present_capabilities_khr.unwrap())(
                 device,
                 device_group_present_capabilities,
             )
@@ -94,7 +94,9 @@ impl DeviceFn {
         surface: SurfaceKHR,
         modes: &mut DeviceGroupPresentModeFlagsKHR,
     ) -> Result {
-        unsafe { (self.get_device_group_surface_present_modes_khr)(device, surface, modes) }
+        unsafe {
+            (self.get_device_group_surface_present_modes_khr.unwrap())(device, surface, modes)
+        }
     }
     pub unsafe fn acquire_next_image2_khr(
         &self,
@@ -102,6 +104,6 @@ impl DeviceFn {
         acquire_info: &AcquireNextImageInfoKHR,
         image_index: &mut u32,
     ) -> Result {
-        unsafe { (self.acquire_next_image2_khr)(device, acquire_info, image_index) }
+        unsafe { (self.acquire_next_image2_khr.unwrap())(device, acquire_info, image_index) }
     }
 }

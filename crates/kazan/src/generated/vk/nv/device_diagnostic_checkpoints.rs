@@ -5,7 +5,7 @@ use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     cmd_set_checkpoint_nv: PFN_vkCmdSetCheckpointNV,
     get_queue_checkpoint_data_nv: PFN_vkGetQueueCheckpointDataNV,
-    get_queue_checkpoint_data2_nv: PFN_vkGetQueueCheckpointData2NV,
+    get_queue_checkpoint_data2_nv: Option<PFN_vkGetQueueCheckpointData2NV>,
 }
 impl DeviceFn {
     pub unsafe fn cmd_set_checkpoint_nv(
@@ -37,7 +37,7 @@ impl DeviceFn {
     ) {
         unsafe {
             extend_uninit(checkpoint_data, |checkpoint_data_count, checkpoint_data| {
-                (self.get_queue_checkpoint_data2_nv)(
+                (self.get_queue_checkpoint_data2_nv.unwrap())(
                     queue,
                     checkpoint_data_count,
                     checkpoint_data as _,

@@ -3,7 +3,7 @@ use crate::*;
 use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
-    cmd_begin_custom_resolve_ext: PFN_vkCmdBeginCustomResolveEXT,
+    cmd_begin_custom_resolve_ext: Option<PFN_vkCmdBeginCustomResolveEXT>,
 }
 impl DeviceFn {
     pub unsafe fn cmd_begin_custom_resolve_ext(
@@ -12,7 +12,7 @@ impl DeviceFn {
         begin_custom_resolve_info: Option<&BeginCustomResolveInfoEXT>,
     ) {
         unsafe {
-            (self.cmd_begin_custom_resolve_ext)(
+            (self.cmd_begin_custom_resolve_ext.unwrap())(
                 command_buffer,
                 begin_custom_resolve_info.to_raw_ptr(),
             )
