@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
+use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
-use std::ffi::{c_char, c_int, c_void, CStr};
 pub struct DeviceFn {
     cmd_dispatch_base: PFN_vkCmdDispatchBase,
     create_descriptor_update_template: PFN_vkCreateDescriptorUpdateTemplate,

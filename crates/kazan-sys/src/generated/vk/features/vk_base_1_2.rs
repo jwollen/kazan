@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use std::ffi::{c_char, c_int, c_void};
+use core::ffi::{c_char, c_int, c_void};
 pub const MAX_DRIVER_NAME_SIZE: u32 = 256;
 pub const MAX_DRIVER_INFO_SIZE: u32 = 256;
 #[repr(C)]

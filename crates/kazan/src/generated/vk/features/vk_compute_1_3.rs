@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
+use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
-use std::ffi::{c_char, c_int, c_void, CStr};
 pub struct DeviceFn {
     cmd_set_event2: PFN_vkCmdSetEvent2,
     cmd_reset_event2: PFN_vkCmdResetEvent2,

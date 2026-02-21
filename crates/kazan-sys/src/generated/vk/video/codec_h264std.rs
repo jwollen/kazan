@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use std::ffi::{c_char, c_int, c_void};
+use core::ffi::{c_char, c_int, c_void};
 pub const STD_VIDEO_H264_CPB_CNT_LIST_SIZE: u32 = 32;
 pub const STD_VIDEO_H264_SCALING_LIST_4X4_NUM_LISTS: u32 = 6;
 pub const STD_VIDEO_H264_SCALING_LIST_4X4_NUM_ELEMENTS: u32 = 16;

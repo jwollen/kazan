@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
+use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
-use std::ffi::{c_char, c_int, c_void, CStr};
 pub struct DeviceFn {
     cmd_set_patch_control_points_ext: PFN_vkCmdSetPatchControlPointsEXT,
     cmd_set_logic_op_ext: PFN_vkCmdSetLogicOpEXT,

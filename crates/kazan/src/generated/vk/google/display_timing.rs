@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
+use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
-use std::ffi::{c_char, c_int, c_void, CStr};
 pub struct DeviceFn {
     get_refresh_cycle_duration_google: PFN_vkGetRefreshCycleDurationGOOGLE,
     get_past_presentation_timing_google: PFN_vkGetPastPresentationTimingGOOGLE,

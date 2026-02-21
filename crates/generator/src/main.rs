@@ -133,7 +133,7 @@ fn generate(xmls: &[&xml::Registry]) {
                         "{}_{}_{}",
                         feature.version.api, feature.version.major, feature.version.minor
                     );
-                    ("core".to_string(), name.to_ascii_lowercase())
+                    ("features".to_string(), name.to_ascii_lowercase())
                 }
                 FeatureOrExtension::Extension(extension) => {
                     let (vendor, name) = if extension.name.starts_with("VK_") {
@@ -172,7 +172,7 @@ fn generate(xmls: &[&xml::Registry]) {
                 .unwrap();
 
                 writeln!(sys_file, "#![allow(non_camel_case_types, unused_imports)]").unwrap();
-                writeln!(sys_file, "use std::ffi::{{c_char, c_int, c_void}};").unwrap();
+                writeln!(sys_file, "use core::ffi::{{c_char, c_int, c_void}};").unwrap();
                 writeln!(sys_file, "use bitflags::bitflags;").unwrap();
                 writeln!(sys_file, "use crate::{{*, vk::*}};").unwrap();
 
@@ -482,7 +482,7 @@ fn generate(xmls: &[&xml::Registry]) {
                         .unwrap();
 
                 writeln!(file, "#![allow(unused_imports)]").unwrap();
-                writeln!(file, "use std::ffi::{{c_char, c_int, c_void, CStr}};").unwrap();
+                writeln!(file, "use core::ffi::{{c_char, c_int, c_void, CStr}};").unwrap();
                 writeln!(file, "use kazan_sys::{{*, vk::*}};").unwrap();
                 writeln!(file, "use crate::*;").unwrap();
 

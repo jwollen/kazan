@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
+use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
-use std::ffi::{c_char, c_int, c_void, CStr};
 pub struct InstanceFn {
     create_wayland_surface_khr: PFN_vkCreateWaylandSurfaceKHR,
     get_physical_device_wayland_presentation_support_khr:

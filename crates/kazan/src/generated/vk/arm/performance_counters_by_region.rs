@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
+use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
-use std::ffi::{c_char, c_int, c_void, CStr};
 pub struct InstanceFn {
     enumerate_physical_device_queue_family_performance_counters_by_region_arm:
         PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM,

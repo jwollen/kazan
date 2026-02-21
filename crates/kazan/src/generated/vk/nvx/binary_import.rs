@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
+use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
-use std::ffi::{c_char, c_int, c_void, CStr};
 pub struct DeviceFn {
     create_cu_module_nvx: PFN_vkCreateCuModuleNVX,
     create_cu_function_nvx: PFN_vkCreateCuFunctionNVX,

@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
+use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
-use std::ffi::{c_char, c_int, c_void, CStr};
 pub struct DeviceFn {
     get_rendering_area_granularity: PFN_vkGetRenderingAreaGranularity,
     cmd_set_line_stipple: PFN_vkCmdSetLineStipple,

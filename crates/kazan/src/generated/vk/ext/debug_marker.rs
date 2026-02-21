@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
+use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
-use std::ffi::{c_char, c_int, c_void, CStr};
 pub struct DeviceFn {
     debug_marker_set_object_name_ext: PFN_vkDebugMarkerSetObjectNameEXT,
     debug_marker_set_object_tag_ext: PFN_vkDebugMarkerSetObjectTagEXT,

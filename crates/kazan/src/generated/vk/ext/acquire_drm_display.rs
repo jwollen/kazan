@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
+use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
-use std::ffi::{c_char, c_int, c_void, CStr};
 pub struct InstanceFn {
     acquire_drm_display_ext: PFN_vkAcquireDrmDisplayEXT,
     get_drm_display_ext: PFN_vkGetDrmDisplayEXT,

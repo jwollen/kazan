@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
+use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
-use std::ffi::{c_char, c_int, c_void, CStr};
 pub struct DeviceFn {
     create_shaders_ext: PFN_vkCreateShadersEXT,
     destroy_shader_ext: PFN_vkDestroyShaderEXT,

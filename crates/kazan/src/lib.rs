@@ -2,7 +2,7 @@ mod generated;
 pub use generated::*;
 
 use kazan_sys::vk::Result;
-use std::{ffi::{CStr, c_char}, mem::MaybeUninit, ptr};
+use core::{ffi::{CStr, c_char}, mem::MaybeUninit, ptr};
 
 pub trait ExtendUninit<T> {
     unsafe fn reserve(&mut self, capacity: usize) -> &mut [MaybeUninit<T>];

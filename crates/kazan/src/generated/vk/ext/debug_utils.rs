@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
+use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
-use std::ffi::{c_char, c_int, c_void, CStr};
 pub struct InstanceFn {
     create_debug_utils_messenger_ext: PFN_vkCreateDebugUtilsMessengerEXT,
     destroy_debug_utils_messenger_ext: PFN_vkDestroyDebugUtilsMessengerEXT,

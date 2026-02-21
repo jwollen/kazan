@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use std::ffi::{c_char, c_int, c_void};
+use core::ffi::{c_char, c_int, c_void};
 pub type MTLDevice_id = *const c_void;
 pub type MTLCommandQueue_id = *const c_void;
 pub type MTLBuffer_id = *const c_void;

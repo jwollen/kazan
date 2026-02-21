@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use std::ffi::{c_char, c_int, c_void};
+use core::ffi::{c_char, c_int, c_void};
 pub type PFN_vkCmdSetCullModeEXT = PFN_vkCmdSetCullMode;
 pub type PFN_vkCmdSetFrontFaceEXT = PFN_vkCmdSetFrontFace;
 pub type PFN_vkCmdSetPrimitiveTopologyEXT = PFN_vkCmdSetPrimitiveTopology;

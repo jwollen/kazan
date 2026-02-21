@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
+use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
-use std::ffi::{c_char, c_int, c_void, CStr};
 pub struct DeviceFn {
     create_pipeline_binaries_khr: PFN_vkCreatePipelineBinariesKHR,
     destroy_pipeline_binary_khr: PFN_vkDestroyPipelineBinaryKHR,

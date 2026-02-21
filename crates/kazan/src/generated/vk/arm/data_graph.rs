@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
+use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
-use std::ffi::{c_char, c_int, c_void, CStr};
 pub struct InstanceFn {
     get_physical_device_queue_family_data_graph_properties_arm:
         PFN_vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM,

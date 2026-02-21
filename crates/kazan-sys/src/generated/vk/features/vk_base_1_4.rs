@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use std::ffi::{c_char, c_int, c_void};
+use core::ffi::{c_char, c_int, c_void};
 pub const MAX_GLOBAL_PRIORITY_SIZE: u32 = 16;
 #[repr(C)]
 #[derive(Copy, Clone)]

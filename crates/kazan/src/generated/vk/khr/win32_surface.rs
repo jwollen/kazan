@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
+use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
-use std::ffi::{c_char, c_int, c_void, CStr};
 pub struct InstanceFn {
     create_win32_surface_khr: PFN_vkCreateWin32SurfaceKHR,
     get_physical_device_win32_presentation_support_khr:

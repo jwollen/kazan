@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
+use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
-use std::ffi::{c_char, c_int, c_void, CStr};
 pub struct DeviceFn {
     destroy_acceleration_structure_khr: PFN_vkDestroyAccelerationStructureKHR,
     cmd_copy_acceleration_structure_khr: PFN_vkCmdCopyAccelerationStructureKHR,

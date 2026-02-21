@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use std::ffi::{c_char, c_int, c_void};
+use core::ffi::{c_char, c_int, c_void};
 pub type AttachmentDescription2KHR = AttachmentDescription2;
 pub type AttachmentReference2KHR = AttachmentReference2;
 pub type SubpassDescription2KHR = SubpassDescription2;

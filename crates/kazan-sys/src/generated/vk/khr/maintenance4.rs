@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use std::ffi::{c_char, c_int, c_void};
+use core::ffi::{c_char, c_int, c_void};
 pub type DeviceBufferMemoryRequirementsKHR = DeviceBufferMemoryRequirements;
 pub type DeviceImageMemoryRequirementsKHR = DeviceImageMemoryRequirements;
 pub type PhysicalDeviceMaintenance4FeaturesKHR = PhysicalDeviceMaintenance4Features;

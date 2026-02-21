@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
+use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
-use std::ffi::{c_char, c_int, c_void, CStr};
 pub struct DeviceFn {
     cmd_write_buffer_marker_amd: PFN_vkCmdWriteBufferMarkerAMD,
     cmd_write_buffer_marker2_amd: PFN_vkCmdWriteBufferMarker2AMD,

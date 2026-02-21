@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
+use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
-use std::ffi::{c_char, c_int, c_void, CStr};
 pub struct DeviceFn {
     get_semaphore_fd_khr: PFN_vkGetSemaphoreFdKHR,
     import_semaphore_fd_khr: PFN_vkImportSemaphoreFdKHR,

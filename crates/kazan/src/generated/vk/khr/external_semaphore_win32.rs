@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
+use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
-use std::ffi::{c_char, c_int, c_void, CStr};
 pub struct DeviceFn {
     get_semaphore_win32_handle_khr: PFN_vkGetSemaphoreWin32HandleKHR,
     import_semaphore_win32_handle_khr: PFN_vkImportSemaphoreWin32HandleKHR,

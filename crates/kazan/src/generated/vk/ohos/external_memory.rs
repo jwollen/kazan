@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
+use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
-use std::ffi::{c_char, c_int, c_void, CStr};
 pub struct DeviceFn {
     get_native_buffer_properties_ohos: PFN_vkGetNativeBufferPropertiesOHOS,
     get_memory_native_buffer_ohos: PFN_vkGetMemoryNativeBufferOHOS,

@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
+use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
-use std::ffi::{c_char, c_int, c_void, CStr};
 pub struct DeviceFn {
     display_power_control_ext: PFN_vkDisplayPowerControlEXT,
     register_device_event_ext: PFN_vkRegisterDeviceEventEXT,
