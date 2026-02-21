@@ -7,7 +7,7 @@ use core::ffi::{c_char, c_int, c_void};
 pub struct ImportMemoryMetalHandleInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
-    pub handle_type: ExternalMemoryHandleTypeFlags,
+    pub handle_type: ExternalMemoryHandleTypeFlagBits,
     pub handle: *mut c_void,
 }
 #[repr(C)]
@@ -23,7 +23,7 @@ pub struct MemoryGetMetalHandleInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub memory: DeviceMemory,
-    pub handle_type: ExternalMemoryHandleTypeFlags,
+    pub handle_type: ExternalMemoryHandleTypeFlagBits,
 }
 pub type PFN_vkGetMemoryMetalHandleEXT = unsafe extern "system" fn(
     device: Device,
@@ -32,7 +32,7 @@ pub type PFN_vkGetMemoryMetalHandleEXT = unsafe extern "system" fn(
 ) -> Result;
 pub type PFN_vkGetMemoryMetalHandlePropertiesEXT = unsafe extern "system" fn(
     device: Device,
-    handle_type: ExternalMemoryHandleTypeFlags,
+    handle_type: ExternalMemoryHandleTypeFlagBits,
     p_handle: *const c_void,
     p_memory_metal_handle_properties: *mut MemoryMetalHandlePropertiesEXT,
 ) -> Result;

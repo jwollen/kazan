@@ -13,7 +13,7 @@ pub struct SampleLocationEXT {
 pub struct SampleLocationsInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
-    pub sample_locations_per_pixel: SampleCountFlags,
+    pub sample_locations_per_pixel: SampleCountFlagBits,
     pub sample_location_grid_size: Extent2D,
     pub sample_locations_count: u32,
     pub p_sample_locations: *const SampleLocationEXT,
@@ -72,6 +72,6 @@ pub type PFN_vkCmdSetSampleLocationsEXT = unsafe extern "system" fn(
 );
 pub type PFN_vkGetPhysicalDeviceMultisamplePropertiesEXT = unsafe extern "system" fn(
     physical_device: PhysicalDevice,
-    samples: SampleCountFlags,
+    samples: SampleCountFlagBits,
     p_multisample_properties: *mut MultisamplePropertiesEXT,
 );

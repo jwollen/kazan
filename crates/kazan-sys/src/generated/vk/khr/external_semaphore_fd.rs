@@ -9,7 +9,7 @@ pub struct ImportSemaphoreFdInfoKHR {
     pub p_next: *const c_void,
     pub semaphore: Semaphore,
     pub flags: SemaphoreImportFlags,
-    pub handle_type: ExternalSemaphoreHandleTypeFlags,
+    pub handle_type: ExternalSemaphoreHandleTypeFlagBits,
     pub fd: c_int,
 }
 #[repr(C)]
@@ -18,7 +18,7 @@ pub struct SemaphoreGetFdInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub semaphore: Semaphore,
-    pub handle_type: ExternalSemaphoreHandleTypeFlags,
+    pub handle_type: ExternalSemaphoreHandleTypeFlagBits,
 }
 pub type PFN_vkGetSemaphoreFdKHR = unsafe extern "system" fn(
     device: Device,

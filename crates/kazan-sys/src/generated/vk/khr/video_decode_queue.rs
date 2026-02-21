@@ -34,19 +34,34 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoDecodeUsageFlagsKHR: Flags {
-        const TRANSCODING_KHR = 1 << 0;
-        const OFFLINE_KHR = 1 << 1;
-        const STREAMING_KHR = 1 << 2;
+        const TRANSCODING_KHR = VideoDecodeUsageFlagBitsKHR::TRANSCODING_KHR.0;
+        const OFFLINE_KHR = VideoDecodeUsageFlagBitsKHR::OFFLINE_KHR.0;
+        const STREAMING_KHR = VideoDecodeUsageFlagBitsKHR::STREAMING_KHR.0;
         const DEFAULT = 0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct VideoDecodeUsageFlagBitsKHR(u32);
+impl VideoDecodeUsageFlagBitsKHR {
+    pub const TRANSCODING_KHR: Self = Self(1 << 0);
+    pub const OFFLINE_KHR: Self = Self(1 << 1);
+    pub const STREAMING_KHR: Self = Self(1 << 2);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoDecodeCapabilityFlagsKHR: Flags {
-        const DPB_AND_OUTPUT_COINCIDE_KHR = 1 << 0;
-        const DPB_AND_OUTPUT_DISTINCT_KHR = 1 << 1;
+        const DPB_AND_OUTPUT_COINCIDE_KHR = VideoDecodeCapabilityFlagBitsKHR::DPB_AND_OUTPUT_COINCIDE_KHR.0;
+        const DPB_AND_OUTPUT_DISTINCT_KHR = VideoDecodeCapabilityFlagBitsKHR::DPB_AND_OUTPUT_DISTINCT_KHR.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct VideoDecodeCapabilityFlagBitsKHR(u32);
+impl VideoDecodeCapabilityFlagBitsKHR {
+    pub const DPB_AND_OUTPUT_COINCIDE_KHR: Self = Self(1 << 0);
+    pub const DPB_AND_OUTPUT_DISTINCT_KHR: Self = Self(1 << 1);
 }
 bitflags! {
     #[repr(transparent)]

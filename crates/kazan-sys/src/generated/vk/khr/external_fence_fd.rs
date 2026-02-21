@@ -9,7 +9,7 @@ pub struct ImportFenceFdInfoKHR {
     pub p_next: *const c_void,
     pub fence: Fence,
     pub flags: FenceImportFlags,
-    pub handle_type: ExternalFenceHandleTypeFlags,
+    pub handle_type: ExternalFenceHandleTypeFlagBits,
     pub fd: c_int,
 }
 #[repr(C)]
@@ -18,7 +18,7 @@ pub struct FenceGetFdInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub fence: Fence,
-    pub handle_type: ExternalFenceHandleTypeFlags,
+    pub handle_type: ExternalFenceHandleTypeFlagBits,
 }
 pub type PFN_vkGetFenceFdKHR = unsafe extern "system" fn(
     device: Device,

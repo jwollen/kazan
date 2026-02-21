@@ -4,7 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 pub type PFN_vkCmdWriteBufferMarkerAMD = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    pipeline_stage: PipelineStageFlags,
+    pipeline_stage: PipelineStageFlagBits,
     dst_buffer: Buffer,
     dst_offset: DeviceSize,
     marker: u32,

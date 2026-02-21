@@ -33,7 +33,7 @@ impl ShaderInfoTypeAMD {
 pub type PFN_vkGetShaderInfoAMD = unsafe extern "system" fn(
     device: Device,
     pipeline: Pipeline,
-    shader_stage: ShaderStageFlags,
+    shader_stage: ShaderStageFlagBits,
     info_type: ShaderInfoTypeAMD,
     p_info_size: *mut usize,
     p_info: *mut c_void,

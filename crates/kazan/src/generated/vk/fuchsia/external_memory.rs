@@ -37,7 +37,7 @@ impl DeviceFn {
     pub unsafe fn get_memory_zircon_handle_properties_fuchsia(
         &self,
         device: Device,
-        handle_type: ExternalMemoryHandleTypeFlags,
+        handle_type: ExternalMemoryHandleTypeFlagBits,
         zircon_handle: zx_handle_t,
         memory_zircon_handle_properties: &mut MemoryZirconHandlePropertiesFUCHSIA,
     ) -> Result {

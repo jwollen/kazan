@@ -112,12 +112,22 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ImageConstraintsInfoFlagsFUCHSIA: Flags {
-        const CPU_READ_RARELY_FUCHSIA = 1 << 0;
-        const CPU_READ_OFTEN_FUCHSIA = 1 << 1;
-        const CPU_WRITE_RARELY_FUCHSIA = 1 << 2;
-        const CPU_WRITE_OFTEN_FUCHSIA = 1 << 3;
-        const PROTECTED_OPTIONAL_FUCHSIA = 1 << 4;
+        const CPU_READ_RARELY_FUCHSIA = ImageConstraintsInfoFlagBitsFUCHSIA::CPU_READ_RARELY_FUCHSIA.0;
+        const CPU_READ_OFTEN_FUCHSIA = ImageConstraintsInfoFlagBitsFUCHSIA::CPU_READ_OFTEN_FUCHSIA.0;
+        const CPU_WRITE_RARELY_FUCHSIA = ImageConstraintsInfoFlagBitsFUCHSIA::CPU_WRITE_RARELY_FUCHSIA.0;
+        const CPU_WRITE_OFTEN_FUCHSIA = ImageConstraintsInfoFlagBitsFUCHSIA::CPU_WRITE_OFTEN_FUCHSIA.0;
+        const PROTECTED_OPTIONAL_FUCHSIA = ImageConstraintsInfoFlagBitsFUCHSIA::PROTECTED_OPTIONAL_FUCHSIA.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ImageConstraintsInfoFlagBitsFUCHSIA(u32);
+impl ImageConstraintsInfoFlagBitsFUCHSIA {
+    pub const CPU_READ_RARELY_FUCHSIA: Self = Self(1 << 0);
+    pub const CPU_READ_OFTEN_FUCHSIA: Self = Self(1 << 1);
+    pub const CPU_WRITE_RARELY_FUCHSIA: Self = Self(1 << 2);
+    pub const CPU_WRITE_OFTEN_FUCHSIA: Self = Self(1 << 3);
+    pub const PROTECTED_OPTIONAL_FUCHSIA: Self = Self(1 << 4);
 }
 pub type PFN_vkCreateBufferCollectionFUCHSIA = unsafe extern "system" fn(
     device: Device,

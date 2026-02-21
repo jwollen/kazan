@@ -173,38 +173,73 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeAV1CapabilityFlagsKHR: Flags {
-        const PER_RATE_CONTROL_GROUP_MIN_MAX_Q_INDEX_KHR = 1 << 0;
-        const GENERATE_OBU_EXTENSION_HEADER_KHR = 1 << 1;
-        const PRIMARY_REFERENCE_CDF_ONLY_KHR = 1 << 2;
-        const FRAME_SIZE_OVERRIDE_KHR = 1 << 3;
-        const MOTION_VECTOR_SCALING_KHR = 1 << 4;
+        const PER_RATE_CONTROL_GROUP_MIN_MAX_Q_INDEX_KHR = VideoEncodeAV1CapabilityFlagBitsKHR::PER_RATE_CONTROL_GROUP_MIN_MAX_Q_INDEX_KHR.0;
+        const GENERATE_OBU_EXTENSION_HEADER_KHR = VideoEncodeAV1CapabilityFlagBitsKHR::GENERATE_OBU_EXTENSION_HEADER_KHR.0;
+        const PRIMARY_REFERENCE_CDF_ONLY_KHR = VideoEncodeAV1CapabilityFlagBitsKHR::PRIMARY_REFERENCE_CDF_ONLY_KHR.0;
+        const FRAME_SIZE_OVERRIDE_KHR = VideoEncodeAV1CapabilityFlagBitsKHR::FRAME_SIZE_OVERRIDE_KHR.0;
+        const MOTION_VECTOR_SCALING_KHR = VideoEncodeAV1CapabilityFlagBitsKHR::MOTION_VECTOR_SCALING_KHR.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct VideoEncodeAV1CapabilityFlagBitsKHR(u32);
+impl VideoEncodeAV1CapabilityFlagBitsKHR {
+    pub const PER_RATE_CONTROL_GROUP_MIN_MAX_Q_INDEX_KHR: Self = Self(1 << 0);
+    pub const GENERATE_OBU_EXTENSION_HEADER_KHR: Self = Self(1 << 1);
+    pub const PRIMARY_REFERENCE_CDF_ONLY_KHR: Self = Self(1 << 2);
+    pub const FRAME_SIZE_OVERRIDE_KHR: Self = Self(1 << 3);
+    pub const MOTION_VECTOR_SCALING_KHR: Self = Self(1 << 4);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeAV1StdFlagsKHR: Flags {
-        const UNIFORM_TILE_SPACING_FLAG_SET_KHR = 1 << 0;
-        const SKIP_MODE_PRESENT_UNSET_KHR = 1 << 1;
-        const PRIMARY_REF_FRAME_KHR = 1 << 2;
-        const DELTA_Q_KHR = 1 << 3;
+        const UNIFORM_TILE_SPACING_FLAG_SET_KHR = VideoEncodeAV1StdFlagBitsKHR::UNIFORM_TILE_SPACING_FLAG_SET_KHR.0;
+        const SKIP_MODE_PRESENT_UNSET_KHR = VideoEncodeAV1StdFlagBitsKHR::SKIP_MODE_PRESENT_UNSET_KHR.0;
+        const PRIMARY_REF_FRAME_KHR = VideoEncodeAV1StdFlagBitsKHR::PRIMARY_REF_FRAME_KHR.0;
+        const DELTA_Q_KHR = VideoEncodeAV1StdFlagBitsKHR::DELTA_Q_KHR.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct VideoEncodeAV1StdFlagBitsKHR(u32);
+impl VideoEncodeAV1StdFlagBitsKHR {
+    pub const UNIFORM_TILE_SPACING_FLAG_SET_KHR: Self = Self(1 << 0);
+    pub const SKIP_MODE_PRESENT_UNSET_KHR: Self = Self(1 << 1);
+    pub const PRIMARY_REF_FRAME_KHR: Self = Self(1 << 2);
+    pub const DELTA_Q_KHR: Self = Self(1 << 3);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeAV1RateControlFlagsKHR: Flags {
-        const REGULAR_GOP_KHR = 1 << 0;
-        const TEMPORAL_LAYER_PATTERN_DYADIC_KHR = 1 << 1;
-        const REFERENCE_PATTERN_FLAT_KHR = 1 << 2;
-        const REFERENCE_PATTERN_DYADIC_KHR = 1 << 3;
+        const REGULAR_GOP_KHR = VideoEncodeAV1RateControlFlagBitsKHR::REGULAR_GOP_KHR.0;
+        const TEMPORAL_LAYER_PATTERN_DYADIC_KHR = VideoEncodeAV1RateControlFlagBitsKHR::TEMPORAL_LAYER_PATTERN_DYADIC_KHR.0;
+        const REFERENCE_PATTERN_FLAT_KHR = VideoEncodeAV1RateControlFlagBitsKHR::REFERENCE_PATTERN_FLAT_KHR.0;
+        const REFERENCE_PATTERN_DYADIC_KHR = VideoEncodeAV1RateControlFlagBitsKHR::REFERENCE_PATTERN_DYADIC_KHR.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct VideoEncodeAV1RateControlFlagBitsKHR(u32);
+impl VideoEncodeAV1RateControlFlagBitsKHR {
+    pub const REGULAR_GOP_KHR: Self = Self(1 << 0);
+    pub const TEMPORAL_LAYER_PATTERN_DYADIC_KHR: Self = Self(1 << 1);
+    pub const REFERENCE_PATTERN_FLAT_KHR: Self = Self(1 << 2);
+    pub const REFERENCE_PATTERN_DYADIC_KHR: Self = Self(1 << 3);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeAV1SuperblockSizeFlagsKHR: Flags {
-        const _64_KHR = 1 << 0;
-        const _128_KHR = 1 << 1;
+        const _64_KHR = VideoEncodeAV1SuperblockSizeFlagBitsKHR::_64_KHR.0;
+        const _128_KHR = VideoEncodeAV1SuperblockSizeFlagBitsKHR::_128_KHR.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct VideoEncodeAV1SuperblockSizeFlagBitsKHR(u32);
+impl VideoEncodeAV1SuperblockSizeFlagBitsKHR {
+    pub const _64_KHR: Self = Self(1 << 0);
+    pub const _128_KHR: Self = Self(1 << 1);
 }

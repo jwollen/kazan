@@ -24,3 +24,7 @@ bitflags! {
         const NONE = 0;
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct AccessFlagBits3KHR(u64);
+impl AccessFlagBits3KHR {}

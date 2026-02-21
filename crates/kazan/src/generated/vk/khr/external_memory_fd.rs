@@ -33,7 +33,7 @@ impl DeviceFn {
     pub unsafe fn get_memory_fd_properties_khr(
         &self,
         device: Device,
-        handle_type: ExternalMemoryHandleTypeFlags,
+        handle_type: ExternalMemoryHandleTypeFlagBits,
         fd: c_int,
         memory_fd_properties: &mut MemoryFdPropertiesKHR,
     ) -> Result {

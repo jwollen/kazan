@@ -169,10 +169,18 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct PipelineCreationFeedbackFlags: Flags {
-        const VALID = 1 << 0;
-        const APPLICATION_PIPELINE_CACHE_HIT = 1 << 1;
-        const BASE_PIPELINE_ACCELERATION = 1 << 2;
+        const VALID = PipelineCreationFeedbackFlagBits::VALID.0;
+        const APPLICATION_PIPELINE_CACHE_HIT = PipelineCreationFeedbackFlagBits::APPLICATION_PIPELINE_CACHE_HIT.0;
+        const BASE_PIPELINE_ACCELERATION = PipelineCreationFeedbackFlagBits::BASE_PIPELINE_ACCELERATION.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PipelineCreationFeedbackFlagBits(u32);
+impl PipelineCreationFeedbackFlagBits {
+    pub const VALID: Self = Self(1 << 0);
+    pub const APPLICATION_PIPELINE_CACHE_HIT: Self = Self(1 << 1);
+    pub const BASE_PIPELINE_ACCELERATION: Self = Self(1 << 2);
 }
 pub type PFN_vkCmdSetEvent2 = unsafe extern "system" fn(
     command_buffer: CommandBuffer,

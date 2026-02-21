@@ -145,15 +145,28 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct SubgroupFeatureFlags: Flags {
-        const BASIC = 1 << 0;
-        const VOTE = 1 << 1;
-        const ARITHMETIC = 1 << 2;
-        const BALLOT = 1 << 3;
-        const SHUFFLE = 1 << 4;
-        const SHUFFLE_RELATIVE = 1 << 5;
-        const CLUSTERED = 1 << 6;
-        const QUAD = 1 << 7;
+        const BASIC = SubgroupFeatureFlagBits::BASIC.0;
+        const VOTE = SubgroupFeatureFlagBits::VOTE.0;
+        const ARITHMETIC = SubgroupFeatureFlagBits::ARITHMETIC.0;
+        const BALLOT = SubgroupFeatureFlagBits::BALLOT.0;
+        const SHUFFLE = SubgroupFeatureFlagBits::SHUFFLE.0;
+        const SHUFFLE_RELATIVE = SubgroupFeatureFlagBits::SHUFFLE_RELATIVE.0;
+        const CLUSTERED = SubgroupFeatureFlagBits::CLUSTERED.0;
+        const QUAD = SubgroupFeatureFlagBits::QUAD.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct SubgroupFeatureFlagBits(u32);
+impl SubgroupFeatureFlagBits {
+    pub const BASIC: Self = Self(1 << 0);
+    pub const VOTE: Self = Self(1 << 1);
+    pub const ARITHMETIC: Self = Self(1 << 2);
+    pub const BALLOT: Self = Self(1 << 3);
+    pub const SHUFFLE: Self = Self(1 << 4);
+    pub const SHUFFLE_RELATIVE: Self = Self(1 << 5);
+    pub const CLUSTERED: Self = Self(1 << 6);
+    pub const QUAD: Self = Self(1 << 7);
 }
 bitflags! {
     #[repr(transparent)]

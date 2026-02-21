@@ -16,3 +16,7 @@ bitflags! {
     pub struct ShaderCorePropertiesFlagsAMD: Flags {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ShaderCorePropertiesFlagBitsAMD(u32);
+impl ShaderCorePropertiesFlagBitsAMD {}

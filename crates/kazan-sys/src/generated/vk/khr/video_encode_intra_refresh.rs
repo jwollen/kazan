@@ -18,7 +18,7 @@ pub struct VideoEncodeIntraRefreshCapabilitiesKHR {
 pub struct VideoEncodeSessionIntraRefreshCreateInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
-    pub intra_refresh_mode: VideoEncodeIntraRefreshModeFlagsKHR,
+    pub intra_refresh_mode: VideoEncodeIntraRefreshModeFlagBitsKHR,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -46,10 +46,19 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeIntraRefreshModeFlagsKHR: Flags {
-        const PER_PICTURE_PARTITION_KHR = 1 << 0;
-        const BLOCK_BASED_KHR = 1 << 1;
-        const BLOCK_ROW_BASED_KHR = 1 << 2;
-        const BLOCK_COLUMN_BASED_KHR = 1 << 3;
+        const PER_PICTURE_PARTITION_KHR = VideoEncodeIntraRefreshModeFlagBitsKHR::PER_PICTURE_PARTITION_KHR.0;
+        const BLOCK_BASED_KHR = VideoEncodeIntraRefreshModeFlagBitsKHR::BLOCK_BASED_KHR.0;
+        const BLOCK_ROW_BASED_KHR = VideoEncodeIntraRefreshModeFlagBitsKHR::BLOCK_ROW_BASED_KHR.0;
+        const BLOCK_COLUMN_BASED_KHR = VideoEncodeIntraRefreshModeFlagBitsKHR::BLOCK_COLUMN_BASED_KHR.0;
         const NONE = 0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct VideoEncodeIntraRefreshModeFlagBitsKHR(u32);
+impl VideoEncodeIntraRefreshModeFlagBitsKHR {
+    pub const PER_PICTURE_PARTITION_KHR: Self = Self(1 << 0);
+    pub const BLOCK_BASED_KHR: Self = Self(1 << 1);
+    pub const BLOCK_ROW_BASED_KHR: Self = Self(1 << 2);
+    pub const BLOCK_COLUMN_BASED_KHR: Self = Self(1 << 3);
 }

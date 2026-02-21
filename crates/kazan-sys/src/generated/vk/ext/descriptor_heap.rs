@@ -293,20 +293,37 @@ bitflags! {
     pub struct TensorViewCreateFlagsARM: Flags64 {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct TensorViewCreateFlagBitsARM(u64);
+impl TensorViewCreateFlagBitsARM {}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct SpirvResourceTypeFlagsEXT: Flags {
-        const SAMPLER_EXT = 1 << 0;
-        const SAMPLED_IMAGE_EXT = 1 << 1;
-        const READ_ONLY_IMAGE_EXT = 1 << 2;
-        const READ_WRITE_IMAGE_EXT = 1 << 3;
-        const COMBINED_SAMPLED_IMAGE_EXT = 1 << 4;
-        const UNIFORM_BUFFER_EXT = 1 << 5;
-        const READ_ONLY_STORAGE_BUFFER_EXT = 1 << 6;
-        const READ_WRITE_STORAGE_BUFFER_EXT = 1 << 7;
+        const SAMPLER_EXT = SpirvResourceTypeFlagBitsEXT::SAMPLER_EXT.0;
+        const SAMPLED_IMAGE_EXT = SpirvResourceTypeFlagBitsEXT::SAMPLED_IMAGE_EXT.0;
+        const READ_ONLY_IMAGE_EXT = SpirvResourceTypeFlagBitsEXT::READ_ONLY_IMAGE_EXT.0;
+        const READ_WRITE_IMAGE_EXT = SpirvResourceTypeFlagBitsEXT::READ_WRITE_IMAGE_EXT.0;
+        const COMBINED_SAMPLED_IMAGE_EXT = SpirvResourceTypeFlagBitsEXT::COMBINED_SAMPLED_IMAGE_EXT.0;
+        const UNIFORM_BUFFER_EXT = SpirvResourceTypeFlagBitsEXT::UNIFORM_BUFFER_EXT.0;
+        const READ_ONLY_STORAGE_BUFFER_EXT = SpirvResourceTypeFlagBitsEXT::READ_ONLY_STORAGE_BUFFER_EXT.0;
+        const READ_WRITE_STORAGE_BUFFER_EXT = SpirvResourceTypeFlagBitsEXT::READ_WRITE_STORAGE_BUFFER_EXT.0;
         const ALL = 0x7FFFFFFF;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct SpirvResourceTypeFlagBitsEXT(u32);
+impl SpirvResourceTypeFlagBitsEXT {
+    pub const SAMPLER_EXT: Self = Self(1 << 0);
+    pub const SAMPLED_IMAGE_EXT: Self = Self(1 << 1);
+    pub const READ_ONLY_IMAGE_EXT: Self = Self(1 << 2);
+    pub const READ_WRITE_IMAGE_EXT: Self = Self(1 << 3);
+    pub const COMBINED_SAMPLED_IMAGE_EXT: Self = Self(1 << 4);
+    pub const UNIFORM_BUFFER_EXT: Self = Self(1 << 5);
+    pub const READ_ONLY_STORAGE_BUFFER_EXT: Self = Self(1 << 6);
+    pub const READ_WRITE_STORAGE_BUFFER_EXT: Self = Self(1 << 7);
 }
 pub type PFN_vkWriteSamplerDescriptorsEXT = unsafe extern "system" fn(
     device: Device,

@@ -9,7 +9,7 @@ pub struct ImportFenceWin32HandleInfoKHR {
     pub p_next: *const c_void,
     pub fence: Fence,
     pub flags: FenceImportFlags,
-    pub handle_type: ExternalFenceHandleTypeFlags,
+    pub handle_type: ExternalFenceHandleTypeFlagBits,
     pub handle: HANDLE,
     pub name: LPCWSTR,
 }
@@ -28,7 +28,7 @@ pub struct FenceGetWin32HandleInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub fence: Fence,
-    pub handle_type: ExternalFenceHandleTypeFlags,
+    pub handle_type: ExternalFenceHandleTypeFlagBits,
 }
 pub type PFN_vkGetFenceWin32HandleKHR = unsafe extern "system" fn(
     device: Device,

@@ -67,35 +67,58 @@ pub struct DisplaySurfaceCreateInfoKHR {
     pub display_mode: DisplayModeKHR,
     pub plane_index: u32,
     pub plane_stack_index: u32,
-    pub transform: SurfaceTransformFlagsKHR,
+    pub transform: SurfaceTransformFlagBitsKHR,
     pub global_alpha: f32,
-    pub alpha_mode: DisplayPlaneAlphaFlagsKHR,
+    pub alpha_mode: DisplayPlaneAlphaFlagBitsKHR,
     pub image_extent: Extent2D,
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct DisplayPlaneAlphaFlagsKHR: Flags {
-        const OPAQUE_KHR = 1 << 0;
-        const GLOBAL_KHR = 1 << 1;
-        const PER_PIXEL_KHR = 1 << 2;
-        const PER_PIXEL_PREMULTIPLIED_KHR = 1 << 3;
+        const OPAQUE_KHR = DisplayPlaneAlphaFlagBitsKHR::OPAQUE_KHR.0;
+        const GLOBAL_KHR = DisplayPlaneAlphaFlagBitsKHR::GLOBAL_KHR.0;
+        const PER_PIXEL_KHR = DisplayPlaneAlphaFlagBitsKHR::PER_PIXEL_KHR.0;
+        const PER_PIXEL_PREMULTIPLIED_KHR = DisplayPlaneAlphaFlagBitsKHR::PER_PIXEL_PREMULTIPLIED_KHR.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct DisplayPlaneAlphaFlagBitsKHR(u32);
+impl DisplayPlaneAlphaFlagBitsKHR {
+    pub const OPAQUE_KHR: Self = Self(1 << 0);
+    pub const GLOBAL_KHR: Self = Self(1 << 1);
+    pub const PER_PIXEL_KHR: Self = Self(1 << 2);
+    pub const PER_PIXEL_PREMULTIPLIED_KHR: Self = Self(1 << 3);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct SurfaceTransformFlagsKHR: Flags {
-        const IDENTITY_KHR = 1 << 0;
-        const ROTATE_90_KHR = 1 << 1;
-        const ROTATE_180_KHR = 1 << 2;
-        const ROTATE_270_KHR = 1 << 3;
-        const HORIZONTAL_MIRROR_KHR = 1 << 4;
-        const HORIZONTAL_MIRROR_ROTATE_90_KHR = 1 << 5;
-        const HORIZONTAL_MIRROR_ROTATE_180_KHR = 1 << 6;
-        const HORIZONTAL_MIRROR_ROTATE_270_KHR = 1 << 7;
-        const INHERIT_KHR = 1 << 8;
+        const IDENTITY_KHR = SurfaceTransformFlagBitsKHR::IDENTITY_KHR.0;
+        const ROTATE_90_KHR = SurfaceTransformFlagBitsKHR::ROTATE_90_KHR.0;
+        const ROTATE_180_KHR = SurfaceTransformFlagBitsKHR::ROTATE_180_KHR.0;
+        const ROTATE_270_KHR = SurfaceTransformFlagBitsKHR::ROTATE_270_KHR.0;
+        const HORIZONTAL_MIRROR_KHR = SurfaceTransformFlagBitsKHR::HORIZONTAL_MIRROR_KHR.0;
+        const HORIZONTAL_MIRROR_ROTATE_90_KHR = SurfaceTransformFlagBitsKHR::HORIZONTAL_MIRROR_ROTATE_90_KHR.0;
+        const HORIZONTAL_MIRROR_ROTATE_180_KHR = SurfaceTransformFlagBitsKHR::HORIZONTAL_MIRROR_ROTATE_180_KHR.0;
+        const HORIZONTAL_MIRROR_ROTATE_270_KHR = SurfaceTransformFlagBitsKHR::HORIZONTAL_MIRROR_ROTATE_270_KHR.0;
+        const INHERIT_KHR = SurfaceTransformFlagBitsKHR::INHERIT_KHR.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct SurfaceTransformFlagBitsKHR(u32);
+impl SurfaceTransformFlagBitsKHR {
+    pub const IDENTITY_KHR: Self = Self(1 << 0);
+    pub const ROTATE_90_KHR: Self = Self(1 << 1);
+    pub const ROTATE_180_KHR: Self = Self(1 << 2);
+    pub const ROTATE_270_KHR: Self = Self(1 << 3);
+    pub const HORIZONTAL_MIRROR_KHR: Self = Self(1 << 4);
+    pub const HORIZONTAL_MIRROR_ROTATE_90_KHR: Self = Self(1 << 5);
+    pub const HORIZONTAL_MIRROR_ROTATE_180_KHR: Self = Self(1 << 6);
+    pub const HORIZONTAL_MIRROR_ROTATE_270_KHR: Self = Self(1 << 7);
+    pub const INHERIT_KHR: Self = Self(1 << 8);
 }
 bitflags! {
     #[repr(transparent)]

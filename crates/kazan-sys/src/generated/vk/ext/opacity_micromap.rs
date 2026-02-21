@@ -163,17 +163,31 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct BuildMicromapFlagsEXT: Flags {
-        const PREFER_FAST_TRACE_EXT = 1 << 0;
-        const PREFER_FAST_BUILD_EXT = 1 << 1;
-        const ALLOW_COMPACTION_EXT = 1 << 2;
+        const PREFER_FAST_TRACE_EXT = BuildMicromapFlagBitsEXT::PREFER_FAST_TRACE_EXT.0;
+        const PREFER_FAST_BUILD_EXT = BuildMicromapFlagBitsEXT::PREFER_FAST_BUILD_EXT.0;
+        const ALLOW_COMPACTION_EXT = BuildMicromapFlagBitsEXT::ALLOW_COMPACTION_EXT.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct BuildMicromapFlagBitsEXT(u32);
+impl BuildMicromapFlagBitsEXT {
+    pub const PREFER_FAST_TRACE_EXT: Self = Self(1 << 0);
+    pub const PREFER_FAST_BUILD_EXT: Self = Self(1 << 1);
+    pub const ALLOW_COMPACTION_EXT: Self = Self(1 << 2);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct MicromapCreateFlagsEXT: Flags {
-        const DEVICE_ADDRESS_CAPTURE_REPLAY_EXT = 1 << 0;
+        const DEVICE_ADDRESS_CAPTURE_REPLAY_EXT = MicromapCreateFlagBitsEXT::DEVICE_ADDRESS_CAPTURE_REPLAY_EXT.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct MicromapCreateFlagBitsEXT(u32);
+impl MicromapCreateFlagBitsEXT {
+    pub const DEVICE_ADDRESS_CAPTURE_REPLAY_EXT: Self = Self(1 << 0);
 }
 pub type PFN_vkCreateMicromapEXT = unsafe extern "system" fn(
     device: Device,

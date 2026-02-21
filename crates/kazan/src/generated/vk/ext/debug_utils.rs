@@ -57,7 +57,7 @@ impl InstanceFn {
     pub unsafe fn submit_debug_utils_message_ext(
         &self,
         instance: Instance,
-        message_severity: DebugUtilsMessageSeverityFlagsEXT,
+        message_severity: DebugUtilsMessageSeverityFlagBitsEXT,
         message_types: DebugUtilsMessageTypeFlagsEXT,
         callback_data: &DebugUtilsMessengerCallbackDataEXT,
     ) {

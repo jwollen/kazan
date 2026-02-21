@@ -71,6 +71,6 @@ pub type PFN_vkRegisterDisplayEventEXT = unsafe extern "system" fn(
 pub type PFN_vkGetSwapchainCounterEXT = unsafe extern "system" fn(
     device: Device,
     swapchain: SwapchainKHR,
-    counter: SurfaceCounterFlagsEXT,
+    counter: SurfaceCounterFlagBitsEXT,
     p_counter_value: *mut u64,
 ) -> Result;

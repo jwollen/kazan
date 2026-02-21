@@ -273,7 +273,7 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         format: Format,
         ty: ImageType,
-        samples: SampleCountFlags,
+        samples: SampleCountFlagBits,
         usage: ImageUsageFlags,
         tiling: ImageTiling,
         properties: impl ExtendUninit<SparseImageFormatProperties>,
@@ -1008,7 +1008,7 @@ impl DeviceFn {
     pub unsafe fn cmd_write_timestamp(
         &self,
         command_buffer: CommandBuffer,
-        pipeline_stage: PipelineStageFlags,
+        pipeline_stage: PipelineStageFlagBits,
         query_pool: QueryPool,
         query: u32,
     ) {

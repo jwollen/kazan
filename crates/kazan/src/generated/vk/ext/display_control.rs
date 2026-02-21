@@ -78,7 +78,7 @@ impl DeviceFn {
         &self,
         device: Device,
         swapchain: SwapchainKHR,
-        counter: SurfaceCounterFlagsEXT,
+        counter: SurfaceCounterFlagBitsEXT,
         counter_value: &mut u64,
     ) -> Result {
         unsafe { (self.get_swapchain_counter_ext)(device, swapchain, counter, counter_value) }

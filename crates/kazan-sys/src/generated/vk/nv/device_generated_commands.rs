@@ -154,17 +154,31 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct IndirectCommandsLayoutUsageFlagsNV: Flags {
-        const EXPLICIT_PREPROCESS_NV = 1 << 0;
-        const INDEXED_SEQUENCES_NV = 1 << 1;
-        const UNORDERED_SEQUENCES_NV = 1 << 2;
+        const EXPLICIT_PREPROCESS_NV = IndirectCommandsLayoutUsageFlagBitsNV::EXPLICIT_PREPROCESS_NV.0;
+        const INDEXED_SEQUENCES_NV = IndirectCommandsLayoutUsageFlagBitsNV::INDEXED_SEQUENCES_NV.0;
+        const UNORDERED_SEQUENCES_NV = IndirectCommandsLayoutUsageFlagBitsNV::UNORDERED_SEQUENCES_NV.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct IndirectCommandsLayoutUsageFlagBitsNV(u32);
+impl IndirectCommandsLayoutUsageFlagBitsNV {
+    pub const EXPLICIT_PREPROCESS_NV: Self = Self(1 << 0);
+    pub const INDEXED_SEQUENCES_NV: Self = Self(1 << 1);
+    pub const UNORDERED_SEQUENCES_NV: Self = Self(1 << 2);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct IndirectStateFlagsNV: Flags {
-        const FLAG_FRONTFACE_NV = 1 << 0;
+        const FLAG_FRONTFACE_NV = IndirectStateFlagBitsNV::FLAG_FRONTFACE_NV.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct IndirectStateFlagBitsNV(u32);
+impl IndirectStateFlagBitsNV {
+    pub const FLAG_FRONTFACE_NV: Self = Self(1 << 0);
 }
 pub type PFN_vkCmdExecuteGeneratedCommandsNV = unsafe extern "system" fn(
     command_buffer: CommandBuffer,

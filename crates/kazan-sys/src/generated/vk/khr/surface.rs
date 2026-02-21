@@ -15,7 +15,7 @@ pub struct SurfaceCapabilitiesKHR {
     pub max_image_extent: Extent2D,
     pub max_image_array_layers: u32,
     pub supported_transforms: SurfaceTransformFlagsKHR,
-    pub current_transform: SurfaceTransformFlagsKHR,
+    pub current_transform: SurfaceTransformFlagBitsKHR,
     pub supported_composite_alpha: CompositeAlphaFlagsKHR,
     pub supported_usage_flags: ImageUsageFlags,
 }
@@ -44,11 +44,20 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct CompositeAlphaFlagsKHR: Flags {
-        const OPAQUE_KHR = 1 << 0;
-        const PRE_MULTIPLIED_KHR = 1 << 1;
-        const POST_MULTIPLIED_KHR = 1 << 2;
-        const INHERIT_KHR = 1 << 3;
+        const OPAQUE_KHR = CompositeAlphaFlagBitsKHR::OPAQUE_KHR.0;
+        const PRE_MULTIPLIED_KHR = CompositeAlphaFlagBitsKHR::PRE_MULTIPLIED_KHR.0;
+        const POST_MULTIPLIED_KHR = CompositeAlphaFlagBitsKHR::POST_MULTIPLIED_KHR.0;
+        const INHERIT_KHR = CompositeAlphaFlagBitsKHR::INHERIT_KHR.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct CompositeAlphaFlagBitsKHR(u32);
+impl CompositeAlphaFlagBitsKHR {
+    pub const OPAQUE_KHR: Self = Self(1 << 0);
+    pub const PRE_MULTIPLIED_KHR: Self = Self(1 << 1);
+    pub const POST_MULTIPLIED_KHR: Self = Self(1 << 2);
+    pub const INHERIT_KHR: Self = Self(1 << 3);
 }
 pub type PFN_vkDestroySurfaceKHR = unsafe extern "system" fn(
     instance: Instance,

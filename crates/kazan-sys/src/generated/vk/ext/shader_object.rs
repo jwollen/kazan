@@ -28,7 +28,7 @@ pub struct ShaderCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: ShaderCreateFlagsEXT,
-    pub stage: ShaderStageFlags,
+    pub stage: ShaderStageFlagBits,
     pub next_stage: ShaderStageFlags,
     pub code_type: ShaderCodeTypeEXT,
     pub code_size: usize,
@@ -51,8 +51,14 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ShaderCreateFlagsEXT: Flags {
-        const LINK_STAGE_EXT = 1 << 0;
+        const LINK_STAGE_EXT = ShaderCreateFlagBitsEXT::LINK_STAGE_EXT.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ShaderCreateFlagBitsEXT(u32);
+impl ShaderCreateFlagBitsEXT {
+    pub const LINK_STAGE_EXT: Self = Self(1 << 0);
 }
 pub type PFN_vkCreateShadersEXT = unsafe extern "system" fn(
     device: Device,
@@ -75,7 +81,7 @@ pub type PFN_vkGetShaderBinaryDataEXT = unsafe extern "system" fn(
 pub type PFN_vkCmdBindShadersEXT = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
     stage_count: u32,
-    p_stages: *const ShaderStageFlags,
+    p_stages: *const ShaderStageFlagBits,
     p_shaders: *const ShaderEXT,
 );
 pub type PFN_vkCmdSetDepthClampRangeEXT = unsafe extern "system" fn(

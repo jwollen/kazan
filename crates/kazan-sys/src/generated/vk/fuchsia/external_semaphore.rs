@@ -9,7 +9,7 @@ pub struct ImportSemaphoreZirconHandleInfoFUCHSIA {
     pub p_next: *const c_void,
     pub semaphore: Semaphore,
     pub flags: SemaphoreImportFlags,
-    pub handle_type: ExternalSemaphoreHandleTypeFlags,
+    pub handle_type: ExternalSemaphoreHandleTypeFlagBits,
     pub zircon_handle: zx_handle_t,
 }
 #[repr(C)]
@@ -18,7 +18,7 @@ pub struct SemaphoreGetZirconHandleInfoFUCHSIA {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub semaphore: Semaphore,
-    pub handle_type: ExternalSemaphoreHandleTypeFlags,
+    pub handle_type: ExternalSemaphoreHandleTypeFlagBits,
 }
 pub type PFN_vkGetSemaphoreZirconHandleFUCHSIA = unsafe extern "system" fn(
     device: Device,

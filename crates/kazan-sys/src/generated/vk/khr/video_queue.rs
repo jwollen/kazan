@@ -54,7 +54,7 @@ pub struct VideoFormatPropertiesKHR {
 pub struct VideoProfileInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
-    pub video_codec_operation: VideoCodecOperationFlagsKHR,
+    pub video_codec_operation: VideoCodecOperationFlagBitsKHR,
     pub chroma_subsampling: VideoChromaSubsamplingFlagsKHR,
     pub luma_bit_depth: VideoComponentBitDepthFlagsKHR,
     pub chroma_bit_depth: VideoComponentBitDepthFlagsKHR,
@@ -181,20 +181,37 @@ bitflags! {
         const NONE = 0;
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct VideoCodecOperationFlagBitsKHR(u32);
+impl VideoCodecOperationFlagBitsKHR {}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoCapabilityFlagsKHR: Flags {
-        const PROTECTED_CONTENT_KHR = 1 << 0;
-        const SEPARATE_REFERENCE_IMAGES_KHR = 1 << 1;
+        const PROTECTED_CONTENT_KHR = VideoCapabilityFlagBitsKHR::PROTECTED_CONTENT_KHR.0;
+        const SEPARATE_REFERENCE_IMAGES_KHR = VideoCapabilityFlagBitsKHR::SEPARATE_REFERENCE_IMAGES_KHR.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct VideoCapabilityFlagBitsKHR(u32);
+impl VideoCapabilityFlagBitsKHR {
+    pub const PROTECTED_CONTENT_KHR: Self = Self(1 << 0);
+    pub const SEPARATE_REFERENCE_IMAGES_KHR: Self = Self(1 << 1);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoSessionCreateFlagsKHR: Flags {
-        const PROTECTED_CONTENT_KHR = 1 << 0;
+        const PROTECTED_CONTENT_KHR = VideoSessionCreateFlagBitsKHR::PROTECTED_CONTENT_KHR.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct VideoSessionCreateFlagBitsKHR(u32);
+impl VideoSessionCreateFlagBitsKHR {
+    pub const PROTECTED_CONTENT_KHR: Self = Self(1 << 0);
 }
 bitflags! {
     #[repr(transparent)]
@@ -202,6 +219,10 @@ bitflags! {
     pub struct VideoSessionParametersCreateFlagsKHR: Flags {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct VideoSessionParametersCreateFlagBitsKHR(u32);
+impl VideoSessionParametersCreateFlagBitsKHR {}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
@@ -218,29 +239,52 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoCodingControlFlagsKHR: Flags {
-        const RESET_KHR = 1 << 0;
+        const RESET_KHR = VideoCodingControlFlagBitsKHR::RESET_KHR.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct VideoCodingControlFlagBitsKHR(u32);
+impl VideoCodingControlFlagBitsKHR {
+    pub const RESET_KHR: Self = Self(1 << 0);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoChromaSubsamplingFlagsKHR: Flags {
-        const MONOCHROME_KHR = 1 << 0;
-        const _420_KHR = 1 << 1;
-        const _422_KHR = 1 << 2;
-        const _444_KHR = 1 << 3;
+        const MONOCHROME_KHR = VideoChromaSubsamplingFlagBitsKHR::MONOCHROME_KHR.0;
+        const _420_KHR = VideoChromaSubsamplingFlagBitsKHR::_420_KHR.0;
+        const _422_KHR = VideoChromaSubsamplingFlagBitsKHR::_422_KHR.0;
+        const _444_KHR = VideoChromaSubsamplingFlagBitsKHR::_444_KHR.0;
         const INVALID = 0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct VideoChromaSubsamplingFlagBitsKHR(u32);
+impl VideoChromaSubsamplingFlagBitsKHR {
+    pub const MONOCHROME_KHR: Self = Self(1 << 0);
+    pub const _420_KHR: Self = Self(1 << 1);
+    pub const _422_KHR: Self = Self(1 << 2);
+    pub const _444_KHR: Self = Self(1 << 3);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoComponentBitDepthFlagsKHR: Flags {
-        const _8_KHR = 1 << 0;
-        const _10_KHR = 1 << 2;
-        const _12_KHR = 1 << 4;
+        const _8_KHR = VideoComponentBitDepthFlagBitsKHR::_8_KHR.0;
+        const _10_KHR = VideoComponentBitDepthFlagBitsKHR::_10_KHR.0;
+        const _12_KHR = VideoComponentBitDepthFlagBitsKHR::_12_KHR.0;
         const INVALID = 0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct VideoComponentBitDepthFlagBitsKHR(u32);
+impl VideoComponentBitDepthFlagBitsKHR {
+    pub const _8_KHR: Self = Self(1 << 0);
+    pub const _10_KHR: Self = Self(1 << 2);
+    pub const _12_KHR: Self = Self(1 << 4);
 }
 pub type PFN_vkGetPhysicalDeviceVideoCapabilitiesKHR = unsafe extern "system" fn(
     physical_device: PhysicalDevice,

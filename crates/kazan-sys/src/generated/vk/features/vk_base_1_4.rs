@@ -297,27 +297,51 @@ bitflags! {
     pub struct MemoryUnmapFlags: Flags {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct MemoryUnmapFlagBits(u32);
+impl MemoryUnmapFlagBits {}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct BufferUsageFlags2: Flags64 {
-        const TRANSFER_SRC = 1 << 0;
-        const TRANSFER_DST = 1 << 1;
-        const UNIFORM_TEXEL_BUFFER = 1 << 2;
-        const STORAGE_TEXEL_BUFFER = 1 << 3;
-        const UNIFORM_BUFFER = 1 << 4;
-        const STORAGE_BUFFER = 1 << 5;
-        const INDEX_BUFFER = 1 << 6;
-        const VERTEX_BUFFER = 1 << 7;
-        const INDIRECT_BUFFER = 1 << 8;
+        const TRANSFER_SRC = BufferUsageFlagBits2::TRANSFER_SRC.0;
+        const TRANSFER_DST = BufferUsageFlagBits2::TRANSFER_DST.0;
+        const UNIFORM_TEXEL_BUFFER = BufferUsageFlagBits2::UNIFORM_TEXEL_BUFFER.0;
+        const STORAGE_TEXEL_BUFFER = BufferUsageFlagBits2::STORAGE_TEXEL_BUFFER.0;
+        const UNIFORM_BUFFER = BufferUsageFlagBits2::UNIFORM_BUFFER.0;
+        const STORAGE_BUFFER = BufferUsageFlagBits2::STORAGE_BUFFER.0;
+        const INDEX_BUFFER = BufferUsageFlagBits2::INDEX_BUFFER.0;
+        const VERTEX_BUFFER = BufferUsageFlagBits2::VERTEX_BUFFER.0;
+        const INDIRECT_BUFFER = BufferUsageFlagBits2::INDIRECT_BUFFER.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct BufferUsageFlagBits2(u64);
+impl BufferUsageFlagBits2 {
+    pub const TRANSFER_SRC: Self = Self(1 << 0);
+    pub const TRANSFER_DST: Self = Self(1 << 1);
+    pub const UNIFORM_TEXEL_BUFFER: Self = Self(1 << 2);
+    pub const STORAGE_TEXEL_BUFFER: Self = Self(1 << 3);
+    pub const UNIFORM_BUFFER: Self = Self(1 << 4);
+    pub const STORAGE_BUFFER: Self = Self(1 << 5);
+    pub const INDEX_BUFFER: Self = Self(1 << 6);
+    pub const VERTEX_BUFFER: Self = Self(1 << 7);
+    pub const INDIRECT_BUFFER: Self = Self(1 << 8);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct HostImageCopyFlags: Flags {
-        const MEMCPY = 1 << 0;
+        const MEMCPY = HostImageCopyFlagBits::MEMCPY.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct HostImageCopyFlagBits(u32);
+impl HostImageCopyFlagBits {
+    pub const MEMCPY: Self = Self(1 << 0);
 }
 pub type PFN_vkCopyMemoryToImage = unsafe extern "system" fn(
     device: Device,

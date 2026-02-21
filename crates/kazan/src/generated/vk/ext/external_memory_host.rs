@@ -23,7 +23,7 @@ impl DeviceFn {
     pub unsafe fn get_memory_host_pointer_properties_ext(
         &self,
         device: Device,
-        handle_type: ExternalMemoryHandleTypeFlags,
+        handle_type: ExternalMemoryHandleTypeFlagBits,
         host_pointer: &c_void,
         memory_host_pointer_properties: &mut MemoryHostPointerPropertiesEXT,
     ) -> Result {

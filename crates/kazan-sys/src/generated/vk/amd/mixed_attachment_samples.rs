@@ -8,6 +8,6 @@ pub struct AttachmentSampleCountInfoAMD {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub color_attachment_count: u32,
-    pub p_color_attachment_samples: *const SampleCountFlags,
-    pub depth_stencil_attachment_samples: SampleCountFlags,
+    pub p_color_attachment_samples: *const SampleCountFlagBits,
+    pub depth_stencil_attachment_samples: SampleCountFlagBits,
 }

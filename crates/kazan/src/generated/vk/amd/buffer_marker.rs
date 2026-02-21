@@ -25,7 +25,7 @@ impl DeviceFn {
     pub unsafe fn cmd_write_buffer_marker_amd(
         &self,
         command_buffer: CommandBuffer,
-        pipeline_stage: PipelineStageFlags,
+        pipeline_stage: PipelineStageFlagBits,
         dst_buffer: Buffer,
         dst_offset: DeviceSize,
         marker: u32,

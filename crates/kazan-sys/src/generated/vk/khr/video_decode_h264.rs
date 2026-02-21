@@ -8,7 +8,7 @@ pub struct VideoDecodeH264ProfileInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub std_profile_idc: StdVideoH264ProfileIdc,
-    pub picture_layout: VideoDecodeH264PictureLayoutFlagsKHR,
+    pub picture_layout: VideoDecodeH264PictureLayoutFlagBitsKHR,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -57,8 +57,15 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoDecodeH264PictureLayoutFlagsKHR: Flags {
-        const INTERLACED_INTERLEAVED_LINES_KHR = 1 << 0;
-        const INTERLACED_SEPARATE_PLANES_KHR = 1 << 1;
+        const INTERLACED_INTERLEAVED_LINES_KHR = VideoDecodeH264PictureLayoutFlagBitsKHR::INTERLACED_INTERLEAVED_LINES_KHR.0;
+        const INTERLACED_SEPARATE_PLANES_KHR = VideoDecodeH264PictureLayoutFlagBitsKHR::INTERLACED_SEPARATE_PLANES_KHR.0;
         const PROGRESSIVE = 0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct VideoDecodeH264PictureLayoutFlagBitsKHR(u32);
+impl VideoDecodeH264PictureLayoutFlagBitsKHR {
+    pub const INTERLACED_INTERLEAVED_LINES_KHR: Self = Self(1 << 0);
+    pub const INTERLACED_SEPARATE_PLANES_KHR: Self = Self(1 << 1);
 }

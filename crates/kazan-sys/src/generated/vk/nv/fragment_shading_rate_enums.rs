@@ -16,7 +16,7 @@ pub struct PhysicalDeviceFragmentShadingRateEnumsFeaturesNV {
 pub struct PhysicalDeviceFragmentShadingRateEnumsPropertiesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
-    pub max_fragment_shading_rate_invocation_count: SampleCountFlags,
+    pub max_fragment_shading_rate_invocation_count: SampleCountFlagBits,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

@@ -356,7 +356,6 @@ fn generate(xmls: &[&xml::Registry]) {
 
                     let name = normalize_ty_name(ty.name);
 
-                    //let bitwidth = ty.bitwidth.unwrap_or(32);
                     writeln!(sys_file, "bitflags! {{").unwrap();
                     writeln!(sys_file, "    #[repr(transparent)]").unwrap();
                     writeln!(
@@ -364,49 +363,61 @@ fn generate(xmls: &[&xml::Registry]) {
                         "    #[derive(Copy, Clone, PartialEq, Eq, Default)]"
                     )
                     .unwrap();
-                    //writeln!(file, "    pub struct {}: u{} {{", name, bitwidth).unwrap();
-                    writeln!(
-                        sys_file,
-                        "    pub struct {}: {} {{",
-                        name,
-                        ctype_to_rust_type_str(ty.ty)
-                    )
-                    .unwrap();
+                    let base_type = ctype_to_rust_type_str(ty.ty);
+                    writeln!(sys_file, "    pub struct {}: {} {{", name, base_type).unwrap();
 
-                    if let Some(bitmask) = bitmask {
+                    let value_prefix = bitmask.map(|bitmask| {
                         let value_prefix = strip_vendor_suffix(bitmask.name)
                             .replace("FlagBits", "")
                             .to_shouty_snake_case();
-                        let value_prefix =
-                            trailing_number.replace(&value_prefix, "_$1").to_string();
+                        trailing_number.replace(&value_prefix, "_$1").to_string()
+                    });
 
-                        for bit in &bitmask.bits {
-                            let name = bit
-                                .name
-                                .strip_prefix(&value_prefix)
-                                .unwrap()
-                                .strip_prefix("_")
-                                .unwrap();
-                            //let name = strip_vendor_suffix(name);
-                            //let name = name.strip_suffix("_BIT").unwrap_or(name);
-                            let name = name.replace("_BIT", "");
-                            let name = if name
-                                .chars()
-                                .next()
-                                .map(|c| c.is_ascii_digit())
-                                .unwrap_or_default()
-                            {
-                                format!("_{}", &name)
-                            } else {
-                                name.to_string()
-                            };
-                            writeln!(sys_file, "        const {} = 1 << {};", name, bit.bitpos)
-                                .unwrap();
+                    let bits = bitmask
+                        .map(|bitmask| {
+                            bitmask
+                                .bits
+                                .iter()
+                                .map(|bit| {
+                                    let name = bit
+                                        .name
+                                        .strip_prefix(value_prefix.as_ref().unwrap())
+                                        .unwrap()
+                                        .strip_prefix("_")
+                                        .unwrap();
+                                    //let name = strip_vendor_suffix(name);
+                                    //let name = name.strip_suffix("_BIT").unwrap_or(name);
+                                    let name = name.replace("_BIT", "");
+                                    let name = if name
+                                        .chars()
+                                        .next()
+                                        .map(|c| c.is_ascii_digit())
+                                        .unwrap_or_default()
+                                    {
+                                        format!("_{}", &name)
+                                    } else {
+                                        name.to_string()
+                                    };
+                                    (name, bit)
+                                })
+                                .collect::<Vec<_>>()
+                        })
+                        .unwrap_or_default();
+
+                    if let Some(bitmask) = bitmask {
+                        let bitmask_name = normalize_ty_name(bitmask.name);
+                        for (name, _bit) in &bits {
+                            writeln!(
+                                sys_file,
+                                "        const {} = {}::{}.0;",
+                                name, bitmask_name, name
+                            )
+                            .unwrap();
                         }
                         for value in &bitmask.values {
                             let name = value
                                 .name
-                                .strip_prefix(&value_prefix)
+                                .strip_prefix(value_prefix.as_ref().unwrap())
                                 .unwrap()
                                 .strip_prefix("_")
                                 .unwrap();
@@ -418,6 +429,27 @@ fn generate(xmls: &[&xml::Registry]) {
 
                     writeln!(sys_file, "    }}").unwrap();
                     writeln!(sys_file, "}}").unwrap();
+
+                    if let Some(bitmask) = bitmask {
+                        let bitmask_name = normalize_ty_name(bitmask.name);
+                        writeln!(
+                            sys_file,
+                            "#[repr(transparent)]
+                            #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+                            pub struct {}(u{});
+                            impl {} {{",
+                            bitmask_name,
+                            bitmask.bitwidth.unwrap_or(32),
+                            bitmask_name,
+                        )
+                        .unwrap();
+
+                        for (name, bit) in &bits {
+                            writeln!(sys_file, "pub const {}: Self = Self(1 << {});", name, bit.bitpos).unwrap();
+                        }
+
+                        writeln!(sys_file, "}}").unwrap();
+                    }
                 }
 
                 let funcpointers = xml
@@ -752,7 +784,7 @@ fn normalize_ty_name(name: &str) -> &str {
     name.strip_prefix("Vk").unwrap_or(name)
 }
 
-fn ctype_to_rust_type_str(name: &str) -> String {
+fn ctype_to_rust_type_str(name: &str) -> &str {
     match name {
         "int8_t" => "i8",
         "uint8_t" => "u8",
@@ -770,7 +802,6 @@ fn ctype_to_rust_type_str(name: &str) -> String {
         "int" => "c_int",
         _ => normalize_ty_name(name),
     }
-    .replace("FlagBits", "Flags")
 }
 
 // struct StructInfo<'a> {
@@ -1077,7 +1108,7 @@ fn convert_param_type(ty: &CType, len: Option<&LengthKind<'_>>, optional: (bool,
 
 fn ctype_to_rust_type(ty: &CType) -> String {
     match ty {
-        CType::Base(base) => ctype_to_rust_type_str(base.name),
+        CType::Base(base) => ctype_to_rust_type_str(base.name).to_string(),
         CType::Ptr {
             pointee,
             implicit_for_decay,

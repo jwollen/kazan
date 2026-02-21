@@ -7,7 +7,7 @@ use core::ffi::{c_char, c_int, c_void};
 pub struct ImportMemoryZirconHandleInfoFUCHSIA {
     pub s_type: StructureType,
     pub p_next: *const c_void,
-    pub handle_type: ExternalMemoryHandleTypeFlags,
+    pub handle_type: ExternalMemoryHandleTypeFlagBits,
     pub handle: zx_handle_t,
 }
 #[repr(C)]
@@ -23,7 +23,7 @@ pub struct MemoryGetZirconHandleInfoFUCHSIA {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub memory: DeviceMemory,
-    pub handle_type: ExternalMemoryHandleTypeFlags,
+    pub handle_type: ExternalMemoryHandleTypeFlagBits,
 }
 pub type PFN_vkGetMemoryZirconHandleFUCHSIA = unsafe extern "system" fn(
     device: Device,
@@ -32,7 +32,7 @@ pub type PFN_vkGetMemoryZirconHandleFUCHSIA = unsafe extern "system" fn(
 ) -> Result;
 pub type PFN_vkGetMemoryZirconHandlePropertiesFUCHSIA = unsafe extern "system" fn(
     device: Device,
-    handle_type: ExternalMemoryHandleTypeFlags,
+    handle_type: ExternalMemoryHandleTypeFlagBits,
     zircon_handle: zx_handle_t,
     p_memory_zircon_handle_properties: *mut MemoryZirconHandlePropertiesFUCHSIA,
 ) -> Result;

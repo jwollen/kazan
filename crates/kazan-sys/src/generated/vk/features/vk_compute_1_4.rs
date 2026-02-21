@@ -139,16 +139,30 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct PipelineCreateFlags2: Flags64 {
-        const DISABLE_OPTIMIZATION = 1 << 0;
-        const ALLOW_DERIVATIVES = 1 << 1;
-        const DERIVATIVE = 1 << 2;
-        const VIEW_INDEX_FROM_DEVICE_INDEX = 1 << 3;
-        const DISPATCH_BASE = 1 << 4;
-        const FAIL_ON_PIPELINE_COMPILE_REQUIRED = 1 << 8;
-        const EARLY_RETURN_ON_FAILURE = 1 << 9;
-        const NO_PROTECTED_ACCESS = 1 << 27;
-        const PROTECTED_ACCESS_ONLY = 1 << 30;
+        const DISABLE_OPTIMIZATION = PipelineCreateFlagBits2::DISABLE_OPTIMIZATION.0;
+        const ALLOW_DERIVATIVES = PipelineCreateFlagBits2::ALLOW_DERIVATIVES.0;
+        const DERIVATIVE = PipelineCreateFlagBits2::DERIVATIVE.0;
+        const VIEW_INDEX_FROM_DEVICE_INDEX = PipelineCreateFlagBits2::VIEW_INDEX_FROM_DEVICE_INDEX.0;
+        const DISPATCH_BASE = PipelineCreateFlagBits2::DISPATCH_BASE.0;
+        const FAIL_ON_PIPELINE_COMPILE_REQUIRED = PipelineCreateFlagBits2::FAIL_ON_PIPELINE_COMPILE_REQUIRED.0;
+        const EARLY_RETURN_ON_FAILURE = PipelineCreateFlagBits2::EARLY_RETURN_ON_FAILURE.0;
+        const NO_PROTECTED_ACCESS = PipelineCreateFlagBits2::NO_PROTECTED_ACCESS.0;
+        const PROTECTED_ACCESS_ONLY = PipelineCreateFlagBits2::PROTECTED_ACCESS_ONLY.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PipelineCreateFlagBits2(u64);
+impl PipelineCreateFlagBits2 {
+    pub const DISABLE_OPTIMIZATION: Self = Self(1 << 0);
+    pub const ALLOW_DERIVATIVES: Self = Self(1 << 1);
+    pub const DERIVATIVE: Self = Self(1 << 2);
+    pub const VIEW_INDEX_FROM_DEVICE_INDEX: Self = Self(1 << 3);
+    pub const DISPATCH_BASE: Self = Self(1 << 4);
+    pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED: Self = Self(1 << 8);
+    pub const EARLY_RETURN_ON_FAILURE: Self = Self(1 << 9);
+    pub const NO_PROTECTED_ACCESS: Self = Self(1 << 27);
+    pub const PROTECTED_ACCESS_ONLY: Self = Self(1 << 30);
 }
 pub type PFN_vkCmdPushDescriptorSet = unsafe extern "system" fn(
     command_buffer: CommandBuffer,

@@ -327,8 +327,14 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct SemaphoreWaitFlags: Flags {
-        const ANY = 1 << 0;
+        const ANY = SemaphoreWaitFlagBits::ANY.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct SemaphoreWaitFlagBits(u32);
+impl SemaphoreWaitFlagBits {
+    pub const ANY: Self = Self(1 << 0);
 }
 pub type PFN_vkResetQueryPool = unsafe extern "system" fn(
     device: Device,

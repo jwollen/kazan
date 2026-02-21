@@ -30,8 +30,14 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ConditionalRenderingFlagsEXT: Flags {
-        const INVERTED_EXT = 1 << 0;
+        const INVERTED_EXT = ConditionalRenderingFlagBitsEXT::INVERTED_EXT.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ConditionalRenderingFlagBitsEXT(u32);
+impl ConditionalRenderingFlagBitsEXT {
+    pub const INVERTED_EXT: Self = Self(1 << 0);
 }
 pub type PFN_vkCmdBeginConditionalRenderingEXT = unsafe extern "system" fn(
     command_buffer: CommandBuffer,

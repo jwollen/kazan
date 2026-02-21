@@ -14,7 +14,7 @@ pub struct QueueFamilyCheckpointPropertiesNV {
 pub struct CheckpointDataNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
-    pub stage: PipelineStageFlags,
+    pub stage: PipelineStageFlagBits,
     pub p_checkpoint_marker: *mut c_void,
 }
 #[repr(C)]

@@ -254,37 +254,69 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct GeometryFlagsKHR: Flags {
-        const OPAQUE_KHR = 1 << 0;
-        const NO_DUPLICATE_ANY_HIT_INVOCATION_KHR = 1 << 1;
+        const OPAQUE_KHR = GeometryFlagBitsKHR::OPAQUE_KHR.0;
+        const NO_DUPLICATE_ANY_HIT_INVOCATION_KHR = GeometryFlagBitsKHR::NO_DUPLICATE_ANY_HIT_INVOCATION_KHR.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct GeometryFlagBitsKHR(u32);
+impl GeometryFlagBitsKHR {
+    pub const OPAQUE_KHR: Self = Self(1 << 0);
+    pub const NO_DUPLICATE_ANY_HIT_INVOCATION_KHR: Self = Self(1 << 1);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct GeometryInstanceFlagsKHR: Flags {
-        const TRIANGLE_FACING_CULL_DISABLE_KHR = 1 << 0;
-        const TRIANGLE_FLIP_FACING_KHR = 1 << 1;
-        const FORCE_OPAQUE_KHR = 1 << 2;
-        const FORCE_NO_OPAQUE_KHR = 1 << 3;
+        const TRIANGLE_FACING_CULL_DISABLE_KHR = GeometryInstanceFlagBitsKHR::TRIANGLE_FACING_CULL_DISABLE_KHR.0;
+        const TRIANGLE_FLIP_FACING_KHR = GeometryInstanceFlagBitsKHR::TRIANGLE_FLIP_FACING_KHR.0;
+        const FORCE_OPAQUE_KHR = GeometryInstanceFlagBitsKHR::FORCE_OPAQUE_KHR.0;
+        const FORCE_NO_OPAQUE_KHR = GeometryInstanceFlagBitsKHR::FORCE_NO_OPAQUE_KHR.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct GeometryInstanceFlagBitsKHR(u32);
+impl GeometryInstanceFlagBitsKHR {
+    pub const TRIANGLE_FACING_CULL_DISABLE_KHR: Self = Self(1 << 0);
+    pub const TRIANGLE_FLIP_FACING_KHR: Self = Self(1 << 1);
+    pub const FORCE_OPAQUE_KHR: Self = Self(1 << 2);
+    pub const FORCE_NO_OPAQUE_KHR: Self = Self(1 << 3);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct BuildAccelerationStructureFlagsKHR: Flags {
-        const ALLOW_UPDATE_KHR = 1 << 0;
-        const ALLOW_COMPACTION_KHR = 1 << 1;
-        const PREFER_FAST_TRACE_KHR = 1 << 2;
-        const PREFER_FAST_BUILD_KHR = 1 << 3;
-        const LOW_MEMORY_KHR = 1 << 4;
+        const ALLOW_UPDATE_KHR = BuildAccelerationStructureFlagBitsKHR::ALLOW_UPDATE_KHR.0;
+        const ALLOW_COMPACTION_KHR = BuildAccelerationStructureFlagBitsKHR::ALLOW_COMPACTION_KHR.0;
+        const PREFER_FAST_TRACE_KHR = BuildAccelerationStructureFlagBitsKHR::PREFER_FAST_TRACE_KHR.0;
+        const PREFER_FAST_BUILD_KHR = BuildAccelerationStructureFlagBitsKHR::PREFER_FAST_BUILD_KHR.0;
+        const LOW_MEMORY_KHR = BuildAccelerationStructureFlagBitsKHR::LOW_MEMORY_KHR.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct BuildAccelerationStructureFlagBitsKHR(u32);
+impl BuildAccelerationStructureFlagBitsKHR {
+    pub const ALLOW_UPDATE_KHR: Self = Self(1 << 0);
+    pub const ALLOW_COMPACTION_KHR: Self = Self(1 << 1);
+    pub const PREFER_FAST_TRACE_KHR: Self = Self(1 << 2);
+    pub const PREFER_FAST_BUILD_KHR: Self = Self(1 << 3);
+    pub const LOW_MEMORY_KHR: Self = Self(1 << 4);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct AccelerationStructureCreateFlagsKHR: Flags {
-        const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR = 1 << 0;
+        const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR = AccelerationStructureCreateFlagBitsKHR::DEVICE_ADDRESS_CAPTURE_REPLAY_KHR.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct AccelerationStructureCreateFlagBitsKHR(u32);
+impl AccelerationStructureCreateFlagBitsKHR {
+    pub const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR: Self = Self(1 << 0);
 }
 pub type PFN_vkDestroyAccelerationStructureKHR = unsafe extern "system" fn(
     device: Device,

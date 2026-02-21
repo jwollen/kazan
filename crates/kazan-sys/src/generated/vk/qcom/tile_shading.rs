@@ -62,9 +62,16 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct TileShadingRenderPassFlagsQCOM: Flags {
-        const ENABLE_QCOM = 1 << 0;
-        const PER_TILE_EXECUTION_QCOM = 1 << 1;
+        const ENABLE_QCOM = TileShadingRenderPassFlagBitsQCOM::ENABLE_QCOM.0;
+        const PER_TILE_EXECUTION_QCOM = TileShadingRenderPassFlagBitsQCOM::PER_TILE_EXECUTION_QCOM.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct TileShadingRenderPassFlagBitsQCOM(u32);
+impl TileShadingRenderPassFlagBitsQCOM {
+    pub const ENABLE_QCOM: Self = Self(1 << 0);
+    pub const PER_TILE_EXECUTION_QCOM: Self = Self(1 << 1);
 }
 pub type PFN_vkCmdDispatchTileQCOM = unsafe extern "system" fn(
     command_buffer: CommandBuffer,

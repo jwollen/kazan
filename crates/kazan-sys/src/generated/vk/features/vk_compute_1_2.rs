@@ -184,9 +184,18 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct DescriptorBindingFlags: Flags {
-        const UPDATE_AFTER_BIND = 1 << 0;
-        const UPDATE_UNUSED_WHILE_PENDING = 1 << 1;
-        const PARTIALLY_BOUND = 1 << 2;
-        const VARIABLE_DESCRIPTOR_COUNT = 1 << 3;
+        const UPDATE_AFTER_BIND = DescriptorBindingFlagBits::UPDATE_AFTER_BIND.0;
+        const UPDATE_UNUSED_WHILE_PENDING = DescriptorBindingFlagBits::UPDATE_UNUSED_WHILE_PENDING.0;
+        const PARTIALLY_BOUND = DescriptorBindingFlagBits::PARTIALLY_BOUND.0;
+        const VARIABLE_DESCRIPTOR_COUNT = DescriptorBindingFlagBits::VARIABLE_DESCRIPTOR_COUNT.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct DescriptorBindingFlagBits(u32);
+impl DescriptorBindingFlagBits {
+    pub const UPDATE_AFTER_BIND: Self = Self(1 << 0);
+    pub const UPDATE_UNUSED_WHILE_PENDING: Self = Self(1 << 1);
+    pub const PARTIALLY_BOUND: Self = Self(1 << 2);
+    pub const VARIABLE_DESCRIPTOR_COUNT: Self = Self(1 << 3);
 }

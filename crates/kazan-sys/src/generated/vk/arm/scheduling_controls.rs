@@ -27,6 +27,12 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct PhysicalDeviceSchedulingControlsFlagsARM: Flags64 {
-        const SHADER_CORE_COUNT_ARM = 1 << 0;
+        const SHADER_CORE_COUNT_ARM = PhysicalDeviceSchedulingControlsFlagBitsARM::SHADER_CORE_COUNT_ARM.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PhysicalDeviceSchedulingControlsFlagBitsARM(u64);
+impl PhysicalDeviceSchedulingControlsFlagBitsARM {
+    pub const SHADER_CORE_COUNT_ARM: Self = Self(1 << 0);
 }

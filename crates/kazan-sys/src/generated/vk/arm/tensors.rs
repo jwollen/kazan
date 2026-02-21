@@ -198,7 +198,7 @@ pub struct PhysicalDeviceExternalTensorInfoARM {
     pub p_next: *const c_void,
     pub flags: TensorCreateFlagsARM,
     pub p_description: *const TensorDescriptionARM,
-    pub handle_type: ExternalMemoryHandleTypeFlags,
+    pub handle_type: ExternalMemoryHandleTypeFlagBits,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -225,19 +225,35 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct TensorCreateFlagsARM: Flags64 {
-        const MUTABLE_FORMAT_ARM = 1 << 0;
-        const PROTECTED_ARM = 1 << 1;
+        const MUTABLE_FORMAT_ARM = TensorCreateFlagBitsARM::MUTABLE_FORMAT_ARM.0;
+        const PROTECTED_ARM = TensorCreateFlagBitsARM::PROTECTED_ARM.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct TensorCreateFlagBitsARM(u64);
+impl TensorCreateFlagBitsARM {
+    pub const MUTABLE_FORMAT_ARM: Self = Self(1 << 0);
+    pub const PROTECTED_ARM: Self = Self(1 << 1);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct TensorUsageFlagsARM: Flags64 {
-        const SHADER_ARM = 1 << 1;
-        const TRANSFER_SRC_ARM = 1 << 2;
-        const TRANSFER_DST_ARM = 1 << 3;
-        const IMAGE_ALIASING_ARM = 1 << 4;
+        const SHADER_ARM = TensorUsageFlagBitsARM::SHADER_ARM.0;
+        const TRANSFER_SRC_ARM = TensorUsageFlagBitsARM::TRANSFER_SRC_ARM.0;
+        const TRANSFER_DST_ARM = TensorUsageFlagBitsARM::TRANSFER_DST_ARM.0;
+        const IMAGE_ALIASING_ARM = TensorUsageFlagBitsARM::IMAGE_ALIASING_ARM.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct TensorUsageFlagBitsARM(u64);
+impl TensorUsageFlagBitsARM {
+    pub const SHADER_ARM: Self = Self(1 << 1);
+    pub const TRANSFER_SRC_ARM: Self = Self(1 << 2);
+    pub const TRANSFER_DST_ARM: Self = Self(1 << 3);
+    pub const IMAGE_ALIASING_ARM: Self = Self(1 << 4);
 }
 pub type PFN_vkCreateTensorARM = unsafe extern "system" fn(
     device: Device,

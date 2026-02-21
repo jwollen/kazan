@@ -37,8 +37,8 @@ pub struct ResolveImageModeInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: ResolveImageFlagsKHR,
-    pub resolve_mode: ResolveModeFlags,
-    pub stencil_resolve_mode: ResolveModeFlags,
+    pub resolve_mode: ResolveModeFlagBits,
+    pub stencil_resolve_mode: ResolveModeFlagBits,
 }
 bitflags! {
     #[repr(transparent)]
@@ -46,12 +46,20 @@ bitflags! {
     pub struct RenderingAttachmentFlagsKHR: Flags {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct RenderingAttachmentFlagBitsKHR(u32);
+impl RenderingAttachmentFlagBitsKHR {}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ResolveImageFlagsKHR: Flags {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ResolveImageFlagBitsKHR(u32);
+impl ResolveImageFlagBitsKHR {}
 pub type PFN_vkCmdEndRendering2KHR = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
     p_rendering_end_info: *const RenderingEndInfoKHR,

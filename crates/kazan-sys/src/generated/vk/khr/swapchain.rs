@@ -21,8 +21,8 @@ pub struct SwapchainCreateInfoKHR {
     pub image_sharing_mode: SharingMode,
     pub queue_family_index_count: u32,
     pub p_queue_family_indices: *const u32,
-    pub pre_transform: SurfaceTransformFlagsKHR,
-    pub composite_alpha: CompositeAlphaFlagsKHR,
+    pub pre_transform: SurfaceTransformFlagBitsKHR,
+    pub composite_alpha: CompositeAlphaFlagBitsKHR,
     pub present_mode: PresentModeKHR,
     pub clipped: Bool32,
     pub old_swapchain: SwapchainKHR,
@@ -80,7 +80,7 @@ pub struct DeviceGroupPresentInfoKHR {
     pub p_next: *const c_void,
     pub swapchain_count: u32,
     pub p_device_masks: *const u32,
-    pub mode: DeviceGroupPresentModeFlagsKHR,
+    pub mode: DeviceGroupPresentModeFlagBitsKHR,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -95,15 +95,28 @@ bitflags! {
     pub struct SwapchainCreateFlagsKHR: Flags {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct SwapchainCreateFlagBitsKHR(u32);
+impl SwapchainCreateFlagBitsKHR {}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct DeviceGroupPresentModeFlagsKHR: Flags {
-        const LOCAL_KHR = 1 << 0;
-        const REMOTE_KHR = 1 << 1;
-        const SUM_KHR = 1 << 2;
-        const LOCAL_MULTI_DEVICE_KHR = 1 << 3;
+        const LOCAL_KHR = DeviceGroupPresentModeFlagBitsKHR::LOCAL_KHR.0;
+        const REMOTE_KHR = DeviceGroupPresentModeFlagBitsKHR::REMOTE_KHR.0;
+        const SUM_KHR = DeviceGroupPresentModeFlagBitsKHR::SUM_KHR.0;
+        const LOCAL_MULTI_DEVICE_KHR = DeviceGroupPresentModeFlagBitsKHR::LOCAL_MULTI_DEVICE_KHR.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct DeviceGroupPresentModeFlagBitsKHR(u32);
+impl DeviceGroupPresentModeFlagBitsKHR {
+    pub const LOCAL_KHR: Self = Self(1 << 0);
+    pub const REMOTE_KHR: Self = Self(1 << 1);
+    pub const SUM_KHR: Self = Self(1 << 2);
+    pub const LOCAL_MULTI_DEVICE_KHR: Self = Self(1 << 3);
 }
 pub type PFN_vkCreateSwapchainKHR = unsafe extern "system" fn(
     device: Device,

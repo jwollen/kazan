@@ -35,7 +35,7 @@ impl DeviceFn {
     pub unsafe fn get_memory_win32_handle_properties_khr(
         &self,
         device: Device,
-        handle_type: ExternalMemoryHandleTypeFlags,
+        handle_type: ExternalMemoryHandleTypeFlagBits,
         handle: HANDLE,
         memory_win32_handle_properties: &mut MemoryWin32HandlePropertiesKHR,
     ) -> Result {

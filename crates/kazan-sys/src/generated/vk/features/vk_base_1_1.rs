@@ -72,7 +72,7 @@ pub struct PhysicalDeviceSparseImageFormatInfo2 {
     pub p_next: *const c_void,
     pub format: Format,
     pub ty: ImageType,
-    pub samples: SampleCountFlags,
+    pub samples: SampleCountFlagBits,
     pub usage: ImageUsageFlags,
     pub tiling: ImageTiling,
 }
@@ -88,7 +88,7 @@ pub struct ExternalMemoryProperties {
 pub struct PhysicalDeviceExternalImageFormatInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
-    pub handle_type: ExternalMemoryHandleTypeFlags,
+    pub handle_type: ExternalMemoryHandleTypeFlagBits,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -104,7 +104,7 @@ pub struct PhysicalDeviceExternalBufferInfo {
     pub p_next: *const c_void,
     pub flags: BufferCreateFlags,
     pub usage: BufferUsageFlags,
-    pub handle_type: ExternalMemoryHandleTypeFlags,
+    pub handle_type: ExternalMemoryHandleTypeFlagBits,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -150,7 +150,7 @@ pub struct ExportMemoryAllocateInfo {
 pub struct PhysicalDeviceExternalSemaphoreInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
-    pub handle_type: ExternalSemaphoreHandleTypeFlags,
+    pub handle_type: ExternalSemaphoreHandleTypeFlagBits,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -173,7 +173,7 @@ pub struct ExportSemaphoreCreateInfo {
 pub struct PhysicalDeviceExternalFenceInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
-    pub handle_type: ExternalFenceHandleTypeFlags,
+    pub handle_type: ExternalFenceHandleTypeFlagBits,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -342,14 +342,14 @@ pub struct ImageViewUsageCreateInfo {
 pub struct BindImagePlaneMemoryInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
-    pub plane_aspect: ImageAspectFlags,
+    pub plane_aspect: ImageAspectFlagBits,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ImagePlaneMemoryRequirementsInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
-    pub plane_aspect: ImageAspectFlags,
+    pub plane_aspect: ImageAspectFlagBits,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -385,18 +385,33 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct PeerMemoryFeatureFlags: Flags {
-        const COPY_SRC = 1 << 0;
-        const COPY_DST = 1 << 1;
-        const GENERIC_SRC = 1 << 2;
-        const GENERIC_DST = 1 << 3;
+        const COPY_SRC = PeerMemoryFeatureFlagBits::COPY_SRC.0;
+        const COPY_DST = PeerMemoryFeatureFlagBits::COPY_DST.0;
+        const GENERIC_SRC = PeerMemoryFeatureFlagBits::GENERIC_SRC.0;
+        const GENERIC_DST = PeerMemoryFeatureFlagBits::GENERIC_DST.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PeerMemoryFeatureFlagBits(u32);
+impl PeerMemoryFeatureFlagBits {
+    pub const COPY_SRC: Self = Self(1 << 0);
+    pub const COPY_DST: Self = Self(1 << 1);
+    pub const GENERIC_SRC: Self = Self(1 << 2);
+    pub const GENERIC_DST: Self = Self(1 << 3);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct MemoryAllocateFlags: Flags {
-        const DEVICE_MASK = 1 << 0;
+        const DEVICE_MASK = MemoryAllocateFlagBits::DEVICE_MASK.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct MemoryAllocateFlagBits(u32);
+impl MemoryAllocateFlagBits {
+    pub const DEVICE_MASK: Self = Self(1 << 0);
 }
 bitflags! {
     #[repr(transparent)]
@@ -408,74 +423,139 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ExternalMemoryHandleTypeFlags: Flags {
-        const OPAQUE_FD = 1 << 0;
-        const OPAQUE_WIN32 = 1 << 1;
-        const OPAQUE_WIN32_KMT = 1 << 2;
-        const D3D11_TEXTURE = 1 << 3;
-        const D3D11_TEXTURE_KMT = 1 << 4;
-        const D3D12_HEAP = 1 << 5;
-        const D3D12_RESOURCE = 1 << 6;
+        const OPAQUE_FD = ExternalMemoryHandleTypeFlagBits::OPAQUE_FD.0;
+        const OPAQUE_WIN32 = ExternalMemoryHandleTypeFlagBits::OPAQUE_WIN32.0;
+        const OPAQUE_WIN32_KMT = ExternalMemoryHandleTypeFlagBits::OPAQUE_WIN32_KMT.0;
+        const D3D11_TEXTURE = ExternalMemoryHandleTypeFlagBits::D3D11_TEXTURE.0;
+        const D3D11_TEXTURE_KMT = ExternalMemoryHandleTypeFlagBits::D3D11_TEXTURE_KMT.0;
+        const D3D12_HEAP = ExternalMemoryHandleTypeFlagBits::D3D12_HEAP.0;
+        const D3D12_RESOURCE = ExternalMemoryHandleTypeFlagBits::D3D12_RESOURCE.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ExternalMemoryHandleTypeFlagBits(u32);
+impl ExternalMemoryHandleTypeFlagBits {
+    pub const OPAQUE_FD: Self = Self(1 << 0);
+    pub const OPAQUE_WIN32: Self = Self(1 << 1);
+    pub const OPAQUE_WIN32_KMT: Self = Self(1 << 2);
+    pub const D3D11_TEXTURE: Self = Self(1 << 3);
+    pub const D3D11_TEXTURE_KMT: Self = Self(1 << 4);
+    pub const D3D12_HEAP: Self = Self(1 << 5);
+    pub const D3D12_RESOURCE: Self = Self(1 << 6);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ExternalMemoryFeatureFlags: Flags {
-        const DEDICATED_ONLY = 1 << 0;
-        const EXPORTABLE = 1 << 1;
-        const IMPORTABLE = 1 << 2;
+        const DEDICATED_ONLY = ExternalMemoryFeatureFlagBits::DEDICATED_ONLY.0;
+        const EXPORTABLE = ExternalMemoryFeatureFlagBits::EXPORTABLE.0;
+        const IMPORTABLE = ExternalMemoryFeatureFlagBits::IMPORTABLE.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ExternalMemoryFeatureFlagBits(u32);
+impl ExternalMemoryFeatureFlagBits {
+    pub const DEDICATED_ONLY: Self = Self(1 << 0);
+    pub const EXPORTABLE: Self = Self(1 << 1);
+    pub const IMPORTABLE: Self = Self(1 << 2);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ExternalSemaphoreHandleTypeFlags: Flags {
-        const OPAQUE_FD = 1 << 0;
-        const OPAQUE_WIN32 = 1 << 1;
-        const OPAQUE_WIN32_KMT = 1 << 2;
-        const D3D12_FENCE = 1 << 3;
-        const SYNC_FD = 1 << 4;
+        const OPAQUE_FD = ExternalSemaphoreHandleTypeFlagBits::OPAQUE_FD.0;
+        const OPAQUE_WIN32 = ExternalSemaphoreHandleTypeFlagBits::OPAQUE_WIN32.0;
+        const OPAQUE_WIN32_KMT = ExternalSemaphoreHandleTypeFlagBits::OPAQUE_WIN32_KMT.0;
+        const D3D12_FENCE = ExternalSemaphoreHandleTypeFlagBits::D3D12_FENCE.0;
+        const SYNC_FD = ExternalSemaphoreHandleTypeFlagBits::SYNC_FD.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ExternalSemaphoreHandleTypeFlagBits(u32);
+impl ExternalSemaphoreHandleTypeFlagBits {
+    pub const OPAQUE_FD: Self = Self(1 << 0);
+    pub const OPAQUE_WIN32: Self = Self(1 << 1);
+    pub const OPAQUE_WIN32_KMT: Self = Self(1 << 2);
+    pub const D3D12_FENCE: Self = Self(1 << 3);
+    pub const SYNC_FD: Self = Self(1 << 4);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ExternalSemaphoreFeatureFlags: Flags {
-        const EXPORTABLE = 1 << 0;
-        const IMPORTABLE = 1 << 1;
+        const EXPORTABLE = ExternalSemaphoreFeatureFlagBits::EXPORTABLE.0;
+        const IMPORTABLE = ExternalSemaphoreFeatureFlagBits::IMPORTABLE.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ExternalSemaphoreFeatureFlagBits(u32);
+impl ExternalSemaphoreFeatureFlagBits {
+    pub const EXPORTABLE: Self = Self(1 << 0);
+    pub const IMPORTABLE: Self = Self(1 << 1);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct SemaphoreImportFlags: Flags {
-        const TEMPORARY = 1 << 0;
+        const TEMPORARY = SemaphoreImportFlagBits::TEMPORARY.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct SemaphoreImportFlagBits(u32);
+impl SemaphoreImportFlagBits {
+    pub const TEMPORARY: Self = Self(1 << 0);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ExternalFenceHandleTypeFlags: Flags {
-        const OPAQUE_FD = 1 << 0;
-        const OPAQUE_WIN32 = 1 << 1;
-        const OPAQUE_WIN32_KMT = 1 << 2;
-        const SYNC_FD = 1 << 3;
+        const OPAQUE_FD = ExternalFenceHandleTypeFlagBits::OPAQUE_FD.0;
+        const OPAQUE_WIN32 = ExternalFenceHandleTypeFlagBits::OPAQUE_WIN32.0;
+        const OPAQUE_WIN32_KMT = ExternalFenceHandleTypeFlagBits::OPAQUE_WIN32_KMT.0;
+        const SYNC_FD = ExternalFenceHandleTypeFlagBits::SYNC_FD.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ExternalFenceHandleTypeFlagBits(u32);
+impl ExternalFenceHandleTypeFlagBits {
+    pub const OPAQUE_FD: Self = Self(1 << 0);
+    pub const OPAQUE_WIN32: Self = Self(1 << 1);
+    pub const OPAQUE_WIN32_KMT: Self = Self(1 << 2);
+    pub const SYNC_FD: Self = Self(1 << 3);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ExternalFenceFeatureFlags: Flags {
-        const EXPORTABLE = 1 << 0;
-        const IMPORTABLE = 1 << 1;
+        const EXPORTABLE = ExternalFenceFeatureFlagBits::EXPORTABLE.0;
+        const IMPORTABLE = ExternalFenceFeatureFlagBits::IMPORTABLE.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ExternalFenceFeatureFlagBits(u32);
+impl ExternalFenceFeatureFlagBits {
+    pub const EXPORTABLE: Self = Self(1 << 0);
+    pub const IMPORTABLE: Self = Self(1 << 1);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct FenceImportFlags: Flags {
-        const TEMPORARY = 1 << 0;
+        const TEMPORARY = FenceImportFlagBits::TEMPORARY.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct FenceImportFlagBits(u32);
+impl FenceImportFlagBits {
+    pub const TEMPORARY: Self = Self(1 << 0);
 }
 pub type PFN_vkEnumerateInstanceVersion =
     unsafe extern "system" fn(p_api_version: *mut u32) -> Result;

@@ -80,7 +80,7 @@ pub struct RenderingAttachmentInfo {
     pub p_next: *const c_void,
     pub image_view: ImageView,
     pub image_layout: ImageLayout,
-    pub resolve_mode: ResolveModeFlags,
+    pub resolve_mode: ResolveModeFlagBits,
     pub resolve_image_view: ImageView,
     pub resolve_image_layout: ImageLayout,
     pub load_op: AttachmentLoadOp,
@@ -105,16 +105,24 @@ pub struct CommandBufferInheritanceRenderingInfo {
     pub p_color_attachment_formats: *const Format,
     pub depth_attachment_format: Format,
     pub stencil_attachment_format: Format,
-    pub rasterization_samples: SampleCountFlags,
+    pub rasterization_samples: SampleCountFlagBits,
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct RenderingFlags: Flags {
-        const CONTENTS_SECONDARY_COMMAND_BUFFERS = 1 << 0;
-        const SUSPENDING = 1 << 1;
-        const RESUMING = 1 << 2;
+        const CONTENTS_SECONDARY_COMMAND_BUFFERS = RenderingFlagBits::CONTENTS_SECONDARY_COMMAND_BUFFERS.0;
+        const SUSPENDING = RenderingFlagBits::SUSPENDING.0;
+        const RESUMING = RenderingFlagBits::RESUMING.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct RenderingFlagBits(u32);
+impl RenderingFlagBits {
+    pub const CONTENTS_SECONDARY_COMMAND_BUFFERS: Self = Self(1 << 0);
+    pub const SUSPENDING: Self = Self(1 << 1);
+    pub const RESUMING: Self = Self(1 << 2);
 }
 pub type PFN_vkCmdSetCullMode =
     unsafe extern "system" fn(command_buffer: CommandBuffer, cull_mode: CullModeFlags);

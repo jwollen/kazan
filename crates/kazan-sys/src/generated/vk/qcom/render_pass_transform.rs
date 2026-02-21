@@ -7,13 +7,13 @@ use core::ffi::{c_char, c_int, c_void};
 pub struct RenderPassTransformBeginInfoQCOM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
-    pub transform: SurfaceTransformFlagsKHR,
+    pub transform: SurfaceTransformFlagBitsKHR,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct CommandBufferInheritanceRenderPassTransformInfoQCOM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
-    pub transform: SurfaceTransformFlagsKHR,
+    pub transform: SurfaceTransformFlagBitsKHR,
     pub render_area: Rect2D,
 }

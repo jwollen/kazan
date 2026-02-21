@@ -22,5 +22,5 @@ pub struct MultisampledRenderToSingleSampledInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub multisampled_render_to_single_sampled_enable: Bool32,
-    pub rasterization_samples: SampleCountFlags,
+    pub rasterization_samples: SampleCountFlagBits,
 }

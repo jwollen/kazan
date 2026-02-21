@@ -22,7 +22,7 @@ impl DeviceFn {
         &self,
         device: Device,
         pipeline: Pipeline,
-        shader_stage: ShaderStageFlags,
+        shader_stage: ShaderStageFlagBits,
         info_type: ShaderInfoTypeAMD,
         info: impl ExtendUninit<u8>,
     ) -> Result {

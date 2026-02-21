@@ -28,6 +28,12 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct FrameBoundaryFlagsEXT: Flags {
-        const FRAME_END_EXT = 1 << 0;
+        const FRAME_END_EXT = FrameBoundaryFlagBitsEXT::FRAME_END_EXT.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct FrameBoundaryFlagBitsEXT(u32);
+impl FrameBoundaryFlagBitsEXT {
+    pub const FRAME_END_EXT: Self = Self(1 << 0);
 }

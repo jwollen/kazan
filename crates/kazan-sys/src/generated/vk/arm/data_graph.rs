@@ -227,8 +227,14 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct DataGraphPipelineSessionCreateFlagsARM: Flags64 {
-        const PROTECTED_ARM = 1 << 0;
+        const PROTECTED_ARM = DataGraphPipelineSessionCreateFlagBitsARM::PROTECTED_ARM.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct DataGraphPipelineSessionCreateFlagBitsARM(u64);
+impl DataGraphPipelineSessionCreateFlagBitsARM {
+    pub const PROTECTED_ARM: Self = Self(1 << 0);
 }
 bitflags! {
     #[repr(transparent)]
@@ -236,6 +242,10 @@ bitflags! {
     pub struct DataGraphPipelineDispatchFlagsARM: Flags64 {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct DataGraphPipelineDispatchFlagBitsARM(u64);
+impl DataGraphPipelineDispatchFlagBitsARM {}
 pub type PFN_vkCreateDataGraphPipelinesARM = unsafe extern "system" fn(
     device: Device,
     deferred_operation: DeferredOperationKHR,

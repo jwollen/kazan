@@ -7,7 +7,7 @@ use core::ffi::{c_char, c_int, c_void};
 pub struct ImportMemoryHostPointerInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
-    pub handle_type: ExternalMemoryHandleTypeFlags,
+    pub handle_type: ExternalMemoryHandleTypeFlagBits,
     pub p_host_pointer: *mut c_void,
 }
 #[repr(C)]
@@ -26,7 +26,7 @@ pub struct PhysicalDeviceExternalMemoryHostPropertiesEXT {
 }
 pub type PFN_vkGetMemoryHostPointerPropertiesEXT = unsafe extern "system" fn(
     device: Device,
-    handle_type: ExternalMemoryHandleTypeFlags,
+    handle_type: ExternalMemoryHandleTypeFlagBits,
     p_host_pointer: *const c_void,
     p_memory_host_pointer_properties: *mut MemoryHostPointerPropertiesEXT,
 ) -> Result;

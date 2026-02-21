@@ -14,7 +14,7 @@ pub struct SurfaceCapabilities2EXT {
     pub max_image_extent: Extent2D,
     pub max_image_array_layers: u32,
     pub supported_transforms: SurfaceTransformFlagsKHR,
-    pub current_transform: SurfaceTransformFlagsKHR,
+    pub current_transform: SurfaceTransformFlagBitsKHR,
     pub supported_composite_alpha: CompositeAlphaFlagsKHR,
     pub supported_usage_flags: ImageUsageFlags,
     pub supported_surface_counters: SurfaceCounterFlagsEXT,
@@ -23,8 +23,14 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct SurfaceCounterFlagsEXT: Flags {
-        const VBLANK_EXT = 1 << 0;
+        const VBLANK_EXT = SurfaceCounterFlagBitsEXT::VBLANK_EXT.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct SurfaceCounterFlagBitsEXT(u32);
+impl SurfaceCounterFlagBitsEXT {
+    pub const VBLANK_EXT: Self = Self(1 << 0);
 }
 pub type PFN_vkGetPhysicalDeviceSurfaceCapabilities2EXT = unsafe extern "system" fn(
     physical_device: PhysicalDevice,

@@ -9,7 +9,7 @@ pub struct AttachmentDescription2 {
     pub p_next: *const c_void,
     pub flags: AttachmentDescriptionFlags,
     pub format: Format,
-    pub samples: SampleCountFlags,
+    pub samples: SampleCountFlagBits,
     pub load_op: AttachmentLoadOp,
     pub store_op: AttachmentStoreOp,
     pub stencil_load_op: AttachmentLoadOp,
@@ -100,8 +100,8 @@ pub struct PhysicalDeviceDepthStencilResolveProperties {
 pub struct SubpassDescriptionDepthStencilResolve {
     pub s_type: StructureType,
     pub p_next: *const c_void,
-    pub depth_resolve_mode: ResolveModeFlags,
-    pub stencil_resolve_mode: ResolveModeFlags,
+    pub depth_resolve_mode: ResolveModeFlagBits,
+    pub stencil_resolve_mode: ResolveModeFlagBits,
     pub p_depth_stencil_resolve_attachment: *const AttachmentReference2,
 }
 #[repr(C)]
@@ -173,12 +173,21 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ResolveModeFlags: Flags {
-        const SAMPLE_ZERO = 1 << 0;
-        const AVERAGE = 1 << 1;
-        const MIN = 1 << 2;
-        const MAX = 1 << 3;
+        const SAMPLE_ZERO = ResolveModeFlagBits::SAMPLE_ZERO.0;
+        const AVERAGE = ResolveModeFlagBits::AVERAGE.0;
+        const MIN = ResolveModeFlagBits::MIN.0;
+        const MAX = ResolveModeFlagBits::MAX.0;
         const NONE = 0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ResolveModeFlagBits(u32);
+impl ResolveModeFlagBits {
+    pub const SAMPLE_ZERO: Self = Self(1 << 0);
+    pub const AVERAGE: Self = Self(1 << 1);
+    pub const MIN: Self = Self(1 << 2);
+    pub const MAX: Self = Self(1 << 3);
 }
 pub type PFN_vkCreateRenderPass2 = unsafe extern "system" fn(
     device: Device,

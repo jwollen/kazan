@@ -170,7 +170,7 @@ pub struct BindVertexBufferIndirectCommandEXT {
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct IndirectCommandsIndexBufferTokenEXT {
-    pub mode: IndirectCommandsInputModeFlagsEXT,
+    pub mode: IndirectCommandsInputModeFlagBitsEXT,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -230,17 +230,31 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct IndirectCommandsLayoutUsageFlagsEXT: Flags {
-        const EXPLICIT_PREPROCESS_EXT = 1 << 0;
-        const UNORDERED_SEQUENCES_EXT = 1 << 1;
+        const EXPLICIT_PREPROCESS_EXT = IndirectCommandsLayoutUsageFlagBitsEXT::EXPLICIT_PREPROCESS_EXT.0;
+        const UNORDERED_SEQUENCES_EXT = IndirectCommandsLayoutUsageFlagBitsEXT::UNORDERED_SEQUENCES_EXT.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct IndirectCommandsLayoutUsageFlagBitsEXT(u32);
+impl IndirectCommandsLayoutUsageFlagBitsEXT {
+    pub const EXPLICIT_PREPROCESS_EXT: Self = Self(1 << 0);
+    pub const UNORDERED_SEQUENCES_EXT: Self = Self(1 << 1);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct IndirectCommandsInputModeFlagsEXT: Flags {
-        const VULKAN_INDEX_BUFFER_EXT = 1 << 0;
-        const DXGI_INDEX_BUFFER_EXT = 1 << 1;
+        const VULKAN_INDEX_BUFFER_EXT = IndirectCommandsInputModeFlagBitsEXT::VULKAN_INDEX_BUFFER_EXT.0;
+        const DXGI_INDEX_BUFFER_EXT = IndirectCommandsInputModeFlagBitsEXT::DXGI_INDEX_BUFFER_EXT.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct IndirectCommandsInputModeFlagBitsEXT(u32);
+impl IndirectCommandsInputModeFlagBitsEXT {
+    pub const VULKAN_INDEX_BUFFER_EXT: Self = Self(1 << 0);
+    pub const DXGI_INDEX_BUFFER_EXT: Self = Self(1 << 1);
 }
 pub type PFN_vkCmdExecuteGeneratedCommandsEXT = unsafe extern "system" fn(
     command_buffer: CommandBuffer,

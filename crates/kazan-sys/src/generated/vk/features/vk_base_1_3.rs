@@ -40,7 +40,7 @@ pub struct DeviceImageMemoryRequirements {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_create_info: *const ImageCreateInfo,
-    pub plane_aspect: ImageAspectFlags,
+    pub plane_aspect: ImageAspectFlagBits,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -334,109 +334,211 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct AccessFlags2: Flags64 {
-        const INDIRECT_COMMAND_READ = 1 << 0;
-        const INDEX_READ = 1 << 1;
-        const VERTEX_ATTRIBUTE_READ = 1 << 2;
-        const UNIFORM_READ = 1 << 3;
-        const INPUT_ATTACHMENT_READ = 1 << 4;
-        const SHADER_READ = 1 << 5;
-        const SHADER_WRITE = 1 << 6;
-        const COLOR_ATTACHMENT_READ = 1 << 7;
-        const COLOR_ATTACHMENT_WRITE = 1 << 8;
-        const DEPTH_STENCIL_ATTACHMENT_READ = 1 << 9;
-        const DEPTH_STENCIL_ATTACHMENT_WRITE = 1 << 10;
-        const TRANSFER_READ = 1 << 11;
-        const TRANSFER_WRITE = 1 << 12;
-        const HOST_READ = 1 << 13;
-        const HOST_WRITE = 1 << 14;
-        const MEMORY_READ = 1 << 15;
-        const MEMORY_WRITE = 1 << 16;
-        const SHADER_SAMPLED_READ = 1 << 32;
-        const SHADER_STORAGE_READ = 1 << 33;
-        const SHADER_STORAGE_WRITE = 1 << 34;
+        const INDIRECT_COMMAND_READ = AccessFlagBits2::INDIRECT_COMMAND_READ.0;
+        const INDEX_READ = AccessFlagBits2::INDEX_READ.0;
+        const VERTEX_ATTRIBUTE_READ = AccessFlagBits2::VERTEX_ATTRIBUTE_READ.0;
+        const UNIFORM_READ = AccessFlagBits2::UNIFORM_READ.0;
+        const INPUT_ATTACHMENT_READ = AccessFlagBits2::INPUT_ATTACHMENT_READ.0;
+        const SHADER_READ = AccessFlagBits2::SHADER_READ.0;
+        const SHADER_WRITE = AccessFlagBits2::SHADER_WRITE.0;
+        const COLOR_ATTACHMENT_READ = AccessFlagBits2::COLOR_ATTACHMENT_READ.0;
+        const COLOR_ATTACHMENT_WRITE = AccessFlagBits2::COLOR_ATTACHMENT_WRITE.0;
+        const DEPTH_STENCIL_ATTACHMENT_READ = AccessFlagBits2::DEPTH_STENCIL_ATTACHMENT_READ.0;
+        const DEPTH_STENCIL_ATTACHMENT_WRITE = AccessFlagBits2::DEPTH_STENCIL_ATTACHMENT_WRITE.0;
+        const TRANSFER_READ = AccessFlagBits2::TRANSFER_READ.0;
+        const TRANSFER_WRITE = AccessFlagBits2::TRANSFER_WRITE.0;
+        const HOST_READ = AccessFlagBits2::HOST_READ.0;
+        const HOST_WRITE = AccessFlagBits2::HOST_WRITE.0;
+        const MEMORY_READ = AccessFlagBits2::MEMORY_READ.0;
+        const MEMORY_WRITE = AccessFlagBits2::MEMORY_WRITE.0;
+        const SHADER_SAMPLED_READ = AccessFlagBits2::SHADER_SAMPLED_READ.0;
+        const SHADER_STORAGE_READ = AccessFlagBits2::SHADER_STORAGE_READ.0;
+        const SHADER_STORAGE_WRITE = AccessFlagBits2::SHADER_STORAGE_WRITE.0;
         const NONE = 0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct AccessFlagBits2(u64);
+impl AccessFlagBits2 {
+    pub const INDIRECT_COMMAND_READ: Self = Self(1 << 0);
+    pub const INDEX_READ: Self = Self(1 << 1);
+    pub const VERTEX_ATTRIBUTE_READ: Self = Self(1 << 2);
+    pub const UNIFORM_READ: Self = Self(1 << 3);
+    pub const INPUT_ATTACHMENT_READ: Self = Self(1 << 4);
+    pub const SHADER_READ: Self = Self(1 << 5);
+    pub const SHADER_WRITE: Self = Self(1 << 6);
+    pub const COLOR_ATTACHMENT_READ: Self = Self(1 << 7);
+    pub const COLOR_ATTACHMENT_WRITE: Self = Self(1 << 8);
+    pub const DEPTH_STENCIL_ATTACHMENT_READ: Self = Self(1 << 9);
+    pub const DEPTH_STENCIL_ATTACHMENT_WRITE: Self = Self(1 << 10);
+    pub const TRANSFER_READ: Self = Self(1 << 11);
+    pub const TRANSFER_WRITE: Self = Self(1 << 12);
+    pub const HOST_READ: Self = Self(1 << 13);
+    pub const HOST_WRITE: Self = Self(1 << 14);
+    pub const MEMORY_READ: Self = Self(1 << 15);
+    pub const MEMORY_WRITE: Self = Self(1 << 16);
+    pub const SHADER_SAMPLED_READ: Self = Self(1 << 32);
+    pub const SHADER_STORAGE_READ: Self = Self(1 << 33);
+    pub const SHADER_STORAGE_WRITE: Self = Self(1 << 34);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct PipelineStageFlags2: Flags64 {
-        const TOP_OF_PIPE = 1 << 0;
-        const DRAW_INDIRECT = 1 << 1;
-        const VERTEX_INPUT = 1 << 2;
-        const VERTEX_SHADER = 1 << 3;
-        const TESSELLATION_CONTROL_SHADER = 1 << 4;
-        const TESSELLATION_EVALUATION_SHADER = 1 << 5;
-        const GEOMETRY_SHADER = 1 << 6;
-        const FRAGMENT_SHADER = 1 << 7;
-        const EARLY_FRAGMENT_TESTS = 1 << 8;
-        const LATE_FRAGMENT_TESTS = 1 << 9;
-        const COLOR_ATTACHMENT_OUTPUT = 1 << 10;
-        const COMPUTE_SHADER = 1 << 11;
-        const ALL_TRANSFER = 1 << 12;
-        const BOTTOM_OF_PIPE = 1 << 13;
-        const HOST = 1 << 14;
-        const ALL_GRAPHICS = 1 << 15;
-        const ALL_COMMANDS = 1 << 16;
-        const COPY = 1 << 32;
-        const RESOLVE = 1 << 33;
-        const BLIT = 1 << 34;
-        const CLEAR = 1 << 35;
-        const INDEX_INPUT = 1 << 36;
-        const VERTEX_ATTRIBUTE_INPUT = 1 << 37;
-        const PRE_RASTERIZATION_SHADERS = 1 << 38;
+        const TOP_OF_PIPE = PipelineStageFlagBits2::TOP_OF_PIPE.0;
+        const DRAW_INDIRECT = PipelineStageFlagBits2::DRAW_INDIRECT.0;
+        const VERTEX_INPUT = PipelineStageFlagBits2::VERTEX_INPUT.0;
+        const VERTEX_SHADER = PipelineStageFlagBits2::VERTEX_SHADER.0;
+        const TESSELLATION_CONTROL_SHADER = PipelineStageFlagBits2::TESSELLATION_CONTROL_SHADER.0;
+        const TESSELLATION_EVALUATION_SHADER = PipelineStageFlagBits2::TESSELLATION_EVALUATION_SHADER.0;
+        const GEOMETRY_SHADER = PipelineStageFlagBits2::GEOMETRY_SHADER.0;
+        const FRAGMENT_SHADER = PipelineStageFlagBits2::FRAGMENT_SHADER.0;
+        const EARLY_FRAGMENT_TESTS = PipelineStageFlagBits2::EARLY_FRAGMENT_TESTS.0;
+        const LATE_FRAGMENT_TESTS = PipelineStageFlagBits2::LATE_FRAGMENT_TESTS.0;
+        const COLOR_ATTACHMENT_OUTPUT = PipelineStageFlagBits2::COLOR_ATTACHMENT_OUTPUT.0;
+        const COMPUTE_SHADER = PipelineStageFlagBits2::COMPUTE_SHADER.0;
+        const ALL_TRANSFER = PipelineStageFlagBits2::ALL_TRANSFER.0;
+        const BOTTOM_OF_PIPE = PipelineStageFlagBits2::BOTTOM_OF_PIPE.0;
+        const HOST = PipelineStageFlagBits2::HOST.0;
+        const ALL_GRAPHICS = PipelineStageFlagBits2::ALL_GRAPHICS.0;
+        const ALL_COMMANDS = PipelineStageFlagBits2::ALL_COMMANDS.0;
+        const COPY = PipelineStageFlagBits2::COPY.0;
+        const RESOLVE = PipelineStageFlagBits2::RESOLVE.0;
+        const BLIT = PipelineStageFlagBits2::BLIT.0;
+        const CLEAR = PipelineStageFlagBits2::CLEAR.0;
+        const INDEX_INPUT = PipelineStageFlagBits2::INDEX_INPUT.0;
+        const VERTEX_ATTRIBUTE_INPUT = PipelineStageFlagBits2::VERTEX_ATTRIBUTE_INPUT.0;
+        const PRE_RASTERIZATION_SHADERS = PipelineStageFlagBits2::PRE_RASTERIZATION_SHADERS.0;
         const NONE = 0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PipelineStageFlagBits2(u64);
+impl PipelineStageFlagBits2 {
+    pub const TOP_OF_PIPE: Self = Self(1 << 0);
+    pub const DRAW_INDIRECT: Self = Self(1 << 1);
+    pub const VERTEX_INPUT: Self = Self(1 << 2);
+    pub const VERTEX_SHADER: Self = Self(1 << 3);
+    pub const TESSELLATION_CONTROL_SHADER: Self = Self(1 << 4);
+    pub const TESSELLATION_EVALUATION_SHADER: Self = Self(1 << 5);
+    pub const GEOMETRY_SHADER: Self = Self(1 << 6);
+    pub const FRAGMENT_SHADER: Self = Self(1 << 7);
+    pub const EARLY_FRAGMENT_TESTS: Self = Self(1 << 8);
+    pub const LATE_FRAGMENT_TESTS: Self = Self(1 << 9);
+    pub const COLOR_ATTACHMENT_OUTPUT: Self = Self(1 << 10);
+    pub const COMPUTE_SHADER: Self = Self(1 << 11);
+    pub const ALL_TRANSFER: Self = Self(1 << 12);
+    pub const BOTTOM_OF_PIPE: Self = Self(1 << 13);
+    pub const HOST: Self = Self(1 << 14);
+    pub const ALL_GRAPHICS: Self = Self(1 << 15);
+    pub const ALL_COMMANDS: Self = Self(1 << 16);
+    pub const COPY: Self = Self(1 << 32);
+    pub const RESOLVE: Self = Self(1 << 33);
+    pub const BLIT: Self = Self(1 << 34);
+    pub const CLEAR: Self = Self(1 << 35);
+    pub const INDEX_INPUT: Self = Self(1 << 36);
+    pub const VERTEX_ATTRIBUTE_INPUT: Self = Self(1 << 37);
+    pub const PRE_RASTERIZATION_SHADERS: Self = Self(1 << 38);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct FormatFeatureFlags2: Flags64 {
-        const SAMPLED_IMAGE = 1 << 0;
-        const STORAGE_IMAGE = 1 << 1;
-        const STORAGE_IMAGE_ATOMIC = 1 << 2;
-        const UNIFORM_TEXEL_BUFFER = 1 << 3;
-        const STORAGE_TEXEL_BUFFER = 1 << 4;
-        const STORAGE_TEXEL_BUFFER_ATOMIC = 1 << 5;
-        const VERTEX_BUFFER = 1 << 6;
-        const COLOR_ATTACHMENT = 1 << 7;
-        const COLOR_ATTACHMENT_BLEND = 1 << 8;
-        const DEPTH_STENCIL_ATTACHMENT = 1 << 9;
-        const BLIT_SRC = 1 << 10;
-        const BLIT_DST = 1 << 11;
-        const SAMPLED_IMAGE_FILTER_LINEAR = 1 << 12;
-        const TRANSFER_SRC = 1 << 14;
-        const TRANSFER_DST = 1 << 15;
-        const SAMPLED_IMAGE_FILTER_MINMAX = 1 << 16;
-        const MIDPOINT_CHROMA_SAMPLES = 1 << 17;
-        const SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER = 1 << 18;
-        const SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER = 1 << 19;
-        const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT = 1 << 20;
-        const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE = 1 << 21;
-        const DISJOINT = 1 << 22;
-        const COSITED_CHROMA_SAMPLES = 1 << 23;
-        const STORAGE_READ_WITHOUT_FORMAT = 1 << 31;
-        const STORAGE_WRITE_WITHOUT_FORMAT = 1 << 32;
-        const SAMPLED_IMAGE_DEPTH_COMPARISON = 1 << 33;
+        const SAMPLED_IMAGE = FormatFeatureFlagBits2::SAMPLED_IMAGE.0;
+        const STORAGE_IMAGE = FormatFeatureFlagBits2::STORAGE_IMAGE.0;
+        const STORAGE_IMAGE_ATOMIC = FormatFeatureFlagBits2::STORAGE_IMAGE_ATOMIC.0;
+        const UNIFORM_TEXEL_BUFFER = FormatFeatureFlagBits2::UNIFORM_TEXEL_BUFFER.0;
+        const STORAGE_TEXEL_BUFFER = FormatFeatureFlagBits2::STORAGE_TEXEL_BUFFER.0;
+        const STORAGE_TEXEL_BUFFER_ATOMIC = FormatFeatureFlagBits2::STORAGE_TEXEL_BUFFER_ATOMIC.0;
+        const VERTEX_BUFFER = FormatFeatureFlagBits2::VERTEX_BUFFER.0;
+        const COLOR_ATTACHMENT = FormatFeatureFlagBits2::COLOR_ATTACHMENT.0;
+        const COLOR_ATTACHMENT_BLEND = FormatFeatureFlagBits2::COLOR_ATTACHMENT_BLEND.0;
+        const DEPTH_STENCIL_ATTACHMENT = FormatFeatureFlagBits2::DEPTH_STENCIL_ATTACHMENT.0;
+        const BLIT_SRC = FormatFeatureFlagBits2::BLIT_SRC.0;
+        const BLIT_DST = FormatFeatureFlagBits2::BLIT_DST.0;
+        const SAMPLED_IMAGE_FILTER_LINEAR = FormatFeatureFlagBits2::SAMPLED_IMAGE_FILTER_LINEAR.0;
+        const TRANSFER_SRC = FormatFeatureFlagBits2::TRANSFER_SRC.0;
+        const TRANSFER_DST = FormatFeatureFlagBits2::TRANSFER_DST.0;
+        const SAMPLED_IMAGE_FILTER_MINMAX = FormatFeatureFlagBits2::SAMPLED_IMAGE_FILTER_MINMAX.0;
+        const MIDPOINT_CHROMA_SAMPLES = FormatFeatureFlagBits2::MIDPOINT_CHROMA_SAMPLES.0;
+        const SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER = FormatFeatureFlagBits2::SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER.0;
+        const SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER = FormatFeatureFlagBits2::SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER.0;
+        const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT = FormatFeatureFlagBits2::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT.0;
+        const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE = FormatFeatureFlagBits2::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE.0;
+        const DISJOINT = FormatFeatureFlagBits2::DISJOINT.0;
+        const COSITED_CHROMA_SAMPLES = FormatFeatureFlagBits2::COSITED_CHROMA_SAMPLES.0;
+        const STORAGE_READ_WITHOUT_FORMAT = FormatFeatureFlagBits2::STORAGE_READ_WITHOUT_FORMAT.0;
+        const STORAGE_WRITE_WITHOUT_FORMAT = FormatFeatureFlagBits2::STORAGE_WRITE_WITHOUT_FORMAT.0;
+        const SAMPLED_IMAGE_DEPTH_COMPARISON = FormatFeatureFlagBits2::SAMPLED_IMAGE_DEPTH_COMPARISON.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct FormatFeatureFlagBits2(u64);
+impl FormatFeatureFlagBits2 {
+    pub const SAMPLED_IMAGE: Self = Self(1 << 0);
+    pub const STORAGE_IMAGE: Self = Self(1 << 1);
+    pub const STORAGE_IMAGE_ATOMIC: Self = Self(1 << 2);
+    pub const UNIFORM_TEXEL_BUFFER: Self = Self(1 << 3);
+    pub const STORAGE_TEXEL_BUFFER: Self = Self(1 << 4);
+    pub const STORAGE_TEXEL_BUFFER_ATOMIC: Self = Self(1 << 5);
+    pub const VERTEX_BUFFER: Self = Self(1 << 6);
+    pub const COLOR_ATTACHMENT: Self = Self(1 << 7);
+    pub const COLOR_ATTACHMENT_BLEND: Self = Self(1 << 8);
+    pub const DEPTH_STENCIL_ATTACHMENT: Self = Self(1 << 9);
+    pub const BLIT_SRC: Self = Self(1 << 10);
+    pub const BLIT_DST: Self = Self(1 << 11);
+    pub const SAMPLED_IMAGE_FILTER_LINEAR: Self = Self(1 << 12);
+    pub const TRANSFER_SRC: Self = Self(1 << 14);
+    pub const TRANSFER_DST: Self = Self(1 << 15);
+    pub const SAMPLED_IMAGE_FILTER_MINMAX: Self = Self(1 << 16);
+    pub const MIDPOINT_CHROMA_SAMPLES: Self = Self(1 << 17);
+    pub const SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER: Self = Self(1 << 18);
+    pub const SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER: Self = Self(1 << 19);
+    pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT: Self = Self(1 << 20);
+    pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE: Self =
+        Self(1 << 21);
+    pub const DISJOINT: Self = Self(1 << 22);
+    pub const COSITED_CHROMA_SAMPLES: Self = Self(1 << 23);
+    pub const STORAGE_READ_WITHOUT_FORMAT: Self = Self(1 << 31);
+    pub const STORAGE_WRITE_WITHOUT_FORMAT: Self = Self(1 << 32);
+    pub const SAMPLED_IMAGE_DEPTH_COMPARISON: Self = Self(1 << 33);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ToolPurposeFlags: Flags {
-        const VALIDATION = 1 << 0;
-        const PROFILING = 1 << 1;
-        const TRACING = 1 << 2;
-        const ADDITIONAL_FEATURES = 1 << 3;
-        const MODIFYING_FEATURES = 1 << 4;
+        const VALIDATION = ToolPurposeFlagBits::VALIDATION.0;
+        const PROFILING = ToolPurposeFlagBits::PROFILING.0;
+        const TRACING = ToolPurposeFlagBits::TRACING.0;
+        const ADDITIONAL_FEATURES = ToolPurposeFlagBits::ADDITIONAL_FEATURES.0;
+        const MODIFYING_FEATURES = ToolPurposeFlagBits::MODIFYING_FEATURES.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ToolPurposeFlagBits(u32);
+impl ToolPurposeFlagBits {
+    pub const VALIDATION: Self = Self(1 << 0);
+    pub const PROFILING: Self = Self(1 << 1);
+    pub const TRACING: Self = Self(1 << 2);
+    pub const ADDITIONAL_FEATURES: Self = Self(1 << 3);
+    pub const MODIFYING_FEATURES: Self = Self(1 << 4);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct SubmitFlags: Flags {
-        const PROTECTED = 1 << 0;
+        const PROTECTED = SubmitFlagBits::PROTECTED.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct SubmitFlagBits(u32);
+impl SubmitFlagBits {
+    pub const PROTECTED: Self = Self(1 << 0);
 }
 pub type PFN_vkGetDeviceBufferMemoryRequirements = unsafe extern "system" fn(
     device: Device,

@@ -55,12 +55,22 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct DebugReportFlagsEXT: Flags {
-        const INFORMATION_EXT = 1 << 0;
-        const WARNING_EXT = 1 << 1;
-        const PERFORMANCE_WARNING_EXT = 1 << 2;
-        const ERROR_EXT = 1 << 3;
-        const DEBUG_EXT = 1 << 4;
+        const INFORMATION_EXT = DebugReportFlagBitsEXT::INFORMATION_EXT.0;
+        const WARNING_EXT = DebugReportFlagBitsEXT::WARNING_EXT.0;
+        const PERFORMANCE_WARNING_EXT = DebugReportFlagBitsEXT::PERFORMANCE_WARNING_EXT.0;
+        const ERROR_EXT = DebugReportFlagBitsEXT::ERROR_EXT.0;
+        const DEBUG_EXT = DebugReportFlagBitsEXT::DEBUG_EXT.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct DebugReportFlagBitsEXT(u32);
+impl DebugReportFlagBitsEXT {
+    pub const INFORMATION_EXT: Self = Self(1 << 0);
+    pub const WARNING_EXT: Self = Self(1 << 1);
+    pub const PERFORMANCE_WARNING_EXT: Self = Self(1 << 2);
+    pub const ERROR_EXT: Self = Self(1 << 3);
+    pub const DEBUG_EXT: Self = Self(1 << 4);
 }
 pub type PFN_vkDebugReportCallbackEXT = unsafe extern "system" fn(
     flags: DebugReportFlagsEXT,

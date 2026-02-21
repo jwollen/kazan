@@ -75,11 +75,11 @@ pub type PFN_vkCmdSetPolygonModeEXT =
     unsafe extern "system" fn(command_buffer: CommandBuffer, polygon_mode: PolygonMode);
 pub type PFN_vkCmdSetRasterizationSamplesEXT = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    rasterization_samples: SampleCountFlags,
+    rasterization_samples: SampleCountFlagBits,
 );
 pub type PFN_vkCmdSetSampleMaskEXT = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    samples: SampleCountFlags,
+    samples: SampleCountFlagBits,
     p_sample_mask: *const SampleMask,
 );
 pub type PFN_vkCmdSetAlphaToCoverageEnableEXT =

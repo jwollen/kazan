@@ -15,3 +15,7 @@ bitflags! {
     pub struct PipelineCompilerControlFlagsAMD: Flags {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PipelineCompilerControlFlagBitsAMD(u32);
+impl PipelineCompilerControlFlagBitsAMD {}

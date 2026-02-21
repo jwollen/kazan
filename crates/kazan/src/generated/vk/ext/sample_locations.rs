@@ -23,7 +23,7 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_multisample_properties_ext(
         &self,
         physical_device: PhysicalDevice,
-        samples: SampleCountFlags,
+        samples: SampleCountFlagBits,
         multisample_properties: &mut MultisamplePropertiesEXT,
     ) {
         unsafe {

@@ -157,7 +157,7 @@ pub struct PipelineShaderStageCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineShaderStageCreateFlags,
-    pub stage: ShaderStageFlags,
+    pub stage: ShaderStageFlagBits,
     pub module: ShaderModule,
     pub p_name: *const c_char,
     pub p_specialization_info: *const SpecializationInfo,
@@ -321,30 +321,50 @@ bitflags! {
     pub struct SamplerCreateFlags: Flags {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct SamplerCreateFlagBits(u32);
+impl SamplerCreateFlagBits {}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct PipelineLayoutCreateFlags: Flags {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PipelineLayoutCreateFlagBits(u32);
+impl PipelineLayoutCreateFlagBits {}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct PipelineCacheCreateFlags: Flags {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PipelineCacheCreateFlagBits(u32);
+impl PipelineCacheCreateFlagBits {}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct PipelineShaderStageCreateFlags: Flags {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PipelineShaderStageCreateFlagBits(u32);
+impl PipelineShaderStageCreateFlagBits {}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct DescriptorSetLayoutCreateFlags: Flags {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct DescriptorSetLayoutCreateFlagBits(u32);
+impl DescriptorSetLayoutCreateFlagBits {}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
@@ -355,24 +375,43 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ShaderStageFlags: Flags {
-        const VERTEX = 1 << 0;
-        const TESSELLATION_CONTROL = 1 << 1;
-        const TESSELLATION_EVALUATION = 1 << 2;
-        const GEOMETRY = 1 << 3;
-        const FRAGMENT = 1 << 4;
-        const COMPUTE = 1 << 5;
+        const VERTEX = ShaderStageFlagBits::VERTEX.0;
+        const TESSELLATION_CONTROL = ShaderStageFlagBits::TESSELLATION_CONTROL.0;
+        const TESSELLATION_EVALUATION = ShaderStageFlagBits::TESSELLATION_EVALUATION.0;
+        const GEOMETRY = ShaderStageFlagBits::GEOMETRY.0;
+        const FRAGMENT = ShaderStageFlagBits::FRAGMENT.0;
+        const COMPUTE = ShaderStageFlagBits::COMPUTE.0;
         const ALL_GRAPHICS = 0x0000001F;
         const ALL = 0x7FFFFFFF;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ShaderStageFlagBits(u32);
+impl ShaderStageFlagBits {
+    pub const VERTEX: Self = Self(1 << 0);
+    pub const TESSELLATION_CONTROL: Self = Self(1 << 1);
+    pub const TESSELLATION_EVALUATION: Self = Self(1 << 2);
+    pub const GEOMETRY: Self = Self(1 << 3);
+    pub const FRAGMENT: Self = Self(1 << 4);
+    pub const COMPUTE: Self = Self(1 << 5);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct PipelineCreateFlags: Flags {
-        const DISABLE_OPTIMIZATION = 1 << 0;
-        const ALLOW_DERIVATIVES = 1 << 1;
-        const DERIVATIVE = 1 << 2;
+        const DISABLE_OPTIMIZATION = PipelineCreateFlagBits::DISABLE_OPTIMIZATION.0;
+        const ALLOW_DERIVATIVES = PipelineCreateFlagBits::ALLOW_DERIVATIVES.0;
+        const DERIVATIVE = PipelineCreateFlagBits::DERIVATIVE.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PipelineCreateFlagBits(u32);
+impl PipelineCreateFlagBits {
+    pub const DISABLE_OPTIMIZATION: Self = Self(1 << 0);
+    pub const ALLOW_DERIVATIVES: Self = Self(1 << 1);
+    pub const DERIVATIVE: Self = Self(1 << 2);
 }
 bitflags! {
     #[repr(transparent)]
@@ -386,29 +425,55 @@ bitflags! {
     pub struct EventCreateFlags: Flags {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct EventCreateFlagBits(u32);
+impl EventCreateFlagBits {}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct QueryPipelineStatisticFlags: Flags {
-        const INPUT_ASSEMBLY_VERTICES = 1 << 0;
-        const INPUT_ASSEMBLY_PRIMITIVES = 1 << 1;
-        const VERTEX_SHADER_INVOCATIONS = 1 << 2;
-        const GEOMETRY_SHADER_INVOCATIONS = 1 << 3;
-        const GEOMETRY_SHADER_PRIMITIVES = 1 << 4;
-        const CLIPPING_INVOCATIONS = 1 << 5;
-        const CLIPPING_PRIMITIVES = 1 << 6;
-        const FRAGMENT_SHADER_INVOCATIONS = 1 << 7;
-        const TESSELLATION_CONTROL_SHADER_PATCHES = 1 << 8;
-        const TESSELLATION_EVALUATION_SHADER_INVOCATIONS = 1 << 9;
-        const COMPUTE_SHADER_INVOCATIONS = 1 << 10;
+        const INPUT_ASSEMBLY_VERTICES = QueryPipelineStatisticFlagBits::INPUT_ASSEMBLY_VERTICES.0;
+        const INPUT_ASSEMBLY_PRIMITIVES = QueryPipelineStatisticFlagBits::INPUT_ASSEMBLY_PRIMITIVES.0;
+        const VERTEX_SHADER_INVOCATIONS = QueryPipelineStatisticFlagBits::VERTEX_SHADER_INVOCATIONS.0;
+        const GEOMETRY_SHADER_INVOCATIONS = QueryPipelineStatisticFlagBits::GEOMETRY_SHADER_INVOCATIONS.0;
+        const GEOMETRY_SHADER_PRIMITIVES = QueryPipelineStatisticFlagBits::GEOMETRY_SHADER_PRIMITIVES.0;
+        const CLIPPING_INVOCATIONS = QueryPipelineStatisticFlagBits::CLIPPING_INVOCATIONS.0;
+        const CLIPPING_PRIMITIVES = QueryPipelineStatisticFlagBits::CLIPPING_PRIMITIVES.0;
+        const FRAGMENT_SHADER_INVOCATIONS = QueryPipelineStatisticFlagBits::FRAGMENT_SHADER_INVOCATIONS.0;
+        const TESSELLATION_CONTROL_SHADER_PATCHES = QueryPipelineStatisticFlagBits::TESSELLATION_CONTROL_SHADER_PATCHES.0;
+        const TESSELLATION_EVALUATION_SHADER_INVOCATIONS = QueryPipelineStatisticFlagBits::TESSELLATION_EVALUATION_SHADER_INVOCATIONS.0;
+        const COMPUTE_SHADER_INVOCATIONS = QueryPipelineStatisticFlagBits::COMPUTE_SHADER_INVOCATIONS.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct QueryPipelineStatisticFlagBits(u32);
+impl QueryPipelineStatisticFlagBits {
+    pub const INPUT_ASSEMBLY_VERTICES: Self = Self(1 << 0);
+    pub const INPUT_ASSEMBLY_PRIMITIVES: Self = Self(1 << 1);
+    pub const VERTEX_SHADER_INVOCATIONS: Self = Self(1 << 2);
+    pub const GEOMETRY_SHADER_INVOCATIONS: Self = Self(1 << 3);
+    pub const GEOMETRY_SHADER_PRIMITIVES: Self = Self(1 << 4);
+    pub const CLIPPING_INVOCATIONS: Self = Self(1 << 5);
+    pub const CLIPPING_PRIMITIVES: Self = Self(1 << 6);
+    pub const FRAGMENT_SHADER_INVOCATIONS: Self = Self(1 << 7);
+    pub const TESSELLATION_CONTROL_SHADER_PATCHES: Self = Self(1 << 8);
+    pub const TESSELLATION_EVALUATION_SHADER_INVOCATIONS: Self = Self(1 << 9);
+    pub const COMPUTE_SHADER_INVOCATIONS: Self = Self(1 << 10);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct DescriptorPoolCreateFlags: Flags {
-        const FREE_DESCRIPTOR_SET = 1 << 0;
+        const FREE_DESCRIPTOR_SET = DescriptorPoolCreateFlagBits::FREE_DESCRIPTOR_SET.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct DescriptorPoolCreateFlagBits(u32);
+impl DescriptorPoolCreateFlagBits {
+    pub const FREE_DESCRIPTOR_SET: Self = Self(1 << 0);
 }
 bitflags! {
     #[repr(transparent)]

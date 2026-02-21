@@ -110,9 +110,16 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct PerformanceCounterDescriptionFlagsKHR: Flags {
-        const PERFORMANCE_IMPACTING_KHR = 1 << 0;
-        const CONCURRENTLY_IMPACTED_KHR = 1 << 1;
+        const PERFORMANCE_IMPACTING_KHR = PerformanceCounterDescriptionFlagBitsKHR::PERFORMANCE_IMPACTING_KHR.0;
+        const CONCURRENTLY_IMPACTED_KHR = PerformanceCounterDescriptionFlagBitsKHR::CONCURRENTLY_IMPACTED_KHR.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PerformanceCounterDescriptionFlagBitsKHR(u32);
+impl PerformanceCounterDescriptionFlagBitsKHR {
+    pub const PERFORMANCE_IMPACTING_KHR: Self = Self(1 << 0);
+    pub const CONCURRENTLY_IMPACTED_KHR: Self = Self(1 << 1);
 }
 bitflags! {
     #[repr(transparent)]
@@ -120,6 +127,10 @@ bitflags! {
     pub struct AcquireProfilingLockFlagsKHR: Flags {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct AcquireProfilingLockFlagBitsKHR(u32);
+impl AcquireProfilingLockFlagBitsKHR {}
 pub type PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR =
     unsafe extern "system" fn(
         physical_device: PhysicalDevice,

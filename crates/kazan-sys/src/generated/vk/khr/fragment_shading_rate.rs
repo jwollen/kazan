@@ -41,7 +41,7 @@ pub struct PhysicalDeviceFragmentShadingRatePropertiesKHR {
     pub max_fragment_size: Extent2D,
     pub max_fragment_size_aspect_ratio: u32,
     pub max_fragment_shading_rate_coverage_samples: u32,
-    pub max_fragment_shading_rate_rasterization_samples: SampleCountFlags,
+    pub max_fragment_shading_rate_rasterization_samples: SampleCountFlagBits,
     pub fragment_shading_rate_with_shader_depth_stencil_writes: Bool32,
     pub fragment_shading_rate_with_sample_mask: Bool32,
     pub fragment_shading_rate_with_shader_sample_mask: Bool32,

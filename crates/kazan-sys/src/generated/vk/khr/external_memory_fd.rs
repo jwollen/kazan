@@ -7,7 +7,7 @@ use core::ffi::{c_char, c_int, c_void};
 pub struct ImportMemoryFdInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
-    pub handle_type: ExternalMemoryHandleTypeFlags,
+    pub handle_type: ExternalMemoryHandleTypeFlagBits,
     pub fd: c_int,
 }
 #[repr(C)]
@@ -23,7 +23,7 @@ pub struct MemoryGetFdInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub memory: DeviceMemory,
-    pub handle_type: ExternalMemoryHandleTypeFlags,
+    pub handle_type: ExternalMemoryHandleTypeFlagBits,
 }
 pub type PFN_vkGetMemoryFdKHR = unsafe extern "system" fn(
     device: Device,
@@ -32,7 +32,7 @@ pub type PFN_vkGetMemoryFdKHR = unsafe extern "system" fn(
 ) -> Result;
 pub type PFN_vkGetMemoryFdPropertiesKHR = unsafe extern "system" fn(
     device: Device,
-    handle_type: ExternalMemoryHandleTypeFlags,
+    handle_type: ExternalMemoryHandleTypeFlagBits,
     fd: c_int,
     p_memory_fd_properties: *mut MemoryFdPropertiesKHR,
 ) -> Result;

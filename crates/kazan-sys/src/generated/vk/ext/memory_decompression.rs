@@ -38,8 +38,14 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct MemoryDecompressionMethodFlagsEXT: Flags64 {
-        const GDEFLATE_1_0_EXT = 1 << 0;
+        const GDEFLATE_1_0_EXT = MemoryDecompressionMethodFlagBitsEXT::GDEFLATE_1_0_EXT.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct MemoryDecompressionMethodFlagBitsEXT(u64);
+impl MemoryDecompressionMethodFlagBitsEXT {
+    pub const GDEFLATE_1_0_EXT: Self = Self(1 << 0);
 }
 pub type PFN_vkCmdDecompressMemoryEXT = unsafe extern "system" fn(
     command_buffer: CommandBuffer,

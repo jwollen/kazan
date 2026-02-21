@@ -64,20 +64,37 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct DebugUtilsMessageSeverityFlagsEXT: Flags {
-        const VERBOSE_EXT = 1 << 0;
-        const INFO_EXT = 1 << 4;
-        const WARNING_EXT = 1 << 8;
-        const ERROR_EXT = 1 << 12;
+        const VERBOSE_EXT = DebugUtilsMessageSeverityFlagBitsEXT::VERBOSE_EXT.0;
+        const INFO_EXT = DebugUtilsMessageSeverityFlagBitsEXT::INFO_EXT.0;
+        const WARNING_EXT = DebugUtilsMessageSeverityFlagBitsEXT::WARNING_EXT.0;
+        const ERROR_EXT = DebugUtilsMessageSeverityFlagBitsEXT::ERROR_EXT.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct DebugUtilsMessageSeverityFlagBitsEXT(u32);
+impl DebugUtilsMessageSeverityFlagBitsEXT {
+    pub const VERBOSE_EXT: Self = Self(1 << 0);
+    pub const INFO_EXT: Self = Self(1 << 4);
+    pub const WARNING_EXT: Self = Self(1 << 8);
+    pub const ERROR_EXT: Self = Self(1 << 12);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct DebugUtilsMessageTypeFlagsEXT: Flags {
-        const GENERAL_EXT = 1 << 0;
-        const VALIDATION_EXT = 1 << 1;
-        const PERFORMANCE_EXT = 1 << 2;
+        const GENERAL_EXT = DebugUtilsMessageTypeFlagBitsEXT::GENERAL_EXT.0;
+        const VALIDATION_EXT = DebugUtilsMessageTypeFlagBitsEXT::VALIDATION_EXT.0;
+        const PERFORMANCE_EXT = DebugUtilsMessageTypeFlagBitsEXT::PERFORMANCE_EXT.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct DebugUtilsMessageTypeFlagBitsEXT(u32);
+impl DebugUtilsMessageTypeFlagBitsEXT {
+    pub const GENERAL_EXT: Self = Self(1 << 0);
+    pub const VALIDATION_EXT: Self = Self(1 << 1);
+    pub const PERFORMANCE_EXT: Self = Self(1 << 2);
 }
 bitflags! {
     #[repr(transparent)]
@@ -92,7 +109,7 @@ bitflags! {
     }
 }
 pub type PFN_vkDebugUtilsMessengerCallbackEXT = unsafe extern "system" fn(
-    message_severity: DebugUtilsMessageSeverityFlagsEXT,
+    message_severity: DebugUtilsMessageSeverityFlagBitsEXT,
     message_types: DebugUtilsMessageTypeFlagsEXT,
     p_callback_data: *const DebugUtilsMessengerCallbackDataEXT,
     p_user_data: *mut c_void,
@@ -132,7 +149,7 @@ pub type PFN_vkDestroyDebugUtilsMessengerEXT = unsafe extern "system" fn(
 );
 pub type PFN_vkSubmitDebugUtilsMessageEXT = unsafe extern "system" fn(
     instance: Instance,
-    message_severity: DebugUtilsMessageSeverityFlagsEXT,
+    message_severity: DebugUtilsMessageSeverityFlagBitsEXT,
     message_types: DebugUtilsMessageTypeFlagsEXT,
     p_callback_data: *const DebugUtilsMessengerCallbackDataEXT,
 );

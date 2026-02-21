@@ -28,9 +28,18 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct GraphicsPipelineLibraryFlagsEXT: Flags {
-        const VERTEX_INPUT_INTERFACE_EXT = 1 << 0;
-        const PRE_RASTERIZATION_SHADERS_EXT = 1 << 1;
-        const FRAGMENT_SHADER_EXT = 1 << 2;
-        const FRAGMENT_OUTPUT_INTERFACE_EXT = 1 << 3;
+        const VERTEX_INPUT_INTERFACE_EXT = GraphicsPipelineLibraryFlagBitsEXT::VERTEX_INPUT_INTERFACE_EXT.0;
+        const PRE_RASTERIZATION_SHADERS_EXT = GraphicsPipelineLibraryFlagBitsEXT::PRE_RASTERIZATION_SHADERS_EXT.0;
+        const FRAGMENT_SHADER_EXT = GraphicsPipelineLibraryFlagBitsEXT::FRAGMENT_SHADER_EXT.0;
+        const FRAGMENT_OUTPUT_INTERFACE_EXT = GraphicsPipelineLibraryFlagBitsEXT::FRAGMENT_OUTPUT_INTERFACE_EXT.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct GraphicsPipelineLibraryFlagBitsEXT(u32);
+impl GraphicsPipelineLibraryFlagBitsEXT {
+    pub const VERTEX_INPUT_INTERFACE_EXT: Self = Self(1 << 0);
+    pub const PRE_RASTERIZATION_SHADERS_EXT: Self = Self(1 << 1);
+    pub const FRAGMENT_SHADER_EXT: Self = Self(1 << 2);
+    pub const FRAGMENT_OUTPUT_INTERFACE_EXT: Self = Self(1 << 3);
 }

@@ -153,14 +153,14 @@ impl DeviceFn {
     pub unsafe fn cmd_set_rasterization_samples_ext(
         &self,
         command_buffer: CommandBuffer,
-        rasterization_samples: SampleCountFlags,
+        rasterization_samples: SampleCountFlagBits,
     ) {
         unsafe { (self.cmd_set_rasterization_samples_ext)(command_buffer, rasterization_samples) }
     }
     pub unsafe fn cmd_set_sample_mask_ext(
         &self,
         command_buffer: CommandBuffer,
-        samples: SampleCountFlags,
+        samples: SampleCountFlagBits,
         sample_mask: Option<&[SampleMask]>,
     ) {
         unsafe { (self.cmd_set_sample_mask_ext)(command_buffer, samples, sample_mask.to_raw_ptr()) }

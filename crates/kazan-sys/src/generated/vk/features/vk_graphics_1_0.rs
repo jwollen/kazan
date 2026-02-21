@@ -122,7 +122,7 @@ pub struct PipelineMultisampleStateCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineMultisampleStateCreateFlags,
-    pub rasterization_samples: SampleCountFlags,
+    pub rasterization_samples: SampleCountFlagBits,
     pub sample_shading_enable: Bool32,
     pub min_sample_shading: f32,
     pub p_sample_mask: *const SampleMask,
@@ -241,7 +241,7 @@ pub struct ClearAttachment {
 pub struct AttachmentDescription {
     pub flags: AttachmentDescriptionFlags,
     pub format: Format,
-    pub samples: SampleCountFlags,
+    pub samples: SampleCountFlagBits,
     pub load_op: AttachmentLoadOp,
     pub store_op: AttachmentStoreOp,
     pub stencil_load_op: AttachmentLoadOp,
@@ -490,18 +490,30 @@ bitflags! {
     pub struct FramebufferCreateFlags: Flags {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct FramebufferCreateFlagBits(u32);
+impl FramebufferCreateFlagBits {}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct RenderPassCreateFlags: Flags {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct RenderPassCreateFlagBits(u32);
+impl RenderPassCreateFlagBits {}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct PipelineDepthStencilStateCreateFlags: Flags {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PipelineDepthStencilStateCreateFlagBits(u32);
+impl PipelineDepthStencilStateCreateFlagBits {}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
@@ -514,6 +526,10 @@ bitflags! {
     pub struct PipelineColorBlendStateCreateFlags: Flags {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PipelineColorBlendStateCreateFlagBits(u32);
+impl PipelineColorBlendStateCreateFlagBits {}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
@@ -554,11 +570,20 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ColorComponentFlags: Flags {
-        const R = 1 << 0;
-        const G = 1 << 1;
-        const B = 1 << 2;
-        const A = 1 << 3;
+        const R = ColorComponentFlagBits::R.0;
+        const G = ColorComponentFlagBits::G.0;
+        const B = ColorComponentFlagBits::B.0;
+        const A = ColorComponentFlagBits::A.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ColorComponentFlagBits(u32);
+impl ColorComponentFlagBits {
+    pub const R: Self = Self(1 << 0);
+    pub const G: Self = Self(1 << 1);
+    pub const B: Self = Self(1 << 2);
+    pub const A: Self = Self(1 << 3);
 }
 bitflags! {
     #[repr(transparent)]
@@ -566,31 +591,55 @@ bitflags! {
     pub struct SubpassDescriptionFlags: Flags {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct SubpassDescriptionFlagBits(u32);
+impl SubpassDescriptionFlagBits {}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct AttachmentDescriptionFlags: Flags {
-        const MAY_ALIAS = 1 << 0;
+        const MAY_ALIAS = AttachmentDescriptionFlagBits::MAY_ALIAS.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct AttachmentDescriptionFlagBits(u32);
+impl AttachmentDescriptionFlagBits {
+    pub const MAY_ALIAS: Self = Self(1 << 0);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct StencilFaceFlags: Flags {
-        const FRONT = 1 << 0;
-        const BACK = 1 << 1;
+        const FRONT = StencilFaceFlagBits::FRONT.0;
+        const BACK = StencilFaceFlagBits::BACK.0;
         const FRONT_AND_BACK = 0x00000003;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct StencilFaceFlagBits(u32);
+impl StencilFaceFlagBits {
+    pub const FRONT: Self = Self(1 << 0);
+    pub const BACK: Self = Self(1 << 1);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct CullModeFlags: Flags {
-        const FRONT = 1 << 0;
-        const BACK = 1 << 1;
+        const FRONT = CullModeFlagBits::FRONT.0;
+        const BACK = CullModeFlagBits::BACK.0;
         const NONE = 0;
         const FRONT_AND_BACK = 0x00000003;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct CullModeFlagBits(u32);
+impl CullModeFlagBits {
+    pub const FRONT: Self = Self(1 << 0);
+    pub const BACK: Self = Self(1 << 1);
 }
 pub type PFN_vkCreateGraphicsPipelines = unsafe extern "system" fn(
     device: Device,

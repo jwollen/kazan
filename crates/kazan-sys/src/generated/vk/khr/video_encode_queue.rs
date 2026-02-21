@@ -67,7 +67,7 @@ pub struct PhysicalDeviceVideoEncodeQualityLevelInfoKHR {
 pub struct VideoEncodeQualityLevelPropertiesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
-    pub preferred_rate_control_mode: VideoEncodeRateControlModeFlagsKHR,
+    pub preferred_rate_control_mode: VideoEncodeRateControlModeFlagBitsKHR,
     pub preferred_rate_control_layer_count: u32,
 }
 #[repr(C)]
@@ -76,7 +76,7 @@ pub struct VideoEncodeRateControlInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: VideoEncodeRateControlFlagsKHR,
-    pub rate_control_mode: VideoEncodeRateControlModeFlagsKHR,
+    pub rate_control_mode: VideoEncodeRateControlModeFlagBitsKHR,
     pub layer_count: u32,
     pub p_layers: *const VideoEncodeRateControlLayerInfoKHR,
     pub virtual_buffer_size_in_ms: u32,
@@ -121,43 +121,79 @@ bitflags! {
     pub struct VideoEncodeFlagsKHR: Flags {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct VideoEncodeFlagBitsKHR(u32);
+impl VideoEncodeFlagBitsKHR {}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeUsageFlagsKHR: Flags {
-        const TRANSCODING_KHR = 1 << 0;
-        const STREAMING_KHR = 1 << 1;
-        const RECORDING_KHR = 1 << 2;
-        const CONFERENCING_KHR = 1 << 3;
+        const TRANSCODING_KHR = VideoEncodeUsageFlagBitsKHR::TRANSCODING_KHR.0;
+        const STREAMING_KHR = VideoEncodeUsageFlagBitsKHR::STREAMING_KHR.0;
+        const RECORDING_KHR = VideoEncodeUsageFlagBitsKHR::RECORDING_KHR.0;
+        const CONFERENCING_KHR = VideoEncodeUsageFlagBitsKHR::CONFERENCING_KHR.0;
         const DEFAULT = 0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct VideoEncodeUsageFlagBitsKHR(u32);
+impl VideoEncodeUsageFlagBitsKHR {
+    pub const TRANSCODING_KHR: Self = Self(1 << 0);
+    pub const STREAMING_KHR: Self = Self(1 << 1);
+    pub const RECORDING_KHR: Self = Self(1 << 2);
+    pub const CONFERENCING_KHR: Self = Self(1 << 3);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeContentFlagsKHR: Flags {
-        const CAMERA_KHR = 1 << 0;
-        const DESKTOP_KHR = 1 << 1;
-        const RENDERED_KHR = 1 << 2;
+        const CAMERA_KHR = VideoEncodeContentFlagBitsKHR::CAMERA_KHR.0;
+        const DESKTOP_KHR = VideoEncodeContentFlagBitsKHR::DESKTOP_KHR.0;
+        const RENDERED_KHR = VideoEncodeContentFlagBitsKHR::RENDERED_KHR.0;
         const DEFAULT = 0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct VideoEncodeContentFlagBitsKHR(u32);
+impl VideoEncodeContentFlagBitsKHR {
+    pub const CAMERA_KHR: Self = Self(1 << 0);
+    pub const DESKTOP_KHR: Self = Self(1 << 1);
+    pub const RENDERED_KHR: Self = Self(1 << 2);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeCapabilityFlagsKHR: Flags {
-        const PRECEDING_EXTERNALLY_ENCODED_BYTES_KHR = 1 << 0;
-        const INSUFFICIENTSTREAM_BUFFER_RANGE_DETECTION_KHR = 1 << 1;
+        const PRECEDING_EXTERNALLY_ENCODED_BYTES_KHR = VideoEncodeCapabilityFlagBitsKHR::PRECEDING_EXTERNALLY_ENCODED_BYTES_KHR.0;
+        const INSUFFICIENTSTREAM_BUFFER_RANGE_DETECTION_KHR = VideoEncodeCapabilityFlagBitsKHR::INSUFFICIENTSTREAM_BUFFER_RANGE_DETECTION_KHR.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct VideoEncodeCapabilityFlagBitsKHR(u32);
+impl VideoEncodeCapabilityFlagBitsKHR {
+    pub const PRECEDING_EXTERNALLY_ENCODED_BYTES_KHR: Self = Self(1 << 0);
+    pub const INSUFFICIENTSTREAM_BUFFER_RANGE_DETECTION_KHR: Self = Self(1 << 1);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeFeedbackFlagsKHR: Flags {
-        const BITSTREAM_BUFFER_OFFSET_KHR = 1 << 0;
-        const BITSTREAM_BYTES_WRITTEN_KHR = 1 << 1;
-        const BITSTREAM_HAS_OVERRIDES_KHR = 1 << 2;
+        const BITSTREAM_BUFFER_OFFSET_KHR = VideoEncodeFeedbackFlagBitsKHR::BITSTREAM_BUFFER_OFFSET_KHR.0;
+        const BITSTREAM_BYTES_WRITTEN_KHR = VideoEncodeFeedbackFlagBitsKHR::BITSTREAM_BYTES_WRITTEN_KHR.0;
+        const BITSTREAM_HAS_OVERRIDES_KHR = VideoEncodeFeedbackFlagBitsKHR::BITSTREAM_HAS_OVERRIDES_KHR.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct VideoEncodeFeedbackFlagBitsKHR(u32);
+impl VideoEncodeFeedbackFlagBitsKHR {
+    pub const BITSTREAM_BUFFER_OFFSET_KHR: Self = Self(1 << 0);
+    pub const BITSTREAM_BYTES_WRITTEN_KHR: Self = Self(1 << 1);
+    pub const BITSTREAM_HAS_OVERRIDES_KHR: Self = Self(1 << 2);
 }
 bitflags! {
     #[repr(transparent)]
@@ -169,11 +205,19 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeRateControlModeFlagsKHR: Flags {
-        const DISABLED_KHR = 1 << 0;
-        const CBR_KHR = 1 << 1;
-        const VBR_KHR = 1 << 2;
+        const DISABLED_KHR = VideoEncodeRateControlModeFlagBitsKHR::DISABLED_KHR.0;
+        const CBR_KHR = VideoEncodeRateControlModeFlagBitsKHR::CBR_KHR.0;
+        const VBR_KHR = VideoEncodeRateControlModeFlagBitsKHR::VBR_KHR.0;
         const DEFAULT = 0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct VideoEncodeRateControlModeFlagBitsKHR(u32);
+impl VideoEncodeRateControlModeFlagBitsKHR {
+    pub const DISABLED_KHR: Self = Self(1 << 0);
+    pub const CBR_KHR: Self = Self(1 << 1);
+    pub const VBR_KHR: Self = Self(1 << 2);
 }
 pub type PFN_vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR =
     unsafe extern "system" fn(

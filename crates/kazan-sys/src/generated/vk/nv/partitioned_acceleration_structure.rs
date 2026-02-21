@@ -100,12 +100,22 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct PartitionedAccelerationStructureInstanceFlagsNV: Flags {
-        const FLAG_TRIANGLE_FACING_CULL_DISABLE_NV = 1 << 0;
-        const FLAG_TRIANGLE_FLIP_FACING_NV = 1 << 1;
-        const FLAG_FORCE_OPAQUE_NV = 1 << 2;
-        const FLAG_FORCE_NO_OPAQUE_NV = 1 << 3;
-        const FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV = 1 << 4;
+        const FLAG_TRIANGLE_FACING_CULL_DISABLE_NV = PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_TRIANGLE_FACING_CULL_DISABLE_NV.0;
+        const FLAG_TRIANGLE_FLIP_FACING_NV = PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_TRIANGLE_FLIP_FACING_NV.0;
+        const FLAG_FORCE_OPAQUE_NV = PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_FORCE_OPAQUE_NV.0;
+        const FLAG_FORCE_NO_OPAQUE_NV = PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_FORCE_NO_OPAQUE_NV.0;
+        const FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV = PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PartitionedAccelerationStructureInstanceFlagBitsNV(u32);
+impl PartitionedAccelerationStructureInstanceFlagBitsNV {
+    pub const FLAG_TRIANGLE_FACING_CULL_DISABLE_NV: Self = Self(1 << 0);
+    pub const FLAG_TRIANGLE_FLIP_FACING_NV: Self = Self(1 << 1);
+    pub const FLAG_FORCE_OPAQUE_NV: Self = Self(1 << 2);
+    pub const FLAG_FORCE_NO_OPAQUE_NV: Self = Self(1 << 3);
+    pub const FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV: Self = Self(1 << 4);
 }
 pub type PFN_vkGetPartitionedAccelerationStructuresBuildSizesNV = unsafe extern "system" fn(
     device: Device,

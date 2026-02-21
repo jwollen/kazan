@@ -208,39 +208,72 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ClusterAccelerationStructureGeometryFlagsNV: Flags {
-        const CULL_DISABLE_NV = 1 << 0;
-        const NO_DUPLICATE_ANYHIT_INVOCATION_NV = 1 << 1;
-        const OPAQUE_NV = 1 << 2;
+        const CULL_DISABLE_NV = ClusterAccelerationStructureGeometryFlagBitsNV::CULL_DISABLE_NV.0;
+        const NO_DUPLICATE_ANYHIT_INVOCATION_NV = ClusterAccelerationStructureGeometryFlagBitsNV::NO_DUPLICATE_ANYHIT_INVOCATION_NV.0;
+        const OPAQUE_NV = ClusterAccelerationStructureGeometryFlagBitsNV::OPAQUE_NV.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ClusterAccelerationStructureGeometryFlagBitsNV(u32);
+impl ClusterAccelerationStructureGeometryFlagBitsNV {
+    pub const CULL_DISABLE_NV: Self = Self(1 << 0);
+    pub const NO_DUPLICATE_ANYHIT_INVOCATION_NV: Self = Self(1 << 1);
+    pub const OPAQUE_NV: Self = Self(1 << 2);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ClusterAccelerationStructureClusterFlagsNV: Flags {
-        const ALLOW_DISABLE_OPACITY_MICROMAPS_NV = 1 << 0;
+        const ALLOW_DISABLE_OPACITY_MICROMAPS_NV = ClusterAccelerationStructureClusterFlagBitsNV::ALLOW_DISABLE_OPACITY_MICROMAPS_NV.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ClusterAccelerationStructureClusterFlagBitsNV(u32);
+impl ClusterAccelerationStructureClusterFlagBitsNV {
+    pub const ALLOW_DISABLE_OPACITY_MICROMAPS_NV: Self = Self(1 << 0);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ClusterAccelerationStructureAddressResolutionFlagsNV: Flags {
-        const INDIRECTED_DST_IMPLICIT_DATA_NV = 1 << 0;
-        const INDIRECTED_SCRATCH_DATA_NV = 1 << 1;
-        const INDIRECTED_DST_ADDRESS_ARRAY_NV = 1 << 2;
-        const INDIRECTED_DST_SIZES_ARRAY_NV = 1 << 3;
-        const INDIRECTED_SRC_INFOS_ARRAY_NV = 1 << 4;
-        const INDIRECTED_SRC_INFOS_COUNT_NV = 1 << 5;
+        const INDIRECTED_DST_IMPLICIT_DATA_NV = ClusterAccelerationStructureAddressResolutionFlagBitsNV::INDIRECTED_DST_IMPLICIT_DATA_NV.0;
+        const INDIRECTED_SCRATCH_DATA_NV = ClusterAccelerationStructureAddressResolutionFlagBitsNV::INDIRECTED_SCRATCH_DATA_NV.0;
+        const INDIRECTED_DST_ADDRESS_ARRAY_NV = ClusterAccelerationStructureAddressResolutionFlagBitsNV::INDIRECTED_DST_ADDRESS_ARRAY_NV.0;
+        const INDIRECTED_DST_SIZES_ARRAY_NV = ClusterAccelerationStructureAddressResolutionFlagBitsNV::INDIRECTED_DST_SIZES_ARRAY_NV.0;
+        const INDIRECTED_SRC_INFOS_ARRAY_NV = ClusterAccelerationStructureAddressResolutionFlagBitsNV::INDIRECTED_SRC_INFOS_ARRAY_NV.0;
+        const INDIRECTED_SRC_INFOS_COUNT_NV = ClusterAccelerationStructureAddressResolutionFlagBitsNV::INDIRECTED_SRC_INFOS_COUNT_NV.0;
         const NONE = 0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ClusterAccelerationStructureAddressResolutionFlagBitsNV(u32);
+impl ClusterAccelerationStructureAddressResolutionFlagBitsNV {
+    pub const INDIRECTED_DST_IMPLICIT_DATA_NV: Self = Self(1 << 0);
+    pub const INDIRECTED_SCRATCH_DATA_NV: Self = Self(1 << 1);
+    pub const INDIRECTED_DST_ADDRESS_ARRAY_NV: Self = Self(1 << 2);
+    pub const INDIRECTED_DST_SIZES_ARRAY_NV: Self = Self(1 << 3);
+    pub const INDIRECTED_SRC_INFOS_ARRAY_NV: Self = Self(1 << 4);
+    pub const INDIRECTED_SRC_INFOS_COUNT_NV: Self = Self(1 << 5);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ClusterAccelerationStructureIndexFormatFlagsNV: Flags {
-        const _8BIT_NV = 1 << 0;
-        const _16BIT_NV = 1 << 1;
-        const _32BIT_NV = 1 << 2;
+        const _8BIT_NV = ClusterAccelerationStructureIndexFormatFlagBitsNV::_8BIT_NV.0;
+        const _16BIT_NV = ClusterAccelerationStructureIndexFormatFlagBitsNV::_16BIT_NV.0;
+        const _32BIT_NV = ClusterAccelerationStructureIndexFormatFlagBitsNV::_32BIT_NV.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ClusterAccelerationStructureIndexFormatFlagBitsNV(u32);
+impl ClusterAccelerationStructureIndexFormatFlagBitsNV {
+    pub const _8BIT_NV: Self = Self(1 << 0);
+    pub const _16BIT_NV: Self = Self(1 << 1);
+    pub const _32BIT_NV: Self = Self(1 << 2);
 }
 pub type PFN_vkGetClusterAccelerationStructureBuildSizesNV = unsafe extern "system" fn(
     device: Device,

@@ -23,7 +23,7 @@ pub struct FramebufferMixedSamplesCombinationNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub coverage_reduction_mode: CoverageReductionModeNV,
-    pub rasterization_samples: SampleCountFlags,
+    pub rasterization_samples: SampleCountFlagBits,
     pub depth_stencil_samples: SampleCountFlags,
     pub color_samples: SampleCountFlags,
 }

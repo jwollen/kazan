@@ -16,7 +16,7 @@ pub struct MemoryGetRemoteAddressInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub memory: DeviceMemory,
-    pub handle_type: ExternalMemoryHandleTypeFlags,
+    pub handle_type: ExternalMemoryHandleTypeFlagBits,
 }
 pub type PFN_vkGetMemoryRemoteAddressNV = unsafe extern "system" fn(
     device: Device,

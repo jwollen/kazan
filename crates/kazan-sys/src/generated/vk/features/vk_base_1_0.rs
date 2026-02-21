@@ -360,7 +360,7 @@ pub struct ImageCreateInfo {
     pub extent: Extent3D,
     pub mip_levels: u32,
     pub array_layers: u32,
-    pub samples: SampleCountFlags,
+    pub samples: SampleCountFlagBits,
     pub tiling: ImageTiling,
     pub usage: ImageUsageFlags,
     pub sharing_mode: SharingMode,
@@ -1149,12 +1149,20 @@ bitflags! {
     pub struct QueryPoolCreateFlags: Flags {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct QueryPoolCreateFlagBits(u32);
+impl QueryPoolCreateFlagBits {}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct InstanceCreateFlags: Flags {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct InstanceCreateFlagBits(u32);
+impl InstanceCreateFlagBits {}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
@@ -1167,105 +1175,201 @@ bitflags! {
     pub struct DeviceQueueCreateFlags: Flags {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct DeviceQueueCreateFlagBits(u32);
+impl DeviceQueueCreateFlagBits {}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct QueueFlags: Flags {
-        const GRAPHICS = 1 << 0;
-        const COMPUTE = 1 << 1;
-        const TRANSFER = 1 << 2;
-        const SPARSE_BINDING = 1 << 3;
+        const GRAPHICS = QueueFlagBits::GRAPHICS.0;
+        const COMPUTE = QueueFlagBits::COMPUTE.0;
+        const TRANSFER = QueueFlagBits::TRANSFER.0;
+        const SPARSE_BINDING = QueueFlagBits::SPARSE_BINDING.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct QueueFlagBits(u32);
+impl QueueFlagBits {
+    pub const GRAPHICS: Self = Self(1 << 0);
+    pub const COMPUTE: Self = Self(1 << 1);
+    pub const TRANSFER: Self = Self(1 << 2);
+    pub const SPARSE_BINDING: Self = Self(1 << 3);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct MemoryPropertyFlags: Flags {
-        const DEVICE_LOCAL = 1 << 0;
-        const HOST_VISIBLE = 1 << 1;
-        const HOST_COHERENT = 1 << 2;
-        const HOST_CACHED = 1 << 3;
-        const LAZILY_ALLOCATED = 1 << 4;
+        const DEVICE_LOCAL = MemoryPropertyFlagBits::DEVICE_LOCAL.0;
+        const HOST_VISIBLE = MemoryPropertyFlagBits::HOST_VISIBLE.0;
+        const HOST_COHERENT = MemoryPropertyFlagBits::HOST_COHERENT.0;
+        const HOST_CACHED = MemoryPropertyFlagBits::HOST_CACHED.0;
+        const LAZILY_ALLOCATED = MemoryPropertyFlagBits::LAZILY_ALLOCATED.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct MemoryPropertyFlagBits(u32);
+impl MemoryPropertyFlagBits {
+    pub const DEVICE_LOCAL: Self = Self(1 << 0);
+    pub const HOST_VISIBLE: Self = Self(1 << 1);
+    pub const HOST_COHERENT: Self = Self(1 << 2);
+    pub const HOST_CACHED: Self = Self(1 << 3);
+    pub const LAZILY_ALLOCATED: Self = Self(1 << 4);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct MemoryHeapFlags: Flags {
-        const DEVICE_LOCAL = 1 << 0;
+        const DEVICE_LOCAL = MemoryHeapFlagBits::DEVICE_LOCAL.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct MemoryHeapFlagBits(u32);
+impl MemoryHeapFlagBits {
+    pub const DEVICE_LOCAL: Self = Self(1 << 0);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct AccessFlags: Flags {
-        const INDIRECT_COMMAND_READ = 1 << 0;
-        const INDEX_READ = 1 << 1;
-        const VERTEX_ATTRIBUTE_READ = 1 << 2;
-        const UNIFORM_READ = 1 << 3;
-        const INPUT_ATTACHMENT_READ = 1 << 4;
-        const SHADER_READ = 1 << 5;
-        const SHADER_WRITE = 1 << 6;
-        const COLOR_ATTACHMENT_READ = 1 << 7;
-        const COLOR_ATTACHMENT_WRITE = 1 << 8;
-        const DEPTH_STENCIL_ATTACHMENT_READ = 1 << 9;
-        const DEPTH_STENCIL_ATTACHMENT_WRITE = 1 << 10;
-        const TRANSFER_READ = 1 << 11;
-        const TRANSFER_WRITE = 1 << 12;
-        const HOST_READ = 1 << 13;
-        const HOST_WRITE = 1 << 14;
-        const MEMORY_READ = 1 << 15;
-        const MEMORY_WRITE = 1 << 16;
+        const INDIRECT_COMMAND_READ = AccessFlagBits::INDIRECT_COMMAND_READ.0;
+        const INDEX_READ = AccessFlagBits::INDEX_READ.0;
+        const VERTEX_ATTRIBUTE_READ = AccessFlagBits::VERTEX_ATTRIBUTE_READ.0;
+        const UNIFORM_READ = AccessFlagBits::UNIFORM_READ.0;
+        const INPUT_ATTACHMENT_READ = AccessFlagBits::INPUT_ATTACHMENT_READ.0;
+        const SHADER_READ = AccessFlagBits::SHADER_READ.0;
+        const SHADER_WRITE = AccessFlagBits::SHADER_WRITE.0;
+        const COLOR_ATTACHMENT_READ = AccessFlagBits::COLOR_ATTACHMENT_READ.0;
+        const COLOR_ATTACHMENT_WRITE = AccessFlagBits::COLOR_ATTACHMENT_WRITE.0;
+        const DEPTH_STENCIL_ATTACHMENT_READ = AccessFlagBits::DEPTH_STENCIL_ATTACHMENT_READ.0;
+        const DEPTH_STENCIL_ATTACHMENT_WRITE = AccessFlagBits::DEPTH_STENCIL_ATTACHMENT_WRITE.0;
+        const TRANSFER_READ = AccessFlagBits::TRANSFER_READ.0;
+        const TRANSFER_WRITE = AccessFlagBits::TRANSFER_WRITE.0;
+        const HOST_READ = AccessFlagBits::HOST_READ.0;
+        const HOST_WRITE = AccessFlagBits::HOST_WRITE.0;
+        const MEMORY_READ = AccessFlagBits::MEMORY_READ.0;
+        const MEMORY_WRITE = AccessFlagBits::MEMORY_WRITE.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct AccessFlagBits(u32);
+impl AccessFlagBits {
+    pub const INDIRECT_COMMAND_READ: Self = Self(1 << 0);
+    pub const INDEX_READ: Self = Self(1 << 1);
+    pub const VERTEX_ATTRIBUTE_READ: Self = Self(1 << 2);
+    pub const UNIFORM_READ: Self = Self(1 << 3);
+    pub const INPUT_ATTACHMENT_READ: Self = Self(1 << 4);
+    pub const SHADER_READ: Self = Self(1 << 5);
+    pub const SHADER_WRITE: Self = Self(1 << 6);
+    pub const COLOR_ATTACHMENT_READ: Self = Self(1 << 7);
+    pub const COLOR_ATTACHMENT_WRITE: Self = Self(1 << 8);
+    pub const DEPTH_STENCIL_ATTACHMENT_READ: Self = Self(1 << 9);
+    pub const DEPTH_STENCIL_ATTACHMENT_WRITE: Self = Self(1 << 10);
+    pub const TRANSFER_READ: Self = Self(1 << 11);
+    pub const TRANSFER_WRITE: Self = Self(1 << 12);
+    pub const HOST_READ: Self = Self(1 << 13);
+    pub const HOST_WRITE: Self = Self(1 << 14);
+    pub const MEMORY_READ: Self = Self(1 << 15);
+    pub const MEMORY_WRITE: Self = Self(1 << 16);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct BufferUsageFlags: Flags {
-        const TRANSFER_SRC = 1 << 0;
-        const TRANSFER_DST = 1 << 1;
-        const UNIFORM_TEXEL_BUFFER = 1 << 2;
-        const STORAGE_TEXEL_BUFFER = 1 << 3;
-        const UNIFORM_BUFFER = 1 << 4;
-        const STORAGE_BUFFER = 1 << 5;
-        const INDEX_BUFFER = 1 << 6;
-        const VERTEX_BUFFER = 1 << 7;
-        const INDIRECT_BUFFER = 1 << 8;
+        const TRANSFER_SRC = BufferUsageFlagBits::TRANSFER_SRC.0;
+        const TRANSFER_DST = BufferUsageFlagBits::TRANSFER_DST.0;
+        const UNIFORM_TEXEL_BUFFER = BufferUsageFlagBits::UNIFORM_TEXEL_BUFFER.0;
+        const STORAGE_TEXEL_BUFFER = BufferUsageFlagBits::STORAGE_TEXEL_BUFFER.0;
+        const UNIFORM_BUFFER = BufferUsageFlagBits::UNIFORM_BUFFER.0;
+        const STORAGE_BUFFER = BufferUsageFlagBits::STORAGE_BUFFER.0;
+        const INDEX_BUFFER = BufferUsageFlagBits::INDEX_BUFFER.0;
+        const VERTEX_BUFFER = BufferUsageFlagBits::VERTEX_BUFFER.0;
+        const INDIRECT_BUFFER = BufferUsageFlagBits::INDIRECT_BUFFER.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct BufferUsageFlagBits(u32);
+impl BufferUsageFlagBits {
+    pub const TRANSFER_SRC: Self = Self(1 << 0);
+    pub const TRANSFER_DST: Self = Self(1 << 1);
+    pub const UNIFORM_TEXEL_BUFFER: Self = Self(1 << 2);
+    pub const STORAGE_TEXEL_BUFFER: Self = Self(1 << 3);
+    pub const UNIFORM_BUFFER: Self = Self(1 << 4);
+    pub const STORAGE_BUFFER: Self = Self(1 << 5);
+    pub const INDEX_BUFFER: Self = Self(1 << 6);
+    pub const VERTEX_BUFFER: Self = Self(1 << 7);
+    pub const INDIRECT_BUFFER: Self = Self(1 << 8);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct BufferCreateFlags: Flags {
-        const SPARSE_BINDING = 1 << 0;
-        const SPARSE_RESIDENCY = 1 << 1;
-        const SPARSE_ALIASED = 1 << 2;
+        const SPARSE_BINDING = BufferCreateFlagBits::SPARSE_BINDING.0;
+        const SPARSE_RESIDENCY = BufferCreateFlagBits::SPARSE_RESIDENCY.0;
+        const SPARSE_ALIASED = BufferCreateFlagBits::SPARSE_ALIASED.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct BufferCreateFlagBits(u32);
+impl BufferCreateFlagBits {
+    pub const SPARSE_BINDING: Self = Self(1 << 0);
+    pub const SPARSE_RESIDENCY: Self = Self(1 << 1);
+    pub const SPARSE_ALIASED: Self = Self(1 << 2);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ImageUsageFlags: Flags {
-        const TRANSFER_SRC = 1 << 0;
-        const TRANSFER_DST = 1 << 1;
-        const SAMPLED = 1 << 2;
-        const STORAGE = 1 << 3;
-        const COLOR_ATTACHMENT = 1 << 4;
-        const DEPTH_STENCIL_ATTACHMENT = 1 << 5;
-        const TRANSIENT_ATTACHMENT = 1 << 6;
-        const INPUT_ATTACHMENT = 1 << 7;
+        const TRANSFER_SRC = ImageUsageFlagBits::TRANSFER_SRC.0;
+        const TRANSFER_DST = ImageUsageFlagBits::TRANSFER_DST.0;
+        const SAMPLED = ImageUsageFlagBits::SAMPLED.0;
+        const STORAGE = ImageUsageFlagBits::STORAGE.0;
+        const COLOR_ATTACHMENT = ImageUsageFlagBits::COLOR_ATTACHMENT.0;
+        const DEPTH_STENCIL_ATTACHMENT = ImageUsageFlagBits::DEPTH_STENCIL_ATTACHMENT.0;
+        const TRANSIENT_ATTACHMENT = ImageUsageFlagBits::TRANSIENT_ATTACHMENT.0;
+        const INPUT_ATTACHMENT = ImageUsageFlagBits::INPUT_ATTACHMENT.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ImageUsageFlagBits(u32);
+impl ImageUsageFlagBits {
+    pub const TRANSFER_SRC: Self = Self(1 << 0);
+    pub const TRANSFER_DST: Self = Self(1 << 1);
+    pub const SAMPLED: Self = Self(1 << 2);
+    pub const STORAGE: Self = Self(1 << 3);
+    pub const COLOR_ATTACHMENT: Self = Self(1 << 4);
+    pub const DEPTH_STENCIL_ATTACHMENT: Self = Self(1 << 5);
+    pub const TRANSIENT_ATTACHMENT: Self = Self(1 << 6);
+    pub const INPUT_ATTACHMENT: Self = Self(1 << 7);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ImageCreateFlags: Flags {
-        const SPARSE_BINDING = 1 << 0;
-        const SPARSE_RESIDENCY = 1 << 1;
-        const SPARSE_ALIASED = 1 << 2;
-        const MUTABLE_FORMAT = 1 << 3;
-        const CUBE_COMPATIBLE = 1 << 4;
+        const SPARSE_BINDING = ImageCreateFlagBits::SPARSE_BINDING.0;
+        const SPARSE_RESIDENCY = ImageCreateFlagBits::SPARSE_RESIDENCY.0;
+        const SPARSE_ALIASED = ImageCreateFlagBits::SPARSE_ALIASED.0;
+        const MUTABLE_FORMAT = ImageCreateFlagBits::MUTABLE_FORMAT.0;
+        const CUBE_COMPATIBLE = ImageCreateFlagBits::CUBE_COMPATIBLE.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ImageCreateFlagBits(u32);
+impl ImageCreateFlagBits {
+    pub const SPARSE_BINDING: Self = Self(1 << 0);
+    pub const SPARSE_RESIDENCY: Self = Self(1 << 1);
+    pub const SPARSE_ALIASED: Self = Self(1 << 2);
+    pub const MUTABLE_FORMAT: Self = Self(1 << 3);
+    pub const CUBE_COMPATIBLE: Self = Self(1 << 4);
 }
 bitflags! {
     #[repr(transparent)]
@@ -1273,12 +1377,22 @@ bitflags! {
     pub struct ImageViewCreateFlags: Flags {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ImageViewCreateFlagBits(u32);
+impl ImageViewCreateFlagBits {}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct FenceCreateFlags: Flags {
-        const SIGNALED = 1 << 0;
+        const SIGNALED = FenceCreateFlagBits::SIGNALED.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct FenceCreateFlagBits(u32);
+impl FenceCreateFlagBits {
+    pub const SIGNALED: Self = Self(1 << 0);
 }
 bitflags! {
     #[repr(transparent)]
@@ -1290,68 +1404,128 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct FormatFeatureFlags: Flags {
-        const SAMPLED_IMAGE = 1 << 0;
-        const STORAGE_IMAGE = 1 << 1;
-        const STORAGE_IMAGE_ATOMIC = 1 << 2;
-        const UNIFORM_TEXEL_BUFFER = 1 << 3;
-        const STORAGE_TEXEL_BUFFER = 1 << 4;
-        const STORAGE_TEXEL_BUFFER_ATOMIC = 1 << 5;
-        const VERTEX_BUFFER = 1 << 6;
-        const COLOR_ATTACHMENT = 1 << 7;
-        const COLOR_ATTACHMENT_BLEND = 1 << 8;
-        const DEPTH_STENCIL_ATTACHMENT = 1 << 9;
-        const BLIT_SRC = 1 << 10;
-        const BLIT_DST = 1 << 11;
-        const SAMPLED_IMAGE_FILTER_LINEAR = 1 << 12;
+        const SAMPLED_IMAGE = FormatFeatureFlagBits::SAMPLED_IMAGE.0;
+        const STORAGE_IMAGE = FormatFeatureFlagBits::STORAGE_IMAGE.0;
+        const STORAGE_IMAGE_ATOMIC = FormatFeatureFlagBits::STORAGE_IMAGE_ATOMIC.0;
+        const UNIFORM_TEXEL_BUFFER = FormatFeatureFlagBits::UNIFORM_TEXEL_BUFFER.0;
+        const STORAGE_TEXEL_BUFFER = FormatFeatureFlagBits::STORAGE_TEXEL_BUFFER.0;
+        const STORAGE_TEXEL_BUFFER_ATOMIC = FormatFeatureFlagBits::STORAGE_TEXEL_BUFFER_ATOMIC.0;
+        const VERTEX_BUFFER = FormatFeatureFlagBits::VERTEX_BUFFER.0;
+        const COLOR_ATTACHMENT = FormatFeatureFlagBits::COLOR_ATTACHMENT.0;
+        const COLOR_ATTACHMENT_BLEND = FormatFeatureFlagBits::COLOR_ATTACHMENT_BLEND.0;
+        const DEPTH_STENCIL_ATTACHMENT = FormatFeatureFlagBits::DEPTH_STENCIL_ATTACHMENT.0;
+        const BLIT_SRC = FormatFeatureFlagBits::BLIT_SRC.0;
+        const BLIT_DST = FormatFeatureFlagBits::BLIT_DST.0;
+        const SAMPLED_IMAGE_FILTER_LINEAR = FormatFeatureFlagBits::SAMPLED_IMAGE_FILTER_LINEAR.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct FormatFeatureFlagBits(u32);
+impl FormatFeatureFlagBits {
+    pub const SAMPLED_IMAGE: Self = Self(1 << 0);
+    pub const STORAGE_IMAGE: Self = Self(1 << 1);
+    pub const STORAGE_IMAGE_ATOMIC: Self = Self(1 << 2);
+    pub const UNIFORM_TEXEL_BUFFER: Self = Self(1 << 3);
+    pub const STORAGE_TEXEL_BUFFER: Self = Self(1 << 4);
+    pub const STORAGE_TEXEL_BUFFER_ATOMIC: Self = Self(1 << 5);
+    pub const VERTEX_BUFFER: Self = Self(1 << 6);
+    pub const COLOR_ATTACHMENT: Self = Self(1 << 7);
+    pub const COLOR_ATTACHMENT_BLEND: Self = Self(1 << 8);
+    pub const DEPTH_STENCIL_ATTACHMENT: Self = Self(1 << 9);
+    pub const BLIT_SRC: Self = Self(1 << 10);
+    pub const BLIT_DST: Self = Self(1 << 11);
+    pub const SAMPLED_IMAGE_FILTER_LINEAR: Self = Self(1 << 12);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct QueryControlFlags: Flags {
-        const PRECISE = 1 << 0;
+        const PRECISE = QueryControlFlagBits::PRECISE.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct QueryControlFlagBits(u32);
+impl QueryControlFlagBits {
+    pub const PRECISE: Self = Self(1 << 0);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct QueryResultFlags: Flags {
-        const _64 = 1 << 0;
-        const WAIT = 1 << 1;
-        const WITH_AVAILABILITY = 1 << 2;
-        const PARTIAL = 1 << 3;
+        const _64 = QueryResultFlagBits::_64.0;
+        const WAIT = QueryResultFlagBits::WAIT.0;
+        const WITH_AVAILABILITY = QueryResultFlagBits::WITH_AVAILABILITY.0;
+        const PARTIAL = QueryResultFlagBits::PARTIAL.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct QueryResultFlagBits(u32);
+impl QueryResultFlagBits {
+    pub const _64: Self = Self(1 << 0);
+    pub const WAIT: Self = Self(1 << 1);
+    pub const WITH_AVAILABILITY: Self = Self(1 << 2);
+    pub const PARTIAL: Self = Self(1 << 3);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct CommandPoolCreateFlags: Flags {
-        const TRANSIENT = 1 << 0;
-        const RESET_COMMAND_BUFFER = 1 << 1;
+        const TRANSIENT = CommandPoolCreateFlagBits::TRANSIENT.0;
+        const RESET_COMMAND_BUFFER = CommandPoolCreateFlagBits::RESET_COMMAND_BUFFER.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct CommandPoolCreateFlagBits(u32);
+impl CommandPoolCreateFlagBits {
+    pub const TRANSIENT: Self = Self(1 << 0);
+    pub const RESET_COMMAND_BUFFER: Self = Self(1 << 1);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct CommandPoolResetFlags: Flags {
-        const RELEASE_RESOURCES = 1 << 0;
+        const RELEASE_RESOURCES = CommandPoolResetFlagBits::RELEASE_RESOURCES.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct CommandPoolResetFlagBits(u32);
+impl CommandPoolResetFlagBits {
+    pub const RELEASE_RESOURCES: Self = Self(1 << 0);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct CommandBufferResetFlags: Flags {
-        const RELEASE_RESOURCES = 1 << 0;
+        const RELEASE_RESOURCES = CommandBufferResetFlagBits::RELEASE_RESOURCES.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct CommandBufferResetFlagBits(u32);
+impl CommandBufferResetFlagBits {
+    pub const RELEASE_RESOURCES: Self = Self(1 << 0);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct CommandBufferUsageFlags: Flags {
-        const ONE_TIME_SUBMIT = 1 << 0;
-        const RENDER_PASS_CONTINUE = 1 << 1;
-        const SIMULTANEOUS_USE = 1 << 2;
+        const ONE_TIME_SUBMIT = CommandBufferUsageFlagBits::ONE_TIME_SUBMIT.0;
+        const RENDER_PASS_CONTINUE = CommandBufferUsageFlagBits::RENDER_PASS_CONTINUE.0;
+        const SIMULTANEOUS_USE = CommandBufferUsageFlagBits::SIMULTANEOUS_USE.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct CommandBufferUsageFlagBits(u32);
+impl CommandBufferUsageFlagBits {
+    pub const ONE_TIME_SUBMIT: Self = Self(1 << 0);
+    pub const RENDER_PASS_CONTINUE: Self = Self(1 << 1);
+    pub const SIMULTANEOUS_USE: Self = Self(1 << 2);
 }
 bitflags! {
     #[repr(transparent)]
@@ -1359,74 +1533,141 @@ bitflags! {
     pub struct MemoryMapFlags: Flags {
     }
 }
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct MemoryMapFlagBits(u32);
+impl MemoryMapFlagBits {}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ImageAspectFlags: Flags {
-        const COLOR = 1 << 0;
-        const DEPTH = 1 << 1;
-        const STENCIL = 1 << 2;
-        const METADATA = 1 << 3;
+        const COLOR = ImageAspectFlagBits::COLOR.0;
+        const DEPTH = ImageAspectFlagBits::DEPTH.0;
+        const STENCIL = ImageAspectFlagBits::STENCIL.0;
+        const METADATA = ImageAspectFlagBits::METADATA.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ImageAspectFlagBits(u32);
+impl ImageAspectFlagBits {
+    pub const COLOR: Self = Self(1 << 0);
+    pub const DEPTH: Self = Self(1 << 1);
+    pub const STENCIL: Self = Self(1 << 2);
+    pub const METADATA: Self = Self(1 << 3);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct SparseMemoryBindFlags: Flags {
-        const METADATA = 1 << 0;
+        const METADATA = SparseMemoryBindFlagBits::METADATA.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct SparseMemoryBindFlagBits(u32);
+impl SparseMemoryBindFlagBits {
+    pub const METADATA: Self = Self(1 << 0);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct SparseImageFormatFlags: Flags {
-        const SINGLE_MIPTAIL = 1 << 0;
-        const ALIGNED_MIP_SIZE = 1 << 1;
-        const NONSTANDARD_BLOCK_SIZE = 1 << 2;
+        const SINGLE_MIPTAIL = SparseImageFormatFlagBits::SINGLE_MIPTAIL.0;
+        const ALIGNED_MIP_SIZE = SparseImageFormatFlagBits::ALIGNED_MIP_SIZE.0;
+        const NONSTANDARD_BLOCK_SIZE = SparseImageFormatFlagBits::NONSTANDARD_BLOCK_SIZE.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct SparseImageFormatFlagBits(u32);
+impl SparseImageFormatFlagBits {
+    pub const SINGLE_MIPTAIL: Self = Self(1 << 0);
+    pub const ALIGNED_MIP_SIZE: Self = Self(1 << 1);
+    pub const NONSTANDARD_BLOCK_SIZE: Self = Self(1 << 2);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct PipelineStageFlags: Flags {
-        const TOP_OF_PIPE = 1 << 0;
-        const DRAW_INDIRECT = 1 << 1;
-        const VERTEX_INPUT = 1 << 2;
-        const VERTEX_SHADER = 1 << 3;
-        const TESSELLATION_CONTROL_SHADER = 1 << 4;
-        const TESSELLATION_EVALUATION_SHADER = 1 << 5;
-        const GEOMETRY_SHADER = 1 << 6;
-        const FRAGMENT_SHADER = 1 << 7;
-        const EARLY_FRAGMENT_TESTS = 1 << 8;
-        const LATE_FRAGMENT_TESTS = 1 << 9;
-        const COLOR_ATTACHMENT_OUTPUT = 1 << 10;
-        const COMPUTE_SHADER = 1 << 11;
-        const TRANSFER = 1 << 12;
-        const BOTTOM_OF_PIPE = 1 << 13;
-        const HOST = 1 << 14;
-        const ALL_GRAPHICS = 1 << 15;
-        const ALL_COMMANDS = 1 << 16;
+        const TOP_OF_PIPE = PipelineStageFlagBits::TOP_OF_PIPE.0;
+        const DRAW_INDIRECT = PipelineStageFlagBits::DRAW_INDIRECT.0;
+        const VERTEX_INPUT = PipelineStageFlagBits::VERTEX_INPUT.0;
+        const VERTEX_SHADER = PipelineStageFlagBits::VERTEX_SHADER.0;
+        const TESSELLATION_CONTROL_SHADER = PipelineStageFlagBits::TESSELLATION_CONTROL_SHADER.0;
+        const TESSELLATION_EVALUATION_SHADER = PipelineStageFlagBits::TESSELLATION_EVALUATION_SHADER.0;
+        const GEOMETRY_SHADER = PipelineStageFlagBits::GEOMETRY_SHADER.0;
+        const FRAGMENT_SHADER = PipelineStageFlagBits::FRAGMENT_SHADER.0;
+        const EARLY_FRAGMENT_TESTS = PipelineStageFlagBits::EARLY_FRAGMENT_TESTS.0;
+        const LATE_FRAGMENT_TESTS = PipelineStageFlagBits::LATE_FRAGMENT_TESTS.0;
+        const COLOR_ATTACHMENT_OUTPUT = PipelineStageFlagBits::COLOR_ATTACHMENT_OUTPUT.0;
+        const COMPUTE_SHADER = PipelineStageFlagBits::COMPUTE_SHADER.0;
+        const TRANSFER = PipelineStageFlagBits::TRANSFER.0;
+        const BOTTOM_OF_PIPE = PipelineStageFlagBits::BOTTOM_OF_PIPE.0;
+        const HOST = PipelineStageFlagBits::HOST.0;
+        const ALL_GRAPHICS = PipelineStageFlagBits::ALL_GRAPHICS.0;
+        const ALL_COMMANDS = PipelineStageFlagBits::ALL_COMMANDS.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PipelineStageFlagBits(u32);
+impl PipelineStageFlagBits {
+    pub const TOP_OF_PIPE: Self = Self(1 << 0);
+    pub const DRAW_INDIRECT: Self = Self(1 << 1);
+    pub const VERTEX_INPUT: Self = Self(1 << 2);
+    pub const VERTEX_SHADER: Self = Self(1 << 3);
+    pub const TESSELLATION_CONTROL_SHADER: Self = Self(1 << 4);
+    pub const TESSELLATION_EVALUATION_SHADER: Self = Self(1 << 5);
+    pub const GEOMETRY_SHADER: Self = Self(1 << 6);
+    pub const FRAGMENT_SHADER: Self = Self(1 << 7);
+    pub const EARLY_FRAGMENT_TESTS: Self = Self(1 << 8);
+    pub const LATE_FRAGMENT_TESTS: Self = Self(1 << 9);
+    pub const COLOR_ATTACHMENT_OUTPUT: Self = Self(1 << 10);
+    pub const COMPUTE_SHADER: Self = Self(1 << 11);
+    pub const TRANSFER: Self = Self(1 << 12);
+    pub const BOTTOM_OF_PIPE: Self = Self(1 << 13);
+    pub const HOST: Self = Self(1 << 14);
+    pub const ALL_GRAPHICS: Self = Self(1 << 15);
+    pub const ALL_COMMANDS: Self = Self(1 << 16);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct SampleCountFlags: Flags {
-        const _1 = 1 << 0;
-        const _2 = 1 << 1;
-        const _4 = 1 << 2;
-        const _8 = 1 << 3;
-        const _16 = 1 << 4;
-        const _32 = 1 << 5;
-        const _64 = 1 << 6;
+        const _1 = SampleCountFlagBits::_1.0;
+        const _2 = SampleCountFlagBits::_2.0;
+        const _4 = SampleCountFlagBits::_4.0;
+        const _8 = SampleCountFlagBits::_8.0;
+        const _16 = SampleCountFlagBits::_16.0;
+        const _32 = SampleCountFlagBits::_32.0;
+        const _64 = SampleCountFlagBits::_64.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct SampleCountFlagBits(u32);
+impl SampleCountFlagBits {
+    pub const _1: Self = Self(1 << 0);
+    pub const _2: Self = Self(1 << 1);
+    pub const _4: Self = Self(1 << 2);
+    pub const _8: Self = Self(1 << 3);
+    pub const _16: Self = Self(1 << 4);
+    pub const _32: Self = Self(1 << 5);
+    pub const _64: Self = Self(1 << 6);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct DependencyFlags: Flags {
-        const BY_REGION = 1 << 0;
+        const BY_REGION = DependencyFlagBits::BY_REGION.0;
     }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct DependencyFlagBits(u32);
+impl DependencyFlagBits {
+    pub const BY_REGION: Self = Self(1 << 0);
 }
 pub type PFN_vkInternalAllocationNotification = unsafe extern "system" fn(
     p_user_data: *mut c_void,
@@ -1612,7 +1853,7 @@ pub type PFN_vkGetPhysicalDeviceSparseImageFormatProperties = unsafe extern "sys
     physical_device: PhysicalDevice,
     format: Format,
     ty: ImageType,
-    samples: SampleCountFlags,
+    samples: SampleCountFlagBits,
     usage: ImageUsageFlags,
     tiling: ImageTiling,
     p_property_count: *mut u32,
@@ -1827,7 +2068,7 @@ pub type PFN_vkCmdResetQueryPool = unsafe extern "system" fn(
 );
 pub type PFN_vkCmdWriteTimestamp = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    pipeline_stage: PipelineStageFlags,
+    pipeline_stage: PipelineStageFlagBits,
     query_pool: QueryPool,
     query: u32,
 );
