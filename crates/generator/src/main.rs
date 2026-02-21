@@ -45,8 +45,8 @@ fn generate(xmls: &[&xml::Registry]) {
     let sys_output_dir = "crates/kazan-sys/src/generated/vk";
     let output_dir = "crates/kazan/src/generated/vk";
 
-    std::fs::remove_dir_all(sys_output_dir).unwrap();
-    std::fs::remove_dir_all(output_dir).unwrap();
+    let _ = std::fs::remove_dir_all(sys_output_dir);
+    let _ = std::fs::remove_dir_all(output_dir);
 
     let mut sys_vendor_modules = BTreeMap::new();
     let mut vendor_modules = BTreeMap::new();
