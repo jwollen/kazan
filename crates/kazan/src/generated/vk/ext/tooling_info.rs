@@ -4,7 +4,7 @@ use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct InstanceFn {
-    get_physical_device_tool_properties: PFN_vkGetPhysicalDeviceToolProperties,
+    get_physical_device_tool_properties_ext: PFN_vkGetPhysicalDeviceToolProperties,
 }
 impl InstanceFn {
     pub unsafe fn load(
@@ -12,7 +12,7 @@ impl InstanceFn {
     ) -> core::result::Result<Self, LoadingError> {
         unsafe {
             Ok(Self {
-                get_physical_device_tool_properties: transmute(
+                get_physical_device_tool_properties_ext: transmute(
                     load(c"vkGetPhysicalDeviceToolPropertiesEXT").ok_or(LoadingError)?,
                 ),
             })
@@ -27,7 +27,7 @@ impl InstanceFn {
     ) -> Result {
         unsafe {
             try_extend_uninit(tool_properties, |tool_count, tool_properties| {
-                (self.get_physical_device_tool_properties)(
+                (self.get_physical_device_tool_properties_ext)(
                     physical_device,
                     tool_count,
                     tool_properties as _,

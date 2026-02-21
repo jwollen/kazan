@@ -4,7 +4,7 @@ use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
-    release_swapchain_images_khr: PFN_vkReleaseSwapchainImagesKHR,
+    release_swapchain_images_ext: PFN_vkReleaseSwapchainImagesKHR,
 }
 impl DeviceFn {
     pub unsafe fn load(
@@ -12,7 +12,7 @@ impl DeviceFn {
     ) -> core::result::Result<Self, LoadingError> {
         unsafe {
             Ok(Self {
-                release_swapchain_images_khr: transmute(
+                release_swapchain_images_ext: transmute(
                     load(c"vkReleaseSwapchainImagesEXT").ok_or(LoadingError)?,
                 ),
             })
@@ -25,6 +25,6 @@ impl DeviceFn {
         device: Device,
         release_info: &ReleaseSwapchainImagesInfoKHR,
     ) -> Result {
-        unsafe { (self.release_swapchain_images_khr)(device, release_info) }
+        unsafe { (self.release_swapchain_images_ext)(device, release_info) }
     }
 }

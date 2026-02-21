@@ -39,9 +39,9 @@ impl InstanceFn {
     }
 }
 pub struct DeviceFn {
-    get_device_group_peer_memory_features: PFN_vkGetDeviceGroupPeerMemoryFeatures,
-    cmd_set_device_mask: PFN_vkCmdSetDeviceMask,
-    cmd_dispatch_base: PFN_vkCmdDispatchBase,
+    get_device_group_peer_memory_features_khr: PFN_vkGetDeviceGroupPeerMemoryFeatures,
+    cmd_set_device_mask_khr: PFN_vkCmdSetDeviceMask,
+    cmd_dispatch_base_khr: PFN_vkCmdDispatchBase,
     get_device_group_present_capabilities_khr: Option<PFN_vkGetDeviceGroupPresentCapabilitiesKHR>,
     get_device_group_surface_present_modes_khr: Option<PFN_vkGetDeviceGroupSurfacePresentModesKHR>,
     acquire_next_image2_khr: Option<PFN_vkAcquireNextImage2KHR>,
@@ -52,11 +52,15 @@ impl DeviceFn {
     ) -> core::result::Result<Self, LoadingError> {
         unsafe {
             Ok(Self {
-                get_device_group_peer_memory_features: transmute(
+                get_device_group_peer_memory_features_khr: transmute(
                     load(c"vkGetDeviceGroupPeerMemoryFeaturesKHR").ok_or(LoadingError)?,
                 ),
-                cmd_set_device_mask: transmute(load(c"vkCmdSetDeviceMaskKHR").ok_or(LoadingError)?),
-                cmd_dispatch_base: transmute(load(c"vkCmdDispatchBaseKHR").ok_or(LoadingError)?),
+                cmd_set_device_mask_khr: transmute(
+                    load(c"vkCmdSetDeviceMaskKHR").ok_or(LoadingError)?,
+                ),
+                cmd_dispatch_base_khr: transmute(
+                    load(c"vkCmdDispatchBaseKHR").ok_or(LoadingError)?,
+                ),
                 get_device_group_present_capabilities_khr: transmute(load(
                     c"vkGetDeviceGroupPresentCapabilitiesKHR",
                 )),
@@ -78,7 +82,7 @@ impl DeviceFn {
         peer_memory_features: &mut PeerMemoryFeatureFlags,
     ) {
         unsafe {
-            (self.get_device_group_peer_memory_features)(
+            (self.get_device_group_peer_memory_features_khr)(
                 device,
                 heap_index,
                 local_device_index,
@@ -88,7 +92,7 @@ impl DeviceFn {
         }
     }
     pub unsafe fn cmd_set_device_mask_khr(&self, command_buffer: CommandBuffer, device_mask: u32) {
-        unsafe { (self.cmd_set_device_mask)(command_buffer, device_mask) }
+        unsafe { (self.cmd_set_device_mask_khr)(command_buffer, device_mask) }
     }
     pub unsafe fn cmd_dispatch_base_khr(
         &self,
@@ -101,7 +105,7 @@ impl DeviceFn {
         group_count_z: u32,
     ) {
         unsafe {
-            (self.cmd_dispatch_base)(
+            (self.cmd_dispatch_base_khr)(
                 command_buffer,
                 base_group_x,
                 base_group_y,

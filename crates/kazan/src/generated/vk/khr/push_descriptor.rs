@@ -4,8 +4,8 @@ use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
-    cmd_push_descriptor_set: PFN_vkCmdPushDescriptorSet,
-    cmd_push_descriptor_set_with_template: Option<PFN_vkCmdPushDescriptorSetWithTemplate>,
+    cmd_push_descriptor_set_khr: PFN_vkCmdPushDescriptorSet,
+    cmd_push_descriptor_set_with_template_khr: Option<PFN_vkCmdPushDescriptorSetWithTemplate>,
 }
 impl DeviceFn {
     pub unsafe fn load(
@@ -13,10 +13,10 @@ impl DeviceFn {
     ) -> core::result::Result<Self, LoadingError> {
         unsafe {
             Ok(Self {
-                cmd_push_descriptor_set: transmute(
+                cmd_push_descriptor_set_khr: transmute(
                     load(c"vkCmdPushDescriptorSetKHR").ok_or(LoadingError)?,
                 ),
-                cmd_push_descriptor_set_with_template: transmute(load(
+                cmd_push_descriptor_set_with_template_khr: transmute(load(
                     c"vkCmdPushDescriptorSetWithTemplateKHR",
                 )),
             })
@@ -33,7 +33,7 @@ impl DeviceFn {
         descriptor_writes: &[WriteDescriptorSet],
     ) {
         unsafe {
-            (self.cmd_push_descriptor_set)(
+            (self.cmd_push_descriptor_set_khr)(
                 command_buffer,
                 pipeline_bind_point,
                 layout,
@@ -52,7 +52,7 @@ impl DeviceFn {
         data: &c_void,
     ) {
         unsafe {
-            (self.cmd_push_descriptor_set_with_template.unwrap())(
+            (self.cmd_push_descriptor_set_with_template_khr.unwrap())(
                 command_buffer,
                 descriptor_update_template,
                 layout,

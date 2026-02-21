@@ -4,8 +4,8 @@ use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
-    cmd_draw_indirect_count: PFN_vkCmdDrawIndirectCount,
-    cmd_draw_indexed_indirect_count: PFN_vkCmdDrawIndexedIndirectCount,
+    cmd_draw_indirect_count_khr: PFN_vkCmdDrawIndirectCount,
+    cmd_draw_indexed_indirect_count_khr: PFN_vkCmdDrawIndexedIndirectCount,
 }
 impl DeviceFn {
     pub unsafe fn load(
@@ -13,10 +13,10 @@ impl DeviceFn {
     ) -> core::result::Result<Self, LoadingError> {
         unsafe {
             Ok(Self {
-                cmd_draw_indirect_count: transmute(
+                cmd_draw_indirect_count_khr: transmute(
                     load(c"vkCmdDrawIndirectCountKHR").ok_or(LoadingError)?,
                 ),
-                cmd_draw_indexed_indirect_count: transmute(
+                cmd_draw_indexed_indirect_count_khr: transmute(
                     load(c"vkCmdDrawIndexedIndirectCountKHR").ok_or(LoadingError)?,
                 ),
             })
@@ -35,7 +35,7 @@ impl DeviceFn {
         stride: u32,
     ) {
         unsafe {
-            (self.cmd_draw_indirect_count)(
+            (self.cmd_draw_indirect_count_khr)(
                 command_buffer,
                 buffer,
                 offset,
@@ -57,7 +57,7 @@ impl DeviceFn {
         stride: u32,
     ) {
         unsafe {
-            (self.cmd_draw_indexed_indirect_count)(
+            (self.cmd_draw_indexed_indirect_count_khr)(
                 command_buffer,
                 buffer,
                 offset,

@@ -4,8 +4,8 @@ use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
-    create_sampler_ycbcr_conversion: PFN_vkCreateSamplerYcbcrConversion,
-    destroy_sampler_ycbcr_conversion: PFN_vkDestroySamplerYcbcrConversion,
+    create_sampler_ycbcr_conversion_khr: PFN_vkCreateSamplerYcbcrConversion,
+    destroy_sampler_ycbcr_conversion_khr: PFN_vkDestroySamplerYcbcrConversion,
 }
 impl DeviceFn {
     pub unsafe fn load(
@@ -13,10 +13,10 @@ impl DeviceFn {
     ) -> core::result::Result<Self, LoadingError> {
         unsafe {
             Ok(Self {
-                create_sampler_ycbcr_conversion: transmute(
+                create_sampler_ycbcr_conversion_khr: transmute(
                     load(c"vkCreateSamplerYcbcrConversionKHR").ok_or(LoadingError)?,
                 ),
-                destroy_sampler_ycbcr_conversion: transmute(
+                destroy_sampler_ycbcr_conversion_khr: transmute(
                     load(c"vkDestroySamplerYcbcrConversionKHR").ok_or(LoadingError)?,
                 ),
             })
@@ -32,7 +32,7 @@ impl DeviceFn {
         ycbcr_conversion: &mut SamplerYcbcrConversion,
     ) -> Result {
         unsafe {
-            (self.create_sampler_ycbcr_conversion)(
+            (self.create_sampler_ycbcr_conversion_khr)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -47,7 +47,7 @@ impl DeviceFn {
         allocator: Option<&AllocationCallbacks>,
     ) {
         unsafe {
-            (self.destroy_sampler_ycbcr_conversion)(
+            (self.destroy_sampler_ycbcr_conversion_khr)(
                 device,
                 ycbcr_conversion,
                 allocator.to_raw_ptr(),

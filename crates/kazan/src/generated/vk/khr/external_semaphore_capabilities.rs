@@ -4,7 +4,7 @@ use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct InstanceFn {
-    get_physical_device_external_semaphore_properties:
+    get_physical_device_external_semaphore_properties_khr:
         PFN_vkGetPhysicalDeviceExternalSemaphoreProperties,
 }
 impl InstanceFn {
@@ -13,7 +13,7 @@ impl InstanceFn {
     ) -> core::result::Result<Self, LoadingError> {
         unsafe {
             Ok(Self {
-                get_physical_device_external_semaphore_properties: transmute(
+                get_physical_device_external_semaphore_properties_khr: transmute(
                     load(c"vkGetPhysicalDeviceExternalSemaphorePropertiesKHR")
                         .ok_or(LoadingError)?,
                 ),
@@ -29,7 +29,7 @@ impl InstanceFn {
         external_semaphore_properties: &mut ExternalSemaphoreProperties,
     ) {
         unsafe {
-            (self.get_physical_device_external_semaphore_properties)(
+            (self.get_physical_device_external_semaphore_properties_khr)(
                 physical_device,
                 external_semaphore_info,
                 external_semaphore_properties,

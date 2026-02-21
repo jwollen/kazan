@@ -4,7 +4,7 @@ use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
-    reset_query_pool: PFN_vkResetQueryPool,
+    reset_query_pool_ext: PFN_vkResetQueryPool,
 }
 impl DeviceFn {
     pub unsafe fn load(
@@ -12,7 +12,7 @@ impl DeviceFn {
     ) -> core::result::Result<Self, LoadingError> {
         unsafe {
             Ok(Self {
-                reset_query_pool: transmute(load(c"vkResetQueryPoolEXT").ok_or(LoadingError)?),
+                reset_query_pool_ext: transmute(load(c"vkResetQueryPoolEXT").ok_or(LoadingError)?),
             })
         }
     }
@@ -25,6 +25,6 @@ impl DeviceFn {
         first_query: u32,
         query_count: u32,
     ) {
-        unsafe { (self.reset_query_pool)(device, query_pool, first_query, query_count) }
+        unsafe { (self.reset_query_pool_ext)(device, query_pool, first_query, query_count) }
     }
 }

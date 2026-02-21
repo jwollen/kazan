@@ -4,11 +4,11 @@ use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
-    copy_memory_to_image: PFN_vkCopyMemoryToImage,
-    copy_image_to_memory: PFN_vkCopyImageToMemory,
-    copy_image_to_image: PFN_vkCopyImageToImage,
-    transition_image_layout: PFN_vkTransitionImageLayout,
-    get_image_subresource_layout2: PFN_vkGetImageSubresourceLayout2,
+    copy_memory_to_image_ext: PFN_vkCopyMemoryToImage,
+    copy_image_to_memory_ext: PFN_vkCopyImageToMemory,
+    copy_image_to_image_ext: PFN_vkCopyImageToImage,
+    transition_image_layout_ext: PFN_vkTransitionImageLayout,
+    get_image_subresource_layout2_ext: PFN_vkGetImageSubresourceLayout2,
 }
 impl DeviceFn {
     pub unsafe fn load(
@@ -16,17 +16,19 @@ impl DeviceFn {
     ) -> core::result::Result<Self, LoadingError> {
         unsafe {
             Ok(Self {
-                copy_memory_to_image: transmute(
+                copy_memory_to_image_ext: transmute(
                     load(c"vkCopyMemoryToImageEXT").ok_or(LoadingError)?,
                 ),
-                copy_image_to_memory: transmute(
+                copy_image_to_memory_ext: transmute(
                     load(c"vkCopyImageToMemoryEXT").ok_or(LoadingError)?,
                 ),
-                copy_image_to_image: transmute(load(c"vkCopyImageToImageEXT").ok_or(LoadingError)?),
-                transition_image_layout: transmute(
+                copy_image_to_image_ext: transmute(
+                    load(c"vkCopyImageToImageEXT").ok_or(LoadingError)?,
+                ),
+                transition_image_layout_ext: transmute(
                     load(c"vkTransitionImageLayoutEXT").ok_or(LoadingError)?,
                 ),
-                get_image_subresource_layout2: transmute(
+                get_image_subresource_layout2_ext: transmute(
                     load(c"vkGetImageSubresourceLayout2EXT").ok_or(LoadingError)?,
                 ),
             })
@@ -39,21 +41,21 @@ impl DeviceFn {
         device: Device,
         copy_memory_to_image_info: &CopyMemoryToImageInfo,
     ) -> Result {
-        unsafe { (self.copy_memory_to_image)(device, copy_memory_to_image_info) }
+        unsafe { (self.copy_memory_to_image_ext)(device, copy_memory_to_image_info) }
     }
     pub unsafe fn copy_image_to_memory_ext(
         &self,
         device: Device,
         copy_image_to_memory_info: &CopyImageToMemoryInfo,
     ) -> Result {
-        unsafe { (self.copy_image_to_memory)(device, copy_image_to_memory_info) }
+        unsafe { (self.copy_image_to_memory_ext)(device, copy_image_to_memory_info) }
     }
     pub unsafe fn copy_image_to_image_ext(
         &self,
         device: Device,
         copy_image_to_image_info: &CopyImageToImageInfo,
     ) -> Result {
-        unsafe { (self.copy_image_to_image)(device, copy_image_to_image_info) }
+        unsafe { (self.copy_image_to_image_ext)(device, copy_image_to_image_info) }
     }
     pub unsafe fn transition_image_layout_ext(
         &self,
@@ -61,7 +63,7 @@ impl DeviceFn {
         transitions: &[HostImageLayoutTransitionInfo],
     ) -> Result {
         unsafe {
-            (self.transition_image_layout)(
+            (self.transition_image_layout_ext)(
                 device,
                 transitions.len().try_into().unwrap(),
                 transitions.as_ptr() as _,
@@ -75,6 +77,6 @@ impl DeviceFn {
         subresource: &ImageSubresource2,
         layout: &mut SubresourceLayout2,
     ) {
-        unsafe { (self.get_image_subresource_layout2)(device, image, subresource, layout) }
+        unsafe { (self.get_image_subresource_layout2_ext)(device, image, subresource, layout) }
     }
 }

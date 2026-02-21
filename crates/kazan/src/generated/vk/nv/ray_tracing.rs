@@ -13,7 +13,7 @@ pub struct DeviceFn {
     cmd_copy_acceleration_structure_nv: PFN_vkCmdCopyAccelerationStructureNV,
     cmd_trace_rays_nv: PFN_vkCmdTraceRaysNV,
     create_ray_tracing_pipelines_nv: PFN_vkCreateRayTracingPipelinesNV,
-    get_ray_tracing_shader_group_handles_khr: PFN_vkGetRayTracingShaderGroupHandlesKHR,
+    get_ray_tracing_shader_group_handles_nv: PFN_vkGetRayTracingShaderGroupHandlesKHR,
     get_acceleration_structure_handle_nv: PFN_vkGetAccelerationStructureHandleNV,
     cmd_write_acceleration_structures_properties_nv:
         PFN_vkCmdWriteAccelerationStructuresPropertiesNV,
@@ -47,7 +47,7 @@ impl DeviceFn {
                 create_ray_tracing_pipelines_nv: transmute(
                     load(c"vkCreateRayTracingPipelinesNV").ok_or(LoadingError)?,
                 ),
-                get_ray_tracing_shader_group_handles_khr: transmute(
+                get_ray_tracing_shader_group_handles_nv: transmute(
                     load(c"vkGetRayTracingShaderGroupHandlesNV").ok_or(LoadingError)?,
                 ),
                 get_acceleration_structure_handle_nv: transmute(
@@ -220,7 +220,7 @@ impl DeviceFn {
         data: &mut [u8],
     ) -> Result {
         unsafe {
-            (self.get_ray_tracing_shader_group_handles_khr)(
+            (self.get_ray_tracing_shader_group_handles_nv)(
                 device,
                 pipeline,
                 first_group,

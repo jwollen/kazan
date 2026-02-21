@@ -5,10 +5,10 @@ use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     cmd_set_patch_control_points_ext: PFN_vkCmdSetPatchControlPointsEXT,
-    cmd_set_rasterizer_discard_enable: PFN_vkCmdSetRasterizerDiscardEnable,
-    cmd_set_depth_bias_enable: PFN_vkCmdSetDepthBiasEnable,
+    cmd_set_rasterizer_discard_enable_ext: PFN_vkCmdSetRasterizerDiscardEnable,
+    cmd_set_depth_bias_enable_ext: PFN_vkCmdSetDepthBiasEnable,
     cmd_set_logic_op_ext: PFN_vkCmdSetLogicOpEXT,
-    cmd_set_primitive_restart_enable: PFN_vkCmdSetPrimitiveRestartEnable,
+    cmd_set_primitive_restart_enable_ext: PFN_vkCmdSetPrimitiveRestartEnable,
 }
 impl DeviceFn {
     pub unsafe fn load(
@@ -19,14 +19,14 @@ impl DeviceFn {
                 cmd_set_patch_control_points_ext: transmute(
                     load(c"vkCmdSetPatchControlPointsEXT").ok_or(LoadingError)?,
                 ),
-                cmd_set_rasterizer_discard_enable: transmute(
+                cmd_set_rasterizer_discard_enable_ext: transmute(
                     load(c"vkCmdSetRasterizerDiscardEnableEXT").ok_or(LoadingError)?,
                 ),
-                cmd_set_depth_bias_enable: transmute(
+                cmd_set_depth_bias_enable_ext: transmute(
                     load(c"vkCmdSetDepthBiasEnableEXT").ok_or(LoadingError)?,
                 ),
                 cmd_set_logic_op_ext: transmute(load(c"vkCmdSetLogicOpEXT").ok_or(LoadingError)?),
-                cmd_set_primitive_restart_enable: transmute(
+                cmd_set_primitive_restart_enable_ext: transmute(
                     load(c"vkCmdSetPrimitiveRestartEnableEXT").ok_or(LoadingError)?,
                 ),
             })
@@ -47,7 +47,7 @@ impl DeviceFn {
         rasterizer_discard_enable: Bool32,
     ) {
         unsafe {
-            (self.cmd_set_rasterizer_discard_enable)(command_buffer, rasterizer_discard_enable)
+            (self.cmd_set_rasterizer_discard_enable_ext)(command_buffer, rasterizer_discard_enable)
         }
     }
     pub unsafe fn cmd_set_depth_bias_enable_ext(
@@ -55,7 +55,7 @@ impl DeviceFn {
         command_buffer: CommandBuffer,
         depth_bias_enable: Bool32,
     ) {
-        unsafe { (self.cmd_set_depth_bias_enable)(command_buffer, depth_bias_enable) }
+        unsafe { (self.cmd_set_depth_bias_enable_ext)(command_buffer, depth_bias_enable) }
     }
     pub unsafe fn cmd_set_logic_op_ext(&self, command_buffer: CommandBuffer, logic_op: LogicOp) {
         unsafe { (self.cmd_set_logic_op_ext)(command_buffer, logic_op) }
@@ -65,6 +65,8 @@ impl DeviceFn {
         command_buffer: CommandBuffer,
         primitive_restart_enable: Bool32,
     ) {
-        unsafe { (self.cmd_set_primitive_restart_enable)(command_buffer, primitive_restart_enable) }
+        unsafe {
+            (self.cmd_set_primitive_restart_enable_ext)(command_buffer, primitive_restart_enable)
+        }
     }
 }

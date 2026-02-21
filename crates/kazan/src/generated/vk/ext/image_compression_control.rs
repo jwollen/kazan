@@ -4,7 +4,7 @@ use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
-    get_image_subresource_layout2: PFN_vkGetImageSubresourceLayout2,
+    get_image_subresource_layout2_ext: PFN_vkGetImageSubresourceLayout2,
 }
 impl DeviceFn {
     pub unsafe fn load(
@@ -12,7 +12,7 @@ impl DeviceFn {
     ) -> core::result::Result<Self, LoadingError> {
         unsafe {
             Ok(Self {
-                get_image_subresource_layout2: transmute(
+                get_image_subresource_layout2_ext: transmute(
                     load(c"vkGetImageSubresourceLayout2EXT").ok_or(LoadingError)?,
                 ),
             })
@@ -27,6 +27,6 @@ impl DeviceFn {
         subresource: &ImageSubresource2,
         layout: &mut SubresourceLayout2,
     ) {
-        unsafe { (self.get_image_subresource_layout2)(device, image, subresource, layout) }
+        unsafe { (self.get_image_subresource_layout2_ext)(device, image, subresource, layout) }
     }
 }

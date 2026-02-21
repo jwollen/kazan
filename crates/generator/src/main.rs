@@ -546,7 +546,7 @@ fn generate(xmls: &[&xml::Registry]) {
                     writeln!(file, "pub struct {} {{", fn_type_name).unwrap();
                     for command_group in &command_groups {
                         for command in &command_group.commands {
-                            let name = normalize_command_name(command.command.name);
+                            let name = normalize_command_name(command.alias);
                             let ty = format!("PFN_{}", normalize_ty_name(command.command.name));
                             let ty = if command.optional {
                                 format!("Option<{}>", ty)
@@ -563,7 +563,7 @@ fn generate(xmls: &[&xml::Registry]) {
                     writeln!(file, "unsafe {{ Ok(Self {{").unwrap();
                     for command_group in &command_groups {
                         for command in &command_group.commands {
-                            let name = normalize_command_name(command.command.name);
+                            let name = normalize_command_name(command.alias);
                             if command.optional {
                                 writeln!(
                                     file,
@@ -805,7 +805,7 @@ struct WrapperCommandInfo<'a> {
     command: &'a xml::Command,
 
     // The normalized command name
-    wrapper_name: String,
+    name: String,
 
     // Info about functions that can either output a length or enumerate items
     enumeration_info: Option<EnumerationCommandInfo>,
@@ -1003,7 +1003,7 @@ fn analyze_command<'a>(
 
     WrapperCommandInfo {
         command,
-        wrapper_name: name,
+        name,
         enumeration_info,
         wrapper_params,
         params,
@@ -1110,11 +1110,11 @@ fn write_command_wrapper(
     structs: &[xml::Structure],
 ) {
     let command = info.command;
-    let wrapper_info = analyze_command(info, structs);
+    let wrapper = analyze_command(info, structs);
 
-    writeln!(file, "pub unsafe fn {}(&self,", wrapper_info.wrapper_name).unwrap();
+    writeln!(file, "pub unsafe fn {}(&self,", wrapper.name).unwrap();
 
-    for param in &wrapper_info.wrapper_params {
+    for param in &wrapper.wrapper_params {
         writeln!(file, "{}: {},", param.name, param.ty).unwrap();
     }
 
@@ -1126,7 +1126,7 @@ fn write_command_wrapper(
 
     writeln!(file, "unsafe {{").unwrap();
 
-    if let Some(enumeration_info) = &wrapper_info.enumeration_info {
+    if let Some(enumeration_info) = &wrapper.enumeration_info {
         let has_result = if let Some(ret_type) = &command.return_type {
             if let CType::Base(base) = ret_type {
                 base.name == "VkResult"
@@ -1150,11 +1150,11 @@ fn write_command_wrapper(
             }
         };
 
-        let len_param = &wrapper_info.params[enumeration_info.len_param];
+        let len_param = &wrapper.params[enumeration_info.len_param];
         let array_params = enumeration_info
             .array_params
             .iter()
-            .map(|i| wrapper_info.params[*i].name.as_str())
+            .map(|i| wrapper.params[*i].name.as_str())
             .collect::<Vec<_>>()
             .join(", ");
 
@@ -1164,27 +1164,25 @@ fn write_command_wrapper(
             extend_fn_name, array_params, len_param.name, array_params
         )
         .unwrap();
-        write_fn_call(file, &wrapper_info, info.optional);
+        write_fn_call(file, &wrapper, info.optional);
         writeln!(file, "}})").unwrap();
     } else {
-        write_fn_call(file, &wrapper_info, info.optional);
+        write_fn_call(file, &wrapper, info.optional);
     }
 
     writeln!(file, "}}").unwrap();
     writeln!(file, "}}").unwrap();
 }
 
-fn write_fn_call(file: &mut impl std::io::Write, info: &WrapperCommandInfo, optional: bool) {
-    let name = normalize_command_name(info.command.name);
-
+fn write_fn_call(file: &mut impl std::io::Write, wrapper: &WrapperCommandInfo, optional: bool) {
     if optional {
-        writeln!(file, "(self.{}.unwrap())(", name).unwrap();
+        writeln!(file, "(self.{}.unwrap())(", wrapper.name).unwrap();
     } else {
-        writeln!(file, "(self.{})(", name).unwrap();
+        writeln!(file, "(self.{})(", wrapper.name).unwrap();
     }
 
-    for (param_index, param) in info.params.iter().enumerate() {
-        let array_param = info.params.iter().find(
+    for (param_index, param) in wrapper.params.iter().enumerate() {
+        let array_param = wrapper.params.iter().find(
             |p| matches!(p.len, Some(LengthKind::Param { index, .. }) if index == param_index),
         );
 
@@ -1197,7 +1195,7 @@ fn write_fn_call(file: &mut impl std::io::Write, info: &WrapperCommandInfo, opti
                 writeln!(file, "{}.len().try_into().unwrap(),", array_param.name).unwrap();
             }
         } else {
-            if let Some(enumeration_info) = &info.enumeration_info
+            if let Some(enumeration_info) = &wrapper.enumeration_info
                 && enumeration_info.array_params.contains(&param_index)
             {
                 writeln!(file, "{} as _,", param.name).unwrap();
@@ -1228,7 +1226,7 @@ fn write_fn_call(file: &mut impl std::io::Write, info: &WrapperCommandInfo, opti
                     if *is_const {
                         writeln!(file, "{}.to_raw_ptr(),", param.name).unwrap();
                     } else {
-                        if info.enumeration_info.is_some() {
+                        if wrapper.enumeration_info.is_some() {
                             writeln!(
                                 file,
                                 "todo!(\"output parameters in enumeration commands\"),"

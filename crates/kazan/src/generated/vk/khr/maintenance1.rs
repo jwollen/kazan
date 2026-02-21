@@ -4,7 +4,7 @@ use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
-    trim_command_pool: PFN_vkTrimCommandPool,
+    trim_command_pool_khr: PFN_vkTrimCommandPool,
 }
 impl DeviceFn {
     pub unsafe fn load(
@@ -12,7 +12,9 @@ impl DeviceFn {
     ) -> core::result::Result<Self, LoadingError> {
         unsafe {
             Ok(Self {
-                trim_command_pool: transmute(load(c"vkTrimCommandPoolKHR").ok_or(LoadingError)?),
+                trim_command_pool_khr: transmute(
+                    load(c"vkTrimCommandPoolKHR").ok_or(LoadingError)?,
+                ),
             })
         }
     }
@@ -24,6 +26,6 @@ impl DeviceFn {
         command_pool: CommandPool,
         flags: CommandPoolTrimFlags,
     ) {
-        unsafe { (self.trim_command_pool)(device, command_pool, flags) }
+        unsafe { (self.trim_command_pool_khr)(device, command_pool, flags) }
     }
 }

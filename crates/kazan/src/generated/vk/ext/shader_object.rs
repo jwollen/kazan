@@ -8,24 +8,24 @@ pub struct DeviceFn {
     destroy_shader_ext: PFN_vkDestroyShaderEXT,
     get_shader_binary_data_ext: PFN_vkGetShaderBinaryDataEXT,
     cmd_bind_shaders_ext: PFN_vkCmdBindShadersEXT,
-    cmd_set_cull_mode: PFN_vkCmdSetCullMode,
-    cmd_set_front_face: PFN_vkCmdSetFrontFace,
-    cmd_set_primitive_topology: PFN_vkCmdSetPrimitiveTopology,
-    cmd_set_viewport_with_count: PFN_vkCmdSetViewportWithCount,
-    cmd_set_scissor_with_count: PFN_vkCmdSetScissorWithCount,
-    cmd_bind_vertex_buffers2: PFN_vkCmdBindVertexBuffers2,
-    cmd_set_depth_test_enable: PFN_vkCmdSetDepthTestEnable,
-    cmd_set_depth_write_enable: PFN_vkCmdSetDepthWriteEnable,
-    cmd_set_depth_compare_op: PFN_vkCmdSetDepthCompareOp,
-    cmd_set_depth_bounds_test_enable: PFN_vkCmdSetDepthBoundsTestEnable,
-    cmd_set_stencil_test_enable: PFN_vkCmdSetStencilTestEnable,
-    cmd_set_stencil_op: PFN_vkCmdSetStencilOp,
+    cmd_set_cull_mode_ext: PFN_vkCmdSetCullMode,
+    cmd_set_front_face_ext: PFN_vkCmdSetFrontFace,
+    cmd_set_primitive_topology_ext: PFN_vkCmdSetPrimitiveTopology,
+    cmd_set_viewport_with_count_ext: PFN_vkCmdSetViewportWithCount,
+    cmd_set_scissor_with_count_ext: PFN_vkCmdSetScissorWithCount,
+    cmd_bind_vertex_buffers2_ext: PFN_vkCmdBindVertexBuffers2,
+    cmd_set_depth_test_enable_ext: PFN_vkCmdSetDepthTestEnable,
+    cmd_set_depth_write_enable_ext: PFN_vkCmdSetDepthWriteEnable,
+    cmd_set_depth_compare_op_ext: PFN_vkCmdSetDepthCompareOp,
+    cmd_set_depth_bounds_test_enable_ext: PFN_vkCmdSetDepthBoundsTestEnable,
+    cmd_set_stencil_test_enable_ext: PFN_vkCmdSetStencilTestEnable,
+    cmd_set_stencil_op_ext: PFN_vkCmdSetStencilOp,
     cmd_set_vertex_input_ext: PFN_vkCmdSetVertexInputEXT,
     cmd_set_patch_control_points_ext: PFN_vkCmdSetPatchControlPointsEXT,
-    cmd_set_rasterizer_discard_enable: PFN_vkCmdSetRasterizerDiscardEnable,
-    cmd_set_depth_bias_enable: PFN_vkCmdSetDepthBiasEnable,
+    cmd_set_rasterizer_discard_enable_ext: PFN_vkCmdSetRasterizerDiscardEnable,
+    cmd_set_depth_bias_enable_ext: PFN_vkCmdSetDepthBiasEnable,
     cmd_set_logic_op_ext: PFN_vkCmdSetLogicOpEXT,
-    cmd_set_primitive_restart_enable: PFN_vkCmdSetPrimitiveRestartEnable,
+    cmd_set_primitive_restart_enable_ext: PFN_vkCmdSetPrimitiveRestartEnable,
     cmd_set_tessellation_domain_origin_ext: PFN_vkCmdSetTessellationDomainOriginEXT,
     cmd_set_depth_clamp_enable_ext: PFN_vkCmdSetDepthClampEnableEXT,
     cmd_set_polygon_mode_ext: PFN_vkCmdSetPolygonModeEXT,
@@ -75,50 +75,54 @@ impl DeviceFn {
                     load(c"vkGetShaderBinaryDataEXT").ok_or(LoadingError)?,
                 ),
                 cmd_bind_shaders_ext: transmute(load(c"vkCmdBindShadersEXT").ok_or(LoadingError)?),
-                cmd_set_cull_mode: transmute(load(c"vkCmdSetCullModeEXT").ok_or(LoadingError)?),
-                cmd_set_front_face: transmute(load(c"vkCmdSetFrontFaceEXT").ok_or(LoadingError)?),
-                cmd_set_primitive_topology: transmute(
+                cmd_set_cull_mode_ext: transmute(load(c"vkCmdSetCullModeEXT").ok_or(LoadingError)?),
+                cmd_set_front_face_ext: transmute(
+                    load(c"vkCmdSetFrontFaceEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_primitive_topology_ext: transmute(
                     load(c"vkCmdSetPrimitiveTopologyEXT").ok_or(LoadingError)?,
                 ),
-                cmd_set_viewport_with_count: transmute(
+                cmd_set_viewport_with_count_ext: transmute(
                     load(c"vkCmdSetViewportWithCountEXT").ok_or(LoadingError)?,
                 ),
-                cmd_set_scissor_with_count: transmute(
+                cmd_set_scissor_with_count_ext: transmute(
                     load(c"vkCmdSetScissorWithCountEXT").ok_or(LoadingError)?,
                 ),
-                cmd_bind_vertex_buffers2: transmute(
+                cmd_bind_vertex_buffers2_ext: transmute(
                     load(c"vkCmdBindVertexBuffers2EXT").ok_or(LoadingError)?,
                 ),
-                cmd_set_depth_test_enable: transmute(
+                cmd_set_depth_test_enable_ext: transmute(
                     load(c"vkCmdSetDepthTestEnableEXT").ok_or(LoadingError)?,
                 ),
-                cmd_set_depth_write_enable: transmute(
+                cmd_set_depth_write_enable_ext: transmute(
                     load(c"vkCmdSetDepthWriteEnableEXT").ok_or(LoadingError)?,
                 ),
-                cmd_set_depth_compare_op: transmute(
+                cmd_set_depth_compare_op_ext: transmute(
                     load(c"vkCmdSetDepthCompareOpEXT").ok_or(LoadingError)?,
                 ),
-                cmd_set_depth_bounds_test_enable: transmute(
+                cmd_set_depth_bounds_test_enable_ext: transmute(
                     load(c"vkCmdSetDepthBoundsTestEnableEXT").ok_or(LoadingError)?,
                 ),
-                cmd_set_stencil_test_enable: transmute(
+                cmd_set_stencil_test_enable_ext: transmute(
                     load(c"vkCmdSetStencilTestEnableEXT").ok_or(LoadingError)?,
                 ),
-                cmd_set_stencil_op: transmute(load(c"vkCmdSetStencilOpEXT").ok_or(LoadingError)?),
+                cmd_set_stencil_op_ext: transmute(
+                    load(c"vkCmdSetStencilOpEXT").ok_or(LoadingError)?,
+                ),
                 cmd_set_vertex_input_ext: transmute(
                     load(c"vkCmdSetVertexInputEXT").ok_or(LoadingError)?,
                 ),
                 cmd_set_patch_control_points_ext: transmute(
                     load(c"vkCmdSetPatchControlPointsEXT").ok_or(LoadingError)?,
                 ),
-                cmd_set_rasterizer_discard_enable: transmute(
+                cmd_set_rasterizer_discard_enable_ext: transmute(
                     load(c"vkCmdSetRasterizerDiscardEnableEXT").ok_or(LoadingError)?,
                 ),
-                cmd_set_depth_bias_enable: transmute(
+                cmd_set_depth_bias_enable_ext: transmute(
                     load(c"vkCmdSetDepthBiasEnableEXT").ok_or(LoadingError)?,
                 ),
                 cmd_set_logic_op_ext: transmute(load(c"vkCmdSetLogicOpEXT").ok_or(LoadingError)?),
-                cmd_set_primitive_restart_enable: transmute(
+                cmd_set_primitive_restart_enable_ext: transmute(
                     load(c"vkCmdSetPrimitiveRestartEnableEXT").ok_or(LoadingError)?,
                 ),
                 cmd_set_tessellation_domain_origin_ext: transmute(
@@ -269,21 +273,21 @@ impl DeviceFn {
         command_buffer: CommandBuffer,
         cull_mode: CullModeFlags,
     ) {
-        unsafe { (self.cmd_set_cull_mode)(command_buffer, cull_mode) }
+        unsafe { (self.cmd_set_cull_mode_ext)(command_buffer, cull_mode) }
     }
     pub unsafe fn cmd_set_front_face_ext(
         &self,
         command_buffer: CommandBuffer,
         front_face: FrontFace,
     ) {
-        unsafe { (self.cmd_set_front_face)(command_buffer, front_face) }
+        unsafe { (self.cmd_set_front_face_ext)(command_buffer, front_face) }
     }
     pub unsafe fn cmd_set_primitive_topology_ext(
         &self,
         command_buffer: CommandBuffer,
         primitive_topology: PrimitiveTopology,
     ) {
-        unsafe { (self.cmd_set_primitive_topology)(command_buffer, primitive_topology) }
+        unsafe { (self.cmd_set_primitive_topology_ext)(command_buffer, primitive_topology) }
     }
     pub unsafe fn cmd_set_viewport_with_count_ext(
         &self,
@@ -291,7 +295,7 @@ impl DeviceFn {
         viewports: &[Viewport],
     ) {
         unsafe {
-            (self.cmd_set_viewport_with_count)(
+            (self.cmd_set_viewport_with_count_ext)(
                 command_buffer,
                 viewports.len().try_into().unwrap(),
                 viewports.as_ptr() as _,
@@ -304,7 +308,7 @@ impl DeviceFn {
         scissors: &[Rect2D],
     ) {
         unsafe {
-            (self.cmd_set_scissor_with_count)(
+            (self.cmd_set_scissor_with_count_ext)(
                 command_buffer,
                 scissors.len().try_into().unwrap(),
                 scissors.as_ptr() as _,
@@ -321,7 +325,7 @@ impl DeviceFn {
         strides: Option<&[DeviceSize]>,
     ) {
         unsafe {
-            (self.cmd_bind_vertex_buffers2)(
+            (self.cmd_bind_vertex_buffers2_ext)(
                 command_buffer,
                 first_binding,
                 buffers.len().try_into().unwrap(),
@@ -337,35 +341,37 @@ impl DeviceFn {
         command_buffer: CommandBuffer,
         depth_test_enable: Bool32,
     ) {
-        unsafe { (self.cmd_set_depth_test_enable)(command_buffer, depth_test_enable) }
+        unsafe { (self.cmd_set_depth_test_enable_ext)(command_buffer, depth_test_enable) }
     }
     pub unsafe fn cmd_set_depth_write_enable_ext(
         &self,
         command_buffer: CommandBuffer,
         depth_write_enable: Bool32,
     ) {
-        unsafe { (self.cmd_set_depth_write_enable)(command_buffer, depth_write_enable) }
+        unsafe { (self.cmd_set_depth_write_enable_ext)(command_buffer, depth_write_enable) }
     }
     pub unsafe fn cmd_set_depth_compare_op_ext(
         &self,
         command_buffer: CommandBuffer,
         depth_compare_op: CompareOp,
     ) {
-        unsafe { (self.cmd_set_depth_compare_op)(command_buffer, depth_compare_op) }
+        unsafe { (self.cmd_set_depth_compare_op_ext)(command_buffer, depth_compare_op) }
     }
     pub unsafe fn cmd_set_depth_bounds_test_enable_ext(
         &self,
         command_buffer: CommandBuffer,
         depth_bounds_test_enable: Bool32,
     ) {
-        unsafe { (self.cmd_set_depth_bounds_test_enable)(command_buffer, depth_bounds_test_enable) }
+        unsafe {
+            (self.cmd_set_depth_bounds_test_enable_ext)(command_buffer, depth_bounds_test_enable)
+        }
     }
     pub unsafe fn cmd_set_stencil_test_enable_ext(
         &self,
         command_buffer: CommandBuffer,
         stencil_test_enable: Bool32,
     ) {
-        unsafe { (self.cmd_set_stencil_test_enable)(command_buffer, stencil_test_enable) }
+        unsafe { (self.cmd_set_stencil_test_enable_ext)(command_buffer, stencil_test_enable) }
     }
     pub unsafe fn cmd_set_stencil_op_ext(
         &self,
@@ -377,7 +383,7 @@ impl DeviceFn {
         compare_op: CompareOp,
     ) {
         unsafe {
-            (self.cmd_set_stencil_op)(
+            (self.cmd_set_stencil_op_ext)(
                 command_buffer,
                 face_mask,
                 fail_op,
@@ -416,7 +422,7 @@ impl DeviceFn {
         rasterizer_discard_enable: Bool32,
     ) {
         unsafe {
-            (self.cmd_set_rasterizer_discard_enable)(command_buffer, rasterizer_discard_enable)
+            (self.cmd_set_rasterizer_discard_enable_ext)(command_buffer, rasterizer_discard_enable)
         }
     }
     pub unsafe fn cmd_set_depth_bias_enable_ext(
@@ -424,7 +430,7 @@ impl DeviceFn {
         command_buffer: CommandBuffer,
         depth_bias_enable: Bool32,
     ) {
-        unsafe { (self.cmd_set_depth_bias_enable)(command_buffer, depth_bias_enable) }
+        unsafe { (self.cmd_set_depth_bias_enable_ext)(command_buffer, depth_bias_enable) }
     }
     pub unsafe fn cmd_set_logic_op_ext(&self, command_buffer: CommandBuffer, logic_op: LogicOp) {
         unsafe { (self.cmd_set_logic_op_ext)(command_buffer, logic_op) }
@@ -434,7 +440,9 @@ impl DeviceFn {
         command_buffer: CommandBuffer,
         primitive_restart_enable: Bool32,
     ) {
-        unsafe { (self.cmd_set_primitive_restart_enable)(command_buffer, primitive_restart_enable) }
+        unsafe {
+            (self.cmd_set_primitive_restart_enable_ext)(command_buffer, primitive_restart_enable)
+        }
     }
     pub unsafe fn cmd_set_tessellation_domain_origin_ext(
         &self,

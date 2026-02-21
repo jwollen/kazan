@@ -4,7 +4,7 @@ use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
-    get_descriptor_set_layout_support: PFN_vkGetDescriptorSetLayoutSupport,
+    get_descriptor_set_layout_support_khr: PFN_vkGetDescriptorSetLayoutSupport,
 }
 impl DeviceFn {
     pub unsafe fn load(
@@ -12,7 +12,7 @@ impl DeviceFn {
     ) -> core::result::Result<Self, LoadingError> {
         unsafe {
             Ok(Self {
-                get_descriptor_set_layout_support: transmute(
+                get_descriptor_set_layout_support_khr: transmute(
                     load(c"vkGetDescriptorSetLayoutSupportKHR").ok_or(LoadingError)?,
                 ),
             })
@@ -26,6 +26,6 @@ impl DeviceFn {
         create_info: &DescriptorSetLayoutCreateInfo,
         support: &mut DescriptorSetLayoutSupport,
     ) {
-        unsafe { (self.get_descriptor_set_layout_support)(device, create_info, support) }
+        unsafe { (self.get_descriptor_set_layout_support_khr)(device, create_info, support) }
     }
 }

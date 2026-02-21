@@ -4,7 +4,8 @@ use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct InstanceFn {
-    get_physical_device_external_buffer_properties: PFN_vkGetPhysicalDeviceExternalBufferProperties,
+    get_physical_device_external_buffer_properties_khr:
+        PFN_vkGetPhysicalDeviceExternalBufferProperties,
 }
 impl InstanceFn {
     pub unsafe fn load(
@@ -12,7 +13,7 @@ impl InstanceFn {
     ) -> core::result::Result<Self, LoadingError> {
         unsafe {
             Ok(Self {
-                get_physical_device_external_buffer_properties: transmute(
+                get_physical_device_external_buffer_properties_khr: transmute(
                     load(c"vkGetPhysicalDeviceExternalBufferPropertiesKHR").ok_or(LoadingError)?,
                 ),
             })
@@ -27,7 +28,7 @@ impl InstanceFn {
         external_buffer_properties: &mut ExternalBufferProperties,
     ) {
         unsafe {
-            (self.get_physical_device_external_buffer_properties)(
+            (self.get_physical_device_external_buffer_properties_khr)(
                 physical_device,
                 external_buffer_info,
                 external_buffer_properties,

@@ -4,7 +4,7 @@ use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct InstanceFn {
-    enumerate_physical_device_groups: PFN_vkEnumeratePhysicalDeviceGroups,
+    enumerate_physical_device_groups_khr: PFN_vkEnumeratePhysicalDeviceGroups,
 }
 impl InstanceFn {
     pub unsafe fn load(
@@ -12,7 +12,7 @@ impl InstanceFn {
     ) -> core::result::Result<Self, LoadingError> {
         unsafe {
             Ok(Self {
-                enumerate_physical_device_groups: transmute(
+                enumerate_physical_device_groups_khr: transmute(
                     load(c"vkEnumeratePhysicalDeviceGroupsKHR").ok_or(LoadingError)?,
                 ),
             })
@@ -29,7 +29,7 @@ impl InstanceFn {
             try_extend_uninit(
                 physical_device_group_properties,
                 |physical_device_group_count, physical_device_group_properties| {
-                    (self.enumerate_physical_device_groups)(
+                    (self.enumerate_physical_device_groups_khr)(
                         instance,
                         physical_device_group_count,
                         physical_device_group_properties as _,

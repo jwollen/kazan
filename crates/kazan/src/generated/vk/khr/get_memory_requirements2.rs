@@ -4,9 +4,9 @@ use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
-    get_image_memory_requirements2: PFN_vkGetImageMemoryRequirements2,
-    get_buffer_memory_requirements2: PFN_vkGetBufferMemoryRequirements2,
-    get_image_sparse_memory_requirements2: PFN_vkGetImageSparseMemoryRequirements2,
+    get_image_memory_requirements2_khr: PFN_vkGetImageMemoryRequirements2,
+    get_buffer_memory_requirements2_khr: PFN_vkGetBufferMemoryRequirements2,
+    get_image_sparse_memory_requirements2_khr: PFN_vkGetImageSparseMemoryRequirements2,
 }
 impl DeviceFn {
     pub unsafe fn load(
@@ -14,13 +14,13 @@ impl DeviceFn {
     ) -> core::result::Result<Self, LoadingError> {
         unsafe {
             Ok(Self {
-                get_image_memory_requirements2: transmute(
+                get_image_memory_requirements2_khr: transmute(
                     load(c"vkGetImageMemoryRequirements2KHR").ok_or(LoadingError)?,
                 ),
-                get_buffer_memory_requirements2: transmute(
+                get_buffer_memory_requirements2_khr: transmute(
                     load(c"vkGetBufferMemoryRequirements2KHR").ok_or(LoadingError)?,
                 ),
-                get_image_sparse_memory_requirements2: transmute(
+                get_image_sparse_memory_requirements2_khr: transmute(
                     load(c"vkGetImageSparseMemoryRequirements2KHR").ok_or(LoadingError)?,
                 ),
             })
@@ -34,7 +34,7 @@ impl DeviceFn {
         info: &ImageMemoryRequirementsInfo2,
         memory_requirements: &mut MemoryRequirements2,
     ) {
-        unsafe { (self.get_image_memory_requirements2)(device, info, memory_requirements) }
+        unsafe { (self.get_image_memory_requirements2_khr)(device, info, memory_requirements) }
     }
     pub unsafe fn get_buffer_memory_requirements2_khr(
         &self,
@@ -42,7 +42,7 @@ impl DeviceFn {
         info: &BufferMemoryRequirementsInfo2,
         memory_requirements: &mut MemoryRequirements2,
     ) {
-        unsafe { (self.get_buffer_memory_requirements2)(device, info, memory_requirements) }
+        unsafe { (self.get_buffer_memory_requirements2_khr)(device, info, memory_requirements) }
     }
     pub unsafe fn get_image_sparse_memory_requirements2_khr(
         &self,
@@ -54,7 +54,7 @@ impl DeviceFn {
             extend_uninit(
                 sparse_memory_requirements,
                 |sparse_memory_requirement_count, sparse_memory_requirements| {
-                    (self.get_image_sparse_memory_requirements2)(
+                    (self.get_image_sparse_memory_requirements2_khr)(
                         device,
                         info,
                         sparse_memory_requirement_count,

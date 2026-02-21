@@ -4,7 +4,7 @@ use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct InstanceFn {
-    get_physical_device_calibrateable_time_domains_khr:
+    get_physical_device_calibrateable_time_domains_ext:
         PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsKHR,
 }
 impl InstanceFn {
@@ -13,7 +13,7 @@ impl InstanceFn {
     ) -> core::result::Result<Self, LoadingError> {
         unsafe {
             Ok(Self {
-                get_physical_device_calibrateable_time_domains_khr: transmute(
+                get_physical_device_calibrateable_time_domains_ext: transmute(
                     load(c"vkGetPhysicalDeviceCalibrateableTimeDomainsEXT").ok_or(LoadingError)?,
                 ),
             })
@@ -28,7 +28,7 @@ impl InstanceFn {
     ) -> Result {
         unsafe {
             try_extend_uninit(time_domains, |time_domain_count, time_domains| {
-                (self.get_physical_device_calibrateable_time_domains_khr)(
+                (self.get_physical_device_calibrateable_time_domains_ext)(
                     physical_device,
                     time_domain_count,
                     time_domains as _,
@@ -38,7 +38,7 @@ impl InstanceFn {
     }
 }
 pub struct DeviceFn {
-    get_calibrated_timestamps_khr: PFN_vkGetCalibratedTimestampsKHR,
+    get_calibrated_timestamps_ext: PFN_vkGetCalibratedTimestampsKHR,
 }
 impl DeviceFn {
     pub unsafe fn load(
@@ -46,7 +46,7 @@ impl DeviceFn {
     ) -> core::result::Result<Self, LoadingError> {
         unsafe {
             Ok(Self {
-                get_calibrated_timestamps_khr: transmute(
+                get_calibrated_timestamps_ext: transmute(
                     load(c"vkGetCalibratedTimestampsEXT").ok_or(LoadingError)?,
                 ),
             })
@@ -62,7 +62,7 @@ impl DeviceFn {
         max_deviation: &mut u64,
     ) -> Result {
         unsafe {
-            (self.get_calibrated_timestamps_khr)(
+            (self.get_calibrated_timestamps_ext)(
                 device,
                 timestamp_infos.len().try_into().unwrap(),
                 timestamp_infos.as_ptr() as _,

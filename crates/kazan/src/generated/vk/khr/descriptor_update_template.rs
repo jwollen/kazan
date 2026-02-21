@@ -4,10 +4,10 @@ use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
-    create_descriptor_update_template: PFN_vkCreateDescriptorUpdateTemplate,
-    destroy_descriptor_update_template: PFN_vkDestroyDescriptorUpdateTemplate,
-    update_descriptor_set_with_template: PFN_vkUpdateDescriptorSetWithTemplate,
-    cmd_push_descriptor_set_with_template: Option<PFN_vkCmdPushDescriptorSetWithTemplate>,
+    create_descriptor_update_template_khr: PFN_vkCreateDescriptorUpdateTemplate,
+    destroy_descriptor_update_template_khr: PFN_vkDestroyDescriptorUpdateTemplate,
+    update_descriptor_set_with_template_khr: PFN_vkUpdateDescriptorSetWithTemplate,
+    cmd_push_descriptor_set_with_template_khr: Option<PFN_vkCmdPushDescriptorSetWithTemplate>,
 }
 impl DeviceFn {
     pub unsafe fn load(
@@ -15,16 +15,16 @@ impl DeviceFn {
     ) -> core::result::Result<Self, LoadingError> {
         unsafe {
             Ok(Self {
-                create_descriptor_update_template: transmute(
+                create_descriptor_update_template_khr: transmute(
                     load(c"vkCreateDescriptorUpdateTemplateKHR").ok_or(LoadingError)?,
                 ),
-                destroy_descriptor_update_template: transmute(
+                destroy_descriptor_update_template_khr: transmute(
                     load(c"vkDestroyDescriptorUpdateTemplateKHR").ok_or(LoadingError)?,
                 ),
-                update_descriptor_set_with_template: transmute(
+                update_descriptor_set_with_template_khr: transmute(
                     load(c"vkUpdateDescriptorSetWithTemplateKHR").ok_or(LoadingError)?,
                 ),
-                cmd_push_descriptor_set_with_template: transmute(load(
+                cmd_push_descriptor_set_with_template_khr: transmute(load(
                     c"vkCmdPushDescriptorSetWithTemplateKHR",
                 )),
             })
@@ -40,7 +40,7 @@ impl DeviceFn {
         descriptor_update_template: &mut DescriptorUpdateTemplate,
     ) -> Result {
         unsafe {
-            (self.create_descriptor_update_template)(
+            (self.create_descriptor_update_template_khr)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -55,7 +55,7 @@ impl DeviceFn {
         allocator: Option<&AllocationCallbacks>,
     ) {
         unsafe {
-            (self.destroy_descriptor_update_template)(
+            (self.destroy_descriptor_update_template_khr)(
                 device,
                 descriptor_update_template,
                 allocator.to_raw_ptr(),
@@ -70,7 +70,7 @@ impl DeviceFn {
         data: &c_void,
     ) {
         unsafe {
-            (self.update_descriptor_set_with_template)(
+            (self.update_descriptor_set_with_template_khr)(
                 device,
                 descriptor_set,
                 descriptor_update_template,
@@ -87,7 +87,7 @@ impl DeviceFn {
         data: &c_void,
     ) {
         unsafe {
-            (self.cmd_push_descriptor_set_with_template.unwrap())(
+            (self.cmd_push_descriptor_set_with_template_khr.unwrap())(
                 command_buffer,
                 descriptor_update_template,
                 layout,

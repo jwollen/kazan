@@ -4,8 +4,8 @@ use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
-    bind_buffer_memory2: PFN_vkBindBufferMemory2,
-    bind_image_memory2: PFN_vkBindImageMemory2,
+    bind_buffer_memory2_khr: PFN_vkBindBufferMemory2,
+    bind_image_memory2_khr: PFN_vkBindImageMemory2,
 }
 impl DeviceFn {
     pub unsafe fn load(
@@ -13,10 +13,12 @@ impl DeviceFn {
     ) -> core::result::Result<Self, LoadingError> {
         unsafe {
             Ok(Self {
-                bind_buffer_memory2: transmute(
+                bind_buffer_memory2_khr: transmute(
                     load(c"vkBindBufferMemory2KHR").ok_or(LoadingError)?,
                 ),
-                bind_image_memory2: transmute(load(c"vkBindImageMemory2KHR").ok_or(LoadingError)?),
+                bind_image_memory2_khr: transmute(
+                    load(c"vkBindImageMemory2KHR").ok_or(LoadingError)?,
+                ),
             })
         }
     }
@@ -28,7 +30,7 @@ impl DeviceFn {
         bind_infos: &[BindBufferMemoryInfo],
     ) -> Result {
         unsafe {
-            (self.bind_buffer_memory2)(
+            (self.bind_buffer_memory2_khr)(
                 device,
                 bind_infos.len().try_into().unwrap(),
                 bind_infos.as_ptr() as _,
@@ -41,7 +43,7 @@ impl DeviceFn {
         bind_infos: &[BindImageMemoryInfo],
     ) -> Result {
         unsafe {
-            (self.bind_image_memory2)(
+            (self.bind_image_memory2_khr)(
                 device,
                 bind_infos.len().try_into().unwrap(),
                 bind_infos.as_ptr() as _,

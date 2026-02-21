@@ -4,9 +4,9 @@ use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
-    get_semaphore_counter_value: PFN_vkGetSemaphoreCounterValue,
-    wait_semaphores: PFN_vkWaitSemaphores,
-    signal_semaphore: PFN_vkSignalSemaphore,
+    get_semaphore_counter_value_khr: PFN_vkGetSemaphoreCounterValue,
+    wait_semaphores_khr: PFN_vkWaitSemaphores,
+    signal_semaphore_khr: PFN_vkSignalSemaphore,
 }
 impl DeviceFn {
     pub unsafe fn load(
@@ -14,11 +14,11 @@ impl DeviceFn {
     ) -> core::result::Result<Self, LoadingError> {
         unsafe {
             Ok(Self {
-                get_semaphore_counter_value: transmute(
+                get_semaphore_counter_value_khr: transmute(
                     load(c"vkGetSemaphoreCounterValueKHR").ok_or(LoadingError)?,
                 ),
-                wait_semaphores: transmute(load(c"vkWaitSemaphoresKHR").ok_or(LoadingError)?),
-                signal_semaphore: transmute(load(c"vkSignalSemaphoreKHR").ok_or(LoadingError)?),
+                wait_semaphores_khr: transmute(load(c"vkWaitSemaphoresKHR").ok_or(LoadingError)?),
+                signal_semaphore_khr: transmute(load(c"vkSignalSemaphoreKHR").ok_or(LoadingError)?),
             })
         }
     }
@@ -30,7 +30,7 @@ impl DeviceFn {
         semaphore: Semaphore,
         value: &mut u64,
     ) -> Result {
-        unsafe { (self.get_semaphore_counter_value)(device, semaphore, value) }
+        unsafe { (self.get_semaphore_counter_value_khr)(device, semaphore, value) }
     }
     pub unsafe fn wait_semaphores_khr(
         &self,
@@ -38,13 +38,13 @@ impl DeviceFn {
         wait_info: &SemaphoreWaitInfo,
         timeout: u64,
     ) -> Result {
-        unsafe { (self.wait_semaphores)(device, wait_info, timeout) }
+        unsafe { (self.wait_semaphores_khr)(device, wait_info, timeout) }
     }
     pub unsafe fn signal_semaphore_khr(
         &self,
         device: Device,
         signal_info: &SemaphoreSignalInfo,
     ) -> Result {
-        unsafe { (self.signal_semaphore)(device, signal_info) }
+        unsafe { (self.signal_semaphore_khr)(device, signal_info) }
     }
 }

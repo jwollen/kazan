@@ -4,10 +4,10 @@ use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
-    create_render_pass2: PFN_vkCreateRenderPass2,
-    cmd_begin_render_pass2: PFN_vkCmdBeginRenderPass2,
-    cmd_next_subpass2: PFN_vkCmdNextSubpass2,
-    cmd_end_render_pass2: PFN_vkCmdEndRenderPass2,
+    create_render_pass2_khr: PFN_vkCreateRenderPass2,
+    cmd_begin_render_pass2_khr: PFN_vkCmdBeginRenderPass2,
+    cmd_next_subpass2_khr: PFN_vkCmdNextSubpass2,
+    cmd_end_render_pass2_khr: PFN_vkCmdEndRenderPass2,
 }
 impl DeviceFn {
     pub unsafe fn load(
@@ -15,14 +15,16 @@ impl DeviceFn {
     ) -> core::result::Result<Self, LoadingError> {
         unsafe {
             Ok(Self {
-                create_render_pass2: transmute(
+                create_render_pass2_khr: transmute(
                     load(c"vkCreateRenderPass2KHR").ok_or(LoadingError)?,
                 ),
-                cmd_begin_render_pass2: transmute(
+                cmd_begin_render_pass2_khr: transmute(
                     load(c"vkCmdBeginRenderPass2KHR").ok_or(LoadingError)?,
                 ),
-                cmd_next_subpass2: transmute(load(c"vkCmdNextSubpass2KHR").ok_or(LoadingError)?),
-                cmd_end_render_pass2: transmute(
+                cmd_next_subpass2_khr: transmute(
+                    load(c"vkCmdNextSubpass2KHR").ok_or(LoadingError)?,
+                ),
+                cmd_end_render_pass2_khr: transmute(
                     load(c"vkCmdEndRenderPass2KHR").ok_or(LoadingError)?,
                 ),
             })
@@ -38,7 +40,7 @@ impl DeviceFn {
         render_pass: &mut RenderPass,
     ) -> Result {
         unsafe {
-            (self.create_render_pass2)(device, create_info, allocator.to_raw_ptr(), render_pass)
+            (self.create_render_pass2_khr)(device, create_info, allocator.to_raw_ptr(), render_pass)
         }
     }
     pub unsafe fn cmd_begin_render_pass2_khr(
@@ -48,7 +50,7 @@ impl DeviceFn {
         subpass_begin_info: &SubpassBeginInfo,
     ) {
         unsafe {
-            (self.cmd_begin_render_pass2)(command_buffer, render_pass_begin, subpass_begin_info)
+            (self.cmd_begin_render_pass2_khr)(command_buffer, render_pass_begin, subpass_begin_info)
         }
     }
     pub unsafe fn cmd_next_subpass2_khr(
@@ -57,13 +59,15 @@ impl DeviceFn {
         subpass_begin_info: &SubpassBeginInfo,
         subpass_end_info: &SubpassEndInfo,
     ) {
-        unsafe { (self.cmd_next_subpass2)(command_buffer, subpass_begin_info, subpass_end_info) }
+        unsafe {
+            (self.cmd_next_subpass2_khr)(command_buffer, subpass_begin_info, subpass_end_info)
+        }
     }
     pub unsafe fn cmd_end_render_pass2_khr(
         &self,
         command_buffer: CommandBuffer,
         subpass_end_info: &SubpassEndInfo,
     ) {
-        unsafe { (self.cmd_end_render_pass2)(command_buffer, subpass_end_info) }
+        unsafe { (self.cmd_end_render_pass2_khr)(command_buffer, subpass_end_info) }
     }
 }
