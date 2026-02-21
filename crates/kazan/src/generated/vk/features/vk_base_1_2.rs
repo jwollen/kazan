@@ -1,6 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     reset_query_pool: PFN_vkResetQueryPool,
@@ -10,6 +11,31 @@ pub struct DeviceFn {
     get_buffer_device_address: PFN_vkGetBufferDeviceAddress,
     get_buffer_opaque_capture_address: PFN_vkGetBufferOpaqueCaptureAddress,
     get_device_memory_opaque_capture_address: PFN_vkGetDeviceMemoryOpaqueCaptureAddress,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                reset_query_pool: transmute(load(c"vkResetQueryPool").ok_or(LoadingError)?),
+                get_semaphore_counter_value: transmute(
+                    load(c"vkGetSemaphoreCounterValue").ok_or(LoadingError)?,
+                ),
+                wait_semaphores: transmute(load(c"vkWaitSemaphores").ok_or(LoadingError)?),
+                signal_semaphore: transmute(load(c"vkSignalSemaphore").ok_or(LoadingError)?),
+                get_buffer_device_address: transmute(
+                    load(c"vkGetBufferDeviceAddress").ok_or(LoadingError)?,
+                ),
+                get_buffer_opaque_capture_address: transmute(
+                    load(c"vkGetBufferOpaqueCaptureAddress").ok_or(LoadingError)?,
+                ),
+                get_device_memory_opaque_capture_address: transmute(
+                    load(c"vkGetDeviceMemoryOpaqueCaptureAddress").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn reset_query_pool(

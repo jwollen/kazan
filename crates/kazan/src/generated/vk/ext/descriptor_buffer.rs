@@ -1,6 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     get_descriptor_set_layout_size_ext: PFN_vkGetDescriptorSetLayoutSizeEXT,
@@ -17,6 +18,47 @@ pub struct DeviceFn {
     get_sampler_opaque_capture_descriptor_data_ext: PFN_vkGetSamplerOpaqueCaptureDescriptorDataEXT,
     get_acceleration_structure_opaque_capture_descriptor_data_ext:
         Option<PFN_vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT>,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                get_descriptor_set_layout_size_ext: transmute(
+                    load(c"vkGetDescriptorSetLayoutSizeEXT").ok_or(LoadingError)?,
+                ),
+                get_descriptor_set_layout_binding_offset_ext: transmute(
+                    load(c"vkGetDescriptorSetLayoutBindingOffsetEXT").ok_or(LoadingError)?,
+                ),
+                get_descriptor_ext: transmute(load(c"vkGetDescriptorEXT").ok_or(LoadingError)?),
+                cmd_bind_descriptor_buffers_ext: transmute(
+                    load(c"vkCmdBindDescriptorBuffersEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_descriptor_buffer_offsets_ext: transmute(
+                    load(c"vkCmdSetDescriptorBufferOffsetsEXT").ok_or(LoadingError)?,
+                ),
+                cmd_bind_descriptor_buffer_embedded_samplers_ext: transmute(
+                    load(c"vkCmdBindDescriptorBufferEmbeddedSamplersEXT").ok_or(LoadingError)?,
+                ),
+                get_buffer_opaque_capture_descriptor_data_ext: transmute(
+                    load(c"vkGetBufferOpaqueCaptureDescriptorDataEXT").ok_or(LoadingError)?,
+                ),
+                get_image_opaque_capture_descriptor_data_ext: transmute(
+                    load(c"vkGetImageOpaqueCaptureDescriptorDataEXT").ok_or(LoadingError)?,
+                ),
+                get_image_view_opaque_capture_descriptor_data_ext: transmute(
+                    load(c"vkGetImageViewOpaqueCaptureDescriptorDataEXT").ok_or(LoadingError)?,
+                ),
+                get_sampler_opaque_capture_descriptor_data_ext: transmute(
+                    load(c"vkGetSamplerOpaqueCaptureDescriptorDataEXT").ok_or(LoadingError)?,
+                ),
+                get_acceleration_structure_opaque_capture_descriptor_data_ext: transmute(load(
+                    c"vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT",
+                )),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn get_descriptor_set_layout_size_ext(

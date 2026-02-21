@@ -1,11 +1,28 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct InstanceFn {
     create_xlib_surface_khr: PFN_vkCreateXlibSurfaceKHR,
     get_physical_device_xlib_presentation_support_khr:
         PFN_vkGetPhysicalDeviceXlibPresentationSupportKHR,
+}
+impl InstanceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                create_xlib_surface_khr: transmute(
+                    load(c"vkCreateXlibSurfaceKHR").ok_or(LoadingError)?,
+                ),
+                get_physical_device_xlib_presentation_support_khr: transmute(
+                    load(c"vkGetPhysicalDeviceXlibPresentationSupportKHR").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl InstanceFn {
     pub unsafe fn create_xlib_surface_khr(

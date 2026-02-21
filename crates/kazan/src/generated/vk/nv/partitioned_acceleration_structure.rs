@@ -1,12 +1,30 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     get_partitioned_acceleration_structures_build_sizes_nv:
         PFN_vkGetPartitionedAccelerationStructuresBuildSizesNV,
     cmd_build_partitioned_acceleration_structures_nv:
         PFN_vkCmdBuildPartitionedAccelerationStructuresNV,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                get_partitioned_acceleration_structures_build_sizes_nv: transmute(
+                    load(c"vkGetPartitionedAccelerationStructuresBuildSizesNV")
+                        .ok_or(LoadingError)?,
+                ),
+                cmd_build_partitioned_acceleration_structures_nv: transmute(
+                    load(c"vkCmdBuildPartitionedAccelerationStructuresNV").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn get_partitioned_acceleration_structures_build_sizes_nv(

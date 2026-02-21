@@ -1,12 +1,35 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     display_power_control_ext: PFN_vkDisplayPowerControlEXT,
     register_device_event_ext: PFN_vkRegisterDeviceEventEXT,
     register_display_event_ext: PFN_vkRegisterDisplayEventEXT,
     get_swapchain_counter_ext: PFN_vkGetSwapchainCounterEXT,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                display_power_control_ext: transmute(
+                    load(c"vkDisplayPowerControlEXT").ok_or(LoadingError)?,
+                ),
+                register_device_event_ext: transmute(
+                    load(c"vkRegisterDeviceEventEXT").ok_or(LoadingError)?,
+                ),
+                register_display_event_ext: transmute(
+                    load(c"vkRegisterDisplayEventEXT").ok_or(LoadingError)?,
+                ),
+                get_swapchain_counter_ext: transmute(
+                    load(c"vkGetSwapchainCounterEXT").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn display_power_control_ext(

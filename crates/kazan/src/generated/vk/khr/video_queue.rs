@@ -1,11 +1,28 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct InstanceFn {
     get_physical_device_video_capabilities_khr: PFN_vkGetPhysicalDeviceVideoCapabilitiesKHR,
     get_physical_device_video_format_properties_khr:
         PFN_vkGetPhysicalDeviceVideoFormatPropertiesKHR,
+}
+impl InstanceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                get_physical_device_video_capabilities_khr: transmute(
+                    load(c"vkGetPhysicalDeviceVideoCapabilitiesKHR").ok_or(LoadingError)?,
+                ),
+                get_physical_device_video_format_properties_khr: transmute(
+                    load(c"vkGetPhysicalDeviceVideoFormatPropertiesKHR").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl InstanceFn {
     pub unsafe fn get_physical_device_video_capabilities_khr(
@@ -54,6 +71,46 @@ pub struct DeviceFn {
     cmd_begin_video_coding_khr: PFN_vkCmdBeginVideoCodingKHR,
     cmd_end_video_coding_khr: PFN_vkCmdEndVideoCodingKHR,
     cmd_control_video_coding_khr: PFN_vkCmdControlVideoCodingKHR,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                create_video_session_khr: transmute(
+                    load(c"vkCreateVideoSessionKHR").ok_or(LoadingError)?,
+                ),
+                destroy_video_session_khr: transmute(
+                    load(c"vkDestroyVideoSessionKHR").ok_or(LoadingError)?,
+                ),
+                get_video_session_memory_requirements_khr: transmute(
+                    load(c"vkGetVideoSessionMemoryRequirementsKHR").ok_or(LoadingError)?,
+                ),
+                bind_video_session_memory_khr: transmute(
+                    load(c"vkBindVideoSessionMemoryKHR").ok_or(LoadingError)?,
+                ),
+                create_video_session_parameters_khr: transmute(
+                    load(c"vkCreateVideoSessionParametersKHR").ok_or(LoadingError)?,
+                ),
+                update_video_session_parameters_khr: transmute(
+                    load(c"vkUpdateVideoSessionParametersKHR").ok_or(LoadingError)?,
+                ),
+                destroy_video_session_parameters_khr: transmute(
+                    load(c"vkDestroyVideoSessionParametersKHR").ok_or(LoadingError)?,
+                ),
+                cmd_begin_video_coding_khr: transmute(
+                    load(c"vkCmdBeginVideoCodingKHR").ok_or(LoadingError)?,
+                ),
+                cmd_end_video_coding_khr: transmute(
+                    load(c"vkCmdEndVideoCodingKHR").ok_or(LoadingError)?,
+                ),
+                cmd_control_video_coding_khr: transmute(
+                    load(c"vkCmdControlVideoCodingKHR").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn create_video_session_khr(

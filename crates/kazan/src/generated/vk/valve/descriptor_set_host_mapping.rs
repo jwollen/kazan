@@ -1,11 +1,28 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     get_descriptor_set_layout_host_mapping_info_valve:
         PFN_vkGetDescriptorSetLayoutHostMappingInfoVALVE,
     get_descriptor_set_host_mapping_valve: PFN_vkGetDescriptorSetHostMappingVALVE,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                get_descriptor_set_layout_host_mapping_info_valve: transmute(
+                    load(c"vkGetDescriptorSetLayoutHostMappingInfoVALVE").ok_or(LoadingError)?,
+                ),
+                get_descriptor_set_host_mapping_valve: transmute(
+                    load(c"vkGetDescriptorSetHostMappingVALVE").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn get_descriptor_set_layout_host_mapping_info_valve(

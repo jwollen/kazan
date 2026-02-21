@@ -484,6 +484,7 @@ fn generate(xmls: &[&xml::Registry]) {
 
                 writeln!(file, "#![allow(unused_imports)]").unwrap();
                 writeln!(file, "use core::ffi::{{c_char, c_int, c_void, CStr}};").unwrap();
+                writeln!(file, "use core::mem::transmute;").unwrap();
                 writeln!(file, "use kazan_sys::{{*, vk::*}};").unwrap();
                 writeln!(file, "use crate::*;").unwrap();
 
@@ -558,6 +559,31 @@ fn generate(xmls: &[&xml::Registry]) {
                     writeln!(file, "}}").unwrap();
 
                     writeln!(file, "impl {} {{", fn_type_name).unwrap();
+                    writeln!(file, "pub unsafe fn load(load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>) -> core::result::Result<Self, LoadingError> {{").unwrap();
+                    writeln!(file, "unsafe {{ Ok(Self {{").unwrap();
+                    for command_group in &command_groups {
+                        for command in &command_group.commands {
+                            let name = normalize_command_name(command.command.name);
+                            if command.optional {
+                                writeln!(
+                                    file,
+                                    "{}: transmute(load(c\"{}\")),",
+                                    name, command.alias
+                                )
+                                .unwrap();
+                            } else {
+                                writeln!(
+                                    file,
+                                    "{}: transmute(load(c\"{}\").ok_or(LoadingError)?),",
+                                    name, command.alias
+                                )
+                                .unwrap();
+                            }
+                        }
+                    }
+                    writeln!(file, "}}) }} }} }}").unwrap();
+
+                    writeln!(file, "impl {} {{", fn_type_name).unwrap();
                     for command_group in &command_groups {
                         for command in &command_group.commands {
                             write_command_wrapper(&mut file, command, &xml.structs);
@@ -606,10 +632,12 @@ fn generate(xmls: &[&xml::Registry]) {
 
     std::process::Command::new("rustfmt")
         .arg(format!("{}/mod.rs", output_dir))
+        .arg("--edition=2024")
         .output()
         .unwrap();
     std::process::Command::new("rustfmt")
         .arg(format!("{}/mod.rs", sys_output_dir))
+        .arg("--edition=2024")
         .output()
         .unwrap();
 }

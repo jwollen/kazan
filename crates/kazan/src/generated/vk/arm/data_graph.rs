@@ -1,12 +1,34 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct InstanceFn {
     get_physical_device_queue_family_data_graph_properties_arm:
         PFN_vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM,
     get_physical_device_queue_family_data_graph_processing_engine_properties_arm:
         PFN_vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM,
+}
+impl InstanceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                get_physical_device_queue_family_data_graph_properties_arm: transmute(
+                    load(c"vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM")
+                        .ok_or(LoadingError)?,
+                ),
+                get_physical_device_queue_family_data_graph_processing_engine_properties_arm:
+                    transmute(
+                        load(
+                            c"vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM",
+                        )
+                        .ok_or(LoadingError)?,
+                    ),
+            })
+        }
+    }
 }
 impl InstanceFn {
     pub unsafe fn get_physical_device_queue_family_data_graph_properties_arm(
@@ -57,6 +79,45 @@ pub struct DeviceFn {
     get_data_graph_pipeline_available_properties_arm:
         PFN_vkGetDataGraphPipelineAvailablePropertiesARM,
     get_data_graph_pipeline_properties_arm: PFN_vkGetDataGraphPipelinePropertiesARM,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                create_data_graph_pipelines_arm: transmute(
+                    load(c"vkCreateDataGraphPipelinesARM").ok_or(LoadingError)?,
+                ),
+                create_data_graph_pipeline_session_arm: transmute(
+                    load(c"vkCreateDataGraphPipelineSessionARM").ok_or(LoadingError)?,
+                ),
+                get_data_graph_pipeline_session_bind_point_requirements_arm: transmute(
+                    load(c"vkGetDataGraphPipelineSessionBindPointRequirementsARM")
+                        .ok_or(LoadingError)?,
+                ),
+                get_data_graph_pipeline_session_memory_requirements_arm: transmute(
+                    load(c"vkGetDataGraphPipelineSessionMemoryRequirementsARM")
+                        .ok_or(LoadingError)?,
+                ),
+                bind_data_graph_pipeline_session_memory_arm: transmute(
+                    load(c"vkBindDataGraphPipelineSessionMemoryARM").ok_or(LoadingError)?,
+                ),
+                destroy_data_graph_pipeline_session_arm: transmute(
+                    load(c"vkDestroyDataGraphPipelineSessionARM").ok_or(LoadingError)?,
+                ),
+                cmd_dispatch_data_graph_arm: transmute(
+                    load(c"vkCmdDispatchDataGraphARM").ok_or(LoadingError)?,
+                ),
+                get_data_graph_pipeline_available_properties_arm: transmute(
+                    load(c"vkGetDataGraphPipelineAvailablePropertiesARM").ok_or(LoadingError)?,
+                ),
+                get_data_graph_pipeline_properties_arm: transmute(
+                    load(c"vkGetDataGraphPipelinePropertiesARM").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn create_data_graph_pipelines_arm(

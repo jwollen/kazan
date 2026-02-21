@@ -1,9 +1,23 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct InstanceFn {
     get_physical_device_descriptor_size_ext: PFN_vkGetPhysicalDeviceDescriptorSizeEXT,
+}
+impl InstanceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                get_physical_device_descriptor_size_ext: transmute(
+                    load(c"vkGetPhysicalDeviceDescriptorSizeEXT").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl InstanceFn {
     pub unsafe fn get_physical_device_descriptor_size_ext(
@@ -24,6 +38,41 @@ pub struct DeviceFn {
     register_custom_border_color_ext: Option<PFN_vkRegisterCustomBorderColorEXT>,
     unregister_custom_border_color_ext: Option<PFN_vkUnregisterCustomBorderColorEXT>,
     get_tensor_opaque_capture_data_arm: Option<PFN_vkGetTensorOpaqueCaptureDataARM>,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                write_sampler_descriptors_ext: transmute(
+                    load(c"vkWriteSamplerDescriptorsEXT").ok_or(LoadingError)?,
+                ),
+                write_resource_descriptors_ext: transmute(
+                    load(c"vkWriteResourceDescriptorsEXT").ok_or(LoadingError)?,
+                ),
+                cmd_bind_sampler_heap_ext: transmute(
+                    load(c"vkCmdBindSamplerHeapEXT").ok_or(LoadingError)?,
+                ),
+                cmd_bind_resource_heap_ext: transmute(
+                    load(c"vkCmdBindResourceHeapEXT").ok_or(LoadingError)?,
+                ),
+                cmd_push_data_ext: transmute(load(c"vkCmdPushDataEXT").ok_or(LoadingError)?),
+                get_image_opaque_capture_data_ext: transmute(
+                    load(c"vkGetImageOpaqueCaptureDataEXT").ok_or(LoadingError)?,
+                ),
+                register_custom_border_color_ext: transmute(load(
+                    c"vkRegisterCustomBorderColorEXT",
+                )),
+                unregister_custom_border_color_ext: transmute(load(
+                    c"vkUnregisterCustomBorderColorEXT",
+                )),
+                get_tensor_opaque_capture_data_arm: transmute(load(
+                    c"vkGetTensorOpaqueCaptureDataARM",
+                )),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn write_sampler_descriptors_ext(

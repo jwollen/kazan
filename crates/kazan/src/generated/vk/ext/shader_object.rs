@@ -1,6 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     create_shaders_ext: PFN_vkCreateShadersEXT,
@@ -61,6 +62,154 @@ pub struct DeviceFn {
         Option<PFN_vkCmdSetRepresentativeFragmentTestEnableNV>,
     cmd_set_coverage_reduction_mode_nv: Option<PFN_vkCmdSetCoverageReductionModeNV>,
     cmd_set_depth_clamp_range_ext: Option<PFN_vkCmdSetDepthClampRangeEXT>,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                create_shaders_ext: transmute(load(c"vkCreateShadersEXT").ok_or(LoadingError)?),
+                destroy_shader_ext: transmute(load(c"vkDestroyShaderEXT").ok_or(LoadingError)?),
+                get_shader_binary_data_ext: transmute(
+                    load(c"vkGetShaderBinaryDataEXT").ok_or(LoadingError)?,
+                ),
+                cmd_bind_shaders_ext: transmute(load(c"vkCmdBindShadersEXT").ok_or(LoadingError)?),
+                cmd_set_cull_mode: transmute(load(c"vkCmdSetCullModeEXT").ok_or(LoadingError)?),
+                cmd_set_front_face: transmute(load(c"vkCmdSetFrontFaceEXT").ok_or(LoadingError)?),
+                cmd_set_primitive_topology: transmute(
+                    load(c"vkCmdSetPrimitiveTopologyEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_viewport_with_count: transmute(
+                    load(c"vkCmdSetViewportWithCountEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_scissor_with_count: transmute(
+                    load(c"vkCmdSetScissorWithCountEXT").ok_or(LoadingError)?,
+                ),
+                cmd_bind_vertex_buffers2: transmute(
+                    load(c"vkCmdBindVertexBuffers2EXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_depth_test_enable: transmute(
+                    load(c"vkCmdSetDepthTestEnableEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_depth_write_enable: transmute(
+                    load(c"vkCmdSetDepthWriteEnableEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_depth_compare_op: transmute(
+                    load(c"vkCmdSetDepthCompareOpEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_depth_bounds_test_enable: transmute(
+                    load(c"vkCmdSetDepthBoundsTestEnableEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_stencil_test_enable: transmute(
+                    load(c"vkCmdSetStencilTestEnableEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_stencil_op: transmute(load(c"vkCmdSetStencilOpEXT").ok_or(LoadingError)?),
+                cmd_set_vertex_input_ext: transmute(
+                    load(c"vkCmdSetVertexInputEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_patch_control_points_ext: transmute(
+                    load(c"vkCmdSetPatchControlPointsEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_rasterizer_discard_enable: transmute(
+                    load(c"vkCmdSetRasterizerDiscardEnableEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_depth_bias_enable: transmute(
+                    load(c"vkCmdSetDepthBiasEnableEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_logic_op_ext: transmute(load(c"vkCmdSetLogicOpEXT").ok_or(LoadingError)?),
+                cmd_set_primitive_restart_enable: transmute(
+                    load(c"vkCmdSetPrimitiveRestartEnableEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_tessellation_domain_origin_ext: transmute(
+                    load(c"vkCmdSetTessellationDomainOriginEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_depth_clamp_enable_ext: transmute(
+                    load(c"vkCmdSetDepthClampEnableEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_polygon_mode_ext: transmute(
+                    load(c"vkCmdSetPolygonModeEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_rasterization_samples_ext: transmute(
+                    load(c"vkCmdSetRasterizationSamplesEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_sample_mask_ext: transmute(
+                    load(c"vkCmdSetSampleMaskEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_alpha_to_coverage_enable_ext: transmute(
+                    load(c"vkCmdSetAlphaToCoverageEnableEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_alpha_to_one_enable_ext: transmute(
+                    load(c"vkCmdSetAlphaToOneEnableEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_logic_op_enable_ext: transmute(
+                    load(c"vkCmdSetLogicOpEnableEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_color_blend_enable_ext: transmute(
+                    load(c"vkCmdSetColorBlendEnableEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_color_blend_equation_ext: transmute(
+                    load(c"vkCmdSetColorBlendEquationEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_color_write_mask_ext: transmute(
+                    load(c"vkCmdSetColorWriteMaskEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_rasterization_stream_ext: transmute(load(
+                    c"vkCmdSetRasterizationStreamEXT",
+                )),
+                cmd_set_conservative_rasterization_mode_ext: transmute(load(
+                    c"vkCmdSetConservativeRasterizationModeEXT",
+                )),
+                cmd_set_extra_primitive_overestimation_size_ext: transmute(load(
+                    c"vkCmdSetExtraPrimitiveOverestimationSizeEXT",
+                )),
+                cmd_set_depth_clip_enable_ext: transmute(load(c"vkCmdSetDepthClipEnableEXT")),
+                cmd_set_sample_locations_enable_ext: transmute(load(
+                    c"vkCmdSetSampleLocationsEnableEXT",
+                )),
+                cmd_set_color_blend_advanced_ext: transmute(load(c"vkCmdSetColorBlendAdvancedEXT")),
+                cmd_set_provoking_vertex_mode_ext: transmute(load(
+                    c"vkCmdSetProvokingVertexModeEXT",
+                )),
+                cmd_set_line_rasterization_mode_ext: transmute(load(
+                    c"vkCmdSetLineRasterizationModeEXT",
+                )),
+                cmd_set_line_stipple_enable_ext: transmute(load(c"vkCmdSetLineStippleEnableEXT")),
+                cmd_set_depth_clip_negative_one_to_one_ext: transmute(load(
+                    c"vkCmdSetDepthClipNegativeOneToOneEXT",
+                )),
+                cmd_set_viewport_w_scaling_enable_nv: transmute(load(
+                    c"vkCmdSetViewportWScalingEnableNV",
+                )),
+                cmd_set_viewport_swizzle_nv: transmute(load(c"vkCmdSetViewportSwizzleNV")),
+                cmd_set_coverage_to_color_enable_nv: transmute(load(
+                    c"vkCmdSetCoverageToColorEnableNV",
+                )),
+                cmd_set_coverage_to_color_location_nv: transmute(load(
+                    c"vkCmdSetCoverageToColorLocationNV",
+                )),
+                cmd_set_coverage_modulation_mode_nv: transmute(load(
+                    c"vkCmdSetCoverageModulationModeNV",
+                )),
+                cmd_set_coverage_modulation_table_enable_nv: transmute(load(
+                    c"vkCmdSetCoverageModulationTableEnableNV",
+                )),
+                cmd_set_coverage_modulation_table_nv: transmute(load(
+                    c"vkCmdSetCoverageModulationTableNV",
+                )),
+                cmd_set_shading_rate_image_enable_nv: transmute(load(
+                    c"vkCmdSetShadingRateImageEnableNV",
+                )),
+                cmd_set_representative_fragment_test_enable_nv: transmute(load(
+                    c"vkCmdSetRepresentativeFragmentTestEnableNV",
+                )),
+                cmd_set_coverage_reduction_mode_nv: transmute(load(
+                    c"vkCmdSetCoverageReductionModeNV",
+                )),
+                cmd_set_depth_clamp_range_ext: transmute(load(c"vkCmdSetDepthClampRangeEXT")),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn create_shaders_ext(

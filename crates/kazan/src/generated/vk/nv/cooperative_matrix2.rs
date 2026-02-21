@@ -1,10 +1,25 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct InstanceFn {
     get_physical_device_cooperative_matrix_flexible_dimensions_properties_nv:
         PFN_vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV,
+}
+impl InstanceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                get_physical_device_cooperative_matrix_flexible_dimensions_properties_nv: transmute(
+                    load(c"vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV")
+                        .ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl InstanceFn {
     pub unsafe fn get_physical_device_cooperative_matrix_flexible_dimensions_properties_nv(

@@ -1,6 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     initialize_performance_api_intel: PFN_vkInitializePerformanceApiINTEL,
@@ -12,6 +13,43 @@ pub struct DeviceFn {
     release_performance_configuration_intel: PFN_vkReleasePerformanceConfigurationINTEL,
     queue_set_performance_configuration_intel: PFN_vkQueueSetPerformanceConfigurationINTEL,
     get_performance_parameter_intel: PFN_vkGetPerformanceParameterINTEL,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                initialize_performance_api_intel: transmute(
+                    load(c"vkInitializePerformanceApiINTEL").ok_or(LoadingError)?,
+                ),
+                uninitialize_performance_api_intel: transmute(
+                    load(c"vkUninitializePerformanceApiINTEL").ok_or(LoadingError)?,
+                ),
+                cmd_set_performance_marker_intel: transmute(
+                    load(c"vkCmdSetPerformanceMarkerINTEL").ok_or(LoadingError)?,
+                ),
+                cmd_set_performance_stream_marker_intel: transmute(
+                    load(c"vkCmdSetPerformanceStreamMarkerINTEL").ok_or(LoadingError)?,
+                ),
+                cmd_set_performance_override_intel: transmute(
+                    load(c"vkCmdSetPerformanceOverrideINTEL").ok_or(LoadingError)?,
+                ),
+                acquire_performance_configuration_intel: transmute(
+                    load(c"vkAcquirePerformanceConfigurationINTEL").ok_or(LoadingError)?,
+                ),
+                release_performance_configuration_intel: transmute(
+                    load(c"vkReleasePerformanceConfigurationINTEL").ok_or(LoadingError)?,
+                ),
+                queue_set_performance_configuration_intel: transmute(
+                    load(c"vkQueueSetPerformanceConfigurationINTEL").ok_or(LoadingError)?,
+                ),
+                get_performance_parameter_intel: transmute(
+                    load(c"vkGetPerformanceParameterINTEL").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn initialize_performance_api_intel(

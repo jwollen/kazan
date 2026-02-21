@@ -1,6 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     cmd_push_descriptor_set: PFN_vkCmdPushDescriptorSet,
@@ -9,6 +10,32 @@ pub struct DeviceFn {
     cmd_push_constants2: PFN_vkCmdPushConstants2,
     cmd_push_descriptor_set2: PFN_vkCmdPushDescriptorSet2,
     cmd_push_descriptor_set_with_template2: PFN_vkCmdPushDescriptorSetWithTemplate2,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                cmd_push_descriptor_set: transmute(
+                    load(c"vkCmdPushDescriptorSet").ok_or(LoadingError)?,
+                ),
+                cmd_push_descriptor_set_with_template: transmute(
+                    load(c"vkCmdPushDescriptorSetWithTemplate").ok_or(LoadingError)?,
+                ),
+                cmd_bind_descriptor_sets2: transmute(
+                    load(c"vkCmdBindDescriptorSets2").ok_or(LoadingError)?,
+                ),
+                cmd_push_constants2: transmute(load(c"vkCmdPushConstants2").ok_or(LoadingError)?),
+                cmd_push_descriptor_set2: transmute(
+                    load(c"vkCmdPushDescriptorSet2").ok_or(LoadingError)?,
+                ),
+                cmd_push_descriptor_set_with_template2: transmute(
+                    load(c"vkCmdPushDescriptorSetWithTemplate2").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn cmd_push_descriptor_set(

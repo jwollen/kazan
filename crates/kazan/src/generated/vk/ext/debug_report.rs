@@ -1,11 +1,31 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct InstanceFn {
     create_debug_report_callback_ext: PFN_vkCreateDebugReportCallbackEXT,
     destroy_debug_report_callback_ext: PFN_vkDestroyDebugReportCallbackEXT,
     debug_report_message_ext: PFN_vkDebugReportMessageEXT,
+}
+impl InstanceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                create_debug_report_callback_ext: transmute(
+                    load(c"vkCreateDebugReportCallbackEXT").ok_or(LoadingError)?,
+                ),
+                destroy_debug_report_callback_ext: transmute(
+                    load(c"vkDestroyDebugReportCallbackEXT").ok_or(LoadingError)?,
+                ),
+                debug_report_message_ext: transmute(
+                    load(c"vkDebugReportMessageEXT").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl InstanceFn {
     pub unsafe fn create_debug_report_callback_ext(

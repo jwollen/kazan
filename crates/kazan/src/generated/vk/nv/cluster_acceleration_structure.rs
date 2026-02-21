@@ -1,12 +1,30 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     get_cluster_acceleration_structure_build_sizes_nv:
         PFN_vkGetClusterAccelerationStructureBuildSizesNV,
     cmd_build_cluster_acceleration_structure_indirect_nv:
         PFN_vkCmdBuildClusterAccelerationStructureIndirectNV,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                get_cluster_acceleration_structure_build_sizes_nv: transmute(
+                    load(c"vkGetClusterAccelerationStructureBuildSizesNV").ok_or(LoadingError)?,
+                ),
+                cmd_build_cluster_acceleration_structure_indirect_nv: transmute(
+                    load(c"vkCmdBuildClusterAccelerationStructureIndirectNV")
+                        .ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn get_cluster_acceleration_structure_build_sizes_nv(

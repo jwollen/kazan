@@ -1,9 +1,23 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct InstanceFn {
     get_physical_device_present_rectangles_khr: Option<PFN_vkGetPhysicalDevicePresentRectanglesKHR>,
+}
+impl InstanceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                get_physical_device_present_rectangles_khr: transmute(load(
+                    c"vkGetPhysicalDevicePresentRectanglesKHR",
+                )),
+            })
+        }
+    }
 }
 impl InstanceFn {
     pub unsafe fn get_physical_device_present_rectangles_khr(
@@ -31,6 +45,28 @@ pub struct DeviceFn {
     get_device_group_present_capabilities_khr: Option<PFN_vkGetDeviceGroupPresentCapabilitiesKHR>,
     get_device_group_surface_present_modes_khr: Option<PFN_vkGetDeviceGroupSurfacePresentModesKHR>,
     acquire_next_image2_khr: Option<PFN_vkAcquireNextImage2KHR>,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                get_device_group_peer_memory_features: transmute(
+                    load(c"vkGetDeviceGroupPeerMemoryFeaturesKHR").ok_or(LoadingError)?,
+                ),
+                cmd_set_device_mask: transmute(load(c"vkCmdSetDeviceMaskKHR").ok_or(LoadingError)?),
+                cmd_dispatch_base: transmute(load(c"vkCmdDispatchBaseKHR").ok_or(LoadingError)?),
+                get_device_group_present_capabilities_khr: transmute(load(
+                    c"vkGetDeviceGroupPresentCapabilitiesKHR",
+                )),
+                get_device_group_surface_present_modes_khr: transmute(load(
+                    c"vkGetDeviceGroupSurfacePresentModesKHR",
+                )),
+                acquire_next_image2_khr: transmute(load(c"vkAcquireNextImage2KHR")),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn get_device_group_peer_memory_features_khr(

@@ -1,6 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     create_acceleration_structure_nv: PFN_vkCreateAccelerationStructureNV,
@@ -17,6 +18,48 @@ pub struct DeviceFn {
     cmd_write_acceleration_structures_properties_nv:
         PFN_vkCmdWriteAccelerationStructuresPropertiesNV,
     compile_deferred_nv: PFN_vkCompileDeferredNV,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                create_acceleration_structure_nv: transmute(
+                    load(c"vkCreateAccelerationStructureNV").ok_or(LoadingError)?,
+                ),
+                destroy_acceleration_structure_nv: transmute(
+                    load(c"vkDestroyAccelerationStructureNV").ok_or(LoadingError)?,
+                ),
+                get_acceleration_structure_memory_requirements_nv: transmute(
+                    load(c"vkGetAccelerationStructureMemoryRequirementsNV").ok_or(LoadingError)?,
+                ),
+                bind_acceleration_structure_memory_nv: transmute(
+                    load(c"vkBindAccelerationStructureMemoryNV").ok_or(LoadingError)?,
+                ),
+                cmd_build_acceleration_structure_nv: transmute(
+                    load(c"vkCmdBuildAccelerationStructureNV").ok_or(LoadingError)?,
+                ),
+                cmd_copy_acceleration_structure_nv: transmute(
+                    load(c"vkCmdCopyAccelerationStructureNV").ok_or(LoadingError)?,
+                ),
+                cmd_trace_rays_nv: transmute(load(c"vkCmdTraceRaysNV").ok_or(LoadingError)?),
+                create_ray_tracing_pipelines_nv: transmute(
+                    load(c"vkCreateRayTracingPipelinesNV").ok_or(LoadingError)?,
+                ),
+                get_ray_tracing_shader_group_handles_khr: transmute(
+                    load(c"vkGetRayTracingShaderGroupHandlesNV").ok_or(LoadingError)?,
+                ),
+                get_acceleration_structure_handle_nv: transmute(
+                    load(c"vkGetAccelerationStructureHandleNV").ok_or(LoadingError)?,
+                ),
+                cmd_write_acceleration_structures_properties_nv: transmute(
+                    load(c"vkCmdWriteAccelerationStructuresPropertiesNV").ok_or(LoadingError)?,
+                ),
+                compile_deferred_nv: transmute(load(c"vkCompileDeferredNV").ok_or(LoadingError)?),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn create_acceleration_structure_nv(

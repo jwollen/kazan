@@ -1,12 +1,35 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     create_validation_cache_ext: PFN_vkCreateValidationCacheEXT,
     destroy_validation_cache_ext: PFN_vkDestroyValidationCacheEXT,
     merge_validation_caches_ext: PFN_vkMergeValidationCachesEXT,
     get_validation_cache_data_ext: PFN_vkGetValidationCacheDataEXT,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                create_validation_cache_ext: transmute(
+                    load(c"vkCreateValidationCacheEXT").ok_or(LoadingError)?,
+                ),
+                destroy_validation_cache_ext: transmute(
+                    load(c"vkDestroyValidationCacheEXT").ok_or(LoadingError)?,
+                ),
+                merge_validation_caches_ext: transmute(
+                    load(c"vkMergeValidationCachesEXT").ok_or(LoadingError)?,
+                ),
+                get_validation_cache_data_ext: transmute(
+                    load(c"vkGetValidationCacheDataEXT").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn create_validation_cache_ext(

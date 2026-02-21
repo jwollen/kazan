@@ -1,12 +1,31 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct InstanceFn {
     enumerate_physical_device_queue_family_performance_query_counters_khr:
         PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR,
     get_physical_device_queue_family_performance_query_passes_khr:
         PFN_vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR,
+}
+impl InstanceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                enumerate_physical_device_queue_family_performance_query_counters_khr: transmute(
+                    load(c"vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR")
+                        .ok_or(LoadingError)?,
+                ),
+                get_physical_device_queue_family_performance_query_passes_khr: transmute(
+                    load(c"vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR")
+                        .ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl InstanceFn {
     pub unsafe fn enumerate_physical_device_queue_family_performance_query_counters_khr(
@@ -50,6 +69,22 @@ impl InstanceFn {
 pub struct DeviceFn {
     acquire_profiling_lock_khr: PFN_vkAcquireProfilingLockKHR,
     release_profiling_lock_khr: PFN_vkReleaseProfilingLockKHR,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                acquire_profiling_lock_khr: transmute(
+                    load(c"vkAcquireProfilingLockKHR").ok_or(LoadingError)?,
+                ),
+                release_profiling_lock_khr: transmute(
+                    load(c"vkReleaseProfilingLockKHR").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn acquire_profiling_lock_khr(

@@ -1,10 +1,27 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     cmd_decompress_memory_ext: PFN_vkCmdDecompressMemoryEXT,
     cmd_decompress_memory_indirect_count_ext: PFN_vkCmdDecompressMemoryIndirectCountEXT,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                cmd_decompress_memory_ext: transmute(
+                    load(c"vkCmdDecompressMemoryEXT").ok_or(LoadingError)?,
+                ),
+                cmd_decompress_memory_indirect_count_ext: transmute(
+                    load(c"vkCmdDecompressMemoryIndirectCountEXT").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn cmd_decompress_memory_ext(

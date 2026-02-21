@@ -1,10 +1,27 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     cmd_set_rendering_attachment_locations: PFN_vkCmdSetRenderingAttachmentLocations,
     cmd_set_rendering_input_attachment_indices: PFN_vkCmdSetRenderingInputAttachmentIndices,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                cmd_set_rendering_attachment_locations: transmute(
+                    load(c"vkCmdSetRenderingAttachmentLocationsKHR").ok_or(LoadingError)?,
+                ),
+                cmd_set_rendering_input_attachment_indices: transmute(
+                    load(c"vkCmdSetRenderingInputAttachmentIndicesKHR").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn cmd_set_rendering_attachment_locations_khr(

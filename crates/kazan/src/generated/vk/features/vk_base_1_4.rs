@@ -1,6 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     map_memory2: PFN_vkMapMemory2,
@@ -11,6 +12,30 @@ pub struct DeviceFn {
     copy_image_to_memory: PFN_vkCopyImageToMemory,
     copy_image_to_image: PFN_vkCopyImageToImage,
     transition_image_layout: PFN_vkTransitionImageLayout,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                map_memory2: transmute(load(c"vkMapMemory2").ok_or(LoadingError)?),
+                unmap_memory2: transmute(load(c"vkUnmapMemory2").ok_or(LoadingError)?),
+                get_device_image_subresource_layout: transmute(
+                    load(c"vkGetDeviceImageSubresourceLayout").ok_or(LoadingError)?,
+                ),
+                get_image_subresource_layout2: transmute(
+                    load(c"vkGetImageSubresourceLayout2").ok_or(LoadingError)?,
+                ),
+                copy_memory_to_image: transmute(load(c"vkCopyMemoryToImage").ok_or(LoadingError)?),
+                copy_image_to_memory: transmute(load(c"vkCopyImageToMemory").ok_or(LoadingError)?),
+                copy_image_to_image: transmute(load(c"vkCopyImageToImage").ok_or(LoadingError)?),
+                transition_image_layout: transmute(
+                    load(c"vkTransitionImageLayout").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn map_memory2(

@@ -1,6 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     create_execution_graph_pipelines_amdx: PFN_vkCreateExecutionGraphPipelinesAMDX,
@@ -10,6 +11,37 @@ pub struct DeviceFn {
     cmd_dispatch_graph_amdx: PFN_vkCmdDispatchGraphAMDX,
     cmd_dispatch_graph_indirect_amdx: PFN_vkCmdDispatchGraphIndirectAMDX,
     cmd_dispatch_graph_indirect_count_amdx: PFN_vkCmdDispatchGraphIndirectCountAMDX,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                create_execution_graph_pipelines_amdx: transmute(
+                    load(c"vkCreateExecutionGraphPipelinesAMDX").ok_or(LoadingError)?,
+                ),
+                get_execution_graph_pipeline_scratch_size_amdx: transmute(
+                    load(c"vkGetExecutionGraphPipelineScratchSizeAMDX").ok_or(LoadingError)?,
+                ),
+                get_execution_graph_pipeline_node_index_amdx: transmute(
+                    load(c"vkGetExecutionGraphPipelineNodeIndexAMDX").ok_or(LoadingError)?,
+                ),
+                cmd_initialize_graph_scratch_memory_amdx: transmute(
+                    load(c"vkCmdInitializeGraphScratchMemoryAMDX").ok_or(LoadingError)?,
+                ),
+                cmd_dispatch_graph_amdx: transmute(
+                    load(c"vkCmdDispatchGraphAMDX").ok_or(LoadingError)?,
+                ),
+                cmd_dispatch_graph_indirect_amdx: transmute(
+                    load(c"vkCmdDispatchGraphIndirectAMDX").ok_or(LoadingError)?,
+                ),
+                cmd_dispatch_graph_indirect_count_amdx: transmute(
+                    load(c"vkCmdDispatchGraphIndirectCountAMDX").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn create_execution_graph_pipelines_amdx(

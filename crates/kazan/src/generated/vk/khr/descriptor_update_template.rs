@@ -1,12 +1,35 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     create_descriptor_update_template: PFN_vkCreateDescriptorUpdateTemplate,
     destroy_descriptor_update_template: PFN_vkDestroyDescriptorUpdateTemplate,
     update_descriptor_set_with_template: PFN_vkUpdateDescriptorSetWithTemplate,
     cmd_push_descriptor_set_with_template: Option<PFN_vkCmdPushDescriptorSetWithTemplate>,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                create_descriptor_update_template: transmute(
+                    load(c"vkCreateDescriptorUpdateTemplateKHR").ok_or(LoadingError)?,
+                ),
+                destroy_descriptor_update_template: transmute(
+                    load(c"vkDestroyDescriptorUpdateTemplateKHR").ok_or(LoadingError)?,
+                ),
+                update_descriptor_set_with_template: transmute(
+                    load(c"vkUpdateDescriptorSetWithTemplateKHR").ok_or(LoadingError)?,
+                ),
+                cmd_push_descriptor_set_with_template: transmute(load(
+                    c"vkCmdPushDescriptorSetWithTemplateKHR",
+                )),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn create_descriptor_update_template_khr(

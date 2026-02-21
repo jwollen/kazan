@@ -165,3 +165,5 @@ impl<T> RawMutPtr<T> for Option<&mut [T]> {
         }
     }
 }
+
+pub struct LoadingError;

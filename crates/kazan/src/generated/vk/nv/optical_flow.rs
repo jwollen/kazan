@@ -1,10 +1,24 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct InstanceFn {
     get_physical_device_optical_flow_image_formats_nv:
         PFN_vkGetPhysicalDeviceOpticalFlowImageFormatsNV,
+}
+impl InstanceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                get_physical_device_optical_flow_image_formats_nv: transmute(
+                    load(c"vkGetPhysicalDeviceOpticalFlowImageFormatsNV").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl InstanceFn {
     pub unsafe fn get_physical_device_optical_flow_image_formats_nv(
@@ -33,6 +47,28 @@ pub struct DeviceFn {
     destroy_optical_flow_session_nv: PFN_vkDestroyOpticalFlowSessionNV,
     bind_optical_flow_session_image_nv: PFN_vkBindOpticalFlowSessionImageNV,
     cmd_optical_flow_execute_nv: PFN_vkCmdOpticalFlowExecuteNV,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                create_optical_flow_session_nv: transmute(
+                    load(c"vkCreateOpticalFlowSessionNV").ok_or(LoadingError)?,
+                ),
+                destroy_optical_flow_session_nv: transmute(
+                    load(c"vkDestroyOpticalFlowSessionNV").ok_or(LoadingError)?,
+                ),
+                bind_optical_flow_session_image_nv: transmute(
+                    load(c"vkBindOpticalFlowSessionImageNV").ok_or(LoadingError)?,
+                ),
+                cmd_optical_flow_execute_nv: transmute(
+                    load(c"vkCmdOpticalFlowExecuteNV").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn create_optical_flow_session_nv(

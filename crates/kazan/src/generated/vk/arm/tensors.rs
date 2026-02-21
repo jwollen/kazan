@@ -1,10 +1,24 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct InstanceFn {
     get_physical_device_external_tensor_properties_arm:
         PFN_vkGetPhysicalDeviceExternalTensorPropertiesARM,
+}
+impl InstanceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                get_physical_device_external_tensor_properties_arm: transmute(
+                    load(c"vkGetPhysicalDeviceExternalTensorPropertiesARM").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl InstanceFn {
     pub unsafe fn get_physical_device_external_tensor_properties_arm(
@@ -35,6 +49,40 @@ pub struct DeviceFn {
         Option<PFN_vkGetTensorOpaqueCaptureDescriptorDataARM>,
     get_tensor_view_opaque_capture_descriptor_data_arm:
         Option<PFN_vkGetTensorViewOpaqueCaptureDescriptorDataARM>,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                create_tensor_arm: transmute(load(c"vkCreateTensorARM").ok_or(LoadingError)?),
+                destroy_tensor_arm: transmute(load(c"vkDestroyTensorARM").ok_or(LoadingError)?),
+                create_tensor_view_arm: transmute(
+                    load(c"vkCreateTensorViewARM").ok_or(LoadingError)?,
+                ),
+                destroy_tensor_view_arm: transmute(
+                    load(c"vkDestroyTensorViewARM").ok_or(LoadingError)?,
+                ),
+                get_tensor_memory_requirements_arm: transmute(
+                    load(c"vkGetTensorMemoryRequirementsARM").ok_or(LoadingError)?,
+                ),
+                bind_tensor_memory_arm: transmute(
+                    load(c"vkBindTensorMemoryARM").ok_or(LoadingError)?,
+                ),
+                get_device_tensor_memory_requirements_arm: transmute(
+                    load(c"vkGetDeviceTensorMemoryRequirementsARM").ok_or(LoadingError)?,
+                ),
+                cmd_copy_tensor_arm: transmute(load(c"vkCmdCopyTensorARM").ok_or(LoadingError)?),
+                get_tensor_opaque_capture_descriptor_data_arm: transmute(load(
+                    c"vkGetTensorOpaqueCaptureDescriptorDataARM",
+                )),
+                get_tensor_view_opaque_capture_descriptor_data_arm: transmute(load(
+                    c"vkGetTensorViewOpaqueCaptureDescriptorDataARM",
+                )),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn create_tensor_arm(

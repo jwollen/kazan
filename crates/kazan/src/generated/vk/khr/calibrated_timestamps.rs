@@ -1,10 +1,24 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct InstanceFn {
     get_physical_device_calibrateable_time_domains_khr:
         PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsKHR,
+}
+impl InstanceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                get_physical_device_calibrateable_time_domains_khr: transmute(
+                    load(c"vkGetPhysicalDeviceCalibrateableTimeDomainsKHR").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl InstanceFn {
     pub unsafe fn get_physical_device_calibrateable_time_domains_khr(
@@ -25,6 +39,19 @@ impl InstanceFn {
 }
 pub struct DeviceFn {
     get_calibrated_timestamps_khr: PFN_vkGetCalibratedTimestampsKHR,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                get_calibrated_timestamps_khr: transmute(
+                    load(c"vkGetCalibratedTimestampsKHR").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn get_calibrated_timestamps_khr(

@@ -1,10 +1,27 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     get_refresh_cycle_duration_google: PFN_vkGetRefreshCycleDurationGOOGLE,
     get_past_presentation_timing_google: PFN_vkGetPastPresentationTimingGOOGLE,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                get_refresh_cycle_duration_google: transmute(
+                    load(c"vkGetRefreshCycleDurationGOOGLE").ok_or(LoadingError)?,
+                ),
+                get_past_presentation_timing_google: transmute(
+                    load(c"vkGetPastPresentationTimingGOOGLE").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn get_refresh_cycle_duration_google(

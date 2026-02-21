@@ -1,6 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     get_generated_commands_memory_requirements_ext: PFN_vkGetGeneratedCommandsMemoryRequirementsEXT,
@@ -12,6 +13,43 @@ pub struct DeviceFn {
     destroy_indirect_execution_set_ext: PFN_vkDestroyIndirectExecutionSetEXT,
     update_indirect_execution_set_pipeline_ext: PFN_vkUpdateIndirectExecutionSetPipelineEXT,
     update_indirect_execution_set_shader_ext: PFN_vkUpdateIndirectExecutionSetShaderEXT,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                get_generated_commands_memory_requirements_ext: transmute(
+                    load(c"vkGetGeneratedCommandsMemoryRequirementsEXT").ok_or(LoadingError)?,
+                ),
+                cmd_preprocess_generated_commands_ext: transmute(
+                    load(c"vkCmdPreprocessGeneratedCommandsEXT").ok_or(LoadingError)?,
+                ),
+                cmd_execute_generated_commands_ext: transmute(
+                    load(c"vkCmdExecuteGeneratedCommandsEXT").ok_or(LoadingError)?,
+                ),
+                create_indirect_commands_layout_ext: transmute(
+                    load(c"vkCreateIndirectCommandsLayoutEXT").ok_or(LoadingError)?,
+                ),
+                destroy_indirect_commands_layout_ext: transmute(
+                    load(c"vkDestroyIndirectCommandsLayoutEXT").ok_or(LoadingError)?,
+                ),
+                create_indirect_execution_set_ext: transmute(
+                    load(c"vkCreateIndirectExecutionSetEXT").ok_or(LoadingError)?,
+                ),
+                destroy_indirect_execution_set_ext: transmute(
+                    load(c"vkDestroyIndirectExecutionSetEXT").ok_or(LoadingError)?,
+                ),
+                update_indirect_execution_set_pipeline_ext: transmute(
+                    load(c"vkUpdateIndirectExecutionSetPipelineEXT").ok_or(LoadingError)?,
+                ),
+                update_indirect_execution_set_shader_ext: transmute(
+                    load(c"vkUpdateIndirectExecutionSetShaderEXT").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn get_generated_commands_memory_requirements_ext(

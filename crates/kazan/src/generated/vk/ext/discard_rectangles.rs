@@ -1,11 +1,31 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     cmd_set_discard_rectangle_ext: PFN_vkCmdSetDiscardRectangleEXT,
     cmd_set_discard_rectangle_enable_ext: PFN_vkCmdSetDiscardRectangleEnableEXT,
     cmd_set_discard_rectangle_mode_ext: PFN_vkCmdSetDiscardRectangleModeEXT,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                cmd_set_discard_rectangle_ext: transmute(
+                    load(c"vkCmdSetDiscardRectangleEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_discard_rectangle_enable_ext: transmute(
+                    load(c"vkCmdSetDiscardRectangleEnableEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_discard_rectangle_mode_ext: transmute(
+                    load(c"vkCmdSetDiscardRectangleModeEXT").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn cmd_set_discard_rectangle_ext(

@@ -1,6 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct InstanceFn {
     get_physical_device_features2: PFN_vkGetPhysicalDeviceFeatures2,
@@ -11,6 +12,38 @@ pub struct InstanceFn {
     get_physical_device_memory_properties2: PFN_vkGetPhysicalDeviceMemoryProperties2,
     get_physical_device_sparse_image_format_properties2:
         PFN_vkGetPhysicalDeviceSparseImageFormatProperties2,
+}
+impl InstanceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                get_physical_device_features2: transmute(
+                    load(c"vkGetPhysicalDeviceFeatures2KHR").ok_or(LoadingError)?,
+                ),
+                get_physical_device_properties2: transmute(
+                    load(c"vkGetPhysicalDeviceProperties2KHR").ok_or(LoadingError)?,
+                ),
+                get_physical_device_format_properties2: transmute(
+                    load(c"vkGetPhysicalDeviceFormatProperties2KHR").ok_or(LoadingError)?,
+                ),
+                get_physical_device_image_format_properties2: transmute(
+                    load(c"vkGetPhysicalDeviceImageFormatProperties2KHR").ok_or(LoadingError)?,
+                ),
+                get_physical_device_queue_family_properties2: transmute(
+                    load(c"vkGetPhysicalDeviceQueueFamilyProperties2KHR").ok_or(LoadingError)?,
+                ),
+                get_physical_device_memory_properties2: transmute(
+                    load(c"vkGetPhysicalDeviceMemoryProperties2KHR").ok_or(LoadingError)?,
+                ),
+                get_physical_device_sparse_image_format_properties2: transmute(
+                    load(c"vkGetPhysicalDeviceSparseImageFormatProperties2KHR")
+                        .ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl InstanceFn {
     pub unsafe fn get_physical_device_features2_khr(

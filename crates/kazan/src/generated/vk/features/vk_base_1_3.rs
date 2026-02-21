@@ -1,9 +1,23 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct InstanceFn {
     get_physical_device_tool_properties: PFN_vkGetPhysicalDeviceToolProperties,
+}
+impl InstanceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                get_physical_device_tool_properties: transmute(
+                    load(c"vkGetPhysicalDeviceToolProperties").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl InstanceFn {
     pub unsafe fn get_physical_device_tool_properties(
@@ -37,6 +51,46 @@ pub struct DeviceFn {
     get_device_buffer_memory_requirements: PFN_vkGetDeviceBufferMemoryRequirements,
     get_device_image_memory_requirements: PFN_vkGetDeviceImageMemoryRequirements,
     get_device_image_sparse_memory_requirements: PFN_vkGetDeviceImageSparseMemoryRequirements,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                create_private_data_slot: transmute(
+                    load(c"vkCreatePrivateDataSlot").ok_or(LoadingError)?,
+                ),
+                destroy_private_data_slot: transmute(
+                    load(c"vkDestroyPrivateDataSlot").ok_or(LoadingError)?,
+                ),
+                set_private_data: transmute(load(c"vkSetPrivateData").ok_or(LoadingError)?),
+                get_private_data: transmute(load(c"vkGetPrivateData").ok_or(LoadingError)?),
+                cmd_pipeline_barrier2: transmute(
+                    load(c"vkCmdPipelineBarrier2").ok_or(LoadingError)?,
+                ),
+                cmd_write_timestamp2: transmute(load(c"vkCmdWriteTimestamp2").ok_or(LoadingError)?),
+                queue_submit2: transmute(load(c"vkQueueSubmit2").ok_or(LoadingError)?),
+                cmd_copy_buffer2: transmute(load(c"vkCmdCopyBuffer2").ok_or(LoadingError)?),
+                cmd_copy_image2: transmute(load(c"vkCmdCopyImage2").ok_or(LoadingError)?),
+                cmd_copy_buffer_to_image2: transmute(
+                    load(c"vkCmdCopyBufferToImage2").ok_or(LoadingError)?,
+                ),
+                cmd_copy_image_to_buffer2: transmute(
+                    load(c"vkCmdCopyImageToBuffer2").ok_or(LoadingError)?,
+                ),
+                get_device_buffer_memory_requirements: transmute(
+                    load(c"vkGetDeviceBufferMemoryRequirements").ok_or(LoadingError)?,
+                ),
+                get_device_image_memory_requirements: transmute(
+                    load(c"vkGetDeviceImageMemoryRequirements").ok_or(LoadingError)?,
+                ),
+                get_device_image_sparse_memory_requirements: transmute(
+                    load(c"vkGetDeviceImageSparseMemoryRequirements").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn create_private_data_slot(

@@ -1,6 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     cmd_blit_image2: PFN_vkCmdBlitImage2,
@@ -22,6 +23,59 @@ pub struct DeviceFn {
     cmd_set_rasterizer_discard_enable: PFN_vkCmdSetRasterizerDiscardEnable,
     cmd_set_depth_bias_enable: PFN_vkCmdSetDepthBiasEnable,
     cmd_set_primitive_restart_enable: PFN_vkCmdSetPrimitiveRestartEnable,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                cmd_blit_image2: transmute(load(c"vkCmdBlitImage2").ok_or(LoadingError)?),
+                cmd_resolve_image2: transmute(load(c"vkCmdResolveImage2").ok_or(LoadingError)?),
+                cmd_begin_rendering: transmute(load(c"vkCmdBeginRendering").ok_or(LoadingError)?),
+                cmd_end_rendering: transmute(load(c"vkCmdEndRendering").ok_or(LoadingError)?),
+                cmd_set_cull_mode: transmute(load(c"vkCmdSetCullMode").ok_or(LoadingError)?),
+                cmd_set_front_face: transmute(load(c"vkCmdSetFrontFace").ok_or(LoadingError)?),
+                cmd_set_primitive_topology: transmute(
+                    load(c"vkCmdSetPrimitiveTopology").ok_or(LoadingError)?,
+                ),
+                cmd_set_viewport_with_count: transmute(
+                    load(c"vkCmdSetViewportWithCount").ok_or(LoadingError)?,
+                ),
+                cmd_set_scissor_with_count: transmute(
+                    load(c"vkCmdSetScissorWithCount").ok_or(LoadingError)?,
+                ),
+                cmd_bind_vertex_buffers2: transmute(
+                    load(c"vkCmdBindVertexBuffers2").ok_or(LoadingError)?,
+                ),
+                cmd_set_depth_test_enable: transmute(
+                    load(c"vkCmdSetDepthTestEnable").ok_or(LoadingError)?,
+                ),
+                cmd_set_depth_write_enable: transmute(
+                    load(c"vkCmdSetDepthWriteEnable").ok_or(LoadingError)?,
+                ),
+                cmd_set_depth_compare_op: transmute(
+                    load(c"vkCmdSetDepthCompareOp").ok_or(LoadingError)?,
+                ),
+                cmd_set_depth_bounds_test_enable: transmute(
+                    load(c"vkCmdSetDepthBoundsTestEnable").ok_or(LoadingError)?,
+                ),
+                cmd_set_stencil_test_enable: transmute(
+                    load(c"vkCmdSetStencilTestEnable").ok_or(LoadingError)?,
+                ),
+                cmd_set_stencil_op: transmute(load(c"vkCmdSetStencilOp").ok_or(LoadingError)?),
+                cmd_set_rasterizer_discard_enable: transmute(
+                    load(c"vkCmdSetRasterizerDiscardEnable").ok_or(LoadingError)?,
+                ),
+                cmd_set_depth_bias_enable: transmute(
+                    load(c"vkCmdSetDepthBiasEnable").ok_or(LoadingError)?,
+                ),
+                cmd_set_primitive_restart_enable: transmute(
+                    load(c"vkCmdSetPrimitiveRestartEnable").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn cmd_blit_image2(

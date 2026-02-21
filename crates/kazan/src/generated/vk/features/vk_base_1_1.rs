@@ -1,9 +1,23 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct EntryFn {
     enumerate_instance_version: PFN_vkEnumerateInstanceVersion,
+}
+impl EntryFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                enumerate_instance_version: transmute(
+                    load(c"vkEnumerateInstanceVersion").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl EntryFn {
     pub unsafe fn enumerate_instance_version(&self, api_version: &mut u32) -> Result {
@@ -24,6 +38,49 @@ pub struct InstanceFn {
     get_physical_device_external_fence_properties: PFN_vkGetPhysicalDeviceExternalFenceProperties,
     get_physical_device_external_semaphore_properties:
         PFN_vkGetPhysicalDeviceExternalSemaphoreProperties,
+}
+impl InstanceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                enumerate_physical_device_groups: transmute(
+                    load(c"vkEnumeratePhysicalDeviceGroups").ok_or(LoadingError)?,
+                ),
+                get_physical_device_features2: transmute(
+                    load(c"vkGetPhysicalDeviceFeatures2").ok_or(LoadingError)?,
+                ),
+                get_physical_device_properties2: transmute(
+                    load(c"vkGetPhysicalDeviceProperties2").ok_or(LoadingError)?,
+                ),
+                get_physical_device_format_properties2: transmute(
+                    load(c"vkGetPhysicalDeviceFormatProperties2").ok_or(LoadingError)?,
+                ),
+                get_physical_device_image_format_properties2: transmute(
+                    load(c"vkGetPhysicalDeviceImageFormatProperties2").ok_or(LoadingError)?,
+                ),
+                get_physical_device_queue_family_properties2: transmute(
+                    load(c"vkGetPhysicalDeviceQueueFamilyProperties2").ok_or(LoadingError)?,
+                ),
+                get_physical_device_memory_properties2: transmute(
+                    load(c"vkGetPhysicalDeviceMemoryProperties2").ok_or(LoadingError)?,
+                ),
+                get_physical_device_sparse_image_format_properties2: transmute(
+                    load(c"vkGetPhysicalDeviceSparseImageFormatProperties2").ok_or(LoadingError)?,
+                ),
+                get_physical_device_external_buffer_properties: transmute(
+                    load(c"vkGetPhysicalDeviceExternalBufferProperties").ok_or(LoadingError)?,
+                ),
+                get_physical_device_external_fence_properties: transmute(
+                    load(c"vkGetPhysicalDeviceExternalFenceProperties").ok_or(LoadingError)?,
+                ),
+                get_physical_device_external_semaphore_properties: transmute(
+                    load(c"vkGetPhysicalDeviceExternalSemaphoreProperties").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl InstanceFn {
     pub unsafe fn enumerate_physical_device_groups(
@@ -181,6 +238,33 @@ pub struct DeviceFn {
     get_image_sparse_memory_requirements2: PFN_vkGetImageSparseMemoryRequirements2,
     trim_command_pool: PFN_vkTrimCommandPool,
     get_device_queue2: PFN_vkGetDeviceQueue2,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                bind_buffer_memory2: transmute(load(c"vkBindBufferMemory2").ok_or(LoadingError)?),
+                bind_image_memory2: transmute(load(c"vkBindImageMemory2").ok_or(LoadingError)?),
+                get_device_group_peer_memory_features: transmute(
+                    load(c"vkGetDeviceGroupPeerMemoryFeatures").ok_or(LoadingError)?,
+                ),
+                cmd_set_device_mask: transmute(load(c"vkCmdSetDeviceMask").ok_or(LoadingError)?),
+                get_image_memory_requirements2: transmute(
+                    load(c"vkGetImageMemoryRequirements2").ok_or(LoadingError)?,
+                ),
+                get_buffer_memory_requirements2: transmute(
+                    load(c"vkGetBufferMemoryRequirements2").ok_or(LoadingError)?,
+                ),
+                get_image_sparse_memory_requirements2: transmute(
+                    load(c"vkGetImageSparseMemoryRequirements2").ok_or(LoadingError)?,
+                ),
+                trim_command_pool: transmute(load(c"vkTrimCommandPool").ok_or(LoadingError)?),
+                get_device_queue2: transmute(load(c"vkGetDeviceQueue2").ok_or(LoadingError)?),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn bind_buffer_memory2(

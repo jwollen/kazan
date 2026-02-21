@@ -1,6 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     create_micromap_ext: PFN_vkCreateMicromapEXT,
@@ -17,6 +18,50 @@ pub struct DeviceFn {
     cmd_write_micromaps_properties_ext: PFN_vkCmdWriteMicromapsPropertiesEXT,
     get_device_micromap_compatibility_ext: PFN_vkGetDeviceMicromapCompatibilityEXT,
     get_micromap_build_sizes_ext: PFN_vkGetMicromapBuildSizesEXT,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                create_micromap_ext: transmute(load(c"vkCreateMicromapEXT").ok_or(LoadingError)?),
+                destroy_micromap_ext: transmute(load(c"vkDestroyMicromapEXT").ok_or(LoadingError)?),
+                cmd_build_micromaps_ext: transmute(
+                    load(c"vkCmdBuildMicromapsEXT").ok_or(LoadingError)?,
+                ),
+                build_micromaps_ext: transmute(load(c"vkBuildMicromapsEXT").ok_or(LoadingError)?),
+                copy_micromap_ext: transmute(load(c"vkCopyMicromapEXT").ok_or(LoadingError)?),
+                copy_micromap_to_memory_ext: transmute(
+                    load(c"vkCopyMicromapToMemoryEXT").ok_or(LoadingError)?,
+                ),
+                copy_memory_to_micromap_ext: transmute(
+                    load(c"vkCopyMemoryToMicromapEXT").ok_or(LoadingError)?,
+                ),
+                write_micromaps_properties_ext: transmute(
+                    load(c"vkWriteMicromapsPropertiesEXT").ok_or(LoadingError)?,
+                ),
+                cmd_copy_micromap_ext: transmute(
+                    load(c"vkCmdCopyMicromapEXT").ok_or(LoadingError)?,
+                ),
+                cmd_copy_micromap_to_memory_ext: transmute(
+                    load(c"vkCmdCopyMicromapToMemoryEXT").ok_or(LoadingError)?,
+                ),
+                cmd_copy_memory_to_micromap_ext: transmute(
+                    load(c"vkCmdCopyMemoryToMicromapEXT").ok_or(LoadingError)?,
+                ),
+                cmd_write_micromaps_properties_ext: transmute(
+                    load(c"vkCmdWriteMicromapsPropertiesEXT").ok_or(LoadingError)?,
+                ),
+                get_device_micromap_compatibility_ext: transmute(
+                    load(c"vkGetDeviceMicromapCompatibilityEXT").ok_or(LoadingError)?,
+                ),
+                get_micromap_build_sizes_ext: transmute(
+                    load(c"vkGetMicromapBuildSizesEXT").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn create_micromap_ext(

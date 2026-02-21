@@ -1,6 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     create_acceleration_structure_khr: PFN_vkCreateAccelerationStructureKHR,
@@ -21,6 +22,65 @@ pub struct DeviceFn {
     get_device_acceleration_structure_compatibility_khr:
         PFN_vkGetDeviceAccelerationStructureCompatibilityKHR,
     get_acceleration_structure_build_sizes_khr: PFN_vkGetAccelerationStructureBuildSizesKHR,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                create_acceleration_structure_khr: transmute(
+                    load(c"vkCreateAccelerationStructureKHR").ok_or(LoadingError)?,
+                ),
+                destroy_acceleration_structure_khr: transmute(
+                    load(c"vkDestroyAccelerationStructureKHR").ok_or(LoadingError)?,
+                ),
+                cmd_build_acceleration_structures_khr: transmute(
+                    load(c"vkCmdBuildAccelerationStructuresKHR").ok_or(LoadingError)?,
+                ),
+                cmd_build_acceleration_structures_indirect_khr: transmute(
+                    load(c"vkCmdBuildAccelerationStructuresIndirectKHR").ok_or(LoadingError)?,
+                ),
+                build_acceleration_structures_khr: transmute(
+                    load(c"vkBuildAccelerationStructuresKHR").ok_or(LoadingError)?,
+                ),
+                copy_acceleration_structure_khr: transmute(
+                    load(c"vkCopyAccelerationStructureKHR").ok_or(LoadingError)?,
+                ),
+                copy_acceleration_structure_to_memory_khr: transmute(
+                    load(c"vkCopyAccelerationStructureToMemoryKHR").ok_or(LoadingError)?,
+                ),
+                copy_memory_to_acceleration_structure_khr: transmute(
+                    load(c"vkCopyMemoryToAccelerationStructureKHR").ok_or(LoadingError)?,
+                ),
+                write_acceleration_structures_properties_khr: transmute(
+                    load(c"vkWriteAccelerationStructuresPropertiesKHR").ok_or(LoadingError)?,
+                ),
+                cmd_copy_acceleration_structure_khr: transmute(
+                    load(c"vkCmdCopyAccelerationStructureKHR").ok_or(LoadingError)?,
+                ),
+                cmd_copy_acceleration_structure_to_memory_khr: transmute(
+                    load(c"vkCmdCopyAccelerationStructureToMemoryKHR").ok_or(LoadingError)?,
+                ),
+                cmd_copy_memory_to_acceleration_structure_khr: transmute(
+                    load(c"vkCmdCopyMemoryToAccelerationStructureKHR").ok_or(LoadingError)?,
+                ),
+                get_acceleration_structure_device_address_khr: transmute(
+                    load(c"vkGetAccelerationStructureDeviceAddressKHR").ok_or(LoadingError)?,
+                ),
+                cmd_write_acceleration_structures_properties_khr: transmute(
+                    load(c"vkCmdWriteAccelerationStructuresPropertiesKHR").ok_or(LoadingError)?,
+                ),
+                get_device_acceleration_structure_compatibility_khr: transmute(
+                    load(c"vkGetDeviceAccelerationStructureCompatibilityKHR")
+                        .ok_or(LoadingError)?,
+                ),
+                get_acceleration_structure_build_sizes_khr: transmute(
+                    load(c"vkGetAccelerationStructureBuildSizesKHR").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn create_acceleration_structure_khr(

@@ -1,6 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct InstanceFn {
     destroy_surface_khr: PFN_vkDestroySurfaceKHR,
@@ -8,6 +9,29 @@ pub struct InstanceFn {
     get_physical_device_surface_capabilities_khr: PFN_vkGetPhysicalDeviceSurfaceCapabilitiesKHR,
     get_physical_device_surface_formats_khr: PFN_vkGetPhysicalDeviceSurfaceFormatsKHR,
     get_physical_device_surface_present_modes_khr: PFN_vkGetPhysicalDeviceSurfacePresentModesKHR,
+}
+impl InstanceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                destroy_surface_khr: transmute(load(c"vkDestroySurfaceKHR").ok_or(LoadingError)?),
+                get_physical_device_surface_support_khr: transmute(
+                    load(c"vkGetPhysicalDeviceSurfaceSupportKHR").ok_or(LoadingError)?,
+                ),
+                get_physical_device_surface_capabilities_khr: transmute(
+                    load(c"vkGetPhysicalDeviceSurfaceCapabilitiesKHR").ok_or(LoadingError)?,
+                ),
+                get_physical_device_surface_formats_khr: transmute(
+                    load(c"vkGetPhysicalDeviceSurfaceFormatsKHR").ok_or(LoadingError)?,
+                ),
+                get_physical_device_surface_present_modes_khr: transmute(
+                    load(c"vkGetPhysicalDeviceSurfacePresentModesKHR").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl InstanceFn {
     pub unsafe fn destroy_surface_khr(

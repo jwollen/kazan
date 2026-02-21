@@ -1,10 +1,27 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     cmd_set_exclusive_scissor_enable_nv: PFN_vkCmdSetExclusiveScissorEnableNV,
     cmd_set_exclusive_scissor_nv: PFN_vkCmdSetExclusiveScissorNV,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                cmd_set_exclusive_scissor_enable_nv: transmute(
+                    load(c"vkCmdSetExclusiveScissorEnableNV").ok_or(LoadingError)?,
+                ),
+                cmd_set_exclusive_scissor_nv: transmute(
+                    load(c"vkCmdSetExclusiveScissorNV").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn cmd_set_exclusive_scissor_enable_nv(

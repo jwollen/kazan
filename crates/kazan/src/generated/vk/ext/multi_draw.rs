@@ -1,10 +1,25 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     cmd_draw_multi_ext: PFN_vkCmdDrawMultiEXT,
     cmd_draw_multi_indexed_ext: PFN_vkCmdDrawMultiIndexedEXT,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                cmd_draw_multi_ext: transmute(load(c"vkCmdDrawMultiEXT").ok_or(LoadingError)?),
+                cmd_draw_multi_indexed_ext: transmute(
+                    load(c"vkCmdDrawMultiIndexedEXT").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn cmd_draw_multi_ext(

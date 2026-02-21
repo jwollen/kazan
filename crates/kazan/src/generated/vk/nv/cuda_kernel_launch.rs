@@ -1,6 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     create_cuda_module_nv: PFN_vkCreateCudaModuleNV,
@@ -9,6 +10,34 @@ pub struct DeviceFn {
     destroy_cuda_module_nv: PFN_vkDestroyCudaModuleNV,
     destroy_cuda_function_nv: PFN_vkDestroyCudaFunctionNV,
     cmd_cuda_launch_kernel_nv: PFN_vkCmdCudaLaunchKernelNV,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                create_cuda_module_nv: transmute(
+                    load(c"vkCreateCudaModuleNV").ok_or(LoadingError)?,
+                ),
+                get_cuda_module_cache_nv: transmute(
+                    load(c"vkGetCudaModuleCacheNV").ok_or(LoadingError)?,
+                ),
+                create_cuda_function_nv: transmute(
+                    load(c"vkCreateCudaFunctionNV").ok_or(LoadingError)?,
+                ),
+                destroy_cuda_module_nv: transmute(
+                    load(c"vkDestroyCudaModuleNV").ok_or(LoadingError)?,
+                ),
+                destroy_cuda_function_nv: transmute(
+                    load(c"vkDestroyCudaFunctionNV").ok_or(LoadingError)?,
+                ),
+                cmd_cuda_launch_kernel_nv: transmute(
+                    load(c"vkCmdCudaLaunchKernelNV").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn create_cuda_module_nv(

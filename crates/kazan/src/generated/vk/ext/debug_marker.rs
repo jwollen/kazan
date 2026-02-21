@@ -1,6 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     debug_marker_set_object_tag_ext: PFN_vkDebugMarkerSetObjectTagEXT,
@@ -8,6 +9,31 @@ pub struct DeviceFn {
     cmd_debug_marker_begin_ext: PFN_vkCmdDebugMarkerBeginEXT,
     cmd_debug_marker_end_ext: PFN_vkCmdDebugMarkerEndEXT,
     cmd_debug_marker_insert_ext: PFN_vkCmdDebugMarkerInsertEXT,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                debug_marker_set_object_tag_ext: transmute(
+                    load(c"vkDebugMarkerSetObjectTagEXT").ok_or(LoadingError)?,
+                ),
+                debug_marker_set_object_name_ext: transmute(
+                    load(c"vkDebugMarkerSetObjectNameEXT").ok_or(LoadingError)?,
+                ),
+                cmd_debug_marker_begin_ext: transmute(
+                    load(c"vkCmdDebugMarkerBeginEXT").ok_or(LoadingError)?,
+                ),
+                cmd_debug_marker_end_ext: transmute(
+                    load(c"vkCmdDebugMarkerEndEXT").ok_or(LoadingError)?,
+                ),
+                cmd_debug_marker_insert_ext: transmute(
+                    load(c"vkCmdDebugMarkerInsertEXT").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn debug_marker_set_object_tag_ext(

@@ -1,6 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     cmd_set_cull_mode: PFN_vkCmdSetCullMode,
@@ -15,6 +16,46 @@ pub struct DeviceFn {
     cmd_set_depth_bounds_test_enable: PFN_vkCmdSetDepthBoundsTestEnable,
     cmd_set_stencil_test_enable: PFN_vkCmdSetStencilTestEnable,
     cmd_set_stencil_op: PFN_vkCmdSetStencilOp,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                cmd_set_cull_mode: transmute(load(c"vkCmdSetCullModeEXT").ok_or(LoadingError)?),
+                cmd_set_front_face: transmute(load(c"vkCmdSetFrontFaceEXT").ok_or(LoadingError)?),
+                cmd_set_primitive_topology: transmute(
+                    load(c"vkCmdSetPrimitiveTopologyEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_viewport_with_count: transmute(
+                    load(c"vkCmdSetViewportWithCountEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_scissor_with_count: transmute(
+                    load(c"vkCmdSetScissorWithCountEXT").ok_or(LoadingError)?,
+                ),
+                cmd_bind_vertex_buffers2: transmute(
+                    load(c"vkCmdBindVertexBuffers2EXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_depth_test_enable: transmute(
+                    load(c"vkCmdSetDepthTestEnableEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_depth_write_enable: transmute(
+                    load(c"vkCmdSetDepthWriteEnableEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_depth_compare_op: transmute(
+                    load(c"vkCmdSetDepthCompareOpEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_depth_bounds_test_enable: transmute(
+                    load(c"vkCmdSetDepthBoundsTestEnableEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_stencil_test_enable: transmute(
+                    load(c"vkCmdSetStencilTestEnableEXT").ok_or(LoadingError)?,
+                ),
+                cmd_set_stencil_op: transmute(load(c"vkCmdSetStencilOpEXT").ok_or(LoadingError)?),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn cmd_set_cull_mode_ext(

@@ -1,12 +1,33 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     create_render_pass2: PFN_vkCreateRenderPass2,
     cmd_begin_render_pass2: PFN_vkCmdBeginRenderPass2,
     cmd_next_subpass2: PFN_vkCmdNextSubpass2,
     cmd_end_render_pass2: PFN_vkCmdEndRenderPass2,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                create_render_pass2: transmute(
+                    load(c"vkCreateRenderPass2KHR").ok_or(LoadingError)?,
+                ),
+                cmd_begin_render_pass2: transmute(
+                    load(c"vkCmdBeginRenderPass2KHR").ok_or(LoadingError)?,
+                ),
+                cmd_next_subpass2: transmute(load(c"vkCmdNextSubpass2KHR").ok_or(LoadingError)?),
+                cmd_end_render_pass2: transmute(
+                    load(c"vkCmdEndRenderPass2KHR").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn create_render_pass2_khr(

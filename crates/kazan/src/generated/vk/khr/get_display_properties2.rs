@@ -1,6 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct InstanceFn {
     get_physical_device_display_properties2_khr: PFN_vkGetPhysicalDeviceDisplayProperties2KHR,
@@ -8,6 +9,28 @@ pub struct InstanceFn {
         PFN_vkGetPhysicalDeviceDisplayPlaneProperties2KHR,
     get_display_mode_properties2_khr: PFN_vkGetDisplayModeProperties2KHR,
     get_display_plane_capabilities2_khr: PFN_vkGetDisplayPlaneCapabilities2KHR,
+}
+impl InstanceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                get_physical_device_display_properties2_khr: transmute(
+                    load(c"vkGetPhysicalDeviceDisplayProperties2KHR").ok_or(LoadingError)?,
+                ),
+                get_physical_device_display_plane_properties2_khr: transmute(
+                    load(c"vkGetPhysicalDeviceDisplayPlaneProperties2KHR").ok_or(LoadingError)?,
+                ),
+                get_display_mode_properties2_khr: transmute(
+                    load(c"vkGetDisplayModeProperties2KHR").ok_or(LoadingError)?,
+                ),
+                get_display_plane_capabilities2_khr: transmute(
+                    load(c"vkGetDisplayPlaneCapabilities2KHR").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl InstanceFn {
     pub unsafe fn get_physical_device_display_properties2_khr(

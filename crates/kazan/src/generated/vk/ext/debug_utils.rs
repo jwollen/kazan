@@ -1,11 +1,31 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct InstanceFn {
     create_debug_utils_messenger_ext: PFN_vkCreateDebugUtilsMessengerEXT,
     destroy_debug_utils_messenger_ext: PFN_vkDestroyDebugUtilsMessengerEXT,
     submit_debug_utils_message_ext: PFN_vkSubmitDebugUtilsMessageEXT,
+}
+impl InstanceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                create_debug_utils_messenger_ext: transmute(
+                    load(c"vkCreateDebugUtilsMessengerEXT").ok_or(LoadingError)?,
+                ),
+                destroy_debug_utils_messenger_ext: transmute(
+                    load(c"vkDestroyDebugUtilsMessengerEXT").ok_or(LoadingError)?,
+                ),
+                submit_debug_utils_message_ext: transmute(
+                    load(c"vkSubmitDebugUtilsMessageEXT").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl InstanceFn {
     pub unsafe fn create_debug_utils_messenger_ext(
@@ -60,6 +80,40 @@ pub struct DeviceFn {
     cmd_begin_debug_utils_label_ext: PFN_vkCmdBeginDebugUtilsLabelEXT,
     cmd_end_debug_utils_label_ext: PFN_vkCmdEndDebugUtilsLabelEXT,
     cmd_insert_debug_utils_label_ext: PFN_vkCmdInsertDebugUtilsLabelEXT,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                set_debug_utils_object_name_ext: transmute(
+                    load(c"vkSetDebugUtilsObjectNameEXT").ok_or(LoadingError)?,
+                ),
+                set_debug_utils_object_tag_ext: transmute(
+                    load(c"vkSetDebugUtilsObjectTagEXT").ok_or(LoadingError)?,
+                ),
+                queue_begin_debug_utils_label_ext: transmute(
+                    load(c"vkQueueBeginDebugUtilsLabelEXT").ok_or(LoadingError)?,
+                ),
+                queue_end_debug_utils_label_ext: transmute(
+                    load(c"vkQueueEndDebugUtilsLabelEXT").ok_or(LoadingError)?,
+                ),
+                queue_insert_debug_utils_label_ext: transmute(
+                    load(c"vkQueueInsertDebugUtilsLabelEXT").ok_or(LoadingError)?,
+                ),
+                cmd_begin_debug_utils_label_ext: transmute(
+                    load(c"vkCmdBeginDebugUtilsLabelEXT").ok_or(LoadingError)?,
+                ),
+                cmd_end_debug_utils_label_ext: transmute(
+                    load(c"vkCmdEndDebugUtilsLabelEXT").ok_or(LoadingError)?,
+                ),
+                cmd_insert_debug_utils_label_ext: transmute(
+                    load(c"vkCmdInsertDebugUtilsLabelEXT").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn set_debug_utils_object_name_ext(

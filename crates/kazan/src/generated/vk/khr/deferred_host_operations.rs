@@ -1,6 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     create_deferred_operation_khr: PFN_vkCreateDeferredOperationKHR,
@@ -8,6 +9,31 @@ pub struct DeviceFn {
     get_deferred_operation_max_concurrency_khr: PFN_vkGetDeferredOperationMaxConcurrencyKHR,
     get_deferred_operation_result_khr: PFN_vkGetDeferredOperationResultKHR,
     deferred_operation_join_khr: PFN_vkDeferredOperationJoinKHR,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                create_deferred_operation_khr: transmute(
+                    load(c"vkCreateDeferredOperationKHR").ok_or(LoadingError)?,
+                ),
+                destroy_deferred_operation_khr: transmute(
+                    load(c"vkDestroyDeferredOperationKHR").ok_or(LoadingError)?,
+                ),
+                get_deferred_operation_max_concurrency_khr: transmute(
+                    load(c"vkGetDeferredOperationMaxConcurrencyKHR").ok_or(LoadingError)?,
+                ),
+                get_deferred_operation_result_khr: transmute(
+                    load(c"vkGetDeferredOperationResultKHR").ok_or(LoadingError)?,
+                ),
+                deferred_operation_join_khr: transmute(
+                    load(c"vkDeferredOperationJoinKHR").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn create_deferred_operation_khr(

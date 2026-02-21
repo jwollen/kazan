@@ -1,10 +1,25 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     get_memory_fd_khr: PFN_vkGetMemoryFdKHR,
     get_memory_fd_properties_khr: PFN_vkGetMemoryFdPropertiesKHR,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                get_memory_fd_khr: transmute(load(c"vkGetMemoryFdKHR").ok_or(LoadingError)?),
+                get_memory_fd_properties_khr: transmute(
+                    load(c"vkGetMemoryFdPropertiesKHR").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn get_memory_fd_khr(

@@ -1,11 +1,29 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct EntryFn {
     create_instance: PFN_vkCreateInstance,
     enumerate_instance_extension_properties: PFN_vkEnumerateInstanceExtensionProperties,
     enumerate_instance_layer_properties: PFN_vkEnumerateInstanceLayerProperties,
+}
+impl EntryFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                create_instance: transmute(load(c"vkCreateInstance").ok_or(LoadingError)?),
+                enumerate_instance_extension_properties: transmute(
+                    load(c"vkEnumerateInstanceExtensionProperties").ok_or(LoadingError)?,
+                ),
+                enumerate_instance_layer_properties: transmute(
+                    load(c"vkEnumerateInstanceLayerProperties").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl EntryFn {
     pub unsafe fn create_instance(
@@ -57,6 +75,51 @@ pub struct InstanceFn {
     enumerate_device_layer_properties: PFN_vkEnumerateDeviceLayerProperties,
     get_physical_device_sparse_image_format_properties:
         PFN_vkGetPhysicalDeviceSparseImageFormatProperties,
+}
+impl InstanceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                destroy_instance: transmute(load(c"vkDestroyInstance").ok_or(LoadingError)?),
+                enumerate_physical_devices: transmute(
+                    load(c"vkEnumeratePhysicalDevices").ok_or(LoadingError)?,
+                ),
+                get_physical_device_features: transmute(
+                    load(c"vkGetPhysicalDeviceFeatures").ok_or(LoadingError)?,
+                ),
+                get_physical_device_format_properties: transmute(
+                    load(c"vkGetPhysicalDeviceFormatProperties").ok_or(LoadingError)?,
+                ),
+                get_physical_device_image_format_properties: transmute(
+                    load(c"vkGetPhysicalDeviceImageFormatProperties").ok_or(LoadingError)?,
+                ),
+                get_physical_device_properties: transmute(
+                    load(c"vkGetPhysicalDeviceProperties").ok_or(LoadingError)?,
+                ),
+                get_physical_device_queue_family_properties: transmute(
+                    load(c"vkGetPhysicalDeviceQueueFamilyProperties").ok_or(LoadingError)?,
+                ),
+                get_physical_device_memory_properties: transmute(
+                    load(c"vkGetPhysicalDeviceMemoryProperties").ok_or(LoadingError)?,
+                ),
+                get_instance_proc_addr: transmute(
+                    load(c"vkGetInstanceProcAddr").ok_or(LoadingError)?,
+                ),
+                create_device: transmute(load(c"vkCreateDevice").ok_or(LoadingError)?),
+                enumerate_device_extension_properties: transmute(
+                    load(c"vkEnumerateDeviceExtensionProperties").ok_or(LoadingError)?,
+                ),
+                enumerate_device_layer_properties: transmute(
+                    load(c"vkEnumerateDeviceLayerProperties").ok_or(LoadingError)?,
+                ),
+                get_physical_device_sparse_image_format_properties: transmute(
+                    load(c"vkGetPhysicalDeviceSparseImageFormatProperties").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl InstanceFn {
     pub unsafe fn destroy_instance(
@@ -289,6 +352,97 @@ pub struct DeviceFn {
     cmd_write_timestamp: PFN_vkCmdWriteTimestamp,
     cmd_copy_query_pool_results: PFN_vkCmdCopyQueryPoolResults,
     cmd_execute_commands: PFN_vkCmdExecuteCommands,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                get_device_proc_addr: transmute(load(c"vkGetDeviceProcAddr").ok_or(LoadingError)?),
+                destroy_device: transmute(load(c"vkDestroyDevice").ok_or(LoadingError)?),
+                get_device_queue: transmute(load(c"vkGetDeviceQueue").ok_or(LoadingError)?),
+                queue_submit: transmute(load(c"vkQueueSubmit").ok_or(LoadingError)?),
+                queue_wait_idle: transmute(load(c"vkQueueWaitIdle").ok_or(LoadingError)?),
+                device_wait_idle: transmute(load(c"vkDeviceWaitIdle").ok_or(LoadingError)?),
+                allocate_memory: transmute(load(c"vkAllocateMemory").ok_or(LoadingError)?),
+                free_memory: transmute(load(c"vkFreeMemory").ok_or(LoadingError)?),
+                map_memory: transmute(load(c"vkMapMemory").ok_or(LoadingError)?),
+                unmap_memory: transmute(load(c"vkUnmapMemory").ok_or(LoadingError)?),
+                flush_mapped_memory_ranges: transmute(
+                    load(c"vkFlushMappedMemoryRanges").ok_or(LoadingError)?,
+                ),
+                invalidate_mapped_memory_ranges: transmute(
+                    load(c"vkInvalidateMappedMemoryRanges").ok_or(LoadingError)?,
+                ),
+                get_device_memory_commitment: transmute(
+                    load(c"vkGetDeviceMemoryCommitment").ok_or(LoadingError)?,
+                ),
+                bind_buffer_memory: transmute(load(c"vkBindBufferMemory").ok_or(LoadingError)?),
+                bind_image_memory: transmute(load(c"vkBindImageMemory").ok_or(LoadingError)?),
+                get_buffer_memory_requirements: transmute(
+                    load(c"vkGetBufferMemoryRequirements").ok_or(LoadingError)?,
+                ),
+                get_image_memory_requirements: transmute(
+                    load(c"vkGetImageMemoryRequirements").ok_or(LoadingError)?,
+                ),
+                get_image_sparse_memory_requirements: transmute(
+                    load(c"vkGetImageSparseMemoryRequirements").ok_or(LoadingError)?,
+                ),
+                queue_bind_sparse: transmute(load(c"vkQueueBindSparse").ok_or(LoadingError)?),
+                create_fence: transmute(load(c"vkCreateFence").ok_or(LoadingError)?),
+                destroy_fence: transmute(load(c"vkDestroyFence").ok_or(LoadingError)?),
+                reset_fences: transmute(load(c"vkResetFences").ok_or(LoadingError)?),
+                get_fence_status: transmute(load(c"vkGetFenceStatus").ok_or(LoadingError)?),
+                wait_for_fences: transmute(load(c"vkWaitForFences").ok_or(LoadingError)?),
+                create_semaphore: transmute(load(c"vkCreateSemaphore").ok_or(LoadingError)?),
+                destroy_semaphore: transmute(load(c"vkDestroySemaphore").ok_or(LoadingError)?),
+                create_query_pool: transmute(load(c"vkCreateQueryPool").ok_or(LoadingError)?),
+                destroy_query_pool: transmute(load(c"vkDestroyQueryPool").ok_or(LoadingError)?),
+                get_query_pool_results: transmute(
+                    load(c"vkGetQueryPoolResults").ok_or(LoadingError)?,
+                ),
+                create_buffer: transmute(load(c"vkCreateBuffer").ok_or(LoadingError)?),
+                destroy_buffer: transmute(load(c"vkDestroyBuffer").ok_or(LoadingError)?),
+                create_image: transmute(load(c"vkCreateImage").ok_or(LoadingError)?),
+                destroy_image: transmute(load(c"vkDestroyImage").ok_or(LoadingError)?),
+                get_image_subresource_layout: transmute(
+                    load(c"vkGetImageSubresourceLayout").ok_or(LoadingError)?,
+                ),
+                create_image_view: transmute(load(c"vkCreateImageView").ok_or(LoadingError)?),
+                destroy_image_view: transmute(load(c"vkDestroyImageView").ok_or(LoadingError)?),
+                create_command_pool: transmute(load(c"vkCreateCommandPool").ok_or(LoadingError)?),
+                destroy_command_pool: transmute(load(c"vkDestroyCommandPool").ok_or(LoadingError)?),
+                reset_command_pool: transmute(load(c"vkResetCommandPool").ok_or(LoadingError)?),
+                allocate_command_buffers: transmute(
+                    load(c"vkAllocateCommandBuffers").ok_or(LoadingError)?,
+                ),
+                free_command_buffers: transmute(load(c"vkFreeCommandBuffers").ok_or(LoadingError)?),
+                begin_command_buffer: transmute(load(c"vkBeginCommandBuffer").ok_or(LoadingError)?),
+                end_command_buffer: transmute(load(c"vkEndCommandBuffer").ok_or(LoadingError)?),
+                reset_command_buffer: transmute(load(c"vkResetCommandBuffer").ok_or(LoadingError)?),
+                cmd_copy_buffer: transmute(load(c"vkCmdCopyBuffer").ok_or(LoadingError)?),
+                cmd_copy_image: transmute(load(c"vkCmdCopyImage").ok_or(LoadingError)?),
+                cmd_copy_buffer_to_image: transmute(
+                    load(c"vkCmdCopyBufferToImage").ok_or(LoadingError)?,
+                ),
+                cmd_copy_image_to_buffer: transmute(
+                    load(c"vkCmdCopyImageToBuffer").ok_or(LoadingError)?,
+                ),
+                cmd_update_buffer: transmute(load(c"vkCmdUpdateBuffer").ok_or(LoadingError)?),
+                cmd_fill_buffer: transmute(load(c"vkCmdFillBuffer").ok_or(LoadingError)?),
+                cmd_pipeline_barrier: transmute(load(c"vkCmdPipelineBarrier").ok_or(LoadingError)?),
+                cmd_begin_query: transmute(load(c"vkCmdBeginQuery").ok_or(LoadingError)?),
+                cmd_end_query: transmute(load(c"vkCmdEndQuery").ok_or(LoadingError)?),
+                cmd_reset_query_pool: transmute(load(c"vkCmdResetQueryPool").ok_or(LoadingError)?),
+                cmd_write_timestamp: transmute(load(c"vkCmdWriteTimestamp").ok_or(LoadingError)?),
+                cmd_copy_query_pool_results: transmute(
+                    load(c"vkCmdCopyQueryPoolResults").ok_or(LoadingError)?,
+                ),
+                cmd_execute_commands: transmute(load(c"vkCmdExecuteCommands").ok_or(LoadingError)?),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn get_device_proc_addr(&self, device: Device, name: &CStr) -> PFN_vkVoidFunction {

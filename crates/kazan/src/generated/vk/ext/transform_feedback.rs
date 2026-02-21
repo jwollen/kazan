@@ -1,6 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     cmd_bind_transform_feedback_buffers_ext: PFN_vkCmdBindTransformFeedbackBuffersEXT,
@@ -9,6 +10,34 @@ pub struct DeviceFn {
     cmd_begin_query_indexed_ext: PFN_vkCmdBeginQueryIndexedEXT,
     cmd_end_query_indexed_ext: PFN_vkCmdEndQueryIndexedEXT,
     cmd_draw_indirect_byte_count_ext: PFN_vkCmdDrawIndirectByteCountEXT,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                cmd_bind_transform_feedback_buffers_ext: transmute(
+                    load(c"vkCmdBindTransformFeedbackBuffersEXT").ok_or(LoadingError)?,
+                ),
+                cmd_begin_transform_feedback_ext: transmute(
+                    load(c"vkCmdBeginTransformFeedbackEXT").ok_or(LoadingError)?,
+                ),
+                cmd_end_transform_feedback_ext: transmute(
+                    load(c"vkCmdEndTransformFeedbackEXT").ok_or(LoadingError)?,
+                ),
+                cmd_begin_query_indexed_ext: transmute(
+                    load(c"vkCmdBeginQueryIndexedEXT").ok_or(LoadingError)?,
+                ),
+                cmd_end_query_indexed_ext: transmute(
+                    load(c"vkCmdEndQueryIndexedEXT").ok_or(LoadingError)?,
+                ),
+                cmd_draw_indirect_byte_count_ext: transmute(
+                    load(c"vkCmdDrawIndirectByteCountEXT").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn cmd_bind_transform_feedback_buffers_ext(

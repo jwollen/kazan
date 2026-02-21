@@ -1,6 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     cmd_dispatch_base: PFN_vkCmdDispatchBase,
@@ -10,6 +11,35 @@ pub struct DeviceFn {
     get_descriptor_set_layout_support: PFN_vkGetDescriptorSetLayoutSupport,
     create_sampler_ycbcr_conversion: PFN_vkCreateSamplerYcbcrConversion,
     destroy_sampler_ycbcr_conversion: PFN_vkDestroySamplerYcbcrConversion,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                cmd_dispatch_base: transmute(load(c"vkCmdDispatchBase").ok_or(LoadingError)?),
+                create_descriptor_update_template: transmute(
+                    load(c"vkCreateDescriptorUpdateTemplate").ok_or(LoadingError)?,
+                ),
+                destroy_descriptor_update_template: transmute(
+                    load(c"vkDestroyDescriptorUpdateTemplate").ok_or(LoadingError)?,
+                ),
+                update_descriptor_set_with_template: transmute(
+                    load(c"vkUpdateDescriptorSetWithTemplate").ok_or(LoadingError)?,
+                ),
+                get_descriptor_set_layout_support: transmute(
+                    load(c"vkGetDescriptorSetLayoutSupport").ok_or(LoadingError)?,
+                ),
+                create_sampler_ycbcr_conversion: transmute(
+                    load(c"vkCreateSamplerYcbcrConversion").ok_or(LoadingError)?,
+                ),
+                destroy_sampler_ycbcr_conversion: transmute(
+                    load(c"vkDestroySamplerYcbcrConversion").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn cmd_dispatch_base(

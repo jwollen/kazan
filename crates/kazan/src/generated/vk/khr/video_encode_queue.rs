@@ -1,10 +1,25 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct InstanceFn {
     get_physical_device_video_encode_quality_level_properties_khr:
         PFN_vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR,
+}
+impl InstanceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                get_physical_device_video_encode_quality_level_properties_khr: transmute(
+                    load(c"vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR")
+                        .ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl InstanceFn {
     pub unsafe fn get_physical_device_video_encode_quality_level_properties_khr(
@@ -25,6 +40,20 @@ impl InstanceFn {
 pub struct DeviceFn {
     get_encoded_video_session_parameters_khr: PFN_vkGetEncodedVideoSessionParametersKHR,
     cmd_encode_video_khr: PFN_vkCmdEncodeVideoKHR,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                get_encoded_video_session_parameters_khr: transmute(
+                    load(c"vkGetEncodedVideoSessionParametersKHR").ok_or(LoadingError)?,
+                ),
+                cmd_encode_video_khr: transmute(load(c"vkCmdEncodeVideoKHR").ok_or(LoadingError)?),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn get_encoded_video_session_parameters_khr(

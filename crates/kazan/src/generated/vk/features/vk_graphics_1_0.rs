@@ -1,6 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     create_graphics_pipelines: PFN_vkCreateGraphicsPipelines,
@@ -31,6 +32,68 @@ pub struct DeviceFn {
     cmd_begin_render_pass: PFN_vkCmdBeginRenderPass,
     cmd_next_subpass: PFN_vkCmdNextSubpass,
     cmd_end_render_pass: PFN_vkCmdEndRenderPass,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                create_graphics_pipelines: transmute(
+                    load(c"vkCreateGraphicsPipelines").ok_or(LoadingError)?,
+                ),
+                create_framebuffer: transmute(load(c"vkCreateFramebuffer").ok_or(LoadingError)?),
+                destroy_framebuffer: transmute(load(c"vkDestroyFramebuffer").ok_or(LoadingError)?),
+                create_render_pass: transmute(load(c"vkCreateRenderPass").ok_or(LoadingError)?),
+                destroy_render_pass: transmute(load(c"vkDestroyRenderPass").ok_or(LoadingError)?),
+                get_render_area_granularity: transmute(
+                    load(c"vkGetRenderAreaGranularity").ok_or(LoadingError)?,
+                ),
+                cmd_set_viewport: transmute(load(c"vkCmdSetViewport").ok_or(LoadingError)?),
+                cmd_set_scissor: transmute(load(c"vkCmdSetScissor").ok_or(LoadingError)?),
+                cmd_set_line_width: transmute(load(c"vkCmdSetLineWidth").ok_or(LoadingError)?),
+                cmd_set_depth_bias: transmute(load(c"vkCmdSetDepthBias").ok_or(LoadingError)?),
+                cmd_set_blend_constants: transmute(
+                    load(c"vkCmdSetBlendConstants").ok_or(LoadingError)?,
+                ),
+                cmd_set_depth_bounds: transmute(load(c"vkCmdSetDepthBounds").ok_or(LoadingError)?),
+                cmd_set_stencil_compare_mask: transmute(
+                    load(c"vkCmdSetStencilCompareMask").ok_or(LoadingError)?,
+                ),
+                cmd_set_stencil_write_mask: transmute(
+                    load(c"vkCmdSetStencilWriteMask").ok_or(LoadingError)?,
+                ),
+                cmd_set_stencil_reference: transmute(
+                    load(c"vkCmdSetStencilReference").ok_or(LoadingError)?,
+                ),
+                cmd_bind_index_buffer: transmute(
+                    load(c"vkCmdBindIndexBuffer").ok_or(LoadingError)?,
+                ),
+                cmd_bind_vertex_buffers: transmute(
+                    load(c"vkCmdBindVertexBuffers").ok_or(LoadingError)?,
+                ),
+                cmd_draw: transmute(load(c"vkCmdDraw").ok_or(LoadingError)?),
+                cmd_draw_indexed: transmute(load(c"vkCmdDrawIndexed").ok_or(LoadingError)?),
+                cmd_draw_indirect: transmute(load(c"vkCmdDrawIndirect").ok_or(LoadingError)?),
+                cmd_draw_indexed_indirect: transmute(
+                    load(c"vkCmdDrawIndexedIndirect").ok_or(LoadingError)?,
+                ),
+                cmd_blit_image: transmute(load(c"vkCmdBlitImage").ok_or(LoadingError)?),
+                cmd_clear_depth_stencil_image: transmute(
+                    load(c"vkCmdClearDepthStencilImage").ok_or(LoadingError)?,
+                ),
+                cmd_clear_attachments: transmute(
+                    load(c"vkCmdClearAttachments").ok_or(LoadingError)?,
+                ),
+                cmd_resolve_image: transmute(load(c"vkCmdResolveImage").ok_or(LoadingError)?),
+                cmd_begin_render_pass: transmute(
+                    load(c"vkCmdBeginRenderPass").ok_or(LoadingError)?,
+                ),
+                cmd_next_subpass: transmute(load(c"vkCmdNextSubpass").ok_or(LoadingError)?),
+                cmd_end_render_pass: transmute(load(c"vkCmdEndRenderPass").ok_or(LoadingError)?),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn create_graphics_pipelines(

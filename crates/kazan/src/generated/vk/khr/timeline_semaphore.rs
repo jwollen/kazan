@@ -1,11 +1,27 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     get_semaphore_counter_value: PFN_vkGetSemaphoreCounterValue,
     wait_semaphores: PFN_vkWaitSemaphores,
     signal_semaphore: PFN_vkSignalSemaphore,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                get_semaphore_counter_value: transmute(
+                    load(c"vkGetSemaphoreCounterValueKHR").ok_or(LoadingError)?,
+                ),
+                wait_semaphores: transmute(load(c"vkWaitSemaphoresKHR").ok_or(LoadingError)?),
+                signal_semaphore: transmute(load(c"vkSignalSemaphoreKHR").ok_or(LoadingError)?),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn get_semaphore_counter_value_khr(

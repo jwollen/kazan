@@ -1,12 +1,31 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     create_private_data_slot: PFN_vkCreatePrivateDataSlot,
     destroy_private_data_slot: PFN_vkDestroyPrivateDataSlot,
     set_private_data: PFN_vkSetPrivateData,
     get_private_data: PFN_vkGetPrivateData,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                create_private_data_slot: transmute(
+                    load(c"vkCreatePrivateDataSlotEXT").ok_or(LoadingError)?,
+                ),
+                destroy_private_data_slot: transmute(
+                    load(c"vkDestroyPrivateDataSlotEXT").ok_or(LoadingError)?,
+                ),
+                set_private_data: transmute(load(c"vkSetPrivateDataEXT").ok_or(LoadingError)?),
+                get_private_data: transmute(load(c"vkGetPrivateDataEXT").ok_or(LoadingError)?),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn create_private_data_slot_ext(

@@ -1,12 +1,33 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     get_pipeline_executable_properties_khr: PFN_vkGetPipelineExecutablePropertiesKHR,
     get_pipeline_executable_statistics_khr: PFN_vkGetPipelineExecutableStatisticsKHR,
     get_pipeline_executable_internal_representations_khr:
         PFN_vkGetPipelineExecutableInternalRepresentationsKHR,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                get_pipeline_executable_properties_khr: transmute(
+                    load(c"vkGetPipelineExecutablePropertiesKHR").ok_or(LoadingError)?,
+                ),
+                get_pipeline_executable_statistics_khr: transmute(
+                    load(c"vkGetPipelineExecutableStatisticsKHR").ok_or(LoadingError)?,
+                ),
+                get_pipeline_executable_internal_representations_khr: transmute(
+                    load(c"vkGetPipelineExecutableInternalRepresentationsKHR")
+                        .ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn get_pipeline_executable_properties_khr(

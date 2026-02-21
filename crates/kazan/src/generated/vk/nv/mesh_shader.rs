@@ -1,11 +1,31 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     cmd_draw_mesh_tasks_nv: PFN_vkCmdDrawMeshTasksNV,
     cmd_draw_mesh_tasks_indirect_nv: PFN_vkCmdDrawMeshTasksIndirectNV,
     cmd_draw_mesh_tasks_indirect_count_nv: Option<PFN_vkCmdDrawMeshTasksIndirectCountNV>,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                cmd_draw_mesh_tasks_nv: transmute(
+                    load(c"vkCmdDrawMeshTasksNV").ok_or(LoadingError)?,
+                ),
+                cmd_draw_mesh_tasks_indirect_nv: transmute(
+                    load(c"vkCmdDrawMeshTasksIndirectNV").ok_or(LoadingError)?,
+                ),
+                cmd_draw_mesh_tasks_indirect_count_nv: transmute(load(
+                    c"vkCmdDrawMeshTasksIndirectCountNV",
+                )),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn cmd_draw_mesh_tasks_nv(

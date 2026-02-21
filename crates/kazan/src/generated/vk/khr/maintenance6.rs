@@ -1,6 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     cmd_bind_descriptor_sets2: PFN_vkCmdBindDescriptorSets2,
@@ -10,6 +11,32 @@ pub struct DeviceFn {
     cmd_set_descriptor_buffer_offsets2_ext: Option<PFN_vkCmdSetDescriptorBufferOffsets2EXT>,
     cmd_bind_descriptor_buffer_embedded_samplers2_ext:
         Option<PFN_vkCmdBindDescriptorBufferEmbeddedSamplers2EXT>,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                cmd_bind_descriptor_sets2: transmute(
+                    load(c"vkCmdBindDescriptorSets2KHR").ok_or(LoadingError)?,
+                ),
+                cmd_push_constants2: transmute(
+                    load(c"vkCmdPushConstants2KHR").ok_or(LoadingError)?,
+                ),
+                cmd_push_descriptor_set2: transmute(load(c"vkCmdPushDescriptorSet2KHR")),
+                cmd_push_descriptor_set_with_template2: transmute(load(
+                    c"vkCmdPushDescriptorSetWithTemplate2KHR",
+                )),
+                cmd_set_descriptor_buffer_offsets2_ext: transmute(load(
+                    c"vkCmdSetDescriptorBufferOffsets2EXT",
+                )),
+                cmd_bind_descriptor_buffer_embedded_samplers2_ext: transmute(load(
+                    c"vkCmdBindDescriptorBufferEmbeddedSamplers2EXT",
+                )),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn cmd_bind_descriptor_sets2_khr(

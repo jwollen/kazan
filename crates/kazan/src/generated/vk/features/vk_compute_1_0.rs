@@ -1,6 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     create_event: PFN_vkCreateEvent,
@@ -39,6 +40,88 @@ pub struct DeviceFn {
     cmd_reset_event: PFN_vkCmdResetEvent,
     cmd_wait_events: PFN_vkCmdWaitEvents,
     cmd_push_constants: PFN_vkCmdPushConstants,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                create_event: transmute(load(c"vkCreateEvent").ok_or(LoadingError)?),
+                destroy_event: transmute(load(c"vkDestroyEvent").ok_or(LoadingError)?),
+                get_event_status: transmute(load(c"vkGetEventStatus").ok_or(LoadingError)?),
+                set_event: transmute(load(c"vkSetEvent").ok_or(LoadingError)?),
+                reset_event: transmute(load(c"vkResetEvent").ok_or(LoadingError)?),
+                create_buffer_view: transmute(load(c"vkCreateBufferView").ok_or(LoadingError)?),
+                destroy_buffer_view: transmute(load(c"vkDestroyBufferView").ok_or(LoadingError)?),
+                create_shader_module: transmute(load(c"vkCreateShaderModule").ok_or(LoadingError)?),
+                destroy_shader_module: transmute(
+                    load(c"vkDestroyShaderModule").ok_or(LoadingError)?,
+                ),
+                create_pipeline_cache: transmute(
+                    load(c"vkCreatePipelineCache").ok_or(LoadingError)?,
+                ),
+                destroy_pipeline_cache: transmute(
+                    load(c"vkDestroyPipelineCache").ok_or(LoadingError)?,
+                ),
+                get_pipeline_cache_data: transmute(
+                    load(c"vkGetPipelineCacheData").ok_or(LoadingError)?,
+                ),
+                merge_pipeline_caches: transmute(
+                    load(c"vkMergePipelineCaches").ok_or(LoadingError)?,
+                ),
+                create_compute_pipelines: transmute(
+                    load(c"vkCreateComputePipelines").ok_or(LoadingError)?,
+                ),
+                destroy_pipeline: transmute(load(c"vkDestroyPipeline").ok_or(LoadingError)?),
+                create_pipeline_layout: transmute(
+                    load(c"vkCreatePipelineLayout").ok_or(LoadingError)?,
+                ),
+                destroy_pipeline_layout: transmute(
+                    load(c"vkDestroyPipelineLayout").ok_or(LoadingError)?,
+                ),
+                create_sampler: transmute(load(c"vkCreateSampler").ok_or(LoadingError)?),
+                destroy_sampler: transmute(load(c"vkDestroySampler").ok_or(LoadingError)?),
+                create_descriptor_set_layout: transmute(
+                    load(c"vkCreateDescriptorSetLayout").ok_or(LoadingError)?,
+                ),
+                destroy_descriptor_set_layout: transmute(
+                    load(c"vkDestroyDescriptorSetLayout").ok_or(LoadingError)?,
+                ),
+                create_descriptor_pool: transmute(
+                    load(c"vkCreateDescriptorPool").ok_or(LoadingError)?,
+                ),
+                destroy_descriptor_pool: transmute(
+                    load(c"vkDestroyDescriptorPool").ok_or(LoadingError)?,
+                ),
+                reset_descriptor_pool: transmute(
+                    load(c"vkResetDescriptorPool").ok_or(LoadingError)?,
+                ),
+                allocate_descriptor_sets: transmute(
+                    load(c"vkAllocateDescriptorSets").ok_or(LoadingError)?,
+                ),
+                free_descriptor_sets: transmute(load(c"vkFreeDescriptorSets").ok_or(LoadingError)?),
+                update_descriptor_sets: transmute(
+                    load(c"vkUpdateDescriptorSets").ok_or(LoadingError)?,
+                ),
+                cmd_bind_pipeline: transmute(load(c"vkCmdBindPipeline").ok_or(LoadingError)?),
+                cmd_bind_descriptor_sets: transmute(
+                    load(c"vkCmdBindDescriptorSets").ok_or(LoadingError)?,
+                ),
+                cmd_clear_color_image: transmute(
+                    load(c"vkCmdClearColorImage").ok_or(LoadingError)?,
+                ),
+                cmd_dispatch: transmute(load(c"vkCmdDispatch").ok_or(LoadingError)?),
+                cmd_dispatch_indirect: transmute(
+                    load(c"vkCmdDispatchIndirect").ok_or(LoadingError)?,
+                ),
+                cmd_set_event: transmute(load(c"vkCmdSetEvent").ok_or(LoadingError)?),
+                cmd_reset_event: transmute(load(c"vkCmdResetEvent").ok_or(LoadingError)?),
+                cmd_wait_events: transmute(load(c"vkCmdWaitEvents").ok_or(LoadingError)?),
+                cmd_push_constants: transmute(load(c"vkCmdPushConstants").ok_or(LoadingError)?),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn create_event(

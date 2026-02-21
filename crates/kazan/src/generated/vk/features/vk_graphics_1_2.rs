@@ -1,6 +1,7 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     cmd_draw_indirect_count: PFN_vkCmdDrawIndirectCount,
@@ -9,6 +10,28 @@ pub struct DeviceFn {
     cmd_begin_render_pass2: PFN_vkCmdBeginRenderPass2,
     cmd_next_subpass2: PFN_vkCmdNextSubpass2,
     cmd_end_render_pass2: PFN_vkCmdEndRenderPass2,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                cmd_draw_indirect_count: transmute(
+                    load(c"vkCmdDrawIndirectCount").ok_or(LoadingError)?,
+                ),
+                cmd_draw_indexed_indirect_count: transmute(
+                    load(c"vkCmdDrawIndexedIndirectCount").ok_or(LoadingError)?,
+                ),
+                create_render_pass2: transmute(load(c"vkCreateRenderPass2").ok_or(LoadingError)?),
+                cmd_begin_render_pass2: transmute(
+                    load(c"vkCmdBeginRenderPass2").ok_or(LoadingError)?,
+                ),
+                cmd_next_subpass2: transmute(load(c"vkCmdNextSubpass2").ok_or(LoadingError)?),
+                cmd_end_render_pass2: transmute(load(c"vkCmdEndRenderPass2").ok_or(LoadingError)?),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn cmd_draw_indirect_count(

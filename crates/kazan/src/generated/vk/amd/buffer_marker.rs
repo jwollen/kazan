@@ -1,10 +1,25 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     cmd_write_buffer_marker_amd: PFN_vkCmdWriteBufferMarkerAMD,
     cmd_write_buffer_marker2_amd: Option<PFN_vkCmdWriteBufferMarker2AMD>,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                cmd_write_buffer_marker_amd: transmute(
+                    load(c"vkCmdWriteBufferMarkerAMD").ok_or(LoadingError)?,
+                ),
+                cmd_write_buffer_marker2_amd: transmute(load(c"vkCmdWriteBufferMarker2AMD")),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn cmd_write_buffer_marker_amd(

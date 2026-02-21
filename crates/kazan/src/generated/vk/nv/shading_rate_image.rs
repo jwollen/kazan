@@ -1,11 +1,31 @@
 #![allow(unused_imports)]
 use crate::*;
-use core::ffi::{c_char, c_int, c_void, CStr};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     cmd_bind_shading_rate_image_nv: PFN_vkCmdBindShadingRateImageNV,
     cmd_set_viewport_shading_rate_palette_nv: PFN_vkCmdSetViewportShadingRatePaletteNV,
     cmd_set_coarse_sample_order_nv: PFN_vkCmdSetCoarseSampleOrderNV,
+}
+impl DeviceFn {
+    pub unsafe fn load(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, LoadingError> {
+        unsafe {
+            Ok(Self {
+                cmd_bind_shading_rate_image_nv: transmute(
+                    load(c"vkCmdBindShadingRateImageNV").ok_or(LoadingError)?,
+                ),
+                cmd_set_viewport_shading_rate_palette_nv: transmute(
+                    load(c"vkCmdSetViewportShadingRatePaletteNV").ok_or(LoadingError)?,
+                ),
+                cmd_set_coarse_sample_order_nv: transmute(
+                    load(c"vkCmdSetCoarseSampleOrderNV").ok_or(LoadingError)?,
+                ),
+            })
+        }
+    }
 }
 impl DeviceFn {
     pub unsafe fn cmd_bind_shading_rate_image_nv(
