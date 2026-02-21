@@ -6,7 +6,7 @@ pub struct DeviceFn {
     cmd_set_line_stipple: PFN_vkCmdSetLineStipple,
 }
 impl DeviceFn {
-    pub unsafe fn cmd_set_line_stipple(
+    pub unsafe fn cmd_set_line_stipple_khr(
         &self,
         command_buffer: CommandBuffer,
         line_stipple_factor: u32,

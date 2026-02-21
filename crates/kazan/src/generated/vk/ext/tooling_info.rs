@@ -6,7 +6,7 @@ pub struct InstanceFn {
     get_physical_device_tool_properties: PFN_vkGetPhysicalDeviceToolProperties,
 }
 impl InstanceFn {
-    pub unsafe fn get_physical_device_tool_properties(
+    pub unsafe fn get_physical_device_tool_properties_ext(
         &self,
         physical_device: PhysicalDevice,
         tool_properties: impl ExtendUninit<PhysicalDeviceToolProperties>,

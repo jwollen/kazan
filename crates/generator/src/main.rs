@@ -471,11 +471,6 @@ fn generate(xmls: &[&xml::Registry]) {
                 }
             }
 
-            struct CommandGroup<'a> {
-                require: &'a xml::Require,
-                commands: Vec<&'a xml::Command>,
-            }
-
             if required_commands.clone().next().is_some() {
                 vendor_modules
                     .entry(vendor.to_string())
@@ -513,10 +508,15 @@ fn generate(xmls: &[&xml::Registry]) {
                                         }
                                     });
                                     let name = alias.unwrap_or(req_cmd.name);
-                                    xml.commands.iter().find(|cmd| cmd.name == name).unwrap()
+                                    let command =
+                                        xml.commands.iter().find(|cmd| cmd.name == name).unwrap();
+                                    CommandInfo {
+                                        alias: req_cmd.name,
+                                        command,
+                                    }
                                 })
                                 .filter(|cmd| {
-                                    let ty = &cmd.params.iter().next().unwrap().c_decl.ty;
+                                    let ty = &cmd.command.params.iter().next().unwrap().c_decl.ty;
                                     if let CType::Base(base) = ty {
                                         handle_command_types
                                             .get(base.name)
@@ -544,9 +544,14 @@ fn generate(xmls: &[&xml::Registry]) {
                     writeln!(file, "pub struct {} {{", fn_type_name).unwrap();
                     for command_group in &command_groups {
                         for command in &command_group.commands {
-                            let name = normalize_command_name(command.name);
-                            writeln!(file, "{}: PFN_{},", name, normalize_ty_name(command.name))
-                                .unwrap();
+                            let name = normalize_command_name(command.command.name);
+                            writeln!(
+                                file,
+                                "{}: PFN_{},",
+                                name,
+                                normalize_ty_name(command.command.name)
+                            )
+                            .unwrap();
                         }
                     }
                     writeln!(file, "}}").unwrap();
@@ -755,12 +760,22 @@ fn ctype_to_rust_type_str(name: &str) -> String {
 //     todo!()
 // }
 
+struct CommandGroup<'a> {
+    require: &'a xml::Require,
+    commands: Vec<CommandInfo<'a>>,
+}
+
 struct CommandInfo<'a> {
+    command: &'a xml::Command,
+    alias: &'a str,
+}
+
+struct WrapperCommandInfo<'a> {
     // The original xml command
     command: &'a xml::Command,
 
     // The normalized command name
-    name: String,
+    wrapper_name: String,
 
     // Info about functions that can either output a length or enumerate items
     enumeration_info: Option<EnumerationCommandInfo>,
@@ -874,9 +889,10 @@ fn get_len_kind<'a>(
 }
 
 fn analyze_command<'a>(
-    command: &'a xml::Command,
+    info: &CommandInfo<'a>,
     structs: &'a [xml::Structure],
-) -> CommandInfo<'a> {
+) -> WrapperCommandInfo<'a> {
+    let command = info.command;
     let len_kinds: Vec<_> = command
         .params
         .iter()
@@ -953,11 +969,11 @@ fn analyze_command<'a>(
         });
     }
 
-    let name = normalize_command_name(command.name);
+    let name = normalize_command_name(info.alias);
 
-    CommandInfo {
+    WrapperCommandInfo {
         command,
-        name,
+        wrapper_name: name,
         enumeration_info,
         wrapper_params,
         params,
@@ -1060,14 +1076,15 @@ fn ctype_to_rust_type(ty: &CType) -> String {
 
 fn write_command_wrapper(
     file: &mut impl std::io::Write,
-    command: &xml::Command,
+    info: &CommandInfo<'_>,
     structs: &[xml::Structure],
 ) {
-    let command_info = analyze_command(command, structs);
+    let command = info.command;
+    let wrapper_info = analyze_command(info, structs);
 
-    writeln!(file, "pub unsafe fn {}(&self,", command_info.name).unwrap();
+    writeln!(file, "pub unsafe fn {}(&self,", wrapper_info.wrapper_name).unwrap();
 
-    for param in &command_info.wrapper_params {
+    for param in &wrapper_info.wrapper_params {
         writeln!(file, "{}: {},", param.name, param.ty).unwrap();
     }
 
@@ -1079,7 +1096,7 @@ fn write_command_wrapper(
 
     writeln!(file, "unsafe {{").unwrap();
 
-    if let Some(enumeration_info) = &command_info.enumeration_info {
+    if let Some(enumeration_info) = &wrapper_info.enumeration_info {
         let has_result = if let Some(ret_type) = &command.return_type {
             if let CType::Base(base) = ret_type {
                 base.name == "VkResult"
@@ -1103,11 +1120,11 @@ fn write_command_wrapper(
             }
         };
 
-        let len_param = &command_info.params[enumeration_info.len_param];
+        let len_param = &wrapper_info.params[enumeration_info.len_param];
         let array_params = enumeration_info
             .array_params
             .iter()
-            .map(|i| command_info.params[*i].name.as_str())
+            .map(|i| wrapper_info.params[*i].name.as_str())
             .collect::<Vec<_>>()
             .join(", ");
 
@@ -1117,18 +1134,19 @@ fn write_command_wrapper(
             extend_fn_name, array_params, len_param.name, array_params
         )
         .unwrap();
-        write_fn_call(file, &command_info);
+        write_fn_call(file, &wrapper_info);
         writeln!(file, "}})").unwrap();
     } else {
-        write_fn_call(file, &command_info);
+        write_fn_call(file, &wrapper_info);
     }
 
     writeln!(file, "}}").unwrap();
     writeln!(file, "}}").unwrap();
 }
 
-fn write_fn_call(file: &mut impl std::io::Write, command_info: &CommandInfo) {
-    writeln!(file, "(self.{})(", command_info.name).unwrap();
+fn write_fn_call(file: &mut impl std::io::Write, command_info: &WrapperCommandInfo) {
+    let name = normalize_command_name(command_info.command.name);
+    writeln!(file, "(self.{})(", name).unwrap();
     for (param_index, param) in command_info.params.iter().enumerate() {
         let array_param = command_info.params.iter().find(
             |p| matches!(p.len, Some(LengthKind::Param { index, .. }) if index == param_index),

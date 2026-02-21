@@ -9,7 +9,7 @@ pub struct DeviceFn {
     get_image_subresource_layout2: PFN_vkGetImageSubresourceLayout2,
 }
 impl DeviceFn {
-    pub unsafe fn cmd_bind_index_buffer2(
+    pub unsafe fn cmd_bind_index_buffer2_khr(
         &self,
         command_buffer: CommandBuffer,
         buffer: Buffer,
@@ -19,7 +19,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_bind_index_buffer2)(command_buffer, buffer, offset, size, index_type) }
     }
-    pub unsafe fn get_rendering_area_granularity(
+    pub unsafe fn get_rendering_area_granularity_khr(
         &self,
         device: Device,
         rendering_area_info: &RenderingAreaInfo,
@@ -27,7 +27,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.get_rendering_area_granularity)(device, rendering_area_info, granularity) }
     }
-    pub unsafe fn get_device_image_subresource_layout(
+    pub unsafe fn get_device_image_subresource_layout_khr(
         &self,
         device: Device,
         info: &DeviceImageSubresourceInfo,
@@ -35,7 +35,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.get_device_image_subresource_layout)(device, info, layout) }
     }
-    pub unsafe fn get_image_subresource_layout2(
+    pub unsafe fn get_image_subresource_layout2_khr(
         &self,
         device: Device,
         image: Image,

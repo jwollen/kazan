@@ -6,7 +6,7 @@ pub struct DeviceFn {
     get_image_subresource_layout2: PFN_vkGetImageSubresourceLayout2,
 }
 impl DeviceFn {
-    pub unsafe fn get_image_subresource_layout2(
+    pub unsafe fn get_image_subresource_layout2_ext(
         &self,
         device: Device,
         image: Image,

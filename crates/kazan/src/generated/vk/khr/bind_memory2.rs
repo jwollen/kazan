@@ -7,7 +7,7 @@ pub struct DeviceFn {
     bind_image_memory2: PFN_vkBindImageMemory2,
 }
 impl DeviceFn {
-    pub unsafe fn bind_buffer_memory2(
+    pub unsafe fn bind_buffer_memory2_khr(
         &self,
         device: Device,
         bind_infos: &[BindBufferMemoryInfo],
@@ -20,7 +20,7 @@ impl DeviceFn {
             )
         }
     }
-    pub unsafe fn bind_image_memory2(
+    pub unsafe fn bind_image_memory2_khr(
         &self,
         device: Device,
         bind_infos: &[BindImageMemoryInfo],

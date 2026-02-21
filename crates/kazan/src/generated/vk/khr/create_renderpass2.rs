@@ -9,7 +9,7 @@ pub struct DeviceFn {
     cmd_end_render_pass2: PFN_vkCmdEndRenderPass2,
 }
 impl DeviceFn {
-    pub unsafe fn create_render_pass2(
+    pub unsafe fn create_render_pass2_khr(
         &self,
         device: Device,
         create_info: &RenderPassCreateInfo2,
@@ -20,7 +20,7 @@ impl DeviceFn {
             (self.create_render_pass2)(device, create_info, allocator.to_raw_ptr(), render_pass)
         }
     }
-    pub unsafe fn cmd_begin_render_pass2(
+    pub unsafe fn cmd_begin_render_pass2_khr(
         &self,
         command_buffer: CommandBuffer,
         render_pass_begin: &RenderPassBeginInfo,
@@ -30,7 +30,7 @@ impl DeviceFn {
             (self.cmd_begin_render_pass2)(command_buffer, render_pass_begin, subpass_begin_info)
         }
     }
-    pub unsafe fn cmd_next_subpass2(
+    pub unsafe fn cmd_next_subpass2_khr(
         &self,
         command_buffer: CommandBuffer,
         subpass_begin_info: &SubpassBeginInfo,
@@ -38,7 +38,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_next_subpass2)(command_buffer, subpass_begin_info, subpass_end_info) }
     }
-    pub unsafe fn cmd_end_render_pass2(
+    pub unsafe fn cmd_end_render_pass2_khr(
         &self,
         command_buffer: CommandBuffer,
         subpass_end_info: &SubpassEndInfo,

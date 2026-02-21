@@ -6,7 +6,7 @@ pub struct InstanceFn {
     get_physical_device_external_fence_properties: PFN_vkGetPhysicalDeviceExternalFenceProperties,
 }
 impl InstanceFn {
-    pub unsafe fn get_physical_device_external_fence_properties(
+    pub unsafe fn get_physical_device_external_fence_properties_khr(
         &self,
         physical_device: PhysicalDevice,
         external_fence_info: &PhysicalDeviceExternalFenceInfo,

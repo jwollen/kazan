@@ -7,7 +7,7 @@ pub struct InstanceFn {
         PFN_vkGetPhysicalDeviceExternalSemaphoreProperties,
 }
 impl InstanceFn {
-    pub unsafe fn get_physical_device_external_semaphore_properties(
+    pub unsafe fn get_physical_device_external_semaphore_properties_khr(
         &self,
         physical_device: PhysicalDevice,
         external_semaphore_info: &PhysicalDeviceExternalSemaphoreInfo,

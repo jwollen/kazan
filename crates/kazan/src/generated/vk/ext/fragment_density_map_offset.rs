@@ -6,7 +6,7 @@ pub struct DeviceFn {
     cmd_end_rendering2_khr: PFN_vkCmdEndRendering2KHR,
 }
 impl DeviceFn {
-    pub unsafe fn cmd_end_rendering2_khr(
+    pub unsafe fn cmd_end_rendering2_ext(
         &self,
         command_buffer: CommandBuffer,
         rendering_end_info: Option<&RenderingEndInfoKHR>,

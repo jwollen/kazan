@@ -6,7 +6,7 @@ pub struct InstanceFn {
     enumerate_physical_device_groups: PFN_vkEnumeratePhysicalDeviceGroups,
 }
 impl InstanceFn {
-    pub unsafe fn enumerate_physical_device_groups(
+    pub unsafe fn enumerate_physical_device_groups_khr(
         &self,
         instance: Instance,
         physical_device_group_properties: impl ExtendUninit<PhysicalDeviceGroupProperties>,

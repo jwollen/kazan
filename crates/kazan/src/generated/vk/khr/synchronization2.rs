@@ -11,7 +11,7 @@ pub struct DeviceFn {
     queue_submit2: PFN_vkQueueSubmit2,
 }
 impl DeviceFn {
-    pub unsafe fn cmd_set_event2(
+    pub unsafe fn cmd_set_event2_khr(
         &self,
         command_buffer: CommandBuffer,
         event: Event,
@@ -19,7 +19,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_event2)(command_buffer, event, dependency_info) }
     }
-    pub unsafe fn cmd_reset_event2(
+    pub unsafe fn cmd_reset_event2_khr(
         &self,
         command_buffer: CommandBuffer,
         event: Event,
@@ -27,7 +27,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_reset_event2)(command_buffer, event, stage_mask) }
     }
-    pub unsafe fn cmd_wait_events2(
+    pub unsafe fn cmd_wait_events2_khr(
         &self,
         command_buffer: CommandBuffer,
         events: &[Event],
@@ -42,14 +42,14 @@ impl DeviceFn {
             )
         }
     }
-    pub unsafe fn cmd_pipeline_barrier2(
+    pub unsafe fn cmd_pipeline_barrier2_khr(
         &self,
         command_buffer: CommandBuffer,
         dependency_info: &DependencyInfo,
     ) {
         unsafe { (self.cmd_pipeline_barrier2)(command_buffer, dependency_info) }
     }
-    pub unsafe fn cmd_write_timestamp2(
+    pub unsafe fn cmd_write_timestamp2_khr(
         &self,
         command_buffer: CommandBuffer,
         stage: PipelineStageFlags2,
@@ -58,7 +58,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_write_timestamp2)(command_buffer, stage, query_pool, query) }
     }
-    pub unsafe fn queue_submit2(
+    pub unsafe fn queue_submit2_khr(
         &self,
         queue: Queue,
         submits: &[SubmitInfo2],

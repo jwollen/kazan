@@ -7,7 +7,7 @@ pub struct DeviceFn {
     cmd_draw_indexed_indirect_count: PFN_vkCmdDrawIndexedIndirectCount,
 }
 impl DeviceFn {
-    pub unsafe fn cmd_draw_indirect_count(
+    pub unsafe fn cmd_draw_indirect_count_amd(
         &self,
         command_buffer: CommandBuffer,
         buffer: Buffer,
@@ -29,7 +29,7 @@ impl DeviceFn {
             )
         }
     }
-    pub unsafe fn cmd_draw_indexed_indirect_count(
+    pub unsafe fn cmd_draw_indexed_indirect_count_amd(
         &self,
         command_buffer: CommandBuffer,
         buffer: Buffer,

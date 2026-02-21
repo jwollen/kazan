@@ -7,7 +7,7 @@ pub struct DeviceFn {
     destroy_sampler_ycbcr_conversion: PFN_vkDestroySamplerYcbcrConversion,
 }
 impl DeviceFn {
-    pub unsafe fn create_sampler_ycbcr_conversion(
+    pub unsafe fn create_sampler_ycbcr_conversion_khr(
         &self,
         device: Device,
         create_info: &SamplerYcbcrConversionCreateInfo,
@@ -23,7 +23,7 @@ impl DeviceFn {
             )
         }
     }
-    pub unsafe fn destroy_sampler_ycbcr_conversion(
+    pub unsafe fn destroy_sampler_ycbcr_conversion_khr(
         &self,
         device: Device,
         ycbcr_conversion: SamplerYcbcrConversion,

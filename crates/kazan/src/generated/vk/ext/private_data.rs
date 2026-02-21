@@ -9,7 +9,7 @@ pub struct DeviceFn {
     get_private_data: PFN_vkGetPrivateData,
 }
 impl DeviceFn {
-    pub unsafe fn create_private_data_slot(
+    pub unsafe fn create_private_data_slot_ext(
         &self,
         device: Device,
         create_info: &PrivateDataSlotCreateInfo,
@@ -25,7 +25,7 @@ impl DeviceFn {
             )
         }
     }
-    pub unsafe fn destroy_private_data_slot(
+    pub unsafe fn destroy_private_data_slot_ext(
         &self,
         device: Device,
         private_data_slot: PrivateDataSlot,
@@ -35,7 +35,7 @@ impl DeviceFn {
             (self.destroy_private_data_slot)(device, private_data_slot, allocator.to_raw_ptr())
         }
     }
-    pub unsafe fn set_private_data(
+    pub unsafe fn set_private_data_ext(
         &self,
         device: Device,
         object_type: ObjectType,
@@ -47,7 +47,7 @@ impl DeviceFn {
             (self.set_private_data)(device, object_type, object_handle, private_data_slot, data)
         }
     }
-    pub unsafe fn get_private_data(
+    pub unsafe fn get_private_data_ext(
         &self,
         device: Device,
         object_type: ObjectType,

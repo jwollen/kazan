@@ -6,7 +6,7 @@ pub struct DeviceFn {
     reset_query_pool: PFN_vkResetQueryPool,
 }
 impl DeviceFn {
-    pub unsafe fn reset_query_pool(
+    pub unsafe fn reset_query_pool_ext(
         &self,
         device: Device,
         query_pool: QueryPool,

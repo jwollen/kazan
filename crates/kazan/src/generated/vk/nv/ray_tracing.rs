@@ -168,7 +168,7 @@ impl DeviceFn {
             )
         }
     }
-    pub unsafe fn get_ray_tracing_shader_group_handles_khr(
+    pub unsafe fn get_ray_tracing_shader_group_handles_nv(
         &self,
         device: Device,
         pipeline: Pipeline,

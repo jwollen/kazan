@@ -6,7 +6,7 @@ pub struct InstanceFn {
     get_physical_device_external_buffer_properties: PFN_vkGetPhysicalDeviceExternalBufferProperties,
 }
 impl InstanceFn {
-    pub unsafe fn get_physical_device_external_buffer_properties(
+    pub unsafe fn get_physical_device_external_buffer_properties_khr(
         &self,
         physical_device: PhysicalDevice,
         external_buffer_info: &PhysicalDeviceExternalBufferInfo,

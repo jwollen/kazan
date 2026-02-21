@@ -12,28 +12,28 @@ pub struct DeviceFn {
         PFN_vkCmdBindDescriptorBufferEmbeddedSamplers2EXT,
 }
 impl DeviceFn {
-    pub unsafe fn cmd_bind_descriptor_sets2(
+    pub unsafe fn cmd_bind_descriptor_sets2_khr(
         &self,
         command_buffer: CommandBuffer,
         bind_descriptor_sets_info: &BindDescriptorSetsInfo,
     ) {
         unsafe { (self.cmd_bind_descriptor_sets2)(command_buffer, bind_descriptor_sets_info) }
     }
-    pub unsafe fn cmd_push_constants2(
+    pub unsafe fn cmd_push_constants2_khr(
         &self,
         command_buffer: CommandBuffer,
         push_constants_info: &PushConstantsInfo,
     ) {
         unsafe { (self.cmd_push_constants2)(command_buffer, push_constants_info) }
     }
-    pub unsafe fn cmd_push_descriptor_set2(
+    pub unsafe fn cmd_push_descriptor_set2_khr(
         &self,
         command_buffer: CommandBuffer,
         push_descriptor_set_info: &PushDescriptorSetInfo,
     ) {
         unsafe { (self.cmd_push_descriptor_set2)(command_buffer, push_descriptor_set_info) }
     }
-    pub unsafe fn cmd_push_descriptor_set_with_template2(
+    pub unsafe fn cmd_push_descriptor_set_with_template2_khr(
         &self,
         command_buffer: CommandBuffer,
         push_descriptor_set_with_template_info: &PushDescriptorSetWithTemplateInfo,

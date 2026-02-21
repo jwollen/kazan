@@ -7,7 +7,7 @@ pub struct DeviceFn {
     cmd_push_descriptor_set_with_template: PFN_vkCmdPushDescriptorSetWithTemplate,
 }
 impl DeviceFn {
-    pub unsafe fn cmd_push_descriptor_set(
+    pub unsafe fn cmd_push_descriptor_set_khr(
         &self,
         command_buffer: CommandBuffer,
         pipeline_bind_point: PipelineBindPoint,
@@ -26,7 +26,7 @@ impl DeviceFn {
             )
         }
     }
-    pub unsafe fn cmd_push_descriptor_set_with_template(
+    pub unsafe fn cmd_push_descriptor_set_with_template_khr(
         &self,
         command_buffer: CommandBuffer,
         descriptor_update_template: DescriptorUpdateTemplate,

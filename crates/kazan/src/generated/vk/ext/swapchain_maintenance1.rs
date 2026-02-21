@@ -6,7 +6,7 @@ pub struct DeviceFn {
     release_swapchain_images_khr: PFN_vkReleaseSwapchainImagesKHR,
 }
 impl DeviceFn {
-    pub unsafe fn release_swapchain_images_khr(
+    pub unsafe fn release_swapchain_images_ext(
         &self,
         device: Device,
         release_info: &ReleaseSwapchainImagesInfoKHR,

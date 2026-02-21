@@ -17,24 +17,28 @@ pub struct DeviceFn {
     cmd_set_stencil_op: PFN_vkCmdSetStencilOp,
 }
 impl DeviceFn {
-    pub unsafe fn cmd_set_cull_mode(
+    pub unsafe fn cmd_set_cull_mode_ext(
         &self,
         command_buffer: CommandBuffer,
         cull_mode: CullModeFlags,
     ) {
         unsafe { (self.cmd_set_cull_mode)(command_buffer, cull_mode) }
     }
-    pub unsafe fn cmd_set_front_face(&self, command_buffer: CommandBuffer, front_face: FrontFace) {
+    pub unsafe fn cmd_set_front_face_ext(
+        &self,
+        command_buffer: CommandBuffer,
+        front_face: FrontFace,
+    ) {
         unsafe { (self.cmd_set_front_face)(command_buffer, front_face) }
     }
-    pub unsafe fn cmd_set_primitive_topology(
+    pub unsafe fn cmd_set_primitive_topology_ext(
         &self,
         command_buffer: CommandBuffer,
         primitive_topology: PrimitiveTopology,
     ) {
         unsafe { (self.cmd_set_primitive_topology)(command_buffer, primitive_topology) }
     }
-    pub unsafe fn cmd_set_viewport_with_count(
+    pub unsafe fn cmd_set_viewport_with_count_ext(
         &self,
         command_buffer: CommandBuffer,
         viewports: &[Viewport],
@@ -47,7 +51,7 @@ impl DeviceFn {
             )
         }
     }
-    pub unsafe fn cmd_set_scissor_with_count(
+    pub unsafe fn cmd_set_scissor_with_count_ext(
         &self,
         command_buffer: CommandBuffer,
         scissors: &[Rect2D],
@@ -60,7 +64,7 @@ impl DeviceFn {
             )
         }
     }
-    pub unsafe fn cmd_bind_vertex_buffers2(
+    pub unsafe fn cmd_bind_vertex_buffers2_ext(
         &self,
         command_buffer: CommandBuffer,
         first_binding: u32,
@@ -81,42 +85,42 @@ impl DeviceFn {
             )
         }
     }
-    pub unsafe fn cmd_set_depth_test_enable(
+    pub unsafe fn cmd_set_depth_test_enable_ext(
         &self,
         command_buffer: CommandBuffer,
         depth_test_enable: Bool32,
     ) {
         unsafe { (self.cmd_set_depth_test_enable)(command_buffer, depth_test_enable) }
     }
-    pub unsafe fn cmd_set_depth_write_enable(
+    pub unsafe fn cmd_set_depth_write_enable_ext(
         &self,
         command_buffer: CommandBuffer,
         depth_write_enable: Bool32,
     ) {
         unsafe { (self.cmd_set_depth_write_enable)(command_buffer, depth_write_enable) }
     }
-    pub unsafe fn cmd_set_depth_compare_op(
+    pub unsafe fn cmd_set_depth_compare_op_ext(
         &self,
         command_buffer: CommandBuffer,
         depth_compare_op: CompareOp,
     ) {
         unsafe { (self.cmd_set_depth_compare_op)(command_buffer, depth_compare_op) }
     }
-    pub unsafe fn cmd_set_depth_bounds_test_enable(
+    pub unsafe fn cmd_set_depth_bounds_test_enable_ext(
         &self,
         command_buffer: CommandBuffer,
         depth_bounds_test_enable: Bool32,
     ) {
         unsafe { (self.cmd_set_depth_bounds_test_enable)(command_buffer, depth_bounds_test_enable) }
     }
-    pub unsafe fn cmd_set_stencil_test_enable(
+    pub unsafe fn cmd_set_stencil_test_enable_ext(
         &self,
         command_buffer: CommandBuffer,
         stencil_test_enable: Bool32,
     ) {
         unsafe { (self.cmd_set_stencil_test_enable)(command_buffer, stencil_test_enable) }
     }
-    pub unsafe fn cmd_set_stencil_op(
+    pub unsafe fn cmd_set_stencil_op_ext(
         &self,
         command_buffer: CommandBuffer,
         face_mask: StencilFaceFlags,

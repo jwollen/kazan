@@ -10,28 +10,28 @@ pub struct DeviceFn {
     get_image_subresource_layout2: PFN_vkGetImageSubresourceLayout2,
 }
 impl DeviceFn {
-    pub unsafe fn copy_memory_to_image(
+    pub unsafe fn copy_memory_to_image_ext(
         &self,
         device: Device,
         copy_memory_to_image_info: &CopyMemoryToImageInfo,
     ) -> Result {
         unsafe { (self.copy_memory_to_image)(device, copy_memory_to_image_info) }
     }
-    pub unsafe fn copy_image_to_memory(
+    pub unsafe fn copy_image_to_memory_ext(
         &self,
         device: Device,
         copy_image_to_memory_info: &CopyImageToMemoryInfo,
     ) -> Result {
         unsafe { (self.copy_image_to_memory)(device, copy_image_to_memory_info) }
     }
-    pub unsafe fn copy_image_to_image(
+    pub unsafe fn copy_image_to_image_ext(
         &self,
         device: Device,
         copy_image_to_image_info: &CopyImageToImageInfo,
     ) -> Result {
         unsafe { (self.copy_image_to_image)(device, copy_image_to_image_info) }
     }
-    pub unsafe fn transition_image_layout(
+    pub unsafe fn transition_image_layout_ext(
         &self,
         device: Device,
         transitions: &[HostImageLayoutTransitionInfo],
@@ -44,7 +44,7 @@ impl DeviceFn {
             )
         }
     }
-    pub unsafe fn get_image_subresource_layout2(
+    pub unsafe fn get_image_subresource_layout2_ext(
         &self,
         device: Device,
         image: Image,

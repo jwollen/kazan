@@ -6,7 +6,7 @@ pub struct DeviceFn {
     get_buffer_device_address: PFN_vkGetBufferDeviceAddress,
 }
 impl DeviceFn {
-    pub unsafe fn get_buffer_device_address(
+    pub unsafe fn get_buffer_device_address_ext(
         &self,
         device: Device,
         info: &BufferDeviceAddressInfo,

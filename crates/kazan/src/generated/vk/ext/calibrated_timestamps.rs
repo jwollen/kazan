@@ -7,7 +7,7 @@ pub struct InstanceFn {
         PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsKHR,
 }
 impl InstanceFn {
-    pub unsafe fn get_physical_device_calibrateable_time_domains_khr(
+    pub unsafe fn get_physical_device_calibrateable_time_domains_ext(
         &self,
         physical_device: PhysicalDevice,
         time_domains: impl ExtendUninit<TimeDomainKHR>,
@@ -27,7 +27,7 @@ pub struct DeviceFn {
     get_calibrated_timestamps_khr: PFN_vkGetCalibratedTimestampsKHR,
 }
 impl DeviceFn {
-    pub unsafe fn get_calibrated_timestamps_khr(
+    pub unsafe fn get_calibrated_timestamps_ext(
         &self,
         device: Device,
         timestamp_infos: &[CalibratedTimestampInfoKHR],

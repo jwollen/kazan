@@ -6,7 +6,7 @@ pub struct DeviceFn {
     trim_command_pool: PFN_vkTrimCommandPool,
 }
 impl DeviceFn {
-    pub unsafe fn trim_command_pool(
+    pub unsafe fn trim_command_pool_khr(
         &self,
         device: Device,
         command_pool: CommandPool,

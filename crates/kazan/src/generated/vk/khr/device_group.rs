@@ -33,7 +33,7 @@ pub struct DeviceFn {
     acquire_next_image2_khr: PFN_vkAcquireNextImage2KHR,
 }
 impl DeviceFn {
-    pub unsafe fn get_device_group_peer_memory_features(
+    pub unsafe fn get_device_group_peer_memory_features_khr(
         &self,
         device: Device,
         heap_index: u32,
@@ -51,10 +51,10 @@ impl DeviceFn {
             )
         }
     }
-    pub unsafe fn cmd_set_device_mask(&self, command_buffer: CommandBuffer, device_mask: u32) {
+    pub unsafe fn cmd_set_device_mask_khr(&self, command_buffer: CommandBuffer, device_mask: u32) {
         unsafe { (self.cmd_set_device_mask)(command_buffer, device_mask) }
     }
-    pub unsafe fn cmd_dispatch_base(
+    pub unsafe fn cmd_dispatch_base_khr(
         &self,
         command_buffer: CommandBuffer,
         base_group_x: u32,

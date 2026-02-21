@@ -7,7 +7,7 @@ pub struct DeviceFn {
     unmap_memory2: PFN_vkUnmapMemory2,
 }
 impl DeviceFn {
-    pub unsafe fn map_memory2(
+    pub unsafe fn map_memory2_khr(
         &self,
         device: Device,
         memory_map_info: &MemoryMapInfo,
@@ -15,7 +15,7 @@ impl DeviceFn {
     ) -> Result {
         unsafe { (self.map_memory2)(device, memory_map_info, data) }
     }
-    pub unsafe fn unmap_memory2(
+    pub unsafe fn unmap_memory2_khr(
         &self,
         device: Device,
         memory_unmap_info: &MemoryUnmapInfo,

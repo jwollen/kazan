@@ -13,21 +13,21 @@ pub struct InstanceFn {
         PFN_vkGetPhysicalDeviceSparseImageFormatProperties2,
 }
 impl InstanceFn {
-    pub unsafe fn get_physical_device_features2(
+    pub unsafe fn get_physical_device_features2_khr(
         &self,
         physical_device: PhysicalDevice,
         features: &mut PhysicalDeviceFeatures2,
     ) {
         unsafe { (self.get_physical_device_features2)(physical_device, features) }
     }
-    pub unsafe fn get_physical_device_properties2(
+    pub unsafe fn get_physical_device_properties2_khr(
         &self,
         physical_device: PhysicalDevice,
         properties: &mut PhysicalDeviceProperties2,
     ) {
         unsafe { (self.get_physical_device_properties2)(physical_device, properties) }
     }
-    pub unsafe fn get_physical_device_format_properties2(
+    pub unsafe fn get_physical_device_format_properties2_khr(
         &self,
         physical_device: PhysicalDevice,
         format: Format,
@@ -41,7 +41,7 @@ impl InstanceFn {
             )
         }
     }
-    pub unsafe fn get_physical_device_image_format_properties2(
+    pub unsafe fn get_physical_device_image_format_properties2_khr(
         &self,
         physical_device: PhysicalDevice,
         image_format_info: &PhysicalDeviceImageFormatInfo2,
@@ -55,7 +55,7 @@ impl InstanceFn {
             )
         }
     }
-    pub unsafe fn get_physical_device_queue_family_properties2(
+    pub unsafe fn get_physical_device_queue_family_properties2_khr(
         &self,
         physical_device: PhysicalDevice,
         queue_family_properties: impl ExtendUninit<QueueFamilyProperties2>,
@@ -73,14 +73,14 @@ impl InstanceFn {
             )
         }
     }
-    pub unsafe fn get_physical_device_memory_properties2(
+    pub unsafe fn get_physical_device_memory_properties2_khr(
         &self,
         physical_device: PhysicalDevice,
         memory_properties: &mut PhysicalDeviceMemoryProperties2,
     ) {
         unsafe { (self.get_physical_device_memory_properties2)(physical_device, memory_properties) }
     }
-    pub unsafe fn get_physical_device_sparse_image_format_properties2(
+    pub unsafe fn get_physical_device_sparse_image_format_properties2_khr(
         &self,
         physical_device: PhysicalDevice,
         format_info: &PhysicalDeviceSparseImageFormatInfo2,

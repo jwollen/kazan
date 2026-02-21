@@ -8,21 +8,21 @@ pub struct DeviceFn {
     get_device_memory_opaque_capture_address: PFN_vkGetDeviceMemoryOpaqueCaptureAddress,
 }
 impl DeviceFn {
-    pub unsafe fn get_buffer_device_address(
+    pub unsafe fn get_buffer_device_address_khr(
         &self,
         device: Device,
         info: &BufferDeviceAddressInfo,
     ) -> DeviceAddress {
         unsafe { (self.get_buffer_device_address)(device, info) }
     }
-    pub unsafe fn get_buffer_opaque_capture_address(
+    pub unsafe fn get_buffer_opaque_capture_address_khr(
         &self,
         device: Device,
         info: &BufferDeviceAddressInfo,
     ) -> u64 {
         unsafe { (self.get_buffer_opaque_capture_address)(device, info) }
     }
-    pub unsafe fn get_device_memory_opaque_capture_address(
+    pub unsafe fn get_device_memory_opaque_capture_address_khr(
         &self,
         device: Device,
         info: &DeviceMemoryOpaqueCaptureAddressInfo,

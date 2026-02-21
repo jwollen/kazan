@@ -8,7 +8,7 @@ pub struct DeviceFn {
     get_image_sparse_memory_requirements2: PFN_vkGetImageSparseMemoryRequirements2,
 }
 impl DeviceFn {
-    pub unsafe fn get_image_memory_requirements2(
+    pub unsafe fn get_image_memory_requirements2_khr(
         &self,
         device: Device,
         info: &ImageMemoryRequirementsInfo2,
@@ -16,7 +16,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.get_image_memory_requirements2)(device, info, memory_requirements) }
     }
-    pub unsafe fn get_buffer_memory_requirements2(
+    pub unsafe fn get_buffer_memory_requirements2_khr(
         &self,
         device: Device,
         info: &BufferMemoryRequirementsInfo2,
@@ -24,7 +24,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.get_buffer_memory_requirements2)(device, info, memory_requirements) }
     }
-    pub unsafe fn get_image_sparse_memory_requirements2(
+    pub unsafe fn get_image_sparse_memory_requirements2_khr(
         &self,
         device: Device,
         info: &ImageSparseMemoryRequirementsInfo2,

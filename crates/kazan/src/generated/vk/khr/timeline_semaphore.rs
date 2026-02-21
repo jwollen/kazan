@@ -8,7 +8,7 @@ pub struct DeviceFn {
     signal_semaphore: PFN_vkSignalSemaphore,
 }
 impl DeviceFn {
-    pub unsafe fn get_semaphore_counter_value(
+    pub unsafe fn get_semaphore_counter_value_khr(
         &self,
         device: Device,
         semaphore: Semaphore,
@@ -16,7 +16,7 @@ impl DeviceFn {
     ) -> Result {
         unsafe { (self.get_semaphore_counter_value)(device, semaphore, value) }
     }
-    pub unsafe fn wait_semaphores(
+    pub unsafe fn wait_semaphores_khr(
         &self,
         device: Device,
         wait_info: &SemaphoreWaitInfo,
@@ -24,7 +24,7 @@ impl DeviceFn {
     ) -> Result {
         unsafe { (self.wait_semaphores)(device, wait_info, timeout) }
     }
-    pub unsafe fn signal_semaphore(
+    pub unsafe fn signal_semaphore_khr(
         &self,
         device: Device,
         signal_info: &SemaphoreSignalInfo,

@@ -7,14 +7,14 @@ pub struct DeviceFn {
     cmd_set_rendering_input_attachment_indices: PFN_vkCmdSetRenderingInputAttachmentIndices,
 }
 impl DeviceFn {
-    pub unsafe fn cmd_set_rendering_attachment_locations(
+    pub unsafe fn cmd_set_rendering_attachment_locations_khr(
         &self,
         command_buffer: CommandBuffer,
         location_info: &RenderingAttachmentLocationInfo,
     ) {
         unsafe { (self.cmd_set_rendering_attachment_locations)(command_buffer, location_info) }
     }
-    pub unsafe fn cmd_set_rendering_input_attachment_indices(
+    pub unsafe fn cmd_set_rendering_input_attachment_indices_khr(
         &self,
         command_buffer: CommandBuffer,
         input_attachment_index_info: &RenderingInputAttachmentIndexInfo,
