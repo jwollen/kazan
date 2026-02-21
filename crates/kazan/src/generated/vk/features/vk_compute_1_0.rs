@@ -32,9 +32,9 @@ pub struct DeviceFn {
     update_descriptor_sets: PFN_vkUpdateDescriptorSets,
     cmd_bind_pipeline: PFN_vkCmdBindPipeline,
     cmd_bind_descriptor_sets: PFN_vkCmdBindDescriptorSets,
+    cmd_clear_color_image: PFN_vkCmdClearColorImage,
     cmd_dispatch: PFN_vkCmdDispatch,
     cmd_dispatch_indirect: PFN_vkCmdDispatchIndirect,
-    cmd_clear_color_image: PFN_vkCmdClearColorImage,
     cmd_set_event: PFN_vkCmdSetEvent,
     cmd_reset_event: PFN_vkCmdResetEvent,
     cmd_wait_events: PFN_vkCmdWaitEvents,
@@ -359,23 +359,6 @@ impl DeviceFn {
             )
         }
     }
-    pub unsafe fn cmd_dispatch(
-        &self,
-        command_buffer: CommandBuffer,
-        group_count_x: u32,
-        group_count_y: u32,
-        group_count_z: u32,
-    ) {
-        unsafe { (self.cmd_dispatch)(command_buffer, group_count_x, group_count_y, group_count_z) }
-    }
-    pub unsafe fn cmd_dispatch_indirect(
-        &self,
-        command_buffer: CommandBuffer,
-        buffer: Buffer,
-        offset: DeviceSize,
-    ) {
-        unsafe { (self.cmd_dispatch_indirect)(command_buffer, buffer, offset) }
-    }
     pub unsafe fn cmd_clear_color_image(
         &self,
         command_buffer: CommandBuffer,
@@ -394,6 +377,23 @@ impl DeviceFn {
                 ranges.as_ptr() as _,
             )
         }
+    }
+    pub unsafe fn cmd_dispatch(
+        &self,
+        command_buffer: CommandBuffer,
+        group_count_x: u32,
+        group_count_y: u32,
+        group_count_z: u32,
+    ) {
+        unsafe { (self.cmd_dispatch)(command_buffer, group_count_x, group_count_y, group_count_z) }
+    }
+    pub unsafe fn cmd_dispatch_indirect(
+        &self,
+        command_buffer: CommandBuffer,
+        buffer: Buffer,
+        offset: DeviceSize,
+    ) {
+        unsafe { (self.cmd_dispatch_indirect)(command_buffer, buffer, offset) }
     }
     pub unsafe fn cmd_set_event(
         &self,

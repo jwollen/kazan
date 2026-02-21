@@ -3,7 +3,6 @@ use crate::*;
 use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
-    cmd_set_tessellation_domain_origin_ext: PFN_vkCmdSetTessellationDomainOriginEXT,
     cmd_set_depth_clamp_enable_ext: PFN_vkCmdSetDepthClampEnableEXT,
     cmd_set_polygon_mode_ext: PFN_vkCmdSetPolygonModeEXT,
     cmd_set_rasterization_samples_ext: PFN_vkCmdSetRasterizationSamplesEXT,
@@ -14,6 +13,7 @@ pub struct DeviceFn {
     cmd_set_color_blend_enable_ext: PFN_vkCmdSetColorBlendEnableEXT,
     cmd_set_color_blend_equation_ext: PFN_vkCmdSetColorBlendEquationEXT,
     cmd_set_color_write_mask_ext: PFN_vkCmdSetColorWriteMaskEXT,
+    cmd_set_tessellation_domain_origin_ext: PFN_vkCmdSetTessellationDomainOriginEXT,
     cmd_set_rasterization_stream_ext: PFN_vkCmdSetRasterizationStreamEXT,
     cmd_set_conservative_rasterization_mode_ext: PFN_vkCmdSetConservativeRasterizationModeEXT,
     cmd_set_extra_primitive_overestimation_size_ext:
@@ -33,17 +33,10 @@ pub struct DeviceFn {
     cmd_set_coverage_modulation_table_enable_nv: PFN_vkCmdSetCoverageModulationTableEnableNV,
     cmd_set_coverage_modulation_table_nv: PFN_vkCmdSetCoverageModulationTableNV,
     cmd_set_shading_rate_image_enable_nv: PFN_vkCmdSetShadingRateImageEnableNV,
-    cmd_set_coverage_reduction_mode_nv: PFN_vkCmdSetCoverageReductionModeNV,
     cmd_set_representative_fragment_test_enable_nv: PFN_vkCmdSetRepresentativeFragmentTestEnableNV,
+    cmd_set_coverage_reduction_mode_nv: PFN_vkCmdSetCoverageReductionModeNV,
 }
 impl DeviceFn {
-    pub unsafe fn cmd_set_tessellation_domain_origin_ext(
-        &self,
-        command_buffer: CommandBuffer,
-        domain_origin: TessellationDomainOrigin,
-    ) {
-        unsafe { (self.cmd_set_tessellation_domain_origin_ext)(command_buffer, domain_origin) }
-    }
     pub unsafe fn cmd_set_depth_clamp_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -140,6 +133,13 @@ impl DeviceFn {
                 color_write_masks.as_ptr() as _,
             )
         }
+    }
+    pub unsafe fn cmd_set_tessellation_domain_origin_ext(
+        &self,
+        command_buffer: CommandBuffer,
+        domain_origin: TessellationDomainOrigin,
+    ) {
+        unsafe { (self.cmd_set_tessellation_domain_origin_ext)(command_buffer, domain_origin) }
     }
     pub unsafe fn cmd_set_rasterization_stream_ext(
         &self,
@@ -320,15 +320,6 @@ impl DeviceFn {
             (self.cmd_set_shading_rate_image_enable_nv)(command_buffer, shading_rate_image_enable)
         }
     }
-    pub unsafe fn cmd_set_coverage_reduction_mode_nv(
-        &self,
-        command_buffer: CommandBuffer,
-        coverage_reduction_mode: CoverageReductionModeNV,
-    ) {
-        unsafe {
-            (self.cmd_set_coverage_reduction_mode_nv)(command_buffer, coverage_reduction_mode)
-        }
-    }
     pub unsafe fn cmd_set_representative_fragment_test_enable_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -339,6 +330,15 @@ impl DeviceFn {
                 command_buffer,
                 representative_fragment_test_enable,
             )
+        }
+    }
+    pub unsafe fn cmd_set_coverage_reduction_mode_nv(
+        &self,
+        command_buffer: CommandBuffer,
+        coverage_reduction_mode: CoverageReductionModeNV,
+    ) {
+        unsafe {
+            (self.cmd_set_coverage_reduction_mode_nv)(command_buffer, coverage_reduction_mode)
         }
     }
 }

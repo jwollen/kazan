@@ -23,58 +23,22 @@ impl InstanceFn {
     }
 }
 pub struct DeviceFn {
-    get_device_buffer_memory_requirements: PFN_vkGetDeviceBufferMemoryRequirements,
-    get_device_image_memory_requirements: PFN_vkGetDeviceImageMemoryRequirements,
-    get_device_image_sparse_memory_requirements: PFN_vkGetDeviceImageSparseMemoryRequirements,
     create_private_data_slot: PFN_vkCreatePrivateDataSlot,
     destroy_private_data_slot: PFN_vkDestroyPrivateDataSlot,
     set_private_data: PFN_vkSetPrivateData,
     get_private_data: PFN_vkGetPrivateData,
+    cmd_pipeline_barrier2: PFN_vkCmdPipelineBarrier2,
+    cmd_write_timestamp2: PFN_vkCmdWriteTimestamp2,
+    queue_submit2: PFN_vkQueueSubmit2,
     cmd_copy_buffer2: PFN_vkCmdCopyBuffer2,
     cmd_copy_image2: PFN_vkCmdCopyImage2,
     cmd_copy_buffer_to_image2: PFN_vkCmdCopyBufferToImage2,
     cmd_copy_image_to_buffer2: PFN_vkCmdCopyImageToBuffer2,
-    cmd_pipeline_barrier2: PFN_vkCmdPipelineBarrier2,
-    queue_submit2: PFN_vkQueueSubmit2,
-    cmd_write_timestamp2: PFN_vkCmdWriteTimestamp2,
+    get_device_buffer_memory_requirements: PFN_vkGetDeviceBufferMemoryRequirements,
+    get_device_image_memory_requirements: PFN_vkGetDeviceImageMemoryRequirements,
+    get_device_image_sparse_memory_requirements: PFN_vkGetDeviceImageSparseMemoryRequirements,
 }
 impl DeviceFn {
-    pub unsafe fn get_device_buffer_memory_requirements(
-        &self,
-        device: Device,
-        info: &DeviceBufferMemoryRequirements,
-        memory_requirements: &mut MemoryRequirements2,
-    ) {
-        unsafe { (self.get_device_buffer_memory_requirements)(device, info, memory_requirements) }
-    }
-    pub unsafe fn get_device_image_memory_requirements(
-        &self,
-        device: Device,
-        info: &DeviceImageMemoryRequirements,
-        memory_requirements: &mut MemoryRequirements2,
-    ) {
-        unsafe { (self.get_device_image_memory_requirements)(device, info, memory_requirements) }
-    }
-    pub unsafe fn get_device_image_sparse_memory_requirements(
-        &self,
-        device: Device,
-        info: &DeviceImageMemoryRequirements,
-        sparse_memory_requirements: impl ExtendUninit<SparseImageMemoryRequirements2>,
-    ) {
-        unsafe {
-            extend_uninit(
-                sparse_memory_requirements,
-                |sparse_memory_requirement_count, sparse_memory_requirements| {
-                    (self.get_device_image_sparse_memory_requirements)(
-                        device,
-                        info,
-                        sparse_memory_requirement_count,
-                        sparse_memory_requirements as _,
-                    )
-                },
-            )
-        }
-    }
     pub unsafe fn create_private_data_slot(
         &self,
         device: Device,
@@ -125,6 +89,37 @@ impl DeviceFn {
             (self.get_private_data)(device, object_type, object_handle, private_data_slot, data)
         }
     }
+    pub unsafe fn cmd_pipeline_barrier2(
+        &self,
+        command_buffer: CommandBuffer,
+        dependency_info: &DependencyInfo,
+    ) {
+        unsafe { (self.cmd_pipeline_barrier2)(command_buffer, dependency_info) }
+    }
+    pub unsafe fn cmd_write_timestamp2(
+        &self,
+        command_buffer: CommandBuffer,
+        stage: PipelineStageFlags2,
+        query_pool: QueryPool,
+        query: u32,
+    ) {
+        unsafe { (self.cmd_write_timestamp2)(command_buffer, stage, query_pool, query) }
+    }
+    pub unsafe fn queue_submit2(
+        &self,
+        queue: Queue,
+        submits: &[SubmitInfo2],
+        fence: Fence,
+    ) -> Result {
+        unsafe {
+            (self.queue_submit2)(
+                queue,
+                submits.len().try_into().unwrap(),
+                submits.as_ptr() as _,
+                fence,
+            )
+        }
+    }
     pub unsafe fn cmd_copy_buffer2(
         &self,
         command_buffer: CommandBuffer,
@@ -153,35 +148,40 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_copy_image_to_buffer2)(command_buffer, copy_image_to_buffer_info) }
     }
-    pub unsafe fn cmd_pipeline_barrier2(
+    pub unsafe fn get_device_buffer_memory_requirements(
         &self,
-        command_buffer: CommandBuffer,
-        dependency_info: &DependencyInfo,
+        device: Device,
+        info: &DeviceBufferMemoryRequirements,
+        memory_requirements: &mut MemoryRequirements2,
     ) {
-        unsafe { (self.cmd_pipeline_barrier2)(command_buffer, dependency_info) }
+        unsafe { (self.get_device_buffer_memory_requirements)(device, info, memory_requirements) }
     }
-    pub unsafe fn queue_submit2(
+    pub unsafe fn get_device_image_memory_requirements(
         &self,
-        queue: Queue,
-        submits: &[SubmitInfo2],
-        fence: Fence,
-    ) -> Result {
+        device: Device,
+        info: &DeviceImageMemoryRequirements,
+        memory_requirements: &mut MemoryRequirements2,
+    ) {
+        unsafe { (self.get_device_image_memory_requirements)(device, info, memory_requirements) }
+    }
+    pub unsafe fn get_device_image_sparse_memory_requirements(
+        &self,
+        device: Device,
+        info: &DeviceImageMemoryRequirements,
+        sparse_memory_requirements: impl ExtendUninit<SparseImageMemoryRequirements2>,
+    ) {
         unsafe {
-            (self.queue_submit2)(
-                queue,
-                submits.len().try_into().unwrap(),
-                submits.as_ptr() as _,
-                fence,
+            extend_uninit(
+                sparse_memory_requirements,
+                |sparse_memory_requirement_count, sparse_memory_requirements| {
+                    (self.get_device_image_sparse_memory_requirements)(
+                        device,
+                        info,
+                        sparse_memory_requirement_count,
+                        sparse_memory_requirements as _,
+                    )
+                },
             )
         }
-    }
-    pub unsafe fn cmd_write_timestamp2(
-        &self,
-        command_buffer: CommandBuffer,
-        stage: PipelineStageFlags2,
-        query_pool: QueryPool,
-        query: u32,
-    ) {
-        unsafe { (self.cmd_write_timestamp2)(command_buffer, stage, query_pool, query) }
     }
 }

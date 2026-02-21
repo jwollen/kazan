@@ -7,9 +7,9 @@ pub struct DeviceFn {
     create_descriptor_update_template: PFN_vkCreateDescriptorUpdateTemplate,
     destroy_descriptor_update_template: PFN_vkDestroyDescriptorUpdateTemplate,
     update_descriptor_set_with_template: PFN_vkUpdateDescriptorSetWithTemplate,
+    get_descriptor_set_layout_support: PFN_vkGetDescriptorSetLayoutSupport,
     create_sampler_ycbcr_conversion: PFN_vkCreateSamplerYcbcrConversion,
     destroy_sampler_ycbcr_conversion: PFN_vkDestroySamplerYcbcrConversion,
-    get_descriptor_set_layout_support: PFN_vkGetDescriptorSetLayoutSupport,
 }
 impl DeviceFn {
     pub unsafe fn cmd_dispatch_base(
@@ -80,6 +80,14 @@ impl DeviceFn {
             )
         }
     }
+    pub unsafe fn get_descriptor_set_layout_support(
+        &self,
+        device: Device,
+        create_info: &DescriptorSetLayoutCreateInfo,
+        support: &mut DescriptorSetLayoutSupport,
+    ) {
+        unsafe { (self.get_descriptor_set_layout_support)(device, create_info, support) }
+    }
     pub unsafe fn create_sampler_ycbcr_conversion(
         &self,
         device: Device,
@@ -109,13 +117,5 @@ impl DeviceFn {
                 allocator.to_raw_ptr(),
             )
         }
-    }
-    pub unsafe fn get_descriptor_set_layout_support(
-        &self,
-        device: Device,
-        create_info: &DescriptorSetLayoutCreateInfo,
-        support: &mut DescriptorSetLayoutSupport,
-    ) {
-        unsafe { (self.get_descriptor_set_layout_support)(device, create_info, support) }
     }
 }

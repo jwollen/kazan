@@ -46,14 +46,14 @@ impl InstanceFn {
 pub struct DeviceFn {
     create_video_session_khr: PFN_vkCreateVideoSessionKHR,
     destroy_video_session_khr: PFN_vkDestroyVideoSessionKHR,
+    get_video_session_memory_requirements_khr: PFN_vkGetVideoSessionMemoryRequirementsKHR,
+    bind_video_session_memory_khr: PFN_vkBindVideoSessionMemoryKHR,
     create_video_session_parameters_khr: PFN_vkCreateVideoSessionParametersKHR,
     update_video_session_parameters_khr: PFN_vkUpdateVideoSessionParametersKHR,
     destroy_video_session_parameters_khr: PFN_vkDestroyVideoSessionParametersKHR,
-    get_video_session_memory_requirements_khr: PFN_vkGetVideoSessionMemoryRequirementsKHR,
-    bind_video_session_memory_khr: PFN_vkBindVideoSessionMemoryKHR,
     cmd_begin_video_coding_khr: PFN_vkCmdBeginVideoCodingKHR,
-    cmd_control_video_coding_khr: PFN_vkCmdControlVideoCodingKHR,
     cmd_end_video_coding_khr: PFN_vkCmdEndVideoCodingKHR,
+    cmd_control_video_coding_khr: PFN_vkCmdControlVideoCodingKHR,
 }
 impl DeviceFn {
     pub unsafe fn create_video_session_khr(
@@ -79,6 +79,41 @@ impl DeviceFn {
         allocator: Option<&AllocationCallbacks>,
     ) {
         unsafe { (self.destroy_video_session_khr)(device, video_session, allocator.to_raw_ptr()) }
+    }
+    pub unsafe fn get_video_session_memory_requirements_khr(
+        &self,
+        device: Device,
+        video_session: VideoSessionKHR,
+        memory_requirements: impl ExtendUninit<VideoSessionMemoryRequirementsKHR>,
+    ) -> Result {
+        unsafe {
+            try_extend_uninit(
+                memory_requirements,
+                |memory_requirements_count, memory_requirements| {
+                    (self.get_video_session_memory_requirements_khr)(
+                        device,
+                        video_session,
+                        memory_requirements_count,
+                        memory_requirements as _,
+                    )
+                },
+            )
+        }
+    }
+    pub unsafe fn bind_video_session_memory_khr(
+        &self,
+        device: Device,
+        video_session: VideoSessionKHR,
+        bind_session_memory_infos: &[BindVideoSessionMemoryInfoKHR],
+    ) -> Result {
+        unsafe {
+            (self.bind_video_session_memory_khr)(
+                device,
+                video_session,
+                bind_session_memory_infos.len().try_into().unwrap(),
+                bind_session_memory_infos.as_ptr() as _,
+            )
+        }
     }
     pub unsafe fn create_video_session_parameters_khr(
         &self,
@@ -124,41 +159,6 @@ impl DeviceFn {
             )
         }
     }
-    pub unsafe fn get_video_session_memory_requirements_khr(
-        &self,
-        device: Device,
-        video_session: VideoSessionKHR,
-        memory_requirements: impl ExtendUninit<VideoSessionMemoryRequirementsKHR>,
-    ) -> Result {
-        unsafe {
-            try_extend_uninit(
-                memory_requirements,
-                |memory_requirements_count, memory_requirements| {
-                    (self.get_video_session_memory_requirements_khr)(
-                        device,
-                        video_session,
-                        memory_requirements_count,
-                        memory_requirements as _,
-                    )
-                },
-            )
-        }
-    }
-    pub unsafe fn bind_video_session_memory_khr(
-        &self,
-        device: Device,
-        video_session: VideoSessionKHR,
-        bind_session_memory_infos: &[BindVideoSessionMemoryInfoKHR],
-    ) -> Result {
-        unsafe {
-            (self.bind_video_session_memory_khr)(
-                device,
-                video_session,
-                bind_session_memory_infos.len().try_into().unwrap(),
-                bind_session_memory_infos.as_ptr() as _,
-            )
-        }
-    }
     pub unsafe fn cmd_begin_video_coding_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -166,18 +166,18 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_begin_video_coding_khr)(command_buffer, begin_info) }
     }
-    pub unsafe fn cmd_control_video_coding_khr(
-        &self,
-        command_buffer: CommandBuffer,
-        coding_control_info: &VideoCodingControlInfoKHR,
-    ) {
-        unsafe { (self.cmd_control_video_coding_khr)(command_buffer, coding_control_info) }
-    }
     pub unsafe fn cmd_end_video_coding_khr(
         &self,
         command_buffer: CommandBuffer,
         end_coding_info: &VideoEndCodingInfoKHR,
     ) {
         unsafe { (self.cmd_end_video_coding_khr)(command_buffer, end_coding_info) }
+    }
+    pub unsafe fn cmd_control_video_coding_khr(
+        &self,
+        command_buffer: CommandBuffer,
+        coding_control_info: &VideoCodingControlInfoKHR,
+    ) {
+        unsafe { (self.cmd_control_video_coding_khr)(command_buffer, coding_control_info) }
     }
 }

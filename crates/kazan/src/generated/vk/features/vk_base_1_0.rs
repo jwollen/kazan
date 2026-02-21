@@ -4,8 +4,8 @@ use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
 pub struct EntryFn {
     create_instance: PFN_vkCreateInstance,
-    enumerate_instance_layer_properties: PFN_vkEnumerateInstanceLayerProperties,
     enumerate_instance_extension_properties: PFN_vkEnumerateInstanceExtensionProperties,
+    enumerate_instance_layer_properties: PFN_vkEnumerateInstanceLayerProperties,
 }
 impl EntryFn {
     pub unsafe fn create_instance(
@@ -15,16 +15,6 @@ impl EntryFn {
         instance: &mut Instance,
     ) -> Result {
         unsafe { (self.create_instance)(create_info, allocator.to_raw_ptr(), instance) }
-    }
-    pub unsafe fn enumerate_instance_layer_properties(
-        &self,
-        properties: impl ExtendUninit<LayerProperties>,
-    ) -> Result {
-        unsafe {
-            try_extend_uninit(properties, |property_count, properties| {
-                (self.enumerate_instance_layer_properties)(property_count, properties as _)
-            })
-        }
     }
     pub unsafe fn enumerate_instance_extension_properties(
         &self,
@@ -41,20 +31,30 @@ impl EntryFn {
             })
         }
     }
+    pub unsafe fn enumerate_instance_layer_properties(
+        &self,
+        properties: impl ExtendUninit<LayerProperties>,
+    ) -> Result {
+        unsafe {
+            try_extend_uninit(properties, |property_count, properties| {
+                (self.enumerate_instance_layer_properties)(property_count, properties as _)
+            })
+        }
+    }
 }
 pub struct InstanceFn {
     destroy_instance: PFN_vkDestroyInstance,
     enumerate_physical_devices: PFN_vkEnumeratePhysicalDevices,
-    get_instance_proc_addr: PFN_vkGetInstanceProcAddr,
-    get_physical_device_properties: PFN_vkGetPhysicalDeviceProperties,
-    get_physical_device_queue_family_properties: PFN_vkGetPhysicalDeviceQueueFamilyProperties,
-    get_physical_device_memory_properties: PFN_vkGetPhysicalDeviceMemoryProperties,
     get_physical_device_features: PFN_vkGetPhysicalDeviceFeatures,
     get_physical_device_format_properties: PFN_vkGetPhysicalDeviceFormatProperties,
     get_physical_device_image_format_properties: PFN_vkGetPhysicalDeviceImageFormatProperties,
+    get_physical_device_properties: PFN_vkGetPhysicalDeviceProperties,
+    get_physical_device_queue_family_properties: PFN_vkGetPhysicalDeviceQueueFamilyProperties,
+    get_physical_device_memory_properties: PFN_vkGetPhysicalDeviceMemoryProperties,
+    get_instance_proc_addr: PFN_vkGetInstanceProcAddr,
     create_device: PFN_vkCreateDevice,
-    enumerate_device_layer_properties: PFN_vkEnumerateDeviceLayerProperties,
     enumerate_device_extension_properties: PFN_vkEnumerateDeviceExtensionProperties,
+    enumerate_device_layer_properties: PFN_vkEnumerateDeviceLayerProperties,
     get_physical_device_sparse_image_format_properties:
         PFN_vkGetPhysicalDeviceSparseImageFormatProperties,
 }
@@ -83,45 +83,6 @@ impl InstanceFn {
                 },
             )
         }
-    }
-    pub unsafe fn get_instance_proc_addr(
-        &self,
-        instance: Instance,
-        name: &CStr,
-    ) -> PFN_vkVoidFunction {
-        unsafe { (self.get_instance_proc_addr)(instance, name.as_ptr() as _) }
-    }
-    pub unsafe fn get_physical_device_properties(
-        &self,
-        physical_device: PhysicalDevice,
-        properties: &mut PhysicalDeviceProperties,
-    ) {
-        unsafe { (self.get_physical_device_properties)(physical_device, properties) }
-    }
-    pub unsafe fn get_physical_device_queue_family_properties(
-        &self,
-        physical_device: PhysicalDevice,
-        queue_family_properties: impl ExtendUninit<QueueFamilyProperties>,
-    ) {
-        unsafe {
-            extend_uninit(
-                queue_family_properties,
-                |queue_family_property_count, queue_family_properties| {
-                    (self.get_physical_device_queue_family_properties)(
-                        physical_device,
-                        queue_family_property_count,
-                        queue_family_properties as _,
-                    )
-                },
-            )
-        }
-    }
-    pub unsafe fn get_physical_device_memory_properties(
-        &self,
-        physical_device: PhysicalDevice,
-        memory_properties: &mut PhysicalDeviceMemoryProperties,
-    ) {
-        unsafe { (self.get_physical_device_memory_properties)(physical_device, memory_properties) }
     }
     pub unsafe fn get_physical_device_features(
         &self,
@@ -162,6 +123,45 @@ impl InstanceFn {
             )
         }
     }
+    pub unsafe fn get_physical_device_properties(
+        &self,
+        physical_device: PhysicalDevice,
+        properties: &mut PhysicalDeviceProperties,
+    ) {
+        unsafe { (self.get_physical_device_properties)(physical_device, properties) }
+    }
+    pub unsafe fn get_physical_device_queue_family_properties(
+        &self,
+        physical_device: PhysicalDevice,
+        queue_family_properties: impl ExtendUninit<QueueFamilyProperties>,
+    ) {
+        unsafe {
+            extend_uninit(
+                queue_family_properties,
+                |queue_family_property_count, queue_family_properties| {
+                    (self.get_physical_device_queue_family_properties)(
+                        physical_device,
+                        queue_family_property_count,
+                        queue_family_properties as _,
+                    )
+                },
+            )
+        }
+    }
+    pub unsafe fn get_physical_device_memory_properties(
+        &self,
+        physical_device: PhysicalDevice,
+        memory_properties: &mut PhysicalDeviceMemoryProperties,
+    ) {
+        unsafe { (self.get_physical_device_memory_properties)(physical_device, memory_properties) }
+    }
+    pub unsafe fn get_instance_proc_addr(
+        &self,
+        instance: Instance,
+        name: &CStr,
+    ) -> PFN_vkVoidFunction {
+        unsafe { (self.get_instance_proc_addr)(instance, name.as_ptr() as _) }
+    }
     pub unsafe fn create_device(
         &self,
         physical_device: PhysicalDevice,
@@ -171,21 +171,6 @@ impl InstanceFn {
     ) -> Result {
         unsafe {
             (self.create_device)(physical_device, create_info, allocator.to_raw_ptr(), device)
-        }
-    }
-    pub unsafe fn enumerate_device_layer_properties(
-        &self,
-        physical_device: PhysicalDevice,
-        properties: impl ExtendUninit<LayerProperties>,
-    ) -> Result {
-        unsafe {
-            try_extend_uninit(properties, |property_count, properties| {
-                (self.enumerate_device_layer_properties)(
-                    physical_device,
-                    property_count,
-                    properties as _,
-                )
-            })
         }
     }
     pub unsafe fn enumerate_device_extension_properties(
@@ -199,6 +184,21 @@ impl InstanceFn {
                 (self.enumerate_device_extension_properties)(
                     physical_device,
                     layer_name.to_raw_ptr(),
+                    property_count,
+                    properties as _,
+                )
+            })
+        }
+    }
+    pub unsafe fn enumerate_device_layer_properties(
+        &self,
+        physical_device: PhysicalDevice,
+        properties: impl ExtendUninit<LayerProperties>,
+    ) -> Result {
+        unsafe {
+            try_extend_uninit(properties, |property_count, properties| {
+                (self.enumerate_device_layer_properties)(
+                    physical_device,
                     property_count,
                     properties as _,
                 )
@@ -245,10 +245,10 @@ pub struct DeviceFn {
     flush_mapped_memory_ranges: PFN_vkFlushMappedMemoryRanges,
     invalidate_mapped_memory_ranges: PFN_vkInvalidateMappedMemoryRanges,
     get_device_memory_commitment: PFN_vkGetDeviceMemoryCommitment,
-    get_buffer_memory_requirements: PFN_vkGetBufferMemoryRequirements,
     bind_buffer_memory: PFN_vkBindBufferMemory,
-    get_image_memory_requirements: PFN_vkGetImageMemoryRequirements,
     bind_image_memory: PFN_vkBindImageMemory,
+    get_buffer_memory_requirements: PFN_vkGetBufferMemoryRequirements,
+    get_image_memory_requirements: PFN_vkGetImageMemoryRequirements,
     get_image_sparse_memory_requirements: PFN_vkGetImageSparseMemoryRequirements,
     queue_bind_sparse: PFN_vkQueueBindSparse,
     create_fence: PFN_vkCreateFence,
@@ -392,14 +392,6 @@ impl DeviceFn {
     ) {
         unsafe { (self.get_device_memory_commitment)(device, memory, committed_memory_in_bytes) }
     }
-    pub unsafe fn get_buffer_memory_requirements(
-        &self,
-        device: Device,
-        buffer: Buffer,
-        memory_requirements: &mut MemoryRequirements,
-    ) {
-        unsafe { (self.get_buffer_memory_requirements)(device, buffer, memory_requirements) }
-    }
     pub unsafe fn bind_buffer_memory(
         &self,
         device: Device,
@@ -409,14 +401,6 @@ impl DeviceFn {
     ) -> Result {
         unsafe { (self.bind_buffer_memory)(device, buffer, memory, memory_offset) }
     }
-    pub unsafe fn get_image_memory_requirements(
-        &self,
-        device: Device,
-        image: Image,
-        memory_requirements: &mut MemoryRequirements,
-    ) {
-        unsafe { (self.get_image_memory_requirements)(device, image, memory_requirements) }
-    }
     pub unsafe fn bind_image_memory(
         &self,
         device: Device,
@@ -425,6 +409,22 @@ impl DeviceFn {
         memory_offset: DeviceSize,
     ) -> Result {
         unsafe { (self.bind_image_memory)(device, image, memory, memory_offset) }
+    }
+    pub unsafe fn get_buffer_memory_requirements(
+        &self,
+        device: Device,
+        buffer: Buffer,
+        memory_requirements: &mut MemoryRequirements,
+    ) {
+        unsafe { (self.get_buffer_memory_requirements)(device, buffer, memory_requirements) }
+    }
+    pub unsafe fn get_image_memory_requirements(
+        &self,
+        device: Device,
+        image: Image,
+        memory_requirements: &mut MemoryRequirements,
+    ) {
+        unsafe { (self.get_image_memory_requirements)(device, image, memory_requirements) }
     }
     pub unsafe fn get_image_sparse_memory_requirements(
         &self,

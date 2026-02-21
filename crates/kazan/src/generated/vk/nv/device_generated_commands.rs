@@ -3,14 +3,33 @@ use crate::*;
 use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
-    cmd_execute_generated_commands_nv: PFN_vkCmdExecuteGeneratedCommandsNV,
-    cmd_preprocess_generated_commands_nv: PFN_vkCmdPreprocessGeneratedCommandsNV,
-    cmd_bind_pipeline_shader_group_nv: PFN_vkCmdBindPipelineShaderGroupNV,
     get_generated_commands_memory_requirements_nv: PFN_vkGetGeneratedCommandsMemoryRequirementsNV,
+    cmd_preprocess_generated_commands_nv: PFN_vkCmdPreprocessGeneratedCommandsNV,
+    cmd_execute_generated_commands_nv: PFN_vkCmdExecuteGeneratedCommandsNV,
+    cmd_bind_pipeline_shader_group_nv: PFN_vkCmdBindPipelineShaderGroupNV,
     create_indirect_commands_layout_nv: PFN_vkCreateIndirectCommandsLayoutNV,
     destroy_indirect_commands_layout_nv: PFN_vkDestroyIndirectCommandsLayoutNV,
 }
 impl DeviceFn {
+    pub unsafe fn get_generated_commands_memory_requirements_nv(
+        &self,
+        device: Device,
+        info: &GeneratedCommandsMemoryRequirementsInfoNV,
+        memory_requirements: &mut MemoryRequirements2,
+    ) {
+        unsafe {
+            (self.get_generated_commands_memory_requirements_nv)(device, info, memory_requirements)
+        }
+    }
+    pub unsafe fn cmd_preprocess_generated_commands_nv(
+        &self,
+        command_buffer: CommandBuffer,
+        generated_commands_info: &GeneratedCommandsInfoNV,
+    ) {
+        unsafe {
+            (self.cmd_preprocess_generated_commands_nv)(command_buffer, generated_commands_info)
+        }
+    }
     pub unsafe fn cmd_execute_generated_commands_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -23,15 +42,6 @@ impl DeviceFn {
                 is_preprocessed,
                 generated_commands_info,
             )
-        }
-    }
-    pub unsafe fn cmd_preprocess_generated_commands_nv(
-        &self,
-        command_buffer: CommandBuffer,
-        generated_commands_info: &GeneratedCommandsInfoNV,
-    ) {
-        unsafe {
-            (self.cmd_preprocess_generated_commands_nv)(command_buffer, generated_commands_info)
         }
     }
     pub unsafe fn cmd_bind_pipeline_shader_group_nv(
@@ -48,16 +58,6 @@ impl DeviceFn {
                 pipeline,
                 group_index,
             )
-        }
-    }
-    pub unsafe fn get_generated_commands_memory_requirements_nv(
-        &self,
-        device: Device,
-        info: &GeneratedCommandsMemoryRequirementsInfoNV,
-        memory_requirements: &mut MemoryRequirements2,
-    ) {
-        unsafe {
-            (self.get_generated_commands_memory_requirements_nv)(device, info, memory_requirements)
         }
     }
     pub unsafe fn create_indirect_commands_layout_nv(

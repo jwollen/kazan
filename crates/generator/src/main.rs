@@ -35,6 +35,7 @@ impl<'a> FeatureOrExtension<'a> {
 
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
 enum CommandType {
+    Entry,
     Instance,
     Device,
 }
@@ -120,7 +121,7 @@ fn generate(xmls: &[&xml::Registry]) {
 
             let new_items = required_types
                 .map(|ty| ty.name)
-                .chain(required_commands.map(|cmd| cmd.name))
+                .chain(required_commands.clone().map(|cmd| cmd.name))
                 .chain(required_api_constants.clone().map(|constant| constant.name))
                 .filter(|name| visited_items.insert(*name))
                 .collect::<HashSet<_>>();
@@ -354,7 +355,7 @@ fn generate(xmls: &[&xml::Registry]) {
                     });
 
                     let name = normalize_ty_name(ty.name);
-                    
+
                     //let bitwidth = ty.bitwidth.unwrap_or(32);
                     writeln!(sys_file, "bitflags! {{").unwrap();
                     writeln!(sys_file, "    #[repr(transparent)]").unwrap();
@@ -470,7 +471,12 @@ fn generate(xmls: &[&xml::Registry]) {
                 }
             }
 
-            if commands.clone().next().is_some() {
+            struct CommandGroup<'a> {
+                require: &'a xml::Require,
+                commands: Vec<&'a xml::Command>,
+            }
+
+            if required_commands.clone().next().is_some() {
                 vendor_modules
                     .entry(vendor.to_string())
                     .or_insert_with(Vec::new)
@@ -486,38 +492,77 @@ fn generate(xmls: &[&xml::Registry]) {
                 writeln!(file, "use kazan_sys::{{*, vk::*}};").unwrap();
                 writeln!(file, "use crate::*;").unwrap();
 
-                let mut generate_commands = |cmd_type: Option<CommandType>, fn_type_name: &str| {
-                    let commands = commands.clone().filter(|command| {
-                        let ty = &command.params.iter().next().unwrap().c_decl.ty;
-                        if let CType::Base(base) = ty {
-                            handle_command_types.get(base.name).copied() == cmd_type
-                        } else {
-                            cmd_type.is_none()
-                        }
-                    });
+                // for cmd in required_commands {
+                //     writeln!(file, "// {}", cmd.name).unwrap();
+                // }
 
-                    if commands.clone().next().is_none() {
+                let mut generate_commands = |cmd_type: CommandType, fn_type_name: &str| {
+                    let command_groups: Vec<_> = feature_or_extension
+                        .requires()
+                        .iter()
+                        .flat_map(|require| {
+                            let commands: Vec<_> = require
+                                .commands
+                                .iter()
+                                .map(|req_cmd| {
+                                    let alias = xml.command_aliases.iter().find_map(|alias| {
+                                        if alias.name == req_cmd.name {
+                                            Some(alias.alias)
+                                        } else {
+                                            None
+                                        }
+                                    });
+                                    let name = alias.unwrap_or(req_cmd.name);
+                                    xml.commands.iter().find(|cmd| cmd.name == name).unwrap()
+                                })
+                                .filter(|cmd| {
+                                    let ty = &cmd.params.iter().next().unwrap().c_decl.ty;
+                                    if let CType::Base(base) = ty {
+                                        handle_command_types
+                                            .get(base.name)
+                                            .copied()
+                                            .unwrap_or(CommandType::Entry)
+                                            == cmd_type
+                                    } else {
+                                        cmd_type == CommandType::Entry
+                                    }
+                                })
+                                .collect();
+
+                            if commands.is_empty() {
+                                None
+                            } else {
+                                Some(CommandGroup { require, commands })
+                            }
+                        })
+                        .collect::<Vec<_>>();
+
+                    if command_groups.is_empty() {
                         return;
                     }
 
                     writeln!(file, "pub struct {} {{", fn_type_name).unwrap();
-                    for command in commands.clone() {
-                        let name = normalize_command_name(command.name);
-                        writeln!(file, "{}: PFN_{},", name, normalize_ty_name(command.name))
-                            .unwrap();
+                    for command_group in &command_groups {
+                        for command in &command_group.commands {
+                            let name = normalize_command_name(command.name);
+                            writeln!(file, "{}: PFN_{},", name, normalize_ty_name(command.name))
+                                .unwrap();
+                        }
                     }
                     writeln!(file, "}}").unwrap();
 
                     writeln!(file, "impl {} {{", fn_type_name).unwrap();
-                    for command in commands {
-                        write_command_wrapper(&mut file, command, &xml.structs);
+                    for command_group in &command_groups {
+                        for command in &command_group.commands {
+                            write_command_wrapper(&mut file, command, &xml.structs);
+                        }
                     }
                     writeln!(file, "}}").unwrap();
                 };
 
-                generate_commands(None, "EntryFn");
-                generate_commands(Some(CommandType::Instance), "InstanceFn");
-                generate_commands(Some(CommandType::Device), "DeviceFn");
+                generate_commands(CommandType::Entry, "EntryFn");
+                generate_commands(CommandType::Instance, "InstanceFn");
+                generate_commands(CommandType::Device, "DeviceFn");
             }
         }
     }

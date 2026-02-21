@@ -3,9 +3,9 @@ use crate::*;
 use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
-    cmd_execute_generated_commands_ext: PFN_vkCmdExecuteGeneratedCommandsEXT,
-    cmd_preprocess_generated_commands_ext: PFN_vkCmdPreprocessGeneratedCommandsEXT,
     get_generated_commands_memory_requirements_ext: PFN_vkGetGeneratedCommandsMemoryRequirementsEXT,
+    cmd_preprocess_generated_commands_ext: PFN_vkCmdPreprocessGeneratedCommandsEXT,
+    cmd_execute_generated_commands_ext: PFN_vkCmdExecuteGeneratedCommandsEXT,
     create_indirect_commands_layout_ext: PFN_vkCreateIndirectCommandsLayoutEXT,
     destroy_indirect_commands_layout_ext: PFN_vkDestroyIndirectCommandsLayoutEXT,
     create_indirect_execution_set_ext: PFN_vkCreateIndirectExecutionSetEXT,
@@ -14,18 +14,14 @@ pub struct DeviceFn {
     update_indirect_execution_set_shader_ext: PFN_vkUpdateIndirectExecutionSetShaderEXT,
 }
 impl DeviceFn {
-    pub unsafe fn cmd_execute_generated_commands_ext(
+    pub unsafe fn get_generated_commands_memory_requirements_ext(
         &self,
-        command_buffer: CommandBuffer,
-        is_preprocessed: Bool32,
-        generated_commands_info: &GeneratedCommandsInfoEXT,
+        device: Device,
+        info: &GeneratedCommandsMemoryRequirementsInfoEXT,
+        memory_requirements: &mut MemoryRequirements2,
     ) {
         unsafe {
-            (self.cmd_execute_generated_commands_ext)(
-                command_buffer,
-                is_preprocessed,
-                generated_commands_info,
-            )
+            (self.get_generated_commands_memory_requirements_ext)(device, info, memory_requirements)
         }
     }
     pub unsafe fn cmd_preprocess_generated_commands_ext(
@@ -42,14 +38,18 @@ impl DeviceFn {
             )
         }
     }
-    pub unsafe fn get_generated_commands_memory_requirements_ext(
+    pub unsafe fn cmd_execute_generated_commands_ext(
         &self,
-        device: Device,
-        info: &GeneratedCommandsMemoryRequirementsInfoEXT,
-        memory_requirements: &mut MemoryRequirements2,
+        command_buffer: CommandBuffer,
+        is_preprocessed: Bool32,
+        generated_commands_info: &GeneratedCommandsInfoEXT,
     ) {
         unsafe {
-            (self.get_generated_commands_memory_requirements_ext)(device, info, memory_requirements)
+            (self.cmd_execute_generated_commands_ext)(
+                command_buffer,
+                is_preprocessed,
+                generated_commands_info,
+            )
         }
     }
     pub unsafe fn create_indirect_commands_layout_ext(

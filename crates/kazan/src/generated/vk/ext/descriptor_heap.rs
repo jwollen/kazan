@@ -20,9 +20,9 @@ pub struct DeviceFn {
     cmd_bind_sampler_heap_ext: PFN_vkCmdBindSamplerHeapEXT,
     cmd_bind_resource_heap_ext: PFN_vkCmdBindResourceHeapEXT,
     cmd_push_data_ext: PFN_vkCmdPushDataEXT,
+    get_image_opaque_capture_data_ext: PFN_vkGetImageOpaqueCaptureDataEXT,
     register_custom_border_color_ext: PFN_vkRegisterCustomBorderColorEXT,
     unregister_custom_border_color_ext: PFN_vkUnregisterCustomBorderColorEXT,
-    get_image_opaque_capture_data_ext: PFN_vkGetImageOpaqueCaptureDataEXT,
     get_tensor_opaque_capture_data_arm: PFN_vkGetTensorOpaqueCaptureDataARM,
 }
 impl DeviceFn {
@@ -77,20 +77,6 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_push_data_ext)(command_buffer, push_data_info) }
     }
-    pub unsafe fn register_custom_border_color_ext(
-        &self,
-        device: Device,
-        border_color: &SamplerCustomBorderColorCreateInfoEXT,
-        request_index: Bool32,
-        index: &mut u32,
-    ) -> Result {
-        unsafe {
-            (self.register_custom_border_color_ext)(device, border_color, request_index, index)
-        }
-    }
-    pub unsafe fn unregister_custom_border_color_ext(&self, device: Device, index: u32) {
-        unsafe { (self.unregister_custom_border_color_ext)(device, index) }
-    }
     pub unsafe fn get_image_opaque_capture_data_ext(
         &self,
         device: Device,
@@ -105,6 +91,20 @@ impl DeviceFn {
                 datas.as_mut_ptr() as _,
             )
         }
+    }
+    pub unsafe fn register_custom_border_color_ext(
+        &self,
+        device: Device,
+        border_color: &SamplerCustomBorderColorCreateInfoEXT,
+        request_index: Bool32,
+        index: &mut u32,
+    ) -> Result {
+        unsafe {
+            (self.register_custom_border_color_ext)(device, border_color, request_index, index)
+        }
+    }
+    pub unsafe fn unregister_custom_border_color_ext(&self, device: Device, index: u32) {
+        unsafe { (self.unregister_custom_border_color_ext)(device, index) }
     }
     pub unsafe fn get_tensor_opaque_capture_data_arm(
         &self,

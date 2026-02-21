@@ -3,6 +3,10 @@ use crate::*;
 use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
+    cmd_blit_image2: PFN_vkCmdBlitImage2,
+    cmd_resolve_image2: PFN_vkCmdResolveImage2,
+    cmd_begin_rendering: PFN_vkCmdBeginRendering,
+    cmd_end_rendering: PFN_vkCmdEndRendering,
     cmd_set_cull_mode: PFN_vkCmdSetCullMode,
     cmd_set_front_face: PFN_vkCmdSetFrontFace,
     cmd_set_primitive_topology: PFN_vkCmdSetPrimitiveTopology,
@@ -18,12 +22,32 @@ pub struct DeviceFn {
     cmd_set_rasterizer_discard_enable: PFN_vkCmdSetRasterizerDiscardEnable,
     cmd_set_depth_bias_enable: PFN_vkCmdSetDepthBiasEnable,
     cmd_set_primitive_restart_enable: PFN_vkCmdSetPrimitiveRestartEnable,
-    cmd_blit_image2: PFN_vkCmdBlitImage2,
-    cmd_resolve_image2: PFN_vkCmdResolveImage2,
-    cmd_begin_rendering: PFN_vkCmdBeginRendering,
-    cmd_end_rendering: PFN_vkCmdEndRendering,
 }
 impl DeviceFn {
+    pub unsafe fn cmd_blit_image2(
+        &self,
+        command_buffer: CommandBuffer,
+        blit_image_info: &BlitImageInfo2,
+    ) {
+        unsafe { (self.cmd_blit_image2)(command_buffer, blit_image_info) }
+    }
+    pub unsafe fn cmd_resolve_image2(
+        &self,
+        command_buffer: CommandBuffer,
+        resolve_image_info: &ResolveImageInfo2,
+    ) {
+        unsafe { (self.cmd_resolve_image2)(command_buffer, resolve_image_info) }
+    }
+    pub unsafe fn cmd_begin_rendering(
+        &self,
+        command_buffer: CommandBuffer,
+        rendering_info: &RenderingInfo,
+    ) {
+        unsafe { (self.cmd_begin_rendering)(command_buffer, rendering_info) }
+    }
+    pub unsafe fn cmd_end_rendering(&self, command_buffer: CommandBuffer) {
+        unsafe { (self.cmd_end_rendering)(command_buffer) }
+    }
     pub unsafe fn cmd_set_cull_mode(
         &self,
         command_buffer: CommandBuffer,
@@ -165,29 +189,5 @@ impl DeviceFn {
         primitive_restart_enable: Bool32,
     ) {
         unsafe { (self.cmd_set_primitive_restart_enable)(command_buffer, primitive_restart_enable) }
-    }
-    pub unsafe fn cmd_blit_image2(
-        &self,
-        command_buffer: CommandBuffer,
-        blit_image_info: &BlitImageInfo2,
-    ) {
-        unsafe { (self.cmd_blit_image2)(command_buffer, blit_image_info) }
-    }
-    pub unsafe fn cmd_resolve_image2(
-        &self,
-        command_buffer: CommandBuffer,
-        resolve_image_info: &ResolveImageInfo2,
-    ) {
-        unsafe { (self.cmd_resolve_image2)(command_buffer, resolve_image_info) }
-    }
-    pub unsafe fn cmd_begin_rendering(
-        &self,
-        command_buffer: CommandBuffer,
-        rendering_info: &RenderingInfo,
-    ) {
-        unsafe { (self.cmd_begin_rendering)(command_buffer, rendering_info) }
-    }
-    pub unsafe fn cmd_end_rendering(&self, command_buffer: CommandBuffer) {
-        unsafe { (self.cmd_end_rendering)(command_buffer) }
     }
 }

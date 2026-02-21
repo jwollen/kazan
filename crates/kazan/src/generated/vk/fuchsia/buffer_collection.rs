@@ -4,10 +4,10 @@ use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     create_buffer_collection_fuchsia: PFN_vkCreateBufferCollectionFUCHSIA,
-    set_buffer_collection_buffer_constraints_fuchsia:
-        PFN_vkSetBufferCollectionBufferConstraintsFUCHSIA,
     set_buffer_collection_image_constraints_fuchsia:
         PFN_vkSetBufferCollectionImageConstraintsFUCHSIA,
+    set_buffer_collection_buffer_constraints_fuchsia:
+        PFN_vkSetBufferCollectionBufferConstraintsFUCHSIA,
     destroy_buffer_collection_fuchsia: PFN_vkDestroyBufferCollectionFUCHSIA,
     get_buffer_collection_properties_fuchsia: PFN_vkGetBufferCollectionPropertiesFUCHSIA,
 }
@@ -28,20 +28,6 @@ impl DeviceFn {
             )
         }
     }
-    pub unsafe fn set_buffer_collection_buffer_constraints_fuchsia(
-        &self,
-        device: Device,
-        collection: BufferCollectionFUCHSIA,
-        buffer_constraints_info: &BufferConstraintsInfoFUCHSIA,
-    ) -> Result {
-        unsafe {
-            (self.set_buffer_collection_buffer_constraints_fuchsia)(
-                device,
-                collection,
-                buffer_constraints_info,
-            )
-        }
-    }
     pub unsafe fn set_buffer_collection_image_constraints_fuchsia(
         &self,
         device: Device,
@@ -53,6 +39,20 @@ impl DeviceFn {
                 device,
                 collection,
                 image_constraints_info,
+            )
+        }
+    }
+    pub unsafe fn set_buffer_collection_buffer_constraints_fuchsia(
+        &self,
+        device: Device,
+        collection: BufferCollectionFUCHSIA,
+        buffer_constraints_info: &BufferConstraintsInfoFUCHSIA,
+    ) -> Result {
+        unsafe {
+            (self.set_buffer_collection_buffer_constraints_fuchsia)(
+                device,
+                collection,
+                buffer_constraints_info,
             )
         }
     }

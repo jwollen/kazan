@@ -4,17 +4,17 @@ use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     create_micromap_ext: PFN_vkCreateMicromapEXT,
+    destroy_micromap_ext: PFN_vkDestroyMicromapEXT,
     cmd_build_micromaps_ext: PFN_vkCmdBuildMicromapsEXT,
     build_micromaps_ext: PFN_vkBuildMicromapsEXT,
-    destroy_micromap_ext: PFN_vkDestroyMicromapEXT,
-    cmd_copy_micromap_ext: PFN_vkCmdCopyMicromapEXT,
     copy_micromap_ext: PFN_vkCopyMicromapEXT,
-    cmd_copy_micromap_to_memory_ext: PFN_vkCmdCopyMicromapToMemoryEXT,
     copy_micromap_to_memory_ext: PFN_vkCopyMicromapToMemoryEXT,
-    cmd_copy_memory_to_micromap_ext: PFN_vkCmdCopyMemoryToMicromapEXT,
     copy_memory_to_micromap_ext: PFN_vkCopyMemoryToMicromapEXT,
-    cmd_write_micromaps_properties_ext: PFN_vkCmdWriteMicromapsPropertiesEXT,
     write_micromaps_properties_ext: PFN_vkWriteMicromapsPropertiesEXT,
+    cmd_copy_micromap_ext: PFN_vkCmdCopyMicromapEXT,
+    cmd_copy_micromap_to_memory_ext: PFN_vkCmdCopyMicromapToMemoryEXT,
+    cmd_copy_memory_to_micromap_ext: PFN_vkCmdCopyMemoryToMicromapEXT,
+    cmd_write_micromaps_properties_ext: PFN_vkCmdWriteMicromapsPropertiesEXT,
     get_device_micromap_compatibility_ext: PFN_vkGetDeviceMicromapCompatibilityEXT,
     get_micromap_build_sizes_ext: PFN_vkGetMicromapBuildSizesEXT,
 }
@@ -27,6 +27,14 @@ impl DeviceFn {
         micromap: &mut MicromapEXT,
     ) -> Result {
         unsafe { (self.create_micromap_ext)(device, create_info, allocator.to_raw_ptr(), micromap) }
+    }
+    pub unsafe fn destroy_micromap_ext(
+        &self,
+        device: Device,
+        micromap: MicromapEXT,
+        allocator: Option<&AllocationCallbacks>,
+    ) {
+        unsafe { (self.destroy_micromap_ext)(device, micromap, allocator.to_raw_ptr()) }
     }
     pub unsafe fn cmd_build_micromaps_ext(
         &self,
@@ -56,21 +64,6 @@ impl DeviceFn {
             )
         }
     }
-    pub unsafe fn destroy_micromap_ext(
-        &self,
-        device: Device,
-        micromap: MicromapEXT,
-        allocator: Option<&AllocationCallbacks>,
-    ) {
-        unsafe { (self.destroy_micromap_ext)(device, micromap, allocator.to_raw_ptr()) }
-    }
-    pub unsafe fn cmd_copy_micromap_ext(
-        &self,
-        command_buffer: CommandBuffer,
-        info: &CopyMicromapInfoEXT,
-    ) {
-        unsafe { (self.cmd_copy_micromap_ext)(command_buffer, info) }
-    }
     pub unsafe fn copy_micromap_ext(
         &self,
         device: Device,
@@ -78,13 +71,6 @@ impl DeviceFn {
         info: &CopyMicromapInfoEXT,
     ) -> Result {
         unsafe { (self.copy_micromap_ext)(device, deferred_operation, info) }
-    }
-    pub unsafe fn cmd_copy_micromap_to_memory_ext(
-        &self,
-        command_buffer: CommandBuffer,
-        info: &CopyMicromapToMemoryInfoEXT,
-    ) {
-        unsafe { (self.cmd_copy_micromap_to_memory_ext)(command_buffer, info) }
     }
     pub unsafe fn copy_micromap_to_memory_ext(
         &self,
@@ -94,13 +80,6 @@ impl DeviceFn {
     ) -> Result {
         unsafe { (self.copy_micromap_to_memory_ext)(device, deferred_operation, info) }
     }
-    pub unsafe fn cmd_copy_memory_to_micromap_ext(
-        &self,
-        command_buffer: CommandBuffer,
-        info: &CopyMemoryToMicromapInfoEXT,
-    ) {
-        unsafe { (self.cmd_copy_memory_to_micromap_ext)(command_buffer, info) }
-    }
     pub unsafe fn copy_memory_to_micromap_ext(
         &self,
         device: Device,
@@ -108,25 +87,6 @@ impl DeviceFn {
         info: &CopyMemoryToMicromapInfoEXT,
     ) -> Result {
         unsafe { (self.copy_memory_to_micromap_ext)(device, deferred_operation, info) }
-    }
-    pub unsafe fn cmd_write_micromaps_properties_ext(
-        &self,
-        command_buffer: CommandBuffer,
-        micromaps: &[MicromapEXT],
-        query_type: QueryType,
-        query_pool: QueryPool,
-        first_query: u32,
-    ) {
-        unsafe {
-            (self.cmd_write_micromaps_properties_ext)(
-                command_buffer,
-                micromaps.len().try_into().unwrap(),
-                micromaps.as_ptr() as _,
-                query_type,
-                query_pool,
-                first_query,
-            )
-        }
     }
     pub unsafe fn write_micromaps_properties_ext(
         &self,
@@ -145,6 +105,46 @@ impl DeviceFn {
                 data.len().try_into().unwrap(),
                 data.as_mut_ptr() as _,
                 stride,
+            )
+        }
+    }
+    pub unsafe fn cmd_copy_micromap_ext(
+        &self,
+        command_buffer: CommandBuffer,
+        info: &CopyMicromapInfoEXT,
+    ) {
+        unsafe { (self.cmd_copy_micromap_ext)(command_buffer, info) }
+    }
+    pub unsafe fn cmd_copy_micromap_to_memory_ext(
+        &self,
+        command_buffer: CommandBuffer,
+        info: &CopyMicromapToMemoryInfoEXT,
+    ) {
+        unsafe { (self.cmd_copy_micromap_to_memory_ext)(command_buffer, info) }
+    }
+    pub unsafe fn cmd_copy_memory_to_micromap_ext(
+        &self,
+        command_buffer: CommandBuffer,
+        info: &CopyMemoryToMicromapInfoEXT,
+    ) {
+        unsafe { (self.cmd_copy_memory_to_micromap_ext)(command_buffer, info) }
+    }
+    pub unsafe fn cmd_write_micromaps_properties_ext(
+        &self,
+        command_buffer: CommandBuffer,
+        micromaps: &[MicromapEXT],
+        query_type: QueryType,
+        query_pool: QueryPool,
+        first_query: u32,
+    ) {
+        unsafe {
+            (self.cmd_write_micromaps_properties_ext)(
+                command_buffer,
+                micromaps.len().try_into().unwrap(),
+                micromaps.as_ptr() as _,
+                query_type,
+                query_pool,
+                first_query,
             )
         }
     }

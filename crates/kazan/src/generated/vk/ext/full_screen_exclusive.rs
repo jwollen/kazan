@@ -25,19 +25,11 @@ impl InstanceFn {
     }
 }
 pub struct DeviceFn {
-    get_device_group_surface_present_modes2_ext: PFN_vkGetDeviceGroupSurfacePresentModes2EXT,
     acquire_full_screen_exclusive_mode_ext: PFN_vkAcquireFullScreenExclusiveModeEXT,
     release_full_screen_exclusive_mode_ext: PFN_vkReleaseFullScreenExclusiveModeEXT,
+    get_device_group_surface_present_modes2_ext: PFN_vkGetDeviceGroupSurfacePresentModes2EXT,
 }
 impl DeviceFn {
-    pub unsafe fn get_device_group_surface_present_modes2_ext(
-        &self,
-        device: Device,
-        surface_info: &PhysicalDeviceSurfaceInfo2KHR,
-        modes: &mut DeviceGroupPresentModeFlagsKHR,
-    ) -> Result {
-        unsafe { (self.get_device_group_surface_present_modes2_ext)(device, surface_info, modes) }
-    }
     pub unsafe fn acquire_full_screen_exclusive_mode_ext(
         &self,
         device: Device,
@@ -51,5 +43,13 @@ impl DeviceFn {
         swapchain: SwapchainKHR,
     ) -> Result {
         unsafe { (self.release_full_screen_exclusive_mode_ext)(device, swapchain) }
+    }
+    pub unsafe fn get_device_group_surface_present_modes2_ext(
+        &self,
+        device: Device,
+        surface_info: &PhysicalDeviceSurfaceInfo2KHR,
+        modes: &mut DeviceGroupPresentModeFlagsKHR,
+    ) -> Result {
+        unsafe { (self.get_device_group_surface_present_modes2_ext)(device, surface_info, modes) }
     }
 }

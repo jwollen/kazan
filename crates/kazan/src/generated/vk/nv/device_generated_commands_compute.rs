@@ -3,25 +3,11 @@ use crate::*;
 use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
-    cmd_update_pipeline_indirect_buffer_nv: PFN_vkCmdUpdatePipelineIndirectBufferNV,
     get_pipeline_indirect_memory_requirements_nv: PFN_vkGetPipelineIndirectMemoryRequirementsNV,
+    cmd_update_pipeline_indirect_buffer_nv: PFN_vkCmdUpdatePipelineIndirectBufferNV,
     get_pipeline_indirect_device_address_nv: PFN_vkGetPipelineIndirectDeviceAddressNV,
 }
 impl DeviceFn {
-    pub unsafe fn cmd_update_pipeline_indirect_buffer_nv(
-        &self,
-        command_buffer: CommandBuffer,
-        pipeline_bind_point: PipelineBindPoint,
-        pipeline: Pipeline,
-    ) {
-        unsafe {
-            (self.cmd_update_pipeline_indirect_buffer_nv)(
-                command_buffer,
-                pipeline_bind_point,
-                pipeline,
-            )
-        }
-    }
     pub unsafe fn get_pipeline_indirect_memory_requirements_nv(
         &self,
         device: Device,
@@ -33,6 +19,20 @@ impl DeviceFn {
                 device,
                 create_info,
                 memory_requirements,
+            )
+        }
+    }
+    pub unsafe fn cmd_update_pipeline_indirect_buffer_nv(
+        &self,
+        command_buffer: CommandBuffer,
+        pipeline_bind_point: PipelineBindPoint,
+        pipeline: Pipeline,
+    ) {
+        unsafe {
+            (self.cmd_update_pipeline_indirect_buffer_nv)(
+                command_buffer,
+                pipeline_bind_point,
+                pipeline,
             )
         }
     }

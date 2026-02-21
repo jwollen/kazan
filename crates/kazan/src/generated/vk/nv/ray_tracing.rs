@@ -3,29 +3,22 @@ use crate::*;
 use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
-    compile_deferred_nv: PFN_vkCompileDeferredNV,
     create_acceleration_structure_nv: PFN_vkCreateAccelerationStructureNV,
     destroy_acceleration_structure_nv: PFN_vkDestroyAccelerationStructureNV,
     get_acceleration_structure_memory_requirements_nv:
         PFN_vkGetAccelerationStructureMemoryRequirementsNV,
     bind_acceleration_structure_memory_nv: PFN_vkBindAccelerationStructureMemoryNV,
+    cmd_build_acceleration_structure_nv: PFN_vkCmdBuildAccelerationStructureNV,
     cmd_copy_acceleration_structure_nv: PFN_vkCmdCopyAccelerationStructureNV,
+    cmd_trace_rays_nv: PFN_vkCmdTraceRaysNV,
+    create_ray_tracing_pipelines_nv: PFN_vkCreateRayTracingPipelinesNV,
+    get_ray_tracing_shader_group_handles_khr: PFN_vkGetRayTracingShaderGroupHandlesKHR,
+    get_acceleration_structure_handle_nv: PFN_vkGetAccelerationStructureHandleNV,
     cmd_write_acceleration_structures_properties_nv:
         PFN_vkCmdWriteAccelerationStructuresPropertiesNV,
-    cmd_build_acceleration_structure_nv: PFN_vkCmdBuildAccelerationStructureNV,
-    cmd_trace_rays_nv: PFN_vkCmdTraceRaysNV,
-    get_acceleration_structure_handle_nv: PFN_vkGetAccelerationStructureHandleNV,
-    create_ray_tracing_pipelines_nv: PFN_vkCreateRayTracingPipelinesNV,
+    compile_deferred_nv: PFN_vkCompileDeferredNV,
 }
 impl DeviceFn {
-    pub unsafe fn compile_deferred_nv(
-        &self,
-        device: Device,
-        pipeline: Pipeline,
-        shader: u32,
-    ) -> Result {
-        unsafe { (self.compile_deferred_nv)(device, pipeline, shader) }
-    }
     pub unsafe fn create_acceleration_structure_nv(
         &self,
         device: Device,
@@ -83,34 +76,6 @@ impl DeviceFn {
             )
         }
     }
-    pub unsafe fn cmd_copy_acceleration_structure_nv(
-        &self,
-        command_buffer: CommandBuffer,
-        dst: AccelerationStructureNV,
-        src: AccelerationStructureNV,
-        mode: CopyAccelerationStructureModeKHR,
-    ) {
-        unsafe { (self.cmd_copy_acceleration_structure_nv)(command_buffer, dst, src, mode) }
-    }
-    pub unsafe fn cmd_write_acceleration_structures_properties_nv(
-        &self,
-        command_buffer: CommandBuffer,
-        acceleration_structures: &[AccelerationStructureNV],
-        query_type: QueryType,
-        query_pool: QueryPool,
-        first_query: u32,
-    ) {
-        unsafe {
-            (self.cmd_write_acceleration_structures_properties_nv)(
-                command_buffer,
-                acceleration_structures.len().try_into().unwrap(),
-                acceleration_structures.as_ptr() as _,
-                query_type,
-                query_pool,
-                first_query,
-            )
-        }
-    }
     pub unsafe fn cmd_build_acceleration_structure_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -136,6 +101,15 @@ impl DeviceFn {
                 scratch_offset,
             )
         }
+    }
+    pub unsafe fn cmd_copy_acceleration_structure_nv(
+        &self,
+        command_buffer: CommandBuffer,
+        dst: AccelerationStructureNV,
+        src: AccelerationStructureNV,
+        mode: CopyAccelerationStructureModeKHR,
+    ) {
+        unsafe { (self.cmd_copy_acceleration_structure_nv)(command_buffer, dst, src, mode) }
     }
     pub unsafe fn cmd_trace_rays_nv(
         &self,
@@ -175,21 +149,6 @@ impl DeviceFn {
             )
         }
     }
-    pub unsafe fn get_acceleration_structure_handle_nv(
-        &self,
-        device: Device,
-        acceleration_structure: AccelerationStructureNV,
-        data: &mut [u8],
-    ) -> Result {
-        unsafe {
-            (self.get_acceleration_structure_handle_nv)(
-                device,
-                acceleration_structure,
-                data.len().try_into().unwrap(),
-                data.as_mut_ptr() as _,
-            )
-        }
-    }
     pub unsafe fn create_ray_tracing_pipelines_nv(
         &self,
         device: Device,
@@ -208,5 +167,66 @@ impl DeviceFn {
                 pipelines.as_mut_ptr() as _,
             )
         }
+    }
+    pub unsafe fn get_ray_tracing_shader_group_handles_khr(
+        &self,
+        device: Device,
+        pipeline: Pipeline,
+        first_group: u32,
+        group_count: u32,
+        data: &mut [u8],
+    ) -> Result {
+        unsafe {
+            (self.get_ray_tracing_shader_group_handles_khr)(
+                device,
+                pipeline,
+                first_group,
+                group_count,
+                data.len().try_into().unwrap(),
+                data.as_mut_ptr() as _,
+            )
+        }
+    }
+    pub unsafe fn get_acceleration_structure_handle_nv(
+        &self,
+        device: Device,
+        acceleration_structure: AccelerationStructureNV,
+        data: &mut [u8],
+    ) -> Result {
+        unsafe {
+            (self.get_acceleration_structure_handle_nv)(
+                device,
+                acceleration_structure,
+                data.len().try_into().unwrap(),
+                data.as_mut_ptr() as _,
+            )
+        }
+    }
+    pub unsafe fn cmd_write_acceleration_structures_properties_nv(
+        &self,
+        command_buffer: CommandBuffer,
+        acceleration_structures: &[AccelerationStructureNV],
+        query_type: QueryType,
+        query_pool: QueryPool,
+        first_query: u32,
+    ) {
+        unsafe {
+            (self.cmd_write_acceleration_structures_properties_nv)(
+                command_buffer,
+                acceleration_structures.len().try_into().unwrap(),
+                acceleration_structures.as_ptr() as _,
+                query_type,
+                query_pool,
+                first_query,
+            )
+        }
+    }
+    pub unsafe fn compile_deferred_nv(
+        &self,
+        device: Device,
+        pipeline: Pipeline,
+        shader: u32,
+    ) -> Result {
+        unsafe { (self.compile_deferred_nv)(device, pipeline, shader) }
     }
 }

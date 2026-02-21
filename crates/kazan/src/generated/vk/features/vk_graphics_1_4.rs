@@ -3,21 +3,13 @@ use crate::*;
 use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
-    get_rendering_area_granularity: PFN_vkGetRenderingAreaGranularity,
     cmd_set_line_stipple: PFN_vkCmdSetLineStipple,
     cmd_bind_index_buffer2: PFN_vkCmdBindIndexBuffer2,
+    get_rendering_area_granularity: PFN_vkGetRenderingAreaGranularity,
     cmd_set_rendering_attachment_locations: PFN_vkCmdSetRenderingAttachmentLocations,
     cmd_set_rendering_input_attachment_indices: PFN_vkCmdSetRenderingInputAttachmentIndices,
 }
 impl DeviceFn {
-    pub unsafe fn get_rendering_area_granularity(
-        &self,
-        device: Device,
-        rendering_area_info: &RenderingAreaInfo,
-        granularity: &mut Extent2D,
-    ) {
-        unsafe { (self.get_rendering_area_granularity)(device, rendering_area_info, granularity) }
-    }
     pub unsafe fn cmd_set_line_stipple(
         &self,
         command_buffer: CommandBuffer,
@@ -37,6 +29,14 @@ impl DeviceFn {
         index_type: IndexType,
     ) {
         unsafe { (self.cmd_bind_index_buffer2)(command_buffer, buffer, offset, size, index_type) }
+    }
+    pub unsafe fn get_rendering_area_granularity(
+        &self,
+        device: Device,
+        rendering_area_info: &RenderingAreaInfo,
+        granularity: &mut Extent2D,
+    ) {
+        unsafe { (self.get_rendering_area_granularity)(device, rendering_area_info, granularity) }
     }
     pub unsafe fn cmd_set_rendering_attachment_locations(
         &self,

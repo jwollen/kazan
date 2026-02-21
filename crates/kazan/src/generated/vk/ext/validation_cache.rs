@@ -5,8 +5,8 @@ use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
     create_validation_cache_ext: PFN_vkCreateValidationCacheEXT,
     destroy_validation_cache_ext: PFN_vkDestroyValidationCacheEXT,
-    get_validation_cache_data_ext: PFN_vkGetValidationCacheDataEXT,
     merge_validation_caches_ext: PFN_vkMergeValidationCachesEXT,
+    get_validation_cache_data_ext: PFN_vkGetValidationCacheDataEXT,
 }
 impl DeviceFn {
     pub unsafe fn create_validation_cache_ext(
@@ -35,18 +35,6 @@ impl DeviceFn {
             (self.destroy_validation_cache_ext)(device, validation_cache, allocator.to_raw_ptr())
         }
     }
-    pub unsafe fn get_validation_cache_data_ext(
-        &self,
-        device: Device,
-        validation_cache: ValidationCacheEXT,
-        data: impl ExtendUninit<u8>,
-    ) -> Result {
-        unsafe {
-            try_extend_uninit(data, |data_size, data| {
-                (self.get_validation_cache_data_ext)(device, validation_cache, data_size, data as _)
-            })
-        }
-    }
     pub unsafe fn merge_validation_caches_ext(
         &self,
         device: Device,
@@ -60,6 +48,18 @@ impl DeviceFn {
                 src_caches.len().try_into().unwrap(),
                 src_caches.as_ptr() as _,
             )
+        }
+    }
+    pub unsafe fn get_validation_cache_data_ext(
+        &self,
+        device: Device,
+        validation_cache: ValidationCacheEXT,
+        data: impl ExtendUninit<u8>,
+    ) -> Result {
+        unsafe {
+            try_extend_uninit(data, |data_size, data| {
+                (self.get_validation_cache_data_ext)(device, validation_cache, data_size, data as _)
+            })
         }
     }
 }

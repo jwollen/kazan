@@ -3,15 +3,34 @@ use crate::*;
 use core::ffi::{c_char, c_int, c_void, CStr};
 use kazan_sys::{vk::*, *};
 pub struct DeviceFn {
+    create_execution_graph_pipelines_amdx: PFN_vkCreateExecutionGraphPipelinesAMDX,
     get_execution_graph_pipeline_scratch_size_amdx: PFN_vkGetExecutionGraphPipelineScratchSizeAMDX,
     get_execution_graph_pipeline_node_index_amdx: PFN_vkGetExecutionGraphPipelineNodeIndexAMDX,
-    create_execution_graph_pipelines_amdx: PFN_vkCreateExecutionGraphPipelinesAMDX,
     cmd_initialize_graph_scratch_memory_amdx: PFN_vkCmdInitializeGraphScratchMemoryAMDX,
     cmd_dispatch_graph_amdx: PFN_vkCmdDispatchGraphAMDX,
     cmd_dispatch_graph_indirect_amdx: PFN_vkCmdDispatchGraphIndirectAMDX,
     cmd_dispatch_graph_indirect_count_amdx: PFN_vkCmdDispatchGraphIndirectCountAMDX,
 }
 impl DeviceFn {
+    pub unsafe fn create_execution_graph_pipelines_amdx(
+        &self,
+        device: Device,
+        pipeline_cache: PipelineCache,
+        create_infos: &[ExecutionGraphPipelineCreateInfoAMDX],
+        allocator: Option<&AllocationCallbacks>,
+        pipelines: &mut [Pipeline],
+    ) -> Result {
+        unsafe {
+            (self.create_execution_graph_pipelines_amdx)(
+                device,
+                pipeline_cache,
+                create_infos.len().try_into().unwrap(),
+                create_infos.as_ptr() as _,
+                allocator.to_raw_ptr(),
+                pipelines.as_mut_ptr() as _,
+            )
+        }
+    }
     pub unsafe fn get_execution_graph_pipeline_scratch_size_amdx(
         &self,
         device: Device,
@@ -39,25 +58,6 @@ impl DeviceFn {
                 execution_graph,
                 node_info,
                 node_index,
-            )
-        }
-    }
-    pub unsafe fn create_execution_graph_pipelines_amdx(
-        &self,
-        device: Device,
-        pipeline_cache: PipelineCache,
-        create_infos: &[ExecutionGraphPipelineCreateInfoAMDX],
-        allocator: Option<&AllocationCallbacks>,
-        pipelines: &mut [Pipeline],
-    ) -> Result {
-        unsafe {
-            (self.create_execution_graph_pipelines_amdx)(
-                device,
-                pipeline_cache,
-                create_infos.len().try_into().unwrap(),
-                create_infos.as_ptr() as _,
-                allocator.to_raw_ptr(),
-                pipelines.as_mut_ptr() as _,
             )
         }
     }
