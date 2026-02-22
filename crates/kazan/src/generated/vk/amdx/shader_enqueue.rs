@@ -51,16 +51,16 @@ impl DeviceFn {
         create_infos: &[ExecutionGraphPipelineCreateInfoAMDX],
         allocator: Option<&AllocationCallbacks>,
         pipelines: &mut [Pipeline],
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_execution_graph_pipelines_amdx)(
+            result((self.create_execution_graph_pipelines_amdx)(
                 device,
                 pipeline_cache,
                 create_infos.len().try_into().unwrap(),
                 create_infos.as_ptr() as _,
                 allocator.to_raw_ptr(),
                 pipelines.as_mut_ptr() as _,
-            )
+            ))
         }
     }
     pub unsafe fn get_execution_graph_pipeline_scratch_size_amdx(
@@ -68,13 +68,13 @@ impl DeviceFn {
         device: Device,
         execution_graph: Pipeline,
         size_info: &mut ExecutionGraphPipelineScratchSizeAMDX,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_execution_graph_pipeline_scratch_size_amdx)(
+            result((self.get_execution_graph_pipeline_scratch_size_amdx)(
                 device,
                 execution_graph,
                 size_info,
-            )
+            ))
         }
     }
     pub unsafe fn get_execution_graph_pipeline_node_index_amdx(
@@ -83,14 +83,14 @@ impl DeviceFn {
         execution_graph: Pipeline,
         node_info: &PipelineShaderStageNodeCreateInfoAMDX,
         node_index: &mut u32,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_execution_graph_pipeline_node_index_amdx)(
+            result((self.get_execution_graph_pipeline_node_index_amdx)(
                 device,
                 execution_graph,
                 node_info,
                 node_index,
-            )
+            ))
         }
     }
     pub unsafe fn cmd_initialize_graph_scratch_memory_amdx(

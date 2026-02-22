@@ -70,8 +70,15 @@ impl DeviceFn {
         create_info: &MicromapCreateInfoEXT,
         allocator: Option<&AllocationCallbacks>,
         micromap: &mut MicromapEXT,
-    ) -> Result {
-        unsafe { (self.create_micromap_ext)(device, create_info, allocator.to_raw_ptr(), micromap) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.create_micromap_ext)(
+                device,
+                create_info,
+                allocator.to_raw_ptr(),
+                micromap,
+            ))
+        }
     }
     pub unsafe fn destroy_micromap_ext(
         &self,
@@ -99,14 +106,14 @@ impl DeviceFn {
         device: Device,
         deferred_operation: DeferredOperationKHR,
         infos: &[MicromapBuildInfoEXT],
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.build_micromaps_ext)(
+            result((self.build_micromaps_ext)(
                 device,
                 deferred_operation,
                 infos.len().try_into().unwrap(),
                 infos.as_ptr() as _,
-            )
+            ))
         }
     }
     pub unsafe fn copy_micromap_ext(
@@ -114,24 +121,36 @@ impl DeviceFn {
         device: Device,
         deferred_operation: DeferredOperationKHR,
         info: &CopyMicromapInfoEXT,
-    ) -> Result {
-        unsafe { (self.copy_micromap_ext)(device, deferred_operation, info) }
+    ) -> crate::Result<()> {
+        unsafe { result((self.copy_micromap_ext)(device, deferred_operation, info)) }
     }
     pub unsafe fn copy_micromap_to_memory_ext(
         &self,
         device: Device,
         deferred_operation: DeferredOperationKHR,
         info: &CopyMicromapToMemoryInfoEXT,
-    ) -> Result {
-        unsafe { (self.copy_micromap_to_memory_ext)(device, deferred_operation, info) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.copy_micromap_to_memory_ext)(
+                device,
+                deferred_operation,
+                info,
+            ))
+        }
     }
     pub unsafe fn copy_memory_to_micromap_ext(
         &self,
         device: Device,
         deferred_operation: DeferredOperationKHR,
         info: &CopyMemoryToMicromapInfoEXT,
-    ) -> Result {
-        unsafe { (self.copy_memory_to_micromap_ext)(device, deferred_operation, info) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.copy_memory_to_micromap_ext)(
+                device,
+                deferred_operation,
+                info,
+            ))
+        }
     }
     pub unsafe fn write_micromaps_properties_ext(
         &self,
@@ -140,9 +159,9 @@ impl DeviceFn {
         query_type: QueryType,
         data: &mut [u8],
         stride: usize,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.write_micromaps_properties_ext)(
+            result((self.write_micromaps_properties_ext)(
                 device,
                 micromaps.len().try_into().unwrap(),
                 micromaps.as_ptr() as _,
@@ -150,7 +169,7 @@ impl DeviceFn {
                 data.len().try_into().unwrap(),
                 data.as_mut_ptr() as _,
                 stride,
-            )
+            ))
         }
     }
     pub unsafe fn cmd_copy_micromap_ext(

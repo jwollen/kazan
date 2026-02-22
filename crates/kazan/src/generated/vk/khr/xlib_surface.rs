@@ -31,9 +31,14 @@ impl InstanceFn {
         create_info: &XlibSurfaceCreateInfoKHR,
         allocator: Option<&AllocationCallbacks>,
         surface: &mut SurfaceKHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_xlib_surface_khr)(instance, create_info, allocator.to_raw_ptr(), surface)
+            result((self.create_xlib_surface_khr)(
+                instance,
+                create_info,
+                allocator.to_raw_ptr(),
+                surface,
+            ))
         }
     }
     pub unsafe fn get_physical_device_xlib_presentation_support_khr(

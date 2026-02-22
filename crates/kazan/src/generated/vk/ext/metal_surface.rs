@@ -26,9 +26,14 @@ impl InstanceFn {
         create_info: &MetalSurfaceCreateInfoEXT,
         allocator: Option<&AllocationCallbacks>,
         surface: &mut SurfaceKHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_metal_surface_ext)(instance, create_info, allocator.to_raw_ptr(), surface)
+            result((self.create_metal_surface_ext)(
+                instance,
+                create_info,
+                allocator.to_raw_ptr(),
+                surface,
+            ))
         }
     }
 }

@@ -28,26 +28,26 @@ impl DeviceFn {
         &self,
         device: Device,
         bind_infos: &[BindBufferMemoryInfo],
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.bind_buffer_memory2_khr)(
+            result((self.bind_buffer_memory2_khr)(
                 device,
                 bind_infos.len().try_into().unwrap(),
                 bind_infos.as_ptr() as _,
-            )
+            ))
         }
     }
     pub unsafe fn bind_image_memory2_khr(
         &self,
         device: Device,
         bind_infos: &[BindImageMemoryInfo],
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.bind_image_memory2_khr)(
+            result((self.bind_image_memory2_khr)(
                 device,
                 bind_infos.len().try_into().unwrap(),
                 bind_infos.as_ptr() as _,
-            )
+            ))
         }
     }
 }

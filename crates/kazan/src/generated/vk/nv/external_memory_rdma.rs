@@ -25,9 +25,13 @@ impl DeviceFn {
         device: Device,
         memory_get_remote_address_info: &MemoryGetRemoteAddressInfoNV,
         address: &mut RemoteAddressNV,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_memory_remote_address_nv)(device, memory_get_remote_address_info, address)
+            result((self.get_memory_remote_address_nv)(
+                device,
+                memory_get_remote_address_info,
+                address,
+            ))
         }
     }
 }

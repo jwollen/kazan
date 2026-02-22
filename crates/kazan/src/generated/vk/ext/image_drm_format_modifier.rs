@@ -25,7 +25,11 @@ impl DeviceFn {
         device: Device,
         image: Image,
         properties: &mut ImageDrmFormatModifierPropertiesEXT,
-    ) -> Result {
-        unsafe { (self.get_image_drm_format_modifier_properties_ext)(device, image, properties) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.get_image_drm_format_modifier_properties_ext)(
+                device, image, properties,
+            ))
+        }
     }
 }

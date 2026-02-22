@@ -26,9 +26,14 @@ impl InstanceFn {
         create_info: &MacOSSurfaceCreateInfoMVK,
         allocator: Option<&AllocationCallbacks>,
         surface: &mut SurfaceKHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_mac_os_surface_mvk)(instance, create_info, allocator.to_raw_ptr(), surface)
+            result((self.create_mac_os_surface_mvk)(
+                instance,
+                create_info,
+                allocator.to_raw_ptr(),
+                surface,
+            ))
         }
     }
 }

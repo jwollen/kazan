@@ -22,8 +22,13 @@ struct WrapperCommandInfo<'a> {
     // Info about functions that can either output a length or enumerate items
     enumeration_info: Option<EnumerationCommandInfo>,
 
+    // Wrapper signature
     wrapper_params: Vec<WrapperParamInfo<'a>>,
+    wrapper_return: Option<WrapperParamInfo<'a>>,
+
+    // Original signature
     params: Vec<ParamInfo<'a>>,
+    has_result: bool,
 }
 
 struct EnumerationCommandInfo {
@@ -168,6 +173,7 @@ fn analyze_command<'a>(
     });
 
     let mut wrapper_params = Vec::new();
+    let mut wrapper_return = None;
     let mut params = Vec::new();
 
     for (param_index, param) in command.params.iter().enumerate() {
@@ -195,11 +201,19 @@ fn analyze_command<'a>(
             let wrapper_ty =
                 convert_param_type(&param.c_decl.ty, len_kinds[param_index].as_ref(), optional);
 
-            wrapper_params.push(WrapperParamInfo {
+            let wrapper_param = WrapperParamInfo {
                 name: name.clone(),
                 param,
                 ty: wrapper_ty,
-            });
+            };
+
+            // if let CType::Ptr { is_const, pointee, .. } = &param.c_decl.ty && !*is_const && param.len.is_none() {
+            //     if let CType::Base(base) = pointee.as_ref() && base.name != "void" {
+            //         println!("{} -> {}", command.name, param.c_decl.name);
+            //     }
+            // }
+
+            wrapper_params.push(wrapper_param);
         }
 
         params.push(ParamInfo {
@@ -212,13 +226,17 @@ fn analyze_command<'a>(
     }
 
     let name = normalize_command_name(info.alias);
+    let has_result =
+        matches!(&command.return_type, Some(CType::Base(base)) if base.name == "VkResult");
 
     WrapperCommandInfo {
         command,
         name,
         enumeration_info,
         wrapper_params,
+        wrapper_return,
         params,
+        has_result,
     }
 }
 
@@ -302,7 +320,12 @@ pub fn write_command_wrapper(
     }
 
     if let Some(ref return_type) = command.return_type {
-        writeln!(file, ") -> {} {{", ctype_to_rust_type(&return_type)).unwrap();
+        let ty = if wrapper.has_result {
+            "crate::Result<()>".to_string()
+        } else {
+            ctype_to_rust_type(&return_type)
+        };
+        writeln!(file, ") -> {} {{", ty).unwrap();
     } else {
         writeln!(file, ") {{").unwrap();
     }
@@ -310,17 +333,7 @@ pub fn write_command_wrapper(
     writeln!(file, "unsafe {{").unwrap();
 
     if let Some(enumeration_info) = &wrapper.enumeration_info {
-        let has_result = if let Some(ret_type) = &command.return_type {
-            if let CType::Base(base) = ret_type {
-                base.name == "VkResult"
-            } else {
-                false
-            }
-        } else {
-            false
-        };
-
-        let extend_fn_name = if has_result {
+        let extend_fn_name = if wrapper.has_result {
             match enumeration_info.array_params.len() {
                 1 => "try_extend_uninit",
                 2 => "try_extend_uninit2",
@@ -358,6 +371,10 @@ pub fn write_command_wrapper(
 }
 
 fn write_fn_call(file: &mut impl std::io::Write, wrapper: &WrapperCommandInfo, optional: bool) {
+    if wrapper.has_result {
+        writeln!(file, "result(").unwrap();
+    }
+
     if optional {
         writeln!(file, "(self.{}.unwrap())(", wrapper.name).unwrap();
     } else {
@@ -426,6 +443,10 @@ fn write_fn_call(file: &mut impl std::io::Write, wrapper: &WrapperCommandInfo, o
         }
     }
     writeln!(file, ")").unwrap();
+
+    if wrapper.has_result {
+        writeln!(file, ")").unwrap();
+    }
 }
 
 fn normalize_param_name(name: &str) -> String {

@@ -80,14 +80,14 @@ impl DeviceFn {
         device: Device,
         samplers: &[SamplerCreateInfo],
         descriptors: &[HostAddressRangeEXT],
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.write_sampler_descriptors_ext)(
+            result((self.write_sampler_descriptors_ext)(
                 device,
                 samplers.len().try_into().unwrap(),
                 samplers.as_ptr() as _,
                 descriptors.as_ptr() as _,
-            )
+            ))
         }
     }
     pub unsafe fn write_resource_descriptors_ext(
@@ -95,14 +95,14 @@ impl DeviceFn {
         device: Device,
         resources: &[ResourceDescriptorInfoEXT],
         descriptors: &[HostAddressRangeEXT],
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.write_resource_descriptors_ext)(
+            result((self.write_resource_descriptors_ext)(
                 device,
                 resources.len().try_into().unwrap(),
                 resources.as_ptr() as _,
                 descriptors.as_ptr() as _,
-            )
+            ))
         }
     }
     pub unsafe fn cmd_bind_sampler_heap_ext(
@@ -131,14 +131,14 @@ impl DeviceFn {
         device: Device,
         images: &[Image],
         datas: &mut [HostAddressRangeEXT],
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_image_opaque_capture_data_ext)(
+            result((self.get_image_opaque_capture_data_ext)(
                 device,
                 images.len().try_into().unwrap(),
                 images.as_ptr() as _,
                 datas.as_mut_ptr() as _,
-            )
+            ))
         }
     }
     pub unsafe fn register_custom_border_color_ext(
@@ -147,14 +147,14 @@ impl DeviceFn {
         border_color: &SamplerCustomBorderColorCreateInfoEXT,
         request_index: Bool32,
         index: &mut u32,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.register_custom_border_color_ext.unwrap())(
+            result((self.register_custom_border_color_ext.unwrap())(
                 device,
                 border_color,
                 request_index,
                 index,
-            )
+            ))
         }
     }
     pub unsafe fn unregister_custom_border_color_ext(&self, device: Device, index: u32) {
@@ -165,14 +165,14 @@ impl DeviceFn {
         device: Device,
         tensors: &[TensorARM],
         datas: &mut [HostAddressRangeEXT],
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_tensor_opaque_capture_data_arm.unwrap())(
+            result((self.get_tensor_opaque_capture_data_arm.unwrap())(
                 device,
                 tensors.len().try_into().unwrap(),
                 tensors.as_ptr() as _,
                 datas.as_mut_ptr() as _,
-            )
+            ))
         }
     }
 }

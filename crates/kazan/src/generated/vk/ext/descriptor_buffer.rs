@@ -150,43 +150,59 @@ impl DeviceFn {
         device: Device,
         info: &BufferCaptureDescriptorDataInfoEXT,
         data: &mut c_void,
-    ) -> Result {
-        unsafe { (self.get_buffer_opaque_capture_descriptor_data_ext)(device, info, data) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.get_buffer_opaque_capture_descriptor_data_ext)(
+                device, info, data,
+            ))
+        }
     }
     pub unsafe fn get_image_opaque_capture_descriptor_data_ext(
         &self,
         device: Device,
         info: &ImageCaptureDescriptorDataInfoEXT,
         data: &mut c_void,
-    ) -> Result {
-        unsafe { (self.get_image_opaque_capture_descriptor_data_ext)(device, info, data) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.get_image_opaque_capture_descriptor_data_ext)(
+                device, info, data,
+            ))
+        }
     }
     pub unsafe fn get_image_view_opaque_capture_descriptor_data_ext(
         &self,
         device: Device,
         info: &ImageViewCaptureDescriptorDataInfoEXT,
         data: &mut c_void,
-    ) -> Result {
-        unsafe { (self.get_image_view_opaque_capture_descriptor_data_ext)(device, info, data) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.get_image_view_opaque_capture_descriptor_data_ext)(
+                device, info, data,
+            ))
+        }
     }
     pub unsafe fn get_sampler_opaque_capture_descriptor_data_ext(
         &self,
         device: Device,
         info: &SamplerCaptureDescriptorDataInfoEXT,
         data: &mut c_void,
-    ) -> Result {
-        unsafe { (self.get_sampler_opaque_capture_descriptor_data_ext)(device, info, data) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.get_sampler_opaque_capture_descriptor_data_ext)(
+                device, info, data,
+            ))
+        }
     }
     pub unsafe fn get_acceleration_structure_opaque_capture_descriptor_data_ext(
         &self,
         device: Device,
         info: &AccelerationStructureCaptureDescriptorDataInfoEXT,
         data: &mut c_void,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self
+            result((self
                 .get_acceleration_structure_opaque_capture_descriptor_data_ext
-                .unwrap())(device, info, data)
+                .unwrap())(device, info, data))
         }
     }
 }

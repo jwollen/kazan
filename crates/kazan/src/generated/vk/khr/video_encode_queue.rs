@@ -27,13 +27,14 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         quality_level_info: &PhysicalDeviceVideoEncodeQualityLevelInfoKHR,
         quality_level_properties: &mut VideoEncodeQualityLevelPropertiesKHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_physical_device_video_encode_quality_level_properties_khr)(
+            result((self
+                .get_physical_device_video_encode_quality_level_properties_khr)(
                 physical_device,
                 quality_level_info,
                 quality_level_properties,
-            )
+            ))
         }
     }
 }
@@ -62,16 +63,16 @@ impl DeviceFn {
         video_session_parameters_info: &VideoEncodeSessionParametersGetInfoKHR,
         feedback_info: Option<&mut VideoEncodeSessionParametersFeedbackInfoKHR>,
         data: impl ExtendUninit<u8>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(data, |data_size, data| {
-                (self.get_encoded_video_session_parameters_khr)(
+                result((self.get_encoded_video_session_parameters_khr)(
                     device,
                     video_session_parameters_info,
                     todo!("output parameters in enumeration commands"),
                     data_size,
                     data as _,
-                )
+                ))
             })
         }
     }

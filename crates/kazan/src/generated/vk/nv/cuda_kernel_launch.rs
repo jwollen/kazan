@@ -46,18 +46,30 @@ impl DeviceFn {
         create_info: &CudaModuleCreateInfoNV,
         allocator: Option<&AllocationCallbacks>,
         module: &mut CudaModuleNV,
-    ) -> Result {
-        unsafe { (self.create_cuda_module_nv)(device, create_info, allocator.to_raw_ptr(), module) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.create_cuda_module_nv)(
+                device,
+                create_info,
+                allocator.to_raw_ptr(),
+                module,
+            ))
+        }
     }
     pub unsafe fn get_cuda_module_cache_nv(
         &self,
         device: Device,
         module: CudaModuleNV,
         cache_data: impl ExtendUninit<u8>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(cache_data, |cache_size, cache_data| {
-                (self.get_cuda_module_cache_nv)(device, module, cache_size, cache_data as _)
+                result((self.get_cuda_module_cache_nv)(
+                    device,
+                    module,
+                    cache_size,
+                    cache_data as _,
+                ))
             })
         }
     }
@@ -67,9 +79,14 @@ impl DeviceFn {
         create_info: &CudaFunctionCreateInfoNV,
         allocator: Option<&AllocationCallbacks>,
         function: &mut CudaFunctionNV,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_cuda_function_nv)(device, create_info, allocator.to_raw_ptr(), function)
+            result((self.create_cuda_function_nv)(
+                device,
+                create_info,
+                allocator.to_raw_ptr(),
+                function,
+            ))
         }
     }
     pub unsafe fn destroy_cuda_module_nv(

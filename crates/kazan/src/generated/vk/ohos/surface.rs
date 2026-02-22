@@ -24,9 +24,14 @@ impl InstanceFn {
         create_info: &SurfaceCreateInfoOHOS,
         allocator: Option<&AllocationCallbacks>,
         surface: &mut SurfaceKHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_surface_ohos)(instance, create_info, allocator.to_raw_ptr(), surface)
+            result((self.create_surface_ohos)(
+                instance,
+                create_info,
+                allocator.to_raw_ptr(),
+                surface,
+            ))
         }
     }
 }

@@ -39,16 +39,22 @@ impl DeviceFn {
         device: Device,
         swapchain: SwapchainKHR,
         sleep_mode_info: &LatencySleepModeInfoNV,
-    ) -> Result {
-        unsafe { (self.set_latency_sleep_mode_nv)(device, swapchain, sleep_mode_info) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.set_latency_sleep_mode_nv)(
+                device,
+                swapchain,
+                sleep_mode_info,
+            ))
+        }
     }
     pub unsafe fn latency_sleep_nv(
         &self,
         device: Device,
         swapchain: SwapchainKHR,
         sleep_info: &LatencySleepInfoNV,
-    ) -> Result {
-        unsafe { (self.latency_sleep_nv)(device, swapchain, sleep_info) }
+    ) -> crate::Result<()> {
+        unsafe { result((self.latency_sleep_nv)(device, swapchain, sleep_info)) }
     }
     pub unsafe fn set_latency_marker_nv(
         &self,

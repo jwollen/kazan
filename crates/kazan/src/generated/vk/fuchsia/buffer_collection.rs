@@ -44,14 +44,14 @@ impl DeviceFn {
         create_info: &BufferCollectionCreateInfoFUCHSIA,
         allocator: Option<&AllocationCallbacks>,
         collection: &mut BufferCollectionFUCHSIA,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_buffer_collection_fuchsia)(
+            result((self.create_buffer_collection_fuchsia)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
                 collection,
-            )
+            ))
         }
     }
     pub unsafe fn set_buffer_collection_image_constraints_fuchsia(
@@ -59,13 +59,13 @@ impl DeviceFn {
         device: Device,
         collection: BufferCollectionFUCHSIA,
         image_constraints_info: &ImageConstraintsInfoFUCHSIA,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.set_buffer_collection_image_constraints_fuchsia)(
+            result((self.set_buffer_collection_image_constraints_fuchsia)(
                 device,
                 collection,
                 image_constraints_info,
-            )
+            ))
         }
     }
     pub unsafe fn set_buffer_collection_buffer_constraints_fuchsia(
@@ -73,13 +73,13 @@ impl DeviceFn {
         device: Device,
         collection: BufferCollectionFUCHSIA,
         buffer_constraints_info: &BufferConstraintsInfoFUCHSIA,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.set_buffer_collection_buffer_constraints_fuchsia)(
+            result((self.set_buffer_collection_buffer_constraints_fuchsia)(
                 device,
                 collection,
                 buffer_constraints_info,
-            )
+            ))
         }
     }
     pub unsafe fn destroy_buffer_collection_fuchsia(
@@ -97,7 +97,11 @@ impl DeviceFn {
         device: Device,
         collection: BufferCollectionFUCHSIA,
         properties: &mut BufferCollectionPropertiesFUCHSIA,
-    ) -> Result {
-        unsafe { (self.get_buffer_collection_properties_fuchsia)(device, collection, properties) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.get_buffer_collection_properties_fuchsia)(
+                device, collection, properties,
+            ))
+        }
     }
 }

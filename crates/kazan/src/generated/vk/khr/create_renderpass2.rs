@@ -38,9 +38,14 @@ impl DeviceFn {
         create_info: &RenderPassCreateInfo2,
         allocator: Option<&AllocationCallbacks>,
         render_pass: &mut RenderPass,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_render_pass2_khr)(device, create_info, allocator.to_raw_ptr(), render_pass)
+            result((self.create_render_pass2_khr)(
+                device,
+                create_info,
+                allocator.to_raw_ptr(),
+                render_pass,
+            ))
         }
     }
     pub unsafe fn cmd_begin_render_pass2_khr(

@@ -26,14 +26,14 @@ impl InstanceFn {
         create_info: &HeadlessSurfaceCreateInfoEXT,
         allocator: Option<&AllocationCallbacks>,
         surface: &mut SurfaceKHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_headless_surface_ext)(
+            result((self.create_headless_surface_ext)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),
                 surface,
-            )
+            ))
         }
     }
 }

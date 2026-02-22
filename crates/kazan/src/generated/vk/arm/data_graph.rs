@@ -36,17 +36,18 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         queue_family_index: u32,
         queue_family_data_graph_properties: impl ExtendUninit<QueueFamilyDataGraphPropertiesARM>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(
                 queue_family_data_graph_properties,
                 |queue_family_data_graph_property_count, queue_family_data_graph_properties| {
-                    (self.get_physical_device_queue_family_data_graph_properties_arm)(
+                    result((self
+                        .get_physical_device_queue_family_data_graph_properties_arm)(
                         physical_device,
                         queue_family_index,
                         queue_family_data_graph_property_count,
                         queue_family_data_graph_properties as _,
-                    )
+                    ))
                 },
             )
         }
@@ -128,9 +129,9 @@ impl DeviceFn {
         create_infos: &[DataGraphPipelineCreateInfoARM],
         allocator: Option<&AllocationCallbacks>,
         pipelines: &mut [Pipeline],
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_data_graph_pipelines_arm)(
+            result((self.create_data_graph_pipelines_arm)(
                 device,
                 deferred_operation,
                 pipeline_cache,
@@ -138,7 +139,7 @@ impl DeviceFn {
                 create_infos.as_ptr() as _,
                 allocator.to_raw_ptr(),
                 pipelines.as_mut_ptr() as _,
-            )
+            ))
         }
     }
     pub unsafe fn create_data_graph_pipeline_session_arm(
@@ -147,14 +148,14 @@ impl DeviceFn {
         create_info: &DataGraphPipelineSessionCreateInfoARM,
         allocator: Option<&AllocationCallbacks>,
         session: &mut DataGraphPipelineSessionARM,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_data_graph_pipeline_session_arm)(
+            result((self.create_data_graph_pipeline_session_arm)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
                 session,
-            )
+            ))
         }
     }
     pub unsafe fn get_data_graph_pipeline_session_bind_point_requirements_arm(
@@ -162,17 +163,18 @@ impl DeviceFn {
         device: Device,
         info: &DataGraphPipelineSessionBindPointRequirementsInfoARM,
         bind_point_requirements: impl ExtendUninit<DataGraphPipelineSessionBindPointRequirementARM>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(
                 bind_point_requirements,
                 |bind_point_requirement_count, bind_point_requirements| {
-                    (self.get_data_graph_pipeline_session_bind_point_requirements_arm)(
+                    result((self
+                        .get_data_graph_pipeline_session_bind_point_requirements_arm)(
                         device,
                         info,
                         bind_point_requirement_count,
                         bind_point_requirements as _,
-                    )
+                    ))
                 },
             )
         }
@@ -195,13 +197,13 @@ impl DeviceFn {
         &self,
         device: Device,
         bind_infos: &[BindDataGraphPipelineSessionMemoryInfoARM],
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.bind_data_graph_pipeline_session_memory_arm)(
+            result((self.bind_data_graph_pipeline_session_memory_arm)(
                 device,
                 bind_infos.len().try_into().unwrap(),
                 bind_infos.as_ptr() as _,
-            )
+            ))
         }
     }
     pub unsafe fn destroy_data_graph_pipeline_session_arm(
@@ -227,15 +229,15 @@ impl DeviceFn {
         device: Device,
         pipeline_info: &DataGraphPipelineInfoARM,
         properties: impl ExtendUninit<DataGraphPipelinePropertyARM>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(properties, |properties_count, properties| {
-                (self.get_data_graph_pipeline_available_properties_arm)(
+                result((self.get_data_graph_pipeline_available_properties_arm)(
                     device,
                     pipeline_info,
                     properties_count,
                     properties as _,
-                )
+                ))
             })
         }
     }
@@ -244,14 +246,14 @@ impl DeviceFn {
         device: Device,
         pipeline_info: &DataGraphPipelineInfoARM,
         properties: &mut [DataGraphPipelinePropertyQueryResultARM],
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_data_graph_pipeline_properties_arm)(
+            result((self.get_data_graph_pipeline_properties_arm)(
                 device,
                 pipeline_info,
                 properties.len().try_into().unwrap(),
                 properties.as_mut_ptr() as _,
-            )
+            ))
         }
     }
 }

@@ -24,14 +24,14 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         tool_properties: impl ExtendUninit<PhysicalDeviceToolProperties>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(tool_properties, |tool_count, tool_properties| {
-                (self.get_physical_device_tool_properties_ext)(
+                result((self.get_physical_device_tool_properties_ext)(
                     physical_device,
                     tool_count,
                     tool_properties as _,
-                )
+                ))
             })
         }
     }

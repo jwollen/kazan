@@ -32,9 +32,10 @@ impl InstanceFn {
         flags: ImageCreateFlags,
         external_handle_type: ExternalMemoryHandleTypeFlagsNV,
         external_image_format_properties: &mut ExternalImageFormatPropertiesNV,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_physical_device_external_image_format_properties_nv)(
+            result((self
+                .get_physical_device_external_image_format_properties_nv)(
                 physical_device,
                 format,
                 ty,
@@ -43,7 +44,7 @@ impl InstanceFn {
                 flags,
                 external_handle_type,
                 external_image_format_properties,
-            )
+            ))
         }
     }
 }

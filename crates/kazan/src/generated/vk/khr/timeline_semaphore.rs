@@ -29,22 +29,26 @@ impl DeviceFn {
         device: Device,
         semaphore: Semaphore,
         value: &mut u64,
-    ) -> Result {
-        unsafe { (self.get_semaphore_counter_value_khr)(device, semaphore, value) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.get_semaphore_counter_value_khr)(
+                device, semaphore, value,
+            ))
+        }
     }
     pub unsafe fn wait_semaphores_khr(
         &self,
         device: Device,
         wait_info: &SemaphoreWaitInfo,
         timeout: u64,
-    ) -> Result {
-        unsafe { (self.wait_semaphores_khr)(device, wait_info, timeout) }
+    ) -> crate::Result<()> {
+        unsafe { result((self.wait_semaphores_khr)(device, wait_info, timeout)) }
     }
     pub unsafe fn signal_semaphore_khr(
         &self,
         device: Device,
         signal_info: &SemaphoreSignalInfo,
-    ) -> Result {
-        unsafe { (self.signal_semaphore_khr)(device, signal_info) }
+    ) -> crate::Result<()> {
+        unsafe { result((self.signal_semaphore_khr)(device, signal_info)) }
     }
 }

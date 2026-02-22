@@ -25,9 +25,13 @@ impl DeviceFn {
         device: Device,
         fault_counts: &mut DeviceFaultCountsEXT,
         fault_info: Option<&mut DeviceFaultInfoEXT>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_device_fault_info_ext)(device, fault_counts, fault_info.to_raw_mut_ptr())
+            result((self.get_device_fault_info_ext)(
+                device,
+                fault_counts,
+                fault_info.to_raw_mut_ptr(),
+            ))
         }
     }
 }

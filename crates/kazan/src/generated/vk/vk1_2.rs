@@ -70,23 +70,23 @@ impl DeviceFn {
         device: Device,
         semaphore: Semaphore,
         value: &mut u64,
-    ) -> Result {
-        unsafe { (self.get_semaphore_counter_value)(device, semaphore, value) }
+    ) -> crate::Result<()> {
+        unsafe { result((self.get_semaphore_counter_value)(device, semaphore, value)) }
     }
     pub unsafe fn wait_semaphores(
         &self,
         device: Device,
         wait_info: &SemaphoreWaitInfo,
         timeout: u64,
-    ) -> Result {
-        unsafe { (self.wait_semaphores)(device, wait_info, timeout) }
+    ) -> crate::Result<()> {
+        unsafe { result((self.wait_semaphores)(device, wait_info, timeout)) }
     }
     pub unsafe fn signal_semaphore(
         &self,
         device: Device,
         signal_info: &SemaphoreSignalInfo,
-    ) -> Result {
-        unsafe { (self.signal_semaphore)(device, signal_info) }
+    ) -> crate::Result<()> {
+        unsafe { result((self.signal_semaphore)(device, signal_info)) }
     }
     pub unsafe fn get_buffer_device_address(
         &self,
@@ -159,9 +159,14 @@ impl DeviceFn {
         create_info: &RenderPassCreateInfo2,
         allocator: Option<&AllocationCallbacks>,
         render_pass: &mut RenderPass,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_render_pass2)(device, create_info, allocator.to_raw_ptr(), render_pass)
+            result((self.create_render_pass2)(
+                device,
+                create_info,
+                allocator.to_raw_ptr(),
+                render_pass,
+            ))
         }
     }
     pub unsafe fn cmd_begin_render_pass2(

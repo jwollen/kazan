@@ -40,8 +40,15 @@ impl DeviceFn {
         create_info: &CuModuleCreateInfoNVX,
         allocator: Option<&AllocationCallbacks>,
         module: &mut CuModuleNVX,
-    ) -> Result {
-        unsafe { (self.create_cu_module_nvx)(device, create_info, allocator.to_raw_ptr(), module) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.create_cu_module_nvx)(
+                device,
+                create_info,
+                allocator.to_raw_ptr(),
+                module,
+            ))
+        }
     }
     pub unsafe fn create_cu_function_nvx(
         &self,
@@ -49,9 +56,14 @@ impl DeviceFn {
         create_info: &CuFunctionCreateInfoNVX,
         allocator: Option<&AllocationCallbacks>,
         function: &mut CuFunctionNVX,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_cu_function_nvx)(device, create_info, allocator.to_raw_ptr(), function)
+            result((self.create_cu_function_nvx)(
+                device,
+                create_info,
+                allocator.to_raw_ptr(),
+                function,
+            ))
         }
     }
     pub unsafe fn destroy_cu_module_nvx(

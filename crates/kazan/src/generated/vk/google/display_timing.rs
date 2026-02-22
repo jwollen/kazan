@@ -29,9 +29,13 @@ impl DeviceFn {
         device: Device,
         swapchain: SwapchainKHR,
         display_timing_properties: &mut RefreshCycleDurationGOOGLE,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_refresh_cycle_duration_google)(device, swapchain, display_timing_properties)
+            result((self.get_refresh_cycle_duration_google)(
+                device,
+                swapchain,
+                display_timing_properties,
+            ))
         }
     }
     pub unsafe fn get_past_presentation_timing_google(
@@ -39,17 +43,17 @@ impl DeviceFn {
         device: Device,
         swapchain: SwapchainKHR,
         presentation_timings: impl ExtendUninit<PastPresentationTimingGOOGLE>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(
                 presentation_timings,
                 |presentation_timing_count, presentation_timings| {
-                    (self.get_past_presentation_timing_google)(
+                    result((self.get_past_presentation_timing_google)(
                         device,
                         swapchain,
                         presentation_timing_count,
                         presentation_timings as _,
-                    )
+                    ))
                 },
             )
         }

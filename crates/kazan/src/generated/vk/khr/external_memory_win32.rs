@@ -29,8 +29,14 @@ impl DeviceFn {
         device: Device,
         get_win32_handle_info: &MemoryGetWin32HandleInfoKHR,
         handle: &mut HANDLE,
-    ) -> Result {
-        unsafe { (self.get_memory_win32_handle_khr)(device, get_win32_handle_info, handle) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.get_memory_win32_handle_khr)(
+                device,
+                get_win32_handle_info,
+                handle,
+            ))
+        }
     }
     pub unsafe fn get_memory_win32_handle_properties_khr(
         &self,
@@ -38,14 +44,14 @@ impl DeviceFn {
         handle_type: ExternalMemoryHandleTypeFlagBits,
         handle: HANDLE,
         memory_win32_handle_properties: &mut MemoryWin32HandlePropertiesKHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_memory_win32_handle_properties_khr)(
+            result((self.get_memory_win32_handle_properties_khr)(
                 device,
                 handle_type,
                 handle,
                 memory_win32_handle_properties,
-            )
+            ))
         }
     }
 }

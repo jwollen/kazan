@@ -24,7 +24,7 @@ impl DeviceFn {
         &self,
         device: Device,
         release_info: &ReleaseSwapchainImagesInfoKHR,
-    ) -> Result {
-        unsafe { (self.release_swapchain_images_ext)(device, release_info) }
+    ) -> crate::Result<()> {
+        unsafe { result((self.release_swapchain_images_ext)(device, release_info)) }
     }
 }

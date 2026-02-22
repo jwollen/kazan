@@ -24,9 +24,14 @@ impl InstanceFn {
         create_info: &ViSurfaceCreateInfoNN,
         allocator: Option<&AllocationCallbacks>,
         surface: &mut SurfaceKHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_vi_surface_nn)(instance, create_info, allocator.to_raw_ptr(), surface)
+            result((self.create_vi_surface_nn)(
+                instance,
+                create_info,
+                allocator.to_raw_ptr(),
+                surface,
+            ))
         }
     }
 }

@@ -91,8 +91,15 @@ impl DeviceFn {
         create_info: &TensorCreateInfoARM,
         allocator: Option<&AllocationCallbacks>,
         tensor: &mut TensorARM,
-    ) -> Result {
-        unsafe { (self.create_tensor_arm)(device, create_info, allocator.to_raw_ptr(), tensor) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.create_tensor_arm)(
+                device,
+                create_info,
+                allocator.to_raw_ptr(),
+                tensor,
+            ))
+        }
     }
     pub unsafe fn destroy_tensor_arm(
         &self,
@@ -108,8 +115,15 @@ impl DeviceFn {
         create_info: &TensorViewCreateInfoARM,
         allocator: Option<&AllocationCallbacks>,
         view: &mut TensorViewARM,
-    ) -> Result {
-        unsafe { (self.create_tensor_view_arm)(device, create_info, allocator.to_raw_ptr(), view) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.create_tensor_view_arm)(
+                device,
+                create_info,
+                allocator.to_raw_ptr(),
+                view,
+            ))
+        }
     }
     pub unsafe fn destroy_tensor_view_arm(
         &self,
@@ -131,13 +145,13 @@ impl DeviceFn {
         &self,
         device: Device,
         bind_infos: &[BindTensorMemoryInfoARM],
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.bind_tensor_memory_arm)(
+            result((self.bind_tensor_memory_arm)(
                 device,
                 bind_infos.len().try_into().unwrap(),
                 bind_infos.as_ptr() as _,
-            )
+            ))
         }
     }
     pub unsafe fn get_device_tensor_memory_requirements_arm(
@@ -162,19 +176,23 @@ impl DeviceFn {
         device: Device,
         info: &TensorCaptureDescriptorDataInfoARM,
         data: &mut c_void,
-    ) -> Result {
-        unsafe { (self.get_tensor_opaque_capture_descriptor_data_arm.unwrap())(device, info, data) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self
+                .get_tensor_opaque_capture_descriptor_data_arm
+                .unwrap())(device, info, data))
+        }
     }
     pub unsafe fn get_tensor_view_opaque_capture_descriptor_data_arm(
         &self,
         device: Device,
         info: &TensorViewCaptureDescriptorDataInfoARM,
         data: &mut c_void,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self
+            result((self
                 .get_tensor_view_opaque_capture_descriptor_data_arm
-                .unwrap())(device, info, data)
+                .unwrap())(device, info, data))
         }
     }
 }

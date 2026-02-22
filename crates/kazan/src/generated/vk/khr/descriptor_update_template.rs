@@ -38,14 +38,14 @@ impl DeviceFn {
         create_info: &DescriptorUpdateTemplateCreateInfo,
         allocator: Option<&AllocationCallbacks>,
         descriptor_update_template: &mut DescriptorUpdateTemplate,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_descriptor_update_template_khr)(
+            result((self.create_descriptor_update_template_khr)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
                 descriptor_update_template,
-            )
+            ))
         }
     }
     pub unsafe fn destroy_descriptor_update_template_khr(

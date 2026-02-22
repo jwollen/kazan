@@ -29,9 +29,13 @@ impl DeviceFn {
         device: Device,
         get_zircon_handle_info: &MemoryGetZirconHandleInfoFUCHSIA,
         zircon_handle: &mut zx_handle_t,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_memory_zircon_handle_fuchsia)(device, get_zircon_handle_info, zircon_handle)
+            result((self.get_memory_zircon_handle_fuchsia)(
+                device,
+                get_zircon_handle_info,
+                zircon_handle,
+            ))
         }
     }
     pub unsafe fn get_memory_zircon_handle_properties_fuchsia(
@@ -40,14 +44,14 @@ impl DeviceFn {
         handle_type: ExternalMemoryHandleTypeFlagBits,
         zircon_handle: zx_handle_t,
         memory_zircon_handle_properties: &mut MemoryZirconHandlePropertiesFUCHSIA,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_memory_zircon_handle_properties_fuchsia)(
+            result((self.get_memory_zircon_handle_properties_fuchsia)(
                 device,
                 handle_type,
                 zircon_handle,
                 memory_zircon_handle_properties,
-            )
+            ))
         }
     }
 }

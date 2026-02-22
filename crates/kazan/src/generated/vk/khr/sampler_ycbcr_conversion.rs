@@ -30,14 +30,14 @@ impl DeviceFn {
         create_info: &SamplerYcbcrConversionCreateInfo,
         allocator: Option<&AllocationCallbacks>,
         ycbcr_conversion: &mut SamplerYcbcrConversion,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_sampler_ycbcr_conversion_khr)(
+            result((self.create_sampler_ycbcr_conversion_khr)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
                 ycbcr_conversion,
-            )
+            ))
         }
     }
     pub unsafe fn destroy_sampler_ycbcr_conversion_khr(

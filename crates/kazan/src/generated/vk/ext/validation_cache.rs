@@ -38,14 +38,14 @@ impl DeviceFn {
         create_info: &ValidationCacheCreateInfoEXT,
         allocator: Option<&AllocationCallbacks>,
         validation_cache: &mut ValidationCacheEXT,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_validation_cache_ext)(
+            result((self.create_validation_cache_ext)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
                 validation_cache,
-            )
+            ))
         }
     }
     pub unsafe fn destroy_validation_cache_ext(
@@ -63,14 +63,14 @@ impl DeviceFn {
         device: Device,
         dst_cache: ValidationCacheEXT,
         src_caches: &[ValidationCacheEXT],
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.merge_validation_caches_ext)(
+            result((self.merge_validation_caches_ext)(
                 device,
                 dst_cache,
                 src_caches.len().try_into().unwrap(),
                 src_caches.as_ptr() as _,
-            )
+            ))
         }
     }
     pub unsafe fn get_validation_cache_data_ext(
@@ -78,10 +78,15 @@ impl DeviceFn {
         device: Device,
         validation_cache: ValidationCacheEXT,
         data: impl ExtendUninit<u8>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(data, |data_size, data| {
-                (self.get_validation_cache_data_ext)(device, validation_cache, data_size, data as _)
+                result((self.get_validation_cache_data_ext)(
+                    device,
+                    validation_cache,
+                    data_size,
+                    data as _,
+                ))
             })
         }
     }

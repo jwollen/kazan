@@ -24,16 +24,16 @@ impl InstanceFn {
         &self,
         instance: Instance,
         physical_device_group_properties: impl ExtendUninit<PhysicalDeviceGroupProperties>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(
                 physical_device_group_properties,
                 |physical_device_group_count, physical_device_group_properties| {
-                    (self.enumerate_physical_device_groups_khr)(
+                    result((self.enumerate_physical_device_groups_khr)(
                         instance,
                         physical_device_group_count,
                         physical_device_group_properties as _,
-                    )
+                    ))
                 },
             )
         }

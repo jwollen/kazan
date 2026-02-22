@@ -26,15 +26,15 @@ impl DeviceFn {
         create_infos: &[SwapchainCreateInfoKHR],
         allocator: Option<&AllocationCallbacks>,
         swapchains: &mut [SwapchainKHR],
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_shared_swapchains_khr)(
+            result((self.create_shared_swapchains_khr)(
                 device,
                 create_infos.len().try_into().unwrap(),
                 create_infos.as_ptr() as _,
                 allocator.to_raw_ptr(),
                 swapchains.as_mut_ptr() as _,
-            )
+            ))
         }
     }
 }

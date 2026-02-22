@@ -26,14 +26,14 @@ impl InstanceFn {
         create_info: &AndroidSurfaceCreateInfoKHR,
         allocator: Option<&AllocationCallbacks>,
         surface: &mut SurfaceKHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_android_surface_khr)(
+            result((self.create_android_surface_khr)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),
                 surface,
-            )
+            ))
         }
     }
 }

@@ -26,14 +26,14 @@ impl InstanceFn {
         create_info: &ImagePipeSurfaceCreateInfoFUCHSIA,
         allocator: Option<&AllocationCallbacks>,
         surface: &mut SurfaceKHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_image_pipe_surface_fuchsia)(
+            result((self.create_image_pipe_surface_fuchsia)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),
                 surface,
-            )
+            ))
         }
     }
 }

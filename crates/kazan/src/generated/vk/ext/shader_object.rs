@@ -222,15 +222,15 @@ impl DeviceFn {
         create_infos: &[ShaderCreateInfoEXT],
         allocator: Option<&AllocationCallbacks>,
         shaders: &mut [ShaderEXT],
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_shaders_ext)(
+            result((self.create_shaders_ext)(
                 device,
                 create_infos.len().try_into().unwrap(),
                 create_infos.as_ptr() as _,
                 allocator.to_raw_ptr(),
                 shaders.as_mut_ptr() as _,
-            )
+            ))
         }
     }
     pub unsafe fn destroy_shader_ext(
@@ -246,10 +246,12 @@ impl DeviceFn {
         device: Device,
         shader: ShaderEXT,
         data: impl ExtendUninit<u8>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(data, |data_size, data| {
-                (self.get_shader_binary_data_ext)(device, shader, data_size, data as _)
+                result((self.get_shader_binary_data_ext)(
+                    device, shader, data_size, data as _,
+                ))
             })
         }
     }

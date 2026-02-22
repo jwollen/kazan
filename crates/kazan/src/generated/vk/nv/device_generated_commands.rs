@@ -95,14 +95,14 @@ impl DeviceFn {
         create_info: &IndirectCommandsLayoutCreateInfoNV,
         allocator: Option<&AllocationCallbacks>,
         indirect_commands_layout: &mut IndirectCommandsLayoutNV,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_indirect_commands_layout_nv)(
+            result((self.create_indirect_commands_layout_nv)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
                 indirect_commands_layout,
-            )
+            ))
         }
     }
     pub unsafe fn destroy_indirect_commands_layout_nv(

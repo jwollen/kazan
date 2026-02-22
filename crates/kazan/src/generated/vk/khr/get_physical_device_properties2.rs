@@ -79,13 +79,13 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         image_format_info: &PhysicalDeviceImageFormatInfo2,
         image_format_properties: &mut ImageFormatProperties2,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_physical_device_image_format_properties2_khr)(
+            result((self.get_physical_device_image_format_properties2_khr)(
                 physical_device,
                 image_format_info,
                 image_format_properties,
-            )
+            ))
         }
     }
     pub unsafe fn get_physical_device_queue_family_properties2_khr(

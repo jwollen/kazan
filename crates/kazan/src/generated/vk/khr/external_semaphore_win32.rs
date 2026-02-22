@@ -28,9 +28,12 @@ impl DeviceFn {
         &self,
         device: Device,
         import_semaphore_win32_handle_info: &ImportSemaphoreWin32HandleInfoKHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.import_semaphore_win32_handle_khr)(device, import_semaphore_win32_handle_info)
+            result((self.import_semaphore_win32_handle_khr)(
+                device,
+                import_semaphore_win32_handle_info,
+            ))
         }
     }
     pub unsafe fn get_semaphore_win32_handle_khr(
@@ -38,7 +41,13 @@ impl DeviceFn {
         device: Device,
         get_win32_handle_info: &SemaphoreGetWin32HandleInfoKHR,
         handle: &mut HANDLE,
-    ) -> Result {
-        unsafe { (self.get_semaphore_win32_handle_khr)(device, get_win32_handle_info, handle) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.get_semaphore_win32_handle_khr)(
+                device,
+                get_win32_handle_info,
+                handle,
+            ))
+        }
     }
 }

@@ -25,7 +25,13 @@ impl DeviceFn {
         device: Device,
         swapchain: SwapchainKHR,
         present_wait2_info: &PresentWait2InfoKHR,
-    ) -> Result {
-        unsafe { (self.wait_for_present2_khr)(device, swapchain, present_wait2_info) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.wait_for_present2_khr)(
+                device,
+                swapchain,
+                present_wait2_info,
+            ))
+        }
     }
 }

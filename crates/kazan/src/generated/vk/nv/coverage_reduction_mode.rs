@@ -26,13 +26,15 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         combinations: impl ExtendUninit<FramebufferMixedSamplesCombinationNV>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(combinations, |combination_count, combinations| {
-                (self.get_physical_device_supported_framebuffer_mixed_samples_combinations_nv)(
-                    physical_device,
-                    combination_count,
-                    combinations as _,
+                result(
+                    (self.get_physical_device_supported_framebuffer_mixed_samples_combinations_nv)(
+                        physical_device,
+                        combination_count,
+                        combinations as _,
+                    ),
                 )
             })
         }

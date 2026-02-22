@@ -29,13 +29,13 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         surface_info: &PhysicalDeviceSurfaceInfo2KHR,
         surface_capabilities: &mut SurfaceCapabilities2KHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_physical_device_surface_capabilities2_khr)(
+            result((self.get_physical_device_surface_capabilities2_khr)(
                 physical_device,
                 surface_info,
                 surface_capabilities,
-            )
+            ))
         }
     }
     pub unsafe fn get_physical_device_surface_formats2_khr(
@@ -43,15 +43,15 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         surface_info: &PhysicalDeviceSurfaceInfo2KHR,
         surface_formats: impl ExtendUninit<SurfaceFormat2KHR>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(surface_formats, |surface_format_count, surface_formats| {
-                (self.get_physical_device_surface_formats2_khr)(
+                result((self.get_physical_device_surface_formats2_khr)(
                     physical_device,
                     surface_info,
                     surface_format_count,
                     surface_formats as _,
-                )
+                ))
             })
         }
     }

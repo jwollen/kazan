@@ -48,14 +48,14 @@ impl InstanceFn {
         queue_family_index: u32,
         surface: SurfaceKHR,
         supported: &mut Bool32,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_physical_device_surface_support_khr)(
+            result((self.get_physical_device_surface_support_khr)(
                 physical_device,
                 queue_family_index,
                 surface,
                 supported,
-            )
+            ))
         }
     }
     pub unsafe fn get_physical_device_surface_capabilities_khr(
@@ -63,13 +63,13 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         surface: SurfaceKHR,
         surface_capabilities: &mut SurfaceCapabilitiesKHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_physical_device_surface_capabilities_khr)(
+            result((self.get_physical_device_surface_capabilities_khr)(
                 physical_device,
                 surface,
                 surface_capabilities,
-            )
+            ))
         }
     }
     pub unsafe fn get_physical_device_surface_formats_khr(
@@ -77,15 +77,15 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         surface: SurfaceKHR,
         surface_formats: impl ExtendUninit<SurfaceFormatKHR>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(surface_formats, |surface_format_count, surface_formats| {
-                (self.get_physical_device_surface_formats_khr)(
+                result((self.get_physical_device_surface_formats_khr)(
                     physical_device,
                     surface,
                     surface_format_count,
                     surface_formats as _,
-                )
+                ))
             })
         }
     }
@@ -94,15 +94,15 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         surface: SurfaceKHR,
         present_modes: impl ExtendUninit<PresentModeKHR>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(present_modes, |present_mode_count, present_modes| {
-                (self.get_physical_device_surface_present_modes_khr)(
+                result((self.get_physical_device_surface_present_modes_khr)(
                     physical_device,
                     surface,
                     present_mode_count,
                     present_modes as _,
-                )
+                ))
             })
         }
     }

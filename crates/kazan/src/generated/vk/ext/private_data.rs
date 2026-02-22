@@ -34,14 +34,14 @@ impl DeviceFn {
         create_info: &PrivateDataSlotCreateInfo,
         allocator: Option<&AllocationCallbacks>,
         private_data_slot: &mut PrivateDataSlot,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_private_data_slot_ext)(
+            result((self.create_private_data_slot_ext)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
                 private_data_slot,
-            )
+            ))
         }
     }
     pub unsafe fn destroy_private_data_slot_ext(
@@ -61,9 +61,15 @@ impl DeviceFn {
         object_handle: u64,
         private_data_slot: PrivateDataSlot,
         data: u64,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.set_private_data_ext)(device, object_type, object_handle, private_data_slot, data)
+            result((self.set_private_data_ext)(
+                device,
+                object_type,
+                object_handle,
+                private_data_slot,
+                data,
+            ))
         }
     }
     pub unsafe fn get_private_data_ext(

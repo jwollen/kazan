@@ -37,8 +37,12 @@ impl DeviceFn {
         device: Device,
         swapchain: SwapchainKHR,
         size: u32,
-    ) -> Result {
-        unsafe { (self.set_swapchain_present_timing_queue_size_ext)(device, swapchain, size) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.set_swapchain_present_timing_queue_size_ext)(
+                device, swapchain, size,
+            ))
+        }
     }
     pub unsafe fn get_swapchain_timing_properties_ext(
         &self,
@@ -46,14 +50,14 @@ impl DeviceFn {
         swapchain: SwapchainKHR,
         swapchain_timing_properties: &mut SwapchainTimingPropertiesEXT,
         swapchain_timing_properties_counter: Option<&mut u64>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_swapchain_timing_properties_ext)(
+            result((self.get_swapchain_timing_properties_ext)(
                 device,
                 swapchain,
                 swapchain_timing_properties,
                 swapchain_timing_properties_counter.to_raw_mut_ptr(),
-            )
+            ))
         }
     }
     pub unsafe fn get_swapchain_time_domain_properties_ext(
@@ -62,14 +66,14 @@ impl DeviceFn {
         swapchain: SwapchainKHR,
         swapchain_time_domain_properties: &mut SwapchainTimeDomainPropertiesEXT,
         time_domains_counter: Option<&mut u64>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_swapchain_time_domain_properties_ext)(
+            result((self.get_swapchain_time_domain_properties_ext)(
                 device,
                 swapchain,
                 swapchain_time_domain_properties,
                 time_domains_counter.to_raw_mut_ptr(),
-            )
+            ))
         }
     }
     pub unsafe fn get_past_presentation_timing_ext(
@@ -77,13 +81,13 @@ impl DeviceFn {
         device: Device,
         past_presentation_timing_info: &PastPresentationTimingInfoEXT,
         past_presentation_timing_properties: &mut PastPresentationTimingPropertiesEXT,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_past_presentation_timing_ext)(
+            result((self.get_past_presentation_timing_ext)(
                 device,
                 past_presentation_timing_info,
                 past_presentation_timing_properties,
-            )
+            ))
         }
     }
 }

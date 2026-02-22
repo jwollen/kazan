@@ -84,14 +84,14 @@ impl DeviceFn {
         queue: Queue,
         submits: &[SubmitInfo2],
         fence: Fence,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.queue_submit2_khr)(
+            result((self.queue_submit2_khr)(
                 queue,
                 submits.len().try_into().unwrap(),
                 submits.as_ptr() as _,
                 fence,
-            )
+            ))
         }
     }
 }

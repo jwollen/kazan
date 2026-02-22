@@ -26,14 +26,14 @@ impl DeviceFn {
         handle_type: ExternalMemoryHandleTypeFlagBits,
         host_pointer: &c_void,
         memory_host_pointer_properties: &mut MemoryHostPointerPropertiesEXT,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_memory_host_pointer_properties_ext)(
+            result((self.get_memory_host_pointer_properties_ext)(
                 device,
                 handle_type,
                 host_pointer,
                 memory_host_pointer_properties,
-            )
+            ))
         }
     }
 }

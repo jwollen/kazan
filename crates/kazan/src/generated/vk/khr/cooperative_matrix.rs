@@ -26,13 +26,15 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         properties: impl ExtendUninit<CooperativeMatrixPropertiesKHR>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(properties, |property_count, properties| {
-                (self.get_physical_device_cooperative_matrix_properties_khr)(
-                    physical_device,
-                    property_count,
-                    properties as _,
+                result(
+                    (self.get_physical_device_cooperative_matrix_properties_khr)(
+                        physical_device,
+                        property_count,
+                        properties as _,
+                    ),
                 )
             })
         }

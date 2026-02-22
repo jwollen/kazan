@@ -27,8 +27,14 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         drm_fd: i32,
         display: DisplayKHR,
-    ) -> Result {
-        unsafe { (self.acquire_drm_display_ext)(physical_device, drm_fd, display) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.acquire_drm_display_ext)(
+                physical_device,
+                drm_fd,
+                display,
+            ))
+        }
     }
     pub unsafe fn get_drm_display_ext(
         &self,
@@ -36,7 +42,14 @@ impl InstanceFn {
         drm_fd: i32,
         connector_id: u32,
         display: &mut DisplayKHR,
-    ) -> Result {
-        unsafe { (self.get_drm_display_ext)(physical_device, drm_fd, connector_id, display) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.get_drm_display_ext)(
+                physical_device,
+                drm_fd,
+                connector_id,
+                display,
+            ))
+        }
     }
 }

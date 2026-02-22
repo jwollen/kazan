@@ -25,15 +25,15 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         surface: SurfaceKHR,
         rects: impl ExtendUninit<Rect2D>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(rects, |rect_count, rects| {
-                (self.get_physical_device_present_rectangles_khr.unwrap())(
+                result((self.get_physical_device_present_rectangles_khr.unwrap())(
                     physical_device,
                     surface,
                     rect_count,
                     rects as _,
-                )
+                ))
             })
         }
     }
@@ -120,12 +120,12 @@ impl DeviceFn {
         &self,
         device: Device,
         device_group_present_capabilities: &mut DeviceGroupPresentCapabilitiesKHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_device_group_present_capabilities_khr.unwrap())(
+            result((self.get_device_group_present_capabilities_khr.unwrap())(
                 device,
                 device_group_present_capabilities,
-            )
+            ))
         }
     }
     pub unsafe fn get_device_group_surface_present_modes_khr(
@@ -133,9 +133,11 @@ impl DeviceFn {
         device: Device,
         surface: SurfaceKHR,
         modes: &mut DeviceGroupPresentModeFlagsKHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_device_group_surface_present_modes_khr.unwrap())(device, surface, modes)
+            result((self.get_device_group_surface_present_modes_khr.unwrap())(
+                device, surface, modes,
+            ))
         }
     }
     pub unsafe fn acquire_next_image2_khr(
@@ -143,7 +145,13 @@ impl DeviceFn {
         device: Device,
         acquire_info: &AcquireNextImageInfoKHR,
         image_index: &mut u32,
-    ) -> Result {
-        unsafe { (self.acquire_next_image2_khr.unwrap())(device, acquire_info, image_index) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.acquire_next_image2_khr.unwrap())(
+                device,
+                acquire_info,
+                image_index,
+            ))
+        }
     }
 }

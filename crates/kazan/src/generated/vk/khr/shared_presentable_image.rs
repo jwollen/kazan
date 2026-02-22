@@ -24,7 +24,7 @@ impl DeviceFn {
         &self,
         device: Device,
         swapchain: SwapchainKHR,
-    ) -> Result {
-        unsafe { (self.get_swapchain_status_khr)(device, swapchain) }
+    ) -> crate::Result<()> {
+        unsafe { result((self.get_swapchain_status_khr)(device, swapchain)) }
     }
 }

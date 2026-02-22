@@ -25,15 +25,15 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         surface: SurfaceKHR,
         rects: impl ExtendUninit<Rect2D>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(rects, |rect_count, rects| {
-                (self.get_physical_device_present_rectangles_khr.unwrap())(
+                result((self.get_physical_device_present_rectangles_khr.unwrap())(
                     physical_device,
                     surface,
                     rect_count,
                     rects as _,
-                )
+                ))
             })
         }
     }
@@ -83,9 +83,14 @@ impl DeviceFn {
         create_info: &SwapchainCreateInfoKHR,
         allocator: Option<&AllocationCallbacks>,
         swapchain: &mut SwapchainKHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_swapchain_khr)(device, create_info, allocator.to_raw_ptr(), swapchain)
+            result((self.create_swapchain_khr)(
+                device,
+                create_info,
+                allocator.to_raw_ptr(),
+                swapchain,
+            ))
         }
     }
     pub unsafe fn destroy_swapchain_khr(
@@ -101,17 +106,17 @@ impl DeviceFn {
         device: Device,
         swapchain: SwapchainKHR,
         swapchain_images: impl ExtendUninit<Image>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(
                 swapchain_images,
                 |swapchain_image_count, swapchain_images| {
-                    (self.get_swapchain_images_khr)(
+                    result((self.get_swapchain_images_khr)(
                         device,
                         swapchain,
                         swapchain_image_count,
                         swapchain_images as _,
-                    )
+                    ))
                 },
             )
         }
@@ -124,24 +129,35 @@ impl DeviceFn {
         semaphore: Semaphore,
         fence: Fence,
         image_index: &mut u32,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.acquire_next_image_khr)(device, swapchain, timeout, semaphore, fence, image_index)
+            result((self.acquire_next_image_khr)(
+                device,
+                swapchain,
+                timeout,
+                semaphore,
+                fence,
+                image_index,
+            ))
         }
     }
-    pub unsafe fn queue_present_khr(&self, queue: Queue, present_info: &PresentInfoKHR) -> Result {
-        unsafe { (self.queue_present_khr)(queue, present_info) }
+    pub unsafe fn queue_present_khr(
+        &self,
+        queue: Queue,
+        present_info: &PresentInfoKHR,
+    ) -> crate::Result<()> {
+        unsafe { result((self.queue_present_khr)(queue, present_info)) }
     }
     pub unsafe fn get_device_group_present_capabilities_khr(
         &self,
         device: Device,
         device_group_present_capabilities: &mut DeviceGroupPresentCapabilitiesKHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_device_group_present_capabilities_khr.unwrap())(
+            result((self.get_device_group_present_capabilities_khr.unwrap())(
                 device,
                 device_group_present_capabilities,
-            )
+            ))
         }
     }
     pub unsafe fn get_device_group_surface_present_modes_khr(
@@ -149,9 +165,11 @@ impl DeviceFn {
         device: Device,
         surface: SurfaceKHR,
         modes: &mut DeviceGroupPresentModeFlagsKHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_device_group_surface_present_modes_khr.unwrap())(device, surface, modes)
+            result((self.get_device_group_surface_present_modes_khr.unwrap())(
+                device, surface, modes,
+            ))
         }
     }
     pub unsafe fn acquire_next_image2_khr(
@@ -159,7 +177,13 @@ impl DeviceFn {
         device: Device,
         acquire_info: &AcquireNextImageInfoKHR,
         image_index: &mut u32,
-    ) -> Result {
-        unsafe { (self.acquire_next_image2_khr.unwrap())(device, acquire_info, image_index) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.acquire_next_image2_khr.unwrap())(
+                device,
+                acquire_info,
+                image_index,
+            ))
+        }
     }
 }

@@ -26,17 +26,17 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         optical_flow_image_format_info: &OpticalFlowImageFormatInfoNV,
         image_format_properties: impl ExtendUninit<OpticalFlowImageFormatPropertiesNV>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(
                 image_format_properties,
                 |format_count, image_format_properties| {
-                    (self.get_physical_device_optical_flow_image_formats_nv)(
+                    result((self.get_physical_device_optical_flow_image_formats_nv)(
                         physical_device,
                         optical_flow_image_format_info,
                         format_count,
                         image_format_properties as _,
-                    )
+                    ))
                 },
             )
         }
@@ -77,14 +77,14 @@ impl DeviceFn {
         create_info: &OpticalFlowSessionCreateInfoNV,
         allocator: Option<&AllocationCallbacks>,
         session: &mut OpticalFlowSessionNV,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_optical_flow_session_nv)(
+            result((self.create_optical_flow_session_nv)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
                 session,
-            )
+            ))
         }
     }
     pub unsafe fn destroy_optical_flow_session_nv(
@@ -102,9 +102,15 @@ impl DeviceFn {
         binding_point: OpticalFlowSessionBindingPointNV,
         view: ImageView,
         layout: ImageLayout,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.bind_optical_flow_session_image_nv)(device, session, binding_point, view, layout)
+            result((self.bind_optical_flow_session_image_nv)(
+                device,
+                session,
+                binding_point,
+                view,
+                layout,
+            ))
         }
     }
     pub unsafe fn cmd_optical_flow_execute_nv(

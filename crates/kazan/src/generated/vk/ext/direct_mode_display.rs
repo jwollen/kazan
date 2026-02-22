@@ -22,7 +22,7 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         display: DisplayKHR,
-    ) -> Result {
-        unsafe { (self.release_display_ext)(physical_device, display) }
+    ) -> crate::Result<()> {
+        unsafe { result((self.release_display_ext)(physical_device, display)) }
     }
 }

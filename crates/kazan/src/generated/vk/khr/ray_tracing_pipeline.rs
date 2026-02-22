@@ -76,9 +76,9 @@ impl DeviceFn {
         create_infos: &[RayTracingPipelineCreateInfoKHR],
         allocator: Option<&AllocationCallbacks>,
         pipelines: &mut [Pipeline],
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_ray_tracing_pipelines_khr)(
+            result((self.create_ray_tracing_pipelines_khr)(
                 device,
                 deferred_operation,
                 pipeline_cache,
@@ -86,7 +86,7 @@ impl DeviceFn {
                 create_infos.as_ptr() as _,
                 allocator.to_raw_ptr(),
                 pipelines.as_mut_ptr() as _,
-            )
+            ))
         }
     }
     pub unsafe fn get_ray_tracing_shader_group_handles_khr(
@@ -96,16 +96,16 @@ impl DeviceFn {
         first_group: u32,
         group_count: u32,
         data: &mut [u8],
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_ray_tracing_shader_group_handles_khr)(
+            result((self.get_ray_tracing_shader_group_handles_khr)(
                 device,
                 pipeline,
                 first_group,
                 group_count,
                 data.len().try_into().unwrap(),
                 data.as_mut_ptr() as _,
-            )
+            ))
         }
     }
     pub unsafe fn get_ray_tracing_capture_replay_shader_group_handles_khr(
@@ -115,16 +115,17 @@ impl DeviceFn {
         first_group: u32,
         group_count: u32,
         data: &mut [u8],
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_ray_tracing_capture_replay_shader_group_handles_khr)(
+            result((self
+                .get_ray_tracing_capture_replay_shader_group_handles_khr)(
                 device,
                 pipeline,
                 first_group,
                 group_count,
                 data.len().try_into().unwrap(),
                 data.as_mut_ptr() as _,
-            )
+            ))
         }
     }
     pub unsafe fn cmd_trace_rays_indirect_khr(

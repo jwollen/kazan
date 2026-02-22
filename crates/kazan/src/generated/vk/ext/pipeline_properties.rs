@@ -25,7 +25,13 @@ impl DeviceFn {
         device: Device,
         pipeline_info: &PipelineInfoEXT,
         pipeline_properties: &mut BaseOutStructure,
-    ) -> Result {
-        unsafe { (self.get_pipeline_properties_ext)(device, pipeline_info, pipeline_properties) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.get_pipeline_properties_ext)(
+                device,
+                pipeline_info,
+                pipeline_properties,
+            ))
+        }
     }
 }

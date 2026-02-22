@@ -24,16 +24,16 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         fragment_shading_rates: impl ExtendUninit<PhysicalDeviceFragmentShadingRateKHR>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(
                 fragment_shading_rates,
                 |fragment_shading_rate_count, fragment_shading_rates| {
-                    (self.get_physical_device_fragment_shading_rates_khr)(
+                    result((self.get_physical_device_fragment_shading_rates_khr)(
                         physical_device,
                         fragment_shading_rate_count,
                         fragment_shading_rates as _,
-                    )
+                    ))
                 },
             )
         }

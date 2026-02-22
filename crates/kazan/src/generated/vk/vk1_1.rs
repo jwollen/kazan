@@ -20,8 +20,8 @@ impl EntryFn {
     }
 }
 impl EntryFn {
-    pub unsafe fn enumerate_instance_version(&self, api_version: &mut u32) -> Result {
-        unsafe { (self.enumerate_instance_version)(api_version) }
+    pub unsafe fn enumerate_instance_version(&self, api_version: &mut u32) -> crate::Result<()> {
+        unsafe { result((self.enumerate_instance_version)(api_version)) }
     }
 }
 pub struct InstanceFn {
@@ -87,16 +87,16 @@ impl InstanceFn {
         &self,
         instance: Instance,
         physical_device_group_properties: impl ExtendUninit<PhysicalDeviceGroupProperties>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(
                 physical_device_group_properties,
                 |physical_device_group_count, physical_device_group_properties| {
-                    (self.enumerate_physical_device_groups)(
+                    result((self.enumerate_physical_device_groups)(
                         instance,
                         physical_device_group_count,
                         physical_device_group_properties as _,
-                    )
+                    ))
                 },
             )
         }
@@ -134,13 +134,13 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         image_format_info: &PhysicalDeviceImageFormatInfo2,
         image_format_properties: &mut ImageFormatProperties2,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_physical_device_image_format_properties2)(
+            result((self.get_physical_device_image_format_properties2)(
                 physical_device,
                 image_format_info,
                 image_format_properties,
-            )
+            ))
         }
     }
     pub unsafe fn get_physical_device_queue_family_properties2(
@@ -297,26 +297,26 @@ impl DeviceFn {
         &self,
         device: Device,
         bind_infos: &[BindBufferMemoryInfo],
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.bind_buffer_memory2)(
+            result((self.bind_buffer_memory2)(
                 device,
                 bind_infos.len().try_into().unwrap(),
                 bind_infos.as_ptr() as _,
-            )
+            ))
         }
     }
     pub unsafe fn bind_image_memory2(
         &self,
         device: Device,
         bind_infos: &[BindImageMemoryInfo],
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.bind_image_memory2)(
+            result((self.bind_image_memory2)(
                 device,
                 bind_infos.len().try_into().unwrap(),
                 bind_infos.as_ptr() as _,
-            )
+            ))
         }
     }
     pub unsafe fn get_device_group_peer_memory_features(
@@ -420,14 +420,14 @@ impl DeviceFn {
         create_info: &DescriptorUpdateTemplateCreateInfo,
         allocator: Option<&AllocationCallbacks>,
         descriptor_update_template: &mut DescriptorUpdateTemplate,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_descriptor_update_template)(
+            result((self.create_descriptor_update_template)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
                 descriptor_update_template,
-            )
+            ))
         }
     }
     pub unsafe fn destroy_descriptor_update_template(
@@ -474,14 +474,14 @@ impl DeviceFn {
         create_info: &SamplerYcbcrConversionCreateInfo,
         allocator: Option<&AllocationCallbacks>,
         ycbcr_conversion: &mut SamplerYcbcrConversion,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_sampler_ycbcr_conversion)(
+            result((self.create_sampler_ycbcr_conversion)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
                 ycbcr_conversion,
-            )
+            ))
         }
     }
     pub unsafe fn destroy_sampler_ycbcr_conversion(

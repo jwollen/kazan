@@ -34,14 +34,14 @@ impl DeviceFn {
         create_info: &ExternalComputeQueueCreateInfoNV,
         allocator: Option<&AllocationCallbacks>,
         external_queue: &mut ExternalComputeQueueNV,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_external_compute_queue_nv)(
+            result((self.create_external_compute_queue_nv)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
                 external_queue,
-            )
+            ))
         }
     }
     pub unsafe fn destroy_external_compute_queue_nv(

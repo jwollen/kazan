@@ -68,14 +68,14 @@ impl DeviceFn {
         create_info: &AccelerationStructureCreateInfoNV,
         allocator: Option<&AllocationCallbacks>,
         acceleration_structure: &mut AccelerationStructureNV,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_acceleration_structure_nv)(
+            result((self.create_acceleration_structure_nv)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
                 acceleration_structure,
-            )
+            ))
         }
     }
     pub unsafe fn destroy_acceleration_structure_nv(
@@ -110,13 +110,13 @@ impl DeviceFn {
         &self,
         device: Device,
         bind_infos: &[BindAccelerationStructureMemoryInfoNV],
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.bind_acceleration_structure_memory_nv)(
+            result((self.bind_acceleration_structure_memory_nv)(
                 device,
                 bind_infos.len().try_into().unwrap(),
                 bind_infos.as_ptr() as _,
-            )
+            ))
         }
     }
     pub unsafe fn cmd_build_acceleration_structure_nv(
@@ -199,16 +199,16 @@ impl DeviceFn {
         create_infos: &[RayTracingPipelineCreateInfoNV],
         allocator: Option<&AllocationCallbacks>,
         pipelines: &mut [Pipeline],
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_ray_tracing_pipelines_nv)(
+            result((self.create_ray_tracing_pipelines_nv)(
                 device,
                 pipeline_cache,
                 create_infos.len().try_into().unwrap(),
                 create_infos.as_ptr() as _,
                 allocator.to_raw_ptr(),
                 pipelines.as_mut_ptr() as _,
-            )
+            ))
         }
     }
     pub unsafe fn get_ray_tracing_shader_group_handles_nv(
@@ -218,16 +218,16 @@ impl DeviceFn {
         first_group: u32,
         group_count: u32,
         data: &mut [u8],
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_ray_tracing_shader_group_handles_nv)(
+            result((self.get_ray_tracing_shader_group_handles_nv)(
                 device,
                 pipeline,
                 first_group,
                 group_count,
                 data.len().try_into().unwrap(),
                 data.as_mut_ptr() as _,
-            )
+            ))
         }
     }
     pub unsafe fn get_acceleration_structure_handle_nv(
@@ -235,14 +235,14 @@ impl DeviceFn {
         device: Device,
         acceleration_structure: AccelerationStructureNV,
         data: &mut [u8],
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_acceleration_structure_handle_nv)(
+            result((self.get_acceleration_structure_handle_nv)(
                 device,
                 acceleration_structure,
                 data.len().try_into().unwrap(),
                 data.as_mut_ptr() as _,
-            )
+            ))
         }
     }
     pub unsafe fn cmd_write_acceleration_structures_properties_nv(
@@ -269,7 +269,7 @@ impl DeviceFn {
         device: Device,
         pipeline: Pipeline,
         shader: u32,
-    ) -> Result {
-        unsafe { (self.compile_deferred_nv)(device, pipeline, shader) }
+    ) -> crate::Result<()> {
+        unsafe { result((self.compile_deferred_nv)(device, pipeline, shader)) }
     }
 }

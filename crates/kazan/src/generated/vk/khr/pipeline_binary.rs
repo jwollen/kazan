@@ -40,14 +40,14 @@ impl DeviceFn {
         create_info: &PipelineBinaryCreateInfoKHR,
         allocator: Option<&AllocationCallbacks>,
         binaries: &mut PipelineBinaryHandlesInfoKHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_pipeline_binaries_khr)(
+            result((self.create_pipeline_binaries_khr)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
                 binaries,
-            )
+            ))
         }
     }
     pub unsafe fn destroy_pipeline_binary_khr(
@@ -65,9 +65,13 @@ impl DeviceFn {
         device: Device,
         pipeline_create_info: Option<&PipelineCreateInfoKHR>,
         pipeline_key: &mut PipelineBinaryKeyKHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_pipeline_key_khr)(device, pipeline_create_info.to_raw_ptr(), pipeline_key)
+            result((self.get_pipeline_key_khr)(
+                device,
+                pipeline_create_info.to_raw_ptr(),
+                pipeline_key,
+            ))
         }
     }
     pub unsafe fn get_pipeline_binary_data_khr(
@@ -76,18 +80,18 @@ impl DeviceFn {
         info: &PipelineBinaryDataInfoKHR,
         pipeline_binary_key: &mut PipelineBinaryKeyKHR,
         pipeline_binary_data: impl ExtendUninit<u8>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(
                 pipeline_binary_data,
                 |pipeline_binary_data_size, pipeline_binary_data| {
-                    (self.get_pipeline_binary_data_khr)(
+                    result((self.get_pipeline_binary_data_khr)(
                         device,
                         info,
                         pipeline_binary_key,
                         pipeline_binary_data_size,
                         pipeline_binary_data as _,
-                    )
+                    ))
                 },
             )
         }
@@ -97,7 +101,13 @@ impl DeviceFn {
         device: Device,
         info: &ReleaseCapturedPipelineDataInfoKHR,
         allocator: Option<&AllocationCallbacks>,
-    ) -> Result {
-        unsafe { (self.release_captured_pipeline_data_khr)(device, info, allocator.to_raw_ptr()) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.release_captured_pipeline_data_khr)(
+                device,
+                info,
+                allocator.to_raw_ptr(),
+            ))
+        }
     }
 }

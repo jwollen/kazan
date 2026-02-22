@@ -28,12 +28,12 @@ impl DeviceFn {
         &self,
         device: Device,
         import_semaphore_zircon_handle_info: &ImportSemaphoreZirconHandleInfoFUCHSIA,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.import_semaphore_zircon_handle_fuchsia)(
+            result((self.import_semaphore_zircon_handle_fuchsia)(
                 device,
                 import_semaphore_zircon_handle_info,
-            )
+            ))
         }
     }
     pub unsafe fn get_semaphore_zircon_handle_fuchsia(
@@ -41,13 +41,13 @@ impl DeviceFn {
         device: Device,
         get_zircon_handle_info: &SemaphoreGetZirconHandleInfoFUCHSIA,
         zircon_handle: &mut zx_handle_t,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_semaphore_zircon_handle_fuchsia)(
+            result((self.get_semaphore_zircon_handle_fuchsia)(
                 device,
                 get_zircon_handle_info,
                 zircon_handle,
-            )
+            ))
         }
     }
 }

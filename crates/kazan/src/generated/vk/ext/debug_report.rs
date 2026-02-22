@@ -34,14 +34,14 @@ impl InstanceFn {
         create_info: &DebugReportCallbackCreateInfoEXT,
         allocator: Option<&AllocationCallbacks>,
         callback: &mut DebugReportCallbackEXT,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_debug_report_callback_ext)(
+            result((self.create_debug_report_callback_ext)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),
                 callback,
-            )
+            ))
         }
     }
     pub unsafe fn destroy_debug_report_callback_ext(

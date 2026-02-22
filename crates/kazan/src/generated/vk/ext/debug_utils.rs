@@ -34,14 +34,14 @@ impl InstanceFn {
         create_info: &DebugUtilsMessengerCreateInfoEXT,
         allocator: Option<&AllocationCallbacks>,
         messenger: &mut DebugUtilsMessengerEXT,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_debug_utils_messenger_ext)(
+            result((self.create_debug_utils_messenger_ext)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),
                 messenger,
-            )
+            ))
         }
     }
     pub unsafe fn destroy_debug_utils_messenger_ext(
@@ -120,15 +120,15 @@ impl DeviceFn {
         &self,
         device: Device,
         name_info: &DebugUtilsObjectNameInfoEXT,
-    ) -> Result {
-        unsafe { (self.set_debug_utils_object_name_ext)(device, name_info) }
+    ) -> crate::Result<()> {
+        unsafe { result((self.set_debug_utils_object_name_ext)(device, name_info)) }
     }
     pub unsafe fn set_debug_utils_object_tag_ext(
         &self,
         device: Device,
         tag_info: &DebugUtilsObjectTagInfoEXT,
-    ) -> Result {
-        unsafe { (self.set_debug_utils_object_tag_ext)(device, tag_info) }
+    ) -> crate::Result<()> {
+        unsafe { result((self.set_debug_utils_object_tag_ext)(device, tag_info)) }
     }
     pub unsafe fn queue_begin_debug_utils_label_ext(
         &self,

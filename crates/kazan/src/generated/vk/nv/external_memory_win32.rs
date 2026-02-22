@@ -26,7 +26,14 @@ impl DeviceFn {
         memory: DeviceMemory,
         handle_type: ExternalMemoryHandleTypeFlagsNV,
         handle: &mut HANDLE,
-    ) -> Result {
-        unsafe { (self.get_memory_win32_handle_nv)(device, memory, handle_type, handle) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.get_memory_win32_handle_nv)(
+                device,
+                memory,
+                handle_type,
+                handle,
+            ))
+        }
     }
 }

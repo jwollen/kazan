@@ -41,9 +41,13 @@ impl DeviceFn {
         device: Device,
         allocator: Option<&AllocationCallbacks>,
         deferred_operation: &mut DeferredOperationKHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_deferred_operation_khr)(device, allocator.to_raw_ptr(), deferred_operation)
+            result((self.create_deferred_operation_khr)(
+                device,
+                allocator.to_raw_ptr(),
+                deferred_operation,
+            ))
         }
     }
     pub unsafe fn destroy_deferred_operation_khr(
@@ -65,14 +69,14 @@ impl DeviceFn {
         &self,
         device: Device,
         operation: DeferredOperationKHR,
-    ) -> Result {
-        unsafe { (self.get_deferred_operation_result_khr)(device, operation) }
+    ) -> crate::Result<()> {
+        unsafe { result((self.get_deferred_operation_result_khr)(device, operation)) }
     }
     pub unsafe fn deferred_operation_join_khr(
         &self,
         device: Device,
         operation: DeferredOperationKHR,
-    ) -> Result {
-        unsafe { (self.deferred_operation_join_khr)(device, operation) }
+    ) -> crate::Result<()> {
+        unsafe { result((self.deferred_operation_join_khr)(device, operation)) }
     }
 }

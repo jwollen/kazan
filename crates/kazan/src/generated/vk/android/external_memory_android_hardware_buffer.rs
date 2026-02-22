@@ -29,15 +29,23 @@ impl DeviceFn {
         device: Device,
         buffer: &AHardwareBuffer,
         properties: &mut AndroidHardwareBufferPropertiesANDROID,
-    ) -> Result {
-        unsafe { (self.get_android_hardware_buffer_properties_android)(device, buffer, properties) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.get_android_hardware_buffer_properties_android)(
+                device, buffer, properties,
+            ))
+        }
     }
     pub unsafe fn get_memory_android_hardware_buffer_android(
         &self,
         device: Device,
         info: &MemoryGetAndroidHardwareBufferInfoANDROID,
         buffer: &mut *mut AHardwareBuffer,
-    ) -> Result {
-        unsafe { (self.get_memory_android_hardware_buffer_android)(device, info, buffer) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.get_memory_android_hardware_buffer_android)(
+                device, info, buffer,
+            ))
+        }
     }
 }

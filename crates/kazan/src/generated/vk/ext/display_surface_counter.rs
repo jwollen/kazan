@@ -25,13 +25,13 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         surface: SurfaceKHR,
         surface_capabilities: &mut SurfaceCapabilities2EXT,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_physical_device_surface_capabilities2_ext)(
+            result((self.get_physical_device_surface_capabilities2_ext)(
                 physical_device,
                 surface,
                 surface_capabilities,
-            )
+            ))
         }
     }
 }

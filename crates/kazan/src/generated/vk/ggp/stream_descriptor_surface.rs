@@ -26,14 +26,14 @@ impl InstanceFn {
         create_info: &StreamDescriptorSurfaceCreateInfoGGP,
         allocator: Option<&AllocationCallbacks>,
         surface: &mut SurfaceKHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_stream_descriptor_surface_ggp)(
+            result((self.create_stream_descriptor_surface_ggp)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),
                 surface,
-            )
+            ))
         }
     }
 }

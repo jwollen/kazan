@@ -34,18 +34,21 @@ impl InstanceFn {
         queue_family_index: u32,
         counters: impl ExtendUninit<PerformanceCounterKHR>,
         counter_descriptions: impl ExtendUninit<PerformanceCounterDescriptionKHR>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit2(
                 counters,
                 counter_descriptions,
                 |counter_count, counters, counter_descriptions| {
-                    (self.enumerate_physical_device_queue_family_performance_query_counters_khr)(
-                        physical_device,
-                        queue_family_index,
-                        counter_count,
-                        counters as _,
-                        counter_descriptions as _,
+                    result(
+                        (self
+                            .enumerate_physical_device_queue_family_performance_query_counters_khr)(
+                            physical_device,
+                            queue_family_index,
+                            counter_count,
+                            counters as _,
+                            counter_descriptions as _,
+                        ),
                     )
                 },
             )
@@ -91,8 +94,8 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &AcquireProfilingLockInfoKHR,
-    ) -> Result {
-        unsafe { (self.acquire_profiling_lock_khr)(device, info) }
+    ) -> crate::Result<()> {
+        unsafe { result((self.acquire_profiling_lock_khr)(device, info)) }
     }
     pub unsafe fn release_profiling_lock_khr(&self, device: Device) {
         unsafe { (self.release_profiling_lock_khr)(device) }

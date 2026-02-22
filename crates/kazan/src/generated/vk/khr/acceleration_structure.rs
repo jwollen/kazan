@@ -89,14 +89,14 @@ impl DeviceFn {
         create_info: &AccelerationStructureCreateInfoKHR,
         allocator: Option<&AllocationCallbacks>,
         acceleration_structure: &mut AccelerationStructureKHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_acceleration_structure_khr)(
+            result((self.create_acceleration_structure_khr)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
                 acceleration_structure,
-            )
+            ))
         }
     }
     pub unsafe fn destroy_acceleration_structure_khr(
@@ -153,15 +153,15 @@ impl DeviceFn {
         deferred_operation: DeferredOperationKHR,
         infos: &[AccelerationStructureBuildGeometryInfoKHR],
         build_range_infos: &[*const AccelerationStructureBuildRangeInfoKHR],
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.build_acceleration_structures_khr)(
+            result((self.build_acceleration_structures_khr)(
                 device,
                 deferred_operation,
                 infos.len().try_into().unwrap(),
                 infos.as_ptr() as _,
                 build_range_infos.as_ptr() as _,
-            )
+            ))
         }
     }
     pub unsafe fn copy_acceleration_structure_khr(
@@ -169,17 +169,27 @@ impl DeviceFn {
         device: Device,
         deferred_operation: DeferredOperationKHR,
         info: &CopyAccelerationStructureInfoKHR,
-    ) -> Result {
-        unsafe { (self.copy_acceleration_structure_khr)(device, deferred_operation, info) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.copy_acceleration_structure_khr)(
+                device,
+                deferred_operation,
+                info,
+            ))
+        }
     }
     pub unsafe fn copy_acceleration_structure_to_memory_khr(
         &self,
         device: Device,
         deferred_operation: DeferredOperationKHR,
         info: &CopyAccelerationStructureToMemoryInfoKHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.copy_acceleration_structure_to_memory_khr)(device, deferred_operation, info)
+            result((self.copy_acceleration_structure_to_memory_khr)(
+                device,
+                deferred_operation,
+                info,
+            ))
         }
     }
     pub unsafe fn copy_memory_to_acceleration_structure_khr(
@@ -187,9 +197,13 @@ impl DeviceFn {
         device: Device,
         deferred_operation: DeferredOperationKHR,
         info: &CopyMemoryToAccelerationStructureInfoKHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.copy_memory_to_acceleration_structure_khr)(device, deferred_operation, info)
+            result((self.copy_memory_to_acceleration_structure_khr)(
+                device,
+                deferred_operation,
+                info,
+            ))
         }
     }
     pub unsafe fn write_acceleration_structures_properties_khr(
@@ -199,9 +213,9 @@ impl DeviceFn {
         query_type: QueryType,
         data: &mut [u8],
         stride: usize,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.write_acceleration_structures_properties_khr)(
+            result((self.write_acceleration_structures_properties_khr)(
                 device,
                 acceleration_structures.len().try_into().unwrap(),
                 acceleration_structures.as_ptr() as _,
@@ -209,7 +223,7 @@ impl DeviceFn {
                 data.len().try_into().unwrap(),
                 data.as_mut_ptr() as _,
                 stride,
-            )
+            ))
         }
     }
     pub unsafe fn cmd_copy_acceleration_structure_khr(

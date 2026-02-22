@@ -27,8 +27,8 @@ impl DeviceFn {
         device: Device,
         get_fd_info: &MemoryGetFdInfoKHR,
         fd: &mut c_int,
-    ) -> Result {
-        unsafe { (self.get_memory_fd_khr)(device, get_fd_info, fd) }
+    ) -> crate::Result<()> {
+        unsafe { result((self.get_memory_fd_khr)(device, get_fd_info, fd)) }
     }
     pub unsafe fn get_memory_fd_properties_khr(
         &self,
@@ -36,9 +36,14 @@ impl DeviceFn {
         handle_type: ExternalMemoryHandleTypeFlagBits,
         fd: c_int,
         memory_fd_properties: &mut MemoryFdPropertiesKHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_memory_fd_properties_khr)(device, handle_type, fd, memory_fd_properties)
+            result((self.get_memory_fd_properties_khr)(
+                device,
+                handle_type,
+                fd,
+                memory_fd_properties,
+            ))
         }
     }
 }

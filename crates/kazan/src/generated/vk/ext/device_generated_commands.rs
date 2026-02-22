@@ -96,14 +96,14 @@ impl DeviceFn {
         create_info: &IndirectCommandsLayoutCreateInfoEXT,
         allocator: Option<&AllocationCallbacks>,
         indirect_commands_layout: &mut IndirectCommandsLayoutEXT,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_indirect_commands_layout_ext)(
+            result((self.create_indirect_commands_layout_ext)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
                 indirect_commands_layout,
-            )
+            ))
         }
     }
     pub unsafe fn destroy_indirect_commands_layout_ext(
@@ -126,14 +126,14 @@ impl DeviceFn {
         create_info: &IndirectExecutionSetCreateInfoEXT,
         allocator: Option<&AllocationCallbacks>,
         indirect_execution_set: &mut IndirectExecutionSetEXT,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_indirect_execution_set_ext)(
+            result((self.create_indirect_execution_set_ext)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
                 indirect_execution_set,
-            )
+            ))
         }
     }
     pub unsafe fn destroy_indirect_execution_set_ext(

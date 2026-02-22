@@ -25,17 +25,17 @@ impl DeviceFn {
         shader_stage: ShaderStageFlagBits,
         info_type: ShaderInfoTypeAMD,
         info: impl ExtendUninit<u8>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(info, |info_size, info| {
-                (self.get_shader_info_amd)(
+                result((self.get_shader_info_amd)(
                     device,
                     pipeline,
                     shader_stage,
                     info_type,
                     info_size,
                     info as _,
-                )
+                ))
             })
         }
     }

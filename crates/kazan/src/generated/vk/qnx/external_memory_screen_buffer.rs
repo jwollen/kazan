@@ -25,7 +25,11 @@ impl DeviceFn {
         device: Device,
         buffer: &_screen_buffer,
         properties: &mut ScreenBufferPropertiesQNX,
-    ) -> Result {
-        unsafe { (self.get_screen_buffer_properties_qnx)(device, buffer, properties) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.get_screen_buffer_properties_qnx)(
+                device, buffer, properties,
+            ))
+        }
     }
 }

@@ -30,13 +30,13 @@ impl DeviceFn {
         device: Device,
         renderpass: RenderPass,
         max_workgroup_size: &mut Extent2D,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_device_subpass_shading_max_workgroup_size_huawei)(
+            result((self.get_device_subpass_shading_max_workgroup_size_huawei)(
                 device,
                 renderpass,
                 max_workgroup_size,
-            )
+            ))
         }
     }
     pub unsafe fn cmd_subpass_shading_huawei(&self, command_buffer: CommandBuffer) {

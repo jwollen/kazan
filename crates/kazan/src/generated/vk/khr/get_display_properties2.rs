@@ -37,14 +37,14 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         properties: impl ExtendUninit<DisplayProperties2KHR>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(properties, |property_count, properties| {
-                (self.get_physical_device_display_properties2_khr)(
+                result((self.get_physical_device_display_properties2_khr)(
                     physical_device,
                     property_count,
                     properties as _,
-                )
+                ))
             })
         }
     }
@@ -52,14 +52,14 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         properties: impl ExtendUninit<DisplayPlaneProperties2KHR>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(properties, |property_count, properties| {
-                (self.get_physical_device_display_plane_properties2_khr)(
+                result((self.get_physical_device_display_plane_properties2_khr)(
                     physical_device,
                     property_count,
                     properties as _,
-                )
+                ))
             })
         }
     }
@@ -68,15 +68,15 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         display: DisplayKHR,
         properties: impl ExtendUninit<DisplayModeProperties2KHR>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(properties, |property_count, properties| {
-                (self.get_display_mode_properties2_khr)(
+                result((self.get_display_mode_properties2_khr)(
                     physical_device,
                     display,
                     property_count,
                     properties as _,
-                )
+                ))
             })
         }
     }
@@ -85,13 +85,13 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         display_plane_info: &DisplayPlaneInfo2KHR,
         capabilities: &mut DisplayPlaneCapabilities2KHR,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_display_plane_capabilities2_khr)(
+            result((self.get_display_plane_capabilities2_khr)(
                 physical_device,
                 display_plane_info,
                 capabilities,
-            )
+            ))
         }
     }
 }

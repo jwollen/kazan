@@ -25,14 +25,14 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         time_domains: impl ExtendUninit<TimeDomainKHR>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(time_domains, |time_domain_count, time_domains| {
-                (self.get_physical_device_calibrateable_time_domains_ext)(
+                result((self.get_physical_device_calibrateable_time_domains_ext)(
                     physical_device,
                     time_domain_count,
                     time_domains as _,
-                )
+                ))
             })
         }
     }
@@ -60,15 +60,15 @@ impl DeviceFn {
         timestamp_infos: &[CalibratedTimestampInfoKHR],
         timestamps: &mut [u64],
         max_deviation: &mut u64,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_calibrated_timestamps_ext)(
+            result((self.get_calibrated_timestamps_ext)(
                 device,
                 timestamp_infos.len().try_into().unwrap(),
                 timestamp_infos.as_ptr() as _,
                 timestamps.as_mut_ptr() as _,
                 max_deviation,
-            )
+            ))
         }
     }
 }

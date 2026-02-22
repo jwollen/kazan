@@ -29,8 +29,14 @@ impl DeviceFn {
         device: Device,
         get_metal_handle_info: &MemoryGetMetalHandleInfoEXT,
         handle: &mut *mut c_void,
-    ) -> Result {
-        unsafe { (self.get_memory_metal_handle_ext)(device, get_metal_handle_info, handle) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.get_memory_metal_handle_ext)(
+                device,
+                get_metal_handle_info,
+                handle,
+            ))
+        }
     }
     pub unsafe fn get_memory_metal_handle_properties_ext(
         &self,
@@ -38,14 +44,14 @@ impl DeviceFn {
         handle_type: ExternalMemoryHandleTypeFlagBits,
         handle: &c_void,
         memory_metal_handle_properties: &mut MemoryMetalHandlePropertiesEXT,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_memory_metal_handle_properties_ext)(
+            result((self.get_memory_metal_handle_properties_ext)(
                 device,
                 handle_type,
                 handle,
                 memory_metal_handle_properties,
-            )
+            ))
         }
     }
 }

@@ -37,8 +37,14 @@ impl DeviceFn {
         device: Device,
         display: DisplayKHR,
         display_power_info: &DisplayPowerInfoEXT,
-    ) -> Result {
-        unsafe { (self.display_power_control_ext)(device, display, display_power_info) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.display_power_control_ext)(
+                device,
+                display,
+                display_power_info,
+            ))
+        }
     }
     pub unsafe fn register_device_event_ext(
         &self,
@@ -46,14 +52,14 @@ impl DeviceFn {
         device_event_info: &DeviceEventInfoEXT,
         allocator: Option<&AllocationCallbacks>,
         fence: &mut Fence,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.register_device_event_ext)(
+            result((self.register_device_event_ext)(
                 device,
                 device_event_info,
                 allocator.to_raw_ptr(),
                 fence,
-            )
+            ))
         }
     }
     pub unsafe fn register_display_event_ext(
@@ -63,15 +69,15 @@ impl DeviceFn {
         display_event_info: &DisplayEventInfoEXT,
         allocator: Option<&AllocationCallbacks>,
         fence: &mut Fence,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.register_display_event_ext)(
+            result((self.register_display_event_ext)(
                 device,
                 display,
                 display_event_info,
                 allocator.to_raw_ptr(),
                 fence,
-            )
+            ))
         }
     }
     pub unsafe fn get_swapchain_counter_ext(
@@ -80,7 +86,14 @@ impl DeviceFn {
         swapchain: SwapchainKHR,
         counter: SurfaceCounterFlagBitsEXT,
         counter_value: &mut u64,
-    ) -> Result {
-        unsafe { (self.get_swapchain_counter_ext)(device, swapchain, counter, counter_value) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.get_swapchain_counter_ext)(
+                device,
+                swapchain,
+                counter,
+                counter_value,
+            ))
+        }
     }
 }

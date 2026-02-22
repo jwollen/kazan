@@ -29,15 +29,15 @@ impl DeviceFn {
         device: Device,
         framebuffer: Framebuffer,
         properties: impl ExtendUninit<TilePropertiesQCOM>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(properties, |properties_count, properties| {
-                (self.get_framebuffer_tile_properties_qcom)(
+                result((self.get_framebuffer_tile_properties_qcom)(
                     device,
                     framebuffer,
                     properties_count,
                     properties as _,
-                )
+                ))
             })
         }
     }
@@ -46,9 +46,13 @@ impl DeviceFn {
         device: Device,
         rendering_info: &RenderingInfo,
         properties: &mut TilePropertiesQCOM,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.get_dynamic_rendering_tile_properties_qcom)(device, rendering_info, properties)
+            result((self.get_dynamic_rendering_tile_properties_qcom)(
+                device,
+                rendering_info,
+                properties,
+            ))
         }
     }
 }

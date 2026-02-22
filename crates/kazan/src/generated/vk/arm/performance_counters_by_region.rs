@@ -29,19 +29,21 @@ impl InstanceFn {
         queue_family_index: u32,
         counters: impl ExtendUninit<PerformanceCounterARM>,
         counter_descriptions: impl ExtendUninit<PerformanceCounterDescriptionARM>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit2(
                 counters,
                 counter_descriptions,
                 |counter_count, counters, counter_descriptions| {
-                    (self.enumerate_physical_device_queue_family_performance_counters_by_region_arm)(
-                        physical_device,
-                        queue_family_index,
-                        counter_count,
-                        counters as _,
-                        counter_descriptions as _,
-                    )
+                    result(
+(self.enumerate_physical_device_queue_family_performance_counters_by_region_arm)(
+physical_device,
+queue_family_index,
+counter_count,
+counters as _,
+counter_descriptions as _,
+)
+)
                 },
             )
         }

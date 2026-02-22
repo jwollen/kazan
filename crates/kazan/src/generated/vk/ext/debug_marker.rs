@@ -40,15 +40,15 @@ impl DeviceFn {
         &self,
         device: Device,
         tag_info: &DebugMarkerObjectTagInfoEXT,
-    ) -> Result {
-        unsafe { (self.debug_marker_set_object_tag_ext)(device, tag_info) }
+    ) -> crate::Result<()> {
+        unsafe { result((self.debug_marker_set_object_tag_ext)(device, tag_info)) }
     }
     pub unsafe fn debug_marker_set_object_name_ext(
         &self,
         device: Device,
         name_info: &DebugMarkerObjectNameInfoEXT,
-    ) -> Result {
-        unsafe { (self.debug_marker_set_object_name_ext)(device, name_info) }
+    ) -> crate::Result<()> {
+        unsafe { result((self.debug_marker_set_object_name_ext)(device, name_info)) }
     }
     pub unsafe fn cmd_debug_marker_begin_ext(
         &self,

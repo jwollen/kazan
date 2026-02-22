@@ -1,8 +1,13 @@
 mod generated;
 pub use generated::*;
 
-use kazan_sys::vk::Result;
-use core::{ffi::{CStr, c_char}, mem::MaybeUninit, ptr};
+//mod loading;
+
+use core::{
+    ffi::{CStr, c_char},
+    mem::MaybeUninit,
+    ptr,
+};
 
 pub trait ExtendUninit<T> {
     unsafe fn reserve(&mut self, capacity: usize) -> &mut [MaybeUninit<T>];
@@ -33,45 +38,41 @@ impl<T> ExtendUninit<T> for &mut Vec<T> {
     }
 }
 
-pub(crate) fn try_extend_uninit<T, N, E, F>(mut e: E, mut f: F) -> Result
+pub(crate) fn try_extend_uninit<T, N, E, F, R>(mut e: E, mut f: F) -> Result<R>
 where
     N: Copy + Default + TryInto<usize> + TryFrom<usize>,
     <N as TryInto<usize>>::Error: core::fmt::Debug,
     <N as TryFrom<usize>>::Error: core::fmt::Debug,
     E: ExtendUninit<T>,
-    F: FnMut(&mut N, *mut T) -> Result,
+    F: FnMut(&mut N, *mut T) -> Result<R>,
 {
     let mut len = N::default();
-    let result = f(&mut len, std::ptr::null_mut());
-    if result != Result::SUCCESS {
-        return result;
-    }
+    f(&mut len, std::ptr::null_mut())?;
 
     let capacity = len.try_into().expect("failed to convert `N` to usize");
     let data = unsafe { e.reserve(capacity) };
     len = data.len().try_into().unwrap();
-    let result = f(&mut len, data.as_mut_ptr() as *mut T);
-    if result != Result::SUCCESS {
-        return result;
-    }
+    let result = f(&mut len, data.as_mut_ptr() as *mut T)?;
+
     unsafe { e.set_len(len.try_into().unwrap()) };
-    result
+    Ok(result)
 }
 
-pub(crate) fn try_extend_uninit2<T1, T2, N, E1, E2, F>(mut e1: E1, mut e2: E2, mut f: F) -> Result
+pub(crate) fn try_extend_uninit2<T1, T2, N, E1, E2, F, R>(
+    mut e1: E1,
+    mut e2: E2,
+    mut f: F,
+) -> Result<R>
 where
     N: Copy + Default + TryInto<usize> + TryFrom<usize>,
     <N as TryInto<usize>>::Error: core::fmt::Debug,
     <N as TryFrom<usize>>::Error: core::fmt::Debug,
     E1: ExtendUninit<T1>,
     E2: ExtendUninit<T2>,
-    F: FnMut(&mut N, *mut T1, *mut T2) -> Result,
+    F: FnMut(&mut N, *mut T1, *mut T2) -> Result<R>,
 {
     let mut len = N::default();
-    let result = f(&mut len, std::ptr::null_mut(), std::ptr::null_mut());
-    if result != Result::SUCCESS {
-        return result;
-    }
+    f(&mut len, std::ptr::null_mut(), std::ptr::null_mut())?;
 
     let capacity = len.try_into().expect("failed to convert `N` to usize");
     let data1 = unsafe { e1.reserve(capacity) };
@@ -84,15 +85,12 @@ where
         &mut len,
         data1.as_mut_ptr() as *mut T1,
         data2.as_mut_ptr() as *mut T2,
-    );
-    if result != Result::SUCCESS {
-        return result;
-    }
+    )?;
     unsafe {
         e1.set_len(len.try_into().unwrap());
         e2.set_len(len.try_into().unwrap())
     };
-    result
+    Ok(result)
 }
 
 pub(crate) fn extend_uninit<T, N, E, F>(mut e: E, mut f: F)
@@ -167,3 +165,12 @@ impl<T> RawMutPtr<T> for Option<&mut [T]> {
 }
 
 pub struct LoadingError;
+
+pub type Result<T> = core::result::Result<T, kazan_sys::vk::Result>;
+
+fn result(result: kazan_sys::vk::Result) -> Result<()> {
+    match result {
+        kazan_sys::vk::Result::SUCCESS => Ok(()),
+        err => Err(err),
+    }
+}

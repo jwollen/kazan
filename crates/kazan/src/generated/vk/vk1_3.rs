@@ -24,14 +24,14 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         tool_properties: impl ExtendUninit<PhysicalDeviceToolProperties>,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(tool_properties, |tool_count, tool_properties| {
-                (self.get_physical_device_tool_properties)(
+                result((self.get_physical_device_tool_properties)(
                     physical_device,
                     tool_count,
                     tool_properties as _,
-                )
+                ))
             })
         }
     }
@@ -167,14 +167,14 @@ impl DeviceFn {
         create_info: &PrivateDataSlotCreateInfo,
         allocator: Option<&AllocationCallbacks>,
         private_data_slot: &mut PrivateDataSlot,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.create_private_data_slot)(
+            result((self.create_private_data_slot)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
                 private_data_slot,
-            )
+            ))
         }
     }
     pub unsafe fn destroy_private_data_slot(
@@ -194,9 +194,15 @@ impl DeviceFn {
         object_handle: u64,
         private_data_slot: PrivateDataSlot,
         data: u64,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.set_private_data)(device, object_type, object_handle, private_data_slot, data)
+            result((self.set_private_data)(
+                device,
+                object_type,
+                object_handle,
+                private_data_slot,
+                data,
+            ))
         }
     }
     pub unsafe fn get_private_data(
@@ -232,14 +238,14 @@ impl DeviceFn {
         queue: Queue,
         submits: &[SubmitInfo2],
         fence: Fence,
-    ) -> Result {
+    ) -> crate::Result<()> {
         unsafe {
-            (self.queue_submit2)(
+            result((self.queue_submit2)(
                 queue,
                 submits.len().try_into().unwrap(),
                 submits.as_ptr() as _,
                 fence,
-            )
+            ))
         }
     }
     pub unsafe fn cmd_copy_buffer2(

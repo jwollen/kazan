@@ -51,8 +51,12 @@ impl DeviceFn {
         device: Device,
         image_view: ImageView,
         properties: &mut ImageViewAddressPropertiesNVX,
-    ) -> Result {
-        unsafe { (self.get_image_view_address_nvx)(device, image_view, properties) }
+    ) -> crate::Result<()> {
+        unsafe {
+            result((self.get_image_view_address_nvx)(
+                device, image_view, properties,
+            ))
+        }
     }
     pub unsafe fn get_device_combined_image_sampler_index_nvx(
         &self,
