@@ -681,6 +681,23 @@ impl RequireEnumVariant {
 }
 
 #[derive(Debug)]
+pub struct RequireEnumValue {
+    pub name: &'static str,
+    pub value: &'static str,
+    pub extends: &'static str,
+}
+
+impl RequireEnumValue {
+    fn from_node(node: Node) -> RequireEnumValue {
+        RequireEnumValue {
+            name: attribute(node, "name").unwrap(),
+            value: attribute(node, "value").unwrap(),
+            extends: attribute(node, "extends").unwrap(),
+        }
+    }
+}
+
+#[derive(Debug)]
 pub struct RequireBitPos {
     pub name: &'static str,
     pub bitpos: u8,
@@ -693,6 +710,23 @@ impl RequireBitPos {
             name: attribute(node, "name").unwrap(),
             bitpos: attribute(node, "bitpos").unwrap().parse().unwrap(),
             extends: attribute(node, "extends").unwrap(),
+        }
+    }
+}
+
+#[derive(Debug)]
+pub struct RequireEnumAlias {
+    pub name: &'static str,
+    pub alias: &'static str,
+    pub extends: Option<&'static str>,
+}
+
+impl RequireEnumAlias {
+    fn from_node(node: Node) -> RequireEnumAlias {
+        RequireEnumAlias {
+            name: attribute(node, "name").unwrap(),
+            alias: attribute(node, "alias").unwrap(),
+            extends: attribute(node, "extends"),
         }
     }
 }
@@ -772,7 +806,9 @@ impl Depends {
 pub struct Require {
     pub depends: Vec<Depends>,
     pub enum_variants: Vec<RequireEnumVariant>,
+    pub enum_values: Vec<RequireEnumValue>,
     pub bitpositions: Vec<RequireBitPos>,
+    pub enum_aliases: Vec<RequireEnumAlias>,
     pub constants: Vec<RequireConstant>,
     pub types: Vec<RequireType>,
     pub commands: Vec<RequireCommand>,
@@ -796,6 +832,10 @@ impl Require {
                             .push(RequireEnumVariant::from_node(child));
                     } else if child.has_attribute("bitpos") {
                         value.bitpositions.push(RequireBitPos::from_node(child));
+                    } else if child.has_attribute("alias") {
+                        value.enum_aliases.push(RequireEnumAlias::from_node(child));
+                    } else if child.has_attribute("value") && child.has_attribute("extends") {
+                        value.enum_values.push(RequireEnumValue::from_node(child));
                     } else {
                         value.constants.push(RequireConstant::from_node(child));
                     }

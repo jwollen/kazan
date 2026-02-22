@@ -159,6 +159,7 @@ impl OpacityMicromapSpecialIndexEXT {
     pub const FULLY_OPAQUE_EXT: Self = Self(-2);
     pub const FULLY_UNKNOWN_TRANSPARENT_EXT: Self = Self(-3);
     pub const FULLY_UNKNOWN_OPAQUE_EXT: Self = Self(-4);
+    pub const CLUSTER_GEOMETRY_DISABLE_OPACITY_MICROMAP_NV: Self = Self(-5);
 }
 bitflags! {
     #[repr(transparent)]

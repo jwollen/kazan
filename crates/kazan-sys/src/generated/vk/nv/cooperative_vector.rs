@@ -70,6 +70,19 @@ impl ComponentTypeKHR {
     pub const FLOAT8_E5M2_EXT: Self = Self(1000491003);
     pub const SINT8_PACKED_NV: Self = Self(1000491000);
     pub const UINT8_PACKED_NV: Self = Self(1000491001);
+    pub const FLOAT16_NV: Self = Self::FLOAT16_KHR;
+    pub const FLOAT32_NV: Self = Self::FLOAT32_KHR;
+    pub const FLOAT64_NV: Self = Self::FLOAT64_KHR;
+    pub const FLOAT_E4M3_NV: Self = Self::FLOAT8_E4M3_EXT;
+    pub const FLOAT_E5M2_NV: Self = Self::FLOAT8_E5M2_EXT;
+    pub const SINT16_NV: Self = Self::SINT16_KHR;
+    pub const SINT32_NV: Self = Self::SINT32_KHR;
+    pub const SINT64_NV: Self = Self::SINT64_KHR;
+    pub const SINT8_NV: Self = Self::SINT8_KHR;
+    pub const UINT16_NV: Self = Self::UINT16_KHR;
+    pub const UINT32_NV: Self = Self::UINT32_KHR;
+    pub const UINT64_NV: Self = Self::UINT64_KHR;
+    pub const UINT8_NV: Self = Self::UINT8_KHR;
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]

@@ -100,6 +100,7 @@ bitflags! {
         const PRESENT_ID_2_KHR = SwapchainCreateFlagBitsKHR::PRESENT_ID_2_KHR.0;
         const PRESENT_WAIT_2_KHR = SwapchainCreateFlagBitsKHR::PRESENT_WAIT_2_KHR.0;
         const PRESENT_TIMING_EXT = SwapchainCreateFlagBitsKHR::PRESENT_TIMING_EXT.0;
+        const DEFERRED_MEMORY_ALLOCATION_EXT = Self::DEFERRED_MEMORY_ALLOCATION_KHR.bits();
     }
 }
 #[repr(transparent)]
@@ -113,6 +114,7 @@ impl SwapchainCreateFlagBitsKHR {
     pub const PRESENT_ID_2_KHR: Self = Self(1 << 6);
     pub const PRESENT_WAIT_2_KHR: Self = Self(1 << 7);
     pub const PRESENT_TIMING_EXT: Self = Self(1 << 9);
+    pub const DEFERRED_MEMORY_ALLOCATION_EXT: Self = Self::DEFERRED_MEMORY_ALLOCATION_KHR;
 }
 bitflags! {
     #[repr(transparent)]

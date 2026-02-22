@@ -36,6 +36,7 @@ impl PresentModeKHR {
     pub const FIFO_LATEST_READY_KHR: Self = Self(1000361000);
     pub const SHARED_CONTINUOUS_REFRESH_KHR: Self = Self(1000111001);
     pub const SHARED_DEMAND_REFRESH_KHR: Self = Self(1000111000);
+    pub const FIFO_LATEST_READY_EXT: Self = Self::FIFO_LATEST_READY_KHR;
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -57,6 +58,7 @@ impl ColorSpaceKHR {
     pub const HDR10_HLG_EXT: Self = Self(1000104010);
     pub const HDR10_ST2084_EXT: Self = Self(1000104008);
     pub const PASS_THROUGH_EXT: Self = Self(1000104013);
+    pub const DCI_P3_LINEAR_EXT: Self = Self::DISPLAY_P3_LINEAR_EXT;
 }
 bitflags! {
     #[repr(transparent)]

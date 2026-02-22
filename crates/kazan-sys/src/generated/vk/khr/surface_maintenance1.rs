@@ -35,6 +35,9 @@ bitflags! {
         const ONE_TO_ONE_KHR = PresentScalingFlagBitsKHR::ONE_TO_ONE_KHR.0;
         const ASPECT_RATIO_STRETCH_KHR = PresentScalingFlagBitsKHR::ASPECT_RATIO_STRETCH_KHR.0;
         const STRETCH_KHR = PresentScalingFlagBitsKHR::STRETCH_KHR.0;
+        const ONE_TO_ONE_EXT = Self::ONE_TO_ONE_KHR.bits();
+        const ASPECT_RATIO_STRETCH_EXT = Self::ASPECT_RATIO_STRETCH_KHR.bits();
+        const STRETCH_EXT = Self::STRETCH_KHR.bits();
     }
 }
 #[repr(transparent)]
@@ -52,6 +55,9 @@ bitflags! {
         const MIN_KHR = PresentGravityFlagBitsKHR::MIN_KHR.0;
         const MAX_KHR = PresentGravityFlagBitsKHR::MAX_KHR.0;
         const CENTERED_KHR = PresentGravityFlagBitsKHR::CENTERED_KHR.0;
+        const MIN_EXT = Self::MIN_KHR.bits();
+        const MAX_EXT = Self::MAX_KHR.bits();
+        const CENTERED_EXT = Self::CENTERED_KHR.bits();
     }
 }
 #[repr(transparent)]

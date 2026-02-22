@@ -40,6 +40,10 @@ impl ScopeKHR {
     pub const WORKGROUP_KHR: Self = Self(2);
     pub const SUBGROUP_KHR: Self = Self(3);
     pub const QUEUE_FAMILY_KHR: Self = Self(5);
+    pub const DEVICE_NV: Self = Self::DEVICE_KHR;
+    pub const QUEUE_FAMILY_NV: Self = Self::QUEUE_FAMILY_KHR;
+    pub const SUBGROUP_NV: Self = Self::SUBGROUP_KHR;
+    pub const WORKGROUP_NV: Self = Self::WORKGROUP_KHR;
 }
 pub type PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR =
     unsafe extern "system" fn(

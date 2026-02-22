@@ -135,6 +135,9 @@ fn generate(xmls: &[&xml::Registry]) {
 
     let mut req_enum_variants = BTreeMap::new();
     let mut req_bitspos = BTreeMap::new();
+    let mut req_enum_aliases = BTreeMap::new();
+    let mut req_enum_values = BTreeMap::new();
+
     for version_or_extension in version_or_extension.clone() {
         let requires: Vec<_> = match version_or_extension {
             VersionOrExtension::Version(ref version) => version
@@ -166,6 +169,20 @@ fn generate(xmls: &[&xml::Registry]) {
                     .entry(bitpos.extends)
                     .or_insert_with(BTreeMap::new);
                 variants.insert(bitpos.name, bitpos.bitpos);
+            }
+            for alias in &req.enum_aliases {
+                if let Some(extends) = alias.extends {
+                    let aliases = req_enum_aliases
+                        .entry(extends)
+                        .or_insert_with(BTreeMap::new);
+                    aliases.insert(alias.name, alias.alias);
+                }
+            }
+            for value in &req.enum_values {
+                let values = req_enum_values
+                    .entry(value.extends)
+                    .or_insert_with(BTreeMap::new);
+                values.insert(value.name, value.value);
             }
         }
     }
@@ -404,12 +421,13 @@ fn generate(xmls: &[&xml::Registry]) {
                     let bits = ty
                         .values
                         .iter()
-                        .map(|bit|(normalize_variant_name(bit.name), bit.value.to_string()));
+                        .map(|bit| (normalize_variant_name(bit.name), bit.value.to_string()));
 
                     let req_enum = req_enum_variants.get(ty.name);
                     let req_variants = req_enum.iter().flat_map(|bits| {
-                        bits.iter()
-                            .map(|(name, variant)| (normalize_variant_name(name), variant.to_string()))
+                        bits.iter().map(|(name, variant)| {
+                            (normalize_variant_name(name), variant.to_string())
+                        })
                     });
 
                     let mut bits = bits.chain(req_variants).collect::<Vec<_>>();
@@ -419,14 +437,24 @@ fn generate(xmls: &[&xml::Registry]) {
 
                 writeln!(sys_file, "impl {} {{", normalize_ty_name(ty.name)).unwrap();
                 for (name, value) in &variants {
-                    writeln!(
-                        sys_file,
-                        "    pub const {}: Self = Self({});",
-                        name,
-                        value
-                    )
-                    .unwrap();
+                    writeln!(sys_file, "pub const {}: Self = Self({});", name, value).unwrap();
                 }
+
+                if let Some(values) = req_enum_values.get(ty.name) {
+                    for (name, value) in values {
+                        let name = normalize_variant_name(name);
+                        writeln!(sys_file, "pub const {}: Self = Self({});", name, value).unwrap();
+                    }
+                }
+
+                if let Some(aliases) = req_enum_aliases.get(ty.name) {
+                    for (name, alias) in aliases {
+                        let name = normalize_variant_name(name);
+                        let alias = normalize_variant_name(alias);
+                        writeln!(sys_file, "pub const {}: Self = Self::{};", name, alias).unwrap();
+                    }
+                }
+
                 writeln!(sys_file, "}}").unwrap();
             }
 
@@ -461,12 +489,13 @@ fn generate(xmls: &[&xml::Registry]) {
                 let normalize_bit_name = |name: &str| {
                     let name = name
                         .strip_prefix(value_prefix.as_ref().unwrap())
-                        .unwrap()
+                        .unwrap_or(name.strip_prefix("VK").unwrap()) // Some variants have non-standard names
                         .strip_prefix("_")
                         .unwrap();
                     //let name = strip_vendor_suffix(name);
                     //let name = name.strip_suffix("_BIT").unwrap_or(name);
                     let name = name.replace("_BIT", "");
+
                     if name
                         .chars()
                         .next()
@@ -500,7 +529,15 @@ fn generate(xmls: &[&xml::Registry]) {
 
                 if let Some(bitmask) = bitmask {
                     let bitmask_name = normalize_ty_name(bitmask.name);
+
+                    // Filter out duplicates. These can happen because we are removing the "_BIT" suffix,
+                    // but some bitmask variants miss this suffix and got later corrected through aliases.
+                    let mut visited_bits = HashSet::new();
+
                     for (name, _bit) in &bits {
+                        if !visited_bits.insert(name.clone()) {
+                            continue;
+                        }
                         writeln!(
                             sys_file,
                             "        const {} = {}::{}.0;",
@@ -508,6 +545,33 @@ fn generate(xmls: &[&xml::Registry]) {
                         )
                         .unwrap();
                     }
+
+                    for alias in &bitmask.aliases {
+                        let name = normalize_bit_name(alias.name);
+                        let alias = normalize_bit_name(alias.alias);
+
+                        if !visited_bits.insert(name.clone()) {
+                            continue;
+                        }
+
+                        writeln!(sys_file, "        const {} = Self::{}.bits();", name, alias)
+                            .unwrap();
+                    }
+
+                    if let Some(aliases) = req_enum_aliases.get(bitmask.name) {
+                        for (name, alias) in aliases {
+                            let name = normalize_bit_name(name);
+                            let alias = normalize_bit_name(alias);
+
+                            if !visited_bits.insert(name.clone()) {
+                                continue;
+                            }
+
+                            writeln!(sys_file, "        const {} = Self::{}.bits();", name, alias)
+                                .unwrap();
+                        }
+                    }
+
                     for value in &bitmask.values {
                         let name = value
                             .name
@@ -517,6 +581,13 @@ fn generate(xmls: &[&xml::Registry]) {
                             .unwrap();
                         let name = strip_vendor_suffix(name);
                         writeln!(sys_file, "        const {} = {};", name, value.value).unwrap();
+                    }
+
+                    if let Some(values) = req_enum_values.get(bitmask.name) {
+                        for (name, value) in values {
+                            let name = normalize_bit_name(name);
+                            writeln!(sys_file, "        const {} = {};", name, value).unwrap();
+                        }
                     }
                 }
 
@@ -537,9 +608,35 @@ fn generate(xmls: &[&xml::Registry]) {
                     )
                     .unwrap();
 
+                    // Filter out duplicates. These can happen because we are removing the "_BIT" suffix,
+                    // but some bitmask variants miss this suffix and got later corrected through aliases.
+                    let mut visited_bits = HashSet::new();
+
                     for (name, bit) in &bits {
+                        if !visited_bits.insert(name.clone()) {
+                            continue;
+                        }
                         writeln!(sys_file, "pub const {}: Self = Self(1 << {});", name, bit)
                             .unwrap();
+                    }
+
+                    if let Some(aliases) = req_enum_aliases.get(bitmask.name) {
+                        for (name, alias) in aliases {
+                            let name = normalize_bit_name(name);
+                            let alias = normalize_bit_name(alias);
+
+                            // Only generate aliases for bits, not values
+                            if !bits.iter().any(|(name, _)| name.as_str() == alias) {
+                                continue;
+                            }
+
+                            if !visited_bits.insert(name.clone()) {
+                                continue;
+                            }
+
+                            writeln!(sys_file, "pub const {}: Self = Self::{};", name, alias)
+                                .unwrap();
+                        }
                     }
 
                     writeln!(sys_file, "}}").unwrap();

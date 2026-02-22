@@ -23,4 +23,6 @@ pub struct RayTracingInvocationReorderModeEXT(i32);
 impl RayTracingInvocationReorderModeEXT {
     pub const NONE_EXT: Self = Self(0);
     pub const REORDER_EXT: Self = Self(1);
+    pub const NONE_NV: Self = Self::NONE_EXT;
+    pub const REORDER_NV: Self = Self::REORDER_EXT;
 }

@@ -87,6 +87,9 @@ impl RayTracingShaderGroupTypeKHR {
     pub const GENERAL_KHR: Self = Self(0);
     pub const TRIANGLES_HIT_GROUP_KHR: Self = Self(1);
     pub const PROCEDURAL_HIT_GROUP_KHR: Self = Self(2);
+    pub const GENERAL_NV: Self = Self::GENERAL_KHR;
+    pub const PROCEDURAL_HIT_GROUP_NV: Self = Self::PROCEDURAL_HIT_GROUP_KHR;
+    pub const TRIANGLES_HIT_GROUP_NV: Self = Self::TRIANGLES_HIT_GROUP_KHR;
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]

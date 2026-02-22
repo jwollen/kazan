@@ -570,6 +570,9 @@ pub struct PhysicalDeviceShaderDrawParametersFeatures {
 pub struct DescriptorUpdateTemplateType(i32);
 impl DescriptorUpdateTemplateType {
     pub const DESCRIPTOR_SET: Self = Self(0);
+    pub const PUSH_DESCRIPTORS: Self = Self(1);
+    pub const DESCRIPTOR_SET_KHR: Self = Self::DESCRIPTOR_SET;
+    pub const PUSH_DESCRIPTORS_KHR: Self = Self::PUSH_DESCRIPTORS;
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -577,6 +580,8 @@ pub struct PointClippingBehavior(i32);
 impl PointClippingBehavior {
     pub const ALL_CLIP_PLANES: Self = Self(0);
     pub const USER_CLIP_PLANES_ONLY: Self = Self(1);
+    pub const ALL_CLIP_PLANES_KHR: Self = Self::ALL_CLIP_PLANES;
+    pub const USER_CLIP_PLANES_ONLY_KHR: Self = Self::USER_CLIP_PLANES_ONLY;
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -584,6 +589,8 @@ pub struct TessellationDomainOrigin(i32);
 impl TessellationDomainOrigin {
     pub const UPPER_LEFT: Self = Self(0);
     pub const LOWER_LEFT: Self = Self(1);
+    pub const LOWER_LEFT_KHR: Self = Self::LOWER_LEFT;
+    pub const UPPER_LEFT_KHR: Self = Self::UPPER_LEFT;
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -594,6 +601,11 @@ impl SamplerYcbcrModelConversion {
     pub const YCBCR_709: Self = Self(2);
     pub const YCBCR_601: Self = Self(3);
     pub const YCBCR_2020: Self = Self(4);
+    pub const RGB_IDENTITY_KHR: Self = Self::RGB_IDENTITY;
+    pub const YCBCR_2020_KHR: Self = Self::YCBCR_2020;
+    pub const YCBCR_601_KHR: Self = Self::YCBCR_601;
+    pub const YCBCR_709_KHR: Self = Self::YCBCR_709;
+    pub const YCBCR_IDENTITY_KHR: Self = Self::YCBCR_IDENTITY;
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -601,6 +613,8 @@ pub struct SamplerYcbcrRange(i32);
 impl SamplerYcbcrRange {
     pub const ITU_FULL: Self = Self(0);
     pub const ITU_NARROW: Self = Self(1);
+    pub const ITU_FULL_KHR: Self = Self::ITU_FULL;
+    pub const ITU_NARROW_KHR: Self = Self::ITU_NARROW;
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -608,6 +622,8 @@ pub struct ChromaLocation(i32);
 impl ChromaLocation {
     pub const COSITED_EVEN: Self = Self(0);
     pub const MIDPOINT: Self = Self(1);
+    pub const COSITED_EVEN_KHR: Self = Self::COSITED_EVEN;
+    pub const MIDPOINT_KHR: Self = Self::MIDPOINT;
 }
 bitflags! {
     #[repr(transparent)]
@@ -624,6 +640,9 @@ bitflags! {
         const PARTITIONED_EXT = SubgroupFeatureFlagBits::PARTITIONED_EXT.0;
         const ROTATE = SubgroupFeatureFlagBits::ROTATE.0;
         const ROTATE_CLUSTERED = SubgroupFeatureFlagBits::ROTATE_CLUSTERED.0;
+        const PARTITIONED_NV = Self::PARTITIONED_EXT.bits();
+        const ROTATE_KHR = Self::ROTATE.bits();
+        const ROTATE_CLUSTERED_KHR = Self::ROTATE_CLUSTERED.bits();
     }
 }
 #[repr(transparent)]
@@ -641,6 +660,9 @@ impl SubgroupFeatureFlagBits {
     pub const PARTITIONED_EXT: Self = Self(1 << 8);
     pub const ROTATE: Self = Self(1 << 9);
     pub const ROTATE_CLUSTERED: Self = Self(1 << 10);
+    pub const PARTITIONED_NV: Self = Self::PARTITIONED_EXT;
+    pub const ROTATE_KHR: Self = Self::ROTATE;
+    pub const ROTATE_CLUSTERED_KHR: Self = Self::ROTATE_CLUSTERED;
 }
 bitflags! {
     #[repr(transparent)]
@@ -656,6 +678,10 @@ bitflags! {
         const COPY_DST = PeerMemoryFeatureFlagBits::COPY_DST.0;
         const GENERIC_SRC = PeerMemoryFeatureFlagBits::GENERIC_SRC.0;
         const GENERIC_DST = PeerMemoryFeatureFlagBits::GENERIC_DST.0;
+        const COPY_DST_KHR = Self::COPY_DST.bits();
+        const COPY_SRC_KHR = Self::COPY_SRC.bits();
+        const GENERIC_DST_KHR = Self::GENERIC_DST.bits();
+        const GENERIC_SRC_KHR = Self::GENERIC_SRC.bits();
     }
 }
 #[repr(transparent)]
@@ -666,6 +692,10 @@ impl PeerMemoryFeatureFlagBits {
     pub const COPY_DST: Self = Self(1 << 1);
     pub const GENERIC_SRC: Self = Self(1 << 2);
     pub const GENERIC_DST: Self = Self(1 << 3);
+    pub const COPY_DST_KHR: Self = Self::COPY_DST;
+    pub const COPY_SRC_KHR: Self = Self::COPY_SRC;
+    pub const GENERIC_DST_KHR: Self = Self::GENERIC_DST;
+    pub const GENERIC_SRC_KHR: Self = Self::GENERIC_SRC;
 }
 bitflags! {
     #[repr(transparent)]
@@ -675,6 +705,9 @@ bitflags! {
         const DEVICE_ADDRESS = MemoryAllocateFlagBits::DEVICE_ADDRESS.0;
         const DEVICE_ADDRESS_CAPTURE_REPLAY = MemoryAllocateFlagBits::DEVICE_ADDRESS_CAPTURE_REPLAY.0;
         const ZERO_INITIALIZE_EXT = MemoryAllocateFlagBits::ZERO_INITIALIZE_EXT.0;
+        const DEVICE_ADDRESS_KHR = Self::DEVICE_ADDRESS.bits();
+        const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR = Self::DEVICE_ADDRESS_CAPTURE_REPLAY.bits();
+        const DEVICE_MASK_KHR = Self::DEVICE_MASK.bits();
     }
 }
 #[repr(transparent)]
@@ -685,6 +718,9 @@ impl MemoryAllocateFlagBits {
     pub const DEVICE_ADDRESS: Self = Self(1 << 1);
     pub const DEVICE_ADDRESS_CAPTURE_REPLAY: Self = Self(1 << 2);
     pub const ZERO_INITIALIZE_EXT: Self = Self(1 << 3);
+    pub const DEVICE_ADDRESS_KHR: Self = Self::DEVICE_ADDRESS;
+    pub const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR: Self = Self::DEVICE_ADDRESS_CAPTURE_REPLAY;
+    pub const DEVICE_MASK_KHR: Self = Self::DEVICE_MASK;
 }
 bitflags! {
     #[repr(transparent)]
@@ -714,6 +750,13 @@ bitflags! {
         const MTLBUFFER_EXT = ExternalMemoryHandleTypeFlagBits::MTLBUFFER_EXT.0;
         const MTLTEXTURE_EXT = ExternalMemoryHandleTypeFlagBits::MTLTEXTURE_EXT.0;
         const MTLHEAP_EXT = ExternalMemoryHandleTypeFlagBits::MTLHEAP_EXT.0;
+        const D3D11_TEXTURE_KHR = Self::D3D11_TEXTURE.bits();
+        const D3D11_TEXTURE_KMT_KHR = Self::D3D11_TEXTURE_KMT.bits();
+        const D3D12_HEAP_KHR = Self::D3D12_HEAP.bits();
+        const D3D12_RESOURCE_KHR = Self::D3D12_RESOURCE.bits();
+        const OPAQUE_FD_KHR = Self::OPAQUE_FD.bits();
+        const OPAQUE_WIN32_KHR = Self::OPAQUE_WIN32.bits();
+        const OPAQUE_WIN32_KMT_KHR = Self::OPAQUE_WIN32_KMT.bits();
     }
 }
 #[repr(transparent)]
@@ -738,6 +781,13 @@ impl ExternalMemoryHandleTypeFlagBits {
     pub const MTLBUFFER_EXT: Self = Self(1 << 16);
     pub const MTLTEXTURE_EXT: Self = Self(1 << 17);
     pub const MTLHEAP_EXT: Self = Self(1 << 18);
+    pub const D3D11_TEXTURE_KHR: Self = Self::D3D11_TEXTURE;
+    pub const D3D11_TEXTURE_KMT_KHR: Self = Self::D3D11_TEXTURE_KMT;
+    pub const D3D12_HEAP_KHR: Self = Self::D3D12_HEAP;
+    pub const D3D12_RESOURCE_KHR: Self = Self::D3D12_RESOURCE;
+    pub const OPAQUE_FD_KHR: Self = Self::OPAQUE_FD;
+    pub const OPAQUE_WIN32_KHR: Self = Self::OPAQUE_WIN32;
+    pub const OPAQUE_WIN32_KMT_KHR: Self = Self::OPAQUE_WIN32_KMT;
 }
 bitflags! {
     #[repr(transparent)]
@@ -746,6 +796,9 @@ bitflags! {
         const DEDICATED_ONLY = ExternalMemoryFeatureFlagBits::DEDICATED_ONLY.0;
         const EXPORTABLE = ExternalMemoryFeatureFlagBits::EXPORTABLE.0;
         const IMPORTABLE = ExternalMemoryFeatureFlagBits::IMPORTABLE.0;
+        const DEDICATED_ONLY_KHR = Self::DEDICATED_ONLY.bits();
+        const EXPORTABLE_KHR = Self::EXPORTABLE.bits();
+        const IMPORTABLE_KHR = Self::IMPORTABLE.bits();
     }
 }
 #[repr(transparent)]
@@ -755,6 +808,9 @@ impl ExternalMemoryFeatureFlagBits {
     pub const DEDICATED_ONLY: Self = Self(1 << 0);
     pub const EXPORTABLE: Self = Self(1 << 1);
     pub const IMPORTABLE: Self = Self(1 << 2);
+    pub const DEDICATED_ONLY_KHR: Self = Self::DEDICATED_ONLY;
+    pub const EXPORTABLE_KHR: Self = Self::EXPORTABLE;
+    pub const IMPORTABLE_KHR: Self = Self::IMPORTABLE;
 }
 bitflags! {
     #[repr(transparent)]
@@ -766,6 +822,12 @@ bitflags! {
         const D3D12_FENCE = ExternalSemaphoreHandleTypeFlagBits::D3D12_FENCE.0;
         const SYNC_FD = ExternalSemaphoreHandleTypeFlagBits::SYNC_FD.0;
         const ZIRCON_EVENT_FUCHSIA = ExternalSemaphoreHandleTypeFlagBits::ZIRCON_EVENT_FUCHSIA.0;
+        const D3D11_FENCE = Self::D3D12_FENCE.bits();
+        const D3D12_FENCE_KHR = Self::D3D12_FENCE.bits();
+        const OPAQUE_FD_KHR = Self::OPAQUE_FD.bits();
+        const OPAQUE_WIN32_KHR = Self::OPAQUE_WIN32.bits();
+        const OPAQUE_WIN32_KMT_KHR = Self::OPAQUE_WIN32_KMT.bits();
+        const SYNC_FD_KHR = Self::SYNC_FD.bits();
     }
 }
 #[repr(transparent)]
@@ -778,6 +840,11 @@ impl ExternalSemaphoreHandleTypeFlagBits {
     pub const D3D12_FENCE: Self = Self(1 << 3);
     pub const SYNC_FD: Self = Self(1 << 4);
     pub const ZIRCON_EVENT_FUCHSIA: Self = Self(1 << 7);
+    pub const D3D12_FENCE_KHR: Self = Self::D3D12_FENCE;
+    pub const OPAQUE_FD_KHR: Self = Self::OPAQUE_FD;
+    pub const OPAQUE_WIN32_KHR: Self = Self::OPAQUE_WIN32;
+    pub const OPAQUE_WIN32_KMT_KHR: Self = Self::OPAQUE_WIN32_KMT;
+    pub const SYNC_FD_KHR: Self = Self::SYNC_FD;
 }
 bitflags! {
     #[repr(transparent)]
@@ -785,6 +852,8 @@ bitflags! {
     pub struct ExternalSemaphoreFeatureFlags: Flags {
         const EXPORTABLE = ExternalSemaphoreFeatureFlagBits::EXPORTABLE.0;
         const IMPORTABLE = ExternalSemaphoreFeatureFlagBits::IMPORTABLE.0;
+        const EXPORTABLE_KHR = Self::EXPORTABLE.bits();
+        const IMPORTABLE_KHR = Self::IMPORTABLE.bits();
     }
 }
 #[repr(transparent)]
@@ -793,12 +862,15 @@ pub struct ExternalSemaphoreFeatureFlagBits(u32);
 impl ExternalSemaphoreFeatureFlagBits {
     pub const EXPORTABLE: Self = Self(1 << 0);
     pub const IMPORTABLE: Self = Self(1 << 1);
+    pub const EXPORTABLE_KHR: Self = Self::EXPORTABLE;
+    pub const IMPORTABLE_KHR: Self = Self::IMPORTABLE;
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct SemaphoreImportFlags: Flags {
         const TEMPORARY = SemaphoreImportFlagBits::TEMPORARY.0;
+        const TEMPORARY_KHR = Self::TEMPORARY.bits();
     }
 }
 #[repr(transparent)]
@@ -806,6 +878,7 @@ bitflags! {
 pub struct SemaphoreImportFlagBits(u32);
 impl SemaphoreImportFlagBits {
     pub const TEMPORARY: Self = Self(1 << 0);
+    pub const TEMPORARY_KHR: Self = Self::TEMPORARY;
 }
 bitflags! {
     #[repr(transparent)]
@@ -815,6 +888,10 @@ bitflags! {
         const OPAQUE_WIN32 = ExternalFenceHandleTypeFlagBits::OPAQUE_WIN32.0;
         const OPAQUE_WIN32_KMT = ExternalFenceHandleTypeFlagBits::OPAQUE_WIN32_KMT.0;
         const SYNC_FD = ExternalFenceHandleTypeFlagBits::SYNC_FD.0;
+        const OPAQUE_FD_KHR = Self::OPAQUE_FD.bits();
+        const OPAQUE_WIN32_KHR = Self::OPAQUE_WIN32.bits();
+        const OPAQUE_WIN32_KMT_KHR = Self::OPAQUE_WIN32_KMT.bits();
+        const SYNC_FD_KHR = Self::SYNC_FD.bits();
     }
 }
 #[repr(transparent)]
@@ -825,6 +902,10 @@ impl ExternalFenceHandleTypeFlagBits {
     pub const OPAQUE_WIN32: Self = Self(1 << 1);
     pub const OPAQUE_WIN32_KMT: Self = Self(1 << 2);
     pub const SYNC_FD: Self = Self(1 << 3);
+    pub const OPAQUE_FD_KHR: Self = Self::OPAQUE_FD;
+    pub const OPAQUE_WIN32_KHR: Self = Self::OPAQUE_WIN32;
+    pub const OPAQUE_WIN32_KMT_KHR: Self = Self::OPAQUE_WIN32_KMT;
+    pub const SYNC_FD_KHR: Self = Self::SYNC_FD;
 }
 bitflags! {
     #[repr(transparent)]
@@ -832,6 +913,8 @@ bitflags! {
     pub struct ExternalFenceFeatureFlags: Flags {
         const EXPORTABLE = ExternalFenceFeatureFlagBits::EXPORTABLE.0;
         const IMPORTABLE = ExternalFenceFeatureFlagBits::IMPORTABLE.0;
+        const EXPORTABLE_KHR = Self::EXPORTABLE.bits();
+        const IMPORTABLE_KHR = Self::IMPORTABLE.bits();
     }
 }
 #[repr(transparent)]
@@ -840,12 +923,15 @@ pub struct ExternalFenceFeatureFlagBits(u32);
 impl ExternalFenceFeatureFlagBits {
     pub const EXPORTABLE: Self = Self(1 << 0);
     pub const IMPORTABLE: Self = Self(1 << 1);
+    pub const EXPORTABLE_KHR: Self = Self::EXPORTABLE;
+    pub const IMPORTABLE_KHR: Self = Self::IMPORTABLE;
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct FenceImportFlags: Flags {
         const TEMPORARY = FenceImportFlagBits::TEMPORARY.0;
+        const TEMPORARY_KHR = Self::TEMPORARY.bits();
     }
 }
 #[repr(transparent)]
@@ -853,6 +939,7 @@ bitflags! {
 pub struct FenceImportFlagBits(u32);
 impl FenceImportFlagBits {
     pub const TEMPORARY: Self = Self(1 << 0);
+    pub const TEMPORARY_KHR: Self = Self::TEMPORARY;
 }
 pub type PFN_vkEnumerateInstanceVersion =
     unsafe extern "system" fn(p_api_version: *mut u32) -> Result;

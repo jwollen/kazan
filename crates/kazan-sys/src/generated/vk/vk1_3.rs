@@ -605,6 +605,9 @@ bitflags! {
         const VALID = PipelineCreationFeedbackFlagBits::VALID.0;
         const APPLICATION_PIPELINE_CACHE_HIT = PipelineCreationFeedbackFlagBits::APPLICATION_PIPELINE_CACHE_HIT.0;
         const BASE_PIPELINE_ACCELERATION = PipelineCreationFeedbackFlagBits::BASE_PIPELINE_ACCELERATION.0;
+        const APPLICATION_PIPELINE_CACHE_HIT_EXT = Self::APPLICATION_PIPELINE_CACHE_HIT.bits();
+        const BASE_PIPELINE_ACCELERATION_EXT = Self::BASE_PIPELINE_ACCELERATION.bits();
+        const VALID_EXT = Self::VALID.bits();
     }
 }
 #[repr(transparent)]
@@ -614,6 +617,9 @@ impl PipelineCreationFeedbackFlagBits {
     pub const VALID: Self = Self(1 << 0);
     pub const APPLICATION_PIPELINE_CACHE_HIT: Self = Self(1 << 1);
     pub const BASE_PIPELINE_ACCELERATION: Self = Self(1 << 2);
+    pub const APPLICATION_PIPELINE_CACHE_HIT_EXT: Self = Self::APPLICATION_PIPELINE_CACHE_HIT;
+    pub const BASE_PIPELINE_ACCELERATION_EXT: Self = Self::BASE_PIPELINE_ACCELERATION;
+    pub const VALID_EXT: Self = Self::VALID;
 }
 bitflags! {
     #[repr(transparent)]
@@ -669,6 +675,32 @@ bitflags! {
         const MEMORY_DECOMPRESSION_WRITE_EXT = AccessFlagBits2::MEMORY_DECOMPRESSION_WRITE_EXT.0;
         const SAMPLER_HEAP_READ_EXT = AccessFlagBits2::SAMPLER_HEAP_READ_EXT.0;
         const RESOURCE_HEAP_READ_EXT = AccessFlagBits2::RESOURCE_HEAP_READ_EXT.0;
+        const ACCELERATION_STRUCTURE_READ_NV = Self::ACCELERATION_STRUCTURE_READ_KHR.bits();
+        const ACCELERATION_STRUCTURE_WRITE_NV = Self::ACCELERATION_STRUCTURE_WRITE_KHR.bits();
+        const COLOR_ATTACHMENT_READ_KHR = Self::COLOR_ATTACHMENT_READ.bits();
+        const COLOR_ATTACHMENT_WRITE_KHR = Self::COLOR_ATTACHMENT_WRITE.bits();
+        const COMMAND_PREPROCESS_READ_NV = Self::COMMAND_PREPROCESS_READ_EXT.bits();
+        const COMMAND_PREPROCESS_WRITE_NV = Self::COMMAND_PREPROCESS_WRITE_EXT.bits();
+        const DEPTH_STENCIL_ATTACHMENT_READ_KHR = Self::DEPTH_STENCIL_ATTACHMENT_READ.bits();
+        const DEPTH_STENCIL_ATTACHMENT_WRITE_KHR = Self::DEPTH_STENCIL_ATTACHMENT_WRITE.bits();
+        const HOST_READ_KHR = Self::HOST_READ.bits();
+        const HOST_WRITE_KHR = Self::HOST_WRITE.bits();
+        const INDEX_READ_KHR = Self::INDEX_READ.bits();
+        const INDIRECT_COMMAND_READ_KHR = Self::INDIRECT_COMMAND_READ.bits();
+        const INPUT_ATTACHMENT_READ_KHR = Self::INPUT_ATTACHMENT_READ.bits();
+        const MEMORY_READ_KHR = Self::MEMORY_READ.bits();
+        const MEMORY_WRITE_KHR = Self::MEMORY_WRITE.bits();
+        const NONE_KHR = Self::NONE.bits();
+        const SHADER_READ_KHR = Self::SHADER_READ.bits();
+        const SHADER_SAMPLED_READ_KHR = Self::SHADER_SAMPLED_READ.bits();
+        const SHADER_STORAGE_READ_KHR = Self::SHADER_STORAGE_READ.bits();
+        const SHADER_STORAGE_WRITE_KHR = Self::SHADER_STORAGE_WRITE.bits();
+        const SHADER_WRITE_KHR = Self::SHADER_WRITE.bits();
+        const SHADING_RATE_IMAGE_READ_NV = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR.bits();
+        const TRANSFER_READ_KHR = Self::TRANSFER_READ.bits();
+        const TRANSFER_WRITE_KHR = Self::TRANSFER_WRITE.bits();
+        const UNIFORM_READ_KHR = Self::UNIFORM_READ.bits();
+        const VERTEX_ATTRIBUTE_READ_KHR = Self::VERTEX_ATTRIBUTE_READ.bits();
         const NONE = 0;
     }
 }
@@ -726,6 +758,31 @@ impl AccessFlagBits2 {
     pub const MEMORY_DECOMPRESSION_WRITE_EXT: Self = Self(1 << 56);
     pub const SAMPLER_HEAP_READ_EXT: Self = Self(1 << 57);
     pub const RESOURCE_HEAP_READ_EXT: Self = Self(1 << 58);
+    pub const ACCELERATION_STRUCTURE_READ_NV: Self = Self::ACCELERATION_STRUCTURE_READ_KHR;
+    pub const ACCELERATION_STRUCTURE_WRITE_NV: Self = Self::ACCELERATION_STRUCTURE_WRITE_KHR;
+    pub const COLOR_ATTACHMENT_READ_KHR: Self = Self::COLOR_ATTACHMENT_READ;
+    pub const COLOR_ATTACHMENT_WRITE_KHR: Self = Self::COLOR_ATTACHMENT_WRITE;
+    pub const COMMAND_PREPROCESS_READ_NV: Self = Self::COMMAND_PREPROCESS_READ_EXT;
+    pub const COMMAND_PREPROCESS_WRITE_NV: Self = Self::COMMAND_PREPROCESS_WRITE_EXT;
+    pub const DEPTH_STENCIL_ATTACHMENT_READ_KHR: Self = Self::DEPTH_STENCIL_ATTACHMENT_READ;
+    pub const DEPTH_STENCIL_ATTACHMENT_WRITE_KHR: Self = Self::DEPTH_STENCIL_ATTACHMENT_WRITE;
+    pub const HOST_READ_KHR: Self = Self::HOST_READ;
+    pub const HOST_WRITE_KHR: Self = Self::HOST_WRITE;
+    pub const INDEX_READ_KHR: Self = Self::INDEX_READ;
+    pub const INDIRECT_COMMAND_READ_KHR: Self = Self::INDIRECT_COMMAND_READ;
+    pub const INPUT_ATTACHMENT_READ_KHR: Self = Self::INPUT_ATTACHMENT_READ;
+    pub const MEMORY_READ_KHR: Self = Self::MEMORY_READ;
+    pub const MEMORY_WRITE_KHR: Self = Self::MEMORY_WRITE;
+    pub const SHADER_READ_KHR: Self = Self::SHADER_READ;
+    pub const SHADER_SAMPLED_READ_KHR: Self = Self::SHADER_SAMPLED_READ;
+    pub const SHADER_STORAGE_READ_KHR: Self = Self::SHADER_STORAGE_READ;
+    pub const SHADER_STORAGE_WRITE_KHR: Self = Self::SHADER_STORAGE_WRITE;
+    pub const SHADER_WRITE_KHR: Self = Self::SHADER_WRITE;
+    pub const SHADING_RATE_IMAGE_READ_NV: Self = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR;
+    pub const TRANSFER_READ_KHR: Self = Self::TRANSFER_READ;
+    pub const TRANSFER_WRITE_KHR: Self = Self::TRANSFER_WRITE;
+    pub const UNIFORM_READ_KHR: Self = Self::UNIFORM_READ;
+    pub const VERTEX_ATTRIBUTE_READ_KHR: Self = Self::VERTEX_ATTRIBUTE_READ;
 }
 bitflags! {
     #[repr(transparent)]
@@ -776,6 +833,40 @@ bitflags! {
         const CONVERT_COOPERATIVE_VECTOR_MATRIX_NV = PipelineStageFlagBits2::CONVERT_COOPERATIVE_VECTOR_MATRIX_NV.0;
         const MEMORY_DECOMPRESSION_EXT = PipelineStageFlagBits2::MEMORY_DECOMPRESSION_EXT.0;
         const COPY_INDIRECT_KHR = PipelineStageFlagBits2::COPY_INDIRECT_KHR.0;
+        const TRANSFER = Self::ALL_TRANSFER.bits();
+        const ACCELERATION_STRUCTURE_BUILD_NV = Self::ACCELERATION_STRUCTURE_BUILD_KHR.bits();
+        const ALL_COMMANDS_KHR = Self::ALL_COMMANDS.bits();
+        const ALL_GRAPHICS_KHR = Self::ALL_GRAPHICS.bits();
+        const ALL_TRANSFER_KHR = Self::ALL_TRANSFER.bits();
+        const BLIT_KHR = Self::BLIT.bits();
+        const BOTTOM_OF_PIPE_KHR = Self::BOTTOM_OF_PIPE.bits();
+        const CLEAR_KHR = Self::CLEAR.bits();
+        const COLOR_ATTACHMENT_OUTPUT_KHR = Self::COLOR_ATTACHMENT_OUTPUT.bits();
+        const COMMAND_PREPROCESS_NV = Self::COMMAND_PREPROCESS_EXT.bits();
+        const COMPUTE_SHADER_KHR = Self::COMPUTE_SHADER.bits();
+        const COPY_KHR = Self::COPY.bits();
+        const DRAW_INDIRECT_KHR = Self::DRAW_INDIRECT.bits();
+        const EARLY_FRAGMENT_TESTS_KHR = Self::EARLY_FRAGMENT_TESTS.bits();
+        const FRAGMENT_SHADER_KHR = Self::FRAGMENT_SHADER.bits();
+        const GEOMETRY_SHADER_KHR = Self::GEOMETRY_SHADER.bits();
+        const HOST_KHR = Self::HOST.bits();
+        const INDEX_INPUT_KHR = Self::INDEX_INPUT.bits();
+        const LATE_FRAGMENT_TESTS_KHR = Self::LATE_FRAGMENT_TESTS.bits();
+        const MESH_SHADER_NV = Self::MESH_SHADER_EXT.bits();
+        const NONE_KHR = Self::NONE.bits();
+        const PRE_RASTERIZATION_SHADERS_KHR = Self::PRE_RASTERIZATION_SHADERS.bits();
+        const RAY_TRACING_SHADER_NV = Self::RAY_TRACING_SHADER_KHR.bits();
+        const RESOLVE_KHR = Self::RESOLVE.bits();
+        const SHADING_RATE_IMAGE_NV = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.bits();
+        const SUBPASS_SHADING_HUAWEI = Self::SUBPASS_SHADER_HUAWEI.bits();
+        const TASK_SHADER_NV = Self::TASK_SHADER_EXT.bits();
+        const TESSELLATION_CONTROL_SHADER_KHR = Self::TESSELLATION_CONTROL_SHADER.bits();
+        const TESSELLATION_EVALUATION_SHADER_KHR = Self::TESSELLATION_EVALUATION_SHADER.bits();
+        const TOP_OF_PIPE_KHR = Self::TOP_OF_PIPE.bits();
+        const TRANSFER_KHR = Self::ALL_TRANSFER.bits();
+        const VERTEX_ATTRIBUTE_INPUT_KHR = Self::VERTEX_ATTRIBUTE_INPUT.bits();
+        const VERTEX_INPUT_KHR = Self::VERTEX_INPUT.bits();
+        const VERTEX_SHADER_KHR = Self::VERTEX_SHADER.bits();
         const NONE = 0;
     }
 }
@@ -828,6 +919,38 @@ impl PipelineStageFlagBits2 {
     pub const CONVERT_COOPERATIVE_VECTOR_MATRIX_NV: Self = Self(1 << 44);
     pub const MEMORY_DECOMPRESSION_EXT: Self = Self(1 << 45);
     pub const COPY_INDIRECT_KHR: Self = Self(1 << 46);
+    pub const ACCELERATION_STRUCTURE_BUILD_NV: Self = Self::ACCELERATION_STRUCTURE_BUILD_KHR;
+    pub const ALL_COMMANDS_KHR: Self = Self::ALL_COMMANDS;
+    pub const ALL_GRAPHICS_KHR: Self = Self::ALL_GRAPHICS;
+    pub const ALL_TRANSFER_KHR: Self = Self::ALL_TRANSFER;
+    pub const BLIT_KHR: Self = Self::BLIT;
+    pub const BOTTOM_OF_PIPE_KHR: Self = Self::BOTTOM_OF_PIPE;
+    pub const CLEAR_KHR: Self = Self::CLEAR;
+    pub const COLOR_ATTACHMENT_OUTPUT_KHR: Self = Self::COLOR_ATTACHMENT_OUTPUT;
+    pub const COMMAND_PREPROCESS_NV: Self = Self::COMMAND_PREPROCESS_EXT;
+    pub const COMPUTE_SHADER_KHR: Self = Self::COMPUTE_SHADER;
+    pub const COPY_KHR: Self = Self::COPY;
+    pub const DRAW_INDIRECT_KHR: Self = Self::DRAW_INDIRECT;
+    pub const EARLY_FRAGMENT_TESTS_KHR: Self = Self::EARLY_FRAGMENT_TESTS;
+    pub const FRAGMENT_SHADER_KHR: Self = Self::FRAGMENT_SHADER;
+    pub const GEOMETRY_SHADER_KHR: Self = Self::GEOMETRY_SHADER;
+    pub const HOST_KHR: Self = Self::HOST;
+    pub const INDEX_INPUT_KHR: Self = Self::INDEX_INPUT;
+    pub const LATE_FRAGMENT_TESTS_KHR: Self = Self::LATE_FRAGMENT_TESTS;
+    pub const MESH_SHADER_NV: Self = Self::MESH_SHADER_EXT;
+    pub const PRE_RASTERIZATION_SHADERS_KHR: Self = Self::PRE_RASTERIZATION_SHADERS;
+    pub const RAY_TRACING_SHADER_NV: Self = Self::RAY_TRACING_SHADER_KHR;
+    pub const RESOLVE_KHR: Self = Self::RESOLVE;
+    pub const SHADING_RATE_IMAGE_NV: Self = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
+    pub const SUBPASS_SHADING_HUAWEI: Self = Self::SUBPASS_SHADER_HUAWEI;
+    pub const TASK_SHADER_NV: Self = Self::TASK_SHADER_EXT;
+    pub const TESSELLATION_CONTROL_SHADER_KHR: Self = Self::TESSELLATION_CONTROL_SHADER;
+    pub const TESSELLATION_EVALUATION_SHADER_KHR: Self = Self::TESSELLATION_EVALUATION_SHADER;
+    pub const TOP_OF_PIPE_KHR: Self = Self::TOP_OF_PIPE;
+    pub const TRANSFER_KHR: Self = Self::ALL_TRANSFER;
+    pub const VERTEX_ATTRIBUTE_INPUT_KHR: Self = Self::VERTEX_ATTRIBUTE_INPUT;
+    pub const VERTEX_INPUT_KHR: Self = Self::VERTEX_INPUT;
+    pub const VERTEX_SHADER_KHR: Self = Self::VERTEX_SHADER;
 }
 bitflags! {
     #[repr(transparent)]
@@ -887,6 +1010,34 @@ bitflags! {
         const STENCIL_COPY_ON_COMPUTE_QUEUE_KHR = FormatFeatureFlagBits2::STENCIL_COPY_ON_COMPUTE_QUEUE_KHR.0;
         const STENCIL_COPY_ON_TRANSFER_QUEUE_KHR = FormatFeatureFlagBits2::STENCIL_COPY_ON_TRANSFER_QUEUE_KHR.0;
         const COPY_IMAGE_INDIRECT_DST_KHR = FormatFeatureFlagBits2::COPY_IMAGE_INDIRECT_DST_KHR.0;
+        const BLIT_DST_KHR = Self::BLIT_DST.bits();
+        const BLIT_SRC_KHR = Self::BLIT_SRC.bits();
+        const COLOR_ATTACHMENT_KHR = Self::COLOR_ATTACHMENT.bits();
+        const COLOR_ATTACHMENT_BLEND_KHR = Self::COLOR_ATTACHMENT_BLEND.bits();
+        const COSITED_CHROMA_SAMPLES_KHR = Self::COSITED_CHROMA_SAMPLES.bits();
+        const DEPTH_STENCIL_ATTACHMENT_KHR = Self::DEPTH_STENCIL_ATTACHMENT.bits();
+        const DISJOINT_KHR = Self::DISJOINT.bits();
+        const HOST_IMAGE_TRANSFER_EXT = Self::HOST_IMAGE_TRANSFER.bits();
+        const MIDPOINT_CHROMA_SAMPLES_KHR = Self::MIDPOINT_CHROMA_SAMPLES.bits();
+        const SAMPLED_IMAGE_KHR = Self::SAMPLED_IMAGE.bits();
+        const SAMPLED_IMAGE_DEPTH_COMPARISON_KHR = Self::SAMPLED_IMAGE_DEPTH_COMPARISON.bits();
+        const SAMPLED_IMAGE_FILTER_CUBIC_EXT = Self::SAMPLED_IMAGE_FILTER_CUBIC.bits();
+        const SAMPLED_IMAGE_FILTER_LINEAR_KHR = Self::SAMPLED_IMAGE_FILTER_LINEAR.bits();
+        const SAMPLED_IMAGE_FILTER_MINMAX_KHR = Self::SAMPLED_IMAGE_FILTER_MINMAX.bits();
+        const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_KHR = Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT.bits();
+        const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_KHR = Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE.bits();
+        const SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_KHR = Self::SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER.bits();
+        const SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_KHR = Self::SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER.bits();
+        const STORAGE_IMAGE_ATOMIC_KHR = Self::STORAGE_IMAGE_ATOMIC.bits();
+        const STORAGE_IMAGE_KHR = Self::STORAGE_IMAGE.bits();
+        const STORAGE_READ_WITHOUT_FORMAT_KHR = Self::STORAGE_READ_WITHOUT_FORMAT.bits();
+        const STORAGE_TEXEL_BUFFER_ATOMIC_KHR = Self::STORAGE_TEXEL_BUFFER_ATOMIC.bits();
+        const STORAGE_TEXEL_BUFFER_KHR = Self::STORAGE_TEXEL_BUFFER.bits();
+        const STORAGE_WRITE_WITHOUT_FORMAT_KHR = Self::STORAGE_WRITE_WITHOUT_FORMAT.bits();
+        const TRANSFER_DST_KHR = Self::TRANSFER_DST.bits();
+        const TRANSFER_SRC_KHR = Self::TRANSFER_SRC.bits();
+        const UNIFORM_TEXEL_BUFFER_KHR = Self::UNIFORM_TEXEL_BUFFER.bits();
+        const VERTEX_BUFFER_KHR = Self::VERTEX_BUFFER.bits();
     }
 }
 #[repr(transparent)]
@@ -948,6 +1099,38 @@ impl FormatFeatureFlagBits2 {
     pub const STENCIL_COPY_ON_COMPUTE_QUEUE_KHR: Self = Self(1 << 54);
     pub const STENCIL_COPY_ON_TRANSFER_QUEUE_KHR: Self = Self(1 << 55);
     pub const COPY_IMAGE_INDIRECT_DST_KHR: Self = Self(1 << 59);
+    pub const BLIT_DST_KHR: Self = Self::BLIT_DST;
+    pub const BLIT_SRC_KHR: Self = Self::BLIT_SRC;
+    pub const COLOR_ATTACHMENT_KHR: Self = Self::COLOR_ATTACHMENT;
+    pub const COLOR_ATTACHMENT_BLEND_KHR: Self = Self::COLOR_ATTACHMENT_BLEND;
+    pub const COSITED_CHROMA_SAMPLES_KHR: Self = Self::COSITED_CHROMA_SAMPLES;
+    pub const DEPTH_STENCIL_ATTACHMENT_KHR: Self = Self::DEPTH_STENCIL_ATTACHMENT;
+    pub const DISJOINT_KHR: Self = Self::DISJOINT;
+    pub const HOST_IMAGE_TRANSFER_EXT: Self = Self::HOST_IMAGE_TRANSFER;
+    pub const MIDPOINT_CHROMA_SAMPLES_KHR: Self = Self::MIDPOINT_CHROMA_SAMPLES;
+    pub const SAMPLED_IMAGE_KHR: Self = Self::SAMPLED_IMAGE;
+    pub const SAMPLED_IMAGE_DEPTH_COMPARISON_KHR: Self = Self::SAMPLED_IMAGE_DEPTH_COMPARISON;
+    pub const SAMPLED_IMAGE_FILTER_CUBIC_EXT: Self = Self::SAMPLED_IMAGE_FILTER_CUBIC;
+    pub const SAMPLED_IMAGE_FILTER_LINEAR_KHR: Self = Self::SAMPLED_IMAGE_FILTER_LINEAR;
+    pub const SAMPLED_IMAGE_FILTER_MINMAX_KHR: Self = Self::SAMPLED_IMAGE_FILTER_MINMAX;
+    pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_KHR: Self =
+        Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT;
+    pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_KHR: Self =
+        Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE;
+    pub const SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_KHR: Self =
+        Self::SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER;
+    pub const SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_KHR: Self =
+        Self::SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER;
+    pub const STORAGE_IMAGE_ATOMIC_KHR: Self = Self::STORAGE_IMAGE_ATOMIC;
+    pub const STORAGE_IMAGE_KHR: Self = Self::STORAGE_IMAGE;
+    pub const STORAGE_READ_WITHOUT_FORMAT_KHR: Self = Self::STORAGE_READ_WITHOUT_FORMAT;
+    pub const STORAGE_TEXEL_BUFFER_ATOMIC_KHR: Self = Self::STORAGE_TEXEL_BUFFER_ATOMIC;
+    pub const STORAGE_TEXEL_BUFFER_KHR: Self = Self::STORAGE_TEXEL_BUFFER;
+    pub const STORAGE_WRITE_WITHOUT_FORMAT_KHR: Self = Self::STORAGE_WRITE_WITHOUT_FORMAT;
+    pub const TRANSFER_DST_KHR: Self = Self::TRANSFER_DST;
+    pub const TRANSFER_SRC_KHR: Self = Self::TRANSFER_SRC;
+    pub const UNIFORM_TEXEL_BUFFER_KHR: Self = Self::UNIFORM_TEXEL_BUFFER;
+    pub const VERTEX_BUFFER_KHR: Self = Self::VERTEX_BUFFER;
 }
 bitflags! {
     #[repr(transparent)]
@@ -962,6 +1145,10 @@ bitflags! {
         const FRAGMENT_REGION_EXT = RenderingFlagBits::FRAGMENT_REGION_EXT.0;
         const CUSTOM_RESOLVE_EXT = RenderingFlagBits::CUSTOM_RESOLVE_EXT.0;
         const LOCAL_READ_CONCURRENT_ACCESS_CONTROL_KHR = RenderingFlagBits::LOCAL_READ_CONCURRENT_ACCESS_CONTROL_KHR.0;
+        const CONTENTS_INLINE_EXT = Self::CONTENTS_INLINE_KHR.bits();
+        const CONTENTS_SECONDARY_COMMAND_BUFFERS_KHR = Self::CONTENTS_SECONDARY_COMMAND_BUFFERS.bits();
+        const RESUMING_KHR = Self::RESUMING.bits();
+        const SUSPENDING_KHR = Self::SUSPENDING.bits();
     }
 }
 #[repr(transparent)]
@@ -977,6 +1164,11 @@ impl RenderingFlagBits {
     pub const FRAGMENT_REGION_EXT: Self = Self(1 << 6);
     pub const CUSTOM_RESOLVE_EXT: Self = Self(1 << 7);
     pub const LOCAL_READ_CONCURRENT_ACCESS_CONTROL_KHR: Self = Self(1 << 8);
+    pub const CONTENTS_INLINE_EXT: Self = Self::CONTENTS_INLINE_KHR;
+    pub const CONTENTS_SECONDARY_COMMAND_BUFFERS_KHR: Self =
+        Self::CONTENTS_SECONDARY_COMMAND_BUFFERS;
+    pub const RESUMING_KHR: Self = Self::RESUMING;
+    pub const SUSPENDING_KHR: Self = Self::SUSPENDING;
 }
 bitflags! {
     #[repr(transparent)]
@@ -989,6 +1181,11 @@ bitflags! {
         const MODIFYING_FEATURES = ToolPurposeFlagBits::MODIFYING_FEATURES.0;
         const DEBUG_REPORTING_EXT = ToolPurposeFlagBits::DEBUG_REPORTING_EXT.0;
         const DEBUG_MARKERS_EXT = ToolPurposeFlagBits::DEBUG_MARKERS_EXT.0;
+        const ADDITIONAL_FEATURES_EXT = Self::ADDITIONAL_FEATURES.bits();
+        const MODIFYING_FEATURES_EXT = Self::MODIFYING_FEATURES.bits();
+        const PROFILING_EXT = Self::PROFILING.bits();
+        const TRACING_EXT = Self::TRACING.bits();
+        const VALIDATION_EXT = Self::VALIDATION.bits();
     }
 }
 #[repr(transparent)]
@@ -1002,12 +1199,18 @@ impl ToolPurposeFlagBits {
     pub const MODIFYING_FEATURES: Self = Self(1 << 4);
     pub const DEBUG_REPORTING_EXT: Self = Self(1 << 5);
     pub const DEBUG_MARKERS_EXT: Self = Self(1 << 6);
+    pub const ADDITIONAL_FEATURES_EXT: Self = Self::ADDITIONAL_FEATURES;
+    pub const MODIFYING_FEATURES_EXT: Self = Self::MODIFYING_FEATURES;
+    pub const PROFILING_EXT: Self = Self::PROFILING;
+    pub const TRACING_EXT: Self = Self::TRACING;
+    pub const VALIDATION_EXT: Self = Self::VALIDATION;
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct SubmitFlags: Flags {
         const PROTECTED = SubmitFlagBits::PROTECTED.0;
+        const PROTECTED_KHR = Self::PROTECTED.bits();
     }
 }
 #[repr(transparent)]
@@ -1015,6 +1218,7 @@ bitflags! {
 pub struct SubmitFlagBits(u32);
 impl SubmitFlagBits {
     pub const PROTECTED: Self = Self(1 << 0);
+    pub const PROTECTED_KHR: Self = Self::PROTECTED;
 }
 pub type PFN_vkGetDeviceBufferMemoryRequirements = unsafe extern "system" fn(
     device: Device,

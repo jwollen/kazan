@@ -286,6 +286,9 @@ impl DescriptorMappingSourceEXT {
     pub const PUSH_DATA_EXT: Self = Self(5);
     pub const PUSH_ADDRESS_EXT: Self = Self(6);
     pub const INDIRECT_ADDRESS_EXT: Self = Self(7);
+    pub const HEAP_WITH_SHADER_RECORD_INDEX_EXT: Self = Self(8);
+    pub const SHADER_RECORD_ADDRESS_EXT: Self = Self(10);
+    pub const SHADER_RECORD_DATA_EXT: Self = Self(9);
 }
 bitflags! {
     #[repr(transparent)]

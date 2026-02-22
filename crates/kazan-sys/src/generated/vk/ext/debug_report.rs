@@ -59,6 +59,8 @@ impl DebugReportObjectTypeEXT {
     pub const CU_MODULE_NVX_EXT: Self = Self(1000029000);
     pub const DESCRIPTOR_UPDATE_TEMPLATE_EXT: Self = Self(1000085000);
     pub const SAMPLER_YCBCR_CONVERSION_EXT: Self = Self(1000156000);
+    pub const DESCRIPTOR_UPDATE_TEMPLATE_KHR_EXT: Self = Self::DESCRIPTOR_UPDATE_TEMPLATE_EXT;
+    pub const SAMPLER_YCBCR_CONVERSION_KHR_EXT: Self = Self::SAMPLER_YCBCR_CONVERSION_EXT;
 }
 bitflags! {
     #[repr(transparent)]

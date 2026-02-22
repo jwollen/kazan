@@ -500,6 +500,14 @@ impl QueueGlobalPriority {
     pub const MEDIUM: Self = Self(256);
     pub const HIGH: Self = Self(512);
     pub const REALTIME: Self = Self(1024);
+    pub const HIGH_EXT: Self = Self::HIGH;
+    pub const HIGH_KHR: Self = Self::HIGH;
+    pub const LOW_EXT: Self = Self::LOW;
+    pub const LOW_KHR: Self = Self::LOW;
+    pub const MEDIUM_EXT: Self = Self::MEDIUM;
+    pub const MEDIUM_KHR: Self = Self::MEDIUM;
+    pub const REALTIME_EXT: Self = Self::REALTIME;
+    pub const REALTIME_KHR: Self = Self::REALTIME;
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -509,6 +517,14 @@ impl LineRasterizationMode {
     pub const RECTANGULAR: Self = Self(1);
     pub const BRESENHAM: Self = Self(2);
     pub const RECTANGULAR_SMOOTH: Self = Self(3);
+    pub const BRESENHAM_EXT: Self = Self::BRESENHAM;
+    pub const BRESENHAM_KHR: Self = Self::BRESENHAM;
+    pub const DEFAULT_EXT: Self = Self::DEFAULT;
+    pub const DEFAULT_KHR: Self = Self::DEFAULT;
+    pub const RECTANGULAR_EXT: Self = Self::RECTANGULAR;
+    pub const RECTANGULAR_KHR: Self = Self::RECTANGULAR;
+    pub const RECTANGULAR_SMOOTH_EXT: Self = Self::RECTANGULAR_SMOOTH;
+    pub const RECTANGULAR_SMOOTH_KHR: Self = Self::RECTANGULAR_SMOOTH;
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -518,6 +534,10 @@ impl PipelineRobustnessBufferBehavior {
     pub const DISABLED: Self = Self(1);
     pub const ROBUST_BUFFER_ACCESS: Self = Self(2);
     pub const ROBUST_BUFFER_ACCESS_2: Self = Self(3);
+    pub const DEVICE_DEFAULT_EXT: Self = Self::DEVICE_DEFAULT;
+    pub const DISABLED_EXT: Self = Self::DISABLED;
+    pub const ROBUST_BUFFER_ACCESS_2_EXT: Self = Self::ROBUST_BUFFER_ACCESS_2;
+    pub const ROBUST_BUFFER_ACCESS_EXT: Self = Self::ROBUST_BUFFER_ACCESS;
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -527,6 +547,10 @@ impl PipelineRobustnessImageBehavior {
     pub const DISABLED: Self = Self(1);
     pub const ROBUST_IMAGE_ACCESS: Self = Self(2);
     pub const ROBUST_IMAGE_ACCESS_2: Self = Self(3);
+    pub const DEVICE_DEFAULT_EXT: Self = Self::DEVICE_DEFAULT;
+    pub const DISABLED_EXT: Self = Self::DISABLED;
+    pub const ROBUST_IMAGE_ACCESS_2_EXT: Self = Self::ROBUST_IMAGE_ACCESS_2;
+    pub const ROBUST_IMAGE_ACCESS_EXT: Self = Self::ROBUST_IMAGE_ACCESS;
 }
 bitflags! {
     #[repr(transparent)]
@@ -585,6 +609,16 @@ bitflags! {
         const INDIRECT_BINDABLE_EXT = PipelineCreateFlagBits2::INDIRECT_BINDABLE_EXT.0;
         const PER_LAYER_FRAGMENT_DENSITY_VALVE = PipelineCreateFlagBits2::PER_LAYER_FRAGMENT_DENSITY_VALVE.0;
         const _64_INDEXING_EXT = PipelineCreateFlagBits2::_64_INDEXING_EXT.0;
+        const ALLOW_DERIVATIVES_KHR = Self::ALLOW_DERIVATIVES.bits();
+        const DERIVATIVE_KHR = Self::DERIVATIVE.bits();
+        const DISABLE_OPTIMIZATION_KHR = Self::DISABLE_OPTIMIZATION.bits();
+        const DISPATCH_BASE_KHR = Self::DISPATCH_BASE.bits();
+        const EARLY_RETURN_ON_FAILURE_KHR = Self::EARLY_RETURN_ON_FAILURE.bits();
+        const FAIL_ON_PIPELINE_COMPILE_REQUIRED_KHR = Self::FAIL_ON_PIPELINE_COMPILE_REQUIRED.bits();
+        const NO_PROTECTED_ACCESS_EXT = Self::NO_PROTECTED_ACCESS.bits();
+        const PROTECTED_ACCESS_ONLY_EXT = Self::PROTECTED_ACCESS_ONLY.bits();
+        const RAY_TRACING_SKIP_BUILT_IN_PRIMITIVES_KHR = Self::RAY_TRACING_SKIP_TRIANGLES_KHR.bits();
+        const VIEW_INDEX_FROM_DEVICE_INDEX_KHR = Self::VIEW_INDEX_FROM_DEVICE_INDEX.bits();
     }
 }
 #[repr(transparent)]
@@ -631,6 +665,16 @@ impl PipelineCreateFlagBits2 {
     pub const INDIRECT_BINDABLE_EXT: Self = Self(1 << 38);
     pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self = Self(1 << 40);
     pub const _64_INDEXING_EXT: Self = Self(1 << 43);
+    pub const ALLOW_DERIVATIVES_KHR: Self = Self::ALLOW_DERIVATIVES;
+    pub const DERIVATIVE_KHR: Self = Self::DERIVATIVE;
+    pub const DISABLE_OPTIMIZATION_KHR: Self = Self::DISABLE_OPTIMIZATION;
+    pub const DISPATCH_BASE_KHR: Self = Self::DISPATCH_BASE;
+    pub const EARLY_RETURN_ON_FAILURE_KHR: Self = Self::EARLY_RETURN_ON_FAILURE;
+    pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED_KHR: Self = Self::FAIL_ON_PIPELINE_COMPILE_REQUIRED;
+    pub const NO_PROTECTED_ACCESS_EXT: Self = Self::NO_PROTECTED_ACCESS;
+    pub const PROTECTED_ACCESS_ONLY_EXT: Self = Self::PROTECTED_ACCESS_ONLY;
+    pub const RAY_TRACING_SKIP_BUILT_IN_PRIMITIVES_KHR: Self = Self::RAY_TRACING_SKIP_TRIANGLES_KHR;
+    pub const VIEW_INDEX_FROM_DEVICE_INDEX_KHR: Self = Self::VIEW_INDEX_FROM_DEVICE_INDEX;
 }
 bitflags! {
     #[repr(transparent)]
@@ -668,6 +712,17 @@ bitflags! {
         const PREPROCESS_BUFFER_EXT = BufferUsageFlagBits2::PREPROCESS_BUFFER_EXT.0;
         const MEMORY_DECOMPRESSION_EXT = BufferUsageFlagBits2::MEMORY_DECOMPRESSION_EXT.0;
         const COMPRESSED_DATA_DGF1_AMDX = BufferUsageFlagBits2::COMPRESSED_DATA_DGF1_AMDX.0;
+        const INDEX_BUFFER_KHR = Self::INDEX_BUFFER.bits();
+        const INDIRECT_BUFFER_KHR = Self::INDIRECT_BUFFER.bits();
+        const RAY_TRACING_NV = Self::SHADER_BINDING_TABLE_KHR.bits();
+        const SHADER_DEVICE_ADDRESS_KHR = Self::SHADER_DEVICE_ADDRESS.bits();
+        const STORAGE_BUFFER_KHR = Self::STORAGE_BUFFER.bits();
+        const STORAGE_TEXEL_BUFFER_KHR = Self::STORAGE_TEXEL_BUFFER.bits();
+        const TRANSFER_DST_KHR = Self::TRANSFER_DST.bits();
+        const TRANSFER_SRC_KHR = Self::TRANSFER_SRC.bits();
+        const UNIFORM_BUFFER_KHR = Self::UNIFORM_BUFFER.bits();
+        const UNIFORM_TEXEL_BUFFER_KHR = Self::UNIFORM_TEXEL_BUFFER.bits();
+        const VERTEX_BUFFER_KHR = Self::VERTEX_BUFFER.bits();
     }
 }
 #[repr(transparent)]
@@ -706,12 +761,24 @@ impl BufferUsageFlagBits2 {
     pub const PREPROCESS_BUFFER_EXT: Self = Self(1 << 31);
     pub const MEMORY_DECOMPRESSION_EXT: Self = Self(1 << 32);
     pub const COMPRESSED_DATA_DGF1_AMDX: Self = Self(1 << 33);
+    pub const INDEX_BUFFER_KHR: Self = Self::INDEX_BUFFER;
+    pub const INDIRECT_BUFFER_KHR: Self = Self::INDIRECT_BUFFER;
+    pub const RAY_TRACING_NV: Self = Self::SHADER_BINDING_TABLE_KHR;
+    pub const SHADER_DEVICE_ADDRESS_KHR: Self = Self::SHADER_DEVICE_ADDRESS;
+    pub const STORAGE_BUFFER_KHR: Self = Self::STORAGE_BUFFER;
+    pub const STORAGE_TEXEL_BUFFER_KHR: Self = Self::STORAGE_TEXEL_BUFFER;
+    pub const TRANSFER_DST_KHR: Self = Self::TRANSFER_DST;
+    pub const TRANSFER_SRC_KHR: Self = Self::TRANSFER_SRC;
+    pub const UNIFORM_BUFFER_KHR: Self = Self::UNIFORM_BUFFER;
+    pub const UNIFORM_TEXEL_BUFFER_KHR: Self = Self::UNIFORM_TEXEL_BUFFER;
+    pub const VERTEX_BUFFER_KHR: Self = Self::VERTEX_BUFFER;
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct HostImageCopyFlags: Flags {
         const MEMCPY = HostImageCopyFlagBits::MEMCPY.0;
+        const MEMCPY_EXT = Self::MEMCPY.bits();
     }
 }
 #[repr(transparent)]
@@ -719,6 +786,7 @@ bitflags! {
 pub struct HostImageCopyFlagBits(u32);
 impl HostImageCopyFlagBits {
     pub const MEMCPY: Self = Self(1 << 0);
+    pub const MEMCPY_EXT: Self = Self::MEMCPY;
 }
 pub type PFN_vkGetRenderingAreaGranularity = unsafe extern "system" fn(
     device: Device,

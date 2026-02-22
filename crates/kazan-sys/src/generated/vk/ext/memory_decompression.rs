@@ -39,6 +39,7 @@ bitflags! {
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct MemoryDecompressionMethodFlagsEXT: Flags64 {
         const GDEFLATE_1_0_EXT = MemoryDecompressionMethodFlagBitsEXT::GDEFLATE_1_0_EXT.0;
+        const GDEFLATE_1_0_NV = Self::GDEFLATE_1_0_EXT.bits();
     }
 }
 #[repr(transparent)]
