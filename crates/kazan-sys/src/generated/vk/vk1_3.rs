@@ -44,6 +44,40 @@ pub struct DeviceImageMemoryRequirements {
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
+pub struct PhysicalDeviceInlineUniformBlockFeatures {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub inline_uniform_block: Bool32,
+    pub descriptor_binding_inline_uniform_block_update_after_bind: Bool32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PhysicalDeviceInlineUniformBlockProperties {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub max_inline_uniform_block_size: u32,
+    pub max_per_stage_descriptor_inline_uniform_blocks: u32,
+    pub max_per_stage_descriptor_update_after_bind_inline_uniform_blocks: u32,
+    pub max_descriptor_set_inline_uniform_blocks: u32,
+    pub max_descriptor_set_update_after_bind_inline_uniform_blocks: u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct WriteDescriptorSetInlineUniformBlock {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub data_size: u32,
+    pub p_data: *const c_void,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct DescriptorPoolInlineUniformBlockCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub max_inline_uniform_block_bindings: u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMaintenance4Features {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -62,6 +96,70 @@ pub struct PhysicalDeviceTextureCompressionASTCHDRFeatures {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub texture_compression_astc_hdr: Bool32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PipelineCreationFeedback {
+    pub flags: PipelineCreationFeedbackFlags,
+    pub duration: u64,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PipelineCreationFeedbackCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub p_pipeline_creation_feedback: *mut PipelineCreationFeedback,
+    pub pipeline_stage_creation_feedback_count: u32,
+    pub p_pipeline_stage_creation_feedbacks: *mut PipelineCreationFeedback,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PhysicalDeviceShaderDemoteToHelperInvocationFeatures {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub shader_demote_to_helper_invocation: Bool32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PhysicalDeviceTexelBufferAlignmentProperties {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub storage_texel_buffer_offset_alignment_bytes: DeviceSize,
+    pub storage_texel_buffer_offset_single_texel_alignment: Bool32,
+    pub uniform_texel_buffer_offset_alignment_bytes: DeviceSize,
+    pub uniform_texel_buffer_offset_single_texel_alignment: Bool32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PhysicalDeviceSubgroupSizeControlFeatures {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub subgroup_size_control: Bool32,
+    pub compute_full_subgroups: Bool32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PhysicalDeviceSubgroupSizeControlProperties {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub min_subgroup_size: u32,
+    pub max_subgroup_size: u32,
+    pub max_compute_workgroup_subgroups: u32,
+    pub required_subgroup_size_stages: ShaderStageFlags,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PipelineShaderStageRequiredSubgroupSizeCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub required_subgroup_size: u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PhysicalDevicePipelineCreationCacheControlFeatures {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub pipeline_creation_cache_control: Bool32,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -149,6 +247,20 @@ pub struct PhysicalDeviceToolProperties {
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
+pub struct PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub shader_zero_initialize_workgroup_memory: Bool32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PhysicalDeviceImageRobustnessFeatures {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub robust_image_access: Bool32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BufferCopy2 {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -169,6 +281,16 @@ pub struct ImageCopy2 {
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
+pub struct ImageBlit2 {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub src_subresource: ImageSubresourceLayers,
+    pub src_offsets: [Offset3D; 2],
+    pub dst_subresource: ImageSubresourceLayers,
+    pub dst_offsets: [Offset3D; 2],
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BufferImageCopy2 {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -178,6 +300,17 @@ pub struct BufferImageCopy2 {
     pub image_subresource: ImageSubresourceLayers,
     pub image_offset: Offset3D,
     pub image_extent: Extent3D,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct ImageResolve2 {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub src_subresource: ImageSubresourceLayers,
+    pub src_offset: Offset3D,
+    pub dst_subresource: ImageSubresourceLayers,
+    pub dst_offset: Offset3D,
+    pub extent: Extent3D,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -203,6 +336,19 @@ pub struct CopyImageInfo2 {
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
+pub struct BlitImageInfo2 {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub src_image: Image,
+    pub src_image_layout: ImageLayout,
+    pub dst_image: Image,
+    pub dst_image_layout: ImageLayout,
+    pub region_count: u32,
+    pub p_regions: *const ImageBlit2,
+    pub filter: Filter,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
 pub struct CopyBufferToImageInfo2 {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -222,6 +368,25 @@ pub struct CopyImageToBufferInfo2 {
     pub dst_buffer: Buffer,
     pub region_count: u32,
     pub p_regions: *const BufferImageCopy2,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct ResolveImageInfo2 {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub src_image: Image,
+    pub src_image_layout: ImageLayout,
+    pub dst_image: Image,
+    pub dst_image_layout: ImageLayout,
+    pub region_count: u32,
+    pub p_regions: *const ImageResolve2,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PhysicalDeviceShaderTerminateInvocationFeatures {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub shader_terminate_invocation: Bool32,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -317,6 +482,50 @@ pub struct PhysicalDeviceSynchronization2Features {
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
+pub struct PhysicalDeviceShaderIntegerDotProductFeatures {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub shader_integer_dot_product: Bool32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PhysicalDeviceShaderIntegerDotProductProperties {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub integer_dot_product8_bit_unsigned_accelerated: Bool32,
+    pub integer_dot_product8_bit_signed_accelerated: Bool32,
+    pub integer_dot_product8_bit_mixed_signedness_accelerated: Bool32,
+    pub integer_dot_product4x8_bit_packed_unsigned_accelerated: Bool32,
+    pub integer_dot_product4x8_bit_packed_signed_accelerated: Bool32,
+    pub integer_dot_product4x8_bit_packed_mixed_signedness_accelerated: Bool32,
+    pub integer_dot_product16_bit_unsigned_accelerated: Bool32,
+    pub integer_dot_product16_bit_signed_accelerated: Bool32,
+    pub integer_dot_product16_bit_mixed_signedness_accelerated: Bool32,
+    pub integer_dot_product32_bit_unsigned_accelerated: Bool32,
+    pub integer_dot_product32_bit_signed_accelerated: Bool32,
+    pub integer_dot_product32_bit_mixed_signedness_accelerated: Bool32,
+    pub integer_dot_product64_bit_unsigned_accelerated: Bool32,
+    pub integer_dot_product64_bit_signed_accelerated: Bool32,
+    pub integer_dot_product64_bit_mixed_signedness_accelerated: Bool32,
+    pub integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated: Bool32,
+    pub integer_dot_product_accumulating_saturating8_bit_signed_accelerated: Bool32,
+    pub integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated: Bool32,
+    pub integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated: Bool32,
+    pub integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated: Bool32,
+    pub integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated:
+        Bool32,
+    pub integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated: Bool32,
+    pub integer_dot_product_accumulating_saturating16_bit_signed_accelerated: Bool32,
+    pub integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated: Bool32,
+    pub integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated: Bool32,
+    pub integer_dot_product_accumulating_saturating32_bit_signed_accelerated: Bool32,
+    pub integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated: Bool32,
+    pub integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated: Bool32,
+    pub integer_dot_product_accumulating_saturating64_bit_signed_accelerated: Bool32,
+    pub integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated: Bool32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
 pub struct FormatProperties3 {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -324,11 +533,87 @@ pub struct FormatProperties3 {
     pub optimal_tiling_features: FormatFeatureFlags2,
     pub buffer_features: FormatFeatureFlags2,
 }
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PipelineRenderingCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub view_mask: u32,
+    pub color_attachment_count: u32,
+    pub p_color_attachment_formats: *const Format,
+    pub depth_attachment_format: Format,
+    pub stencil_attachment_format: Format,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct RenderingInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub flags: RenderingFlags,
+    pub render_area: Rect2D,
+    pub layer_count: u32,
+    pub view_mask: u32,
+    pub color_attachment_count: u32,
+    pub p_color_attachments: *const RenderingAttachmentInfo,
+    pub p_depth_attachment: *const RenderingAttachmentInfo,
+    pub p_stencil_attachment: *const RenderingAttachmentInfo,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct RenderingAttachmentInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub image_view: ImageView,
+    pub image_layout: ImageLayout,
+    pub resolve_mode: ResolveModeFlagBits,
+    pub resolve_image_view: ImageView,
+    pub resolve_image_layout: ImageLayout,
+    pub load_op: AttachmentLoadOp,
+    pub store_op: AttachmentStoreOp,
+    pub clear_value: ClearValue,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PhysicalDeviceDynamicRenderingFeatures {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub dynamic_rendering: Bool32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct CommandBufferInheritanceRenderingInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub flags: RenderingFlags,
+    pub view_mask: u32,
+    pub color_attachment_count: u32,
+    pub p_color_attachment_formats: *const Format,
+    pub depth_attachment_format: Format,
+    pub stencil_attachment_format: Format,
+    pub rasterization_samples: SampleCountFlagBits,
+}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct PrivateDataSlotCreateFlags: Flags {
     }
+}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct PipelineCreationFeedbackFlags: Flags {
+        const VALID = PipelineCreationFeedbackFlagBits::VALID.0;
+        const APPLICATION_PIPELINE_CACHE_HIT = PipelineCreationFeedbackFlagBits::APPLICATION_PIPELINE_CACHE_HIT.0;
+        const BASE_PIPELINE_ACCELERATION = PipelineCreationFeedbackFlagBits::BASE_PIPELINE_ACCELERATION.0;
+    }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PipelineCreationFeedbackFlagBits(u32);
+impl PipelineCreationFeedbackFlagBits {
+    pub const VALID: Self = Self(1 << 0);
+    pub const APPLICATION_PIPELINE_CACHE_HIT: Self = Self(1 << 1);
+    pub const BASE_PIPELINE_ACCELERATION: Self = Self(1 << 2);
 }
 bitflags! {
     #[repr(transparent)]
@@ -509,6 +794,23 @@ impl FormatFeatureFlagBits2 {
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct RenderingFlags: Flags {
+        const CONTENTS_SECONDARY_COMMAND_BUFFERS = RenderingFlagBits::CONTENTS_SECONDARY_COMMAND_BUFFERS.0;
+        const SUSPENDING = RenderingFlagBits::SUSPENDING.0;
+        const RESUMING = RenderingFlagBits::RESUMING.0;
+    }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct RenderingFlagBits(u32);
+impl RenderingFlagBits {
+    pub const CONTENTS_SECONDARY_COMMAND_BUFFERS: Self = Self(1 << 0);
+    pub const SUSPENDING: Self = Self(1 << 1);
+    pub const RESUMING: Self = Self(1 << 2);
+}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ToolPurposeFlags: Flags {
         const VALIDATION = ToolPurposeFlagBits::VALIDATION.0;
         const PROFILING = ToolPurposeFlagBits::PROFILING.0;
@@ -561,6 +863,55 @@ pub type PFN_vkGetPhysicalDeviceToolProperties = unsafe extern "system" fn(
     p_tool_count: *mut u32,
     p_tool_properties: *mut PhysicalDeviceToolProperties,
 ) -> Result;
+pub type PFN_vkCmdSetCullMode =
+    unsafe extern "system" fn(command_buffer: CommandBuffer, cull_mode: CullModeFlags);
+pub type PFN_vkCmdSetFrontFace =
+    unsafe extern "system" fn(command_buffer: CommandBuffer, front_face: FrontFace);
+pub type PFN_vkCmdSetPrimitiveTopology =
+    unsafe extern "system" fn(command_buffer: CommandBuffer, primitive_topology: PrimitiveTopology);
+pub type PFN_vkCmdSetViewportWithCount = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    viewport_count: u32,
+    p_viewports: *const Viewport,
+);
+pub type PFN_vkCmdSetScissorWithCount = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    scissor_count: u32,
+    p_scissors: *const Rect2D,
+);
+pub type PFN_vkCmdBindVertexBuffers2 = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    first_binding: u32,
+    binding_count: u32,
+    p_buffers: *const Buffer,
+    p_offsets: *const DeviceSize,
+    p_sizes: *const DeviceSize,
+    p_strides: *const DeviceSize,
+);
+pub type PFN_vkCmdSetDepthTestEnable =
+    unsafe extern "system" fn(command_buffer: CommandBuffer, depth_test_enable: Bool32);
+pub type PFN_vkCmdSetDepthWriteEnable =
+    unsafe extern "system" fn(command_buffer: CommandBuffer, depth_write_enable: Bool32);
+pub type PFN_vkCmdSetDepthCompareOp =
+    unsafe extern "system" fn(command_buffer: CommandBuffer, depth_compare_op: CompareOp);
+pub type PFN_vkCmdSetDepthBoundsTestEnable =
+    unsafe extern "system" fn(command_buffer: CommandBuffer, depth_bounds_test_enable: Bool32);
+pub type PFN_vkCmdSetStencilTestEnable =
+    unsafe extern "system" fn(command_buffer: CommandBuffer, stencil_test_enable: Bool32);
+pub type PFN_vkCmdSetStencilOp = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    face_mask: StencilFaceFlags,
+    fail_op: StencilOp,
+    pass_op: StencilOp,
+    depth_fail_op: StencilOp,
+    compare_op: CompareOp,
+);
+pub type PFN_vkCmdSetRasterizerDiscardEnable =
+    unsafe extern "system" fn(command_buffer: CommandBuffer, rasterizer_discard_enable: Bool32);
+pub type PFN_vkCmdSetDepthBiasEnable =
+    unsafe extern "system" fn(command_buffer: CommandBuffer, depth_bias_enable: Bool32);
+pub type PFN_vkCmdSetPrimitiveRestartEnable =
+    unsafe extern "system" fn(command_buffer: CommandBuffer, primitive_restart_enable: Bool32);
 pub type PFN_vkCreatePrivateDataSlot = unsafe extern "system" fn(
     device: Device,
     p_create_info: *const PrivateDataSlotCreateInfo,
@@ -594,6 +945,10 @@ pub type PFN_vkCmdCopyImage2 = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
     p_copy_image_info: *const CopyImageInfo2,
 );
+pub type PFN_vkCmdBlitImage2 = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    p_blit_image_info: *const BlitImageInfo2,
+);
 pub type PFN_vkCmdCopyBufferToImage2 = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
     p_copy_buffer_to_image_info: *const CopyBufferToImageInfo2,
@@ -601,6 +956,26 @@ pub type PFN_vkCmdCopyBufferToImage2 = unsafe extern "system" fn(
 pub type PFN_vkCmdCopyImageToBuffer2 = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
     p_copy_image_to_buffer_info: *const CopyImageToBufferInfo2,
+);
+pub type PFN_vkCmdResolveImage2 = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    p_resolve_image_info: *const ResolveImageInfo2,
+);
+pub type PFN_vkCmdSetEvent2 = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    event: Event,
+    p_dependency_info: *const DependencyInfo,
+);
+pub type PFN_vkCmdResetEvent2 = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    event: Event,
+    stage_mask: PipelineStageFlags2,
+);
+pub type PFN_vkCmdWaitEvents2 = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    event_count: u32,
+    p_events: *const Event,
+    p_dependency_infos: *const DependencyInfo,
 );
 pub type PFN_vkCmdPipelineBarrier2 = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
@@ -618,3 +993,8 @@ pub type PFN_vkCmdWriteTimestamp2 = unsafe extern "system" fn(
     query_pool: QueryPool,
     query: u32,
 );
+pub type PFN_vkCmdBeginRendering = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    p_rendering_info: *const RenderingInfo,
+);
+pub type PFN_vkCmdEndRendering = unsafe extern "system" fn(command_buffer: CommandBuffer);

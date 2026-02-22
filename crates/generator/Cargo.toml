@@ -8,6 +8,7 @@ publish = false
 
 [dependencies]
 heck = "0.5"
+itertools = "0.14"
 regex = "1.12"
 roxmltree = "0.21"
 tracing = "0.1"

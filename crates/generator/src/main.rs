@@ -1,10 +1,12 @@
 use std::{
     borrow::Cow,
     collections::{BTreeMap, HashMap, HashSet},
+    fs::{self, File},
     io::Write,
 };
 
 use heck::{ToShoutySnakeCase, ToSnakeCase};
+use itertools::Itertools;
 
 use crate::{cdecl::CType, xml::Constant};
 
@@ -33,11 +35,24 @@ impl<'a> FeatureOrExtension<'a> {
     }
 }
 
+#[derive(Clone)]
+enum VersionOrExtension<'a> {
+    Version(VersionInfo<'a>),
+    Extension(&'a xml::Extension),
+}
+
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
 enum CommandType {
     Entry,
     Instance,
     Device,
+}
+
+#[derive(Clone)]
+struct VersionInfo<'a> {
+    major: u32,
+    minor: u32,
+    features: Vec<&'a xml::Feature>,
 }
 
 fn generate(xmls: &[&xml::Registry]) {
@@ -46,8 +61,8 @@ fn generate(xmls: &[&xml::Registry]) {
     let sys_output_dir = "crates/kazan-sys/src/generated/vk";
     let output_dir = "crates/kazan/src/generated/vk";
 
-    let _ = std::fs::remove_dir_all(sys_output_dir);
-    let _ = std::fs::remove_dir_all(output_dir);
+    let _ = fs::remove_dir_all(sys_output_dir);
+    let _ = fs::remove_dir_all(output_dir);
 
     let mut sys_vendor_modules = BTreeMap::new();
     let mut vendor_modules = BTreeMap::new();
@@ -75,35 +90,72 @@ fn generate(xmls: &[&xml::Registry]) {
         }
     }
 
-    for xml in xmls {
-        let features_and_extensions = xml
-            .features
-            .iter()
-            .map(FeatureOrExtension::Feature)
-            .chain(xml.extensions.iter().map(FeatureOrExtension::Extension));
+    let handles = xmls.iter().flat_map(|xml| xml.handles.iter());
+    let basetypes = xmls.iter().flat_map(|xml| xml.basetypes.iter());
+    let structs = xmls
+        .iter()
+        .flat_map(|xml| xml.structs.iter())
+        .collect::<Vec<_>>();
+    let unions = xmls.iter().flat_map(|xml| xml.unions.iter());
+    let enums = xmls.iter().flat_map(|xml| xml.enums.iter());
+    let bitmask_types = xmls.iter().flat_map(|xml| xml.bitmask_types.iter());
+    let bitmasks = xmls.iter().flat_map(|xml| xml.bitmasks.iter());
+    let constants = xmls.iter().flat_map(|xml| xml.constants.iter());
+    let commands = xmls.iter().flat_map(|xml| xml.commands.iter());
+    let funcpointers = xmls.iter().flat_map(|xml| xml.funcpointers.iter());
+    let handle_aliases = xmls.iter().flat_map(|xml| xml.handle_aliases.iter());
+    let enum_aliases = xmls.iter().flat_map(|xml| xml.enum_aliases.iter());
+    let struct_aliases = xmls.iter().flat_map(|xml| xml.struct_aliases.iter());
+    let bitmask_aliases = xmls.iter().flat_map(|xml| xml.bitmask_aliases.iter());
+    let command_aliases = xmls.iter().flat_map(|xml| xml.command_aliases.iter());
+    let extensions = xmls.iter().flat_map(|xml| xml.extensions.iter());
+    let features = xmls.iter().flat_map(|xml| xml.features.iter());
 
-        for feature_or_extension in features_and_extensions {
-            let required_types = feature_or_extension
-                .requires()
+    let versions = features
+        .chunk_by(|feature| (feature.version.major, feature.version.minor))
+        .into_iter()
+        .map(|(version, features)| VersionInfo {
+            major: version.0,
+            minor: version.1,
+            features: features.into_iter().collect(),
+        })
+        .collect::<Vec<_>>();
+
+    let version_or_extension = versions
+        .into_iter()
+        .map(VersionOrExtension::Version)
+        .chain(extensions.clone().map(VersionOrExtension::Extension));
+
+    // for xml in xmls {
+    //     let features_and_extensions = xml
+    //         .features
+    //         .iter()
+    //         .map(FeatureOrExtension::Feature)
+    //         .chain(xml.extensions.iter().map(FeatureOrExtension::Extension));
+
+    //     for feature_or_extension in features_and_extensions {
+    for version_or_extension in version_or_extension {
+        let requires: Vec<_> = match version_or_extension {
+            VersionOrExtension::Version(ref version) => version
+                .features
                 .iter()
-                .map(|r| &r.types)
-                .flatten();
+                .flat_map(|feature| feature.requires.iter())
+                .collect(),
+            VersionOrExtension::Extension(extension) => extension.requires.iter().collect(),
+        };
 
-            let required_commands = feature_or_extension
-                .requires()
-                .iter()
-                .map(|r| &r.commands)
-                .flatten();
+        let required_types = requires.iter().map(|r| &r.types).flatten();
 
-            let required_api_constants = feature_or_extension
-                .requires()
+        let required_commands = requires.iter().map(|r| &r.commands).flatten();
+
+        let required_api_constants =
+            requires
                 .iter()
                 .map(|r| &r.constants)
                 .flatten()
                 .filter_map(|constant| {
-                    let global_api_constant = xml
-                        .constants
-                        .iter()
+                    let global_api_constant = constants
+                        .clone()
                         .find(|api_constant| api_constant.name == constant.name);
 
                     if let Some(global_api_constant) = global_api_constant {
@@ -119,546 +171,546 @@ fn generate(xmls: &[&xml::Registry]) {
                     }
                 });
 
-            let new_items = required_types
-                .map(|ty| ty.name)
-                .chain(required_commands.clone().map(|cmd| cmd.name))
-                .chain(required_api_constants.clone().map(|constant| constant.name))
-                .filter(|name| visited_items.insert(*name))
-                .collect::<HashSet<_>>();
+        let new_items = required_types
+            .map(|ty| ty.name)
+            .chain(required_commands.clone().map(|cmd| cmd.name))
+            .chain(required_api_constants.clone().map(|constant| constant.name))
+            .filter(|name| visited_items.insert(*name))
+            .collect::<HashSet<_>>();
 
-            let commands = xml.commands.iter().filter(|ty| new_items.contains(ty.name));
+        let new_commands = commands.clone().filter(|ty| new_items.contains(ty.name));
 
-            let (vendor, module_name) = match feature_or_extension {
-                FeatureOrExtension::Feature(feature) => {
-                    let name = format!(
-                        "{}_{}_{}",
-                        feature.version.api, feature.version.major, feature.version.minor
-                    );
-                    ("features".to_string(), name.to_ascii_lowercase())
+        let (vendor, module_name) = match version_or_extension {
+            VersionOrExtension::Version(version) => {
+                let name = format!("vk{}_{}", version.major, version.minor);
+                (None, name.to_ascii_lowercase())
+            }
+            VersionOrExtension::Extension(extension) => {
+                let (vendor, name) = if extension.name.starts_with("VK_") {
+                    extension
+                        .name
+                        .strip_prefix("VK_")
+                        .unwrap()
+                        .split_once("_")
+                        .unwrap()
+                } else {
+                    let name = extension.name.strip_prefix("vulkan_video_").unwrap();
+                    ("video", name)
+                };
+
+                let name = if name.chars().next().unwrap().is_ascii_digit() {
+                    format!("_{}", name)
+                } else {
+                    name.to_string()
+                };
+
+                (Some(vendor.to_lowercase()), name)
+            }
+        };
+
+        if !new_items.is_empty() {
+            sys_vendor_modules
+                .entry(vendor.clone())
+                .or_insert_with(Vec::new)
+                .push(module_name.clone());
+
+            let vendor_path = match vendor {
+                Some(ref vendor) => format!("{}/{}", sys_output_dir, vendor),
+                None => sys_output_dir.to_string(),
+            };
+            fs::create_dir_all(&vendor_path).unwrap();
+            let mut sys_file =
+                File::create(format!("{}/{}.rs", &vendor_path, module_name)).unwrap();
+
+            writeln!(sys_file, "#![allow(non_camel_case_types, unused_imports)]").unwrap();
+            writeln!(sys_file, "use core::ffi::{{c_char, c_int, c_void}};").unwrap();
+            writeln!(sys_file, "use bitflags::bitflags;").unwrap();
+            writeln!(sys_file, "use crate::{{*, vk::*}};").unwrap();
+
+            let constants =
+                required_api_constants.filter(|constant| new_items.contains(constant.name));
+
+            for constant in constants {
+                writeln!(
+                    sys_file,
+                    "pub const {}: {} = {};",
+                    normalize_const_name(constant.name),
+                    ctype_to_rust_type_str(constant.ty),
+                    convert_c_expr(constant.value),
+                )
+                .unwrap();
+            }
+
+            let basetypes = basetypes.clone().filter(|ty| new_items.contains(ty.name));
+            for ty in basetypes {
+                writeln!(
+                    sys_file,
+                    "pub type {} = {};",
+                    normalize_ty_name(ty.name),
+                    ctype_to_rust_type_str(ty.ty.unwrap_or("*const c_void"))
+                )
+                .unwrap();
+            }
+
+            let handles = handles.clone().filter(|ty| new_items.contains(ty.name));
+
+            for ty in handles {
+                let underlying_ty = match ty.ty {
+                    "VK_DEFINE_HANDLE" => "usize",
+                    "VK_DEFINE_NON_DISPATCHABLE_HANDLE" => "u64",
+                    _ => panic!(),
+                };
+                writeln!(sys_file, "#[repr(C)]").unwrap();
+                writeln!(sys_file, "#[derive(Copy, Clone)]").unwrap();
+                writeln!(
+                    sys_file,
+                    "pub struct {}({});",
+                    normalize_ty_name(ty.name),
+                    underlying_ty
+                )
+                .unwrap();
+            }
+
+            let type_aliases = enum_aliases
+                .clone()
+                .filter(|alias| enums.clone().find(|ty| ty.name == alias.alias).is_some())
+                .chain(handle_aliases.clone())
+                .chain(struct_aliases.clone())
+                .chain(bitmask_aliases.clone())
+                .filter(|alias| new_items.contains(alias.name));
+
+            for ty in type_aliases {
+                writeln!(
+                    sys_file,
+                    "pub type {} = {};",
+                    normalize_ty_name(ty.name),
+                    normalize_ty_name(ty.alias)
+                )
+                .unwrap();
+            }
+
+            let command_aliases = command_aliases
+                .clone()
+                .filter(|alias| new_items.contains(alias.name));
+
+            for ty in command_aliases {
+                writeln!(
+                    sys_file,
+                    "pub type PFN_{} = PFN_{};",
+                    normalize_ty_name(ty.name),
+                    normalize_ty_name(ty.alias)
+                )
+                .unwrap();
+            }
+
+            let structs = structs.iter().filter(|ty| new_items.contains(ty.name));
+            for ty in structs {
+                writeln!(sys_file, "#[repr(C)]").unwrap();
+                writeln!(sys_file, "#[derive(Copy, Clone)]").unwrap();
+                writeln!(sys_file, "pub struct {} {{", normalize_ty_name(ty.name)).unwrap();
+                for member in &ty.members {
+                    let field_ty = ctype_to_rust_type(&member.c_decl.ty);
+                    writeln!(
+                        sys_file,
+                        "    pub {}: {},",
+                        normalize_name(member.c_decl.name),
+                        field_ty
+                    )
+                    .unwrap();
                 }
-                FeatureOrExtension::Extension(extension) => {
-                    let (vendor, name) = if extension.name.starts_with("VK_") {
-                        extension
-                            .name
-                            .strip_prefix("VK_")
-                            .unwrap()
-                            .split_once("_")
-                            .unwrap()
-                    } else {
-                        let name = extension.name.strip_prefix("vulkan_video_").unwrap();
-                        ("video", name)
-                    };
+                writeln!(sys_file, "}}").unwrap();
+            }
 
-                    let name = if name.chars().next().unwrap().is_ascii_digit() {
-                        format!("_{}", name)
+            let unions = unions.clone().filter(|ty| new_items.contains(ty.name));
+            for ty in unions {
+                writeln!(sys_file, "#[repr(C)]").unwrap();
+                writeln!(sys_file, "#[derive(Copy, Clone)]").unwrap();
+                writeln!(sys_file, "pub union {} {{", normalize_ty_name(ty.name)).unwrap();
+                for member in &ty.members {
+                    let field_ty = ctype_to_rust_type(&member.c_decl.ty);
+                    writeln!(
+                        sys_file,
+                        "    pub {}: {},",
+                        normalize_name(member.c_decl.name),
+                        field_ty
+                    )
+                    .unwrap();
+                }
+                writeln!(sys_file, "}}").unwrap();
+            }
+
+            let enums = enums.clone().filter(|ty| new_items.contains(ty.name));
+            for ty in enums {
+                let value_prefix = if ty.name == "VkResult" {
+                    "VK".to_string()
+                } else {
+                    let value_prefix = strip_vendor_suffix(ty.name).to_shouty_snake_case();
+                    trailing_number.replace(&value_prefix, "_$1").to_string()
+                };
+
+                writeln!(sys_file, "#[repr(transparent)]").unwrap();
+                writeln!(
+                    sys_file,
+                    "#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]"
+                )
+                .unwrap();
+                writeln!(sys_file, "pub struct {}(i32);", normalize_ty_name(ty.name)).unwrap();
+
+                writeln!(sys_file, "impl {} {{", normalize_ty_name(ty.name)).unwrap();
+                for value in &ty.values {
+                    let name = value
+                        .name
+                        .strip_prefix(&value_prefix)
+                        .unwrap()
+                        .strip_prefix("_")
+                        .unwrap()
+                        .to_uppercase(); // Formats contain lowercase 'x'
+
+                    //let name = strip_vendor_suffix(name);
+                    let name = if name
+                        .chars()
+                        .next()
+                        .map(|c| c.is_ascii_digit())
+                        .unwrap_or_default()
+                    {
+                        format!("_{}", &name)
                     } else {
                         name.to_string()
                     };
-
-                    (vendor.to_lowercase(), name)
+                    writeln!(
+                        sys_file,
+                        "    pub const {}: Self = Self({});",
+                        name, value.value
+                    )
+                    .unwrap();
                 }
-            };
+                writeln!(sys_file, "}}").unwrap();
+            }
 
-            if !new_items.is_empty() {
-                sys_vendor_modules
-                    .entry(vendor.to_string())
-                    .or_insert_with(Vec::new)
-                    .push(module_name.clone());
+            let bitmask_types = bitmask_types
+                .clone()
+                .filter(|ty| new_items.contains(ty.name));
+            for ty in bitmask_types {
+                let bitmask = ty
+                    .bitvalues
+                    .or(ty.requires)
+                    .map(|b| bitmasks.clone().find(|bitmask| bitmask.name == b).unwrap());
 
-                std::fs::create_dir_all(format!("{}/{}", sys_output_dir, vendor)).unwrap();
-                let mut sys_file = std::fs::File::create(format!(
-                    "{}/{}/{}.rs",
-                    sys_output_dir, vendor, module_name
-                ))
+                let name = normalize_ty_name(ty.name);
+
+                writeln!(sys_file, "bitflags! {{").unwrap();
+                writeln!(sys_file, "    #[repr(transparent)]").unwrap();
+                writeln!(
+                    sys_file,
+                    "    #[derive(Copy, Clone, PartialEq, Eq, Default)]"
+                )
                 .unwrap();
+                let base_type = ctype_to_rust_type_str(ty.ty);
+                writeln!(sys_file, "    pub struct {}: {} {{", name, base_type).unwrap();
 
-                writeln!(sys_file, "#![allow(non_camel_case_types, unused_imports)]").unwrap();
-                writeln!(sys_file, "use core::ffi::{{c_char, c_int, c_void}};").unwrap();
-                writeln!(sys_file, "use bitflags::bitflags;").unwrap();
-                writeln!(sys_file, "use crate::{{*, vk::*}};").unwrap();
+                let value_prefix = bitmask.map(|bitmask| {
+                    let value_prefix = strip_vendor_suffix(bitmask.name)
+                        .replace("FlagBits", "")
+                        .to_shouty_snake_case();
+                    trailing_number.replace(&value_prefix, "_$1").to_string()
+                });
 
-                let constants =
-                    required_api_constants.filter(|constant| new_items.contains(constant.name));
+                let bits = bitmask
+                    .map(|bitmask| {
+                        bitmask
+                            .bits
+                            .iter()
+                            .map(|bit| {
+                                let name = bit
+                                    .name
+                                    .strip_prefix(value_prefix.as_ref().unwrap())
+                                    .unwrap()
+                                    .strip_prefix("_")
+                                    .unwrap();
+                                //let name = strip_vendor_suffix(name);
+                                //let name = name.strip_suffix("_BIT").unwrap_or(name);
+                                let name = name.replace("_BIT", "");
+                                let name = if name
+                                    .chars()
+                                    .next()
+                                    .map(|c| c.is_ascii_digit())
+                                    .unwrap_or_default()
+                                {
+                                    format!("_{}", &name)
+                                } else {
+                                    name.to_string()
+                                };
+                                (name, bit)
+                            })
+                            .collect::<Vec<_>>()
+                    })
+                    .unwrap_or_default();
 
-                for constant in constants {
-                    writeln!(
-                        sys_file,
-                        "pub const {}: {} = {};",
-                        normalize_const_name(constant.name),
-                        ctype_to_rust_type_str(constant.ty),
-                        convert_c_expr(constant.value),
-                    )
-                    .unwrap();
-                }
-
-                let basetypes = xml
-                    .basetypes
-                    .iter()
-                    .filter(|ty| new_items.contains(ty.name));
-                for ty in basetypes {
-                    writeln!(
-                        sys_file,
-                        "pub type {} = {};",
-                        normalize_ty_name(ty.name),
-                        ctype_to_rust_type_str(ty.ty.unwrap_or("*const c_void"))
-                    )
-                    .unwrap();
-                }
-
-                let handles = xml.handles.iter().filter(|ty| new_items.contains(ty.name));
-
-                for ty in handles {
-                    let underlying_ty = match ty.ty {
-                        "VK_DEFINE_HANDLE" => "usize",
-                        "VK_DEFINE_NON_DISPATCHABLE_HANDLE" => "u64",
-                        _ => panic!(),
-                    };
-                    writeln!(sys_file, "#[repr(C)]").unwrap();
-                    writeln!(sys_file, "#[derive(Copy, Clone)]").unwrap();
-                    writeln!(
-                        sys_file,
-                        "pub struct {}({});",
-                        normalize_ty_name(ty.name),
-                        underlying_ty
-                    )
-                    .unwrap();
-                }
-
-                let type_aliases = xml
-                    .enum_aliases
-                    .iter()
-                    .filter(|alias| xml.enums.iter().find(|ty| ty.name == alias.alias).is_some())
-                    .chain(xml.handle_aliases.iter())
-                    .chain(xml.struct_aliases.iter())
-                    .chain(xml.bitmask_aliases.iter())
-                    .filter(|alias| new_items.contains(alias.name));
-
-                for ty in type_aliases {
-                    writeln!(
-                        sys_file,
-                        "pub type {} = {};",
-                        normalize_ty_name(ty.name),
-                        normalize_ty_name(ty.alias)
-                    )
-                    .unwrap();
-                }
-
-                let command_aliases = xml
-                    .command_aliases
-                    .iter()
-                    .filter(|alias| new_items.contains(alias.name));
-
-                for ty in command_aliases {
-                    writeln!(
-                        sys_file,
-                        "pub type PFN_{} = PFN_{};",
-                        normalize_ty_name(ty.name),
-                        normalize_ty_name(ty.alias)
-                    )
-                    .unwrap();
-                }
-
-                let structs = xml.structs.iter().filter(|ty| new_items.contains(ty.name));
-                for ty in structs {
-                    writeln!(sys_file, "#[repr(C)]").unwrap();
-                    writeln!(sys_file, "#[derive(Copy, Clone)]").unwrap();
-                    writeln!(sys_file, "pub struct {} {{", normalize_ty_name(ty.name)).unwrap();
-                    for member in &ty.members {
-                        let field_ty = ctype_to_rust_type(&member.c_decl.ty);
+                if let Some(bitmask) = bitmask {
+                    let bitmask_name = normalize_ty_name(bitmask.name);
+                    for (name, _bit) in &bits {
                         writeln!(
                             sys_file,
-                            "    pub {}: {},",
-                            normalize_name(member.c_decl.name),
-                            field_ty
+                            "        const {} = {}::{}.0;",
+                            name, bitmask_name, name
                         )
                         .unwrap();
                     }
-                    writeln!(sys_file, "}}").unwrap();
-                }
-
-                let unions = xml.unions.iter().filter(|ty| new_items.contains(ty.name));
-                for ty in unions {
-                    writeln!(sys_file, "#[repr(C)]").unwrap();
-                    writeln!(sys_file, "#[derive(Copy, Clone)]").unwrap();
-                    writeln!(sys_file, "pub union {} {{", normalize_ty_name(ty.name)).unwrap();
-                    for member in &ty.members {
-                        let field_ty = ctype_to_rust_type(&member.c_decl.ty);
-                        writeln!(
-                            sys_file,
-                            "    pub {}: {},",
-                            normalize_name(member.c_decl.name),
-                            field_ty
-                        )
-                        .unwrap();
-                    }
-                    writeln!(sys_file, "}}").unwrap();
-                }
-
-                let enums = xml.enums.iter().filter(|ty| new_items.contains(ty.name));
-                for ty in enums {
-                    let value_prefix = if ty.name == "VkResult" {
-                        "VK".to_string()
-                    } else {
-                        let value_prefix = strip_vendor_suffix(ty.name).to_shouty_snake_case();
-                        trailing_number.replace(&value_prefix, "_$1").to_string()
-                    };
-
-                    writeln!(sys_file, "#[repr(transparent)]").unwrap();
-                    writeln!(
-                        sys_file,
-                        "#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]"
-                    )
-                    .unwrap();
-                    writeln!(sys_file, "pub struct {}(i32);", normalize_ty_name(ty.name)).unwrap();
-
-                    writeln!(sys_file, "impl {} {{", normalize_ty_name(ty.name)).unwrap();
-                    for value in &ty.values {
+                    for value in &bitmask.values {
                         let name = value
                             .name
-                            .strip_prefix(&value_prefix)
+                            .strip_prefix(value_prefix.as_ref().unwrap())
                             .unwrap()
                             .strip_prefix("_")
-                            .unwrap()
-                            .to_uppercase(); // Formats contain lowercase 'x'
-
-                        //let name = strip_vendor_suffix(name);
-                        let name = if name
-                            .chars()
-                            .next()
-                            .map(|c| c.is_ascii_digit())
-                            .unwrap_or_default()
-                        {
-                            format!("_{}", &name)
-                        } else {
-                            name.to_string()
-                        };
-                        writeln!(
-                            sys_file,
-                            "    pub const {}: Self = Self({});",
-                            name, value.value
-                        )
-                        .unwrap();
+                            .unwrap();
+                        let name = strip_vendor_suffix(name);
+                        writeln!(sys_file, "        const {} = {};", name, value.value).unwrap();
                     }
-                    writeln!(sys_file, "}}").unwrap();
                 }
 
-                let bitmask_types = xml
-                    .bitmask_types
-                    .iter()
-                    .filter(|ty| new_items.contains(ty.name));
-                for ty in bitmask_types {
-                    let bitmask = ty.bitvalues.or(ty.requires).map(|b| {
-                        xml.bitmasks
-                            .iter()
-                            .find(|bitmask| bitmask.name == b)
-                            .unwrap()
-                    });
+                writeln!(sys_file, "    }}").unwrap();
+                writeln!(sys_file, "}}").unwrap();
 
-                    let name = normalize_ty_name(ty.name);
-
-                    writeln!(sys_file, "bitflags! {{").unwrap();
-                    writeln!(sys_file, "    #[repr(transparent)]").unwrap();
+                if let Some(bitmask) = bitmask {
+                    let bitmask_name = normalize_ty_name(bitmask.name);
                     writeln!(
                         sys_file,
-                        "    #[derive(Copy, Clone, PartialEq, Eq, Default)]"
-                    )
-                    .unwrap();
-                    let base_type = ctype_to_rust_type_str(ty.ty);
-                    writeln!(sys_file, "    pub struct {}: {} {{", name, base_type).unwrap();
-
-                    let value_prefix = bitmask.map(|bitmask| {
-                        let value_prefix = strip_vendor_suffix(bitmask.name)
-                            .replace("FlagBits", "")
-                            .to_shouty_snake_case();
-                        trailing_number.replace(&value_prefix, "_$1").to_string()
-                    });
-
-                    let bits = bitmask
-                        .map(|bitmask| {
-                            bitmask
-                                .bits
-                                .iter()
-                                .map(|bit| {
-                                    let name = bit
-                                        .name
-                                        .strip_prefix(value_prefix.as_ref().unwrap())
-                                        .unwrap()
-                                        .strip_prefix("_")
-                                        .unwrap();
-                                    //let name = strip_vendor_suffix(name);
-                                    //let name = name.strip_suffix("_BIT").unwrap_or(name);
-                                    let name = name.replace("_BIT", "");
-                                    let name = if name
-                                        .chars()
-                                        .next()
-                                        .map(|c| c.is_ascii_digit())
-                                        .unwrap_or_default()
-                                    {
-                                        format!("_{}", &name)
-                                    } else {
-                                        name.to_string()
-                                    };
-                                    (name, bit)
-                                })
-                                .collect::<Vec<_>>()
-                        })
-                        .unwrap_or_default();
-
-                    if let Some(bitmask) = bitmask {
-                        let bitmask_name = normalize_ty_name(bitmask.name);
-                        for (name, _bit) in &bits {
-                            writeln!(
-                                sys_file,
-                                "        const {} = {}::{}.0;",
-                                name, bitmask_name, name
-                            )
-                            .unwrap();
-                        }
-                        for value in &bitmask.values {
-                            let name = value
-                                .name
-                                .strip_prefix(value_prefix.as_ref().unwrap())
-                                .unwrap()
-                                .strip_prefix("_")
-                                .unwrap();
-                            let name = strip_vendor_suffix(name);
-                            writeln!(sys_file, "        const {} = {};", name, value.value)
-                                .unwrap();
-                        }
-                    }
-
-                    writeln!(sys_file, "    }}").unwrap();
-                    writeln!(sys_file, "}}").unwrap();
-
-                    if let Some(bitmask) = bitmask {
-                        let bitmask_name = normalize_ty_name(bitmask.name);
-                        writeln!(
-                            sys_file,
-                            "#[repr(transparent)]
+                        "#[repr(transparent)]
                             #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
                             pub struct {}(u{});
                             impl {} {{",
-                            bitmask_name,
-                            bitmask.bitwidth.unwrap_or(32),
-                            bitmask_name,
+                        bitmask_name,
+                        bitmask.bitwidth.unwrap_or(32),
+                        bitmask_name,
+                    )
+                    .unwrap();
+
+                    for (name, bit) in &bits {
+                        writeln!(
+                            sys_file,
+                            "pub const {}: Self = Self(1 << {});",
+                            name, bit.bitpos
                         )
                         .unwrap();
-
-                        for (name, bit) in &bits {
-                            writeln!(sys_file, "pub const {}: Self = Self(1 << {});", name, bit.bitpos).unwrap();
-                        }
-
-                        writeln!(sys_file, "}}").unwrap();
                     }
-                }
 
-                let funcpointers = xml
-                    .funcpointers
+                    writeln!(sys_file, "}}").unwrap();
+                }
+            }
+
+            let funcpointers = funcpointers
+                .clone()
+                .filter(|ty| new_items.contains(ty.name));
+            for ty in funcpointers {
+                writeln!(
+                    sys_file,
+                    "pub type {} = unsafe extern \"system\" fn(",
+                    ty.name
+                )
+                .unwrap();
+                for param in &ty.params {
+                    writeln!(
+                        sys_file,
+                        "    {}: {},",
+                        normalize_name(param.c_decl.name),
+                        ctype_to_rust_type(&param.c_decl.ty)
+                    )
+                    .unwrap();
+                }
+                if let Some(ref return_type) = ty.return_type {
+                    writeln!(sys_file, ") -> {};", ctype_to_rust_type(&return_type)).unwrap();
+                } else {
+                    writeln!(sys_file, ");").unwrap();
+                }
+            }
+
+            for command in new_commands.clone() {
+                writeln!(
+                    sys_file,
+                    "pub type PFN_{} = unsafe extern \"system\" fn(",
+                    command.name
+                )
+                .unwrap();
+                for param in &command.params {
+                    writeln!(
+                        sys_file,
+                        "    {}: {},",
+                        normalize_name(param.c_decl.name),
+                        ctype_to_rust_type(&param.c_decl.ty)
+                    )
+                    .unwrap();
+                }
+                if let Some(ref return_type) = command.return_type {
+                    writeln!(sys_file, ") -> {};", ctype_to_rust_type(&return_type)).unwrap();
+                } else {
+                    writeln!(sys_file, ");").unwrap();
+                }
+            }
+        }
+
+        if required_commands.clone().next().is_some() {
+            vendor_modules
+                .entry(vendor.clone())
+                .or_insert_with(Vec::new)
+                .push(module_name.clone());
+
+            let vendor_path = match vendor {
+                Some(vendor) => format!("{}/{}", output_dir, vendor),
+                None => output_dir.to_string(),
+            };
+            fs::create_dir_all(&vendor_path).unwrap();
+            let mut file = File::create(format!("{}/{}.rs", &vendor_path, module_name)).unwrap();
+
+            writeln!(file, "#![allow(unused_imports)]").unwrap();
+            writeln!(file, "use core::ffi::{{c_char, c_int, c_void, CStr}};").unwrap();
+            writeln!(file, "use core::mem::transmute;").unwrap();
+            writeln!(file, "use kazan_sys::{{*, vk::*}};").unwrap();
+            writeln!(file, "use crate::*;").unwrap();
+
+            // for cmd in required_commands {
+            //     writeln!(file, "// {}", cmd.name).unwrap();
+            // }
+
+            let mut generate_commands = |cmd_type: CommandType, fn_type_name: &str| {
+                let command_groups: Vec<_> = requires
                     .iter()
-                    .filter(|ty| new_items.contains(ty.name));
-                for ty in funcpointers {
-                    writeln!(
-                        sys_file,
-                        "pub type {} = unsafe extern \"system\" fn(",
-                        ty.name
-                    )
-                    .unwrap();
-                    for param in &ty.params {
-                        writeln!(
-                            sys_file,
-                            "    {}: {},",
-                            normalize_name(param.c_decl.name),
-                            ctype_to_rust_type(&param.c_decl.ty)
-                        )
-                        .unwrap();
-                    }
-                    if let Some(ref return_type) = ty.return_type {
-                        writeln!(sys_file, ") -> {};", ctype_to_rust_type(&return_type)).unwrap();
-                    } else {
-                        writeln!(sys_file, ");").unwrap();
-                    }
-                }
-
-                for command in commands.clone() {
-                    writeln!(
-                        sys_file,
-                        "pub type PFN_{} = unsafe extern \"system\" fn(",
-                        command.name
-                    )
-                    .unwrap();
-                    for param in &command.params {
-                        writeln!(
-                            sys_file,
-                            "    {}: {},",
-                            normalize_name(param.c_decl.name),
-                            ctype_to_rust_type(&param.c_decl.ty)
-                        )
-                        .unwrap();
-                    }
-                    if let Some(ref return_type) = command.return_type {
-                        writeln!(sys_file, ") -> {};", ctype_to_rust_type(&return_type)).unwrap();
-                    } else {
-                        writeln!(sys_file, ");").unwrap();
-                    }
-                }
-            }
-
-            if required_commands.clone().next().is_some() {
-                vendor_modules
-                    .entry(vendor.to_string())
-                    .or_insert_with(Vec::new)
-                    .push(module_name.clone());
-
-                std::fs::create_dir_all(format!("{}/{}", output_dir, vendor)).unwrap();
-                let mut file =
-                    std::fs::File::create(format!("{}/{}/{}.rs", output_dir, vendor, module_name))
-                        .unwrap();
-
-                writeln!(file, "#![allow(unused_imports)]").unwrap();
-                writeln!(file, "use core::ffi::{{c_char, c_int, c_void, CStr}};").unwrap();
-                writeln!(file, "use core::mem::transmute;").unwrap();
-                writeln!(file, "use kazan_sys::{{*, vk::*}};").unwrap();
-                writeln!(file, "use crate::*;").unwrap();
-
-                // for cmd in required_commands {
-                //     writeln!(file, "// {}", cmd.name).unwrap();
-                // }
-
-                let mut generate_commands = |cmd_type: CommandType, fn_type_name: &str| {
-                    let command_groups: Vec<_> = feature_or_extension
-                        .requires()
-                        .iter()
-                        .flat_map(|require| {
-                            let commands: Vec<_> = require
-                                .commands
-                                .iter()
-                                .map(|req_cmd| {
-                                    let alias = xml.command_aliases.iter().find_map(|alias| {
-                                        if alias.name == req_cmd.name {
-                                            Some(alias.alias)
-                                        } else {
-                                            None
-                                        }
-                                    });
-                                    let name = alias.unwrap_or(req_cmd.name);
-                                    let command =
-                                        xml.commands.iter().find(|cmd| cmd.name == name).unwrap();
-                                    CommandInfo {
-                                        alias: req_cmd.name,
-                                        command,
-                                        optional: !require.depends.is_empty(),
-                                    }
-                                })
-                                .filter(|cmd| {
-                                    let ty = &cmd.command.params.iter().next().unwrap().c_decl.ty;
-                                    if let CType::Base(base) = ty {
-                                        handle_command_types
-                                            .get(base.name)
-                                            .copied()
-                                            .unwrap_or(CommandType::Entry)
-                                            == cmd_type
+                    .flat_map(|require| {
+                        let commands: Vec<_> = require
+                            .commands
+                            .iter()
+                            .map(|req_cmd| {
+                                let alias = command_aliases.clone().find_map(|alias| {
+                                    if alias.name == req_cmd.name {
+                                        Some(alias.alias)
                                     } else {
-                                        cmd_type == CommandType::Entry
+                                        None
                                     }
-                                })
-                                .collect();
+                                });
+                                let name = alias.unwrap_or(req_cmd.name);
+                                let command =
+                                    commands.clone().find(|cmd| cmd.name == name).unwrap();
+                                CommandInfo {
+                                    alias: req_cmd.name,
+                                    command,
+                                    optional: !require.depends.is_empty(),
+                                }
+                            })
+                            .filter(|cmd| {
+                                let ty = &cmd.command.params.iter().next().unwrap().c_decl.ty;
+                                if let CType::Base(base) = ty {
+                                    handle_command_types
+                                        .get(base.name)
+                                        .copied()
+                                        .unwrap_or(CommandType::Entry)
+                                        == cmd_type
+                                } else {
+                                    cmd_type == CommandType::Entry
+                                }
+                            })
+                            .collect();
 
-                            if commands.is_empty() {
-                                None
-                            } else {
-                                Some(CommandGroup { require, commands })
-                            }
-                        })
-                        .collect::<Vec<_>>();
-
-                    if command_groups.is_empty() {
-                        return;
-                    }
-
-                    writeln!(file, "pub struct {} {{", fn_type_name).unwrap();
-                    for command_group in &command_groups {
-                        for command in &command_group.commands {
-                            let name = normalize_command_name(command.alias);
-                            let ty = format!("PFN_{}", normalize_ty_name(command.command.name));
-                            let ty = if command.optional {
-                                format!("Option<{}>", ty)
-                            } else {
-                                ty
-                            };
-                            writeln!(file, "{}: {},", name, ty).unwrap();
+                        if commands.is_empty() {
+                            None
+                        } else {
+                            Some(CommandGroup { require, commands })
                         }
-                    }
-                    writeln!(file, "}}").unwrap();
+                    })
+                    .collect::<Vec<_>>();
 
-                    writeln!(file, "impl {} {{", fn_type_name).unwrap();
-                    writeln!(file, "pub unsafe fn load(load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>) -> core::result::Result<Self, LoadingError> {{").unwrap();
-                    writeln!(file, "unsafe {{ Ok(Self {{").unwrap();
-                    for command_group in &command_groups {
-                        for command in &command_group.commands {
-                            let name = normalize_command_name(command.alias);
-                            if command.optional {
-                                writeln!(
-                                    file,
-                                    "{}: transmute(load(c\"{}\")),",
-                                    name, command.alias
-                                )
+                if command_groups.is_empty() {
+                    return;
+                }
+
+                writeln!(file, "pub struct {} {{", fn_type_name).unwrap();
+                for command_group in &command_groups {
+                    for command in &command_group.commands {
+                        let name = normalize_command_name(command.alias);
+                        let ty = format!("PFN_{}", normalize_ty_name(command.command.name));
+                        let ty = if command.optional {
+                            format!("Option<{}>", ty)
+                        } else {
+                            ty
+                        };
+                        writeln!(file, "{}: {},", name, ty).unwrap();
+                    }
+                }
+                writeln!(file, "}}").unwrap();
+
+                writeln!(file, "impl {} {{", fn_type_name).unwrap();
+                writeln!(file, "pub unsafe fn load(load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>) -> core::result::Result<Self, LoadingError> {{").unwrap();
+                writeln!(file, "unsafe {{ Ok(Self {{").unwrap();
+                for command_group in &command_groups {
+                    for command in &command_group.commands {
+                        let name = normalize_command_name(command.alias);
+                        if command.optional {
+                            writeln!(file, "{}: transmute(load(c\"{}\")),", name, command.alias)
                                 .unwrap();
-                            } else {
-                                writeln!(
-                                    file,
-                                    "{}: transmute(load(c\"{}\").ok_or(LoadingError)?),",
-                                    name, command.alias
-                                )
-                                .unwrap();
-                            }
+                        } else {
+                            writeln!(
+                                file,
+                                "{}: transmute(load(c\"{}\").ok_or(LoadingError)?),",
+                                name, command.alias
+                            )
+                            .unwrap();
                         }
                     }
-                    writeln!(file, "}}) }} }} }}").unwrap();
+                }
+                writeln!(file, "}}) }} }} }}").unwrap();
 
-                    writeln!(file, "impl {} {{", fn_type_name).unwrap();
-                    for command_group in &command_groups {
-                        for command in &command_group.commands {
-                            write_command_wrapper(&mut file, command, &xml.structs);
-                        }
+                writeln!(file, "impl {} {{", fn_type_name).unwrap();
+                for command_group in &command_groups {
+                    for command in &command_group.commands {
+                        write_command_wrapper(&mut file, command, &structs);
                     }
-                    writeln!(file, "}}").unwrap();
-                };
+                }
+                writeln!(file, "}}").unwrap();
+            };
 
-                generate_commands(CommandType::Entry, "EntryFn");
-                generate_commands(CommandType::Instance, "InstanceFn");
-                generate_commands(CommandType::Device, "DeviceFn");
+            generate_commands(CommandType::Entry, "EntryFn");
+            generate_commands(CommandType::Instance, "InstanceFn");
+            generate_commands(CommandType::Device, "DeviceFn");
+        }
+    }
+
+    fs::create_dir_all(sys_output_dir).unwrap();
+    let mut sys_mod_file = File::create(format!("{}/mod.rs", sys_output_dir)).unwrap();
+    let mut mod_file = File::create(format!("{}/mod.rs", output_dir)).unwrap();
+
+    for (vendor, names) in &sys_vendor_modules {
+        if let Some(vendor) = vendor {
+            writeln!(sys_mod_file, "mod {};", vendor).unwrap();
+            writeln!(sys_mod_file, "pub use {}::*;", vendor).unwrap();
+
+            fs::create_dir_all(format!("{}/{}", sys_output_dir, vendor)).unwrap();
+            let mut sys_file =
+                File::create(format!("{}/{}/mod.rs", sys_output_dir, vendor)).unwrap();
+
+            for name in names {
+                writeln!(sys_file, "mod {};", name).unwrap();
+                writeln!(sys_file, "pub use {}::*;", name).unwrap();
+            }
+        } else {
+            for name in names {
+                writeln!(sys_mod_file, "mod {};", name).unwrap();
+                writeln!(sys_mod_file, "pub use {}::*;", name).unwrap();
             }
         }
     }
 
-    std::fs::create_dir_all(sys_output_dir).unwrap();
-    let mut sys_mod_file = std::fs::File::create(format!("{}/mod.rs", sys_output_dir)).unwrap();
-    let mut mod_file = std::fs::File::create(format!("{}/mod.rs", output_dir)).unwrap();
+    for (vendor, names) in &vendor_modules {
+        if let Some(vendor) = vendor {
+            writeln!(mod_file, "pub mod {};", vendor).unwrap();
 
-    for (vendor, names) in sys_vendor_modules {
-        writeln!(sys_mod_file, "mod {};", vendor).unwrap();
-        writeln!(sys_mod_file, "pub use {}::*;", vendor).unwrap();
+            fs::create_dir_all(format!("{}/{}", output_dir, vendor)).unwrap();
+            let mut file = File::create(format!("{}/{}/mod.rs", output_dir, vendor)).unwrap();
 
-        std::fs::create_dir_all(format!("{}/{}", sys_output_dir, vendor)).unwrap();
-        let mut sys_file =
-            std::fs::File::create(format!("{}/{}/mod.rs", sys_output_dir, vendor)).unwrap();
-
-        for name in names {
-            writeln!(sys_file, "mod {};", name).unwrap();
-            writeln!(sys_file, "pub use {}::*;", name).unwrap();
-        }
-    }
-
-    for (vendor, names) in vendor_modules {
-        writeln!(mod_file, "pub mod {};", vendor).unwrap();
-        //writeln!(mod_file, "pub use {}::*;", vendor).unwrap();
-
-        std::fs::create_dir_all(format!("{}/{}", output_dir, vendor)).unwrap();
-        let mut file = std::fs::File::create(format!("{}/{}/mod.rs", output_dir, vendor)).unwrap();
-
-        for name in names {
-            writeln!(file, "pub mod {};", name).unwrap();
-            //writeln!(file, "pub use {}::*;", name).unwrap();
+            for name in names {
+                writeln!(file, "pub mod {};", name).unwrap();
+            }
+        } else {
+            for name in names {
+                writeln!(mod_file, "pub mod {};", name).unwrap();
+            }
         }
     }
 
@@ -906,7 +958,7 @@ fn get_param_index(command: &xml::Command, param_name: &str) -> Option<usize> {
 
 fn get_len_kind<'a>(
     command: &'a xml::Command,
-    structs: &'a [xml::Structure],
+    structs: &'a [&xml::Structure],
     len: &'static str,
 ) -> LengthKind<'a> {
     if len == "null-terminated" {
@@ -951,7 +1003,7 @@ fn get_len_kind<'a>(
 
 fn analyze_command<'a>(
     info: &CommandInfo<'a>,
-    structs: &'a [xml::Structure],
+    structs: &'a [&xml::Structure],
 ) -> WrapperCommandInfo<'a> {
     let command = info.command;
     let len_kinds: Vec<_> = command
@@ -1138,7 +1190,7 @@ fn ctype_to_rust_type(ty: &CType) -> String {
 fn write_command_wrapper(
     file: &mut impl std::io::Write,
     info: &CommandInfo<'_>,
-    structs: &[xml::Structure],
+    structs: &[&xml::Structure],
 ) {
     let command = info.command;
     let wrapper = analyze_command(info, structs);

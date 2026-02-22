@@ -15,6 +15,9 @@ pub const UUID_SIZE: u32 = 16;
 pub const MAX_EXTENSION_NAME_SIZE: u32 = 256;
 pub const MAX_DESCRIPTION_SIZE: u32 = 256;
 pub const MAX_MEMORY_HEAPS: u32 = 16;
+pub const ATTACHMENT_UNUSED: u32 = !0;
+pub const SUBPASS_EXTERNAL: u32 = !0;
+pub type SampleMask = u32;
 pub type Bool32 = u32;
 pub type Flags = u32;
 pub type DeviceSize = u64;
@@ -45,10 +48,34 @@ pub struct CommandPool(u64);
 pub struct Buffer(u64);
 #[repr(C)]
 #[derive(Copy, Clone)]
+pub struct BufferView(u64);
+#[repr(C)]
+#[derive(Copy, Clone)]
 pub struct Image(u64);
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ImageView(u64);
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct ShaderModule(u64);
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct Pipeline(u64);
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PipelineLayout(u64);
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct Sampler(u64);
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct DescriptorSet(u64);
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct DescriptorSetLayout(u64);
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct DescriptorPool(u64);
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct Fence(u64);
@@ -57,7 +84,19 @@ pub struct Fence(u64);
 pub struct Semaphore(u64);
 #[repr(C)]
 #[derive(Copy, Clone)]
+pub struct Event(u64);
+#[repr(C)]
+#[derive(Copy, Clone)]
 pub struct QueryPool(u64);
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct Framebuffer(u64);
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct RenderPass(u64);
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PipelineCache(u64);
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct BaseOutStructure {
@@ -98,9 +137,26 @@ pub struct Extent3D {
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
+pub struct Viewport {
+    pub x: f32,
+    pub y: f32,
+    pub width: f32,
+    pub height: f32,
+    pub min_depth: f32,
+    pub max_depth: f32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
 pub struct Rect2D {
     pub offset: Offset2D,
     pub extent: Extent2D,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct ClearRect {
+    pub rect: Rect2D,
+    pub base_array_layer: u32,
+    pub layer_count: u32,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -280,6 +336,47 @@ pub struct ImageFormatProperties {
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
+pub struct DescriptorBufferInfo {
+    pub buffer: Buffer,
+    pub offset: DeviceSize,
+    pub range: DeviceSize,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct DescriptorImageInfo {
+    pub sampler: Sampler,
+    pub image_view: ImageView,
+    pub image_layout: ImageLayout,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct WriteDescriptorSet {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub dst_set: DescriptorSet,
+    pub dst_binding: u32,
+    pub dst_array_element: u32,
+    pub descriptor_count: u32,
+    pub descriptor_type: DescriptorType,
+    pub p_image_info: *const DescriptorImageInfo,
+    pub p_buffer_info: *const DescriptorBufferInfo,
+    pub p_texel_buffer_view: *const BufferView,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct CopyDescriptorSet {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub src_set: DescriptorSet,
+    pub src_binding: u32,
+    pub src_array_element: u32,
+    pub dst_set: DescriptorSet,
+    pub dst_binding: u32,
+    pub dst_array_element: u32,
+    pub descriptor_count: u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BufferCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -289,6 +386,17 @@ pub struct BufferCreateInfo {
     pub sharing_mode: SharingMode,
     pub queue_family_index_count: u32,
     pub p_queue_family_indices: *const u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct BufferViewCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub flags: BufferViewCreateFlags,
+    pub buffer: Buffer,
+    pub format: Format,
+    pub offset: DeviceSize,
+    pub range: DeviceSize,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -463,6 +571,14 @@ pub struct ImageCopy {
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
+pub struct ImageBlit {
+    pub src_subresource: ImageSubresourceLayers,
+    pub src_offsets: [Offset3D; 2],
+    pub dst_subresource: ImageSubresourceLayers,
+    pub dst_offsets: [Offset3D; 2],
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BufferImageCopy {
     pub buffer_offset: DeviceSize,
     pub buffer_row_length: u32,
@@ -470,6 +586,329 @@ pub struct BufferImageCopy {
     pub image_subresource: ImageSubresourceLayers,
     pub image_offset: Offset3D,
     pub image_extent: Extent3D,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct ImageResolve {
+    pub src_subresource: ImageSubresourceLayers,
+    pub src_offset: Offset3D,
+    pub dst_subresource: ImageSubresourceLayers,
+    pub dst_offset: Offset3D,
+    pub extent: Extent3D,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct ShaderModuleCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub flags: ShaderModuleCreateFlags,
+    pub code_size: usize,
+    pub p_code: *const u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct DescriptorSetLayoutBinding {
+    pub binding: u32,
+    pub descriptor_type: DescriptorType,
+    pub descriptor_count: u32,
+    pub stage_flags: ShaderStageFlags,
+    pub p_immutable_samplers: *const Sampler,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct DescriptorSetLayoutCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub flags: DescriptorSetLayoutCreateFlags,
+    pub binding_count: u32,
+    pub p_bindings: *const DescriptorSetLayoutBinding,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct DescriptorPoolSize {
+    pub ty: DescriptorType,
+    pub descriptor_count: u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct DescriptorPoolCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub flags: DescriptorPoolCreateFlags,
+    pub max_sets: u32,
+    pub pool_size_count: u32,
+    pub p_pool_sizes: *const DescriptorPoolSize,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct DescriptorSetAllocateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub descriptor_pool: DescriptorPool,
+    pub descriptor_set_count: u32,
+    pub p_set_layouts: *const DescriptorSetLayout,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct SpecializationMapEntry {
+    pub constant_id: u32,
+    pub offset: u32,
+    pub size: usize,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct SpecializationInfo {
+    pub map_entry_count: u32,
+    pub p_map_entries: *const SpecializationMapEntry,
+    pub data_size: usize,
+    pub p_data: *const c_void,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PipelineShaderStageCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub flags: PipelineShaderStageCreateFlags,
+    pub stage: ShaderStageFlagBits,
+    pub module: ShaderModule,
+    pub p_name: *const c_char,
+    pub p_specialization_info: *const SpecializationInfo,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct ComputePipelineCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub flags: PipelineCreateFlags,
+    pub stage: PipelineShaderStageCreateInfo,
+    pub layout: PipelineLayout,
+    pub base_pipeline_handle: Pipeline,
+    pub base_pipeline_index: i32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct VertexInputBindingDescription {
+    pub binding: u32,
+    pub stride: u32,
+    pub input_rate: VertexInputRate,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct VertexInputAttributeDescription {
+    pub location: u32,
+    pub binding: u32,
+    pub format: Format,
+    pub offset: u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PipelineVertexInputStateCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub flags: PipelineVertexInputStateCreateFlags,
+    pub vertex_binding_description_count: u32,
+    pub p_vertex_binding_descriptions: *const VertexInputBindingDescription,
+    pub vertex_attribute_description_count: u32,
+    pub p_vertex_attribute_descriptions: *const VertexInputAttributeDescription,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PipelineInputAssemblyStateCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub flags: PipelineInputAssemblyStateCreateFlags,
+    pub topology: PrimitiveTopology,
+    pub primitive_restart_enable: Bool32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PipelineTessellationStateCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub flags: PipelineTessellationStateCreateFlags,
+    pub patch_control_points: u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PipelineViewportStateCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub flags: PipelineViewportStateCreateFlags,
+    pub viewport_count: u32,
+    pub p_viewports: *const Viewport,
+    pub scissor_count: u32,
+    pub p_scissors: *const Rect2D,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PipelineRasterizationStateCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub flags: PipelineRasterizationStateCreateFlags,
+    pub depth_clamp_enable: Bool32,
+    pub rasterizer_discard_enable: Bool32,
+    pub polygon_mode: PolygonMode,
+    pub cull_mode: CullModeFlags,
+    pub front_face: FrontFace,
+    pub depth_bias_enable: Bool32,
+    pub depth_bias_constant_factor: f32,
+    pub depth_bias_clamp: f32,
+    pub depth_bias_slope_factor: f32,
+    pub line_width: f32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PipelineMultisampleStateCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub flags: PipelineMultisampleStateCreateFlags,
+    pub rasterization_samples: SampleCountFlagBits,
+    pub sample_shading_enable: Bool32,
+    pub min_sample_shading: f32,
+    pub p_sample_mask: *const SampleMask,
+    pub alpha_to_coverage_enable: Bool32,
+    pub alpha_to_one_enable: Bool32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PipelineColorBlendAttachmentState {
+    pub blend_enable: Bool32,
+    pub src_color_blend_factor: BlendFactor,
+    pub dst_color_blend_factor: BlendFactor,
+    pub color_blend_op: BlendOp,
+    pub src_alpha_blend_factor: BlendFactor,
+    pub dst_alpha_blend_factor: BlendFactor,
+    pub alpha_blend_op: BlendOp,
+    pub color_write_mask: ColorComponentFlags,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PipelineColorBlendStateCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub flags: PipelineColorBlendStateCreateFlags,
+    pub logic_op_enable: Bool32,
+    pub logic_op: LogicOp,
+    pub attachment_count: u32,
+    pub p_attachments: *const PipelineColorBlendAttachmentState,
+    pub blend_constants: [f32; 4],
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PipelineDynamicStateCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub flags: PipelineDynamicStateCreateFlags,
+    pub dynamic_state_count: u32,
+    pub p_dynamic_states: *const DynamicState,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct StencilOpState {
+    pub fail_op: StencilOp,
+    pub pass_op: StencilOp,
+    pub depth_fail_op: StencilOp,
+    pub compare_op: CompareOp,
+    pub compare_mask: u32,
+    pub write_mask: u32,
+    pub reference: u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PipelineDepthStencilStateCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub flags: PipelineDepthStencilStateCreateFlags,
+    pub depth_test_enable: Bool32,
+    pub depth_write_enable: Bool32,
+    pub depth_compare_op: CompareOp,
+    pub depth_bounds_test_enable: Bool32,
+    pub stencil_test_enable: Bool32,
+    pub front: StencilOpState,
+    pub back: StencilOpState,
+    pub min_depth_bounds: f32,
+    pub max_depth_bounds: f32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct GraphicsPipelineCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub flags: PipelineCreateFlags,
+    pub stage_count: u32,
+    pub p_stages: *const PipelineShaderStageCreateInfo,
+    pub p_vertex_input_state: *const PipelineVertexInputStateCreateInfo,
+    pub p_input_assembly_state: *const PipelineInputAssemblyStateCreateInfo,
+    pub p_tessellation_state: *const PipelineTessellationStateCreateInfo,
+    pub p_viewport_state: *const PipelineViewportStateCreateInfo,
+    pub p_rasterization_state: *const PipelineRasterizationStateCreateInfo,
+    pub p_multisample_state: *const PipelineMultisampleStateCreateInfo,
+    pub p_depth_stencil_state: *const PipelineDepthStencilStateCreateInfo,
+    pub p_color_blend_state: *const PipelineColorBlendStateCreateInfo,
+    pub p_dynamic_state: *const PipelineDynamicStateCreateInfo,
+    pub layout: PipelineLayout,
+    pub render_pass: RenderPass,
+    pub subpass: u32,
+    pub base_pipeline_handle: Pipeline,
+    pub base_pipeline_index: i32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PipelineCacheCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub flags: PipelineCacheCreateFlags,
+    pub initial_data_size: usize,
+    pub p_initial_data: *const c_void,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PipelineCacheHeaderVersionOne {
+    pub header_size: u32,
+    pub header_version: PipelineCacheHeaderVersion,
+    pub vendor_id: u32,
+    pub device_id: u32,
+    pub pipeline_cache_uuid: [u8; UUID_SIZE as usize],
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PushConstantRange {
+    pub stage_flags: ShaderStageFlags,
+    pub offset: u32,
+    pub size: u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PipelineLayoutCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub flags: PipelineLayoutCreateFlags,
+    pub set_layout_count: u32,
+    pub p_set_layouts: *const DescriptorSetLayout,
+    pub push_constant_range_count: u32,
+    pub p_push_constant_ranges: *const PushConstantRange,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct SamplerCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub flags: SamplerCreateFlags,
+    pub mag_filter: Filter,
+    pub min_filter: Filter,
+    pub mipmap_mode: SamplerMipmapMode,
+    pub address_mode_u: SamplerAddressMode,
+    pub address_mode_v: SamplerAddressMode,
+    pub address_mode_w: SamplerAddressMode,
+    pub mip_lod_bias: f32,
+    pub anisotropy_enable: Bool32,
+    pub max_anisotropy: f32,
+    pub compare_enable: Bool32,
+    pub compare_op: CompareOp,
+    pub min_lod: f32,
+    pub max_lod: f32,
+    pub border_color: BorderColor,
+    pub unnormalized_coordinates: Bool32,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -507,6 +946,94 @@ pub struct CommandBufferBeginInfo {
     pub p_next: *const c_void,
     pub flags: CommandBufferUsageFlags,
     pub p_inheritance_info: *const CommandBufferInheritanceInfo,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct RenderPassBeginInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub render_pass: RenderPass,
+    pub framebuffer: Framebuffer,
+    pub render_area: Rect2D,
+    pub clear_value_count: u32,
+    pub p_clear_values: *const ClearValue,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct ClearDepthStencilValue {
+    pub depth: f32,
+    pub stencil: u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct ClearAttachment {
+    pub aspect_mask: ImageAspectFlags,
+    pub color_attachment: u32,
+    pub clear_value: ClearValue,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct AttachmentDescription {
+    pub flags: AttachmentDescriptionFlags,
+    pub format: Format,
+    pub samples: SampleCountFlagBits,
+    pub load_op: AttachmentLoadOp,
+    pub store_op: AttachmentStoreOp,
+    pub stencil_load_op: AttachmentLoadOp,
+    pub stencil_store_op: AttachmentStoreOp,
+    pub initial_layout: ImageLayout,
+    pub final_layout: ImageLayout,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct AttachmentReference {
+    pub attachment: u32,
+    pub layout: ImageLayout,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct SubpassDescription {
+    pub flags: SubpassDescriptionFlags,
+    pub pipeline_bind_point: PipelineBindPoint,
+    pub input_attachment_count: u32,
+    pub p_input_attachments: *const AttachmentReference,
+    pub color_attachment_count: u32,
+    pub p_color_attachments: *const AttachmentReference,
+    pub p_resolve_attachments: *const AttachmentReference,
+    pub p_depth_stencil_attachment: *const AttachmentReference,
+    pub preserve_attachment_count: u32,
+    pub p_preserve_attachments: *const u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct SubpassDependency {
+    pub src_subpass: u32,
+    pub dst_subpass: u32,
+    pub src_stage_mask: PipelineStageFlags,
+    pub dst_stage_mask: PipelineStageFlags,
+    pub src_access_mask: AccessFlags,
+    pub dst_access_mask: AccessFlags,
+    pub dependency_flags: DependencyFlags,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct RenderPassCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub flags: RenderPassCreateFlags,
+    pub attachment_count: u32,
+    pub p_attachments: *const AttachmentDescription,
+    pub subpass_count: u32,
+    pub p_subpasses: *const SubpassDescription,
+    pub dependency_count: u32,
+    pub p_dependencies: *const SubpassDependency,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct EventCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub flags: EventCreateFlags,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -712,6 +1239,43 @@ pub struct QueryPoolCreateInfo {
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
+pub struct FramebufferCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub flags: FramebufferCreateFlags,
+    pub render_pass: RenderPass,
+    pub attachment_count: u32,
+    pub p_attachments: *const ImageView,
+    pub width: u32,
+    pub height: u32,
+    pub layers: u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct DrawIndirectCommand {
+    pub vertex_count: u32,
+    pub instance_count: u32,
+    pub first_vertex: u32,
+    pub first_instance: u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct DrawIndexedIndirectCommand {
+    pub index_count: u32,
+    pub instance_count: u32,
+    pub first_index: u32,
+    pub vertex_offset: i32,
+    pub first_instance: u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct DispatchIndirectCommand {
+    pub x: u32,
+    pub y: u32,
+    pub z: u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SubmitInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -722,6 +1286,19 @@ pub struct SubmitInfo {
     pub p_command_buffers: *const CommandBuffer,
     pub signal_semaphore_count: u32,
     pub p_signal_semaphores: *const Semaphore,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union ClearColorValue {
+    pub float32: [f32; 4],
+    pub int32: [i32; 4],
+    pub uint32: [u32; 4],
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union ClearValue {
+    pub color: ClearColorValue,
+    pub depth_stencil: ClearDepthStencilValue,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -736,6 +1313,21 @@ impl ImageLayout {
     pub const TRANSFER_SRC_OPTIMAL: Self = Self(6);
     pub const TRANSFER_DST_OPTIMAL: Self = Self(7);
     pub const PREINITIALIZED: Self = Self(8);
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct AttachmentLoadOp(i32);
+impl AttachmentLoadOp {
+    pub const LOAD: Self = Self(0);
+    pub const CLEAR: Self = Self(1);
+    pub const DONT_CARE: Self = Self(2);
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct AttachmentStoreOp(i32);
+impl AttachmentStoreOp {
+    pub const STORE: Self = Self(0);
+    pub const DONT_CARE: Self = Self(1);
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -785,11 +1377,67 @@ impl ComponentSwizzle {
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct DescriptorType(i32);
+impl DescriptorType {
+    pub const SAMPLER: Self = Self(0);
+    pub const COMBINED_IMAGE_SAMPLER: Self = Self(1);
+    pub const SAMPLED_IMAGE: Self = Self(2);
+    pub const STORAGE_IMAGE: Self = Self(3);
+    pub const UNIFORM_TEXEL_BUFFER: Self = Self(4);
+    pub const STORAGE_TEXEL_BUFFER: Self = Self(5);
+    pub const UNIFORM_BUFFER: Self = Self(6);
+    pub const STORAGE_BUFFER: Self = Self(7);
+    pub const UNIFORM_BUFFER_DYNAMIC: Self = Self(8);
+    pub const STORAGE_BUFFER_DYNAMIC: Self = Self(9);
+    pub const INPUT_ATTACHMENT: Self = Self(10);
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct QueryType(i32);
 impl QueryType {
     pub const OCCLUSION: Self = Self(0);
     pub const PIPELINE_STATISTICS: Self = Self(1);
     pub const TIMESTAMP: Self = Self(2);
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct BorderColor(i32);
+impl BorderColor {
+    pub const FLOAT_TRANSPARENT_BLACK: Self = Self(0);
+    pub const INT_TRANSPARENT_BLACK: Self = Self(1);
+    pub const FLOAT_OPAQUE_BLACK: Self = Self(2);
+    pub const INT_OPAQUE_BLACK: Self = Self(3);
+    pub const FLOAT_OPAQUE_WHITE: Self = Self(4);
+    pub const INT_OPAQUE_WHITE: Self = Self(5);
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PipelineBindPoint(i32);
+impl PipelineBindPoint {
+    pub const GRAPHICS: Self = Self(0);
+    pub const COMPUTE: Self = Self(1);
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PipelineCacheHeaderVersion(i32);
+impl PipelineCacheHeaderVersion {
+    pub const ONE: Self = Self(1);
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PrimitiveTopology(i32);
+impl PrimitiveTopology {
+    pub const POINT_LIST: Self = Self(0);
+    pub const LINE_LIST: Self = Self(1);
+    pub const LINE_STRIP: Self = Self(2);
+    pub const TRIANGLE_LIST: Self = Self(3);
+    pub const TRIANGLE_STRIP: Self = Self(4);
+    pub const TRIANGLE_FAN: Self = Self(5);
+    pub const LINE_LIST_WITH_ADJACENCY: Self = Self(6);
+    pub const LINE_STRIP_WITH_ADJACENCY: Self = Self(7);
+    pub const TRIANGLE_LIST_WITH_ADJACENCY: Self = Self(8);
+    pub const TRIANGLE_STRIP_WITH_ADJACENCY: Self = Self(9);
+    pub const PATCH_LIST: Self = Self(10);
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -804,6 +1452,125 @@ pub struct IndexType(i32);
 impl IndexType {
     pub const UINT16: Self = Self(0);
     pub const UINT32: Self = Self(1);
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct Filter(i32);
+impl Filter {
+    pub const NEAREST: Self = Self(0);
+    pub const LINEAR: Self = Self(1);
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct SamplerMipmapMode(i32);
+impl SamplerMipmapMode {
+    pub const NEAREST: Self = Self(0);
+    pub const LINEAR: Self = Self(1);
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct SamplerAddressMode(i32);
+impl SamplerAddressMode {
+    pub const REPEAT: Self = Self(0);
+    pub const MIRRORED_REPEAT: Self = Self(1);
+    pub const CLAMP_TO_EDGE: Self = Self(2);
+    pub const CLAMP_TO_BORDER: Self = Self(3);
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct CompareOp(i32);
+impl CompareOp {
+    pub const NEVER: Self = Self(0);
+    pub const LESS: Self = Self(1);
+    pub const EQUAL: Self = Self(2);
+    pub const LESS_OR_EQUAL: Self = Self(3);
+    pub const GREATER: Self = Self(4);
+    pub const NOT_EQUAL: Self = Self(5);
+    pub const GREATER_OR_EQUAL: Self = Self(6);
+    pub const ALWAYS: Self = Self(7);
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PolygonMode(i32);
+impl PolygonMode {
+    pub const FILL: Self = Self(0);
+    pub const LINE: Self = Self(1);
+    pub const POINT: Self = Self(2);
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct FrontFace(i32);
+impl FrontFace {
+    pub const COUNTER_CLOCKWISE: Self = Self(0);
+    pub const CLOCKWISE: Self = Self(1);
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct BlendFactor(i32);
+impl BlendFactor {
+    pub const ZERO: Self = Self(0);
+    pub const ONE: Self = Self(1);
+    pub const SRC_COLOR: Self = Self(2);
+    pub const ONE_MINUS_SRC_COLOR: Self = Self(3);
+    pub const DST_COLOR: Self = Self(4);
+    pub const ONE_MINUS_DST_COLOR: Self = Self(5);
+    pub const SRC_ALPHA: Self = Self(6);
+    pub const ONE_MINUS_SRC_ALPHA: Self = Self(7);
+    pub const DST_ALPHA: Self = Self(8);
+    pub const ONE_MINUS_DST_ALPHA: Self = Self(9);
+    pub const CONSTANT_COLOR: Self = Self(10);
+    pub const ONE_MINUS_CONSTANT_COLOR: Self = Self(11);
+    pub const CONSTANT_ALPHA: Self = Self(12);
+    pub const ONE_MINUS_CONSTANT_ALPHA: Self = Self(13);
+    pub const SRC_ALPHA_SATURATE: Self = Self(14);
+    pub const SRC1_COLOR: Self = Self(15);
+    pub const ONE_MINUS_SRC1_COLOR: Self = Self(16);
+    pub const SRC1_ALPHA: Self = Self(17);
+    pub const ONE_MINUS_SRC1_ALPHA: Self = Self(18);
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct BlendOp(i32);
+impl BlendOp {
+    pub const ADD: Self = Self(0);
+    pub const SUBTRACT: Self = Self(1);
+    pub const REVERSE_SUBTRACT: Self = Self(2);
+    pub const MIN: Self = Self(3);
+    pub const MAX: Self = Self(4);
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct StencilOp(i32);
+impl StencilOp {
+    pub const KEEP: Self = Self(0);
+    pub const ZERO: Self = Self(1);
+    pub const REPLACE: Self = Self(2);
+    pub const INCREMENT_AND_CLAMP: Self = Self(3);
+    pub const DECREMENT_AND_CLAMP: Self = Self(4);
+    pub const INVERT: Self = Self(5);
+    pub const INCREMENT_AND_WRAP: Self = Self(6);
+    pub const DECREMENT_AND_WRAP: Self = Self(7);
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct LogicOp(i32);
+impl LogicOp {
+    pub const CLEAR: Self = Self(0);
+    pub const AND: Self = Self(1);
+    pub const AND_REVERSE: Self = Self(2);
+    pub const COPY: Self = Self(3);
+    pub const AND_INVERTED: Self = Self(4);
+    pub const NO_OP: Self = Self(5);
+    pub const XOR: Self = Self(6);
+    pub const OR: Self = Self(7);
+    pub const NOR: Self = Self(8);
+    pub const EQUIVALENT: Self = Self(9);
+    pub const INVERT: Self = Self(10);
+    pub const OR_REVERSE: Self = Self(11);
+    pub const COPY_INVERTED: Self = Self(12);
+    pub const OR_INVERTED: Self = Self(13);
+    pub const NAND: Self = Self(14);
+    pub const SET: Self = Self(15);
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -830,6 +1597,13 @@ impl PhysicalDeviceType {
     pub const DISCRETE_GPU: Self = Self(2);
     pub const VIRTUAL_GPU: Self = Self(3);
     pub const CPU: Self = Self(4);
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct VertexInputRate(i32);
+impl VertexInputRate {
+    pub const VERTEX: Self = Self(0);
+    pub const INSTANCE: Self = Self(1);
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -1077,6 +1851,13 @@ impl StructureType {
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct SubpassContents(i32);
+impl SubpassContents {
+    pub const INLINE: Self = Self(0);
+    pub const SECONDARY_COMMAND_BUFFERS: Self = Self(1);
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct Result(i32);
 impl Result {
     pub const SUCCESS: Self = Self(0);
@@ -1098,6 +1879,20 @@ impl Result {
     pub const ERROR_FORMAT_NOT_SUPPORTED: Self = Self(-11);
     pub const ERROR_FRAGMENTED_POOL: Self = Self(-12);
     pub const ERROR_UNKNOWN: Self = Self(-13);
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct DynamicState(i32);
+impl DynamicState {
+    pub const VIEWPORT: Self = Self(0);
+    pub const SCISSOR: Self = Self(1);
+    pub const LINE_WIDTH: Self = Self(2);
+    pub const DEPTH_BIAS: Self = Self(3);
+    pub const BLEND_CONSTANTS: Self = Self(4);
+    pub const DEPTH_BOUNDS: Self = Self(5);
+    pub const STENCIL_COMPARE_MASK: Self = Self(6);
+    pub const STENCIL_WRITE_MASK: Self = Self(7);
+    pub const STENCIL_REFERENCE: Self = Self(8);
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -1146,6 +1941,16 @@ impl VendorId {
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct FramebufferCreateFlags: Flags {
+    }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct FramebufferCreateFlagBits(u32);
+impl FramebufferCreateFlagBits {}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct QueryPoolCreateFlags: Flags {
     }
 }
@@ -1153,6 +1958,134 @@ bitflags! {
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct QueryPoolCreateFlagBits(u32);
 impl QueryPoolCreateFlagBits {}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct RenderPassCreateFlags: Flags {
+    }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct RenderPassCreateFlagBits(u32);
+impl RenderPassCreateFlagBits {}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct SamplerCreateFlags: Flags {
+    }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct SamplerCreateFlagBits(u32);
+impl SamplerCreateFlagBits {}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct PipelineLayoutCreateFlags: Flags {
+    }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PipelineLayoutCreateFlagBits(u32);
+impl PipelineLayoutCreateFlagBits {}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct PipelineCacheCreateFlags: Flags {
+    }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PipelineCacheCreateFlagBits(u32);
+impl PipelineCacheCreateFlagBits {}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct PipelineDepthStencilStateCreateFlags: Flags {
+    }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PipelineDepthStencilStateCreateFlagBits(u32);
+impl PipelineDepthStencilStateCreateFlagBits {}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct PipelineDynamicStateCreateFlags: Flags {
+    }
+}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct PipelineColorBlendStateCreateFlags: Flags {
+    }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PipelineColorBlendStateCreateFlagBits(u32);
+impl PipelineColorBlendStateCreateFlagBits {}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct PipelineMultisampleStateCreateFlags: Flags {
+    }
+}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct PipelineRasterizationStateCreateFlags: Flags {
+    }
+}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct PipelineViewportStateCreateFlags: Flags {
+    }
+}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct PipelineTessellationStateCreateFlags: Flags {
+    }
+}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct PipelineInputAssemblyStateCreateFlags: Flags {
+    }
+}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct PipelineVertexInputStateCreateFlags: Flags {
+    }
+}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct PipelineShaderStageCreateFlags: Flags {
+    }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PipelineShaderStageCreateFlagBits(u32);
+impl PipelineShaderStageCreateFlagBits {}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct DescriptorSetLayoutCreateFlags: Flags {
+    }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct DescriptorSetLayoutCreateFlagBits(u32);
+impl DescriptorSetLayoutCreateFlagBits {}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct BufferViewCreateFlags: Flags {
+    }
+}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
@@ -1326,6 +2259,31 @@ impl BufferCreateFlagBits {
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct ShaderStageFlags: Flags {
+        const VERTEX = ShaderStageFlagBits::VERTEX.0;
+        const TESSELLATION_CONTROL = ShaderStageFlagBits::TESSELLATION_CONTROL.0;
+        const TESSELLATION_EVALUATION = ShaderStageFlagBits::TESSELLATION_EVALUATION.0;
+        const GEOMETRY = ShaderStageFlagBits::GEOMETRY.0;
+        const FRAGMENT = ShaderStageFlagBits::FRAGMENT.0;
+        const COMPUTE = ShaderStageFlagBits::COMPUTE.0;
+        const ALL_GRAPHICS = 0x0000001F;
+        const ALL = 0x7FFFFFFF;
+    }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ShaderStageFlagBits(u32);
+impl ShaderStageFlagBits {
+    pub const VERTEX: Self = Self(1 << 0);
+    pub const TESSELLATION_CONTROL: Self = Self(1 << 1);
+    pub const TESSELLATION_EVALUATION: Self = Self(1 << 2);
+    pub const GEOMETRY: Self = Self(1 << 3);
+    pub const FRAGMENT: Self = Self(1 << 4);
+    pub const COMPUTE: Self = Self(1 << 5);
+}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ImageUsageFlags: Flags {
         const TRANSFER_SRC = ImageUsageFlagBits::TRANSFER_SRC.0;
         const TRANSFER_DST = ImageUsageFlagBits::TRANSFER_DST.0;
@@ -1381,6 +2339,42 @@ bitflags! {
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ImageViewCreateFlagBits(u32);
 impl ImageViewCreateFlagBits {}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct PipelineCreateFlags: Flags {
+        const DISABLE_OPTIMIZATION = PipelineCreateFlagBits::DISABLE_OPTIMIZATION.0;
+        const ALLOW_DERIVATIVES = PipelineCreateFlagBits::ALLOW_DERIVATIVES.0;
+        const DERIVATIVE = PipelineCreateFlagBits::DERIVATIVE.0;
+    }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PipelineCreateFlagBits(u32);
+impl PipelineCreateFlagBits {
+    pub const DISABLE_OPTIMIZATION: Self = Self(1 << 0);
+    pub const ALLOW_DERIVATIVES: Self = Self(1 << 1);
+    pub const DERIVATIVE: Self = Self(1 << 2);
+}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct ColorComponentFlags: Flags {
+        const R = ColorComponentFlagBits::R.0;
+        const G = ColorComponentFlagBits::G.0;
+        const B = ColorComponentFlagBits::B.0;
+        const A = ColorComponentFlagBits::A.0;
+    }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ColorComponentFlagBits(u32);
+impl ColorComponentFlagBits {
+    pub const R: Self = Self(1 << 0);
+    pub const G: Self = Self(1 << 1);
+    pub const B: Self = Self(1 << 2);
+    pub const A: Self = Self(1 << 3);
+}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
@@ -1472,6 +2466,22 @@ impl QueryResultFlagBits {
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct ShaderModuleCreateFlags: Flags {
+    }
+}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct EventCreateFlags: Flags {
+    }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct EventCreateFlagBits(u32);
+impl EventCreateFlagBits {}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct CommandPoolCreateFlags: Flags {
         const TRANSIENT = CommandPoolCreateFlagBits::TRANSIENT.0;
         const RESET_COMMAND_BUFFER = CommandPoolCreateFlagBits::RESET_COMMAND_BUFFER.0;
@@ -1526,6 +2536,39 @@ impl CommandBufferUsageFlagBits {
     pub const ONE_TIME_SUBMIT: Self = Self(1 << 0);
     pub const RENDER_PASS_CONTINUE: Self = Self(1 << 1);
     pub const SIMULTANEOUS_USE: Self = Self(1 << 2);
+}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct QueryPipelineStatisticFlags: Flags {
+        const INPUT_ASSEMBLY_VERTICES = QueryPipelineStatisticFlagBits::INPUT_ASSEMBLY_VERTICES.0;
+        const INPUT_ASSEMBLY_PRIMITIVES = QueryPipelineStatisticFlagBits::INPUT_ASSEMBLY_PRIMITIVES.0;
+        const VERTEX_SHADER_INVOCATIONS = QueryPipelineStatisticFlagBits::VERTEX_SHADER_INVOCATIONS.0;
+        const GEOMETRY_SHADER_INVOCATIONS = QueryPipelineStatisticFlagBits::GEOMETRY_SHADER_INVOCATIONS.0;
+        const GEOMETRY_SHADER_PRIMITIVES = QueryPipelineStatisticFlagBits::GEOMETRY_SHADER_PRIMITIVES.0;
+        const CLIPPING_INVOCATIONS = QueryPipelineStatisticFlagBits::CLIPPING_INVOCATIONS.0;
+        const CLIPPING_PRIMITIVES = QueryPipelineStatisticFlagBits::CLIPPING_PRIMITIVES.0;
+        const FRAGMENT_SHADER_INVOCATIONS = QueryPipelineStatisticFlagBits::FRAGMENT_SHADER_INVOCATIONS.0;
+        const TESSELLATION_CONTROL_SHADER_PATCHES = QueryPipelineStatisticFlagBits::TESSELLATION_CONTROL_SHADER_PATCHES.0;
+        const TESSELLATION_EVALUATION_SHADER_INVOCATIONS = QueryPipelineStatisticFlagBits::TESSELLATION_EVALUATION_SHADER_INVOCATIONS.0;
+        const COMPUTE_SHADER_INVOCATIONS = QueryPipelineStatisticFlagBits::COMPUTE_SHADER_INVOCATIONS.0;
+    }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct QueryPipelineStatisticFlagBits(u32);
+impl QueryPipelineStatisticFlagBits {
+    pub const INPUT_ASSEMBLY_VERTICES: Self = Self(1 << 0);
+    pub const INPUT_ASSEMBLY_PRIMITIVES: Self = Self(1 << 1);
+    pub const VERTEX_SHADER_INVOCATIONS: Self = Self(1 << 2);
+    pub const GEOMETRY_SHADER_INVOCATIONS: Self = Self(1 << 3);
+    pub const GEOMETRY_SHADER_PRIMITIVES: Self = Self(1 << 4);
+    pub const CLIPPING_INVOCATIONS: Self = Self(1 << 5);
+    pub const CLIPPING_PRIMITIVES: Self = Self(1 << 6);
+    pub const FRAGMENT_SHADER_INVOCATIONS: Self = Self(1 << 7);
+    pub const TESSELLATION_CONTROL_SHADER_PATCHES: Self = Self(1 << 8);
+    pub const TESSELLATION_EVALUATION_SHADER_INVOCATIONS: Self = Self(1 << 9);
+    pub const COMPUTE_SHADER_INVOCATIONS: Self = Self(1 << 10);
 }
 bitflags! {
     #[repr(transparent)]
@@ -1586,6 +2629,16 @@ impl SparseImageFormatFlagBits {
     pub const ALIGNED_MIP_SIZE: Self = Self(1 << 1);
     pub const NONSTANDARD_BLOCK_SIZE: Self = Self(1 << 2);
 }
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct SubpassDescriptionFlags: Flags {
+    }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct SubpassDescriptionFlagBits(u32);
+impl SubpassDescriptionFlagBits {}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
@@ -1655,6 +2708,71 @@ impl SampleCountFlagBits {
     pub const _16: Self = Self(1 << 4);
     pub const _32: Self = Self(1 << 5);
     pub const _64: Self = Self(1 << 6);
+}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct AttachmentDescriptionFlags: Flags {
+        const MAY_ALIAS = AttachmentDescriptionFlagBits::MAY_ALIAS.0;
+    }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct AttachmentDescriptionFlagBits(u32);
+impl AttachmentDescriptionFlagBits {
+    pub const MAY_ALIAS: Self = Self(1 << 0);
+}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct StencilFaceFlags: Flags {
+        const FRONT = StencilFaceFlagBits::FRONT.0;
+        const BACK = StencilFaceFlagBits::BACK.0;
+        const FRONT_AND_BACK = 0x00000003;
+    }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct StencilFaceFlagBits(u32);
+impl StencilFaceFlagBits {
+    pub const FRONT: Self = Self(1 << 0);
+    pub const BACK: Self = Self(1 << 1);
+}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct CullModeFlags: Flags {
+        const FRONT = CullModeFlagBits::FRONT.0;
+        const BACK = CullModeFlagBits::BACK.0;
+        const NONE = 0;
+        const FRONT_AND_BACK = 0x00000003;
+    }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct CullModeFlagBits(u32);
+impl CullModeFlagBits {
+    pub const FRONT: Self = Self(1 << 0);
+    pub const BACK: Self = Self(1 << 1);
+}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct DescriptorPoolCreateFlags: Flags {
+        const FREE_DESCRIPTOR_SET = DescriptorPoolCreateFlagBits::FREE_DESCRIPTOR_SET.0;
+    }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct DescriptorPoolCreateFlagBits(u32);
+impl DescriptorPoolCreateFlagBits {
+    pub const FREE_DESCRIPTOR_SET: Self = Self(1 << 0);
+}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct DescriptorPoolResetFlags: Flags {
+    }
 }
 bitflags! {
     #[repr(transparent)]
@@ -1897,6 +3015,20 @@ pub type PFN_vkDestroySemaphore = unsafe extern "system" fn(
     semaphore: Semaphore,
     p_allocator: *const AllocationCallbacks,
 );
+pub type PFN_vkCreateEvent = unsafe extern "system" fn(
+    device: Device,
+    p_create_info: *const EventCreateInfo,
+    p_allocator: *const AllocationCallbacks,
+    p_event: *mut Event,
+) -> Result;
+pub type PFN_vkDestroyEvent = unsafe extern "system" fn(
+    device: Device,
+    event: Event,
+    p_allocator: *const AllocationCallbacks,
+);
+pub type PFN_vkGetEventStatus = unsafe extern "system" fn(device: Device, event: Event) -> Result;
+pub type PFN_vkSetEvent = unsafe extern "system" fn(device: Device, event: Event) -> Result;
+pub type PFN_vkResetEvent = unsafe extern "system" fn(device: Device, event: Event) -> Result;
 pub type PFN_vkCreateQueryPool = unsafe extern "system" fn(
     device: Device,
     p_create_info: *const QueryPoolCreateInfo,
@@ -1929,6 +3061,17 @@ pub type PFN_vkDestroyBuffer = unsafe extern "system" fn(
     buffer: Buffer,
     p_allocator: *const AllocationCallbacks,
 );
+pub type PFN_vkCreateBufferView = unsafe extern "system" fn(
+    device: Device,
+    p_create_info: *const BufferViewCreateInfo,
+    p_allocator: *const AllocationCallbacks,
+    p_view: *mut BufferView,
+) -> Result;
+pub type PFN_vkDestroyBufferView = unsafe extern "system" fn(
+    device: Device,
+    buffer_view: BufferView,
+    p_allocator: *const AllocationCallbacks,
+);
 pub type PFN_vkCreateImage = unsafe extern "system" fn(
     device: Device,
     p_create_info: *const ImageCreateInfo,
@@ -1956,6 +3099,155 @@ pub type PFN_vkDestroyImageView = unsafe extern "system" fn(
     device: Device,
     image_view: ImageView,
     p_allocator: *const AllocationCallbacks,
+);
+pub type PFN_vkCreateShaderModule = unsafe extern "system" fn(
+    device: Device,
+    p_create_info: *const ShaderModuleCreateInfo,
+    p_allocator: *const AllocationCallbacks,
+    p_shader_module: *mut ShaderModule,
+) -> Result;
+pub type PFN_vkDestroyShaderModule = unsafe extern "system" fn(
+    device: Device,
+    shader_module: ShaderModule,
+    p_allocator: *const AllocationCallbacks,
+);
+pub type PFN_vkCreatePipelineCache = unsafe extern "system" fn(
+    device: Device,
+    p_create_info: *const PipelineCacheCreateInfo,
+    p_allocator: *const AllocationCallbacks,
+    p_pipeline_cache: *mut PipelineCache,
+) -> Result;
+pub type PFN_vkDestroyPipelineCache = unsafe extern "system" fn(
+    device: Device,
+    pipeline_cache: PipelineCache,
+    p_allocator: *const AllocationCallbacks,
+);
+pub type PFN_vkGetPipelineCacheData = unsafe extern "system" fn(
+    device: Device,
+    pipeline_cache: PipelineCache,
+    p_data_size: *mut usize,
+    p_data: *mut c_void,
+) -> Result;
+pub type PFN_vkMergePipelineCaches = unsafe extern "system" fn(
+    device: Device,
+    dst_cache: PipelineCache,
+    src_cache_count: u32,
+    p_src_caches: *const PipelineCache,
+) -> Result;
+pub type PFN_vkCreateGraphicsPipelines = unsafe extern "system" fn(
+    device: Device,
+    pipeline_cache: PipelineCache,
+    create_info_count: u32,
+    p_create_infos: *const GraphicsPipelineCreateInfo,
+    p_allocator: *const AllocationCallbacks,
+    p_pipelines: *mut Pipeline,
+) -> Result;
+pub type PFN_vkCreateComputePipelines = unsafe extern "system" fn(
+    device: Device,
+    pipeline_cache: PipelineCache,
+    create_info_count: u32,
+    p_create_infos: *const ComputePipelineCreateInfo,
+    p_allocator: *const AllocationCallbacks,
+    p_pipelines: *mut Pipeline,
+) -> Result;
+pub type PFN_vkDestroyPipeline = unsafe extern "system" fn(
+    device: Device,
+    pipeline: Pipeline,
+    p_allocator: *const AllocationCallbacks,
+);
+pub type PFN_vkCreatePipelineLayout = unsafe extern "system" fn(
+    device: Device,
+    p_create_info: *const PipelineLayoutCreateInfo,
+    p_allocator: *const AllocationCallbacks,
+    p_pipeline_layout: *mut PipelineLayout,
+) -> Result;
+pub type PFN_vkDestroyPipelineLayout = unsafe extern "system" fn(
+    device: Device,
+    pipeline_layout: PipelineLayout,
+    p_allocator: *const AllocationCallbacks,
+);
+pub type PFN_vkCreateSampler = unsafe extern "system" fn(
+    device: Device,
+    p_create_info: *const SamplerCreateInfo,
+    p_allocator: *const AllocationCallbacks,
+    p_sampler: *mut Sampler,
+) -> Result;
+pub type PFN_vkDestroySampler = unsafe extern "system" fn(
+    device: Device,
+    sampler: Sampler,
+    p_allocator: *const AllocationCallbacks,
+);
+pub type PFN_vkCreateDescriptorSetLayout = unsafe extern "system" fn(
+    device: Device,
+    p_create_info: *const DescriptorSetLayoutCreateInfo,
+    p_allocator: *const AllocationCallbacks,
+    p_set_layout: *mut DescriptorSetLayout,
+) -> Result;
+pub type PFN_vkDestroyDescriptorSetLayout = unsafe extern "system" fn(
+    device: Device,
+    descriptor_set_layout: DescriptorSetLayout,
+    p_allocator: *const AllocationCallbacks,
+);
+pub type PFN_vkCreateDescriptorPool = unsafe extern "system" fn(
+    device: Device,
+    p_create_info: *const DescriptorPoolCreateInfo,
+    p_allocator: *const AllocationCallbacks,
+    p_descriptor_pool: *mut DescriptorPool,
+) -> Result;
+pub type PFN_vkDestroyDescriptorPool = unsafe extern "system" fn(
+    device: Device,
+    descriptor_pool: DescriptorPool,
+    p_allocator: *const AllocationCallbacks,
+);
+pub type PFN_vkResetDescriptorPool = unsafe extern "system" fn(
+    device: Device,
+    descriptor_pool: DescriptorPool,
+    flags: DescriptorPoolResetFlags,
+) -> Result;
+pub type PFN_vkAllocateDescriptorSets = unsafe extern "system" fn(
+    device: Device,
+    p_allocate_info: *const DescriptorSetAllocateInfo,
+    p_descriptor_sets: *mut DescriptorSet,
+) -> Result;
+pub type PFN_vkFreeDescriptorSets = unsafe extern "system" fn(
+    device: Device,
+    descriptor_pool: DescriptorPool,
+    descriptor_set_count: u32,
+    p_descriptor_sets: *const DescriptorSet,
+) -> Result;
+pub type PFN_vkUpdateDescriptorSets = unsafe extern "system" fn(
+    device: Device,
+    descriptor_write_count: u32,
+    p_descriptor_writes: *const WriteDescriptorSet,
+    descriptor_copy_count: u32,
+    p_descriptor_copies: *const CopyDescriptorSet,
+);
+pub type PFN_vkCreateFramebuffer = unsafe extern "system" fn(
+    device: Device,
+    p_create_info: *const FramebufferCreateInfo,
+    p_allocator: *const AllocationCallbacks,
+    p_framebuffer: *mut Framebuffer,
+) -> Result;
+pub type PFN_vkDestroyFramebuffer = unsafe extern "system" fn(
+    device: Device,
+    framebuffer: Framebuffer,
+    p_allocator: *const AllocationCallbacks,
+);
+pub type PFN_vkCreateRenderPass = unsafe extern "system" fn(
+    device: Device,
+    p_create_info: *const RenderPassCreateInfo,
+    p_allocator: *const AllocationCallbacks,
+    p_render_pass: *mut RenderPass,
+) -> Result;
+pub type PFN_vkDestroyRenderPass = unsafe extern "system" fn(
+    device: Device,
+    render_pass: RenderPass,
+    p_allocator: *const AllocationCallbacks,
+);
+pub type PFN_vkGetRenderAreaGranularity = unsafe extern "system" fn(
+    device: Device,
+    render_pass: RenderPass,
+    p_granularity: *mut Extent2D,
 );
 pub type PFN_vkCreateCommandPool = unsafe extern "system" fn(
     device: Device,
@@ -1994,6 +3286,113 @@ pub type PFN_vkResetCommandBuffer = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
     flags: CommandBufferResetFlags,
 ) -> Result;
+pub type PFN_vkCmdBindPipeline = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    pipeline_bind_point: PipelineBindPoint,
+    pipeline: Pipeline,
+);
+pub type PFN_vkCmdSetViewport = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    first_viewport: u32,
+    viewport_count: u32,
+    p_viewports: *const Viewport,
+);
+pub type PFN_vkCmdSetScissor = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    first_scissor: u32,
+    scissor_count: u32,
+    p_scissors: *const Rect2D,
+);
+pub type PFN_vkCmdSetLineWidth =
+    unsafe extern "system" fn(command_buffer: CommandBuffer, line_width: f32);
+pub type PFN_vkCmdSetDepthBias = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    depth_bias_constant_factor: f32,
+    depth_bias_clamp: f32,
+    depth_bias_slope_factor: f32,
+);
+pub type PFN_vkCmdSetBlendConstants =
+    unsafe extern "system" fn(command_buffer: CommandBuffer, blend_constants: *const [f32; 4]);
+pub type PFN_vkCmdSetDepthBounds = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    min_depth_bounds: f32,
+    max_depth_bounds: f32,
+);
+pub type PFN_vkCmdSetStencilCompareMask = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    face_mask: StencilFaceFlags,
+    compare_mask: u32,
+);
+pub type PFN_vkCmdSetStencilWriteMask = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    face_mask: StencilFaceFlags,
+    write_mask: u32,
+);
+pub type PFN_vkCmdSetStencilReference = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    face_mask: StencilFaceFlags,
+    reference: u32,
+);
+pub type PFN_vkCmdBindDescriptorSets = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    pipeline_bind_point: PipelineBindPoint,
+    layout: PipelineLayout,
+    first_set: u32,
+    descriptor_set_count: u32,
+    p_descriptor_sets: *const DescriptorSet,
+    dynamic_offset_count: u32,
+    p_dynamic_offsets: *const u32,
+);
+pub type PFN_vkCmdBindIndexBuffer = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    buffer: Buffer,
+    offset: DeviceSize,
+    index_type: IndexType,
+);
+pub type PFN_vkCmdBindVertexBuffers = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    first_binding: u32,
+    binding_count: u32,
+    p_buffers: *const Buffer,
+    p_offsets: *const DeviceSize,
+);
+pub type PFN_vkCmdDraw = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    vertex_count: u32,
+    instance_count: u32,
+    first_vertex: u32,
+    first_instance: u32,
+);
+pub type PFN_vkCmdDrawIndexed = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    index_count: u32,
+    instance_count: u32,
+    first_index: u32,
+    vertex_offset: i32,
+    first_instance: u32,
+);
+pub type PFN_vkCmdDrawIndirect = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    buffer: Buffer,
+    offset: DeviceSize,
+    draw_count: u32,
+    stride: u32,
+);
+pub type PFN_vkCmdDrawIndexedIndirect = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    buffer: Buffer,
+    offset: DeviceSize,
+    draw_count: u32,
+    stride: u32,
+);
+pub type PFN_vkCmdDispatch = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    group_count_x: u32,
+    group_count_y: u32,
+    group_count_z: u32,
+);
+pub type PFN_vkCmdDispatchIndirect =
+    unsafe extern "system" fn(command_buffer: CommandBuffer, buffer: Buffer, offset: DeviceSize);
 pub type PFN_vkCmdCopyBuffer = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
     src_buffer: Buffer,
@@ -2009,6 +3408,16 @@ pub type PFN_vkCmdCopyImage = unsafe extern "system" fn(
     dst_image_layout: ImageLayout,
     region_count: u32,
     p_regions: *const ImageCopy,
+);
+pub type PFN_vkCmdBlitImage = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    src_image: Image,
+    src_image_layout: ImageLayout,
+    dst_image: Image,
+    dst_image_layout: ImageLayout,
+    region_count: u32,
+    p_regions: *const ImageBlit,
+    filter: Filter,
 );
 pub type PFN_vkCmdCopyBufferToImage = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
@@ -2039,6 +3448,61 @@ pub type PFN_vkCmdFillBuffer = unsafe extern "system" fn(
     dst_offset: DeviceSize,
     size: DeviceSize,
     data: u32,
+);
+pub type PFN_vkCmdClearColorImage = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    image: Image,
+    image_layout: ImageLayout,
+    p_color: *const ClearColorValue,
+    range_count: u32,
+    p_ranges: *const ImageSubresourceRange,
+);
+pub type PFN_vkCmdClearDepthStencilImage = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    image: Image,
+    image_layout: ImageLayout,
+    p_depth_stencil: *const ClearDepthStencilValue,
+    range_count: u32,
+    p_ranges: *const ImageSubresourceRange,
+);
+pub type PFN_vkCmdClearAttachments = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    attachment_count: u32,
+    p_attachments: *const ClearAttachment,
+    rect_count: u32,
+    p_rects: *const ClearRect,
+);
+pub type PFN_vkCmdResolveImage = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    src_image: Image,
+    src_image_layout: ImageLayout,
+    dst_image: Image,
+    dst_image_layout: ImageLayout,
+    region_count: u32,
+    p_regions: *const ImageResolve,
+);
+pub type PFN_vkCmdSetEvent = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    event: Event,
+    stage_mask: PipelineStageFlags,
+);
+pub type PFN_vkCmdResetEvent = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    event: Event,
+    stage_mask: PipelineStageFlags,
+);
+pub type PFN_vkCmdWaitEvents = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    event_count: u32,
+    p_events: *const Event,
+    src_stage_mask: PipelineStageFlags,
+    dst_stage_mask: PipelineStageFlags,
+    memory_barrier_count: u32,
+    p_memory_barriers: *const MemoryBarrier,
+    buffer_memory_barrier_count: u32,
+    p_buffer_memory_barriers: *const BufferMemoryBarrier,
+    image_memory_barrier_count: u32,
+    p_image_memory_barriers: *const ImageMemoryBarrier,
 );
 pub type PFN_vkCmdPipelineBarrier = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
@@ -2082,6 +3546,22 @@ pub type PFN_vkCmdCopyQueryPoolResults = unsafe extern "system" fn(
     stride: DeviceSize,
     flags: QueryResultFlags,
 );
+pub type PFN_vkCmdPushConstants = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    layout: PipelineLayout,
+    stage_flags: ShaderStageFlags,
+    offset: u32,
+    size: u32,
+    p_values: *const c_void,
+);
+pub type PFN_vkCmdBeginRenderPass = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    p_render_pass_begin: *const RenderPassBeginInfo,
+    contents: SubpassContents,
+);
+pub type PFN_vkCmdNextSubpass =
+    unsafe extern "system" fn(command_buffer: CommandBuffer, contents: SubpassContents);
+pub type PFN_vkCmdEndRenderPass = unsafe extern "system" fn(command_buffer: CommandBuffer);
 pub type PFN_vkCmdExecuteCommands = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
     command_buffer_count: u32,

@@ -7,6 +7,14 @@ pub const LUID_SIZE: u32 = 8;
 pub const QUEUE_FAMILY_EXTERNAL: u32 = !1;
 #[repr(C)]
 #[derive(Copy, Clone)]
+pub struct DescriptorUpdateTemplate(u64);
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct SamplerYcbcrConversion(u64);
+pub type PhysicalDeviceVariablePointerFeatures = PhysicalDeviceVariablePointersFeatures;
+pub type PhysicalDeviceShaderDrawParameterFeatures = PhysicalDeviceShaderDrawParametersFeatures;
+#[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceFeatures2 {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -75,6 +83,14 @@ pub struct PhysicalDeviceSparseImageFormatInfo2 {
     pub samples: SampleCountFlagBits,
     pub usage: ImageUsageFlags,
     pub tiling: ImageTiling,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PhysicalDeviceVariablePointersFeatures {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub variable_pointers_storage_buffer: Bool32,
+    pub variable_pointers: Bool32,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -193,6 +209,35 @@ pub struct ExportFenceCreateInfo {
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
+pub struct PhysicalDeviceMultiviewFeatures {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub multiview: Bool32,
+    pub multiview_geometry_shader: Bool32,
+    pub multiview_tessellation_shader: Bool32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PhysicalDeviceMultiviewProperties {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub max_multiview_view_count: u32,
+    pub max_multiview_instance_index: u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct RenderPassMultiviewCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub subpass_count: u32,
+    pub p_view_masks: *const u32,
+    pub dependency_count: u32,
+    pub p_view_offsets: *const i32,
+    pub correlation_mask_count: u32,
+    pub p_correlation_masks: *const u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceGroupProperties {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -246,6 +291,15 @@ pub struct BindImageMemoryDeviceGroupInfo {
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
+pub struct DeviceGroupRenderPassBeginInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub device_mask: u32,
+    pub device_render_area_count: u32,
+    pub p_device_render_areas: *const Rect2D,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DeviceGroupCommandBufferBeginInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -278,6 +332,65 @@ pub struct DeviceGroupDeviceCreateInfo {
     pub p_next: *const c_void,
     pub physical_device_count: u32,
     pub p_physical_devices: *const PhysicalDevice,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct DescriptorUpdateTemplateEntry {
+    pub dst_binding: u32,
+    pub dst_array_element: u32,
+    pub descriptor_count: u32,
+    pub descriptor_type: DescriptorType,
+    pub offset: usize,
+    pub stride: usize,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct DescriptorUpdateTemplateCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub flags: DescriptorUpdateTemplateCreateFlags,
+    pub descriptor_update_entry_count: u32,
+    pub p_descriptor_update_entries: *const DescriptorUpdateTemplateEntry,
+    pub template_type: DescriptorUpdateTemplateType,
+    pub descriptor_set_layout: DescriptorSetLayout,
+    pub pipeline_bind_point: PipelineBindPoint,
+    pub pipeline_layout: PipelineLayout,
+    pub set: u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct InputAttachmentAspectReference {
+    pub subpass: u32,
+    pub input_attachment_index: u32,
+    pub aspect_mask: ImageAspectFlags,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct RenderPassInputAttachmentAspectCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub aspect_reference_count: u32,
+    pub p_aspect_references: *const InputAttachmentAspectReference,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PhysicalDevice16BitStorageFeatures {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub storage_buffer16_bit_access: Bool32,
+    pub uniform_and_storage_buffer16_bit_access: Bool32,
+    pub storage_push_constant16: Bool32,
+    pub storage_input_output16: Bool32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PhysicalDeviceSubgroupProperties {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub subgroup_size: u32,
+    pub supported_stages: ShaderStageFlags,
+    pub supported_operations: SubgroupFeatureFlags,
+    pub quad_operations_in_all_stages: Bool32,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -316,6 +429,13 @@ pub struct SparseImageMemoryRequirements2 {
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
+pub struct PhysicalDevicePointClippingProperties {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub point_clipping_behavior: PointClippingBehavior,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
 pub struct MemoryDedicatedRequirements {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -339,6 +459,34 @@ pub struct ImageViewUsageCreateInfo {
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
+pub struct PipelineTessellationDomainOriginStateCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub domain_origin: TessellationDomainOrigin,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct SamplerYcbcrConversionInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub conversion: SamplerYcbcrConversion,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct SamplerYcbcrConversionCreateInfo {
+    pub s_type: StructureType,
+    pub p_next: *const c_void,
+    pub format: Format,
+    pub ycbcr_model: SamplerYcbcrModelConversion,
+    pub ycbcr_range: SamplerYcbcrRange,
+    pub components: ComponentMapping,
+    pub x_chroma_offset: ChromaLocation,
+    pub y_chroma_offset: ChromaLocation,
+    pub chroma_filter: Filter,
+    pub force_explicit_reconstruction: Bool32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BindImagePlaneMemoryInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -350,6 +498,20 @@ pub struct ImagePlaneMemoryRequirementsInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub plane_aspect: ImageAspectFlagBits,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PhysicalDeviceSamplerYcbcrConversionFeatures {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub sampler_ycbcr_conversion: Bool32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct SamplerYcbcrConversionImageFormatProperties {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub combined_image_sampler_descriptor_count: u32,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -380,6 +542,105 @@ pub struct DeviceQueueInfo2 {
     pub flags: DeviceQueueCreateFlags,
     pub queue_family_index: u32,
     pub queue_index: u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PhysicalDeviceMaintenance3Properties {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub max_per_set_descriptors: u32,
+    pub max_memory_allocation_size: DeviceSize,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct DescriptorSetLayoutSupport {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub supported: Bool32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct PhysicalDeviceShaderDrawParametersFeatures {
+    pub s_type: StructureType,
+    pub p_next: *mut c_void,
+    pub shader_draw_parameters: Bool32,
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct DescriptorUpdateTemplateType(i32);
+impl DescriptorUpdateTemplateType {
+    pub const DESCRIPTOR_SET: Self = Self(0);
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct PointClippingBehavior(i32);
+impl PointClippingBehavior {
+    pub const ALL_CLIP_PLANES: Self = Self(0);
+    pub const USER_CLIP_PLANES_ONLY: Self = Self(1);
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct TessellationDomainOrigin(i32);
+impl TessellationDomainOrigin {
+    pub const UPPER_LEFT: Self = Self(0);
+    pub const LOWER_LEFT: Self = Self(1);
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct SamplerYcbcrModelConversion(i32);
+impl SamplerYcbcrModelConversion {
+    pub const RGB_IDENTITY: Self = Self(0);
+    pub const YCBCR_IDENTITY: Self = Self(1);
+    pub const YCBCR_709: Self = Self(2);
+    pub const YCBCR_601: Self = Self(3);
+    pub const YCBCR_2020: Self = Self(4);
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct SamplerYcbcrRange(i32);
+impl SamplerYcbcrRange {
+    pub const ITU_FULL: Self = Self(0);
+    pub const ITU_NARROW: Self = Self(1);
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct ChromaLocation(i32);
+impl ChromaLocation {
+    pub const COSITED_EVEN: Self = Self(0);
+    pub const MIDPOINT: Self = Self(1);
+}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct SubgroupFeatureFlags: Flags {
+        const BASIC = SubgroupFeatureFlagBits::BASIC.0;
+        const VOTE = SubgroupFeatureFlagBits::VOTE.0;
+        const ARITHMETIC = SubgroupFeatureFlagBits::ARITHMETIC.0;
+        const BALLOT = SubgroupFeatureFlagBits::BALLOT.0;
+        const SHUFFLE = SubgroupFeatureFlagBits::SHUFFLE.0;
+        const SHUFFLE_RELATIVE = SubgroupFeatureFlagBits::SHUFFLE_RELATIVE.0;
+        const CLUSTERED = SubgroupFeatureFlagBits::CLUSTERED.0;
+        const QUAD = SubgroupFeatureFlagBits::QUAD.0;
+    }
+}
+#[repr(transparent)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct SubgroupFeatureFlagBits(u32);
+impl SubgroupFeatureFlagBits {
+    pub const BASIC: Self = Self(1 << 0);
+    pub const VOTE: Self = Self(1 << 1);
+    pub const ARITHMETIC: Self = Self(1 << 2);
+    pub const BALLOT: Self = Self(1 << 3);
+    pub const SHUFFLE: Self = Self(1 << 4);
+    pub const SHUFFLE_RELATIVE: Self = Self(1 << 5);
+    pub const CLUSTERED: Self = Self(1 << 6);
+    pub const QUAD: Self = Self(1 << 7);
+}
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    pub struct DescriptorUpdateTemplateCreateFlags: Flags {
+    }
 }
 bitflags! {
     #[repr(transparent)]
@@ -636,6 +897,32 @@ pub type PFN_vkBindImageMemory2 = unsafe extern "system" fn(
 ) -> Result;
 pub type PFN_vkCmdSetDeviceMask =
     unsafe extern "system" fn(command_buffer: CommandBuffer, device_mask: u32);
+pub type PFN_vkCmdDispatchBase = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    base_group_x: u32,
+    base_group_y: u32,
+    base_group_z: u32,
+    group_count_x: u32,
+    group_count_y: u32,
+    group_count_z: u32,
+);
+pub type PFN_vkCreateDescriptorUpdateTemplate = unsafe extern "system" fn(
+    device: Device,
+    p_create_info: *const DescriptorUpdateTemplateCreateInfo,
+    p_allocator: *const AllocationCallbacks,
+    p_descriptor_update_template: *mut DescriptorUpdateTemplate,
+) -> Result;
+pub type PFN_vkDestroyDescriptorUpdateTemplate = unsafe extern "system" fn(
+    device: Device,
+    descriptor_update_template: DescriptorUpdateTemplate,
+    p_allocator: *const AllocationCallbacks,
+);
+pub type PFN_vkUpdateDescriptorSetWithTemplate = unsafe extern "system" fn(
+    device: Device,
+    descriptor_set: DescriptorSet,
+    descriptor_update_template: DescriptorUpdateTemplate,
+    p_data: *const c_void,
+);
 pub type PFN_vkGetBufferMemoryRequirements2 = unsafe extern "system" fn(
     device: Device,
     p_info: *const BufferMemoryRequirementsInfo2,
@@ -652,8 +939,24 @@ pub type PFN_vkGetImageSparseMemoryRequirements2 = unsafe extern "system" fn(
     p_sparse_memory_requirement_count: *mut u32,
     p_sparse_memory_requirements: *mut SparseImageMemoryRequirements2,
 );
+pub type PFN_vkCreateSamplerYcbcrConversion = unsafe extern "system" fn(
+    device: Device,
+    p_create_info: *const SamplerYcbcrConversionCreateInfo,
+    p_allocator: *const AllocationCallbacks,
+    p_ycbcr_conversion: *mut SamplerYcbcrConversion,
+) -> Result;
+pub type PFN_vkDestroySamplerYcbcrConversion = unsafe extern "system" fn(
+    device: Device,
+    ycbcr_conversion: SamplerYcbcrConversion,
+    p_allocator: *const AllocationCallbacks,
+);
 pub type PFN_vkGetDeviceQueue2 = unsafe extern "system" fn(
     device: Device,
     p_queue_info: *const DeviceQueueInfo2,
     p_queue: *mut Queue,
+);
+pub type PFN_vkGetDescriptorSetLayoutSupport = unsafe extern "system" fn(
+    device: Device,
+    p_create_info: *const DescriptorSetLayoutCreateInfo,
+    p_support: *mut DescriptorSetLayoutSupport,
 );
