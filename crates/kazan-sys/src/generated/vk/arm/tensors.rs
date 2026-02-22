@@ -227,8 +227,8 @@ bitflags! {
     pub struct TensorCreateFlagsARM: Flags64 {
         const MUTABLE_FORMAT_ARM = TensorCreateFlagBitsARM::MUTABLE_FORMAT_ARM.0;
         const PROTECTED_ARM = TensorCreateFlagBitsARM::PROTECTED_ARM.0;
-        const DESCRIPTOR_HEAP_CAPTURE_REPLAY_ARM = TensorCreateFlagBitsARM::DESCRIPTOR_HEAP_CAPTURE_REPLAY_ARM.0;
         const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM = TensorCreateFlagBitsARM::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM.0;
+        const DESCRIPTOR_HEAP_CAPTURE_REPLAY_ARM = TensorCreateFlagBitsARM::DESCRIPTOR_HEAP_CAPTURE_REPLAY_ARM.0;
     }
 }
 #[repr(transparent)]
@@ -237,8 +237,8 @@ pub struct TensorCreateFlagBitsARM(u64);
 impl TensorCreateFlagBitsARM {
     pub const MUTABLE_FORMAT_ARM: Self = Self(1 << 0);
     pub const PROTECTED_ARM: Self = Self(1 << 1);
-    pub const DESCRIPTOR_HEAP_CAPTURE_REPLAY_ARM: Self = Self(1 << 3);
     pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM: Self = Self(1 << 2);
+    pub const DESCRIPTOR_HEAP_CAPTURE_REPLAY_ARM: Self = Self(1 << 3);
 }
 bitflags! {
     #[repr(transparent)]

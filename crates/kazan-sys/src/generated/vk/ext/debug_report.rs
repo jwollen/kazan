@@ -50,15 +50,15 @@ impl DebugReportObjectTypeEXT {
     pub const DISPLAY_KHR_EXT: Self = Self(29);
     pub const DISPLAY_MODE_KHR_EXT: Self = Self(30);
     pub const VALIDATION_CACHE_EXT_EXT: Self = Self(33);
-    pub const BUFFER_COLLECTION_FUCHSIA_EXT: Self = Self(1000366000);
-    pub const CU_MODULE_NVX_EXT: Self = Self(1000029000);
-    pub const CU_FUNCTION_NVX_EXT: Self = Self(1000029001);
-    pub const CUDA_FUNCTION_NV_EXT: Self = Self(1000307001);
     pub const ACCELERATION_STRUCTURE_KHR_EXT: Self = Self(1000150000);
-    pub const DESCRIPTOR_UPDATE_TEMPLATE_EXT: Self = Self(1000085000);
-    pub const CUDA_MODULE_NV_EXT: Self = Self(1000307000);
-    pub const SAMPLER_YCBCR_CONVERSION_EXT: Self = Self(1000156000);
     pub const ACCELERATION_STRUCTURE_NV_EXT: Self = Self(1000165000);
+    pub const BUFFER_COLLECTION_FUCHSIA_EXT: Self = Self(1000366000);
+    pub const CUDA_FUNCTION_NV_EXT: Self = Self(1000307001);
+    pub const CUDA_MODULE_NV_EXT: Self = Self(1000307000);
+    pub const CU_FUNCTION_NVX_EXT: Self = Self(1000029001);
+    pub const CU_MODULE_NVX_EXT: Self = Self(1000029000);
+    pub const DESCRIPTOR_UPDATE_TEMPLATE_EXT: Self = Self(1000085000);
+    pub const SAMPLER_YCBCR_CONVERSION_EXT: Self = Self(1000156000);
 }
 bitflags! {
     #[repr(transparent)]

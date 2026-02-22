@@ -181,9 +181,9 @@ bitflags! {
     pub struct VideoCodecOperationFlagsKHR: Flags {
         const DECODE_H264_KHR = VideoCodecOperationFlagBitsKHR::DECODE_H264_KHR.0;
         const DECODE_H265_KHR = VideoCodecOperationFlagBitsKHR::DECODE_H265_KHR.0;
-        const ENCODE_H264_KHR = VideoCodecOperationFlagBitsKHR::ENCODE_H264_KHR.0;
-        const DECODE_VP9_KHR = VideoCodecOperationFlagBitsKHR::DECODE_VP9_KHR.0;
         const DECODE_AV1_KHR = VideoCodecOperationFlagBitsKHR::DECODE_AV1_KHR.0;
+        const DECODE_VP9_KHR = VideoCodecOperationFlagBitsKHR::DECODE_VP9_KHR.0;
+        const ENCODE_H264_KHR = VideoCodecOperationFlagBitsKHR::ENCODE_H264_KHR.0;
         const ENCODE_H265_KHR = VideoCodecOperationFlagBitsKHR::ENCODE_H265_KHR.0;
         const ENCODE_AV1_KHR = VideoCodecOperationFlagBitsKHR::ENCODE_AV1_KHR.0;
         const NONE = 0;
@@ -195,9 +195,9 @@ pub struct VideoCodecOperationFlagBitsKHR(u32);
 impl VideoCodecOperationFlagBitsKHR {
     pub const DECODE_H264_KHR: Self = Self(1 << 0);
     pub const DECODE_H265_KHR: Self = Self(1 << 1);
-    pub const ENCODE_H264_KHR: Self = Self(1 << 16);
-    pub const DECODE_VP9_KHR: Self = Self(1 << 3);
     pub const DECODE_AV1_KHR: Self = Self(1 << 2);
+    pub const DECODE_VP9_KHR: Self = Self(1 << 3);
+    pub const ENCODE_H264_KHR: Self = Self(1 << 16);
     pub const ENCODE_H265_KHR: Self = Self(1 << 17);
     pub const ENCODE_AV1_KHR: Self = Self(1 << 18);
 }
@@ -221,9 +221,9 @@ bitflags! {
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoSessionCreateFlagsKHR: Flags {
         const PROTECTED_CONTENT_KHR = VideoSessionCreateFlagBitsKHR::PROTECTED_CONTENT_KHR.0;
-        const ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_KHR = VideoSessionCreateFlagBitsKHR::ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_KHR.0;
-        const INLINE_QUERIES_KHR = VideoSessionCreateFlagBitsKHR::INLINE_QUERIES_KHR.0;
         const ALLOW_ENCODE_PARAMETER_OPTIMIZATIONS_KHR = VideoSessionCreateFlagBitsKHR::ALLOW_ENCODE_PARAMETER_OPTIMIZATIONS_KHR.0;
+        const INLINE_QUERIES_KHR = VideoSessionCreateFlagBitsKHR::INLINE_QUERIES_KHR.0;
+        const ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_KHR = VideoSessionCreateFlagBitsKHR::ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_KHR.0;
         const ALLOW_ENCODE_EMPHASIS_MAP_KHR = VideoSessionCreateFlagBitsKHR::ALLOW_ENCODE_EMPHASIS_MAP_KHR.0;
         const INLINE_SESSION_PARAMETERS_KHR = VideoSessionCreateFlagBitsKHR::INLINE_SESSION_PARAMETERS_KHR.0;
     }
@@ -233,9 +233,9 @@ bitflags! {
 pub struct VideoSessionCreateFlagBitsKHR(u32);
 impl VideoSessionCreateFlagBitsKHR {
     pub const PROTECTED_CONTENT_KHR: Self = Self(1 << 0);
-    pub const ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_KHR: Self = Self(1 << 3);
-    pub const INLINE_QUERIES_KHR: Self = Self(1 << 2);
     pub const ALLOW_ENCODE_PARAMETER_OPTIMIZATIONS_KHR: Self = Self(1 << 1);
+    pub const INLINE_QUERIES_KHR: Self = Self(1 << 2);
+    pub const ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_KHR: Self = Self(1 << 3);
     pub const ALLOW_ENCODE_EMPHASIS_MAP_KHR: Self = Self(1 << 4);
     pub const INLINE_SESSION_PARAMETERS_KHR: Self = Self(1 << 5);
 }
@@ -269,8 +269,8 @@ bitflags! {
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoCodingControlFlagsKHR: Flags {
         const RESET_KHR = VideoCodingControlFlagBitsKHR::RESET_KHR.0;
-        const ENCODE_QUALITY_LEVEL_KHR = VideoCodingControlFlagBitsKHR::ENCODE_QUALITY_LEVEL_KHR.0;
         const ENCODE_RATE_CONTROL_KHR = VideoCodingControlFlagBitsKHR::ENCODE_RATE_CONTROL_KHR.0;
+        const ENCODE_QUALITY_LEVEL_KHR = VideoCodingControlFlagBitsKHR::ENCODE_QUALITY_LEVEL_KHR.0;
     }
 }
 #[repr(transparent)]
@@ -278,8 +278,8 @@ bitflags! {
 pub struct VideoCodingControlFlagBitsKHR(u32);
 impl VideoCodingControlFlagBitsKHR {
     pub const RESET_KHR: Self = Self(1 << 0);
-    pub const ENCODE_QUALITY_LEVEL_KHR: Self = Self(1 << 2);
     pub const ENCODE_RATE_CONTROL_KHR: Self = Self(1 << 1);
+    pub const ENCODE_QUALITY_LEVEL_KHR: Self = Self(1 << 2);
 }
 bitflags! {
     #[repr(transparent)]

@@ -45,8 +45,8 @@ bitflags! {
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct RenderingAttachmentFlagsKHR: Flags {
         const INPUT_ATTACHMENT_FEEDBACK_KHR = RenderingAttachmentFlagBitsKHR::INPUT_ATTACHMENT_FEEDBACK_KHR.0;
-        const RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR = RenderingAttachmentFlagBitsKHR::RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR.0;
         const RESOLVE_SKIP_TRANSFER_FUNCTION_KHR = RenderingAttachmentFlagBitsKHR::RESOLVE_SKIP_TRANSFER_FUNCTION_KHR.0;
+        const RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR = RenderingAttachmentFlagBitsKHR::RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR.0;
     }
 }
 #[repr(transparent)]
@@ -54,23 +54,23 @@ bitflags! {
 pub struct RenderingAttachmentFlagBitsKHR(u32);
 impl RenderingAttachmentFlagBitsKHR {
     pub const INPUT_ATTACHMENT_FEEDBACK_KHR: Self = Self(1 << 0);
-    pub const RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR: Self = Self(1 << 2);
     pub const RESOLVE_SKIP_TRANSFER_FUNCTION_KHR: Self = Self(1 << 1);
+    pub const RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR: Self = Self(1 << 2);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct ResolveImageFlagsKHR: Flags {
-        const ENABLE_TRANSFER_FUNCTION_KHR = ResolveImageFlagBitsKHR::ENABLE_TRANSFER_FUNCTION_KHR.0;
         const SKIP_TRANSFER_FUNCTION_KHR = ResolveImageFlagBitsKHR::SKIP_TRANSFER_FUNCTION_KHR.0;
+        const ENABLE_TRANSFER_FUNCTION_KHR = ResolveImageFlagBitsKHR::ENABLE_TRANSFER_FUNCTION_KHR.0;
     }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ResolveImageFlagBitsKHR(u32);
 impl ResolveImageFlagBitsKHR {
-    pub const ENABLE_TRANSFER_FUNCTION_KHR: Self = Self(1 << 1);
     pub const SKIP_TRANSFER_FUNCTION_KHR: Self = Self(1 << 0);
+    pub const ENABLE_TRANSFER_FUNCTION_KHR: Self = Self(1 << 1);
 }
 pub type PFN_vkCmdEndRendering2KHR = unsafe extern "system" fn(
     command_buffer: CommandBuffer,

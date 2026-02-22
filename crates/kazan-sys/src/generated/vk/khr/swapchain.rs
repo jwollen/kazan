@@ -93,26 +93,26 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct SwapchainCreateFlagsKHR: Flags {
-        const MUTABLE_FORMAT_KHR = SwapchainCreateFlagBitsKHR::MUTABLE_FORMAT_KHR.0;
         const SPLIT_INSTANCE_BIND_REGIONS_KHR = SwapchainCreateFlagBitsKHR::SPLIT_INSTANCE_BIND_REGIONS_KHR.0;
-        const PRESENT_TIMING_EXT = SwapchainCreateFlagBitsKHR::PRESENT_TIMING_EXT.0;
+        const PROTECTED_KHR = SwapchainCreateFlagBitsKHR::PROTECTED_KHR.0;
+        const MUTABLE_FORMAT_KHR = SwapchainCreateFlagBitsKHR::MUTABLE_FORMAT_KHR.0;
+        const DEFERRED_MEMORY_ALLOCATION_KHR = SwapchainCreateFlagBitsKHR::DEFERRED_MEMORY_ALLOCATION_KHR.0;
         const PRESENT_ID_2_KHR = SwapchainCreateFlagBitsKHR::PRESENT_ID_2_KHR.0;
         const PRESENT_WAIT_2_KHR = SwapchainCreateFlagBitsKHR::PRESENT_WAIT_2_KHR.0;
-        const DEFERRED_MEMORY_ALLOCATION_KHR = SwapchainCreateFlagBitsKHR::DEFERRED_MEMORY_ALLOCATION_KHR.0;
-        const PROTECTED_KHR = SwapchainCreateFlagBitsKHR::PROTECTED_KHR.0;
+        const PRESENT_TIMING_EXT = SwapchainCreateFlagBitsKHR::PRESENT_TIMING_EXT.0;
     }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct SwapchainCreateFlagBitsKHR(u32);
 impl SwapchainCreateFlagBitsKHR {
-    pub const MUTABLE_FORMAT_KHR: Self = Self(1 << 2);
     pub const SPLIT_INSTANCE_BIND_REGIONS_KHR: Self = Self(1 << 0);
-    pub const PRESENT_TIMING_EXT: Self = Self(1 << 9);
+    pub const PROTECTED_KHR: Self = Self(1 << 1);
+    pub const MUTABLE_FORMAT_KHR: Self = Self(1 << 2);
+    pub const DEFERRED_MEMORY_ALLOCATION_KHR: Self = Self(1 << 3);
     pub const PRESENT_ID_2_KHR: Self = Self(1 << 6);
     pub const PRESENT_WAIT_2_KHR: Self = Self(1 << 7);
-    pub const DEFERRED_MEMORY_ALLOCATION_KHR: Self = Self(1 << 3);
-    pub const PROTECTED_KHR: Self = Self(1 << 1);
+    pub const PRESENT_TIMING_EXT: Self = Self(1 << 9);
 }
 bitflags! {
     #[repr(transparent)]

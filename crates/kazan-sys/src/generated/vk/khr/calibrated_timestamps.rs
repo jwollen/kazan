@@ -17,8 +17,8 @@ impl TimeDomainKHR {
     pub const CLOCK_MONOTONIC_KHR: Self = Self(1);
     pub const CLOCK_MONOTONIC_RAW_KHR: Self = Self(2);
     pub const QUERY_PERFORMANCE_COUNTER_KHR: Self = Self(3);
-    pub const SWAPCHAIN_LOCAL_EXT: Self = Self(1000208001);
     pub const PRESENT_STAGE_LOCAL_EXT: Self = Self(1000208000);
+    pub const SWAPCHAIN_LOCAL_EXT: Self = Self(1000208001);
 }
 pub type PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsKHR = unsafe extern "system" fn(
     physical_device: PhysicalDevice,

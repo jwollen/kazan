@@ -173,8 +173,8 @@ bitflags! {
         const PER_PICTURE_TYPE_MIN_MAX_QP_KHR = VideoEncodeH264CapabilityFlagBitsKHR::PER_PICTURE_TYPE_MIN_MAX_QP_KHR.0;
         const PER_SLICE_CONSTANT_QP_KHR = VideoEncodeH264CapabilityFlagBitsKHR::PER_SLICE_CONSTANT_QP_KHR.0;
         const GENERATE_PREFIX_NALU_KHR = VideoEncodeH264CapabilityFlagBitsKHR::GENERATE_PREFIX_NALU_KHR.0;
-        const B_PICTURE_INTRA_REFRESH_KHR = VideoEncodeH264CapabilityFlagBitsKHR::B_PICTURE_INTRA_REFRESH_KHR.0;
         const MB_QP_DIFF_WRAPAROUND_KHR = VideoEncodeH264CapabilityFlagBitsKHR::MB_QP_DIFF_WRAPAROUND_KHR.0;
+        const B_PICTURE_INTRA_REFRESH_KHR = VideoEncodeH264CapabilityFlagBitsKHR::B_PICTURE_INTRA_REFRESH_KHR.0;
     }
 }
 #[repr(transparent)]
@@ -190,8 +190,8 @@ impl VideoEncodeH264CapabilityFlagBitsKHR {
     pub const PER_PICTURE_TYPE_MIN_MAX_QP_KHR: Self = Self(1 << 6);
     pub const PER_SLICE_CONSTANT_QP_KHR: Self = Self(1 << 7);
     pub const GENERATE_PREFIX_NALU_KHR: Self = Self(1 << 8);
-    pub const B_PICTURE_INTRA_REFRESH_KHR: Self = Self(1 << 10);
     pub const MB_QP_DIFF_WRAPAROUND_KHR: Self = Self(1 << 9);
+    pub const B_PICTURE_INTRA_REFRESH_KHR: Self = Self(1 << 10);
 }
 bitflags! {
     #[repr(transparent)]

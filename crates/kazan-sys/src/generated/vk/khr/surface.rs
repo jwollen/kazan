@@ -42,21 +42,21 @@ impl PresentModeKHR {
 pub struct ColorSpaceKHR(i32);
 impl ColorSpaceKHR {
     pub const SRGB_NONLINEAR_KHR: Self = Self(0);
-    pub const DISPLAY_P3_LINEAR_EXT: Self = Self(1000104003);
-    pub const ADOBERGB_NONLINEAR_EXT: Self = Self(1000104012);
-    pub const BT709_LINEAR_EXT: Self = Self(1000104005);
-    pub const DISPLAY_NATIVE_AMD: Self = Self(1000213000);
-    pub const HDR10_HLG_EXT: Self = Self(1000104010);
-    pub const PASS_THROUGH_EXT: Self = Self(1000104013);
-    pub const BT2020_LINEAR_EXT: Self = Self(1000104007);
-    pub const DOLBYVISION_EXT: Self = Self(1000104009);
-    pub const HDR10_ST2084_EXT: Self = Self(1000104008);
     pub const ADOBERGB_LINEAR_EXT: Self = Self(1000104011);
-    pub const DISPLAY_P3_NONLINEAR_EXT: Self = Self(1000104001);
-    pub const DCI_P3_NONLINEAR_EXT: Self = Self(1000104004);
-    pub const EXTENDED_SRGB_LINEAR_EXT: Self = Self(1000104002);
+    pub const ADOBERGB_NONLINEAR_EXT: Self = Self(1000104012);
+    pub const BT2020_LINEAR_EXT: Self = Self(1000104007);
+    pub const BT709_LINEAR_EXT: Self = Self(1000104005);
     pub const BT709_NONLINEAR_EXT: Self = Self(1000104006);
+    pub const DCI_P3_NONLINEAR_EXT: Self = Self(1000104004);
+    pub const DISPLAY_NATIVE_AMD: Self = Self(1000213000);
+    pub const DISPLAY_P3_LINEAR_EXT: Self = Self(1000104003);
+    pub const DISPLAY_P3_NONLINEAR_EXT: Self = Self(1000104001);
+    pub const DOLBYVISION_EXT: Self = Self(1000104009);
+    pub const EXTENDED_SRGB_LINEAR_EXT: Self = Self(1000104002);
     pub const EXTENDED_SRGB_NONLINEAR_EXT: Self = Self(1000104014);
+    pub const HDR10_HLG_EXT: Self = Self(1000104010);
+    pub const HDR10_ST2084_EXT: Self = Self(1000104008);
+    pub const PASS_THROUGH_EXT: Self = Self(1000104013);
 }
 bitflags! {
     #[repr(transparent)]

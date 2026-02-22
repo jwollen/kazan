@@ -133,16 +133,30 @@ fn generate(xmls: &[&xml::Registry]) {
         .map(VersionOrExtension::Version)
         .chain(extensions.clone().map(VersionOrExtension::Extension));
 
-    let mut req_enum_variants = HashMap::new();
-    let mut req_bitspos = HashMap::new();
-    for extension in extensions.clone() {
-        for req in &extension.requires {
+    let mut req_enum_variants = BTreeMap::new();
+    let mut req_bitspos = BTreeMap::new();
+    for version_or_extension in version_or_extension.clone() {
+        let requires: Vec<_> = match version_or_extension {
+            VersionOrExtension::Version(ref version) => version
+                .features
+                .iter()
+                .flat_map(|feature| feature.requires.iter())
+                .collect(),
+            VersionOrExtension::Extension(extension) => extension.requires.iter().collect(),
+        };
+
+        let ext_number = match version_or_extension {
+            VersionOrExtension::Version(_) => None,
+            VersionOrExtension::Extension(extension) => extension.number,
+        };
+
+        for req in requires {
             for variant in &req.enum_variants {
                 let variants = req_enum_variants
                     .entry(variant.extends)
-                    .or_insert_with(HashMap::new);
+                    .or_insert_with(BTreeMap::new);
 
-                let ext_number = variant.extnumber.unwrap_or(extension.number.unwrap()) as i32;
+                let ext_number = variant.extnumber.or(ext_number).unwrap() as i32;
                 let value = 1_000_000_000i32 + (ext_number - 1) * 1000 + variant.offset as i32;
                 let value = if variant.negative { -value } else { value };
                 variants.insert(variant.name, value);
@@ -150,7 +164,7 @@ fn generate(xmls: &[&xml::Registry]) {
             for bitpos in &req.bitpositions {
                 let variants = req_bitspos
                     .entry(bitpos.extends)
-                    .or_insert_with(HashMap::new);
+                    .or_insert_with(BTreeMap::new);
                 variants.insert(bitpos.name, bitpos.bitpos);
             }
         }
@@ -386,26 +400,32 @@ fn generate(xmls: &[&xml::Registry]) {
                     }
                 };
 
+                let variants = {
+                    let bits = ty
+                        .values
+                        .iter()
+                        .map(|bit|(normalize_variant_name(bit.name), bit.value.to_string()));
+
+                    let req_enum = req_enum_variants.get(ty.name);
+                    let req_variants = req_enum.iter().flat_map(|bits| {
+                        bits.iter()
+                            .map(|(name, variant)| (normalize_variant_name(name), variant.to_string()))
+                    });
+
+                    let mut bits = bits.chain(req_variants).collect::<Vec<_>>();
+                    //bits.sort_by_key(|(_, value)| value);
+                    bits
+                };
+
                 writeln!(sys_file, "impl {} {{", normalize_ty_name(ty.name)).unwrap();
-                for value in &ty.values {
+                for (name, value) in &variants {
                     writeln!(
                         sys_file,
                         "    pub const {}: Self = Self({});",
-                        normalize_variant_name(value.name),
-                        value.value
+                        name,
+                        value
                     )
                     .unwrap();
-                }
-                if let Some(variants) = req_enum_variants.get(ty.name) {
-                    for (name, value) in variants {
-                        writeln!(
-                            sys_file,
-                            "pub const {}: Self = Self({});",
-                            normalize_variant_name(name),
-                            value
-                        )
-                        .unwrap();
-                    }
                 }
                 writeln!(sys_file, "}}").unwrap();
             }
@@ -471,7 +491,9 @@ fn generate(xmls: &[&xml::Registry]) {
                             .map(|(name, bitpos)| (normalize_bit_name(name), *bitpos))
                     });
 
-                    bits.chain(req_bits).collect::<Vec<_>>()
+                    let mut bits = bits.chain(req_bits).collect::<Vec<_>>();
+                    bits.sort_by_key(|(_, bit)| *bit);
+                    bits
                 } else {
                     Vec::new()
                 };

@@ -234,9 +234,9 @@ impl GeometryTypeKHR {
     pub const TRIANGLES_KHR: Self = Self(0);
     pub const AABBS_KHR: Self = Self(1);
     pub const INSTANCES_KHR: Self = Self(2);
-    pub const SPHERES_NV: Self = Self(1000429004);
     pub const DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX: Self = Self(1000478000);
     pub const LINEAR_SWEPT_SPHERES_NV: Self = Self(1000429005);
+    pub const SPHERES_NV: Self = Self(1000429004);
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -301,12 +301,12 @@ bitflags! {
         const PREFER_FAST_BUILD_KHR = BuildAccelerationStructureFlagBitsKHR::PREFER_FAST_BUILD_KHR.0;
         const LOW_MEMORY_KHR = BuildAccelerationStructureFlagBitsKHR::LOW_MEMORY_KHR.0;
         const MOTION_NV = BuildAccelerationStructureFlagBitsKHR::MOTION_NV.0;
-        const ALLOW_CLUSTER_OPACITY_MICROMAPS_NV = BuildAccelerationStructureFlagBitsKHR::ALLOW_CLUSTER_OPACITY_MICROMAPS_NV.0;
         const ALLOW_OPACITY_MICROMAP_UPDATE_EXT = BuildAccelerationStructureFlagBitsKHR::ALLOW_OPACITY_MICROMAP_UPDATE_EXT.0;
-        const ALLOW_DATA_ACCESS_KHR = BuildAccelerationStructureFlagBitsKHR::ALLOW_DATA_ACCESS_KHR.0;
+        const ALLOW_DISABLE_OPACITY_MICROMAPS_EXT = BuildAccelerationStructureFlagBitsKHR::ALLOW_DISABLE_OPACITY_MICROMAPS_EXT.0;
         const ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT = BuildAccelerationStructureFlagBitsKHR::ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT.0;
         const ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV = BuildAccelerationStructureFlagBitsKHR::ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV.0;
-        const ALLOW_DISABLE_OPACITY_MICROMAPS_EXT = BuildAccelerationStructureFlagBitsKHR::ALLOW_DISABLE_OPACITY_MICROMAPS_EXT.0;
+        const ALLOW_DATA_ACCESS_KHR = BuildAccelerationStructureFlagBitsKHR::ALLOW_DATA_ACCESS_KHR.0;
+        const ALLOW_CLUSTER_OPACITY_MICROMAPS_NV = BuildAccelerationStructureFlagBitsKHR::ALLOW_CLUSTER_OPACITY_MICROMAPS_NV.0;
     }
 }
 #[repr(transparent)]
@@ -319,12 +319,12 @@ impl BuildAccelerationStructureFlagBitsKHR {
     pub const PREFER_FAST_BUILD_KHR: Self = Self(1 << 3);
     pub const LOW_MEMORY_KHR: Self = Self(1 << 4);
     pub const MOTION_NV: Self = Self(1 << 5);
-    pub const ALLOW_CLUSTER_OPACITY_MICROMAPS_NV: Self = Self(1 << 12);
     pub const ALLOW_OPACITY_MICROMAP_UPDATE_EXT: Self = Self(1 << 6);
-    pub const ALLOW_DATA_ACCESS_KHR: Self = Self(1 << 11);
+    pub const ALLOW_DISABLE_OPACITY_MICROMAPS_EXT: Self = Self(1 << 7);
     pub const ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT: Self = Self(1 << 8);
     pub const ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV: Self = Self(1 << 9);
-    pub const ALLOW_DISABLE_OPACITY_MICROMAPS_EXT: Self = Self(1 << 7);
+    pub const ALLOW_DATA_ACCESS_KHR: Self = Self(1 << 11);
+    pub const ALLOW_CLUSTER_OPACITY_MICROMAPS_NV: Self = Self(1 << 12);
 }
 bitflags! {
     #[repr(transparent)]
