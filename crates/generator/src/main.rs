@@ -11,12 +11,14 @@ use itertools::Itertools;
 use crate::{
     cdecl::CType,
     command::{CommandGroup, CommandInfo, normalize_command_name, write_command_wrapper},
+    structs::write_struct,
     xml::Constant,
 };
 
 mod analysis;
 mod cdecl;
 mod command;
+mod structs;
 mod xml;
 
 fn main() {
@@ -310,20 +312,7 @@ fn generate(xmls: &[&xml::Registry]) {
 
             let structs = structs.iter().filter(|ty| new_items.contains(ty.name));
             for ty in structs {
-                writeln!(sys_file, "#[repr(C)]").unwrap();
-                writeln!(sys_file, "#[derive(Copy, Clone)]").unwrap();
-                writeln!(sys_file, "pub struct {} {{", normalize_ty_name(ty.name)).unwrap();
-                for member in &ty.members {
-                    let field_ty = ctype_to_rust_type(&member.c_decl.ty);
-                    writeln!(
-                        sys_file,
-                        "    pub {}: {},",
-                        normalize_name(member.c_decl.name),
-                        field_ty
-                    )
-                    .unwrap();
-                }
-                writeln!(sys_file, "}}").unwrap();
+                write_struct(&mut sys_file, ty);
             }
 
             let unions = unions.clone().filter(|ty| new_items.contains(ty.name));
@@ -843,22 +832,6 @@ fn ctype_to_rust_type_str(name: &str) -> &str {
         _ => normalize_ty_name(name),
     }
 }
-
-// struct StructInfo<'a> {
-//     ty: &'a xml::Structure,
-// }
-
-// struct MemberInfo<'a> {
-//     name: String,
-//     ty: String,
-//     len: Option<LengthKind<'a>>,
-// }
-
-// fn analyze_struct<'a>(
-//     ty: &'a xml::Structure,
-// ) -> StructInfo<'a> {
-//     todo!()
-// }
 
 fn ctype_to_rust_type(ty: &CType) -> String {
     match ty {
