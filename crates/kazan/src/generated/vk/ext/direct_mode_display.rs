@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     release_display_ext: PFN_vkReleaseDisplayEXT,
 }
@@ -23,6 +23,13 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         display: DisplayKHR,
     ) -> crate::Result<()> {
-        unsafe { result((self.release_display_ext)(physical_device, display)) }
+        unsafe {
+            let result = (self.release_display_ext)(physical_device, display);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
 }

@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     get_refresh_cycle_duration_google: PFN_vkGetRefreshCycleDurationGOOGLE,
     get_past_presentation_timing_google: PFN_vkGetPastPresentationTimingGOOGLE,
@@ -28,14 +28,19 @@ impl DeviceFn {
         &self,
         device: Device,
         swapchain: SwapchainKHR,
-        display_timing_properties: &mut RefreshCycleDurationGOOGLE,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<RefreshCycleDurationGOOGLE> {
         unsafe {
-            result((self.get_refresh_cycle_duration_google)(
+            let mut display_timing_properties = core::mem::MaybeUninit::uninit();
+            let result = (self.get_refresh_cycle_duration_google)(
                 device,
                 swapchain,
-                display_timing_properties,
-            ))
+                display_timing_properties.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(display_timing_properties.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_past_presentation_timing_google(
@@ -48,12 +53,18 @@ impl DeviceFn {
             try_extend_uninit(
                 presentation_timings,
                 |presentation_timing_count, presentation_timings| {
-                    result((self.get_past_presentation_timing_google)(
+                    let result = (self.get_past_presentation_timing_google)(
                         device,
                         swapchain,
                         presentation_timing_count,
                         presentation_timings as _,
-                    ))
+                    );
+
+                    match result {
+                        VkResult::SUCCESS => Ok(()),
+                        VkResult::INCOMPLETE => Ok(()),
+                        err => Err(err),
+                    }
                 },
             )
         }

@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     release_swapchain_images_ext: PFN_vkReleaseSwapchainImagesKHR,
 }
@@ -25,6 +25,13 @@ impl DeviceFn {
         device: Device,
         release_info: &ReleaseSwapchainImagesInfoKHR,
     ) -> crate::Result<()> {
-        unsafe { result((self.release_swapchain_images_ext)(device, release_info)) }
+        unsafe {
+            let result = (self.release_swapchain_images_ext)(device, release_info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
 }

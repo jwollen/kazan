@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     get_pipeline_properties_ext: PFN_vkGetPipelinePropertiesEXT,
 }
@@ -24,14 +24,19 @@ impl DeviceFn {
         &self,
         device: Device,
         pipeline_info: &PipelineInfoEXT,
-        pipeline_properties: &mut BaseOutStructure,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<BaseOutStructure> {
         unsafe {
-            result((self.get_pipeline_properties_ext)(
+            let mut pipeline_properties = core::mem::MaybeUninit::uninit();
+            let result = (self.get_pipeline_properties_ext)(
                 device,
                 pipeline_info,
-                pipeline_properties,
-            ))
+                pipeline_properties.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(pipeline_properties.assume_init()),
+                err => Err(err),
+            }
         }
     }
 }

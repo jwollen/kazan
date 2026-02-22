@@ -709,7 +709,7 @@ fn generate(xmls: &[&xml::Registry]) {
             writeln!(file, "#![allow(unused_imports)]").unwrap();
             writeln!(file, "use core::ffi::{{c_char, c_int, c_void, CStr}};").unwrap();
             writeln!(file, "use core::mem::transmute;").unwrap();
-            writeln!(file, "use kazan_sys::{{*, vk::*}};").unwrap();
+            writeln!(file, "use kazan_sys::{{*, vk::*, vk::Result as VkResult}};").unwrap();
             writeln!(file, "use crate::*;").unwrap();
 
             let mut generate_commands = |cmd_type: CommandType, fn_type_name: &str| {

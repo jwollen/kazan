@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     get_pipeline_indirect_memory_requirements_nv: PFN_vkGetPipelineIndirectMemoryRequirementsNV,
     cmd_update_pipeline_indirect_buffer_nv: PFN_vkCmdUpdatePipelineIndirectBufferNV,
@@ -32,14 +32,15 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &ComputePipelineCreateInfo,
-        memory_requirements: &mut MemoryRequirements2,
-    ) {
+    ) -> MemoryRequirements2 {
         unsafe {
+            let mut memory_requirements = core::mem::MaybeUninit::uninit();
             (self.get_pipeline_indirect_memory_requirements_nv)(
                 device,
                 create_info,
-                memory_requirements,
-            )
+                memory_requirements.as_mut_ptr(),
+            );
+            memory_requirements.assume_init()
         }
     }
     pub unsafe fn cmd_update_pipeline_indirect_buffer_nv(

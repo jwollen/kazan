@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     cmd_bind_index_buffer2_khr: PFN_vkCmdBindIndexBuffer2,
     get_rendering_area_granularity_khr: PFN_vkGetRenderingAreaGranularity,
@@ -48,27 +48,43 @@ impl DeviceFn {
         &self,
         device: Device,
         rendering_area_info: &RenderingAreaInfo,
-        granularity: &mut Extent2D,
-    ) {
+    ) -> Extent2D {
         unsafe {
-            (self.get_rendering_area_granularity_khr)(device, rendering_area_info, granularity)
+            let mut granularity = core::mem::MaybeUninit::uninit();
+            (self.get_rendering_area_granularity_khr)(
+                device,
+                rendering_area_info,
+                granularity.as_mut_ptr(),
+            );
+            granularity.assume_init()
         }
     }
     pub unsafe fn get_device_image_subresource_layout_khr(
         &self,
         device: Device,
         info: &DeviceImageSubresourceInfo,
-        layout: &mut SubresourceLayout2,
-    ) {
-        unsafe { (self.get_device_image_subresource_layout_khr)(device, info, layout) }
+    ) -> SubresourceLayout2 {
+        unsafe {
+            let mut layout = core::mem::MaybeUninit::uninit();
+            (self.get_device_image_subresource_layout_khr)(device, info, layout.as_mut_ptr());
+            layout.assume_init()
+        }
     }
     pub unsafe fn get_image_subresource_layout2_khr(
         &self,
         device: Device,
         image: Image,
         subresource: &ImageSubresource2,
-        layout: &mut SubresourceLayout2,
-    ) {
-        unsafe { (self.get_image_subresource_layout2_khr)(device, image, subresource, layout) }
+    ) -> SubresourceLayout2 {
+        unsafe {
+            let mut layout = core::mem::MaybeUninit::uninit();
+            (self.get_image_subresource_layout2_khr)(
+                device,
+                image,
+                subresource,
+                layout.as_mut_ptr(),
+            );
+            layout.assume_init()
+        }
     }
 }

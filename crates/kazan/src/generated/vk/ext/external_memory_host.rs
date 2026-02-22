@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     get_memory_host_pointer_properties_ext: PFN_vkGetMemoryHostPointerPropertiesEXT,
 }
@@ -25,15 +25,20 @@ impl DeviceFn {
         device: Device,
         handle_type: ExternalMemoryHandleTypeFlagBits,
         host_pointer: &c_void,
-        memory_host_pointer_properties: &mut MemoryHostPointerPropertiesEXT,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<MemoryHostPointerPropertiesEXT> {
         unsafe {
-            result((self.get_memory_host_pointer_properties_ext)(
+            let mut memory_host_pointer_properties = core::mem::MaybeUninit::uninit();
+            let result = (self.get_memory_host_pointer_properties_ext)(
                 device,
                 handle_type,
                 host_pointer,
-                memory_host_pointer_properties,
-            ))
+                memory_host_pointer_properties.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(memory_host_pointer_properties.assume_init()),
+                err => Err(err),
+            }
         }
     }
 }

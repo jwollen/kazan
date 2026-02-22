@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     get_device_fault_info_ext: PFN_vkGetDeviceFaultInfoEXT,
 }
@@ -27,11 +27,14 @@ impl DeviceFn {
         fault_info: Option<&mut DeviceFaultInfoEXT>,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.get_device_fault_info_ext)(
-                device,
-                fault_counts,
-                fault_info.to_raw_mut_ptr(),
-            ))
+            let result =
+                (self.get_device_fault_info_ext)(device, fault_counts, fault_info.to_raw_mut_ptr());
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                VkResult::INCOMPLETE => Ok(()),
+                err => Err(err),
+            }
         }
     }
 }

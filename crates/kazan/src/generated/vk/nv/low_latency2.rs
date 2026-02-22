@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     set_latency_sleep_mode_nv: PFN_vkSetLatencySleepModeNV,
     latency_sleep_nv: PFN_vkLatencySleepNV,
@@ -41,11 +41,12 @@ impl DeviceFn {
         sleep_mode_info: &LatencySleepModeInfoNV,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.set_latency_sleep_mode_nv)(
-                device,
-                swapchain,
-                sleep_mode_info,
-            ))
+            let result = (self.set_latency_sleep_mode_nv)(device, swapchain, sleep_mode_info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn latency_sleep_nv(
@@ -54,7 +55,14 @@ impl DeviceFn {
         swapchain: SwapchainKHR,
         sleep_info: &LatencySleepInfoNV,
     ) -> crate::Result<()> {
-        unsafe { result((self.latency_sleep_nv)(device, swapchain, sleep_info)) }
+        unsafe {
+            let result = (self.latency_sleep_nv)(device, swapchain, sleep_info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn set_latency_marker_nv(
         &self,
@@ -68,9 +76,12 @@ impl DeviceFn {
         &self,
         device: Device,
         swapchain: SwapchainKHR,
-        latency_marker_info: &mut GetLatencyMarkerInfoNV,
-    ) {
-        unsafe { (self.get_latency_timings_nv)(device, swapchain, latency_marker_info) }
+    ) -> GetLatencyMarkerInfoNV {
+        unsafe {
+            let mut latency_marker_info = core::mem::MaybeUninit::uninit();
+            (self.get_latency_timings_nv)(device, swapchain, latency_marker_info.as_mut_ptr());
+            latency_marker_info.assume_init()
+        }
     }
     pub unsafe fn queue_notify_out_of_band_nv(
         &self,

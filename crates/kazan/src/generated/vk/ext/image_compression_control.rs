@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     get_image_subresource_layout2_ext: PFN_vkGetImageSubresourceLayout2,
 }
@@ -25,8 +25,16 @@ impl DeviceFn {
         device: Device,
         image: Image,
         subresource: &ImageSubresource2,
-        layout: &mut SubresourceLayout2,
-    ) {
-        unsafe { (self.get_image_subresource_layout2_ext)(device, image, subresource, layout) }
+    ) -> SubresourceLayout2 {
+        unsafe {
+            let mut layout = core::mem::MaybeUninit::uninit();
+            (self.get_image_subresource_layout2_ext)(
+                device,
+                image,
+                subresource,
+                layout.as_mut_ptr(),
+            );
+            layout.assume_init()
+        }
     }
 }

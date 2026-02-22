@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     get_framebuffer_tile_properties_qcom: PFN_vkGetFramebufferTilePropertiesQCOM,
     get_dynamic_rendering_tile_properties_qcom: PFN_vkGetDynamicRenderingTilePropertiesQCOM,
@@ -32,12 +32,18 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(properties, |properties_count, properties| {
-                result((self.get_framebuffer_tile_properties_qcom)(
+                let result = (self.get_framebuffer_tile_properties_qcom)(
                     device,
                     framebuffer,
                     properties_count,
                     properties as _,
-                ))
+                );
+
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
             })
         }
     }
@@ -45,14 +51,19 @@ impl DeviceFn {
         &self,
         device: Device,
         rendering_info: &RenderingInfo,
-        properties: &mut TilePropertiesQCOM,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<TilePropertiesQCOM> {
         unsafe {
-            result((self.get_dynamic_rendering_tile_properties_qcom)(
+            let mut properties = core::mem::MaybeUninit::uninit();
+            let result = (self.get_dynamic_rendering_tile_properties_qcom)(
                 device,
                 rendering_info,
-                properties,
-            ))
+                properties.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(properties.assume_init()),
+                err => Err(err),
+            }
         }
     }
 }

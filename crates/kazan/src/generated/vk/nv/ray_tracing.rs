@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     create_acceleration_structure_nv: PFN_vkCreateAccelerationStructureNV,
     destroy_acceleration_structure_nv: PFN_vkDestroyAccelerationStructureNV,
@@ -67,15 +67,20 @@ impl DeviceFn {
         device: Device,
         create_info: &AccelerationStructureCreateInfoNV,
         allocator: Option<&AllocationCallbacks>,
-        acceleration_structure: &mut AccelerationStructureNV,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<AccelerationStructureNV> {
         unsafe {
-            result((self.create_acceleration_structure_nv)(
+            let mut acceleration_structure = core::mem::MaybeUninit::uninit();
+            let result = (self.create_acceleration_structure_nv)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                acceleration_structure,
-            ))
+                acceleration_structure.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(acceleration_structure.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_acceleration_structure_nv(
@@ -96,14 +101,15 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &AccelerationStructureMemoryRequirementsInfoNV,
-        memory_requirements: &mut MemoryRequirements2KHR,
-    ) {
+    ) -> MemoryRequirements2KHR {
         unsafe {
+            let mut memory_requirements = core::mem::MaybeUninit::uninit();
             (self.get_acceleration_structure_memory_requirements_nv)(
                 device,
                 info,
-                memory_requirements,
-            )
+                memory_requirements.as_mut_ptr(),
+            );
+            memory_requirements.assume_init()
         }
     }
     pub unsafe fn bind_acceleration_structure_memory_nv(
@@ -112,11 +118,16 @@ impl DeviceFn {
         bind_infos: &[BindAccelerationStructureMemoryInfoNV],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.bind_acceleration_structure_memory_nv)(
+            let result = (self.bind_acceleration_structure_memory_nv)(
                 device,
                 bind_infos.len().try_into().unwrap(),
                 bind_infos.as_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn cmd_build_acceleration_structure_nv(
@@ -201,14 +212,20 @@ impl DeviceFn {
         pipelines: &mut [Pipeline],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.create_ray_tracing_pipelines_nv)(
+            let result = (self.create_ray_tracing_pipelines_nv)(
                 device,
                 pipeline_cache,
                 create_infos.len().try_into().unwrap(),
                 create_infos.as_ptr() as _,
                 allocator.to_raw_ptr(),
                 pipelines.as_mut_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                VkResult::PIPELINE_COMPILE_REQUIRED_EXT => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_ray_tracing_shader_group_handles_nv(
@@ -220,14 +237,19 @@ impl DeviceFn {
         data: &mut [u8],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.get_ray_tracing_shader_group_handles_nv)(
+            let result = (self.get_ray_tracing_shader_group_handles_nv)(
                 device,
                 pipeline,
                 first_group,
                 group_count,
                 data.len().try_into().unwrap(),
                 data.as_mut_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_acceleration_structure_handle_nv(
@@ -237,12 +259,17 @@ impl DeviceFn {
         data: &mut [u8],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.get_acceleration_structure_handle_nv)(
+            let result = (self.get_acceleration_structure_handle_nv)(
                 device,
                 acceleration_structure,
                 data.len().try_into().unwrap(),
                 data.as_mut_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn cmd_write_acceleration_structures_properties_nv(
@@ -270,6 +297,13 @@ impl DeviceFn {
         pipeline: Pipeline,
         shader: u32,
     ) -> crate::Result<()> {
-        unsafe { result((self.compile_deferred_nv)(device, pipeline, shader)) }
+        unsafe {
+            let result = (self.compile_deferred_nv)(device, pipeline, shader);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
 }

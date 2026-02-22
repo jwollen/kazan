@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     get_device_buffer_memory_requirements_khr: PFN_vkGetDeviceBufferMemoryRequirements,
     get_device_image_memory_requirements_khr: PFN_vkGetDeviceImageMemoryRequirements,
@@ -32,20 +32,30 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &DeviceBufferMemoryRequirements,
-        memory_requirements: &mut MemoryRequirements2,
-    ) {
+    ) -> MemoryRequirements2 {
         unsafe {
-            (self.get_device_buffer_memory_requirements_khr)(device, info, memory_requirements)
+            let mut memory_requirements = core::mem::MaybeUninit::uninit();
+            (self.get_device_buffer_memory_requirements_khr)(
+                device,
+                info,
+                memory_requirements.as_mut_ptr(),
+            );
+            memory_requirements.assume_init()
         }
     }
     pub unsafe fn get_device_image_memory_requirements_khr(
         &self,
         device: Device,
         info: &DeviceImageMemoryRequirements,
-        memory_requirements: &mut MemoryRequirements2,
-    ) {
+    ) -> MemoryRequirements2 {
         unsafe {
-            (self.get_device_image_memory_requirements_khr)(device, info, memory_requirements)
+            let mut memory_requirements = core::mem::MaybeUninit::uninit();
+            (self.get_device_image_memory_requirements_khr)(
+                device,
+                info,
+                memory_requirements.as_mut_ptr(),
+            );
+            memory_requirements.assume_init()
         }
     }
     pub unsafe fn get_device_image_sparse_memory_requirements_khr(

@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     get_physical_device_supported_framebuffer_mixed_samples_combinations_nv:
         PFN_vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV,
@@ -29,13 +29,18 @@ impl InstanceFn {
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(combinations, |combination_count, combinations| {
-                result(
-                    (self.get_physical_device_supported_framebuffer_mixed_samples_combinations_nv)(
-                        physical_device,
-                        combination_count,
-                        combinations as _,
-                    ),
-                )
+                let result = (self
+                    .get_physical_device_supported_framebuffer_mixed_samples_combinations_nv)(
+                    physical_device,
+                    combination_count,
+                    combinations as _,
+                );
+
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
             })
         }
     }

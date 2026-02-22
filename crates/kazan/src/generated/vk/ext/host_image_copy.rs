@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     copy_memory_to_image_ext: PFN_vkCopyMemoryToImage,
     copy_image_to_memory_ext: PFN_vkCopyImageToMemory,
@@ -42,10 +42,12 @@ impl DeviceFn {
         copy_memory_to_image_info: &CopyMemoryToImageInfo,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.copy_memory_to_image_ext)(
-                device,
-                copy_memory_to_image_info,
-            ))
+            let result = (self.copy_memory_to_image_ext)(device, copy_memory_to_image_info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn copy_image_to_memory_ext(
@@ -54,10 +56,12 @@ impl DeviceFn {
         copy_image_to_memory_info: &CopyImageToMemoryInfo,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.copy_image_to_memory_ext)(
-                device,
-                copy_image_to_memory_info,
-            ))
+            let result = (self.copy_image_to_memory_ext)(device, copy_image_to_memory_info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn copy_image_to_image_ext(
@@ -66,10 +70,12 @@ impl DeviceFn {
         copy_image_to_image_info: &CopyImageToImageInfo,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.copy_image_to_image_ext)(
-                device,
-                copy_image_to_image_info,
-            ))
+            let result = (self.copy_image_to_image_ext)(device, copy_image_to_image_info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn transition_image_layout_ext(
@@ -78,11 +84,16 @@ impl DeviceFn {
         transitions: &[HostImageLayoutTransitionInfo],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.transition_image_layout_ext)(
+            let result = (self.transition_image_layout_ext)(
                 device,
                 transitions.len().try_into().unwrap(),
                 transitions.as_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_image_subresource_layout2_ext(
@@ -90,8 +101,16 @@ impl DeviceFn {
         device: Device,
         image: Image,
         subresource: &ImageSubresource2,
-        layout: &mut SubresourceLayout2,
-    ) {
-        unsafe { (self.get_image_subresource_layout2_ext)(device, image, subresource, layout) }
+    ) -> SubresourceLayout2 {
+        unsafe {
+            let mut layout = core::mem::MaybeUninit::uninit();
+            (self.get_image_subresource_layout2_ext)(
+                device,
+                image,
+                subresource,
+                layout.as_mut_ptr(),
+            );
+            layout.assume_init()
+        }
     }
 }

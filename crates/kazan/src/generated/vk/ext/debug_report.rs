@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     create_debug_report_callback_ext: PFN_vkCreateDebugReportCallbackEXT,
     destroy_debug_report_callback_ext: PFN_vkDestroyDebugReportCallbackEXT,
@@ -33,15 +33,20 @@ impl InstanceFn {
         instance: Instance,
         create_info: &DebugReportCallbackCreateInfoEXT,
         allocator: Option<&AllocationCallbacks>,
-        callback: &mut DebugReportCallbackEXT,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<DebugReportCallbackEXT> {
         unsafe {
-            result((self.create_debug_report_callback_ext)(
+            let mut callback = core::mem::MaybeUninit::uninit();
+            let result = (self.create_debug_report_callback_ext)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),
-                callback,
-            ))
+                callback.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(callback.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_debug_report_callback_ext(

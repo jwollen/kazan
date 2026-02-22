@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     enumerate_physical_device_queue_family_performance_query_counters_khr:
         PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR,
@@ -40,16 +40,20 @@ impl InstanceFn {
                 counters,
                 counter_descriptions,
                 |counter_count, counters, counter_descriptions| {
-                    result(
-                        (self
-                            .enumerate_physical_device_queue_family_performance_query_counters_khr)(
-                            physical_device,
-                            queue_family_index,
-                            counter_count,
-                            counters as _,
-                            counter_descriptions as _,
-                        ),
-                    )
+                    let result = (self
+                        .enumerate_physical_device_queue_family_performance_query_counters_khr)(
+                        physical_device,
+                        queue_family_index,
+                        counter_count,
+                        counters as _,
+                        counter_descriptions as _,
+                    );
+
+                    match result {
+                        VkResult::SUCCESS => Ok(()),
+                        VkResult::INCOMPLETE => Ok(()),
+                        err => Err(err),
+                    }
                 },
             )
         }
@@ -58,14 +62,15 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         performance_query_create_info: &QueryPoolPerformanceCreateInfoKHR,
-        num_passes: &mut u32,
-    ) {
+    ) -> u32 {
         unsafe {
+            let mut num_passes = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_queue_family_performance_query_passes_khr)(
                 physical_device,
                 performance_query_create_info,
-                num_passes,
-            )
+                num_passes.as_mut_ptr(),
+            );
+            num_passes.assume_init()
         }
     }
 }
@@ -95,7 +100,14 @@ impl DeviceFn {
         device: Device,
         info: &AcquireProfilingLockInfoKHR,
     ) -> crate::Result<()> {
-        unsafe { result((self.acquire_profiling_lock_khr)(device, info)) }
+        unsafe {
+            let result = (self.acquire_profiling_lock_khr)(device, info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn release_profiling_lock_khr(&self, device: Device) {
         unsafe { (self.release_profiling_lock_khr)(device) }

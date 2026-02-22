@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     cmd_set_event2_khr: PFN_vkCmdSetEvent2,
     cmd_reset_event2_khr: PFN_vkCmdResetEvent2,
@@ -86,12 +86,17 @@ impl DeviceFn {
         fence: Fence,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.queue_submit2_khr)(
+            let result = (self.queue_submit2_khr)(
                 queue,
                 submits.len().try_into().unwrap(),
                 submits.as_ptr() as _,
                 fence,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
 }

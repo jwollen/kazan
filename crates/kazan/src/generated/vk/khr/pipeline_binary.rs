@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     create_pipeline_binaries_khr: PFN_vkCreatePipelineBinariesKHR,
     destroy_pipeline_binary_khr: PFN_vkDestroyPipelineBinaryKHR,
@@ -42,12 +42,19 @@ impl DeviceFn {
         binaries: &mut PipelineBinaryHandlesInfoKHR,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.create_pipeline_binaries_khr)(
+            let result = (self.create_pipeline_binaries_khr)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
                 binaries,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                VkResult::INCOMPLETE => Ok(()),
+                VkResult::PIPELINE_BINARY_MISSING_KHR => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_pipeline_binary_khr(
@@ -64,34 +71,44 @@ impl DeviceFn {
         &self,
         device: Device,
         pipeline_create_info: Option<&PipelineCreateInfoKHR>,
-        pipeline_key: &mut PipelineBinaryKeyKHR,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<PipelineBinaryKeyKHR> {
         unsafe {
-            result((self.get_pipeline_key_khr)(
+            let mut pipeline_key = core::mem::MaybeUninit::uninit();
+            let result = (self.get_pipeline_key_khr)(
                 device,
                 pipeline_create_info.to_raw_ptr(),
-                pipeline_key,
-            ))
+                pipeline_key.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(pipeline_key.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_pipeline_binary_data_khr(
         &self,
         device: Device,
         info: &PipelineBinaryDataInfoKHR,
-        pipeline_binary_key: &mut PipelineBinaryKeyKHR,
         pipeline_binary_data: impl ExtendUninit<u8>,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<PipelineBinaryKeyKHR> {
         unsafe {
             try_extend_uninit(
                 pipeline_binary_data,
                 |pipeline_binary_data_size, pipeline_binary_data| {
-                    result((self.get_pipeline_binary_data_khr)(
+                    let mut pipeline_binary_key = core::mem::MaybeUninit::uninit();
+                    let result = (self.get_pipeline_binary_data_khr)(
                         device,
                         info,
-                        pipeline_binary_key,
+                        pipeline_binary_key.as_mut_ptr(),
                         pipeline_binary_data_size,
                         pipeline_binary_data as _,
-                    ))
+                    );
+
+                    match result {
+                        VkResult::SUCCESS => Ok(pipeline_binary_key.assume_init()),
+                        err => Err(err),
+                    }
                 },
             )
         }
@@ -103,11 +120,13 @@ impl DeviceFn {
         allocator: Option<&AllocationCallbacks>,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.release_captured_pipeline_data_khr)(
-                device,
-                info,
-                allocator.to_raw_ptr(),
-            ))
+            let result =
+                (self.release_captured_pipeline_data_khr)(device, info, allocator.to_raw_ptr());
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
 }

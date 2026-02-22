@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     create_direct_fb_surface_ext: PFN_vkCreateDirectFBSurfaceEXT,
     get_physical_device_direct_fb_presentation_support_ext:
@@ -31,22 +31,27 @@ impl InstanceFn {
         instance: Instance,
         create_info: &DirectFBSurfaceCreateInfoEXT,
         allocator: Option<&AllocationCallbacks>,
-        surface: &mut SurfaceKHR,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<SurfaceKHR> {
         unsafe {
-            result((self.create_direct_fb_surface_ext)(
+            let mut surface = core::mem::MaybeUninit::uninit();
+            let result = (self.create_direct_fb_surface_ext)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),
-                surface,
-            ))
+                surface.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(surface.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_physical_device_direct_fb_presentation_support_ext(
         &self,
         physical_device: PhysicalDevice,
         queue_family_index: u32,
-        dfb: &mut IDirectFB,
+        dfb: *mut IDirectFB,
     ) -> Bool32 {
         unsafe {
             (self.get_physical_device_direct_fb_presentation_support_ext)(

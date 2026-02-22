@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     cmd_bind_descriptor_sets2_khr: PFN_vkCmdBindDescriptorSets2,
     cmd_push_constants2_khr: PFN_vkCmdPushConstants2,

@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     export_metal_objects_ext: PFN_vkExportMetalObjectsEXT,
 }
@@ -20,11 +20,11 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
-    pub unsafe fn export_metal_objects_ext(
-        &self,
-        device: Device,
-        metal_objects_info: &mut ExportMetalObjectsInfoEXT,
-    ) {
-        unsafe { (self.export_metal_objects_ext)(device, metal_objects_info) }
+    pub unsafe fn export_metal_objects_ext(&self, device: Device) -> ExportMetalObjectsInfoEXT {
+        unsafe {
+            let mut metal_objects_info = core::mem::MaybeUninit::uninit();
+            (self.export_metal_objects_ext)(device, metal_objects_info.as_mut_ptr());
+            metal_objects_info.assume_init()
+        }
     }
 }

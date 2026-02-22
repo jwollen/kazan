@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     create_execution_graph_pipelines_amdx: PFN_vkCreateExecutionGraphPipelinesAMDX,
     get_execution_graph_pipeline_scratch_size_amdx: PFN_vkGetExecutionGraphPipelineScratchSizeAMDX,
@@ -53,28 +53,39 @@ impl DeviceFn {
         pipelines: &mut [Pipeline],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.create_execution_graph_pipelines_amdx)(
+            let result = (self.create_execution_graph_pipelines_amdx)(
                 device,
                 pipeline_cache,
                 create_infos.len().try_into().unwrap(),
                 create_infos.as_ptr() as _,
                 allocator.to_raw_ptr(),
                 pipelines.as_mut_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                VkResult::PIPELINE_COMPILE_REQUIRED_EXT => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_execution_graph_pipeline_scratch_size_amdx(
         &self,
         device: Device,
         execution_graph: Pipeline,
-        size_info: &mut ExecutionGraphPipelineScratchSizeAMDX,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<ExecutionGraphPipelineScratchSizeAMDX> {
         unsafe {
-            result((self.get_execution_graph_pipeline_scratch_size_amdx)(
+            let mut size_info = core::mem::MaybeUninit::uninit();
+            let result = (self.get_execution_graph_pipeline_scratch_size_amdx)(
                 device,
                 execution_graph,
-                size_info,
-            ))
+                size_info.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(size_info.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_execution_graph_pipeline_node_index_amdx(
@@ -82,15 +93,20 @@ impl DeviceFn {
         device: Device,
         execution_graph: Pipeline,
         node_info: &PipelineShaderStageNodeCreateInfoAMDX,
-        node_index: &mut u32,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<u32> {
         unsafe {
-            result((self.get_execution_graph_pipeline_node_index_amdx)(
+            let mut node_index = core::mem::MaybeUninit::uninit();
+            let result = (self.get_execution_graph_pipeline_node_index_amdx)(
                 device,
                 execution_graph,
                 node_info,
-                node_index,
-            ))
+                node_index.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(node_index.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn cmd_initialize_graph_scratch_memory_amdx(

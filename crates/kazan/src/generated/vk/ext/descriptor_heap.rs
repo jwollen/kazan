@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     get_physical_device_descriptor_size_ext: PFN_vkGetPhysicalDeviceDescriptorSizeEXT,
 }
@@ -82,12 +82,17 @@ impl DeviceFn {
         descriptors: &[HostAddressRangeEXT],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.write_sampler_descriptors_ext)(
+            let result = (self.write_sampler_descriptors_ext)(
                 device,
                 samplers.len().try_into().unwrap(),
                 samplers.as_ptr() as _,
                 descriptors.as_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn write_resource_descriptors_ext(
@@ -97,12 +102,17 @@ impl DeviceFn {
         descriptors: &[HostAddressRangeEXT],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.write_resource_descriptors_ext)(
+            let result = (self.write_resource_descriptors_ext)(
                 device,
                 resources.len().try_into().unwrap(),
                 resources.as_ptr() as _,
                 descriptors.as_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn cmd_bind_sampler_heap_ext(
@@ -133,12 +143,17 @@ impl DeviceFn {
         datas: &mut [HostAddressRangeEXT],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.get_image_opaque_capture_data_ext)(
+            let result = (self.get_image_opaque_capture_data_ext)(
                 device,
                 images.len().try_into().unwrap(),
                 images.as_ptr() as _,
                 datas.as_mut_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn register_custom_border_color_ext(
@@ -146,15 +161,20 @@ impl DeviceFn {
         device: Device,
         border_color: &SamplerCustomBorderColorCreateInfoEXT,
         request_index: Bool32,
-        index: &mut u32,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<u32> {
         unsafe {
-            result((self.register_custom_border_color_ext.unwrap())(
+            let mut index = core::mem::MaybeUninit::uninit();
+            let result = (self.register_custom_border_color_ext.unwrap())(
                 device,
                 border_color,
                 request_index,
-                index,
-            ))
+                index.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(index.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn unregister_custom_border_color_ext(&self, device: Device, index: u32) {
@@ -167,12 +187,17 @@ impl DeviceFn {
         datas: &mut [HostAddressRangeEXT],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.get_tensor_opaque_capture_data_arm.unwrap())(
+            let result = (self.get_tensor_opaque_capture_data_arm.unwrap())(
                 device,
                 tensors.len().try_into().unwrap(),
                 tensors.as_ptr() as _,
                 datas.as_mut_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
 }

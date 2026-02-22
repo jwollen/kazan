@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     get_physical_device_external_tensor_properties_arm:
         PFN_vkGetPhysicalDeviceExternalTensorPropertiesARM,
@@ -25,14 +25,15 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         external_tensor_info: &PhysicalDeviceExternalTensorInfoARM,
-        external_tensor_properties: &mut ExternalTensorPropertiesARM,
-    ) {
+    ) -> ExternalTensorPropertiesARM {
         unsafe {
+            let mut external_tensor_properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_external_tensor_properties_arm)(
                 physical_device,
                 external_tensor_info,
-                external_tensor_properties,
-            )
+                external_tensor_properties.as_mut_ptr(),
+            );
+            external_tensor_properties.assume_init()
         }
     }
 }
@@ -90,15 +91,20 @@ impl DeviceFn {
         device: Device,
         create_info: &TensorCreateInfoARM,
         allocator: Option<&AllocationCallbacks>,
-        tensor: &mut TensorARM,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<TensorARM> {
         unsafe {
-            result((self.create_tensor_arm)(
+            let mut tensor = core::mem::MaybeUninit::uninit();
+            let result = (self.create_tensor_arm)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                tensor,
-            ))
+                tensor.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(tensor.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_tensor_arm(
@@ -114,15 +120,20 @@ impl DeviceFn {
         device: Device,
         create_info: &TensorViewCreateInfoARM,
         allocator: Option<&AllocationCallbacks>,
-        view: &mut TensorViewARM,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<TensorViewARM> {
         unsafe {
-            result((self.create_tensor_view_arm)(
+            let mut view = core::mem::MaybeUninit::uninit();
+            let result = (self.create_tensor_view_arm)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                view,
-            ))
+                view.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(view.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_tensor_view_arm(
@@ -137,9 +148,16 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &TensorMemoryRequirementsInfoARM,
-        memory_requirements: &mut MemoryRequirements2,
-    ) {
-        unsafe { (self.get_tensor_memory_requirements_arm)(device, info, memory_requirements) }
+    ) -> MemoryRequirements2 {
+        unsafe {
+            let mut memory_requirements = core::mem::MaybeUninit::uninit();
+            (self.get_tensor_memory_requirements_arm)(
+                device,
+                info,
+                memory_requirements.as_mut_ptr(),
+            );
+            memory_requirements.assume_init()
+        }
     }
     pub unsafe fn bind_tensor_memory_arm(
         &self,
@@ -147,21 +165,31 @@ impl DeviceFn {
         bind_infos: &[BindTensorMemoryInfoARM],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.bind_tensor_memory_arm)(
+            let result = (self.bind_tensor_memory_arm)(
                 device,
                 bind_infos.len().try_into().unwrap(),
                 bind_infos.as_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_device_tensor_memory_requirements_arm(
         &self,
         device: Device,
         info: &DeviceTensorMemoryRequirementsARM,
-        memory_requirements: &mut MemoryRequirements2,
-    ) {
+    ) -> MemoryRequirements2 {
         unsafe {
-            (self.get_device_tensor_memory_requirements_arm)(device, info, memory_requirements)
+            let mut memory_requirements = core::mem::MaybeUninit::uninit();
+            (self.get_device_tensor_memory_requirements_arm)(
+                device,
+                info,
+                memory_requirements.as_mut_ptr(),
+            );
+            memory_requirements.assume_init()
         }
     }
     pub unsafe fn cmd_copy_tensor_arm(
@@ -178,9 +206,13 @@ impl DeviceFn {
         data: &mut c_void,
     ) -> crate::Result<()> {
         unsafe {
-            result((self
-                .get_tensor_opaque_capture_descriptor_data_arm
-                .unwrap())(device, info, data))
+            let result =
+                (self.get_tensor_opaque_capture_descriptor_data_arm.unwrap())(device, info, data);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_tensor_view_opaque_capture_descriptor_data_arm(
@@ -190,9 +222,14 @@ impl DeviceFn {
         data: &mut c_void,
     ) -> crate::Result<()> {
         unsafe {
-            result((self
+            let result = (self
                 .get_tensor_view_opaque_capture_descriptor_data_arm
-                .unwrap())(device, info, data))
+                .unwrap())(device, info, data);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
 }

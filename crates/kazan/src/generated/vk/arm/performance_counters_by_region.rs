@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     enumerate_physical_device_queue_family_performance_counters_by_region_arm:
         PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM,
@@ -35,15 +35,20 @@ impl InstanceFn {
                 counters,
                 counter_descriptions,
                 |counter_count, counters, counter_descriptions| {
-                    result(
-(self.enumerate_physical_device_queue_family_performance_counters_by_region_arm)(
-physical_device,
-queue_family_index,
-counter_count,
-counters as _,
-counter_descriptions as _,
-)
-)
+                    let result = (self
+                        .enumerate_physical_device_queue_family_performance_counters_by_region_arm)(
+                        physical_device,
+                        queue_family_index,
+                        counter_count,
+                        counters as _,
+                        counter_descriptions as _,
+                    );
+
+                    match result {
+                        VkResult::SUCCESS => Ok(()),
+                        VkResult::INCOMPLETE => Ok(()),
+                        err => Err(err),
+                    }
                 },
             )
         }

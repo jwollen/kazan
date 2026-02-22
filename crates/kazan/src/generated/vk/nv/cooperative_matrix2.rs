@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     get_physical_device_cooperative_matrix_flexible_dimensions_properties_nv:
         PFN_vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV,
@@ -29,13 +29,18 @@ impl InstanceFn {
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(properties, |property_count, properties| {
-                result(
-                    (self.get_physical_device_cooperative_matrix_flexible_dimensions_properties_nv)(
-                        physical_device,
-                        property_count,
-                        properties as _,
-                    ),
-                )
+                let result = (self
+                    .get_physical_device_cooperative_matrix_flexible_dimensions_properties_nv)(
+                    physical_device,
+                    property_count,
+                    properties as _,
+                );
+
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
             })
         }
     }

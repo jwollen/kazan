@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     import_semaphore_zircon_handle_fuchsia: PFN_vkImportSemaphoreZirconHandleFUCHSIA,
     get_semaphore_zircon_handle_fuchsia: PFN_vkGetSemaphoreZirconHandleFUCHSIA,
@@ -30,24 +30,34 @@ impl DeviceFn {
         import_semaphore_zircon_handle_info: &ImportSemaphoreZirconHandleInfoFUCHSIA,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.import_semaphore_zircon_handle_fuchsia)(
+            let result = (self.import_semaphore_zircon_handle_fuchsia)(
                 device,
                 import_semaphore_zircon_handle_info,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_semaphore_zircon_handle_fuchsia(
         &self,
         device: Device,
         get_zircon_handle_info: &SemaphoreGetZirconHandleInfoFUCHSIA,
-        zircon_handle: &mut zx_handle_t,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<zx_handle_t> {
         unsafe {
-            result((self.get_semaphore_zircon_handle_fuchsia)(
+            let mut zircon_handle = core::mem::MaybeUninit::uninit();
+            let result = (self.get_semaphore_zircon_handle_fuchsia)(
                 device,
                 get_zircon_handle_info,
-                zircon_handle,
-            ))
+                zircon_handle.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(zircon_handle.assume_init()),
+                err => Err(err),
+            }
         }
     }
 }

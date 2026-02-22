@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     get_descriptor_set_layout_support_khr: PFN_vkGetDescriptorSetLayoutSupport,
 }
@@ -24,8 +24,11 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &DescriptorSetLayoutCreateInfo,
-        support: &mut DescriptorSetLayoutSupport,
-    ) {
-        unsafe { (self.get_descriptor_set_layout_support_khr)(device, create_info, support) }
+    ) -> DescriptorSetLayoutSupport {
+        unsafe {
+            let mut support = core::mem::MaybeUninit::uninit();
+            (self.get_descriptor_set_layout_support_khr)(device, create_info, support.as_mut_ptr());
+            support.assume_init()
+        }
     }
 }

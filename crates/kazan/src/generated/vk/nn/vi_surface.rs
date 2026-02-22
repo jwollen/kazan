@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     create_vi_surface_nn: PFN_vkCreateViSurfaceNN,
 }
@@ -23,15 +23,20 @@ impl InstanceFn {
         instance: Instance,
         create_info: &ViSurfaceCreateInfoNN,
         allocator: Option<&AllocationCallbacks>,
-        surface: &mut SurfaceKHR,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<SurfaceKHR> {
         unsafe {
-            result((self.create_vi_surface_nn)(
+            let mut surface = core::mem::MaybeUninit::uninit();
+            let result = (self.create_vi_surface_nn)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),
-                surface,
-            ))
+                surface.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(surface.assume_init()),
+                err => Err(err),
+            }
         }
     }
 }

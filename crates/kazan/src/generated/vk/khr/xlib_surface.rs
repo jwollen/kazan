@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     create_xlib_surface_khr: PFN_vkCreateXlibSurfaceKHR,
     get_physical_device_xlib_presentation_support_khr:
@@ -30,22 +30,27 @@ impl InstanceFn {
         instance: Instance,
         create_info: &XlibSurfaceCreateInfoKHR,
         allocator: Option<&AllocationCallbacks>,
-        surface: &mut SurfaceKHR,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<SurfaceKHR> {
         unsafe {
-            result((self.create_xlib_surface_khr)(
+            let mut surface = core::mem::MaybeUninit::uninit();
+            let result = (self.create_xlib_surface_khr)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),
-                surface,
-            ))
+                surface.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(surface.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_physical_device_xlib_presentation_support_khr(
         &self,
         physical_device: PhysicalDevice,
         queue_family_index: u32,
-        dpy: &mut Display,
+        dpy: *mut Display,
         visual_id: VisualID,
     ) -> Bool32 {
         unsafe {

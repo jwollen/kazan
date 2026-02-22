@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     create_private_data_slot_ext: PFN_vkCreatePrivateDataSlot,
     destroy_private_data_slot_ext: PFN_vkDestroyPrivateDataSlot,
@@ -33,15 +33,20 @@ impl DeviceFn {
         device: Device,
         create_info: &PrivateDataSlotCreateInfo,
         allocator: Option<&AllocationCallbacks>,
-        private_data_slot: &mut PrivateDataSlot,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<PrivateDataSlot> {
         unsafe {
-            result((self.create_private_data_slot_ext)(
+            let mut private_data_slot = core::mem::MaybeUninit::uninit();
+            let result = (self.create_private_data_slot_ext)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                private_data_slot,
-            ))
+                private_data_slot.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(private_data_slot.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_private_data_slot_ext(
@@ -63,13 +68,18 @@ impl DeviceFn {
         data: u64,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.set_private_data_ext)(
+            let result = (self.set_private_data_ext)(
                 device,
                 object_type,
                 object_handle,
                 private_data_slot,
                 data,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_private_data_ext(
@@ -78,10 +88,17 @@ impl DeviceFn {
         object_type: ObjectType,
         object_handle: u64,
         private_data_slot: PrivateDataSlot,
-        data: &mut u64,
-    ) {
+    ) -> u64 {
         unsafe {
-            (self.get_private_data_ext)(device, object_type, object_handle, private_data_slot, data)
+            let mut data = core::mem::MaybeUninit::uninit();
+            (self.get_private_data_ext)(
+                device,
+                object_type,
+                object_handle,
+                private_data_slot,
+                data.as_mut_ptr(),
+            );
+            data.assume_init()
         }
     }
 }

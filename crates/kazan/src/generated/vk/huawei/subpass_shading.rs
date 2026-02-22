@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     get_device_subpass_shading_max_workgroup_size_huawei:
         PFN_vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI,
@@ -32,11 +32,16 @@ impl DeviceFn {
         max_workgroup_size: &mut Extent2D,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.get_device_subpass_shading_max_workgroup_size_huawei)(
+            let result = (self.get_device_subpass_shading_max_workgroup_size_huawei)(
                 device,
                 renderpass,
                 max_workgroup_size,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn cmd_subpass_shading_huawei(&self, command_buffer: CommandBuffer) {

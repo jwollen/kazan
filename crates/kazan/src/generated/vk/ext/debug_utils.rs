@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     create_debug_utils_messenger_ext: PFN_vkCreateDebugUtilsMessengerEXT,
     destroy_debug_utils_messenger_ext: PFN_vkDestroyDebugUtilsMessengerEXT,
@@ -33,15 +33,20 @@ impl InstanceFn {
         instance: Instance,
         create_info: &DebugUtilsMessengerCreateInfoEXT,
         allocator: Option<&AllocationCallbacks>,
-        messenger: &mut DebugUtilsMessengerEXT,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<DebugUtilsMessengerEXT> {
         unsafe {
-            result((self.create_debug_utils_messenger_ext)(
+            let mut messenger = core::mem::MaybeUninit::uninit();
+            let result = (self.create_debug_utils_messenger_ext)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),
-                messenger,
-            ))
+                messenger.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(messenger.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_debug_utils_messenger_ext(
@@ -121,14 +126,28 @@ impl DeviceFn {
         device: Device,
         name_info: &DebugUtilsObjectNameInfoEXT,
     ) -> crate::Result<()> {
-        unsafe { result((self.set_debug_utils_object_name_ext)(device, name_info)) }
+        unsafe {
+            let result = (self.set_debug_utils_object_name_ext)(device, name_info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn set_debug_utils_object_tag_ext(
         &self,
         device: Device,
         tag_info: &DebugUtilsObjectTagInfoEXT,
     ) -> crate::Result<()> {
-        unsafe { result((self.set_debug_utils_object_tag_ext)(device, tag_info)) }
+        unsafe {
+            let result = (self.set_debug_utils_object_tag_ext)(device, tag_info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn queue_begin_debug_utils_label_ext(
         &self,

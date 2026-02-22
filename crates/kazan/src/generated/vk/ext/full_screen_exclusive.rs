@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     get_physical_device_surface_present_modes2_ext: PFN_vkGetPhysicalDeviceSurfacePresentModes2EXT,
 }
@@ -28,12 +28,18 @@ impl InstanceFn {
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(present_modes, |present_mode_count, present_modes| {
-                result((self.get_physical_device_surface_present_modes2_ext)(
+                let result = (self.get_physical_device_surface_present_modes2_ext)(
                     physical_device,
                     surface_info,
                     present_mode_count,
                     present_modes as _,
-                ))
+                );
+
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
             })
         }
     }
@@ -70,9 +76,12 @@ impl DeviceFn {
         swapchain: SwapchainKHR,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.acquire_full_screen_exclusive_mode_ext)(
-                device, swapchain,
-            ))
+            let result = (self.acquire_full_screen_exclusive_mode_ext)(device, swapchain);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn release_full_screen_exclusive_mode_ext(
@@ -81,23 +90,31 @@ impl DeviceFn {
         swapchain: SwapchainKHR,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.release_full_screen_exclusive_mode_ext)(
-                device, swapchain,
-            ))
+            let result = (self.release_full_screen_exclusive_mode_ext)(device, swapchain);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_device_group_surface_present_modes2_ext(
         &self,
         device: Device,
         surface_info: &PhysicalDeviceSurfaceInfo2KHR,
-        modes: &mut DeviceGroupPresentModeFlagsKHR,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<DeviceGroupPresentModeFlagsKHR> {
         unsafe {
-            result((self.get_device_group_surface_present_modes2_ext.unwrap())(
+            let mut modes = core::mem::MaybeUninit::uninit();
+            let result = (self.get_device_group_surface_present_modes2_ext.unwrap())(
                 device,
                 surface_info,
-                modes,
-            ))
+                modes.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(modes.assume_init()),
+                err => Err(err),
+            }
         }
     }
 }

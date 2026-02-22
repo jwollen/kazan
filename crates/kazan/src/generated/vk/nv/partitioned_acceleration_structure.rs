@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     get_partitioned_acceleration_structures_build_sizes_nv:
         PFN_vkGetPartitionedAccelerationStructuresBuildSizesNV,
@@ -31,10 +31,15 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &PartitionedAccelerationStructureInstancesInputNV,
-        size_info: &mut AccelerationStructureBuildSizesInfoKHR,
-    ) {
+    ) -> AccelerationStructureBuildSizesInfoKHR {
         unsafe {
-            (self.get_partitioned_acceleration_structures_build_sizes_nv)(device, info, size_info)
+            let mut size_info = core::mem::MaybeUninit::uninit();
+            (self.get_partitioned_acceleration_structures_build_sizes_nv)(
+                device,
+                info,
+                size_info.as_mut_ptr(),
+            );
+            size_info.assume_init()
         }
     }
     pub unsafe fn cmd_build_partitioned_acceleration_structures_nv(

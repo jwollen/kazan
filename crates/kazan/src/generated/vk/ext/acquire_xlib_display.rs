@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     acquire_xlib_display_ext: PFN_vkAcquireXlibDisplayEXT,
     get_rand_r_output_display_ext: PFN_vkGetRandROutputDisplayEXT,
@@ -27,31 +27,37 @@ impl InstanceFn {
     pub unsafe fn acquire_xlib_display_ext(
         &self,
         physical_device: PhysicalDevice,
-        dpy: &mut Display,
+        dpy: *mut Display,
         display: DisplayKHR,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.acquire_xlib_display_ext)(
-                physical_device,
-                dpy,
-                display,
-            ))
+            let result = (self.acquire_xlib_display_ext)(physical_device, dpy, display);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_rand_r_output_display_ext(
         &self,
         physical_device: PhysicalDevice,
-        dpy: &mut Display,
+        dpy: *mut Display,
         rr_output: RROutput,
-        display: &mut DisplayKHR,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<DisplayKHR> {
         unsafe {
-            result((self.get_rand_r_output_display_ext)(
+            let mut display = core::mem::MaybeUninit::uninit();
+            let result = (self.get_rand_r_output_display_ext)(
                 physical_device,
                 dpy,
                 rr_output,
-                display,
-            ))
+                display.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(display.assume_init()),
+                err => Err(err),
+            }
         }
     }
 }

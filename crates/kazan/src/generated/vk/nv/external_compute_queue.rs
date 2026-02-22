@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     create_external_compute_queue_nv: PFN_vkCreateExternalComputeQueueNV,
     destroy_external_compute_queue_nv: PFN_vkDestroyExternalComputeQueueNV,
@@ -33,15 +33,20 @@ impl DeviceFn {
         device: Device,
         create_info: &ExternalComputeQueueCreateInfoNV,
         allocator: Option<&AllocationCallbacks>,
-        external_queue: &mut ExternalComputeQueueNV,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<ExternalComputeQueueNV> {
         unsafe {
-            result((self.create_external_compute_queue_nv)(
+            let mut external_queue = core::mem::MaybeUninit::uninit();
+            let result = (self.create_external_compute_queue_nv)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                external_queue,
-            ))
+                external_queue.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(external_queue.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_external_compute_queue_nv(
@@ -57,9 +62,12 @@ impl DeviceFn {
     pub unsafe fn get_external_compute_queue_data_nv(
         &self,
         external_queue: ExternalComputeQueueNV,
-        params: &mut ExternalComputeQueueDataParamsNV,
         data: &mut c_void,
-    ) {
-        unsafe { (self.get_external_compute_queue_data_nv)(external_queue, params, data) }
+    ) -> ExternalComputeQueueDataParamsNV {
+        unsafe {
+            let mut params = core::mem::MaybeUninit::uninit();
+            (self.get_external_compute_queue_data_nv)(external_queue, params.as_mut_ptr(), data);
+            params.assume_init()
+        }
     }
 }

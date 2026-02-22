@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     get_screen_buffer_properties_qnx: PFN_vkGetScreenBufferPropertiesQNX,
 }
@@ -23,13 +23,17 @@ impl DeviceFn {
     pub unsafe fn get_screen_buffer_properties_qnx(
         &self,
         device: Device,
-        buffer: &_screen_buffer,
-        properties: &mut ScreenBufferPropertiesQNX,
-    ) -> crate::Result<()> {
+        buffer: *const _screen_buffer,
+    ) -> crate::Result<ScreenBufferPropertiesQNX> {
         unsafe {
-            result((self.get_screen_buffer_properties_qnx)(
-                device, buffer, properties,
-            ))
+            let mut properties = core::mem::MaybeUninit::uninit();
+            let result =
+                (self.get_screen_buffer_properties_qnx)(device, buffer, properties.as_mut_ptr());
+
+            match result {
+                VkResult::SUCCESS => Ok(properties.assume_init()),
+                err => Err(err),
+            }
         }
     }
 }

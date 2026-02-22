@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     get_semaphore_counter_value_khr: PFN_vkGetSemaphoreCounterValue,
     wait_semaphores_khr: PFN_vkWaitSemaphores,
@@ -28,12 +28,16 @@ impl DeviceFn {
         &self,
         device: Device,
         semaphore: Semaphore,
-        value: &mut u64,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<u64> {
         unsafe {
-            result((self.get_semaphore_counter_value_khr)(
-                device, semaphore, value,
-            ))
+            let mut value = core::mem::MaybeUninit::uninit();
+            let result =
+                (self.get_semaphore_counter_value_khr)(device, semaphore, value.as_mut_ptr());
+
+            match result {
+                VkResult::SUCCESS => Ok(value.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn wait_semaphores_khr(
@@ -42,13 +46,28 @@ impl DeviceFn {
         wait_info: &SemaphoreWaitInfo,
         timeout: u64,
     ) -> crate::Result<()> {
-        unsafe { result((self.wait_semaphores_khr)(device, wait_info, timeout)) }
+        unsafe {
+            let result = (self.wait_semaphores_khr)(device, wait_info, timeout);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                VkResult::TIMEOUT => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn signal_semaphore_khr(
         &self,
         device: Device,
         signal_info: &SemaphoreSignalInfo,
     ) -> crate::Result<()> {
-        unsafe { result((self.signal_semaphore_khr)(device, signal_info)) }
+        unsafe {
+            let result = (self.signal_semaphore_khr)(device, signal_info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
 }

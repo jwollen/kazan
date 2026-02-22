@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     create_validation_cache_ext: PFN_vkCreateValidationCacheEXT,
     destroy_validation_cache_ext: PFN_vkDestroyValidationCacheEXT,
@@ -37,15 +37,20 @@ impl DeviceFn {
         device: Device,
         create_info: &ValidationCacheCreateInfoEXT,
         allocator: Option<&AllocationCallbacks>,
-        validation_cache: &mut ValidationCacheEXT,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<ValidationCacheEXT> {
         unsafe {
-            result((self.create_validation_cache_ext)(
+            let mut validation_cache = core::mem::MaybeUninit::uninit();
+            let result = (self.create_validation_cache_ext)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                validation_cache,
-            ))
+                validation_cache.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(validation_cache.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_validation_cache_ext(
@@ -65,12 +70,17 @@ impl DeviceFn {
         src_caches: &[ValidationCacheEXT],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.merge_validation_caches_ext)(
+            let result = (self.merge_validation_caches_ext)(
                 device,
                 dst_cache,
                 src_caches.len().try_into().unwrap(),
                 src_caches.as_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_validation_cache_data_ext(
@@ -81,12 +91,18 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(data, |data_size, data| {
-                result((self.get_validation_cache_data_ext)(
+                let result = (self.get_validation_cache_data_ext)(
                     device,
                     validation_cache,
                     data_size,
                     data as _,
-                ))
+                );
+
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
             })
         }
     }

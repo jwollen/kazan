@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     initialize_performance_api_intel: PFN_vkInitializePerformanceApiINTEL,
     uninitialize_performance_api_intel: PFN_vkUninitializePerformanceApiINTEL,
@@ -58,10 +58,12 @@ impl DeviceFn {
         initialize_info: &InitializePerformanceApiInfoINTEL,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.initialize_performance_api_intel)(
-                device,
-                initialize_info,
-            ))
+            let result = (self.initialize_performance_api_intel)(device, initialize_info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn uninitialize_performance_api_intel(&self, device: Device) {
@@ -73,10 +75,12 @@ impl DeviceFn {
         marker_info: &PerformanceMarkerInfoINTEL,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.cmd_set_performance_marker_intel)(
-                command_buffer,
-                marker_info,
-            ))
+            let result = (self.cmd_set_performance_marker_intel)(command_buffer, marker_info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn cmd_set_performance_stream_marker_intel(
@@ -85,10 +89,13 @@ impl DeviceFn {
         marker_info: &PerformanceStreamMarkerInfoINTEL,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.cmd_set_performance_stream_marker_intel)(
-                command_buffer,
-                marker_info,
-            ))
+            let result =
+                (self.cmd_set_performance_stream_marker_intel)(command_buffer, marker_info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn cmd_set_performance_override_intel(
@@ -97,24 +104,31 @@ impl DeviceFn {
         override_info: &PerformanceOverrideInfoINTEL,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.cmd_set_performance_override_intel)(
-                command_buffer,
-                override_info,
-            ))
+            let result = (self.cmd_set_performance_override_intel)(command_buffer, override_info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn acquire_performance_configuration_intel(
         &self,
         device: Device,
         acquire_info: &PerformanceConfigurationAcquireInfoINTEL,
-        configuration: &mut PerformanceConfigurationINTEL,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<PerformanceConfigurationINTEL> {
         unsafe {
-            result((self.acquire_performance_configuration_intel)(
+            let mut configuration = core::mem::MaybeUninit::uninit();
+            let result = (self.acquire_performance_configuration_intel)(
                 device,
                 acquire_info,
-                configuration,
-            ))
+                configuration.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(configuration.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn release_performance_configuration_intel(
@@ -123,10 +137,12 @@ impl DeviceFn {
         configuration: PerformanceConfigurationINTEL,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.release_performance_configuration_intel)(
-                device,
-                configuration,
-            ))
+            let result = (self.release_performance_configuration_intel)(device, configuration);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn queue_set_performance_configuration_intel(
@@ -135,22 +151,28 @@ impl DeviceFn {
         configuration: PerformanceConfigurationINTEL,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.queue_set_performance_configuration_intel)(
-                queue,
-                configuration,
-            ))
+            let result = (self.queue_set_performance_configuration_intel)(queue, configuration);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_performance_parameter_intel(
         &self,
         device: Device,
         parameter: PerformanceParameterTypeINTEL,
-        value: &mut PerformanceValueINTEL,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<PerformanceValueINTEL> {
         unsafe {
-            result((self.get_performance_parameter_intel)(
-                device, parameter, value,
-            ))
+            let mut value = core::mem::MaybeUninit::uninit();
+            let result =
+                (self.get_performance_parameter_intel)(device, parameter, value.as_mut_ptr());
+
+            match result {
+                VkResult::SUCCESS => Ok(value.assume_init()),
+                err => Err(err),
+            }
         }
     }
 }

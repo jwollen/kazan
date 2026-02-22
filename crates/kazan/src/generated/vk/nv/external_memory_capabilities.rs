@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     get_physical_device_external_image_format_properties_nv:
         PFN_vkGetPhysicalDeviceExternalImageFormatPropertiesNV,
@@ -31,11 +31,10 @@ impl InstanceFn {
         usage: ImageUsageFlags,
         flags: ImageCreateFlags,
         external_handle_type: ExternalMemoryHandleTypeFlagsNV,
-        external_image_format_properties: &mut ExternalImageFormatPropertiesNV,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<ExternalImageFormatPropertiesNV> {
         unsafe {
-            result((self
-                .get_physical_device_external_image_format_properties_nv)(
+            let mut external_image_format_properties = core::mem::MaybeUninit::uninit();
+            let result = (self.get_physical_device_external_image_format_properties_nv)(
                 physical_device,
                 format,
                 ty,
@@ -43,8 +42,13 @@ impl InstanceFn {
                 usage,
                 flags,
                 external_handle_type,
-                external_image_format_properties,
-            ))
+                external_image_format_properties.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(external_image_format_properties.assume_init()),
+                err => Err(err),
+            }
         }
     }
 }

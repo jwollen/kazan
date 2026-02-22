@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     enumerate_physical_device_groups_khr: PFN_vkEnumeratePhysicalDeviceGroups,
 }
@@ -29,11 +29,17 @@ impl InstanceFn {
             try_extend_uninit(
                 physical_device_group_properties,
                 |physical_device_group_count, physical_device_group_properties| {
-                    result((self.enumerate_physical_device_groups_khr)(
+                    let result = (self.enumerate_physical_device_groups_khr)(
                         instance,
                         physical_device_group_count,
                         physical_device_group_properties as _,
-                    ))
+                    );
+
+                    match result {
+                        VkResult::SUCCESS => Ok(()),
+                        VkResult::INCOMPLETE => Ok(()),
+                        err => Err(err),
+                    }
                 },
             )
         }

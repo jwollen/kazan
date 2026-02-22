@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     cmd_set_depth_clamp_enable_ext: PFN_vkCmdSetDepthClampEnableEXT,
     cmd_set_polygon_mode_ext: PFN_vkCmdSetPolygonModeEXT,

@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     get_physical_device_present_rectangles_khr: Option<PFN_vkGetPhysicalDevicePresentRectanglesKHR>,
 }
@@ -28,12 +28,18 @@ impl InstanceFn {
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(rects, |rect_count, rects| {
-                result((self.get_physical_device_present_rectangles_khr.unwrap())(
+                let result = (self.get_physical_device_present_rectangles_khr.unwrap())(
                     physical_device,
                     surface,
                     rect_count,
                     rects as _,
-                ))
+                );
+
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
             })
         }
     }
@@ -82,15 +88,20 @@ impl DeviceFn {
         device: Device,
         create_info: &SwapchainCreateInfoKHR,
         allocator: Option<&AllocationCallbacks>,
-        swapchain: &mut SwapchainKHR,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<SwapchainKHR> {
         unsafe {
-            result((self.create_swapchain_khr)(
+            let mut swapchain = core::mem::MaybeUninit::uninit();
+            let result = (self.create_swapchain_khr)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                swapchain,
-            ))
+                swapchain.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(swapchain.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_swapchain_khr(
@@ -111,12 +122,18 @@ impl DeviceFn {
             try_extend_uninit(
                 swapchain_images,
                 |swapchain_image_count, swapchain_images| {
-                    result((self.get_swapchain_images_khr)(
+                    let result = (self.get_swapchain_images_khr)(
                         device,
                         swapchain,
                         swapchain_image_count,
                         swapchain_images as _,
-                    ))
+                    );
+
+                    match result {
+                        VkResult::SUCCESS => Ok(()),
+                        VkResult::INCOMPLETE => Ok(()),
+                        err => Err(err),
+                    }
                 },
             )
         }
@@ -131,14 +148,22 @@ impl DeviceFn {
         image_index: &mut u32,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.acquire_next_image_khr)(
+            let result = (self.acquire_next_image_khr)(
                 device,
                 swapchain,
                 timeout,
                 semaphore,
                 fence,
                 image_index,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                VkResult::TIMEOUT => Ok(()),
+                VkResult::NOT_READY => Ok(()),
+                VkResult::SUBOPTIMAL_KHR => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn queue_present_khr(
@@ -146,30 +171,50 @@ impl DeviceFn {
         queue: Queue,
         present_info: &PresentInfoKHR,
     ) -> crate::Result<()> {
-        unsafe { result((self.queue_present_khr)(queue, present_info)) }
+        unsafe {
+            let result = (self.queue_present_khr)(queue, present_info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                VkResult::SUBOPTIMAL_KHR => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn get_device_group_present_capabilities_khr(
         &self,
         device: Device,
-        device_group_present_capabilities: &mut DeviceGroupPresentCapabilitiesKHR,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<DeviceGroupPresentCapabilitiesKHR> {
         unsafe {
-            result((self.get_device_group_present_capabilities_khr.unwrap())(
+            let mut device_group_present_capabilities = core::mem::MaybeUninit::uninit();
+            let result = (self.get_device_group_present_capabilities_khr.unwrap())(
                 device,
-                device_group_present_capabilities,
-            ))
+                device_group_present_capabilities.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(device_group_present_capabilities.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_device_group_surface_present_modes_khr(
         &self,
         device: Device,
         surface: SurfaceKHR,
-        modes: &mut DeviceGroupPresentModeFlagsKHR,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<DeviceGroupPresentModeFlagsKHR> {
         unsafe {
-            result((self.get_device_group_surface_present_modes_khr.unwrap())(
-                device, surface, modes,
-            ))
+            let mut modes = core::mem::MaybeUninit::uninit();
+            let result = (self.get_device_group_surface_present_modes_khr.unwrap())(
+                device,
+                surface,
+                modes.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(modes.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn acquire_next_image2_khr(
@@ -179,11 +224,15 @@ impl DeviceFn {
         image_index: &mut u32,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.acquire_next_image2_khr.unwrap())(
-                device,
-                acquire_info,
-                image_index,
-            ))
+            let result = (self.acquire_next_image2_khr.unwrap())(device, acquire_info, image_index);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                VkResult::TIMEOUT => Ok(()),
+                VkResult::NOT_READY => Ok(()),
+                VkResult::SUBOPTIMAL_KHR => Ok(()),
+                err => Err(err),
+            }
         }
     }
 }

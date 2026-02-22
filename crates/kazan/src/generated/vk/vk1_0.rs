@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct EntryFn {
     create_instance: PFN_vkCreateInstance,
     enumerate_instance_extension_properties: PFN_vkEnumerateInstanceExtensionProperties,
@@ -30,14 +30,16 @@ impl EntryFn {
         &self,
         create_info: &InstanceCreateInfo,
         allocator: Option<&AllocationCallbacks>,
-        instance: &mut Instance,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<Instance> {
         unsafe {
-            result((self.create_instance)(
-                create_info,
-                allocator.to_raw_ptr(),
-                instance,
-            ))
+            let mut instance = core::mem::MaybeUninit::uninit();
+            let result =
+                (self.create_instance)(create_info, allocator.to_raw_ptr(), instance.as_mut_ptr());
+
+            match result {
+                VkResult::SUCCESS => Ok(instance.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn enumerate_instance_extension_properties(
@@ -47,11 +49,17 @@ impl EntryFn {
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(properties, |property_count, properties| {
-                result((self.enumerate_instance_extension_properties)(
+                let result = (self.enumerate_instance_extension_properties)(
                     layer_name.to_raw_ptr(),
                     property_count,
                     properties as _,
-                ))
+                );
+
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
             })
         }
     }
@@ -61,10 +69,14 @@ impl EntryFn {
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(properties, |property_count, properties| {
-                result((self.enumerate_instance_layer_properties)(
-                    property_count,
-                    properties as _,
-                ))
+                let result =
+                    (self.enumerate_instance_layer_properties)(property_count, properties as _);
+
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
             })
         }
     }
@@ -147,11 +159,17 @@ impl InstanceFn {
             try_extend_uninit(
                 physical_devices,
                 |physical_device_count, physical_devices| {
-                    result((self.enumerate_physical_devices)(
+                    let result = (self.enumerate_physical_devices)(
                         instance,
                         physical_device_count,
                         physical_devices as _,
-                    ))
+                    );
+
+                    match result {
+                        VkResult::SUCCESS => Ok(()),
+                        VkResult::INCOMPLETE => Ok(()),
+                        err => Err(err),
+                    }
                 },
             )
         }
@@ -159,18 +177,26 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_features(
         &self,
         physical_device: PhysicalDevice,
-        features: &mut PhysicalDeviceFeatures,
-    ) {
-        unsafe { (self.get_physical_device_features)(physical_device, features) }
+    ) -> PhysicalDeviceFeatures {
+        unsafe {
+            let mut features = core::mem::MaybeUninit::uninit();
+            (self.get_physical_device_features)(physical_device, features.as_mut_ptr());
+            features.assume_init()
+        }
     }
     pub unsafe fn get_physical_device_format_properties(
         &self,
         physical_device: PhysicalDevice,
         format: Format,
-        format_properties: &mut FormatProperties,
-    ) {
+    ) -> FormatProperties {
         unsafe {
-            (self.get_physical_device_format_properties)(physical_device, format, format_properties)
+            let mut format_properties = core::mem::MaybeUninit::uninit();
+            (self.get_physical_device_format_properties)(
+                physical_device,
+                format,
+                format_properties.as_mut_ptr(),
+            );
+            format_properties.assume_init()
         }
     }
     pub unsafe fn get_physical_device_image_format_properties(
@@ -181,26 +207,34 @@ impl InstanceFn {
         tiling: ImageTiling,
         usage: ImageUsageFlags,
         flags: ImageCreateFlags,
-        image_format_properties: &mut ImageFormatProperties,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<ImageFormatProperties> {
         unsafe {
-            result((self.get_physical_device_image_format_properties)(
+            let mut image_format_properties = core::mem::MaybeUninit::uninit();
+            let result = (self.get_physical_device_image_format_properties)(
                 physical_device,
                 format,
                 ty,
                 tiling,
                 usage,
                 flags,
-                image_format_properties,
-            ))
+                image_format_properties.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(image_format_properties.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_physical_device_properties(
         &self,
         physical_device: PhysicalDevice,
-        properties: &mut PhysicalDeviceProperties,
-    ) {
-        unsafe { (self.get_physical_device_properties)(physical_device, properties) }
+    ) -> PhysicalDeviceProperties {
+        unsafe {
+            let mut properties = core::mem::MaybeUninit::uninit();
+            (self.get_physical_device_properties)(physical_device, properties.as_mut_ptr());
+            properties.assume_init()
+        }
     }
     pub unsafe fn get_physical_device_queue_family_properties(
         &self,
@@ -223,9 +257,15 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_memory_properties(
         &self,
         physical_device: PhysicalDevice,
-        memory_properties: &mut PhysicalDeviceMemoryProperties,
-    ) {
-        unsafe { (self.get_physical_device_memory_properties)(physical_device, memory_properties) }
+    ) -> PhysicalDeviceMemoryProperties {
+        unsafe {
+            let mut memory_properties = core::mem::MaybeUninit::uninit();
+            (self.get_physical_device_memory_properties)(
+                physical_device,
+                memory_properties.as_mut_ptr(),
+            );
+            memory_properties.assume_init()
+        }
     }
     pub unsafe fn get_instance_proc_addr(
         &self,
@@ -239,15 +279,20 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         create_info: &DeviceCreateInfo,
         allocator: Option<&AllocationCallbacks>,
-        device: &mut Device,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<Device> {
         unsafe {
-            result((self.create_device)(
+            let mut device = core::mem::MaybeUninit::uninit();
+            let result = (self.create_device)(
                 physical_device,
                 create_info,
                 allocator.to_raw_ptr(),
-                device,
-            ))
+                device.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(device.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn enumerate_device_extension_properties(
@@ -258,12 +303,18 @@ impl InstanceFn {
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(properties, |property_count, properties| {
-                result((self.enumerate_device_extension_properties)(
+                let result = (self.enumerate_device_extension_properties)(
                     physical_device,
                     layer_name.to_raw_ptr(),
                     property_count,
                     properties as _,
-                ))
+                );
+
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
             })
         }
     }
@@ -274,11 +325,17 @@ impl InstanceFn {
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(properties, |property_count, properties| {
-                result((self.enumerate_device_layer_properties)(
+                let result = (self.enumerate_device_layer_properties)(
                     physical_device,
                     property_count,
                     properties as _,
-                ))
+                );
+
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
             })
         }
     }
@@ -658,9 +715,12 @@ impl DeviceFn {
         device: Device,
         queue_family_index: u32,
         queue_index: u32,
-        queue: &mut Queue,
-    ) {
-        unsafe { (self.get_device_queue)(device, queue_family_index, queue_index, queue) }
+    ) -> Queue {
+        unsafe {
+            let mut queue = core::mem::MaybeUninit::uninit();
+            (self.get_device_queue)(device, queue_family_index, queue_index, queue.as_mut_ptr());
+            queue.assume_init()
+        }
     }
     pub unsafe fn queue_submit(
         &self,
@@ -669,34 +729,58 @@ impl DeviceFn {
         fence: Fence,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.queue_submit)(
+            let result = (self.queue_submit)(
                 queue,
                 submits.len().try_into().unwrap(),
                 submits.as_ptr() as _,
                 fence,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn queue_wait_idle(&self, queue: Queue) -> crate::Result<()> {
-        unsafe { result((self.queue_wait_idle)(queue)) }
+        unsafe {
+            let result = (self.queue_wait_idle)(queue);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn device_wait_idle(&self, device: Device) -> crate::Result<()> {
-        unsafe { result((self.device_wait_idle)(device)) }
+        unsafe {
+            let result = (self.device_wait_idle)(device);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn allocate_memory(
         &self,
         device: Device,
         allocate_info: &MemoryAllocateInfo,
         allocator: Option<&AllocationCallbacks>,
-        memory: &mut DeviceMemory,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<DeviceMemory> {
         unsafe {
-            result((self.allocate_memory)(
+            let mut memory = core::mem::MaybeUninit::uninit();
+            let result = (self.allocate_memory)(
                 device,
                 allocate_info,
                 allocator.to_raw_ptr(),
-                memory,
-            ))
+                memory.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(memory.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn free_memory(
@@ -716,7 +800,14 @@ impl DeviceFn {
         flags: MemoryMapFlags,
         data: &mut *mut c_void,
     ) -> crate::Result<()> {
-        unsafe { result((self.map_memory)(device, memory, offset, size, flags, data)) }
+        unsafe {
+            let result = (self.map_memory)(device, memory, offset, size, flags, data);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn unmap_memory(&self, device: Device, memory: DeviceMemory) {
         unsafe { (self.unmap_memory)(device, memory) }
@@ -727,11 +818,16 @@ impl DeviceFn {
         memory_ranges: &[MappedMemoryRange],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.flush_mapped_memory_ranges)(
+            let result = (self.flush_mapped_memory_ranges)(
                 device,
                 memory_ranges.len().try_into().unwrap(),
                 memory_ranges.as_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn invalidate_mapped_memory_ranges(
@@ -740,20 +836,32 @@ impl DeviceFn {
         memory_ranges: &[MappedMemoryRange],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.invalidate_mapped_memory_ranges)(
+            let result = (self.invalidate_mapped_memory_ranges)(
                 device,
                 memory_ranges.len().try_into().unwrap(),
                 memory_ranges.as_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_device_memory_commitment(
         &self,
         device: Device,
         memory: DeviceMemory,
-        committed_memory_in_bytes: &mut DeviceSize,
-    ) {
-        unsafe { (self.get_device_memory_commitment)(device, memory, committed_memory_in_bytes) }
+    ) -> DeviceSize {
+        unsafe {
+            let mut committed_memory_in_bytes = core::mem::MaybeUninit::uninit();
+            (self.get_device_memory_commitment)(
+                device,
+                memory,
+                committed_memory_in_bytes.as_mut_ptr(),
+            );
+            committed_memory_in_bytes.assume_init()
+        }
     }
     pub unsafe fn bind_buffer_memory(
         &self,
@@ -763,12 +871,12 @@ impl DeviceFn {
         memory_offset: DeviceSize,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.bind_buffer_memory)(
-                device,
-                buffer,
-                memory,
-                memory_offset,
-            ))
+            let result = (self.bind_buffer_memory)(device, buffer, memory, memory_offset);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn bind_image_memory(
@@ -779,29 +887,35 @@ impl DeviceFn {
         memory_offset: DeviceSize,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.bind_image_memory)(
-                device,
-                image,
-                memory,
-                memory_offset,
-            ))
+            let result = (self.bind_image_memory)(device, image, memory, memory_offset);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_buffer_memory_requirements(
         &self,
         device: Device,
         buffer: Buffer,
-        memory_requirements: &mut MemoryRequirements,
-    ) {
-        unsafe { (self.get_buffer_memory_requirements)(device, buffer, memory_requirements) }
+    ) -> MemoryRequirements {
+        unsafe {
+            let mut memory_requirements = core::mem::MaybeUninit::uninit();
+            (self.get_buffer_memory_requirements)(device, buffer, memory_requirements.as_mut_ptr());
+            memory_requirements.assume_init()
+        }
     }
     pub unsafe fn get_image_memory_requirements(
         &self,
         device: Device,
         image: Image,
-        memory_requirements: &mut MemoryRequirements,
-    ) {
-        unsafe { (self.get_image_memory_requirements)(device, image, memory_requirements) }
+    ) -> MemoryRequirements {
+        unsafe {
+            let mut memory_requirements = core::mem::MaybeUninit::uninit();
+            (self.get_image_memory_requirements)(device, image, memory_requirements.as_mut_ptr());
+            memory_requirements.assume_init()
+        }
     }
     pub unsafe fn get_image_sparse_memory_requirements(
         &self,
@@ -830,12 +944,17 @@ impl DeviceFn {
         fence: Fence,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.queue_bind_sparse)(
+            let result = (self.queue_bind_sparse)(
                 queue,
                 bind_info.len().try_into().unwrap(),
                 bind_info.as_ptr() as _,
                 fence,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn create_fence(
@@ -843,15 +962,20 @@ impl DeviceFn {
         device: Device,
         create_info: &FenceCreateInfo,
         allocator: Option<&AllocationCallbacks>,
-        fence: &mut Fence,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<Fence> {
         unsafe {
-            result((self.create_fence)(
+            let mut fence = core::mem::MaybeUninit::uninit();
+            let result = (self.create_fence)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                fence,
-            ))
+                fence.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(fence.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_fence(
@@ -864,15 +988,28 @@ impl DeviceFn {
     }
     pub unsafe fn reset_fences(&self, device: Device, fences: &[Fence]) -> crate::Result<()> {
         unsafe {
-            result((self.reset_fences)(
+            let result = (self.reset_fences)(
                 device,
                 fences.len().try_into().unwrap(),
                 fences.as_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_fence_status(&self, device: Device, fence: Fence) -> crate::Result<()> {
-        unsafe { result((self.get_fence_status)(device, fence)) }
+        unsafe {
+            let result = (self.get_fence_status)(device, fence);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                VkResult::NOT_READY => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn wait_for_fences(
         &self,
@@ -882,13 +1019,19 @@ impl DeviceFn {
         timeout: u64,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.wait_for_fences)(
+            let result = (self.wait_for_fences)(
                 device,
                 fences.len().try_into().unwrap(),
                 fences.as_ptr() as _,
                 wait_all,
                 timeout,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                VkResult::TIMEOUT => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn create_semaphore(
@@ -896,15 +1039,20 @@ impl DeviceFn {
         device: Device,
         create_info: &SemaphoreCreateInfo,
         allocator: Option<&AllocationCallbacks>,
-        semaphore: &mut Semaphore,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<Semaphore> {
         unsafe {
-            result((self.create_semaphore)(
+            let mut semaphore = core::mem::MaybeUninit::uninit();
+            let result = (self.create_semaphore)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                semaphore,
-            ))
+                semaphore.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(semaphore.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_semaphore(
@@ -920,15 +1068,20 @@ impl DeviceFn {
         device: Device,
         create_info: &QueryPoolCreateInfo,
         allocator: Option<&AllocationCallbacks>,
-        query_pool: &mut QueryPool,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<QueryPool> {
         unsafe {
-            result((self.create_query_pool)(
+            let mut query_pool = core::mem::MaybeUninit::uninit();
+            let result = (self.create_query_pool)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                query_pool,
-            ))
+                query_pool.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(query_pool.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_query_pool(
@@ -950,7 +1103,7 @@ impl DeviceFn {
         flags: QueryResultFlags,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.get_query_pool_results)(
+            let result = (self.get_query_pool_results)(
                 device,
                 query_pool,
                 first_query,
@@ -959,7 +1112,13 @@ impl DeviceFn {
                 data.as_mut_ptr() as _,
                 stride,
                 flags,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                VkResult::NOT_READY => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn create_buffer(
@@ -967,15 +1126,20 @@ impl DeviceFn {
         device: Device,
         create_info: &BufferCreateInfo,
         allocator: Option<&AllocationCallbacks>,
-        buffer: &mut Buffer,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<Buffer> {
         unsafe {
-            result((self.create_buffer)(
+            let mut buffer = core::mem::MaybeUninit::uninit();
+            let result = (self.create_buffer)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                buffer,
-            ))
+                buffer.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(buffer.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_buffer(
@@ -991,15 +1155,20 @@ impl DeviceFn {
         device: Device,
         create_info: &ImageCreateInfo,
         allocator: Option<&AllocationCallbacks>,
-        image: &mut Image,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<Image> {
         unsafe {
-            result((self.create_image)(
+            let mut image = core::mem::MaybeUninit::uninit();
+            let result = (self.create_image)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                image,
-            ))
+                image.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(image.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_image(
@@ -1015,24 +1184,32 @@ impl DeviceFn {
         device: Device,
         image: Image,
         subresource: &ImageSubresource,
-        layout: &mut SubresourceLayout,
-    ) {
-        unsafe { (self.get_image_subresource_layout)(device, image, subresource, layout) }
+    ) -> SubresourceLayout {
+        unsafe {
+            let mut layout = core::mem::MaybeUninit::uninit();
+            (self.get_image_subresource_layout)(device, image, subresource, layout.as_mut_ptr());
+            layout.assume_init()
+        }
     }
     pub unsafe fn create_image_view(
         &self,
         device: Device,
         create_info: &ImageViewCreateInfo,
         allocator: Option<&AllocationCallbacks>,
-        view: &mut ImageView,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<ImageView> {
         unsafe {
-            result((self.create_image_view)(
+            let mut view = core::mem::MaybeUninit::uninit();
+            let result = (self.create_image_view)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                view,
-            ))
+                view.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(view.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_image_view(
@@ -1048,15 +1225,20 @@ impl DeviceFn {
         device: Device,
         create_info: &CommandPoolCreateInfo,
         allocator: Option<&AllocationCallbacks>,
-        command_pool: &mut CommandPool,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<CommandPool> {
         unsafe {
-            result((self.create_command_pool)(
+            let mut command_pool = core::mem::MaybeUninit::uninit();
+            let result = (self.create_command_pool)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                command_pool,
-            ))
+                command_pool.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(command_pool.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_command_pool(
@@ -1073,7 +1255,14 @@ impl DeviceFn {
         command_pool: CommandPool,
         flags: CommandPoolResetFlags,
     ) -> crate::Result<()> {
-        unsafe { result((self.reset_command_pool)(device, command_pool, flags)) }
+        unsafe {
+            let result = (self.reset_command_pool)(device, command_pool, flags);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn allocate_command_buffers(
         &self,
@@ -1082,11 +1271,16 @@ impl DeviceFn {
         command_buffers: &mut [CommandBuffer],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.allocate_command_buffers)(
+            let result = (self.allocate_command_buffers)(
                 device,
                 allocate_info,
                 command_buffers.as_mut_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn free_command_buffers(
@@ -1109,17 +1303,38 @@ impl DeviceFn {
         command_buffer: CommandBuffer,
         begin_info: &CommandBufferBeginInfo,
     ) -> crate::Result<()> {
-        unsafe { result((self.begin_command_buffer)(command_buffer, begin_info)) }
+        unsafe {
+            let result = (self.begin_command_buffer)(command_buffer, begin_info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn end_command_buffer(&self, command_buffer: CommandBuffer) -> crate::Result<()> {
-        unsafe { result((self.end_command_buffer)(command_buffer)) }
+        unsafe {
+            let result = (self.end_command_buffer)(command_buffer);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn reset_command_buffer(
         &self,
         command_buffer: CommandBuffer,
         flags: CommandBufferResetFlags,
     ) -> crate::Result<()> {
-        unsafe { result((self.reset_command_buffer)(command_buffer, flags)) }
+        unsafe {
+            let result = (self.reset_command_buffer)(command_buffer, flags);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn cmd_copy_buffer(
         &self,
@@ -1326,15 +1541,20 @@ impl DeviceFn {
         device: Device,
         create_info: &EventCreateInfo,
         allocator: Option<&AllocationCallbacks>,
-        event: &mut Event,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<Event> {
         unsafe {
-            result((self.create_event)(
+            let mut event = core::mem::MaybeUninit::uninit();
+            let result = (self.create_event)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                event,
-            ))
+                event.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(event.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_event(
@@ -1346,28 +1566,55 @@ impl DeviceFn {
         unsafe { (self.destroy_event)(device, event, allocator.to_raw_ptr()) }
     }
     pub unsafe fn get_event_status(&self, device: Device, event: Event) -> crate::Result<()> {
-        unsafe { result((self.get_event_status)(device, event)) }
+        unsafe {
+            let result = (self.get_event_status)(device, event);
+
+            match result {
+                VkResult::EVENT_SET => Ok(()),
+                VkResult::EVENT_RESET => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn set_event(&self, device: Device, event: Event) -> crate::Result<()> {
-        unsafe { result((self.set_event)(device, event)) }
+        unsafe {
+            let result = (self.set_event)(device, event);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn reset_event(&self, device: Device, event: Event) -> crate::Result<()> {
-        unsafe { result((self.reset_event)(device, event)) }
+        unsafe {
+            let result = (self.reset_event)(device, event);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn create_buffer_view(
         &self,
         device: Device,
         create_info: &BufferViewCreateInfo,
         allocator: Option<&AllocationCallbacks>,
-        view: &mut BufferView,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<BufferView> {
         unsafe {
-            result((self.create_buffer_view)(
+            let mut view = core::mem::MaybeUninit::uninit();
+            let result = (self.create_buffer_view)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                view,
-            ))
+                view.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(view.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_buffer_view(
@@ -1383,15 +1630,20 @@ impl DeviceFn {
         device: Device,
         create_info: &ShaderModuleCreateInfo,
         allocator: Option<&AllocationCallbacks>,
-        shader_module: &mut ShaderModule,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<ShaderModule> {
         unsafe {
-            result((self.create_shader_module)(
+            let mut shader_module = core::mem::MaybeUninit::uninit();
+            let result = (self.create_shader_module)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                shader_module,
-            ))
+                shader_module.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(shader_module.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_shader_module(
@@ -1407,15 +1659,20 @@ impl DeviceFn {
         device: Device,
         create_info: &PipelineCacheCreateInfo,
         allocator: Option<&AllocationCallbacks>,
-        pipeline_cache: &mut PipelineCache,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<PipelineCache> {
         unsafe {
-            result((self.create_pipeline_cache)(
+            let mut pipeline_cache = core::mem::MaybeUninit::uninit();
+            let result = (self.create_pipeline_cache)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                pipeline_cache,
-            ))
+                pipeline_cache.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(pipeline_cache.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_pipeline_cache(
@@ -1434,12 +1691,14 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(data, |data_size, data| {
-                result((self.get_pipeline_cache_data)(
-                    device,
-                    pipeline_cache,
-                    data_size,
-                    data as _,
-                ))
+                let result =
+                    (self.get_pipeline_cache_data)(device, pipeline_cache, data_size, data as _);
+
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
             })
         }
     }
@@ -1450,12 +1709,17 @@ impl DeviceFn {
         src_caches: &[PipelineCache],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.merge_pipeline_caches)(
+            let result = (self.merge_pipeline_caches)(
                 device,
                 dst_cache,
                 src_caches.len().try_into().unwrap(),
                 src_caches.as_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn create_compute_pipelines(
@@ -1467,14 +1731,20 @@ impl DeviceFn {
         pipelines: &mut [Pipeline],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.create_compute_pipelines)(
+            let result = (self.create_compute_pipelines)(
                 device,
                 pipeline_cache,
                 create_infos.len().try_into().unwrap(),
                 create_infos.as_ptr() as _,
                 allocator.to_raw_ptr(),
                 pipelines.as_mut_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                VkResult::PIPELINE_COMPILE_REQUIRED_EXT => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_pipeline(
@@ -1490,15 +1760,20 @@ impl DeviceFn {
         device: Device,
         create_info: &PipelineLayoutCreateInfo,
         allocator: Option<&AllocationCallbacks>,
-        pipeline_layout: &mut PipelineLayout,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<PipelineLayout> {
         unsafe {
-            result((self.create_pipeline_layout)(
+            let mut pipeline_layout = core::mem::MaybeUninit::uninit();
+            let result = (self.create_pipeline_layout)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                pipeline_layout,
-            ))
+                pipeline_layout.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(pipeline_layout.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_pipeline_layout(
@@ -1514,15 +1789,20 @@ impl DeviceFn {
         device: Device,
         create_info: &SamplerCreateInfo,
         allocator: Option<&AllocationCallbacks>,
-        sampler: &mut Sampler,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<Sampler> {
         unsafe {
-            result((self.create_sampler)(
+            let mut sampler = core::mem::MaybeUninit::uninit();
+            let result = (self.create_sampler)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                sampler,
-            ))
+                sampler.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(sampler.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_sampler(
@@ -1538,15 +1818,20 @@ impl DeviceFn {
         device: Device,
         create_info: &DescriptorSetLayoutCreateInfo,
         allocator: Option<&AllocationCallbacks>,
-        set_layout: &mut DescriptorSetLayout,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<DescriptorSetLayout> {
         unsafe {
-            result((self.create_descriptor_set_layout)(
+            let mut set_layout = core::mem::MaybeUninit::uninit();
+            let result = (self.create_descriptor_set_layout)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                set_layout,
-            ))
+                set_layout.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(set_layout.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_descriptor_set_layout(
@@ -1568,15 +1853,20 @@ impl DeviceFn {
         device: Device,
         create_info: &DescriptorPoolCreateInfo,
         allocator: Option<&AllocationCallbacks>,
-        descriptor_pool: &mut DescriptorPool,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<DescriptorPool> {
         unsafe {
-            result((self.create_descriptor_pool)(
+            let mut descriptor_pool = core::mem::MaybeUninit::uninit();
+            let result = (self.create_descriptor_pool)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                descriptor_pool,
-            ))
+                descriptor_pool.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(descriptor_pool.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_descriptor_pool(
@@ -1593,7 +1883,14 @@ impl DeviceFn {
         descriptor_pool: DescriptorPool,
         flags: DescriptorPoolResetFlags,
     ) -> crate::Result<()> {
-        unsafe { result((self.reset_descriptor_pool)(device, descriptor_pool, flags)) }
+        unsafe {
+            let result = (self.reset_descriptor_pool)(device, descriptor_pool, flags);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn allocate_descriptor_sets(
         &self,
@@ -1602,11 +1899,16 @@ impl DeviceFn {
         descriptor_sets: &mut [DescriptorSet],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.allocate_descriptor_sets)(
+            let result = (self.allocate_descriptor_sets)(
                 device,
                 allocate_info,
                 descriptor_sets.as_mut_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn free_descriptor_sets(
@@ -1616,12 +1918,17 @@ impl DeviceFn {
         descriptor_sets: &[DescriptorSet],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.free_descriptor_sets)(
+            let result = (self.free_descriptor_sets)(
                 device,
                 descriptor_pool,
                 descriptor_sets.len().try_into().unwrap(),
                 descriptor_sets.as_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn update_descriptor_sets(
@@ -1776,14 +2083,20 @@ impl DeviceFn {
         pipelines: &mut [Pipeline],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.create_graphics_pipelines)(
+            let result = (self.create_graphics_pipelines)(
                 device,
                 pipeline_cache,
                 create_infos.len().try_into().unwrap(),
                 create_infos.as_ptr() as _,
                 allocator.to_raw_ptr(),
                 pipelines.as_mut_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                VkResult::PIPELINE_COMPILE_REQUIRED_EXT => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn create_framebuffer(
@@ -1791,15 +2104,20 @@ impl DeviceFn {
         device: Device,
         create_info: &FramebufferCreateInfo,
         allocator: Option<&AllocationCallbacks>,
-        framebuffer: &mut Framebuffer,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<Framebuffer> {
         unsafe {
-            result((self.create_framebuffer)(
+            let mut framebuffer = core::mem::MaybeUninit::uninit();
+            let result = (self.create_framebuffer)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                framebuffer,
-            ))
+                framebuffer.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(framebuffer.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_framebuffer(
@@ -1815,15 +2133,20 @@ impl DeviceFn {
         device: Device,
         create_info: &RenderPassCreateInfo,
         allocator: Option<&AllocationCallbacks>,
-        render_pass: &mut RenderPass,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<RenderPass> {
         unsafe {
-            result((self.create_render_pass)(
+            let mut render_pass = core::mem::MaybeUninit::uninit();
+            let result = (self.create_render_pass)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                render_pass,
-            ))
+                render_pass.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(render_pass.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_render_pass(
@@ -1838,9 +2161,12 @@ impl DeviceFn {
         &self,
         device: Device,
         render_pass: RenderPass,
-        granularity: &mut Extent2D,
-    ) {
-        unsafe { (self.get_render_area_granularity)(device, render_pass, granularity) }
+    ) -> Extent2D {
+        unsafe {
+            let mut granularity = core::mem::MaybeUninit::uninit();
+            (self.get_render_area_granularity)(device, render_pass, granularity.as_mut_ptr());
+            granularity.assume_init()
+        }
     }
     pub unsafe fn cmd_set_viewport(
         &self,

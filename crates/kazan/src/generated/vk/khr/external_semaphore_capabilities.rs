@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     get_physical_device_external_semaphore_properties_khr:
         PFN_vkGetPhysicalDeviceExternalSemaphoreProperties,
@@ -26,14 +26,15 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         external_semaphore_info: &PhysicalDeviceExternalSemaphoreInfo,
-        external_semaphore_properties: &mut ExternalSemaphoreProperties,
-    ) {
+    ) -> ExternalSemaphoreProperties {
         unsafe {
+            let mut external_semaphore_properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_external_semaphore_properties_khr)(
                 physical_device,
                 external_semaphore_info,
-                external_semaphore_properties,
-            )
+                external_semaphore_properties.as_mut_ptr(),
+            );
+            external_semaphore_properties.assume_init()
         }
     }
 }

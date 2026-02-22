@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     get_shader_info_amd: PFN_vkGetShaderInfoAMD,
 }
@@ -28,14 +28,20 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(info, |info_size, info| {
-                result((self.get_shader_info_amd)(
+                let result = (self.get_shader_info_amd)(
                     device,
                     pipeline,
                     shader_stage,
                     info_type,
                     info_size,
                     info as _,
-                ))
+                );
+
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
             })
         }
     }

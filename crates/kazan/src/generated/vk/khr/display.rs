@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     get_physical_device_display_properties_khr: PFN_vkGetPhysicalDeviceDisplayPropertiesKHR,
     get_physical_device_display_plane_properties_khr:
@@ -52,11 +52,17 @@ impl InstanceFn {
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(properties, |property_count, properties| {
-                result((self.get_physical_device_display_properties_khr)(
+                let result = (self.get_physical_device_display_properties_khr)(
                     physical_device,
                     property_count,
                     properties as _,
-                ))
+                );
+
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
             })
         }
     }
@@ -67,11 +73,17 @@ impl InstanceFn {
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(properties, |property_count, properties| {
-                result((self.get_physical_device_display_plane_properties_khr)(
+                let result = (self.get_physical_device_display_plane_properties_khr)(
                     physical_device,
                     property_count,
                     properties as _,
-                ))
+                );
+
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
             })
         }
     }
@@ -83,12 +95,18 @@ impl InstanceFn {
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(displays, |display_count, displays| {
-                result((self.get_display_plane_supported_displays_khr)(
+                let result = (self.get_display_plane_supported_displays_khr)(
                     physical_device,
                     plane_index,
                     display_count,
                     displays as _,
-                ))
+                );
+
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
             })
         }
     }
@@ -100,12 +118,18 @@ impl InstanceFn {
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(properties, |property_count, properties| {
-                result((self.get_display_mode_properties_khr)(
+                let result = (self.get_display_mode_properties_khr)(
                     physical_device,
                     display,
                     property_count,
                     properties as _,
-                ))
+                );
+
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
             })
         }
     }
@@ -115,16 +139,21 @@ impl InstanceFn {
         display: DisplayKHR,
         create_info: &DisplayModeCreateInfoKHR,
         allocator: Option<&AllocationCallbacks>,
-        mode: &mut DisplayModeKHR,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<DisplayModeKHR> {
         unsafe {
-            result((self.create_display_mode_khr)(
+            let mut mode = core::mem::MaybeUninit::uninit();
+            let result = (self.create_display_mode_khr)(
                 physical_device,
                 display,
                 create_info,
                 allocator.to_raw_ptr(),
-                mode,
-            ))
+                mode.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(mode.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_display_plane_capabilities_khr(
@@ -132,15 +161,20 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         mode: DisplayModeKHR,
         plane_index: u32,
-        capabilities: &mut DisplayPlaneCapabilitiesKHR,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<DisplayPlaneCapabilitiesKHR> {
         unsafe {
-            result((self.get_display_plane_capabilities_khr)(
+            let mut capabilities = core::mem::MaybeUninit::uninit();
+            let result = (self.get_display_plane_capabilities_khr)(
                 physical_device,
                 mode,
                 plane_index,
-                capabilities,
-            ))
+                capabilities.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(capabilities.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn create_display_plane_surface_khr(
@@ -148,15 +182,20 @@ impl InstanceFn {
         instance: Instance,
         create_info: &DisplaySurfaceCreateInfoKHR,
         allocator: Option<&AllocationCallbacks>,
-        surface: &mut SurfaceKHR,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<SurfaceKHR> {
         unsafe {
-            result((self.create_display_plane_surface_khr)(
+            let mut surface = core::mem::MaybeUninit::uninit();
+            let result = (self.create_display_plane_surface_khr)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),
-                surface,
-            ))
+                surface.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(surface.assume_init()),
+                err => Err(err),
+            }
         }
     }
 }

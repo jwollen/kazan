@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     create_render_pass2_khr: PFN_vkCreateRenderPass2,
     cmd_begin_render_pass2_khr: PFN_vkCmdBeginRenderPass2,
@@ -37,15 +37,20 @@ impl DeviceFn {
         device: Device,
         create_info: &RenderPassCreateInfo2,
         allocator: Option<&AllocationCallbacks>,
-        render_pass: &mut RenderPass,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<RenderPass> {
         unsafe {
-            result((self.create_render_pass2_khr)(
+            let mut render_pass = core::mem::MaybeUninit::uninit();
+            let result = (self.create_render_pass2_khr)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                render_pass,
-            ))
+                render_pass.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(render_pass.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn cmd_begin_render_pass2_khr(

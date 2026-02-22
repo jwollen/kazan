@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     get_memory_win32_handle_nv: PFN_vkGetMemoryWin32HandleNV,
 }
@@ -25,15 +25,16 @@ impl DeviceFn {
         device: Device,
         memory: DeviceMemory,
         handle_type: ExternalMemoryHandleTypeFlagsNV,
-        handle: &mut HANDLE,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<HANDLE> {
         unsafe {
-            result((self.get_memory_win32_handle_nv)(
-                device,
-                memory,
-                handle_type,
-                handle,
-            ))
+            let mut handle = core::mem::MaybeUninit::uninit();
+            let result =
+                (self.get_memory_win32_handle_nv)(device, memory, handle_type, handle.as_mut_ptr());
+
+            match result {
+                VkResult::SUCCESS => Ok(handle.assume_init()),
+                err => Err(err),
+            }
         }
     }
 }

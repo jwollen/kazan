@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     import_fence_fd_khr: PFN_vkImportFenceFdKHR,
     get_fence_fd_khr: PFN_vkGetFenceFdKHR,
@@ -25,14 +25,28 @@ impl DeviceFn {
         device: Device,
         import_fence_fd_info: &ImportFenceFdInfoKHR,
     ) -> crate::Result<()> {
-        unsafe { result((self.import_fence_fd_khr)(device, import_fence_fd_info)) }
+        unsafe {
+            let result = (self.import_fence_fd_khr)(device, import_fence_fd_info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn get_fence_fd_khr(
         &self,
         device: Device,
         get_fd_info: &FenceGetFdInfoKHR,
-        fd: &mut c_int,
-    ) -> crate::Result<()> {
-        unsafe { result((self.get_fence_fd_khr)(device, get_fd_info, fd)) }
+    ) -> crate::Result<c_int> {
+        unsafe {
+            let mut fd = core::mem::MaybeUninit::uninit();
+            let result = (self.get_fence_fd_khr)(device, get_fd_info, fd.as_mut_ptr());
+
+            match result {
+                VkResult::SUCCESS => Ok(fd.assume_init()),
+                err => Err(err),
+            }
+        }
     }
 }

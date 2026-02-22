@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     create_shared_swapchains_khr: PFN_vkCreateSharedSwapchainsKHR,
 }
@@ -28,13 +28,18 @@ impl DeviceFn {
         swapchains: &mut [SwapchainKHR],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.create_shared_swapchains_khr)(
+            let result = (self.create_shared_swapchains_khr)(
                 device,
                 create_infos.len().try_into().unwrap(),
                 create_infos.as_ptr() as _,
                 allocator.to_raw_ptr(),
                 swapchains.as_mut_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
 }

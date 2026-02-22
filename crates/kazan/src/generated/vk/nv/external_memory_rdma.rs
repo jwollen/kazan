@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     get_memory_remote_address_nv: PFN_vkGetMemoryRemoteAddressNV,
 }
@@ -24,14 +24,19 @@ impl DeviceFn {
         &self,
         device: Device,
         memory_get_remote_address_info: &MemoryGetRemoteAddressInfoNV,
-        address: &mut RemoteAddressNV,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<RemoteAddressNV> {
         unsafe {
-            result((self.get_memory_remote_address_nv)(
+            let mut address = core::mem::MaybeUninit::uninit();
+            let result = (self.get_memory_remote_address_nv)(
                 device,
                 memory_get_remote_address_info,
-                address,
-            ))
+                address.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(address.assume_init()),
+                err => Err(err),
+            }
         }
     }
 }

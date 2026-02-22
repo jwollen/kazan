@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     bind_buffer_memory2_khr: PFN_vkBindBufferMemory2,
     bind_image_memory2_khr: PFN_vkBindImageMemory2,
@@ -30,11 +30,16 @@ impl DeviceFn {
         bind_infos: &[BindBufferMemoryInfo],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.bind_buffer_memory2_khr)(
+            let result = (self.bind_buffer_memory2_khr)(
                 device,
                 bind_infos.len().try_into().unwrap(),
                 bind_infos.as_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn bind_image_memory2_khr(
@@ -43,11 +48,16 @@ impl DeviceFn {
         bind_infos: &[BindImageMemoryInfo],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.bind_image_memory2_khr)(
+            let result = (self.bind_image_memory2_khr)(
                 device,
                 bind_infos.len().try_into().unwrap(),
                 bind_infos.as_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
 }

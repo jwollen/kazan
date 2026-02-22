@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     get_pipeline_executable_properties_khr: PFN_vkGetPipelineExecutablePropertiesKHR,
     get_pipeline_executable_statistics_khr: PFN_vkGetPipelineExecutableStatisticsKHR,
@@ -38,12 +38,18 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(properties, |executable_count, properties| {
-                result((self.get_pipeline_executable_properties_khr)(
+                let result = (self.get_pipeline_executable_properties_khr)(
                     device,
                     pipeline_info,
                     executable_count,
                     properties as _,
-                ))
+                );
+
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
             })
         }
     }
@@ -55,12 +61,18 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(statistics, |statistic_count, statistics| {
-                result((self.get_pipeline_executable_statistics_khr)(
+                let result = (self.get_pipeline_executable_statistics_khr)(
                     device,
                     executable_info,
                     statistic_count,
                     statistics as _,
-                ))
+                );
+
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
             })
         }
     }
@@ -74,12 +86,18 @@ impl DeviceFn {
             try_extend_uninit(
                 internal_representations,
                 |internal_representation_count, internal_representations| {
-                    result((self.get_pipeline_executable_internal_representations_khr)(
+                    let result = (self.get_pipeline_executable_internal_representations_khr)(
                         device,
                         executable_info,
                         internal_representation_count,
                         internal_representations as _,
-                    ))
+                    );
+
+                    match result {
+                        VkResult::SUCCESS => Ok(()),
+                        VkResult::INCOMPLETE => Ok(()),
+                        err => Err(err),
+                    }
                 },
             )
         }

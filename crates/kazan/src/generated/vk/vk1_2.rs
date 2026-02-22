@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     reset_query_pool: PFN_vkResetQueryPool,
     get_semaphore_counter_value: PFN_vkGetSemaphoreCounterValue,
@@ -69,9 +69,16 @@ impl DeviceFn {
         &self,
         device: Device,
         semaphore: Semaphore,
-        value: &mut u64,
-    ) -> crate::Result<()> {
-        unsafe { result((self.get_semaphore_counter_value)(device, semaphore, value)) }
+    ) -> crate::Result<u64> {
+        unsafe {
+            let mut value = core::mem::MaybeUninit::uninit();
+            let result = (self.get_semaphore_counter_value)(device, semaphore, value.as_mut_ptr());
+
+            match result {
+                VkResult::SUCCESS => Ok(value.assume_init()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn wait_semaphores(
         &self,
@@ -79,14 +86,29 @@ impl DeviceFn {
         wait_info: &SemaphoreWaitInfo,
         timeout: u64,
     ) -> crate::Result<()> {
-        unsafe { result((self.wait_semaphores)(device, wait_info, timeout)) }
+        unsafe {
+            let result = (self.wait_semaphores)(device, wait_info, timeout);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                VkResult::TIMEOUT => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn signal_semaphore(
         &self,
         device: Device,
         signal_info: &SemaphoreSignalInfo,
     ) -> crate::Result<()> {
-        unsafe { result((self.signal_semaphore)(device, signal_info)) }
+        unsafe {
+            let result = (self.signal_semaphore)(device, signal_info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn get_buffer_device_address(
         &self,
@@ -158,15 +180,20 @@ impl DeviceFn {
         device: Device,
         create_info: &RenderPassCreateInfo2,
         allocator: Option<&AllocationCallbacks>,
-        render_pass: &mut RenderPass,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<RenderPass> {
         unsafe {
-            result((self.create_render_pass2)(
+            let mut render_pass = core::mem::MaybeUninit::uninit();
+            let result = (self.create_render_pass2)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                render_pass,
-            ))
+                render_pass.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(render_pass.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn cmd_begin_render_pass2(

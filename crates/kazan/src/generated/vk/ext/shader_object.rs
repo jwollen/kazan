@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     create_shaders_ext: PFN_vkCreateShadersEXT,
     destroy_shader_ext: PFN_vkDestroyShaderEXT,
@@ -224,13 +224,19 @@ impl DeviceFn {
         shaders: &mut [ShaderEXT],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.create_shaders_ext)(
+            let result = (self.create_shaders_ext)(
                 device,
                 create_infos.len().try_into().unwrap(),
                 create_infos.as_ptr() as _,
                 allocator.to_raw_ptr(),
                 shaders.as_mut_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                VkResult::INCOMPATIBLE_SHADER_BINARY_EXT => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_shader_ext(
@@ -249,9 +255,14 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(data, |data_size, data| {
-                result((self.get_shader_binary_data_ext)(
-                    device, shader, data_size, data as _,
-                ))
+                let result =
+                    (self.get_shader_binary_data_ext)(device, shader, data_size, data as _);
+
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
             })
         }
     }

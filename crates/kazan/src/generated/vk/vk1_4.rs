@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     map_memory2: PFN_vkMapMemory2,
     unmap_memory2: PFN_vkUnmapMemory2,
@@ -84,31 +84,51 @@ impl DeviceFn {
         memory_map_info: &MemoryMapInfo,
         data: &mut *mut c_void,
     ) -> crate::Result<()> {
-        unsafe { result((self.map_memory2)(device, memory_map_info, data)) }
+        unsafe {
+            let result = (self.map_memory2)(device, memory_map_info, data);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn unmap_memory2(
         &self,
         device: Device,
         memory_unmap_info: &MemoryUnmapInfo,
     ) -> crate::Result<()> {
-        unsafe { result((self.unmap_memory2)(device, memory_unmap_info)) }
+        unsafe {
+            let result = (self.unmap_memory2)(device, memory_unmap_info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn get_device_image_subresource_layout(
         &self,
         device: Device,
         info: &DeviceImageSubresourceInfo,
-        layout: &mut SubresourceLayout2,
-    ) {
-        unsafe { (self.get_device_image_subresource_layout)(device, info, layout) }
+    ) -> SubresourceLayout2 {
+        unsafe {
+            let mut layout = core::mem::MaybeUninit::uninit();
+            (self.get_device_image_subresource_layout)(device, info, layout.as_mut_ptr());
+            layout.assume_init()
+        }
     }
     pub unsafe fn get_image_subresource_layout2(
         &self,
         device: Device,
         image: Image,
         subresource: &ImageSubresource2,
-        layout: &mut SubresourceLayout2,
-    ) {
-        unsafe { (self.get_image_subresource_layout2)(device, image, subresource, layout) }
+    ) -> SubresourceLayout2 {
+        unsafe {
+            let mut layout = core::mem::MaybeUninit::uninit();
+            (self.get_image_subresource_layout2)(device, image, subresource, layout.as_mut_ptr());
+            layout.assume_init()
+        }
     }
     pub unsafe fn copy_memory_to_image(
         &self,
@@ -116,10 +136,12 @@ impl DeviceFn {
         copy_memory_to_image_info: &CopyMemoryToImageInfo,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.copy_memory_to_image)(
-                device,
-                copy_memory_to_image_info,
-            ))
+            let result = (self.copy_memory_to_image)(device, copy_memory_to_image_info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn copy_image_to_memory(
@@ -128,10 +150,12 @@ impl DeviceFn {
         copy_image_to_memory_info: &CopyImageToMemoryInfo,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.copy_image_to_memory)(
-                device,
-                copy_image_to_memory_info,
-            ))
+            let result = (self.copy_image_to_memory)(device, copy_image_to_memory_info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn copy_image_to_image(
@@ -139,7 +163,14 @@ impl DeviceFn {
         device: Device,
         copy_image_to_image_info: &CopyImageToImageInfo,
     ) -> crate::Result<()> {
-        unsafe { result((self.copy_image_to_image)(device, copy_image_to_image_info)) }
+        unsafe {
+            let result = (self.copy_image_to_image)(device, copy_image_to_image_info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn transition_image_layout(
         &self,
@@ -147,11 +178,16 @@ impl DeviceFn {
         transitions: &[HostImageLayoutTransitionInfo],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.transition_image_layout)(
+            let result = (self.transition_image_layout)(
                 device,
                 transitions.len().try_into().unwrap(),
                 transitions.as_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn cmd_push_descriptor_set(
@@ -248,9 +284,16 @@ impl DeviceFn {
         &self,
         device: Device,
         rendering_area_info: &RenderingAreaInfo,
-        granularity: &mut Extent2D,
-    ) {
-        unsafe { (self.get_rendering_area_granularity)(device, rendering_area_info, granularity) }
+    ) -> Extent2D {
+        unsafe {
+            let mut granularity = core::mem::MaybeUninit::uninit();
+            (self.get_rendering_area_granularity)(
+                device,
+                rendering_area_info,
+                granularity.as_mut_ptr(),
+            );
+            granularity.assume_init()
+        }
     }
     pub unsafe fn cmd_set_rendering_attachment_locations(
         &self,

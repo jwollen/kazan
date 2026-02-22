@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     map_memory2_khr: PFN_vkMapMemory2,
     unmap_memory2_khr: PFN_vkUnmapMemory2,
@@ -26,13 +26,27 @@ impl DeviceFn {
         memory_map_info: &MemoryMapInfo,
         data: &mut *mut c_void,
     ) -> crate::Result<()> {
-        unsafe { result((self.map_memory2_khr)(device, memory_map_info, data)) }
+        unsafe {
+            let result = (self.map_memory2_khr)(device, memory_map_info, data);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn unmap_memory2_khr(
         &self,
         device: Device,
         memory_unmap_info: &MemoryUnmapInfo,
     ) -> crate::Result<()> {
-        unsafe { result((self.unmap_memory2_khr)(device, memory_unmap_info)) }
+        unsafe {
+            let result = (self.unmap_memory2_khr)(device, memory_unmap_info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
 }

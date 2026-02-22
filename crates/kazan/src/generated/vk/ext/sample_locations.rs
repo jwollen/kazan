@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     get_physical_device_multisample_properties_ext: PFN_vkGetPhysicalDeviceMultisamplePropertiesEXT,
 }
@@ -24,14 +24,15 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         samples: SampleCountFlagBits,
-        multisample_properties: &mut MultisamplePropertiesEXT,
-    ) {
+    ) -> MultisamplePropertiesEXT {
         unsafe {
+            let mut multisample_properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_multisample_properties_ext)(
                 physical_device,
                 samples,
-                multisample_properties,
-            )
+                multisample_properties.as_mut_ptr(),
+            );
+            multisample_properties.assume_init()
         }
     }
 }

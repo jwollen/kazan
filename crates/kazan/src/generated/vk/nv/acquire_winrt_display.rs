@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     acquire_winrt_display_nv: PFN_vkAcquireWinrtDisplayNV,
     get_winrt_display_nv: PFN_vkGetWinrtDisplayNV,
@@ -27,20 +27,32 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         display: DisplayKHR,
     ) -> crate::Result<()> {
-        unsafe { result((self.acquire_winrt_display_nv)(physical_device, display)) }
+        unsafe {
+            let result = (self.acquire_winrt_display_nv)(physical_device, display);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn get_winrt_display_nv(
         &self,
         physical_device: PhysicalDevice,
         device_relative_id: u32,
-        display: &mut DisplayKHR,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<DisplayKHR> {
         unsafe {
-            result((self.get_winrt_display_nv)(
+            let mut display = core::mem::MaybeUninit::uninit();
+            let result = (self.get_winrt_display_nv)(
                 physical_device,
                 device_relative_id,
-                display,
-            ))
+                display.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(display.assume_init()),
+                err => Err(err),
+            }
         }
     }
 }

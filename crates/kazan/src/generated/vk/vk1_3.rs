@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     get_physical_device_tool_properties: PFN_vkGetPhysicalDeviceToolProperties,
 }
@@ -27,11 +27,17 @@ impl InstanceFn {
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(tool_properties, |tool_count, tool_properties| {
-                result((self.get_physical_device_tool_properties)(
+                let result = (self.get_physical_device_tool_properties)(
                     physical_device,
                     tool_count,
                     tool_properties as _,
-                ))
+                );
+
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
             })
         }
     }
@@ -166,15 +172,20 @@ impl DeviceFn {
         device: Device,
         create_info: &PrivateDataSlotCreateInfo,
         allocator: Option<&AllocationCallbacks>,
-        private_data_slot: &mut PrivateDataSlot,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<PrivateDataSlot> {
         unsafe {
-            result((self.create_private_data_slot)(
+            let mut private_data_slot = core::mem::MaybeUninit::uninit();
+            let result = (self.create_private_data_slot)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                private_data_slot,
-            ))
+                private_data_slot.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(private_data_slot.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_private_data_slot(
@@ -196,13 +207,18 @@ impl DeviceFn {
         data: u64,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.set_private_data)(
+            let result = (self.set_private_data)(
                 device,
                 object_type,
                 object_handle,
                 private_data_slot,
                 data,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_private_data(
@@ -211,10 +227,17 @@ impl DeviceFn {
         object_type: ObjectType,
         object_handle: u64,
         private_data_slot: PrivateDataSlot,
-        data: &mut u64,
-    ) {
+    ) -> u64 {
         unsafe {
-            (self.get_private_data)(device, object_type, object_handle, private_data_slot, data)
+            let mut data = core::mem::MaybeUninit::uninit();
+            (self.get_private_data)(
+                device,
+                object_type,
+                object_handle,
+                private_data_slot,
+                data.as_mut_ptr(),
+            );
+            data.assume_init()
         }
     }
     pub unsafe fn cmd_pipeline_barrier2(
@@ -240,12 +263,17 @@ impl DeviceFn {
         fence: Fence,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.queue_submit2)(
+            let result = (self.queue_submit2)(
                 queue,
                 submits.len().try_into().unwrap(),
                 submits.as_ptr() as _,
                 fence,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn cmd_copy_buffer2(
@@ -280,17 +308,31 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &DeviceBufferMemoryRequirements,
-        memory_requirements: &mut MemoryRequirements2,
-    ) {
-        unsafe { (self.get_device_buffer_memory_requirements)(device, info, memory_requirements) }
+    ) -> MemoryRequirements2 {
+        unsafe {
+            let mut memory_requirements = core::mem::MaybeUninit::uninit();
+            (self.get_device_buffer_memory_requirements)(
+                device,
+                info,
+                memory_requirements.as_mut_ptr(),
+            );
+            memory_requirements.assume_init()
+        }
     }
     pub unsafe fn get_device_image_memory_requirements(
         &self,
         device: Device,
         info: &DeviceImageMemoryRequirements,
-        memory_requirements: &mut MemoryRequirements2,
-    ) {
-        unsafe { (self.get_device_image_memory_requirements)(device, info, memory_requirements) }
+    ) -> MemoryRequirements2 {
+        unsafe {
+            let mut memory_requirements = core::mem::MaybeUninit::uninit();
+            (self.get_device_image_memory_requirements)(
+                device,
+                info,
+                memory_requirements.as_mut_ptr(),
+            );
+            memory_requirements.assume_init()
+        }
     }
     pub unsafe fn get_device_image_sparse_memory_requirements(
         &self,

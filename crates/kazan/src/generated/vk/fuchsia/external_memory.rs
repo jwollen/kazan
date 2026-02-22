@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     get_memory_zircon_handle_fuchsia: PFN_vkGetMemoryZirconHandleFUCHSIA,
     get_memory_zircon_handle_properties_fuchsia: PFN_vkGetMemoryZirconHandlePropertiesFUCHSIA,
@@ -28,14 +28,19 @@ impl DeviceFn {
         &self,
         device: Device,
         get_zircon_handle_info: &MemoryGetZirconHandleInfoFUCHSIA,
-        zircon_handle: &mut zx_handle_t,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<zx_handle_t> {
         unsafe {
-            result((self.get_memory_zircon_handle_fuchsia)(
+            let mut zircon_handle = core::mem::MaybeUninit::uninit();
+            let result = (self.get_memory_zircon_handle_fuchsia)(
                 device,
                 get_zircon_handle_info,
-                zircon_handle,
-            ))
+                zircon_handle.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(zircon_handle.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_memory_zircon_handle_properties_fuchsia(
@@ -43,15 +48,20 @@ impl DeviceFn {
         device: Device,
         handle_type: ExternalMemoryHandleTypeFlagBits,
         zircon_handle: zx_handle_t,
-        memory_zircon_handle_properties: &mut MemoryZirconHandlePropertiesFUCHSIA,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<MemoryZirconHandlePropertiesFUCHSIA> {
         unsafe {
-            result((self.get_memory_zircon_handle_properties_fuchsia)(
+            let mut memory_zircon_handle_properties = core::mem::MaybeUninit::uninit();
+            let result = (self.get_memory_zircon_handle_properties_fuchsia)(
                 device,
                 handle_type,
                 zircon_handle,
-                memory_zircon_handle_properties,
-            ))
+                memory_zircon_handle_properties.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(memory_zircon_handle_properties.assume_init()),
+                err => Err(err),
+            }
         }
     }
 }

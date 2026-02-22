@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     get_descriptor_set_layout_size_ext: PFN_vkGetDescriptorSetLayoutSizeEXT,
     get_descriptor_set_layout_binding_offset_ext: PFN_vkGetDescriptorSetLayoutBindingOffsetEXT,
@@ -65,19 +65,32 @@ impl DeviceFn {
         &self,
         device: Device,
         layout: DescriptorSetLayout,
-        layout_size_in_bytes: &mut DeviceSize,
-    ) {
-        unsafe { (self.get_descriptor_set_layout_size_ext)(device, layout, layout_size_in_bytes) }
+    ) -> DeviceSize {
+        unsafe {
+            let mut layout_size_in_bytes = core::mem::MaybeUninit::uninit();
+            (self.get_descriptor_set_layout_size_ext)(
+                device,
+                layout,
+                layout_size_in_bytes.as_mut_ptr(),
+            );
+            layout_size_in_bytes.assume_init()
+        }
     }
     pub unsafe fn get_descriptor_set_layout_binding_offset_ext(
         &self,
         device: Device,
         layout: DescriptorSetLayout,
         binding: u32,
-        offset: &mut DeviceSize,
-    ) {
+    ) -> DeviceSize {
         unsafe {
-            (self.get_descriptor_set_layout_binding_offset_ext)(device, layout, binding, offset)
+            let mut offset = core::mem::MaybeUninit::uninit();
+            (self.get_descriptor_set_layout_binding_offset_ext)(
+                device,
+                layout,
+                binding,
+                offset.as_mut_ptr(),
+            );
+            offset.assume_init()
         }
     }
     pub unsafe fn get_descriptor_ext(
@@ -152,9 +165,12 @@ impl DeviceFn {
         data: &mut c_void,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.get_buffer_opaque_capture_descriptor_data_ext)(
-                device, info, data,
-            ))
+            let result = (self.get_buffer_opaque_capture_descriptor_data_ext)(device, info, data);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_image_opaque_capture_descriptor_data_ext(
@@ -164,9 +180,12 @@ impl DeviceFn {
         data: &mut c_void,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.get_image_opaque_capture_descriptor_data_ext)(
-                device, info, data,
-            ))
+            let result = (self.get_image_opaque_capture_descriptor_data_ext)(device, info, data);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_image_view_opaque_capture_descriptor_data_ext(
@@ -176,9 +195,13 @@ impl DeviceFn {
         data: &mut c_void,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.get_image_view_opaque_capture_descriptor_data_ext)(
-                device, info, data,
-            ))
+            let result =
+                (self.get_image_view_opaque_capture_descriptor_data_ext)(device, info, data);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_sampler_opaque_capture_descriptor_data_ext(
@@ -188,9 +211,12 @@ impl DeviceFn {
         data: &mut c_void,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.get_sampler_opaque_capture_descriptor_data_ext)(
-                device, info, data,
-            ))
+            let result = (self.get_sampler_opaque_capture_descriptor_data_ext)(device, info, data);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_acceleration_structure_opaque_capture_descriptor_data_ext(
@@ -200,9 +226,14 @@ impl DeviceFn {
         data: &mut c_void,
     ) -> crate::Result<()> {
         unsafe {
-            result((self
+            let result = (self
                 .get_acceleration_structure_opaque_capture_descriptor_data_ext
-                .unwrap())(device, info, data))
+                .unwrap())(device, info, data);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
 }

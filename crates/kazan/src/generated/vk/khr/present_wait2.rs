@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     wait_for_present2_khr: PFN_vkWaitForPresent2KHR,
 }
@@ -27,11 +27,14 @@ impl DeviceFn {
         present_wait2_info: &PresentWait2InfoKHR,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.wait_for_present2_khr)(
-                device,
-                swapchain,
-                present_wait2_info,
-            ))
+            let result = (self.wait_for_present2_khr)(device, swapchain, present_wait2_info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                VkResult::TIMEOUT => Ok(()),
+                VkResult::SUBOPTIMAL_KHR => Ok(()),
+                err => Err(err),
+            }
         }
     }
 }

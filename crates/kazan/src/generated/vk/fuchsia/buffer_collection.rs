@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     create_buffer_collection_fuchsia: PFN_vkCreateBufferCollectionFUCHSIA,
     set_buffer_collection_image_constraints_fuchsia:
@@ -43,15 +43,20 @@ impl DeviceFn {
         device: Device,
         create_info: &BufferCollectionCreateInfoFUCHSIA,
         allocator: Option<&AllocationCallbacks>,
-        collection: &mut BufferCollectionFUCHSIA,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<BufferCollectionFUCHSIA> {
         unsafe {
-            result((self.create_buffer_collection_fuchsia)(
+            let mut collection = core::mem::MaybeUninit::uninit();
+            let result = (self.create_buffer_collection_fuchsia)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                collection,
-            ))
+                collection.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(collection.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn set_buffer_collection_image_constraints_fuchsia(
@@ -61,11 +66,16 @@ impl DeviceFn {
         image_constraints_info: &ImageConstraintsInfoFUCHSIA,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.set_buffer_collection_image_constraints_fuchsia)(
+            let result = (self.set_buffer_collection_image_constraints_fuchsia)(
                 device,
                 collection,
                 image_constraints_info,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn set_buffer_collection_buffer_constraints_fuchsia(
@@ -75,11 +85,16 @@ impl DeviceFn {
         buffer_constraints_info: &BufferConstraintsInfoFUCHSIA,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.set_buffer_collection_buffer_constraints_fuchsia)(
+            let result = (self.set_buffer_collection_buffer_constraints_fuchsia)(
                 device,
                 collection,
                 buffer_constraints_info,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_buffer_collection_fuchsia(
@@ -96,12 +111,19 @@ impl DeviceFn {
         &self,
         device: Device,
         collection: BufferCollectionFUCHSIA,
-        properties: &mut BufferCollectionPropertiesFUCHSIA,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<BufferCollectionPropertiesFUCHSIA> {
         unsafe {
-            result((self.get_buffer_collection_properties_fuchsia)(
-                device, collection, properties,
-            ))
+            let mut properties = core::mem::MaybeUninit::uninit();
+            let result = (self.get_buffer_collection_properties_fuchsia)(
+                device,
+                collection,
+                properties.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(properties.assume_init()),
+                err => Err(err),
+            }
         }
     }
 }

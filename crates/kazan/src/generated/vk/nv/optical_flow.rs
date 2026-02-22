@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     get_physical_device_optical_flow_image_formats_nv:
         PFN_vkGetPhysicalDeviceOpticalFlowImageFormatsNV,
@@ -31,12 +31,18 @@ impl InstanceFn {
             try_extend_uninit(
                 image_format_properties,
                 |format_count, image_format_properties| {
-                    result((self.get_physical_device_optical_flow_image_formats_nv)(
+                    let result = (self.get_physical_device_optical_flow_image_formats_nv)(
                         physical_device,
                         optical_flow_image_format_info,
                         format_count,
                         image_format_properties as _,
-                    ))
+                    );
+
+                    match result {
+                        VkResult::SUCCESS => Ok(()),
+                        VkResult::INCOMPLETE => Ok(()),
+                        err => Err(err),
+                    }
                 },
             )
         }
@@ -76,15 +82,20 @@ impl DeviceFn {
         device: Device,
         create_info: &OpticalFlowSessionCreateInfoNV,
         allocator: Option<&AllocationCallbacks>,
-        session: &mut OpticalFlowSessionNV,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<OpticalFlowSessionNV> {
         unsafe {
-            result((self.create_optical_flow_session_nv)(
+            let mut session = core::mem::MaybeUninit::uninit();
+            let result = (self.create_optical_flow_session_nv)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                session,
-            ))
+                session.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(session.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_optical_flow_session_nv(
@@ -104,13 +115,18 @@ impl DeviceFn {
         layout: ImageLayout,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.bind_optical_flow_session_image_nv)(
+            let result = (self.bind_optical_flow_session_image_nv)(
                 device,
                 session,
                 binding_point,
                 view,
                 layout,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn cmd_optical_flow_execute_nv(

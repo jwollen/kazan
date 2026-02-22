@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     destroy_surface_khr: PFN_vkDestroySurfaceKHR,
     get_physical_device_surface_support_khr: PFN_vkGetPhysicalDeviceSurfaceSupportKHR,
@@ -47,29 +47,39 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         queue_family_index: u32,
         surface: SurfaceKHR,
-        supported: &mut Bool32,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<Bool32> {
         unsafe {
-            result((self.get_physical_device_surface_support_khr)(
+            let mut supported = core::mem::MaybeUninit::uninit();
+            let result = (self.get_physical_device_surface_support_khr)(
                 physical_device,
                 queue_family_index,
                 surface,
-                supported,
-            ))
+                supported.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(supported.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_physical_device_surface_capabilities_khr(
         &self,
         physical_device: PhysicalDevice,
         surface: SurfaceKHR,
-        surface_capabilities: &mut SurfaceCapabilitiesKHR,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<SurfaceCapabilitiesKHR> {
         unsafe {
-            result((self.get_physical_device_surface_capabilities_khr)(
+            let mut surface_capabilities = core::mem::MaybeUninit::uninit();
+            let result = (self.get_physical_device_surface_capabilities_khr)(
                 physical_device,
                 surface,
-                surface_capabilities,
-            ))
+                surface_capabilities.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(surface_capabilities.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_physical_device_surface_formats_khr(
@@ -80,12 +90,18 @@ impl InstanceFn {
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(surface_formats, |surface_format_count, surface_formats| {
-                result((self.get_physical_device_surface_formats_khr)(
+                let result = (self.get_physical_device_surface_formats_khr)(
                     physical_device,
                     surface,
                     surface_format_count,
                     surface_formats as _,
-                ))
+                );
+
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
             })
         }
     }
@@ -97,12 +113,18 @@ impl InstanceFn {
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(present_modes, |present_mode_count, present_modes| {
-                result((self.get_physical_device_surface_present_modes_khr)(
+                let result = (self.get_physical_device_surface_present_modes_khr)(
                     physical_device,
                     surface,
                     present_mode_count,
                     present_modes as _,
-                ))
+                );
+
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
             })
         }
     }

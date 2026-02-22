@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     get_physical_device_calibrateable_time_domains_khr:
         PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsKHR,
@@ -28,11 +28,17 @@ impl InstanceFn {
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(time_domains, |time_domain_count, time_domains| {
-                result((self.get_physical_device_calibrateable_time_domains_khr)(
+                let result = (self.get_physical_device_calibrateable_time_domains_khr)(
                     physical_device,
                     time_domain_count,
                     time_domains as _,
-                ))
+                );
+
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
             })
         }
     }
@@ -59,16 +65,21 @@ impl DeviceFn {
         device: Device,
         timestamp_infos: &[CalibratedTimestampInfoKHR],
         timestamps: &mut [u64],
-        max_deviation: &mut u64,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<u64> {
         unsafe {
-            result((self.get_calibrated_timestamps_khr)(
+            let mut max_deviation = core::mem::MaybeUninit::uninit();
+            let result = (self.get_calibrated_timestamps_khr)(
                 device,
                 timestamp_infos.len().try_into().unwrap(),
                 timestamp_infos.as_ptr() as _,
                 timestamps.as_mut_ptr() as _,
-                max_deviation,
-            ))
+                max_deviation.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(max_deviation.assume_init()),
+                err => Err(err),
+            }
         }
     }
 }

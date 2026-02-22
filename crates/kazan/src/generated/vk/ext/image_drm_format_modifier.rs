@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     get_image_drm_format_modifier_properties_ext: PFN_vkGetImageDrmFormatModifierPropertiesEXT,
 }
@@ -24,12 +24,19 @@ impl DeviceFn {
         &self,
         device: Device,
         image: Image,
-        properties: &mut ImageDrmFormatModifierPropertiesEXT,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<ImageDrmFormatModifierPropertiesEXT> {
         unsafe {
-            result((self.get_image_drm_format_modifier_properties_ext)(
-                device, image, properties,
-            ))
+            let mut properties = core::mem::MaybeUninit::uninit();
+            let result = (self.get_image_drm_format_modifier_properties_ext)(
+                device,
+                image,
+                properties.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(properties.assume_init()),
+                err => Err(err),
+            }
         }
     }
 }

@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     get_image_view_handle_nvx: PFN_vkGetImageViewHandleNVX,
     get_image_view_handle64_nvx: PFN_vkGetImageViewHandle64NVX,
@@ -50,12 +50,16 @@ impl DeviceFn {
         &self,
         device: Device,
         image_view: ImageView,
-        properties: &mut ImageViewAddressPropertiesNVX,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<ImageViewAddressPropertiesNVX> {
         unsafe {
-            result((self.get_image_view_address_nvx)(
-                device, image_view, properties,
-            ))
+            let mut properties = core::mem::MaybeUninit::uninit();
+            let result =
+                (self.get_image_view_address_nvx)(device, image_view, properties.as_mut_ptr());
+
+            match result {
+                VkResult::SUCCESS => Ok(properties.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_device_combined_image_sampler_index_nvx(

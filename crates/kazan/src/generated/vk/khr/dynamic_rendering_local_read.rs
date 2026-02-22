@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     cmd_set_rendering_attachment_locations_khr: PFN_vkCmdSetRenderingAttachmentLocations,
     cmd_set_rendering_input_attachment_indices_khr: PFN_vkCmdSetRenderingInputAttachmentIndices,

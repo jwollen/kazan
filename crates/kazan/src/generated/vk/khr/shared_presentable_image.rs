@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     get_swapchain_status_khr: PFN_vkGetSwapchainStatusKHR,
 }
@@ -25,6 +25,14 @@ impl DeviceFn {
         device: Device,
         swapchain: SwapchainKHR,
     ) -> crate::Result<()> {
-        unsafe { result((self.get_swapchain_status_khr)(device, swapchain)) }
+        unsafe {
+            let result = (self.get_swapchain_status_khr)(device, swapchain);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                VkResult::SUBOPTIMAL_KHR => Ok(()),
+                err => Err(err),
+            }
+        }
     }
 }

@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     get_generated_commands_memory_requirements_nv: PFN_vkGetGeneratedCommandsMemoryRequirementsNV,
     cmd_preprocess_generated_commands_nv: PFN_vkCmdPreprocessGeneratedCommandsNV,
@@ -44,10 +44,15 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &GeneratedCommandsMemoryRequirementsInfoNV,
-        memory_requirements: &mut MemoryRequirements2,
-    ) {
+    ) -> MemoryRequirements2 {
         unsafe {
-            (self.get_generated_commands_memory_requirements_nv)(device, info, memory_requirements)
+            let mut memory_requirements = core::mem::MaybeUninit::uninit();
+            (self.get_generated_commands_memory_requirements_nv)(
+                device,
+                info,
+                memory_requirements.as_mut_ptr(),
+            );
+            memory_requirements.assume_init()
         }
     }
     pub unsafe fn cmd_preprocess_generated_commands_nv(
@@ -94,15 +99,20 @@ impl DeviceFn {
         device: Device,
         create_info: &IndirectCommandsLayoutCreateInfoNV,
         allocator: Option<&AllocationCallbacks>,
-        indirect_commands_layout: &mut IndirectCommandsLayoutNV,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<IndirectCommandsLayoutNV> {
         unsafe {
-            result((self.create_indirect_commands_layout_nv)(
+            let mut indirect_commands_layout = core::mem::MaybeUninit::uninit();
+            let result = (self.create_indirect_commands_layout_nv)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                indirect_commands_layout,
-            ))
+                indirect_commands_layout.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(indirect_commands_layout.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_indirect_commands_layout_nv(

@@ -167,10 +167,3 @@ impl<T> RawMutPtr<T> for Option<&mut [T]> {
 pub struct LoadingError;
 
 pub type Result<T> = core::result::Result<T, kazan_sys::vk::Result>;
-
-fn result(result: kazan_sys::vk::Result) -> Result<()> {
-    match result {
-        kazan_sys::vk::Result::SUCCESS => Ok(()),
-        err => Err(err),
-    }
-}

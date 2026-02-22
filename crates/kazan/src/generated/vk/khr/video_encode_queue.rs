@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     get_physical_device_video_encode_quality_level_properties_khr:
         PFN_vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR,
@@ -26,15 +26,19 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         quality_level_info: &PhysicalDeviceVideoEncodeQualityLevelInfoKHR,
-        quality_level_properties: &mut VideoEncodeQualityLevelPropertiesKHR,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<VideoEncodeQualityLevelPropertiesKHR> {
         unsafe {
-            result((self
-                .get_physical_device_video_encode_quality_level_properties_khr)(
+            let mut quality_level_properties = core::mem::MaybeUninit::uninit();
+            let result = (self.get_physical_device_video_encode_quality_level_properties_khr)(
                 physical_device,
                 quality_level_info,
-                quality_level_properties,
-            ))
+                quality_level_properties.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(quality_level_properties.assume_init()),
+                err => Err(err),
+            }
         }
     }
 }
@@ -66,13 +70,19 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(data, |data_size, data| {
-                result((self.get_encoded_video_session_parameters_khr)(
+                let result = (self.get_encoded_video_session_parameters_khr)(
                     device,
                     video_session_parameters_info,
                     todo!("output parameters in enumeration commands"),
                     data_size,
                     data as _,
-                ))
+                );
+
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
             })
         }
     }

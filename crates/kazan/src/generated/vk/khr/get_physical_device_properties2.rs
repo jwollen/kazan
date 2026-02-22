@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     get_physical_device_features2_khr: PFN_vkGetPhysicalDeviceFeatures2,
     get_physical_device_properties2_khr: PFN_vkGetPhysicalDeviceProperties2,
@@ -49,43 +49,55 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_features2_khr(
         &self,
         physical_device: PhysicalDevice,
-        features: &mut PhysicalDeviceFeatures2,
-    ) {
-        unsafe { (self.get_physical_device_features2_khr)(physical_device, features) }
+    ) -> PhysicalDeviceFeatures2 {
+        unsafe {
+            let mut features = core::mem::MaybeUninit::uninit();
+            (self.get_physical_device_features2_khr)(physical_device, features.as_mut_ptr());
+            features.assume_init()
+        }
     }
     pub unsafe fn get_physical_device_properties2_khr(
         &self,
         physical_device: PhysicalDevice,
-        properties: &mut PhysicalDeviceProperties2,
-    ) {
-        unsafe { (self.get_physical_device_properties2_khr)(physical_device, properties) }
+    ) -> PhysicalDeviceProperties2 {
+        unsafe {
+            let mut properties = core::mem::MaybeUninit::uninit();
+            (self.get_physical_device_properties2_khr)(physical_device, properties.as_mut_ptr());
+            properties.assume_init()
+        }
     }
     pub unsafe fn get_physical_device_format_properties2_khr(
         &self,
         physical_device: PhysicalDevice,
         format: Format,
-        format_properties: &mut FormatProperties2,
-    ) {
+    ) -> FormatProperties2 {
         unsafe {
+            let mut format_properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_format_properties2_khr)(
                 physical_device,
                 format,
-                format_properties,
-            )
+                format_properties.as_mut_ptr(),
+            );
+            format_properties.assume_init()
         }
     }
     pub unsafe fn get_physical_device_image_format_properties2_khr(
         &self,
         physical_device: PhysicalDevice,
         image_format_info: &PhysicalDeviceImageFormatInfo2,
-        image_format_properties: &mut ImageFormatProperties2,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<ImageFormatProperties2> {
         unsafe {
-            result((self.get_physical_device_image_format_properties2_khr)(
+            let mut image_format_properties = core::mem::MaybeUninit::uninit();
+            let result = (self.get_physical_device_image_format_properties2_khr)(
                 physical_device,
                 image_format_info,
-                image_format_properties,
-            ))
+                image_format_properties.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(image_format_properties.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_physical_device_queue_family_properties2_khr(
@@ -109,10 +121,14 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_memory_properties2_khr(
         &self,
         physical_device: PhysicalDevice,
-        memory_properties: &mut PhysicalDeviceMemoryProperties2,
-    ) {
+    ) -> PhysicalDeviceMemoryProperties2 {
         unsafe {
-            (self.get_physical_device_memory_properties2_khr)(physical_device, memory_properties)
+            let mut memory_properties = core::mem::MaybeUninit::uninit();
+            (self.get_physical_device_memory_properties2_khr)(
+                physical_device,
+                memory_properties.as_mut_ptr(),
+            );
+            memory_properties.assume_init()
         }
     }
     pub unsafe fn get_physical_device_sparse_image_format_properties2_khr(

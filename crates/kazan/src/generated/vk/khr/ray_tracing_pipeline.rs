@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     cmd_trace_rays_khr: PFN_vkCmdTraceRaysKHR,
     create_ray_tracing_pipelines_khr: PFN_vkCreateRayTracingPipelinesKHR,
@@ -78,7 +78,7 @@ impl DeviceFn {
         pipelines: &mut [Pipeline],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.create_ray_tracing_pipelines_khr)(
+            let result = (self.create_ray_tracing_pipelines_khr)(
                 device,
                 deferred_operation,
                 pipeline_cache,
@@ -86,7 +86,15 @@ impl DeviceFn {
                 create_infos.as_ptr() as _,
                 allocator.to_raw_ptr(),
                 pipelines.as_mut_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                VkResult::OPERATION_DEFERRED_KHR => Ok(()),
+                VkResult::OPERATION_NOT_DEFERRED_KHR => Ok(()),
+                VkResult::PIPELINE_COMPILE_REQUIRED_EXT => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_ray_tracing_shader_group_handles_khr(
@@ -98,14 +106,19 @@ impl DeviceFn {
         data: &mut [u8],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.get_ray_tracing_shader_group_handles_khr)(
+            let result = (self.get_ray_tracing_shader_group_handles_khr)(
                 device,
                 pipeline,
                 first_group,
                 group_count,
                 data.len().try_into().unwrap(),
                 data.as_mut_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_ray_tracing_capture_replay_shader_group_handles_khr(
@@ -117,15 +130,19 @@ impl DeviceFn {
         data: &mut [u8],
     ) -> crate::Result<()> {
         unsafe {
-            result((self
-                .get_ray_tracing_capture_replay_shader_group_handles_khr)(
+            let result = (self.get_ray_tracing_capture_replay_shader_group_handles_khr)(
                 device,
                 pipeline,
                 first_group,
                 group_count,
                 data.len().try_into().unwrap(),
                 data.as_mut_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn cmd_trace_rays_indirect_khr(

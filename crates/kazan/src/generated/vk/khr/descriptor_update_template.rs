@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     create_descriptor_update_template_khr: PFN_vkCreateDescriptorUpdateTemplate,
     destroy_descriptor_update_template_khr: PFN_vkDestroyDescriptorUpdateTemplate,
@@ -37,15 +37,20 @@ impl DeviceFn {
         device: Device,
         create_info: &DescriptorUpdateTemplateCreateInfo,
         allocator: Option<&AllocationCallbacks>,
-        descriptor_update_template: &mut DescriptorUpdateTemplate,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<DescriptorUpdateTemplate> {
         unsafe {
-            result((self.create_descriptor_update_template_khr)(
+            let mut descriptor_update_template = core::mem::MaybeUninit::uninit();
+            let result = (self.create_descriptor_update_template_khr)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                descriptor_update_template,
-            ))
+                descriptor_update_template.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(descriptor_update_template.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_descriptor_update_template_khr(

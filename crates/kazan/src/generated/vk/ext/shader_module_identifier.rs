@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     get_shader_module_identifier_ext: PFN_vkGetShaderModuleIdentifierEXT,
     get_shader_module_create_info_identifier_ext: PFN_vkGetShaderModuleCreateInfoIdentifierEXT,
@@ -28,18 +28,26 @@ impl DeviceFn {
         &self,
         device: Device,
         shader_module: ShaderModule,
-        identifier: &mut ShaderModuleIdentifierEXT,
-    ) {
-        unsafe { (self.get_shader_module_identifier_ext)(device, shader_module, identifier) }
+    ) -> ShaderModuleIdentifierEXT {
+        unsafe {
+            let mut identifier = core::mem::MaybeUninit::uninit();
+            (self.get_shader_module_identifier_ext)(device, shader_module, identifier.as_mut_ptr());
+            identifier.assume_init()
+        }
     }
     pub unsafe fn get_shader_module_create_info_identifier_ext(
         &self,
         device: Device,
         create_info: &ShaderModuleCreateInfo,
-        identifier: &mut ShaderModuleIdentifierEXT,
-    ) {
+    ) -> ShaderModuleIdentifierEXT {
         unsafe {
-            (self.get_shader_module_create_info_identifier_ext)(device, create_info, identifier)
+            let mut identifier = core::mem::MaybeUninit::uninit();
+            (self.get_shader_module_create_info_identifier_ext)(
+                device,
+                create_info,
+                identifier.as_mut_ptr(),
+            );
+            identifier.assume_init()
         }
     }
 }

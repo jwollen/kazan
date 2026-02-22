@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     get_physical_device_queue_family_data_graph_properties_arm:
         PFN_vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM,
@@ -41,13 +41,18 @@ impl InstanceFn {
             try_extend_uninit(
                 queue_family_data_graph_properties,
                 |queue_family_data_graph_property_count, queue_family_data_graph_properties| {
-                    result((self
-                        .get_physical_device_queue_family_data_graph_properties_arm)(
+                    let result = (self.get_physical_device_queue_family_data_graph_properties_arm)(
                         physical_device,
                         queue_family_index,
                         queue_family_data_graph_property_count,
                         queue_family_data_graph_properties as _,
-                    ))
+                    );
+
+                    match result {
+                        VkResult::SUCCESS => Ok(()),
+                        VkResult::INCOMPLETE => Ok(()),
+                        err => Err(err),
+                    }
                 },
             )
         }
@@ -56,14 +61,16 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         queue_family_data_graph_processing_engine_info: &PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM,
-        queue_family_data_graph_processing_engine_properties: &mut QueueFamilyDataGraphProcessingEnginePropertiesARM,
-    ) {
+    ) -> QueueFamilyDataGraphProcessingEnginePropertiesARM {
         unsafe {
+            let mut queue_family_data_graph_processing_engine_properties =
+                core::mem::MaybeUninit::uninit();
             (self.get_physical_device_queue_family_data_graph_processing_engine_properties_arm)(
                 physical_device,
                 queue_family_data_graph_processing_engine_info,
-                queue_family_data_graph_processing_engine_properties,
-            )
+                queue_family_data_graph_processing_engine_properties.as_mut_ptr(),
+            );
+            queue_family_data_graph_processing_engine_properties.assume_init()
         }
     }
 }
@@ -131,7 +138,7 @@ impl DeviceFn {
         pipelines: &mut [Pipeline],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.create_data_graph_pipelines_arm)(
+            let result = (self.create_data_graph_pipelines_arm)(
                 device,
                 deferred_operation,
                 pipeline_cache,
@@ -139,7 +146,13 @@ impl DeviceFn {
                 create_infos.as_ptr() as _,
                 allocator.to_raw_ptr(),
                 pipelines.as_mut_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                VkResult::PIPELINE_COMPILE_REQUIRED_EXT => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn create_data_graph_pipeline_session_arm(
@@ -147,15 +160,20 @@ impl DeviceFn {
         device: Device,
         create_info: &DataGraphPipelineSessionCreateInfoARM,
         allocator: Option<&AllocationCallbacks>,
-        session: &mut DataGraphPipelineSessionARM,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<DataGraphPipelineSessionARM> {
         unsafe {
-            result((self.create_data_graph_pipeline_session_arm)(
+            let mut session = core::mem::MaybeUninit::uninit();
+            let result = (self.create_data_graph_pipeline_session_arm)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                session,
-            ))
+                session.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(session.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_data_graph_pipeline_session_bind_point_requirements_arm(
@@ -168,13 +186,18 @@ impl DeviceFn {
             try_extend_uninit(
                 bind_point_requirements,
                 |bind_point_requirement_count, bind_point_requirements| {
-                    result((self
-                        .get_data_graph_pipeline_session_bind_point_requirements_arm)(
+                    let result = (self.get_data_graph_pipeline_session_bind_point_requirements_arm)(
                         device,
                         info,
                         bind_point_requirement_count,
                         bind_point_requirements as _,
-                    ))
+                    );
+
+                    match result {
+                        VkResult::SUCCESS => Ok(()),
+                        VkResult::INCOMPLETE => Ok(()),
+                        err => Err(err),
+                    }
                 },
             )
         }
@@ -183,14 +206,15 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &DataGraphPipelineSessionMemoryRequirementsInfoARM,
-        memory_requirements: &mut MemoryRequirements2,
-    ) {
+    ) -> MemoryRequirements2 {
         unsafe {
+            let mut memory_requirements = core::mem::MaybeUninit::uninit();
             (self.get_data_graph_pipeline_session_memory_requirements_arm)(
                 device,
                 info,
-                memory_requirements,
-            )
+                memory_requirements.as_mut_ptr(),
+            );
+            memory_requirements.assume_init()
         }
     }
     pub unsafe fn bind_data_graph_pipeline_session_memory_arm(
@@ -199,11 +223,16 @@ impl DeviceFn {
         bind_infos: &[BindDataGraphPipelineSessionMemoryInfoARM],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.bind_data_graph_pipeline_session_memory_arm)(
+            let result = (self.bind_data_graph_pipeline_session_memory_arm)(
                 device,
                 bind_infos.len().try_into().unwrap(),
                 bind_infos.as_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_data_graph_pipeline_session_arm(
@@ -232,12 +261,18 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(properties, |properties_count, properties| {
-                result((self.get_data_graph_pipeline_available_properties_arm)(
+                let result = (self.get_data_graph_pipeline_available_properties_arm)(
                     device,
                     pipeline_info,
                     properties_count,
                     properties as _,
-                ))
+                );
+
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
             })
         }
     }
@@ -248,12 +283,18 @@ impl DeviceFn {
         properties: &mut [DataGraphPipelinePropertyQueryResultARM],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.get_data_graph_pipeline_properties_arm)(
+            let result = (self.get_data_graph_pipeline_properties_arm)(
                 device,
                 pipeline_info,
                 properties.len().try_into().unwrap(),
                 properties.as_mut_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                VkResult::INCOMPLETE => Ok(()),
+                err => Err(err),
+            }
         }
     }
 }

@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     create_cuda_module_nv: PFN_vkCreateCudaModuleNV,
     get_cuda_module_cache_nv: PFN_vkGetCudaModuleCacheNV,
@@ -45,15 +45,20 @@ impl DeviceFn {
         device: Device,
         create_info: &CudaModuleCreateInfoNV,
         allocator: Option<&AllocationCallbacks>,
-        module: &mut CudaModuleNV,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<CudaModuleNV> {
         unsafe {
-            result((self.create_cuda_module_nv)(
+            let mut module = core::mem::MaybeUninit::uninit();
+            let result = (self.create_cuda_module_nv)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                module,
-            ))
+                module.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(module.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_cuda_module_cache_nv(
@@ -64,12 +69,14 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(cache_data, |cache_size, cache_data| {
-                result((self.get_cuda_module_cache_nv)(
-                    device,
-                    module,
-                    cache_size,
-                    cache_data as _,
-                ))
+                let result =
+                    (self.get_cuda_module_cache_nv)(device, module, cache_size, cache_data as _);
+
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
             })
         }
     }
@@ -78,15 +85,20 @@ impl DeviceFn {
         device: Device,
         create_info: &CudaFunctionCreateInfoNV,
         allocator: Option<&AllocationCallbacks>,
-        function: &mut CudaFunctionNV,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<CudaFunctionNV> {
         unsafe {
-            result((self.create_cuda_function_nv)(
+            let mut function = core::mem::MaybeUninit::uninit();
+            let result = (self.create_cuda_function_nv)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                function,
-            ))
+                function.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(function.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_cuda_module_nv(

@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     debug_marker_set_object_tag_ext: PFN_vkDebugMarkerSetObjectTagEXT,
     debug_marker_set_object_name_ext: PFN_vkDebugMarkerSetObjectNameEXT,
@@ -41,14 +41,28 @@ impl DeviceFn {
         device: Device,
         tag_info: &DebugMarkerObjectTagInfoEXT,
     ) -> crate::Result<()> {
-        unsafe { result((self.debug_marker_set_object_tag_ext)(device, tag_info)) }
+        unsafe {
+            let result = (self.debug_marker_set_object_tag_ext)(device, tag_info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn debug_marker_set_object_name_ext(
         &self,
         device: Device,
         name_info: &DebugMarkerObjectNameInfoEXT,
     ) -> crate::Result<()> {
-        unsafe { result((self.debug_marker_set_object_name_ext)(device, name_info)) }
+        unsafe {
+            let result = (self.debug_marker_set_object_name_ext)(device, name_info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
+        }
     }
     pub unsafe fn cmd_debug_marker_begin_ext(
         &self,

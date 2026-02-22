@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct InstanceFn {
     get_physical_device_video_capabilities_khr: PFN_vkGetPhysicalDeviceVideoCapabilitiesKHR,
     get_physical_device_video_format_properties_khr:
@@ -29,14 +29,19 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         video_profile: &VideoProfileInfoKHR,
-        capabilities: &mut VideoCapabilitiesKHR,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<VideoCapabilitiesKHR> {
         unsafe {
-            result((self.get_physical_device_video_capabilities_khr)(
+            let mut capabilities = core::mem::MaybeUninit::uninit();
+            let result = (self.get_physical_device_video_capabilities_khr)(
                 physical_device,
                 video_profile,
-                capabilities,
-            ))
+                capabilities.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(capabilities.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn get_physical_device_video_format_properties_khr(
@@ -49,12 +54,18 @@ impl InstanceFn {
             try_extend_uninit(
                 video_format_properties,
                 |video_format_property_count, video_format_properties| {
-                    result((self.get_physical_device_video_format_properties_khr)(
+                    let result = (self.get_physical_device_video_format_properties_khr)(
                         physical_device,
                         video_format_info,
                         video_format_property_count,
                         video_format_properties as _,
-                    ))
+                    );
+
+                    match result {
+                        VkResult::SUCCESS => Ok(()),
+                        VkResult::INCOMPLETE => Ok(()),
+                        err => Err(err),
+                    }
                 },
             )
         }
@@ -118,15 +129,20 @@ impl DeviceFn {
         device: Device,
         create_info: &VideoSessionCreateInfoKHR,
         allocator: Option<&AllocationCallbacks>,
-        video_session: &mut VideoSessionKHR,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<VideoSessionKHR> {
         unsafe {
-            result((self.create_video_session_khr)(
+            let mut video_session = core::mem::MaybeUninit::uninit();
+            let result = (self.create_video_session_khr)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                video_session,
-            ))
+                video_session.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(video_session.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_video_session_khr(
@@ -147,12 +163,18 @@ impl DeviceFn {
             try_extend_uninit(
                 memory_requirements,
                 |memory_requirements_count, memory_requirements| {
-                    result((self.get_video_session_memory_requirements_khr)(
+                    let result = (self.get_video_session_memory_requirements_khr)(
                         device,
                         video_session,
                         memory_requirements_count,
                         memory_requirements as _,
-                    ))
+                    );
+
+                    match result {
+                        VkResult::SUCCESS => Ok(()),
+                        VkResult::INCOMPLETE => Ok(()),
+                        err => Err(err),
+                    }
                 },
             )
         }
@@ -164,12 +186,17 @@ impl DeviceFn {
         bind_session_memory_infos: &[BindVideoSessionMemoryInfoKHR],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.bind_video_session_memory_khr)(
+            let result = (self.bind_video_session_memory_khr)(
                 device,
                 video_session,
                 bind_session_memory_infos.len().try_into().unwrap(),
                 bind_session_memory_infos.as_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn create_video_session_parameters_khr(
@@ -177,15 +204,20 @@ impl DeviceFn {
         device: Device,
         create_info: &VideoSessionParametersCreateInfoKHR,
         allocator: Option<&AllocationCallbacks>,
-        video_session_parameters: &mut VideoSessionParametersKHR,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<VideoSessionParametersKHR> {
         unsafe {
-            result((self.create_video_session_parameters_khr)(
+            let mut video_session_parameters = core::mem::MaybeUninit::uninit();
+            let result = (self.create_video_session_parameters_khr)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                video_session_parameters,
-            ))
+                video_session_parameters.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(video_session_parameters.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn update_video_session_parameters_khr(
@@ -195,11 +227,16 @@ impl DeviceFn {
         update_info: &VideoSessionParametersUpdateInfoKHR,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.update_video_session_parameters_khr)(
+            let result = (self.update_video_session_parameters_khr)(
                 device,
                 video_session_parameters,
                 update_info,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_video_session_parameters_khr(

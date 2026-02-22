@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     get_generated_commands_memory_requirements_ext: PFN_vkGetGeneratedCommandsMemoryRequirementsEXT,
     cmd_preprocess_generated_commands_ext: PFN_vkCmdPreprocessGeneratedCommandsEXT,
@@ -56,10 +56,15 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &GeneratedCommandsMemoryRequirementsInfoEXT,
-        memory_requirements: &mut MemoryRequirements2,
-    ) {
+    ) -> MemoryRequirements2 {
         unsafe {
-            (self.get_generated_commands_memory_requirements_ext)(device, info, memory_requirements)
+            let mut memory_requirements = core::mem::MaybeUninit::uninit();
+            (self.get_generated_commands_memory_requirements_ext)(
+                device,
+                info,
+                memory_requirements.as_mut_ptr(),
+            );
+            memory_requirements.assume_init()
         }
     }
     pub unsafe fn cmd_preprocess_generated_commands_ext(
@@ -95,15 +100,20 @@ impl DeviceFn {
         device: Device,
         create_info: &IndirectCommandsLayoutCreateInfoEXT,
         allocator: Option<&AllocationCallbacks>,
-        indirect_commands_layout: &mut IndirectCommandsLayoutEXT,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<IndirectCommandsLayoutEXT> {
         unsafe {
-            result((self.create_indirect_commands_layout_ext)(
+            let mut indirect_commands_layout = core::mem::MaybeUninit::uninit();
+            let result = (self.create_indirect_commands_layout_ext)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                indirect_commands_layout,
-            ))
+                indirect_commands_layout.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(indirect_commands_layout.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_indirect_commands_layout_ext(
@@ -125,15 +135,20 @@ impl DeviceFn {
         device: Device,
         create_info: &IndirectExecutionSetCreateInfoEXT,
         allocator: Option<&AllocationCallbacks>,
-        indirect_execution_set: &mut IndirectExecutionSetEXT,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<IndirectExecutionSetEXT> {
         unsafe {
-            result((self.create_indirect_execution_set_ext)(
+            let mut indirect_execution_set = core::mem::MaybeUninit::uninit();
+            let result = (self.create_indirect_execution_set_ext)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                indirect_execution_set,
-            ))
+                indirect_execution_set.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(indirect_execution_set.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_indirect_execution_set_ext(

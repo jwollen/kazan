@@ -2,7 +2,7 @@
 use crate::*;
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::*, *};
+use kazan_sys::{vk::Result as VkResult, vk::*, *};
 pub struct DeviceFn {
     create_acceleration_structure_khr: PFN_vkCreateAccelerationStructureKHR,
     destroy_acceleration_structure_khr: PFN_vkDestroyAccelerationStructureKHR,
@@ -88,15 +88,20 @@ impl DeviceFn {
         device: Device,
         create_info: &AccelerationStructureCreateInfoKHR,
         allocator: Option<&AllocationCallbacks>,
-        acceleration_structure: &mut AccelerationStructureKHR,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<AccelerationStructureKHR> {
         unsafe {
-            result((self.create_acceleration_structure_khr)(
+            let mut acceleration_structure = core::mem::MaybeUninit::uninit();
+            let result = (self.create_acceleration_structure_khr)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
-                acceleration_structure,
-            ))
+                acceleration_structure.as_mut_ptr(),
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(acceleration_structure.assume_init()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn destroy_acceleration_structure_khr(
@@ -155,13 +160,20 @@ impl DeviceFn {
         build_range_infos: &[*const AccelerationStructureBuildRangeInfoKHR],
     ) -> crate::Result<()> {
         unsafe {
-            result((self.build_acceleration_structures_khr)(
+            let result = (self.build_acceleration_structures_khr)(
                 device,
                 deferred_operation,
                 infos.len().try_into().unwrap(),
                 infos.as_ptr() as _,
                 build_range_infos.as_ptr() as _,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                VkResult::OPERATION_DEFERRED_KHR => Ok(()),
+                VkResult::OPERATION_NOT_DEFERRED_KHR => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn copy_acceleration_structure_khr(
@@ -171,11 +183,14 @@ impl DeviceFn {
         info: &CopyAccelerationStructureInfoKHR,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.copy_acceleration_structure_khr)(
-                device,
-                deferred_operation,
-                info,
-            ))
+            let result = (self.copy_acceleration_structure_khr)(device, deferred_operation, info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                VkResult::OPERATION_DEFERRED_KHR => Ok(()),
+                VkResult::OPERATION_NOT_DEFERRED_KHR => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn copy_acceleration_structure_to_memory_khr(
@@ -185,11 +200,15 @@ impl DeviceFn {
         info: &CopyAccelerationStructureToMemoryInfoKHR,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.copy_acceleration_structure_to_memory_khr)(
-                device,
-                deferred_operation,
-                info,
-            ))
+            let result =
+                (self.copy_acceleration_structure_to_memory_khr)(device, deferred_operation, info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                VkResult::OPERATION_DEFERRED_KHR => Ok(()),
+                VkResult::OPERATION_NOT_DEFERRED_KHR => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn copy_memory_to_acceleration_structure_khr(
@@ -199,11 +218,15 @@ impl DeviceFn {
         info: &CopyMemoryToAccelerationStructureInfoKHR,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.copy_memory_to_acceleration_structure_khr)(
-                device,
-                deferred_operation,
-                info,
-            ))
+            let result =
+                (self.copy_memory_to_acceleration_structure_khr)(device, deferred_operation, info);
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                VkResult::OPERATION_DEFERRED_KHR => Ok(()),
+                VkResult::OPERATION_NOT_DEFERRED_KHR => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn write_acceleration_structures_properties_khr(
@@ -215,7 +238,7 @@ impl DeviceFn {
         stride: usize,
     ) -> crate::Result<()> {
         unsafe {
-            result((self.write_acceleration_structures_properties_khr)(
+            let result = (self.write_acceleration_structures_properties_khr)(
                 device,
                 acceleration_structures.len().try_into().unwrap(),
                 acceleration_structures.as_ptr() as _,
@@ -223,7 +246,12 @@ impl DeviceFn {
                 data.len().try_into().unwrap(),
                 data.as_mut_ptr() as _,
                 stride,
-            ))
+            );
+
+            match result {
+                VkResult::SUCCESS => Ok(()),
+                err => Err(err),
+            }
         }
     }
     pub unsafe fn cmd_copy_acceleration_structure_khr(
@@ -277,14 +305,15 @@ impl DeviceFn {
         &self,
         device: Device,
         version_info: &AccelerationStructureVersionInfoKHR,
-        compatibility: &mut AccelerationStructureCompatibilityKHR,
-    ) {
+    ) -> AccelerationStructureCompatibilityKHR {
         unsafe {
+            let mut compatibility = core::mem::MaybeUninit::uninit();
             (self.get_device_acceleration_structure_compatibility_khr)(
                 device,
                 version_info,
-                compatibility,
-            )
+                compatibility.as_mut_ptr(),
+            );
+            compatibility.assume_init()
         }
     }
     pub unsafe fn get_acceleration_structure_build_sizes_khr(
@@ -293,16 +322,17 @@ impl DeviceFn {
         build_type: AccelerationStructureBuildTypeKHR,
         build_info: &AccelerationStructureBuildGeometryInfoKHR,
         max_primitive_counts: Option<&[u32]>,
-        size_info: &mut AccelerationStructureBuildSizesInfoKHR,
-    ) {
+    ) -> AccelerationStructureBuildSizesInfoKHR {
         unsafe {
+            let mut size_info = core::mem::MaybeUninit::uninit();
             (self.get_acceleration_structure_build_sizes_khr)(
                 device,
                 build_type,
                 build_info,
                 max_primitive_counts.to_raw_ptr(),
-                size_info,
-            )
+                size_info.as_mut_ptr(),
+            );
+            size_info.assume_init()
         }
     }
 }
