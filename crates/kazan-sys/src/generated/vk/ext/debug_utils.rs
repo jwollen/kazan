@@ -86,6 +86,7 @@ bitflags! {
         const GENERAL_EXT = DebugUtilsMessageTypeFlagBitsEXT::GENERAL_EXT.0;
         const VALIDATION_EXT = DebugUtilsMessageTypeFlagBitsEXT::VALIDATION_EXT.0;
         const PERFORMANCE_EXT = DebugUtilsMessageTypeFlagBitsEXT::PERFORMANCE_EXT.0;
+        const DEVICE_ADDRESS_BINDING_EXT = DebugUtilsMessageTypeFlagBitsEXT::DEVICE_ADDRESS_BINDING_EXT.0;
     }
 }
 #[repr(transparent)]
@@ -95,6 +96,7 @@ impl DebugUtilsMessageTypeFlagBitsEXT {
     pub const GENERAL_EXT: Self = Self(1 << 0);
     pub const VALIDATION_EXT: Self = Self(1 << 1);
     pub const PERFORMANCE_EXT: Self = Self(1 << 2);
+    pub const DEVICE_ADDRESS_BINDING_EXT: Self = Self(1 << 3);
 }
 bitflags! {
     #[repr(transparent)]

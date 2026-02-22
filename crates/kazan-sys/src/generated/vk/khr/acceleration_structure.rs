@@ -234,6 +234,9 @@ impl GeometryTypeKHR {
     pub const TRIANGLES_KHR: Self = Self(0);
     pub const AABBS_KHR: Self = Self(1);
     pub const INSTANCES_KHR: Self = Self(2);
+    pub const SPHERES_NV: Self = Self(1000429004);
+    pub const DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX: Self = Self(1000478000);
+    pub const LINEAR_SWEPT_SPHERES_NV: Self = Self(1000429005);
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -273,6 +276,8 @@ bitflags! {
         const TRIANGLE_FLIP_FACING_KHR = GeometryInstanceFlagBitsKHR::TRIANGLE_FLIP_FACING_KHR.0;
         const FORCE_OPAQUE_KHR = GeometryInstanceFlagBitsKHR::FORCE_OPAQUE_KHR.0;
         const FORCE_NO_OPAQUE_KHR = GeometryInstanceFlagBitsKHR::FORCE_NO_OPAQUE_KHR.0;
+        const FORCE_OPACITY_MICROMAP_2_STATE_EXT = GeometryInstanceFlagBitsKHR::FORCE_OPACITY_MICROMAP_2_STATE_EXT.0;
+        const DISABLE_OPACITY_MICROMAPS_EXT = GeometryInstanceFlagBitsKHR::DISABLE_OPACITY_MICROMAPS_EXT.0;
     }
 }
 #[repr(transparent)]
@@ -283,6 +288,8 @@ impl GeometryInstanceFlagBitsKHR {
     pub const TRIANGLE_FLIP_FACING_KHR: Self = Self(1 << 1);
     pub const FORCE_OPAQUE_KHR: Self = Self(1 << 2);
     pub const FORCE_NO_OPAQUE_KHR: Self = Self(1 << 3);
+    pub const FORCE_OPACITY_MICROMAP_2_STATE_EXT: Self = Self(1 << 4);
+    pub const DISABLE_OPACITY_MICROMAPS_EXT: Self = Self(1 << 5);
 }
 bitflags! {
     #[repr(transparent)]
@@ -293,6 +300,13 @@ bitflags! {
         const PREFER_FAST_TRACE_KHR = BuildAccelerationStructureFlagBitsKHR::PREFER_FAST_TRACE_KHR.0;
         const PREFER_FAST_BUILD_KHR = BuildAccelerationStructureFlagBitsKHR::PREFER_FAST_BUILD_KHR.0;
         const LOW_MEMORY_KHR = BuildAccelerationStructureFlagBitsKHR::LOW_MEMORY_KHR.0;
+        const MOTION_NV = BuildAccelerationStructureFlagBitsKHR::MOTION_NV.0;
+        const ALLOW_CLUSTER_OPACITY_MICROMAPS_NV = BuildAccelerationStructureFlagBitsKHR::ALLOW_CLUSTER_OPACITY_MICROMAPS_NV.0;
+        const ALLOW_OPACITY_MICROMAP_UPDATE_EXT = BuildAccelerationStructureFlagBitsKHR::ALLOW_OPACITY_MICROMAP_UPDATE_EXT.0;
+        const ALLOW_DATA_ACCESS_KHR = BuildAccelerationStructureFlagBitsKHR::ALLOW_DATA_ACCESS_KHR.0;
+        const ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT = BuildAccelerationStructureFlagBitsKHR::ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT.0;
+        const ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV = BuildAccelerationStructureFlagBitsKHR::ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV.0;
+        const ALLOW_DISABLE_OPACITY_MICROMAPS_EXT = BuildAccelerationStructureFlagBitsKHR::ALLOW_DISABLE_OPACITY_MICROMAPS_EXT.0;
     }
 }
 #[repr(transparent)]
@@ -304,12 +318,21 @@ impl BuildAccelerationStructureFlagBitsKHR {
     pub const PREFER_FAST_TRACE_KHR: Self = Self(1 << 2);
     pub const PREFER_FAST_BUILD_KHR: Self = Self(1 << 3);
     pub const LOW_MEMORY_KHR: Self = Self(1 << 4);
+    pub const MOTION_NV: Self = Self(1 << 5);
+    pub const ALLOW_CLUSTER_OPACITY_MICROMAPS_NV: Self = Self(1 << 12);
+    pub const ALLOW_OPACITY_MICROMAP_UPDATE_EXT: Self = Self(1 << 6);
+    pub const ALLOW_DATA_ACCESS_KHR: Self = Self(1 << 11);
+    pub const ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT: Self = Self(1 << 8);
+    pub const ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV: Self = Self(1 << 9);
+    pub const ALLOW_DISABLE_OPACITY_MICROMAPS_EXT: Self = Self(1 << 7);
 }
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct AccelerationStructureCreateFlagsKHR: Flags {
         const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR = AccelerationStructureCreateFlagBitsKHR::DEVICE_ADDRESS_CAPTURE_REPLAY_KHR.0;
+        const MOTION_NV = AccelerationStructureCreateFlagBitsKHR::MOTION_NV.0;
+        const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT = AccelerationStructureCreateFlagBitsKHR::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT.0;
     }
 }
 #[repr(transparent)]
@@ -317,6 +340,8 @@ bitflags! {
 pub struct AccelerationStructureCreateFlagBitsKHR(u32);
 impl AccelerationStructureCreateFlagBitsKHR {
     pub const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR: Self = Self(1 << 0);
+    pub const MOTION_NV: Self = Self(1 << 2);
+    pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self = Self(1 << 3);
 }
 pub type PFN_vkDestroyAccelerationStructureKHR = unsafe extern "system" fn(
     device: Device,

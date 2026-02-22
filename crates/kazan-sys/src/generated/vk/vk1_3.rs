@@ -639,6 +639,36 @@ bitflags! {
         const SHADER_SAMPLED_READ = AccessFlagBits2::SHADER_SAMPLED_READ.0;
         const SHADER_STORAGE_READ = AccessFlagBits2::SHADER_STORAGE_READ.0;
         const SHADER_STORAGE_WRITE = AccessFlagBits2::SHADER_STORAGE_WRITE.0;
+        const OPTICAL_FLOW_WRITE_NV = AccessFlagBits2::OPTICAL_FLOW_WRITE_NV.0;
+        const DATA_GRAPH_READ_ARM = AccessFlagBits2::DATA_GRAPH_READ_ARM.0;
+        const COMMAND_PREPROCESS_WRITE_EXT = AccessFlagBits2::COMMAND_PREPROCESS_WRITE_EXT.0;
+        const RESOURCE_HEAP_READ_EXT = AccessFlagBits2::RESOURCE_HEAP_READ_EXT.0;
+        const COMMAND_PREPROCESS_READ_EXT = AccessFlagBits2::COMMAND_PREPROCESS_READ_EXT.0;
+        const MICROMAP_READ_EXT = AccessFlagBits2::MICROMAP_READ_EXT.0;
+        const VIDEO_ENCODE_WRITE_KHR = AccessFlagBits2::VIDEO_ENCODE_WRITE_KHR.0;
+        const DATA_GRAPH_WRITE_ARM = AccessFlagBits2::DATA_GRAPH_WRITE_ARM.0;
+        const SHADER_BINDING_TABLE_READ_KHR = AccessFlagBits2::SHADER_BINDING_TABLE_READ_KHR.0;
+        const SAMPLER_HEAP_READ_EXT = AccessFlagBits2::SAMPLER_HEAP_READ_EXT.0;
+        const FRAGMENT_DENSITY_MAP_READ_EXT = AccessFlagBits2::FRAGMENT_DENSITY_MAP_READ_EXT.0;
+        const MEMORY_DECOMPRESSION_READ_EXT = AccessFlagBits2::MEMORY_DECOMPRESSION_READ_EXT.0;
+        const ACCELERATION_STRUCTURE_READ_KHR = AccessFlagBits2::ACCELERATION_STRUCTURE_READ_KHR.0;
+        const TRANSFORM_FEEDBACK_WRITE_EXT = AccessFlagBits2::TRANSFORM_FEEDBACK_WRITE_EXT.0;
+        const VIDEO_DECODE_WRITE_KHR = AccessFlagBits2::VIDEO_DECODE_WRITE_KHR.0;
+        const ACCELERATION_STRUCTURE_WRITE_KHR = AccessFlagBits2::ACCELERATION_STRUCTURE_WRITE_KHR.0;
+        const VIDEO_DECODE_READ_KHR = AccessFlagBits2::VIDEO_DECODE_READ_KHR.0;
+        const CONDITIONAL_RENDERING_READ_EXT = AccessFlagBits2::CONDITIONAL_RENDERING_READ_EXT.0;
+        const TRANSFORM_FEEDBACK_COUNTER_READ_EXT = AccessFlagBits2::TRANSFORM_FEEDBACK_COUNTER_READ_EXT.0;
+        const MICROMAP_WRITE_EXT = AccessFlagBits2::MICROMAP_WRITE_EXT.0;
+        const FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR = AccessFlagBits2::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR.0;
+        const COLOR_ATTACHMENT_READ_NONCOHERENT_EXT = AccessFlagBits2::COLOR_ATTACHMENT_READ_NONCOHERENT_EXT.0;
+        const TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT = AccessFlagBits2::TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT.0;
+        const OPTICAL_FLOW_READ_NV = AccessFlagBits2::OPTICAL_FLOW_READ_NV.0;
+        const MEMORY_DECOMPRESSION_WRITE_EXT = AccessFlagBits2::MEMORY_DECOMPRESSION_WRITE_EXT.0;
+        const VIDEO_ENCODE_READ_KHR = AccessFlagBits2::VIDEO_ENCODE_READ_KHR.0;
+        const SHADER_TILE_ATTACHMENT_READ_QCOM = AccessFlagBits2::SHADER_TILE_ATTACHMENT_READ_QCOM.0;
+        const SHADER_TILE_ATTACHMENT_WRITE_QCOM = AccessFlagBits2::SHADER_TILE_ATTACHMENT_WRITE_QCOM.0;
+        const DESCRIPTOR_BUFFER_READ_EXT = AccessFlagBits2::DESCRIPTOR_BUFFER_READ_EXT.0;
+        const INVOCATION_MASK_READ_HUAWEI = AccessFlagBits2::INVOCATION_MASK_READ_HUAWEI.0;
         const NONE = 0;
     }
 }
@@ -666,6 +696,36 @@ impl AccessFlagBits2 {
     pub const SHADER_SAMPLED_READ: Self = Self(1 << 32);
     pub const SHADER_STORAGE_READ: Self = Self(1 << 33);
     pub const SHADER_STORAGE_WRITE: Self = Self(1 << 34);
+    pub const OPTICAL_FLOW_WRITE_NV: Self = Self(1 << 43);
+    pub const DATA_GRAPH_READ_ARM: Self = Self(1 << 47);
+    pub const COMMAND_PREPROCESS_WRITE_EXT: Self = Self(1 << 18);
+    pub const RESOURCE_HEAP_READ_EXT: Self = Self(1 << 58);
+    pub const COMMAND_PREPROCESS_READ_EXT: Self = Self(1 << 17);
+    pub const MICROMAP_READ_EXT: Self = Self(1 << 44);
+    pub const VIDEO_ENCODE_WRITE_KHR: Self = Self(1 << 38);
+    pub const DATA_GRAPH_WRITE_ARM: Self = Self(1 << 48);
+    pub const SHADER_BINDING_TABLE_READ_KHR: Self = Self(1 << 40);
+    pub const SAMPLER_HEAP_READ_EXT: Self = Self(1 << 57);
+    pub const FRAGMENT_DENSITY_MAP_READ_EXT: Self = Self(1 << 24);
+    pub const MEMORY_DECOMPRESSION_READ_EXT: Self = Self(1 << 55);
+    pub const ACCELERATION_STRUCTURE_READ_KHR: Self = Self(1 << 21);
+    pub const TRANSFORM_FEEDBACK_WRITE_EXT: Self = Self(1 << 25);
+    pub const VIDEO_DECODE_WRITE_KHR: Self = Self(1 << 36);
+    pub const ACCELERATION_STRUCTURE_WRITE_KHR: Self = Self(1 << 22);
+    pub const VIDEO_DECODE_READ_KHR: Self = Self(1 << 35);
+    pub const CONDITIONAL_RENDERING_READ_EXT: Self = Self(1 << 20);
+    pub const TRANSFORM_FEEDBACK_COUNTER_READ_EXT: Self = Self(1 << 26);
+    pub const MICROMAP_WRITE_EXT: Self = Self(1 << 45);
+    pub const FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR: Self = Self(1 << 23);
+    pub const COLOR_ATTACHMENT_READ_NONCOHERENT_EXT: Self = Self(1 << 19);
+    pub const TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT: Self = Self(1 << 27);
+    pub const OPTICAL_FLOW_READ_NV: Self = Self(1 << 42);
+    pub const MEMORY_DECOMPRESSION_WRITE_EXT: Self = Self(1 << 56);
+    pub const VIDEO_ENCODE_READ_KHR: Self = Self(1 << 37);
+    pub const SHADER_TILE_ATTACHMENT_READ_QCOM: Self = Self(1 << 51);
+    pub const SHADER_TILE_ATTACHMENT_WRITE_QCOM: Self = Self(1 << 52);
+    pub const DESCRIPTOR_BUFFER_READ_EXT: Self = Self(1 << 41);
+    pub const INVOCATION_MASK_READ_HUAWEI: Self = Self(1 << 39);
 }
 bitflags! {
     #[repr(transparent)]
@@ -695,6 +755,27 @@ bitflags! {
         const INDEX_INPUT = PipelineStageFlagBits2::INDEX_INPUT.0;
         const VERTEX_ATTRIBUTE_INPUT = PipelineStageFlagBits2::VERTEX_ATTRIBUTE_INPUT.0;
         const PRE_RASTERIZATION_SHADERS = PipelineStageFlagBits2::PRE_RASTERIZATION_SHADERS.0;
+        const OPTICAL_FLOW_NV = PipelineStageFlagBits2::OPTICAL_FLOW_NV.0;
+        const COPY_INDIRECT_KHR = PipelineStageFlagBits2::COPY_INDIRECT_KHR.0;
+        const CONDITIONAL_RENDERING_EXT = PipelineStageFlagBits2::CONDITIONAL_RENDERING_EXT.0;
+        const VIDEO_DECODE_KHR = PipelineStageFlagBits2::VIDEO_DECODE_KHR.0;
+        const ACCELERATION_STRUCTURE_BUILD_KHR = PipelineStageFlagBits2::ACCELERATION_STRUCTURE_BUILD_KHR.0;
+        const TRANSFORM_FEEDBACK_EXT = PipelineStageFlagBits2::TRANSFORM_FEEDBACK_EXT.0;
+        const COMMAND_PREPROCESS_EXT = PipelineStageFlagBits2::COMMAND_PREPROCESS_EXT.0;
+        const FRAGMENT_DENSITY_PROCESS_EXT = PipelineStageFlagBits2::FRAGMENT_DENSITY_PROCESS_EXT.0;
+        const CONVERT_COOPERATIVE_VECTOR_MATRIX_NV = PipelineStageFlagBits2::CONVERT_COOPERATIVE_VECTOR_MATRIX_NV.0;
+        const INVOCATION_MASK_HUAWEI = PipelineStageFlagBits2::INVOCATION_MASK_HUAWEI.0;
+        const DATA_GRAPH_ARM = PipelineStageFlagBits2::DATA_GRAPH_ARM.0;
+        const VIDEO_ENCODE_KHR = PipelineStageFlagBits2::VIDEO_ENCODE_KHR.0;
+        const MEMORY_DECOMPRESSION_EXT = PipelineStageFlagBits2::MEMORY_DECOMPRESSION_EXT.0;
+        const MICROMAP_BUILD_EXT = PipelineStageFlagBits2::MICROMAP_BUILD_EXT.0;
+        const RAY_TRACING_SHADER_KHR = PipelineStageFlagBits2::RAY_TRACING_SHADER_KHR.0;
+        const SUBPASS_SHADER_HUAWEI = PipelineStageFlagBits2::SUBPASS_SHADER_HUAWEI.0;
+        const ACCELERATION_STRUCTURE_COPY_KHR = PipelineStageFlagBits2::ACCELERATION_STRUCTURE_COPY_KHR.0;
+        const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR = PipelineStageFlagBits2::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0;
+        const TASK_SHADER_EXT = PipelineStageFlagBits2::TASK_SHADER_EXT.0;
+        const MESH_SHADER_EXT = PipelineStageFlagBits2::MESH_SHADER_EXT.0;
+        const CLUSTER_CULLING_SHADER_HUAWEI = PipelineStageFlagBits2::CLUSTER_CULLING_SHADER_HUAWEI.0;
         const NONE = 0;
     }
 }
@@ -726,6 +807,27 @@ impl PipelineStageFlagBits2 {
     pub const INDEX_INPUT: Self = Self(1 << 36);
     pub const VERTEX_ATTRIBUTE_INPUT: Self = Self(1 << 37);
     pub const PRE_RASTERIZATION_SHADERS: Self = Self(1 << 38);
+    pub const OPTICAL_FLOW_NV: Self = Self(1 << 29);
+    pub const COPY_INDIRECT_KHR: Self = Self(1 << 46);
+    pub const CONDITIONAL_RENDERING_EXT: Self = Self(1 << 18);
+    pub const VIDEO_DECODE_KHR: Self = Self(1 << 26);
+    pub const ACCELERATION_STRUCTURE_BUILD_KHR: Self = Self(1 << 25);
+    pub const TRANSFORM_FEEDBACK_EXT: Self = Self(1 << 24);
+    pub const COMMAND_PREPROCESS_EXT: Self = Self(1 << 17);
+    pub const FRAGMENT_DENSITY_PROCESS_EXT: Self = Self(1 << 23);
+    pub const CONVERT_COOPERATIVE_VECTOR_MATRIX_NV: Self = Self(1 << 44);
+    pub const INVOCATION_MASK_HUAWEI: Self = Self(1 << 40);
+    pub const DATA_GRAPH_ARM: Self = Self(1 << 42);
+    pub const VIDEO_ENCODE_KHR: Self = Self(1 << 27);
+    pub const MEMORY_DECOMPRESSION_EXT: Self = Self(1 << 45);
+    pub const MICROMAP_BUILD_EXT: Self = Self(1 << 30);
+    pub const RAY_TRACING_SHADER_KHR: Self = Self(1 << 21);
+    pub const SUBPASS_SHADER_HUAWEI: Self = Self(1 << 39);
+    pub const ACCELERATION_STRUCTURE_COPY_KHR: Self = Self(1 << 28);
+    pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self = Self(1 << 22);
+    pub const TASK_SHADER_EXT: Self = Self(1 << 19);
+    pub const MESH_SHADER_EXT: Self = Self(1 << 20);
+    pub const CLUSTER_CULLING_SHADER_HUAWEI: Self = Self(1 << 41);
 }
 bitflags! {
     #[repr(transparent)]
@@ -757,6 +859,32 @@ bitflags! {
         const STORAGE_READ_WITHOUT_FORMAT = FormatFeatureFlagBits2::STORAGE_READ_WITHOUT_FORMAT.0;
         const STORAGE_WRITE_WITHOUT_FORMAT = FormatFeatureFlagBits2::STORAGE_WRITE_WITHOUT_FORMAT.0;
         const SAMPLED_IMAGE_DEPTH_COMPARISON = FormatFeatureFlagBits2::SAMPLED_IMAGE_DEPTH_COMPARISON.0;
+        const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR = FormatFeatureFlagBits2::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0;
+        const WEIGHT_SAMPLED_IMAGE_QCOM = FormatFeatureFlagBits2::WEIGHT_SAMPLED_IMAGE_QCOM.0;
+        const OPTICAL_FLOW_IMAGE_NV = FormatFeatureFlagBits2::OPTICAL_FLOW_IMAGE_NV.0;
+        const VIDEO_DECODE_DPB_KHR = FormatFeatureFlagBits2::VIDEO_DECODE_DPB_KHR.0;
+        const BOX_FILTER_SAMPLED_QCOM = FormatFeatureFlagBits2::BOX_FILTER_SAMPLED_QCOM.0;
+        const OPTICAL_FLOW_COST_NV = FormatFeatureFlagBits2::OPTICAL_FLOW_COST_NV.0;
+        const VIDEO_ENCODE_EMPHASIS_MAP_KHR = FormatFeatureFlagBits2::VIDEO_ENCODE_EMPHASIS_MAP_KHR.0;
+        const VIDEO_ENCODE_DPB_KHR = FormatFeatureFlagBits2::VIDEO_ENCODE_DPB_KHR.0;
+        const TENSOR_SHADER_ARM = FormatFeatureFlagBits2::TENSOR_SHADER_ARM.0;
+        const WEIGHT_IMAGE_QCOM = FormatFeatureFlagBits2::WEIGHT_IMAGE_QCOM.0;
+        const VIDEO_ENCODE_INPUT_KHR = FormatFeatureFlagBits2::VIDEO_ENCODE_INPUT_KHR.0;
+        const ACCELERATION_STRUCTURE_RADIUS_BUFFER_NV = FormatFeatureFlagBits2::ACCELERATION_STRUCTURE_RADIUS_BUFFER_NV.0;
+        const OPTICAL_FLOW_VECTOR_NV = FormatFeatureFlagBits2::OPTICAL_FLOW_VECTOR_NV.0;
+        const DEPTH_COPY_ON_TRANSFER_QUEUE_KHR = FormatFeatureFlagBits2::DEPTH_COPY_ON_TRANSFER_QUEUE_KHR.0;
+        const BLOCK_MATCHING_QCOM = FormatFeatureFlagBits2::BLOCK_MATCHING_QCOM.0;
+        const TENSOR_DATA_GRAPH_ARM = FormatFeatureFlagBits2::TENSOR_DATA_GRAPH_ARM.0;
+        const STENCIL_COPY_ON_TRANSFER_QUEUE_KHR = FormatFeatureFlagBits2::STENCIL_COPY_ON_TRANSFER_QUEUE_KHR.0;
+        const VIDEO_DECODE_OUTPUT_KHR = FormatFeatureFlagBits2::VIDEO_DECODE_OUTPUT_KHR.0;
+        const COPY_IMAGE_INDIRECT_DST_KHR = FormatFeatureFlagBits2::COPY_IMAGE_INDIRECT_DST_KHR.0;
+        const FRAGMENT_DENSITY_MAP_EXT = FormatFeatureFlagBits2::FRAGMENT_DENSITY_MAP_EXT.0;
+        const TENSOR_IMAGE_ALIASING_ARM = FormatFeatureFlagBits2::TENSOR_IMAGE_ALIASING_ARM.0;
+        const DEPTH_COPY_ON_COMPUTE_QUEUE_KHR = FormatFeatureFlagBits2::DEPTH_COPY_ON_COMPUTE_QUEUE_KHR.0;
+        const ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR = FormatFeatureFlagBits2::ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR.0;
+        const LINEAR_COLOR_ATTACHMENT_NV = FormatFeatureFlagBits2::LINEAR_COLOR_ATTACHMENT_NV.0;
+        const VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR = FormatFeatureFlagBits2::VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR.0;
+        const STENCIL_COPY_ON_COMPUTE_QUEUE_KHR = FormatFeatureFlagBits2::STENCIL_COPY_ON_COMPUTE_QUEUE_KHR.0;
     }
 }
 #[repr(transparent)]
@@ -790,6 +918,32 @@ impl FormatFeatureFlagBits2 {
     pub const STORAGE_READ_WITHOUT_FORMAT: Self = Self(1 << 31);
     pub const STORAGE_WRITE_WITHOUT_FORMAT: Self = Self(1 << 32);
     pub const SAMPLED_IMAGE_DEPTH_COMPARISON: Self = Self(1 << 33);
+    pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self = Self(1 << 30);
+    pub const WEIGHT_SAMPLED_IMAGE_QCOM: Self = Self(1 << 35);
+    pub const OPTICAL_FLOW_IMAGE_NV: Self = Self(1 << 40);
+    pub const VIDEO_DECODE_DPB_KHR: Self = Self(1 << 26);
+    pub const BOX_FILTER_SAMPLED_QCOM: Self = Self(1 << 37);
+    pub const OPTICAL_FLOW_COST_NV: Self = Self(1 << 42);
+    pub const VIDEO_ENCODE_EMPHASIS_MAP_KHR: Self = Self(1 << 50);
+    pub const VIDEO_ENCODE_DPB_KHR: Self = Self(1 << 28);
+    pub const TENSOR_SHADER_ARM: Self = Self(1 << 39);
+    pub const WEIGHT_IMAGE_QCOM: Self = Self(1 << 34);
+    pub const VIDEO_ENCODE_INPUT_KHR: Self = Self(1 << 27);
+    pub const ACCELERATION_STRUCTURE_RADIUS_BUFFER_NV: Self = Self(1 << 51);
+    pub const OPTICAL_FLOW_VECTOR_NV: Self = Self(1 << 41);
+    pub const DEPTH_COPY_ON_TRANSFER_QUEUE_KHR: Self = Self(1 << 53);
+    pub const BLOCK_MATCHING_QCOM: Self = Self(1 << 36);
+    pub const TENSOR_DATA_GRAPH_ARM: Self = Self(1 << 48);
+    pub const STENCIL_COPY_ON_TRANSFER_QUEUE_KHR: Self = Self(1 << 55);
+    pub const VIDEO_DECODE_OUTPUT_KHR: Self = Self(1 << 25);
+    pub const COPY_IMAGE_INDIRECT_DST_KHR: Self = Self(1 << 59);
+    pub const FRAGMENT_DENSITY_MAP_EXT: Self = Self(1 << 24);
+    pub const TENSOR_IMAGE_ALIASING_ARM: Self = Self(1 << 43);
+    pub const DEPTH_COPY_ON_COMPUTE_QUEUE_KHR: Self = Self(1 << 52);
+    pub const ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR: Self = Self(1 << 29);
+    pub const LINEAR_COLOR_ATTACHMENT_NV: Self = Self(1 << 38);
+    pub const VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR: Self = Self(1 << 49);
+    pub const STENCIL_COPY_ON_COMPUTE_QUEUE_KHR: Self = Self(1 << 54);
 }
 bitflags! {
     #[repr(transparent)]
@@ -798,6 +952,12 @@ bitflags! {
         const CONTENTS_SECONDARY_COMMAND_BUFFERS = RenderingFlagBits::CONTENTS_SECONDARY_COMMAND_BUFFERS.0;
         const SUSPENDING = RenderingFlagBits::SUSPENDING.0;
         const RESUMING = RenderingFlagBits::RESUMING.0;
+        const PER_LAYER_FRAGMENT_DENSITY_VALVE = RenderingFlagBits::PER_LAYER_FRAGMENT_DENSITY_VALVE.0;
+        const CONTENTS_INLINE_KHR = RenderingFlagBits::CONTENTS_INLINE_KHR.0;
+        const CUSTOM_RESOLVE_EXT = RenderingFlagBits::CUSTOM_RESOLVE_EXT.0;
+        const LOCAL_READ_CONCURRENT_ACCESS_CONTROL_KHR = RenderingFlagBits::LOCAL_READ_CONCURRENT_ACCESS_CONTROL_KHR.0;
+        const ENABLE_LEGACY_DITHERING_EXT = RenderingFlagBits::ENABLE_LEGACY_DITHERING_EXT.0;
+        const FRAGMENT_REGION_EXT = RenderingFlagBits::FRAGMENT_REGION_EXT.0;
     }
 }
 #[repr(transparent)]
@@ -807,6 +967,12 @@ impl RenderingFlagBits {
     pub const CONTENTS_SECONDARY_COMMAND_BUFFERS: Self = Self(1 << 0);
     pub const SUSPENDING: Self = Self(1 << 1);
     pub const RESUMING: Self = Self(1 << 2);
+    pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self = Self(1 << 5);
+    pub const CONTENTS_INLINE_KHR: Self = Self(1 << 4);
+    pub const CUSTOM_RESOLVE_EXT: Self = Self(1 << 7);
+    pub const LOCAL_READ_CONCURRENT_ACCESS_CONTROL_KHR: Self = Self(1 << 8);
+    pub const ENABLE_LEGACY_DITHERING_EXT: Self = Self(1 << 3);
+    pub const FRAGMENT_REGION_EXT: Self = Self(1 << 6);
 }
 bitflags! {
     #[repr(transparent)]
@@ -817,6 +983,8 @@ bitflags! {
         const TRACING = ToolPurposeFlagBits::TRACING.0;
         const ADDITIONAL_FEATURES = ToolPurposeFlagBits::ADDITIONAL_FEATURES.0;
         const MODIFYING_FEATURES = ToolPurposeFlagBits::MODIFYING_FEATURES.0;
+        const DEBUG_REPORTING_EXT = ToolPurposeFlagBits::DEBUG_REPORTING_EXT.0;
+        const DEBUG_MARKERS_EXT = ToolPurposeFlagBits::DEBUG_MARKERS_EXT.0;
     }
 }
 #[repr(transparent)]
@@ -828,6 +996,8 @@ impl ToolPurposeFlagBits {
     pub const TRACING: Self = Self(1 << 2);
     pub const ADDITIONAL_FEATURES: Self = Self(1 << 3);
     pub const MODIFYING_FEATURES: Self = Self(1 << 4);
+    pub const DEBUG_REPORTING_EXT: Self = Self(1 << 5);
+    pub const DEBUG_MARKERS_EXT: Self = Self(1 << 6);
 }
 bitflags! {
     #[repr(transparent)]

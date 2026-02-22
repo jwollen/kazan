@@ -532,14 +532,14 @@ impl Enum {
 
 #[derive(Debug)]
 pub struct BitMaskBit {
-    pub bitpos: &'static str,
+    pub bitpos: u8,
     pub name: &'static str,
 }
 
 impl BitMaskBit {
     fn from_node(node: Node) -> BitMaskBit {
         BitMaskBit {
-            bitpos: attribute(node, "bitpos").unwrap(),
+            bitpos: attribute(node, "bitpos").unwrap().parse().unwrap(),
             name: attribute(node, "name").unwrap(),
         }
     }
@@ -609,6 +609,7 @@ pub struct Command {
     pub return_type: Option<CType<'static>>,
     pub name: &'static str,
     pub params: Vec<CommandParam>,
+    pub success_codes: Vec<&'static str>,
 }
 
 impl Command {
@@ -629,6 +630,7 @@ impl Command {
                 .filter(|node| api_matches(node, api))
                 .map(CommandParam::from_node)
                 .collect(),
+            success_codes: attribute_comma_separated(node, "successcodes"),
         }
     }
 }
@@ -655,15 +657,25 @@ impl RequireConstant {
 pub struct RequireEnumVariant {
     pub name: &'static str,
     pub offset: u8,
+    pub extnumber: Option<u32>,
+    pub negative: bool,
     pub extends: &'static str,
 }
 
 impl RequireEnumVariant {
     fn from_node(node: Node) -> RequireEnumVariant {
+        let negative = match attribute(node, "dir") {
+            Some("-") => true,
+            None => false,
+            _ => panic!("invalid dir attribute"),
+        };
+
         RequireEnumVariant {
             name: attribute(node, "name").unwrap(),
             offset: attribute(node, "offset").unwrap().parse().unwrap(),
             extends: attribute(node, "extends").unwrap(),
+            extnumber: attribute(node, "extnumber").map(|value| value.parse().unwrap()),
+            negative,
         }
     }
 }

@@ -127,6 +127,7 @@ pub struct AccelerationStructureTrianglesOpacityMicromapEXT {
 pub struct MicromapTypeEXT(i32);
 impl MicromapTypeEXT {
     pub const OPACITY_MICROMAP_EXT: Self = Self(0);
+    pub const DISPLACEMENT_MICROMAP_NV: Self = Self(1000397000);
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]

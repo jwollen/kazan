@@ -227,6 +227,8 @@ bitflags! {
     pub struct TensorCreateFlagsARM: Flags64 {
         const MUTABLE_FORMAT_ARM = TensorCreateFlagBitsARM::MUTABLE_FORMAT_ARM.0;
         const PROTECTED_ARM = TensorCreateFlagBitsARM::PROTECTED_ARM.0;
+        const DESCRIPTOR_HEAP_CAPTURE_REPLAY_ARM = TensorCreateFlagBitsARM::DESCRIPTOR_HEAP_CAPTURE_REPLAY_ARM.0;
+        const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM = TensorCreateFlagBitsARM::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM.0;
     }
 }
 #[repr(transparent)]
@@ -235,6 +237,8 @@ pub struct TensorCreateFlagBitsARM(u64);
 impl TensorCreateFlagBitsARM {
     pub const MUTABLE_FORMAT_ARM: Self = Self(1 << 0);
     pub const PROTECTED_ARM: Self = Self(1 << 1);
+    pub const DESCRIPTOR_HEAP_CAPTURE_REPLAY_ARM: Self = Self(1 << 3);
+    pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM: Self = Self(1 << 2);
 }
 bitflags! {
     #[repr(transparent)]
@@ -244,6 +248,7 @@ bitflags! {
         const TRANSFER_SRC_ARM = TensorUsageFlagBitsARM::TRANSFER_SRC_ARM.0;
         const TRANSFER_DST_ARM = TensorUsageFlagBitsARM::TRANSFER_DST_ARM.0;
         const IMAGE_ALIASING_ARM = TensorUsageFlagBitsARM::IMAGE_ALIASING_ARM.0;
+        const DATA_GRAPH_ARM = TensorUsageFlagBitsARM::DATA_GRAPH_ARM.0;
     }
 }
 #[repr(transparent)]
@@ -254,6 +259,7 @@ impl TensorUsageFlagBitsARM {
     pub const TRANSFER_SRC_ARM: Self = Self(1 << 2);
     pub const TRANSFER_DST_ARM: Self = Self(1 << 3);
     pub const IMAGE_ALIASING_ARM: Self = Self(1 << 4);
+    pub const DATA_GRAPH_ARM: Self = Self(1 << 5);
 }
 pub type PFN_vkCreateTensorARM = unsafe extern "system" fn(
     device: Device,

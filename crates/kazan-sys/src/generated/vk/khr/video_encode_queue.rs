@@ -119,12 +119,19 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct VideoEncodeFlagsKHR: Flags {
+        const WITH_EMPHASIS_MAP_KHR = VideoEncodeFlagBitsKHR::WITH_EMPHASIS_MAP_KHR.0;
+        const WITH_QUANTIZATION_DELTA_MAP_KHR = VideoEncodeFlagBitsKHR::WITH_QUANTIZATION_DELTA_MAP_KHR.0;
+        const INTRA_REFRESH_KHR = VideoEncodeFlagBitsKHR::INTRA_REFRESH_KHR.0;
     }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct VideoEncodeFlagBitsKHR(u32);
-impl VideoEncodeFlagBitsKHR {}
+impl VideoEncodeFlagBitsKHR {
+    pub const WITH_EMPHASIS_MAP_KHR: Self = Self(1 << 1);
+    pub const WITH_QUANTIZATION_DELTA_MAP_KHR: Self = Self(1 << 0);
+    pub const INTRA_REFRESH_KHR: Self = Self(1 << 2);
+}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
@@ -169,6 +176,8 @@ bitflags! {
     pub struct VideoEncodeCapabilityFlagsKHR: Flags {
         const PRECEDING_EXTERNALLY_ENCODED_BYTES_KHR = VideoEncodeCapabilityFlagBitsKHR::PRECEDING_EXTERNALLY_ENCODED_BYTES_KHR.0;
         const INSUFFICIENTSTREAM_BUFFER_RANGE_DETECTION_KHR = VideoEncodeCapabilityFlagBitsKHR::INSUFFICIENTSTREAM_BUFFER_RANGE_DETECTION_KHR.0;
+        const EMPHASIS_MAP_KHR = VideoEncodeCapabilityFlagBitsKHR::EMPHASIS_MAP_KHR.0;
+        const QUANTIZATION_DELTA_MAP_KHR = VideoEncodeCapabilityFlagBitsKHR::QUANTIZATION_DELTA_MAP_KHR.0;
     }
 }
 #[repr(transparent)]
@@ -177,6 +186,8 @@ pub struct VideoEncodeCapabilityFlagBitsKHR(u32);
 impl VideoEncodeCapabilityFlagBitsKHR {
     pub const PRECEDING_EXTERNALLY_ENCODED_BYTES_KHR: Self = Self(1 << 0);
     pub const INSUFFICIENTSTREAM_BUFFER_RANGE_DETECTION_KHR: Self = Self(1 << 1);
+    pub const EMPHASIS_MAP_KHR: Self = Self(1 << 3);
+    pub const QUANTIZATION_DELTA_MAP_KHR: Self = Self(1 << 2);
 }
 bitflags! {
     #[repr(transparent)]

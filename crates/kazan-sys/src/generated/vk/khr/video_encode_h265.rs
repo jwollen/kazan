@@ -181,6 +181,8 @@ bitflags! {
         const PER_SLICE_SEGMENT_CONSTANT_QP_KHR = VideoEncodeH265CapabilityFlagBitsKHR::PER_SLICE_SEGMENT_CONSTANT_QP_KHR.0;
         const MULTIPLE_TILES_PER_SLICE_SEGMENT_KHR = VideoEncodeH265CapabilityFlagBitsKHR::MULTIPLE_TILES_PER_SLICE_SEGMENT_KHR.0;
         const MULTIPLE_SLICE_SEGMENTS_PER_TILE_KHR = VideoEncodeH265CapabilityFlagBitsKHR::MULTIPLE_SLICE_SEGMENTS_PER_TILE_KHR.0;
+        const CU_QP_DIFF_WRAPAROUND_KHR = VideoEncodeH265CapabilityFlagBitsKHR::CU_QP_DIFF_WRAPAROUND_KHR.0;
+        const B_PICTURE_INTRA_REFRESH_KHR = VideoEncodeH265CapabilityFlagBitsKHR::B_PICTURE_INTRA_REFRESH_KHR.0;
     }
 }
 #[repr(transparent)]
@@ -197,6 +199,8 @@ impl VideoEncodeH265CapabilityFlagBitsKHR {
     pub const PER_SLICE_SEGMENT_CONSTANT_QP_KHR: Self = Self(1 << 7);
     pub const MULTIPLE_TILES_PER_SLICE_SEGMENT_KHR: Self = Self(1 << 8);
     pub const MULTIPLE_SLICE_SEGMENTS_PER_TILE_KHR: Self = Self(1 << 9);
+    pub const CU_QP_DIFF_WRAPAROUND_KHR: Self = Self(1 << 10);
+    pub const B_PICTURE_INTRA_REFRESH_KHR: Self = Self(1 << 11);
 }
 bitflags! {
     #[repr(transparent)]

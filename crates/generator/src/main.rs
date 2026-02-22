@@ -133,14 +133,29 @@ fn generate(xmls: &[&xml::Registry]) {
         .map(VersionOrExtension::Version)
         .chain(extensions.clone().map(VersionOrExtension::Extension));
 
-    // for xml in xmls {
-    //     let features_and_extensions = xml
-    //         .features
-    //         .iter()
-    //         .map(FeatureOrExtension::Feature)
-    //         .chain(xml.extensions.iter().map(FeatureOrExtension::Extension));
+    let mut req_enum_variants = HashMap::new();
+    let mut req_bitspos = HashMap::new();
+    for extension in extensions.clone() {
+        for req in &extension.requires {
+            for variant in &req.enum_variants {
+                let variants = req_enum_variants
+                    .entry(variant.extends)
+                    .or_insert_with(HashMap::new);
 
-    //     for feature_or_extension in features_and_extensions {
+                let ext_number = variant.extnumber.unwrap_or(extension.number.unwrap()) as i32;
+                let value = 1_000_000_000i32 + (ext_number - 1) * 1000 + variant.offset as i32;
+                let value = if variant.negative { -value } else { value };
+                variants.insert(variant.name, value);
+            }
+            for bitpos in &req.bitpositions {
+                let variants = req_bitspos
+                    .entry(bitpos.extends)
+                    .or_insert_with(HashMap::new);
+                variants.insert(bitpos.name, bitpos.bitpos);
+            }
+        }
+    }
+
     for version_or_extension in version_or_extension {
         let requires: Vec<_> = match version_or_extension {
             VersionOrExtension::Version(ref version) => version
@@ -350,10 +365,8 @@ fn generate(xmls: &[&xml::Registry]) {
                 .unwrap();
                 writeln!(sys_file, "pub struct {}(i32);", normalize_ty_name(ty.name)).unwrap();
 
-                writeln!(sys_file, "impl {} {{", normalize_ty_name(ty.name)).unwrap();
-                for value in &ty.values {
-                    let name = value
-                        .name
+                let normalize_variant_name = |name: &str| {
+                    let name = name
                         .strip_prefix(&value_prefix)
                         .unwrap()
                         .strip_prefix("_")
@@ -361,7 +374,7 @@ fn generate(xmls: &[&xml::Registry]) {
                         .to_uppercase(); // Formats contain lowercase 'x'
 
                     //let name = strip_vendor_suffix(name);
-                    let name = if name
+                    if name
                         .chars()
                         .next()
                         .map(|c| c.is_ascii_digit())
@@ -370,13 +383,29 @@ fn generate(xmls: &[&xml::Registry]) {
                         format!("_{}", &name)
                     } else {
                         name.to_string()
-                    };
+                    }
+                };
+
+                writeln!(sys_file, "impl {} {{", normalize_ty_name(ty.name)).unwrap();
+                for value in &ty.values {
                     writeln!(
                         sys_file,
                         "    pub const {}: Self = Self({});",
-                        name, value.value
+                        normalize_variant_name(value.name),
+                        value.value
                     )
                     .unwrap();
+                }
+                if let Some(variants) = req_enum_variants.get(ty.name) {
+                    for (name, value) in variants {
+                        writeln!(
+                            sys_file,
+                            "pub const {}: Self = Self({});",
+                            normalize_variant_name(name),
+                            value
+                        )
+                        .unwrap();
+                    }
                 }
                 writeln!(sys_file, "}}").unwrap();
             }
@@ -409,36 +438,43 @@ fn generate(xmls: &[&xml::Registry]) {
                     trailing_number.replace(&value_prefix, "_$1").to_string()
                 });
 
-                let bits = bitmask
-                    .map(|bitmask| {
-                        bitmask
-                            .bits
-                            .iter()
-                            .map(|bit| {
-                                let name = bit
-                                    .name
-                                    .strip_prefix(value_prefix.as_ref().unwrap())
-                                    .unwrap()
-                                    .strip_prefix("_")
-                                    .unwrap();
-                                //let name = strip_vendor_suffix(name);
-                                //let name = name.strip_suffix("_BIT").unwrap_or(name);
-                                let name = name.replace("_BIT", "");
-                                let name = if name
-                                    .chars()
-                                    .next()
-                                    .map(|c| c.is_ascii_digit())
-                                    .unwrap_or_default()
-                                {
-                                    format!("_{}", &name)
-                                } else {
-                                    name.to_string()
-                                };
-                                (name, bit)
-                            })
-                            .collect::<Vec<_>>()
-                    })
-                    .unwrap_or_default();
+                let normalize_bit_name = |name: &str| {
+                    let name = name
+                        .strip_prefix(value_prefix.as_ref().unwrap())
+                        .unwrap()
+                        .strip_prefix("_")
+                        .unwrap();
+                    //let name = strip_vendor_suffix(name);
+                    //let name = name.strip_suffix("_BIT").unwrap_or(name);
+                    let name = name.replace("_BIT", "");
+                    if name
+                        .chars()
+                        .next()
+                        .map(|c| c.is_ascii_digit())
+                        .unwrap_or_default()
+                    {
+                        format!("_{}", &name)
+                    } else {
+                        name.to_string()
+                    }
+                };
+
+                let bits = if let Some(bitmask) = bitmask {
+                    let bits = bitmask
+                        .bits
+                        .iter()
+                        .map(|bit| (normalize_bit_name(bit.name), bit.bitpos));
+
+                    let req_bitmask = req_bitspos.get(bitmask.name);
+                    let req_bits = req_bitmask.iter().flat_map(|bits| {
+                        bits.iter()
+                            .map(|(name, bitpos)| (normalize_bit_name(name), *bitpos))
+                    });
+
+                    bits.chain(req_bits).collect::<Vec<_>>()
+                } else {
+                    Vec::new()
+                };
 
                 if let Some(bitmask) = bitmask {
                     let bitmask_name = normalize_ty_name(bitmask.name);
@@ -480,12 +516,8 @@ fn generate(xmls: &[&xml::Registry]) {
                     .unwrap();
 
                     for (name, bit) in &bits {
-                        writeln!(
-                            sys_file,
-                            "pub const {}: Self = Self(1 << {});",
-                            name, bit.bitpos
-                        )
-                        .unwrap();
+                        writeln!(sys_file, "pub const {}: Self = Self(1 << {});", name, bit)
+                            .unwrap();
                     }
 
                     writeln!(sys_file, "}}").unwrap();

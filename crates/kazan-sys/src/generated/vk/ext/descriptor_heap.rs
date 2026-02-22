@@ -291,12 +291,15 @@ bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct TensorViewCreateFlagsARM: Flags64 {
+        const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM = TensorViewCreateFlagBitsARM::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM.0;
     }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct TensorViewCreateFlagBitsARM(u64);
-impl TensorViewCreateFlagBitsARM {}
+impl TensorViewCreateFlagBitsARM {
+    pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM: Self = Self(1 << 0);
+}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
@@ -309,6 +312,8 @@ bitflags! {
         const UNIFORM_BUFFER_EXT = SpirvResourceTypeFlagBitsEXT::UNIFORM_BUFFER_EXT.0;
         const READ_ONLY_STORAGE_BUFFER_EXT = SpirvResourceTypeFlagBitsEXT::READ_ONLY_STORAGE_BUFFER_EXT.0;
         const READ_WRITE_STORAGE_BUFFER_EXT = SpirvResourceTypeFlagBitsEXT::READ_WRITE_STORAGE_BUFFER_EXT.0;
+        const TENSOR_ARM = SpirvResourceTypeFlagBitsEXT::TENSOR_ARM.0;
+        const ACCELERATION_STRUCTURE_EXT = SpirvResourceTypeFlagBitsEXT::ACCELERATION_STRUCTURE_EXT.0;
         const ALL = 0x7FFFFFFF;
     }
 }
@@ -324,6 +329,8 @@ impl SpirvResourceTypeFlagBitsEXT {
     pub const UNIFORM_BUFFER_EXT: Self = Self(1 << 5);
     pub const READ_ONLY_STORAGE_BUFFER_EXT: Self = Self(1 << 6);
     pub const READ_WRITE_STORAGE_BUFFER_EXT: Self = Self(1 << 7);
+    pub const TENSOR_ARM: Self = Self(1 << 9);
+    pub const ACCELERATION_STRUCTURE_EXT: Self = Self(1 << 8);
 }
 pub type PFN_vkWriteSamplerDescriptorsEXT = unsafe extern "system" fn(
     device: Device,

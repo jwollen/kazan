@@ -178,6 +178,7 @@ bitflags! {
         const PRIMARY_REFERENCE_CDF_ONLY_KHR = VideoEncodeAV1CapabilityFlagBitsKHR::PRIMARY_REFERENCE_CDF_ONLY_KHR.0;
         const FRAME_SIZE_OVERRIDE_KHR = VideoEncodeAV1CapabilityFlagBitsKHR::FRAME_SIZE_OVERRIDE_KHR.0;
         const MOTION_VECTOR_SCALING_KHR = VideoEncodeAV1CapabilityFlagBitsKHR::MOTION_VECTOR_SCALING_KHR.0;
+        const COMPOUND_PREDICTION_INTRA_REFRESH_KHR = VideoEncodeAV1CapabilityFlagBitsKHR::COMPOUND_PREDICTION_INTRA_REFRESH_KHR.0;
     }
 }
 #[repr(transparent)]
@@ -189,6 +190,7 @@ impl VideoEncodeAV1CapabilityFlagBitsKHR {
     pub const PRIMARY_REFERENCE_CDF_ONLY_KHR: Self = Self(1 << 2);
     pub const FRAME_SIZE_OVERRIDE_KHR: Self = Self(1 << 3);
     pub const MOTION_VECTOR_SCALING_KHR: Self = Self(1 << 4);
+    pub const COMPOUND_PREDICTION_INTRA_REFRESH_KHR: Self = Self(1 << 5);
 }
 bitflags! {
     #[repr(transparent)]

@@ -65,6 +65,11 @@ impl ComponentTypeKHR {
     pub const UINT16_KHR: Self = Self(8);
     pub const UINT32_KHR: Self = Self(9);
     pub const UINT64_KHR: Self = Self(10);
+    pub const BFLOAT16_KHR: Self = Self(1000141000);
+    pub const SINT8_PACKED_NV: Self = Self(1000491000);
+    pub const UINT8_PACKED_NV: Self = Self(1000491001);
+    pub const FLOAT8_E5M2_EXT: Self = Self(1000491003);
+    pub const FLOAT8_E4M3_EXT: Self = Self(1000491002);
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]

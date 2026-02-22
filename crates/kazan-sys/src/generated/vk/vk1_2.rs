@@ -626,6 +626,7 @@ impl SamplerReductionMode {
     pub const WEIGHTED_AVERAGE: Self = Self(0);
     pub const MIN: Self = Self(1);
     pub const MAX: Self = Self(2);
+    pub const WEIGHTED_AVERAGE_RANGECLAMP_QCOM: Self = Self(1000521000);
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -708,6 +709,8 @@ bitflags! {
         const AVERAGE = ResolveModeFlagBits::AVERAGE.0;
         const MIN = ResolveModeFlagBits::MIN.0;
         const MAX = ResolveModeFlagBits::MAX.0;
+        const CUSTOM_EXT = ResolveModeFlagBits::CUSTOM_EXT.0;
+        const EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID = ResolveModeFlagBits::EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID.0;
         const NONE = 0;
     }
 }
@@ -719,6 +722,8 @@ impl ResolveModeFlagBits {
     pub const AVERAGE: Self = Self(1 << 1);
     pub const MIN: Self = Self(1 << 2);
     pub const MAX: Self = Self(1 << 3);
+    pub const CUSTOM_EXT: Self = Self(1 << 5);
+    pub const EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID: Self = Self(1 << 4);
 }
 pub type PFN_vkResetQueryPool = unsafe extern "system" fn(
     device: Device,

@@ -225,6 +225,13 @@ impl IndirectCommandsTokenTypeEXT {
     pub const DRAW_INDEXED_COUNT_EXT: Self = Self(7);
     pub const DRAW_COUNT_EXT: Self = Self(8);
     pub const DISPATCH_EXT: Self = Self(9);
+    pub const PUSH_DATA_EXT: Self = Self(1000135000);
+    pub const PUSH_DATA_SEQUENCE_INDEX_EXT: Self = Self(1000135001);
+    pub const DRAW_MESH_TASKS_EXT: Self = Self(1000328000);
+    pub const TRACE_RAYS2_EXT: Self = Self(1000386004);
+    pub const DRAW_MESH_TASKS_NV_EXT: Self = Self(1000202002);
+    pub const DRAW_MESH_TASKS_COUNT_NV_EXT: Self = Self(1000202003);
+    pub const DRAW_MESH_TASKS_COUNT_EXT: Self = Self(1000328001);
 }
 bitflags! {
     #[repr(transparent)]

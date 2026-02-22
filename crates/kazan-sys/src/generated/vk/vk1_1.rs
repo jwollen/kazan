@@ -621,6 +621,7 @@ bitflags! {
         const SHUFFLE_RELATIVE = SubgroupFeatureFlagBits::SHUFFLE_RELATIVE.0;
         const CLUSTERED = SubgroupFeatureFlagBits::CLUSTERED.0;
         const QUAD = SubgroupFeatureFlagBits::QUAD.0;
+        const PARTITIONED_EXT = SubgroupFeatureFlagBits::PARTITIONED_EXT.0;
     }
 }
 #[repr(transparent)]
@@ -635,6 +636,7 @@ impl SubgroupFeatureFlagBits {
     pub const SHUFFLE_RELATIVE: Self = Self(1 << 5);
     pub const CLUSTERED: Self = Self(1 << 6);
     pub const QUAD: Self = Self(1 << 7);
+    pub const PARTITIONED_EXT: Self = Self(1 << 8);
 }
 bitflags! {
     #[repr(transparent)]
@@ -666,6 +668,7 @@ bitflags! {
     #[derive(Copy, Clone, PartialEq, Eq, Default)]
     pub struct MemoryAllocateFlags: Flags {
         const DEVICE_MASK = MemoryAllocateFlagBits::DEVICE_MASK.0;
+        const ZERO_INITIALIZE_EXT = MemoryAllocateFlagBits::ZERO_INITIALIZE_EXT.0;
     }
 }
 #[repr(transparent)]
@@ -673,6 +676,7 @@ bitflags! {
 pub struct MemoryAllocateFlagBits(u32);
 impl MemoryAllocateFlagBits {
     pub const DEVICE_MASK: Self = Self(1 << 0);
+    pub const ZERO_INITIALIZE_EXT: Self = Self(1 << 3);
 }
 bitflags! {
     #[repr(transparent)]
@@ -691,6 +695,17 @@ bitflags! {
         const D3D11_TEXTURE_KMT = ExternalMemoryHandleTypeFlagBits::D3D11_TEXTURE_KMT.0;
         const D3D12_HEAP = ExternalMemoryHandleTypeFlagBits::D3D12_HEAP.0;
         const D3D12_RESOURCE = ExternalMemoryHandleTypeFlagBits::D3D12_RESOURCE.0;
+        const ANDROID_HARDWARE_BUFFER_ANDROID = ExternalMemoryHandleTypeFlagBits::ANDROID_HARDWARE_BUFFER_ANDROID.0;
+        const HOST_MAPPED_FOREIGN_MEMORY_EXT = ExternalMemoryHandleTypeFlagBits::HOST_MAPPED_FOREIGN_MEMORY_EXT.0;
+        const RDMA_ADDRESS_NV = ExternalMemoryHandleTypeFlagBits::RDMA_ADDRESS_NV.0;
+        const SCREEN_BUFFER_QNX = ExternalMemoryHandleTypeFlagBits::SCREEN_BUFFER_QNX.0;
+        const MTLBUFFER_EXT = ExternalMemoryHandleTypeFlagBits::MTLBUFFER_EXT.0;
+        const ZIRCON_VMO_FUCHSIA = ExternalMemoryHandleTypeFlagBits::ZIRCON_VMO_FUCHSIA.0;
+        const MTLHEAP_EXT = ExternalMemoryHandleTypeFlagBits::MTLHEAP_EXT.0;
+        const MTLTEXTURE_EXT = ExternalMemoryHandleTypeFlagBits::MTLTEXTURE_EXT.0;
+        const OH_NATIVE_BUFFER_OHOS = ExternalMemoryHandleTypeFlagBits::OH_NATIVE_BUFFER_OHOS.0;
+        const DMA_BUF_EXT = ExternalMemoryHandleTypeFlagBits::DMA_BUF_EXT.0;
+        const HOST_ALLOCATION_EXT = ExternalMemoryHandleTypeFlagBits::HOST_ALLOCATION_EXT.0;
     }
 }
 #[repr(transparent)]
@@ -704,6 +719,17 @@ impl ExternalMemoryHandleTypeFlagBits {
     pub const D3D11_TEXTURE_KMT: Self = Self(1 << 4);
     pub const D3D12_HEAP: Self = Self(1 << 5);
     pub const D3D12_RESOURCE: Self = Self(1 << 6);
+    pub const ANDROID_HARDWARE_BUFFER_ANDROID: Self = Self(1 << 10);
+    pub const HOST_MAPPED_FOREIGN_MEMORY_EXT: Self = Self(1 << 8);
+    pub const RDMA_ADDRESS_NV: Self = Self(1 << 12);
+    pub const SCREEN_BUFFER_QNX: Self = Self(1 << 14);
+    pub const MTLBUFFER_EXT: Self = Self(1 << 16);
+    pub const ZIRCON_VMO_FUCHSIA: Self = Self(1 << 11);
+    pub const MTLHEAP_EXT: Self = Self(1 << 18);
+    pub const MTLTEXTURE_EXT: Self = Self(1 << 17);
+    pub const OH_NATIVE_BUFFER_OHOS: Self = Self(1 << 15);
+    pub const DMA_BUF_EXT: Self = Self(1 << 9);
+    pub const HOST_ALLOCATION_EXT: Self = Self(1 << 7);
 }
 bitflags! {
     #[repr(transparent)]
@@ -731,6 +757,7 @@ bitflags! {
         const OPAQUE_WIN32_KMT = ExternalSemaphoreHandleTypeFlagBits::OPAQUE_WIN32_KMT.0;
         const D3D12_FENCE = ExternalSemaphoreHandleTypeFlagBits::D3D12_FENCE.0;
         const SYNC_FD = ExternalSemaphoreHandleTypeFlagBits::SYNC_FD.0;
+        const ZIRCON_EVENT_FUCHSIA = ExternalSemaphoreHandleTypeFlagBits::ZIRCON_EVENT_FUCHSIA.0;
     }
 }
 #[repr(transparent)]
@@ -742,6 +769,7 @@ impl ExternalSemaphoreHandleTypeFlagBits {
     pub const OPAQUE_WIN32_KMT: Self = Self(1 << 2);
     pub const D3D12_FENCE: Self = Self(1 << 3);
     pub const SYNC_FD: Self = Self(1 << 4);
+    pub const ZIRCON_EVENT_FUCHSIA: Self = Self(1 << 7);
 }
 bitflags! {
     #[repr(transparent)]
