@@ -24,7 +24,7 @@ mod xml;
 fn main() {
     let analysis = analysis::Analysis::new("crates/generator/external/Vulkan-Headers");
 
-    generate(&[analysis.vk_xml(), analysis.video_xml()]);
+    generate(analysis.registry());
 }
 
 #[derive(Copy, Clone)]
@@ -62,7 +62,7 @@ struct VersionInfo<'a> {
     features: Vec<&'a xml::Feature>,
 }
 
-fn generate(xmls: &[&xml::Registry]) {
+fn generate(registry: &xml::Registry) {
     let trailing_number = regex::Regex::new(r"(\d+)$").unwrap();
 
     let sys_output_dir = "crates/kazan-sys/src/generated/vk";
@@ -79,46 +79,25 @@ fn generate(xmls: &[&xml::Registry]) {
     // For each handle type, determine if it is a device child
     use std::collections::VecDeque;
     let mut handle_command_types = HashMap::new();
-    for xml in xmls {
-        let mut pending_handles = xml.handles.iter().collect::<VecDeque<_>>();
-        while let Some(handle) = pending_handles.pop_front() {
-            if handle.name == "VkInstance" {
-                handle_command_types.insert(handle.name, CommandType::Instance);
-            } else if handle.name == "VkDevice" {
-                handle_command_types.insert(handle.name, CommandType::Device);
+    let mut pending_handles = registry.handles.iter().collect::<VecDeque<_>>();
+    while let Some(handle) = pending_handles.pop_front() {
+        if handle.name == "VkInstance" {
+            handle_command_types.insert(handle.name, CommandType::Instance);
+        } else if handle.name == "VkDevice" {
+            handle_command_types.insert(handle.name, CommandType::Device);
+        } else {
+            let parent = handle.parent.unwrap();
+            if let Some(parent_command_type) = handle_command_types.get(parent) {
+                handle_command_types.insert(handle.name, *parent_command_type);
             } else {
-                let parent = handle.parent.unwrap();
-                if let Some(parent_command_type) = handle_command_types.get(parent) {
-                    handle_command_types.insert(handle.name, *parent_command_type);
-                } else {
-                    pending_handles.push_back(handle);
-                }
+                pending_handles.push_back(handle);
             }
         }
     }
 
-    let handles = xmls.iter().flat_map(|xml| xml.handles.iter());
-    let basetypes = xmls.iter().flat_map(|xml| xml.basetypes.iter());
-    let structs = xmls
+    let versions = registry
+        .features
         .iter()
-        .flat_map(|xml| xml.structs.iter())
-        .collect::<Vec<_>>();
-    let unions = xmls.iter().flat_map(|xml| xml.unions.iter());
-    let enums = xmls.iter().flat_map(|xml| xml.enums.iter());
-    let bitmask_types = xmls.iter().flat_map(|xml| xml.bitmask_types.iter());
-    let bitmasks = xmls.iter().flat_map(|xml| xml.bitmasks.iter());
-    let constants = xmls.iter().flat_map(|xml| xml.constants.iter());
-    let commands = xmls.iter().flat_map(|xml| xml.commands.iter());
-    let funcpointers = xmls.iter().flat_map(|xml| xml.funcpointers.iter());
-    let handle_aliases = xmls.iter().flat_map(|xml| xml.handle_aliases.iter());
-    let enum_aliases = xmls.iter().flat_map(|xml| xml.enum_aliases.iter());
-    let struct_aliases = xmls.iter().flat_map(|xml| xml.struct_aliases.iter());
-    let bitmask_aliases = xmls.iter().flat_map(|xml| xml.bitmask_aliases.iter());
-    let command_aliases = xmls.iter().flat_map(|xml| xml.command_aliases.iter());
-    let extensions = xmls.iter().flat_map(|xml| xml.extensions.iter());
-    let features = xmls.iter().flat_map(|xml| xml.features.iter());
-
-    let versions = features
         .chunk_by(|feature| (feature.version.major, feature.version.minor))
         .into_iter()
         .map(|(version, features)| VersionInfo {
@@ -128,10 +107,12 @@ fn generate(xmls: &[&xml::Registry]) {
         })
         .collect::<Vec<_>>();
 
-    let version_or_extension = versions
-        .into_iter()
-        .map(VersionOrExtension::Version)
-        .chain(extensions.clone().map(VersionOrExtension::Extension));
+    let version_or_extension = versions.into_iter().map(VersionOrExtension::Version).chain(
+        registry
+            .extensions
+            .iter()
+            .map(VersionOrExtension::Extension),
+    );
 
     let mut req_enum_variants = BTreeMap::new();
     let mut req_bitspos = BTreeMap::new();
@@ -207,8 +188,9 @@ fn generate(xmls: &[&xml::Registry]) {
                 .map(|r| &r.constants)
                 .flatten()
                 .filter_map(|constant| {
-                    let global_api_constant = constants
-                        .clone()
+                    let global_api_constant = registry
+                        .constants
+                        .iter()
                         .find(|api_constant| api_constant.name == constant.name);
 
                     if let Some(global_api_constant) = global_api_constant {
@@ -231,7 +213,10 @@ fn generate(xmls: &[&xml::Registry]) {
             .filter(|name| visited_items.insert(*name))
             .collect::<HashSet<_>>();
 
-        let new_commands = commands.clone().filter(|ty| new_items.contains(ty.name));
+        let new_commands = registry
+            .commands
+            .iter()
+            .filter(|cmd| new_items.contains(cmd.name));
 
         let (vendor, module_name) = match version_or_extension {
             VersionOrExtension::Version(version) => {
@@ -294,7 +279,10 @@ fn generate(xmls: &[&xml::Registry]) {
                 .unwrap();
             }
 
-            let basetypes = basetypes.clone().filter(|ty| new_items.contains(ty.name));
+            let basetypes = registry
+                .basetypes
+                .iter()
+                .filter(|ty| new_items.contains(ty.name));
             for ty in basetypes {
                 writeln!(
                     sys_file,
@@ -305,7 +293,10 @@ fn generate(xmls: &[&xml::Registry]) {
                 .unwrap();
             }
 
-            let handles = handles.clone().filter(|ty| new_items.contains(ty.name));
+            let handles = registry
+                .handles
+                .iter()
+                .filter(|ty| new_items.contains(ty.name));
 
             for ty in handles {
                 let underlying_ty = match ty.ty {
@@ -324,12 +315,20 @@ fn generate(xmls: &[&xml::Registry]) {
                 .unwrap();
             }
 
-            let type_aliases = enum_aliases
+            let type_aliases = registry
+                .enum_aliases
+                .iter()
                 .clone()
-                .filter(|alias| enums.clone().find(|ty| ty.name == alias.alias).is_some())
-                .chain(handle_aliases.clone())
-                .chain(struct_aliases.clone())
-                .chain(bitmask_aliases.clone())
+                .filter(|alias| {
+                    registry
+                        .enums
+                        .iter()
+                        .find(|ty| ty.name == alias.alias)
+                        .is_some()
+                })
+                .chain(registry.handle_aliases.iter())
+                .chain(registry.struct_aliases.iter())
+                .chain(registry.bitmask_aliases.iter())
                 .filter(|alias| new_items.contains(alias.name));
 
             for ty in type_aliases {
@@ -342,8 +341,9 @@ fn generate(xmls: &[&xml::Registry]) {
                 .unwrap();
             }
 
-            let command_aliases = command_aliases
-                .clone()
+            let command_aliases = registry
+                .command_aliases
+                .iter()
                 .filter(|alias| new_items.contains(alias.name));
 
             for ty in command_aliases {
@@ -356,12 +356,18 @@ fn generate(xmls: &[&xml::Registry]) {
                 .unwrap();
             }
 
-            let new_structs = structs.iter().filter(|ty| new_items.contains(ty.name));
+            let new_structs = registry
+                .structs
+                .iter()
+                .filter(|ty| new_items.contains(ty.name));
             for ty in new_structs {
-                write_struct(&mut sys_file, &structs, ty);
+                write_struct(&mut sys_file, &registry.structs, ty);
             }
 
-            let unions = unions.clone().filter(|ty| new_items.contains(ty.name));
+            let unions = registry
+                .unions
+                .iter()
+                .filter(|ty| new_items.contains(ty.name));
             for ty in unions {
                 writeln!(sys_file, "#[repr(C)]").unwrap();
                 writeln!(sys_file, "#[derive(Copy, Clone)]").unwrap();
@@ -379,7 +385,10 @@ fn generate(xmls: &[&xml::Registry]) {
                 writeln!(sys_file, "}}").unwrap();
             }
 
-            let enums = enums.clone().filter(|ty| new_items.contains(ty.name));
+            let enums = registry
+                .enums
+                .iter()
+                .filter(|ty| new_items.contains(ty.name));
             for ty in enums {
                 let value_prefix = if ty.name == "VkResult" {
                     "VK".to_string()
@@ -458,14 +467,19 @@ fn generate(xmls: &[&xml::Registry]) {
                 writeln!(sys_file, "}}").unwrap();
             }
 
-            let bitmask_types = bitmask_types
+            let bitmask_types = registry
+                .bitmask_types
+                .iter()
                 .clone()
                 .filter(|ty| new_items.contains(ty.name));
             for ty in bitmask_types {
-                let bitmask = ty
-                    .bitvalues
-                    .or(ty.requires)
-                    .map(|b| bitmasks.clone().find(|bitmask| bitmask.name == b).unwrap());
+                let bitmask = ty.bitvalues.or(ty.requires).map(|b| {
+                    registry
+                        .bitmasks
+                        .iter()
+                        .find(|bitmask| bitmask.name == b)
+                        .unwrap()
+                });
 
                 let name = normalize_ty_name(ty.name);
 
@@ -643,7 +657,9 @@ fn generate(xmls: &[&xml::Registry]) {
                 }
             }
 
-            let funcpointers = funcpointers
+            let funcpointers = registry
+                .funcpointers
+                .iter()
                 .clone()
                 .filter(|ty| new_items.contains(ty.name));
             for ty in funcpointers {
@@ -720,7 +736,7 @@ fn generate(xmls: &[&xml::Registry]) {
                             .commands
                             .iter()
                             .map(|req_cmd| {
-                                let alias = command_aliases.clone().find_map(|alias| {
+                                let alias = registry.command_aliases.iter().find_map(|alias| {
                                     if alias.name == req_cmd.name {
                                         Some(alias.alias)
                                     } else {
@@ -728,8 +744,11 @@ fn generate(xmls: &[&xml::Registry]) {
                                     }
                                 });
                                 let name = alias.unwrap_or(req_cmd.name);
-                                let command =
-                                    commands.clone().find(|cmd| cmd.name == name).unwrap();
+                                let command = registry
+                                    .commands
+                                    .iter()
+                                    .find(|cmd| cmd.name == name)
+                                    .unwrap();
                                 CommandInfo {
                                     alias: req_cmd.name,
                                     command,
@@ -801,7 +820,7 @@ fn generate(xmls: &[&xml::Registry]) {
                 writeln!(file, "impl {} {{", fn_type_name).unwrap();
                 for command_group in &command_groups {
                     for command in &command_group.commands {
-                        write_command_wrapper(&mut file, command, &structs);
+                        write_command_wrapper(&mut file, command, &registry.structs);
                     }
                 }
                 writeln!(file, "}}").unwrap();
@@ -1056,7 +1075,7 @@ fn get_param_index(params: &[impl Param], param_name: &str) -> Option<usize> {
 
 fn get_len_kind<'a>(
     params: &'a [impl Param],
-    structs: &'a [&xml::Structure],
+    structs: &'a [xml::Structure],
     len: &'static str,
 ) -> LengthKind<'a> {
     if len == "null-terminated" {

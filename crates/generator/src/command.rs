@@ -76,7 +76,7 @@ impl<'a> LengthKind<'a> {
 
 fn analyze_command<'a>(
     info: &CommandInfo<'a>,
-    structs: &'a [&xml::Structure],
+    structs: &'a [xml::Structure],
 ) -> WrapperCommandInfo<'a> {
     let command = info.command;
     let len_kinds: Vec<_> = command
@@ -309,7 +309,7 @@ fn convert_param_type(ty: &CType, len: Option<&LengthKind<'_>>, optional: (bool,
 pub fn write_command_wrapper(
     file: &mut impl std::io::Write,
     info: &CommandInfo<'_>,
-    structs: &[&xml::Structure],
+    structs: &[xml::Structure],
 ) {
     let wrapper = analyze_command(info, structs);
 

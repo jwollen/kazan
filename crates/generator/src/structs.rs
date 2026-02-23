@@ -18,7 +18,7 @@ struct MemberInfo<'a> {
     len: Vec<LengthKind<'a>>,
 }
 
-fn analyze_struct<'a>(structs: &'a [&xml::Structure], ty: &'a xml::Structure) -> StructInfo<'a> {
+fn analyze_struct<'a>(structs: &'a [xml::Structure], ty: &'a xml::Structure) -> StructInfo<'a> {
     let len_kinds: Vec<Vec<_>> = ty
         .members
         .iter()

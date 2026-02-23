@@ -145,6 +145,29 @@ impl Registry {
         Registry::from_node(doc.root_element(), api)
     }
 
+    pub fn merge(&mut self, mut other: Registry) {
+        self.externals.append(&mut other.externals);
+        self.basetypes.append(&mut other.basetypes);
+        self.bitmask_types.append(&mut other.bitmask_types);
+        self.bitmask_aliases.append(&mut other.bitmask_aliases);
+        self.handles.append(&mut other.handles);
+        self.handle_aliases.append(&mut other.handle_aliases);
+        self.enum_types.append(&mut other.enum_types);
+        self.enum_aliases.append(&mut other.enum_aliases);
+        self.funcpointers.append(&mut other.funcpointers);
+        self.structs.append(&mut other.structs);
+        self.struct_aliases.append(&mut other.struct_aliases);
+        self.unions.append(&mut other.unions);
+        self.constants.append(&mut other.constants);
+        self.constant_aliases.append(&mut other.constant_aliases);
+        self.enums.append(&mut other.enums);
+        self.bitmasks.append(&mut other.bitmasks);
+        self.commands.append(&mut other.commands);
+        self.command_aliases.append(&mut other.command_aliases);
+        self.features.append(&mut other.features);
+        self.extensions.append(&mut other.extensions);
+    }
+
     fn from_node(registry_node: Node, api: &str) -> Registry {
         let mut registry = Registry::default();
         for registry_child in registry_node
