@@ -3,21 +3,18 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDisplacementMicromapFeaturesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub displacement_micromap: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDisplacementMicromapPropertiesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_displacement_micromap_subdivision_level: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AccelerationStructureTrianglesDisplacementMicromapNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -39,7 +36,7 @@ pub struct AccelerationStructureTrianglesDisplacementMicromapNV {
     pub micromap: MicromapEXT,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DisplacementMicromapFormatNV(i32);
 impl DisplacementMicromapFormatNV {
     pub const _64_TRIANGLES_64_BYTES_NV: Self = Self(1);

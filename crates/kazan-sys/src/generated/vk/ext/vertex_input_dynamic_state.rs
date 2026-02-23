@@ -3,14 +3,12 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceVertexInputDynamicStateFeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub vertex_input_dynamic_state: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VertexInputBindingDescription2EXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -20,7 +18,6 @@ pub struct VertexInputBindingDescription2EXT {
     pub divisor: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VertexInputAttributeDescription2EXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

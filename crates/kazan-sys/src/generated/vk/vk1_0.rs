@@ -23,120 +23,113 @@ pub type Flags = u32;
 pub type DeviceSize = u64;
 pub type DeviceAddress = u64;
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct Instance(usize);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct PhysicalDevice(usize);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct Device(usize);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct Queue(usize);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct CommandBuffer(usize);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct DeviceMemory(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct CommandPool(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct Buffer(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct BufferView(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct Image(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct ImageView(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct ShaderModule(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct Pipeline(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct PipelineLayout(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct Sampler(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct DescriptorSet(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct DescriptorSetLayout(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct DescriptorPool(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct Fence(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct Semaphore(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct Event(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct QueryPool(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct Framebuffer(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct RenderPass(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct PipelineCache(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BaseOutStructure {
     pub s_type: StructureType,
     pub p_next: *mut BaseOutStructure,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BaseInStructure {
     pub s_type: StructureType,
     pub p_next: *const BaseInStructure,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct Offset2D {
     pub x: i32,
     pub y: i32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct Offset3D {
     pub x: i32,
     pub y: i32,
     pub z: i32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct Extent2D {
     pub width: u32,
     pub height: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct Extent3D {
     pub width: u32,
     pub height: u32,
     pub depth: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct Viewport {
     pub x: f32,
     pub y: f32,
@@ -146,20 +139,17 @@ pub struct Viewport {
     pub max_depth: f32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct Rect2D {
     pub offset: Offset2D,
     pub extent: Extent2D,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ClearRect {
     pub rect: Rect2D,
     pub base_array_layer: u32,
     pub layer_count: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ComponentMapping {
     pub r: ComponentSwizzle,
     pub g: ComponentSwizzle,
@@ -167,7 +157,6 @@ pub struct ComponentMapping {
     pub a: ComponentSwizzle,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceProperties {
     pub api_version: u32,
     pub driver_version: u32,
@@ -180,13 +169,11 @@ pub struct PhysicalDeviceProperties {
     pub sparse_properties: PhysicalDeviceSparseProperties,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExtensionProperties {
     pub extension_name: [c_char; MAX_EXTENSION_NAME_SIZE as usize],
     pub spec_version: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct LayerProperties {
     pub layer_name: [c_char; MAX_EXTENSION_NAME_SIZE as usize],
     pub spec_version: u32,
@@ -194,7 +181,6 @@ pub struct LayerProperties {
     pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ApplicationInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -205,17 +191,15 @@ pub struct ApplicationInfo {
     pub api_version: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AllocationCallbacks {
     pub p_user_data: *mut c_void,
-    pub pfn_allocation: PFN_vkAllocationFunction,
-    pub pfn_reallocation: PFN_vkReallocationFunction,
-    pub pfn_free: PFN_vkFreeFunction,
-    pub pfn_internal_allocation: PFN_vkInternalAllocationNotification,
-    pub pfn_internal_free: PFN_vkInternalFreeNotification,
+    pub pfn_allocation: Option<PFN_vkAllocationFunction>,
+    pub pfn_reallocation: Option<PFN_vkReallocationFunction>,
+    pub pfn_free: Option<PFN_vkFreeFunction>,
+    pub pfn_internal_allocation: Option<PFN_vkInternalAllocationNotification>,
+    pub pfn_internal_free: Option<PFN_vkInternalFreeNotification>,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DeviceQueueCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -225,7 +209,6 @@ pub struct DeviceQueueCreateInfo {
     pub p_queue_priorities: *const f32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DeviceCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -239,7 +222,6 @@ pub struct DeviceCreateInfo {
     pub p_enabled_features: *const PhysicalDeviceFeatures,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct InstanceCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -251,7 +233,6 @@ pub struct InstanceCreateInfo {
     pub pp_enabled_extension_names: *const *const c_char,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct QueueFamilyProperties {
     pub queue_flags: QueueFlags,
     pub queue_count: u32,
@@ -259,7 +240,6 @@ pub struct QueueFamilyProperties {
     pub min_image_transfer_granularity: Extent3D,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMemoryProperties {
     pub memory_type_count: u32,
     pub memory_types: [MemoryType; MAX_MEMORY_TYPES as usize],
@@ -267,7 +247,6 @@ pub struct PhysicalDeviceMemoryProperties {
     pub memory_heaps: [MemoryHeap; MAX_MEMORY_HEAPS as usize],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MemoryAllocateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -275,21 +254,18 @@ pub struct MemoryAllocateInfo {
     pub memory_type_index: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MemoryRequirements {
     pub size: DeviceSize,
     pub alignment: DeviceSize,
     pub memory_type_bits: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SparseImageFormatProperties {
     pub aspect_mask: ImageAspectFlags,
     pub image_granularity: Extent3D,
     pub flags: SparseImageFormatFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SparseImageMemoryRequirements {
     pub format_properties: SparseImageFormatProperties,
     pub image_mip_tail_first_lod: u32,
@@ -298,19 +274,16 @@ pub struct SparseImageMemoryRequirements {
     pub image_mip_tail_stride: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MemoryType {
     pub property_flags: MemoryPropertyFlags,
     pub heap_index: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MemoryHeap {
     pub size: DeviceSize,
     pub flags: MemoryHeapFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MappedMemoryRange {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -319,14 +292,12 @@ pub struct MappedMemoryRange {
     pub size: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct FormatProperties {
     pub linear_tiling_features: FormatFeatureFlags,
     pub optimal_tiling_features: FormatFeatureFlags,
     pub buffer_features: FormatFeatureFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageFormatProperties {
     pub max_extent: Extent3D,
     pub max_mip_levels: u32,
@@ -335,21 +306,18 @@ pub struct ImageFormatProperties {
     pub max_resource_size: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorBufferInfo {
     pub buffer: Buffer,
     pub offset: DeviceSize,
     pub range: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorImageInfo {
     pub sampler: Sampler,
     pub image_view: ImageView,
     pub image_layout: ImageLayout,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct WriteDescriptorSet {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -363,7 +331,6 @@ pub struct WriteDescriptorSet {
     pub p_texel_buffer_view: *const BufferView,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CopyDescriptorSet {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -376,7 +343,6 @@ pub struct CopyDescriptorSet {
     pub descriptor_count: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BufferCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -388,7 +354,6 @@ pub struct BufferCreateInfo {
     pub p_queue_family_indices: *const u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BufferViewCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -399,14 +364,12 @@ pub struct BufferViewCreateInfo {
     pub range: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageSubresource {
     pub aspect_mask: ImageAspectFlags,
     pub mip_level: u32,
     pub array_layer: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageSubresourceLayers {
     pub aspect_mask: ImageAspectFlags,
     pub mip_level: u32,
@@ -414,7 +377,6 @@ pub struct ImageSubresourceLayers {
     pub layer_count: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageSubresourceRange {
     pub aspect_mask: ImageAspectFlags,
     pub base_mip_level: u32,
@@ -423,7 +385,6 @@ pub struct ImageSubresourceRange {
     pub layer_count: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MemoryBarrier {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -431,7 +392,6 @@ pub struct MemoryBarrier {
     pub dst_access_mask: AccessFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BufferMemoryBarrier {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -444,7 +404,6 @@ pub struct BufferMemoryBarrier {
     pub size: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageMemoryBarrier {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -458,7 +417,6 @@ pub struct ImageMemoryBarrier {
     pub subresource_range: ImageSubresourceRange,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -477,7 +435,6 @@ pub struct ImageCreateInfo {
     pub initial_layout: ImageLayout,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SubresourceLayout {
     pub offset: DeviceSize,
     pub size: DeviceSize,
@@ -486,7 +443,6 @@ pub struct SubresourceLayout {
     pub depth_pitch: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageViewCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -498,14 +454,12 @@ pub struct ImageViewCreateInfo {
     pub subresource_range: ImageSubresourceRange,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BufferCopy {
     pub src_offset: DeviceSize,
     pub dst_offset: DeviceSize,
     pub size: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SparseMemoryBind {
     pub resource_offset: DeviceSize,
     pub size: DeviceSize,
@@ -514,7 +468,6 @@ pub struct SparseMemoryBind {
     pub flags: SparseMemoryBindFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SparseImageMemoryBind {
     pub subresource: ImageSubresource,
     pub offset: Offset3D,
@@ -524,28 +477,24 @@ pub struct SparseImageMemoryBind {
     pub flags: SparseMemoryBindFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SparseBufferMemoryBindInfo {
     pub buffer: Buffer,
     pub bind_count: u32,
     pub p_binds: *const SparseMemoryBind,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SparseImageOpaqueMemoryBindInfo {
     pub image: Image,
     pub bind_count: u32,
     pub p_binds: *const SparseMemoryBind,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SparseImageMemoryBindInfo {
     pub image: Image,
     pub bind_count: u32,
     pub p_binds: *const SparseImageMemoryBind,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BindSparseInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -561,7 +510,6 @@ pub struct BindSparseInfo {
     pub p_signal_semaphores: *const Semaphore,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageCopy {
     pub src_subresource: ImageSubresourceLayers,
     pub src_offset: Offset3D,
@@ -570,7 +518,6 @@ pub struct ImageCopy {
     pub extent: Extent3D,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageBlit {
     pub src_subresource: ImageSubresourceLayers,
     pub src_offsets: [Offset3D; 2],
@@ -578,7 +525,6 @@ pub struct ImageBlit {
     pub dst_offsets: [Offset3D; 2],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BufferImageCopy {
     pub buffer_offset: DeviceSize,
     pub buffer_row_length: u32,
@@ -588,7 +534,6 @@ pub struct BufferImageCopy {
     pub image_extent: Extent3D,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageResolve {
     pub src_subresource: ImageSubresourceLayers,
     pub src_offset: Offset3D,
@@ -597,7 +542,6 @@ pub struct ImageResolve {
     pub extent: Extent3D,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ShaderModuleCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -606,7 +550,6 @@ pub struct ShaderModuleCreateInfo {
     pub p_code: *const u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorSetLayoutBinding {
     pub binding: u32,
     pub descriptor_type: DescriptorType,
@@ -615,7 +558,6 @@ pub struct DescriptorSetLayoutBinding {
     pub p_immutable_samplers: *const Sampler,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorSetLayoutCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -624,13 +566,11 @@ pub struct DescriptorSetLayoutCreateInfo {
     pub p_bindings: *const DescriptorSetLayoutBinding,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorPoolSize {
     pub ty: DescriptorType,
     pub descriptor_count: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorPoolCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -640,7 +580,6 @@ pub struct DescriptorPoolCreateInfo {
     pub p_pool_sizes: *const DescriptorPoolSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorSetAllocateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -649,14 +588,12 @@ pub struct DescriptorSetAllocateInfo {
     pub p_set_layouts: *const DescriptorSetLayout,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SpecializationMapEntry {
     pub constant_id: u32,
     pub offset: u32,
     pub size: usize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SpecializationInfo {
     pub map_entry_count: u32,
     pub p_map_entries: *const SpecializationMapEntry,
@@ -664,7 +601,6 @@ pub struct SpecializationInfo {
     pub p_data: *const c_void,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineShaderStageCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -675,7 +611,6 @@ pub struct PipelineShaderStageCreateInfo {
     pub p_specialization_info: *const SpecializationInfo,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ComputePipelineCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -686,14 +621,12 @@ pub struct ComputePipelineCreateInfo {
     pub base_pipeline_index: i32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VertexInputBindingDescription {
     pub binding: u32,
     pub stride: u32,
     pub input_rate: VertexInputRate,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VertexInputAttributeDescription {
     pub location: u32,
     pub binding: u32,
@@ -701,7 +634,6 @@ pub struct VertexInputAttributeDescription {
     pub offset: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineVertexInputStateCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -712,7 +644,6 @@ pub struct PipelineVertexInputStateCreateInfo {
     pub p_vertex_attribute_descriptions: *const VertexInputAttributeDescription,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineInputAssemblyStateCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -721,7 +652,6 @@ pub struct PipelineInputAssemblyStateCreateInfo {
     pub primitive_restart_enable: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineTessellationStateCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -729,7 +659,6 @@ pub struct PipelineTessellationStateCreateInfo {
     pub patch_control_points: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineViewportStateCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -740,7 +669,6 @@ pub struct PipelineViewportStateCreateInfo {
     pub p_scissors: *const Rect2D,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineRasterizationStateCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -757,7 +685,6 @@ pub struct PipelineRasterizationStateCreateInfo {
     pub line_width: f32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineMultisampleStateCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -770,7 +697,6 @@ pub struct PipelineMultisampleStateCreateInfo {
     pub alpha_to_one_enable: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineColorBlendAttachmentState {
     pub blend_enable: Bool32,
     pub src_color_blend_factor: BlendFactor,
@@ -782,7 +708,6 @@ pub struct PipelineColorBlendAttachmentState {
     pub color_write_mask: ColorComponentFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineColorBlendStateCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -794,7 +719,6 @@ pub struct PipelineColorBlendStateCreateInfo {
     pub blend_constants: [f32; 4],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineDynamicStateCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -803,7 +727,6 @@ pub struct PipelineDynamicStateCreateInfo {
     pub p_dynamic_states: *const DynamicState,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StencilOpState {
     pub fail_op: StencilOp,
     pub pass_op: StencilOp,
@@ -814,7 +737,6 @@ pub struct StencilOpState {
     pub reference: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineDepthStencilStateCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -830,7 +752,6 @@ pub struct PipelineDepthStencilStateCreateInfo {
     pub max_depth_bounds: f32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct GraphicsPipelineCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -853,7 +774,6 @@ pub struct GraphicsPipelineCreateInfo {
     pub base_pipeline_index: i32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineCacheCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -862,7 +782,6 @@ pub struct PipelineCacheCreateInfo {
     pub p_initial_data: *const c_void,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineCacheHeaderVersionOne {
     pub header_size: u32,
     pub header_version: PipelineCacheHeaderVersion,
@@ -871,14 +790,12 @@ pub struct PipelineCacheHeaderVersionOne {
     pub pipeline_cache_uuid: [u8; UUID_SIZE as usize],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PushConstantRange {
     pub stage_flags: ShaderStageFlags,
     pub offset: u32,
     pub size: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineLayoutCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -889,7 +806,6 @@ pub struct PipelineLayoutCreateInfo {
     pub p_push_constant_ranges: *const PushConstantRange,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SamplerCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -911,7 +827,6 @@ pub struct SamplerCreateInfo {
     pub unnormalized_coordinates: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CommandPoolCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -919,7 +834,6 @@ pub struct CommandPoolCreateInfo {
     pub queue_family_index: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CommandBufferAllocateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -928,7 +842,6 @@ pub struct CommandBufferAllocateInfo {
     pub command_buffer_count: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CommandBufferInheritanceInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -940,7 +853,6 @@ pub struct CommandBufferInheritanceInfo {
     pub pipeline_statistics: QueryPipelineStatisticFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CommandBufferBeginInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -948,7 +860,6 @@ pub struct CommandBufferBeginInfo {
     pub p_inheritance_info: *const CommandBufferInheritanceInfo,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct RenderPassBeginInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -959,20 +870,17 @@ pub struct RenderPassBeginInfo {
     pub p_clear_values: *const ClearValue,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ClearDepthStencilValue {
     pub depth: f32,
     pub stencil: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ClearAttachment {
     pub aspect_mask: ImageAspectFlags,
     pub color_attachment: u32,
     pub clear_value: ClearValue,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AttachmentDescription {
     pub flags: AttachmentDescriptionFlags,
     pub format: Format,
@@ -985,13 +893,11 @@ pub struct AttachmentDescription {
     pub final_layout: ImageLayout,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AttachmentReference {
     pub attachment: u32,
     pub layout: ImageLayout,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SubpassDescription {
     pub flags: SubpassDescriptionFlags,
     pub pipeline_bind_point: PipelineBindPoint,
@@ -1005,7 +911,6 @@ pub struct SubpassDescription {
     pub p_preserve_attachments: *const u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SubpassDependency {
     pub src_subpass: u32,
     pub dst_subpass: u32,
@@ -1016,7 +921,6 @@ pub struct SubpassDependency {
     pub dependency_flags: DependencyFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct RenderPassCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -1029,21 +933,18 @@ pub struct RenderPassCreateInfo {
     pub p_dependencies: *const SubpassDependency,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct EventCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: EventCreateFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct FenceCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: FenceCreateFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceFeatures {
     pub robust_buffer_access: Bool32,
     pub full_draw_index_uint32: Bool32,
@@ -1102,7 +1003,6 @@ pub struct PhysicalDeviceFeatures {
     pub inherited_queries: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceSparseProperties {
     pub residency_standard2_d_block_shape: Bool32,
     pub residency_standard2_d_multisample_block_shape: Bool32,
@@ -1111,7 +1011,6 @@ pub struct PhysicalDeviceSparseProperties {
     pub residency_non_resident_strict: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceLimits {
     pub max_image_dimension1_d: u32,
     pub max_image_dimension2_d: u32,
@@ -1221,14 +1120,12 @@ pub struct PhysicalDeviceLimits {
     pub non_coherent_atom_size: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SemaphoreCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: SemaphoreCreateFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct QueryPoolCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -1238,7 +1135,6 @@ pub struct QueryPoolCreateInfo {
     pub pipeline_statistics: QueryPipelineStatisticFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct FramebufferCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -1251,7 +1147,6 @@ pub struct FramebufferCreateInfo {
     pub layers: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DrawIndirectCommand {
     pub vertex_count: u32,
     pub instance_count: u32,
@@ -1259,7 +1154,6 @@ pub struct DrawIndirectCommand {
     pub first_instance: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DrawIndexedIndirectCommand {
     pub index_count: u32,
     pub instance_count: u32,
@@ -1268,14 +1162,12 @@ pub struct DrawIndexedIndirectCommand {
     pub first_instance: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DispatchIndirectCommand {
     pub x: u32,
     pub y: u32,
     pub z: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SubmitInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -1301,7 +1193,7 @@ pub union ClearValue {
     pub depth_stencil: ClearDepthStencilValue,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ImageLayout(i32);
 impl ImageLayout {
     pub const UNDEFINED: Self = Self(0);
@@ -1350,7 +1242,7 @@ impl ImageLayout {
     pub const STENCIL_READ_ONLY_OPTIMAL_KHR: Self = Self::STENCIL_READ_ONLY_OPTIMAL;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AttachmentLoadOp(i32);
 impl AttachmentLoadOp {
     pub const LOAD: Self = Self(0);
@@ -1361,7 +1253,7 @@ impl AttachmentLoadOp {
     pub const NONE_KHR: Self = Self::NONE;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AttachmentStoreOp(i32);
 impl AttachmentStoreOp {
     pub const STORE: Self = Self(0);
@@ -1372,7 +1264,7 @@ impl AttachmentStoreOp {
     pub const NONE_QCOM: Self = Self::NONE;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ImageType(i32);
 impl ImageType {
     pub const _1D: Self = Self(0);
@@ -1380,7 +1272,7 @@ impl ImageType {
     pub const _3D: Self = Self(2);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ImageTiling(i32);
 impl ImageTiling {
     pub const OPTIMAL: Self = Self(0);
@@ -1388,7 +1280,7 @@ impl ImageTiling {
     pub const DRM_FORMAT_MODIFIER_EXT: Self = Self(1000158000);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ImageViewType(i32);
 impl ImageViewType {
     pub const _1D: Self = Self(0);
@@ -1400,14 +1292,14 @@ impl ImageViewType {
     pub const CUBE_ARRAY: Self = Self(6);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct CommandBufferLevel(i32);
 impl CommandBufferLevel {
     pub const PRIMARY: Self = Self(0);
     pub const SECONDARY: Self = Self(1);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ComponentSwizzle(i32);
 impl ComponentSwizzle {
     pub const IDENTITY: Self = Self(0);
@@ -1419,7 +1311,7 @@ impl ComponentSwizzle {
     pub const A: Self = Self(6);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DescriptorType(i32);
 impl DescriptorType {
     pub const SAMPLER: Self = Self(0);
@@ -1445,7 +1337,7 @@ impl DescriptorType {
     pub const MUTABLE_VALVE: Self = Self::MUTABLE_EXT;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct QueryType(i32);
 impl QueryType {
     pub const OCCLUSION: Self = Self(0);
@@ -1468,7 +1360,7 @@ impl QueryType {
     pub const VIDEO_ENCODE_FEEDBACK_KHR: Self = Self(1000299000);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct BorderColor(i32);
 impl BorderColor {
     pub const FLOAT_TRANSPARENT_BLACK: Self = Self(0);
@@ -1481,7 +1373,7 @@ impl BorderColor {
     pub const INT_CUSTOM_EXT: Self = Self(1000287004);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PipelineBindPoint(i32);
 impl PipelineBindPoint {
     pub const GRAPHICS: Self = Self(0);
@@ -1493,14 +1385,14 @@ impl PipelineBindPoint {
     pub const RAY_TRACING_NV: Self = Self::RAY_TRACING_KHR;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PipelineCacheHeaderVersion(i32);
 impl PipelineCacheHeaderVersion {
     pub const ONE: Self = Self(1);
     pub const DATA_GRAPH_QCOM: Self = Self(1000629000);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PrimitiveTopology(i32);
 impl PrimitiveTopology {
     pub const POINT_LIST: Self = Self(0);
@@ -1516,14 +1408,14 @@ impl PrimitiveTopology {
     pub const PATCH_LIST: Self = Self(10);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct SharingMode(i32);
 impl SharingMode {
     pub const EXCLUSIVE: Self = Self(0);
     pub const CONCURRENT: Self = Self(1);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct IndexType(i32);
 impl IndexType {
     pub const UINT16: Self = Self(0);
@@ -1535,7 +1427,7 @@ impl IndexType {
     pub const UINT8_KHR: Self = Self::UINT8;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct Filter(i32);
 impl Filter {
     pub const NEAREST: Self = Self(0);
@@ -1544,14 +1436,14 @@ impl Filter {
     pub const CUBIC_IMG: Self = Self::CUBIC_EXT;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct SamplerMipmapMode(i32);
 impl SamplerMipmapMode {
     pub const NEAREST: Self = Self(0);
     pub const LINEAR: Self = Self(1);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct SamplerAddressMode(i32);
 impl SamplerAddressMode {
     pub const REPEAT: Self = Self(0);
@@ -1562,7 +1454,7 @@ impl SamplerAddressMode {
     pub const MIRROR_CLAMP_TO_EDGE_KHR: Self = Self::MIRROR_CLAMP_TO_EDGE;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct CompareOp(i32);
 impl CompareOp {
     pub const NEVER: Self = Self(0);
@@ -1575,7 +1467,7 @@ impl CompareOp {
     pub const ALWAYS: Self = Self(7);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PolygonMode(i32);
 impl PolygonMode {
     pub const FILL: Self = Self(0);
@@ -1584,14 +1476,14 @@ impl PolygonMode {
     pub const FILL_RECTANGLE_NV: Self = Self(1000153000);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct FrontFace(i32);
 impl FrontFace {
     pub const COUNTER_CLOCKWISE: Self = Self(0);
     pub const CLOCKWISE: Self = Self(1);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct BlendFactor(i32);
 impl BlendFactor {
     pub const ZERO: Self = Self(0);
@@ -1615,7 +1507,7 @@ impl BlendFactor {
     pub const ONE_MINUS_SRC1_ALPHA: Self = Self(18);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct BlendOp(i32);
 impl BlendOp {
     pub const ADD: Self = Self(0);
@@ -1671,7 +1563,7 @@ impl BlendOp {
     pub const ZERO_EXT: Self = Self(1000148000);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StencilOp(i32);
 impl StencilOp {
     pub const KEEP: Self = Self(0);
@@ -1684,7 +1576,7 @@ impl StencilOp {
     pub const DECREMENT_AND_WRAP: Self = Self(7);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct LogicOp(i32);
 impl LogicOp {
     pub const CLEAR: Self = Self(0);
@@ -1705,13 +1597,13 @@ impl LogicOp {
     pub const SET: Self = Self(15);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct InternalAllocationType(i32);
 impl InternalAllocationType {
     pub const EXECUTABLE: Self = Self(0);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct SystemAllocationScope(i32);
 impl SystemAllocationScope {
     pub const COMMAND: Self = Self(0);
@@ -1721,7 +1613,7 @@ impl SystemAllocationScope {
     pub const INSTANCE: Self = Self(4);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PhysicalDeviceType(i32);
 impl PhysicalDeviceType {
     pub const OTHER: Self = Self(0);
@@ -1731,14 +1623,14 @@ impl PhysicalDeviceType {
     pub const CPU: Self = Self(4);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct VertexInputRate(i32);
 impl VertexInputRate {
     pub const VERTEX: Self = Self(0);
     pub const INSTANCE: Self = Self(1);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct Format(i32);
 impl Format {
     pub const UNDEFINED: Self = Self(0);
@@ -2113,7 +2005,7 @@ impl Format {
     pub const R16G16_S10_5_NV: Self = Self::R16G16_SFIXED5_NV;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StructureType(i32);
 impl StructureType {
     pub const APPLICATION_INFO: Self = Self(0);
@@ -3702,7 +3594,7 @@ impl StructureType {
         Self::WRITE_DESCRIPTOR_SET_INLINE_UNIFORM_BLOCK;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct SubpassContents(i32);
 impl SubpassContents {
     pub const INLINE: Self = Self(0);
@@ -3712,7 +3604,7 @@ impl SubpassContents {
         Self::INLINE_AND_SECONDARY_COMMAND_BUFFERS_KHR;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct Result(i32);
 impl Result {
     pub const SUCCESS: Self = Self(0);
@@ -3779,7 +3671,7 @@ impl Result {
     pub const PIPELINE_COMPILE_REQUIRED_EXT: Self = Self::PIPELINE_COMPILE_REQUIRED;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DynamicState(i32);
 impl DynamicState {
     pub const VIEWPORT: Self = Self(0);
@@ -3874,7 +3766,7 @@ impl DynamicState {
     pub const VIEWPORT_WITH_COUNT_EXT: Self = Self::VIEWPORT_WITH_COUNT;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ObjectType(i32);
 impl ObjectType {
     pub const UNKNOWN: Self = Self(0);
@@ -3940,7 +3832,7 @@ impl ObjectType {
     pub const SAMPLER_YCBCR_CONVERSION_KHR: Self = Self::SAMPLER_YCBCR_CONVERSION;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct VendorId(i32);
 impl VendorId {
     pub const KHRONOS: Self = Self(0x10000);

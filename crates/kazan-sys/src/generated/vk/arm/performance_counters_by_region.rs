@@ -3,14 +3,12 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDevicePerformanceCountersByRegionFeaturesARM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub performance_counters_by_region: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDevicePerformanceCountersByRegionPropertiesARM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -21,14 +19,12 @@ pub struct PhysicalDevicePerformanceCountersByRegionPropertiesARM {
     pub identity_transform_order: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PerformanceCounterARM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub counter_id: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PerformanceCounterDescriptionARM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -36,7 +32,6 @@ pub struct PerformanceCounterDescriptionARM {
     pub name: [c_char; MAX_DESCRIPTION_SIZE as usize],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct RenderPassPerformanceCountersByRegionBeginInfoARM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

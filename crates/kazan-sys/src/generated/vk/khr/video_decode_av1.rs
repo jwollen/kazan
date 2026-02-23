@@ -4,7 +4,6 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 pub const MAX_VIDEO_AV1_REFERENCES_PER_FRAME_KHR: u32 = 7;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoDecodeAV1ProfileInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -12,21 +11,18 @@ pub struct VideoDecodeAV1ProfileInfoKHR {
     pub film_grain_support: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoDecodeAV1CapabilitiesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_level: StdVideoAV1Level,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoDecodeAV1SessionParametersCreateInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_std_sequence_header: *const StdVideoAV1SequenceHeader,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoDecodeAV1PictureInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -38,7 +34,6 @@ pub struct VideoDecodeAV1PictureInfoKHR {
     pub p_tile_sizes: *const u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoDecodeAV1DpbSlotInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,

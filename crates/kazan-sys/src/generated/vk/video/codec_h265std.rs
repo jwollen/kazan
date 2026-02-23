@@ -26,7 +26,6 @@ pub const STD_VIDEO_H265_MAX_LONG_TERM_PICS: u32 = 16;
 pub const STD_VIDEO_H265_MAX_DELTA_POC: u32 = 48;
 pub const STD_VIDEO_H265_NO_REFERENCE_PICTURE: u8 = 0xF;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH265ProfileTierLevelFlags {
     pub general_tier_flag: u32,
     pub general_progressive_source_flag: u32,
@@ -35,21 +34,18 @@ pub struct StdVideoH265ProfileTierLevelFlags {
     pub general_frame_only_constraint_flag: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH265ProfileTierLevel {
     pub flags: StdVideoH265ProfileTierLevelFlags,
     pub general_profile_idc: StdVideoH265ProfileIdc,
     pub general_level_idc: StdVideoH265LevelIdc,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH265DecPicBufMgr {
     pub max_latency_increase_plus1: [u32; STD_VIDEO_H265_SUBLAYERS_LIST_SIZE as usize],
     pub max_dec_pic_buffering_minus1: [u8; STD_VIDEO_H265_SUBLAYERS_LIST_SIZE as usize],
     pub max_num_reorder_pics: [u8; STD_VIDEO_H265_SUBLAYERS_LIST_SIZE as usize],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH265SubLayerHrdParameters {
     pub bit_rate_value_minus1: [u32; STD_VIDEO_H265_CPB_CNT_LIST_SIZE as usize],
     pub cpb_size_value_minus1: [u32; STD_VIDEO_H265_CPB_CNT_LIST_SIZE as usize],
@@ -58,7 +54,6 @@ pub struct StdVideoH265SubLayerHrdParameters {
     pub cbr_flag: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH265HrdFlags {
     pub nal_hrd_parameters_present_flag: u32,
     pub vcl_hrd_parameters_present_flag: u32,
@@ -69,7 +64,6 @@ pub struct StdVideoH265HrdFlags {
     pub low_delay_hrd_flag: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH265HrdParameters {
     pub flags: StdVideoH265HrdFlags,
     pub tick_divisor_minus2: u8,
@@ -88,7 +82,6 @@ pub struct StdVideoH265HrdParameters {
     pub p_sub_layer_hrd_parameters_vcl: *const StdVideoH265SubLayerHrdParameters,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH265VpsFlags {
     pub vps_temporal_id_nesting_flag: u32,
     pub vps_sub_layer_ordering_info_present_flag: u32,
@@ -96,7 +89,6 @@ pub struct StdVideoH265VpsFlags {
     pub vps_poc_proportional_to_timing_flag: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH265VideoParameterSet {
     pub flags: StdVideoH265VpsFlags,
     pub vps_video_parameter_set_id: u8,
@@ -112,7 +104,6 @@ pub struct StdVideoH265VideoParameterSet {
     pub p_profile_tier_level: *const StdVideoH265ProfileTierLevel,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH265ScalingLists {
     pub scaling_list4x4: [[u8; STD_VIDEO_H265_SCALING_LIST_4X4_NUM_ELEMENTS as usize];
         STD_VIDEO_H265_SCALING_LIST_4X4_NUM_LISTS as usize],
@@ -126,13 +117,11 @@ pub struct StdVideoH265ScalingLists {
     pub scaling_list_dc_coef32x32: [u8; STD_VIDEO_H265_SCALING_LIST_32X32_NUM_LISTS as usize],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH265ShortTermRefPicSetFlags {
     pub inter_ref_pic_set_prediction_flag: u32,
     pub delta_rps_sign: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH265ShortTermRefPicSet {
     pub flags: StdVideoH265ShortTermRefPicSetFlags,
     pub delta_idx_minus1: u32,
@@ -150,13 +139,11 @@ pub struct StdVideoH265ShortTermRefPicSet {
     pub delta_poc_s1_minus1: [u16; STD_VIDEO_H265_MAX_DPB_SIZE as usize],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH265LongTermRefPicsSps {
     pub used_by_curr_pic_lt_sps_flag: u32,
     pub lt_ref_pic_poc_lsb_sps: [u32; STD_VIDEO_H265_MAX_LONG_TERM_REF_PICS_SPS as usize],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH265SpsVuiFlags {
     pub aspect_ratio_info_present_flag: u32,
     pub overscan_info_present_flag: u32,
@@ -178,7 +165,6 @@ pub struct StdVideoH265SpsVuiFlags {
     pub restricted_ref_pic_lists_flag: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH265SequenceParameterSetVui {
     pub flags: StdVideoH265SpsVuiFlags,
     pub aspect_ratio_idc: StdVideoH265AspectRatioIdc,
@@ -208,14 +194,12 @@ pub struct StdVideoH265SequenceParameterSetVui {
     pub p_hrd_parameters: *const StdVideoH265HrdParameters,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH265PredictorPaletteEntries {
     pub predictor_palette_entries: [[u16; STD_VIDEO_H265_PREDICTOR_PALETTE_COMP_ENTRIES_LIST_SIZE
         as usize];
         STD_VIDEO_H265_PREDICTOR_PALETTE_COMPONENTS_LIST_SIZE as usize],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH265SpsFlags {
     pub sps_temporal_id_nesting_flag: u32,
     pub separate_colour_plane_flag: u32,
@@ -249,7 +233,6 @@ pub struct StdVideoH265SpsFlags {
     pub intra_boundary_filtering_disabled_flag: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH265SequenceParameterSet {
     pub flags: StdVideoH265SpsFlags,
     pub chroma_format_idc: StdVideoH265ChromaFormatIdc,
@@ -292,7 +275,6 @@ pub struct StdVideoH265SequenceParameterSet {
     pub p_predictor_palette_entries: *const StdVideoH265PredictorPaletteEntries,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH265PpsFlags {
     pub dependent_slice_segments_enabled_flag: u32,
     pub output_flag_present_flag: u32,
@@ -327,7 +309,6 @@ pub struct StdVideoH265PpsFlags {
     pub pps_range_extension_flag: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH265PictureParameterSet {
     pub flags: StdVideoH265PpsFlags,
     pub pps_pic_parameter_set_id: u8,
@@ -367,7 +348,7 @@ pub struct StdVideoH265PictureParameterSet {
     pub p_predictor_palette_entries: *const StdVideoH265PredictorPaletteEntries,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoH265ChromaFormatIdc(i32);
 impl StdVideoH265ChromaFormatIdc {
     pub const MONOCHROME: Self = Self(0);
@@ -377,7 +358,7 @@ impl StdVideoH265ChromaFormatIdc {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoH265ProfileIdc(i32);
 impl StdVideoH265ProfileIdc {
     pub const MAIN: Self = Self(1);
@@ -388,7 +369,7 @@ impl StdVideoH265ProfileIdc {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoH265LevelIdc(i32);
 impl StdVideoH265LevelIdc {
     pub const _1_0: Self = Self(0);
@@ -407,7 +388,7 @@ impl StdVideoH265LevelIdc {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoH265SliceType(i32);
 impl StdVideoH265SliceType {
     pub const B: Self = Self(0);
@@ -416,7 +397,7 @@ impl StdVideoH265SliceType {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoH265PictureType(i32);
 impl StdVideoH265PictureType {
     pub const P: Self = Self(0);
@@ -426,7 +407,7 @@ impl StdVideoH265PictureType {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoH265AspectRatioIdc(i32);
 impl StdVideoH265AspectRatioIdc {
     pub const UNSPECIFIED: Self = Self(0);

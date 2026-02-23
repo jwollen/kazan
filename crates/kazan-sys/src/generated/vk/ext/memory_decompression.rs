@@ -3,14 +3,12 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMemoryDecompressionFeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub memory_decompression: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMemoryDecompressionPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -18,7 +16,6 @@ pub struct PhysicalDeviceMemoryDecompressionPropertiesEXT {
     pub max_decompression_indirect_count: u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DecompressMemoryRegionEXT {
     pub src_address: DeviceAddress,
     pub dst_address: DeviceAddress,
@@ -26,7 +23,6 @@ pub struct DecompressMemoryRegionEXT {
     pub decompressed_size: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DecompressMemoryInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,

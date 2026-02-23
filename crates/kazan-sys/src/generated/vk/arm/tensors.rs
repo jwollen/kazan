@@ -3,10 +3,9 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct TensorViewARM(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct TensorDescriptionARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -18,7 +17,6 @@ pub struct TensorDescriptionARM {
     pub usage: TensorUsageFlagsARM,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct TensorCreateInfoARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -29,14 +27,12 @@ pub struct TensorCreateInfoARM {
     pub p_queue_family_indices: *const u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct TensorMemoryRequirementsInfoARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub tensor: TensorARM,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BindTensorMemoryInfoARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -45,7 +41,6 @@ pub struct BindTensorMemoryInfoARM {
     pub memory_offset: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct WriteDescriptorSetTensorARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -53,7 +48,6 @@ pub struct WriteDescriptorSetTensorARM {
     pub p_tensor_views: *const TensorViewARM,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct TensorFormatPropertiesARM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -61,7 +55,6 @@ pub struct TensorFormatPropertiesARM {
     pub linear_tiling_tensor_features: FormatFeatureFlags2,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceTensorPropertiesARM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -80,7 +73,6 @@ pub struct PhysicalDeviceTensorPropertiesARM {
     pub shader_tensor_supported_stages: ShaderStageFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct TensorMemoryBarrierARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -93,7 +85,6 @@ pub struct TensorMemoryBarrierARM {
     pub tensor: TensorARM,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct TensorDependencyInfoARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -101,7 +92,6 @@ pub struct TensorDependencyInfoARM {
     pub p_tensor_memory_barriers: *const TensorMemoryBarrierARM,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceTensorFeaturesARM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -113,14 +103,12 @@ pub struct PhysicalDeviceTensorFeaturesARM {
     pub tensors: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DeviceTensorMemoryRequirementsARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_create_info: *const TensorCreateInfoARM,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CopyTensorInfoARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -130,7 +118,6 @@ pub struct CopyTensorInfoARM {
     pub p_regions: *const TensorCopyARM,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct TensorCopyARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -140,14 +127,12 @@ pub struct TensorCopyARM {
     pub p_extent: *const u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MemoryDedicatedAllocateInfoTensorARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub tensor: TensorARM,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDescriptorBufferTensorPropertiesARM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -156,35 +141,30 @@ pub struct PhysicalDeviceDescriptorBufferTensorPropertiesARM {
     pub tensor_descriptor_size: usize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDescriptorBufferTensorFeaturesARM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub descriptor_buffer_tensor_descriptors: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct TensorCaptureDescriptorDataInfoARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub tensor: TensorARM,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct TensorViewCaptureDescriptorDataInfoARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub tensor_view: TensorViewARM,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorGetTensorInfoARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub tensor_view: TensorViewARM,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct FrameBoundaryTensorsARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -192,7 +172,6 @@ pub struct FrameBoundaryTensorsARM {
     pub p_tensors: *const TensorARM,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceExternalTensorInfoARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -201,21 +180,19 @@ pub struct PhysicalDeviceExternalTensorInfoARM {
     pub handle_type: ExternalMemoryHandleTypeFlagBits,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExternalTensorPropertiesARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub external_memory_properties: ExternalMemoryProperties,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExternalMemoryTensorCreateInfoARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub handle_types: ExternalMemoryHandleTypeFlags,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct TensorTilingARM(i32);
 impl TensorTilingARM {
     pub const OPTIMAL_ARM: Self = Self(0);

@@ -3,13 +3,12 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct DisplayKHR(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct DisplayModeKHR(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DisplayPropertiesKHR {
     pub display: DisplayKHR,
     pub display_name: *const c_char,
@@ -20,25 +19,21 @@ pub struct DisplayPropertiesKHR {
     pub persistent_content: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DisplayPlanePropertiesKHR {
     pub current_display: DisplayKHR,
     pub current_stack_index: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DisplayModeParametersKHR {
     pub visible_region: Extent2D,
     pub refresh_rate: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DisplayModePropertiesKHR {
     pub display_mode: DisplayModeKHR,
     pub parameters: DisplayModeParametersKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DisplayModeCreateInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -46,7 +41,6 @@ pub struct DisplayModeCreateInfoKHR {
     pub parameters: DisplayModeParametersKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DisplayPlaneCapabilitiesKHR {
     pub supported_alpha: DisplayPlaneAlphaFlagsKHR,
     pub min_src_position: Offset2D,
@@ -59,7 +53,6 @@ pub struct DisplayPlaneCapabilitiesKHR {
     pub max_dst_extent: Extent2D,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DisplaySurfaceCreateInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,

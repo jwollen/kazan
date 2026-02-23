@@ -3,17 +3,15 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct IndirectCommandsLayoutNV(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDeviceGeneratedCommandsFeaturesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub device_generated_commands: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDeviceGeneratedCommandsPropertiesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -28,7 +26,6 @@ pub struct PhysicalDeviceDeviceGeneratedCommandsPropertiesNV {
     pub min_indirect_commands_buffer_offset_alignment: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct GraphicsShaderGroupCreateInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -38,7 +35,6 @@ pub struct GraphicsShaderGroupCreateInfoNV {
     pub p_tessellation_state: *const PipelineTessellationStateCreateInfo,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct GraphicsPipelineShaderGroupsCreateInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -48,37 +44,31 @@ pub struct GraphicsPipelineShaderGroupsCreateInfoNV {
     pub p_pipelines: *const Pipeline,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BindShaderGroupIndirectCommandNV {
     pub group_index: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BindIndexBufferIndirectCommandNV {
     pub buffer_address: DeviceAddress,
     pub size: u32,
     pub index_type: IndexType,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BindVertexBufferIndirectCommandNV {
     pub buffer_address: DeviceAddress,
     pub size: u32,
     pub stride: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SetStateFlagsIndirectCommandNV {
     pub data: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct IndirectCommandsStreamNV {
     pub buffer: Buffer,
     pub offset: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct IndirectCommandsLayoutTokenNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -97,7 +87,6 @@ pub struct IndirectCommandsLayoutTokenNV {
     pub p_index_type_values: *const u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct IndirectCommandsLayoutCreateInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -109,7 +98,6 @@ pub struct IndirectCommandsLayoutCreateInfoNV {
     pub p_stream_strides: *const u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct GeneratedCommandsInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -128,7 +116,6 @@ pub struct GeneratedCommandsInfoNV {
     pub sequences_index_offset: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct GeneratedCommandsMemoryRequirementsInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -138,7 +125,7 @@ pub struct GeneratedCommandsMemoryRequirementsInfoNV {
     pub max_sequences_count: u32,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct IndirectCommandsTokenTypeNV(i32);
 impl IndirectCommandsTokenTypeNV {
     pub const SHADER_GROUP_NV: Self = Self(0);

@@ -4,7 +4,6 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 pub type AttachmentSampleCountInfoNV = AttachmentSampleCountInfoAMD;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineCoverageModulationStateCreateInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -15,7 +14,7 @@ pub struct PipelineCoverageModulationStateCreateInfoNV {
     pub p_coverage_modulation_table: *const f32,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct CoverageModulationModeNV(i32);
 impl CoverageModulationModeNV {
     pub const NONE_NV: Self = Self(0);

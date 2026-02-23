@@ -3,23 +3,20 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDeviceMemoryReportFeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub device_memory_report: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DeviceDeviceMemoryReportCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: DeviceMemoryReportFlagsEXT,
-    pub pfn_user_callback: PFN_vkDeviceMemoryReportCallbackEXT,
+    pub pfn_user_callback: Option<PFN_vkDeviceMemoryReportCallbackEXT>,
     pub p_user_data: *mut c_void,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DeviceMemoryReportCallbackDataEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -32,7 +29,7 @@ pub struct DeviceMemoryReportCallbackDataEXT {
     pub heap_index: u32,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DeviceMemoryReportEventTypeEXT(i32);
 impl DeviceMemoryReportEventTypeEXT {
     pub const ALLOCATE_EXT: Self = Self(0);

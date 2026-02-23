@@ -3,10 +3,9 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct DebugUtilsMessengerEXT(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DebugUtilsObjectNameInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -15,7 +14,6 @@ pub struct DebugUtilsObjectNameInfoEXT {
     pub p_object_name: *const c_char,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DebugUtilsObjectTagInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -26,7 +24,6 @@ pub struct DebugUtilsObjectTagInfoEXT {
     pub p_tag: *const c_void,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DebugUtilsLabelEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -34,18 +31,16 @@ pub struct DebugUtilsLabelEXT {
     pub color: [f32; 4],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DebugUtilsMessengerCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: DebugUtilsMessengerCreateFlagsEXT,
     pub message_severity: DebugUtilsMessageSeverityFlagsEXT,
     pub message_type: DebugUtilsMessageTypeFlagsEXT,
-    pub pfn_user_callback: PFN_vkDebugUtilsMessengerCallbackEXT,
+    pub pfn_user_callback: Option<PFN_vkDebugUtilsMessengerCallbackEXT>,
     pub p_user_data: *mut c_void,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DebugUtilsMessengerCallbackDataEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,

@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceRayTracingMotionBlurFeaturesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -11,14 +10,12 @@ pub struct PhysicalDeviceRayTracingMotionBlurFeaturesNV {
     pub ray_tracing_motion_blur_pipeline_trace_rays_indirect: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AccelerationStructureGeometryMotionTrianglesDataNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub vertex_data: DeviceOrHostAddressConstKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AccelerationStructureMotionInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -26,7 +23,6 @@ pub struct AccelerationStructureMotionInfoNV {
     pub flags: AccelerationStructureMotionInfoFlagsNV,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SRTDataNV {
     pub sx: f32,
     pub a: f32,
@@ -46,7 +42,6 @@ pub struct SRTDataNV {
     pub tz: f32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AccelerationStructureSRTMotionInstanceNV {
     pub transform_t0: SRTDataNV,
     pub transform_t1: SRTDataNV,
@@ -57,7 +52,6 @@ pub struct AccelerationStructureSRTMotionInstanceNV {
     pub acceleration_structure_reference: u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AccelerationStructureMatrixMotionInstanceNV {
     pub transform_t0: TransformMatrixKHR,
     pub transform_t1: TransformMatrixKHR,
@@ -68,7 +62,6 @@ pub struct AccelerationStructureMatrixMotionInstanceNV {
     pub acceleration_structure_reference: u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AccelerationStructureMotionInstanceNV {
     pub ty: AccelerationStructureMotionInstanceTypeNV,
     pub flags: AccelerationStructureMotionInstanceFlagsNV,
@@ -82,7 +75,7 @@ pub union AccelerationStructureMotionInstanceDataNV {
     pub srt_motion_instance: AccelerationStructureSRTMotionInstanceNV,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AccelerationStructureMotionInstanceTypeNV(i32);
 impl AccelerationStructureMotionInstanceTypeNV {
     pub const STATIC_NV: Self = Self(0);

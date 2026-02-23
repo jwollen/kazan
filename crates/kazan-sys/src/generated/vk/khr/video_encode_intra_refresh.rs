@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeIntraRefreshCapabilitiesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -14,14 +13,12 @@ pub struct VideoEncodeIntraRefreshCapabilitiesKHR {
     pub non_rectangular_intra_refresh_regions: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeSessionIntraRefreshCreateInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub intra_refresh_mode: VideoEncodeIntraRefreshModeFlagBitsKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeIntraRefreshInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -29,14 +26,12 @@ pub struct VideoEncodeIntraRefreshInfoKHR {
     pub intra_refresh_index: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoReferenceIntraRefreshInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub dirty_intra_refresh_regions: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

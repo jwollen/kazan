@@ -3,13 +3,12 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct IndirectCommandsLayoutEXT(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct IndirectExecutionSetEXT(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -17,7 +16,6 @@ pub struct PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT {
     pub dynamic_generated_pipeline_layout: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDeviceGeneratedCommandsPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -35,14 +33,12 @@ pub struct PhysicalDeviceDeviceGeneratedCommandsPropertiesEXT {
     pub device_generated_commands_multi_draw_indirect_count: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct GeneratedCommandsPipelineInfoEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub pipeline: Pipeline,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct GeneratedCommandsShaderInfoEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -50,7 +46,6 @@ pub struct GeneratedCommandsShaderInfoEXT {
     pub p_shaders: *const ShaderEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct GeneratedCommandsMemoryRequirementsInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -60,7 +55,6 @@ pub struct GeneratedCommandsMemoryRequirementsInfoEXT {
     pub max_draw_count: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct IndirectExecutionSetPipelineInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -68,7 +62,6 @@ pub struct IndirectExecutionSetPipelineInfoEXT {
     pub max_pipeline_count: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct IndirectExecutionSetShaderLayoutInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -76,7 +69,6 @@ pub struct IndirectExecutionSetShaderLayoutInfoEXT {
     pub p_set_layouts: *const DescriptorSetLayout,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct IndirectExecutionSetShaderInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -88,7 +80,6 @@ pub struct IndirectExecutionSetShaderInfoEXT {
     pub p_push_constant_ranges: *const PushConstantRange,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct IndirectExecutionSetCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -96,7 +87,6 @@ pub struct IndirectExecutionSetCreateInfoEXT {
     pub info: IndirectExecutionSetInfoEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct GeneratedCommandsInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -112,7 +102,6 @@ pub struct GeneratedCommandsInfoEXT {
     pub max_draw_count: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct WriteIndirectExecutionSetPipelineEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -120,7 +109,6 @@ pub struct WriteIndirectExecutionSetPipelineEXT {
     pub pipeline: Pipeline,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct WriteIndirectExecutionSetShaderEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -128,7 +116,6 @@ pub struct WriteIndirectExecutionSetShaderEXT {
     pub shader: ShaderEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct IndirectCommandsLayoutCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -140,7 +127,6 @@ pub struct IndirectCommandsLayoutCreateInfoEXT {
     pub p_tokens: *const IndirectCommandsLayoutTokenEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct IndirectCommandsLayoutTokenEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -149,43 +135,36 @@ pub struct IndirectCommandsLayoutTokenEXT {
     pub offset: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DrawIndirectCountIndirectCommandEXT {
     pub buffer_address: DeviceAddress,
     pub stride: u32,
     pub command_count: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct IndirectCommandsVertexBufferTokenEXT {
     pub vertex_binding_unit: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BindVertexBufferIndirectCommandEXT {
     pub buffer_address: DeviceAddress,
     pub size: u32,
     pub stride: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct IndirectCommandsIndexBufferTokenEXT {
     pub mode: IndirectCommandsInputModeFlagBitsEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BindIndexBufferIndirectCommandEXT {
     pub buffer_address: DeviceAddress,
     pub size: u32,
     pub index_type: IndexType,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct IndirectCommandsPushConstantTokenEXT {
     pub update_range: PushConstantRange,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct IndirectCommandsExecutionSetTokenEXT {
     pub ty: IndirectExecutionSetInfoTypeEXT,
     pub shader_stages: ShaderStageFlags,
@@ -205,14 +184,14 @@ pub union IndirectCommandsTokenDataEXT {
     pub p_execution_set: *const IndirectCommandsExecutionSetTokenEXT,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct IndirectExecutionSetInfoTypeEXT(i32);
 impl IndirectExecutionSetInfoTypeEXT {
     pub const PIPELINES_EXT: Self = Self(0);
     pub const SHADER_OBJECTS_EXT: Self = Self(1);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct IndirectCommandsTokenTypeEXT(i32);
 impl IndirectCommandsTokenTypeEXT {
     pub const EXECUTION_SET_EXT: Self = Self(0);

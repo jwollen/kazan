@@ -4,14 +4,12 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 pub type PipelineInfoEXT = PipelineInfoKHR;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelinePropertiesIdentifierEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub pipeline_identifier: [u8; UUID_SIZE as usize],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDevicePipelinePropertiesFeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

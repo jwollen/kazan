@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMeshShaderFeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -14,7 +13,6 @@ pub struct PhysicalDeviceMeshShaderFeaturesEXT {
     pub mesh_shader_queries: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMeshShaderPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -48,7 +46,6 @@ pub struct PhysicalDeviceMeshShaderPropertiesEXT {
     pub prefers_compact_primitive_output: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DrawMeshTasksIndirectCommandEXT {
     pub group_count_x: u32,
     pub group_count_y: u32,

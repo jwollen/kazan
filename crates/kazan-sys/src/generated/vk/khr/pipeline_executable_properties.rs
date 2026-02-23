@@ -3,21 +3,18 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDevicePipelineExecutablePropertiesFeaturesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub pipeline_executable_info: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub pipeline: Pipeline,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineExecutablePropertiesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -27,7 +24,6 @@ pub struct PipelineExecutablePropertiesKHR {
     pub subgroup_size: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineExecutableInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -35,7 +31,6 @@ pub struct PipelineExecutableInfoKHR {
     pub executable_index: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineExecutableStatisticKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -45,7 +40,6 @@ pub struct PipelineExecutableStatisticKHR {
     pub value: PipelineExecutableStatisticValueKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineExecutableInternalRepresentationKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -64,7 +58,7 @@ pub union PipelineExecutableStatisticValueKHR {
     pub f64: f64,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PipelineExecutableStatisticFormatKHR(i32);
 impl PipelineExecutableStatisticFormatKHR {
     pub const BOOL32_KHR: Self = Self(0);

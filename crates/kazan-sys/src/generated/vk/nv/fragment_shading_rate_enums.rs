@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceFragmentShadingRateEnumsFeaturesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -12,14 +11,12 @@ pub struct PhysicalDeviceFragmentShadingRateEnumsFeaturesNV {
     pub no_invocation_fragment_shading_rates: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceFragmentShadingRateEnumsPropertiesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_fragment_shading_rate_invocation_count: SampleCountFlagBits,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineFragmentShadingRateEnumStateCreateInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -28,7 +25,7 @@ pub struct PipelineFragmentShadingRateEnumStateCreateInfoNV {
     pub combiner_ops: [FragmentShadingRateCombinerOpKHR; 2],
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct FragmentShadingRateNV(i32);
 impl FragmentShadingRateNV {
     pub const _1_INVOCATION_PER_PIXEL_NV: Self = Self(0);
@@ -45,7 +42,7 @@ impl FragmentShadingRateNV {
     pub const NO_INVOCATIONS_NV: Self = Self(15);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct FragmentShadingRateTypeNV(i32);
 impl FragmentShadingRateTypeNV {
     pub const FRAGMENT_SIZE_NV: Self = Self(0);

@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImportMemoryWin32HandleInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -11,7 +10,6 @@ pub struct ImportMemoryWin32HandleInfoNV {
     pub handle: HANDLE,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExportMemoryWin32HandleInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,

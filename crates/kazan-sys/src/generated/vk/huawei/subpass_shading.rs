@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SubpassShadingPipelineCreateInfoHUAWEI {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -11,14 +10,12 @@ pub struct SubpassShadingPipelineCreateInfoHUAWEI {
     pub subpass: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceSubpassShadingPropertiesHUAWEI {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_subpass_shading_workgroup_size_aspect_ratio: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceSubpassShadingFeaturesHUAWEI {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

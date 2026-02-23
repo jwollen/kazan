@@ -4,7 +4,6 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 pub const SHADER_INDEX_UNUSED_AMDX: u32 = !0;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderEnqueuePropertiesAMDX {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -17,7 +16,6 @@ pub struct PhysicalDeviceShaderEnqueuePropertiesAMDX {
     pub max_execution_graph_workgroups: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderEnqueueFeaturesAMDX {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -25,7 +23,6 @@ pub struct PhysicalDeviceShaderEnqueueFeaturesAMDX {
     pub shader_mesh_enqueue: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExecutionGraphPipelineCreateInfoAMDX {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -38,7 +35,6 @@ pub struct ExecutionGraphPipelineCreateInfoAMDX {
     pub base_pipeline_index: i32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineShaderStageNodeCreateInfoAMDX {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -46,7 +42,6 @@ pub struct PipelineShaderStageNodeCreateInfoAMDX {
     pub index: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExecutionGraphPipelineScratchSizeAMDX {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -55,7 +50,6 @@ pub struct ExecutionGraphPipelineScratchSizeAMDX {
     pub size_granularity: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DispatchGraphInfoAMDX {
     pub node_index: u32,
     pub payload_count: u32,
@@ -63,7 +57,6 @@ pub struct DispatchGraphInfoAMDX {
     pub payload_stride: u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DispatchGraphCountInfoAMDX {
     pub count: u32,
     pub infos: DeviceOrHostAddressConstAMDX,

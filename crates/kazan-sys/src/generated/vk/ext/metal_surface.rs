@@ -4,7 +4,6 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 pub type CAMetalLayer = *const c_void;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MetalSurfaceCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,

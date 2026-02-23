@@ -3,13 +3,12 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct CudaModuleNV(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct CudaFunctionNV(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CudaModuleCreateInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -17,7 +16,6 @@ pub struct CudaModuleCreateInfoNV {
     pub p_data: *const c_void,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CudaFunctionCreateInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -25,7 +23,6 @@ pub struct CudaFunctionCreateInfoNV {
     pub p_name: *const c_char,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CudaLaunchInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -43,14 +40,12 @@ pub struct CudaLaunchInfoNV {
     pub p_extras: *const *const c_void,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceCudaKernelLaunchFeaturesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub cuda_kernel_launch_features: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceCudaKernelLaunchPropertiesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

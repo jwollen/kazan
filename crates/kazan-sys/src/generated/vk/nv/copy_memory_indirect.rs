@@ -7,7 +7,6 @@ pub type CopyMemoryToImageIndirectCommandNV = CopyMemoryToImageIndirectCommandKH
 pub type PhysicalDeviceCopyMemoryIndirectPropertiesNV =
     PhysicalDeviceCopyMemoryIndirectPropertiesKHR;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceCopyMemoryIndirectFeaturesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

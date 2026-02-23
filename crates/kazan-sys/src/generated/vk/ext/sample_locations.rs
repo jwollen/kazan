@@ -3,13 +3,11 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SampleLocationEXT {
     pub x: f32,
     pub y: f32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SampleLocationsInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -19,19 +17,16 @@ pub struct SampleLocationsInfoEXT {
     pub p_sample_locations: *const SampleLocationEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AttachmentSampleLocationsEXT {
     pub attachment_index: u32,
     pub sample_locations_info: SampleLocationsInfoEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SubpassSampleLocationsEXT {
     pub subpass_index: u32,
     pub sample_locations_info: SampleLocationsInfoEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct RenderPassSampleLocationsBeginInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -41,7 +36,6 @@ pub struct RenderPassSampleLocationsBeginInfoEXT {
     pub p_post_subpass_sample_locations: *const SubpassSampleLocationsEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineSampleLocationsStateCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -49,7 +43,6 @@ pub struct PipelineSampleLocationsStateCreateInfoEXT {
     pub sample_locations_info: SampleLocationsInfoEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceSampleLocationsPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -60,7 +53,6 @@ pub struct PhysicalDeviceSampleLocationsPropertiesEXT {
     pub variable_sample_locations: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MultisamplePropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

@@ -6,7 +6,6 @@ pub type PhysicalDeviceBufferAddressFeaturesEXT = PhysicalDeviceBufferDeviceAddr
 pub type BufferDeviceAddressInfoEXT = BufferDeviceAddressInfo;
 pub type PFN_vkGetBufferDeviceAddressEXT = PFN_vkGetBufferDeviceAddress;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceBufferDeviceAddressFeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -15,7 +14,6 @@ pub struct PhysicalDeviceBufferDeviceAddressFeaturesEXT {
     pub buffer_device_address_multi_device: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BufferDeviceAddressCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,

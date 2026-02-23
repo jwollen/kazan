@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageCompressionControlEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -12,14 +11,12 @@ pub struct ImageCompressionControlEXT {
     pub p_fixed_rate_flags: *mut ImageCompressionFixedRateFlagsEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceImageCompressionControlFeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub image_compression_control: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageCompressionPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

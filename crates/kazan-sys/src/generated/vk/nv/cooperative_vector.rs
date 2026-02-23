@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceCooperativeVectorFeaturesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -11,7 +10,6 @@ pub struct PhysicalDeviceCooperativeVectorFeaturesNV {
     pub cooperative_vector_training: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CooperativeVectorPropertiesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -23,7 +21,6 @@ pub struct CooperativeVectorPropertiesNV {
     pub transpose: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceCooperativeVectorPropertiesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -33,7 +30,6 @@ pub struct PhysicalDeviceCooperativeVectorPropertiesNV {
     pub max_cooperative_vector_components: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ConvertCooperativeVectorMatrixInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -51,7 +47,7 @@ pub struct ConvertCooperativeVectorMatrixInfoNV {
     pub dst_stride: usize,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ComponentTypeKHR(i32);
 impl ComponentTypeKHR {
     pub const FLOAT16_KHR: Self = Self(0);
@@ -85,7 +81,7 @@ impl ComponentTypeKHR {
     pub const UINT8_NV: Self = Self::UINT8_KHR;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct CooperativeVectorMatrixLayoutNV(i32);
 impl CooperativeVectorMatrixLayoutNV {
     pub const ROW_MAJOR_NV: Self = Self(0);

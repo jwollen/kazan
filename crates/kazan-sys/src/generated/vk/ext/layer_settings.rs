@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct LayerSettingsCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -11,7 +10,6 @@ pub struct LayerSettingsCreateInfoEXT {
     pub p_settings: *const LayerSettingEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct LayerSettingEXT {
     pub p_layer_name: *const c_char,
     pub p_setting_name: *const c_char,
@@ -20,7 +18,7 @@ pub struct LayerSettingEXT {
     pub p_values: *const c_void,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct LayerSettingTypeEXT(i32);
 impl LayerSettingTypeEXT {
     pub const BOOL32_EXT: Self = Self(0);

@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DepthBiasInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -12,7 +11,6 @@ pub struct DepthBiasInfoEXT {
     pub depth_bias_slope_factor: f32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DepthBiasRepresentationInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -20,7 +18,6 @@ pub struct DepthBiasRepresentationInfoEXT {
     pub depth_bias_exact: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDepthBiasControlFeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -30,7 +27,7 @@ pub struct PhysicalDeviceDepthBiasControlFeaturesEXT {
     pub depth_bias_exact: Bool32,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DepthBiasRepresentationEXT(i32);
 impl DepthBiasRepresentationEXT {
     pub const LEAST_REPRESENTABLE_VALUE_FORMAT_EXT: Self = Self(0);

@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ConditionalRenderingBeginInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -12,14 +11,12 @@ pub struct ConditionalRenderingBeginInfoEXT {
     pub flags: ConditionalRenderingFlagsEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CommandBufferInheritanceConditionalRenderingInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub conditional_rendering_enable: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceConditionalRenderingFeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

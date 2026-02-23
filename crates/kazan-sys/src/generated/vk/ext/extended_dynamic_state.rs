@@ -15,7 +15,6 @@ pub type PFN_vkCmdSetDepthBoundsTestEnableEXT = PFN_vkCmdSetDepthBoundsTestEnabl
 pub type PFN_vkCmdSetStencilTestEnableEXT = PFN_vkCmdSetStencilTestEnable;
 pub type PFN_vkCmdSetStencilOpEXT = PFN_vkCmdSetStencilOp;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceExtendedDynamicStateFeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

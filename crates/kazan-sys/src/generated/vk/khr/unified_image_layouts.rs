@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceUnifiedImageLayoutsFeaturesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -11,7 +10,6 @@ pub struct PhysicalDeviceUnifiedImageLayoutsFeaturesKHR {
     pub unified_image_layouts_video: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AttachmentFeedbackLoopInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,

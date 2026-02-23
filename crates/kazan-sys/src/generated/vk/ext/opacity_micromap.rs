@@ -3,10 +3,9 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct MicromapEXT(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MicromapBuildInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -23,7 +22,6 @@ pub struct MicromapBuildInfoEXT {
     pub triangle_array_stride: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MicromapCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -35,14 +33,12 @@ pub struct MicromapCreateInfoEXT {
     pub device_address: DeviceAddress,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MicromapVersionInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_version_data: *const u8,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CopyMicromapInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -51,7 +47,6 @@ pub struct CopyMicromapInfoEXT {
     pub mode: CopyMicromapModeEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CopyMicromapToMemoryInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -60,7 +55,6 @@ pub struct CopyMicromapToMemoryInfoEXT {
     pub mode: CopyMicromapModeEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CopyMemoryToMicromapInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -69,7 +63,6 @@ pub struct CopyMemoryToMicromapInfoEXT {
     pub mode: CopyMicromapModeEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MicromapBuildSizesInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -78,21 +71,18 @@ pub struct MicromapBuildSizesInfoEXT {
     pub discardable: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MicromapUsageEXT {
     pub count: u32,
     pub subdivision_level: u32,
     pub format: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MicromapTriangleEXT {
     pub data_offset: u32,
     pub subdivision_level: u16,
     pub format: u16,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceOpacityMicromapFeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -101,7 +91,6 @@ pub struct PhysicalDeviceOpacityMicromapFeaturesEXT {
     pub micromap_host_commands: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceOpacityMicromapPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -109,7 +98,6 @@ pub struct PhysicalDeviceOpacityMicromapPropertiesEXT {
     pub max_opacity4_state_subdivision_level: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AccelerationStructureTrianglesOpacityMicromapEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -123,14 +111,14 @@ pub struct AccelerationStructureTrianglesOpacityMicromapEXT {
     pub micromap: MicromapEXT,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct MicromapTypeEXT(i32);
 impl MicromapTypeEXT {
     pub const OPACITY_MICROMAP_EXT: Self = Self(0);
     pub const DISPLACEMENT_MICROMAP_NV: Self = Self(1000397000);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct CopyMicromapModeEXT(i32);
 impl CopyMicromapModeEXT {
     pub const CLONE_EXT: Self = Self(0);
@@ -139,20 +127,20 @@ impl CopyMicromapModeEXT {
     pub const COMPACT_EXT: Self = Self(3);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct BuildMicromapModeEXT(i32);
 impl BuildMicromapModeEXT {
     pub const BUILD_EXT: Self = Self(0);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct OpacityMicromapFormatEXT(i32);
 impl OpacityMicromapFormatEXT {
     pub const _2_STATE_EXT: Self = Self(1);
     pub const _4_STATE_EXT: Self = Self(2);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct OpacityMicromapSpecialIndexEXT(i32);
 impl OpacityMicromapSpecialIndexEXT {
     pub const FULLY_TRANSPARENT_EXT: Self = Self(-1);

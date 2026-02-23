@@ -4,7 +4,6 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 pub const SHADER_UNUSED_KHR: u32 = !0;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct RayTracingShaderGroupCreateInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -16,7 +15,6 @@ pub struct RayTracingShaderGroupCreateInfoKHR {
     pub p_shader_group_capture_replay_handle: *const c_void,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct RayTracingPipelineCreateInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -34,7 +32,6 @@ pub struct RayTracingPipelineCreateInfoKHR {
     pub base_pipeline_index: i32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceRayTracingPipelineFeaturesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -45,7 +42,6 @@ pub struct PhysicalDeviceRayTracingPipelineFeaturesKHR {
     pub ray_traversal_primitive_culling: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceRayTracingPipelinePropertiesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -59,21 +55,18 @@ pub struct PhysicalDeviceRayTracingPipelinePropertiesKHR {
     pub max_ray_hit_attribute_size: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StridedDeviceAddressRegionKHR {
     pub device_address: DeviceAddress,
     pub stride: DeviceSize,
     pub size: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct TraceRaysIndirectCommandKHR {
     pub width: u32,
     pub height: u32,
     pub depth: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct RayTracingPipelineInterfaceCreateInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -81,7 +74,7 @@ pub struct RayTracingPipelineInterfaceCreateInfoKHR {
     pub max_pipeline_ray_hit_attribute_size: u32,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct RayTracingShaderGroupTypeKHR(i32);
 impl RayTracingShaderGroupTypeKHR {
     pub const GENERAL_KHR: Self = Self(0);
@@ -92,7 +85,7 @@ impl RayTracingShaderGroupTypeKHR {
     pub const TRIANGLES_HIT_GROUP_NV: Self = Self::TRIANGLES_HIT_GROUP_KHR;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ShaderGroupShaderKHR(i32);
 impl ShaderGroupShaderKHR {
     pub const GENERAL_KHR: Self = Self(0);

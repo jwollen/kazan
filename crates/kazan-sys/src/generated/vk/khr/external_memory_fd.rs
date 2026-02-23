@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImportMemoryFdInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -11,14 +10,12 @@ pub struct ImportMemoryFdInfoKHR {
     pub fd: c_int,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MemoryFdPropertiesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub memory_type_bits: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MemoryGetFdInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,

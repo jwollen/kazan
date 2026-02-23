@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImportSemaphoreZirconHandleInfoFUCHSIA {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -13,7 +12,6 @@ pub struct ImportSemaphoreZirconHandleInfoFUCHSIA {
     pub zircon_handle: zx_handle_t,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SemaphoreGetZirconHandleInfoFUCHSIA {
     pub s_type: StructureType,
     pub p_next: *const c_void,

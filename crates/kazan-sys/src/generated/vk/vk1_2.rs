@@ -5,7 +5,6 @@ use core::ffi::{c_char, c_int, c_void};
 pub const MAX_DRIVER_NAME_SIZE: u32 = 256;
 pub const MAX_DRIVER_INFO_SIZE: u32 = 256;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ConformanceVersion {
     pub major: u8,
     pub minor: u8,
@@ -13,7 +12,6 @@ pub struct ConformanceVersion {
     pub patch: u8,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDriverProperties {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -23,14 +21,12 @@ pub struct PhysicalDeviceDriverProperties {
     pub conformance_version: ConformanceVersion,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderSubgroupExtendedTypesFeatures {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub shader_subgroup_extended_types: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceSamplerFilterMinmaxProperties {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -38,14 +34,12 @@ pub struct PhysicalDeviceSamplerFilterMinmaxProperties {
     pub filter_minmax_image_component_mapping: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SamplerReductionModeCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub reduction_mode: SamplerReductionMode,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageFormatListCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -53,7 +47,6 @@ pub struct ImageFormatListCreateInfo {
     pub p_view_formats: *const Format,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderFloat16Int8Features {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -61,7 +54,6 @@ pub struct PhysicalDeviceShaderFloat16Int8Features {
     pub shader_int8: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceFloatControlsProperties {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -84,14 +76,12 @@ pub struct PhysicalDeviceFloatControlsProperties {
     pub shader_rounding_mode_rtz_float64: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceHostQueryResetFeatures {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub host_query_reset: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDescriptorIndexingFeatures {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -117,7 +107,6 @@ pub struct PhysicalDeviceDescriptorIndexingFeatures {
     pub runtime_descriptor_array: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDescriptorIndexingProperties {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -146,7 +135,6 @@ pub struct PhysicalDeviceDescriptorIndexingProperties {
     pub max_descriptor_set_update_after_bind_input_attachments: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorSetLayoutBindingFlagsCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -154,7 +142,6 @@ pub struct DescriptorSetLayoutBindingFlagsCreateInfo {
     pub p_binding_flags: *const DescriptorBindingFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorSetVariableDescriptorCountAllocateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -162,14 +149,12 @@ pub struct DescriptorSetVariableDescriptorCountAllocateInfo {
     pub p_descriptor_counts: *const u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorSetVariableDescriptorCountLayoutSupport {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_variable_descriptor_count: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AttachmentDescription2 {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -184,7 +169,6 @@ pub struct AttachmentDescription2 {
     pub final_layout: ImageLayout,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AttachmentReference2 {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -193,7 +177,6 @@ pub struct AttachmentReference2 {
     pub aspect_mask: ImageAspectFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SubpassDescription2 {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -210,7 +193,6 @@ pub struct SubpassDescription2 {
     pub p_preserve_attachments: *const u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SubpassDependency2 {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -224,7 +206,6 @@ pub struct SubpassDependency2 {
     pub view_offset: i32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct RenderPassCreateInfo2 {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -239,34 +220,29 @@ pub struct RenderPassCreateInfo2 {
     pub p_correlated_view_masks: *const u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SubpassBeginInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub contents: SubpassContents,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SubpassEndInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceTimelineSemaphoreFeatures {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub timeline_semaphore: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceTimelineSemaphoreProperties {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_timeline_semaphore_value_difference: u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SemaphoreTypeCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -274,7 +250,6 @@ pub struct SemaphoreTypeCreateInfo {
     pub initial_value: u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct TimelineSemaphoreSubmitInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -284,7 +259,6 @@ pub struct TimelineSemaphoreSubmitInfo {
     pub p_signal_semaphore_values: *const u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SemaphoreWaitInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -294,7 +268,6 @@ pub struct SemaphoreWaitInfo {
     pub p_values: *const u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SemaphoreSignalInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -302,7 +275,6 @@ pub struct SemaphoreSignalInfo {
     pub value: u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDevice8BitStorageFeatures {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -311,7 +283,6 @@ pub struct PhysicalDevice8BitStorageFeatures {
     pub storage_push_constant8: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceVulkanMemoryModelFeatures {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -320,7 +291,6 @@ pub struct PhysicalDeviceVulkanMemoryModelFeatures {
     pub vulkan_memory_model_availability_visibility_chains: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderAtomicInt64Features {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -328,7 +298,6 @@ pub struct PhysicalDeviceShaderAtomicInt64Features {
     pub shader_shared_int64_atomics: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDepthStencilResolveProperties {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -338,7 +307,6 @@ pub struct PhysicalDeviceDepthStencilResolveProperties {
     pub independent_resolve: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SubpassDescriptionDepthStencilResolve {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -347,28 +315,24 @@ pub struct SubpassDescriptionDepthStencilResolve {
     pub p_depth_stencil_resolve_attachment: *const AttachmentReference2,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageStencilUsageCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub stencil_usage: ImageUsageFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceScalarBlockLayoutFeatures {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub scalar_block_layout: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceUniformBufferStandardLayoutFeatures {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub uniform_buffer_standard_layout: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceBufferDeviceAddressFeatures {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -377,28 +341,24 @@ pub struct PhysicalDeviceBufferDeviceAddressFeatures {
     pub buffer_device_address_multi_device: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BufferDeviceAddressInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub buffer: Buffer,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BufferOpaqueCaptureAddressCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub opaque_capture_address: u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceImagelessFramebufferFeatures {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub imageless_framebuffer: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct FramebufferAttachmentsCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -406,7 +366,6 @@ pub struct FramebufferAttachmentsCreateInfo {
     pub p_attachment_image_infos: *const FramebufferAttachmentImageInfo,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct FramebufferAttachmentImageInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -419,7 +378,6 @@ pub struct FramebufferAttachmentImageInfo {
     pub p_view_formats: *const Format,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct RenderPassAttachmentBeginInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -427,21 +385,18 @@ pub struct RenderPassAttachmentBeginInfo {
     pub p_attachments: *const ImageView,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceSeparateDepthStencilLayoutsFeatures {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub separate_depth_stencil_layouts: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AttachmentReferenceStencilLayout {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub stencil_layout: ImageLayout,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AttachmentDescriptionStencilLayout {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -449,21 +404,18 @@ pub struct AttachmentDescriptionStencilLayout {
     pub stencil_final_layout: ImageLayout,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MemoryOpaqueCaptureAddressAllocateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub opaque_capture_address: u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DeviceMemoryOpaqueCaptureAddressInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub memory: DeviceMemory,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceVulkan11Features {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -481,7 +433,6 @@ pub struct PhysicalDeviceVulkan11Features {
     pub shader_draw_parameters: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceVulkan11Properties {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -502,7 +453,6 @@ pub struct PhysicalDeviceVulkan11Properties {
     pub max_memory_allocation_size: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceVulkan12Features {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -555,7 +505,6 @@ pub struct PhysicalDeviceVulkan12Features {
     pub subgroup_broadcast_dynamic_id: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceVulkan12Properties {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -613,7 +562,7 @@ pub struct PhysicalDeviceVulkan12Properties {
     pub framebuffer_integer_color_sample_counts: SampleCountFlags,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct SemaphoreType(i32);
 impl SemaphoreType {
     pub const BINARY: Self = Self(0);
@@ -622,7 +571,7 @@ impl SemaphoreType {
     pub const TIMELINE_KHR: Self = Self::TIMELINE;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct SamplerReductionMode(i32);
 impl SamplerReductionMode {
     pub const WEIGHTED_AVERAGE: Self = Self(0);
@@ -634,7 +583,7 @@ impl SamplerReductionMode {
     pub const WEIGHTED_AVERAGE_EXT: Self = Self::WEIGHTED_AVERAGE;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DriverId(i32);
 impl DriverId {
     pub const AMD_PROPRIETARY: Self = Self(1);
@@ -679,7 +628,7 @@ impl DriverId {
     pub const QUALCOMM_PROPRIETARY_KHR: Self = Self::QUALCOMM_PROPRIETARY;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ShaderFloatControlsIndependence(i32);
 impl ShaderFloatControlsIndependence {
     pub const _32_BIT_ONLY: Self = Self(0);

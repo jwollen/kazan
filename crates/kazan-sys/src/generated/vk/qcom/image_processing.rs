@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageViewSampleWeightCreateInfoQCOM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -12,7 +11,6 @@ pub struct ImageViewSampleWeightCreateInfoQCOM {
     pub num_phases: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceImageProcessingFeaturesQCOM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -21,7 +19,6 @@ pub struct PhysicalDeviceImageProcessingFeaturesQCOM {
     pub texture_block_match: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceImageProcessingPropertiesQCOM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

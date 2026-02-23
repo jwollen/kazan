@@ -3,35 +3,31 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DisplayPowerInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub power_state: DisplayPowerStateEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DeviceEventInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub device_event: DeviceEventTypeEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DisplayEventInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub display_event: DisplayEventTypeEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SwapchainCounterCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub surface_counters: SurfaceCounterFlagsEXT,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DisplayPowerStateEXT(i32);
 impl DisplayPowerStateEXT {
     pub const OFF_EXT: Self = Self(0);
@@ -39,13 +35,13 @@ impl DisplayPowerStateEXT {
     pub const ON_EXT: Self = Self(2);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DeviceEventTypeEXT(i32);
 impl DeviceEventTypeEXT {
     pub const DISPLAY_HOTPLUG_EXT: Self = Self(0);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DisplayEventTypeEXT(i32);
 impl DisplayEventTypeEXT {
     pub const FIRST_PIXEL_OUT_EXT: Self = Self(0);

@@ -5,21 +5,18 @@ use core::ffi::{c_char, c_int, c_void};
 pub type RenderingEndInfoEXT = RenderingEndInfoKHR;
 pub type PFN_vkCmdEndRendering2EXT = PFN_vkCmdEndRendering2KHR;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub fragment_density_map_offset: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub fragment_density_offset_granularity: Extent2D,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct RenderPassFragmentDensityMapOffsetEndInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,

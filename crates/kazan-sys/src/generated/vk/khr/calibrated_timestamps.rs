@@ -3,14 +3,13 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CalibratedTimestampInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub time_domain: TimeDomainKHR,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct TimeDomainKHR(i32);
 impl TimeDomainKHR {
     pub const DEVICE_KHR: Self = Self(0);

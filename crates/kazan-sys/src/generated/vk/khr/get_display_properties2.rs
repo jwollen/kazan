@@ -3,28 +3,24 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DisplayProperties2KHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub display_properties: DisplayPropertiesKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DisplayPlaneProperties2KHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub display_plane_properties: DisplayPlanePropertiesKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DisplayModeProperties2KHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub display_mode_properties: DisplayModePropertiesKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DisplayPlaneInfo2KHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -32,7 +28,6 @@ pub struct DisplayPlaneInfo2KHR {
     pub plane_index: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DisplayPlaneCapabilities2KHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

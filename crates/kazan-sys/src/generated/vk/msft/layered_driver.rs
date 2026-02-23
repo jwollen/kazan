@@ -3,14 +3,13 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceLayeredDriverPropertiesMSFT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub underlying_api: LayeredDriverUnderlyingApiMSFT,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct LayeredDriverUnderlyingApiMSFT(i32);
 impl LayeredDriverUnderlyingApiMSFT {
     pub const NONE_MSFT: Self = Self(0);

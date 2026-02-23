@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceCooperativeMatrix2FeaturesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -16,7 +15,6 @@ pub struct PhysicalDeviceCooperativeMatrix2FeaturesNV {
     pub cooperative_matrix_block_loads: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceCooperativeMatrix2PropertiesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -25,7 +23,6 @@ pub struct PhysicalDeviceCooperativeMatrix2PropertiesNV {
     pub cooperative_matrix_workgroup_scope_reserved_shared_memory: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CooperativeMatrixFlexibleDimensionsPropertiesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DrmFormatModifierPropertiesListEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -11,14 +10,12 @@ pub struct DrmFormatModifierPropertiesListEXT {
     pub p_drm_format_modifier_properties: *mut DrmFormatModifierPropertiesEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DrmFormatModifierPropertiesEXT {
     pub drm_format_modifier: u64,
     pub drm_format_modifier_plane_count: u32,
     pub drm_format_modifier_tiling_features: FormatFeatureFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceImageDrmFormatModifierInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -28,7 +25,6 @@ pub struct PhysicalDeviceImageDrmFormatModifierInfoEXT {
     pub p_queue_family_indices: *const u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageDrmFormatModifierListCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -36,7 +32,6 @@ pub struct ImageDrmFormatModifierListCreateInfoEXT {
     pub p_drm_format_modifiers: *const u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageDrmFormatModifierExplicitCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -45,14 +40,12 @@ pub struct ImageDrmFormatModifierExplicitCreateInfoEXT {
     pub p_plane_layouts: *const SubresourceLayout,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageDrmFormatModifierPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub drm_format_modifier: u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DrmFormatModifierPropertiesList2EXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -60,7 +53,6 @@ pub struct DrmFormatModifierPropertiesList2EXT {
     pub p_drm_format_modifier_properties: *mut DrmFormatModifierProperties2EXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DrmFormatModifierProperties2EXT {
     pub drm_format_modifier: u64,
     pub drm_format_modifier_plane_count: u32,

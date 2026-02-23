@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceCooperativeMatrixFeaturesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -11,7 +10,6 @@ pub struct PhysicalDeviceCooperativeMatrixFeaturesKHR {
     pub cooperative_matrix_robust_buffer_access: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CooperativeMatrixPropertiesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -26,14 +24,13 @@ pub struct CooperativeMatrixPropertiesKHR {
     pub scope: ScopeKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceCooperativeMatrixPropertiesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub cooperative_matrix_supported_stages: ShaderStageFlags,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ScopeKHR(i32);
 impl ScopeKHR {
     pub const DEVICE_KHR: Self = Self(1);

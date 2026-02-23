@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImportSemaphoreWin32HandleInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -14,7 +13,6 @@ pub struct ImportSemaphoreWin32HandleInfoKHR {
     pub name: LPCWSTR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExportSemaphoreWin32HandleInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -23,7 +21,6 @@ pub struct ExportSemaphoreWin32HandleInfoKHR {
     pub name: LPCWSTR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct D3D12FenceSubmitInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -33,7 +30,6 @@ pub struct D3D12FenceSubmitInfoKHR {
     pub p_signal_semaphore_values: *const u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SemaphoreGetWin32HandleInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,

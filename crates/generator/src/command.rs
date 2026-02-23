@@ -1,4 +1,8 @@
-use crate::{cdecl::CType, ctype_to_rust_type, normalize_name, xml};
+use crate::{
+    LengthKind,
+    cdecl::{CDecl, CType},
+    ctype_to_rust_type, get_len_kind, normalize_name, xml,
+};
 use heck::ToSnakeCase;
 use itertools::Itertools;
 
@@ -60,88 +64,13 @@ struct ParamInfo<'a> {
     is_return_param: bool,
 }
 
-#[derive(Clone)]
-enum LengthKind<'a> {
-    NullTerminated,
-    Literal(u32),
-    Param {
-        index: usize,
-        param: &'a xml::CommandParam,
-    },
-    ParamField {
-        index: usize,
-        param: &'a xml::CommandParam,
-        field: &'a xml::StructureMember,
-    },
-    Unknown(&'static str),
-}
-
 impl<'a> LengthKind<'a> {
     fn ty(&self) -> Option<&CType> {
         match self {
-            LengthKind::Param { param, .. } => Some(&param.c_decl.ty),
+            LengthKind::Param { c_decl, .. } => Some(&c_decl.ty),
             LengthKind::ParamField { field, .. } => Some(&field.c_decl.ty),
             _ => None,
         }
-    }
-}
-
-fn get_param_index(command: &xml::Command, param_name: &str) -> Option<usize> {
-    command
-        .params
-        .iter()
-        .enumerate()
-        .find_map(|(index, other_param)| {
-            if other_param.c_decl.name == param_name {
-                Some(index)
-            } else {
-                None
-            }
-        })
-}
-
-fn get_len_kind<'a>(
-    command: &'a xml::Command,
-    structs: &'a [&xml::Structure],
-    len: &'static str,
-) -> LengthKind<'a> {
-    if len == "null-terminated" {
-        LengthKind::NullTerminated
-    } else if let Ok(len) = len.parse() {
-        LengthKind::Literal(len)
-    } else if let Some((param_name, field_name)) = len.split_once("->")
-        && let Some(index) = get_param_index(command, param_name)
-    {
-        let param = &command.params[index];
-        let param_ty = &param.c_decl.ty;
-        let CType::Ptr { pointee, .. } = param_ty else {
-            panic!("expected pointer type, got {:?}", param_ty);
-        };
-        let CType::Base(base) = pointee.as_ref() else {
-            panic!("expected base type, got {:?}", pointee);
-        };
-
-        let struct_ty = structs
-            .iter()
-            .find(|ty| ty.name == base.name)
-            .unwrap_or_else(|| panic!("failed to find struct {}", base.name));
-
-        let field = struct_ty
-            .members
-            .iter()
-            .find(|field| field.c_decl.name == field_name)
-            .unwrap_or_else(|| panic!("failed to find field {}", field_name));
-
-        LengthKind::ParamField {
-            index,
-            param,
-            field,
-        }
-    } else if let Some(index) = get_param_index(command, len) {
-        let param = &command.params[index];
-        LengthKind::Param { index, param }
-    } else {
-        LengthKind::Unknown(len)
     }
 }
 
@@ -153,12 +82,16 @@ fn analyze_command<'a>(
     let len_kinds: Vec<_> = command
         .params
         .iter()
-        .map(|param| param.len.map(|len| get_len_kind(command, structs, len)))
+        .map(|param| {
+            param
+                .len
+                .map(|len| get_len_kind(&command.params, structs, len))
+        })
         .collect();
 
     let enumeration_len_param = len_kinds.iter().find_map(|len_kind| match len_kind {
-        Some(LengthKind::Param { index, param }) => {
-            let param_ty = &param.c_decl.ty;
+        Some(LengthKind::Param { index, c_decl }) => {
+            let param_ty = &c_decl.ty;
             match param_ty {
                 CType::Ptr { is_const, .. } if !*is_const => Some(*index),
                 _ => None,

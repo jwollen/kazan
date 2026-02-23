@@ -6,7 +6,6 @@ pub type PFN_vkCmdSetRasterizerDiscardEnableEXT = PFN_vkCmdSetRasterizerDiscardE
 pub type PFN_vkCmdSetDepthBiasEnableEXT = PFN_vkCmdSetDepthBiasEnable;
 pub type PFN_vkCmdSetPrimitiveRestartEnableEXT = PFN_vkCmdSetPrimitiveRestartEnable;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceExtendedDynamicState2FeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

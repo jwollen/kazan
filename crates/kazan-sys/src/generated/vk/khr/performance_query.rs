@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDevicePerformanceQueryFeaturesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -11,14 +10,12 @@ pub struct PhysicalDevicePerformanceQueryFeaturesKHR {
     pub performance_counter_multiple_query_pools: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDevicePerformanceQueryPropertiesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub allow_command_buffer_query_copies: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PerformanceCounterKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -28,7 +25,6 @@ pub struct PerformanceCounterKHR {
     pub uuid: [u8; UUID_SIZE as usize],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PerformanceCounterDescriptionKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -38,7 +34,6 @@ pub struct PerformanceCounterDescriptionKHR {
     pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct QueryPoolPerformanceCreateInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -47,7 +42,6 @@ pub struct QueryPoolPerformanceCreateInfoKHR {
     pub p_counter_indices: *const u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AcquireProfilingLockInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -55,7 +49,6 @@ pub struct AcquireProfilingLockInfoKHR {
     pub timeout: u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PerformanceQuerySubmitInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -72,7 +65,7 @@ pub union PerformanceCounterResultKHR {
     pub float64: f64,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PerformanceCounterScopeKHR(i32);
 impl PerformanceCounterScopeKHR {
     pub const COMMAND_BUFFER_KHR: Self = Self(0);
@@ -80,7 +73,7 @@ impl PerformanceCounterScopeKHR {
     pub const COMMAND_KHR: Self = Self(2);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PerformanceCounterUnitKHR(i32);
 impl PerformanceCounterUnitKHR {
     pub const GENERIC_KHR: Self = Self(0);
@@ -96,7 +89,7 @@ impl PerformanceCounterUnitKHR {
     pub const CYCLES_KHR: Self = Self(10);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PerformanceCounterStorageKHR(i32);
 impl PerformanceCounterStorageKHR {
     pub const INT32_KHR: Self = Self(0);

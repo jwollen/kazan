@@ -3,21 +3,18 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DeviceQueueShaderCoreControlCreateInfoARM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub shader_core_count: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceSchedulingControlsFeaturesARM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub scheduling_controls: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceSchedulingControlsPropertiesARM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

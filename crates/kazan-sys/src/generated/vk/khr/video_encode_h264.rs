@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeH264CapabilitiesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -22,7 +21,6 @@ pub struct VideoEncodeH264CapabilitiesKHR {
     pub std_syntax_flags: VideoEncodeH264StdFlagsKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeH264QualityLevelPropertiesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -37,7 +35,6 @@ pub struct VideoEncodeH264QualityLevelPropertiesKHR {
     pub preferred_std_entropy_coding_mode_flag: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeH264SessionCreateInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -45,7 +42,6 @@ pub struct VideoEncodeH264SessionCreateInfoKHR {
     pub max_level_idc: StdVideoH264LevelIdc,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeH264SessionParametersAddInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -55,7 +51,6 @@ pub struct VideoEncodeH264SessionParametersAddInfoKHR {
     pub p_std_pp_ss: *const StdVideoH264PictureParameterSet,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeH264SessionParametersCreateInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -64,7 +59,6 @@ pub struct VideoEncodeH264SessionParametersCreateInfoKHR {
     pub p_parameters_add_info: *const VideoEncodeH264SessionParametersAddInfoKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeH264SessionParametersGetInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -74,7 +68,6 @@ pub struct VideoEncodeH264SessionParametersGetInfoKHR {
     pub std_pps_id: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeH264SessionParametersFeedbackInfoKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -82,14 +75,12 @@ pub struct VideoEncodeH264SessionParametersFeedbackInfoKHR {
     pub has_std_pps_overrides: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeH264DpbSlotInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_std_reference_info: *const StdVideoEncodeH264ReferenceInfo,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeH264PictureInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -99,14 +90,12 @@ pub struct VideoEncodeH264PictureInfoKHR {
     pub generate_prefix_nalu: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeH264ProfileInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub std_profile_idc: StdVideoH264ProfileIdc,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeH264NaluSliceInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -114,7 +103,6 @@ pub struct VideoEncodeH264NaluSliceInfoKHR {
     pub p_std_slice_header: *const StdVideoEncodeH264SliceHeader,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeH264RateControlInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -125,21 +113,18 @@ pub struct VideoEncodeH264RateControlInfoKHR {
     pub temporal_layer_count: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeH264QpKHR {
     pub qp_i: i32,
     pub qp_p: i32,
     pub qp_b: i32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeH264FrameSizeKHR {
     pub frame_i_size: u32,
     pub frame_p_size: u32,
     pub frame_b_size: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeH264GopRemainingFrameInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -149,7 +134,6 @@ pub struct VideoEncodeH264GopRemainingFrameInfoKHR {
     pub gop_remaining_b: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeH264RateControlLayerInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,

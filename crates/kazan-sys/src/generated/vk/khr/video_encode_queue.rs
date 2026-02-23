@@ -3,21 +3,18 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeSessionParametersGetInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub video_session_parameters: VideoSessionParametersKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeSessionParametersFeedbackInfoKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub has_overrides: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeUsageInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -26,7 +23,6 @@ pub struct VideoEncodeUsageInfoKHR {
     pub tuning_mode: VideoEncodeTuningModeKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -41,21 +37,18 @@ pub struct VideoEncodeInfoKHR {
     pub preceding_externally_encoded_bytes: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct QueryPoolVideoEncodeFeedbackCreateInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub encode_feedback_flags: VideoEncodeFeedbackFlagsKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeQualityLevelInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub quality_level: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceVideoEncodeQualityLevelInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -63,7 +56,6 @@ pub struct PhysicalDeviceVideoEncodeQualityLevelInfoKHR {
     pub quality_level: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeQualityLevelPropertiesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -71,7 +63,6 @@ pub struct VideoEncodeQualityLevelPropertiesKHR {
     pub preferred_rate_control_layer_count: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeRateControlInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -83,7 +74,6 @@ pub struct VideoEncodeRateControlInfoKHR {
     pub initial_virtual_buffer_size_in_ms: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeRateControlLayerInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -93,7 +83,6 @@ pub struct VideoEncodeRateControlLayerInfoKHR {
     pub frame_rate_denominator: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoEncodeCapabilitiesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -106,7 +95,7 @@ pub struct VideoEncodeCapabilitiesKHR {
     pub supported_encode_feedback_flags: VideoEncodeFeedbackFlagsKHR,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct VideoEncodeTuningModeKHR(i32);
 impl VideoEncodeTuningModeKHR {
     pub const DEFAULT_KHR: Self = Self(0);

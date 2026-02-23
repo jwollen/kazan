@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceConservativeRasterizationPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -18,7 +17,6 @@ pub struct PhysicalDeviceConservativeRasterizationPropertiesEXT {
     pub conservative_rasterization_post_depth_coverage: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineRasterizationConservativeStateCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -27,7 +25,7 @@ pub struct PipelineRasterizationConservativeStateCreateInfoEXT {
     pub extra_primitive_overestimation_size: f32,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ConservativeRasterizationModeEXT(i32);
 impl ConservativeRasterizationModeEXT {
     pub const DISABLED_EXT: Self = Self(0);

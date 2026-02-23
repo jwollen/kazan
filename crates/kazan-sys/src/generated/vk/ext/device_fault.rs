@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceFaultFeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -11,21 +10,18 @@ pub struct PhysicalDeviceFaultFeaturesEXT {
     pub device_fault_vendor_binary: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DeviceFaultAddressInfoEXT {
     pub address_type: DeviceFaultAddressTypeEXT,
     pub reported_address: DeviceAddress,
     pub address_precision: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DeviceFaultVendorInfoEXT {
     pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
     pub vendor_fault_code: u64,
     pub vendor_fault_data: u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DeviceFaultCountsEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -34,7 +30,6 @@ pub struct DeviceFaultCountsEXT {
     pub vendor_binary_size: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DeviceFaultInfoEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -44,7 +39,6 @@ pub struct DeviceFaultInfoEXT {
     pub p_vendor_binary_data: *mut c_void,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DeviceFaultVendorBinaryHeaderVersionOneEXT {
     pub header_size: u32,
     pub header_version: DeviceFaultVendorBinaryHeaderVersionEXT,
@@ -59,7 +53,7 @@ pub struct DeviceFaultVendorBinaryHeaderVersionOneEXT {
     pub api_version: u32,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DeviceFaultAddressTypeEXT(i32);
 impl DeviceFaultAddressTypeEXT {
     pub const NONE_EXT: Self = Self(0);
@@ -71,7 +65,7 @@ impl DeviceFaultAddressTypeEXT {
     pub const INSTRUCTION_POINTER_FAULT_EXT: Self = Self(6);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DeviceFaultVendorBinaryHeaderVersionEXT(i32);
 impl DeviceFaultVendorBinaryHeaderVersionEXT {
     pub const ONE_EXT: Self = Self(1);

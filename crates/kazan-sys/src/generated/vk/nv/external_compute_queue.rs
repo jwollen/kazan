@@ -3,31 +3,27 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct ExternalComputeQueueNV(usize);
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExternalComputeQueueDeviceCreateInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub reserved_external_queues: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExternalComputeQueueCreateInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub preferred_queue: Queue,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExternalComputeQueueDataParamsNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub device_index: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceExternalComputeQueuePropertiesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

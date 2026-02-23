@@ -3,14 +3,12 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMaintenance8FeaturesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub maintenance8: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MemoryBarrierAccessFlags3KHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,

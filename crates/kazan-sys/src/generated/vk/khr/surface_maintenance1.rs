@@ -3,14 +3,12 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SurfacePresentModeKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub present_mode: PresentModeKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SurfacePresentScalingCapabilitiesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -21,7 +19,6 @@ pub struct SurfacePresentScalingCapabilitiesKHR {
     pub max_scaled_image_extent: Extent2D,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SurfacePresentModeCompatibilityKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

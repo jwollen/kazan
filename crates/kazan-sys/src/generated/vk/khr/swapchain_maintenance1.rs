@@ -3,14 +3,12 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceSwapchainMaintenance1FeaturesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub swapchain_maintenance1: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SwapchainPresentFenceInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -18,7 +16,6 @@ pub struct SwapchainPresentFenceInfoKHR {
     pub p_fences: *const Fence,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SwapchainPresentModesCreateInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -26,7 +23,6 @@ pub struct SwapchainPresentModesCreateInfoKHR {
     pub p_present_modes: *const PresentModeKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SwapchainPresentModeInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -34,7 +30,6 @@ pub struct SwapchainPresentModeInfoKHR {
     pub p_present_modes: *const PresentModeKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SwapchainPresentScalingCreateInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -43,7 +38,6 @@ pub struct SwapchainPresentScalingCreateInfoKHR {
     pub present_gravity_y: PresentGravityFlagsKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ReleaseSwapchainImagesInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,

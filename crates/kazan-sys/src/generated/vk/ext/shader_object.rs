@@ -3,19 +3,17 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct ShaderEXT(u64);
 pub type ShaderRequiredSubgroupSizeCreateInfoEXT =
     PipelineShaderStageRequiredSubgroupSizeCreateInfo;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderObjectFeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub shader_object: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderObjectPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -23,7 +21,6 @@ pub struct PhysicalDeviceShaderObjectPropertiesEXT {
     pub shader_binary_version: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ShaderCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -41,7 +38,7 @@ pub struct ShaderCreateInfoEXT {
     pub p_specialization_info: *const SpecializationInfo,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ShaderCodeTypeEXT(i32);
 impl ShaderCodeTypeEXT {
     pub const BINARY_EXT: Self = Self(0);

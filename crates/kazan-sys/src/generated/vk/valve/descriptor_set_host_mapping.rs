@@ -3,14 +3,12 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDescriptorSetHostMappingFeaturesVALVE {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub descriptor_set_host_mapping: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorSetBindingReferenceVALVE {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -18,7 +16,6 @@ pub struct DescriptorSetBindingReferenceVALVE {
     pub binding: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorSetLayoutHostMappingInfoVALVE {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

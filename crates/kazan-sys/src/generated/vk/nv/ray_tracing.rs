@@ -3,7 +3,7 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct AccelerationStructureNV(u64);
 pub type CopyAccelerationStructureModeNV = CopyAccelerationStructureModeKHR;
 pub type AccelerationStructureTypeNV = AccelerationStructureTypeKHR;
@@ -17,7 +17,6 @@ pub type GeometryInstanceFlagsNV = GeometryInstanceFlagsKHR;
 pub type BuildAccelerationStructureFlagsNV = BuildAccelerationStructureFlagsKHR;
 pub type PFN_vkGetRayTracingShaderGroupHandlesNV = PFN_vkGetRayTracingShaderGroupHandlesKHR;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct RayTracingShaderGroupCreateInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -28,7 +27,6 @@ pub struct RayTracingShaderGroupCreateInfoNV {
     pub intersection_shader: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct RayTracingPipelineCreateInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -43,7 +41,6 @@ pub struct RayTracingPipelineCreateInfoNV {
     pub base_pipeline_index: i32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct GeometryTrianglesNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -60,7 +57,6 @@ pub struct GeometryTrianglesNV {
     pub transform_offset: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct GeometryAABBNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -70,13 +66,11 @@ pub struct GeometryAABBNV {
     pub offset: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct GeometryDataNV {
     pub triangles: GeometryTrianglesNV,
     pub aabbs: GeometryAABBNV,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct GeometryNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -85,7 +79,6 @@ pub struct GeometryNV {
     pub flags: GeometryFlagsKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AccelerationStructureInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -96,7 +89,6 @@ pub struct AccelerationStructureInfoNV {
     pub p_geometries: *const GeometryNV,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AccelerationStructureCreateInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -104,7 +96,6 @@ pub struct AccelerationStructureCreateInfoNV {
     pub info: AccelerationStructureInfoNV,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BindAccelerationStructureMemoryInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -115,7 +106,6 @@ pub struct BindAccelerationStructureMemoryInfoNV {
     pub p_device_indices: *const u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct WriteDescriptorSetAccelerationStructureNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -123,7 +113,6 @@ pub struct WriteDescriptorSetAccelerationStructureNV {
     pub p_acceleration_structures: *const AccelerationStructureNV,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AccelerationStructureMemoryRequirementsInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -131,7 +120,6 @@ pub struct AccelerationStructureMemoryRequirementsInfoNV {
     pub acceleration_structure: AccelerationStructureNV,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceRayTracingPropertiesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -145,7 +133,7 @@ pub struct PhysicalDeviceRayTracingPropertiesNV {
     pub max_descriptor_set_acceleration_structures: u32,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AccelerationStructureMemoryRequirementsTypeNV(i32);
 impl AccelerationStructureMemoryRequirementsTypeNV {
     pub const OBJECT_NV: Self = Self(0);

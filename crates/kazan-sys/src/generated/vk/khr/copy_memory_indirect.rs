@@ -3,21 +3,18 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StridedDeviceAddressRangeKHR {
     pub address: DeviceAddress,
     pub size: DeviceSize,
     pub stride: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CopyMemoryIndirectCommandKHR {
     pub src_address: DeviceAddress,
     pub dst_address: DeviceAddress,
     pub size: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CopyMemoryIndirectInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -27,7 +24,6 @@ pub struct CopyMemoryIndirectInfoKHR {
     pub copy_address_range: StridedDeviceAddressRangeKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CopyMemoryToImageIndirectCommandKHR {
     pub src_address: DeviceAddress,
     pub buffer_row_length: u32,
@@ -37,7 +33,6 @@ pub struct CopyMemoryToImageIndirectCommandKHR {
     pub image_extent: Extent3D,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CopyMemoryToImageIndirectInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -49,7 +44,6 @@ pub struct CopyMemoryToImageIndirectInfoKHR {
     pub p_image_subresources: *const ImageSubresourceLayers,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceCopyMemoryIndirectFeaturesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -57,7 +51,6 @@ pub struct PhysicalDeviceCopyMemoryIndirectFeaturesKHR {
     pub indirect_memory_to_image_copy: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceCopyMemoryIndirectPropertiesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

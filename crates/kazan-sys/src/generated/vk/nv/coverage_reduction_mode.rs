@@ -3,14 +3,12 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceCoverageReductionModeFeaturesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub coverage_reduction_mode: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineCoverageReductionStateCreateInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -18,7 +16,6 @@ pub struct PipelineCoverageReductionStateCreateInfoNV {
     pub coverage_reduction_mode: CoverageReductionModeNV,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct FramebufferMixedSamplesCombinationNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -28,7 +25,7 @@ pub struct FramebufferMixedSamplesCombinationNV {
     pub color_samples: SampleCountFlags,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct CoverageReductionModeNV(i32);
 impl CoverageReductionModeNV {
     pub const MERGE_NV: Self = Self(0);

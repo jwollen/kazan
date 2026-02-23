@@ -3,10 +3,9 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct TensorARM(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct TensorViewCreateInfoARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -15,25 +14,21 @@ pub struct TensorViewCreateInfoARM {
     pub format: Format,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct HostAddressRangeEXT {
     pub address: *mut c_void,
     pub size: usize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct HostAddressRangeConstEXT {
     pub address: *const c_void,
     pub size: usize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DeviceAddressRangeEXT {
     pub address: DeviceAddress,
     pub size: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct TexelBufferDescriptorInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -41,7 +36,6 @@ pub struct TexelBufferDescriptorInfoEXT {
     pub address_range: DeviceAddressRangeEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageDescriptorInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -49,7 +43,6 @@ pub struct ImageDescriptorInfoEXT {
     pub layout: ImageLayout,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ResourceDescriptorInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -57,7 +50,6 @@ pub struct ResourceDescriptorInfoEXT {
     pub data: ResourceDescriptorDataEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BindHeapInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -66,7 +58,6 @@ pub struct BindHeapInfoEXT {
     pub reserved_range_size: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PushDataInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -74,7 +65,6 @@ pub struct PushDataInfoEXT {
     pub data: HostAddressRangeConstEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorMappingSourceConstantOffsetEXT {
     pub heap_offset: u32,
     pub heap_array_stride: u32,
@@ -83,7 +73,6 @@ pub struct DescriptorMappingSourceConstantOffsetEXT {
     pub sampler_heap_array_stride: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorMappingSourcePushIndexEXT {
     pub heap_offset: u32,
     pub push_offset: u32,
@@ -97,7 +86,6 @@ pub struct DescriptorMappingSourcePushIndexEXT {
     pub sampler_heap_array_stride: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorMappingSourceIndirectIndexEXT {
     pub heap_offset: u32,
     pub push_offset: u32,
@@ -113,7 +101,6 @@ pub struct DescriptorMappingSourceIndirectIndexEXT {
     pub sampler_heap_array_stride: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorMappingSourceIndirectIndexArrayEXT {
     pub heap_offset: u32,
     pub push_offset: u32,
@@ -127,13 +114,11 @@ pub struct DescriptorMappingSourceIndirectIndexArrayEXT {
     pub sampler_heap_index_stride: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorMappingSourceHeapDataEXT {
     pub heap_offset: u32,
     pub push_offset: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorMappingSourceShaderRecordIndexEXT {
     pub heap_offset: u32,
     pub shader_record_offset: u32,
@@ -147,13 +132,11 @@ pub struct DescriptorMappingSourceShaderRecordIndexEXT {
     pub sampler_heap_array_stride: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorMappingSourceIndirectAddressEXT {
     pub push_offset: u32,
     pub address_offset: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorSetAndBindingMappingEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -165,7 +148,6 @@ pub struct DescriptorSetAndBindingMappingEXT {
     pub source_data: DescriptorMappingSourceDataEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ShaderDescriptorSetAndBindingMappingInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -173,21 +155,18 @@ pub struct ShaderDescriptorSetAndBindingMappingInfoEXT {
     pub p_mappings: *const DescriptorSetAndBindingMappingEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SamplerCustomBorderColorIndexCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub index: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct OpaqueCaptureDataCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_data: *const HostAddressRangeConstEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct IndirectCommandsLayoutPushDataTokenNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -195,14 +174,12 @@ pub struct IndirectCommandsLayoutPushDataTokenNV {
     pub push_data_size: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SubsampledImageFormatPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub subsampled_image_descriptor_count: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDescriptorHeapFeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -210,7 +187,6 @@ pub struct PhysicalDeviceDescriptorHeapFeaturesEXT {
     pub descriptor_heap_capture_replay: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDescriptorHeapPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -235,7 +211,6 @@ pub struct PhysicalDeviceDescriptorHeapPropertiesEXT {
     pub protected_descriptor_heaps: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CommandBufferInheritanceDescriptorHeapInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -243,7 +218,6 @@ pub struct CommandBufferInheritanceDescriptorHeapInfoEXT {
     pub p_resource_heap_bind_info: *const BindHeapInfoEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDescriptorHeapTensorPropertiesARM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -275,7 +249,7 @@ pub union DescriptorMappingSourceDataEXT {
     pub shader_record_address_offset: u32,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DescriptorMappingSourceEXT(i32);
 impl DescriptorMappingSourceEXT {
     pub const HEAP_WITH_CONSTANT_OFFSET_EXT: Self = Self(0);

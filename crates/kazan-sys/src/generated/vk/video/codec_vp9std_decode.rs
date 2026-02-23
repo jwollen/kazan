@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoDecodeVP9PictureInfoFlags {
     pub error_resilient_mode: u32,
     pub intra_only: u32,
@@ -16,7 +15,6 @@ pub struct StdVideoDecodeVP9PictureInfoFlags {
     pub reserved: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoDecodeVP9PictureInfo {
     pub flags: StdVideoDecodeVP9PictureInfoFlags,
     pub profile: StdVideoVP9Profile,

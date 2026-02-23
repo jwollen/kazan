@@ -3,14 +3,12 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct QueueFamilyCheckpointPropertiesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub checkpoint_execution_stage_mask: PipelineStageFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CheckpointDataNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -18,14 +16,12 @@ pub struct CheckpointDataNV {
     pub p_checkpoint_marker: *mut c_void,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct QueueFamilyCheckpointProperties2NV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub checkpoint_execution_stage_mask: PipelineStageFlags2,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CheckpointData2NV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

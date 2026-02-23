@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ComputePipelineIndirectBufferInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -12,7 +11,6 @@ pub struct ComputePipelineIndirectBufferInfoNV {
     pub pipeline_device_address_capture_replay: DeviceAddress,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -21,7 +19,6 @@ pub struct PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV {
     pub device_generated_compute_capture_replay: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineIndirectDeviceAddressInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -29,7 +26,6 @@ pub struct PipelineIndirectDeviceAddressInfoNV {
     pub pipeline: Pipeline,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BindPipelineIndirectCommandNV {
     pub pipeline_address: DeviceAddress,
 }

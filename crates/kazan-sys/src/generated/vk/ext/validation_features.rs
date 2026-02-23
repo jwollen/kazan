@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ValidationFeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -13,7 +12,7 @@ pub struct ValidationFeaturesEXT {
     pub p_disabled_validation_features: *const ValidationFeatureDisableEXT,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ValidationFeatureEnableEXT(i32);
 impl ValidationFeatureEnableEXT {
     pub const GPU_ASSISTED_EXT: Self = Self(0);
@@ -23,7 +22,7 @@ impl ValidationFeatureEnableEXT {
     pub const SYNCHRONIZATION_VALIDATION_EXT: Self = Self(4);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ValidationFeatureDisableEXT(i32);
 impl ValidationFeatureDisableEXT {
     pub const ALL_EXT: Self = Self(0);

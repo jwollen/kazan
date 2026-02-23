@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoDecodeH264ProfileInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -11,7 +10,6 @@ pub struct VideoDecodeH264ProfileInfoKHR {
     pub picture_layout: VideoDecodeH264PictureLayoutFlagBitsKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoDecodeH264CapabilitiesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -19,7 +17,6 @@ pub struct VideoDecodeH264CapabilitiesKHR {
     pub field_offset_granularity: Offset2D,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoDecodeH264SessionParametersAddInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -29,7 +26,6 @@ pub struct VideoDecodeH264SessionParametersAddInfoKHR {
     pub p_std_pp_ss: *const StdVideoH264PictureParameterSet,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoDecodeH264SessionParametersCreateInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -38,7 +34,6 @@ pub struct VideoDecodeH264SessionParametersCreateInfoKHR {
     pub p_parameters_add_info: *const VideoDecodeH264SessionParametersAddInfoKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoDecodeH264PictureInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -47,7 +42,6 @@ pub struct VideoDecodeH264PictureInfoKHR {
     pub p_slice_offsets: *const u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct VideoDecodeH264DpbSlotInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,

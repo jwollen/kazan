@@ -11,7 +11,6 @@ pub const STD_VIDEO_H264_MAX_NUM_LIST_REF: u32 = 32;
 pub const STD_VIDEO_H264_MAX_CHROMA_PLANES: u32 = 2;
 pub const STD_VIDEO_H264_NO_REFERENCE_PICTURE: u8 = 0xF;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH264SpsVuiFlags {
     pub aspect_ratio_info_present_flag: u32,
     pub overscan_info_present_flag: u32,
@@ -27,7 +26,6 @@ pub struct StdVideoH264SpsVuiFlags {
     pub vcl_hrd_parameters_present_flag: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH264HrdParameters {
     pub cpb_cnt_minus1: u8,
     pub bit_rate_scale: u8,
@@ -42,7 +40,6 @@ pub struct StdVideoH264HrdParameters {
     pub time_offset_length: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH264SequenceParameterSetVui {
     pub flags: StdVideoH264SpsVuiFlags,
     pub aspect_ratio_idc: StdVideoH264AspectRatioIdc,
@@ -62,7 +59,6 @@ pub struct StdVideoH264SequenceParameterSetVui {
     pub p_hrd_parameters: *const StdVideoH264HrdParameters,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH264SpsFlags {
     pub constraint_set0_flag: u32,
     pub constraint_set1_flag: u32,
@@ -82,7 +78,6 @@ pub struct StdVideoH264SpsFlags {
     pub vui_parameters_present_flag: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH264ScalingLists {
     pub scaling_list_present_mask: u16,
     pub use_default_scaling_matrix_mask: u16,
@@ -92,7 +87,6 @@ pub struct StdVideoH264ScalingLists {
         STD_VIDEO_H264_SCALING_LIST_8X8_NUM_LISTS as usize],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH264SequenceParameterSet {
     pub flags: StdVideoH264SpsFlags,
     pub profile_idc: StdVideoH264ProfileIdc,
@@ -121,7 +115,6 @@ pub struct StdVideoH264SequenceParameterSet {
     pub p_sequence_parameter_set_vui: *const StdVideoH264SequenceParameterSetVui,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH264PpsFlags {
     pub transform_8x8_mode_flag: u32,
     pub redundant_pic_cnt_present_flag: u32,
@@ -133,7 +126,6 @@ pub struct StdVideoH264PpsFlags {
     pub pic_scaling_matrix_present_flag: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoH264PictureParameterSet {
     pub flags: StdVideoH264PpsFlags,
     pub seq_parameter_set_id: u8,
@@ -148,7 +140,7 @@ pub struct StdVideoH264PictureParameterSet {
     pub p_scaling_lists: *const StdVideoH264ScalingLists,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoH264ChromaFormatIdc(i32);
 impl StdVideoH264ChromaFormatIdc {
     pub const MONOCHROME: Self = Self(0);
@@ -158,7 +150,7 @@ impl StdVideoH264ChromaFormatIdc {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoH264ProfileIdc(i32);
 impl StdVideoH264ProfileIdc {
     pub const BASELINE: Self = Self(66);
@@ -168,7 +160,7 @@ impl StdVideoH264ProfileIdc {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoH264LevelIdc(i32);
 impl StdVideoH264LevelIdc {
     pub const _1_0: Self = Self(0);
@@ -193,7 +185,7 @@ impl StdVideoH264LevelIdc {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoH264PocType(i32);
 impl StdVideoH264PocType {
     pub const _0: Self = Self(0);
@@ -202,7 +194,7 @@ impl StdVideoH264PocType {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoH264AspectRatioIdc(i32);
 impl StdVideoH264AspectRatioIdc {
     pub const UNSPECIFIED: Self = Self(0);
@@ -226,7 +218,7 @@ impl StdVideoH264AspectRatioIdc {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoH264WeightedBipredIdc(i32);
 impl StdVideoH264WeightedBipredIdc {
     pub const DEFAULT: Self = Self(0);
@@ -235,7 +227,7 @@ impl StdVideoH264WeightedBipredIdc {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoH264ModificationOfPicNumsIdc(i32);
 impl StdVideoH264ModificationOfPicNumsIdc {
     pub const SHORT_TERM_SUBTRACT: Self = Self(0);
@@ -245,7 +237,7 @@ impl StdVideoH264ModificationOfPicNumsIdc {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoH264MemMgmtControlOp(i32);
 impl StdVideoH264MemMgmtControlOp {
     pub const END: Self = Self(0);
@@ -258,7 +250,7 @@ impl StdVideoH264MemMgmtControlOp {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoH264CabacInitIdc(i32);
 impl StdVideoH264CabacInitIdc {
     pub const _0: Self = Self(0);
@@ -267,7 +259,7 @@ impl StdVideoH264CabacInitIdc {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoH264DisableDeblockingFilterIdc(i32);
 impl StdVideoH264DisableDeblockingFilterIdc {
     pub const DISABLED: Self = Self(0);
@@ -276,7 +268,7 @@ impl StdVideoH264DisableDeblockingFilterIdc {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoH264SliceType(i32);
 impl StdVideoH264SliceType {
     pub const P: Self = Self(0);
@@ -285,7 +277,7 @@ impl StdVideoH264SliceType {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoH264PictureType(i32);
 impl StdVideoH264PictureType {
     pub const P: Self = Self(0);
@@ -295,7 +287,7 @@ impl StdVideoH264PictureType {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoH264NonVclNaluType(i32);
 impl StdVideoH264NonVclNaluType {
     pub const SPS: Self = Self(0);

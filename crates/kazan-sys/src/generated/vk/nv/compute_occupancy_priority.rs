@@ -6,7 +6,6 @@ pub const COMPUTE_OCCUPANCY_PRIORITY_LOW_NV: f32 = 0.25;
 pub const COMPUTE_OCCUPANCY_PRIORITY_NORMAL_NV: f32 = 0.50;
 pub const COMPUTE_OCCUPANCY_PRIORITY_HIGH_NV: f32 = 0.75;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ComputeOccupancyPriorityParametersNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -14,7 +13,6 @@ pub struct ComputeOccupancyPriorityParametersNV {
     pub occupancy_throttling: f32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceComputeOccupancyPriorityFeaturesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

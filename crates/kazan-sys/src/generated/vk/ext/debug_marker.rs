@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DebugMarkerObjectNameInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -12,7 +11,6 @@ pub struct DebugMarkerObjectNameInfoEXT {
     pub p_object_name: *const c_char,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DebugMarkerObjectTagInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -23,7 +21,6 @@ pub struct DebugMarkerObjectTagInfoEXT {
     pub p_tag: *const c_void,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DebugMarkerMarkerInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,

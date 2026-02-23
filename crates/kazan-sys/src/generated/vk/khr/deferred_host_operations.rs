@@ -3,7 +3,7 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct DeferredOperationKHR(u64);
 pub type PFN_vkCreateDeferredOperationKHR = unsafe extern "system" fn(
     device: Device,

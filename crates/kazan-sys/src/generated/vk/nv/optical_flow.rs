@@ -3,17 +3,15 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct OpticalFlowSessionNV(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceOpticalFlowFeaturesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub optical_flow: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceOpticalFlowPropertiesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -30,21 +28,18 @@ pub struct PhysicalDeviceOpticalFlowPropertiesNV {
     pub max_num_regions_of_interest: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct OpticalFlowImageFormatInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub usage: OpticalFlowUsageFlagsNV,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct OpticalFlowImageFormatPropertiesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub format: Format,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct OpticalFlowSessionCreateInfoNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -59,7 +54,6 @@ pub struct OpticalFlowSessionCreateInfoNV {
     pub flags: OpticalFlowSessionCreateFlagsNV,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct OpticalFlowSessionCreatePrivateDataInfoNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -68,7 +62,6 @@ pub struct OpticalFlowSessionCreatePrivateDataInfoNV {
     pub p_private_data: *const c_void,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct OpticalFlowExecuteInfoNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -77,7 +70,7 @@ pub struct OpticalFlowExecuteInfoNV {
     pub p_regions: *const Rect2D,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct OpticalFlowPerformanceLevelNV(i32);
 impl OpticalFlowPerformanceLevelNV {
     pub const UNKNOWN_NV: Self = Self(0);
@@ -86,7 +79,7 @@ impl OpticalFlowPerformanceLevelNV {
     pub const FAST_NV: Self = Self(3);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct OpticalFlowSessionBindingPointNV(i32);
 impl OpticalFlowSessionBindingPointNV {
     pub const UNKNOWN_NV: Self = Self(0);

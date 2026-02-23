@@ -5,7 +5,6 @@ use core::ffi::{c_char, c_int, c_void};
 pub type ScopeNV = ScopeKHR;
 pub type ComponentTypeNV = ComponentTypeKHR;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceCooperativeMatrixFeaturesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -13,14 +12,12 @@ pub struct PhysicalDeviceCooperativeMatrixFeaturesNV {
     pub cooperative_matrix_robust_buffer_access: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceCooperativeMatrixPropertiesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub cooperative_matrix_supported_stages: ShaderStageFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CooperativeMatrixPropertiesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

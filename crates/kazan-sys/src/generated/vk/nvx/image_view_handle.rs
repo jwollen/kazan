@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageViewHandleInfoNVX {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -12,7 +11,6 @@ pub struct ImageViewHandleInfoNVX {
     pub sampler: Sampler,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageViewAddressPropertiesNVX {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

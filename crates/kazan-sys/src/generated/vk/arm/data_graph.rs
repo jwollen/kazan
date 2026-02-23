@@ -4,10 +4,9 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 pub const MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM: u32 = 128;
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct DataGraphPipelineSessionARM(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDataGraphFeaturesARM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -18,7 +17,6 @@ pub struct PhysicalDeviceDataGraphFeaturesARM {
     pub data_graph_shader_module: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -27,7 +25,6 @@ pub struct DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM {
     pub group_size: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DataGraphPipelineConstantARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -35,7 +32,6 @@ pub struct DataGraphPipelineConstantARM {
     pub p_constant_data: *const c_void,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DataGraphPipelineResourceInfoARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -44,14 +40,12 @@ pub struct DataGraphPipelineResourceInfoARM {
     pub array_element: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DataGraphPipelineCompilerControlCreateInfoARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_vendor_options: *const c_char,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DataGraphPipelineCreateInfoARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -61,7 +55,6 @@ pub struct DataGraphPipelineCreateInfoARM {
     pub p_resource_infos: *const DataGraphPipelineResourceInfoARM,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DataGraphPipelineShaderModuleCreateInfoARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -72,7 +65,6 @@ pub struct DataGraphPipelineShaderModuleCreateInfoARM {
     pub p_constants: *const DataGraphPipelineConstantARM,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DataGraphPipelineSessionCreateInfoARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -80,14 +72,12 @@ pub struct DataGraphPipelineSessionCreateInfoARM {
     pub data_graph_pipeline: Pipeline,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DataGraphPipelineSessionBindPointRequirementsInfoARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub session: DataGraphPipelineSessionARM,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DataGraphPipelineSessionBindPointRequirementARM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -96,7 +86,6 @@ pub struct DataGraphPipelineSessionBindPointRequirementARM {
     pub num_objects: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DataGraphPipelineSessionMemoryRequirementsInfoARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -105,7 +94,6 @@ pub struct DataGraphPipelineSessionMemoryRequirementsInfoARM {
     pub object_index: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BindDataGraphPipelineSessionMemoryInfoARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -116,14 +104,12 @@ pub struct BindDataGraphPipelineSessionMemoryInfoARM {
     pub memory_offset: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DataGraphPipelineInfoARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub data_graph_pipeline: Pipeline,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DataGraphPipelinePropertyQueryResultARM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -133,7 +119,6 @@ pub struct DataGraphPipelinePropertyQueryResultARM {
     pub p_data: *mut c_void,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DataGraphPipelineIdentifierCreateInfoARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -141,27 +126,23 @@ pub struct DataGraphPipelineIdentifierCreateInfoARM {
     pub p_identifier: *const u8,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DataGraphPipelineDispatchInfoARM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub flags: DataGraphPipelineDispatchFlagsARM,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDataGraphProcessingEngineARM {
     pub ty: PhysicalDeviceDataGraphProcessingEngineTypeARM,
     pub is_foreign: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDataGraphOperationSupportARM {
     pub operation_type: PhysicalDeviceDataGraphOperationTypeARM,
     pub name: [c_char; MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM as usize],
     pub version: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct QueueFamilyDataGraphPropertiesARM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -169,7 +150,6 @@ pub struct QueueFamilyDataGraphPropertiesARM {
     pub operation: PhysicalDeviceDataGraphOperationSupportARM,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -177,7 +157,6 @@ pub struct PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM {
     pub engine_type: PhysicalDeviceDataGraphProcessingEngineTypeARM,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct QueueFamilyDataGraphProcessingEnginePropertiesARM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -185,7 +164,6 @@ pub struct QueueFamilyDataGraphProcessingEnginePropertiesARM {
     pub foreign_memory_handle_types: ExternalMemoryHandleTypeFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DataGraphProcessingEngineCreateInfoARM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -193,26 +171,26 @@ pub struct DataGraphProcessingEngineCreateInfoARM {
     pub p_processing_engines: *mut PhysicalDeviceDataGraphProcessingEngineARM,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DataGraphPipelineSessionBindPointARM(i32);
 impl DataGraphPipelineSessionBindPointARM {
     pub const TRANSIENT_ARM: Self = Self(0);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DataGraphPipelineSessionBindPointTypeARM(i32);
 impl DataGraphPipelineSessionBindPointTypeARM {
     pub const MEMORY_ARM: Self = Self(0);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DataGraphPipelinePropertyARM(i32);
 impl DataGraphPipelinePropertyARM {
     pub const CREATION_LOG_ARM: Self = Self(0);
     pub const IDENTIFIER_ARM: Self = Self(1);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PhysicalDeviceDataGraphProcessingEngineTypeARM(i32);
 impl PhysicalDeviceDataGraphProcessingEngineTypeARM {
     pub const DEFAULT_ARM: Self = Self(0);
@@ -220,7 +198,7 @@ impl PhysicalDeviceDataGraphProcessingEngineTypeARM {
     pub const NEURAL_QCOM: Self = Self(1000629000);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PhysicalDeviceDataGraphOperationTypeARM(i32);
 impl PhysicalDeviceDataGraphOperationTypeARM {
     pub const SPIRV_EXTENDED_INSTRUCTION_SET_ARM: Self = Self(0);

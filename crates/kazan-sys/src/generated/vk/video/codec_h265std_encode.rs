@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoEncodeH265WeightTableFlags {
     pub luma_weight_l0_flag: u16,
     pub chroma_weight_l0_flag: u16,
@@ -11,7 +10,6 @@ pub struct StdVideoEncodeH265WeightTableFlags {
     pub chroma_weight_l1_flag: u16,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoEncodeH265WeightTable {
     pub flags: StdVideoEncodeH265WeightTableFlags,
     pub luma_log2_weight_denom: u8,
@@ -30,7 +28,6 @@ pub struct StdVideoEncodeH265WeightTable {
         [[i8; STD_VIDEO_H265_MAX_CHROMA_PLANES as usize]; STD_VIDEO_H265_MAX_NUM_LIST_REF as usize],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoEncodeH265LongTermRefPics {
     pub num_long_term_sps: u8,
     pub num_long_term_pics: u8,
@@ -41,7 +38,6 @@ pub struct StdVideoEncodeH265LongTermRefPics {
     pub delta_poc_msb_cycle_lt: [u8; STD_VIDEO_H265_MAX_DELTA_POC as usize],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoEncodeH265SliceSegmentHeaderFlags {
     pub first_slice_segment_in_pic_flag: u32,
     pub dependent_slice_segment_flag: u32,
@@ -58,7 +54,6 @@ pub struct StdVideoEncodeH265SliceSegmentHeaderFlags {
     pub reserved: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoEncodeH265SliceSegmentHeader {
     pub flags: StdVideoEncodeH265SliceSegmentHeaderFlags,
     pub slice_type: StdVideoH265SliceType,
@@ -77,14 +72,12 @@ pub struct StdVideoEncodeH265SliceSegmentHeader {
     pub p_weight_table: *const StdVideoEncodeH265WeightTable,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoEncodeH265ReferenceListsInfoFlags {
     pub ref_pic_list_modification_flag_l0: u32,
     pub ref_pic_list_modification_flag_l1: u32,
     pub reserved: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoEncodeH265ReferenceListsInfo {
     pub flags: StdVideoEncodeH265ReferenceListsInfoFlags,
     pub num_ref_idx_l0_active_minus1: u8,
@@ -95,7 +88,6 @@ pub struct StdVideoEncodeH265ReferenceListsInfo {
     pub list_entry_l1: [u8; STD_VIDEO_H265_MAX_NUM_LIST_REF as usize],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoEncodeH265PictureInfoFlags {
     pub is_reference: u32,
     pub irap_pic_flag: u32,
@@ -109,7 +101,6 @@ pub struct StdVideoEncodeH265PictureInfoFlags {
     pub reserved: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoEncodeH265PictureInfo {
     pub flags: StdVideoEncodeH265PictureInfoFlags,
     pub pic_type: StdVideoH265PictureType,
@@ -125,14 +116,12 @@ pub struct StdVideoEncodeH265PictureInfo {
     pub p_long_term_ref_pics: *const StdVideoEncodeH265LongTermRefPics,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoEncodeH265ReferenceInfoFlags {
     pub used_for_long_term_reference: u32,
     pub unused_for_reference: u32,
     pub reserved: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoEncodeH265ReferenceInfo {
     pub flags: StdVideoEncodeH265ReferenceInfoFlags,
     pub pic_type: StdVideoH265PictureType,

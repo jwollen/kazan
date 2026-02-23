@@ -4,14 +4,12 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 pub type OH_NativeBuffer = *const c_void;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct NativeBufferUsageOHOS {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub ohos_native_buffer_usage: u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct NativeBufferPropertiesOHOS {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -19,7 +17,6 @@ pub struct NativeBufferPropertiesOHOS {
     pub memory_type_bits: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct NativeBufferFormatPropertiesOHOS {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -33,21 +30,18 @@ pub struct NativeBufferFormatPropertiesOHOS {
     pub suggested_y_chroma_offset: ChromaLocation,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImportNativeBufferInfoOHOS {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub buffer: *mut OH_NativeBuffer,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MemoryGetNativeBufferInfoOHOS {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub memory: DeviceMemory,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExternalFormatOHOS {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

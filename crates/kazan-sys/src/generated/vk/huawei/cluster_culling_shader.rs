@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceClusterCullingShaderPropertiesHUAWEI {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -13,7 +12,6 @@ pub struct PhysicalDeviceClusterCullingShaderPropertiesHUAWEI {
     pub indirect_buffer_offset_alignment: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceClusterCullingShaderFeaturesHUAWEI {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -21,7 +19,6 @@ pub struct PhysicalDeviceClusterCullingShaderFeaturesHUAWEI {
     pub multiview_cluster_culling_shader: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

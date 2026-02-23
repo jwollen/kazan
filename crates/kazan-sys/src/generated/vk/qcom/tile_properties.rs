@@ -3,14 +3,12 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceTilePropertiesFeaturesQCOM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub tile_properties: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct TilePropertiesQCOM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

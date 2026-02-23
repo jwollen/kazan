@@ -3,28 +3,25 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SurfaceFullScreenExclusiveInfoEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub full_screen_exclusive: FullScreenExclusiveEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SurfaceFullScreenExclusiveWin32InfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub hmonitor: HMONITOR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SurfaceCapabilitiesFullScreenExclusiveEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub full_screen_exclusive_supported: Bool32,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct FullScreenExclusiveEXT(i32);
 impl FullScreenExclusiveEXT {
     pub const DEFAULT_EXT: Self = Self(0);

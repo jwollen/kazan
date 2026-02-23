@@ -3,14 +3,12 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImportScreenBufferInfoQNX {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub buffer: *mut _screen_buffer,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ScreenBufferPropertiesQNX {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -18,7 +16,6 @@ pub struct ScreenBufferPropertiesQNX {
     pub memory_type_bits: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ScreenBufferFormatPropertiesQNX {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -33,14 +30,12 @@ pub struct ScreenBufferFormatPropertiesQNX {
     pub suggested_y_chroma_offset: ChromaLocation,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExternalFormatQNX {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub external_format: u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

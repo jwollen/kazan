@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct FragmentShadingRateAttachmentInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -11,7 +10,6 @@ pub struct FragmentShadingRateAttachmentInfoKHR {
     pub shading_rate_attachment_texel_size: Extent2D,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineFragmentShadingRateStateCreateInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -19,7 +17,6 @@ pub struct PipelineFragmentShadingRateStateCreateInfoKHR {
     pub combiner_ops: [FragmentShadingRateCombinerOpKHR; 2],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceFragmentShadingRateFeaturesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -28,7 +25,6 @@ pub struct PhysicalDeviceFragmentShadingRateFeaturesKHR {
     pub attachment_fragment_shading_rate: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceFragmentShadingRatePropertiesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -51,7 +47,6 @@ pub struct PhysicalDeviceFragmentShadingRatePropertiesKHR {
     pub fragment_shading_rate_strict_multiply_combiner: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceFragmentShadingRateKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -59,7 +54,6 @@ pub struct PhysicalDeviceFragmentShadingRateKHR {
     pub fragment_size: Extent2D,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct RenderingFragmentShadingRateAttachmentInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -68,7 +62,7 @@ pub struct RenderingFragmentShadingRateAttachmentInfoKHR {
     pub shading_rate_attachment_texel_size: Extent2D,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct FragmentShadingRateCombinerOpKHR(i32);
 impl FragmentShadingRateCombinerOpKHR {
     pub const KEEP_KHR: Self = Self(0);

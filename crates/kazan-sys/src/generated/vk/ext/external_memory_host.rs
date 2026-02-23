@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImportMemoryHostPointerInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -11,14 +10,12 @@ pub struct ImportMemoryHostPointerInfoEXT {
     pub p_host_pointer: *mut c_void,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MemoryHostPointerPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub memory_type_bits: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceExternalMemoryHostPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

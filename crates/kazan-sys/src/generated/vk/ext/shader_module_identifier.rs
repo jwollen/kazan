@@ -4,21 +4,18 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 pub const MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT: u32 = 32;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderModuleIdentifierFeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub shader_module_identifier: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderModuleIdentifierPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub shader_module_identifier_algorithm_uuid: [u8; UUID_SIZE as usize],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineShaderStageModuleIdentifierCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -26,7 +23,6 @@ pub struct PipelineShaderStageModuleIdentifierCreateInfoEXT {
     pub p_identifier: *const u8,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ShaderModuleIdentifierEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

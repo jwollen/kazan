@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceTransformFeedbackFeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -11,7 +10,6 @@ pub struct PhysicalDeviceTransformFeedbackFeaturesEXT {
     pub geometry_streams: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceTransformFeedbackPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -27,7 +25,6 @@ pub struct PhysicalDeviceTransformFeedbackPropertiesEXT {
     pub transform_feedback_draw: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineRasterizationStateStreamCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,

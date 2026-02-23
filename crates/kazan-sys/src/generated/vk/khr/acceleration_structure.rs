@@ -3,10 +3,9 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct AccelerationStructureKHR(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct WriteDescriptorSetAccelerationStructureKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -14,7 +13,6 @@ pub struct WriteDescriptorSetAccelerationStructureKHR {
     pub p_acceleration_structures: *const AccelerationStructureKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceAccelerationStructureFeaturesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -25,7 +23,6 @@ pub struct PhysicalDeviceAccelerationStructureFeaturesKHR {
     pub descriptor_binding_acceleration_structure_update_after_bind: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceAccelerationStructurePropertiesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -39,7 +36,6 @@ pub struct PhysicalDeviceAccelerationStructurePropertiesKHR {
     pub min_acceleration_structure_scratch_offset_alignment: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AccelerationStructureGeometryTrianglesDataKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -52,7 +48,6 @@ pub struct AccelerationStructureGeometryTrianglesDataKHR {
     pub transform_data: DeviceOrHostAddressConstKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AccelerationStructureGeometryAabbsDataKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -60,7 +55,6 @@ pub struct AccelerationStructureGeometryAabbsDataKHR {
     pub stride: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AccelerationStructureGeometryInstancesDataKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -68,7 +62,6 @@ pub struct AccelerationStructureGeometryInstancesDataKHR {
     pub data: DeviceOrHostAddressConstKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AccelerationStructureGeometryKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -77,7 +70,6 @@ pub struct AccelerationStructureGeometryKHR {
     pub flags: GeometryFlagsKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AccelerationStructureBuildGeometryInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -92,7 +84,6 @@ pub struct AccelerationStructureBuildGeometryInfoKHR {
     pub scratch_data: DeviceOrHostAddressKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AccelerationStructureBuildRangeInfoKHR {
     pub primitive_count: u32,
     pub primitive_offset: u32,
@@ -100,7 +91,6 @@ pub struct AccelerationStructureBuildRangeInfoKHR {
     pub transform_offset: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AccelerationStructureCreateInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -112,7 +102,6 @@ pub struct AccelerationStructureCreateInfoKHR {
     pub device_address: DeviceAddress,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AabbPositionsKHR {
     pub min_x: f32,
     pub min_y: f32,
@@ -122,12 +111,10 @@ pub struct AabbPositionsKHR {
     pub max_z: f32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct TransformMatrixKHR {
     pub matrix: [[f32; 4]; 3],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AccelerationStructureInstanceKHR {
     pub transform: TransformMatrixKHR,
     pub instance_custom_index: u32,
@@ -137,21 +124,18 @@ pub struct AccelerationStructureInstanceKHR {
     pub acceleration_structure_reference: u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AccelerationStructureDeviceAddressInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub acceleration_structure: AccelerationStructureKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AccelerationStructureVersionInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_version_data: *const u8,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CopyAccelerationStructureInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -160,7 +144,6 @@ pub struct CopyAccelerationStructureInfoKHR {
     pub mode: CopyAccelerationStructureModeKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CopyAccelerationStructureToMemoryInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -169,7 +152,6 @@ pub struct CopyAccelerationStructureToMemoryInfoKHR {
     pub mode: CopyAccelerationStructureModeKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CopyMemoryToAccelerationStructureInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -178,7 +160,6 @@ pub struct CopyMemoryToAccelerationStructureInfoKHR {
     pub mode: CopyAccelerationStructureModeKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AccelerationStructureBuildSizesInfoKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -206,7 +187,7 @@ pub union AccelerationStructureGeometryDataKHR {
     pub instances: AccelerationStructureGeometryInstancesDataKHR,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct CopyAccelerationStructureModeKHR(i32);
 impl CopyAccelerationStructureModeKHR {
     pub const CLONE_KHR: Self = Self(0);
@@ -217,14 +198,14 @@ impl CopyAccelerationStructureModeKHR {
     pub const COMPACT_NV: Self = Self::COMPACT_KHR;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct BuildAccelerationStructureModeKHR(i32);
 impl BuildAccelerationStructureModeKHR {
     pub const BUILD_KHR: Self = Self(0);
     pub const UPDATE_KHR: Self = Self(1);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AccelerationStructureTypeKHR(i32);
 impl AccelerationStructureTypeKHR {
     pub const TOP_LEVEL_KHR: Self = Self(0);
@@ -234,7 +215,7 @@ impl AccelerationStructureTypeKHR {
     pub const TOP_LEVEL_NV: Self = Self::TOP_LEVEL_KHR;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct GeometryTypeKHR(i32);
 impl GeometryTypeKHR {
     pub const TRIANGLES_KHR: Self = Self(0);
@@ -247,7 +228,7 @@ impl GeometryTypeKHR {
     pub const TRIANGLES_NV: Self = Self::TRIANGLES_KHR;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AccelerationStructureBuildTypeKHR(i32);
 impl AccelerationStructureBuildTypeKHR {
     pub const HOST_KHR: Self = Self(0);
@@ -255,7 +236,7 @@ impl AccelerationStructureBuildTypeKHR {
     pub const HOST_OR_DEVICE_KHR: Self = Self(2);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AccelerationStructureCompatibilityKHR(i32);
 impl AccelerationStructureCompatibilityKHR {
     pub const COMPATIBLE_KHR: Self = Self(0);

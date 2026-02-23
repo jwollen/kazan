@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImportMemoryWin32HandleInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -12,7 +11,6 @@ pub struct ImportMemoryWin32HandleInfoKHR {
     pub name: LPCWSTR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExportMemoryWin32HandleInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -21,14 +19,12 @@ pub struct ExportMemoryWin32HandleInfoKHR {
     pub name: LPCWSTR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MemoryWin32HandlePropertiesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub memory_type_bits: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MemoryGetWin32HandleInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,

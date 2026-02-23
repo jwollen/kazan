@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoDecodeAV1PictureInfoFlags {
     pub error_resilient_mode: u32,
     pub disable_cdf_update: u32,
@@ -37,7 +36,6 @@ pub struct StdVideoDecodeAV1PictureInfoFlags {
     pub reserved: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoDecodeAV1PictureInfo {
     pub flags: StdVideoDecodeAV1PictureInfoFlags,
     pub frame_type: StdVideoAV1FrameType,
@@ -65,14 +63,12 @@ pub struct StdVideoDecodeAV1PictureInfo {
     pub p_film_grain: *const StdVideoAV1FilmGrain,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoDecodeAV1ReferenceInfoFlags {
     pub disable_frame_end_update_cdf: u32,
     pub segmentation_enabled: u32,
     pub reserved: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoDecodeAV1ReferenceInfo {
     pub flags: StdVideoDecodeAV1ReferenceInfoFlags,
     pub frame_type: u8,

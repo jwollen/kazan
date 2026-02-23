@@ -3,10 +3,9 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct SwapchainKHR(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SwapchainCreateInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -28,7 +27,6 @@ pub struct SwapchainCreateInfoKHR {
     pub old_swapchain: SwapchainKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PresentInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -40,7 +38,6 @@ pub struct PresentInfoKHR {
     pub p_results: *mut Result,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DeviceGroupPresentCapabilitiesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -48,14 +45,12 @@ pub struct DeviceGroupPresentCapabilitiesKHR {
     pub modes: DeviceGroupPresentModeFlagsKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageSwapchainCreateInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub swapchain: SwapchainKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BindImageMemorySwapchainInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -63,7 +58,6 @@ pub struct BindImageMemorySwapchainInfoKHR {
     pub image_index: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AcquireNextImageInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -74,7 +68,6 @@ pub struct AcquireNextImageInfoKHR {
     pub device_mask: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DeviceGroupPresentInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -83,7 +76,6 @@ pub struct DeviceGroupPresentInfoKHR {
     pub mode: DeviceGroupPresentModeFlagBitsKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DeviceGroupSwapchainCreateInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,

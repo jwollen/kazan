@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct TraceRaysIndirectCommand2KHR {
     pub raygen_shader_record_address: DeviceAddress,
     pub raygen_shader_record_size: DeviceSize,
@@ -21,7 +20,6 @@ pub struct TraceRaysIndirectCommand2KHR {
     pub depth: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceRayTracingMaintenance1FeaturesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

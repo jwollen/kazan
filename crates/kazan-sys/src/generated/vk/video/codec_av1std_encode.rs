@@ -3,13 +3,11 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoEncodeAV1ExtensionHeader {
     pub temporal_id: u8,
     pub spatial_id: u8,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoEncodeAV1DecoderModelInfo {
     pub buffer_delay_length_minus_1: u8,
     pub buffer_removal_time_length_minus_1: u8,
@@ -18,7 +16,6 @@ pub struct StdVideoEncodeAV1DecoderModelInfo {
     pub num_units_in_decoding_tick: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoEncodeAV1OperatingPointInfoFlags {
     pub decoder_model_present_for_this_op: u32,
     pub low_delay_mode_flag: u32,
@@ -26,7 +23,6 @@ pub struct StdVideoEncodeAV1OperatingPointInfoFlags {
     pub reserved: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoEncodeAV1OperatingPointInfo {
     pub flags: StdVideoEncodeAV1OperatingPointInfoFlags,
     pub operating_point_idc: u16,
@@ -37,7 +33,6 @@ pub struct StdVideoEncodeAV1OperatingPointInfo {
     pub initial_display_delay_minus_1: u8,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoEncodeAV1PictureInfoFlags {
     pub error_resilient_mode: u32,
     pub disable_cdf_update: u32,
@@ -71,7 +66,6 @@ pub struct StdVideoEncodeAV1PictureInfoFlags {
     pub reserved: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoEncodeAV1PictureInfo {
     pub flags: StdVideoEncodeAV1PictureInfoFlags,
     pub frame_type: StdVideoAV1FrameType,
@@ -102,14 +96,12 @@ pub struct StdVideoEncodeAV1PictureInfo {
     pub p_buffer_removal_times: *const u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoEncodeAV1ReferenceInfoFlags {
     pub disable_frame_end_update_cdf: u32,
     pub segmentation_enabled: u32,
     pub reserved: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoEncodeAV1ReferenceInfo {
     pub flags: StdVideoEncodeAV1ReferenceInfoFlags,
     pub ref_frame_id: u32,

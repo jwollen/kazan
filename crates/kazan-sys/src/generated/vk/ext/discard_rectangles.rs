@@ -3,14 +3,12 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDiscardRectanglePropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_discard_rectangles: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineDiscardRectangleStateCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -20,7 +18,7 @@ pub struct PipelineDiscardRectangleStateCreateInfoEXT {
     pub p_discard_rectangles: *const Rect2D,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DiscardRectangleModeEXT(i32);
 impl DiscardRectangleModeEXT {
     pub const INCLUSIVE_EXT: Self = Self(0);

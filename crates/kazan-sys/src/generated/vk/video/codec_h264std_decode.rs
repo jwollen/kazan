@@ -4,7 +4,6 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 pub const STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE: u32 = 2;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoDecodeH264PictureInfoFlags {
     pub field_pic_flag: u32,
     pub is_intra: u32,
@@ -14,7 +13,6 @@ pub struct StdVideoDecodeH264PictureInfoFlags {
     pub complementary_field_pair: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoDecodeH264PictureInfo {
     pub flags: StdVideoDecodeH264PictureInfoFlags,
     pub seq_parameter_set_id: u8,
@@ -26,7 +24,6 @@ pub struct StdVideoDecodeH264PictureInfo {
     pub pic_order_cnt: [i32; STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE as usize],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoDecodeH264ReferenceInfoFlags {
     pub top_field_flag: u32,
     pub bottom_field_flag: u32,
@@ -34,7 +31,6 @@ pub struct StdVideoDecodeH264ReferenceInfoFlags {
     pub is_non_existing: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoDecodeH264ReferenceInfo {
     pub flags: StdVideoDecodeH264ReferenceInfoFlags,
     pub frame_num: u16,
@@ -42,7 +38,7 @@ pub struct StdVideoDecodeH264ReferenceInfo {
     pub pic_order_cnt: [i32; STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE as usize],
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoDecodeH264FieldOrderCount(i32);
 impl StdVideoDecodeH264FieldOrderCount {
     pub const TOP: Self = Self(0);

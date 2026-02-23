@@ -3,14 +3,12 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceFragmentDensityMap2FeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub fragment_density_map_deferred: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceFragmentDensityMap2PropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

@@ -3,14 +3,12 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub multiview_per_view_render_areas: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM {
     pub s_type: StructureType,
     pub p_next: *const c_void,

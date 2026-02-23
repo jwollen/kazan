@@ -3,13 +3,12 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct CuModuleNVX(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct CuFunctionNVX(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CuModuleCreateInfoNVX {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -17,14 +16,12 @@ pub struct CuModuleCreateInfoNVX {
     pub p_data: *const c_void,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CuModuleTexturingModeCreateInfoNVX {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub use64bit_texturing: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CuFunctionCreateInfoNVX {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -32,7 +29,6 @@ pub struct CuFunctionCreateInfoNVX {
     pub p_name: *const c_char,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct CuLaunchInfoNVX {
     pub s_type: StructureType,
     pub p_next: *const c_void,

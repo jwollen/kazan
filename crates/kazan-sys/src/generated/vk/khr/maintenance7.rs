@@ -3,14 +3,12 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMaintenance7FeaturesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub maintenance7: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMaintenance7PropertiesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -24,7 +22,6 @@ pub struct PhysicalDeviceMaintenance7PropertiesKHR {
     pub max_descriptor_set_update_after_bind_total_buffers_dynamic: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceLayeredApiPropertiesListKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -32,7 +29,6 @@ pub struct PhysicalDeviceLayeredApiPropertiesListKHR {
     pub p_layered_apis: *mut PhysicalDeviceLayeredApiPropertiesKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceLayeredApiPropertiesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -42,14 +38,13 @@ pub struct PhysicalDeviceLayeredApiPropertiesKHR {
     pub device_name: [c_char; MAX_PHYSICAL_DEVICE_NAME_SIZE as usize],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceLayeredApiVulkanPropertiesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub properties: PhysicalDeviceProperties2,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PhysicalDeviceLayeredApiKHR(i32);
 impl PhysicalDeviceLayeredApiKHR {
     pub const VULKAN_KHR: Self = Self(0);

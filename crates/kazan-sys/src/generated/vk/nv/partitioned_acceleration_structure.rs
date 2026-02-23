@@ -4,35 +4,30 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 pub const PARTITIONED_ACCELERATION_STRUCTURE_PARTITION_INDEX_GLOBAL_NV: u32 = !0;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDevicePartitionedAccelerationStructureFeaturesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub partitioned_acceleration_structure: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDevicePartitionedAccelerationStructurePropertiesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_partition_count: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BuildPartitionedAccelerationStructureIndirectCommandNV {
     pub op_type: PartitionedAccelerationStructureOpTypeNV,
     pub arg_count: u32,
     pub arg_data: StridedDeviceAddressNV,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PartitionedAccelerationStructureFlagsNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub enable_partition_translation: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PartitionedAccelerationStructureWriteInstanceDataNV {
     pub transform: TransformMatrixKHR,
     pub explicit_aabb: [f32; 6],
@@ -45,20 +40,17 @@ pub struct PartitionedAccelerationStructureWriteInstanceDataNV {
     pub acceleration_structure: DeviceAddress,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PartitionedAccelerationStructureUpdateInstanceDataNV {
     pub instance_index: u32,
     pub instance_contribution_to_hit_group_index: u32,
     pub acceleration_structure: DeviceAddress,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PartitionedAccelerationStructureWritePartitionTranslationDataNV {
     pub partition_index: u32,
     pub partition_translation: [f32; 3],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct WriteDescriptorSetPartitionedAccelerationStructureNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -66,7 +58,6 @@ pub struct WriteDescriptorSetPartitionedAccelerationStructureNV {
     pub p_acceleration_structures: *const DeviceAddress,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PartitionedAccelerationStructureInstancesInputNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -77,7 +68,6 @@ pub struct PartitionedAccelerationStructureInstancesInputNV {
     pub max_instance_in_global_partition_count: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BuildPartitionedAccelerationStructureInfoNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -89,7 +79,7 @@ pub struct BuildPartitionedAccelerationStructureInfoNV {
     pub src_infos_count: DeviceAddress,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PartitionedAccelerationStructureOpTypeNV(i32);
 impl PartitionedAccelerationStructureOpTypeNV {
     pub const WRITE_INSTANCE_NV: Self = Self(0);

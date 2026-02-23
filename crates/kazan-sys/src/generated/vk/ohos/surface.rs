@@ -4,7 +4,6 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 pub type OHNativeWindow = *const c_void;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SurfaceCreateInfoOHOS {
     pub s_type: StructureType,
     pub p_next: *const c_void,

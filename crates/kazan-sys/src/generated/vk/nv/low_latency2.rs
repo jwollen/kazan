@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct LatencySleepModeInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -12,7 +11,6 @@ pub struct LatencySleepModeInfoNV {
     pub minimum_interval_us: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct LatencySleepInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -20,7 +18,6 @@ pub struct LatencySleepInfoNV {
     pub value: u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SetLatencyMarkerInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -28,7 +25,6 @@ pub struct SetLatencyMarkerInfoNV {
     pub marker: LatencyMarkerNV,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct GetLatencyMarkerInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -36,7 +32,6 @@ pub struct GetLatencyMarkerInfoNV {
     pub p_timings: *mut LatencyTimingsFrameReportNV,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct LatencyTimingsFrameReportNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -56,28 +51,24 @@ pub struct LatencyTimingsFrameReportNV {
     pub gpu_render_end_time_us: u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct OutOfBandQueueTypeInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub queue_type: OutOfBandQueueTypeNV,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct LatencySubmissionPresentIdNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub present_id: u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SwapchainLatencyCreateInfoNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub latency_mode_enable: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct LatencySurfaceCapabilitiesNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -85,7 +76,7 @@ pub struct LatencySurfaceCapabilitiesNV {
     pub p_present_modes: *mut PresentModeKHR,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct LatencyMarkerNV(i32);
 impl LatencyMarkerNV {
     pub const SIMULATION_START_NV: Self = Self(0);
@@ -102,7 +93,7 @@ impl LatencyMarkerNV {
     pub const OUT_OF_BAND_PRESENT_END_NV: Self = Self(11);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct OutOfBandQueueTypeNV(i32);
 impl OutOfBandQueueTypeNV {
     pub const RENDER_NV: Self = Self(0);

@@ -24,7 +24,6 @@ pub const STD_VIDEO_AV1_MAX_NUM_CR_POINTS: u32 = 10;
 pub const STD_VIDEO_AV1_MAX_NUM_POS_LUMA: u32 = 24;
 pub const STD_VIDEO_AV1_MAX_NUM_POS_CHROMA: u32 = 25;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoAV1ColorConfigFlags {
     pub mono_chrome: u32,
     pub color_range: u32,
@@ -33,7 +32,6 @@ pub struct StdVideoAV1ColorConfigFlags {
     pub reserved: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoAV1ColorConfig {
     pub flags: StdVideoAV1ColorConfigFlags,
     pub bit_depth: u8,
@@ -46,13 +44,11 @@ pub struct StdVideoAV1ColorConfig {
     pub chroma_sample_position: StdVideoAV1ChromaSamplePosition,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoAV1TimingInfoFlags {
     pub equal_picture_interval: u32,
     pub reserved: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoAV1TimingInfo {
     pub flags: StdVideoAV1TimingInfoFlags,
     pub num_units_in_display_tick: u32,
@@ -60,7 +56,6 @@ pub struct StdVideoAV1TimingInfo {
     pub num_ticks_per_picture_minus_1: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoAV1SequenceHeaderFlags {
     pub still_picture: u32,
     pub reduced_still_picture_header: u32,
@@ -84,7 +79,6 @@ pub struct StdVideoAV1SequenceHeaderFlags {
     pub reserved: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoAV1SequenceHeader {
     pub flags: StdVideoAV1SequenceHeaderFlags,
     pub seq_profile: StdVideoAV1Profile,
@@ -102,14 +96,12 @@ pub struct StdVideoAV1SequenceHeader {
     pub p_timing_info: *const StdVideoAV1TimingInfo,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoAV1LoopFilterFlags {
     pub loop_filter_delta_enabled: u32,
     pub loop_filter_delta_update: u32,
     pub reserved: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoAV1LoopFilter {
     pub flags: StdVideoAV1LoopFilterFlags,
     pub loop_filter_level: [u8; STD_VIDEO_AV1_MAX_LOOP_FILTER_STRENGTHS as usize],
@@ -120,14 +112,12 @@ pub struct StdVideoAV1LoopFilter {
     pub loop_filter_mode_deltas: [i8; STD_VIDEO_AV1_LOOP_FILTER_ADJUSTMENTS as usize],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoAV1QuantizationFlags {
     pub using_qmatrix: u32,
     pub diff_uv_delta: u32,
     pub reserved: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoAV1Quantization {
     pub flags: StdVideoAV1QuantizationFlags,
     pub base_q_idx: u8,
@@ -141,20 +131,17 @@ pub struct StdVideoAV1Quantization {
     pub qm_v: u8,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoAV1Segmentation {
     pub feature_enabled: [u8; STD_VIDEO_AV1_MAX_SEGMENTS as usize],
     pub feature_data:
         [[i16; STD_VIDEO_AV1_SEG_LVL_MAX as usize]; STD_VIDEO_AV1_MAX_SEGMENTS as usize],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoAV1TileInfoFlags {
     pub uniform_tile_spacing_flag: u32,
     pub reserved: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoAV1TileInfo {
     pub flags: StdVideoAV1TileInfoFlags,
     pub tile_cols: u8,
@@ -168,7 +155,6 @@ pub struct StdVideoAV1TileInfo {
     pub p_height_in_sbs_minus1: *const u16,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoAV1CDEF {
     pub cdef_damping_minus_3: u8,
     pub cdef_bits: u8,
@@ -178,21 +164,18 @@ pub struct StdVideoAV1CDEF {
     pub cdef_uv_sec_strength: [u8; STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS as usize],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoAV1LoopRestoration {
     pub frame_restoration_type:
         [StdVideoAV1FrameRestorationType; STD_VIDEO_AV1_MAX_NUM_PLANES as usize],
     pub loop_restoration_size: [u16; STD_VIDEO_AV1_MAX_NUM_PLANES as usize],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoAV1GlobalMotion {
     pub gm_type: [u8; STD_VIDEO_AV1_NUM_REF_FRAMES as usize],
     pub gm_params:
         [[i32; STD_VIDEO_AV1_GLOBAL_MOTION_PARAMS as usize]; STD_VIDEO_AV1_NUM_REF_FRAMES as usize],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoAV1FilmGrainFlags {
     pub chroma_scaling_from_luma: u32,
     pub overlap_flag: u32,
@@ -201,7 +184,6 @@ pub struct StdVideoAV1FilmGrainFlags {
     pub reserved: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoAV1FilmGrain {
     pub flags: StdVideoAV1FilmGrainFlags,
     pub grain_scaling_minus_8: u8,
@@ -230,7 +212,7 @@ pub struct StdVideoAV1FilmGrain {
     pub cr_offset: u16,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoAV1Profile(i32);
 impl StdVideoAV1Profile {
     pub const MAIN: Self = Self(0);
@@ -239,7 +221,7 @@ impl StdVideoAV1Profile {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoAV1Level(i32);
 impl StdVideoAV1Level {
     pub const _2_0: Self = Self(0);
@@ -269,7 +251,7 @@ impl StdVideoAV1Level {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoAV1FrameType(i32);
 impl StdVideoAV1FrameType {
     pub const KEY: Self = Self(0);
@@ -279,7 +261,7 @@ impl StdVideoAV1FrameType {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoAV1ReferenceName(i32);
 impl StdVideoAV1ReferenceName {
     pub const INTRA_FRAME: Self = Self(0);
@@ -293,7 +275,7 @@ impl StdVideoAV1ReferenceName {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoAV1InterpolationFilter(i32);
 impl StdVideoAV1InterpolationFilter {
     pub const EIGHTTAP: Self = Self(0);
@@ -304,7 +286,7 @@ impl StdVideoAV1InterpolationFilter {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoAV1TxMode(i32);
 impl StdVideoAV1TxMode {
     pub const ONLY_4X4: Self = Self(0);
@@ -313,7 +295,7 @@ impl StdVideoAV1TxMode {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoAV1FrameRestorationType(i32);
 impl StdVideoAV1FrameRestorationType {
     pub const NONE: Self = Self(0);
@@ -323,7 +305,7 @@ impl StdVideoAV1FrameRestorationType {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoAV1ColorPrimaries(i32);
 impl StdVideoAV1ColorPrimaries {
     pub const BT_709: Self = Self(1);
@@ -341,7 +323,7 @@ impl StdVideoAV1ColorPrimaries {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoAV1TransferCharacteristics(i32);
 impl StdVideoAV1TransferCharacteristics {
     pub const RESERVED_0: Self = Self(0);
@@ -366,7 +348,7 @@ impl StdVideoAV1TransferCharacteristics {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoAV1MatrixCoefficients(i32);
 impl StdVideoAV1MatrixCoefficients {
     pub const IDENTITY: Self = Self(0);
@@ -387,7 +369,7 @@ impl StdVideoAV1MatrixCoefficients {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoAV1ChromaSamplePosition(i32);
 impl StdVideoAV1ChromaSamplePosition {
     pub const UNKNOWN: Self = Self(0);

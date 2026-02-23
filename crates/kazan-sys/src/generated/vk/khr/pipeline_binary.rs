@@ -4,10 +4,9 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 pub const MAX_PIPELINE_BINARY_KEY_SIZE_KHR: u32 = 32;
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct PipelineBinaryKHR(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineBinaryCreateInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -16,7 +15,6 @@ pub struct PipelineBinaryCreateInfoKHR {
     pub p_pipeline_create_info: *const PipelineCreateInfoKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineBinaryHandlesInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -24,20 +22,17 @@ pub struct PipelineBinaryHandlesInfoKHR {
     pub p_pipeline_binaries: *mut PipelineBinaryKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineBinaryDataKHR {
     pub data_size: usize,
     pub p_data: *mut c_void,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineBinaryKeysAndDataKHR {
     pub binary_count: u32,
     pub p_pipeline_binary_keys: *const PipelineBinaryKeyKHR,
     pub p_pipeline_binary_data: *const PipelineBinaryDataKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineBinaryKeyKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -45,7 +40,6 @@ pub struct PipelineBinaryKeyKHR {
     pub key: [u8; MAX_PIPELINE_BINARY_KEY_SIZE_KHR as usize],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineBinaryInfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -53,41 +47,35 @@ pub struct PipelineBinaryInfoKHR {
     pub p_pipeline_binaries: *const PipelineBinaryKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ReleaseCapturedPipelineDataInfoKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub pipeline: Pipeline,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineBinaryDataInfoKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub pipeline_binary: PipelineBinaryKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineCreateInfoKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDevicePipelineBinaryFeaturesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub pipeline_binaries: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DevicePipelineBinaryInternalCacheControlKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub disable_internal_cache: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDevicePipelineBinaryPropertiesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

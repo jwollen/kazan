@@ -14,7 +14,6 @@ pub type PFN_vkCmdPushConstants2KHR = PFN_vkCmdPushConstants2;
 pub type PFN_vkCmdPushDescriptorSet2KHR = PFN_vkCmdPushDescriptorSet2;
 pub type PFN_vkCmdPushDescriptorSetWithTemplate2KHR = PFN_vkCmdPushDescriptorSetWithTemplate2;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SetDescriptorBufferOffsetsInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -26,7 +25,6 @@ pub struct SetDescriptorBufferOffsetsInfoEXT {
     pub p_offsets: *const DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BindDescriptorBufferEmbeddedSamplersInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,

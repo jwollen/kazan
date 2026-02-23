@@ -3,10 +3,9 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct BufferCollectionFUCHSIA(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImportMemoryBufferCollectionFUCHSIA {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -14,7 +13,6 @@ pub struct ImportMemoryBufferCollectionFUCHSIA {
     pub index: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BufferCollectionImageCreateInfoFUCHSIA {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -22,7 +20,6 @@ pub struct BufferCollectionImageCreateInfoFUCHSIA {
     pub index: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BufferCollectionBufferCreateInfoFUCHSIA {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -30,14 +27,12 @@ pub struct BufferCollectionBufferCreateInfoFUCHSIA {
     pub index: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BufferCollectionCreateInfoFUCHSIA {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub collection_token: zx_handle_t,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BufferCollectionPropertiesFUCHSIA {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -54,7 +49,6 @@ pub struct BufferCollectionPropertiesFUCHSIA {
     pub suggested_y_chroma_offset: ChromaLocation,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BufferConstraintsInfoFUCHSIA {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -63,14 +57,12 @@ pub struct BufferConstraintsInfoFUCHSIA {
     pub buffer_collection_constraints: BufferCollectionConstraintsInfoFUCHSIA,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SysmemColorSpaceFUCHSIA {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub color_space: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageFormatConstraintsInfoFUCHSIA {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -82,7 +74,6 @@ pub struct ImageFormatConstraintsInfoFUCHSIA {
     pub p_color_spaces: *const SysmemColorSpaceFUCHSIA,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageConstraintsInfoFUCHSIA {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -92,7 +83,6 @@ pub struct ImageConstraintsInfoFUCHSIA {
     pub flags: ImageConstraintsInfoFlagsFUCHSIA,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BufferCollectionConstraintsInfoFUCHSIA {
     pub s_type: StructureType,
     pub p_next: *const c_void,

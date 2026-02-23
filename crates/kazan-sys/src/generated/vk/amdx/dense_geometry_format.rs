@@ -5,14 +5,12 @@ use core::ffi::{c_char, c_int, c_void};
 pub const COMPRESSED_TRIANGLE_FORMAT_DGF1_BYTE_ALIGNMENT_AMDX: u32 = 128;
 pub const COMPRESSED_TRIANGLE_FORMAT_DGF1_BYTE_STRIDE_AMDX: u32 = 128;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDenseGeometryFormatFeaturesAMDX {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub dense_geometry_format: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AccelerationStructureDenseGeometryFormatTrianglesDataAMDX {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -25,7 +23,7 @@ pub struct AccelerationStructureDenseGeometryFormatTrianglesDataAMDX {
     pub format: CompressedTriangleFormatAMDX,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct CompressedTriangleFormatAMDX(i32);
 impl CompressedTriangleFormatAMDX {
     pub const DGF1_AMDX: Self = Self(0);

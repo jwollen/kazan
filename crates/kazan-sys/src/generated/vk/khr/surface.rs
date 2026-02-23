@@ -3,10 +3,9 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct SurfaceKHR(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SurfaceCapabilitiesKHR {
     pub min_image_count: u32,
     pub max_image_count: u32,
@@ -20,13 +19,12 @@ pub struct SurfaceCapabilitiesKHR {
     pub supported_usage_flags: ImageUsageFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SurfaceFormatKHR {
     pub format: Format,
     pub color_space: ColorSpaceKHR,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PresentModeKHR(i32);
 impl PresentModeKHR {
     pub const IMMEDIATE_KHR: Self = Self(0);
@@ -39,7 +37,7 @@ impl PresentModeKHR {
     pub const FIFO_LATEST_READY_EXT: Self = Self::FIFO_LATEST_READY_KHR;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ColorSpaceKHR(i32);
 impl ColorSpaceKHR {
     pub const SRGB_NONLINEAR_KHR: Self = Self(0);

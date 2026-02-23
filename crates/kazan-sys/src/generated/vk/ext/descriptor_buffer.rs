@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDescriptorBufferFeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -13,7 +12,6 @@ pub struct PhysicalDeviceDescriptorBufferFeaturesEXT {
     pub descriptor_buffer_push_descriptors: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDescriptorBufferPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -52,14 +50,12 @@ pub struct PhysicalDeviceDescriptorBufferPropertiesEXT {
     pub descriptor_buffer_address_space_size: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub combined_image_sampler_density_map_descriptor_size: usize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorAddressInfoEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -68,7 +64,6 @@ pub struct DescriptorAddressInfoEXT {
     pub format: Format,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorBufferBindingInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -76,14 +71,12 @@ pub struct DescriptorBufferBindingInfoEXT {
     pub usage: BufferUsageFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorBufferBindingPushDescriptorBufferHandleEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub buffer: Buffer,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorGetInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -91,35 +84,30 @@ pub struct DescriptorGetInfoEXT {
     pub data: DescriptorDataEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BufferCaptureDescriptorDataInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub buffer: Buffer,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageCaptureDescriptorDataInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub image: Image,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageViewCaptureDescriptorDataInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub image_view: ImageView,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SamplerCaptureDescriptorDataInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub sampler: Sampler,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AccelerationStructureCaptureDescriptorDataInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -127,7 +115,6 @@ pub struct AccelerationStructureCaptureDescriptorDataInfoEXT {
     pub acceleration_structure_nv: AccelerationStructureNV,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct OpaqueCaptureDescriptorDataCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,

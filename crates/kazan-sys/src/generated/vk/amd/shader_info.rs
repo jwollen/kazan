@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ShaderResourceUsageAMD {
     pub num_used_vgprs: u32,
     pub num_used_sgprs: u32,
@@ -12,7 +11,6 @@ pub struct ShaderResourceUsageAMD {
     pub scratch_mem_usage_in_bytes: usize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ShaderStatisticsInfoAMD {
     pub shader_stage_mask: ShaderStageFlags,
     pub resource_usage: ShaderResourceUsageAMD,
@@ -23,7 +21,7 @@ pub struct ShaderStatisticsInfoAMD {
     pub compute_work_group_size: [u32; 3],
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ShaderInfoTypeAMD(i32);
 impl ShaderInfoTypeAMD {
     pub const STATISTICS_AMD: Self = Self(0);

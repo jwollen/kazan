@@ -9,27 +9,23 @@ pub type MTLTexture_id = *const c_void;
 pub type MTLSharedEvent_id = *const c_void;
 pub type IOSurfaceRef = *const c_void;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExportMetalObjectCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub export_object_type: ExportMetalObjectTypeFlagBitsEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExportMetalObjectsInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExportMetalDeviceInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub mtl_device: MTLDevice_id,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExportMetalCommandQueueInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -37,7 +33,6 @@ pub struct ExportMetalCommandQueueInfoEXT {
     pub mtl_command_queue: MTLCommandQueue_id,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExportMetalBufferInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -45,14 +40,12 @@ pub struct ExportMetalBufferInfoEXT {
     pub mtl_buffer: MTLBuffer_id,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImportMetalBufferInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub mtl_buffer: MTLBuffer_id,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExportMetalTextureInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -63,7 +56,6 @@ pub struct ExportMetalTextureInfoEXT {
     pub mtl_texture: MTLTexture_id,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImportMetalTextureInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -71,7 +63,6 @@ pub struct ImportMetalTextureInfoEXT {
     pub mtl_texture: MTLTexture_id,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExportMetalIOSurfaceInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -79,14 +70,12 @@ pub struct ExportMetalIOSurfaceInfoEXT {
     pub io_surface: IOSurfaceRef,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImportMetalIOSurfaceInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub io_surface: IOSurfaceRef,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExportMetalSharedEventInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -95,7 +84,6 @@ pub struct ExportMetalSharedEventInfoEXT {
     pub mtl_shared_event: MTLSharedEvent_id,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImportMetalSharedEventInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,

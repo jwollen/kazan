@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDevicePresentTimingFeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -12,7 +11,6 @@ pub struct PhysicalDevicePresentTimingFeaturesEXT {
     pub present_at_relative_time: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PresentTimingSurfaceCapabilitiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -22,7 +20,6 @@ pub struct PresentTimingSurfaceCapabilitiesEXT {
     pub present_stage_queries: PresentStageFlagsEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SwapchainTimingPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -30,7 +27,6 @@ pub struct SwapchainTimingPropertiesEXT {
     pub refresh_interval: u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SwapchainTimeDomainPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -39,13 +35,11 @@ pub struct SwapchainTimeDomainPropertiesEXT {
     pub p_time_domain_ids: *mut u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PresentStageTimeEXT {
     pub stage: PresentStageFlagsEXT,
     pub time: u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PastPresentationTimingInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -53,7 +47,6 @@ pub struct PastPresentationTimingInfoEXT {
     pub swapchain: SwapchainKHR,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PastPresentationTimingPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -63,7 +56,6 @@ pub struct PastPresentationTimingPropertiesEXT {
     pub p_presentation_timings: *mut PastPresentationTimingEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PastPresentationTimingEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -76,7 +68,6 @@ pub struct PastPresentationTimingEXT {
     pub report_complete: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PresentTimingsInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -84,7 +75,6 @@ pub struct PresentTimingsInfoEXT {
     pub p_timing_infos: *const PresentTimingInfoEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PresentTimingInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -95,7 +85,6 @@ pub struct PresentTimingInfoEXT {
     pub target_time_domain_present_stage: PresentStageFlagsEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SwapchainCalibratedTimestampInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,

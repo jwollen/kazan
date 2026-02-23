@@ -3,15 +3,13 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DirectDriverLoadingInfoLUNARG {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub flags: DirectDriverLoadingFlagsLUNARG,
-    pub pfn_get_instance_proc_addr: PFN_vkGetInstanceProcAddrLUNARG,
+    pub pfn_get_instance_proc_addr: Option<PFN_vkGetInstanceProcAddrLUNARG>,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DirectDriverLoadingListLUNARG {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -20,7 +18,7 @@ pub struct DirectDriverLoadingListLUNARG {
     pub p_drivers: *const DirectDriverLoadingInfoLUNARG,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DirectDriverLoadingModeLUNARG(i32);
 impl DirectDriverLoadingModeLUNARG {
     pub const EXCLUSIVE_LUNARG: Self = Self(0);

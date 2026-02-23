@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceTileShadingFeaturesQCOM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -23,7 +22,6 @@ pub struct PhysicalDeviceTileShadingFeaturesQCOM {
     pub tile_shading_image_processing: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceTileShadingPropertiesQCOM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -33,7 +31,6 @@ pub struct PhysicalDeviceTileShadingPropertiesQCOM {
     pub max_tile_shading_rate: Extent2D,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct RenderPassTileShadingCreateInfoQCOM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -41,19 +38,16 @@ pub struct RenderPassTileShadingCreateInfoQCOM {
     pub tile_apron_size: Extent2D,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PerTileBeginInfoQCOM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PerTileEndInfoQCOM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DispatchTileInfoQCOM {
     pub s_type: StructureType,
     pub p_next: *const c_void,

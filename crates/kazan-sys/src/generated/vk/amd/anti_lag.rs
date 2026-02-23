@@ -3,14 +3,12 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceAntiLagFeaturesAMD {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub anti_lag: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AntiLagDataAMD {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -19,7 +17,6 @@ pub struct AntiLagDataAMD {
     pub p_presentation_info: *const AntiLagPresentationInfoAMD,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AntiLagPresentationInfoAMD {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -27,7 +24,7 @@ pub struct AntiLagPresentationInfoAMD {
     pub frame_index: u64,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AntiLagModeAMD(i32);
 impl AntiLagModeAMD {
     pub const DRIVER_CONTROL_AMD: Self = Self(0);
@@ -35,7 +32,7 @@ impl AntiLagModeAMD {
     pub const OFF_AMD: Self = Self(2);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AntiLagStageAMD(i32);
 impl AntiLagStageAMD {
     pub const INPUT_AMD: Self = Self(0);

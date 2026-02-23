@@ -7,7 +7,6 @@ pub type PipelineVertexInputDivisorStateCreateInfoEXT = PipelineVertexInputDivis
 pub type PhysicalDeviceVertexAttributeDivisorFeaturesEXT =
     PhysicalDeviceVertexAttributeDivisorFeatures;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceVertexAttributeDivisorPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

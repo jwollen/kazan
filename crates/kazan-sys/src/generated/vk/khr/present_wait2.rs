@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PresentWait2InfoKHR {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -11,14 +10,12 @@ pub struct PresentWait2InfoKHR {
     pub timeout: u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDevicePresentWait2FeaturesKHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub present_wait2: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SurfaceCapabilitiesPresentWait2KHR {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceExtendedDynamicState3FeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -40,14 +39,12 @@ pub struct PhysicalDeviceExtendedDynamicState3FeaturesEXT {
     pub extended_dynamic_state3_shading_rate_image_enable: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceExtendedDynamicState3PropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub dynamic_primitive_topology_unrestricted: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ColorBlendEquationEXT {
     pub src_color_blend_factor: BlendFactor,
     pub dst_color_blend_factor: BlendFactor,
@@ -57,7 +54,6 @@ pub struct ColorBlendEquationEXT {
     pub alpha_blend_op: BlendOp,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ColorBlendAdvancedEXT {
     pub advanced_blend_op: BlendOp,
     pub src_premultiplied: Bool32,

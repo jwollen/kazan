@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AccelerationStructureGeometryLinearSweptSpheresDataNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -20,7 +19,6 @@ pub struct AccelerationStructureGeometryLinearSweptSpheresDataNV {
     pub end_caps_mode: RayTracingLssPrimitiveEndCapsModeNV,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AccelerationStructureGeometrySpheresDataNV {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -35,7 +33,6 @@ pub struct AccelerationStructureGeometrySpheresDataNV {
     pub index_stride: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -43,14 +40,14 @@ pub struct PhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV {
     pub linear_swept_spheres: Bool32,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct RayTracingLssIndexingModeNV(i32);
 impl RayTracingLssIndexingModeNV {
     pub const LIST_NV: Self = Self(0);
     pub const SUCCESSIVE_NV: Self = Self(1);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct RayTracingLssPrimitiveEndCapsModeNV(i32);
 impl RayTracingLssPrimitiveEndCapsModeNV {
     pub const NONE_NV: Self = Self(0);

@@ -314,7 +314,7 @@ fn generate(xmls: &[&xml::Registry]) {
                     _ => panic!(),
                 };
                 writeln!(sys_file, "#[repr(C)]").unwrap();
-                writeln!(sys_file, "#[derive(Copy, Clone)]").unwrap();
+                writeln!(sys_file, "#[derive(Copy, Clone, Default)]").unwrap();
                 writeln!(
                     sys_file,
                     "pub struct {}({});",
@@ -356,9 +356,9 @@ fn generate(xmls: &[&xml::Registry]) {
                 .unwrap();
             }
 
-            let structs = structs.iter().filter(|ty| new_items.contains(ty.name));
-            for ty in structs {
-                write_struct(&mut sys_file, ty);
+            let new_structs = structs.iter().filter(|ty| new_items.contains(ty.name));
+            for ty in new_structs {
+                write_struct(&mut sys_file, &structs, ty);
             }
 
             let unions = unions.clone().filter(|ty| new_items.contains(ty.name));
@@ -391,7 +391,7 @@ fn generate(xmls: &[&xml::Registry]) {
                 writeln!(sys_file, "#[repr(transparent)]").unwrap();
                 writeln!(
                     sys_file,
-                    "#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]"
+                    "#[derive(Copy, Clone, Default,PartialEq, Eq, PartialOrd, Ord, Hash)]"
                 )
                 .unwrap();
                 writeln!(sys_file, "pub struct {}(i32);", normalize_ty_name(ty.name)).unwrap();
@@ -1010,5 +1010,90 @@ fn ctype_to_rust_type(ty: &CType) -> String {
             }
         }
         CType::Func { ret_ty, params, .. } => todo!(),
+    }
+}
+
+#[derive(Clone)]
+enum LengthKind<'a> {
+    NullTerminated,
+    Literal(u32),
+    Param {
+        index: usize,
+        c_decl: &'a cdecl::CDecl<'static>,
+    },
+    ParamField {
+        index: usize,
+        field: &'a xml::StructureMember,
+    },
+    Unknown(&'static str),
+}
+
+trait Param {
+    fn c_decl(&self) -> &cdecl::CDecl<'static>;
+}
+
+impl Param for xml::CommandParam {
+    fn c_decl(&self) -> &cdecl::CDecl<'static> {
+        &self.c_decl
+    }
+}
+
+impl Param for xml::StructureMember {
+    fn c_decl(&self) -> &cdecl::CDecl<'static> {
+        &self.c_decl
+    }
+}
+
+fn get_param_index(params: &[impl Param], param_name: &str) -> Option<usize> {
+    params.iter().enumerate().find_map(|(index, other_param)| {
+        if other_param.c_decl().name == param_name {
+            Some(index)
+        } else {
+            None
+        }
+    })
+}
+
+fn get_len_kind<'a>(
+    params: &'a [impl Param],
+    structs: &'a [&xml::Structure],
+    len: &'static str,
+) -> LengthKind<'a> {
+    if len == "null-terminated" {
+        LengthKind::NullTerminated
+    } else if let Ok(len) = len.parse() {
+        LengthKind::Literal(len)
+    } else if let Some((param_name, field_name)) = len.split_once("->")
+        && let Some(index) = get_param_index(params, param_name)
+    {
+        let param = &params[index];
+        let param_ty = &param.c_decl().ty;
+        let CType::Ptr { pointee, .. } = param_ty else {
+            panic!("expected pointer type, got {:?}", param_ty);
+        };
+        let CType::Base(base) = pointee.as_ref() else {
+            panic!("expected base type, got {:?}", pointee);
+        };
+
+        let struct_ty = structs
+            .iter()
+            .find(|ty| ty.name == base.name)
+            .unwrap_or_else(|| panic!("failed to find struct {}", base.name));
+
+        let field = struct_ty
+            .members
+            .iter()
+            .find(|field| field.c_decl.name == field_name)
+            .unwrap_or_else(|| panic!("failed to find field {}", field_name));
+
+        LengthKind::ParamField { index, field }
+    } else if let Some(index) = get_param_index(params, len) {
+        let param = &params[index];
+        LengthKind::Param {
+            index,
+            c_decl: param.c_decl(),
+        }
+    } else {
+        LengthKind::Unknown(len)
     }
 }

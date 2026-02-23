@@ -4,21 +4,18 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 pub type AHardwareBuffer = *const c_void;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImportAndroidHardwareBufferInfoANDROID {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub buffer: *mut AHardwareBuffer,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AndroidHardwareBufferUsageANDROID {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub android_hardware_buffer_usage: u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AndroidHardwareBufferPropertiesANDROID {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -26,14 +23,12 @@ pub struct AndroidHardwareBufferPropertiesANDROID {
     pub memory_type_bits: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MemoryGetAndroidHardwareBufferInfoANDROID {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub memory: DeviceMemory,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AndroidHardwareBufferFormatPropertiesANDROID {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -47,14 +42,12 @@ pub struct AndroidHardwareBufferFormatPropertiesANDROID {
     pub suggested_y_chroma_offset: ChromaLocation,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExternalFormatANDROID {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub external_format: u64,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct AndroidHardwareBufferFormatProperties2ANDROID {
     pub s_type: StructureType,
     pub p_next: *mut c_void,

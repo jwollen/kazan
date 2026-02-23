@@ -3,14 +3,12 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceBlendOperationAdvancedFeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub advanced_blend_coherent_operations: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceBlendOperationAdvancedPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -22,7 +20,6 @@ pub struct PhysicalDeviceBlendOperationAdvancedPropertiesEXT {
     pub advanced_blend_all_operations: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineColorBlendAdvancedStateCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -31,7 +28,7 @@ pub struct PipelineColorBlendAdvancedStateCreateInfoEXT {
     pub blend_overlap: BlendOverlapEXT,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct BlendOverlapEXT(i32);
 impl BlendOverlapEXT {
     pub const UNCORRELATED_EXT: Self = Self(0);

@@ -3,7 +3,6 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ValidationFlagsEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -11,7 +10,7 @@ pub struct ValidationFlagsEXT {
     pub p_disabled_validation_checks: *const ValidationCheckEXT,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ValidationCheckEXT(i32);
 impl ValidationCheckEXT {
     pub const ALL_EXT: Self = Self(0);

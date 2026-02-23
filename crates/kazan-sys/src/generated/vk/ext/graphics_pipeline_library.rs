@@ -3,14 +3,12 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub graphics_pipeline_library: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -18,7 +16,6 @@ pub struct PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT {
     pub graphics_pipeline_library_independent_interpolation_decoration: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct GraphicsPipelineLibraryCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,

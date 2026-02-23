@@ -11,13 +11,11 @@ pub const STD_VIDEO_VP9_SEG_LVL_MAX: u32 = 4;
 pub const STD_VIDEO_VP9_MAX_SEGMENTATION_TREE_PROBS: u32 = 7;
 pub const STD_VIDEO_VP9_MAX_SEGMENTATION_PRED_PROB: u32 = 3;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoVP9ColorConfigFlags {
     pub color_range: u32,
     pub reserved: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoVP9ColorConfig {
     pub flags: StdVideoVP9ColorConfigFlags,
     pub bit_depth: u8,
@@ -27,14 +25,12 @@ pub struct StdVideoVP9ColorConfig {
     pub color_space: StdVideoVP9ColorSpace,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoVP9LoopFilterFlags {
     pub loop_filter_delta_enabled: u32,
     pub loop_filter_delta_update: u32,
     pub reserved: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoVP9LoopFilter {
     pub flags: StdVideoVP9LoopFilterFlags,
     pub loop_filter_level: u8,
@@ -45,7 +41,6 @@ pub struct StdVideoVP9LoopFilter {
     pub loop_filter_mode_deltas: [i8; STD_VIDEO_VP9_LOOP_FILTER_ADJUSTMENTS as usize],
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoVP9SegmentationFlags {
     pub segmentation_update_map: u32,
     pub segmentation_temporal_update: u32,
@@ -54,7 +49,6 @@ pub struct StdVideoVP9SegmentationFlags {
     pub reserved: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StdVideoVP9Segmentation {
     pub flags: StdVideoVP9SegmentationFlags,
     pub segmentation_tree_probs: [u8; STD_VIDEO_VP9_MAX_SEGMENTATION_TREE_PROBS as usize],
@@ -64,7 +58,7 @@ pub struct StdVideoVP9Segmentation {
         [[i16; STD_VIDEO_VP9_SEG_LVL_MAX as usize]; STD_VIDEO_VP9_MAX_SEGMENTS as usize],
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoVP9Profile(i32);
 impl StdVideoVP9Profile {
     pub const _0: Self = Self(0);
@@ -74,7 +68,7 @@ impl StdVideoVP9Profile {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoVP9Level(i32);
 impl StdVideoVP9Level {
     pub const _1_0: Self = Self(0);
@@ -94,7 +88,7 @@ impl StdVideoVP9Level {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoVP9FrameType(i32);
 impl StdVideoVP9FrameType {
     pub const KEY: Self = Self(0);
@@ -102,7 +96,7 @@ impl StdVideoVP9FrameType {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoVP9ReferenceName(i32);
 impl StdVideoVP9ReferenceName {
     pub const INTRA_FRAME: Self = Self(0);
@@ -112,7 +106,7 @@ impl StdVideoVP9ReferenceName {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoVP9InterpolationFilter(i32);
 impl StdVideoVP9InterpolationFilter {
     pub const EIGHTTAP: Self = Self(0);
@@ -123,7 +117,7 @@ impl StdVideoVP9InterpolationFilter {
     pub const INVALID: Self = Self(0x7FFFFFFF);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StdVideoVP9ColorSpace(i32);
 impl StdVideoVP9ColorSpace {
     pub const UNKNOWN: Self = Self(0);

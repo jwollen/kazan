@@ -3,47 +3,41 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct RenderPassCreationControlEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub disallow_merging: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct RenderPassCreationFeedbackInfoEXT {
     pub post_merge_subpass_count: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct RenderPassCreationFeedbackCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_render_pass_feedback: *mut RenderPassCreationFeedbackInfoEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct RenderPassSubpassFeedbackInfoEXT {
     pub subpass_merge_status: SubpassMergeStatusEXT,
     pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
     pub post_merge_index: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct RenderPassSubpassFeedbackCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_subpass_feedback: *mut RenderPassSubpassFeedbackInfoEXT,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceSubpassMergeFeedbackFeaturesEXT {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub subpass_merge_feedback: Bool32,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct SubpassMergeStatusEXT(i32);
 impl SubpassMergeStatusEXT {
     pub const MERGED_EXT: Self = Self(0);

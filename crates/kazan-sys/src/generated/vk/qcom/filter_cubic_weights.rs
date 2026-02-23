@@ -3,28 +3,25 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceCubicWeightsFeaturesQCOM {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub selectable_cubic_weights: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SamplerCubicWeightsCreateInfoQCOM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub cubic_weights: CubicFilterWeightsQCOM,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BlitImageCubicWeightsInfoQCOM {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub cubic_weights: CubicFilterWeightsQCOM,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct CubicFilterWeightsQCOM(i32);
 impl CubicFilterWeightsQCOM {
     pub const CATMULL_ROM_QCOM: Self = Self(0);

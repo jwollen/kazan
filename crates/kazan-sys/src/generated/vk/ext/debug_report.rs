@@ -3,19 +3,18 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct DebugReportCallbackEXT(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DebugReportCallbackCreateInfoEXT {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: DebugReportFlagsEXT,
-    pub pfn_callback: PFN_vkDebugReportCallbackEXT,
+    pub pfn_callback: Option<PFN_vkDebugReportCallbackEXT>,
     pub p_user_data: *mut c_void,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DebugReportObjectTypeEXT(i32);
 impl DebugReportObjectTypeEXT {
     pub const UNKNOWN_EXT: Self = Self(0);

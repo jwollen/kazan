@@ -3,14 +3,12 @@ use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceClusterAccelerationStructureFeaturesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub cluster_acceleration_structure: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceClusterAccelerationStructurePropertiesNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -24,44 +22,37 @@ pub struct PhysicalDeviceClusterAccelerationStructurePropertiesNV {
     pub max_cluster_geometry_index: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct StridedDeviceAddressNV {
     pub start_address: DeviceAddress,
     pub stride_in_bytes: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct RayTracingPipelineClusterAccelerationStructureCreateInfoNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub allow_cluster_acceleration_structure: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV {
     pub geometry_index: u32,
     pub reserved: u32,
     pub geometry_flags: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ClusterAccelerationStructureMoveObjectsInfoNV {
     pub src_acceleration_structure: DeviceAddress,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ClusterAccelerationStructureBuildClustersBottomLevelInfoNV {
     pub cluster_references_count: u32,
     pub cluster_references_stride: u32,
     pub cluster_references: DeviceAddress,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ClusterAccelerationStructureGetTemplateIndicesInfoNV {
     pub cluster_template_address: DeviceAddress,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ClusterAccelerationStructureBuildTriangleClusterInfoNV {
     pub cluster_id: u32,
     pub cluster_flags: ClusterAccelerationStructureClusterFlagsNV,
@@ -83,7 +74,6 @@ pub struct ClusterAccelerationStructureBuildTriangleClusterInfoNV {
     pub opacity_micromap_index_buffer: DeviceAddress,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV {
     pub cluster_id: u32,
     pub cluster_flags: ClusterAccelerationStructureClusterFlagsNV,
@@ -106,7 +96,6 @@ pub struct ClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV {
     pub instantiation_bounding_box_limit: DeviceAddress,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ClusterAccelerationStructureInstantiateClusterInfoNV {
     pub cluster_id_offset: u32,
     pub geometry_index_offset: u32,
@@ -115,7 +104,6 @@ pub struct ClusterAccelerationStructureInstantiateClusterInfoNV {
     pub vertex_buffer: StridedDeviceAddressNV,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ClusterAccelerationStructureClustersBottomLevelInputNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -123,7 +111,6 @@ pub struct ClusterAccelerationStructureClustersBottomLevelInputNV {
     pub max_cluster_count_per_acceleration_structure: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ClusterAccelerationStructureTriangleClusterInputNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -137,7 +124,6 @@ pub struct ClusterAccelerationStructureTriangleClusterInputNV {
     pub min_position_truncate_bit_count: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ClusterAccelerationStructureMoveObjectsInputNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -146,7 +132,6 @@ pub struct ClusterAccelerationStructureMoveObjectsInputNV {
     pub max_moved_bytes: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ClusterAccelerationStructureInputInfoNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -157,7 +142,6 @@ pub struct ClusterAccelerationStructureInputInfoNV {
     pub op_input: ClusterAccelerationStructureOpInputNV,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ClusterAccelerationStructureCommandsInfoNV {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -178,7 +162,7 @@ pub union ClusterAccelerationStructureOpInputNV {
     pub p_move_objects: *mut ClusterAccelerationStructureMoveObjectsInputNV,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ClusterAccelerationStructureTypeNV(i32);
 impl ClusterAccelerationStructureTypeNV {
     pub const CLUSTERS_BOTTOM_LEVEL_NV: Self = Self(0);
@@ -186,7 +170,7 @@ impl ClusterAccelerationStructureTypeNV {
     pub const TRIANGLE_CLUSTER_TEMPLATE_NV: Self = Self(2);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ClusterAccelerationStructureOpTypeNV(i32);
 impl ClusterAccelerationStructureOpTypeNV {
     pub const MOVE_OBJECTS_NV: Self = Self(0);
@@ -197,7 +181,7 @@ impl ClusterAccelerationStructureOpTypeNV {
     pub const GET_CLUSTER_TEMPLATE_INDICES_NV: Self = Self(5);
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ClusterAccelerationStructureOpModeNV(i32);
 impl ClusterAccelerationStructureOpModeNV {
     pub const IMPLICIT_DESTINATIONS_NV: Self = Self(0);

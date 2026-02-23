@@ -6,43 +6,38 @@ pub const MAX_DEVICE_GROUP_SIZE: u32 = 32;
 pub const LUID_SIZE: u32 = 8;
 pub const QUEUE_FAMILY_EXTERNAL: u32 = !1;
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct DescriptorUpdateTemplate(u64);
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default)]
 pub struct SamplerYcbcrConversion(u64);
 pub type PhysicalDeviceVariablePointerFeatures = PhysicalDeviceVariablePointersFeatures;
 pub type PhysicalDeviceShaderDrawParameterFeatures = PhysicalDeviceShaderDrawParametersFeatures;
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceFeatures2 {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub features: PhysicalDeviceFeatures,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceProperties2 {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub properties: PhysicalDeviceProperties,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct FormatProperties2 {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub format_properties: FormatProperties,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageFormatProperties2 {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub image_format_properties: ImageFormatProperties,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceImageFormatInfo2 {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -53,28 +48,24 @@ pub struct PhysicalDeviceImageFormatInfo2 {
     pub flags: ImageCreateFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct QueueFamilyProperties2 {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub queue_family_properties: QueueFamilyProperties,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMemoryProperties2 {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub memory_properties: PhysicalDeviceMemoryProperties,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SparseImageFormatProperties2 {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub properties: SparseImageFormatProperties,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceSparseImageFormatInfo2 {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -85,7 +76,6 @@ pub struct PhysicalDeviceSparseImageFormatInfo2 {
     pub tiling: ImageTiling,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceVariablePointersFeatures {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -93,28 +83,24 @@ pub struct PhysicalDeviceVariablePointersFeatures {
     pub variable_pointers: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExternalMemoryProperties {
     pub external_memory_features: ExternalMemoryFeatureFlags,
     pub export_from_imported_handle_types: ExternalMemoryHandleTypeFlags,
     pub compatible_handle_types: ExternalMemoryHandleTypeFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceExternalImageFormatInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub handle_type: ExternalMemoryHandleTypeFlagBits,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExternalImageFormatProperties {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub external_memory_properties: ExternalMemoryProperties,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceExternalBufferInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -123,14 +109,12 @@ pub struct PhysicalDeviceExternalBufferInfo {
     pub handle_type: ExternalMemoryHandleTypeFlagBits,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExternalBufferProperties {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub external_memory_properties: ExternalMemoryProperties,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceIDProperties {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -141,35 +125,30 @@ pub struct PhysicalDeviceIDProperties {
     pub device_luid_valid: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExternalMemoryImageCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub handle_types: ExternalMemoryHandleTypeFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExternalMemoryBufferCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub handle_types: ExternalMemoryHandleTypeFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExportMemoryAllocateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub handle_types: ExternalMemoryHandleTypeFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceExternalSemaphoreInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub handle_type: ExternalSemaphoreHandleTypeFlagBits,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExternalSemaphoreProperties {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -178,21 +157,18 @@ pub struct ExternalSemaphoreProperties {
     pub external_semaphore_features: ExternalSemaphoreFeatureFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExportSemaphoreCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub handle_types: ExternalSemaphoreHandleTypeFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceExternalFenceInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub handle_type: ExternalFenceHandleTypeFlagBits,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExternalFenceProperties {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -201,14 +177,12 @@ pub struct ExternalFenceProperties {
     pub external_fence_features: ExternalFenceFeatureFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ExportFenceCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub handle_types: ExternalFenceHandleTypeFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMultiviewFeatures {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -217,7 +191,6 @@ pub struct PhysicalDeviceMultiviewFeatures {
     pub multiview_tessellation_shader: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMultiviewProperties {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -225,7 +198,6 @@ pub struct PhysicalDeviceMultiviewProperties {
     pub max_multiview_instance_index: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct RenderPassMultiviewCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -237,7 +209,6 @@ pub struct RenderPassMultiviewCreateInfo {
     pub p_correlation_masks: *const u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceGroupProperties {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -246,7 +217,6 @@ pub struct PhysicalDeviceGroupProperties {
     pub subset_allocation: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MemoryAllocateFlagsInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -254,7 +224,6 @@ pub struct MemoryAllocateFlagsInfo {
     pub device_mask: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BindBufferMemoryInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -263,7 +232,6 @@ pub struct BindBufferMemoryInfo {
     pub memory_offset: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BindBufferMemoryDeviceGroupInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -271,7 +239,6 @@ pub struct BindBufferMemoryDeviceGroupInfo {
     pub p_device_indices: *const u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BindImageMemoryInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -280,7 +247,6 @@ pub struct BindImageMemoryInfo {
     pub memory_offset: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BindImageMemoryDeviceGroupInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -290,7 +256,6 @@ pub struct BindImageMemoryDeviceGroupInfo {
     pub p_split_instance_bind_regions: *const Rect2D,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DeviceGroupRenderPassBeginInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -299,14 +264,12 @@ pub struct DeviceGroupRenderPassBeginInfo {
     pub p_device_render_areas: *const Rect2D,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DeviceGroupCommandBufferBeginInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub device_mask: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DeviceGroupSubmitInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -318,7 +281,6 @@ pub struct DeviceGroupSubmitInfo {
     pub p_signal_semaphore_device_indices: *const u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DeviceGroupBindSparseInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -326,7 +288,6 @@ pub struct DeviceGroupBindSparseInfo {
     pub memory_device_index: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DeviceGroupDeviceCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -334,7 +295,6 @@ pub struct DeviceGroupDeviceCreateInfo {
     pub p_physical_devices: *const PhysicalDevice,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorUpdateTemplateEntry {
     pub dst_binding: u32,
     pub dst_array_element: u32,
@@ -344,7 +304,6 @@ pub struct DescriptorUpdateTemplateEntry {
     pub stride: usize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorUpdateTemplateCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -358,14 +317,12 @@ pub struct DescriptorUpdateTemplateCreateInfo {
     pub set: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct InputAttachmentAspectReference {
     pub subpass: u32,
     pub input_attachment_index: u32,
     pub aspect_mask: ImageAspectFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct RenderPassInputAttachmentAspectCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -373,7 +330,6 @@ pub struct RenderPassInputAttachmentAspectCreateInfo {
     pub p_aspect_references: *const InputAttachmentAspectReference,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDevice16BitStorageFeatures {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -383,7 +339,6 @@ pub struct PhysicalDevice16BitStorageFeatures {
     pub storage_input_output16: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceSubgroupProperties {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -393,49 +348,42 @@ pub struct PhysicalDeviceSubgroupProperties {
     pub quad_operations_in_all_stages: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BufferMemoryRequirementsInfo2 {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub buffer: Buffer,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageMemoryRequirementsInfo2 {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub image: Image,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageSparseMemoryRequirementsInfo2 {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub image: Image,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MemoryRequirements2 {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub memory_requirements: MemoryRequirements,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SparseImageMemoryRequirements2 {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub memory_requirements: SparseImageMemoryRequirements,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDevicePointClippingProperties {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub point_clipping_behavior: PointClippingBehavior,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MemoryDedicatedRequirements {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -443,7 +391,6 @@ pub struct MemoryDedicatedRequirements {
     pub requires_dedicated_allocation: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct MemoryDedicatedAllocateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -451,28 +398,24 @@ pub struct MemoryDedicatedAllocateInfo {
     pub buffer: Buffer,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImageViewUsageCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub usage: ImageUsageFlags,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PipelineTessellationDomainOriginStateCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub domain_origin: TessellationDomainOrigin,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SamplerYcbcrConversionInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub conversion: SamplerYcbcrConversion,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SamplerYcbcrConversionCreateInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -486,56 +429,48 @@ pub struct SamplerYcbcrConversionCreateInfo {
     pub force_explicit_reconstruction: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BindImagePlaneMemoryInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub plane_aspect: ImageAspectFlagBits,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ImagePlaneMemoryRequirementsInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub plane_aspect: ImageAspectFlagBits,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceSamplerYcbcrConversionFeatures {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub sampler_ycbcr_conversion: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct SamplerYcbcrConversionImageFormatProperties {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub combined_image_sampler_descriptor_count: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ProtectedSubmitInfo {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub protected_submit: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceProtectedMemoryFeatures {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub protected_memory: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceProtectedMemoryProperties {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub protected_no_fault: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DeviceQueueInfo2 {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -544,7 +479,6 @@ pub struct DeviceQueueInfo2 {
     pub queue_index: u32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMaintenance3Properties {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -552,21 +486,19 @@ pub struct PhysicalDeviceMaintenance3Properties {
     pub max_memory_allocation_size: DeviceSize,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct DescriptorSetLayoutSupport {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub supported: Bool32,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderDrawParametersFeatures {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub shader_draw_parameters: Bool32,
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DescriptorUpdateTemplateType(i32);
 impl DescriptorUpdateTemplateType {
     pub const DESCRIPTOR_SET: Self = Self(0);
@@ -575,7 +507,7 @@ impl DescriptorUpdateTemplateType {
     pub const PUSH_DESCRIPTORS_KHR: Self = Self::PUSH_DESCRIPTORS;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PointClippingBehavior(i32);
 impl PointClippingBehavior {
     pub const ALL_CLIP_PLANES: Self = Self(0);
@@ -584,7 +516,7 @@ impl PointClippingBehavior {
     pub const USER_CLIP_PLANES_ONLY_KHR: Self = Self::USER_CLIP_PLANES_ONLY;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct TessellationDomainOrigin(i32);
 impl TessellationDomainOrigin {
     pub const UPPER_LEFT: Self = Self(0);
@@ -593,7 +525,7 @@ impl TessellationDomainOrigin {
     pub const UPPER_LEFT_KHR: Self = Self::UPPER_LEFT;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct SamplerYcbcrModelConversion(i32);
 impl SamplerYcbcrModelConversion {
     pub const RGB_IDENTITY: Self = Self(0);
@@ -608,7 +540,7 @@ impl SamplerYcbcrModelConversion {
     pub const YCBCR_IDENTITY_KHR: Self = Self::YCBCR_IDENTITY;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct SamplerYcbcrRange(i32);
 impl SamplerYcbcrRange {
     pub const ITU_FULL: Self = Self(0);
@@ -617,7 +549,7 @@ impl SamplerYcbcrRange {
     pub const ITU_NARROW_KHR: Self = Self::ITU_NARROW;
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ChromaLocation(i32);
 impl ChromaLocation {
     pub const COSITED_EVEN: Self = Self(0);
