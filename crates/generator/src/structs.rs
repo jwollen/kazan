@@ -1,6 +1,6 @@
 use crate::{
-    LengthKind, cdecl::CType, ctype_to_rust_type, get_len_kind, normalize_name, normalize_ty_name,
-    xml,
+    LengthKind, analysis::Analysis, cdecl::CType, ctype_to_rust_type, get_len_kind, normalize_name,
+    normalize_ty_name, xml,
 };
 
 struct StructInfo<'a> {
@@ -66,11 +66,8 @@ fn analyze_struct<'a>(structs: &'a [xml::Structure], ty: &'a xml::Structure) -> 
     }
 }
 
-pub fn write_struct(
-    file: &mut impl std::io::Write,
-    structs: &[xml::Structure],
-    ty: &xml::Structure,
-) {
+pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xml::Structure) {
+    let structs = &analysis.registry().structs;
     let info = analyze_struct(structs, ty);
 
     writeln!(

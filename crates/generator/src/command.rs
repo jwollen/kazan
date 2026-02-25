@@ -1,7 +1,5 @@
 use crate::{
-    LengthKind,
-    cdecl::{CDecl, CType},
-    ctype_to_rust_type, get_len_kind, normalize_name, xml,
+    LengthKind, analysis::Analysis, cdecl::{CDecl, CType}, ctype_to_rust_type, get_len_kind, normalize_name, xml
 };
 use heck::ToSnakeCase;
 use itertools::Itertools;
@@ -308,9 +306,10 @@ fn convert_param_type(ty: &CType, len: Option<&LengthKind<'_>>, optional: (bool,
 
 pub fn write_command_wrapper(
     file: &mut impl std::io::Write,
+    analysis: &Analysis,
     info: &CommandInfo<'_>,
-    structs: &[xml::Structure],
 ) {
+    let structs = &analysis.registry().structs;
     let wrapper = analyze_command(info, structs);
 
     writeln!(file, "pub unsafe fn {}(&self,", wrapper.name).unwrap();

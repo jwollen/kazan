@@ -24,7 +24,7 @@ mod xml;
 fn main() {
     let analysis = analysis::Analysis::new("crates/generator/external/Vulkan-Headers");
 
-    generate(analysis.registry());
+    generate(&analysis);
 }
 
 #[derive(Copy, Clone)]
@@ -62,7 +62,8 @@ struct VersionInfo<'a> {
     features: Vec<&'a xml::Feature>,
 }
 
-fn generate(registry: &xml::Registry) {
+fn generate(analysis: &analysis::Analysis) {
+    let registry = analysis.registry();
     let trailing_number = regex::Regex::new(r"(\d+)$").unwrap();
 
     let sys_output_dir = "crates/kazan-sys/src/generated/vk";
@@ -361,7 +362,7 @@ fn generate(registry: &xml::Registry) {
                 .iter()
                 .filter(|ty| new_items.contains(ty.name));
             for ty in new_structs {
-                write_struct(&mut sys_file, &registry.structs, ty);
+                write_struct(&mut sys_file, analysis, ty);
             }
 
             let unions = registry
@@ -820,7 +821,7 @@ fn generate(registry: &xml::Registry) {
                 writeln!(file, "impl {} {{", fn_type_name).unwrap();
                 for command_group in &command_groups {
                     for command in &command_group.commands {
-                        write_command_wrapper(&mut file, command, &registry.structs);
+                        write_command_wrapper(&mut file, analysis, command);
                     }
                 }
                 writeln!(file, "}}").unwrap();
