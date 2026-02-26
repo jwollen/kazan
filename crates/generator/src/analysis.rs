@@ -11,6 +11,7 @@ use crate::{cdecl::CType, xml};
 #[derive(Debug)]
 pub struct Analysis {
     registry: xml::Registry,
+    custom_types: CustomTypes,
     type_refs: TypeRefs,
     type_infos: BTreeMap<&'static str, TypeInfo>,
 }
@@ -38,11 +39,13 @@ impl Analysis {
             registry.merge(xml);
         }
 
-        let type_refs = build_type_refs(&registry);
-        let type_infos = compute_type_infos(&registry, &type_refs);
+        let custom_types = custom_types();
+        let type_refs = build_type_refs(&registry, &custom_types);
+        let type_infos = compute_type_infos(&registry, &custom_types, &type_refs);
 
         Self {
             registry,
+            custom_types,
             type_refs,
             type_infos,
         }
@@ -56,6 +59,7 @@ impl Analysis {
     pub fn types(&self) -> Types {
         Types {
             registry: &self.registry,
+            custom_types: &self.custom_types,
             type_refs: &self.type_refs,
         }
     }
@@ -74,9 +78,11 @@ pub enum TypeKind<'a> {
     Handle(&'a xml::Handle),
     BaseType(&'a xml::BaseType),
     FuncPointer(&'a xml::FuncPointer),
+
     Alias(&'a xml::Alias),
+
     Primitive(PrimitiveType),
-    Foreign(&'static str),
+    Custom(&'a CType<'static>),
 }
 
 #[derive(Debug)]
@@ -96,13 +102,14 @@ enum TypeKindRef {
     HandleAlias(usize),
 
     Primitive(PrimitiveType),
-    Foreign(&'static str),
+    Custom(usize),
 }
 
 type TypeRefs = BTreeMap<&'static str, TypeKindRef>;
 
 pub struct Types<'a> {
     registry: &'a xml::Registry,
+    custom_types: &'a CustomTypes,
     type_refs: &'a TypeRefs,
 }
 
@@ -138,12 +145,12 @@ impl<'a> Types<'a> {
                 Some(TypeKind::Alias(&self.registry.handle_aliases[index]))
             }
             TypeKindRef::Primitive(primitive) => Some(TypeKind::Primitive(primitive)),
-            TypeKindRef::Foreign(name) => Some(TypeKind::Foreign(name)),
+            TypeKindRef::Custom(index) => Some(TypeKind::Custom(&self.custom_types[index].1)),
         }
     }
 }
 
-fn build_type_refs(registry: &xml::Registry) -> TypeRefs {
+fn build_type_refs(registry: &xml::Registry, custom_types: &CustomTypes) -> TypeRefs {
     let mut types = BTreeMap::new();
 
     types.extend(
@@ -225,6 +232,13 @@ fn build_type_refs(registry: &xml::Registry) -> TypeRefs {
             .map(|(index, ty)| (ty.name, TypeKindRef::HandleAlias(index))),
     );
 
+    types.extend(
+        custom_types
+            .iter()
+            .enumerate()
+            .map(|(index, ty)| (ty.0, TypeKindRef::Custom(index))),
+    );
+
     types.extend([
         ("int8_t", TypeKindRef::Primitive(PrimitiveType::Int8)),
         ("uint8_t", TypeKindRef::Primitive(PrimitiveType::Uint8)),
@@ -241,14 +255,12 @@ fn build_type_refs(registry: &xml::Registry) -> TypeRefs {
         ("void", TypeKindRef::Primitive(PrimitiveType::Void)),
         ("char", TypeKindRef::Primitive(PrimitiveType::Char)),
         ("int", TypeKindRef::Primitive(PrimitiveType::Int)),
+        ("unsigned int", TypeKindRef::Primitive(PrimitiveType::Uint)),
+        (
+            "unsigned long",
+            TypeKindRef::Primitive(PrimitiveType::Ulong),
+        ),
     ]);
-
-    types.extend(
-        FOREIGN_TYPES
-            .iter()
-            .copied()
-            .map(|(name, _)| (name, TypeKindRef::Foreign(name))),
-    );
 
     types
 }
@@ -257,10 +269,10 @@ pub type TypeInfos = BTreeMap<&'static str, TypeInfo>;
 
 #[derive(Debug, Clone, Copy)]
 pub struct TypeInfo {
-    default: bool,
-    clone: bool,
-    pod: bool,
-    lifetime: bool,
+    pub default: bool,
+    pub clone: bool,
+    pub pod: bool,
+    pub lifetime: bool,
 }
 
 impl TypeInfo {
@@ -268,6 +280,13 @@ impl TypeInfo {
         default: true,
         clone: true,
         pod: true,
+        lifetime: false,
+    };
+
+    const OPAQUE: TypeInfo = TypeInfo {
+        default: false,
+        clone: false,
+        pod: false,
         lifetime: false,
     };
 
@@ -302,9 +321,14 @@ impl TypeInfo {
     }
 }
 
-fn compute_type_infos(registry: &xml::Registry, type_refs: &TypeRefs) -> TypeInfos {
+fn compute_type_infos(
+    registry: &xml::Registry,
+    custom_types: &CustomTypes,
+    type_refs: &TypeRefs,
+) -> TypeInfos {
     let types = Types {
         registry,
+        custom_types,
         type_refs,
     };
 
@@ -343,7 +367,7 @@ fn compute_type_infos(registry: &xml::Registry, type_refs: &TypeRefs) -> TypeInf
                 for member in &ty.members {
                     let member_ty = &member.c_decl.ty;
                     let member_ty_info = get_type_info(&types, &type_infos, member_ty).unwrap();
-                    type_info.merge(member_ty_info);
+                    type_info.merge(&member_ty_info);
                 }
 
                 type_infos.insert(ty_name, type_info);
@@ -367,11 +391,15 @@ fn get_type_info<'a>(
     types: &Types<'a>,
     type_infos: &'a BTreeMap<&'static str, TypeInfo>,
     ty: &CType,
-) -> Option<&'a TypeInfo> {
+) -> Option<TypeInfo> {
     match ty {
         CType::Base(base) => get_base_type_info(types, type_infos, base.name),
-        CType::Array { element, .. } => get_type_info(types, type_infos, element),
-        CType::Ptr { .. } => Some(&TypeInfo::POINTER),
+        CType::Array { element, .. } => {
+            let mut info = get_type_info(types, type_infos, element)?;
+            info.default = false;
+            Some(info)
+        }
+        CType::Ptr { .. } => Some(TypeInfo::POINTER),
         CType::Func { .. } => todo!(),
     }
 }
@@ -380,38 +408,22 @@ fn get_base_type_info<'a>(
     types: &Types<'a>,
     type_infos: &'a BTreeMap<&'static str, TypeInfo>,
     type_name: &str,
-) -> Option<&'a TypeInfo> {
+) -> Option<TypeInfo> {
     match &types.get(type_name)? {
         TypeKind::Alias(alias) => get_base_type_info(types, type_infos, alias.alias),
-        TypeKind::Struct(_) | TypeKind::Union(_) => type_infos.get(type_name),
-        TypeKind::EnumType(_) => Some(&TypeInfo::POD),
-        TypeKind::BitmaskType(_) => Some(&TypeInfo::POD),
-        TypeKind::Handle(_) => Some(&TypeInfo::POD),
-        TypeKind::FuncPointer(_) => Some(&TypeInfo::FN_POINTER),
-        TypeKind::BaseType(_) => Some(&TypeInfo::POD),
-        TypeKind::Primitive(_) => Some(&TypeInfo::POD),
-        TypeKind::Foreign(_) => Some(&TypeInfo::POD),
+        TypeKind::BaseType(base) => match base.ty {
+            Some(ty) => get_base_type_info(types, type_infos, &ty),
+            None => Some(TypeInfo::OPAQUE),
+        },
+        TypeKind::Struct(_) | TypeKind::Union(_) => type_infos.get(type_name).copied(),
+        TypeKind::EnumType(_) => Some(TypeInfo::POD),
+        TypeKind::BitmaskType(_) => Some(TypeInfo::POD),
+        TypeKind::Handle(_) => Some(TypeInfo::POD),
+        TypeKind::FuncPointer(_) => Some(TypeInfo::FN_POINTER),
+        TypeKind::Primitive(PrimitiveType::Void) => Some(TypeInfo::OPAQUE),
+        TypeKind::Primitive(_) => Some(TypeInfo::POD),
+        TypeKind::Custom(ty) => get_type_info(types, type_infos, ty),
     }
-}
-
-fn is_opaque_type(ty: &str) -> bool {
-    matches!(
-        ty,
-        "void"
-            | "wl_display"
-            | "wl_surface"
-            | "Display"
-            | "xcb_connection_t"
-            | "ANativeWindow"
-            | "AHardwareBuffer"
-            | "CAMetalLayer"
-            | "IDirectFB"
-            | "IDirectFBSurface"
-            | "_screen_buffer"
-            | "_screen_context"
-            | "_screen_window"
-            | "SECURITY_ATTRIBUTES"
-    )
 }
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
@@ -431,36 +443,69 @@ pub enum PrimitiveType {
     Void,
     Char,
     Int,
+    Uint,
+    Ulong,
 }
 
-const FOREIGN_TYPES: &[(&'static str, &'static str)] = &[
-    ("VisualID", "c_uint"),
-    ("Display", "c_void"),
-    ("Window", "c_ulong"),
-    ("RROutput", "c_ulong"),
-    ("wl_display", "c_void"),
-    ("wl_surface", "c_void"),
-    ("HANDLE", "isize"),
-    ("HINSTANCE", "HANDLE"),
-    ("HWND", "HANDLE"),
-    ("HMONITOR", "HANDLE"),
-    ("DWORD", "c_ulong"),
-    ("LPCWSTR", "*const u16"),
-    ("xcb_connection_t", "c_void"),
-    ("xcb_window_t", "u32"),
-    ("xcb_visualid_t", "u32"),
-    ("SECURITY_ATTRIBUTES", "c_void"),
-    ("IDirectFB", "c_void"),
-    ("IDirectFBSurface", "c_void"),
-    ("zx_handle_t", "u32"),
-    ("GgpStreamDescriptor", "c_int"),
-    ("GgpFrameToken", "c_int"),
-    ("_screen_buffer", "c_void"),
-    ("_screen_context", "c_void"),
-    ("_screen_window", "c_void"),
-    ("NvSciSyncAttrList", "*const c_void"),
-    ("NvSciSyncObj", "*const c_void"),
-    ("NvSciSyncFence", "*c_void"),
-    ("NvSciBufAttrList", "*const c_void"),
-    ("NvSciBufObj", "*const c_void"),
-];
+const fn ctype(base: &str) -> CType<'_> {
+    CType::Base(crate::cdecl::CBaseType {
+        struct_tag: false,
+        name: base,
+    })
+}
+
+fn c_ptr_type(pointee: CType<'static>, is_const: bool) -> CType<'_> {
+    CType::Ptr {
+        implicit_for_decay: false,
+        is_const,
+        pointee: Box::new(pointee),
+    }
+}
+
+impl CType<'_> {
+    pub const UINT16_T: CType<'static> = ctype("uint16_t");
+    pub const UINT32_T: CType<'static> = ctype("uint32_t");
+    pub const ISIZE_T: CType<'static> = ctype("isize_t");
+    pub const INT: CType<'static> = ctype("int");
+    pub const UINT: CType<'static> = ctype("unsigned int");
+    pub const ULONG: CType<'static> = ctype("unsigned long");
+    pub const HANDLE: CType<'static> = ctype("HANDLE");
+}
+
+type CustomTypes = Vec<(&'static str, CType<'static>)>;
+
+fn custom_types() -> CustomTypes {
+    [
+        ("VisualID", CType::UINT),
+        ("Display", CType::VOID),
+        ("Window", CType::ULONG),
+        ("RROutput", CType::ULONG),
+        ("wl_display", CType::VOID),
+        ("wl_surface", CType::VOID),
+        ("HANDLE", CType::ISIZE_T),
+        ("HINSTANCE", CType::HANDLE),
+        ("HWND", CType::HANDLE),
+        ("HMONITOR", CType::HANDLE),
+        ("DWORD", CType::ULONG),
+        ("LPCWSTR", c_ptr_type(CType::UINT16_T, true)),
+        ("xcb_connection_t", CType::VOID),
+        ("xcb_window_t", CType::UINT32_T),
+        ("xcb_visualid_t", CType::UINT32_T),
+        ("SECURITY_ATTRIBUTES", CType::VOID),
+        ("IDirectFB", CType::VOID),
+        ("IDirectFBSurface", CType::VOID),
+        ("zx_handle_t", CType::UINT32_T),
+        ("GgpStreamDescriptor", CType::INT),
+        ("GgpFrameToken", CType::INT),
+        ("_screen_buffer", CType::VOID),
+        ("_screen_context", CType::VOID),
+        ("_screen_window", CType::VOID),
+        ("NvSciSyncAttrList", c_ptr_type(CType::VOID, true)),
+        ("NvSciSyncObj", c_ptr_type(CType::VOID, true)),
+        ("NvSciSyncFence", c_ptr_type(CType::VOID, false)),
+        ("NvSciBufAttrList", c_ptr_type(CType::VOID, true)),
+        ("NvSciBufObj", c_ptr_type(CType::VOID, true)),
+    ]
+    .into_iter()
+    .collect()
+}
