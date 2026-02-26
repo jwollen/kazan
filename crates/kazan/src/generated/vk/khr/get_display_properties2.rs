@@ -33,10 +33,10 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
-    pub unsafe fn get_physical_device_display_properties2_khr(
+    pub unsafe fn get_physical_device_display_properties2_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
-        properties: impl ExtendUninit<DisplayProperties2KHR>,
+        properties: impl ExtendUninit<DisplayProperties2KHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(properties, |property_count, properties| {
@@ -54,10 +54,10 @@ impl InstanceFn {
             })
         }
     }
-    pub unsafe fn get_physical_device_display_plane_properties2_khr(
+    pub unsafe fn get_physical_device_display_plane_properties2_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
-        properties: impl ExtendUninit<DisplayPlaneProperties2KHR>,
+        properties: impl ExtendUninit<DisplayPlaneProperties2KHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(properties, |property_count, properties| {
@@ -75,11 +75,11 @@ impl InstanceFn {
             })
         }
     }
-    pub unsafe fn get_display_mode_properties2_khr(
+    pub unsafe fn get_display_mode_properties2_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
         display: DisplayKHR,
-        properties: impl ExtendUninit<DisplayModeProperties2KHR>,
+        properties: impl ExtendUninit<DisplayModeProperties2KHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(properties, |property_count, properties| {
@@ -101,8 +101,8 @@ impl InstanceFn {
     pub unsafe fn get_display_plane_capabilities2_khr(
         &self,
         physical_device: PhysicalDevice,
-        display_plane_info: &DisplayPlaneInfo2KHR,
-    ) -> crate::Result<DisplayPlaneCapabilities2KHR> {
+        display_plane_info: &DisplayPlaneInfo2KHR<'_>,
+    ) -> crate::Result<DisplayPlaneCapabilities2KHR<'_>> {
         unsafe {
             let mut capabilities = core::mem::MaybeUninit::uninit();
             let result = (self.get_display_plane_capabilities2_khr)(

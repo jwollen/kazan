@@ -2,25 +2,29 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDeviceRayTracingMotionBlurFeaturesNV {
+pub struct PhysicalDeviceRayTracingMotionBlurFeaturesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub ray_tracing_motion_blur: Bool32,
     pub ray_tracing_motion_blur_pipeline_trace_rays_indirect: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct AccelerationStructureGeometryMotionTrianglesDataNV {
+pub struct AccelerationStructureGeometryMotionTrianglesDataNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
-    pub vertex_data: DeviceOrHostAddressConstKHR,
+    pub vertex_data: DeviceOrHostAddressConstKHR<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct AccelerationStructureMotionInfoNV {
+pub struct AccelerationStructureMotionInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub max_instances: u32,
     pub flags: AccelerationStructureMotionInfoFlagsNV,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct SRTDataNV {
@@ -74,6 +78,11 @@ pub union AccelerationStructureMotionInstanceDataNV {
     pub matrix_motion_instance: AccelerationStructureMatrixMotionInstanceNV,
     pub srt_motion_instance: AccelerationStructureSRTMotionInstanceNV,
 }
+impl Default for AccelerationStructureMotionInstanceDataNV {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AccelerationStructureMotionInstanceTypeNV(i32);
@@ -84,13 +93,13 @@ impl AccelerationStructureMotionInstanceTypeNV {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct AccelerationStructureMotionInfoFlagsNV: Flags {
     }
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct AccelerationStructureMotionInstanceFlagsNV: Flags {
     }
 }

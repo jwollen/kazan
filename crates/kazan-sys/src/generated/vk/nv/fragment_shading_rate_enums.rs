@@ -2,27 +2,31 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDeviceFragmentShadingRateEnumsFeaturesNV {
+pub struct PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub fragment_shading_rate_enums: Bool32,
     pub supersample_fragment_shading_rates: Bool32,
     pub no_invocation_fragment_shading_rates: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceFragmentShadingRateEnumsPropertiesNV {
+pub struct PhysicalDeviceFragmentShadingRateEnumsPropertiesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_fragment_shading_rate_invocation_count: SampleCountFlagBits,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PipelineFragmentShadingRateEnumStateCreateInfoNV {
+pub struct PipelineFragmentShadingRateEnumStateCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub shading_rate_type: FragmentShadingRateTypeNV,
     pub shading_rate: FragmentShadingRateNV,
     pub combiner_ops: [FragmentShadingRateCombinerOpKHR; 2],
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

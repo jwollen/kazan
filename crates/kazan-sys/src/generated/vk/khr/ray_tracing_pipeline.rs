@@ -2,9 +2,10 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 pub const SHADER_UNUSED_KHR: u32 = !0;
 #[repr(C)]
-pub struct RayTracingShaderGroupCreateInfoKHR {
+pub struct RayTracingShaderGroupCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub ty: RayTracingShaderGroupTypeKHR,
@@ -13,26 +14,28 @@ pub struct RayTracingShaderGroupCreateInfoKHR {
     pub any_hit_shader: u32,
     pub intersection_shader: u32,
     pub p_shader_group_capture_replay_handle: *const c_void,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct RayTracingPipelineCreateInfoKHR {
+pub struct RayTracingPipelineCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineCreateFlags,
     pub stage_count: u32,
-    pub p_stages: *const PipelineShaderStageCreateInfo,
+    pub p_stages: *const PipelineShaderStageCreateInfo<'a>,
     pub group_count: u32,
-    pub p_groups: *const RayTracingShaderGroupCreateInfoKHR,
+    pub p_groups: *const RayTracingShaderGroupCreateInfoKHR<'a>,
     pub max_pipeline_ray_recursion_depth: u32,
-    pub p_library_info: *const PipelineLibraryCreateInfoKHR,
-    pub p_library_interface: *const RayTracingPipelineInterfaceCreateInfoKHR,
-    pub p_dynamic_state: *const PipelineDynamicStateCreateInfo,
+    pub p_library_info: *const PipelineLibraryCreateInfoKHR<'a>,
+    pub p_library_interface: *const RayTracingPipelineInterfaceCreateInfoKHR<'a>,
+    pub p_dynamic_state: *const PipelineDynamicStateCreateInfo<'a>,
     pub layout: PipelineLayout,
     pub base_pipeline_handle: Pipeline,
     pub base_pipeline_index: i32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceRayTracingPipelineFeaturesKHR {
+pub struct PhysicalDeviceRayTracingPipelineFeaturesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub ray_tracing_pipeline: Bool32,
@@ -40,9 +43,10 @@ pub struct PhysicalDeviceRayTracingPipelineFeaturesKHR {
     pub ray_tracing_pipeline_shader_group_handle_capture_replay_mixed: Bool32,
     pub ray_tracing_pipeline_trace_rays_indirect: Bool32,
     pub ray_traversal_primitive_culling: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceRayTracingPipelinePropertiesKHR {
+pub struct PhysicalDeviceRayTracingPipelinePropertiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub shader_group_handle_size: u32,
@@ -53,6 +57,7 @@ pub struct PhysicalDeviceRayTracingPipelinePropertiesKHR {
     pub max_ray_dispatch_invocation_count: u32,
     pub shader_group_handle_alignment: u32,
     pub max_ray_hit_attribute_size: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct StridedDeviceAddressRegionKHR {
@@ -67,11 +72,12 @@ pub struct TraceRaysIndirectCommandKHR {
     pub depth: u32,
 }
 #[repr(C)]
-pub struct RayTracingPipelineInterfaceCreateInfoKHR {
+pub struct RayTracingPipelineInterfaceCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub max_pipeline_ray_payload_size: u32,
     pub max_pipeline_ray_hit_attribute_size: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -125,8 +131,8 @@ pub type PFN_vkCreateRayTracingPipelinesKHR = unsafe extern "system" fn(
     deferred_operation: DeferredOperationKHR,
     pipeline_cache: PipelineCache,
     create_info_count: u32,
-    p_create_infos: *const RayTracingPipelineCreateInfoKHR,
-    p_allocator: *const AllocationCallbacks,
+    p_create_infos: *const RayTracingPipelineCreateInfoKHR<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_pipelines: *mut Pipeline,
 ) -> Result;
 pub type PFN_vkCmdTraceRaysIndirectKHR = unsafe extern "system" fn(

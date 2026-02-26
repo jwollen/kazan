@@ -43,8 +43,8 @@ impl DeviceFn {
     pub unsafe fn get_generated_commands_memory_requirements_nv(
         &self,
         device: Device,
-        info: &GeneratedCommandsMemoryRequirementsInfoNV,
-    ) -> MemoryRequirements2 {
+        info: &GeneratedCommandsMemoryRequirementsInfoNV<'_>,
+    ) -> MemoryRequirements2<'_> {
         unsafe {
             let mut memory_requirements = core::mem::MaybeUninit::uninit();
             (self.get_generated_commands_memory_requirements_nv)(
@@ -58,7 +58,7 @@ impl DeviceFn {
     pub unsafe fn cmd_preprocess_generated_commands_nv(
         &self,
         command_buffer: CommandBuffer,
-        generated_commands_info: &GeneratedCommandsInfoNV,
+        generated_commands_info: &GeneratedCommandsInfoNV<'_>,
     ) {
         unsafe {
             (self.cmd_preprocess_generated_commands_nv)(command_buffer, generated_commands_info)
@@ -68,7 +68,7 @@ impl DeviceFn {
         &self,
         command_buffer: CommandBuffer,
         is_preprocessed: Bool32,
-        generated_commands_info: &GeneratedCommandsInfoNV,
+        generated_commands_info: &GeneratedCommandsInfoNV<'_>,
     ) {
         unsafe {
             (self.cmd_execute_generated_commands_nv)(
@@ -97,8 +97,8 @@ impl DeviceFn {
     pub unsafe fn create_indirect_commands_layout_nv(
         &self,
         device: Device,
-        create_info: &IndirectCommandsLayoutCreateInfoNV,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &IndirectCommandsLayoutCreateInfoNV<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<IndirectCommandsLayoutNV> {
         unsafe {
             let mut indirect_commands_layout = core::mem::MaybeUninit::uninit();
@@ -119,7 +119,7 @@ impl DeviceFn {
         &self,
         device: Device,
         indirect_commands_layout: IndirectCommandsLayoutNV,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
             (self.destroy_indirect_commands_layout_nv)(

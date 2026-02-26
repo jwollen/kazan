@@ -23,8 +23,8 @@ impl InstanceFn {
     pub unsafe fn create_android_surface_khr(
         &self,
         instance: Instance,
-        create_info: &AndroidSurfaceCreateInfoKHR,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &AndroidSurfaceCreateInfoKHR<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();

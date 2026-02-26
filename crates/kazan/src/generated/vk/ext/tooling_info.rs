@@ -20,10 +20,10 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
-    pub unsafe fn get_physical_device_tool_properties_ext(
+    pub unsafe fn get_physical_device_tool_properties_ext<'a>(
         &self,
         physical_device: PhysicalDevice,
-        tool_properties: impl ExtendUninit<PhysicalDeviceToolProperties>,
+        tool_properties: impl ExtendUninit<PhysicalDeviceToolProperties<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(tool_properties, |tool_count, tool_properties| {

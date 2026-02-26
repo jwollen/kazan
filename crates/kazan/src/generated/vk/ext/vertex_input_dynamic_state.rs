@@ -23,8 +23,8 @@ impl DeviceFn {
     pub unsafe fn cmd_set_vertex_input_ext(
         &self,
         command_buffer: CommandBuffer,
-        vertex_binding_descriptions: &[VertexInputBindingDescription2EXT],
-        vertex_attribute_descriptions: &[VertexInputAttributeDescription2EXT],
+        vertex_binding_descriptions: &[VertexInputBindingDescription2EXT<'_>],
+        vertex_attribute_descriptions: &[VertexInputAttributeDescription2EXT<'_>],
     ) {
         unsafe {
             (self.cmd_set_vertex_input_ext)(

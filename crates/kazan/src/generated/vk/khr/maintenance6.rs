@@ -42,21 +42,21 @@ impl DeviceFn {
     pub unsafe fn cmd_bind_descriptor_sets2_khr(
         &self,
         command_buffer: CommandBuffer,
-        bind_descriptor_sets_info: &BindDescriptorSetsInfo,
+        bind_descriptor_sets_info: &BindDescriptorSetsInfo<'_>,
     ) {
         unsafe { (self.cmd_bind_descriptor_sets2_khr)(command_buffer, bind_descriptor_sets_info) }
     }
     pub unsafe fn cmd_push_constants2_khr(
         &self,
         command_buffer: CommandBuffer,
-        push_constants_info: &PushConstantsInfo,
+        push_constants_info: &PushConstantsInfo<'_>,
     ) {
         unsafe { (self.cmd_push_constants2_khr)(command_buffer, push_constants_info) }
     }
     pub unsafe fn cmd_push_descriptor_set2_khr(
         &self,
         command_buffer: CommandBuffer,
-        push_descriptor_set_info: &PushDescriptorSetInfo,
+        push_descriptor_set_info: &PushDescriptorSetInfo<'_>,
     ) {
         unsafe {
             (self.cmd_push_descriptor_set2_khr.unwrap())(command_buffer, push_descriptor_set_info)
@@ -65,7 +65,7 @@ impl DeviceFn {
     pub unsafe fn cmd_push_descriptor_set_with_template2_khr(
         &self,
         command_buffer: CommandBuffer,
-        push_descriptor_set_with_template_info: &PushDescriptorSetWithTemplateInfo,
+        push_descriptor_set_with_template_info: &PushDescriptorSetWithTemplateInfo<'_>,
     ) {
         unsafe {
             (self.cmd_push_descriptor_set_with_template2_khr.unwrap())(
@@ -77,7 +77,7 @@ impl DeviceFn {
     pub unsafe fn cmd_set_descriptor_buffer_offsets2_ext(
         &self,
         command_buffer: CommandBuffer,
-        set_descriptor_buffer_offsets_info: &SetDescriptorBufferOffsetsInfoEXT,
+        set_descriptor_buffer_offsets_info: &SetDescriptorBufferOffsetsInfoEXT<'_>,
     ) {
         unsafe {
             (self.cmd_set_descriptor_buffer_offsets2_ext.unwrap())(
@@ -89,7 +89,9 @@ impl DeviceFn {
     pub unsafe fn cmd_bind_descriptor_buffer_embedded_samplers2_ext(
         &self,
         command_buffer: CommandBuffer,
-        bind_descriptor_buffer_embedded_samplers_info: &BindDescriptorBufferEmbeddedSamplersInfoEXT,
+        bind_descriptor_buffer_embedded_samplers_info: &BindDescriptorBufferEmbeddedSamplersInfoEXT<
+            '_,
+        >,
     ) {
         unsafe {
             (self

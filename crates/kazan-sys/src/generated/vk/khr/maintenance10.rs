@@ -2,42 +2,48 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDeviceMaintenance10PropertiesKHR {
+pub struct PhysicalDeviceMaintenance10PropertiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub rgba4_opaque_black_swizzled: Bool32,
     pub resolve_srgb_format_applies_transfer_function: Bool32,
     pub resolve_srgb_format_supports_transfer_function_control: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceMaintenance10FeaturesKHR {
+pub struct PhysicalDeviceMaintenance10FeaturesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub maintenance10: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct RenderingEndInfoKHR {
+pub struct RenderingEndInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct RenderingAttachmentFlagsInfoKHR {
+pub struct RenderingAttachmentFlagsInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: RenderingAttachmentFlagsKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct ResolveImageModeInfoKHR {
+pub struct ResolveImageModeInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: ResolveImageFlagsKHR,
     pub resolve_mode: ResolveModeFlagBits,
     pub stencil_resolve_mode: ResolveModeFlagBits,
+    pub _marker: PhantomData<&'a ()>,
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct RenderingAttachmentFlagsKHR: Flags {
         const INPUT_ATTACHMENT_FEEDBACK_KHR = RenderingAttachmentFlagBitsKHR::INPUT_ATTACHMENT_FEEDBACK_KHR.0;
         const RESOLVE_SKIP_TRANSFER_FUNCTION_KHR = RenderingAttachmentFlagBitsKHR::RESOLVE_SKIP_TRANSFER_FUNCTION_KHR.0;
@@ -45,7 +51,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct RenderingAttachmentFlagBitsKHR(u32);
 impl RenderingAttachmentFlagBitsKHR {
     pub const INPUT_ATTACHMENT_FEEDBACK_KHR: Self = Self(1 << 0);
@@ -54,14 +60,14 @@ impl RenderingAttachmentFlagBitsKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ResolveImageFlagsKHR: Flags {
         const SKIP_TRANSFER_FUNCTION_KHR = ResolveImageFlagBitsKHR::SKIP_TRANSFER_FUNCTION_KHR.0;
         const ENABLE_TRANSFER_FUNCTION_KHR = ResolveImageFlagBitsKHR::ENABLE_TRANSFER_FUNCTION_KHR.0;
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ResolveImageFlagBitsKHR(u32);
 impl ResolveImageFlagBitsKHR {
     pub const SKIP_TRANSFER_FUNCTION_KHR: Self = Self(1 << 0);
@@ -69,5 +75,5 @@ impl ResolveImageFlagBitsKHR {
 }
 pub type PFN_vkCmdEndRendering2KHR = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_rendering_end_info: *const RenderingEndInfoKHR,
+    p_rendering_end_info: *const RenderingEndInfoKHR<'_>,
 );

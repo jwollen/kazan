@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
 pub struct StdVideoEncodeH265WeightTableFlags {
     pub luma_weight_l0_flag: u16,
@@ -54,7 +55,7 @@ pub struct StdVideoEncodeH265SliceSegmentHeaderFlags {
     pub reserved: u32,
 }
 #[repr(C)]
-pub struct StdVideoEncodeH265SliceSegmentHeader {
+pub struct StdVideoEncodeH265SliceSegmentHeader<'a> {
     pub flags: StdVideoEncodeH265SliceSegmentHeaderFlags,
     pub slice_type: StdVideoH265SliceType,
     pub slice_segment_address: u32,
@@ -70,6 +71,7 @@ pub struct StdVideoEncodeH265SliceSegmentHeader {
     pub slice_qp_delta: i8,
     pub reserved1: u16,
     pub p_weight_table: *const StdVideoEncodeH265WeightTable,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct StdVideoEncodeH265ReferenceListsInfoFlags {
@@ -101,7 +103,7 @@ pub struct StdVideoEncodeH265PictureInfoFlags {
     pub reserved: u32,
 }
 #[repr(C)]
-pub struct StdVideoEncodeH265PictureInfo {
+pub struct StdVideoEncodeH265PictureInfo<'a> {
     pub flags: StdVideoEncodeH265PictureInfoFlags,
     pub pic_type: StdVideoH265PictureType,
     pub sps_video_parameter_set_id: u8,
@@ -114,6 +116,7 @@ pub struct StdVideoEncodeH265PictureInfo {
     pub p_ref_lists: *const StdVideoEncodeH265ReferenceListsInfo,
     pub p_short_term_ref_pic_set: *const StdVideoH265ShortTermRefPicSet,
     pub p_long_term_ref_pics: *const StdVideoEncodeH265LongTermRefPics,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct StdVideoEncodeH265ReferenceInfoFlags {

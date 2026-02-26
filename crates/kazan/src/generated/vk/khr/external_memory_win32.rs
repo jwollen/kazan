@@ -27,7 +27,7 @@ impl DeviceFn {
     pub unsafe fn get_memory_win32_handle_khr(
         &self,
         device: Device,
-        get_win32_handle_info: &MemoryGetWin32HandleInfoKHR,
+        get_win32_handle_info: &MemoryGetWin32HandleInfoKHR<'_>,
     ) -> crate::Result<HANDLE> {
         unsafe {
             let mut handle = core::mem::MaybeUninit::uninit();
@@ -48,7 +48,7 @@ impl DeviceFn {
         device: Device,
         handle_type: ExternalMemoryHandleTypeFlagBits,
         handle: HANDLE,
-    ) -> crate::Result<MemoryWin32HandlePropertiesKHR> {
+    ) -> crate::Result<MemoryWin32HandlePropertiesKHR<'_>> {
         unsafe {
             let mut memory_win32_handle_properties = core::mem::MaybeUninit::uninit();
             let result = (self.get_memory_win32_handle_properties_khr)(

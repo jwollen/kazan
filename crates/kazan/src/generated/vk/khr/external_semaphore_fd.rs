@@ -25,7 +25,7 @@ impl DeviceFn {
     pub unsafe fn import_semaphore_fd_khr(
         &self,
         device: Device,
-        import_semaphore_fd_info: &ImportSemaphoreFdInfoKHR,
+        import_semaphore_fd_info: &ImportSemaphoreFdInfoKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.import_semaphore_fd_khr)(device, import_semaphore_fd_info);
@@ -39,7 +39,7 @@ impl DeviceFn {
     pub unsafe fn get_semaphore_fd_khr(
         &self,
         device: Device,
-        get_fd_info: &SemaphoreGetFdInfoKHR,
+        get_fd_info: &SemaphoreGetFdInfoKHR<'_>,
     ) -> crate::Result<c_int> {
         unsafe {
             let mut fd = core::mem::MaybeUninit::uninit();

@@ -2,5 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
-pub type PhysicalDeviceShaderFloat16Int8FeaturesKHR = PhysicalDeviceShaderFloat16Int8Features;
-pub type PhysicalDeviceFloat16Int8FeaturesKHR = PhysicalDeviceShaderFloat16Int8Features;
+use core::marker::PhantomData;
+pub type PhysicalDeviceShaderFloat16Int8FeaturesKHR<'a> =
+    PhysicalDeviceShaderFloat16Int8Features<'a>;
+pub type PhysicalDeviceFloat16Int8FeaturesKHR<'a> = PhysicalDeviceShaderFloat16Int8Features<'a>;

@@ -35,8 +35,8 @@ impl DeviceFn {
     pub unsafe fn create_validation_cache_ext(
         &self,
         device: Device,
-        create_info: &ValidationCacheCreateInfoEXT,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &ValidationCacheCreateInfoEXT<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<ValidationCacheEXT> {
         unsafe {
             let mut validation_cache = core::mem::MaybeUninit::uninit();
@@ -57,7 +57,7 @@ impl DeviceFn {
         &self,
         device: Device,
         validation_cache: ValidationCacheEXT,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
             (self.destroy_validation_cache_ext)(device, validation_cache, allocator.to_raw_ptr())

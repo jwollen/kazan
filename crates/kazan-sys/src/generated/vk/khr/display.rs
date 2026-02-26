@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct DisplayKHR(u64);
@@ -9,7 +10,7 @@ pub struct DisplayKHR(u64);
 #[derive(Copy, Clone, Default)]
 pub struct DisplayModeKHR(u64);
 #[repr(C)]
-pub struct DisplayPropertiesKHR {
+pub struct DisplayPropertiesKHR<'a> {
     pub display: DisplayKHR,
     pub display_name: *const c_char,
     pub physical_dimensions: Extent2D,
@@ -17,6 +18,7 @@ pub struct DisplayPropertiesKHR {
     pub supported_transforms: SurfaceTransformFlagsKHR,
     pub plane_reorder_possible: Bool32,
     pub persistent_content: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct DisplayPlanePropertiesKHR {
@@ -34,11 +36,12 @@ pub struct DisplayModePropertiesKHR {
     pub parameters: DisplayModeParametersKHR,
 }
 #[repr(C)]
-pub struct DisplayModeCreateInfoKHR {
+pub struct DisplayModeCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: DisplayModeCreateFlagsKHR,
     pub parameters: DisplayModeParametersKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct DisplayPlaneCapabilitiesKHR {
@@ -53,7 +56,7 @@ pub struct DisplayPlaneCapabilitiesKHR {
     pub max_dst_extent: Extent2D,
 }
 #[repr(C)]
-pub struct DisplaySurfaceCreateInfoKHR {
+pub struct DisplaySurfaceCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: DisplaySurfaceCreateFlagsKHR,
@@ -64,10 +67,11 @@ pub struct DisplaySurfaceCreateInfoKHR {
     pub global_alpha: f32,
     pub alpha_mode: DisplayPlaneAlphaFlagBitsKHR,
     pub image_extent: Extent2D,
+    pub _marker: PhantomData<&'a ()>,
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DisplayPlaneAlphaFlagsKHR: Flags {
         const OPAQUE_KHR = DisplayPlaneAlphaFlagBitsKHR::OPAQUE_KHR.0;
         const GLOBAL_KHR = DisplayPlaneAlphaFlagBitsKHR::GLOBAL_KHR.0;
@@ -76,7 +80,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DisplayPlaneAlphaFlagBitsKHR(u32);
 impl DisplayPlaneAlphaFlagBitsKHR {
     pub const OPAQUE_KHR: Self = Self(1 << 0);
@@ -86,7 +90,7 @@ impl DisplayPlaneAlphaFlagBitsKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SurfaceTransformFlagsKHR: Flags {
         const IDENTITY_KHR = SurfaceTransformFlagBitsKHR::IDENTITY_KHR.0;
         const ROTATE_90_KHR = SurfaceTransformFlagBitsKHR::ROTATE_90_KHR.0;
@@ -100,7 +104,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct SurfaceTransformFlagBitsKHR(u32);
 impl SurfaceTransformFlagBitsKHR {
     pub const IDENTITY_KHR: Self = Self(1 << 0);
@@ -115,20 +119,20 @@ impl SurfaceTransformFlagBitsKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DisplayModeCreateFlagsKHR: Flags {
     }
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DisplaySurfaceCreateFlagsKHR: Flags {
     }
 }
 pub type PFN_vkGetPhysicalDeviceDisplayPropertiesKHR = unsafe extern "system" fn(
     physical_device: PhysicalDevice,
     p_property_count: *mut u32,
-    p_properties: *mut DisplayPropertiesKHR,
+    p_properties: *mut DisplayPropertiesKHR<'_>,
 ) -> Result;
 pub type PFN_vkGetPhysicalDeviceDisplayPlanePropertiesKHR = unsafe extern "system" fn(
     physical_device: PhysicalDevice,
@@ -150,8 +154,8 @@ pub type PFN_vkGetDisplayModePropertiesKHR = unsafe extern "system" fn(
 pub type PFN_vkCreateDisplayModeKHR = unsafe extern "system" fn(
     physical_device: PhysicalDevice,
     display: DisplayKHR,
-    p_create_info: *const DisplayModeCreateInfoKHR,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const DisplayModeCreateInfoKHR<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_mode: *mut DisplayModeKHR,
 ) -> Result;
 pub type PFN_vkGetDisplayPlaneCapabilitiesKHR = unsafe extern "system" fn(
@@ -162,7 +166,7 @@ pub type PFN_vkGetDisplayPlaneCapabilitiesKHR = unsafe extern "system" fn(
 ) -> Result;
 pub type PFN_vkCreateDisplayPlaneSurfaceKHR = unsafe extern "system" fn(
     instance: Instance,
-    p_create_info: *const DisplaySurfaceCreateInfoKHR,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const DisplaySurfaceCreateInfoKHR<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_surface: *mut SurfaceKHR,
 ) -> Result;

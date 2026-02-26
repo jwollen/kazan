@@ -2,24 +2,26 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct DirectFBSurfaceCreateInfoEXT {
+pub struct DirectFBSurfaceCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: DirectFBSurfaceCreateFlagsEXT,
     pub dfb: *mut IDirectFB,
     pub surface: *mut IDirectFBSurface,
+    pub _marker: PhantomData<&'a ()>,
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DirectFBSurfaceCreateFlagsEXT: Flags {
     }
 }
 pub type PFN_vkCreateDirectFBSurfaceEXT = unsafe extern "system" fn(
     instance: Instance,
-    p_create_info: *const DirectFBSurfaceCreateInfoEXT,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const DirectFBSurfaceCreateInfoEXT<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_surface: *mut SurfaceKHR,
 ) -> Result;
 pub type PFN_vkGetPhysicalDeviceDirectFBPresentationSupportEXT =

@@ -2,7 +2,8 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 pub type SamplerReductionModeEXT = SamplerReductionMode;
-pub type PhysicalDeviceSamplerFilterMinmaxPropertiesEXT =
-    PhysicalDeviceSamplerFilterMinmaxProperties;
-pub type SamplerReductionModeCreateInfoEXT = SamplerReductionModeCreateInfo;
+pub type PhysicalDeviceSamplerFilterMinmaxPropertiesEXT<'a> =
+    PhysicalDeviceSamplerFilterMinmaxProperties<'a>;
+pub type SamplerReductionModeCreateInfoEXT<'a> = SamplerReductionModeCreateInfo<'a>;

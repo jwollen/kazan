@@ -2,30 +2,34 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct FragmentShadingRateAttachmentInfoKHR {
+pub struct FragmentShadingRateAttachmentInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
-    pub p_fragment_shading_rate_attachment: *const AttachmentReference2,
+    pub p_fragment_shading_rate_attachment: *const AttachmentReference2<'a>,
     pub shading_rate_attachment_texel_size: Extent2D,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PipelineFragmentShadingRateStateCreateInfoKHR {
+pub struct PipelineFragmentShadingRateStateCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub fragment_size: Extent2D,
     pub combiner_ops: [FragmentShadingRateCombinerOpKHR; 2],
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceFragmentShadingRateFeaturesKHR {
+pub struct PhysicalDeviceFragmentShadingRateFeaturesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub pipeline_fragment_shading_rate: Bool32,
     pub primitive_fragment_shading_rate: Bool32,
     pub attachment_fragment_shading_rate: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceFragmentShadingRatePropertiesKHR {
+pub struct PhysicalDeviceFragmentShadingRatePropertiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub min_fragment_shading_rate_attachment_texel_size: Extent2D,
@@ -45,21 +49,24 @@ pub struct PhysicalDeviceFragmentShadingRatePropertiesKHR {
     pub fragment_shading_rate_with_fragment_shader_interlock: Bool32,
     pub fragment_shading_rate_with_custom_sample_locations: Bool32,
     pub fragment_shading_rate_strict_multiply_combiner: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceFragmentShadingRateKHR {
+pub struct PhysicalDeviceFragmentShadingRateKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub sample_counts: SampleCountFlags,
     pub fragment_size: Extent2D,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct RenderingFragmentShadingRateAttachmentInfoKHR {
+pub struct RenderingFragmentShadingRateAttachmentInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub image_view: ImageView,
     pub image_layout: ImageLayout,
     pub shading_rate_attachment_texel_size: Extent2D,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -79,5 +86,5 @@ pub type PFN_vkCmdSetFragmentShadingRateKHR = unsafe extern "system" fn(
 pub type PFN_vkGetPhysicalDeviceFragmentShadingRatesKHR = unsafe extern "system" fn(
     physical_device: PhysicalDevice,
     p_fragment_shading_rate_count: *mut u32,
-    p_fragment_shading_rates: *mut PhysicalDeviceFragmentShadingRateKHR,
+    p_fragment_shading_rates: *mut PhysicalDeviceFragmentShadingRateKHR<'_>,
 ) -> Result;

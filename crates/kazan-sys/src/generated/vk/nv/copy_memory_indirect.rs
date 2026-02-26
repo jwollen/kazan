@@ -2,15 +2,17 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 pub type CopyMemoryIndirectCommandNV = CopyMemoryIndirectCommandKHR;
 pub type CopyMemoryToImageIndirectCommandNV = CopyMemoryToImageIndirectCommandKHR;
-pub type PhysicalDeviceCopyMemoryIndirectPropertiesNV =
-    PhysicalDeviceCopyMemoryIndirectPropertiesKHR;
+pub type PhysicalDeviceCopyMemoryIndirectPropertiesNV<'a> =
+    PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'a>;
 #[repr(C)]
-pub struct PhysicalDeviceCopyMemoryIndirectFeaturesNV {
+pub struct PhysicalDeviceCopyMemoryIndirectFeaturesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub indirect_copy: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 pub type PFN_vkCmdCopyMemoryIndirectNV = unsafe extern "system" fn(
     command_buffer: CommandBuffer,

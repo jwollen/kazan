@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
-pub type PhysicalDeviceGroupPropertiesKHR = PhysicalDeviceGroupProperties;
-pub type DeviceGroupDeviceCreateInfoKHR = DeviceGroupDeviceCreateInfo;
+use core::marker::PhantomData;
+pub type PhysicalDeviceGroupPropertiesKHR<'a> = PhysicalDeviceGroupProperties<'a>;
+pub type DeviceGroupDeviceCreateInfoKHR<'a> = DeviceGroupDeviceCreateInfo<'a>;
 pub type PFN_vkEnumeratePhysicalDeviceGroupsKHR = PFN_vkEnumeratePhysicalDeviceGroups;

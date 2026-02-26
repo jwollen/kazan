@@ -2,10 +2,11 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
-pub type PhysicalDeviceDynamicRenderingLocalReadFeaturesKHR =
-    PhysicalDeviceDynamicRenderingLocalReadFeatures;
-pub type RenderingAttachmentLocationInfoKHR = RenderingAttachmentLocationInfo;
-pub type RenderingInputAttachmentIndexInfoKHR = RenderingInputAttachmentIndexInfo;
+use core::marker::PhantomData;
+pub type PhysicalDeviceDynamicRenderingLocalReadFeaturesKHR<'a> =
+    PhysicalDeviceDynamicRenderingLocalReadFeatures<'a>;
+pub type RenderingAttachmentLocationInfoKHR<'a> = RenderingAttachmentLocationInfo<'a>;
+pub type RenderingInputAttachmentIndexInfoKHR<'a> = RenderingInputAttachmentIndexInfo<'a>;
 pub type PFN_vkCmdSetRenderingAttachmentLocationsKHR = PFN_vkCmdSetRenderingAttachmentLocations;
 pub type PFN_vkCmdSetRenderingInputAttachmentIndicesKHR =
     PFN_vkCmdSetRenderingInputAttachmentIndices;

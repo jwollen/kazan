@@ -25,8 +25,8 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_external_semaphore_properties_khr(
         &self,
         physical_device: PhysicalDevice,
-        external_semaphore_info: &PhysicalDeviceExternalSemaphoreInfo,
-    ) -> ExternalSemaphoreProperties {
+        external_semaphore_info: &PhysicalDeviceExternalSemaphoreInfo<'_>,
+    ) -> ExternalSemaphoreProperties<'_> {
         unsafe {
             let mut external_semaphore_properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_external_semaphore_properties_khr)(

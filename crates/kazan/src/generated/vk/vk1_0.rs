@@ -28,8 +28,8 @@ impl EntryFn {
 impl EntryFn {
     pub unsafe fn create_instance(
         &self,
-        create_info: &InstanceCreateInfo,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &InstanceCreateInfo<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<Instance> {
         unsafe {
             let mut instance = core::mem::MaybeUninit::uninit();
@@ -146,7 +146,7 @@ impl InstanceFn {
     pub unsafe fn destroy_instance(
         &self,
         instance: Instance,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_instance)(instance, allocator.to_raw_ptr()) }
     }
@@ -277,8 +277,8 @@ impl InstanceFn {
     pub unsafe fn create_device(
         &self,
         physical_device: PhysicalDevice,
-        create_info: &DeviceCreateInfo,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &DeviceCreateInfo<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<Device> {
         unsafe {
             let mut device = core::mem::MaybeUninit::uninit();
@@ -707,7 +707,11 @@ impl DeviceFn {
     pub unsafe fn get_device_proc_addr(&self, device: Device, name: &CStr) -> PFN_vkVoidFunction {
         unsafe { (self.get_device_proc_addr)(device, name.as_ptr() as _) }
     }
-    pub unsafe fn destroy_device(&self, device: Device, allocator: Option<&AllocationCallbacks>) {
+    pub unsafe fn destroy_device(
+        &self,
+        device: Device,
+        allocator: Option<&AllocationCallbacks<'_>>,
+    ) {
         unsafe { (self.destroy_device)(device, allocator.to_raw_ptr()) }
     }
     pub unsafe fn get_device_queue(
@@ -725,7 +729,7 @@ impl DeviceFn {
     pub unsafe fn queue_submit(
         &self,
         queue: Queue,
-        submits: &[SubmitInfo],
+        submits: &[SubmitInfo<'_>],
         fence: Fence,
     ) -> crate::Result<()> {
         unsafe {
@@ -765,8 +769,8 @@ impl DeviceFn {
     pub unsafe fn allocate_memory(
         &self,
         device: Device,
-        allocate_info: &MemoryAllocateInfo,
-        allocator: Option<&AllocationCallbacks>,
+        allocate_info: &MemoryAllocateInfo<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<DeviceMemory> {
         unsafe {
             let mut memory = core::mem::MaybeUninit::uninit();
@@ -787,7 +791,7 @@ impl DeviceFn {
         &self,
         device: Device,
         memory: DeviceMemory,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.free_memory)(device, memory, allocator.to_raw_ptr()) }
     }
@@ -815,7 +819,7 @@ impl DeviceFn {
     pub unsafe fn flush_mapped_memory_ranges(
         &self,
         device: Device,
-        memory_ranges: &[MappedMemoryRange],
+        memory_ranges: &[MappedMemoryRange<'_>],
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.flush_mapped_memory_ranges)(
@@ -833,7 +837,7 @@ impl DeviceFn {
     pub unsafe fn invalidate_mapped_memory_ranges(
         &self,
         device: Device,
-        memory_ranges: &[MappedMemoryRange],
+        memory_ranges: &[MappedMemoryRange<'_>],
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.invalidate_mapped_memory_ranges)(
@@ -940,7 +944,7 @@ impl DeviceFn {
     pub unsafe fn queue_bind_sparse(
         &self,
         queue: Queue,
-        bind_info: &[BindSparseInfo],
+        bind_info: &[BindSparseInfo<'_>],
         fence: Fence,
     ) -> crate::Result<()> {
         unsafe {
@@ -960,8 +964,8 @@ impl DeviceFn {
     pub unsafe fn create_fence(
         &self,
         device: Device,
-        create_info: &FenceCreateInfo,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &FenceCreateInfo<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<Fence> {
         unsafe {
             let mut fence = core::mem::MaybeUninit::uninit();
@@ -982,7 +986,7 @@ impl DeviceFn {
         &self,
         device: Device,
         fence: Fence,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_fence)(device, fence, allocator.to_raw_ptr()) }
     }
@@ -1037,8 +1041,8 @@ impl DeviceFn {
     pub unsafe fn create_semaphore(
         &self,
         device: Device,
-        create_info: &SemaphoreCreateInfo,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &SemaphoreCreateInfo<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<Semaphore> {
         unsafe {
             let mut semaphore = core::mem::MaybeUninit::uninit();
@@ -1059,15 +1063,15 @@ impl DeviceFn {
         &self,
         device: Device,
         semaphore: Semaphore,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_semaphore)(device, semaphore, allocator.to_raw_ptr()) }
     }
     pub unsafe fn create_query_pool(
         &self,
         device: Device,
-        create_info: &QueryPoolCreateInfo,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &QueryPoolCreateInfo<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<QueryPool> {
         unsafe {
             let mut query_pool = core::mem::MaybeUninit::uninit();
@@ -1088,7 +1092,7 @@ impl DeviceFn {
         &self,
         device: Device,
         query_pool: QueryPool,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_query_pool)(device, query_pool, allocator.to_raw_ptr()) }
     }
@@ -1124,8 +1128,8 @@ impl DeviceFn {
     pub unsafe fn create_buffer(
         &self,
         device: Device,
-        create_info: &BufferCreateInfo,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &BufferCreateInfo<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<Buffer> {
         unsafe {
             let mut buffer = core::mem::MaybeUninit::uninit();
@@ -1146,15 +1150,15 @@ impl DeviceFn {
         &self,
         device: Device,
         buffer: Buffer,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_buffer)(device, buffer, allocator.to_raw_ptr()) }
     }
     pub unsafe fn create_image(
         &self,
         device: Device,
-        create_info: &ImageCreateInfo,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &ImageCreateInfo<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<Image> {
         unsafe {
             let mut image = core::mem::MaybeUninit::uninit();
@@ -1175,7 +1179,7 @@ impl DeviceFn {
         &self,
         device: Device,
         image: Image,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_image)(device, image, allocator.to_raw_ptr()) }
     }
@@ -1194,8 +1198,8 @@ impl DeviceFn {
     pub unsafe fn create_image_view(
         &self,
         device: Device,
-        create_info: &ImageViewCreateInfo,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &ImageViewCreateInfo<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<ImageView> {
         unsafe {
             let mut view = core::mem::MaybeUninit::uninit();
@@ -1216,15 +1220,15 @@ impl DeviceFn {
         &self,
         device: Device,
         image_view: ImageView,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_image_view)(device, image_view, allocator.to_raw_ptr()) }
     }
     pub unsafe fn create_command_pool(
         &self,
         device: Device,
-        create_info: &CommandPoolCreateInfo,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &CommandPoolCreateInfo<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<CommandPool> {
         unsafe {
             let mut command_pool = core::mem::MaybeUninit::uninit();
@@ -1245,7 +1249,7 @@ impl DeviceFn {
         &self,
         device: Device,
         command_pool: CommandPool,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_command_pool)(device, command_pool, allocator.to_raw_ptr()) }
     }
@@ -1267,7 +1271,7 @@ impl DeviceFn {
     pub unsafe fn allocate_command_buffers(
         &self,
         device: Device,
-        allocate_info: &CommandBufferAllocateInfo,
+        allocate_info: &CommandBufferAllocateInfo<'_>,
         command_buffers: &mut [CommandBuffer],
     ) -> crate::Result<()> {
         unsafe {
@@ -1301,7 +1305,7 @@ impl DeviceFn {
     pub unsafe fn begin_command_buffer(
         &self,
         command_buffer: CommandBuffer,
-        begin_info: &CommandBufferBeginInfo,
+        begin_info: &CommandBufferBeginInfo<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.begin_command_buffer)(command_buffer, begin_info);
@@ -1445,9 +1449,9 @@ impl DeviceFn {
         src_stage_mask: PipelineStageFlags,
         dst_stage_mask: PipelineStageFlags,
         dependency_flags: DependencyFlags,
-        memory_barriers: &[MemoryBarrier],
-        buffer_memory_barriers: &[BufferMemoryBarrier],
-        image_memory_barriers: &[ImageMemoryBarrier],
+        memory_barriers: &[MemoryBarrier<'_>],
+        buffer_memory_barriers: &[BufferMemoryBarrier<'_>],
+        image_memory_barriers: &[ImageMemoryBarrier<'_>],
     ) {
         unsafe {
             (self.cmd_pipeline_barrier)(
@@ -1539,8 +1543,8 @@ impl DeviceFn {
     pub unsafe fn create_event(
         &self,
         device: Device,
-        create_info: &EventCreateInfo,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &EventCreateInfo<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<Event> {
         unsafe {
             let mut event = core::mem::MaybeUninit::uninit();
@@ -1561,7 +1565,7 @@ impl DeviceFn {
         &self,
         device: Device,
         event: Event,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_event)(device, event, allocator.to_raw_ptr()) }
     }
@@ -1599,8 +1603,8 @@ impl DeviceFn {
     pub unsafe fn create_buffer_view(
         &self,
         device: Device,
-        create_info: &BufferViewCreateInfo,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &BufferViewCreateInfo<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<BufferView> {
         unsafe {
             let mut view = core::mem::MaybeUninit::uninit();
@@ -1621,15 +1625,15 @@ impl DeviceFn {
         &self,
         device: Device,
         buffer_view: BufferView,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_buffer_view)(device, buffer_view, allocator.to_raw_ptr()) }
     }
     pub unsafe fn create_shader_module(
         &self,
         device: Device,
-        create_info: &ShaderModuleCreateInfo,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &ShaderModuleCreateInfo<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<ShaderModule> {
         unsafe {
             let mut shader_module = core::mem::MaybeUninit::uninit();
@@ -1650,15 +1654,15 @@ impl DeviceFn {
         &self,
         device: Device,
         shader_module: ShaderModule,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_shader_module)(device, shader_module, allocator.to_raw_ptr()) }
     }
     pub unsafe fn create_pipeline_cache(
         &self,
         device: Device,
-        create_info: &PipelineCacheCreateInfo,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &PipelineCacheCreateInfo<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<PipelineCache> {
         unsafe {
             let mut pipeline_cache = core::mem::MaybeUninit::uninit();
@@ -1679,7 +1683,7 @@ impl DeviceFn {
         &self,
         device: Device,
         pipeline_cache: PipelineCache,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_pipeline_cache)(device, pipeline_cache, allocator.to_raw_ptr()) }
     }
@@ -1726,8 +1730,8 @@ impl DeviceFn {
         &self,
         device: Device,
         pipeline_cache: PipelineCache,
-        create_infos: &[ComputePipelineCreateInfo],
-        allocator: Option<&AllocationCallbacks>,
+        create_infos: &[ComputePipelineCreateInfo<'_>],
+        allocator: Option<&AllocationCallbacks<'_>>,
         pipelines: &mut [Pipeline],
     ) -> crate::Result<()> {
         unsafe {
@@ -1751,15 +1755,15 @@ impl DeviceFn {
         &self,
         device: Device,
         pipeline: Pipeline,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_pipeline)(device, pipeline, allocator.to_raw_ptr()) }
     }
     pub unsafe fn create_pipeline_layout(
         &self,
         device: Device,
-        create_info: &PipelineLayoutCreateInfo,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &PipelineLayoutCreateInfo<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<PipelineLayout> {
         unsafe {
             let mut pipeline_layout = core::mem::MaybeUninit::uninit();
@@ -1780,15 +1784,15 @@ impl DeviceFn {
         &self,
         device: Device,
         pipeline_layout: PipelineLayout,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_pipeline_layout)(device, pipeline_layout, allocator.to_raw_ptr()) }
     }
     pub unsafe fn create_sampler(
         &self,
         device: Device,
-        create_info: &SamplerCreateInfo,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &SamplerCreateInfo<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<Sampler> {
         unsafe {
             let mut sampler = core::mem::MaybeUninit::uninit();
@@ -1809,15 +1813,15 @@ impl DeviceFn {
         &self,
         device: Device,
         sampler: Sampler,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_sampler)(device, sampler, allocator.to_raw_ptr()) }
     }
     pub unsafe fn create_descriptor_set_layout(
         &self,
         device: Device,
-        create_info: &DescriptorSetLayoutCreateInfo,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &DescriptorSetLayoutCreateInfo<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<DescriptorSetLayout> {
         unsafe {
             let mut set_layout = core::mem::MaybeUninit::uninit();
@@ -1838,7 +1842,7 @@ impl DeviceFn {
         &self,
         device: Device,
         descriptor_set_layout: DescriptorSetLayout,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
             (self.destroy_descriptor_set_layout)(
@@ -1851,8 +1855,8 @@ impl DeviceFn {
     pub unsafe fn create_descriptor_pool(
         &self,
         device: Device,
-        create_info: &DescriptorPoolCreateInfo,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &DescriptorPoolCreateInfo<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<DescriptorPool> {
         unsafe {
             let mut descriptor_pool = core::mem::MaybeUninit::uninit();
@@ -1873,7 +1877,7 @@ impl DeviceFn {
         &self,
         device: Device,
         descriptor_pool: DescriptorPool,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_descriptor_pool)(device, descriptor_pool, allocator.to_raw_ptr()) }
     }
@@ -1895,7 +1899,7 @@ impl DeviceFn {
     pub unsafe fn allocate_descriptor_sets(
         &self,
         device: Device,
-        allocate_info: &DescriptorSetAllocateInfo,
+        allocate_info: &DescriptorSetAllocateInfo<'_>,
         descriptor_sets: &mut [DescriptorSet],
     ) -> crate::Result<()> {
         unsafe {
@@ -1934,8 +1938,8 @@ impl DeviceFn {
     pub unsafe fn update_descriptor_sets(
         &self,
         device: Device,
-        descriptor_writes: &[WriteDescriptorSet],
-        descriptor_copies: &[CopyDescriptorSet],
+        descriptor_writes: &[WriteDescriptorSet<'_>],
+        descriptor_copies: &[CopyDescriptorSet<'_>],
     ) {
         unsafe {
             (self.update_descriptor_sets)(
@@ -2035,9 +2039,9 @@ impl DeviceFn {
         events: &[Event],
         src_stage_mask: PipelineStageFlags,
         dst_stage_mask: PipelineStageFlags,
-        memory_barriers: &[MemoryBarrier],
-        buffer_memory_barriers: &[BufferMemoryBarrier],
-        image_memory_barriers: &[ImageMemoryBarrier],
+        memory_barriers: &[MemoryBarrier<'_>],
+        buffer_memory_barriers: &[BufferMemoryBarrier<'_>],
+        image_memory_barriers: &[ImageMemoryBarrier<'_>],
     ) {
         unsafe {
             (self.cmd_wait_events)(
@@ -2078,8 +2082,8 @@ impl DeviceFn {
         &self,
         device: Device,
         pipeline_cache: PipelineCache,
-        create_infos: &[GraphicsPipelineCreateInfo],
-        allocator: Option<&AllocationCallbacks>,
+        create_infos: &[GraphicsPipelineCreateInfo<'_>],
+        allocator: Option<&AllocationCallbacks<'_>>,
         pipelines: &mut [Pipeline],
     ) -> crate::Result<()> {
         unsafe {
@@ -2102,8 +2106,8 @@ impl DeviceFn {
     pub unsafe fn create_framebuffer(
         &self,
         device: Device,
-        create_info: &FramebufferCreateInfo,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &FramebufferCreateInfo<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<Framebuffer> {
         unsafe {
             let mut framebuffer = core::mem::MaybeUninit::uninit();
@@ -2124,15 +2128,15 @@ impl DeviceFn {
         &self,
         device: Device,
         framebuffer: Framebuffer,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_framebuffer)(device, framebuffer, allocator.to_raw_ptr()) }
     }
     pub unsafe fn create_render_pass(
         &self,
         device: Device,
-        create_info: &RenderPassCreateInfo,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &RenderPassCreateInfo<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<RenderPass> {
         unsafe {
             let mut render_pass = core::mem::MaybeUninit::uninit();
@@ -2153,7 +2157,7 @@ impl DeviceFn {
         &self,
         device: Device,
         render_pass: RenderPass,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_render_pass)(device, render_pass, allocator.to_raw_ptr()) }
     }
@@ -2424,7 +2428,7 @@ impl DeviceFn {
     pub unsafe fn cmd_begin_render_pass(
         &self,
         command_buffer: CommandBuffer,
-        render_pass_begin: &RenderPassBeginInfo,
+        render_pass_begin: &RenderPassBeginInfo<'_>,
         contents: SubpassContents,
     ) {
         unsafe { (self.cmd_begin_render_pass)(command_buffer, render_pass_begin, contents) }

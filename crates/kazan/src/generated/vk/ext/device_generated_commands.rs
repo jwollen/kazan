@@ -55,8 +55,8 @@ impl DeviceFn {
     pub unsafe fn get_generated_commands_memory_requirements_ext(
         &self,
         device: Device,
-        info: &GeneratedCommandsMemoryRequirementsInfoEXT,
-    ) -> MemoryRequirements2 {
+        info: &GeneratedCommandsMemoryRequirementsInfoEXT<'_>,
+    ) -> MemoryRequirements2<'_> {
         unsafe {
             let mut memory_requirements = core::mem::MaybeUninit::uninit();
             (self.get_generated_commands_memory_requirements_ext)(
@@ -70,7 +70,7 @@ impl DeviceFn {
     pub unsafe fn cmd_preprocess_generated_commands_ext(
         &self,
         command_buffer: CommandBuffer,
-        generated_commands_info: &GeneratedCommandsInfoEXT,
+        generated_commands_info: &GeneratedCommandsInfoEXT<'_>,
         state_command_buffer: CommandBuffer,
     ) {
         unsafe {
@@ -85,7 +85,7 @@ impl DeviceFn {
         &self,
         command_buffer: CommandBuffer,
         is_preprocessed: Bool32,
-        generated_commands_info: &GeneratedCommandsInfoEXT,
+        generated_commands_info: &GeneratedCommandsInfoEXT<'_>,
     ) {
         unsafe {
             (self.cmd_execute_generated_commands_ext)(
@@ -98,8 +98,8 @@ impl DeviceFn {
     pub unsafe fn create_indirect_commands_layout_ext(
         &self,
         device: Device,
-        create_info: &IndirectCommandsLayoutCreateInfoEXT,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &IndirectCommandsLayoutCreateInfoEXT<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<IndirectCommandsLayoutEXT> {
         unsafe {
             let mut indirect_commands_layout = core::mem::MaybeUninit::uninit();
@@ -120,7 +120,7 @@ impl DeviceFn {
         &self,
         device: Device,
         indirect_commands_layout: IndirectCommandsLayoutEXT,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
             (self.destroy_indirect_commands_layout_ext)(
@@ -133,8 +133,8 @@ impl DeviceFn {
     pub unsafe fn create_indirect_execution_set_ext(
         &self,
         device: Device,
-        create_info: &IndirectExecutionSetCreateInfoEXT,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &IndirectExecutionSetCreateInfoEXT<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<IndirectExecutionSetEXT> {
         unsafe {
             let mut indirect_execution_set = core::mem::MaybeUninit::uninit();
@@ -155,7 +155,7 @@ impl DeviceFn {
         &self,
         device: Device,
         indirect_execution_set: IndirectExecutionSetEXT,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
             (self.destroy_indirect_execution_set_ext)(
@@ -169,7 +169,7 @@ impl DeviceFn {
         &self,
         device: Device,
         indirect_execution_set: IndirectExecutionSetEXT,
-        execution_set_writes: &[WriteIndirectExecutionSetPipelineEXT],
+        execution_set_writes: &[WriteIndirectExecutionSetPipelineEXT<'_>],
     ) {
         unsafe {
             (self.update_indirect_execution_set_pipeline_ext)(
@@ -184,7 +184,7 @@ impl DeviceFn {
         &self,
         device: Device,
         indirect_execution_set: IndirectExecutionSetEXT,
-        execution_set_writes: &[WriteIndirectExecutionSetShaderEXT],
+        execution_set_writes: &[WriteIndirectExecutionSetShaderEXT<'_>],
     ) {
         unsafe {
             (self.update_indirect_execution_set_shader_ext)(

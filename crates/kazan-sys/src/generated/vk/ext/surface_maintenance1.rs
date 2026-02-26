@@ -2,8 +2,9 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
-pub type SurfacePresentModeEXT = SurfacePresentModeKHR;
-pub type SurfacePresentScalingCapabilitiesEXT = SurfacePresentScalingCapabilitiesKHR;
-pub type SurfacePresentModeCompatibilityEXT = SurfacePresentModeCompatibilityKHR;
+use core::marker::PhantomData;
+pub type SurfacePresentModeEXT<'a> = SurfacePresentModeKHR<'a>;
+pub type SurfacePresentScalingCapabilitiesEXT<'a> = SurfacePresentScalingCapabilitiesKHR<'a>;
+pub type SurfacePresentModeCompatibilityEXT<'a> = SurfacePresentModeCompatibilityKHR<'a>;
 pub type PresentScalingFlagsEXT = PresentScalingFlagsKHR;
 pub type PresentGravityFlagsEXT = PresentGravityFlagsKHR;

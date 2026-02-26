@@ -2,11 +2,12 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
-pub type BufferMemoryRequirementsInfo2KHR = BufferMemoryRequirementsInfo2;
-pub type ImageMemoryRequirementsInfo2KHR = ImageMemoryRequirementsInfo2;
-pub type ImageSparseMemoryRequirementsInfo2KHR = ImageSparseMemoryRequirementsInfo2;
-pub type MemoryRequirements2KHR = MemoryRequirements2;
-pub type SparseImageMemoryRequirements2KHR = SparseImageMemoryRequirements2;
+use core::marker::PhantomData;
+pub type BufferMemoryRequirementsInfo2KHR<'a> = BufferMemoryRequirementsInfo2<'a>;
+pub type ImageMemoryRequirementsInfo2KHR<'a> = ImageMemoryRequirementsInfo2<'a>;
+pub type ImageSparseMemoryRequirementsInfo2KHR<'a> = ImageSparseMemoryRequirementsInfo2<'a>;
+pub type MemoryRequirements2KHR<'a> = MemoryRequirements2<'a>;
+pub type SparseImageMemoryRequirements2KHR<'a> = SparseImageMemoryRequirements2<'a>;
 pub type PFN_vkGetBufferMemoryRequirements2KHR = PFN_vkGetBufferMemoryRequirements2;
 pub type PFN_vkGetImageMemoryRequirements2KHR = PFN_vkGetImageMemoryRequirements2;
 pub type PFN_vkGetImageSparseMemoryRequirements2KHR = PFN_vkGetImageSparseMemoryRequirements2;

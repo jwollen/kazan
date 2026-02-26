@@ -2,24 +2,26 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct XcbSurfaceCreateInfoKHR {
+pub struct XcbSurfaceCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: XcbSurfaceCreateFlagsKHR,
     pub connection: *mut xcb_connection_t,
     pub window: xcb_window_t,
+    pub _marker: PhantomData<&'a ()>,
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct XcbSurfaceCreateFlagsKHR: Flags {
     }
 }
 pub type PFN_vkCreateXcbSurfaceKHR = unsafe extern "system" fn(
     instance: Instance,
-    p_create_info: *const XcbSurfaceCreateInfoKHR,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const XcbSurfaceCreateInfoKHR<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_surface: *mut SurfaceKHR,
 ) -> Result;
 pub type PFN_vkGetPhysicalDeviceXcbPresentationSupportKHR = unsafe extern "system" fn(

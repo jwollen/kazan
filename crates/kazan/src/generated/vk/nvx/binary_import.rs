@@ -37,8 +37,8 @@ impl DeviceFn {
     pub unsafe fn create_cu_module_nvx(
         &self,
         device: Device,
-        create_info: &CuModuleCreateInfoNVX,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &CuModuleCreateInfoNVX<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<CuModuleNVX> {
         unsafe {
             let mut module = core::mem::MaybeUninit::uninit();
@@ -58,8 +58,8 @@ impl DeviceFn {
     pub unsafe fn create_cu_function_nvx(
         &self,
         device: Device,
-        create_info: &CuFunctionCreateInfoNVX,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &CuFunctionCreateInfoNVX<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<CuFunctionNVX> {
         unsafe {
             let mut function = core::mem::MaybeUninit::uninit();
@@ -80,7 +80,7 @@ impl DeviceFn {
         &self,
         device: Device,
         module: CuModuleNVX,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_cu_module_nvx)(device, module, allocator.to_raw_ptr()) }
     }
@@ -88,14 +88,14 @@ impl DeviceFn {
         &self,
         device: Device,
         function: CuFunctionNVX,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_cu_function_nvx)(device, function, allocator.to_raw_ptr()) }
     }
     pub unsafe fn cmd_cu_launch_kernel_nvx(
         &self,
         command_buffer: CommandBuffer,
-        launch_info: &CuLaunchInfoNVX,
+        launch_info: &CuLaunchInfoNVX<'_>,
     ) {
         unsafe { (self.cmd_cu_launch_kernel_nvx)(command_buffer, launch_info) }
     }

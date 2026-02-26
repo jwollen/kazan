@@ -2,7 +2,11 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
-pub type PhysicalDeviceInlineUniformBlockFeaturesEXT = PhysicalDeviceInlineUniformBlockFeatures;
-pub type PhysicalDeviceInlineUniformBlockPropertiesEXT = PhysicalDeviceInlineUniformBlockProperties;
-pub type WriteDescriptorSetInlineUniformBlockEXT = WriteDescriptorSetInlineUniformBlock;
-pub type DescriptorPoolInlineUniformBlockCreateInfoEXT = DescriptorPoolInlineUniformBlockCreateInfo;
+use core::marker::PhantomData;
+pub type PhysicalDeviceInlineUniformBlockFeaturesEXT<'a> =
+    PhysicalDeviceInlineUniformBlockFeatures<'a>;
+pub type PhysicalDeviceInlineUniformBlockPropertiesEXT<'a> =
+    PhysicalDeviceInlineUniformBlockProperties<'a>;
+pub type WriteDescriptorSetInlineUniformBlockEXT<'a> = WriteDescriptorSetInlineUniformBlock<'a>;
+pub type DescriptorPoolInlineUniformBlockCreateInfoEXT<'a> =
+    DescriptorPoolInlineUniformBlockCreateInfo<'a>;

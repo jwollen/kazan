@@ -29,8 +29,8 @@ impl InstanceFn {
     pub unsafe fn create_wayland_surface_khr(
         &self,
         instance: Instance,
-        create_info: &WaylandSurfaceCreateInfoKHR,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &WaylandSurfaceCreateInfoKHR<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();

@@ -2,11 +2,13 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct CalibratedTimestampInfoKHR {
+pub struct CalibratedTimestampInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub time_domain: TimeDomainKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -31,7 +33,7 @@ pub type PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsKHR = unsafe extern "sys
 pub type PFN_vkGetCalibratedTimestampsKHR = unsafe extern "system" fn(
     device: Device,
     timestamp_count: u32,
-    p_timestamp_infos: *const CalibratedTimestampInfoKHR,
+    p_timestamp_infos: *const CalibratedTimestampInfoKHR<'_>,
     p_timestamps: *mut u64,
     p_max_deviation: *mut u64,
 ) -> Result;

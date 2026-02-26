@@ -96,7 +96,7 @@ impl DeviceFn {
     pub unsafe fn get_descriptor_ext(
         &self,
         device: Device,
-        descriptor_info: &DescriptorGetInfoEXT,
+        descriptor_info: &DescriptorGetInfoEXT<'_>,
         descriptor: &mut [u8],
     ) {
         unsafe {
@@ -111,7 +111,7 @@ impl DeviceFn {
     pub unsafe fn cmd_bind_descriptor_buffers_ext(
         &self,
         command_buffer: CommandBuffer,
-        binding_infos: &[DescriptorBufferBindingInfoEXT],
+        binding_infos: &[DescriptorBufferBindingInfoEXT<'_>],
     ) {
         unsafe {
             (self.cmd_bind_descriptor_buffers_ext)(
@@ -161,7 +161,7 @@ impl DeviceFn {
     pub unsafe fn get_buffer_opaque_capture_descriptor_data_ext(
         &self,
         device: Device,
-        info: &BufferCaptureDescriptorDataInfoEXT,
+        info: &BufferCaptureDescriptorDataInfoEXT<'_>,
         data: &mut c_void,
     ) -> crate::Result<()> {
         unsafe {
@@ -176,7 +176,7 @@ impl DeviceFn {
     pub unsafe fn get_image_opaque_capture_descriptor_data_ext(
         &self,
         device: Device,
-        info: &ImageCaptureDescriptorDataInfoEXT,
+        info: &ImageCaptureDescriptorDataInfoEXT<'_>,
         data: &mut c_void,
     ) -> crate::Result<()> {
         unsafe {
@@ -191,7 +191,7 @@ impl DeviceFn {
     pub unsafe fn get_image_view_opaque_capture_descriptor_data_ext(
         &self,
         device: Device,
-        info: &ImageViewCaptureDescriptorDataInfoEXT,
+        info: &ImageViewCaptureDescriptorDataInfoEXT<'_>,
         data: &mut c_void,
     ) -> crate::Result<()> {
         unsafe {
@@ -207,7 +207,7 @@ impl DeviceFn {
     pub unsafe fn get_sampler_opaque_capture_descriptor_data_ext(
         &self,
         device: Device,
-        info: &SamplerCaptureDescriptorDataInfoEXT,
+        info: &SamplerCaptureDescriptorDataInfoEXT<'_>,
         data: &mut c_void,
     ) -> crate::Result<()> {
         unsafe {
@@ -222,7 +222,7 @@ impl DeviceFn {
     pub unsafe fn get_acceleration_structure_opaque_capture_descriptor_data_ext(
         &self,
         device: Device,
-        info: &AccelerationStructureCaptureDescriptorDataInfoEXT,
+        info: &AccelerationStructureCaptureDescriptorDataInfoEXT<'_>,
         data: &mut c_void,
     ) -> crate::Result<()> {
         unsafe {

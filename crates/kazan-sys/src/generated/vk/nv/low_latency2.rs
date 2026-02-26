@@ -2,37 +2,42 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct LatencySleepModeInfoNV {
+pub struct LatencySleepModeInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub low_latency_mode: Bool32,
     pub low_latency_boost: Bool32,
     pub minimum_interval_us: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct LatencySleepInfoNV {
+pub struct LatencySleepInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub signal_semaphore: Semaphore,
     pub value: u64,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct SetLatencyMarkerInfoNV {
+pub struct SetLatencyMarkerInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub present_id: u64,
     pub marker: LatencyMarkerNV,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct GetLatencyMarkerInfoNV {
+pub struct GetLatencyMarkerInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub timing_count: u32,
-    pub p_timings: *mut LatencyTimingsFrameReportNV,
+    pub p_timings: *mut LatencyTimingsFrameReportNV<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct LatencyTimingsFrameReportNV {
+pub struct LatencyTimingsFrameReportNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub present_id: u64,
@@ -49,31 +54,36 @@ pub struct LatencyTimingsFrameReportNV {
     pub os_render_queue_end_time_us: u64,
     pub gpu_render_start_time_us: u64,
     pub gpu_render_end_time_us: u64,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct OutOfBandQueueTypeInfoNV {
+pub struct OutOfBandQueueTypeInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub queue_type: OutOfBandQueueTypeNV,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct LatencySubmissionPresentIdNV {
+pub struct LatencySubmissionPresentIdNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub present_id: u64,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct SwapchainLatencyCreateInfoNV {
+pub struct SwapchainLatencyCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub latency_mode_enable: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct LatencySurfaceCapabilitiesNV {
+pub struct LatencySurfaceCapabilitiesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub present_mode_count: u32,
     pub p_present_modes: *mut PresentModeKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -102,22 +112,22 @@ impl OutOfBandQueueTypeNV {
 pub type PFN_vkSetLatencySleepModeNV = unsafe extern "system" fn(
     device: Device,
     swapchain: SwapchainKHR,
-    p_sleep_mode_info: *const LatencySleepModeInfoNV,
+    p_sleep_mode_info: *const LatencySleepModeInfoNV<'_>,
 ) -> Result;
 pub type PFN_vkLatencySleepNV = unsafe extern "system" fn(
     device: Device,
     swapchain: SwapchainKHR,
-    p_sleep_info: *const LatencySleepInfoNV,
+    p_sleep_info: *const LatencySleepInfoNV<'_>,
 ) -> Result;
 pub type PFN_vkSetLatencyMarkerNV = unsafe extern "system" fn(
     device: Device,
     swapchain: SwapchainKHR,
-    p_latency_marker_info: *const SetLatencyMarkerInfoNV,
+    p_latency_marker_info: *const SetLatencyMarkerInfoNV<'_>,
 );
 pub type PFN_vkGetLatencyTimingsNV = unsafe extern "system" fn(
     device: Device,
     swapchain: SwapchainKHR,
-    p_latency_marker_info: *mut GetLatencyMarkerInfoNV,
+    p_latency_marker_info: *mut GetLatencyMarkerInfoNV<'_>,
 );
 pub type PFN_vkQueueNotifyOutOfBandNV =
-    unsafe extern "system" fn(queue: Queue, p_queue_type_info: *const OutOfBandQueueTypeInfoNV);
+    unsafe extern "system" fn(queue: Queue, p_queue_type_info: *const OutOfBandQueueTypeInfoNV<'_>);

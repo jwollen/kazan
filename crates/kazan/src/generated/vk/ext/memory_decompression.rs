@@ -27,7 +27,7 @@ impl DeviceFn {
     pub unsafe fn cmd_decompress_memory_ext(
         &self,
         command_buffer: CommandBuffer,
-        decompress_memory_info_ext: &DecompressMemoryInfoEXT,
+        decompress_memory_info_ext: &DecompressMemoryInfoEXT<'_>,
     ) {
         unsafe { (self.cmd_decompress_memory_ext)(command_buffer, decompress_memory_info_ext) }
     }

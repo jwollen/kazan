@@ -30,8 +30,8 @@ impl DeviceFn {
     pub unsafe fn get_partitioned_acceleration_structures_build_sizes_nv(
         &self,
         device: Device,
-        info: &PartitionedAccelerationStructureInstancesInputNV,
-    ) -> AccelerationStructureBuildSizesInfoKHR {
+        info: &PartitionedAccelerationStructureInstancesInputNV<'_>,
+    ) -> AccelerationStructureBuildSizesInfoKHR<'_> {
         unsafe {
             let mut size_info = core::mem::MaybeUninit::uninit();
             (self.get_partitioned_acceleration_structures_build_sizes_nv)(
@@ -45,7 +45,7 @@ impl DeviceFn {
     pub unsafe fn cmd_build_partitioned_acceleration_structures_nv(
         &self,
         command_buffer: CommandBuffer,
-        build_info: &BuildPartitionedAccelerationStructureInfoNV,
+        build_info: &BuildPartitionedAccelerationStructureInfoNV<'_>,
     ) {
         unsafe {
             (self.cmd_build_partitioned_acceleration_structures_nv)(command_buffer, build_info)

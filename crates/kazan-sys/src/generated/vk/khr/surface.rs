@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct SurfaceKHR(u64);
@@ -60,7 +61,7 @@ impl ColorSpaceKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct CompositeAlphaFlagsKHR: Flags {
         const OPAQUE_KHR = CompositeAlphaFlagBitsKHR::OPAQUE_KHR.0;
         const PRE_MULTIPLIED_KHR = CompositeAlphaFlagBitsKHR::PRE_MULTIPLIED_KHR.0;
@@ -69,7 +70,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct CompositeAlphaFlagBitsKHR(u32);
 impl CompositeAlphaFlagBitsKHR {
     pub const OPAQUE_KHR: Self = Self(1 << 0);
@@ -80,7 +81,7 @@ impl CompositeAlphaFlagBitsKHR {
 pub type PFN_vkDestroySurfaceKHR = unsafe extern "system" fn(
     instance: Instance,
     surface: SurfaceKHR,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkGetPhysicalDeviceSurfaceSupportKHR = unsafe extern "system" fn(
     physical_device: PhysicalDevice,

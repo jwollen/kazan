@@ -31,8 +31,8 @@ impl DeviceFn {
     pub unsafe fn create_private_data_slot_ext(
         &self,
         device: Device,
-        create_info: &PrivateDataSlotCreateInfo,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &PrivateDataSlotCreateInfo<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<PrivateDataSlot> {
         unsafe {
             let mut private_data_slot = core::mem::MaybeUninit::uninit();
@@ -53,7 +53,7 @@ impl DeviceFn {
         &self,
         device: Device,
         private_data_slot: PrivateDataSlot,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
             (self.destroy_private_data_slot_ext)(device, private_data_slot, allocator.to_raw_ptr())

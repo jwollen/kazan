@@ -2,23 +2,27 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct SurfaceFullScreenExclusiveInfoEXT {
+pub struct SurfaceFullScreenExclusiveInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub full_screen_exclusive: FullScreenExclusiveEXT,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct SurfaceFullScreenExclusiveWin32InfoEXT {
+pub struct SurfaceFullScreenExclusiveWin32InfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub hmonitor: HMONITOR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct SurfaceCapabilitiesFullScreenExclusiveEXT {
+pub struct SurfaceCapabilitiesFullScreenExclusiveEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub full_screen_exclusive_supported: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -31,13 +35,13 @@ impl FullScreenExclusiveEXT {
 }
 pub type PFN_vkGetPhysicalDeviceSurfacePresentModes2EXT = unsafe extern "system" fn(
     physical_device: PhysicalDevice,
-    p_surface_info: *const PhysicalDeviceSurfaceInfo2KHR,
+    p_surface_info: *const PhysicalDeviceSurfaceInfo2KHR<'_>,
     p_present_mode_count: *mut u32,
     p_present_modes: *mut PresentModeKHR,
 ) -> Result;
 pub type PFN_vkGetDeviceGroupSurfacePresentModes2EXT = unsafe extern "system" fn(
     device: Device,
-    p_surface_info: *const PhysicalDeviceSurfaceInfo2KHR,
+    p_surface_info: *const PhysicalDeviceSurfaceInfo2KHR<'_>,
     p_modes: *mut DeviceGroupPresentModeFlagsKHR,
 ) -> Result;
 pub type PFN_vkAcquireFullScreenExclusiveModeEXT =

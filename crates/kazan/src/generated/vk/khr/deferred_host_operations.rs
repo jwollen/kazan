@@ -39,7 +39,7 @@ impl DeviceFn {
     pub unsafe fn create_deferred_operation_khr(
         &self,
         device: Device,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<DeferredOperationKHR> {
         unsafe {
             let mut deferred_operation = core::mem::MaybeUninit::uninit();
@@ -59,7 +59,7 @@ impl DeviceFn {
         &self,
         device: Device,
         operation: DeferredOperationKHR,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_deferred_operation_khr)(device, operation, allocator.to_raw_ptr()) }
     }

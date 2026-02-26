@@ -2,11 +2,13 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT {
+pub struct PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub rasterization_order_color_attachment_access: Bool32,
     pub rasterization_order_depth_attachment_access: Bool32,
     pub rasterization_order_stencil_attachment_access: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }

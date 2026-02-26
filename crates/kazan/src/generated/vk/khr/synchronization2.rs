@@ -36,7 +36,7 @@ impl DeviceFn {
         &self,
         command_buffer: CommandBuffer,
         event: Event,
-        dependency_info: &DependencyInfo,
+        dependency_info: &DependencyInfo<'_>,
     ) {
         unsafe { (self.cmd_set_event2_khr)(command_buffer, event, dependency_info) }
     }
@@ -52,7 +52,7 @@ impl DeviceFn {
         &self,
         command_buffer: CommandBuffer,
         events: &[Event],
-        dependency_infos: &[DependencyInfo],
+        dependency_infos: &[DependencyInfo<'_>],
     ) {
         unsafe {
             (self.cmd_wait_events2_khr)(
@@ -66,7 +66,7 @@ impl DeviceFn {
     pub unsafe fn cmd_pipeline_barrier2_khr(
         &self,
         command_buffer: CommandBuffer,
-        dependency_info: &DependencyInfo,
+        dependency_info: &DependencyInfo<'_>,
     ) {
         unsafe { (self.cmd_pipeline_barrier2_khr)(command_buffer, dependency_info) }
     }
@@ -82,7 +82,7 @@ impl DeviceFn {
     pub unsafe fn queue_submit2_khr(
         &self,
         queue: Queue,
-        submits: &[SubmitInfo2],
+        submits: &[SubmitInfo2<'_>],
         fence: Fence,
     ) -> crate::Result<()> {
         unsafe {

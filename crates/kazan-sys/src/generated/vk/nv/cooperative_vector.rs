@@ -2,15 +2,17 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDeviceCooperativeVectorFeaturesNV {
+pub struct PhysicalDeviceCooperativeVectorFeaturesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub cooperative_vector: Bool32,
     pub cooperative_vector_training: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct CooperativeVectorPropertiesNV {
+pub struct CooperativeVectorPropertiesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub input_type: ComponentTypeKHR,
@@ -19,24 +21,26 @@ pub struct CooperativeVectorPropertiesNV {
     pub bias_interpretation: ComponentTypeKHR,
     pub result_type: ComponentTypeKHR,
     pub transpose: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceCooperativeVectorPropertiesNV {
+pub struct PhysicalDeviceCooperativeVectorPropertiesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub cooperative_vector_supported_stages: ShaderStageFlags,
     pub cooperative_vector_training_float16_accumulation: Bool32,
     pub cooperative_vector_training_float32_accumulation: Bool32,
     pub max_cooperative_vector_components: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct ConvertCooperativeVectorMatrixInfoNV {
+pub struct ConvertCooperativeVectorMatrixInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub src_size: usize,
-    pub src_data: DeviceOrHostAddressConstKHR,
+    pub src_data: DeviceOrHostAddressConstKHR<'a>,
     pub p_dst_size: *mut usize,
-    pub dst_data: DeviceOrHostAddressKHR,
+    pub dst_data: DeviceOrHostAddressKHR<'a>,
     pub src_component_type: ComponentTypeKHR,
     pub dst_component_type: ComponentTypeKHR,
     pub num_rows: u32,
@@ -45,6 +49,7 @@ pub struct ConvertCooperativeVectorMatrixInfoNV {
     pub src_stride: usize,
     pub dst_layout: CooperativeVectorMatrixLayoutNV,
     pub dst_stride: usize,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -92,15 +97,15 @@ impl CooperativeVectorMatrixLayoutNV {
 pub type PFN_vkGetPhysicalDeviceCooperativeVectorPropertiesNV = unsafe extern "system" fn(
     physical_device: PhysicalDevice,
     p_property_count: *mut u32,
-    p_properties: *mut CooperativeVectorPropertiesNV,
+    p_properties: *mut CooperativeVectorPropertiesNV<'_>,
 )
     -> Result;
 pub type PFN_vkConvertCooperativeVectorMatrixNV = unsafe extern "system" fn(
     device: Device,
-    p_info: *const ConvertCooperativeVectorMatrixInfoNV,
+    p_info: *const ConvertCooperativeVectorMatrixInfoNV<'_>,
 ) -> Result;
 pub type PFN_vkCmdConvertCooperativeVectorMatrixNV = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
     info_count: u32,
-    p_infos: *const ConvertCooperativeVectorMatrixInfoNV,
+    p_infos: *const ConvertCooperativeVectorMatrixInfoNV<'_>,
 );

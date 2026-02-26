@@ -2,14 +2,16 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct ValidationFeaturesEXT {
+pub struct ValidationFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub enabled_validation_feature_count: u32,
     pub p_enabled_validation_features: *const ValidationFeatureEnableEXT,
     pub disabled_validation_feature_count: u32,
     pub p_disabled_validation_features: *const ValidationFeatureDisableEXT,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

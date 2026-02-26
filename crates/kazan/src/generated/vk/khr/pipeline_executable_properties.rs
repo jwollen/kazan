@@ -30,11 +30,11 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
-    pub unsafe fn get_pipeline_executable_properties_khr(
+    pub unsafe fn get_pipeline_executable_properties_khr<'a>(
         &self,
         device: Device,
-        pipeline_info: &PipelineInfoKHR,
-        properties: impl ExtendUninit<PipelineExecutablePropertiesKHR>,
+        pipeline_info: &PipelineInfoKHR<'_>,
+        properties: impl ExtendUninit<PipelineExecutablePropertiesKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(properties, |executable_count, properties| {
@@ -53,11 +53,11 @@ impl DeviceFn {
             })
         }
     }
-    pub unsafe fn get_pipeline_executable_statistics_khr(
+    pub unsafe fn get_pipeline_executable_statistics_khr<'a>(
         &self,
         device: Device,
-        executable_info: &PipelineExecutableInfoKHR,
-        statistics: impl ExtendUninit<PipelineExecutableStatisticKHR>,
+        executable_info: &PipelineExecutableInfoKHR<'_>,
+        statistics: impl ExtendUninit<PipelineExecutableStatisticKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(statistics, |statistic_count, statistics| {
@@ -76,11 +76,11 @@ impl DeviceFn {
             })
         }
     }
-    pub unsafe fn get_pipeline_executable_internal_representations_khr(
+    pub unsafe fn get_pipeline_executable_internal_representations_khr<'a>(
         &self,
         device: Device,
-        executable_info: &PipelineExecutableInfoKHR,
-        internal_representations: impl ExtendUninit<PipelineExecutableInternalRepresentationKHR>,
+        executable_info: &PipelineExecutableInfoKHR<'_>,
+        internal_representations: impl ExtendUninit<PipelineExecutableInternalRepresentationKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(

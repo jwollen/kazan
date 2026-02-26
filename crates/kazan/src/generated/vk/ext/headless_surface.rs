@@ -23,8 +23,8 @@ impl InstanceFn {
     pub unsafe fn create_headless_surface_ext(
         &self,
         instance: Instance,
-        create_info: &HeadlessSurfaceCreateInfoEXT,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &HeadlessSurfaceCreateInfoEXT<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();

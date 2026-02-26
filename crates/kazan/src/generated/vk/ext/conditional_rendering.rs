@@ -27,7 +27,7 @@ impl DeviceFn {
     pub unsafe fn cmd_begin_conditional_rendering_ext(
         &self,
         command_buffer: CommandBuffer,
-        conditional_rendering_begin: &ConditionalRenderingBeginInfoEXT,
+        conditional_rendering_begin: &ConditionalRenderingBeginInfoEXT<'_>,
     ) {
         unsafe {
             (self.cmd_begin_conditional_rendering_ext)(command_buffer, conditional_rendering_begin)

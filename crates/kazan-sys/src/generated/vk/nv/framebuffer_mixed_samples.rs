@@ -2,9 +2,10 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
-pub type AttachmentSampleCountInfoNV = AttachmentSampleCountInfoAMD;
+use core::marker::PhantomData;
+pub type AttachmentSampleCountInfoNV<'a> = AttachmentSampleCountInfoAMD<'a>;
 #[repr(C)]
-pub struct PipelineCoverageModulationStateCreateInfoNV {
+pub struct PipelineCoverageModulationStateCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineCoverageModulationStateCreateFlagsNV,
@@ -12,6 +13,7 @@ pub struct PipelineCoverageModulationStateCreateInfoNV {
     pub coverage_modulation_table_enable: Bool32,
     pub coverage_modulation_table_count: u32,
     pub p_coverage_modulation_table: *const f32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -24,7 +26,7 @@ impl CoverageModulationModeNV {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineCoverageModulationStateCreateFlagsNV: Flags {
     }
 }

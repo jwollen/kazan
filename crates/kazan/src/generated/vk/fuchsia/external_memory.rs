@@ -27,7 +27,7 @@ impl DeviceFn {
     pub unsafe fn get_memory_zircon_handle_fuchsia(
         &self,
         device: Device,
-        get_zircon_handle_info: &MemoryGetZirconHandleInfoFUCHSIA,
+        get_zircon_handle_info: &MemoryGetZirconHandleInfoFUCHSIA<'_>,
     ) -> crate::Result<zx_handle_t> {
         unsafe {
             let mut zircon_handle = core::mem::MaybeUninit::uninit();
@@ -48,7 +48,7 @@ impl DeviceFn {
         device: Device,
         handle_type: ExternalMemoryHandleTypeFlagBits,
         zircon_handle: zx_handle_t,
-    ) -> crate::Result<MemoryZirconHandlePropertiesFUCHSIA> {
+    ) -> crate::Result<MemoryZirconHandlePropertiesFUCHSIA<'_>> {
         unsafe {
             let mut memory_zircon_handle_properties = core::mem::MaybeUninit::uninit();
             let result = (self.get_memory_zircon_handle_properties_fuchsia)(

@@ -2,14 +2,16 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDeviceMaintenance7FeaturesKHR {
+pub struct PhysicalDeviceMaintenance7FeaturesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub maintenance7: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceMaintenance7PropertiesKHR {
+pub struct PhysicalDeviceMaintenance7PropertiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub robust_fragment_shading_rate_attachment_access: Bool32,
@@ -20,28 +22,32 @@ pub struct PhysicalDeviceMaintenance7PropertiesKHR {
     pub max_descriptor_set_update_after_bind_total_uniform_buffers_dynamic: u32,
     pub max_descriptor_set_update_after_bind_total_storage_buffers_dynamic: u32,
     pub max_descriptor_set_update_after_bind_total_buffers_dynamic: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceLayeredApiPropertiesListKHR {
+pub struct PhysicalDeviceLayeredApiPropertiesListKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub layered_api_count: u32,
-    pub p_layered_apis: *mut PhysicalDeviceLayeredApiPropertiesKHR,
+    pub p_layered_apis: *mut PhysicalDeviceLayeredApiPropertiesKHR<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceLayeredApiPropertiesKHR {
+pub struct PhysicalDeviceLayeredApiPropertiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub vendor_id: u32,
     pub device_id: u32,
     pub layered_api: PhysicalDeviceLayeredApiKHR,
     pub device_name: [c_char; MAX_PHYSICAL_DEVICE_NAME_SIZE as usize],
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceLayeredApiVulkanPropertiesKHR {
+pub struct PhysicalDeviceLayeredApiVulkanPropertiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
-    pub properties: PhysicalDeviceProperties2,
+    pub properties: PhysicalDeviceProperties2<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

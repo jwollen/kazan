@@ -37,42 +37,42 @@ impl DeviceFn {
     pub unsafe fn cmd_copy_buffer2_khr(
         &self,
         command_buffer: CommandBuffer,
-        copy_buffer_info: &CopyBufferInfo2,
+        copy_buffer_info: &CopyBufferInfo2<'_>,
     ) {
         unsafe { (self.cmd_copy_buffer2_khr)(command_buffer, copy_buffer_info) }
     }
     pub unsafe fn cmd_copy_image2_khr(
         &self,
         command_buffer: CommandBuffer,
-        copy_image_info: &CopyImageInfo2,
+        copy_image_info: &CopyImageInfo2<'_>,
     ) {
         unsafe { (self.cmd_copy_image2_khr)(command_buffer, copy_image_info) }
     }
     pub unsafe fn cmd_copy_buffer_to_image2_khr(
         &self,
         command_buffer: CommandBuffer,
-        copy_buffer_to_image_info: &CopyBufferToImageInfo2,
+        copy_buffer_to_image_info: &CopyBufferToImageInfo2<'_>,
     ) {
         unsafe { (self.cmd_copy_buffer_to_image2_khr)(command_buffer, copy_buffer_to_image_info) }
     }
     pub unsafe fn cmd_copy_image_to_buffer2_khr(
         &self,
         command_buffer: CommandBuffer,
-        copy_image_to_buffer_info: &CopyImageToBufferInfo2,
+        copy_image_to_buffer_info: &CopyImageToBufferInfo2<'_>,
     ) {
         unsafe { (self.cmd_copy_image_to_buffer2_khr)(command_buffer, copy_image_to_buffer_info) }
     }
     pub unsafe fn cmd_blit_image2_khr(
         &self,
         command_buffer: CommandBuffer,
-        blit_image_info: &BlitImageInfo2,
+        blit_image_info: &BlitImageInfo2<'_>,
     ) {
         unsafe { (self.cmd_blit_image2_khr)(command_buffer, blit_image_info) }
     }
     pub unsafe fn cmd_resolve_image2_khr(
         &self,
         command_buffer: CommandBuffer,
-        resolve_image_info: &ResolveImageInfo2,
+        resolve_image_info: &ResolveImageInfo2<'_>,
     ) {
         unsafe { (self.cmd_resolve_image2_khr)(command_buffer, resolve_image_info) }
     }

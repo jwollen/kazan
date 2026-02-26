@@ -20,10 +20,10 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
-    pub unsafe fn get_physical_device_surface_present_modes2_ext(
+    pub unsafe fn get_physical_device_surface_present_modes2_ext<'a>(
         &self,
         physical_device: PhysicalDevice,
-        surface_info: &PhysicalDeviceSurfaceInfo2KHR,
+        surface_info: &PhysicalDeviceSurfaceInfo2KHR<'_>,
         present_modes: impl ExtendUninit<PresentModeKHR>,
     ) -> crate::Result<()> {
         unsafe {
@@ -101,7 +101,7 @@ impl DeviceFn {
     pub unsafe fn get_device_group_surface_present_modes2_ext(
         &self,
         device: Device,
-        surface_info: &PhysicalDeviceSurfaceInfo2KHR,
+        surface_info: &PhysicalDeviceSurfaceInfo2KHR<'_>,
     ) -> crate::Result<DeviceGroupPresentModeFlagsKHR> {
         unsafe {
             let mut modes = core::mem::MaybeUninit::uninit();

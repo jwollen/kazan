@@ -23,7 +23,7 @@ impl DeviceFn {
     pub unsafe fn get_buffer_device_address_ext(
         &self,
         device: Device,
-        info: &BufferDeviceAddressInfo,
+        info: &BufferDeviceAddressInfo<'_>,
     ) -> DeviceAddress {
         unsafe { (self.get_buffer_device_address_ext)(device, info) }
     }

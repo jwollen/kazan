@@ -31,8 +31,8 @@ impl DeviceFn {
     pub unsafe fn get_device_buffer_memory_requirements_khr(
         &self,
         device: Device,
-        info: &DeviceBufferMemoryRequirements,
-    ) -> MemoryRequirements2 {
+        info: &DeviceBufferMemoryRequirements<'_>,
+    ) -> MemoryRequirements2<'_> {
         unsafe {
             let mut memory_requirements = core::mem::MaybeUninit::uninit();
             (self.get_device_buffer_memory_requirements_khr)(
@@ -46,8 +46,8 @@ impl DeviceFn {
     pub unsafe fn get_device_image_memory_requirements_khr(
         &self,
         device: Device,
-        info: &DeviceImageMemoryRequirements,
-    ) -> MemoryRequirements2 {
+        info: &DeviceImageMemoryRequirements<'_>,
+    ) -> MemoryRequirements2<'_> {
         unsafe {
             let mut memory_requirements = core::mem::MaybeUninit::uninit();
             (self.get_device_image_memory_requirements_khr)(
@@ -58,11 +58,11 @@ impl DeviceFn {
             memory_requirements.assume_init()
         }
     }
-    pub unsafe fn get_device_image_sparse_memory_requirements_khr(
+    pub unsafe fn get_device_image_sparse_memory_requirements_khr<'a>(
         &self,
         device: Device,
-        info: &DeviceImageMemoryRequirements,
-        sparse_memory_requirements: impl ExtendUninit<SparseImageMemoryRequirements2>,
+        info: &DeviceImageMemoryRequirements<'_>,
+        sparse_memory_requirements: impl ExtendUninit<SparseImageMemoryRequirements2<'a>>,
     ) {
         unsafe {
             extend_uninit(

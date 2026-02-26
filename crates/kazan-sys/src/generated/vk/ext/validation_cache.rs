@@ -2,22 +2,25 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct ValidationCacheEXT(u64);
 #[repr(C)]
-pub struct ValidationCacheCreateInfoEXT {
+pub struct ValidationCacheCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: ValidationCacheCreateFlagsEXT,
     pub initial_data_size: usize,
     pub p_initial_data: *const c_void,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct ShaderModuleValidationCacheCreateInfoEXT {
+pub struct ShaderModuleValidationCacheCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub validation_cache: ValidationCacheEXT,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -27,20 +30,20 @@ impl ValidationCacheHeaderVersionEXT {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ValidationCacheCreateFlagsEXT: Flags {
     }
 }
 pub type PFN_vkCreateValidationCacheEXT = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const ValidationCacheCreateInfoEXT,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const ValidationCacheCreateInfoEXT<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_validation_cache: *mut ValidationCacheEXT,
 ) -> Result;
 pub type PFN_vkDestroyValidationCacheEXT = unsafe extern "system" fn(
     device: Device,
     validation_cache: ValidationCacheEXT,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkGetValidationCacheDataEXT = unsafe extern "system" fn(
     device: Device,

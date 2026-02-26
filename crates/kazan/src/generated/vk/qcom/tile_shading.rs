@@ -31,21 +31,21 @@ impl DeviceFn {
     pub unsafe fn cmd_dispatch_tile_qcom(
         &self,
         command_buffer: CommandBuffer,
-        dispatch_tile_info: &DispatchTileInfoQCOM,
+        dispatch_tile_info: &DispatchTileInfoQCOM<'_>,
     ) {
         unsafe { (self.cmd_dispatch_tile_qcom)(command_buffer, dispatch_tile_info) }
     }
     pub unsafe fn cmd_begin_per_tile_execution_qcom(
         &self,
         command_buffer: CommandBuffer,
-        per_tile_begin_info: &PerTileBeginInfoQCOM,
+        per_tile_begin_info: &PerTileBeginInfoQCOM<'_>,
     ) {
         unsafe { (self.cmd_begin_per_tile_execution_qcom)(command_buffer, per_tile_begin_info) }
     }
     pub unsafe fn cmd_end_per_tile_execution_qcom(
         &self,
         command_buffer: CommandBuffer,
-        per_tile_end_info: &PerTileEndInfoQCOM,
+        per_tile_end_info: &PerTileEndInfoQCOM<'_>,
     ) {
         unsafe { (self.cmd_end_per_tile_execution_qcom)(command_buffer, per_tile_end_info) }
     }

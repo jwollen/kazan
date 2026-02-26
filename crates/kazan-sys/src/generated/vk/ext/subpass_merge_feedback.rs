@@ -2,21 +2,24 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct RenderPassCreationControlEXT {
+pub struct RenderPassCreationControlEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub disallow_merging: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct RenderPassCreationFeedbackInfoEXT {
     pub post_merge_subpass_count: u32,
 }
 #[repr(C)]
-pub struct RenderPassCreationFeedbackCreateInfoEXT {
+pub struct RenderPassCreationFeedbackCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_render_pass_feedback: *mut RenderPassCreationFeedbackInfoEXT,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct RenderPassSubpassFeedbackInfoEXT {
@@ -25,16 +28,18 @@ pub struct RenderPassSubpassFeedbackInfoEXT {
     pub post_merge_index: u32,
 }
 #[repr(C)]
-pub struct RenderPassSubpassFeedbackCreateInfoEXT {
+pub struct RenderPassSubpassFeedbackCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_subpass_feedback: *mut RenderPassSubpassFeedbackInfoEXT,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceSubpassMergeFeedbackFeaturesEXT {
+pub struct PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub subpass_merge_feedback: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

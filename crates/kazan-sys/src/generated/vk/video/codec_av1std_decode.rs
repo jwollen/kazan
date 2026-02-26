@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
 pub struct StdVideoDecodeAV1PictureInfoFlags {
     pub error_resilient_mode: u32,
@@ -36,7 +37,7 @@ pub struct StdVideoDecodeAV1PictureInfoFlags {
     pub reserved: u32,
 }
 #[repr(C)]
-pub struct StdVideoDecodeAV1PictureInfo {
+pub struct StdVideoDecodeAV1PictureInfo<'a> {
     pub flags: StdVideoDecodeAV1PictureInfoFlags,
     pub frame_type: StdVideoAV1FrameType,
     pub current_frame_id: u32,
@@ -53,7 +54,7 @@ pub struct StdVideoDecodeAV1PictureInfo {
     pub reserved2: [u8; 3],
     pub order_hints: [u8; STD_VIDEO_AV1_NUM_REF_FRAMES as usize],
     pub expected_frame_id: [u32; STD_VIDEO_AV1_NUM_REF_FRAMES as usize],
-    pub p_tile_info: *const StdVideoAV1TileInfo,
+    pub p_tile_info: *const StdVideoAV1TileInfo<'a>,
     pub p_quantization: *const StdVideoAV1Quantization,
     pub p_segmentation: *const StdVideoAV1Segmentation,
     pub p_loop_filter: *const StdVideoAV1LoopFilter,
@@ -61,6 +62,7 @@ pub struct StdVideoDecodeAV1PictureInfo {
     pub p_loop_restoration: *const StdVideoAV1LoopRestoration,
     pub p_global_motion: *const StdVideoAV1GlobalMotion,
     pub p_film_grain: *const StdVideoAV1FilmGrain,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct StdVideoDecodeAV1ReferenceInfoFlags {

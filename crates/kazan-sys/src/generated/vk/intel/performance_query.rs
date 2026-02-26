@@ -2,61 +2,75 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct PerformanceConfigurationINTEL(u64);
-pub type QueryPoolCreateInfoINTEL = QueryPoolPerformanceQueryCreateInfoINTEL;
+pub type QueryPoolCreateInfoINTEL<'a> = QueryPoolPerformanceQueryCreateInfoINTEL<'a>;
 #[repr(C)]
-pub struct PerformanceValueINTEL {
+pub struct PerformanceValueINTEL<'a> {
     pub ty: PerformanceValueTypeINTEL,
-    pub data: PerformanceValueDataINTEL,
+    pub data: PerformanceValueDataINTEL<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct InitializePerformanceApiInfoINTEL {
+pub struct InitializePerformanceApiInfoINTEL<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_user_data: *mut c_void,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct QueryPoolPerformanceQueryCreateInfoINTEL {
+pub struct QueryPoolPerformanceQueryCreateInfoINTEL<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub performance_counters_sampling: QueryPoolSamplingModeINTEL,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PerformanceMarkerInfoINTEL {
+pub struct PerformanceMarkerInfoINTEL<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub marker: u64,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PerformanceStreamMarkerInfoINTEL {
+pub struct PerformanceStreamMarkerInfoINTEL<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub marker: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PerformanceOverrideInfoINTEL {
+pub struct PerformanceOverrideInfoINTEL<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub ty: PerformanceOverrideTypeINTEL,
     pub enable: Bool32,
     pub parameter: u64,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PerformanceConfigurationAcquireInfoINTEL {
+pub struct PerformanceConfigurationAcquireInfoINTEL<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub ty: PerformanceConfigurationTypeINTEL,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
-pub union PerformanceValueDataINTEL {
+pub union PerformanceValueDataINTEL<'a> {
     pub value32: u32,
     pub value64: u64,
     pub value_float: f32,
     pub value_bool: Bool32,
     pub value_string: *const c_char,
+    pub _marker: PhantomData<&'a ()>,
+}
+impl Default for PerformanceValueDataINTEL<'_> {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -96,24 +110,24 @@ impl PerformanceValueTypeINTEL {
 }
 pub type PFN_vkInitializePerformanceApiINTEL = unsafe extern "system" fn(
     device: Device,
-    p_initialize_info: *const InitializePerformanceApiInfoINTEL,
+    p_initialize_info: *const InitializePerformanceApiInfoINTEL<'_>,
 ) -> Result;
 pub type PFN_vkUninitializePerformanceApiINTEL = unsafe extern "system" fn(device: Device);
 pub type PFN_vkCmdSetPerformanceMarkerINTEL = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_marker_info: *const PerformanceMarkerInfoINTEL,
+    p_marker_info: *const PerformanceMarkerInfoINTEL<'_>,
 ) -> Result;
 pub type PFN_vkCmdSetPerformanceStreamMarkerINTEL = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_marker_info: *const PerformanceStreamMarkerInfoINTEL,
+    p_marker_info: *const PerformanceStreamMarkerInfoINTEL<'_>,
 ) -> Result;
 pub type PFN_vkCmdSetPerformanceOverrideINTEL = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_override_info: *const PerformanceOverrideInfoINTEL,
+    p_override_info: *const PerformanceOverrideInfoINTEL<'_>,
 ) -> Result;
 pub type PFN_vkAcquirePerformanceConfigurationINTEL = unsafe extern "system" fn(
     device: Device,
-    p_acquire_info: *const PerformanceConfigurationAcquireInfoINTEL,
+    p_acquire_info: *const PerformanceConfigurationAcquireInfoINTEL<'_>,
     p_configuration: *mut PerformanceConfigurationINTEL,
 ) -> Result;
 pub type PFN_vkReleasePerformanceConfigurationINTEL = unsafe extern "system" fn(
@@ -125,5 +139,5 @@ pub type PFN_vkQueueSetPerformanceConfigurationINTEL =
 pub type PFN_vkGetPerformanceParameterINTEL = unsafe extern "system" fn(
     device: Device,
     parameter: PerformanceParameterTypeINTEL,
-    p_value: *mut PerformanceValueINTEL,
+    p_value: *mut PerformanceValueINTEL<'_>,
 ) -> Result;

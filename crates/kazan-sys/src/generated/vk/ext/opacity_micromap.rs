@@ -2,11 +2,12 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct MicromapEXT(u64);
 #[repr(C)]
-pub struct MicromapBuildInfoEXT {
+pub struct MicromapBuildInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub ty: MicromapTypeEXT,
@@ -16,13 +17,14 @@ pub struct MicromapBuildInfoEXT {
     pub usage_counts_count: u32,
     pub p_usage_counts: *const MicromapUsageEXT,
     pub pp_usage_counts: *const *const MicromapUsageEXT,
-    pub data: DeviceOrHostAddressConstKHR,
-    pub scratch_data: DeviceOrHostAddressKHR,
-    pub triangle_array: DeviceOrHostAddressConstKHR,
+    pub data: DeviceOrHostAddressConstKHR<'a>,
+    pub scratch_data: DeviceOrHostAddressKHR<'a>,
+    pub triangle_array: DeviceOrHostAddressConstKHR<'a>,
     pub triangle_array_stride: DeviceSize,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct MicromapCreateInfoEXT {
+pub struct MicromapCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub create_flags: MicromapCreateFlagsEXT,
@@ -31,44 +33,50 @@ pub struct MicromapCreateInfoEXT {
     pub size: DeviceSize,
     pub ty: MicromapTypeEXT,
     pub device_address: DeviceAddress,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct MicromapVersionInfoEXT {
+pub struct MicromapVersionInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_version_data: *const u8,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct CopyMicromapInfoEXT {
+pub struct CopyMicromapInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub src: MicromapEXT,
     pub dst: MicromapEXT,
     pub mode: CopyMicromapModeEXT,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct CopyMicromapToMemoryInfoEXT {
+pub struct CopyMicromapToMemoryInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub src: MicromapEXT,
-    pub dst: DeviceOrHostAddressKHR,
+    pub dst: DeviceOrHostAddressKHR<'a>,
     pub mode: CopyMicromapModeEXT,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct CopyMemoryToMicromapInfoEXT {
+pub struct CopyMemoryToMicromapInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
-    pub src: DeviceOrHostAddressConstKHR,
+    pub src: DeviceOrHostAddressConstKHR<'a>,
     pub dst: MicromapEXT,
     pub mode: CopyMicromapModeEXT,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct MicromapBuildSizesInfoEXT {
+pub struct MicromapBuildSizesInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub micromap_size: DeviceSize,
     pub build_scratch_size: DeviceSize,
     pub discardable: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct MicromapUsageEXT {
@@ -83,32 +91,35 @@ pub struct MicromapTriangleEXT {
     pub format: u16,
 }
 #[repr(C)]
-pub struct PhysicalDeviceOpacityMicromapFeaturesEXT {
+pub struct PhysicalDeviceOpacityMicromapFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub micromap: Bool32,
     pub micromap_capture_replay: Bool32,
     pub micromap_host_commands: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceOpacityMicromapPropertiesEXT {
+pub struct PhysicalDeviceOpacityMicromapPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_opacity2_state_subdivision_level: u32,
     pub max_opacity4_state_subdivision_level: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct AccelerationStructureTrianglesOpacityMicromapEXT {
+pub struct AccelerationStructureTrianglesOpacityMicromapEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub index_type: IndexType,
-    pub index_buffer: DeviceOrHostAddressConstKHR,
+    pub index_buffer: DeviceOrHostAddressConstKHR<'a>,
     pub index_stride: DeviceSize,
     pub base_triangle: u32,
     pub usage_counts_count: u32,
     pub p_usage_counts: *const MicromapUsageEXT,
     pub pp_usage_counts: *const *const MicromapUsageEXT,
     pub micromap: MicromapEXT,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -151,7 +162,7 @@ impl OpacityMicromapSpecialIndexEXT {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct BuildMicromapFlagsEXT: Flags {
         const PREFER_FAST_TRACE_EXT = BuildMicromapFlagBitsEXT::PREFER_FAST_TRACE_EXT.0;
         const PREFER_FAST_BUILD_EXT = BuildMicromapFlagBitsEXT::PREFER_FAST_BUILD_EXT.0;
@@ -159,7 +170,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct BuildMicromapFlagBitsEXT(u32);
 impl BuildMicromapFlagBitsEXT {
     pub const PREFER_FAST_TRACE_EXT: Self = Self(1 << 0);
@@ -168,63 +179,65 @@ impl BuildMicromapFlagBitsEXT {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct MicromapCreateFlagsEXT: Flags {
         const DEVICE_ADDRESS_CAPTURE_REPLAY_EXT = MicromapCreateFlagBitsEXT::DEVICE_ADDRESS_CAPTURE_REPLAY_EXT.0;
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct MicromapCreateFlagBitsEXT(u32);
 impl MicromapCreateFlagBitsEXT {
     pub const DEVICE_ADDRESS_CAPTURE_REPLAY_EXT: Self = Self(1 << 0);
 }
 pub type PFN_vkCreateMicromapEXT = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const MicromapCreateInfoEXT,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const MicromapCreateInfoEXT<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_micromap: *mut MicromapEXT,
 ) -> Result;
 pub type PFN_vkCmdBuildMicromapsEXT = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
     info_count: u32,
-    p_infos: *const MicromapBuildInfoEXT,
+    p_infos: *const MicromapBuildInfoEXT<'_>,
 );
 pub type PFN_vkBuildMicromapsEXT = unsafe extern "system" fn(
     device: Device,
     deferred_operation: DeferredOperationKHR,
     info_count: u32,
-    p_infos: *const MicromapBuildInfoEXT,
+    p_infos: *const MicromapBuildInfoEXT<'_>,
 ) -> Result;
 pub type PFN_vkDestroyMicromapEXT = unsafe extern "system" fn(
     device: Device,
     micromap: MicromapEXT,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
-pub type PFN_vkCmdCopyMicromapEXT =
-    unsafe extern "system" fn(command_buffer: CommandBuffer, p_info: *const CopyMicromapInfoEXT);
+pub type PFN_vkCmdCopyMicromapEXT = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    p_info: *const CopyMicromapInfoEXT<'_>,
+);
 pub type PFN_vkCopyMicromapEXT = unsafe extern "system" fn(
     device: Device,
     deferred_operation: DeferredOperationKHR,
-    p_info: *const CopyMicromapInfoEXT,
+    p_info: *const CopyMicromapInfoEXT<'_>,
 ) -> Result;
 pub type PFN_vkCmdCopyMicromapToMemoryEXT = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_info: *const CopyMicromapToMemoryInfoEXT,
+    p_info: *const CopyMicromapToMemoryInfoEXT<'_>,
 );
 pub type PFN_vkCopyMicromapToMemoryEXT = unsafe extern "system" fn(
     device: Device,
     deferred_operation: DeferredOperationKHR,
-    p_info: *const CopyMicromapToMemoryInfoEXT,
+    p_info: *const CopyMicromapToMemoryInfoEXT<'_>,
 ) -> Result;
 pub type PFN_vkCmdCopyMemoryToMicromapEXT = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_info: *const CopyMemoryToMicromapInfoEXT,
+    p_info: *const CopyMemoryToMicromapInfoEXT<'_>,
 );
 pub type PFN_vkCopyMemoryToMicromapEXT = unsafe extern "system" fn(
     device: Device,
     deferred_operation: DeferredOperationKHR,
-    p_info: *const CopyMemoryToMicromapInfoEXT,
+    p_info: *const CopyMemoryToMicromapInfoEXT<'_>,
 ) -> Result;
 pub type PFN_vkCmdWriteMicromapsPropertiesEXT = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
@@ -245,12 +258,12 @@ pub type PFN_vkWriteMicromapsPropertiesEXT = unsafe extern "system" fn(
 ) -> Result;
 pub type PFN_vkGetDeviceMicromapCompatibilityEXT = unsafe extern "system" fn(
     device: Device,
-    p_version_info: *const MicromapVersionInfoEXT,
+    p_version_info: *const MicromapVersionInfoEXT<'_>,
     p_compatibility: *mut AccelerationStructureCompatibilityKHR,
 );
 pub type PFN_vkGetMicromapBuildSizesEXT = unsafe extern "system" fn(
     device: Device,
     build_type: AccelerationStructureBuildTypeKHR,
-    p_build_info: *const MicromapBuildInfoEXT,
-    p_size_info: *mut MicromapBuildSizesInfoEXT,
+    p_build_info: *const MicromapBuildInfoEXT<'_>,
+    p_size_info: *mut MicromapBuildSizesInfoEXT<'_>,
 );

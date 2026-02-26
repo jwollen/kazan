@@ -2,8 +2,9 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDeviceDrmPropertiesEXT {
+pub struct PhysicalDeviceDrmPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub has_primary: Bool32,
@@ -12,4 +13,5 @@ pub struct PhysicalDeviceDrmPropertiesEXT {
     pub primary_minor: i64,
     pub render_major: i64,
     pub render_minor: i64,
+    pub _marker: PhantomData<&'a ()>,
 }

@@ -2,8 +2,9 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct FrameBoundaryEXT {
+pub struct FrameBoundaryEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: FrameBoundaryFlagsEXT,
@@ -15,22 +16,24 @@ pub struct FrameBoundaryEXT {
     pub tag_name: u64,
     pub tag_size: usize,
     pub p_tag: *const c_void,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceFrameBoundaryFeaturesEXT {
+pub struct PhysicalDeviceFrameBoundaryFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub frame_boundary: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct FrameBoundaryFlagsEXT: Flags {
         const FRAME_END_EXT = FrameBoundaryFlagBitsEXT::FRAME_END_EXT.0;
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct FrameBoundaryFlagBitsEXT(u32);
 impl FrameBoundaryFlagBitsEXT {
     pub const FRAME_END_EXT: Self = Self(1 << 0);

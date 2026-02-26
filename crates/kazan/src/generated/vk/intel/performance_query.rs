@@ -55,7 +55,7 @@ impl DeviceFn {
     pub unsafe fn initialize_performance_api_intel(
         &self,
         device: Device,
-        initialize_info: &InitializePerformanceApiInfoINTEL,
+        initialize_info: &InitializePerformanceApiInfoINTEL<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.initialize_performance_api_intel)(device, initialize_info);
@@ -72,7 +72,7 @@ impl DeviceFn {
     pub unsafe fn cmd_set_performance_marker_intel(
         &self,
         command_buffer: CommandBuffer,
-        marker_info: &PerformanceMarkerInfoINTEL,
+        marker_info: &PerformanceMarkerInfoINTEL<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.cmd_set_performance_marker_intel)(command_buffer, marker_info);
@@ -86,7 +86,7 @@ impl DeviceFn {
     pub unsafe fn cmd_set_performance_stream_marker_intel(
         &self,
         command_buffer: CommandBuffer,
-        marker_info: &PerformanceStreamMarkerInfoINTEL,
+        marker_info: &PerformanceStreamMarkerInfoINTEL<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result =
@@ -101,7 +101,7 @@ impl DeviceFn {
     pub unsafe fn cmd_set_performance_override_intel(
         &self,
         command_buffer: CommandBuffer,
-        override_info: &PerformanceOverrideInfoINTEL,
+        override_info: &PerformanceOverrideInfoINTEL<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.cmd_set_performance_override_intel)(command_buffer, override_info);
@@ -115,7 +115,7 @@ impl DeviceFn {
     pub unsafe fn acquire_performance_configuration_intel(
         &self,
         device: Device,
-        acquire_info: &PerformanceConfigurationAcquireInfoINTEL,
+        acquire_info: &PerformanceConfigurationAcquireInfoINTEL<'_>,
     ) -> crate::Result<PerformanceConfigurationINTEL> {
         unsafe {
             let mut configuration = core::mem::MaybeUninit::uninit();
@@ -163,7 +163,7 @@ impl DeviceFn {
         &self,
         device: Device,
         parameter: PerformanceParameterTypeINTEL,
-    ) -> crate::Result<PerformanceValueINTEL> {
+    ) -> crate::Result<PerformanceValueINTEL<'_>> {
         unsafe {
             let mut value = core::mem::MaybeUninit::uninit();
             let result =

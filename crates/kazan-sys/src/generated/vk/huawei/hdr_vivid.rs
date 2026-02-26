@@ -2,16 +2,19 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct HdrVividDynamicMetadataHUAWEI {
+pub struct HdrVividDynamicMetadataHUAWEI<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub dynamic_metadata_size: usize,
     pub p_dynamic_metadata: *const c_void,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceHdrVividFeaturesHUAWEI {
+pub struct PhysicalDeviceHdrVividFeaturesHUAWEI<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub hdr_vivid: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }

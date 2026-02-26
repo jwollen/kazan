@@ -2,18 +2,20 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct AccelerationStructureKHR(u64);
 #[repr(C)]
-pub struct WriteDescriptorSetAccelerationStructureKHR {
+pub struct WriteDescriptorSetAccelerationStructureKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub acceleration_structure_count: u32,
     pub p_acceleration_structures: *const AccelerationStructureKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceAccelerationStructureFeaturesKHR {
+pub struct PhysicalDeviceAccelerationStructureFeaturesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub acceleration_structure: Bool32,
@@ -21,9 +23,10 @@ pub struct PhysicalDeviceAccelerationStructureFeaturesKHR {
     pub acceleration_structure_indirect_build: Bool32,
     pub acceleration_structure_host_commands: Bool32,
     pub descriptor_binding_acceleration_structure_update_after_bind: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceAccelerationStructurePropertiesKHR {
+pub struct PhysicalDeviceAccelerationStructurePropertiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_geometry_count: u64,
@@ -34,43 +37,48 @@ pub struct PhysicalDeviceAccelerationStructurePropertiesKHR {
     pub max_descriptor_set_acceleration_structures: u32,
     pub max_descriptor_set_update_after_bind_acceleration_structures: u32,
     pub min_acceleration_structure_scratch_offset_alignment: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct AccelerationStructureGeometryTrianglesDataKHR {
+pub struct AccelerationStructureGeometryTrianglesDataKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub vertex_format: Format,
-    pub vertex_data: DeviceOrHostAddressConstKHR,
+    pub vertex_data: DeviceOrHostAddressConstKHR<'a>,
     pub vertex_stride: DeviceSize,
     pub max_vertex: u32,
     pub index_type: IndexType,
-    pub index_data: DeviceOrHostAddressConstKHR,
-    pub transform_data: DeviceOrHostAddressConstKHR,
+    pub index_data: DeviceOrHostAddressConstKHR<'a>,
+    pub transform_data: DeviceOrHostAddressConstKHR<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct AccelerationStructureGeometryAabbsDataKHR {
+pub struct AccelerationStructureGeometryAabbsDataKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
-    pub data: DeviceOrHostAddressConstKHR,
+    pub data: DeviceOrHostAddressConstKHR<'a>,
     pub stride: DeviceSize,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct AccelerationStructureGeometryInstancesDataKHR {
+pub struct AccelerationStructureGeometryInstancesDataKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub array_of_pointers: Bool32,
-    pub data: DeviceOrHostAddressConstKHR,
+    pub data: DeviceOrHostAddressConstKHR<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct AccelerationStructureGeometryKHR {
+pub struct AccelerationStructureGeometryKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub geometry_type: GeometryTypeKHR,
-    pub geometry: AccelerationStructureGeometryDataKHR,
+    pub geometry: AccelerationStructureGeometryDataKHR<'a>,
     pub flags: GeometryFlagsKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct AccelerationStructureBuildGeometryInfoKHR {
+pub struct AccelerationStructureBuildGeometryInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub ty: AccelerationStructureTypeKHR,
@@ -79,9 +87,10 @@ pub struct AccelerationStructureBuildGeometryInfoKHR {
     pub src_acceleration_structure: AccelerationStructureKHR,
     pub dst_acceleration_structure: AccelerationStructureKHR,
     pub geometry_count: u32,
-    pub p_geometries: *const AccelerationStructureGeometryKHR,
-    pub pp_geometries: *const *const AccelerationStructureGeometryKHR,
-    pub scratch_data: DeviceOrHostAddressKHR,
+    pub p_geometries: *const AccelerationStructureGeometryKHR<'a>,
+    pub pp_geometries: *const *const AccelerationStructureGeometryKHR<'a>,
+    pub scratch_data: DeviceOrHostAddressKHR<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct AccelerationStructureBuildRangeInfoKHR {
@@ -91,7 +100,7 @@ pub struct AccelerationStructureBuildRangeInfoKHR {
     pub transform_offset: u32,
 }
 #[repr(C)]
-pub struct AccelerationStructureCreateInfoKHR {
+pub struct AccelerationStructureCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub create_flags: AccelerationStructureCreateFlagsKHR,
@@ -100,6 +109,7 @@ pub struct AccelerationStructureCreateInfoKHR {
     pub size: DeviceSize,
     pub ty: AccelerationStructureTypeKHR,
     pub device_address: DeviceAddress,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct AabbPositionsKHR {
@@ -124,67 +134,91 @@ pub struct AccelerationStructureInstanceKHR {
     pub acceleration_structure_reference: u64,
 }
 #[repr(C)]
-pub struct AccelerationStructureDeviceAddressInfoKHR {
+pub struct AccelerationStructureDeviceAddressInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub acceleration_structure: AccelerationStructureKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct AccelerationStructureVersionInfoKHR {
+pub struct AccelerationStructureVersionInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_version_data: *const u8,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct CopyAccelerationStructureInfoKHR {
+pub struct CopyAccelerationStructureInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub src: AccelerationStructureKHR,
     pub dst: AccelerationStructureKHR,
     pub mode: CopyAccelerationStructureModeKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct CopyAccelerationStructureToMemoryInfoKHR {
+pub struct CopyAccelerationStructureToMemoryInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub src: AccelerationStructureKHR,
-    pub dst: DeviceOrHostAddressKHR,
+    pub dst: DeviceOrHostAddressKHR<'a>,
     pub mode: CopyAccelerationStructureModeKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct CopyMemoryToAccelerationStructureInfoKHR {
+pub struct CopyMemoryToAccelerationStructureInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
-    pub src: DeviceOrHostAddressConstKHR,
+    pub src: DeviceOrHostAddressConstKHR<'a>,
     pub dst: AccelerationStructureKHR,
     pub mode: CopyAccelerationStructureModeKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct AccelerationStructureBuildSizesInfoKHR {
+pub struct AccelerationStructureBuildSizesInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub acceleration_structure_size: DeviceSize,
     pub update_scratch_size: DeviceSize,
     pub build_scratch_size: DeviceSize,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
-pub union DeviceOrHostAddressKHR {
+pub union DeviceOrHostAddressKHR<'a> {
     pub device_address: DeviceAddress,
     pub host_address: *mut c_void,
+    pub _marker: PhantomData<&'a ()>,
+}
+impl Default for DeviceOrHostAddressKHR<'_> {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
-pub union DeviceOrHostAddressConstKHR {
+pub union DeviceOrHostAddressConstKHR<'a> {
     pub device_address: DeviceAddress,
     pub host_address: *const c_void,
+    pub _marker: PhantomData<&'a ()>,
+}
+impl Default for DeviceOrHostAddressConstKHR<'_> {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
-pub union AccelerationStructureGeometryDataKHR {
-    pub triangles: AccelerationStructureGeometryTrianglesDataKHR,
-    pub aabbs: AccelerationStructureGeometryAabbsDataKHR,
-    pub instances: AccelerationStructureGeometryInstancesDataKHR,
+pub union AccelerationStructureGeometryDataKHR<'a> {
+    pub triangles: AccelerationStructureGeometryTrianglesDataKHR<'a>,
+    pub aabbs: AccelerationStructureGeometryAabbsDataKHR<'a>,
+    pub instances: AccelerationStructureGeometryInstancesDataKHR<'a>,
+    pub _marker: PhantomData<&'a ()>,
+}
+impl Default for AccelerationStructureGeometryDataKHR<'_> {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -244,7 +278,7 @@ impl AccelerationStructureCompatibilityKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct GeometryFlagsKHR: Flags {
         const OPAQUE_KHR = GeometryFlagBitsKHR::OPAQUE_KHR.0;
         const NO_DUPLICATE_ANY_HIT_INVOCATION_KHR = GeometryFlagBitsKHR::NO_DUPLICATE_ANY_HIT_INVOCATION_KHR.0;
@@ -253,7 +287,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct GeometryFlagBitsKHR(u32);
 impl GeometryFlagBitsKHR {
     pub const OPAQUE_KHR: Self = Self(1 << 0);
@@ -263,7 +297,7 @@ impl GeometryFlagBitsKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct GeometryInstanceFlagsKHR: Flags {
         const TRIANGLE_FACING_CULL_DISABLE_KHR = GeometryInstanceFlagBitsKHR::TRIANGLE_FACING_CULL_DISABLE_KHR.0;
         const TRIANGLE_FLIP_FACING_KHR = GeometryInstanceFlagBitsKHR::TRIANGLE_FLIP_FACING_KHR.0;
@@ -279,7 +313,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct GeometryInstanceFlagBitsKHR(u32);
 impl GeometryInstanceFlagBitsKHR {
     pub const TRIANGLE_FACING_CULL_DISABLE_KHR: Self = Self(1 << 0);
@@ -294,7 +328,7 @@ impl GeometryInstanceFlagBitsKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct BuildAccelerationStructureFlagsKHR: Flags {
         const ALLOW_UPDATE_KHR = BuildAccelerationStructureFlagBitsKHR::ALLOW_UPDATE_KHR.0;
         const ALLOW_COMPACTION_KHR = BuildAccelerationStructureFlagBitsKHR::ALLOW_COMPACTION_KHR.0;
@@ -316,7 +350,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct BuildAccelerationStructureFlagBitsKHR(u32);
 impl BuildAccelerationStructureFlagBitsKHR {
     pub const ALLOW_UPDATE_KHR: Self = Self(1 << 0);
@@ -339,7 +373,7 @@ impl BuildAccelerationStructureFlagBitsKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct AccelerationStructureCreateFlagsKHR: Flags {
         const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR = AccelerationStructureCreateFlagBitsKHR::DEVICE_ADDRESS_CAPTURE_REPLAY_KHR.0;
         const MOTION_NV = AccelerationStructureCreateFlagBitsKHR::MOTION_NV.0;
@@ -347,7 +381,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AccelerationStructureCreateFlagBitsKHR(u32);
 impl AccelerationStructureCreateFlagBitsKHR {
     pub const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR: Self = Self(1 << 0);
@@ -357,34 +391,34 @@ impl AccelerationStructureCreateFlagBitsKHR {
 pub type PFN_vkDestroyAccelerationStructureKHR = unsafe extern "system" fn(
     device: Device,
     acceleration_structure: AccelerationStructureKHR,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkCmdCopyAccelerationStructureKHR = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_info: *const CopyAccelerationStructureInfoKHR,
+    p_info: *const CopyAccelerationStructureInfoKHR<'_>,
 );
 pub type PFN_vkCopyAccelerationStructureKHR = unsafe extern "system" fn(
     device: Device,
     deferred_operation: DeferredOperationKHR,
-    p_info: *const CopyAccelerationStructureInfoKHR,
+    p_info: *const CopyAccelerationStructureInfoKHR<'_>,
 ) -> Result;
 pub type PFN_vkCmdCopyAccelerationStructureToMemoryKHR = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_info: *const CopyAccelerationStructureToMemoryInfoKHR,
+    p_info: *const CopyAccelerationStructureToMemoryInfoKHR<'_>,
 );
 pub type PFN_vkCopyAccelerationStructureToMemoryKHR = unsafe extern "system" fn(
     device: Device,
     deferred_operation: DeferredOperationKHR,
-    p_info: *const CopyAccelerationStructureToMemoryInfoKHR,
+    p_info: *const CopyAccelerationStructureToMemoryInfoKHR<'_>,
 ) -> Result;
 pub type PFN_vkCmdCopyMemoryToAccelerationStructureKHR = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_info: *const CopyMemoryToAccelerationStructureInfoKHR,
+    p_info: *const CopyMemoryToAccelerationStructureInfoKHR<'_>,
 );
 pub type PFN_vkCopyMemoryToAccelerationStructureKHR = unsafe extern "system" fn(
     device: Device,
     deferred_operation: DeferredOperationKHR,
-    p_info: *const CopyMemoryToAccelerationStructureInfoKHR,
+    p_info: *const CopyMemoryToAccelerationStructureInfoKHR<'_>,
 ) -> Result;
 pub type PFN_vkCmdWriteAccelerationStructuresPropertiesKHR = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
@@ -405,25 +439,25 @@ pub type PFN_vkWriteAccelerationStructuresPropertiesKHR = unsafe extern "system"
 ) -> Result;
 pub type PFN_vkGetDeviceAccelerationStructureCompatibilityKHR = unsafe extern "system" fn(
     device: Device,
-    p_version_info: *const AccelerationStructureVersionInfoKHR,
+    p_version_info: *const AccelerationStructureVersionInfoKHR<'_>,
     p_compatibility: *mut AccelerationStructureCompatibilityKHR,
 );
 pub type PFN_vkCreateAccelerationStructureKHR = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const AccelerationStructureCreateInfoKHR,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const AccelerationStructureCreateInfoKHR<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_acceleration_structure: *mut AccelerationStructureKHR,
 ) -> Result;
 pub type PFN_vkCmdBuildAccelerationStructuresKHR = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
     info_count: u32,
-    p_infos: *const AccelerationStructureBuildGeometryInfoKHR,
+    p_infos: *const AccelerationStructureBuildGeometryInfoKHR<'_>,
     pp_build_range_infos: *const *const AccelerationStructureBuildRangeInfoKHR,
 );
 pub type PFN_vkCmdBuildAccelerationStructuresIndirectKHR = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
     info_count: u32,
-    p_infos: *const AccelerationStructureBuildGeometryInfoKHR,
+    p_infos: *const AccelerationStructureBuildGeometryInfoKHR<'_>,
     p_indirect_device_addresses: *const DeviceAddress,
     p_indirect_strides: *const u32,
     pp_max_primitive_counts: *const *const u32,
@@ -432,18 +466,18 @@ pub type PFN_vkBuildAccelerationStructuresKHR = unsafe extern "system" fn(
     device: Device,
     deferred_operation: DeferredOperationKHR,
     info_count: u32,
-    p_infos: *const AccelerationStructureBuildGeometryInfoKHR,
+    p_infos: *const AccelerationStructureBuildGeometryInfoKHR<'_>,
     pp_build_range_infos: *const *const AccelerationStructureBuildRangeInfoKHR,
 ) -> Result;
 pub type PFN_vkGetAccelerationStructureDeviceAddressKHR =
     unsafe extern "system" fn(
         device: Device,
-        p_info: *const AccelerationStructureDeviceAddressInfoKHR,
+        p_info: *const AccelerationStructureDeviceAddressInfoKHR<'_>,
     ) -> DeviceAddress;
 pub type PFN_vkGetAccelerationStructureBuildSizesKHR = unsafe extern "system" fn(
     device: Device,
     build_type: AccelerationStructureBuildTypeKHR,
-    p_build_info: *const AccelerationStructureBuildGeometryInfoKHR,
+    p_build_info: *const AccelerationStructureBuildGeometryInfoKHR<'_>,
     p_max_primitive_counts: *const u32,
-    p_size_info: *mut AccelerationStructureBuildSizesInfoKHR,
+    p_size_info: *mut AccelerationStructureBuildSizesInfoKHR<'_>,
 );

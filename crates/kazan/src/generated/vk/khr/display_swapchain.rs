@@ -23,8 +23,8 @@ impl DeviceFn {
     pub unsafe fn create_shared_swapchains_khr(
         &self,
         device: Device,
-        create_infos: &[SwapchainCreateInfoKHR],
-        allocator: Option<&AllocationCallbacks>,
+        create_infos: &[SwapchainCreateInfoKHR<'_>],
+        allocator: Option<&AllocationCallbacks<'_>>,
         swapchains: &mut [SwapchainKHR],
     ) -> crate::Result<()> {
         unsafe {

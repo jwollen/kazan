@@ -2,29 +2,34 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct DisplayPowerInfoEXT {
+pub struct DisplayPowerInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub power_state: DisplayPowerStateEXT,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DeviceEventInfoEXT {
+pub struct DeviceEventInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub device_event: DeviceEventTypeEXT,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DisplayEventInfoEXT {
+pub struct DisplayEventInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub display_event: DisplayEventTypeEXT,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct SwapchainCounterCreateInfoEXT {
+pub struct SwapchainCounterCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub surface_counters: SurfaceCounterFlagsEXT,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -49,19 +54,19 @@ impl DisplayEventTypeEXT {
 pub type PFN_vkDisplayPowerControlEXT = unsafe extern "system" fn(
     device: Device,
     display: DisplayKHR,
-    p_display_power_info: *const DisplayPowerInfoEXT,
+    p_display_power_info: *const DisplayPowerInfoEXT<'_>,
 ) -> Result;
 pub type PFN_vkRegisterDeviceEventEXT = unsafe extern "system" fn(
     device: Device,
-    p_device_event_info: *const DeviceEventInfoEXT,
-    p_allocator: *const AllocationCallbacks,
+    p_device_event_info: *const DeviceEventInfoEXT<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_fence: *mut Fence,
 ) -> Result;
 pub type PFN_vkRegisterDisplayEventEXT = unsafe extern "system" fn(
     device: Device,
     display: DisplayKHR,
-    p_display_event_info: *const DisplayEventInfoEXT,
-    p_allocator: *const AllocationCallbacks,
+    p_display_event_info: *const DisplayEventInfoEXT<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_fence: *mut Fence,
 ) -> Result;
 pub type PFN_vkGetSwapchainCounterEXT = unsafe extern "system" fn(

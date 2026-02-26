@@ -21,7 +21,7 @@ impl DeviceFn {
     pub unsafe fn cmd_decode_video_khr(
         &self,
         command_buffer: CommandBuffer,
-        decode_info: &VideoDecodeInfoKHR,
+        decode_info: &VideoDecodeInfoKHR<'_>,
     ) {
         unsafe { (self.cmd_decode_video_khr)(command_buffer, decode_info) }
     }

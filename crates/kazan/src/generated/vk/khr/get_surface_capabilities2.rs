@@ -27,8 +27,8 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_surface_capabilities2_khr(
         &self,
         physical_device: PhysicalDevice,
-        surface_info: &PhysicalDeviceSurfaceInfo2KHR,
-    ) -> crate::Result<SurfaceCapabilities2KHR> {
+        surface_info: &PhysicalDeviceSurfaceInfo2KHR<'_>,
+    ) -> crate::Result<SurfaceCapabilities2KHR<'_>> {
         unsafe {
             let mut surface_capabilities = core::mem::MaybeUninit::uninit();
             let result = (self.get_physical_device_surface_capabilities2_khr)(
@@ -43,11 +43,11 @@ impl InstanceFn {
             }
         }
     }
-    pub unsafe fn get_physical_device_surface_formats2_khr(
+    pub unsafe fn get_physical_device_surface_formats2_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
-        surface_info: &PhysicalDeviceSurfaceInfo2KHR,
-        surface_formats: impl ExtendUninit<SurfaceFormat2KHR>,
+        surface_info: &PhysicalDeviceSurfaceInfo2KHR<'_>,
+        surface_formats: impl ExtendUninit<SurfaceFormat2KHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(surface_formats, |surface_format_count, surface_formats| {

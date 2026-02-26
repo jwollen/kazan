@@ -48,8 +48,8 @@ impl DeviceFn {
         &self,
         device: Device,
         pipeline_cache: PipelineCache,
-        create_infos: &[ExecutionGraphPipelineCreateInfoAMDX],
-        allocator: Option<&AllocationCallbacks>,
+        create_infos: &[ExecutionGraphPipelineCreateInfoAMDX<'_>],
+        allocator: Option<&AllocationCallbacks<'_>>,
         pipelines: &mut [Pipeline],
     ) -> crate::Result<()> {
         unsafe {
@@ -73,7 +73,7 @@ impl DeviceFn {
         &self,
         device: Device,
         execution_graph: Pipeline,
-    ) -> crate::Result<ExecutionGraphPipelineScratchSizeAMDX> {
+    ) -> crate::Result<ExecutionGraphPipelineScratchSizeAMDX<'_>> {
         unsafe {
             let mut size_info = core::mem::MaybeUninit::uninit();
             let result = (self.get_execution_graph_pipeline_scratch_size_amdx)(
@@ -92,7 +92,7 @@ impl DeviceFn {
         &self,
         device: Device,
         execution_graph: Pipeline,
-        node_info: &PipelineShaderStageNodeCreateInfoAMDX,
+        node_info: &PipelineShaderStageNodeCreateInfoAMDX<'_>,
     ) -> crate::Result<u32> {
         unsafe {
             let mut node_index = core::mem::MaybeUninit::uninit();
@@ -130,7 +130,7 @@ impl DeviceFn {
         command_buffer: CommandBuffer,
         scratch: DeviceAddress,
         scratch_size: DeviceSize,
-        count_info: &DispatchGraphCountInfoAMDX,
+        count_info: &DispatchGraphCountInfoAMDX<'_>,
     ) {
         unsafe { (self.cmd_dispatch_graph_amdx)(command_buffer, scratch, scratch_size, count_info) }
     }
@@ -139,7 +139,7 @@ impl DeviceFn {
         command_buffer: CommandBuffer,
         scratch: DeviceAddress,
         scratch_size: DeviceSize,
-        count_info: &DispatchGraphCountInfoAMDX,
+        count_info: &DispatchGraphCountInfoAMDX<'_>,
     ) {
         unsafe {
             (self.cmd_dispatch_graph_indirect_amdx)(

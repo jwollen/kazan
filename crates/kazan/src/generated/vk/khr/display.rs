@@ -45,10 +45,10 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
-    pub unsafe fn get_physical_device_display_properties_khr(
+    pub unsafe fn get_physical_device_display_properties_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
-        properties: impl ExtendUninit<DisplayPropertiesKHR>,
+        properties: impl ExtendUninit<DisplayPropertiesKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(properties, |property_count, properties| {
@@ -137,8 +137,8 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         display: DisplayKHR,
-        create_info: &DisplayModeCreateInfoKHR,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &DisplayModeCreateInfoKHR<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<DisplayModeKHR> {
         unsafe {
             let mut mode = core::mem::MaybeUninit::uninit();
@@ -180,8 +180,8 @@ impl InstanceFn {
     pub unsafe fn create_display_plane_surface_khr(
         &self,
         instance: Instance,
-        create_info: &DisplaySurfaceCreateInfoKHR,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &DisplaySurfaceCreateInfoKHR<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();

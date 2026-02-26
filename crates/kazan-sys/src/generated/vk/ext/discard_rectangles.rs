@@ -2,20 +2,23 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDeviceDiscardRectanglePropertiesEXT {
+pub struct PhysicalDeviceDiscardRectanglePropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_discard_rectangles: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PipelineDiscardRectangleStateCreateInfoEXT {
+pub struct PipelineDiscardRectangleStateCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineDiscardRectangleStateCreateFlagsEXT,
     pub discard_rectangle_mode: DiscardRectangleModeEXT,
     pub discard_rectangle_count: u32,
     pub p_discard_rectangles: *const Rect2D,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -26,7 +29,7 @@ impl DiscardRectangleModeEXT {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineDiscardRectangleStateCreateFlagsEXT: Flags {
     }
 }

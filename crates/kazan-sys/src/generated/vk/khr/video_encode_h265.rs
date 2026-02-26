@@ -2,8 +2,9 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct VideoEncodeH265CapabilitiesKHR {
+pub struct VideoEncodeH265CapabilitiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub flags: VideoEncodeH265CapabilityFlagsKHR,
@@ -22,9 +23,10 @@ pub struct VideoEncodeH265CapabilitiesKHR {
     pub prefers_gop_remaining_frames: Bool32,
     pub requires_gop_remaining_frames: Bool32,
     pub std_syntax_flags: VideoEncodeH265StdFlagsKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeH265QualityLevelPropertiesKHR {
+pub struct VideoEncodeH265QualityLevelPropertiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub preferred_rate_control_flags: VideoEncodeH265RateControlFlagsKHR,
@@ -35,36 +37,40 @@ pub struct VideoEncodeH265QualityLevelPropertiesKHR {
     pub preferred_constant_qp: VideoEncodeH265QpKHR,
     pub preferred_max_l0_reference_count: u32,
     pub preferred_max_l1_reference_count: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeH265SessionCreateInfoKHR {
+pub struct VideoEncodeH265SessionCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub use_max_level_idc: Bool32,
     pub max_level_idc: StdVideoH265LevelIdc,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeH265SessionParametersAddInfoKHR {
+pub struct VideoEncodeH265SessionParametersAddInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub std_vps_count: u32,
-    pub p_std_vp_ss: *const StdVideoH265VideoParameterSet,
+    pub p_std_vp_ss: *const StdVideoH265VideoParameterSet<'a>,
     pub std_sps_count: u32,
-    pub p_std_sp_ss: *const StdVideoH265SequenceParameterSet,
+    pub p_std_sp_ss: *const StdVideoH265SequenceParameterSet<'a>,
     pub std_pps_count: u32,
-    pub p_std_pp_ss: *const StdVideoH265PictureParameterSet,
+    pub p_std_pp_ss: *const StdVideoH265PictureParameterSet<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeH265SessionParametersCreateInfoKHR {
+pub struct VideoEncodeH265SessionParametersCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub max_std_vps_count: u32,
     pub max_std_sps_count: u32,
     pub max_std_pps_count: u32,
-    pub p_parameters_add_info: *const VideoEncodeH265SessionParametersAddInfoKHR,
+    pub p_parameters_add_info: *const VideoEncodeH265SessionParametersAddInfoKHR<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeH265SessionParametersGetInfoKHR {
+pub struct VideoEncodeH265SessionParametersGetInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub write_std_vps: Bool32,
@@ -73,32 +79,36 @@ pub struct VideoEncodeH265SessionParametersGetInfoKHR {
     pub std_vps_id: u32,
     pub std_sps_id: u32,
     pub std_pps_id: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeH265SessionParametersFeedbackInfoKHR {
+pub struct VideoEncodeH265SessionParametersFeedbackInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub has_std_vps_overrides: Bool32,
     pub has_std_sps_overrides: Bool32,
     pub has_std_pps_overrides: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeH265PictureInfoKHR {
+pub struct VideoEncodeH265PictureInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub nalu_slice_segment_entry_count: u32,
-    pub p_nalu_slice_segment_entries: *const VideoEncodeH265NaluSliceSegmentInfoKHR,
-    pub p_std_picture_info: *const StdVideoEncodeH265PictureInfo,
+    pub p_nalu_slice_segment_entries: *const VideoEncodeH265NaluSliceSegmentInfoKHR<'a>,
+    pub p_std_picture_info: *const StdVideoEncodeH265PictureInfo<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeH265NaluSliceSegmentInfoKHR {
+pub struct VideoEncodeH265NaluSliceSegmentInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub constant_qp: i32,
-    pub p_std_slice_segment_header: *const StdVideoEncodeH265SliceSegmentHeader,
+    pub p_std_slice_segment_header: *const StdVideoEncodeH265SliceSegmentHeader<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeH265RateControlInfoKHR {
+pub struct VideoEncodeH265RateControlInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: VideoEncodeH265RateControlFlagsKHR,
@@ -106,6 +116,7 @@ pub struct VideoEncodeH265RateControlInfoKHR {
     pub idr_period: u32,
     pub consecutive_b_frame_count: u32,
     pub sub_layer_count: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct VideoEncodeH265QpKHR {
@@ -120,16 +131,17 @@ pub struct VideoEncodeH265FrameSizeKHR {
     pub frame_b_size: u32,
 }
 #[repr(C)]
-pub struct VideoEncodeH265GopRemainingFrameInfoKHR {
+pub struct VideoEncodeH265GopRemainingFrameInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub use_gop_remaining_frames: Bool32,
     pub gop_remaining_i: u32,
     pub gop_remaining_p: u32,
     pub gop_remaining_b: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeH265RateControlLayerInfoKHR {
+pub struct VideoEncodeH265RateControlLayerInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub use_min_qp: Bool32,
@@ -138,22 +150,25 @@ pub struct VideoEncodeH265RateControlLayerInfoKHR {
     pub max_qp: VideoEncodeH265QpKHR,
     pub use_max_frame_size: Bool32,
     pub max_frame_size: VideoEncodeH265FrameSizeKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeH265ProfileInfoKHR {
+pub struct VideoEncodeH265ProfileInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub std_profile_idc: StdVideoH265ProfileIdc,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeH265DpbSlotInfoKHR {
+pub struct VideoEncodeH265DpbSlotInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_std_reference_info: *const StdVideoEncodeH265ReferenceInfo,
+    pub _marker: PhantomData<&'a ()>,
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VideoEncodeH265CapabilityFlagsKHR: Flags {
         const HRD_COMPLIANCE_KHR = VideoEncodeH265CapabilityFlagBitsKHR::HRD_COMPLIANCE_KHR.0;
         const PREDICTION_WEIGHT_TABLE_GENERATED_KHR = VideoEncodeH265CapabilityFlagBitsKHR::PREDICTION_WEIGHT_TABLE_GENERATED_KHR.0;
@@ -170,7 +185,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct VideoEncodeH265CapabilityFlagBitsKHR(u32);
 impl VideoEncodeH265CapabilityFlagBitsKHR {
     pub const HRD_COMPLIANCE_KHR: Self = Self(1 << 0);
@@ -188,7 +203,7 @@ impl VideoEncodeH265CapabilityFlagBitsKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VideoEncodeH265StdFlagsKHR: Flags {
         const SEPARATE_COLOR_PLANE_FLAG_SET_KHR = VideoEncodeH265StdFlagBitsKHR::SEPARATE_COLOR_PLANE_FLAG_SET_KHR.0;
         const SAMPLE_ADAPTIVE_OFFSET_ENABLED_FLAG_SET_KHR = VideoEncodeH265StdFlagBitsKHR::SAMPLE_ADAPTIVE_OFFSET_ENABLED_FLAG_SET_KHR.0;
@@ -214,7 +229,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct VideoEncodeH265StdFlagBitsKHR(u32);
 impl VideoEncodeH265StdFlagBitsKHR {
     pub const SEPARATE_COLOR_PLANE_FLAG_SET_KHR: Self = Self(1 << 0);
@@ -241,7 +256,7 @@ impl VideoEncodeH265StdFlagBitsKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VideoEncodeH265RateControlFlagsKHR: Flags {
         const ATTEMPT_HRD_COMPLIANCE_KHR = VideoEncodeH265RateControlFlagBitsKHR::ATTEMPT_HRD_COMPLIANCE_KHR.0;
         const REGULAR_GOP_KHR = VideoEncodeH265RateControlFlagBitsKHR::REGULAR_GOP_KHR.0;
@@ -251,7 +266,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct VideoEncodeH265RateControlFlagBitsKHR(u32);
 impl VideoEncodeH265RateControlFlagBitsKHR {
     pub const ATTEMPT_HRD_COMPLIANCE_KHR: Self = Self(1 << 0);
@@ -262,7 +277,7 @@ impl VideoEncodeH265RateControlFlagBitsKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VideoEncodeH265CtbSizeFlagsKHR: Flags {
         const _16_KHR = VideoEncodeH265CtbSizeFlagBitsKHR::_16_KHR.0;
         const _32_KHR = VideoEncodeH265CtbSizeFlagBitsKHR::_32_KHR.0;
@@ -270,7 +285,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct VideoEncodeH265CtbSizeFlagBitsKHR(u32);
 impl VideoEncodeH265CtbSizeFlagBitsKHR {
     pub const _16_KHR: Self = Self(1 << 0);
@@ -279,7 +294,7 @@ impl VideoEncodeH265CtbSizeFlagBitsKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VideoEncodeH265TransformBlockSizeFlagsKHR: Flags {
         const _4_KHR = VideoEncodeH265TransformBlockSizeFlagBitsKHR::_4_KHR.0;
         const _8_KHR = VideoEncodeH265TransformBlockSizeFlagBitsKHR::_8_KHR.0;
@@ -288,7 +303,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct VideoEncodeH265TransformBlockSizeFlagBitsKHR(u32);
 impl VideoEncodeH265TransformBlockSizeFlagBitsKHR {
     pub const _4_KHR: Self = Self(1 << 0);

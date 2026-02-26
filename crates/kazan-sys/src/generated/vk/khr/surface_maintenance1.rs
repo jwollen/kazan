@@ -2,14 +2,16 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct SurfacePresentModeKHR {
+pub struct SurfacePresentModeKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub present_mode: PresentModeKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct SurfacePresentScalingCapabilitiesKHR {
+pub struct SurfacePresentScalingCapabilitiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub supported_present_scaling: PresentScalingFlagsKHR,
@@ -17,17 +19,19 @@ pub struct SurfacePresentScalingCapabilitiesKHR {
     pub supported_present_gravity_y: PresentGravityFlagsKHR,
     pub min_scaled_image_extent: Extent2D,
     pub max_scaled_image_extent: Extent2D,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct SurfacePresentModeCompatibilityKHR {
+pub struct SurfacePresentModeCompatibilityKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub present_mode_count: u32,
     pub p_present_modes: *mut PresentModeKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PresentScalingFlagsKHR: Flags {
         const ONE_TO_ONE_KHR = PresentScalingFlagBitsKHR::ONE_TO_ONE_KHR.0;
         const ASPECT_RATIO_STRETCH_KHR = PresentScalingFlagBitsKHR::ASPECT_RATIO_STRETCH_KHR.0;
@@ -38,7 +42,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PresentScalingFlagBitsKHR(u32);
 impl PresentScalingFlagBitsKHR {
     pub const ONE_TO_ONE_KHR: Self = Self(1 << 0);
@@ -47,7 +51,7 @@ impl PresentScalingFlagBitsKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PresentGravityFlagsKHR: Flags {
         const MIN_KHR = PresentGravityFlagBitsKHR::MIN_KHR.0;
         const MAX_KHR = PresentGravityFlagBitsKHR::MAX_KHR.0;
@@ -58,7 +62,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PresentGravityFlagBitsKHR(u32);
 impl PresentGravityFlagBitsKHR {
     pub const MIN_KHR: Self = Self(1 << 0);

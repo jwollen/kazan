@@ -2,24 +2,26 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct WaylandSurfaceCreateInfoKHR {
+pub struct WaylandSurfaceCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: WaylandSurfaceCreateFlagsKHR,
     pub display: *mut wl_display,
     pub surface: *mut wl_surface,
+    pub _marker: PhantomData<&'a ()>,
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct WaylandSurfaceCreateFlagsKHR: Flags {
     }
 }
 pub type PFN_vkCreateWaylandSurfaceKHR = unsafe extern "system" fn(
     instance: Instance,
-    p_create_info: *const WaylandSurfaceCreateInfoKHR,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const WaylandSurfaceCreateInfoKHR<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_surface: *mut SurfaceKHR,
 ) -> Result;
 pub type PFN_vkGetPhysicalDeviceWaylandPresentationSupportKHR = unsafe extern "system" fn(

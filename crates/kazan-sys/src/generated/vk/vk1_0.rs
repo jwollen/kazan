@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 pub const FALSE: u32 = 0;
 pub const LOD_CLAMP_NONE: f32 = 1000.0;
 pub const QUEUE_FAMILY_IGNORED: u32 = !0;
@@ -181,7 +182,7 @@ pub struct LayerProperties {
     pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
 }
 #[repr(C)]
-pub struct ApplicationInfo {
+pub struct ApplicationInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_application_name: *const c_char,
@@ -189,48 +190,53 @@ pub struct ApplicationInfo {
     pub p_engine_name: *const c_char,
     pub engine_version: u32,
     pub api_version: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct AllocationCallbacks {
+pub struct AllocationCallbacks<'a> {
     pub p_user_data: *mut c_void,
     pub pfn_allocation: Option<PFN_vkAllocationFunction>,
     pub pfn_reallocation: Option<PFN_vkReallocationFunction>,
     pub pfn_free: Option<PFN_vkFreeFunction>,
     pub pfn_internal_allocation: Option<PFN_vkInternalAllocationNotification>,
     pub pfn_internal_free: Option<PFN_vkInternalFreeNotification>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DeviceQueueCreateInfo {
+pub struct DeviceQueueCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: DeviceQueueCreateFlags,
     pub queue_family_index: u32,
     pub queue_count: u32,
     pub p_queue_priorities: *const f32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DeviceCreateInfo {
+pub struct DeviceCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: DeviceCreateFlags,
     pub queue_create_info_count: u32,
-    pub p_queue_create_infos: *const DeviceQueueCreateInfo,
+    pub p_queue_create_infos: *const DeviceQueueCreateInfo<'a>,
     pub enabled_layer_count: u32,
     pub pp_enabled_layer_names: *const *const c_char,
     pub enabled_extension_count: u32,
     pub pp_enabled_extension_names: *const *const c_char,
     pub p_enabled_features: *const PhysicalDeviceFeatures,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct InstanceCreateInfo {
+pub struct InstanceCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: InstanceCreateFlags,
-    pub p_application_info: *const ApplicationInfo,
+    pub p_application_info: *const ApplicationInfo<'a>,
     pub enabled_layer_count: u32,
     pub pp_enabled_layer_names: *const *const c_char,
     pub enabled_extension_count: u32,
     pub pp_enabled_extension_names: *const *const c_char,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct QueueFamilyProperties {
@@ -247,11 +253,12 @@ pub struct PhysicalDeviceMemoryProperties {
     pub memory_heaps: [MemoryHeap; MAX_MEMORY_HEAPS as usize],
 }
 #[repr(C)]
-pub struct MemoryAllocateInfo {
+pub struct MemoryAllocateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub allocation_size: DeviceSize,
     pub memory_type_index: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct MemoryRequirements {
@@ -284,12 +291,13 @@ pub struct MemoryHeap {
     pub flags: MemoryHeapFlags,
 }
 #[repr(C)]
-pub struct MappedMemoryRange {
+pub struct MappedMemoryRange<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub memory: DeviceMemory,
     pub offset: DeviceSize,
     pub size: DeviceSize,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct FormatProperties {
@@ -318,7 +326,7 @@ pub struct DescriptorImageInfo {
     pub image_layout: ImageLayout,
 }
 #[repr(C)]
-pub struct WriteDescriptorSet {
+pub struct WriteDescriptorSet<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub dst_set: DescriptorSet,
@@ -329,9 +337,10 @@ pub struct WriteDescriptorSet {
     pub p_image_info: *const DescriptorImageInfo,
     pub p_buffer_info: *const DescriptorBufferInfo,
     pub p_texel_buffer_view: *const BufferView,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct CopyDescriptorSet {
+pub struct CopyDescriptorSet<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub src_set: DescriptorSet,
@@ -341,9 +350,10 @@ pub struct CopyDescriptorSet {
     pub dst_binding: u32,
     pub dst_array_element: u32,
     pub descriptor_count: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct BufferCreateInfo {
+pub struct BufferCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: BufferCreateFlags,
@@ -352,9 +362,10 @@ pub struct BufferCreateInfo {
     pub sharing_mode: SharingMode,
     pub queue_family_index_count: u32,
     pub p_queue_family_indices: *const u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct BufferViewCreateInfo {
+pub struct BufferViewCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: BufferViewCreateFlags,
@@ -362,6 +373,7 @@ pub struct BufferViewCreateInfo {
     pub format: Format,
     pub offset: DeviceSize,
     pub range: DeviceSize,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct ImageSubresource {
@@ -385,14 +397,15 @@ pub struct ImageSubresourceRange {
     pub layer_count: u32,
 }
 #[repr(C)]
-pub struct MemoryBarrier {
+pub struct MemoryBarrier<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub src_access_mask: AccessFlags,
     pub dst_access_mask: AccessFlags,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct BufferMemoryBarrier {
+pub struct BufferMemoryBarrier<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub src_access_mask: AccessFlags,
@@ -402,9 +415,10 @@ pub struct BufferMemoryBarrier {
     pub buffer: Buffer,
     pub offset: DeviceSize,
     pub size: DeviceSize,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct ImageMemoryBarrier {
+pub struct ImageMemoryBarrier<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub src_access_mask: AccessFlags,
@@ -415,9 +429,10 @@ pub struct ImageMemoryBarrier {
     pub dst_queue_family_index: u32,
     pub image: Image,
     pub subresource_range: ImageSubresourceRange,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct ImageCreateInfo {
+pub struct ImageCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: ImageCreateFlags,
@@ -433,6 +448,7 @@ pub struct ImageCreateInfo {
     pub queue_family_index_count: u32,
     pub p_queue_family_indices: *const u32,
     pub initial_layout: ImageLayout,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct SubresourceLayout {
@@ -443,7 +459,7 @@ pub struct SubresourceLayout {
     pub depth_pitch: DeviceSize,
 }
 #[repr(C)]
-pub struct ImageViewCreateInfo {
+pub struct ImageViewCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: ImageViewCreateFlags,
@@ -452,6 +468,7 @@ pub struct ImageViewCreateInfo {
     pub format: Format,
     pub components: ComponentMapping,
     pub subresource_range: ImageSubresourceRange,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct BufferCopy {
@@ -477,37 +494,41 @@ pub struct SparseImageMemoryBind {
     pub flags: SparseMemoryBindFlags,
 }
 #[repr(C)]
-pub struct SparseBufferMemoryBindInfo {
+pub struct SparseBufferMemoryBindInfo<'a> {
     pub buffer: Buffer,
     pub bind_count: u32,
     pub p_binds: *const SparseMemoryBind,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct SparseImageOpaqueMemoryBindInfo {
+pub struct SparseImageOpaqueMemoryBindInfo<'a> {
     pub image: Image,
     pub bind_count: u32,
     pub p_binds: *const SparseMemoryBind,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct SparseImageMemoryBindInfo {
+pub struct SparseImageMemoryBindInfo<'a> {
     pub image: Image,
     pub bind_count: u32,
     pub p_binds: *const SparseImageMemoryBind,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct BindSparseInfo {
+pub struct BindSparseInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub wait_semaphore_count: u32,
     pub p_wait_semaphores: *const Semaphore,
     pub buffer_bind_count: u32,
-    pub p_buffer_binds: *const SparseBufferMemoryBindInfo,
+    pub p_buffer_binds: *const SparseBufferMemoryBindInfo<'a>,
     pub image_opaque_bind_count: u32,
-    pub p_image_opaque_binds: *const SparseImageOpaqueMemoryBindInfo,
+    pub p_image_opaque_binds: *const SparseImageOpaqueMemoryBindInfo<'a>,
     pub image_bind_count: u32,
-    pub p_image_binds: *const SparseImageMemoryBindInfo,
+    pub p_image_binds: *const SparseImageMemoryBindInfo<'a>,
     pub signal_semaphore_count: u32,
     pub p_signal_semaphores: *const Semaphore,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct ImageCopy {
@@ -542,28 +563,31 @@ pub struct ImageResolve {
     pub extent: Extent3D,
 }
 #[repr(C)]
-pub struct ShaderModuleCreateInfo {
+pub struct ShaderModuleCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: ShaderModuleCreateFlags,
     pub code_size: usize,
     pub p_code: *const u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DescriptorSetLayoutBinding {
+pub struct DescriptorSetLayoutBinding<'a> {
     pub binding: u32,
     pub descriptor_type: DescriptorType,
     pub descriptor_count: u32,
     pub stage_flags: ShaderStageFlags,
     pub p_immutable_samplers: *const Sampler,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DescriptorSetLayoutCreateInfo {
+pub struct DescriptorSetLayoutCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: DescriptorSetLayoutCreateFlags,
     pub binding_count: u32,
-    pub p_bindings: *const DescriptorSetLayoutBinding,
+    pub p_bindings: *const DescriptorSetLayoutBinding<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct DescriptorPoolSize {
@@ -571,21 +595,23 @@ pub struct DescriptorPoolSize {
     pub descriptor_count: u32,
 }
 #[repr(C)]
-pub struct DescriptorPoolCreateInfo {
+pub struct DescriptorPoolCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: DescriptorPoolCreateFlags,
     pub max_sets: u32,
     pub pool_size_count: u32,
     pub p_pool_sizes: *const DescriptorPoolSize,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DescriptorSetAllocateInfo {
+pub struct DescriptorSetAllocateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub descriptor_pool: DescriptorPool,
     pub descriptor_set_count: u32,
     pub p_set_layouts: *const DescriptorSetLayout,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct SpecializationMapEntry {
@@ -594,31 +620,34 @@ pub struct SpecializationMapEntry {
     pub size: usize,
 }
 #[repr(C)]
-pub struct SpecializationInfo {
+pub struct SpecializationInfo<'a> {
     pub map_entry_count: u32,
     pub p_map_entries: *const SpecializationMapEntry,
     pub data_size: usize,
     pub p_data: *const c_void,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PipelineShaderStageCreateInfo {
+pub struct PipelineShaderStageCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineShaderStageCreateFlags,
     pub stage: ShaderStageFlagBits,
     pub module: ShaderModule,
     pub p_name: *const c_char,
-    pub p_specialization_info: *const SpecializationInfo,
+    pub p_specialization_info: *const SpecializationInfo<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct ComputePipelineCreateInfo {
+pub struct ComputePipelineCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineCreateFlags,
-    pub stage: PipelineShaderStageCreateInfo,
+    pub stage: PipelineShaderStageCreateInfo<'a>,
     pub layout: PipelineLayout,
     pub base_pipeline_handle: Pipeline,
     pub base_pipeline_index: i32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct VertexInputBindingDescription {
@@ -634,7 +663,7 @@ pub struct VertexInputAttributeDescription {
     pub offset: u32,
 }
 #[repr(C)]
-pub struct PipelineVertexInputStateCreateInfo {
+pub struct PipelineVertexInputStateCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineVertexInputStateCreateFlags,
@@ -642,24 +671,27 @@ pub struct PipelineVertexInputStateCreateInfo {
     pub p_vertex_binding_descriptions: *const VertexInputBindingDescription,
     pub vertex_attribute_description_count: u32,
     pub p_vertex_attribute_descriptions: *const VertexInputAttributeDescription,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PipelineInputAssemblyStateCreateInfo {
+pub struct PipelineInputAssemblyStateCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineInputAssemblyStateCreateFlags,
     pub topology: PrimitiveTopology,
     pub primitive_restart_enable: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PipelineTessellationStateCreateInfo {
+pub struct PipelineTessellationStateCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineTessellationStateCreateFlags,
     pub patch_control_points: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PipelineViewportStateCreateInfo {
+pub struct PipelineViewportStateCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineViewportStateCreateFlags,
@@ -667,9 +699,10 @@ pub struct PipelineViewportStateCreateInfo {
     pub p_viewports: *const Viewport,
     pub scissor_count: u32,
     pub p_scissors: *const Rect2D,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PipelineRasterizationStateCreateInfo {
+pub struct PipelineRasterizationStateCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineRasterizationStateCreateFlags,
@@ -683,9 +716,10 @@ pub struct PipelineRasterizationStateCreateInfo {
     pub depth_bias_clamp: f32,
     pub depth_bias_slope_factor: f32,
     pub line_width: f32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PipelineMultisampleStateCreateInfo {
+pub struct PipelineMultisampleStateCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineMultisampleStateCreateFlags,
@@ -695,6 +729,7 @@ pub struct PipelineMultisampleStateCreateInfo {
     pub p_sample_mask: *const SampleMask,
     pub alpha_to_coverage_enable: Bool32,
     pub alpha_to_one_enable: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct PipelineColorBlendAttachmentState {
@@ -708,7 +743,7 @@ pub struct PipelineColorBlendAttachmentState {
     pub color_write_mask: ColorComponentFlags,
 }
 #[repr(C)]
-pub struct PipelineColorBlendStateCreateInfo {
+pub struct PipelineColorBlendStateCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineColorBlendStateCreateFlags,
@@ -717,14 +752,16 @@ pub struct PipelineColorBlendStateCreateInfo {
     pub attachment_count: u32,
     pub p_attachments: *const PipelineColorBlendAttachmentState,
     pub blend_constants: [f32; 4],
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PipelineDynamicStateCreateInfo {
+pub struct PipelineDynamicStateCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineDynamicStateCreateFlags,
     pub dynamic_state_count: u32,
     pub p_dynamic_states: *const DynamicState,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct StencilOpState {
@@ -737,7 +774,7 @@ pub struct StencilOpState {
     pub reference: u32,
 }
 #[repr(C)]
-pub struct PipelineDepthStencilStateCreateInfo {
+pub struct PipelineDepthStencilStateCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineDepthStencilStateCreateFlags,
@@ -750,36 +787,39 @@ pub struct PipelineDepthStencilStateCreateInfo {
     pub back: StencilOpState,
     pub min_depth_bounds: f32,
     pub max_depth_bounds: f32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct GraphicsPipelineCreateInfo {
+pub struct GraphicsPipelineCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineCreateFlags,
     pub stage_count: u32,
-    pub p_stages: *const PipelineShaderStageCreateInfo,
-    pub p_vertex_input_state: *const PipelineVertexInputStateCreateInfo,
-    pub p_input_assembly_state: *const PipelineInputAssemblyStateCreateInfo,
-    pub p_tessellation_state: *const PipelineTessellationStateCreateInfo,
-    pub p_viewport_state: *const PipelineViewportStateCreateInfo,
-    pub p_rasterization_state: *const PipelineRasterizationStateCreateInfo,
-    pub p_multisample_state: *const PipelineMultisampleStateCreateInfo,
-    pub p_depth_stencil_state: *const PipelineDepthStencilStateCreateInfo,
-    pub p_color_blend_state: *const PipelineColorBlendStateCreateInfo,
-    pub p_dynamic_state: *const PipelineDynamicStateCreateInfo,
+    pub p_stages: *const PipelineShaderStageCreateInfo<'a>,
+    pub p_vertex_input_state: *const PipelineVertexInputStateCreateInfo<'a>,
+    pub p_input_assembly_state: *const PipelineInputAssemblyStateCreateInfo<'a>,
+    pub p_tessellation_state: *const PipelineTessellationStateCreateInfo<'a>,
+    pub p_viewport_state: *const PipelineViewportStateCreateInfo<'a>,
+    pub p_rasterization_state: *const PipelineRasterizationStateCreateInfo<'a>,
+    pub p_multisample_state: *const PipelineMultisampleStateCreateInfo<'a>,
+    pub p_depth_stencil_state: *const PipelineDepthStencilStateCreateInfo<'a>,
+    pub p_color_blend_state: *const PipelineColorBlendStateCreateInfo<'a>,
+    pub p_dynamic_state: *const PipelineDynamicStateCreateInfo<'a>,
     pub layout: PipelineLayout,
     pub render_pass: RenderPass,
     pub subpass: u32,
     pub base_pipeline_handle: Pipeline,
     pub base_pipeline_index: i32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PipelineCacheCreateInfo {
+pub struct PipelineCacheCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineCacheCreateFlags,
     pub initial_data_size: usize,
     pub p_initial_data: *const c_void,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct PipelineCacheHeaderVersionOne {
@@ -796,7 +836,7 @@ pub struct PushConstantRange {
     pub size: u32,
 }
 #[repr(C)]
-pub struct PipelineLayoutCreateInfo {
+pub struct PipelineLayoutCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineLayoutCreateFlags,
@@ -804,9 +844,10 @@ pub struct PipelineLayoutCreateInfo {
     pub p_set_layouts: *const DescriptorSetLayout,
     pub push_constant_range_count: u32,
     pub p_push_constant_ranges: *const PushConstantRange,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct SamplerCreateInfo {
+pub struct SamplerCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: SamplerCreateFlags,
@@ -825,24 +866,27 @@ pub struct SamplerCreateInfo {
     pub max_lod: f32,
     pub border_color: BorderColor,
     pub unnormalized_coordinates: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct CommandPoolCreateInfo {
+pub struct CommandPoolCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: CommandPoolCreateFlags,
     pub queue_family_index: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct CommandBufferAllocateInfo {
+pub struct CommandBufferAllocateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub command_pool: CommandPool,
     pub level: CommandBufferLevel,
     pub command_buffer_count: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct CommandBufferInheritanceInfo {
+pub struct CommandBufferInheritanceInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub render_pass: RenderPass,
@@ -851,16 +895,18 @@ pub struct CommandBufferInheritanceInfo {
     pub occlusion_query_enable: Bool32,
     pub query_flags: QueryControlFlags,
     pub pipeline_statistics: QueryPipelineStatisticFlags,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct CommandBufferBeginInfo {
+pub struct CommandBufferBeginInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: CommandBufferUsageFlags,
-    pub p_inheritance_info: *const CommandBufferInheritanceInfo,
+    pub p_inheritance_info: *const CommandBufferInheritanceInfo<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct RenderPassBeginInfo {
+pub struct RenderPassBeginInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub render_pass: RenderPass,
@@ -868,6 +914,7 @@ pub struct RenderPassBeginInfo {
     pub render_area: Rect2D,
     pub clear_value_count: u32,
     pub p_clear_values: *const ClearValue,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct ClearDepthStencilValue {
@@ -898,7 +945,7 @@ pub struct AttachmentReference {
     pub layout: ImageLayout,
 }
 #[repr(C)]
-pub struct SubpassDescription {
+pub struct SubpassDescription<'a> {
     pub flags: SubpassDescriptionFlags,
     pub pipeline_bind_point: PipelineBindPoint,
     pub input_attachment_count: u32,
@@ -909,6 +956,7 @@ pub struct SubpassDescription {
     pub p_depth_stencil_attachment: *const AttachmentReference,
     pub preserve_attachment_count: u32,
     pub p_preserve_attachments: *const u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct SubpassDependency {
@@ -921,28 +969,31 @@ pub struct SubpassDependency {
     pub dependency_flags: DependencyFlags,
 }
 #[repr(C)]
-pub struct RenderPassCreateInfo {
+pub struct RenderPassCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: RenderPassCreateFlags,
     pub attachment_count: u32,
     pub p_attachments: *const AttachmentDescription,
     pub subpass_count: u32,
-    pub p_subpasses: *const SubpassDescription,
+    pub p_subpasses: *const SubpassDescription<'a>,
     pub dependency_count: u32,
     pub p_dependencies: *const SubpassDependency,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct EventCreateInfo {
+pub struct EventCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: EventCreateFlags,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct FenceCreateInfo {
+pub struct FenceCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: FenceCreateFlags,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct PhysicalDeviceFeatures {
@@ -1120,22 +1171,24 @@ pub struct PhysicalDeviceLimits {
     pub non_coherent_atom_size: DeviceSize,
 }
 #[repr(C)]
-pub struct SemaphoreCreateInfo {
+pub struct SemaphoreCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: SemaphoreCreateFlags,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct QueryPoolCreateInfo {
+pub struct QueryPoolCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: QueryPoolCreateFlags,
     pub query_type: QueryType,
     pub query_count: u32,
     pub pipeline_statistics: QueryPipelineStatisticFlags,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct FramebufferCreateInfo {
+pub struct FramebufferCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: FramebufferCreateFlags,
@@ -1145,6 +1198,7 @@ pub struct FramebufferCreateInfo {
     pub width: u32,
     pub height: u32,
     pub layers: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct DrawIndirectCommand {
@@ -1168,7 +1222,7 @@ pub struct DispatchIndirectCommand {
     pub z: u32,
 }
 #[repr(C)]
-pub struct SubmitInfo {
+pub struct SubmitInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub wait_semaphore_count: u32,
@@ -1178,6 +1232,7 @@ pub struct SubmitInfo {
     pub p_command_buffers: *const CommandBuffer,
     pub signal_semaphore_count: u32,
     pub p_signal_semaphores: *const Semaphore,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1186,11 +1241,21 @@ pub union ClearColorValue {
     pub int32: [i32; 4],
     pub uint32: [u32; 4],
 }
+impl Default for ClearColorValue {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union ClearValue {
     pub color: ClearColorValue,
     pub depth_stencil: ClearDepthStencilValue,
+}
+impl Default for ClearValue {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -3846,14 +3911,14 @@ impl VendorId {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct FramebufferCreateFlags: Flags {
         const IMAGELESS = FramebufferCreateFlagBits::IMAGELESS.0;
         const IMAGELESS_KHR = Self::IMAGELESS.bits();
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct FramebufferCreateFlagBits(u32);
 impl FramebufferCreateFlagBits {
     pub const IMAGELESS: Self = Self(1 << 0);
@@ -3861,27 +3926,27 @@ impl FramebufferCreateFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct QueryPoolCreateFlags: Flags {
         const RESET_KHR = QueryPoolCreateFlagBits::RESET_KHR.0;
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct QueryPoolCreateFlagBits(u32);
 impl QueryPoolCreateFlagBits {
     pub const RESET_KHR: Self = Self(1 << 0);
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct RenderPassCreateFlags: Flags {
         const TRANSFORM_QCOM = RenderPassCreateFlagBits::TRANSFORM_QCOM.0;
         const PER_LAYER_FRAGMENT_DENSITY_VALVE = RenderPassCreateFlagBits::PER_LAYER_FRAGMENT_DENSITY_VALVE.0;
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct RenderPassCreateFlagBits(u32);
 impl RenderPassCreateFlagBits {
     pub const TRANSFORM_QCOM: Self = Self(1 << 1);
@@ -3889,7 +3954,7 @@ impl RenderPassCreateFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SamplerCreateFlags: Flags {
         const SUBSAMPLED_EXT = SamplerCreateFlagBits::SUBSAMPLED_EXT.0;
         const SUBSAMPLED_COARSE_RECONSTRUCTION_EXT = SamplerCreateFlagBits::SUBSAMPLED_COARSE_RECONSTRUCTION_EXT.0;
@@ -3899,7 +3964,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct SamplerCreateFlagBits(u32);
 impl SamplerCreateFlagBits {
     pub const SUBSAMPLED_EXT: Self = Self(1 << 0);
@@ -3910,20 +3975,20 @@ impl SamplerCreateFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineLayoutCreateFlags: Flags {
         const INDEPENDENT_SETS_EXT = PipelineLayoutCreateFlagBits::INDEPENDENT_SETS_EXT.0;
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PipelineLayoutCreateFlagBits(u32);
 impl PipelineLayoutCreateFlagBits {
     pub const INDEPENDENT_SETS_EXT: Self = Self(1 << 1);
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineCacheCreateFlags: Flags {
         const EXTERNALLY_SYNCHRONIZED = PipelineCacheCreateFlagBits::EXTERNALLY_SYNCHRONIZED.0;
         const INTERNALLY_SYNCHRONIZED_MERGE_KHR = PipelineCacheCreateFlagBits::INTERNALLY_SYNCHRONIZED_MERGE_KHR.0;
@@ -3931,7 +3996,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PipelineCacheCreateFlagBits(u32);
 impl PipelineCacheCreateFlagBits {
     pub const EXTERNALLY_SYNCHRONIZED: Self = Self(1 << 0);
@@ -3940,7 +4005,7 @@ impl PipelineCacheCreateFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineDepthStencilStateCreateFlags: Flags {
         const RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT = PipelineDepthStencilStateCreateFlagBits::RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT.0;
         const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT = PipelineDepthStencilStateCreateFlagBits::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT.0;
@@ -3949,7 +4014,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PipelineDepthStencilStateCreateFlagBits(u32);
 impl PipelineDepthStencilStateCreateFlagBits {
     pub const RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT: Self = Self(1 << 0);
@@ -3961,20 +4026,20 @@ impl PipelineDepthStencilStateCreateFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineDynamicStateCreateFlags: Flags {
     }
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineColorBlendStateCreateFlags: Flags {
         const RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT = PipelineColorBlendStateCreateFlagBits::RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT.0;
         const RASTERIZATION_ORDER_ATTACHMENT_ACCESS_ARM = Self::RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT.bits();
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PipelineColorBlendStateCreateFlagBits(u32);
 impl PipelineColorBlendStateCreateFlagBits {
     pub const RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT: Self = Self(1 << 0);
@@ -3983,43 +4048,43 @@ impl PipelineColorBlendStateCreateFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineMultisampleStateCreateFlags: Flags {
     }
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineRasterizationStateCreateFlags: Flags {
     }
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineViewportStateCreateFlags: Flags {
     }
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineTessellationStateCreateFlags: Flags {
     }
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineInputAssemblyStateCreateFlags: Flags {
     }
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineVertexInputStateCreateFlags: Flags {
     }
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineShaderStageCreateFlags: Flags {
         const ALLOW_VARYING_SUBGROUP_SIZE = PipelineShaderStageCreateFlagBits::ALLOW_VARYING_SUBGROUP_SIZE.0;
         const REQUIRE_FULL_SUBGROUPS = PipelineShaderStageCreateFlagBits::REQUIRE_FULL_SUBGROUPS.0;
@@ -4028,7 +4093,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PipelineShaderStageCreateFlagBits(u32);
 impl PipelineShaderStageCreateFlagBits {
     pub const ALLOW_VARYING_SUBGROUP_SIZE: Self = Self(1 << 0);
@@ -4038,7 +4103,7 @@ impl PipelineShaderStageCreateFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DescriptorSetLayoutCreateFlags: Flags {
         const PUSH_DESCRIPTOR = DescriptorSetLayoutCreateFlagBits::PUSH_DESCRIPTOR.0;
         const UPDATE_AFTER_BIND_POOL = DescriptorSetLayoutCreateFlagBits::UPDATE_AFTER_BIND_POOL.0;
@@ -4053,7 +4118,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DescriptorSetLayoutCreateFlagBits(u32);
 impl DescriptorSetLayoutCreateFlagBits {
     pub const PUSH_DESCRIPTOR: Self = Self(1 << 0);
@@ -4069,39 +4134,39 @@ impl DescriptorSetLayoutCreateFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct BufferViewCreateFlags: Flags {
     }
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct InstanceCreateFlags: Flags {
         const ENUMERATE_PORTABILITY_KHR = InstanceCreateFlagBits::ENUMERATE_PORTABILITY_KHR.0;
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct InstanceCreateFlagBits(u32);
 impl InstanceCreateFlagBits {
     pub const ENUMERATE_PORTABILITY_KHR: Self = Self(1 << 0);
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DeviceCreateFlags: Flags {
     }
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DeviceQueueCreateFlags: Flags {
         const PROTECTED = DeviceQueueCreateFlagBits::PROTECTED.0;
         const INTERNALLY_SYNCHRONIZED_KHR = DeviceQueueCreateFlagBits::INTERNALLY_SYNCHRONIZED_KHR.0;
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DeviceQueueCreateFlagBits(u32);
 impl DeviceQueueCreateFlagBits {
     pub const PROTECTED: Self = Self(1 << 0);
@@ -4109,7 +4174,7 @@ impl DeviceQueueCreateFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct QueueFlags: Flags {
         const GRAPHICS = QueueFlagBits::GRAPHICS.0;
         const COMPUTE = QueueFlagBits::COMPUTE.0;
@@ -4123,7 +4188,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct QueueFlagBits(u32);
 impl QueueFlagBits {
     pub const GRAPHICS: Self = Self(1 << 0);
@@ -4138,7 +4203,7 @@ impl QueueFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct MemoryPropertyFlags: Flags {
         const DEVICE_LOCAL = MemoryPropertyFlagBits::DEVICE_LOCAL.0;
         const HOST_VISIBLE = MemoryPropertyFlagBits::HOST_VISIBLE.0;
@@ -4152,7 +4217,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct MemoryPropertyFlagBits(u32);
 impl MemoryPropertyFlagBits {
     pub const DEVICE_LOCAL: Self = Self(1 << 0);
@@ -4167,7 +4232,7 @@ impl MemoryPropertyFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct MemoryHeapFlags: Flags {
         const DEVICE_LOCAL = MemoryHeapFlagBits::DEVICE_LOCAL.0;
         const MULTI_INSTANCE = MemoryHeapFlagBits::MULTI_INSTANCE.0;
@@ -4176,7 +4241,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct MemoryHeapFlagBits(u32);
 impl MemoryHeapFlagBits {
     pub const DEVICE_LOCAL: Self = Self(1 << 0);
@@ -4186,7 +4251,7 @@ impl MemoryHeapFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct AccessFlags: Flags {
         const INDIRECT_COMMAND_READ = AccessFlagBits::INDIRECT_COMMAND_READ.0;
         const INDEX_READ = AccessFlagBits::INDEX_READ.0;
@@ -4226,7 +4291,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AccessFlagBits(u32);
 impl AccessFlagBits {
     pub const INDIRECT_COMMAND_READ: Self = Self(1 << 0);
@@ -4265,7 +4330,7 @@ impl AccessFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct BufferUsageFlags: Flags {
         const TRANSFER_SRC = BufferUsageFlagBits::TRANSFER_SRC.0;
         const TRANSFER_DST = BufferUsageFlagBits::TRANSFER_DST.0;
@@ -4301,7 +4366,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct BufferUsageFlagBits(u32);
 impl BufferUsageFlagBits {
     pub const TRANSFER_SRC: Self = Self(1 << 0);
@@ -4338,7 +4403,7 @@ impl BufferUsageFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct BufferCreateFlags: Flags {
         const SPARSE_BINDING = BufferCreateFlagBits::SPARSE_BINDING.0;
         const SPARSE_RESIDENCY = BufferCreateFlagBits::SPARSE_RESIDENCY.0;
@@ -4352,7 +4417,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct BufferCreateFlagBits(u32);
 impl BufferCreateFlagBits {
     pub const SPARSE_BINDING: Self = Self(1 << 0);
@@ -4367,7 +4432,7 @@ impl BufferCreateFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ShaderStageFlags: Flags {
         const VERTEX = ShaderStageFlagBits::VERTEX.0;
         const TESSELLATION_CONTROL = ShaderStageFlagBits::TESSELLATION_CONTROL.0;
@@ -4398,7 +4463,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ShaderStageFlagBits(u32);
 impl ShaderStageFlagBits {
     pub const VERTEX: Self = Self(1 << 0);
@@ -4428,7 +4493,7 @@ impl ShaderStageFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ImageUsageFlags: Flags {
         const TRANSFER_SRC = ImageUsageFlagBits::TRANSFER_SRC.0;
         const TRANSFER_DST = ImageUsageFlagBits::TRANSFER_DST.0;
@@ -4460,7 +4525,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ImageUsageFlagBits(u32);
 impl ImageUsageFlagBits {
     pub const TRANSFER_SRC: Self = Self(1 << 0);
@@ -4493,7 +4558,7 @@ impl ImageUsageFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ImageCreateFlags: Flags {
         const SPARSE_BINDING = ImageCreateFlagBits::SPARSE_BINDING.0;
         const SPARSE_RESIDENCY = ImageCreateFlagBits::SPARSE_RESIDENCY.0;
@@ -4526,7 +4591,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ImageCreateFlagBits(u32);
 impl ImageCreateFlagBits {
     pub const SPARSE_BINDING: Self = Self(1 << 0);
@@ -4560,7 +4625,7 @@ impl ImageCreateFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ImageViewCreateFlags: Flags {
         const FRAGMENT_DENSITY_MAP_DYNAMIC_EXT = ImageViewCreateFlagBits::FRAGMENT_DENSITY_MAP_DYNAMIC_EXT.0;
         const FRAGMENT_DENSITY_MAP_DEFERRED_EXT = ImageViewCreateFlagBits::FRAGMENT_DENSITY_MAP_DEFERRED_EXT.0;
@@ -4568,7 +4633,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ImageViewCreateFlagBits(u32);
 impl ImageViewCreateFlagBits {
     pub const FRAGMENT_DENSITY_MAP_DYNAMIC_EXT: Self = Self(1 << 0);
@@ -4577,7 +4642,7 @@ impl ImageViewCreateFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineCreateFlags: Flags {
         const DISABLE_OPTIMIZATION = PipelineCreateFlagBits::DISABLE_OPTIMIZATION.0;
         const ALLOW_DERIVATIVES = PipelineCreateFlagBits::ALLOW_DERIVATIVES.0;
@@ -4621,7 +4686,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PipelineCreateFlagBits(u32);
 impl PipelineCreateFlagBits {
     pub const DISABLE_OPTIMIZATION: Self = Self(1 << 0);
@@ -4668,7 +4733,7 @@ impl PipelineCreateFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ColorComponentFlags: Flags {
         const R = ColorComponentFlagBits::R.0;
         const G = ColorComponentFlagBits::G.0;
@@ -4677,7 +4742,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ColorComponentFlagBits(u32);
 impl ColorComponentFlagBits {
     pub const R: Self = Self(1 << 0);
@@ -4687,26 +4752,26 @@ impl ColorComponentFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct FenceCreateFlags: Flags {
         const SIGNALED = FenceCreateFlagBits::SIGNALED.0;
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct FenceCreateFlagBits(u32);
 impl FenceCreateFlagBits {
     pub const SIGNALED: Self = Self(1 << 0);
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SemaphoreCreateFlags: Flags {
     }
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct FormatFeatureFlags: Flags {
         const SAMPLED_IMAGE = FormatFeatureFlagBits::SAMPLED_IMAGE.0;
         const STORAGE_IMAGE = FormatFeatureFlagBits::STORAGE_IMAGE.0;
@@ -4753,7 +4818,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct FormatFeatureFlagBits(u32);
 impl FormatFeatureFlagBits {
     pub const SAMPLED_IMAGE: Self = Self(1 << 0);
@@ -4806,20 +4871,20 @@ impl FormatFeatureFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct QueryControlFlags: Flags {
         const PRECISE = QueryControlFlagBits::PRECISE.0;
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct QueryControlFlagBits(u32);
 impl QueryControlFlagBits {
     pub const PRECISE: Self = Self(1 << 0);
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct QueryResultFlags: Flags {
         const _64 = QueryResultFlagBits::_64.0;
         const WAIT = QueryResultFlagBits::WAIT.0;
@@ -4829,7 +4894,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct QueryResultFlagBits(u32);
 impl QueryResultFlagBits {
     pub const _64: Self = Self(1 << 0);
@@ -4840,20 +4905,20 @@ impl QueryResultFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ShaderModuleCreateFlags: Flags {
     }
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct EventCreateFlags: Flags {
         const DEVICE_ONLY = EventCreateFlagBits::DEVICE_ONLY.0;
         const DEVICE_ONLY_KHR = Self::DEVICE_ONLY.bits();
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventCreateFlagBits(u32);
 impl EventCreateFlagBits {
     pub const DEVICE_ONLY: Self = Self(1 << 0);
@@ -4861,7 +4926,7 @@ impl EventCreateFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct CommandPoolCreateFlags: Flags {
         const TRANSIENT = CommandPoolCreateFlagBits::TRANSIENT.0;
         const RESET_COMMAND_BUFFER = CommandPoolCreateFlagBits::RESET_COMMAND_BUFFER.0;
@@ -4869,7 +4934,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct CommandPoolCreateFlagBits(u32);
 impl CommandPoolCreateFlagBits {
     pub const TRANSIENT: Self = Self(1 << 0);
@@ -4878,33 +4943,33 @@ impl CommandPoolCreateFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct CommandPoolResetFlags: Flags {
         const RELEASE_RESOURCES = CommandPoolResetFlagBits::RELEASE_RESOURCES.0;
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct CommandPoolResetFlagBits(u32);
 impl CommandPoolResetFlagBits {
     pub const RELEASE_RESOURCES: Self = Self(1 << 0);
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct CommandBufferResetFlags: Flags {
         const RELEASE_RESOURCES = CommandBufferResetFlagBits::RELEASE_RESOURCES.0;
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct CommandBufferResetFlagBits(u32);
 impl CommandBufferResetFlagBits {
     pub const RELEASE_RESOURCES: Self = Self(1 << 0);
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct CommandBufferUsageFlags: Flags {
         const ONE_TIME_SUBMIT = CommandBufferUsageFlagBits::ONE_TIME_SUBMIT.0;
         const RENDER_PASS_CONTINUE = CommandBufferUsageFlagBits::RENDER_PASS_CONTINUE.0;
@@ -4912,7 +4977,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct CommandBufferUsageFlagBits(u32);
 impl CommandBufferUsageFlagBits {
     pub const ONE_TIME_SUBMIT: Self = Self(1 << 0);
@@ -4921,7 +4986,7 @@ impl CommandBufferUsageFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct QueryPipelineStatisticFlags: Flags {
         const INPUT_ASSEMBLY_VERTICES = QueryPipelineStatisticFlagBits::INPUT_ASSEMBLY_VERTICES.0;
         const INPUT_ASSEMBLY_PRIMITIVES = QueryPipelineStatisticFlagBits::INPUT_ASSEMBLY_PRIMITIVES.0;
@@ -4940,7 +5005,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct QueryPipelineStatisticFlagBits(u32);
 impl QueryPipelineStatisticFlagBits {
     pub const INPUT_ASSEMBLY_VERTICES: Self = Self(1 << 0);
@@ -4960,20 +5025,20 @@ impl QueryPipelineStatisticFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct MemoryMapFlags: Flags {
         const PLACED_EXT = MemoryMapFlagBits::PLACED_EXT.0;
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct MemoryMapFlagBits(u32);
 impl MemoryMapFlagBits {
     pub const PLACED_EXT: Self = Self(1 << 0);
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ImageAspectFlags: Flags {
         const COLOR = ImageAspectFlagBits::COLOR.0;
         const DEPTH = ImageAspectFlagBits::DEPTH.0;
@@ -4994,7 +5059,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ImageAspectFlagBits(u32);
 impl ImageAspectFlagBits {
     pub const COLOR: Self = Self(1 << 0);
@@ -5014,20 +5079,20 @@ impl ImageAspectFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SparseMemoryBindFlags: Flags {
         const METADATA = SparseMemoryBindFlagBits::METADATA.0;
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct SparseMemoryBindFlagBits(u32);
 impl SparseMemoryBindFlagBits {
     pub const METADATA: Self = Self(1 << 0);
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SparseImageFormatFlags: Flags {
         const SINGLE_MIPTAIL = SparseImageFormatFlagBits::SINGLE_MIPTAIL.0;
         const ALIGNED_MIP_SIZE = SparseImageFormatFlagBits::ALIGNED_MIP_SIZE.0;
@@ -5035,7 +5100,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct SparseImageFormatFlagBits(u32);
 impl SparseImageFormatFlagBits {
     pub const SINGLE_MIPTAIL: Self = Self(1 << 0);
@@ -5044,7 +5109,7 @@ impl SparseImageFormatFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SubpassDescriptionFlags: Flags {
         const PER_VIEW_ATTRIBUTES_NVX = SubpassDescriptionFlagBits::PER_VIEW_ATTRIBUTES_NVX.0;
         const PER_VIEW_POSITION_X_ONLY_NVX = SubpassDescriptionFlagBits::PER_VIEW_POSITION_X_ONLY_NVX.0;
@@ -5063,7 +5128,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct SubpassDescriptionFlagBits(u32);
 impl SubpassDescriptionFlagBits {
     pub const PER_VIEW_ATTRIBUTES_NVX: Self = Self(1 << 0);
@@ -5086,7 +5151,7 @@ impl SubpassDescriptionFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineStageFlags: Flags {
         const TOP_OF_PIPE = PipelineStageFlagBits::TOP_OF_PIPE.0;
         const DRAW_INDIRECT = PipelineStageFlagBits::DRAW_INDIRECT.0;
@@ -5125,7 +5190,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PipelineStageFlagBits(u32);
 impl PipelineStageFlagBits {
     pub const TOP_OF_PIPE: Self = Self(1 << 0);
@@ -5163,7 +5228,7 @@ impl PipelineStageFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SampleCountFlags: Flags {
         const _1 = SampleCountFlagBits::_1.0;
         const _2 = SampleCountFlagBits::_2.0;
@@ -5175,7 +5240,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct SampleCountFlagBits(u32);
 impl SampleCountFlagBits {
     pub const _1: Self = Self(1 << 0);
@@ -5188,7 +5253,7 @@ impl SampleCountFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct AttachmentDescriptionFlags: Flags {
         const MAY_ALIAS = AttachmentDescriptionFlagBits::MAY_ALIAS.0;
         const RESOLVE_SKIP_TRANSFER_FUNCTION_KHR = AttachmentDescriptionFlagBits::RESOLVE_SKIP_TRANSFER_FUNCTION_KHR.0;
@@ -5196,7 +5261,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AttachmentDescriptionFlagBits(u32);
 impl AttachmentDescriptionFlagBits {
     pub const MAY_ALIAS: Self = Self(1 << 0);
@@ -5205,7 +5270,7 @@ impl AttachmentDescriptionFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StencilFaceFlags: Flags {
         const FRONT = StencilFaceFlagBits::FRONT.0;
         const BACK = StencilFaceFlagBits::BACK.0;
@@ -5214,7 +5279,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StencilFaceFlagBits(u32);
 impl StencilFaceFlagBits {
     pub const FRONT: Self = Self(1 << 0);
@@ -5222,7 +5287,7 @@ impl StencilFaceFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct CullModeFlags: Flags {
         const FRONT = CullModeFlagBits::FRONT.0;
         const BACK = CullModeFlagBits::BACK.0;
@@ -5231,7 +5296,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct CullModeFlagBits(u32);
 impl CullModeFlagBits {
     pub const FRONT: Self = Self(1 << 0);
@@ -5239,7 +5304,7 @@ impl CullModeFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DescriptorPoolCreateFlags: Flags {
         const FREE_DESCRIPTOR_SET = DescriptorPoolCreateFlagBits::FREE_DESCRIPTOR_SET.0;
         const UPDATE_AFTER_BIND = DescriptorPoolCreateFlagBits::UPDATE_AFTER_BIND.0;
@@ -5251,7 +5316,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DescriptorPoolCreateFlagBits(u32);
 impl DescriptorPoolCreateFlagBits {
     pub const FREE_DESCRIPTOR_SET: Self = Self(1 << 0);
@@ -5264,13 +5329,13 @@ impl DescriptorPoolCreateFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DescriptorPoolResetFlags: Flags {
     }
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DependencyFlags: Flags {
         const BY_REGION = DependencyFlagBits::BY_REGION.0;
         const VIEW_LOCAL = DependencyFlagBits::VIEW_LOCAL.0;
@@ -5283,7 +5348,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DependencyFlagBits(u32);
 impl DependencyFlagBits {
     pub const BY_REGION: Self = Self(1 << 0);
@@ -5324,12 +5389,12 @@ pub type PFN_vkFreeFunction =
     unsafe extern "system" fn(p_user_data: *mut c_void, p_memory: *mut c_void);
 pub type PFN_vkVoidFunction = unsafe extern "system" fn();
 pub type PFN_vkCreateInstance = unsafe extern "system" fn(
-    p_create_info: *const InstanceCreateInfo,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const InstanceCreateInfo<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_instance: *mut Instance,
 ) -> Result;
 pub type PFN_vkDestroyInstance =
-    unsafe extern "system" fn(instance: Instance, p_allocator: *const AllocationCallbacks);
+    unsafe extern "system" fn(instance: Instance, p_allocator: *const AllocationCallbacks<'_>);
 pub type PFN_vkEnumeratePhysicalDevices = unsafe extern "system" fn(
     instance: Instance,
     p_physical_device_count: *mut u32,
@@ -5372,12 +5437,12 @@ pub type PFN_vkGetPhysicalDeviceImageFormatProperties = unsafe extern "system" f
 ) -> Result;
 pub type PFN_vkCreateDevice = unsafe extern "system" fn(
     physical_device: PhysicalDevice,
-    p_create_info: *const DeviceCreateInfo,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const DeviceCreateInfo<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_device: *mut Device,
 ) -> Result;
 pub type PFN_vkDestroyDevice =
-    unsafe extern "system" fn(device: Device, p_allocator: *const AllocationCallbacks);
+    unsafe extern "system" fn(device: Device, p_allocator: *const AllocationCallbacks<'_>);
 pub type PFN_vkEnumerateInstanceLayerProperties = unsafe extern "system" fn(
     p_property_count: *mut u32,
     p_properties: *mut LayerProperties,
@@ -5407,21 +5472,21 @@ pub type PFN_vkGetDeviceQueue = unsafe extern "system" fn(
 pub type PFN_vkQueueSubmit = unsafe extern "system" fn(
     queue: Queue,
     submit_count: u32,
-    p_submits: *const SubmitInfo,
+    p_submits: *const SubmitInfo<'_>,
     fence: Fence,
 ) -> Result;
 pub type PFN_vkQueueWaitIdle = unsafe extern "system" fn(queue: Queue) -> Result;
 pub type PFN_vkDeviceWaitIdle = unsafe extern "system" fn(device: Device) -> Result;
 pub type PFN_vkAllocateMemory = unsafe extern "system" fn(
     device: Device,
-    p_allocate_info: *const MemoryAllocateInfo,
-    p_allocator: *const AllocationCallbacks,
+    p_allocate_info: *const MemoryAllocateInfo<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_memory: *mut DeviceMemory,
 ) -> Result;
 pub type PFN_vkFreeMemory = unsafe extern "system" fn(
     device: Device,
     memory: DeviceMemory,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkMapMemory = unsafe extern "system" fn(
     device: Device,
@@ -5435,12 +5500,12 @@ pub type PFN_vkUnmapMemory = unsafe extern "system" fn(device: Device, memory: D
 pub type PFN_vkFlushMappedMemoryRanges = unsafe extern "system" fn(
     device: Device,
     memory_range_count: u32,
-    p_memory_ranges: *const MappedMemoryRange,
+    p_memory_ranges: *const MappedMemoryRange<'_>,
 ) -> Result;
 pub type PFN_vkInvalidateMappedMemoryRanges = unsafe extern "system" fn(
     device: Device,
     memory_range_count: u32,
-    p_memory_ranges: *const MappedMemoryRange,
+    p_memory_ranges: *const MappedMemoryRange<'_>,
 ) -> Result;
 pub type PFN_vkGetDeviceMemoryCommitment = unsafe extern "system" fn(
     device: Device,
@@ -5488,19 +5553,19 @@ pub type PFN_vkGetPhysicalDeviceSparseImageFormatProperties = unsafe extern "sys
 pub type PFN_vkQueueBindSparse = unsafe extern "system" fn(
     queue: Queue,
     bind_info_count: u32,
-    p_bind_info: *const BindSparseInfo,
+    p_bind_info: *const BindSparseInfo<'_>,
     fence: Fence,
 ) -> Result;
 pub type PFN_vkCreateFence = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const FenceCreateInfo,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const FenceCreateInfo<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_fence: *mut Fence,
 ) -> Result;
 pub type PFN_vkDestroyFence = unsafe extern "system" fn(
     device: Device,
     fence: Fence,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkResetFences =
     unsafe extern "system" fn(device: Device, fence_count: u32, p_fences: *const Fence) -> Result;
@@ -5514,39 +5579,39 @@ pub type PFN_vkWaitForFences = unsafe extern "system" fn(
 ) -> Result;
 pub type PFN_vkCreateSemaphore = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const SemaphoreCreateInfo,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const SemaphoreCreateInfo<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_semaphore: *mut Semaphore,
 ) -> Result;
 pub type PFN_vkDestroySemaphore = unsafe extern "system" fn(
     device: Device,
     semaphore: Semaphore,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkCreateEvent = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const EventCreateInfo,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const EventCreateInfo<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_event: *mut Event,
 ) -> Result;
 pub type PFN_vkDestroyEvent = unsafe extern "system" fn(
     device: Device,
     event: Event,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkGetEventStatus = unsafe extern "system" fn(device: Device, event: Event) -> Result;
 pub type PFN_vkSetEvent = unsafe extern "system" fn(device: Device, event: Event) -> Result;
 pub type PFN_vkResetEvent = unsafe extern "system" fn(device: Device, event: Event) -> Result;
 pub type PFN_vkCreateQueryPool = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const QueryPoolCreateInfo,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const QueryPoolCreateInfo<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_query_pool: *mut QueryPool,
 ) -> Result;
 pub type PFN_vkDestroyQueryPool = unsafe extern "system" fn(
     device: Device,
     query_pool: QueryPool,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkGetQueryPoolResults = unsafe extern "system" fn(
     device: Device,
@@ -5560,36 +5625,36 @@ pub type PFN_vkGetQueryPoolResults = unsafe extern "system" fn(
 ) -> Result;
 pub type PFN_vkCreateBuffer = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const BufferCreateInfo,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const BufferCreateInfo<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_buffer: *mut Buffer,
 ) -> Result;
 pub type PFN_vkDestroyBuffer = unsafe extern "system" fn(
     device: Device,
     buffer: Buffer,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkCreateBufferView = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const BufferViewCreateInfo,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const BufferViewCreateInfo<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_view: *mut BufferView,
 ) -> Result;
 pub type PFN_vkDestroyBufferView = unsafe extern "system" fn(
     device: Device,
     buffer_view: BufferView,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkCreateImage = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const ImageCreateInfo,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const ImageCreateInfo<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_image: *mut Image,
 ) -> Result;
 pub type PFN_vkDestroyImage = unsafe extern "system" fn(
     device: Device,
     image: Image,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkGetImageSubresourceLayout = unsafe extern "system" fn(
     device: Device,
@@ -5599,36 +5664,36 @@ pub type PFN_vkGetImageSubresourceLayout = unsafe extern "system" fn(
 );
 pub type PFN_vkCreateImageView = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const ImageViewCreateInfo,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const ImageViewCreateInfo<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_view: *mut ImageView,
 ) -> Result;
 pub type PFN_vkDestroyImageView = unsafe extern "system" fn(
     device: Device,
     image_view: ImageView,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkCreateShaderModule = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const ShaderModuleCreateInfo,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const ShaderModuleCreateInfo<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_shader_module: *mut ShaderModule,
 ) -> Result;
 pub type PFN_vkDestroyShaderModule = unsafe extern "system" fn(
     device: Device,
     shader_module: ShaderModule,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkCreatePipelineCache = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const PipelineCacheCreateInfo,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const PipelineCacheCreateInfo<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_pipeline_cache: *mut PipelineCache,
 ) -> Result;
 pub type PFN_vkDestroyPipelineCache = unsafe extern "system" fn(
     device: Device,
     pipeline_cache: PipelineCache,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkGetPipelineCacheData = unsafe extern "system" fn(
     device: Device,
@@ -5646,66 +5711,66 @@ pub type PFN_vkCreateGraphicsPipelines = unsafe extern "system" fn(
     device: Device,
     pipeline_cache: PipelineCache,
     create_info_count: u32,
-    p_create_infos: *const GraphicsPipelineCreateInfo,
-    p_allocator: *const AllocationCallbacks,
+    p_create_infos: *const GraphicsPipelineCreateInfo<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_pipelines: *mut Pipeline,
 ) -> Result;
 pub type PFN_vkCreateComputePipelines = unsafe extern "system" fn(
     device: Device,
     pipeline_cache: PipelineCache,
     create_info_count: u32,
-    p_create_infos: *const ComputePipelineCreateInfo,
-    p_allocator: *const AllocationCallbacks,
+    p_create_infos: *const ComputePipelineCreateInfo<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_pipelines: *mut Pipeline,
 ) -> Result;
 pub type PFN_vkDestroyPipeline = unsafe extern "system" fn(
     device: Device,
     pipeline: Pipeline,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkCreatePipelineLayout = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const PipelineLayoutCreateInfo,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const PipelineLayoutCreateInfo<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_pipeline_layout: *mut PipelineLayout,
 ) -> Result;
 pub type PFN_vkDestroyPipelineLayout = unsafe extern "system" fn(
     device: Device,
     pipeline_layout: PipelineLayout,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkCreateSampler = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const SamplerCreateInfo,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const SamplerCreateInfo<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_sampler: *mut Sampler,
 ) -> Result;
 pub type PFN_vkDestroySampler = unsafe extern "system" fn(
     device: Device,
     sampler: Sampler,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkCreateDescriptorSetLayout = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const DescriptorSetLayoutCreateInfo,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const DescriptorSetLayoutCreateInfo<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_set_layout: *mut DescriptorSetLayout,
 ) -> Result;
 pub type PFN_vkDestroyDescriptorSetLayout = unsafe extern "system" fn(
     device: Device,
     descriptor_set_layout: DescriptorSetLayout,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkCreateDescriptorPool = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const DescriptorPoolCreateInfo,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const DescriptorPoolCreateInfo<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_descriptor_pool: *mut DescriptorPool,
 ) -> Result;
 pub type PFN_vkDestroyDescriptorPool = unsafe extern "system" fn(
     device: Device,
     descriptor_pool: DescriptorPool,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkResetDescriptorPool = unsafe extern "system" fn(
     device: Device,
@@ -5714,7 +5779,7 @@ pub type PFN_vkResetDescriptorPool = unsafe extern "system" fn(
 ) -> Result;
 pub type PFN_vkAllocateDescriptorSets = unsafe extern "system" fn(
     device: Device,
-    p_allocate_info: *const DescriptorSetAllocateInfo,
+    p_allocate_info: *const DescriptorSetAllocateInfo<'_>,
     p_descriptor_sets: *mut DescriptorSet,
 ) -> Result;
 pub type PFN_vkFreeDescriptorSets = unsafe extern "system" fn(
@@ -5726,31 +5791,31 @@ pub type PFN_vkFreeDescriptorSets = unsafe extern "system" fn(
 pub type PFN_vkUpdateDescriptorSets = unsafe extern "system" fn(
     device: Device,
     descriptor_write_count: u32,
-    p_descriptor_writes: *const WriteDescriptorSet,
+    p_descriptor_writes: *const WriteDescriptorSet<'_>,
     descriptor_copy_count: u32,
-    p_descriptor_copies: *const CopyDescriptorSet,
+    p_descriptor_copies: *const CopyDescriptorSet<'_>,
 );
 pub type PFN_vkCreateFramebuffer = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const FramebufferCreateInfo,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const FramebufferCreateInfo<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_framebuffer: *mut Framebuffer,
 ) -> Result;
 pub type PFN_vkDestroyFramebuffer = unsafe extern "system" fn(
     device: Device,
     framebuffer: Framebuffer,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkCreateRenderPass = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const RenderPassCreateInfo,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const RenderPassCreateInfo<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_render_pass: *mut RenderPass,
 ) -> Result;
 pub type PFN_vkDestroyRenderPass = unsafe extern "system" fn(
     device: Device,
     render_pass: RenderPass,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkGetRenderAreaGranularity = unsafe extern "system" fn(
     device: Device,
@@ -5759,14 +5824,14 @@ pub type PFN_vkGetRenderAreaGranularity = unsafe extern "system" fn(
 );
 pub type PFN_vkCreateCommandPool = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const CommandPoolCreateInfo,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const CommandPoolCreateInfo<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_command_pool: *mut CommandPool,
 ) -> Result;
 pub type PFN_vkDestroyCommandPool = unsafe extern "system" fn(
     device: Device,
     command_pool: CommandPool,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkResetCommandPool = unsafe extern "system" fn(
     device: Device,
@@ -5775,7 +5840,7 @@ pub type PFN_vkResetCommandPool = unsafe extern "system" fn(
 ) -> Result;
 pub type PFN_vkAllocateCommandBuffers = unsafe extern "system" fn(
     device: Device,
-    p_allocate_info: *const CommandBufferAllocateInfo,
+    p_allocate_info: *const CommandBufferAllocateInfo<'_>,
     p_command_buffers: *mut CommandBuffer,
 ) -> Result;
 pub type PFN_vkFreeCommandBuffers = unsafe extern "system" fn(
@@ -5786,7 +5851,7 @@ pub type PFN_vkFreeCommandBuffers = unsafe extern "system" fn(
 );
 pub type PFN_vkBeginCommandBuffer = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_begin_info: *const CommandBufferBeginInfo,
+    p_begin_info: *const CommandBufferBeginInfo<'_>,
 ) -> Result;
 pub type PFN_vkEndCommandBuffer =
     unsafe extern "system" fn(command_buffer: CommandBuffer) -> Result;
@@ -6006,11 +6071,11 @@ pub type PFN_vkCmdWaitEvents = unsafe extern "system" fn(
     src_stage_mask: PipelineStageFlags,
     dst_stage_mask: PipelineStageFlags,
     memory_barrier_count: u32,
-    p_memory_barriers: *const MemoryBarrier,
+    p_memory_barriers: *const MemoryBarrier<'_>,
     buffer_memory_barrier_count: u32,
-    p_buffer_memory_barriers: *const BufferMemoryBarrier,
+    p_buffer_memory_barriers: *const BufferMemoryBarrier<'_>,
     image_memory_barrier_count: u32,
-    p_image_memory_barriers: *const ImageMemoryBarrier,
+    p_image_memory_barriers: *const ImageMemoryBarrier<'_>,
 );
 pub type PFN_vkCmdPipelineBarrier = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
@@ -6018,11 +6083,11 @@ pub type PFN_vkCmdPipelineBarrier = unsafe extern "system" fn(
     dst_stage_mask: PipelineStageFlags,
     dependency_flags: DependencyFlags,
     memory_barrier_count: u32,
-    p_memory_barriers: *const MemoryBarrier,
+    p_memory_barriers: *const MemoryBarrier<'_>,
     buffer_memory_barrier_count: u32,
-    p_buffer_memory_barriers: *const BufferMemoryBarrier,
+    p_buffer_memory_barriers: *const BufferMemoryBarrier<'_>,
     image_memory_barrier_count: u32,
-    p_image_memory_barriers: *const ImageMemoryBarrier,
+    p_image_memory_barriers: *const ImageMemoryBarrier<'_>,
 );
 pub type PFN_vkCmdBeginQuery = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
@@ -6064,7 +6129,7 @@ pub type PFN_vkCmdPushConstants = unsafe extern "system" fn(
 );
 pub type PFN_vkCmdBeginRenderPass = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_render_pass_begin: *const RenderPassBeginInfo,
+    p_render_pass_begin: *const RenderPassBeginInfo<'_>,
     contents: SubpassContents,
 );
 pub type PFN_vkCmdNextSubpass =

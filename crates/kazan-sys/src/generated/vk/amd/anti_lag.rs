@@ -2,26 +2,30 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDeviceAntiLagFeaturesAMD {
+pub struct PhysicalDeviceAntiLagFeaturesAMD<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub anti_lag: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct AntiLagDataAMD {
+pub struct AntiLagDataAMD<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub mode: AntiLagModeAMD,
     pub max_fps: u32,
-    pub p_presentation_info: *const AntiLagPresentationInfoAMD,
+    pub p_presentation_info: *const AntiLagPresentationInfoAMD<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct AntiLagPresentationInfoAMD {
+pub struct AntiLagPresentationInfoAMD<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub stage: AntiLagStageAMD,
     pub frame_index: u64,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -39,4 +43,4 @@ impl AntiLagStageAMD {
     pub const PRESENT_AMD: Self = Self(1);
 }
 pub type PFN_vkAntiLagUpdateAMD =
-    unsafe extern "system" fn(device: Device, p_data: *const AntiLagDataAMD);
+    unsafe extern "system" fn(device: Device, p_data: *const AntiLagDataAMD<'_>);

@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct VideoSessionKHR(u64);
@@ -9,32 +10,36 @@ pub struct VideoSessionKHR(u64);
 #[derive(Copy, Clone, Default)]
 pub struct VideoSessionParametersKHR(u64);
 #[repr(C)]
-pub struct QueueFamilyVideoPropertiesKHR {
+pub struct QueueFamilyVideoPropertiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub video_codec_operations: VideoCodecOperationFlagsKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct QueueFamilyQueryResultStatusPropertiesKHR {
+pub struct QueueFamilyQueryResultStatusPropertiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub query_result_status_support: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoProfileListInfoKHR {
+pub struct VideoProfileListInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub profile_count: u32,
-    pub p_profiles: *const VideoProfileInfoKHR,
+    pub p_profiles: *const VideoProfileInfoKHR<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceVideoFormatInfoKHR {
+pub struct PhysicalDeviceVideoFormatInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub image_usage: ImageUsageFlags,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoFormatPropertiesKHR {
+pub struct VideoFormatPropertiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub format: Format,
@@ -43,18 +48,20 @@ pub struct VideoFormatPropertiesKHR {
     pub image_type: ImageType,
     pub image_tiling: ImageTiling,
     pub image_usage_flags: ImageUsageFlags,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoProfileInfoKHR {
+pub struct VideoProfileInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub video_codec_operation: VideoCodecOperationFlagBitsKHR,
     pub chroma_subsampling: VideoChromaSubsamplingFlagsKHR,
     pub luma_bit_depth: VideoComponentBitDepthFlagsKHR,
     pub chroma_bit_depth: VideoComponentBitDepthFlagsKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoCapabilitiesKHR {
+pub struct VideoCapabilitiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub flags: VideoCapabilityFlagsKHR,
@@ -66,88 +73,99 @@ pub struct VideoCapabilitiesKHR {
     pub max_dpb_slots: u32,
     pub max_active_reference_pictures: u32,
     pub std_header_version: ExtensionProperties,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoSessionMemoryRequirementsKHR {
+pub struct VideoSessionMemoryRequirementsKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub memory_bind_index: u32,
     pub memory_requirements: MemoryRequirements,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct BindVideoSessionMemoryInfoKHR {
+pub struct BindVideoSessionMemoryInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub memory_bind_index: u32,
     pub memory: DeviceMemory,
     pub memory_offset: DeviceSize,
     pub memory_size: DeviceSize,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoPictureResourceInfoKHR {
+pub struct VideoPictureResourceInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub coded_offset: Offset2D,
     pub coded_extent: Extent2D,
     pub base_array_layer: u32,
     pub image_view_binding: ImageView,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoReferenceSlotInfoKHR {
+pub struct VideoReferenceSlotInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub slot_index: i32,
-    pub p_picture_resource: *const VideoPictureResourceInfoKHR,
+    pub p_picture_resource: *const VideoPictureResourceInfoKHR<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoSessionCreateInfoKHR {
+pub struct VideoSessionCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub queue_family_index: u32,
     pub flags: VideoSessionCreateFlagsKHR,
-    pub p_video_profile: *const VideoProfileInfoKHR,
+    pub p_video_profile: *const VideoProfileInfoKHR<'a>,
     pub picture_format: Format,
     pub max_coded_extent: Extent2D,
     pub reference_picture_format: Format,
     pub max_dpb_slots: u32,
     pub max_active_reference_pictures: u32,
     pub p_std_header_version: *const ExtensionProperties,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoSessionParametersCreateInfoKHR {
+pub struct VideoSessionParametersCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: VideoSessionParametersCreateFlagsKHR,
     pub video_session_parameters_template: VideoSessionParametersKHR,
     pub video_session: VideoSessionKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoSessionParametersUpdateInfoKHR {
+pub struct VideoSessionParametersUpdateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub update_sequence_count: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoBeginCodingInfoKHR {
+pub struct VideoBeginCodingInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: VideoBeginCodingFlagsKHR,
     pub video_session: VideoSessionKHR,
     pub video_session_parameters: VideoSessionParametersKHR,
     pub reference_slot_count: u32,
-    pub p_reference_slots: *const VideoReferenceSlotInfoKHR,
+    pub p_reference_slots: *const VideoReferenceSlotInfoKHR<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEndCodingInfoKHR {
+pub struct VideoEndCodingInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: VideoEndCodingFlagsKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoCodingControlInfoKHR {
+pub struct VideoCodingControlInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: VideoCodingControlFlagsKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -160,7 +178,7 @@ impl QueryResultStatusKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VideoCodecOperationFlagsKHR: Flags {
         const DECODE_H264_KHR = VideoCodecOperationFlagBitsKHR::DECODE_H264_KHR.0;
         const DECODE_H265_KHR = VideoCodecOperationFlagBitsKHR::DECODE_H265_KHR.0;
@@ -173,7 +191,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct VideoCodecOperationFlagBitsKHR(u32);
 impl VideoCodecOperationFlagBitsKHR {
     pub const DECODE_H264_KHR: Self = Self(1 << 0);
@@ -186,14 +204,14 @@ impl VideoCodecOperationFlagBitsKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VideoCapabilityFlagsKHR: Flags {
         const PROTECTED_CONTENT_KHR = VideoCapabilityFlagBitsKHR::PROTECTED_CONTENT_KHR.0;
         const SEPARATE_REFERENCE_IMAGES_KHR = VideoCapabilityFlagBitsKHR::SEPARATE_REFERENCE_IMAGES_KHR.0;
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct VideoCapabilityFlagBitsKHR(u32);
 impl VideoCapabilityFlagBitsKHR {
     pub const PROTECTED_CONTENT_KHR: Self = Self(1 << 0);
@@ -201,7 +219,7 @@ impl VideoCapabilityFlagBitsKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VideoSessionCreateFlagsKHR: Flags {
         const PROTECTED_CONTENT_KHR = VideoSessionCreateFlagBitsKHR::PROTECTED_CONTENT_KHR.0;
         const ALLOW_ENCODE_PARAMETER_OPTIMIZATIONS_KHR = VideoSessionCreateFlagBitsKHR::ALLOW_ENCODE_PARAMETER_OPTIMIZATIONS_KHR.0;
@@ -212,7 +230,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct VideoSessionCreateFlagBitsKHR(u32);
 impl VideoSessionCreateFlagBitsKHR {
     pub const PROTECTED_CONTENT_KHR: Self = Self(1 << 0);
@@ -224,32 +242,32 @@ impl VideoSessionCreateFlagBitsKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VideoSessionParametersCreateFlagsKHR: Flags {
         const QUANTIZATION_MAP_COMPATIBLE_KHR = VideoSessionParametersCreateFlagBitsKHR::QUANTIZATION_MAP_COMPATIBLE_KHR.0;
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct VideoSessionParametersCreateFlagBitsKHR(u32);
 impl VideoSessionParametersCreateFlagBitsKHR {
     pub const QUANTIZATION_MAP_COMPATIBLE_KHR: Self = Self(1 << 0);
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VideoBeginCodingFlagsKHR: Flags {
     }
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VideoEndCodingFlagsKHR: Flags {
     }
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VideoCodingControlFlagsKHR: Flags {
         const RESET_KHR = VideoCodingControlFlagBitsKHR::RESET_KHR.0;
         const ENCODE_RATE_CONTROL_KHR = VideoCodingControlFlagBitsKHR::ENCODE_RATE_CONTROL_KHR.0;
@@ -257,7 +275,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct VideoCodingControlFlagBitsKHR(u32);
 impl VideoCodingControlFlagBitsKHR {
     pub const RESET_KHR: Self = Self(1 << 0);
@@ -266,7 +284,7 @@ impl VideoCodingControlFlagBitsKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VideoChromaSubsamplingFlagsKHR: Flags {
         const MONOCHROME_KHR = VideoChromaSubsamplingFlagBitsKHR::MONOCHROME_KHR.0;
         const _420_KHR = VideoChromaSubsamplingFlagBitsKHR::_420_KHR.0;
@@ -276,7 +294,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct VideoChromaSubsamplingFlagBitsKHR(u32);
 impl VideoChromaSubsamplingFlagBitsKHR {
     pub const MONOCHROME_KHR: Self = Self(1 << 0);
@@ -286,7 +304,7 @@ impl VideoChromaSubsamplingFlagBitsKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VideoComponentBitDepthFlagsKHR: Flags {
         const _8_KHR = VideoComponentBitDepthFlagBitsKHR::_8_KHR.0;
         const _10_KHR = VideoComponentBitDepthFlagBitsKHR::_10_KHR.0;
@@ -295,7 +313,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct VideoComponentBitDepthFlagBitsKHR(u32);
 impl VideoComponentBitDepthFlagBitsKHR {
     pub const _8_KHR: Self = Self(1 << 0);
@@ -304,63 +322,63 @@ impl VideoComponentBitDepthFlagBitsKHR {
 }
 pub type PFN_vkGetPhysicalDeviceVideoCapabilitiesKHR = unsafe extern "system" fn(
     physical_device: PhysicalDevice,
-    p_video_profile: *const VideoProfileInfoKHR,
-    p_capabilities: *mut VideoCapabilitiesKHR,
+    p_video_profile: *const VideoProfileInfoKHR<'_>,
+    p_capabilities: *mut VideoCapabilitiesKHR<'_>,
 ) -> Result;
 pub type PFN_vkGetPhysicalDeviceVideoFormatPropertiesKHR = unsafe extern "system" fn(
     physical_device: PhysicalDevice,
-    p_video_format_info: *const PhysicalDeviceVideoFormatInfoKHR,
+    p_video_format_info: *const PhysicalDeviceVideoFormatInfoKHR<'_>,
     p_video_format_property_count: *mut u32,
-    p_video_format_properties: *mut VideoFormatPropertiesKHR,
+    p_video_format_properties: *mut VideoFormatPropertiesKHR<'_>,
 ) -> Result;
 pub type PFN_vkCreateVideoSessionKHR = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const VideoSessionCreateInfoKHR,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const VideoSessionCreateInfoKHR<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_video_session: *mut VideoSessionKHR,
 ) -> Result;
 pub type PFN_vkDestroyVideoSessionKHR = unsafe extern "system" fn(
     device: Device,
     video_session: VideoSessionKHR,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkCreateVideoSessionParametersKHR = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const VideoSessionParametersCreateInfoKHR,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const VideoSessionParametersCreateInfoKHR<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_video_session_parameters: *mut VideoSessionParametersKHR,
 ) -> Result;
 pub type PFN_vkUpdateVideoSessionParametersKHR = unsafe extern "system" fn(
     device: Device,
     video_session_parameters: VideoSessionParametersKHR,
-    p_update_info: *const VideoSessionParametersUpdateInfoKHR,
+    p_update_info: *const VideoSessionParametersUpdateInfoKHR<'_>,
 ) -> Result;
 pub type PFN_vkDestroyVideoSessionParametersKHR = unsafe extern "system" fn(
     device: Device,
     video_session_parameters: VideoSessionParametersKHR,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkGetVideoSessionMemoryRequirementsKHR = unsafe extern "system" fn(
     device: Device,
     video_session: VideoSessionKHR,
     p_memory_requirements_count: *mut u32,
-    p_memory_requirements: *mut VideoSessionMemoryRequirementsKHR,
+    p_memory_requirements: *mut VideoSessionMemoryRequirementsKHR<'_>,
 ) -> Result;
 pub type PFN_vkBindVideoSessionMemoryKHR = unsafe extern "system" fn(
     device: Device,
     video_session: VideoSessionKHR,
     bind_session_memory_info_count: u32,
-    p_bind_session_memory_infos: *const BindVideoSessionMemoryInfoKHR,
+    p_bind_session_memory_infos: *const BindVideoSessionMemoryInfoKHR<'_>,
 ) -> Result;
 pub type PFN_vkCmdBeginVideoCodingKHR = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_begin_info: *const VideoBeginCodingInfoKHR,
+    p_begin_info: *const VideoBeginCodingInfoKHR<'_>,
 );
 pub type PFN_vkCmdControlVideoCodingKHR = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_coding_control_info: *const VideoCodingControlInfoKHR,
+    p_coding_control_info: *const VideoCodingControlInfoKHR<'_>,
 );
 pub type PFN_vkCmdEndVideoCodingKHR = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_end_coding_info: *const VideoEndCodingInfoKHR,
+    p_end_coding_info: *const VideoEndCodingInfoKHR<'_>,
 );

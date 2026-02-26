@@ -2,8 +2,9 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct Win32KeyedMutexAcquireReleaseInfoKHR {
+pub struct Win32KeyedMutexAcquireReleaseInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub acquire_count: u32,
@@ -13,4 +14,5 @@ pub struct Win32KeyedMutexAcquireReleaseInfoKHR {
     pub release_count: u32,
     pub p_release_syncs: *const DeviceMemory,
     pub p_release_keys: *const u64,
+    pub _marker: PhantomData<&'a ()>,
 }

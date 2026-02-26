@@ -2,8 +2,9 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDeviceConservativeRasterizationPropertiesEXT {
+pub struct PhysicalDeviceConservativeRasterizationPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub primitive_overestimation_size: f32,
@@ -15,14 +16,16 @@ pub struct PhysicalDeviceConservativeRasterizationPropertiesEXT {
     pub degenerate_lines_rasterized: Bool32,
     pub fully_covered_fragment_shader_input_variable: Bool32,
     pub conservative_rasterization_post_depth_coverage: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PipelineRasterizationConservativeStateCreateInfoEXT {
+pub struct PipelineRasterizationConservativeStateCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineRasterizationConservativeStateCreateFlagsEXT,
     pub conservative_rasterization_mode: ConservativeRasterizationModeEXT,
     pub extra_primitive_overestimation_size: f32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -34,7 +37,7 @@ impl ConservativeRasterizationModeEXT {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineRasterizationConservativeStateCreateFlagsEXT: Flags {
     }
 }

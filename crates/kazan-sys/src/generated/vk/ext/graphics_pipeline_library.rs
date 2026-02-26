@@ -2,28 +2,32 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT {
+pub struct PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub graphics_pipeline_library: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT {
+pub struct PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub graphics_pipeline_library_fast_linking: Bool32,
     pub graphics_pipeline_library_independent_interpolation_decoration: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct GraphicsPipelineLibraryCreateInfoEXT {
+pub struct GraphicsPipelineLibraryCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: GraphicsPipelineLibraryFlagsEXT,
+    pub _marker: PhantomData<&'a ()>,
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct GraphicsPipelineLibraryFlagsEXT: Flags {
         const VERTEX_INPUT_INTERFACE_EXT = GraphicsPipelineLibraryFlagBitsEXT::VERTEX_INPUT_INTERFACE_EXT.0;
         const PRE_RASTERIZATION_SHADERS_EXT = GraphicsPipelineLibraryFlagBitsEXT::PRE_RASTERIZATION_SHADERS_EXT.0;
@@ -32,7 +36,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct GraphicsPipelineLibraryFlagBitsEXT(u32);
 impl GraphicsPipelineLibraryFlagBitsEXT {
     pub const VERTEX_INPUT_INTERFACE_EXT: Self = Self(1 << 0);

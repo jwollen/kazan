@@ -29,8 +29,8 @@ impl InstanceFn {
     pub unsafe fn create_direct_fb_surface_ext(
         &self,
         instance: Instance,
-        create_info: &DirectFBSurfaceCreateInfoEXT,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &DirectFBSurfaceCreateInfoEXT<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();

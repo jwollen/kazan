@@ -24,8 +24,8 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_external_fence_properties_khr(
         &self,
         physical_device: PhysicalDevice,
-        external_fence_info: &PhysicalDeviceExternalFenceInfo,
-    ) -> ExternalFenceProperties {
+        external_fence_info: &PhysicalDeviceExternalFenceInfo<'_>,
+    ) -> ExternalFenceProperties<'_> {
         unsafe {
             let mut external_fence_properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_external_fence_properties_khr)(

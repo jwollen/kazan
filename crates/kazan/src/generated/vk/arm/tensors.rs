@@ -24,8 +24,8 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_external_tensor_properties_arm(
         &self,
         physical_device: PhysicalDevice,
-        external_tensor_info: &PhysicalDeviceExternalTensorInfoARM,
-    ) -> ExternalTensorPropertiesARM {
+        external_tensor_info: &PhysicalDeviceExternalTensorInfoARM<'_>,
+    ) -> ExternalTensorPropertiesARM<'_> {
         unsafe {
             let mut external_tensor_properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_external_tensor_properties_arm)(
@@ -89,8 +89,8 @@ impl DeviceFn {
     pub unsafe fn create_tensor_arm(
         &self,
         device: Device,
-        create_info: &TensorCreateInfoARM,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &TensorCreateInfoARM<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<TensorARM> {
         unsafe {
             let mut tensor = core::mem::MaybeUninit::uninit();
@@ -111,15 +111,15 @@ impl DeviceFn {
         &self,
         device: Device,
         tensor: TensorARM,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_tensor_arm)(device, tensor, allocator.to_raw_ptr()) }
     }
     pub unsafe fn create_tensor_view_arm(
         &self,
         device: Device,
-        create_info: &TensorViewCreateInfoARM,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &TensorViewCreateInfoARM<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<TensorViewARM> {
         unsafe {
             let mut view = core::mem::MaybeUninit::uninit();
@@ -140,15 +140,15 @@ impl DeviceFn {
         &self,
         device: Device,
         tensor_view: TensorViewARM,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_tensor_view_arm)(device, tensor_view, allocator.to_raw_ptr()) }
     }
     pub unsafe fn get_tensor_memory_requirements_arm(
         &self,
         device: Device,
-        info: &TensorMemoryRequirementsInfoARM,
-    ) -> MemoryRequirements2 {
+        info: &TensorMemoryRequirementsInfoARM<'_>,
+    ) -> MemoryRequirements2<'_> {
         unsafe {
             let mut memory_requirements = core::mem::MaybeUninit::uninit();
             (self.get_tensor_memory_requirements_arm)(
@@ -162,7 +162,7 @@ impl DeviceFn {
     pub unsafe fn bind_tensor_memory_arm(
         &self,
         device: Device,
-        bind_infos: &[BindTensorMemoryInfoARM],
+        bind_infos: &[BindTensorMemoryInfoARM<'_>],
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.bind_tensor_memory_arm)(
@@ -180,8 +180,8 @@ impl DeviceFn {
     pub unsafe fn get_device_tensor_memory_requirements_arm(
         &self,
         device: Device,
-        info: &DeviceTensorMemoryRequirementsARM,
-    ) -> MemoryRequirements2 {
+        info: &DeviceTensorMemoryRequirementsARM<'_>,
+    ) -> MemoryRequirements2<'_> {
         unsafe {
             let mut memory_requirements = core::mem::MaybeUninit::uninit();
             (self.get_device_tensor_memory_requirements_arm)(
@@ -195,14 +195,14 @@ impl DeviceFn {
     pub unsafe fn cmd_copy_tensor_arm(
         &self,
         command_buffer: CommandBuffer,
-        copy_tensor_info: &CopyTensorInfoARM,
+        copy_tensor_info: &CopyTensorInfoARM<'_>,
     ) {
         unsafe { (self.cmd_copy_tensor_arm)(command_buffer, copy_tensor_info) }
     }
     pub unsafe fn get_tensor_opaque_capture_descriptor_data_arm(
         &self,
         device: Device,
-        info: &TensorCaptureDescriptorDataInfoARM,
+        info: &TensorCaptureDescriptorDataInfoARM<'_>,
         data: &mut c_void,
     ) -> crate::Result<()> {
         unsafe {
@@ -218,7 +218,7 @@ impl DeviceFn {
     pub unsafe fn get_tensor_view_opaque_capture_descriptor_data_arm(
         &self,
         device: Device,
-        info: &TensorViewCaptureDescriptorDataInfoARM,
+        info: &TensorViewCaptureDescriptorDataInfoARM<'_>,
         data: &mut c_void,
     ) -> crate::Result<()> {
         unsafe {

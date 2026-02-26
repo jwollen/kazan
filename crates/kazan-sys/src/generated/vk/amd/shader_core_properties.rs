@@ -2,8 +2,9 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDeviceShaderCorePropertiesAMD {
+pub struct PhysicalDeviceShaderCorePropertiesAMD<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub shader_engine_count: u32,
@@ -20,4 +21,5 @@ pub struct PhysicalDeviceShaderCorePropertiesAMD {
     pub min_vgpr_allocation: u32,
     pub max_vgpr_allocation: u32,
     pub vgpr_allocation_granularity: u32,
+    pub _marker: PhantomData<&'a ()>,
 }

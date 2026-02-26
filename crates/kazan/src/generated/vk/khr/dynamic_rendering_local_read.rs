@@ -27,14 +27,14 @@ impl DeviceFn {
     pub unsafe fn cmd_set_rendering_attachment_locations_khr(
         &self,
         command_buffer: CommandBuffer,
-        location_info: &RenderingAttachmentLocationInfo,
+        location_info: &RenderingAttachmentLocationInfo<'_>,
     ) {
         unsafe { (self.cmd_set_rendering_attachment_locations_khr)(command_buffer, location_info) }
     }
     pub unsafe fn cmd_set_rendering_input_attachment_indices_khr(
         &self,
         command_buffer: CommandBuffer,
-        input_attachment_index_info: &RenderingInputAttachmentIndexInfo,
+        input_attachment_index_info: &RenderingInputAttachmentIndexInfo<'_>,
     ) {
         unsafe {
             (self.cmd_set_rendering_input_attachment_indices_khr)(

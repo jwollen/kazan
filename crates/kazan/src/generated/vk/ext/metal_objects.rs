@@ -20,7 +20,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
-    pub unsafe fn export_metal_objects_ext(&self, device: Device) -> ExportMetalObjectsInfoEXT {
+    pub unsafe fn export_metal_objects_ext(&self, device: Device) -> ExportMetalObjectsInfoEXT<'_> {
         unsafe {
             let mut metal_objects_info = core::mem::MaybeUninit::uninit();
             (self.export_metal_objects_ext)(device, metal_objects_info.as_mut_ptr());

@@ -24,7 +24,7 @@ impl DeviceFn {
         &self,
         device: Device,
         image: Image,
-    ) -> crate::Result<ImageDrmFormatModifierPropertiesEXT> {
+    ) -> crate::Result<ImageDrmFormatModifierPropertiesEXT<'_>> {
         unsafe {
             let mut properties = core::mem::MaybeUninit::uninit();
             let result = (self.get_image_drm_format_modifier_properties_ext)(

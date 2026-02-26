@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
 pub struct StdVideoEncodeH264WeightTableFlags {
     pub luma_weight_l0_flag: u32,
@@ -68,7 +69,7 @@ pub struct StdVideoEncodeH264RefPicMarkingEntry {
     pub max_long_term_frame_idx_plus1: u16,
 }
 #[repr(C)]
-pub struct StdVideoEncodeH264ReferenceListsInfo {
+pub struct StdVideoEncodeH264ReferenceListsInfo<'a> {
     pub flags: StdVideoEncodeH264ReferenceListsInfoFlags,
     pub num_ref_idx_l0_active_minus1: u8,
     pub num_ref_idx_l1_active_minus1: u8,
@@ -81,9 +82,10 @@ pub struct StdVideoEncodeH264ReferenceListsInfo {
     pub p_ref_list0_mod_operations: *const StdVideoEncodeH264RefListModEntry,
     pub p_ref_list1_mod_operations: *const StdVideoEncodeH264RefListModEntry,
     pub p_ref_pic_marking_operations: *const StdVideoEncodeH264RefPicMarkingEntry,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct StdVideoEncodeH264PictureInfo {
+pub struct StdVideoEncodeH264PictureInfo<'a> {
     pub flags: StdVideoEncodeH264PictureInfoFlags,
     pub seq_parameter_set_id: u8,
     pub pic_parameter_set_id: u8,
@@ -93,7 +95,8 @@ pub struct StdVideoEncodeH264PictureInfo {
     pub pic_order_cnt: i32,
     pub temporal_id: u8,
     pub reserved1: [u8; 3],
-    pub p_ref_lists: *const StdVideoEncodeH264ReferenceListsInfo,
+    pub p_ref_lists: *const StdVideoEncodeH264ReferenceListsInfo<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct StdVideoEncodeH264ReferenceInfo {
@@ -106,7 +109,7 @@ pub struct StdVideoEncodeH264ReferenceInfo {
     pub temporal_id: u8,
 }
 #[repr(C)]
-pub struct StdVideoEncodeH264SliceHeader {
+pub struct StdVideoEncodeH264SliceHeader<'a> {
     pub flags: StdVideoEncodeH264SliceHeaderFlags,
     pub first_mb_in_slice: u32,
     pub slice_type: StdVideoH264SliceType,
@@ -117,4 +120,5 @@ pub struct StdVideoEncodeH264SliceHeader {
     pub cabac_init_idc: StdVideoH264CabacInitIdc,
     pub disable_deblocking_filter_idc: StdVideoH264DisableDeblockingFilterIdc,
     pub p_weight_table: *const StdVideoEncodeH264WeightTable,
+    pub _marker: PhantomData<&'a ()>,
 }

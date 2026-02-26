@@ -23,7 +23,7 @@ impl DeviceFn {
     pub unsafe fn get_memory_remote_address_nv(
         &self,
         device: Device,
-        memory_get_remote_address_info: &MemoryGetRemoteAddressInfoNV,
+        memory_get_remote_address_info: &MemoryGetRemoteAddressInfoNV<'_>,
     ) -> crate::Result<RemoteAddressNV> {
         unsafe {
             let mut address = core::mem::MaybeUninit::uninit();

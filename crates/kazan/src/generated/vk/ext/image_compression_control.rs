@@ -24,8 +24,8 @@ impl DeviceFn {
         &self,
         device: Device,
         image: Image,
-        subresource: &ImageSubresource2,
-    ) -> SubresourceLayout2 {
+        subresource: &ImageSubresource2<'_>,
+    ) -> SubresourceLayout2<'_> {
         unsafe {
             let mut layout = core::mem::MaybeUninit::uninit();
             (self.get_image_subresource_layout2_ext)(

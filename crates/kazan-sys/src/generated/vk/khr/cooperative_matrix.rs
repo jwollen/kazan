@@ -2,15 +2,17 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDeviceCooperativeMatrixFeaturesKHR {
+pub struct PhysicalDeviceCooperativeMatrixFeaturesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub cooperative_matrix: Bool32,
     pub cooperative_matrix_robust_buffer_access: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct CooperativeMatrixPropertiesKHR {
+pub struct CooperativeMatrixPropertiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub m_size: u32,
@@ -22,12 +24,14 @@ pub struct CooperativeMatrixPropertiesKHR {
     pub result_type: ComponentTypeKHR,
     pub saturating_accumulation: Bool32,
     pub scope: ScopeKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceCooperativeMatrixPropertiesKHR {
+pub struct PhysicalDeviceCooperativeMatrixPropertiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub cooperative_matrix_supported_stages: ShaderStageFlags,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -46,5 +50,5 @@ pub type PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR =
     unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         p_property_count: *mut u32,
-        p_properties: *mut CooperativeMatrixPropertiesKHR,
+        p_properties: *mut CooperativeMatrixPropertiesKHR<'_>,
     ) -> Result;

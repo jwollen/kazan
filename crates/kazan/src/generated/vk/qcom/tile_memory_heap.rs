@@ -23,7 +23,7 @@ impl DeviceFn {
     pub unsafe fn cmd_bind_tile_memory_qcom(
         &self,
         command_buffer: CommandBuffer,
-        tile_memory_bind_info: Option<&TileMemoryBindInfoQCOM>,
+        tile_memory_bind_info: Option<&TileMemoryBindInfoQCOM<'_>>,
     ) {
         unsafe {
             (self.cmd_bind_tile_memory_qcom)(command_buffer, tile_memory_bind_info.to_raw_ptr())

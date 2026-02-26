@@ -2,18 +2,21 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 pub const PARTITIONED_ACCELERATION_STRUCTURE_PARTITION_INDEX_GLOBAL_NV: u32 = !0;
 #[repr(C)]
-pub struct PhysicalDevicePartitionedAccelerationStructureFeaturesNV {
+pub struct PhysicalDevicePartitionedAccelerationStructureFeaturesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub partitioned_acceleration_structure: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDevicePartitionedAccelerationStructurePropertiesNV {
+pub struct PhysicalDevicePartitionedAccelerationStructurePropertiesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_partition_count: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct BuildPartitionedAccelerationStructureIndirectCommandNV {
@@ -22,10 +25,11 @@ pub struct BuildPartitionedAccelerationStructureIndirectCommandNV {
     pub arg_data: StridedDeviceAddressNV,
 }
 #[repr(C)]
-pub struct PartitionedAccelerationStructureFlagsNV {
+pub struct PartitionedAccelerationStructureFlagsNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub enable_partition_translation: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct PartitionedAccelerationStructureWriteInstanceDataNV {
@@ -51,14 +55,15 @@ pub struct PartitionedAccelerationStructureWritePartitionTranslationDataNV {
     pub partition_translation: [f32; 3],
 }
 #[repr(C)]
-pub struct WriteDescriptorSetPartitionedAccelerationStructureNV {
+pub struct WriteDescriptorSetPartitionedAccelerationStructureNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub acceleration_structure_count: u32,
     pub p_acceleration_structures: *const DeviceAddress,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PartitionedAccelerationStructureInstancesInputNV {
+pub struct PartitionedAccelerationStructureInstancesInputNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub flags: BuildAccelerationStructureFlagsKHR,
@@ -66,17 +71,19 @@ pub struct PartitionedAccelerationStructureInstancesInputNV {
     pub max_instance_per_partition_count: u32,
     pub partition_count: u32,
     pub max_instance_in_global_partition_count: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct BuildPartitionedAccelerationStructureInfoNV {
+pub struct BuildPartitionedAccelerationStructureInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
-    pub input: PartitionedAccelerationStructureInstancesInputNV,
+    pub input: PartitionedAccelerationStructureInstancesInputNV<'a>,
     pub src_acceleration_structure_data: DeviceAddress,
     pub dst_acceleration_structure_data: DeviceAddress,
     pub scratch_data: DeviceAddress,
     pub src_infos: DeviceAddress,
     pub src_infos_count: DeviceAddress,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -88,7 +95,7 @@ impl PartitionedAccelerationStructureOpTypeNV {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PartitionedAccelerationStructureInstanceFlagsNV: Flags {
         const FLAG_TRIANGLE_FACING_CULL_DISABLE_NV = PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_TRIANGLE_FACING_CULL_DISABLE_NV.0;
         const FLAG_TRIANGLE_FLIP_FACING_NV = PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_TRIANGLE_FLIP_FACING_NV.0;
@@ -98,7 +105,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PartitionedAccelerationStructureInstanceFlagBitsNV(u32);
 impl PartitionedAccelerationStructureInstanceFlagBitsNV {
     pub const FLAG_TRIANGLE_FACING_CULL_DISABLE_NV: Self = Self(1 << 0);
@@ -109,10 +116,10 @@ impl PartitionedAccelerationStructureInstanceFlagBitsNV {
 }
 pub type PFN_vkGetPartitionedAccelerationStructuresBuildSizesNV = unsafe extern "system" fn(
     device: Device,
-    p_info: *const PartitionedAccelerationStructureInstancesInputNV,
-    p_size_info: *mut AccelerationStructureBuildSizesInfoKHR,
+    p_info: *const PartitionedAccelerationStructureInstancesInputNV<'_>,
+    p_size_info: *mut AccelerationStructureBuildSizesInfoKHR<'_>,
 );
 pub type PFN_vkCmdBuildPartitionedAccelerationStructuresNV = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_build_info: *const BuildPartitionedAccelerationStructureInfoNV,
+    p_build_info: *const BuildPartitionedAccelerationStructureInfoNV<'_>,
 );

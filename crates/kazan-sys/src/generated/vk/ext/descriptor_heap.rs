@@ -2,26 +2,30 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct TensorARM(u64);
 #[repr(C)]
-pub struct TensorViewCreateInfoARM {
+pub struct TensorViewCreateInfoARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: TensorViewCreateFlagsARM,
     pub tensor: TensorARM,
     pub format: Format,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct HostAddressRangeEXT {
+pub struct HostAddressRangeEXT<'a> {
     pub address: *mut c_void,
     pub size: usize,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct HostAddressRangeConstEXT {
+pub struct HostAddressRangeConstEXT<'a> {
     pub address: *const c_void,
     pub size: usize,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct DeviceAddressRangeEXT {
@@ -29,89 +33,98 @@ pub struct DeviceAddressRangeEXT {
     pub size: DeviceSize,
 }
 #[repr(C)]
-pub struct TexelBufferDescriptorInfoEXT {
+pub struct TexelBufferDescriptorInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub format: Format,
     pub address_range: DeviceAddressRangeEXT,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct ImageDescriptorInfoEXT {
+pub struct ImageDescriptorInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
-    pub p_view: *const ImageViewCreateInfo,
+    pub p_view: *const ImageViewCreateInfo<'a>,
     pub layout: ImageLayout,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct ResourceDescriptorInfoEXT {
+pub struct ResourceDescriptorInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub ty: DescriptorType,
-    pub data: ResourceDescriptorDataEXT,
+    pub data: ResourceDescriptorDataEXT<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct BindHeapInfoEXT {
+pub struct BindHeapInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub heap_range: DeviceAddressRangeEXT,
     pub reserved_range_offset: DeviceSize,
     pub reserved_range_size: DeviceSize,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PushDataInfoEXT {
+pub struct PushDataInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub offset: u32,
-    pub data: HostAddressRangeConstEXT,
+    pub data: HostAddressRangeConstEXT<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DescriptorMappingSourceConstantOffsetEXT {
+pub struct DescriptorMappingSourceConstantOffsetEXT<'a> {
     pub heap_offset: u32,
     pub heap_array_stride: u32,
-    pub p_embedded_sampler: *const SamplerCreateInfo,
+    pub p_embedded_sampler: *const SamplerCreateInfo<'a>,
     pub sampler_heap_offset: u32,
     pub sampler_heap_array_stride: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DescriptorMappingSourcePushIndexEXT {
+pub struct DescriptorMappingSourcePushIndexEXT<'a> {
     pub heap_offset: u32,
     pub push_offset: u32,
     pub heap_index_stride: u32,
     pub heap_array_stride: u32,
-    pub p_embedded_sampler: *const SamplerCreateInfo,
+    pub p_embedded_sampler: *const SamplerCreateInfo<'a>,
     pub use_combined_image_sampler_index: Bool32,
     pub sampler_heap_offset: u32,
     pub sampler_push_offset: u32,
     pub sampler_heap_index_stride: u32,
     pub sampler_heap_array_stride: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DescriptorMappingSourceIndirectIndexEXT {
+pub struct DescriptorMappingSourceIndirectIndexEXT<'a> {
     pub heap_offset: u32,
     pub push_offset: u32,
     pub address_offset: u32,
     pub heap_index_stride: u32,
     pub heap_array_stride: u32,
-    pub p_embedded_sampler: *const SamplerCreateInfo,
+    pub p_embedded_sampler: *const SamplerCreateInfo<'a>,
     pub use_combined_image_sampler_index: Bool32,
     pub sampler_heap_offset: u32,
     pub sampler_push_offset: u32,
     pub sampler_address_offset: u32,
     pub sampler_heap_index_stride: u32,
     pub sampler_heap_array_stride: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DescriptorMappingSourceIndirectIndexArrayEXT {
+pub struct DescriptorMappingSourceIndirectIndexArrayEXT<'a> {
     pub heap_offset: u32,
     pub push_offset: u32,
     pub address_offset: u32,
     pub heap_index_stride: u32,
-    pub p_embedded_sampler: *const SamplerCreateInfo,
+    pub p_embedded_sampler: *const SamplerCreateInfo<'a>,
     pub use_combined_image_sampler_index: Bool32,
     pub sampler_heap_offset: u32,
     pub sampler_push_offset: u32,
     pub sampler_address_offset: u32,
     pub sampler_heap_index_stride: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct DescriptorMappingSourceHeapDataEXT {
@@ -119,17 +132,18 @@ pub struct DescriptorMappingSourceHeapDataEXT {
     pub push_offset: u32,
 }
 #[repr(C)]
-pub struct DescriptorMappingSourceShaderRecordIndexEXT {
+pub struct DescriptorMappingSourceShaderRecordIndexEXT<'a> {
     pub heap_offset: u32,
     pub shader_record_offset: u32,
     pub heap_index_stride: u32,
     pub heap_array_stride: u32,
-    pub p_embedded_sampler: *const SamplerCreateInfo,
+    pub p_embedded_sampler: *const SamplerCreateInfo<'a>,
     pub use_combined_image_sampler_index: Bool32,
     pub sampler_heap_offset: u32,
     pub sampler_shader_record_offset: u32,
     pub sampler_heap_index_stride: u32,
     pub sampler_heap_array_stride: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct DescriptorMappingSourceIndirectAddressEXT {
@@ -137,7 +151,7 @@ pub struct DescriptorMappingSourceIndirectAddressEXT {
     pub address_offset: u32,
 }
 #[repr(C)]
-pub struct DescriptorSetAndBindingMappingEXT {
+pub struct DescriptorSetAndBindingMappingEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub descriptor_set: u32,
@@ -145,49 +159,56 @@ pub struct DescriptorSetAndBindingMappingEXT {
     pub binding_count: u32,
     pub resource_mask: SpirvResourceTypeFlagsEXT,
     pub source: DescriptorMappingSourceEXT,
-    pub source_data: DescriptorMappingSourceDataEXT,
+    pub source_data: DescriptorMappingSourceDataEXT<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct ShaderDescriptorSetAndBindingMappingInfoEXT {
+pub struct ShaderDescriptorSetAndBindingMappingInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub mapping_count: u32,
-    pub p_mappings: *const DescriptorSetAndBindingMappingEXT,
+    pub p_mappings: *const DescriptorSetAndBindingMappingEXT<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct SamplerCustomBorderColorIndexCreateInfoEXT {
+pub struct SamplerCustomBorderColorIndexCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub index: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct OpaqueCaptureDataCreateInfoEXT {
+pub struct OpaqueCaptureDataCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
-    pub p_data: *const HostAddressRangeConstEXT,
+    pub p_data: *const HostAddressRangeConstEXT<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct IndirectCommandsLayoutPushDataTokenNV {
+pub struct IndirectCommandsLayoutPushDataTokenNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub push_data_offset: u32,
     pub push_data_size: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct SubsampledImageFormatPropertiesEXT {
+pub struct SubsampledImageFormatPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub subsampled_image_descriptor_count: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceDescriptorHeapFeaturesEXT {
+pub struct PhysicalDeviceDescriptorHeapFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub descriptor_heap: Bool32,
     pub descriptor_heap_capture_replay: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceDescriptorHeapPropertiesEXT {
+pub struct PhysicalDeviceDescriptorHeapPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub sampler_heap_alignment: DeviceSize,
@@ -209,44 +230,59 @@ pub struct PhysicalDeviceDescriptorHeapPropertiesEXT {
     pub sampler_ycbcr_conversion_count: u32,
     pub sparse_descriptor_heaps: Bool32,
     pub protected_descriptor_heaps: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct CommandBufferInheritanceDescriptorHeapInfoEXT {
+pub struct CommandBufferInheritanceDescriptorHeapInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
-    pub p_sampler_heap_bind_info: *const BindHeapInfoEXT,
-    pub p_resource_heap_bind_info: *const BindHeapInfoEXT,
+    pub p_sampler_heap_bind_info: *const BindHeapInfoEXT<'a>,
+    pub p_resource_heap_bind_info: *const BindHeapInfoEXT<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceDescriptorHeapTensorPropertiesARM {
+pub struct PhysicalDeviceDescriptorHeapTensorPropertiesARM<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub tensor_descriptor_size: DeviceSize,
     pub tensor_descriptor_alignment: DeviceSize,
     pub tensor_capture_replay_opaque_data_size: usize,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
-pub union ResourceDescriptorDataEXT {
-    pub p_image: *const ImageDescriptorInfoEXT,
-    pub p_texel_buffer: *const TexelBufferDescriptorInfoEXT,
+pub union ResourceDescriptorDataEXT<'a> {
+    pub p_image: *const ImageDescriptorInfoEXT<'a>,
+    pub p_texel_buffer: *const TexelBufferDescriptorInfoEXT<'a>,
     pub p_address_range: *const DeviceAddressRangeEXT,
-    pub p_tensor_arm: *const TensorViewCreateInfoARM,
+    pub p_tensor_arm: *const TensorViewCreateInfoARM<'a>,
+    pub _marker: PhantomData<&'a ()>,
+}
+impl Default for ResourceDescriptorDataEXT<'_> {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
-pub union DescriptorMappingSourceDataEXT {
-    pub constant_offset: DescriptorMappingSourceConstantOffsetEXT,
-    pub push_index: DescriptorMappingSourcePushIndexEXT,
-    pub indirect_index: DescriptorMappingSourceIndirectIndexEXT,
-    pub indirect_index_array: DescriptorMappingSourceIndirectIndexArrayEXT,
+pub union DescriptorMappingSourceDataEXT<'a> {
+    pub constant_offset: DescriptorMappingSourceConstantOffsetEXT<'a>,
+    pub push_index: DescriptorMappingSourcePushIndexEXT<'a>,
+    pub indirect_index: DescriptorMappingSourceIndirectIndexEXT<'a>,
+    pub indirect_index_array: DescriptorMappingSourceIndirectIndexArrayEXT<'a>,
     pub heap_data: DescriptorMappingSourceHeapDataEXT,
     pub push_data_offset: u32,
     pub push_address_offset: u32,
     pub indirect_address: DescriptorMappingSourceIndirectAddressEXT,
-    pub shader_record_index: DescriptorMappingSourceShaderRecordIndexEXT,
+    pub shader_record_index: DescriptorMappingSourceShaderRecordIndexEXT<'a>,
     pub shader_record_data_offset: u32,
     pub shader_record_address_offset: u32,
+    pub _marker: PhantomData<&'a ()>,
+}
+impl Default for DescriptorMappingSourceDataEXT<'_> {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -266,20 +302,20 @@ impl DescriptorMappingSourceEXT {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct TensorViewCreateFlagsARM: Flags64 {
         const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM = TensorViewCreateFlagBitsARM::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM.0;
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct TensorViewCreateFlagBitsARM(u64);
 impl TensorViewCreateFlagBitsARM {
     pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM: Self = Self(1 << 0);
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SpirvResourceTypeFlagsEXT: Flags {
         const SAMPLER_EXT = SpirvResourceTypeFlagBitsEXT::SAMPLER_EXT.0;
         const SAMPLED_IMAGE_EXT = SpirvResourceTypeFlagBitsEXT::SAMPLED_IMAGE_EXT.0;
@@ -295,7 +331,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct SpirvResourceTypeFlagBitsEXT(u32);
 impl SpirvResourceTypeFlagBitsEXT {
     pub const SAMPLER_EXT: Self = Self(1 << 0);
@@ -312,26 +348,30 @@ impl SpirvResourceTypeFlagBitsEXT {
 pub type PFN_vkWriteSamplerDescriptorsEXT = unsafe extern "system" fn(
     device: Device,
     sampler_count: u32,
-    p_samplers: *const SamplerCreateInfo,
-    p_descriptors: *const HostAddressRangeEXT,
+    p_samplers: *const SamplerCreateInfo<'_>,
+    p_descriptors: *const HostAddressRangeEXT<'_>,
 ) -> Result;
 pub type PFN_vkWriteResourceDescriptorsEXT = unsafe extern "system" fn(
     device: Device,
     resource_count: u32,
-    p_resources: *const ResourceDescriptorInfoEXT,
-    p_descriptors: *const HostAddressRangeEXT,
+    p_resources: *const ResourceDescriptorInfoEXT<'_>,
+    p_descriptors: *const HostAddressRangeEXT<'_>,
 ) -> Result;
-pub type PFN_vkCmdBindSamplerHeapEXT =
-    unsafe extern "system" fn(command_buffer: CommandBuffer, p_bind_info: *const BindHeapInfoEXT);
-pub type PFN_vkCmdBindResourceHeapEXT =
-    unsafe extern "system" fn(command_buffer: CommandBuffer, p_bind_info: *const BindHeapInfoEXT);
+pub type PFN_vkCmdBindSamplerHeapEXT = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    p_bind_info: *const BindHeapInfoEXT<'_>,
+);
+pub type PFN_vkCmdBindResourceHeapEXT = unsafe extern "system" fn(
+    command_buffer: CommandBuffer,
+    p_bind_info: *const BindHeapInfoEXT<'_>,
+);
 pub type PFN_vkCmdPushDataEXT = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_push_data_info: *const PushDataInfoEXT,
+    p_push_data_info: *const PushDataInfoEXT<'_>,
 );
 pub type PFN_vkRegisterCustomBorderColorEXT = unsafe extern "system" fn(
     device: Device,
-    p_border_color: *const SamplerCustomBorderColorCreateInfoEXT,
+    p_border_color: *const SamplerCustomBorderColorCreateInfoEXT<'_>,
     request_index: Bool32,
     p_index: *mut u32,
 ) -> Result;
@@ -341,7 +381,7 @@ pub type PFN_vkGetImageOpaqueCaptureDataEXT = unsafe extern "system" fn(
     device: Device,
     image_count: u32,
     p_images: *const Image,
-    p_datas: *mut HostAddressRangeEXT,
+    p_datas: *mut HostAddressRangeEXT<'_>,
 ) -> Result;
 pub type PFN_vkGetPhysicalDeviceDescriptorSizeEXT = unsafe extern "system" fn(
     physical_device: PhysicalDevice,
@@ -351,5 +391,5 @@ pub type PFN_vkGetTensorOpaqueCaptureDataARM = unsafe extern "system" fn(
     device: Device,
     tensor_count: u32,
     p_tensors: *const TensorARM,
-    p_datas: *mut HostAddressRangeEXT,
+    p_datas: *mut HostAddressRangeEXT<'_>,
 ) -> Result;

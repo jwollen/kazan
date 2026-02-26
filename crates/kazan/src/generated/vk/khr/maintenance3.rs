@@ -23,8 +23,8 @@ impl DeviceFn {
     pub unsafe fn get_descriptor_set_layout_support_khr(
         &self,
         device: Device,
-        create_info: &DescriptorSetLayoutCreateInfo,
-    ) -> DescriptorSetLayoutSupport {
+        create_info: &DescriptorSetLayoutCreateInfo<'_>,
+    ) -> DescriptorSetLayoutSupport<'_> {
         unsafe {
             let mut support = core::mem::MaybeUninit::uninit();
             (self.get_descriptor_set_layout_support_khr)(device, create_info, support.as_mut_ptr());

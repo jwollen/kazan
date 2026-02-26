@@ -2,57 +2,65 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDevicePerformanceQueryFeaturesKHR {
+pub struct PhysicalDevicePerformanceQueryFeaturesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub performance_counter_query_pools: Bool32,
     pub performance_counter_multiple_query_pools: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDevicePerformanceQueryPropertiesKHR {
+pub struct PhysicalDevicePerformanceQueryPropertiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub allow_command_buffer_query_copies: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PerformanceCounterKHR {
+pub struct PerformanceCounterKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub unit: PerformanceCounterUnitKHR,
     pub scope: PerformanceCounterScopeKHR,
     pub storage: PerformanceCounterStorageKHR,
     pub uuid: [u8; UUID_SIZE as usize],
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PerformanceCounterDescriptionKHR {
+pub struct PerformanceCounterDescriptionKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub flags: PerformanceCounterDescriptionFlagsKHR,
     pub name: [c_char; MAX_DESCRIPTION_SIZE as usize],
     pub category: [c_char; MAX_DESCRIPTION_SIZE as usize],
     pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct QueryPoolPerformanceCreateInfoKHR {
+pub struct QueryPoolPerformanceCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub queue_family_index: u32,
     pub counter_index_count: u32,
     pub p_counter_indices: *const u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct AcquireProfilingLockInfoKHR {
+pub struct AcquireProfilingLockInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: AcquireProfilingLockFlagsKHR,
     pub timeout: u64,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PerformanceQuerySubmitInfoKHR {
+pub struct PerformanceQuerySubmitInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub counter_pass_index: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -63,6 +71,11 @@ pub union PerformanceCounterResultKHR {
     pub uint64: u64,
     pub float32: f32,
     pub float64: f64,
+}
+impl Default for PerformanceCounterResultKHR {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -101,14 +114,14 @@ impl PerformanceCounterStorageKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PerformanceCounterDescriptionFlagsKHR: Flags {
         const PERFORMANCE_IMPACTING_KHR = PerformanceCounterDescriptionFlagBitsKHR::PERFORMANCE_IMPACTING_KHR.0;
         const CONCURRENTLY_IMPACTED_KHR = PerformanceCounterDescriptionFlagBitsKHR::CONCURRENTLY_IMPACTED_KHR.0;
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PerformanceCounterDescriptionFlagBitsKHR(u32);
 impl PerformanceCounterDescriptionFlagBitsKHR {
     pub const PERFORMANCE_IMPACTING_KHR: Self = Self(1 << 0);
@@ -116,12 +129,12 @@ impl PerformanceCounterDescriptionFlagBitsKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct AcquireProfilingLockFlagsKHR: Flags {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct AcquireProfilingLockFlagBitsKHR(u32);
 impl AcquireProfilingLockFlagBitsKHR {}
 pub type PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR =
@@ -129,15 +142,17 @@ pub type PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR =
         physical_device: PhysicalDevice,
         queue_family_index: u32,
         p_counter_count: *mut u32,
-        p_counters: *mut PerformanceCounterKHR,
-        p_counter_descriptions: *mut PerformanceCounterDescriptionKHR,
+        p_counters: *mut PerformanceCounterKHR<'_>,
+        p_counter_descriptions: *mut PerformanceCounterDescriptionKHR<'_>,
     ) -> Result;
 pub type PFN_vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR =
     unsafe extern "system" fn(
         physical_device: PhysicalDevice,
-        p_performance_query_create_info: *const QueryPoolPerformanceCreateInfoKHR,
+        p_performance_query_create_info: *const QueryPoolPerformanceCreateInfoKHR<'_>,
         p_num_passes: *mut u32,
     );
-pub type PFN_vkAcquireProfilingLockKHR =
-    unsafe extern "system" fn(device: Device, p_info: *const AcquireProfilingLockInfoKHR) -> Result;
+pub type PFN_vkAcquireProfilingLockKHR = unsafe extern "system" fn(
+    device: Device,
+    p_info: *const AcquireProfilingLockInfoKHR<'_>,
+) -> Result;
 pub type PFN_vkReleaseProfilingLockKHR = unsafe extern "system" fn(device: Device);

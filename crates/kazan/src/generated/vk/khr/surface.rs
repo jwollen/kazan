@@ -38,7 +38,7 @@ impl InstanceFn {
         &self,
         instance: Instance,
         surface: SurfaceKHR,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_surface_khr)(instance, surface, allocator.to_raw_ptr()) }
     }

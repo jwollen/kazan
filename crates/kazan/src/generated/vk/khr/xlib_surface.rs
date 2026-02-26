@@ -28,8 +28,8 @@ impl InstanceFn {
     pub unsafe fn create_xlib_surface_khr(
         &self,
         instance: Instance,
-        create_info: &XlibSurfaceCreateInfoKHR,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &XlibSurfaceCreateInfoKHR<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();

@@ -36,7 +36,7 @@ impl DeviceFn {
         &self,
         device: Device,
         display: DisplayKHR,
-        display_power_info: &DisplayPowerInfoEXT,
+        display_power_info: &DisplayPowerInfoEXT<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.display_power_control_ext)(device, display, display_power_info);
@@ -50,8 +50,8 @@ impl DeviceFn {
     pub unsafe fn register_device_event_ext(
         &self,
         device: Device,
-        device_event_info: &DeviceEventInfoEXT,
-        allocator: Option<&AllocationCallbacks>,
+        device_event_info: &DeviceEventInfoEXT<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<Fence> {
         unsafe {
             let mut fence = core::mem::MaybeUninit::uninit();
@@ -72,8 +72,8 @@ impl DeviceFn {
         &self,
         device: Device,
         display: DisplayKHR,
-        display_event_info: &DisplayEventInfoEXT,
-        allocator: Option<&AllocationCallbacks>,
+        display_event_info: &DisplayEventInfoEXT<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<Fence> {
         unsafe {
             let mut fence = core::mem::MaybeUninit::uninit();

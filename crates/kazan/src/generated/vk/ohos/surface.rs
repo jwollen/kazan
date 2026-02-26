@@ -21,8 +21,8 @@ impl InstanceFn {
     pub unsafe fn create_surface_ohos(
         &self,
         instance: Instance,
-        create_info: &SurfaceCreateInfoOHOS,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &SurfaceCreateInfoOHOS<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();

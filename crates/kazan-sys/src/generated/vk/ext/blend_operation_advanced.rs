@@ -2,14 +2,16 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDeviceBlendOperationAdvancedFeaturesEXT {
+pub struct PhysicalDeviceBlendOperationAdvancedFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub advanced_blend_coherent_operations: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceBlendOperationAdvancedPropertiesEXT {
+pub struct PhysicalDeviceBlendOperationAdvancedPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub advanced_blend_max_color_attachments: u32,
@@ -18,14 +20,16 @@ pub struct PhysicalDeviceBlendOperationAdvancedPropertiesEXT {
     pub advanced_blend_non_premultiplied_dst_color: Bool32,
     pub advanced_blend_correlated_overlap: Bool32,
     pub advanced_blend_all_operations: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PipelineColorBlendAdvancedStateCreateInfoEXT {
+pub struct PipelineColorBlendAdvancedStateCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub src_premultiplied: Bool32,
     pub dst_premultiplied: Bool32,
     pub blend_overlap: BlendOverlapEXT,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

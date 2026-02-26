@@ -2,29 +2,32 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct ImageViewHandleInfoNVX {
+pub struct ImageViewHandleInfoNVX<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub image_view: ImageView,
     pub descriptor_type: DescriptorType,
     pub sampler: Sampler,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct ImageViewAddressPropertiesNVX {
+pub struct ImageViewAddressPropertiesNVX<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub device_address: DeviceAddress,
     pub size: DeviceSize,
+    pub _marker: PhantomData<&'a ()>,
 }
 pub type PFN_vkGetImageViewHandleNVX =
-    unsafe extern "system" fn(device: Device, p_info: *const ImageViewHandleInfoNVX) -> u32;
+    unsafe extern "system" fn(device: Device, p_info: *const ImageViewHandleInfoNVX<'_>) -> u32;
 pub type PFN_vkGetImageViewHandle64NVX =
-    unsafe extern "system" fn(device: Device, p_info: *const ImageViewHandleInfoNVX) -> u64;
+    unsafe extern "system" fn(device: Device, p_info: *const ImageViewHandleInfoNVX<'_>) -> u64;
 pub type PFN_vkGetImageViewAddressNVX = unsafe extern "system" fn(
     device: Device,
     image_view: ImageView,
-    p_properties: *mut ImageViewAddressPropertiesNVX,
+    p_properties: *mut ImageViewAddressPropertiesNVX<'_>,
 ) -> Result;
 pub type PFN_vkGetDeviceCombinedImageSamplerIndexNVX =
     unsafe extern "system" fn(device: Device, image_view_index: u64, sampler_index: u64) -> u64;

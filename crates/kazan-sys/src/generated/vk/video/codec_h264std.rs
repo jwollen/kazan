@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 pub const STD_VIDEO_H264_CPB_CNT_LIST_SIZE: u32 = 32;
 pub const STD_VIDEO_H264_SCALING_LIST_4X4_NUM_LISTS: u32 = 6;
 pub const STD_VIDEO_H264_SCALING_LIST_4X4_NUM_ELEMENTS: u32 = 16;
@@ -40,7 +41,7 @@ pub struct StdVideoH264HrdParameters {
     pub time_offset_length: u32,
 }
 #[repr(C)]
-pub struct StdVideoH264SequenceParameterSetVui {
+pub struct StdVideoH264SequenceParameterSetVui<'a> {
     pub flags: StdVideoH264SpsVuiFlags,
     pub aspect_ratio_idc: StdVideoH264AspectRatioIdc,
     pub sar_width: u16,
@@ -57,6 +58,7 @@ pub struct StdVideoH264SequenceParameterSetVui {
     pub chroma_sample_loc_type_bottom_field: u8,
     pub reserved1: u32,
     pub p_hrd_parameters: *const StdVideoH264HrdParameters,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct StdVideoH264SpsFlags {
@@ -87,7 +89,7 @@ pub struct StdVideoH264ScalingLists {
         STD_VIDEO_H264_SCALING_LIST_8X8_NUM_LISTS as usize],
 }
 #[repr(C)]
-pub struct StdVideoH264SequenceParameterSet {
+pub struct StdVideoH264SequenceParameterSet<'a> {
     pub flags: StdVideoH264SpsFlags,
     pub profile_idc: StdVideoH264ProfileIdc,
     pub level_idc: StdVideoH264LevelIdc,
@@ -112,7 +114,8 @@ pub struct StdVideoH264SequenceParameterSet {
     pub reserved2: u32,
     pub p_offset_for_ref_frame: *const i32,
     pub p_scaling_lists: *const StdVideoH264ScalingLists,
-    pub p_sequence_parameter_set_vui: *const StdVideoH264SequenceParameterSetVui,
+    pub p_sequence_parameter_set_vui: *const StdVideoH264SequenceParameterSetVui<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct StdVideoH264PpsFlags {
@@ -126,7 +129,7 @@ pub struct StdVideoH264PpsFlags {
     pub pic_scaling_matrix_present_flag: u32,
 }
 #[repr(C)]
-pub struct StdVideoH264PictureParameterSet {
+pub struct StdVideoH264PictureParameterSet<'a> {
     pub flags: StdVideoH264PpsFlags,
     pub seq_parameter_set_id: u8,
     pub pic_parameter_set_id: u8,
@@ -138,6 +141,7 @@ pub struct StdVideoH264PictureParameterSet {
     pub chroma_qp_index_offset: i8,
     pub second_chroma_qp_index_offset: i8,
     pub p_scaling_lists: *const StdVideoH264ScalingLists,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

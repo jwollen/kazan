@@ -27,7 +27,7 @@ impl DeviceFn {
     pub unsafe fn bind_buffer_memory2_khr(
         &self,
         device: Device,
-        bind_infos: &[BindBufferMemoryInfo],
+        bind_infos: &[BindBufferMemoryInfo<'_>],
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.bind_buffer_memory2_khr)(
@@ -45,7 +45,7 @@ impl DeviceFn {
     pub unsafe fn bind_image_memory2_khr(
         &self,
         device: Device,
-        bind_infos: &[BindImageMemoryInfo],
+        bind_infos: &[BindImageMemoryInfo<'_>],
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.bind_image_memory2_khr)(

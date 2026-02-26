@@ -2,54 +2,61 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct VideoDecodeH264ProfileInfoKHR {
+pub struct VideoDecodeH264ProfileInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub std_profile_idc: StdVideoH264ProfileIdc,
     pub picture_layout: VideoDecodeH264PictureLayoutFlagBitsKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoDecodeH264CapabilitiesKHR {
+pub struct VideoDecodeH264CapabilitiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_level_idc: StdVideoH264LevelIdc,
     pub field_offset_granularity: Offset2D,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoDecodeH264SessionParametersAddInfoKHR {
+pub struct VideoDecodeH264SessionParametersAddInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub std_sps_count: u32,
-    pub p_std_sp_ss: *const StdVideoH264SequenceParameterSet,
+    pub p_std_sp_ss: *const StdVideoH264SequenceParameterSet<'a>,
     pub std_pps_count: u32,
-    pub p_std_pp_ss: *const StdVideoH264PictureParameterSet,
+    pub p_std_pp_ss: *const StdVideoH264PictureParameterSet<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoDecodeH264SessionParametersCreateInfoKHR {
+pub struct VideoDecodeH264SessionParametersCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub max_std_sps_count: u32,
     pub max_std_pps_count: u32,
-    pub p_parameters_add_info: *const VideoDecodeH264SessionParametersAddInfoKHR,
+    pub p_parameters_add_info: *const VideoDecodeH264SessionParametersAddInfoKHR<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoDecodeH264PictureInfoKHR {
+pub struct VideoDecodeH264PictureInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_std_picture_info: *const StdVideoDecodeH264PictureInfo,
     pub slice_count: u32,
     pub p_slice_offsets: *const u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoDecodeH264DpbSlotInfoKHR {
+pub struct VideoDecodeH264DpbSlotInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_std_reference_info: *const StdVideoDecodeH264ReferenceInfo,
+    pub _marker: PhantomData<&'a ()>,
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VideoDecodeH264PictureLayoutFlagsKHR: Flags {
         const INTERLACED_INTERLEAVED_LINES_KHR = VideoDecodeH264PictureLayoutFlagBitsKHR::INTERLACED_INTERLEAVED_LINES_KHR.0;
         const INTERLACED_SEPARATE_PLANES_KHR = VideoDecodeH264PictureLayoutFlagBitsKHR::INTERLACED_SEPARATE_PLANES_KHR.0;
@@ -57,7 +64,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct VideoDecodeH264PictureLayoutFlagBitsKHR(u32);
 impl VideoDecodeH264PictureLayoutFlagBitsKHR {
     pub const INTERLACED_INTERLEAVED_LINES_KHR: Self = Self(1 << 0);

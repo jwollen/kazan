@@ -2,15 +2,17 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDeviceTransformFeedbackFeaturesEXT {
+pub struct PhysicalDeviceTransformFeedbackFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub transform_feedback: Bool32,
     pub geometry_streams: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceTransformFeedbackPropertiesEXT {
+pub struct PhysicalDeviceTransformFeedbackPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_transform_feedback_streams: u32,
@@ -23,17 +25,19 @@ pub struct PhysicalDeviceTransformFeedbackPropertiesEXT {
     pub transform_feedback_streams_lines_triangles: Bool32,
     pub transform_feedback_rasterization_stream_select: Bool32,
     pub transform_feedback_draw: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PipelineRasterizationStateStreamCreateInfoEXT {
+pub struct PipelineRasterizationStateStreamCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineRasterizationStateStreamCreateFlagsEXT,
     pub rasterization_stream: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineRasterizationStateStreamCreateFlagsEXT: Flags {
     }
 }

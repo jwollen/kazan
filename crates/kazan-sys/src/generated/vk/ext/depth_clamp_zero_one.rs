@@ -2,4 +2,6 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
-pub type PhysicalDeviceDepthClampZeroOneFeaturesEXT = PhysicalDeviceDepthClampZeroOneFeaturesKHR;
+use core::marker::PhantomData;
+pub type PhysicalDeviceDepthClampZeroOneFeaturesEXT<'a> =
+    PhysicalDeviceDepthClampZeroOneFeaturesKHR<'a>;

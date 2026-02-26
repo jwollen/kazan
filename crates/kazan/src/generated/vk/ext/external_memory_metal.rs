@@ -27,7 +27,7 @@ impl DeviceFn {
     pub unsafe fn get_memory_metal_handle_ext(
         &self,
         device: Device,
-        get_metal_handle_info: &MemoryGetMetalHandleInfoEXT,
+        get_metal_handle_info: &MemoryGetMetalHandleInfoEXT<'_>,
         handle: &mut *mut c_void,
     ) -> crate::Result<()> {
         unsafe {
@@ -44,7 +44,7 @@ impl DeviceFn {
         device: Device,
         handle_type: ExternalMemoryHandleTypeFlagBits,
         handle: &c_void,
-    ) -> crate::Result<MemoryMetalHandlePropertiesEXT> {
+    ) -> crate::Result<MemoryMetalHandlePropertiesEXT<'_>> {
         unsafe {
             let mut memory_metal_handle_properties = core::mem::MaybeUninit::uninit();
             let result = (self.get_memory_metal_handle_properties_ext)(

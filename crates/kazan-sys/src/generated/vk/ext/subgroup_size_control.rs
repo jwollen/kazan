@@ -2,8 +2,10 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
-pub type PhysicalDeviceSubgroupSizeControlFeaturesEXT = PhysicalDeviceSubgroupSizeControlFeatures;
-pub type PhysicalDeviceSubgroupSizeControlPropertiesEXT =
-    PhysicalDeviceSubgroupSizeControlProperties;
-pub type PipelineShaderStageRequiredSubgroupSizeCreateInfoEXT =
-    PipelineShaderStageRequiredSubgroupSizeCreateInfo;
+use core::marker::PhantomData;
+pub type PhysicalDeviceSubgroupSizeControlFeaturesEXT<'a> =
+    PhysicalDeviceSubgroupSizeControlFeatures<'a>;
+pub type PhysicalDeviceSubgroupSizeControlPropertiesEXT<'a> =
+    PhysicalDeviceSubgroupSizeControlProperties<'a>;
+pub type PipelineShaderStageRequiredSubgroupSizeCreateInfoEXT<'a> =
+    PipelineShaderStageRequiredSubgroupSizeCreateInfo<'a>;

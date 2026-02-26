@@ -25,7 +25,7 @@ impl DeviceFn {
     pub unsafe fn get_memory_fd_khr(
         &self,
         device: Device,
-        get_fd_info: &MemoryGetFdInfoKHR,
+        get_fd_info: &MemoryGetFdInfoKHR<'_>,
     ) -> crate::Result<c_int> {
         unsafe {
             let mut fd = core::mem::MaybeUninit::uninit();
@@ -42,7 +42,7 @@ impl DeviceFn {
         device: Device,
         handle_type: ExternalMemoryHandleTypeFlagBits,
         fd: c_int,
-    ) -> crate::Result<MemoryFdPropertiesKHR> {
+    ) -> crate::Result<MemoryFdPropertiesKHR<'_>> {
         unsafe {
             let mut memory_fd_properties = core::mem::MaybeUninit::uninit();
             let result = (self.get_memory_fd_properties_khr)(

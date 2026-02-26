@@ -31,11 +31,11 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
-    pub unsafe fn get_physical_device_queue_family_data_graph_properties_arm(
+    pub unsafe fn get_physical_device_queue_family_data_graph_properties_arm<'a>(
         &self,
         physical_device: PhysicalDevice,
         queue_family_index: u32,
-        queue_family_data_graph_properties: impl ExtendUninit<QueueFamilyDataGraphPropertiesARM>,
+        queue_family_data_graph_properties: impl ExtendUninit<QueueFamilyDataGraphPropertiesARM<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(
@@ -60,8 +60,8 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_queue_family_data_graph_processing_engine_properties_arm(
         &self,
         physical_device: PhysicalDevice,
-        queue_family_data_graph_processing_engine_info: &PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM,
-    ) -> QueueFamilyDataGraphProcessingEnginePropertiesARM {
+        queue_family_data_graph_processing_engine_info: &PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM<'_>,
+    ) -> QueueFamilyDataGraphProcessingEnginePropertiesARM<'_> {
         unsafe {
             let mut queue_family_data_graph_processing_engine_properties =
                 core::mem::MaybeUninit::uninit();
@@ -133,8 +133,8 @@ impl DeviceFn {
         device: Device,
         deferred_operation: DeferredOperationKHR,
         pipeline_cache: PipelineCache,
-        create_infos: &[DataGraphPipelineCreateInfoARM],
-        allocator: Option<&AllocationCallbacks>,
+        create_infos: &[DataGraphPipelineCreateInfoARM<'_>],
+        allocator: Option<&AllocationCallbacks<'_>>,
         pipelines: &mut [Pipeline],
     ) -> crate::Result<()> {
         unsafe {
@@ -158,8 +158,8 @@ impl DeviceFn {
     pub unsafe fn create_data_graph_pipeline_session_arm(
         &self,
         device: Device,
-        create_info: &DataGraphPipelineSessionCreateInfoARM,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &DataGraphPipelineSessionCreateInfoARM<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<DataGraphPipelineSessionARM> {
         unsafe {
             let mut session = core::mem::MaybeUninit::uninit();
@@ -176,11 +176,11 @@ impl DeviceFn {
             }
         }
     }
-    pub unsafe fn get_data_graph_pipeline_session_bind_point_requirements_arm(
+    pub unsafe fn get_data_graph_pipeline_session_bind_point_requirements_arm<'a>(
         &self,
         device: Device,
-        info: &DataGraphPipelineSessionBindPointRequirementsInfoARM,
-        bind_point_requirements: impl ExtendUninit<DataGraphPipelineSessionBindPointRequirementARM>,
+        info: &DataGraphPipelineSessionBindPointRequirementsInfoARM<'_>,
+        bind_point_requirements: impl ExtendUninit<DataGraphPipelineSessionBindPointRequirementARM<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(
@@ -205,8 +205,8 @@ impl DeviceFn {
     pub unsafe fn get_data_graph_pipeline_session_memory_requirements_arm(
         &self,
         device: Device,
-        info: &DataGraphPipelineSessionMemoryRequirementsInfoARM,
-    ) -> MemoryRequirements2 {
+        info: &DataGraphPipelineSessionMemoryRequirementsInfoARM<'_>,
+    ) -> MemoryRequirements2<'_> {
         unsafe {
             let mut memory_requirements = core::mem::MaybeUninit::uninit();
             (self.get_data_graph_pipeline_session_memory_requirements_arm)(
@@ -220,7 +220,7 @@ impl DeviceFn {
     pub unsafe fn bind_data_graph_pipeline_session_memory_arm(
         &self,
         device: Device,
-        bind_infos: &[BindDataGraphPipelineSessionMemoryInfoARM],
+        bind_infos: &[BindDataGraphPipelineSessionMemoryInfoARM<'_>],
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.bind_data_graph_pipeline_session_memory_arm)(
@@ -239,7 +239,7 @@ impl DeviceFn {
         &self,
         device: Device,
         session: DataGraphPipelineSessionARM,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
             (self.destroy_data_graph_pipeline_session_arm)(device, session, allocator.to_raw_ptr())
@@ -249,14 +249,14 @@ impl DeviceFn {
         &self,
         command_buffer: CommandBuffer,
         session: DataGraphPipelineSessionARM,
-        info: Option<&DataGraphPipelineDispatchInfoARM>,
+        info: Option<&DataGraphPipelineDispatchInfoARM<'_>>,
     ) {
         unsafe { (self.cmd_dispatch_data_graph_arm)(command_buffer, session, info.to_raw_ptr()) }
     }
-    pub unsafe fn get_data_graph_pipeline_available_properties_arm(
+    pub unsafe fn get_data_graph_pipeline_available_properties_arm<'a>(
         &self,
         device: Device,
-        pipeline_info: &DataGraphPipelineInfoARM,
+        pipeline_info: &DataGraphPipelineInfoARM<'_>,
         properties: impl ExtendUninit<DataGraphPipelinePropertyARM>,
     ) -> crate::Result<()> {
         unsafe {
@@ -279,8 +279,8 @@ impl DeviceFn {
     pub unsafe fn get_data_graph_pipeline_properties_arm(
         &self,
         device: Device,
-        pipeline_info: &DataGraphPipelineInfoARM,
-        properties: &mut [DataGraphPipelinePropertyQueryResultARM],
+        pipeline_info: &DataGraphPipelineInfoARM<'_>,
+        properties: &mut [DataGraphPipelinePropertyQueryResultARM<'_>],
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.get_data_graph_pipeline_properties_arm)(

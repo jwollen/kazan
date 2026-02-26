@@ -24,7 +24,7 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         surface: SurfaceKHR,
-    ) -> crate::Result<SurfaceCapabilities2EXT> {
+    ) -> crate::Result<SurfaceCapabilities2EXT<'_>> {
         unsafe {
             let mut surface_capabilities = core::mem::MaybeUninit::uninit();
             let result = (self.get_physical_device_surface_capabilities2_ext)(

@@ -28,7 +28,7 @@ impl DeviceFn {
         &self,
         device: Device,
         buffer: *const AHardwareBuffer,
-    ) -> crate::Result<AndroidHardwareBufferPropertiesANDROID> {
+    ) -> crate::Result<AndroidHardwareBufferPropertiesANDROID<'_>> {
         unsafe {
             let mut properties = core::mem::MaybeUninit::uninit();
             let result = (self.get_android_hardware_buffer_properties_android)(
@@ -46,7 +46,7 @@ impl DeviceFn {
     pub unsafe fn get_memory_android_hardware_buffer_android(
         &self,
         device: Device,
-        info: &MemoryGetAndroidHardwareBufferInfoANDROID,
+        info: &MemoryGetAndroidHardwareBufferInfoANDROID<'_>,
         buffer: &mut *mut AHardwareBuffer,
     ) -> crate::Result<()> {
         unsafe {

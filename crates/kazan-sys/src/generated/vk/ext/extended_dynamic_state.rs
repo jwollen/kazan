@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 pub type PFN_vkCmdSetCullModeEXT = PFN_vkCmdSetCullMode;
 pub type PFN_vkCmdSetFrontFaceEXT = PFN_vkCmdSetFrontFace;
 pub type PFN_vkCmdSetPrimitiveTopologyEXT = PFN_vkCmdSetPrimitiveTopology;
@@ -15,8 +16,9 @@ pub type PFN_vkCmdSetDepthBoundsTestEnableEXT = PFN_vkCmdSetDepthBoundsTestEnabl
 pub type PFN_vkCmdSetStencilTestEnableEXT = PFN_vkCmdSetStencilTestEnable;
 pub type PFN_vkCmdSetStencilOpEXT = PFN_vkCmdSetStencilOp;
 #[repr(C)]
-pub struct PhysicalDeviceExtendedDynamicStateFeaturesEXT {
+pub struct PhysicalDeviceExtendedDynamicStateFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub extended_dynamic_state: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }

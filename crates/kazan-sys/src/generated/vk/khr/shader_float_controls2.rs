@@ -2,4 +2,6 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
-pub type PhysicalDeviceShaderFloatControls2FeaturesKHR = PhysicalDeviceShaderFloatControls2Features;
+use core::marker::PhantomData;
+pub type PhysicalDeviceShaderFloatControls2FeaturesKHR<'a> =
+    PhysicalDeviceShaderFloatControls2Features<'a>;

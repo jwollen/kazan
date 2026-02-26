@@ -23,8 +23,8 @@ impl InstanceFn {
     pub unsafe fn create_stream_descriptor_surface_ggp(
         &self,
         instance: Instance,
-        create_info: &StreamDescriptorSurfaceCreateInfoGGP,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &StreamDescriptorSurfaceCreateInfoGGP<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();

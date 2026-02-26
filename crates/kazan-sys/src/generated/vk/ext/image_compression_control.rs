@@ -2,30 +2,34 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct ImageCompressionControlEXT {
+pub struct ImageCompressionControlEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: ImageCompressionFlagsEXT,
     pub compression_control_plane_count: u32,
     pub p_fixed_rate_flags: *mut ImageCompressionFixedRateFlagsEXT,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceImageCompressionControlFeaturesEXT {
+pub struct PhysicalDeviceImageCompressionControlFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub image_compression_control: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct ImageCompressionPropertiesEXT {
+pub struct ImageCompressionPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub image_compression_flags: ImageCompressionFlagsEXT,
     pub image_compression_fixed_rate_flags: ImageCompressionFixedRateFlagsEXT,
+    pub _marker: PhantomData<&'a ()>,
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ImageCompressionFlagsEXT: Flags {
         const FIXED_RATE_DEFAULT_EXT = ImageCompressionFlagBitsEXT::FIXED_RATE_DEFAULT_EXT.0;
         const FIXED_RATE_EXPLICIT_EXT = ImageCompressionFlagBitsEXT::FIXED_RATE_EXPLICIT_EXT.0;
@@ -34,7 +38,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ImageCompressionFlagBitsEXT(u32);
 impl ImageCompressionFlagBitsEXT {
     pub const FIXED_RATE_DEFAULT_EXT: Self = Self(1 << 0);
@@ -43,7 +47,7 @@ impl ImageCompressionFlagBitsEXT {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ImageCompressionFixedRateFlagsEXT: Flags {
         const _1BPC_EXT = ImageCompressionFixedRateFlagBitsEXT::_1BPC_EXT.0;
         const _2BPC_EXT = ImageCompressionFixedRateFlagBitsEXT::_2BPC_EXT.0;
@@ -73,7 +77,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ImageCompressionFixedRateFlagBitsEXT(u32);
 impl ImageCompressionFixedRateFlagBitsEXT {
     pub const _1BPC_EXT: Self = Self(1 << 0);

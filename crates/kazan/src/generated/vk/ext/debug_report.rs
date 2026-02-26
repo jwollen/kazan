@@ -31,8 +31,8 @@ impl InstanceFn {
     pub unsafe fn create_debug_report_callback_ext(
         &self,
         instance: Instance,
-        create_info: &DebugReportCallbackCreateInfoEXT,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &DebugReportCallbackCreateInfoEXT<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<DebugReportCallbackEXT> {
         unsafe {
             let mut callback = core::mem::MaybeUninit::uninit();
@@ -53,7 +53,7 @@ impl InstanceFn {
         &self,
         instance: Instance,
         callback: DebugReportCallbackEXT,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
             (self.destroy_debug_report_callback_ext)(instance, callback, allocator.to_raw_ptr())

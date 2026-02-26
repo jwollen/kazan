@@ -2,33 +2,38 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 pub const MAX_GLOBAL_PRIORITY_SIZE: u32 = 16;
 #[repr(C)]
-pub struct BufferUsageFlags2CreateInfo {
+pub struct BufferUsageFlags2CreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub usage: BufferUsageFlags2,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PipelineCreateFlags2CreateInfo {
+pub struct PipelineCreateFlags2CreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineCreateFlags2,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDevicePushDescriptorProperties {
+pub struct PhysicalDevicePushDescriptorProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_push_descriptors: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceMaintenance5Features {
+pub struct PhysicalDeviceMaintenance5Features<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub maintenance5: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceMaintenance5Properties {
+pub struct PhysicalDeviceMaintenance5Properties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub early_fragment_multisample_coverage_after_sample_counting: Bool32,
@@ -37,23 +42,26 @@ pub struct PhysicalDeviceMaintenance5Properties {
     pub polygon_mode_point_size: Bool32,
     pub non_strict_single_pixel_wide_lines_use_parallelogram: Bool32,
     pub non_strict_wide_lines_use_parallelogram: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceMaintenance6Features {
+pub struct PhysicalDeviceMaintenance6Features<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub maintenance6: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceMaintenance6Properties {
+pub struct PhysicalDeviceMaintenance6Properties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub block_texel_view_compatible_multiple_layers: Bool32,
     pub max_combined_image_sampler_descriptor_count: u32,
     pub fragment_shading_rate_clamp_combiner_inputs: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct RenderingAreaInfo {
+pub struct RenderingAreaInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub view_mask: u32,
@@ -61,25 +69,29 @@ pub struct RenderingAreaInfo {
     pub p_color_attachment_formats: *const Format,
     pub depth_attachment_format: Format,
     pub stencil_attachment_format: Format,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DeviceQueueGlobalPriorityCreateInfo {
+pub struct DeviceQueueGlobalPriorityCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub global_priority: QueueGlobalPriority,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceGlobalPriorityQueryFeatures {
+pub struct PhysicalDeviceGlobalPriorityQueryFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub global_priority_query: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct QueueFamilyGlobalPriorityProperties {
+pub struct QueueFamilyGlobalPriorityProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub priority_count: u32,
     pub priorities: [QueueGlobalPriority; MAX_GLOBAL_PRIORITY_SIZE as usize],
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct VertexInputBindingDivisorDescription {
@@ -87,34 +99,38 @@ pub struct VertexInputBindingDivisorDescription {
     pub divisor: u32,
 }
 #[repr(C)]
-pub struct PipelineVertexInputDivisorStateCreateInfo {
+pub struct PipelineVertexInputDivisorStateCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub vertex_binding_divisor_count: u32,
     pub p_vertex_binding_divisors: *const VertexInputBindingDivisorDescription,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceVertexAttributeDivisorProperties {
+pub struct PhysicalDeviceVertexAttributeDivisorProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_vertex_attrib_divisor: u32,
     pub supports_non_zero_first_instance: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceVertexAttributeDivisorFeatures {
+pub struct PhysicalDeviceVertexAttributeDivisorFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub vertex_attribute_instance_rate_divisor: Bool32,
     pub vertex_attribute_instance_rate_zero_divisor: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceIndexTypeUint8Features {
+pub struct PhysicalDeviceIndexTypeUint8Features<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub index_type_uint8: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceLineRasterizationFeatures {
+pub struct PhysicalDeviceLineRasterizationFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub rectangular_lines: Bool32,
@@ -123,24 +139,27 @@ pub struct PhysicalDeviceLineRasterizationFeatures {
     pub stippled_rectangular_lines: Bool32,
     pub stippled_bresenham_lines: Bool32,
     pub stippled_smooth_lines: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceLineRasterizationProperties {
+pub struct PhysicalDeviceLineRasterizationProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub line_sub_pixel_precision_bits: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PipelineRasterizationLineStateCreateInfo {
+pub struct PipelineRasterizationLineStateCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub line_rasterization_mode: LineRasterizationMode,
     pub stippled_line_enable: Bool32,
     pub line_stipple_factor: u32,
     pub line_stipple_pattern: u16,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceVulkan14Features {
+pub struct PhysicalDeviceVulkan14Features<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub global_priority_query: Bool32,
@@ -164,9 +183,10 @@ pub struct PhysicalDeviceVulkan14Features {
     pub pipeline_robustness: Bool32,
     pub host_image_copy: Bool32,
     pub push_descriptor: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceVulkan14Properties {
+pub struct PhysicalDeviceVulkan14Properties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub line_sub_pixel_precision_bits: u32,
@@ -194,15 +214,17 @@ pub struct PhysicalDeviceVulkan14Properties {
     pub p_copy_dst_layouts: *mut ImageLayout,
     pub optimal_tiling_layout_uuid: [u8; UUID_SIZE as usize],
     pub identical_memory_type_requirements: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceHostImageCopyFeatures {
+pub struct PhysicalDeviceHostImageCopyFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub host_image_copy: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceHostImageCopyProperties {
+pub struct PhysicalDeviceHostImageCopyProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub copy_src_layout_count: u32,
@@ -211,9 +233,10 @@ pub struct PhysicalDeviceHostImageCopyProperties {
     pub p_copy_dst_layouts: *mut ImageLayout,
     pub optimal_tiling_layout_uuid: [u8; UUID_SIZE as usize],
     pub identical_memory_type_requirements: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct MemoryToImageCopy {
+pub struct MemoryToImageCopy<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_host_pointer: *const c_void,
@@ -222,9 +245,10 @@ pub struct MemoryToImageCopy {
     pub image_subresource: ImageSubresourceLayers,
     pub image_offset: Offset3D,
     pub image_extent: Extent3D,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct ImageToMemoryCopy {
+pub struct ImageToMemoryCopy<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_host_pointer: *mut c_void,
@@ -233,29 +257,32 @@ pub struct ImageToMemoryCopy {
     pub image_subresource: ImageSubresourceLayers,
     pub image_offset: Offset3D,
     pub image_extent: Extent3D,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct CopyMemoryToImageInfo {
+pub struct CopyMemoryToImageInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: HostImageCopyFlags,
     pub dst_image: Image,
     pub dst_image_layout: ImageLayout,
     pub region_count: u32,
-    pub p_regions: *const MemoryToImageCopy,
+    pub p_regions: *const MemoryToImageCopy<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct CopyImageToMemoryInfo {
+pub struct CopyImageToMemoryInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: HostImageCopyFlags,
     pub src_image: Image,
     pub src_image_layout: ImageLayout,
     pub region_count: u32,
-    pub p_regions: *const ImageToMemoryCopy,
+    pub p_regions: *const ImageToMemoryCopy<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct CopyImageToImageInfo {
+pub struct CopyImageToImageInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: HostImageCopyFlags,
@@ -264,103 +291,117 @@ pub struct CopyImageToImageInfo {
     pub dst_image: Image,
     pub dst_image_layout: ImageLayout,
     pub region_count: u32,
-    pub p_regions: *const ImageCopy2,
+    pub p_regions: *const ImageCopy2<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct HostImageLayoutTransitionInfo {
+pub struct HostImageLayoutTransitionInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub image: Image,
     pub old_layout: ImageLayout,
     pub new_layout: ImageLayout,
     pub subresource_range: ImageSubresourceRange,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct SubresourceHostMemcpySize {
+pub struct SubresourceHostMemcpySize<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub size: DeviceSize,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct HostImageCopyDevicePerformanceQuery {
+pub struct HostImageCopyDevicePerformanceQuery<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub optimal_device_access: Bool32,
     pub identical_memory_layout: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDevicePipelineProtectedAccessFeatures {
+pub struct PhysicalDevicePipelineProtectedAccessFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub pipeline_protected_access: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct ImageSubresource2 {
+pub struct ImageSubresource2<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub image_subresource: ImageSubresource,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct SubresourceLayout2 {
+pub struct SubresourceLayout2<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub subresource_layout: SubresourceLayout,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDevicePipelineRobustnessFeatures {
+pub struct PhysicalDevicePipelineRobustnessFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub pipeline_robustness: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PipelineRobustnessCreateInfo {
+pub struct PipelineRobustnessCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub storage_buffers: PipelineRobustnessBufferBehavior,
     pub uniform_buffers: PipelineRobustnessBufferBehavior,
     pub vertex_inputs: PipelineRobustnessBufferBehavior,
     pub images: PipelineRobustnessImageBehavior,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDevicePipelineRobustnessProperties {
+pub struct PhysicalDevicePipelineRobustnessProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub default_robustness_storage_buffers: PipelineRobustnessBufferBehavior,
     pub default_robustness_uniform_buffers: PipelineRobustnessBufferBehavior,
     pub default_robustness_vertex_inputs: PipelineRobustnessBufferBehavior,
     pub default_robustness_images: PipelineRobustnessImageBehavior,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DeviceImageSubresourceInfo {
+pub struct DeviceImageSubresourceInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
-    pub p_create_info: *const ImageCreateInfo,
-    pub p_subresource: *const ImageSubresource2,
+    pub p_create_info: *const ImageCreateInfo<'a>,
+    pub p_subresource: *const ImageSubresource2<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct MemoryMapInfo {
+pub struct MemoryMapInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: MemoryMapFlags,
     pub memory: DeviceMemory,
     pub offset: DeviceSize,
     pub size: DeviceSize,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct MemoryUnmapInfo {
+pub struct MemoryUnmapInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: MemoryUnmapFlags,
     pub memory: DeviceMemory,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct BindMemoryStatus {
+pub struct BindMemoryStatus<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_result: *mut Result,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct BindDescriptorSetsInfo {
+pub struct BindDescriptorSetsInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub stage_flags: ShaderStageFlags,
@@ -370,9 +411,10 @@ pub struct BindDescriptorSetsInfo {
     pub p_descriptor_sets: *const DescriptorSet,
     pub dynamic_offset_count: u32,
     pub p_dynamic_offsets: *const u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PushConstantsInfo {
+pub struct PushConstantsInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub layout: PipelineLayout,
@@ -380,66 +422,75 @@ pub struct PushConstantsInfo {
     pub offset: u32,
     pub size: u32,
     pub p_values: *const c_void,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PushDescriptorSetInfo {
+pub struct PushDescriptorSetInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub stage_flags: ShaderStageFlags,
     pub layout: PipelineLayout,
     pub set: u32,
     pub descriptor_write_count: u32,
-    pub p_descriptor_writes: *const WriteDescriptorSet,
+    pub p_descriptor_writes: *const WriteDescriptorSet<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PushDescriptorSetWithTemplateInfo {
+pub struct PushDescriptorSetWithTemplateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub descriptor_update_template: DescriptorUpdateTemplate,
     pub layout: PipelineLayout,
     pub set: u32,
     pub p_data: *const c_void,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceShaderSubgroupRotateFeatures {
+pub struct PhysicalDeviceShaderSubgroupRotateFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub shader_subgroup_rotate: Bool32,
     pub shader_subgroup_rotate_clustered: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceShaderExpectAssumeFeatures {
+pub struct PhysicalDeviceShaderExpectAssumeFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub shader_expect_assume: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceShaderFloatControls2Features {
+pub struct PhysicalDeviceShaderFloatControls2Features<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub shader_float_controls2: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceDynamicRenderingLocalReadFeatures {
+pub struct PhysicalDeviceDynamicRenderingLocalReadFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub dynamic_rendering_local_read: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct RenderingAttachmentLocationInfo {
+pub struct RenderingAttachmentLocationInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub color_attachment_count: u32,
     pub p_color_attachment_locations: *const u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct RenderingInputAttachmentIndexInfo {
+pub struct RenderingInputAttachmentIndexInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub color_attachment_count: u32,
     pub p_color_attachment_input_indices: *const u32,
     pub p_depth_input_attachment_index: *const u32,
     pub p_stencil_input_attachment_index: *const u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -503,20 +554,20 @@ impl PipelineRobustnessImageBehavior {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct MemoryUnmapFlags: Flags {
         const RESERVE_EXT = MemoryUnmapFlagBits::RESERVE_EXT.0;
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct MemoryUnmapFlagBits(u32);
 impl MemoryUnmapFlagBits {
     pub const RESERVE_EXT: Self = Self(1 << 0);
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineCreateFlags2: Flags64 {
         const DISABLE_OPTIMIZATION = PipelineCreateFlagBits2::DISABLE_OPTIMIZATION.0;
         const ALLOW_DERIVATIVES = PipelineCreateFlagBits2::ALLOW_DERIVATIVES.0;
@@ -571,7 +622,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PipelineCreateFlagBits2(u64);
 impl PipelineCreateFlagBits2 {
     pub const DISABLE_OPTIMIZATION: Self = Self(1 << 0);
@@ -627,7 +678,7 @@ impl PipelineCreateFlagBits2 {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct BufferUsageFlags2: Flags64 {
         const TRANSFER_SRC = BufferUsageFlagBits2::TRANSFER_SRC.0;
         const TRANSFER_DST = BufferUsageFlagBits2::TRANSFER_DST.0;
@@ -675,7 +726,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct BufferUsageFlagBits2(u64);
 impl BufferUsageFlagBits2 {
     pub const TRANSFER_SRC: Self = Self(1 << 0);
@@ -724,14 +775,14 @@ impl BufferUsageFlagBits2 {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct HostImageCopyFlags: Flags {
         const MEMCPY = HostImageCopyFlagBits::MEMCPY.0;
         const MEMCPY_EXT = Self::MEMCPY.bits();
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct HostImageCopyFlagBits(u32);
 impl HostImageCopyFlagBits {
     pub const MEMCPY: Self = Self(1 << 0);
@@ -739,7 +790,7 @@ impl HostImageCopyFlagBits {
 }
 pub type PFN_vkGetRenderingAreaGranularity = unsafe extern "system" fn(
     device: Device,
-    p_rendering_area_info: *const RenderingAreaInfo,
+    p_rendering_area_info: *const RenderingAreaInfo<'_>,
     p_granularity: *mut Extent2D,
 );
 pub type PFN_vkCmdPushDescriptorSet = unsafe extern "system" fn(
@@ -748,7 +799,7 @@ pub type PFN_vkCmdPushDescriptorSet = unsafe extern "system" fn(
     layout: PipelineLayout,
     set: u32,
     descriptor_write_count: u32,
-    p_descriptor_writes: *const WriteDescriptorSet,
+    p_descriptor_writes: *const WriteDescriptorSet<'_>,
 );
 pub type PFN_vkCmdPushDescriptorSetWithTemplate = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
@@ -771,62 +822,62 @@ pub type PFN_vkCmdBindIndexBuffer2 = unsafe extern "system" fn(
 );
 pub type PFN_vkCopyMemoryToImage = unsafe extern "system" fn(
     device: Device,
-    p_copy_memory_to_image_info: *const CopyMemoryToImageInfo,
+    p_copy_memory_to_image_info: *const CopyMemoryToImageInfo<'_>,
 ) -> Result;
 pub type PFN_vkCopyImageToMemory = unsafe extern "system" fn(
     device: Device,
-    p_copy_image_to_memory_info: *const CopyImageToMemoryInfo,
+    p_copy_image_to_memory_info: *const CopyImageToMemoryInfo<'_>,
 ) -> Result;
 pub type PFN_vkCopyImageToImage = unsafe extern "system" fn(
     device: Device,
-    p_copy_image_to_image_info: *const CopyImageToImageInfo,
+    p_copy_image_to_image_info: *const CopyImageToImageInfo<'_>,
 ) -> Result;
 pub type PFN_vkTransitionImageLayout = unsafe extern "system" fn(
     device: Device,
     transition_count: u32,
-    p_transitions: *const HostImageLayoutTransitionInfo,
+    p_transitions: *const HostImageLayoutTransitionInfo<'_>,
 ) -> Result;
 pub type PFN_vkGetImageSubresourceLayout2 = unsafe extern "system" fn(
     device: Device,
     image: Image,
-    p_subresource: *const ImageSubresource2,
-    p_layout: *mut SubresourceLayout2,
+    p_subresource: *const ImageSubresource2<'_>,
+    p_layout: *mut SubresourceLayout2<'_>,
 );
 pub type PFN_vkGetDeviceImageSubresourceLayout = unsafe extern "system" fn(
     device: Device,
-    p_info: *const DeviceImageSubresourceInfo,
-    p_layout: *mut SubresourceLayout2,
+    p_info: *const DeviceImageSubresourceInfo<'_>,
+    p_layout: *mut SubresourceLayout2<'_>,
 );
 pub type PFN_vkMapMemory2 = unsafe extern "system" fn(
     device: Device,
-    p_memory_map_info: *const MemoryMapInfo,
+    p_memory_map_info: *const MemoryMapInfo<'_>,
     pp_data: *mut *mut c_void,
 ) -> Result;
 pub type PFN_vkUnmapMemory2 = unsafe extern "system" fn(
     device: Device,
-    p_memory_unmap_info: *const MemoryUnmapInfo,
+    p_memory_unmap_info: *const MemoryUnmapInfo<'_>,
 ) -> Result;
 pub type PFN_vkCmdBindDescriptorSets2 = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_bind_descriptor_sets_info: *const BindDescriptorSetsInfo,
+    p_bind_descriptor_sets_info: *const BindDescriptorSetsInfo<'_>,
 );
 pub type PFN_vkCmdPushConstants2 = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_push_constants_info: *const PushConstantsInfo,
+    p_push_constants_info: *const PushConstantsInfo<'_>,
 );
 pub type PFN_vkCmdPushDescriptorSet2 = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_push_descriptor_set_info: *const PushDescriptorSetInfo,
+    p_push_descriptor_set_info: *const PushDescriptorSetInfo<'_>,
 );
 pub type PFN_vkCmdPushDescriptorSetWithTemplate2 = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_push_descriptor_set_with_template_info: *const PushDescriptorSetWithTemplateInfo,
+    p_push_descriptor_set_with_template_info: *const PushDescriptorSetWithTemplateInfo<'_>,
 );
 pub type PFN_vkCmdSetRenderingAttachmentLocations = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_location_info: *const RenderingAttachmentLocationInfo,
+    p_location_info: *const RenderingAttachmentLocationInfo<'_>,
 );
 pub type PFN_vkCmdSetRenderingInputAttachmentIndices = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_input_attachment_index_info: *const RenderingInputAttachmentIndexInfo,
+    p_input_attachment_index_info: *const RenderingInputAttachmentIndexInfo<'_>,
 );

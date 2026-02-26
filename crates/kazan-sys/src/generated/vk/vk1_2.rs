@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 pub const MAX_DRIVER_NAME_SIZE: u32 = 256;
 pub const MAX_DRIVER_INFO_SIZE: u32 = 256;
 #[repr(C)]
@@ -12,49 +13,55 @@ pub struct ConformanceVersion {
     pub patch: u8,
 }
 #[repr(C)]
-pub struct PhysicalDeviceDriverProperties {
+pub struct PhysicalDeviceDriverProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub driver_id: DriverId,
     pub driver_name: [c_char; MAX_DRIVER_NAME_SIZE as usize],
     pub driver_info: [c_char; MAX_DRIVER_INFO_SIZE as usize],
     pub conformance_version: ConformanceVersion,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceShaderSubgroupExtendedTypesFeatures {
+pub struct PhysicalDeviceShaderSubgroupExtendedTypesFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub shader_subgroup_extended_types: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceSamplerFilterMinmaxProperties {
+pub struct PhysicalDeviceSamplerFilterMinmaxProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub filter_minmax_single_component_formats: Bool32,
     pub filter_minmax_image_component_mapping: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct SamplerReductionModeCreateInfo {
+pub struct SamplerReductionModeCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub reduction_mode: SamplerReductionMode,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct ImageFormatListCreateInfo {
+pub struct ImageFormatListCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub view_format_count: u32,
     pub p_view_formats: *const Format,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceShaderFloat16Int8Features {
+pub struct PhysicalDeviceShaderFloat16Int8Features<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub shader_float16: Bool32,
     pub shader_int8: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceFloatControlsProperties {
+pub struct PhysicalDeviceFloatControlsProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub denorm_behavior_independence: ShaderFloatControlsIndependence,
@@ -74,15 +81,17 @@ pub struct PhysicalDeviceFloatControlsProperties {
     pub shader_rounding_mode_rtz_float16: Bool32,
     pub shader_rounding_mode_rtz_float32: Bool32,
     pub shader_rounding_mode_rtz_float64: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceHostQueryResetFeatures {
+pub struct PhysicalDeviceHostQueryResetFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub host_query_reset: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceDescriptorIndexingFeatures {
+pub struct PhysicalDeviceDescriptorIndexingFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub shader_input_attachment_array_dynamic_indexing: Bool32,
@@ -105,9 +114,10 @@ pub struct PhysicalDeviceDescriptorIndexingFeatures {
     pub descriptor_binding_partially_bound: Bool32,
     pub descriptor_binding_variable_descriptor_count: Bool32,
     pub runtime_descriptor_array: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceDescriptorIndexingProperties {
+pub struct PhysicalDeviceDescriptorIndexingProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_update_after_bind_descriptors_in_all_pools: u32,
@@ -133,29 +143,33 @@ pub struct PhysicalDeviceDescriptorIndexingProperties {
     pub max_descriptor_set_update_after_bind_sampled_images: u32,
     pub max_descriptor_set_update_after_bind_storage_images: u32,
     pub max_descriptor_set_update_after_bind_input_attachments: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DescriptorSetLayoutBindingFlagsCreateInfo {
+pub struct DescriptorSetLayoutBindingFlagsCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub binding_count: u32,
     pub p_binding_flags: *const DescriptorBindingFlags,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DescriptorSetVariableDescriptorCountAllocateInfo {
+pub struct DescriptorSetVariableDescriptorCountAllocateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub descriptor_set_count: u32,
     pub p_descriptor_counts: *const u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DescriptorSetVariableDescriptorCountLayoutSupport {
+pub struct DescriptorSetVariableDescriptorCountLayoutSupport<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_variable_descriptor_count: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct AttachmentDescription2 {
+pub struct AttachmentDescription2<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: AttachmentDescriptionFlags,
@@ -167,33 +181,36 @@ pub struct AttachmentDescription2 {
     pub stencil_store_op: AttachmentStoreOp,
     pub initial_layout: ImageLayout,
     pub final_layout: ImageLayout,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct AttachmentReference2 {
+pub struct AttachmentReference2<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub attachment: u32,
     pub layout: ImageLayout,
     pub aspect_mask: ImageAspectFlags,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct SubpassDescription2 {
+pub struct SubpassDescription2<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: SubpassDescriptionFlags,
     pub pipeline_bind_point: PipelineBindPoint,
     pub view_mask: u32,
     pub input_attachment_count: u32,
-    pub p_input_attachments: *const AttachmentReference2,
+    pub p_input_attachments: *const AttachmentReference2<'a>,
     pub color_attachment_count: u32,
-    pub p_color_attachments: *const AttachmentReference2,
-    pub p_resolve_attachments: *const AttachmentReference2,
-    pub p_depth_stencil_attachment: *const AttachmentReference2,
+    pub p_color_attachments: *const AttachmentReference2<'a>,
+    pub p_resolve_attachments: *const AttachmentReference2<'a>,
+    pub p_depth_stencil_attachment: *const AttachmentReference2<'a>,
     pub preserve_attachment_count: u32,
     pub p_preserve_attachments: *const u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct SubpassDependency2 {
+pub struct SubpassDependency2<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub src_subpass: u32,
@@ -204,169 +221,192 @@ pub struct SubpassDependency2 {
     pub dst_access_mask: AccessFlags,
     pub dependency_flags: DependencyFlags,
     pub view_offset: i32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct RenderPassCreateInfo2 {
+pub struct RenderPassCreateInfo2<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: RenderPassCreateFlags,
     pub attachment_count: u32,
-    pub p_attachments: *const AttachmentDescription2,
+    pub p_attachments: *const AttachmentDescription2<'a>,
     pub subpass_count: u32,
-    pub p_subpasses: *const SubpassDescription2,
+    pub p_subpasses: *const SubpassDescription2<'a>,
     pub dependency_count: u32,
-    pub p_dependencies: *const SubpassDependency2,
+    pub p_dependencies: *const SubpassDependency2<'a>,
     pub correlated_view_mask_count: u32,
     pub p_correlated_view_masks: *const u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct SubpassBeginInfo {
+pub struct SubpassBeginInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub contents: SubpassContents,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct SubpassEndInfo {
+pub struct SubpassEndInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceTimelineSemaphoreFeatures {
+pub struct PhysicalDeviceTimelineSemaphoreFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub timeline_semaphore: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceTimelineSemaphoreProperties {
+pub struct PhysicalDeviceTimelineSemaphoreProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_timeline_semaphore_value_difference: u64,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct SemaphoreTypeCreateInfo {
+pub struct SemaphoreTypeCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub semaphore_type: SemaphoreType,
     pub initial_value: u64,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct TimelineSemaphoreSubmitInfo {
+pub struct TimelineSemaphoreSubmitInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub wait_semaphore_value_count: u32,
     pub p_wait_semaphore_values: *const u64,
     pub signal_semaphore_value_count: u32,
     pub p_signal_semaphore_values: *const u64,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct SemaphoreWaitInfo {
+pub struct SemaphoreWaitInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: SemaphoreWaitFlags,
     pub semaphore_count: u32,
     pub p_semaphores: *const Semaphore,
     pub p_values: *const u64,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct SemaphoreSignalInfo {
+pub struct SemaphoreSignalInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub semaphore: Semaphore,
     pub value: u64,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDevice8BitStorageFeatures {
+pub struct PhysicalDevice8BitStorageFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub storage_buffer8_bit_access: Bool32,
     pub uniform_and_storage_buffer8_bit_access: Bool32,
     pub storage_push_constant8: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceVulkanMemoryModelFeatures {
+pub struct PhysicalDeviceVulkanMemoryModelFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub vulkan_memory_model: Bool32,
     pub vulkan_memory_model_device_scope: Bool32,
     pub vulkan_memory_model_availability_visibility_chains: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceShaderAtomicInt64Features {
+pub struct PhysicalDeviceShaderAtomicInt64Features<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub shader_buffer_int64_atomics: Bool32,
     pub shader_shared_int64_atomics: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceDepthStencilResolveProperties {
+pub struct PhysicalDeviceDepthStencilResolveProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub supported_depth_resolve_modes: ResolveModeFlags,
     pub supported_stencil_resolve_modes: ResolveModeFlags,
     pub independent_resolve_none: Bool32,
     pub independent_resolve: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct SubpassDescriptionDepthStencilResolve {
+pub struct SubpassDescriptionDepthStencilResolve<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub depth_resolve_mode: ResolveModeFlagBits,
     pub stencil_resolve_mode: ResolveModeFlagBits,
-    pub p_depth_stencil_resolve_attachment: *const AttachmentReference2,
+    pub p_depth_stencil_resolve_attachment: *const AttachmentReference2<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct ImageStencilUsageCreateInfo {
+pub struct ImageStencilUsageCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub stencil_usage: ImageUsageFlags,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceScalarBlockLayoutFeatures {
+pub struct PhysicalDeviceScalarBlockLayoutFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub scalar_block_layout: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceUniformBufferStandardLayoutFeatures {
+pub struct PhysicalDeviceUniformBufferStandardLayoutFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub uniform_buffer_standard_layout: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceBufferDeviceAddressFeatures {
+pub struct PhysicalDeviceBufferDeviceAddressFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub buffer_device_address: Bool32,
     pub buffer_device_address_capture_replay: Bool32,
     pub buffer_device_address_multi_device: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct BufferDeviceAddressInfo {
+pub struct BufferDeviceAddressInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub buffer: Buffer,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct BufferOpaqueCaptureAddressCreateInfo {
+pub struct BufferOpaqueCaptureAddressCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub opaque_capture_address: u64,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceImagelessFramebufferFeatures {
+pub struct PhysicalDeviceImagelessFramebufferFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub imageless_framebuffer: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct FramebufferAttachmentsCreateInfo {
+pub struct FramebufferAttachmentsCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub attachment_image_info_count: u32,
-    pub p_attachment_image_infos: *const FramebufferAttachmentImageInfo,
+    pub p_attachment_image_infos: *const FramebufferAttachmentImageInfo<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct FramebufferAttachmentImageInfo {
+pub struct FramebufferAttachmentImageInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: ImageCreateFlags,
@@ -376,47 +416,54 @@ pub struct FramebufferAttachmentImageInfo {
     pub layer_count: u32,
     pub view_format_count: u32,
     pub p_view_formats: *const Format,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct RenderPassAttachmentBeginInfo {
+pub struct RenderPassAttachmentBeginInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub attachment_count: u32,
     pub p_attachments: *const ImageView,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceSeparateDepthStencilLayoutsFeatures {
+pub struct PhysicalDeviceSeparateDepthStencilLayoutsFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub separate_depth_stencil_layouts: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct AttachmentReferenceStencilLayout {
+pub struct AttachmentReferenceStencilLayout<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub stencil_layout: ImageLayout,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct AttachmentDescriptionStencilLayout {
+pub struct AttachmentDescriptionStencilLayout<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub stencil_initial_layout: ImageLayout,
     pub stencil_final_layout: ImageLayout,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct MemoryOpaqueCaptureAddressAllocateInfo {
+pub struct MemoryOpaqueCaptureAddressAllocateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub opaque_capture_address: u64,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DeviceMemoryOpaqueCaptureAddressInfo {
+pub struct DeviceMemoryOpaqueCaptureAddressInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub memory: DeviceMemory,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceVulkan11Features {
+pub struct PhysicalDeviceVulkan11Features<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub storage_buffer16_bit_access: Bool32,
@@ -431,9 +478,10 @@ pub struct PhysicalDeviceVulkan11Features {
     pub protected_memory: Bool32,
     pub sampler_ycbcr_conversion: Bool32,
     pub shader_draw_parameters: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceVulkan11Properties {
+pub struct PhysicalDeviceVulkan11Properties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub device_uuid: [u8; UUID_SIZE as usize],
@@ -451,9 +499,10 @@ pub struct PhysicalDeviceVulkan11Properties {
     pub protected_no_fault: Bool32,
     pub max_per_set_descriptors: u32,
     pub max_memory_allocation_size: DeviceSize,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceVulkan12Features {
+pub struct PhysicalDeviceVulkan12Features<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub sampler_mirror_clamp_to_edge: Bool32,
@@ -503,9 +552,10 @@ pub struct PhysicalDeviceVulkan12Features {
     pub shader_output_viewport_index: Bool32,
     pub shader_output_layer: Bool32,
     pub subgroup_broadcast_dynamic_id: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceVulkan12Properties {
+pub struct PhysicalDeviceVulkan12Properties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub driver_id: DriverId,
@@ -560,6 +610,7 @@ pub struct PhysicalDeviceVulkan12Properties {
     pub filter_minmax_image_component_mapping: Bool32,
     pub max_timeline_semaphore_value_difference: u64,
     pub framebuffer_integer_color_sample_counts: SampleCountFlags,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -640,14 +691,14 @@ impl ShaderFloatControlsIndependence {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SemaphoreWaitFlags: Flags {
         const ANY = SemaphoreWaitFlagBits::ANY.0;
         const ANY_KHR = Self::ANY.bits();
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct SemaphoreWaitFlagBits(u32);
 impl SemaphoreWaitFlagBits {
     pub const ANY: Self = Self(1 << 0);
@@ -655,7 +706,7 @@ impl SemaphoreWaitFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DescriptorBindingFlags: Flags {
         const UPDATE_AFTER_BIND = DescriptorBindingFlagBits::UPDATE_AFTER_BIND.0;
         const UPDATE_UNUSED_WHILE_PENDING = DescriptorBindingFlagBits::UPDATE_UNUSED_WHILE_PENDING.0;
@@ -668,7 +719,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DescriptorBindingFlagBits(u32);
 impl DescriptorBindingFlagBits {
     pub const UPDATE_AFTER_BIND: Self = Self(1 << 0);
@@ -682,7 +733,7 @@ impl DescriptorBindingFlagBits {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ResolveModeFlags: Flags {
         const SAMPLE_ZERO = ResolveModeFlagBits::SAMPLE_ZERO.0;
         const AVERAGE = ResolveModeFlagBits::AVERAGE.0;
@@ -699,7 +750,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ResolveModeFlagBits(u32);
 impl ResolveModeFlagBits {
     pub const SAMPLE_ZERO: Self = Self(1 << 0);
@@ -721,33 +772,35 @@ pub type PFN_vkResetQueryPool = unsafe extern "system" fn(
 );
 pub type PFN_vkCreateRenderPass2 = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const RenderPassCreateInfo2,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const RenderPassCreateInfo2<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_render_pass: *mut RenderPass,
 ) -> Result;
 pub type PFN_vkCmdBeginRenderPass2 = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_render_pass_begin: *const RenderPassBeginInfo,
-    p_subpass_begin_info: *const SubpassBeginInfo,
+    p_render_pass_begin: *const RenderPassBeginInfo<'_>,
+    p_subpass_begin_info: *const SubpassBeginInfo<'_>,
 );
 pub type PFN_vkCmdNextSubpass2 = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_subpass_begin_info: *const SubpassBeginInfo,
-    p_subpass_end_info: *const SubpassEndInfo,
+    p_subpass_begin_info: *const SubpassBeginInfo<'_>,
+    p_subpass_end_info: *const SubpassEndInfo<'_>,
 );
 pub type PFN_vkCmdEndRenderPass2 = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_subpass_end_info: *const SubpassEndInfo,
+    p_subpass_end_info: *const SubpassEndInfo<'_>,
 );
 pub type PFN_vkGetSemaphoreCounterValue =
     unsafe extern "system" fn(device: Device, semaphore: Semaphore, p_value: *mut u64) -> Result;
 pub type PFN_vkWaitSemaphores = unsafe extern "system" fn(
     device: Device,
-    p_wait_info: *const SemaphoreWaitInfo,
+    p_wait_info: *const SemaphoreWaitInfo<'_>,
     timeout: u64,
 ) -> Result;
-pub type PFN_vkSignalSemaphore =
-    unsafe extern "system" fn(device: Device, p_signal_info: *const SemaphoreSignalInfo) -> Result;
+pub type PFN_vkSignalSemaphore = unsafe extern "system" fn(
+    device: Device,
+    p_signal_info: *const SemaphoreSignalInfo<'_>,
+) -> Result;
 pub type PFN_vkCmdDrawIndirectCount = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
     buffer: Buffer,
@@ -767,12 +820,12 @@ pub type PFN_vkCmdDrawIndexedIndirectCount = unsafe extern "system" fn(
     stride: u32,
 );
 pub type PFN_vkGetBufferOpaqueCaptureAddress =
-    unsafe extern "system" fn(device: Device, p_info: *const BufferDeviceAddressInfo) -> u64;
+    unsafe extern "system" fn(device: Device, p_info: *const BufferDeviceAddressInfo<'_>) -> u64;
 pub type PFN_vkGetBufferDeviceAddress = unsafe extern "system" fn(
     device: Device,
-    p_info: *const BufferDeviceAddressInfo,
+    p_info: *const BufferDeviceAddressInfo<'_>,
 ) -> DeviceAddress;
 pub type PFN_vkGetDeviceMemoryOpaqueCaptureAddress = unsafe extern "system" fn(
     device: Device,
-    p_info: *const DeviceMemoryOpaqueCaptureAddressInfo,
+    p_info: *const DeviceMemoryOpaqueCaptureAddressInfo<'_>,
 ) -> u64;

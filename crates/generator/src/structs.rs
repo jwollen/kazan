@@ -18,7 +18,7 @@ struct MemberInfo<'a> {
     len: Vec<LengthKind<'a>>,
 }
 
-fn analyze_struct<'a>(structs: &'a [xml::Structure], ty: &'a xml::Structure) -> StructInfo<'a> {
+fn analyze_struct<'a>(analysis: &'a Analysis, ty: &'a xml::Structure) -> StructInfo<'a> {
     let len_kinds: Vec<Vec<_>> = ty
         .members
         .iter()
@@ -26,7 +26,7 @@ fn analyze_struct<'a>(structs: &'a [xml::Structure], ty: &'a xml::Structure) -> 
             member
                 .len
                 .iter()
-                .map(|len| get_len_kind(&ty.members, structs, len))
+                .map(|len| get_len_kind(analysis, &ty.members, len))
                 .collect()
         })
         .collect();
@@ -37,7 +37,7 @@ fn analyze_struct<'a>(structs: &'a [xml::Structure], ty: &'a xml::Structure) -> 
     let mut members = Vec::new();
     for (index, member) in ty.members.iter().enumerate() {
         let name = normalize_name(member.c_decl.name);
-        let ty = ctype_to_rust_type(&member.c_decl.ty);
+        let ty = ctype_to_rust_type(analysis, &member.c_decl.ty, None);
         let len = len_kinds[index].clone();
 
         if member.c_decl.name == "sType" {
@@ -67,28 +67,27 @@ fn analyze_struct<'a>(structs: &'a [xml::Structure], ty: &'a xml::Structure) -> 
 }
 
 pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xml::Structure) {
-    let structs = &analysis.registry().structs;
-    let info = analyze_struct(structs, ty);
+    let info = analyze_struct(analysis, ty);
 
-    let type_info = analysis.type_infos().get(ty.name).unwrap();
+    let type_info = analysis.get_base_type_info(ty.name).unwrap();
 
     writeln!(
         file,
         "#[repr(C)]
-        #[derive(Copy, Clone{})]
-        pub struct {} {{",
-        if info.has_default && type_info.default {
-            ", Default"
-        } else {
-            ""
-        },
-        normalize_ty_name(ty.name)
+        pub struct {}{} {{",
+        // if info.has_default && type_info.default {
+        //     ", Default"
+        // } else {
+        //     ""
+        // },
+        normalize_ty_name(ty.name),
+        if type_info.lifetime_param { "<'a>" } else { "" }
     )
     .unwrap();
     for member in &ty.members {
         let name = normalize_name(member.c_decl.name);
 
-        let field_ty = ctype_to_rust_type(&member.c_decl.ty);
+        let field_ty = ctype_to_rust_type(analysis, &member.c_decl.ty, Some("a"));
         let field_ty = if let CType::Base(base) = &member.c_decl.ty
             && base.name.starts_with("PFN_")
         {
@@ -99,42 +98,36 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
 
         writeln!(file, "pub {}: {},", name, field_ty).unwrap();
     }
+    if type_info.lifetime_param {
+        writeln!(file, "pub _marker: PhantomData<&'a ()>,",).unwrap();
+    }
     writeln!(file, "}}").unwrap();
 
-    // writeln!(
-    //     file,
-    //     "#[repr(C)]
-    //     pub struct {} {{",
-    //     ty.name
-    // )
-    // .unwrap();
-    // for member in &ty.members {
-    //     let name = normalize_name(member.c_decl.name);
-    //     let field_ty = ctype_to_rust_type(&member.c_decl.ty);
-    //     writeln!(file, "pub {}: {},", name, field_ty).unwrap();
-    // }
-    // writeln!(file, "}}").unwrap();
+    let lifetime_spec = if type_info.lifetime_param { "<'_>" } else { "" };
 
-    if info.has_default && !type_info.default {
-        writeln!(
-            file,
-            "impl Default for {} {{
-        fn default() -> Self {{
-        Self {{",
-            info.name
-        )
-        .unwrap();
-        for member in &info.members {
-            write!(file, "{}: ", member.name).unwrap();
-            if member.member.c_decl.name == "sType" {
-                writeln!(file, "StructureType::{}", info.tag.unwrap()).unwrap()
-            } else {
-                write!(file, "{}", default_value(&member.member.c_decl.ty)).unwrap();
-            }
-            writeln!(file, ",").unwrap();
-        }
-        writeln!(file, "}} }} }}").unwrap();
-    }
+    // if info.has_default && !type_info.default {
+    //     writeln!(
+    //         file,
+    //         "impl Default for {}{} {{
+    //         fn default() -> Self {{
+    //         Self {{",
+    //         info.name, lifetime_spec
+    //     )
+    //     .unwrap();
+    //     for member in &info.members {
+    //         write!(file, "{}: ", member.name).unwrap();
+    //         if member.member.c_decl.name == "sType" {
+    //             writeln!(file, "StructureType::{}", info.tag.unwrap()).unwrap()
+    //         } else {
+    //             write!(file, "{}", default_value(&member.member.c_decl.ty)).unwrap();
+    //         }
+    //         writeln!(file, ",").unwrap();
+    //     }
+    //     if type_info.lifetime_param {
+    //         writeln!(file, "_marker: PhantomData",).unwrap();
+    //     }
+    //     writeln!(file, "}} }} }}").unwrap();
+    // }
 
     // writeln!(file, "impl {} {{", info.name).unwrap();
     // for member in &ty.members {

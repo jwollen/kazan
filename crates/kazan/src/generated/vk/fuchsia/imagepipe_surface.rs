@@ -23,8 +23,8 @@ impl InstanceFn {
     pub unsafe fn create_image_pipe_surface_fuchsia(
         &self,
         instance: Instance,
-        create_info: &ImagePipeSurfaceCreateInfoFUCHSIA,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &ImagePipeSurfaceCreateInfoFUCHSIA<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();

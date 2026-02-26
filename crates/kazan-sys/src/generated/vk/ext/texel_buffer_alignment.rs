@@ -2,11 +2,13 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
-pub type PhysicalDeviceTexelBufferAlignmentPropertiesEXT =
-    PhysicalDeviceTexelBufferAlignmentProperties;
+use core::marker::PhantomData;
+pub type PhysicalDeviceTexelBufferAlignmentPropertiesEXT<'a> =
+    PhysicalDeviceTexelBufferAlignmentProperties<'a>;
 #[repr(C)]
-pub struct PhysicalDeviceTexelBufferAlignmentFeaturesEXT {
+pub struct PhysicalDeviceTexelBufferAlignmentFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub texel_buffer_alignment: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }

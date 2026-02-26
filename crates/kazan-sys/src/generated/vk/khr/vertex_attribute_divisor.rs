@@ -2,9 +2,11 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 pub type VertexInputBindingDivisorDescriptionKHR = VertexInputBindingDivisorDescription;
-pub type PipelineVertexInputDivisorStateCreateInfoKHR = PipelineVertexInputDivisorStateCreateInfo;
-pub type PhysicalDeviceVertexAttributeDivisorPropertiesKHR =
-    PhysicalDeviceVertexAttributeDivisorProperties;
-pub type PhysicalDeviceVertexAttributeDivisorFeaturesKHR =
-    PhysicalDeviceVertexAttributeDivisorFeatures;
+pub type PipelineVertexInputDivisorStateCreateInfoKHR<'a> =
+    PipelineVertexInputDivisorStateCreateInfo<'a>;
+pub type PhysicalDeviceVertexAttributeDivisorPropertiesKHR<'a> =
+    PhysicalDeviceVertexAttributeDivisorProperties<'a>;
+pub type PhysicalDeviceVertexAttributeDivisorFeaturesKHR<'a> =
+    PhysicalDeviceVertexAttributeDivisorFeatures<'a>;

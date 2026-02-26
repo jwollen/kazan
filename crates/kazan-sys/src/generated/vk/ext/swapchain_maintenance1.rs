@@ -2,11 +2,12 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
-pub type PhysicalDeviceSwapchainMaintenance1FeaturesEXT =
-    PhysicalDeviceSwapchainMaintenance1FeaturesKHR;
-pub type SwapchainPresentFenceInfoEXT = SwapchainPresentFenceInfoKHR;
-pub type SwapchainPresentModesCreateInfoEXT = SwapchainPresentModesCreateInfoKHR;
-pub type SwapchainPresentModeInfoEXT = SwapchainPresentModeInfoKHR;
-pub type SwapchainPresentScalingCreateInfoEXT = SwapchainPresentScalingCreateInfoKHR;
-pub type ReleaseSwapchainImagesInfoEXT = ReleaseSwapchainImagesInfoKHR;
+use core::marker::PhantomData;
+pub type PhysicalDeviceSwapchainMaintenance1FeaturesEXT<'a> =
+    PhysicalDeviceSwapchainMaintenance1FeaturesKHR<'a>;
+pub type SwapchainPresentFenceInfoEXT<'a> = SwapchainPresentFenceInfoKHR<'a>;
+pub type SwapchainPresentModesCreateInfoEXT<'a> = SwapchainPresentModesCreateInfoKHR<'a>;
+pub type SwapchainPresentModeInfoEXT<'a> = SwapchainPresentModeInfoKHR<'a>;
+pub type SwapchainPresentScalingCreateInfoEXT<'a> = SwapchainPresentScalingCreateInfoKHR<'a>;
+pub type ReleaseSwapchainImagesInfoEXT<'a> = ReleaseSwapchainImagesInfoKHR<'a>;
 pub type PFN_vkReleaseSwapchainImagesEXT = PFN_vkReleaseSwapchainImagesKHR;

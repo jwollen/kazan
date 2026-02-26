@@ -2,9 +2,11 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDeviceInternallySynchronizedQueuesFeaturesKHR {
+pub struct PhysicalDeviceInternallySynchronizedQueuesFeaturesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub internally_synchronized_queues: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }

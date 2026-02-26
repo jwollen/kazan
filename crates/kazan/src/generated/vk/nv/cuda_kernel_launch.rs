@@ -43,8 +43,8 @@ impl DeviceFn {
     pub unsafe fn create_cuda_module_nv(
         &self,
         device: Device,
-        create_info: &CudaModuleCreateInfoNV,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &CudaModuleCreateInfoNV<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<CudaModuleNV> {
         unsafe {
             let mut module = core::mem::MaybeUninit::uninit();
@@ -83,8 +83,8 @@ impl DeviceFn {
     pub unsafe fn create_cuda_function_nv(
         &self,
         device: Device,
-        create_info: &CudaFunctionCreateInfoNV,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &CudaFunctionCreateInfoNV<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<CudaFunctionNV> {
         unsafe {
             let mut function = core::mem::MaybeUninit::uninit();
@@ -105,7 +105,7 @@ impl DeviceFn {
         &self,
         device: Device,
         module: CudaModuleNV,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_cuda_module_nv)(device, module, allocator.to_raw_ptr()) }
     }
@@ -113,14 +113,14 @@ impl DeviceFn {
         &self,
         device: Device,
         function: CudaFunctionNV,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_cuda_function_nv)(device, function, allocator.to_raw_ptr()) }
     }
     pub unsafe fn cmd_cuda_launch_kernel_nv(
         &self,
         command_buffer: CommandBuffer,
-        launch_info: &CudaLaunchInfoNV,
+        launch_info: &CudaLaunchInfoNV<'_>,
     ) {
         unsafe { (self.cmd_cuda_launch_kernel_nv)(command_buffer, launch_info) }
     }

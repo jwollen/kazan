@@ -2,17 +2,19 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDeviceDescriptorBufferFeaturesEXT {
+pub struct PhysicalDeviceDescriptorBufferFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub descriptor_buffer: Bool32,
     pub descriptor_buffer_capture_replay: Bool32,
     pub descriptor_buffer_image_layout_ignored: Bool32,
     pub descriptor_buffer_push_descriptors: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceDescriptorBufferPropertiesEXT {
+pub struct PhysicalDeviceDescriptorBufferPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub combined_image_sampler_descriptor_single_array: Bool32,
@@ -48,91 +50,109 @@ pub struct PhysicalDeviceDescriptorBufferPropertiesEXT {
     pub sampler_descriptor_buffer_address_space_size: DeviceSize,
     pub resource_descriptor_buffer_address_space_size: DeviceSize,
     pub descriptor_buffer_address_space_size: DeviceSize,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT {
+pub struct PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub combined_image_sampler_density_map_descriptor_size: usize,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DescriptorAddressInfoEXT {
+pub struct DescriptorAddressInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub address: DeviceAddress,
     pub range: DeviceSize,
     pub format: Format,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DescriptorBufferBindingInfoEXT {
+pub struct DescriptorBufferBindingInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub address: DeviceAddress,
     pub usage: BufferUsageFlags,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DescriptorBufferBindingPushDescriptorBufferHandleEXT {
+pub struct DescriptorBufferBindingPushDescriptorBufferHandleEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub buffer: Buffer,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DescriptorGetInfoEXT {
+pub struct DescriptorGetInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub ty: DescriptorType,
-    pub data: DescriptorDataEXT,
+    pub data: DescriptorDataEXT<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct BufferCaptureDescriptorDataInfoEXT {
+pub struct BufferCaptureDescriptorDataInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub buffer: Buffer,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct ImageCaptureDescriptorDataInfoEXT {
+pub struct ImageCaptureDescriptorDataInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub image: Image,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct ImageViewCaptureDescriptorDataInfoEXT {
+pub struct ImageViewCaptureDescriptorDataInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub image_view: ImageView,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct SamplerCaptureDescriptorDataInfoEXT {
+pub struct SamplerCaptureDescriptorDataInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub sampler: Sampler,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct AccelerationStructureCaptureDescriptorDataInfoEXT {
+pub struct AccelerationStructureCaptureDescriptorDataInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub acceleration_structure: AccelerationStructureKHR,
     pub acceleration_structure_nv: AccelerationStructureNV,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct OpaqueCaptureDescriptorDataCreateInfoEXT {
+pub struct OpaqueCaptureDescriptorDataCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub opaque_capture_descriptor_data: *const c_void,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
-pub union DescriptorDataEXT {
+pub union DescriptorDataEXT<'a> {
     pub p_sampler: *const Sampler,
     pub p_combined_image_sampler: *const DescriptorImageInfo,
     pub p_input_attachment_image: *const DescriptorImageInfo,
     pub p_sampled_image: *const DescriptorImageInfo,
     pub p_storage_image: *const DescriptorImageInfo,
-    pub p_uniform_texel_buffer: *const DescriptorAddressInfoEXT,
-    pub p_storage_texel_buffer: *const DescriptorAddressInfoEXT,
-    pub p_uniform_buffer: *const DescriptorAddressInfoEXT,
-    pub p_storage_buffer: *const DescriptorAddressInfoEXT,
+    pub p_uniform_texel_buffer: *const DescriptorAddressInfoEXT<'a>,
+    pub p_storage_texel_buffer: *const DescriptorAddressInfoEXT<'a>,
+    pub p_uniform_buffer: *const DescriptorAddressInfoEXT<'a>,
+    pub p_storage_buffer: *const DescriptorAddressInfoEXT<'a>,
     pub acceleration_structure: DeviceAddress,
+    pub _marker: PhantomData<&'a ()>,
+}
+impl Default for DescriptorDataEXT<'_> {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
 }
 pub type PFN_vkGetDescriptorSetLayoutSizeEXT = unsafe extern "system" fn(
     device: Device,
@@ -147,14 +167,14 @@ pub type PFN_vkGetDescriptorSetLayoutBindingOffsetEXT = unsafe extern "system" f
 );
 pub type PFN_vkGetDescriptorEXT = unsafe extern "system" fn(
     device: Device,
-    p_descriptor_info: *const DescriptorGetInfoEXT,
+    p_descriptor_info: *const DescriptorGetInfoEXT<'_>,
     data_size: usize,
     p_descriptor: *mut c_void,
 );
 pub type PFN_vkCmdBindDescriptorBuffersEXT = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
     buffer_count: u32,
-    p_binding_infos: *const DescriptorBufferBindingInfoEXT,
+    p_binding_infos: *const DescriptorBufferBindingInfoEXT<'_>,
 );
 pub type PFN_vkCmdSetDescriptorBufferOffsetsEXT = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
@@ -173,27 +193,27 @@ pub type PFN_vkCmdBindDescriptorBufferEmbeddedSamplersEXT = unsafe extern "syste
 );
 pub type PFN_vkGetBufferOpaqueCaptureDescriptorDataEXT = unsafe extern "system" fn(
     device: Device,
-    p_info: *const BufferCaptureDescriptorDataInfoEXT,
+    p_info: *const BufferCaptureDescriptorDataInfoEXT<'_>,
     p_data: *mut c_void,
 ) -> Result;
 pub type PFN_vkGetImageOpaqueCaptureDescriptorDataEXT = unsafe extern "system" fn(
     device: Device,
-    p_info: *const ImageCaptureDescriptorDataInfoEXT,
+    p_info: *const ImageCaptureDescriptorDataInfoEXT<'_>,
     p_data: *mut c_void,
 ) -> Result;
 pub type PFN_vkGetImageViewOpaqueCaptureDescriptorDataEXT = unsafe extern "system" fn(
     device: Device,
-    p_info: *const ImageViewCaptureDescriptorDataInfoEXT,
+    p_info: *const ImageViewCaptureDescriptorDataInfoEXT<'_>,
     p_data: *mut c_void,
 ) -> Result;
 pub type PFN_vkGetSamplerOpaqueCaptureDescriptorDataEXT = unsafe extern "system" fn(
     device: Device,
-    p_info: *const SamplerCaptureDescriptorDataInfoEXT,
+    p_info: *const SamplerCaptureDescriptorDataInfoEXT<'_>,
     p_data: *mut c_void,
 ) -> Result;
 pub type PFN_vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT =
     unsafe extern "system" fn(
         device: Device,
-        p_info: *const AccelerationStructureCaptureDescriptorDataInfoEXT,
+        p_info: *const AccelerationStructureCaptureDescriptorDataInfoEXT<'_>,
         p_data: *mut c_void,
     ) -> Result;

@@ -219,8 +219,8 @@ impl DeviceFn {
     pub unsafe fn create_shaders_ext(
         &self,
         device: Device,
-        create_infos: &[ShaderCreateInfoEXT],
-        allocator: Option<&AllocationCallbacks>,
+        create_infos: &[ShaderCreateInfoEXT<'_>],
+        allocator: Option<&AllocationCallbacks<'_>>,
         shaders: &mut [ShaderEXT],
     ) -> crate::Result<()> {
         unsafe {
@@ -243,7 +243,7 @@ impl DeviceFn {
         &self,
         device: Device,
         shader: ShaderEXT,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_shader_ext)(device, shader, allocator.to_raw_ptr()) }
     }
@@ -409,8 +409,8 @@ impl DeviceFn {
     pub unsafe fn cmd_set_vertex_input_ext(
         &self,
         command_buffer: CommandBuffer,
-        vertex_binding_descriptions: &[VertexInputBindingDescription2EXT],
-        vertex_attribute_descriptions: &[VertexInputAttributeDescription2EXT],
+        vertex_binding_descriptions: &[VertexInputBindingDescription2EXT<'_>],
+        vertex_attribute_descriptions: &[VertexInputAttributeDescription2EXT<'_>],
     ) {
         unsafe {
             (self.cmd_set_vertex_input_ext)(

@@ -2,8 +2,9 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct VideoEncodeH264CapabilitiesKHR {
+pub struct VideoEncodeH264CapabilitiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub flags: VideoEncodeH264CapabilityFlagsKHR,
@@ -19,9 +20,10 @@ pub struct VideoEncodeH264CapabilitiesKHR {
     pub prefers_gop_remaining_frames: Bool32,
     pub requires_gop_remaining_frames: Bool32,
     pub std_syntax_flags: VideoEncodeH264StdFlagsKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeH264QualityLevelPropertiesKHR {
+pub struct VideoEncodeH264QualityLevelPropertiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub preferred_rate_control_flags: VideoEncodeH264RateControlFlagsKHR,
@@ -33,77 +35,87 @@ pub struct VideoEncodeH264QualityLevelPropertiesKHR {
     pub preferred_max_l0_reference_count: u32,
     pub preferred_max_l1_reference_count: u32,
     pub preferred_std_entropy_coding_mode_flag: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeH264SessionCreateInfoKHR {
+pub struct VideoEncodeH264SessionCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub use_max_level_idc: Bool32,
     pub max_level_idc: StdVideoH264LevelIdc,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeH264SessionParametersAddInfoKHR {
+pub struct VideoEncodeH264SessionParametersAddInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub std_sps_count: u32,
-    pub p_std_sp_ss: *const StdVideoH264SequenceParameterSet,
+    pub p_std_sp_ss: *const StdVideoH264SequenceParameterSet<'a>,
     pub std_pps_count: u32,
-    pub p_std_pp_ss: *const StdVideoH264PictureParameterSet,
+    pub p_std_pp_ss: *const StdVideoH264PictureParameterSet<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeH264SessionParametersCreateInfoKHR {
+pub struct VideoEncodeH264SessionParametersCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub max_std_sps_count: u32,
     pub max_std_pps_count: u32,
-    pub p_parameters_add_info: *const VideoEncodeH264SessionParametersAddInfoKHR,
+    pub p_parameters_add_info: *const VideoEncodeH264SessionParametersAddInfoKHR<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeH264SessionParametersGetInfoKHR {
+pub struct VideoEncodeH264SessionParametersGetInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub write_std_sps: Bool32,
     pub write_std_pps: Bool32,
     pub std_sps_id: u32,
     pub std_pps_id: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeH264SessionParametersFeedbackInfoKHR {
+pub struct VideoEncodeH264SessionParametersFeedbackInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub has_std_sps_overrides: Bool32,
     pub has_std_pps_overrides: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeH264DpbSlotInfoKHR {
+pub struct VideoEncodeH264DpbSlotInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_std_reference_info: *const StdVideoEncodeH264ReferenceInfo,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeH264PictureInfoKHR {
+pub struct VideoEncodeH264PictureInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub nalu_slice_entry_count: u32,
-    pub p_nalu_slice_entries: *const VideoEncodeH264NaluSliceInfoKHR,
-    pub p_std_picture_info: *const StdVideoEncodeH264PictureInfo,
+    pub p_nalu_slice_entries: *const VideoEncodeH264NaluSliceInfoKHR<'a>,
+    pub p_std_picture_info: *const StdVideoEncodeH264PictureInfo<'a>,
     pub generate_prefix_nalu: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeH264ProfileInfoKHR {
+pub struct VideoEncodeH264ProfileInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub std_profile_idc: StdVideoH264ProfileIdc,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeH264NaluSliceInfoKHR {
+pub struct VideoEncodeH264NaluSliceInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub constant_qp: i32,
-    pub p_std_slice_header: *const StdVideoEncodeH264SliceHeader,
+    pub p_std_slice_header: *const StdVideoEncodeH264SliceHeader<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeH264RateControlInfoKHR {
+pub struct VideoEncodeH264RateControlInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: VideoEncodeH264RateControlFlagsKHR,
@@ -111,6 +123,7 @@ pub struct VideoEncodeH264RateControlInfoKHR {
     pub idr_period: u32,
     pub consecutive_b_frame_count: u32,
     pub temporal_layer_count: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct VideoEncodeH264QpKHR {
@@ -125,16 +138,17 @@ pub struct VideoEncodeH264FrameSizeKHR {
     pub frame_b_size: u32,
 }
 #[repr(C)]
-pub struct VideoEncodeH264GopRemainingFrameInfoKHR {
+pub struct VideoEncodeH264GopRemainingFrameInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub use_gop_remaining_frames: Bool32,
     pub gop_remaining_i: u32,
     pub gop_remaining_p: u32,
     pub gop_remaining_b: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeH264RateControlLayerInfoKHR {
+pub struct VideoEncodeH264RateControlLayerInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub use_min_qp: Bool32,
@@ -143,10 +157,11 @@ pub struct VideoEncodeH264RateControlLayerInfoKHR {
     pub max_qp: VideoEncodeH264QpKHR,
     pub use_max_frame_size: Bool32,
     pub max_frame_size: VideoEncodeH264FrameSizeKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VideoEncodeH264CapabilityFlagsKHR: Flags {
         const HRD_COMPLIANCE_KHR = VideoEncodeH264CapabilityFlagBitsKHR::HRD_COMPLIANCE_KHR.0;
         const PREDICTION_WEIGHT_TABLE_GENERATED_KHR = VideoEncodeH264CapabilityFlagBitsKHR::PREDICTION_WEIGHT_TABLE_GENERATED_KHR.0;
@@ -162,7 +177,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct VideoEncodeH264CapabilityFlagBitsKHR(u32);
 impl VideoEncodeH264CapabilityFlagBitsKHR {
     pub const HRD_COMPLIANCE_KHR: Self = Self(1 << 0);
@@ -179,7 +194,7 @@ impl VideoEncodeH264CapabilityFlagBitsKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VideoEncodeH264StdFlagsKHR: Flags {
         const SEPARATE_COLOR_PLANE_FLAG_SET_KHR = VideoEncodeH264StdFlagBitsKHR::SEPARATE_COLOR_PLANE_FLAG_SET_KHR.0;
         const QPPRIME_Y_ZERO_TRANSFORM_BYPASS_FLAG_SET_KHR = VideoEncodeH264StdFlagBitsKHR::QPPRIME_Y_ZERO_TRANSFORM_BYPASS_FLAG_SET_KHR.0;
@@ -204,7 +219,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct VideoEncodeH264StdFlagBitsKHR(u32);
 impl VideoEncodeH264StdFlagBitsKHR {
     pub const SEPARATE_COLOR_PLANE_FLAG_SET_KHR: Self = Self(1 << 0);
@@ -230,7 +245,7 @@ impl VideoEncodeH264StdFlagBitsKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VideoEncodeH264RateControlFlagsKHR: Flags {
         const ATTEMPT_HRD_COMPLIANCE_KHR = VideoEncodeH264RateControlFlagBitsKHR::ATTEMPT_HRD_COMPLIANCE_KHR.0;
         const REGULAR_GOP_KHR = VideoEncodeH264RateControlFlagBitsKHR::REGULAR_GOP_KHR.0;
@@ -240,7 +255,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct VideoEncodeH264RateControlFlagBitsKHR(u32);
 impl VideoEncodeH264RateControlFlagBitsKHR {
     pub const ATTEMPT_HRD_COMPLIANCE_KHR: Self = Self(1 << 0);

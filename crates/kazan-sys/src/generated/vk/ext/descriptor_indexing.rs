@@ -2,11 +2,15 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
-pub type PhysicalDeviceDescriptorIndexingFeaturesEXT = PhysicalDeviceDescriptorIndexingFeatures;
-pub type PhysicalDeviceDescriptorIndexingPropertiesEXT = PhysicalDeviceDescriptorIndexingProperties;
-pub type DescriptorSetLayoutBindingFlagsCreateInfoEXT = DescriptorSetLayoutBindingFlagsCreateInfo;
-pub type DescriptorSetVariableDescriptorCountAllocateInfoEXT =
-    DescriptorSetVariableDescriptorCountAllocateInfo;
-pub type DescriptorSetVariableDescriptorCountLayoutSupportEXT =
-    DescriptorSetVariableDescriptorCountLayoutSupport;
+use core::marker::PhantomData;
+pub type PhysicalDeviceDescriptorIndexingFeaturesEXT<'a> =
+    PhysicalDeviceDescriptorIndexingFeatures<'a>;
+pub type PhysicalDeviceDescriptorIndexingPropertiesEXT<'a> =
+    PhysicalDeviceDescriptorIndexingProperties<'a>;
+pub type DescriptorSetLayoutBindingFlagsCreateInfoEXT<'a> =
+    DescriptorSetLayoutBindingFlagsCreateInfo<'a>;
+pub type DescriptorSetVariableDescriptorCountAllocateInfoEXT<'a> =
+    DescriptorSetVariableDescriptorCountAllocateInfo<'a>;
+pub type DescriptorSetVariableDescriptorCountLayoutSupportEXT<'a> =
+    DescriptorSetVariableDescriptorCountLayoutSupport<'a>;
 pub type DescriptorBindingFlagsEXT = DescriptorBindingFlags;

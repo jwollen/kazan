@@ -2,11 +2,13 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT {
+pub struct PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub primitives_generated_query: Bool32,
     pub primitives_generated_query_with_rasterizer_discard: Bool32,
     pub primitives_generated_query_with_non_zero_streams: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }

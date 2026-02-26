@@ -2,38 +2,42 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDeviceDisplacementMicromapFeaturesNV {
+pub struct PhysicalDeviceDisplacementMicromapFeaturesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub displacement_micromap: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceDisplacementMicromapPropertiesNV {
+pub struct PhysicalDeviceDisplacementMicromapPropertiesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_displacement_micromap_subdivision_level: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct AccelerationStructureTrianglesDisplacementMicromapNV {
+pub struct AccelerationStructureTrianglesDisplacementMicromapNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub displacement_bias_and_scale_format: Format,
     pub displacement_vector_format: Format,
-    pub displacement_bias_and_scale_buffer: DeviceOrHostAddressConstKHR,
+    pub displacement_bias_and_scale_buffer: DeviceOrHostAddressConstKHR<'a>,
     pub displacement_bias_and_scale_stride: DeviceSize,
-    pub displacement_vector_buffer: DeviceOrHostAddressConstKHR,
+    pub displacement_vector_buffer: DeviceOrHostAddressConstKHR<'a>,
     pub displacement_vector_stride: DeviceSize,
-    pub displaced_micromap_primitive_flags: DeviceOrHostAddressConstKHR,
+    pub displaced_micromap_primitive_flags: DeviceOrHostAddressConstKHR<'a>,
     pub displaced_micromap_primitive_flags_stride: DeviceSize,
     pub index_type: IndexType,
-    pub index_buffer: DeviceOrHostAddressConstKHR,
+    pub index_buffer: DeviceOrHostAddressConstKHR<'a>,
     pub index_stride: DeviceSize,
     pub base_triangle: u32,
     pub usage_counts_count: u32,
     pub p_usage_counts: *const MicromapUsageEXT,
     pub pp_usage_counts: *const *const MicromapUsageEXT,
     pub micromap: MicromapEXT,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

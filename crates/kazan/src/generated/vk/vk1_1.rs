@@ -91,10 +91,10 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
-    pub unsafe fn enumerate_physical_device_groups(
+    pub unsafe fn enumerate_physical_device_groups<'a>(
         &self,
         instance: Instance,
-        physical_device_group_properties: impl ExtendUninit<PhysicalDeviceGroupProperties>,
+        physical_device_group_properties: impl ExtendUninit<PhysicalDeviceGroupProperties<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(
@@ -118,7 +118,7 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_features2(
         &self,
         physical_device: PhysicalDevice,
-    ) -> PhysicalDeviceFeatures2 {
+    ) -> PhysicalDeviceFeatures2<'_> {
         unsafe {
             let mut features = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_features2)(physical_device, features.as_mut_ptr());
@@ -128,7 +128,7 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_properties2(
         &self,
         physical_device: PhysicalDevice,
-    ) -> PhysicalDeviceProperties2 {
+    ) -> PhysicalDeviceProperties2<'_> {
         unsafe {
             let mut properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_properties2)(physical_device, properties.as_mut_ptr());
@@ -139,7 +139,7 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         format: Format,
-    ) -> FormatProperties2 {
+    ) -> FormatProperties2<'_> {
         unsafe {
             let mut format_properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_format_properties2)(
@@ -153,8 +153,8 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_image_format_properties2(
         &self,
         physical_device: PhysicalDevice,
-        image_format_info: &PhysicalDeviceImageFormatInfo2,
-    ) -> crate::Result<ImageFormatProperties2> {
+        image_format_info: &PhysicalDeviceImageFormatInfo2<'_>,
+    ) -> crate::Result<ImageFormatProperties2<'_>> {
         unsafe {
             let mut image_format_properties = core::mem::MaybeUninit::uninit();
             let result = (self.get_physical_device_image_format_properties2)(
@@ -169,10 +169,10 @@ impl InstanceFn {
             }
         }
     }
-    pub unsafe fn get_physical_device_queue_family_properties2(
+    pub unsafe fn get_physical_device_queue_family_properties2<'a>(
         &self,
         physical_device: PhysicalDevice,
-        queue_family_properties: impl ExtendUninit<QueueFamilyProperties2>,
+        queue_family_properties: impl ExtendUninit<QueueFamilyProperties2<'a>>,
     ) {
         unsafe {
             extend_uninit(
@@ -190,7 +190,7 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_memory_properties2(
         &self,
         physical_device: PhysicalDevice,
-    ) -> PhysicalDeviceMemoryProperties2 {
+    ) -> PhysicalDeviceMemoryProperties2<'_> {
         unsafe {
             let mut memory_properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_memory_properties2)(
@@ -200,11 +200,11 @@ impl InstanceFn {
             memory_properties.assume_init()
         }
     }
-    pub unsafe fn get_physical_device_sparse_image_format_properties2(
+    pub unsafe fn get_physical_device_sparse_image_format_properties2<'a>(
         &self,
         physical_device: PhysicalDevice,
-        format_info: &PhysicalDeviceSparseImageFormatInfo2,
-        properties: impl ExtendUninit<SparseImageFormatProperties2>,
+        format_info: &PhysicalDeviceSparseImageFormatInfo2<'_>,
+        properties: impl ExtendUninit<SparseImageFormatProperties2<'a>>,
     ) {
         unsafe {
             extend_uninit(properties, |property_count, properties| {
@@ -220,8 +220,8 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_external_buffer_properties(
         &self,
         physical_device: PhysicalDevice,
-        external_buffer_info: &PhysicalDeviceExternalBufferInfo,
-    ) -> ExternalBufferProperties {
+        external_buffer_info: &PhysicalDeviceExternalBufferInfo<'_>,
+    ) -> ExternalBufferProperties<'_> {
         unsafe {
             let mut external_buffer_properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_external_buffer_properties)(
@@ -235,8 +235,8 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_external_fence_properties(
         &self,
         physical_device: PhysicalDevice,
-        external_fence_info: &PhysicalDeviceExternalFenceInfo,
-    ) -> ExternalFenceProperties {
+        external_fence_info: &PhysicalDeviceExternalFenceInfo<'_>,
+    ) -> ExternalFenceProperties<'_> {
         unsafe {
             let mut external_fence_properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_external_fence_properties)(
@@ -250,8 +250,8 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_external_semaphore_properties(
         &self,
         physical_device: PhysicalDevice,
-        external_semaphore_info: &PhysicalDeviceExternalSemaphoreInfo,
-    ) -> ExternalSemaphoreProperties {
+        external_semaphore_info: &PhysicalDeviceExternalSemaphoreInfo<'_>,
+    ) -> ExternalSemaphoreProperties<'_> {
         unsafe {
             let mut external_semaphore_properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_external_semaphore_properties)(
@@ -331,7 +331,7 @@ impl DeviceFn {
     pub unsafe fn bind_buffer_memory2(
         &self,
         device: Device,
-        bind_infos: &[BindBufferMemoryInfo],
+        bind_infos: &[BindBufferMemoryInfo<'_>],
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.bind_buffer_memory2)(
@@ -349,7 +349,7 @@ impl DeviceFn {
     pub unsafe fn bind_image_memory2(
         &self,
         device: Device,
-        bind_infos: &[BindImageMemoryInfo],
+        bind_infos: &[BindImageMemoryInfo<'_>],
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.bind_image_memory2)(
@@ -389,8 +389,8 @@ impl DeviceFn {
     pub unsafe fn get_image_memory_requirements2(
         &self,
         device: Device,
-        info: &ImageMemoryRequirementsInfo2,
-    ) -> MemoryRequirements2 {
+        info: &ImageMemoryRequirementsInfo2<'_>,
+    ) -> MemoryRequirements2<'_> {
         unsafe {
             let mut memory_requirements = core::mem::MaybeUninit::uninit();
             (self.get_image_memory_requirements2)(device, info, memory_requirements.as_mut_ptr());
@@ -400,19 +400,19 @@ impl DeviceFn {
     pub unsafe fn get_buffer_memory_requirements2(
         &self,
         device: Device,
-        info: &BufferMemoryRequirementsInfo2,
-    ) -> MemoryRequirements2 {
+        info: &BufferMemoryRequirementsInfo2<'_>,
+    ) -> MemoryRequirements2<'_> {
         unsafe {
             let mut memory_requirements = core::mem::MaybeUninit::uninit();
             (self.get_buffer_memory_requirements2)(device, info, memory_requirements.as_mut_ptr());
             memory_requirements.assume_init()
         }
     }
-    pub unsafe fn get_image_sparse_memory_requirements2(
+    pub unsafe fn get_image_sparse_memory_requirements2<'a>(
         &self,
         device: Device,
-        info: &ImageSparseMemoryRequirementsInfo2,
-        sparse_memory_requirements: impl ExtendUninit<SparseImageMemoryRequirements2>,
+        info: &ImageSparseMemoryRequirementsInfo2<'_>,
+        sparse_memory_requirements: impl ExtendUninit<SparseImageMemoryRequirements2<'a>>,
     ) {
         unsafe {
             extend_uninit(
@@ -436,7 +436,11 @@ impl DeviceFn {
     ) {
         unsafe { (self.trim_command_pool)(device, command_pool, flags) }
     }
-    pub unsafe fn get_device_queue2(&self, device: Device, queue_info: &DeviceQueueInfo2) -> Queue {
+    pub unsafe fn get_device_queue2(
+        &self,
+        device: Device,
+        queue_info: &DeviceQueueInfo2<'_>,
+    ) -> Queue {
         unsafe {
             let mut queue = core::mem::MaybeUninit::uninit();
             (self.get_device_queue2)(device, queue_info, queue.as_mut_ptr());
@@ -468,8 +472,8 @@ impl DeviceFn {
     pub unsafe fn create_descriptor_update_template(
         &self,
         device: Device,
-        create_info: &DescriptorUpdateTemplateCreateInfo,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &DescriptorUpdateTemplateCreateInfo<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<DescriptorUpdateTemplate> {
         unsafe {
             let mut descriptor_update_template = core::mem::MaybeUninit::uninit();
@@ -490,7 +494,7 @@ impl DeviceFn {
         &self,
         device: Device,
         descriptor_update_template: DescriptorUpdateTemplate,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
             (self.destroy_descriptor_update_template)(
@@ -519,8 +523,8 @@ impl DeviceFn {
     pub unsafe fn get_descriptor_set_layout_support(
         &self,
         device: Device,
-        create_info: &DescriptorSetLayoutCreateInfo,
-    ) -> DescriptorSetLayoutSupport {
+        create_info: &DescriptorSetLayoutCreateInfo<'_>,
+    ) -> DescriptorSetLayoutSupport<'_> {
         unsafe {
             let mut support = core::mem::MaybeUninit::uninit();
             (self.get_descriptor_set_layout_support)(device, create_info, support.as_mut_ptr());
@@ -530,8 +534,8 @@ impl DeviceFn {
     pub unsafe fn create_sampler_ycbcr_conversion(
         &self,
         device: Device,
-        create_info: &SamplerYcbcrConversionCreateInfo,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &SamplerYcbcrConversionCreateInfo<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<SamplerYcbcrConversion> {
         unsafe {
             let mut ycbcr_conversion = core::mem::MaybeUninit::uninit();
@@ -552,7 +556,7 @@ impl DeviceFn {
         &self,
         device: Device,
         ycbcr_conversion: SamplerYcbcrConversion,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
             (self.destroy_sampler_ycbcr_conversion)(

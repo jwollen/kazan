@@ -23,8 +23,8 @@ impl DeviceFn {
     pub unsafe fn get_device_fault_info_ext(
         &self,
         device: Device,
-        fault_counts: &mut DeviceFaultCountsEXT,
-        fault_info: Option<&mut DeviceFaultInfoEXT>,
+        fault_counts: &mut DeviceFaultCountsEXT<'_>,
+        fault_info: Option<&mut DeviceFaultInfoEXT<'_>>,
     ) -> crate::Result<()> {
         unsafe {
             let result =

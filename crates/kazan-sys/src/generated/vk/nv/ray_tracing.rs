@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct AccelerationStructureNV(u64);
@@ -17,7 +18,7 @@ pub type GeometryInstanceFlagsNV = GeometryInstanceFlagsKHR;
 pub type BuildAccelerationStructureFlagsNV = BuildAccelerationStructureFlagsKHR;
 pub type PFN_vkGetRayTracingShaderGroupHandlesNV = PFN_vkGetRayTracingShaderGroupHandlesKHR;
 #[repr(C)]
-pub struct RayTracingShaderGroupCreateInfoNV {
+pub struct RayTracingShaderGroupCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub ty: RayTracingShaderGroupTypeKHR,
@@ -25,23 +26,25 @@ pub struct RayTracingShaderGroupCreateInfoNV {
     pub closest_hit_shader: u32,
     pub any_hit_shader: u32,
     pub intersection_shader: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct RayTracingPipelineCreateInfoNV {
+pub struct RayTracingPipelineCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineCreateFlags,
     pub stage_count: u32,
-    pub p_stages: *const PipelineShaderStageCreateInfo,
+    pub p_stages: *const PipelineShaderStageCreateInfo<'a>,
     pub group_count: u32,
-    pub p_groups: *const RayTracingShaderGroupCreateInfoNV,
+    pub p_groups: *const RayTracingShaderGroupCreateInfoNV<'a>,
     pub max_recursion_depth: u32,
     pub layout: PipelineLayout,
     pub base_pipeline_handle: Pipeline,
     pub base_pipeline_index: i32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct GeometryTrianglesNV {
+pub struct GeometryTrianglesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub vertex_data: Buffer,
@@ -55,48 +58,54 @@ pub struct GeometryTrianglesNV {
     pub index_type: IndexType,
     pub transform_data: Buffer,
     pub transform_offset: DeviceSize,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct GeometryAABBNV {
+pub struct GeometryAABBNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub aabb_data: Buffer,
     pub num_aab_bs: u32,
     pub stride: u32,
     pub offset: DeviceSize,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct GeometryDataNV {
-    pub triangles: GeometryTrianglesNV,
-    pub aabbs: GeometryAABBNV,
+pub struct GeometryDataNV<'a> {
+    pub triangles: GeometryTrianglesNV<'a>,
+    pub aabbs: GeometryAABBNV<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct GeometryNV {
+pub struct GeometryNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub geometry_type: GeometryTypeKHR,
-    pub geometry: GeometryDataNV,
+    pub geometry: GeometryDataNV<'a>,
     pub flags: GeometryFlagsKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct AccelerationStructureInfoNV {
+pub struct AccelerationStructureInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub ty: AccelerationStructureTypeNV,
     pub flags: BuildAccelerationStructureFlagsNV,
     pub instance_count: u32,
     pub geometry_count: u32,
-    pub p_geometries: *const GeometryNV,
+    pub p_geometries: *const GeometryNV<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct AccelerationStructureCreateInfoNV {
+pub struct AccelerationStructureCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub compacted_size: DeviceSize,
-    pub info: AccelerationStructureInfoNV,
+    pub info: AccelerationStructureInfoNV<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct BindAccelerationStructureMemoryInfoNV {
+pub struct BindAccelerationStructureMemoryInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub acceleration_structure: AccelerationStructureNV,
@@ -104,23 +113,26 @@ pub struct BindAccelerationStructureMemoryInfoNV {
     pub memory_offset: DeviceSize,
     pub device_index_count: u32,
     pub p_device_indices: *const u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct WriteDescriptorSetAccelerationStructureNV {
+pub struct WriteDescriptorSetAccelerationStructureNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub acceleration_structure_count: u32,
     pub p_acceleration_structures: *const AccelerationStructureNV,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct AccelerationStructureMemoryRequirementsInfoNV {
+pub struct AccelerationStructureMemoryRequirementsInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub ty: AccelerationStructureMemoryRequirementsTypeNV,
     pub acceleration_structure: AccelerationStructureNV,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceRayTracingPropertiesNV {
+pub struct PhysicalDeviceRayTracingPropertiesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub shader_group_handle_size: u32,
@@ -131,6 +143,7 @@ pub struct PhysicalDeviceRayTracingPropertiesNV {
     pub max_instance_count: u64,
     pub max_triangle_count: u64,
     pub max_descriptor_set_acceleration_structures: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -144,24 +157,24 @@ pub type PFN_vkCompileDeferredNV =
     unsafe extern "system" fn(device: Device, pipeline: Pipeline, shader: u32) -> Result;
 pub type PFN_vkCreateAccelerationStructureNV = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const AccelerationStructureCreateInfoNV,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const AccelerationStructureCreateInfoNV<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_acceleration_structure: *mut AccelerationStructureNV,
 ) -> Result;
 pub type PFN_vkDestroyAccelerationStructureNV = unsafe extern "system" fn(
     device: Device,
     acceleration_structure: AccelerationStructureNV,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkGetAccelerationStructureMemoryRequirementsNV = unsafe extern "system" fn(
     device: Device,
-    p_info: *const AccelerationStructureMemoryRequirementsInfoNV,
-    p_memory_requirements: *mut MemoryRequirements2KHR,
+    p_info: *const AccelerationStructureMemoryRequirementsInfoNV<'_>,
+    p_memory_requirements: *mut MemoryRequirements2KHR<'_>,
 );
 pub type PFN_vkBindAccelerationStructureMemoryNV = unsafe extern "system" fn(
     device: Device,
     bind_info_count: u32,
-    p_bind_infos: *const BindAccelerationStructureMemoryInfoNV,
+    p_bind_infos: *const BindAccelerationStructureMemoryInfoNV<'_>,
 ) -> Result;
 pub type PFN_vkCmdCopyAccelerationStructureNV = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
@@ -179,7 +192,7 @@ pub type PFN_vkCmdWriteAccelerationStructuresPropertiesNV = unsafe extern "syste
 );
 pub type PFN_vkCmdBuildAccelerationStructureNV = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_info: *const AccelerationStructureInfoNV,
+    p_info: *const AccelerationStructureInfoNV<'_>,
     instance_data: Buffer,
     instance_offset: DeviceSize,
     update: Bool32,
@@ -215,7 +228,7 @@ pub type PFN_vkCreateRayTracingPipelinesNV = unsafe extern "system" fn(
     device: Device,
     pipeline_cache: PipelineCache,
     create_info_count: u32,
-    p_create_infos: *const RayTracingPipelineCreateInfoNV,
-    p_allocator: *const AllocationCallbacks,
+    p_create_infos: *const RayTracingPipelineCreateInfoNV<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_pipelines: *mut Pipeline,
 ) -> Result;

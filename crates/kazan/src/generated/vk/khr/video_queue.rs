@@ -28,8 +28,8 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_video_capabilities_khr(
         &self,
         physical_device: PhysicalDevice,
-        video_profile: &VideoProfileInfoKHR,
-    ) -> crate::Result<VideoCapabilitiesKHR> {
+        video_profile: &VideoProfileInfoKHR<'_>,
+    ) -> crate::Result<VideoCapabilitiesKHR<'_>> {
         unsafe {
             let mut capabilities = core::mem::MaybeUninit::uninit();
             let result = (self.get_physical_device_video_capabilities_khr)(
@@ -44,11 +44,11 @@ impl InstanceFn {
             }
         }
     }
-    pub unsafe fn get_physical_device_video_format_properties_khr(
+    pub unsafe fn get_physical_device_video_format_properties_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
-        video_format_info: &PhysicalDeviceVideoFormatInfoKHR,
-        video_format_properties: impl ExtendUninit<VideoFormatPropertiesKHR>,
+        video_format_info: &PhysicalDeviceVideoFormatInfoKHR<'_>,
+        video_format_properties: impl ExtendUninit<VideoFormatPropertiesKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(
@@ -127,8 +127,8 @@ impl DeviceFn {
     pub unsafe fn create_video_session_khr(
         &self,
         device: Device,
-        create_info: &VideoSessionCreateInfoKHR,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &VideoSessionCreateInfoKHR<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<VideoSessionKHR> {
         unsafe {
             let mut video_session = core::mem::MaybeUninit::uninit();
@@ -149,15 +149,15 @@ impl DeviceFn {
         &self,
         device: Device,
         video_session: VideoSessionKHR,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_video_session_khr)(device, video_session, allocator.to_raw_ptr()) }
     }
-    pub unsafe fn get_video_session_memory_requirements_khr(
+    pub unsafe fn get_video_session_memory_requirements_khr<'a>(
         &self,
         device: Device,
         video_session: VideoSessionKHR,
-        memory_requirements: impl ExtendUninit<VideoSessionMemoryRequirementsKHR>,
+        memory_requirements: impl ExtendUninit<VideoSessionMemoryRequirementsKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(
@@ -183,7 +183,7 @@ impl DeviceFn {
         &self,
         device: Device,
         video_session: VideoSessionKHR,
-        bind_session_memory_infos: &[BindVideoSessionMemoryInfoKHR],
+        bind_session_memory_infos: &[BindVideoSessionMemoryInfoKHR<'_>],
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.bind_video_session_memory_khr)(
@@ -202,8 +202,8 @@ impl DeviceFn {
     pub unsafe fn create_video_session_parameters_khr(
         &self,
         device: Device,
-        create_info: &VideoSessionParametersCreateInfoKHR,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &VideoSessionParametersCreateInfoKHR<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<VideoSessionParametersKHR> {
         unsafe {
             let mut video_session_parameters = core::mem::MaybeUninit::uninit();
@@ -224,7 +224,7 @@ impl DeviceFn {
         &self,
         device: Device,
         video_session_parameters: VideoSessionParametersKHR,
-        update_info: &VideoSessionParametersUpdateInfoKHR,
+        update_info: &VideoSessionParametersUpdateInfoKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.update_video_session_parameters_khr)(
@@ -243,7 +243,7 @@ impl DeviceFn {
         &self,
         device: Device,
         video_session_parameters: VideoSessionParametersKHR,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
             (self.destroy_video_session_parameters_khr)(
@@ -256,21 +256,21 @@ impl DeviceFn {
     pub unsafe fn cmd_begin_video_coding_khr(
         &self,
         command_buffer: CommandBuffer,
-        begin_info: &VideoBeginCodingInfoKHR,
+        begin_info: &VideoBeginCodingInfoKHR<'_>,
     ) {
         unsafe { (self.cmd_begin_video_coding_khr)(command_buffer, begin_info) }
     }
     pub unsafe fn cmd_end_video_coding_khr(
         &self,
         command_buffer: CommandBuffer,
-        end_coding_info: &VideoEndCodingInfoKHR,
+        end_coding_info: &VideoEndCodingInfoKHR<'_>,
     ) {
         unsafe { (self.cmd_end_video_coding_khr)(command_buffer, end_coding_info) }
     }
     pub unsafe fn cmd_control_video_coding_khr(
         &self,
         command_buffer: CommandBuffer,
-        coding_control_info: &VideoCodingControlInfoKHR,
+        coding_control_info: &VideoCodingControlInfoKHR<'_>,
     ) {
         unsafe { (self.cmd_control_video_coding_khr)(command_buffer, coding_control_info) }
     }

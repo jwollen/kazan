@@ -31,8 +31,8 @@ impl DeviceFn {
     pub unsafe fn create_external_compute_queue_nv(
         &self,
         device: Device,
-        create_info: &ExternalComputeQueueCreateInfoNV,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &ExternalComputeQueueCreateInfoNV<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<ExternalComputeQueueNV> {
         unsafe {
             let mut external_queue = core::mem::MaybeUninit::uninit();
@@ -53,7 +53,7 @@ impl DeviceFn {
         &self,
         device: Device,
         external_queue: ExternalComputeQueueNV,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
             (self.destroy_external_compute_queue_nv)(device, external_queue, allocator.to_raw_ptr())
@@ -63,7 +63,7 @@ impl DeviceFn {
         &self,
         external_queue: ExternalComputeQueueNV,
         data: &mut c_void,
-    ) -> ExternalComputeQueueDataParamsNV {
+    ) -> ExternalComputeQueueDataParamsNV<'_> {
         unsafe {
             let mut params = core::mem::MaybeUninit::uninit();
             (self.get_external_compute_queue_data_nv)(external_queue, params.as_mut_ptr(), data);

@@ -86,8 +86,8 @@ impl DeviceFn {
     pub unsafe fn create_swapchain_khr(
         &self,
         device: Device,
-        create_info: &SwapchainCreateInfoKHR,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &SwapchainCreateInfoKHR<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<SwapchainKHR> {
         unsafe {
             let mut swapchain = core::mem::MaybeUninit::uninit();
@@ -108,7 +108,7 @@ impl DeviceFn {
         &self,
         device: Device,
         swapchain: SwapchainKHR,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_swapchain_khr)(device, swapchain, allocator.to_raw_ptr()) }
     }
@@ -169,7 +169,7 @@ impl DeviceFn {
     pub unsafe fn queue_present_khr(
         &self,
         queue: Queue,
-        present_info: &PresentInfoKHR,
+        present_info: &PresentInfoKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.queue_present_khr)(queue, present_info);
@@ -184,7 +184,7 @@ impl DeviceFn {
     pub unsafe fn get_device_group_present_capabilities_khr(
         &self,
         device: Device,
-    ) -> crate::Result<DeviceGroupPresentCapabilitiesKHR> {
+    ) -> crate::Result<DeviceGroupPresentCapabilitiesKHR<'_>> {
         unsafe {
             let mut device_group_present_capabilities = core::mem::MaybeUninit::uninit();
             let result = (self.get_device_group_present_capabilities_khr.unwrap())(
@@ -220,7 +220,7 @@ impl DeviceFn {
     pub unsafe fn acquire_next_image2_khr(
         &self,
         device: Device,
-        acquire_info: &AcquireNextImageInfoKHR,
+        acquire_info: &AcquireNextImageInfoKHR<'_>,
         image_index: &mut u32,
     ) -> crate::Result<()> {
         unsafe {

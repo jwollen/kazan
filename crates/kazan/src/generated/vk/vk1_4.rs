@@ -81,7 +81,7 @@ impl DeviceFn {
     pub unsafe fn map_memory2(
         &self,
         device: Device,
-        memory_map_info: &MemoryMapInfo,
+        memory_map_info: &MemoryMapInfo<'_>,
         data: &mut *mut c_void,
     ) -> crate::Result<()> {
         unsafe {
@@ -96,7 +96,7 @@ impl DeviceFn {
     pub unsafe fn unmap_memory2(
         &self,
         device: Device,
-        memory_unmap_info: &MemoryUnmapInfo,
+        memory_unmap_info: &MemoryUnmapInfo<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.unmap_memory2)(device, memory_unmap_info);
@@ -110,8 +110,8 @@ impl DeviceFn {
     pub unsafe fn get_device_image_subresource_layout(
         &self,
         device: Device,
-        info: &DeviceImageSubresourceInfo,
-    ) -> SubresourceLayout2 {
+        info: &DeviceImageSubresourceInfo<'_>,
+    ) -> SubresourceLayout2<'_> {
         unsafe {
             let mut layout = core::mem::MaybeUninit::uninit();
             (self.get_device_image_subresource_layout)(device, info, layout.as_mut_ptr());
@@ -122,8 +122,8 @@ impl DeviceFn {
         &self,
         device: Device,
         image: Image,
-        subresource: &ImageSubresource2,
-    ) -> SubresourceLayout2 {
+        subresource: &ImageSubresource2<'_>,
+    ) -> SubresourceLayout2<'_> {
         unsafe {
             let mut layout = core::mem::MaybeUninit::uninit();
             (self.get_image_subresource_layout2)(device, image, subresource, layout.as_mut_ptr());
@@ -133,7 +133,7 @@ impl DeviceFn {
     pub unsafe fn copy_memory_to_image(
         &self,
         device: Device,
-        copy_memory_to_image_info: &CopyMemoryToImageInfo,
+        copy_memory_to_image_info: &CopyMemoryToImageInfo<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.copy_memory_to_image)(device, copy_memory_to_image_info);
@@ -147,7 +147,7 @@ impl DeviceFn {
     pub unsafe fn copy_image_to_memory(
         &self,
         device: Device,
-        copy_image_to_memory_info: &CopyImageToMemoryInfo,
+        copy_image_to_memory_info: &CopyImageToMemoryInfo<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.copy_image_to_memory)(device, copy_image_to_memory_info);
@@ -161,7 +161,7 @@ impl DeviceFn {
     pub unsafe fn copy_image_to_image(
         &self,
         device: Device,
-        copy_image_to_image_info: &CopyImageToImageInfo,
+        copy_image_to_image_info: &CopyImageToImageInfo<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.copy_image_to_image)(device, copy_image_to_image_info);
@@ -175,7 +175,7 @@ impl DeviceFn {
     pub unsafe fn transition_image_layout(
         &self,
         device: Device,
-        transitions: &[HostImageLayoutTransitionInfo],
+        transitions: &[HostImageLayoutTransitionInfo<'_>],
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.transition_image_layout)(
@@ -196,7 +196,7 @@ impl DeviceFn {
         pipeline_bind_point: PipelineBindPoint,
         layout: PipelineLayout,
         set: u32,
-        descriptor_writes: &[WriteDescriptorSet],
+        descriptor_writes: &[WriteDescriptorSet<'_>],
     ) {
         unsafe {
             (self.cmd_push_descriptor_set)(
@@ -230,28 +230,28 @@ impl DeviceFn {
     pub unsafe fn cmd_bind_descriptor_sets2(
         &self,
         command_buffer: CommandBuffer,
-        bind_descriptor_sets_info: &BindDescriptorSetsInfo,
+        bind_descriptor_sets_info: &BindDescriptorSetsInfo<'_>,
     ) {
         unsafe { (self.cmd_bind_descriptor_sets2)(command_buffer, bind_descriptor_sets_info) }
     }
     pub unsafe fn cmd_push_constants2(
         &self,
         command_buffer: CommandBuffer,
-        push_constants_info: &PushConstantsInfo,
+        push_constants_info: &PushConstantsInfo<'_>,
     ) {
         unsafe { (self.cmd_push_constants2)(command_buffer, push_constants_info) }
     }
     pub unsafe fn cmd_push_descriptor_set2(
         &self,
         command_buffer: CommandBuffer,
-        push_descriptor_set_info: &PushDescriptorSetInfo,
+        push_descriptor_set_info: &PushDescriptorSetInfo<'_>,
     ) {
         unsafe { (self.cmd_push_descriptor_set2)(command_buffer, push_descriptor_set_info) }
     }
     pub unsafe fn cmd_push_descriptor_set_with_template2(
         &self,
         command_buffer: CommandBuffer,
-        push_descriptor_set_with_template_info: &PushDescriptorSetWithTemplateInfo,
+        push_descriptor_set_with_template_info: &PushDescriptorSetWithTemplateInfo<'_>,
     ) {
         unsafe {
             (self.cmd_push_descriptor_set_with_template2)(
@@ -283,7 +283,7 @@ impl DeviceFn {
     pub unsafe fn get_rendering_area_granularity(
         &self,
         device: Device,
-        rendering_area_info: &RenderingAreaInfo,
+        rendering_area_info: &RenderingAreaInfo<'_>,
     ) -> Extent2D {
         unsafe {
             let mut granularity = core::mem::MaybeUninit::uninit();
@@ -298,14 +298,14 @@ impl DeviceFn {
     pub unsafe fn cmd_set_rendering_attachment_locations(
         &self,
         command_buffer: CommandBuffer,
-        location_info: &RenderingAttachmentLocationInfo,
+        location_info: &RenderingAttachmentLocationInfo<'_>,
     ) {
         unsafe { (self.cmd_set_rendering_attachment_locations)(command_buffer, location_info) }
     }
     pub unsafe fn cmd_set_rendering_input_attachment_indices(
         &self,
         command_buffer: CommandBuffer,
-        input_attachment_index_info: &RenderingInputAttachmentIndexInfo,
+        input_attachment_index_info: &RenderingInputAttachmentIndexInfo<'_>,
     ) {
         unsafe {
             (self.cmd_set_rendering_input_attachment_indices)(

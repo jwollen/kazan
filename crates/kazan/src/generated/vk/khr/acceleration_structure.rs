@@ -86,8 +86,8 @@ impl DeviceFn {
     pub unsafe fn create_acceleration_structure_khr(
         &self,
         device: Device,
-        create_info: &AccelerationStructureCreateInfoKHR,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &AccelerationStructureCreateInfoKHR<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<AccelerationStructureKHR> {
         unsafe {
             let mut acceleration_structure = core::mem::MaybeUninit::uninit();
@@ -108,7 +108,7 @@ impl DeviceFn {
         &self,
         device: Device,
         acceleration_structure: AccelerationStructureKHR,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
             (self.destroy_acceleration_structure_khr)(
@@ -121,7 +121,7 @@ impl DeviceFn {
     pub unsafe fn cmd_build_acceleration_structures_khr(
         &self,
         command_buffer: CommandBuffer,
-        infos: &[AccelerationStructureBuildGeometryInfoKHR],
+        infos: &[AccelerationStructureBuildGeometryInfoKHR<'_>],
         build_range_infos: &[*const AccelerationStructureBuildRangeInfoKHR],
     ) {
         unsafe {
@@ -136,7 +136,7 @@ impl DeviceFn {
     pub unsafe fn cmd_build_acceleration_structures_indirect_khr(
         &self,
         command_buffer: CommandBuffer,
-        infos: &[AccelerationStructureBuildGeometryInfoKHR],
+        infos: &[AccelerationStructureBuildGeometryInfoKHR<'_>],
         indirect_device_addresses: &[DeviceAddress],
         indirect_strides: &[u32],
         max_primitive_counts: &[*const u32],
@@ -156,7 +156,7 @@ impl DeviceFn {
         &self,
         device: Device,
         deferred_operation: DeferredOperationKHR,
-        infos: &[AccelerationStructureBuildGeometryInfoKHR],
+        infos: &[AccelerationStructureBuildGeometryInfoKHR<'_>],
         build_range_infos: &[*const AccelerationStructureBuildRangeInfoKHR],
     ) -> crate::Result<()> {
         unsafe {
@@ -180,7 +180,7 @@ impl DeviceFn {
         &self,
         device: Device,
         deferred_operation: DeferredOperationKHR,
-        info: &CopyAccelerationStructureInfoKHR,
+        info: &CopyAccelerationStructureInfoKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.copy_acceleration_structure_khr)(device, deferred_operation, info);
@@ -197,7 +197,7 @@ impl DeviceFn {
         &self,
         device: Device,
         deferred_operation: DeferredOperationKHR,
-        info: &CopyAccelerationStructureToMemoryInfoKHR,
+        info: &CopyAccelerationStructureToMemoryInfoKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result =
@@ -215,7 +215,7 @@ impl DeviceFn {
         &self,
         device: Device,
         deferred_operation: DeferredOperationKHR,
-        info: &CopyMemoryToAccelerationStructureInfoKHR,
+        info: &CopyMemoryToAccelerationStructureInfoKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result =
@@ -257,28 +257,28 @@ impl DeviceFn {
     pub unsafe fn cmd_copy_acceleration_structure_khr(
         &self,
         command_buffer: CommandBuffer,
-        info: &CopyAccelerationStructureInfoKHR,
+        info: &CopyAccelerationStructureInfoKHR<'_>,
     ) {
         unsafe { (self.cmd_copy_acceleration_structure_khr)(command_buffer, info) }
     }
     pub unsafe fn cmd_copy_acceleration_structure_to_memory_khr(
         &self,
         command_buffer: CommandBuffer,
-        info: &CopyAccelerationStructureToMemoryInfoKHR,
+        info: &CopyAccelerationStructureToMemoryInfoKHR<'_>,
     ) {
         unsafe { (self.cmd_copy_acceleration_structure_to_memory_khr)(command_buffer, info) }
     }
     pub unsafe fn cmd_copy_memory_to_acceleration_structure_khr(
         &self,
         command_buffer: CommandBuffer,
-        info: &CopyMemoryToAccelerationStructureInfoKHR,
+        info: &CopyMemoryToAccelerationStructureInfoKHR<'_>,
     ) {
         unsafe { (self.cmd_copy_memory_to_acceleration_structure_khr)(command_buffer, info) }
     }
     pub unsafe fn get_acceleration_structure_device_address_khr(
         &self,
         device: Device,
-        info: &AccelerationStructureDeviceAddressInfoKHR,
+        info: &AccelerationStructureDeviceAddressInfoKHR<'_>,
     ) -> DeviceAddress {
         unsafe { (self.get_acceleration_structure_device_address_khr)(device, info) }
     }
@@ -304,7 +304,7 @@ impl DeviceFn {
     pub unsafe fn get_device_acceleration_structure_compatibility_khr(
         &self,
         device: Device,
-        version_info: &AccelerationStructureVersionInfoKHR,
+        version_info: &AccelerationStructureVersionInfoKHR<'_>,
     ) -> AccelerationStructureCompatibilityKHR {
         unsafe {
             let mut compatibility = core::mem::MaybeUninit::uninit();
@@ -320,9 +320,9 @@ impl DeviceFn {
         &self,
         device: Device,
         build_type: AccelerationStructureBuildTypeKHR,
-        build_info: &AccelerationStructureBuildGeometryInfoKHR,
+        build_info: &AccelerationStructureBuildGeometryInfoKHR<'_>,
         max_primitive_counts: Option<&[u32]>,
-    ) -> AccelerationStructureBuildSizesInfoKHR {
+    ) -> AccelerationStructureBuildSizesInfoKHR<'_> {
         unsafe {
             let mut size_info = core::mem::MaybeUninit::uninit();
             (self.get_acceleration_structure_build_sizes_khr)(

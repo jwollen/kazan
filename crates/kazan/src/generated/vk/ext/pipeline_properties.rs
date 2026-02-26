@@ -23,7 +23,7 @@ impl DeviceFn {
     pub unsafe fn get_pipeline_properties_ext(
         &self,
         device: Device,
-        pipeline_info: &PipelineInfoEXT,
+        pipeline_info: &PipelineInfoEXT<'_>,
     ) -> crate::Result<BaseOutStructure> {
         unsafe {
             let mut pipeline_properties = core::mem::MaybeUninit::uninit();

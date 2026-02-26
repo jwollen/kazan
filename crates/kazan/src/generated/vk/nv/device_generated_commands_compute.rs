@@ -31,8 +31,8 @@ impl DeviceFn {
     pub unsafe fn get_pipeline_indirect_memory_requirements_nv(
         &self,
         device: Device,
-        create_info: &ComputePipelineCreateInfo,
-    ) -> MemoryRequirements2 {
+        create_info: &ComputePipelineCreateInfo<'_>,
+    ) -> MemoryRequirements2<'_> {
         unsafe {
             let mut memory_requirements = core::mem::MaybeUninit::uninit();
             (self.get_pipeline_indirect_memory_requirements_nv)(
@@ -60,7 +60,7 @@ impl DeviceFn {
     pub unsafe fn get_pipeline_indirect_device_address_nv(
         &self,
         device: Device,
-        info: &PipelineIndirectDeviceAddressInfoNV,
+        info: &PipelineIndirectDeviceAddressInfoNV<'_>,
     ) -> DeviceAddress {
         unsafe { (self.get_pipeline_indirect_device_address_nv)(device, info) }
     }

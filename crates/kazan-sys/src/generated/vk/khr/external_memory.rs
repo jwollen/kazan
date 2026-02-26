@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
-pub type ExternalMemoryImageCreateInfoKHR = ExternalMemoryImageCreateInfo;
-pub type ExternalMemoryBufferCreateInfoKHR = ExternalMemoryBufferCreateInfo;
-pub type ExportMemoryAllocateInfoKHR = ExportMemoryAllocateInfo;
+use core::marker::PhantomData;
+pub type ExternalMemoryImageCreateInfoKHR<'a> = ExternalMemoryImageCreateInfo<'a>;
+pub type ExternalMemoryBufferCreateInfoKHR<'a> = ExternalMemoryBufferCreateInfo<'a>;
+pub type ExportMemoryAllocateInfoKHR<'a> = ExportMemoryAllocateInfo<'a>;

@@ -35,8 +35,8 @@ impl DeviceFn {
     pub unsafe fn create_render_pass2_khr(
         &self,
         device: Device,
-        create_info: &RenderPassCreateInfo2,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &RenderPassCreateInfo2<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<RenderPass> {
         unsafe {
             let mut render_pass = core::mem::MaybeUninit::uninit();
@@ -56,8 +56,8 @@ impl DeviceFn {
     pub unsafe fn cmd_begin_render_pass2_khr(
         &self,
         command_buffer: CommandBuffer,
-        render_pass_begin: &RenderPassBeginInfo,
-        subpass_begin_info: &SubpassBeginInfo,
+        render_pass_begin: &RenderPassBeginInfo<'_>,
+        subpass_begin_info: &SubpassBeginInfo<'_>,
     ) {
         unsafe {
             (self.cmd_begin_render_pass2_khr)(command_buffer, render_pass_begin, subpass_begin_info)
@@ -66,8 +66,8 @@ impl DeviceFn {
     pub unsafe fn cmd_next_subpass2_khr(
         &self,
         command_buffer: CommandBuffer,
-        subpass_begin_info: &SubpassBeginInfo,
-        subpass_end_info: &SubpassEndInfo,
+        subpass_begin_info: &SubpassBeginInfo<'_>,
+        subpass_end_info: &SubpassEndInfo<'_>,
     ) {
         unsafe {
             (self.cmd_next_subpass2_khr)(command_buffer, subpass_begin_info, subpass_end_info)
@@ -76,7 +76,7 @@ impl DeviceFn {
     pub unsafe fn cmd_end_render_pass2_khr(
         &self,
         command_buffer: CommandBuffer,
-        subpass_end_info: &SubpassEndInfo,
+        subpass_end_info: &SubpassEndInfo<'_>,
     ) {
         unsafe { (self.cmd_end_render_pass2_khr)(command_buffer, subpass_end_info) }
     }

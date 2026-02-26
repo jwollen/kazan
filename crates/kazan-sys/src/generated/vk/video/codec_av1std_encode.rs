@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
 pub struct StdVideoEncodeAV1ExtensionHeader {
     pub temporal_id: u8,
@@ -66,7 +67,7 @@ pub struct StdVideoEncodeAV1PictureInfoFlags {
     pub reserved: u32,
 }
 #[repr(C)]
-pub struct StdVideoEncodeAV1PictureInfo {
+pub struct StdVideoEncodeAV1PictureInfo<'a> {
     pub flags: StdVideoEncodeAV1PictureInfoFlags,
     pub frame_type: StdVideoAV1FrameType,
     pub frame_presentation_time: u32,
@@ -85,7 +86,7 @@ pub struct StdVideoEncodeAV1PictureInfo {
     pub ref_frame_idx: [i8; STD_VIDEO_AV1_REFS_PER_FRAME as usize],
     pub reserved1: [u8; 3],
     pub delta_frame_id_minus_1: [u32; STD_VIDEO_AV1_REFS_PER_FRAME as usize],
-    pub p_tile_info: *const StdVideoAV1TileInfo,
+    pub p_tile_info: *const StdVideoAV1TileInfo<'a>,
     pub p_quantization: *const StdVideoAV1Quantization,
     pub p_segmentation: *const StdVideoAV1Segmentation,
     pub p_loop_filter: *const StdVideoAV1LoopFilter,
@@ -94,6 +95,7 @@ pub struct StdVideoEncodeAV1PictureInfo {
     pub p_global_motion: *const StdVideoAV1GlobalMotion,
     pub p_extension_header: *const StdVideoEncodeAV1ExtensionHeader,
     pub p_buffer_removal_times: *const u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct StdVideoEncodeAV1ReferenceInfoFlags {
@@ -102,11 +104,12 @@ pub struct StdVideoEncodeAV1ReferenceInfoFlags {
     pub reserved: u32,
 }
 #[repr(C)]
-pub struct StdVideoEncodeAV1ReferenceInfo {
+pub struct StdVideoEncodeAV1ReferenceInfo<'a> {
     pub flags: StdVideoEncodeAV1ReferenceInfoFlags,
     pub ref_frame_id: u32,
     pub frame_type: StdVideoAV1FrameType,
     pub order_hint: u8,
     pub reserved1: [u8; 3],
     pub p_extension_header: *const StdVideoEncodeAV1ExtensionHeader,
+    pub _marker: PhantomData<&'a ()>,
 }

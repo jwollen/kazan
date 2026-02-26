@@ -2,8 +2,9 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
-pub type MemoryMapInfoKHR = MemoryMapInfo;
-pub type MemoryUnmapInfoKHR = MemoryUnmapInfo;
+use core::marker::PhantomData;
+pub type MemoryMapInfoKHR<'a> = MemoryMapInfo<'a>;
+pub type MemoryUnmapInfoKHR<'a> = MemoryUnmapInfo<'a>;
 pub type MemoryUnmapFlagsKHR = MemoryUnmapFlags;
 pub type PFN_vkMapMemory2KHR = PFN_vkMapMemory2;
 pub type PFN_vkUnmapMemory2KHR = PFN_vkUnmapMemory2;

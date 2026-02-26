@@ -23,7 +23,7 @@ impl DeviceFn {
     pub unsafe fn import_fence_fd_khr(
         &self,
         device: Device,
-        import_fence_fd_info: &ImportFenceFdInfoKHR,
+        import_fence_fd_info: &ImportFenceFdInfoKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.import_fence_fd_khr)(device, import_fence_fd_info);
@@ -37,7 +37,7 @@ impl DeviceFn {
     pub unsafe fn get_fence_fd_khr(
         &self,
         device: Device,
-        get_fd_info: &FenceGetFdInfoKHR,
+        get_fd_info: &FenceGetFdInfoKHR<'_>,
     ) -> crate::Result<c_int> {
         unsafe {
             let mut fd = core::mem::MaybeUninit::uninit();

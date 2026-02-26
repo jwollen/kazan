@@ -83,7 +83,7 @@ impl DeviceFn {
     pub unsafe fn wait_semaphores(
         &self,
         device: Device,
-        wait_info: &SemaphoreWaitInfo,
+        wait_info: &SemaphoreWaitInfo<'_>,
         timeout: u64,
     ) -> crate::Result<()> {
         unsafe {
@@ -99,7 +99,7 @@ impl DeviceFn {
     pub unsafe fn signal_semaphore(
         &self,
         device: Device,
-        signal_info: &SemaphoreSignalInfo,
+        signal_info: &SemaphoreSignalInfo<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.signal_semaphore)(device, signal_info);
@@ -113,21 +113,21 @@ impl DeviceFn {
     pub unsafe fn get_buffer_device_address(
         &self,
         device: Device,
-        info: &BufferDeviceAddressInfo,
+        info: &BufferDeviceAddressInfo<'_>,
     ) -> DeviceAddress {
         unsafe { (self.get_buffer_device_address)(device, info) }
     }
     pub unsafe fn get_buffer_opaque_capture_address(
         &self,
         device: Device,
-        info: &BufferDeviceAddressInfo,
+        info: &BufferDeviceAddressInfo<'_>,
     ) -> u64 {
         unsafe { (self.get_buffer_opaque_capture_address)(device, info) }
     }
     pub unsafe fn get_device_memory_opaque_capture_address(
         &self,
         device: Device,
-        info: &DeviceMemoryOpaqueCaptureAddressInfo,
+        info: &DeviceMemoryOpaqueCaptureAddressInfo<'_>,
     ) -> u64 {
         unsafe { (self.get_device_memory_opaque_capture_address)(device, info) }
     }
@@ -178,8 +178,8 @@ impl DeviceFn {
     pub unsafe fn create_render_pass2(
         &self,
         device: Device,
-        create_info: &RenderPassCreateInfo2,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &RenderPassCreateInfo2<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<RenderPass> {
         unsafe {
             let mut render_pass = core::mem::MaybeUninit::uninit();
@@ -199,8 +199,8 @@ impl DeviceFn {
     pub unsafe fn cmd_begin_render_pass2(
         &self,
         command_buffer: CommandBuffer,
-        render_pass_begin: &RenderPassBeginInfo,
-        subpass_begin_info: &SubpassBeginInfo,
+        render_pass_begin: &RenderPassBeginInfo<'_>,
+        subpass_begin_info: &SubpassBeginInfo<'_>,
     ) {
         unsafe {
             (self.cmd_begin_render_pass2)(command_buffer, render_pass_begin, subpass_begin_info)
@@ -209,15 +209,15 @@ impl DeviceFn {
     pub unsafe fn cmd_next_subpass2(
         &self,
         command_buffer: CommandBuffer,
-        subpass_begin_info: &SubpassBeginInfo,
-        subpass_end_info: &SubpassEndInfo,
+        subpass_begin_info: &SubpassBeginInfo<'_>,
+        subpass_end_info: &SubpassEndInfo<'_>,
     ) {
         unsafe { (self.cmd_next_subpass2)(command_buffer, subpass_begin_info, subpass_end_info) }
     }
     pub unsafe fn cmd_end_render_pass2(
         &self,
         command_buffer: CommandBuffer,
-        subpass_end_info: &SubpassEndInfo,
+        subpass_end_info: &SubpassEndInfo<'_>,
     ) {
         unsafe { (self.cmd_end_render_pass2)(command_buffer, subpass_end_info) }
     }

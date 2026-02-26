@@ -27,8 +27,8 @@ impl DeviceFn {
     pub unsafe fn create_sampler_ycbcr_conversion_khr(
         &self,
         device: Device,
-        create_info: &SamplerYcbcrConversionCreateInfo,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &SamplerYcbcrConversionCreateInfo<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<SamplerYcbcrConversion> {
         unsafe {
             let mut ycbcr_conversion = core::mem::MaybeUninit::uninit();
@@ -49,7 +49,7 @@ impl DeviceFn {
         &self,
         device: Device,
         ycbcr_conversion: SamplerYcbcrConversion,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
             (self.destroy_sampler_ycbcr_conversion_khr)(

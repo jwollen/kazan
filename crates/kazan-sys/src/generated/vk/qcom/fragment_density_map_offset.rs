@@ -2,8 +2,10 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
-pub type PhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM =
-    PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT;
-pub type PhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM =
-    PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT;
-pub type SubpassFragmentDensityMapOffsetEndInfoQCOM = RenderPassFragmentDensityMapOffsetEndInfoEXT;
+use core::marker::PhantomData;
+pub type PhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM<'a> =
+    PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT<'a>;
+pub type PhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM<'a> =
+    PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT<'a>;
+pub type SubpassFragmentDensityMapOffsetEndInfoQCOM<'a> =
+    RenderPassFragmentDensityMapOffsetEndInfoEXT<'a>;

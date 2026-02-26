@@ -31,21 +31,21 @@ impl DeviceFn {
     pub unsafe fn get_buffer_device_address_khr(
         &self,
         device: Device,
-        info: &BufferDeviceAddressInfo,
+        info: &BufferDeviceAddressInfo<'_>,
     ) -> DeviceAddress {
         unsafe { (self.get_buffer_device_address_khr)(device, info) }
     }
     pub unsafe fn get_buffer_opaque_capture_address_khr(
         &self,
         device: Device,
-        info: &BufferDeviceAddressInfo,
+        info: &BufferDeviceAddressInfo<'_>,
     ) -> u64 {
         unsafe { (self.get_buffer_opaque_capture_address_khr)(device, info) }
     }
     pub unsafe fn get_device_memory_opaque_capture_address_khr(
         &self,
         device: Device,
-        info: &DeviceMemoryOpaqueCaptureAddressInfo,
+        info: &DeviceMemoryOpaqueCaptureAddressInfo<'_>,
     ) -> u64 {
         unsafe { (self.get_device_memory_opaque_capture_address_khr)(device, info) }
     }

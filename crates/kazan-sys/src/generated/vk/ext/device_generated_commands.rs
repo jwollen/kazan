@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct IndirectCommandsLayoutEXT(u64);
@@ -9,14 +10,15 @@ pub struct IndirectCommandsLayoutEXT(u64);
 #[derive(Copy, Clone, Default)]
 pub struct IndirectExecutionSetEXT(u64);
 #[repr(C)]
-pub struct PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT {
+pub struct PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub device_generated_commands: Bool32,
     pub dynamic_generated_pipeline_layout: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceDeviceGeneratedCommandsPropertiesEXT {
+pub struct PhysicalDeviceDeviceGeneratedCommandsPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_indirect_pipeline_count: u32,
@@ -31,63 +33,71 @@ pub struct PhysicalDeviceDeviceGeneratedCommandsPropertiesEXT {
     pub supported_indirect_commands_shader_stages_shader_binding: ShaderStageFlags,
     pub device_generated_commands_transform_feedback: Bool32,
     pub device_generated_commands_multi_draw_indirect_count: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct GeneratedCommandsPipelineInfoEXT {
+pub struct GeneratedCommandsPipelineInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub pipeline: Pipeline,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct GeneratedCommandsShaderInfoEXT {
+pub struct GeneratedCommandsShaderInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub shader_count: u32,
     pub p_shaders: *const ShaderEXT,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct GeneratedCommandsMemoryRequirementsInfoEXT {
+pub struct GeneratedCommandsMemoryRequirementsInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub indirect_execution_set: IndirectExecutionSetEXT,
     pub indirect_commands_layout: IndirectCommandsLayoutEXT,
     pub max_sequence_count: u32,
     pub max_draw_count: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct IndirectExecutionSetPipelineInfoEXT {
+pub struct IndirectExecutionSetPipelineInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub initial_pipeline: Pipeline,
     pub max_pipeline_count: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct IndirectExecutionSetShaderLayoutInfoEXT {
+pub struct IndirectExecutionSetShaderLayoutInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub set_layout_count: u32,
     pub p_set_layouts: *const DescriptorSetLayout,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct IndirectExecutionSetShaderInfoEXT {
+pub struct IndirectExecutionSetShaderInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub shader_count: u32,
     pub p_initial_shaders: *const ShaderEXT,
-    pub p_set_layout_infos: *const IndirectExecutionSetShaderLayoutInfoEXT,
+    pub p_set_layout_infos: *const IndirectExecutionSetShaderLayoutInfoEXT<'a>,
     pub max_shader_count: u32,
     pub push_constant_range_count: u32,
     pub p_push_constant_ranges: *const PushConstantRange,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct IndirectExecutionSetCreateInfoEXT {
+pub struct IndirectExecutionSetCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub ty: IndirectExecutionSetInfoTypeEXT,
-    pub info: IndirectExecutionSetInfoEXT,
+    pub info: IndirectExecutionSetInfoEXT<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct GeneratedCommandsInfoEXT {
+pub struct GeneratedCommandsInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub shader_stages: ShaderStageFlags,
@@ -100,23 +110,26 @@ pub struct GeneratedCommandsInfoEXT {
     pub max_sequence_count: u32,
     pub sequence_count_address: DeviceAddress,
     pub max_draw_count: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct WriteIndirectExecutionSetPipelineEXT {
+pub struct WriteIndirectExecutionSetPipelineEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub index: u32,
     pub pipeline: Pipeline,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct WriteIndirectExecutionSetShaderEXT {
+pub struct WriteIndirectExecutionSetShaderEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub index: u32,
     pub shader: ShaderEXT,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct IndirectCommandsLayoutCreateInfoEXT {
+pub struct IndirectCommandsLayoutCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: IndirectCommandsLayoutUsageFlagsEXT,
@@ -124,15 +137,17 @@ pub struct IndirectCommandsLayoutCreateInfoEXT {
     pub indirect_stride: u32,
     pub pipeline_layout: PipelineLayout,
     pub token_count: u32,
-    pub p_tokens: *const IndirectCommandsLayoutTokenEXT,
+    pub p_tokens: *const IndirectCommandsLayoutTokenEXT<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct IndirectCommandsLayoutTokenEXT {
+pub struct IndirectCommandsLayoutTokenEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub ty: IndirectCommandsTokenTypeEXT,
-    pub data: IndirectCommandsTokenDataEXT,
+    pub data: IndirectCommandsTokenDataEXT<'a>,
     pub offset: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct DrawIndirectCountIndirectCommandEXT {
@@ -171,17 +186,29 @@ pub struct IndirectCommandsExecutionSetTokenEXT {
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
-pub union IndirectExecutionSetInfoEXT {
-    pub p_pipeline_info: *const IndirectExecutionSetPipelineInfoEXT,
-    pub p_shader_info: *const IndirectExecutionSetShaderInfoEXT,
+pub union IndirectExecutionSetInfoEXT<'a> {
+    pub p_pipeline_info: *const IndirectExecutionSetPipelineInfoEXT<'a>,
+    pub p_shader_info: *const IndirectExecutionSetShaderInfoEXT<'a>,
+    pub _marker: PhantomData<&'a ()>,
+}
+impl Default for IndirectExecutionSetInfoEXT<'_> {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
-pub union IndirectCommandsTokenDataEXT {
+pub union IndirectCommandsTokenDataEXT<'a> {
     pub p_push_constant: *const IndirectCommandsPushConstantTokenEXT,
     pub p_vertex_buffer: *const IndirectCommandsVertexBufferTokenEXT,
     pub p_index_buffer: *const IndirectCommandsIndexBufferTokenEXT,
     pub p_execution_set: *const IndirectCommandsExecutionSetTokenEXT,
+    pub _marker: PhantomData<&'a ()>,
+}
+impl Default for IndirectCommandsTokenDataEXT<'_> {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -214,14 +241,14 @@ impl IndirectCommandsTokenTypeEXT {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct IndirectCommandsLayoutUsageFlagsEXT: Flags {
         const EXPLICIT_PREPROCESS_EXT = IndirectCommandsLayoutUsageFlagBitsEXT::EXPLICIT_PREPROCESS_EXT.0;
         const UNORDERED_SEQUENCES_EXT = IndirectCommandsLayoutUsageFlagBitsEXT::UNORDERED_SEQUENCES_EXT.0;
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct IndirectCommandsLayoutUsageFlagBitsEXT(u32);
 impl IndirectCommandsLayoutUsageFlagBitsEXT {
     pub const EXPLICIT_PREPROCESS_EXT: Self = Self(1 << 0);
@@ -229,14 +256,14 @@ impl IndirectCommandsLayoutUsageFlagBitsEXT {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct IndirectCommandsInputModeFlagsEXT: Flags {
         const VULKAN_INDEX_BUFFER_EXT = IndirectCommandsInputModeFlagBitsEXT::VULKAN_INDEX_BUFFER_EXT.0;
         const DXGI_INDEX_BUFFER_EXT = IndirectCommandsInputModeFlagBitsEXT::DXGI_INDEX_BUFFER_EXT.0;
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct IndirectCommandsInputModeFlagBitsEXT(u32);
 impl IndirectCommandsInputModeFlagBitsEXT {
     pub const VULKAN_INDEX_BUFFER_EXT: Self = Self(1 << 0);
@@ -245,49 +272,49 @@ impl IndirectCommandsInputModeFlagBitsEXT {
 pub type PFN_vkCmdExecuteGeneratedCommandsEXT = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
     is_preprocessed: Bool32,
-    p_generated_commands_info: *const GeneratedCommandsInfoEXT,
+    p_generated_commands_info: *const GeneratedCommandsInfoEXT<'_>,
 );
 pub type PFN_vkCmdPreprocessGeneratedCommandsEXT = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_generated_commands_info: *const GeneratedCommandsInfoEXT,
+    p_generated_commands_info: *const GeneratedCommandsInfoEXT<'_>,
     state_command_buffer: CommandBuffer,
 );
 pub type PFN_vkGetGeneratedCommandsMemoryRequirementsEXT = unsafe extern "system" fn(
     device: Device,
-    p_info: *const GeneratedCommandsMemoryRequirementsInfoEXT,
-    p_memory_requirements: *mut MemoryRequirements2,
+    p_info: *const GeneratedCommandsMemoryRequirementsInfoEXT<'_>,
+    p_memory_requirements: *mut MemoryRequirements2<'_>,
 );
 pub type PFN_vkCreateIndirectCommandsLayoutEXT = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const IndirectCommandsLayoutCreateInfoEXT,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const IndirectCommandsLayoutCreateInfoEXT<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_indirect_commands_layout: *mut IndirectCommandsLayoutEXT,
 ) -> Result;
 pub type PFN_vkDestroyIndirectCommandsLayoutEXT = unsafe extern "system" fn(
     device: Device,
     indirect_commands_layout: IndirectCommandsLayoutEXT,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkCreateIndirectExecutionSetEXT = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const IndirectExecutionSetCreateInfoEXT,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const IndirectExecutionSetCreateInfoEXT<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_indirect_execution_set: *mut IndirectExecutionSetEXT,
 ) -> Result;
 pub type PFN_vkDestroyIndirectExecutionSetEXT = unsafe extern "system" fn(
     device: Device,
     indirect_execution_set: IndirectExecutionSetEXT,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkUpdateIndirectExecutionSetPipelineEXT = unsafe extern "system" fn(
     device: Device,
     indirect_execution_set: IndirectExecutionSetEXT,
     execution_set_write_count: u32,
-    p_execution_set_writes: *const WriteIndirectExecutionSetPipelineEXT,
+    p_execution_set_writes: *const WriteIndirectExecutionSetPipelineEXT<'_>,
 );
 pub type PFN_vkUpdateIndirectExecutionSetShaderEXT = unsafe extern "system" fn(
     device: Device,
     indirect_execution_set: IndirectExecutionSetEXT,
     execution_set_write_count: u32,
-    p_execution_set_writes: *const WriteIndirectExecutionSetShaderEXT,
+    p_execution_set_writes: *const WriteIndirectExecutionSetShaderEXT<'_>,
 );

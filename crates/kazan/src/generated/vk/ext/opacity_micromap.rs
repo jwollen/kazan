@@ -67,8 +67,8 @@ impl DeviceFn {
     pub unsafe fn create_micromap_ext(
         &self,
         device: Device,
-        create_info: &MicromapCreateInfoEXT,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &MicromapCreateInfoEXT<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<MicromapEXT> {
         unsafe {
             let mut micromap = core::mem::MaybeUninit::uninit();
@@ -89,14 +89,14 @@ impl DeviceFn {
         &self,
         device: Device,
         micromap: MicromapEXT,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_micromap_ext)(device, micromap, allocator.to_raw_ptr()) }
     }
     pub unsafe fn cmd_build_micromaps_ext(
         &self,
         command_buffer: CommandBuffer,
-        infos: &[MicromapBuildInfoEXT],
+        infos: &[MicromapBuildInfoEXT<'_>],
     ) {
         unsafe {
             (self.cmd_build_micromaps_ext)(
@@ -110,7 +110,7 @@ impl DeviceFn {
         &self,
         device: Device,
         deferred_operation: DeferredOperationKHR,
-        infos: &[MicromapBuildInfoEXT],
+        infos: &[MicromapBuildInfoEXT<'_>],
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.build_micromaps_ext)(
@@ -132,7 +132,7 @@ impl DeviceFn {
         &self,
         device: Device,
         deferred_operation: DeferredOperationKHR,
-        info: &CopyMicromapInfoEXT,
+        info: &CopyMicromapInfoEXT<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.copy_micromap_ext)(device, deferred_operation, info);
@@ -149,7 +149,7 @@ impl DeviceFn {
         &self,
         device: Device,
         deferred_operation: DeferredOperationKHR,
-        info: &CopyMicromapToMemoryInfoEXT,
+        info: &CopyMicromapToMemoryInfoEXT<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.copy_micromap_to_memory_ext)(device, deferred_operation, info);
@@ -166,7 +166,7 @@ impl DeviceFn {
         &self,
         device: Device,
         deferred_operation: DeferredOperationKHR,
-        info: &CopyMemoryToMicromapInfoEXT,
+        info: &CopyMemoryToMicromapInfoEXT<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.copy_memory_to_micromap_ext)(device, deferred_operation, info);
@@ -207,21 +207,21 @@ impl DeviceFn {
     pub unsafe fn cmd_copy_micromap_ext(
         &self,
         command_buffer: CommandBuffer,
-        info: &CopyMicromapInfoEXT,
+        info: &CopyMicromapInfoEXT<'_>,
     ) {
         unsafe { (self.cmd_copy_micromap_ext)(command_buffer, info) }
     }
     pub unsafe fn cmd_copy_micromap_to_memory_ext(
         &self,
         command_buffer: CommandBuffer,
-        info: &CopyMicromapToMemoryInfoEXT,
+        info: &CopyMicromapToMemoryInfoEXT<'_>,
     ) {
         unsafe { (self.cmd_copy_micromap_to_memory_ext)(command_buffer, info) }
     }
     pub unsafe fn cmd_copy_memory_to_micromap_ext(
         &self,
         command_buffer: CommandBuffer,
-        info: &CopyMemoryToMicromapInfoEXT,
+        info: &CopyMemoryToMicromapInfoEXT<'_>,
     ) {
         unsafe { (self.cmd_copy_memory_to_micromap_ext)(command_buffer, info) }
     }
@@ -247,7 +247,7 @@ impl DeviceFn {
     pub unsafe fn get_device_micromap_compatibility_ext(
         &self,
         device: Device,
-        version_info: &MicromapVersionInfoEXT,
+        version_info: &MicromapVersionInfoEXT<'_>,
     ) -> AccelerationStructureCompatibilityKHR {
         unsafe {
             let mut compatibility = core::mem::MaybeUninit::uninit();
@@ -263,8 +263,8 @@ impl DeviceFn {
         &self,
         device: Device,
         build_type: AccelerationStructureBuildTypeKHR,
-        build_info: &MicromapBuildInfoEXT,
-    ) -> MicromapBuildSizesInfoEXT {
+        build_info: &MicromapBuildInfoEXT<'_>,
+    ) -> MicromapBuildSizesInfoEXT<'_> {
         unsafe {
             let mut size_info = core::mem::MaybeUninit::uninit();
             (self.get_micromap_build_sizes_ext)(

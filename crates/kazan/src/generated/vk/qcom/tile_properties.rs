@@ -24,11 +24,11 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
-    pub unsafe fn get_framebuffer_tile_properties_qcom(
+    pub unsafe fn get_framebuffer_tile_properties_qcom<'a>(
         &self,
         device: Device,
         framebuffer: Framebuffer,
-        properties: impl ExtendUninit<TilePropertiesQCOM>,
+        properties: impl ExtendUninit<TilePropertiesQCOM<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(properties, |properties_count, properties| {
@@ -50,8 +50,8 @@ impl DeviceFn {
     pub unsafe fn get_dynamic_rendering_tile_properties_qcom(
         &self,
         device: Device,
-        rendering_info: &RenderingInfo,
-    ) -> crate::Result<TilePropertiesQCOM> {
+        rendering_info: &RenderingInfo<'_>,
+    ) -> crate::Result<TilePropertiesQCOM<'_>> {
         unsafe {
             let mut properties = core::mem::MaybeUninit::uninit();
             let result = (self.get_dynamic_rendering_tile_properties_qcom)(

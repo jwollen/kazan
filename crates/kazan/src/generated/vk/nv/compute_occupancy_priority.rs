@@ -23,7 +23,7 @@ impl DeviceFn {
     pub unsafe fn cmd_set_compute_occupancy_priority_nv(
         &self,
         command_buffer: CommandBuffer,
-        parameters: &ComputeOccupancyPriorityParametersNV,
+        parameters: &ComputeOccupancyPriorityParametersNV<'_>,
     ) {
         unsafe { (self.cmd_set_compute_occupancy_priority_nv)(command_buffer, parameters) }
     }

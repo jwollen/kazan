@@ -2,11 +2,13 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct DeviceMemoryOverallocationCreateInfoAMD {
+pub struct DeviceMemoryOverallocationCreateInfoAMD<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub overallocation_behavior: MemoryOverallocationBehaviorAMD,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

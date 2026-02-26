@@ -41,8 +41,8 @@ impl DeviceFn {
     pub unsafe fn create_buffer_collection_fuchsia(
         &self,
         device: Device,
-        create_info: &BufferCollectionCreateInfoFUCHSIA,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &BufferCollectionCreateInfoFUCHSIA<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<BufferCollectionFUCHSIA> {
         unsafe {
             let mut collection = core::mem::MaybeUninit::uninit();
@@ -63,7 +63,7 @@ impl DeviceFn {
         &self,
         device: Device,
         collection: BufferCollectionFUCHSIA,
-        image_constraints_info: &ImageConstraintsInfoFUCHSIA,
+        image_constraints_info: &ImageConstraintsInfoFUCHSIA<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.set_buffer_collection_image_constraints_fuchsia)(
@@ -82,7 +82,7 @@ impl DeviceFn {
         &self,
         device: Device,
         collection: BufferCollectionFUCHSIA,
-        buffer_constraints_info: &BufferConstraintsInfoFUCHSIA,
+        buffer_constraints_info: &BufferConstraintsInfoFUCHSIA<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.set_buffer_collection_buffer_constraints_fuchsia)(
@@ -101,7 +101,7 @@ impl DeviceFn {
         &self,
         device: Device,
         collection: BufferCollectionFUCHSIA,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
             (self.destroy_buffer_collection_fuchsia)(device, collection, allocator.to_raw_ptr())
@@ -111,7 +111,7 @@ impl DeviceFn {
         &self,
         device: Device,
         collection: BufferCollectionFUCHSIA,
-    ) -> crate::Result<BufferCollectionPropertiesFUCHSIA> {
+    ) -> crate::Result<BufferCollectionPropertiesFUCHSIA<'_>> {
         unsafe {
             let mut properties = core::mem::MaybeUninit::uninit();
             let result = (self.get_buffer_collection_properties_fuchsia)(

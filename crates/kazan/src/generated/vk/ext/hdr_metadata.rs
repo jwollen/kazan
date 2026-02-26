@@ -22,7 +22,7 @@ impl DeviceFn {
         &self,
         device: Device,
         swapchains: &[SwapchainKHR],
-        metadata: &[HdrMetadataEXT],
+        metadata: &[HdrMetadataEXT<'_>],
     ) {
         unsafe {
             (self.set_hdr_metadata_ext)(

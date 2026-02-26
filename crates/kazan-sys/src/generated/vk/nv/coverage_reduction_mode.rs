@@ -2,27 +2,31 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDeviceCoverageReductionModeFeaturesNV {
+pub struct PhysicalDeviceCoverageReductionModeFeaturesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub coverage_reduction_mode: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PipelineCoverageReductionStateCreateInfoNV {
+pub struct PipelineCoverageReductionStateCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineCoverageReductionStateCreateFlagsNV,
     pub coverage_reduction_mode: CoverageReductionModeNV,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct FramebufferMixedSamplesCombinationNV {
+pub struct FramebufferMixedSamplesCombinationNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub coverage_reduction_mode: CoverageReductionModeNV,
     pub rasterization_samples: SampleCountFlagBits,
     pub depth_stencil_samples: SampleCountFlags,
     pub color_samples: SampleCountFlags,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -33,7 +37,7 @@ impl CoverageReductionModeNV {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineCoverageReductionStateCreateFlagsNV: Flags {
     }
 }
@@ -41,5 +45,5 @@ pub type PFN_vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV =
     unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         p_combination_count: *mut u32,
-        p_combinations: *mut FramebufferMixedSamplesCombinationNV,
+        p_combinations: *mut FramebufferMixedSamplesCombinationNV<'_>,
     ) -> Result;

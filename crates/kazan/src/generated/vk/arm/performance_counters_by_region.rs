@@ -23,12 +23,12 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
-    pub unsafe fn enumerate_physical_device_queue_family_performance_counters_by_region_arm(
+    pub unsafe fn enumerate_physical_device_queue_family_performance_counters_by_region_arm<'a>(
         &self,
         physical_device: PhysicalDevice,
         queue_family_index: u32,
-        counters: impl ExtendUninit<PerformanceCounterARM>,
-        counter_descriptions: impl ExtendUninit<PerformanceCounterDescriptionARM>,
+        counters: impl ExtendUninit<PerformanceCounterARM<'a>>,
+        counter_descriptions: impl ExtendUninit<PerformanceCounterDescriptionARM<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit2(

@@ -2,11 +2,12 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct SwapchainKHR(u64);
 #[repr(C)]
-pub struct SwapchainCreateInfoKHR {
+pub struct SwapchainCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: SwapchainCreateFlagsKHR,
@@ -25,9 +26,10 @@ pub struct SwapchainCreateInfoKHR {
     pub present_mode: PresentModeKHR,
     pub clipped: Bool32,
     pub old_swapchain: SwapchainKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PresentInfoKHR {
+pub struct PresentInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub wait_semaphore_count: u32,
@@ -36,29 +38,33 @@ pub struct PresentInfoKHR {
     pub p_swapchains: *const SwapchainKHR,
     pub p_image_indices: *const u32,
     pub p_results: *mut Result,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DeviceGroupPresentCapabilitiesKHR {
+pub struct DeviceGroupPresentCapabilitiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub present_mask: [u32; MAX_DEVICE_GROUP_SIZE as usize],
     pub modes: DeviceGroupPresentModeFlagsKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct ImageSwapchainCreateInfoKHR {
+pub struct ImageSwapchainCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub swapchain: SwapchainKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct BindImageMemorySwapchainInfoKHR {
+pub struct BindImageMemorySwapchainInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub swapchain: SwapchainKHR,
     pub image_index: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct AcquireNextImageInfoKHR {
+pub struct AcquireNextImageInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub swapchain: SwapchainKHR,
@@ -66,24 +72,27 @@ pub struct AcquireNextImageInfoKHR {
     pub semaphore: Semaphore,
     pub fence: Fence,
     pub device_mask: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DeviceGroupPresentInfoKHR {
+pub struct DeviceGroupPresentInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub swapchain_count: u32,
     pub p_device_masks: *const u32,
     pub mode: DeviceGroupPresentModeFlagBitsKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DeviceGroupSwapchainCreateInfoKHR {
+pub struct DeviceGroupSwapchainCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub modes: DeviceGroupPresentModeFlagsKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SwapchainCreateFlagsKHR: Flags {
         const SPLIT_INSTANCE_BIND_REGIONS_KHR = SwapchainCreateFlagBitsKHR::SPLIT_INSTANCE_BIND_REGIONS_KHR.0;
         const PROTECTED_KHR = SwapchainCreateFlagBitsKHR::PROTECTED_KHR.0;
@@ -96,7 +105,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct SwapchainCreateFlagBitsKHR(u32);
 impl SwapchainCreateFlagBitsKHR {
     pub const SPLIT_INSTANCE_BIND_REGIONS_KHR: Self = Self(1 << 0);
@@ -110,7 +119,7 @@ impl SwapchainCreateFlagBitsKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DeviceGroupPresentModeFlagsKHR: Flags {
         const LOCAL_KHR = DeviceGroupPresentModeFlagBitsKHR::LOCAL_KHR.0;
         const REMOTE_KHR = DeviceGroupPresentModeFlagBitsKHR::REMOTE_KHR.0;
@@ -119,7 +128,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DeviceGroupPresentModeFlagBitsKHR(u32);
 impl DeviceGroupPresentModeFlagBitsKHR {
     pub const LOCAL_KHR: Self = Self(1 << 0);
@@ -129,14 +138,14 @@ impl DeviceGroupPresentModeFlagBitsKHR {
 }
 pub type PFN_vkCreateSwapchainKHR = unsafe extern "system" fn(
     device: Device,
-    p_create_info: *const SwapchainCreateInfoKHR,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const SwapchainCreateInfoKHR<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_swapchain: *mut SwapchainKHR,
 ) -> Result;
 pub type PFN_vkDestroySwapchainKHR = unsafe extern "system" fn(
     device: Device,
     swapchain: SwapchainKHR,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkGetSwapchainImagesKHR = unsafe extern "system" fn(
     device: Device,
@@ -153,10 +162,10 @@ pub type PFN_vkAcquireNextImageKHR = unsafe extern "system" fn(
     p_image_index: *mut u32,
 ) -> Result;
 pub type PFN_vkQueuePresentKHR =
-    unsafe extern "system" fn(queue: Queue, p_present_info: *const PresentInfoKHR) -> Result;
+    unsafe extern "system" fn(queue: Queue, p_present_info: *const PresentInfoKHR<'_>) -> Result;
 pub type PFN_vkGetDeviceGroupPresentCapabilitiesKHR = unsafe extern "system" fn(
     device: Device,
-    p_device_group_present_capabilities: *mut DeviceGroupPresentCapabilitiesKHR,
+    p_device_group_present_capabilities: *mut DeviceGroupPresentCapabilitiesKHR<'_>,
 ) -> Result;
 pub type PFN_vkGetDeviceGroupSurfacePresentModesKHR = unsafe extern "system" fn(
     device: Device,
@@ -165,7 +174,7 @@ pub type PFN_vkGetDeviceGroupSurfacePresentModesKHR = unsafe extern "system" fn(
 ) -> Result;
 pub type PFN_vkAcquireNextImage2KHR = unsafe extern "system" fn(
     device: Device,
-    p_acquire_info: *const AcquireNextImageInfoKHR,
+    p_acquire_info: *const AcquireNextImageInfoKHR<'_>,
     p_image_index: *mut u32,
 ) -> Result;
 pub type PFN_vkGetPhysicalDevicePresentRectanglesKHR = unsafe extern "system" fn(

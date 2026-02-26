@@ -20,10 +20,10 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
-    pub unsafe fn get_physical_device_tool_properties(
+    pub unsafe fn get_physical_device_tool_properties<'a>(
         &self,
         physical_device: PhysicalDevice,
-        tool_properties: impl ExtendUninit<PhysicalDeviceToolProperties>,
+        tool_properties: impl ExtendUninit<PhysicalDeviceToolProperties<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(tool_properties, |tool_count, tool_properties| {
@@ -170,8 +170,8 @@ impl DeviceFn {
     pub unsafe fn create_private_data_slot(
         &self,
         device: Device,
-        create_info: &PrivateDataSlotCreateInfo,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &PrivateDataSlotCreateInfo<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<PrivateDataSlot> {
         unsafe {
             let mut private_data_slot = core::mem::MaybeUninit::uninit();
@@ -192,7 +192,7 @@ impl DeviceFn {
         &self,
         device: Device,
         private_data_slot: PrivateDataSlot,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
             (self.destroy_private_data_slot)(device, private_data_slot, allocator.to_raw_ptr())
@@ -243,7 +243,7 @@ impl DeviceFn {
     pub unsafe fn cmd_pipeline_barrier2(
         &self,
         command_buffer: CommandBuffer,
-        dependency_info: &DependencyInfo,
+        dependency_info: &DependencyInfo<'_>,
     ) {
         unsafe { (self.cmd_pipeline_barrier2)(command_buffer, dependency_info) }
     }
@@ -259,7 +259,7 @@ impl DeviceFn {
     pub unsafe fn queue_submit2(
         &self,
         queue: Queue,
-        submits: &[SubmitInfo2],
+        submits: &[SubmitInfo2<'_>],
         fence: Fence,
     ) -> crate::Result<()> {
         unsafe {
@@ -279,36 +279,36 @@ impl DeviceFn {
     pub unsafe fn cmd_copy_buffer2(
         &self,
         command_buffer: CommandBuffer,
-        copy_buffer_info: &CopyBufferInfo2,
+        copy_buffer_info: &CopyBufferInfo2<'_>,
     ) {
         unsafe { (self.cmd_copy_buffer2)(command_buffer, copy_buffer_info) }
     }
     pub unsafe fn cmd_copy_image2(
         &self,
         command_buffer: CommandBuffer,
-        copy_image_info: &CopyImageInfo2,
+        copy_image_info: &CopyImageInfo2<'_>,
     ) {
         unsafe { (self.cmd_copy_image2)(command_buffer, copy_image_info) }
     }
     pub unsafe fn cmd_copy_buffer_to_image2(
         &self,
         command_buffer: CommandBuffer,
-        copy_buffer_to_image_info: &CopyBufferToImageInfo2,
+        copy_buffer_to_image_info: &CopyBufferToImageInfo2<'_>,
     ) {
         unsafe { (self.cmd_copy_buffer_to_image2)(command_buffer, copy_buffer_to_image_info) }
     }
     pub unsafe fn cmd_copy_image_to_buffer2(
         &self,
         command_buffer: CommandBuffer,
-        copy_image_to_buffer_info: &CopyImageToBufferInfo2,
+        copy_image_to_buffer_info: &CopyImageToBufferInfo2<'_>,
     ) {
         unsafe { (self.cmd_copy_image_to_buffer2)(command_buffer, copy_image_to_buffer_info) }
     }
     pub unsafe fn get_device_buffer_memory_requirements(
         &self,
         device: Device,
-        info: &DeviceBufferMemoryRequirements,
-    ) -> MemoryRequirements2 {
+        info: &DeviceBufferMemoryRequirements<'_>,
+    ) -> MemoryRequirements2<'_> {
         unsafe {
             let mut memory_requirements = core::mem::MaybeUninit::uninit();
             (self.get_device_buffer_memory_requirements)(
@@ -322,8 +322,8 @@ impl DeviceFn {
     pub unsafe fn get_device_image_memory_requirements(
         &self,
         device: Device,
-        info: &DeviceImageMemoryRequirements,
-    ) -> MemoryRequirements2 {
+        info: &DeviceImageMemoryRequirements<'_>,
+    ) -> MemoryRequirements2<'_> {
         unsafe {
             let mut memory_requirements = core::mem::MaybeUninit::uninit();
             (self.get_device_image_memory_requirements)(
@@ -334,11 +334,11 @@ impl DeviceFn {
             memory_requirements.assume_init()
         }
     }
-    pub unsafe fn get_device_image_sparse_memory_requirements(
+    pub unsafe fn get_device_image_sparse_memory_requirements<'a>(
         &self,
         device: Device,
-        info: &DeviceImageMemoryRequirements,
-        sparse_memory_requirements: impl ExtendUninit<SparseImageMemoryRequirements2>,
+        info: &DeviceImageMemoryRequirements<'_>,
+        sparse_memory_requirements: impl ExtendUninit<SparseImageMemoryRequirements2<'a>>,
     ) {
         unsafe {
             extend_uninit(
@@ -358,7 +358,7 @@ impl DeviceFn {
         &self,
         command_buffer: CommandBuffer,
         event: Event,
-        dependency_info: &DependencyInfo,
+        dependency_info: &DependencyInfo<'_>,
     ) {
         unsafe { (self.cmd_set_event2)(command_buffer, event, dependency_info) }
     }
@@ -374,7 +374,7 @@ impl DeviceFn {
         &self,
         command_buffer: CommandBuffer,
         events: &[Event],
-        dependency_infos: &[DependencyInfo],
+        dependency_infos: &[DependencyInfo<'_>],
     ) {
         unsafe {
             (self.cmd_wait_events2)(
@@ -388,21 +388,21 @@ impl DeviceFn {
     pub unsafe fn cmd_blit_image2(
         &self,
         command_buffer: CommandBuffer,
-        blit_image_info: &BlitImageInfo2,
+        blit_image_info: &BlitImageInfo2<'_>,
     ) {
         unsafe { (self.cmd_blit_image2)(command_buffer, blit_image_info) }
     }
     pub unsafe fn cmd_resolve_image2(
         &self,
         command_buffer: CommandBuffer,
-        resolve_image_info: &ResolveImageInfo2,
+        resolve_image_info: &ResolveImageInfo2<'_>,
     ) {
         unsafe { (self.cmd_resolve_image2)(command_buffer, resolve_image_info) }
     }
     pub unsafe fn cmd_begin_rendering(
         &self,
         command_buffer: CommandBuffer,
-        rendering_info: &RenderingInfo,
+        rendering_info: &RenderingInfo<'_>,
     ) {
         unsafe { (self.cmd_begin_rendering)(command_buffer, rendering_info) }
     }

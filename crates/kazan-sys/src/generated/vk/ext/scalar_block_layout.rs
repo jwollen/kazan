@@ -2,4 +2,6 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
-pub type PhysicalDeviceScalarBlockLayoutFeaturesEXT = PhysicalDeviceScalarBlockLayoutFeatures;
+use core::marker::PhantomData;
+pub type PhysicalDeviceScalarBlockLayoutFeaturesEXT<'a> =
+    PhysicalDeviceScalarBlockLayoutFeatures<'a>;

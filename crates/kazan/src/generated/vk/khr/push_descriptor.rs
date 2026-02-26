@@ -30,7 +30,7 @@ impl DeviceFn {
         pipeline_bind_point: PipelineBindPoint,
         layout: PipelineLayout,
         set: u32,
-        descriptor_writes: &[WriteDescriptorSet],
+        descriptor_writes: &[WriteDescriptorSet<'_>],
     ) {
         unsafe {
             (self.cmd_push_descriptor_set_khr)(

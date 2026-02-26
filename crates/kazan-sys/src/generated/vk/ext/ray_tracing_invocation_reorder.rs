@@ -2,18 +2,21 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDeviceRayTracingInvocationReorderFeaturesEXT {
+pub struct PhysicalDeviceRayTracingInvocationReorderFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub ray_tracing_invocation_reorder: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceRayTracingInvocationReorderPropertiesEXT {
+pub struct PhysicalDeviceRayTracingInvocationReorderPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub ray_tracing_invocation_reorder_reordering_hint: RayTracingInvocationReorderModeEXT,
     pub max_shader_binding_table_record_index: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

@@ -23,8 +23,8 @@ impl InstanceFn {
     pub unsafe fn create_metal_surface_ext(
         &self,
         instance: Instance,
-        create_info: &MetalSurfaceCreateInfoEXT,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &MetalSurfaceCreateInfoEXT<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();

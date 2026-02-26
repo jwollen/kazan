@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 pub const STD_VIDEO_H265_CPB_CNT_LIST_SIZE: u32 = 32;
 pub const STD_VIDEO_H265_SUBLAYERS_LIST_SIZE: u32 = 7;
 pub const STD_VIDEO_H265_SCALING_LIST_4X4_NUM_LISTS: u32 = 6;
@@ -64,7 +65,7 @@ pub struct StdVideoH265HrdFlags {
     pub low_delay_hrd_flag: u32,
 }
 #[repr(C)]
-pub struct StdVideoH265HrdParameters {
+pub struct StdVideoH265HrdParameters<'a> {
     pub flags: StdVideoH265HrdFlags,
     pub tick_divisor_minus2: u8,
     pub du_cpb_removal_delay_increment_length_minus1: u8,
@@ -80,6 +81,7 @@ pub struct StdVideoH265HrdParameters {
     pub reserved: [u16; 3],
     pub p_sub_layer_hrd_parameters_nal: *const StdVideoH265SubLayerHrdParameters,
     pub p_sub_layer_hrd_parameters_vcl: *const StdVideoH265SubLayerHrdParameters,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct StdVideoH265VpsFlags {
@@ -89,7 +91,7 @@ pub struct StdVideoH265VpsFlags {
     pub vps_poc_proportional_to_timing_flag: u32,
 }
 #[repr(C)]
-pub struct StdVideoH265VideoParameterSet {
+pub struct StdVideoH265VideoParameterSet<'a> {
     pub flags: StdVideoH265VpsFlags,
     pub vps_video_parameter_set_id: u8,
     pub vps_max_sub_layers_minus1: u8,
@@ -100,8 +102,9 @@ pub struct StdVideoH265VideoParameterSet {
     pub vps_num_ticks_poc_diff_one_minus1: u32,
     pub reserved3: u32,
     pub p_dec_pic_buf_mgr: *const StdVideoH265DecPicBufMgr,
-    pub p_hrd_parameters: *const StdVideoH265HrdParameters,
+    pub p_hrd_parameters: *const StdVideoH265HrdParameters<'a>,
     pub p_profile_tier_level: *const StdVideoH265ProfileTierLevel,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct StdVideoH265ScalingLists {
@@ -165,7 +168,7 @@ pub struct StdVideoH265SpsVuiFlags {
     pub restricted_ref_pic_lists_flag: u32,
 }
 #[repr(C)]
-pub struct StdVideoH265SequenceParameterSetVui {
+pub struct StdVideoH265SequenceParameterSetVui<'a> {
     pub flags: StdVideoH265SpsVuiFlags,
     pub aspect_ratio_idc: StdVideoH265AspectRatioIdc,
     pub sar_width: u16,
@@ -191,7 +194,8 @@ pub struct StdVideoH265SequenceParameterSetVui {
     pub max_bits_per_min_cu_denom: u8,
     pub log2_max_mv_length_horizontal: u8,
     pub log2_max_mv_length_vertical: u8,
-    pub p_hrd_parameters: *const StdVideoH265HrdParameters,
+    pub p_hrd_parameters: *const StdVideoH265HrdParameters<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct StdVideoH265PredictorPaletteEntries {
@@ -233,7 +237,7 @@ pub struct StdVideoH265SpsFlags {
     pub intra_boundary_filtering_disabled_flag: u32,
 }
 #[repr(C)]
-pub struct StdVideoH265SequenceParameterSet {
+pub struct StdVideoH265SequenceParameterSet<'a> {
     pub flags: StdVideoH265SpsFlags,
     pub chroma_format_idc: StdVideoH265ChromaFormatIdc,
     pub pic_width_in_luma_samples: u32,
@@ -271,8 +275,9 @@ pub struct StdVideoH265SequenceParameterSet {
     pub p_scaling_lists: *const StdVideoH265ScalingLists,
     pub p_short_term_ref_pic_set: *const StdVideoH265ShortTermRefPicSet,
     pub p_long_term_ref_pics_sps: *const StdVideoH265LongTermRefPicsSps,
-    pub p_sequence_parameter_set_vui: *const StdVideoH265SequenceParameterSetVui,
+    pub p_sequence_parameter_set_vui: *const StdVideoH265SequenceParameterSetVui<'a>,
     pub p_predictor_palette_entries: *const StdVideoH265PredictorPaletteEntries,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct StdVideoH265PpsFlags {
@@ -309,7 +314,7 @@ pub struct StdVideoH265PpsFlags {
     pub pps_range_extension_flag: u32,
 }
 #[repr(C)]
-pub struct StdVideoH265PictureParameterSet {
+pub struct StdVideoH265PictureParameterSet<'a> {
     pub flags: StdVideoH265PpsFlags,
     pub pps_pic_parameter_set_id: u8,
     pub pps_seq_parameter_set_id: u8,
@@ -346,6 +351,7 @@ pub struct StdVideoH265PictureParameterSet {
     pub reserved3: u32,
     pub p_scaling_lists: *const StdVideoH265ScalingLists,
     pub p_predictor_palette_entries: *const StdVideoH265PredictorPaletteEntries,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

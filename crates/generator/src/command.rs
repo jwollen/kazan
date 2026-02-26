@@ -1,5 +1,8 @@
 use crate::{
-    LengthKind, analysis::Analysis, cdecl::{CDecl, CType}, ctype_to_rust_type, get_len_kind, normalize_name, xml
+    LengthKind,
+    analysis::Analysis,
+    cdecl::{CDecl, CType},
+    ctype_to_rust_type, get_len_kind, normalize_name, xml,
 };
 use heck::ToSnakeCase;
 use itertools::Itertools;
@@ -24,6 +27,9 @@ struct WrapperCommandInfo<'a> {
 
     // Info about functions that can either output a length or enumerate items
     enumeration_info: Option<EnumerationCommandInfo>,
+
+    // Lifetime parameter for the command
+    lifetime_param: Option<&'a str>,
 
     // Wrapper signature
     wrapper_params: Vec<WrapperParamInfo<'a>>,
@@ -63,7 +69,7 @@ struct ParamInfo<'a> {
 }
 
 impl<'a> LengthKind<'a> {
-    fn ty(&self) -> Option<&CType> {
+    fn ty(&self) -> Option<&CType<'a>> {
         match self {
             LengthKind::Param { c_decl, .. } => Some(&c_decl.ty),
             LengthKind::ParamField { field, .. } => Some(&field.c_decl.ty),
@@ -72,10 +78,7 @@ impl<'a> LengthKind<'a> {
     }
 }
 
-fn analyze_command<'a>(
-    info: &CommandInfo<'a>,
-    structs: &'a [xml::Structure],
-) -> WrapperCommandInfo<'a> {
+fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> WrapperCommandInfo<'a> {
     let command = info.command;
     let len_kinds: Vec<_> = command
         .params
@@ -83,7 +86,7 @@ fn analyze_command<'a>(
         .map(|param| {
             param
                 .len
-                .map(|len| get_len_kind(&command.params, structs, len))
+                .map(|len| get_len_kind(analysis, &command.params, len))
         })
         .collect();
 
@@ -121,6 +124,17 @@ fn analyze_command<'a>(
     let mut wrapper_params = Vec::new();
     let mut params = Vec::new();
     let mut return_params = Vec::new();
+    let mut lifetime_param = None;
+
+    if enumeration_info.is_some() {
+        for param in &command.params {
+            let type_info = analysis.get_type_info(&param.c_decl.ty).unwrap();
+            if type_info.lifetime_param {
+                lifetime_param = Some("a");
+                break;
+            }
+        }
+    }
 
     for (param_index, param) in command.params.iter().enumerate() {
         let name = normalize_param_name(param.c_decl.name);
@@ -171,8 +185,13 @@ fn analyze_command<'a>(
                 return_params.push(param);
             } else {
                 let name = normalize_param_name(param.c_decl.name);
-                let ty =
-                    convert_param_type(&param.c_decl.ty, len_kinds[param_index].as_ref(), optional);
+                let ty = convert_param_type(
+                    analysis,
+                    &param.c_decl.ty,
+                    len_kinds[param_index].as_ref(),
+                    optional,
+                    lifetime_param,
+                );
 
                 wrapper_params.push(WrapperParamInfo {
                     name: name.clone(),
@@ -185,7 +204,7 @@ fn analyze_command<'a>(
         params.push(ParamInfo {
             name,
             param,
-            ty: ctype_to_rust_type(&param.c_decl.ty),
+            ty: ctype_to_rust_type(analysis, &param.c_decl.ty, lifetime_param),
             len: len_kinds[param_index].clone(),
             optional,
             is_output_param,
@@ -204,7 +223,7 @@ fn analyze_command<'a>(
                 };
                 WrapperParamInfo {
                     name: normalize_param_name(param.c_decl.name),
-                    ty: ctype_to_rust_type(&pointee),
+                    ty: ctype_to_rust_type(analysis, &pointee, None),
                     param,
                 }
             })
@@ -213,7 +232,7 @@ fn analyze_command<'a>(
         WrapperReturnKind::OutputParams(params)
     } else if has_regular_return {
         WrapperReturnKind::CommandReturnValue {
-            ty: ctype_to_rust_type(command.return_type.as_ref().unwrap()),
+            ty: ctype_to_rust_type(analysis, command.return_type.as_ref().unwrap(), None),
         }
     } else {
         WrapperReturnKind::None
@@ -228,10 +247,17 @@ fn analyze_command<'a>(
         params,
         is_fallible,
         has_regular_return,
+        lifetime_param,
     }
 }
 
-fn convert_param_type(ty: &CType, len: Option<&LengthKind<'_>>, optional: (bool, bool)) -> String {
+fn convert_param_type(
+    analysis: &Analysis,
+    ty: &CType,
+    len: Option<&LengthKind<'_>>,
+    optional: (bool, bool),
+    lifetime_param: Option<&str>,
+) -> String {
     if let Some(len) = len
         && !matches!(len, LengthKind::Literal(1))
     {
@@ -250,7 +276,7 @@ fn convert_param_type(ty: &CType, len: Option<&LengthKind<'_>>, optional: (bool,
                 format!("&mut {}", pointee)
             }
         } else {
-            let element_ty = ctype_to_rust_type(pointee.as_ref());
+            let element_ty = ctype_to_rust_type(analysis, pointee.as_ref(), lifetime_param);
             let element_ty = if element_ty == "c_void" {
                 "u8"
             } else {
@@ -278,7 +304,7 @@ fn convert_param_type(ty: &CType, len: Option<&LengthKind<'_>>, optional: (bool,
         pointee, is_const, ..
     } = ty
     {
-        let ty = ctype_to_rust_type(&pointee);
+        let ty = ctype_to_rust_type(analysis, &pointee, None);
 
         if is_opaque_type(ty.as_str()) {
             if *is_const {
@@ -300,7 +326,7 @@ fn convert_param_type(ty: &CType, len: Option<&LengthKind<'_>>, optional: (bool,
             }
         }
     } else {
-        ctype_to_rust_type(ty)
+        ctype_to_rust_type(analysis, ty, None)
     }
 }
 
@@ -309,10 +335,13 @@ pub fn write_command_wrapper(
     analysis: &Analysis,
     info: &CommandInfo<'_>,
 ) {
-    let structs = &analysis.registry().structs;
-    let wrapper = analyze_command(info, structs);
+    let wrapper = analyze_command(analysis, info);
 
-    writeln!(file, "pub unsafe fn {}(&self,", wrapper.name).unwrap();
+    let lifetime_param = wrapper
+        .lifetime_param
+        .map(|lifetime| format!("<'{}>", lifetime))
+        .unwrap_or_default();
+    writeln!(file, "pub unsafe fn {}{}(&self,", wrapper.name, lifetime_param).unwrap();
 
     for param in &wrapper.wrapper_params {
         writeln!(file, "{}: {},", param.name, param.ty).unwrap();

@@ -2,8 +2,9 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct VideoEncodeAV1CapabilitiesKHR {
+pub struct VideoEncodeAV1CapabilitiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub flags: VideoEncodeAV1CapabilityFlagsKHR,
@@ -30,9 +31,10 @@ pub struct VideoEncodeAV1CapabilitiesKHR {
     pub prefers_gop_remaining_frames: Bool32,
     pub requires_gop_remaining_frames: Bool32,
     pub std_syntax_flags: VideoEncodeAV1StdFlagsKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeAV1QualityLevelPropertiesKHR {
+pub struct VideoEncodeAV1QualityLevelPropertiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub preferred_rate_control_flags: VideoEncodeAV1RateControlFlagsKHR,
@@ -50,55 +52,62 @@ pub struct VideoEncodeAV1QualityLevelPropertiesKHR {
     pub preferred_max_bidirectional_compound_group1_reference_count: u32,
     pub preferred_max_bidirectional_compound_group2_reference_count: u32,
     pub preferred_bidirectional_compound_reference_name_mask: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceVideoEncodeAV1FeaturesKHR {
+pub struct PhysicalDeviceVideoEncodeAV1FeaturesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub video_encode_av1: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeAV1SessionCreateInfoKHR {
+pub struct VideoEncodeAV1SessionCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub use_max_level: Bool32,
     pub max_level: StdVideoAV1Level,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeAV1SessionParametersCreateInfoKHR {
+pub struct VideoEncodeAV1SessionParametersCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
-    pub p_std_sequence_header: *const StdVideoAV1SequenceHeader,
+    pub p_std_sequence_header: *const StdVideoAV1SequenceHeader<'a>,
     pub p_std_decoder_model_info: *const StdVideoEncodeAV1DecoderModelInfo,
     pub std_operating_point_count: u32,
     pub p_std_operating_points: *const StdVideoEncodeAV1OperatingPointInfo,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeAV1DpbSlotInfoKHR {
+pub struct VideoEncodeAV1DpbSlotInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
-    pub p_std_reference_info: *const StdVideoEncodeAV1ReferenceInfo,
+    pub p_std_reference_info: *const StdVideoEncodeAV1ReferenceInfo<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeAV1PictureInfoKHR {
+pub struct VideoEncodeAV1PictureInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub prediction_mode: VideoEncodeAV1PredictionModeKHR,
     pub rate_control_group: VideoEncodeAV1RateControlGroupKHR,
     pub constant_q_index: u32,
-    pub p_std_picture_info: *const StdVideoEncodeAV1PictureInfo,
+    pub p_std_picture_info: *const StdVideoEncodeAV1PictureInfo<'a>,
     pub reference_name_slot_indices: [i32; MAX_VIDEO_AV1_REFERENCES_PER_FRAME_KHR as usize],
     pub primary_reference_cdf_only: Bool32,
     pub generate_obu_extension_header: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeAV1ProfileInfoKHR {
+pub struct VideoEncodeAV1ProfileInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub std_profile: StdVideoAV1Profile,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeAV1RateControlInfoKHR {
+pub struct VideoEncodeAV1RateControlInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: VideoEncodeAV1RateControlFlagsKHR,
@@ -106,6 +115,7 @@ pub struct VideoEncodeAV1RateControlInfoKHR {
     pub key_frame_period: u32,
     pub consecutive_bipredictive_frame_count: u32,
     pub temporal_layer_count: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct VideoEncodeAV1QIndexKHR {
@@ -120,16 +130,17 @@ pub struct VideoEncodeAV1FrameSizeKHR {
     pub bipredictive_frame_size: u32,
 }
 #[repr(C)]
-pub struct VideoEncodeAV1GopRemainingFrameInfoKHR {
+pub struct VideoEncodeAV1GopRemainingFrameInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub use_gop_remaining_frames: Bool32,
     pub gop_remaining_intra: u32,
     pub gop_remaining_predictive: u32,
     pub gop_remaining_bipredictive: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct VideoEncodeAV1RateControlLayerInfoKHR {
+pub struct VideoEncodeAV1RateControlLayerInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub use_min_q_index: Bool32,
@@ -138,6 +149,7 @@ pub struct VideoEncodeAV1RateControlLayerInfoKHR {
     pub max_q_index: VideoEncodeAV1QIndexKHR,
     pub use_max_frame_size: Bool32,
     pub max_frame_size: VideoEncodeAV1FrameSizeKHR,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -158,7 +170,7 @@ impl VideoEncodeAV1RateControlGroupKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VideoEncodeAV1CapabilityFlagsKHR: Flags {
         const PER_RATE_CONTROL_GROUP_MIN_MAX_Q_INDEX_KHR = VideoEncodeAV1CapabilityFlagBitsKHR::PER_RATE_CONTROL_GROUP_MIN_MAX_Q_INDEX_KHR.0;
         const GENERATE_OBU_EXTENSION_HEADER_KHR = VideoEncodeAV1CapabilityFlagBitsKHR::GENERATE_OBU_EXTENSION_HEADER_KHR.0;
@@ -169,7 +181,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct VideoEncodeAV1CapabilityFlagBitsKHR(u32);
 impl VideoEncodeAV1CapabilityFlagBitsKHR {
     pub const PER_RATE_CONTROL_GROUP_MIN_MAX_Q_INDEX_KHR: Self = Self(1 << 0);
@@ -181,7 +193,7 @@ impl VideoEncodeAV1CapabilityFlagBitsKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VideoEncodeAV1StdFlagsKHR: Flags {
         const UNIFORM_TILE_SPACING_FLAG_SET_KHR = VideoEncodeAV1StdFlagBitsKHR::UNIFORM_TILE_SPACING_FLAG_SET_KHR.0;
         const SKIP_MODE_PRESENT_UNSET_KHR = VideoEncodeAV1StdFlagBitsKHR::SKIP_MODE_PRESENT_UNSET_KHR.0;
@@ -190,7 +202,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct VideoEncodeAV1StdFlagBitsKHR(u32);
 impl VideoEncodeAV1StdFlagBitsKHR {
     pub const UNIFORM_TILE_SPACING_FLAG_SET_KHR: Self = Self(1 << 0);
@@ -200,7 +212,7 @@ impl VideoEncodeAV1StdFlagBitsKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VideoEncodeAV1RateControlFlagsKHR: Flags {
         const REGULAR_GOP_KHR = VideoEncodeAV1RateControlFlagBitsKHR::REGULAR_GOP_KHR.0;
         const TEMPORAL_LAYER_PATTERN_DYADIC_KHR = VideoEncodeAV1RateControlFlagBitsKHR::TEMPORAL_LAYER_PATTERN_DYADIC_KHR.0;
@@ -209,7 +221,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct VideoEncodeAV1RateControlFlagBitsKHR(u32);
 impl VideoEncodeAV1RateControlFlagBitsKHR {
     pub const REGULAR_GOP_KHR: Self = Self(1 << 0);
@@ -219,14 +231,14 @@ impl VideoEncodeAV1RateControlFlagBitsKHR {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VideoEncodeAV1SuperblockSizeFlagsKHR: Flags {
         const _64_KHR = VideoEncodeAV1SuperblockSizeFlagBitsKHR::_64_KHR.0;
         const _128_KHR = VideoEncodeAV1SuperblockSizeFlagBitsKHR::_128_KHR.0;
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct VideoEncodeAV1SuperblockSizeFlagBitsKHR(u32);
 impl VideoEncodeAV1SuperblockSizeFlagBitsKHR {
     pub const _64_KHR: Self = Self(1 << 0);

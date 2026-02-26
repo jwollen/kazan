@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 pub const STD_VIDEO_AV1_NUM_REF_FRAMES: u32 = 8;
 pub const STD_VIDEO_AV1_REFS_PER_FRAME: u32 = 7;
 pub const STD_VIDEO_AV1_TOTAL_REFS_PER_FRAME: u32 = 8;
@@ -79,7 +80,7 @@ pub struct StdVideoAV1SequenceHeaderFlags {
     pub reserved: u32,
 }
 #[repr(C)]
-pub struct StdVideoAV1SequenceHeader {
+pub struct StdVideoAV1SequenceHeader<'a> {
     pub flags: StdVideoAV1SequenceHeaderFlags,
     pub seq_profile: StdVideoAV1Profile,
     pub frame_width_bits_minus_1: u8,
@@ -94,6 +95,7 @@ pub struct StdVideoAV1SequenceHeader {
     pub reserved1: [u8; 5],
     pub p_color_config: *const StdVideoAV1ColorConfig,
     pub p_timing_info: *const StdVideoAV1TimingInfo,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct StdVideoAV1LoopFilterFlags {
@@ -142,7 +144,7 @@ pub struct StdVideoAV1TileInfoFlags {
     pub reserved: u32,
 }
 #[repr(C)]
-pub struct StdVideoAV1TileInfo {
+pub struct StdVideoAV1TileInfo<'a> {
     pub flags: StdVideoAV1TileInfoFlags,
     pub tile_cols: u8,
     pub tile_rows: u8,
@@ -153,6 +155,7 @@ pub struct StdVideoAV1TileInfo {
     pub p_mi_row_starts: *const u16,
     pub p_width_in_sbs_minus1: *const u16,
     pub p_height_in_sbs_minus1: *const u16,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct StdVideoAV1CDEF {

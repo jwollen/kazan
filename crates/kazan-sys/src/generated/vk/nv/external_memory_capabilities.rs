@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
 pub struct ExternalImageFormatPropertiesNV {
     pub image_format_properties: ImageFormatProperties,
@@ -11,7 +12,7 @@ pub struct ExternalImageFormatPropertiesNV {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ExternalMemoryHandleTypeFlagsNV: Flags {
         const OPAQUE_WIN32_NV = ExternalMemoryHandleTypeFlagBitsNV::OPAQUE_WIN32_NV.0;
         const OPAQUE_WIN32_KMT_NV = ExternalMemoryHandleTypeFlagBitsNV::OPAQUE_WIN32_KMT_NV.0;
@@ -20,7 +21,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ExternalMemoryHandleTypeFlagBitsNV(u32);
 impl ExternalMemoryHandleTypeFlagBitsNV {
     pub const OPAQUE_WIN32_NV: Self = Self(1 << 0);
@@ -30,7 +31,7 @@ impl ExternalMemoryHandleTypeFlagBitsNV {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ExternalMemoryFeatureFlagsNV: Flags {
         const DEDICATED_ONLY_NV = ExternalMemoryFeatureFlagBitsNV::DEDICATED_ONLY_NV.0;
         const EXPORTABLE_NV = ExternalMemoryFeatureFlagBitsNV::EXPORTABLE_NV.0;
@@ -38,7 +39,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ExternalMemoryFeatureFlagBitsNV(u32);
 impl ExternalMemoryFeatureFlagBitsNV {
     pub const DEDICATED_ONLY_NV: Self = Self(1 << 0);

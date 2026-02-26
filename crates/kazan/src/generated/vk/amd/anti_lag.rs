@@ -18,7 +18,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
-    pub unsafe fn anti_lag_update_amd(&self, device: Device, data: &AntiLagDataAMD) {
+    pub unsafe fn anti_lag_update_amd(&self, device: Device, data: &AntiLagDataAMD<'_>) {
         unsafe { (self.anti_lag_update_amd)(device, data) }
     }
 }

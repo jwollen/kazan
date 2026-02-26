@@ -47,7 +47,7 @@ impl DeviceFn {
     pub unsafe fn get_rendering_area_granularity_khr(
         &self,
         device: Device,
-        rendering_area_info: &RenderingAreaInfo,
+        rendering_area_info: &RenderingAreaInfo<'_>,
     ) -> Extent2D {
         unsafe {
             let mut granularity = core::mem::MaybeUninit::uninit();
@@ -62,8 +62,8 @@ impl DeviceFn {
     pub unsafe fn get_device_image_subresource_layout_khr(
         &self,
         device: Device,
-        info: &DeviceImageSubresourceInfo,
-    ) -> SubresourceLayout2 {
+        info: &DeviceImageSubresourceInfo<'_>,
+    ) -> SubresourceLayout2<'_> {
         unsafe {
             let mut layout = core::mem::MaybeUninit::uninit();
             (self.get_device_image_subresource_layout_khr)(device, info, layout.as_mut_ptr());
@@ -74,8 +74,8 @@ impl DeviceFn {
         &self,
         device: Device,
         image: Image,
-        subresource: &ImageSubresource2,
-    ) -> SubresourceLayout2 {
+        subresource: &ImageSubresource2<'_>,
+    ) -> SubresourceLayout2<'_> {
         unsafe {
             let mut layout = core::mem::MaybeUninit::uninit();
             (self.get_image_subresource_layout2_khr)(

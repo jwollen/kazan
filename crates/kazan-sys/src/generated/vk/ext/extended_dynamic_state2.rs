@@ -2,16 +2,18 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 pub type PFN_vkCmdSetRasterizerDiscardEnableEXT = PFN_vkCmdSetRasterizerDiscardEnable;
 pub type PFN_vkCmdSetDepthBiasEnableEXT = PFN_vkCmdSetDepthBiasEnable;
 pub type PFN_vkCmdSetPrimitiveRestartEnableEXT = PFN_vkCmdSetPrimitiveRestartEnable;
 #[repr(C)]
-pub struct PhysicalDeviceExtendedDynamicState2FeaturesEXT {
+pub struct PhysicalDeviceExtendedDynamicState2FeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub extended_dynamic_state2: Bool32,
     pub extended_dynamic_state2_logic_op: Bool32,
     pub extended_dynamic_state2_patch_control_points: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 pub type PFN_vkCmdSetPatchControlPointsEXT =
     unsafe extern "system" fn(command_buffer: CommandBuffer, patch_control_points: u32);

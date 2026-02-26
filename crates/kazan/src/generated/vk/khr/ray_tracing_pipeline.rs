@@ -73,8 +73,8 @@ impl DeviceFn {
         device: Device,
         deferred_operation: DeferredOperationKHR,
         pipeline_cache: PipelineCache,
-        create_infos: &[RayTracingPipelineCreateInfoKHR],
-        allocator: Option<&AllocationCallbacks>,
+        create_infos: &[RayTracingPipelineCreateInfoKHR<'_>],
+        allocator: Option<&AllocationCallbacks<'_>>,
         pipelines: &mut [Pipeline],
     ) -> crate::Result<()> {
         unsafe {

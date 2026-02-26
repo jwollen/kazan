@@ -21,8 +21,8 @@ impl InstanceFn {
     pub unsafe fn create_vi_surface_nn(
         &self,
         instance: Instance,
-        create_info: &ViSurfaceCreateInfoNN,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &ViSurfaceCreateInfoNN<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();

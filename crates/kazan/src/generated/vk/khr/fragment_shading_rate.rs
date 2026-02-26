@@ -20,10 +20,10 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
-    pub unsafe fn get_physical_device_fragment_shading_rates_khr(
+    pub unsafe fn get_physical_device_fragment_shading_rates_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
-        fragment_shading_rates: impl ExtendUninit<PhysicalDeviceFragmentShadingRateKHR>,
+        fragment_shading_rates: impl ExtendUninit<PhysicalDeviceFragmentShadingRateKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(

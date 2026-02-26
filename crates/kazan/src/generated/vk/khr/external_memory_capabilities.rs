@@ -24,8 +24,8 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_external_buffer_properties_khr(
         &self,
         physical_device: PhysicalDevice,
-        external_buffer_info: &PhysicalDeviceExternalBufferInfo,
-    ) -> ExternalBufferProperties {
+        external_buffer_info: &PhysicalDeviceExternalBufferInfo<'_>,
+    ) -> ExternalBufferProperties<'_> {
         unsafe {
             let mut external_buffer_properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_external_buffer_properties_khr)(

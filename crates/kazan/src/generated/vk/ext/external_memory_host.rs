@@ -25,7 +25,7 @@ impl DeviceFn {
         device: Device,
         handle_type: ExternalMemoryHandleTypeFlagBits,
         host_pointer: &c_void,
-    ) -> crate::Result<MemoryHostPointerPropertiesEXT> {
+    ) -> crate::Result<MemoryHostPointerPropertiesEXT<'_>> {
         unsafe {
             let mut memory_host_pointer_properties = core::mem::MaybeUninit::uninit();
             let result = (self.get_memory_host_pointer_properties_ext)(

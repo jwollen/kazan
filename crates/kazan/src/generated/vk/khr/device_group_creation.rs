@@ -20,10 +20,10 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
-    pub unsafe fn enumerate_physical_device_groups_khr(
+    pub unsafe fn enumerate_physical_device_groups_khr<'a>(
         &self,
         instance: Instance,
-        physical_device_group_properties: impl ExtendUninit<PhysicalDeviceGroupProperties>,
+        physical_device_group_properties: impl ExtendUninit<PhysicalDeviceGroupProperties<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(

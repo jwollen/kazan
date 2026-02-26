@@ -2,23 +2,26 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 pub type ScopeNV = ScopeKHR;
 pub type ComponentTypeNV = ComponentTypeKHR;
 #[repr(C)]
-pub struct PhysicalDeviceCooperativeMatrixFeaturesNV {
+pub struct PhysicalDeviceCooperativeMatrixFeaturesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub cooperative_matrix: Bool32,
     pub cooperative_matrix_robust_buffer_access: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceCooperativeMatrixPropertiesNV {
+pub struct PhysicalDeviceCooperativeMatrixPropertiesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub cooperative_matrix_supported_stages: ShaderStageFlags,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct CooperativeMatrixPropertiesNV {
+pub struct CooperativeMatrixPropertiesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub m_size: u32,
@@ -29,10 +32,11 @@ pub struct CooperativeMatrixPropertiesNV {
     pub c_type: ComponentTypeNV,
     pub d_type: ComponentTypeNV,
     pub scope: ScopeNV,
+    pub _marker: PhantomData<&'a ()>,
 }
 pub type PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesNV = unsafe extern "system" fn(
     physical_device: PhysicalDevice,
     p_property_count: *mut u32,
-    p_properties: *mut CooperativeMatrixPropertiesNV,
+    p_properties: *mut CooperativeMatrixPropertiesNV<'_>,
 )
     -> Result;

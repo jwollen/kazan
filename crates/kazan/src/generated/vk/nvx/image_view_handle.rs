@@ -35,14 +35,14 @@ impl DeviceFn {
     pub unsafe fn get_image_view_handle_nvx(
         &self,
         device: Device,
-        info: &ImageViewHandleInfoNVX,
+        info: &ImageViewHandleInfoNVX<'_>,
     ) -> u32 {
         unsafe { (self.get_image_view_handle_nvx)(device, info) }
     }
     pub unsafe fn get_image_view_handle64_nvx(
         &self,
         device: Device,
-        info: &ImageViewHandleInfoNVX,
+        info: &ImageViewHandleInfoNVX<'_>,
     ) -> u64 {
         unsafe { (self.get_image_view_handle64_nvx)(device, info) }
     }
@@ -50,7 +50,7 @@ impl DeviceFn {
         &self,
         device: Device,
         image_view: ImageView,
-    ) -> crate::Result<ImageViewAddressPropertiesNVX> {
+    ) -> crate::Result<ImageViewAddressPropertiesNVX<'_>> {
         unsafe {
             let mut properties = core::mem::MaybeUninit::uninit();
             let result =

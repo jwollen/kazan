@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 pub type PFN_vkCmdWriteBufferMarkerAMD = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
     pipeline_stage: PipelineStageFlagBits,

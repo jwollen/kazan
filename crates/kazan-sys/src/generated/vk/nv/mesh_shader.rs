@@ -2,15 +2,17 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDeviceMeshShaderFeaturesNV {
+pub struct PhysicalDeviceMeshShaderFeaturesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub task_shader: Bool32,
     pub mesh_shader: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceMeshShaderPropertiesNV {
+pub struct PhysicalDeviceMeshShaderPropertiesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_draw_mesh_tasks_count: u32,
@@ -26,6 +28,7 @@ pub struct PhysicalDeviceMeshShaderPropertiesNV {
     pub max_mesh_multiview_view_count: u32,
     pub mesh_output_per_vertex_granularity: u32,
     pub mesh_output_per_primitive_granularity: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct DrawMeshTasksIndirectCommandNV {

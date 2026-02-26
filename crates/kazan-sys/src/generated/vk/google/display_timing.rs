@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
 pub struct RefreshCycleDurationGOOGLE {
     pub refresh_duration: u64,
@@ -15,11 +16,12 @@ pub struct PastPresentationTimingGOOGLE {
     pub present_margin: u64,
 }
 #[repr(C)]
-pub struct PresentTimesInfoGOOGLE {
+pub struct PresentTimesInfoGOOGLE<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub swapchain_count: u32,
     pub p_times: *const PresentTimeGOOGLE,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct PresentTimeGOOGLE {

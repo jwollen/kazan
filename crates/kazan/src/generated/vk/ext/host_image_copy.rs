@@ -39,7 +39,7 @@ impl DeviceFn {
     pub unsafe fn copy_memory_to_image_ext(
         &self,
         device: Device,
-        copy_memory_to_image_info: &CopyMemoryToImageInfo,
+        copy_memory_to_image_info: &CopyMemoryToImageInfo<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.copy_memory_to_image_ext)(device, copy_memory_to_image_info);
@@ -53,7 +53,7 @@ impl DeviceFn {
     pub unsafe fn copy_image_to_memory_ext(
         &self,
         device: Device,
-        copy_image_to_memory_info: &CopyImageToMemoryInfo,
+        copy_image_to_memory_info: &CopyImageToMemoryInfo<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.copy_image_to_memory_ext)(device, copy_image_to_memory_info);
@@ -67,7 +67,7 @@ impl DeviceFn {
     pub unsafe fn copy_image_to_image_ext(
         &self,
         device: Device,
-        copy_image_to_image_info: &CopyImageToImageInfo,
+        copy_image_to_image_info: &CopyImageToImageInfo<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.copy_image_to_image_ext)(device, copy_image_to_image_info);
@@ -81,7 +81,7 @@ impl DeviceFn {
     pub unsafe fn transition_image_layout_ext(
         &self,
         device: Device,
-        transitions: &[HostImageLayoutTransitionInfo],
+        transitions: &[HostImageLayoutTransitionInfo<'_>],
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.transition_image_layout_ext)(
@@ -100,8 +100,8 @@ impl DeviceFn {
         &self,
         device: Device,
         image: Image,
-        subresource: &ImageSubresource2,
-    ) -> SubresourceLayout2 {
+        subresource: &ImageSubresource2<'_>,
+    ) -> SubresourceLayout2<'_> {
         unsafe {
             let mut layout = core::mem::MaybeUninit::uninit();
             (self.get_image_subresource_layout2_ext)(

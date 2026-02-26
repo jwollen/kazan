@@ -65,8 +65,8 @@ impl DeviceFn {
     pub unsafe fn create_acceleration_structure_nv(
         &self,
         device: Device,
-        create_info: &AccelerationStructureCreateInfoNV,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &AccelerationStructureCreateInfoNV<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<AccelerationStructureNV> {
         unsafe {
             let mut acceleration_structure = core::mem::MaybeUninit::uninit();
@@ -87,7 +87,7 @@ impl DeviceFn {
         &self,
         device: Device,
         acceleration_structure: AccelerationStructureNV,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
             (self.destroy_acceleration_structure_nv)(
@@ -100,8 +100,8 @@ impl DeviceFn {
     pub unsafe fn get_acceleration_structure_memory_requirements_nv(
         &self,
         device: Device,
-        info: &AccelerationStructureMemoryRequirementsInfoNV,
-    ) -> MemoryRequirements2KHR {
+        info: &AccelerationStructureMemoryRequirementsInfoNV<'_>,
+    ) -> MemoryRequirements2KHR<'_> {
         unsafe {
             let mut memory_requirements = core::mem::MaybeUninit::uninit();
             (self.get_acceleration_structure_memory_requirements_nv)(
@@ -115,7 +115,7 @@ impl DeviceFn {
     pub unsafe fn bind_acceleration_structure_memory_nv(
         &self,
         device: Device,
-        bind_infos: &[BindAccelerationStructureMemoryInfoNV],
+        bind_infos: &[BindAccelerationStructureMemoryInfoNV<'_>],
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.bind_acceleration_structure_memory_nv)(
@@ -133,7 +133,7 @@ impl DeviceFn {
     pub unsafe fn cmd_build_acceleration_structure_nv(
         &self,
         command_buffer: CommandBuffer,
-        info: &AccelerationStructureInfoNV,
+        info: &AccelerationStructureInfoNV<'_>,
         instance_data: Buffer,
         instance_offset: DeviceSize,
         update: Bool32,
@@ -207,8 +207,8 @@ impl DeviceFn {
         &self,
         device: Device,
         pipeline_cache: PipelineCache,
-        create_infos: &[RayTracingPipelineCreateInfoNV],
-        allocator: Option<&AllocationCallbacks>,
+        create_infos: &[RayTracingPipelineCreateInfoNV<'_>],
+        allocator: Option<&AllocationCallbacks<'_>>,
         pipelines: &mut [Pipeline],
     ) -> crate::Result<()> {
         unsafe {

@@ -24,7 +24,7 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         samples: SampleCountFlagBits,
-    ) -> MultisamplePropertiesEXT {
+    ) -> MultisamplePropertiesEXT<'_> {
         unsafe {
             let mut multisample_properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_multisample_properties_ext)(
@@ -56,7 +56,7 @@ impl DeviceFn {
     pub unsafe fn cmd_set_sample_locations_ext(
         &self,
         command_buffer: CommandBuffer,
-        sample_locations_info: &SampleLocationsInfoEXT,
+        sample_locations_info: &SampleLocationsInfoEXT<'_>,
     ) {
         unsafe { (self.cmd_set_sample_locations_ext)(command_buffer, sample_locations_info) }
     }

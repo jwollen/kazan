@@ -24,7 +24,7 @@ impl DeviceFn {
         &self,
         device: Device,
         buffer: *const _screen_buffer,
-    ) -> crate::Result<ScreenBufferPropertiesQNX> {
+    ) -> crate::Result<ScreenBufferPropertiesQNX<'_>> {
         unsafe {
             let mut properties = core::mem::MaybeUninit::uninit();
             let result =

@@ -2,8 +2,9 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
-pub type PhysicalDeviceExternalFenceInfoKHR = PhysicalDeviceExternalFenceInfo;
-pub type ExternalFencePropertiesKHR = ExternalFenceProperties;
+use core::marker::PhantomData;
+pub type PhysicalDeviceExternalFenceInfoKHR<'a> = PhysicalDeviceExternalFenceInfo<'a>;
+pub type ExternalFencePropertiesKHR<'a> = ExternalFenceProperties<'a>;
 pub type ExternalFenceHandleTypeFlagsKHR = ExternalFenceHandleTypeFlags;
 pub type ExternalFenceFeatureFlagsKHR = ExternalFenceFeatureFlags;
 pub type PFN_vkGetPhysicalDeviceExternalFencePropertiesKHR =

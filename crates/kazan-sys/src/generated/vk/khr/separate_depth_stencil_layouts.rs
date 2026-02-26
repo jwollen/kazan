@@ -2,7 +2,8 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
-pub type PhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR =
-    PhysicalDeviceSeparateDepthStencilLayoutsFeatures;
-pub type AttachmentReferenceStencilLayoutKHR = AttachmentReferenceStencilLayout;
-pub type AttachmentDescriptionStencilLayoutKHR = AttachmentDescriptionStencilLayout;
+use core::marker::PhantomData;
+pub type PhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR<'a> =
+    PhysicalDeviceSeparateDepthStencilLayoutsFeatures<'a>;
+pub type AttachmentReferenceStencilLayoutKHR<'a> = AttachmentReferenceStencilLayout<'a>;
+pub type AttachmentDescriptionStencilLayoutKHR<'a> = AttachmentDescriptionStencilLayout<'a>;

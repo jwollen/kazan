@@ -28,8 +28,8 @@ impl DeviceFn {
     pub unsafe fn get_descriptor_set_layout_host_mapping_info_valve(
         &self,
         device: Device,
-        binding_reference: &DescriptorSetBindingReferenceVALVE,
-    ) -> DescriptorSetLayoutHostMappingInfoVALVE {
+        binding_reference: &DescriptorSetBindingReferenceVALVE<'_>,
+    ) -> DescriptorSetLayoutHostMappingInfoVALVE<'_> {
         unsafe {
             let mut host_mapping = core::mem::MaybeUninit::uninit();
             (self.get_descriptor_set_layout_host_mapping_info_valve)(

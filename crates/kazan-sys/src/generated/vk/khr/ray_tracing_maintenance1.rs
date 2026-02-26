@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
 pub struct TraceRaysIndirectCommand2KHR {
     pub raygen_shader_record_address: DeviceAddress,
@@ -20,11 +21,12 @@ pub struct TraceRaysIndirectCommand2KHR {
     pub depth: u32,
 }
 #[repr(C)]
-pub struct PhysicalDeviceRayTracingMaintenance1FeaturesKHR {
+pub struct PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub ray_tracing_maintenance1: Bool32,
     pub ray_tracing_pipeline_trace_rays_indirect2: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 pub type PFN_vkCmdTraceRaysIndirect2KHR = unsafe extern "system" fn(
     command_buffer: CommandBuffer,

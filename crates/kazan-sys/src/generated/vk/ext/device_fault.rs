@@ -2,12 +2,14 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDeviceFaultFeaturesEXT {
+pub struct PhysicalDeviceFaultFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub device_fault: Bool32,
     pub device_fault_vendor_binary: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct DeviceFaultAddressInfoEXT {
@@ -22,21 +24,23 @@ pub struct DeviceFaultVendorInfoEXT {
     pub vendor_fault_data: u64,
 }
 #[repr(C)]
-pub struct DeviceFaultCountsEXT {
+pub struct DeviceFaultCountsEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub address_info_count: u32,
     pub vendor_info_count: u32,
     pub vendor_binary_size: DeviceSize,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DeviceFaultInfoEXT {
+pub struct DeviceFaultInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
     pub p_address_infos: *mut DeviceFaultAddressInfoEXT,
     pub p_vendor_infos: *mut DeviceFaultVendorInfoEXT,
     pub p_vendor_binary_data: *mut c_void,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct DeviceFaultVendorBinaryHeaderVersionOneEXT {
@@ -72,6 +76,6 @@ impl DeviceFaultVendorBinaryHeaderVersionEXT {
 }
 pub type PFN_vkGetDeviceFaultInfoEXT = unsafe extern "system" fn(
     device: Device,
-    p_fault_counts: *mut DeviceFaultCountsEXT,
-    p_fault_info: *mut DeviceFaultInfoEXT,
+    p_fault_counts: *mut DeviceFaultCountsEXT<'_>,
+    p_fault_info: *mut DeviceFaultInfoEXT<'_>,
 ) -> Result;

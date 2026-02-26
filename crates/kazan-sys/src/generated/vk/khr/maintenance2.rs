@@ -2,11 +2,13 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 pub type PointClippingBehaviorKHR = PointClippingBehavior;
 pub type TessellationDomainOriginKHR = TessellationDomainOrigin;
 pub type InputAttachmentAspectReferenceKHR = InputAttachmentAspectReference;
-pub type RenderPassInputAttachmentAspectCreateInfoKHR = RenderPassInputAttachmentAspectCreateInfo;
-pub type PhysicalDevicePointClippingPropertiesKHR = PhysicalDevicePointClippingProperties;
-pub type ImageViewUsageCreateInfoKHR = ImageViewUsageCreateInfo;
-pub type PipelineTessellationDomainOriginStateCreateInfoKHR =
-    PipelineTessellationDomainOriginStateCreateInfo;
+pub type RenderPassInputAttachmentAspectCreateInfoKHR<'a> =
+    RenderPassInputAttachmentAspectCreateInfo<'a>;
+pub type PhysicalDevicePointClippingPropertiesKHR<'a> = PhysicalDevicePointClippingProperties<'a>;
+pub type ImageViewUsageCreateInfoKHR<'a> = ImageViewUsageCreateInfo<'a>;
+pub type PipelineTessellationDomainOriginStateCreateInfoKHR<'a> =
+    PipelineTessellationDomainOriginStateCreateInfo<'a>;

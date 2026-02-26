@@ -39,7 +39,7 @@ impl DeviceFn {
     pub unsafe fn debug_marker_set_object_tag_ext(
         &self,
         device: Device,
-        tag_info: &DebugMarkerObjectTagInfoEXT,
+        tag_info: &DebugMarkerObjectTagInfoEXT<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.debug_marker_set_object_tag_ext)(device, tag_info);
@@ -53,7 +53,7 @@ impl DeviceFn {
     pub unsafe fn debug_marker_set_object_name_ext(
         &self,
         device: Device,
-        name_info: &DebugMarkerObjectNameInfoEXT,
+        name_info: &DebugMarkerObjectNameInfoEXT<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.debug_marker_set_object_name_ext)(device, name_info);
@@ -67,7 +67,7 @@ impl DeviceFn {
     pub unsafe fn cmd_debug_marker_begin_ext(
         &self,
         command_buffer: CommandBuffer,
-        marker_info: &DebugMarkerMarkerInfoEXT,
+        marker_info: &DebugMarkerMarkerInfoEXT<'_>,
     ) {
         unsafe { (self.cmd_debug_marker_begin_ext)(command_buffer, marker_info) }
     }
@@ -77,7 +77,7 @@ impl DeviceFn {
     pub unsafe fn cmd_debug_marker_insert_ext(
         &self,
         command_buffer: CommandBuffer,
-        marker_info: &DebugMarkerMarkerInfoEXT,
+        marker_info: &DebugMarkerMarkerInfoEXT<'_>,
     ) {
         unsafe { (self.cmd_debug_marker_insert_ext)(command_buffer, marker_info) }
     }

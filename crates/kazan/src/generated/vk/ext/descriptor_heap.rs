@@ -78,8 +78,8 @@ impl DeviceFn {
     pub unsafe fn write_sampler_descriptors_ext(
         &self,
         device: Device,
-        samplers: &[SamplerCreateInfo],
-        descriptors: &[HostAddressRangeEXT],
+        samplers: &[SamplerCreateInfo<'_>],
+        descriptors: &[HostAddressRangeEXT<'_>],
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.write_sampler_descriptors_ext)(
@@ -98,8 +98,8 @@ impl DeviceFn {
     pub unsafe fn write_resource_descriptors_ext(
         &self,
         device: Device,
-        resources: &[ResourceDescriptorInfoEXT],
-        descriptors: &[HostAddressRangeEXT],
+        resources: &[ResourceDescriptorInfoEXT<'_>],
+        descriptors: &[HostAddressRangeEXT<'_>],
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.write_resource_descriptors_ext)(
@@ -118,21 +118,21 @@ impl DeviceFn {
     pub unsafe fn cmd_bind_sampler_heap_ext(
         &self,
         command_buffer: CommandBuffer,
-        bind_info: &BindHeapInfoEXT,
+        bind_info: &BindHeapInfoEXT<'_>,
     ) {
         unsafe { (self.cmd_bind_sampler_heap_ext)(command_buffer, bind_info) }
     }
     pub unsafe fn cmd_bind_resource_heap_ext(
         &self,
         command_buffer: CommandBuffer,
-        bind_info: &BindHeapInfoEXT,
+        bind_info: &BindHeapInfoEXT<'_>,
     ) {
         unsafe { (self.cmd_bind_resource_heap_ext)(command_buffer, bind_info) }
     }
     pub unsafe fn cmd_push_data_ext(
         &self,
         command_buffer: CommandBuffer,
-        push_data_info: &PushDataInfoEXT,
+        push_data_info: &PushDataInfoEXT<'_>,
     ) {
         unsafe { (self.cmd_push_data_ext)(command_buffer, push_data_info) }
     }
@@ -140,7 +140,7 @@ impl DeviceFn {
         &self,
         device: Device,
         images: &[Image],
-        datas: &mut [HostAddressRangeEXT],
+        datas: &mut [HostAddressRangeEXT<'_>],
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.get_image_opaque_capture_data_ext)(
@@ -159,7 +159,7 @@ impl DeviceFn {
     pub unsafe fn register_custom_border_color_ext(
         &self,
         device: Device,
-        border_color: &SamplerCustomBorderColorCreateInfoEXT,
+        border_color: &SamplerCustomBorderColorCreateInfoEXT<'_>,
         request_index: Bool32,
     ) -> crate::Result<u32> {
         unsafe {
@@ -184,7 +184,7 @@ impl DeviceFn {
         &self,
         device: Device,
         tensors: &[TensorARM],
-        datas: &mut [HostAddressRangeEXT],
+        datas: &mut [HostAddressRangeEXT<'_>],
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.get_tensor_opaque_capture_data_arm.unwrap())(

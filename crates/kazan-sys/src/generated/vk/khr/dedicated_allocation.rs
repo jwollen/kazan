@@ -2,5 +2,6 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
-pub type MemoryDedicatedRequirementsKHR = MemoryDedicatedRequirements;
-pub type MemoryDedicatedAllocateInfoKHR = MemoryDedicatedAllocateInfo;
+use core::marker::PhantomData;
+pub type MemoryDedicatedRequirementsKHR<'a> = MemoryDedicatedRequirements<'a>;
+pub type MemoryDedicatedAllocateInfoKHR<'a> = MemoryDedicatedAllocateInfo<'a>;

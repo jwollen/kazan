@@ -2,28 +2,32 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct ImageViewSampleWeightCreateInfoQCOM {
+pub struct ImageViewSampleWeightCreateInfoQCOM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub filter_center: Offset2D,
     pub filter_size: Extent2D,
     pub num_phases: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceImageProcessingFeaturesQCOM {
+pub struct PhysicalDeviceImageProcessingFeaturesQCOM<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub texture_sample_weighted: Bool32,
     pub texture_box_filter: Bool32,
     pub texture_block_match: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceImageProcessingPropertiesQCOM {
+pub struct PhysicalDeviceImageProcessingPropertiesQCOM<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_weight_filter_phases: u32,
     pub max_weight_filter_dimension: Extent2D,
     pub max_block_match_region: Extent2D,
     pub max_box_filter_block_size: Extent2D,
+    pub _marker: PhantomData<&'a ()>,
 }

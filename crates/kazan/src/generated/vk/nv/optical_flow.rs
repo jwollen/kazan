@@ -21,11 +21,11 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
-    pub unsafe fn get_physical_device_optical_flow_image_formats_nv(
+    pub unsafe fn get_physical_device_optical_flow_image_formats_nv<'a>(
         &self,
         physical_device: PhysicalDevice,
-        optical_flow_image_format_info: &OpticalFlowImageFormatInfoNV,
-        image_format_properties: impl ExtendUninit<OpticalFlowImageFormatPropertiesNV>,
+        optical_flow_image_format_info: &OpticalFlowImageFormatInfoNV<'_>,
+        image_format_properties: impl ExtendUninit<OpticalFlowImageFormatPropertiesNV<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(
@@ -80,8 +80,8 @@ impl DeviceFn {
     pub unsafe fn create_optical_flow_session_nv(
         &self,
         device: Device,
-        create_info: &OpticalFlowSessionCreateInfoNV,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &OpticalFlowSessionCreateInfoNV<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<OpticalFlowSessionNV> {
         unsafe {
             let mut session = core::mem::MaybeUninit::uninit();
@@ -102,7 +102,7 @@ impl DeviceFn {
         &self,
         device: Device,
         session: OpticalFlowSessionNV,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe { (self.destroy_optical_flow_session_nv)(device, session, allocator.to_raw_ptr()) }
     }
@@ -133,7 +133,7 @@ impl DeviceFn {
         &self,
         command_buffer: CommandBuffer,
         session: OpticalFlowSessionNV,
-        execute_info: &OpticalFlowExecuteInfoNV,
+        execute_info: &OpticalFlowExecuteInfoNV<'_>,
     ) {
         unsafe { (self.cmd_optical_flow_execute_nv)(command_buffer, session, execute_info) }
     }

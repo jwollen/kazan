@@ -27,7 +27,7 @@ impl DeviceFn {
     pub unsafe fn import_semaphore_win32_handle_khr(
         &self,
         device: Device,
-        import_semaphore_win32_handle_info: &ImportSemaphoreWin32HandleInfoKHR,
+        import_semaphore_win32_handle_info: &ImportSemaphoreWin32HandleInfoKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.import_semaphore_win32_handle_khr)(
@@ -44,7 +44,7 @@ impl DeviceFn {
     pub unsafe fn get_semaphore_win32_handle_khr(
         &self,
         device: Device,
-        get_win32_handle_info: &SemaphoreGetWin32HandleInfoKHR,
+        get_win32_handle_info: &SemaphoreGetWin32HandleInfoKHR<'_>,
     ) -> crate::Result<HANDLE> {
         unsafe {
             let mut handle = core::mem::MaybeUninit::uninit();

@@ -63,7 +63,7 @@ impl DeviceFn {
     pub unsafe fn get_calibrated_timestamps_khr(
         &self,
         device: Device,
-        timestamp_infos: &[CalibratedTimestampInfoKHR],
+        timestamp_infos: &[CalibratedTimestampInfoKHR<'_>],
         timestamps: &mut [u64],
     ) -> crate::Result<u64> {
         unsafe {

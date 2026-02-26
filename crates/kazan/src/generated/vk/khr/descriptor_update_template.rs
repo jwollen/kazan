@@ -35,8 +35,8 @@ impl DeviceFn {
     pub unsafe fn create_descriptor_update_template_khr(
         &self,
         device: Device,
-        create_info: &DescriptorUpdateTemplateCreateInfo,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &DescriptorUpdateTemplateCreateInfo<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<DescriptorUpdateTemplate> {
         unsafe {
             let mut descriptor_update_template = core::mem::MaybeUninit::uninit();
@@ -57,7 +57,7 @@ impl DeviceFn {
         &self,
         device: Device,
         descriptor_update_template: DescriptorUpdateTemplate,
-        allocator: Option<&AllocationCallbacks>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
             (self.destroy_descriptor_update_template_khr)(

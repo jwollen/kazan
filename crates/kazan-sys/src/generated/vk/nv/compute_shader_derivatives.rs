@@ -2,5 +2,6 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
-pub type PhysicalDeviceComputeShaderDerivativesFeaturesNV =
-    PhysicalDeviceComputeShaderDerivativesFeaturesKHR;
+use core::marker::PhantomData;
+pub type PhysicalDeviceComputeShaderDerivativesFeaturesNV<'a> =
+    PhysicalDeviceComputeShaderDerivativesFeaturesKHR<'a>;

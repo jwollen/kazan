@@ -2,17 +2,20 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct DisplaySurfaceStereoCreateInfoNV {
+pub struct DisplaySurfaceStereoCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub stereo_type: DisplaySurfaceStereoTypeNV,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DisplayModeStereoPropertiesNV {
+pub struct DisplayModeStereoPropertiesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub hdmi3_d_supported: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

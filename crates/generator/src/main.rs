@@ -9,6 +9,7 @@ use heck::{ToShoutySnakeCase, ToSnakeCase};
 use itertools::Itertools;
 
 use crate::{
+    analysis::Analysis,
     cdecl::CType,
     command::{CommandGroup, CommandInfo, normalize_command_name, write_command_wrapper},
     structs::write_struct,
@@ -25,21 +26,6 @@ fn main() {
     let analysis = analysis::Analysis::new("crates/generator/external/Vulkan-Headers");
 
     generate(&analysis);
-}
-
-#[derive(Copy, Clone)]
-enum FeatureOrExtension<'a> {
-    Feature(&'a xml::Feature),
-    Extension(&'a xml::Extension),
-}
-
-impl<'a> FeatureOrExtension<'a> {
-    fn requires(&self) -> &[xml::Require] {
-        match self {
-            FeatureOrExtension::Feature(feature) => &feature.requires,
-            FeatureOrExtension::Extension(extension) => &extension.requires,
-        }
-    }
 }
 
 #[derive(Clone)]
@@ -263,6 +249,7 @@ fn generate(analysis: &analysis::Analysis) {
 
             writeln!(sys_file, "#![allow(non_camel_case_types, unused_imports)]").unwrap();
             writeln!(sys_file, "use core::ffi::{{c_char, c_int, c_void}};").unwrap();
+            writeln!(sys_file, "use core::marker::PhantomData;").unwrap();
             writeln!(sys_file, "use bitflags::bitflags;").unwrap();
             writeln!(sys_file, "use crate::{{*, vk::*}};").unwrap();
 
@@ -336,8 +323,8 @@ fn generate(analysis: &analysis::Analysis) {
                 writeln!(
                     sys_file,
                     "pub type {} = {};",
-                    normalize_ty_name(ty.name),
-                    normalize_ty_name(ty.alias)
+                    type_name_with_lifetime(analysis, ty.name, Some("a")),
+                    type_name_with_lifetime(analysis, ty.alias, Some("a"))
                 )
                 .unwrap();
             }
@@ -371,16 +358,18 @@ fn generate(analysis: &analysis::Analysis) {
                 .filter(|ty| new_items.contains(ty.name));
             for ty in unions {
                 let name = normalize_ty_name(ty.name);
+                let type_info = analysis.get_base_type_info(ty.name).unwrap();
                 writeln!(
                     sys_file,
                     "#[repr(C)]
                     #[derive(Copy, Clone)]
-                    pub union {} {{",
-                    name
+                    pub union {}{} {{",
+                    name,
+                    if type_info.lifetime_param { "<'a>" } else { "" }
                 )
                 .unwrap();
                 for member in &ty.members {
-                    let field_ty = ctype_to_rust_type(&member.c_decl.ty);
+                    let field_ty = ctype_to_rust_type(analysis, &member.c_decl.ty, Some("a"));
                     writeln!(
                         sys_file,
                         "    pub {}: {},",
@@ -389,15 +378,19 @@ fn generate(analysis: &analysis::Analysis) {
                     )
                     .unwrap();
                 }
+                if type_info.lifetime_param {
+                    writeln!(sys_file, "pub _marker: PhantomData<&'a ()>,",).unwrap();
+                }
                 writeln!(sys_file, "}}").unwrap();
                 writeln!(
                     sys_file,
-                    "impl Default for {} {{
+                    "impl Default for {}{} {{
                         fn default() -> Self {{
                             unsafe {{ core::mem::zeroed() }}
                         }}
                     }}",
-                    name
+                    name,
+                    if type_info.lifetime_param { "<'_>" } else { "" }
                 )
                 .unwrap();
             }
@@ -691,12 +684,17 @@ fn generate(analysis: &analysis::Analysis) {
                         sys_file,
                         "    {}: {},",
                         normalize_name(param.c_decl.name),
-                        ctype_to_rust_type(&param.c_decl.ty)
+                        ctype_to_rust_type(analysis, &param.c_decl.ty, None)
                     )
                     .unwrap();
                 }
                 if let Some(ref return_type) = ty.return_type {
-                    writeln!(sys_file, ") -> {};", ctype_to_rust_type(&return_type)).unwrap();
+                    writeln!(
+                        sys_file,
+                        ") -> {};",
+                        ctype_to_rust_type(analysis, &return_type, None)
+                    )
+                    .unwrap();
                 } else {
                     writeln!(sys_file, ");").unwrap();
                 }
@@ -714,12 +712,17 @@ fn generate(analysis: &analysis::Analysis) {
                         sys_file,
                         "    {}: {},",
                         normalize_name(param.c_decl.name),
-                        ctype_to_rust_type(&param.c_decl.ty)
+                        ctype_to_rust_type(analysis, &param.c_decl.ty, None)
                     )
                     .unwrap();
                 }
                 if let Some(ref return_type) = command.return_type {
-                    writeln!(sys_file, ") -> {};", ctype_to_rust_type(&return_type)).unwrap();
+                    writeln!(
+                        sys_file,
+                        ") -> {};",
+                        ctype_to_rust_type(analysis, &return_type, None)
+                    )
+                    .unwrap();
                 } else {
                     writeln!(sys_file, ");").unwrap();
                 }
@@ -1000,6 +1003,17 @@ fn normalize_ty_name(name: &str) -> &str {
     name.strip_prefix("Vk").unwrap_or(name)
 }
 
+fn type_name_with_lifetime(analysis: &Analysis, name: &str, lifetime: Option<&str>) -> String {
+    let type_info = analysis.get_base_type_info(name).unwrap();
+    let name = ctype_to_rust_type_str(name);
+    if type_info.lifetime_param {
+        format!("{}<'{}>", name, lifetime.unwrap_or("_"))
+    } else {
+        name.to_string()
+    }
+}
+
+// TODO: Replace occurances with type_name_with_lifetime
 fn ctype_to_rust_type_str(name: &str) -> &str {
     match name {
         "int8_t" => "i8",
@@ -1020,16 +1034,16 @@ fn ctype_to_rust_type_str(name: &str) -> &str {
     }
 }
 
-fn ctype_to_rust_type(ty: &CType) -> String {
+fn ctype_to_rust_type(analysis: &Analysis, ty: &CType, lifetime: Option<&str>) -> String {
     match ty {
-        CType::Base(base) => ctype_to_rust_type_str(base.name).to_string(),
+        CType::Base(base) => type_name_with_lifetime(analysis, base.name, lifetime),
         CType::Ptr {
             pointee,
             implicit_for_decay,
             is_const,
             ..
         } => {
-            let pointee = ctype_to_rust_type(pointee.as_ref());
+            let pointee = ctype_to_rust_type(analysis, pointee.as_ref(), lifetime);
             if *is_const {
                 format!("*const {}", pointee).to_string()
             } else {
@@ -1037,7 +1051,7 @@ fn ctype_to_rust_type(ty: &CType) -> String {
             }
         }
         CType::Array { element, len } => {
-            let element_ty = ctype_to_rust_type(element.as_ref());
+            let element_ty = ctype_to_rust_type(analysis, element.as_ref(), lifetime);
             match len {
                 cdecl::CArrayLen::Named(name) => {
                     format!("[{}; {} as usize]", element_ty, normalize_const_name(name))
@@ -1091,8 +1105,8 @@ fn get_param_index(params: &[impl Param], param_name: &str) -> Option<usize> {
 }
 
 fn get_len_kind<'a>(
+    analysis: &'a Analysis,
     params: &'a [impl Param],
-    structs: &'a [xml::Structure],
     len: &'static str,
 ) -> LengthKind<'a> {
     if len == "null-terminated" {
@@ -1111,7 +1125,9 @@ fn get_len_kind<'a>(
             panic!("expected base type, got {:?}", pointee);
         };
 
-        let struct_ty = structs
+        let struct_ty = analysis
+            .registry()
+            .structs
             .iter()
             .find(|ty| ty.name == base.name)
             .unwrap_or_else(|| panic!("failed to find struct {}", base.name));

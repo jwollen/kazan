@@ -2,33 +2,38 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct ShadingRatePaletteNV {
+pub struct ShadingRatePaletteNV<'a> {
     pub shading_rate_palette_entry_count: u32,
     pub p_shading_rate_palette_entries: *const ShadingRatePaletteEntryNV,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PipelineViewportShadingRateImageStateCreateInfoNV {
+pub struct PipelineViewportShadingRateImageStateCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub shading_rate_image_enable: Bool32,
     pub viewport_count: u32,
-    pub p_shading_rate_palettes: *const ShadingRatePaletteNV,
+    pub p_shading_rate_palettes: *const ShadingRatePaletteNV<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceShadingRateImageFeaturesNV {
+pub struct PhysicalDeviceShadingRateImageFeaturesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub shading_rate_image: Bool32,
     pub shading_rate_coarse_sample_order: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceShadingRateImagePropertiesNV {
+pub struct PhysicalDeviceShadingRateImagePropertiesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub shading_rate_texel_size: Extent2D,
     pub shading_rate_palette_size: u32,
     pub shading_rate_max_coarse_samples: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct CoarseSampleLocationNV {
@@ -37,19 +42,21 @@ pub struct CoarseSampleLocationNV {
     pub sample: u32,
 }
 #[repr(C)]
-pub struct CoarseSampleOrderCustomNV {
+pub struct CoarseSampleOrderCustomNV<'a> {
     pub shading_rate: ShadingRatePaletteEntryNV,
     pub sample_count: u32,
     pub sample_location_count: u32,
     pub p_sample_locations: *const CoarseSampleLocationNV,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PipelineViewportCoarseSampleOrderStateCreateInfoNV {
+pub struct PipelineViewportCoarseSampleOrderStateCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub sample_order_type: CoarseSampleOrderTypeNV,
     pub custom_sample_order_count: u32,
-    pub p_custom_sample_orders: *const CoarseSampleOrderCustomNV,
+    pub p_custom_sample_orders: *const CoarseSampleOrderCustomNV<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -86,11 +93,11 @@ pub type PFN_vkCmdSetViewportShadingRatePaletteNV = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
     first_viewport: u32,
     viewport_count: u32,
-    p_shading_rate_palettes: *const ShadingRatePaletteNV,
+    p_shading_rate_palettes: *const ShadingRatePaletteNV<'_>,
 );
 pub type PFN_vkCmdSetCoarseSampleOrderNV = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
     sample_order_type: CoarseSampleOrderTypeNV,
     custom_sample_order_count: u32,
-    p_custom_sample_orders: *const CoarseSampleOrderCustomNV,
+    p_custom_sample_orders: *const CoarseSampleOrderCustomNV<'_>,
 );

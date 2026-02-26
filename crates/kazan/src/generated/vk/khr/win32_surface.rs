@@ -28,8 +28,8 @@ impl InstanceFn {
     pub unsafe fn create_win32_surface_khr(
         &self,
         instance: Instance,
-        create_info: &Win32SurfaceCreateInfoKHR,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &Win32SurfaceCreateInfoKHR<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();

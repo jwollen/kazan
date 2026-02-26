@@ -27,7 +27,7 @@ impl DeviceFn {
     pub unsafe fn cmd_begin_rendering_khr(
         &self,
         command_buffer: CommandBuffer,
-        rendering_info: &RenderingInfo,
+        rendering_info: &RenderingInfo<'_>,
     ) {
         unsafe { (self.cmd_begin_rendering_khr)(command_buffer, rendering_info) }
     }

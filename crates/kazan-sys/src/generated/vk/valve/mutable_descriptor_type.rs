@@ -2,7 +2,8 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
-pub type PhysicalDeviceMutableDescriptorTypeFeaturesVALVE =
-    PhysicalDeviceMutableDescriptorTypeFeaturesEXT;
-pub type MutableDescriptorTypeListVALVE = MutableDescriptorTypeListEXT;
-pub type MutableDescriptorTypeCreateInfoVALVE = MutableDescriptorTypeCreateInfoEXT;
+use core::marker::PhantomData;
+pub type PhysicalDeviceMutableDescriptorTypeFeaturesVALVE<'a> =
+    PhysicalDeviceMutableDescriptorTypeFeaturesEXT<'a>;
+pub type MutableDescriptorTypeListVALVE<'a> = MutableDescriptorTypeListEXT<'a>;
+pub type MutableDescriptorTypeCreateInfoVALVE<'a> = MutableDescriptorTypeCreateInfoEXT<'a>;

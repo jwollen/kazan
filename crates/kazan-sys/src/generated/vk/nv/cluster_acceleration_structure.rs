@@ -2,14 +2,16 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDeviceClusterAccelerationStructureFeaturesNV {
+pub struct PhysicalDeviceClusterAccelerationStructureFeaturesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub cluster_acceleration_structure: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceClusterAccelerationStructurePropertiesNV {
+pub struct PhysicalDeviceClusterAccelerationStructurePropertiesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_vertices_per_cluster: u32,
@@ -20,6 +22,7 @@ pub struct PhysicalDeviceClusterAccelerationStructurePropertiesNV {
     pub cluster_bottom_level_byte_alignment: u32,
     pub cluster_template_bounds_byte_alignment: u32,
     pub max_cluster_geometry_index: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct StridedDeviceAddressNV {
@@ -27,10 +30,11 @@ pub struct StridedDeviceAddressNV {
     pub stride_in_bytes: DeviceSize,
 }
 #[repr(C)]
-pub struct RayTracingPipelineClusterAccelerationStructureCreateInfoNV {
+pub struct RayTracingPipelineClusterAccelerationStructureCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub allow_cluster_acceleration_structure: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct ClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV {
@@ -104,14 +108,15 @@ pub struct ClusterAccelerationStructureInstantiateClusterInfoNV {
     pub vertex_buffer: StridedDeviceAddressNV,
 }
 #[repr(C)]
-pub struct ClusterAccelerationStructureClustersBottomLevelInputNV {
+pub struct ClusterAccelerationStructureClustersBottomLevelInputNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_total_cluster_count: u32,
     pub max_cluster_count_per_acceleration_structure: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct ClusterAccelerationStructureTriangleClusterInputNV {
+pub struct ClusterAccelerationStructureTriangleClusterInputNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub vertex_format: Format,
@@ -122,30 +127,33 @@ pub struct ClusterAccelerationStructureTriangleClusterInputNV {
     pub max_total_triangle_count: u32,
     pub max_total_vertex_count: u32,
     pub min_position_truncate_bit_count: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct ClusterAccelerationStructureMoveObjectsInputNV {
+pub struct ClusterAccelerationStructureMoveObjectsInputNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub ty: ClusterAccelerationStructureTypeNV,
     pub no_move_overlap: Bool32,
     pub max_moved_bytes: DeviceSize,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct ClusterAccelerationStructureInputInfoNV {
+pub struct ClusterAccelerationStructureInputInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_acceleration_structure_count: u32,
     pub flags: BuildAccelerationStructureFlagsKHR,
     pub op_type: ClusterAccelerationStructureOpTypeNV,
     pub op_mode: ClusterAccelerationStructureOpModeNV,
-    pub op_input: ClusterAccelerationStructureOpInputNV,
+    pub op_input: ClusterAccelerationStructureOpInputNV<'a>,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct ClusterAccelerationStructureCommandsInfoNV {
+pub struct ClusterAccelerationStructureCommandsInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
-    pub input: ClusterAccelerationStructureInputInfoNV,
+    pub input: ClusterAccelerationStructureInputInfoNV<'a>,
     pub dst_implicit_data: DeviceAddress,
     pub scratch_data: DeviceAddress,
     pub dst_addresses_array: StridedDeviceAddressRegionKHR,
@@ -153,13 +161,20 @@ pub struct ClusterAccelerationStructureCommandsInfoNV {
     pub src_infos_array: StridedDeviceAddressRegionKHR,
     pub src_infos_count: DeviceAddress,
     pub address_resolution_flags: ClusterAccelerationStructureAddressResolutionFlagsNV,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
-pub union ClusterAccelerationStructureOpInputNV {
-    pub p_clusters_bottom_level: *mut ClusterAccelerationStructureClustersBottomLevelInputNV,
-    pub p_triangle_clusters: *mut ClusterAccelerationStructureTriangleClusterInputNV,
-    pub p_move_objects: *mut ClusterAccelerationStructureMoveObjectsInputNV,
+pub union ClusterAccelerationStructureOpInputNV<'a> {
+    pub p_clusters_bottom_level: *mut ClusterAccelerationStructureClustersBottomLevelInputNV<'a>,
+    pub p_triangle_clusters: *mut ClusterAccelerationStructureTriangleClusterInputNV<'a>,
+    pub p_move_objects: *mut ClusterAccelerationStructureMoveObjectsInputNV<'a>,
+    pub _marker: PhantomData<&'a ()>,
+}
+impl Default for ClusterAccelerationStructureOpInputNV<'_> {
+    fn default() -> Self {
+        unsafe { core::mem::zeroed() }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -190,7 +205,7 @@ impl ClusterAccelerationStructureOpModeNV {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ClusterAccelerationStructureGeometryFlagsNV: Flags {
         const CULL_DISABLE_NV = ClusterAccelerationStructureGeometryFlagBitsNV::CULL_DISABLE_NV.0;
         const NO_DUPLICATE_ANYHIT_INVOCATION_NV = ClusterAccelerationStructureGeometryFlagBitsNV::NO_DUPLICATE_ANYHIT_INVOCATION_NV.0;
@@ -198,7 +213,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ClusterAccelerationStructureGeometryFlagBitsNV(u32);
 impl ClusterAccelerationStructureGeometryFlagBitsNV {
     pub const CULL_DISABLE_NV: Self = Self(1 << 0);
@@ -207,20 +222,20 @@ impl ClusterAccelerationStructureGeometryFlagBitsNV {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ClusterAccelerationStructureClusterFlagsNV: Flags {
         const ALLOW_DISABLE_OPACITY_MICROMAPS_NV = ClusterAccelerationStructureClusterFlagBitsNV::ALLOW_DISABLE_OPACITY_MICROMAPS_NV.0;
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ClusterAccelerationStructureClusterFlagBitsNV(u32);
 impl ClusterAccelerationStructureClusterFlagBitsNV {
     pub const ALLOW_DISABLE_OPACITY_MICROMAPS_NV: Self = Self(1 << 0);
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ClusterAccelerationStructureAddressResolutionFlagsNV: Flags {
         const INDIRECTED_DST_IMPLICIT_DATA_NV = ClusterAccelerationStructureAddressResolutionFlagBitsNV::INDIRECTED_DST_IMPLICIT_DATA_NV.0;
         const INDIRECTED_SCRATCH_DATA_NV = ClusterAccelerationStructureAddressResolutionFlagBitsNV::INDIRECTED_SCRATCH_DATA_NV.0;
@@ -232,7 +247,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ClusterAccelerationStructureAddressResolutionFlagBitsNV(u32);
 impl ClusterAccelerationStructureAddressResolutionFlagBitsNV {
     pub const INDIRECTED_DST_IMPLICIT_DATA_NV: Self = Self(1 << 0);
@@ -244,7 +259,7 @@ impl ClusterAccelerationStructureAddressResolutionFlagBitsNV {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ClusterAccelerationStructureIndexFormatFlagsNV: Flags {
         const _8BIT_NV = ClusterAccelerationStructureIndexFormatFlagBitsNV::_8BIT_NV.0;
         const _16BIT_NV = ClusterAccelerationStructureIndexFormatFlagBitsNV::_16BIT_NV.0;
@@ -252,7 +267,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ClusterAccelerationStructureIndexFormatFlagBitsNV(u32);
 impl ClusterAccelerationStructureIndexFormatFlagBitsNV {
     pub const _8BIT_NV: Self = Self(1 << 0);
@@ -261,10 +276,10 @@ impl ClusterAccelerationStructureIndexFormatFlagBitsNV {
 }
 pub type PFN_vkGetClusterAccelerationStructureBuildSizesNV = unsafe extern "system" fn(
     device: Device,
-    p_info: *const ClusterAccelerationStructureInputInfoNV,
-    p_size_info: *mut AccelerationStructureBuildSizesInfoKHR,
+    p_info: *const ClusterAccelerationStructureInputInfoNV<'_>,
+    p_size_info: *mut AccelerationStructureBuildSizesInfoKHR<'_>,
 );
 pub type PFN_vkCmdBuildClusterAccelerationStructureIndirectNV = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_command_infos: *const ClusterAccelerationStructureCommandsInfoNV,
+    p_command_infos: *const ClusterAccelerationStructureCommandsInfoNV<'_>,
 );

@@ -2,7 +2,8 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
-pub type PhysicalDeviceDepthStencilResolvePropertiesKHR =
-    PhysicalDeviceDepthStencilResolveProperties;
-pub type SubpassDescriptionDepthStencilResolveKHR = SubpassDescriptionDepthStencilResolve;
+use core::marker::PhantomData;
+pub type PhysicalDeviceDepthStencilResolvePropertiesKHR<'a> =
+    PhysicalDeviceDepthStencilResolveProperties<'a>;
+pub type SubpassDescriptionDepthStencilResolveKHR<'a> = SubpassDescriptionDepthStencilResolve<'a>;
 pub type ResolveModeFlagsKHR = ResolveModeFlags;

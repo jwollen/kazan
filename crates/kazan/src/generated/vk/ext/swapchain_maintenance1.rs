@@ -23,7 +23,7 @@ impl DeviceFn {
     pub unsafe fn release_swapchain_images_ext(
         &self,
         device: Device,
-        release_info: &ReleaseSwapchainImagesInfoKHR,
+        release_info: &ReleaseSwapchainImagesInfoKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.release_swapchain_images_ext)(device, release_info);

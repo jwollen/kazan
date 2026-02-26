@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
 pub struct StdVideoDecodeVP9PictureInfoFlags {
     pub error_resilient_mode: u32,
@@ -15,7 +16,7 @@ pub struct StdVideoDecodeVP9PictureInfoFlags {
     pub reserved: u32,
 }
 #[repr(C)]
-pub struct StdVideoDecodeVP9PictureInfo {
+pub struct StdVideoDecodeVP9PictureInfo<'a> {
     pub flags: StdVideoDecodeVP9PictureInfoFlags,
     pub profile: StdVideoVP9Profile,
     pub frame_type: StdVideoVP9FrameType,
@@ -34,4 +35,5 @@ pub struct StdVideoDecodeVP9PictureInfo {
     pub p_color_config: *const StdVideoVP9ColorConfig,
     pub p_loop_filter: *const StdVideoVP9LoopFilter,
     pub p_segmentation: *const StdVideoVP9Segmentation,
+    pub _marker: PhantomData<&'a ()>,
 }

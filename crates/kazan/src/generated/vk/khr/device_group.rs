@@ -126,7 +126,7 @@ impl DeviceFn {
     pub unsafe fn get_device_group_present_capabilities_khr(
         &self,
         device: Device,
-    ) -> crate::Result<DeviceGroupPresentCapabilitiesKHR> {
+    ) -> crate::Result<DeviceGroupPresentCapabilitiesKHR<'_>> {
         unsafe {
             let mut device_group_present_capabilities = core::mem::MaybeUninit::uninit();
             let result = (self.get_device_group_present_capabilities_khr.unwrap())(
@@ -162,7 +162,7 @@ impl DeviceFn {
     pub unsafe fn acquire_next_image2_khr(
         &self,
         device: Device,
-        acquire_info: &AcquireNextImageInfoKHR,
+        acquire_info: &AcquireNextImageInfoKHR<'_>,
         image_index: &mut u32,
     ) -> crate::Result<()> {
         unsafe {

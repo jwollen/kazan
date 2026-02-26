@@ -49,7 +49,7 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_features2_khr(
         &self,
         physical_device: PhysicalDevice,
-    ) -> PhysicalDeviceFeatures2 {
+    ) -> PhysicalDeviceFeatures2<'_> {
         unsafe {
             let mut features = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_features2_khr)(physical_device, features.as_mut_ptr());
@@ -59,7 +59,7 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_properties2_khr(
         &self,
         physical_device: PhysicalDevice,
-    ) -> PhysicalDeviceProperties2 {
+    ) -> PhysicalDeviceProperties2<'_> {
         unsafe {
             let mut properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_properties2_khr)(physical_device, properties.as_mut_ptr());
@@ -70,7 +70,7 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         format: Format,
-    ) -> FormatProperties2 {
+    ) -> FormatProperties2<'_> {
         unsafe {
             let mut format_properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_format_properties2_khr)(
@@ -84,8 +84,8 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_image_format_properties2_khr(
         &self,
         physical_device: PhysicalDevice,
-        image_format_info: &PhysicalDeviceImageFormatInfo2,
-    ) -> crate::Result<ImageFormatProperties2> {
+        image_format_info: &PhysicalDeviceImageFormatInfo2<'_>,
+    ) -> crate::Result<ImageFormatProperties2<'_>> {
         unsafe {
             let mut image_format_properties = core::mem::MaybeUninit::uninit();
             let result = (self.get_physical_device_image_format_properties2_khr)(
@@ -100,10 +100,10 @@ impl InstanceFn {
             }
         }
     }
-    pub unsafe fn get_physical_device_queue_family_properties2_khr(
+    pub unsafe fn get_physical_device_queue_family_properties2_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
-        queue_family_properties: impl ExtendUninit<QueueFamilyProperties2>,
+        queue_family_properties: impl ExtendUninit<QueueFamilyProperties2<'a>>,
     ) {
         unsafe {
             extend_uninit(
@@ -121,7 +121,7 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_memory_properties2_khr(
         &self,
         physical_device: PhysicalDevice,
-    ) -> PhysicalDeviceMemoryProperties2 {
+    ) -> PhysicalDeviceMemoryProperties2<'_> {
         unsafe {
             let mut memory_properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_memory_properties2_khr)(
@@ -131,11 +131,11 @@ impl InstanceFn {
             memory_properties.assume_init()
         }
     }
-    pub unsafe fn get_physical_device_sparse_image_format_properties2_khr(
+    pub unsafe fn get_physical_device_sparse_image_format_properties2_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
-        format_info: &PhysicalDeviceSparseImageFormatInfo2,
-        properties: impl ExtendUninit<SparseImageFormatProperties2>,
+        format_info: &PhysicalDeviceSparseImageFormatInfo2<'_>,
+        properties: impl ExtendUninit<SparseImageFormatProperties2<'a>>,
     ) {
         unsafe {
             extend_uninit(properties, |property_count, properties| {

@@ -2,19 +2,20 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
-pub type PhysicalDeviceMaintenance6FeaturesKHR = PhysicalDeviceMaintenance6Features;
-pub type PhysicalDeviceMaintenance6PropertiesKHR = PhysicalDeviceMaintenance6Properties;
-pub type BindMemoryStatusKHR = BindMemoryStatus;
-pub type BindDescriptorSetsInfoKHR = BindDescriptorSetsInfo;
-pub type PushConstantsInfoKHR = PushConstantsInfo;
-pub type PushDescriptorSetInfoKHR = PushDescriptorSetInfo;
-pub type PushDescriptorSetWithTemplateInfoKHR = PushDescriptorSetWithTemplateInfo;
+use core::marker::PhantomData;
+pub type PhysicalDeviceMaintenance6FeaturesKHR<'a> = PhysicalDeviceMaintenance6Features<'a>;
+pub type PhysicalDeviceMaintenance6PropertiesKHR<'a> = PhysicalDeviceMaintenance6Properties<'a>;
+pub type BindMemoryStatusKHR<'a> = BindMemoryStatus<'a>;
+pub type BindDescriptorSetsInfoKHR<'a> = BindDescriptorSetsInfo<'a>;
+pub type PushConstantsInfoKHR<'a> = PushConstantsInfo<'a>;
+pub type PushDescriptorSetInfoKHR<'a> = PushDescriptorSetInfo<'a>;
+pub type PushDescriptorSetWithTemplateInfoKHR<'a> = PushDescriptorSetWithTemplateInfo<'a>;
 pub type PFN_vkCmdBindDescriptorSets2KHR = PFN_vkCmdBindDescriptorSets2;
 pub type PFN_vkCmdPushConstants2KHR = PFN_vkCmdPushConstants2;
 pub type PFN_vkCmdPushDescriptorSet2KHR = PFN_vkCmdPushDescriptorSet2;
 pub type PFN_vkCmdPushDescriptorSetWithTemplate2KHR = PFN_vkCmdPushDescriptorSetWithTemplate2;
 #[repr(C)]
-pub struct SetDescriptorBufferOffsetsInfoEXT {
+pub struct SetDescriptorBufferOffsetsInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub stage_flags: ShaderStageFlags,
@@ -23,20 +24,22 @@ pub struct SetDescriptorBufferOffsetsInfoEXT {
     pub set_count: u32,
     pub p_buffer_indices: *const u32,
     pub p_offsets: *const DeviceSize,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct BindDescriptorBufferEmbeddedSamplersInfoEXT {
+pub struct BindDescriptorBufferEmbeddedSamplersInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub stage_flags: ShaderStageFlags,
     pub layout: PipelineLayout,
     pub set: u32,
+    pub _marker: PhantomData<&'a ()>,
 }
 pub type PFN_vkCmdSetDescriptorBufferOffsets2EXT = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_set_descriptor_buffer_offsets_info: *const SetDescriptorBufferOffsetsInfoEXT,
+    p_set_descriptor_buffer_offsets_info: *const SetDescriptorBufferOffsetsInfoEXT<'_>,
 );
 pub type PFN_vkCmdBindDescriptorBufferEmbeddedSamplers2EXT = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_bind_descriptor_buffer_embedded_samplers_info: *const BindDescriptorBufferEmbeddedSamplersInfoEXT,
+    p_bind_descriptor_buffer_embedded_samplers_info: *const BindDescriptorBufferEmbeddedSamplersInfoEXT<'_>,
 );

@@ -21,7 +21,7 @@ impl DeviceFn {
     pub unsafe fn cmd_begin_custom_resolve_ext(
         &self,
         command_buffer: CommandBuffer,
-        begin_custom_resolve_info: Option<&BeginCustomResolveInfoEXT>,
+        begin_custom_resolve_info: Option<&BeginCustomResolveInfoEXT<'_>>,
     ) {
         unsafe {
             (self.cmd_begin_custom_resolve_ext.unwrap())(

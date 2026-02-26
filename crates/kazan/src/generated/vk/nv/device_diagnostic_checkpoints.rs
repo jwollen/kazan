@@ -33,10 +33,10 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_checkpoint_nv)(command_buffer, checkpoint_marker) }
     }
-    pub unsafe fn get_queue_checkpoint_data_nv(
+    pub unsafe fn get_queue_checkpoint_data_nv<'a>(
         &self,
         queue: Queue,
-        checkpoint_data: impl ExtendUninit<CheckpointDataNV>,
+        checkpoint_data: impl ExtendUninit<CheckpointDataNV<'a>>,
     ) {
         unsafe {
             extend_uninit(checkpoint_data, |checkpoint_data_count, checkpoint_data| {
@@ -48,10 +48,10 @@ impl DeviceFn {
             })
         }
     }
-    pub unsafe fn get_queue_checkpoint_data2_nv(
+    pub unsafe fn get_queue_checkpoint_data2_nv<'a>(
         &self,
         queue: Queue,
-        checkpoint_data: impl ExtendUninit<CheckpointData2NV>,
+        checkpoint_data: impl ExtendUninit<CheckpointData2NV<'a>>,
     ) {
         unsafe {
             extend_uninit(checkpoint_data, |checkpoint_data_count, checkpoint_data| {

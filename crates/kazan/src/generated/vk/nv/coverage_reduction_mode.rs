@@ -22,10 +22,10 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
-    pub unsafe fn get_physical_device_supported_framebuffer_mixed_samples_combinations_nv(
+    pub unsafe fn get_physical_device_supported_framebuffer_mixed_samples_combinations_nv<'a>(
         &self,
         physical_device: PhysicalDevice,
-        combinations: impl ExtendUninit<FramebufferMixedSamplesCombinationNV>,
+        combinations: impl ExtendUninit<FramebufferMixedSamplesCombinationNV<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(combinations, |combination_count, combinations| {

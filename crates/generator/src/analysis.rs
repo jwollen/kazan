@@ -56,7 +56,7 @@ impl Analysis {
         &self.registry
     }
 
-    pub fn types(&self) -> Types {
+    pub fn types(&self) -> Types<'_> {
         Types {
             registry: &self.registry,
             custom_types: &self.custom_types,
@@ -64,8 +64,12 @@ impl Analysis {
         }
     }
 
-    pub fn type_infos(&self) -> &TypeInfos {
-        &self.type_infos
+    pub fn get_base_type_info(&self, name: &str) -> Option<TypeInfo> {
+        get_base_type_info(&self.types(), &self.type_infos, name)
+    }
+
+    pub fn get_type_info(&self, ty: &CType<'_>) -> Option<TypeInfo> {
+        get_type_info(&self.types(), &self.type_infos, ty)
     }
 }
 
@@ -272,6 +276,7 @@ pub struct TypeInfo {
     pub default: bool,
     pub clone: bool,
     pub pod: bool,
+    pub lifetime_param: bool,
     pub lifetime: bool,
 }
 
@@ -280,6 +285,7 @@ impl TypeInfo {
         default: true,
         clone: true,
         pod: true,
+        lifetime_param: false,
         lifetime: false,
     };
 
@@ -287,6 +293,7 @@ impl TypeInfo {
         default: false,
         clone: false,
         pod: false,
+        lifetime_param: false,
         lifetime: false,
     };
 
@@ -294,6 +301,7 @@ impl TypeInfo {
         default: true,
         clone: true,
         pod: true,
+        lifetime_param: false,
         lifetime: false,
     };
 
@@ -301,6 +309,7 @@ impl TypeInfo {
         default: false,
         clone: false,
         pod: false,
+        lifetime_param: false,
         lifetime: true,
     };
 
@@ -309,6 +318,7 @@ impl TypeInfo {
             default: true,
             clone: true,
             pod: true,
+            lifetime_param: false,
             lifetime: false,
         }
     }
@@ -317,7 +327,7 @@ impl TypeInfo {
         self.default &= other.default;
         self.clone &= other.clone;
         self.pod &= other.pod;
-        self.lifetime |= other.lifetime;
+        self.lifetime_param |= other.lifetime_param | other.lifetime;
     }
 }
 
@@ -352,13 +362,12 @@ fn compute_type_infos(
                 // Schedule this type again after its member types are processed
                 pending_types.push((ty_name, true));
 
-                if !visited_types.insert(ty_name) {
-                    todo!("cycle detected in {}", ty_name);
-                }
-
                 for member in &ty.members {
                     if let Some(base_ty_name) = get_base_type(&member.c_decl.ty) {
-                        pending_types.push((base_ty_name, false));
+                        // Detect cycles
+                        if visited_types.insert(base_ty_name) {
+                            pending_types.push((base_ty_name, false));
+                        }
                     }
                 }
             } else {
@@ -366,8 +375,18 @@ fn compute_type_infos(
 
                 for member in &ty.members {
                     let member_ty = &member.c_decl.ty;
-                    let member_ty_info = get_type_info(&types, &type_infos, member_ty).unwrap();
-                    type_info.merge(&member_ty_info);
+
+                    if ty_name == "VkPerformanceValueINTEL" {
+                        println!("{}: {:?}", member.c_decl.name, member_ty);
+                    }
+
+                    // No TypeInfo means this is a circular type
+                    if let Some(member_ty_info) = get_type_info(&types, &type_infos, member_ty) {
+                        if ty_name == "VkPerformanceValueINTEL" {
+                            println!("{}: {:?}", member.c_decl.name, member_ty_info);
+                        }
+                        type_info.merge(&member_ty_info);
+                    }
                 }
 
                 type_infos.insert(ty_name, type_info);
@@ -382,7 +401,7 @@ fn get_base_type<'a>(ty: &CType<'a>) -> Option<&'a str> {
     match ty {
         CType::Base(base) => Some(base.name),
         CType::Array { element, .. } => get_base_type(element),
-        CType::Ptr { .. } => None,
+        CType::Ptr { pointee, .. } => get_base_type(pointee),
         CType::Func { .. } => todo!(),
     }
 }
@@ -399,7 +418,13 @@ fn get_type_info<'a>(
             info.default = false;
             Some(info)
         }
-        CType::Ptr { .. } => Some(TypeInfo::POINTER),
+        CType::Ptr { pointee, .. } => {
+            let pointee_info = get_type_info(types, type_infos, pointee)?;
+            Some(TypeInfo {
+                lifetime_param: pointee_info.lifetime_param,
+                ..TypeInfo::POINTER
+            })
+        }
         CType::Func { .. } => todo!(),
     }
 }

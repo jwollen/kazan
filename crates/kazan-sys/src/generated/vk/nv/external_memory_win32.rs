@@ -2,19 +2,22 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct ImportMemoryWin32HandleInfoNV {
+pub struct ImportMemoryWin32HandleInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub handle_type: ExternalMemoryHandleTypeFlagsNV,
     pub handle: HANDLE,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct ExportMemoryWin32HandleInfoNV {
+pub struct ExportMemoryWin32HandleInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_attributes: *const SECURITY_ATTRIBUTES,
     pub dw_access: DWORD,
+    pub _marker: PhantomData<&'a ()>,
 }
 pub type PFN_vkGetMemoryWin32HandleNV = unsafe extern "system" fn(
     device: Device,

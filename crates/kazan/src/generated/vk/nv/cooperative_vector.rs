@@ -22,10 +22,10 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
-    pub unsafe fn get_physical_device_cooperative_vector_properties_nv(
+    pub unsafe fn get_physical_device_cooperative_vector_properties_nv<'a>(
         &self,
         physical_device: PhysicalDevice,
-        properties: impl ExtendUninit<CooperativeVectorPropertiesNV>,
+        properties: impl ExtendUninit<CooperativeVectorPropertiesNV<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit(properties, |property_count, properties| {
@@ -68,7 +68,7 @@ impl DeviceFn {
     pub unsafe fn convert_cooperative_vector_matrix_nv(
         &self,
         device: Device,
-        info: &ConvertCooperativeVectorMatrixInfoNV,
+        info: &ConvertCooperativeVectorMatrixInfoNV<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.convert_cooperative_vector_matrix_nv)(device, info);
@@ -83,7 +83,7 @@ impl DeviceFn {
     pub unsafe fn cmd_convert_cooperative_vector_matrix_nv(
         &self,
         command_buffer: CommandBuffer,
-        infos: &[ConvertCooperativeVectorMatrixInfoNV],
+        infos: &[ConvertCooperativeVectorMatrixInfoNV<'_>],
     ) {
         unsafe {
             (self.cmd_convert_cooperative_vector_matrix_nv)(

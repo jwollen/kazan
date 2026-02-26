@@ -2,5 +2,6 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
-pub type FormatProperties3KHR = FormatProperties3;
+use core::marker::PhantomData;
+pub type FormatProperties3KHR<'a> = FormatProperties3<'a>;
 pub type FormatFeatureFlags2KHR = FormatFeatureFlags2;

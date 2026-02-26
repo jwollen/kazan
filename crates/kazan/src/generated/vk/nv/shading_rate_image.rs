@@ -40,7 +40,7 @@ impl DeviceFn {
         &self,
         command_buffer: CommandBuffer,
         first_viewport: u32,
-        shading_rate_palettes: &[ShadingRatePaletteNV],
+        shading_rate_palettes: &[ShadingRatePaletteNV<'_>],
     ) {
         unsafe {
             (self.cmd_set_viewport_shading_rate_palette_nv)(
@@ -55,7 +55,7 @@ impl DeviceFn {
         &self,
         command_buffer: CommandBuffer,
         sample_order_type: CoarseSampleOrderTypeNV,
-        custom_sample_orders: &[CoarseSampleOrderCustomNV],
+        custom_sample_orders: &[CoarseSampleOrderCustomNV<'_>],
     ) {
         unsafe {
             (self.cmd_set_coarse_sample_order_nv)(

@@ -43,7 +43,7 @@ impl DeviceFn {
     pub unsafe fn wait_semaphores_khr(
         &self,
         device: Device,
-        wait_info: &SemaphoreWaitInfo,
+        wait_info: &SemaphoreWaitInfo<'_>,
         timeout: u64,
     ) -> crate::Result<()> {
         unsafe {
@@ -59,7 +59,7 @@ impl DeviceFn {
     pub unsafe fn signal_semaphore_khr(
         &self,
         device: Device,
-        signal_info: &SemaphoreSignalInfo,
+        signal_info: &SemaphoreSignalInfo<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.signal_semaphore_khr)(device, signal_info);

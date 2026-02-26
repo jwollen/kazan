@@ -53,7 +53,7 @@ impl DeviceFn {
         &self,
         device: Device,
         swapchain: SwapchainKHR,
-        swapchain_timing_properties: &mut SwapchainTimingPropertiesEXT,
+        swapchain_timing_properties: &mut SwapchainTimingPropertiesEXT<'_>,
         swapchain_timing_properties_counter: Option<&mut u64>,
     ) -> crate::Result<()> {
         unsafe {
@@ -75,7 +75,7 @@ impl DeviceFn {
         &self,
         device: Device,
         swapchain: SwapchainKHR,
-        swapchain_time_domain_properties: &mut SwapchainTimeDomainPropertiesEXT,
+        swapchain_time_domain_properties: &mut SwapchainTimeDomainPropertiesEXT<'_>,
         time_domains_counter: Option<&mut u64>,
     ) -> crate::Result<()> {
         unsafe {
@@ -96,8 +96,8 @@ impl DeviceFn {
     pub unsafe fn get_past_presentation_timing_ext(
         &self,
         device: Device,
-        past_presentation_timing_info: &PastPresentationTimingInfoEXT,
-        past_presentation_timing_properties: &mut PastPresentationTimingPropertiesEXT,
+        past_presentation_timing_info: &PastPresentationTimingInfoEXT<'_>,
+        past_presentation_timing_properties: &mut PastPresentationTimingPropertiesEXT<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.get_past_presentation_timing_ext)(

@@ -2,8 +2,9 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
-pub type PhysicalDeviceExternalSemaphoreInfoKHR = PhysicalDeviceExternalSemaphoreInfo;
-pub type ExternalSemaphorePropertiesKHR = ExternalSemaphoreProperties;
+use core::marker::PhantomData;
+pub type PhysicalDeviceExternalSemaphoreInfoKHR<'a> = PhysicalDeviceExternalSemaphoreInfo<'a>;
+pub type ExternalSemaphorePropertiesKHR<'a> = ExternalSemaphoreProperties<'a>;
 pub type ExternalSemaphoreHandleTypeFlagsKHR = ExternalSemaphoreHandleTypeFlags;
 pub type ExternalSemaphoreFeatureFlagsKHR = ExternalSemaphoreFeatureFlags;
 pub type PFN_vkGetPhysicalDeviceExternalSemaphorePropertiesKHR =

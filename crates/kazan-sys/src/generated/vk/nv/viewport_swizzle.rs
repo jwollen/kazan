@@ -2,6 +2,7 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
 pub struct ViewportSwizzleNV {
     pub x: ViewportCoordinateSwizzleNV,
@@ -10,12 +11,13 @@ pub struct ViewportSwizzleNV {
     pub w: ViewportCoordinateSwizzleNV,
 }
 #[repr(C)]
-pub struct PipelineViewportSwizzleStateCreateInfoNV {
+pub struct PipelineViewportSwizzleStateCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineViewportSwizzleStateCreateFlagsNV,
     pub viewport_count: u32,
     pub p_viewport_swizzles: *const ViewportSwizzleNV,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -32,7 +34,7 @@ impl ViewportCoordinateSwizzleNV {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineViewportSwizzleStateCreateFlagsNV: Flags {
     }
 }

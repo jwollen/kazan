@@ -23,8 +23,8 @@ impl InstanceFn {
     pub unsafe fn create_mac_os_surface_mvk(
         &self,
         instance: Instance,
-        create_info: &MacOSSurfaceCreateInfoMVK,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &MacOSSurfaceCreateInfoMVK<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();

@@ -28,7 +28,7 @@ impl DeviceFn {
         &self,
         device: Device,
         shader_module: ShaderModule,
-    ) -> ShaderModuleIdentifierEXT {
+    ) -> ShaderModuleIdentifierEXT<'_> {
         unsafe {
             let mut identifier = core::mem::MaybeUninit::uninit();
             (self.get_shader_module_identifier_ext)(device, shader_module, identifier.as_mut_ptr());
@@ -38,8 +38,8 @@ impl DeviceFn {
     pub unsafe fn get_shader_module_create_info_identifier_ext(
         &self,
         device: Device,
-        create_info: &ShaderModuleCreateInfo,
-    ) -> ShaderModuleIdentifierEXT {
+        create_info: &ShaderModuleCreateInfo<'_>,
+    ) -> ShaderModuleIdentifierEXT<'_> {
         unsafe {
             let mut identifier = core::mem::MaybeUninit::uninit();
             (self.get_shader_module_create_info_identifier_ext)(

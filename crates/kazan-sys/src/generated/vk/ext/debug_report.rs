@@ -2,16 +2,18 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct DebugReportCallbackEXT(u64);
 #[repr(C)]
-pub struct DebugReportCallbackCreateInfoEXT {
+pub struct DebugReportCallbackCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: DebugReportFlagsEXT,
     pub pfn_callback: Option<PFN_vkDebugReportCallbackEXT>,
     pub p_user_data: *mut c_void,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -63,7 +65,7 @@ impl DebugReportObjectTypeEXT {
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DebugReportFlagsEXT: Flags {
         const INFORMATION_EXT = DebugReportFlagBitsEXT::INFORMATION_EXT.0;
         const WARNING_EXT = DebugReportFlagBitsEXT::WARNING_EXT.0;
@@ -73,7 +75,7 @@ bitflags! {
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct DebugReportFlagBitsEXT(u32);
 impl DebugReportFlagBitsEXT {
     pub const INFORMATION_EXT: Self = Self(1 << 0);
@@ -94,14 +96,14 @@ pub type PFN_vkDebugReportCallbackEXT = unsafe extern "system" fn(
 ) -> Bool32;
 pub type PFN_vkCreateDebugReportCallbackEXT = unsafe extern "system" fn(
     instance: Instance,
-    p_create_info: *const DebugReportCallbackCreateInfoEXT,
-    p_allocator: *const AllocationCallbacks,
+    p_create_info: *const DebugReportCallbackCreateInfoEXT<'_>,
+    p_allocator: *const AllocationCallbacks<'_>,
     p_callback: *mut DebugReportCallbackEXT,
 ) -> Result;
 pub type PFN_vkDestroyDebugReportCallbackEXT = unsafe extern "system" fn(
     instance: Instance,
     callback: DebugReportCallbackEXT,
-    p_allocator: *const AllocationCallbacks,
+    p_allocator: *const AllocationCallbacks<'_>,
 );
 pub type PFN_vkDebugReportMessageEXT = unsafe extern "system" fn(
     instance: Instance,

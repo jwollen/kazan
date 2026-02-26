@@ -25,8 +25,8 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_video_encode_quality_level_properties_khr(
         &self,
         physical_device: PhysicalDevice,
-        quality_level_info: &PhysicalDeviceVideoEncodeQualityLevelInfoKHR,
-    ) -> crate::Result<VideoEncodeQualityLevelPropertiesKHR> {
+        quality_level_info: &PhysicalDeviceVideoEncodeQualityLevelInfoKHR<'_>,
+    ) -> crate::Result<VideoEncodeQualityLevelPropertiesKHR<'_>> {
         unsafe {
             let mut quality_level_properties = core::mem::MaybeUninit::uninit();
             let result = (self.get_physical_device_video_encode_quality_level_properties_khr)(
@@ -61,11 +61,11 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
-    pub unsafe fn get_encoded_video_session_parameters_khr(
+    pub unsafe fn get_encoded_video_session_parameters_khr<'a>(
         &self,
         device: Device,
-        video_session_parameters_info: &VideoEncodeSessionParametersGetInfoKHR,
-        feedback_info: Option<&mut VideoEncodeSessionParametersFeedbackInfoKHR>,
+        video_session_parameters_info: &VideoEncodeSessionParametersGetInfoKHR<'_>,
+        feedback_info: Option<&mut VideoEncodeSessionParametersFeedbackInfoKHR<'_>>,
         data: impl ExtendUninit<u8>,
     ) -> crate::Result<()> {
         unsafe {
@@ -89,7 +89,7 @@ impl DeviceFn {
     pub unsafe fn cmd_encode_video_khr(
         &self,
         command_buffer: CommandBuffer,
-        encode_info: &VideoEncodeInfoKHR,
+        encode_info: &VideoEncodeInfoKHR<'_>,
     ) {
         unsafe { (self.cmd_encode_video_khr)(command_buffer, encode_info) }
     }

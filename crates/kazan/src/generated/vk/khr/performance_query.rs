@@ -28,12 +28,12 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
-    pub unsafe fn enumerate_physical_device_queue_family_performance_query_counters_khr(
+    pub unsafe fn enumerate_physical_device_queue_family_performance_query_counters_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
         queue_family_index: u32,
-        counters: impl ExtendUninit<PerformanceCounterKHR>,
-        counter_descriptions: impl ExtendUninit<PerformanceCounterDescriptionKHR>,
+        counters: impl ExtendUninit<PerformanceCounterKHR<'a>>,
+        counter_descriptions: impl ExtendUninit<PerformanceCounterDescriptionKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             try_extend_uninit2(
@@ -61,7 +61,7 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_queue_family_performance_query_passes_khr(
         &self,
         physical_device: PhysicalDevice,
-        performance_query_create_info: &QueryPoolPerformanceCreateInfoKHR,
+        performance_query_create_info: &QueryPoolPerformanceCreateInfoKHR<'_>,
     ) -> u32 {
         unsafe {
             let mut num_passes = core::mem::MaybeUninit::uninit();
@@ -98,7 +98,7 @@ impl DeviceFn {
     pub unsafe fn acquire_profiling_lock_khr(
         &self,
         device: Device,
-        info: &AcquireProfilingLockInfoKHR,
+        info: &AcquireProfilingLockInfoKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.acquire_profiling_lock_khr)(device, info);

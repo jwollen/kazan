@@ -2,8 +2,9 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDeviceExtendedDynamicState3FeaturesEXT {
+pub struct PhysicalDeviceExtendedDynamicState3FeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub extended_dynamic_state3_tessellation_domain_origin: Bool32,
@@ -37,12 +38,14 @@ pub struct PhysicalDeviceExtendedDynamicState3FeaturesEXT {
     pub extended_dynamic_state3_coverage_reduction_mode: Bool32,
     pub extended_dynamic_state3_representative_fragment_test_enable: Bool32,
     pub extended_dynamic_state3_shading_rate_image_enable: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceExtendedDynamicState3PropertiesEXT {
+pub struct PhysicalDeviceExtendedDynamicState3PropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub dynamic_primitive_topology_unrestricted: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
 pub struct ColorBlendEquationEXT {

@@ -27,14 +27,14 @@ impl DeviceFn {
     pub unsafe fn cmd_copy_memory_indirect_khr(
         &self,
         command_buffer: CommandBuffer,
-        copy_memory_indirect_info: &CopyMemoryIndirectInfoKHR,
+        copy_memory_indirect_info: &CopyMemoryIndirectInfoKHR<'_>,
     ) {
         unsafe { (self.cmd_copy_memory_indirect_khr)(command_buffer, copy_memory_indirect_info) }
     }
     pub unsafe fn cmd_copy_memory_to_image_indirect_khr(
         &self,
         command_buffer: CommandBuffer,
-        copy_memory_to_image_indirect_info: &CopyMemoryToImageIndirectInfoKHR,
+        copy_memory_to_image_indirect_info: &CopyMemoryToImageIndirectInfoKHR<'_>,
     ) {
         unsafe {
             (self.cmd_copy_memory_to_image_indirect_khr)(

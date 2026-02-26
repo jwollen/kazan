@@ -27,7 +27,7 @@ impl DeviceFn {
     pub unsafe fn import_semaphore_zircon_handle_fuchsia(
         &self,
         device: Device,
-        import_semaphore_zircon_handle_info: &ImportSemaphoreZirconHandleInfoFUCHSIA,
+        import_semaphore_zircon_handle_info: &ImportSemaphoreZirconHandleInfoFUCHSIA<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.import_semaphore_zircon_handle_fuchsia)(
@@ -44,7 +44,7 @@ impl DeviceFn {
     pub unsafe fn get_semaphore_zircon_handle_fuchsia(
         &self,
         device: Device,
-        get_zircon_handle_info: &SemaphoreGetZirconHandleInfoFUCHSIA,
+        get_zircon_handle_info: &SemaphoreGetZirconHandleInfoFUCHSIA<'_>,
     ) -> crate::Result<zx_handle_t> {
         unsafe {
             let mut zircon_handle = core::mem::MaybeUninit::uninit();

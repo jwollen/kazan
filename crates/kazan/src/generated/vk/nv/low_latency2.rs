@@ -38,7 +38,7 @@ impl DeviceFn {
         &self,
         device: Device,
         swapchain: SwapchainKHR,
-        sleep_mode_info: &LatencySleepModeInfoNV,
+        sleep_mode_info: &LatencySleepModeInfoNV<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.set_latency_sleep_mode_nv)(device, swapchain, sleep_mode_info);
@@ -53,7 +53,7 @@ impl DeviceFn {
         &self,
         device: Device,
         swapchain: SwapchainKHR,
-        sleep_info: &LatencySleepInfoNV,
+        sleep_info: &LatencySleepInfoNV<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.latency_sleep_nv)(device, swapchain, sleep_info);
@@ -68,7 +68,7 @@ impl DeviceFn {
         &self,
         device: Device,
         swapchain: SwapchainKHR,
-        latency_marker_info: &SetLatencyMarkerInfoNV,
+        latency_marker_info: &SetLatencyMarkerInfoNV<'_>,
     ) {
         unsafe { (self.set_latency_marker_nv)(device, swapchain, latency_marker_info) }
     }
@@ -76,7 +76,7 @@ impl DeviceFn {
         &self,
         device: Device,
         swapchain: SwapchainKHR,
-    ) -> GetLatencyMarkerInfoNV {
+    ) -> GetLatencyMarkerInfoNV<'_> {
         unsafe {
             let mut latency_marker_info = core::mem::MaybeUninit::uninit();
             (self.get_latency_timings_nv)(device, swapchain, latency_marker_info.as_mut_ptr());
@@ -86,7 +86,7 @@ impl DeviceFn {
     pub unsafe fn queue_notify_out_of_band_nv(
         &self,
         queue: Queue,
-        queue_type_info: &OutOfBandQueueTypeInfoNV,
+        queue_type_info: &OutOfBandQueueTypeInfoNV<'_>,
     ) {
         unsafe { (self.queue_notify_out_of_band_nv)(queue, queue_type_info) }
     }

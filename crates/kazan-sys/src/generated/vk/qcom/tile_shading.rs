@@ -2,8 +2,9 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDeviceTileShadingFeaturesQCOM {
+pub struct PhysicalDeviceTileShadingFeaturesQCOM<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub tile_shading: Bool32,
@@ -20,48 +21,54 @@ pub struct PhysicalDeviceTileShadingFeaturesQCOM {
     pub tile_shading_anisotropic_apron: Bool32,
     pub tile_shading_atomic_ops: Bool32,
     pub tile_shading_image_processing: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PhysicalDeviceTileShadingPropertiesQCOM {
+pub struct PhysicalDeviceTileShadingPropertiesQCOM<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_apron_size: u32,
     pub prefer_non_coherent: Bool32,
     pub tile_granularity: Extent2D,
     pub max_tile_shading_rate: Extent2D,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct RenderPassTileShadingCreateInfoQCOM {
+pub struct RenderPassTileShadingCreateInfoQCOM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: TileShadingRenderPassFlagsQCOM,
     pub tile_apron_size: Extent2D,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PerTileBeginInfoQCOM {
+pub struct PerTileBeginInfoQCOM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct PerTileEndInfoQCOM {
+pub struct PerTileEndInfoQCOM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct DispatchTileInfoQCOM {
+pub struct DispatchTileInfoQCOM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
+    pub _marker: PhantomData<&'a ()>,
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct TileShadingRenderPassFlagsQCOM: Flags {
         const ENABLE_QCOM = TileShadingRenderPassFlagBitsQCOM::ENABLE_QCOM.0;
         const PER_TILE_EXECUTION_QCOM = TileShadingRenderPassFlagBitsQCOM::PER_TILE_EXECUTION_QCOM.0;
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct TileShadingRenderPassFlagBitsQCOM(u32);
 impl TileShadingRenderPassFlagBitsQCOM {
     pub const ENABLE_QCOM: Self = Self(1 << 0);
@@ -69,13 +76,13 @@ impl TileShadingRenderPassFlagBitsQCOM {
 }
 pub type PFN_vkCmdDispatchTileQCOM = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_dispatch_tile_info: *const DispatchTileInfoQCOM,
+    p_dispatch_tile_info: *const DispatchTileInfoQCOM<'_>,
 );
 pub type PFN_vkCmdBeginPerTileExecutionQCOM = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_per_tile_begin_info: *const PerTileBeginInfoQCOM,
+    p_per_tile_begin_info: *const PerTileBeginInfoQCOM<'_>,
 );
 pub type PFN_vkCmdEndPerTileExecutionQCOM = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
-    p_per_tile_end_info: *const PerTileEndInfoQCOM,
+    p_per_tile_end_info: *const PerTileEndInfoQCOM<'_>,
 );

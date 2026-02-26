@@ -27,7 +27,7 @@ impl DeviceFn {
     pub unsafe fn import_fence_win32_handle_khr(
         &self,
         device: Device,
-        import_fence_win32_handle_info: &ImportFenceWin32HandleInfoKHR,
+        import_fence_win32_handle_info: &ImportFenceWin32HandleInfoKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result =
@@ -42,7 +42,7 @@ impl DeviceFn {
     pub unsafe fn get_fence_win32_handle_khr(
         &self,
         device: Device,
-        get_win32_handle_info: &FenceGetWin32HandleInfoKHR,
+        get_win32_handle_info: &FenceGetWin32HandleInfoKHR<'_>,
     ) -> crate::Result<HANDLE> {
         unsafe {
             let mut handle = core::mem::MaybeUninit::uninit();

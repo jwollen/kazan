@@ -2,8 +2,9 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct SurfaceCapabilities2EXT {
+pub struct SurfaceCapabilities2EXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub min_image_count: u32,
@@ -17,16 +18,17 @@ pub struct SurfaceCapabilities2EXT {
     pub supported_composite_alpha: CompositeAlphaFlagsKHR,
     pub supported_usage_flags: ImageUsageFlags,
     pub supported_surface_counters: SurfaceCounterFlagsEXT,
+    pub _marker: PhantomData<&'a ()>,
 }
 bitflags! {
     #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Default)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SurfaceCounterFlagsEXT: Flags {
         const VBLANK_EXT = SurfaceCounterFlagBitsEXT::VBLANK_EXT.0;
     }
 }
 #[repr(transparent)]
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct SurfaceCounterFlagBitsEXT(u32);
 impl SurfaceCounterFlagBitsEXT {
     pub const VBLANK_EXT: Self = Self(1 << 0);
@@ -34,5 +36,5 @@ impl SurfaceCounterFlagBitsEXT {
 pub type PFN_vkGetPhysicalDeviceSurfaceCapabilities2EXT = unsafe extern "system" fn(
     physical_device: PhysicalDevice,
     surface: SurfaceKHR,
-    p_surface_capabilities: *mut SurfaceCapabilities2EXT,
+    p_surface_capabilities: *mut SurfaceCapabilities2EXT<'_>,
 ) -> Result;

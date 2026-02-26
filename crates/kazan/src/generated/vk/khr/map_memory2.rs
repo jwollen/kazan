@@ -23,7 +23,7 @@ impl DeviceFn {
     pub unsafe fn map_memory2_khr(
         &self,
         device: Device,
-        memory_map_info: &MemoryMapInfo,
+        memory_map_info: &MemoryMapInfo<'_>,
         data: &mut *mut c_void,
     ) -> crate::Result<()> {
         unsafe {
@@ -38,7 +38,7 @@ impl DeviceFn {
     pub unsafe fn unmap_memory2_khr(
         &self,
         device: Device,
-        memory_unmap_info: &MemoryUnmapInfo,
+        memory_unmap_info: &MemoryUnmapInfo<'_>,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.unmap_memory2_khr)(device, memory_unmap_info);

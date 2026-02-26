@@ -28,8 +28,8 @@ impl InstanceFn {
     pub unsafe fn create_screen_surface_qnx(
         &self,
         instance: Instance,
-        create_info: &ScreenSurfaceCreateInfoQNX,
-        allocator: Option<&AllocationCallbacks>,
+        create_info: &ScreenSurfaceCreateInfoQNX<'_>,
+        allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();

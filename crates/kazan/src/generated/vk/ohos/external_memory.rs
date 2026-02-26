@@ -28,7 +28,7 @@ impl DeviceFn {
         &self,
         device: Device,
         buffer: &OH_NativeBuffer,
-    ) -> crate::Result<NativeBufferPropertiesOHOS> {
+    ) -> crate::Result<NativeBufferPropertiesOHOS<'_>> {
         unsafe {
             let mut properties = core::mem::MaybeUninit::uninit();
             let result =
@@ -43,7 +43,7 @@ impl DeviceFn {
     pub unsafe fn get_memory_native_buffer_ohos(
         &self,
         device: Device,
-        info: &MemoryGetNativeBufferInfoOHOS,
+        info: &MemoryGetNativeBufferInfoOHOS<'_>,
         buffer: &mut *mut OH_NativeBuffer,
     ) -> crate::Result<()> {
         unsafe {

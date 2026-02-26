@@ -2,23 +2,27 @@
 use crate::{vk::*, *};
 use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
+use core::marker::PhantomData;
 #[repr(C)]
-pub struct PhysicalDeviceCubicWeightsFeaturesQCOM {
+pub struct PhysicalDeviceCubicWeightsFeaturesQCOM<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub selectable_cubic_weights: Bool32,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct SamplerCubicWeightsCreateInfoQCOM {
+pub struct SamplerCubicWeightsCreateInfoQCOM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub cubic_weights: CubicFilterWeightsQCOM,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(C)]
-pub struct BlitImageCubicWeightsInfoQCOM {
+pub struct BlitImageCubicWeightsInfoQCOM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub cubic_weights: CubicFilterWeightsQCOM,
+    pub _marker: PhantomData<&'a ()>,
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
