@@ -10,20 +10,43 @@ pub struct VideoSessionKHR(u64);
 #[derive(Copy, Clone, Default)]
 pub struct VideoSessionParametersKHR(u64);
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct QueueFamilyVideoPropertiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub video_codec_operations: VideoCodecOperationFlagsKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for QueueFamilyVideoPropertiesKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::QUEUE_FAMILY_VIDEO_PROPERTIES_KHR,
+            p_next: core::ptr::null_mut(),
+            video_codec_operations: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct QueueFamilyQueryResultStatusPropertiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub query_result_status_support: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for QueueFamilyQueryResultStatusPropertiesKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::QUEUE_FAMILY_QUERY_RESULT_STATUS_PROPERTIES_KHR,
+            p_next: core::ptr::null_mut(),
+            query_result_status_support: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoProfileListInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -31,14 +54,37 @@ pub struct VideoProfileListInfoKHR<'a> {
     pub p_profiles: *const VideoProfileInfoKHR<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoProfileListInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_PROFILE_LIST_INFO_KHR,
+            p_next: core::ptr::null(),
+            profile_count: Default::default(),
+            p_profiles: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceVideoFormatInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub image_usage: ImageUsageFlags,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceVideoFormatInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR,
+            p_next: core::ptr::null(),
+            image_usage: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoFormatPropertiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -50,7 +96,23 @@ pub struct VideoFormatPropertiesKHR<'a> {
     pub image_usage_flags: ImageUsageFlags,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoFormatPropertiesKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_FORMAT_PROPERTIES_KHR,
+            p_next: core::ptr::null_mut(),
+            format: Default::default(),
+            component_mapping: Default::default(),
+            image_create_flags: Default::default(),
+            image_type: Default::default(),
+            image_tiling: Default::default(),
+            image_usage_flags: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoProfileInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -60,7 +122,21 @@ pub struct VideoProfileInfoKHR<'a> {
     pub chroma_bit_depth: VideoComponentBitDepthFlagsKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoProfileInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_PROFILE_INFO_KHR,
+            p_next: core::ptr::null(),
+            video_codec_operation: Default::default(),
+            chroma_subsampling: Default::default(),
+            luma_bit_depth: Default::default(),
+            chroma_bit_depth: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoCapabilitiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -75,7 +151,26 @@ pub struct VideoCapabilitiesKHR<'a> {
     pub std_header_version: ExtensionProperties,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoCapabilitiesKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_CAPABILITIES_KHR,
+            p_next: core::ptr::null_mut(),
+            flags: Default::default(),
+            min_bitstream_buffer_offset_alignment: Default::default(),
+            min_bitstream_buffer_size_alignment: Default::default(),
+            picture_access_granularity: Default::default(),
+            min_coded_extent: Default::default(),
+            max_coded_extent: Default::default(),
+            max_dpb_slots: Default::default(),
+            max_active_reference_pictures: Default::default(),
+            std_header_version: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoSessionMemoryRequirementsKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -83,7 +178,19 @@ pub struct VideoSessionMemoryRequirementsKHR<'a> {
     pub memory_requirements: MemoryRequirements,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoSessionMemoryRequirementsKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_SESSION_MEMORY_REQUIREMENTS_KHR,
+            p_next: core::ptr::null_mut(),
+            memory_bind_index: Default::default(),
+            memory_requirements: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BindVideoSessionMemoryInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -93,7 +200,21 @@ pub struct BindVideoSessionMemoryInfoKHR<'a> {
     pub memory_size: DeviceSize,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for BindVideoSessionMemoryInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BIND_VIDEO_SESSION_MEMORY_INFO_KHR,
+            p_next: core::ptr::null(),
+            memory_bind_index: Default::default(),
+            memory: Default::default(),
+            memory_offset: Default::default(),
+            memory_size: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoPictureResourceInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -103,7 +224,21 @@ pub struct VideoPictureResourceInfoKHR<'a> {
     pub image_view_binding: ImageView,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoPictureResourceInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_PICTURE_RESOURCE_INFO_KHR,
+            p_next: core::ptr::null(),
+            coded_offset: Default::default(),
+            coded_extent: Default::default(),
+            base_array_layer: Default::default(),
+            image_view_binding: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoReferenceSlotInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -111,7 +246,19 @@ pub struct VideoReferenceSlotInfoKHR<'a> {
     pub p_picture_resource: *const VideoPictureResourceInfoKHR<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoReferenceSlotInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_REFERENCE_SLOT_INFO_KHR,
+            p_next: core::ptr::null(),
+            slot_index: Default::default(),
+            p_picture_resource: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoSessionCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -126,7 +273,26 @@ pub struct VideoSessionCreateInfoKHR<'a> {
     pub p_std_header_version: *const ExtensionProperties,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoSessionCreateInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_SESSION_CREATE_INFO_KHR,
+            p_next: core::ptr::null(),
+            queue_family_index: Default::default(),
+            flags: Default::default(),
+            p_video_profile: core::ptr::null(),
+            picture_format: Default::default(),
+            max_coded_extent: Default::default(),
+            reference_picture_format: Default::default(),
+            max_dpb_slots: Default::default(),
+            max_active_reference_pictures: Default::default(),
+            p_std_header_version: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoSessionParametersCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -135,14 +301,38 @@ pub struct VideoSessionParametersCreateInfoKHR<'a> {
     pub video_session: VideoSessionKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoSessionParametersCreateInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_SESSION_PARAMETERS_CREATE_INFO_KHR,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            video_session_parameters_template: Default::default(),
+            video_session: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoSessionParametersUpdateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub update_sequence_count: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoSessionParametersUpdateInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_SESSION_PARAMETERS_UPDATE_INFO_KHR,
+            p_next: core::ptr::null(),
+            update_sequence_count: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoBeginCodingInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -153,19 +343,55 @@ pub struct VideoBeginCodingInfoKHR<'a> {
     pub p_reference_slots: *const VideoReferenceSlotInfoKHR<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoBeginCodingInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_BEGIN_CODING_INFO_KHR,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            video_session: Default::default(),
+            video_session_parameters: Default::default(),
+            reference_slot_count: Default::default(),
+            p_reference_slots: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEndCodingInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: VideoEndCodingFlagsKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEndCodingInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_END_CODING_INFO_KHR,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoCodingControlInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: VideoCodingControlFlagsKHR,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for VideoCodingControlInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_CODING_CONTROL_INFO_KHR,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

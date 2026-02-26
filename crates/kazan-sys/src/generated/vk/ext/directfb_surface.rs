@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DirectFBSurfaceCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -11,6 +12,18 @@ pub struct DirectFBSurfaceCreateInfoEXT<'a> {
     pub dfb: *mut IDirectFB,
     pub surface: *mut IDirectFBSurface,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for DirectFBSurfaceCreateInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DIRECTFB_SURFACE_CREATE_INFO_EXT,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            dfb: core::ptr::null_mut(),
+            surface: core::ptr::null_mut(),
+            _marker: PhantomData,
+        }
+    }
 }
 bitflags! {
     #[repr(transparent)]

@@ -10,6 +10,7 @@ pub struct DisplayKHR(u64);
 #[derive(Copy, Clone, Default)]
 pub struct DisplayModeKHR(u64);
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DisplayPropertiesKHR<'a> {
     pub display: DisplayKHR,
     pub display_name: *const c_char,
@@ -20,22 +21,40 @@ pub struct DisplayPropertiesKHR<'a> {
     pub persistent_content: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DisplayPropertiesKHR<'_> {
+    fn default() -> Self {
+        Self {
+            display: Default::default(),
+            display_name: core::ptr::null(),
+            physical_dimensions: Default::default(),
+            physical_resolution: Default::default(),
+            supported_transforms: Default::default(),
+            plane_reorder_possible: Default::default(),
+            persistent_content: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct DisplayPlanePropertiesKHR {
     pub current_display: DisplayKHR,
     pub current_stack_index: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct DisplayModeParametersKHR {
     pub visible_region: Extent2D,
     pub refresh_rate: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct DisplayModePropertiesKHR {
     pub display_mode: DisplayModeKHR,
     pub parameters: DisplayModeParametersKHR,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DisplayModeCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -43,7 +62,19 @@ pub struct DisplayModeCreateInfoKHR<'a> {
     pub parameters: DisplayModeParametersKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DisplayModeCreateInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DISPLAY_MODE_CREATE_INFO_KHR,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            parameters: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct DisplayPlaneCapabilitiesKHR {
     pub supported_alpha: DisplayPlaneAlphaFlagsKHR,
     pub min_src_position: Offset2D,
@@ -56,6 +87,7 @@ pub struct DisplayPlaneCapabilitiesKHR {
     pub max_dst_extent: Extent2D,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DisplaySurfaceCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -68,6 +100,23 @@ pub struct DisplaySurfaceCreateInfoKHR<'a> {
     pub alpha_mode: DisplayPlaneAlphaFlagBitsKHR,
     pub image_extent: Extent2D,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for DisplaySurfaceCreateInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DISPLAY_SURFACE_CREATE_INFO_KHR,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            display_mode: Default::default(),
+            plane_index: Default::default(),
+            plane_stack_index: Default::default(),
+            transform: Default::default(),
+            global_alpha: Default::default(),
+            alpha_mode: Default::default(),
+            image_extent: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 bitflags! {
     #[repr(transparent)]

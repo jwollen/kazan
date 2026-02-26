@@ -16,34 +16,79 @@ pub type PhysicalDeviceVariablePointerFeatures<'a> = PhysicalDeviceVariablePoint
 pub type PhysicalDeviceShaderDrawParameterFeatures<'a> =
     PhysicalDeviceShaderDrawParametersFeatures<'a>;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceFeatures2<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub features: PhysicalDeviceFeatures,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceFeatures2<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_FEATURES_2,
+            p_next: core::ptr::null_mut(),
+            features: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceProperties2<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub properties: PhysicalDeviceProperties,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceProperties2<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_PROPERTIES_2,
+            p_next: core::ptr::null_mut(),
+            properties: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct FormatProperties2<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub format_properties: FormatProperties,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for FormatProperties2<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::FORMAT_PROPERTIES_2,
+            p_next: core::ptr::null_mut(),
+            format_properties: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ImageFormatProperties2<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub image_format_properties: ImageFormatProperties,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ImageFormatProperties2<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::IMAGE_FORMAT_PROPERTIES_2,
+            p_next: core::ptr::null_mut(),
+            image_format_properties: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceImageFormatInfo2<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -54,28 +99,76 @@ pub struct PhysicalDeviceImageFormatInfo2<'a> {
     pub flags: ImageCreateFlags,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceImageFormatInfo2<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_IMAGE_FORMAT_INFO_2,
+            p_next: core::ptr::null(),
+            format: Default::default(),
+            ty: Default::default(),
+            tiling: Default::default(),
+            usage: Default::default(),
+            flags: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct QueueFamilyProperties2<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub queue_family_properties: QueueFamilyProperties,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for QueueFamilyProperties2<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::QUEUE_FAMILY_PROPERTIES_2,
+            p_next: core::ptr::null_mut(),
+            queue_family_properties: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMemoryProperties2<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub memory_properties: PhysicalDeviceMemoryProperties,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceMemoryProperties2<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_MEMORY_PROPERTIES_2,
+            p_next: core::ptr::null_mut(),
+            memory_properties: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SparseImageFormatProperties2<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub properties: SparseImageFormatProperties,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for SparseImageFormatProperties2<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SPARSE_IMAGE_FORMAT_PROPERTIES_2,
+            p_next: core::ptr::null_mut(),
+            properties: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceSparseImageFormatInfo2<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -86,7 +179,22 @@ pub struct PhysicalDeviceSparseImageFormatInfo2<'a> {
     pub tiling: ImageTiling,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceSparseImageFormatInfo2<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2,
+            p_next: core::ptr::null(),
+            format: Default::default(),
+            ty: Default::default(),
+            samples: Default::default(),
+            usage: Default::default(),
+            tiling: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceVariablePointersFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -94,27 +202,62 @@ pub struct PhysicalDeviceVariablePointersFeatures<'a> {
     pub variable_pointers: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceVariablePointersFeatures<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES,
+            p_next: core::ptr::null_mut(),
+            variable_pointers_storage_buffer: Default::default(),
+            variable_pointers: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct ExternalMemoryProperties {
     pub external_memory_features: ExternalMemoryFeatureFlags,
     pub export_from_imported_handle_types: ExternalMemoryHandleTypeFlags,
     pub compatible_handle_types: ExternalMemoryHandleTypeFlags,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceExternalImageFormatInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub handle_type: ExternalMemoryHandleTypeFlagBits,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceExternalImageFormatInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO,
+            p_next: core::ptr::null(),
+            handle_type: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ExternalImageFormatProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub external_memory_properties: ExternalMemoryProperties,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ExternalImageFormatProperties<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::EXTERNAL_IMAGE_FORMAT_PROPERTIES,
+            p_next: core::ptr::null_mut(),
+            external_memory_properties: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceExternalBufferInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -123,14 +266,38 @@ pub struct PhysicalDeviceExternalBufferInfo<'a> {
     pub handle_type: ExternalMemoryHandleTypeFlagBits,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceExternalBufferInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            usage: Default::default(),
+            handle_type: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ExternalBufferProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub external_memory_properties: ExternalMemoryProperties,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ExternalBufferProperties<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::EXTERNAL_BUFFER_PROPERTIES,
+            p_next: core::ptr::null_mut(),
+            external_memory_properties: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceIDProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -141,35 +308,94 @@ pub struct PhysicalDeviceIDProperties<'a> {
     pub device_luid_valid: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceIDProperties<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_ID_PROPERTIES,
+            p_next: core::ptr::null_mut(),
+            device_uuid: [Default::default(); _],
+            driver_uuid: [Default::default(); _],
+            device_luid: [Default::default(); _],
+            device_node_mask: Default::default(),
+            device_luid_valid: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ExternalMemoryImageCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub handle_types: ExternalMemoryHandleTypeFlags,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ExternalMemoryImageCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::EXTERNAL_MEMORY_IMAGE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            handle_types: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ExternalMemoryBufferCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub handle_types: ExternalMemoryHandleTypeFlags,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ExternalMemoryBufferCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::EXTERNAL_MEMORY_BUFFER_CREATE_INFO,
+            p_next: core::ptr::null(),
+            handle_types: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ExportMemoryAllocateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub handle_types: ExternalMemoryHandleTypeFlags,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ExportMemoryAllocateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::EXPORT_MEMORY_ALLOCATE_INFO,
+            p_next: core::ptr::null(),
+            handle_types: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceExternalSemaphoreInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub handle_type: ExternalSemaphoreHandleTypeFlagBits,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceExternalSemaphoreInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_EXTERNAL_SEMAPHORE_INFO,
+            p_next: core::ptr::null(),
+            handle_type: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ExternalSemaphoreProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -178,21 +404,56 @@ pub struct ExternalSemaphoreProperties<'a> {
     pub external_semaphore_features: ExternalSemaphoreFeatureFlags,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ExternalSemaphoreProperties<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::EXTERNAL_SEMAPHORE_PROPERTIES,
+            p_next: core::ptr::null_mut(),
+            export_from_imported_handle_types: Default::default(),
+            compatible_handle_types: Default::default(),
+            external_semaphore_features: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ExportSemaphoreCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub handle_types: ExternalSemaphoreHandleTypeFlags,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ExportSemaphoreCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::EXPORT_SEMAPHORE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            handle_types: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceExternalFenceInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub handle_type: ExternalFenceHandleTypeFlagBits,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceExternalFenceInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_EXTERNAL_FENCE_INFO,
+            p_next: core::ptr::null(),
+            handle_type: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ExternalFenceProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -201,14 +462,38 @@ pub struct ExternalFenceProperties<'a> {
     pub external_fence_features: ExternalFenceFeatureFlags,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ExternalFenceProperties<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::EXTERNAL_FENCE_PROPERTIES,
+            p_next: core::ptr::null_mut(),
+            export_from_imported_handle_types: Default::default(),
+            compatible_handle_types: Default::default(),
+            external_fence_features: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ExportFenceCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub handle_types: ExternalFenceHandleTypeFlags,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ExportFenceCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::EXPORT_FENCE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            handle_types: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMultiviewFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -217,7 +502,20 @@ pub struct PhysicalDeviceMultiviewFeatures<'a> {
     pub multiview_tessellation_shader: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceMultiviewFeatures<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_MULTIVIEW_FEATURES,
+            p_next: core::ptr::null_mut(),
+            multiview: Default::default(),
+            multiview_geometry_shader: Default::default(),
+            multiview_tessellation_shader: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMultiviewProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -225,7 +523,19 @@ pub struct PhysicalDeviceMultiviewProperties<'a> {
     pub max_multiview_instance_index: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceMultiviewProperties<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES,
+            p_next: core::ptr::null_mut(),
+            max_multiview_view_count: Default::default(),
+            max_multiview_instance_index: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct RenderPassMultiviewCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -237,7 +547,23 @@ pub struct RenderPassMultiviewCreateInfo<'a> {
     pub p_correlation_masks: *const u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for RenderPassMultiviewCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::RENDER_PASS_MULTIVIEW_CREATE_INFO,
+            p_next: core::ptr::null(),
+            subpass_count: Default::default(),
+            p_view_masks: core::ptr::null(),
+            dependency_count: Default::default(),
+            p_view_offsets: core::ptr::null(),
+            correlation_mask_count: Default::default(),
+            p_correlation_masks: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceGroupProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -246,7 +572,20 @@ pub struct PhysicalDeviceGroupProperties<'a> {
     pub subset_allocation: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceGroupProperties<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_GROUP_PROPERTIES,
+            p_next: core::ptr::null_mut(),
+            physical_device_count: Default::default(),
+            physical_devices: [Default::default(); _],
+            subset_allocation: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct MemoryAllocateFlagsInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -254,7 +593,19 @@ pub struct MemoryAllocateFlagsInfo<'a> {
     pub device_mask: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for MemoryAllocateFlagsInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::MEMORY_ALLOCATE_FLAGS_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            device_mask: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BindBufferMemoryInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -263,7 +614,20 @@ pub struct BindBufferMemoryInfo<'a> {
     pub memory_offset: DeviceSize,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for BindBufferMemoryInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BIND_BUFFER_MEMORY_INFO,
+            p_next: core::ptr::null(),
+            buffer: Default::default(),
+            memory: Default::default(),
+            memory_offset: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BindBufferMemoryDeviceGroupInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -271,7 +635,19 @@ pub struct BindBufferMemoryDeviceGroupInfo<'a> {
     pub p_device_indices: *const u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for BindBufferMemoryDeviceGroupInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BIND_BUFFER_MEMORY_DEVICE_GROUP_INFO,
+            p_next: core::ptr::null(),
+            device_index_count: Default::default(),
+            p_device_indices: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BindImageMemoryInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -280,7 +656,20 @@ pub struct BindImageMemoryInfo<'a> {
     pub memory_offset: DeviceSize,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for BindImageMemoryInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BIND_IMAGE_MEMORY_INFO,
+            p_next: core::ptr::null(),
+            image: Default::default(),
+            memory: Default::default(),
+            memory_offset: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BindImageMemoryDeviceGroupInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -290,7 +679,21 @@ pub struct BindImageMemoryDeviceGroupInfo<'a> {
     pub p_split_instance_bind_regions: *const Rect2D,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for BindImageMemoryDeviceGroupInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO,
+            p_next: core::ptr::null(),
+            device_index_count: Default::default(),
+            p_device_indices: core::ptr::null(),
+            split_instance_bind_region_count: Default::default(),
+            p_split_instance_bind_regions: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DeviceGroupRenderPassBeginInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -299,14 +702,38 @@ pub struct DeviceGroupRenderPassBeginInfo<'a> {
     pub p_device_render_areas: *const Rect2D,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DeviceGroupRenderPassBeginInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEVICE_GROUP_RENDER_PASS_BEGIN_INFO,
+            p_next: core::ptr::null(),
+            device_mask: Default::default(),
+            device_render_area_count: Default::default(),
+            p_device_render_areas: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DeviceGroupCommandBufferBeginInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub device_mask: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DeviceGroupCommandBufferBeginInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO,
+            p_next: core::ptr::null(),
+            device_mask: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DeviceGroupSubmitInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -318,7 +745,23 @@ pub struct DeviceGroupSubmitInfo<'a> {
     pub p_signal_semaphore_device_indices: *const u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DeviceGroupSubmitInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEVICE_GROUP_SUBMIT_INFO,
+            p_next: core::ptr::null(),
+            wait_semaphore_count: Default::default(),
+            p_wait_semaphore_device_indices: core::ptr::null(),
+            command_buffer_count: Default::default(),
+            p_command_buffer_device_masks: core::ptr::null(),
+            signal_semaphore_count: Default::default(),
+            p_signal_semaphore_device_indices: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DeviceGroupBindSparseInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -326,7 +769,19 @@ pub struct DeviceGroupBindSparseInfo<'a> {
     pub memory_device_index: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DeviceGroupBindSparseInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEVICE_GROUP_BIND_SPARSE_INFO,
+            p_next: core::ptr::null(),
+            resource_device_index: Default::default(),
+            memory_device_index: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DeviceGroupDeviceCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -334,7 +789,19 @@ pub struct DeviceGroupDeviceCreateInfo<'a> {
     pub p_physical_devices: *const PhysicalDevice,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DeviceGroupDeviceCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEVICE_GROUP_DEVICE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            physical_device_count: Default::default(),
+            p_physical_devices: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct DescriptorUpdateTemplateEntry {
     pub dst_binding: u32,
     pub dst_array_element: u32,
@@ -344,6 +811,7 @@ pub struct DescriptorUpdateTemplateEntry {
     pub stride: usize,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DescriptorUpdateTemplateCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -357,13 +825,32 @@ pub struct DescriptorUpdateTemplateCreateInfo<'a> {
     pub set: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DescriptorUpdateTemplateCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            descriptor_update_entry_count: Default::default(),
+            p_descriptor_update_entries: core::ptr::null(),
+            template_type: Default::default(),
+            descriptor_set_layout: Default::default(),
+            pipeline_bind_point: Default::default(),
+            pipeline_layout: Default::default(),
+            set: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct InputAttachmentAspectReference {
     pub subpass: u32,
     pub input_attachment_index: u32,
     pub aspect_mask: ImageAspectFlags,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct RenderPassInputAttachmentAspectCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -371,7 +858,19 @@ pub struct RenderPassInputAttachmentAspectCreateInfo<'a> {
     pub p_aspect_references: *const InputAttachmentAspectReference,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for RenderPassInputAttachmentAspectCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO,
+            p_next: core::ptr::null(),
+            aspect_reference_count: Default::default(),
+            p_aspect_references: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDevice16BitStorageFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -381,7 +880,21 @@ pub struct PhysicalDevice16BitStorageFeatures<'a> {
     pub storage_input_output16: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDevice16BitStorageFeatures<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES,
+            p_next: core::ptr::null_mut(),
+            storage_buffer16_bit_access: Default::default(),
+            uniform_and_storage_buffer16_bit_access: Default::default(),
+            storage_push_constant16: Default::default(),
+            storage_input_output16: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceSubgroupProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -391,49 +904,129 @@ pub struct PhysicalDeviceSubgroupProperties<'a> {
     pub quad_operations_in_all_stages: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceSubgroupProperties<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_SUBGROUP_PROPERTIES,
+            p_next: core::ptr::null_mut(),
+            subgroup_size: Default::default(),
+            supported_stages: Default::default(),
+            supported_operations: Default::default(),
+            quad_operations_in_all_stages: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BufferMemoryRequirementsInfo2<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub buffer: Buffer,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for BufferMemoryRequirementsInfo2<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BUFFER_MEMORY_REQUIREMENTS_INFO_2,
+            p_next: core::ptr::null(),
+            buffer: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ImageMemoryRequirementsInfo2<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub image: Image,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ImageMemoryRequirementsInfo2<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::IMAGE_MEMORY_REQUIREMENTS_INFO_2,
+            p_next: core::ptr::null(),
+            image: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ImageSparseMemoryRequirementsInfo2<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub image: Image,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ImageSparseMemoryRequirementsInfo2<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::IMAGE_SPARSE_MEMORY_REQUIREMENTS_INFO_2,
+            p_next: core::ptr::null(),
+            image: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct MemoryRequirements2<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub memory_requirements: MemoryRequirements,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for MemoryRequirements2<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::MEMORY_REQUIREMENTS_2,
+            p_next: core::ptr::null_mut(),
+            memory_requirements: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SparseImageMemoryRequirements2<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub memory_requirements: SparseImageMemoryRequirements,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for SparseImageMemoryRequirements2<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SPARSE_IMAGE_MEMORY_REQUIREMENTS_2,
+            p_next: core::ptr::null_mut(),
+            memory_requirements: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDevicePointClippingProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub point_clipping_behavior: PointClippingBehavior,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDevicePointClippingProperties<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES,
+            p_next: core::ptr::null_mut(),
+            point_clipping_behavior: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct MemoryDedicatedRequirements<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -441,7 +1034,19 @@ pub struct MemoryDedicatedRequirements<'a> {
     pub requires_dedicated_allocation: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for MemoryDedicatedRequirements<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::MEMORY_DEDICATED_REQUIREMENTS,
+            p_next: core::ptr::null_mut(),
+            prefers_dedicated_allocation: Default::default(),
+            requires_dedicated_allocation: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct MemoryDedicatedAllocateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -449,28 +1054,73 @@ pub struct MemoryDedicatedAllocateInfo<'a> {
     pub buffer: Buffer,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for MemoryDedicatedAllocateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::MEMORY_DEDICATED_ALLOCATE_INFO,
+            p_next: core::ptr::null(),
+            image: Default::default(),
+            buffer: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ImageViewUsageCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub usage: ImageUsageFlags,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ImageViewUsageCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::IMAGE_VIEW_USAGE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            usage: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineTessellationDomainOriginStateCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub domain_origin: TessellationDomainOrigin,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PipelineTessellationDomainOriginStateCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            domain_origin: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SamplerYcbcrConversionInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub conversion: SamplerYcbcrConversion,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for SamplerYcbcrConversionInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SAMPLER_YCBCR_CONVERSION_INFO,
+            p_next: core::ptr::null(),
+            conversion: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SamplerYcbcrConversionCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -484,56 +1134,151 @@ pub struct SamplerYcbcrConversionCreateInfo<'a> {
     pub force_explicit_reconstruction: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for SamplerYcbcrConversionCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SAMPLER_YCBCR_CONVERSION_CREATE_INFO,
+            p_next: core::ptr::null(),
+            format: Default::default(),
+            ycbcr_model: Default::default(),
+            ycbcr_range: Default::default(),
+            components: Default::default(),
+            x_chroma_offset: Default::default(),
+            y_chroma_offset: Default::default(),
+            chroma_filter: Default::default(),
+            force_explicit_reconstruction: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BindImagePlaneMemoryInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub plane_aspect: ImageAspectFlagBits,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for BindImagePlaneMemoryInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BIND_IMAGE_PLANE_MEMORY_INFO,
+            p_next: core::ptr::null(),
+            plane_aspect: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ImagePlaneMemoryRequirementsInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub plane_aspect: ImageAspectFlagBits,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ImagePlaneMemoryRequirementsInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO,
+            p_next: core::ptr::null(),
+            plane_aspect: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceSamplerYcbcrConversionFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub sampler_ycbcr_conversion: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceSamplerYcbcrConversionFeatures<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES,
+            p_next: core::ptr::null_mut(),
+            sampler_ycbcr_conversion: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SamplerYcbcrConversionImageFormatProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub combined_image_sampler_descriptor_count: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for SamplerYcbcrConversionImageFormatProperties<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES,
+            p_next: core::ptr::null_mut(),
+            combined_image_sampler_descriptor_count: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ProtectedSubmitInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub protected_submit: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ProtectedSubmitInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PROTECTED_SUBMIT_INFO,
+            p_next: core::ptr::null(),
+            protected_submit: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceProtectedMemoryFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub protected_memory: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceProtectedMemoryFeatures<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_PROTECTED_MEMORY_FEATURES,
+            p_next: core::ptr::null_mut(),
+            protected_memory: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceProtectedMemoryProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub protected_no_fault: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceProtectedMemoryProperties<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_PROTECTED_MEMORY_PROPERTIES,
+            p_next: core::ptr::null_mut(),
+            protected_no_fault: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DeviceQueueInfo2<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -542,7 +1287,20 @@ pub struct DeviceQueueInfo2<'a> {
     pub queue_index: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DeviceQueueInfo2<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEVICE_QUEUE_INFO_2,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            queue_family_index: Default::default(),
+            queue_index: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMaintenance3Properties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -550,19 +1308,52 @@ pub struct PhysicalDeviceMaintenance3Properties<'a> {
     pub max_memory_allocation_size: DeviceSize,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceMaintenance3Properties<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES,
+            p_next: core::ptr::null_mut(),
+            max_per_set_descriptors: Default::default(),
+            max_memory_allocation_size: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DescriptorSetLayoutSupport<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub supported: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DescriptorSetLayoutSupport<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DESCRIPTOR_SET_LAYOUT_SUPPORT,
+            p_next: core::ptr::null_mut(),
+            supported: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderDrawParametersFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub shader_draw_parameters: Bool32,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for PhysicalDeviceShaderDrawParametersFeatures<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES,
+            p_next: core::ptr::null_mut(),
+            shader_draw_parameters: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

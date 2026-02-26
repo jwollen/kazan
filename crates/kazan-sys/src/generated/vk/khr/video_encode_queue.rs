@@ -4,20 +4,43 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeSessionParametersGetInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub video_session_parameters: VideoSessionParametersKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeSessionParametersGetInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR,
+            p_next: core::ptr::null(),
+            video_session_parameters: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeSessionParametersFeedbackInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub has_overrides: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeSessionParametersFeedbackInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_SESSION_PARAMETERS_FEEDBACK_INFO_KHR,
+            p_next: core::ptr::null_mut(),
+            has_overrides: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeUsageInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -26,7 +49,20 @@ pub struct VideoEncodeUsageInfoKHR<'a> {
     pub tuning_mode: VideoEncodeTuningModeKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeUsageInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_USAGE_INFO_KHR,
+            p_next: core::ptr::null(),
+            video_usage_hints: Default::default(),
+            video_content_hints: Default::default(),
+            tuning_mode: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -41,21 +77,62 @@ pub struct VideoEncodeInfoKHR<'a> {
     pub preceding_externally_encoded_bytes: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_INFO_KHR,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            dst_buffer: Default::default(),
+            dst_buffer_offset: Default::default(),
+            dst_buffer_range: Default::default(),
+            src_picture_resource: Default::default(),
+            p_setup_reference_slot: core::ptr::null(),
+            reference_slot_count: Default::default(),
+            p_reference_slots: core::ptr::null(),
+            preceding_externally_encoded_bytes: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct QueryPoolVideoEncodeFeedbackCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub encode_feedback_flags: VideoEncodeFeedbackFlagsKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for QueryPoolVideoEncodeFeedbackCreateInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR,
+            p_next: core::ptr::null(),
+            encode_feedback_flags: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeQualityLevelInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub quality_level: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeQualityLevelInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR,
+            p_next: core::ptr::null(),
+            quality_level: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceVideoEncodeQualityLevelInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -63,7 +140,19 @@ pub struct PhysicalDeviceVideoEncodeQualityLevelInfoKHR<'a> {
     pub quality_level: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceVideoEncodeQualityLevelInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR,
+            p_next: core::ptr::null(),
+            p_video_profile: core::ptr::null(),
+            quality_level: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeQualityLevelPropertiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -71,7 +160,19 @@ pub struct VideoEncodeQualityLevelPropertiesKHR<'a> {
     pub preferred_rate_control_layer_count: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeQualityLevelPropertiesKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR,
+            p_next: core::ptr::null_mut(),
+            preferred_rate_control_mode: Default::default(),
+            preferred_rate_control_layer_count: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeRateControlInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -83,7 +184,23 @@ pub struct VideoEncodeRateControlInfoKHR<'a> {
     pub initial_virtual_buffer_size_in_ms: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeRateControlInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_RATE_CONTROL_INFO_KHR,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            rate_control_mode: Default::default(),
+            layer_count: Default::default(),
+            p_layers: core::ptr::null(),
+            virtual_buffer_size_in_ms: Default::default(),
+            initial_virtual_buffer_size_in_ms: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeRateControlLayerInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -93,7 +210,21 @@ pub struct VideoEncodeRateControlLayerInfoKHR<'a> {
     pub frame_rate_denominator: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeRateControlLayerInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_RATE_CONTROL_LAYER_INFO_KHR,
+            p_next: core::ptr::null(),
+            average_bitrate: Default::default(),
+            max_bitrate: Default::default(),
+            frame_rate_numerator: Default::default(),
+            frame_rate_denominator: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeCapabilitiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -105,6 +236,22 @@ pub struct VideoEncodeCapabilitiesKHR<'a> {
     pub encode_input_picture_granularity: Extent2D,
     pub supported_encode_feedback_flags: VideoEncodeFeedbackFlagsKHR,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for VideoEncodeCapabilitiesKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_CAPABILITIES_KHR,
+            p_next: core::ptr::null_mut(),
+            flags: Default::default(),
+            rate_control_modes: Default::default(),
+            max_rate_control_layers: Default::default(),
+            max_bitrate: Default::default(),
+            max_quality_levels: Default::default(),
+            encode_input_picture_granularity: Default::default(),
+            supported_encode_feedback_flags: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

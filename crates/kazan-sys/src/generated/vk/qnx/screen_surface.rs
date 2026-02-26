@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ScreenSurfaceCreateInfoQNX<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -11,6 +12,18 @@ pub struct ScreenSurfaceCreateInfoQNX<'a> {
     pub context: *mut _screen_context,
     pub window: *mut _screen_window,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for ScreenSurfaceCreateInfoQNX<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SCREEN_SURFACE_CREATE_INFO_QNX,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            context: core::ptr::null_mut(),
+            window: core::ptr::null_mut(),
+            _marker: PhantomData,
+        }
+    }
 }
 bitflags! {
     #[repr(transparent)]

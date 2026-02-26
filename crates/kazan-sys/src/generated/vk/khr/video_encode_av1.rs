@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeAV1CapabilitiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -33,7 +34,41 @@ pub struct VideoEncodeAV1CapabilitiesKHR<'a> {
     pub std_syntax_flags: VideoEncodeAV1StdFlagsKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeAV1CapabilitiesKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_AV1_CAPABILITIES_KHR,
+            p_next: core::ptr::null_mut(),
+            flags: Default::default(),
+            max_level: Default::default(),
+            coded_picture_alignment: Default::default(),
+            max_tiles: Default::default(),
+            min_tile_size: Default::default(),
+            max_tile_size: Default::default(),
+            superblock_sizes: Default::default(),
+            max_single_reference_count: Default::default(),
+            single_reference_name_mask: Default::default(),
+            max_unidirectional_compound_reference_count: Default::default(),
+            max_unidirectional_compound_group1_reference_count: Default::default(),
+            unidirectional_compound_reference_name_mask: Default::default(),
+            max_bidirectional_compound_reference_count: Default::default(),
+            max_bidirectional_compound_group1_reference_count: Default::default(),
+            max_bidirectional_compound_group2_reference_count: Default::default(),
+            bidirectional_compound_reference_name_mask: Default::default(),
+            max_temporal_layer_count: Default::default(),
+            max_spatial_layer_count: Default::default(),
+            max_operating_points: Default::default(),
+            min_q_index: Default::default(),
+            max_q_index: Default::default(),
+            prefers_gop_remaining_frames: Default::default(),
+            requires_gop_remaining_frames: Default::default(),
+            std_syntax_flags: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeAV1QualityLevelPropertiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -54,14 +89,50 @@ pub struct VideoEncodeAV1QualityLevelPropertiesKHR<'a> {
     pub preferred_bidirectional_compound_reference_name_mask: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeAV1QualityLevelPropertiesKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_AV1_QUALITY_LEVEL_PROPERTIES_KHR,
+            p_next: core::ptr::null_mut(),
+            preferred_rate_control_flags: Default::default(),
+            preferred_gop_frame_count: Default::default(),
+            preferred_key_frame_period: Default::default(),
+            preferred_consecutive_bipredictive_frame_count: Default::default(),
+            preferred_temporal_layer_count: Default::default(),
+            preferred_constant_q_index: Default::default(),
+            preferred_max_single_reference_count: Default::default(),
+            preferred_single_reference_name_mask: Default::default(),
+            preferred_max_unidirectional_compound_reference_count: Default::default(),
+            preferred_max_unidirectional_compound_group1_reference_count: Default::default(),
+            preferred_unidirectional_compound_reference_name_mask: Default::default(),
+            preferred_max_bidirectional_compound_reference_count: Default::default(),
+            preferred_max_bidirectional_compound_group1_reference_count: Default::default(),
+            preferred_max_bidirectional_compound_group2_reference_count: Default::default(),
+            preferred_bidirectional_compound_reference_name_mask: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceVideoEncodeAV1FeaturesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub video_encode_av1: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceVideoEncodeAV1FeaturesKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_VIDEO_ENCODE_AV1_FEATURES_KHR,
+            p_next: core::ptr::null_mut(),
+            video_encode_av1: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeAV1SessionCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -69,7 +140,19 @@ pub struct VideoEncodeAV1SessionCreateInfoKHR<'a> {
     pub max_level: StdVideoAV1Level,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeAV1SessionCreateInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_AV1_SESSION_CREATE_INFO_KHR,
+            p_next: core::ptr::null(),
+            use_max_level: Default::default(),
+            max_level: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeAV1SessionParametersCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -79,14 +162,39 @@ pub struct VideoEncodeAV1SessionParametersCreateInfoKHR<'a> {
     pub p_std_operating_points: *const StdVideoEncodeAV1OperatingPointInfo,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeAV1SessionParametersCreateInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_AV1_SESSION_PARAMETERS_CREATE_INFO_KHR,
+            p_next: core::ptr::null(),
+            p_std_sequence_header: core::ptr::null(),
+            p_std_decoder_model_info: core::ptr::null(),
+            std_operating_point_count: Default::default(),
+            p_std_operating_points: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeAV1DpbSlotInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_std_reference_info: *const StdVideoEncodeAV1ReferenceInfo<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeAV1DpbSlotInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_AV1_DPB_SLOT_INFO_KHR,
+            p_next: core::ptr::null(),
+            p_std_reference_info: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeAV1PictureInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -99,14 +207,42 @@ pub struct VideoEncodeAV1PictureInfoKHR<'a> {
     pub generate_obu_extension_header: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeAV1PictureInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_AV1_PICTURE_INFO_KHR,
+            p_next: core::ptr::null(),
+            prediction_mode: Default::default(),
+            rate_control_group: Default::default(),
+            constant_q_index: Default::default(),
+            p_std_picture_info: core::ptr::null(),
+            reference_name_slot_indices: [Default::default(); _],
+            primary_reference_cdf_only: Default::default(),
+            generate_obu_extension_header: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeAV1ProfileInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub std_profile: StdVideoAV1Profile,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeAV1ProfileInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_AV1_PROFILE_INFO_KHR,
+            p_next: core::ptr::null(),
+            std_profile: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeAV1RateControlInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -117,19 +253,36 @@ pub struct VideoEncodeAV1RateControlInfoKHR<'a> {
     pub temporal_layer_count: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeAV1RateControlInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_AV1_RATE_CONTROL_INFO_KHR,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            gop_frame_count: Default::default(),
+            key_frame_period: Default::default(),
+            consecutive_bipredictive_frame_count: Default::default(),
+            temporal_layer_count: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct VideoEncodeAV1QIndexKHR {
     pub intra_q_index: u32,
     pub predictive_q_index: u32,
     pub bipredictive_q_index: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct VideoEncodeAV1FrameSizeKHR {
     pub intra_frame_size: u32,
     pub predictive_frame_size: u32,
     pub bipredictive_frame_size: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeAV1GopRemainingFrameInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -139,7 +292,21 @@ pub struct VideoEncodeAV1GopRemainingFrameInfoKHR<'a> {
     pub gop_remaining_bipredictive: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeAV1GopRemainingFrameInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_AV1_GOP_REMAINING_FRAME_INFO_KHR,
+            p_next: core::ptr::null(),
+            use_gop_remaining_frames: Default::default(),
+            gop_remaining_intra: Default::default(),
+            gop_remaining_predictive: Default::default(),
+            gop_remaining_bipredictive: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeAV1RateControlLayerInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -150,6 +317,21 @@ pub struct VideoEncodeAV1RateControlLayerInfoKHR<'a> {
     pub use_max_frame_size: Bool32,
     pub max_frame_size: VideoEncodeAV1FrameSizeKHR,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for VideoEncodeAV1RateControlLayerInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_AV1_RATE_CONTROL_LAYER_INFO_KHR,
+            p_next: core::ptr::null(),
+            use_min_q_index: Default::default(),
+            min_q_index: Default::default(),
+            use_max_q_index: Default::default(),
+            max_q_index: Default::default(),
+            use_max_frame_size: Default::default(),
+            max_frame_size: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

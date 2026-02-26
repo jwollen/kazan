@@ -5,34 +5,79 @@ use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub const MAX_GLOBAL_PRIORITY_SIZE: u32 = 16;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BufferUsageFlags2CreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub usage: BufferUsageFlags2,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for BufferUsageFlags2CreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BUFFER_USAGE_FLAGS_2_CREATE_INFO,
+            p_next: core::ptr::null(),
+            usage: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineCreateFlags2CreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineCreateFlags2,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PipelineCreateFlags2CreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_CREATE_FLAGS_2_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDevicePushDescriptorProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_push_descriptors: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDevicePushDescriptorProperties<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES,
+            p_next: core::ptr::null_mut(),
+            max_push_descriptors: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMaintenance5Features<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub maintenance5: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceMaintenance5Features<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_MAINTENANCE_5_FEATURES,
+            p_next: core::ptr::null_mut(),
+            maintenance5: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMaintenance5Properties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -44,14 +89,41 @@ pub struct PhysicalDeviceMaintenance5Properties<'a> {
     pub non_strict_wide_lines_use_parallelogram: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceMaintenance5Properties<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_MAINTENANCE_5_PROPERTIES,
+            p_next: core::ptr::null_mut(),
+            early_fragment_multisample_coverage_after_sample_counting: Default::default(),
+            early_fragment_sample_mask_test_before_sample_counting: Default::default(),
+            depth_stencil_swizzle_one_support: Default::default(),
+            polygon_mode_point_size: Default::default(),
+            non_strict_single_pixel_wide_lines_use_parallelogram: Default::default(),
+            non_strict_wide_lines_use_parallelogram: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMaintenance6Features<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub maintenance6: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceMaintenance6Features<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_MAINTENANCE_6_FEATURES,
+            p_next: core::ptr::null_mut(),
+            maintenance6: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMaintenance6Properties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -60,7 +132,20 @@ pub struct PhysicalDeviceMaintenance6Properties<'a> {
     pub fragment_shading_rate_clamp_combiner_inputs: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceMaintenance6Properties<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_MAINTENANCE_6_PROPERTIES,
+            p_next: core::ptr::null_mut(),
+            block_texel_view_compatible_multiple_layers: Default::default(),
+            max_combined_image_sampler_descriptor_count: Default::default(),
+            fragment_shading_rate_clamp_combiner_inputs: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct RenderingAreaInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -71,21 +156,58 @@ pub struct RenderingAreaInfo<'a> {
     pub stencil_attachment_format: Format,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for RenderingAreaInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::RENDERING_AREA_INFO,
+            p_next: core::ptr::null(),
+            view_mask: Default::default(),
+            color_attachment_count: Default::default(),
+            p_color_attachment_formats: core::ptr::null(),
+            depth_attachment_format: Default::default(),
+            stencil_attachment_format: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DeviceQueueGlobalPriorityCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub global_priority: QueueGlobalPriority,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DeviceQueueGlobalPriorityCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO,
+            p_next: core::ptr::null(),
+            global_priority: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceGlobalPriorityQueryFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub global_priority_query: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceGlobalPriorityQueryFeatures<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES,
+            p_next: core::ptr::null_mut(),
+            global_priority_query: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct QueueFamilyGlobalPriorityProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -93,12 +215,25 @@ pub struct QueueFamilyGlobalPriorityProperties<'a> {
     pub priorities: [QueueGlobalPriority; MAX_GLOBAL_PRIORITY_SIZE as usize],
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for QueueFamilyGlobalPriorityProperties<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES,
+            p_next: core::ptr::null_mut(),
+            priority_count: Default::default(),
+            priorities: [Default::default(); _],
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct VertexInputBindingDivisorDescription {
     pub binding: u32,
     pub divisor: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineVertexInputDivisorStateCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -106,7 +241,19 @@ pub struct PipelineVertexInputDivisorStateCreateInfo<'a> {
     pub p_vertex_binding_divisors: *const VertexInputBindingDivisorDescription,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PipelineVertexInputDivisorStateCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            vertex_binding_divisor_count: Default::default(),
+            p_vertex_binding_divisors: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceVertexAttributeDivisorProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -114,7 +261,19 @@ pub struct PhysicalDeviceVertexAttributeDivisorProperties<'a> {
     pub supports_non_zero_first_instance: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceVertexAttributeDivisorProperties<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES,
+            p_next: core::ptr::null_mut(),
+            max_vertex_attrib_divisor: Default::default(),
+            supports_non_zero_first_instance: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceVertexAttributeDivisorFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -122,14 +281,37 @@ pub struct PhysicalDeviceVertexAttributeDivisorFeatures<'a> {
     pub vertex_attribute_instance_rate_zero_divisor: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceVertexAttributeDivisorFeatures<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES,
+            p_next: core::ptr::null_mut(),
+            vertex_attribute_instance_rate_divisor: Default::default(),
+            vertex_attribute_instance_rate_zero_divisor: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceIndexTypeUint8Features<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub index_type_uint8: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceIndexTypeUint8Features<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES,
+            p_next: core::ptr::null_mut(),
+            index_type_uint8: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceLineRasterizationFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -141,14 +323,41 @@ pub struct PhysicalDeviceLineRasterizationFeatures<'a> {
     pub stippled_smooth_lines: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceLineRasterizationFeatures<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES,
+            p_next: core::ptr::null_mut(),
+            rectangular_lines: Default::default(),
+            bresenham_lines: Default::default(),
+            smooth_lines: Default::default(),
+            stippled_rectangular_lines: Default::default(),
+            stippled_bresenham_lines: Default::default(),
+            stippled_smooth_lines: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceLineRasterizationProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub line_sub_pixel_precision_bits: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceLineRasterizationProperties<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES,
+            p_next: core::ptr::null_mut(),
+            line_sub_pixel_precision_bits: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineRasterizationLineStateCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -158,7 +367,21 @@ pub struct PipelineRasterizationLineStateCreateInfo<'a> {
     pub line_stipple_pattern: u16,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PipelineRasterizationLineStateCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            line_rasterization_mode: Default::default(),
+            stippled_line_enable: Default::default(),
+            line_stipple_factor: Default::default(),
+            line_stipple_pattern: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceVulkan14Features<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -185,7 +408,38 @@ pub struct PhysicalDeviceVulkan14Features<'a> {
     pub push_descriptor: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceVulkan14Features<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_VULKAN_1_4_FEATURES,
+            p_next: core::ptr::null_mut(),
+            global_priority_query: Default::default(),
+            shader_subgroup_rotate: Default::default(),
+            shader_subgroup_rotate_clustered: Default::default(),
+            shader_float_controls2: Default::default(),
+            shader_expect_assume: Default::default(),
+            rectangular_lines: Default::default(),
+            bresenham_lines: Default::default(),
+            smooth_lines: Default::default(),
+            stippled_rectangular_lines: Default::default(),
+            stippled_bresenham_lines: Default::default(),
+            stippled_smooth_lines: Default::default(),
+            vertex_attribute_instance_rate_divisor: Default::default(),
+            vertex_attribute_instance_rate_zero_divisor: Default::default(),
+            index_type_uint8: Default::default(),
+            dynamic_rendering_local_read: Default::default(),
+            maintenance5: Default::default(),
+            maintenance6: Default::default(),
+            pipeline_protected_access: Default::default(),
+            pipeline_robustness: Default::default(),
+            host_image_copy: Default::default(),
+            push_descriptor: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceVulkan14Properties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -216,14 +470,60 @@ pub struct PhysicalDeviceVulkan14Properties<'a> {
     pub identical_memory_type_requirements: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceVulkan14Properties<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_VULKAN_1_4_PROPERTIES,
+            p_next: core::ptr::null_mut(),
+            line_sub_pixel_precision_bits: Default::default(),
+            max_vertex_attrib_divisor: Default::default(),
+            supports_non_zero_first_instance: Default::default(),
+            max_push_descriptors: Default::default(),
+            dynamic_rendering_local_read_depth_stencil_attachments: Default::default(),
+            dynamic_rendering_local_read_multisampled_attachments: Default::default(),
+            early_fragment_multisample_coverage_after_sample_counting: Default::default(),
+            early_fragment_sample_mask_test_before_sample_counting: Default::default(),
+            depth_stencil_swizzle_one_support: Default::default(),
+            polygon_mode_point_size: Default::default(),
+            non_strict_single_pixel_wide_lines_use_parallelogram: Default::default(),
+            non_strict_wide_lines_use_parallelogram: Default::default(),
+            block_texel_view_compatible_multiple_layers: Default::default(),
+            max_combined_image_sampler_descriptor_count: Default::default(),
+            fragment_shading_rate_clamp_combiner_inputs: Default::default(),
+            default_robustness_storage_buffers: Default::default(),
+            default_robustness_uniform_buffers: Default::default(),
+            default_robustness_vertex_inputs: Default::default(),
+            default_robustness_images: Default::default(),
+            copy_src_layout_count: Default::default(),
+            p_copy_src_layouts: core::ptr::null_mut(),
+            copy_dst_layout_count: Default::default(),
+            p_copy_dst_layouts: core::ptr::null_mut(),
+            optimal_tiling_layout_uuid: [Default::default(); _],
+            identical_memory_type_requirements: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceHostImageCopyFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub host_image_copy: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceHostImageCopyFeatures<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_HOST_IMAGE_COPY_FEATURES,
+            p_next: core::ptr::null_mut(),
+            host_image_copy: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceHostImageCopyProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -235,7 +535,23 @@ pub struct PhysicalDeviceHostImageCopyProperties<'a> {
     pub identical_memory_type_requirements: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceHostImageCopyProperties<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_HOST_IMAGE_COPY_PROPERTIES,
+            p_next: core::ptr::null_mut(),
+            copy_src_layout_count: Default::default(),
+            p_copy_src_layouts: core::ptr::null_mut(),
+            copy_dst_layout_count: Default::default(),
+            p_copy_dst_layouts: core::ptr::null_mut(),
+            optimal_tiling_layout_uuid: [Default::default(); _],
+            identical_memory_type_requirements: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct MemoryToImageCopy<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -247,7 +563,23 @@ pub struct MemoryToImageCopy<'a> {
     pub image_extent: Extent3D,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for MemoryToImageCopy<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::MEMORY_TO_IMAGE_COPY,
+            p_next: core::ptr::null(),
+            p_host_pointer: core::ptr::null(),
+            memory_row_length: Default::default(),
+            memory_image_height: Default::default(),
+            image_subresource: Default::default(),
+            image_offset: Default::default(),
+            image_extent: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ImageToMemoryCopy<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -259,7 +591,23 @@ pub struct ImageToMemoryCopy<'a> {
     pub image_extent: Extent3D,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ImageToMemoryCopy<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::IMAGE_TO_MEMORY_COPY,
+            p_next: core::ptr::null(),
+            p_host_pointer: core::ptr::null_mut(),
+            memory_row_length: Default::default(),
+            memory_image_height: Default::default(),
+            image_subresource: Default::default(),
+            image_offset: Default::default(),
+            image_extent: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct CopyMemoryToImageInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -270,7 +618,22 @@ pub struct CopyMemoryToImageInfo<'a> {
     pub p_regions: *const MemoryToImageCopy<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for CopyMemoryToImageInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::COPY_MEMORY_TO_IMAGE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            dst_image: Default::default(),
+            dst_image_layout: Default::default(),
+            region_count: Default::default(),
+            p_regions: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct CopyImageToMemoryInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -281,7 +644,22 @@ pub struct CopyImageToMemoryInfo<'a> {
     pub p_regions: *const ImageToMemoryCopy<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for CopyImageToMemoryInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::COPY_IMAGE_TO_MEMORY_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            src_image: Default::default(),
+            src_image_layout: Default::default(),
+            region_count: Default::default(),
+            p_regions: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct CopyImageToImageInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -294,7 +672,24 @@ pub struct CopyImageToImageInfo<'a> {
     pub p_regions: *const ImageCopy2<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for CopyImageToImageInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::COPY_IMAGE_TO_IMAGE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            src_image: Default::default(),
+            src_image_layout: Default::default(),
+            dst_image: Default::default(),
+            dst_image_layout: Default::default(),
+            region_count: Default::default(),
+            p_regions: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct HostImageLayoutTransitionInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -304,14 +699,39 @@ pub struct HostImageLayoutTransitionInfo<'a> {
     pub subresource_range: ImageSubresourceRange,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for HostImageLayoutTransitionInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::HOST_IMAGE_LAYOUT_TRANSITION_INFO,
+            p_next: core::ptr::null(),
+            image: Default::default(),
+            old_layout: Default::default(),
+            new_layout: Default::default(),
+            subresource_range: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SubresourceHostMemcpySize<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub size: DeviceSize,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for SubresourceHostMemcpySize<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SUBRESOURCE_HOST_MEMCPY_SIZE,
+            p_next: core::ptr::null_mut(),
+            size: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct HostImageCopyDevicePerformanceQuery<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -319,35 +739,91 @@ pub struct HostImageCopyDevicePerformanceQuery<'a> {
     pub identical_memory_layout: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for HostImageCopyDevicePerformanceQuery<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::HOST_IMAGE_COPY_DEVICE_PERFORMANCE_QUERY,
+            p_next: core::ptr::null_mut(),
+            optimal_device_access: Default::default(),
+            identical_memory_layout: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDevicePipelineProtectedAccessFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub pipeline_protected_access: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDevicePipelineProtectedAccessFeatures<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES,
+            p_next: core::ptr::null_mut(),
+            pipeline_protected_access: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ImageSubresource2<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub image_subresource: ImageSubresource,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ImageSubresource2<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::IMAGE_SUBRESOURCE_2,
+            p_next: core::ptr::null_mut(),
+            image_subresource: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SubresourceLayout2<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub subresource_layout: SubresourceLayout,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for SubresourceLayout2<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SUBRESOURCE_LAYOUT_2,
+            p_next: core::ptr::null_mut(),
+            subresource_layout: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDevicePipelineRobustnessFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub pipeline_robustness: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDevicePipelineRobustnessFeatures<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_FEATURES,
+            p_next: core::ptr::null_mut(),
+            pipeline_robustness: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineRobustnessCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -357,7 +833,21 @@ pub struct PipelineRobustnessCreateInfo<'a> {
     pub images: PipelineRobustnessImageBehavior,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PipelineRobustnessCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_ROBUSTNESS_CREATE_INFO,
+            p_next: core::ptr::null(),
+            storage_buffers: Default::default(),
+            uniform_buffers: Default::default(),
+            vertex_inputs: Default::default(),
+            images: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDevicePipelineRobustnessProperties<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -367,7 +857,21 @@ pub struct PhysicalDevicePipelineRobustnessProperties<'a> {
     pub default_robustness_images: PipelineRobustnessImageBehavior,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDevicePipelineRobustnessProperties<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_PROPERTIES,
+            p_next: core::ptr::null_mut(),
+            default_robustness_storage_buffers: Default::default(),
+            default_robustness_uniform_buffers: Default::default(),
+            default_robustness_vertex_inputs: Default::default(),
+            default_robustness_images: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DeviceImageSubresourceInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -375,7 +879,19 @@ pub struct DeviceImageSubresourceInfo<'a> {
     pub p_subresource: *const ImageSubresource2<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DeviceImageSubresourceInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEVICE_IMAGE_SUBRESOURCE_INFO,
+            p_next: core::ptr::null(),
+            p_create_info: core::ptr::null(),
+            p_subresource: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct MemoryMapInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -385,7 +901,21 @@ pub struct MemoryMapInfo<'a> {
     pub size: DeviceSize,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for MemoryMapInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::MEMORY_MAP_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            memory: Default::default(),
+            offset: Default::default(),
+            size: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct MemoryUnmapInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -393,14 +923,37 @@ pub struct MemoryUnmapInfo<'a> {
     pub memory: DeviceMemory,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for MemoryUnmapInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::MEMORY_UNMAP_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            memory: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BindMemoryStatus<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_result: *mut Result,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for BindMemoryStatus<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BIND_MEMORY_STATUS,
+            p_next: core::ptr::null(),
+            p_result: core::ptr::null_mut(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BindDescriptorSetsInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -413,7 +966,24 @@ pub struct BindDescriptorSetsInfo<'a> {
     pub p_dynamic_offsets: *const u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for BindDescriptorSetsInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BIND_DESCRIPTOR_SETS_INFO,
+            p_next: core::ptr::null(),
+            stage_flags: Default::default(),
+            layout: Default::default(),
+            first_set: Default::default(),
+            descriptor_set_count: Default::default(),
+            p_descriptor_sets: core::ptr::null(),
+            dynamic_offset_count: Default::default(),
+            p_dynamic_offsets: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PushConstantsInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -424,7 +994,22 @@ pub struct PushConstantsInfo<'a> {
     pub p_values: *const c_void,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PushConstantsInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PUSH_CONSTANTS_INFO,
+            p_next: core::ptr::null(),
+            layout: Default::default(),
+            stage_flags: Default::default(),
+            offset: Default::default(),
+            size: Default::default(),
+            p_values: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PushDescriptorSetInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -435,7 +1020,22 @@ pub struct PushDescriptorSetInfo<'a> {
     pub p_descriptor_writes: *const WriteDescriptorSet<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PushDescriptorSetInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PUSH_DESCRIPTOR_SET_INFO,
+            p_next: core::ptr::null(),
+            stage_flags: Default::default(),
+            layout: Default::default(),
+            set: Default::default(),
+            descriptor_write_count: Default::default(),
+            p_descriptor_writes: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PushDescriptorSetWithTemplateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -445,7 +1045,21 @@ pub struct PushDescriptorSetWithTemplateInfo<'a> {
     pub p_data: *const c_void,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PushDescriptorSetWithTemplateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO,
+            p_next: core::ptr::null(),
+            descriptor_update_template: Default::default(),
+            layout: Default::default(),
+            set: Default::default(),
+            p_data: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderSubgroupRotateFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -453,28 +1067,73 @@ pub struct PhysicalDeviceShaderSubgroupRotateFeatures<'a> {
     pub shader_subgroup_rotate_clustered: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceShaderSubgroupRotateFeatures<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES,
+            p_next: core::ptr::null_mut(),
+            shader_subgroup_rotate: Default::default(),
+            shader_subgroup_rotate_clustered: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderExpectAssumeFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub shader_expect_assume: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceShaderExpectAssumeFeatures<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES,
+            p_next: core::ptr::null_mut(),
+            shader_expect_assume: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderFloatControls2Features<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub shader_float_controls2: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceShaderFloatControls2Features<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES,
+            p_next: core::ptr::null_mut(),
+            shader_float_controls2: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDynamicRenderingLocalReadFeatures<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub dynamic_rendering_local_read: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceDynamicRenderingLocalReadFeatures<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES,
+            p_next: core::ptr::null_mut(),
+            dynamic_rendering_local_read: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct RenderingAttachmentLocationInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -482,7 +1141,19 @@ pub struct RenderingAttachmentLocationInfo<'a> {
     pub p_color_attachment_locations: *const u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for RenderingAttachmentLocationInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::RENDERING_ATTACHMENT_LOCATION_INFO,
+            p_next: core::ptr::null(),
+            color_attachment_count: Default::default(),
+            p_color_attachment_locations: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct RenderingInputAttachmentIndexInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -491,6 +1162,19 @@ pub struct RenderingInputAttachmentIndexInfo<'a> {
     pub p_depth_input_attachment_index: *const u32,
     pub p_stencil_input_attachment_index: *const u32,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for RenderingInputAttachmentIndexInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::RENDERING_INPUT_ATTACHMENT_INDEX_INFO,
+            p_next: core::ptr::null(),
+            color_attachment_count: Default::default(),
+            p_color_attachment_input_indices: core::ptr::null(),
+            p_depth_input_attachment_index: core::ptr::null(),
+            p_stencil_input_attachment_index: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

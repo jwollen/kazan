@@ -10,26 +10,59 @@ pub type MTLTexture_id = *const c_void;
 pub type MTLSharedEvent_id = *const c_void;
 pub type IOSurfaceRef = *const c_void;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ExportMetalObjectCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub export_object_type: ExportMetalObjectTypeFlagBitsEXT,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ExportMetalObjectCreateInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::EXPORT_METAL_OBJECT_CREATE_INFO_EXT,
+            p_next: core::ptr::null(),
+            export_object_type: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ExportMetalObjectsInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ExportMetalObjectsInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::EXPORT_METAL_OBJECTS_INFO_EXT,
+            p_next: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ExportMetalDeviceInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub mtl_device: MTLDevice_id,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ExportMetalDeviceInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::EXPORT_METAL_DEVICE_INFO_EXT,
+            p_next: core::ptr::null(),
+            mtl_device: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ExportMetalCommandQueueInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -37,7 +70,19 @@ pub struct ExportMetalCommandQueueInfoEXT<'a> {
     pub mtl_command_queue: MTLCommandQueue_id,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ExportMetalCommandQueueInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::EXPORT_METAL_COMMAND_QUEUE_INFO_EXT,
+            p_next: core::ptr::null(),
+            queue: Default::default(),
+            mtl_command_queue: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ExportMetalBufferInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -45,14 +90,37 @@ pub struct ExportMetalBufferInfoEXT<'a> {
     pub mtl_buffer: MTLBuffer_id,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ExportMetalBufferInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::EXPORT_METAL_BUFFER_INFO_EXT,
+            p_next: core::ptr::null(),
+            memory: Default::default(),
+            mtl_buffer: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ImportMetalBufferInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub mtl_buffer: MTLBuffer_id,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ImportMetalBufferInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::IMPORT_METAL_BUFFER_INFO_EXT,
+            p_next: core::ptr::null(),
+            mtl_buffer: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ExportMetalTextureInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -63,7 +131,22 @@ pub struct ExportMetalTextureInfoEXT<'a> {
     pub mtl_texture: MTLTexture_id,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ExportMetalTextureInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::EXPORT_METAL_TEXTURE_INFO_EXT,
+            p_next: core::ptr::null(),
+            image: Default::default(),
+            image_view: Default::default(),
+            buffer_view: Default::default(),
+            plane: Default::default(),
+            mtl_texture: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ImportMetalTextureInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -71,7 +154,19 @@ pub struct ImportMetalTextureInfoEXT<'a> {
     pub mtl_texture: MTLTexture_id,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ImportMetalTextureInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::IMPORT_METAL_TEXTURE_INFO_EXT,
+            p_next: core::ptr::null(),
+            plane: Default::default(),
+            mtl_texture: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ExportMetalIOSurfaceInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -79,14 +174,37 @@ pub struct ExportMetalIOSurfaceInfoEXT<'a> {
     pub io_surface: IOSurfaceRef,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ExportMetalIOSurfaceInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::EXPORT_METAL_IO_SURFACE_INFO_EXT,
+            p_next: core::ptr::null(),
+            image: Default::default(),
+            io_surface: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ImportMetalIOSurfaceInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub io_surface: IOSurfaceRef,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ImportMetalIOSurfaceInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::IMPORT_METAL_IO_SURFACE_INFO_EXT,
+            p_next: core::ptr::null(),
+            io_surface: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ExportMetalSharedEventInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -95,12 +213,35 @@ pub struct ExportMetalSharedEventInfoEXT<'a> {
     pub mtl_shared_event: MTLSharedEvent_id,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ExportMetalSharedEventInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::EXPORT_METAL_SHARED_EVENT_INFO_EXT,
+            p_next: core::ptr::null(),
+            semaphore: Default::default(),
+            event: Default::default(),
+            mtl_shared_event: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ImportMetalSharedEventInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub mtl_shared_event: MTLSharedEvent_id,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for ImportMetalSharedEventInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::IMPORT_METAL_SHARED_EVENT_INFO_EXT,
+            p_next: core::ptr::null(),
+            mtl_shared_event: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 bitflags! {
     #[repr(transparent)]

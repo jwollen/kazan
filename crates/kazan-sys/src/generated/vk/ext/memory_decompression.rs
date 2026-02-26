@@ -4,13 +4,25 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMemoryDecompressionFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub memory_decompression: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceMemoryDecompressionFeaturesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_EXT,
+            p_next: core::ptr::null_mut(),
+            memory_decompression: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMemoryDecompressionPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -18,7 +30,19 @@ pub struct PhysicalDeviceMemoryDecompressionPropertiesEXT<'a> {
     pub max_decompression_indirect_count: u64,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceMemoryDecompressionPropertiesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_EXT,
+            p_next: core::ptr::null_mut(),
+            decompression_methods: Default::default(),
+            max_decompression_indirect_count: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct DecompressMemoryRegionEXT {
     pub src_address: DeviceAddress,
     pub dst_address: DeviceAddress,
@@ -26,6 +50,7 @@ pub struct DecompressMemoryRegionEXT {
     pub decompressed_size: DeviceSize,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DecompressMemoryInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -33,6 +58,18 @@ pub struct DecompressMemoryInfoEXT<'a> {
     pub region_count: u32,
     pub p_regions: *const DecompressMemoryRegionEXT,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for DecompressMemoryInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DECOMPRESS_MEMORY_INFO_EXT,
+            p_next: core::ptr::null(),
+            decompression_method: Default::default(),
+            region_count: Default::default(),
+            p_regions: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
 }
 bitflags! {
     #[repr(transparent)]

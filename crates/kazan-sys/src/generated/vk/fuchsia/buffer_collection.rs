@@ -7,6 +7,7 @@ use core::marker::PhantomData;
 #[derive(Copy, Clone, Default)]
 pub struct BufferCollectionFUCHSIA(u64);
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ImportMemoryBufferCollectionFUCHSIA<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -14,7 +15,19 @@ pub struct ImportMemoryBufferCollectionFUCHSIA<'a> {
     pub index: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ImportMemoryBufferCollectionFUCHSIA<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::IMPORT_MEMORY_BUFFER_COLLECTION_FUCHSIA,
+            p_next: core::ptr::null(),
+            collection: Default::default(),
+            index: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BufferCollectionImageCreateInfoFUCHSIA<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -22,7 +35,19 @@ pub struct BufferCollectionImageCreateInfoFUCHSIA<'a> {
     pub index: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for BufferCollectionImageCreateInfoFUCHSIA<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BUFFER_COLLECTION_IMAGE_CREATE_INFO_FUCHSIA,
+            p_next: core::ptr::null(),
+            collection: Default::default(),
+            index: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BufferCollectionBufferCreateInfoFUCHSIA<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -30,14 +55,37 @@ pub struct BufferCollectionBufferCreateInfoFUCHSIA<'a> {
     pub index: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for BufferCollectionBufferCreateInfoFUCHSIA<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BUFFER_COLLECTION_BUFFER_CREATE_INFO_FUCHSIA,
+            p_next: core::ptr::null(),
+            collection: Default::default(),
+            index: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BufferCollectionCreateInfoFUCHSIA<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub collection_token: zx_handle_t,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for BufferCollectionCreateInfoFUCHSIA<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BUFFER_COLLECTION_CREATE_INFO_FUCHSIA,
+            p_next: core::ptr::null(),
+            collection_token: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BufferCollectionPropertiesFUCHSIA<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -54,7 +102,28 @@ pub struct BufferCollectionPropertiesFUCHSIA<'a> {
     pub suggested_y_chroma_offset: ChromaLocation,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for BufferCollectionPropertiesFUCHSIA<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BUFFER_COLLECTION_PROPERTIES_FUCHSIA,
+            p_next: core::ptr::null_mut(),
+            memory_type_bits: Default::default(),
+            buffer_count: Default::default(),
+            create_info_index: Default::default(),
+            sysmem_pixel_format: Default::default(),
+            format_features: Default::default(),
+            sysmem_color_space_index: Default::default(),
+            sampler_ycbcr_conversion_components: Default::default(),
+            suggested_ycbcr_model: Default::default(),
+            suggested_ycbcr_range: Default::default(),
+            suggested_x_chroma_offset: Default::default(),
+            suggested_y_chroma_offset: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BufferConstraintsInfoFUCHSIA<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -63,14 +132,38 @@ pub struct BufferConstraintsInfoFUCHSIA<'a> {
     pub buffer_collection_constraints: BufferCollectionConstraintsInfoFUCHSIA<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for BufferConstraintsInfoFUCHSIA<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BUFFER_CONSTRAINTS_INFO_FUCHSIA,
+            p_next: core::ptr::null(),
+            create_info: Default::default(),
+            required_format_features: Default::default(),
+            buffer_collection_constraints: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SysmemColorSpaceFUCHSIA<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub color_space: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for SysmemColorSpaceFUCHSIA<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SYSMEM_COLOR_SPACE_FUCHSIA,
+            p_next: core::ptr::null(),
+            color_space: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ImageFormatConstraintsInfoFUCHSIA<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -82,7 +175,23 @@ pub struct ImageFormatConstraintsInfoFUCHSIA<'a> {
     pub p_color_spaces: *const SysmemColorSpaceFUCHSIA<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ImageFormatConstraintsInfoFUCHSIA<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::IMAGE_FORMAT_CONSTRAINTS_INFO_FUCHSIA,
+            p_next: core::ptr::null(),
+            image_create_info: Default::default(),
+            required_format_features: Default::default(),
+            flags: Default::default(),
+            sysmem_pixel_format: Default::default(),
+            color_space_count: Default::default(),
+            p_color_spaces: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ImageConstraintsInfoFUCHSIA<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -92,7 +201,21 @@ pub struct ImageConstraintsInfoFUCHSIA<'a> {
     pub flags: ImageConstraintsInfoFlagsFUCHSIA,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ImageConstraintsInfoFUCHSIA<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::IMAGE_CONSTRAINTS_INFO_FUCHSIA,
+            p_next: core::ptr::null(),
+            format_constraints_count: Default::default(),
+            p_format_constraints: core::ptr::null(),
+            buffer_collection_constraints: Default::default(),
+            flags: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BufferCollectionConstraintsInfoFUCHSIA<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -102,6 +225,20 @@ pub struct BufferCollectionConstraintsInfoFUCHSIA<'a> {
     pub min_buffer_count_for_dedicated_slack: u32,
     pub min_buffer_count_for_shared_slack: u32,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for BufferCollectionConstraintsInfoFUCHSIA<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BUFFER_COLLECTION_CONSTRAINTS_INFO_FUCHSIA,
+            p_next: core::ptr::null(),
+            min_buffer_count: Default::default(),
+            max_buffer_count: Default::default(),
+            min_buffer_count_for_camping: Default::default(),
+            min_buffer_count_for_dedicated_slack: Default::default(),
+            min_buffer_count_for_shared_slack: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 bitflags! {
     #[repr(transparent)]

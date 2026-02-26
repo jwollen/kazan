@@ -4,32 +4,76 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DisplayPowerInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub power_state: DisplayPowerStateEXT,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DisplayPowerInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DISPLAY_POWER_INFO_EXT,
+            p_next: core::ptr::null(),
+            power_state: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DeviceEventInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub device_event: DeviceEventTypeEXT,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DeviceEventInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEVICE_EVENT_INFO_EXT,
+            p_next: core::ptr::null(),
+            device_event: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DisplayEventInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub display_event: DisplayEventTypeEXT,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DisplayEventInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DISPLAY_EVENT_INFO_EXT,
+            p_next: core::ptr::null(),
+            display_event: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SwapchainCounterCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub surface_counters: SurfaceCounterFlagsEXT,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for SwapchainCounterCreateInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SWAPCHAIN_COUNTER_CREATE_INFO_EXT,
+            p_next: core::ptr::null(),
+            surface_counters: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

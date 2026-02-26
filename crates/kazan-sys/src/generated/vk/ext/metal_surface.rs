@@ -5,12 +5,24 @@ use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub type CAMetalLayer = *const c_void;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct MetalSurfaceCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: MetalSurfaceCreateFlagsEXT,
     pub p_layer: *const CAMetalLayer,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for MetalSurfaceCreateInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::METAL_SURFACE_CREATE_INFO_EXT,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            p_layer: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
 }
 bitflags! {
     #[repr(transparent)]

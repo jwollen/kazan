@@ -7,6 +7,7 @@ use core::marker::PhantomData;
 #[derive(Copy, Clone, Default)]
 pub struct MicromapEXT(u64);
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct MicromapBuildInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -23,7 +24,28 @@ pub struct MicromapBuildInfoEXT<'a> {
     pub triangle_array_stride: DeviceSize,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for MicromapBuildInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::MICROMAP_BUILD_INFO_EXT,
+            p_next: core::ptr::null(),
+            ty: Default::default(),
+            flags: Default::default(),
+            mode: Default::default(),
+            dst_micromap: Default::default(),
+            usage_counts_count: Default::default(),
+            p_usage_counts: core::ptr::null(),
+            pp_usage_counts: core::ptr::null(),
+            data: Default::default(),
+            scratch_data: Default::default(),
+            triangle_array: Default::default(),
+            triangle_array_stride: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct MicromapCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -35,14 +57,41 @@ pub struct MicromapCreateInfoEXT<'a> {
     pub device_address: DeviceAddress,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for MicromapCreateInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::MICROMAP_CREATE_INFO_EXT,
+            p_next: core::ptr::null(),
+            create_flags: Default::default(),
+            buffer: Default::default(),
+            offset: Default::default(),
+            size: Default::default(),
+            ty: Default::default(),
+            device_address: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct MicromapVersionInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_version_data: *const u8,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for MicromapVersionInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::MICROMAP_VERSION_INFO_EXT,
+            p_next: core::ptr::null(),
+            p_version_data: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct CopyMicromapInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -51,7 +100,20 @@ pub struct CopyMicromapInfoEXT<'a> {
     pub mode: CopyMicromapModeEXT,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for CopyMicromapInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::COPY_MICROMAP_INFO_EXT,
+            p_next: core::ptr::null(),
+            src: Default::default(),
+            dst: Default::default(),
+            mode: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct CopyMicromapToMemoryInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -60,7 +122,20 @@ pub struct CopyMicromapToMemoryInfoEXT<'a> {
     pub mode: CopyMicromapModeEXT,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for CopyMicromapToMemoryInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::COPY_MICROMAP_TO_MEMORY_INFO_EXT,
+            p_next: core::ptr::null(),
+            src: Default::default(),
+            dst: Default::default(),
+            mode: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct CopyMemoryToMicromapInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -69,7 +144,20 @@ pub struct CopyMemoryToMicromapInfoEXT<'a> {
     pub mode: CopyMicromapModeEXT,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for CopyMemoryToMicromapInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::COPY_MEMORY_TO_MICROMAP_INFO_EXT,
+            p_next: core::ptr::null(),
+            src: Default::default(),
+            dst: Default::default(),
+            mode: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct MicromapBuildSizesInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -78,19 +166,34 @@ pub struct MicromapBuildSizesInfoEXT<'a> {
     pub discardable: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for MicromapBuildSizesInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::MICROMAP_BUILD_SIZES_INFO_EXT,
+            p_next: core::ptr::null(),
+            micromap_size: Default::default(),
+            build_scratch_size: Default::default(),
+            discardable: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct MicromapUsageEXT {
     pub count: u32,
     pub subdivision_level: u32,
     pub format: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct MicromapTriangleEXT {
     pub data_offset: u32,
     pub subdivision_level: u16,
     pub format: u16,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceOpacityMicromapFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -99,7 +202,20 @@ pub struct PhysicalDeviceOpacityMicromapFeaturesEXT<'a> {
     pub micromap_host_commands: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceOpacityMicromapFeaturesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_EXT,
+            p_next: core::ptr::null_mut(),
+            micromap: Default::default(),
+            micromap_capture_replay: Default::default(),
+            micromap_host_commands: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceOpacityMicromapPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -107,7 +223,19 @@ pub struct PhysicalDeviceOpacityMicromapPropertiesEXT<'a> {
     pub max_opacity4_state_subdivision_level: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceOpacityMicromapPropertiesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_OPACITY_MICROMAP_PROPERTIES_EXT,
+            p_next: core::ptr::null_mut(),
+            max_opacity2_state_subdivision_level: Default::default(),
+            max_opacity4_state_subdivision_level: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct AccelerationStructureTrianglesOpacityMicromapEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -120,6 +248,23 @@ pub struct AccelerationStructureTrianglesOpacityMicromapEXT<'a> {
     pub pp_usage_counts: *const *const MicromapUsageEXT,
     pub micromap: MicromapEXT,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for AccelerationStructureTrianglesOpacityMicromapEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_EXT,
+            p_next: core::ptr::null_mut(),
+            index_type: Default::default(),
+            index_buffer: Default::default(),
+            index_stride: Default::default(),
+            base_triangle: Default::default(),
+            usage_counts_count: Default::default(),
+            p_usage_counts: core::ptr::null(),
+            pp_usage_counts: core::ptr::null(),
+            micromap: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

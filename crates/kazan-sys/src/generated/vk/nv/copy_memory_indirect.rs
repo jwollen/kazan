@@ -8,11 +8,22 @@ pub type CopyMemoryToImageIndirectCommandNV = CopyMemoryToImageIndirectCommandKH
 pub type PhysicalDeviceCopyMemoryIndirectPropertiesNV<'a> =
     PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'a>;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceCopyMemoryIndirectFeaturesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub indirect_copy: Bool32,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for PhysicalDeviceCopyMemoryIndirectFeaturesNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_NV,
+            p_next: core::ptr::null_mut(),
+            indirect_copy: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 pub type PFN_vkCmdCopyMemoryIndirectNV = unsafe extern "system" fn(
     command_buffer: CommandBuffer,

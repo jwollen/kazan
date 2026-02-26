@@ -4,11 +4,13 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoEncodeAV1ExtensionHeader {
     pub temporal_id: u8,
     pub spatial_id: u8,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoEncodeAV1DecoderModelInfo {
     pub buffer_delay_length_minus_1: u8,
     pub buffer_removal_time_length_minus_1: u8,
@@ -17,6 +19,7 @@ pub struct StdVideoEncodeAV1DecoderModelInfo {
     pub num_units_in_decoding_tick: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoEncodeAV1OperatingPointInfoFlags {
     pub decoder_model_present_for_this_op: u32,
     pub low_delay_mode_flag: u32,
@@ -24,6 +27,7 @@ pub struct StdVideoEncodeAV1OperatingPointInfoFlags {
     pub reserved: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoEncodeAV1OperatingPointInfo {
     pub flags: StdVideoEncodeAV1OperatingPointInfoFlags,
     pub operating_point_idc: u16,
@@ -34,6 +38,7 @@ pub struct StdVideoEncodeAV1OperatingPointInfo {
     pub initial_display_delay_minus_1: u8,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoEncodeAV1PictureInfoFlags {
     pub error_resilient_mode: u32,
     pub disable_cdf_update: u32,
@@ -67,6 +72,7 @@ pub struct StdVideoEncodeAV1PictureInfoFlags {
     pub reserved: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoEncodeAV1PictureInfo<'a> {
     pub flags: StdVideoEncodeAV1PictureInfoFlags,
     pub frame_type: StdVideoAV1FrameType,
@@ -97,13 +103,49 @@ pub struct StdVideoEncodeAV1PictureInfo<'a> {
     pub p_buffer_removal_times: *const u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for StdVideoEncodeAV1PictureInfo<'_> {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            frame_type: Default::default(),
+            frame_presentation_time: Default::default(),
+            current_frame_id: Default::default(),
+            order_hint: Default::default(),
+            primary_ref_frame: Default::default(),
+            refresh_frame_flags: Default::default(),
+            coded_denom: Default::default(),
+            render_width_minus_1: Default::default(),
+            render_height_minus_1: Default::default(),
+            interpolation_filter: Default::default(),
+            tx_mode: Default::default(),
+            delta_q_res: Default::default(),
+            delta_lf_res: Default::default(),
+            ref_order_hint: [Default::default(); _],
+            ref_frame_idx: [Default::default(); _],
+            reserved1: [Default::default(); _],
+            delta_frame_id_minus_1: [Default::default(); _],
+            p_tile_info: core::ptr::null(),
+            p_quantization: core::ptr::null(),
+            p_segmentation: core::ptr::null(),
+            p_loop_filter: core::ptr::null(),
+            p_cdef: core::ptr::null(),
+            p_loop_restoration: core::ptr::null(),
+            p_global_motion: core::ptr::null(),
+            p_extension_header: core::ptr::null(),
+            p_buffer_removal_times: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoEncodeAV1ReferenceInfoFlags {
     pub disable_frame_end_update_cdf: u32,
     pub segmentation_enabled: u32,
     pub reserved: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoEncodeAV1ReferenceInfo<'a> {
     pub flags: StdVideoEncodeAV1ReferenceInfoFlags,
     pub ref_frame_id: u32,
@@ -112,4 +154,17 @@ pub struct StdVideoEncodeAV1ReferenceInfo<'a> {
     pub reserved1: [u8; 3],
     pub p_extension_header: *const StdVideoEncodeAV1ExtensionHeader,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for StdVideoEncodeAV1ReferenceInfo<'_> {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            ref_frame_id: Default::default(),
+            frame_type: Default::default(),
+            order_hint: Default::default(),
+            reserved1: [Default::default(); _],
+            p_extension_header: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
 }

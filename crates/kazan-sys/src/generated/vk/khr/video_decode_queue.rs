@@ -4,20 +4,43 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoDecodeCapabilitiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub flags: VideoDecodeCapabilityFlagsKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoDecodeCapabilitiesKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_DECODE_CAPABILITIES_KHR,
+            p_next: core::ptr::null_mut(),
+            flags: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoDecodeUsageInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub video_usage_hints: VideoDecodeUsageFlagsKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoDecodeUsageInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_DECODE_USAGE_INFO_KHR,
+            p_next: core::ptr::null(),
+            video_usage_hints: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoDecodeInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -30,6 +53,23 @@ pub struct VideoDecodeInfoKHR<'a> {
     pub reference_slot_count: u32,
     pub p_reference_slots: *const VideoReferenceSlotInfoKHR<'a>,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for VideoDecodeInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_DECODE_INFO_KHR,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            src_buffer: Default::default(),
+            src_buffer_offset: Default::default(),
+            src_buffer_range: Default::default(),
+            dst_picture_resource: Default::default(),
+            p_setup_reference_slot: core::ptr::null(),
+            reference_slot_count: Default::default(),
+            p_reference_slots: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
 }
 bitflags! {
     #[repr(transparent)]

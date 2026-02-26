@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeH264CapabilitiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -22,7 +23,30 @@ pub struct VideoEncodeH264CapabilitiesKHR<'a> {
     pub std_syntax_flags: VideoEncodeH264StdFlagsKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeH264CapabilitiesKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_H264_CAPABILITIES_KHR,
+            p_next: core::ptr::null_mut(),
+            flags: Default::default(),
+            max_level_idc: Default::default(),
+            max_slice_count: Default::default(),
+            max_p_picture_l0_reference_count: Default::default(),
+            max_b_picture_l0_reference_count: Default::default(),
+            max_l1_reference_count: Default::default(),
+            max_temporal_layer_count: Default::default(),
+            expect_dyadic_temporal_layer_pattern: Default::default(),
+            min_qp: Default::default(),
+            max_qp: Default::default(),
+            prefers_gop_remaining_frames: Default::default(),
+            requires_gop_remaining_frames: Default::default(),
+            std_syntax_flags: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeH264QualityLevelPropertiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -37,7 +61,26 @@ pub struct VideoEncodeH264QualityLevelPropertiesKHR<'a> {
     pub preferred_std_entropy_coding_mode_flag: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeH264QualityLevelPropertiesKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_H264_QUALITY_LEVEL_PROPERTIES_KHR,
+            p_next: core::ptr::null_mut(),
+            preferred_rate_control_flags: Default::default(),
+            preferred_gop_frame_count: Default::default(),
+            preferred_idr_period: Default::default(),
+            preferred_consecutive_b_frame_count: Default::default(),
+            preferred_temporal_layer_count: Default::default(),
+            preferred_constant_qp: Default::default(),
+            preferred_max_l0_reference_count: Default::default(),
+            preferred_max_l1_reference_count: Default::default(),
+            preferred_std_entropy_coding_mode_flag: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeH264SessionCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -45,7 +88,19 @@ pub struct VideoEncodeH264SessionCreateInfoKHR<'a> {
     pub max_level_idc: StdVideoH264LevelIdc,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeH264SessionCreateInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_H264_SESSION_CREATE_INFO_KHR,
+            p_next: core::ptr::null(),
+            use_max_level_idc: Default::default(),
+            max_level_idc: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeH264SessionParametersAddInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -55,7 +110,21 @@ pub struct VideoEncodeH264SessionParametersAddInfoKHR<'a> {
     pub p_std_pp_ss: *const StdVideoH264PictureParameterSet<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeH264SessionParametersAddInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR,
+            p_next: core::ptr::null(),
+            std_sps_count: Default::default(),
+            p_std_sp_ss: core::ptr::null(),
+            std_pps_count: Default::default(),
+            p_std_pp_ss: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeH264SessionParametersCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -64,7 +133,20 @@ pub struct VideoEncodeH264SessionParametersCreateInfoKHR<'a> {
     pub p_parameters_add_info: *const VideoEncodeH264SessionParametersAddInfoKHR<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeH264SessionParametersCreateInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR,
+            p_next: core::ptr::null(),
+            max_std_sps_count: Default::default(),
+            max_std_pps_count: Default::default(),
+            p_parameters_add_info: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeH264SessionParametersGetInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -74,7 +156,21 @@ pub struct VideoEncodeH264SessionParametersGetInfoKHR<'a> {
     pub std_pps_id: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeH264SessionParametersGetInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_H264_SESSION_PARAMETERS_GET_INFO_KHR,
+            p_next: core::ptr::null(),
+            write_std_sps: Default::default(),
+            write_std_pps: Default::default(),
+            std_sps_id: Default::default(),
+            std_pps_id: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeH264SessionParametersFeedbackInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -82,14 +178,37 @@ pub struct VideoEncodeH264SessionParametersFeedbackInfoKHR<'a> {
     pub has_std_pps_overrides: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeH264SessionParametersFeedbackInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_H264_SESSION_PARAMETERS_FEEDBACK_INFO_KHR,
+            p_next: core::ptr::null_mut(),
+            has_std_sps_overrides: Default::default(),
+            has_std_pps_overrides: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeH264DpbSlotInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_std_reference_info: *const StdVideoEncodeH264ReferenceInfo,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeH264DpbSlotInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_H264_DPB_SLOT_INFO_KHR,
+            p_next: core::ptr::null(),
+            p_std_reference_info: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeH264PictureInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -99,14 +218,39 @@ pub struct VideoEncodeH264PictureInfoKHR<'a> {
     pub generate_prefix_nalu: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeH264PictureInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_H264_PICTURE_INFO_KHR,
+            p_next: core::ptr::null(),
+            nalu_slice_entry_count: Default::default(),
+            p_nalu_slice_entries: core::ptr::null(),
+            p_std_picture_info: core::ptr::null(),
+            generate_prefix_nalu: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeH264ProfileInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub std_profile_idc: StdVideoH264ProfileIdc,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeH264ProfileInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_H264_PROFILE_INFO_KHR,
+            p_next: core::ptr::null(),
+            std_profile_idc: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeH264NaluSliceInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -114,7 +258,19 @@ pub struct VideoEncodeH264NaluSliceInfoKHR<'a> {
     pub p_std_slice_header: *const StdVideoEncodeH264SliceHeader<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeH264NaluSliceInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_H264_NALU_SLICE_INFO_KHR,
+            p_next: core::ptr::null(),
+            constant_qp: Default::default(),
+            p_std_slice_header: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeH264RateControlInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -125,19 +281,36 @@ pub struct VideoEncodeH264RateControlInfoKHR<'a> {
     pub temporal_layer_count: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeH264RateControlInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_H264_RATE_CONTROL_INFO_KHR,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            gop_frame_count: Default::default(),
+            idr_period: Default::default(),
+            consecutive_b_frame_count: Default::default(),
+            temporal_layer_count: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct VideoEncodeH264QpKHR {
     pub qp_i: i32,
     pub qp_p: i32,
     pub qp_b: i32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct VideoEncodeH264FrameSizeKHR {
     pub frame_i_size: u32,
     pub frame_p_size: u32,
     pub frame_b_size: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeH264GopRemainingFrameInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -147,7 +320,21 @@ pub struct VideoEncodeH264GopRemainingFrameInfoKHR<'a> {
     pub gop_remaining_b: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VideoEncodeH264GopRemainingFrameInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_H264_GOP_REMAINING_FRAME_INFO_KHR,
+            p_next: core::ptr::null(),
+            use_gop_remaining_frames: Default::default(),
+            gop_remaining_i: Default::default(),
+            gop_remaining_p: Default::default(),
+            gop_remaining_b: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VideoEncodeH264RateControlLayerInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -158,6 +345,21 @@ pub struct VideoEncodeH264RateControlLayerInfoKHR<'a> {
     pub use_max_frame_size: Bool32,
     pub max_frame_size: VideoEncodeH264FrameSizeKHR,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for VideoEncodeH264RateControlLayerInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VIDEO_ENCODE_H264_RATE_CONTROL_LAYER_INFO_KHR,
+            p_next: core::ptr::null(),
+            use_min_qp: Default::default(),
+            min_qp: Default::default(),
+            use_max_qp: Default::default(),
+            max_qp: Default::default(),
+            use_max_frame_size: Default::default(),
+            max_frame_size: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 bitflags! {
     #[repr(transparent)]

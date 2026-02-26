@@ -4,18 +4,40 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDiagnosticsConfigFeaturesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub diagnostics_config: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceDiagnosticsConfigFeaturesNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_DIAGNOSTICS_CONFIG_FEATURES_NV,
+            p_next: core::ptr::null_mut(),
+            diagnostics_config: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DeviceDiagnosticsConfigCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: DeviceDiagnosticsConfigFlagsNV,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for DeviceDiagnosticsConfigCreateInfoNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEVICE_DIAGNOSTICS_CONFIG_CREATE_INFO_NV,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 bitflags! {
     #[repr(transparent)]

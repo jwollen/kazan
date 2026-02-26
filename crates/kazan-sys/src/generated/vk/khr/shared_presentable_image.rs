@@ -4,11 +4,22 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SharedPresentSurfaceCapabilitiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub shared_present_supported_usage_flags: ImageUsageFlags,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for SharedPresentSurfaceCapabilitiesKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SHARED_PRESENT_SURFACE_CAPABILITIES_KHR,
+            p_next: core::ptr::null_mut(),
+            shared_present_supported_usage_flags: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 pub type PFN_vkGetSwapchainStatusKHR =
     unsafe extern "system" fn(device: Device, swapchain: SwapchainKHR) -> Result;

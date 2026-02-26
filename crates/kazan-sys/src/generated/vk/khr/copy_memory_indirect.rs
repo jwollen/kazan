@@ -4,18 +4,21 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StridedDeviceAddressRangeKHR {
     pub address: DeviceAddress,
     pub size: DeviceSize,
     pub stride: DeviceSize,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct CopyMemoryIndirectCommandKHR {
     pub src_address: DeviceAddress,
     pub dst_address: DeviceAddress,
     pub size: DeviceSize,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct CopyMemoryIndirectInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -25,7 +28,21 @@ pub struct CopyMemoryIndirectInfoKHR<'a> {
     pub copy_address_range: StridedDeviceAddressRangeKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for CopyMemoryIndirectInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::COPY_MEMORY_INDIRECT_INFO_KHR,
+            p_next: core::ptr::null(),
+            src_copy_flags: Default::default(),
+            dst_copy_flags: Default::default(),
+            copy_count: Default::default(),
+            copy_address_range: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct CopyMemoryToImageIndirectCommandKHR {
     pub src_address: DeviceAddress,
     pub buffer_row_length: u32,
@@ -35,6 +52,7 @@ pub struct CopyMemoryToImageIndirectCommandKHR {
     pub image_extent: Extent3D,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct CopyMemoryToImageIndirectInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -46,7 +64,23 @@ pub struct CopyMemoryToImageIndirectInfoKHR<'a> {
     pub p_image_subresources: *const ImageSubresourceLayers,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for CopyMemoryToImageIndirectInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::COPY_MEMORY_TO_IMAGE_INDIRECT_INFO_KHR,
+            p_next: core::ptr::null(),
+            src_copy_flags: Default::default(),
+            copy_count: Default::default(),
+            copy_address_range: Default::default(),
+            dst_image: Default::default(),
+            dst_image_layout: Default::default(),
+            p_image_subresources: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -54,12 +88,34 @@ pub struct PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'a> {
     pub indirect_memory_to_image_copy: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_KHR,
+            p_next: core::ptr::null_mut(),
+            indirect_memory_copy: Default::default(),
+            indirect_memory_to_image_copy: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub supported_queues: QueueFlags,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR,
+            p_next: core::ptr::null_mut(),
+            supported_queues: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 bitflags! {
     #[repr(transparent)]

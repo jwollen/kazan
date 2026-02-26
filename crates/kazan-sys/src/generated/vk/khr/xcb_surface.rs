@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct XcbSurfaceCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -11,6 +12,18 @@ pub struct XcbSurfaceCreateInfoKHR<'a> {
     pub connection: *mut xcb_connection_t,
     pub window: xcb_window_t,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for XcbSurfaceCreateInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::XCB_SURFACE_CREATE_INFO_KHR,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            connection: core::ptr::null_mut(),
+            window: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 bitflags! {
     #[repr(transparent)]

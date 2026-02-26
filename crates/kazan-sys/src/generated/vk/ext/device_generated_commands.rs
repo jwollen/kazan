@@ -10,6 +10,7 @@ pub struct IndirectCommandsLayoutEXT(u64);
 #[derive(Copy, Clone, Default)]
 pub struct IndirectExecutionSetEXT(u64);
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -17,7 +18,19 @@ pub struct PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT<'a> {
     pub dynamic_generated_pipeline_layout: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_EXT,
+            p_next: core::ptr::null_mut(),
+            device_generated_commands: Default::default(),
+            dynamic_generated_pipeline_layout: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDeviceGeneratedCommandsPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -35,14 +48,47 @@ pub struct PhysicalDeviceDeviceGeneratedCommandsPropertiesEXT<'a> {
     pub device_generated_commands_multi_draw_indirect_count: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceDeviceGeneratedCommandsPropertiesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_EXT,
+            p_next: core::ptr::null_mut(),
+            max_indirect_pipeline_count: Default::default(),
+            max_indirect_shader_object_count: Default::default(),
+            max_indirect_sequence_count: Default::default(),
+            max_indirect_commands_token_count: Default::default(),
+            max_indirect_commands_token_offset: Default::default(),
+            max_indirect_commands_indirect_stride: Default::default(),
+            supported_indirect_commands_input_modes: Default::default(),
+            supported_indirect_commands_shader_stages: Default::default(),
+            supported_indirect_commands_shader_stages_pipeline_binding: Default::default(),
+            supported_indirect_commands_shader_stages_shader_binding: Default::default(),
+            device_generated_commands_transform_feedback: Default::default(),
+            device_generated_commands_multi_draw_indirect_count: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GeneratedCommandsPipelineInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub pipeline: Pipeline,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for GeneratedCommandsPipelineInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::GENERATED_COMMANDS_PIPELINE_INFO_EXT,
+            p_next: core::ptr::null_mut(),
+            pipeline: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GeneratedCommandsShaderInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -50,7 +96,19 @@ pub struct GeneratedCommandsShaderInfoEXT<'a> {
     pub p_shaders: *const ShaderEXT,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for GeneratedCommandsShaderInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::GENERATED_COMMANDS_SHADER_INFO_EXT,
+            p_next: core::ptr::null_mut(),
+            shader_count: Default::default(),
+            p_shaders: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GeneratedCommandsMemoryRequirementsInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -60,7 +118,21 @@ pub struct GeneratedCommandsMemoryRequirementsInfoEXT<'a> {
     pub max_draw_count: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for GeneratedCommandsMemoryRequirementsInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_EXT,
+            p_next: core::ptr::null(),
+            indirect_execution_set: Default::default(),
+            indirect_commands_layout: Default::default(),
+            max_sequence_count: Default::default(),
+            max_draw_count: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct IndirectExecutionSetPipelineInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -68,7 +140,19 @@ pub struct IndirectExecutionSetPipelineInfoEXT<'a> {
     pub max_pipeline_count: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for IndirectExecutionSetPipelineInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::INDIRECT_EXECUTION_SET_PIPELINE_INFO_EXT,
+            p_next: core::ptr::null(),
+            initial_pipeline: Default::default(),
+            max_pipeline_count: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct IndirectExecutionSetShaderLayoutInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -76,7 +160,19 @@ pub struct IndirectExecutionSetShaderLayoutInfoEXT<'a> {
     pub p_set_layouts: *const DescriptorSetLayout,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for IndirectExecutionSetShaderLayoutInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::INDIRECT_EXECUTION_SET_SHADER_LAYOUT_INFO_EXT,
+            p_next: core::ptr::null(),
+            set_layout_count: Default::default(),
+            p_set_layouts: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct IndirectExecutionSetShaderInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -88,7 +184,23 @@ pub struct IndirectExecutionSetShaderInfoEXT<'a> {
     pub p_push_constant_ranges: *const PushConstantRange,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for IndirectExecutionSetShaderInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::INDIRECT_EXECUTION_SET_SHADER_INFO_EXT,
+            p_next: core::ptr::null(),
+            shader_count: Default::default(),
+            p_initial_shaders: core::ptr::null(),
+            p_set_layout_infos: core::ptr::null(),
+            max_shader_count: Default::default(),
+            push_constant_range_count: Default::default(),
+            p_push_constant_ranges: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct IndirectExecutionSetCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -96,7 +208,19 @@ pub struct IndirectExecutionSetCreateInfoEXT<'a> {
     pub info: IndirectExecutionSetInfoEXT<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for IndirectExecutionSetCreateInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::INDIRECT_EXECUTION_SET_CREATE_INFO_EXT,
+            p_next: core::ptr::null(),
+            ty: Default::default(),
+            info: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GeneratedCommandsInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -112,7 +236,27 @@ pub struct GeneratedCommandsInfoEXT<'a> {
     pub max_draw_count: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for GeneratedCommandsInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::GENERATED_COMMANDS_INFO_EXT,
+            p_next: core::ptr::null(),
+            shader_stages: Default::default(),
+            indirect_execution_set: Default::default(),
+            indirect_commands_layout: Default::default(),
+            indirect_address: Default::default(),
+            indirect_address_size: Default::default(),
+            preprocess_address: Default::default(),
+            preprocess_size: Default::default(),
+            max_sequence_count: Default::default(),
+            sequence_count_address: Default::default(),
+            max_draw_count: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct WriteIndirectExecutionSetPipelineEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -120,7 +264,19 @@ pub struct WriteIndirectExecutionSetPipelineEXT<'a> {
     pub pipeline: Pipeline,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for WriteIndirectExecutionSetPipelineEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::WRITE_INDIRECT_EXECUTION_SET_PIPELINE_EXT,
+            p_next: core::ptr::null(),
+            index: Default::default(),
+            pipeline: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct WriteIndirectExecutionSetShaderEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -128,7 +284,19 @@ pub struct WriteIndirectExecutionSetShaderEXT<'a> {
     pub shader: ShaderEXT,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for WriteIndirectExecutionSetShaderEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::WRITE_INDIRECT_EXECUTION_SET_SHADER_EXT,
+            p_next: core::ptr::null(),
+            index: Default::default(),
+            shader: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct IndirectCommandsLayoutCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -140,7 +308,23 @@ pub struct IndirectCommandsLayoutCreateInfoEXT<'a> {
     pub p_tokens: *const IndirectCommandsLayoutTokenEXT<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for IndirectCommandsLayoutCreateInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_EXT,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            shader_stages: Default::default(),
+            indirect_stride: Default::default(),
+            pipeline_layout: Default::default(),
+            token_count: Default::default(),
+            p_tokens: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct IndirectCommandsLayoutTokenEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -149,37 +333,56 @@ pub struct IndirectCommandsLayoutTokenEXT<'a> {
     pub offset: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for IndirectCommandsLayoutTokenEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::INDIRECT_COMMANDS_LAYOUT_TOKEN_EXT,
+            p_next: core::ptr::null(),
+            ty: Default::default(),
+            data: Default::default(),
+            offset: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct DrawIndirectCountIndirectCommandEXT {
     pub buffer_address: DeviceAddress,
     pub stride: u32,
     pub command_count: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct IndirectCommandsVertexBufferTokenEXT {
     pub vertex_binding_unit: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct BindVertexBufferIndirectCommandEXT {
     pub buffer_address: DeviceAddress,
     pub size: u32,
     pub stride: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct IndirectCommandsIndexBufferTokenEXT {
     pub mode: IndirectCommandsInputModeFlagBitsEXT,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct BindIndexBufferIndirectCommandEXT {
     pub buffer_address: DeviceAddress,
     pub size: u32,
     pub index_type: IndexType,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct IndirectCommandsPushConstantTokenEXT {
     pub update_range: PushConstantRange,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct IndirectCommandsExecutionSetTokenEXT {
     pub ty: IndirectExecutionSetInfoTypeEXT,
     pub shader_stages: ShaderStageFlags,

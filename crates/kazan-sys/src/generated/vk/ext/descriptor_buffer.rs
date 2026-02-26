@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDescriptorBufferFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -13,7 +14,21 @@ pub struct PhysicalDeviceDescriptorBufferFeaturesEXT<'a> {
     pub descriptor_buffer_push_descriptors: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceDescriptorBufferFeaturesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_FEATURES_EXT,
+            p_next: core::ptr::null_mut(),
+            descriptor_buffer: Default::default(),
+            descriptor_buffer_capture_replay: Default::default(),
+            descriptor_buffer_image_layout_ignored: Default::default(),
+            descriptor_buffer_push_descriptors: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDescriptorBufferPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -52,14 +67,68 @@ pub struct PhysicalDeviceDescriptorBufferPropertiesEXT<'a> {
     pub descriptor_buffer_address_space_size: DeviceSize,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceDescriptorBufferPropertiesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_PROPERTIES_EXT,
+            p_next: core::ptr::null_mut(),
+            combined_image_sampler_descriptor_single_array: Default::default(),
+            bufferless_push_descriptors: Default::default(),
+            allow_sampler_image_view_post_submit_creation: Default::default(),
+            descriptor_buffer_offset_alignment: Default::default(),
+            max_descriptor_buffer_bindings: Default::default(),
+            max_resource_descriptor_buffer_bindings: Default::default(),
+            max_sampler_descriptor_buffer_bindings: Default::default(),
+            max_embedded_immutable_sampler_bindings: Default::default(),
+            max_embedded_immutable_samplers: Default::default(),
+            buffer_capture_replay_descriptor_data_size: Default::default(),
+            image_capture_replay_descriptor_data_size: Default::default(),
+            image_view_capture_replay_descriptor_data_size: Default::default(),
+            sampler_capture_replay_descriptor_data_size: Default::default(),
+            acceleration_structure_capture_replay_descriptor_data_size: Default::default(),
+            sampler_descriptor_size: Default::default(),
+            combined_image_sampler_descriptor_size: Default::default(),
+            sampled_image_descriptor_size: Default::default(),
+            storage_image_descriptor_size: Default::default(),
+            uniform_texel_buffer_descriptor_size: Default::default(),
+            robust_uniform_texel_buffer_descriptor_size: Default::default(),
+            storage_texel_buffer_descriptor_size: Default::default(),
+            robust_storage_texel_buffer_descriptor_size: Default::default(),
+            uniform_buffer_descriptor_size: Default::default(),
+            robust_uniform_buffer_descriptor_size: Default::default(),
+            storage_buffer_descriptor_size: Default::default(),
+            robust_storage_buffer_descriptor_size: Default::default(),
+            input_attachment_descriptor_size: Default::default(),
+            acceleration_structure_descriptor_size: Default::default(),
+            max_sampler_descriptor_buffer_range: Default::default(),
+            max_resource_descriptor_buffer_range: Default::default(),
+            sampler_descriptor_buffer_address_space_size: Default::default(),
+            resource_descriptor_buffer_address_space_size: Default::default(),
+            descriptor_buffer_address_space_size: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub combined_image_sampler_density_map_descriptor_size: usize,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_DENSITY_MAP_PROPERTIES_EXT,
+            p_next: core::ptr::null_mut(),
+            combined_image_sampler_density_map_descriptor_size: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DescriptorAddressInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -68,7 +137,20 @@ pub struct DescriptorAddressInfoEXT<'a> {
     pub format: Format,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DescriptorAddressInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DESCRIPTOR_ADDRESS_INFO_EXT,
+            p_next: core::ptr::null_mut(),
+            address: Default::default(),
+            range: Default::default(),
+            format: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DescriptorBufferBindingInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -76,14 +158,37 @@ pub struct DescriptorBufferBindingInfoEXT<'a> {
     pub usage: BufferUsageFlags,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DescriptorBufferBindingInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DESCRIPTOR_BUFFER_BINDING_INFO_EXT,
+            p_next: core::ptr::null(),
+            address: Default::default(),
+            usage: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DescriptorBufferBindingPushDescriptorBufferHandleEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub buffer: Buffer,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DescriptorBufferBindingPushDescriptorBufferHandleEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT,
+            p_next: core::ptr::null(),
+            buffer: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DescriptorGetInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -91,35 +196,91 @@ pub struct DescriptorGetInfoEXT<'a> {
     pub data: DescriptorDataEXT<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DescriptorGetInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DESCRIPTOR_GET_INFO_EXT,
+            p_next: core::ptr::null(),
+            ty: Default::default(),
+            data: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BufferCaptureDescriptorDataInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub buffer: Buffer,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for BufferCaptureDescriptorDataInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT,
+            p_next: core::ptr::null(),
+            buffer: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ImageCaptureDescriptorDataInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub image: Image,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ImageCaptureDescriptorDataInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::IMAGE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT,
+            p_next: core::ptr::null(),
+            image: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ImageViewCaptureDescriptorDataInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub image_view: ImageView,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ImageViewCaptureDescriptorDataInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT,
+            p_next: core::ptr::null(),
+            image_view: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SamplerCaptureDescriptorDataInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub sampler: Sampler,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for SamplerCaptureDescriptorDataInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SAMPLER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT,
+            p_next: core::ptr::null(),
+            sampler: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct AccelerationStructureCaptureDescriptorDataInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -127,12 +288,34 @@ pub struct AccelerationStructureCaptureDescriptorDataInfoEXT<'a> {
     pub acceleration_structure_nv: AccelerationStructureNV,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for AccelerationStructureCaptureDescriptorDataInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT,
+            p_next: core::ptr::null(),
+            acceleration_structure: Default::default(),
+            acceleration_structure_nv: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct OpaqueCaptureDescriptorDataCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub opaque_capture_descriptor_data: *const c_void,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for OpaqueCaptureDescriptorDataCreateInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::OPAQUE_CAPTURE_DESCRIPTOR_DATA_CREATE_INFO_EXT,
+            p_next: core::ptr::null(),
+            opaque_capture_descriptor_data: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

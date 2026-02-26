@@ -7,6 +7,7 @@ use core::marker::PhantomData;
 #[derive(Copy, Clone, Default)]
 pub struct ValidationCacheEXT(u64);
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ValidationCacheCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -15,12 +16,35 @@ pub struct ValidationCacheCreateInfoEXT<'a> {
     pub p_initial_data: *const c_void,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ValidationCacheCreateInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VALIDATION_CACHE_CREATE_INFO_EXT,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            initial_data_size: Default::default(),
+            p_initial_data: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ShaderModuleValidationCacheCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub validation_cache: ValidationCacheEXT,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for ShaderModuleValidationCacheCreateInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SHADER_MODULE_VALIDATION_CACHE_CREATE_INFO_EXT,
+            p_next: core::ptr::null(),
+            validation_cache: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

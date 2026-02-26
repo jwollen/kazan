@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoDecodeAV1PictureInfoFlags {
     pub error_resilient_mode: u32,
     pub disable_cdf_update: u32,
@@ -37,6 +38,7 @@ pub struct StdVideoDecodeAV1PictureInfoFlags {
     pub reserved: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoDecodeAV1PictureInfo<'a> {
     pub flags: StdVideoDecodeAV1PictureInfoFlags,
     pub frame_type: StdVideoAV1FrameType,
@@ -64,17 +66,61 @@ pub struct StdVideoDecodeAV1PictureInfo<'a> {
     pub p_film_grain: *const StdVideoAV1FilmGrain,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for StdVideoDecodeAV1PictureInfo<'_> {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            frame_type: Default::default(),
+            current_frame_id: Default::default(),
+            order_hint: Default::default(),
+            primary_ref_frame: Default::default(),
+            refresh_frame_flags: Default::default(),
+            reserved1: Default::default(),
+            interpolation_filter: Default::default(),
+            tx_mode: Default::default(),
+            delta_q_res: Default::default(),
+            delta_lf_res: Default::default(),
+            skip_mode_frame: [Default::default(); _],
+            coded_denom: Default::default(),
+            reserved2: [Default::default(); _],
+            order_hints: [Default::default(); _],
+            expected_frame_id: [Default::default(); _],
+            p_tile_info: core::ptr::null(),
+            p_quantization: core::ptr::null(),
+            p_segmentation: core::ptr::null(),
+            p_loop_filter: core::ptr::null(),
+            p_cdef: core::ptr::null(),
+            p_loop_restoration: core::ptr::null(),
+            p_global_motion: core::ptr::null(),
+            p_film_grain: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoDecodeAV1ReferenceInfoFlags {
     pub disable_frame_end_update_cdf: u32,
     pub segmentation_enabled: u32,
     pub reserved: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoDecodeAV1ReferenceInfo {
     pub flags: StdVideoDecodeAV1ReferenceInfoFlags,
     pub frame_type: u8,
     pub ref_frame_sign_bias: u8,
     pub order_hint: u8,
     pub saved_order_hints: [u8; STD_VIDEO_AV1_NUM_REF_FRAMES as usize],
+}
+impl Default for StdVideoDecodeAV1ReferenceInfo {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            frame_type: Default::default(),
+            ref_frame_sign_bias: Default::default(),
+            order_hint: Default::default(),
+            saved_order_hints: [Default::default(); _],
+        }
+    }
 }

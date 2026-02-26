@@ -4,13 +4,25 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDiscardRectanglePropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_discard_rectangles: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceDiscardRectanglePropertiesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_DISCARD_RECTANGLE_PROPERTIES_EXT,
+            p_next: core::ptr::null_mut(),
+            max_discard_rectangles: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineDiscardRectangleStateCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -19,6 +31,19 @@ pub struct PipelineDiscardRectangleStateCreateInfoEXT<'a> {
     pub discard_rectangle_count: u32,
     pub p_discard_rectangles: *const Rect2D,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for PipelineDiscardRectangleStateCreateInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_DISCARD_RECTANGLE_STATE_CREATE_INFO_EXT,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            discard_rectangle_mode: Default::default(),
+            discard_rectangle_count: Default::default(),
+            p_discard_rectangles: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

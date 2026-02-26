@@ -5,12 +5,24 @@ use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub type ANativeWindow = *const c_void;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct AndroidSurfaceCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: AndroidSurfaceCreateFlagsKHR,
     pub window: *mut ANativeWindow,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for AndroidSurfaceCreateInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::ANDROID_SURFACE_CREATE_INFO_KHR,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            window: core::ptr::null_mut(),
+            _marker: PhantomData,
+        }
+    }
 }
 bitflags! {
     #[repr(transparent)]

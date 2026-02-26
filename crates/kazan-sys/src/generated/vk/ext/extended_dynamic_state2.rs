@@ -7,6 +7,7 @@ pub type PFN_vkCmdSetRasterizerDiscardEnableEXT = PFN_vkCmdSetRasterizerDiscardE
 pub type PFN_vkCmdSetDepthBiasEnableEXT = PFN_vkCmdSetDepthBiasEnable;
 pub type PFN_vkCmdSetPrimitiveRestartEnableEXT = PFN_vkCmdSetPrimitiveRestartEnable;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceExtendedDynamicState2FeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -14,6 +15,18 @@ pub struct PhysicalDeviceExtendedDynamicState2FeaturesEXT<'a> {
     pub extended_dynamic_state2_logic_op: Bool32,
     pub extended_dynamic_state2_patch_control_points: Bool32,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for PhysicalDeviceExtendedDynamicState2FeaturesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_2_FEATURES_EXT,
+            p_next: core::ptr::null_mut(),
+            extended_dynamic_state2: Default::default(),
+            extended_dynamic_state2_logic_op: Default::default(),
+            extended_dynamic_state2_patch_control_points: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 pub type PFN_vkCmdSetPatchControlPointsEXT =
     unsafe extern "system" fn(command_buffer: CommandBuffer, patch_control_points: u32);

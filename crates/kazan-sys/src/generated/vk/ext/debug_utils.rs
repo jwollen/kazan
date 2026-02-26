@@ -7,6 +7,7 @@ use core::marker::PhantomData;
 #[derive(Copy, Clone, Default)]
 pub struct DebugUtilsMessengerEXT(u64);
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DebugUtilsObjectNameInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -15,7 +16,20 @@ pub struct DebugUtilsObjectNameInfoEXT<'a> {
     pub p_object_name: *const c_char,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DebugUtilsObjectNameInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEBUG_UTILS_OBJECT_NAME_INFO_EXT,
+            p_next: core::ptr::null(),
+            object_type: Default::default(),
+            object_handle: Default::default(),
+            p_object_name: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DebugUtilsObjectTagInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -26,7 +40,22 @@ pub struct DebugUtilsObjectTagInfoEXT<'a> {
     pub p_tag: *const c_void,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DebugUtilsObjectTagInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEBUG_UTILS_OBJECT_TAG_INFO_EXT,
+            p_next: core::ptr::null(),
+            object_type: Default::default(),
+            object_handle: Default::default(),
+            tag_name: Default::default(),
+            tag_size: Default::default(),
+            p_tag: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DebugUtilsLabelEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -34,7 +63,19 @@ pub struct DebugUtilsLabelEXT<'a> {
     pub color: [f32; 4],
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DebugUtilsLabelEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEBUG_UTILS_LABEL_EXT,
+            p_next: core::ptr::null(),
+            p_label_name: core::ptr::null(),
+            color: [Default::default(); _],
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DebugUtilsMessengerCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -45,7 +86,22 @@ pub struct DebugUtilsMessengerCreateInfoEXT<'a> {
     pub p_user_data: *mut c_void,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DebugUtilsMessengerCreateInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            message_severity: Default::default(),
+            message_type: Default::default(),
+            pfn_user_callback: Default::default(),
+            p_user_data: core::ptr::null_mut(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DebugUtilsMessengerCallbackDataEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -60,6 +116,25 @@ pub struct DebugUtilsMessengerCallbackDataEXT<'a> {
     pub object_count: u32,
     pub p_objects: *const DebugUtilsObjectNameInfoEXT<'a>,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for DebugUtilsMessengerCallbackDataEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEBUG_UTILS_MESSENGER_CALLBACK_DATA_EXT,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            p_message_id_name: core::ptr::null(),
+            message_id_number: Default::default(),
+            p_message: core::ptr::null(),
+            queue_label_count: Default::default(),
+            p_queue_labels: core::ptr::null(),
+            cmd_buf_label_count: Default::default(),
+            p_cmd_buf_labels: core::ptr::null(),
+            object_count: Default::default(),
+            p_objects: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
 }
 bitflags! {
     #[repr(transparent)]

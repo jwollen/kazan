@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ValidationFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -12,6 +13,19 @@ pub struct ValidationFeaturesEXT<'a> {
     pub disabled_validation_feature_count: u32,
     pub p_disabled_validation_features: *const ValidationFeatureDisableEXT,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for ValidationFeaturesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VALIDATION_FEATURES_EXT,
+            p_next: core::ptr::null(),
+            enabled_validation_feature_count: Default::default(),
+            p_enabled_validation_features: core::ptr::null(),
+            disabled_validation_feature_count: Default::default(),
+            p_disabled_validation_features: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

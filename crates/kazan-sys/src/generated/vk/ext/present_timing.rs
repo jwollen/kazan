@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDevicePresentTimingFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -12,7 +13,20 @@ pub struct PhysicalDevicePresentTimingFeaturesEXT<'a> {
     pub present_at_relative_time: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDevicePresentTimingFeaturesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_PRESENT_TIMING_FEATURES_EXT,
+            p_next: core::ptr::null_mut(),
+            present_timing: Default::default(),
+            present_at_absolute_time: Default::default(),
+            present_at_relative_time: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PresentTimingSurfaceCapabilitiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -22,7 +36,21 @@ pub struct PresentTimingSurfaceCapabilitiesEXT<'a> {
     pub present_stage_queries: PresentStageFlagsEXT,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PresentTimingSurfaceCapabilitiesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PRESENT_TIMING_SURFACE_CAPABILITIES_EXT,
+            p_next: core::ptr::null_mut(),
+            present_timing_supported: Default::default(),
+            present_at_absolute_time_supported: Default::default(),
+            present_at_relative_time_supported: Default::default(),
+            present_stage_queries: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SwapchainTimingPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -30,7 +58,19 @@ pub struct SwapchainTimingPropertiesEXT<'a> {
     pub refresh_interval: u64,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for SwapchainTimingPropertiesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SWAPCHAIN_TIMING_PROPERTIES_EXT,
+            p_next: core::ptr::null_mut(),
+            refresh_duration: Default::default(),
+            refresh_interval: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SwapchainTimeDomainPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -39,12 +79,26 @@ pub struct SwapchainTimeDomainPropertiesEXT<'a> {
     pub p_time_domain_ids: *mut u64,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for SwapchainTimeDomainPropertiesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SWAPCHAIN_TIME_DOMAIN_PROPERTIES_EXT,
+            p_next: core::ptr::null_mut(),
+            time_domain_count: Default::default(),
+            p_time_domains: core::ptr::null_mut(),
+            p_time_domain_ids: core::ptr::null_mut(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct PresentStageTimeEXT {
     pub stage: PresentStageFlagsEXT,
     pub time: u64,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PastPresentationTimingInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -52,7 +106,19 @@ pub struct PastPresentationTimingInfoEXT<'a> {
     pub swapchain: SwapchainKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PastPresentationTimingInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PAST_PRESENTATION_TIMING_INFO_EXT,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            swapchain: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PastPresentationTimingPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -62,7 +128,21 @@ pub struct PastPresentationTimingPropertiesEXT<'a> {
     pub p_presentation_timings: *mut PastPresentationTimingEXT<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PastPresentationTimingPropertiesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PAST_PRESENTATION_TIMING_PROPERTIES_EXT,
+            p_next: core::ptr::null_mut(),
+            timing_properties_counter: Default::default(),
+            time_domains_counter: Default::default(),
+            presentation_timing_count: Default::default(),
+            p_presentation_timings: core::ptr::null_mut(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PastPresentationTimingEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -75,7 +155,24 @@ pub struct PastPresentationTimingEXT<'a> {
     pub report_complete: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PastPresentationTimingEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PAST_PRESENTATION_TIMING_EXT,
+            p_next: core::ptr::null_mut(),
+            present_id: Default::default(),
+            target_time: Default::default(),
+            present_stage_count: Default::default(),
+            p_present_stages: core::ptr::null_mut(),
+            time_domain: Default::default(),
+            time_domain_id: Default::default(),
+            report_complete: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PresentTimingsInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -83,7 +180,19 @@ pub struct PresentTimingsInfoEXT<'a> {
     pub p_timing_infos: *const PresentTimingInfoEXT<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PresentTimingsInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PRESENT_TIMINGS_INFO_EXT,
+            p_next: core::ptr::null(),
+            swapchain_count: Default::default(),
+            p_timing_infos: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PresentTimingInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -94,7 +203,22 @@ pub struct PresentTimingInfoEXT<'a> {
     pub target_time_domain_present_stage: PresentStageFlagsEXT,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PresentTimingInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PRESENT_TIMING_INFO_EXT,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            target_time: Default::default(),
+            time_domain_id: Default::default(),
+            present_stage_queries: Default::default(),
+            target_time_domain_present_stage: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SwapchainCalibratedTimestampInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -102,6 +226,18 @@ pub struct SwapchainCalibratedTimestampInfoEXT<'a> {
     pub present_stage: PresentStageFlagsEXT,
     pub time_domain_id: u64,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for SwapchainCalibratedTimestampInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SWAPCHAIN_CALIBRATED_TIMESTAMP_INFO_EXT,
+            p_next: core::ptr::null(),
+            swapchain: Default::default(),
+            present_stage: Default::default(),
+            time_domain_id: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 bitflags! {
     #[repr(transparent)]

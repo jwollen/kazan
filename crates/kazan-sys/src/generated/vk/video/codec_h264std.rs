@@ -12,6 +12,7 @@ pub const STD_VIDEO_H264_MAX_NUM_LIST_REF: u32 = 32;
 pub const STD_VIDEO_H264_MAX_CHROMA_PLANES: u32 = 2;
 pub const STD_VIDEO_H264_NO_REFERENCE_PICTURE: u8 = 0xF;
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoH264SpsVuiFlags {
     pub aspect_ratio_info_present_flag: u32,
     pub overscan_info_present_flag: u32,
@@ -27,6 +28,7 @@ pub struct StdVideoH264SpsVuiFlags {
     pub vcl_hrd_parameters_present_flag: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoH264HrdParameters {
     pub cpb_cnt_minus1: u8,
     pub bit_rate_scale: u8,
@@ -40,7 +42,25 @@ pub struct StdVideoH264HrdParameters {
     pub dpb_output_delay_length_minus1: u32,
     pub time_offset_length: u32,
 }
+impl Default for StdVideoH264HrdParameters {
+    fn default() -> Self {
+        Self {
+            cpb_cnt_minus1: Default::default(),
+            bit_rate_scale: Default::default(),
+            cpb_size_scale: Default::default(),
+            reserved1: Default::default(),
+            bit_rate_value_minus1: [Default::default(); _],
+            cpb_size_value_minus1: [Default::default(); _],
+            cbr_flag: [Default::default(); _],
+            initial_cpb_removal_delay_length_minus1: Default::default(),
+            cpb_removal_delay_length_minus1: Default::default(),
+            dpb_output_delay_length_minus1: Default::default(),
+            time_offset_length: Default::default(),
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoH264SequenceParameterSetVui<'a> {
     pub flags: StdVideoH264SpsVuiFlags,
     pub aspect_ratio_idc: StdVideoH264AspectRatioIdc,
@@ -60,7 +80,31 @@ pub struct StdVideoH264SequenceParameterSetVui<'a> {
     pub p_hrd_parameters: *const StdVideoH264HrdParameters,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for StdVideoH264SequenceParameterSetVui<'_> {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            aspect_ratio_idc: Default::default(),
+            sar_width: Default::default(),
+            sar_height: Default::default(),
+            video_format: Default::default(),
+            colour_primaries: Default::default(),
+            transfer_characteristics: Default::default(),
+            matrix_coefficients: Default::default(),
+            num_units_in_tick: Default::default(),
+            time_scale: Default::default(),
+            max_num_reorder_frames: Default::default(),
+            max_dec_frame_buffering: Default::default(),
+            chroma_sample_loc_type_top_field: Default::default(),
+            chroma_sample_loc_type_bottom_field: Default::default(),
+            reserved1: Default::default(),
+            p_hrd_parameters: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoH264SpsFlags {
     pub constraint_set0_flag: u32,
     pub constraint_set1_flag: u32,
@@ -80,6 +124,7 @@ pub struct StdVideoH264SpsFlags {
     pub vui_parameters_present_flag: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoH264ScalingLists {
     pub scaling_list_present_mask: u16,
     pub use_default_scaling_matrix_mask: u16,
@@ -88,7 +133,18 @@ pub struct StdVideoH264ScalingLists {
     pub scaling_list8x8: [[u8; STD_VIDEO_H264_SCALING_LIST_8X8_NUM_ELEMENTS as usize];
         STD_VIDEO_H264_SCALING_LIST_8X8_NUM_LISTS as usize],
 }
+impl Default for StdVideoH264ScalingLists {
+    fn default() -> Self {
+        Self {
+            scaling_list_present_mask: Default::default(),
+            use_default_scaling_matrix_mask: Default::default(),
+            scaling_list4x4: [[Default::default(); _]; _],
+            scaling_list8x8: [[Default::default(); _]; _],
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoH264SequenceParameterSet<'a> {
     pub flags: StdVideoH264SpsFlags,
     pub profile_idc: StdVideoH264ProfileIdc,
@@ -117,7 +173,40 @@ pub struct StdVideoH264SequenceParameterSet<'a> {
     pub p_sequence_parameter_set_vui: *const StdVideoH264SequenceParameterSetVui<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for StdVideoH264SequenceParameterSet<'_> {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            profile_idc: Default::default(),
+            level_idc: Default::default(),
+            chroma_format_idc: Default::default(),
+            seq_parameter_set_id: Default::default(),
+            bit_depth_luma_minus8: Default::default(),
+            bit_depth_chroma_minus8: Default::default(),
+            log2_max_frame_num_minus4: Default::default(),
+            pic_order_cnt_type: Default::default(),
+            offset_for_non_ref_pic: Default::default(),
+            offset_for_top_to_bottom_field: Default::default(),
+            log2_max_pic_order_cnt_lsb_minus4: Default::default(),
+            num_ref_frames_in_pic_order_cnt_cycle: Default::default(),
+            max_num_ref_frames: Default::default(),
+            reserved1: Default::default(),
+            pic_width_in_mbs_minus1: Default::default(),
+            pic_height_in_map_units_minus1: Default::default(),
+            frame_crop_left_offset: Default::default(),
+            frame_crop_right_offset: Default::default(),
+            frame_crop_top_offset: Default::default(),
+            frame_crop_bottom_offset: Default::default(),
+            reserved2: Default::default(),
+            p_offset_for_ref_frame: core::ptr::null(),
+            p_scaling_lists: core::ptr::null(),
+            p_sequence_parameter_set_vui: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoH264PpsFlags {
     pub transform_8x8_mode_flag: u32,
     pub redundant_pic_cnt_present_flag: u32,
@@ -129,6 +218,7 @@ pub struct StdVideoH264PpsFlags {
     pub pic_scaling_matrix_present_flag: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoH264PictureParameterSet<'a> {
     pub flags: StdVideoH264PpsFlags,
     pub seq_parameter_set_id: u8,
@@ -142,6 +232,24 @@ pub struct StdVideoH264PictureParameterSet<'a> {
     pub second_chroma_qp_index_offset: i8,
     pub p_scaling_lists: *const StdVideoH264ScalingLists,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for StdVideoH264PictureParameterSet<'_> {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            seq_parameter_set_id: Default::default(),
+            pic_parameter_set_id: Default::default(),
+            num_ref_idx_l0_default_active_minus1: Default::default(),
+            num_ref_idx_l1_default_active_minus1: Default::default(),
+            weighted_bipred_idc: Default::default(),
+            pic_init_qp_minus26: Default::default(),
+            pic_init_qs_minus26: Default::default(),
+            chroma_qp_index_offset: Default::default(),
+            second_chroma_qp_index_offset: Default::default(),
+            p_scaling_lists: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

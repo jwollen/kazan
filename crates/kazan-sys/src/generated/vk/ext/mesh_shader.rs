@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMeshShaderFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -14,7 +15,22 @@ pub struct PhysicalDeviceMeshShaderFeaturesEXT<'a> {
     pub mesh_shader_queries: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceMeshShaderFeaturesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_MESH_SHADER_FEATURES_EXT,
+            p_next: core::ptr::null_mut(),
+            task_shader: Default::default(),
+            mesh_shader: Default::default(),
+            multiview_mesh_shader: Default::default(),
+            primitive_fragment_shading_rate_mesh_shader: Default::default(),
+            mesh_shader_queries: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMeshShaderPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -48,7 +64,45 @@ pub struct PhysicalDeviceMeshShaderPropertiesEXT<'a> {
     pub prefers_compact_primitive_output: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceMeshShaderPropertiesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_EXT,
+            p_next: core::ptr::null_mut(),
+            max_task_work_group_total_count: Default::default(),
+            max_task_work_group_count: [Default::default(); _],
+            max_task_work_group_invocations: Default::default(),
+            max_task_work_group_size: [Default::default(); _],
+            max_task_payload_size: Default::default(),
+            max_task_shared_memory_size: Default::default(),
+            max_task_payload_and_shared_memory_size: Default::default(),
+            max_mesh_work_group_total_count: Default::default(),
+            max_mesh_work_group_count: [Default::default(); _],
+            max_mesh_work_group_invocations: Default::default(),
+            max_mesh_work_group_size: [Default::default(); _],
+            max_mesh_shared_memory_size: Default::default(),
+            max_mesh_payload_and_shared_memory_size: Default::default(),
+            max_mesh_output_memory_size: Default::default(),
+            max_mesh_payload_and_output_memory_size: Default::default(),
+            max_mesh_output_components: Default::default(),
+            max_mesh_output_vertices: Default::default(),
+            max_mesh_output_primitives: Default::default(),
+            max_mesh_output_layers: Default::default(),
+            max_mesh_multiview_view_count: Default::default(),
+            mesh_output_per_vertex_granularity: Default::default(),
+            mesh_output_per_primitive_granularity: Default::default(),
+            max_preferred_task_work_group_invocations: Default::default(),
+            max_preferred_mesh_work_group_invocations: Default::default(),
+            prefers_local_invocation_vertex_output: Default::default(),
+            prefers_local_invocation_primitive_output: Default::default(),
+            prefers_compact_vertex_output: Default::default(),
+            prefers_compact_primitive_output: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct DrawMeshTasksIndirectCommandEXT {
     pub group_count_x: u32,
     pub group_count_y: u32,

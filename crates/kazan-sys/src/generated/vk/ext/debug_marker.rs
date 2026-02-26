@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DebugMarkerObjectNameInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -12,7 +13,20 @@ pub struct DebugMarkerObjectNameInfoEXT<'a> {
     pub p_object_name: *const c_char,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DebugMarkerObjectNameInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEBUG_MARKER_OBJECT_NAME_INFO_EXT,
+            p_next: core::ptr::null(),
+            object_type: Default::default(),
+            object: Default::default(),
+            p_object_name: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DebugMarkerObjectTagInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -23,13 +37,39 @@ pub struct DebugMarkerObjectTagInfoEXT<'a> {
     pub p_tag: *const c_void,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DebugMarkerObjectTagInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEBUG_MARKER_OBJECT_TAG_INFO_EXT,
+            p_next: core::ptr::null(),
+            object_type: Default::default(),
+            object: Default::default(),
+            tag_name: Default::default(),
+            tag_size: Default::default(),
+            p_tag: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DebugMarkerMarkerInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_marker_name: *const c_char,
     pub color: [f32; 4],
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for DebugMarkerMarkerInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEBUG_MARKER_MARKER_INFO_EXT,
+            p_next: core::ptr::null(),
+            p_marker_name: core::ptr::null(),
+            color: [Default::default(); _],
+            _marker: PhantomData,
+        }
+    }
 }
 pub type PFN_vkDebugMarkerSetObjectNameEXT = unsafe extern "system" fn(
     device: Device,

@@ -27,6 +27,7 @@ pub const STD_VIDEO_H265_MAX_LONG_TERM_PICS: u32 = 16;
 pub const STD_VIDEO_H265_MAX_DELTA_POC: u32 = 48;
 pub const STD_VIDEO_H265_NO_REFERENCE_PICTURE: u8 = 0xF;
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoH265ProfileTierLevelFlags {
     pub general_tier_flag: u32,
     pub general_progressive_source_flag: u32,
@@ -35,18 +36,30 @@ pub struct StdVideoH265ProfileTierLevelFlags {
     pub general_frame_only_constraint_flag: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoH265ProfileTierLevel {
     pub flags: StdVideoH265ProfileTierLevelFlags,
     pub general_profile_idc: StdVideoH265ProfileIdc,
     pub general_level_idc: StdVideoH265LevelIdc,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoH265DecPicBufMgr {
     pub max_latency_increase_plus1: [u32; STD_VIDEO_H265_SUBLAYERS_LIST_SIZE as usize],
     pub max_dec_pic_buffering_minus1: [u8; STD_VIDEO_H265_SUBLAYERS_LIST_SIZE as usize],
     pub max_num_reorder_pics: [u8; STD_VIDEO_H265_SUBLAYERS_LIST_SIZE as usize],
 }
+impl Default for StdVideoH265DecPicBufMgr {
+    fn default() -> Self {
+        Self {
+            max_latency_increase_plus1: [Default::default(); _],
+            max_dec_pic_buffering_minus1: [Default::default(); _],
+            max_num_reorder_pics: [Default::default(); _],
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoH265SubLayerHrdParameters {
     pub bit_rate_value_minus1: [u32; STD_VIDEO_H265_CPB_CNT_LIST_SIZE as usize],
     pub cpb_size_value_minus1: [u32; STD_VIDEO_H265_CPB_CNT_LIST_SIZE as usize],
@@ -54,7 +67,19 @@ pub struct StdVideoH265SubLayerHrdParameters {
     pub bit_rate_du_value_minus1: [u32; STD_VIDEO_H265_CPB_CNT_LIST_SIZE as usize],
     pub cbr_flag: u32,
 }
+impl Default for StdVideoH265SubLayerHrdParameters {
+    fn default() -> Self {
+        Self {
+            bit_rate_value_minus1: [Default::default(); _],
+            cpb_size_value_minus1: [Default::default(); _],
+            cpb_size_du_value_minus1: [Default::default(); _],
+            bit_rate_du_value_minus1: [Default::default(); _],
+            cbr_flag: Default::default(),
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoH265HrdFlags {
     pub nal_hrd_parameters_present_flag: u32,
     pub vcl_hrd_parameters_present_flag: u32,
@@ -65,6 +90,7 @@ pub struct StdVideoH265HrdFlags {
     pub low_delay_hrd_flag: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoH265HrdParameters<'a> {
     pub flags: StdVideoH265HrdFlags,
     pub tick_divisor_minus2: u8,
@@ -83,7 +109,30 @@ pub struct StdVideoH265HrdParameters<'a> {
     pub p_sub_layer_hrd_parameters_vcl: *const StdVideoH265SubLayerHrdParameters,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for StdVideoH265HrdParameters<'_> {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            tick_divisor_minus2: Default::default(),
+            du_cpb_removal_delay_increment_length_minus1: Default::default(),
+            dpb_output_delay_du_length_minus1: Default::default(),
+            bit_rate_scale: Default::default(),
+            cpb_size_scale: Default::default(),
+            cpb_size_du_scale: Default::default(),
+            initial_cpb_removal_delay_length_minus1: Default::default(),
+            au_cpb_removal_delay_length_minus1: Default::default(),
+            dpb_output_delay_length_minus1: Default::default(),
+            cpb_cnt_minus1: [Default::default(); _],
+            elemental_duration_in_tc_minus1: [Default::default(); _],
+            reserved: [Default::default(); _],
+            p_sub_layer_hrd_parameters_nal: core::ptr::null(),
+            p_sub_layer_hrd_parameters_vcl: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoH265VpsFlags {
     pub vps_temporal_id_nesting_flag: u32,
     pub vps_sub_layer_ordering_info_present_flag: u32,
@@ -91,6 +140,7 @@ pub struct StdVideoH265VpsFlags {
     pub vps_poc_proportional_to_timing_flag: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoH265VideoParameterSet<'a> {
     pub flags: StdVideoH265VpsFlags,
     pub vps_video_parameter_set_id: u8,
@@ -106,7 +156,27 @@ pub struct StdVideoH265VideoParameterSet<'a> {
     pub p_profile_tier_level: *const StdVideoH265ProfileTierLevel,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for StdVideoH265VideoParameterSet<'_> {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            vps_video_parameter_set_id: Default::default(),
+            vps_max_sub_layers_minus1: Default::default(),
+            reserved1: Default::default(),
+            reserved2: Default::default(),
+            vps_num_units_in_tick: Default::default(),
+            vps_time_scale: Default::default(),
+            vps_num_ticks_poc_diff_one_minus1: Default::default(),
+            reserved3: Default::default(),
+            p_dec_pic_buf_mgr: core::ptr::null(),
+            p_hrd_parameters: core::ptr::null(),
+            p_profile_tier_level: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoH265ScalingLists {
     pub scaling_list4x4: [[u8; STD_VIDEO_H265_SCALING_LIST_4X4_NUM_ELEMENTS as usize];
         STD_VIDEO_H265_SCALING_LIST_4X4_NUM_LISTS as usize],
@@ -119,12 +189,26 @@ pub struct StdVideoH265ScalingLists {
     pub scaling_list_dc_coef16x16: [u8; STD_VIDEO_H265_SCALING_LIST_16X16_NUM_LISTS as usize],
     pub scaling_list_dc_coef32x32: [u8; STD_VIDEO_H265_SCALING_LIST_32X32_NUM_LISTS as usize],
 }
+impl Default for StdVideoH265ScalingLists {
+    fn default() -> Self {
+        Self {
+            scaling_list4x4: [[Default::default(); _]; _],
+            scaling_list8x8: [[Default::default(); _]; _],
+            scaling_list16x16: [[Default::default(); _]; _],
+            scaling_list32x32: [[Default::default(); _]; _],
+            scaling_list_dc_coef16x16: [Default::default(); _],
+            scaling_list_dc_coef32x32: [Default::default(); _],
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoH265ShortTermRefPicSetFlags {
     pub inter_ref_pic_set_prediction_flag: u32,
     pub delta_rps_sign: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoH265ShortTermRefPicSet {
     pub flags: StdVideoH265ShortTermRefPicSetFlags,
     pub delta_idx_minus1: u32,
@@ -141,12 +225,42 @@ pub struct StdVideoH265ShortTermRefPicSet {
     pub delta_poc_s0_minus1: [u16; STD_VIDEO_H265_MAX_DPB_SIZE as usize],
     pub delta_poc_s1_minus1: [u16; STD_VIDEO_H265_MAX_DPB_SIZE as usize],
 }
+impl Default for StdVideoH265ShortTermRefPicSet {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            delta_idx_minus1: Default::default(),
+            use_delta_flag: Default::default(),
+            abs_delta_rps_minus1: Default::default(),
+            used_by_curr_pic_flag: Default::default(),
+            used_by_curr_pic_s0_flag: Default::default(),
+            used_by_curr_pic_s1_flag: Default::default(),
+            reserved1: Default::default(),
+            reserved2: Default::default(),
+            reserved3: Default::default(),
+            num_negative_pics: Default::default(),
+            num_positive_pics: Default::default(),
+            delta_poc_s0_minus1: [Default::default(); _],
+            delta_poc_s1_minus1: [Default::default(); _],
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoH265LongTermRefPicsSps {
     pub used_by_curr_pic_lt_sps_flag: u32,
     pub lt_ref_pic_poc_lsb_sps: [u32; STD_VIDEO_H265_MAX_LONG_TERM_REF_PICS_SPS as usize],
 }
+impl Default for StdVideoH265LongTermRefPicsSps {
+    fn default() -> Self {
+        Self {
+            used_by_curr_pic_lt_sps_flag: Default::default(),
+            lt_ref_pic_poc_lsb_sps: [Default::default(); _],
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoH265SpsVuiFlags {
     pub aspect_ratio_info_present_flag: u32,
     pub overscan_info_present_flag: u32,
@@ -168,6 +282,7 @@ pub struct StdVideoH265SpsVuiFlags {
     pub restricted_ref_pic_lists_flag: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoH265SequenceParameterSetVui<'a> {
     pub flags: StdVideoH265SpsVuiFlags,
     pub aspect_ratio_idc: StdVideoH265AspectRatioIdc,
@@ -197,13 +312,55 @@ pub struct StdVideoH265SequenceParameterSetVui<'a> {
     pub p_hrd_parameters: *const StdVideoH265HrdParameters<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for StdVideoH265SequenceParameterSetVui<'_> {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            aspect_ratio_idc: Default::default(),
+            sar_width: Default::default(),
+            sar_height: Default::default(),
+            video_format: Default::default(),
+            colour_primaries: Default::default(),
+            transfer_characteristics: Default::default(),
+            matrix_coeffs: Default::default(),
+            chroma_sample_loc_type_top_field: Default::default(),
+            chroma_sample_loc_type_bottom_field: Default::default(),
+            reserved1: Default::default(),
+            reserved2: Default::default(),
+            def_disp_win_left_offset: Default::default(),
+            def_disp_win_right_offset: Default::default(),
+            def_disp_win_top_offset: Default::default(),
+            def_disp_win_bottom_offset: Default::default(),
+            vui_num_units_in_tick: Default::default(),
+            vui_time_scale: Default::default(),
+            vui_num_ticks_poc_diff_one_minus1: Default::default(),
+            min_spatial_segmentation_idc: Default::default(),
+            reserved3: Default::default(),
+            max_bytes_per_pic_denom: Default::default(),
+            max_bits_per_min_cu_denom: Default::default(),
+            log2_max_mv_length_horizontal: Default::default(),
+            log2_max_mv_length_vertical: Default::default(),
+            p_hrd_parameters: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoH265PredictorPaletteEntries {
     pub predictor_palette_entries: [[u16; STD_VIDEO_H265_PREDICTOR_PALETTE_COMP_ENTRIES_LIST_SIZE
         as usize];
         STD_VIDEO_H265_PREDICTOR_PALETTE_COMPONENTS_LIST_SIZE as usize],
 }
+impl Default for StdVideoH265PredictorPaletteEntries {
+    fn default() -> Self {
+        Self {
+            predictor_palette_entries: [[Default::default(); _]; _],
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoH265SpsFlags {
     pub sps_temporal_id_nesting_flag: u32,
     pub separate_colour_plane_flag: u32,
@@ -237,6 +394,7 @@ pub struct StdVideoH265SpsFlags {
     pub intra_boundary_filtering_disabled_flag: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoH265SequenceParameterSet<'a> {
     pub flags: StdVideoH265SpsFlags,
     pub chroma_format_idc: StdVideoH265ChromaFormatIdc,
@@ -279,7 +437,54 @@ pub struct StdVideoH265SequenceParameterSet<'a> {
     pub p_predictor_palette_entries: *const StdVideoH265PredictorPaletteEntries,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for StdVideoH265SequenceParameterSet<'_> {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            chroma_format_idc: Default::default(),
+            pic_width_in_luma_samples: Default::default(),
+            pic_height_in_luma_samples: Default::default(),
+            sps_video_parameter_set_id: Default::default(),
+            sps_max_sub_layers_minus1: Default::default(),
+            sps_seq_parameter_set_id: Default::default(),
+            bit_depth_luma_minus8: Default::default(),
+            bit_depth_chroma_minus8: Default::default(),
+            log2_max_pic_order_cnt_lsb_minus4: Default::default(),
+            log2_min_luma_coding_block_size_minus3: Default::default(),
+            log2_diff_max_min_luma_coding_block_size: Default::default(),
+            log2_min_luma_transform_block_size_minus2: Default::default(),
+            log2_diff_max_min_luma_transform_block_size: Default::default(),
+            max_transform_hierarchy_depth_inter: Default::default(),
+            max_transform_hierarchy_depth_intra: Default::default(),
+            num_short_term_ref_pic_sets: Default::default(),
+            num_long_term_ref_pics_sps: Default::default(),
+            pcm_sample_bit_depth_luma_minus1: Default::default(),
+            pcm_sample_bit_depth_chroma_minus1: Default::default(),
+            log2_min_pcm_luma_coding_block_size_minus3: Default::default(),
+            log2_diff_max_min_pcm_luma_coding_block_size: Default::default(),
+            reserved1: Default::default(),
+            reserved2: Default::default(),
+            palette_max_size: Default::default(),
+            delta_palette_max_predictor_size: Default::default(),
+            motion_vector_resolution_control_idc: Default::default(),
+            sps_num_palette_predictor_initializers_minus1: Default::default(),
+            conf_win_left_offset: Default::default(),
+            conf_win_right_offset: Default::default(),
+            conf_win_top_offset: Default::default(),
+            conf_win_bottom_offset: Default::default(),
+            p_profile_tier_level: core::ptr::null(),
+            p_dec_pic_buf_mgr: core::ptr::null(),
+            p_scaling_lists: core::ptr::null(),
+            p_short_term_ref_pic_set: core::ptr::null(),
+            p_long_term_ref_pics_sps: core::ptr::null(),
+            p_sequence_parameter_set_vui: core::ptr::null(),
+            p_predictor_palette_entries: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoH265PpsFlags {
     pub dependent_slice_segments_enabled_flag: u32,
     pub output_flag_present_flag: u32,
@@ -314,6 +519,7 @@ pub struct StdVideoH265PpsFlags {
     pub pps_range_extension_flag: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoH265PictureParameterSet<'a> {
     pub flags: StdVideoH265PpsFlags,
     pub pps_pic_parameter_set_id: u8,
@@ -352,6 +558,49 @@ pub struct StdVideoH265PictureParameterSet<'a> {
     pub p_scaling_lists: *const StdVideoH265ScalingLists,
     pub p_predictor_palette_entries: *const StdVideoH265PredictorPaletteEntries,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for StdVideoH265PictureParameterSet<'_> {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            pps_pic_parameter_set_id: Default::default(),
+            pps_seq_parameter_set_id: Default::default(),
+            sps_video_parameter_set_id: Default::default(),
+            num_extra_slice_header_bits: Default::default(),
+            num_ref_idx_l0_default_active_minus1: Default::default(),
+            num_ref_idx_l1_default_active_minus1: Default::default(),
+            init_qp_minus26: Default::default(),
+            diff_cu_qp_delta_depth: Default::default(),
+            pps_cb_qp_offset: Default::default(),
+            pps_cr_qp_offset: Default::default(),
+            pps_beta_offset_div2: Default::default(),
+            pps_tc_offset_div2: Default::default(),
+            log2_parallel_merge_level_minus2: Default::default(),
+            log2_max_transform_skip_block_size_minus2: Default::default(),
+            diff_cu_chroma_qp_offset_depth: Default::default(),
+            chroma_qp_offset_list_len_minus1: Default::default(),
+            cb_qp_offset_list: [Default::default(); _],
+            cr_qp_offset_list: [Default::default(); _],
+            log2_sao_offset_scale_luma: Default::default(),
+            log2_sao_offset_scale_chroma: Default::default(),
+            pps_act_y_qp_offset_plus5: Default::default(),
+            pps_act_cb_qp_offset_plus5: Default::default(),
+            pps_act_cr_qp_offset_plus3: Default::default(),
+            pps_num_palette_predictor_initializers: Default::default(),
+            luma_bit_depth_entry_minus8: Default::default(),
+            chroma_bit_depth_entry_minus8: Default::default(),
+            num_tile_columns_minus1: Default::default(),
+            num_tile_rows_minus1: Default::default(),
+            reserved1: Default::default(),
+            reserved2: Default::default(),
+            column_width_minus1: [Default::default(); _],
+            row_height_minus1: [Default::default(); _],
+            reserved3: Default::default(),
+            p_scaling_lists: core::ptr::null(),
+            p_predictor_palette_entries: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

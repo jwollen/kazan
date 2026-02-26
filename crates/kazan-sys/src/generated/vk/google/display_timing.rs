@@ -4,10 +4,12 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct RefreshCycleDurationGOOGLE {
     pub refresh_duration: u64,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct PastPresentationTimingGOOGLE {
     pub present_id: u32,
     pub desired_present_time: u64,
@@ -16,6 +18,7 @@ pub struct PastPresentationTimingGOOGLE {
     pub present_margin: u64,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PresentTimesInfoGOOGLE<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -23,7 +26,19 @@ pub struct PresentTimesInfoGOOGLE<'a> {
     pub p_times: *const PresentTimeGOOGLE,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PresentTimesInfoGOOGLE<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PRESENT_TIMES_INFO_GOOGLE,
+            p_next: core::ptr::null(),
+            swapchain_count: Default::default(),
+            p_times: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct PresentTimeGOOGLE {
     pub present_id: u32,
     pub desired_present_time: u64,

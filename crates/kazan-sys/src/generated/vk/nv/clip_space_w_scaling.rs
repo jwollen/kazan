@@ -4,11 +4,13 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct ViewportWScalingNV {
     pub xcoeff: f32,
     pub ycoeff: f32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineViewportWScalingStateCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -16,6 +18,18 @@ pub struct PipelineViewportWScalingStateCreateInfoNV<'a> {
     pub viewport_count: u32,
     pub p_viewport_w_scalings: *const ViewportWScalingNV,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for PipelineViewportWScalingStateCreateInfoNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV,
+            p_next: core::ptr::null(),
+            viewport_w_scaling_enable: Default::default(),
+            viewport_count: Default::default(),
+            p_viewport_w_scalings: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
 }
 pub type PFN_vkCmdSetViewportWScalingNV = unsafe extern "system" fn(
     command_buffer: CommandBuffer,

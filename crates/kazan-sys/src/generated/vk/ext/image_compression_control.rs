@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ImageCompressionControlEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -12,20 +13,55 @@ pub struct ImageCompressionControlEXT<'a> {
     pub p_fixed_rate_flags: *mut ImageCompressionFixedRateFlagsEXT,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ImageCompressionControlEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::IMAGE_COMPRESSION_CONTROL_EXT,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            compression_control_plane_count: Default::default(),
+            p_fixed_rate_flags: core::ptr::null_mut(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceImageCompressionControlFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub image_compression_control: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceImageCompressionControlFeaturesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_FEATURES_EXT,
+            p_next: core::ptr::null_mut(),
+            image_compression_control: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ImageCompressionPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub image_compression_flags: ImageCompressionFlagsEXT,
     pub image_compression_fixed_rate_flags: ImageCompressionFixedRateFlagsEXT,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for ImageCompressionPropertiesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::IMAGE_COMPRESSION_PROPERTIES_EXT,
+            p_next: core::ptr::null_mut(),
+            image_compression_flags: Default::default(),
+            image_compression_fixed_rate_flags: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 bitflags! {
     #[repr(transparent)]

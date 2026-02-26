@@ -7,6 +7,7 @@ use core::marker::PhantomData;
 #[derive(Copy, Clone, Default)]
 pub struct AccelerationStructureKHR(u64);
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct WriteDescriptorSetAccelerationStructureKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -14,7 +15,19 @@ pub struct WriteDescriptorSetAccelerationStructureKHR<'a> {
     pub p_acceleration_structures: *const AccelerationStructureKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for WriteDescriptorSetAccelerationStructureKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_KHR,
+            p_next: core::ptr::null(),
+            acceleration_structure_count: Default::default(),
+            p_acceleration_structures: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceAccelerationStructureFeaturesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -25,7 +38,22 @@ pub struct PhysicalDeviceAccelerationStructureFeaturesKHR<'a> {
     pub descriptor_binding_acceleration_structure_update_after_bind: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceAccelerationStructureFeaturesKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR,
+            p_next: core::ptr::null_mut(),
+            acceleration_structure: Default::default(),
+            acceleration_structure_capture_replay: Default::default(),
+            acceleration_structure_indirect_build: Default::default(),
+            acceleration_structure_host_commands: Default::default(),
+            descriptor_binding_acceleration_structure_update_after_bind: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceAccelerationStructurePropertiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -39,7 +67,25 @@ pub struct PhysicalDeviceAccelerationStructurePropertiesKHR<'a> {
     pub min_acceleration_structure_scratch_offset_alignment: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceAccelerationStructurePropertiesKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_PROPERTIES_KHR,
+            p_next: core::ptr::null_mut(),
+            max_geometry_count: Default::default(),
+            max_instance_count: Default::default(),
+            max_primitive_count: Default::default(),
+            max_per_stage_descriptor_acceleration_structures: Default::default(),
+            max_per_stage_descriptor_update_after_bind_acceleration_structures: Default::default(),
+            max_descriptor_set_acceleration_structures: Default::default(),
+            max_descriptor_set_update_after_bind_acceleration_structures: Default::default(),
+            min_acceleration_structure_scratch_offset_alignment: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct AccelerationStructureGeometryTrianglesDataKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -52,7 +98,24 @@ pub struct AccelerationStructureGeometryTrianglesDataKHR<'a> {
     pub transform_data: DeviceOrHostAddressConstKHR<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for AccelerationStructureGeometryTrianglesDataKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::ACCELERATION_STRUCTURE_GEOMETRY_TRIANGLES_DATA_KHR,
+            p_next: core::ptr::null(),
+            vertex_format: Default::default(),
+            vertex_data: Default::default(),
+            vertex_stride: Default::default(),
+            max_vertex: Default::default(),
+            index_type: Default::default(),
+            index_data: Default::default(),
+            transform_data: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct AccelerationStructureGeometryAabbsDataKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -60,7 +123,19 @@ pub struct AccelerationStructureGeometryAabbsDataKHR<'a> {
     pub stride: DeviceSize,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for AccelerationStructureGeometryAabbsDataKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::ACCELERATION_STRUCTURE_GEOMETRY_AABBS_DATA_KHR,
+            p_next: core::ptr::null(),
+            data: Default::default(),
+            stride: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct AccelerationStructureGeometryInstancesDataKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -68,7 +143,19 @@ pub struct AccelerationStructureGeometryInstancesDataKHR<'a> {
     pub data: DeviceOrHostAddressConstKHR<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for AccelerationStructureGeometryInstancesDataKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::ACCELERATION_STRUCTURE_GEOMETRY_INSTANCES_DATA_KHR,
+            p_next: core::ptr::null(),
+            array_of_pointers: Default::default(),
+            data: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct AccelerationStructureGeometryKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -77,7 +164,20 @@ pub struct AccelerationStructureGeometryKHR<'a> {
     pub flags: GeometryFlagsKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for AccelerationStructureGeometryKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::ACCELERATION_STRUCTURE_GEOMETRY_KHR,
+            p_next: core::ptr::null(),
+            geometry_type: Default::default(),
+            geometry: Default::default(),
+            flags: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct AccelerationStructureBuildGeometryInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -92,7 +192,26 @@ pub struct AccelerationStructureBuildGeometryInfoKHR<'a> {
     pub scratch_data: DeviceOrHostAddressKHR<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for AccelerationStructureBuildGeometryInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR,
+            p_next: core::ptr::null(),
+            ty: Default::default(),
+            flags: Default::default(),
+            mode: Default::default(),
+            src_acceleration_structure: Default::default(),
+            dst_acceleration_structure: Default::default(),
+            geometry_count: Default::default(),
+            p_geometries: core::ptr::null(),
+            pp_geometries: core::ptr::null(),
+            scratch_data: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct AccelerationStructureBuildRangeInfoKHR {
     pub primitive_count: u32,
     pub primitive_offset: u32,
@@ -100,6 +219,7 @@ pub struct AccelerationStructureBuildRangeInfoKHR {
     pub transform_offset: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct AccelerationStructureCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -111,7 +231,23 @@ pub struct AccelerationStructureCreateInfoKHR<'a> {
     pub device_address: DeviceAddress,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for AccelerationStructureCreateInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::ACCELERATION_STRUCTURE_CREATE_INFO_KHR,
+            p_next: core::ptr::null(),
+            create_flags: Default::default(),
+            buffer: Default::default(),
+            offset: Default::default(),
+            size: Default::default(),
+            ty: Default::default(),
+            device_address: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct AabbPositionsKHR {
     pub min_x: f32,
     pub min_y: f32,
@@ -121,10 +257,19 @@ pub struct AabbPositionsKHR {
     pub max_z: f32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct TransformMatrixKHR {
     pub matrix: [[f32; 4]; 3],
 }
+impl Default for TransformMatrixKHR {
+    fn default() -> Self {
+        Self {
+            matrix: [[Default::default(); _]; _],
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct AccelerationStructureInstanceKHR {
     pub transform: TransformMatrixKHR,
     pub instance_custom_index: u32,
@@ -133,21 +278,56 @@ pub struct AccelerationStructureInstanceKHR {
     pub flags: GeometryInstanceFlagsKHR,
     pub acceleration_structure_reference: u64,
 }
+impl Default for AccelerationStructureInstanceKHR {
+    fn default() -> Self {
+        Self {
+            transform: Default::default(),
+            instance_custom_index: Default::default(),
+            mask: Default::default(),
+            instance_shader_binding_table_record_offset: Default::default(),
+            flags: Default::default(),
+            acceleration_structure_reference: Default::default(),
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct AccelerationStructureDeviceAddressInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub acceleration_structure: AccelerationStructureKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for AccelerationStructureDeviceAddressInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::ACCELERATION_STRUCTURE_DEVICE_ADDRESS_INFO_KHR,
+            p_next: core::ptr::null(),
+            acceleration_structure: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct AccelerationStructureVersionInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_version_data: *const u8,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for AccelerationStructureVersionInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::ACCELERATION_STRUCTURE_VERSION_INFO_KHR,
+            p_next: core::ptr::null(),
+            p_version_data: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct CopyAccelerationStructureInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -156,7 +336,20 @@ pub struct CopyAccelerationStructureInfoKHR<'a> {
     pub mode: CopyAccelerationStructureModeKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for CopyAccelerationStructureInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::COPY_ACCELERATION_STRUCTURE_INFO_KHR,
+            p_next: core::ptr::null(),
+            src: Default::default(),
+            dst: Default::default(),
+            mode: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct CopyAccelerationStructureToMemoryInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -165,7 +358,20 @@ pub struct CopyAccelerationStructureToMemoryInfoKHR<'a> {
     pub mode: CopyAccelerationStructureModeKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for CopyAccelerationStructureToMemoryInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::COPY_ACCELERATION_STRUCTURE_TO_MEMORY_INFO_KHR,
+            p_next: core::ptr::null(),
+            src: Default::default(),
+            dst: Default::default(),
+            mode: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct CopyMemoryToAccelerationStructureInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -174,7 +380,20 @@ pub struct CopyMemoryToAccelerationStructureInfoKHR<'a> {
     pub mode: CopyAccelerationStructureModeKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for CopyMemoryToAccelerationStructureInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::COPY_MEMORY_TO_ACCELERATION_STRUCTURE_INFO_KHR,
+            p_next: core::ptr::null(),
+            src: Default::default(),
+            dst: Default::default(),
+            mode: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct AccelerationStructureBuildSizesInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -182,6 +401,18 @@ pub struct AccelerationStructureBuildSizesInfoKHR<'a> {
     pub update_scratch_size: DeviceSize,
     pub build_scratch_size: DeviceSize,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for AccelerationStructureBuildSizesInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::ACCELERATION_STRUCTURE_BUILD_SIZES_INFO_KHR,
+            p_next: core::ptr::null_mut(),
+            acceleration_structure_size: Default::default(),
+            update_scratch_size: Default::default(),
+            build_scratch_size: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceTransformFeedbackFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -11,7 +12,19 @@ pub struct PhysicalDeviceTransformFeedbackFeaturesEXT<'a> {
     pub geometry_streams: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceTransformFeedbackFeaturesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_FEATURES_EXT,
+            p_next: core::ptr::null_mut(),
+            transform_feedback: Default::default(),
+            geometry_streams: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceTransformFeedbackPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -27,13 +40,44 @@ pub struct PhysicalDeviceTransformFeedbackPropertiesEXT<'a> {
     pub transform_feedback_draw: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceTransformFeedbackPropertiesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_PROPERTIES_EXT,
+            p_next: core::ptr::null_mut(),
+            max_transform_feedback_streams: Default::default(),
+            max_transform_feedback_buffers: Default::default(),
+            max_transform_feedback_buffer_size: Default::default(),
+            max_transform_feedback_stream_data_size: Default::default(),
+            max_transform_feedback_buffer_data_size: Default::default(),
+            max_transform_feedback_buffer_data_stride: Default::default(),
+            transform_feedback_queries: Default::default(),
+            transform_feedback_streams_lines_triangles: Default::default(),
+            transform_feedback_rasterization_stream_select: Default::default(),
+            transform_feedback_draw: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineRasterizationStateStreamCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: PipelineRasterizationStateStreamCreateFlagsEXT,
     pub rasterization_stream: u32,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for PipelineRasterizationStateStreamCreateInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_RASTERIZATION_STATE_STREAM_CREATE_INFO_EXT,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            rasterization_stream: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 bitflags! {
     #[repr(transparent)]

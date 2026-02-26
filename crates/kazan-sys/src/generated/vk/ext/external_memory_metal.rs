@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ImportMemoryMetalHandleInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -11,20 +12,54 @@ pub struct ImportMemoryMetalHandleInfoEXT<'a> {
     pub handle: *mut c_void,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ImportMemoryMetalHandleInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::IMPORT_MEMORY_METAL_HANDLE_INFO_EXT,
+            p_next: core::ptr::null(),
+            handle_type: Default::default(),
+            handle: core::ptr::null_mut(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct MemoryMetalHandlePropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub memory_type_bits: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for MemoryMetalHandlePropertiesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::MEMORY_METAL_HANDLE_PROPERTIES_EXT,
+            p_next: core::ptr::null_mut(),
+            memory_type_bits: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct MemoryGetMetalHandleInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub memory: DeviceMemory,
     pub handle_type: ExternalMemoryHandleTypeFlagBits,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for MemoryGetMetalHandleInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::MEMORY_GET_METAL_HANDLE_INFO_EXT,
+            p_next: core::ptr::null(),
+            memory: Default::default(),
+            handle_type: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 pub type PFN_vkGetMemoryMetalHandleEXT = unsafe extern "system" fn(
     device: Device,

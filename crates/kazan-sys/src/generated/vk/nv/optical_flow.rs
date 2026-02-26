@@ -7,13 +7,25 @@ use core::marker::PhantomData;
 #[derive(Copy, Clone, Default)]
 pub struct OpticalFlowSessionNV(u64);
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceOpticalFlowFeaturesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub optical_flow: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceOpticalFlowFeaturesNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV,
+            p_next: core::ptr::null_mut(),
+            optical_flow: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceOpticalFlowPropertiesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -30,21 +42,64 @@ pub struct PhysicalDeviceOpticalFlowPropertiesNV<'a> {
     pub max_num_regions_of_interest: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceOpticalFlowPropertiesNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_OPTICAL_FLOW_PROPERTIES_NV,
+            p_next: core::ptr::null_mut(),
+            supported_output_grid_sizes: Default::default(),
+            supported_hint_grid_sizes: Default::default(),
+            hint_supported: Default::default(),
+            cost_supported: Default::default(),
+            bidirectional_flow_supported: Default::default(),
+            global_flow_supported: Default::default(),
+            min_width: Default::default(),
+            min_height: Default::default(),
+            max_width: Default::default(),
+            max_height: Default::default(),
+            max_num_regions_of_interest: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct OpticalFlowImageFormatInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub usage: OpticalFlowUsageFlagsNV,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for OpticalFlowImageFormatInfoNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::OPTICAL_FLOW_IMAGE_FORMAT_INFO_NV,
+            p_next: core::ptr::null(),
+            usage: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct OpticalFlowImageFormatPropertiesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub format: Format,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for OpticalFlowImageFormatPropertiesNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_NV,
+            p_next: core::ptr::null_mut(),
+            format: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct OpticalFlowSessionCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -59,7 +114,26 @@ pub struct OpticalFlowSessionCreateInfoNV<'a> {
     pub flags: OpticalFlowSessionCreateFlagsNV,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for OpticalFlowSessionCreateInfoNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::OPTICAL_FLOW_SESSION_CREATE_INFO_NV,
+            p_next: core::ptr::null_mut(),
+            width: Default::default(),
+            height: Default::default(),
+            image_format: Default::default(),
+            flow_vector_format: Default::default(),
+            cost_format: Default::default(),
+            output_grid_size: Default::default(),
+            hint_grid_size: Default::default(),
+            performance_level: Default::default(),
+            flags: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct OpticalFlowSessionCreatePrivateDataInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -68,7 +142,20 @@ pub struct OpticalFlowSessionCreatePrivateDataInfoNV<'a> {
     pub p_private_data: *const c_void,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for OpticalFlowSessionCreatePrivateDataInfoNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV,
+            p_next: core::ptr::null_mut(),
+            id: Default::default(),
+            size: Default::default(),
+            p_private_data: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct OpticalFlowExecuteInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -76,6 +163,18 @@ pub struct OpticalFlowExecuteInfoNV<'a> {
     pub region_count: u32,
     pub p_regions: *const Rect2D,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for OpticalFlowExecuteInfoNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::OPTICAL_FLOW_EXECUTE_INFO_NV,
+            p_next: core::ptr::null_mut(),
+            flags: Default::default(),
+            region_count: Default::default(),
+            p_regions: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

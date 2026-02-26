@@ -7,6 +7,7 @@ use core::marker::PhantomData;
 #[derive(Copy, Clone, Default)]
 pub struct SwapchainKHR(u64);
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SwapchainCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -28,7 +29,33 @@ pub struct SwapchainCreateInfoKHR<'a> {
     pub old_swapchain: SwapchainKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for SwapchainCreateInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SWAPCHAIN_CREATE_INFO_KHR,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            surface: Default::default(),
+            min_image_count: Default::default(),
+            image_format: Default::default(),
+            image_color_space: Default::default(),
+            image_extent: Default::default(),
+            image_array_layers: Default::default(),
+            image_usage: Default::default(),
+            image_sharing_mode: Default::default(),
+            queue_family_index_count: Default::default(),
+            p_queue_family_indices: core::ptr::null(),
+            pre_transform: Default::default(),
+            composite_alpha: Default::default(),
+            present_mode: Default::default(),
+            clipped: Default::default(),
+            old_swapchain: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PresentInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -40,7 +67,23 @@ pub struct PresentInfoKHR<'a> {
     pub p_results: *mut Result,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PresentInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PRESENT_INFO_KHR,
+            p_next: core::ptr::null(),
+            wait_semaphore_count: Default::default(),
+            p_wait_semaphores: core::ptr::null(),
+            swapchain_count: Default::default(),
+            p_swapchains: core::ptr::null(),
+            p_image_indices: core::ptr::null(),
+            p_results: core::ptr::null_mut(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DeviceGroupPresentCapabilitiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -48,14 +91,37 @@ pub struct DeviceGroupPresentCapabilitiesKHR<'a> {
     pub modes: DeviceGroupPresentModeFlagsKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DeviceGroupPresentCapabilitiesKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEVICE_GROUP_PRESENT_CAPABILITIES_KHR,
+            p_next: core::ptr::null_mut(),
+            present_mask: [Default::default(); _],
+            modes: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ImageSwapchainCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub swapchain: SwapchainKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ImageSwapchainCreateInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::IMAGE_SWAPCHAIN_CREATE_INFO_KHR,
+            p_next: core::ptr::null(),
+            swapchain: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BindImageMemorySwapchainInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -63,7 +129,19 @@ pub struct BindImageMemorySwapchainInfoKHR<'a> {
     pub image_index: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for BindImageMemorySwapchainInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR,
+            p_next: core::ptr::null(),
+            swapchain: Default::default(),
+            image_index: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct AcquireNextImageInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -74,7 +152,22 @@ pub struct AcquireNextImageInfoKHR<'a> {
     pub device_mask: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for AcquireNextImageInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::ACQUIRE_NEXT_IMAGE_INFO_KHR,
+            p_next: core::ptr::null(),
+            swapchain: Default::default(),
+            timeout: Default::default(),
+            semaphore: Default::default(),
+            fence: Default::default(),
+            device_mask: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DeviceGroupPresentInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -83,12 +176,35 @@ pub struct DeviceGroupPresentInfoKHR<'a> {
     pub mode: DeviceGroupPresentModeFlagBitsKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DeviceGroupPresentInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEVICE_GROUP_PRESENT_INFO_KHR,
+            p_next: core::ptr::null(),
+            swapchain_count: Default::default(),
+            p_device_masks: core::ptr::null(),
+            mode: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DeviceGroupSwapchainCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub modes: DeviceGroupPresentModeFlagsKHR,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for DeviceGroupSwapchainCreateInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR,
+            p_next: core::ptr::null(),
+            modes: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 bitflags! {
     #[repr(transparent)]

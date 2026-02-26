@@ -4,23 +4,56 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDevicePresentBarrierFeaturesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub present_barrier: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDevicePresentBarrierFeaturesNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_PRESENT_BARRIER_FEATURES_NV,
+            p_next: core::ptr::null_mut(),
+            present_barrier: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SurfaceCapabilitiesPresentBarrierNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub present_barrier_supported: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for SurfaceCapabilitiesPresentBarrierNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SURFACE_CAPABILITIES_PRESENT_BARRIER_NV,
+            p_next: core::ptr::null_mut(),
+            present_barrier_supported: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SwapchainPresentBarrierCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub present_barrier_enable: Bool32,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for SwapchainPresentBarrierCreateInfoNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SWAPCHAIN_PRESENT_BARRIER_CREATE_INFO_NV,
+            p_next: core::ptr::null_mut(),
+            present_barrier_enable: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }

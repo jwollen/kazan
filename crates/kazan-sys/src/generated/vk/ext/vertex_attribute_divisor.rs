@@ -9,9 +9,20 @@ pub type PipelineVertexInputDivisorStateCreateInfoEXT<'a> =
 pub type PhysicalDeviceVertexAttributeDivisorFeaturesEXT<'a> =
     PhysicalDeviceVertexAttributeDivisorFeatures<'a>;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceVertexAttributeDivisorPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_vertex_attrib_divisor: u32,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for PhysicalDeviceVertexAttributeDivisorPropertiesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_EXT,
+            p_next: core::ptr::null_mut(),
+            max_vertex_attrib_divisor: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }

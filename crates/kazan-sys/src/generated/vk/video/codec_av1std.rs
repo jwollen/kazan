@@ -25,6 +25,7 @@ pub const STD_VIDEO_AV1_MAX_NUM_CR_POINTS: u32 = 10;
 pub const STD_VIDEO_AV1_MAX_NUM_POS_LUMA: u32 = 24;
 pub const STD_VIDEO_AV1_MAX_NUM_POS_CHROMA: u32 = 25;
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoAV1ColorConfigFlags {
     pub mono_chrome: u32,
     pub color_range: u32,
@@ -33,6 +34,7 @@ pub struct StdVideoAV1ColorConfigFlags {
     pub reserved: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoAV1ColorConfig {
     pub flags: StdVideoAV1ColorConfigFlags,
     pub bit_depth: u8,
@@ -45,11 +47,13 @@ pub struct StdVideoAV1ColorConfig {
     pub chroma_sample_position: StdVideoAV1ChromaSamplePosition,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoAV1TimingInfoFlags {
     pub equal_picture_interval: u32,
     pub reserved: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoAV1TimingInfo {
     pub flags: StdVideoAV1TimingInfoFlags,
     pub num_units_in_display_tick: u32,
@@ -57,6 +61,7 @@ pub struct StdVideoAV1TimingInfo {
     pub num_ticks_per_picture_minus_1: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoAV1SequenceHeaderFlags {
     pub still_picture: u32,
     pub reduced_still_picture_header: u32,
@@ -80,6 +85,7 @@ pub struct StdVideoAV1SequenceHeaderFlags {
     pub reserved: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoAV1SequenceHeader<'a> {
     pub flags: StdVideoAV1SequenceHeaderFlags,
     pub seq_profile: StdVideoAV1Profile,
@@ -97,13 +103,36 @@ pub struct StdVideoAV1SequenceHeader<'a> {
     pub p_timing_info: *const StdVideoAV1TimingInfo,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for StdVideoAV1SequenceHeader<'_> {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            seq_profile: Default::default(),
+            frame_width_bits_minus_1: Default::default(),
+            frame_height_bits_minus_1: Default::default(),
+            max_frame_width_minus_1: Default::default(),
+            max_frame_height_minus_1: Default::default(),
+            delta_frame_id_length_minus_2: Default::default(),
+            additional_frame_id_length_minus_1: Default::default(),
+            order_hint_bits_minus_1: Default::default(),
+            seq_force_integer_mv: Default::default(),
+            seq_force_screen_content_tools: Default::default(),
+            reserved1: [Default::default(); _],
+            p_color_config: core::ptr::null(),
+            p_timing_info: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoAV1LoopFilterFlags {
     pub loop_filter_delta_enabled: u32,
     pub loop_filter_delta_update: u32,
     pub reserved: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoAV1LoopFilter {
     pub flags: StdVideoAV1LoopFilterFlags,
     pub loop_filter_level: [u8; STD_VIDEO_AV1_MAX_LOOP_FILTER_STRENGTHS as usize],
@@ -113,13 +142,28 @@ pub struct StdVideoAV1LoopFilter {
     pub update_mode_delta: u8,
     pub loop_filter_mode_deltas: [i8; STD_VIDEO_AV1_LOOP_FILTER_ADJUSTMENTS as usize],
 }
+impl Default for StdVideoAV1LoopFilter {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            loop_filter_level: [Default::default(); _],
+            loop_filter_sharpness: Default::default(),
+            update_ref_delta: Default::default(),
+            loop_filter_ref_deltas: [Default::default(); _],
+            update_mode_delta: Default::default(),
+            loop_filter_mode_deltas: [Default::default(); _],
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoAV1QuantizationFlags {
     pub using_qmatrix: u32,
     pub diff_uv_delta: u32,
     pub reserved: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoAV1Quantization {
     pub flags: StdVideoAV1QuantizationFlags,
     pub base_q_idx: u8,
@@ -133,17 +177,28 @@ pub struct StdVideoAV1Quantization {
     pub qm_v: u8,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoAV1Segmentation {
     pub feature_enabled: [u8; STD_VIDEO_AV1_MAX_SEGMENTS as usize],
     pub feature_data:
         [[i16; STD_VIDEO_AV1_SEG_LVL_MAX as usize]; STD_VIDEO_AV1_MAX_SEGMENTS as usize],
 }
+impl Default for StdVideoAV1Segmentation {
+    fn default() -> Self {
+        Self {
+            feature_enabled: [Default::default(); _],
+            feature_data: [[Default::default(); _]; _],
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoAV1TileInfoFlags {
     pub uniform_tile_spacing_flag: u32,
     pub reserved: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoAV1TileInfo<'a> {
     pub flags: StdVideoAV1TileInfoFlags,
     pub tile_cols: u8,
@@ -157,7 +212,25 @@ pub struct StdVideoAV1TileInfo<'a> {
     pub p_height_in_sbs_minus1: *const u16,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for StdVideoAV1TileInfo<'_> {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            tile_cols: Default::default(),
+            tile_rows: Default::default(),
+            context_update_tile_id: Default::default(),
+            tile_size_bytes_minus_1: Default::default(),
+            reserved1: [Default::default(); _],
+            p_mi_col_starts: core::ptr::null(),
+            p_mi_row_starts: core::ptr::null(),
+            p_width_in_sbs_minus1: core::ptr::null(),
+            p_height_in_sbs_minus1: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoAV1CDEF {
     pub cdef_damping_minus_3: u8,
     pub cdef_bits: u8,
@@ -166,19 +239,50 @@ pub struct StdVideoAV1CDEF {
     pub cdef_uv_pri_strength: [u8; STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS as usize],
     pub cdef_uv_sec_strength: [u8; STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS as usize],
 }
+impl Default for StdVideoAV1CDEF {
+    fn default() -> Self {
+        Self {
+            cdef_damping_minus_3: Default::default(),
+            cdef_bits: Default::default(),
+            cdef_y_pri_strength: [Default::default(); _],
+            cdef_y_sec_strength: [Default::default(); _],
+            cdef_uv_pri_strength: [Default::default(); _],
+            cdef_uv_sec_strength: [Default::default(); _],
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoAV1LoopRestoration {
     pub frame_restoration_type:
         [StdVideoAV1FrameRestorationType; STD_VIDEO_AV1_MAX_NUM_PLANES as usize],
     pub loop_restoration_size: [u16; STD_VIDEO_AV1_MAX_NUM_PLANES as usize],
 }
+impl Default for StdVideoAV1LoopRestoration {
+    fn default() -> Self {
+        Self {
+            frame_restoration_type: [Default::default(); _],
+            loop_restoration_size: [Default::default(); _],
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoAV1GlobalMotion {
     pub gm_type: [u8; STD_VIDEO_AV1_NUM_REF_FRAMES as usize],
     pub gm_params:
         [[i32; STD_VIDEO_AV1_GLOBAL_MOTION_PARAMS as usize]; STD_VIDEO_AV1_NUM_REF_FRAMES as usize],
 }
+impl Default for StdVideoAV1GlobalMotion {
+    fn default() -> Self {
+        Self {
+            gm_type: [Default::default(); _],
+            gm_params: [[Default::default(); _]; _],
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoAV1FilmGrainFlags {
     pub chroma_scaling_from_luma: u32,
     pub overlap_flag: u32,
@@ -187,6 +291,7 @@ pub struct StdVideoAV1FilmGrainFlags {
     pub reserved: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoAV1FilmGrain {
     pub flags: StdVideoAV1FilmGrainFlags,
     pub grain_scaling_minus_8: u8,
@@ -213,6 +318,37 @@ pub struct StdVideoAV1FilmGrain {
     pub cr_mult: u8,
     pub cr_luma_mult: u8,
     pub cr_offset: u16,
+}
+impl Default for StdVideoAV1FilmGrain {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            grain_scaling_minus_8: Default::default(),
+            ar_coeff_lag: Default::default(),
+            ar_coeff_shift_minus_6: Default::default(),
+            grain_scale_shift: Default::default(),
+            grain_seed: Default::default(),
+            film_grain_params_ref_idx: Default::default(),
+            num_y_points: Default::default(),
+            point_y_value: [Default::default(); _],
+            point_y_scaling: [Default::default(); _],
+            num_cb_points: Default::default(),
+            point_cb_value: [Default::default(); _],
+            point_cb_scaling: [Default::default(); _],
+            num_cr_points: Default::default(),
+            point_cr_value: [Default::default(); _],
+            point_cr_scaling: [Default::default(); _],
+            ar_coeffs_y_plus_128: [Default::default(); _],
+            ar_coeffs_cb_plus_128: [Default::default(); _],
+            ar_coeffs_cr_plus_128: [Default::default(); _],
+            cb_mult: Default::default(),
+            cb_luma_mult: Default::default(),
+            cb_offset: Default::default(),
+            cr_mult: Default::default(),
+            cr_luma_mult: Default::default(),
+            cr_offset: Default::default(),
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

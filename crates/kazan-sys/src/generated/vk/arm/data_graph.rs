@@ -8,6 +8,7 @@ pub const MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM: u32 = 128;
 #[derive(Copy, Clone, Default)]
 pub struct DataGraphPipelineSessionARM(u64);
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDataGraphFeaturesARM<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -18,7 +19,22 @@ pub struct PhysicalDeviceDataGraphFeaturesARM<'a> {
     pub data_graph_shader_module: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceDataGraphFeaturesARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_DATA_GRAPH_FEATURES_ARM,
+            p_next: core::ptr::null_mut(),
+            data_graph: Default::default(),
+            data_graph_update_after_bind: Default::default(),
+            data_graph_specialization_constants: Default::default(),
+            data_graph_descriptor_buffer: Default::default(),
+            data_graph_shader_module: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -27,7 +43,21 @@ pub struct DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM<'a> {
     pub group_size: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type:
+                StructureType::DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM,
+            p_next: core::ptr::null(),
+            dimension: Default::default(),
+            zero_count: Default::default(),
+            group_size: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DataGraphPipelineConstantARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -35,7 +65,19 @@ pub struct DataGraphPipelineConstantARM<'a> {
     pub p_constant_data: *const c_void,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DataGraphPipelineConstantARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DATA_GRAPH_PIPELINE_CONSTANT_ARM,
+            p_next: core::ptr::null(),
+            id: Default::default(),
+            p_constant_data: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DataGraphPipelineResourceInfoARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -44,14 +86,38 @@ pub struct DataGraphPipelineResourceInfoARM<'a> {
     pub array_element: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DataGraphPipelineResourceInfoARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DATA_GRAPH_PIPELINE_RESOURCE_INFO_ARM,
+            p_next: core::ptr::null(),
+            descriptor_set: Default::default(),
+            binding: Default::default(),
+            array_element: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DataGraphPipelineCompilerControlCreateInfoARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_vendor_options: *const c_char,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DataGraphPipelineCompilerControlCreateInfoARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DATA_GRAPH_PIPELINE_COMPILER_CONTROL_CREATE_INFO_ARM,
+            p_next: core::ptr::null(),
+            p_vendor_options: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DataGraphPipelineCreateInfoARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -61,7 +127,21 @@ pub struct DataGraphPipelineCreateInfoARM<'a> {
     pub p_resource_infos: *const DataGraphPipelineResourceInfoARM<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DataGraphPipelineCreateInfoARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DATA_GRAPH_PIPELINE_CREATE_INFO_ARM,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            layout: Default::default(),
+            resource_info_count: Default::default(),
+            p_resource_infos: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DataGraphPipelineShaderModuleCreateInfoARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -72,7 +152,22 @@ pub struct DataGraphPipelineShaderModuleCreateInfoARM<'a> {
     pub p_constants: *const DataGraphPipelineConstantARM<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DataGraphPipelineShaderModuleCreateInfoARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DATA_GRAPH_PIPELINE_SHADER_MODULE_CREATE_INFO_ARM,
+            p_next: core::ptr::null(),
+            module: Default::default(),
+            p_name: core::ptr::null(),
+            p_specialization_info: core::ptr::null(),
+            constant_count: Default::default(),
+            p_constants: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DataGraphPipelineSessionCreateInfoARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -80,14 +175,37 @@ pub struct DataGraphPipelineSessionCreateInfoARM<'a> {
     pub data_graph_pipeline: Pipeline,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DataGraphPipelineSessionCreateInfoARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DATA_GRAPH_PIPELINE_SESSION_CREATE_INFO_ARM,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            data_graph_pipeline: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DataGraphPipelineSessionBindPointRequirementsInfoARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub session: DataGraphPipelineSessionARM,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DataGraphPipelineSessionBindPointRequirementsInfoARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENTS_INFO_ARM,
+            p_next: core::ptr::null(),
+            session: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DataGraphPipelineSessionBindPointRequirementARM<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -96,7 +214,20 @@ pub struct DataGraphPipelineSessionBindPointRequirementARM<'a> {
     pub num_objects: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DataGraphPipelineSessionBindPointRequirementARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENT_ARM,
+            p_next: core::ptr::null_mut(),
+            bind_point: Default::default(),
+            bind_point_type: Default::default(),
+            num_objects: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DataGraphPipelineSessionMemoryRequirementsInfoARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -105,7 +236,20 @@ pub struct DataGraphPipelineSessionMemoryRequirementsInfoARM<'a> {
     pub object_index: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DataGraphPipelineSessionMemoryRequirementsInfoARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DATA_GRAPH_PIPELINE_SESSION_MEMORY_REQUIREMENTS_INFO_ARM,
+            p_next: core::ptr::null(),
+            session: Default::default(),
+            bind_point: Default::default(),
+            object_index: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BindDataGraphPipelineSessionMemoryInfoARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -116,14 +260,40 @@ pub struct BindDataGraphPipelineSessionMemoryInfoARM<'a> {
     pub memory_offset: DeviceSize,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for BindDataGraphPipelineSessionMemoryInfoARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BIND_DATA_GRAPH_PIPELINE_SESSION_MEMORY_INFO_ARM,
+            p_next: core::ptr::null(),
+            session: Default::default(),
+            bind_point: Default::default(),
+            object_index: Default::default(),
+            memory: Default::default(),
+            memory_offset: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DataGraphPipelineInfoARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub data_graph_pipeline: Pipeline,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DataGraphPipelineInfoARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DATA_GRAPH_PIPELINE_INFO_ARM,
+            p_next: core::ptr::null(),
+            data_graph_pipeline: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DataGraphPipelinePropertyQueryResultARM<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -133,7 +303,21 @@ pub struct DataGraphPipelinePropertyQueryResultARM<'a> {
     pub p_data: *mut c_void,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DataGraphPipelinePropertyQueryResultARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DATA_GRAPH_PIPELINE_PROPERTY_QUERY_RESULT_ARM,
+            p_next: core::ptr::null_mut(),
+            property: Default::default(),
+            is_text: Default::default(),
+            data_size: Default::default(),
+            p_data: core::ptr::null_mut(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DataGraphPipelineIdentifierCreateInfoARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -141,25 +325,59 @@ pub struct DataGraphPipelineIdentifierCreateInfoARM<'a> {
     pub p_identifier: *const u8,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DataGraphPipelineIdentifierCreateInfoARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DATA_GRAPH_PIPELINE_IDENTIFIER_CREATE_INFO_ARM,
+            p_next: core::ptr::null(),
+            identifier_size: Default::default(),
+            p_identifier: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DataGraphPipelineDispatchInfoARM<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub flags: DataGraphPipelineDispatchFlagsARM,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DataGraphPipelineDispatchInfoARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DATA_GRAPH_PIPELINE_DISPATCH_INFO_ARM,
+            p_next: core::ptr::null_mut(),
+            flags: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct PhysicalDeviceDataGraphProcessingEngineARM {
     pub ty: PhysicalDeviceDataGraphProcessingEngineTypeARM,
     pub is_foreign: Bool32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDataGraphOperationSupportARM {
     pub operation_type: PhysicalDeviceDataGraphOperationTypeARM,
     pub name: [c_char; MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM as usize],
     pub version: u32,
 }
+impl Default for PhysicalDeviceDataGraphOperationSupportARM {
+    fn default() -> Self {
+        Self {
+            operation_type: Default::default(),
+            name: [Default::default(); _],
+            version: Default::default(),
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct QueueFamilyDataGraphPropertiesARM<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -167,7 +385,19 @@ pub struct QueueFamilyDataGraphPropertiesARM<'a> {
     pub operation: PhysicalDeviceDataGraphOperationSupportARM,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for QueueFamilyDataGraphPropertiesARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::QUEUE_FAMILY_DATA_GRAPH_PROPERTIES_ARM,
+            p_next: core::ptr::null_mut(),
+            engine: Default::default(),
+            operation: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -175,7 +405,20 @@ pub struct PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM<'a> {
     pub engine_type: PhysicalDeviceDataGraphProcessingEngineTypeARM,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type:
+                StructureType::PHYSICAL_DEVICE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_INFO_ARM,
+            p_next: core::ptr::null(),
+            queue_family_index: Default::default(),
+            engine_type: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct QueueFamilyDataGraphProcessingEnginePropertiesARM<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -183,13 +426,36 @@ pub struct QueueFamilyDataGraphProcessingEnginePropertiesARM<'a> {
     pub foreign_memory_handle_types: ExternalMemoryHandleTypeFlags,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for QueueFamilyDataGraphProcessingEnginePropertiesARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_PROPERTIES_ARM,
+            p_next: core::ptr::null_mut(),
+            foreign_semaphore_handle_types: Default::default(),
+            foreign_memory_handle_types: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DataGraphProcessingEngineCreateInfoARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub processing_engine_count: u32,
     pub p_processing_engines: *mut PhysicalDeviceDataGraphProcessingEngineARM,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for DataGraphProcessingEngineCreateInfoARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DATA_GRAPH_PROCESSING_ENGINE_CREATE_INFO_ARM,
+            p_next: core::ptr::null(),
+            processing_engine_count: Default::default(),
+            p_processing_engines: core::ptr::null_mut(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

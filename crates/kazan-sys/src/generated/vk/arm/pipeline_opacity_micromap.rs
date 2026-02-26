@@ -4,9 +4,20 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDevicePipelineOpacityMicromapFeaturesARM<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub pipeline_opacity_micromap: Bool32,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for PhysicalDevicePipelineOpacityMicromapFeaturesARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_PIPELINE_OPACITY_MICROMAP_FEATURES_ARM,
+            p_next: core::ptr::null_mut(),
+            pipeline_opacity_micromap: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }

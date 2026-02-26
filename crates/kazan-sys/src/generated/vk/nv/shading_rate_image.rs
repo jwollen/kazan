@@ -4,12 +4,23 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ShadingRatePaletteNV<'a> {
     pub shading_rate_palette_entry_count: u32,
     pub p_shading_rate_palette_entries: *const ShadingRatePaletteEntryNV,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ShadingRatePaletteNV<'_> {
+    fn default() -> Self {
+        Self {
+            shading_rate_palette_entry_count: Default::default(),
+            p_shading_rate_palette_entries: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineViewportShadingRateImageStateCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -18,7 +29,20 @@ pub struct PipelineViewportShadingRateImageStateCreateInfoNV<'a> {
     pub p_shading_rate_palettes: *const ShadingRatePaletteNV<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PipelineViewportShadingRateImageStateCreateInfoNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_VIEWPORT_SHADING_RATE_IMAGE_STATE_CREATE_INFO_NV,
+            p_next: core::ptr::null(),
+            shading_rate_image_enable: Default::default(),
+            viewport_count: Default::default(),
+            p_shading_rate_palettes: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceShadingRateImageFeaturesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -26,7 +50,19 @@ pub struct PhysicalDeviceShadingRateImageFeaturesNV<'a> {
     pub shading_rate_coarse_sample_order: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceShadingRateImageFeaturesNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_SHADING_RATE_IMAGE_FEATURES_NV,
+            p_next: core::ptr::null_mut(),
+            shading_rate_image: Default::default(),
+            shading_rate_coarse_sample_order: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceShadingRateImagePropertiesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -35,13 +71,27 @@ pub struct PhysicalDeviceShadingRateImagePropertiesNV<'a> {
     pub shading_rate_max_coarse_samples: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceShadingRateImagePropertiesNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV,
+            p_next: core::ptr::null_mut(),
+            shading_rate_texel_size: Default::default(),
+            shading_rate_palette_size: Default::default(),
+            shading_rate_max_coarse_samples: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct CoarseSampleLocationNV {
     pub pixel_x: u32,
     pub pixel_y: u32,
     pub sample: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct CoarseSampleOrderCustomNV<'a> {
     pub shading_rate: ShadingRatePaletteEntryNV,
     pub sample_count: u32,
@@ -49,7 +99,19 @@ pub struct CoarseSampleOrderCustomNV<'a> {
     pub p_sample_locations: *const CoarseSampleLocationNV,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for CoarseSampleOrderCustomNV<'_> {
+    fn default() -> Self {
+        Self {
+            shading_rate: Default::default(),
+            sample_count: Default::default(),
+            sample_location_count: Default::default(),
+            p_sample_locations: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineViewportCoarseSampleOrderStateCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -57,6 +119,18 @@ pub struct PipelineViewportCoarseSampleOrderStateCreateInfoNV<'a> {
     pub custom_sample_order_count: u32,
     pub p_custom_sample_orders: *const CoarseSampleOrderCustomNV<'a>,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for PipelineViewportCoarseSampleOrderStateCreateInfoNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_VIEWPORT_COARSE_SAMPLE_ORDER_STATE_CREATE_INFO_NV,
+            p_next: core::ptr::null(),
+            sample_order_type: Default::default(),
+            custom_sample_order_count: Default::default(),
+            p_custom_sample_orders: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

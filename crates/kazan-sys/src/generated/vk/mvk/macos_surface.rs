@@ -4,12 +4,24 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct MacOSSurfaceCreateInfoMVK<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: MacOSSurfaceCreateFlagsMVK,
     pub p_view: *const c_void,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for MacOSSurfaceCreateInfoMVK<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::MACOS_SURFACE_CREATE_INFO_MVK,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            p_view: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
 }
 bitflags! {
     #[repr(transparent)]

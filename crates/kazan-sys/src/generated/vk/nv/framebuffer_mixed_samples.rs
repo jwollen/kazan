@@ -5,6 +5,7 @@ use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub type AttachmentSampleCountInfoNV<'a> = AttachmentSampleCountInfoAMD<'a>;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineCoverageModulationStateCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -14,6 +15,20 @@ pub struct PipelineCoverageModulationStateCreateInfoNV<'a> {
     pub coverage_modulation_table_count: u32,
     pub p_coverage_modulation_table: *const f32,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for PipelineCoverageModulationStateCreateInfoNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            coverage_modulation_mode: Default::default(),
+            coverage_modulation_table_enable: Default::default(),
+            coverage_modulation_table_count: Default::default(),
+            p_coverage_modulation_table: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

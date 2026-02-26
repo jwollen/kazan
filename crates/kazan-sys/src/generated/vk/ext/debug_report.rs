@@ -7,6 +7,7 @@ use core::marker::PhantomData;
 #[derive(Copy, Clone, Default)]
 pub struct DebugReportCallbackEXT(u64);
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DebugReportCallbackCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -14,6 +15,18 @@ pub struct DebugReportCallbackCreateInfoEXT<'a> {
     pub pfn_callback: Option<PFN_vkDebugReportCallbackEXT>,
     pub p_user_data: *mut c_void,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for DebugReportCallbackCreateInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            pfn_callback: Default::default(),
+            p_user_data: core::ptr::null_mut(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

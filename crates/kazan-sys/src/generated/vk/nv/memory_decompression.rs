@@ -9,6 +9,7 @@ pub type PhysicalDeviceMemoryDecompressionPropertiesNV<'a> =
     PhysicalDeviceMemoryDecompressionPropertiesEXT<'a>;
 pub type MemoryDecompressionMethodFlagsNV = MemoryDecompressionMethodFlagsEXT;
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct DecompressMemoryRegionNV {
     pub src_address: DeviceAddress,
     pub dst_address: DeviceAddress,

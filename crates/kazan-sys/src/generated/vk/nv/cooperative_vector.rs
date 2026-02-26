@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceCooperativeVectorFeaturesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -11,7 +12,19 @@ pub struct PhysicalDeviceCooperativeVectorFeaturesNV<'a> {
     pub cooperative_vector_training: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceCooperativeVectorFeaturesNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_COOPERATIVE_VECTOR_FEATURES_NV,
+            p_next: core::ptr::null_mut(),
+            cooperative_vector: Default::default(),
+            cooperative_vector_training: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct CooperativeVectorPropertiesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -23,7 +36,23 @@ pub struct CooperativeVectorPropertiesNV<'a> {
     pub transpose: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for CooperativeVectorPropertiesNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::COOPERATIVE_VECTOR_PROPERTIES_NV,
+            p_next: core::ptr::null_mut(),
+            input_type: Default::default(),
+            input_interpretation: Default::default(),
+            matrix_interpretation: Default::default(),
+            bias_interpretation: Default::default(),
+            result_type: Default::default(),
+            transpose: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceCooperativeVectorPropertiesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -33,7 +62,21 @@ pub struct PhysicalDeviceCooperativeVectorPropertiesNV<'a> {
     pub max_cooperative_vector_components: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceCooperativeVectorPropertiesNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_COOPERATIVE_VECTOR_PROPERTIES_NV,
+            p_next: core::ptr::null_mut(),
+            cooperative_vector_supported_stages: Default::default(),
+            cooperative_vector_training_float16_accumulation: Default::default(),
+            cooperative_vector_training_float32_accumulation: Default::default(),
+            max_cooperative_vector_components: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ConvertCooperativeVectorMatrixInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -50,6 +93,27 @@ pub struct ConvertCooperativeVectorMatrixInfoNV<'a> {
     pub dst_layout: CooperativeVectorMatrixLayoutNV,
     pub dst_stride: usize,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for ConvertCooperativeVectorMatrixInfoNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::CONVERT_COOPERATIVE_VECTOR_MATRIX_INFO_NV,
+            p_next: core::ptr::null(),
+            src_size: Default::default(),
+            src_data: Default::default(),
+            p_dst_size: core::ptr::null_mut(),
+            dst_data: Default::default(),
+            src_component_type: Default::default(),
+            dst_component_type: Default::default(),
+            num_rows: Default::default(),
+            num_columns: Default::default(),
+            src_layout: Default::default(),
+            src_stride: Default::default(),
+            dst_layout: Default::default(),
+            dst_stride: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

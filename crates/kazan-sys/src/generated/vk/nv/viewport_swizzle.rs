@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct ViewportSwizzleNV {
     pub x: ViewportCoordinateSwizzleNV,
     pub y: ViewportCoordinateSwizzleNV,
@@ -11,6 +12,7 @@ pub struct ViewportSwizzleNV {
     pub w: ViewportCoordinateSwizzleNV,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineViewportSwizzleStateCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -18,6 +20,18 @@ pub struct PipelineViewportSwizzleStateCreateInfoNV<'a> {
     pub viewport_count: u32,
     pub p_viewport_swizzles: *const ViewportSwizzleNV,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for PipelineViewportSwizzleStateCreateInfoNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_VIEWPORT_SWIZZLE_STATE_CREATE_INFO_NV,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            viewport_count: Default::default(),
+            p_viewport_swizzles: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

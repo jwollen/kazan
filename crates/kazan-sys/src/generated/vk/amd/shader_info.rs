@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct ShaderResourceUsageAMD {
     pub num_used_vgprs: u32,
     pub num_used_sgprs: u32,
@@ -12,6 +13,7 @@ pub struct ShaderResourceUsageAMD {
     pub scratch_mem_usage_in_bytes: usize,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ShaderStatisticsInfoAMD {
     pub shader_stage_mask: ShaderStageFlags,
     pub resource_usage: ShaderResourceUsageAMD,
@@ -20,6 +22,19 @@ pub struct ShaderStatisticsInfoAMD {
     pub num_available_vgprs: u32,
     pub num_available_sgprs: u32,
     pub compute_work_group_size: [u32; 3],
+}
+impl Default for ShaderStatisticsInfoAMD {
+    fn default() -> Self {
+        Self {
+            shader_stage_mask: Default::default(),
+            resource_usage: Default::default(),
+            num_physical_vgprs: Default::default(),
+            num_physical_sgprs: Default::default(),
+            num_available_vgprs: Default::default(),
+            num_available_sgprs: Default::default(),
+            compute_work_group_size: [Default::default(); _],
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

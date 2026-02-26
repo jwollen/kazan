@@ -18,6 +18,7 @@ pub type GeometryInstanceFlagsNV = GeometryInstanceFlagsKHR;
 pub type BuildAccelerationStructureFlagsNV = BuildAccelerationStructureFlagsKHR;
 pub type PFN_vkGetRayTracingShaderGroupHandlesNV = PFN_vkGetRayTracingShaderGroupHandlesKHR;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct RayTracingShaderGroupCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -28,7 +29,22 @@ pub struct RayTracingShaderGroupCreateInfoNV<'a> {
     pub intersection_shader: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for RayTracingShaderGroupCreateInfoNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::RAY_TRACING_SHADER_GROUP_CREATE_INFO_NV,
+            p_next: core::ptr::null(),
+            ty: Default::default(),
+            general_shader: Default::default(),
+            closest_hit_shader: Default::default(),
+            any_hit_shader: Default::default(),
+            intersection_shader: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct RayTracingPipelineCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -43,7 +59,26 @@ pub struct RayTracingPipelineCreateInfoNV<'a> {
     pub base_pipeline_index: i32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for RayTracingPipelineCreateInfoNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::RAY_TRACING_PIPELINE_CREATE_INFO_NV,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            stage_count: Default::default(),
+            p_stages: core::ptr::null(),
+            group_count: Default::default(),
+            p_groups: core::ptr::null(),
+            max_recursion_depth: Default::default(),
+            layout: Default::default(),
+            base_pipeline_handle: Default::default(),
+            base_pipeline_index: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GeometryTrianglesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -60,7 +95,28 @@ pub struct GeometryTrianglesNV<'a> {
     pub transform_offset: DeviceSize,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for GeometryTrianglesNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::GEOMETRY_TRIANGLES_NV,
+            p_next: core::ptr::null(),
+            vertex_data: Default::default(),
+            vertex_offset: Default::default(),
+            vertex_count: Default::default(),
+            vertex_stride: Default::default(),
+            vertex_format: Default::default(),
+            index_data: Default::default(),
+            index_offset: Default::default(),
+            index_count: Default::default(),
+            index_type: Default::default(),
+            transform_data: Default::default(),
+            transform_offset: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GeometryAABBNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -70,13 +126,37 @@ pub struct GeometryAABBNV<'a> {
     pub offset: DeviceSize,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for GeometryAABBNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::GEOMETRY_AABB_NV,
+            p_next: core::ptr::null(),
+            aabb_data: Default::default(),
+            num_aab_bs: Default::default(),
+            stride: Default::default(),
+            offset: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GeometryDataNV<'a> {
     pub triangles: GeometryTrianglesNV<'a>,
     pub aabbs: GeometryAABBNV<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for GeometryDataNV<'_> {
+    fn default() -> Self {
+        Self {
+            triangles: Default::default(),
+            aabbs: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GeometryNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -85,7 +165,20 @@ pub struct GeometryNV<'a> {
     pub flags: GeometryFlagsKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for GeometryNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::GEOMETRY_NV,
+            p_next: core::ptr::null(),
+            geometry_type: Default::default(),
+            geometry: Default::default(),
+            flags: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct AccelerationStructureInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -96,7 +189,22 @@ pub struct AccelerationStructureInfoNV<'a> {
     pub p_geometries: *const GeometryNV<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for AccelerationStructureInfoNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::ACCELERATION_STRUCTURE_INFO_NV,
+            p_next: core::ptr::null(),
+            ty: Default::default(),
+            flags: Default::default(),
+            instance_count: Default::default(),
+            geometry_count: Default::default(),
+            p_geometries: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct AccelerationStructureCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -104,7 +212,19 @@ pub struct AccelerationStructureCreateInfoNV<'a> {
     pub info: AccelerationStructureInfoNV<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for AccelerationStructureCreateInfoNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::ACCELERATION_STRUCTURE_CREATE_INFO_NV,
+            p_next: core::ptr::null(),
+            compacted_size: Default::default(),
+            info: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BindAccelerationStructureMemoryInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -115,7 +235,22 @@ pub struct BindAccelerationStructureMemoryInfoNV<'a> {
     pub p_device_indices: *const u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for BindAccelerationStructureMemoryInfoNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BIND_ACCELERATION_STRUCTURE_MEMORY_INFO_NV,
+            p_next: core::ptr::null(),
+            acceleration_structure: Default::default(),
+            memory: Default::default(),
+            memory_offset: Default::default(),
+            device_index_count: Default::default(),
+            p_device_indices: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct WriteDescriptorSetAccelerationStructureNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -123,7 +258,19 @@ pub struct WriteDescriptorSetAccelerationStructureNV<'a> {
     pub p_acceleration_structures: *const AccelerationStructureNV,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for WriteDescriptorSetAccelerationStructureNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_NV,
+            p_next: core::ptr::null(),
+            acceleration_structure_count: Default::default(),
+            p_acceleration_structures: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct AccelerationStructureMemoryRequirementsInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -131,7 +278,19 @@ pub struct AccelerationStructureMemoryRequirementsInfoNV<'a> {
     pub acceleration_structure: AccelerationStructureNV,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for AccelerationStructureMemoryRequirementsInfoNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV,
+            p_next: core::ptr::null(),
+            ty: Default::default(),
+            acceleration_structure: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceRayTracingPropertiesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -144,6 +303,23 @@ pub struct PhysicalDeviceRayTracingPropertiesNV<'a> {
     pub max_triangle_count: u64,
     pub max_descriptor_set_acceleration_structures: u32,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for PhysicalDeviceRayTracingPropertiesNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_RAY_TRACING_PROPERTIES_NV,
+            p_next: core::ptr::null_mut(),
+            shader_group_handle_size: Default::default(),
+            max_recursion_depth: Default::default(),
+            max_shader_group_stride: Default::default(),
+            shader_group_base_alignment: Default::default(),
+            max_geometry_count: Default::default(),
+            max_instance_count: Default::default(),
+            max_triangle_count: Default::default(),
+            max_descriptor_set_acceleration_structures: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

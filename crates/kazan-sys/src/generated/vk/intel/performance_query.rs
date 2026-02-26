@@ -8,40 +8,95 @@ use core::marker::PhantomData;
 pub struct PerformanceConfigurationINTEL(u64);
 pub type QueryPoolCreateInfoINTEL<'a> = QueryPoolPerformanceQueryCreateInfoINTEL<'a>;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PerformanceValueINTEL<'a> {
     pub ty: PerformanceValueTypeINTEL,
     pub data: PerformanceValueDataINTEL<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PerformanceValueINTEL<'_> {
+    fn default() -> Self {
+        Self {
+            ty: Default::default(),
+            data: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct InitializePerformanceApiInfoINTEL<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_user_data: *mut c_void,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for InitializePerformanceApiInfoINTEL<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::INITIALIZE_PERFORMANCE_API_INFO_INTEL,
+            p_next: core::ptr::null(),
+            p_user_data: core::ptr::null_mut(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct QueryPoolPerformanceQueryCreateInfoINTEL<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub performance_counters_sampling: QueryPoolSamplingModeINTEL,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for QueryPoolPerformanceQueryCreateInfoINTEL<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::QUERY_POOL_PERFORMANCE_QUERY_CREATE_INFO_INTEL,
+            p_next: core::ptr::null(),
+            performance_counters_sampling: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PerformanceMarkerInfoINTEL<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub marker: u64,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PerformanceMarkerInfoINTEL<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PERFORMANCE_MARKER_INFO_INTEL,
+            p_next: core::ptr::null(),
+            marker: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PerformanceStreamMarkerInfoINTEL<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub marker: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PerformanceStreamMarkerInfoINTEL<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PERFORMANCE_STREAM_MARKER_INFO_INTEL,
+            p_next: core::ptr::null(),
+            marker: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PerformanceOverrideInfoINTEL<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -50,12 +105,35 @@ pub struct PerformanceOverrideInfoINTEL<'a> {
     pub parameter: u64,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PerformanceOverrideInfoINTEL<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PERFORMANCE_OVERRIDE_INFO_INTEL,
+            p_next: core::ptr::null(),
+            ty: Default::default(),
+            enable: Default::default(),
+            parameter: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PerformanceConfigurationAcquireInfoINTEL<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub ty: PerformanceConfigurationTypeINTEL,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for PerformanceConfigurationAcquireInfoINTEL<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL,
+            p_next: core::ptr::null(),
+            ty: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

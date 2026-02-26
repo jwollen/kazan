@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SurfaceCapabilities2EXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -19,6 +20,26 @@ pub struct SurfaceCapabilities2EXT<'a> {
     pub supported_usage_flags: ImageUsageFlags,
     pub supported_surface_counters: SurfaceCounterFlagsEXT,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for SurfaceCapabilities2EXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SURFACE_CAPABILITIES_2_EXT,
+            p_next: core::ptr::null_mut(),
+            min_image_count: Default::default(),
+            max_image_count: Default::default(),
+            current_extent: Default::default(),
+            min_image_extent: Default::default(),
+            max_image_extent: Default::default(),
+            max_image_array_layers: Default::default(),
+            supported_transforms: Default::default(),
+            current_transform: Default::default(),
+            supported_composite_alpha: Default::default(),
+            supported_usage_flags: Default::default(),
+            supported_surface_counters: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 bitflags! {
     #[repr(transparent)]

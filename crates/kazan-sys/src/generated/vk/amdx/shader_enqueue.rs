@@ -5,6 +5,7 @@ use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub const SHADER_INDEX_UNUSED_AMDX: u32 = !0;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderEnqueuePropertiesAMDX<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -17,7 +18,24 @@ pub struct PhysicalDeviceShaderEnqueuePropertiesAMDX<'a> {
     pub max_execution_graph_workgroups: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceShaderEnqueuePropertiesAMDX<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_SHADER_ENQUEUE_PROPERTIES_AMDX,
+            p_next: core::ptr::null_mut(),
+            max_execution_graph_depth: Default::default(),
+            max_execution_graph_shader_output_nodes: Default::default(),
+            max_execution_graph_shader_payload_size: Default::default(),
+            max_execution_graph_shader_payload_count: Default::default(),
+            execution_graph_dispatch_address_alignment: Default::default(),
+            max_execution_graph_workgroup_count: [Default::default(); _],
+            max_execution_graph_workgroups: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderEnqueueFeaturesAMDX<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -25,7 +43,19 @@ pub struct PhysicalDeviceShaderEnqueueFeaturesAMDX<'a> {
     pub shader_mesh_enqueue: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceShaderEnqueueFeaturesAMDX<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_SHADER_ENQUEUE_FEATURES_AMDX,
+            p_next: core::ptr::null_mut(),
+            shader_enqueue: Default::default(),
+            shader_mesh_enqueue: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ExecutionGraphPipelineCreateInfoAMDX<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -38,7 +68,24 @@ pub struct ExecutionGraphPipelineCreateInfoAMDX<'a> {
     pub base_pipeline_index: i32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ExecutionGraphPipelineCreateInfoAMDX<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::EXECUTION_GRAPH_PIPELINE_CREATE_INFO_AMDX,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            stage_count: Default::default(),
+            p_stages: core::ptr::null(),
+            p_library_info: core::ptr::null(),
+            layout: Default::default(),
+            base_pipeline_handle: Default::default(),
+            base_pipeline_index: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineShaderStageNodeCreateInfoAMDX<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -46,7 +93,19 @@ pub struct PipelineShaderStageNodeCreateInfoAMDX<'a> {
     pub index: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PipelineShaderStageNodeCreateInfoAMDX<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_SHADER_STAGE_NODE_CREATE_INFO_AMDX,
+            p_next: core::ptr::null(),
+            p_name: core::ptr::null(),
+            index: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ExecutionGraphPipelineScratchSizeAMDX<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -55,7 +114,20 @@ pub struct ExecutionGraphPipelineScratchSizeAMDX<'a> {
     pub size_granularity: DeviceSize,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ExecutionGraphPipelineScratchSizeAMDX<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::EXECUTION_GRAPH_PIPELINE_SCRATCH_SIZE_AMDX,
+            p_next: core::ptr::null_mut(),
+            min_size: Default::default(),
+            max_size: Default::default(),
+            size_granularity: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DispatchGraphInfoAMDX<'a> {
     pub node_index: u32,
     pub payload_count: u32,
@@ -63,12 +135,34 @@ pub struct DispatchGraphInfoAMDX<'a> {
     pub payload_stride: u64,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DispatchGraphInfoAMDX<'_> {
+    fn default() -> Self {
+        Self {
+            node_index: Default::default(),
+            payload_count: Default::default(),
+            payloads: Default::default(),
+            payload_stride: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DispatchGraphCountInfoAMDX<'a> {
     pub count: u32,
     pub infos: DeviceOrHostAddressConstAMDX<'a>,
     pub stride: u64,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for DispatchGraphCountInfoAMDX<'_> {
+    fn default() -> Self {
+        Self {
+            count: Default::default(),
+            infos: Default::default(),
+            stride: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

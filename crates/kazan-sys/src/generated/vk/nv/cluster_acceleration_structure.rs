@@ -4,13 +4,25 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceClusterAccelerationStructureFeaturesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub cluster_acceleration_structure: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceClusterAccelerationStructureFeaturesNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_FEATURES_NV,
+            p_next: core::ptr::null_mut(),
+            cluster_acceleration_structure: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceClusterAccelerationStructurePropertiesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -24,39 +36,74 @@ pub struct PhysicalDeviceClusterAccelerationStructurePropertiesNV<'a> {
     pub max_cluster_geometry_index: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceClusterAccelerationStructurePropertiesNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_PROPERTIES_NV,
+            p_next: core::ptr::null_mut(),
+            max_vertices_per_cluster: Default::default(),
+            max_triangles_per_cluster: Default::default(),
+            cluster_scratch_byte_alignment: Default::default(),
+            cluster_byte_alignment: Default::default(),
+            cluster_template_byte_alignment: Default::default(),
+            cluster_bottom_level_byte_alignment: Default::default(),
+            cluster_template_bounds_byte_alignment: Default::default(),
+            max_cluster_geometry_index: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StridedDeviceAddressNV {
     pub start_address: DeviceAddress,
     pub stride_in_bytes: DeviceSize,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct RayTracingPipelineClusterAccelerationStructureCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub allow_cluster_acceleration_structure: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for RayTracingPipelineClusterAccelerationStructureCreateInfoNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type:
+                StructureType::RAY_TRACING_PIPELINE_CLUSTER_ACCELERATION_STRUCTURE_CREATE_INFO_NV,
+            p_next: core::ptr::null_mut(),
+            allow_cluster_acceleration_structure: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct ClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV {
     pub geometry_index: u32,
     pub reserved: u32,
     pub geometry_flags: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct ClusterAccelerationStructureMoveObjectsInfoNV {
     pub src_acceleration_structure: DeviceAddress,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct ClusterAccelerationStructureBuildClustersBottomLevelInfoNV {
     pub cluster_references_count: u32,
     pub cluster_references_stride: u32,
     pub cluster_references: DeviceAddress,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct ClusterAccelerationStructureGetTemplateIndicesInfoNV {
     pub cluster_template_address: DeviceAddress,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct ClusterAccelerationStructureBuildTriangleClusterInfoNV {
     pub cluster_id: u32,
     pub cluster_flags: ClusterAccelerationStructureClusterFlagsNV,
@@ -78,6 +125,7 @@ pub struct ClusterAccelerationStructureBuildTriangleClusterInfoNV {
     pub opacity_micromap_index_buffer: DeviceAddress,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct ClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV {
     pub cluster_id: u32,
     pub cluster_flags: ClusterAccelerationStructureClusterFlagsNV,
@@ -100,6 +148,7 @@ pub struct ClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV {
     pub instantiation_bounding_box_limit: DeviceAddress,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct ClusterAccelerationStructureInstantiateClusterInfoNV {
     pub cluster_id_offset: u32,
     pub geometry_index_offset: u32,
@@ -108,6 +157,7 @@ pub struct ClusterAccelerationStructureInstantiateClusterInfoNV {
     pub vertex_buffer: StridedDeviceAddressNV,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ClusterAccelerationStructureClustersBottomLevelInputNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -115,7 +165,19 @@ pub struct ClusterAccelerationStructureClustersBottomLevelInputNV<'a> {
     pub max_cluster_count_per_acceleration_structure: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ClusterAccelerationStructureClustersBottomLevelInputNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::CLUSTER_ACCELERATION_STRUCTURE_CLUSTERS_BOTTOM_LEVEL_INPUT_NV,
+            p_next: core::ptr::null_mut(),
+            max_total_cluster_count: Default::default(),
+            max_cluster_count_per_acceleration_structure: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ClusterAccelerationStructureTriangleClusterInputNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -129,7 +191,25 @@ pub struct ClusterAccelerationStructureTriangleClusterInputNV<'a> {
     pub min_position_truncate_bit_count: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ClusterAccelerationStructureTriangleClusterInputNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::CLUSTER_ACCELERATION_STRUCTURE_TRIANGLE_CLUSTER_INPUT_NV,
+            p_next: core::ptr::null_mut(),
+            vertex_format: Default::default(),
+            max_geometry_index_value: Default::default(),
+            max_cluster_unique_geometry_count: Default::default(),
+            max_cluster_triangle_count: Default::default(),
+            max_cluster_vertex_count: Default::default(),
+            max_total_triangle_count: Default::default(),
+            max_total_vertex_count: Default::default(),
+            min_position_truncate_bit_count: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ClusterAccelerationStructureMoveObjectsInputNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -138,7 +218,20 @@ pub struct ClusterAccelerationStructureMoveObjectsInputNV<'a> {
     pub max_moved_bytes: DeviceSize,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ClusterAccelerationStructureMoveObjectsInputNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::CLUSTER_ACCELERATION_STRUCTURE_MOVE_OBJECTS_INPUT_NV,
+            p_next: core::ptr::null_mut(),
+            ty: Default::default(),
+            no_move_overlap: Default::default(),
+            max_moved_bytes: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ClusterAccelerationStructureInputInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -149,7 +242,22 @@ pub struct ClusterAccelerationStructureInputInfoNV<'a> {
     pub op_input: ClusterAccelerationStructureOpInputNV<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ClusterAccelerationStructureInputInfoNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::CLUSTER_ACCELERATION_STRUCTURE_INPUT_INFO_NV,
+            p_next: core::ptr::null_mut(),
+            max_acceleration_structure_count: Default::default(),
+            flags: Default::default(),
+            op_type: Default::default(),
+            op_mode: Default::default(),
+            op_input: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ClusterAccelerationStructureCommandsInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -162,6 +270,23 @@ pub struct ClusterAccelerationStructureCommandsInfoNV<'a> {
     pub src_infos_count: DeviceAddress,
     pub address_resolution_flags: ClusterAccelerationStructureAddressResolutionFlagsNV,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for ClusterAccelerationStructureCommandsInfoNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::CLUSTER_ACCELERATION_STRUCTURE_COMMANDS_INFO_NV,
+            p_next: core::ptr::null_mut(),
+            input: Default::default(),
+            dst_implicit_data: Default::default(),
+            scratch_data: Default::default(),
+            dst_addresses_array: Default::default(),
+            dst_sizes_array: Default::default(),
+            src_infos_array: Default::default(),
+            src_infos_count: Default::default(),
+            address_resolution_flags: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

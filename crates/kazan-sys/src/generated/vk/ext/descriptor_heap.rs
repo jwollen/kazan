@@ -7,6 +7,7 @@ use core::marker::PhantomData;
 #[derive(Copy, Clone, Default)]
 pub struct TensorARM(u64);
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct TensorViewCreateInfoARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -15,24 +16,58 @@ pub struct TensorViewCreateInfoARM<'a> {
     pub format: Format,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for TensorViewCreateInfoARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::TENSOR_VIEW_CREATE_INFO_ARM,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            tensor: Default::default(),
+            format: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct HostAddressRangeEXT<'a> {
     pub address: *mut c_void,
     pub size: usize,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for HostAddressRangeEXT<'_> {
+    fn default() -> Self {
+        Self {
+            address: core::ptr::null_mut(),
+            size: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct HostAddressRangeConstEXT<'a> {
     pub address: *const c_void,
     pub size: usize,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for HostAddressRangeConstEXT<'_> {
+    fn default() -> Self {
+        Self {
+            address: core::ptr::null(),
+            size: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct DeviceAddressRangeEXT {
     pub address: DeviceAddress,
     pub size: DeviceSize,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct TexelBufferDescriptorInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -40,7 +75,19 @@ pub struct TexelBufferDescriptorInfoEXT<'a> {
     pub address_range: DeviceAddressRangeEXT,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for TexelBufferDescriptorInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::TEXEL_BUFFER_DESCRIPTOR_INFO_EXT,
+            p_next: core::ptr::null(),
+            format: Default::default(),
+            address_range: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ImageDescriptorInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -48,7 +95,19 @@ pub struct ImageDescriptorInfoEXT<'a> {
     pub layout: ImageLayout,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ImageDescriptorInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::IMAGE_DESCRIPTOR_INFO_EXT,
+            p_next: core::ptr::null(),
+            p_view: core::ptr::null(),
+            layout: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ResourceDescriptorInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -56,7 +115,19 @@ pub struct ResourceDescriptorInfoEXT<'a> {
     pub data: ResourceDescriptorDataEXT<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ResourceDescriptorInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::RESOURCE_DESCRIPTOR_INFO_EXT,
+            p_next: core::ptr::null(),
+            ty: Default::default(),
+            data: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BindHeapInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -65,7 +136,20 @@ pub struct BindHeapInfoEXT<'a> {
     pub reserved_range_size: DeviceSize,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for BindHeapInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BIND_HEAP_INFO_EXT,
+            p_next: core::ptr::null(),
+            heap_range: Default::default(),
+            reserved_range_offset: Default::default(),
+            reserved_range_size: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PushDataInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -73,7 +157,19 @@ pub struct PushDataInfoEXT<'a> {
     pub data: HostAddressRangeConstEXT<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PushDataInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PUSH_DATA_INFO_EXT,
+            p_next: core::ptr::null(),
+            offset: Default::default(),
+            data: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DescriptorMappingSourceConstantOffsetEXT<'a> {
     pub heap_offset: u32,
     pub heap_array_stride: u32,
@@ -82,7 +178,20 @@ pub struct DescriptorMappingSourceConstantOffsetEXT<'a> {
     pub sampler_heap_array_stride: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DescriptorMappingSourceConstantOffsetEXT<'_> {
+    fn default() -> Self {
+        Self {
+            heap_offset: Default::default(),
+            heap_array_stride: Default::default(),
+            p_embedded_sampler: core::ptr::null(),
+            sampler_heap_offset: Default::default(),
+            sampler_heap_array_stride: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DescriptorMappingSourcePushIndexEXT<'a> {
     pub heap_offset: u32,
     pub push_offset: u32,
@@ -96,7 +205,25 @@ pub struct DescriptorMappingSourcePushIndexEXT<'a> {
     pub sampler_heap_array_stride: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DescriptorMappingSourcePushIndexEXT<'_> {
+    fn default() -> Self {
+        Self {
+            heap_offset: Default::default(),
+            push_offset: Default::default(),
+            heap_index_stride: Default::default(),
+            heap_array_stride: Default::default(),
+            p_embedded_sampler: core::ptr::null(),
+            use_combined_image_sampler_index: Default::default(),
+            sampler_heap_offset: Default::default(),
+            sampler_push_offset: Default::default(),
+            sampler_heap_index_stride: Default::default(),
+            sampler_heap_array_stride: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DescriptorMappingSourceIndirectIndexEXT<'a> {
     pub heap_offset: u32,
     pub push_offset: u32,
@@ -112,7 +239,27 @@ pub struct DescriptorMappingSourceIndirectIndexEXT<'a> {
     pub sampler_heap_array_stride: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DescriptorMappingSourceIndirectIndexEXT<'_> {
+    fn default() -> Self {
+        Self {
+            heap_offset: Default::default(),
+            push_offset: Default::default(),
+            address_offset: Default::default(),
+            heap_index_stride: Default::default(),
+            heap_array_stride: Default::default(),
+            p_embedded_sampler: core::ptr::null(),
+            use_combined_image_sampler_index: Default::default(),
+            sampler_heap_offset: Default::default(),
+            sampler_push_offset: Default::default(),
+            sampler_address_offset: Default::default(),
+            sampler_heap_index_stride: Default::default(),
+            sampler_heap_array_stride: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DescriptorMappingSourceIndirectIndexArrayEXT<'a> {
     pub heap_offset: u32,
     pub push_offset: u32,
@@ -126,12 +273,31 @@ pub struct DescriptorMappingSourceIndirectIndexArrayEXT<'a> {
     pub sampler_heap_index_stride: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DescriptorMappingSourceIndirectIndexArrayEXT<'_> {
+    fn default() -> Self {
+        Self {
+            heap_offset: Default::default(),
+            push_offset: Default::default(),
+            address_offset: Default::default(),
+            heap_index_stride: Default::default(),
+            p_embedded_sampler: core::ptr::null(),
+            use_combined_image_sampler_index: Default::default(),
+            sampler_heap_offset: Default::default(),
+            sampler_push_offset: Default::default(),
+            sampler_address_offset: Default::default(),
+            sampler_heap_index_stride: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct DescriptorMappingSourceHeapDataEXT {
     pub heap_offset: u32,
     pub push_offset: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DescriptorMappingSourceShaderRecordIndexEXT<'a> {
     pub heap_offset: u32,
     pub shader_record_offset: u32,
@@ -145,12 +311,31 @@ pub struct DescriptorMappingSourceShaderRecordIndexEXT<'a> {
     pub sampler_heap_array_stride: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DescriptorMappingSourceShaderRecordIndexEXT<'_> {
+    fn default() -> Self {
+        Self {
+            heap_offset: Default::default(),
+            shader_record_offset: Default::default(),
+            heap_index_stride: Default::default(),
+            heap_array_stride: Default::default(),
+            p_embedded_sampler: core::ptr::null(),
+            use_combined_image_sampler_index: Default::default(),
+            sampler_heap_offset: Default::default(),
+            sampler_shader_record_offset: Default::default(),
+            sampler_heap_index_stride: Default::default(),
+            sampler_heap_array_stride: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct DescriptorMappingSourceIndirectAddressEXT {
     pub push_offset: u32,
     pub address_offset: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DescriptorSetAndBindingMappingEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -162,7 +347,23 @@ pub struct DescriptorSetAndBindingMappingEXT<'a> {
     pub source_data: DescriptorMappingSourceDataEXT<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DescriptorSetAndBindingMappingEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DESCRIPTOR_SET_AND_BINDING_MAPPING_EXT,
+            p_next: core::ptr::null(),
+            descriptor_set: Default::default(),
+            first_binding: Default::default(),
+            binding_count: Default::default(),
+            resource_mask: Default::default(),
+            source: Default::default(),
+            source_data: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ShaderDescriptorSetAndBindingMappingInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -170,21 +371,55 @@ pub struct ShaderDescriptorSetAndBindingMappingInfoEXT<'a> {
     pub p_mappings: *const DescriptorSetAndBindingMappingEXT<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ShaderDescriptorSetAndBindingMappingInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SHADER_DESCRIPTOR_SET_AND_BINDING_MAPPING_INFO_EXT,
+            p_next: core::ptr::null(),
+            mapping_count: Default::default(),
+            p_mappings: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SamplerCustomBorderColorIndexCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub index: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for SamplerCustomBorderColorIndexCreateInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SAMPLER_CUSTOM_BORDER_COLOR_INDEX_CREATE_INFO_EXT,
+            p_next: core::ptr::null(),
+            index: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct OpaqueCaptureDataCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_data: *const HostAddressRangeConstEXT<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for OpaqueCaptureDataCreateInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::OPAQUE_CAPTURE_DATA_CREATE_INFO_EXT,
+            p_next: core::ptr::null(),
+            p_data: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct IndirectCommandsLayoutPushDataTokenNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -192,14 +427,37 @@ pub struct IndirectCommandsLayoutPushDataTokenNV<'a> {
     pub push_data_size: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for IndirectCommandsLayoutPushDataTokenNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::INDIRECT_COMMANDS_LAYOUT_PUSH_DATA_TOKEN_NV,
+            p_next: core::ptr::null(),
+            push_data_offset: Default::default(),
+            push_data_size: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SubsampledImageFormatPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub subsampled_image_descriptor_count: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for SubsampledImageFormatPropertiesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SUBSAMPLED_IMAGE_FORMAT_PROPERTIES_EXT,
+            p_next: core::ptr::null(),
+            subsampled_image_descriptor_count: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDescriptorHeapFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -207,7 +465,19 @@ pub struct PhysicalDeviceDescriptorHeapFeaturesEXT<'a> {
     pub descriptor_heap_capture_replay: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceDescriptorHeapFeaturesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_DESCRIPTOR_HEAP_FEATURES_EXT,
+            p_next: core::ptr::null_mut(),
+            descriptor_heap: Default::default(),
+            descriptor_heap_capture_replay: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDescriptorHeapPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -232,7 +502,36 @@ pub struct PhysicalDeviceDescriptorHeapPropertiesEXT<'a> {
     pub protected_descriptor_heaps: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceDescriptorHeapPropertiesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_DESCRIPTOR_HEAP_PROPERTIES_EXT,
+            p_next: core::ptr::null_mut(),
+            sampler_heap_alignment: Default::default(),
+            resource_heap_alignment: Default::default(),
+            max_sampler_heap_size: Default::default(),
+            max_resource_heap_size: Default::default(),
+            min_sampler_heap_reserved_range: Default::default(),
+            min_sampler_heap_reserved_range_with_embedded: Default::default(),
+            min_resource_heap_reserved_range: Default::default(),
+            sampler_descriptor_size: Default::default(),
+            image_descriptor_size: Default::default(),
+            buffer_descriptor_size: Default::default(),
+            sampler_descriptor_alignment: Default::default(),
+            image_descriptor_alignment: Default::default(),
+            buffer_descriptor_alignment: Default::default(),
+            max_push_data_size: Default::default(),
+            image_capture_replay_opaque_data_size: Default::default(),
+            max_descriptor_heap_embedded_samplers: Default::default(),
+            sampler_ycbcr_conversion_count: Default::default(),
+            sparse_descriptor_heaps: Default::default(),
+            protected_descriptor_heaps: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct CommandBufferInheritanceDescriptorHeapInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -240,7 +539,19 @@ pub struct CommandBufferInheritanceDescriptorHeapInfoEXT<'a> {
     pub p_resource_heap_bind_info: *const BindHeapInfoEXT<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for CommandBufferInheritanceDescriptorHeapInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::COMMAND_BUFFER_INHERITANCE_DESCRIPTOR_HEAP_INFO_EXT,
+            p_next: core::ptr::null(),
+            p_sampler_heap_bind_info: core::ptr::null(),
+            p_resource_heap_bind_info: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDescriptorHeapTensorPropertiesARM<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -248,6 +559,18 @@ pub struct PhysicalDeviceDescriptorHeapTensorPropertiesARM<'a> {
     pub tensor_descriptor_alignment: DeviceSize,
     pub tensor_capture_replay_opaque_data_size: usize,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for PhysicalDeviceDescriptorHeapTensorPropertiesARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_DESCRIPTOR_HEAP_TENSOR_PROPERTIES_ARM,
+            p_next: core::ptr::null_mut(),
+            tensor_descriptor_size: Default::default(),
+            tensor_descriptor_alignment: Default::default(),
+            tensor_capture_replay_opaque_data_size: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

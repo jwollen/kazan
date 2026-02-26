@@ -74,12 +74,13 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
     writeln!(
         file,
         "#[repr(C)]
+        #[derive(Copy, Clone{})]
         pub struct {}{} {{",
-        // if info.has_default && type_info.default {
-        //     ", Default"
-        // } else {
-        //     ""
-        // },
+        if info.has_default && type_info.default {
+            ", Default"
+        } else {
+            ""
+        },
         normalize_ty_name(ty.name),
         if type_info.lifetime_param { "<'a>" } else { "" }
     )
@@ -105,29 +106,29 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
 
     let lifetime_spec = if type_info.lifetime_param { "<'_>" } else { "" };
 
-    // if info.has_default && !type_info.default {
-    //     writeln!(
-    //         file,
-    //         "impl Default for {}{} {{
-    //         fn default() -> Self {{
-    //         Self {{",
-    //         info.name, lifetime_spec
-    //     )
-    //     .unwrap();
-    //     for member in &info.members {
-    //         write!(file, "{}: ", member.name).unwrap();
-    //         if member.member.c_decl.name == "sType" {
-    //             writeln!(file, "StructureType::{}", info.tag.unwrap()).unwrap()
-    //         } else {
-    //             write!(file, "{}", default_value(&member.member.c_decl.ty)).unwrap();
-    //         }
-    //         writeln!(file, ",").unwrap();
-    //     }
-    //     if type_info.lifetime_param {
-    //         writeln!(file, "_marker: PhantomData",).unwrap();
-    //     }
-    //     writeln!(file, "}} }} }}").unwrap();
-    // }
+    if info.has_default && !type_info.default {
+        writeln!(
+            file,
+            "impl Default for {}{} {{
+            fn default() -> Self {{
+            Self {{",
+            info.name, lifetime_spec
+        )
+        .unwrap();
+        for member in &info.members {
+            write!(file, "{}: ", member.name).unwrap();
+            if member.member.c_decl.name == "sType" {
+                writeln!(file, "StructureType::{}", info.tag.unwrap()).unwrap()
+            } else {
+                write!(file, "{}", default_value(&member.member.c_decl.ty)).unwrap();
+            }
+            writeln!(file, ",").unwrap();
+        }
+        if type_info.lifetime_param {
+            writeln!(file, "_marker: PhantomData",).unwrap();
+        }
+        writeln!(file, "}} }} }}").unwrap();
+    }
 
     // writeln!(file, "impl {} {{", info.name).unwrap();
     // for member in &ty.members {

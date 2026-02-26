@@ -4,11 +4,22 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct CalibratedTimestampInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub time_domain: TimeDomainKHR,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for CalibratedTimestampInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::CALIBRATED_TIMESTAMP_INFO_KHR,
+            p_next: core::ptr::null(),
+            time_domain: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

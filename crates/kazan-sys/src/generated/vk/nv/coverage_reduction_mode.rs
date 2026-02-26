@@ -4,13 +4,25 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceCoverageReductionModeFeaturesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub coverage_reduction_mode: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceCoverageReductionModeFeaturesNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_COVERAGE_REDUCTION_MODE_FEATURES_NV,
+            p_next: core::ptr::null_mut(),
+            coverage_reduction_mode: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineCoverageReductionStateCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -18,7 +30,19 @@ pub struct PipelineCoverageReductionStateCreateInfoNV<'a> {
     pub coverage_reduction_mode: CoverageReductionModeNV,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PipelineCoverageReductionStateCreateInfoNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            coverage_reduction_mode: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct FramebufferMixedSamplesCombinationNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -27,6 +51,19 @@ pub struct FramebufferMixedSamplesCombinationNV<'a> {
     pub depth_stencil_samples: SampleCountFlags,
     pub color_samples: SampleCountFlags,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for FramebufferMixedSamplesCombinationNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::FRAMEBUFFER_MIXED_SAMPLES_COMBINATION_NV,
+            p_next: core::ptr::null_mut(),
+            coverage_reduction_mode: Default::default(),
+            rasterization_samples: Default::default(),
+            depth_stencil_samples: Default::default(),
+            color_samples: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

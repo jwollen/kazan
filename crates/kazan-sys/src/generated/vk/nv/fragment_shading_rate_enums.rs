@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -12,14 +13,38 @@ pub struct PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'a> {
     pub no_invocation_fragment_shading_rates: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_FEATURES_NV,
+            p_next: core::ptr::null_mut(),
+            fragment_shading_rate_enums: Default::default(),
+            supersample_fragment_shading_rates: Default::default(),
+            no_invocation_fragment_shading_rates: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceFragmentShadingRateEnumsPropertiesNV<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub max_fragment_shading_rate_invocation_count: SampleCountFlagBits,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceFragmentShadingRateEnumsPropertiesNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_PROPERTIES_NV,
+            p_next: core::ptr::null_mut(),
+            max_fragment_shading_rate_invocation_count: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineFragmentShadingRateEnumStateCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -27,6 +52,18 @@ pub struct PipelineFragmentShadingRateEnumStateCreateInfoNV<'a> {
     pub shading_rate: FragmentShadingRateNV,
     pub combiner_ops: [FragmentShadingRateCombinerOpKHR; 2],
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for PipelineFragmentShadingRateEnumStateCreateInfoNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_FRAGMENT_SHADING_RATE_ENUM_STATE_CREATE_INFO_NV,
+            p_next: core::ptr::null(),
+            shading_rate_type: Default::default(),
+            shading_rate: Default::default(),
+            combiner_ops: [Default::default(); _],
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

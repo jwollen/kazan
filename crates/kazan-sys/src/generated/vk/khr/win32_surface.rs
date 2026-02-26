@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct Win32SurfaceCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -11,6 +12,18 @@ pub struct Win32SurfaceCreateInfoKHR<'a> {
     pub hinstance: HINSTANCE,
     pub hwnd: HWND,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for Win32SurfaceCreateInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::WIN32_SURFACE_CREATE_INFO_KHR,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            hinstance: Default::default(),
+            hwnd: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 bitflags! {
     #[repr(transparent)]

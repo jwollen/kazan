@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineCoverageToColorStateCreateInfoNV<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -11,6 +12,18 @@ pub struct PipelineCoverageToColorStateCreateInfoNV<'a> {
     pub coverage_to_color_enable: Bool32,
     pub coverage_to_color_location: u32,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for PipelineCoverageToColorStateCreateInfoNV<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_COVERAGE_TO_COLOR_STATE_CREATE_INFO_NV,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            coverage_to_color_enable: Default::default(),
+            coverage_to_color_location: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 bitflags! {
     #[repr(transparent)]

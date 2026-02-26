@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct WaylandSurfaceCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -11,6 +12,18 @@ pub struct WaylandSurfaceCreateInfoKHR<'a> {
     pub display: *mut wl_display,
     pub surface: *mut wl_surface,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for WaylandSurfaceCreateInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::WAYLAND_SURFACE_CREATE_INFO_KHR,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            display: core::ptr::null_mut(),
+            surface: core::ptr::null_mut(),
+            _marker: PhantomData,
+        }
+    }
 }
 bitflags! {
     #[repr(transparent)]

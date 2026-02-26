@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoDecodeVP9PictureInfoFlags {
     pub error_resilient_mode: u32,
     pub intra_only: u32,
@@ -16,6 +17,7 @@ pub struct StdVideoDecodeVP9PictureInfoFlags {
     pub reserved: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoDecodeVP9PictureInfo<'a> {
     pub flags: StdVideoDecodeVP9PictureInfoFlags,
     pub profile: StdVideoVP9Profile,
@@ -36,4 +38,29 @@ pub struct StdVideoDecodeVP9PictureInfo<'a> {
     pub p_loop_filter: *const StdVideoVP9LoopFilter,
     pub p_segmentation: *const StdVideoVP9Segmentation,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for StdVideoDecodeVP9PictureInfo<'_> {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            profile: Default::default(),
+            frame_type: Default::default(),
+            frame_context_idx: Default::default(),
+            reset_frame_context: Default::default(),
+            refresh_frame_flags: Default::default(),
+            ref_frame_sign_bias_mask: Default::default(),
+            interpolation_filter: Default::default(),
+            base_q_idx: Default::default(),
+            delta_q_y_dc: Default::default(),
+            delta_q_uv_dc: Default::default(),
+            delta_q_uv_ac: Default::default(),
+            tile_cols_log2: Default::default(),
+            tile_rows_log2: Default::default(),
+            reserved1: [Default::default(); _],
+            p_color_config: core::ptr::null(),
+            p_loop_filter: core::ptr::null(),
+            p_segmentation: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
 }

@@ -5,6 +5,7 @@ use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub const STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE: u32 = 2;
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoDecodeH264PictureInfoFlags {
     pub field_pic_flag: u32,
     pub is_intra: u32,
@@ -14,6 +15,7 @@ pub struct StdVideoDecodeH264PictureInfoFlags {
     pub complementary_field_pair: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoDecodeH264PictureInfo {
     pub flags: StdVideoDecodeH264PictureInfoFlags,
     pub seq_parameter_set_id: u8,
@@ -24,7 +26,22 @@ pub struct StdVideoDecodeH264PictureInfo {
     pub idr_pic_id: u16,
     pub pic_order_cnt: [i32; STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE as usize],
 }
+impl Default for StdVideoDecodeH264PictureInfo {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            seq_parameter_set_id: Default::default(),
+            pic_parameter_set_id: Default::default(),
+            reserved1: Default::default(),
+            reserved2: Default::default(),
+            frame_num: Default::default(),
+            idr_pic_id: Default::default(),
+            pic_order_cnt: [Default::default(); _],
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoDecodeH264ReferenceInfoFlags {
     pub top_field_flag: u32,
     pub bottom_field_flag: u32,
@@ -32,11 +49,22 @@ pub struct StdVideoDecodeH264ReferenceInfoFlags {
     pub is_non_existing: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoDecodeH264ReferenceInfo {
     pub flags: StdVideoDecodeH264ReferenceInfoFlags,
     pub frame_num: u16,
     pub reserved: u16,
     pub pic_order_cnt: [i32; STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE as usize],
+}
+impl Default for StdVideoDecodeH264ReferenceInfo {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            frame_num: Default::default(),
+            reserved: Default::default(),
+            pic_order_cnt: [Default::default(); _],
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

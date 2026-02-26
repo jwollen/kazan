@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDevicePerformanceQueryFeaturesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -11,14 +12,37 @@ pub struct PhysicalDevicePerformanceQueryFeaturesKHR<'a> {
     pub performance_counter_multiple_query_pools: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDevicePerformanceQueryFeaturesKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR,
+            p_next: core::ptr::null_mut(),
+            performance_counter_query_pools: Default::default(),
+            performance_counter_multiple_query_pools: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDevicePerformanceQueryPropertiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub allow_command_buffer_query_copies: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDevicePerformanceQueryPropertiesKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_PERFORMANCE_QUERY_PROPERTIES_KHR,
+            p_next: core::ptr::null_mut(),
+            allow_command_buffer_query_copies: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PerformanceCounterKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -28,7 +52,21 @@ pub struct PerformanceCounterKHR<'a> {
     pub uuid: [u8; UUID_SIZE as usize],
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PerformanceCounterKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PERFORMANCE_COUNTER_KHR,
+            p_next: core::ptr::null_mut(),
+            unit: Default::default(),
+            scope: Default::default(),
+            storage: Default::default(),
+            uuid: [Default::default(); _],
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PerformanceCounterDescriptionKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -38,7 +76,21 @@ pub struct PerformanceCounterDescriptionKHR<'a> {
     pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PerformanceCounterDescriptionKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PERFORMANCE_COUNTER_DESCRIPTION_KHR,
+            p_next: core::ptr::null_mut(),
+            flags: Default::default(),
+            name: [Default::default(); _],
+            category: [Default::default(); _],
+            description: [Default::default(); _],
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct QueryPoolPerformanceCreateInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -47,7 +99,20 @@ pub struct QueryPoolPerformanceCreateInfoKHR<'a> {
     pub p_counter_indices: *const u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for QueryPoolPerformanceCreateInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::QUERY_POOL_PERFORMANCE_CREATE_INFO_KHR,
+            p_next: core::ptr::null(),
+            queue_family_index: Default::default(),
+            counter_index_count: Default::default(),
+            p_counter_indices: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct AcquireProfilingLockInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -55,12 +120,34 @@ pub struct AcquireProfilingLockInfoKHR<'a> {
     pub timeout: u64,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for AcquireProfilingLockInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::ACQUIRE_PROFILING_LOCK_INFO_KHR,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            timeout: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PerformanceQuerySubmitInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub counter_pass_index: u32,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for PerformanceQuerySubmitInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PERFORMANCE_QUERY_SUBMIT_INFO_KHR,
+            p_next: core::ptr::null(),
+            counter_pass_index: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

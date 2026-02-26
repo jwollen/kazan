@@ -4,25 +4,58 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceSurfaceInfo2KHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub surface: SurfaceKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceSurfaceInfo2KHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_SURFACE_INFO_2_KHR,
+            p_next: core::ptr::null(),
+            surface: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SurfaceCapabilities2KHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub surface_capabilities: SurfaceCapabilitiesKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for SurfaceCapabilities2KHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SURFACE_CAPABILITIES_2_KHR,
+            p_next: core::ptr::null_mut(),
+            surface_capabilities: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SurfaceFormat2KHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub surface_format: SurfaceFormatKHR,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for SurfaceFormat2KHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SURFACE_FORMAT_2_KHR,
+            p_next: core::ptr::null_mut(),
+            surface_format: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 pub type PFN_vkGetPhysicalDeviceSurfaceCapabilities2KHR = unsafe extern "system" fn(
     physical_device: PhysicalDevice,

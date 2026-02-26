@@ -15,6 +15,7 @@ pub type PFN_vkCmdPushConstants2KHR = PFN_vkCmdPushConstants2;
 pub type PFN_vkCmdPushDescriptorSet2KHR = PFN_vkCmdPushDescriptorSet2;
 pub type PFN_vkCmdPushDescriptorSetWithTemplate2KHR = PFN_vkCmdPushDescriptorSetWithTemplate2;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SetDescriptorBufferOffsetsInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -26,7 +27,23 @@ pub struct SetDescriptorBufferOffsetsInfoEXT<'a> {
     pub p_offsets: *const DeviceSize,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for SetDescriptorBufferOffsetsInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT,
+            p_next: core::ptr::null(),
+            stage_flags: Default::default(),
+            layout: Default::default(),
+            first_set: Default::default(),
+            set_count: Default::default(),
+            p_buffer_indices: core::ptr::null(),
+            p_offsets: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BindDescriptorBufferEmbeddedSamplersInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -34,6 +51,18 @@ pub struct BindDescriptorBufferEmbeddedSamplersInfoEXT<'a> {
     pub layout: PipelineLayout,
     pub set: u32,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for BindDescriptorBufferEmbeddedSamplersInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BIND_DESCRIPTOR_BUFFER_EMBEDDED_SAMPLERS_INFO_EXT,
+            p_next: core::ptr::null(),
+            stage_flags: Default::default(),
+            layout: Default::default(),
+            set: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 pub type PFN_vkCmdSetDescriptorBufferOffsets2EXT = unsafe extern "system" fn(
     command_buffer: CommandBuffer,

@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoEncodeH265WeightTableFlags {
     pub luma_weight_l0_flag: u16,
     pub chroma_weight_l0_flag: u16,
@@ -11,6 +12,7 @@ pub struct StdVideoEncodeH265WeightTableFlags {
     pub chroma_weight_l1_flag: u16,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoEncodeH265WeightTable {
     pub flags: StdVideoEncodeH265WeightTableFlags,
     pub luma_log2_weight_denom: u8,
@@ -28,7 +30,25 @@ pub struct StdVideoEncodeH265WeightTable {
     pub delta_chroma_offset_l1:
         [[i8; STD_VIDEO_H265_MAX_CHROMA_PLANES as usize]; STD_VIDEO_H265_MAX_NUM_LIST_REF as usize],
 }
+impl Default for StdVideoEncodeH265WeightTable {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            luma_log2_weight_denom: Default::default(),
+            delta_chroma_log2_weight_denom: Default::default(),
+            delta_luma_weight_l0: [Default::default(); _],
+            luma_offset_l0: [Default::default(); _],
+            delta_chroma_weight_l0: [[Default::default(); _]; _],
+            delta_chroma_offset_l0: [[Default::default(); _]; _],
+            delta_luma_weight_l1: [Default::default(); _],
+            luma_offset_l1: [Default::default(); _],
+            delta_chroma_weight_l1: [[Default::default(); _]; _],
+            delta_chroma_offset_l1: [[Default::default(); _]; _],
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoEncodeH265LongTermRefPics {
     pub num_long_term_sps: u8,
     pub num_long_term_pics: u8,
@@ -38,7 +58,21 @@ pub struct StdVideoEncodeH265LongTermRefPics {
     pub delta_poc_msb_present_flag: [u8; STD_VIDEO_H265_MAX_DELTA_POC as usize],
     pub delta_poc_msb_cycle_lt: [u8; STD_VIDEO_H265_MAX_DELTA_POC as usize],
 }
+impl Default for StdVideoEncodeH265LongTermRefPics {
+    fn default() -> Self {
+        Self {
+            num_long_term_sps: Default::default(),
+            num_long_term_pics: Default::default(),
+            lt_idx_sps: [Default::default(); _],
+            poc_lsb_lt: [Default::default(); _],
+            used_by_curr_pic_lt_flag: Default::default(),
+            delta_poc_msb_present_flag: [Default::default(); _],
+            delta_poc_msb_cycle_lt: [Default::default(); _],
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoEncodeH265SliceSegmentHeaderFlags {
     pub first_slice_segment_in_pic_flag: u32,
     pub dependent_slice_segment_flag: u32,
@@ -55,6 +89,7 @@ pub struct StdVideoEncodeH265SliceSegmentHeaderFlags {
     pub reserved: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoEncodeH265SliceSegmentHeader<'a> {
     pub flags: StdVideoEncodeH265SliceSegmentHeaderFlags,
     pub slice_type: StdVideoH265SliceType,
@@ -73,13 +108,37 @@ pub struct StdVideoEncodeH265SliceSegmentHeader<'a> {
     pub p_weight_table: *const StdVideoEncodeH265WeightTable,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for StdVideoEncodeH265SliceSegmentHeader<'_> {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            slice_type: Default::default(),
+            slice_segment_address: Default::default(),
+            collocated_ref_idx: Default::default(),
+            max_num_merge_cand: Default::default(),
+            slice_cb_qp_offset: Default::default(),
+            slice_cr_qp_offset: Default::default(),
+            slice_beta_offset_div2: Default::default(),
+            slice_tc_offset_div2: Default::default(),
+            slice_act_y_qp_offset: Default::default(),
+            slice_act_cb_qp_offset: Default::default(),
+            slice_act_cr_qp_offset: Default::default(),
+            slice_qp_delta: Default::default(),
+            reserved1: Default::default(),
+            p_weight_table: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoEncodeH265ReferenceListsInfoFlags {
     pub ref_pic_list_modification_flag_l0: u32,
     pub ref_pic_list_modification_flag_l1: u32,
     pub reserved: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoEncodeH265ReferenceListsInfo {
     pub flags: StdVideoEncodeH265ReferenceListsInfoFlags,
     pub num_ref_idx_l0_active_minus1: u8,
@@ -89,7 +148,21 @@ pub struct StdVideoEncodeH265ReferenceListsInfo {
     pub list_entry_l0: [u8; STD_VIDEO_H265_MAX_NUM_LIST_REF as usize],
     pub list_entry_l1: [u8; STD_VIDEO_H265_MAX_NUM_LIST_REF as usize],
 }
+impl Default for StdVideoEncodeH265ReferenceListsInfo {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            num_ref_idx_l0_active_minus1: Default::default(),
+            num_ref_idx_l1_active_minus1: Default::default(),
+            ref_pic_list0: [Default::default(); _],
+            ref_pic_list1: [Default::default(); _],
+            list_entry_l0: [Default::default(); _],
+            list_entry_l1: [Default::default(); _],
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoEncodeH265PictureInfoFlags {
     pub is_reference: u32,
     pub irap_pic_flag: u32,
@@ -103,6 +176,7 @@ pub struct StdVideoEncodeH265PictureInfoFlags {
     pub reserved: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoEncodeH265PictureInfo<'a> {
     pub flags: StdVideoEncodeH265PictureInfoFlags,
     pub pic_type: StdVideoH265PictureType,
@@ -118,13 +192,34 @@ pub struct StdVideoEncodeH265PictureInfo<'a> {
     pub p_long_term_ref_pics: *const StdVideoEncodeH265LongTermRefPics,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for StdVideoEncodeH265PictureInfo<'_> {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            pic_type: Default::default(),
+            sps_video_parameter_set_id: Default::default(),
+            pps_seq_parameter_set_id: Default::default(),
+            pps_pic_parameter_set_id: Default::default(),
+            short_term_ref_pic_set_idx: Default::default(),
+            pic_order_cnt_val: Default::default(),
+            temporal_id: Default::default(),
+            reserved1: [Default::default(); _],
+            p_ref_lists: core::ptr::null(),
+            p_short_term_ref_pic_set: core::ptr::null(),
+            p_long_term_ref_pics: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoEncodeH265ReferenceInfoFlags {
     pub used_for_long_term_reference: u32,
     pub unused_for_reference: u32,
     pub reserved: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoEncodeH265ReferenceInfo {
     pub flags: StdVideoEncodeH265ReferenceInfoFlags,
     pub pic_type: StdVideoH265PictureType,

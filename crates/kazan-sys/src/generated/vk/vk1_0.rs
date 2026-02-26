@@ -99,38 +99,45 @@ pub struct RenderPass(u64);
 #[derive(Copy, Clone, Default)]
 pub struct PipelineCache(u64);
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BaseOutStructure {
     pub s_type: StructureType,
     pub p_next: *mut BaseOutStructure,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BaseInStructure {
     pub s_type: StructureType,
     pub p_next: *const BaseInStructure,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct Offset2D {
     pub x: i32,
     pub y: i32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct Offset3D {
     pub x: i32,
     pub y: i32,
     pub z: i32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct Extent2D {
     pub width: u32,
     pub height: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct Extent3D {
     pub width: u32,
     pub height: u32,
     pub depth: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct Viewport {
     pub x: f32,
     pub y: f32,
@@ -140,17 +147,20 @@ pub struct Viewport {
     pub max_depth: f32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct Rect2D {
     pub offset: Offset2D,
     pub extent: Extent2D,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct ClearRect {
     pub rect: Rect2D,
     pub base_array_layer: u32,
     pub layer_count: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct ComponentMapping {
     pub r: ComponentSwizzle,
     pub g: ComponentSwizzle,
@@ -158,6 +168,7 @@ pub struct ComponentMapping {
     pub a: ComponentSwizzle,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceProperties {
     pub api_version: u32,
     pub driver_version: u32,
@@ -169,19 +180,55 @@ pub struct PhysicalDeviceProperties {
     pub limits: PhysicalDeviceLimits,
     pub sparse_properties: PhysicalDeviceSparseProperties,
 }
+impl Default for PhysicalDeviceProperties {
+    fn default() -> Self {
+        Self {
+            api_version: Default::default(),
+            driver_version: Default::default(),
+            vendor_id: Default::default(),
+            device_id: Default::default(),
+            device_type: Default::default(),
+            device_name: [Default::default(); _],
+            pipeline_cache_uuid: [Default::default(); _],
+            limits: Default::default(),
+            sparse_properties: Default::default(),
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ExtensionProperties {
     pub extension_name: [c_char; MAX_EXTENSION_NAME_SIZE as usize],
     pub spec_version: u32,
 }
+impl Default for ExtensionProperties {
+    fn default() -> Self {
+        Self {
+            extension_name: [Default::default(); _],
+            spec_version: Default::default(),
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct LayerProperties {
     pub layer_name: [c_char; MAX_EXTENSION_NAME_SIZE as usize],
     pub spec_version: u32,
     pub implementation_version: u32,
     pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
 }
+impl Default for LayerProperties {
+    fn default() -> Self {
+        Self {
+            layer_name: [Default::default(); _],
+            spec_version: Default::default(),
+            implementation_version: Default::default(),
+            description: [Default::default(); _],
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ApplicationInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -192,7 +239,22 @@ pub struct ApplicationInfo<'a> {
     pub api_version: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ApplicationInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::APPLICATION_INFO,
+            p_next: core::ptr::null(),
+            p_application_name: core::ptr::null(),
+            application_version: Default::default(),
+            p_engine_name: core::ptr::null(),
+            engine_version: Default::default(),
+            api_version: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct AllocationCallbacks<'a> {
     pub p_user_data: *mut c_void,
     pub pfn_allocation: Option<PFN_vkAllocationFunction>,
@@ -202,7 +264,21 @@ pub struct AllocationCallbacks<'a> {
     pub pfn_internal_free: Option<PFN_vkInternalFreeNotification>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for AllocationCallbacks<'_> {
+    fn default() -> Self {
+        Self {
+            p_user_data: core::ptr::null_mut(),
+            pfn_allocation: Default::default(),
+            pfn_reallocation: Default::default(),
+            pfn_free: Default::default(),
+            pfn_internal_allocation: Default::default(),
+            pfn_internal_free: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DeviceQueueCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -212,7 +288,21 @@ pub struct DeviceQueueCreateInfo<'a> {
     pub p_queue_priorities: *const f32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DeviceQueueCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEVICE_QUEUE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            queue_family_index: Default::default(),
+            queue_count: Default::default(),
+            p_queue_priorities: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DeviceCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -226,7 +316,25 @@ pub struct DeviceCreateInfo<'a> {
     pub p_enabled_features: *const PhysicalDeviceFeatures,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DeviceCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEVICE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            queue_create_info_count: Default::default(),
+            p_queue_create_infos: core::ptr::null(),
+            enabled_layer_count: Default::default(),
+            pp_enabled_layer_names: core::ptr::null(),
+            enabled_extension_count: Default::default(),
+            pp_enabled_extension_names: core::ptr::null(),
+            p_enabled_features: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct InstanceCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -238,7 +346,23 @@ pub struct InstanceCreateInfo<'a> {
     pub pp_enabled_extension_names: *const *const c_char,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for InstanceCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::INSTANCE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            p_application_info: core::ptr::null(),
+            enabled_layer_count: Default::default(),
+            pp_enabled_layer_names: core::ptr::null(),
+            enabled_extension_count: Default::default(),
+            pp_enabled_extension_names: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct QueueFamilyProperties {
     pub queue_flags: QueueFlags,
     pub queue_count: u32,
@@ -246,13 +370,25 @@ pub struct QueueFamilyProperties {
     pub min_image_transfer_granularity: Extent3D,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMemoryProperties {
     pub memory_type_count: u32,
     pub memory_types: [MemoryType; MAX_MEMORY_TYPES as usize],
     pub memory_heap_count: u32,
     pub memory_heaps: [MemoryHeap; MAX_MEMORY_HEAPS as usize],
 }
+impl Default for PhysicalDeviceMemoryProperties {
+    fn default() -> Self {
+        Self {
+            memory_type_count: Default::default(),
+            memory_types: [Default::default(); _],
+            memory_heap_count: Default::default(),
+            memory_heaps: [Default::default(); _],
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct MemoryAllocateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -260,19 +396,33 @@ pub struct MemoryAllocateInfo<'a> {
     pub memory_type_index: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for MemoryAllocateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::MEMORY_ALLOCATE_INFO,
+            p_next: core::ptr::null(),
+            allocation_size: Default::default(),
+            memory_type_index: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct MemoryRequirements {
     pub size: DeviceSize,
     pub alignment: DeviceSize,
     pub memory_type_bits: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct SparseImageFormatProperties {
     pub aspect_mask: ImageAspectFlags,
     pub image_granularity: Extent3D,
     pub flags: SparseImageFormatFlags,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct SparseImageMemoryRequirements {
     pub format_properties: SparseImageFormatProperties,
     pub image_mip_tail_first_lod: u32,
@@ -281,16 +431,19 @@ pub struct SparseImageMemoryRequirements {
     pub image_mip_tail_stride: DeviceSize,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct MemoryType {
     pub property_flags: MemoryPropertyFlags,
     pub heap_index: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct MemoryHeap {
     pub size: DeviceSize,
     pub flags: MemoryHeapFlags,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct MappedMemoryRange<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -299,13 +452,27 @@ pub struct MappedMemoryRange<'a> {
     pub size: DeviceSize,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for MappedMemoryRange<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::MAPPED_MEMORY_RANGE,
+            p_next: core::ptr::null(),
+            memory: Default::default(),
+            offset: Default::default(),
+            size: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct FormatProperties {
     pub linear_tiling_features: FormatFeatureFlags,
     pub optimal_tiling_features: FormatFeatureFlags,
     pub buffer_features: FormatFeatureFlags,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct ImageFormatProperties {
     pub max_extent: Extent3D,
     pub max_mip_levels: u32,
@@ -314,18 +481,21 @@ pub struct ImageFormatProperties {
     pub max_resource_size: DeviceSize,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct DescriptorBufferInfo {
     pub buffer: Buffer,
     pub offset: DeviceSize,
     pub range: DeviceSize,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct DescriptorImageInfo {
     pub sampler: Sampler,
     pub image_view: ImageView,
     pub image_layout: ImageLayout,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct WriteDescriptorSet<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -339,7 +509,25 @@ pub struct WriteDescriptorSet<'a> {
     pub p_texel_buffer_view: *const BufferView,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for WriteDescriptorSet<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::WRITE_DESCRIPTOR_SET,
+            p_next: core::ptr::null(),
+            dst_set: Default::default(),
+            dst_binding: Default::default(),
+            dst_array_element: Default::default(),
+            descriptor_count: Default::default(),
+            descriptor_type: Default::default(),
+            p_image_info: core::ptr::null(),
+            p_buffer_info: core::ptr::null(),
+            p_texel_buffer_view: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct CopyDescriptorSet<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -352,7 +540,24 @@ pub struct CopyDescriptorSet<'a> {
     pub descriptor_count: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for CopyDescriptorSet<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::COPY_DESCRIPTOR_SET,
+            p_next: core::ptr::null(),
+            src_set: Default::default(),
+            src_binding: Default::default(),
+            src_array_element: Default::default(),
+            dst_set: Default::default(),
+            dst_binding: Default::default(),
+            dst_array_element: Default::default(),
+            descriptor_count: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BufferCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -364,7 +569,23 @@ pub struct BufferCreateInfo<'a> {
     pub p_queue_family_indices: *const u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for BufferCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BUFFER_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            size: Default::default(),
+            usage: Default::default(),
+            sharing_mode: Default::default(),
+            queue_family_index_count: Default::default(),
+            p_queue_family_indices: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BufferViewCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -375,13 +596,29 @@ pub struct BufferViewCreateInfo<'a> {
     pub range: DeviceSize,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for BufferViewCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BUFFER_VIEW_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            buffer: Default::default(),
+            format: Default::default(),
+            offset: Default::default(),
+            range: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct ImageSubresource {
     pub aspect_mask: ImageAspectFlags,
     pub mip_level: u32,
     pub array_layer: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct ImageSubresourceLayers {
     pub aspect_mask: ImageAspectFlags,
     pub mip_level: u32,
@@ -389,6 +626,7 @@ pub struct ImageSubresourceLayers {
     pub layer_count: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct ImageSubresourceRange {
     pub aspect_mask: ImageAspectFlags,
     pub base_mip_level: u32,
@@ -397,6 +635,7 @@ pub struct ImageSubresourceRange {
     pub layer_count: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct MemoryBarrier<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -404,7 +643,19 @@ pub struct MemoryBarrier<'a> {
     pub dst_access_mask: AccessFlags,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for MemoryBarrier<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::MEMORY_BARRIER,
+            p_next: core::ptr::null(),
+            src_access_mask: Default::default(),
+            dst_access_mask: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BufferMemoryBarrier<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -417,7 +668,24 @@ pub struct BufferMemoryBarrier<'a> {
     pub size: DeviceSize,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for BufferMemoryBarrier<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BUFFER_MEMORY_BARRIER,
+            p_next: core::ptr::null(),
+            src_access_mask: Default::default(),
+            dst_access_mask: Default::default(),
+            src_queue_family_index: Default::default(),
+            dst_queue_family_index: Default::default(),
+            buffer: Default::default(),
+            offset: Default::default(),
+            size: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ImageMemoryBarrier<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -431,7 +699,25 @@ pub struct ImageMemoryBarrier<'a> {
     pub subresource_range: ImageSubresourceRange,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ImageMemoryBarrier<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::IMAGE_MEMORY_BARRIER,
+            p_next: core::ptr::null(),
+            src_access_mask: Default::default(),
+            dst_access_mask: Default::default(),
+            old_layout: Default::default(),
+            new_layout: Default::default(),
+            src_queue_family_index: Default::default(),
+            dst_queue_family_index: Default::default(),
+            image: Default::default(),
+            subresource_range: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ImageCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -450,7 +736,30 @@ pub struct ImageCreateInfo<'a> {
     pub initial_layout: ImageLayout,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ImageCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::IMAGE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            image_type: Default::default(),
+            format: Default::default(),
+            extent: Default::default(),
+            mip_levels: Default::default(),
+            array_layers: Default::default(),
+            samples: Default::default(),
+            tiling: Default::default(),
+            usage: Default::default(),
+            sharing_mode: Default::default(),
+            queue_family_index_count: Default::default(),
+            p_queue_family_indices: core::ptr::null(),
+            initial_layout: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct SubresourceLayout {
     pub offset: DeviceSize,
     pub size: DeviceSize,
@@ -459,6 +768,7 @@ pub struct SubresourceLayout {
     pub depth_pitch: DeviceSize,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ImageViewCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -470,13 +780,30 @@ pub struct ImageViewCreateInfo<'a> {
     pub subresource_range: ImageSubresourceRange,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ImageViewCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::IMAGE_VIEW_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            image: Default::default(),
+            view_type: Default::default(),
+            format: Default::default(),
+            components: Default::default(),
+            subresource_range: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct BufferCopy {
     pub src_offset: DeviceSize,
     pub dst_offset: DeviceSize,
     pub size: DeviceSize,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct SparseMemoryBind {
     pub resource_offset: DeviceSize,
     pub size: DeviceSize,
@@ -485,6 +812,7 @@ pub struct SparseMemoryBind {
     pub flags: SparseMemoryBindFlags,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct SparseImageMemoryBind {
     pub subresource: ImageSubresource,
     pub offset: Offset3D,
@@ -494,27 +822,61 @@ pub struct SparseImageMemoryBind {
     pub flags: SparseMemoryBindFlags,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SparseBufferMemoryBindInfo<'a> {
     pub buffer: Buffer,
     pub bind_count: u32,
     pub p_binds: *const SparseMemoryBind,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for SparseBufferMemoryBindInfo<'_> {
+    fn default() -> Self {
+        Self {
+            buffer: Default::default(),
+            bind_count: Default::default(),
+            p_binds: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SparseImageOpaqueMemoryBindInfo<'a> {
     pub image: Image,
     pub bind_count: u32,
     pub p_binds: *const SparseMemoryBind,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for SparseImageOpaqueMemoryBindInfo<'_> {
+    fn default() -> Self {
+        Self {
+            image: Default::default(),
+            bind_count: Default::default(),
+            p_binds: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SparseImageMemoryBindInfo<'a> {
     pub image: Image,
     pub bind_count: u32,
     pub p_binds: *const SparseImageMemoryBind,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for SparseImageMemoryBindInfo<'_> {
+    fn default() -> Self {
+        Self {
+            image: Default::default(),
+            bind_count: Default::default(),
+            p_binds: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BindSparseInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -530,7 +892,27 @@ pub struct BindSparseInfo<'a> {
     pub p_signal_semaphores: *const Semaphore,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for BindSparseInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BIND_SPARSE_INFO,
+            p_next: core::ptr::null(),
+            wait_semaphore_count: Default::default(),
+            p_wait_semaphores: core::ptr::null(),
+            buffer_bind_count: Default::default(),
+            p_buffer_binds: core::ptr::null(),
+            image_opaque_bind_count: Default::default(),
+            p_image_opaque_binds: core::ptr::null(),
+            image_bind_count: Default::default(),
+            p_image_binds: core::ptr::null(),
+            signal_semaphore_count: Default::default(),
+            p_signal_semaphores: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct ImageCopy {
     pub src_subresource: ImageSubresourceLayers,
     pub src_offset: Offset3D,
@@ -539,13 +921,25 @@ pub struct ImageCopy {
     pub extent: Extent3D,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ImageBlit {
     pub src_subresource: ImageSubresourceLayers,
     pub src_offsets: [Offset3D; 2],
     pub dst_subresource: ImageSubresourceLayers,
     pub dst_offsets: [Offset3D; 2],
 }
+impl Default for ImageBlit {
+    fn default() -> Self {
+        Self {
+            src_subresource: Default::default(),
+            src_offsets: [Default::default(); _],
+            dst_subresource: Default::default(),
+            dst_offsets: [Default::default(); _],
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct BufferImageCopy {
     pub buffer_offset: DeviceSize,
     pub buffer_row_length: u32,
@@ -555,6 +949,7 @@ pub struct BufferImageCopy {
     pub image_extent: Extent3D,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct ImageResolve {
     pub src_subresource: ImageSubresourceLayers,
     pub src_offset: Offset3D,
@@ -563,6 +958,7 @@ pub struct ImageResolve {
     pub extent: Extent3D,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ShaderModuleCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -571,7 +967,20 @@ pub struct ShaderModuleCreateInfo<'a> {
     pub p_code: *const u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ShaderModuleCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SHADER_MODULE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            code_size: Default::default(),
+            p_code: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DescriptorSetLayoutBinding<'a> {
     pub binding: u32,
     pub descriptor_type: DescriptorType,
@@ -580,7 +989,20 @@ pub struct DescriptorSetLayoutBinding<'a> {
     pub p_immutable_samplers: *const Sampler,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DescriptorSetLayoutBinding<'_> {
+    fn default() -> Self {
+        Self {
+            binding: Default::default(),
+            descriptor_type: Default::default(),
+            descriptor_count: Default::default(),
+            stage_flags: Default::default(),
+            p_immutable_samplers: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DescriptorSetLayoutCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -589,12 +1011,26 @@ pub struct DescriptorSetLayoutCreateInfo<'a> {
     pub p_bindings: *const DescriptorSetLayoutBinding<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DescriptorSetLayoutCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DESCRIPTOR_SET_LAYOUT_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            binding_count: Default::default(),
+            p_bindings: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct DescriptorPoolSize {
     pub ty: DescriptorType,
     pub descriptor_count: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DescriptorPoolCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -604,7 +1040,21 @@ pub struct DescriptorPoolCreateInfo<'a> {
     pub p_pool_sizes: *const DescriptorPoolSize,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DescriptorPoolCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DESCRIPTOR_POOL_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            max_sets: Default::default(),
+            pool_size_count: Default::default(),
+            p_pool_sizes: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DescriptorSetAllocateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -613,13 +1063,27 @@ pub struct DescriptorSetAllocateInfo<'a> {
     pub p_set_layouts: *const DescriptorSetLayout,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DescriptorSetAllocateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DESCRIPTOR_SET_ALLOCATE_INFO,
+            p_next: core::ptr::null(),
+            descriptor_pool: Default::default(),
+            descriptor_set_count: Default::default(),
+            p_set_layouts: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct SpecializationMapEntry {
     pub constant_id: u32,
     pub offset: u32,
     pub size: usize,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SpecializationInfo<'a> {
     pub map_entry_count: u32,
     pub p_map_entries: *const SpecializationMapEntry,
@@ -627,7 +1091,19 @@ pub struct SpecializationInfo<'a> {
     pub p_data: *const c_void,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for SpecializationInfo<'_> {
+    fn default() -> Self {
+        Self {
+            map_entry_count: Default::default(),
+            p_map_entries: core::ptr::null(),
+            data_size: Default::default(),
+            p_data: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineShaderStageCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -638,7 +1114,22 @@ pub struct PipelineShaderStageCreateInfo<'a> {
     pub p_specialization_info: *const SpecializationInfo<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PipelineShaderStageCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_SHADER_STAGE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            stage: Default::default(),
+            module: Default::default(),
+            p_name: core::ptr::null(),
+            p_specialization_info: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ComputePipelineCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -649,13 +1140,29 @@ pub struct ComputePipelineCreateInfo<'a> {
     pub base_pipeline_index: i32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ComputePipelineCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::COMPUTE_PIPELINE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            stage: Default::default(),
+            layout: Default::default(),
+            base_pipeline_handle: Default::default(),
+            base_pipeline_index: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct VertexInputBindingDescription {
     pub binding: u32,
     pub stride: u32,
     pub input_rate: VertexInputRate,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct VertexInputAttributeDescription {
     pub location: u32,
     pub binding: u32,
@@ -663,6 +1170,7 @@ pub struct VertexInputAttributeDescription {
     pub offset: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineVertexInputStateCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -673,7 +1181,22 @@ pub struct PipelineVertexInputStateCreateInfo<'a> {
     pub p_vertex_attribute_descriptions: *const VertexInputAttributeDescription,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PipelineVertexInputStateCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            vertex_binding_description_count: Default::default(),
+            p_vertex_binding_descriptions: core::ptr::null(),
+            vertex_attribute_description_count: Default::default(),
+            p_vertex_attribute_descriptions: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineInputAssemblyStateCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -682,7 +1205,20 @@ pub struct PipelineInputAssemblyStateCreateInfo<'a> {
     pub primitive_restart_enable: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PipelineInputAssemblyStateCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            topology: Default::default(),
+            primitive_restart_enable: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineTessellationStateCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -690,7 +1226,19 @@ pub struct PipelineTessellationStateCreateInfo<'a> {
     pub patch_control_points: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PipelineTessellationStateCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_TESSELLATION_STATE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            patch_control_points: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineViewportStateCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -701,7 +1249,22 @@ pub struct PipelineViewportStateCreateInfo<'a> {
     pub p_scissors: *const Rect2D,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PipelineViewportStateCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_VIEWPORT_STATE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            viewport_count: Default::default(),
+            p_viewports: core::ptr::null(),
+            scissor_count: Default::default(),
+            p_scissors: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineRasterizationStateCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -718,7 +1281,28 @@ pub struct PipelineRasterizationStateCreateInfo<'a> {
     pub line_width: f32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PipelineRasterizationStateCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_RASTERIZATION_STATE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            depth_clamp_enable: Default::default(),
+            rasterizer_discard_enable: Default::default(),
+            polygon_mode: Default::default(),
+            cull_mode: Default::default(),
+            front_face: Default::default(),
+            depth_bias_enable: Default::default(),
+            depth_bias_constant_factor: Default::default(),
+            depth_bias_clamp: Default::default(),
+            depth_bias_slope_factor: Default::default(),
+            line_width: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineMultisampleStateCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -731,7 +1315,24 @@ pub struct PipelineMultisampleStateCreateInfo<'a> {
     pub alpha_to_one_enable: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PipelineMultisampleStateCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_MULTISAMPLE_STATE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            rasterization_samples: Default::default(),
+            sample_shading_enable: Default::default(),
+            min_sample_shading: Default::default(),
+            p_sample_mask: core::ptr::null(),
+            alpha_to_coverage_enable: Default::default(),
+            alpha_to_one_enable: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct PipelineColorBlendAttachmentState {
     pub blend_enable: Bool32,
     pub src_color_blend_factor: BlendFactor,
@@ -743,6 +1344,7 @@ pub struct PipelineColorBlendAttachmentState {
     pub color_write_mask: ColorComponentFlags,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineColorBlendStateCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -754,7 +1356,23 @@ pub struct PipelineColorBlendStateCreateInfo<'a> {
     pub blend_constants: [f32; 4],
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PipelineColorBlendStateCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_COLOR_BLEND_STATE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            logic_op_enable: Default::default(),
+            logic_op: Default::default(),
+            attachment_count: Default::default(),
+            p_attachments: core::ptr::null(),
+            blend_constants: [Default::default(); _],
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineDynamicStateCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -763,7 +1381,20 @@ pub struct PipelineDynamicStateCreateInfo<'a> {
     pub p_dynamic_states: *const DynamicState,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PipelineDynamicStateCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_DYNAMIC_STATE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            dynamic_state_count: Default::default(),
+            p_dynamic_states: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StencilOpState {
     pub fail_op: StencilOp,
     pub pass_op: StencilOp,
@@ -774,6 +1405,7 @@ pub struct StencilOpState {
     pub reference: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineDepthStencilStateCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -789,7 +1421,27 @@ pub struct PipelineDepthStencilStateCreateInfo<'a> {
     pub max_depth_bounds: f32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PipelineDepthStencilStateCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            depth_test_enable: Default::default(),
+            depth_write_enable: Default::default(),
+            depth_compare_op: Default::default(),
+            depth_bounds_test_enable: Default::default(),
+            stencil_test_enable: Default::default(),
+            front: Default::default(),
+            back: Default::default(),
+            min_depth_bounds: Default::default(),
+            max_depth_bounds: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GraphicsPipelineCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -812,7 +1464,34 @@ pub struct GraphicsPipelineCreateInfo<'a> {
     pub base_pipeline_index: i32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for GraphicsPipelineCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::GRAPHICS_PIPELINE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            stage_count: Default::default(),
+            p_stages: core::ptr::null(),
+            p_vertex_input_state: core::ptr::null(),
+            p_input_assembly_state: core::ptr::null(),
+            p_tessellation_state: core::ptr::null(),
+            p_viewport_state: core::ptr::null(),
+            p_rasterization_state: core::ptr::null(),
+            p_multisample_state: core::ptr::null(),
+            p_depth_stencil_state: core::ptr::null(),
+            p_color_blend_state: core::ptr::null(),
+            p_dynamic_state: core::ptr::null(),
+            layout: Default::default(),
+            render_pass: Default::default(),
+            subpass: Default::default(),
+            base_pipeline_handle: Default::default(),
+            base_pipeline_index: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineCacheCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -821,7 +1500,20 @@ pub struct PipelineCacheCreateInfo<'a> {
     pub p_initial_data: *const c_void,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PipelineCacheCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_CACHE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            initial_data_size: Default::default(),
+            p_initial_data: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineCacheHeaderVersionOne {
     pub header_size: u32,
     pub header_version: PipelineCacheHeaderVersion,
@@ -829,13 +1521,26 @@ pub struct PipelineCacheHeaderVersionOne {
     pub device_id: u32,
     pub pipeline_cache_uuid: [u8; UUID_SIZE as usize],
 }
+impl Default for PipelineCacheHeaderVersionOne {
+    fn default() -> Self {
+        Self {
+            header_size: Default::default(),
+            header_version: Default::default(),
+            vendor_id: Default::default(),
+            device_id: Default::default(),
+            pipeline_cache_uuid: [Default::default(); _],
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct PushConstantRange {
     pub stage_flags: ShaderStageFlags,
     pub offset: u32,
     pub size: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PipelineLayoutCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -846,7 +1551,22 @@ pub struct PipelineLayoutCreateInfo<'a> {
     pub p_push_constant_ranges: *const PushConstantRange,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PipelineLayoutCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PIPELINE_LAYOUT_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            set_layout_count: Default::default(),
+            p_set_layouts: core::ptr::null(),
+            push_constant_range_count: Default::default(),
+            p_push_constant_ranges: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SamplerCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -868,7 +1588,33 @@ pub struct SamplerCreateInfo<'a> {
     pub unnormalized_coordinates: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for SamplerCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SAMPLER_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            mag_filter: Default::default(),
+            min_filter: Default::default(),
+            mipmap_mode: Default::default(),
+            address_mode_u: Default::default(),
+            address_mode_v: Default::default(),
+            address_mode_w: Default::default(),
+            mip_lod_bias: Default::default(),
+            anisotropy_enable: Default::default(),
+            max_anisotropy: Default::default(),
+            compare_enable: Default::default(),
+            compare_op: Default::default(),
+            min_lod: Default::default(),
+            max_lod: Default::default(),
+            border_color: Default::default(),
+            unnormalized_coordinates: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct CommandPoolCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -876,7 +1622,19 @@ pub struct CommandPoolCreateInfo<'a> {
     pub queue_family_index: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for CommandPoolCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::COMMAND_POOL_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            queue_family_index: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct CommandBufferAllocateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -885,7 +1643,20 @@ pub struct CommandBufferAllocateInfo<'a> {
     pub command_buffer_count: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for CommandBufferAllocateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::COMMAND_BUFFER_ALLOCATE_INFO,
+            p_next: core::ptr::null(),
+            command_pool: Default::default(),
+            level: Default::default(),
+            command_buffer_count: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct CommandBufferInheritanceInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -897,7 +1668,23 @@ pub struct CommandBufferInheritanceInfo<'a> {
     pub pipeline_statistics: QueryPipelineStatisticFlags,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for CommandBufferInheritanceInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::COMMAND_BUFFER_INHERITANCE_INFO,
+            p_next: core::ptr::null(),
+            render_pass: Default::default(),
+            subpass: Default::default(),
+            framebuffer: Default::default(),
+            occlusion_query_enable: Default::default(),
+            query_flags: Default::default(),
+            pipeline_statistics: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct CommandBufferBeginInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -905,7 +1692,19 @@ pub struct CommandBufferBeginInfo<'a> {
     pub p_inheritance_info: *const CommandBufferInheritanceInfo<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for CommandBufferBeginInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::COMMAND_BUFFER_BEGIN_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            p_inheritance_info: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct RenderPassBeginInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -916,18 +1715,44 @@ pub struct RenderPassBeginInfo<'a> {
     pub p_clear_values: *const ClearValue,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for RenderPassBeginInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::RENDER_PASS_BEGIN_INFO,
+            p_next: core::ptr::null(),
+            render_pass: Default::default(),
+            framebuffer: Default::default(),
+            render_area: Default::default(),
+            clear_value_count: Default::default(),
+            p_clear_values: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct ClearDepthStencilValue {
     pub depth: f32,
     pub stencil: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ClearAttachment {
     pub aspect_mask: ImageAspectFlags,
     pub color_attachment: u32,
     pub clear_value: ClearValue,
 }
+impl Default for ClearAttachment {
+    fn default() -> Self {
+        Self {
+            aspect_mask: Default::default(),
+            color_attachment: Default::default(),
+            clear_value: Default::default(),
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct AttachmentDescription {
     pub flags: AttachmentDescriptionFlags,
     pub format: Format,
@@ -940,11 +1765,13 @@ pub struct AttachmentDescription {
     pub final_layout: ImageLayout,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct AttachmentReference {
     pub attachment: u32,
     pub layout: ImageLayout,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SubpassDescription<'a> {
     pub flags: SubpassDescriptionFlags,
     pub pipeline_bind_point: PipelineBindPoint,
@@ -958,7 +1785,25 @@ pub struct SubpassDescription<'a> {
     pub p_preserve_attachments: *const u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for SubpassDescription<'_> {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            pipeline_bind_point: Default::default(),
+            input_attachment_count: Default::default(),
+            p_input_attachments: core::ptr::null(),
+            color_attachment_count: Default::default(),
+            p_color_attachments: core::ptr::null(),
+            p_resolve_attachments: core::ptr::null(),
+            p_depth_stencil_attachment: core::ptr::null(),
+            preserve_attachment_count: Default::default(),
+            p_preserve_attachments: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct SubpassDependency {
     pub src_subpass: u32,
     pub dst_subpass: u32,
@@ -969,6 +1814,7 @@ pub struct SubpassDependency {
     pub dependency_flags: DependencyFlags,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct RenderPassCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -981,21 +1827,60 @@ pub struct RenderPassCreateInfo<'a> {
     pub p_dependencies: *const SubpassDependency,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for RenderPassCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::RENDER_PASS_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            attachment_count: Default::default(),
+            p_attachments: core::ptr::null(),
+            subpass_count: Default::default(),
+            p_subpasses: core::ptr::null(),
+            dependency_count: Default::default(),
+            p_dependencies: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct EventCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: EventCreateFlags,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for EventCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::EVENT_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct FenceCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: FenceCreateFlags,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for FenceCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::FENCE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct PhysicalDeviceFeatures {
     pub robust_buffer_access: Bool32,
     pub full_draw_index_uint32: Bool32,
@@ -1054,6 +1939,7 @@ pub struct PhysicalDeviceFeatures {
     pub inherited_queries: Bool32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct PhysicalDeviceSparseProperties {
     pub residency_standard2_d_block_shape: Bool32,
     pub residency_standard2_d_multisample_block_shape: Bool32,
@@ -1062,6 +1948,7 @@ pub struct PhysicalDeviceSparseProperties {
     pub residency_non_resident_strict: Bool32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceLimits {
     pub max_image_dimension1_d: u32,
     pub max_image_dimension2_d: u32,
@@ -1170,14 +2057,138 @@ pub struct PhysicalDeviceLimits {
     pub optimal_buffer_copy_row_pitch_alignment: DeviceSize,
     pub non_coherent_atom_size: DeviceSize,
 }
+impl Default for PhysicalDeviceLimits {
+    fn default() -> Self {
+        Self {
+            max_image_dimension1_d: Default::default(),
+            max_image_dimension2_d: Default::default(),
+            max_image_dimension3_d: Default::default(),
+            max_image_dimension_cube: Default::default(),
+            max_image_array_layers: Default::default(),
+            max_texel_buffer_elements: Default::default(),
+            max_uniform_buffer_range: Default::default(),
+            max_storage_buffer_range: Default::default(),
+            max_push_constants_size: Default::default(),
+            max_memory_allocation_count: Default::default(),
+            max_sampler_allocation_count: Default::default(),
+            buffer_image_granularity: Default::default(),
+            sparse_address_space_size: Default::default(),
+            max_bound_descriptor_sets: Default::default(),
+            max_per_stage_descriptor_samplers: Default::default(),
+            max_per_stage_descriptor_uniform_buffers: Default::default(),
+            max_per_stage_descriptor_storage_buffers: Default::default(),
+            max_per_stage_descriptor_sampled_images: Default::default(),
+            max_per_stage_descriptor_storage_images: Default::default(),
+            max_per_stage_descriptor_input_attachments: Default::default(),
+            max_per_stage_resources: Default::default(),
+            max_descriptor_set_samplers: Default::default(),
+            max_descriptor_set_uniform_buffers: Default::default(),
+            max_descriptor_set_uniform_buffers_dynamic: Default::default(),
+            max_descriptor_set_storage_buffers: Default::default(),
+            max_descriptor_set_storage_buffers_dynamic: Default::default(),
+            max_descriptor_set_sampled_images: Default::default(),
+            max_descriptor_set_storage_images: Default::default(),
+            max_descriptor_set_input_attachments: Default::default(),
+            max_vertex_input_attributes: Default::default(),
+            max_vertex_input_bindings: Default::default(),
+            max_vertex_input_attribute_offset: Default::default(),
+            max_vertex_input_binding_stride: Default::default(),
+            max_vertex_output_components: Default::default(),
+            max_tessellation_generation_level: Default::default(),
+            max_tessellation_patch_size: Default::default(),
+            max_tessellation_control_per_vertex_input_components: Default::default(),
+            max_tessellation_control_per_vertex_output_components: Default::default(),
+            max_tessellation_control_per_patch_output_components: Default::default(),
+            max_tessellation_control_total_output_components: Default::default(),
+            max_tessellation_evaluation_input_components: Default::default(),
+            max_tessellation_evaluation_output_components: Default::default(),
+            max_geometry_shader_invocations: Default::default(),
+            max_geometry_input_components: Default::default(),
+            max_geometry_output_components: Default::default(),
+            max_geometry_output_vertices: Default::default(),
+            max_geometry_total_output_components: Default::default(),
+            max_fragment_input_components: Default::default(),
+            max_fragment_output_attachments: Default::default(),
+            max_fragment_dual_src_attachments: Default::default(),
+            max_fragment_combined_output_resources: Default::default(),
+            max_compute_shared_memory_size: Default::default(),
+            max_compute_work_group_count: [Default::default(); _],
+            max_compute_work_group_invocations: Default::default(),
+            max_compute_work_group_size: [Default::default(); _],
+            sub_pixel_precision_bits: Default::default(),
+            sub_texel_precision_bits: Default::default(),
+            mipmap_precision_bits: Default::default(),
+            max_draw_indexed_index_value: Default::default(),
+            max_draw_indirect_count: Default::default(),
+            max_sampler_lod_bias: Default::default(),
+            max_sampler_anisotropy: Default::default(),
+            max_viewports: Default::default(),
+            max_viewport_dimensions: [Default::default(); _],
+            viewport_bounds_range: [Default::default(); _],
+            viewport_sub_pixel_bits: Default::default(),
+            min_memory_map_alignment: Default::default(),
+            min_texel_buffer_offset_alignment: Default::default(),
+            min_uniform_buffer_offset_alignment: Default::default(),
+            min_storage_buffer_offset_alignment: Default::default(),
+            min_texel_offset: Default::default(),
+            max_texel_offset: Default::default(),
+            min_texel_gather_offset: Default::default(),
+            max_texel_gather_offset: Default::default(),
+            min_interpolation_offset: Default::default(),
+            max_interpolation_offset: Default::default(),
+            sub_pixel_interpolation_offset_bits: Default::default(),
+            max_framebuffer_width: Default::default(),
+            max_framebuffer_height: Default::default(),
+            max_framebuffer_layers: Default::default(),
+            framebuffer_color_sample_counts: Default::default(),
+            framebuffer_depth_sample_counts: Default::default(),
+            framebuffer_stencil_sample_counts: Default::default(),
+            framebuffer_no_attachments_sample_counts: Default::default(),
+            max_color_attachments: Default::default(),
+            sampled_image_color_sample_counts: Default::default(),
+            sampled_image_integer_sample_counts: Default::default(),
+            sampled_image_depth_sample_counts: Default::default(),
+            sampled_image_stencil_sample_counts: Default::default(),
+            storage_image_sample_counts: Default::default(),
+            max_sample_mask_words: Default::default(),
+            timestamp_compute_and_graphics: Default::default(),
+            timestamp_period: Default::default(),
+            max_clip_distances: Default::default(),
+            max_cull_distances: Default::default(),
+            max_combined_clip_and_cull_distances: Default::default(),
+            discrete_queue_priorities: Default::default(),
+            point_size_range: [Default::default(); _],
+            line_width_range: [Default::default(); _],
+            point_size_granularity: Default::default(),
+            line_width_granularity: Default::default(),
+            strict_lines: Default::default(),
+            standard_sample_locations: Default::default(),
+            optimal_buffer_copy_offset_alignment: Default::default(),
+            optimal_buffer_copy_row_pitch_alignment: Default::default(),
+            non_coherent_atom_size: Default::default(),
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SemaphoreCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: SemaphoreCreateFlags,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for SemaphoreCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SEMAPHORE_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct QueryPoolCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -1187,7 +2198,21 @@ pub struct QueryPoolCreateInfo<'a> {
     pub pipeline_statistics: QueryPipelineStatisticFlags,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for QueryPoolCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::QUERY_POOL_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            query_type: Default::default(),
+            query_count: Default::default(),
+            pipeline_statistics: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct FramebufferCreateInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -1200,7 +2225,24 @@ pub struct FramebufferCreateInfo<'a> {
     pub layers: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for FramebufferCreateInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::FRAMEBUFFER_CREATE_INFO,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            render_pass: Default::default(),
+            attachment_count: Default::default(),
+            p_attachments: core::ptr::null(),
+            width: Default::default(),
+            height: Default::default(),
+            layers: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct DrawIndirectCommand {
     pub vertex_count: u32,
     pub instance_count: u32,
@@ -1208,6 +2250,7 @@ pub struct DrawIndirectCommand {
     pub first_instance: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct DrawIndexedIndirectCommand {
     pub index_count: u32,
     pub instance_count: u32,
@@ -1216,12 +2259,14 @@ pub struct DrawIndexedIndirectCommand {
     pub first_instance: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct DispatchIndirectCommand {
     pub x: u32,
     pub y: u32,
     pub z: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SubmitInfo<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -1233,6 +2278,22 @@ pub struct SubmitInfo<'a> {
     pub signal_semaphore_count: u32,
     pub p_signal_semaphores: *const Semaphore,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for SubmitInfo<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SUBMIT_INFO,
+            p_next: core::ptr::null(),
+            wait_semaphore_count: Default::default(),
+            p_wait_semaphores: core::ptr::null(),
+            p_wait_dst_stage_mask: core::ptr::null(),
+            command_buffer_count: Default::default(),
+            p_command_buffers: core::ptr::null(),
+            signal_semaphore_count: Default::default(),
+            p_signal_semaphores: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

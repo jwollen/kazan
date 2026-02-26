@@ -4,13 +4,25 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub vertex_input_dynamic_state: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT,
+            p_next: core::ptr::null_mut(),
+            vertex_input_dynamic_state: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VertexInputBindingDescription2EXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -20,7 +32,21 @@ pub struct VertexInputBindingDescription2EXT<'a> {
     pub divisor: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for VertexInputBindingDescription2EXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT,
+            p_next: core::ptr::null_mut(),
+            binding: Default::default(),
+            stride: Default::default(),
+            input_rate: Default::default(),
+            divisor: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct VertexInputAttributeDescription2EXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -29,6 +55,19 @@ pub struct VertexInputAttributeDescription2EXT<'a> {
     pub format: Format,
     pub offset: u32,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for VertexInputAttributeDescription2EXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT,
+            p_next: core::ptr::null_mut(),
+            location: Default::default(),
+            binding: Default::default(),
+            format: Default::default(),
+            offset: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 pub type PFN_vkCmdSetVertexInputEXT = unsafe extern "system" fn(
     command_buffer: CommandBuffer,

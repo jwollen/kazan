@@ -12,11 +12,13 @@ pub const STD_VIDEO_VP9_SEG_LVL_MAX: u32 = 4;
 pub const STD_VIDEO_VP9_MAX_SEGMENTATION_TREE_PROBS: u32 = 7;
 pub const STD_VIDEO_VP9_MAX_SEGMENTATION_PRED_PROB: u32 = 3;
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoVP9ColorConfigFlags {
     pub color_range: u32,
     pub reserved: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoVP9ColorConfig {
     pub flags: StdVideoVP9ColorConfigFlags,
     pub bit_depth: u8,
@@ -26,12 +28,14 @@ pub struct StdVideoVP9ColorConfig {
     pub color_space: StdVideoVP9ColorSpace,
 }
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoVP9LoopFilterFlags {
     pub loop_filter_delta_enabled: u32,
     pub loop_filter_delta_update: u32,
     pub reserved: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoVP9LoopFilter {
     pub flags: StdVideoVP9LoopFilterFlags,
     pub loop_filter_level: u8,
@@ -41,7 +45,21 @@ pub struct StdVideoVP9LoopFilter {
     pub update_mode_delta: u8,
     pub loop_filter_mode_deltas: [i8; STD_VIDEO_VP9_LOOP_FILTER_ADJUSTMENTS as usize],
 }
+impl Default for StdVideoVP9LoopFilter {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            loop_filter_level: Default::default(),
+            loop_filter_sharpness: Default::default(),
+            update_ref_delta: Default::default(),
+            loop_filter_ref_deltas: [Default::default(); _],
+            update_mode_delta: Default::default(),
+            loop_filter_mode_deltas: [Default::default(); _],
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct StdVideoVP9SegmentationFlags {
     pub segmentation_update_map: u32,
     pub segmentation_temporal_update: u32,
@@ -50,6 +68,7 @@ pub struct StdVideoVP9SegmentationFlags {
     pub reserved: u32,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct StdVideoVP9Segmentation {
     pub flags: StdVideoVP9SegmentationFlags,
     pub segmentation_tree_probs: [u8; STD_VIDEO_VP9_MAX_SEGMENTATION_TREE_PROBS as usize],
@@ -57,6 +76,17 @@ pub struct StdVideoVP9Segmentation {
     pub feature_enabled: [u8; STD_VIDEO_VP9_MAX_SEGMENTS as usize],
     pub feature_data:
         [[i16; STD_VIDEO_VP9_SEG_LVL_MAX as usize]; STD_VIDEO_VP9_MAX_SEGMENTS as usize],
+}
+impl Default for StdVideoVP9Segmentation {
+    fn default() -> Self {
+        Self {
+            flags: Default::default(),
+            segmentation_tree_probs: [Default::default(); _],
+            segmentation_pred_prob: [Default::default(); _],
+            feature_enabled: [Default::default(); _],
+            feature_data: [[Default::default(); _]; _],
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

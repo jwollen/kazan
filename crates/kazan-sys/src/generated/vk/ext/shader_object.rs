@@ -9,13 +9,25 @@ pub struct ShaderEXT(u64);
 pub type ShaderRequiredSubgroupSizeCreateInfoEXT<'a> =
     PipelineShaderStageRequiredSubgroupSizeCreateInfo<'a>;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderObjectFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub shader_object: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceShaderObjectFeaturesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_SHADER_OBJECT_FEATURES_EXT,
+            p_next: core::ptr::null_mut(),
+            shader_object: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderObjectPropertiesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -23,7 +35,19 @@ pub struct PhysicalDeviceShaderObjectPropertiesEXT<'a> {
     pub shader_binary_version: u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceShaderObjectPropertiesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_SHADER_OBJECT_PROPERTIES_EXT,
+            p_next: core::ptr::null_mut(),
+            shader_binary_uuid: [Default::default(); _],
+            shader_binary_version: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ShaderCreateInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -40,6 +64,27 @@ pub struct ShaderCreateInfoEXT<'a> {
     pub p_push_constant_ranges: *const PushConstantRange,
     pub p_specialization_info: *const SpecializationInfo<'a>,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for ShaderCreateInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SHADER_CREATE_INFO_EXT,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            stage: Default::default(),
+            next_stage: Default::default(),
+            code_type: Default::default(),
+            code_size: Default::default(),
+            p_code: core::ptr::null(),
+            p_name: core::ptr::null(),
+            set_layout_count: Default::default(),
+            p_set_layouts: core::ptr::null(),
+            push_constant_range_count: Default::default(),
+            p_push_constant_ranges: core::ptr::null(),
+            p_specialization_info: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceFaultFeaturesEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -11,19 +12,42 @@ pub struct PhysicalDeviceFaultFeaturesEXT<'a> {
     pub device_fault_vendor_binary: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceFaultFeaturesEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_FAULT_FEATURES_EXT,
+            p_next: core::ptr::null_mut(),
+            device_fault: Default::default(),
+            device_fault_vendor_binary: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone, Default)]
 pub struct DeviceFaultAddressInfoEXT {
     pub address_type: DeviceFaultAddressTypeEXT,
     pub reported_address: DeviceAddress,
     pub address_precision: DeviceSize,
 }
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DeviceFaultVendorInfoEXT {
     pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
     pub vendor_fault_code: u64,
     pub vendor_fault_data: u64,
 }
+impl Default for DeviceFaultVendorInfoEXT {
+    fn default() -> Self {
+        Self {
+            description: [Default::default(); _],
+            vendor_fault_code: Default::default(),
+            vendor_fault_data: Default::default(),
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DeviceFaultCountsEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -32,7 +56,20 @@ pub struct DeviceFaultCountsEXT<'a> {
     pub vendor_binary_size: DeviceSize,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DeviceFaultCountsEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEVICE_FAULT_COUNTS_EXT,
+            p_next: core::ptr::null_mut(),
+            address_info_count: Default::default(),
+            vendor_info_count: Default::default(),
+            vendor_binary_size: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DeviceFaultInfoEXT<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -42,7 +79,21 @@ pub struct DeviceFaultInfoEXT<'a> {
     pub p_vendor_binary_data: *mut c_void,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DeviceFaultInfoEXT<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEVICE_FAULT_INFO_EXT,
+            p_next: core::ptr::null_mut(),
+            description: [Default::default(); _],
+            p_address_infos: core::ptr::null_mut(),
+            p_vendor_infos: core::ptr::null_mut(),
+            p_vendor_binary_data: core::ptr::null_mut(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DeviceFaultVendorBinaryHeaderVersionOneEXT {
     pub header_size: u32,
     pub header_version: DeviceFaultVendorBinaryHeaderVersionEXT,
@@ -55,6 +106,23 @@ pub struct DeviceFaultVendorBinaryHeaderVersionOneEXT {
     pub engine_name_offset: u32,
     pub engine_version: u32,
     pub api_version: u32,
+}
+impl Default for DeviceFaultVendorBinaryHeaderVersionOneEXT {
+    fn default() -> Self {
+        Self {
+            header_size: Default::default(),
+            header_version: Default::default(),
+            vendor_id: Default::default(),
+            device_id: Default::default(),
+            driver_version: Default::default(),
+            pipeline_cache_uuid: [Default::default(); _],
+            application_name_offset: Default::default(),
+            application_version: Default::default(),
+            engine_name_offset: Default::default(),
+            engine_version: Default::default(),
+            api_version: Default::default(),
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

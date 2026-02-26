@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DisplayPresentInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -11,6 +12,18 @@ pub struct DisplayPresentInfoKHR<'a> {
     pub dst_rect: Rect2D,
     pub persistent: Bool32,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for DisplayPresentInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DISPLAY_PRESENT_INFO_KHR,
+            p_next: core::ptr::null(),
+            src_rect: Default::default(),
+            dst_rect: Default::default(),
+            persistent: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 pub type PFN_vkCreateSharedSwapchainsKHR = unsafe extern "system" fn(
     device: Device,

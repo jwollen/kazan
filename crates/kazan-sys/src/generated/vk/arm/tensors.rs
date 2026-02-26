@@ -7,6 +7,7 @@ use core::marker::PhantomData;
 #[derive(Copy, Clone, Default)]
 pub struct TensorViewARM(u64);
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct TensorDescriptionARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -18,7 +19,23 @@ pub struct TensorDescriptionARM<'a> {
     pub usage: TensorUsageFlagsARM,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for TensorDescriptionARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::TENSOR_DESCRIPTION_ARM,
+            p_next: core::ptr::null(),
+            tiling: Default::default(),
+            format: Default::default(),
+            dimension_count: Default::default(),
+            p_dimensions: core::ptr::null(),
+            p_strides: core::ptr::null(),
+            usage: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct TensorCreateInfoARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -29,14 +46,40 @@ pub struct TensorCreateInfoARM<'a> {
     pub p_queue_family_indices: *const u32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for TensorCreateInfoARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::TENSOR_CREATE_INFO_ARM,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            p_description: core::ptr::null(),
+            sharing_mode: Default::default(),
+            queue_family_index_count: Default::default(),
+            p_queue_family_indices: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct TensorMemoryRequirementsInfoARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub tensor: TensorARM,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for TensorMemoryRequirementsInfoARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::TENSOR_MEMORY_REQUIREMENTS_INFO_ARM,
+            p_next: core::ptr::null(),
+            tensor: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct BindTensorMemoryInfoARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -45,7 +88,20 @@ pub struct BindTensorMemoryInfoARM<'a> {
     pub memory_offset: DeviceSize,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for BindTensorMemoryInfoARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::BIND_TENSOR_MEMORY_INFO_ARM,
+            p_next: core::ptr::null(),
+            tensor: Default::default(),
+            memory: Default::default(),
+            memory_offset: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct WriteDescriptorSetTensorARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -53,7 +109,19 @@ pub struct WriteDescriptorSetTensorARM<'a> {
     pub p_tensor_views: *const TensorViewARM,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for WriteDescriptorSetTensorARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::WRITE_DESCRIPTOR_SET_TENSOR_ARM,
+            p_next: core::ptr::null(),
+            tensor_view_count: Default::default(),
+            p_tensor_views: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct TensorFormatPropertiesARM<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -61,7 +129,19 @@ pub struct TensorFormatPropertiesARM<'a> {
     pub linear_tiling_tensor_features: FormatFeatureFlags2,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for TensorFormatPropertiesARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::TENSOR_FORMAT_PROPERTIES_ARM,
+            p_next: core::ptr::null_mut(),
+            optimal_tiling_tensor_features: Default::default(),
+            linear_tiling_tensor_features: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceTensorPropertiesARM<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -80,7 +160,30 @@ pub struct PhysicalDeviceTensorPropertiesARM<'a> {
     pub shader_tensor_supported_stages: ShaderStageFlags,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceTensorPropertiesARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_TENSOR_PROPERTIES_ARM,
+            p_next: core::ptr::null_mut(),
+            max_tensor_dimension_count: Default::default(),
+            max_tensor_elements: Default::default(),
+            max_per_dimension_tensor_elements: Default::default(),
+            max_tensor_stride: Default::default(),
+            max_tensor_size: Default::default(),
+            max_tensor_shader_access_array_length: Default::default(),
+            max_tensor_shader_access_size: Default::default(),
+            max_descriptor_set_storage_tensors: Default::default(),
+            max_per_stage_descriptor_set_storage_tensors: Default::default(),
+            max_descriptor_set_update_after_bind_storage_tensors: Default::default(),
+            max_per_stage_descriptor_update_after_bind_storage_tensors: Default::default(),
+            shader_storage_tensor_array_non_uniform_indexing_native: Default::default(),
+            shader_tensor_supported_stages: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct TensorMemoryBarrierARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -93,7 +196,24 @@ pub struct TensorMemoryBarrierARM<'a> {
     pub tensor: TensorARM,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for TensorMemoryBarrierARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::TENSOR_MEMORY_BARRIER_ARM,
+            p_next: core::ptr::null(),
+            src_stage_mask: Default::default(),
+            src_access_mask: Default::default(),
+            dst_stage_mask: Default::default(),
+            dst_access_mask: Default::default(),
+            src_queue_family_index: Default::default(),
+            dst_queue_family_index: Default::default(),
+            tensor: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct TensorDependencyInfoARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -101,7 +221,19 @@ pub struct TensorDependencyInfoARM<'a> {
     pub p_tensor_memory_barriers: *const TensorMemoryBarrierARM<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for TensorDependencyInfoARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::TENSOR_DEPENDENCY_INFO_ARM,
+            p_next: core::ptr::null(),
+            tensor_memory_barrier_count: Default::default(),
+            p_tensor_memory_barriers: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceTensorFeaturesARM<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -113,14 +245,41 @@ pub struct PhysicalDeviceTensorFeaturesARM<'a> {
     pub tensors: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceTensorFeaturesARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_TENSOR_FEATURES_ARM,
+            p_next: core::ptr::null_mut(),
+            tensor_non_packed: Default::default(),
+            shader_tensor_access: Default::default(),
+            shader_storage_tensor_array_dynamic_indexing: Default::default(),
+            shader_storage_tensor_array_non_uniform_indexing: Default::default(),
+            descriptor_binding_storage_tensor_update_after_bind: Default::default(),
+            tensors: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DeviceTensorMemoryRequirementsARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub p_create_info: *const TensorCreateInfoARM<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DeviceTensorMemoryRequirementsARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DEVICE_TENSOR_MEMORY_REQUIREMENTS_ARM,
+            p_next: core::ptr::null(),
+            p_create_info: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct CopyTensorInfoARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -130,7 +289,21 @@ pub struct CopyTensorInfoARM<'a> {
     pub p_regions: *const TensorCopyARM<'a>,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for CopyTensorInfoARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::COPY_TENSOR_INFO_ARM,
+            p_next: core::ptr::null(),
+            src_tensor: Default::default(),
+            dst_tensor: Default::default(),
+            region_count: Default::default(),
+            p_regions: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct TensorCopyARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -140,14 +313,39 @@ pub struct TensorCopyARM<'a> {
     pub p_extent: *const u64,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for TensorCopyARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::TENSOR_COPY_ARM,
+            p_next: core::ptr::null(),
+            dimension_count: Default::default(),
+            p_src_offset: core::ptr::null(),
+            p_dst_offset: core::ptr::null(),
+            p_extent: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct MemoryDedicatedAllocateInfoTensorARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub tensor: TensorARM,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for MemoryDedicatedAllocateInfoTensorARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::MEMORY_DEDICATED_ALLOCATE_INFO_TENSOR_ARM,
+            p_next: core::ptr::null(),
+            tensor: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDescriptorBufferTensorPropertiesARM<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -156,35 +354,92 @@ pub struct PhysicalDeviceDescriptorBufferTensorPropertiesARM<'a> {
     pub tensor_descriptor_size: usize,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceDescriptorBufferTensorPropertiesARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_PROPERTIES_ARM,
+            p_next: core::ptr::null_mut(),
+            tensor_capture_replay_descriptor_data_size: Default::default(),
+            tensor_view_capture_replay_descriptor_data_size: Default::default(),
+            tensor_descriptor_size: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceDescriptorBufferTensorFeaturesARM<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub descriptor_buffer_tensor_descriptors: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceDescriptorBufferTensorFeaturesARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_FEATURES_ARM,
+            p_next: core::ptr::null_mut(),
+            descriptor_buffer_tensor_descriptors: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct TensorCaptureDescriptorDataInfoARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub tensor: TensorARM,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for TensorCaptureDescriptorDataInfoARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::TENSOR_CAPTURE_DESCRIPTOR_DATA_INFO_ARM,
+            p_next: core::ptr::null(),
+            tensor: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct TensorViewCaptureDescriptorDataInfoARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub tensor_view: TensorViewARM,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for TensorViewCaptureDescriptorDataInfoARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::TENSOR_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_ARM,
+            p_next: core::ptr::null(),
+            tensor_view: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct DescriptorGetTensorInfoARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub tensor_view: TensorViewARM,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for DescriptorGetTensorInfoARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::DESCRIPTOR_GET_TENSOR_INFO_ARM,
+            p_next: core::ptr::null(),
+            tensor_view: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct FrameBoundaryTensorsARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -192,7 +447,19 @@ pub struct FrameBoundaryTensorsARM<'a> {
     pub p_tensors: *const TensorARM,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for FrameBoundaryTensorsARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::FRAME_BOUNDARY_TENSORS_ARM,
+            p_next: core::ptr::null(),
+            tensor_count: Default::default(),
+            p_tensors: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceExternalTensorInfoARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -201,19 +468,53 @@ pub struct PhysicalDeviceExternalTensorInfoARM<'a> {
     pub handle_type: ExternalMemoryHandleTypeFlagBits,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceExternalTensorInfoARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_EXTERNAL_TENSOR_INFO_ARM,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            p_description: core::ptr::null(),
+            handle_type: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ExternalTensorPropertiesARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub external_memory_properties: ExternalMemoryProperties,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for ExternalTensorPropertiesARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::EXTERNAL_TENSOR_PROPERTIES_ARM,
+            p_next: core::ptr::null(),
+            external_memory_properties: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ExternalMemoryTensorCreateInfoARM<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub handle_types: ExternalMemoryHandleTypeFlags,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for ExternalMemoryTensorCreateInfoARM<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::EXTERNAL_MEMORY_TENSOR_CREATE_INFO_ARM,
+            p_next: core::ptr::null(),
+            handle_types: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

@@ -4,13 +4,25 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SurfacePresentModeKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub present_mode: PresentModeKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for SurfacePresentModeKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SURFACE_PRESENT_MODE_KHR,
+            p_next: core::ptr::null_mut(),
+            present_mode: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SurfacePresentScalingCapabilitiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -21,13 +33,39 @@ pub struct SurfacePresentScalingCapabilitiesKHR<'a> {
     pub max_scaled_image_extent: Extent2D,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for SurfacePresentScalingCapabilitiesKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SURFACE_PRESENT_SCALING_CAPABILITIES_KHR,
+            p_next: core::ptr::null_mut(),
+            supported_present_scaling: Default::default(),
+            supported_present_gravity_x: Default::default(),
+            supported_present_gravity_y: Default::default(),
+            min_scaled_image_extent: Default::default(),
+            max_scaled_image_extent: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct SurfacePresentModeCompatibilityKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub present_mode_count: u32,
     pub p_present_modes: *mut PresentModeKHR,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for SurfacePresentModeCompatibilityKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::SURFACE_PRESENT_MODE_COMPATIBILITY_KHR,
+            p_next: core::ptr::null_mut(),
+            present_mode_count: Default::default(),
+            p_present_modes: core::ptr::null_mut(),
+            _marker: PhantomData,
+        }
+    }
 }
 bitflags! {
     #[repr(transparent)]

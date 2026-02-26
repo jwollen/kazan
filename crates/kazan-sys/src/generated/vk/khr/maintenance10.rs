@@ -4,6 +4,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMaintenance10PropertiesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
@@ -12,27 +13,72 @@ pub struct PhysicalDeviceMaintenance10PropertiesKHR<'a> {
     pub resolve_srgb_format_supports_transfer_function_control: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceMaintenance10PropertiesKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_MAINTENANCE_10_PROPERTIES_KHR,
+            p_next: core::ptr::null_mut(),
+            rgba4_opaque_black_swizzled: Default::default(),
+            resolve_srgb_format_applies_transfer_function: Default::default(),
+            resolve_srgb_format_supports_transfer_function_control: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PhysicalDeviceMaintenance10FeaturesKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *mut c_void,
     pub maintenance10: Bool32,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for PhysicalDeviceMaintenance10FeaturesKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::PHYSICAL_DEVICE_MAINTENANCE_10_FEATURES_KHR,
+            p_next: core::ptr::null_mut(),
+            maintenance10: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct RenderingEndInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for RenderingEndInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::RENDERING_END_INFO_KHR,
+            p_next: core::ptr::null(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct RenderingAttachmentFlagsInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
     pub flags: RenderingAttachmentFlagsKHR,
     pub _marker: PhantomData<&'a ()>,
 }
+impl Default for RenderingAttachmentFlagsInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::RENDERING_ATTACHMENT_FLAGS_INFO_KHR,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            _marker: PhantomData,
+        }
+    }
+}
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct ResolveImageModeInfoKHR<'a> {
     pub s_type: StructureType,
     pub p_next: *const c_void,
@@ -40,6 +86,18 @@ pub struct ResolveImageModeInfoKHR<'a> {
     pub resolve_mode: ResolveModeFlagBits,
     pub stencil_resolve_mode: ResolveModeFlagBits,
     pub _marker: PhantomData<&'a ()>,
+}
+impl Default for ResolveImageModeInfoKHR<'_> {
+    fn default() -> Self {
+        Self {
+            s_type: StructureType::RESOLVE_IMAGE_MODE_INFO_KHR,
+            p_next: core::ptr::null(),
+            flags: Default::default(),
+            resolve_mode: Default::default(),
+            stencil_resolve_mode: Default::default(),
+            _marker: PhantomData,
+        }
+    }
 }
 bitflags! {
     #[repr(transparent)]
