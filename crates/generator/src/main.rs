@@ -370,9 +370,15 @@ fn generate(analysis: &analysis::Analysis) {
                 .iter()
                 .filter(|ty| new_items.contains(ty.name));
             for ty in unions {
-                writeln!(sys_file, "#[repr(C)]").unwrap();
-                writeln!(sys_file, "#[derive(Copy, Clone)]").unwrap();
-                writeln!(sys_file, "pub union {} {{", normalize_ty_name(ty.name)).unwrap();
+                let name = normalize_ty_name(ty.name);
+                writeln!(
+                    sys_file,
+                    "#[repr(C)]
+                    #[derive(Copy, Clone)]
+                    pub union {} {{",
+                    name
+                )
+                .unwrap();
                 for member in &ty.members {
                     let field_ty = ctype_to_rust_type(&member.c_decl.ty);
                     writeln!(
@@ -384,6 +390,16 @@ fn generate(analysis: &analysis::Analysis) {
                     .unwrap();
                 }
                 writeln!(sys_file, "}}").unwrap();
+                writeln!(
+                    sys_file,
+                    "impl Default for {} {{
+                        fn default() -> Self {{
+                            unsafe {{ core::mem::zeroed() }}
+                        }}
+                    }}",
+                    name
+                )
+                .unwrap();
             }
 
             let enums = registry
@@ -488,7 +504,7 @@ fn generate(analysis: &analysis::Analysis) {
                 writeln!(sys_file, "    #[repr(transparent)]").unwrap();
                 writeln!(
                     sys_file,
-                    "    #[derive(Copy, Clone, PartialEq, Eq, Default)]"
+                    "    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]"
                 )
                 .unwrap();
                 let base_type = ctype_to_rust_type_str(ty.ty);
@@ -614,7 +630,7 @@ fn generate(analysis: &analysis::Analysis) {
                     writeln!(
                         sys_file,
                         "#[repr(transparent)]
-                            #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+                            #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
                             pub struct {}(u{});
                             impl {} {{",
                         bitmask_name,

@@ -70,10 +70,18 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
     let structs = &analysis.registry().structs;
     let info = analyze_struct(structs, ty);
 
+    let type_info = analysis.type_infos().get(ty.name).unwrap();
+
     writeln!(
         file,
         "#[repr(C)]
+        #[derive(Copy, Clone{})]
         pub struct {} {{",
+        if info.has_default && type_info.default {
+            ", Default"
+        } else {
+            ""
+        },
         normalize_ty_name(ty.name)
     )
     .unwrap();
@@ -107,38 +115,26 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
     // }
     // writeln!(file, "}}").unwrap();
 
-    // if info.has_default {
-    //     writeln!(
-    //         file,
-    //         "impl Default for {} {{
-    //     fn default() -> Self {{
-    //     Self {{",
-    //         info.name
-    //     )
-    //     .unwrap();
-    //     for member in &info.members {
-    //         write!(file, "{}: ", member.name).unwrap();
-    //         if member.member.c_decl.name == "sType" {
-    //             writeln!(file, "StructureType::{}", info.tag.unwrap()).unwrap()
-    //         } else if let CType::Array { .. } = &member.member.c_decl.ty {
-    //             write!(file, "[Default::default(); _]").unwrap();
-    //         } else if let CType::Ptr { is_const, .. } = &member.member.c_decl.ty {
-    //             if *is_const {
-    //                 write!(file, "core::ptr::null()").unwrap();
-    //             } else {
-    //                 write!(file, "core::ptr::null_mut()").unwrap();
-    //             }
-    //         // } else if let CType::Base(base) = &member.member.c_decl.ty
-    //         //     && base.name.starts_with("PFN_")
-    //         // {
-    //         //     write!(file, "core::ptr::null()").unwrap();
-    //         } else {
-    //             write!(file, "Default::default()").unwrap();
-    //         }
-    //         writeln!(file, ",").unwrap();
-    //     }
-    //     writeln!(file, "}} }} }}").unwrap();
-    // }
+    if info.has_default && !type_info.default {
+        writeln!(
+            file,
+            "impl Default for {} {{
+        fn default() -> Self {{
+        Self {{",
+            info.name
+        )
+        .unwrap();
+        for member in &info.members {
+            write!(file, "{}: ", member.name).unwrap();
+            if member.member.c_decl.name == "sType" {
+                writeln!(file, "StructureType::{}", info.tag.unwrap()).unwrap()
+            } else {
+                write!(file, "{}", default_value(&member.member.c_decl.ty)).unwrap();
+            }
+            writeln!(file, ",").unwrap();
+        }
+        writeln!(file, "}} }} }}").unwrap();
+    }
 
     // writeln!(file, "impl {} {{", info.name).unwrap();
     // for member in &ty.members {
@@ -163,4 +159,22 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
     //     writeln!(file, "}}").unwrap();
     // }
     // writeln!(file, "}}").unwrap();
+}
+
+fn default_value(ty: &CType) -> std::borrow::Cow<'static, str> {
+    if let CType::Array { element, .. } = ty {
+        format!("[{}; _]", default_value(element)).into()
+    } else if let CType::Ptr { is_const, .. } = ty {
+        if *is_const {
+            "core::ptr::null()".into()
+        } else {
+            "core::ptr::null_mut()".into()
+        }
+    // } else if let CType::Base(base) = &member.member.c_decl.ty
+    //     && base.name.starts_with("PFN_")
+    // {
+    //     write!(file, "core::ptr::null()").unwrap();
+    } else {
+        "Default::default()".into()
+    }
 }
