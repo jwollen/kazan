@@ -5,13 +5,14 @@ use std::{
     io::Write,
 };
 
-use heck::{ToShoutySnakeCase, ToSnakeCase};
+use heck::ToSnakeCase;
 use itertools::Itertools;
 
 use crate::{
     analysis::Analysis,
     cdecl::CType,
     command::{CommandGroup, CommandInfo, write_command_wrapper},
+    enums::{ReqEnumData, write_bitmask, write_enum},
     structs::write_struct,
     xml::Constant,
 };
@@ -19,6 +20,7 @@ use crate::{
 mod analysis;
 mod cdecl;
 mod command;
+mod enums;
 mod structs;
 mod xml;
 
@@ -399,82 +401,14 @@ fn generate(analysis: &analysis::Analysis) {
                 .enums
                 .iter()
                 .filter(|ty| new_items.contains(ty.name));
+            let req_enum_data = ReqEnumData {
+                enum_variants: &req_enum_variants,
+                enum_aliases: &req_enum_aliases,
+                enum_values: &req_enum_values,
+                bitspos: &req_bitspos,
+            };
             for ty in enums {
-                let value_prefix = if ty.name == "VkResult" {
-                    "VK".to_string()
-                } else {
-                    let value_prefix = strip_vendor_suffix(ty.name).to_shouty_snake_case();
-                    trailing_number.replace(&value_prefix, "_$1").to_string()
-                };
-
-                writeln!(sys_file, "#[repr(transparent)]").unwrap();
-                writeln!(
-                    sys_file,
-                    "#[derive(Copy, Clone, Default,PartialEq, Eq, PartialOrd, Ord, Hash)]"
-                )
-                .unwrap();
-                writeln!(sys_file, "pub struct {}(i32);", normalize_ty_name(ty.name)).unwrap();
-
-                let normalize_variant_name = |name: &str| {
-                    let name = name
-                        .strip_prefix(&value_prefix)
-                        .unwrap()
-                        .strip_prefix("_")
-                        .unwrap()
-                        .to_uppercase(); // Formats contain lowercase 'x'
-
-                    //let name = strip_vendor_suffix(name);
-                    if name
-                        .chars()
-                        .next()
-                        .map(|c| c.is_ascii_digit())
-                        .unwrap_or_default()
-                    {
-                        format!("_{}", &name)
-                    } else {
-                        name.to_string()
-                    }
-                };
-
-                let variants = {
-                    let bits = ty
-                        .values
-                        .iter()
-                        .map(|bit| (normalize_variant_name(bit.name), bit.value.to_string()));
-
-                    let req_enum = req_enum_variants.get(ty.name);
-                    let req_variants = req_enum.iter().flat_map(|bits| {
-                        bits.iter().map(|(name, variant)| {
-                            (normalize_variant_name(name), variant.to_string())
-                        })
-                    });
-
-                    let mut bits = bits.chain(req_variants).collect::<Vec<_>>();
-                    //bits.sort_by_key(|(_, value)| value);
-                    bits
-                };
-
-                writeln!(sys_file, "impl {} {{", normalize_ty_name(ty.name)).unwrap();
-                for (name, value) in &variants {
-                    writeln!(sys_file, "pub const {}: Self = Self({});", name, value).unwrap();
-                }
-
-                if let Some(values) = req_enum_values.get(ty.name) {
-                    for (name, value) in values {
-                        let name = normalize_variant_name(name);
-                        writeln!(sys_file, "pub const {}: Self = Self({});", name, value).unwrap();
-                    }
-                }
-
-                if let Some(aliases) = req_enum_aliases.get(ty.name) {
-                    for (name, alias) in aliases {
-                        let name = normalize_variant_name(name);
-                        let alias = normalize_variant_name(alias);
-                        writeln!(sys_file, "pub const {}: Self = Self::{};", name, alias).unwrap();
-                    }
-                }
-
-                writeln!(sys_file, "}}").unwrap();
+                write_enum(&mut sys_file, ty, &req_enum_data, &trailing_number);
             }
 
             let bitmask_types = registry
@@ -483,188 +417,18 @@ fn generate(analysis: &analysis::Analysis) {
                 .clone()
                 .filter(|ty| new_items.contains(ty.name));
             for ty in bitmask_types {
-                let bitmask = ty.bitvalues.or(ty.requires).map(|b| {
-                    registry
-                        .bitmasks
-                        .iter()
-                        .find(|bitmask| bitmask.name == b)
-                        .unwrap()
-                });
-
-                let name = normalize_ty_name(ty.name);
-
-                writeln!(sys_file, "bitflags! {{").unwrap();
-                writeln!(sys_file, "    #[repr(transparent)]").unwrap();
-                writeln!(
-                    sys_file,
-                    "    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]"
-                )
-                .unwrap();
-                let base_type = ctype_to_rust_type_str(ty.ty);
-                writeln!(sys_file, "    pub struct {}: {} {{", name, base_type).unwrap();
-
-                let value_prefix = bitmask.map(|bitmask| {
-                    let value_prefix = strip_vendor_suffix(bitmask.name)
-                        .replace("FlagBits", "")
-                        .to_shouty_snake_case();
-                    trailing_number.replace(&value_prefix, "_$1").to_string()
-                });
-
-                let normalize_bit_name = |name: &str| {
-                    let name = name
-                        .strip_prefix(value_prefix.as_ref().unwrap())
-                        .unwrap_or(name.strip_prefix("VK").unwrap()) // Some variants have non-standard names
-                        .strip_prefix("_")
-                        .unwrap();
-                    //let name = strip_vendor_suffix(name);
-                    //let name = name.strip_suffix("_BIT").unwrap_or(name);
-                    let name = name.replace("_BIT", "");
-
-                    if name
-                        .chars()
-                        .next()
-                        .map(|c| c.is_ascii_digit())
-                        .unwrap_or_default()
-                    {
-                        format!("_{}", &name)
-                    } else {
-                        name.to_string()
-                    }
-                };
-
-                let bits = if let Some(bitmask) = bitmask {
-                    let bits = bitmask
-                        .bits
-                        .iter()
-                        .map(|bit| (normalize_bit_name(bit.name), bit.bitpos));
-
-                    let req_bitmask = req_bitspos.get(bitmask.name);
-                    let req_bits = req_bitmask.iter().flat_map(|bits| {
-                        bits.iter()
-                            .map(|(name, bitpos)| (normalize_bit_name(name), *bitpos))
-                    });
-
-                    let mut bits = bits.chain(req_bits).collect::<Vec<_>>();
-                    bits.sort_by_key(|(_, bit)| *bit);
-                    bits
-                } else {
-                    Vec::new()
-                };
-
-                if let Some(bitmask) = bitmask {
-                    let bitmask_name = normalize_ty_name(bitmask.name);
-
-                    // Filter out duplicates. These can happen because we are removing the "_BIT" suffix,
-                    // but some bitmask variants miss this suffix and got later corrected through aliases.
-                    let mut visited_bits = HashSet::new();
-
-                    for (name, _bit) in &bits {
-                        if !visited_bits.insert(name.clone()) {
-                            continue;
-                        }
-                        writeln!(
-                            sys_file,
-                            "        const {} = {}::{}.0;",
-                            name, bitmask_name, name
-                        )
-                        .unwrap();
-                    }
-
-                    for alias in &bitmask.aliases {
-                        let name = normalize_bit_name(alias.name);
-                        let alias = normalize_bit_name(alias.alias);
-
-                        if !visited_bits.insert(name.clone()) {
-                            continue;
-                        }
-
-                        writeln!(sys_file, "        const {} = Self::{}.bits();", name, alias)
-                            .unwrap();
-                    }
-
-                    if let Some(aliases) = req_enum_aliases.get(bitmask.name) {
-                        for (name, alias) in aliases {
-                            let name = normalize_bit_name(name);
-                            let alias = normalize_bit_name(alias);
-
-                            if !visited_bits.insert(name.clone()) {
-                                continue;
-                            }
-
-                            writeln!(sys_file, "        const {} = Self::{}.bits();", name, alias)
-                                .unwrap();
-                        }
-                    }
-
-                    for value in &bitmask.values {
-                        let name = value
-                            .name
-                            .strip_prefix(value_prefix.as_ref().unwrap())
-                            .unwrap()
-                            .strip_prefix("_")
-                            .unwrap();
-                        let name = strip_vendor_suffix(name);
-                        writeln!(sys_file, "        const {} = {};", name, value.value).unwrap();
-                    }
-
-                    if let Some(values) = req_enum_values.get(bitmask.name) {
-                        for (name, value) in values {
-                            let name = normalize_bit_name(name);
-                            writeln!(sys_file, "        const {} = {};", name, value).unwrap();
-                        }
-                    }
-                }
-
-                writeln!(sys_file, "    }}").unwrap();
-                writeln!(sys_file, "}}").unwrap();
-
-                if let Some(bitmask) = bitmask {
-                    let bitmask_name = normalize_ty_name(bitmask.name);
-                    writeln!(
-                        sys_file,
-                        "#[repr(transparent)]
-                            #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-                            pub struct {}(u{});
-                            impl {} {{",
-                        bitmask_name,
-                        bitmask.bitwidth.unwrap_or(32),
-                        bitmask_name,
-                    )
-                    .unwrap();
-
-                    // Filter out duplicates. These can happen because we are removing the "_BIT" suffix,
-                    // but some bitmask variants miss this suffix and got later corrected through aliases.
-                    let mut visited_bits = HashSet::new();
-
-                    for (name, bit) in &bits {
-                        if !visited_bits.insert(name.clone()) {
-                            continue;
-                        }
-                        writeln!(sys_file, "pub const {}: Self = Self(1 << {});", name, bit)
-                            .unwrap();
-                    }
-
-                    if let Some(aliases) = req_enum_aliases.get(bitmask.name) {
-                        for (name, alias) in aliases {
-                            let name = normalize_bit_name(name);
-                            let alias = normalize_bit_name(alias);
-
-                            // Only generate aliases for bits, not values
-                            if !bits.iter().any(|(name, _)| name.as_str() == alias) {
-                                continue;
-                            }
-
-                            if !visited_bits.insert(name.clone()) {
-                                continue;
-                            }
-
-                            writeln!(sys_file, "pub const {}: Self = Self::{};", name, alias)
-                                .unwrap();
-                        }
-                    }
-
-                    writeln!(sys_file, "}}").unwrap();
-                }
+                let bitmask = ty
+                    .bitvalues
+                    .or(ty.requires)
+                    .and_then(|b| registry.bitmasks.iter().find(|bitmask| bitmask.name == b));
+                write_bitmask(
+                    &mut sys_file,
+                    ty,
+                    bitmask,
+                    registry,
+                    &req_enum_data,
+                    &trailing_number,
+                );
             }
 
             let funcpointers = registry
@@ -927,66 +691,6 @@ fn convert_c_expr<'a>(expr: &'a str) -> Cow<'a, str> {
     }
 }
 
-fn strip_vendor_suffix(name: &str) -> &str {
-    let vendors = [
-        "AMD",
-        "AMDX",
-        "ANDROID",
-        "ARM",
-        "BRCM",
-        "CHROMIUM",
-        "EXT",
-        "FB",
-        "FSL",
-        "FUCHSIA",
-        "GGP",
-        "GOOGLE",
-        "HUAWEI",
-        "IMG",
-        "INTEL",
-        "JUICE",
-        "KDAB",
-        "KHR",
-        "KHX",
-        "LUNARG",
-        "MESA",
-        "MSFT",
-        "MVK",
-        "NN",
-        "NV",
-        "NVX",
-        "NXP",
-        "NZXT",
-        "OHOS",
-        "QCOM",
-        "QNX",
-        "RASTERGRID",
-        "RENDERDOC",
-        "SAMSUNG",
-        "SEC",
-        "TIZEN",
-        "VALVE",
-        "VIV",
-        "VSI",
-    ];
-
-    let vendor = vendors
-        .iter()
-        .find(|&vendor| name.ends_with(vendor))
-        .cloned();
-
-    if let Some(vendor) = vendor {
-        let name = name.strip_suffix(vendor).unwrap();
-        if name.ends_with("_") {
-            name.strip_suffix("_").unwrap()
-        } else {
-            name
-        }
-    } else {
-        name
-    }
-}
-
 fn normalize_name(name: &str) -> String {
     match name {
         "type" => "ty".to_string(),
@@ -998,7 +702,7 @@ fn normalize_const_name(name: &str) -> &str {
     name.strip_prefix("VK_").unwrap_or(name)
 }
 
-fn normalize_ty_name(name: &str) -> &str {
+pub(crate) fn normalize_ty_name(name: &str) -> &str {
     //strip_vendor_suffix(name.strip_prefix("Vk").unwrap_or(name))
     name.strip_prefix("Vk").unwrap_or(name)
 }
@@ -1014,7 +718,7 @@ fn type_name_with_lifetime(analysis: &Analysis, name: &str, lifetime: Option<&st
 }
 
 // TODO: Replace occurances with type_name_with_lifetime
-fn ctype_to_rust_type_str(name: &str) -> &str {
+pub(crate) fn ctype_to_rust_type_str(name: &str) -> &str {
     match name {
         "int8_t" => "i8",
         "uint8_t" => "u8",
