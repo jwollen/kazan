@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub const MAX_DEVICE_GROUP_SIZE: u32 = 32;
 pub const LUID_SIZE: u32 = 8;
@@ -33,6 +33,12 @@ impl Default for PhysicalDeviceFeatures2<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceFeatures2<'a> {
+    pub fn features(mut self, features: PhysicalDeviceFeatures) -> Self {
+        self.features = features;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceProperties2<'a> {
@@ -49,6 +55,12 @@ impl Default for PhysicalDeviceProperties2<'_> {
             properties: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceProperties2<'a> {
+    pub fn properties(mut self, properties: PhysicalDeviceProperties) -> Self {
+        self.properties = properties;
+        self
     }
 }
 #[repr(C)]
@@ -69,6 +81,12 @@ impl Default for FormatProperties2<'_> {
         }
     }
 }
+impl<'a> FormatProperties2<'a> {
+    pub fn format_properties(mut self, format_properties: FormatProperties) -> Self {
+        self.format_properties = format_properties;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ImageFormatProperties2<'a> {
@@ -85,6 +103,15 @@ impl Default for ImageFormatProperties2<'_> {
             image_format_properties: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ImageFormatProperties2<'a> {
+    pub fn image_format_properties(
+        mut self,
+        image_format_properties: ImageFormatProperties,
+    ) -> Self {
+        self.image_format_properties = image_format_properties;
+        self
     }
 }
 #[repr(C)]
@@ -113,6 +140,28 @@ impl Default for PhysicalDeviceImageFormatInfo2<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceImageFormatInfo2<'a> {
+    pub fn format(mut self, format: Format) -> Self {
+        self.format = format;
+        self
+    }
+    pub fn ty(mut self, ty: ImageType) -> Self {
+        self.ty = ty;
+        self
+    }
+    pub fn tiling(mut self, tiling: ImageTiling) -> Self {
+        self.tiling = tiling;
+        self
+    }
+    pub fn usage(mut self, usage: ImageUsageFlags) -> Self {
+        self.usage = usage;
+        self
+    }
+    pub fn flags(mut self, flags: ImageCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct QueueFamilyProperties2<'a> {
@@ -129,6 +178,15 @@ impl Default for QueueFamilyProperties2<'_> {
             queue_family_properties: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> QueueFamilyProperties2<'a> {
+    pub fn queue_family_properties(
+        mut self,
+        queue_family_properties: QueueFamilyProperties,
+    ) -> Self {
+        self.queue_family_properties = queue_family_properties;
+        self
     }
 }
 #[repr(C)]
@@ -149,6 +207,12 @@ impl Default for PhysicalDeviceMemoryProperties2<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceMemoryProperties2<'a> {
+    pub fn memory_properties(mut self, memory_properties: PhysicalDeviceMemoryProperties) -> Self {
+        self.memory_properties = memory_properties;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SparseImageFormatProperties2<'a> {
@@ -165,6 +229,12 @@ impl Default for SparseImageFormatProperties2<'_> {
             properties: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SparseImageFormatProperties2<'a> {
+    pub fn properties(mut self, properties: SparseImageFormatProperties) -> Self {
+        self.properties = properties;
+        self
     }
 }
 #[repr(C)]
@@ -193,6 +263,28 @@ impl Default for PhysicalDeviceSparseImageFormatInfo2<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceSparseImageFormatInfo2<'a> {
+    pub fn format(mut self, format: Format) -> Self {
+        self.format = format;
+        self
+    }
+    pub fn ty(mut self, ty: ImageType) -> Self {
+        self.ty = ty;
+        self
+    }
+    pub fn samples(mut self, samples: SampleCountFlagBits) -> Self {
+        self.samples = samples;
+        self
+    }
+    pub fn usage(mut self, usage: ImageUsageFlags) -> Self {
+        self.usage = usage;
+        self
+    }
+    pub fn tiling(mut self, tiling: ImageTiling) -> Self {
+        self.tiling = tiling;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceVariablePointersFeatures<'a> {
@@ -213,12 +305,48 @@ impl Default for PhysicalDeviceVariablePointersFeatures<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceVariablePointersFeatures<'a> {
+    pub fn variable_pointers_storage_buffer(
+        mut self,
+        variable_pointers_storage_buffer: Bool32,
+    ) -> Self {
+        self.variable_pointers_storage_buffer = variable_pointers_storage_buffer;
+        self
+    }
+    pub fn variable_pointers(mut self, variable_pointers: Bool32) -> Self {
+        self.variable_pointers = variable_pointers;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct ExternalMemoryProperties {
     pub external_memory_features: ExternalMemoryFeatureFlags,
     pub export_from_imported_handle_types: ExternalMemoryHandleTypeFlags,
     pub compatible_handle_types: ExternalMemoryHandleTypeFlags,
+}
+impl ExternalMemoryProperties {
+    pub fn external_memory_features(
+        mut self,
+        external_memory_features: ExternalMemoryFeatureFlags,
+    ) -> Self {
+        self.external_memory_features = external_memory_features;
+        self
+    }
+    pub fn export_from_imported_handle_types(
+        mut self,
+        export_from_imported_handle_types: ExternalMemoryHandleTypeFlags,
+    ) -> Self {
+        self.export_from_imported_handle_types = export_from_imported_handle_types;
+        self
+    }
+    pub fn compatible_handle_types(
+        mut self,
+        compatible_handle_types: ExternalMemoryHandleTypeFlags,
+    ) -> Self {
+        self.compatible_handle_types = compatible_handle_types;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -238,6 +366,12 @@ impl Default for PhysicalDeviceExternalImageFormatInfo<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceExternalImageFormatInfo<'a> {
+    pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagBits) -> Self {
+        self.handle_type = handle_type;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ExternalImageFormatProperties<'a> {
@@ -254,6 +388,15 @@ impl Default for ExternalImageFormatProperties<'_> {
             external_memory_properties: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ExternalImageFormatProperties<'a> {
+    pub fn external_memory_properties(
+        mut self,
+        external_memory_properties: ExternalMemoryProperties,
+    ) -> Self {
+        self.external_memory_properties = external_memory_properties;
+        self
     }
 }
 #[repr(C)]
@@ -278,6 +421,20 @@ impl Default for PhysicalDeviceExternalBufferInfo<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceExternalBufferInfo<'a> {
+    pub fn flags(mut self, flags: BufferCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn usage(mut self, usage: BufferUsageFlags) -> Self {
+        self.usage = usage;
+        self
+    }
+    pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagBits) -> Self {
+        self.handle_type = handle_type;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ExternalBufferProperties<'a> {
@@ -294,6 +451,15 @@ impl Default for ExternalBufferProperties<'_> {
             external_memory_properties: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ExternalBufferProperties<'a> {
+    pub fn external_memory_properties(
+        mut self,
+        external_memory_properties: ExternalMemoryProperties,
+    ) -> Self {
+        self.external_memory_properties = external_memory_properties;
+        self
     }
 }
 #[repr(C)]
@@ -322,6 +488,28 @@ impl Default for PhysicalDeviceIDProperties<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceIDProperties<'a> {
+    pub fn device_uuid(mut self, device_uuid: [u8; UUID_SIZE as usize]) -> Self {
+        self.device_uuid = device_uuid;
+        self
+    }
+    pub fn driver_uuid(mut self, driver_uuid: [u8; UUID_SIZE as usize]) -> Self {
+        self.driver_uuid = driver_uuid;
+        self
+    }
+    pub fn device_luid(mut self, device_luid: [u8; LUID_SIZE as usize]) -> Self {
+        self.device_luid = device_luid;
+        self
+    }
+    pub fn device_node_mask(mut self, device_node_mask: u32) -> Self {
+        self.device_node_mask = device_node_mask;
+        self
+    }
+    pub fn device_luid_valid(mut self, device_luid_valid: Bool32) -> Self {
+        self.device_luid_valid = device_luid_valid;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ExternalMemoryImageCreateInfo<'a> {
@@ -338,6 +526,12 @@ impl Default for ExternalMemoryImageCreateInfo<'_> {
             handle_types: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ExternalMemoryImageCreateInfo<'a> {
+    pub fn handle_types(mut self, handle_types: ExternalMemoryHandleTypeFlags) -> Self {
+        self.handle_types = handle_types;
+        self
     }
 }
 #[repr(C)]
@@ -358,6 +552,12 @@ impl Default for ExternalMemoryBufferCreateInfo<'_> {
         }
     }
 }
+impl<'a> ExternalMemoryBufferCreateInfo<'a> {
+    pub fn handle_types(mut self, handle_types: ExternalMemoryHandleTypeFlags) -> Self {
+        self.handle_types = handle_types;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ExportMemoryAllocateInfo<'a> {
@@ -376,6 +576,12 @@ impl Default for ExportMemoryAllocateInfo<'_> {
         }
     }
 }
+impl<'a> ExportMemoryAllocateInfo<'a> {
+    pub fn handle_types(mut self, handle_types: ExternalMemoryHandleTypeFlags) -> Self {
+        self.handle_types = handle_types;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceExternalSemaphoreInfo<'a> {
@@ -392,6 +598,12 @@ impl Default for PhysicalDeviceExternalSemaphoreInfo<'_> {
             handle_type: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceExternalSemaphoreInfo<'a> {
+    pub fn handle_type(mut self, handle_type: ExternalSemaphoreHandleTypeFlagBits) -> Self {
+        self.handle_type = handle_type;
+        self
     }
 }
 #[repr(C)]
@@ -416,6 +628,29 @@ impl Default for ExternalSemaphoreProperties<'_> {
         }
     }
 }
+impl<'a> ExternalSemaphoreProperties<'a> {
+    pub fn export_from_imported_handle_types(
+        mut self,
+        export_from_imported_handle_types: ExternalSemaphoreHandleTypeFlags,
+    ) -> Self {
+        self.export_from_imported_handle_types = export_from_imported_handle_types;
+        self
+    }
+    pub fn compatible_handle_types(
+        mut self,
+        compatible_handle_types: ExternalSemaphoreHandleTypeFlags,
+    ) -> Self {
+        self.compatible_handle_types = compatible_handle_types;
+        self
+    }
+    pub fn external_semaphore_features(
+        mut self,
+        external_semaphore_features: ExternalSemaphoreFeatureFlags,
+    ) -> Self {
+        self.external_semaphore_features = external_semaphore_features;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ExportSemaphoreCreateInfo<'a> {
@@ -434,6 +669,12 @@ impl Default for ExportSemaphoreCreateInfo<'_> {
         }
     }
 }
+impl<'a> ExportSemaphoreCreateInfo<'a> {
+    pub fn handle_types(mut self, handle_types: ExternalSemaphoreHandleTypeFlags) -> Self {
+        self.handle_types = handle_types;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceExternalFenceInfo<'a> {
@@ -450,6 +691,12 @@ impl Default for PhysicalDeviceExternalFenceInfo<'_> {
             handle_type: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceExternalFenceInfo<'a> {
+    pub fn handle_type(mut self, handle_type: ExternalFenceHandleTypeFlagBits) -> Self {
+        self.handle_type = handle_type;
+        self
     }
 }
 #[repr(C)]
@@ -474,6 +721,29 @@ impl Default for ExternalFenceProperties<'_> {
         }
     }
 }
+impl<'a> ExternalFenceProperties<'a> {
+    pub fn export_from_imported_handle_types(
+        mut self,
+        export_from_imported_handle_types: ExternalFenceHandleTypeFlags,
+    ) -> Self {
+        self.export_from_imported_handle_types = export_from_imported_handle_types;
+        self
+    }
+    pub fn compatible_handle_types(
+        mut self,
+        compatible_handle_types: ExternalFenceHandleTypeFlags,
+    ) -> Self {
+        self.compatible_handle_types = compatible_handle_types;
+        self
+    }
+    pub fn external_fence_features(
+        mut self,
+        external_fence_features: ExternalFenceFeatureFlags,
+    ) -> Self {
+        self.external_fence_features = external_fence_features;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ExportFenceCreateInfo<'a> {
@@ -490,6 +760,12 @@ impl Default for ExportFenceCreateInfo<'_> {
             handle_types: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ExportFenceCreateInfo<'a> {
+    pub fn handle_types(mut self, handle_types: ExternalFenceHandleTypeFlags) -> Self {
+        self.handle_types = handle_types;
+        self
     }
 }
 #[repr(C)]
@@ -514,6 +790,20 @@ impl Default for PhysicalDeviceMultiviewFeatures<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceMultiviewFeatures<'a> {
+    pub fn multiview(mut self, multiview: Bool32) -> Self {
+        self.multiview = multiview;
+        self
+    }
+    pub fn multiview_geometry_shader(mut self, multiview_geometry_shader: Bool32) -> Self {
+        self.multiview_geometry_shader = multiview_geometry_shader;
+        self
+    }
+    pub fn multiview_tessellation_shader(mut self, multiview_tessellation_shader: Bool32) -> Self {
+        self.multiview_tessellation_shader = multiview_tessellation_shader;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceMultiviewProperties<'a> {
@@ -532,6 +822,16 @@ impl Default for PhysicalDeviceMultiviewProperties<'_> {
             max_multiview_instance_index: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceMultiviewProperties<'a> {
+    pub fn max_multiview_view_count(mut self, max_multiview_view_count: u32) -> Self {
+        self.max_multiview_view_count = max_multiview_view_count;
+        self
+    }
+    pub fn max_multiview_instance_index(mut self, max_multiview_instance_index: u32) -> Self {
+        self.max_multiview_instance_index = max_multiview_instance_index;
+        self
     }
 }
 #[repr(C)]
@@ -562,6 +862,23 @@ impl Default for RenderPassMultiviewCreateInfo<'_> {
         }
     }
 }
+impl<'a> RenderPassMultiviewCreateInfo<'a> {
+    pub fn view_masks(mut self, view_masks: &'a [u32]) -> Self {
+        self.subpass_count = view_masks.len().try_into().unwrap();
+        self.p_view_masks = view_masks.as_ptr();
+        self
+    }
+    pub fn view_offsets(mut self, view_offsets: &'a [i32]) -> Self {
+        self.dependency_count = view_offsets.len().try_into().unwrap();
+        self.p_view_offsets = view_offsets.as_ptr();
+        self
+    }
+    pub fn correlation_masks(mut self, correlation_masks: &'a [u32]) -> Self {
+        self.correlation_mask_count = correlation_masks.len().try_into().unwrap();
+        self.p_correlation_masks = correlation_masks.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceGroupProperties<'a> {
@@ -584,6 +901,17 @@ impl Default for PhysicalDeviceGroupProperties<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceGroupProperties<'a> {
+    pub fn physical_devices(mut self, physical_devices: &[PhysicalDevice]) -> Self {
+        self.physical_device_count = physical_devices.len().try_into().unwrap();
+        self.physical_devices[..physical_devices.len()].copy_from_slice(physical_devices);
+        self
+    }
+    pub fn subset_allocation(mut self, subset_allocation: Bool32) -> Self {
+        self.subset_allocation = subset_allocation;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct MemoryAllocateFlagsInfo<'a> {
@@ -602,6 +930,16 @@ impl Default for MemoryAllocateFlagsInfo<'_> {
             device_mask: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> MemoryAllocateFlagsInfo<'a> {
+    pub fn flags(mut self, flags: MemoryAllocateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn device_mask(mut self, device_mask: u32) -> Self {
+        self.device_mask = device_mask;
+        self
     }
 }
 #[repr(C)]
@@ -626,6 +964,20 @@ impl Default for BindBufferMemoryInfo<'_> {
         }
     }
 }
+impl<'a> BindBufferMemoryInfo<'a> {
+    pub fn buffer(mut self, buffer: Buffer) -> Self {
+        self.buffer = buffer;
+        self
+    }
+    pub fn memory(mut self, memory: DeviceMemory) -> Self {
+        self.memory = memory;
+        self
+    }
+    pub fn memory_offset(mut self, memory_offset: DeviceSize) -> Self {
+        self.memory_offset = memory_offset;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct BindBufferMemoryDeviceGroupInfo<'a> {
@@ -644,6 +996,13 @@ impl Default for BindBufferMemoryDeviceGroupInfo<'_> {
             p_device_indices: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> BindBufferMemoryDeviceGroupInfo<'a> {
+    pub fn device_indices(mut self, device_indices: &'a [u32]) -> Self {
+        self.device_index_count = device_indices.len().try_into().unwrap();
+        self.p_device_indices = device_indices.as_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -666,6 +1025,20 @@ impl Default for BindImageMemoryInfo<'_> {
             memory_offset: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> BindImageMemoryInfo<'a> {
+    pub fn image(mut self, image: Image) -> Self {
+        self.image = image;
+        self
+    }
+    pub fn memory(mut self, memory: DeviceMemory) -> Self {
+        self.memory = memory;
+        self
+    }
+    pub fn memory_offset(mut self, memory_offset: DeviceSize) -> Self {
+        self.memory_offset = memory_offset;
+        self
     }
 }
 #[repr(C)]
@@ -692,6 +1065,22 @@ impl Default for BindImageMemoryDeviceGroupInfo<'_> {
         }
     }
 }
+impl<'a> BindImageMemoryDeviceGroupInfo<'a> {
+    pub fn device_indices(mut self, device_indices: &'a [u32]) -> Self {
+        self.device_index_count = device_indices.len().try_into().unwrap();
+        self.p_device_indices = device_indices.as_ptr();
+        self
+    }
+    pub fn split_instance_bind_regions(
+        mut self,
+        split_instance_bind_regions: &'a [Rect2D],
+    ) -> Self {
+        self.split_instance_bind_region_count =
+            split_instance_bind_regions.len().try_into().unwrap();
+        self.p_split_instance_bind_regions = split_instance_bind_regions.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DeviceGroupRenderPassBeginInfo<'a> {
@@ -714,6 +1103,17 @@ impl Default for DeviceGroupRenderPassBeginInfo<'_> {
         }
     }
 }
+impl<'a> DeviceGroupRenderPassBeginInfo<'a> {
+    pub fn device_mask(mut self, device_mask: u32) -> Self {
+        self.device_mask = device_mask;
+        self
+    }
+    pub fn device_render_areas(mut self, device_render_areas: &'a [Rect2D]) -> Self {
+        self.device_render_area_count = device_render_areas.len().try_into().unwrap();
+        self.p_device_render_areas = device_render_areas.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DeviceGroupCommandBufferBeginInfo<'a> {
@@ -730,6 +1130,12 @@ impl Default for DeviceGroupCommandBufferBeginInfo<'_> {
             device_mask: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DeviceGroupCommandBufferBeginInfo<'a> {
+    pub fn device_mask(mut self, device_mask: u32) -> Self {
+        self.device_mask = device_mask;
+        self
     }
 }
 #[repr(C)]
@@ -760,6 +1166,29 @@ impl Default for DeviceGroupSubmitInfo<'_> {
         }
     }
 }
+impl<'a> DeviceGroupSubmitInfo<'a> {
+    pub fn wait_semaphore_device_indices(
+        mut self,
+        wait_semaphore_device_indices: &'a [u32],
+    ) -> Self {
+        self.wait_semaphore_count = wait_semaphore_device_indices.len().try_into().unwrap();
+        self.p_wait_semaphore_device_indices = wait_semaphore_device_indices.as_ptr();
+        self
+    }
+    pub fn command_buffer_device_masks(mut self, command_buffer_device_masks: &'a [u32]) -> Self {
+        self.command_buffer_count = command_buffer_device_masks.len().try_into().unwrap();
+        self.p_command_buffer_device_masks = command_buffer_device_masks.as_ptr();
+        self
+    }
+    pub fn signal_semaphore_device_indices(
+        mut self,
+        signal_semaphore_device_indices: &'a [u32],
+    ) -> Self {
+        self.signal_semaphore_count = signal_semaphore_device_indices.len().try_into().unwrap();
+        self.p_signal_semaphore_device_indices = signal_semaphore_device_indices.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DeviceGroupBindSparseInfo<'a> {
@@ -778,6 +1207,16 @@ impl Default for DeviceGroupBindSparseInfo<'_> {
             memory_device_index: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DeviceGroupBindSparseInfo<'a> {
+    pub fn resource_device_index(mut self, resource_device_index: u32) -> Self {
+        self.resource_device_index = resource_device_index;
+        self
+    }
+    pub fn memory_device_index(mut self, memory_device_index: u32) -> Self {
+        self.memory_device_index = memory_device_index;
+        self
     }
 }
 #[repr(C)]
@@ -800,6 +1239,13 @@ impl Default for DeviceGroupDeviceCreateInfo<'_> {
         }
     }
 }
+impl<'a> DeviceGroupDeviceCreateInfo<'a> {
+    pub fn physical_devices(mut self, physical_devices: &'a [PhysicalDevice]) -> Self {
+        self.physical_device_count = physical_devices.len().try_into().unwrap();
+        self.p_physical_devices = physical_devices.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct DescriptorUpdateTemplateEntry {
@@ -809,6 +1255,32 @@ pub struct DescriptorUpdateTemplateEntry {
     pub descriptor_type: DescriptorType,
     pub offset: usize,
     pub stride: usize,
+}
+impl DescriptorUpdateTemplateEntry {
+    pub fn dst_binding(mut self, dst_binding: u32) -> Self {
+        self.dst_binding = dst_binding;
+        self
+    }
+    pub fn dst_array_element(mut self, dst_array_element: u32) -> Self {
+        self.dst_array_element = dst_array_element;
+        self
+    }
+    pub fn descriptor_count(mut self, descriptor_count: u32) -> Self {
+        self.descriptor_count = descriptor_count;
+        self
+    }
+    pub fn descriptor_type(mut self, descriptor_type: DescriptorType) -> Self {
+        self.descriptor_type = descriptor_type;
+        self
+    }
+    pub fn offset(mut self, offset: usize) -> Self {
+        self.offset = offset;
+        self
+    }
+    pub fn stride(mut self, stride: usize) -> Self {
+        self.stride = stride;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -842,12 +1314,60 @@ impl Default for DescriptorUpdateTemplateCreateInfo<'_> {
         }
     }
 }
+impl<'a> DescriptorUpdateTemplateCreateInfo<'a> {
+    pub fn flags(mut self, flags: DescriptorUpdateTemplateCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn descriptor_update_entries(
+        mut self,
+        descriptor_update_entries: &'a [DescriptorUpdateTemplateEntry],
+    ) -> Self {
+        self.descriptor_update_entry_count = descriptor_update_entries.len().try_into().unwrap();
+        self.p_descriptor_update_entries = descriptor_update_entries.as_ptr();
+        self
+    }
+    pub fn template_type(mut self, template_type: DescriptorUpdateTemplateType) -> Self {
+        self.template_type = template_type;
+        self
+    }
+    pub fn descriptor_set_layout(mut self, descriptor_set_layout: DescriptorSetLayout) -> Self {
+        self.descriptor_set_layout = descriptor_set_layout;
+        self
+    }
+    pub fn pipeline_bind_point(mut self, pipeline_bind_point: PipelineBindPoint) -> Self {
+        self.pipeline_bind_point = pipeline_bind_point;
+        self
+    }
+    pub fn pipeline_layout(mut self, pipeline_layout: PipelineLayout) -> Self {
+        self.pipeline_layout = pipeline_layout;
+        self
+    }
+    pub fn set(mut self, set: u32) -> Self {
+        self.set = set;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct InputAttachmentAspectReference {
     pub subpass: u32,
     pub input_attachment_index: u32,
     pub aspect_mask: ImageAspectFlags,
+}
+impl InputAttachmentAspectReference {
+    pub fn subpass(mut self, subpass: u32) -> Self {
+        self.subpass = subpass;
+        self
+    }
+    pub fn input_attachment_index(mut self, input_attachment_index: u32) -> Self {
+        self.input_attachment_index = input_attachment_index;
+        self
+    }
+    pub fn aspect_mask(mut self, aspect_mask: ImageAspectFlags) -> Self {
+        self.aspect_mask = aspect_mask;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -867,6 +1387,16 @@ impl Default for RenderPassInputAttachmentAspectCreateInfo<'_> {
             p_aspect_references: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> RenderPassInputAttachmentAspectCreateInfo<'a> {
+    pub fn aspect_references(
+        mut self,
+        aspect_references: &'a [InputAttachmentAspectReference],
+    ) -> Self {
+        self.aspect_reference_count = aspect_references.len().try_into().unwrap();
+        self.p_aspect_references = aspect_references.as_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -893,6 +1423,27 @@ impl Default for PhysicalDevice16BitStorageFeatures<'_> {
         }
     }
 }
+impl<'a> PhysicalDevice16BitStorageFeatures<'a> {
+    pub fn storage_buffer16_bit_access(mut self, storage_buffer16_bit_access: Bool32) -> Self {
+        self.storage_buffer16_bit_access = storage_buffer16_bit_access;
+        self
+    }
+    pub fn uniform_and_storage_buffer16_bit_access(
+        mut self,
+        uniform_and_storage_buffer16_bit_access: Bool32,
+    ) -> Self {
+        self.uniform_and_storage_buffer16_bit_access = uniform_and_storage_buffer16_bit_access;
+        self
+    }
+    pub fn storage_push_constant16(mut self, storage_push_constant16: Bool32) -> Self {
+        self.storage_push_constant16 = storage_push_constant16;
+        self
+    }
+    pub fn storage_input_output16(mut self, storage_input_output16: Bool32) -> Self {
+        self.storage_input_output16 = storage_input_output16;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceSubgroupProperties<'a> {
@@ -917,6 +1468,24 @@ impl Default for PhysicalDeviceSubgroupProperties<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceSubgroupProperties<'a> {
+    pub fn subgroup_size(mut self, subgroup_size: u32) -> Self {
+        self.subgroup_size = subgroup_size;
+        self
+    }
+    pub fn supported_stages(mut self, supported_stages: ShaderStageFlags) -> Self {
+        self.supported_stages = supported_stages;
+        self
+    }
+    pub fn supported_operations(mut self, supported_operations: SubgroupFeatureFlags) -> Self {
+        self.supported_operations = supported_operations;
+        self
+    }
+    pub fn quad_operations_in_all_stages(mut self, quad_operations_in_all_stages: Bool32) -> Self {
+        self.quad_operations_in_all_stages = quad_operations_in_all_stages;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct BufferMemoryRequirementsInfo2<'a> {
@@ -933,6 +1502,12 @@ impl Default for BufferMemoryRequirementsInfo2<'_> {
             buffer: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> BufferMemoryRequirementsInfo2<'a> {
+    pub fn buffer(mut self, buffer: Buffer) -> Self {
+        self.buffer = buffer;
+        self
     }
 }
 #[repr(C)]
@@ -953,6 +1528,12 @@ impl Default for ImageMemoryRequirementsInfo2<'_> {
         }
     }
 }
+impl<'a> ImageMemoryRequirementsInfo2<'a> {
+    pub fn image(mut self, image: Image) -> Self {
+        self.image = image;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ImageSparseMemoryRequirementsInfo2<'a> {
@@ -969,6 +1550,12 @@ impl Default for ImageSparseMemoryRequirementsInfo2<'_> {
             image: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ImageSparseMemoryRequirementsInfo2<'a> {
+    pub fn image(mut self, image: Image) -> Self {
+        self.image = image;
+        self
     }
 }
 #[repr(C)]
@@ -989,6 +1576,12 @@ impl Default for MemoryRequirements2<'_> {
         }
     }
 }
+impl<'a> MemoryRequirements2<'a> {
+    pub fn memory_requirements(mut self, memory_requirements: MemoryRequirements) -> Self {
+        self.memory_requirements = memory_requirements;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SparseImageMemoryRequirements2<'a> {
@@ -1007,6 +1600,15 @@ impl Default for SparseImageMemoryRequirements2<'_> {
         }
     }
 }
+impl<'a> SparseImageMemoryRequirements2<'a> {
+    pub fn memory_requirements(
+        mut self,
+        memory_requirements: SparseImageMemoryRequirements,
+    ) -> Self {
+        self.memory_requirements = memory_requirements;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDevicePointClippingProperties<'a> {
@@ -1023,6 +1625,15 @@ impl Default for PhysicalDevicePointClippingProperties<'_> {
             point_clipping_behavior: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDevicePointClippingProperties<'a> {
+    pub fn point_clipping_behavior(
+        mut self,
+        point_clipping_behavior: PointClippingBehavior,
+    ) -> Self {
+        self.point_clipping_behavior = point_clipping_behavior;
+        self
     }
 }
 #[repr(C)]
@@ -1045,6 +1656,16 @@ impl Default for MemoryDedicatedRequirements<'_> {
         }
     }
 }
+impl<'a> MemoryDedicatedRequirements<'a> {
+    pub fn prefers_dedicated_allocation(mut self, prefers_dedicated_allocation: Bool32) -> Self {
+        self.prefers_dedicated_allocation = prefers_dedicated_allocation;
+        self
+    }
+    pub fn requires_dedicated_allocation(mut self, requires_dedicated_allocation: Bool32) -> Self {
+        self.requires_dedicated_allocation = requires_dedicated_allocation;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct MemoryDedicatedAllocateInfo<'a> {
@@ -1065,6 +1686,16 @@ impl Default for MemoryDedicatedAllocateInfo<'_> {
         }
     }
 }
+impl<'a> MemoryDedicatedAllocateInfo<'a> {
+    pub fn image(mut self, image: Image) -> Self {
+        self.image = image;
+        self
+    }
+    pub fn buffer(mut self, buffer: Buffer) -> Self {
+        self.buffer = buffer;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ImageViewUsageCreateInfo<'a> {
@@ -1081,6 +1712,12 @@ impl Default for ImageViewUsageCreateInfo<'_> {
             usage: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ImageViewUsageCreateInfo<'a> {
+    pub fn usage(mut self, usage: ImageUsageFlags) -> Self {
+        self.usage = usage;
+        self
     }
 }
 #[repr(C)]
@@ -1101,6 +1738,12 @@ impl Default for PipelineTessellationDomainOriginStateCreateInfo<'_> {
         }
     }
 }
+impl<'a> PipelineTessellationDomainOriginStateCreateInfo<'a> {
+    pub fn domain_origin(mut self, domain_origin: TessellationDomainOrigin) -> Self {
+        self.domain_origin = domain_origin;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SamplerYcbcrConversionInfo<'a> {
@@ -1117,6 +1760,12 @@ impl Default for SamplerYcbcrConversionInfo<'_> {
             conversion: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SamplerYcbcrConversionInfo<'a> {
+    pub fn conversion(mut self, conversion: SamplerYcbcrConversion) -> Self {
+        self.conversion = conversion;
+        self
     }
 }
 #[repr(C)]
@@ -1151,6 +1800,40 @@ impl Default for SamplerYcbcrConversionCreateInfo<'_> {
         }
     }
 }
+impl<'a> SamplerYcbcrConversionCreateInfo<'a> {
+    pub fn format(mut self, format: Format) -> Self {
+        self.format = format;
+        self
+    }
+    pub fn ycbcr_model(mut self, ycbcr_model: SamplerYcbcrModelConversion) -> Self {
+        self.ycbcr_model = ycbcr_model;
+        self
+    }
+    pub fn ycbcr_range(mut self, ycbcr_range: SamplerYcbcrRange) -> Self {
+        self.ycbcr_range = ycbcr_range;
+        self
+    }
+    pub fn components(mut self, components: ComponentMapping) -> Self {
+        self.components = components;
+        self
+    }
+    pub fn x_chroma_offset(mut self, x_chroma_offset: ChromaLocation) -> Self {
+        self.x_chroma_offset = x_chroma_offset;
+        self
+    }
+    pub fn y_chroma_offset(mut self, y_chroma_offset: ChromaLocation) -> Self {
+        self.y_chroma_offset = y_chroma_offset;
+        self
+    }
+    pub fn chroma_filter(mut self, chroma_filter: Filter) -> Self {
+        self.chroma_filter = chroma_filter;
+        self
+    }
+    pub fn force_explicit_reconstruction(mut self, force_explicit_reconstruction: Bool32) -> Self {
+        self.force_explicit_reconstruction = force_explicit_reconstruction;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct BindImagePlaneMemoryInfo<'a> {
@@ -1167,6 +1850,12 @@ impl Default for BindImagePlaneMemoryInfo<'_> {
             plane_aspect: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> BindImagePlaneMemoryInfo<'a> {
+    pub fn plane_aspect(mut self, plane_aspect: ImageAspectFlagBits) -> Self {
+        self.plane_aspect = plane_aspect;
+        self
     }
 }
 #[repr(C)]
@@ -1187,6 +1876,12 @@ impl Default for ImagePlaneMemoryRequirementsInfo<'_> {
         }
     }
 }
+impl<'a> ImagePlaneMemoryRequirementsInfo<'a> {
+    pub fn plane_aspect(mut self, plane_aspect: ImageAspectFlagBits) -> Self {
+        self.plane_aspect = plane_aspect;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceSamplerYcbcrConversionFeatures<'a> {
@@ -1203,6 +1898,12 @@ impl Default for PhysicalDeviceSamplerYcbcrConversionFeatures<'_> {
             sampler_ycbcr_conversion: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceSamplerYcbcrConversionFeatures<'a> {
+    pub fn sampler_ycbcr_conversion(mut self, sampler_ycbcr_conversion: Bool32) -> Self {
+        self.sampler_ycbcr_conversion = sampler_ycbcr_conversion;
+        self
     }
 }
 #[repr(C)]
@@ -1223,6 +1924,15 @@ impl Default for SamplerYcbcrConversionImageFormatProperties<'_> {
         }
     }
 }
+impl<'a> SamplerYcbcrConversionImageFormatProperties<'a> {
+    pub fn combined_image_sampler_descriptor_count(
+        mut self,
+        combined_image_sampler_descriptor_count: u32,
+    ) -> Self {
+        self.combined_image_sampler_descriptor_count = combined_image_sampler_descriptor_count;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ProtectedSubmitInfo<'a> {
@@ -1239,6 +1949,12 @@ impl Default for ProtectedSubmitInfo<'_> {
             protected_submit: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ProtectedSubmitInfo<'a> {
+    pub fn protected_submit(mut self, protected_submit: Bool32) -> Self {
+        self.protected_submit = protected_submit;
+        self
     }
 }
 #[repr(C)]
@@ -1259,6 +1975,12 @@ impl Default for PhysicalDeviceProtectedMemoryFeatures<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceProtectedMemoryFeatures<'a> {
+    pub fn protected_memory(mut self, protected_memory: Bool32) -> Self {
+        self.protected_memory = protected_memory;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceProtectedMemoryProperties<'a> {
@@ -1275,6 +1997,12 @@ impl Default for PhysicalDeviceProtectedMemoryProperties<'_> {
             protected_no_fault: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceProtectedMemoryProperties<'a> {
+    pub fn protected_no_fault(mut self, protected_no_fault: Bool32) -> Self {
+        self.protected_no_fault = protected_no_fault;
+        self
     }
 }
 #[repr(C)]
@@ -1299,6 +2027,20 @@ impl Default for DeviceQueueInfo2<'_> {
         }
     }
 }
+impl<'a> DeviceQueueInfo2<'a> {
+    pub fn flags(mut self, flags: DeviceQueueCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn queue_family_index(mut self, queue_family_index: u32) -> Self {
+        self.queue_family_index = queue_family_index;
+        self
+    }
+    pub fn queue_index(mut self, queue_index: u32) -> Self {
+        self.queue_index = queue_index;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceMaintenance3Properties<'a> {
@@ -1319,6 +2061,16 @@ impl Default for PhysicalDeviceMaintenance3Properties<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceMaintenance3Properties<'a> {
+    pub fn max_per_set_descriptors(mut self, max_per_set_descriptors: u32) -> Self {
+        self.max_per_set_descriptors = max_per_set_descriptors;
+        self
+    }
+    pub fn max_memory_allocation_size(mut self, max_memory_allocation_size: DeviceSize) -> Self {
+        self.max_memory_allocation_size = max_memory_allocation_size;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DescriptorSetLayoutSupport<'a> {
@@ -1337,6 +2089,12 @@ impl Default for DescriptorSetLayoutSupport<'_> {
         }
     }
 }
+impl<'a> DescriptorSetLayoutSupport<'a> {
+    pub fn supported(mut self, supported: Bool32) -> Self {
+        self.supported = supported;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderDrawParametersFeatures<'a> {
@@ -1353,6 +2111,12 @@ impl Default for PhysicalDeviceShaderDrawParametersFeatures<'_> {
             shader_draw_parameters: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceShaderDrawParametersFeatures<'a> {
+    pub fn shader_draw_parameters(mut self, shader_draw_parameters: Bool32) -> Self {
+        self.shader_draw_parameters = shader_draw_parameters;
+        self
     }
 }
 #[repr(transparent)]

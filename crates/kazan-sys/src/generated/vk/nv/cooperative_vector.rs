@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,6 +21,16 @@ impl Default for PhysicalDeviceCooperativeVectorFeaturesNV<'_> {
             cooperative_vector_training: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceCooperativeVectorFeaturesNV<'a> {
+    pub fn cooperative_vector(mut self, cooperative_vector: Bool32) -> Self {
+        self.cooperative_vector = cooperative_vector;
+        self
+    }
+    pub fn cooperative_vector_training(mut self, cooperative_vector_training: Bool32) -> Self {
+        self.cooperative_vector_training = cooperative_vector_training;
+        self
     }
 }
 #[repr(C)]
@@ -51,6 +61,32 @@ impl Default for CooperativeVectorPropertiesNV<'_> {
         }
     }
 }
+impl<'a> CooperativeVectorPropertiesNV<'a> {
+    pub fn input_type(mut self, input_type: ComponentTypeKHR) -> Self {
+        self.input_type = input_type;
+        self
+    }
+    pub fn input_interpretation(mut self, input_interpretation: ComponentTypeKHR) -> Self {
+        self.input_interpretation = input_interpretation;
+        self
+    }
+    pub fn matrix_interpretation(mut self, matrix_interpretation: ComponentTypeKHR) -> Self {
+        self.matrix_interpretation = matrix_interpretation;
+        self
+    }
+    pub fn bias_interpretation(mut self, bias_interpretation: ComponentTypeKHR) -> Self {
+        self.bias_interpretation = bias_interpretation;
+        self
+    }
+    pub fn result_type(mut self, result_type: ComponentTypeKHR) -> Self {
+        self.result_type = result_type;
+        self
+    }
+    pub fn transpose(mut self, transpose: Bool32) -> Self {
+        self.transpose = transpose;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceCooperativeVectorPropertiesNV<'a> {
@@ -73,6 +109,38 @@ impl Default for PhysicalDeviceCooperativeVectorPropertiesNV<'_> {
             max_cooperative_vector_components: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceCooperativeVectorPropertiesNV<'a> {
+    pub fn cooperative_vector_supported_stages(
+        mut self,
+        cooperative_vector_supported_stages: ShaderStageFlags,
+    ) -> Self {
+        self.cooperative_vector_supported_stages = cooperative_vector_supported_stages;
+        self
+    }
+    pub fn cooperative_vector_training_float16_accumulation(
+        mut self,
+        cooperative_vector_training_float16_accumulation: Bool32,
+    ) -> Self {
+        self.cooperative_vector_training_float16_accumulation =
+            cooperative_vector_training_float16_accumulation;
+        self
+    }
+    pub fn cooperative_vector_training_float32_accumulation(
+        mut self,
+        cooperative_vector_training_float32_accumulation: Bool32,
+    ) -> Self {
+        self.cooperative_vector_training_float32_accumulation =
+            cooperative_vector_training_float32_accumulation;
+        self
+    }
+    pub fn max_cooperative_vector_components(
+        mut self,
+        max_cooperative_vector_components: u32,
+    ) -> Self {
+        self.max_cooperative_vector_components = max_cooperative_vector_components;
+        self
     }
 }
 #[repr(C)]
@@ -113,6 +181,56 @@ impl Default for ConvertCooperativeVectorMatrixInfoNV<'_> {
             dst_stride: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ConvertCooperativeVectorMatrixInfoNV<'a> {
+    pub fn src_size(mut self, src_size: usize) -> Self {
+        self.src_size = src_size;
+        self
+    }
+    pub fn src_data(mut self, src_data: DeviceOrHostAddressConstKHR<'a>) -> Self {
+        self.src_data = src_data;
+        self
+    }
+    pub fn dst_size(mut self, dst_size: &'a mut usize) -> Self {
+        self.p_dst_size = dst_size;
+        self
+    }
+    pub fn dst_data(mut self, dst_data: DeviceOrHostAddressKHR<'a>) -> Self {
+        self.dst_data = dst_data;
+        self
+    }
+    pub fn src_component_type(mut self, src_component_type: ComponentTypeKHR) -> Self {
+        self.src_component_type = src_component_type;
+        self
+    }
+    pub fn dst_component_type(mut self, dst_component_type: ComponentTypeKHR) -> Self {
+        self.dst_component_type = dst_component_type;
+        self
+    }
+    pub fn num_rows(mut self, num_rows: u32) -> Self {
+        self.num_rows = num_rows;
+        self
+    }
+    pub fn num_columns(mut self, num_columns: u32) -> Self {
+        self.num_columns = num_columns;
+        self
+    }
+    pub fn src_layout(mut self, src_layout: CooperativeVectorMatrixLayoutNV) -> Self {
+        self.src_layout = src_layout;
+        self
+    }
+    pub fn src_stride(mut self, src_stride: usize) -> Self {
+        self.src_stride = src_stride;
+        self
+    }
+    pub fn dst_layout(mut self, dst_layout: CooperativeVectorMatrixLayoutNV) -> Self {
+        self.dst_layout = dst_layout;
+        self
+    }
+    pub fn dst_stride(mut self, dst_stride: usize) -> Self {
+        self.dst_stride = dst_stride;
+        self
     }
 }
 #[repr(transparent)]

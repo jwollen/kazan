@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -10,6 +10,36 @@ pub struct ExternalImageFormatPropertiesNV {
     pub external_memory_features: ExternalMemoryFeatureFlagsNV,
     pub export_from_imported_handle_types: ExternalMemoryHandleTypeFlagsNV,
     pub compatible_handle_types: ExternalMemoryHandleTypeFlagsNV,
+}
+impl ExternalImageFormatPropertiesNV {
+    pub fn image_format_properties(
+        mut self,
+        image_format_properties: ImageFormatProperties,
+    ) -> Self {
+        self.image_format_properties = image_format_properties;
+        self
+    }
+    pub fn external_memory_features(
+        mut self,
+        external_memory_features: ExternalMemoryFeatureFlagsNV,
+    ) -> Self {
+        self.external_memory_features = external_memory_features;
+        self
+    }
+    pub fn export_from_imported_handle_types(
+        mut self,
+        export_from_imported_handle_types: ExternalMemoryHandleTypeFlagsNV,
+    ) -> Self {
+        self.export_from_imported_handle_types = export_from_imported_handle_types;
+        self
+    }
+    pub fn compatible_handle_types(
+        mut self,
+        compatible_handle_types: ExternalMemoryHandleTypeFlagsNV,
+    ) -> Self {
+        self.compatible_handle_types = compatible_handle_types;
+        self
+    }
 }
 bitflags! {
     #[repr(transparent)]

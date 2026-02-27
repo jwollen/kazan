@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub type Flags64 = u64;
 #[repr(C)]
@@ -25,6 +25,12 @@ impl Default for DevicePrivateDataCreateInfo<'_> {
         }
     }
 }
+impl<'a> DevicePrivateDataCreateInfo<'a> {
+    pub fn private_data_slot_request_count(mut self, private_data_slot_request_count: u32) -> Self {
+        self.private_data_slot_request_count = private_data_slot_request_count;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PrivateDataSlotCreateInfo<'a> {
@@ -41,6 +47,12 @@ impl Default for PrivateDataSlotCreateInfo<'_> {
             flags: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PrivateDataSlotCreateInfo<'a> {
+    pub fn flags(mut self, flags: PrivateDataSlotCreateFlags) -> Self {
+        self.flags = flags;
+        self
     }
 }
 #[repr(C)]
@@ -61,6 +73,12 @@ impl Default for PhysicalDevicePrivateDataFeatures<'_> {
         }
     }
 }
+impl<'a> PhysicalDevicePrivateDataFeatures<'a> {
+    pub fn private_data(mut self, private_data: Bool32) -> Self {
+        self.private_data = private_data;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DeviceBufferMemoryRequirements<'a> {
@@ -77,6 +95,12 @@ impl Default for DeviceBufferMemoryRequirements<'_> {
             p_create_info: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DeviceBufferMemoryRequirements<'a> {
+    pub fn create_info(mut self, create_info: &'a BufferCreateInfo<'a>) -> Self {
+        self.p_create_info = create_info;
+        self
     }
 }
 #[repr(C)]
@@ -99,6 +123,16 @@ impl Default for DeviceImageMemoryRequirements<'_> {
         }
     }
 }
+impl<'a> DeviceImageMemoryRequirements<'a> {
+    pub fn create_info(mut self, create_info: &'a ImageCreateInfo<'a>) -> Self {
+        self.p_create_info = create_info;
+        self
+    }
+    pub fn plane_aspect(mut self, plane_aspect: ImageAspectFlagBits) -> Self {
+        self.plane_aspect = plane_aspect;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceInlineUniformBlockFeatures<'a> {
@@ -117,6 +151,20 @@ impl Default for PhysicalDeviceInlineUniformBlockFeatures<'_> {
             descriptor_binding_inline_uniform_block_update_after_bind: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceInlineUniformBlockFeatures<'a> {
+    pub fn inline_uniform_block(mut self, inline_uniform_block: Bool32) -> Self {
+        self.inline_uniform_block = inline_uniform_block;
+        self
+    }
+    pub fn descriptor_binding_inline_uniform_block_update_after_bind(
+        mut self,
+        descriptor_binding_inline_uniform_block_update_after_bind: Bool32,
+    ) -> Self {
+        self.descriptor_binding_inline_uniform_block_update_after_bind =
+            descriptor_binding_inline_uniform_block_update_after_bind;
+        self
     }
 }
 #[repr(C)]
@@ -145,6 +193,43 @@ impl Default for PhysicalDeviceInlineUniformBlockProperties<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceInlineUniformBlockProperties<'a> {
+    pub fn max_inline_uniform_block_size(mut self, max_inline_uniform_block_size: u32) -> Self {
+        self.max_inline_uniform_block_size = max_inline_uniform_block_size;
+        self
+    }
+    pub fn max_per_stage_descriptor_inline_uniform_blocks(
+        mut self,
+        max_per_stage_descriptor_inline_uniform_blocks: u32,
+    ) -> Self {
+        self.max_per_stage_descriptor_inline_uniform_blocks =
+            max_per_stage_descriptor_inline_uniform_blocks;
+        self
+    }
+    pub fn max_per_stage_descriptor_update_after_bind_inline_uniform_blocks(
+        mut self,
+        max_per_stage_descriptor_update_after_bind_inline_uniform_blocks: u32,
+    ) -> Self {
+        self.max_per_stage_descriptor_update_after_bind_inline_uniform_blocks =
+            max_per_stage_descriptor_update_after_bind_inline_uniform_blocks;
+        self
+    }
+    pub fn max_descriptor_set_inline_uniform_blocks(
+        mut self,
+        max_descriptor_set_inline_uniform_blocks: u32,
+    ) -> Self {
+        self.max_descriptor_set_inline_uniform_blocks = max_descriptor_set_inline_uniform_blocks;
+        self
+    }
+    pub fn max_descriptor_set_update_after_bind_inline_uniform_blocks(
+        mut self,
+        max_descriptor_set_update_after_bind_inline_uniform_blocks: u32,
+    ) -> Self {
+        self.max_descriptor_set_update_after_bind_inline_uniform_blocks =
+            max_descriptor_set_update_after_bind_inline_uniform_blocks;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct WriteDescriptorSetInlineUniformBlock<'a> {
@@ -165,6 +250,13 @@ impl Default for WriteDescriptorSetInlineUniformBlock<'_> {
         }
     }
 }
+impl<'a> WriteDescriptorSetInlineUniformBlock<'a> {
+    pub fn data(mut self, data: &'a [u8]) -> Self {
+        self.data_size = data.len().try_into().unwrap();
+        self.p_data = data.as_ptr() as _;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DescriptorPoolInlineUniformBlockCreateInfo<'a> {
@@ -181,6 +273,15 @@ impl Default for DescriptorPoolInlineUniformBlockCreateInfo<'_> {
             max_inline_uniform_block_bindings: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DescriptorPoolInlineUniformBlockCreateInfo<'a> {
+    pub fn max_inline_uniform_block_bindings(
+        mut self,
+        max_inline_uniform_block_bindings: u32,
+    ) -> Self {
+        self.max_inline_uniform_block_bindings = max_inline_uniform_block_bindings;
+        self
     }
 }
 #[repr(C)]
@@ -201,6 +302,12 @@ impl Default for PhysicalDeviceMaintenance4Features<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceMaintenance4Features<'a> {
+    pub fn maintenance4(mut self, maintenance4: Bool32) -> Self {
+        self.maintenance4 = maintenance4;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceMaintenance4Properties<'a> {
@@ -217,6 +324,12 @@ impl Default for PhysicalDeviceMaintenance4Properties<'_> {
             max_buffer_size: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceMaintenance4Properties<'a> {
+    pub fn max_buffer_size(mut self, max_buffer_size: DeviceSize) -> Self {
+        self.max_buffer_size = max_buffer_size;
+        self
     }
 }
 #[repr(C)]
@@ -237,11 +350,27 @@ impl Default for PhysicalDeviceTextureCompressionASTCHDRFeatures<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceTextureCompressionASTCHDRFeatures<'a> {
+    pub fn texture_compression_astc_hdr(mut self, texture_compression_astc_hdr: Bool32) -> Self {
+        self.texture_compression_astc_hdr = texture_compression_astc_hdr;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct PipelineCreationFeedback {
     pub flags: PipelineCreationFeedbackFlags,
     pub duration: u64,
+}
+impl PipelineCreationFeedback {
+    pub fn flags(mut self, flags: PipelineCreationFeedbackFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn duration(mut self, duration: u64) -> Self {
+        self.duration = duration;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -265,6 +394,24 @@ impl Default for PipelineCreationFeedbackCreateInfo<'_> {
         }
     }
 }
+impl<'a> PipelineCreationFeedbackCreateInfo<'a> {
+    pub fn pipeline_creation_feedback(
+        mut self,
+        pipeline_creation_feedback: &'a mut PipelineCreationFeedback,
+    ) -> Self {
+        self.p_pipeline_creation_feedback = pipeline_creation_feedback;
+        self
+    }
+    pub fn pipeline_stage_creation_feedbacks(
+        mut self,
+        pipeline_stage_creation_feedbacks: &'a mut [PipelineCreationFeedback],
+    ) -> Self {
+        self.pipeline_stage_creation_feedback_count =
+            pipeline_stage_creation_feedbacks.len().try_into().unwrap();
+        self.p_pipeline_stage_creation_feedbacks = pipeline_stage_creation_feedbacks.as_mut_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderDemoteToHelperInvocationFeatures<'a> {
@@ -281,6 +428,15 @@ impl Default for PhysicalDeviceShaderDemoteToHelperInvocationFeatures<'_> {
             shader_demote_to_helper_invocation: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceShaderDemoteToHelperInvocationFeatures<'a> {
+    pub fn shader_demote_to_helper_invocation(
+        mut self,
+        shader_demote_to_helper_invocation: Bool32,
+    ) -> Self {
+        self.shader_demote_to_helper_invocation = shader_demote_to_helper_invocation;
+        self
     }
 }
 #[repr(C)]
@@ -307,6 +463,40 @@ impl Default for PhysicalDeviceTexelBufferAlignmentProperties<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceTexelBufferAlignmentProperties<'a> {
+    pub fn storage_texel_buffer_offset_alignment_bytes(
+        mut self,
+        storage_texel_buffer_offset_alignment_bytes: DeviceSize,
+    ) -> Self {
+        self.storage_texel_buffer_offset_alignment_bytes =
+            storage_texel_buffer_offset_alignment_bytes;
+        self
+    }
+    pub fn storage_texel_buffer_offset_single_texel_alignment(
+        mut self,
+        storage_texel_buffer_offset_single_texel_alignment: Bool32,
+    ) -> Self {
+        self.storage_texel_buffer_offset_single_texel_alignment =
+            storage_texel_buffer_offset_single_texel_alignment;
+        self
+    }
+    pub fn uniform_texel_buffer_offset_alignment_bytes(
+        mut self,
+        uniform_texel_buffer_offset_alignment_bytes: DeviceSize,
+    ) -> Self {
+        self.uniform_texel_buffer_offset_alignment_bytes =
+            uniform_texel_buffer_offset_alignment_bytes;
+        self
+    }
+    pub fn uniform_texel_buffer_offset_single_texel_alignment(
+        mut self,
+        uniform_texel_buffer_offset_single_texel_alignment: Bool32,
+    ) -> Self {
+        self.uniform_texel_buffer_offset_single_texel_alignment =
+            uniform_texel_buffer_offset_single_texel_alignment;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceSubgroupSizeControlFeatures<'a> {
@@ -325,6 +515,16 @@ impl Default for PhysicalDeviceSubgroupSizeControlFeatures<'_> {
             compute_full_subgroups: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceSubgroupSizeControlFeatures<'a> {
+    pub fn subgroup_size_control(mut self, subgroup_size_control: Bool32) -> Self {
+        self.subgroup_size_control = subgroup_size_control;
+        self
+    }
+    pub fn compute_full_subgroups(mut self, compute_full_subgroups: Bool32) -> Self {
+        self.compute_full_subgroups = compute_full_subgroups;
+        self
     }
 }
 #[repr(C)]
@@ -351,6 +551,27 @@ impl Default for PhysicalDeviceSubgroupSizeControlProperties<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceSubgroupSizeControlProperties<'a> {
+    pub fn min_subgroup_size(mut self, min_subgroup_size: u32) -> Self {
+        self.min_subgroup_size = min_subgroup_size;
+        self
+    }
+    pub fn max_subgroup_size(mut self, max_subgroup_size: u32) -> Self {
+        self.max_subgroup_size = max_subgroup_size;
+        self
+    }
+    pub fn max_compute_workgroup_subgroups(mut self, max_compute_workgroup_subgroups: u32) -> Self {
+        self.max_compute_workgroup_subgroups = max_compute_workgroup_subgroups;
+        self
+    }
+    pub fn required_subgroup_size_stages(
+        mut self,
+        required_subgroup_size_stages: ShaderStageFlags,
+    ) -> Self {
+        self.required_subgroup_size_stages = required_subgroup_size_stages;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PipelineShaderStageRequiredSubgroupSizeCreateInfo<'a> {
@@ -369,6 +590,12 @@ impl Default for PipelineShaderStageRequiredSubgroupSizeCreateInfo<'_> {
         }
     }
 }
+impl<'a> PipelineShaderStageRequiredSubgroupSizeCreateInfo<'a> {
+    pub fn required_subgroup_size(mut self, required_subgroup_size: u32) -> Self {
+        self.required_subgroup_size = required_subgroup_size;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDevicePipelineCreationCacheControlFeatures<'a> {
@@ -385,6 +612,15 @@ impl Default for PhysicalDevicePipelineCreationCacheControlFeatures<'_> {
             pipeline_creation_cache_control: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDevicePipelineCreationCacheControlFeatures<'a> {
+    pub fn pipeline_creation_cache_control(
+        mut self,
+        pipeline_creation_cache_control: Bool32,
+    ) -> Self {
+        self.pipeline_creation_cache_control = pipeline_creation_cache_control;
+        self
     }
 }
 #[repr(C)]
@@ -431,6 +667,81 @@ impl Default for PhysicalDeviceVulkan13Features<'_> {
             maintenance4: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceVulkan13Features<'a> {
+    pub fn robust_image_access(mut self, robust_image_access: Bool32) -> Self {
+        self.robust_image_access = robust_image_access;
+        self
+    }
+    pub fn inline_uniform_block(mut self, inline_uniform_block: Bool32) -> Self {
+        self.inline_uniform_block = inline_uniform_block;
+        self
+    }
+    pub fn descriptor_binding_inline_uniform_block_update_after_bind(
+        mut self,
+        descriptor_binding_inline_uniform_block_update_after_bind: Bool32,
+    ) -> Self {
+        self.descriptor_binding_inline_uniform_block_update_after_bind =
+            descriptor_binding_inline_uniform_block_update_after_bind;
+        self
+    }
+    pub fn pipeline_creation_cache_control(
+        mut self,
+        pipeline_creation_cache_control: Bool32,
+    ) -> Self {
+        self.pipeline_creation_cache_control = pipeline_creation_cache_control;
+        self
+    }
+    pub fn private_data(mut self, private_data: Bool32) -> Self {
+        self.private_data = private_data;
+        self
+    }
+    pub fn shader_demote_to_helper_invocation(
+        mut self,
+        shader_demote_to_helper_invocation: Bool32,
+    ) -> Self {
+        self.shader_demote_to_helper_invocation = shader_demote_to_helper_invocation;
+        self
+    }
+    pub fn shader_terminate_invocation(mut self, shader_terminate_invocation: Bool32) -> Self {
+        self.shader_terminate_invocation = shader_terminate_invocation;
+        self
+    }
+    pub fn subgroup_size_control(mut self, subgroup_size_control: Bool32) -> Self {
+        self.subgroup_size_control = subgroup_size_control;
+        self
+    }
+    pub fn compute_full_subgroups(mut self, compute_full_subgroups: Bool32) -> Self {
+        self.compute_full_subgroups = compute_full_subgroups;
+        self
+    }
+    pub fn synchronization2(mut self, synchronization2: Bool32) -> Self {
+        self.synchronization2 = synchronization2;
+        self
+    }
+    pub fn texture_compression_astc_hdr(mut self, texture_compression_astc_hdr: Bool32) -> Self {
+        self.texture_compression_astc_hdr = texture_compression_astc_hdr;
+        self
+    }
+    pub fn shader_zero_initialize_workgroup_memory(
+        mut self,
+        shader_zero_initialize_workgroup_memory: Bool32,
+    ) -> Self {
+        self.shader_zero_initialize_workgroup_memory = shader_zero_initialize_workgroup_memory;
+        self
+    }
+    pub fn dynamic_rendering(mut self, dynamic_rendering: Bool32) -> Self {
+        self.dynamic_rendering = dynamic_rendering;
+        self
+    }
+    pub fn shader_integer_dot_product(mut self, shader_integer_dot_product: Bool32) -> Self {
+        self.shader_integer_dot_product = shader_integer_dot_product;
+        self
+    }
+    pub fn maintenance4(mut self, maintenance4: Bool32) -> Self {
+        self.maintenance4 = maintenance4;
+        self
     }
 }
 #[repr(C)]
@@ -541,6 +852,341 @@ _marker: PhantomData
 }
     }
 }
+impl<'a> PhysicalDeviceVulkan13Properties<'a> {
+    pub fn min_subgroup_size(mut self, min_subgroup_size: u32) -> Self {
+        self.min_subgroup_size = min_subgroup_size;
+        self
+    }
+    pub fn max_subgroup_size(mut self, max_subgroup_size: u32) -> Self {
+        self.max_subgroup_size = max_subgroup_size;
+        self
+    }
+    pub fn max_compute_workgroup_subgroups(mut self, max_compute_workgroup_subgroups: u32) -> Self {
+        self.max_compute_workgroup_subgroups = max_compute_workgroup_subgroups;
+        self
+    }
+    pub fn required_subgroup_size_stages(
+        mut self,
+        required_subgroup_size_stages: ShaderStageFlags,
+    ) -> Self {
+        self.required_subgroup_size_stages = required_subgroup_size_stages;
+        self
+    }
+    pub fn max_inline_uniform_block_size(mut self, max_inline_uniform_block_size: u32) -> Self {
+        self.max_inline_uniform_block_size = max_inline_uniform_block_size;
+        self
+    }
+    pub fn max_per_stage_descriptor_inline_uniform_blocks(
+        mut self,
+        max_per_stage_descriptor_inline_uniform_blocks: u32,
+    ) -> Self {
+        self.max_per_stage_descriptor_inline_uniform_blocks =
+            max_per_stage_descriptor_inline_uniform_blocks;
+        self
+    }
+    pub fn max_per_stage_descriptor_update_after_bind_inline_uniform_blocks(
+        mut self,
+        max_per_stage_descriptor_update_after_bind_inline_uniform_blocks: u32,
+    ) -> Self {
+        self.max_per_stage_descriptor_update_after_bind_inline_uniform_blocks =
+            max_per_stage_descriptor_update_after_bind_inline_uniform_blocks;
+        self
+    }
+    pub fn max_descriptor_set_inline_uniform_blocks(
+        mut self,
+        max_descriptor_set_inline_uniform_blocks: u32,
+    ) -> Self {
+        self.max_descriptor_set_inline_uniform_blocks = max_descriptor_set_inline_uniform_blocks;
+        self
+    }
+    pub fn max_descriptor_set_update_after_bind_inline_uniform_blocks(
+        mut self,
+        max_descriptor_set_update_after_bind_inline_uniform_blocks: u32,
+    ) -> Self {
+        self.max_descriptor_set_update_after_bind_inline_uniform_blocks =
+            max_descriptor_set_update_after_bind_inline_uniform_blocks;
+        self
+    }
+    pub fn max_inline_uniform_total_size(mut self, max_inline_uniform_total_size: u32) -> Self {
+        self.max_inline_uniform_total_size = max_inline_uniform_total_size;
+        self
+    }
+    pub fn integer_dot_product8_bit_unsigned_accelerated(
+        mut self,
+        integer_dot_product8_bit_unsigned_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product8_bit_unsigned_accelerated =
+            integer_dot_product8_bit_unsigned_accelerated;
+        self
+    }
+    pub fn integer_dot_product8_bit_signed_accelerated(
+        mut self,
+        integer_dot_product8_bit_signed_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product8_bit_signed_accelerated =
+            integer_dot_product8_bit_signed_accelerated;
+        self
+    }
+    pub fn integer_dot_product8_bit_mixed_signedness_accelerated(
+        mut self,
+        integer_dot_product8_bit_mixed_signedness_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product8_bit_mixed_signedness_accelerated =
+            integer_dot_product8_bit_mixed_signedness_accelerated;
+        self
+    }
+    pub fn integer_dot_product4x8_bit_packed_unsigned_accelerated(
+        mut self,
+        integer_dot_product4x8_bit_packed_unsigned_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product4x8_bit_packed_unsigned_accelerated =
+            integer_dot_product4x8_bit_packed_unsigned_accelerated;
+        self
+    }
+    pub fn integer_dot_product4x8_bit_packed_signed_accelerated(
+        mut self,
+        integer_dot_product4x8_bit_packed_signed_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product4x8_bit_packed_signed_accelerated =
+            integer_dot_product4x8_bit_packed_signed_accelerated;
+        self
+    }
+    pub fn integer_dot_product4x8_bit_packed_mixed_signedness_accelerated(
+        mut self,
+        integer_dot_product4x8_bit_packed_mixed_signedness_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product4x8_bit_packed_mixed_signedness_accelerated =
+            integer_dot_product4x8_bit_packed_mixed_signedness_accelerated;
+        self
+    }
+    pub fn integer_dot_product16_bit_unsigned_accelerated(
+        mut self,
+        integer_dot_product16_bit_unsigned_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product16_bit_unsigned_accelerated =
+            integer_dot_product16_bit_unsigned_accelerated;
+        self
+    }
+    pub fn integer_dot_product16_bit_signed_accelerated(
+        mut self,
+        integer_dot_product16_bit_signed_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product16_bit_signed_accelerated =
+            integer_dot_product16_bit_signed_accelerated;
+        self
+    }
+    pub fn integer_dot_product16_bit_mixed_signedness_accelerated(
+        mut self,
+        integer_dot_product16_bit_mixed_signedness_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product16_bit_mixed_signedness_accelerated =
+            integer_dot_product16_bit_mixed_signedness_accelerated;
+        self
+    }
+    pub fn integer_dot_product32_bit_unsigned_accelerated(
+        mut self,
+        integer_dot_product32_bit_unsigned_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product32_bit_unsigned_accelerated =
+            integer_dot_product32_bit_unsigned_accelerated;
+        self
+    }
+    pub fn integer_dot_product32_bit_signed_accelerated(
+        mut self,
+        integer_dot_product32_bit_signed_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product32_bit_signed_accelerated =
+            integer_dot_product32_bit_signed_accelerated;
+        self
+    }
+    pub fn integer_dot_product32_bit_mixed_signedness_accelerated(
+        mut self,
+        integer_dot_product32_bit_mixed_signedness_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product32_bit_mixed_signedness_accelerated =
+            integer_dot_product32_bit_mixed_signedness_accelerated;
+        self
+    }
+    pub fn integer_dot_product64_bit_unsigned_accelerated(
+        mut self,
+        integer_dot_product64_bit_unsigned_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product64_bit_unsigned_accelerated =
+            integer_dot_product64_bit_unsigned_accelerated;
+        self
+    }
+    pub fn integer_dot_product64_bit_signed_accelerated(
+        mut self,
+        integer_dot_product64_bit_signed_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product64_bit_signed_accelerated =
+            integer_dot_product64_bit_signed_accelerated;
+        self
+    }
+    pub fn integer_dot_product64_bit_mixed_signedness_accelerated(
+        mut self,
+        integer_dot_product64_bit_mixed_signedness_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product64_bit_mixed_signedness_accelerated =
+            integer_dot_product64_bit_mixed_signedness_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated =
+            integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating8_bit_signed_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating8_bit_signed_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating8_bit_signed_accelerated =
+            integer_dot_product_accumulating_saturating8_bit_signed_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated =
+            integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated =
+            integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated =
+            integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated = integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated =
+            integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating16_bit_signed_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating16_bit_signed_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating16_bit_signed_accelerated =
+            integer_dot_product_accumulating_saturating16_bit_signed_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated =
+            integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated =
+            integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating32_bit_signed_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating32_bit_signed_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating32_bit_signed_accelerated =
+            integer_dot_product_accumulating_saturating32_bit_signed_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated =
+            integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated =
+            integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating64_bit_signed_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating64_bit_signed_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating64_bit_signed_accelerated =
+            integer_dot_product_accumulating_saturating64_bit_signed_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated =
+            integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated;
+        self
+    }
+    pub fn storage_texel_buffer_offset_alignment_bytes(
+        mut self,
+        storage_texel_buffer_offset_alignment_bytes: DeviceSize,
+    ) -> Self {
+        self.storage_texel_buffer_offset_alignment_bytes =
+            storage_texel_buffer_offset_alignment_bytes;
+        self
+    }
+    pub fn storage_texel_buffer_offset_single_texel_alignment(
+        mut self,
+        storage_texel_buffer_offset_single_texel_alignment: Bool32,
+    ) -> Self {
+        self.storage_texel_buffer_offset_single_texel_alignment =
+            storage_texel_buffer_offset_single_texel_alignment;
+        self
+    }
+    pub fn uniform_texel_buffer_offset_alignment_bytes(
+        mut self,
+        uniform_texel_buffer_offset_alignment_bytes: DeviceSize,
+    ) -> Self {
+        self.uniform_texel_buffer_offset_alignment_bytes =
+            uniform_texel_buffer_offset_alignment_bytes;
+        self
+    }
+    pub fn uniform_texel_buffer_offset_single_texel_alignment(
+        mut self,
+        uniform_texel_buffer_offset_single_texel_alignment: Bool32,
+    ) -> Self {
+        self.uniform_texel_buffer_offset_single_texel_alignment =
+            uniform_texel_buffer_offset_single_texel_alignment;
+        self
+    }
+    pub fn max_buffer_size(mut self, max_buffer_size: DeviceSize) -> Self {
+        self.max_buffer_size = max_buffer_size;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceToolProperties<'a> {
@@ -567,6 +1213,12 @@ impl Default for PhysicalDeviceToolProperties<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceToolProperties<'a> {
+    pub fn purposes(mut self, purposes: ToolPurposeFlags) -> Self {
+        self.purposes = purposes;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures<'a> {
@@ -585,6 +1237,15 @@ impl Default for PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures<'a> {
+    pub fn shader_zero_initialize_workgroup_memory(
+        mut self,
+        shader_zero_initialize_workgroup_memory: Bool32,
+    ) -> Self {
+        self.shader_zero_initialize_workgroup_memory = shader_zero_initialize_workgroup_memory;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceImageRobustnessFeatures<'a> {
@@ -601,6 +1262,12 @@ impl Default for PhysicalDeviceImageRobustnessFeatures<'_> {
             robust_image_access: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceImageRobustnessFeatures<'a> {
+    pub fn robust_image_access(mut self, robust_image_access: Bool32) -> Self {
+        self.robust_image_access = robust_image_access;
+        self
     }
 }
 #[repr(C)]
@@ -623,6 +1290,20 @@ impl Default for BufferCopy2<'_> {
             size: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> BufferCopy2<'a> {
+    pub fn src_offset(mut self, src_offset: DeviceSize) -> Self {
+        self.src_offset = src_offset;
+        self
+    }
+    pub fn dst_offset(mut self, dst_offset: DeviceSize) -> Self {
+        self.dst_offset = dst_offset;
+        self
+    }
+    pub fn size(mut self, size: DeviceSize) -> Self {
+        self.size = size;
+        self
     }
 }
 #[repr(C)]
@@ -651,6 +1332,28 @@ impl Default for ImageCopy2<'_> {
         }
     }
 }
+impl<'a> ImageCopy2<'a> {
+    pub fn src_subresource(mut self, src_subresource: ImageSubresourceLayers) -> Self {
+        self.src_subresource = src_subresource;
+        self
+    }
+    pub fn src_offset(mut self, src_offset: Offset3D) -> Self {
+        self.src_offset = src_offset;
+        self
+    }
+    pub fn dst_subresource(mut self, dst_subresource: ImageSubresourceLayers) -> Self {
+        self.dst_subresource = dst_subresource;
+        self
+    }
+    pub fn dst_offset(mut self, dst_offset: Offset3D) -> Self {
+        self.dst_offset = dst_offset;
+        self
+    }
+    pub fn extent(mut self, extent: Extent3D) -> Self {
+        self.extent = extent;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ImageBlit2<'a> {
@@ -673,6 +1376,24 @@ impl Default for ImageBlit2<'_> {
             dst_offsets: [Default::default(); _],
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ImageBlit2<'a> {
+    pub fn src_subresource(mut self, src_subresource: ImageSubresourceLayers) -> Self {
+        self.src_subresource = src_subresource;
+        self
+    }
+    pub fn src_offsets(mut self, src_offsets: [Offset3D; 2]) -> Self {
+        self.src_offsets = src_offsets;
+        self
+    }
+    pub fn dst_subresource(mut self, dst_subresource: ImageSubresourceLayers) -> Self {
+        self.dst_subresource = dst_subresource;
+        self
+    }
+    pub fn dst_offsets(mut self, dst_offsets: [Offset3D; 2]) -> Self {
+        self.dst_offsets = dst_offsets;
+        self
     }
 }
 #[repr(C)]
@@ -703,6 +1424,32 @@ impl Default for BufferImageCopy2<'_> {
         }
     }
 }
+impl<'a> BufferImageCopy2<'a> {
+    pub fn buffer_offset(mut self, buffer_offset: DeviceSize) -> Self {
+        self.buffer_offset = buffer_offset;
+        self
+    }
+    pub fn buffer_row_length(mut self, buffer_row_length: u32) -> Self {
+        self.buffer_row_length = buffer_row_length;
+        self
+    }
+    pub fn buffer_image_height(mut self, buffer_image_height: u32) -> Self {
+        self.buffer_image_height = buffer_image_height;
+        self
+    }
+    pub fn image_subresource(mut self, image_subresource: ImageSubresourceLayers) -> Self {
+        self.image_subresource = image_subresource;
+        self
+    }
+    pub fn image_offset(mut self, image_offset: Offset3D) -> Self {
+        self.image_offset = image_offset;
+        self
+    }
+    pub fn image_extent(mut self, image_extent: Extent3D) -> Self {
+        self.image_extent = image_extent;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ImageResolve2<'a> {
@@ -729,6 +1476,28 @@ impl Default for ImageResolve2<'_> {
         }
     }
 }
+impl<'a> ImageResolve2<'a> {
+    pub fn src_subresource(mut self, src_subresource: ImageSubresourceLayers) -> Self {
+        self.src_subresource = src_subresource;
+        self
+    }
+    pub fn src_offset(mut self, src_offset: Offset3D) -> Self {
+        self.src_offset = src_offset;
+        self
+    }
+    pub fn dst_subresource(mut self, dst_subresource: ImageSubresourceLayers) -> Self {
+        self.dst_subresource = dst_subresource;
+        self
+    }
+    pub fn dst_offset(mut self, dst_offset: Offset3D) -> Self {
+        self.dst_offset = dst_offset;
+        self
+    }
+    pub fn extent(mut self, extent: Extent3D) -> Self {
+        self.extent = extent;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct CopyBufferInfo2<'a> {
@@ -751,6 +1520,21 @@ impl Default for CopyBufferInfo2<'_> {
             p_regions: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> CopyBufferInfo2<'a> {
+    pub fn src_buffer(mut self, src_buffer: Buffer) -> Self {
+        self.src_buffer = src_buffer;
+        self
+    }
+    pub fn dst_buffer(mut self, dst_buffer: Buffer) -> Self {
+        self.dst_buffer = dst_buffer;
+        self
+    }
+    pub fn regions(mut self, regions: &'a [BufferCopy2<'a>]) -> Self {
+        self.region_count = regions.len().try_into().unwrap();
+        self.p_regions = regions.as_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -779,6 +1563,29 @@ impl Default for CopyImageInfo2<'_> {
             p_regions: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> CopyImageInfo2<'a> {
+    pub fn src_image(mut self, src_image: Image) -> Self {
+        self.src_image = src_image;
+        self
+    }
+    pub fn src_image_layout(mut self, src_image_layout: ImageLayout) -> Self {
+        self.src_image_layout = src_image_layout;
+        self
+    }
+    pub fn dst_image(mut self, dst_image: Image) -> Self {
+        self.dst_image = dst_image;
+        self
+    }
+    pub fn dst_image_layout(mut self, dst_image_layout: ImageLayout) -> Self {
+        self.dst_image_layout = dst_image_layout;
+        self
+    }
+    pub fn regions(mut self, regions: &'a [ImageCopy2<'a>]) -> Self {
+        self.region_count = regions.len().try_into().unwrap();
+        self.p_regions = regions.as_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -811,6 +1618,33 @@ impl Default for BlitImageInfo2<'_> {
         }
     }
 }
+impl<'a> BlitImageInfo2<'a> {
+    pub fn src_image(mut self, src_image: Image) -> Self {
+        self.src_image = src_image;
+        self
+    }
+    pub fn src_image_layout(mut self, src_image_layout: ImageLayout) -> Self {
+        self.src_image_layout = src_image_layout;
+        self
+    }
+    pub fn dst_image(mut self, dst_image: Image) -> Self {
+        self.dst_image = dst_image;
+        self
+    }
+    pub fn dst_image_layout(mut self, dst_image_layout: ImageLayout) -> Self {
+        self.dst_image_layout = dst_image_layout;
+        self
+    }
+    pub fn regions(mut self, regions: &'a [ImageBlit2<'a>]) -> Self {
+        self.region_count = regions.len().try_into().unwrap();
+        self.p_regions = regions.as_ptr();
+        self
+    }
+    pub fn filter(mut self, filter: Filter) -> Self {
+        self.filter = filter;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct CopyBufferToImageInfo2<'a> {
@@ -837,6 +1671,25 @@ impl Default for CopyBufferToImageInfo2<'_> {
         }
     }
 }
+impl<'a> CopyBufferToImageInfo2<'a> {
+    pub fn src_buffer(mut self, src_buffer: Buffer) -> Self {
+        self.src_buffer = src_buffer;
+        self
+    }
+    pub fn dst_image(mut self, dst_image: Image) -> Self {
+        self.dst_image = dst_image;
+        self
+    }
+    pub fn dst_image_layout(mut self, dst_image_layout: ImageLayout) -> Self {
+        self.dst_image_layout = dst_image_layout;
+        self
+    }
+    pub fn regions(mut self, regions: &'a [BufferImageCopy2<'a>]) -> Self {
+        self.region_count = regions.len().try_into().unwrap();
+        self.p_regions = regions.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct CopyImageToBufferInfo2<'a> {
@@ -861,6 +1714,25 @@ impl Default for CopyImageToBufferInfo2<'_> {
             p_regions: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> CopyImageToBufferInfo2<'a> {
+    pub fn src_image(mut self, src_image: Image) -> Self {
+        self.src_image = src_image;
+        self
+    }
+    pub fn src_image_layout(mut self, src_image_layout: ImageLayout) -> Self {
+        self.src_image_layout = src_image_layout;
+        self
+    }
+    pub fn dst_buffer(mut self, dst_buffer: Buffer) -> Self {
+        self.dst_buffer = dst_buffer;
+        self
+    }
+    pub fn regions(mut self, regions: &'a [BufferImageCopy2<'a>]) -> Self {
+        self.region_count = regions.len().try_into().unwrap();
+        self.p_regions = regions.as_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -891,6 +1763,29 @@ impl Default for ResolveImageInfo2<'_> {
         }
     }
 }
+impl<'a> ResolveImageInfo2<'a> {
+    pub fn src_image(mut self, src_image: Image) -> Self {
+        self.src_image = src_image;
+        self
+    }
+    pub fn src_image_layout(mut self, src_image_layout: ImageLayout) -> Self {
+        self.src_image_layout = src_image_layout;
+        self
+    }
+    pub fn dst_image(mut self, dst_image: Image) -> Self {
+        self.dst_image = dst_image;
+        self
+    }
+    pub fn dst_image_layout(mut self, dst_image_layout: ImageLayout) -> Self {
+        self.dst_image_layout = dst_image_layout;
+        self
+    }
+    pub fn regions(mut self, regions: &'a [ImageResolve2<'a>]) -> Self {
+        self.region_count = regions.len().try_into().unwrap();
+        self.p_regions = regions.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderTerminateInvocationFeatures<'a> {
@@ -907,6 +1802,12 @@ impl Default for PhysicalDeviceShaderTerminateInvocationFeatures<'_> {
             shader_terminate_invocation: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceShaderTerminateInvocationFeatures<'a> {
+    pub fn shader_terminate_invocation(mut self, shader_terminate_invocation: Bool32) -> Self {
+        self.shader_terminate_invocation = shader_terminate_invocation;
+        self
     }
 }
 #[repr(C)]
@@ -931,6 +1832,24 @@ impl Default for MemoryBarrier2<'_> {
             dst_access_mask: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> MemoryBarrier2<'a> {
+    pub fn src_stage_mask(mut self, src_stage_mask: PipelineStageFlags2) -> Self {
+        self.src_stage_mask = src_stage_mask;
+        self
+    }
+    pub fn src_access_mask(mut self, src_access_mask: AccessFlags2) -> Self {
+        self.src_access_mask = src_access_mask;
+        self
+    }
+    pub fn dst_stage_mask(mut self, dst_stage_mask: PipelineStageFlags2) -> Self {
+        self.dst_stage_mask = dst_stage_mask;
+        self
+    }
+    pub fn dst_access_mask(mut self, dst_access_mask: AccessFlags2) -> Self {
+        self.dst_access_mask = dst_access_mask;
+        self
     }
 }
 #[repr(C)]
@@ -969,6 +1888,48 @@ impl Default for ImageMemoryBarrier2<'_> {
         }
     }
 }
+impl<'a> ImageMemoryBarrier2<'a> {
+    pub fn src_stage_mask(mut self, src_stage_mask: PipelineStageFlags2) -> Self {
+        self.src_stage_mask = src_stage_mask;
+        self
+    }
+    pub fn src_access_mask(mut self, src_access_mask: AccessFlags2) -> Self {
+        self.src_access_mask = src_access_mask;
+        self
+    }
+    pub fn dst_stage_mask(mut self, dst_stage_mask: PipelineStageFlags2) -> Self {
+        self.dst_stage_mask = dst_stage_mask;
+        self
+    }
+    pub fn dst_access_mask(mut self, dst_access_mask: AccessFlags2) -> Self {
+        self.dst_access_mask = dst_access_mask;
+        self
+    }
+    pub fn old_layout(mut self, old_layout: ImageLayout) -> Self {
+        self.old_layout = old_layout;
+        self
+    }
+    pub fn new_layout(mut self, new_layout: ImageLayout) -> Self {
+        self.new_layout = new_layout;
+        self
+    }
+    pub fn src_queue_family_index(mut self, src_queue_family_index: u32) -> Self {
+        self.src_queue_family_index = src_queue_family_index;
+        self
+    }
+    pub fn dst_queue_family_index(mut self, dst_queue_family_index: u32) -> Self {
+        self.dst_queue_family_index = dst_queue_family_index;
+        self
+    }
+    pub fn image(mut self, image: Image) -> Self {
+        self.image = image;
+        self
+    }
+    pub fn subresource_range(mut self, subresource_range: ImageSubresourceRange) -> Self {
+        self.subresource_range = subresource_range;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct BufferMemoryBarrier2<'a> {
@@ -1003,6 +1964,44 @@ impl Default for BufferMemoryBarrier2<'_> {
         }
     }
 }
+impl<'a> BufferMemoryBarrier2<'a> {
+    pub fn src_stage_mask(mut self, src_stage_mask: PipelineStageFlags2) -> Self {
+        self.src_stage_mask = src_stage_mask;
+        self
+    }
+    pub fn src_access_mask(mut self, src_access_mask: AccessFlags2) -> Self {
+        self.src_access_mask = src_access_mask;
+        self
+    }
+    pub fn dst_stage_mask(mut self, dst_stage_mask: PipelineStageFlags2) -> Self {
+        self.dst_stage_mask = dst_stage_mask;
+        self
+    }
+    pub fn dst_access_mask(mut self, dst_access_mask: AccessFlags2) -> Self {
+        self.dst_access_mask = dst_access_mask;
+        self
+    }
+    pub fn src_queue_family_index(mut self, src_queue_family_index: u32) -> Self {
+        self.src_queue_family_index = src_queue_family_index;
+        self
+    }
+    pub fn dst_queue_family_index(mut self, dst_queue_family_index: u32) -> Self {
+        self.dst_queue_family_index = dst_queue_family_index;
+        self
+    }
+    pub fn buffer(mut self, buffer: Buffer) -> Self {
+        self.buffer = buffer;
+        self
+    }
+    pub fn offset(mut self, offset: DeviceSize) -> Self {
+        self.offset = offset;
+        self
+    }
+    pub fn size(mut self, size: DeviceSize) -> Self {
+        self.size = size;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DependencyInfo<'a> {
@@ -1033,6 +2032,33 @@ impl Default for DependencyInfo<'_> {
         }
     }
 }
+impl<'a> DependencyInfo<'a> {
+    pub fn dependency_flags(mut self, dependency_flags: DependencyFlags) -> Self {
+        self.dependency_flags = dependency_flags;
+        self
+    }
+    pub fn memory_barriers(mut self, memory_barriers: &'a [MemoryBarrier2<'a>]) -> Self {
+        self.memory_barrier_count = memory_barriers.len().try_into().unwrap();
+        self.p_memory_barriers = memory_barriers.as_ptr();
+        self
+    }
+    pub fn buffer_memory_barriers(
+        mut self,
+        buffer_memory_barriers: &'a [BufferMemoryBarrier2<'a>],
+    ) -> Self {
+        self.buffer_memory_barrier_count = buffer_memory_barriers.len().try_into().unwrap();
+        self.p_buffer_memory_barriers = buffer_memory_barriers.as_ptr();
+        self
+    }
+    pub fn image_memory_barriers(
+        mut self,
+        image_memory_barriers: &'a [ImageMemoryBarrier2<'a>],
+    ) -> Self {
+        self.image_memory_barrier_count = image_memory_barriers.len().try_into().unwrap();
+        self.p_image_memory_barriers = image_memory_barriers.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SemaphoreSubmitInfo<'a> {
@@ -1057,6 +2083,24 @@ impl Default for SemaphoreSubmitInfo<'_> {
         }
     }
 }
+impl<'a> SemaphoreSubmitInfo<'a> {
+    pub fn semaphore(mut self, semaphore: Semaphore) -> Self {
+        self.semaphore = semaphore;
+        self
+    }
+    pub fn value(mut self, value: u64) -> Self {
+        self.value = value;
+        self
+    }
+    pub fn stage_mask(mut self, stage_mask: PipelineStageFlags2) -> Self {
+        self.stage_mask = stage_mask;
+        self
+    }
+    pub fn device_index(mut self, device_index: u32) -> Self {
+        self.device_index = device_index;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct CommandBufferSubmitInfo<'a> {
@@ -1075,6 +2119,16 @@ impl Default for CommandBufferSubmitInfo<'_> {
             device_mask: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> CommandBufferSubmitInfo<'a> {
+    pub fn command_buffer(mut self, command_buffer: CommandBuffer) -> Self {
+        self.command_buffer = command_buffer;
+        self
+    }
+    pub fn device_mask(mut self, device_mask: u32) -> Self {
+        self.device_mask = device_mask;
+        self
     }
 }
 #[repr(C)]
@@ -1107,6 +2161,36 @@ impl Default for SubmitInfo2<'_> {
         }
     }
 }
+impl<'a> SubmitInfo2<'a> {
+    pub fn flags(mut self, flags: SubmitFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn wait_semaphore_infos(
+        mut self,
+        wait_semaphore_infos: &'a [SemaphoreSubmitInfo<'a>],
+    ) -> Self {
+        self.wait_semaphore_info_count = wait_semaphore_infos.len().try_into().unwrap();
+        self.p_wait_semaphore_infos = wait_semaphore_infos.as_ptr();
+        self
+    }
+    pub fn command_buffer_infos(
+        mut self,
+        command_buffer_infos: &'a [CommandBufferSubmitInfo<'a>],
+    ) -> Self {
+        self.command_buffer_info_count = command_buffer_infos.len().try_into().unwrap();
+        self.p_command_buffer_infos = command_buffer_infos.as_ptr();
+        self
+    }
+    pub fn signal_semaphore_infos(
+        mut self,
+        signal_semaphore_infos: &'a [SemaphoreSubmitInfo<'a>],
+    ) -> Self {
+        self.signal_semaphore_info_count = signal_semaphore_infos.len().try_into().unwrap();
+        self.p_signal_semaphore_infos = signal_semaphore_infos.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceSynchronization2Features<'a> {
@@ -1125,6 +2209,12 @@ impl Default for PhysicalDeviceSynchronization2Features<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceSynchronization2Features<'a> {
+    pub fn synchronization2(mut self, synchronization2: Bool32) -> Self {
+        self.synchronization2 = synchronization2;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderIntegerDotProductFeatures<'a> {
@@ -1141,6 +2231,12 @@ impl Default for PhysicalDeviceShaderIntegerDotProductFeatures<'_> {
             shader_integer_dot_product: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceShaderIntegerDotProductFeatures<'a> {
+    pub fn shader_integer_dot_product(mut self, shader_integer_dot_product: Bool32) -> Self {
+        self.shader_integer_dot_product = shader_integer_dot_product;
+        self
     }
 }
 #[repr(C)]
@@ -1221,6 +2317,247 @@ _marker: PhantomData
 }
     }
 }
+impl<'a> PhysicalDeviceShaderIntegerDotProductProperties<'a> {
+    pub fn integer_dot_product8_bit_unsigned_accelerated(
+        mut self,
+        integer_dot_product8_bit_unsigned_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product8_bit_unsigned_accelerated =
+            integer_dot_product8_bit_unsigned_accelerated;
+        self
+    }
+    pub fn integer_dot_product8_bit_signed_accelerated(
+        mut self,
+        integer_dot_product8_bit_signed_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product8_bit_signed_accelerated =
+            integer_dot_product8_bit_signed_accelerated;
+        self
+    }
+    pub fn integer_dot_product8_bit_mixed_signedness_accelerated(
+        mut self,
+        integer_dot_product8_bit_mixed_signedness_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product8_bit_mixed_signedness_accelerated =
+            integer_dot_product8_bit_mixed_signedness_accelerated;
+        self
+    }
+    pub fn integer_dot_product4x8_bit_packed_unsigned_accelerated(
+        mut self,
+        integer_dot_product4x8_bit_packed_unsigned_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product4x8_bit_packed_unsigned_accelerated =
+            integer_dot_product4x8_bit_packed_unsigned_accelerated;
+        self
+    }
+    pub fn integer_dot_product4x8_bit_packed_signed_accelerated(
+        mut self,
+        integer_dot_product4x8_bit_packed_signed_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product4x8_bit_packed_signed_accelerated =
+            integer_dot_product4x8_bit_packed_signed_accelerated;
+        self
+    }
+    pub fn integer_dot_product4x8_bit_packed_mixed_signedness_accelerated(
+        mut self,
+        integer_dot_product4x8_bit_packed_mixed_signedness_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product4x8_bit_packed_mixed_signedness_accelerated =
+            integer_dot_product4x8_bit_packed_mixed_signedness_accelerated;
+        self
+    }
+    pub fn integer_dot_product16_bit_unsigned_accelerated(
+        mut self,
+        integer_dot_product16_bit_unsigned_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product16_bit_unsigned_accelerated =
+            integer_dot_product16_bit_unsigned_accelerated;
+        self
+    }
+    pub fn integer_dot_product16_bit_signed_accelerated(
+        mut self,
+        integer_dot_product16_bit_signed_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product16_bit_signed_accelerated =
+            integer_dot_product16_bit_signed_accelerated;
+        self
+    }
+    pub fn integer_dot_product16_bit_mixed_signedness_accelerated(
+        mut self,
+        integer_dot_product16_bit_mixed_signedness_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product16_bit_mixed_signedness_accelerated =
+            integer_dot_product16_bit_mixed_signedness_accelerated;
+        self
+    }
+    pub fn integer_dot_product32_bit_unsigned_accelerated(
+        mut self,
+        integer_dot_product32_bit_unsigned_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product32_bit_unsigned_accelerated =
+            integer_dot_product32_bit_unsigned_accelerated;
+        self
+    }
+    pub fn integer_dot_product32_bit_signed_accelerated(
+        mut self,
+        integer_dot_product32_bit_signed_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product32_bit_signed_accelerated =
+            integer_dot_product32_bit_signed_accelerated;
+        self
+    }
+    pub fn integer_dot_product32_bit_mixed_signedness_accelerated(
+        mut self,
+        integer_dot_product32_bit_mixed_signedness_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product32_bit_mixed_signedness_accelerated =
+            integer_dot_product32_bit_mixed_signedness_accelerated;
+        self
+    }
+    pub fn integer_dot_product64_bit_unsigned_accelerated(
+        mut self,
+        integer_dot_product64_bit_unsigned_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product64_bit_unsigned_accelerated =
+            integer_dot_product64_bit_unsigned_accelerated;
+        self
+    }
+    pub fn integer_dot_product64_bit_signed_accelerated(
+        mut self,
+        integer_dot_product64_bit_signed_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product64_bit_signed_accelerated =
+            integer_dot_product64_bit_signed_accelerated;
+        self
+    }
+    pub fn integer_dot_product64_bit_mixed_signedness_accelerated(
+        mut self,
+        integer_dot_product64_bit_mixed_signedness_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product64_bit_mixed_signedness_accelerated =
+            integer_dot_product64_bit_mixed_signedness_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated =
+            integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating8_bit_signed_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating8_bit_signed_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating8_bit_signed_accelerated =
+            integer_dot_product_accumulating_saturating8_bit_signed_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated =
+            integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated =
+            integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated =
+            integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated = integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated =
+            integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating16_bit_signed_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating16_bit_signed_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating16_bit_signed_accelerated =
+            integer_dot_product_accumulating_saturating16_bit_signed_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated =
+            integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated =
+            integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating32_bit_signed_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating32_bit_signed_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating32_bit_signed_accelerated =
+            integer_dot_product_accumulating_saturating32_bit_signed_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated =
+            integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated =
+            integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating64_bit_signed_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating64_bit_signed_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating64_bit_signed_accelerated =
+            integer_dot_product_accumulating_saturating64_bit_signed_accelerated;
+        self
+    }
+    pub fn integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated(
+        mut self,
+        integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated: Bool32,
+    ) -> Self {
+        self.integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated =
+            integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct FormatProperties3<'a> {
@@ -1241,6 +2578,20 @@ impl Default for FormatProperties3<'_> {
             buffer_features: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> FormatProperties3<'a> {
+    pub fn linear_tiling_features(mut self, linear_tiling_features: FormatFeatureFlags2) -> Self {
+        self.linear_tiling_features = linear_tiling_features;
+        self
+    }
+    pub fn optimal_tiling_features(mut self, optimal_tiling_features: FormatFeatureFlags2) -> Self {
+        self.optimal_tiling_features = optimal_tiling_features;
+        self
+    }
+    pub fn buffer_features(mut self, buffer_features: FormatFeatureFlags2) -> Self {
+        self.buffer_features = buffer_features;
+        self
     }
 }
 #[repr(C)]
@@ -1267,6 +2618,25 @@ impl Default for PipelineRenderingCreateInfo<'_> {
             stencil_attachment_format: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineRenderingCreateInfo<'a> {
+    pub fn view_mask(mut self, view_mask: u32) -> Self {
+        self.view_mask = view_mask;
+        self
+    }
+    pub fn color_attachment_formats(mut self, color_attachment_formats: &'a [Format]) -> Self {
+        self.color_attachment_count = color_attachment_formats.len().try_into().unwrap();
+        self.p_color_attachment_formats = color_attachment_formats.as_ptr();
+        self
+    }
+    pub fn depth_attachment_format(mut self, depth_attachment_format: Format) -> Self {
+        self.depth_attachment_format = depth_attachment_format;
+        self
+    }
+    pub fn stencil_attachment_format(mut self, stencil_attachment_format: Format) -> Self {
+        self.stencil_attachment_format = stencil_attachment_format;
+        self
     }
 }
 #[repr(C)]
@@ -1301,6 +2671,43 @@ impl Default for RenderingInfo<'_> {
         }
     }
 }
+impl<'a> RenderingInfo<'a> {
+    pub fn flags(mut self, flags: RenderingFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn render_area(mut self, render_area: Rect2D) -> Self {
+        self.render_area = render_area;
+        self
+    }
+    pub fn layer_count(mut self, layer_count: u32) -> Self {
+        self.layer_count = layer_count;
+        self
+    }
+    pub fn view_mask(mut self, view_mask: u32) -> Self {
+        self.view_mask = view_mask;
+        self
+    }
+    pub fn color_attachments(
+        mut self,
+        color_attachments: &'a [RenderingAttachmentInfo<'a>],
+    ) -> Self {
+        self.color_attachment_count = color_attachments.len().try_into().unwrap();
+        self.p_color_attachments = color_attachments.as_ptr();
+        self
+    }
+    pub fn depth_attachment(mut self, depth_attachment: &'a RenderingAttachmentInfo<'a>) -> Self {
+        self.p_depth_attachment = depth_attachment;
+        self
+    }
+    pub fn stencil_attachment(
+        mut self,
+        stencil_attachment: &'a RenderingAttachmentInfo<'a>,
+    ) -> Self {
+        self.p_stencil_attachment = stencil_attachment;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct RenderingAttachmentInfo<'a> {
@@ -1333,6 +2740,40 @@ impl Default for RenderingAttachmentInfo<'_> {
         }
     }
 }
+impl<'a> RenderingAttachmentInfo<'a> {
+    pub fn image_view(mut self, image_view: ImageView) -> Self {
+        self.image_view = image_view;
+        self
+    }
+    pub fn image_layout(mut self, image_layout: ImageLayout) -> Self {
+        self.image_layout = image_layout;
+        self
+    }
+    pub fn resolve_mode(mut self, resolve_mode: ResolveModeFlagBits) -> Self {
+        self.resolve_mode = resolve_mode;
+        self
+    }
+    pub fn resolve_image_view(mut self, resolve_image_view: ImageView) -> Self {
+        self.resolve_image_view = resolve_image_view;
+        self
+    }
+    pub fn resolve_image_layout(mut self, resolve_image_layout: ImageLayout) -> Self {
+        self.resolve_image_layout = resolve_image_layout;
+        self
+    }
+    pub fn load_op(mut self, load_op: AttachmentLoadOp) -> Self {
+        self.load_op = load_op;
+        self
+    }
+    pub fn store_op(mut self, store_op: AttachmentStoreOp) -> Self {
+        self.store_op = store_op;
+        self
+    }
+    pub fn clear_value(mut self, clear_value: ClearValue) -> Self {
+        self.clear_value = clear_value;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceDynamicRenderingFeatures<'a> {
@@ -1349,6 +2790,12 @@ impl Default for PhysicalDeviceDynamicRenderingFeatures<'_> {
             dynamic_rendering: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceDynamicRenderingFeatures<'a> {
+    pub fn dynamic_rendering(mut self, dynamic_rendering: Bool32) -> Self {
+        self.dynamic_rendering = dynamic_rendering;
+        self
     }
 }
 #[repr(C)]
@@ -1379,6 +2826,33 @@ impl Default for CommandBufferInheritanceRenderingInfo<'_> {
             rasterization_samples: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> CommandBufferInheritanceRenderingInfo<'a> {
+    pub fn flags(mut self, flags: RenderingFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn view_mask(mut self, view_mask: u32) -> Self {
+        self.view_mask = view_mask;
+        self
+    }
+    pub fn color_attachment_formats(mut self, color_attachment_formats: &'a [Format]) -> Self {
+        self.color_attachment_count = color_attachment_formats.len().try_into().unwrap();
+        self.p_color_attachment_formats = color_attachment_formats.as_ptr();
+        self
+    }
+    pub fn depth_attachment_format(mut self, depth_attachment_format: Format) -> Self {
+        self.depth_attachment_format = depth_attachment_format;
+        self
+    }
+    pub fn stencil_attachment_format(mut self, stencil_attachment_format: Format) -> Self {
+        self.stencil_attachment_format = stencil_attachment_format;
+        self
+    }
+    pub fn rasterization_samples(mut self, rasterization_samples: SampleCountFlagBits) -> Self {
+        self.rasterization_samples = rasterization_samples;
+        self
     }
 }
 bitflags! {

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -39,6 +39,58 @@ impl Default for SurfaceCapabilities2EXT<'_> {
             supported_surface_counters: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SurfaceCapabilities2EXT<'a> {
+    pub fn min_image_count(mut self, min_image_count: u32) -> Self {
+        self.min_image_count = min_image_count;
+        self
+    }
+    pub fn max_image_count(mut self, max_image_count: u32) -> Self {
+        self.max_image_count = max_image_count;
+        self
+    }
+    pub fn current_extent(mut self, current_extent: Extent2D) -> Self {
+        self.current_extent = current_extent;
+        self
+    }
+    pub fn min_image_extent(mut self, min_image_extent: Extent2D) -> Self {
+        self.min_image_extent = min_image_extent;
+        self
+    }
+    pub fn max_image_extent(mut self, max_image_extent: Extent2D) -> Self {
+        self.max_image_extent = max_image_extent;
+        self
+    }
+    pub fn max_image_array_layers(mut self, max_image_array_layers: u32) -> Self {
+        self.max_image_array_layers = max_image_array_layers;
+        self
+    }
+    pub fn supported_transforms(mut self, supported_transforms: SurfaceTransformFlagsKHR) -> Self {
+        self.supported_transforms = supported_transforms;
+        self
+    }
+    pub fn current_transform(mut self, current_transform: SurfaceTransformFlagBitsKHR) -> Self {
+        self.current_transform = current_transform;
+        self
+    }
+    pub fn supported_composite_alpha(
+        mut self,
+        supported_composite_alpha: CompositeAlphaFlagsKHR,
+    ) -> Self {
+        self.supported_composite_alpha = supported_composite_alpha;
+        self
+    }
+    pub fn supported_usage_flags(mut self, supported_usage_flags: ImageUsageFlags) -> Self {
+        self.supported_usage_flags = supported_usage_flags;
+        self
+    }
+    pub fn supported_surface_counters(
+        mut self,
+        supported_surface_counters: SurfaceCounterFlagsEXT,
+    ) -> Self {
+        self.supported_surface_counters = supported_surface_counters;
+        self
     }
 }
 bitflags! {

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceFragmentDensityMap2FeaturesEXT<'_> {
             fragment_density_map_deferred: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceFragmentDensityMap2FeaturesEXT<'a> {
+    pub fn fragment_density_map_deferred(mut self, fragment_density_map_deferred: Bool32) -> Self {
+        self.fragment_density_map_deferred = fragment_density_map_deferred;
+        self
     }
 }
 #[repr(C)]
@@ -43,5 +49,30 @@ impl Default for PhysicalDeviceFragmentDensityMap2PropertiesEXT<'_> {
             max_descriptor_set_subsampled_samplers: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceFragmentDensityMap2PropertiesEXT<'a> {
+    pub fn subsampled_loads(mut self, subsampled_loads: Bool32) -> Self {
+        self.subsampled_loads = subsampled_loads;
+        self
+    }
+    pub fn subsampled_coarse_reconstruction_early_access(
+        mut self,
+        subsampled_coarse_reconstruction_early_access: Bool32,
+    ) -> Self {
+        self.subsampled_coarse_reconstruction_early_access =
+            subsampled_coarse_reconstruction_early_access;
+        self
+    }
+    pub fn max_subsampled_array_layers(mut self, max_subsampled_array_layers: u32) -> Self {
+        self.max_subsampled_array_layers = max_subsampled_array_layers;
+        self
+    }
+    pub fn max_descriptor_set_subsampled_samplers(
+        mut self,
+        max_descriptor_set_subsampled_samplers: u32,
+    ) -> Self {
+        self.max_descriptor_set_subsampled_samplers = max_descriptor_set_subsampled_samplers;
+        self
     }
 }

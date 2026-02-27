@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for RenderPassTransformBeginInfoQCOM<'_> {
             transform: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> RenderPassTransformBeginInfoQCOM<'a> {
+    pub fn transform(mut self, transform: SurfaceTransformFlagBitsKHR) -> Self {
+        self.transform = transform;
+        self
     }
 }
 #[repr(C)]
@@ -39,5 +45,15 @@ impl Default for CommandBufferInheritanceRenderPassTransformInfoQCOM<'_> {
             render_area: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> CommandBufferInheritanceRenderPassTransformInfoQCOM<'a> {
+    pub fn transform(mut self, transform: SurfaceTransformFlagBitsKHR) -> Self {
+        self.transform = transform;
+        self
+    }
+    pub fn render_area(mut self, render_area: Rect2D) -> Self {
+        self.render_area = render_area;
+        self
     }
 }

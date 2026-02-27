@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -10,12 +10,40 @@ pub struct StridedDeviceAddressRangeKHR {
     pub size: DeviceSize,
     pub stride: DeviceSize,
 }
+impl StridedDeviceAddressRangeKHR {
+    pub fn address(mut self, address: DeviceAddress) -> Self {
+        self.address = address;
+        self
+    }
+    pub fn size(mut self, size: DeviceSize) -> Self {
+        self.size = size;
+        self
+    }
+    pub fn stride(mut self, stride: DeviceSize) -> Self {
+        self.stride = stride;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct CopyMemoryIndirectCommandKHR {
     pub src_address: DeviceAddress,
     pub dst_address: DeviceAddress,
     pub size: DeviceSize,
+}
+impl CopyMemoryIndirectCommandKHR {
+    pub fn src_address(mut self, src_address: DeviceAddress) -> Self {
+        self.src_address = src_address;
+        self
+    }
+    pub fn dst_address(mut self, dst_address: DeviceAddress) -> Self {
+        self.dst_address = dst_address;
+        self
+    }
+    pub fn size(mut self, size: DeviceSize) -> Self {
+        self.size = size;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -41,6 +69,24 @@ impl Default for CopyMemoryIndirectInfoKHR<'_> {
         }
     }
 }
+impl<'a> CopyMemoryIndirectInfoKHR<'a> {
+    pub fn src_copy_flags(mut self, src_copy_flags: AddressCopyFlagsKHR) -> Self {
+        self.src_copy_flags = src_copy_flags;
+        self
+    }
+    pub fn dst_copy_flags(mut self, dst_copy_flags: AddressCopyFlagsKHR) -> Self {
+        self.dst_copy_flags = dst_copy_flags;
+        self
+    }
+    pub fn copy_count(mut self, copy_count: u32) -> Self {
+        self.copy_count = copy_count;
+        self
+    }
+    pub fn copy_address_range(mut self, copy_address_range: StridedDeviceAddressRangeKHR) -> Self {
+        self.copy_address_range = copy_address_range;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct CopyMemoryToImageIndirectCommandKHR {
@@ -50,6 +96,32 @@ pub struct CopyMemoryToImageIndirectCommandKHR {
     pub image_subresource: ImageSubresourceLayers,
     pub image_offset: Offset3D,
     pub image_extent: Extent3D,
+}
+impl CopyMemoryToImageIndirectCommandKHR {
+    pub fn src_address(mut self, src_address: DeviceAddress) -> Self {
+        self.src_address = src_address;
+        self
+    }
+    pub fn buffer_row_length(mut self, buffer_row_length: u32) -> Self {
+        self.buffer_row_length = buffer_row_length;
+        self
+    }
+    pub fn buffer_image_height(mut self, buffer_image_height: u32) -> Self {
+        self.buffer_image_height = buffer_image_height;
+        self
+    }
+    pub fn image_subresource(mut self, image_subresource: ImageSubresourceLayers) -> Self {
+        self.image_subresource = image_subresource;
+        self
+    }
+    pub fn image_offset(mut self, image_offset: Offset3D) -> Self {
+        self.image_offset = image_offset;
+        self
+    }
+    pub fn image_extent(mut self, image_extent: Extent3D) -> Self {
+        self.image_extent = image_extent;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -79,6 +151,29 @@ impl Default for CopyMemoryToImageIndirectInfoKHR<'_> {
         }
     }
 }
+impl<'a> CopyMemoryToImageIndirectInfoKHR<'a> {
+    pub fn src_copy_flags(mut self, src_copy_flags: AddressCopyFlagsKHR) -> Self {
+        self.src_copy_flags = src_copy_flags;
+        self
+    }
+    pub fn image_subresources(mut self, image_subresources: &'a [ImageSubresourceLayers]) -> Self {
+        self.copy_count = image_subresources.len().try_into().unwrap();
+        self.p_image_subresources = image_subresources.as_ptr();
+        self
+    }
+    pub fn copy_address_range(mut self, copy_address_range: StridedDeviceAddressRangeKHR) -> Self {
+        self.copy_address_range = copy_address_range;
+        self
+    }
+    pub fn dst_image(mut self, dst_image: Image) -> Self {
+        self.dst_image = dst_image;
+        self
+    }
+    pub fn dst_image_layout(mut self, dst_image_layout: ImageLayout) -> Self {
+        self.dst_image_layout = dst_image_layout;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'a> {
@@ -99,6 +194,16 @@ impl Default for PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'a> {
+    pub fn indirect_memory_copy(mut self, indirect_memory_copy: Bool32) -> Self {
+        self.indirect_memory_copy = indirect_memory_copy;
+        self
+    }
+    pub fn indirect_memory_to_image_copy(mut self, indirect_memory_to_image_copy: Bool32) -> Self {
+        self.indirect_memory_to_image_copy = indirect_memory_to_image_copy;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'a> {
@@ -115,6 +220,12 @@ impl Default for PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'_> {
             supported_queues: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'a> {
+    pub fn supported_queues(mut self, supported_queues: QueueFlags) -> Self {
+        self.supported_queues = supported_queues;
+        self
     }
 }
 bitflags! {

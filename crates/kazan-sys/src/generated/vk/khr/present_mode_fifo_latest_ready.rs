@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,5 +19,14 @@ impl Default for PhysicalDevicePresentModeFifoLatestReadyFeaturesKHR<'_> {
             present_mode_fifo_latest_ready: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDevicePresentModeFifoLatestReadyFeaturesKHR<'a> {
+    pub fn present_mode_fifo_latest_ready(
+        mut self,
+        present_mode_fifo_latest_ready: Bool32,
+    ) -> Self {
+        self.present_mode_fifo_latest_ready = present_mode_fifo_latest_ready;
+        self
     }
 }

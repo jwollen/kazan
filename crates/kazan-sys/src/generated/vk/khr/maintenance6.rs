@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub type PhysicalDeviceMaintenance6FeaturesKHR<'a> = PhysicalDeviceMaintenance6Features<'a>;
 pub type PhysicalDeviceMaintenance6PropertiesKHR<'a> = PhysicalDeviceMaintenance6Properties<'a>;
@@ -42,6 +42,30 @@ impl Default for SetDescriptorBufferOffsetsInfoEXT<'_> {
         }
     }
 }
+impl<'a> SetDescriptorBufferOffsetsInfoEXT<'a> {
+    pub fn stage_flags(mut self, stage_flags: ShaderStageFlags) -> Self {
+        self.stage_flags = stage_flags;
+        self
+    }
+    pub fn layout(mut self, layout: PipelineLayout) -> Self {
+        self.layout = layout;
+        self
+    }
+    pub fn first_set(mut self, first_set: u32) -> Self {
+        self.first_set = first_set;
+        self
+    }
+    pub fn buffer_indices(mut self, buffer_indices: &'a [u32]) -> Self {
+        self.set_count = buffer_indices.len().try_into().unwrap();
+        self.p_buffer_indices = buffer_indices.as_ptr();
+        self
+    }
+    pub fn offsets(mut self, offsets: &'a [DeviceSize]) -> Self {
+        self.set_count = offsets.len().try_into().unwrap();
+        self.p_offsets = offsets.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct BindDescriptorBufferEmbeddedSamplersInfoEXT<'a> {
@@ -62,6 +86,20 @@ impl Default for BindDescriptorBufferEmbeddedSamplersInfoEXT<'_> {
             set: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> BindDescriptorBufferEmbeddedSamplersInfoEXT<'a> {
+    pub fn stage_flags(mut self, stage_flags: ShaderStageFlags) -> Self {
+        self.stage_flags = stage_flags;
+        self
+    }
+    pub fn layout(mut self, layout: PipelineLayout) -> Self {
+        self.layout = layout;
+        self
+    }
+    pub fn set(mut self, set: u32) -> Self {
+        self.set = set;
+        self
     }
 }
 pub type PFN_vkCmdSetDescriptorBufferOffsets2EXT = unsafe extern "system" fn(

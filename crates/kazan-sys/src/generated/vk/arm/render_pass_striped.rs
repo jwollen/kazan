@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceRenderPassStripedFeaturesARM<'_> {
             render_pass_striped: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceRenderPassStripedFeaturesARM<'a> {
+    pub fn render_pass_striped(mut self, render_pass_striped: Bool32) -> Self {
+        self.render_pass_striped = render_pass_striped;
+        self
     }
 }
 #[repr(C)]
@@ -41,6 +47,19 @@ impl Default for PhysicalDeviceRenderPassStripedPropertiesARM<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceRenderPassStripedPropertiesARM<'a> {
+    pub fn render_pass_stripe_granularity(
+        mut self,
+        render_pass_stripe_granularity: Extent2D,
+    ) -> Self {
+        self.render_pass_stripe_granularity = render_pass_stripe_granularity;
+        self
+    }
+    pub fn max_render_pass_stripes(mut self, max_render_pass_stripes: u32) -> Self {
+        self.max_render_pass_stripes = max_render_pass_stripes;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct RenderPassStripeInfoARM<'a> {
@@ -57,6 +76,12 @@ impl Default for RenderPassStripeInfoARM<'_> {
             stripe_area: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> RenderPassStripeInfoARM<'a> {
+    pub fn stripe_area(mut self, stripe_area: Rect2D) -> Self {
+        self.stripe_area = stripe_area;
+        self
     }
 }
 #[repr(C)]
@@ -79,6 +104,13 @@ impl Default for RenderPassStripeBeginInfoARM<'_> {
         }
     }
 }
+impl<'a> RenderPassStripeBeginInfoARM<'a> {
+    pub fn stripe_infos(mut self, stripe_infos: &'a [RenderPassStripeInfoARM<'a>]) -> Self {
+        self.stripe_info_count = stripe_infos.len().try_into().unwrap();
+        self.p_stripe_infos = stripe_infos.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct RenderPassStripeSubmitInfoARM<'a> {
@@ -97,5 +129,15 @@ impl Default for RenderPassStripeSubmitInfoARM<'_> {
             p_stripe_semaphore_infos: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> RenderPassStripeSubmitInfoARM<'a> {
+    pub fn stripe_semaphore_infos(
+        mut self,
+        stripe_semaphore_infos: &'a [SemaphoreSubmitInfo<'a>],
+    ) -> Self {
+        self.stripe_semaphore_info_count = stripe_semaphore_infos.len().try_into().unwrap();
+        self.p_stripe_semaphore_infos = stripe_semaphore_infos.as_ptr();
+        self
     }
 }

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceExtendedSparseAddressSpaceFeaturesNV<'_> {
             extended_sparse_address_space: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceExtendedSparseAddressSpaceFeaturesNV<'a> {
+    pub fn extended_sparse_address_space(mut self, extended_sparse_address_space: Bool32) -> Self {
+        self.extended_sparse_address_space = extended_sparse_address_space;
+        self
     }
 }
 #[repr(C)]
@@ -41,5 +47,28 @@ impl Default for PhysicalDeviceExtendedSparseAddressSpacePropertiesNV<'_> {
             extended_sparse_buffer_usage_flags: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceExtendedSparseAddressSpacePropertiesNV<'a> {
+    pub fn extended_sparse_address_space_size(
+        mut self,
+        extended_sparse_address_space_size: DeviceSize,
+    ) -> Self {
+        self.extended_sparse_address_space_size = extended_sparse_address_space_size;
+        self
+    }
+    pub fn extended_sparse_image_usage_flags(
+        mut self,
+        extended_sparse_image_usage_flags: ImageUsageFlags,
+    ) -> Self {
+        self.extended_sparse_image_usage_flags = extended_sparse_image_usage_flags;
+        self
+    }
+    pub fn extended_sparse_buffer_usage_flags(
+        mut self,
+        extended_sparse_buffer_usage_flags: BufferUsageFlags,
+    ) -> Self {
+        self.extended_sparse_buffer_usage_flags = extended_sparse_buffer_usage_flags;
+        self
     }
 }

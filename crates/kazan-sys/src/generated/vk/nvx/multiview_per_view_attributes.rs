@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,15 @@ impl Default for PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX<'_> {
             per_view_position_all_components: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX<'a> {
+    pub fn per_view_position_all_components(
+        mut self,
+        per_view_position_all_components: Bool32,
+    ) -> Self {
+        self.per_view_position_all_components = per_view_position_all_components;
+        self
     }
 }
 #[repr(C)]
@@ -39,5 +48,18 @@ impl Default for MultiviewPerViewAttributesInfoNVX<'_> {
             per_view_attributes_position_x_only: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> MultiviewPerViewAttributesInfoNVX<'a> {
+    pub fn per_view_attributes(mut self, per_view_attributes: Bool32) -> Self {
+        self.per_view_attributes = per_view_attributes;
+        self
+    }
+    pub fn per_view_attributes_position_x_only(
+        mut self,
+        per_view_attributes_position_x_only: Bool32,
+    ) -> Self {
+        self.per_view_attributes_position_x_only = per_view_attributes_position_x_only;
+        self
     }
 }

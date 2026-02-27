@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -25,6 +25,20 @@ impl Default for ConditionalRenderingBeginInfoEXT<'_> {
         }
     }
 }
+impl<'a> ConditionalRenderingBeginInfoEXT<'a> {
+    pub fn buffer(mut self, buffer: Buffer) -> Self {
+        self.buffer = buffer;
+        self
+    }
+    pub fn offset(mut self, offset: DeviceSize) -> Self {
+        self.offset = offset;
+        self
+    }
+    pub fn flags(mut self, flags: ConditionalRenderingFlagsEXT) -> Self {
+        self.flags = flags;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct CommandBufferInheritanceConditionalRenderingInfoEXT<'a> {
@@ -41,6 +55,12 @@ impl Default for CommandBufferInheritanceConditionalRenderingInfoEXT<'_> {
             conditional_rendering_enable: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> CommandBufferInheritanceConditionalRenderingInfoEXT<'a> {
+    pub fn conditional_rendering_enable(mut self, conditional_rendering_enable: Bool32) -> Self {
+        self.conditional_rendering_enable = conditional_rendering_enable;
+        self
     }
 }
 #[repr(C)]
@@ -61,6 +81,19 @@ impl Default for PhysicalDeviceConditionalRenderingFeaturesEXT<'_> {
             inherited_conditional_rendering: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceConditionalRenderingFeaturesEXT<'a> {
+    pub fn conditional_rendering(mut self, conditional_rendering: Bool32) -> Self {
+        self.conditional_rendering = conditional_rendering;
+        self
+    }
+    pub fn inherited_conditional_rendering(
+        mut self,
+        inherited_conditional_rendering: Bool32,
+    ) -> Self {
+        self.inherited_conditional_rendering = inherited_conditional_rendering;
+        self
     }
 }
 bitflags! {

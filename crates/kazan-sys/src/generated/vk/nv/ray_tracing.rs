@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -43,6 +43,28 @@ impl Default for RayTracingShaderGroupCreateInfoNV<'_> {
         }
     }
 }
+impl<'a> RayTracingShaderGroupCreateInfoNV<'a> {
+    pub fn ty(mut self, ty: RayTracingShaderGroupTypeKHR) -> Self {
+        self.ty = ty;
+        self
+    }
+    pub fn general_shader(mut self, general_shader: u32) -> Self {
+        self.general_shader = general_shader;
+        self
+    }
+    pub fn closest_hit_shader(mut self, closest_hit_shader: u32) -> Self {
+        self.closest_hit_shader = closest_hit_shader;
+        self
+    }
+    pub fn any_hit_shader(mut self, any_hit_shader: u32) -> Self {
+        self.any_hit_shader = any_hit_shader;
+        self
+    }
+    pub fn intersection_shader(mut self, intersection_shader: u32) -> Self {
+        self.intersection_shader = intersection_shader;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct RayTracingPipelineCreateInfoNV<'a> {
@@ -75,6 +97,38 @@ impl Default for RayTracingPipelineCreateInfoNV<'_> {
             base_pipeline_index: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> RayTracingPipelineCreateInfoNV<'a> {
+    pub fn flags(mut self, flags: PipelineCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn stages(mut self, stages: &'a [PipelineShaderStageCreateInfo<'a>]) -> Self {
+        self.stage_count = stages.len().try_into().unwrap();
+        self.p_stages = stages.as_ptr();
+        self
+    }
+    pub fn groups(mut self, groups: &'a [RayTracingShaderGroupCreateInfoNV<'a>]) -> Self {
+        self.group_count = groups.len().try_into().unwrap();
+        self.p_groups = groups.as_ptr();
+        self
+    }
+    pub fn max_recursion_depth(mut self, max_recursion_depth: u32) -> Self {
+        self.max_recursion_depth = max_recursion_depth;
+        self
+    }
+    pub fn layout(mut self, layout: PipelineLayout) -> Self {
+        self.layout = layout;
+        self
+    }
+    pub fn base_pipeline_handle(mut self, base_pipeline_handle: Pipeline) -> Self {
+        self.base_pipeline_handle = base_pipeline_handle;
+        self
+    }
+    pub fn base_pipeline_index(mut self, base_pipeline_index: i32) -> Self {
+        self.base_pipeline_index = base_pipeline_index;
+        self
     }
 }
 #[repr(C)]
@@ -115,6 +169,52 @@ impl Default for GeometryTrianglesNV<'_> {
         }
     }
 }
+impl<'a> GeometryTrianglesNV<'a> {
+    pub fn vertex_data(mut self, vertex_data: Buffer) -> Self {
+        self.vertex_data = vertex_data;
+        self
+    }
+    pub fn vertex_offset(mut self, vertex_offset: DeviceSize) -> Self {
+        self.vertex_offset = vertex_offset;
+        self
+    }
+    pub fn vertex_count(mut self, vertex_count: u32) -> Self {
+        self.vertex_count = vertex_count;
+        self
+    }
+    pub fn vertex_stride(mut self, vertex_stride: DeviceSize) -> Self {
+        self.vertex_stride = vertex_stride;
+        self
+    }
+    pub fn vertex_format(mut self, vertex_format: Format) -> Self {
+        self.vertex_format = vertex_format;
+        self
+    }
+    pub fn index_data(mut self, index_data: Buffer) -> Self {
+        self.index_data = index_data;
+        self
+    }
+    pub fn index_offset(mut self, index_offset: DeviceSize) -> Self {
+        self.index_offset = index_offset;
+        self
+    }
+    pub fn index_count(mut self, index_count: u32) -> Self {
+        self.index_count = index_count;
+        self
+    }
+    pub fn index_type(mut self, index_type: IndexType) -> Self {
+        self.index_type = index_type;
+        self
+    }
+    pub fn transform_data(mut self, transform_data: Buffer) -> Self {
+        self.transform_data = transform_data;
+        self
+    }
+    pub fn transform_offset(mut self, transform_offset: DeviceSize) -> Self {
+        self.transform_offset = transform_offset;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct GeometryAABBNV<'a> {
@@ -139,6 +239,24 @@ impl Default for GeometryAABBNV<'_> {
         }
     }
 }
+impl<'a> GeometryAABBNV<'a> {
+    pub fn aabb_data(mut self, aabb_data: Buffer) -> Self {
+        self.aabb_data = aabb_data;
+        self
+    }
+    pub fn num_aab_bs(mut self, num_aab_bs: u32) -> Self {
+        self.num_aab_bs = num_aab_bs;
+        self
+    }
+    pub fn stride(mut self, stride: u32) -> Self {
+        self.stride = stride;
+        self
+    }
+    pub fn offset(mut self, offset: DeviceSize) -> Self {
+        self.offset = offset;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct GeometryDataNV<'a> {
@@ -153,6 +271,16 @@ impl Default for GeometryDataNV<'_> {
             aabbs: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> GeometryDataNV<'a> {
+    pub fn triangles(mut self, triangles: GeometryTrianglesNV<'a>) -> Self {
+        self.triangles = triangles;
+        self
+    }
+    pub fn aabbs(mut self, aabbs: GeometryAABBNV<'a>) -> Self {
+        self.aabbs = aabbs;
+        self
     }
 }
 #[repr(C)]
@@ -175,6 +303,20 @@ impl Default for GeometryNV<'_> {
             flags: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> GeometryNV<'a> {
+    pub fn geometry_type(mut self, geometry_type: GeometryTypeKHR) -> Self {
+        self.geometry_type = geometry_type;
+        self
+    }
+    pub fn geometry(mut self, geometry: GeometryDataNV<'a>) -> Self {
+        self.geometry = geometry;
+        self
+    }
+    pub fn flags(mut self, flags: GeometryFlagsKHR) -> Self {
+        self.flags = flags;
+        self
     }
 }
 #[repr(C)]
@@ -203,6 +345,25 @@ impl Default for AccelerationStructureInfoNV<'_> {
         }
     }
 }
+impl<'a> AccelerationStructureInfoNV<'a> {
+    pub fn ty(mut self, ty: AccelerationStructureTypeNV) -> Self {
+        self.ty = ty;
+        self
+    }
+    pub fn flags(mut self, flags: BuildAccelerationStructureFlagsNV) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn instance_count(mut self, instance_count: u32) -> Self {
+        self.instance_count = instance_count;
+        self
+    }
+    pub fn geometries(mut self, geometries: &'a [GeometryNV<'a>]) -> Self {
+        self.geometry_count = geometries.len().try_into().unwrap();
+        self.p_geometries = geometries.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct AccelerationStructureCreateInfoNV<'a> {
@@ -221,6 +382,16 @@ impl Default for AccelerationStructureCreateInfoNV<'_> {
             info: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> AccelerationStructureCreateInfoNV<'a> {
+    pub fn compacted_size(mut self, compacted_size: DeviceSize) -> Self {
+        self.compacted_size = compacted_size;
+        self
+    }
+    pub fn info(mut self, info: AccelerationStructureInfoNV<'a>) -> Self {
+        self.info = info;
+        self
     }
 }
 #[repr(C)]
@@ -249,6 +420,28 @@ impl Default for BindAccelerationStructureMemoryInfoNV<'_> {
         }
     }
 }
+impl<'a> BindAccelerationStructureMemoryInfoNV<'a> {
+    pub fn acceleration_structure(
+        mut self,
+        acceleration_structure: AccelerationStructureNV,
+    ) -> Self {
+        self.acceleration_structure = acceleration_structure;
+        self
+    }
+    pub fn memory(mut self, memory: DeviceMemory) -> Self {
+        self.memory = memory;
+        self
+    }
+    pub fn memory_offset(mut self, memory_offset: DeviceSize) -> Self {
+        self.memory_offset = memory_offset;
+        self
+    }
+    pub fn device_indices(mut self, device_indices: &'a [u32]) -> Self {
+        self.device_index_count = device_indices.len().try_into().unwrap();
+        self.p_device_indices = device_indices.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct WriteDescriptorSetAccelerationStructureNV<'a> {
@@ -269,6 +462,16 @@ impl Default for WriteDescriptorSetAccelerationStructureNV<'_> {
         }
     }
 }
+impl<'a> WriteDescriptorSetAccelerationStructureNV<'a> {
+    pub fn acceleration_structures(
+        mut self,
+        acceleration_structures: &'a [AccelerationStructureNV],
+    ) -> Self {
+        self.acceleration_structure_count = acceleration_structures.len().try_into().unwrap();
+        self.p_acceleration_structures = acceleration_structures.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct AccelerationStructureMemoryRequirementsInfoNV<'a> {
@@ -287,6 +490,19 @@ impl Default for AccelerationStructureMemoryRequirementsInfoNV<'_> {
             acceleration_structure: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> AccelerationStructureMemoryRequirementsInfoNV<'a> {
+    pub fn ty(mut self, ty: AccelerationStructureMemoryRequirementsTypeNV) -> Self {
+        self.ty = ty;
+        self
+    }
+    pub fn acceleration_structure(
+        mut self,
+        acceleration_structure: AccelerationStructureNV,
+    ) -> Self {
+        self.acceleration_structure = acceleration_structure;
+        self
     }
 }
 #[repr(C)]
@@ -319,6 +535,44 @@ impl Default for PhysicalDeviceRayTracingPropertiesNV<'_> {
             max_descriptor_set_acceleration_structures: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceRayTracingPropertiesNV<'a> {
+    pub fn shader_group_handle_size(mut self, shader_group_handle_size: u32) -> Self {
+        self.shader_group_handle_size = shader_group_handle_size;
+        self
+    }
+    pub fn max_recursion_depth(mut self, max_recursion_depth: u32) -> Self {
+        self.max_recursion_depth = max_recursion_depth;
+        self
+    }
+    pub fn max_shader_group_stride(mut self, max_shader_group_stride: u32) -> Self {
+        self.max_shader_group_stride = max_shader_group_stride;
+        self
+    }
+    pub fn shader_group_base_alignment(mut self, shader_group_base_alignment: u32) -> Self {
+        self.shader_group_base_alignment = shader_group_base_alignment;
+        self
+    }
+    pub fn max_geometry_count(mut self, max_geometry_count: u64) -> Self {
+        self.max_geometry_count = max_geometry_count;
+        self
+    }
+    pub fn max_instance_count(mut self, max_instance_count: u64) -> Self {
+        self.max_instance_count = max_instance_count;
+        self
+    }
+    pub fn max_triangle_count(mut self, max_triangle_count: u64) -> Self {
+        self.max_triangle_count = max_triangle_count;
+        self
+    }
+    pub fn max_descriptor_set_acceleration_structures(
+        mut self,
+        max_descriptor_set_acceleration_structures: u32,
+    ) -> Self {
+        self.max_descriptor_set_acceleration_structures =
+            max_descriptor_set_acceleration_structures;
+        self
     }
 }
 #[repr(transparent)]

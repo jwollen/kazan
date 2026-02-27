@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,10 +21,22 @@ impl Default for RenderPassCreationControlEXT<'_> {
         }
     }
 }
+impl<'a> RenderPassCreationControlEXT<'a> {
+    pub fn disallow_merging(mut self, disallow_merging: Bool32) -> Self {
+        self.disallow_merging = disallow_merging;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct RenderPassCreationFeedbackInfoEXT {
     pub post_merge_subpass_count: u32,
+}
+impl RenderPassCreationFeedbackInfoEXT {
+    pub fn post_merge_subpass_count(mut self, post_merge_subpass_count: u32) -> Self {
+        self.post_merge_subpass_count = post_merge_subpass_count;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -44,6 +56,15 @@ impl Default for RenderPassCreationFeedbackCreateInfoEXT<'_> {
         }
     }
 }
+impl<'a> RenderPassCreationFeedbackCreateInfoEXT<'a> {
+    pub fn render_pass_feedback(
+        mut self,
+        render_pass_feedback: &'a mut RenderPassCreationFeedbackInfoEXT,
+    ) -> Self {
+        self.p_render_pass_feedback = render_pass_feedback;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct RenderPassSubpassFeedbackInfoEXT {
@@ -58,6 +79,16 @@ impl Default for RenderPassSubpassFeedbackInfoEXT {
             description: [Default::default(); _],
             post_merge_index: Default::default(),
         }
+    }
+}
+impl RenderPassSubpassFeedbackInfoEXT {
+    pub fn subpass_merge_status(mut self, subpass_merge_status: SubpassMergeStatusEXT) -> Self {
+        self.subpass_merge_status = subpass_merge_status;
+        self
+    }
+    pub fn post_merge_index(mut self, post_merge_index: u32) -> Self {
+        self.post_merge_index = post_merge_index;
+        self
     }
 }
 #[repr(C)]
@@ -78,6 +109,15 @@ impl Default for RenderPassSubpassFeedbackCreateInfoEXT<'_> {
         }
     }
 }
+impl<'a> RenderPassSubpassFeedbackCreateInfoEXT<'a> {
+    pub fn subpass_feedback(
+        mut self,
+        subpass_feedback: &'a mut RenderPassSubpassFeedbackInfoEXT,
+    ) -> Self {
+        self.p_subpass_feedback = subpass_feedback;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'a> {
@@ -94,6 +134,12 @@ impl Default for PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'_> {
             subpass_merge_feedback: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'a> {
+    pub fn subpass_merge_feedback(mut self, subpass_merge_feedback: Bool32) -> Self {
+        self.subpass_merge_feedback = subpass_merge_feedback;
+        self
     }
 }
 #[repr(transparent)]

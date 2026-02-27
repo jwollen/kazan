@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,5 +19,14 @@ impl Default for PhysicalDeviceRGBA10X6FormatsFeaturesEXT<'_> {
             format_rgba10x6_without_y_cb_cr_sampler: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceRGBA10X6FormatsFeaturesEXT<'a> {
+    pub fn format_rgba10x6_without_y_cb_cr_sampler(
+        mut self,
+        format_rgba10x6_without_y_cb_cr_sampler: Bool32,
+    ) -> Self {
+        self.format_rgba10x6_without_y_cb_cr_sampler = format_rgba10x6_without_y_cb_cr_sampler;
+        self
     }
 }

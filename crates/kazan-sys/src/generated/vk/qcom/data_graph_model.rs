@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub const DATA_GRAPH_MODEL_TOOLCHAIN_VERSION_LENGTH_QCOM: u32 = 3;
 #[repr(C)]
@@ -24,6 +24,31 @@ impl Default for PipelineCacheHeaderVersionDataGraphQCOM {
         }
     }
 }
+impl PipelineCacheHeaderVersionDataGraphQCOM {
+    pub fn header_size(mut self, header_size: u32) -> Self {
+        self.header_size = header_size;
+        self
+    }
+    pub fn header_version(mut self, header_version: PipelineCacheHeaderVersion) -> Self {
+        self.header_version = header_version;
+        self
+    }
+    pub fn cache_type(mut self, cache_type: DataGraphModelCacheTypeQCOM) -> Self {
+        self.cache_type = cache_type;
+        self
+    }
+    pub fn cache_version(mut self, cache_version: u32) -> Self {
+        self.cache_version = cache_version;
+        self
+    }
+    pub fn toolchain_version(
+        mut self,
+        toolchain_version: [u32; DATA_GRAPH_MODEL_TOOLCHAIN_VERSION_LENGTH_QCOM as usize],
+    ) -> Self {
+        self.toolchain_version = toolchain_version;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DataGraphPipelineBuiltinModelCreateInfoQCOM<'a> {
@@ -42,6 +67,12 @@ impl Default for DataGraphPipelineBuiltinModelCreateInfoQCOM<'_> {
         }
     }
 }
+impl<'a> DataGraphPipelineBuiltinModelCreateInfoQCOM<'a> {
+    pub fn operation(mut self, operation: &'a PhysicalDeviceDataGraphOperationSupportARM) -> Self {
+        self.p_operation = operation;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceDataGraphModelFeaturesQCOM<'a> {
@@ -58,6 +89,12 @@ impl Default for PhysicalDeviceDataGraphModelFeaturesQCOM<'_> {
             data_graph_model: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceDataGraphModelFeaturesQCOM<'a> {
+    pub fn data_graph_model(mut self, data_graph_model: Bool32) -> Self {
+        self.data_graph_model = data_graph_model;
+        self
     }
 }
 #[repr(transparent)]

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,5 +19,11 @@ impl Default for PresentFrameTokenGGP<'_> {
             frame_token: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PresentFrameTokenGGP<'a> {
+    pub fn frame_token(mut self, frame_token: GgpFrameToken) -> Self {
+        self.frame_token = frame_token;
+        self
     }
 }

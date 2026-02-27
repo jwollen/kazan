@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -34,6 +34,30 @@ impl Default for TensorDescriptionARM<'_> {
         }
     }
 }
+impl<'a> TensorDescriptionARM<'a> {
+    pub fn tiling(mut self, tiling: TensorTilingARM) -> Self {
+        self.tiling = tiling;
+        self
+    }
+    pub fn format(mut self, format: Format) -> Self {
+        self.format = format;
+        self
+    }
+    pub fn dimensions(mut self, dimensions: &'a [i64]) -> Self {
+        self.dimension_count = dimensions.len().try_into().unwrap();
+        self.p_dimensions = dimensions.as_ptr();
+        self
+    }
+    pub fn strides(mut self, strides: &'a [i64]) -> Self {
+        self.dimension_count = strides.len().try_into().unwrap();
+        self.p_strides = strides.as_ptr();
+        self
+    }
+    pub fn usage(mut self, usage: TensorUsageFlagsARM) -> Self {
+        self.usage = usage;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct TensorCreateInfoARM<'a> {
@@ -60,6 +84,25 @@ impl Default for TensorCreateInfoARM<'_> {
         }
     }
 }
+impl<'a> TensorCreateInfoARM<'a> {
+    pub fn flags(mut self, flags: TensorCreateFlagsARM) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn description(mut self, description: &'a TensorDescriptionARM<'a>) -> Self {
+        self.p_description = description;
+        self
+    }
+    pub fn sharing_mode(mut self, sharing_mode: SharingMode) -> Self {
+        self.sharing_mode = sharing_mode;
+        self
+    }
+    pub fn queue_family_indices(mut self, queue_family_indices: &'a [u32]) -> Self {
+        self.queue_family_index_count = queue_family_indices.len().try_into().unwrap();
+        self.p_queue_family_indices = queue_family_indices.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct TensorMemoryRequirementsInfoARM<'a> {
@@ -76,6 +119,12 @@ impl Default for TensorMemoryRequirementsInfoARM<'_> {
             tensor: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> TensorMemoryRequirementsInfoARM<'a> {
+    pub fn tensor(mut self, tensor: TensorARM) -> Self {
+        self.tensor = tensor;
+        self
     }
 }
 #[repr(C)]
@@ -100,6 +149,20 @@ impl Default for BindTensorMemoryInfoARM<'_> {
         }
     }
 }
+impl<'a> BindTensorMemoryInfoARM<'a> {
+    pub fn tensor(mut self, tensor: TensorARM) -> Self {
+        self.tensor = tensor;
+        self
+    }
+    pub fn memory(mut self, memory: DeviceMemory) -> Self {
+        self.memory = memory;
+        self
+    }
+    pub fn memory_offset(mut self, memory_offset: DeviceSize) -> Self {
+        self.memory_offset = memory_offset;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct WriteDescriptorSetTensorARM<'a> {
@@ -120,6 +183,13 @@ impl Default for WriteDescriptorSetTensorARM<'_> {
         }
     }
 }
+impl<'a> WriteDescriptorSetTensorARM<'a> {
+    pub fn tensor_views(mut self, tensor_views: &'a [TensorViewARM]) -> Self {
+        self.tensor_view_count = tensor_views.len().try_into().unwrap();
+        self.p_tensor_views = tensor_views.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct TensorFormatPropertiesARM<'a> {
@@ -138,6 +208,22 @@ impl Default for TensorFormatPropertiesARM<'_> {
             linear_tiling_tensor_features: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> TensorFormatPropertiesARM<'a> {
+    pub fn optimal_tiling_tensor_features(
+        mut self,
+        optimal_tiling_tensor_features: FormatFeatureFlags2,
+    ) -> Self {
+        self.optimal_tiling_tensor_features = optimal_tiling_tensor_features;
+        self
+    }
+    pub fn linear_tiling_tensor_features(
+        mut self,
+        linear_tiling_tensor_features: FormatFeatureFlags2,
+    ) -> Self {
+        self.linear_tiling_tensor_features = linear_tiling_tensor_features;
+        self
     }
 }
 #[repr(C)]
@@ -182,6 +268,88 @@ impl Default for PhysicalDeviceTensorPropertiesARM<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceTensorPropertiesARM<'a> {
+    pub fn max_tensor_dimension_count(mut self, max_tensor_dimension_count: u32) -> Self {
+        self.max_tensor_dimension_count = max_tensor_dimension_count;
+        self
+    }
+    pub fn max_tensor_elements(mut self, max_tensor_elements: u64) -> Self {
+        self.max_tensor_elements = max_tensor_elements;
+        self
+    }
+    pub fn max_per_dimension_tensor_elements(
+        mut self,
+        max_per_dimension_tensor_elements: u64,
+    ) -> Self {
+        self.max_per_dimension_tensor_elements = max_per_dimension_tensor_elements;
+        self
+    }
+    pub fn max_tensor_stride(mut self, max_tensor_stride: i64) -> Self {
+        self.max_tensor_stride = max_tensor_stride;
+        self
+    }
+    pub fn max_tensor_size(mut self, max_tensor_size: u64) -> Self {
+        self.max_tensor_size = max_tensor_size;
+        self
+    }
+    pub fn max_tensor_shader_access_array_length(
+        mut self,
+        max_tensor_shader_access_array_length: u32,
+    ) -> Self {
+        self.max_tensor_shader_access_array_length = max_tensor_shader_access_array_length;
+        self
+    }
+    pub fn max_tensor_shader_access_size(mut self, max_tensor_shader_access_size: u32) -> Self {
+        self.max_tensor_shader_access_size = max_tensor_shader_access_size;
+        self
+    }
+    pub fn max_descriptor_set_storage_tensors(
+        mut self,
+        max_descriptor_set_storage_tensors: u32,
+    ) -> Self {
+        self.max_descriptor_set_storage_tensors = max_descriptor_set_storage_tensors;
+        self
+    }
+    pub fn max_per_stage_descriptor_set_storage_tensors(
+        mut self,
+        max_per_stage_descriptor_set_storage_tensors: u32,
+    ) -> Self {
+        self.max_per_stage_descriptor_set_storage_tensors =
+            max_per_stage_descriptor_set_storage_tensors;
+        self
+    }
+    pub fn max_descriptor_set_update_after_bind_storage_tensors(
+        mut self,
+        max_descriptor_set_update_after_bind_storage_tensors: u32,
+    ) -> Self {
+        self.max_descriptor_set_update_after_bind_storage_tensors =
+            max_descriptor_set_update_after_bind_storage_tensors;
+        self
+    }
+    pub fn max_per_stage_descriptor_update_after_bind_storage_tensors(
+        mut self,
+        max_per_stage_descriptor_update_after_bind_storage_tensors: u32,
+    ) -> Self {
+        self.max_per_stage_descriptor_update_after_bind_storage_tensors =
+            max_per_stage_descriptor_update_after_bind_storage_tensors;
+        self
+    }
+    pub fn shader_storage_tensor_array_non_uniform_indexing_native(
+        mut self,
+        shader_storage_tensor_array_non_uniform_indexing_native: Bool32,
+    ) -> Self {
+        self.shader_storage_tensor_array_non_uniform_indexing_native =
+            shader_storage_tensor_array_non_uniform_indexing_native;
+        self
+    }
+    pub fn shader_tensor_supported_stages(
+        mut self,
+        shader_tensor_supported_stages: ShaderStageFlags,
+    ) -> Self {
+        self.shader_tensor_supported_stages = shader_tensor_supported_stages;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct TensorMemoryBarrierARM<'a> {
@@ -212,6 +380,36 @@ impl Default for TensorMemoryBarrierARM<'_> {
         }
     }
 }
+impl<'a> TensorMemoryBarrierARM<'a> {
+    pub fn src_stage_mask(mut self, src_stage_mask: PipelineStageFlags2) -> Self {
+        self.src_stage_mask = src_stage_mask;
+        self
+    }
+    pub fn src_access_mask(mut self, src_access_mask: AccessFlags2) -> Self {
+        self.src_access_mask = src_access_mask;
+        self
+    }
+    pub fn dst_stage_mask(mut self, dst_stage_mask: PipelineStageFlags2) -> Self {
+        self.dst_stage_mask = dst_stage_mask;
+        self
+    }
+    pub fn dst_access_mask(mut self, dst_access_mask: AccessFlags2) -> Self {
+        self.dst_access_mask = dst_access_mask;
+        self
+    }
+    pub fn src_queue_family_index(mut self, src_queue_family_index: u32) -> Self {
+        self.src_queue_family_index = src_queue_family_index;
+        self
+    }
+    pub fn dst_queue_family_index(mut self, dst_queue_family_index: u32) -> Self {
+        self.dst_queue_family_index = dst_queue_family_index;
+        self
+    }
+    pub fn tensor(mut self, tensor: TensorARM) -> Self {
+        self.tensor = tensor;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct TensorDependencyInfoARM<'a> {
@@ -230,6 +428,19 @@ impl Default for TensorDependencyInfoARM<'_> {
             p_tensor_memory_barriers: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> TensorDependencyInfoARM<'a> {
+    pub fn tensor_memory_barrier_count(mut self, tensor_memory_barrier_count: u32) -> Self {
+        self.tensor_memory_barrier_count = tensor_memory_barrier_count;
+        self
+    }
+    pub fn tensor_memory_barriers(
+        mut self,
+        tensor_memory_barriers: &'a TensorMemoryBarrierARM<'a>,
+    ) -> Self {
+        self.p_tensor_memory_barriers = tensor_memory_barriers;
+        self
     }
 }
 #[repr(C)]
@@ -260,6 +471,44 @@ impl Default for PhysicalDeviceTensorFeaturesARM<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceTensorFeaturesARM<'a> {
+    pub fn tensor_non_packed(mut self, tensor_non_packed: Bool32) -> Self {
+        self.tensor_non_packed = tensor_non_packed;
+        self
+    }
+    pub fn shader_tensor_access(mut self, shader_tensor_access: Bool32) -> Self {
+        self.shader_tensor_access = shader_tensor_access;
+        self
+    }
+    pub fn shader_storage_tensor_array_dynamic_indexing(
+        mut self,
+        shader_storage_tensor_array_dynamic_indexing: Bool32,
+    ) -> Self {
+        self.shader_storage_tensor_array_dynamic_indexing =
+            shader_storage_tensor_array_dynamic_indexing;
+        self
+    }
+    pub fn shader_storage_tensor_array_non_uniform_indexing(
+        mut self,
+        shader_storage_tensor_array_non_uniform_indexing: Bool32,
+    ) -> Self {
+        self.shader_storage_tensor_array_non_uniform_indexing =
+            shader_storage_tensor_array_non_uniform_indexing;
+        self
+    }
+    pub fn descriptor_binding_storage_tensor_update_after_bind(
+        mut self,
+        descriptor_binding_storage_tensor_update_after_bind: Bool32,
+    ) -> Self {
+        self.descriptor_binding_storage_tensor_update_after_bind =
+            descriptor_binding_storage_tensor_update_after_bind;
+        self
+    }
+    pub fn tensors(mut self, tensors: Bool32) -> Self {
+        self.tensors = tensors;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DeviceTensorMemoryRequirementsARM<'a> {
@@ -276,6 +525,12 @@ impl Default for DeviceTensorMemoryRequirementsARM<'_> {
             p_create_info: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DeviceTensorMemoryRequirementsARM<'a> {
+    pub fn create_info(mut self, create_info: &'a TensorCreateInfoARM<'a>) -> Self {
+        self.p_create_info = create_info;
+        self
     }
 }
 #[repr(C)]
@@ -302,6 +557,21 @@ impl Default for CopyTensorInfoARM<'_> {
         }
     }
 }
+impl<'a> CopyTensorInfoARM<'a> {
+    pub fn src_tensor(mut self, src_tensor: TensorARM) -> Self {
+        self.src_tensor = src_tensor;
+        self
+    }
+    pub fn dst_tensor(mut self, dst_tensor: TensorARM) -> Self {
+        self.dst_tensor = dst_tensor;
+        self
+    }
+    pub fn regions(mut self, regions: &'a [TensorCopyARM<'a>]) -> Self {
+        self.region_count = regions.len().try_into().unwrap();
+        self.p_regions = regions.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct TensorCopyARM<'a> {
@@ -326,6 +596,23 @@ impl Default for TensorCopyARM<'_> {
         }
     }
 }
+impl<'a> TensorCopyARM<'a> {
+    pub fn src_offset(mut self, src_offset: &'a [u64]) -> Self {
+        self.dimension_count = src_offset.len().try_into().unwrap();
+        self.p_src_offset = src_offset.as_ptr();
+        self
+    }
+    pub fn dst_offset(mut self, dst_offset: &'a [u64]) -> Self {
+        self.dimension_count = dst_offset.len().try_into().unwrap();
+        self.p_dst_offset = dst_offset.as_ptr();
+        self
+    }
+    pub fn extent(mut self, extent: &'a [u64]) -> Self {
+        self.dimension_count = extent.len().try_into().unwrap();
+        self.p_extent = extent.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct MemoryDedicatedAllocateInfoTensorARM<'a> {
@@ -342,6 +629,12 @@ impl Default for MemoryDedicatedAllocateInfoTensorARM<'_> {
             tensor: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> MemoryDedicatedAllocateInfoTensorARM<'a> {
+    pub fn tensor(mut self, tensor: TensorARM) -> Self {
+        self.tensor = tensor;
+        self
     }
 }
 #[repr(C)]
@@ -366,6 +659,28 @@ impl Default for PhysicalDeviceDescriptorBufferTensorPropertiesARM<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceDescriptorBufferTensorPropertiesARM<'a> {
+    pub fn tensor_capture_replay_descriptor_data_size(
+        mut self,
+        tensor_capture_replay_descriptor_data_size: usize,
+    ) -> Self {
+        self.tensor_capture_replay_descriptor_data_size =
+            tensor_capture_replay_descriptor_data_size;
+        self
+    }
+    pub fn tensor_view_capture_replay_descriptor_data_size(
+        mut self,
+        tensor_view_capture_replay_descriptor_data_size: usize,
+    ) -> Self {
+        self.tensor_view_capture_replay_descriptor_data_size =
+            tensor_view_capture_replay_descriptor_data_size;
+        self
+    }
+    pub fn tensor_descriptor_size(mut self, tensor_descriptor_size: usize) -> Self {
+        self.tensor_descriptor_size = tensor_descriptor_size;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceDescriptorBufferTensorFeaturesARM<'a> {
@@ -382,6 +697,15 @@ impl Default for PhysicalDeviceDescriptorBufferTensorFeaturesARM<'_> {
             descriptor_buffer_tensor_descriptors: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceDescriptorBufferTensorFeaturesARM<'a> {
+    pub fn descriptor_buffer_tensor_descriptors(
+        mut self,
+        descriptor_buffer_tensor_descriptors: Bool32,
+    ) -> Self {
+        self.descriptor_buffer_tensor_descriptors = descriptor_buffer_tensor_descriptors;
+        self
     }
 }
 #[repr(C)]
@@ -402,6 +726,12 @@ impl Default for TensorCaptureDescriptorDataInfoARM<'_> {
         }
     }
 }
+impl<'a> TensorCaptureDescriptorDataInfoARM<'a> {
+    pub fn tensor(mut self, tensor: TensorARM) -> Self {
+        self.tensor = tensor;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct TensorViewCaptureDescriptorDataInfoARM<'a> {
@@ -418,6 +748,12 @@ impl Default for TensorViewCaptureDescriptorDataInfoARM<'_> {
             tensor_view: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> TensorViewCaptureDescriptorDataInfoARM<'a> {
+    pub fn tensor_view(mut self, tensor_view: TensorViewARM) -> Self {
+        self.tensor_view = tensor_view;
+        self
     }
 }
 #[repr(C)]
@@ -438,6 +774,12 @@ impl Default for DescriptorGetTensorInfoARM<'_> {
         }
     }
 }
+impl<'a> DescriptorGetTensorInfoARM<'a> {
+    pub fn tensor_view(mut self, tensor_view: TensorViewARM) -> Self {
+        self.tensor_view = tensor_view;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct FrameBoundaryTensorsARM<'a> {
@@ -456,6 +798,13 @@ impl Default for FrameBoundaryTensorsARM<'_> {
             p_tensors: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> FrameBoundaryTensorsARM<'a> {
+    pub fn tensors(mut self, tensors: &'a [TensorARM]) -> Self {
+        self.tensor_count = tensors.len().try_into().unwrap();
+        self.p_tensors = tensors.as_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -480,6 +829,20 @@ impl Default for PhysicalDeviceExternalTensorInfoARM<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceExternalTensorInfoARM<'a> {
+    pub fn flags(mut self, flags: TensorCreateFlagsARM) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn description(mut self, description: &'a TensorDescriptionARM<'a>) -> Self {
+        self.p_description = description;
+        self
+    }
+    pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagBits) -> Self {
+        self.handle_type = handle_type;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ExternalTensorPropertiesARM<'a> {
@@ -498,6 +861,15 @@ impl Default for ExternalTensorPropertiesARM<'_> {
         }
     }
 }
+impl<'a> ExternalTensorPropertiesARM<'a> {
+    pub fn external_memory_properties(
+        mut self,
+        external_memory_properties: ExternalMemoryProperties,
+    ) -> Self {
+        self.external_memory_properties = external_memory_properties;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ExternalMemoryTensorCreateInfoARM<'a> {
@@ -514,6 +886,12 @@ impl Default for ExternalMemoryTensorCreateInfoARM<'_> {
             handle_types: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ExternalMemoryTensorCreateInfoARM<'a> {
+    pub fn handle_types(mut self, handle_types: ExternalMemoryHandleTypeFlags) -> Self {
+        self.handle_types = handle_types;
+        self
     }
 }
 #[repr(transparent)]

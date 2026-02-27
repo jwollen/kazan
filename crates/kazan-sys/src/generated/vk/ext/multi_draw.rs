@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -9,12 +9,36 @@ pub struct MultiDrawInfoEXT {
     pub first_vertex: u32,
     pub vertex_count: u32,
 }
+impl MultiDrawInfoEXT {
+    pub fn first_vertex(mut self, first_vertex: u32) -> Self {
+        self.first_vertex = first_vertex;
+        self
+    }
+    pub fn vertex_count(mut self, vertex_count: u32) -> Self {
+        self.vertex_count = vertex_count;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct MultiDrawIndexedInfoEXT {
     pub first_index: u32,
     pub index_count: u32,
     pub vertex_offset: i32,
+}
+impl MultiDrawIndexedInfoEXT {
+    pub fn first_index(mut self, first_index: u32) -> Self {
+        self.first_index = first_index;
+        self
+    }
+    pub fn index_count(mut self, index_count: u32) -> Self {
+        self.index_count = index_count;
+        self
+    }
+    pub fn vertex_offset(mut self, vertex_offset: i32) -> Self {
+        self.vertex_offset = vertex_offset;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -34,6 +58,12 @@ impl Default for PhysicalDeviceMultiDrawPropertiesEXT<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceMultiDrawPropertiesEXT<'a> {
+    pub fn max_multi_draw_count(mut self, max_multi_draw_count: u32) -> Self {
+        self.max_multi_draw_count = max_multi_draw_count;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceMultiDrawFeaturesEXT<'a> {
@@ -50,6 +80,12 @@ impl Default for PhysicalDeviceMultiDrawFeaturesEXT<'_> {
             multi_draw: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceMultiDrawFeaturesEXT<'a> {
+    pub fn multi_draw(mut self, multi_draw: Bool32) -> Self {
+        self.multi_draw = multi_draw;
+        self
     }
 }
 pub type PFN_vkCmdDrawMultiEXT = unsafe extern "system" fn(

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,15 @@ impl Default for PipelineCompilerControlCreateInfoAMD<'_> {
             compiler_control_flags: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineCompilerControlCreateInfoAMD<'a> {
+    pub fn compiler_control_flags(
+        mut self,
+        compiler_control_flags: PipelineCompilerControlFlagsAMD,
+    ) -> Self {
+        self.compiler_control_flags = compiler_control_flags;
+        self
     }
 }
 bitflags! {

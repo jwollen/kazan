@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,6 +23,20 @@ impl Default for Win32SurfaceCreateInfoKHR<'_> {
             hwnd: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> Win32SurfaceCreateInfoKHR<'a> {
+    pub fn flags(mut self, flags: Win32SurfaceCreateFlagsKHR) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn hinstance(mut self, hinstance: HINSTANCE) -> Self {
+        self.hinstance = hinstance;
+        self
+    }
+    pub fn hwnd(mut self, hwnd: HWND) -> Self {
+        self.hwnd = hwnd;
+        self
     }
 }
 bitflags! {

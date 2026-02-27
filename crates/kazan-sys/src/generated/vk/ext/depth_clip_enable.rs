@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceDepthClipEnableFeaturesEXT<'_> {
             depth_clip_enable: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceDepthClipEnableFeaturesEXT<'a> {
+    pub fn depth_clip_enable(mut self, depth_clip_enable: Bool32) -> Self {
+        self.depth_clip_enable = depth_clip_enable;
+        self
     }
 }
 #[repr(C)]
@@ -39,6 +45,16 @@ impl Default for PipelineRasterizationDepthClipStateCreateInfoEXT<'_> {
             depth_clip_enable: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineRasterizationDepthClipStateCreateInfoEXT<'a> {
+    pub fn flags(mut self, flags: PipelineRasterizationDepthClipStateCreateFlagsEXT) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn depth_clip_enable(mut self, depth_clip_enable: Bool32) -> Self {
+        self.depth_clip_enable = depth_clip_enable;
+        self
     }
 }
 bitflags! {

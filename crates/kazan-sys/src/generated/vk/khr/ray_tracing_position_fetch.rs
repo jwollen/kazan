@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,5 +19,11 @@ impl Default for PhysicalDeviceRayTracingPositionFetchFeaturesKHR<'_> {
             ray_tracing_position_fetch: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceRayTracingPositionFetchFeaturesKHR<'a> {
+    pub fn ray_tracing_position_fetch(mut self, ray_tracing_position_fetch: Bool32) -> Self {
+        self.ray_tracing_position_fetch = ray_tracing_position_fetch;
+        self
     }
 }

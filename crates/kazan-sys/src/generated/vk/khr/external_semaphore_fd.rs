@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -27,6 +27,24 @@ impl Default for ImportSemaphoreFdInfoKHR<'_> {
         }
     }
 }
+impl<'a> ImportSemaphoreFdInfoKHR<'a> {
+    pub fn semaphore(mut self, semaphore: Semaphore) -> Self {
+        self.semaphore = semaphore;
+        self
+    }
+    pub fn flags(mut self, flags: SemaphoreImportFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn handle_type(mut self, handle_type: ExternalSemaphoreHandleTypeFlagBits) -> Self {
+        self.handle_type = handle_type;
+        self
+    }
+    pub fn fd(mut self, fd: c_int) -> Self {
+        self.fd = fd;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SemaphoreGetFdInfoKHR<'a> {
@@ -45,6 +63,16 @@ impl Default for SemaphoreGetFdInfoKHR<'_> {
             handle_type: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SemaphoreGetFdInfoKHR<'a> {
+    pub fn semaphore(mut self, semaphore: Semaphore) -> Self {
+        self.semaphore = semaphore;
+        self
+    }
+    pub fn handle_type(mut self, handle_type: ExternalSemaphoreHandleTypeFlagBits) -> Self {
+        self.handle_type = handle_type;
+        self
     }
 }
 pub type PFN_vkGetSemaphoreFdKHR = unsafe extern "system" fn(

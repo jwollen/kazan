@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceYcbcrDegammaFeaturesQCOM<'_> {
             ycbcr_degamma: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceYcbcrDegammaFeaturesQCOM<'a> {
+    pub fn ycbcr_degamma(mut self, ycbcr_degamma: Bool32) -> Self {
+        self.ycbcr_degamma = ycbcr_degamma;
+        self
     }
 }
 #[repr(C)]
@@ -39,5 +45,15 @@ impl Default for SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM<'_> {
             enable_cb_cr_degamma: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM<'a> {
+    pub fn enable_y_degamma(mut self, enable_y_degamma: Bool32) -> Self {
+        self.enable_y_degamma = enable_y_degamma;
+        self
+    }
+    pub fn enable_cb_cr_degamma(mut self, enable_cb_cr_degamma: Bool32) -> Self {
+        self.enable_cb_cr_degamma = enable_cb_cr_degamma;
+        self
     }
 }

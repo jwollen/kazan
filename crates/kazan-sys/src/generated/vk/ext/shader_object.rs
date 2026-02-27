@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -26,6 +26,12 @@ impl Default for PhysicalDeviceShaderObjectFeaturesEXT<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceShaderObjectFeaturesEXT<'a> {
+    pub fn shader_object(mut self, shader_object: Bool32) -> Self {
+        self.shader_object = shader_object;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderObjectPropertiesEXT<'a> {
@@ -44,6 +50,16 @@ impl Default for PhysicalDeviceShaderObjectPropertiesEXT<'_> {
             shader_binary_version: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceShaderObjectPropertiesEXT<'a> {
+    pub fn shader_binary_uuid(mut self, shader_binary_uuid: [u8; UUID_SIZE as usize]) -> Self {
+        self.shader_binary_uuid = shader_binary_uuid;
+        self
+    }
+    pub fn shader_binary_version(mut self, shader_binary_version: u32) -> Self {
+        self.shader_binary_version = shader_binary_version;
+        self
     }
 }
 #[repr(C)]
@@ -84,6 +100,43 @@ impl Default for ShaderCreateInfoEXT<'_> {
             p_specialization_info: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ShaderCreateInfoEXT<'a> {
+    pub fn flags(mut self, flags: ShaderCreateFlagsEXT) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn stage(mut self, stage: ShaderStageFlagBits) -> Self {
+        self.stage = stage;
+        self
+    }
+    pub fn next_stage(mut self, next_stage: ShaderStageFlags) -> Self {
+        self.next_stage = next_stage;
+        self
+    }
+    pub fn code_type(mut self, code_type: ShaderCodeTypeEXT) -> Self {
+        self.code_type = code_type;
+        self
+    }
+    pub fn code(mut self, code: &'a [u8]) -> Self {
+        self.code_size = code.len().try_into().unwrap();
+        self.p_code = code.as_ptr() as _;
+        self
+    }
+    pub fn set_layouts(mut self, set_layouts: &'a [DescriptorSetLayout]) -> Self {
+        self.set_layout_count = set_layouts.len().try_into().unwrap();
+        self.p_set_layouts = set_layouts.as_ptr();
+        self
+    }
+    pub fn push_constant_ranges(mut self, push_constant_ranges: &'a [PushConstantRange]) -> Self {
+        self.push_constant_range_count = push_constant_ranges.len().try_into().unwrap();
+        self.p_push_constant_ranges = push_constant_ranges.as_ptr();
+        self
+    }
+    pub fn specialization_info(mut self, specialization_info: &'a SpecializationInfo<'a>) -> Self {
+        self.p_specialization_info = specialization_info;
+        self
     }
 }
 #[repr(transparent)]

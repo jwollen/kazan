@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -28,6 +28,17 @@ impl Default for ValidationCacheCreateInfoEXT<'_> {
         }
     }
 }
+impl<'a> ValidationCacheCreateInfoEXT<'a> {
+    pub fn flags(mut self, flags: ValidationCacheCreateFlagsEXT) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn initial_data(mut self, initial_data: &'a [u8]) -> Self {
+        self.initial_data_size = initial_data.len().try_into().unwrap();
+        self.p_initial_data = initial_data.as_ptr() as _;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ShaderModuleValidationCacheCreateInfoEXT<'a> {
@@ -44,6 +55,12 @@ impl Default for ShaderModuleValidationCacheCreateInfoEXT<'_> {
             validation_cache: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ShaderModuleValidationCacheCreateInfoEXT<'a> {
+    pub fn validation_cache(mut self, validation_cache: ValidationCacheEXT) -> Self {
+        self.validation_cache = validation_cache;
+        self
     }
 }
 #[repr(transparent)]

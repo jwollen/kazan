@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,5 +19,11 @@ impl Default for PhysicalDeviceLegacyDitheringFeaturesEXT<'_> {
             legacy_dithering: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceLegacyDitheringFeaturesEXT<'a> {
+    pub fn legacy_dithering(mut self, legacy_dithering: Bool32) -> Self {
+        self.legacy_dithering = legacy_dithering;
+        self
     }
 }

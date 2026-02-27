@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub type RemoteAddressNV = c_void;
 #[repr(C)]
@@ -22,6 +22,12 @@ impl Default for PhysicalDeviceExternalMemoryRDMAFeaturesNV<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceExternalMemoryRDMAFeaturesNV<'a> {
+    pub fn external_memory_rdma(mut self, external_memory_rdma: Bool32) -> Self {
+        self.external_memory_rdma = external_memory_rdma;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct MemoryGetRemoteAddressInfoNV<'a> {
@@ -40,6 +46,16 @@ impl Default for MemoryGetRemoteAddressInfoNV<'_> {
             handle_type: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> MemoryGetRemoteAddressInfoNV<'a> {
+    pub fn memory(mut self, memory: DeviceMemory) -> Self {
+        self.memory = memory;
+        self
+    }
+    pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagBits) -> Self {
+        self.handle_type = handle_type;
+        self
     }
 }
 pub type PFN_vkGetMemoryRemoteAddressNV = unsafe extern "system" fn(

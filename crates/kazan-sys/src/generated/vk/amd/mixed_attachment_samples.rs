@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,5 +23,22 @@ impl Default for AttachmentSampleCountInfoAMD<'_> {
             depth_stencil_attachment_samples: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> AttachmentSampleCountInfoAMD<'a> {
+    pub fn color_attachment_samples(
+        mut self,
+        color_attachment_samples: &'a [SampleCountFlagBits],
+    ) -> Self {
+        self.color_attachment_count = color_attachment_samples.len().try_into().unwrap();
+        self.p_color_attachment_samples = color_attachment_samples.as_ptr();
+        self
+    }
+    pub fn depth_stencil_attachment_samples(
+        mut self,
+        depth_stencil_attachment_samples: SampleCountFlagBits,
+    ) -> Self {
+        self.depth_stencil_attachment_samples = depth_stencil_attachment_samples;
+        self
     }
 }

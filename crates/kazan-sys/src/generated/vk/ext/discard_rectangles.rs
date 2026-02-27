@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceDiscardRectanglePropertiesEXT<'_> {
             max_discard_rectangles: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceDiscardRectanglePropertiesEXT<'a> {
+    pub fn max_discard_rectangles(mut self, max_discard_rectangles: u32) -> Self {
+        self.max_discard_rectangles = max_discard_rectangles;
+        self
     }
 }
 #[repr(C)]
@@ -43,6 +49,24 @@ impl Default for PipelineDiscardRectangleStateCreateInfoEXT<'_> {
             p_discard_rectangles: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineDiscardRectangleStateCreateInfoEXT<'a> {
+    pub fn flags(mut self, flags: PipelineDiscardRectangleStateCreateFlagsEXT) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn discard_rectangle_mode(
+        mut self,
+        discard_rectangle_mode: DiscardRectangleModeEXT,
+    ) -> Self {
+        self.discard_rectangle_mode = discard_rectangle_mode;
+        self
+    }
+    pub fn discard_rectangles(mut self, discard_rectangles: &'a [Rect2D]) -> Self {
+        self.discard_rectangle_count = discard_rectangles.len().try_into().unwrap();
+        self.p_discard_rectangles = discard_rectangles.as_ptr();
+        self
     }
 }
 #[repr(transparent)]

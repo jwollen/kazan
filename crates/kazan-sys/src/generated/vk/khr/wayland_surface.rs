@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,6 +23,20 @@ impl Default for WaylandSurfaceCreateInfoKHR<'_> {
             surface: core::ptr::null_mut(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> WaylandSurfaceCreateInfoKHR<'a> {
+    pub fn flags(mut self, flags: WaylandSurfaceCreateFlagsKHR) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn display(mut self, display: *mut wl_display) -> Self {
+        self.display = display;
+        self
+    }
+    pub fn surface(mut self, surface: *mut wl_surface) -> Self {
+        self.surface = surface;
+        self
     }
 }
 bitflags! {

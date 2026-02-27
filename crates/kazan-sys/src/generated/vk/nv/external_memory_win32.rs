@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,6 +23,16 @@ impl Default for ImportMemoryWin32HandleInfoNV<'_> {
         }
     }
 }
+impl<'a> ImportMemoryWin32HandleInfoNV<'a> {
+    pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagsNV) -> Self {
+        self.handle_type = handle_type;
+        self
+    }
+    pub fn handle(mut self, handle: HANDLE) -> Self {
+        self.handle = handle;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ExportMemoryWin32HandleInfoNV<'a> {
@@ -41,6 +51,16 @@ impl Default for ExportMemoryWin32HandleInfoNV<'_> {
             dw_access: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ExportMemoryWin32HandleInfoNV<'a> {
+    pub fn attributes(mut self, attributes: *const SECURITY_ATTRIBUTES) -> Self {
+        self.p_attributes = attributes;
+        self
+    }
+    pub fn dw_access(mut self, dw_access: DWORD) -> Self {
+        self.dw_access = dw_access;
+        self
     }
 }
 pub type PFN_vkGetMemoryWin32HandleNV = unsafe extern "system" fn(

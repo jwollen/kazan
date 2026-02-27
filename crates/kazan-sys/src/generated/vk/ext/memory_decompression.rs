@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceMemoryDecompressionFeaturesEXT<'_> {
             memory_decompression: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceMemoryDecompressionFeaturesEXT<'a> {
+    pub fn memory_decompression(mut self, memory_decompression: Bool32) -> Self {
+        self.memory_decompression = memory_decompression;
+        self
     }
 }
 #[repr(C)]
@@ -41,6 +47,22 @@ impl Default for PhysicalDeviceMemoryDecompressionPropertiesEXT<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceMemoryDecompressionPropertiesEXT<'a> {
+    pub fn decompression_methods(
+        mut self,
+        decompression_methods: MemoryDecompressionMethodFlagsEXT,
+    ) -> Self {
+        self.decompression_methods = decompression_methods;
+        self
+    }
+    pub fn max_decompression_indirect_count(
+        mut self,
+        max_decompression_indirect_count: u64,
+    ) -> Self {
+        self.max_decompression_indirect_count = max_decompression_indirect_count;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct DecompressMemoryRegionEXT {
@@ -48,6 +70,24 @@ pub struct DecompressMemoryRegionEXT {
     pub dst_address: DeviceAddress,
     pub compressed_size: DeviceSize,
     pub decompressed_size: DeviceSize,
+}
+impl DecompressMemoryRegionEXT {
+    pub fn src_address(mut self, src_address: DeviceAddress) -> Self {
+        self.src_address = src_address;
+        self
+    }
+    pub fn dst_address(mut self, dst_address: DeviceAddress) -> Self {
+        self.dst_address = dst_address;
+        self
+    }
+    pub fn compressed_size(mut self, compressed_size: DeviceSize) -> Self {
+        self.compressed_size = compressed_size;
+        self
+    }
+    pub fn decompressed_size(mut self, decompressed_size: DeviceSize) -> Self {
+        self.decompressed_size = decompressed_size;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -69,6 +109,20 @@ impl Default for DecompressMemoryInfoEXT<'_> {
             p_regions: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DecompressMemoryInfoEXT<'a> {
+    pub fn decompression_method(
+        mut self,
+        decompression_method: MemoryDecompressionMethodFlagsEXT,
+    ) -> Self {
+        self.decompression_method = decompression_method;
+        self
+    }
+    pub fn regions(mut self, regions: &'a [DecompressMemoryRegionEXT]) -> Self {
+        self.region_count = regions.len().try_into().unwrap();
+        self.p_regions = regions.as_ptr();
+        self
     }
 }
 bitflags! {

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,5 +19,11 @@ impl Default for PhysicalDeviceFormatPackFeaturesARM<'_> {
             format_pack: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceFormatPackFeaturesARM<'a> {
+    pub fn format_pack(mut self, format_pack: Bool32) -> Self {
+        self.format_pack = format_pack;
+        self
     }
 }

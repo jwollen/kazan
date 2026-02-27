@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,5 +23,27 @@ impl Default for PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT<'_> {
             primitives_generated_query_with_non_zero_streams: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT<'a> {
+    pub fn primitives_generated_query(mut self, primitives_generated_query: Bool32) -> Self {
+        self.primitives_generated_query = primitives_generated_query;
+        self
+    }
+    pub fn primitives_generated_query_with_rasterizer_discard(
+        mut self,
+        primitives_generated_query_with_rasterizer_discard: Bool32,
+    ) -> Self {
+        self.primitives_generated_query_with_rasterizer_discard =
+            primitives_generated_query_with_rasterizer_discard;
+        self
+    }
+    pub fn primitives_generated_query_with_non_zero_streams(
+        mut self,
+        primitives_generated_query_with_non_zero_streams: Bool32,
+    ) -> Self {
+        self.primitives_generated_query_with_non_zero_streams =
+            primitives_generated_query_with_non_zero_streams;
+        self
     }
 }

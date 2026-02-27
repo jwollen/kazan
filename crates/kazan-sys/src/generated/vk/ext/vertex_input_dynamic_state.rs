@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'_> {
             vertex_input_dynamic_state: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'a> {
+    pub fn vertex_input_dynamic_state(mut self, vertex_input_dynamic_state: Bool32) -> Self {
+        self.vertex_input_dynamic_state = vertex_input_dynamic_state;
+        self
     }
 }
 #[repr(C)]
@@ -45,6 +51,24 @@ impl Default for VertexInputBindingDescription2EXT<'_> {
         }
     }
 }
+impl<'a> VertexInputBindingDescription2EXT<'a> {
+    pub fn binding(mut self, binding: u32) -> Self {
+        self.binding = binding;
+        self
+    }
+    pub fn stride(mut self, stride: u32) -> Self {
+        self.stride = stride;
+        self
+    }
+    pub fn input_rate(mut self, input_rate: VertexInputRate) -> Self {
+        self.input_rate = input_rate;
+        self
+    }
+    pub fn divisor(mut self, divisor: u32) -> Self {
+        self.divisor = divisor;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VertexInputAttributeDescription2EXT<'a> {
@@ -67,6 +91,24 @@ impl Default for VertexInputAttributeDescription2EXT<'_> {
             offset: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VertexInputAttributeDescription2EXT<'a> {
+    pub fn location(mut self, location: u32) -> Self {
+        self.location = location;
+        self
+    }
+    pub fn binding(mut self, binding: u32) -> Self {
+        self.binding = binding;
+        self
+    }
+    pub fn format(mut self, format: Format) -> Self {
+        self.format = format;
+        self
+    }
+    pub fn offset(mut self, offset: u32) -> Self {
+        self.offset = offset;
+        self
     }
 }
 pub type PFN_vkCmdSetVertexInputEXT = unsafe extern "system" fn(

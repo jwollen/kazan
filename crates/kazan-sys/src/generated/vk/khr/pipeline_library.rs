@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,5 +21,12 @@ impl Default for PipelineLibraryCreateInfoKHR<'_> {
             p_libraries: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineLibraryCreateInfoKHR<'a> {
+    pub fn libraries(mut self, libraries: &'a [Pipeline]) -> Self {
+        self.library_count = libraries.len().try_into().unwrap();
+        self.p_libraries = libraries.as_ptr();
+        self
     }
 }

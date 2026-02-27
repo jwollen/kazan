@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,6 +21,12 @@ impl Default for PhysicalDeviceDepthClipControlFeaturesEXT<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceDepthClipControlFeaturesEXT<'a> {
+    pub fn depth_clip_control(mut self, depth_clip_control: Bool32) -> Self {
+        self.depth_clip_control = depth_clip_control;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PipelineViewportDepthClipControlCreateInfoEXT<'a> {
@@ -37,5 +43,11 @@ impl Default for PipelineViewportDepthClipControlCreateInfoEXT<'_> {
             negative_one_to_one: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineViewportDepthClipControlCreateInfoEXT<'a> {
+    pub fn negative_one_to_one(mut self, negative_one_to_one: Bool32) -> Self {
+        self.negative_one_to_one = negative_one_to_one;
+        self
     }
 }

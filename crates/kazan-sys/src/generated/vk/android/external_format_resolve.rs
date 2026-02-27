@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceExternalFormatResolveFeaturesANDROID<'_> {
             external_format_resolve: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceExternalFormatResolveFeaturesANDROID<'a> {
+    pub fn external_format_resolve(mut self, external_format_resolve: Bool32) -> Self {
+        self.external_format_resolve = external_format_resolve;
+        self
     }
 }
 #[repr(C)]
@@ -43,6 +49,30 @@ impl Default for PhysicalDeviceExternalFormatResolvePropertiesANDROID<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceExternalFormatResolvePropertiesANDROID<'a> {
+    pub fn null_color_attachment_with_external_format_resolve(
+        mut self,
+        null_color_attachment_with_external_format_resolve: Bool32,
+    ) -> Self {
+        self.null_color_attachment_with_external_format_resolve =
+            null_color_attachment_with_external_format_resolve;
+        self
+    }
+    pub fn external_format_resolve_chroma_offset_x(
+        mut self,
+        external_format_resolve_chroma_offset_x: ChromaLocation,
+    ) -> Self {
+        self.external_format_resolve_chroma_offset_x = external_format_resolve_chroma_offset_x;
+        self
+    }
+    pub fn external_format_resolve_chroma_offset_y(
+        mut self,
+        external_format_resolve_chroma_offset_y: ChromaLocation,
+    ) -> Self {
+        self.external_format_resolve_chroma_offset_y = external_format_resolve_chroma_offset_y;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct AndroidHardwareBufferFormatResolvePropertiesANDROID<'a> {
@@ -59,5 +89,11 @@ impl Default for AndroidHardwareBufferFormatResolvePropertiesANDROID<'_> {
             color_attachment_format: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> AndroidHardwareBufferFormatResolvePropertiesANDROID<'a> {
+    pub fn color_attachment_format(mut self, color_attachment_format: Format) -> Self {
+        self.color_attachment_format = color_attachment_format;
+        self
     }
 }

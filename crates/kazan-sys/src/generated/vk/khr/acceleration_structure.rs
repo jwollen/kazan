@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -24,6 +24,16 @@ impl Default for WriteDescriptorSetAccelerationStructureKHR<'_> {
             p_acceleration_structures: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> WriteDescriptorSetAccelerationStructureKHR<'a> {
+    pub fn acceleration_structures(
+        mut self,
+        acceleration_structures: &'a [AccelerationStructureKHR],
+    ) -> Self {
+        self.acceleration_structure_count = acceleration_structures.len().try_into().unwrap();
+        self.p_acceleration_structures = acceleration_structures.as_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -50,6 +60,41 @@ impl Default for PhysicalDeviceAccelerationStructureFeaturesKHR<'_> {
             descriptor_binding_acceleration_structure_update_after_bind: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceAccelerationStructureFeaturesKHR<'a> {
+    pub fn acceleration_structure(mut self, acceleration_structure: Bool32) -> Self {
+        self.acceleration_structure = acceleration_structure;
+        self
+    }
+    pub fn acceleration_structure_capture_replay(
+        mut self,
+        acceleration_structure_capture_replay: Bool32,
+    ) -> Self {
+        self.acceleration_structure_capture_replay = acceleration_structure_capture_replay;
+        self
+    }
+    pub fn acceleration_structure_indirect_build(
+        mut self,
+        acceleration_structure_indirect_build: Bool32,
+    ) -> Self {
+        self.acceleration_structure_indirect_build = acceleration_structure_indirect_build;
+        self
+    }
+    pub fn acceleration_structure_host_commands(
+        mut self,
+        acceleration_structure_host_commands: Bool32,
+    ) -> Self {
+        self.acceleration_structure_host_commands = acceleration_structure_host_commands;
+        self
+    }
+    pub fn descriptor_binding_acceleration_structure_update_after_bind(
+        mut self,
+        descriptor_binding_acceleration_structure_update_after_bind: Bool32,
+    ) -> Self {
+        self.descriptor_binding_acceleration_structure_update_after_bind =
+            descriptor_binding_acceleration_structure_update_after_bind;
+        self
     }
 }
 #[repr(C)]
@@ -84,6 +129,60 @@ impl Default for PhysicalDeviceAccelerationStructurePropertiesKHR<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceAccelerationStructurePropertiesKHR<'a> {
+    pub fn max_geometry_count(mut self, max_geometry_count: u64) -> Self {
+        self.max_geometry_count = max_geometry_count;
+        self
+    }
+    pub fn max_instance_count(mut self, max_instance_count: u64) -> Self {
+        self.max_instance_count = max_instance_count;
+        self
+    }
+    pub fn max_primitive_count(mut self, max_primitive_count: u64) -> Self {
+        self.max_primitive_count = max_primitive_count;
+        self
+    }
+    pub fn max_per_stage_descriptor_acceleration_structures(
+        mut self,
+        max_per_stage_descriptor_acceleration_structures: u32,
+    ) -> Self {
+        self.max_per_stage_descriptor_acceleration_structures =
+            max_per_stage_descriptor_acceleration_structures;
+        self
+    }
+    pub fn max_per_stage_descriptor_update_after_bind_acceleration_structures(
+        mut self,
+        max_per_stage_descriptor_update_after_bind_acceleration_structures: u32,
+    ) -> Self {
+        self.max_per_stage_descriptor_update_after_bind_acceleration_structures =
+            max_per_stage_descriptor_update_after_bind_acceleration_structures;
+        self
+    }
+    pub fn max_descriptor_set_acceleration_structures(
+        mut self,
+        max_descriptor_set_acceleration_structures: u32,
+    ) -> Self {
+        self.max_descriptor_set_acceleration_structures =
+            max_descriptor_set_acceleration_structures;
+        self
+    }
+    pub fn max_descriptor_set_update_after_bind_acceleration_structures(
+        mut self,
+        max_descriptor_set_update_after_bind_acceleration_structures: u32,
+    ) -> Self {
+        self.max_descriptor_set_update_after_bind_acceleration_structures =
+            max_descriptor_set_update_after_bind_acceleration_structures;
+        self
+    }
+    pub fn min_acceleration_structure_scratch_offset_alignment(
+        mut self,
+        min_acceleration_structure_scratch_offset_alignment: u32,
+    ) -> Self {
+        self.min_acceleration_structure_scratch_offset_alignment =
+            min_acceleration_structure_scratch_offset_alignment;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct AccelerationStructureGeometryTrianglesDataKHR<'a> {
@@ -114,6 +213,36 @@ impl Default for AccelerationStructureGeometryTrianglesDataKHR<'_> {
         }
     }
 }
+impl<'a> AccelerationStructureGeometryTrianglesDataKHR<'a> {
+    pub fn vertex_format(mut self, vertex_format: Format) -> Self {
+        self.vertex_format = vertex_format;
+        self
+    }
+    pub fn vertex_data(mut self, vertex_data: DeviceOrHostAddressConstKHR<'a>) -> Self {
+        self.vertex_data = vertex_data;
+        self
+    }
+    pub fn vertex_stride(mut self, vertex_stride: DeviceSize) -> Self {
+        self.vertex_stride = vertex_stride;
+        self
+    }
+    pub fn max_vertex(mut self, max_vertex: u32) -> Self {
+        self.max_vertex = max_vertex;
+        self
+    }
+    pub fn index_type(mut self, index_type: IndexType) -> Self {
+        self.index_type = index_type;
+        self
+    }
+    pub fn index_data(mut self, index_data: DeviceOrHostAddressConstKHR<'a>) -> Self {
+        self.index_data = index_data;
+        self
+    }
+    pub fn transform_data(mut self, transform_data: DeviceOrHostAddressConstKHR<'a>) -> Self {
+        self.transform_data = transform_data;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct AccelerationStructureGeometryAabbsDataKHR<'a> {
@@ -132,6 +261,16 @@ impl Default for AccelerationStructureGeometryAabbsDataKHR<'_> {
             stride: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> AccelerationStructureGeometryAabbsDataKHR<'a> {
+    pub fn data(mut self, data: DeviceOrHostAddressConstKHR<'a>) -> Self {
+        self.data = data;
+        self
+    }
+    pub fn stride(mut self, stride: DeviceSize) -> Self {
+        self.stride = stride;
+        self
     }
 }
 #[repr(C)]
@@ -154,6 +293,16 @@ impl Default for AccelerationStructureGeometryInstancesDataKHR<'_> {
         }
     }
 }
+impl<'a> AccelerationStructureGeometryInstancesDataKHR<'a> {
+    pub fn array_of_pointers(mut self, array_of_pointers: Bool32) -> Self {
+        self.array_of_pointers = array_of_pointers;
+        self
+    }
+    pub fn data(mut self, data: DeviceOrHostAddressConstKHR<'a>) -> Self {
+        self.data = data;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct AccelerationStructureGeometryKHR<'a> {
@@ -174,6 +323,20 @@ impl Default for AccelerationStructureGeometryKHR<'_> {
             flags: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> AccelerationStructureGeometryKHR<'a> {
+    pub fn geometry_type(mut self, geometry_type: GeometryTypeKHR) -> Self {
+        self.geometry_type = geometry_type;
+        self
+    }
+    pub fn geometry(mut self, geometry: AccelerationStructureGeometryDataKHR<'a>) -> Self {
+        self.geometry = geometry;
+        self
+    }
+    pub fn flags(mut self, flags: GeometryFlagsKHR) -> Self {
+        self.flags = flags;
+        self
     }
 }
 #[repr(C)]
@@ -210,6 +373,51 @@ impl Default for AccelerationStructureBuildGeometryInfoKHR<'_> {
         }
     }
 }
+impl<'a> AccelerationStructureBuildGeometryInfoKHR<'a> {
+    pub fn ty(mut self, ty: AccelerationStructureTypeKHR) -> Self {
+        self.ty = ty;
+        self
+    }
+    pub fn flags(mut self, flags: BuildAccelerationStructureFlagsKHR) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn mode(mut self, mode: BuildAccelerationStructureModeKHR) -> Self {
+        self.mode = mode;
+        self
+    }
+    pub fn src_acceleration_structure(
+        mut self,
+        src_acceleration_structure: AccelerationStructureKHR,
+    ) -> Self {
+        self.src_acceleration_structure = src_acceleration_structure;
+        self
+    }
+    pub fn dst_acceleration_structure(
+        mut self,
+        dst_acceleration_structure: AccelerationStructureKHR,
+    ) -> Self {
+        self.dst_acceleration_structure = dst_acceleration_structure;
+        self
+    }
+    pub fn geometries(mut self, geometries: &'a [AccelerationStructureGeometryKHR<'a>]) -> Self {
+        self.geometry_count = geometries.len().try_into().unwrap();
+        self.p_geometries = geometries.as_ptr();
+        self
+    }
+    pub fn geometries_ptrs(
+        mut self,
+        geometries_ptrs: &'a [&'a AccelerationStructureGeometryKHR<'a>],
+    ) -> Self {
+        self.geometry_count = geometries_ptrs.len().try_into().unwrap();
+        self.pp_geometries = geometries_ptrs.as_ptr() as _;
+        self
+    }
+    pub fn scratch_data(mut self, scratch_data: DeviceOrHostAddressKHR<'a>) -> Self {
+        self.scratch_data = scratch_data;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct AccelerationStructureBuildRangeInfoKHR {
@@ -217,6 +425,24 @@ pub struct AccelerationStructureBuildRangeInfoKHR {
     pub primitive_offset: u32,
     pub first_vertex: u32,
     pub transform_offset: u32,
+}
+impl AccelerationStructureBuildRangeInfoKHR {
+    pub fn primitive_count(mut self, primitive_count: u32) -> Self {
+        self.primitive_count = primitive_count;
+        self
+    }
+    pub fn primitive_offset(mut self, primitive_offset: u32) -> Self {
+        self.primitive_offset = primitive_offset;
+        self
+    }
+    pub fn first_vertex(mut self, first_vertex: u32) -> Self {
+        self.first_vertex = first_vertex;
+        self
+    }
+    pub fn transform_offset(mut self, transform_offset: u32) -> Self {
+        self.transform_offset = transform_offset;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -246,6 +472,32 @@ impl Default for AccelerationStructureCreateInfoKHR<'_> {
         }
     }
 }
+impl<'a> AccelerationStructureCreateInfoKHR<'a> {
+    pub fn create_flags(mut self, create_flags: AccelerationStructureCreateFlagsKHR) -> Self {
+        self.create_flags = create_flags;
+        self
+    }
+    pub fn buffer(mut self, buffer: Buffer) -> Self {
+        self.buffer = buffer;
+        self
+    }
+    pub fn offset(mut self, offset: DeviceSize) -> Self {
+        self.offset = offset;
+        self
+    }
+    pub fn size(mut self, size: DeviceSize) -> Self {
+        self.size = size;
+        self
+    }
+    pub fn ty(mut self, ty: AccelerationStructureTypeKHR) -> Self {
+        self.ty = ty;
+        self
+    }
+    pub fn device_address(mut self, device_address: DeviceAddress) -> Self {
+        self.device_address = device_address;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct AabbPositionsKHR {
@@ -255,6 +507,32 @@ pub struct AabbPositionsKHR {
     pub max_x: f32,
     pub max_y: f32,
     pub max_z: f32,
+}
+impl AabbPositionsKHR {
+    pub fn min_x(mut self, min_x: f32) -> Self {
+        self.min_x = min_x;
+        self
+    }
+    pub fn min_y(mut self, min_y: f32) -> Self {
+        self.min_y = min_y;
+        self
+    }
+    pub fn min_z(mut self, min_z: f32) -> Self {
+        self.min_z = min_z;
+        self
+    }
+    pub fn max_x(mut self, max_x: f32) -> Self {
+        self.max_x = max_x;
+        self
+    }
+    pub fn max_y(mut self, max_y: f32) -> Self {
+        self.max_y = max_y;
+        self
+    }
+    pub fn max_z(mut self, max_z: f32) -> Self {
+        self.max_z = max_z;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -266,6 +544,12 @@ impl Default for TransformMatrixKHR {
         Self {
             matrix: [[Default::default(); _]; _],
         }
+    }
+}
+impl TransformMatrixKHR {
+    pub fn matrix(mut self, matrix: [[f32; 4]; 3]) -> Self {
+        self.matrix = matrix;
+        self
     }
 }
 #[repr(C)]
@@ -290,6 +574,39 @@ impl Default for AccelerationStructureInstanceKHR {
         }
     }
 }
+impl AccelerationStructureInstanceKHR {
+    pub fn transform(mut self, transform: TransformMatrixKHR) -> Self {
+        self.transform = transform;
+        self
+    }
+    pub fn instance_custom_index(mut self, instance_custom_index: u32) -> Self {
+        self.instance_custom_index = instance_custom_index;
+        self
+    }
+    pub fn mask(mut self, mask: u32) -> Self {
+        self.mask = mask;
+        self
+    }
+    pub fn instance_shader_binding_table_record_offset(
+        mut self,
+        instance_shader_binding_table_record_offset: u32,
+    ) -> Self {
+        self.instance_shader_binding_table_record_offset =
+            instance_shader_binding_table_record_offset;
+        self
+    }
+    pub fn flags(mut self, flags: GeometryInstanceFlagsKHR) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn acceleration_structure_reference(
+        mut self,
+        acceleration_structure_reference: u64,
+    ) -> Self {
+        self.acceleration_structure_reference = acceleration_structure_reference;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct AccelerationStructureDeviceAddressInfoKHR<'a> {
@@ -306,6 +623,15 @@ impl Default for AccelerationStructureDeviceAddressInfoKHR<'_> {
             acceleration_structure: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> AccelerationStructureDeviceAddressInfoKHR<'a> {
+    pub fn acceleration_structure(
+        mut self,
+        acceleration_structure: AccelerationStructureKHR,
+    ) -> Self {
+        self.acceleration_structure = acceleration_structure;
+        self
     }
 }
 #[repr(C)]
@@ -326,6 +652,7 @@ impl Default for AccelerationStructureVersionInfoKHR<'_> {
         }
     }
 }
+impl<'a> AccelerationStructureVersionInfoKHR<'a> {}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct CopyAccelerationStructureInfoKHR<'a> {
@@ -346,6 +673,20 @@ impl Default for CopyAccelerationStructureInfoKHR<'_> {
             mode: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> CopyAccelerationStructureInfoKHR<'a> {
+    pub fn src(mut self, src: AccelerationStructureKHR) -> Self {
+        self.src = src;
+        self
+    }
+    pub fn dst(mut self, dst: AccelerationStructureKHR) -> Self {
+        self.dst = dst;
+        self
+    }
+    pub fn mode(mut self, mode: CopyAccelerationStructureModeKHR) -> Self {
+        self.mode = mode;
+        self
     }
 }
 #[repr(C)]
@@ -370,6 +711,20 @@ impl Default for CopyAccelerationStructureToMemoryInfoKHR<'_> {
         }
     }
 }
+impl<'a> CopyAccelerationStructureToMemoryInfoKHR<'a> {
+    pub fn src(mut self, src: AccelerationStructureKHR) -> Self {
+        self.src = src;
+        self
+    }
+    pub fn dst(mut self, dst: DeviceOrHostAddressKHR<'a>) -> Self {
+        self.dst = dst;
+        self
+    }
+    pub fn mode(mut self, mode: CopyAccelerationStructureModeKHR) -> Self {
+        self.mode = mode;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct CopyMemoryToAccelerationStructureInfoKHR<'a> {
@@ -392,6 +747,20 @@ impl Default for CopyMemoryToAccelerationStructureInfoKHR<'_> {
         }
     }
 }
+impl<'a> CopyMemoryToAccelerationStructureInfoKHR<'a> {
+    pub fn src(mut self, src: DeviceOrHostAddressConstKHR<'a>) -> Self {
+        self.src = src;
+        self
+    }
+    pub fn dst(mut self, dst: AccelerationStructureKHR) -> Self {
+        self.dst = dst;
+        self
+    }
+    pub fn mode(mut self, mode: CopyAccelerationStructureModeKHR) -> Self {
+        self.mode = mode;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct AccelerationStructureBuildSizesInfoKHR<'a> {
@@ -412,6 +781,20 @@ impl Default for AccelerationStructureBuildSizesInfoKHR<'_> {
             build_scratch_size: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> AccelerationStructureBuildSizesInfoKHR<'a> {
+    pub fn acceleration_structure_size(mut self, acceleration_structure_size: DeviceSize) -> Self {
+        self.acceleration_structure_size = acceleration_structure_size;
+        self
+    }
+    pub fn update_scratch_size(mut self, update_scratch_size: DeviceSize) -> Self {
+        self.update_scratch_size = update_scratch_size;
+        self
+    }
+    pub fn build_scratch_size(mut self, build_scratch_size: DeviceSize) -> Self {
+        self.build_scratch_size = build_scratch_size;
+        self
     }
 }
 #[repr(C)]

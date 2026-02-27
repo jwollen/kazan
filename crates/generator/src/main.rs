@@ -11,7 +11,7 @@ use itertools::Itertools;
 use crate::{
     analysis::Analysis,
     cdecl::CType,
-    command::{CommandGroup, CommandInfo, normalize_command_name, write_command_wrapper},
+    command::{CommandGroup, CommandInfo, write_command_wrapper},
     structs::write_struct,
     xml::Constant,
 };
@@ -248,7 +248,7 @@ fn generate(analysis: &analysis::Analysis) {
                 File::create(format!("{}/{}.rs", &vendor_path, module_name)).unwrap();
 
             writeln!(sys_file, "#![allow(non_camel_case_types, unused_imports)]").unwrap();
-            writeln!(sys_file, "use core::ffi::{{c_char, c_int, c_void}};").unwrap();
+            writeln!(sys_file, "use core::ffi::{{c_char, c_int, c_void, CStr}};").unwrap();
             writeln!(sys_file, "use core::marker::PhantomData;").unwrap();
             writeln!(sys_file, "use bitflags::bitflags;").unwrap();
             writeln!(sys_file, "use crate::{{*, vk::*}};").unwrap();
@@ -1063,7 +1063,7 @@ fn ctype_to_rust_type(analysis: &Analysis, ty: &CType, lifetime: Option<&str>) -
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 enum LengthKind<'a> {
     NullTerminated,
     Literal(u32),
@@ -1148,4 +1148,52 @@ fn get_len_kind<'a>(
     } else {
         LengthKind::Unknown(len)
     }
+}
+
+fn is_opaque_type(ty: &str) -> bool {
+    matches!(
+        ty,
+        "void"
+            | "wl_display"
+            | "wl_surface"
+            | "Display"
+            | "xcb_connection_t"
+            | "ANativeWindow"
+            | "AHardwareBuffer"
+            | "CAMetalLayer"
+            | "IDirectFB"
+            | "IDirectFBSurface"
+            | "_screen_buffer"
+            | "_screen_context"
+            | "_screen_window"
+            | "SECURITY_ATTRIBUTES"
+    )
+}
+
+pub fn normalize_param_name(name: &str) -> String {
+    let name = normalize_name(name);
+
+    name.strip_prefix("pp_")
+        .or_else(|| name.strip_prefix("p_"))
+        .unwrap_or(name.as_str())
+        .to_string()
+}
+
+pub fn normalize_setter_param_name(name: &str) -> String {
+    let name = normalize_name(name);
+
+    let name = if name.starts_with("pp_") {
+        format!("{}_ptrs", name)
+    } else {
+        name
+    };
+
+    name.strip_prefix("pp_")
+        .or_else(|| name.strip_prefix("p_"))
+        .unwrap_or(name.as_str())
+        .to_string()
+}
+
+pub fn normalize_command_name(name: &str) -> String {
+    name.strip_prefix("vk").unwrap().to_snake_case()
 }

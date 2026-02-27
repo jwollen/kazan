@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,6 +23,20 @@ impl Default for ImportMemoryWin32HandleInfoKHR<'_> {
             name: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ImportMemoryWin32HandleInfoKHR<'a> {
+    pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagBits) -> Self {
+        self.handle_type = handle_type;
+        self
+    }
+    pub fn handle(mut self, handle: HANDLE) -> Self {
+        self.handle = handle;
+        self
+    }
+    pub fn name(mut self, name: LPCWSTR) -> Self {
+        self.name = name;
+        self
     }
 }
 #[repr(C)]
@@ -47,6 +61,20 @@ impl Default for ExportMemoryWin32HandleInfoKHR<'_> {
         }
     }
 }
+impl<'a> ExportMemoryWin32HandleInfoKHR<'a> {
+    pub fn attributes(mut self, attributes: *const SECURITY_ATTRIBUTES) -> Self {
+        self.p_attributes = attributes;
+        self
+    }
+    pub fn dw_access(mut self, dw_access: DWORD) -> Self {
+        self.dw_access = dw_access;
+        self
+    }
+    pub fn name(mut self, name: LPCWSTR) -> Self {
+        self.name = name;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct MemoryWin32HandlePropertiesKHR<'a> {
@@ -63,6 +91,12 @@ impl Default for MemoryWin32HandlePropertiesKHR<'_> {
             memory_type_bits: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> MemoryWin32HandlePropertiesKHR<'a> {
+    pub fn memory_type_bits(mut self, memory_type_bits: u32) -> Self {
+        self.memory_type_bits = memory_type_bits;
+        self
     }
 }
 #[repr(C)]
@@ -83,6 +117,16 @@ impl Default for MemoryGetWin32HandleInfoKHR<'_> {
             handle_type: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> MemoryGetWin32HandleInfoKHR<'a> {
+    pub fn memory(mut self, memory: DeviceMemory) -> Self {
+        self.memory = memory;
+        self
+    }
+    pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagBits) -> Self {
+        self.handle_type = handle_type;
+        self
     }
 }
 pub type PFN_vkGetMemoryWin32HandleKHR = unsafe extern "system" fn(

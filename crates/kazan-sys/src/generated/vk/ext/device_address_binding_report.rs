@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceAddressBindingReportFeaturesEXT<'_> {
             report_address_binding: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceAddressBindingReportFeaturesEXT<'a> {
+    pub fn report_address_binding(mut self, report_address_binding: Bool32) -> Self {
+        self.report_address_binding = report_address_binding;
+        self
     }
 }
 #[repr(C)]
@@ -43,6 +49,24 @@ impl Default for DeviceAddressBindingCallbackDataEXT<'_> {
             binding_type: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DeviceAddressBindingCallbackDataEXT<'a> {
+    pub fn flags(mut self, flags: DeviceAddressBindingFlagsEXT) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn base_address(mut self, base_address: DeviceAddress) -> Self {
+        self.base_address = base_address;
+        self
+    }
+    pub fn size(mut self, size: DeviceSize) -> Self {
+        self.size = size;
+        self
+    }
+    pub fn binding_type(mut self, binding_type: DeviceAddressBindingTypeEXT) -> Self {
+        self.binding_type = binding_type;
+        self
     }
 }
 #[repr(transparent)]

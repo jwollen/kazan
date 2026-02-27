@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,6 +23,16 @@ impl Default for SetPresentConfigNV<'_> {
         }
     }
 }
+impl<'a> SetPresentConfigNV<'a> {
+    pub fn num_frames_per_batch(mut self, num_frames_per_batch: u32) -> Self {
+        self.num_frames_per_batch = num_frames_per_batch;
+        self
+    }
+    pub fn present_config_feedback(mut self, present_config_feedback: u32) -> Self {
+        self.present_config_feedback = present_config_feedback;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDevicePresentMeteringFeaturesNV<'a> {
@@ -39,5 +49,11 @@ impl Default for PhysicalDevicePresentMeteringFeaturesNV<'_> {
             present_metering: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDevicePresentMeteringFeaturesNV<'a> {
+    pub fn present_metering(mut self, present_metering: Bool32) -> Self {
+        self.present_metering = present_metering;
+        self
     }
 }

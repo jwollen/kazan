@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -10,6 +10,24 @@ pub struct ViewportSwizzleNV {
     pub y: ViewportCoordinateSwizzleNV,
     pub z: ViewportCoordinateSwizzleNV,
     pub w: ViewportCoordinateSwizzleNV,
+}
+impl ViewportSwizzleNV {
+    pub fn x(mut self, x: ViewportCoordinateSwizzleNV) -> Self {
+        self.x = x;
+        self
+    }
+    pub fn y(mut self, y: ViewportCoordinateSwizzleNV) -> Self {
+        self.y = y;
+        self
+    }
+    pub fn z(mut self, z: ViewportCoordinateSwizzleNV) -> Self {
+        self.z = z;
+        self
+    }
+    pub fn w(mut self, w: ViewportCoordinateSwizzleNV) -> Self {
+        self.w = w;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -31,6 +49,17 @@ impl Default for PipelineViewportSwizzleStateCreateInfoNV<'_> {
             p_viewport_swizzles: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineViewportSwizzleStateCreateInfoNV<'a> {
+    pub fn flags(mut self, flags: PipelineViewportSwizzleStateCreateFlagsNV) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn viewport_swizzles(mut self, viewport_swizzles: &'a [ViewportSwizzleNV]) -> Self {
+        self.viewport_count = viewport_swizzles.len().try_into().unwrap();
+        self.p_viewport_swizzles = viewport_swizzles.as_ptr();
+        self
     }
 }
 #[repr(transparent)]

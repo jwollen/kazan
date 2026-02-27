@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceImageProcessing2FeaturesQCOM<'_> {
             texture_block_match2: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceImageProcessing2FeaturesQCOM<'a> {
+    pub fn texture_block_match2(mut self, texture_block_match2: Bool32) -> Self {
+        self.texture_block_match2 = texture_block_match2;
+        self
     }
 }
 #[repr(C)]
@@ -39,6 +45,12 @@ impl Default for PhysicalDeviceImageProcessing2PropertiesQCOM<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceImageProcessing2PropertiesQCOM<'a> {
+    pub fn max_block_match_window(mut self, max_block_match_window: Extent2D) -> Self {
+        self.max_block_match_window = max_block_match_window;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SamplerBlockMatchWindowCreateInfoQCOM<'a> {
@@ -57,6 +69,19 @@ impl Default for SamplerBlockMatchWindowCreateInfoQCOM<'_> {
             window_compare_mode: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SamplerBlockMatchWindowCreateInfoQCOM<'a> {
+    pub fn window_extent(mut self, window_extent: Extent2D) -> Self {
+        self.window_extent = window_extent;
+        self
+    }
+    pub fn window_compare_mode(
+        mut self,
+        window_compare_mode: BlockMatchWindowCompareModeQCOM,
+    ) -> Self {
+        self.window_compare_mode = window_compare_mode;
+        self
     }
 }
 #[repr(transparent)]

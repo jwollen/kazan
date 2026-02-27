@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,6 +23,20 @@ impl Default for XcbSurfaceCreateInfoKHR<'_> {
             window: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> XcbSurfaceCreateInfoKHR<'a> {
+    pub fn flags(mut self, flags: XcbSurfaceCreateFlagsKHR) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn connection(mut self, connection: *mut xcb_connection_t) -> Self {
+        self.connection = connection;
+        self
+    }
+    pub fn window(mut self, window: xcb_window_t) -> Self {
+        self.window = window;
+        self
     }
 }
 bitflags! {

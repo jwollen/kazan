@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,5 +19,11 @@ impl Default for PhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT<'_> {
             ycbcr2plane444_formats: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT<'a> {
+    pub fn ycbcr2plane444_formats(mut self, ycbcr2plane444_formats: Bool32) -> Self {
+        self.ycbcr2plane444_formats = ycbcr2plane444_formats;
+        self
     }
 }

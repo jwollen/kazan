@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -25,6 +25,20 @@ impl Default for ImageViewHandleInfoNVX<'_> {
         }
     }
 }
+impl<'a> ImageViewHandleInfoNVX<'a> {
+    pub fn image_view(mut self, image_view: ImageView) -> Self {
+        self.image_view = image_view;
+        self
+    }
+    pub fn descriptor_type(mut self, descriptor_type: DescriptorType) -> Self {
+        self.descriptor_type = descriptor_type;
+        self
+    }
+    pub fn sampler(mut self, sampler: Sampler) -> Self {
+        self.sampler = sampler;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ImageViewAddressPropertiesNVX<'a> {
@@ -43,6 +57,16 @@ impl Default for ImageViewAddressPropertiesNVX<'_> {
             size: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ImageViewAddressPropertiesNVX<'a> {
+    pub fn device_address(mut self, device_address: DeviceAddress) -> Self {
+        self.device_address = device_address;
+        self
+    }
+    pub fn size(mut self, size: DeviceSize) -> Self {
+        self.size = size;
+        self
     }
 }
 pub type PFN_vkGetImageViewHandleNVX =

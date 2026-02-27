@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for DisplayProperties2KHR<'_> {
             display_properties: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DisplayProperties2KHR<'a> {
+    pub fn display_properties(mut self, display_properties: DisplayPropertiesKHR<'a>) -> Self {
+        self.display_properties = display_properties;
+        self
     }
 }
 #[repr(C)]
@@ -39,6 +45,15 @@ impl Default for DisplayPlaneProperties2KHR<'_> {
         }
     }
 }
+impl<'a> DisplayPlaneProperties2KHR<'a> {
+    pub fn display_plane_properties(
+        mut self,
+        display_plane_properties: DisplayPlanePropertiesKHR,
+    ) -> Self {
+        self.display_plane_properties = display_plane_properties;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DisplayModeProperties2KHR<'a> {
@@ -55,6 +70,15 @@ impl Default for DisplayModeProperties2KHR<'_> {
             display_mode_properties: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DisplayModeProperties2KHR<'a> {
+    pub fn display_mode_properties(
+        mut self,
+        display_mode_properties: DisplayModePropertiesKHR,
+    ) -> Self {
+        self.display_mode_properties = display_mode_properties;
+        self
     }
 }
 #[repr(C)]
@@ -77,6 +101,16 @@ impl Default for DisplayPlaneInfo2KHR<'_> {
         }
     }
 }
+impl<'a> DisplayPlaneInfo2KHR<'a> {
+    pub fn mode(mut self, mode: DisplayModeKHR) -> Self {
+        self.mode = mode;
+        self
+    }
+    pub fn plane_index(mut self, plane_index: u32) -> Self {
+        self.plane_index = plane_index;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DisplayPlaneCapabilities2KHR<'a> {
@@ -93,6 +127,12 @@ impl Default for DisplayPlaneCapabilities2KHR<'_> {
             capabilities: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DisplayPlaneCapabilities2KHR<'a> {
+    pub fn capabilities(mut self, capabilities: DisplayPlaneCapabilitiesKHR) -> Self {
+        self.capabilities = capabilities;
+        self
     }
 }
 pub type PFN_vkGetPhysicalDeviceDisplayProperties2KHR = unsafe extern "system" fn(

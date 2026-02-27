@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,5 +23,22 @@ impl Default for PhysicalDeviceShaderBfloat16FeaturesKHR<'_> {
             shader_b_float16_cooperative_matrix: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceShaderBfloat16FeaturesKHR<'a> {
+    pub fn shader_b_float16_type(mut self, shader_b_float16_type: Bool32) -> Self {
+        self.shader_b_float16_type = shader_b_float16_type;
+        self
+    }
+    pub fn shader_b_float16_dot_product(mut self, shader_b_float16_dot_product: Bool32) -> Self {
+        self.shader_b_float16_dot_product = shader_b_float16_dot_product;
+        self
+    }
+    pub fn shader_b_float16_cooperative_matrix(
+        mut self,
+        shader_b_float16_cooperative_matrix: Bool32,
+    ) -> Self {
+        self.shader_b_float16_cooperative_matrix = shader_b_float16_cooperative_matrix;
+        self
     }
 }

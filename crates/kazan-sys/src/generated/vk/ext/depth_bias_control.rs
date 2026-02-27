@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -25,6 +25,20 @@ impl Default for DepthBiasInfoEXT<'_> {
         }
     }
 }
+impl<'a> DepthBiasInfoEXT<'a> {
+    pub fn depth_bias_constant_factor(mut self, depth_bias_constant_factor: f32) -> Self {
+        self.depth_bias_constant_factor = depth_bias_constant_factor;
+        self
+    }
+    pub fn depth_bias_clamp(mut self, depth_bias_clamp: f32) -> Self {
+        self.depth_bias_clamp = depth_bias_clamp;
+        self
+    }
+    pub fn depth_bias_slope_factor(mut self, depth_bias_slope_factor: f32) -> Self {
+        self.depth_bias_slope_factor = depth_bias_slope_factor;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DepthBiasRepresentationInfoEXT<'a> {
@@ -43,6 +57,19 @@ impl Default for DepthBiasRepresentationInfoEXT<'_> {
             depth_bias_exact: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DepthBiasRepresentationInfoEXT<'a> {
+    pub fn depth_bias_representation(
+        mut self,
+        depth_bias_representation: DepthBiasRepresentationEXT,
+    ) -> Self {
+        self.depth_bias_representation = depth_bias_representation;
+        self
+    }
+    pub fn depth_bias_exact(mut self, depth_bias_exact: Bool32) -> Self {
+        self.depth_bias_exact = depth_bias_exact;
+        self
     }
 }
 #[repr(C)]
@@ -67,6 +94,28 @@ impl Default for PhysicalDeviceDepthBiasControlFeaturesEXT<'_> {
             depth_bias_exact: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceDepthBiasControlFeaturesEXT<'a> {
+    pub fn depth_bias_control(mut self, depth_bias_control: Bool32) -> Self {
+        self.depth_bias_control = depth_bias_control;
+        self
+    }
+    pub fn least_representable_value_force_unorm_representation(
+        mut self,
+        least_representable_value_force_unorm_representation: Bool32,
+    ) -> Self {
+        self.least_representable_value_force_unorm_representation =
+            least_representable_value_force_unorm_representation;
+        self
+    }
+    pub fn float_representation(mut self, float_representation: Bool32) -> Self {
+        self.float_representation = float_representation;
+        self
+    }
+    pub fn depth_bias_exact(mut self, depth_bias_exact: Bool32) -> Self {
+        self.depth_bias_exact = depth_bias_exact;
+        self
     }
 }
 #[repr(transparent)]

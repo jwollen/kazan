@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,5 +23,19 @@ impl Default for PhysicalDeviceShaderFmaFeaturesKHR<'_> {
             shader_fma_float64: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceShaderFmaFeaturesKHR<'a> {
+    pub fn shader_fma_float16(mut self, shader_fma_float16: Bool32) -> Self {
+        self.shader_fma_float16 = shader_fma_float16;
+        self
+    }
+    pub fn shader_fma_float32(mut self, shader_fma_float32: Bool32) -> Self {
+        self.shader_fma_float32 = shader_fma_float32;
+        self
+    }
+    pub fn shader_fma_float64(mut self, shader_fma_float64: Bool32) -> Self {
+        self.shader_fma_float64 = shader_fma_float64;
+        self
     }
 }

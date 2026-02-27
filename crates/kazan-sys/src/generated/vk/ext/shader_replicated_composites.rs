@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,5 +19,11 @@ impl Default for PhysicalDeviceShaderReplicatedCompositesFeaturesEXT<'_> {
             shader_replicated_composites: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceShaderReplicatedCompositesFeaturesEXT<'a> {
+    pub fn shader_replicated_composites(mut self, shader_replicated_composites: Bool32) -> Self {
+        self.shader_replicated_composites = shader_replicated_composites;
+        self
     }
 }

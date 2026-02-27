@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,6 +21,12 @@ impl Default for PhysicalDeviceFragmentShaderBarycentricFeaturesKHR<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceFragmentShaderBarycentricFeaturesKHR<'a> {
+    pub fn fragment_shader_barycentric(mut self, fragment_shader_barycentric: Bool32) -> Self {
+        self.fragment_shader_barycentric = fragment_shader_barycentric;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceFragmentShaderBarycentricPropertiesKHR<'a> {
@@ -37,5 +43,15 @@ impl Default for PhysicalDeviceFragmentShaderBarycentricPropertiesKHR<'_> {
             tri_strip_vertex_order_independent_of_provoking_vertex: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceFragmentShaderBarycentricPropertiesKHR<'a> {
+    pub fn tri_strip_vertex_order_independent_of_provoking_vertex(
+        mut self,
+        tri_strip_vertex_order_independent_of_provoking_vertex: Bool32,
+    ) -> Self {
+        self.tri_strip_vertex_order_independent_of_provoking_vertex =
+            tri_strip_vertex_order_independent_of_provoking_vertex;
+        self
     }
 }

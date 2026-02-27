@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,5 +19,14 @@ impl Default for TextureLODGatherFormatPropertiesAMD<'_> {
             supports_texture_gather_lod_bias_amd: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> TextureLODGatherFormatPropertiesAMD<'a> {
+    pub fn supports_texture_gather_lod_bias_amd(
+        mut self,
+        supports_texture_gather_lod_bias_amd: Bool32,
+    ) -> Self {
+        self.supports_texture_gather_lod_bias_amd = supports_texture_gather_lod_bias_amd;
+        self
     }
 }

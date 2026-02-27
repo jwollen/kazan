@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,6 +21,16 @@ impl Default for IOSSurfaceCreateInfoMVK<'_> {
             p_view: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> IOSSurfaceCreateInfoMVK<'a> {
+    pub fn flags(mut self, flags: IOSSurfaceCreateFlagsMVK) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn view(mut self, view: &'a c_void) -> Self {
+        self.p_view = view;
+        self
     }
 }
 bitflags! {

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -27,6 +27,24 @@ impl Default for ImportSemaphoreZirconHandleInfoFUCHSIA<'_> {
         }
     }
 }
+impl<'a> ImportSemaphoreZirconHandleInfoFUCHSIA<'a> {
+    pub fn semaphore(mut self, semaphore: Semaphore) -> Self {
+        self.semaphore = semaphore;
+        self
+    }
+    pub fn flags(mut self, flags: SemaphoreImportFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn handle_type(mut self, handle_type: ExternalSemaphoreHandleTypeFlagBits) -> Self {
+        self.handle_type = handle_type;
+        self
+    }
+    pub fn zircon_handle(mut self, zircon_handle: zx_handle_t) -> Self {
+        self.zircon_handle = zircon_handle;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SemaphoreGetZirconHandleInfoFUCHSIA<'a> {
@@ -45,6 +63,16 @@ impl Default for SemaphoreGetZirconHandleInfoFUCHSIA<'_> {
             handle_type: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SemaphoreGetZirconHandleInfoFUCHSIA<'a> {
+    pub fn semaphore(mut self, semaphore: Semaphore) -> Self {
+        self.semaphore = semaphore;
+        self
+    }
+    pub fn handle_type(mut self, handle_type: ExternalSemaphoreHandleTypeFlagBits) -> Self {
+        self.handle_type = handle_type;
+        self
     }
 }
 pub type PFN_vkGetSemaphoreZirconHandleFUCHSIA = unsafe extern "system" fn(

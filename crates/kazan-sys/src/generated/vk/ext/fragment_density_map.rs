@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,6 +23,24 @@ impl Default for PhysicalDeviceFragmentDensityMapFeaturesEXT<'_> {
             fragment_density_map_non_subsampled_images: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceFragmentDensityMapFeaturesEXT<'a> {
+    pub fn fragment_density_map(mut self, fragment_density_map: Bool32) -> Self {
+        self.fragment_density_map = fragment_density_map;
+        self
+    }
+    pub fn fragment_density_map_dynamic(mut self, fragment_density_map_dynamic: Bool32) -> Self {
+        self.fragment_density_map_dynamic = fragment_density_map_dynamic;
+        self
+    }
+    pub fn fragment_density_map_non_subsampled_images(
+        mut self,
+        fragment_density_map_non_subsampled_images: Bool32,
+    ) -> Self {
+        self.fragment_density_map_non_subsampled_images =
+            fragment_density_map_non_subsampled_images;
+        self
     }
 }
 #[repr(C)]
@@ -47,6 +65,26 @@ impl Default for PhysicalDeviceFragmentDensityMapPropertiesEXT<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceFragmentDensityMapPropertiesEXT<'a> {
+    pub fn min_fragment_density_texel_size(
+        mut self,
+        min_fragment_density_texel_size: Extent2D,
+    ) -> Self {
+        self.min_fragment_density_texel_size = min_fragment_density_texel_size;
+        self
+    }
+    pub fn max_fragment_density_texel_size(
+        mut self,
+        max_fragment_density_texel_size: Extent2D,
+    ) -> Self {
+        self.max_fragment_density_texel_size = max_fragment_density_texel_size;
+        self
+    }
+    pub fn fragment_density_invocations(mut self, fragment_density_invocations: Bool32) -> Self {
+        self.fragment_density_invocations = fragment_density_invocations;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct RenderPassFragmentDensityMapCreateInfoEXT<'a> {
@@ -63,6 +101,15 @@ impl Default for RenderPassFragmentDensityMapCreateInfoEXT<'_> {
             fragment_density_map_attachment: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> RenderPassFragmentDensityMapCreateInfoEXT<'a> {
+    pub fn fragment_density_map_attachment(
+        mut self,
+        fragment_density_map_attachment: AttachmentReference,
+    ) -> Self {
+        self.fragment_density_map_attachment = fragment_density_map_attachment;
+        self
     }
 }
 #[repr(C)]
@@ -83,5 +130,15 @@ impl Default for RenderingFragmentDensityMapAttachmentInfoEXT<'_> {
             image_layout: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> RenderingFragmentDensityMapAttachmentInfoEXT<'a> {
+    pub fn image_view(mut self, image_view: ImageView) -> Self {
+        self.image_view = image_view;
+        self
+    }
+    pub fn image_layout(mut self, image_layout: ImageLayout) -> Self {
+        self.image_layout = image_layout;
+        self
     }
 }

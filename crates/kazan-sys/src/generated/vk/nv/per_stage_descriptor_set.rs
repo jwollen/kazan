@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,5 +21,15 @@ impl Default for PhysicalDevicePerStageDescriptorSetFeaturesNV<'_> {
             dynamic_pipeline_layout: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDevicePerStageDescriptorSetFeaturesNV<'a> {
+    pub fn per_stage_descriptor_set(mut self, per_stage_descriptor_set: Bool32) -> Self {
+        self.per_stage_descriptor_set = per_stage_descriptor_set;
+        self
+    }
+    pub fn dynamic_pipeline_layout(mut self, dynamic_pipeline_layout: Bool32) -> Self {
+        self.dynamic_pipeline_layout = dynamic_pipeline_layout;
+        self
     }
 }

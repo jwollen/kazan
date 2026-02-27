@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -47,6 +47,85 @@ impl Default for PhysicalDeviceTileShadingFeaturesQCOM<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceTileShadingFeaturesQCOM<'a> {
+    pub fn tile_shading(mut self, tile_shading: Bool32) -> Self {
+        self.tile_shading = tile_shading;
+        self
+    }
+    pub fn tile_shading_fragment_stage(mut self, tile_shading_fragment_stage: Bool32) -> Self {
+        self.tile_shading_fragment_stage = tile_shading_fragment_stage;
+        self
+    }
+    pub fn tile_shading_color_attachments(
+        mut self,
+        tile_shading_color_attachments: Bool32,
+    ) -> Self {
+        self.tile_shading_color_attachments = tile_shading_color_attachments;
+        self
+    }
+    pub fn tile_shading_depth_attachments(
+        mut self,
+        tile_shading_depth_attachments: Bool32,
+    ) -> Self {
+        self.tile_shading_depth_attachments = tile_shading_depth_attachments;
+        self
+    }
+    pub fn tile_shading_stencil_attachments(
+        mut self,
+        tile_shading_stencil_attachments: Bool32,
+    ) -> Self {
+        self.tile_shading_stencil_attachments = tile_shading_stencil_attachments;
+        self
+    }
+    pub fn tile_shading_input_attachments(
+        mut self,
+        tile_shading_input_attachments: Bool32,
+    ) -> Self {
+        self.tile_shading_input_attachments = tile_shading_input_attachments;
+        self
+    }
+    pub fn tile_shading_sampled_attachments(
+        mut self,
+        tile_shading_sampled_attachments: Bool32,
+    ) -> Self {
+        self.tile_shading_sampled_attachments = tile_shading_sampled_attachments;
+        self
+    }
+    pub fn tile_shading_per_tile_draw(mut self, tile_shading_per_tile_draw: Bool32) -> Self {
+        self.tile_shading_per_tile_draw = tile_shading_per_tile_draw;
+        self
+    }
+    pub fn tile_shading_per_tile_dispatch(
+        mut self,
+        tile_shading_per_tile_dispatch: Bool32,
+    ) -> Self {
+        self.tile_shading_per_tile_dispatch = tile_shading_per_tile_dispatch;
+        self
+    }
+    pub fn tile_shading_dispatch_tile(mut self, tile_shading_dispatch_tile: Bool32) -> Self {
+        self.tile_shading_dispatch_tile = tile_shading_dispatch_tile;
+        self
+    }
+    pub fn tile_shading_apron(mut self, tile_shading_apron: Bool32) -> Self {
+        self.tile_shading_apron = tile_shading_apron;
+        self
+    }
+    pub fn tile_shading_anisotropic_apron(
+        mut self,
+        tile_shading_anisotropic_apron: Bool32,
+    ) -> Self {
+        self.tile_shading_anisotropic_apron = tile_shading_anisotropic_apron;
+        self
+    }
+    pub fn tile_shading_atomic_ops(mut self, tile_shading_atomic_ops: Bool32) -> Self {
+        self.tile_shading_atomic_ops = tile_shading_atomic_ops;
+        self
+    }
+    pub fn tile_shading_image_processing(mut self, tile_shading_image_processing: Bool32) -> Self {
+        self.tile_shading_image_processing = tile_shading_image_processing;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceTileShadingPropertiesQCOM<'a> {
@@ -71,6 +150,24 @@ impl Default for PhysicalDeviceTileShadingPropertiesQCOM<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceTileShadingPropertiesQCOM<'a> {
+    pub fn max_apron_size(mut self, max_apron_size: u32) -> Self {
+        self.max_apron_size = max_apron_size;
+        self
+    }
+    pub fn prefer_non_coherent(mut self, prefer_non_coherent: Bool32) -> Self {
+        self.prefer_non_coherent = prefer_non_coherent;
+        self
+    }
+    pub fn tile_granularity(mut self, tile_granularity: Extent2D) -> Self {
+        self.tile_granularity = tile_granularity;
+        self
+    }
+    pub fn max_tile_shading_rate(mut self, max_tile_shading_rate: Extent2D) -> Self {
+        self.max_tile_shading_rate = max_tile_shading_rate;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct RenderPassTileShadingCreateInfoQCOM<'a> {
@@ -91,6 +188,16 @@ impl Default for RenderPassTileShadingCreateInfoQCOM<'_> {
         }
     }
 }
+impl<'a> RenderPassTileShadingCreateInfoQCOM<'a> {
+    pub fn flags(mut self, flags: TileShadingRenderPassFlagsQCOM) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn tile_apron_size(mut self, tile_apron_size: Extent2D) -> Self {
+        self.tile_apron_size = tile_apron_size;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PerTileBeginInfoQCOM<'a> {
@@ -107,6 +214,7 @@ impl Default for PerTileBeginInfoQCOM<'_> {
         }
     }
 }
+impl<'a> PerTileBeginInfoQCOM<'a> {}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PerTileEndInfoQCOM<'a> {
@@ -123,6 +231,7 @@ impl Default for PerTileEndInfoQCOM<'_> {
         }
     }
 }
+impl<'a> PerTileEndInfoQCOM<'a> {}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DispatchTileInfoQCOM<'a> {
@@ -139,6 +248,7 @@ impl Default for DispatchTileInfoQCOM<'_> {
         }
     }
 }
+impl<'a> DispatchTileInfoQCOM<'a> {}
 bitflags! {
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

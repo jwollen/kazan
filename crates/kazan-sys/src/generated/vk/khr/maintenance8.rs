@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceMaintenance8FeaturesKHR<'_> {
             maintenance8: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceMaintenance8FeaturesKHR<'a> {
+    pub fn maintenance8(mut self, maintenance8: Bool32) -> Self {
+        self.maintenance8 = maintenance8;
+        self
     }
 }
 #[repr(C)]
@@ -39,6 +45,16 @@ impl Default for MemoryBarrierAccessFlags3KHR<'_> {
             dst_access_mask3: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> MemoryBarrierAccessFlags3KHR<'a> {
+    pub fn src_access_mask3(mut self, src_access_mask3: AccessFlags3KHR) -> Self {
+        self.src_access_mask3 = src_access_mask3;
+        self
+    }
+    pub fn dst_access_mask3(mut self, dst_access_mask3: AccessFlags3KHR) -> Self {
+        self.dst_access_mask3 = dst_access_mask3;
+        self
     }
 }
 bitflags! {

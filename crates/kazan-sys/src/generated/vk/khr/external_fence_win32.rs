@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -29,6 +29,28 @@ impl Default for ImportFenceWin32HandleInfoKHR<'_> {
         }
     }
 }
+impl<'a> ImportFenceWin32HandleInfoKHR<'a> {
+    pub fn fence(mut self, fence: Fence) -> Self {
+        self.fence = fence;
+        self
+    }
+    pub fn flags(mut self, flags: FenceImportFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn handle_type(mut self, handle_type: ExternalFenceHandleTypeFlagBits) -> Self {
+        self.handle_type = handle_type;
+        self
+    }
+    pub fn handle(mut self, handle: HANDLE) -> Self {
+        self.handle = handle;
+        self
+    }
+    pub fn name(mut self, name: LPCWSTR) -> Self {
+        self.name = name;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ExportFenceWin32HandleInfoKHR<'a> {
@@ -51,6 +73,20 @@ impl Default for ExportFenceWin32HandleInfoKHR<'_> {
         }
     }
 }
+impl<'a> ExportFenceWin32HandleInfoKHR<'a> {
+    pub fn attributes(mut self, attributes: *const SECURITY_ATTRIBUTES) -> Self {
+        self.p_attributes = attributes;
+        self
+    }
+    pub fn dw_access(mut self, dw_access: DWORD) -> Self {
+        self.dw_access = dw_access;
+        self
+    }
+    pub fn name(mut self, name: LPCWSTR) -> Self {
+        self.name = name;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct FenceGetWin32HandleInfoKHR<'a> {
@@ -69,6 +105,16 @@ impl Default for FenceGetWin32HandleInfoKHR<'_> {
             handle_type: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> FenceGetWin32HandleInfoKHR<'a> {
+    pub fn fence(mut self, fence: Fence) -> Self {
+        self.fence = fence;
+        self
+    }
+    pub fn handle_type(mut self, handle_type: ExternalFenceHandleTypeFlagBits) -> Self {
+        self.handle_type = handle_type;
+        self
     }
 }
 pub type PFN_vkGetFenceWin32HandleKHR = unsafe extern "system" fn(

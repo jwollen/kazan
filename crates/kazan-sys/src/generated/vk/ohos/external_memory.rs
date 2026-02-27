@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub type OH_NativeBuffer = *const c_void;
 #[repr(C)]
@@ -22,6 +22,12 @@ impl Default for NativeBufferUsageOHOS<'_> {
         }
     }
 }
+impl<'a> NativeBufferUsageOHOS<'a> {
+    pub fn ohos_native_buffer_usage(mut self, ohos_native_buffer_usage: u64) -> Self {
+        self.ohos_native_buffer_usage = ohos_native_buffer_usage;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct NativeBufferPropertiesOHOS<'a> {
@@ -40,6 +46,16 @@ impl Default for NativeBufferPropertiesOHOS<'_> {
             memory_type_bits: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> NativeBufferPropertiesOHOS<'a> {
+    pub fn allocation_size(mut self, allocation_size: DeviceSize) -> Self {
+        self.allocation_size = allocation_size;
+        self
+    }
+    pub fn memory_type_bits(mut self, memory_type_bits: u32) -> Self {
+        self.memory_type_bits = memory_type_bits;
+        self
     }
 }
 #[repr(C)]
@@ -74,6 +90,46 @@ impl Default for NativeBufferFormatPropertiesOHOS<'_> {
         }
     }
 }
+impl<'a> NativeBufferFormatPropertiesOHOS<'a> {
+    pub fn format(mut self, format: Format) -> Self {
+        self.format = format;
+        self
+    }
+    pub fn external_format(mut self, external_format: u64) -> Self {
+        self.external_format = external_format;
+        self
+    }
+    pub fn format_features(mut self, format_features: FormatFeatureFlags) -> Self {
+        self.format_features = format_features;
+        self
+    }
+    pub fn sampler_ycbcr_conversion_components(
+        mut self,
+        sampler_ycbcr_conversion_components: ComponentMapping,
+    ) -> Self {
+        self.sampler_ycbcr_conversion_components = sampler_ycbcr_conversion_components;
+        self
+    }
+    pub fn suggested_ycbcr_model(
+        mut self,
+        suggested_ycbcr_model: SamplerYcbcrModelConversion,
+    ) -> Self {
+        self.suggested_ycbcr_model = suggested_ycbcr_model;
+        self
+    }
+    pub fn suggested_ycbcr_range(mut self, suggested_ycbcr_range: SamplerYcbcrRange) -> Self {
+        self.suggested_ycbcr_range = suggested_ycbcr_range;
+        self
+    }
+    pub fn suggested_x_chroma_offset(mut self, suggested_x_chroma_offset: ChromaLocation) -> Self {
+        self.suggested_x_chroma_offset = suggested_x_chroma_offset;
+        self
+    }
+    pub fn suggested_y_chroma_offset(mut self, suggested_y_chroma_offset: ChromaLocation) -> Self {
+        self.suggested_y_chroma_offset = suggested_y_chroma_offset;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ImportNativeBufferInfoOHOS<'a> {
@@ -90,6 +146,12 @@ impl Default for ImportNativeBufferInfoOHOS<'_> {
             buffer: core::ptr::null_mut(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ImportNativeBufferInfoOHOS<'a> {
+    pub fn buffer(mut self, buffer: &'a mut OH_NativeBuffer) -> Self {
+        self.buffer = buffer;
+        self
     }
 }
 #[repr(C)]
@@ -110,6 +172,12 @@ impl Default for MemoryGetNativeBufferInfoOHOS<'_> {
         }
     }
 }
+impl<'a> MemoryGetNativeBufferInfoOHOS<'a> {
+    pub fn memory(mut self, memory: DeviceMemory) -> Self {
+        self.memory = memory;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ExternalFormatOHOS<'a> {
@@ -126,6 +194,12 @@ impl Default for ExternalFormatOHOS<'_> {
             external_format: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ExternalFormatOHOS<'a> {
+    pub fn external_format(mut self, external_format: u64) -> Self {
+        self.external_format = external_format;
+        self
     }
 }
 pub type PFN_vkGetNativeBufferPropertiesOHOS = unsafe extern "system" fn(

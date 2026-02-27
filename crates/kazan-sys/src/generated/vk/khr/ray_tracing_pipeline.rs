@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub const SHADER_UNUSED_KHR: u32 = !0;
 #[repr(C)]
@@ -30,6 +30,35 @@ impl Default for RayTracingShaderGroupCreateInfoKHR<'_> {
             p_shader_group_capture_replay_handle: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> RayTracingShaderGroupCreateInfoKHR<'a> {
+    pub fn ty(mut self, ty: RayTracingShaderGroupTypeKHR) -> Self {
+        self.ty = ty;
+        self
+    }
+    pub fn general_shader(mut self, general_shader: u32) -> Self {
+        self.general_shader = general_shader;
+        self
+    }
+    pub fn closest_hit_shader(mut self, closest_hit_shader: u32) -> Self {
+        self.closest_hit_shader = closest_hit_shader;
+        self
+    }
+    pub fn any_hit_shader(mut self, any_hit_shader: u32) -> Self {
+        self.any_hit_shader = any_hit_shader;
+        self
+    }
+    pub fn intersection_shader(mut self, intersection_shader: u32) -> Self {
+        self.intersection_shader = intersection_shader;
+        self
+    }
+    pub fn shader_group_capture_replay_handle(
+        mut self,
+        shader_group_capture_replay_handle: &'a c_void,
+    ) -> Self {
+        self.p_shader_group_capture_replay_handle = shader_group_capture_replay_handle;
+        self
     }
 }
 #[repr(C)]
@@ -72,6 +101,56 @@ impl Default for RayTracingPipelineCreateInfoKHR<'_> {
         }
     }
 }
+impl<'a> RayTracingPipelineCreateInfoKHR<'a> {
+    pub fn flags(mut self, flags: PipelineCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn stages(mut self, stages: &'a [PipelineShaderStageCreateInfo<'a>]) -> Self {
+        self.stage_count = stages.len().try_into().unwrap();
+        self.p_stages = stages.as_ptr();
+        self
+    }
+    pub fn groups(mut self, groups: &'a [RayTracingShaderGroupCreateInfoKHR<'a>]) -> Self {
+        self.group_count = groups.len().try_into().unwrap();
+        self.p_groups = groups.as_ptr();
+        self
+    }
+    pub fn max_pipeline_ray_recursion_depth(
+        mut self,
+        max_pipeline_ray_recursion_depth: u32,
+    ) -> Self {
+        self.max_pipeline_ray_recursion_depth = max_pipeline_ray_recursion_depth;
+        self
+    }
+    pub fn library_info(mut self, library_info: &'a PipelineLibraryCreateInfoKHR<'a>) -> Self {
+        self.p_library_info = library_info;
+        self
+    }
+    pub fn library_interface(
+        mut self,
+        library_interface: &'a RayTracingPipelineInterfaceCreateInfoKHR<'a>,
+    ) -> Self {
+        self.p_library_interface = library_interface;
+        self
+    }
+    pub fn dynamic_state(mut self, dynamic_state: &'a PipelineDynamicStateCreateInfo<'a>) -> Self {
+        self.p_dynamic_state = dynamic_state;
+        self
+    }
+    pub fn layout(mut self, layout: PipelineLayout) -> Self {
+        self.layout = layout;
+        self
+    }
+    pub fn base_pipeline_handle(mut self, base_pipeline_handle: Pipeline) -> Self {
+        self.base_pipeline_handle = base_pipeline_handle;
+        self
+    }
+    pub fn base_pipeline_index(mut self, base_pipeline_index: i32) -> Self {
+        self.base_pipeline_index = base_pipeline_index;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceRayTracingPipelineFeaturesKHR<'a> {
@@ -96,6 +175,42 @@ impl Default for PhysicalDeviceRayTracingPipelineFeaturesKHR<'_> {
             ray_traversal_primitive_culling: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceRayTracingPipelineFeaturesKHR<'a> {
+    pub fn ray_tracing_pipeline(mut self, ray_tracing_pipeline: Bool32) -> Self {
+        self.ray_tracing_pipeline = ray_tracing_pipeline;
+        self
+    }
+    pub fn ray_tracing_pipeline_shader_group_handle_capture_replay(
+        mut self,
+        ray_tracing_pipeline_shader_group_handle_capture_replay: Bool32,
+    ) -> Self {
+        self.ray_tracing_pipeline_shader_group_handle_capture_replay =
+            ray_tracing_pipeline_shader_group_handle_capture_replay;
+        self
+    }
+    pub fn ray_tracing_pipeline_shader_group_handle_capture_replay_mixed(
+        mut self,
+        ray_tracing_pipeline_shader_group_handle_capture_replay_mixed: Bool32,
+    ) -> Self {
+        self.ray_tracing_pipeline_shader_group_handle_capture_replay_mixed =
+            ray_tracing_pipeline_shader_group_handle_capture_replay_mixed;
+        self
+    }
+    pub fn ray_tracing_pipeline_trace_rays_indirect(
+        mut self,
+        ray_tracing_pipeline_trace_rays_indirect: Bool32,
+    ) -> Self {
+        self.ray_tracing_pipeline_trace_rays_indirect = ray_tracing_pipeline_trace_rays_indirect;
+        self
+    }
+    pub fn ray_traversal_primitive_culling(
+        mut self,
+        ray_traversal_primitive_culling: Bool32,
+    ) -> Self {
+        self.ray_traversal_primitive_culling = ray_traversal_primitive_culling;
+        self
     }
 }
 #[repr(C)]
@@ -130,6 +245,46 @@ impl Default for PhysicalDeviceRayTracingPipelinePropertiesKHR<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceRayTracingPipelinePropertiesKHR<'a> {
+    pub fn shader_group_handle_size(mut self, shader_group_handle_size: u32) -> Self {
+        self.shader_group_handle_size = shader_group_handle_size;
+        self
+    }
+    pub fn max_ray_recursion_depth(mut self, max_ray_recursion_depth: u32) -> Self {
+        self.max_ray_recursion_depth = max_ray_recursion_depth;
+        self
+    }
+    pub fn max_shader_group_stride(mut self, max_shader_group_stride: u32) -> Self {
+        self.max_shader_group_stride = max_shader_group_stride;
+        self
+    }
+    pub fn shader_group_base_alignment(mut self, shader_group_base_alignment: u32) -> Self {
+        self.shader_group_base_alignment = shader_group_base_alignment;
+        self
+    }
+    pub fn shader_group_handle_capture_replay_size(
+        mut self,
+        shader_group_handle_capture_replay_size: u32,
+    ) -> Self {
+        self.shader_group_handle_capture_replay_size = shader_group_handle_capture_replay_size;
+        self
+    }
+    pub fn max_ray_dispatch_invocation_count(
+        mut self,
+        max_ray_dispatch_invocation_count: u32,
+    ) -> Self {
+        self.max_ray_dispatch_invocation_count = max_ray_dispatch_invocation_count;
+        self
+    }
+    pub fn shader_group_handle_alignment(mut self, shader_group_handle_alignment: u32) -> Self {
+        self.shader_group_handle_alignment = shader_group_handle_alignment;
+        self
+    }
+    pub fn max_ray_hit_attribute_size(mut self, max_ray_hit_attribute_size: u32) -> Self {
+        self.max_ray_hit_attribute_size = max_ray_hit_attribute_size;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct StridedDeviceAddressRegionKHR {
@@ -137,12 +292,40 @@ pub struct StridedDeviceAddressRegionKHR {
     pub stride: DeviceSize,
     pub size: DeviceSize,
 }
+impl StridedDeviceAddressRegionKHR {
+    pub fn device_address(mut self, device_address: DeviceAddress) -> Self {
+        self.device_address = device_address;
+        self
+    }
+    pub fn stride(mut self, stride: DeviceSize) -> Self {
+        self.stride = stride;
+        self
+    }
+    pub fn size(mut self, size: DeviceSize) -> Self {
+        self.size = size;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct TraceRaysIndirectCommandKHR {
     pub width: u32,
     pub height: u32,
     pub depth: u32,
+}
+impl TraceRaysIndirectCommandKHR {
+    pub fn width(mut self, width: u32) -> Self {
+        self.width = width;
+        self
+    }
+    pub fn height(mut self, height: u32) -> Self {
+        self.height = height;
+        self
+    }
+    pub fn depth(mut self, depth: u32) -> Self {
+        self.depth = depth;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -162,6 +345,19 @@ impl Default for RayTracingPipelineInterfaceCreateInfoKHR<'_> {
             max_pipeline_ray_hit_attribute_size: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> RayTracingPipelineInterfaceCreateInfoKHR<'a> {
+    pub fn max_pipeline_ray_payload_size(mut self, max_pipeline_ray_payload_size: u32) -> Self {
+        self.max_pipeline_ray_payload_size = max_pipeline_ray_payload_size;
+        self
+    }
+    pub fn max_pipeline_ray_hit_attribute_size(
+        mut self,
+        max_pipeline_ray_hit_attribute_size: u32,
+    ) -> Self {
+        self.max_pipeline_ray_hit_attribute_size = max_pipeline_ray_hit_attribute_size;
+        self
     }
 }
 #[repr(transparent)]

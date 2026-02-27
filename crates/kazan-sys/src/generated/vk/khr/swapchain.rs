@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -54,6 +54,69 @@ impl Default for SwapchainCreateInfoKHR<'_> {
         }
     }
 }
+impl<'a> SwapchainCreateInfoKHR<'a> {
+    pub fn flags(mut self, flags: SwapchainCreateFlagsKHR) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn surface(mut self, surface: SurfaceKHR) -> Self {
+        self.surface = surface;
+        self
+    }
+    pub fn min_image_count(mut self, min_image_count: u32) -> Self {
+        self.min_image_count = min_image_count;
+        self
+    }
+    pub fn image_format(mut self, image_format: Format) -> Self {
+        self.image_format = image_format;
+        self
+    }
+    pub fn image_color_space(mut self, image_color_space: ColorSpaceKHR) -> Self {
+        self.image_color_space = image_color_space;
+        self
+    }
+    pub fn image_extent(mut self, image_extent: Extent2D) -> Self {
+        self.image_extent = image_extent;
+        self
+    }
+    pub fn image_array_layers(mut self, image_array_layers: u32) -> Self {
+        self.image_array_layers = image_array_layers;
+        self
+    }
+    pub fn image_usage(mut self, image_usage: ImageUsageFlags) -> Self {
+        self.image_usage = image_usage;
+        self
+    }
+    pub fn image_sharing_mode(mut self, image_sharing_mode: SharingMode) -> Self {
+        self.image_sharing_mode = image_sharing_mode;
+        self
+    }
+    pub fn queue_family_indices(mut self, queue_family_indices: &'a [u32]) -> Self {
+        self.queue_family_index_count = queue_family_indices.len().try_into().unwrap();
+        self.p_queue_family_indices = queue_family_indices.as_ptr();
+        self
+    }
+    pub fn pre_transform(mut self, pre_transform: SurfaceTransformFlagBitsKHR) -> Self {
+        self.pre_transform = pre_transform;
+        self
+    }
+    pub fn composite_alpha(mut self, composite_alpha: CompositeAlphaFlagBitsKHR) -> Self {
+        self.composite_alpha = composite_alpha;
+        self
+    }
+    pub fn present_mode(mut self, present_mode: PresentModeKHR) -> Self {
+        self.present_mode = present_mode;
+        self
+    }
+    pub fn clipped(mut self, clipped: Bool32) -> Self {
+        self.clipped = clipped;
+        self
+    }
+    pub fn old_swapchain(mut self, old_swapchain: SwapchainKHR) -> Self {
+        self.old_swapchain = old_swapchain;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PresentInfoKHR<'a> {
@@ -82,6 +145,28 @@ impl Default for PresentInfoKHR<'_> {
         }
     }
 }
+impl<'a> PresentInfoKHR<'a> {
+    pub fn wait_semaphores(mut self, wait_semaphores: &'a [Semaphore]) -> Self {
+        self.wait_semaphore_count = wait_semaphores.len().try_into().unwrap();
+        self.p_wait_semaphores = wait_semaphores.as_ptr();
+        self
+    }
+    pub fn swapchains(mut self, swapchains: &'a [SwapchainKHR]) -> Self {
+        self.swapchain_count = swapchains.len().try_into().unwrap();
+        self.p_swapchains = swapchains.as_ptr();
+        self
+    }
+    pub fn image_indices(mut self, image_indices: &'a [u32]) -> Self {
+        self.swapchain_count = image_indices.len().try_into().unwrap();
+        self.p_image_indices = image_indices.as_ptr();
+        self
+    }
+    pub fn results(mut self, results: &'a mut [Result]) -> Self {
+        self.swapchain_count = results.len().try_into().unwrap();
+        self.p_results = results.as_mut_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DeviceGroupPresentCapabilitiesKHR<'a> {
@@ -102,6 +187,16 @@ impl Default for DeviceGroupPresentCapabilitiesKHR<'_> {
         }
     }
 }
+impl<'a> DeviceGroupPresentCapabilitiesKHR<'a> {
+    pub fn present_mask(mut self, present_mask: [u32; MAX_DEVICE_GROUP_SIZE as usize]) -> Self {
+        self.present_mask = present_mask;
+        self
+    }
+    pub fn modes(mut self, modes: DeviceGroupPresentModeFlagsKHR) -> Self {
+        self.modes = modes;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ImageSwapchainCreateInfoKHR<'a> {
@@ -118,6 +213,12 @@ impl Default for ImageSwapchainCreateInfoKHR<'_> {
             swapchain: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ImageSwapchainCreateInfoKHR<'a> {
+    pub fn swapchain(mut self, swapchain: SwapchainKHR) -> Self {
+        self.swapchain = swapchain;
+        self
     }
 }
 #[repr(C)]
@@ -138,6 +239,16 @@ impl Default for BindImageMemorySwapchainInfoKHR<'_> {
             image_index: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> BindImageMemorySwapchainInfoKHR<'a> {
+    pub fn swapchain(mut self, swapchain: SwapchainKHR) -> Self {
+        self.swapchain = swapchain;
+        self
+    }
+    pub fn image_index(mut self, image_index: u32) -> Self {
+        self.image_index = image_index;
+        self
     }
 }
 #[repr(C)]
@@ -166,6 +277,28 @@ impl Default for AcquireNextImageInfoKHR<'_> {
         }
     }
 }
+impl<'a> AcquireNextImageInfoKHR<'a> {
+    pub fn swapchain(mut self, swapchain: SwapchainKHR) -> Self {
+        self.swapchain = swapchain;
+        self
+    }
+    pub fn timeout(mut self, timeout: u64) -> Self {
+        self.timeout = timeout;
+        self
+    }
+    pub fn semaphore(mut self, semaphore: Semaphore) -> Self {
+        self.semaphore = semaphore;
+        self
+    }
+    pub fn fence(mut self, fence: Fence) -> Self {
+        self.fence = fence;
+        self
+    }
+    pub fn device_mask(mut self, device_mask: u32) -> Self {
+        self.device_mask = device_mask;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DeviceGroupPresentInfoKHR<'a> {
@@ -188,6 +321,17 @@ impl Default for DeviceGroupPresentInfoKHR<'_> {
         }
     }
 }
+impl<'a> DeviceGroupPresentInfoKHR<'a> {
+    pub fn device_masks(mut self, device_masks: &'a [u32]) -> Self {
+        self.swapchain_count = device_masks.len().try_into().unwrap();
+        self.p_device_masks = device_masks.as_ptr();
+        self
+    }
+    pub fn mode(mut self, mode: DeviceGroupPresentModeFlagBitsKHR) -> Self {
+        self.mode = mode;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DeviceGroupSwapchainCreateInfoKHR<'a> {
@@ -204,6 +348,12 @@ impl Default for DeviceGroupSwapchainCreateInfoKHR<'_> {
             modes: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DeviceGroupSwapchainCreateInfoKHR<'a> {
+    pub fn modes(mut self, modes: DeviceGroupPresentModeFlagsKHR) -> Self {
+        self.modes = modes;
+        self
     }
 }
 bitflags! {

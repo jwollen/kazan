@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,6 +23,16 @@ impl Default for PresentWait2InfoKHR<'_> {
         }
     }
 }
+impl<'a> PresentWait2InfoKHR<'a> {
+    pub fn present_id(mut self, present_id: u64) -> Self {
+        self.present_id = present_id;
+        self
+    }
+    pub fn timeout(mut self, timeout: u64) -> Self {
+        self.timeout = timeout;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDevicePresentWait2FeaturesKHR<'a> {
@@ -41,6 +51,12 @@ impl Default for PhysicalDevicePresentWait2FeaturesKHR<'_> {
         }
     }
 }
+impl<'a> PhysicalDevicePresentWait2FeaturesKHR<'a> {
+    pub fn present_wait2(mut self, present_wait2: Bool32) -> Self {
+        self.present_wait2 = present_wait2;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SurfaceCapabilitiesPresentWait2KHR<'a> {
@@ -57,6 +73,12 @@ impl Default for SurfaceCapabilitiesPresentWait2KHR<'_> {
             present_wait2_supported: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SurfaceCapabilitiesPresentWait2KHR<'a> {
+    pub fn present_wait2_supported(mut self, present_wait2_supported: Bool32) -> Self {
+        self.present_wait2_supported = present_wait2_supported;
+        self
     }
 }
 pub type PFN_vkWaitForPresent2KHR = unsafe extern "system" fn(

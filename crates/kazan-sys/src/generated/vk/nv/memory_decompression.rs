@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub type PhysicalDeviceMemoryDecompressionFeaturesNV<'a> =
     PhysicalDeviceMemoryDecompressionFeaturesEXT<'a>;
@@ -16,6 +16,31 @@ pub struct DecompressMemoryRegionNV {
     pub compressed_size: DeviceSize,
     pub decompressed_size: DeviceSize,
     pub decompression_method: MemoryDecompressionMethodFlagsNV,
+}
+impl DecompressMemoryRegionNV {
+    pub fn src_address(mut self, src_address: DeviceAddress) -> Self {
+        self.src_address = src_address;
+        self
+    }
+    pub fn dst_address(mut self, dst_address: DeviceAddress) -> Self {
+        self.dst_address = dst_address;
+        self
+    }
+    pub fn compressed_size(mut self, compressed_size: DeviceSize) -> Self {
+        self.compressed_size = compressed_size;
+        self
+    }
+    pub fn decompressed_size(mut self, decompressed_size: DeviceSize) -> Self {
+        self.decompressed_size = decompressed_size;
+        self
+    }
+    pub fn decompression_method(
+        mut self,
+        decompression_method: MemoryDecompressionMethodFlagsNV,
+    ) -> Self {
+        self.decompression_method = decompression_method;
+        self
+    }
 }
 pub type PFN_vkCmdDecompressMemoryNV = unsafe extern "system" fn(
     command_buffer: CommandBuffer,

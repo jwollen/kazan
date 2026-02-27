@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,5 +19,14 @@ impl Default for PhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT<'_> {
             pipeline_library_group_handles: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT<'a> {
+    pub fn pipeline_library_group_handles(
+        mut self,
+        pipeline_library_group_handles: Bool32,
+    ) -> Self {
+        self.pipeline_library_group_handles = pipeline_library_group_handles;
+        self
     }
 }

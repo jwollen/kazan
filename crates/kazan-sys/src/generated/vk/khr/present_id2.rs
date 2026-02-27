@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDevicePresentId2FeaturesKHR<'_> {
             present_id2: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDevicePresentId2FeaturesKHR<'a> {
+    pub fn present_id2(mut self, present_id2: Bool32) -> Self {
+        self.present_id2 = present_id2;
+        self
     }
 }
 #[repr(C)]
@@ -41,6 +47,13 @@ impl Default for PresentId2KHR<'_> {
         }
     }
 }
+impl<'a> PresentId2KHR<'a> {
+    pub fn present_ids(mut self, present_ids: &'a [u64]) -> Self {
+        self.swapchain_count = present_ids.len().try_into().unwrap();
+        self.p_present_ids = present_ids.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SurfaceCapabilitiesPresentId2KHR<'a> {
@@ -57,5 +70,11 @@ impl Default for SurfaceCapabilitiesPresentId2KHR<'_> {
             present_id2_supported: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SurfaceCapabilitiesPresentId2KHR<'a> {
+    pub fn present_id2_supported(mut self, present_id2_supported: Bool32) -> Self {
+        self.present_id2_supported = present_id2_supported;
+        self
     }
 }

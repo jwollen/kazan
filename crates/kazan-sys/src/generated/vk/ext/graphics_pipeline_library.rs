@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'_> {
             graphics_pipeline_library: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'a> {
+    pub fn graphics_pipeline_library(mut self, graphics_pipeline_library: Bool32) -> Self {
+        self.graphics_pipeline_library = graphics_pipeline_library;
+        self
     }
 }
 #[repr(C)]
@@ -41,6 +47,23 @@ impl Default for PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'a> {
+    pub fn graphics_pipeline_library_fast_linking(
+        mut self,
+        graphics_pipeline_library_fast_linking: Bool32,
+    ) -> Self {
+        self.graphics_pipeline_library_fast_linking = graphics_pipeline_library_fast_linking;
+        self
+    }
+    pub fn graphics_pipeline_library_independent_interpolation_decoration(
+        mut self,
+        graphics_pipeline_library_independent_interpolation_decoration: Bool32,
+    ) -> Self {
+        self.graphics_pipeline_library_independent_interpolation_decoration =
+            graphics_pipeline_library_independent_interpolation_decoration;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct GraphicsPipelineLibraryCreateInfoEXT<'a> {
@@ -57,6 +80,12 @@ impl Default for GraphicsPipelineLibraryCreateInfoEXT<'_> {
             flags: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> GraphicsPipelineLibraryCreateInfoEXT<'a> {
+    pub fn flags(mut self, flags: GraphicsPipelineLibraryFlagsEXT) -> Self {
+        self.flags = flags;
+        self
     }
 }
 bitflags! {

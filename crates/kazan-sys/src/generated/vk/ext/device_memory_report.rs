@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceDeviceMemoryReportFeaturesEXT<'_> {
             device_memory_report: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceDeviceMemoryReportFeaturesEXT<'a> {
+    pub fn device_memory_report(mut self, device_memory_report: Bool32) -> Self {
+        self.device_memory_report = device_memory_report;
+        self
     }
 }
 #[repr(C)]
@@ -41,6 +47,23 @@ impl Default for DeviceDeviceMemoryReportCreateInfoEXT<'_> {
             p_user_data: core::ptr::null_mut(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DeviceDeviceMemoryReportCreateInfoEXT<'a> {
+    pub fn flags(mut self, flags: DeviceMemoryReportFlagsEXT) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn pfn_user_callback(
+        mut self,
+        pfn_user_callback: PFN_vkDeviceMemoryReportCallbackEXT,
+    ) -> Self {
+        self.pfn_user_callback = Some(pfn_user_callback);
+        self
+    }
+    pub fn user_data(mut self, user_data: &'a mut c_void) -> Self {
+        self.p_user_data = user_data;
+        self
     }
 }
 #[repr(C)]
@@ -71,6 +94,36 @@ impl Default for DeviceMemoryReportCallbackDataEXT<'_> {
             heap_index: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DeviceMemoryReportCallbackDataEXT<'a> {
+    pub fn flags(mut self, flags: DeviceMemoryReportFlagsEXT) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn ty(mut self, ty: DeviceMemoryReportEventTypeEXT) -> Self {
+        self.ty = ty;
+        self
+    }
+    pub fn memory_object_id(mut self, memory_object_id: u64) -> Self {
+        self.memory_object_id = memory_object_id;
+        self
+    }
+    pub fn size(mut self, size: DeviceSize) -> Self {
+        self.size = size;
+        self
+    }
+    pub fn object_type(mut self, object_type: ObjectType) -> Self {
+        self.object_type = object_type;
+        self
+    }
+    pub fn object_handle(mut self, object_handle: u64) -> Self {
+        self.object_handle = object_handle;
+        self
+    }
+    pub fn heap_index(mut self, heap_index: u32) -> Self {
+        self.heap_index = heap_index;
+        self
     }
 }
 #[repr(transparent)]

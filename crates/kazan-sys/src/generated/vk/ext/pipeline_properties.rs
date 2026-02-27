@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub type PipelineInfoEXT<'a> = PipelineInfoKHR<'a>;
 #[repr(C)]
@@ -22,6 +22,12 @@ impl Default for PipelinePropertiesIdentifierEXT<'_> {
         }
     }
 }
+impl<'a> PipelinePropertiesIdentifierEXT<'a> {
+    pub fn pipeline_identifier(mut self, pipeline_identifier: [u8; UUID_SIZE as usize]) -> Self {
+        self.pipeline_identifier = pipeline_identifier;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDevicePipelinePropertiesFeaturesEXT<'a> {
@@ -38,6 +44,15 @@ impl Default for PhysicalDevicePipelinePropertiesFeaturesEXT<'_> {
             pipeline_properties_identifier: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDevicePipelinePropertiesFeaturesEXT<'a> {
+    pub fn pipeline_properties_identifier(
+        mut self,
+        pipeline_properties_identifier: Bool32,
+    ) -> Self {
+        self.pipeline_properties_identifier = pipeline_properties_identifier;
+        self
     }
 }
 pub type PFN_vkGetPipelinePropertiesEXT = unsafe extern "system" fn(

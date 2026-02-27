@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,6 +23,20 @@ impl Default for ScreenSurfaceCreateInfoQNX<'_> {
             window: core::ptr::null_mut(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ScreenSurfaceCreateInfoQNX<'a> {
+    pub fn flags(mut self, flags: ScreenSurfaceCreateFlagsQNX) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn context(mut self, context: *mut _screen_context) -> Self {
+        self.context = context;
+        self
+    }
+    pub fn window(mut self, window: *mut _screen_window) -> Self {
+        self.window = window;
+        self
     }
 }
 bitflags! {

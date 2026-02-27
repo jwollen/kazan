@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for SurfaceFullScreenExclusiveInfoEXT<'_> {
             full_screen_exclusive: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SurfaceFullScreenExclusiveInfoEXT<'a> {
+    pub fn full_screen_exclusive(mut self, full_screen_exclusive: FullScreenExclusiveEXT) -> Self {
+        self.full_screen_exclusive = full_screen_exclusive;
+        self
     }
 }
 #[repr(C)]
@@ -39,6 +45,12 @@ impl Default for SurfaceFullScreenExclusiveWin32InfoEXT<'_> {
         }
     }
 }
+impl<'a> SurfaceFullScreenExclusiveWin32InfoEXT<'a> {
+    pub fn hmonitor(mut self, hmonitor: HMONITOR) -> Self {
+        self.hmonitor = hmonitor;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SurfaceCapabilitiesFullScreenExclusiveEXT<'a> {
@@ -55,6 +67,15 @@ impl Default for SurfaceCapabilitiesFullScreenExclusiveEXT<'_> {
             full_screen_exclusive_supported: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SurfaceCapabilitiesFullScreenExclusiveEXT<'a> {
+    pub fn full_screen_exclusive_supported(
+        mut self,
+        full_screen_exclusive_supported: Bool32,
+    ) -> Self {
+        self.full_screen_exclusive_supported = full_screen_exclusive_supported;
+        self
     }
 }
 #[repr(transparent)]

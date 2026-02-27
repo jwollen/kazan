@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -27,6 +27,19 @@ impl Default for PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT<'_> {
             dynamic_generated_pipeline_layout: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT<'a> {
+    pub fn device_generated_commands(mut self, device_generated_commands: Bool32) -> Self {
+        self.device_generated_commands = device_generated_commands;
+        self
+    }
+    pub fn dynamic_generated_pipeline_layout(
+        mut self,
+        dynamic_generated_pipeline_layout: Bool32,
+    ) -> Self {
+        self.dynamic_generated_pipeline_layout = dynamic_generated_pipeline_layout;
+        self
     }
 }
 #[repr(C)]
@@ -69,6 +82,90 @@ impl Default for PhysicalDeviceDeviceGeneratedCommandsPropertiesEXT<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceDeviceGeneratedCommandsPropertiesEXT<'a> {
+    pub fn max_indirect_pipeline_count(mut self, max_indirect_pipeline_count: u32) -> Self {
+        self.max_indirect_pipeline_count = max_indirect_pipeline_count;
+        self
+    }
+    pub fn max_indirect_shader_object_count(
+        mut self,
+        max_indirect_shader_object_count: u32,
+    ) -> Self {
+        self.max_indirect_shader_object_count = max_indirect_shader_object_count;
+        self
+    }
+    pub fn max_indirect_sequence_count(mut self, max_indirect_sequence_count: u32) -> Self {
+        self.max_indirect_sequence_count = max_indirect_sequence_count;
+        self
+    }
+    pub fn max_indirect_commands_token_count(
+        mut self,
+        max_indirect_commands_token_count: u32,
+    ) -> Self {
+        self.max_indirect_commands_token_count = max_indirect_commands_token_count;
+        self
+    }
+    pub fn max_indirect_commands_token_offset(
+        mut self,
+        max_indirect_commands_token_offset: u32,
+    ) -> Self {
+        self.max_indirect_commands_token_offset = max_indirect_commands_token_offset;
+        self
+    }
+    pub fn max_indirect_commands_indirect_stride(
+        mut self,
+        max_indirect_commands_indirect_stride: u32,
+    ) -> Self {
+        self.max_indirect_commands_indirect_stride = max_indirect_commands_indirect_stride;
+        self
+    }
+    pub fn supported_indirect_commands_input_modes(
+        mut self,
+        supported_indirect_commands_input_modes: IndirectCommandsInputModeFlagsEXT,
+    ) -> Self {
+        self.supported_indirect_commands_input_modes = supported_indirect_commands_input_modes;
+        self
+    }
+    pub fn supported_indirect_commands_shader_stages(
+        mut self,
+        supported_indirect_commands_shader_stages: ShaderStageFlags,
+    ) -> Self {
+        self.supported_indirect_commands_shader_stages = supported_indirect_commands_shader_stages;
+        self
+    }
+    pub fn supported_indirect_commands_shader_stages_pipeline_binding(
+        mut self,
+        supported_indirect_commands_shader_stages_pipeline_binding: ShaderStageFlags,
+    ) -> Self {
+        self.supported_indirect_commands_shader_stages_pipeline_binding =
+            supported_indirect_commands_shader_stages_pipeline_binding;
+        self
+    }
+    pub fn supported_indirect_commands_shader_stages_shader_binding(
+        mut self,
+        supported_indirect_commands_shader_stages_shader_binding: ShaderStageFlags,
+    ) -> Self {
+        self.supported_indirect_commands_shader_stages_shader_binding =
+            supported_indirect_commands_shader_stages_shader_binding;
+        self
+    }
+    pub fn device_generated_commands_transform_feedback(
+        mut self,
+        device_generated_commands_transform_feedback: Bool32,
+    ) -> Self {
+        self.device_generated_commands_transform_feedback =
+            device_generated_commands_transform_feedback;
+        self
+    }
+    pub fn device_generated_commands_multi_draw_indirect_count(
+        mut self,
+        device_generated_commands_multi_draw_indirect_count: Bool32,
+    ) -> Self {
+        self.device_generated_commands_multi_draw_indirect_count =
+            device_generated_commands_multi_draw_indirect_count;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct GeneratedCommandsPipelineInfoEXT<'a> {
@@ -85,6 +182,12 @@ impl Default for GeneratedCommandsPipelineInfoEXT<'_> {
             pipeline: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> GeneratedCommandsPipelineInfoEXT<'a> {
+    pub fn pipeline(mut self, pipeline: Pipeline) -> Self {
+        self.pipeline = pipeline;
+        self
     }
 }
 #[repr(C)]
@@ -105,6 +208,13 @@ impl Default for GeneratedCommandsShaderInfoEXT<'_> {
             p_shaders: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> GeneratedCommandsShaderInfoEXT<'a> {
+    pub fn shaders(mut self, shaders: &'a [ShaderEXT]) -> Self {
+        self.shader_count = shaders.len().try_into().unwrap();
+        self.p_shaders = shaders.as_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -131,6 +241,30 @@ impl Default for GeneratedCommandsMemoryRequirementsInfoEXT<'_> {
         }
     }
 }
+impl<'a> GeneratedCommandsMemoryRequirementsInfoEXT<'a> {
+    pub fn indirect_execution_set(
+        mut self,
+        indirect_execution_set: IndirectExecutionSetEXT,
+    ) -> Self {
+        self.indirect_execution_set = indirect_execution_set;
+        self
+    }
+    pub fn indirect_commands_layout(
+        mut self,
+        indirect_commands_layout: IndirectCommandsLayoutEXT,
+    ) -> Self {
+        self.indirect_commands_layout = indirect_commands_layout;
+        self
+    }
+    pub fn max_sequence_count(mut self, max_sequence_count: u32) -> Self {
+        self.max_sequence_count = max_sequence_count;
+        self
+    }
+    pub fn max_draw_count(mut self, max_draw_count: u32) -> Self {
+        self.max_draw_count = max_draw_count;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct IndirectExecutionSetPipelineInfoEXT<'a> {
@@ -151,6 +285,16 @@ impl Default for IndirectExecutionSetPipelineInfoEXT<'_> {
         }
     }
 }
+impl<'a> IndirectExecutionSetPipelineInfoEXT<'a> {
+    pub fn initial_pipeline(mut self, initial_pipeline: Pipeline) -> Self {
+        self.initial_pipeline = initial_pipeline;
+        self
+    }
+    pub fn max_pipeline_count(mut self, max_pipeline_count: u32) -> Self {
+        self.max_pipeline_count = max_pipeline_count;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct IndirectExecutionSetShaderLayoutInfoEXT<'a> {
@@ -169,6 +313,13 @@ impl Default for IndirectExecutionSetShaderLayoutInfoEXT<'_> {
             p_set_layouts: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> IndirectExecutionSetShaderLayoutInfoEXT<'a> {
+    pub fn set_layouts(mut self, set_layouts: &'a [DescriptorSetLayout]) -> Self {
+        self.set_layout_count = set_layouts.len().try_into().unwrap();
+        self.p_set_layouts = set_layouts.as_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -199,6 +350,30 @@ impl Default for IndirectExecutionSetShaderInfoEXT<'_> {
         }
     }
 }
+impl<'a> IndirectExecutionSetShaderInfoEXT<'a> {
+    pub fn initial_shaders(mut self, initial_shaders: &'a [ShaderEXT]) -> Self {
+        self.shader_count = initial_shaders.len().try_into().unwrap();
+        self.p_initial_shaders = initial_shaders.as_ptr();
+        self
+    }
+    pub fn set_layout_infos(
+        mut self,
+        set_layout_infos: &'a [IndirectExecutionSetShaderLayoutInfoEXT<'a>],
+    ) -> Self {
+        self.shader_count = set_layout_infos.len().try_into().unwrap();
+        self.p_set_layout_infos = set_layout_infos.as_ptr();
+        self
+    }
+    pub fn max_shader_count(mut self, max_shader_count: u32) -> Self {
+        self.max_shader_count = max_shader_count;
+        self
+    }
+    pub fn push_constant_ranges(mut self, push_constant_ranges: &'a [PushConstantRange]) -> Self {
+        self.push_constant_range_count = push_constant_ranges.len().try_into().unwrap();
+        self.p_push_constant_ranges = push_constant_ranges.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct IndirectExecutionSetCreateInfoEXT<'a> {
@@ -217,6 +392,16 @@ impl Default for IndirectExecutionSetCreateInfoEXT<'_> {
             info: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> IndirectExecutionSetCreateInfoEXT<'a> {
+    pub fn ty(mut self, ty: IndirectExecutionSetInfoTypeEXT) -> Self {
+        self.ty = ty;
+        self
+    }
+    pub fn info(mut self, info: IndirectExecutionSetInfoEXT<'a>) -> Self {
+        self.info = info;
+        self
     }
 }
 #[repr(C)]
@@ -255,6 +440,54 @@ impl Default for GeneratedCommandsInfoEXT<'_> {
         }
     }
 }
+impl<'a> GeneratedCommandsInfoEXT<'a> {
+    pub fn shader_stages(mut self, shader_stages: ShaderStageFlags) -> Self {
+        self.shader_stages = shader_stages;
+        self
+    }
+    pub fn indirect_execution_set(
+        mut self,
+        indirect_execution_set: IndirectExecutionSetEXT,
+    ) -> Self {
+        self.indirect_execution_set = indirect_execution_set;
+        self
+    }
+    pub fn indirect_commands_layout(
+        mut self,
+        indirect_commands_layout: IndirectCommandsLayoutEXT,
+    ) -> Self {
+        self.indirect_commands_layout = indirect_commands_layout;
+        self
+    }
+    pub fn indirect_address(mut self, indirect_address: DeviceAddress) -> Self {
+        self.indirect_address = indirect_address;
+        self
+    }
+    pub fn indirect_address_size(mut self, indirect_address_size: DeviceSize) -> Self {
+        self.indirect_address_size = indirect_address_size;
+        self
+    }
+    pub fn preprocess_address(mut self, preprocess_address: DeviceAddress) -> Self {
+        self.preprocess_address = preprocess_address;
+        self
+    }
+    pub fn preprocess_size(mut self, preprocess_size: DeviceSize) -> Self {
+        self.preprocess_size = preprocess_size;
+        self
+    }
+    pub fn max_sequence_count(mut self, max_sequence_count: u32) -> Self {
+        self.max_sequence_count = max_sequence_count;
+        self
+    }
+    pub fn sequence_count_address(mut self, sequence_count_address: DeviceAddress) -> Self {
+        self.sequence_count_address = sequence_count_address;
+        self
+    }
+    pub fn max_draw_count(mut self, max_draw_count: u32) -> Self {
+        self.max_draw_count = max_draw_count;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct WriteIndirectExecutionSetPipelineEXT<'a> {
@@ -275,6 +508,16 @@ impl Default for WriteIndirectExecutionSetPipelineEXT<'_> {
         }
     }
 }
+impl<'a> WriteIndirectExecutionSetPipelineEXT<'a> {
+    pub fn index(mut self, index: u32) -> Self {
+        self.index = index;
+        self
+    }
+    pub fn pipeline(mut self, pipeline: Pipeline) -> Self {
+        self.pipeline = pipeline;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct WriteIndirectExecutionSetShaderEXT<'a> {
@@ -293,6 +536,16 @@ impl Default for WriteIndirectExecutionSetShaderEXT<'_> {
             shader: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> WriteIndirectExecutionSetShaderEXT<'a> {
+    pub fn index(mut self, index: u32) -> Self {
+        self.index = index;
+        self
+    }
+    pub fn shader(mut self, shader: ShaderEXT) -> Self {
+        self.shader = shader;
+        self
     }
 }
 #[repr(C)]
@@ -323,6 +576,29 @@ impl Default for IndirectCommandsLayoutCreateInfoEXT<'_> {
         }
     }
 }
+impl<'a> IndirectCommandsLayoutCreateInfoEXT<'a> {
+    pub fn flags(mut self, flags: IndirectCommandsLayoutUsageFlagsEXT) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn shader_stages(mut self, shader_stages: ShaderStageFlags) -> Self {
+        self.shader_stages = shader_stages;
+        self
+    }
+    pub fn indirect_stride(mut self, indirect_stride: u32) -> Self {
+        self.indirect_stride = indirect_stride;
+        self
+    }
+    pub fn pipeline_layout(mut self, pipeline_layout: PipelineLayout) -> Self {
+        self.pipeline_layout = pipeline_layout;
+        self
+    }
+    pub fn tokens(mut self, tokens: &'a [IndirectCommandsLayoutTokenEXT<'a>]) -> Self {
+        self.token_count = tokens.len().try_into().unwrap();
+        self.p_tokens = tokens.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct IndirectCommandsLayoutTokenEXT<'a> {
@@ -345,6 +621,20 @@ impl Default for IndirectCommandsLayoutTokenEXT<'_> {
         }
     }
 }
+impl<'a> IndirectCommandsLayoutTokenEXT<'a> {
+    pub fn ty(mut self, ty: IndirectCommandsTokenTypeEXT) -> Self {
+        self.ty = ty;
+        self
+    }
+    pub fn data(mut self, data: IndirectCommandsTokenDataEXT<'a>) -> Self {
+        self.data = data;
+        self
+    }
+    pub fn offset(mut self, offset: u32) -> Self {
+        self.offset = offset;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct DrawIndirectCountIndirectCommandEXT {
@@ -352,10 +642,30 @@ pub struct DrawIndirectCountIndirectCommandEXT {
     pub stride: u32,
     pub command_count: u32,
 }
+impl DrawIndirectCountIndirectCommandEXT {
+    pub fn buffer_address(mut self, buffer_address: DeviceAddress) -> Self {
+        self.buffer_address = buffer_address;
+        self
+    }
+    pub fn stride(mut self, stride: u32) -> Self {
+        self.stride = stride;
+        self
+    }
+    pub fn command_count(mut self, command_count: u32) -> Self {
+        self.command_count = command_count;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct IndirectCommandsVertexBufferTokenEXT {
     pub vertex_binding_unit: u32,
+}
+impl IndirectCommandsVertexBufferTokenEXT {
+    pub fn vertex_binding_unit(mut self, vertex_binding_unit: u32) -> Self {
+        self.vertex_binding_unit = vertex_binding_unit;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -364,10 +674,30 @@ pub struct BindVertexBufferIndirectCommandEXT {
     pub size: u32,
     pub stride: u32,
 }
+impl BindVertexBufferIndirectCommandEXT {
+    pub fn buffer_address(mut self, buffer_address: DeviceAddress) -> Self {
+        self.buffer_address = buffer_address;
+        self
+    }
+    pub fn size(mut self, size: u32) -> Self {
+        self.size = size;
+        self
+    }
+    pub fn stride(mut self, stride: u32) -> Self {
+        self.stride = stride;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct IndirectCommandsIndexBufferTokenEXT {
     pub mode: IndirectCommandsInputModeFlagBitsEXT,
+}
+impl IndirectCommandsIndexBufferTokenEXT {
+    pub fn mode(mut self, mode: IndirectCommandsInputModeFlagBitsEXT) -> Self {
+        self.mode = mode;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -376,16 +706,46 @@ pub struct BindIndexBufferIndirectCommandEXT {
     pub size: u32,
     pub index_type: IndexType,
 }
+impl BindIndexBufferIndirectCommandEXT {
+    pub fn buffer_address(mut self, buffer_address: DeviceAddress) -> Self {
+        self.buffer_address = buffer_address;
+        self
+    }
+    pub fn size(mut self, size: u32) -> Self {
+        self.size = size;
+        self
+    }
+    pub fn index_type(mut self, index_type: IndexType) -> Self {
+        self.index_type = index_type;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct IndirectCommandsPushConstantTokenEXT {
     pub update_range: PushConstantRange,
+}
+impl IndirectCommandsPushConstantTokenEXT {
+    pub fn update_range(mut self, update_range: PushConstantRange) -> Self {
+        self.update_range = update_range;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct IndirectCommandsExecutionSetTokenEXT {
     pub ty: IndirectExecutionSetInfoTypeEXT,
     pub shader_stages: ShaderStageFlags,
+}
+impl IndirectCommandsExecutionSetTokenEXT {
+    pub fn ty(mut self, ty: IndirectExecutionSetInfoTypeEXT) -> Self {
+        self.ty = ty;
+        self
+    }
+    pub fn shader_stages(mut self, shader_stages: ShaderStageFlags) -> Self {
+        self.shader_stages = shader_stages;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -22,6 +22,12 @@ impl Default for PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'_> {
             device_generated_commands: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'a> {
+    pub fn device_generated_commands(mut self, device_generated_commands: Bool32) -> Self {
+        self.device_generated_commands = device_generated_commands;
+        self
     }
 }
 #[repr(C)]
@@ -58,6 +64,68 @@ impl Default for PhysicalDeviceDeviceGeneratedCommandsPropertiesNV<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceDeviceGeneratedCommandsPropertiesNV<'a> {
+    pub fn max_graphics_shader_group_count(mut self, max_graphics_shader_group_count: u32) -> Self {
+        self.max_graphics_shader_group_count = max_graphics_shader_group_count;
+        self
+    }
+    pub fn max_indirect_sequence_count(mut self, max_indirect_sequence_count: u32) -> Self {
+        self.max_indirect_sequence_count = max_indirect_sequence_count;
+        self
+    }
+    pub fn max_indirect_commands_token_count(
+        mut self,
+        max_indirect_commands_token_count: u32,
+    ) -> Self {
+        self.max_indirect_commands_token_count = max_indirect_commands_token_count;
+        self
+    }
+    pub fn max_indirect_commands_stream_count(
+        mut self,
+        max_indirect_commands_stream_count: u32,
+    ) -> Self {
+        self.max_indirect_commands_stream_count = max_indirect_commands_stream_count;
+        self
+    }
+    pub fn max_indirect_commands_token_offset(
+        mut self,
+        max_indirect_commands_token_offset: u32,
+    ) -> Self {
+        self.max_indirect_commands_token_offset = max_indirect_commands_token_offset;
+        self
+    }
+    pub fn max_indirect_commands_stream_stride(
+        mut self,
+        max_indirect_commands_stream_stride: u32,
+    ) -> Self {
+        self.max_indirect_commands_stream_stride = max_indirect_commands_stream_stride;
+        self
+    }
+    pub fn min_sequences_count_buffer_offset_alignment(
+        mut self,
+        min_sequences_count_buffer_offset_alignment: u32,
+    ) -> Self {
+        self.min_sequences_count_buffer_offset_alignment =
+            min_sequences_count_buffer_offset_alignment;
+        self
+    }
+    pub fn min_sequences_index_buffer_offset_alignment(
+        mut self,
+        min_sequences_index_buffer_offset_alignment: u32,
+    ) -> Self {
+        self.min_sequences_index_buffer_offset_alignment =
+            min_sequences_index_buffer_offset_alignment;
+        self
+    }
+    pub fn min_indirect_commands_buffer_offset_alignment(
+        mut self,
+        min_indirect_commands_buffer_offset_alignment: u32,
+    ) -> Self {
+        self.min_indirect_commands_buffer_offset_alignment =
+            min_indirect_commands_buffer_offset_alignment;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct GraphicsShaderGroupCreateInfoNV<'a> {
@@ -80,6 +148,27 @@ impl Default for GraphicsShaderGroupCreateInfoNV<'_> {
             p_tessellation_state: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> GraphicsShaderGroupCreateInfoNV<'a> {
+    pub fn stages(mut self, stages: &'a [PipelineShaderStageCreateInfo<'a>]) -> Self {
+        self.stage_count = stages.len().try_into().unwrap();
+        self.p_stages = stages.as_ptr();
+        self
+    }
+    pub fn vertex_input_state(
+        mut self,
+        vertex_input_state: &'a PipelineVertexInputStateCreateInfo<'a>,
+    ) -> Self {
+        self.p_vertex_input_state = vertex_input_state;
+        self
+    }
+    pub fn tessellation_state(
+        mut self,
+        tessellation_state: &'a PipelineTessellationStateCreateInfo<'a>,
+    ) -> Self {
+        self.p_tessellation_state = tessellation_state;
+        self
     }
 }
 #[repr(C)]
@@ -106,10 +195,28 @@ impl Default for GraphicsPipelineShaderGroupsCreateInfoNV<'_> {
         }
     }
 }
+impl<'a> GraphicsPipelineShaderGroupsCreateInfoNV<'a> {
+    pub fn groups(mut self, groups: &'a [GraphicsShaderGroupCreateInfoNV<'a>]) -> Self {
+        self.group_count = groups.len().try_into().unwrap();
+        self.p_groups = groups.as_ptr();
+        self
+    }
+    pub fn pipelines(mut self, pipelines: &'a [Pipeline]) -> Self {
+        self.pipeline_count = pipelines.len().try_into().unwrap();
+        self.p_pipelines = pipelines.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct BindShaderGroupIndirectCommandNV {
     pub group_index: u32,
+}
+impl BindShaderGroupIndirectCommandNV {
+    pub fn group_index(mut self, group_index: u32) -> Self {
+        self.group_index = group_index;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -118,6 +225,20 @@ pub struct BindIndexBufferIndirectCommandNV {
     pub size: u32,
     pub index_type: IndexType,
 }
+impl BindIndexBufferIndirectCommandNV {
+    pub fn buffer_address(mut self, buffer_address: DeviceAddress) -> Self {
+        self.buffer_address = buffer_address;
+        self
+    }
+    pub fn size(mut self, size: u32) -> Self {
+        self.size = size;
+        self
+    }
+    pub fn index_type(mut self, index_type: IndexType) -> Self {
+        self.index_type = index_type;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct BindVertexBufferIndirectCommandNV {
@@ -125,16 +246,46 @@ pub struct BindVertexBufferIndirectCommandNV {
     pub size: u32,
     pub stride: u32,
 }
+impl BindVertexBufferIndirectCommandNV {
+    pub fn buffer_address(mut self, buffer_address: DeviceAddress) -> Self {
+        self.buffer_address = buffer_address;
+        self
+    }
+    pub fn size(mut self, size: u32) -> Self {
+        self.size = size;
+        self
+    }
+    pub fn stride(mut self, stride: u32) -> Self {
+        self.stride = stride;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct SetStateFlagsIndirectCommandNV {
     pub data: u32,
+}
+impl SetStateFlagsIndirectCommandNV {
+    pub fn data(mut self, data: u32) -> Self {
+        self.data = data;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct IndirectCommandsStreamNV {
     pub buffer: Buffer,
     pub offset: DeviceSize,
+}
+impl IndirectCommandsStreamNV {
+    pub fn buffer(mut self, buffer: Buffer) -> Self {
+        self.buffer = buffer;
+        self
+    }
+    pub fn offset(mut self, offset: DeviceSize) -> Self {
+        self.offset = offset;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -178,6 +329,64 @@ impl Default for IndirectCommandsLayoutTokenNV<'_> {
         }
     }
 }
+impl<'a> IndirectCommandsLayoutTokenNV<'a> {
+    pub fn token_type(mut self, token_type: IndirectCommandsTokenTypeNV) -> Self {
+        self.token_type = token_type;
+        self
+    }
+    pub fn stream(mut self, stream: u32) -> Self {
+        self.stream = stream;
+        self
+    }
+    pub fn offset(mut self, offset: u32) -> Self {
+        self.offset = offset;
+        self
+    }
+    pub fn vertex_binding_unit(mut self, vertex_binding_unit: u32) -> Self {
+        self.vertex_binding_unit = vertex_binding_unit;
+        self
+    }
+    pub fn vertex_dynamic_stride(mut self, vertex_dynamic_stride: Bool32) -> Self {
+        self.vertex_dynamic_stride = vertex_dynamic_stride;
+        self
+    }
+    pub fn pushconstant_pipeline_layout(
+        mut self,
+        pushconstant_pipeline_layout: PipelineLayout,
+    ) -> Self {
+        self.pushconstant_pipeline_layout = pushconstant_pipeline_layout;
+        self
+    }
+    pub fn pushconstant_shader_stage_flags(
+        mut self,
+        pushconstant_shader_stage_flags: ShaderStageFlags,
+    ) -> Self {
+        self.pushconstant_shader_stage_flags = pushconstant_shader_stage_flags;
+        self
+    }
+    pub fn pushconstant_offset(mut self, pushconstant_offset: u32) -> Self {
+        self.pushconstant_offset = pushconstant_offset;
+        self
+    }
+    pub fn pushconstant_size(mut self, pushconstant_size: u32) -> Self {
+        self.pushconstant_size = pushconstant_size;
+        self
+    }
+    pub fn indirect_state_flags(mut self, indirect_state_flags: IndirectStateFlagsNV) -> Self {
+        self.indirect_state_flags = indirect_state_flags;
+        self
+    }
+    pub fn index_types(mut self, index_types: &'a [IndexType]) -> Self {
+        self.index_type_count = index_types.len().try_into().unwrap();
+        self.p_index_types = index_types.as_ptr();
+        self
+    }
+    pub fn index_type_values(mut self, index_type_values: &'a [u32]) -> Self {
+        self.index_type_count = index_type_values.len().try_into().unwrap();
+        self.p_index_type_values = index_type_values.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct IndirectCommandsLayoutCreateInfoNV<'a> {
@@ -204,6 +413,26 @@ impl Default for IndirectCommandsLayoutCreateInfoNV<'_> {
             p_stream_strides: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> IndirectCommandsLayoutCreateInfoNV<'a> {
+    pub fn flags(mut self, flags: IndirectCommandsLayoutUsageFlagsNV) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn pipeline_bind_point(mut self, pipeline_bind_point: PipelineBindPoint) -> Self {
+        self.pipeline_bind_point = pipeline_bind_point;
+        self
+    }
+    pub fn tokens(mut self, tokens: &'a [IndirectCommandsLayoutTokenNV<'a>]) -> Self {
+        self.token_count = tokens.len().try_into().unwrap();
+        self.p_tokens = tokens.as_ptr();
+        self
+    }
+    pub fn stream_strides(mut self, stream_strides: &'a [u32]) -> Self {
+        self.stream_count = stream_strides.len().try_into().unwrap();
+        self.p_stream_strides = stream_strides.as_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -248,6 +477,60 @@ impl Default for GeneratedCommandsInfoNV<'_> {
         }
     }
 }
+impl<'a> GeneratedCommandsInfoNV<'a> {
+    pub fn pipeline_bind_point(mut self, pipeline_bind_point: PipelineBindPoint) -> Self {
+        self.pipeline_bind_point = pipeline_bind_point;
+        self
+    }
+    pub fn pipeline(mut self, pipeline: Pipeline) -> Self {
+        self.pipeline = pipeline;
+        self
+    }
+    pub fn indirect_commands_layout(
+        mut self,
+        indirect_commands_layout: IndirectCommandsLayoutNV,
+    ) -> Self {
+        self.indirect_commands_layout = indirect_commands_layout;
+        self
+    }
+    pub fn streams(mut self, streams: &'a [IndirectCommandsStreamNV]) -> Self {
+        self.stream_count = streams.len().try_into().unwrap();
+        self.p_streams = streams.as_ptr();
+        self
+    }
+    pub fn sequences_count(mut self, sequences_count: u32) -> Self {
+        self.sequences_count = sequences_count;
+        self
+    }
+    pub fn preprocess_buffer(mut self, preprocess_buffer: Buffer) -> Self {
+        self.preprocess_buffer = preprocess_buffer;
+        self
+    }
+    pub fn preprocess_offset(mut self, preprocess_offset: DeviceSize) -> Self {
+        self.preprocess_offset = preprocess_offset;
+        self
+    }
+    pub fn preprocess_size(mut self, preprocess_size: DeviceSize) -> Self {
+        self.preprocess_size = preprocess_size;
+        self
+    }
+    pub fn sequences_count_buffer(mut self, sequences_count_buffer: Buffer) -> Self {
+        self.sequences_count_buffer = sequences_count_buffer;
+        self
+    }
+    pub fn sequences_count_offset(mut self, sequences_count_offset: DeviceSize) -> Self {
+        self.sequences_count_offset = sequences_count_offset;
+        self
+    }
+    pub fn sequences_index_buffer(mut self, sequences_index_buffer: Buffer) -> Self {
+        self.sequences_index_buffer = sequences_index_buffer;
+        self
+    }
+    pub fn sequences_index_offset(mut self, sequences_index_offset: DeviceSize) -> Self {
+        self.sequences_index_offset = sequences_index_offset;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct GeneratedCommandsMemoryRequirementsInfoNV<'a> {
@@ -270,6 +553,27 @@ impl Default for GeneratedCommandsMemoryRequirementsInfoNV<'_> {
             max_sequences_count: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> GeneratedCommandsMemoryRequirementsInfoNV<'a> {
+    pub fn pipeline_bind_point(mut self, pipeline_bind_point: PipelineBindPoint) -> Self {
+        self.pipeline_bind_point = pipeline_bind_point;
+        self
+    }
+    pub fn pipeline(mut self, pipeline: Pipeline) -> Self {
+        self.pipeline = pipeline;
+        self
+    }
+    pub fn indirect_commands_layout(
+        mut self,
+        indirect_commands_layout: IndirectCommandsLayoutNV,
+    ) -> Self {
+        self.indirect_commands_layout = indirect_commands_layout;
+        self
+    }
+    pub fn max_sequences_count(mut self, max_sequences_count: u32) -> Self {
+        self.max_sequences_count = max_sequences_count;
+        self
     }
 }
 #[repr(transparent)]

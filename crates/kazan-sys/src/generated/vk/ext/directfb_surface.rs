@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,6 +23,20 @@ impl Default for DirectFBSurfaceCreateInfoEXT<'_> {
             surface: core::ptr::null_mut(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DirectFBSurfaceCreateInfoEXT<'a> {
+    pub fn flags(mut self, flags: DirectFBSurfaceCreateFlagsEXT) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn dfb(mut self, dfb: *mut IDirectFB) -> Self {
+        self.dfb = dfb;
+        self
+    }
+    pub fn surface(mut self, surface: *mut IDirectFBSurface) -> Self {
+        self.surface = surface;
+        self
     }
 }
 bitflags! {

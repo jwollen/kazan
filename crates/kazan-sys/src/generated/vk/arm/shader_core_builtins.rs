@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -25,6 +25,20 @@ impl Default for PhysicalDeviceShaderCoreBuiltinsPropertiesARM<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceShaderCoreBuiltinsPropertiesARM<'a> {
+    pub fn shader_core_mask(mut self, shader_core_mask: u64) -> Self {
+        self.shader_core_mask = shader_core_mask;
+        self
+    }
+    pub fn shader_core_count(mut self, shader_core_count: u32) -> Self {
+        self.shader_core_count = shader_core_count;
+        self
+    }
+    pub fn shader_warps_per_core(mut self, shader_warps_per_core: u32) -> Self {
+        self.shader_warps_per_core = shader_warps_per_core;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderCoreBuiltinsFeaturesARM<'a> {
@@ -41,5 +55,11 @@ impl Default for PhysicalDeviceShaderCoreBuiltinsFeaturesARM<'_> {
             shader_core_builtins: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceShaderCoreBuiltinsFeaturesARM<'a> {
+    pub fn shader_core_builtins(mut self, shader_core_builtins: Bool32) -> Self {
+        self.shader_core_builtins = shader_core_builtins;
+        self
     }
 }

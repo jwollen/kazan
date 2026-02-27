@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub const REMAINING_3D_SLICES_EXT: u32 = !0;
 #[repr(C)]
@@ -24,6 +24,16 @@ impl Default for ImageViewSlicedCreateInfoEXT<'_> {
         }
     }
 }
+impl<'a> ImageViewSlicedCreateInfoEXT<'a> {
+    pub fn slice_offset(mut self, slice_offset: u32) -> Self {
+        self.slice_offset = slice_offset;
+        self
+    }
+    pub fn slice_count(mut self, slice_count: u32) -> Self {
+        self.slice_count = slice_count;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceImageSlicedViewOf3DFeaturesEXT<'a> {
@@ -40,5 +50,11 @@ impl Default for PhysicalDeviceImageSlicedViewOf3DFeaturesEXT<'_> {
             image_sliced_view_of3_d: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceImageSlicedViewOf3DFeaturesEXT<'a> {
+    pub fn image_sliced_view_of3_d(mut self, image_sliced_view_of3_d: Bool32) -> Self {
+        self.image_sliced_view_of3_d = image_sliced_view_of3_d;
+        self
     }
 }

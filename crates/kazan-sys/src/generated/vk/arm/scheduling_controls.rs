@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for DeviceQueueShaderCoreControlCreateInfoARM<'_> {
             shader_core_count: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DeviceQueueShaderCoreControlCreateInfoARM<'a> {
+    pub fn shader_core_count(mut self, shader_core_count: u32) -> Self {
+        self.shader_core_count = shader_core_count;
+        self
     }
 }
 #[repr(C)]
@@ -39,6 +45,12 @@ impl Default for PhysicalDeviceSchedulingControlsFeaturesARM<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceSchedulingControlsFeaturesARM<'a> {
+    pub fn scheduling_controls(mut self, scheduling_controls: Bool32) -> Self {
+        self.scheduling_controls = scheduling_controls;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceSchedulingControlsPropertiesARM<'a> {
@@ -55,6 +67,15 @@ impl Default for PhysicalDeviceSchedulingControlsPropertiesARM<'_> {
             scheduling_controls_flags: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceSchedulingControlsPropertiesARM<'a> {
+    pub fn scheduling_controls_flags(
+        mut self,
+        scheduling_controls_flags: PhysicalDeviceSchedulingControlsFlagsARM,
+    ) -> Self {
+        self.scheduling_controls_flags = scheduling_controls_flags;
+        self
     }
 }
 bitflags! {

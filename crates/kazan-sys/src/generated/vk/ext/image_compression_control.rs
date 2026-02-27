@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -25,6 +25,20 @@ impl Default for ImageCompressionControlEXT<'_> {
         }
     }
 }
+impl<'a> ImageCompressionControlEXT<'a> {
+    pub fn flags(mut self, flags: ImageCompressionFlagsEXT) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn fixed_rate_flags(
+        mut self,
+        fixed_rate_flags: &'a mut [ImageCompressionFixedRateFlagsEXT],
+    ) -> Self {
+        self.compression_control_plane_count = fixed_rate_flags.len().try_into().unwrap();
+        self.p_fixed_rate_flags = fixed_rate_flags.as_mut_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceImageCompressionControlFeaturesEXT<'a> {
@@ -41,6 +55,12 @@ impl Default for PhysicalDeviceImageCompressionControlFeaturesEXT<'_> {
             image_compression_control: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceImageCompressionControlFeaturesEXT<'a> {
+    pub fn image_compression_control(mut self, image_compression_control: Bool32) -> Self {
+        self.image_compression_control = image_compression_control;
+        self
     }
 }
 #[repr(C)]
@@ -61,6 +81,22 @@ impl Default for ImageCompressionPropertiesEXT<'_> {
             image_compression_fixed_rate_flags: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ImageCompressionPropertiesEXT<'a> {
+    pub fn image_compression_flags(
+        mut self,
+        image_compression_flags: ImageCompressionFlagsEXT,
+    ) -> Self {
+        self.image_compression_flags = image_compression_flags;
+        self
+    }
+    pub fn image_compression_fixed_rate_flags(
+        mut self,
+        image_compression_fixed_rate_flags: ImageCompressionFixedRateFlagsEXT,
+    ) -> Self {
+        self.image_compression_fixed_rate_flags = image_compression_fixed_rate_flags;
+        self
     }
 }
 bitflags! {

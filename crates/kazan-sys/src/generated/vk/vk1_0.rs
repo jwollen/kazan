@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub const FALSE: u32 = 0;
 pub const LOD_CLAMP_NONE: f32 = 1000.0;
@@ -104,17 +104,29 @@ pub struct BaseOutStructure {
     pub s_type: StructureType,
     pub p_next: *mut BaseOutStructure,
 }
+impl BaseOutStructure {}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct BaseInStructure {
     pub s_type: StructureType,
     pub p_next: *const BaseInStructure,
 }
+impl BaseInStructure {}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct Offset2D {
     pub x: i32,
     pub y: i32,
+}
+impl Offset2D {
+    pub fn x(mut self, x: i32) -> Self {
+        self.x = x;
+        self
+    }
+    pub fn y(mut self, y: i32) -> Self {
+        self.y = y;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -123,11 +135,35 @@ pub struct Offset3D {
     pub y: i32,
     pub z: i32,
 }
+impl Offset3D {
+    pub fn x(mut self, x: i32) -> Self {
+        self.x = x;
+        self
+    }
+    pub fn y(mut self, y: i32) -> Self {
+        self.y = y;
+        self
+    }
+    pub fn z(mut self, z: i32) -> Self {
+        self.z = z;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct Extent2D {
     pub width: u32,
     pub height: u32,
+}
+impl Extent2D {
+    pub fn width(mut self, width: u32) -> Self {
+        self.width = width;
+        self
+    }
+    pub fn height(mut self, height: u32) -> Self {
+        self.height = height;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -135,6 +171,20 @@ pub struct Extent3D {
     pub width: u32,
     pub height: u32,
     pub depth: u32,
+}
+impl Extent3D {
+    pub fn width(mut self, width: u32) -> Self {
+        self.width = width;
+        self
+    }
+    pub fn height(mut self, height: u32) -> Self {
+        self.height = height;
+        self
+    }
+    pub fn depth(mut self, depth: u32) -> Self {
+        self.depth = depth;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -146,11 +196,47 @@ pub struct Viewport {
     pub min_depth: f32,
     pub max_depth: f32,
 }
+impl Viewport {
+    pub fn x(mut self, x: f32) -> Self {
+        self.x = x;
+        self
+    }
+    pub fn y(mut self, y: f32) -> Self {
+        self.y = y;
+        self
+    }
+    pub fn width(mut self, width: f32) -> Self {
+        self.width = width;
+        self
+    }
+    pub fn height(mut self, height: f32) -> Self {
+        self.height = height;
+        self
+    }
+    pub fn min_depth(mut self, min_depth: f32) -> Self {
+        self.min_depth = min_depth;
+        self
+    }
+    pub fn max_depth(mut self, max_depth: f32) -> Self {
+        self.max_depth = max_depth;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct Rect2D {
     pub offset: Offset2D,
     pub extent: Extent2D,
+}
+impl Rect2D {
+    pub fn offset(mut self, offset: Offset2D) -> Self {
+        self.offset = offset;
+        self
+    }
+    pub fn extent(mut self, extent: Extent2D) -> Self {
+        self.extent = extent;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -159,6 +245,20 @@ pub struct ClearRect {
     pub base_array_layer: u32,
     pub layer_count: u32,
 }
+impl ClearRect {
+    pub fn rect(mut self, rect: Rect2D) -> Self {
+        self.rect = rect;
+        self
+    }
+    pub fn base_array_layer(mut self, base_array_layer: u32) -> Self {
+        self.base_array_layer = base_array_layer;
+        self
+    }
+    pub fn layer_count(mut self, layer_count: u32) -> Self {
+        self.layer_count = layer_count;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct ComponentMapping {
@@ -166,6 +266,24 @@ pub struct ComponentMapping {
     pub g: ComponentSwizzle,
     pub b: ComponentSwizzle,
     pub a: ComponentSwizzle,
+}
+impl ComponentMapping {
+    pub fn r(mut self, r: ComponentSwizzle) -> Self {
+        self.r = r;
+        self
+    }
+    pub fn g(mut self, g: ComponentSwizzle) -> Self {
+        self.g = g;
+        self
+    }
+    pub fn b(mut self, b: ComponentSwizzle) -> Self {
+        self.b = b;
+        self
+    }
+    pub fn a(mut self, a: ComponentSwizzle) -> Self {
+        self.a = a;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -195,6 +313,40 @@ impl Default for PhysicalDeviceProperties {
         }
     }
 }
+impl PhysicalDeviceProperties {
+    pub fn api_version(mut self, api_version: u32) -> Self {
+        self.api_version = api_version;
+        self
+    }
+    pub fn driver_version(mut self, driver_version: u32) -> Self {
+        self.driver_version = driver_version;
+        self
+    }
+    pub fn vendor_id(mut self, vendor_id: u32) -> Self {
+        self.vendor_id = vendor_id;
+        self
+    }
+    pub fn device_id(mut self, device_id: u32) -> Self {
+        self.device_id = device_id;
+        self
+    }
+    pub fn device_type(mut self, device_type: PhysicalDeviceType) -> Self {
+        self.device_type = device_type;
+        self
+    }
+    pub fn pipeline_cache_uuid(mut self, pipeline_cache_uuid: [u8; UUID_SIZE as usize]) -> Self {
+        self.pipeline_cache_uuid = pipeline_cache_uuid;
+        self
+    }
+    pub fn limits(mut self, limits: PhysicalDeviceLimits) -> Self {
+        self.limits = limits;
+        self
+    }
+    pub fn sparse_properties(mut self, sparse_properties: PhysicalDeviceSparseProperties) -> Self {
+        self.sparse_properties = sparse_properties;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ExtensionProperties {
@@ -207,6 +359,12 @@ impl Default for ExtensionProperties {
             extension_name: [Default::default(); _],
             spec_version: Default::default(),
         }
+    }
+}
+impl ExtensionProperties {
+    pub fn spec_version(mut self, spec_version: u32) -> Self {
+        self.spec_version = spec_version;
+        self
     }
 }
 #[repr(C)]
@@ -225,6 +383,16 @@ impl Default for LayerProperties {
             implementation_version: Default::default(),
             description: [Default::default(); _],
         }
+    }
+}
+impl LayerProperties {
+    pub fn spec_version(mut self, spec_version: u32) -> Self {
+        self.spec_version = spec_version;
+        self
+    }
+    pub fn implementation_version(mut self, implementation_version: u32) -> Self {
+        self.implementation_version = implementation_version;
+        self
     }
 }
 #[repr(C)]
@@ -253,6 +421,20 @@ impl Default for ApplicationInfo<'_> {
         }
     }
 }
+impl<'a> ApplicationInfo<'a> {
+    pub fn application_version(mut self, application_version: u32) -> Self {
+        self.application_version = application_version;
+        self
+    }
+    pub fn engine_version(mut self, engine_version: u32) -> Self {
+        self.engine_version = engine_version;
+        self
+    }
+    pub fn api_version(mut self, api_version: u32) -> Self {
+        self.api_version = api_version;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct AllocationCallbacks<'a> {
@@ -277,6 +459,35 @@ impl Default for AllocationCallbacks<'_> {
         }
     }
 }
+impl<'a> AllocationCallbacks<'a> {
+    pub fn user_data(mut self, user_data: &'a mut c_void) -> Self {
+        self.p_user_data = user_data;
+        self
+    }
+    pub fn pfn_allocation(mut self, pfn_allocation: PFN_vkAllocationFunction) -> Self {
+        self.pfn_allocation = Some(pfn_allocation);
+        self
+    }
+    pub fn pfn_reallocation(mut self, pfn_reallocation: PFN_vkReallocationFunction) -> Self {
+        self.pfn_reallocation = Some(pfn_reallocation);
+        self
+    }
+    pub fn pfn_free(mut self, pfn_free: PFN_vkFreeFunction) -> Self {
+        self.pfn_free = Some(pfn_free);
+        self
+    }
+    pub fn pfn_internal_allocation(
+        mut self,
+        pfn_internal_allocation: PFN_vkInternalAllocationNotification,
+    ) -> Self {
+        self.pfn_internal_allocation = Some(pfn_internal_allocation);
+        self
+    }
+    pub fn pfn_internal_free(mut self, pfn_internal_free: PFN_vkInternalFreeNotification) -> Self {
+        self.pfn_internal_free = Some(pfn_internal_free);
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DeviceQueueCreateInfo<'a> {
@@ -299,6 +510,21 @@ impl Default for DeviceQueueCreateInfo<'_> {
             p_queue_priorities: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DeviceQueueCreateInfo<'a> {
+    pub fn flags(mut self, flags: DeviceQueueCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn queue_family_index(mut self, queue_family_index: u32) -> Self {
+        self.queue_family_index = queue_family_index;
+        self
+    }
+    pub fn queue_priorities(mut self, queue_priorities: &'a [f32]) -> Self {
+        self.queue_count = queue_priorities.len().try_into().unwrap();
+        self.p_queue_priorities = queue_priorities.as_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -333,6 +559,37 @@ impl Default for DeviceCreateInfo<'_> {
         }
     }
 }
+impl<'a> DeviceCreateInfo<'a> {
+    pub fn flags(mut self, flags: DeviceCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn queue_create_infos(
+        mut self,
+        queue_create_infos: &'a [DeviceQueueCreateInfo<'a>],
+    ) -> Self {
+        self.queue_create_info_count = queue_create_infos.len().try_into().unwrap();
+        self.p_queue_create_infos = queue_create_infos.as_ptr();
+        self
+    }
+    pub fn enabled_layer_names_ptrs(mut self, enabled_layer_names_ptrs: &'a [&'a CStr]) -> Self {
+        self.enabled_layer_count = enabled_layer_names_ptrs.len().try_into().unwrap();
+        self.pp_enabled_layer_names = enabled_layer_names_ptrs.as_ptr() as _;
+        self
+    }
+    pub fn enabled_extension_names_ptrs(
+        mut self,
+        enabled_extension_names_ptrs: &'a [&'a CStr],
+    ) -> Self {
+        self.enabled_extension_count = enabled_extension_names_ptrs.len().try_into().unwrap();
+        self.pp_enabled_extension_names = enabled_extension_names_ptrs.as_ptr() as _;
+        self
+    }
+    pub fn enabled_features(mut self, enabled_features: &'a PhysicalDeviceFeatures) -> Self {
+        self.p_enabled_features = enabled_features;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct InstanceCreateInfo<'a> {
@@ -361,6 +618,29 @@ impl Default for InstanceCreateInfo<'_> {
         }
     }
 }
+impl<'a> InstanceCreateInfo<'a> {
+    pub fn flags(mut self, flags: InstanceCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn application_info(mut self, application_info: &'a ApplicationInfo<'a>) -> Self {
+        self.p_application_info = application_info;
+        self
+    }
+    pub fn enabled_layer_names_ptrs(mut self, enabled_layer_names_ptrs: &'a [&'a CStr]) -> Self {
+        self.enabled_layer_count = enabled_layer_names_ptrs.len().try_into().unwrap();
+        self.pp_enabled_layer_names = enabled_layer_names_ptrs.as_ptr() as _;
+        self
+    }
+    pub fn enabled_extension_names_ptrs(
+        mut self,
+        enabled_extension_names_ptrs: &'a [&'a CStr],
+    ) -> Self {
+        self.enabled_extension_count = enabled_extension_names_ptrs.len().try_into().unwrap();
+        self.pp_enabled_extension_names = enabled_extension_names_ptrs.as_ptr() as _;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct QueueFamilyProperties {
@@ -368,6 +648,27 @@ pub struct QueueFamilyProperties {
     pub queue_count: u32,
     pub timestamp_valid_bits: u32,
     pub min_image_transfer_granularity: Extent3D,
+}
+impl QueueFamilyProperties {
+    pub fn queue_flags(mut self, queue_flags: QueueFlags) -> Self {
+        self.queue_flags = queue_flags;
+        self
+    }
+    pub fn queue_count(mut self, queue_count: u32) -> Self {
+        self.queue_count = queue_count;
+        self
+    }
+    pub fn timestamp_valid_bits(mut self, timestamp_valid_bits: u32) -> Self {
+        self.timestamp_valid_bits = timestamp_valid_bits;
+        self
+    }
+    pub fn min_image_transfer_granularity(
+        mut self,
+        min_image_transfer_granularity: Extent3D,
+    ) -> Self {
+        self.min_image_transfer_granularity = min_image_transfer_granularity;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -385,6 +686,18 @@ impl Default for PhysicalDeviceMemoryProperties {
             memory_heap_count: Default::default(),
             memory_heaps: [Default::default(); _],
         }
+    }
+}
+impl PhysicalDeviceMemoryProperties {
+    pub fn memory_types(mut self, memory_types: &[MemoryType]) -> Self {
+        self.memory_type_count = memory_types.len().try_into().unwrap();
+        self.memory_types[..memory_types.len()].copy_from_slice(memory_types);
+        self
+    }
+    pub fn memory_heaps(mut self, memory_heaps: &[MemoryHeap]) -> Self {
+        self.memory_heap_count = memory_heaps.len().try_into().unwrap();
+        self.memory_heaps[..memory_heaps.len()].copy_from_slice(memory_heaps);
+        self
     }
 }
 #[repr(C)]
@@ -407,6 +720,16 @@ impl Default for MemoryAllocateInfo<'_> {
         }
     }
 }
+impl<'a> MemoryAllocateInfo<'a> {
+    pub fn allocation_size(mut self, allocation_size: DeviceSize) -> Self {
+        self.allocation_size = allocation_size;
+        self
+    }
+    pub fn memory_type_index(mut self, memory_type_index: u32) -> Self {
+        self.memory_type_index = memory_type_index;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct MemoryRequirements {
@@ -414,12 +737,40 @@ pub struct MemoryRequirements {
     pub alignment: DeviceSize,
     pub memory_type_bits: u32,
 }
+impl MemoryRequirements {
+    pub fn size(mut self, size: DeviceSize) -> Self {
+        self.size = size;
+        self
+    }
+    pub fn alignment(mut self, alignment: DeviceSize) -> Self {
+        self.alignment = alignment;
+        self
+    }
+    pub fn memory_type_bits(mut self, memory_type_bits: u32) -> Self {
+        self.memory_type_bits = memory_type_bits;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct SparseImageFormatProperties {
     pub aspect_mask: ImageAspectFlags,
     pub image_granularity: Extent3D,
     pub flags: SparseImageFormatFlags,
+}
+impl SparseImageFormatProperties {
+    pub fn aspect_mask(mut self, aspect_mask: ImageAspectFlags) -> Self {
+        self.aspect_mask = aspect_mask;
+        self
+    }
+    pub fn image_granularity(mut self, image_granularity: Extent3D) -> Self {
+        self.image_granularity = image_granularity;
+        self
+    }
+    pub fn flags(mut self, flags: SparseImageFormatFlags) -> Self {
+        self.flags = flags;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -430,17 +781,59 @@ pub struct SparseImageMemoryRequirements {
     pub image_mip_tail_offset: DeviceSize,
     pub image_mip_tail_stride: DeviceSize,
 }
+impl SparseImageMemoryRequirements {
+    pub fn format_properties(mut self, format_properties: SparseImageFormatProperties) -> Self {
+        self.format_properties = format_properties;
+        self
+    }
+    pub fn image_mip_tail_first_lod(mut self, image_mip_tail_first_lod: u32) -> Self {
+        self.image_mip_tail_first_lod = image_mip_tail_first_lod;
+        self
+    }
+    pub fn image_mip_tail_size(mut self, image_mip_tail_size: DeviceSize) -> Self {
+        self.image_mip_tail_size = image_mip_tail_size;
+        self
+    }
+    pub fn image_mip_tail_offset(mut self, image_mip_tail_offset: DeviceSize) -> Self {
+        self.image_mip_tail_offset = image_mip_tail_offset;
+        self
+    }
+    pub fn image_mip_tail_stride(mut self, image_mip_tail_stride: DeviceSize) -> Self {
+        self.image_mip_tail_stride = image_mip_tail_stride;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct MemoryType {
     pub property_flags: MemoryPropertyFlags,
     pub heap_index: u32,
 }
+impl MemoryType {
+    pub fn property_flags(mut self, property_flags: MemoryPropertyFlags) -> Self {
+        self.property_flags = property_flags;
+        self
+    }
+    pub fn heap_index(mut self, heap_index: u32) -> Self {
+        self.heap_index = heap_index;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct MemoryHeap {
     pub size: DeviceSize,
     pub flags: MemoryHeapFlags,
+}
+impl MemoryHeap {
+    pub fn size(mut self, size: DeviceSize) -> Self {
+        self.size = size;
+        self
+    }
+    pub fn flags(mut self, flags: MemoryHeapFlags) -> Self {
+        self.flags = flags;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -464,12 +857,40 @@ impl Default for MappedMemoryRange<'_> {
         }
     }
 }
+impl<'a> MappedMemoryRange<'a> {
+    pub fn memory(mut self, memory: DeviceMemory) -> Self {
+        self.memory = memory;
+        self
+    }
+    pub fn offset(mut self, offset: DeviceSize) -> Self {
+        self.offset = offset;
+        self
+    }
+    pub fn size(mut self, size: DeviceSize) -> Self {
+        self.size = size;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct FormatProperties {
     pub linear_tiling_features: FormatFeatureFlags,
     pub optimal_tiling_features: FormatFeatureFlags,
     pub buffer_features: FormatFeatureFlags,
+}
+impl FormatProperties {
+    pub fn linear_tiling_features(mut self, linear_tiling_features: FormatFeatureFlags) -> Self {
+        self.linear_tiling_features = linear_tiling_features;
+        self
+    }
+    pub fn optimal_tiling_features(mut self, optimal_tiling_features: FormatFeatureFlags) -> Self {
+        self.optimal_tiling_features = optimal_tiling_features;
+        self
+    }
+    pub fn buffer_features(mut self, buffer_features: FormatFeatureFlags) -> Self {
+        self.buffer_features = buffer_features;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -480,6 +901,28 @@ pub struct ImageFormatProperties {
     pub sample_counts: SampleCountFlags,
     pub max_resource_size: DeviceSize,
 }
+impl ImageFormatProperties {
+    pub fn max_extent(mut self, max_extent: Extent3D) -> Self {
+        self.max_extent = max_extent;
+        self
+    }
+    pub fn max_mip_levels(mut self, max_mip_levels: u32) -> Self {
+        self.max_mip_levels = max_mip_levels;
+        self
+    }
+    pub fn max_array_layers(mut self, max_array_layers: u32) -> Self {
+        self.max_array_layers = max_array_layers;
+        self
+    }
+    pub fn sample_counts(mut self, sample_counts: SampleCountFlags) -> Self {
+        self.sample_counts = sample_counts;
+        self
+    }
+    pub fn max_resource_size(mut self, max_resource_size: DeviceSize) -> Self {
+        self.max_resource_size = max_resource_size;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct DescriptorBufferInfo {
@@ -487,12 +930,40 @@ pub struct DescriptorBufferInfo {
     pub offset: DeviceSize,
     pub range: DeviceSize,
 }
+impl DescriptorBufferInfo {
+    pub fn buffer(mut self, buffer: Buffer) -> Self {
+        self.buffer = buffer;
+        self
+    }
+    pub fn offset(mut self, offset: DeviceSize) -> Self {
+        self.offset = offset;
+        self
+    }
+    pub fn range(mut self, range: DeviceSize) -> Self {
+        self.range = range;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct DescriptorImageInfo {
     pub sampler: Sampler,
     pub image_view: ImageView,
     pub image_layout: ImageLayout,
+}
+impl DescriptorImageInfo {
+    pub fn sampler(mut self, sampler: Sampler) -> Self {
+        self.sampler = sampler;
+        self
+    }
+    pub fn image_view(mut self, image_view: ImageView) -> Self {
+        self.image_view = image_view;
+        self
+    }
+    pub fn image_layout(mut self, image_layout: ImageLayout) -> Self {
+        self.image_layout = image_layout;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -526,6 +997,39 @@ impl Default for WriteDescriptorSet<'_> {
         }
     }
 }
+impl<'a> WriteDescriptorSet<'a> {
+    pub fn dst_set(mut self, dst_set: DescriptorSet) -> Self {
+        self.dst_set = dst_set;
+        self
+    }
+    pub fn dst_binding(mut self, dst_binding: u32) -> Self {
+        self.dst_binding = dst_binding;
+        self
+    }
+    pub fn dst_array_element(mut self, dst_array_element: u32) -> Self {
+        self.dst_array_element = dst_array_element;
+        self
+    }
+    pub fn image_info(mut self, image_info: &'a [DescriptorImageInfo]) -> Self {
+        self.descriptor_count = image_info.len().try_into().unwrap();
+        self.p_image_info = image_info.as_ptr();
+        self
+    }
+    pub fn buffer_info(mut self, buffer_info: &'a [DescriptorBufferInfo]) -> Self {
+        self.descriptor_count = buffer_info.len().try_into().unwrap();
+        self.p_buffer_info = buffer_info.as_ptr();
+        self
+    }
+    pub fn texel_buffer_view(mut self, texel_buffer_view: &'a [BufferView]) -> Self {
+        self.descriptor_count = texel_buffer_view.len().try_into().unwrap();
+        self.p_texel_buffer_view = texel_buffer_view.as_ptr();
+        self
+    }
+    pub fn descriptor_type(mut self, descriptor_type: DescriptorType) -> Self {
+        self.descriptor_type = descriptor_type;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct CopyDescriptorSet<'a> {
@@ -556,6 +1060,36 @@ impl Default for CopyDescriptorSet<'_> {
         }
     }
 }
+impl<'a> CopyDescriptorSet<'a> {
+    pub fn src_set(mut self, src_set: DescriptorSet) -> Self {
+        self.src_set = src_set;
+        self
+    }
+    pub fn src_binding(mut self, src_binding: u32) -> Self {
+        self.src_binding = src_binding;
+        self
+    }
+    pub fn src_array_element(mut self, src_array_element: u32) -> Self {
+        self.src_array_element = src_array_element;
+        self
+    }
+    pub fn dst_set(mut self, dst_set: DescriptorSet) -> Self {
+        self.dst_set = dst_set;
+        self
+    }
+    pub fn dst_binding(mut self, dst_binding: u32) -> Self {
+        self.dst_binding = dst_binding;
+        self
+    }
+    pub fn dst_array_element(mut self, dst_array_element: u32) -> Self {
+        self.dst_array_element = dst_array_element;
+        self
+    }
+    pub fn descriptor_count(mut self, descriptor_count: u32) -> Self {
+        self.descriptor_count = descriptor_count;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct BufferCreateInfo<'a> {
@@ -584,6 +1118,29 @@ impl Default for BufferCreateInfo<'_> {
         }
     }
 }
+impl<'a> BufferCreateInfo<'a> {
+    pub fn flags(mut self, flags: BufferCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn size(mut self, size: DeviceSize) -> Self {
+        self.size = size;
+        self
+    }
+    pub fn usage(mut self, usage: BufferUsageFlags) -> Self {
+        self.usage = usage;
+        self
+    }
+    pub fn sharing_mode(mut self, sharing_mode: SharingMode) -> Self {
+        self.sharing_mode = sharing_mode;
+        self
+    }
+    pub fn queue_family_indices(mut self, queue_family_indices: &'a [u32]) -> Self {
+        self.queue_family_index_count = queue_family_indices.len().try_into().unwrap();
+        self.p_queue_family_indices = queue_family_indices.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct BufferViewCreateInfo<'a> {
@@ -610,12 +1167,48 @@ impl Default for BufferViewCreateInfo<'_> {
         }
     }
 }
+impl<'a> BufferViewCreateInfo<'a> {
+    pub fn flags(mut self, flags: BufferViewCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn buffer(mut self, buffer: Buffer) -> Self {
+        self.buffer = buffer;
+        self
+    }
+    pub fn format(mut self, format: Format) -> Self {
+        self.format = format;
+        self
+    }
+    pub fn offset(mut self, offset: DeviceSize) -> Self {
+        self.offset = offset;
+        self
+    }
+    pub fn range(mut self, range: DeviceSize) -> Self {
+        self.range = range;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct ImageSubresource {
     pub aspect_mask: ImageAspectFlags,
     pub mip_level: u32,
     pub array_layer: u32,
+}
+impl ImageSubresource {
+    pub fn aspect_mask(mut self, aspect_mask: ImageAspectFlags) -> Self {
+        self.aspect_mask = aspect_mask;
+        self
+    }
+    pub fn mip_level(mut self, mip_level: u32) -> Self {
+        self.mip_level = mip_level;
+        self
+    }
+    pub fn array_layer(mut self, array_layer: u32) -> Self {
+        self.array_layer = array_layer;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -625,6 +1218,24 @@ pub struct ImageSubresourceLayers {
     pub base_array_layer: u32,
     pub layer_count: u32,
 }
+impl ImageSubresourceLayers {
+    pub fn aspect_mask(mut self, aspect_mask: ImageAspectFlags) -> Self {
+        self.aspect_mask = aspect_mask;
+        self
+    }
+    pub fn mip_level(mut self, mip_level: u32) -> Self {
+        self.mip_level = mip_level;
+        self
+    }
+    pub fn base_array_layer(mut self, base_array_layer: u32) -> Self {
+        self.base_array_layer = base_array_layer;
+        self
+    }
+    pub fn layer_count(mut self, layer_count: u32) -> Self {
+        self.layer_count = layer_count;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct ImageSubresourceRange {
@@ -633,6 +1244,28 @@ pub struct ImageSubresourceRange {
     pub level_count: u32,
     pub base_array_layer: u32,
     pub layer_count: u32,
+}
+impl ImageSubresourceRange {
+    pub fn aspect_mask(mut self, aspect_mask: ImageAspectFlags) -> Self {
+        self.aspect_mask = aspect_mask;
+        self
+    }
+    pub fn base_mip_level(mut self, base_mip_level: u32) -> Self {
+        self.base_mip_level = base_mip_level;
+        self
+    }
+    pub fn level_count(mut self, level_count: u32) -> Self {
+        self.level_count = level_count;
+        self
+    }
+    pub fn base_array_layer(mut self, base_array_layer: u32) -> Self {
+        self.base_array_layer = base_array_layer;
+        self
+    }
+    pub fn layer_count(mut self, layer_count: u32) -> Self {
+        self.layer_count = layer_count;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -652,6 +1285,16 @@ impl Default for MemoryBarrier<'_> {
             dst_access_mask: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> MemoryBarrier<'a> {
+    pub fn src_access_mask(mut self, src_access_mask: AccessFlags) -> Self {
+        self.src_access_mask = src_access_mask;
+        self
+    }
+    pub fn dst_access_mask(mut self, dst_access_mask: AccessFlags) -> Self {
+        self.dst_access_mask = dst_access_mask;
+        self
     }
 }
 #[repr(C)]
@@ -684,6 +1327,36 @@ impl Default for BufferMemoryBarrier<'_> {
         }
     }
 }
+impl<'a> BufferMemoryBarrier<'a> {
+    pub fn src_access_mask(mut self, src_access_mask: AccessFlags) -> Self {
+        self.src_access_mask = src_access_mask;
+        self
+    }
+    pub fn dst_access_mask(mut self, dst_access_mask: AccessFlags) -> Self {
+        self.dst_access_mask = dst_access_mask;
+        self
+    }
+    pub fn src_queue_family_index(mut self, src_queue_family_index: u32) -> Self {
+        self.src_queue_family_index = src_queue_family_index;
+        self
+    }
+    pub fn dst_queue_family_index(mut self, dst_queue_family_index: u32) -> Self {
+        self.dst_queue_family_index = dst_queue_family_index;
+        self
+    }
+    pub fn buffer(mut self, buffer: Buffer) -> Self {
+        self.buffer = buffer;
+        self
+    }
+    pub fn offset(mut self, offset: DeviceSize) -> Self {
+        self.offset = offset;
+        self
+    }
+    pub fn size(mut self, size: DeviceSize) -> Self {
+        self.size = size;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ImageMemoryBarrier<'a> {
@@ -714,6 +1387,40 @@ impl Default for ImageMemoryBarrier<'_> {
             subresource_range: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ImageMemoryBarrier<'a> {
+    pub fn src_access_mask(mut self, src_access_mask: AccessFlags) -> Self {
+        self.src_access_mask = src_access_mask;
+        self
+    }
+    pub fn dst_access_mask(mut self, dst_access_mask: AccessFlags) -> Self {
+        self.dst_access_mask = dst_access_mask;
+        self
+    }
+    pub fn old_layout(mut self, old_layout: ImageLayout) -> Self {
+        self.old_layout = old_layout;
+        self
+    }
+    pub fn new_layout(mut self, new_layout: ImageLayout) -> Self {
+        self.new_layout = new_layout;
+        self
+    }
+    pub fn src_queue_family_index(mut self, src_queue_family_index: u32) -> Self {
+        self.src_queue_family_index = src_queue_family_index;
+        self
+    }
+    pub fn dst_queue_family_index(mut self, dst_queue_family_index: u32) -> Self {
+        self.dst_queue_family_index = dst_queue_family_index;
+        self
+    }
+    pub fn image(mut self, image: Image) -> Self {
+        self.image = image;
+        self
+    }
+    pub fn subresource_range(mut self, subresource_range: ImageSubresourceRange) -> Self {
+        self.subresource_range = subresource_range;
+        self
     }
 }
 #[repr(C)]
@@ -758,6 +1465,57 @@ impl Default for ImageCreateInfo<'_> {
         }
     }
 }
+impl<'a> ImageCreateInfo<'a> {
+    pub fn flags(mut self, flags: ImageCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn image_type(mut self, image_type: ImageType) -> Self {
+        self.image_type = image_type;
+        self
+    }
+    pub fn format(mut self, format: Format) -> Self {
+        self.format = format;
+        self
+    }
+    pub fn extent(mut self, extent: Extent3D) -> Self {
+        self.extent = extent;
+        self
+    }
+    pub fn mip_levels(mut self, mip_levels: u32) -> Self {
+        self.mip_levels = mip_levels;
+        self
+    }
+    pub fn array_layers(mut self, array_layers: u32) -> Self {
+        self.array_layers = array_layers;
+        self
+    }
+    pub fn samples(mut self, samples: SampleCountFlagBits) -> Self {
+        self.samples = samples;
+        self
+    }
+    pub fn tiling(mut self, tiling: ImageTiling) -> Self {
+        self.tiling = tiling;
+        self
+    }
+    pub fn usage(mut self, usage: ImageUsageFlags) -> Self {
+        self.usage = usage;
+        self
+    }
+    pub fn sharing_mode(mut self, sharing_mode: SharingMode) -> Self {
+        self.sharing_mode = sharing_mode;
+        self
+    }
+    pub fn queue_family_indices(mut self, queue_family_indices: &'a [u32]) -> Self {
+        self.queue_family_index_count = queue_family_indices.len().try_into().unwrap();
+        self.p_queue_family_indices = queue_family_indices.as_ptr();
+        self
+    }
+    pub fn initial_layout(mut self, initial_layout: ImageLayout) -> Self {
+        self.initial_layout = initial_layout;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct SubresourceLayout {
@@ -766,6 +1524,28 @@ pub struct SubresourceLayout {
     pub row_pitch: DeviceSize,
     pub array_pitch: DeviceSize,
     pub depth_pitch: DeviceSize,
+}
+impl SubresourceLayout {
+    pub fn offset(mut self, offset: DeviceSize) -> Self {
+        self.offset = offset;
+        self
+    }
+    pub fn size(mut self, size: DeviceSize) -> Self {
+        self.size = size;
+        self
+    }
+    pub fn row_pitch(mut self, row_pitch: DeviceSize) -> Self {
+        self.row_pitch = row_pitch;
+        self
+    }
+    pub fn array_pitch(mut self, array_pitch: DeviceSize) -> Self {
+        self.array_pitch = array_pitch;
+        self
+    }
+    pub fn depth_pitch(mut self, depth_pitch: DeviceSize) -> Self {
+        self.depth_pitch = depth_pitch;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -795,12 +1575,52 @@ impl Default for ImageViewCreateInfo<'_> {
         }
     }
 }
+impl<'a> ImageViewCreateInfo<'a> {
+    pub fn flags(mut self, flags: ImageViewCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn image(mut self, image: Image) -> Self {
+        self.image = image;
+        self
+    }
+    pub fn view_type(mut self, view_type: ImageViewType) -> Self {
+        self.view_type = view_type;
+        self
+    }
+    pub fn format(mut self, format: Format) -> Self {
+        self.format = format;
+        self
+    }
+    pub fn components(mut self, components: ComponentMapping) -> Self {
+        self.components = components;
+        self
+    }
+    pub fn subresource_range(mut self, subresource_range: ImageSubresourceRange) -> Self {
+        self.subresource_range = subresource_range;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct BufferCopy {
     pub src_offset: DeviceSize,
     pub dst_offset: DeviceSize,
     pub size: DeviceSize,
+}
+impl BufferCopy {
+    pub fn src_offset(mut self, src_offset: DeviceSize) -> Self {
+        self.src_offset = src_offset;
+        self
+    }
+    pub fn dst_offset(mut self, dst_offset: DeviceSize) -> Self {
+        self.dst_offset = dst_offset;
+        self
+    }
+    pub fn size(mut self, size: DeviceSize) -> Self {
+        self.size = size;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -811,6 +1631,28 @@ pub struct SparseMemoryBind {
     pub memory_offset: DeviceSize,
     pub flags: SparseMemoryBindFlags,
 }
+impl SparseMemoryBind {
+    pub fn resource_offset(mut self, resource_offset: DeviceSize) -> Self {
+        self.resource_offset = resource_offset;
+        self
+    }
+    pub fn size(mut self, size: DeviceSize) -> Self {
+        self.size = size;
+        self
+    }
+    pub fn memory(mut self, memory: DeviceMemory) -> Self {
+        self.memory = memory;
+        self
+    }
+    pub fn memory_offset(mut self, memory_offset: DeviceSize) -> Self {
+        self.memory_offset = memory_offset;
+        self
+    }
+    pub fn flags(mut self, flags: SparseMemoryBindFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct SparseImageMemoryBind {
@@ -820,6 +1662,32 @@ pub struct SparseImageMemoryBind {
     pub memory: DeviceMemory,
     pub memory_offset: DeviceSize,
     pub flags: SparseMemoryBindFlags,
+}
+impl SparseImageMemoryBind {
+    pub fn subresource(mut self, subresource: ImageSubresource) -> Self {
+        self.subresource = subresource;
+        self
+    }
+    pub fn offset(mut self, offset: Offset3D) -> Self {
+        self.offset = offset;
+        self
+    }
+    pub fn extent(mut self, extent: Extent3D) -> Self {
+        self.extent = extent;
+        self
+    }
+    pub fn memory(mut self, memory: DeviceMemory) -> Self {
+        self.memory = memory;
+        self
+    }
+    pub fn memory_offset(mut self, memory_offset: DeviceSize) -> Self {
+        self.memory_offset = memory_offset;
+        self
+    }
+    pub fn flags(mut self, flags: SparseMemoryBindFlags) -> Self {
+        self.flags = flags;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -837,6 +1705,17 @@ impl Default for SparseBufferMemoryBindInfo<'_> {
             p_binds: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SparseBufferMemoryBindInfo<'a> {
+    pub fn buffer(mut self, buffer: Buffer) -> Self {
+        self.buffer = buffer;
+        self
+    }
+    pub fn binds(mut self, binds: &'a [SparseMemoryBind]) -> Self {
+        self.bind_count = binds.len().try_into().unwrap();
+        self.p_binds = binds.as_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -857,6 +1736,17 @@ impl Default for SparseImageOpaqueMemoryBindInfo<'_> {
         }
     }
 }
+impl<'a> SparseImageOpaqueMemoryBindInfo<'a> {
+    pub fn image(mut self, image: Image) -> Self {
+        self.image = image;
+        self
+    }
+    pub fn binds(mut self, binds: &'a [SparseMemoryBind]) -> Self {
+        self.bind_count = binds.len().try_into().unwrap();
+        self.p_binds = binds.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SparseImageMemoryBindInfo<'a> {
@@ -873,6 +1763,17 @@ impl Default for SparseImageMemoryBindInfo<'_> {
             p_binds: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SparseImageMemoryBindInfo<'a> {
+    pub fn image(mut self, image: Image) -> Self {
+        self.image = image;
+        self
+    }
+    pub fn binds(mut self, binds: &'a [SparseImageMemoryBind]) -> Self {
+        self.bind_count = binds.len().try_into().unwrap();
+        self.p_binds = binds.as_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -911,6 +1812,36 @@ impl Default for BindSparseInfo<'_> {
         }
     }
 }
+impl<'a> BindSparseInfo<'a> {
+    pub fn wait_semaphores(mut self, wait_semaphores: &'a [Semaphore]) -> Self {
+        self.wait_semaphore_count = wait_semaphores.len().try_into().unwrap();
+        self.p_wait_semaphores = wait_semaphores.as_ptr();
+        self
+    }
+    pub fn buffer_binds(mut self, buffer_binds: &'a [SparseBufferMemoryBindInfo<'a>]) -> Self {
+        self.buffer_bind_count = buffer_binds.len().try_into().unwrap();
+        self.p_buffer_binds = buffer_binds.as_ptr();
+        self
+    }
+    pub fn image_opaque_binds(
+        mut self,
+        image_opaque_binds: &'a [SparseImageOpaqueMemoryBindInfo<'a>],
+    ) -> Self {
+        self.image_opaque_bind_count = image_opaque_binds.len().try_into().unwrap();
+        self.p_image_opaque_binds = image_opaque_binds.as_ptr();
+        self
+    }
+    pub fn image_binds(mut self, image_binds: &'a [SparseImageMemoryBindInfo<'a>]) -> Self {
+        self.image_bind_count = image_binds.len().try_into().unwrap();
+        self.p_image_binds = image_binds.as_ptr();
+        self
+    }
+    pub fn signal_semaphores(mut self, signal_semaphores: &'a [Semaphore]) -> Self {
+        self.signal_semaphore_count = signal_semaphores.len().try_into().unwrap();
+        self.p_signal_semaphores = signal_semaphores.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct ImageCopy {
@@ -919,6 +1850,28 @@ pub struct ImageCopy {
     pub dst_subresource: ImageSubresourceLayers,
     pub dst_offset: Offset3D,
     pub extent: Extent3D,
+}
+impl ImageCopy {
+    pub fn src_subresource(mut self, src_subresource: ImageSubresourceLayers) -> Self {
+        self.src_subresource = src_subresource;
+        self
+    }
+    pub fn src_offset(mut self, src_offset: Offset3D) -> Self {
+        self.src_offset = src_offset;
+        self
+    }
+    pub fn dst_subresource(mut self, dst_subresource: ImageSubresourceLayers) -> Self {
+        self.dst_subresource = dst_subresource;
+        self
+    }
+    pub fn dst_offset(mut self, dst_offset: Offset3D) -> Self {
+        self.dst_offset = dst_offset;
+        self
+    }
+    pub fn extent(mut self, extent: Extent3D) -> Self {
+        self.extent = extent;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -938,6 +1891,24 @@ impl Default for ImageBlit {
         }
     }
 }
+impl ImageBlit {
+    pub fn src_subresource(mut self, src_subresource: ImageSubresourceLayers) -> Self {
+        self.src_subresource = src_subresource;
+        self
+    }
+    pub fn src_offsets(mut self, src_offsets: [Offset3D; 2]) -> Self {
+        self.src_offsets = src_offsets;
+        self
+    }
+    pub fn dst_subresource(mut self, dst_subresource: ImageSubresourceLayers) -> Self {
+        self.dst_subresource = dst_subresource;
+        self
+    }
+    pub fn dst_offsets(mut self, dst_offsets: [Offset3D; 2]) -> Self {
+        self.dst_offsets = dst_offsets;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct BufferImageCopy {
@@ -948,6 +1919,32 @@ pub struct BufferImageCopy {
     pub image_offset: Offset3D,
     pub image_extent: Extent3D,
 }
+impl BufferImageCopy {
+    pub fn buffer_offset(mut self, buffer_offset: DeviceSize) -> Self {
+        self.buffer_offset = buffer_offset;
+        self
+    }
+    pub fn buffer_row_length(mut self, buffer_row_length: u32) -> Self {
+        self.buffer_row_length = buffer_row_length;
+        self
+    }
+    pub fn buffer_image_height(mut self, buffer_image_height: u32) -> Self {
+        self.buffer_image_height = buffer_image_height;
+        self
+    }
+    pub fn image_subresource(mut self, image_subresource: ImageSubresourceLayers) -> Self {
+        self.image_subresource = image_subresource;
+        self
+    }
+    pub fn image_offset(mut self, image_offset: Offset3D) -> Self {
+        self.image_offset = image_offset;
+        self
+    }
+    pub fn image_extent(mut self, image_extent: Extent3D) -> Self {
+        self.image_extent = image_extent;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct ImageResolve {
@@ -956,6 +1953,28 @@ pub struct ImageResolve {
     pub dst_subresource: ImageSubresourceLayers,
     pub dst_offset: Offset3D,
     pub extent: Extent3D,
+}
+impl ImageResolve {
+    pub fn src_subresource(mut self, src_subresource: ImageSubresourceLayers) -> Self {
+        self.src_subresource = src_subresource;
+        self
+    }
+    pub fn src_offset(mut self, src_offset: Offset3D) -> Self {
+        self.src_offset = src_offset;
+        self
+    }
+    pub fn dst_subresource(mut self, dst_subresource: ImageSubresourceLayers) -> Self {
+        self.dst_subresource = dst_subresource;
+        self
+    }
+    pub fn dst_offset(mut self, dst_offset: Offset3D) -> Self {
+        self.dst_offset = dst_offset;
+        self
+    }
+    pub fn extent(mut self, extent: Extent3D) -> Self {
+        self.extent = extent;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -977,6 +1996,16 @@ impl Default for ShaderModuleCreateInfo<'_> {
             p_code: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ShaderModuleCreateInfo<'a> {
+    pub fn flags(mut self, flags: ShaderModuleCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn code_size(mut self, code_size: usize) -> Self {
+        self.code_size = code_size;
+        self
     }
 }
 #[repr(C)]
@@ -1001,6 +2030,25 @@ impl Default for DescriptorSetLayoutBinding<'_> {
         }
     }
 }
+impl<'a> DescriptorSetLayoutBinding<'a> {
+    pub fn binding(mut self, binding: u32) -> Self {
+        self.binding = binding;
+        self
+    }
+    pub fn descriptor_type(mut self, descriptor_type: DescriptorType) -> Self {
+        self.descriptor_type = descriptor_type;
+        self
+    }
+    pub fn immutable_samplers(mut self, immutable_samplers: &'a [Sampler]) -> Self {
+        self.descriptor_count = immutable_samplers.len().try_into().unwrap();
+        self.p_immutable_samplers = immutable_samplers.as_ptr();
+        self
+    }
+    pub fn stage_flags(mut self, stage_flags: ShaderStageFlags) -> Self {
+        self.stage_flags = stage_flags;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DescriptorSetLayoutCreateInfo<'a> {
@@ -1023,11 +2071,32 @@ impl Default for DescriptorSetLayoutCreateInfo<'_> {
         }
     }
 }
+impl<'a> DescriptorSetLayoutCreateInfo<'a> {
+    pub fn flags(mut self, flags: DescriptorSetLayoutCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn bindings(mut self, bindings: &'a [DescriptorSetLayoutBinding<'a>]) -> Self {
+        self.binding_count = bindings.len().try_into().unwrap();
+        self.p_bindings = bindings.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct DescriptorPoolSize {
     pub ty: DescriptorType,
     pub descriptor_count: u32,
+}
+impl DescriptorPoolSize {
+    pub fn ty(mut self, ty: DescriptorType) -> Self {
+        self.ty = ty;
+        self
+    }
+    pub fn descriptor_count(mut self, descriptor_count: u32) -> Self {
+        self.descriptor_count = descriptor_count;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1053,6 +2122,21 @@ impl Default for DescriptorPoolCreateInfo<'_> {
         }
     }
 }
+impl<'a> DescriptorPoolCreateInfo<'a> {
+    pub fn flags(mut self, flags: DescriptorPoolCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn max_sets(mut self, max_sets: u32) -> Self {
+        self.max_sets = max_sets;
+        self
+    }
+    pub fn pool_sizes(mut self, pool_sizes: &'a [DescriptorPoolSize]) -> Self {
+        self.pool_size_count = pool_sizes.len().try_into().unwrap();
+        self.p_pool_sizes = pool_sizes.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DescriptorSetAllocateInfo<'a> {
@@ -1075,12 +2159,37 @@ impl Default for DescriptorSetAllocateInfo<'_> {
         }
     }
 }
+impl<'a> DescriptorSetAllocateInfo<'a> {
+    pub fn descriptor_pool(mut self, descriptor_pool: DescriptorPool) -> Self {
+        self.descriptor_pool = descriptor_pool;
+        self
+    }
+    pub fn set_layouts(mut self, set_layouts: &'a [DescriptorSetLayout]) -> Self {
+        self.descriptor_set_count = set_layouts.len().try_into().unwrap();
+        self.p_set_layouts = set_layouts.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct SpecializationMapEntry {
     pub constant_id: u32,
     pub offset: u32,
     pub size: usize,
+}
+impl SpecializationMapEntry {
+    pub fn constant_id(mut self, constant_id: u32) -> Self {
+        self.constant_id = constant_id;
+        self
+    }
+    pub fn offset(mut self, offset: u32) -> Self {
+        self.offset = offset;
+        self
+    }
+    pub fn size(mut self, size: usize) -> Self {
+        self.size = size;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1100,6 +2209,18 @@ impl Default for SpecializationInfo<'_> {
             p_data: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SpecializationInfo<'a> {
+    pub fn map_entries(mut self, map_entries: &'a [SpecializationMapEntry]) -> Self {
+        self.map_entry_count = map_entries.len().try_into().unwrap();
+        self.p_map_entries = map_entries.as_ptr();
+        self
+    }
+    pub fn data(mut self, data: &'a [u8]) -> Self {
+        self.data_size = data.len().try_into().unwrap();
+        self.p_data = data.as_ptr() as _;
+        self
     }
 }
 #[repr(C)]
@@ -1128,6 +2249,24 @@ impl Default for PipelineShaderStageCreateInfo<'_> {
         }
     }
 }
+impl<'a> PipelineShaderStageCreateInfo<'a> {
+    pub fn flags(mut self, flags: PipelineShaderStageCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn stage(mut self, stage: ShaderStageFlagBits) -> Self {
+        self.stage = stage;
+        self
+    }
+    pub fn module(mut self, module: ShaderModule) -> Self {
+        self.module = module;
+        self
+    }
+    pub fn specialization_info(mut self, specialization_info: &'a SpecializationInfo<'a>) -> Self {
+        self.p_specialization_info = specialization_info;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ComputePipelineCreateInfo<'a> {
@@ -1154,12 +2293,48 @@ impl Default for ComputePipelineCreateInfo<'_> {
         }
     }
 }
+impl<'a> ComputePipelineCreateInfo<'a> {
+    pub fn flags(mut self, flags: PipelineCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn stage(mut self, stage: PipelineShaderStageCreateInfo<'a>) -> Self {
+        self.stage = stage;
+        self
+    }
+    pub fn layout(mut self, layout: PipelineLayout) -> Self {
+        self.layout = layout;
+        self
+    }
+    pub fn base_pipeline_handle(mut self, base_pipeline_handle: Pipeline) -> Self {
+        self.base_pipeline_handle = base_pipeline_handle;
+        self
+    }
+    pub fn base_pipeline_index(mut self, base_pipeline_index: i32) -> Self {
+        self.base_pipeline_index = base_pipeline_index;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct VertexInputBindingDescription {
     pub binding: u32,
     pub stride: u32,
     pub input_rate: VertexInputRate,
+}
+impl VertexInputBindingDescription {
+    pub fn binding(mut self, binding: u32) -> Self {
+        self.binding = binding;
+        self
+    }
+    pub fn stride(mut self, stride: u32) -> Self {
+        self.stride = stride;
+        self
+    }
+    pub fn input_rate(mut self, input_rate: VertexInputRate) -> Self {
+        self.input_rate = input_rate;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -1168,6 +2343,24 @@ pub struct VertexInputAttributeDescription {
     pub binding: u32,
     pub format: Format,
     pub offset: u32,
+}
+impl VertexInputAttributeDescription {
+    pub fn location(mut self, location: u32) -> Self {
+        self.location = location;
+        self
+    }
+    pub fn binding(mut self, binding: u32) -> Self {
+        self.binding = binding;
+        self
+    }
+    pub fn format(mut self, format: Format) -> Self {
+        self.format = format;
+        self
+    }
+    pub fn offset(mut self, offset: u32) -> Self {
+        self.offset = offset;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1195,6 +2388,30 @@ impl Default for PipelineVertexInputStateCreateInfo<'_> {
         }
     }
 }
+impl<'a> PipelineVertexInputStateCreateInfo<'a> {
+    pub fn flags(mut self, flags: PipelineVertexInputStateCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn vertex_binding_descriptions(
+        mut self,
+        vertex_binding_descriptions: &'a [VertexInputBindingDescription],
+    ) -> Self {
+        self.vertex_binding_description_count =
+            vertex_binding_descriptions.len().try_into().unwrap();
+        self.p_vertex_binding_descriptions = vertex_binding_descriptions.as_ptr();
+        self
+    }
+    pub fn vertex_attribute_descriptions(
+        mut self,
+        vertex_attribute_descriptions: &'a [VertexInputAttributeDescription],
+    ) -> Self {
+        self.vertex_attribute_description_count =
+            vertex_attribute_descriptions.len().try_into().unwrap();
+        self.p_vertex_attribute_descriptions = vertex_attribute_descriptions.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PipelineInputAssemblyStateCreateInfo<'a> {
@@ -1217,6 +2434,20 @@ impl Default for PipelineInputAssemblyStateCreateInfo<'_> {
         }
     }
 }
+impl<'a> PipelineInputAssemblyStateCreateInfo<'a> {
+    pub fn flags(mut self, flags: PipelineInputAssemblyStateCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn topology(mut self, topology: PrimitiveTopology) -> Self {
+        self.topology = topology;
+        self
+    }
+    pub fn primitive_restart_enable(mut self, primitive_restart_enable: Bool32) -> Self {
+        self.primitive_restart_enable = primitive_restart_enable;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PipelineTessellationStateCreateInfo<'a> {
@@ -1235,6 +2466,16 @@ impl Default for PipelineTessellationStateCreateInfo<'_> {
             patch_control_points: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineTessellationStateCreateInfo<'a> {
+    pub fn flags(mut self, flags: PipelineTessellationStateCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn patch_control_points(mut self, patch_control_points: u32) -> Self {
+        self.patch_control_points = patch_control_points;
+        self
     }
 }
 #[repr(C)]
@@ -1261,6 +2502,22 @@ impl Default for PipelineViewportStateCreateInfo<'_> {
             p_scissors: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineViewportStateCreateInfo<'a> {
+    pub fn flags(mut self, flags: PipelineViewportStateCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn viewports(mut self, viewports: &'a [Viewport]) -> Self {
+        self.viewport_count = viewports.len().try_into().unwrap();
+        self.p_viewports = viewports.as_ptr();
+        self
+    }
+    pub fn scissors(mut self, scissors: &'a [Rect2D]) -> Self {
+        self.scissor_count = scissors.len().try_into().unwrap();
+        self.p_scissors = scissors.as_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -1301,6 +2558,52 @@ impl Default for PipelineRasterizationStateCreateInfo<'_> {
         }
     }
 }
+impl<'a> PipelineRasterizationStateCreateInfo<'a> {
+    pub fn flags(mut self, flags: PipelineRasterizationStateCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn depth_clamp_enable(mut self, depth_clamp_enable: Bool32) -> Self {
+        self.depth_clamp_enable = depth_clamp_enable;
+        self
+    }
+    pub fn rasterizer_discard_enable(mut self, rasterizer_discard_enable: Bool32) -> Self {
+        self.rasterizer_discard_enable = rasterizer_discard_enable;
+        self
+    }
+    pub fn polygon_mode(mut self, polygon_mode: PolygonMode) -> Self {
+        self.polygon_mode = polygon_mode;
+        self
+    }
+    pub fn cull_mode(mut self, cull_mode: CullModeFlags) -> Self {
+        self.cull_mode = cull_mode;
+        self
+    }
+    pub fn front_face(mut self, front_face: FrontFace) -> Self {
+        self.front_face = front_face;
+        self
+    }
+    pub fn depth_bias_enable(mut self, depth_bias_enable: Bool32) -> Self {
+        self.depth_bias_enable = depth_bias_enable;
+        self
+    }
+    pub fn depth_bias_constant_factor(mut self, depth_bias_constant_factor: f32) -> Self {
+        self.depth_bias_constant_factor = depth_bias_constant_factor;
+        self
+    }
+    pub fn depth_bias_clamp(mut self, depth_bias_clamp: f32) -> Self {
+        self.depth_bias_clamp = depth_bias_clamp;
+        self
+    }
+    pub fn depth_bias_slope_factor(mut self, depth_bias_slope_factor: f32) -> Self {
+        self.depth_bias_slope_factor = depth_bias_slope_factor;
+        self
+    }
+    pub fn line_width(mut self, line_width: f32) -> Self {
+        self.line_width = line_width;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PipelineMultisampleStateCreateInfo<'a> {
@@ -1331,6 +2634,32 @@ impl Default for PipelineMultisampleStateCreateInfo<'_> {
         }
     }
 }
+impl<'a> PipelineMultisampleStateCreateInfo<'a> {
+    pub fn flags(mut self, flags: PipelineMultisampleStateCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn rasterization_samples(mut self, rasterization_samples: SampleCountFlagBits) -> Self {
+        self.rasterization_samples = rasterization_samples;
+        self
+    }
+    pub fn sample_shading_enable(mut self, sample_shading_enable: Bool32) -> Self {
+        self.sample_shading_enable = sample_shading_enable;
+        self
+    }
+    pub fn min_sample_shading(mut self, min_sample_shading: f32) -> Self {
+        self.min_sample_shading = min_sample_shading;
+        self
+    }
+    pub fn alpha_to_coverage_enable(mut self, alpha_to_coverage_enable: Bool32) -> Self {
+        self.alpha_to_coverage_enable = alpha_to_coverage_enable;
+        self
+    }
+    pub fn alpha_to_one_enable(mut self, alpha_to_one_enable: Bool32) -> Self {
+        self.alpha_to_one_enable = alpha_to_one_enable;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct PipelineColorBlendAttachmentState {
@@ -1342,6 +2671,40 @@ pub struct PipelineColorBlendAttachmentState {
     pub dst_alpha_blend_factor: BlendFactor,
     pub alpha_blend_op: BlendOp,
     pub color_write_mask: ColorComponentFlags,
+}
+impl PipelineColorBlendAttachmentState {
+    pub fn blend_enable(mut self, blend_enable: Bool32) -> Self {
+        self.blend_enable = blend_enable;
+        self
+    }
+    pub fn src_color_blend_factor(mut self, src_color_blend_factor: BlendFactor) -> Self {
+        self.src_color_blend_factor = src_color_blend_factor;
+        self
+    }
+    pub fn dst_color_blend_factor(mut self, dst_color_blend_factor: BlendFactor) -> Self {
+        self.dst_color_blend_factor = dst_color_blend_factor;
+        self
+    }
+    pub fn color_blend_op(mut self, color_blend_op: BlendOp) -> Self {
+        self.color_blend_op = color_blend_op;
+        self
+    }
+    pub fn src_alpha_blend_factor(mut self, src_alpha_blend_factor: BlendFactor) -> Self {
+        self.src_alpha_blend_factor = src_alpha_blend_factor;
+        self
+    }
+    pub fn dst_alpha_blend_factor(mut self, dst_alpha_blend_factor: BlendFactor) -> Self {
+        self.dst_alpha_blend_factor = dst_alpha_blend_factor;
+        self
+    }
+    pub fn alpha_blend_op(mut self, alpha_blend_op: BlendOp) -> Self {
+        self.alpha_blend_op = alpha_blend_op;
+        self
+    }
+    pub fn color_write_mask(mut self, color_write_mask: ColorComponentFlags) -> Self {
+        self.color_write_mask = color_write_mask;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1371,6 +2734,29 @@ impl Default for PipelineColorBlendStateCreateInfo<'_> {
         }
     }
 }
+impl<'a> PipelineColorBlendStateCreateInfo<'a> {
+    pub fn flags(mut self, flags: PipelineColorBlendStateCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn logic_op_enable(mut self, logic_op_enable: Bool32) -> Self {
+        self.logic_op_enable = logic_op_enable;
+        self
+    }
+    pub fn logic_op(mut self, logic_op: LogicOp) -> Self {
+        self.logic_op = logic_op;
+        self
+    }
+    pub fn attachments(mut self, attachments: &'a [PipelineColorBlendAttachmentState]) -> Self {
+        self.attachment_count = attachments.len().try_into().unwrap();
+        self.p_attachments = attachments.as_ptr();
+        self
+    }
+    pub fn blend_constants(mut self, blend_constants: [f32; 4]) -> Self {
+        self.blend_constants = blend_constants;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PipelineDynamicStateCreateInfo<'a> {
@@ -1393,6 +2779,17 @@ impl Default for PipelineDynamicStateCreateInfo<'_> {
         }
     }
 }
+impl<'a> PipelineDynamicStateCreateInfo<'a> {
+    pub fn flags(mut self, flags: PipelineDynamicStateCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn dynamic_states(mut self, dynamic_states: &'a [DynamicState]) -> Self {
+        self.dynamic_state_count = dynamic_states.len().try_into().unwrap();
+        self.p_dynamic_states = dynamic_states.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct StencilOpState {
@@ -1403,6 +2800,36 @@ pub struct StencilOpState {
     pub compare_mask: u32,
     pub write_mask: u32,
     pub reference: u32,
+}
+impl StencilOpState {
+    pub fn fail_op(mut self, fail_op: StencilOp) -> Self {
+        self.fail_op = fail_op;
+        self
+    }
+    pub fn pass_op(mut self, pass_op: StencilOp) -> Self {
+        self.pass_op = pass_op;
+        self
+    }
+    pub fn depth_fail_op(mut self, depth_fail_op: StencilOp) -> Self {
+        self.depth_fail_op = depth_fail_op;
+        self
+    }
+    pub fn compare_op(mut self, compare_op: CompareOp) -> Self {
+        self.compare_op = compare_op;
+        self
+    }
+    pub fn compare_mask(mut self, compare_mask: u32) -> Self {
+        self.compare_mask = compare_mask;
+        self
+    }
+    pub fn write_mask(mut self, write_mask: u32) -> Self {
+        self.write_mask = write_mask;
+        self
+    }
+    pub fn reference(mut self, reference: u32) -> Self {
+        self.reference = reference;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1438,6 +2865,48 @@ impl Default for PipelineDepthStencilStateCreateInfo<'_> {
             max_depth_bounds: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineDepthStencilStateCreateInfo<'a> {
+    pub fn flags(mut self, flags: PipelineDepthStencilStateCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn depth_test_enable(mut self, depth_test_enable: Bool32) -> Self {
+        self.depth_test_enable = depth_test_enable;
+        self
+    }
+    pub fn depth_write_enable(mut self, depth_write_enable: Bool32) -> Self {
+        self.depth_write_enable = depth_write_enable;
+        self
+    }
+    pub fn depth_compare_op(mut self, depth_compare_op: CompareOp) -> Self {
+        self.depth_compare_op = depth_compare_op;
+        self
+    }
+    pub fn depth_bounds_test_enable(mut self, depth_bounds_test_enable: Bool32) -> Self {
+        self.depth_bounds_test_enable = depth_bounds_test_enable;
+        self
+    }
+    pub fn stencil_test_enable(mut self, stencil_test_enable: Bool32) -> Self {
+        self.stencil_test_enable = stencil_test_enable;
+        self
+    }
+    pub fn front(mut self, front: StencilOpState) -> Self {
+        self.front = front;
+        self
+    }
+    pub fn back(mut self, back: StencilOpState) -> Self {
+        self.back = back;
+        self
+    }
+    pub fn min_depth_bounds(mut self, min_depth_bounds: f32) -> Self {
+        self.min_depth_bounds = min_depth_bounds;
+        self
+    }
+    pub fn max_depth_bounds(mut self, max_depth_bounds: f32) -> Self {
+        self.max_depth_bounds = max_depth_bounds;
+        self
     }
 }
 #[repr(C)]
@@ -1490,6 +2959,97 @@ impl Default for GraphicsPipelineCreateInfo<'_> {
         }
     }
 }
+impl<'a> GraphicsPipelineCreateInfo<'a> {
+    pub fn flags(mut self, flags: PipelineCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn stages(mut self, stages: &'a [PipelineShaderStageCreateInfo<'a>]) -> Self {
+        self.stage_count = stages.len().try_into().unwrap();
+        self.p_stages = stages.as_ptr();
+        self
+    }
+    pub fn vertex_input_state(
+        mut self,
+        vertex_input_state: &'a PipelineVertexInputStateCreateInfo<'a>,
+    ) -> Self {
+        self.p_vertex_input_state = vertex_input_state;
+        self
+    }
+    pub fn input_assembly_state(
+        mut self,
+        input_assembly_state: &'a PipelineInputAssemblyStateCreateInfo<'a>,
+    ) -> Self {
+        self.p_input_assembly_state = input_assembly_state;
+        self
+    }
+    pub fn tessellation_state(
+        mut self,
+        tessellation_state: &'a PipelineTessellationStateCreateInfo<'a>,
+    ) -> Self {
+        self.p_tessellation_state = tessellation_state;
+        self
+    }
+    pub fn viewport_state(
+        mut self,
+        viewport_state: &'a PipelineViewportStateCreateInfo<'a>,
+    ) -> Self {
+        self.p_viewport_state = viewport_state;
+        self
+    }
+    pub fn rasterization_state(
+        mut self,
+        rasterization_state: &'a PipelineRasterizationStateCreateInfo<'a>,
+    ) -> Self {
+        self.p_rasterization_state = rasterization_state;
+        self
+    }
+    pub fn multisample_state(
+        mut self,
+        multisample_state: &'a PipelineMultisampleStateCreateInfo<'a>,
+    ) -> Self {
+        self.p_multisample_state = multisample_state;
+        self
+    }
+    pub fn depth_stencil_state(
+        mut self,
+        depth_stencil_state: &'a PipelineDepthStencilStateCreateInfo<'a>,
+    ) -> Self {
+        self.p_depth_stencil_state = depth_stencil_state;
+        self
+    }
+    pub fn color_blend_state(
+        mut self,
+        color_blend_state: &'a PipelineColorBlendStateCreateInfo<'a>,
+    ) -> Self {
+        self.p_color_blend_state = color_blend_state;
+        self
+    }
+    pub fn dynamic_state(mut self, dynamic_state: &'a PipelineDynamicStateCreateInfo<'a>) -> Self {
+        self.p_dynamic_state = dynamic_state;
+        self
+    }
+    pub fn layout(mut self, layout: PipelineLayout) -> Self {
+        self.layout = layout;
+        self
+    }
+    pub fn render_pass(mut self, render_pass: RenderPass) -> Self {
+        self.render_pass = render_pass;
+        self
+    }
+    pub fn subpass(mut self, subpass: u32) -> Self {
+        self.subpass = subpass;
+        self
+    }
+    pub fn base_pipeline_handle(mut self, base_pipeline_handle: Pipeline) -> Self {
+        self.base_pipeline_handle = base_pipeline_handle;
+        self
+    }
+    pub fn base_pipeline_index(mut self, base_pipeline_index: i32) -> Self {
+        self.base_pipeline_index = base_pipeline_index;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PipelineCacheCreateInfo<'a> {
@@ -1512,6 +3072,17 @@ impl Default for PipelineCacheCreateInfo<'_> {
         }
     }
 }
+impl<'a> PipelineCacheCreateInfo<'a> {
+    pub fn flags(mut self, flags: PipelineCacheCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn initial_data(mut self, initial_data: &'a [u8]) -> Self {
+        self.initial_data_size = initial_data.len().try_into().unwrap();
+        self.p_initial_data = initial_data.as_ptr() as _;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PipelineCacheHeaderVersionOne {
@@ -1532,12 +3103,48 @@ impl Default for PipelineCacheHeaderVersionOne {
         }
     }
 }
+impl PipelineCacheHeaderVersionOne {
+    pub fn header_size(mut self, header_size: u32) -> Self {
+        self.header_size = header_size;
+        self
+    }
+    pub fn header_version(mut self, header_version: PipelineCacheHeaderVersion) -> Self {
+        self.header_version = header_version;
+        self
+    }
+    pub fn vendor_id(mut self, vendor_id: u32) -> Self {
+        self.vendor_id = vendor_id;
+        self
+    }
+    pub fn device_id(mut self, device_id: u32) -> Self {
+        self.device_id = device_id;
+        self
+    }
+    pub fn pipeline_cache_uuid(mut self, pipeline_cache_uuid: [u8; UUID_SIZE as usize]) -> Self {
+        self.pipeline_cache_uuid = pipeline_cache_uuid;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct PushConstantRange {
     pub stage_flags: ShaderStageFlags,
     pub offset: u32,
     pub size: u32,
+}
+impl PushConstantRange {
+    pub fn stage_flags(mut self, stage_flags: ShaderStageFlags) -> Self {
+        self.stage_flags = stage_flags;
+        self
+    }
+    pub fn offset(mut self, offset: u32) -> Self {
+        self.offset = offset;
+        self
+    }
+    pub fn size(mut self, size: u32) -> Self {
+        self.size = size;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1563,6 +3170,22 @@ impl Default for PipelineLayoutCreateInfo<'_> {
             p_push_constant_ranges: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineLayoutCreateInfo<'a> {
+    pub fn flags(mut self, flags: PipelineLayoutCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn set_layouts(mut self, set_layouts: &'a [DescriptorSetLayout]) -> Self {
+        self.set_layout_count = set_layouts.len().try_into().unwrap();
+        self.p_set_layouts = set_layouts.as_ptr();
+        self
+    }
+    pub fn push_constant_ranges(mut self, push_constant_ranges: &'a [PushConstantRange]) -> Self {
+        self.push_constant_range_count = push_constant_ranges.len().try_into().unwrap();
+        self.p_push_constant_ranges = push_constant_ranges.as_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -1613,6 +3236,72 @@ impl Default for SamplerCreateInfo<'_> {
         }
     }
 }
+impl<'a> SamplerCreateInfo<'a> {
+    pub fn flags(mut self, flags: SamplerCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn mag_filter(mut self, mag_filter: Filter) -> Self {
+        self.mag_filter = mag_filter;
+        self
+    }
+    pub fn min_filter(mut self, min_filter: Filter) -> Self {
+        self.min_filter = min_filter;
+        self
+    }
+    pub fn mipmap_mode(mut self, mipmap_mode: SamplerMipmapMode) -> Self {
+        self.mipmap_mode = mipmap_mode;
+        self
+    }
+    pub fn address_mode_u(mut self, address_mode_u: SamplerAddressMode) -> Self {
+        self.address_mode_u = address_mode_u;
+        self
+    }
+    pub fn address_mode_v(mut self, address_mode_v: SamplerAddressMode) -> Self {
+        self.address_mode_v = address_mode_v;
+        self
+    }
+    pub fn address_mode_w(mut self, address_mode_w: SamplerAddressMode) -> Self {
+        self.address_mode_w = address_mode_w;
+        self
+    }
+    pub fn mip_lod_bias(mut self, mip_lod_bias: f32) -> Self {
+        self.mip_lod_bias = mip_lod_bias;
+        self
+    }
+    pub fn anisotropy_enable(mut self, anisotropy_enable: Bool32) -> Self {
+        self.anisotropy_enable = anisotropy_enable;
+        self
+    }
+    pub fn max_anisotropy(mut self, max_anisotropy: f32) -> Self {
+        self.max_anisotropy = max_anisotropy;
+        self
+    }
+    pub fn compare_enable(mut self, compare_enable: Bool32) -> Self {
+        self.compare_enable = compare_enable;
+        self
+    }
+    pub fn compare_op(mut self, compare_op: CompareOp) -> Self {
+        self.compare_op = compare_op;
+        self
+    }
+    pub fn min_lod(mut self, min_lod: f32) -> Self {
+        self.min_lod = min_lod;
+        self
+    }
+    pub fn max_lod(mut self, max_lod: f32) -> Self {
+        self.max_lod = max_lod;
+        self
+    }
+    pub fn border_color(mut self, border_color: BorderColor) -> Self {
+        self.border_color = border_color;
+        self
+    }
+    pub fn unnormalized_coordinates(mut self, unnormalized_coordinates: Bool32) -> Self {
+        self.unnormalized_coordinates = unnormalized_coordinates;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct CommandPoolCreateInfo<'a> {
@@ -1631,6 +3320,16 @@ impl Default for CommandPoolCreateInfo<'_> {
             queue_family_index: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> CommandPoolCreateInfo<'a> {
+    pub fn flags(mut self, flags: CommandPoolCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn queue_family_index(mut self, queue_family_index: u32) -> Self {
+        self.queue_family_index = queue_family_index;
+        self
     }
 }
 #[repr(C)]
@@ -1653,6 +3352,20 @@ impl Default for CommandBufferAllocateInfo<'_> {
             command_buffer_count: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> CommandBufferAllocateInfo<'a> {
+    pub fn command_pool(mut self, command_pool: CommandPool) -> Self {
+        self.command_pool = command_pool;
+        self
+    }
+    pub fn level(mut self, level: CommandBufferLevel) -> Self {
+        self.level = level;
+        self
+    }
+    pub fn command_buffer_count(mut self, command_buffer_count: u32) -> Self {
+        self.command_buffer_count = command_buffer_count;
+        self
     }
 }
 #[repr(C)]
@@ -1683,6 +3396,32 @@ impl Default for CommandBufferInheritanceInfo<'_> {
         }
     }
 }
+impl<'a> CommandBufferInheritanceInfo<'a> {
+    pub fn render_pass(mut self, render_pass: RenderPass) -> Self {
+        self.render_pass = render_pass;
+        self
+    }
+    pub fn subpass(mut self, subpass: u32) -> Self {
+        self.subpass = subpass;
+        self
+    }
+    pub fn framebuffer(mut self, framebuffer: Framebuffer) -> Self {
+        self.framebuffer = framebuffer;
+        self
+    }
+    pub fn occlusion_query_enable(mut self, occlusion_query_enable: Bool32) -> Self {
+        self.occlusion_query_enable = occlusion_query_enable;
+        self
+    }
+    pub fn query_flags(mut self, query_flags: QueryControlFlags) -> Self {
+        self.query_flags = query_flags;
+        self
+    }
+    pub fn pipeline_statistics(mut self, pipeline_statistics: QueryPipelineStatisticFlags) -> Self {
+        self.pipeline_statistics = pipeline_statistics;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct CommandBufferBeginInfo<'a> {
@@ -1701,6 +3440,19 @@ impl Default for CommandBufferBeginInfo<'_> {
             p_inheritance_info: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> CommandBufferBeginInfo<'a> {
+    pub fn flags(mut self, flags: CommandBufferUsageFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn inheritance_info(
+        mut self,
+        inheritance_info: &'a CommandBufferInheritanceInfo<'a>,
+    ) -> Self {
+        self.p_inheritance_info = inheritance_info;
+        self
     }
 }
 #[repr(C)]
@@ -1729,11 +3481,40 @@ impl Default for RenderPassBeginInfo<'_> {
         }
     }
 }
+impl<'a> RenderPassBeginInfo<'a> {
+    pub fn render_pass(mut self, render_pass: RenderPass) -> Self {
+        self.render_pass = render_pass;
+        self
+    }
+    pub fn framebuffer(mut self, framebuffer: Framebuffer) -> Self {
+        self.framebuffer = framebuffer;
+        self
+    }
+    pub fn render_area(mut self, render_area: Rect2D) -> Self {
+        self.render_area = render_area;
+        self
+    }
+    pub fn clear_values(mut self, clear_values: &'a [ClearValue]) -> Self {
+        self.clear_value_count = clear_values.len().try_into().unwrap();
+        self.p_clear_values = clear_values.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct ClearDepthStencilValue {
     pub depth: f32,
     pub stencil: u32,
+}
+impl ClearDepthStencilValue {
+    pub fn depth(mut self, depth: f32) -> Self {
+        self.depth = depth;
+        self
+    }
+    pub fn stencil(mut self, stencil: u32) -> Self {
+        self.stencil = stencil;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1751,6 +3532,20 @@ impl Default for ClearAttachment {
         }
     }
 }
+impl ClearAttachment {
+    pub fn aspect_mask(mut self, aspect_mask: ImageAspectFlags) -> Self {
+        self.aspect_mask = aspect_mask;
+        self
+    }
+    pub fn color_attachment(mut self, color_attachment: u32) -> Self {
+        self.color_attachment = color_attachment;
+        self
+    }
+    pub fn clear_value(mut self, clear_value: ClearValue) -> Self {
+        self.clear_value = clear_value;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct AttachmentDescription {
@@ -1764,11 +3559,59 @@ pub struct AttachmentDescription {
     pub initial_layout: ImageLayout,
     pub final_layout: ImageLayout,
 }
+impl AttachmentDescription {
+    pub fn flags(mut self, flags: AttachmentDescriptionFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn format(mut self, format: Format) -> Self {
+        self.format = format;
+        self
+    }
+    pub fn samples(mut self, samples: SampleCountFlagBits) -> Self {
+        self.samples = samples;
+        self
+    }
+    pub fn load_op(mut self, load_op: AttachmentLoadOp) -> Self {
+        self.load_op = load_op;
+        self
+    }
+    pub fn store_op(mut self, store_op: AttachmentStoreOp) -> Self {
+        self.store_op = store_op;
+        self
+    }
+    pub fn stencil_load_op(mut self, stencil_load_op: AttachmentLoadOp) -> Self {
+        self.stencil_load_op = stencil_load_op;
+        self
+    }
+    pub fn stencil_store_op(mut self, stencil_store_op: AttachmentStoreOp) -> Self {
+        self.stencil_store_op = stencil_store_op;
+        self
+    }
+    pub fn initial_layout(mut self, initial_layout: ImageLayout) -> Self {
+        self.initial_layout = initial_layout;
+        self
+    }
+    pub fn final_layout(mut self, final_layout: ImageLayout) -> Self {
+        self.final_layout = final_layout;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct AttachmentReference {
     pub attachment: u32,
     pub layout: ImageLayout,
+}
+impl AttachmentReference {
+    pub fn attachment(mut self, attachment: u32) -> Self {
+        self.attachment = attachment;
+        self
+    }
+    pub fn layout(mut self, layout: ImageLayout) -> Self {
+        self.layout = layout;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1802,6 +3645,43 @@ impl Default for SubpassDescription<'_> {
         }
     }
 }
+impl<'a> SubpassDescription<'a> {
+    pub fn flags(mut self, flags: SubpassDescriptionFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn pipeline_bind_point(mut self, pipeline_bind_point: PipelineBindPoint) -> Self {
+        self.pipeline_bind_point = pipeline_bind_point;
+        self
+    }
+    pub fn input_attachments(mut self, input_attachments: &'a [AttachmentReference]) -> Self {
+        self.input_attachment_count = input_attachments.len().try_into().unwrap();
+        self.p_input_attachments = input_attachments.as_ptr();
+        self
+    }
+    pub fn color_attachments(mut self, color_attachments: &'a [AttachmentReference]) -> Self {
+        self.color_attachment_count = color_attachments.len().try_into().unwrap();
+        self.p_color_attachments = color_attachments.as_ptr();
+        self
+    }
+    pub fn resolve_attachments(mut self, resolve_attachments: &'a [AttachmentReference]) -> Self {
+        self.color_attachment_count = resolve_attachments.len().try_into().unwrap();
+        self.p_resolve_attachments = resolve_attachments.as_ptr();
+        self
+    }
+    pub fn depth_stencil_attachment(
+        mut self,
+        depth_stencil_attachment: &'a AttachmentReference,
+    ) -> Self {
+        self.p_depth_stencil_attachment = depth_stencil_attachment;
+        self
+    }
+    pub fn preserve_attachments(mut self, preserve_attachments: &'a [u32]) -> Self {
+        self.preserve_attachment_count = preserve_attachments.len().try_into().unwrap();
+        self.p_preserve_attachments = preserve_attachments.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct SubpassDependency {
@@ -1812,6 +3692,36 @@ pub struct SubpassDependency {
     pub src_access_mask: AccessFlags,
     pub dst_access_mask: AccessFlags,
     pub dependency_flags: DependencyFlags,
+}
+impl SubpassDependency {
+    pub fn src_subpass(mut self, src_subpass: u32) -> Self {
+        self.src_subpass = src_subpass;
+        self
+    }
+    pub fn dst_subpass(mut self, dst_subpass: u32) -> Self {
+        self.dst_subpass = dst_subpass;
+        self
+    }
+    pub fn src_stage_mask(mut self, src_stage_mask: PipelineStageFlags) -> Self {
+        self.src_stage_mask = src_stage_mask;
+        self
+    }
+    pub fn dst_stage_mask(mut self, dst_stage_mask: PipelineStageFlags) -> Self {
+        self.dst_stage_mask = dst_stage_mask;
+        self
+    }
+    pub fn src_access_mask(mut self, src_access_mask: AccessFlags) -> Self {
+        self.src_access_mask = src_access_mask;
+        self
+    }
+    pub fn dst_access_mask(mut self, dst_access_mask: AccessFlags) -> Self {
+        self.dst_access_mask = dst_access_mask;
+        self
+    }
+    pub fn dependency_flags(mut self, dependency_flags: DependencyFlags) -> Self {
+        self.dependency_flags = dependency_flags;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1843,6 +3753,27 @@ impl Default for RenderPassCreateInfo<'_> {
         }
     }
 }
+impl<'a> RenderPassCreateInfo<'a> {
+    pub fn flags(mut self, flags: RenderPassCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn attachments(mut self, attachments: &'a [AttachmentDescription]) -> Self {
+        self.attachment_count = attachments.len().try_into().unwrap();
+        self.p_attachments = attachments.as_ptr();
+        self
+    }
+    pub fn subpasses(mut self, subpasses: &'a [SubpassDescription<'a>]) -> Self {
+        self.subpass_count = subpasses.len().try_into().unwrap();
+        self.p_subpasses = subpasses.as_ptr();
+        self
+    }
+    pub fn dependencies(mut self, dependencies: &'a [SubpassDependency]) -> Self {
+        self.dependency_count = dependencies.len().try_into().unwrap();
+        self.p_dependencies = dependencies.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct EventCreateInfo<'a> {
@@ -1861,6 +3792,12 @@ impl Default for EventCreateInfo<'_> {
         }
     }
 }
+impl<'a> EventCreateInfo<'a> {
+    pub fn flags(mut self, flags: EventCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct FenceCreateInfo<'a> {
@@ -1877,6 +3814,12 @@ impl Default for FenceCreateInfo<'_> {
             flags: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> FenceCreateInfo<'a> {
+    pub fn flags(mut self, flags: FenceCreateFlags) -> Self {
+        self.flags = flags;
+        self
     }
 }
 #[repr(C)]
@@ -1938,6 +3881,263 @@ pub struct PhysicalDeviceFeatures {
     pub variable_multisample_rate: Bool32,
     pub inherited_queries: Bool32,
 }
+impl PhysicalDeviceFeatures {
+    pub fn robust_buffer_access(mut self, robust_buffer_access: Bool32) -> Self {
+        self.robust_buffer_access = robust_buffer_access;
+        self
+    }
+    pub fn full_draw_index_uint32(mut self, full_draw_index_uint32: Bool32) -> Self {
+        self.full_draw_index_uint32 = full_draw_index_uint32;
+        self
+    }
+    pub fn image_cube_array(mut self, image_cube_array: Bool32) -> Self {
+        self.image_cube_array = image_cube_array;
+        self
+    }
+    pub fn independent_blend(mut self, independent_blend: Bool32) -> Self {
+        self.independent_blend = independent_blend;
+        self
+    }
+    pub fn geometry_shader(mut self, geometry_shader: Bool32) -> Self {
+        self.geometry_shader = geometry_shader;
+        self
+    }
+    pub fn tessellation_shader(mut self, tessellation_shader: Bool32) -> Self {
+        self.tessellation_shader = tessellation_shader;
+        self
+    }
+    pub fn sample_rate_shading(mut self, sample_rate_shading: Bool32) -> Self {
+        self.sample_rate_shading = sample_rate_shading;
+        self
+    }
+    pub fn dual_src_blend(mut self, dual_src_blend: Bool32) -> Self {
+        self.dual_src_blend = dual_src_blend;
+        self
+    }
+    pub fn logic_op(mut self, logic_op: Bool32) -> Self {
+        self.logic_op = logic_op;
+        self
+    }
+    pub fn multi_draw_indirect(mut self, multi_draw_indirect: Bool32) -> Self {
+        self.multi_draw_indirect = multi_draw_indirect;
+        self
+    }
+    pub fn draw_indirect_first_instance(mut self, draw_indirect_first_instance: Bool32) -> Self {
+        self.draw_indirect_first_instance = draw_indirect_first_instance;
+        self
+    }
+    pub fn depth_clamp(mut self, depth_clamp: Bool32) -> Self {
+        self.depth_clamp = depth_clamp;
+        self
+    }
+    pub fn depth_bias_clamp(mut self, depth_bias_clamp: Bool32) -> Self {
+        self.depth_bias_clamp = depth_bias_clamp;
+        self
+    }
+    pub fn fill_mode_non_solid(mut self, fill_mode_non_solid: Bool32) -> Self {
+        self.fill_mode_non_solid = fill_mode_non_solid;
+        self
+    }
+    pub fn depth_bounds(mut self, depth_bounds: Bool32) -> Self {
+        self.depth_bounds = depth_bounds;
+        self
+    }
+    pub fn wide_lines(mut self, wide_lines: Bool32) -> Self {
+        self.wide_lines = wide_lines;
+        self
+    }
+    pub fn large_points(mut self, large_points: Bool32) -> Self {
+        self.large_points = large_points;
+        self
+    }
+    pub fn alpha_to_one(mut self, alpha_to_one: Bool32) -> Self {
+        self.alpha_to_one = alpha_to_one;
+        self
+    }
+    pub fn multi_viewport(mut self, multi_viewport: Bool32) -> Self {
+        self.multi_viewport = multi_viewport;
+        self
+    }
+    pub fn sampler_anisotropy(mut self, sampler_anisotropy: Bool32) -> Self {
+        self.sampler_anisotropy = sampler_anisotropy;
+        self
+    }
+    pub fn texture_compression_etc2(mut self, texture_compression_etc2: Bool32) -> Self {
+        self.texture_compression_etc2 = texture_compression_etc2;
+        self
+    }
+    pub fn texture_compression_astc_ldr(mut self, texture_compression_astc_ldr: Bool32) -> Self {
+        self.texture_compression_astc_ldr = texture_compression_astc_ldr;
+        self
+    }
+    pub fn texture_compression_bc(mut self, texture_compression_bc: Bool32) -> Self {
+        self.texture_compression_bc = texture_compression_bc;
+        self
+    }
+    pub fn occlusion_query_precise(mut self, occlusion_query_precise: Bool32) -> Self {
+        self.occlusion_query_precise = occlusion_query_precise;
+        self
+    }
+    pub fn pipeline_statistics_query(mut self, pipeline_statistics_query: Bool32) -> Self {
+        self.pipeline_statistics_query = pipeline_statistics_query;
+        self
+    }
+    pub fn vertex_pipeline_stores_and_atomics(
+        mut self,
+        vertex_pipeline_stores_and_atomics: Bool32,
+    ) -> Self {
+        self.vertex_pipeline_stores_and_atomics = vertex_pipeline_stores_and_atomics;
+        self
+    }
+    pub fn fragment_stores_and_atomics(mut self, fragment_stores_and_atomics: Bool32) -> Self {
+        self.fragment_stores_and_atomics = fragment_stores_and_atomics;
+        self
+    }
+    pub fn shader_tessellation_and_geometry_point_size(
+        mut self,
+        shader_tessellation_and_geometry_point_size: Bool32,
+    ) -> Self {
+        self.shader_tessellation_and_geometry_point_size =
+            shader_tessellation_and_geometry_point_size;
+        self
+    }
+    pub fn shader_image_gather_extended(mut self, shader_image_gather_extended: Bool32) -> Self {
+        self.shader_image_gather_extended = shader_image_gather_extended;
+        self
+    }
+    pub fn shader_storage_image_extended_formats(
+        mut self,
+        shader_storage_image_extended_formats: Bool32,
+    ) -> Self {
+        self.shader_storage_image_extended_formats = shader_storage_image_extended_formats;
+        self
+    }
+    pub fn shader_storage_image_multisample(
+        mut self,
+        shader_storage_image_multisample: Bool32,
+    ) -> Self {
+        self.shader_storage_image_multisample = shader_storage_image_multisample;
+        self
+    }
+    pub fn shader_storage_image_read_without_format(
+        mut self,
+        shader_storage_image_read_without_format: Bool32,
+    ) -> Self {
+        self.shader_storage_image_read_without_format = shader_storage_image_read_without_format;
+        self
+    }
+    pub fn shader_storage_image_write_without_format(
+        mut self,
+        shader_storage_image_write_without_format: Bool32,
+    ) -> Self {
+        self.shader_storage_image_write_without_format = shader_storage_image_write_without_format;
+        self
+    }
+    pub fn shader_uniform_buffer_array_dynamic_indexing(
+        mut self,
+        shader_uniform_buffer_array_dynamic_indexing: Bool32,
+    ) -> Self {
+        self.shader_uniform_buffer_array_dynamic_indexing =
+            shader_uniform_buffer_array_dynamic_indexing;
+        self
+    }
+    pub fn shader_sampled_image_array_dynamic_indexing(
+        mut self,
+        shader_sampled_image_array_dynamic_indexing: Bool32,
+    ) -> Self {
+        self.shader_sampled_image_array_dynamic_indexing =
+            shader_sampled_image_array_dynamic_indexing;
+        self
+    }
+    pub fn shader_storage_buffer_array_dynamic_indexing(
+        mut self,
+        shader_storage_buffer_array_dynamic_indexing: Bool32,
+    ) -> Self {
+        self.shader_storage_buffer_array_dynamic_indexing =
+            shader_storage_buffer_array_dynamic_indexing;
+        self
+    }
+    pub fn shader_storage_image_array_dynamic_indexing(
+        mut self,
+        shader_storage_image_array_dynamic_indexing: Bool32,
+    ) -> Self {
+        self.shader_storage_image_array_dynamic_indexing =
+            shader_storage_image_array_dynamic_indexing;
+        self
+    }
+    pub fn shader_clip_distance(mut self, shader_clip_distance: Bool32) -> Self {
+        self.shader_clip_distance = shader_clip_distance;
+        self
+    }
+    pub fn shader_cull_distance(mut self, shader_cull_distance: Bool32) -> Self {
+        self.shader_cull_distance = shader_cull_distance;
+        self
+    }
+    pub fn shader_float64(mut self, shader_float64: Bool32) -> Self {
+        self.shader_float64 = shader_float64;
+        self
+    }
+    pub fn shader_int64(mut self, shader_int64: Bool32) -> Self {
+        self.shader_int64 = shader_int64;
+        self
+    }
+    pub fn shader_int16(mut self, shader_int16: Bool32) -> Self {
+        self.shader_int16 = shader_int16;
+        self
+    }
+    pub fn shader_resource_residency(mut self, shader_resource_residency: Bool32) -> Self {
+        self.shader_resource_residency = shader_resource_residency;
+        self
+    }
+    pub fn shader_resource_min_lod(mut self, shader_resource_min_lod: Bool32) -> Self {
+        self.shader_resource_min_lod = shader_resource_min_lod;
+        self
+    }
+    pub fn sparse_binding(mut self, sparse_binding: Bool32) -> Self {
+        self.sparse_binding = sparse_binding;
+        self
+    }
+    pub fn sparse_residency_buffer(mut self, sparse_residency_buffer: Bool32) -> Self {
+        self.sparse_residency_buffer = sparse_residency_buffer;
+        self
+    }
+    pub fn sparse_residency_image2_d(mut self, sparse_residency_image2_d: Bool32) -> Self {
+        self.sparse_residency_image2_d = sparse_residency_image2_d;
+        self
+    }
+    pub fn sparse_residency_image3_d(mut self, sparse_residency_image3_d: Bool32) -> Self {
+        self.sparse_residency_image3_d = sparse_residency_image3_d;
+        self
+    }
+    pub fn sparse_residency2_samples(mut self, sparse_residency2_samples: Bool32) -> Self {
+        self.sparse_residency2_samples = sparse_residency2_samples;
+        self
+    }
+    pub fn sparse_residency4_samples(mut self, sparse_residency4_samples: Bool32) -> Self {
+        self.sparse_residency4_samples = sparse_residency4_samples;
+        self
+    }
+    pub fn sparse_residency8_samples(mut self, sparse_residency8_samples: Bool32) -> Self {
+        self.sparse_residency8_samples = sparse_residency8_samples;
+        self
+    }
+    pub fn sparse_residency16_samples(mut self, sparse_residency16_samples: Bool32) -> Self {
+        self.sparse_residency16_samples = sparse_residency16_samples;
+        self
+    }
+    pub fn sparse_residency_aliased(mut self, sparse_residency_aliased: Bool32) -> Self {
+        self.sparse_residency_aliased = sparse_residency_aliased;
+        self
+    }
+    pub fn variable_multisample_rate(mut self, variable_multisample_rate: Bool32) -> Self {
+        self.variable_multisample_rate = variable_multisample_rate;
+        self
+    }
+    pub fn inherited_queries(mut self, inherited_queries: Bool32) -> Self {
+        self.inherited_queries = inherited_queries;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct PhysicalDeviceSparseProperties {
@@ -1946,6 +4146,38 @@ pub struct PhysicalDeviceSparseProperties {
     pub residency_standard3_d_block_shape: Bool32,
     pub residency_aligned_mip_size: Bool32,
     pub residency_non_resident_strict: Bool32,
+}
+impl PhysicalDeviceSparseProperties {
+    pub fn residency_standard2_d_block_shape(
+        mut self,
+        residency_standard2_d_block_shape: Bool32,
+    ) -> Self {
+        self.residency_standard2_d_block_shape = residency_standard2_d_block_shape;
+        self
+    }
+    pub fn residency_standard2_d_multisample_block_shape(
+        mut self,
+        residency_standard2_d_multisample_block_shape: Bool32,
+    ) -> Self {
+        self.residency_standard2_d_multisample_block_shape =
+            residency_standard2_d_multisample_block_shape;
+        self
+    }
+    pub fn residency_standard3_d_block_shape(
+        mut self,
+        residency_standard3_d_block_shape: Bool32,
+    ) -> Self {
+        self.residency_standard3_d_block_shape = residency_standard3_d_block_shape;
+        self
+    }
+    pub fn residency_aligned_mip_size(mut self, residency_aligned_mip_size: Bool32) -> Self {
+        self.residency_aligned_mip_size = residency_aligned_mip_size;
+        self
+    }
+    pub fn residency_non_resident_strict(mut self, residency_non_resident_strict: Bool32) -> Self {
+        self.residency_non_resident_strict = residency_non_resident_strict;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2169,6 +4401,567 @@ impl Default for PhysicalDeviceLimits {
         }
     }
 }
+impl PhysicalDeviceLimits {
+    pub fn max_image_dimension1_d(mut self, max_image_dimension1_d: u32) -> Self {
+        self.max_image_dimension1_d = max_image_dimension1_d;
+        self
+    }
+    pub fn max_image_dimension2_d(mut self, max_image_dimension2_d: u32) -> Self {
+        self.max_image_dimension2_d = max_image_dimension2_d;
+        self
+    }
+    pub fn max_image_dimension3_d(mut self, max_image_dimension3_d: u32) -> Self {
+        self.max_image_dimension3_d = max_image_dimension3_d;
+        self
+    }
+    pub fn max_image_dimension_cube(mut self, max_image_dimension_cube: u32) -> Self {
+        self.max_image_dimension_cube = max_image_dimension_cube;
+        self
+    }
+    pub fn max_image_array_layers(mut self, max_image_array_layers: u32) -> Self {
+        self.max_image_array_layers = max_image_array_layers;
+        self
+    }
+    pub fn max_texel_buffer_elements(mut self, max_texel_buffer_elements: u32) -> Self {
+        self.max_texel_buffer_elements = max_texel_buffer_elements;
+        self
+    }
+    pub fn max_uniform_buffer_range(mut self, max_uniform_buffer_range: u32) -> Self {
+        self.max_uniform_buffer_range = max_uniform_buffer_range;
+        self
+    }
+    pub fn max_storage_buffer_range(mut self, max_storage_buffer_range: u32) -> Self {
+        self.max_storage_buffer_range = max_storage_buffer_range;
+        self
+    }
+    pub fn max_push_constants_size(mut self, max_push_constants_size: u32) -> Self {
+        self.max_push_constants_size = max_push_constants_size;
+        self
+    }
+    pub fn max_memory_allocation_count(mut self, max_memory_allocation_count: u32) -> Self {
+        self.max_memory_allocation_count = max_memory_allocation_count;
+        self
+    }
+    pub fn max_sampler_allocation_count(mut self, max_sampler_allocation_count: u32) -> Self {
+        self.max_sampler_allocation_count = max_sampler_allocation_count;
+        self
+    }
+    pub fn buffer_image_granularity(mut self, buffer_image_granularity: DeviceSize) -> Self {
+        self.buffer_image_granularity = buffer_image_granularity;
+        self
+    }
+    pub fn sparse_address_space_size(mut self, sparse_address_space_size: DeviceSize) -> Self {
+        self.sparse_address_space_size = sparse_address_space_size;
+        self
+    }
+    pub fn max_bound_descriptor_sets(mut self, max_bound_descriptor_sets: u32) -> Self {
+        self.max_bound_descriptor_sets = max_bound_descriptor_sets;
+        self
+    }
+    pub fn max_per_stage_descriptor_samplers(
+        mut self,
+        max_per_stage_descriptor_samplers: u32,
+    ) -> Self {
+        self.max_per_stage_descriptor_samplers = max_per_stage_descriptor_samplers;
+        self
+    }
+    pub fn max_per_stage_descriptor_uniform_buffers(
+        mut self,
+        max_per_stage_descriptor_uniform_buffers: u32,
+    ) -> Self {
+        self.max_per_stage_descriptor_uniform_buffers = max_per_stage_descriptor_uniform_buffers;
+        self
+    }
+    pub fn max_per_stage_descriptor_storage_buffers(
+        mut self,
+        max_per_stage_descriptor_storage_buffers: u32,
+    ) -> Self {
+        self.max_per_stage_descriptor_storage_buffers = max_per_stage_descriptor_storage_buffers;
+        self
+    }
+    pub fn max_per_stage_descriptor_sampled_images(
+        mut self,
+        max_per_stage_descriptor_sampled_images: u32,
+    ) -> Self {
+        self.max_per_stage_descriptor_sampled_images = max_per_stage_descriptor_sampled_images;
+        self
+    }
+    pub fn max_per_stage_descriptor_storage_images(
+        mut self,
+        max_per_stage_descriptor_storage_images: u32,
+    ) -> Self {
+        self.max_per_stage_descriptor_storage_images = max_per_stage_descriptor_storage_images;
+        self
+    }
+    pub fn max_per_stage_descriptor_input_attachments(
+        mut self,
+        max_per_stage_descriptor_input_attachments: u32,
+    ) -> Self {
+        self.max_per_stage_descriptor_input_attachments =
+            max_per_stage_descriptor_input_attachments;
+        self
+    }
+    pub fn max_per_stage_resources(mut self, max_per_stage_resources: u32) -> Self {
+        self.max_per_stage_resources = max_per_stage_resources;
+        self
+    }
+    pub fn max_descriptor_set_samplers(mut self, max_descriptor_set_samplers: u32) -> Self {
+        self.max_descriptor_set_samplers = max_descriptor_set_samplers;
+        self
+    }
+    pub fn max_descriptor_set_uniform_buffers(
+        mut self,
+        max_descriptor_set_uniform_buffers: u32,
+    ) -> Self {
+        self.max_descriptor_set_uniform_buffers = max_descriptor_set_uniform_buffers;
+        self
+    }
+    pub fn max_descriptor_set_uniform_buffers_dynamic(
+        mut self,
+        max_descriptor_set_uniform_buffers_dynamic: u32,
+    ) -> Self {
+        self.max_descriptor_set_uniform_buffers_dynamic =
+            max_descriptor_set_uniform_buffers_dynamic;
+        self
+    }
+    pub fn max_descriptor_set_storage_buffers(
+        mut self,
+        max_descriptor_set_storage_buffers: u32,
+    ) -> Self {
+        self.max_descriptor_set_storage_buffers = max_descriptor_set_storage_buffers;
+        self
+    }
+    pub fn max_descriptor_set_storage_buffers_dynamic(
+        mut self,
+        max_descriptor_set_storage_buffers_dynamic: u32,
+    ) -> Self {
+        self.max_descriptor_set_storage_buffers_dynamic =
+            max_descriptor_set_storage_buffers_dynamic;
+        self
+    }
+    pub fn max_descriptor_set_sampled_images(
+        mut self,
+        max_descriptor_set_sampled_images: u32,
+    ) -> Self {
+        self.max_descriptor_set_sampled_images = max_descriptor_set_sampled_images;
+        self
+    }
+    pub fn max_descriptor_set_storage_images(
+        mut self,
+        max_descriptor_set_storage_images: u32,
+    ) -> Self {
+        self.max_descriptor_set_storage_images = max_descriptor_set_storage_images;
+        self
+    }
+    pub fn max_descriptor_set_input_attachments(
+        mut self,
+        max_descriptor_set_input_attachments: u32,
+    ) -> Self {
+        self.max_descriptor_set_input_attachments = max_descriptor_set_input_attachments;
+        self
+    }
+    pub fn max_vertex_input_attributes(mut self, max_vertex_input_attributes: u32) -> Self {
+        self.max_vertex_input_attributes = max_vertex_input_attributes;
+        self
+    }
+    pub fn max_vertex_input_bindings(mut self, max_vertex_input_bindings: u32) -> Self {
+        self.max_vertex_input_bindings = max_vertex_input_bindings;
+        self
+    }
+    pub fn max_vertex_input_attribute_offset(
+        mut self,
+        max_vertex_input_attribute_offset: u32,
+    ) -> Self {
+        self.max_vertex_input_attribute_offset = max_vertex_input_attribute_offset;
+        self
+    }
+    pub fn max_vertex_input_binding_stride(mut self, max_vertex_input_binding_stride: u32) -> Self {
+        self.max_vertex_input_binding_stride = max_vertex_input_binding_stride;
+        self
+    }
+    pub fn max_vertex_output_components(mut self, max_vertex_output_components: u32) -> Self {
+        self.max_vertex_output_components = max_vertex_output_components;
+        self
+    }
+    pub fn max_tessellation_generation_level(
+        mut self,
+        max_tessellation_generation_level: u32,
+    ) -> Self {
+        self.max_tessellation_generation_level = max_tessellation_generation_level;
+        self
+    }
+    pub fn max_tessellation_patch_size(mut self, max_tessellation_patch_size: u32) -> Self {
+        self.max_tessellation_patch_size = max_tessellation_patch_size;
+        self
+    }
+    pub fn max_tessellation_control_per_vertex_input_components(
+        mut self,
+        max_tessellation_control_per_vertex_input_components: u32,
+    ) -> Self {
+        self.max_tessellation_control_per_vertex_input_components =
+            max_tessellation_control_per_vertex_input_components;
+        self
+    }
+    pub fn max_tessellation_control_per_vertex_output_components(
+        mut self,
+        max_tessellation_control_per_vertex_output_components: u32,
+    ) -> Self {
+        self.max_tessellation_control_per_vertex_output_components =
+            max_tessellation_control_per_vertex_output_components;
+        self
+    }
+    pub fn max_tessellation_control_per_patch_output_components(
+        mut self,
+        max_tessellation_control_per_patch_output_components: u32,
+    ) -> Self {
+        self.max_tessellation_control_per_patch_output_components =
+            max_tessellation_control_per_patch_output_components;
+        self
+    }
+    pub fn max_tessellation_control_total_output_components(
+        mut self,
+        max_tessellation_control_total_output_components: u32,
+    ) -> Self {
+        self.max_tessellation_control_total_output_components =
+            max_tessellation_control_total_output_components;
+        self
+    }
+    pub fn max_tessellation_evaluation_input_components(
+        mut self,
+        max_tessellation_evaluation_input_components: u32,
+    ) -> Self {
+        self.max_tessellation_evaluation_input_components =
+            max_tessellation_evaluation_input_components;
+        self
+    }
+    pub fn max_tessellation_evaluation_output_components(
+        mut self,
+        max_tessellation_evaluation_output_components: u32,
+    ) -> Self {
+        self.max_tessellation_evaluation_output_components =
+            max_tessellation_evaluation_output_components;
+        self
+    }
+    pub fn max_geometry_shader_invocations(mut self, max_geometry_shader_invocations: u32) -> Self {
+        self.max_geometry_shader_invocations = max_geometry_shader_invocations;
+        self
+    }
+    pub fn max_geometry_input_components(mut self, max_geometry_input_components: u32) -> Self {
+        self.max_geometry_input_components = max_geometry_input_components;
+        self
+    }
+    pub fn max_geometry_output_components(mut self, max_geometry_output_components: u32) -> Self {
+        self.max_geometry_output_components = max_geometry_output_components;
+        self
+    }
+    pub fn max_geometry_output_vertices(mut self, max_geometry_output_vertices: u32) -> Self {
+        self.max_geometry_output_vertices = max_geometry_output_vertices;
+        self
+    }
+    pub fn max_geometry_total_output_components(
+        mut self,
+        max_geometry_total_output_components: u32,
+    ) -> Self {
+        self.max_geometry_total_output_components = max_geometry_total_output_components;
+        self
+    }
+    pub fn max_fragment_input_components(mut self, max_fragment_input_components: u32) -> Self {
+        self.max_fragment_input_components = max_fragment_input_components;
+        self
+    }
+    pub fn max_fragment_output_attachments(mut self, max_fragment_output_attachments: u32) -> Self {
+        self.max_fragment_output_attachments = max_fragment_output_attachments;
+        self
+    }
+    pub fn max_fragment_dual_src_attachments(
+        mut self,
+        max_fragment_dual_src_attachments: u32,
+    ) -> Self {
+        self.max_fragment_dual_src_attachments = max_fragment_dual_src_attachments;
+        self
+    }
+    pub fn max_fragment_combined_output_resources(
+        mut self,
+        max_fragment_combined_output_resources: u32,
+    ) -> Self {
+        self.max_fragment_combined_output_resources = max_fragment_combined_output_resources;
+        self
+    }
+    pub fn max_compute_shared_memory_size(mut self, max_compute_shared_memory_size: u32) -> Self {
+        self.max_compute_shared_memory_size = max_compute_shared_memory_size;
+        self
+    }
+    pub fn max_compute_work_group_count(mut self, max_compute_work_group_count: [u32; 3]) -> Self {
+        self.max_compute_work_group_count = max_compute_work_group_count;
+        self
+    }
+    pub fn max_compute_work_group_invocations(
+        mut self,
+        max_compute_work_group_invocations: u32,
+    ) -> Self {
+        self.max_compute_work_group_invocations = max_compute_work_group_invocations;
+        self
+    }
+    pub fn max_compute_work_group_size(mut self, max_compute_work_group_size: [u32; 3]) -> Self {
+        self.max_compute_work_group_size = max_compute_work_group_size;
+        self
+    }
+    pub fn sub_pixel_precision_bits(mut self, sub_pixel_precision_bits: u32) -> Self {
+        self.sub_pixel_precision_bits = sub_pixel_precision_bits;
+        self
+    }
+    pub fn sub_texel_precision_bits(mut self, sub_texel_precision_bits: u32) -> Self {
+        self.sub_texel_precision_bits = sub_texel_precision_bits;
+        self
+    }
+    pub fn mipmap_precision_bits(mut self, mipmap_precision_bits: u32) -> Self {
+        self.mipmap_precision_bits = mipmap_precision_bits;
+        self
+    }
+    pub fn max_draw_indexed_index_value(mut self, max_draw_indexed_index_value: u32) -> Self {
+        self.max_draw_indexed_index_value = max_draw_indexed_index_value;
+        self
+    }
+    pub fn max_draw_indirect_count(mut self, max_draw_indirect_count: u32) -> Self {
+        self.max_draw_indirect_count = max_draw_indirect_count;
+        self
+    }
+    pub fn max_sampler_lod_bias(mut self, max_sampler_lod_bias: f32) -> Self {
+        self.max_sampler_lod_bias = max_sampler_lod_bias;
+        self
+    }
+    pub fn max_sampler_anisotropy(mut self, max_sampler_anisotropy: f32) -> Self {
+        self.max_sampler_anisotropy = max_sampler_anisotropy;
+        self
+    }
+    pub fn max_viewports(mut self, max_viewports: u32) -> Self {
+        self.max_viewports = max_viewports;
+        self
+    }
+    pub fn max_viewport_dimensions(mut self, max_viewport_dimensions: [u32; 2]) -> Self {
+        self.max_viewport_dimensions = max_viewport_dimensions;
+        self
+    }
+    pub fn viewport_bounds_range(mut self, viewport_bounds_range: [f32; 2]) -> Self {
+        self.viewport_bounds_range = viewport_bounds_range;
+        self
+    }
+    pub fn viewport_sub_pixel_bits(mut self, viewport_sub_pixel_bits: u32) -> Self {
+        self.viewport_sub_pixel_bits = viewport_sub_pixel_bits;
+        self
+    }
+    pub fn min_memory_map_alignment(mut self, min_memory_map_alignment: usize) -> Self {
+        self.min_memory_map_alignment = min_memory_map_alignment;
+        self
+    }
+    pub fn min_texel_buffer_offset_alignment(
+        mut self,
+        min_texel_buffer_offset_alignment: DeviceSize,
+    ) -> Self {
+        self.min_texel_buffer_offset_alignment = min_texel_buffer_offset_alignment;
+        self
+    }
+    pub fn min_uniform_buffer_offset_alignment(
+        mut self,
+        min_uniform_buffer_offset_alignment: DeviceSize,
+    ) -> Self {
+        self.min_uniform_buffer_offset_alignment = min_uniform_buffer_offset_alignment;
+        self
+    }
+    pub fn min_storage_buffer_offset_alignment(
+        mut self,
+        min_storage_buffer_offset_alignment: DeviceSize,
+    ) -> Self {
+        self.min_storage_buffer_offset_alignment = min_storage_buffer_offset_alignment;
+        self
+    }
+    pub fn min_texel_offset(mut self, min_texel_offset: i32) -> Self {
+        self.min_texel_offset = min_texel_offset;
+        self
+    }
+    pub fn max_texel_offset(mut self, max_texel_offset: u32) -> Self {
+        self.max_texel_offset = max_texel_offset;
+        self
+    }
+    pub fn min_texel_gather_offset(mut self, min_texel_gather_offset: i32) -> Self {
+        self.min_texel_gather_offset = min_texel_gather_offset;
+        self
+    }
+    pub fn max_texel_gather_offset(mut self, max_texel_gather_offset: u32) -> Self {
+        self.max_texel_gather_offset = max_texel_gather_offset;
+        self
+    }
+    pub fn min_interpolation_offset(mut self, min_interpolation_offset: f32) -> Self {
+        self.min_interpolation_offset = min_interpolation_offset;
+        self
+    }
+    pub fn max_interpolation_offset(mut self, max_interpolation_offset: f32) -> Self {
+        self.max_interpolation_offset = max_interpolation_offset;
+        self
+    }
+    pub fn sub_pixel_interpolation_offset_bits(
+        mut self,
+        sub_pixel_interpolation_offset_bits: u32,
+    ) -> Self {
+        self.sub_pixel_interpolation_offset_bits = sub_pixel_interpolation_offset_bits;
+        self
+    }
+    pub fn max_framebuffer_width(mut self, max_framebuffer_width: u32) -> Self {
+        self.max_framebuffer_width = max_framebuffer_width;
+        self
+    }
+    pub fn max_framebuffer_height(mut self, max_framebuffer_height: u32) -> Self {
+        self.max_framebuffer_height = max_framebuffer_height;
+        self
+    }
+    pub fn max_framebuffer_layers(mut self, max_framebuffer_layers: u32) -> Self {
+        self.max_framebuffer_layers = max_framebuffer_layers;
+        self
+    }
+    pub fn framebuffer_color_sample_counts(
+        mut self,
+        framebuffer_color_sample_counts: SampleCountFlags,
+    ) -> Self {
+        self.framebuffer_color_sample_counts = framebuffer_color_sample_counts;
+        self
+    }
+    pub fn framebuffer_depth_sample_counts(
+        mut self,
+        framebuffer_depth_sample_counts: SampleCountFlags,
+    ) -> Self {
+        self.framebuffer_depth_sample_counts = framebuffer_depth_sample_counts;
+        self
+    }
+    pub fn framebuffer_stencil_sample_counts(
+        mut self,
+        framebuffer_stencil_sample_counts: SampleCountFlags,
+    ) -> Self {
+        self.framebuffer_stencil_sample_counts = framebuffer_stencil_sample_counts;
+        self
+    }
+    pub fn framebuffer_no_attachments_sample_counts(
+        mut self,
+        framebuffer_no_attachments_sample_counts: SampleCountFlags,
+    ) -> Self {
+        self.framebuffer_no_attachments_sample_counts = framebuffer_no_attachments_sample_counts;
+        self
+    }
+    pub fn max_color_attachments(mut self, max_color_attachments: u32) -> Self {
+        self.max_color_attachments = max_color_attachments;
+        self
+    }
+    pub fn sampled_image_color_sample_counts(
+        mut self,
+        sampled_image_color_sample_counts: SampleCountFlags,
+    ) -> Self {
+        self.sampled_image_color_sample_counts = sampled_image_color_sample_counts;
+        self
+    }
+    pub fn sampled_image_integer_sample_counts(
+        mut self,
+        sampled_image_integer_sample_counts: SampleCountFlags,
+    ) -> Self {
+        self.sampled_image_integer_sample_counts = sampled_image_integer_sample_counts;
+        self
+    }
+    pub fn sampled_image_depth_sample_counts(
+        mut self,
+        sampled_image_depth_sample_counts: SampleCountFlags,
+    ) -> Self {
+        self.sampled_image_depth_sample_counts = sampled_image_depth_sample_counts;
+        self
+    }
+    pub fn sampled_image_stencil_sample_counts(
+        mut self,
+        sampled_image_stencil_sample_counts: SampleCountFlags,
+    ) -> Self {
+        self.sampled_image_stencil_sample_counts = sampled_image_stencil_sample_counts;
+        self
+    }
+    pub fn storage_image_sample_counts(
+        mut self,
+        storage_image_sample_counts: SampleCountFlags,
+    ) -> Self {
+        self.storage_image_sample_counts = storage_image_sample_counts;
+        self
+    }
+    pub fn max_sample_mask_words(mut self, max_sample_mask_words: u32) -> Self {
+        self.max_sample_mask_words = max_sample_mask_words;
+        self
+    }
+    pub fn timestamp_compute_and_graphics(
+        mut self,
+        timestamp_compute_and_graphics: Bool32,
+    ) -> Self {
+        self.timestamp_compute_and_graphics = timestamp_compute_and_graphics;
+        self
+    }
+    pub fn timestamp_period(mut self, timestamp_period: f32) -> Self {
+        self.timestamp_period = timestamp_period;
+        self
+    }
+    pub fn max_clip_distances(mut self, max_clip_distances: u32) -> Self {
+        self.max_clip_distances = max_clip_distances;
+        self
+    }
+    pub fn max_cull_distances(mut self, max_cull_distances: u32) -> Self {
+        self.max_cull_distances = max_cull_distances;
+        self
+    }
+    pub fn max_combined_clip_and_cull_distances(
+        mut self,
+        max_combined_clip_and_cull_distances: u32,
+    ) -> Self {
+        self.max_combined_clip_and_cull_distances = max_combined_clip_and_cull_distances;
+        self
+    }
+    pub fn discrete_queue_priorities(mut self, discrete_queue_priorities: u32) -> Self {
+        self.discrete_queue_priorities = discrete_queue_priorities;
+        self
+    }
+    pub fn point_size_range(mut self, point_size_range: [f32; 2]) -> Self {
+        self.point_size_range = point_size_range;
+        self
+    }
+    pub fn line_width_range(mut self, line_width_range: [f32; 2]) -> Self {
+        self.line_width_range = line_width_range;
+        self
+    }
+    pub fn point_size_granularity(mut self, point_size_granularity: f32) -> Self {
+        self.point_size_granularity = point_size_granularity;
+        self
+    }
+    pub fn line_width_granularity(mut self, line_width_granularity: f32) -> Self {
+        self.line_width_granularity = line_width_granularity;
+        self
+    }
+    pub fn strict_lines(mut self, strict_lines: Bool32) -> Self {
+        self.strict_lines = strict_lines;
+        self
+    }
+    pub fn standard_sample_locations(mut self, standard_sample_locations: Bool32) -> Self {
+        self.standard_sample_locations = standard_sample_locations;
+        self
+    }
+    pub fn optimal_buffer_copy_offset_alignment(
+        mut self,
+        optimal_buffer_copy_offset_alignment: DeviceSize,
+    ) -> Self {
+        self.optimal_buffer_copy_offset_alignment = optimal_buffer_copy_offset_alignment;
+        self
+    }
+    pub fn optimal_buffer_copy_row_pitch_alignment(
+        mut self,
+        optimal_buffer_copy_row_pitch_alignment: DeviceSize,
+    ) -> Self {
+        self.optimal_buffer_copy_row_pitch_alignment = optimal_buffer_copy_row_pitch_alignment;
+        self
+    }
+    pub fn non_coherent_atom_size(mut self, non_coherent_atom_size: DeviceSize) -> Self {
+        self.non_coherent_atom_size = non_coherent_atom_size;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SemaphoreCreateInfo<'a> {
@@ -2185,6 +4978,12 @@ impl Default for SemaphoreCreateInfo<'_> {
             flags: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SemaphoreCreateInfo<'a> {
+    pub fn flags(mut self, flags: SemaphoreCreateFlags) -> Self {
+        self.flags = flags;
+        self
     }
 }
 #[repr(C)]
@@ -2209,6 +5008,24 @@ impl Default for QueryPoolCreateInfo<'_> {
             pipeline_statistics: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> QueryPoolCreateInfo<'a> {
+    pub fn flags(mut self, flags: QueryPoolCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn query_type(mut self, query_type: QueryType) -> Self {
+        self.query_type = query_type;
+        self
+    }
+    pub fn query_count(mut self, query_count: u32) -> Self {
+        self.query_count = query_count;
+        self
+    }
+    pub fn pipeline_statistics(mut self, pipeline_statistics: QueryPipelineStatisticFlags) -> Self {
+        self.pipeline_statistics = pipeline_statistics;
+        self
     }
 }
 #[repr(C)]
@@ -2241,6 +5058,33 @@ impl Default for FramebufferCreateInfo<'_> {
         }
     }
 }
+impl<'a> FramebufferCreateInfo<'a> {
+    pub fn flags(mut self, flags: FramebufferCreateFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn render_pass(mut self, render_pass: RenderPass) -> Self {
+        self.render_pass = render_pass;
+        self
+    }
+    pub fn attachments(mut self, attachments: &'a [ImageView]) -> Self {
+        self.attachment_count = attachments.len().try_into().unwrap();
+        self.p_attachments = attachments.as_ptr();
+        self
+    }
+    pub fn width(mut self, width: u32) -> Self {
+        self.width = width;
+        self
+    }
+    pub fn height(mut self, height: u32) -> Self {
+        self.height = height;
+        self
+    }
+    pub fn layers(mut self, layers: u32) -> Self {
+        self.layers = layers;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct DrawIndirectCommand {
@@ -2248,6 +5092,24 @@ pub struct DrawIndirectCommand {
     pub instance_count: u32,
     pub first_vertex: u32,
     pub first_instance: u32,
+}
+impl DrawIndirectCommand {
+    pub fn vertex_count(mut self, vertex_count: u32) -> Self {
+        self.vertex_count = vertex_count;
+        self
+    }
+    pub fn instance_count(mut self, instance_count: u32) -> Self {
+        self.instance_count = instance_count;
+        self
+    }
+    pub fn first_vertex(mut self, first_vertex: u32) -> Self {
+        self.first_vertex = first_vertex;
+        self
+    }
+    pub fn first_instance(mut self, first_instance: u32) -> Self {
+        self.first_instance = first_instance;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -2258,12 +5120,48 @@ pub struct DrawIndexedIndirectCommand {
     pub vertex_offset: i32,
     pub first_instance: u32,
 }
+impl DrawIndexedIndirectCommand {
+    pub fn index_count(mut self, index_count: u32) -> Self {
+        self.index_count = index_count;
+        self
+    }
+    pub fn instance_count(mut self, instance_count: u32) -> Self {
+        self.instance_count = instance_count;
+        self
+    }
+    pub fn first_index(mut self, first_index: u32) -> Self {
+        self.first_index = first_index;
+        self
+    }
+    pub fn vertex_offset(mut self, vertex_offset: i32) -> Self {
+        self.vertex_offset = vertex_offset;
+        self
+    }
+    pub fn first_instance(mut self, first_instance: u32) -> Self {
+        self.first_instance = first_instance;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct DispatchIndirectCommand {
     pub x: u32,
     pub y: u32,
     pub z: u32,
+}
+impl DispatchIndirectCommand {
+    pub fn x(mut self, x: u32) -> Self {
+        self.x = x;
+        self
+    }
+    pub fn y(mut self, y: u32) -> Self {
+        self.y = y;
+        self
+    }
+    pub fn z(mut self, z: u32) -> Self {
+        self.z = z;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2293,6 +5191,28 @@ impl Default for SubmitInfo<'_> {
             p_signal_semaphores: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SubmitInfo<'a> {
+    pub fn wait_semaphores(mut self, wait_semaphores: &'a [Semaphore]) -> Self {
+        self.wait_semaphore_count = wait_semaphores.len().try_into().unwrap();
+        self.p_wait_semaphores = wait_semaphores.as_ptr();
+        self
+    }
+    pub fn wait_dst_stage_mask(mut self, wait_dst_stage_mask: &'a [PipelineStageFlags]) -> Self {
+        self.wait_semaphore_count = wait_dst_stage_mask.len().try_into().unwrap();
+        self.p_wait_dst_stage_mask = wait_dst_stage_mask.as_ptr();
+        self
+    }
+    pub fn command_buffers(mut self, command_buffers: &'a [CommandBuffer]) -> Self {
+        self.command_buffer_count = command_buffers.len().try_into().unwrap();
+        self.p_command_buffers = command_buffers.as_ptr();
+        self
+    }
+    pub fn signal_semaphores(mut self, signal_semaphores: &'a [Semaphore]) -> Self {
+        self.signal_semaphore_count = signal_semaphores.len().try_into().unwrap();
+        self.p_signal_semaphores = signal_semaphores.as_ptr();
+        self
     }
 }
 #[repr(C)]

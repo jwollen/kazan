@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,6 +23,20 @@ impl Default for PhysicalDevicePresentTimingFeaturesEXT<'_> {
             present_at_relative_time: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDevicePresentTimingFeaturesEXT<'a> {
+    pub fn present_timing(mut self, present_timing: Bool32) -> Self {
+        self.present_timing = present_timing;
+        self
+    }
+    pub fn present_at_absolute_time(mut self, present_at_absolute_time: Bool32) -> Self {
+        self.present_at_absolute_time = present_at_absolute_time;
+        self
+    }
+    pub fn present_at_relative_time(mut self, present_at_relative_time: Bool32) -> Self {
+        self.present_at_relative_time = present_at_relative_time;
+        self
     }
 }
 #[repr(C)]
@@ -49,6 +63,30 @@ impl Default for PresentTimingSurfaceCapabilitiesEXT<'_> {
         }
     }
 }
+impl<'a> PresentTimingSurfaceCapabilitiesEXT<'a> {
+    pub fn present_timing_supported(mut self, present_timing_supported: Bool32) -> Self {
+        self.present_timing_supported = present_timing_supported;
+        self
+    }
+    pub fn present_at_absolute_time_supported(
+        mut self,
+        present_at_absolute_time_supported: Bool32,
+    ) -> Self {
+        self.present_at_absolute_time_supported = present_at_absolute_time_supported;
+        self
+    }
+    pub fn present_at_relative_time_supported(
+        mut self,
+        present_at_relative_time_supported: Bool32,
+    ) -> Self {
+        self.present_at_relative_time_supported = present_at_relative_time_supported;
+        self
+    }
+    pub fn present_stage_queries(mut self, present_stage_queries: PresentStageFlagsEXT) -> Self {
+        self.present_stage_queries = present_stage_queries;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SwapchainTimingPropertiesEXT<'a> {
@@ -67,6 +105,16 @@ impl Default for SwapchainTimingPropertiesEXT<'_> {
             refresh_interval: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SwapchainTimingPropertiesEXT<'a> {
+    pub fn refresh_duration(mut self, refresh_duration: u64) -> Self {
+        self.refresh_duration = refresh_duration;
+        self
+    }
+    pub fn refresh_interval(mut self, refresh_interval: u64) -> Self {
+        self.refresh_interval = refresh_interval;
+        self
     }
 }
 #[repr(C)]
@@ -91,11 +139,33 @@ impl Default for SwapchainTimeDomainPropertiesEXT<'_> {
         }
     }
 }
+impl<'a> SwapchainTimeDomainPropertiesEXT<'a> {
+    pub fn time_domains(mut self, time_domains: &'a mut [TimeDomainKHR]) -> Self {
+        self.time_domain_count = time_domains.len().try_into().unwrap();
+        self.p_time_domains = time_domains.as_mut_ptr();
+        self
+    }
+    pub fn time_domain_ids(mut self, time_domain_ids: &'a mut [u64]) -> Self {
+        self.time_domain_count = time_domain_ids.len().try_into().unwrap();
+        self.p_time_domain_ids = time_domain_ids.as_mut_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct PresentStageTimeEXT {
     pub stage: PresentStageFlagsEXT,
     pub time: u64,
+}
+impl PresentStageTimeEXT {
+    pub fn stage(mut self, stage: PresentStageFlagsEXT) -> Self {
+        self.stage = stage;
+        self
+    }
+    pub fn time(mut self, time: u64) -> Self {
+        self.time = time;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -115,6 +185,16 @@ impl Default for PastPresentationTimingInfoEXT<'_> {
             swapchain: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PastPresentationTimingInfoEXT<'a> {
+    pub fn flags(mut self, flags: PastPresentationTimingFlagsEXT) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn swapchain(mut self, swapchain: SwapchainKHR) -> Self {
+        self.swapchain = swapchain;
+        self
     }
 }
 #[repr(C)]
@@ -139,6 +219,24 @@ impl Default for PastPresentationTimingPropertiesEXT<'_> {
             p_presentation_timings: core::ptr::null_mut(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PastPresentationTimingPropertiesEXT<'a> {
+    pub fn timing_properties_counter(mut self, timing_properties_counter: u64) -> Self {
+        self.timing_properties_counter = timing_properties_counter;
+        self
+    }
+    pub fn time_domains_counter(mut self, time_domains_counter: u64) -> Self {
+        self.time_domains_counter = time_domains_counter;
+        self
+    }
+    pub fn presentation_timings(
+        mut self,
+        presentation_timings: &'a mut [PastPresentationTimingEXT<'a>],
+    ) -> Self {
+        self.presentation_timing_count = presentation_timings.len().try_into().unwrap();
+        self.p_presentation_timings = presentation_timings.as_mut_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -171,6 +269,33 @@ impl Default for PastPresentationTimingEXT<'_> {
         }
     }
 }
+impl<'a> PastPresentationTimingEXT<'a> {
+    pub fn present_id(mut self, present_id: u64) -> Self {
+        self.present_id = present_id;
+        self
+    }
+    pub fn target_time(mut self, target_time: u64) -> Self {
+        self.target_time = target_time;
+        self
+    }
+    pub fn present_stages(mut self, present_stages: &'a mut [PresentStageTimeEXT]) -> Self {
+        self.present_stage_count = present_stages.len().try_into().unwrap();
+        self.p_present_stages = present_stages.as_mut_ptr();
+        self
+    }
+    pub fn time_domain(mut self, time_domain: TimeDomainKHR) -> Self {
+        self.time_domain = time_domain;
+        self
+    }
+    pub fn time_domain_id(mut self, time_domain_id: u64) -> Self {
+        self.time_domain_id = time_domain_id;
+        self
+    }
+    pub fn report_complete(mut self, report_complete: Bool32) -> Self {
+        self.report_complete = report_complete;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PresentTimingsInfoEXT<'a> {
@@ -189,6 +314,13 @@ impl Default for PresentTimingsInfoEXT<'_> {
             p_timing_infos: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PresentTimingsInfoEXT<'a> {
+    pub fn timing_infos(mut self, timing_infos: &'a [PresentTimingInfoEXT<'a>]) -> Self {
+        self.swapchain_count = timing_infos.len().try_into().unwrap();
+        self.p_timing_infos = timing_infos.as_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -217,6 +349,31 @@ impl Default for PresentTimingInfoEXT<'_> {
         }
     }
 }
+impl<'a> PresentTimingInfoEXT<'a> {
+    pub fn flags(mut self, flags: PresentTimingInfoFlagsEXT) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn target_time(mut self, target_time: u64) -> Self {
+        self.target_time = target_time;
+        self
+    }
+    pub fn time_domain_id(mut self, time_domain_id: u64) -> Self {
+        self.time_domain_id = time_domain_id;
+        self
+    }
+    pub fn present_stage_queries(mut self, present_stage_queries: PresentStageFlagsEXT) -> Self {
+        self.present_stage_queries = present_stage_queries;
+        self
+    }
+    pub fn target_time_domain_present_stage(
+        mut self,
+        target_time_domain_present_stage: PresentStageFlagsEXT,
+    ) -> Self {
+        self.target_time_domain_present_stage = target_time_domain_present_stage;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SwapchainCalibratedTimestampInfoEXT<'a> {
@@ -237,6 +394,20 @@ impl Default for SwapchainCalibratedTimestampInfoEXT<'_> {
             time_domain_id: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SwapchainCalibratedTimestampInfoEXT<'a> {
+    pub fn swapchain(mut self, swapchain: SwapchainKHR) -> Self {
+        self.swapchain = swapchain;
+        self
+    }
+    pub fn present_stage(mut self, present_stage: PresentStageFlagsEXT) -> Self {
+        self.present_stage = present_stage;
+        self
+    }
+    pub fn time_domain_id(mut self, time_domain_id: u64) -> Self {
+        self.time_domain_id = time_domain_id;
+        self
     }
 }
 bitflags! {

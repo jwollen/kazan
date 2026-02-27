@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -25,6 +25,28 @@ impl Default for PhysicalDeviceMaintenance10PropertiesKHR<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceMaintenance10PropertiesKHR<'a> {
+    pub fn rgba4_opaque_black_swizzled(mut self, rgba4_opaque_black_swizzled: Bool32) -> Self {
+        self.rgba4_opaque_black_swizzled = rgba4_opaque_black_swizzled;
+        self
+    }
+    pub fn resolve_srgb_format_applies_transfer_function(
+        mut self,
+        resolve_srgb_format_applies_transfer_function: Bool32,
+    ) -> Self {
+        self.resolve_srgb_format_applies_transfer_function =
+            resolve_srgb_format_applies_transfer_function;
+        self
+    }
+    pub fn resolve_srgb_format_supports_transfer_function_control(
+        mut self,
+        resolve_srgb_format_supports_transfer_function_control: Bool32,
+    ) -> Self {
+        self.resolve_srgb_format_supports_transfer_function_control =
+            resolve_srgb_format_supports_transfer_function_control;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceMaintenance10FeaturesKHR<'a> {
@@ -43,6 +65,12 @@ impl Default for PhysicalDeviceMaintenance10FeaturesKHR<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceMaintenance10FeaturesKHR<'a> {
+    pub fn maintenance10(mut self, maintenance10: Bool32) -> Self {
+        self.maintenance10 = maintenance10;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct RenderingEndInfoKHR<'a> {
@@ -59,6 +87,7 @@ impl Default for RenderingEndInfoKHR<'_> {
         }
     }
 }
+impl<'a> RenderingEndInfoKHR<'a> {}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct RenderingAttachmentFlagsInfoKHR<'a> {
@@ -75,6 +104,12 @@ impl Default for RenderingAttachmentFlagsInfoKHR<'_> {
             flags: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> RenderingAttachmentFlagsInfoKHR<'a> {
+    pub fn flags(mut self, flags: RenderingAttachmentFlagsKHR) -> Self {
+        self.flags = flags;
+        self
     }
 }
 #[repr(C)]
@@ -97,6 +132,20 @@ impl Default for ResolveImageModeInfoKHR<'_> {
             stencil_resolve_mode: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ResolveImageModeInfoKHR<'a> {
+    pub fn flags(mut self, flags: ResolveImageFlagsKHR) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn resolve_mode(mut self, resolve_mode: ResolveModeFlagBits) -> Self {
+        self.resolve_mode = resolve_mode;
+        self
+    }
+    pub fn stencil_resolve_mode(mut self, stencil_resolve_mode: ResolveModeFlagBits) -> Self {
+        self.stencil_resolve_mode = stencil_resolve_mode;
+        self
     }
 }
 bitflags! {

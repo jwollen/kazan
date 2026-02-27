@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceExclusiveScissorFeaturesNV<'_> {
             exclusive_scissor: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceExclusiveScissorFeaturesNV<'a> {
+    pub fn exclusive_scissor(mut self, exclusive_scissor: Bool32) -> Self {
+        self.exclusive_scissor = exclusive_scissor;
+        self
     }
 }
 #[repr(C)]
@@ -39,6 +45,13 @@ impl Default for PipelineViewportExclusiveScissorStateCreateInfoNV<'_> {
             p_exclusive_scissors: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineViewportExclusiveScissorStateCreateInfoNV<'a> {
+    pub fn exclusive_scissors(mut self, exclusive_scissors: &'a [Rect2D]) -> Self {
+        self.exclusive_scissor_count = exclusive_scissors.len().try_into().unwrap();
+        self.p_exclusive_scissors = exclusive_scissors.as_ptr();
+        self
     }
 }
 pub type PFN_vkCmdSetExclusiveScissorNV = unsafe extern "system" fn(

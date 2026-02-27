@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,6 +21,19 @@ impl Default for DirectDriverLoadingInfoLUNARG<'_> {
             pfn_get_instance_proc_addr: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DirectDriverLoadingInfoLUNARG<'a> {
+    pub fn flags(mut self, flags: DirectDriverLoadingFlagsLUNARG) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn pfn_get_instance_proc_addr(
+        mut self,
+        pfn_get_instance_proc_addr: PFN_vkGetInstanceProcAddrLUNARG,
+    ) -> Self {
+        self.pfn_get_instance_proc_addr = Some(pfn_get_instance_proc_addr);
+        self
     }
 }
 #[repr(C)]
@@ -43,6 +56,17 @@ impl Default for DirectDriverLoadingListLUNARG<'_> {
             p_drivers: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DirectDriverLoadingListLUNARG<'a> {
+    pub fn mode(mut self, mode: DirectDriverLoadingModeLUNARG) -> Self {
+        self.mode = mode;
+        self
+    }
+    pub fn drivers(mut self, drivers: &'a [DirectDriverLoadingInfoLUNARG<'a>]) -> Self {
+        self.driver_count = drivers.len().try_into().unwrap();
+        self.p_drivers = drivers.as_ptr();
+        self
     }
 }
 #[repr(transparent)]

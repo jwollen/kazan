@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,5 +19,11 @@ impl Default for PhysicalDeviceShaderSubgroupPartitionedFeaturesEXT<'_> {
             shader_subgroup_partitioned: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceShaderSubgroupPartitionedFeaturesEXT<'a> {
+    pub fn shader_subgroup_partitioned(mut self, shader_subgroup_partitioned: Bool32) -> Self {
+        self.shader_subgroup_partitioned = shader_subgroup_partitioned;
+        self
     }
 }

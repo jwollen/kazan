@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for DisplayPowerInfoEXT<'_> {
             power_state: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DisplayPowerInfoEXT<'a> {
+    pub fn power_state(mut self, power_state: DisplayPowerStateEXT) -> Self {
+        self.power_state = power_state;
+        self
     }
 }
 #[repr(C)]
@@ -39,6 +45,12 @@ impl Default for DeviceEventInfoEXT<'_> {
         }
     }
 }
+impl<'a> DeviceEventInfoEXT<'a> {
+    pub fn device_event(mut self, device_event: DeviceEventTypeEXT) -> Self {
+        self.device_event = device_event;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DisplayEventInfoEXT<'a> {
@@ -57,6 +69,12 @@ impl Default for DisplayEventInfoEXT<'_> {
         }
     }
 }
+impl<'a> DisplayEventInfoEXT<'a> {
+    pub fn display_event(mut self, display_event: DisplayEventTypeEXT) -> Self {
+        self.display_event = display_event;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SwapchainCounterCreateInfoEXT<'a> {
@@ -73,6 +91,12 @@ impl Default for SwapchainCounterCreateInfoEXT<'_> {
             surface_counters: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SwapchainCounterCreateInfoEXT<'a> {
+    pub fn surface_counters(mut self, surface_counters: SurfaceCounterFlagsEXT) -> Self {
+        self.surface_counters = surface_counters;
+        self
     }
 }
 #[repr(transparent)]

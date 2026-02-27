@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub type RayTracingInvocationReorderModeNV = RayTracingInvocationReorderModeEXT;
 #[repr(C)]
@@ -22,6 +22,15 @@ impl Default for PhysicalDeviceRayTracingInvocationReorderFeaturesNV<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceRayTracingInvocationReorderFeaturesNV<'a> {
+    pub fn ray_tracing_invocation_reorder(
+        mut self,
+        ray_tracing_invocation_reorder: Bool32,
+    ) -> Self {
+        self.ray_tracing_invocation_reorder = ray_tracing_invocation_reorder;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceRayTracingInvocationReorderPropertiesNV<'a> {
@@ -38,5 +47,15 @@ impl Default for PhysicalDeviceRayTracingInvocationReorderPropertiesNV<'_> {
             ray_tracing_invocation_reorder_reordering_hint: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceRayTracingInvocationReorderPropertiesNV<'a> {
+    pub fn ray_tracing_invocation_reorder_reordering_hint(
+        mut self,
+        ray_tracing_invocation_reorder_reordering_hint: RayTracingInvocationReorderModeEXT,
+    ) -> Self {
+        self.ray_tracing_invocation_reorder_reordering_hint =
+            ray_tracing_invocation_reorder_reordering_hint;
+        self
     }
 }

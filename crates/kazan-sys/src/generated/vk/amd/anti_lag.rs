@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceAntiLagFeaturesAMD<'_> {
             anti_lag: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceAntiLagFeaturesAMD<'a> {
+    pub fn anti_lag(mut self, anti_lag: Bool32) -> Self {
+        self.anti_lag = anti_lag;
+        self
     }
 }
 #[repr(C)]
@@ -43,6 +49,23 @@ impl Default for AntiLagDataAMD<'_> {
         }
     }
 }
+impl<'a> AntiLagDataAMD<'a> {
+    pub fn mode(mut self, mode: AntiLagModeAMD) -> Self {
+        self.mode = mode;
+        self
+    }
+    pub fn max_fps(mut self, max_fps: u32) -> Self {
+        self.max_fps = max_fps;
+        self
+    }
+    pub fn presentation_info(
+        mut self,
+        presentation_info: &'a AntiLagPresentationInfoAMD<'a>,
+    ) -> Self {
+        self.p_presentation_info = presentation_info;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct AntiLagPresentationInfoAMD<'a> {
@@ -61,6 +84,16 @@ impl Default for AntiLagPresentationInfoAMD<'_> {
             frame_index: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> AntiLagPresentationInfoAMD<'a> {
+    pub fn stage(mut self, stage: AntiLagStageAMD) -> Self {
+        self.stage = stage;
+        self
+    }
+    pub fn frame_index(mut self, frame_index: u64) -> Self {
+        self.frame_index = frame_index;
+        self
     }
 }
 #[repr(transparent)]

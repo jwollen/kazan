@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -20,6 +20,15 @@ impl Default for PhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT<'_>
             attachment_feedback_loop_dynamic_state: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT<'a> {
+    pub fn attachment_feedback_loop_dynamic_state(
+        mut self,
+        attachment_feedback_loop_dynamic_state: Bool32,
+    ) -> Self {
+        self.attachment_feedback_loop_dynamic_state = attachment_feedback_loop_dynamic_state;
+        self
     }
 }
 pub type PFN_vkCmdSetAttachmentFeedbackLoopEnableEXT =

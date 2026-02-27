@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub type OHNativeWindow = *const c_void;
 #[repr(C)]
@@ -22,6 +22,16 @@ impl Default for SurfaceCreateInfoOHOS<'_> {
             window: core::ptr::null_mut(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SurfaceCreateInfoOHOS<'a> {
+    pub fn flags(mut self, flags: SurfaceCreateFlagsOHOS) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn window(mut self, window: &'a mut OHNativeWindow) -> Self {
+        self.window = window;
+        self
     }
 }
 bitflags! {

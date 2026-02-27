@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,5 +19,11 @@ impl Default for PhysicalDeviceCommandBufferInheritanceFeaturesNV<'_> {
             command_buffer_inheritance: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceCommandBufferInheritanceFeaturesNV<'a> {
+    pub fn command_buffer_inheritance(mut self, command_buffer_inheritance: Bool32) -> Self {
+        self.command_buffer_inheritance = command_buffer_inheritance;
+        self
     }
 }

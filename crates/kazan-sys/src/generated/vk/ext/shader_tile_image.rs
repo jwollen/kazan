@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -25,6 +25,29 @@ impl Default for PhysicalDeviceShaderTileImageFeaturesEXT<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceShaderTileImageFeaturesEXT<'a> {
+    pub fn shader_tile_image_color_read_access(
+        mut self,
+        shader_tile_image_color_read_access: Bool32,
+    ) -> Self {
+        self.shader_tile_image_color_read_access = shader_tile_image_color_read_access;
+        self
+    }
+    pub fn shader_tile_image_depth_read_access(
+        mut self,
+        shader_tile_image_depth_read_access: Bool32,
+    ) -> Self {
+        self.shader_tile_image_depth_read_access = shader_tile_image_depth_read_access;
+        self
+    }
+    pub fn shader_tile_image_stencil_read_access(
+        mut self,
+        shader_tile_image_stencil_read_access: Bool32,
+    ) -> Self {
+        self.shader_tile_image_stencil_read_access = shader_tile_image_stencil_read_access;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderTileImagePropertiesEXT<'a> {
@@ -45,5 +68,31 @@ impl Default for PhysicalDeviceShaderTileImagePropertiesEXT<'_> {
             shader_tile_image_read_from_helper_invocation: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceShaderTileImagePropertiesEXT<'a> {
+    pub fn shader_tile_image_coherent_read_accelerated(
+        mut self,
+        shader_tile_image_coherent_read_accelerated: Bool32,
+    ) -> Self {
+        self.shader_tile_image_coherent_read_accelerated =
+            shader_tile_image_coherent_read_accelerated;
+        self
+    }
+    pub fn shader_tile_image_read_sample_from_pixel_rate_invocation(
+        mut self,
+        shader_tile_image_read_sample_from_pixel_rate_invocation: Bool32,
+    ) -> Self {
+        self.shader_tile_image_read_sample_from_pixel_rate_invocation =
+            shader_tile_image_read_sample_from_pixel_rate_invocation;
+        self
+    }
+    pub fn shader_tile_image_read_from_helper_invocation(
+        mut self,
+        shader_tile_image_read_from_helper_invocation: Bool32,
+    ) -> Self {
+        self.shader_tile_image_read_from_helper_invocation =
+            shader_tile_image_read_from_helper_invocation;
+        self
     }
 }

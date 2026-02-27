@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -23,6 +23,16 @@ impl Default for PerformanceValueINTEL<'_> {
         }
     }
 }
+impl<'a> PerformanceValueINTEL<'a> {
+    pub fn ty(mut self, ty: PerformanceValueTypeINTEL) -> Self {
+        self.ty = ty;
+        self
+    }
+    pub fn data(mut self, data: PerformanceValueDataINTEL<'a>) -> Self {
+        self.data = data;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct InitializePerformanceApiInfoINTEL<'a> {
@@ -39,6 +49,12 @@ impl Default for InitializePerformanceApiInfoINTEL<'_> {
             p_user_data: core::ptr::null_mut(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> InitializePerformanceApiInfoINTEL<'a> {
+    pub fn user_data(mut self, user_data: &'a mut c_void) -> Self {
+        self.p_user_data = user_data;
+        self
     }
 }
 #[repr(C)]
@@ -59,6 +75,15 @@ impl Default for QueryPoolPerformanceQueryCreateInfoINTEL<'_> {
         }
     }
 }
+impl<'a> QueryPoolPerformanceQueryCreateInfoINTEL<'a> {
+    pub fn performance_counters_sampling(
+        mut self,
+        performance_counters_sampling: QueryPoolSamplingModeINTEL,
+    ) -> Self {
+        self.performance_counters_sampling = performance_counters_sampling;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PerformanceMarkerInfoINTEL<'a> {
@@ -77,6 +102,12 @@ impl Default for PerformanceMarkerInfoINTEL<'_> {
         }
     }
 }
+impl<'a> PerformanceMarkerInfoINTEL<'a> {
+    pub fn marker(mut self, marker: u64) -> Self {
+        self.marker = marker;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PerformanceStreamMarkerInfoINTEL<'a> {
@@ -93,6 +124,12 @@ impl Default for PerformanceStreamMarkerInfoINTEL<'_> {
             marker: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PerformanceStreamMarkerInfoINTEL<'a> {
+    pub fn marker(mut self, marker: u32) -> Self {
+        self.marker = marker;
+        self
     }
 }
 #[repr(C)]
@@ -117,6 +154,20 @@ impl Default for PerformanceOverrideInfoINTEL<'_> {
         }
     }
 }
+impl<'a> PerformanceOverrideInfoINTEL<'a> {
+    pub fn ty(mut self, ty: PerformanceOverrideTypeINTEL) -> Self {
+        self.ty = ty;
+        self
+    }
+    pub fn enable(mut self, enable: Bool32) -> Self {
+        self.enable = enable;
+        self
+    }
+    pub fn parameter(mut self, parameter: u64) -> Self {
+        self.parameter = parameter;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PerformanceConfigurationAcquireInfoINTEL<'a> {
@@ -133,6 +184,12 @@ impl Default for PerformanceConfigurationAcquireInfoINTEL<'_> {
             ty: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PerformanceConfigurationAcquireInfoINTEL<'a> {
+    pub fn ty(mut self, ty: PerformanceConfigurationTypeINTEL) -> Self {
+        self.ty = ty;
+        self
     }
 }
 #[repr(C)]

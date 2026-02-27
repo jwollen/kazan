@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub const MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM: u32 = 128;
 #[repr(C)]
@@ -33,6 +33,31 @@ impl Default for PhysicalDeviceDataGraphFeaturesARM<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceDataGraphFeaturesARM<'a> {
+    pub fn data_graph(mut self, data_graph: Bool32) -> Self {
+        self.data_graph = data_graph;
+        self
+    }
+    pub fn data_graph_update_after_bind(mut self, data_graph_update_after_bind: Bool32) -> Self {
+        self.data_graph_update_after_bind = data_graph_update_after_bind;
+        self
+    }
+    pub fn data_graph_specialization_constants(
+        mut self,
+        data_graph_specialization_constants: Bool32,
+    ) -> Self {
+        self.data_graph_specialization_constants = data_graph_specialization_constants;
+        self
+    }
+    pub fn data_graph_descriptor_buffer(mut self, data_graph_descriptor_buffer: Bool32) -> Self {
+        self.data_graph_descriptor_buffer = data_graph_descriptor_buffer;
+        self
+    }
+    pub fn data_graph_shader_module(mut self, data_graph_shader_module: Bool32) -> Self {
+        self.data_graph_shader_module = data_graph_shader_module;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM<'a> {
@@ -56,6 +81,20 @@ impl Default for DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM<'_
         }
     }
 }
+impl<'a> DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM<'a> {
+    pub fn dimension(mut self, dimension: u32) -> Self {
+        self.dimension = dimension;
+        self
+    }
+    pub fn zero_count(mut self, zero_count: u32) -> Self {
+        self.zero_count = zero_count;
+        self
+    }
+    pub fn group_size(mut self, group_size: u32) -> Self {
+        self.group_size = group_size;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DataGraphPipelineConstantARM<'a> {
@@ -74,6 +113,16 @@ impl Default for DataGraphPipelineConstantARM<'_> {
             p_constant_data: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DataGraphPipelineConstantARM<'a> {
+    pub fn id(mut self, id: u32) -> Self {
+        self.id = id;
+        self
+    }
+    pub fn constant_data(mut self, constant_data: &'a c_void) -> Self {
+        self.p_constant_data = constant_data;
+        self
     }
 }
 #[repr(C)]
@@ -98,6 +147,20 @@ impl Default for DataGraphPipelineResourceInfoARM<'_> {
         }
     }
 }
+impl<'a> DataGraphPipelineResourceInfoARM<'a> {
+    pub fn descriptor_set(mut self, descriptor_set: u32) -> Self {
+        self.descriptor_set = descriptor_set;
+        self
+    }
+    pub fn binding(mut self, binding: u32) -> Self {
+        self.binding = binding;
+        self
+    }
+    pub fn array_element(mut self, array_element: u32) -> Self {
+        self.array_element = array_element;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DataGraphPipelineCompilerControlCreateInfoARM<'a> {
@@ -116,6 +179,7 @@ impl Default for DataGraphPipelineCompilerControlCreateInfoARM<'_> {
         }
     }
 }
+impl<'a> DataGraphPipelineCompilerControlCreateInfoARM<'a> {}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DataGraphPipelineCreateInfoARM<'a> {
@@ -138,6 +202,24 @@ impl Default for DataGraphPipelineCreateInfoARM<'_> {
             p_resource_infos: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DataGraphPipelineCreateInfoARM<'a> {
+    pub fn flags(mut self, flags: PipelineCreateFlags2KHR) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn layout(mut self, layout: PipelineLayout) -> Self {
+        self.layout = layout;
+        self
+    }
+    pub fn resource_infos(
+        mut self,
+        resource_infos: &'a [DataGraphPipelineResourceInfoARM<'a>],
+    ) -> Self {
+        self.resource_info_count = resource_infos.len().try_into().unwrap();
+        self.p_resource_infos = resource_infos.as_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -166,6 +248,21 @@ impl Default for DataGraphPipelineShaderModuleCreateInfoARM<'_> {
         }
     }
 }
+impl<'a> DataGraphPipelineShaderModuleCreateInfoARM<'a> {
+    pub fn module(mut self, module: ShaderModule) -> Self {
+        self.module = module;
+        self
+    }
+    pub fn specialization_info(mut self, specialization_info: &'a SpecializationInfo<'a>) -> Self {
+        self.p_specialization_info = specialization_info;
+        self
+    }
+    pub fn constants(mut self, constants: &'a [DataGraphPipelineConstantARM<'a>]) -> Self {
+        self.constant_count = constants.len().try_into().unwrap();
+        self.p_constants = constants.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DataGraphPipelineSessionCreateInfoARM<'a> {
@@ -186,6 +283,16 @@ impl Default for DataGraphPipelineSessionCreateInfoARM<'_> {
         }
     }
 }
+impl<'a> DataGraphPipelineSessionCreateInfoARM<'a> {
+    pub fn flags(mut self, flags: DataGraphPipelineSessionCreateFlagsARM) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn data_graph_pipeline(mut self, data_graph_pipeline: Pipeline) -> Self {
+        self.data_graph_pipeline = data_graph_pipeline;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DataGraphPipelineSessionBindPointRequirementsInfoARM<'a> {
@@ -202,6 +309,12 @@ impl Default for DataGraphPipelineSessionBindPointRequirementsInfoARM<'_> {
             session: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DataGraphPipelineSessionBindPointRequirementsInfoARM<'a> {
+    pub fn session(mut self, session: DataGraphPipelineSessionARM) -> Self {
+        self.session = session;
+        self
     }
 }
 #[repr(C)]
@@ -226,6 +339,23 @@ impl Default for DataGraphPipelineSessionBindPointRequirementARM<'_> {
         }
     }
 }
+impl<'a> DataGraphPipelineSessionBindPointRequirementARM<'a> {
+    pub fn bind_point(mut self, bind_point: DataGraphPipelineSessionBindPointARM) -> Self {
+        self.bind_point = bind_point;
+        self
+    }
+    pub fn bind_point_type(
+        mut self,
+        bind_point_type: DataGraphPipelineSessionBindPointTypeARM,
+    ) -> Self {
+        self.bind_point_type = bind_point_type;
+        self
+    }
+    pub fn num_objects(mut self, num_objects: u32) -> Self {
+        self.num_objects = num_objects;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DataGraphPipelineSessionMemoryRequirementsInfoARM<'a> {
@@ -246,6 +376,20 @@ impl Default for DataGraphPipelineSessionMemoryRequirementsInfoARM<'_> {
             object_index: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DataGraphPipelineSessionMemoryRequirementsInfoARM<'a> {
+    pub fn session(mut self, session: DataGraphPipelineSessionARM) -> Self {
+        self.session = session;
+        self
+    }
+    pub fn bind_point(mut self, bind_point: DataGraphPipelineSessionBindPointARM) -> Self {
+        self.bind_point = bind_point;
+        self
+    }
+    pub fn object_index(mut self, object_index: u32) -> Self {
+        self.object_index = object_index;
+        self
     }
 }
 #[repr(C)]
@@ -274,6 +418,28 @@ impl Default for BindDataGraphPipelineSessionMemoryInfoARM<'_> {
         }
     }
 }
+impl<'a> BindDataGraphPipelineSessionMemoryInfoARM<'a> {
+    pub fn session(mut self, session: DataGraphPipelineSessionARM) -> Self {
+        self.session = session;
+        self
+    }
+    pub fn bind_point(mut self, bind_point: DataGraphPipelineSessionBindPointARM) -> Self {
+        self.bind_point = bind_point;
+        self
+    }
+    pub fn object_index(mut self, object_index: u32) -> Self {
+        self.object_index = object_index;
+        self
+    }
+    pub fn memory(mut self, memory: DeviceMemory) -> Self {
+        self.memory = memory;
+        self
+    }
+    pub fn memory_offset(mut self, memory_offset: DeviceSize) -> Self {
+        self.memory_offset = memory_offset;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DataGraphPipelineInfoARM<'a> {
@@ -290,6 +456,12 @@ impl Default for DataGraphPipelineInfoARM<'_> {
             data_graph_pipeline: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DataGraphPipelineInfoARM<'a> {
+    pub fn data_graph_pipeline(mut self, data_graph_pipeline: Pipeline) -> Self {
+        self.data_graph_pipeline = data_graph_pipeline;
+        self
     }
 }
 #[repr(C)]
@@ -316,6 +488,21 @@ impl Default for DataGraphPipelinePropertyQueryResultARM<'_> {
         }
     }
 }
+impl<'a> DataGraphPipelinePropertyQueryResultARM<'a> {
+    pub fn property(mut self, property: DataGraphPipelinePropertyARM) -> Self {
+        self.property = property;
+        self
+    }
+    pub fn is_text(mut self, is_text: Bool32) -> Self {
+        self.is_text = is_text;
+        self
+    }
+    pub fn data(mut self, data: &'a mut [u8]) -> Self {
+        self.data_size = data.len().try_into().unwrap();
+        self.p_data = data.as_mut_ptr() as _;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DataGraphPipelineIdentifierCreateInfoARM<'a> {
@@ -336,6 +523,13 @@ impl Default for DataGraphPipelineIdentifierCreateInfoARM<'_> {
         }
     }
 }
+impl<'a> DataGraphPipelineIdentifierCreateInfoARM<'a> {
+    pub fn identifier(mut self, identifier: &'a [u8]) -> Self {
+        self.identifier_size = identifier.len().try_into().unwrap();
+        self.p_identifier = identifier.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DataGraphPipelineDispatchInfoARM<'a> {
@@ -354,11 +548,27 @@ impl Default for DataGraphPipelineDispatchInfoARM<'_> {
         }
     }
 }
+impl<'a> DataGraphPipelineDispatchInfoARM<'a> {
+    pub fn flags(mut self, flags: DataGraphPipelineDispatchFlagsARM) -> Self {
+        self.flags = flags;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct PhysicalDeviceDataGraphProcessingEngineARM {
     pub ty: PhysicalDeviceDataGraphProcessingEngineTypeARM,
     pub is_foreign: Bool32,
+}
+impl PhysicalDeviceDataGraphProcessingEngineARM {
+    pub fn ty(mut self, ty: PhysicalDeviceDataGraphProcessingEngineTypeARM) -> Self {
+        self.ty = ty;
+        self
+    }
+    pub fn is_foreign(mut self, is_foreign: Bool32) -> Self {
+        self.is_foreign = is_foreign;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -374,6 +584,19 @@ impl Default for PhysicalDeviceDataGraphOperationSupportARM {
             name: [Default::default(); _],
             version: Default::default(),
         }
+    }
+}
+impl PhysicalDeviceDataGraphOperationSupportARM {
+    pub fn operation_type(
+        mut self,
+        operation_type: PhysicalDeviceDataGraphOperationTypeARM,
+    ) -> Self {
+        self.operation_type = operation_type;
+        self
+    }
+    pub fn version(mut self, version: u32) -> Self {
+        self.version = version;
+        self
     }
 }
 #[repr(C)]
@@ -394,6 +617,16 @@ impl Default for QueueFamilyDataGraphPropertiesARM<'_> {
             operation: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> QueueFamilyDataGraphPropertiesARM<'a> {
+    pub fn engine(mut self, engine: PhysicalDeviceDataGraphProcessingEngineARM) -> Self {
+        self.engine = engine;
+        self
+    }
+    pub fn operation(mut self, operation: PhysicalDeviceDataGraphOperationSupportARM) -> Self {
+        self.operation = operation;
+        self
     }
 }
 #[repr(C)]
@@ -417,6 +650,19 @@ impl Default for PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM<'a> {
+    pub fn queue_family_index(mut self, queue_family_index: u32) -> Self {
+        self.queue_family_index = queue_family_index;
+        self
+    }
+    pub fn engine_type(
+        mut self,
+        engine_type: PhysicalDeviceDataGraphProcessingEngineTypeARM,
+    ) -> Self {
+        self.engine_type = engine_type;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct QueueFamilyDataGraphProcessingEnginePropertiesARM<'a> {
@@ -437,6 +683,22 @@ impl Default for QueueFamilyDataGraphProcessingEnginePropertiesARM<'_> {
         }
     }
 }
+impl<'a> QueueFamilyDataGraphProcessingEnginePropertiesARM<'a> {
+    pub fn foreign_semaphore_handle_types(
+        mut self,
+        foreign_semaphore_handle_types: ExternalSemaphoreHandleTypeFlags,
+    ) -> Self {
+        self.foreign_semaphore_handle_types = foreign_semaphore_handle_types;
+        self
+    }
+    pub fn foreign_memory_handle_types(
+        mut self,
+        foreign_memory_handle_types: ExternalMemoryHandleTypeFlags,
+    ) -> Self {
+        self.foreign_memory_handle_types = foreign_memory_handle_types;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DataGraphProcessingEngineCreateInfoARM<'a> {
@@ -455,6 +717,16 @@ impl Default for DataGraphProcessingEngineCreateInfoARM<'_> {
             p_processing_engines: core::ptr::null_mut(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DataGraphProcessingEngineCreateInfoARM<'a> {
+    pub fn processing_engines(
+        mut self,
+        processing_engines: &'a mut [PhysicalDeviceDataGraphProcessingEngineARM],
+    ) -> Self {
+        self.processing_engine_count = processing_engines.len().try_into().unwrap();
+        self.p_processing_engines = processing_engines.as_mut_ptr();
+        self
     }
 }
 #[repr(transparent)]

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,5 +19,11 @@ impl Default for PhysicalDeviceRawAccessChainsFeaturesNV<'_> {
             shader_raw_access_chains: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceRawAccessChainsFeaturesNV<'a> {
+    pub fn shader_raw_access_chains(mut self, shader_raw_access_chains: Bool32) -> Self {
+        self.shader_raw_access_chains = shader_raw_access_chains;
+        self
     }
 }

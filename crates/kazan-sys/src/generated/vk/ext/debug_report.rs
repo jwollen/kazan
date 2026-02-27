@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -26,6 +26,20 @@ impl Default for DebugReportCallbackCreateInfoEXT<'_> {
             p_user_data: core::ptr::null_mut(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DebugReportCallbackCreateInfoEXT<'a> {
+    pub fn flags(mut self, flags: DebugReportFlagsEXT) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn pfn_callback(mut self, pfn_callback: PFN_vkDebugReportCallbackEXT) -> Self {
+        self.pfn_callback = Some(pfn_callback);
+        self
+    }
+    pub fn user_data(mut self, user_data: &'a mut c_void) -> Self {
+        self.p_user_data = user_data;
+        self
     }
 }
 #[repr(transparent)]

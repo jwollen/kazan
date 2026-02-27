@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,5 +19,11 @@ impl Default for PhysicalDeviceShaderAtomicFloat16VectorFeaturesNV<'_> {
             shader_float16_vector_atomics: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceShaderAtomicFloat16VectorFeaturesNV<'a> {
+    pub fn shader_float16_vector_atomics(mut self, shader_float16_vector_atomics: Bool32) -> Self {
+        self.shader_float16_vector_atomics = shader_float16_vector_atomics;
+        self
     }
 }

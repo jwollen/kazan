@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceVideoMaintenance1FeaturesKHR<'_> {
             video_maintenance1: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceVideoMaintenance1FeaturesKHR<'a> {
+    pub fn video_maintenance1(mut self, video_maintenance1: Bool32) -> Self {
+        self.video_maintenance1 = video_maintenance1;
+        self
     }
 }
 #[repr(C)]
@@ -41,5 +47,19 @@ impl Default for VideoInlineQueryInfoKHR<'_> {
             query_count: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VideoInlineQueryInfoKHR<'a> {
+    pub fn query_pool(mut self, query_pool: QueryPool) -> Self {
+        self.query_pool = query_pool;
+        self
+    }
+    pub fn first_query(mut self, first_query: u32) -> Self {
+        self.first_query = first_query;
+        self
+    }
+    pub fn query_count(mut self, query_count: u32) -> Self {
+        self.query_count = query_count;
+        self
     }
 }

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub type PFN_vkCmdSetRasterizerDiscardEnableEXT = PFN_vkCmdSetRasterizerDiscardEnable;
 pub type PFN_vkCmdSetDepthBiasEnableEXT = PFN_vkCmdSetDepthBiasEnable;
@@ -26,6 +26,27 @@ impl Default for PhysicalDeviceExtendedDynamicState2FeaturesEXT<'_> {
             extended_dynamic_state2_patch_control_points: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceExtendedDynamicState2FeaturesEXT<'a> {
+    pub fn extended_dynamic_state2(mut self, extended_dynamic_state2: Bool32) -> Self {
+        self.extended_dynamic_state2 = extended_dynamic_state2;
+        self
+    }
+    pub fn extended_dynamic_state2_logic_op(
+        mut self,
+        extended_dynamic_state2_logic_op: Bool32,
+    ) -> Self {
+        self.extended_dynamic_state2_logic_op = extended_dynamic_state2_logic_op;
+        self
+    }
+    pub fn extended_dynamic_state2_patch_control_points(
+        mut self,
+        extended_dynamic_state2_patch_control_points: Bool32,
+    ) -> Self {
+        self.extended_dynamic_state2_patch_control_points =
+            extended_dynamic_state2_patch_control_points;
+        self
     }
 }
 pub type PFN_vkCmdSetPatchControlPointsEXT =

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -17,6 +17,17 @@ impl Default for ShadingRatePaletteNV<'_> {
             p_shading_rate_palette_entries: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ShadingRatePaletteNV<'a> {
+    pub fn shading_rate_palette_entries(
+        mut self,
+        shading_rate_palette_entries: &'a [ShadingRatePaletteEntryNV],
+    ) -> Self {
+        self.shading_rate_palette_entry_count =
+            shading_rate_palette_entries.len().try_into().unwrap();
+        self.p_shading_rate_palette_entries = shading_rate_palette_entries.as_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -41,6 +52,20 @@ impl Default for PipelineViewportShadingRateImageStateCreateInfoNV<'_> {
         }
     }
 }
+impl<'a> PipelineViewportShadingRateImageStateCreateInfoNV<'a> {
+    pub fn shading_rate_image_enable(mut self, shading_rate_image_enable: Bool32) -> Self {
+        self.shading_rate_image_enable = shading_rate_image_enable;
+        self
+    }
+    pub fn shading_rate_palettes(
+        mut self,
+        shading_rate_palettes: &'a [ShadingRatePaletteNV<'a>],
+    ) -> Self {
+        self.viewport_count = shading_rate_palettes.len().try_into().unwrap();
+        self.p_shading_rate_palettes = shading_rate_palettes.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceShadingRateImageFeaturesNV<'a> {
@@ -59,6 +84,19 @@ impl Default for PhysicalDeviceShadingRateImageFeaturesNV<'_> {
             shading_rate_coarse_sample_order: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceShadingRateImageFeaturesNV<'a> {
+    pub fn shading_rate_image(mut self, shading_rate_image: Bool32) -> Self {
+        self.shading_rate_image = shading_rate_image;
+        self
+    }
+    pub fn shading_rate_coarse_sample_order(
+        mut self,
+        shading_rate_coarse_sample_order: Bool32,
+    ) -> Self {
+        self.shading_rate_coarse_sample_order = shading_rate_coarse_sample_order;
+        self
     }
 }
 #[repr(C)]
@@ -83,12 +121,40 @@ impl Default for PhysicalDeviceShadingRateImagePropertiesNV<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceShadingRateImagePropertiesNV<'a> {
+    pub fn shading_rate_texel_size(mut self, shading_rate_texel_size: Extent2D) -> Self {
+        self.shading_rate_texel_size = shading_rate_texel_size;
+        self
+    }
+    pub fn shading_rate_palette_size(mut self, shading_rate_palette_size: u32) -> Self {
+        self.shading_rate_palette_size = shading_rate_palette_size;
+        self
+    }
+    pub fn shading_rate_max_coarse_samples(mut self, shading_rate_max_coarse_samples: u32) -> Self {
+        self.shading_rate_max_coarse_samples = shading_rate_max_coarse_samples;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct CoarseSampleLocationNV {
     pub pixel_x: u32,
     pub pixel_y: u32,
     pub sample: u32,
+}
+impl CoarseSampleLocationNV {
+    pub fn pixel_x(mut self, pixel_x: u32) -> Self {
+        self.pixel_x = pixel_x;
+        self
+    }
+    pub fn pixel_y(mut self, pixel_y: u32) -> Self {
+        self.pixel_y = pixel_y;
+        self
+    }
+    pub fn sample(mut self, sample: u32) -> Self {
+        self.sample = sample;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -108,6 +174,21 @@ impl Default for CoarseSampleOrderCustomNV<'_> {
             p_sample_locations: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> CoarseSampleOrderCustomNV<'a> {
+    pub fn shading_rate(mut self, shading_rate: ShadingRatePaletteEntryNV) -> Self {
+        self.shading_rate = shading_rate;
+        self
+    }
+    pub fn sample_count(mut self, sample_count: u32) -> Self {
+        self.sample_count = sample_count;
+        self
+    }
+    pub fn sample_locations(mut self, sample_locations: &'a [CoarseSampleLocationNV]) -> Self {
+        self.sample_location_count = sample_locations.len().try_into().unwrap();
+        self.p_sample_locations = sample_locations.as_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -130,6 +211,20 @@ impl Default for PipelineViewportCoarseSampleOrderStateCreateInfoNV<'_> {
             p_custom_sample_orders: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineViewportCoarseSampleOrderStateCreateInfoNV<'a> {
+    pub fn sample_order_type(mut self, sample_order_type: CoarseSampleOrderTypeNV) -> Self {
+        self.sample_order_type = sample_order_type;
+        self
+    }
+    pub fn custom_sample_orders(
+        mut self,
+        custom_sample_orders: &'a [CoarseSampleOrderCustomNV<'a>],
+    ) -> Self {
+        self.custom_sample_order_count = custom_sample_orders.len().try_into().unwrap();
+        self.p_custom_sample_orders = custom_sample_orders.as_ptr();
+        self
     }
 }
 #[repr(transparent)]

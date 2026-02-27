@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDevicePageableDeviceLocalMemoryFeaturesEXT<'_> {
             pageable_device_local_memory: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDevicePageableDeviceLocalMemoryFeaturesEXT<'a> {
+    pub fn pageable_device_local_memory(mut self, pageable_device_local_memory: Bool32) -> Self {
+        self.pageable_device_local_memory = pageable_device_local_memory;
+        self
     }
 }
 pub type PFN_vkSetDeviceMemoryPriorityEXT =

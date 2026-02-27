@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceImageViewImageFormatInfoEXT<'_> {
             image_view_type: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceImageViewImageFormatInfoEXT<'a> {
+    pub fn image_view_type(mut self, image_view_type: ImageViewType) -> Self {
+        self.image_view_type = image_view_type;
+        self
     }
 }
 #[repr(C)]
@@ -39,5 +45,15 @@ impl Default for FilterCubicImageViewImageFormatPropertiesEXT<'_> {
             filter_cubic_minmax: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> FilterCubicImageViewImageFormatPropertiesEXT<'a> {
+    pub fn filter_cubic(mut self, filter_cubic: Bool32) -> Self {
+        self.filter_cubic = filter_cubic;
+        self
+    }
+    pub fn filter_cubic_minmax(mut self, filter_cubic_minmax: Bool32) -> Self {
+        self.filter_cubic_minmax = filter_cubic_minmax;
+        self
     }
 }

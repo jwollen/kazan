@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,12 +23,36 @@ impl Default for PhysicalDeviceFaultFeaturesEXT<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceFaultFeaturesEXT<'a> {
+    pub fn device_fault(mut self, device_fault: Bool32) -> Self {
+        self.device_fault = device_fault;
+        self
+    }
+    pub fn device_fault_vendor_binary(mut self, device_fault_vendor_binary: Bool32) -> Self {
+        self.device_fault_vendor_binary = device_fault_vendor_binary;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct DeviceFaultAddressInfoEXT {
     pub address_type: DeviceFaultAddressTypeEXT,
     pub reported_address: DeviceAddress,
     pub address_precision: DeviceSize,
+}
+impl DeviceFaultAddressInfoEXT {
+    pub fn address_type(mut self, address_type: DeviceFaultAddressTypeEXT) -> Self {
+        self.address_type = address_type;
+        self
+    }
+    pub fn reported_address(mut self, reported_address: DeviceAddress) -> Self {
+        self.reported_address = reported_address;
+        self
+    }
+    pub fn address_precision(mut self, address_precision: DeviceSize) -> Self {
+        self.address_precision = address_precision;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -44,6 +68,16 @@ impl Default for DeviceFaultVendorInfoEXT {
             vendor_fault_code: Default::default(),
             vendor_fault_data: Default::default(),
         }
+    }
+}
+impl DeviceFaultVendorInfoEXT {
+    pub fn vendor_fault_code(mut self, vendor_fault_code: u64) -> Self {
+        self.vendor_fault_code = vendor_fault_code;
+        self
+    }
+    pub fn vendor_fault_data(mut self, vendor_fault_data: u64) -> Self {
+        self.vendor_fault_data = vendor_fault_data;
+        self
     }
 }
 #[repr(C)]
@@ -68,6 +102,20 @@ impl Default for DeviceFaultCountsEXT<'_> {
         }
     }
 }
+impl<'a> DeviceFaultCountsEXT<'a> {
+    pub fn address_info_count(mut self, address_info_count: u32) -> Self {
+        self.address_info_count = address_info_count;
+        self
+    }
+    pub fn vendor_info_count(mut self, vendor_info_count: u32) -> Self {
+        self.vendor_info_count = vendor_info_count;
+        self
+    }
+    pub fn vendor_binary_size(mut self, vendor_binary_size: DeviceSize) -> Self {
+        self.vendor_binary_size = vendor_binary_size;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DeviceFaultInfoEXT<'a> {
@@ -90,6 +138,20 @@ impl Default for DeviceFaultInfoEXT<'_> {
             p_vendor_binary_data: core::ptr::null_mut(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DeviceFaultInfoEXT<'a> {
+    pub fn address_infos(mut self, address_infos: &'a mut DeviceFaultAddressInfoEXT) -> Self {
+        self.p_address_infos = address_infos;
+        self
+    }
+    pub fn vendor_infos(mut self, vendor_infos: &'a mut DeviceFaultVendorInfoEXT) -> Self {
+        self.p_vendor_infos = vendor_infos;
+        self
+    }
+    pub fn vendor_binary_data(mut self, vendor_binary_data: &'a mut c_void) -> Self {
+        self.p_vendor_binary_data = vendor_binary_data;
+        self
     }
 }
 #[repr(C)]
@@ -122,6 +184,55 @@ impl Default for DeviceFaultVendorBinaryHeaderVersionOneEXT {
             engine_version: Default::default(),
             api_version: Default::default(),
         }
+    }
+}
+impl DeviceFaultVendorBinaryHeaderVersionOneEXT {
+    pub fn header_size(mut self, header_size: u32) -> Self {
+        self.header_size = header_size;
+        self
+    }
+    pub fn header_version(
+        mut self,
+        header_version: DeviceFaultVendorBinaryHeaderVersionEXT,
+    ) -> Self {
+        self.header_version = header_version;
+        self
+    }
+    pub fn vendor_id(mut self, vendor_id: u32) -> Self {
+        self.vendor_id = vendor_id;
+        self
+    }
+    pub fn device_id(mut self, device_id: u32) -> Self {
+        self.device_id = device_id;
+        self
+    }
+    pub fn driver_version(mut self, driver_version: u32) -> Self {
+        self.driver_version = driver_version;
+        self
+    }
+    pub fn pipeline_cache_uuid(mut self, pipeline_cache_uuid: [u8; UUID_SIZE as usize]) -> Self {
+        self.pipeline_cache_uuid = pipeline_cache_uuid;
+        self
+    }
+    pub fn application_name_offset(mut self, application_name_offset: u32) -> Self {
+        self.application_name_offset = application_name_offset;
+        self
+    }
+    pub fn application_version(mut self, application_version: u32) -> Self {
+        self.application_version = application_version;
+        self
+    }
+    pub fn engine_name_offset(mut self, engine_name_offset: u32) -> Self {
+        self.engine_name_offset = engine_name_offset;
+        self
+    }
+    pub fn engine_version(mut self, engine_version: u32) -> Self {
+        self.engine_version = engine_version;
+        self
+    }
+    pub fn api_version(mut self, api_version: u32) -> Self {
+        self.api_version = api_version;
+        self
     }
 }
 #[repr(transparent)]

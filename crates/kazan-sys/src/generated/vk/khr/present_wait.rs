@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDevicePresentWaitFeaturesKHR<'_> {
             present_wait: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDevicePresentWaitFeaturesKHR<'a> {
+    pub fn present_wait(mut self, present_wait: Bool32) -> Self {
+        self.present_wait = present_wait;
+        self
     }
 }
 pub type PFN_vkWaitForPresentKHR = unsafe extern "system" fn(

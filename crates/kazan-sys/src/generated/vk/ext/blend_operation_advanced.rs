@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,15 @@ impl Default for PhysicalDeviceBlendOperationAdvancedFeaturesEXT<'_> {
             advanced_blend_coherent_operations: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceBlendOperationAdvancedFeaturesEXT<'a> {
+    pub fn advanced_blend_coherent_operations(
+        mut self,
+        advanced_blend_coherent_operations: Bool32,
+    ) -> Self {
+        self.advanced_blend_coherent_operations = advanced_blend_coherent_operations;
+        self
     }
 }
 #[repr(C)]
@@ -49,6 +58,49 @@ impl Default for PhysicalDeviceBlendOperationAdvancedPropertiesEXT<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceBlendOperationAdvancedPropertiesEXT<'a> {
+    pub fn advanced_blend_max_color_attachments(
+        mut self,
+        advanced_blend_max_color_attachments: u32,
+    ) -> Self {
+        self.advanced_blend_max_color_attachments = advanced_blend_max_color_attachments;
+        self
+    }
+    pub fn advanced_blend_independent_blend(
+        mut self,
+        advanced_blend_independent_blend: Bool32,
+    ) -> Self {
+        self.advanced_blend_independent_blend = advanced_blend_independent_blend;
+        self
+    }
+    pub fn advanced_blend_non_premultiplied_src_color(
+        mut self,
+        advanced_blend_non_premultiplied_src_color: Bool32,
+    ) -> Self {
+        self.advanced_blend_non_premultiplied_src_color =
+            advanced_blend_non_premultiplied_src_color;
+        self
+    }
+    pub fn advanced_blend_non_premultiplied_dst_color(
+        mut self,
+        advanced_blend_non_premultiplied_dst_color: Bool32,
+    ) -> Self {
+        self.advanced_blend_non_premultiplied_dst_color =
+            advanced_blend_non_premultiplied_dst_color;
+        self
+    }
+    pub fn advanced_blend_correlated_overlap(
+        mut self,
+        advanced_blend_correlated_overlap: Bool32,
+    ) -> Self {
+        self.advanced_blend_correlated_overlap = advanced_blend_correlated_overlap;
+        self
+    }
+    pub fn advanced_blend_all_operations(mut self, advanced_blend_all_operations: Bool32) -> Self {
+        self.advanced_blend_all_operations = advanced_blend_all_operations;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PipelineColorBlendAdvancedStateCreateInfoEXT<'a> {
@@ -69,6 +121,20 @@ impl Default for PipelineColorBlendAdvancedStateCreateInfoEXT<'_> {
             blend_overlap: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineColorBlendAdvancedStateCreateInfoEXT<'a> {
+    pub fn src_premultiplied(mut self, src_premultiplied: Bool32) -> Self {
+        self.src_premultiplied = src_premultiplied;
+        self
+    }
+    pub fn dst_premultiplied(mut self, dst_premultiplied: Bool32) -> Self {
+        self.dst_premultiplied = dst_premultiplied;
+        self
+    }
+    pub fn blend_overlap(mut self, blend_overlap: BlendOverlapEXT) -> Self {
+        self.blend_overlap = blend_overlap;
+        self
     }
 }
 #[repr(transparent)]

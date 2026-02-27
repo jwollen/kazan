@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -27,6 +27,32 @@ impl Default for PhysicalDeviceMeshShaderFeaturesEXT<'_> {
             mesh_shader_queries: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceMeshShaderFeaturesEXT<'a> {
+    pub fn task_shader(mut self, task_shader: Bool32) -> Self {
+        self.task_shader = task_shader;
+        self
+    }
+    pub fn mesh_shader(mut self, mesh_shader: Bool32) -> Self {
+        self.mesh_shader = mesh_shader;
+        self
+    }
+    pub fn multiview_mesh_shader(mut self, multiview_mesh_shader: Bool32) -> Self {
+        self.multiview_mesh_shader = multiview_mesh_shader;
+        self
+    }
+    pub fn primitive_fragment_shading_rate_mesh_shader(
+        mut self,
+        primitive_fragment_shading_rate_mesh_shader: Bool32,
+    ) -> Self {
+        self.primitive_fragment_shading_rate_mesh_shader =
+            primitive_fragment_shading_rate_mesh_shader;
+        self
+    }
+    pub fn mesh_shader_queries(mut self, mesh_shader_queries: Bool32) -> Self {
+        self.mesh_shader_queries = mesh_shader_queries;
+        self
     }
 }
 #[repr(C)]
@@ -101,12 +127,170 @@ impl Default for PhysicalDeviceMeshShaderPropertiesEXT<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceMeshShaderPropertiesEXT<'a> {
+    pub fn max_task_work_group_total_count(mut self, max_task_work_group_total_count: u32) -> Self {
+        self.max_task_work_group_total_count = max_task_work_group_total_count;
+        self
+    }
+    pub fn max_task_work_group_count(mut self, max_task_work_group_count: [u32; 3]) -> Self {
+        self.max_task_work_group_count = max_task_work_group_count;
+        self
+    }
+    pub fn max_task_work_group_invocations(mut self, max_task_work_group_invocations: u32) -> Self {
+        self.max_task_work_group_invocations = max_task_work_group_invocations;
+        self
+    }
+    pub fn max_task_work_group_size(mut self, max_task_work_group_size: [u32; 3]) -> Self {
+        self.max_task_work_group_size = max_task_work_group_size;
+        self
+    }
+    pub fn max_task_payload_size(mut self, max_task_payload_size: u32) -> Self {
+        self.max_task_payload_size = max_task_payload_size;
+        self
+    }
+    pub fn max_task_shared_memory_size(mut self, max_task_shared_memory_size: u32) -> Self {
+        self.max_task_shared_memory_size = max_task_shared_memory_size;
+        self
+    }
+    pub fn max_task_payload_and_shared_memory_size(
+        mut self,
+        max_task_payload_and_shared_memory_size: u32,
+    ) -> Self {
+        self.max_task_payload_and_shared_memory_size = max_task_payload_and_shared_memory_size;
+        self
+    }
+    pub fn max_mesh_work_group_total_count(mut self, max_mesh_work_group_total_count: u32) -> Self {
+        self.max_mesh_work_group_total_count = max_mesh_work_group_total_count;
+        self
+    }
+    pub fn max_mesh_work_group_count(mut self, max_mesh_work_group_count: [u32; 3]) -> Self {
+        self.max_mesh_work_group_count = max_mesh_work_group_count;
+        self
+    }
+    pub fn max_mesh_work_group_invocations(mut self, max_mesh_work_group_invocations: u32) -> Self {
+        self.max_mesh_work_group_invocations = max_mesh_work_group_invocations;
+        self
+    }
+    pub fn max_mesh_work_group_size(mut self, max_mesh_work_group_size: [u32; 3]) -> Self {
+        self.max_mesh_work_group_size = max_mesh_work_group_size;
+        self
+    }
+    pub fn max_mesh_shared_memory_size(mut self, max_mesh_shared_memory_size: u32) -> Self {
+        self.max_mesh_shared_memory_size = max_mesh_shared_memory_size;
+        self
+    }
+    pub fn max_mesh_payload_and_shared_memory_size(
+        mut self,
+        max_mesh_payload_and_shared_memory_size: u32,
+    ) -> Self {
+        self.max_mesh_payload_and_shared_memory_size = max_mesh_payload_and_shared_memory_size;
+        self
+    }
+    pub fn max_mesh_output_memory_size(mut self, max_mesh_output_memory_size: u32) -> Self {
+        self.max_mesh_output_memory_size = max_mesh_output_memory_size;
+        self
+    }
+    pub fn max_mesh_payload_and_output_memory_size(
+        mut self,
+        max_mesh_payload_and_output_memory_size: u32,
+    ) -> Self {
+        self.max_mesh_payload_and_output_memory_size = max_mesh_payload_and_output_memory_size;
+        self
+    }
+    pub fn max_mesh_output_components(mut self, max_mesh_output_components: u32) -> Self {
+        self.max_mesh_output_components = max_mesh_output_components;
+        self
+    }
+    pub fn max_mesh_output_vertices(mut self, max_mesh_output_vertices: u32) -> Self {
+        self.max_mesh_output_vertices = max_mesh_output_vertices;
+        self
+    }
+    pub fn max_mesh_output_primitives(mut self, max_mesh_output_primitives: u32) -> Self {
+        self.max_mesh_output_primitives = max_mesh_output_primitives;
+        self
+    }
+    pub fn max_mesh_output_layers(mut self, max_mesh_output_layers: u32) -> Self {
+        self.max_mesh_output_layers = max_mesh_output_layers;
+        self
+    }
+    pub fn max_mesh_multiview_view_count(mut self, max_mesh_multiview_view_count: u32) -> Self {
+        self.max_mesh_multiview_view_count = max_mesh_multiview_view_count;
+        self
+    }
+    pub fn mesh_output_per_vertex_granularity(
+        mut self,
+        mesh_output_per_vertex_granularity: u32,
+    ) -> Self {
+        self.mesh_output_per_vertex_granularity = mesh_output_per_vertex_granularity;
+        self
+    }
+    pub fn mesh_output_per_primitive_granularity(
+        mut self,
+        mesh_output_per_primitive_granularity: u32,
+    ) -> Self {
+        self.mesh_output_per_primitive_granularity = mesh_output_per_primitive_granularity;
+        self
+    }
+    pub fn max_preferred_task_work_group_invocations(
+        mut self,
+        max_preferred_task_work_group_invocations: u32,
+    ) -> Self {
+        self.max_preferred_task_work_group_invocations = max_preferred_task_work_group_invocations;
+        self
+    }
+    pub fn max_preferred_mesh_work_group_invocations(
+        mut self,
+        max_preferred_mesh_work_group_invocations: u32,
+    ) -> Self {
+        self.max_preferred_mesh_work_group_invocations = max_preferred_mesh_work_group_invocations;
+        self
+    }
+    pub fn prefers_local_invocation_vertex_output(
+        mut self,
+        prefers_local_invocation_vertex_output: Bool32,
+    ) -> Self {
+        self.prefers_local_invocation_vertex_output = prefers_local_invocation_vertex_output;
+        self
+    }
+    pub fn prefers_local_invocation_primitive_output(
+        mut self,
+        prefers_local_invocation_primitive_output: Bool32,
+    ) -> Self {
+        self.prefers_local_invocation_primitive_output = prefers_local_invocation_primitive_output;
+        self
+    }
+    pub fn prefers_compact_vertex_output(mut self, prefers_compact_vertex_output: Bool32) -> Self {
+        self.prefers_compact_vertex_output = prefers_compact_vertex_output;
+        self
+    }
+    pub fn prefers_compact_primitive_output(
+        mut self,
+        prefers_compact_primitive_output: Bool32,
+    ) -> Self {
+        self.prefers_compact_primitive_output = prefers_compact_primitive_output;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct DrawMeshTasksIndirectCommandEXT {
     pub group_count_x: u32,
     pub group_count_y: u32,
     pub group_count_z: u32,
+}
+impl DrawMeshTasksIndirectCommandEXT {
+    pub fn group_count_x(mut self, group_count_x: u32) -> Self {
+        self.group_count_x = group_count_x;
+        self
+    }
+    pub fn group_count_y(mut self, group_count_y: u32) -> Self {
+        self.group_count_y = group_count_y;
+        self
+    }
+    pub fn group_count_z(mut self, group_count_z: u32) -> Self {
+        self.group_count_z = group_count_z;
+        self
+    }
 }
 pub type PFN_vkCmdDrawMeshTasksEXT = unsafe extern "system" fn(
     command_buffer: CommandBuffer,

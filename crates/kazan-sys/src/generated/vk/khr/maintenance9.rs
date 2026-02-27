@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceMaintenance9FeaturesKHR<'_> {
             maintenance9: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceMaintenance9FeaturesKHR<'a> {
+    pub fn maintenance9(mut self, maintenance9: Bool32) -> Self {
+        self.maintenance9 = maintenance9;
+        self
     }
 }
 #[repr(C)]
@@ -41,6 +47,19 @@ impl Default for PhysicalDeviceMaintenance9PropertiesKHR<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceMaintenance9PropertiesKHR<'a> {
+    pub fn image2_d_view_of3_d_sparse(mut self, image2_d_view_of3_d_sparse: Bool32) -> Self {
+        self.image2_d_view_of3_d_sparse = image2_d_view_of3_d_sparse;
+        self
+    }
+    pub fn default_vertex_attribute_value(
+        mut self,
+        default_vertex_attribute_value: DefaultVertexAttributeValueKHR,
+    ) -> Self {
+        self.default_vertex_attribute_value = default_vertex_attribute_value;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct QueueFamilyOwnershipTransferPropertiesKHR<'a> {
@@ -57,6 +76,15 @@ impl Default for QueueFamilyOwnershipTransferPropertiesKHR<'_> {
             optimal_image_transfer_to_queue_families: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> QueueFamilyOwnershipTransferPropertiesKHR<'a> {
+    pub fn optimal_image_transfer_to_queue_families(
+        mut self,
+        optimal_image_transfer_to_queue_families: u32,
+    ) -> Self {
+        self.optimal_image_transfer_to_queue_families = optimal_image_transfer_to_queue_families;
+        self
     }
 }
 #[repr(transparent)]

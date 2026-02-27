@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,6 +21,12 @@ impl Default for PushConstantBankInfoNV<'_> {
         }
     }
 }
+impl<'a> PushConstantBankInfoNV<'a> {
+    pub fn bank(mut self, bank: u32) -> Self {
+        self.bank = bank;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDevicePushConstantBankFeaturesNV<'a> {
@@ -37,6 +43,12 @@ impl Default for PhysicalDevicePushConstantBankFeaturesNV<'_> {
             push_constant_bank: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDevicePushConstantBankFeaturesNV<'a> {
+    pub fn push_constant_bank(mut self, push_constant_bank: Bool32) -> Self {
+        self.push_constant_bank = push_constant_bank;
+        self
     }
 }
 #[repr(C)]
@@ -61,5 +73,26 @@ impl Default for PhysicalDevicePushConstantBankPropertiesNV<'_> {
             max_compute_push_data_banks: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDevicePushConstantBankPropertiesNV<'a> {
+    pub fn max_graphics_push_constant_banks(
+        mut self,
+        max_graphics_push_constant_banks: u32,
+    ) -> Self {
+        self.max_graphics_push_constant_banks = max_graphics_push_constant_banks;
+        self
+    }
+    pub fn max_compute_push_constant_banks(mut self, max_compute_push_constant_banks: u32) -> Self {
+        self.max_compute_push_constant_banks = max_compute_push_constant_banks;
+        self
+    }
+    pub fn max_graphics_push_data_banks(mut self, max_graphics_push_data_banks: u32) -> Self {
+        self.max_graphics_push_data_banks = max_graphics_push_data_banks;
+        self
+    }
+    pub fn max_compute_push_data_banks(mut self, max_compute_push_data_banks: u32) -> Self {
+        self.max_compute_push_data_banks = max_compute_push_data_banks;
+        self
     }
 }

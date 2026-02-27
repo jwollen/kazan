@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceTilePropertiesFeaturesQCOM<'_> {
             tile_properties: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceTilePropertiesFeaturesQCOM<'a> {
+    pub fn tile_properties(mut self, tile_properties: Bool32) -> Self {
+        self.tile_properties = tile_properties;
+        self
     }
 }
 #[repr(C)]
@@ -41,6 +47,20 @@ impl Default for TilePropertiesQCOM<'_> {
             origin: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> TilePropertiesQCOM<'a> {
+    pub fn tile_size(mut self, tile_size: Extent3D) -> Self {
+        self.tile_size = tile_size;
+        self
+    }
+    pub fn apron_size(mut self, apron_size: Extent2D) -> Self {
+        self.apron_size = apron_size;
+        self
+    }
+    pub fn origin(mut self, origin: Offset2D) -> Self {
+        self.origin = origin;
+        self
     }
 }
 pub type PFN_vkGetFramebufferTilePropertiesQCOM = unsafe extern "system" fn(

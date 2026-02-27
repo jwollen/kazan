@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceDepthClampControlFeaturesEXT<'_> {
             depth_clamp_control: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceDepthClampControlFeaturesEXT<'a> {
+    pub fn depth_clamp_control(mut self, depth_clamp_control: Bool32) -> Self {
+        self.depth_clamp_control = depth_clamp_control;
+        self
     }
 }
 #[repr(C)]
@@ -41,11 +47,31 @@ impl Default for PipelineViewportDepthClampControlCreateInfoEXT<'_> {
         }
     }
 }
+impl<'a> PipelineViewportDepthClampControlCreateInfoEXT<'a> {
+    pub fn depth_clamp_mode(mut self, depth_clamp_mode: DepthClampModeEXT) -> Self {
+        self.depth_clamp_mode = depth_clamp_mode;
+        self
+    }
+    pub fn depth_clamp_range(mut self, depth_clamp_range: &'a DepthClampRangeEXT) -> Self {
+        self.p_depth_clamp_range = depth_clamp_range;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct DepthClampRangeEXT {
     pub min_depth_clamp: f32,
     pub max_depth_clamp: f32,
+}
+impl DepthClampRangeEXT {
+    pub fn min_depth_clamp(mut self, min_depth_clamp: f32) -> Self {
+        self.min_depth_clamp = min_depth_clamp;
+        self
+    }
+    pub fn max_depth_clamp(mut self, max_depth_clamp: f32) -> Self {
+        self.max_depth_clamp = max_depth_clamp;
+        self
+    }
 }
 #[repr(transparent)]
 #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]

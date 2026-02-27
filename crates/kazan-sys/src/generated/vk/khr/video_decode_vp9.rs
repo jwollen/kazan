@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub const MAX_VIDEO_VP9_REFERENCES_PER_FRAME_KHR: u32 = 3;
 #[repr(C)]
@@ -22,6 +22,12 @@ impl Default for PhysicalDeviceVideoDecodeVP9FeaturesKHR<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceVideoDecodeVP9FeaturesKHR<'a> {
+    pub fn video_decode_vp9(mut self, video_decode_vp9: Bool32) -> Self {
+        self.video_decode_vp9 = video_decode_vp9;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VideoDecodeVP9ProfileInfoKHR<'a> {
@@ -40,6 +46,12 @@ impl Default for VideoDecodeVP9ProfileInfoKHR<'_> {
         }
     }
 }
+impl<'a> VideoDecodeVP9ProfileInfoKHR<'a> {
+    pub fn std_profile(mut self, std_profile: StdVideoVP9Profile) -> Self {
+        self.std_profile = std_profile;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VideoDecodeVP9CapabilitiesKHR<'a> {
@@ -56,6 +68,12 @@ impl Default for VideoDecodeVP9CapabilitiesKHR<'_> {
             max_level: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VideoDecodeVP9CapabilitiesKHR<'a> {
+    pub fn max_level(mut self, max_level: StdVideoVP9Level) -> Self {
+        self.max_level = max_level;
+        self
     }
 }
 #[repr(C)]
@@ -82,5 +100,33 @@ impl Default for VideoDecodeVP9PictureInfoKHR<'_> {
             tiles_offset: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VideoDecodeVP9PictureInfoKHR<'a> {
+    pub fn std_picture_info(
+        mut self,
+        std_picture_info: &'a StdVideoDecodeVP9PictureInfo<'a>,
+    ) -> Self {
+        self.p_std_picture_info = std_picture_info;
+        self
+    }
+    pub fn reference_name_slot_indices(
+        mut self,
+        reference_name_slot_indices: [i32; MAX_VIDEO_VP9_REFERENCES_PER_FRAME_KHR as usize],
+    ) -> Self {
+        self.reference_name_slot_indices = reference_name_slot_indices;
+        self
+    }
+    pub fn uncompressed_header_offset(mut self, uncompressed_header_offset: u32) -> Self {
+        self.uncompressed_header_offset = uncompressed_header_offset;
+        self
+    }
+    pub fn compressed_header_offset(mut self, compressed_header_offset: u32) -> Self {
+        self.compressed_header_offset = compressed_header_offset;
+        self
+    }
+    pub fn tiles_offset(mut self, tiles_offset: u32) -> Self {
+        self.tiles_offset = tiles_offset;
+        self
     }
 }

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,6 +23,22 @@ impl Default for PhysicalDevicePerformanceQueryFeaturesKHR<'_> {
         }
     }
 }
+impl<'a> PhysicalDevicePerformanceQueryFeaturesKHR<'a> {
+    pub fn performance_counter_query_pools(
+        mut self,
+        performance_counter_query_pools: Bool32,
+    ) -> Self {
+        self.performance_counter_query_pools = performance_counter_query_pools;
+        self
+    }
+    pub fn performance_counter_multiple_query_pools(
+        mut self,
+        performance_counter_multiple_query_pools: Bool32,
+    ) -> Self {
+        self.performance_counter_multiple_query_pools = performance_counter_multiple_query_pools;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDevicePerformanceQueryPropertiesKHR<'a> {
@@ -39,6 +55,15 @@ impl Default for PhysicalDevicePerformanceQueryPropertiesKHR<'_> {
             allow_command_buffer_query_copies: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDevicePerformanceQueryPropertiesKHR<'a> {
+    pub fn allow_command_buffer_query_copies(
+        mut self,
+        allow_command_buffer_query_copies: Bool32,
+    ) -> Self {
+        self.allow_command_buffer_query_copies = allow_command_buffer_query_copies;
+        self
     }
 }
 #[repr(C)]
@@ -65,6 +90,24 @@ impl Default for PerformanceCounterKHR<'_> {
         }
     }
 }
+impl<'a> PerformanceCounterKHR<'a> {
+    pub fn unit(mut self, unit: PerformanceCounterUnitKHR) -> Self {
+        self.unit = unit;
+        self
+    }
+    pub fn scope(mut self, scope: PerformanceCounterScopeKHR) -> Self {
+        self.scope = scope;
+        self
+    }
+    pub fn storage(mut self, storage: PerformanceCounterStorageKHR) -> Self {
+        self.storage = storage;
+        self
+    }
+    pub fn uuid(mut self, uuid: [u8; UUID_SIZE as usize]) -> Self {
+        self.uuid = uuid;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PerformanceCounterDescriptionKHR<'a> {
@@ -89,6 +132,12 @@ impl Default for PerformanceCounterDescriptionKHR<'_> {
         }
     }
 }
+impl<'a> PerformanceCounterDescriptionKHR<'a> {
+    pub fn flags(mut self, flags: PerformanceCounterDescriptionFlagsKHR) -> Self {
+        self.flags = flags;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct QueryPoolPerformanceCreateInfoKHR<'a> {
@@ -111,6 +160,17 @@ impl Default for QueryPoolPerformanceCreateInfoKHR<'_> {
         }
     }
 }
+impl<'a> QueryPoolPerformanceCreateInfoKHR<'a> {
+    pub fn queue_family_index(mut self, queue_family_index: u32) -> Self {
+        self.queue_family_index = queue_family_index;
+        self
+    }
+    pub fn counter_indices(mut self, counter_indices: &'a [u32]) -> Self {
+        self.counter_index_count = counter_indices.len().try_into().unwrap();
+        self.p_counter_indices = counter_indices.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct AcquireProfilingLockInfoKHR<'a> {
@@ -131,6 +191,16 @@ impl Default for AcquireProfilingLockInfoKHR<'_> {
         }
     }
 }
+impl<'a> AcquireProfilingLockInfoKHR<'a> {
+    pub fn flags(mut self, flags: AcquireProfilingLockFlagsKHR) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn timeout(mut self, timeout: u64) -> Self {
+        self.timeout = timeout;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PerformanceQuerySubmitInfoKHR<'a> {
@@ -147,6 +217,12 @@ impl Default for PerformanceQuerySubmitInfoKHR<'_> {
             counter_pass_index: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PerformanceQuerySubmitInfoKHR<'a> {
+    pub fn counter_pass_index(mut self, counter_pass_index: u32) -> Self {
+        self.counter_pass_index = counter_pass_index;
+        self
     }
 }
 #[repr(C)]

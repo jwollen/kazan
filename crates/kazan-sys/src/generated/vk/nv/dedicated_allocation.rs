@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for DedicatedAllocationImageCreateInfoNV<'_> {
             dedicated_allocation: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DedicatedAllocationImageCreateInfoNV<'a> {
+    pub fn dedicated_allocation(mut self, dedicated_allocation: Bool32) -> Self {
+        self.dedicated_allocation = dedicated_allocation;
+        self
     }
 }
 #[repr(C)]
@@ -39,6 +45,12 @@ impl Default for DedicatedAllocationBufferCreateInfoNV<'_> {
         }
     }
 }
+impl<'a> DedicatedAllocationBufferCreateInfoNV<'a> {
+    pub fn dedicated_allocation(mut self, dedicated_allocation: Bool32) -> Self {
+        self.dedicated_allocation = dedicated_allocation;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DedicatedAllocationMemoryAllocateInfoNV<'a> {
@@ -57,5 +69,15 @@ impl Default for DedicatedAllocationMemoryAllocateInfoNV<'_> {
             buffer: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DedicatedAllocationMemoryAllocateInfoNV<'a> {
+    pub fn image(mut self, image: Image) -> Self {
+        self.image = image;
+        self
+    }
+    pub fn buffer(mut self, buffer: Buffer) -> Self {
+        self.buffer = buffer;
+        self
     }
 }

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,5 +23,28 @@ impl Default for PhysicalDeviceFragmentShaderInterlockFeaturesEXT<'_> {
             fragment_shader_shading_rate_interlock: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceFragmentShaderInterlockFeaturesEXT<'a> {
+    pub fn fragment_shader_sample_interlock(
+        mut self,
+        fragment_shader_sample_interlock: Bool32,
+    ) -> Self {
+        self.fragment_shader_sample_interlock = fragment_shader_sample_interlock;
+        self
+    }
+    pub fn fragment_shader_pixel_interlock(
+        mut self,
+        fragment_shader_pixel_interlock: Bool32,
+    ) -> Self {
+        self.fragment_shader_pixel_interlock = fragment_shader_pixel_interlock;
+        self
+    }
+    pub fn fragment_shader_shading_rate_interlock(
+        mut self,
+        fragment_shader_shading_rate_interlock: Bool32,
+    ) -> Self {
+        self.fragment_shader_shading_rate_interlock = fragment_shader_shading_rate_interlock;
+        self
     }
 }

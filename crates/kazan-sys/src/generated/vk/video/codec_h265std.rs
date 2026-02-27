@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub const STD_VIDEO_H265_CPB_CNT_LIST_SIZE: u32 = 32;
 pub const STD_VIDEO_H265_SUBLAYERS_LIST_SIZE: u32 = 7;
@@ -35,12 +35,54 @@ pub struct StdVideoH265ProfileTierLevelFlags {
     pub general_non_packed_constraint_flag: u32,
     pub general_frame_only_constraint_flag: u32,
 }
+impl StdVideoH265ProfileTierLevelFlags {
+    pub fn general_tier_flag(mut self, general_tier_flag: u32) -> Self {
+        self.general_tier_flag = general_tier_flag;
+        self
+    }
+    pub fn general_progressive_source_flag(mut self, general_progressive_source_flag: u32) -> Self {
+        self.general_progressive_source_flag = general_progressive_source_flag;
+        self
+    }
+    pub fn general_interlaced_source_flag(mut self, general_interlaced_source_flag: u32) -> Self {
+        self.general_interlaced_source_flag = general_interlaced_source_flag;
+        self
+    }
+    pub fn general_non_packed_constraint_flag(
+        mut self,
+        general_non_packed_constraint_flag: u32,
+    ) -> Self {
+        self.general_non_packed_constraint_flag = general_non_packed_constraint_flag;
+        self
+    }
+    pub fn general_frame_only_constraint_flag(
+        mut self,
+        general_frame_only_constraint_flag: u32,
+    ) -> Self {
+        self.general_frame_only_constraint_flag = general_frame_only_constraint_flag;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct StdVideoH265ProfileTierLevel {
     pub flags: StdVideoH265ProfileTierLevelFlags,
     pub general_profile_idc: StdVideoH265ProfileIdc,
     pub general_level_idc: StdVideoH265LevelIdc,
+}
+impl StdVideoH265ProfileTierLevel {
+    pub fn flags(mut self, flags: StdVideoH265ProfileTierLevelFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn general_profile_idc(mut self, general_profile_idc: StdVideoH265ProfileIdc) -> Self {
+        self.general_profile_idc = general_profile_idc;
+        self
+    }
+    pub fn general_level_idc(mut self, general_level_idc: StdVideoH265LevelIdc) -> Self {
+        self.general_level_idc = general_level_idc;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -56,6 +98,29 @@ impl Default for StdVideoH265DecPicBufMgr {
             max_dec_pic_buffering_minus1: [Default::default(); _],
             max_num_reorder_pics: [Default::default(); _],
         }
+    }
+}
+impl StdVideoH265DecPicBufMgr {
+    pub fn max_latency_increase_plus1(
+        mut self,
+        max_latency_increase_plus1: [u32; STD_VIDEO_H265_SUBLAYERS_LIST_SIZE as usize],
+    ) -> Self {
+        self.max_latency_increase_plus1 = max_latency_increase_plus1;
+        self
+    }
+    pub fn max_dec_pic_buffering_minus1(
+        mut self,
+        max_dec_pic_buffering_minus1: [u8; STD_VIDEO_H265_SUBLAYERS_LIST_SIZE as usize],
+    ) -> Self {
+        self.max_dec_pic_buffering_minus1 = max_dec_pic_buffering_minus1;
+        self
+    }
+    pub fn max_num_reorder_pics(
+        mut self,
+        max_num_reorder_pics: [u8; STD_VIDEO_H265_SUBLAYERS_LIST_SIZE as usize],
+    ) -> Self {
+        self.max_num_reorder_pics = max_num_reorder_pics;
+        self
     }
 }
 #[repr(C)]
@@ -78,6 +143,40 @@ impl Default for StdVideoH265SubLayerHrdParameters {
         }
     }
 }
+impl StdVideoH265SubLayerHrdParameters {
+    pub fn bit_rate_value_minus1(
+        mut self,
+        bit_rate_value_minus1: [u32; STD_VIDEO_H265_CPB_CNT_LIST_SIZE as usize],
+    ) -> Self {
+        self.bit_rate_value_minus1 = bit_rate_value_minus1;
+        self
+    }
+    pub fn cpb_size_value_minus1(
+        mut self,
+        cpb_size_value_minus1: [u32; STD_VIDEO_H265_CPB_CNT_LIST_SIZE as usize],
+    ) -> Self {
+        self.cpb_size_value_minus1 = cpb_size_value_minus1;
+        self
+    }
+    pub fn cpb_size_du_value_minus1(
+        mut self,
+        cpb_size_du_value_minus1: [u32; STD_VIDEO_H265_CPB_CNT_LIST_SIZE as usize],
+    ) -> Self {
+        self.cpb_size_du_value_minus1 = cpb_size_du_value_minus1;
+        self
+    }
+    pub fn bit_rate_du_value_minus1(
+        mut self,
+        bit_rate_du_value_minus1: [u32; STD_VIDEO_H265_CPB_CNT_LIST_SIZE as usize],
+    ) -> Self {
+        self.bit_rate_du_value_minus1 = bit_rate_du_value_minus1;
+        self
+    }
+    pub fn cbr_flag(mut self, cbr_flag: u32) -> Self {
+        self.cbr_flag = cbr_flag;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct StdVideoH265HrdFlags {
@@ -88,6 +187,39 @@ pub struct StdVideoH265HrdFlags {
     pub fixed_pic_rate_general_flag: u32,
     pub fixed_pic_rate_within_cvs_flag: u32,
     pub low_delay_hrd_flag: u32,
+}
+impl StdVideoH265HrdFlags {
+    pub fn nal_hrd_parameters_present_flag(mut self, nal_hrd_parameters_present_flag: u32) -> Self {
+        self.nal_hrd_parameters_present_flag = nal_hrd_parameters_present_flag;
+        self
+    }
+    pub fn vcl_hrd_parameters_present_flag(mut self, vcl_hrd_parameters_present_flag: u32) -> Self {
+        self.vcl_hrd_parameters_present_flag = vcl_hrd_parameters_present_flag;
+        self
+    }
+    pub fn sub_pic_hrd_params_present_flag(mut self, sub_pic_hrd_params_present_flag: u32) -> Self {
+        self.sub_pic_hrd_params_present_flag = sub_pic_hrd_params_present_flag;
+        self
+    }
+    pub fn sub_pic_cpb_params_in_pic_timing_sei_flag(
+        mut self,
+        sub_pic_cpb_params_in_pic_timing_sei_flag: u32,
+    ) -> Self {
+        self.sub_pic_cpb_params_in_pic_timing_sei_flag = sub_pic_cpb_params_in_pic_timing_sei_flag;
+        self
+    }
+    pub fn fixed_pic_rate_general_flag(mut self, fixed_pic_rate_general_flag: u32) -> Self {
+        self.fixed_pic_rate_general_flag = fixed_pic_rate_general_flag;
+        self
+    }
+    pub fn fixed_pic_rate_within_cvs_flag(mut self, fixed_pic_rate_within_cvs_flag: u32) -> Self {
+        self.fixed_pic_rate_within_cvs_flag = fixed_pic_rate_within_cvs_flag;
+        self
+    }
+    pub fn low_delay_hrd_flag(mut self, low_delay_hrd_flag: u32) -> Self {
+        self.low_delay_hrd_flag = low_delay_hrd_flag;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -131,6 +263,79 @@ impl Default for StdVideoH265HrdParameters<'_> {
         }
     }
 }
+impl<'a> StdVideoH265HrdParameters<'a> {
+    pub fn flags(mut self, flags: StdVideoH265HrdFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn tick_divisor_minus2(mut self, tick_divisor_minus2: u8) -> Self {
+        self.tick_divisor_minus2 = tick_divisor_minus2;
+        self
+    }
+    pub fn du_cpb_removal_delay_increment_length_minus1(
+        mut self,
+        du_cpb_removal_delay_increment_length_minus1: u8,
+    ) -> Self {
+        self.du_cpb_removal_delay_increment_length_minus1 =
+            du_cpb_removal_delay_increment_length_minus1;
+        self
+    }
+    pub fn dpb_output_delay_du_length_minus1(
+        mut self,
+        dpb_output_delay_du_length_minus1: u8,
+    ) -> Self {
+        self.dpb_output_delay_du_length_minus1 = dpb_output_delay_du_length_minus1;
+        self
+    }
+    pub fn bit_rate_scale(mut self, bit_rate_scale: u8) -> Self {
+        self.bit_rate_scale = bit_rate_scale;
+        self
+    }
+    pub fn cpb_size_scale(mut self, cpb_size_scale: u8) -> Self {
+        self.cpb_size_scale = cpb_size_scale;
+        self
+    }
+    pub fn cpb_size_du_scale(mut self, cpb_size_du_scale: u8) -> Self {
+        self.cpb_size_du_scale = cpb_size_du_scale;
+        self
+    }
+    pub fn initial_cpb_removal_delay_length_minus1(
+        mut self,
+        initial_cpb_removal_delay_length_minus1: u8,
+    ) -> Self {
+        self.initial_cpb_removal_delay_length_minus1 = initial_cpb_removal_delay_length_minus1;
+        self
+    }
+    pub fn au_cpb_removal_delay_length_minus1(
+        mut self,
+        au_cpb_removal_delay_length_minus1: u8,
+    ) -> Self {
+        self.au_cpb_removal_delay_length_minus1 = au_cpb_removal_delay_length_minus1;
+        self
+    }
+    pub fn dpb_output_delay_length_minus1(mut self, dpb_output_delay_length_minus1: u8) -> Self {
+        self.dpb_output_delay_length_minus1 = dpb_output_delay_length_minus1;
+        self
+    }
+    pub fn cpb_cnt_minus1(
+        mut self,
+        cpb_cnt_minus1: [u8; STD_VIDEO_H265_SUBLAYERS_LIST_SIZE as usize],
+    ) -> Self {
+        self.cpb_cnt_minus1 = cpb_cnt_minus1;
+        self
+    }
+    pub fn elemental_duration_in_tc_minus1(
+        mut self,
+        elemental_duration_in_tc_minus1: [u16; STD_VIDEO_H265_SUBLAYERS_LIST_SIZE as usize],
+    ) -> Self {
+        self.elemental_duration_in_tc_minus1 = elemental_duration_in_tc_minus1;
+        self
+    }
+    pub fn reserved(mut self, reserved: [u16; 3]) -> Self {
+        self.reserved = reserved;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct StdVideoH265VpsFlags {
@@ -138,6 +343,30 @@ pub struct StdVideoH265VpsFlags {
     pub vps_sub_layer_ordering_info_present_flag: u32,
     pub vps_timing_info_present_flag: u32,
     pub vps_poc_proportional_to_timing_flag: u32,
+}
+impl StdVideoH265VpsFlags {
+    pub fn vps_temporal_id_nesting_flag(mut self, vps_temporal_id_nesting_flag: u32) -> Self {
+        self.vps_temporal_id_nesting_flag = vps_temporal_id_nesting_flag;
+        self
+    }
+    pub fn vps_sub_layer_ordering_info_present_flag(
+        mut self,
+        vps_sub_layer_ordering_info_present_flag: u32,
+    ) -> Self {
+        self.vps_sub_layer_ordering_info_present_flag = vps_sub_layer_ordering_info_present_flag;
+        self
+    }
+    pub fn vps_timing_info_present_flag(mut self, vps_timing_info_present_flag: u32) -> Self {
+        self.vps_timing_info_present_flag = vps_timing_info_present_flag;
+        self
+    }
+    pub fn vps_poc_proportional_to_timing_flag(
+        mut self,
+        vps_poc_proportional_to_timing_flag: u32,
+    ) -> Self {
+        self.vps_poc_proportional_to_timing_flag = vps_poc_proportional_to_timing_flag;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -175,6 +404,62 @@ impl Default for StdVideoH265VideoParameterSet<'_> {
         }
     }
 }
+impl<'a> StdVideoH265VideoParameterSet<'a> {
+    pub fn flags(mut self, flags: StdVideoH265VpsFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn vps_video_parameter_set_id(mut self, vps_video_parameter_set_id: u8) -> Self {
+        self.vps_video_parameter_set_id = vps_video_parameter_set_id;
+        self
+    }
+    pub fn vps_max_sub_layers_minus1(mut self, vps_max_sub_layers_minus1: u8) -> Self {
+        self.vps_max_sub_layers_minus1 = vps_max_sub_layers_minus1;
+        self
+    }
+    pub fn reserved1(mut self, reserved1: u8) -> Self {
+        self.reserved1 = reserved1;
+        self
+    }
+    pub fn reserved2(mut self, reserved2: u8) -> Self {
+        self.reserved2 = reserved2;
+        self
+    }
+    pub fn vps_num_units_in_tick(mut self, vps_num_units_in_tick: u32) -> Self {
+        self.vps_num_units_in_tick = vps_num_units_in_tick;
+        self
+    }
+    pub fn vps_time_scale(mut self, vps_time_scale: u32) -> Self {
+        self.vps_time_scale = vps_time_scale;
+        self
+    }
+    pub fn vps_num_ticks_poc_diff_one_minus1(
+        mut self,
+        vps_num_ticks_poc_diff_one_minus1: u32,
+    ) -> Self {
+        self.vps_num_ticks_poc_diff_one_minus1 = vps_num_ticks_poc_diff_one_minus1;
+        self
+    }
+    pub fn reserved3(mut self, reserved3: u32) -> Self {
+        self.reserved3 = reserved3;
+        self
+    }
+    pub fn dec_pic_buf_mgr(mut self, dec_pic_buf_mgr: &'a StdVideoH265DecPicBufMgr) -> Self {
+        self.p_dec_pic_buf_mgr = dec_pic_buf_mgr;
+        self
+    }
+    pub fn hrd_parameters(mut self, hrd_parameters: &'a StdVideoH265HrdParameters<'a>) -> Self {
+        self.p_hrd_parameters = hrd_parameters;
+        self
+    }
+    pub fn profile_tier_level(
+        mut self,
+        profile_tier_level: &'a StdVideoH265ProfileTierLevel,
+    ) -> Self {
+        self.p_profile_tier_level = profile_tier_level;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct StdVideoH265ScalingLists {
@@ -201,11 +486,72 @@ impl Default for StdVideoH265ScalingLists {
         }
     }
 }
+impl StdVideoH265ScalingLists {
+    pub fn scaling_list4x4(
+        mut self,
+        scaling_list4x4: [[u8; STD_VIDEO_H265_SCALING_LIST_4X4_NUM_ELEMENTS as usize];
+            STD_VIDEO_H265_SCALING_LIST_4X4_NUM_LISTS as usize],
+    ) -> Self {
+        self.scaling_list4x4 = scaling_list4x4;
+        self
+    }
+    pub fn scaling_list8x8(
+        mut self,
+        scaling_list8x8: [[u8; STD_VIDEO_H265_SCALING_LIST_8X8_NUM_ELEMENTS as usize];
+            STD_VIDEO_H265_SCALING_LIST_8X8_NUM_LISTS as usize],
+    ) -> Self {
+        self.scaling_list8x8 = scaling_list8x8;
+        self
+    }
+    pub fn scaling_list16x16(
+        mut self,
+        scaling_list16x16: [[u8; STD_VIDEO_H265_SCALING_LIST_16X16_NUM_ELEMENTS as usize];
+            STD_VIDEO_H265_SCALING_LIST_16X16_NUM_LISTS as usize],
+    ) -> Self {
+        self.scaling_list16x16 = scaling_list16x16;
+        self
+    }
+    pub fn scaling_list32x32(
+        mut self,
+        scaling_list32x32: [[u8; STD_VIDEO_H265_SCALING_LIST_32X32_NUM_ELEMENTS as usize];
+            STD_VIDEO_H265_SCALING_LIST_32X32_NUM_LISTS as usize],
+    ) -> Self {
+        self.scaling_list32x32 = scaling_list32x32;
+        self
+    }
+    pub fn scaling_list_dc_coef16x16(
+        mut self,
+        scaling_list_dc_coef16x16: [u8; STD_VIDEO_H265_SCALING_LIST_16X16_NUM_LISTS as usize],
+    ) -> Self {
+        self.scaling_list_dc_coef16x16 = scaling_list_dc_coef16x16;
+        self
+    }
+    pub fn scaling_list_dc_coef32x32(
+        mut self,
+        scaling_list_dc_coef32x32: [u8; STD_VIDEO_H265_SCALING_LIST_32X32_NUM_LISTS as usize],
+    ) -> Self {
+        self.scaling_list_dc_coef32x32 = scaling_list_dc_coef32x32;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct StdVideoH265ShortTermRefPicSetFlags {
     pub inter_ref_pic_set_prediction_flag: u32,
     pub delta_rps_sign: u32,
+}
+impl StdVideoH265ShortTermRefPicSetFlags {
+    pub fn inter_ref_pic_set_prediction_flag(
+        mut self,
+        inter_ref_pic_set_prediction_flag: u32,
+    ) -> Self {
+        self.inter_ref_pic_set_prediction_flag = inter_ref_pic_set_prediction_flag;
+        self
+    }
+    pub fn delta_rps_sign(mut self, delta_rps_sign: u32) -> Self {
+        self.delta_rps_sign = delta_rps_sign;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -245,6 +591,70 @@ impl Default for StdVideoH265ShortTermRefPicSet {
         }
     }
 }
+impl StdVideoH265ShortTermRefPicSet {
+    pub fn flags(mut self, flags: StdVideoH265ShortTermRefPicSetFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn delta_idx_minus1(mut self, delta_idx_minus1: u32) -> Self {
+        self.delta_idx_minus1 = delta_idx_minus1;
+        self
+    }
+    pub fn use_delta_flag(mut self, use_delta_flag: u16) -> Self {
+        self.use_delta_flag = use_delta_flag;
+        self
+    }
+    pub fn abs_delta_rps_minus1(mut self, abs_delta_rps_minus1: u16) -> Self {
+        self.abs_delta_rps_minus1 = abs_delta_rps_minus1;
+        self
+    }
+    pub fn used_by_curr_pic_flag(mut self, used_by_curr_pic_flag: u16) -> Self {
+        self.used_by_curr_pic_flag = used_by_curr_pic_flag;
+        self
+    }
+    pub fn used_by_curr_pic_s0_flag(mut self, used_by_curr_pic_s0_flag: u16) -> Self {
+        self.used_by_curr_pic_s0_flag = used_by_curr_pic_s0_flag;
+        self
+    }
+    pub fn used_by_curr_pic_s1_flag(mut self, used_by_curr_pic_s1_flag: u16) -> Self {
+        self.used_by_curr_pic_s1_flag = used_by_curr_pic_s1_flag;
+        self
+    }
+    pub fn reserved1(mut self, reserved1: u16) -> Self {
+        self.reserved1 = reserved1;
+        self
+    }
+    pub fn reserved2(mut self, reserved2: u8) -> Self {
+        self.reserved2 = reserved2;
+        self
+    }
+    pub fn reserved3(mut self, reserved3: u8) -> Self {
+        self.reserved3 = reserved3;
+        self
+    }
+    pub fn num_negative_pics(mut self, num_negative_pics: u8) -> Self {
+        self.num_negative_pics = num_negative_pics;
+        self
+    }
+    pub fn num_positive_pics(mut self, num_positive_pics: u8) -> Self {
+        self.num_positive_pics = num_positive_pics;
+        self
+    }
+    pub fn delta_poc_s0_minus1(
+        mut self,
+        delta_poc_s0_minus1: [u16; STD_VIDEO_H265_MAX_DPB_SIZE as usize],
+    ) -> Self {
+        self.delta_poc_s0_minus1 = delta_poc_s0_minus1;
+        self
+    }
+    pub fn delta_poc_s1_minus1(
+        mut self,
+        delta_poc_s1_minus1: [u16; STD_VIDEO_H265_MAX_DPB_SIZE as usize],
+    ) -> Self {
+        self.delta_poc_s1_minus1 = delta_poc_s1_minus1;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct StdVideoH265LongTermRefPicsSps {
@@ -257,6 +667,19 @@ impl Default for StdVideoH265LongTermRefPicsSps {
             used_by_curr_pic_lt_sps_flag: Default::default(),
             lt_ref_pic_poc_lsb_sps: [Default::default(); _],
         }
+    }
+}
+impl StdVideoH265LongTermRefPicsSps {
+    pub fn used_by_curr_pic_lt_sps_flag(mut self, used_by_curr_pic_lt_sps_flag: u32) -> Self {
+        self.used_by_curr_pic_lt_sps_flag = used_by_curr_pic_lt_sps_flag;
+        self
+    }
+    pub fn lt_ref_pic_poc_lsb_sps(
+        mut self,
+        lt_ref_pic_poc_lsb_sps: [u32; STD_VIDEO_H265_MAX_LONG_TERM_REF_PICS_SPS as usize],
+    ) -> Self {
+        self.lt_ref_pic_poc_lsb_sps = lt_ref_pic_poc_lsb_sps;
+        self
     }
 }
 #[repr(C)]
@@ -280,6 +703,86 @@ pub struct StdVideoH265SpsVuiFlags {
     pub tiles_fixed_structure_flag: u32,
     pub motion_vectors_over_pic_boundaries_flag: u32,
     pub restricted_ref_pic_lists_flag: u32,
+}
+impl StdVideoH265SpsVuiFlags {
+    pub fn aspect_ratio_info_present_flag(mut self, aspect_ratio_info_present_flag: u32) -> Self {
+        self.aspect_ratio_info_present_flag = aspect_ratio_info_present_flag;
+        self
+    }
+    pub fn overscan_info_present_flag(mut self, overscan_info_present_flag: u32) -> Self {
+        self.overscan_info_present_flag = overscan_info_present_flag;
+        self
+    }
+    pub fn overscan_appropriate_flag(mut self, overscan_appropriate_flag: u32) -> Self {
+        self.overscan_appropriate_flag = overscan_appropriate_flag;
+        self
+    }
+    pub fn video_signal_type_present_flag(mut self, video_signal_type_present_flag: u32) -> Self {
+        self.video_signal_type_present_flag = video_signal_type_present_flag;
+        self
+    }
+    pub fn video_full_range_flag(mut self, video_full_range_flag: u32) -> Self {
+        self.video_full_range_flag = video_full_range_flag;
+        self
+    }
+    pub fn colour_description_present_flag(mut self, colour_description_present_flag: u32) -> Self {
+        self.colour_description_present_flag = colour_description_present_flag;
+        self
+    }
+    pub fn chroma_loc_info_present_flag(mut self, chroma_loc_info_present_flag: u32) -> Self {
+        self.chroma_loc_info_present_flag = chroma_loc_info_present_flag;
+        self
+    }
+    pub fn neutral_chroma_indication_flag(mut self, neutral_chroma_indication_flag: u32) -> Self {
+        self.neutral_chroma_indication_flag = neutral_chroma_indication_flag;
+        self
+    }
+    pub fn field_seq_flag(mut self, field_seq_flag: u32) -> Self {
+        self.field_seq_flag = field_seq_flag;
+        self
+    }
+    pub fn frame_field_info_present_flag(mut self, frame_field_info_present_flag: u32) -> Self {
+        self.frame_field_info_present_flag = frame_field_info_present_flag;
+        self
+    }
+    pub fn default_display_window_flag(mut self, default_display_window_flag: u32) -> Self {
+        self.default_display_window_flag = default_display_window_flag;
+        self
+    }
+    pub fn vui_timing_info_present_flag(mut self, vui_timing_info_present_flag: u32) -> Self {
+        self.vui_timing_info_present_flag = vui_timing_info_present_flag;
+        self
+    }
+    pub fn vui_poc_proportional_to_timing_flag(
+        mut self,
+        vui_poc_proportional_to_timing_flag: u32,
+    ) -> Self {
+        self.vui_poc_proportional_to_timing_flag = vui_poc_proportional_to_timing_flag;
+        self
+    }
+    pub fn vui_hrd_parameters_present_flag(mut self, vui_hrd_parameters_present_flag: u32) -> Self {
+        self.vui_hrd_parameters_present_flag = vui_hrd_parameters_present_flag;
+        self
+    }
+    pub fn bitstream_restriction_flag(mut self, bitstream_restriction_flag: u32) -> Self {
+        self.bitstream_restriction_flag = bitstream_restriction_flag;
+        self
+    }
+    pub fn tiles_fixed_structure_flag(mut self, tiles_fixed_structure_flag: u32) -> Self {
+        self.tiles_fixed_structure_flag = tiles_fixed_structure_flag;
+        self
+    }
+    pub fn motion_vectors_over_pic_boundaries_flag(
+        mut self,
+        motion_vectors_over_pic_boundaries_flag: u32,
+    ) -> Self {
+        self.motion_vectors_over_pic_boundaries_flag = motion_vectors_over_pic_boundaries_flag;
+        self
+    }
+    pub fn restricted_ref_pic_lists_flag(mut self, restricted_ref_pic_lists_flag: u32) -> Self {
+        self.restricted_ref_pic_lists_flag = restricted_ref_pic_lists_flag;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -345,6 +848,121 @@ impl Default for StdVideoH265SequenceParameterSetVui<'_> {
         }
     }
 }
+impl<'a> StdVideoH265SequenceParameterSetVui<'a> {
+    pub fn flags(mut self, flags: StdVideoH265SpsVuiFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn aspect_ratio_idc(mut self, aspect_ratio_idc: StdVideoH265AspectRatioIdc) -> Self {
+        self.aspect_ratio_idc = aspect_ratio_idc;
+        self
+    }
+    pub fn sar_width(mut self, sar_width: u16) -> Self {
+        self.sar_width = sar_width;
+        self
+    }
+    pub fn sar_height(mut self, sar_height: u16) -> Self {
+        self.sar_height = sar_height;
+        self
+    }
+    pub fn video_format(mut self, video_format: u8) -> Self {
+        self.video_format = video_format;
+        self
+    }
+    pub fn colour_primaries(mut self, colour_primaries: u8) -> Self {
+        self.colour_primaries = colour_primaries;
+        self
+    }
+    pub fn transfer_characteristics(mut self, transfer_characteristics: u8) -> Self {
+        self.transfer_characteristics = transfer_characteristics;
+        self
+    }
+    pub fn matrix_coeffs(mut self, matrix_coeffs: u8) -> Self {
+        self.matrix_coeffs = matrix_coeffs;
+        self
+    }
+    pub fn chroma_sample_loc_type_top_field(
+        mut self,
+        chroma_sample_loc_type_top_field: u8,
+    ) -> Self {
+        self.chroma_sample_loc_type_top_field = chroma_sample_loc_type_top_field;
+        self
+    }
+    pub fn chroma_sample_loc_type_bottom_field(
+        mut self,
+        chroma_sample_loc_type_bottom_field: u8,
+    ) -> Self {
+        self.chroma_sample_loc_type_bottom_field = chroma_sample_loc_type_bottom_field;
+        self
+    }
+    pub fn reserved1(mut self, reserved1: u8) -> Self {
+        self.reserved1 = reserved1;
+        self
+    }
+    pub fn reserved2(mut self, reserved2: u8) -> Self {
+        self.reserved2 = reserved2;
+        self
+    }
+    pub fn def_disp_win_left_offset(mut self, def_disp_win_left_offset: u16) -> Self {
+        self.def_disp_win_left_offset = def_disp_win_left_offset;
+        self
+    }
+    pub fn def_disp_win_right_offset(mut self, def_disp_win_right_offset: u16) -> Self {
+        self.def_disp_win_right_offset = def_disp_win_right_offset;
+        self
+    }
+    pub fn def_disp_win_top_offset(mut self, def_disp_win_top_offset: u16) -> Self {
+        self.def_disp_win_top_offset = def_disp_win_top_offset;
+        self
+    }
+    pub fn def_disp_win_bottom_offset(mut self, def_disp_win_bottom_offset: u16) -> Self {
+        self.def_disp_win_bottom_offset = def_disp_win_bottom_offset;
+        self
+    }
+    pub fn vui_num_units_in_tick(mut self, vui_num_units_in_tick: u32) -> Self {
+        self.vui_num_units_in_tick = vui_num_units_in_tick;
+        self
+    }
+    pub fn vui_time_scale(mut self, vui_time_scale: u32) -> Self {
+        self.vui_time_scale = vui_time_scale;
+        self
+    }
+    pub fn vui_num_ticks_poc_diff_one_minus1(
+        mut self,
+        vui_num_ticks_poc_diff_one_minus1: u32,
+    ) -> Self {
+        self.vui_num_ticks_poc_diff_one_minus1 = vui_num_ticks_poc_diff_one_minus1;
+        self
+    }
+    pub fn min_spatial_segmentation_idc(mut self, min_spatial_segmentation_idc: u16) -> Self {
+        self.min_spatial_segmentation_idc = min_spatial_segmentation_idc;
+        self
+    }
+    pub fn reserved3(mut self, reserved3: u16) -> Self {
+        self.reserved3 = reserved3;
+        self
+    }
+    pub fn max_bytes_per_pic_denom(mut self, max_bytes_per_pic_denom: u8) -> Self {
+        self.max_bytes_per_pic_denom = max_bytes_per_pic_denom;
+        self
+    }
+    pub fn max_bits_per_min_cu_denom(mut self, max_bits_per_min_cu_denom: u8) -> Self {
+        self.max_bits_per_min_cu_denom = max_bits_per_min_cu_denom;
+        self
+    }
+    pub fn log2_max_mv_length_horizontal(mut self, log2_max_mv_length_horizontal: u8) -> Self {
+        self.log2_max_mv_length_horizontal = log2_max_mv_length_horizontal;
+        self
+    }
+    pub fn log2_max_mv_length_vertical(mut self, log2_max_mv_length_vertical: u8) -> Self {
+        self.log2_max_mv_length_vertical = log2_max_mv_length_vertical;
+        self
+    }
+    pub fn hrd_parameters(mut self, hrd_parameters: &'a StdVideoH265HrdParameters<'a>) -> Self {
+        self.p_hrd_parameters = hrd_parameters;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct StdVideoH265PredictorPaletteEntries {
@@ -357,6 +975,17 @@ impl Default for StdVideoH265PredictorPaletteEntries {
         Self {
             predictor_palette_entries: [[Default::default(); _]; _],
         }
+    }
+}
+impl StdVideoH265PredictorPaletteEntries {
+    pub fn predictor_palette_entries(
+        mut self,
+        predictor_palette_entries: [[u16; STD_VIDEO_H265_PREDICTOR_PALETTE_COMP_ENTRIES_LIST_SIZE as usize];
+            STD_VIDEO_H265_PREDICTOR_PALETTE_COMPONENTS_LIST_SIZE
+                as usize],
+    ) -> Self {
+        self.predictor_palette_entries = predictor_palette_entries;
+        self
     }
 }
 #[repr(C)]
@@ -392,6 +1021,165 @@ pub struct StdVideoH265SpsFlags {
     pub palette_mode_enabled_flag: u32,
     pub sps_palette_predictor_initializers_present_flag: u32,
     pub intra_boundary_filtering_disabled_flag: u32,
+}
+impl StdVideoH265SpsFlags {
+    pub fn sps_temporal_id_nesting_flag(mut self, sps_temporal_id_nesting_flag: u32) -> Self {
+        self.sps_temporal_id_nesting_flag = sps_temporal_id_nesting_flag;
+        self
+    }
+    pub fn separate_colour_plane_flag(mut self, separate_colour_plane_flag: u32) -> Self {
+        self.separate_colour_plane_flag = separate_colour_plane_flag;
+        self
+    }
+    pub fn conformance_window_flag(mut self, conformance_window_flag: u32) -> Self {
+        self.conformance_window_flag = conformance_window_flag;
+        self
+    }
+    pub fn sps_sub_layer_ordering_info_present_flag(
+        mut self,
+        sps_sub_layer_ordering_info_present_flag: u32,
+    ) -> Self {
+        self.sps_sub_layer_ordering_info_present_flag = sps_sub_layer_ordering_info_present_flag;
+        self
+    }
+    pub fn scaling_list_enabled_flag(mut self, scaling_list_enabled_flag: u32) -> Self {
+        self.scaling_list_enabled_flag = scaling_list_enabled_flag;
+        self
+    }
+    pub fn sps_scaling_list_data_present_flag(
+        mut self,
+        sps_scaling_list_data_present_flag: u32,
+    ) -> Self {
+        self.sps_scaling_list_data_present_flag = sps_scaling_list_data_present_flag;
+        self
+    }
+    pub fn amp_enabled_flag(mut self, amp_enabled_flag: u32) -> Self {
+        self.amp_enabled_flag = amp_enabled_flag;
+        self
+    }
+    pub fn sample_adaptive_offset_enabled_flag(
+        mut self,
+        sample_adaptive_offset_enabled_flag: u32,
+    ) -> Self {
+        self.sample_adaptive_offset_enabled_flag = sample_adaptive_offset_enabled_flag;
+        self
+    }
+    pub fn pcm_enabled_flag(mut self, pcm_enabled_flag: u32) -> Self {
+        self.pcm_enabled_flag = pcm_enabled_flag;
+        self
+    }
+    pub fn pcm_loop_filter_disabled_flag(mut self, pcm_loop_filter_disabled_flag: u32) -> Self {
+        self.pcm_loop_filter_disabled_flag = pcm_loop_filter_disabled_flag;
+        self
+    }
+    pub fn long_term_ref_pics_present_flag(mut self, long_term_ref_pics_present_flag: u32) -> Self {
+        self.long_term_ref_pics_present_flag = long_term_ref_pics_present_flag;
+        self
+    }
+    pub fn sps_temporal_mvp_enabled_flag(mut self, sps_temporal_mvp_enabled_flag: u32) -> Self {
+        self.sps_temporal_mvp_enabled_flag = sps_temporal_mvp_enabled_flag;
+        self
+    }
+    pub fn strong_intra_smoothing_enabled_flag(
+        mut self,
+        strong_intra_smoothing_enabled_flag: u32,
+    ) -> Self {
+        self.strong_intra_smoothing_enabled_flag = strong_intra_smoothing_enabled_flag;
+        self
+    }
+    pub fn vui_parameters_present_flag(mut self, vui_parameters_present_flag: u32) -> Self {
+        self.vui_parameters_present_flag = vui_parameters_present_flag;
+        self
+    }
+    pub fn sps_extension_present_flag(mut self, sps_extension_present_flag: u32) -> Self {
+        self.sps_extension_present_flag = sps_extension_present_flag;
+        self
+    }
+    pub fn sps_range_extension_flag(mut self, sps_range_extension_flag: u32) -> Self {
+        self.sps_range_extension_flag = sps_range_extension_flag;
+        self
+    }
+    pub fn transform_skip_rotation_enabled_flag(
+        mut self,
+        transform_skip_rotation_enabled_flag: u32,
+    ) -> Self {
+        self.transform_skip_rotation_enabled_flag = transform_skip_rotation_enabled_flag;
+        self
+    }
+    pub fn transform_skip_context_enabled_flag(
+        mut self,
+        transform_skip_context_enabled_flag: u32,
+    ) -> Self {
+        self.transform_skip_context_enabled_flag = transform_skip_context_enabled_flag;
+        self
+    }
+    pub fn implicit_rdpcm_enabled_flag(mut self, implicit_rdpcm_enabled_flag: u32) -> Self {
+        self.implicit_rdpcm_enabled_flag = implicit_rdpcm_enabled_flag;
+        self
+    }
+    pub fn explicit_rdpcm_enabled_flag(mut self, explicit_rdpcm_enabled_flag: u32) -> Self {
+        self.explicit_rdpcm_enabled_flag = explicit_rdpcm_enabled_flag;
+        self
+    }
+    pub fn extended_precision_processing_flag(
+        mut self,
+        extended_precision_processing_flag: u32,
+    ) -> Self {
+        self.extended_precision_processing_flag = extended_precision_processing_flag;
+        self
+    }
+    pub fn intra_smoothing_disabled_flag(mut self, intra_smoothing_disabled_flag: u32) -> Self {
+        self.intra_smoothing_disabled_flag = intra_smoothing_disabled_flag;
+        self
+    }
+    pub fn high_precision_offsets_enabled_flag(
+        mut self,
+        high_precision_offsets_enabled_flag: u32,
+    ) -> Self {
+        self.high_precision_offsets_enabled_flag = high_precision_offsets_enabled_flag;
+        self
+    }
+    pub fn persistent_rice_adaptation_enabled_flag(
+        mut self,
+        persistent_rice_adaptation_enabled_flag: u32,
+    ) -> Self {
+        self.persistent_rice_adaptation_enabled_flag = persistent_rice_adaptation_enabled_flag;
+        self
+    }
+    pub fn cabac_bypass_alignment_enabled_flag(
+        mut self,
+        cabac_bypass_alignment_enabled_flag: u32,
+    ) -> Self {
+        self.cabac_bypass_alignment_enabled_flag = cabac_bypass_alignment_enabled_flag;
+        self
+    }
+    pub fn sps_scc_extension_flag(mut self, sps_scc_extension_flag: u32) -> Self {
+        self.sps_scc_extension_flag = sps_scc_extension_flag;
+        self
+    }
+    pub fn sps_curr_pic_ref_enabled_flag(mut self, sps_curr_pic_ref_enabled_flag: u32) -> Self {
+        self.sps_curr_pic_ref_enabled_flag = sps_curr_pic_ref_enabled_flag;
+        self
+    }
+    pub fn palette_mode_enabled_flag(mut self, palette_mode_enabled_flag: u32) -> Self {
+        self.palette_mode_enabled_flag = palette_mode_enabled_flag;
+        self
+    }
+    pub fn sps_palette_predictor_initializers_present_flag(
+        mut self,
+        sps_palette_predictor_initializers_present_flag: u32,
+    ) -> Self {
+        self.sps_palette_predictor_initializers_present_flag =
+            sps_palette_predictor_initializers_present_flag;
+        self
+    }
+    pub fn intra_boundary_filtering_disabled_flag(
+        mut self,
+        intra_boundary_filtering_disabled_flag: u32,
+    ) -> Self {
+        self.intra_boundary_filtering_disabled_flag = intra_boundary_filtering_disabled_flag;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -483,6 +1271,222 @@ impl Default for StdVideoH265SequenceParameterSet<'_> {
         }
     }
 }
+impl<'a> StdVideoH265SequenceParameterSet<'a> {
+    pub fn flags(mut self, flags: StdVideoH265SpsFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn chroma_format_idc(mut self, chroma_format_idc: StdVideoH265ChromaFormatIdc) -> Self {
+        self.chroma_format_idc = chroma_format_idc;
+        self
+    }
+    pub fn pic_width_in_luma_samples(mut self, pic_width_in_luma_samples: u32) -> Self {
+        self.pic_width_in_luma_samples = pic_width_in_luma_samples;
+        self
+    }
+    pub fn pic_height_in_luma_samples(mut self, pic_height_in_luma_samples: u32) -> Self {
+        self.pic_height_in_luma_samples = pic_height_in_luma_samples;
+        self
+    }
+    pub fn sps_video_parameter_set_id(mut self, sps_video_parameter_set_id: u8) -> Self {
+        self.sps_video_parameter_set_id = sps_video_parameter_set_id;
+        self
+    }
+    pub fn sps_max_sub_layers_minus1(mut self, sps_max_sub_layers_minus1: u8) -> Self {
+        self.sps_max_sub_layers_minus1 = sps_max_sub_layers_minus1;
+        self
+    }
+    pub fn sps_seq_parameter_set_id(mut self, sps_seq_parameter_set_id: u8) -> Self {
+        self.sps_seq_parameter_set_id = sps_seq_parameter_set_id;
+        self
+    }
+    pub fn bit_depth_luma_minus8(mut self, bit_depth_luma_minus8: u8) -> Self {
+        self.bit_depth_luma_minus8 = bit_depth_luma_minus8;
+        self
+    }
+    pub fn bit_depth_chroma_minus8(mut self, bit_depth_chroma_minus8: u8) -> Self {
+        self.bit_depth_chroma_minus8 = bit_depth_chroma_minus8;
+        self
+    }
+    pub fn log2_max_pic_order_cnt_lsb_minus4(
+        mut self,
+        log2_max_pic_order_cnt_lsb_minus4: u8,
+    ) -> Self {
+        self.log2_max_pic_order_cnt_lsb_minus4 = log2_max_pic_order_cnt_lsb_minus4;
+        self
+    }
+    pub fn log2_min_luma_coding_block_size_minus3(
+        mut self,
+        log2_min_luma_coding_block_size_minus3: u8,
+    ) -> Self {
+        self.log2_min_luma_coding_block_size_minus3 = log2_min_luma_coding_block_size_minus3;
+        self
+    }
+    pub fn log2_diff_max_min_luma_coding_block_size(
+        mut self,
+        log2_diff_max_min_luma_coding_block_size: u8,
+    ) -> Self {
+        self.log2_diff_max_min_luma_coding_block_size = log2_diff_max_min_luma_coding_block_size;
+        self
+    }
+    pub fn log2_min_luma_transform_block_size_minus2(
+        mut self,
+        log2_min_luma_transform_block_size_minus2: u8,
+    ) -> Self {
+        self.log2_min_luma_transform_block_size_minus2 = log2_min_luma_transform_block_size_minus2;
+        self
+    }
+    pub fn log2_diff_max_min_luma_transform_block_size(
+        mut self,
+        log2_diff_max_min_luma_transform_block_size: u8,
+    ) -> Self {
+        self.log2_diff_max_min_luma_transform_block_size =
+            log2_diff_max_min_luma_transform_block_size;
+        self
+    }
+    pub fn max_transform_hierarchy_depth_inter(
+        mut self,
+        max_transform_hierarchy_depth_inter: u8,
+    ) -> Self {
+        self.max_transform_hierarchy_depth_inter = max_transform_hierarchy_depth_inter;
+        self
+    }
+    pub fn max_transform_hierarchy_depth_intra(
+        mut self,
+        max_transform_hierarchy_depth_intra: u8,
+    ) -> Self {
+        self.max_transform_hierarchy_depth_intra = max_transform_hierarchy_depth_intra;
+        self
+    }
+    pub fn short_term_ref_pic_set(
+        mut self,
+        short_term_ref_pic_set: &'a [StdVideoH265ShortTermRefPicSet],
+    ) -> Self {
+        self.num_short_term_ref_pic_sets = short_term_ref_pic_set.len().try_into().unwrap();
+        self.p_short_term_ref_pic_set = short_term_ref_pic_set.as_ptr();
+        self
+    }
+    pub fn num_long_term_ref_pics_sps(mut self, num_long_term_ref_pics_sps: u8) -> Self {
+        self.num_long_term_ref_pics_sps = num_long_term_ref_pics_sps;
+        self
+    }
+    pub fn pcm_sample_bit_depth_luma_minus1(
+        mut self,
+        pcm_sample_bit_depth_luma_minus1: u8,
+    ) -> Self {
+        self.pcm_sample_bit_depth_luma_minus1 = pcm_sample_bit_depth_luma_minus1;
+        self
+    }
+    pub fn pcm_sample_bit_depth_chroma_minus1(
+        mut self,
+        pcm_sample_bit_depth_chroma_minus1: u8,
+    ) -> Self {
+        self.pcm_sample_bit_depth_chroma_minus1 = pcm_sample_bit_depth_chroma_minus1;
+        self
+    }
+    pub fn log2_min_pcm_luma_coding_block_size_minus3(
+        mut self,
+        log2_min_pcm_luma_coding_block_size_minus3: u8,
+    ) -> Self {
+        self.log2_min_pcm_luma_coding_block_size_minus3 =
+            log2_min_pcm_luma_coding_block_size_minus3;
+        self
+    }
+    pub fn log2_diff_max_min_pcm_luma_coding_block_size(
+        mut self,
+        log2_diff_max_min_pcm_luma_coding_block_size: u8,
+    ) -> Self {
+        self.log2_diff_max_min_pcm_luma_coding_block_size =
+            log2_diff_max_min_pcm_luma_coding_block_size;
+        self
+    }
+    pub fn reserved1(mut self, reserved1: u8) -> Self {
+        self.reserved1 = reserved1;
+        self
+    }
+    pub fn reserved2(mut self, reserved2: u8) -> Self {
+        self.reserved2 = reserved2;
+        self
+    }
+    pub fn palette_max_size(mut self, palette_max_size: u8) -> Self {
+        self.palette_max_size = palette_max_size;
+        self
+    }
+    pub fn delta_palette_max_predictor_size(
+        mut self,
+        delta_palette_max_predictor_size: u8,
+    ) -> Self {
+        self.delta_palette_max_predictor_size = delta_palette_max_predictor_size;
+        self
+    }
+    pub fn motion_vector_resolution_control_idc(
+        mut self,
+        motion_vector_resolution_control_idc: u8,
+    ) -> Self {
+        self.motion_vector_resolution_control_idc = motion_vector_resolution_control_idc;
+        self
+    }
+    pub fn sps_num_palette_predictor_initializers_minus1(
+        mut self,
+        sps_num_palette_predictor_initializers_minus1: u8,
+    ) -> Self {
+        self.sps_num_palette_predictor_initializers_minus1 =
+            sps_num_palette_predictor_initializers_minus1;
+        self
+    }
+    pub fn conf_win_left_offset(mut self, conf_win_left_offset: u32) -> Self {
+        self.conf_win_left_offset = conf_win_left_offset;
+        self
+    }
+    pub fn conf_win_right_offset(mut self, conf_win_right_offset: u32) -> Self {
+        self.conf_win_right_offset = conf_win_right_offset;
+        self
+    }
+    pub fn conf_win_top_offset(mut self, conf_win_top_offset: u32) -> Self {
+        self.conf_win_top_offset = conf_win_top_offset;
+        self
+    }
+    pub fn conf_win_bottom_offset(mut self, conf_win_bottom_offset: u32) -> Self {
+        self.conf_win_bottom_offset = conf_win_bottom_offset;
+        self
+    }
+    pub fn profile_tier_level(
+        mut self,
+        profile_tier_level: &'a StdVideoH265ProfileTierLevel,
+    ) -> Self {
+        self.p_profile_tier_level = profile_tier_level;
+        self
+    }
+    pub fn dec_pic_buf_mgr(mut self, dec_pic_buf_mgr: &'a StdVideoH265DecPicBufMgr) -> Self {
+        self.p_dec_pic_buf_mgr = dec_pic_buf_mgr;
+        self
+    }
+    pub fn scaling_lists(mut self, scaling_lists: &'a StdVideoH265ScalingLists) -> Self {
+        self.p_scaling_lists = scaling_lists;
+        self
+    }
+    pub fn long_term_ref_pics_sps(
+        mut self,
+        long_term_ref_pics_sps: &'a StdVideoH265LongTermRefPicsSps,
+    ) -> Self {
+        self.p_long_term_ref_pics_sps = long_term_ref_pics_sps;
+        self
+    }
+    pub fn sequence_parameter_set_vui(
+        mut self,
+        sequence_parameter_set_vui: &'a StdVideoH265SequenceParameterSetVui<'a>,
+    ) -> Self {
+        self.p_sequence_parameter_set_vui = sequence_parameter_set_vui;
+        self
+    }
+    pub fn predictor_palette_entries(
+        mut self,
+        predictor_palette_entries: &'a StdVideoH265PredictorPaletteEntries,
+    ) -> Self {
+        self.p_predictor_palette_entries = predictor_palette_entries;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct StdVideoH265PpsFlags {
@@ -517,6 +1521,181 @@ pub struct StdVideoH265PpsFlags {
     pub pps_palette_predictor_initializers_present_flag: u32,
     pub monochrome_palette_flag: u32,
     pub pps_range_extension_flag: u32,
+}
+impl StdVideoH265PpsFlags {
+    pub fn dependent_slice_segments_enabled_flag(
+        mut self,
+        dependent_slice_segments_enabled_flag: u32,
+    ) -> Self {
+        self.dependent_slice_segments_enabled_flag = dependent_slice_segments_enabled_flag;
+        self
+    }
+    pub fn output_flag_present_flag(mut self, output_flag_present_flag: u32) -> Self {
+        self.output_flag_present_flag = output_flag_present_flag;
+        self
+    }
+    pub fn sign_data_hiding_enabled_flag(mut self, sign_data_hiding_enabled_flag: u32) -> Self {
+        self.sign_data_hiding_enabled_flag = sign_data_hiding_enabled_flag;
+        self
+    }
+    pub fn cabac_init_present_flag(mut self, cabac_init_present_flag: u32) -> Self {
+        self.cabac_init_present_flag = cabac_init_present_flag;
+        self
+    }
+    pub fn constrained_intra_pred_flag(mut self, constrained_intra_pred_flag: u32) -> Self {
+        self.constrained_intra_pred_flag = constrained_intra_pred_flag;
+        self
+    }
+    pub fn transform_skip_enabled_flag(mut self, transform_skip_enabled_flag: u32) -> Self {
+        self.transform_skip_enabled_flag = transform_skip_enabled_flag;
+        self
+    }
+    pub fn cu_qp_delta_enabled_flag(mut self, cu_qp_delta_enabled_flag: u32) -> Self {
+        self.cu_qp_delta_enabled_flag = cu_qp_delta_enabled_flag;
+        self
+    }
+    pub fn pps_slice_chroma_qp_offsets_present_flag(
+        mut self,
+        pps_slice_chroma_qp_offsets_present_flag: u32,
+    ) -> Self {
+        self.pps_slice_chroma_qp_offsets_present_flag = pps_slice_chroma_qp_offsets_present_flag;
+        self
+    }
+    pub fn weighted_pred_flag(mut self, weighted_pred_flag: u32) -> Self {
+        self.weighted_pred_flag = weighted_pred_flag;
+        self
+    }
+    pub fn weighted_bipred_flag(mut self, weighted_bipred_flag: u32) -> Self {
+        self.weighted_bipred_flag = weighted_bipred_flag;
+        self
+    }
+    pub fn transquant_bypass_enabled_flag(mut self, transquant_bypass_enabled_flag: u32) -> Self {
+        self.transquant_bypass_enabled_flag = transquant_bypass_enabled_flag;
+        self
+    }
+    pub fn tiles_enabled_flag(mut self, tiles_enabled_flag: u32) -> Self {
+        self.tiles_enabled_flag = tiles_enabled_flag;
+        self
+    }
+    pub fn entropy_coding_sync_enabled_flag(
+        mut self,
+        entropy_coding_sync_enabled_flag: u32,
+    ) -> Self {
+        self.entropy_coding_sync_enabled_flag = entropy_coding_sync_enabled_flag;
+        self
+    }
+    pub fn uniform_spacing_flag(mut self, uniform_spacing_flag: u32) -> Self {
+        self.uniform_spacing_flag = uniform_spacing_flag;
+        self
+    }
+    pub fn loop_filter_across_tiles_enabled_flag(
+        mut self,
+        loop_filter_across_tiles_enabled_flag: u32,
+    ) -> Self {
+        self.loop_filter_across_tiles_enabled_flag = loop_filter_across_tiles_enabled_flag;
+        self
+    }
+    pub fn pps_loop_filter_across_slices_enabled_flag(
+        mut self,
+        pps_loop_filter_across_slices_enabled_flag: u32,
+    ) -> Self {
+        self.pps_loop_filter_across_slices_enabled_flag =
+            pps_loop_filter_across_slices_enabled_flag;
+        self
+    }
+    pub fn deblocking_filter_control_present_flag(
+        mut self,
+        deblocking_filter_control_present_flag: u32,
+    ) -> Self {
+        self.deblocking_filter_control_present_flag = deblocking_filter_control_present_flag;
+        self
+    }
+    pub fn deblocking_filter_override_enabled_flag(
+        mut self,
+        deblocking_filter_override_enabled_flag: u32,
+    ) -> Self {
+        self.deblocking_filter_override_enabled_flag = deblocking_filter_override_enabled_flag;
+        self
+    }
+    pub fn pps_deblocking_filter_disabled_flag(
+        mut self,
+        pps_deblocking_filter_disabled_flag: u32,
+    ) -> Self {
+        self.pps_deblocking_filter_disabled_flag = pps_deblocking_filter_disabled_flag;
+        self
+    }
+    pub fn pps_scaling_list_data_present_flag(
+        mut self,
+        pps_scaling_list_data_present_flag: u32,
+    ) -> Self {
+        self.pps_scaling_list_data_present_flag = pps_scaling_list_data_present_flag;
+        self
+    }
+    pub fn lists_modification_present_flag(mut self, lists_modification_present_flag: u32) -> Self {
+        self.lists_modification_present_flag = lists_modification_present_flag;
+        self
+    }
+    pub fn slice_segment_header_extension_present_flag(
+        mut self,
+        slice_segment_header_extension_present_flag: u32,
+    ) -> Self {
+        self.slice_segment_header_extension_present_flag =
+            slice_segment_header_extension_present_flag;
+        self
+    }
+    pub fn pps_extension_present_flag(mut self, pps_extension_present_flag: u32) -> Self {
+        self.pps_extension_present_flag = pps_extension_present_flag;
+        self
+    }
+    pub fn cross_component_prediction_enabled_flag(
+        mut self,
+        cross_component_prediction_enabled_flag: u32,
+    ) -> Self {
+        self.cross_component_prediction_enabled_flag = cross_component_prediction_enabled_flag;
+        self
+    }
+    pub fn chroma_qp_offset_list_enabled_flag(
+        mut self,
+        chroma_qp_offset_list_enabled_flag: u32,
+    ) -> Self {
+        self.chroma_qp_offset_list_enabled_flag = chroma_qp_offset_list_enabled_flag;
+        self
+    }
+    pub fn pps_curr_pic_ref_enabled_flag(mut self, pps_curr_pic_ref_enabled_flag: u32) -> Self {
+        self.pps_curr_pic_ref_enabled_flag = pps_curr_pic_ref_enabled_flag;
+        self
+    }
+    pub fn residual_adaptive_colour_transform_enabled_flag(
+        mut self,
+        residual_adaptive_colour_transform_enabled_flag: u32,
+    ) -> Self {
+        self.residual_adaptive_colour_transform_enabled_flag =
+            residual_adaptive_colour_transform_enabled_flag;
+        self
+    }
+    pub fn pps_slice_act_qp_offsets_present_flag(
+        mut self,
+        pps_slice_act_qp_offsets_present_flag: u32,
+    ) -> Self {
+        self.pps_slice_act_qp_offsets_present_flag = pps_slice_act_qp_offsets_present_flag;
+        self
+    }
+    pub fn pps_palette_predictor_initializers_present_flag(
+        mut self,
+        pps_palette_predictor_initializers_present_flag: u32,
+    ) -> Self {
+        self.pps_palette_predictor_initializers_present_flag =
+            pps_palette_predictor_initializers_present_flag;
+        self
+    }
+    pub fn monochrome_palette_flag(mut self, monochrome_palette_flag: u32) -> Self {
+        self.monochrome_palette_flag = monochrome_palette_flag;
+        self
+    }
+    pub fn pps_range_extension_flag(mut self, pps_range_extension_flag: u32) -> Self {
+        self.pps_range_extension_flag = pps_range_extension_flag;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -600,6 +1779,185 @@ impl Default for StdVideoH265PictureParameterSet<'_> {
             p_predictor_palette_entries: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> StdVideoH265PictureParameterSet<'a> {
+    pub fn flags(mut self, flags: StdVideoH265PpsFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn pps_pic_parameter_set_id(mut self, pps_pic_parameter_set_id: u8) -> Self {
+        self.pps_pic_parameter_set_id = pps_pic_parameter_set_id;
+        self
+    }
+    pub fn pps_seq_parameter_set_id(mut self, pps_seq_parameter_set_id: u8) -> Self {
+        self.pps_seq_parameter_set_id = pps_seq_parameter_set_id;
+        self
+    }
+    pub fn sps_video_parameter_set_id(mut self, sps_video_parameter_set_id: u8) -> Self {
+        self.sps_video_parameter_set_id = sps_video_parameter_set_id;
+        self
+    }
+    pub fn num_extra_slice_header_bits(mut self, num_extra_slice_header_bits: u8) -> Self {
+        self.num_extra_slice_header_bits = num_extra_slice_header_bits;
+        self
+    }
+    pub fn num_ref_idx_l0_default_active_minus1(
+        mut self,
+        num_ref_idx_l0_default_active_minus1: u8,
+    ) -> Self {
+        self.num_ref_idx_l0_default_active_minus1 = num_ref_idx_l0_default_active_minus1;
+        self
+    }
+    pub fn num_ref_idx_l1_default_active_minus1(
+        mut self,
+        num_ref_idx_l1_default_active_minus1: u8,
+    ) -> Self {
+        self.num_ref_idx_l1_default_active_minus1 = num_ref_idx_l1_default_active_minus1;
+        self
+    }
+    pub fn init_qp_minus26(mut self, init_qp_minus26: i8) -> Self {
+        self.init_qp_minus26 = init_qp_minus26;
+        self
+    }
+    pub fn diff_cu_qp_delta_depth(mut self, diff_cu_qp_delta_depth: u8) -> Self {
+        self.diff_cu_qp_delta_depth = diff_cu_qp_delta_depth;
+        self
+    }
+    pub fn pps_cb_qp_offset(mut self, pps_cb_qp_offset: i8) -> Self {
+        self.pps_cb_qp_offset = pps_cb_qp_offset;
+        self
+    }
+    pub fn pps_cr_qp_offset(mut self, pps_cr_qp_offset: i8) -> Self {
+        self.pps_cr_qp_offset = pps_cr_qp_offset;
+        self
+    }
+    pub fn pps_beta_offset_div2(mut self, pps_beta_offset_div2: i8) -> Self {
+        self.pps_beta_offset_div2 = pps_beta_offset_div2;
+        self
+    }
+    pub fn pps_tc_offset_div2(mut self, pps_tc_offset_div2: i8) -> Self {
+        self.pps_tc_offset_div2 = pps_tc_offset_div2;
+        self
+    }
+    pub fn log2_parallel_merge_level_minus2(
+        mut self,
+        log2_parallel_merge_level_minus2: u8,
+    ) -> Self {
+        self.log2_parallel_merge_level_minus2 = log2_parallel_merge_level_minus2;
+        self
+    }
+    pub fn log2_max_transform_skip_block_size_minus2(
+        mut self,
+        log2_max_transform_skip_block_size_minus2: u8,
+    ) -> Self {
+        self.log2_max_transform_skip_block_size_minus2 = log2_max_transform_skip_block_size_minus2;
+        self
+    }
+    pub fn diff_cu_chroma_qp_offset_depth(mut self, diff_cu_chroma_qp_offset_depth: u8) -> Self {
+        self.diff_cu_chroma_qp_offset_depth = diff_cu_chroma_qp_offset_depth;
+        self
+    }
+    pub fn chroma_qp_offset_list_len_minus1(
+        mut self,
+        chroma_qp_offset_list_len_minus1: u8,
+    ) -> Self {
+        self.chroma_qp_offset_list_len_minus1 = chroma_qp_offset_list_len_minus1;
+        self
+    }
+    pub fn cb_qp_offset_list(
+        mut self,
+        cb_qp_offset_list: [i8; STD_VIDEO_H265_CHROMA_QP_OFFSET_LIST_SIZE as usize],
+    ) -> Self {
+        self.cb_qp_offset_list = cb_qp_offset_list;
+        self
+    }
+    pub fn cr_qp_offset_list(
+        mut self,
+        cr_qp_offset_list: [i8; STD_VIDEO_H265_CHROMA_QP_OFFSET_LIST_SIZE as usize],
+    ) -> Self {
+        self.cr_qp_offset_list = cr_qp_offset_list;
+        self
+    }
+    pub fn log2_sao_offset_scale_luma(mut self, log2_sao_offset_scale_luma: u8) -> Self {
+        self.log2_sao_offset_scale_luma = log2_sao_offset_scale_luma;
+        self
+    }
+    pub fn log2_sao_offset_scale_chroma(mut self, log2_sao_offset_scale_chroma: u8) -> Self {
+        self.log2_sao_offset_scale_chroma = log2_sao_offset_scale_chroma;
+        self
+    }
+    pub fn pps_act_y_qp_offset_plus5(mut self, pps_act_y_qp_offset_plus5: i8) -> Self {
+        self.pps_act_y_qp_offset_plus5 = pps_act_y_qp_offset_plus5;
+        self
+    }
+    pub fn pps_act_cb_qp_offset_plus5(mut self, pps_act_cb_qp_offset_plus5: i8) -> Self {
+        self.pps_act_cb_qp_offset_plus5 = pps_act_cb_qp_offset_plus5;
+        self
+    }
+    pub fn pps_act_cr_qp_offset_plus3(mut self, pps_act_cr_qp_offset_plus3: i8) -> Self {
+        self.pps_act_cr_qp_offset_plus3 = pps_act_cr_qp_offset_plus3;
+        self
+    }
+    pub fn pps_num_palette_predictor_initializers(
+        mut self,
+        pps_num_palette_predictor_initializers: u8,
+    ) -> Self {
+        self.pps_num_palette_predictor_initializers = pps_num_palette_predictor_initializers;
+        self
+    }
+    pub fn luma_bit_depth_entry_minus8(mut self, luma_bit_depth_entry_minus8: u8) -> Self {
+        self.luma_bit_depth_entry_minus8 = luma_bit_depth_entry_minus8;
+        self
+    }
+    pub fn chroma_bit_depth_entry_minus8(mut self, chroma_bit_depth_entry_minus8: u8) -> Self {
+        self.chroma_bit_depth_entry_minus8 = chroma_bit_depth_entry_minus8;
+        self
+    }
+    pub fn num_tile_columns_minus1(mut self, num_tile_columns_minus1: u8) -> Self {
+        self.num_tile_columns_minus1 = num_tile_columns_minus1;
+        self
+    }
+    pub fn num_tile_rows_minus1(mut self, num_tile_rows_minus1: u8) -> Self {
+        self.num_tile_rows_minus1 = num_tile_rows_minus1;
+        self
+    }
+    pub fn reserved1(mut self, reserved1: u8) -> Self {
+        self.reserved1 = reserved1;
+        self
+    }
+    pub fn reserved2(mut self, reserved2: u8) -> Self {
+        self.reserved2 = reserved2;
+        self
+    }
+    pub fn column_width_minus1(
+        mut self,
+        column_width_minus1: [u16; STD_VIDEO_H265_CHROMA_QP_OFFSET_TILE_COLS_LIST_SIZE as usize],
+    ) -> Self {
+        self.column_width_minus1 = column_width_minus1;
+        self
+    }
+    pub fn row_height_minus1(
+        mut self,
+        row_height_minus1: [u16; STD_VIDEO_H265_CHROMA_QP_OFFSET_TILE_ROWS_LIST_SIZE as usize],
+    ) -> Self {
+        self.row_height_minus1 = row_height_minus1;
+        self
+    }
+    pub fn reserved3(mut self, reserved3: u32) -> Self {
+        self.reserved3 = reserved3;
+        self
+    }
+    pub fn scaling_lists(mut self, scaling_lists: &'a StdVideoH265ScalingLists) -> Self {
+        self.p_scaling_lists = scaling_lists;
+        self
+    }
+    pub fn predictor_palette_entries(
+        mut self,
+        predictor_palette_entries: &'a StdVideoH265PredictorPaletteEntries,
+    ) -> Self {
+        self.p_predictor_palette_entries = predictor_palette_entries;
+        self
     }
 }
 #[repr(transparent)]

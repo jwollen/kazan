@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -44,6 +44,50 @@ impl Default for MicromapBuildInfoEXT<'_> {
         }
     }
 }
+impl<'a> MicromapBuildInfoEXT<'a> {
+    pub fn ty(mut self, ty: MicromapTypeEXT) -> Self {
+        self.ty = ty;
+        self
+    }
+    pub fn flags(mut self, flags: BuildMicromapFlagsEXT) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn mode(mut self, mode: BuildMicromapModeEXT) -> Self {
+        self.mode = mode;
+        self
+    }
+    pub fn dst_micromap(mut self, dst_micromap: MicromapEXT) -> Self {
+        self.dst_micromap = dst_micromap;
+        self
+    }
+    pub fn usage_counts(mut self, usage_counts: &'a [MicromapUsageEXT]) -> Self {
+        self.usage_counts_count = usage_counts.len().try_into().unwrap();
+        self.p_usage_counts = usage_counts.as_ptr();
+        self
+    }
+    pub fn usage_counts_ptrs(mut self, usage_counts_ptrs: &'a [&'a MicromapUsageEXT]) -> Self {
+        self.usage_counts_count = usage_counts_ptrs.len().try_into().unwrap();
+        self.pp_usage_counts = usage_counts_ptrs.as_ptr() as _;
+        self
+    }
+    pub fn data(mut self, data: DeviceOrHostAddressConstKHR<'a>) -> Self {
+        self.data = data;
+        self
+    }
+    pub fn scratch_data(mut self, scratch_data: DeviceOrHostAddressKHR<'a>) -> Self {
+        self.scratch_data = scratch_data;
+        self
+    }
+    pub fn triangle_array(mut self, triangle_array: DeviceOrHostAddressConstKHR<'a>) -> Self {
+        self.triangle_array = triangle_array;
+        self
+    }
+    pub fn triangle_array_stride(mut self, triangle_array_stride: DeviceSize) -> Self {
+        self.triangle_array_stride = triangle_array_stride;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct MicromapCreateInfoEXT<'a> {
@@ -72,6 +116,32 @@ impl Default for MicromapCreateInfoEXT<'_> {
         }
     }
 }
+impl<'a> MicromapCreateInfoEXT<'a> {
+    pub fn create_flags(mut self, create_flags: MicromapCreateFlagsEXT) -> Self {
+        self.create_flags = create_flags;
+        self
+    }
+    pub fn buffer(mut self, buffer: Buffer) -> Self {
+        self.buffer = buffer;
+        self
+    }
+    pub fn offset(mut self, offset: DeviceSize) -> Self {
+        self.offset = offset;
+        self
+    }
+    pub fn size(mut self, size: DeviceSize) -> Self {
+        self.size = size;
+        self
+    }
+    pub fn ty(mut self, ty: MicromapTypeEXT) -> Self {
+        self.ty = ty;
+        self
+    }
+    pub fn device_address(mut self, device_address: DeviceAddress) -> Self {
+        self.device_address = device_address;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct MicromapVersionInfoEXT<'a> {
@@ -90,6 +160,7 @@ impl Default for MicromapVersionInfoEXT<'_> {
         }
     }
 }
+impl<'a> MicromapVersionInfoEXT<'a> {}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct CopyMicromapInfoEXT<'a> {
@@ -110,6 +181,20 @@ impl Default for CopyMicromapInfoEXT<'_> {
             mode: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> CopyMicromapInfoEXT<'a> {
+    pub fn src(mut self, src: MicromapEXT) -> Self {
+        self.src = src;
+        self
+    }
+    pub fn dst(mut self, dst: MicromapEXT) -> Self {
+        self.dst = dst;
+        self
+    }
+    pub fn mode(mut self, mode: CopyMicromapModeEXT) -> Self {
+        self.mode = mode;
+        self
     }
 }
 #[repr(C)]
@@ -134,6 +219,20 @@ impl Default for CopyMicromapToMemoryInfoEXT<'_> {
         }
     }
 }
+impl<'a> CopyMicromapToMemoryInfoEXT<'a> {
+    pub fn src(mut self, src: MicromapEXT) -> Self {
+        self.src = src;
+        self
+    }
+    pub fn dst(mut self, dst: DeviceOrHostAddressKHR<'a>) -> Self {
+        self.dst = dst;
+        self
+    }
+    pub fn mode(mut self, mode: CopyMicromapModeEXT) -> Self {
+        self.mode = mode;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct CopyMemoryToMicromapInfoEXT<'a> {
@@ -154,6 +253,20 @@ impl Default for CopyMemoryToMicromapInfoEXT<'_> {
             mode: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> CopyMemoryToMicromapInfoEXT<'a> {
+    pub fn src(mut self, src: DeviceOrHostAddressConstKHR<'a>) -> Self {
+        self.src = src;
+        self
+    }
+    pub fn dst(mut self, dst: MicromapEXT) -> Self {
+        self.dst = dst;
+        self
+    }
+    pub fn mode(mut self, mode: CopyMicromapModeEXT) -> Self {
+        self.mode = mode;
+        self
     }
 }
 #[repr(C)]
@@ -178,6 +291,20 @@ impl Default for MicromapBuildSizesInfoEXT<'_> {
         }
     }
 }
+impl<'a> MicromapBuildSizesInfoEXT<'a> {
+    pub fn micromap_size(mut self, micromap_size: DeviceSize) -> Self {
+        self.micromap_size = micromap_size;
+        self
+    }
+    pub fn build_scratch_size(mut self, build_scratch_size: DeviceSize) -> Self {
+        self.build_scratch_size = build_scratch_size;
+        self
+    }
+    pub fn discardable(mut self, discardable: Bool32) -> Self {
+        self.discardable = discardable;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct MicromapUsageEXT {
@@ -185,12 +312,40 @@ pub struct MicromapUsageEXT {
     pub subdivision_level: u32,
     pub format: u32,
 }
+impl MicromapUsageEXT {
+    pub fn count(mut self, count: u32) -> Self {
+        self.count = count;
+        self
+    }
+    pub fn subdivision_level(mut self, subdivision_level: u32) -> Self {
+        self.subdivision_level = subdivision_level;
+        self
+    }
+    pub fn format(mut self, format: u32) -> Self {
+        self.format = format;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct MicromapTriangleEXT {
     pub data_offset: u32,
     pub subdivision_level: u16,
     pub format: u16,
+}
+impl MicromapTriangleEXT {
+    pub fn data_offset(mut self, data_offset: u32) -> Self {
+        self.data_offset = data_offset;
+        self
+    }
+    pub fn subdivision_level(mut self, subdivision_level: u16) -> Self {
+        self.subdivision_level = subdivision_level;
+        self
+    }
+    pub fn format(mut self, format: u16) -> Self {
+        self.format = format;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -214,6 +369,20 @@ impl Default for PhysicalDeviceOpacityMicromapFeaturesEXT<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceOpacityMicromapFeaturesEXT<'a> {
+    pub fn micromap(mut self, micromap: Bool32) -> Self {
+        self.micromap = micromap;
+        self
+    }
+    pub fn micromap_capture_replay(mut self, micromap_capture_replay: Bool32) -> Self {
+        self.micromap_capture_replay = micromap_capture_replay;
+        self
+    }
+    pub fn micromap_host_commands(mut self, micromap_host_commands: Bool32) -> Self {
+        self.micromap_host_commands = micromap_host_commands;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceOpacityMicromapPropertiesEXT<'a> {
@@ -232,6 +401,22 @@ impl Default for PhysicalDeviceOpacityMicromapPropertiesEXT<'_> {
             max_opacity4_state_subdivision_level: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceOpacityMicromapPropertiesEXT<'a> {
+    pub fn max_opacity2_state_subdivision_level(
+        mut self,
+        max_opacity2_state_subdivision_level: u32,
+    ) -> Self {
+        self.max_opacity2_state_subdivision_level = max_opacity2_state_subdivision_level;
+        self
+    }
+    pub fn max_opacity4_state_subdivision_level(
+        mut self,
+        max_opacity4_state_subdivision_level: u32,
+    ) -> Self {
+        self.max_opacity4_state_subdivision_level = max_opacity4_state_subdivision_level;
+        self
     }
 }
 #[repr(C)]
@@ -264,6 +449,38 @@ impl Default for AccelerationStructureTrianglesOpacityMicromapEXT<'_> {
             micromap: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> AccelerationStructureTrianglesOpacityMicromapEXT<'a> {
+    pub fn index_type(mut self, index_type: IndexType) -> Self {
+        self.index_type = index_type;
+        self
+    }
+    pub fn index_buffer(mut self, index_buffer: DeviceOrHostAddressConstKHR<'a>) -> Self {
+        self.index_buffer = index_buffer;
+        self
+    }
+    pub fn index_stride(mut self, index_stride: DeviceSize) -> Self {
+        self.index_stride = index_stride;
+        self
+    }
+    pub fn base_triangle(mut self, base_triangle: u32) -> Self {
+        self.base_triangle = base_triangle;
+        self
+    }
+    pub fn usage_counts(mut self, usage_counts: &'a [MicromapUsageEXT]) -> Self {
+        self.usage_counts_count = usage_counts.len().try_into().unwrap();
+        self.p_usage_counts = usage_counts.as_ptr();
+        self
+    }
+    pub fn usage_counts_ptrs(mut self, usage_counts_ptrs: &'a [&'a MicromapUsageEXT]) -> Self {
+        self.usage_counts_count = usage_counts_ptrs.len().try_into().unwrap();
+        self.pp_usage_counts = usage_counts_ptrs.as_ptr() as _;
+        self
+    }
+    pub fn micromap(mut self, micromap: MicromapEXT) -> Self {
+        self.micromap = micromap;
+        self
     }
 }
 #[repr(transparent)]

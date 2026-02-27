@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,5 +21,15 @@ impl Default for PhysicalDeviceShaderImageAtomicInt64FeaturesEXT<'_> {
             sparse_image_int64_atomics: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceShaderImageAtomicInt64FeaturesEXT<'a> {
+    pub fn shader_image_int64_atomics(mut self, shader_image_int64_atomics: Bool32) -> Self {
+        self.shader_image_int64_atomics = shader_image_int64_atomics;
+        self
+    }
+    pub fn sparse_image_int64_atomics(mut self, sparse_image_int64_atomics: Bool32) -> Self {
+        self.sparse_image_int64_atomics = sparse_image_int64_atomics;
+        self
     }
 }

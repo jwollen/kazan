@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,6 +21,20 @@ impl Default for PhysicalDeviceProvokingVertexFeaturesEXT<'_> {
             transform_feedback_preserves_provoking_vertex: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceProvokingVertexFeaturesEXT<'a> {
+    pub fn provoking_vertex_last(mut self, provoking_vertex_last: Bool32) -> Self {
+        self.provoking_vertex_last = provoking_vertex_last;
+        self
+    }
+    pub fn transform_feedback_preserves_provoking_vertex(
+        mut self,
+        transform_feedback_preserves_provoking_vertex: Bool32,
+    ) -> Self {
+        self.transform_feedback_preserves_provoking_vertex =
+            transform_feedback_preserves_provoking_vertex;
+        self
     }
 }
 #[repr(C)]
@@ -43,6 +57,23 @@ impl Default for PhysicalDeviceProvokingVertexPropertiesEXT<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceProvokingVertexPropertiesEXT<'a> {
+    pub fn provoking_vertex_mode_per_pipeline(
+        mut self,
+        provoking_vertex_mode_per_pipeline: Bool32,
+    ) -> Self {
+        self.provoking_vertex_mode_per_pipeline = provoking_vertex_mode_per_pipeline;
+        self
+    }
+    pub fn transform_feedback_preserves_triangle_fan_provoking_vertex(
+        mut self,
+        transform_feedback_preserves_triangle_fan_provoking_vertex: Bool32,
+    ) -> Self {
+        self.transform_feedback_preserves_triangle_fan_provoking_vertex =
+            transform_feedback_preserves_triangle_fan_provoking_vertex;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PipelineRasterizationProvokingVertexStateCreateInfoEXT<'a> {
@@ -59,6 +90,12 @@ impl Default for PipelineRasterizationProvokingVertexStateCreateInfoEXT<'_> {
             provoking_vertex_mode: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineRasterizationProvokingVertexStateCreateInfoEXT<'a> {
+    pub fn provoking_vertex_mode(mut self, provoking_vertex_mode: ProvokingVertexModeEXT) -> Self {
+        self.provoking_vertex_mode = provoking_vertex_mode;
+        self
     }
 }
 #[repr(transparent)]

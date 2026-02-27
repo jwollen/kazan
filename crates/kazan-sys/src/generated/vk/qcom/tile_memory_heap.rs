@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,6 +21,12 @@ impl Default for TileMemoryBindInfoQCOM<'_> {
         }
     }
 }
+impl<'a> TileMemoryBindInfoQCOM<'a> {
+    pub fn memory(mut self, memory: DeviceMemory) -> Self {
+        self.memory = memory;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceTileMemoryHeapFeaturesQCOM<'a> {
@@ -37,6 +43,12 @@ impl Default for PhysicalDeviceTileMemoryHeapFeaturesQCOM<'_> {
             tile_memory_heap: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceTileMemoryHeapFeaturesQCOM<'a> {
+    pub fn tile_memory_heap(mut self, tile_memory_heap: Bool32) -> Self {
+        self.tile_memory_heap = tile_memory_heap;
+        self
     }
 }
 #[repr(C)]
@@ -59,6 +71,16 @@ impl Default for PhysicalDeviceTileMemoryHeapPropertiesQCOM<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceTileMemoryHeapPropertiesQCOM<'a> {
+    pub fn queue_submit_boundary(mut self, queue_submit_boundary: Bool32) -> Self {
+        self.queue_submit_boundary = queue_submit_boundary;
+        self
+    }
+    pub fn tile_buffer_transfers(mut self, tile_buffer_transfers: Bool32) -> Self {
+        self.tile_buffer_transfers = tile_buffer_transfers;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct TileMemorySizeInfoQCOM<'a> {
@@ -75,6 +97,12 @@ impl Default for TileMemorySizeInfoQCOM<'_> {
             size: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> TileMemorySizeInfoQCOM<'a> {
+    pub fn size(mut self, size: DeviceSize) -> Self {
+        self.size = size;
+        self
     }
 }
 #[repr(C)]
@@ -95,6 +123,16 @@ impl Default for TileMemoryRequirementsQCOM<'_> {
             alignment: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> TileMemoryRequirementsQCOM<'a> {
+    pub fn size(mut self, size: DeviceSize) -> Self {
+        self.size = size;
+        self
+    }
+    pub fn alignment(mut self, alignment: DeviceSize) -> Self {
+        self.alignment = alignment;
+        self
     }
 }
 pub type PFN_vkCmdBindTileMemoryQCOM = unsafe extern "system" fn(

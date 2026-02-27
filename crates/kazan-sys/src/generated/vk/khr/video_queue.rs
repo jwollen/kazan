@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -27,6 +27,15 @@ impl Default for QueueFamilyVideoPropertiesKHR<'_> {
         }
     }
 }
+impl<'a> QueueFamilyVideoPropertiesKHR<'a> {
+    pub fn video_codec_operations(
+        mut self,
+        video_codec_operations: VideoCodecOperationFlagsKHR,
+    ) -> Self {
+        self.video_codec_operations = video_codec_operations;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct QueueFamilyQueryResultStatusPropertiesKHR<'a> {
@@ -43,6 +52,12 @@ impl Default for QueueFamilyQueryResultStatusPropertiesKHR<'_> {
             query_result_status_support: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> QueueFamilyQueryResultStatusPropertiesKHR<'a> {
+    pub fn query_result_status_support(mut self, query_result_status_support: Bool32) -> Self {
+        self.query_result_status_support = query_result_status_support;
+        self
     }
 }
 #[repr(C)]
@@ -65,6 +80,13 @@ impl Default for VideoProfileListInfoKHR<'_> {
         }
     }
 }
+impl<'a> VideoProfileListInfoKHR<'a> {
+    pub fn profiles(mut self, profiles: &'a [VideoProfileInfoKHR<'a>]) -> Self {
+        self.profile_count = profiles.len().try_into().unwrap();
+        self.p_profiles = profiles.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceVideoFormatInfoKHR<'a> {
@@ -81,6 +103,12 @@ impl Default for PhysicalDeviceVideoFormatInfoKHR<'_> {
             image_usage: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceVideoFormatInfoKHR<'a> {
+    pub fn image_usage(mut self, image_usage: ImageUsageFlags) -> Self {
+        self.image_usage = image_usage;
+        self
     }
 }
 #[repr(C)]
@@ -111,6 +139,32 @@ impl Default for VideoFormatPropertiesKHR<'_> {
         }
     }
 }
+impl<'a> VideoFormatPropertiesKHR<'a> {
+    pub fn format(mut self, format: Format) -> Self {
+        self.format = format;
+        self
+    }
+    pub fn component_mapping(mut self, component_mapping: ComponentMapping) -> Self {
+        self.component_mapping = component_mapping;
+        self
+    }
+    pub fn image_create_flags(mut self, image_create_flags: ImageCreateFlags) -> Self {
+        self.image_create_flags = image_create_flags;
+        self
+    }
+    pub fn image_type(mut self, image_type: ImageType) -> Self {
+        self.image_type = image_type;
+        self
+    }
+    pub fn image_tiling(mut self, image_tiling: ImageTiling) -> Self {
+        self.image_tiling = image_tiling;
+        self
+    }
+    pub fn image_usage_flags(mut self, image_usage_flags: ImageUsageFlags) -> Self {
+        self.image_usage_flags = image_usage_flags;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VideoProfileInfoKHR<'a> {
@@ -133,6 +187,30 @@ impl Default for VideoProfileInfoKHR<'_> {
             chroma_bit_depth: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VideoProfileInfoKHR<'a> {
+    pub fn video_codec_operation(
+        mut self,
+        video_codec_operation: VideoCodecOperationFlagBitsKHR,
+    ) -> Self {
+        self.video_codec_operation = video_codec_operation;
+        self
+    }
+    pub fn chroma_subsampling(
+        mut self,
+        chroma_subsampling: VideoChromaSubsamplingFlagsKHR,
+    ) -> Self {
+        self.chroma_subsampling = chroma_subsampling;
+        self
+    }
+    pub fn luma_bit_depth(mut self, luma_bit_depth: VideoComponentBitDepthFlagsKHR) -> Self {
+        self.luma_bit_depth = luma_bit_depth;
+        self
+    }
+    pub fn chroma_bit_depth(mut self, chroma_bit_depth: VideoComponentBitDepthFlagsKHR) -> Self {
+        self.chroma_bit_depth = chroma_bit_depth;
+        self
     }
 }
 #[repr(C)]
@@ -169,6 +247,50 @@ impl Default for VideoCapabilitiesKHR<'_> {
         }
     }
 }
+impl<'a> VideoCapabilitiesKHR<'a> {
+    pub fn flags(mut self, flags: VideoCapabilityFlagsKHR) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn min_bitstream_buffer_offset_alignment(
+        mut self,
+        min_bitstream_buffer_offset_alignment: DeviceSize,
+    ) -> Self {
+        self.min_bitstream_buffer_offset_alignment = min_bitstream_buffer_offset_alignment;
+        self
+    }
+    pub fn min_bitstream_buffer_size_alignment(
+        mut self,
+        min_bitstream_buffer_size_alignment: DeviceSize,
+    ) -> Self {
+        self.min_bitstream_buffer_size_alignment = min_bitstream_buffer_size_alignment;
+        self
+    }
+    pub fn picture_access_granularity(mut self, picture_access_granularity: Extent2D) -> Self {
+        self.picture_access_granularity = picture_access_granularity;
+        self
+    }
+    pub fn min_coded_extent(mut self, min_coded_extent: Extent2D) -> Self {
+        self.min_coded_extent = min_coded_extent;
+        self
+    }
+    pub fn max_coded_extent(mut self, max_coded_extent: Extent2D) -> Self {
+        self.max_coded_extent = max_coded_extent;
+        self
+    }
+    pub fn max_dpb_slots(mut self, max_dpb_slots: u32) -> Self {
+        self.max_dpb_slots = max_dpb_slots;
+        self
+    }
+    pub fn max_active_reference_pictures(mut self, max_active_reference_pictures: u32) -> Self {
+        self.max_active_reference_pictures = max_active_reference_pictures;
+        self
+    }
+    pub fn std_header_version(mut self, std_header_version: ExtensionProperties) -> Self {
+        self.std_header_version = std_header_version;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VideoSessionMemoryRequirementsKHR<'a> {
@@ -187,6 +309,16 @@ impl Default for VideoSessionMemoryRequirementsKHR<'_> {
             memory_requirements: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VideoSessionMemoryRequirementsKHR<'a> {
+    pub fn memory_bind_index(mut self, memory_bind_index: u32) -> Self {
+        self.memory_bind_index = memory_bind_index;
+        self
+    }
+    pub fn memory_requirements(mut self, memory_requirements: MemoryRequirements) -> Self {
+        self.memory_requirements = memory_requirements;
+        self
     }
 }
 #[repr(C)]
@@ -213,6 +345,24 @@ impl Default for BindVideoSessionMemoryInfoKHR<'_> {
         }
     }
 }
+impl<'a> BindVideoSessionMemoryInfoKHR<'a> {
+    pub fn memory_bind_index(mut self, memory_bind_index: u32) -> Self {
+        self.memory_bind_index = memory_bind_index;
+        self
+    }
+    pub fn memory(mut self, memory: DeviceMemory) -> Self {
+        self.memory = memory;
+        self
+    }
+    pub fn memory_offset(mut self, memory_offset: DeviceSize) -> Self {
+        self.memory_offset = memory_offset;
+        self
+    }
+    pub fn memory_size(mut self, memory_size: DeviceSize) -> Self {
+        self.memory_size = memory_size;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VideoPictureResourceInfoKHR<'a> {
@@ -237,6 +387,24 @@ impl Default for VideoPictureResourceInfoKHR<'_> {
         }
     }
 }
+impl<'a> VideoPictureResourceInfoKHR<'a> {
+    pub fn coded_offset(mut self, coded_offset: Offset2D) -> Self {
+        self.coded_offset = coded_offset;
+        self
+    }
+    pub fn coded_extent(mut self, coded_extent: Extent2D) -> Self {
+        self.coded_extent = coded_extent;
+        self
+    }
+    pub fn base_array_layer(mut self, base_array_layer: u32) -> Self {
+        self.base_array_layer = base_array_layer;
+        self
+    }
+    pub fn image_view_binding(mut self, image_view_binding: ImageView) -> Self {
+        self.image_view_binding = image_view_binding;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VideoReferenceSlotInfoKHR<'a> {
@@ -255,6 +423,19 @@ impl Default for VideoReferenceSlotInfoKHR<'_> {
             p_picture_resource: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VideoReferenceSlotInfoKHR<'a> {
+    pub fn slot_index(mut self, slot_index: i32) -> Self {
+        self.slot_index = slot_index;
+        self
+    }
+    pub fn picture_resource(
+        mut self,
+        picture_resource: &'a VideoPictureResourceInfoKHR<'a>,
+    ) -> Self {
+        self.p_picture_resource = picture_resource;
+        self
     }
 }
 #[repr(C)]
@@ -291,6 +472,44 @@ impl Default for VideoSessionCreateInfoKHR<'_> {
         }
     }
 }
+impl<'a> VideoSessionCreateInfoKHR<'a> {
+    pub fn queue_family_index(mut self, queue_family_index: u32) -> Self {
+        self.queue_family_index = queue_family_index;
+        self
+    }
+    pub fn flags(mut self, flags: VideoSessionCreateFlagsKHR) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn video_profile(mut self, video_profile: &'a VideoProfileInfoKHR<'a>) -> Self {
+        self.p_video_profile = video_profile;
+        self
+    }
+    pub fn picture_format(mut self, picture_format: Format) -> Self {
+        self.picture_format = picture_format;
+        self
+    }
+    pub fn max_coded_extent(mut self, max_coded_extent: Extent2D) -> Self {
+        self.max_coded_extent = max_coded_extent;
+        self
+    }
+    pub fn reference_picture_format(mut self, reference_picture_format: Format) -> Self {
+        self.reference_picture_format = reference_picture_format;
+        self
+    }
+    pub fn max_dpb_slots(mut self, max_dpb_slots: u32) -> Self {
+        self.max_dpb_slots = max_dpb_slots;
+        self
+    }
+    pub fn max_active_reference_pictures(mut self, max_active_reference_pictures: u32) -> Self {
+        self.max_active_reference_pictures = max_active_reference_pictures;
+        self
+    }
+    pub fn std_header_version(mut self, std_header_version: &'a ExtensionProperties) -> Self {
+        self.p_std_header_version = std_header_version;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VideoSessionParametersCreateInfoKHR<'a> {
@@ -313,6 +532,23 @@ impl Default for VideoSessionParametersCreateInfoKHR<'_> {
         }
     }
 }
+impl<'a> VideoSessionParametersCreateInfoKHR<'a> {
+    pub fn flags(mut self, flags: VideoSessionParametersCreateFlagsKHR) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn video_session_parameters_template(
+        mut self,
+        video_session_parameters_template: VideoSessionParametersKHR,
+    ) -> Self {
+        self.video_session_parameters_template = video_session_parameters_template;
+        self
+    }
+    pub fn video_session(mut self, video_session: VideoSessionKHR) -> Self {
+        self.video_session = video_session;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VideoSessionParametersUpdateInfoKHR<'a> {
@@ -329,6 +565,12 @@ impl Default for VideoSessionParametersUpdateInfoKHR<'_> {
             update_sequence_count: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VideoSessionParametersUpdateInfoKHR<'a> {
+    pub fn update_sequence_count(mut self, update_sequence_count: u32) -> Self {
+        self.update_sequence_count = update_sequence_count;
+        self
     }
 }
 #[repr(C)]
@@ -357,6 +599,28 @@ impl Default for VideoBeginCodingInfoKHR<'_> {
         }
     }
 }
+impl<'a> VideoBeginCodingInfoKHR<'a> {
+    pub fn flags(mut self, flags: VideoBeginCodingFlagsKHR) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn video_session(mut self, video_session: VideoSessionKHR) -> Self {
+        self.video_session = video_session;
+        self
+    }
+    pub fn video_session_parameters(
+        mut self,
+        video_session_parameters: VideoSessionParametersKHR,
+    ) -> Self {
+        self.video_session_parameters = video_session_parameters;
+        self
+    }
+    pub fn reference_slots(mut self, reference_slots: &'a [VideoReferenceSlotInfoKHR<'a>]) -> Self {
+        self.reference_slot_count = reference_slots.len().try_into().unwrap();
+        self.p_reference_slots = reference_slots.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VideoEndCodingInfoKHR<'a> {
@@ -375,6 +639,12 @@ impl Default for VideoEndCodingInfoKHR<'_> {
         }
     }
 }
+impl<'a> VideoEndCodingInfoKHR<'a> {
+    pub fn flags(mut self, flags: VideoEndCodingFlagsKHR) -> Self {
+        self.flags = flags;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VideoCodingControlInfoKHR<'a> {
@@ -391,6 +661,12 @@ impl Default for VideoCodingControlInfoKHR<'_> {
             flags: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VideoCodingControlInfoKHR<'a> {
+    pub fn flags(mut self, flags: VideoCodingControlFlagsKHR) -> Self {
+        self.flags = flags;
+        self
     }
 }
 #[repr(transparent)]

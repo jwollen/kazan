@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDevicePresentIdFeaturesKHR<'_> {
             present_id: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDevicePresentIdFeaturesKHR<'a> {
+    pub fn present_id(mut self, present_id: Bool32) -> Self {
+        self.present_id = present_id;
+        self
     }
 }
 #[repr(C)]
@@ -39,5 +45,12 @@ impl Default for PresentIdKHR<'_> {
             p_present_ids: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PresentIdKHR<'a> {
+    pub fn present_ids(mut self, present_ids: &'a [u64]) -> Self {
+        self.swapchain_count = present_ids.len().try_into().unwrap();
+        self.p_present_ids = present_ids.as_ptr();
+        self
     }
 }

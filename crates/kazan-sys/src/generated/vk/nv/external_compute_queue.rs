@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -24,6 +24,12 @@ impl Default for ExternalComputeQueueDeviceCreateInfoNV<'_> {
         }
     }
 }
+impl<'a> ExternalComputeQueueDeviceCreateInfoNV<'a> {
+    pub fn reserved_external_queues(mut self, reserved_external_queues: u32) -> Self {
+        self.reserved_external_queues = reserved_external_queues;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ExternalComputeQueueCreateInfoNV<'a> {
@@ -40,6 +46,12 @@ impl Default for ExternalComputeQueueCreateInfoNV<'_> {
             preferred_queue: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ExternalComputeQueueCreateInfoNV<'a> {
+    pub fn preferred_queue(mut self, preferred_queue: Queue) -> Self {
+        self.preferred_queue = preferred_queue;
+        self
     }
 }
 #[repr(C)]
@@ -60,6 +72,12 @@ impl Default for ExternalComputeQueueDataParamsNV<'_> {
         }
     }
 }
+impl<'a> ExternalComputeQueueDataParamsNV<'a> {
+    pub fn device_index(mut self, device_index: u32) -> Self {
+        self.device_index = device_index;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceExternalComputeQueuePropertiesNV<'a> {
@@ -78,6 +96,16 @@ impl Default for PhysicalDeviceExternalComputeQueuePropertiesNV<'_> {
             max_external_queues: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceExternalComputeQueuePropertiesNV<'a> {
+    pub fn external_data_size(mut self, external_data_size: u32) -> Self {
+        self.external_data_size = external_data_size;
+        self
+    }
+    pub fn max_external_queues(mut self, max_external_queues: u32) -> Self {
+        self.max_external_queues = max_external_queues;
+        self
     }
 }
 pub type PFN_vkCreateExternalComputeQueueNV = unsafe extern "system" fn(

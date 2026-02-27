@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,6 +21,13 @@ impl Default for LayerSettingsCreateInfoEXT<'_> {
             p_settings: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> LayerSettingsCreateInfoEXT<'a> {
+    pub fn settings(mut self, settings: &'a [LayerSettingEXT<'a>]) -> Self {
+        self.setting_count = settings.len().try_into().unwrap();
+        self.p_settings = settings.as_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -43,6 +50,17 @@ impl Default for LayerSettingEXT<'_> {
             p_values: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> LayerSettingEXT<'a> {
+    pub fn ty(mut self, ty: LayerSettingTypeEXT) -> Self {
+        self.ty = ty;
+        self
+    }
+    pub fn values(mut self, values: &'a [u8]) -> Self {
+        self.value_count = values.len().try_into().unwrap();
+        self.p_values = values.as_ptr() as _;
+        self
     }
 }
 #[repr(transparent)]

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub const MAX_GLOBAL_PRIORITY_SIZE: u32 = 16;
 #[repr(C)]
@@ -22,6 +22,12 @@ impl Default for BufferUsageFlags2CreateInfo<'_> {
         }
     }
 }
+impl<'a> BufferUsageFlags2CreateInfo<'a> {
+    pub fn usage(mut self, usage: BufferUsageFlags2) -> Self {
+        self.usage = usage;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PipelineCreateFlags2CreateInfo<'a> {
@@ -38,6 +44,12 @@ impl Default for PipelineCreateFlags2CreateInfo<'_> {
             flags: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineCreateFlags2CreateInfo<'a> {
+    pub fn flags(mut self, flags: PipelineCreateFlags2) -> Self {
+        self.flags = flags;
+        self
     }
 }
 #[repr(C)]
@@ -58,6 +70,12 @@ impl Default for PhysicalDevicePushDescriptorProperties<'_> {
         }
     }
 }
+impl<'a> PhysicalDevicePushDescriptorProperties<'a> {
+    pub fn max_push_descriptors(mut self, max_push_descriptors: u32) -> Self {
+        self.max_push_descriptors = max_push_descriptors;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceMaintenance5Features<'a> {
@@ -74,6 +92,12 @@ impl Default for PhysicalDeviceMaintenance5Features<'_> {
             maintenance5: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceMaintenance5Features<'a> {
+    pub fn maintenance5(mut self, maintenance5: Bool32) -> Self {
+        self.maintenance5 = maintenance5;
+        self
     }
 }
 #[repr(C)]
@@ -104,6 +128,50 @@ impl Default for PhysicalDeviceMaintenance5Properties<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceMaintenance5Properties<'a> {
+    pub fn early_fragment_multisample_coverage_after_sample_counting(
+        mut self,
+        early_fragment_multisample_coverage_after_sample_counting: Bool32,
+    ) -> Self {
+        self.early_fragment_multisample_coverage_after_sample_counting =
+            early_fragment_multisample_coverage_after_sample_counting;
+        self
+    }
+    pub fn early_fragment_sample_mask_test_before_sample_counting(
+        mut self,
+        early_fragment_sample_mask_test_before_sample_counting: Bool32,
+    ) -> Self {
+        self.early_fragment_sample_mask_test_before_sample_counting =
+            early_fragment_sample_mask_test_before_sample_counting;
+        self
+    }
+    pub fn depth_stencil_swizzle_one_support(
+        mut self,
+        depth_stencil_swizzle_one_support: Bool32,
+    ) -> Self {
+        self.depth_stencil_swizzle_one_support = depth_stencil_swizzle_one_support;
+        self
+    }
+    pub fn polygon_mode_point_size(mut self, polygon_mode_point_size: Bool32) -> Self {
+        self.polygon_mode_point_size = polygon_mode_point_size;
+        self
+    }
+    pub fn non_strict_single_pixel_wide_lines_use_parallelogram(
+        mut self,
+        non_strict_single_pixel_wide_lines_use_parallelogram: Bool32,
+    ) -> Self {
+        self.non_strict_single_pixel_wide_lines_use_parallelogram =
+            non_strict_single_pixel_wide_lines_use_parallelogram;
+        self
+    }
+    pub fn non_strict_wide_lines_use_parallelogram(
+        mut self,
+        non_strict_wide_lines_use_parallelogram: Bool32,
+    ) -> Self {
+        self.non_strict_wide_lines_use_parallelogram = non_strict_wide_lines_use_parallelogram;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceMaintenance6Features<'a> {
@@ -120,6 +188,12 @@ impl Default for PhysicalDeviceMaintenance6Features<'_> {
             maintenance6: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceMaintenance6Features<'a> {
+    pub fn maintenance6(mut self, maintenance6: Bool32) -> Self {
+        self.maintenance6 = maintenance6;
+        self
     }
 }
 #[repr(C)]
@@ -142,6 +216,32 @@ impl Default for PhysicalDeviceMaintenance6Properties<'_> {
             fragment_shading_rate_clamp_combiner_inputs: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceMaintenance6Properties<'a> {
+    pub fn block_texel_view_compatible_multiple_layers(
+        mut self,
+        block_texel_view_compatible_multiple_layers: Bool32,
+    ) -> Self {
+        self.block_texel_view_compatible_multiple_layers =
+            block_texel_view_compatible_multiple_layers;
+        self
+    }
+    pub fn max_combined_image_sampler_descriptor_count(
+        mut self,
+        max_combined_image_sampler_descriptor_count: u32,
+    ) -> Self {
+        self.max_combined_image_sampler_descriptor_count =
+            max_combined_image_sampler_descriptor_count;
+        self
+    }
+    pub fn fragment_shading_rate_clamp_combiner_inputs(
+        mut self,
+        fragment_shading_rate_clamp_combiner_inputs: Bool32,
+    ) -> Self {
+        self.fragment_shading_rate_clamp_combiner_inputs =
+            fragment_shading_rate_clamp_combiner_inputs;
+        self
     }
 }
 #[repr(C)]
@@ -170,6 +270,25 @@ impl Default for RenderingAreaInfo<'_> {
         }
     }
 }
+impl<'a> RenderingAreaInfo<'a> {
+    pub fn view_mask(mut self, view_mask: u32) -> Self {
+        self.view_mask = view_mask;
+        self
+    }
+    pub fn color_attachment_formats(mut self, color_attachment_formats: &'a [Format]) -> Self {
+        self.color_attachment_count = color_attachment_formats.len().try_into().unwrap();
+        self.p_color_attachment_formats = color_attachment_formats.as_ptr();
+        self
+    }
+    pub fn depth_attachment_format(mut self, depth_attachment_format: Format) -> Self {
+        self.depth_attachment_format = depth_attachment_format;
+        self
+    }
+    pub fn stencil_attachment_format(mut self, stencil_attachment_format: Format) -> Self {
+        self.stencil_attachment_format = stencil_attachment_format;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DeviceQueueGlobalPriorityCreateInfo<'a> {
@@ -188,6 +307,12 @@ impl Default for DeviceQueueGlobalPriorityCreateInfo<'_> {
         }
     }
 }
+impl<'a> DeviceQueueGlobalPriorityCreateInfo<'a> {
+    pub fn global_priority(mut self, global_priority: QueueGlobalPriority) -> Self {
+        self.global_priority = global_priority;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceGlobalPriorityQueryFeatures<'a> {
@@ -204,6 +329,12 @@ impl Default for PhysicalDeviceGlobalPriorityQueryFeatures<'_> {
             global_priority_query: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceGlobalPriorityQueryFeatures<'a> {
+    pub fn global_priority_query(mut self, global_priority_query: Bool32) -> Self {
+        self.global_priority_query = global_priority_query;
+        self
     }
 }
 #[repr(C)]
@@ -226,11 +357,28 @@ impl Default for QueueFamilyGlobalPriorityProperties<'_> {
         }
     }
 }
+impl<'a> QueueFamilyGlobalPriorityProperties<'a> {
+    pub fn priorities(mut self, priorities: &[QueueGlobalPriority]) -> Self {
+        self.priority_count = priorities.len().try_into().unwrap();
+        self.priorities[..priorities.len()].copy_from_slice(priorities);
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct VertexInputBindingDivisorDescription {
     pub binding: u32,
     pub divisor: u32,
+}
+impl VertexInputBindingDivisorDescription {
+    pub fn binding(mut self, binding: u32) -> Self {
+        self.binding = binding;
+        self
+    }
+    pub fn divisor(mut self, divisor: u32) -> Self {
+        self.divisor = divisor;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -250,6 +398,16 @@ impl Default for PipelineVertexInputDivisorStateCreateInfo<'_> {
             p_vertex_binding_divisors: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineVertexInputDivisorStateCreateInfo<'a> {
+    pub fn vertex_binding_divisors(
+        mut self,
+        vertex_binding_divisors: &'a [VertexInputBindingDivisorDescription],
+    ) -> Self {
+        self.vertex_binding_divisor_count = vertex_binding_divisors.len().try_into().unwrap();
+        self.p_vertex_binding_divisors = vertex_binding_divisors.as_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -272,6 +430,19 @@ impl Default for PhysicalDeviceVertexAttributeDivisorProperties<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceVertexAttributeDivisorProperties<'a> {
+    pub fn max_vertex_attrib_divisor(mut self, max_vertex_attrib_divisor: u32) -> Self {
+        self.max_vertex_attrib_divisor = max_vertex_attrib_divisor;
+        self
+    }
+    pub fn supports_non_zero_first_instance(
+        mut self,
+        supports_non_zero_first_instance: Bool32,
+    ) -> Self {
+        self.supports_non_zero_first_instance = supports_non_zero_first_instance;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceVertexAttributeDivisorFeatures<'a> {
@@ -292,6 +463,23 @@ impl Default for PhysicalDeviceVertexAttributeDivisorFeatures<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceVertexAttributeDivisorFeatures<'a> {
+    pub fn vertex_attribute_instance_rate_divisor(
+        mut self,
+        vertex_attribute_instance_rate_divisor: Bool32,
+    ) -> Self {
+        self.vertex_attribute_instance_rate_divisor = vertex_attribute_instance_rate_divisor;
+        self
+    }
+    pub fn vertex_attribute_instance_rate_zero_divisor(
+        mut self,
+        vertex_attribute_instance_rate_zero_divisor: Bool32,
+    ) -> Self {
+        self.vertex_attribute_instance_rate_zero_divisor =
+            vertex_attribute_instance_rate_zero_divisor;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceIndexTypeUint8Features<'a> {
@@ -308,6 +496,12 @@ impl Default for PhysicalDeviceIndexTypeUint8Features<'_> {
             index_type_uint8: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceIndexTypeUint8Features<'a> {
+    pub fn index_type_uint8(mut self, index_type_uint8: Bool32) -> Self {
+        self.index_type_uint8 = index_type_uint8;
+        self
     }
 }
 #[repr(C)]
@@ -338,6 +532,32 @@ impl Default for PhysicalDeviceLineRasterizationFeatures<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceLineRasterizationFeatures<'a> {
+    pub fn rectangular_lines(mut self, rectangular_lines: Bool32) -> Self {
+        self.rectangular_lines = rectangular_lines;
+        self
+    }
+    pub fn bresenham_lines(mut self, bresenham_lines: Bool32) -> Self {
+        self.bresenham_lines = bresenham_lines;
+        self
+    }
+    pub fn smooth_lines(mut self, smooth_lines: Bool32) -> Self {
+        self.smooth_lines = smooth_lines;
+        self
+    }
+    pub fn stippled_rectangular_lines(mut self, stippled_rectangular_lines: Bool32) -> Self {
+        self.stippled_rectangular_lines = stippled_rectangular_lines;
+        self
+    }
+    pub fn stippled_bresenham_lines(mut self, stippled_bresenham_lines: Bool32) -> Self {
+        self.stippled_bresenham_lines = stippled_bresenham_lines;
+        self
+    }
+    pub fn stippled_smooth_lines(mut self, stippled_smooth_lines: Bool32) -> Self {
+        self.stippled_smooth_lines = stippled_smooth_lines;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceLineRasterizationProperties<'a> {
@@ -354,6 +574,12 @@ impl Default for PhysicalDeviceLineRasterizationProperties<'_> {
             line_sub_pixel_precision_bits: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceLineRasterizationProperties<'a> {
+    pub fn line_sub_pixel_precision_bits(mut self, line_sub_pixel_precision_bits: u32) -> Self {
+        self.line_sub_pixel_precision_bits = line_sub_pixel_precision_bits;
+        self
     }
 }
 #[repr(C)]
@@ -378,6 +604,27 @@ impl Default for PipelineRasterizationLineStateCreateInfo<'_> {
             line_stipple_pattern: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineRasterizationLineStateCreateInfo<'a> {
+    pub fn line_rasterization_mode(
+        mut self,
+        line_rasterization_mode: LineRasterizationMode,
+    ) -> Self {
+        self.line_rasterization_mode = line_rasterization_mode;
+        self
+    }
+    pub fn stippled_line_enable(mut self, stippled_line_enable: Bool32) -> Self {
+        self.stippled_line_enable = stippled_line_enable;
+        self
+    }
+    pub fn line_stipple_factor(mut self, line_stipple_factor: u32) -> Self {
+        self.line_stipple_factor = line_stipple_factor;
+        self
+    }
+    pub fn line_stipple_pattern(mut self, line_stipple_pattern: u16) -> Self {
+        self.line_stipple_pattern = line_stipple_pattern;
+        self
     }
 }
 #[repr(C)]
@@ -436,6 +683,102 @@ impl Default for PhysicalDeviceVulkan14Features<'_> {
             push_descriptor: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceVulkan14Features<'a> {
+    pub fn global_priority_query(mut self, global_priority_query: Bool32) -> Self {
+        self.global_priority_query = global_priority_query;
+        self
+    }
+    pub fn shader_subgroup_rotate(mut self, shader_subgroup_rotate: Bool32) -> Self {
+        self.shader_subgroup_rotate = shader_subgroup_rotate;
+        self
+    }
+    pub fn shader_subgroup_rotate_clustered(
+        mut self,
+        shader_subgroup_rotate_clustered: Bool32,
+    ) -> Self {
+        self.shader_subgroup_rotate_clustered = shader_subgroup_rotate_clustered;
+        self
+    }
+    pub fn shader_float_controls2(mut self, shader_float_controls2: Bool32) -> Self {
+        self.shader_float_controls2 = shader_float_controls2;
+        self
+    }
+    pub fn shader_expect_assume(mut self, shader_expect_assume: Bool32) -> Self {
+        self.shader_expect_assume = shader_expect_assume;
+        self
+    }
+    pub fn rectangular_lines(mut self, rectangular_lines: Bool32) -> Self {
+        self.rectangular_lines = rectangular_lines;
+        self
+    }
+    pub fn bresenham_lines(mut self, bresenham_lines: Bool32) -> Self {
+        self.bresenham_lines = bresenham_lines;
+        self
+    }
+    pub fn smooth_lines(mut self, smooth_lines: Bool32) -> Self {
+        self.smooth_lines = smooth_lines;
+        self
+    }
+    pub fn stippled_rectangular_lines(mut self, stippled_rectangular_lines: Bool32) -> Self {
+        self.stippled_rectangular_lines = stippled_rectangular_lines;
+        self
+    }
+    pub fn stippled_bresenham_lines(mut self, stippled_bresenham_lines: Bool32) -> Self {
+        self.stippled_bresenham_lines = stippled_bresenham_lines;
+        self
+    }
+    pub fn stippled_smooth_lines(mut self, stippled_smooth_lines: Bool32) -> Self {
+        self.stippled_smooth_lines = stippled_smooth_lines;
+        self
+    }
+    pub fn vertex_attribute_instance_rate_divisor(
+        mut self,
+        vertex_attribute_instance_rate_divisor: Bool32,
+    ) -> Self {
+        self.vertex_attribute_instance_rate_divisor = vertex_attribute_instance_rate_divisor;
+        self
+    }
+    pub fn vertex_attribute_instance_rate_zero_divisor(
+        mut self,
+        vertex_attribute_instance_rate_zero_divisor: Bool32,
+    ) -> Self {
+        self.vertex_attribute_instance_rate_zero_divisor =
+            vertex_attribute_instance_rate_zero_divisor;
+        self
+    }
+    pub fn index_type_uint8(mut self, index_type_uint8: Bool32) -> Self {
+        self.index_type_uint8 = index_type_uint8;
+        self
+    }
+    pub fn dynamic_rendering_local_read(mut self, dynamic_rendering_local_read: Bool32) -> Self {
+        self.dynamic_rendering_local_read = dynamic_rendering_local_read;
+        self
+    }
+    pub fn maintenance5(mut self, maintenance5: Bool32) -> Self {
+        self.maintenance5 = maintenance5;
+        self
+    }
+    pub fn maintenance6(mut self, maintenance6: Bool32) -> Self {
+        self.maintenance6 = maintenance6;
+        self
+    }
+    pub fn pipeline_protected_access(mut self, pipeline_protected_access: Bool32) -> Self {
+        self.pipeline_protected_access = pipeline_protected_access;
+        self
+    }
+    pub fn pipeline_robustness(mut self, pipeline_robustness: Bool32) -> Self {
+        self.pipeline_robustness = pipeline_robustness;
+        self
+    }
+    pub fn host_image_copy(mut self, host_image_copy: Bool32) -> Self {
+        self.host_image_copy = host_image_copy;
+        self
+    }
+    pub fn push_descriptor(mut self, push_descriptor: Bool32) -> Self {
+        self.push_descriptor = push_descriptor;
+        self
     }
 }
 #[repr(C)]
@@ -504,6 +847,161 @@ impl Default for PhysicalDeviceVulkan14Properties<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceVulkan14Properties<'a> {
+    pub fn line_sub_pixel_precision_bits(mut self, line_sub_pixel_precision_bits: u32) -> Self {
+        self.line_sub_pixel_precision_bits = line_sub_pixel_precision_bits;
+        self
+    }
+    pub fn max_vertex_attrib_divisor(mut self, max_vertex_attrib_divisor: u32) -> Self {
+        self.max_vertex_attrib_divisor = max_vertex_attrib_divisor;
+        self
+    }
+    pub fn supports_non_zero_first_instance(
+        mut self,
+        supports_non_zero_first_instance: Bool32,
+    ) -> Self {
+        self.supports_non_zero_first_instance = supports_non_zero_first_instance;
+        self
+    }
+    pub fn max_push_descriptors(mut self, max_push_descriptors: u32) -> Self {
+        self.max_push_descriptors = max_push_descriptors;
+        self
+    }
+    pub fn dynamic_rendering_local_read_depth_stencil_attachments(
+        mut self,
+        dynamic_rendering_local_read_depth_stencil_attachments: Bool32,
+    ) -> Self {
+        self.dynamic_rendering_local_read_depth_stencil_attachments =
+            dynamic_rendering_local_read_depth_stencil_attachments;
+        self
+    }
+    pub fn dynamic_rendering_local_read_multisampled_attachments(
+        mut self,
+        dynamic_rendering_local_read_multisampled_attachments: Bool32,
+    ) -> Self {
+        self.dynamic_rendering_local_read_multisampled_attachments =
+            dynamic_rendering_local_read_multisampled_attachments;
+        self
+    }
+    pub fn early_fragment_multisample_coverage_after_sample_counting(
+        mut self,
+        early_fragment_multisample_coverage_after_sample_counting: Bool32,
+    ) -> Self {
+        self.early_fragment_multisample_coverage_after_sample_counting =
+            early_fragment_multisample_coverage_after_sample_counting;
+        self
+    }
+    pub fn early_fragment_sample_mask_test_before_sample_counting(
+        mut self,
+        early_fragment_sample_mask_test_before_sample_counting: Bool32,
+    ) -> Self {
+        self.early_fragment_sample_mask_test_before_sample_counting =
+            early_fragment_sample_mask_test_before_sample_counting;
+        self
+    }
+    pub fn depth_stencil_swizzle_one_support(
+        mut self,
+        depth_stencil_swizzle_one_support: Bool32,
+    ) -> Self {
+        self.depth_stencil_swizzle_one_support = depth_stencil_swizzle_one_support;
+        self
+    }
+    pub fn polygon_mode_point_size(mut self, polygon_mode_point_size: Bool32) -> Self {
+        self.polygon_mode_point_size = polygon_mode_point_size;
+        self
+    }
+    pub fn non_strict_single_pixel_wide_lines_use_parallelogram(
+        mut self,
+        non_strict_single_pixel_wide_lines_use_parallelogram: Bool32,
+    ) -> Self {
+        self.non_strict_single_pixel_wide_lines_use_parallelogram =
+            non_strict_single_pixel_wide_lines_use_parallelogram;
+        self
+    }
+    pub fn non_strict_wide_lines_use_parallelogram(
+        mut self,
+        non_strict_wide_lines_use_parallelogram: Bool32,
+    ) -> Self {
+        self.non_strict_wide_lines_use_parallelogram = non_strict_wide_lines_use_parallelogram;
+        self
+    }
+    pub fn block_texel_view_compatible_multiple_layers(
+        mut self,
+        block_texel_view_compatible_multiple_layers: Bool32,
+    ) -> Self {
+        self.block_texel_view_compatible_multiple_layers =
+            block_texel_view_compatible_multiple_layers;
+        self
+    }
+    pub fn max_combined_image_sampler_descriptor_count(
+        mut self,
+        max_combined_image_sampler_descriptor_count: u32,
+    ) -> Self {
+        self.max_combined_image_sampler_descriptor_count =
+            max_combined_image_sampler_descriptor_count;
+        self
+    }
+    pub fn fragment_shading_rate_clamp_combiner_inputs(
+        mut self,
+        fragment_shading_rate_clamp_combiner_inputs: Bool32,
+    ) -> Self {
+        self.fragment_shading_rate_clamp_combiner_inputs =
+            fragment_shading_rate_clamp_combiner_inputs;
+        self
+    }
+    pub fn default_robustness_storage_buffers(
+        mut self,
+        default_robustness_storage_buffers: PipelineRobustnessBufferBehavior,
+    ) -> Self {
+        self.default_robustness_storage_buffers = default_robustness_storage_buffers;
+        self
+    }
+    pub fn default_robustness_uniform_buffers(
+        mut self,
+        default_robustness_uniform_buffers: PipelineRobustnessBufferBehavior,
+    ) -> Self {
+        self.default_robustness_uniform_buffers = default_robustness_uniform_buffers;
+        self
+    }
+    pub fn default_robustness_vertex_inputs(
+        mut self,
+        default_robustness_vertex_inputs: PipelineRobustnessBufferBehavior,
+    ) -> Self {
+        self.default_robustness_vertex_inputs = default_robustness_vertex_inputs;
+        self
+    }
+    pub fn default_robustness_images(
+        mut self,
+        default_robustness_images: PipelineRobustnessImageBehavior,
+    ) -> Self {
+        self.default_robustness_images = default_robustness_images;
+        self
+    }
+    pub fn copy_src_layouts(mut self, copy_src_layouts: &'a mut [ImageLayout]) -> Self {
+        self.copy_src_layout_count = copy_src_layouts.len().try_into().unwrap();
+        self.p_copy_src_layouts = copy_src_layouts.as_mut_ptr();
+        self
+    }
+    pub fn copy_dst_layouts(mut self, copy_dst_layouts: &'a mut [ImageLayout]) -> Self {
+        self.copy_dst_layout_count = copy_dst_layouts.len().try_into().unwrap();
+        self.p_copy_dst_layouts = copy_dst_layouts.as_mut_ptr();
+        self
+    }
+    pub fn optimal_tiling_layout_uuid(
+        mut self,
+        optimal_tiling_layout_uuid: [u8; UUID_SIZE as usize],
+    ) -> Self {
+        self.optimal_tiling_layout_uuid = optimal_tiling_layout_uuid;
+        self
+    }
+    pub fn identical_memory_type_requirements(
+        mut self,
+        identical_memory_type_requirements: Bool32,
+    ) -> Self {
+        self.identical_memory_type_requirements = identical_memory_type_requirements;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceHostImageCopyFeatures<'a> {
@@ -520,6 +1018,12 @@ impl Default for PhysicalDeviceHostImageCopyFeatures<'_> {
             host_image_copy: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceHostImageCopyFeatures<'a> {
+    pub fn host_image_copy(mut self, host_image_copy: Bool32) -> Self {
+        self.host_image_copy = host_image_copy;
+        self
     }
 }
 #[repr(C)]
@@ -550,6 +1054,32 @@ impl Default for PhysicalDeviceHostImageCopyProperties<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceHostImageCopyProperties<'a> {
+    pub fn copy_src_layouts(mut self, copy_src_layouts: &'a mut [ImageLayout]) -> Self {
+        self.copy_src_layout_count = copy_src_layouts.len().try_into().unwrap();
+        self.p_copy_src_layouts = copy_src_layouts.as_mut_ptr();
+        self
+    }
+    pub fn copy_dst_layouts(mut self, copy_dst_layouts: &'a mut [ImageLayout]) -> Self {
+        self.copy_dst_layout_count = copy_dst_layouts.len().try_into().unwrap();
+        self.p_copy_dst_layouts = copy_dst_layouts.as_mut_ptr();
+        self
+    }
+    pub fn optimal_tiling_layout_uuid(
+        mut self,
+        optimal_tiling_layout_uuid: [u8; UUID_SIZE as usize],
+    ) -> Self {
+        self.optimal_tiling_layout_uuid = optimal_tiling_layout_uuid;
+        self
+    }
+    pub fn identical_memory_type_requirements(
+        mut self,
+        identical_memory_type_requirements: Bool32,
+    ) -> Self {
+        self.identical_memory_type_requirements = identical_memory_type_requirements;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct MemoryToImageCopy<'a> {
@@ -576,6 +1106,32 @@ impl Default for MemoryToImageCopy<'_> {
             image_extent: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> MemoryToImageCopy<'a> {
+    pub fn host_pointer(mut self, host_pointer: &'a c_void) -> Self {
+        self.p_host_pointer = host_pointer;
+        self
+    }
+    pub fn memory_row_length(mut self, memory_row_length: u32) -> Self {
+        self.memory_row_length = memory_row_length;
+        self
+    }
+    pub fn memory_image_height(mut self, memory_image_height: u32) -> Self {
+        self.memory_image_height = memory_image_height;
+        self
+    }
+    pub fn image_subresource(mut self, image_subresource: ImageSubresourceLayers) -> Self {
+        self.image_subresource = image_subresource;
+        self
+    }
+    pub fn image_offset(mut self, image_offset: Offset3D) -> Self {
+        self.image_offset = image_offset;
+        self
+    }
+    pub fn image_extent(mut self, image_extent: Extent3D) -> Self {
+        self.image_extent = image_extent;
+        self
     }
 }
 #[repr(C)]
@@ -606,6 +1162,32 @@ impl Default for ImageToMemoryCopy<'_> {
         }
     }
 }
+impl<'a> ImageToMemoryCopy<'a> {
+    pub fn host_pointer(mut self, host_pointer: &'a mut c_void) -> Self {
+        self.p_host_pointer = host_pointer;
+        self
+    }
+    pub fn memory_row_length(mut self, memory_row_length: u32) -> Self {
+        self.memory_row_length = memory_row_length;
+        self
+    }
+    pub fn memory_image_height(mut self, memory_image_height: u32) -> Self {
+        self.memory_image_height = memory_image_height;
+        self
+    }
+    pub fn image_subresource(mut self, image_subresource: ImageSubresourceLayers) -> Self {
+        self.image_subresource = image_subresource;
+        self
+    }
+    pub fn image_offset(mut self, image_offset: Offset3D) -> Self {
+        self.image_offset = image_offset;
+        self
+    }
+    pub fn image_extent(mut self, image_extent: Extent3D) -> Self {
+        self.image_extent = image_extent;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct CopyMemoryToImageInfo<'a> {
@@ -632,6 +1214,25 @@ impl Default for CopyMemoryToImageInfo<'_> {
         }
     }
 }
+impl<'a> CopyMemoryToImageInfo<'a> {
+    pub fn flags(mut self, flags: HostImageCopyFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn dst_image(mut self, dst_image: Image) -> Self {
+        self.dst_image = dst_image;
+        self
+    }
+    pub fn dst_image_layout(mut self, dst_image_layout: ImageLayout) -> Self {
+        self.dst_image_layout = dst_image_layout;
+        self
+    }
+    pub fn regions(mut self, regions: &'a [MemoryToImageCopy<'a>]) -> Self {
+        self.region_count = regions.len().try_into().unwrap();
+        self.p_regions = regions.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct CopyImageToMemoryInfo<'a> {
@@ -656,6 +1257,25 @@ impl Default for CopyImageToMemoryInfo<'_> {
             p_regions: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> CopyImageToMemoryInfo<'a> {
+    pub fn flags(mut self, flags: HostImageCopyFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn src_image(mut self, src_image: Image) -> Self {
+        self.src_image = src_image;
+        self
+    }
+    pub fn src_image_layout(mut self, src_image_layout: ImageLayout) -> Self {
+        self.src_image_layout = src_image_layout;
+        self
+    }
+    pub fn regions(mut self, regions: &'a [ImageToMemoryCopy<'a>]) -> Self {
+        self.region_count = regions.len().try_into().unwrap();
+        self.p_regions = regions.as_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -688,6 +1308,33 @@ impl Default for CopyImageToImageInfo<'_> {
         }
     }
 }
+impl<'a> CopyImageToImageInfo<'a> {
+    pub fn flags(mut self, flags: HostImageCopyFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn src_image(mut self, src_image: Image) -> Self {
+        self.src_image = src_image;
+        self
+    }
+    pub fn src_image_layout(mut self, src_image_layout: ImageLayout) -> Self {
+        self.src_image_layout = src_image_layout;
+        self
+    }
+    pub fn dst_image(mut self, dst_image: Image) -> Self {
+        self.dst_image = dst_image;
+        self
+    }
+    pub fn dst_image_layout(mut self, dst_image_layout: ImageLayout) -> Self {
+        self.dst_image_layout = dst_image_layout;
+        self
+    }
+    pub fn regions(mut self, regions: &'a [ImageCopy2<'a>]) -> Self {
+        self.region_count = regions.len().try_into().unwrap();
+        self.p_regions = regions.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct HostImageLayoutTransitionInfo<'a> {
@@ -712,6 +1359,24 @@ impl Default for HostImageLayoutTransitionInfo<'_> {
         }
     }
 }
+impl<'a> HostImageLayoutTransitionInfo<'a> {
+    pub fn image(mut self, image: Image) -> Self {
+        self.image = image;
+        self
+    }
+    pub fn old_layout(mut self, old_layout: ImageLayout) -> Self {
+        self.old_layout = old_layout;
+        self
+    }
+    pub fn new_layout(mut self, new_layout: ImageLayout) -> Self {
+        self.new_layout = new_layout;
+        self
+    }
+    pub fn subresource_range(mut self, subresource_range: ImageSubresourceRange) -> Self {
+        self.subresource_range = subresource_range;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SubresourceHostMemcpySize<'a> {
@@ -728,6 +1393,12 @@ impl Default for SubresourceHostMemcpySize<'_> {
             size: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SubresourceHostMemcpySize<'a> {
+    pub fn size(mut self, size: DeviceSize) -> Self {
+        self.size = size;
+        self
     }
 }
 #[repr(C)]
@@ -750,6 +1421,16 @@ impl Default for HostImageCopyDevicePerformanceQuery<'_> {
         }
     }
 }
+impl<'a> HostImageCopyDevicePerformanceQuery<'a> {
+    pub fn optimal_device_access(mut self, optimal_device_access: Bool32) -> Self {
+        self.optimal_device_access = optimal_device_access;
+        self
+    }
+    pub fn identical_memory_layout(mut self, identical_memory_layout: Bool32) -> Self {
+        self.identical_memory_layout = identical_memory_layout;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDevicePipelineProtectedAccessFeatures<'a> {
@@ -766,6 +1447,12 @@ impl Default for PhysicalDevicePipelineProtectedAccessFeatures<'_> {
             pipeline_protected_access: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDevicePipelineProtectedAccessFeatures<'a> {
+    pub fn pipeline_protected_access(mut self, pipeline_protected_access: Bool32) -> Self {
+        self.pipeline_protected_access = pipeline_protected_access;
+        self
     }
 }
 #[repr(C)]
@@ -786,6 +1473,12 @@ impl Default for ImageSubresource2<'_> {
         }
     }
 }
+impl<'a> ImageSubresource2<'a> {
+    pub fn image_subresource(mut self, image_subresource: ImageSubresource) -> Self {
+        self.image_subresource = image_subresource;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SubresourceLayout2<'a> {
@@ -804,6 +1497,12 @@ impl Default for SubresourceLayout2<'_> {
         }
     }
 }
+impl<'a> SubresourceLayout2<'a> {
+    pub fn subresource_layout(mut self, subresource_layout: SubresourceLayout) -> Self {
+        self.subresource_layout = subresource_layout;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDevicePipelineRobustnessFeatures<'a> {
@@ -820,6 +1519,12 @@ impl Default for PhysicalDevicePipelineRobustnessFeatures<'_> {
             pipeline_robustness: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDevicePipelineRobustnessFeatures<'a> {
+    pub fn pipeline_robustness(mut self, pipeline_robustness: Bool32) -> Self {
+        self.pipeline_robustness = pipeline_robustness;
+        self
     }
 }
 #[repr(C)]
@@ -846,6 +1551,24 @@ impl Default for PipelineRobustnessCreateInfo<'_> {
         }
     }
 }
+impl<'a> PipelineRobustnessCreateInfo<'a> {
+    pub fn storage_buffers(mut self, storage_buffers: PipelineRobustnessBufferBehavior) -> Self {
+        self.storage_buffers = storage_buffers;
+        self
+    }
+    pub fn uniform_buffers(mut self, uniform_buffers: PipelineRobustnessBufferBehavior) -> Self {
+        self.uniform_buffers = uniform_buffers;
+        self
+    }
+    pub fn vertex_inputs(mut self, vertex_inputs: PipelineRobustnessBufferBehavior) -> Self {
+        self.vertex_inputs = vertex_inputs;
+        self
+    }
+    pub fn images(mut self, images: PipelineRobustnessImageBehavior) -> Self {
+        self.images = images;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDevicePipelineRobustnessProperties<'a> {
@@ -870,6 +1593,36 @@ impl Default for PhysicalDevicePipelineRobustnessProperties<'_> {
         }
     }
 }
+impl<'a> PhysicalDevicePipelineRobustnessProperties<'a> {
+    pub fn default_robustness_storage_buffers(
+        mut self,
+        default_robustness_storage_buffers: PipelineRobustnessBufferBehavior,
+    ) -> Self {
+        self.default_robustness_storage_buffers = default_robustness_storage_buffers;
+        self
+    }
+    pub fn default_robustness_uniform_buffers(
+        mut self,
+        default_robustness_uniform_buffers: PipelineRobustnessBufferBehavior,
+    ) -> Self {
+        self.default_robustness_uniform_buffers = default_robustness_uniform_buffers;
+        self
+    }
+    pub fn default_robustness_vertex_inputs(
+        mut self,
+        default_robustness_vertex_inputs: PipelineRobustnessBufferBehavior,
+    ) -> Self {
+        self.default_robustness_vertex_inputs = default_robustness_vertex_inputs;
+        self
+    }
+    pub fn default_robustness_images(
+        mut self,
+        default_robustness_images: PipelineRobustnessImageBehavior,
+    ) -> Self {
+        self.default_robustness_images = default_robustness_images;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DeviceImageSubresourceInfo<'a> {
@@ -888,6 +1641,16 @@ impl Default for DeviceImageSubresourceInfo<'_> {
             p_subresource: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DeviceImageSubresourceInfo<'a> {
+    pub fn create_info(mut self, create_info: &'a ImageCreateInfo<'a>) -> Self {
+        self.p_create_info = create_info;
+        self
+    }
+    pub fn subresource(mut self, subresource: &'a ImageSubresource2<'a>) -> Self {
+        self.p_subresource = subresource;
+        self
     }
 }
 #[repr(C)]
@@ -914,6 +1677,24 @@ impl Default for MemoryMapInfo<'_> {
         }
     }
 }
+impl<'a> MemoryMapInfo<'a> {
+    pub fn flags(mut self, flags: MemoryMapFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn memory(mut self, memory: DeviceMemory) -> Self {
+        self.memory = memory;
+        self
+    }
+    pub fn offset(mut self, offset: DeviceSize) -> Self {
+        self.offset = offset;
+        self
+    }
+    pub fn size(mut self, size: DeviceSize) -> Self {
+        self.size = size;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct MemoryUnmapInfo<'a> {
@@ -934,6 +1715,16 @@ impl Default for MemoryUnmapInfo<'_> {
         }
     }
 }
+impl<'a> MemoryUnmapInfo<'a> {
+    pub fn flags(mut self, flags: MemoryUnmapFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn memory(mut self, memory: DeviceMemory) -> Self {
+        self.memory = memory;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct BindMemoryStatus<'a> {
@@ -950,6 +1741,12 @@ impl Default for BindMemoryStatus<'_> {
             p_result: core::ptr::null_mut(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> BindMemoryStatus<'a> {
+    pub fn result(mut self, result: &'a mut Result) -> Self {
+        self.p_result = result;
+        self
     }
 }
 #[repr(C)]
@@ -982,6 +1779,30 @@ impl Default for BindDescriptorSetsInfo<'_> {
         }
     }
 }
+impl<'a> BindDescriptorSetsInfo<'a> {
+    pub fn stage_flags(mut self, stage_flags: ShaderStageFlags) -> Self {
+        self.stage_flags = stage_flags;
+        self
+    }
+    pub fn layout(mut self, layout: PipelineLayout) -> Self {
+        self.layout = layout;
+        self
+    }
+    pub fn first_set(mut self, first_set: u32) -> Self {
+        self.first_set = first_set;
+        self
+    }
+    pub fn descriptor_sets(mut self, descriptor_sets: &'a [DescriptorSet]) -> Self {
+        self.descriptor_set_count = descriptor_sets.len().try_into().unwrap();
+        self.p_descriptor_sets = descriptor_sets.as_ptr();
+        self
+    }
+    pub fn dynamic_offsets(mut self, dynamic_offsets: &'a [u32]) -> Self {
+        self.dynamic_offset_count = dynamic_offsets.len().try_into().unwrap();
+        self.p_dynamic_offsets = dynamic_offsets.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PushConstantsInfo<'a> {
@@ -1006,6 +1827,25 @@ impl Default for PushConstantsInfo<'_> {
             p_values: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PushConstantsInfo<'a> {
+    pub fn layout(mut self, layout: PipelineLayout) -> Self {
+        self.layout = layout;
+        self
+    }
+    pub fn stage_flags(mut self, stage_flags: ShaderStageFlags) -> Self {
+        self.stage_flags = stage_flags;
+        self
+    }
+    pub fn offset(mut self, offset: u32) -> Self {
+        self.offset = offset;
+        self
+    }
+    pub fn values(mut self, values: &'a [u8]) -> Self {
+        self.size = values.len().try_into().unwrap();
+        self.p_values = values.as_ptr() as _;
+        self
     }
 }
 #[repr(C)]
@@ -1034,6 +1874,25 @@ impl Default for PushDescriptorSetInfo<'_> {
         }
     }
 }
+impl<'a> PushDescriptorSetInfo<'a> {
+    pub fn stage_flags(mut self, stage_flags: ShaderStageFlags) -> Self {
+        self.stage_flags = stage_flags;
+        self
+    }
+    pub fn layout(mut self, layout: PipelineLayout) -> Self {
+        self.layout = layout;
+        self
+    }
+    pub fn set(mut self, set: u32) -> Self {
+        self.set = set;
+        self
+    }
+    pub fn descriptor_writes(mut self, descriptor_writes: &'a [WriteDescriptorSet<'a>]) -> Self {
+        self.descriptor_write_count = descriptor_writes.len().try_into().unwrap();
+        self.p_descriptor_writes = descriptor_writes.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PushDescriptorSetWithTemplateInfo<'a> {
@@ -1058,6 +1917,27 @@ impl Default for PushDescriptorSetWithTemplateInfo<'_> {
         }
     }
 }
+impl<'a> PushDescriptorSetWithTemplateInfo<'a> {
+    pub fn descriptor_update_template(
+        mut self,
+        descriptor_update_template: DescriptorUpdateTemplate,
+    ) -> Self {
+        self.descriptor_update_template = descriptor_update_template;
+        self
+    }
+    pub fn layout(mut self, layout: PipelineLayout) -> Self {
+        self.layout = layout;
+        self
+    }
+    pub fn set(mut self, set: u32) -> Self {
+        self.set = set;
+        self
+    }
+    pub fn data(mut self, data: &'a c_void) -> Self {
+        self.p_data = data;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderSubgroupRotateFeatures<'a> {
@@ -1078,6 +1958,19 @@ impl Default for PhysicalDeviceShaderSubgroupRotateFeatures<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceShaderSubgroupRotateFeatures<'a> {
+    pub fn shader_subgroup_rotate(mut self, shader_subgroup_rotate: Bool32) -> Self {
+        self.shader_subgroup_rotate = shader_subgroup_rotate;
+        self
+    }
+    pub fn shader_subgroup_rotate_clustered(
+        mut self,
+        shader_subgroup_rotate_clustered: Bool32,
+    ) -> Self {
+        self.shader_subgroup_rotate_clustered = shader_subgroup_rotate_clustered;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderExpectAssumeFeatures<'a> {
@@ -1094,6 +1987,12 @@ impl Default for PhysicalDeviceShaderExpectAssumeFeatures<'_> {
             shader_expect_assume: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceShaderExpectAssumeFeatures<'a> {
+    pub fn shader_expect_assume(mut self, shader_expect_assume: Bool32) -> Self {
+        self.shader_expect_assume = shader_expect_assume;
+        self
     }
 }
 #[repr(C)]
@@ -1114,6 +2013,12 @@ impl Default for PhysicalDeviceShaderFloatControls2Features<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceShaderFloatControls2Features<'a> {
+    pub fn shader_float_controls2(mut self, shader_float_controls2: Bool32) -> Self {
+        self.shader_float_controls2 = shader_float_controls2;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceDynamicRenderingLocalReadFeatures<'a> {
@@ -1130,6 +2035,12 @@ impl Default for PhysicalDeviceDynamicRenderingLocalReadFeatures<'_> {
             dynamic_rendering_local_read: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceDynamicRenderingLocalReadFeatures<'a> {
+    pub fn dynamic_rendering_local_read(mut self, dynamic_rendering_local_read: Bool32) -> Self {
+        self.dynamic_rendering_local_read = dynamic_rendering_local_read;
+        self
     }
 }
 #[repr(C)]
@@ -1150,6 +2061,13 @@ impl Default for RenderingAttachmentLocationInfo<'_> {
             p_color_attachment_locations: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> RenderingAttachmentLocationInfo<'a> {
+    pub fn color_attachment_locations(mut self, color_attachment_locations: &'a [u32]) -> Self {
+        self.color_attachment_count = color_attachment_locations.len().try_into().unwrap();
+        self.p_color_attachment_locations = color_attachment_locations.as_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -1174,6 +2092,27 @@ impl Default for RenderingInputAttachmentIndexInfo<'_> {
             p_stencil_input_attachment_index: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> RenderingInputAttachmentIndexInfo<'a> {
+    pub fn color_attachment_input_indices(
+        mut self,
+        color_attachment_input_indices: &'a [u32],
+    ) -> Self {
+        self.color_attachment_count = color_attachment_input_indices.len().try_into().unwrap();
+        self.p_color_attachment_input_indices = color_attachment_input_indices.as_ptr();
+        self
+    }
+    pub fn depth_input_attachment_index(mut self, depth_input_attachment_index: &'a u32) -> Self {
+        self.p_depth_input_attachment_index = depth_input_attachment_index;
+        self
+    }
+    pub fn stencil_input_attachment_index(
+        mut self,
+        stencil_input_attachment_index: &'a u32,
+    ) -> Self {
+        self.p_stencil_input_attachment_index = stencil_input_attachment_index;
+        self
     }
 }
 #[repr(transparent)]

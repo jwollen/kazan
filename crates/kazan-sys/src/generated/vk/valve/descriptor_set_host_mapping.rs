@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceDescriptorSetHostMappingFeaturesVALVE<'_> {
             descriptor_set_host_mapping: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceDescriptorSetHostMappingFeaturesVALVE<'a> {
+    pub fn descriptor_set_host_mapping(mut self, descriptor_set_host_mapping: Bool32) -> Self {
+        self.descriptor_set_host_mapping = descriptor_set_host_mapping;
+        self
     }
 }
 #[repr(C)]
@@ -41,6 +47,16 @@ impl Default for DescriptorSetBindingReferenceVALVE<'_> {
         }
     }
 }
+impl<'a> DescriptorSetBindingReferenceVALVE<'a> {
+    pub fn descriptor_set_layout(mut self, descriptor_set_layout: DescriptorSetLayout) -> Self {
+        self.descriptor_set_layout = descriptor_set_layout;
+        self
+    }
+    pub fn binding(mut self, binding: u32) -> Self {
+        self.binding = binding;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DescriptorSetLayoutHostMappingInfoVALVE<'a> {
@@ -59,6 +75,16 @@ impl Default for DescriptorSetLayoutHostMappingInfoVALVE<'_> {
             descriptor_size: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DescriptorSetLayoutHostMappingInfoVALVE<'a> {
+    pub fn descriptor_offset(mut self, descriptor_offset: usize) -> Self {
+        self.descriptor_offset = descriptor_offset;
+        self
+    }
+    pub fn descriptor_size(mut self, descriptor_size: u32) -> Self {
+        self.descriptor_size = descriptor_size;
+        self
     }
 }
 pub type PFN_vkGetDescriptorSetLayoutHostMappingInfoVALVE = unsafe extern "system" fn(

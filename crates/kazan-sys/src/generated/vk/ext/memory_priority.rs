@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,6 +21,12 @@ impl Default for PhysicalDeviceMemoryPriorityFeaturesEXT<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceMemoryPriorityFeaturesEXT<'a> {
+    pub fn memory_priority(mut self, memory_priority: Bool32) -> Self {
+        self.memory_priority = memory_priority;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct MemoryPriorityAllocateInfoEXT<'a> {
@@ -37,5 +43,11 @@ impl Default for MemoryPriorityAllocateInfoEXT<'_> {
             priority: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> MemoryPriorityAllocateInfoEXT<'a> {
+    pub fn priority(mut self, priority: f32) -> Self {
+        self.priority = priority;
+        self
     }
 }

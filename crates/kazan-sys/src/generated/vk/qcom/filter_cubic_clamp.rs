@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,5 +19,11 @@ impl Default for PhysicalDeviceCubicClampFeaturesQCOM<'_> {
             cubic_range_clamp: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceCubicClampFeaturesQCOM<'a> {
+    pub fn cubic_range_clamp(mut self, cubic_range_clamp: Bool32) -> Self {
+        self.cubic_range_clamp = cubic_range_clamp;
+        self
     }
 }

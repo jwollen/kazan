@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub const STD_VIDEO_AV1_NUM_REF_FRAMES: u32 = 8;
 pub const STD_VIDEO_AV1_REFS_PER_FRAME: u32 = 7;
@@ -33,6 +33,28 @@ pub struct StdVideoAV1ColorConfigFlags {
     pub color_description_present_flag: u32,
     pub reserved: u32,
 }
+impl StdVideoAV1ColorConfigFlags {
+    pub fn mono_chrome(mut self, mono_chrome: u32) -> Self {
+        self.mono_chrome = mono_chrome;
+        self
+    }
+    pub fn color_range(mut self, color_range: u32) -> Self {
+        self.color_range = color_range;
+        self
+    }
+    pub fn separate_uv_delta_q(mut self, separate_uv_delta_q: u32) -> Self {
+        self.separate_uv_delta_q = separate_uv_delta_q;
+        self
+    }
+    pub fn color_description_present_flag(mut self, color_description_present_flag: u32) -> Self {
+        self.color_description_present_flag = color_description_present_flag;
+        self
+    }
+    pub fn reserved(mut self, reserved: u32) -> Self {
+        self.reserved = reserved;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct StdVideoAV1ColorConfig {
@@ -46,11 +68,68 @@ pub struct StdVideoAV1ColorConfig {
     pub matrix_coefficients: StdVideoAV1MatrixCoefficients,
     pub chroma_sample_position: StdVideoAV1ChromaSamplePosition,
 }
+impl StdVideoAV1ColorConfig {
+    pub fn flags(mut self, flags: StdVideoAV1ColorConfigFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn bit_depth(mut self, bit_depth: u8) -> Self {
+        self.bit_depth = bit_depth;
+        self
+    }
+    pub fn subsampling_x(mut self, subsampling_x: u8) -> Self {
+        self.subsampling_x = subsampling_x;
+        self
+    }
+    pub fn subsampling_y(mut self, subsampling_y: u8) -> Self {
+        self.subsampling_y = subsampling_y;
+        self
+    }
+    pub fn reserved1(mut self, reserved1: u8) -> Self {
+        self.reserved1 = reserved1;
+        self
+    }
+    pub fn color_primaries(mut self, color_primaries: StdVideoAV1ColorPrimaries) -> Self {
+        self.color_primaries = color_primaries;
+        self
+    }
+    pub fn transfer_characteristics(
+        mut self,
+        transfer_characteristics: StdVideoAV1TransferCharacteristics,
+    ) -> Self {
+        self.transfer_characteristics = transfer_characteristics;
+        self
+    }
+    pub fn matrix_coefficients(
+        mut self,
+        matrix_coefficients: StdVideoAV1MatrixCoefficients,
+    ) -> Self {
+        self.matrix_coefficients = matrix_coefficients;
+        self
+    }
+    pub fn chroma_sample_position(
+        mut self,
+        chroma_sample_position: StdVideoAV1ChromaSamplePosition,
+    ) -> Self {
+        self.chroma_sample_position = chroma_sample_position;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct StdVideoAV1TimingInfoFlags {
     pub equal_picture_interval: u32,
     pub reserved: u32,
+}
+impl StdVideoAV1TimingInfoFlags {
+    pub fn equal_picture_interval(mut self, equal_picture_interval: u32) -> Self {
+        self.equal_picture_interval = equal_picture_interval;
+        self
+    }
+    pub fn reserved(mut self, reserved: u32) -> Self {
+        self.reserved = reserved;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -59,6 +138,24 @@ pub struct StdVideoAV1TimingInfo {
     pub num_units_in_display_tick: u32,
     pub time_scale: u32,
     pub num_ticks_per_picture_minus_1: u32,
+}
+impl StdVideoAV1TimingInfo {
+    pub fn flags(mut self, flags: StdVideoAV1TimingInfoFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn num_units_in_display_tick(mut self, num_units_in_display_tick: u32) -> Self {
+        self.num_units_in_display_tick = num_units_in_display_tick;
+        self
+    }
+    pub fn time_scale(mut self, time_scale: u32) -> Self {
+        self.time_scale = time_scale;
+        self
+    }
+    pub fn num_ticks_per_picture_minus_1(mut self, num_ticks_per_picture_minus_1: u32) -> Self {
+        self.num_ticks_per_picture_minus_1 = num_ticks_per_picture_minus_1;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -83,6 +180,91 @@ pub struct StdVideoAV1SequenceHeaderFlags {
     pub timing_info_present_flag: u32,
     pub initial_display_delay_present_flag: u32,
     pub reserved: u32,
+}
+impl StdVideoAV1SequenceHeaderFlags {
+    pub fn still_picture(mut self, still_picture: u32) -> Self {
+        self.still_picture = still_picture;
+        self
+    }
+    pub fn reduced_still_picture_header(mut self, reduced_still_picture_header: u32) -> Self {
+        self.reduced_still_picture_header = reduced_still_picture_header;
+        self
+    }
+    pub fn use_128x128_superblock(mut self, use_128x128_superblock: u32) -> Self {
+        self.use_128x128_superblock = use_128x128_superblock;
+        self
+    }
+    pub fn enable_filter_intra(mut self, enable_filter_intra: u32) -> Self {
+        self.enable_filter_intra = enable_filter_intra;
+        self
+    }
+    pub fn enable_intra_edge_filter(mut self, enable_intra_edge_filter: u32) -> Self {
+        self.enable_intra_edge_filter = enable_intra_edge_filter;
+        self
+    }
+    pub fn enable_interintra_compound(mut self, enable_interintra_compound: u32) -> Self {
+        self.enable_interintra_compound = enable_interintra_compound;
+        self
+    }
+    pub fn enable_masked_compound(mut self, enable_masked_compound: u32) -> Self {
+        self.enable_masked_compound = enable_masked_compound;
+        self
+    }
+    pub fn enable_warped_motion(mut self, enable_warped_motion: u32) -> Self {
+        self.enable_warped_motion = enable_warped_motion;
+        self
+    }
+    pub fn enable_dual_filter(mut self, enable_dual_filter: u32) -> Self {
+        self.enable_dual_filter = enable_dual_filter;
+        self
+    }
+    pub fn enable_order_hint(mut self, enable_order_hint: u32) -> Self {
+        self.enable_order_hint = enable_order_hint;
+        self
+    }
+    pub fn enable_jnt_comp(mut self, enable_jnt_comp: u32) -> Self {
+        self.enable_jnt_comp = enable_jnt_comp;
+        self
+    }
+    pub fn enable_ref_frame_mvs(mut self, enable_ref_frame_mvs: u32) -> Self {
+        self.enable_ref_frame_mvs = enable_ref_frame_mvs;
+        self
+    }
+    pub fn frame_id_numbers_present_flag(mut self, frame_id_numbers_present_flag: u32) -> Self {
+        self.frame_id_numbers_present_flag = frame_id_numbers_present_flag;
+        self
+    }
+    pub fn enable_superres(mut self, enable_superres: u32) -> Self {
+        self.enable_superres = enable_superres;
+        self
+    }
+    pub fn enable_cdef(mut self, enable_cdef: u32) -> Self {
+        self.enable_cdef = enable_cdef;
+        self
+    }
+    pub fn enable_restoration(mut self, enable_restoration: u32) -> Self {
+        self.enable_restoration = enable_restoration;
+        self
+    }
+    pub fn film_grain_params_present(mut self, film_grain_params_present: u32) -> Self {
+        self.film_grain_params_present = film_grain_params_present;
+        self
+    }
+    pub fn timing_info_present_flag(mut self, timing_info_present_flag: u32) -> Self {
+        self.timing_info_present_flag = timing_info_present_flag;
+        self
+    }
+    pub fn initial_display_delay_present_flag(
+        mut self,
+        initial_display_delay_present_flag: u32,
+    ) -> Self {
+        self.initial_display_delay_present_flag = initial_display_delay_present_flag;
+        self
+    }
+    pub fn reserved(mut self, reserved: u32) -> Self {
+        self.reserved = reserved;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -124,12 +306,87 @@ impl Default for StdVideoAV1SequenceHeader<'_> {
         }
     }
 }
+impl<'a> StdVideoAV1SequenceHeader<'a> {
+    pub fn flags(mut self, flags: StdVideoAV1SequenceHeaderFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn seq_profile(mut self, seq_profile: StdVideoAV1Profile) -> Self {
+        self.seq_profile = seq_profile;
+        self
+    }
+    pub fn frame_width_bits_minus_1(mut self, frame_width_bits_minus_1: u8) -> Self {
+        self.frame_width_bits_minus_1 = frame_width_bits_minus_1;
+        self
+    }
+    pub fn frame_height_bits_minus_1(mut self, frame_height_bits_minus_1: u8) -> Self {
+        self.frame_height_bits_minus_1 = frame_height_bits_minus_1;
+        self
+    }
+    pub fn max_frame_width_minus_1(mut self, max_frame_width_minus_1: u16) -> Self {
+        self.max_frame_width_minus_1 = max_frame_width_minus_1;
+        self
+    }
+    pub fn max_frame_height_minus_1(mut self, max_frame_height_minus_1: u16) -> Self {
+        self.max_frame_height_minus_1 = max_frame_height_minus_1;
+        self
+    }
+    pub fn delta_frame_id_length_minus_2(mut self, delta_frame_id_length_minus_2: u8) -> Self {
+        self.delta_frame_id_length_minus_2 = delta_frame_id_length_minus_2;
+        self
+    }
+    pub fn additional_frame_id_length_minus_1(
+        mut self,
+        additional_frame_id_length_minus_1: u8,
+    ) -> Self {
+        self.additional_frame_id_length_minus_1 = additional_frame_id_length_minus_1;
+        self
+    }
+    pub fn order_hint_bits_minus_1(mut self, order_hint_bits_minus_1: u8) -> Self {
+        self.order_hint_bits_minus_1 = order_hint_bits_minus_1;
+        self
+    }
+    pub fn seq_force_integer_mv(mut self, seq_force_integer_mv: u8) -> Self {
+        self.seq_force_integer_mv = seq_force_integer_mv;
+        self
+    }
+    pub fn seq_force_screen_content_tools(mut self, seq_force_screen_content_tools: u8) -> Self {
+        self.seq_force_screen_content_tools = seq_force_screen_content_tools;
+        self
+    }
+    pub fn reserved1(mut self, reserved1: [u8; 5]) -> Self {
+        self.reserved1 = reserved1;
+        self
+    }
+    pub fn color_config(mut self, color_config: &'a StdVideoAV1ColorConfig) -> Self {
+        self.p_color_config = color_config;
+        self
+    }
+    pub fn timing_info(mut self, timing_info: &'a StdVideoAV1TimingInfo) -> Self {
+        self.p_timing_info = timing_info;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct StdVideoAV1LoopFilterFlags {
     pub loop_filter_delta_enabled: u32,
     pub loop_filter_delta_update: u32,
     pub reserved: u32,
+}
+impl StdVideoAV1LoopFilterFlags {
+    pub fn loop_filter_delta_enabled(mut self, loop_filter_delta_enabled: u32) -> Self {
+        self.loop_filter_delta_enabled = loop_filter_delta_enabled;
+        self
+    }
+    pub fn loop_filter_delta_update(mut self, loop_filter_delta_update: u32) -> Self {
+        self.loop_filter_delta_update = loop_filter_delta_update;
+        self
+    }
+    pub fn reserved(mut self, reserved: u32) -> Self {
+        self.reserved = reserved;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -155,12 +412,65 @@ impl Default for StdVideoAV1LoopFilter {
         }
     }
 }
+impl StdVideoAV1LoopFilter {
+    pub fn flags(mut self, flags: StdVideoAV1LoopFilterFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn loop_filter_level(
+        mut self,
+        loop_filter_level: [u8; STD_VIDEO_AV1_MAX_LOOP_FILTER_STRENGTHS as usize],
+    ) -> Self {
+        self.loop_filter_level = loop_filter_level;
+        self
+    }
+    pub fn loop_filter_sharpness(mut self, loop_filter_sharpness: u8) -> Self {
+        self.loop_filter_sharpness = loop_filter_sharpness;
+        self
+    }
+    pub fn update_ref_delta(mut self, update_ref_delta: u8) -> Self {
+        self.update_ref_delta = update_ref_delta;
+        self
+    }
+    pub fn loop_filter_ref_deltas(
+        mut self,
+        loop_filter_ref_deltas: [i8; STD_VIDEO_AV1_TOTAL_REFS_PER_FRAME as usize],
+    ) -> Self {
+        self.loop_filter_ref_deltas = loop_filter_ref_deltas;
+        self
+    }
+    pub fn update_mode_delta(mut self, update_mode_delta: u8) -> Self {
+        self.update_mode_delta = update_mode_delta;
+        self
+    }
+    pub fn loop_filter_mode_deltas(
+        mut self,
+        loop_filter_mode_deltas: [i8; STD_VIDEO_AV1_LOOP_FILTER_ADJUSTMENTS as usize],
+    ) -> Self {
+        self.loop_filter_mode_deltas = loop_filter_mode_deltas;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct StdVideoAV1QuantizationFlags {
     pub using_qmatrix: u32,
     pub diff_uv_delta: u32,
     pub reserved: u32,
+}
+impl StdVideoAV1QuantizationFlags {
+    pub fn using_qmatrix(mut self, using_qmatrix: u32) -> Self {
+        self.using_qmatrix = using_qmatrix;
+        self
+    }
+    pub fn diff_uv_delta(mut self, diff_uv_delta: u32) -> Self {
+        self.diff_uv_delta = diff_uv_delta;
+        self
+    }
+    pub fn reserved(mut self, reserved: u32) -> Self {
+        self.reserved = reserved;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -175,6 +485,48 @@ pub struct StdVideoAV1Quantization {
     pub qm_y: u8,
     pub qm_u: u8,
     pub qm_v: u8,
+}
+impl StdVideoAV1Quantization {
+    pub fn flags(mut self, flags: StdVideoAV1QuantizationFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn base_q_idx(mut self, base_q_idx: u8) -> Self {
+        self.base_q_idx = base_q_idx;
+        self
+    }
+    pub fn delta_qy_dc(mut self, delta_qy_dc: i8) -> Self {
+        self.delta_qy_dc = delta_qy_dc;
+        self
+    }
+    pub fn delta_qu_dc(mut self, delta_qu_dc: i8) -> Self {
+        self.delta_qu_dc = delta_qu_dc;
+        self
+    }
+    pub fn delta_qu_ac(mut self, delta_qu_ac: i8) -> Self {
+        self.delta_qu_ac = delta_qu_ac;
+        self
+    }
+    pub fn delta_qv_dc(mut self, delta_qv_dc: i8) -> Self {
+        self.delta_qv_dc = delta_qv_dc;
+        self
+    }
+    pub fn delta_qv_ac(mut self, delta_qv_ac: i8) -> Self {
+        self.delta_qv_ac = delta_qv_ac;
+        self
+    }
+    pub fn qm_y(mut self, qm_y: u8) -> Self {
+        self.qm_y = qm_y;
+        self
+    }
+    pub fn qm_u(mut self, qm_u: u8) -> Self {
+        self.qm_u = qm_u;
+        self
+    }
+    pub fn qm_v(mut self, qm_v: u8) -> Self {
+        self.qm_v = qm_v;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -191,11 +543,38 @@ impl Default for StdVideoAV1Segmentation {
         }
     }
 }
+impl StdVideoAV1Segmentation {
+    pub fn feature_enabled(
+        mut self,
+        feature_enabled: [u8; STD_VIDEO_AV1_MAX_SEGMENTS as usize],
+    ) -> Self {
+        self.feature_enabled = feature_enabled;
+        self
+    }
+    pub fn feature_data(
+        mut self,
+        feature_data: [[i16; STD_VIDEO_AV1_SEG_LVL_MAX as usize];
+            STD_VIDEO_AV1_MAX_SEGMENTS as usize],
+    ) -> Self {
+        self.feature_data = feature_data;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct StdVideoAV1TileInfoFlags {
     pub uniform_tile_spacing_flag: u32,
     pub reserved: u32,
+}
+impl StdVideoAV1TileInfoFlags {
+    pub fn uniform_tile_spacing_flag(mut self, uniform_tile_spacing_flag: u32) -> Self {
+        self.uniform_tile_spacing_flag = uniform_tile_spacing_flag;
+        self
+    }
+    pub fn reserved(mut self, reserved: u32) -> Self {
+        self.reserved = reserved;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -229,6 +608,44 @@ impl Default for StdVideoAV1TileInfo<'_> {
         }
     }
 }
+impl<'a> StdVideoAV1TileInfo<'a> {
+    pub fn flags(mut self, flags: StdVideoAV1TileInfoFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn mi_col_starts(mut self, mi_col_starts: &'a [u16]) -> Self {
+        self.tile_cols = mi_col_starts.len().try_into().unwrap();
+        self.p_mi_col_starts = mi_col_starts.as_ptr();
+        self
+    }
+    pub fn width_in_sbs_minus1(mut self, width_in_sbs_minus1: &'a [u16]) -> Self {
+        self.tile_cols = width_in_sbs_minus1.len().try_into().unwrap();
+        self.p_width_in_sbs_minus1 = width_in_sbs_minus1.as_ptr();
+        self
+    }
+    pub fn mi_row_starts(mut self, mi_row_starts: &'a [u16]) -> Self {
+        self.tile_rows = mi_row_starts.len().try_into().unwrap();
+        self.p_mi_row_starts = mi_row_starts.as_ptr();
+        self
+    }
+    pub fn height_in_sbs_minus1(mut self, height_in_sbs_minus1: &'a [u16]) -> Self {
+        self.tile_rows = height_in_sbs_minus1.len().try_into().unwrap();
+        self.p_height_in_sbs_minus1 = height_in_sbs_minus1.as_ptr();
+        self
+    }
+    pub fn context_update_tile_id(mut self, context_update_tile_id: u16) -> Self {
+        self.context_update_tile_id = context_update_tile_id;
+        self
+    }
+    pub fn tile_size_bytes_minus_1(mut self, tile_size_bytes_minus_1: u8) -> Self {
+        self.tile_size_bytes_minus_1 = tile_size_bytes_minus_1;
+        self
+    }
+    pub fn reserved1(mut self, reserved1: [u8; 7]) -> Self {
+        self.reserved1 = reserved1;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct StdVideoAV1CDEF {
@@ -251,6 +668,44 @@ impl Default for StdVideoAV1CDEF {
         }
     }
 }
+impl StdVideoAV1CDEF {
+    pub fn cdef_damping_minus_3(mut self, cdef_damping_minus_3: u8) -> Self {
+        self.cdef_damping_minus_3 = cdef_damping_minus_3;
+        self
+    }
+    pub fn cdef_bits(mut self, cdef_bits: u8) -> Self {
+        self.cdef_bits = cdef_bits;
+        self
+    }
+    pub fn cdef_y_pri_strength(
+        mut self,
+        cdef_y_pri_strength: [u8; STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS as usize],
+    ) -> Self {
+        self.cdef_y_pri_strength = cdef_y_pri_strength;
+        self
+    }
+    pub fn cdef_y_sec_strength(
+        mut self,
+        cdef_y_sec_strength: [u8; STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS as usize],
+    ) -> Self {
+        self.cdef_y_sec_strength = cdef_y_sec_strength;
+        self
+    }
+    pub fn cdef_uv_pri_strength(
+        mut self,
+        cdef_uv_pri_strength: [u8; STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS as usize],
+    ) -> Self {
+        self.cdef_uv_pri_strength = cdef_uv_pri_strength;
+        self
+    }
+    pub fn cdef_uv_sec_strength(
+        mut self,
+        cdef_uv_sec_strength: [u8; STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS as usize],
+    ) -> Self {
+        self.cdef_uv_sec_strength = cdef_uv_sec_strength;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct StdVideoAV1LoopRestoration {
@@ -264,6 +719,23 @@ impl Default for StdVideoAV1LoopRestoration {
             frame_restoration_type: [Default::default(); _],
             loop_restoration_size: [Default::default(); _],
         }
+    }
+}
+impl StdVideoAV1LoopRestoration {
+    pub fn frame_restoration_type(
+        mut self,
+        frame_restoration_type: [StdVideoAV1FrameRestorationType;
+            STD_VIDEO_AV1_MAX_NUM_PLANES as usize],
+    ) -> Self {
+        self.frame_restoration_type = frame_restoration_type;
+        self
+    }
+    pub fn loop_restoration_size(
+        mut self,
+        loop_restoration_size: [u16; STD_VIDEO_AV1_MAX_NUM_PLANES as usize],
+    ) -> Self {
+        self.loop_restoration_size = loop_restoration_size;
+        self
     }
 }
 #[repr(C)]
@@ -281,6 +753,20 @@ impl Default for StdVideoAV1GlobalMotion {
         }
     }
 }
+impl StdVideoAV1GlobalMotion {
+    pub fn gm_type(mut self, gm_type: [u8; STD_VIDEO_AV1_NUM_REF_FRAMES as usize]) -> Self {
+        self.gm_type = gm_type;
+        self
+    }
+    pub fn gm_params(
+        mut self,
+        gm_params: [[i32; STD_VIDEO_AV1_GLOBAL_MOTION_PARAMS as usize];
+            STD_VIDEO_AV1_NUM_REF_FRAMES as usize],
+    ) -> Self {
+        self.gm_params = gm_params;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct StdVideoAV1FilmGrainFlags {
@@ -289,6 +775,28 @@ pub struct StdVideoAV1FilmGrainFlags {
     pub clip_to_restricted_range: u32,
     pub update_grain: u32,
     pub reserved: u32,
+}
+impl StdVideoAV1FilmGrainFlags {
+    pub fn chroma_scaling_from_luma(mut self, chroma_scaling_from_luma: u32) -> Self {
+        self.chroma_scaling_from_luma = chroma_scaling_from_luma;
+        self
+    }
+    pub fn overlap_flag(mut self, overlap_flag: u32) -> Self {
+        self.overlap_flag = overlap_flag;
+        self
+    }
+    pub fn clip_to_restricted_range(mut self, clip_to_restricted_range: u32) -> Self {
+        self.clip_to_restricted_range = clip_to_restricted_range;
+        self
+    }
+    pub fn update_grain(mut self, update_grain: u32) -> Self {
+        self.update_grain = update_grain;
+        self
+    }
+    pub fn reserved(mut self, reserved: u32) -> Self {
+        self.reserved = reserved;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -348,6 +856,135 @@ impl Default for StdVideoAV1FilmGrain {
             cr_luma_mult: Default::default(),
             cr_offset: Default::default(),
         }
+    }
+}
+impl StdVideoAV1FilmGrain {
+    pub fn flags(mut self, flags: StdVideoAV1FilmGrainFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn grain_scaling_minus_8(mut self, grain_scaling_minus_8: u8) -> Self {
+        self.grain_scaling_minus_8 = grain_scaling_minus_8;
+        self
+    }
+    pub fn ar_coeff_lag(mut self, ar_coeff_lag: u8) -> Self {
+        self.ar_coeff_lag = ar_coeff_lag;
+        self
+    }
+    pub fn ar_coeff_shift_minus_6(mut self, ar_coeff_shift_minus_6: u8) -> Self {
+        self.ar_coeff_shift_minus_6 = ar_coeff_shift_minus_6;
+        self
+    }
+    pub fn grain_scale_shift(mut self, grain_scale_shift: u8) -> Self {
+        self.grain_scale_shift = grain_scale_shift;
+        self
+    }
+    pub fn grain_seed(mut self, grain_seed: u16) -> Self {
+        self.grain_seed = grain_seed;
+        self
+    }
+    pub fn film_grain_params_ref_idx(mut self, film_grain_params_ref_idx: u8) -> Self {
+        self.film_grain_params_ref_idx = film_grain_params_ref_idx;
+        self
+    }
+    pub fn num_y_points(mut self, num_y_points: u8) -> Self {
+        self.num_y_points = num_y_points;
+        self
+    }
+    pub fn point_y_value(
+        mut self,
+        point_y_value: [u8; STD_VIDEO_AV1_MAX_NUM_Y_POINTS as usize],
+    ) -> Self {
+        self.point_y_value = point_y_value;
+        self
+    }
+    pub fn point_y_scaling(
+        mut self,
+        point_y_scaling: [u8; STD_VIDEO_AV1_MAX_NUM_Y_POINTS as usize],
+    ) -> Self {
+        self.point_y_scaling = point_y_scaling;
+        self
+    }
+    pub fn num_cb_points(mut self, num_cb_points: u8) -> Self {
+        self.num_cb_points = num_cb_points;
+        self
+    }
+    pub fn point_cb_value(
+        mut self,
+        point_cb_value: [u8; STD_VIDEO_AV1_MAX_NUM_CB_POINTS as usize],
+    ) -> Self {
+        self.point_cb_value = point_cb_value;
+        self
+    }
+    pub fn point_cb_scaling(
+        mut self,
+        point_cb_scaling: [u8; STD_VIDEO_AV1_MAX_NUM_CB_POINTS as usize],
+    ) -> Self {
+        self.point_cb_scaling = point_cb_scaling;
+        self
+    }
+    pub fn num_cr_points(mut self, num_cr_points: u8) -> Self {
+        self.num_cr_points = num_cr_points;
+        self
+    }
+    pub fn point_cr_value(
+        mut self,
+        point_cr_value: [u8; STD_VIDEO_AV1_MAX_NUM_CR_POINTS as usize],
+    ) -> Self {
+        self.point_cr_value = point_cr_value;
+        self
+    }
+    pub fn point_cr_scaling(
+        mut self,
+        point_cr_scaling: [u8; STD_VIDEO_AV1_MAX_NUM_CR_POINTS as usize],
+    ) -> Self {
+        self.point_cr_scaling = point_cr_scaling;
+        self
+    }
+    pub fn ar_coeffs_y_plus_128(
+        mut self,
+        ar_coeffs_y_plus_128: [i8; STD_VIDEO_AV1_MAX_NUM_POS_LUMA as usize],
+    ) -> Self {
+        self.ar_coeffs_y_plus_128 = ar_coeffs_y_plus_128;
+        self
+    }
+    pub fn ar_coeffs_cb_plus_128(
+        mut self,
+        ar_coeffs_cb_plus_128: [i8; STD_VIDEO_AV1_MAX_NUM_POS_CHROMA as usize],
+    ) -> Self {
+        self.ar_coeffs_cb_plus_128 = ar_coeffs_cb_plus_128;
+        self
+    }
+    pub fn ar_coeffs_cr_plus_128(
+        mut self,
+        ar_coeffs_cr_plus_128: [i8; STD_VIDEO_AV1_MAX_NUM_POS_CHROMA as usize],
+    ) -> Self {
+        self.ar_coeffs_cr_plus_128 = ar_coeffs_cr_plus_128;
+        self
+    }
+    pub fn cb_mult(mut self, cb_mult: u8) -> Self {
+        self.cb_mult = cb_mult;
+        self
+    }
+    pub fn cb_luma_mult(mut self, cb_luma_mult: u8) -> Self {
+        self.cb_luma_mult = cb_luma_mult;
+        self
+    }
+    pub fn cb_offset(mut self, cb_offset: u16) -> Self {
+        self.cb_offset = cb_offset;
+        self
+    }
+    pub fn cr_mult(mut self, cr_mult: u8) -> Self {
+        self.cr_mult = cr_mult;
+        self
+    }
+    pub fn cr_luma_mult(mut self, cr_luma_mult: u8) -> Self {
+        self.cr_luma_mult = cr_luma_mult;
+        self
+    }
+    pub fn cr_offset(mut self, cr_offset: u16) -> Self {
+        self.cr_offset = cr_offset;
+        self
     }
 }
 #[repr(transparent)]

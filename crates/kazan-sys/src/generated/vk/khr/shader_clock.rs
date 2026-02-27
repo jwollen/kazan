@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,5 +21,15 @@ impl Default for PhysicalDeviceShaderClockFeaturesKHR<'_> {
             shader_device_clock: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceShaderClockFeaturesKHR<'a> {
+    pub fn shader_subgroup_clock(mut self, shader_subgroup_clock: Bool32) -> Self {
+        self.shader_subgroup_clock = shader_subgroup_clock;
+        self
+    }
+    pub fn shader_device_clock(mut self, shader_device_clock: Bool32) -> Self {
+        self.shader_device_clock = shader_device_clock;
+        self
     }
 }

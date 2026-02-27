@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub type MTLDevice_id = *const c_void;
 pub type MTLCommandQueue_id = *const c_void;
@@ -27,6 +27,15 @@ impl Default for ExportMetalObjectCreateInfoEXT<'_> {
         }
     }
 }
+impl<'a> ExportMetalObjectCreateInfoEXT<'a> {
+    pub fn export_object_type(
+        mut self,
+        export_object_type: ExportMetalObjectTypeFlagBitsEXT,
+    ) -> Self {
+        self.export_object_type = export_object_type;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ExportMetalObjectsInfoEXT<'a> {
@@ -43,6 +52,7 @@ impl Default for ExportMetalObjectsInfoEXT<'_> {
         }
     }
 }
+impl<'a> ExportMetalObjectsInfoEXT<'a> {}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ExportMetalDeviceInfoEXT<'a> {
@@ -59,6 +69,12 @@ impl Default for ExportMetalDeviceInfoEXT<'_> {
             mtl_device: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ExportMetalDeviceInfoEXT<'a> {
+    pub fn mtl_device(mut self, mtl_device: MTLDevice_id) -> Self {
+        self.mtl_device = mtl_device;
+        self
     }
 }
 #[repr(C)]
@@ -81,6 +97,16 @@ impl Default for ExportMetalCommandQueueInfoEXT<'_> {
         }
     }
 }
+impl<'a> ExportMetalCommandQueueInfoEXT<'a> {
+    pub fn queue(mut self, queue: Queue) -> Self {
+        self.queue = queue;
+        self
+    }
+    pub fn mtl_command_queue(mut self, mtl_command_queue: MTLCommandQueue_id) -> Self {
+        self.mtl_command_queue = mtl_command_queue;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ExportMetalBufferInfoEXT<'a> {
@@ -101,6 +127,16 @@ impl Default for ExportMetalBufferInfoEXT<'_> {
         }
     }
 }
+impl<'a> ExportMetalBufferInfoEXT<'a> {
+    pub fn memory(mut self, memory: DeviceMemory) -> Self {
+        self.memory = memory;
+        self
+    }
+    pub fn mtl_buffer(mut self, mtl_buffer: MTLBuffer_id) -> Self {
+        self.mtl_buffer = mtl_buffer;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ImportMetalBufferInfoEXT<'a> {
@@ -117,6 +153,12 @@ impl Default for ImportMetalBufferInfoEXT<'_> {
             mtl_buffer: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ImportMetalBufferInfoEXT<'a> {
+    pub fn mtl_buffer(mut self, mtl_buffer: MTLBuffer_id) -> Self {
+        self.mtl_buffer = mtl_buffer;
+        self
     }
 }
 #[repr(C)]
@@ -145,6 +187,28 @@ impl Default for ExportMetalTextureInfoEXT<'_> {
         }
     }
 }
+impl<'a> ExportMetalTextureInfoEXT<'a> {
+    pub fn image(mut self, image: Image) -> Self {
+        self.image = image;
+        self
+    }
+    pub fn image_view(mut self, image_view: ImageView) -> Self {
+        self.image_view = image_view;
+        self
+    }
+    pub fn buffer_view(mut self, buffer_view: BufferView) -> Self {
+        self.buffer_view = buffer_view;
+        self
+    }
+    pub fn plane(mut self, plane: ImageAspectFlagBits) -> Self {
+        self.plane = plane;
+        self
+    }
+    pub fn mtl_texture(mut self, mtl_texture: MTLTexture_id) -> Self {
+        self.mtl_texture = mtl_texture;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ImportMetalTextureInfoEXT<'a> {
@@ -163,6 +227,16 @@ impl Default for ImportMetalTextureInfoEXT<'_> {
             mtl_texture: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ImportMetalTextureInfoEXT<'a> {
+    pub fn plane(mut self, plane: ImageAspectFlagBits) -> Self {
+        self.plane = plane;
+        self
+    }
+    pub fn mtl_texture(mut self, mtl_texture: MTLTexture_id) -> Self {
+        self.mtl_texture = mtl_texture;
+        self
     }
 }
 #[repr(C)]
@@ -185,6 +259,16 @@ impl Default for ExportMetalIOSurfaceInfoEXT<'_> {
         }
     }
 }
+impl<'a> ExportMetalIOSurfaceInfoEXT<'a> {
+    pub fn image(mut self, image: Image) -> Self {
+        self.image = image;
+        self
+    }
+    pub fn io_surface(mut self, io_surface: IOSurfaceRef) -> Self {
+        self.io_surface = io_surface;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ImportMetalIOSurfaceInfoEXT<'a> {
@@ -201,6 +285,12 @@ impl Default for ImportMetalIOSurfaceInfoEXT<'_> {
             io_surface: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ImportMetalIOSurfaceInfoEXT<'a> {
+    pub fn io_surface(mut self, io_surface: IOSurfaceRef) -> Self {
+        self.io_surface = io_surface;
+        self
     }
 }
 #[repr(C)]
@@ -225,6 +315,20 @@ impl Default for ExportMetalSharedEventInfoEXT<'_> {
         }
     }
 }
+impl<'a> ExportMetalSharedEventInfoEXT<'a> {
+    pub fn semaphore(mut self, semaphore: Semaphore) -> Self {
+        self.semaphore = semaphore;
+        self
+    }
+    pub fn event(mut self, event: Event) -> Self {
+        self.event = event;
+        self
+    }
+    pub fn mtl_shared_event(mut self, mtl_shared_event: MTLSharedEvent_id) -> Self {
+        self.mtl_shared_event = mtl_shared_event;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ImportMetalSharedEventInfoEXT<'a> {
@@ -241,6 +345,12 @@ impl Default for ImportMetalSharedEventInfoEXT<'_> {
             mtl_shared_event: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ImportMetalSharedEventInfoEXT<'a> {
+    pub fn mtl_shared_event(mut self, mtl_shared_event: MTLSharedEvent_id) -> Self {
+        self.mtl_shared_event = mtl_shared_event;
+        self
     }
 }
 bitflags! {

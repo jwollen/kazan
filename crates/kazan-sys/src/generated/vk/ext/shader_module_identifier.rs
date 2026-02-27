@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub const MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT: u32 = 32;
 #[repr(C)]
@@ -22,6 +22,12 @@ impl Default for PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'a> {
+    pub fn shader_module_identifier(mut self, shader_module_identifier: Bool32) -> Self {
+        self.shader_module_identifier = shader_module_identifier;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderModuleIdentifierPropertiesEXT<'a> {
@@ -38,6 +44,15 @@ impl Default for PhysicalDeviceShaderModuleIdentifierPropertiesEXT<'_> {
             shader_module_identifier_algorithm_uuid: [Default::default(); _],
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceShaderModuleIdentifierPropertiesEXT<'a> {
+    pub fn shader_module_identifier_algorithm_uuid(
+        mut self,
+        shader_module_identifier_algorithm_uuid: [u8; UUID_SIZE as usize],
+    ) -> Self {
+        self.shader_module_identifier_algorithm_uuid = shader_module_identifier_algorithm_uuid;
+        self
     }
 }
 #[repr(C)]
@@ -60,6 +75,13 @@ impl Default for PipelineShaderStageModuleIdentifierCreateInfoEXT<'_> {
         }
     }
 }
+impl<'a> PipelineShaderStageModuleIdentifierCreateInfoEXT<'a> {
+    pub fn identifier(mut self, identifier: &'a [u8]) -> Self {
+        self.identifier_size = identifier.len().try_into().unwrap();
+        self.p_identifier = identifier.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ShaderModuleIdentifierEXT<'a> {
@@ -78,6 +100,13 @@ impl Default for ShaderModuleIdentifierEXT<'_> {
             identifier: [Default::default(); _],
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ShaderModuleIdentifierEXT<'a> {
+    pub fn identifier(mut self, identifier: &[u8]) -> Self {
+        self.identifier_size = identifier.len().try_into().unwrap();
+        self.identifier[..identifier.len()].copy_from_slice(identifier);
+        self
     }
 }
 pub type PFN_vkGetShaderModuleIdentifierEXT = unsafe extern "system" fn(

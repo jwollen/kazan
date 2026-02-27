@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -25,6 +25,26 @@ impl Default for PhysicalDeviceNestedCommandBufferFeaturesEXT<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceNestedCommandBufferFeaturesEXT<'a> {
+    pub fn nested_command_buffer(mut self, nested_command_buffer: Bool32) -> Self {
+        self.nested_command_buffer = nested_command_buffer;
+        self
+    }
+    pub fn nested_command_buffer_rendering(
+        mut self,
+        nested_command_buffer_rendering: Bool32,
+    ) -> Self {
+        self.nested_command_buffer_rendering = nested_command_buffer_rendering;
+        self
+    }
+    pub fn nested_command_buffer_simultaneous_use(
+        mut self,
+        nested_command_buffer_simultaneous_use: Bool32,
+    ) -> Self {
+        self.nested_command_buffer_simultaneous_use = nested_command_buffer_simultaneous_use;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceNestedCommandBufferPropertiesEXT<'a> {
@@ -41,5 +61,14 @@ impl Default for PhysicalDeviceNestedCommandBufferPropertiesEXT<'_> {
             max_command_buffer_nesting_level: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceNestedCommandBufferPropertiesEXT<'a> {
+    pub fn max_command_buffer_nesting_level(
+        mut self,
+        max_command_buffer_nesting_level: u32,
+    ) -> Self {
+        self.max_command_buffer_nesting_level = max_command_buffer_nesting_level;
+        self
     }
 }

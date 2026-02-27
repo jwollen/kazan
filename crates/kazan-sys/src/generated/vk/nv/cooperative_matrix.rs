@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub type ScopeNV = ScopeKHR;
 pub type ComponentTypeNV = ComponentTypeKHR;
@@ -25,6 +25,19 @@ impl Default for PhysicalDeviceCooperativeMatrixFeaturesNV<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceCooperativeMatrixFeaturesNV<'a> {
+    pub fn cooperative_matrix(mut self, cooperative_matrix: Bool32) -> Self {
+        self.cooperative_matrix = cooperative_matrix;
+        self
+    }
+    pub fn cooperative_matrix_robust_buffer_access(
+        mut self,
+        cooperative_matrix_robust_buffer_access: Bool32,
+    ) -> Self {
+        self.cooperative_matrix_robust_buffer_access = cooperative_matrix_robust_buffer_access;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceCooperativeMatrixPropertiesNV<'a> {
@@ -41,6 +54,15 @@ impl Default for PhysicalDeviceCooperativeMatrixPropertiesNV<'_> {
             cooperative_matrix_supported_stages: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceCooperativeMatrixPropertiesNV<'a> {
+    pub fn cooperative_matrix_supported_stages(
+        mut self,
+        cooperative_matrix_supported_stages: ShaderStageFlags,
+    ) -> Self {
+        self.cooperative_matrix_supported_stages = cooperative_matrix_supported_stages;
+        self
     }
 }
 #[repr(C)]
@@ -73,6 +95,40 @@ impl Default for CooperativeMatrixPropertiesNV<'_> {
             scope: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> CooperativeMatrixPropertiesNV<'a> {
+    pub fn m_size(mut self, m_size: u32) -> Self {
+        self.m_size = m_size;
+        self
+    }
+    pub fn n_size(mut self, n_size: u32) -> Self {
+        self.n_size = n_size;
+        self
+    }
+    pub fn k_size(mut self, k_size: u32) -> Self {
+        self.k_size = k_size;
+        self
+    }
+    pub fn a_type(mut self, a_type: ComponentTypeNV) -> Self {
+        self.a_type = a_type;
+        self
+    }
+    pub fn b_type(mut self, b_type: ComponentTypeNV) -> Self {
+        self.b_type = b_type;
+        self
+    }
+    pub fn c_type(mut self, c_type: ComponentTypeNV) -> Self {
+        self.c_type = c_type;
+        self
+    }
+    pub fn d_type(mut self, d_type: ComponentTypeNV) -> Self {
+        self.d_type = d_type;
+        self
+    }
+    pub fn scope(mut self, scope: ScopeNV) -> Self {
+        self.scope = scope;
+        self
     }
 }
 pub type PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesNV = unsafe extern "system" fn(

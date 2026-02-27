@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -29,6 +29,28 @@ impl Default for ImportSemaphoreWin32HandleInfoKHR<'_> {
         }
     }
 }
+impl<'a> ImportSemaphoreWin32HandleInfoKHR<'a> {
+    pub fn semaphore(mut self, semaphore: Semaphore) -> Self {
+        self.semaphore = semaphore;
+        self
+    }
+    pub fn flags(mut self, flags: SemaphoreImportFlags) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn handle_type(mut self, handle_type: ExternalSemaphoreHandleTypeFlagBits) -> Self {
+        self.handle_type = handle_type;
+        self
+    }
+    pub fn handle(mut self, handle: HANDLE) -> Self {
+        self.handle = handle;
+        self
+    }
+    pub fn name(mut self, name: LPCWSTR) -> Self {
+        self.name = name;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ExportSemaphoreWin32HandleInfoKHR<'a> {
@@ -49,6 +71,20 @@ impl Default for ExportSemaphoreWin32HandleInfoKHR<'_> {
             name: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ExportSemaphoreWin32HandleInfoKHR<'a> {
+    pub fn attributes(mut self, attributes: *const SECURITY_ATTRIBUTES) -> Self {
+        self.p_attributes = attributes;
+        self
+    }
+    pub fn dw_access(mut self, dw_access: DWORD) -> Self {
+        self.dw_access = dw_access;
+        self
+    }
+    pub fn name(mut self, name: LPCWSTR) -> Self {
+        self.name = name;
+        self
     }
 }
 #[repr(C)]
@@ -75,6 +111,18 @@ impl Default for D3D12FenceSubmitInfoKHR<'_> {
         }
     }
 }
+impl<'a> D3D12FenceSubmitInfoKHR<'a> {
+    pub fn wait_semaphore_values(mut self, wait_semaphore_values: &'a [u64]) -> Self {
+        self.wait_semaphore_values_count = wait_semaphore_values.len().try_into().unwrap();
+        self.p_wait_semaphore_values = wait_semaphore_values.as_ptr();
+        self
+    }
+    pub fn signal_semaphore_values(mut self, signal_semaphore_values: &'a [u64]) -> Self {
+        self.signal_semaphore_values_count = signal_semaphore_values.len().try_into().unwrap();
+        self.p_signal_semaphore_values = signal_semaphore_values.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SemaphoreGetWin32HandleInfoKHR<'a> {
@@ -93,6 +141,16 @@ impl Default for SemaphoreGetWin32HandleInfoKHR<'_> {
             handle_type: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SemaphoreGetWin32HandleInfoKHR<'a> {
+    pub fn semaphore(mut self, semaphore: Semaphore) -> Self {
+        self.semaphore = semaphore;
+        self
+    }
+    pub fn handle_type(mut self, handle_type: ExternalSemaphoreHandleTypeFlagBits) -> Self {
+        self.handle_type = handle_type;
+        self
     }
 }
 pub type PFN_vkGetSemaphoreWin32HandleKHR = unsafe extern "system" fn(

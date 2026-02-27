@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub type CAMetalLayer = *const c_void;
 #[repr(C)]
@@ -22,6 +22,16 @@ impl Default for MetalSurfaceCreateInfoEXT<'_> {
             p_layer: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> MetalSurfaceCreateInfoEXT<'a> {
+    pub fn flags(mut self, flags: MetalSurfaceCreateFlagsEXT) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn layer(mut self, layer: *const CAMetalLayer) -> Self {
+        self.p_layer = layer;
+        self
     }
 }
 bitflags! {

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,6 +23,13 @@ impl Default for PresentRegionsKHR<'_> {
         }
     }
 }
+impl<'a> PresentRegionsKHR<'a> {
+    pub fn regions(mut self, regions: &'a [PresentRegionKHR<'a>]) -> Self {
+        self.swapchain_count = regions.len().try_into().unwrap();
+        self.p_regions = regions.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PresentRegionKHR<'a> {
@@ -39,10 +46,31 @@ impl Default for PresentRegionKHR<'_> {
         }
     }
 }
+impl<'a> PresentRegionKHR<'a> {
+    pub fn rectangles(mut self, rectangles: &'a [RectLayerKHR]) -> Self {
+        self.rectangle_count = rectangles.len().try_into().unwrap();
+        self.p_rectangles = rectangles.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct RectLayerKHR {
     pub offset: Offset2D,
     pub extent: Extent2D,
     pub layer: u32,
+}
+impl RectLayerKHR {
+    pub fn offset(mut self, offset: Offset2D) -> Self {
+        self.offset = offset;
+        self
+    }
+    pub fn extent(mut self, extent: Extent2D) -> Self {
+        self.extent = extent;
+        self
+    }
+    pub fn layer(mut self, layer: u32) -> Self {
+        self.layer = layer;
+        self
+    }
 }

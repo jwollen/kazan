@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,6 +23,20 @@ impl Default for PhysicalDeviceRayTracingMotionBlurFeaturesNV<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceRayTracingMotionBlurFeaturesNV<'a> {
+    pub fn ray_tracing_motion_blur(mut self, ray_tracing_motion_blur: Bool32) -> Self {
+        self.ray_tracing_motion_blur = ray_tracing_motion_blur;
+        self
+    }
+    pub fn ray_tracing_motion_blur_pipeline_trace_rays_indirect(
+        mut self,
+        ray_tracing_motion_blur_pipeline_trace_rays_indirect: Bool32,
+    ) -> Self {
+        self.ray_tracing_motion_blur_pipeline_trace_rays_indirect =
+            ray_tracing_motion_blur_pipeline_trace_rays_indirect;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct AccelerationStructureGeometryMotionTrianglesDataNV<'a> {
@@ -39,6 +53,12 @@ impl Default for AccelerationStructureGeometryMotionTrianglesDataNV<'_> {
             vertex_data: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> AccelerationStructureGeometryMotionTrianglesDataNV<'a> {
+    pub fn vertex_data(mut self, vertex_data: DeviceOrHostAddressConstKHR<'a>) -> Self {
+        self.vertex_data = vertex_data;
+        self
     }
 }
 #[repr(C)]
@@ -61,6 +81,16 @@ impl Default for AccelerationStructureMotionInfoNV<'_> {
         }
     }
 }
+impl<'a> AccelerationStructureMotionInfoNV<'a> {
+    pub fn max_instances(mut self, max_instances: u32) -> Self {
+        self.max_instances = max_instances;
+        self
+    }
+    pub fn flags(mut self, flags: AccelerationStructureMotionInfoFlagsNV) -> Self {
+        self.flags = flags;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct SRTDataNV {
@@ -81,6 +111,72 @@ pub struct SRTDataNV {
     pub ty: f32,
     pub tz: f32,
 }
+impl SRTDataNV {
+    pub fn sx(mut self, sx: f32) -> Self {
+        self.sx = sx;
+        self
+    }
+    pub fn a(mut self, a: f32) -> Self {
+        self.a = a;
+        self
+    }
+    pub fn b(mut self, b: f32) -> Self {
+        self.b = b;
+        self
+    }
+    pub fn pvx(mut self, pvx: f32) -> Self {
+        self.pvx = pvx;
+        self
+    }
+    pub fn sy(mut self, sy: f32) -> Self {
+        self.sy = sy;
+        self
+    }
+    pub fn c(mut self, c: f32) -> Self {
+        self.c = c;
+        self
+    }
+    pub fn pvy(mut self, pvy: f32) -> Self {
+        self.pvy = pvy;
+        self
+    }
+    pub fn sz(mut self, sz: f32) -> Self {
+        self.sz = sz;
+        self
+    }
+    pub fn pvz(mut self, pvz: f32) -> Self {
+        self.pvz = pvz;
+        self
+    }
+    pub fn qx(mut self, qx: f32) -> Self {
+        self.qx = qx;
+        self
+    }
+    pub fn qy(mut self, qy: f32) -> Self {
+        self.qy = qy;
+        self
+    }
+    pub fn qz(mut self, qz: f32) -> Self {
+        self.qz = qz;
+        self
+    }
+    pub fn qw(mut self, qw: f32) -> Self {
+        self.qw = qw;
+        self
+    }
+    pub fn tx(mut self, tx: f32) -> Self {
+        self.tx = tx;
+        self
+    }
+    pub fn ty(mut self, ty: f32) -> Self {
+        self.ty = ty;
+        self
+    }
+    pub fn tz(mut self, tz: f32) -> Self {
+        self.tz = tz;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct AccelerationStructureSRTMotionInstanceNV {
@@ -91,6 +187,43 @@ pub struct AccelerationStructureSRTMotionInstanceNV {
     pub instance_shader_binding_table_record_offset: u32,
     pub flags: GeometryInstanceFlagsKHR,
     pub acceleration_structure_reference: u64,
+}
+impl AccelerationStructureSRTMotionInstanceNV {
+    pub fn transform_t0(mut self, transform_t0: SRTDataNV) -> Self {
+        self.transform_t0 = transform_t0;
+        self
+    }
+    pub fn transform_t1(mut self, transform_t1: SRTDataNV) -> Self {
+        self.transform_t1 = transform_t1;
+        self
+    }
+    pub fn instance_custom_index(mut self, instance_custom_index: u32) -> Self {
+        self.instance_custom_index = instance_custom_index;
+        self
+    }
+    pub fn mask(mut self, mask: u32) -> Self {
+        self.mask = mask;
+        self
+    }
+    pub fn instance_shader_binding_table_record_offset(
+        mut self,
+        instance_shader_binding_table_record_offset: u32,
+    ) -> Self {
+        self.instance_shader_binding_table_record_offset =
+            instance_shader_binding_table_record_offset;
+        self
+    }
+    pub fn flags(mut self, flags: GeometryInstanceFlagsKHR) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn acceleration_structure_reference(
+        mut self,
+        acceleration_structure_reference: u64,
+    ) -> Self {
+        self.acceleration_structure_reference = acceleration_structure_reference;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -116,6 +249,43 @@ impl Default for AccelerationStructureMatrixMotionInstanceNV {
         }
     }
 }
+impl AccelerationStructureMatrixMotionInstanceNV {
+    pub fn transform_t0(mut self, transform_t0: TransformMatrixKHR) -> Self {
+        self.transform_t0 = transform_t0;
+        self
+    }
+    pub fn transform_t1(mut self, transform_t1: TransformMatrixKHR) -> Self {
+        self.transform_t1 = transform_t1;
+        self
+    }
+    pub fn instance_custom_index(mut self, instance_custom_index: u32) -> Self {
+        self.instance_custom_index = instance_custom_index;
+        self
+    }
+    pub fn mask(mut self, mask: u32) -> Self {
+        self.mask = mask;
+        self
+    }
+    pub fn instance_shader_binding_table_record_offset(
+        mut self,
+        instance_shader_binding_table_record_offset: u32,
+    ) -> Self {
+        self.instance_shader_binding_table_record_offset =
+            instance_shader_binding_table_record_offset;
+        self
+    }
+    pub fn flags(mut self, flags: GeometryInstanceFlagsKHR) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn acceleration_structure_reference(
+        mut self,
+        acceleration_structure_reference: u64,
+    ) -> Self {
+        self.acceleration_structure_reference = acceleration_structure_reference;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct AccelerationStructureMotionInstanceNV {
@@ -130,6 +300,20 @@ impl Default for AccelerationStructureMotionInstanceNV {
             flags: Default::default(),
             data: Default::default(),
         }
+    }
+}
+impl AccelerationStructureMotionInstanceNV {
+    pub fn ty(mut self, ty: AccelerationStructureMotionInstanceTypeNV) -> Self {
+        self.ty = ty;
+        self
+    }
+    pub fn flags(mut self, flags: AccelerationStructureMotionInstanceFlagsNV) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn data(mut self, data: AccelerationStructureMotionInstanceDataNV) -> Self {
+        self.data = data;
+        self
     }
 }
 #[repr(C)]

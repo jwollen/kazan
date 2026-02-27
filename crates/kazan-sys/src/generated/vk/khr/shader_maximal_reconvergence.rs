@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,5 +19,11 @@ impl Default for PhysicalDeviceShaderMaximalReconvergenceFeaturesKHR<'_> {
             shader_maximal_reconvergence: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceShaderMaximalReconvergenceFeaturesKHR<'a> {
+    pub fn shader_maximal_reconvergence(mut self, shader_maximal_reconvergence: Bool32) -> Self {
+        self.shader_maximal_reconvergence = shader_maximal_reconvergence;
+        self
     }
 }

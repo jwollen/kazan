@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,6 +21,15 @@ impl Default for VideoEncodeSessionParametersGetInfoKHR<'_> {
         }
     }
 }
+impl<'a> VideoEncodeSessionParametersGetInfoKHR<'a> {
+    pub fn video_session_parameters(
+        mut self,
+        video_session_parameters: VideoSessionParametersKHR,
+    ) -> Self {
+        self.video_session_parameters = video_session_parameters;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VideoEncodeSessionParametersFeedbackInfoKHR<'a> {
@@ -37,6 +46,12 @@ impl Default for VideoEncodeSessionParametersFeedbackInfoKHR<'_> {
             has_overrides: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VideoEncodeSessionParametersFeedbackInfoKHR<'a> {
+    pub fn has_overrides(mut self, has_overrides: Bool32) -> Self {
+        self.has_overrides = has_overrides;
+        self
     }
 }
 #[repr(C)]
@@ -59,6 +74,20 @@ impl Default for VideoEncodeUsageInfoKHR<'_> {
             tuning_mode: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VideoEncodeUsageInfoKHR<'a> {
+    pub fn video_usage_hints(mut self, video_usage_hints: VideoEncodeUsageFlagsKHR) -> Self {
+        self.video_usage_hints = video_usage_hints;
+        self
+    }
+    pub fn video_content_hints(mut self, video_content_hints: VideoEncodeContentFlagsKHR) -> Self {
+        self.video_content_hints = video_content_hints;
+        self
+    }
+    pub fn tuning_mode(mut self, tuning_mode: VideoEncodeTuningModeKHR) -> Self {
+        self.tuning_mode = tuning_mode;
+        self
     }
 }
 #[repr(C)]
@@ -95,6 +124,50 @@ impl Default for VideoEncodeInfoKHR<'_> {
         }
     }
 }
+impl<'a> VideoEncodeInfoKHR<'a> {
+    pub fn flags(mut self, flags: VideoEncodeFlagsKHR) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn dst_buffer(mut self, dst_buffer: Buffer) -> Self {
+        self.dst_buffer = dst_buffer;
+        self
+    }
+    pub fn dst_buffer_offset(mut self, dst_buffer_offset: DeviceSize) -> Self {
+        self.dst_buffer_offset = dst_buffer_offset;
+        self
+    }
+    pub fn dst_buffer_range(mut self, dst_buffer_range: DeviceSize) -> Self {
+        self.dst_buffer_range = dst_buffer_range;
+        self
+    }
+    pub fn src_picture_resource(
+        mut self,
+        src_picture_resource: VideoPictureResourceInfoKHR<'a>,
+    ) -> Self {
+        self.src_picture_resource = src_picture_resource;
+        self
+    }
+    pub fn setup_reference_slot(
+        mut self,
+        setup_reference_slot: &'a VideoReferenceSlotInfoKHR<'a>,
+    ) -> Self {
+        self.p_setup_reference_slot = setup_reference_slot;
+        self
+    }
+    pub fn reference_slots(mut self, reference_slots: &'a [VideoReferenceSlotInfoKHR<'a>]) -> Self {
+        self.reference_slot_count = reference_slots.len().try_into().unwrap();
+        self.p_reference_slots = reference_slots.as_ptr();
+        self
+    }
+    pub fn preceding_externally_encoded_bytes(
+        mut self,
+        preceding_externally_encoded_bytes: u32,
+    ) -> Self {
+        self.preceding_externally_encoded_bytes = preceding_externally_encoded_bytes;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct QueryPoolVideoEncodeFeedbackCreateInfoKHR<'a> {
@@ -113,6 +186,15 @@ impl Default for QueryPoolVideoEncodeFeedbackCreateInfoKHR<'_> {
         }
     }
 }
+impl<'a> QueryPoolVideoEncodeFeedbackCreateInfoKHR<'a> {
+    pub fn encode_feedback_flags(
+        mut self,
+        encode_feedback_flags: VideoEncodeFeedbackFlagsKHR,
+    ) -> Self {
+        self.encode_feedback_flags = encode_feedback_flags;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VideoEncodeQualityLevelInfoKHR<'a> {
@@ -129,6 +211,12 @@ impl Default for VideoEncodeQualityLevelInfoKHR<'_> {
             quality_level: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VideoEncodeQualityLevelInfoKHR<'a> {
+    pub fn quality_level(mut self, quality_level: u32) -> Self {
+        self.quality_level = quality_level;
+        self
     }
 }
 #[repr(C)]
@@ -151,6 +239,16 @@ impl Default for PhysicalDeviceVideoEncodeQualityLevelInfoKHR<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceVideoEncodeQualityLevelInfoKHR<'a> {
+    pub fn video_profile(mut self, video_profile: &'a VideoProfileInfoKHR<'a>) -> Self {
+        self.p_video_profile = video_profile;
+        self
+    }
+    pub fn quality_level(mut self, quality_level: u32) -> Self {
+        self.quality_level = quality_level;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VideoEncodeQualityLevelPropertiesKHR<'a> {
@@ -169,6 +267,22 @@ impl Default for VideoEncodeQualityLevelPropertiesKHR<'_> {
             preferred_rate_control_layer_count: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VideoEncodeQualityLevelPropertiesKHR<'a> {
+    pub fn preferred_rate_control_mode(
+        mut self,
+        preferred_rate_control_mode: VideoEncodeRateControlModeFlagBitsKHR,
+    ) -> Self {
+        self.preferred_rate_control_mode = preferred_rate_control_mode;
+        self
+    }
+    pub fn preferred_rate_control_layer_count(
+        mut self,
+        preferred_rate_control_layer_count: u32,
+    ) -> Self {
+        self.preferred_rate_control_layer_count = preferred_rate_control_layer_count;
+        self
     }
 }
 #[repr(C)]
@@ -199,6 +313,35 @@ impl Default for VideoEncodeRateControlInfoKHR<'_> {
         }
     }
 }
+impl<'a> VideoEncodeRateControlInfoKHR<'a> {
+    pub fn flags(mut self, flags: VideoEncodeRateControlFlagsKHR) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn rate_control_mode(
+        mut self,
+        rate_control_mode: VideoEncodeRateControlModeFlagBitsKHR,
+    ) -> Self {
+        self.rate_control_mode = rate_control_mode;
+        self
+    }
+    pub fn layers(mut self, layers: &'a [VideoEncodeRateControlLayerInfoKHR<'a>]) -> Self {
+        self.layer_count = layers.len().try_into().unwrap();
+        self.p_layers = layers.as_ptr();
+        self
+    }
+    pub fn virtual_buffer_size_in_ms(mut self, virtual_buffer_size_in_ms: u32) -> Self {
+        self.virtual_buffer_size_in_ms = virtual_buffer_size_in_ms;
+        self
+    }
+    pub fn initial_virtual_buffer_size_in_ms(
+        mut self,
+        initial_virtual_buffer_size_in_ms: u32,
+    ) -> Self {
+        self.initial_virtual_buffer_size_in_ms = initial_virtual_buffer_size_in_ms;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VideoEncodeRateControlLayerInfoKHR<'a> {
@@ -221,6 +364,24 @@ impl Default for VideoEncodeRateControlLayerInfoKHR<'_> {
             frame_rate_denominator: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VideoEncodeRateControlLayerInfoKHR<'a> {
+    pub fn average_bitrate(mut self, average_bitrate: u64) -> Self {
+        self.average_bitrate = average_bitrate;
+        self
+    }
+    pub fn max_bitrate(mut self, max_bitrate: u64) -> Self {
+        self.max_bitrate = max_bitrate;
+        self
+    }
+    pub fn frame_rate_numerator(mut self, frame_rate_numerator: u32) -> Self {
+        self.frame_rate_numerator = frame_rate_numerator;
+        self
+    }
+    pub fn frame_rate_denominator(mut self, frame_rate_denominator: u32) -> Self {
+        self.frame_rate_denominator = frame_rate_denominator;
+        self
     }
 }
 #[repr(C)]
@@ -251,6 +412,45 @@ impl Default for VideoEncodeCapabilitiesKHR<'_> {
             supported_encode_feedback_flags: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VideoEncodeCapabilitiesKHR<'a> {
+    pub fn flags(mut self, flags: VideoEncodeCapabilityFlagsKHR) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn rate_control_modes(
+        mut self,
+        rate_control_modes: VideoEncodeRateControlModeFlagsKHR,
+    ) -> Self {
+        self.rate_control_modes = rate_control_modes;
+        self
+    }
+    pub fn max_rate_control_layers(mut self, max_rate_control_layers: u32) -> Self {
+        self.max_rate_control_layers = max_rate_control_layers;
+        self
+    }
+    pub fn max_bitrate(mut self, max_bitrate: u64) -> Self {
+        self.max_bitrate = max_bitrate;
+        self
+    }
+    pub fn max_quality_levels(mut self, max_quality_levels: u32) -> Self {
+        self.max_quality_levels = max_quality_levels;
+        self
+    }
+    pub fn encode_input_picture_granularity(
+        mut self,
+        encode_input_picture_granularity: Extent2D,
+    ) -> Self {
+        self.encode_input_picture_granularity = encode_input_picture_granularity;
+        self
+    }
+    pub fn supported_encode_feedback_flags(
+        mut self,
+        supported_encode_feedback_flags: VideoEncodeFeedbackFlagsKHR,
+    ) -> Self {
+        self.supported_encode_feedback_flags = supported_encode_feedback_flags;
+        self
     }
 }
 #[repr(transparent)]

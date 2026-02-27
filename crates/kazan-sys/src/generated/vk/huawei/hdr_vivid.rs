@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,6 +23,13 @@ impl Default for HdrVividDynamicMetadataHUAWEI<'_> {
         }
     }
 }
+impl<'a> HdrVividDynamicMetadataHUAWEI<'a> {
+    pub fn dynamic_metadata(mut self, dynamic_metadata: &'a [u8]) -> Self {
+        self.dynamic_metadata_size = dynamic_metadata.len().try_into().unwrap();
+        self.p_dynamic_metadata = dynamic_metadata.as_ptr() as _;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceHdrVividFeaturesHUAWEI<'a> {
@@ -39,5 +46,11 @@ impl Default for PhysicalDeviceHdrVividFeaturesHUAWEI<'_> {
             hdr_vivid: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceHdrVividFeaturesHUAWEI<'a> {
+    pub fn hdr_vivid(mut self, hdr_vivid: Bool32) -> Self {
+        self.hdr_vivid = hdr_vivid;
+        self
     }
 }

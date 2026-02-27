@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -25,6 +25,26 @@ impl Default for ValidationFeaturesEXT<'_> {
             p_disabled_validation_features: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ValidationFeaturesEXT<'a> {
+    pub fn enabled_validation_features(
+        mut self,
+        enabled_validation_features: &'a [ValidationFeatureEnableEXT],
+    ) -> Self {
+        self.enabled_validation_feature_count =
+            enabled_validation_features.len().try_into().unwrap();
+        self.p_enabled_validation_features = enabled_validation_features.as_ptr();
+        self
+    }
+    pub fn disabled_validation_features(
+        mut self,
+        disabled_validation_features: &'a [ValidationFeatureDisableEXT],
+    ) -> Self {
+        self.disabled_validation_feature_count =
+            disabled_validation_features.len().try_into().unwrap();
+        self.p_disabled_validation_features = disabled_validation_features.as_ptr();
+        self
     }
 }
 #[repr(transparent)]

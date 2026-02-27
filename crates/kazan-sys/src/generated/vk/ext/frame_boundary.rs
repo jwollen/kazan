@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -37,6 +37,35 @@ impl Default for FrameBoundaryEXT<'_> {
         }
     }
 }
+impl<'a> FrameBoundaryEXT<'a> {
+    pub fn flags(mut self, flags: FrameBoundaryFlagsEXT) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn frame_id(mut self, frame_id: u64) -> Self {
+        self.frame_id = frame_id;
+        self
+    }
+    pub fn images(mut self, images: &'a [Image]) -> Self {
+        self.image_count = images.len().try_into().unwrap();
+        self.p_images = images.as_ptr();
+        self
+    }
+    pub fn buffers(mut self, buffers: &'a [Buffer]) -> Self {
+        self.buffer_count = buffers.len().try_into().unwrap();
+        self.p_buffers = buffers.as_ptr();
+        self
+    }
+    pub fn tag_name(mut self, tag_name: u64) -> Self {
+        self.tag_name = tag_name;
+        self
+    }
+    pub fn tag(mut self, tag: &'a [u8]) -> Self {
+        self.tag_size = tag.len().try_into().unwrap();
+        self.p_tag = tag.as_ptr() as _;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceFrameBoundaryFeaturesEXT<'a> {
@@ -53,6 +82,12 @@ impl Default for PhysicalDeviceFrameBoundaryFeaturesEXT<'_> {
             frame_boundary: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceFrameBoundaryFeaturesEXT<'a> {
+    pub fn frame_boundary(mut self, frame_boundary: Bool32) -> Self {
+        self.frame_boundary = frame_boundary;
+        self
     }
 }
 bitflags! {

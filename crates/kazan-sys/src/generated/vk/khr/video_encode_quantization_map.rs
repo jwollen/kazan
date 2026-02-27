@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for VideoEncodeQuantizationMapCapabilitiesKHR<'_> {
             max_quantization_map_extent: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VideoEncodeQuantizationMapCapabilitiesKHR<'a> {
+    pub fn max_quantization_map_extent(mut self, max_quantization_map_extent: Extent2D) -> Self {
+        self.max_quantization_map_extent = max_quantization_map_extent;
+        self
     }
 }
 #[repr(C)]
@@ -41,6 +47,16 @@ impl Default for VideoEncodeH264QuantizationMapCapabilitiesKHR<'_> {
         }
     }
 }
+impl<'a> VideoEncodeH264QuantizationMapCapabilitiesKHR<'a> {
+    pub fn min_qp_delta(mut self, min_qp_delta: i32) -> Self {
+        self.min_qp_delta = min_qp_delta;
+        self
+    }
+    pub fn max_qp_delta(mut self, max_qp_delta: i32) -> Self {
+        self.max_qp_delta = max_qp_delta;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VideoEncodeH265QuantizationMapCapabilitiesKHR<'a> {
@@ -59,6 +75,16 @@ impl Default for VideoEncodeH265QuantizationMapCapabilitiesKHR<'_> {
             max_qp_delta: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VideoEncodeH265QuantizationMapCapabilitiesKHR<'a> {
+    pub fn min_qp_delta(mut self, min_qp_delta: i32) -> Self {
+        self.min_qp_delta = min_qp_delta;
+        self
+    }
+    pub fn max_qp_delta(mut self, max_qp_delta: i32) -> Self {
+        self.max_qp_delta = max_qp_delta;
+        self
     }
 }
 #[repr(C)]
@@ -81,6 +107,16 @@ impl Default for VideoEncodeAV1QuantizationMapCapabilitiesKHR<'_> {
         }
     }
 }
+impl<'a> VideoEncodeAV1QuantizationMapCapabilitiesKHR<'a> {
+    pub fn min_q_index_delta(mut self, min_q_index_delta: i32) -> Self {
+        self.min_q_index_delta = min_q_index_delta;
+        self
+    }
+    pub fn max_q_index_delta(mut self, max_q_index_delta: i32) -> Self {
+        self.max_q_index_delta = max_q_index_delta;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VideoFormatQuantizationMapPropertiesKHR<'a> {
@@ -97,6 +133,12 @@ impl Default for VideoFormatQuantizationMapPropertiesKHR<'_> {
             quantization_map_texel_size: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VideoFormatQuantizationMapPropertiesKHR<'a> {
+    pub fn quantization_map_texel_size(mut self, quantization_map_texel_size: Extent2D) -> Self {
+        self.quantization_map_texel_size = quantization_map_texel_size;
+        self
     }
 }
 #[repr(C)]
@@ -117,6 +159,15 @@ impl Default for VideoFormatH265QuantizationMapPropertiesKHR<'_> {
         }
     }
 }
+impl<'a> VideoFormatH265QuantizationMapPropertiesKHR<'a> {
+    pub fn compatible_ctb_sizes(
+        mut self,
+        compatible_ctb_sizes: VideoEncodeH265CtbSizeFlagsKHR,
+    ) -> Self {
+        self.compatible_ctb_sizes = compatible_ctb_sizes;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VideoFormatAV1QuantizationMapPropertiesKHR<'a> {
@@ -133,6 +184,15 @@ impl Default for VideoFormatAV1QuantizationMapPropertiesKHR<'_> {
             compatible_superblock_sizes: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VideoFormatAV1QuantizationMapPropertiesKHR<'a> {
+    pub fn compatible_superblock_sizes(
+        mut self,
+        compatible_superblock_sizes: VideoEncodeAV1SuperblockSizeFlagsKHR,
+    ) -> Self {
+        self.compatible_superblock_sizes = compatible_superblock_sizes;
+        self
     }
 }
 #[repr(C)]
@@ -155,6 +215,16 @@ impl Default for VideoEncodeQuantizationMapInfoKHR<'_> {
         }
     }
 }
+impl<'a> VideoEncodeQuantizationMapInfoKHR<'a> {
+    pub fn quantization_map(mut self, quantization_map: ImageView) -> Self {
+        self.quantization_map = quantization_map;
+        self
+    }
+    pub fn quantization_map_extent(mut self, quantization_map_extent: Extent2D) -> Self {
+        self.quantization_map_extent = quantization_map_extent;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VideoEncodeQuantizationMapSessionParametersCreateInfoKHR<'a> {
@@ -173,6 +243,12 @@ impl Default for VideoEncodeQuantizationMapSessionParametersCreateInfoKHR<'_> {
         }
     }
 }
+impl<'a> VideoEncodeQuantizationMapSessionParametersCreateInfoKHR<'a> {
+    pub fn quantization_map_texel_size(mut self, quantization_map_texel_size: Extent2D) -> Self {
+        self.quantization_map_texel_size = quantization_map_texel_size;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR<'a> {
@@ -189,5 +265,11 @@ impl Default for PhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR<'_> {
             video_encode_quantization_map: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR<'a> {
+    pub fn video_encode_quantization_map(mut self, video_encode_quantization_map: Bool32) -> Self {
+        self.video_encode_quantization_map = video_encode_quantization_map;
+        self
     }
 }

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,15 @@ impl Default for PhysicalDevicePerformanceCountersByRegionFeaturesARM<'_> {
             performance_counters_by_region: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDevicePerformanceCountersByRegionFeaturesARM<'a> {
+    pub fn performance_counters_by_region(
+        mut self,
+        performance_counters_by_region: Bool32,
+    ) -> Self {
+        self.performance_counters_by_region = performance_counters_by_region;
+        self
     }
 }
 #[repr(C)]
@@ -47,6 +56,34 @@ impl Default for PhysicalDevicePerformanceCountersByRegionPropertiesARM<'_> {
         }
     }
 }
+impl<'a> PhysicalDevicePerformanceCountersByRegionPropertiesARM<'a> {
+    pub fn max_per_region_performance_counters(
+        mut self,
+        max_per_region_performance_counters: u32,
+    ) -> Self {
+        self.max_per_region_performance_counters = max_per_region_performance_counters;
+        self
+    }
+    pub fn performance_counter_region_size(
+        mut self,
+        performance_counter_region_size: Extent2D,
+    ) -> Self {
+        self.performance_counter_region_size = performance_counter_region_size;
+        self
+    }
+    pub fn row_stride_alignment(mut self, row_stride_alignment: u32) -> Self {
+        self.row_stride_alignment = row_stride_alignment;
+        self
+    }
+    pub fn region_alignment(mut self, region_alignment: u32) -> Self {
+        self.region_alignment = region_alignment;
+        self
+    }
+    pub fn identity_transform_order(mut self, identity_transform_order: Bool32) -> Self {
+        self.identity_transform_order = identity_transform_order;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PerformanceCounterARM<'a> {
@@ -63,6 +100,12 @@ impl Default for PerformanceCounterARM<'_> {
             counter_id: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PerformanceCounterARM<'a> {
+    pub fn counter_id(mut self, counter_id: u32) -> Self {
+        self.counter_id = counter_id;
+        self
     }
 }
 #[repr(C)]
@@ -83,6 +126,12 @@ impl Default for PerformanceCounterDescriptionARM<'_> {
             name: [Default::default(); _],
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PerformanceCounterDescriptionARM<'a> {
+    pub fn flags(mut self, flags: PerformanceCounterDescriptionFlagsARM) -> Self {
+        self.flags = flags;
+        self
     }
 }
 #[repr(C)]
@@ -109,6 +158,28 @@ impl Default for RenderPassPerformanceCountersByRegionBeginInfoARM<'_> {
             p_counter_indices: core::ptr::null_mut(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> RenderPassPerformanceCountersByRegionBeginInfoARM<'a> {
+    pub fn counter_address_count(mut self, counter_address_count: u32) -> Self {
+        self.counter_address_count = counter_address_count;
+        self
+    }
+    pub fn counter_addresses(mut self, counter_addresses: &'a DeviceAddress) -> Self {
+        self.p_counter_addresses = counter_addresses;
+        self
+    }
+    pub fn serialize_regions(mut self, serialize_regions: Bool32) -> Self {
+        self.serialize_regions = serialize_regions;
+        self
+    }
+    pub fn counter_index_count(mut self, counter_index_count: u32) -> Self {
+        self.counter_index_count = counter_index_count;
+        self
+    }
+    pub fn counter_indices(mut self, counter_indices: &'a mut u32) -> Self {
+        self.p_counter_indices = counter_indices;
+        self
     }
 }
 bitflags! {

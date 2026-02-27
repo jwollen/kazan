@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,6 +23,16 @@ impl Default for SamplerBorderColorComponentMappingCreateInfoEXT<'_> {
         }
     }
 }
+impl<'a> SamplerBorderColorComponentMappingCreateInfoEXT<'a> {
+    pub fn components(mut self, components: ComponentMapping) -> Self {
+        self.components = components;
+        self
+    }
+    pub fn srgb(mut self, srgb: Bool32) -> Self {
+        self.srgb = srgb;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceBorderColorSwizzleFeaturesEXT<'a> {
@@ -41,5 +51,18 @@ impl Default for PhysicalDeviceBorderColorSwizzleFeaturesEXT<'_> {
             border_color_swizzle_from_image: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceBorderColorSwizzleFeaturesEXT<'a> {
+    pub fn border_color_swizzle(mut self, border_color_swizzle: Bool32) -> Self {
+        self.border_color_swizzle = border_color_swizzle;
+        self
+    }
+    pub fn border_color_swizzle_from_image(
+        mut self,
+        border_color_swizzle_from_image: Bool32,
+    ) -> Self {
+        self.border_color_swizzle_from_image = border_color_swizzle_from_image;
+        self
     }
 }

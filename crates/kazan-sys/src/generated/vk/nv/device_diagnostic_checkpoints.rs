@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,15 @@ impl Default for QueueFamilyCheckpointPropertiesNV<'_> {
             checkpoint_execution_stage_mask: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> QueueFamilyCheckpointPropertiesNV<'a> {
+    pub fn checkpoint_execution_stage_mask(
+        mut self,
+        checkpoint_execution_stage_mask: PipelineStageFlags,
+    ) -> Self {
+        self.checkpoint_execution_stage_mask = checkpoint_execution_stage_mask;
+        self
     }
 }
 #[repr(C)]
@@ -41,6 +50,16 @@ impl Default for CheckpointDataNV<'_> {
         }
     }
 }
+impl<'a> CheckpointDataNV<'a> {
+    pub fn stage(mut self, stage: PipelineStageFlagBits) -> Self {
+        self.stage = stage;
+        self
+    }
+    pub fn checkpoint_marker(mut self, checkpoint_marker: &'a mut c_void) -> Self {
+        self.p_checkpoint_marker = checkpoint_marker;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct QueueFamilyCheckpointProperties2NV<'a> {
@@ -57,6 +76,15 @@ impl Default for QueueFamilyCheckpointProperties2NV<'_> {
             checkpoint_execution_stage_mask: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> QueueFamilyCheckpointProperties2NV<'a> {
+    pub fn checkpoint_execution_stage_mask(
+        mut self,
+        checkpoint_execution_stage_mask: PipelineStageFlags2,
+    ) -> Self {
+        self.checkpoint_execution_stage_mask = checkpoint_execution_stage_mask;
+        self
     }
 }
 #[repr(C)]
@@ -77,6 +105,16 @@ impl Default for CheckpointData2NV<'_> {
             p_checkpoint_marker: core::ptr::null_mut(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> CheckpointData2NV<'a> {
+    pub fn stage(mut self, stage: PipelineStageFlags2) -> Self {
+        self.stage = stage;
+        self
+    }
+    pub fn checkpoint_marker(mut self, checkpoint_marker: &'a mut c_void) -> Self {
+        self.p_checkpoint_marker = checkpoint_marker;
+        self
     }
 }
 pub type PFN_vkCmdSetCheckpointNV =

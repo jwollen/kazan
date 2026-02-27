@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub type PFN_vkCmdSetCullModeEXT = PFN_vkCmdSetCullMode;
 pub type PFN_vkCmdSetFrontFaceEXT = PFN_vkCmdSetFrontFace;
@@ -31,5 +31,11 @@ impl Default for PhysicalDeviceExtendedDynamicStateFeaturesEXT<'_> {
             extended_dynamic_state: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceExtendedDynamicStateFeaturesEXT<'a> {
+    pub fn extended_dynamic_state(mut self, extended_dynamic_state: Bool32) -> Self {
+        self.extended_dynamic_state = extended_dynamic_state;
+        self
     }
 }

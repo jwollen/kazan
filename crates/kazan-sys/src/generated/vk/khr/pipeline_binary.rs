@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub const MAX_PIPELINE_BINARY_KEY_SIZE_KHR: u32 = 32;
 #[repr(C)]
@@ -29,6 +29,26 @@ impl Default for PipelineBinaryCreateInfoKHR<'_> {
         }
     }
 }
+impl<'a> PipelineBinaryCreateInfoKHR<'a> {
+    pub fn keys_and_data_info(
+        mut self,
+        keys_and_data_info: &'a PipelineBinaryKeysAndDataKHR<'a>,
+    ) -> Self {
+        self.p_keys_and_data_info = keys_and_data_info;
+        self
+    }
+    pub fn pipeline(mut self, pipeline: Pipeline) -> Self {
+        self.pipeline = pipeline;
+        self
+    }
+    pub fn pipeline_create_info(
+        mut self,
+        pipeline_create_info: &'a PipelineCreateInfoKHR<'a>,
+    ) -> Self {
+        self.p_pipeline_create_info = pipeline_create_info;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PipelineBinaryHandlesInfoKHR<'a> {
@@ -49,6 +69,13 @@ impl Default for PipelineBinaryHandlesInfoKHR<'_> {
         }
     }
 }
+impl<'a> PipelineBinaryHandlesInfoKHR<'a> {
+    pub fn pipeline_binaries(mut self, pipeline_binaries: &'a mut [PipelineBinaryKHR]) -> Self {
+        self.pipeline_binary_count = pipeline_binaries.len().try_into().unwrap();
+        self.p_pipeline_binaries = pipeline_binaries.as_mut_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PipelineBinaryDataKHR<'a> {
@@ -63,6 +90,13 @@ impl Default for PipelineBinaryDataKHR<'_> {
             p_data: core::ptr::null_mut(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineBinaryDataKHR<'a> {
+    pub fn data(mut self, data: &'a mut [u8]) -> Self {
+        self.data_size = data.len().try_into().unwrap();
+        self.p_data = data.as_mut_ptr() as _;
+        self
     }
 }
 #[repr(C)]
@@ -81,6 +115,24 @@ impl Default for PipelineBinaryKeysAndDataKHR<'_> {
             p_pipeline_binary_data: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineBinaryKeysAndDataKHR<'a> {
+    pub fn pipeline_binary_keys(
+        mut self,
+        pipeline_binary_keys: &'a [PipelineBinaryKeyKHR<'a>],
+    ) -> Self {
+        self.binary_count = pipeline_binary_keys.len().try_into().unwrap();
+        self.p_pipeline_binary_keys = pipeline_binary_keys.as_ptr();
+        self
+    }
+    pub fn pipeline_binary_data(
+        mut self,
+        pipeline_binary_data: &'a [PipelineBinaryDataKHR<'a>],
+    ) -> Self {
+        self.binary_count = pipeline_binary_data.len().try_into().unwrap();
+        self.p_pipeline_binary_data = pipeline_binary_data.as_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -103,6 +155,16 @@ impl Default for PipelineBinaryKeyKHR<'_> {
         }
     }
 }
+impl<'a> PipelineBinaryKeyKHR<'a> {
+    pub fn key_size(mut self, key_size: u32) -> Self {
+        self.key_size = key_size;
+        self
+    }
+    pub fn key(mut self, key: [u8; MAX_PIPELINE_BINARY_KEY_SIZE_KHR as usize]) -> Self {
+        self.key = key;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PipelineBinaryInfoKHR<'a> {
@@ -123,6 +185,13 @@ impl Default for PipelineBinaryInfoKHR<'_> {
         }
     }
 }
+impl<'a> PipelineBinaryInfoKHR<'a> {
+    pub fn pipeline_binaries(mut self, pipeline_binaries: &'a [PipelineBinaryKHR]) -> Self {
+        self.binary_count = pipeline_binaries.len().try_into().unwrap();
+        self.p_pipeline_binaries = pipeline_binaries.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ReleaseCapturedPipelineDataInfoKHR<'a> {
@@ -139,6 +208,12 @@ impl Default for ReleaseCapturedPipelineDataInfoKHR<'_> {
             pipeline: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ReleaseCapturedPipelineDataInfoKHR<'a> {
+    pub fn pipeline(mut self, pipeline: Pipeline) -> Self {
+        self.pipeline = pipeline;
+        self
     }
 }
 #[repr(C)]
@@ -159,6 +234,12 @@ impl Default for PipelineBinaryDataInfoKHR<'_> {
         }
     }
 }
+impl<'a> PipelineBinaryDataInfoKHR<'a> {
+    pub fn pipeline_binary(mut self, pipeline_binary: PipelineBinaryKHR) -> Self {
+        self.pipeline_binary = pipeline_binary;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PipelineCreateInfoKHR<'a> {
@@ -175,6 +256,7 @@ impl Default for PipelineCreateInfoKHR<'_> {
         }
     }
 }
+impl<'a> PipelineCreateInfoKHR<'a> {}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDevicePipelineBinaryFeaturesKHR<'a> {
@@ -193,6 +275,12 @@ impl Default for PhysicalDevicePipelineBinaryFeaturesKHR<'_> {
         }
     }
 }
+impl<'a> PhysicalDevicePipelineBinaryFeaturesKHR<'a> {
+    pub fn pipeline_binaries(mut self, pipeline_binaries: Bool32) -> Self {
+        self.pipeline_binaries = pipeline_binaries;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DevicePipelineBinaryInternalCacheControlKHR<'a> {
@@ -209,6 +297,12 @@ impl Default for DevicePipelineBinaryInternalCacheControlKHR<'_> {
             disable_internal_cache: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DevicePipelineBinaryInternalCacheControlKHR<'a> {
+    pub fn disable_internal_cache(mut self, disable_internal_cache: Bool32) -> Self {
+        self.disable_internal_cache = disable_internal_cache;
+        self
     }
 }
 #[repr(C)]
@@ -235,6 +329,44 @@ impl Default for PhysicalDevicePipelineBinaryPropertiesKHR<'_> {
             pipeline_binary_compressed_data: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDevicePipelineBinaryPropertiesKHR<'a> {
+    pub fn pipeline_binary_internal_cache(
+        mut self,
+        pipeline_binary_internal_cache: Bool32,
+    ) -> Self {
+        self.pipeline_binary_internal_cache = pipeline_binary_internal_cache;
+        self
+    }
+    pub fn pipeline_binary_internal_cache_control(
+        mut self,
+        pipeline_binary_internal_cache_control: Bool32,
+    ) -> Self {
+        self.pipeline_binary_internal_cache_control = pipeline_binary_internal_cache_control;
+        self
+    }
+    pub fn pipeline_binary_prefers_internal_cache(
+        mut self,
+        pipeline_binary_prefers_internal_cache: Bool32,
+    ) -> Self {
+        self.pipeline_binary_prefers_internal_cache = pipeline_binary_prefers_internal_cache;
+        self
+    }
+    pub fn pipeline_binary_precompiled_internal_cache(
+        mut self,
+        pipeline_binary_precompiled_internal_cache: Bool32,
+    ) -> Self {
+        self.pipeline_binary_precompiled_internal_cache =
+            pipeline_binary_precompiled_internal_cache;
+        self
+    }
+    pub fn pipeline_binary_compressed_data(
+        mut self,
+        pipeline_binary_compressed_data: Bool32,
+    ) -> Self {
+        self.pipeline_binary_compressed_data = pipeline_binary_compressed_data;
+        self
     }
 }
 pub type PFN_vkCreatePipelineBinariesKHR = unsafe extern "system" fn(

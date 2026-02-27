@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,6 +21,12 @@ impl Default for VideoDecodeH265ProfileInfoKHR<'_> {
         }
     }
 }
+impl<'a> VideoDecodeH265ProfileInfoKHR<'a> {
+    pub fn std_profile_idc(mut self, std_profile_idc: StdVideoH265ProfileIdc) -> Self {
+        self.std_profile_idc = std_profile_idc;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VideoDecodeH265CapabilitiesKHR<'a> {
@@ -37,6 +43,12 @@ impl Default for VideoDecodeH265CapabilitiesKHR<'_> {
             max_level_idc: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VideoDecodeH265CapabilitiesKHR<'a> {
+    pub fn max_level_idc(mut self, max_level_idc: StdVideoH265LevelIdc) -> Self {
+        self.max_level_idc = max_level_idc;
+        self
     }
 }
 #[repr(C)]
@@ -67,6 +79,23 @@ impl Default for VideoDecodeH265SessionParametersAddInfoKHR<'_> {
         }
     }
 }
+impl<'a> VideoDecodeH265SessionParametersAddInfoKHR<'a> {
+    pub fn std_vp_ss(mut self, std_vp_ss: &'a [StdVideoH265VideoParameterSet<'a>]) -> Self {
+        self.std_vps_count = std_vp_ss.len().try_into().unwrap();
+        self.p_std_vp_ss = std_vp_ss.as_ptr();
+        self
+    }
+    pub fn std_sp_ss(mut self, std_sp_ss: &'a [StdVideoH265SequenceParameterSet<'a>]) -> Self {
+        self.std_sps_count = std_sp_ss.len().try_into().unwrap();
+        self.p_std_sp_ss = std_sp_ss.as_ptr();
+        self
+    }
+    pub fn std_pp_ss(mut self, std_pp_ss: &'a [StdVideoH265PictureParameterSet<'a>]) -> Self {
+        self.std_pps_count = std_pp_ss.len().try_into().unwrap();
+        self.p_std_pp_ss = std_pp_ss.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VideoDecodeH265SessionParametersCreateInfoKHR<'a> {
@@ -91,6 +120,27 @@ impl Default for VideoDecodeH265SessionParametersCreateInfoKHR<'_> {
         }
     }
 }
+impl<'a> VideoDecodeH265SessionParametersCreateInfoKHR<'a> {
+    pub fn max_std_vps_count(mut self, max_std_vps_count: u32) -> Self {
+        self.max_std_vps_count = max_std_vps_count;
+        self
+    }
+    pub fn max_std_sps_count(mut self, max_std_sps_count: u32) -> Self {
+        self.max_std_sps_count = max_std_sps_count;
+        self
+    }
+    pub fn max_std_pps_count(mut self, max_std_pps_count: u32) -> Self {
+        self.max_std_pps_count = max_std_pps_count;
+        self
+    }
+    pub fn parameters_add_info(
+        mut self,
+        parameters_add_info: &'a VideoDecodeH265SessionParametersAddInfoKHR<'a>,
+    ) -> Self {
+        self.p_parameters_add_info = parameters_add_info;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VideoDecodeH265PictureInfoKHR<'a> {
@@ -113,6 +163,17 @@ impl Default for VideoDecodeH265PictureInfoKHR<'_> {
         }
     }
 }
+impl<'a> VideoDecodeH265PictureInfoKHR<'a> {
+    pub fn std_picture_info(mut self, std_picture_info: &'a StdVideoDecodeH265PictureInfo) -> Self {
+        self.p_std_picture_info = std_picture_info;
+        self
+    }
+    pub fn slice_segment_offsets(mut self, slice_segment_offsets: &'a [u32]) -> Self {
+        self.slice_segment_count = slice_segment_offsets.len().try_into().unwrap();
+        self.p_slice_segment_offsets = slice_segment_offsets.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VideoDecodeH265DpbSlotInfoKHR<'a> {
@@ -129,5 +190,14 @@ impl Default for VideoDecodeH265DpbSlotInfoKHR<'_> {
             p_std_reference_info: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VideoDecodeH265DpbSlotInfoKHR<'a> {
+    pub fn std_reference_info(
+        mut self,
+        std_reference_info: &'a StdVideoDecodeH265ReferenceInfo,
+    ) -> Self {
+        self.p_std_reference_info = std_reference_info;
+        self
     }
 }

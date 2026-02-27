@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,5 +19,11 @@ impl Default for SurfaceProtectedCapabilitiesKHR<'_> {
             supports_protected: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SurfaceProtectedCapabilitiesKHR<'a> {
+    pub fn supports_protected(mut self, supports_protected: Bool32) -> Self {
+        self.supports_protected = supports_protected;
+        self
     }
 }

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub type PhysicalDeviceBufferAddressFeaturesEXT<'a> =
     PhysicalDeviceBufferDeviceAddressFeaturesEXT<'a>;
@@ -29,6 +29,26 @@ impl Default for PhysicalDeviceBufferDeviceAddressFeaturesEXT<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceBufferDeviceAddressFeaturesEXT<'a> {
+    pub fn buffer_device_address(mut self, buffer_device_address: Bool32) -> Self {
+        self.buffer_device_address = buffer_device_address;
+        self
+    }
+    pub fn buffer_device_address_capture_replay(
+        mut self,
+        buffer_device_address_capture_replay: Bool32,
+    ) -> Self {
+        self.buffer_device_address_capture_replay = buffer_device_address_capture_replay;
+        self
+    }
+    pub fn buffer_device_address_multi_device(
+        mut self,
+        buffer_device_address_multi_device: Bool32,
+    ) -> Self {
+        self.buffer_device_address_multi_device = buffer_device_address_multi_device;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct BufferDeviceAddressCreateInfoEXT<'a> {
@@ -45,5 +65,11 @@ impl Default for BufferDeviceAddressCreateInfoEXT<'_> {
             device_address: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> BufferDeviceAddressCreateInfoEXT<'a> {
+    pub fn device_address(mut self, device_address: DeviceAddress) -> Self {
+        self.device_address = device_address;
+        self
     }
 }

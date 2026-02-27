@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,6 +23,23 @@ impl Default for ComputePipelineIndirectBufferInfoNV<'_> {
             pipeline_device_address_capture_replay: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ComputePipelineIndirectBufferInfoNV<'a> {
+    pub fn device_address(mut self, device_address: DeviceAddress) -> Self {
+        self.device_address = device_address;
+        self
+    }
+    pub fn size(mut self, size: DeviceSize) -> Self {
+        self.size = size;
+        self
+    }
+    pub fn pipeline_device_address_capture_replay(
+        mut self,
+        pipeline_device_address_capture_replay: DeviceAddress,
+    ) -> Self {
+        self.pipeline_device_address_capture_replay = pipeline_device_address_capture_replay;
+        self
     }
 }
 #[repr(C)]
@@ -47,6 +64,26 @@ impl Default for PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV<'a> {
+    pub fn device_generated_compute(mut self, device_generated_compute: Bool32) -> Self {
+        self.device_generated_compute = device_generated_compute;
+        self
+    }
+    pub fn device_generated_compute_pipelines(
+        mut self,
+        device_generated_compute_pipelines: Bool32,
+    ) -> Self {
+        self.device_generated_compute_pipelines = device_generated_compute_pipelines;
+        self
+    }
+    pub fn device_generated_compute_capture_replay(
+        mut self,
+        device_generated_compute_capture_replay: Bool32,
+    ) -> Self {
+        self.device_generated_compute_capture_replay = device_generated_compute_capture_replay;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PipelineIndirectDeviceAddressInfoNV<'a> {
@@ -67,10 +104,26 @@ impl Default for PipelineIndirectDeviceAddressInfoNV<'_> {
         }
     }
 }
+impl<'a> PipelineIndirectDeviceAddressInfoNV<'a> {
+    pub fn pipeline_bind_point(mut self, pipeline_bind_point: PipelineBindPoint) -> Self {
+        self.pipeline_bind_point = pipeline_bind_point;
+        self
+    }
+    pub fn pipeline(mut self, pipeline: Pipeline) -> Self {
+        self.pipeline = pipeline;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct BindPipelineIndirectCommandNV {
     pub pipeline_address: DeviceAddress,
+}
+impl BindPipelineIndirectCommandNV {
+    pub fn pipeline_address(mut self, pipeline_address: DeviceAddress) -> Self {
+        self.pipeline_address = pipeline_address;
+        self
+    }
 }
 pub type PFN_vkCmdUpdatePipelineIndirectBufferNV = unsafe extern "system" fn(
     command_buffer: CommandBuffer,

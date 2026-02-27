@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,6 +23,16 @@ impl Default for SubpassShadingPipelineCreateInfoHUAWEI<'_> {
         }
     }
 }
+impl<'a> SubpassShadingPipelineCreateInfoHUAWEI<'a> {
+    pub fn render_pass(mut self, render_pass: RenderPass) -> Self {
+        self.render_pass = render_pass;
+        self
+    }
+    pub fn subpass(mut self, subpass: u32) -> Self {
+        self.subpass = subpass;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceSubpassShadingPropertiesHUAWEI<'a> {
@@ -41,6 +51,16 @@ impl Default for PhysicalDeviceSubpassShadingPropertiesHUAWEI<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceSubpassShadingPropertiesHUAWEI<'a> {
+    pub fn max_subpass_shading_workgroup_size_aspect_ratio(
+        mut self,
+        max_subpass_shading_workgroup_size_aspect_ratio: u32,
+    ) -> Self {
+        self.max_subpass_shading_workgroup_size_aspect_ratio =
+            max_subpass_shading_workgroup_size_aspect_ratio;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceSubpassShadingFeaturesHUAWEI<'a> {
@@ -57,6 +77,12 @@ impl Default for PhysicalDeviceSubpassShadingFeaturesHUAWEI<'_> {
             subpass_shading: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceSubpassShadingFeaturesHUAWEI<'a> {
+    pub fn subpass_shading(mut self, subpass_shading: Bool32) -> Self {
+        self.subpass_shading = subpass_shading;
+        self
     }
 }
 pub type PFN_vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI = unsafe extern "system" fn(

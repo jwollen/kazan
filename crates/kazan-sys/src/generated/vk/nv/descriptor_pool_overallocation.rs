@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,5 +19,14 @@ impl Default for PhysicalDeviceDescriptorPoolOverallocationFeaturesNV<'_> {
             descriptor_pool_overallocation: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceDescriptorPoolOverallocationFeaturesNV<'a> {
+    pub fn descriptor_pool_overallocation(
+        mut self,
+        descriptor_pool_overallocation: Bool32,
+    ) -> Self {
+        self.descriptor_pool_overallocation = descriptor_pool_overallocation;
+        self
     }
 }

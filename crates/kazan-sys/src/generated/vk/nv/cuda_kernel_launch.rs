@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -29,6 +29,13 @@ impl Default for CudaModuleCreateInfoNV<'_> {
         }
     }
 }
+impl<'a> CudaModuleCreateInfoNV<'a> {
+    pub fn data(mut self, data: &'a [u8]) -> Self {
+        self.data_size = data.len().try_into().unwrap();
+        self.p_data = data.as_ptr() as _;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct CudaFunctionCreateInfoNV<'a> {
@@ -47,6 +54,12 @@ impl Default for CudaFunctionCreateInfoNV<'_> {
             p_name: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> CudaFunctionCreateInfoNV<'a> {
+    pub fn module(mut self, module: CudaModuleNV) -> Self {
+        self.module = module;
+        self
     }
 }
 #[repr(C)]
@@ -89,6 +102,50 @@ impl Default for CudaLaunchInfoNV<'_> {
         }
     }
 }
+impl<'a> CudaLaunchInfoNV<'a> {
+    pub fn function(mut self, function: CudaFunctionNV) -> Self {
+        self.function = function;
+        self
+    }
+    pub fn grid_dim_x(mut self, grid_dim_x: u32) -> Self {
+        self.grid_dim_x = grid_dim_x;
+        self
+    }
+    pub fn grid_dim_y(mut self, grid_dim_y: u32) -> Self {
+        self.grid_dim_y = grid_dim_y;
+        self
+    }
+    pub fn grid_dim_z(mut self, grid_dim_z: u32) -> Self {
+        self.grid_dim_z = grid_dim_z;
+        self
+    }
+    pub fn block_dim_x(mut self, block_dim_x: u32) -> Self {
+        self.block_dim_x = block_dim_x;
+        self
+    }
+    pub fn block_dim_y(mut self, block_dim_y: u32) -> Self {
+        self.block_dim_y = block_dim_y;
+        self
+    }
+    pub fn block_dim_z(mut self, block_dim_z: u32) -> Self {
+        self.block_dim_z = block_dim_z;
+        self
+    }
+    pub fn shared_mem_bytes(mut self, shared_mem_bytes: u32) -> Self {
+        self.shared_mem_bytes = shared_mem_bytes;
+        self
+    }
+    pub fn params(mut self, params: &'a [&'a c_void]) -> Self {
+        self.param_count = params.len().try_into().unwrap();
+        self.p_params = params.as_ptr() as _;
+        self
+    }
+    pub fn extras(mut self, extras: &'a [&'a c_void]) -> Self {
+        self.extra_count = extras.len().try_into().unwrap();
+        self.p_extras = extras.as_ptr() as _;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceCudaKernelLaunchFeaturesNV<'a> {
@@ -105,6 +162,12 @@ impl Default for PhysicalDeviceCudaKernelLaunchFeaturesNV<'_> {
             cuda_kernel_launch_features: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceCudaKernelLaunchFeaturesNV<'a> {
+    pub fn cuda_kernel_launch_features(mut self, cuda_kernel_launch_features: Bool32) -> Self {
+        self.cuda_kernel_launch_features = cuda_kernel_launch_features;
+        self
     }
 }
 #[repr(C)]
@@ -125,6 +188,16 @@ impl Default for PhysicalDeviceCudaKernelLaunchPropertiesNV<'_> {
             compute_capability_major: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceCudaKernelLaunchPropertiesNV<'a> {
+    pub fn compute_capability_minor(mut self, compute_capability_minor: u32) -> Self {
+        self.compute_capability_minor = compute_capability_minor;
+        self
+    }
+    pub fn compute_capability_major(mut self, compute_capability_major: u32) -> Self {
+        self.compute_capability_major = compute_capability_major;
+        self
     }
 }
 pub type PFN_vkCreateCudaModuleNV = unsafe extern "system" fn(

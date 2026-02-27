@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub type AttachmentSampleCountInfoNV<'a> = AttachmentSampleCountInfoAMD<'a>;
 #[repr(C)]
@@ -28,6 +28,31 @@ impl Default for PipelineCoverageModulationStateCreateInfoNV<'_> {
             p_coverage_modulation_table: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineCoverageModulationStateCreateInfoNV<'a> {
+    pub fn flags(mut self, flags: PipelineCoverageModulationStateCreateFlagsNV) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn coverage_modulation_mode(
+        mut self,
+        coverage_modulation_mode: CoverageModulationModeNV,
+    ) -> Self {
+        self.coverage_modulation_mode = coverage_modulation_mode;
+        self
+    }
+    pub fn coverage_modulation_table_enable(
+        mut self,
+        coverage_modulation_table_enable: Bool32,
+    ) -> Self {
+        self.coverage_modulation_table_enable = coverage_modulation_table_enable;
+        self
+    }
+    pub fn coverage_modulation_table(mut self, coverage_modulation_table: &'a [f32]) -> Self {
+        self.coverage_modulation_table_count = coverage_modulation_table.len().try_into().unwrap();
+        self.p_coverage_modulation_table = coverage_modulation_table.as_ptr();
+        self
     }
 }
 #[repr(transparent)]

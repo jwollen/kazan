@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,15 @@ impl Default for PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'_> {
             multiview_per_view_render_areas: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'a> {
+    pub fn multiview_per_view_render_areas(
+        mut self,
+        multiview_per_view_render_areas: Bool32,
+    ) -> Self {
+        self.multiview_per_view_render_areas = multiview_per_view_render_areas;
+        self
     }
 }
 #[repr(C)]
@@ -39,5 +48,12 @@ impl Default for MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'_> {
             p_per_view_render_areas: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'a> {
+    pub fn per_view_render_areas(mut self, per_view_render_areas: &'a [Rect2D]) -> Self {
+        self.per_view_render_area_count = per_view_render_areas.len().try_into().unwrap();
+        self.p_per_view_render_areas = per_view_render_areas.as_ptr();
+        self
     }
 }

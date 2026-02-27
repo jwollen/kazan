@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub type RenderingEndInfoEXT<'a> = RenderingEndInfoKHR<'a>;
 pub type PFN_vkCmdEndRendering2EXT = PFN_vkCmdEndRendering2KHR;
@@ -23,6 +23,12 @@ impl Default for PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT<'a> {
+    pub fn fragment_density_map_offset(mut self, fragment_density_map_offset: Bool32) -> Self {
+        self.fragment_density_map_offset = fragment_density_map_offset;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT<'a> {
@@ -39,6 +45,15 @@ impl Default for PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT<'_> {
             fragment_density_offset_granularity: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT<'a> {
+    pub fn fragment_density_offset_granularity(
+        mut self,
+        fragment_density_offset_granularity: Extent2D,
+    ) -> Self {
+        self.fragment_density_offset_granularity = fragment_density_offset_granularity;
+        self
     }
 }
 #[repr(C)]
@@ -59,5 +74,12 @@ impl Default for RenderPassFragmentDensityMapOffsetEndInfoEXT<'_> {
             p_fragment_density_offsets: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> RenderPassFragmentDensityMapOffsetEndInfoEXT<'a> {
+    pub fn fragment_density_offsets(mut self, fragment_density_offsets: &'a [Offset2D]) -> Self {
+        self.fragment_density_offset_count = fragment_density_offsets.len().try_into().unwrap();
+        self.p_fragment_density_offsets = fragment_density_offsets.as_ptr();
+        self
     }
 }

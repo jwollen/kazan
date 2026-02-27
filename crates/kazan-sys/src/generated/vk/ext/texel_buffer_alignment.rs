@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub type PhysicalDeviceTexelBufferAlignmentPropertiesEXT<'a> =
     PhysicalDeviceTexelBufferAlignmentProperties<'a>;
@@ -21,5 +21,11 @@ impl Default for PhysicalDeviceTexelBufferAlignmentFeaturesEXT<'_> {
             texel_buffer_alignment: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceTexelBufferAlignmentFeaturesEXT<'a> {
+    pub fn texel_buffer_alignment(mut self, texel_buffer_alignment: Bool32) -> Self {
+        self.texel_buffer_alignment = texel_buffer_alignment;
+        self
     }
 }

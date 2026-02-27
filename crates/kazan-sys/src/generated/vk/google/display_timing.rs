@@ -1,12 +1,18 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct RefreshCycleDurationGOOGLE {
     pub refresh_duration: u64,
+}
+impl RefreshCycleDurationGOOGLE {
+    pub fn refresh_duration(mut self, refresh_duration: u64) -> Self {
+        self.refresh_duration = refresh_duration;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -16,6 +22,28 @@ pub struct PastPresentationTimingGOOGLE {
     pub actual_present_time: u64,
     pub earliest_present_time: u64,
     pub present_margin: u64,
+}
+impl PastPresentationTimingGOOGLE {
+    pub fn present_id(mut self, present_id: u32) -> Self {
+        self.present_id = present_id;
+        self
+    }
+    pub fn desired_present_time(mut self, desired_present_time: u64) -> Self {
+        self.desired_present_time = desired_present_time;
+        self
+    }
+    pub fn actual_present_time(mut self, actual_present_time: u64) -> Self {
+        self.actual_present_time = actual_present_time;
+        self
+    }
+    pub fn earliest_present_time(mut self, earliest_present_time: u64) -> Self {
+        self.earliest_present_time = earliest_present_time;
+        self
+    }
+    pub fn present_margin(mut self, present_margin: u64) -> Self {
+        self.present_margin = present_margin;
+        self
+    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -37,11 +65,28 @@ impl Default for PresentTimesInfoGOOGLE<'_> {
         }
     }
 }
+impl<'a> PresentTimesInfoGOOGLE<'a> {
+    pub fn times(mut self, times: &'a [PresentTimeGOOGLE]) -> Self {
+        self.swapchain_count = times.len().try_into().unwrap();
+        self.p_times = times.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct PresentTimeGOOGLE {
     pub present_id: u32,
     pub desired_present_time: u64,
+}
+impl PresentTimeGOOGLE {
+    pub fn present_id(mut self, present_id: u32) -> Self {
+        self.present_id = present_id;
+        self
+    }
+    pub fn desired_present_time(mut self, desired_present_time: u64) -> Self {
+        self.desired_present_time = desired_present_time;
+        self
+    }
 }
 pub type PFN_vkGetRefreshCycleDurationGOOGLE = unsafe extern "system" fn(
     device: Device,

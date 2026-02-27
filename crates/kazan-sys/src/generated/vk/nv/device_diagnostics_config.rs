@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,6 +21,12 @@ impl Default for PhysicalDeviceDiagnosticsConfigFeaturesNV<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceDiagnosticsConfigFeaturesNV<'a> {
+    pub fn diagnostics_config(mut self, diagnostics_config: Bool32) -> Self {
+        self.diagnostics_config = diagnostics_config;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DeviceDiagnosticsConfigCreateInfoNV<'a> {
@@ -37,6 +43,12 @@ impl Default for DeviceDiagnosticsConfigCreateInfoNV<'_> {
             flags: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DeviceDiagnosticsConfigCreateInfoNV<'a> {
+    pub fn flags(mut self, flags: DeviceDiagnosticsConfigFlagsNV) -> Self {
+        self.flags = flags;
+        self
     }
 }
 bitflags! {

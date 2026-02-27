@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDevicePresentBarrierFeaturesNV<'_> {
             present_barrier: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDevicePresentBarrierFeaturesNV<'a> {
+    pub fn present_barrier(mut self, present_barrier: Bool32) -> Self {
+        self.present_barrier = present_barrier;
+        self
     }
 }
 #[repr(C)]
@@ -39,6 +45,12 @@ impl Default for SurfaceCapabilitiesPresentBarrierNV<'_> {
         }
     }
 }
+impl<'a> SurfaceCapabilitiesPresentBarrierNV<'a> {
+    pub fn present_barrier_supported(mut self, present_barrier_supported: Bool32) -> Self {
+        self.present_barrier_supported = present_barrier_supported;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SwapchainPresentBarrierCreateInfoNV<'a> {
@@ -55,5 +67,11 @@ impl Default for SwapchainPresentBarrierCreateInfoNV<'_> {
             present_barrier_enable: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SwapchainPresentBarrierCreateInfoNV<'a> {
+    pub fn present_barrier_enable(mut self, present_barrier_enable: Bool32) -> Self {
+        self.present_barrier_enable = present_barrier_enable;
+        self
     }
 }

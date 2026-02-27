@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,5 +21,21 @@ impl Default for PhysicalDevicePrimitiveTopologyListRestartFeaturesEXT<'_> {
             primitive_topology_patch_list_restart: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDevicePrimitiveTopologyListRestartFeaturesEXT<'a> {
+    pub fn primitive_topology_list_restart(
+        mut self,
+        primitive_topology_list_restart: Bool32,
+    ) -> Self {
+        self.primitive_topology_list_restart = primitive_topology_list_restart;
+        self
+    }
+    pub fn primitive_topology_patch_list_restart(
+        mut self,
+        primitive_topology_patch_list_restart: Bool32,
+    ) -> Self {
+        self.primitive_topology_patch_list_restart = primitive_topology_patch_list_restart;
+        self
     }
 }

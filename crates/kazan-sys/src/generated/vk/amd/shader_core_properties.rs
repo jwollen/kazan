@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -45,5 +45,63 @@ impl Default for PhysicalDeviceShaderCorePropertiesAMD<'_> {
             vgpr_allocation_granularity: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceShaderCorePropertiesAMD<'a> {
+    pub fn shader_engine_count(mut self, shader_engine_count: u32) -> Self {
+        self.shader_engine_count = shader_engine_count;
+        self
+    }
+    pub fn shader_arrays_per_engine_count(mut self, shader_arrays_per_engine_count: u32) -> Self {
+        self.shader_arrays_per_engine_count = shader_arrays_per_engine_count;
+        self
+    }
+    pub fn compute_units_per_shader_array(mut self, compute_units_per_shader_array: u32) -> Self {
+        self.compute_units_per_shader_array = compute_units_per_shader_array;
+        self
+    }
+    pub fn simd_per_compute_unit(mut self, simd_per_compute_unit: u32) -> Self {
+        self.simd_per_compute_unit = simd_per_compute_unit;
+        self
+    }
+    pub fn wavefronts_per_simd(mut self, wavefronts_per_simd: u32) -> Self {
+        self.wavefronts_per_simd = wavefronts_per_simd;
+        self
+    }
+    pub fn wavefront_size(mut self, wavefront_size: u32) -> Self {
+        self.wavefront_size = wavefront_size;
+        self
+    }
+    pub fn sgprs_per_simd(mut self, sgprs_per_simd: u32) -> Self {
+        self.sgprs_per_simd = sgprs_per_simd;
+        self
+    }
+    pub fn min_sgpr_allocation(mut self, min_sgpr_allocation: u32) -> Self {
+        self.min_sgpr_allocation = min_sgpr_allocation;
+        self
+    }
+    pub fn max_sgpr_allocation(mut self, max_sgpr_allocation: u32) -> Self {
+        self.max_sgpr_allocation = max_sgpr_allocation;
+        self
+    }
+    pub fn sgpr_allocation_granularity(mut self, sgpr_allocation_granularity: u32) -> Self {
+        self.sgpr_allocation_granularity = sgpr_allocation_granularity;
+        self
+    }
+    pub fn vgprs_per_simd(mut self, vgprs_per_simd: u32) -> Self {
+        self.vgprs_per_simd = vgprs_per_simd;
+        self
+    }
+    pub fn min_vgpr_allocation(mut self, min_vgpr_allocation: u32) -> Self {
+        self.min_vgpr_allocation = min_vgpr_allocation;
+        self
+    }
+    pub fn max_vgpr_allocation(mut self, max_vgpr_allocation: u32) -> Self {
+        self.max_vgpr_allocation = max_vgpr_allocation;
+        self
+    }
+    pub fn vgpr_allocation_granularity(mut self, vgpr_allocation_granularity: u32) -> Self {
+        self.vgpr_allocation_granularity = vgpr_allocation_granularity;
+        self
     }
 }

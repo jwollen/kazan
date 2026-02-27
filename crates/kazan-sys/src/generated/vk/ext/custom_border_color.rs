@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,6 +23,16 @@ impl Default for SamplerCustomBorderColorCreateInfoEXT<'_> {
         }
     }
 }
+impl<'a> SamplerCustomBorderColorCreateInfoEXT<'a> {
+    pub fn custom_border_color(mut self, custom_border_color: ClearColorValue) -> Self {
+        self.custom_border_color = custom_border_color;
+        self
+    }
+    pub fn format(mut self, format: Format) -> Self {
+        self.format = format;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceCustomBorderColorPropertiesEXT<'a> {
@@ -39,6 +49,15 @@ impl Default for PhysicalDeviceCustomBorderColorPropertiesEXT<'_> {
             max_custom_border_color_samplers: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceCustomBorderColorPropertiesEXT<'a> {
+    pub fn max_custom_border_color_samplers(
+        mut self,
+        max_custom_border_color_samplers: u32,
+    ) -> Self {
+        self.max_custom_border_color_samplers = max_custom_border_color_samplers;
+        self
     }
 }
 #[repr(C)]
@@ -59,5 +78,18 @@ impl Default for PhysicalDeviceCustomBorderColorFeaturesEXT<'_> {
             custom_border_color_without_format: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceCustomBorderColorFeaturesEXT<'a> {
+    pub fn custom_border_colors(mut self, custom_border_colors: Bool32) -> Self {
+        self.custom_border_colors = custom_border_colors;
+        self
+    }
+    pub fn custom_border_color_without_format(
+        mut self,
+        custom_border_color_without_format: Bool32,
+    ) -> Self {
+        self.custom_border_color_without_format = custom_border_color_without_format;
+        self
     }
 }

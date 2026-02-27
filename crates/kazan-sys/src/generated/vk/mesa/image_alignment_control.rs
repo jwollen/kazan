@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceImageAlignmentControlFeaturesMESA<'_> {
             image_alignment_control: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceImageAlignmentControlFeaturesMESA<'a> {
+    pub fn image_alignment_control(mut self, image_alignment_control: Bool32) -> Self {
+        self.image_alignment_control = image_alignment_control;
+        self
     }
 }
 #[repr(C)]
@@ -39,6 +45,12 @@ impl Default for PhysicalDeviceImageAlignmentControlPropertiesMESA<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceImageAlignmentControlPropertiesMESA<'a> {
+    pub fn supported_image_alignment_mask(mut self, supported_image_alignment_mask: u32) -> Self {
+        self.supported_image_alignment_mask = supported_image_alignment_mask;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ImageAlignmentControlCreateInfoMESA<'a> {
@@ -55,5 +67,11 @@ impl Default for ImageAlignmentControlCreateInfoMESA<'_> {
             maximum_requested_alignment: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ImageAlignmentControlCreateInfoMESA<'a> {
+    pub fn maximum_requested_alignment(mut self, maximum_requested_alignment: u32) -> Self {
+        self.maximum_requested_alignment = maximum_requested_alignment;
+        self
     }
 }

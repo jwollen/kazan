@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,5 +21,15 @@ impl Default for PhysicalDevice4444FormatsFeaturesEXT<'_> {
             format_a4b4g4r4: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDevice4444FormatsFeaturesEXT<'a> {
+    pub fn format_a4r4g4b4(mut self, format_a4r4g4b4: Bool32) -> Self {
+        self.format_a4r4g4b4 = format_a4r4g4b4;
+        self
+    }
+    pub fn format_a4b4g4r4(mut self, format_a4b4g4r4: Bool32) -> Self {
+        self.format_a4b4g4r4 = format_a4b4g4r4;
+        self
     }
 }

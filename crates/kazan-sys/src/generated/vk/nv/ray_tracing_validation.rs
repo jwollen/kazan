@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,5 +19,11 @@ impl Default for PhysicalDeviceRayTracingValidationFeaturesNV<'_> {
             ray_tracing_validation: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceRayTracingValidationFeaturesNV<'a> {
+    pub fn ray_tracing_validation(mut self, ray_tracing_validation: Bool32) -> Self {
+        self.ray_tracing_validation = ray_tracing_validation;
+        self
     }
 }

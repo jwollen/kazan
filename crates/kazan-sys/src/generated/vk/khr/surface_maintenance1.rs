@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for SurfacePresentModeKHR<'_> {
             present_mode: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SurfacePresentModeKHR<'a> {
+    pub fn present_mode(mut self, present_mode: PresentModeKHR) -> Self {
+        self.present_mode = present_mode;
+        self
     }
 }
 #[repr(C)]
@@ -47,6 +53,37 @@ impl Default for SurfacePresentScalingCapabilitiesKHR<'_> {
         }
     }
 }
+impl<'a> SurfacePresentScalingCapabilitiesKHR<'a> {
+    pub fn supported_present_scaling(
+        mut self,
+        supported_present_scaling: PresentScalingFlagsKHR,
+    ) -> Self {
+        self.supported_present_scaling = supported_present_scaling;
+        self
+    }
+    pub fn supported_present_gravity_x(
+        mut self,
+        supported_present_gravity_x: PresentGravityFlagsKHR,
+    ) -> Self {
+        self.supported_present_gravity_x = supported_present_gravity_x;
+        self
+    }
+    pub fn supported_present_gravity_y(
+        mut self,
+        supported_present_gravity_y: PresentGravityFlagsKHR,
+    ) -> Self {
+        self.supported_present_gravity_y = supported_present_gravity_y;
+        self
+    }
+    pub fn min_scaled_image_extent(mut self, min_scaled_image_extent: Extent2D) -> Self {
+        self.min_scaled_image_extent = min_scaled_image_extent;
+        self
+    }
+    pub fn max_scaled_image_extent(mut self, max_scaled_image_extent: Extent2D) -> Self {
+        self.max_scaled_image_extent = max_scaled_image_extent;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SurfacePresentModeCompatibilityKHR<'a> {
@@ -65,6 +102,13 @@ impl Default for SurfacePresentModeCompatibilityKHR<'_> {
             p_present_modes: core::ptr::null_mut(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SurfacePresentModeCompatibilityKHR<'a> {
+    pub fn present_modes(mut self, present_modes: &'a mut [PresentModeKHR]) -> Self {
+        self.present_mode_count = present_modes.len().try_into().unwrap();
+        self.p_present_modes = present_modes.as_mut_ptr();
+        self
     }
 }
 bitflags! {

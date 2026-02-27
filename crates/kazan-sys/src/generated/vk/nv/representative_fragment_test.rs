@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,6 +21,12 @@ impl Default for PhysicalDeviceRepresentativeFragmentTestFeaturesNV<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceRepresentativeFragmentTestFeaturesNV<'a> {
+    pub fn representative_fragment_test(mut self, representative_fragment_test: Bool32) -> Self {
+        self.representative_fragment_test = representative_fragment_test;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PipelineRepresentativeFragmentTestStateCreateInfoNV<'a> {
@@ -37,5 +43,14 @@ impl Default for PipelineRepresentativeFragmentTestStateCreateInfoNV<'_> {
             representative_fragment_test_enable: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineRepresentativeFragmentTestStateCreateInfoNV<'a> {
+    pub fn representative_fragment_test_enable(
+        mut self,
+        representative_fragment_test_enable: Bool32,
+    ) -> Self {
+        self.representative_fragment_test_enable = representative_fragment_test_enable;
+        self
     }
 }

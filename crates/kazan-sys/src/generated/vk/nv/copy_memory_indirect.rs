@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 pub type CopyMemoryIndirectCommandNV = CopyMemoryIndirectCommandKHR;
 pub type CopyMemoryToImageIndirectCommandNV = CopyMemoryToImageIndirectCommandKHR;
@@ -23,6 +23,12 @@ impl Default for PhysicalDeviceCopyMemoryIndirectFeaturesNV<'_> {
             indirect_copy: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceCopyMemoryIndirectFeaturesNV<'a> {
+    pub fn indirect_copy(mut self, indirect_copy: Bool32) -> Self {
+        self.indirect_copy = indirect_copy;
+        self
     }
 }
 pub type PFN_vkCmdCopyMemoryIndirectNV = unsafe extern "system" fn(

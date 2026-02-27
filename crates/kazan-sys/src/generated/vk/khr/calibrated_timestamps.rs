@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for CalibratedTimestampInfoKHR<'_> {
             time_domain: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> CalibratedTimestampInfoKHR<'a> {
+    pub fn time_domain(mut self, time_domain: TimeDomainKHR) -> Self {
+        self.time_domain = time_domain;
+        self
     }
 }
 #[repr(transparent)]

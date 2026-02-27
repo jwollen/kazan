@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceCoverageReductionModeFeaturesNV<'_> {
             coverage_reduction_mode: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceCoverageReductionModeFeaturesNV<'a> {
+    pub fn coverage_reduction_mode(mut self, coverage_reduction_mode: Bool32) -> Self {
+        self.coverage_reduction_mode = coverage_reduction_mode;
+        self
     }
 }
 #[repr(C)]
@@ -39,6 +45,19 @@ impl Default for PipelineCoverageReductionStateCreateInfoNV<'_> {
             coverage_reduction_mode: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineCoverageReductionStateCreateInfoNV<'a> {
+    pub fn flags(mut self, flags: PipelineCoverageReductionStateCreateFlagsNV) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn coverage_reduction_mode(
+        mut self,
+        coverage_reduction_mode: CoverageReductionModeNV,
+    ) -> Self {
+        self.coverage_reduction_mode = coverage_reduction_mode;
+        self
     }
 }
 #[repr(C)]
@@ -63,6 +82,27 @@ impl Default for FramebufferMixedSamplesCombinationNV<'_> {
             color_samples: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> FramebufferMixedSamplesCombinationNV<'a> {
+    pub fn coverage_reduction_mode(
+        mut self,
+        coverage_reduction_mode: CoverageReductionModeNV,
+    ) -> Self {
+        self.coverage_reduction_mode = coverage_reduction_mode;
+        self
+    }
+    pub fn rasterization_samples(mut self, rasterization_samples: SampleCountFlagBits) -> Self {
+        self.rasterization_samples = rasterization_samples;
+        self
+    }
+    pub fn depth_stencil_samples(mut self, depth_stencil_samples: SampleCountFlags) -> Self {
+        self.depth_stencil_samples = depth_stencil_samples;
+        self
+    }
+    pub fn color_samples(mut self, color_samples: SampleCountFlags) -> Self {
+        self.color_samples = color_samples;
+        self
     }
 }
 #[repr(transparent)]

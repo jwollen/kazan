@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE<'_> {
             video_encode_rgb_conversion: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE<'a> {
+    pub fn video_encode_rgb_conversion(mut self, video_encode_rgb_conversion: Bool32) -> Self {
+        self.video_encode_rgb_conversion = video_encode_rgb_conversion;
+        self
     }
 }
 #[repr(C)]
@@ -45,6 +51,30 @@ impl Default for VideoEncodeRgbConversionCapabilitiesVALVE<'_> {
         }
     }
 }
+impl<'a> VideoEncodeRgbConversionCapabilitiesVALVE<'a> {
+    pub fn rgb_models(mut self, rgb_models: VideoEncodeRgbModelConversionFlagsVALVE) -> Self {
+        self.rgb_models = rgb_models;
+        self
+    }
+    pub fn rgb_ranges(mut self, rgb_ranges: VideoEncodeRgbRangeCompressionFlagsVALVE) -> Self {
+        self.rgb_ranges = rgb_ranges;
+        self
+    }
+    pub fn x_chroma_offsets(
+        mut self,
+        x_chroma_offsets: VideoEncodeRgbChromaOffsetFlagsVALVE,
+    ) -> Self {
+        self.x_chroma_offsets = x_chroma_offsets;
+        self
+    }
+    pub fn y_chroma_offsets(
+        mut self,
+        y_chroma_offsets: VideoEncodeRgbChromaOffsetFlagsVALVE,
+    ) -> Self {
+        self.y_chroma_offsets = y_chroma_offsets;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VideoEncodeProfileRgbConversionInfoVALVE<'a> {
@@ -61,6 +91,12 @@ impl Default for VideoEncodeProfileRgbConversionInfoVALVE<'_> {
             perform_encode_rgb_conversion: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VideoEncodeProfileRgbConversionInfoVALVE<'a> {
+    pub fn perform_encode_rgb_conversion(mut self, perform_encode_rgb_conversion: Bool32) -> Self {
+        self.perform_encode_rgb_conversion = perform_encode_rgb_conversion;
+        self
     }
 }
 #[repr(C)]
@@ -85,6 +121,30 @@ impl Default for VideoEncodeSessionRgbConversionCreateInfoVALVE<'_> {
             y_chroma_offset: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VideoEncodeSessionRgbConversionCreateInfoVALVE<'a> {
+    pub fn rgb_model(mut self, rgb_model: VideoEncodeRgbModelConversionFlagBitsVALVE) -> Self {
+        self.rgb_model = rgb_model;
+        self
+    }
+    pub fn rgb_range(mut self, rgb_range: VideoEncodeRgbRangeCompressionFlagBitsVALVE) -> Self {
+        self.rgb_range = rgb_range;
+        self
+    }
+    pub fn x_chroma_offset(
+        mut self,
+        x_chroma_offset: VideoEncodeRgbChromaOffsetFlagBitsVALVE,
+    ) -> Self {
+        self.x_chroma_offset = x_chroma_offset;
+        self
+    }
+    pub fn y_chroma_offset(
+        mut self,
+        y_chroma_offset: VideoEncodeRgbChromaOffsetFlagBitsVALVE,
+    ) -> Self {
+        self.y_chroma_offset = y_chroma_offset;
+        self
     }
 }
 bitflags! {

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,5 +19,11 @@ impl Default for PhysicalDeviceNonSeamlessCubeMapFeaturesEXT<'_> {
             non_seamless_cube_map: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceNonSeamlessCubeMapFeaturesEXT<'a> {
+    pub fn non_seamless_cube_map(mut self, non_seamless_cube_map: Bool32) -> Self {
+        self.non_seamless_cube_map = non_seamless_cube_map;
+        self
     }
 }

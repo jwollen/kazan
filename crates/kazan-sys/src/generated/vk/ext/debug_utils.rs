@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -26,6 +26,16 @@ impl Default for DebugUtilsObjectNameInfoEXT<'_> {
             p_object_name: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DebugUtilsObjectNameInfoEXT<'a> {
+    pub fn object_type(mut self, object_type: ObjectType) -> Self {
+        self.object_type = object_type;
+        self
+    }
+    pub fn object_handle(mut self, object_handle: u64) -> Self {
+        self.object_handle = object_handle;
+        self
     }
 }
 #[repr(C)]
@@ -54,6 +64,25 @@ impl Default for DebugUtilsObjectTagInfoEXT<'_> {
         }
     }
 }
+impl<'a> DebugUtilsObjectTagInfoEXT<'a> {
+    pub fn object_type(mut self, object_type: ObjectType) -> Self {
+        self.object_type = object_type;
+        self
+    }
+    pub fn object_handle(mut self, object_handle: u64) -> Self {
+        self.object_handle = object_handle;
+        self
+    }
+    pub fn tag_name(mut self, tag_name: u64) -> Self {
+        self.tag_name = tag_name;
+        self
+    }
+    pub fn tag(mut self, tag: &'a [u8]) -> Self {
+        self.tag_size = tag.len().try_into().unwrap();
+        self.p_tag = tag.as_ptr() as _;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DebugUtilsLabelEXT<'a> {
@@ -72,6 +101,12 @@ impl Default for DebugUtilsLabelEXT<'_> {
             color: [Default::default(); _],
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DebugUtilsLabelEXT<'a> {
+    pub fn color(mut self, color: [f32; 4]) -> Self {
+        self.color = color;
+        self
     }
 }
 #[repr(C)]
@@ -98,6 +133,31 @@ impl Default for DebugUtilsMessengerCreateInfoEXT<'_> {
             p_user_data: core::ptr::null_mut(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DebugUtilsMessengerCreateInfoEXT<'a> {
+    pub fn flags(mut self, flags: DebugUtilsMessengerCreateFlagsEXT) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn message_severity(mut self, message_severity: DebugUtilsMessageSeverityFlagsEXT) -> Self {
+        self.message_severity = message_severity;
+        self
+    }
+    pub fn message_type(mut self, message_type: DebugUtilsMessageTypeFlagsEXT) -> Self {
+        self.message_type = message_type;
+        self
+    }
+    pub fn pfn_user_callback(
+        mut self,
+        pfn_user_callback: PFN_vkDebugUtilsMessengerCallbackEXT,
+    ) -> Self {
+        self.pfn_user_callback = Some(pfn_user_callback);
+        self
+    }
+    pub fn user_data(mut self, user_data: &'a mut c_void) -> Self {
+        self.p_user_data = user_data;
+        self
     }
 }
 #[repr(C)]
@@ -134,6 +194,31 @@ impl Default for DebugUtilsMessengerCallbackDataEXT<'_> {
             p_objects: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DebugUtilsMessengerCallbackDataEXT<'a> {
+    pub fn flags(mut self, flags: DebugUtilsMessengerCallbackDataFlagsEXT) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn message_id_number(mut self, message_id_number: i32) -> Self {
+        self.message_id_number = message_id_number;
+        self
+    }
+    pub fn queue_labels(mut self, queue_labels: &'a [DebugUtilsLabelEXT<'a>]) -> Self {
+        self.queue_label_count = queue_labels.len().try_into().unwrap();
+        self.p_queue_labels = queue_labels.as_ptr();
+        self
+    }
+    pub fn cmd_buf_labels(mut self, cmd_buf_labels: &'a [DebugUtilsLabelEXT<'a>]) -> Self {
+        self.cmd_buf_label_count = cmd_buf_labels.len().try_into().unwrap();
+        self.p_cmd_buf_labels = cmd_buf_labels.as_ptr();
+        self
+    }
+    pub fn objects(mut self, objects: &'a [DebugUtilsObjectNameInfoEXT<'a>]) -> Self {
+        self.object_count = objects.len().try_into().unwrap();
+        self.p_objects = objects.as_ptr();
+        self
     }
 }
 bitflags! {

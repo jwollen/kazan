@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,5 +19,11 @@ impl Default for PhysicalDeviceYcbcrImageArraysFeaturesEXT<'_> {
             ycbcr_image_arrays: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceYcbcrImageArraysFeaturesEXT<'a> {
+    pub fn ycbcr_image_arrays(mut self, ycbcr_image_arrays: Bool32) -> Self {
+        self.ycbcr_image_arrays = ycbcr_image_arrays;
+        self
     }
 }

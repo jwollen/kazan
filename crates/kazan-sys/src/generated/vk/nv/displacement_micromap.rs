@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,6 +21,12 @@ impl Default for PhysicalDeviceDisplacementMicromapFeaturesNV<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceDisplacementMicromapFeaturesNV<'a> {
+    pub fn displacement_micromap(mut self, displacement_micromap: Bool32) -> Self {
+        self.displacement_micromap = displacement_micromap;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceDisplacementMicromapPropertiesNV<'a> {
@@ -37,6 +43,16 @@ impl Default for PhysicalDeviceDisplacementMicromapPropertiesNV<'_> {
             max_displacement_micromap_subdivision_level: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceDisplacementMicromapPropertiesNV<'a> {
+    pub fn max_displacement_micromap_subdivision_level(
+        mut self,
+        max_displacement_micromap_subdivision_level: u32,
+    ) -> Self {
+        self.max_displacement_micromap_subdivision_level =
+            max_displacement_micromap_subdivision_level;
+        self
     }
 }
 #[repr(C)]
@@ -85,6 +101,88 @@ impl Default for AccelerationStructureTrianglesDisplacementMicromapNV<'_> {
             micromap: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> AccelerationStructureTrianglesDisplacementMicromapNV<'a> {
+    pub fn displacement_bias_and_scale_format(
+        mut self,
+        displacement_bias_and_scale_format: Format,
+    ) -> Self {
+        self.displacement_bias_and_scale_format = displacement_bias_and_scale_format;
+        self
+    }
+    pub fn displacement_vector_format(mut self, displacement_vector_format: Format) -> Self {
+        self.displacement_vector_format = displacement_vector_format;
+        self
+    }
+    pub fn displacement_bias_and_scale_buffer(
+        mut self,
+        displacement_bias_and_scale_buffer: DeviceOrHostAddressConstKHR<'a>,
+    ) -> Self {
+        self.displacement_bias_and_scale_buffer = displacement_bias_and_scale_buffer;
+        self
+    }
+    pub fn displacement_bias_and_scale_stride(
+        mut self,
+        displacement_bias_and_scale_stride: DeviceSize,
+    ) -> Self {
+        self.displacement_bias_and_scale_stride = displacement_bias_and_scale_stride;
+        self
+    }
+    pub fn displacement_vector_buffer(
+        mut self,
+        displacement_vector_buffer: DeviceOrHostAddressConstKHR<'a>,
+    ) -> Self {
+        self.displacement_vector_buffer = displacement_vector_buffer;
+        self
+    }
+    pub fn displacement_vector_stride(mut self, displacement_vector_stride: DeviceSize) -> Self {
+        self.displacement_vector_stride = displacement_vector_stride;
+        self
+    }
+    pub fn displaced_micromap_primitive_flags(
+        mut self,
+        displaced_micromap_primitive_flags: DeviceOrHostAddressConstKHR<'a>,
+    ) -> Self {
+        self.displaced_micromap_primitive_flags = displaced_micromap_primitive_flags;
+        self
+    }
+    pub fn displaced_micromap_primitive_flags_stride(
+        mut self,
+        displaced_micromap_primitive_flags_stride: DeviceSize,
+    ) -> Self {
+        self.displaced_micromap_primitive_flags_stride = displaced_micromap_primitive_flags_stride;
+        self
+    }
+    pub fn index_type(mut self, index_type: IndexType) -> Self {
+        self.index_type = index_type;
+        self
+    }
+    pub fn index_buffer(mut self, index_buffer: DeviceOrHostAddressConstKHR<'a>) -> Self {
+        self.index_buffer = index_buffer;
+        self
+    }
+    pub fn index_stride(mut self, index_stride: DeviceSize) -> Self {
+        self.index_stride = index_stride;
+        self
+    }
+    pub fn base_triangle(mut self, base_triangle: u32) -> Self {
+        self.base_triangle = base_triangle;
+        self
+    }
+    pub fn usage_counts(mut self, usage_counts: &'a [MicromapUsageEXT]) -> Self {
+        self.usage_counts_count = usage_counts.len().try_into().unwrap();
+        self.p_usage_counts = usage_counts.as_ptr();
+        self
+    }
+    pub fn usage_counts_ptrs(mut self, usage_counts_ptrs: &'a [&'a MicromapUsageEXT]) -> Self {
+        self.usage_counts_count = usage_counts_ptrs.len().try_into().unwrap();
+        self.pp_usage_counts = usage_counts_ptrs.as_ptr() as _;
+        self
+    }
+    pub fn micromap(mut self, micromap: MicromapEXT) -> Self {
+        self.micromap = micromap;
+        self
     }
 }
 #[repr(transparent)]

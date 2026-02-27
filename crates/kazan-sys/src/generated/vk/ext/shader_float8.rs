@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,5 +21,18 @@ impl Default for PhysicalDeviceShaderFloat8FeaturesEXT<'_> {
             shader_float8_cooperative_matrix: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceShaderFloat8FeaturesEXT<'a> {
+    pub fn shader_float8(mut self, shader_float8: Bool32) -> Self {
+        self.shader_float8 = shader_float8;
+        self
+    }
+    pub fn shader_float8_cooperative_matrix(
+        mut self,
+        shader_float8_cooperative_matrix: Bool32,
+    ) -> Self {
+        self.shader_float8_cooperative_matrix = shader_float8_cooperative_matrix;
+        self
     }
 }

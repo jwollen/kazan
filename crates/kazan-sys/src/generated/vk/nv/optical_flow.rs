@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -22,6 +22,12 @@ impl Default for PhysicalDeviceOpticalFlowFeaturesNV<'_> {
             optical_flow: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceOpticalFlowFeaturesNV<'a> {
+    pub fn optical_flow(mut self, optical_flow: Bool32) -> Self {
+        self.optical_flow = optical_flow;
+        self
     }
 }
 #[repr(C)]
@@ -62,6 +68,58 @@ impl Default for PhysicalDeviceOpticalFlowPropertiesNV<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceOpticalFlowPropertiesNV<'a> {
+    pub fn supported_output_grid_sizes(
+        mut self,
+        supported_output_grid_sizes: OpticalFlowGridSizeFlagsNV,
+    ) -> Self {
+        self.supported_output_grid_sizes = supported_output_grid_sizes;
+        self
+    }
+    pub fn supported_hint_grid_sizes(
+        mut self,
+        supported_hint_grid_sizes: OpticalFlowGridSizeFlagsNV,
+    ) -> Self {
+        self.supported_hint_grid_sizes = supported_hint_grid_sizes;
+        self
+    }
+    pub fn hint_supported(mut self, hint_supported: Bool32) -> Self {
+        self.hint_supported = hint_supported;
+        self
+    }
+    pub fn cost_supported(mut self, cost_supported: Bool32) -> Self {
+        self.cost_supported = cost_supported;
+        self
+    }
+    pub fn bidirectional_flow_supported(mut self, bidirectional_flow_supported: Bool32) -> Self {
+        self.bidirectional_flow_supported = bidirectional_flow_supported;
+        self
+    }
+    pub fn global_flow_supported(mut self, global_flow_supported: Bool32) -> Self {
+        self.global_flow_supported = global_flow_supported;
+        self
+    }
+    pub fn min_width(mut self, min_width: u32) -> Self {
+        self.min_width = min_width;
+        self
+    }
+    pub fn min_height(mut self, min_height: u32) -> Self {
+        self.min_height = min_height;
+        self
+    }
+    pub fn max_width(mut self, max_width: u32) -> Self {
+        self.max_width = max_width;
+        self
+    }
+    pub fn max_height(mut self, max_height: u32) -> Self {
+        self.max_height = max_height;
+        self
+    }
+    pub fn max_num_regions_of_interest(mut self, max_num_regions_of_interest: u32) -> Self {
+        self.max_num_regions_of_interest = max_num_regions_of_interest;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct OpticalFlowImageFormatInfoNV<'a> {
@@ -80,6 +138,12 @@ impl Default for OpticalFlowImageFormatInfoNV<'_> {
         }
     }
 }
+impl<'a> OpticalFlowImageFormatInfoNV<'a> {
+    pub fn usage(mut self, usage: OpticalFlowUsageFlagsNV) -> Self {
+        self.usage = usage;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct OpticalFlowImageFormatPropertiesNV<'a> {
@@ -96,6 +160,12 @@ impl Default for OpticalFlowImageFormatPropertiesNV<'_> {
             format: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> OpticalFlowImageFormatPropertiesNV<'a> {
+    pub fn format(mut self, format: Format) -> Self {
+        self.format = format;
+        self
     }
 }
 #[repr(C)]
@@ -132,6 +202,44 @@ impl Default for OpticalFlowSessionCreateInfoNV<'_> {
         }
     }
 }
+impl<'a> OpticalFlowSessionCreateInfoNV<'a> {
+    pub fn width(mut self, width: u32) -> Self {
+        self.width = width;
+        self
+    }
+    pub fn height(mut self, height: u32) -> Self {
+        self.height = height;
+        self
+    }
+    pub fn image_format(mut self, image_format: Format) -> Self {
+        self.image_format = image_format;
+        self
+    }
+    pub fn flow_vector_format(mut self, flow_vector_format: Format) -> Self {
+        self.flow_vector_format = flow_vector_format;
+        self
+    }
+    pub fn cost_format(mut self, cost_format: Format) -> Self {
+        self.cost_format = cost_format;
+        self
+    }
+    pub fn output_grid_size(mut self, output_grid_size: OpticalFlowGridSizeFlagsNV) -> Self {
+        self.output_grid_size = output_grid_size;
+        self
+    }
+    pub fn hint_grid_size(mut self, hint_grid_size: OpticalFlowGridSizeFlagsNV) -> Self {
+        self.hint_grid_size = hint_grid_size;
+        self
+    }
+    pub fn performance_level(mut self, performance_level: OpticalFlowPerformanceLevelNV) -> Self {
+        self.performance_level = performance_level;
+        self
+    }
+    pub fn flags(mut self, flags: OpticalFlowSessionCreateFlagsNV) -> Self {
+        self.flags = flags;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct OpticalFlowSessionCreatePrivateDataInfoNV<'a> {
@@ -154,6 +262,20 @@ impl Default for OpticalFlowSessionCreatePrivateDataInfoNV<'_> {
         }
     }
 }
+impl<'a> OpticalFlowSessionCreatePrivateDataInfoNV<'a> {
+    pub fn id(mut self, id: u32) -> Self {
+        self.id = id;
+        self
+    }
+    pub fn size(mut self, size: u32) -> Self {
+        self.size = size;
+        self
+    }
+    pub fn private_data(mut self, private_data: &'a c_void) -> Self {
+        self.p_private_data = private_data;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct OpticalFlowExecuteInfoNV<'a> {
@@ -174,6 +296,17 @@ impl Default for OpticalFlowExecuteInfoNV<'_> {
             p_regions: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> OpticalFlowExecuteInfoNV<'a> {
+    pub fn flags(mut self, flags: OpticalFlowExecuteFlagsNV) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn regions(mut self, regions: &'a [Rect2D]) -> Self {
+        self.region_count = regions.len().try_into().unwrap();
+        self.p_regions = regions.as_ptr();
+        self
     }
 }
 #[repr(transparent)]

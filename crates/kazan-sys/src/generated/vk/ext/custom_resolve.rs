@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,7 @@ impl Default for BeginCustomResolveInfoEXT<'_> {
         }
     }
 }
+impl<'a> BeginCustomResolveInfoEXT<'a> {}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceCustomResolveFeaturesEXT<'a> {
@@ -35,6 +36,12 @@ impl Default for PhysicalDeviceCustomResolveFeaturesEXT<'_> {
             custom_resolve: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceCustomResolveFeaturesEXT<'a> {
+    pub fn custom_resolve(mut self, custom_resolve: Bool32) -> Self {
+        self.custom_resolve = custom_resolve;
+        self
     }
 }
 #[repr(C)]
@@ -61,6 +68,25 @@ impl Default for CustomResolveCreateInfoEXT<'_> {
             stencil_attachment_format: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> CustomResolveCreateInfoEXT<'a> {
+    pub fn custom_resolve(mut self, custom_resolve: Bool32) -> Self {
+        self.custom_resolve = custom_resolve;
+        self
+    }
+    pub fn color_attachment_formats(mut self, color_attachment_formats: &'a [Format]) -> Self {
+        self.color_attachment_count = color_attachment_formats.len().try_into().unwrap();
+        self.p_color_attachment_formats = color_attachment_formats.as_ptr();
+        self
+    }
+    pub fn depth_attachment_format(mut self, depth_attachment_format: Format) -> Self {
+        self.depth_attachment_format = depth_attachment_format;
+        self
+    }
+    pub fn stencil_attachment_format(mut self, stencil_attachment_format: Format) -> Self {
+        self.stencil_attachment_format = stencil_attachment_format;
+        self
     }
 }
 pub type PFN_vkCmdBeginCustomResolveEXT = unsafe extern "system" fn(

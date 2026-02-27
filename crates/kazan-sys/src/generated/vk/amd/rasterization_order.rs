@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PipelineRasterizationStateRasterizationOrderAMD<'_> {
             rasterization_order: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineRasterizationStateRasterizationOrderAMD<'a> {
+    pub fn rasterization_order(mut self, rasterization_order: RasterizationOrderAMD) -> Self {
+        self.rasterization_order = rasterization_order;
+        self
     }
 }
 #[repr(transparent)]

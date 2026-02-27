@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,6 +23,16 @@ impl Default for DebugMarkerObjectNameInfoEXT<'_> {
             p_object_name: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DebugMarkerObjectNameInfoEXT<'a> {
+    pub fn object_type(mut self, object_type: DebugReportObjectTypeEXT) -> Self {
+        self.object_type = object_type;
+        self
+    }
+    pub fn object(mut self, object: u64) -> Self {
+        self.object = object;
+        self
     }
 }
 #[repr(C)]
@@ -51,6 +61,25 @@ impl Default for DebugMarkerObjectTagInfoEXT<'_> {
         }
     }
 }
+impl<'a> DebugMarkerObjectTagInfoEXT<'a> {
+    pub fn object_type(mut self, object_type: DebugReportObjectTypeEXT) -> Self {
+        self.object_type = object_type;
+        self
+    }
+    pub fn object(mut self, object: u64) -> Self {
+        self.object = object;
+        self
+    }
+    pub fn tag_name(mut self, tag_name: u64) -> Self {
+        self.tag_name = tag_name;
+        self
+    }
+    pub fn tag(mut self, tag: &'a [u8]) -> Self {
+        self.tag_size = tag.len().try_into().unwrap();
+        self.p_tag = tag.as_ptr() as _;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DebugMarkerMarkerInfoEXT<'a> {
@@ -69,6 +98,12 @@ impl Default for DebugMarkerMarkerInfoEXT<'_> {
             color: [Default::default(); _],
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DebugMarkerMarkerInfoEXT<'a> {
+    pub fn color(mut self, color: [f32; 4]) -> Self {
+        self.color = color;
+        self
     }
 }
 pub type PFN_vkDebugMarkerSetObjectNameEXT = unsafe extern "system" fn(

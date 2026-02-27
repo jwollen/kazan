@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,6 +21,12 @@ impl Default for VideoDecodeCapabilitiesKHR<'_> {
         }
     }
 }
+impl<'a> VideoDecodeCapabilitiesKHR<'a> {
+    pub fn flags(mut self, flags: VideoDecodeCapabilityFlagsKHR) -> Self {
+        self.flags = flags;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VideoDecodeUsageInfoKHR<'a> {
@@ -37,6 +43,12 @@ impl Default for VideoDecodeUsageInfoKHR<'_> {
             video_usage_hints: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VideoDecodeUsageInfoKHR<'a> {
+    pub fn video_usage_hints(mut self, video_usage_hints: VideoDecodeUsageFlagsKHR) -> Self {
+        self.video_usage_hints = video_usage_hints;
+        self
     }
 }
 #[repr(C)]
@@ -69,6 +81,43 @@ impl Default for VideoDecodeInfoKHR<'_> {
             p_reference_slots: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VideoDecodeInfoKHR<'a> {
+    pub fn flags(mut self, flags: VideoDecodeFlagsKHR) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn src_buffer(mut self, src_buffer: Buffer) -> Self {
+        self.src_buffer = src_buffer;
+        self
+    }
+    pub fn src_buffer_offset(mut self, src_buffer_offset: DeviceSize) -> Self {
+        self.src_buffer_offset = src_buffer_offset;
+        self
+    }
+    pub fn src_buffer_range(mut self, src_buffer_range: DeviceSize) -> Self {
+        self.src_buffer_range = src_buffer_range;
+        self
+    }
+    pub fn dst_picture_resource(
+        mut self,
+        dst_picture_resource: VideoPictureResourceInfoKHR<'a>,
+    ) -> Self {
+        self.dst_picture_resource = dst_picture_resource;
+        self
+    }
+    pub fn setup_reference_slot(
+        mut self,
+        setup_reference_slot: &'a VideoReferenceSlotInfoKHR<'a>,
+    ) -> Self {
+        self.p_setup_reference_slot = setup_reference_slot;
+        self
+    }
+    pub fn reference_slots(mut self, reference_slots: &'a [VideoReferenceSlotInfoKHR<'a>]) -> Self {
+        self.reference_slot_count = reference_slots.len().try_into().unwrap();
+        self.p_reference_slots = reference_slots.as_ptr();
+        self
     }
 }
 bitflags! {

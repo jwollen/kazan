@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,6 +23,20 @@ impl Default for ImageViewSampleWeightCreateInfoQCOM<'_> {
             num_phases: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ImageViewSampleWeightCreateInfoQCOM<'a> {
+    pub fn filter_center(mut self, filter_center: Offset2D) -> Self {
+        self.filter_center = filter_center;
+        self
+    }
+    pub fn filter_size(mut self, filter_size: Extent2D) -> Self {
+        self.filter_size = filter_size;
+        self
+    }
+    pub fn num_phases(mut self, num_phases: u32) -> Self {
+        self.num_phases = num_phases;
+        self
     }
 }
 #[repr(C)]
@@ -47,6 +61,20 @@ impl Default for PhysicalDeviceImageProcessingFeaturesQCOM<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceImageProcessingFeaturesQCOM<'a> {
+    pub fn texture_sample_weighted(mut self, texture_sample_weighted: Bool32) -> Self {
+        self.texture_sample_weighted = texture_sample_weighted;
+        self
+    }
+    pub fn texture_box_filter(mut self, texture_box_filter: Bool32) -> Self {
+        self.texture_box_filter = texture_box_filter;
+        self
+    }
+    pub fn texture_block_match(mut self, texture_block_match: Bool32) -> Self {
+        self.texture_block_match = texture_block_match;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceImageProcessingPropertiesQCOM<'a> {
@@ -69,5 +97,23 @@ impl Default for PhysicalDeviceImageProcessingPropertiesQCOM<'_> {
             max_box_filter_block_size: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceImageProcessingPropertiesQCOM<'a> {
+    pub fn max_weight_filter_phases(mut self, max_weight_filter_phases: u32) -> Self {
+        self.max_weight_filter_phases = max_weight_filter_phases;
+        self
+    }
+    pub fn max_weight_filter_dimension(mut self, max_weight_filter_dimension: Extent2D) -> Self {
+        self.max_weight_filter_dimension = max_weight_filter_dimension;
+        self
+    }
+    pub fn max_block_match_region(mut self, max_block_match_region: Extent2D) -> Self {
+        self.max_block_match_region = max_block_match_region;
+        self
+    }
+    pub fn max_box_filter_block_size(mut self, max_box_filter_block_size: Extent2D) -> Self {
+        self.max_box_filter_block_size = max_box_filter_block_size;
+        self
     }
 }

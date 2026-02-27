@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,6 +23,20 @@ impl Default for XlibSurfaceCreateInfoKHR<'_> {
             window: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> XlibSurfaceCreateInfoKHR<'a> {
+    pub fn flags(mut self, flags: XlibSurfaceCreateFlagsKHR) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn dpy(mut self, dpy: *mut Display) -> Self {
+        self.dpy = dpy;
+        self
+    }
+    pub fn window(mut self, window: Window) -> Self {
+        self.window = window;
+        self
     }
 }
 bitflags! {

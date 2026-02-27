@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceSwapchainMaintenance1FeaturesKHR<'_> {
             swapchain_maintenance1: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceSwapchainMaintenance1FeaturesKHR<'a> {
+    pub fn swapchain_maintenance1(mut self, swapchain_maintenance1: Bool32) -> Self {
+        self.swapchain_maintenance1 = swapchain_maintenance1;
+        self
     }
 }
 #[repr(C)]
@@ -41,6 +47,13 @@ impl Default for SwapchainPresentFenceInfoKHR<'_> {
         }
     }
 }
+impl<'a> SwapchainPresentFenceInfoKHR<'a> {
+    pub fn fences(mut self, fences: &'a [Fence]) -> Self {
+        self.swapchain_count = fences.len().try_into().unwrap();
+        self.p_fences = fences.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SwapchainPresentModesCreateInfoKHR<'a> {
@@ -61,6 +74,13 @@ impl Default for SwapchainPresentModesCreateInfoKHR<'_> {
         }
     }
 }
+impl<'a> SwapchainPresentModesCreateInfoKHR<'a> {
+    pub fn present_modes(mut self, present_modes: &'a [PresentModeKHR]) -> Self {
+        self.present_mode_count = present_modes.len().try_into().unwrap();
+        self.p_present_modes = present_modes.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SwapchainPresentModeInfoKHR<'a> {
@@ -79,6 +99,13 @@ impl Default for SwapchainPresentModeInfoKHR<'_> {
             p_present_modes: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SwapchainPresentModeInfoKHR<'a> {
+    pub fn present_modes(mut self, present_modes: &'a [PresentModeKHR]) -> Self {
+        self.swapchain_count = present_modes.len().try_into().unwrap();
+        self.p_present_modes = present_modes.as_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -103,6 +130,20 @@ impl Default for SwapchainPresentScalingCreateInfoKHR<'_> {
         }
     }
 }
+impl<'a> SwapchainPresentScalingCreateInfoKHR<'a> {
+    pub fn scaling_behavior(mut self, scaling_behavior: PresentScalingFlagsKHR) -> Self {
+        self.scaling_behavior = scaling_behavior;
+        self
+    }
+    pub fn present_gravity_x(mut self, present_gravity_x: PresentGravityFlagsKHR) -> Self {
+        self.present_gravity_x = present_gravity_x;
+        self
+    }
+    pub fn present_gravity_y(mut self, present_gravity_y: PresentGravityFlagsKHR) -> Self {
+        self.present_gravity_y = present_gravity_y;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ReleaseSwapchainImagesInfoKHR<'a> {
@@ -123,6 +164,17 @@ impl Default for ReleaseSwapchainImagesInfoKHR<'_> {
             p_image_indices: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ReleaseSwapchainImagesInfoKHR<'a> {
+    pub fn swapchain(mut self, swapchain: SwapchainKHR) -> Self {
+        self.swapchain = swapchain;
+        self
+    }
+    pub fn image_indices(mut self, image_indices: &'a [u32]) -> Self {
+        self.image_index_count = image_indices.len().try_into().unwrap();
+        self.p_image_indices = image_indices.as_ptr();
+        self
     }
 }
 pub type PFN_vkReleaseSwapchainImagesKHR = unsafe extern "system" fn(

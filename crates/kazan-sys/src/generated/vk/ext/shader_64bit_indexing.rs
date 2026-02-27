@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,5 +19,11 @@ impl Default for PhysicalDeviceShader64BitIndexingFeaturesEXT<'_> {
             shader64_bit_indexing: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceShader64BitIndexingFeaturesEXT<'a> {
+    pub fn shader64_bit_indexing(mut self, shader64_bit_indexing: Bool32) -> Self {
+        self.shader64_bit_indexing = shader64_bit_indexing;
+        self
     }
 }

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,6 +21,12 @@ impl Default for DisplayNativeHdrSurfaceCapabilitiesAMD<'_> {
         }
     }
 }
+impl<'a> DisplayNativeHdrSurfaceCapabilitiesAMD<'a> {
+    pub fn local_dimming_support(mut self, local_dimming_support: Bool32) -> Self {
+        self.local_dimming_support = local_dimming_support;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SwapchainDisplayNativeHdrCreateInfoAMD<'a> {
@@ -37,6 +43,12 @@ impl Default for SwapchainDisplayNativeHdrCreateInfoAMD<'_> {
             local_dimming_enable: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SwapchainDisplayNativeHdrCreateInfoAMD<'a> {
+    pub fn local_dimming_enable(mut self, local_dimming_enable: Bool32) -> Self {
+        self.local_dimming_enable = local_dimming_enable;
+        self
     }
 }
 pub type PFN_vkSetLocalDimmingAMD = unsafe extern "system" fn(

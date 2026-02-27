@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -25,6 +25,20 @@ impl Default for PhysicalDeviceMapMemoryPlacedFeaturesEXT<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceMapMemoryPlacedFeaturesEXT<'a> {
+    pub fn memory_map_placed(mut self, memory_map_placed: Bool32) -> Self {
+        self.memory_map_placed = memory_map_placed;
+        self
+    }
+    pub fn memory_map_range_placed(mut self, memory_map_range_placed: Bool32) -> Self {
+        self.memory_map_range_placed = memory_map_range_placed;
+        self
+    }
+    pub fn memory_unmap_reserve(mut self, memory_unmap_reserve: Bool32) -> Self {
+        self.memory_unmap_reserve = memory_unmap_reserve;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceMapMemoryPlacedPropertiesEXT<'a> {
@@ -43,6 +57,15 @@ impl Default for PhysicalDeviceMapMemoryPlacedPropertiesEXT<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceMapMemoryPlacedPropertiesEXT<'a> {
+    pub fn min_placed_memory_map_alignment(
+        mut self,
+        min_placed_memory_map_alignment: DeviceSize,
+    ) -> Self {
+        self.min_placed_memory_map_alignment = min_placed_memory_map_alignment;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct MemoryMapPlacedInfoEXT<'a> {
@@ -59,5 +82,11 @@ impl Default for MemoryMapPlacedInfoEXT<'_> {
             p_placed_address: core::ptr::null_mut(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> MemoryMapPlacedInfoEXT<'a> {
+    pub fn placed_address(mut self, placed_address: &'a mut c_void) -> Self {
+        self.p_placed_address = placed_address;
+        self
     }
 }

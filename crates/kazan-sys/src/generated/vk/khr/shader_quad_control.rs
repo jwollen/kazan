@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,5 +19,11 @@ impl Default for PhysicalDeviceShaderQuadControlFeaturesKHR<'_> {
             shader_quad_control: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceShaderQuadControlFeaturesKHR<'a> {
+    pub fn shader_quad_control(mut self, shader_quad_control: Bool32) -> Self {
+        self.shader_quad_control = shader_quad_control;
+        self
     }
 }

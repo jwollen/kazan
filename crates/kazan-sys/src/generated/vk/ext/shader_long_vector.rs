@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,6 +21,12 @@ impl Default for PhysicalDeviceShaderLongVectorFeaturesEXT<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceShaderLongVectorFeaturesEXT<'a> {
+    pub fn long_vector(mut self, long_vector: Bool32) -> Self {
+        self.long_vector = long_vector;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderLongVectorPropertiesEXT<'a> {
@@ -37,5 +43,11 @@ impl Default for PhysicalDeviceShaderLongVectorPropertiesEXT<'_> {
             max_vector_components: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceShaderLongVectorPropertiesEXT<'a> {
+    pub fn max_vector_components(mut self, max_vector_components: u32) -> Self {
+        self.max_vector_components = max_vector_components;
+        self
     }
 }

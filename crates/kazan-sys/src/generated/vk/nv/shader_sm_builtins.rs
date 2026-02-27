@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,6 +23,16 @@ impl Default for PhysicalDeviceShaderSMBuiltinsPropertiesNV<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceShaderSMBuiltinsPropertiesNV<'a> {
+    pub fn shader_sm_count(mut self, shader_sm_count: u32) -> Self {
+        self.shader_sm_count = shader_sm_count;
+        self
+    }
+    pub fn shader_warps_per_sm(mut self, shader_warps_per_sm: u32) -> Self {
+        self.shader_warps_per_sm = shader_warps_per_sm;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceShaderSMBuiltinsFeaturesNV<'a> {
@@ -39,5 +49,11 @@ impl Default for PhysicalDeviceShaderSMBuiltinsFeaturesNV<'_> {
             shader_sm_builtins: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceShaderSMBuiltinsFeaturesNV<'a> {
+    pub fn shader_sm_builtins(mut self, shader_sm_builtins: Bool32) -> Self {
+        self.shader_sm_builtins = shader_sm_builtins;
+        self
     }
 }

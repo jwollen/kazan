@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceSurfaceInfo2KHR<'_> {
             surface: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceSurfaceInfo2KHR<'a> {
+    pub fn surface(mut self, surface: SurfaceKHR) -> Self {
+        self.surface = surface;
+        self
     }
 }
 #[repr(C)]
@@ -39,6 +45,12 @@ impl Default for SurfaceCapabilities2KHR<'_> {
         }
     }
 }
+impl<'a> SurfaceCapabilities2KHR<'a> {
+    pub fn surface_capabilities(mut self, surface_capabilities: SurfaceCapabilitiesKHR) -> Self {
+        self.surface_capabilities = surface_capabilities;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SurfaceFormat2KHR<'a> {
@@ -55,6 +67,12 @@ impl Default for SurfaceFormat2KHR<'_> {
             surface_format: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SurfaceFormat2KHR<'a> {
+    pub fn surface_format(mut self, surface_format: SurfaceFormatKHR) -> Self {
+        self.surface_format = surface_format;
+        self
     }
 }
 pub type PFN_vkGetPhysicalDeviceSurfaceCapabilities2KHR = unsafe extern "system" fn(

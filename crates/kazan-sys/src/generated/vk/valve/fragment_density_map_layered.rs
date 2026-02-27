@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE<'_> {
             max_fragment_density_map_layers: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE<'a> {
+    pub fn max_fragment_density_map_layers(mut self, max_fragment_density_map_layers: u32) -> Self {
+        self.max_fragment_density_map_layers = max_fragment_density_map_layers;
+        self
     }
 }
 #[repr(C)]
@@ -39,6 +45,12 @@ impl Default for PhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE<'a> {
+    pub fn fragment_density_map_layered(mut self, fragment_density_map_layered: Bool32) -> Self {
+        self.fragment_density_map_layered = fragment_density_map_layered;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PipelineFragmentDensityMapLayeredCreateInfoVALVE<'a> {
@@ -55,5 +67,11 @@ impl Default for PipelineFragmentDensityMapLayeredCreateInfoVALVE<'_> {
             max_fragment_density_map_layers: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineFragmentDensityMapLayeredCreateInfoVALVE<'a> {
+    pub fn max_fragment_density_map_layers(mut self, max_fragment_density_map_layers: u32) -> Self {
+        self.max_fragment_density_map_layers = max_fragment_density_map_layers;
+        self
     }
 }

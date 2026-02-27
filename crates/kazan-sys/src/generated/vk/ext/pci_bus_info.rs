@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -25,5 +25,23 @@ impl Default for PhysicalDevicePCIBusInfoPropertiesEXT<'_> {
             pci_function: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDevicePCIBusInfoPropertiesEXT<'a> {
+    pub fn pci_domain(mut self, pci_domain: u32) -> Self {
+        self.pci_domain = pci_domain;
+        self
+    }
+    pub fn pci_bus(mut self, pci_bus: u32) -> Self {
+        self.pci_bus = pci_bus;
+        self
+    }
+    pub fn pci_device(mut self, pci_device: u32) -> Self {
+        self.pci_device = pci_device;
+        self
+    }
+    pub fn pci_function(mut self, pci_function: u32) -> Self {
+        self.pci_function = pci_function;
+        self
     }
 }

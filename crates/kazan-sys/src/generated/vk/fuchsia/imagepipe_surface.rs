@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,6 +21,16 @@ impl Default for ImagePipeSurfaceCreateInfoFUCHSIA<'_> {
             image_pipe_handle: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ImagePipeSurfaceCreateInfoFUCHSIA<'a> {
+    pub fn flags(mut self, flags: ImagePipeSurfaceCreateFlagsFUCHSIA) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn image_pipe_handle(mut self, image_pipe_handle: zx_handle_t) -> Self {
+        self.image_pipe_handle = image_pipe_handle;
+        self
     }
 }
 bitflags! {

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,5 +19,11 @@ impl Default for PhysicalDeviceLinearColorAttachmentFeaturesNV<'_> {
             linear_color_attachment: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceLinearColorAttachmentFeaturesNV<'a> {
+    pub fn linear_color_attachment(mut self, linear_color_attachment: Bool32) -> Self {
+        self.linear_color_attachment = linear_color_attachment;
+        self
     }
 }

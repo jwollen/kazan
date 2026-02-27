@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceInvocationMaskFeaturesHUAWEI<'_> {
             invocation_mask: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceInvocationMaskFeaturesHUAWEI<'a> {
+    pub fn invocation_mask(mut self, invocation_mask: Bool32) -> Self {
+        self.invocation_mask = invocation_mask;
+        self
     }
 }
 pub type PFN_vkCmdBindInvocationMaskHUAWEI = unsafe extern "system" fn(

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceCubicWeightsFeaturesQCOM<'_> {
             selectable_cubic_weights: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceCubicWeightsFeaturesQCOM<'a> {
+    pub fn selectable_cubic_weights(mut self, selectable_cubic_weights: Bool32) -> Self {
+        self.selectable_cubic_weights = selectable_cubic_weights;
+        self
     }
 }
 #[repr(C)]
@@ -39,6 +45,12 @@ impl Default for SamplerCubicWeightsCreateInfoQCOM<'_> {
         }
     }
 }
+impl<'a> SamplerCubicWeightsCreateInfoQCOM<'a> {
+    pub fn cubic_weights(mut self, cubic_weights: CubicFilterWeightsQCOM) -> Self {
+        self.cubic_weights = cubic_weights;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct BlitImageCubicWeightsInfoQCOM<'a> {
@@ -55,6 +67,12 @@ impl Default for BlitImageCubicWeightsInfoQCOM<'_> {
             cubic_weights: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> BlitImageCubicWeightsInfoQCOM<'a> {
+    pub fn cubic_weights(mut self, cubic_weights: CubicFilterWeightsQCOM) -> Self {
+        self.cubic_weights = cubic_weights;
+        self
     }
 }
 #[repr(transparent)]

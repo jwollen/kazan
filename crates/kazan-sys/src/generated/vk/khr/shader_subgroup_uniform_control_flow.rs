@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -20,5 +20,14 @@ impl Default for PhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR<'_> {
             shader_subgroup_uniform_control_flow: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR<'a> {
+    pub fn shader_subgroup_uniform_control_flow(
+        mut self,
+        shader_subgroup_uniform_control_flow: Bool32,
+    ) -> Self {
+        self.shader_subgroup_uniform_control_flow = shader_subgroup_uniform_control_flow;
+        self
     }
 }

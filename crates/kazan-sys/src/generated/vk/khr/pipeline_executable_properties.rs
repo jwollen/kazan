@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,6 +21,12 @@ impl Default for PhysicalDevicePipelineExecutablePropertiesFeaturesKHR<'_> {
         }
     }
 }
+impl<'a> PhysicalDevicePipelineExecutablePropertiesFeaturesKHR<'a> {
+    pub fn pipeline_executable_info(mut self, pipeline_executable_info: Bool32) -> Self {
+        self.pipeline_executable_info = pipeline_executable_info;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PipelineInfoKHR<'a> {
@@ -37,6 +43,12 @@ impl Default for PipelineInfoKHR<'_> {
             pipeline: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineInfoKHR<'a> {
+    pub fn pipeline(mut self, pipeline: Pipeline) -> Self {
+        self.pipeline = pipeline;
+        self
     }
 }
 #[repr(C)]
@@ -63,6 +75,16 @@ impl Default for PipelineExecutablePropertiesKHR<'_> {
         }
     }
 }
+impl<'a> PipelineExecutablePropertiesKHR<'a> {
+    pub fn stages(mut self, stages: ShaderStageFlags) -> Self {
+        self.stages = stages;
+        self
+    }
+    pub fn subgroup_size(mut self, subgroup_size: u32) -> Self {
+        self.subgroup_size = subgroup_size;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PipelineExecutableInfoKHR<'a> {
@@ -81,6 +103,16 @@ impl Default for PipelineExecutableInfoKHR<'_> {
             executable_index: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineExecutableInfoKHR<'a> {
+    pub fn pipeline(mut self, pipeline: Pipeline) -> Self {
+        self.pipeline = pipeline;
+        self
+    }
+    pub fn executable_index(mut self, executable_index: u32) -> Self {
+        self.executable_index = executable_index;
+        self
     }
 }
 #[repr(C)]
@@ -107,6 +139,16 @@ impl Default for PipelineExecutableStatisticKHR<'_> {
         }
     }
 }
+impl<'a> PipelineExecutableStatisticKHR<'a> {
+    pub fn format(mut self, format: PipelineExecutableStatisticFormatKHR) -> Self {
+        self.format = format;
+        self
+    }
+    pub fn value(mut self, value: PipelineExecutableStatisticValueKHR) -> Self {
+        self.value = value;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PipelineExecutableInternalRepresentationKHR<'a> {
@@ -131,6 +173,17 @@ impl Default for PipelineExecutableInternalRepresentationKHR<'_> {
             p_data: core::ptr::null_mut(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineExecutableInternalRepresentationKHR<'a> {
+    pub fn is_text(mut self, is_text: Bool32) -> Self {
+        self.is_text = is_text;
+        self
+    }
+    pub fn data(mut self, data: &'a mut [u8]) -> Self {
+        self.data_size = data.len().try_into().unwrap();
+        self.p_data = data.as_mut_ptr() as _;
+        self
     }
 }
 #[repr(C)]

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,6 +23,22 @@ impl Default for PhysicalDeviceComputeShaderDerivativesFeaturesKHR<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceComputeShaderDerivativesFeaturesKHR<'a> {
+    pub fn compute_derivative_group_quads(
+        mut self,
+        compute_derivative_group_quads: Bool32,
+    ) -> Self {
+        self.compute_derivative_group_quads = compute_derivative_group_quads;
+        self
+    }
+    pub fn compute_derivative_group_linear(
+        mut self,
+        compute_derivative_group_linear: Bool32,
+    ) -> Self {
+        self.compute_derivative_group_linear = compute_derivative_group_linear;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceComputeShaderDerivativesPropertiesKHR<'a> {
@@ -39,5 +55,14 @@ impl Default for PhysicalDeviceComputeShaderDerivativesPropertiesKHR<'_> {
             mesh_and_task_shader_derivatives: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceComputeShaderDerivativesPropertiesKHR<'a> {
+    pub fn mesh_and_task_shader_derivatives(
+        mut self,
+        mesh_and_task_shader_derivatives: Bool32,
+    ) -> Self {
+        self.mesh_and_task_shader_derivatives = mesh_and_task_shader_derivatives;
+        self
     }
 }

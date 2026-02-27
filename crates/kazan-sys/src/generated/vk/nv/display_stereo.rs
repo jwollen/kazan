@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,6 +21,12 @@ impl Default for DisplaySurfaceStereoCreateInfoNV<'_> {
         }
     }
 }
+impl<'a> DisplaySurfaceStereoCreateInfoNV<'a> {
+    pub fn stereo_type(mut self, stereo_type: DisplaySurfaceStereoTypeNV) -> Self {
+        self.stereo_type = stereo_type;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DisplayModeStereoPropertiesNV<'a> {
@@ -37,6 +43,12 @@ impl Default for DisplayModeStereoPropertiesNV<'_> {
             hdmi3_d_supported: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> DisplayModeStereoPropertiesNV<'a> {
+    pub fn hdmi3_d_supported(mut self, hdmi3_d_supported: Bool32) -> Self {
+        self.hdmi3_d_supported = hdmi3_d_supported;
+        self
     }
 }
 #[repr(transparent)]

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -25,5 +25,38 @@ impl Default for PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR<'_> {
             workgroup_memory_explicit_layout16_bit_access: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR<'a> {
+    pub fn workgroup_memory_explicit_layout(
+        mut self,
+        workgroup_memory_explicit_layout: Bool32,
+    ) -> Self {
+        self.workgroup_memory_explicit_layout = workgroup_memory_explicit_layout;
+        self
+    }
+    pub fn workgroup_memory_explicit_layout_scalar_block_layout(
+        mut self,
+        workgroup_memory_explicit_layout_scalar_block_layout: Bool32,
+    ) -> Self {
+        self.workgroup_memory_explicit_layout_scalar_block_layout =
+            workgroup_memory_explicit_layout_scalar_block_layout;
+        self
+    }
+    pub fn workgroup_memory_explicit_layout8_bit_access(
+        mut self,
+        workgroup_memory_explicit_layout8_bit_access: Bool32,
+    ) -> Self {
+        self.workgroup_memory_explicit_layout8_bit_access =
+            workgroup_memory_explicit_layout8_bit_access;
+        self
+    }
+    pub fn workgroup_memory_explicit_layout16_bit_access(
+        mut self,
+        workgroup_memory_explicit_layout16_bit_access: Bool32,
+    ) -> Self {
+        self.workgroup_memory_explicit_layout16_bit_access =
+            workgroup_memory_explicit_layout16_bit_access;
+        self
     }
 }

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -21,5 +21,15 @@ impl Default for PhysicalDeviceImage2DViewOf3DFeaturesEXT<'_> {
             sampler2_d_view_of3_d: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceImage2DViewOf3DFeaturesEXT<'a> {
+    pub fn image2_d_view_of3_d(mut self, image2_d_view_of3_d: Bool32) -> Self {
+        self.image2_d_view_of3_d = image2_d_view_of3_d;
+        self
+    }
+    pub fn sampler2_d_view_of3_d(mut self, sampler2_d_view_of3_d: Bool32) -> Self {
+        self.sampler2_d_view_of3_d = sampler2_d_view_of3_d;
+        self
     }
 }

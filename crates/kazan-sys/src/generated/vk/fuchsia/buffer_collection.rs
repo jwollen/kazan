@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone, Default)]
@@ -26,6 +26,16 @@ impl Default for ImportMemoryBufferCollectionFUCHSIA<'_> {
         }
     }
 }
+impl<'a> ImportMemoryBufferCollectionFUCHSIA<'a> {
+    pub fn collection(mut self, collection: BufferCollectionFUCHSIA) -> Self {
+        self.collection = collection;
+        self
+    }
+    pub fn index(mut self, index: u32) -> Self {
+        self.index = index;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct BufferCollectionImageCreateInfoFUCHSIA<'a> {
@@ -44,6 +54,16 @@ impl Default for BufferCollectionImageCreateInfoFUCHSIA<'_> {
             index: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> BufferCollectionImageCreateInfoFUCHSIA<'a> {
+    pub fn collection(mut self, collection: BufferCollectionFUCHSIA) -> Self {
+        self.collection = collection;
+        self
+    }
+    pub fn index(mut self, index: u32) -> Self {
+        self.index = index;
+        self
     }
 }
 #[repr(C)]
@@ -66,6 +86,16 @@ impl Default for BufferCollectionBufferCreateInfoFUCHSIA<'_> {
         }
     }
 }
+impl<'a> BufferCollectionBufferCreateInfoFUCHSIA<'a> {
+    pub fn collection(mut self, collection: BufferCollectionFUCHSIA) -> Self {
+        self.collection = collection;
+        self
+    }
+    pub fn index(mut self, index: u32) -> Self {
+        self.index = index;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct BufferCollectionCreateInfoFUCHSIA<'a> {
@@ -82,6 +112,12 @@ impl Default for BufferCollectionCreateInfoFUCHSIA<'_> {
             collection_token: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> BufferCollectionCreateInfoFUCHSIA<'a> {
+    pub fn collection_token(mut self, collection_token: zx_handle_t) -> Self {
+        self.collection_token = collection_token;
+        self
     }
 }
 #[repr(C)]
@@ -122,6 +158,61 @@ impl Default for BufferCollectionPropertiesFUCHSIA<'_> {
         }
     }
 }
+impl<'a> BufferCollectionPropertiesFUCHSIA<'a> {
+    pub fn memory_type_bits(mut self, memory_type_bits: u32) -> Self {
+        self.memory_type_bits = memory_type_bits;
+        self
+    }
+    pub fn buffer_count(mut self, buffer_count: u32) -> Self {
+        self.buffer_count = buffer_count;
+        self
+    }
+    pub fn create_info_index(mut self, create_info_index: u32) -> Self {
+        self.create_info_index = create_info_index;
+        self
+    }
+    pub fn sysmem_pixel_format(mut self, sysmem_pixel_format: u64) -> Self {
+        self.sysmem_pixel_format = sysmem_pixel_format;
+        self
+    }
+    pub fn format_features(mut self, format_features: FormatFeatureFlags) -> Self {
+        self.format_features = format_features;
+        self
+    }
+    pub fn sysmem_color_space_index(
+        mut self,
+        sysmem_color_space_index: SysmemColorSpaceFUCHSIA<'a>,
+    ) -> Self {
+        self.sysmem_color_space_index = sysmem_color_space_index;
+        self
+    }
+    pub fn sampler_ycbcr_conversion_components(
+        mut self,
+        sampler_ycbcr_conversion_components: ComponentMapping,
+    ) -> Self {
+        self.sampler_ycbcr_conversion_components = sampler_ycbcr_conversion_components;
+        self
+    }
+    pub fn suggested_ycbcr_model(
+        mut self,
+        suggested_ycbcr_model: SamplerYcbcrModelConversion,
+    ) -> Self {
+        self.suggested_ycbcr_model = suggested_ycbcr_model;
+        self
+    }
+    pub fn suggested_ycbcr_range(mut self, suggested_ycbcr_range: SamplerYcbcrRange) -> Self {
+        self.suggested_ycbcr_range = suggested_ycbcr_range;
+        self
+    }
+    pub fn suggested_x_chroma_offset(mut self, suggested_x_chroma_offset: ChromaLocation) -> Self {
+        self.suggested_x_chroma_offset = suggested_x_chroma_offset;
+        self
+    }
+    pub fn suggested_y_chroma_offset(mut self, suggested_y_chroma_offset: ChromaLocation) -> Self {
+        self.suggested_y_chroma_offset = suggested_y_chroma_offset;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct BufferConstraintsInfoFUCHSIA<'a> {
@@ -144,6 +235,26 @@ impl Default for BufferConstraintsInfoFUCHSIA<'_> {
         }
     }
 }
+impl<'a> BufferConstraintsInfoFUCHSIA<'a> {
+    pub fn create_info(mut self, create_info: BufferCreateInfo<'a>) -> Self {
+        self.create_info = create_info;
+        self
+    }
+    pub fn required_format_features(
+        mut self,
+        required_format_features: FormatFeatureFlags,
+    ) -> Self {
+        self.required_format_features = required_format_features;
+        self
+    }
+    pub fn buffer_collection_constraints(
+        mut self,
+        buffer_collection_constraints: BufferCollectionConstraintsInfoFUCHSIA<'a>,
+    ) -> Self {
+        self.buffer_collection_constraints = buffer_collection_constraints;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SysmemColorSpaceFUCHSIA<'a> {
@@ -160,6 +271,12 @@ impl Default for SysmemColorSpaceFUCHSIA<'_> {
             color_space: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SysmemColorSpaceFUCHSIA<'a> {
+    pub fn color_space(mut self, color_space: u32) -> Self {
+        self.color_space = color_space;
+        self
     }
 }
 #[repr(C)]
@@ -190,6 +307,32 @@ impl Default for ImageFormatConstraintsInfoFUCHSIA<'_> {
         }
     }
 }
+impl<'a> ImageFormatConstraintsInfoFUCHSIA<'a> {
+    pub fn image_create_info(mut self, image_create_info: ImageCreateInfo<'a>) -> Self {
+        self.image_create_info = image_create_info;
+        self
+    }
+    pub fn required_format_features(
+        mut self,
+        required_format_features: FormatFeatureFlags,
+    ) -> Self {
+        self.required_format_features = required_format_features;
+        self
+    }
+    pub fn flags(mut self, flags: ImageFormatConstraintsFlagsFUCHSIA) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn sysmem_pixel_format(mut self, sysmem_pixel_format: u64) -> Self {
+        self.sysmem_pixel_format = sysmem_pixel_format;
+        self
+    }
+    pub fn color_spaces(mut self, color_spaces: &'a [SysmemColorSpaceFUCHSIA<'a>]) -> Self {
+        self.color_space_count = color_spaces.len().try_into().unwrap();
+        self.p_color_spaces = color_spaces.as_ptr();
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ImageConstraintsInfoFUCHSIA<'a> {
@@ -212,6 +355,27 @@ impl Default for ImageConstraintsInfoFUCHSIA<'_> {
             flags: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> ImageConstraintsInfoFUCHSIA<'a> {
+    pub fn format_constraints(
+        mut self,
+        format_constraints: &'a [ImageFormatConstraintsInfoFUCHSIA<'a>],
+    ) -> Self {
+        self.format_constraints_count = format_constraints.len().try_into().unwrap();
+        self.p_format_constraints = format_constraints.as_ptr();
+        self
+    }
+    pub fn buffer_collection_constraints(
+        mut self,
+        buffer_collection_constraints: BufferCollectionConstraintsInfoFUCHSIA<'a>,
+    ) -> Self {
+        self.buffer_collection_constraints = buffer_collection_constraints;
+        self
+    }
+    pub fn flags(mut self, flags: ImageConstraintsInfoFlagsFUCHSIA) -> Self {
+        self.flags = flags;
+        self
     }
 }
 #[repr(C)]
@@ -238,6 +402,34 @@ impl Default for BufferCollectionConstraintsInfoFUCHSIA<'_> {
             min_buffer_count_for_shared_slack: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> BufferCollectionConstraintsInfoFUCHSIA<'a> {
+    pub fn min_buffer_count(mut self, min_buffer_count: u32) -> Self {
+        self.min_buffer_count = min_buffer_count;
+        self
+    }
+    pub fn max_buffer_count(mut self, max_buffer_count: u32) -> Self {
+        self.max_buffer_count = max_buffer_count;
+        self
+    }
+    pub fn min_buffer_count_for_camping(mut self, min_buffer_count_for_camping: u32) -> Self {
+        self.min_buffer_count_for_camping = min_buffer_count_for_camping;
+        self
+    }
+    pub fn min_buffer_count_for_dedicated_slack(
+        mut self,
+        min_buffer_count_for_dedicated_slack: u32,
+    ) -> Self {
+        self.min_buffer_count_for_dedicated_slack = min_buffer_count_for_dedicated_slack;
+        self
+    }
+    pub fn min_buffer_count_for_shared_slack(
+        mut self,
+        min_buffer_count_for_shared_slack: u32,
+    ) -> Self {
+        self.min_buffer_count_for_shared_slack = min_buffer_count_for_shared_slack;
+        self
     }
 }
 bitflags! {

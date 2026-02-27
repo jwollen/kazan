@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -25,6 +25,20 @@ impl Default for LatencySleepModeInfoNV<'_> {
         }
     }
 }
+impl<'a> LatencySleepModeInfoNV<'a> {
+    pub fn low_latency_mode(mut self, low_latency_mode: Bool32) -> Self {
+        self.low_latency_mode = low_latency_mode;
+        self
+    }
+    pub fn low_latency_boost(mut self, low_latency_boost: Bool32) -> Self {
+        self.low_latency_boost = low_latency_boost;
+        self
+    }
+    pub fn minimum_interval_us(mut self, minimum_interval_us: u32) -> Self {
+        self.minimum_interval_us = minimum_interval_us;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct LatencySleepInfoNV<'a> {
@@ -43,6 +57,16 @@ impl Default for LatencySleepInfoNV<'_> {
             value: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> LatencySleepInfoNV<'a> {
+    pub fn signal_semaphore(mut self, signal_semaphore: Semaphore) -> Self {
+        self.signal_semaphore = signal_semaphore;
+        self
+    }
+    pub fn value(mut self, value: u64) -> Self {
+        self.value = value;
+        self
     }
 }
 #[repr(C)]
@@ -65,6 +89,16 @@ impl Default for SetLatencyMarkerInfoNV<'_> {
         }
     }
 }
+impl<'a> SetLatencyMarkerInfoNV<'a> {
+    pub fn present_id(mut self, present_id: u64) -> Self {
+        self.present_id = present_id;
+        self
+    }
+    pub fn marker(mut self, marker: LatencyMarkerNV) -> Self {
+        self.marker = marker;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct GetLatencyMarkerInfoNV<'a> {
@@ -83,6 +117,13 @@ impl Default for GetLatencyMarkerInfoNV<'_> {
             p_timings: core::ptr::null_mut(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> GetLatencyMarkerInfoNV<'a> {
+    pub fn timings(mut self, timings: &'a mut [LatencyTimingsFrameReportNV<'a>]) -> Self {
+        self.timing_count = timings.len().try_into().unwrap();
+        self.p_timings = timings.as_mut_ptr();
+        self
     }
 }
 #[repr(C)]
@@ -129,6 +170,64 @@ impl Default for LatencyTimingsFrameReportNV<'_> {
         }
     }
 }
+impl<'a> LatencyTimingsFrameReportNV<'a> {
+    pub fn present_id(mut self, present_id: u64) -> Self {
+        self.present_id = present_id;
+        self
+    }
+    pub fn input_sample_time_us(mut self, input_sample_time_us: u64) -> Self {
+        self.input_sample_time_us = input_sample_time_us;
+        self
+    }
+    pub fn sim_start_time_us(mut self, sim_start_time_us: u64) -> Self {
+        self.sim_start_time_us = sim_start_time_us;
+        self
+    }
+    pub fn sim_end_time_us(mut self, sim_end_time_us: u64) -> Self {
+        self.sim_end_time_us = sim_end_time_us;
+        self
+    }
+    pub fn render_submit_start_time_us(mut self, render_submit_start_time_us: u64) -> Self {
+        self.render_submit_start_time_us = render_submit_start_time_us;
+        self
+    }
+    pub fn render_submit_end_time_us(mut self, render_submit_end_time_us: u64) -> Self {
+        self.render_submit_end_time_us = render_submit_end_time_us;
+        self
+    }
+    pub fn present_start_time_us(mut self, present_start_time_us: u64) -> Self {
+        self.present_start_time_us = present_start_time_us;
+        self
+    }
+    pub fn present_end_time_us(mut self, present_end_time_us: u64) -> Self {
+        self.present_end_time_us = present_end_time_us;
+        self
+    }
+    pub fn driver_start_time_us(mut self, driver_start_time_us: u64) -> Self {
+        self.driver_start_time_us = driver_start_time_us;
+        self
+    }
+    pub fn driver_end_time_us(mut self, driver_end_time_us: u64) -> Self {
+        self.driver_end_time_us = driver_end_time_us;
+        self
+    }
+    pub fn os_render_queue_start_time_us(mut self, os_render_queue_start_time_us: u64) -> Self {
+        self.os_render_queue_start_time_us = os_render_queue_start_time_us;
+        self
+    }
+    pub fn os_render_queue_end_time_us(mut self, os_render_queue_end_time_us: u64) -> Self {
+        self.os_render_queue_end_time_us = os_render_queue_end_time_us;
+        self
+    }
+    pub fn gpu_render_start_time_us(mut self, gpu_render_start_time_us: u64) -> Self {
+        self.gpu_render_start_time_us = gpu_render_start_time_us;
+        self
+    }
+    pub fn gpu_render_end_time_us(mut self, gpu_render_end_time_us: u64) -> Self {
+        self.gpu_render_end_time_us = gpu_render_end_time_us;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct OutOfBandQueueTypeInfoNV<'a> {
@@ -145,6 +244,12 @@ impl Default for OutOfBandQueueTypeInfoNV<'_> {
             queue_type: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> OutOfBandQueueTypeInfoNV<'a> {
+    pub fn queue_type(mut self, queue_type: OutOfBandQueueTypeNV) -> Self {
+        self.queue_type = queue_type;
+        self
     }
 }
 #[repr(C)]
@@ -165,6 +270,12 @@ impl Default for LatencySubmissionPresentIdNV<'_> {
         }
     }
 }
+impl<'a> LatencySubmissionPresentIdNV<'a> {
+    pub fn present_id(mut self, present_id: u64) -> Self {
+        self.present_id = present_id;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SwapchainLatencyCreateInfoNV<'a> {
@@ -181,6 +292,12 @@ impl Default for SwapchainLatencyCreateInfoNV<'_> {
             latency_mode_enable: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> SwapchainLatencyCreateInfoNV<'a> {
+    pub fn latency_mode_enable(mut self, latency_mode_enable: Bool32) -> Self {
+        self.latency_mode_enable = latency_mode_enable;
+        self
     }
 }
 #[repr(C)]
@@ -201,6 +318,13 @@ impl Default for LatencySurfaceCapabilitiesNV<'_> {
             p_present_modes: core::ptr::null_mut(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> LatencySurfaceCapabilitiesNV<'a> {
+    pub fn present_modes(mut self, present_modes: &'a mut [PresentModeKHR]) -> Self {
+        self.present_mode_count = present_modes.len().try_into().unwrap();
+        self.p_present_modes = present_modes.as_mut_ptr();
+        self
     }
 }
 #[repr(transparent)]

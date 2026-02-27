@@ -1,8 +1,6 @@
 use crate::{
-    LengthKind,
-    analysis::Analysis,
-    cdecl::{CDecl, CType},
-    ctype_to_rust_type, get_len_kind, normalize_name, xml,
+    LengthKind, analysis::Analysis, cdecl::CType, ctype_to_rust_type, get_len_kind, is_opaque_type,
+    normalize_command_name, normalize_param_name, xml,
 };
 use heck::ToSnakeCase;
 use itertools::Itertools;
@@ -251,7 +249,7 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
     }
 }
 
-fn convert_param_type(
+pub fn convert_param_type(
     analysis: &Analysis,
     ty: &CType,
     len: Option<&LengthKind<'_>>,
@@ -265,7 +263,10 @@ fn convert_param_type(
             pointee, is_const, ..
         } = ty
         else {
-            panic!();
+            panic!(
+                "expected pointer type because of length {:?}, got {:?}",
+                len, ty
+            );
         };
 
         let ty = if matches!(pointee.as_ref(), CType::Base(base) if base.name == "char") {
@@ -341,7 +342,12 @@ pub fn write_command_wrapper(
         .lifetime_param
         .map(|lifetime| format!("<'{}>", lifetime))
         .unwrap_or_default();
-    writeln!(file, "pub unsafe fn {}{}(&self,", wrapper.name, lifetime_param).unwrap();
+    writeln!(
+        file,
+        "pub unsafe fn {}{}(&self,",
+        wrapper.name, lifetime_param
+    )
+    .unwrap();
 
     for param in &wrapper.wrapper_params {
         writeln!(file, "{}: {},", param.name, param.ty).unwrap();
@@ -529,37 +535,4 @@ fn write_fn_call(file: &mut impl std::io::Write, wrapper: &WrapperCommandInfo, o
         writeln!(file, ";").unwrap();
         writeln!(file, "{}", return_value).unwrap();
     };
-}
-
-fn normalize_param_name(name: &str) -> String {
-    let name = normalize_name(name);
-
-    name.strip_prefix("pp_")
-        .or_else(|| name.strip_prefix("p_"))
-        .unwrap_or(name.as_str())
-        .to_string()
-}
-
-pub fn normalize_command_name(name: &str) -> String {
-    name.strip_prefix("vk").unwrap().to_snake_case()
-}
-
-fn is_opaque_type(ty: &str) -> bool {
-    matches!(
-        ty,
-        "void"
-            | "wl_display"
-            | "wl_surface"
-            | "Display"
-            | "xcb_connection_t"
-            | "ANativeWindow"
-            | "AHardwareBuffer"
-            | "CAMetalLayer"
-            | "IDirectFB"
-            | "IDirectFBSurface"
-            | "_screen_buffer"
-            | "_screen_context"
-            | "_screen_window"
-            | "SECURITY_ATTRIBUTES"
-    )
 }

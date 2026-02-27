@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceVideoMaintenance2FeaturesKHR<'_> {
             video_maintenance2: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceVideoMaintenance2FeaturesKHR<'a> {
+    pub fn video_maintenance2(mut self, video_maintenance2: Bool32) -> Self {
+        self.video_maintenance2 = video_maintenance2;
+        self
     }
 }
 #[repr(C)]
@@ -39,6 +45,16 @@ impl Default for VideoDecodeH264InlineSessionParametersInfoKHR<'_> {
             p_std_pps: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VideoDecodeH264InlineSessionParametersInfoKHR<'a> {
+    pub fn std_sps(mut self, std_sps: &'a StdVideoH264SequenceParameterSet<'a>) -> Self {
+        self.p_std_sps = std_sps;
+        self
+    }
+    pub fn std_pps(mut self, std_pps: &'a StdVideoH264PictureParameterSet<'a>) -> Self {
+        self.p_std_pps = std_pps;
+        self
     }
 }
 #[repr(C)]
@@ -63,6 +79,20 @@ impl Default for VideoDecodeH265InlineSessionParametersInfoKHR<'_> {
         }
     }
 }
+impl<'a> VideoDecodeH265InlineSessionParametersInfoKHR<'a> {
+    pub fn std_vps(mut self, std_vps: &'a StdVideoH265VideoParameterSet<'a>) -> Self {
+        self.p_std_vps = std_vps;
+        self
+    }
+    pub fn std_sps(mut self, std_sps: &'a StdVideoH265SequenceParameterSet<'a>) -> Self {
+        self.p_std_sps = std_sps;
+        self
+    }
+    pub fn std_pps(mut self, std_pps: &'a StdVideoH265PictureParameterSet<'a>) -> Self {
+        self.p_std_pps = std_pps;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct VideoDecodeAV1InlineSessionParametersInfoKHR<'a> {
@@ -79,5 +109,14 @@ impl Default for VideoDecodeAV1InlineSessionParametersInfoKHR<'_> {
             p_std_sequence_header: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> VideoDecodeAV1InlineSessionParametersInfoKHR<'a> {
+    pub fn std_sequence_header(
+        mut self,
+        std_sequence_header: &'a StdVideoAV1SequenceHeader<'a>,
+    ) -> Self {
+        self.p_std_sequence_header = std_sequence_header;
+        self
     }
 }

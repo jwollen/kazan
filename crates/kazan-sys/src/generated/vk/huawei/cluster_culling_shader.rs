@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -27,6 +27,27 @@ impl Default for PhysicalDeviceClusterCullingShaderPropertiesHUAWEI<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceClusterCullingShaderPropertiesHUAWEI<'a> {
+    pub fn max_work_group_count(mut self, max_work_group_count: [u32; 3]) -> Self {
+        self.max_work_group_count = max_work_group_count;
+        self
+    }
+    pub fn max_work_group_size(mut self, max_work_group_size: [u32; 3]) -> Self {
+        self.max_work_group_size = max_work_group_size;
+        self
+    }
+    pub fn max_output_cluster_count(mut self, max_output_cluster_count: u32) -> Self {
+        self.max_output_cluster_count = max_output_cluster_count;
+        self
+    }
+    pub fn indirect_buffer_offset_alignment(
+        mut self,
+        indirect_buffer_offset_alignment: DeviceSize,
+    ) -> Self {
+        self.indirect_buffer_offset_alignment = indirect_buffer_offset_alignment;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'a> {
@@ -47,6 +68,19 @@ impl Default for PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'a> {
+    pub fn clusterculling_shader(mut self, clusterculling_shader: Bool32) -> Self {
+        self.clusterculling_shader = clusterculling_shader;
+        self
+    }
+    pub fn multiview_cluster_culling_shader(
+        mut self,
+        multiview_cluster_culling_shader: Bool32,
+    ) -> Self {
+        self.multiview_cluster_culling_shader = multiview_cluster_culling_shader;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI<'a> {
@@ -63,6 +97,12 @@ impl Default for PhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI<'_> {
             cluster_shading_rate: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI<'a> {
+    pub fn cluster_shading_rate(mut self, cluster_shading_rate: Bool32) -> Self {
+        self.cluster_shading_rate = cluster_shading_rate;
+        self
     }
 }
 pub type PFN_vkCmdDrawClusterHUAWEI = unsafe extern "system" fn(

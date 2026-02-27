@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,6 +19,12 @@ impl Default for PhysicalDeviceColorWriteEnableFeaturesEXT<'_> {
             color_write_enable: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceColorWriteEnableFeaturesEXT<'a> {
+    pub fn color_write_enable(mut self, color_write_enable: Bool32) -> Self {
+        self.color_write_enable = color_write_enable;
+        self
     }
 }
 #[repr(C)]
@@ -39,6 +45,13 @@ impl Default for PipelineColorWriteCreateInfoEXT<'_> {
             p_color_write_enables: core::ptr::null(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineColorWriteCreateInfoEXT<'a> {
+    pub fn color_write_enables(mut self, color_write_enables: &'a [Bool32]) -> Self {
+        self.attachment_count = color_write_enables.len().try_into().unwrap();
+        self.p_color_write_enables = color_write_enables.as_ptr();
+        self
     }
 }
 pub type PFN_vkCmdSetColorWriteEnableEXT = unsafe extern "system" fn(

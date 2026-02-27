@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -23,6 +23,20 @@ impl Default for PipelineCoverageToColorStateCreateInfoNV<'_> {
             coverage_to_color_location: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PipelineCoverageToColorStateCreateInfoNV<'a> {
+    pub fn flags(mut self, flags: PipelineCoverageToColorStateCreateFlagsNV) -> Self {
+        self.flags = flags;
+        self
+    }
+    pub fn coverage_to_color_enable(mut self, coverage_to_color_enable: Bool32) -> Self {
+        self.coverage_to_color_enable = coverage_to_color_enable;
+        self
+    }
+    pub fn coverage_to_color_location(mut self, coverage_to_color_location: u32) -> Self {
+        self.coverage_to_color_location = coverage_to_color_location;
+        self
     }
 }
 bitflags! {

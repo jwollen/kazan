@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -25,6 +25,20 @@ impl Default for PhysicalDeviceRobustness2FeaturesKHR<'_> {
         }
     }
 }
+impl<'a> PhysicalDeviceRobustness2FeaturesKHR<'a> {
+    pub fn robust_buffer_access2(mut self, robust_buffer_access2: Bool32) -> Self {
+        self.robust_buffer_access2 = robust_buffer_access2;
+        self
+    }
+    pub fn robust_image_access2(mut self, robust_image_access2: Bool32) -> Self {
+        self.robust_image_access2 = robust_image_access2;
+        self
+    }
+    pub fn null_descriptor(mut self, null_descriptor: Bool32) -> Self {
+        self.null_descriptor = null_descriptor;
+        self
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PhysicalDeviceRobustness2PropertiesKHR<'a> {
@@ -43,5 +57,23 @@ impl Default for PhysicalDeviceRobustness2PropertiesKHR<'_> {
             robust_uniform_buffer_access_size_alignment: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceRobustness2PropertiesKHR<'a> {
+    pub fn robust_storage_buffer_access_size_alignment(
+        mut self,
+        robust_storage_buffer_access_size_alignment: DeviceSize,
+    ) -> Self {
+        self.robust_storage_buffer_access_size_alignment =
+            robust_storage_buffer_access_size_alignment;
+        self
+    }
+    pub fn robust_uniform_buffer_access_size_alignment(
+        mut self,
+        robust_uniform_buffer_access_size_alignment: DeviceSize,
+    ) -> Self {
+        self.robust_uniform_buffer_access_size_alignment =
+            robust_uniform_buffer_access_size_alignment;
+        self
     }
 }

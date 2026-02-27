@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,5 +19,11 @@ impl Default for PhysicalDeviceShaderImageFootprintFeaturesNV<'_> {
             image_footprint: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceShaderImageFootprintFeaturesNV<'a> {
+    pub fn image_footprint(mut self, image_footprint: Bool32) -> Self {
+        self.image_footprint = image_footprint;
+        self
     }
 }

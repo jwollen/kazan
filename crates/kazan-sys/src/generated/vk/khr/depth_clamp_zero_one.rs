@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types, unused_imports)]
 use crate::{vk::*, *};
 use bitflags::bitflags;
-use core::ffi::{c_char, c_int, c_void};
+use core::ffi::{CStr, c_char, c_int, c_void};
 use core::marker::PhantomData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -19,5 +19,11 @@ impl Default for PhysicalDeviceDepthClampZeroOneFeaturesKHR<'_> {
             depth_clamp_zero_one: Default::default(),
             _marker: PhantomData,
         }
+    }
+}
+impl<'a> PhysicalDeviceDepthClampZeroOneFeaturesKHR<'a> {
+    pub fn depth_clamp_zero_one(mut self, depth_clamp_zero_one: Bool32) -> Self {
+        self.depth_clamp_zero_one = depth_clamp_zero_one;
+        self
     }
 }
