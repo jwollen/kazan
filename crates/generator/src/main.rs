@@ -1,18 +1,18 @@
 use std::{
     borrow::Cow,
-    collections::{BTreeMap, HashMap, HashSet},
+    collections::{BTreeMap, HashSet},
     fs::{self, File},
     io::Write,
 };
 
 use heck::ToSnakeCase;
-use itertools::Itertools;
 
 use crate::{
     analysis::Analysis,
     cdecl::CType,
-    command::{CommandGroup, CommandInfo, write_command_wrapper},
+    command::generate_commands,
     enums::{ReqEnumData, write_bitmask, write_enum},
+    module::{Module, ModuleName},
     structs::write_struct,
     xml::Constant,
 };
@@ -21,6 +21,8 @@ mod analysis;
 mod cdecl;
 mod command;
 mod enums;
+mod handle;
+mod module;
 mod structs;
 mod xml;
 
@@ -30,29 +32,8 @@ fn main() {
     generate(&analysis);
 }
 
-#[derive(Clone)]
-enum VersionOrExtension<'a> {
-    Version(VersionInfo<'a>),
-    Extension(&'a xml::Extension),
-}
-
-#[derive(Copy, Clone, Debug, Eq, PartialEq)]
-enum CommandType {
-    Entry,
-    Instance,
-    Device,
-}
-
-#[derive(Clone)]
-struct VersionInfo<'a> {
-    major: u32,
-    minor: u32,
-    features: Vec<&'a xml::Feature>,
-}
-
 fn generate(analysis: &analysis::Analysis) {
     let registry = analysis.registry();
-    let trailing_number = regex::Regex::new(r"(\d+)$").unwrap();
 
     let sys_output_dir = "crates/kazan-sys/src/generated/vk";
     let output_dir = "crates/kazan/src/generated/vk";
@@ -65,65 +46,14 @@ fn generate(analysis: &analysis::Analysis) {
 
     let mut visited_items = HashSet::new();
 
-    // For each handle type, determine if it is a device child
-    use std::collections::VecDeque;
-    let mut handle_command_types = HashMap::new();
-    let mut pending_handles = registry.handles.iter().collect::<VecDeque<_>>();
-    while let Some(handle) = pending_handles.pop_front() {
-        if handle.name == "VkInstance" {
-            handle_command_types.insert(handle.name, CommandType::Instance);
-        } else if handle.name == "VkDevice" {
-            handle_command_types.insert(handle.name, CommandType::Device);
-        } else {
-            let parent = handle.parent.unwrap();
-            if let Some(parent_command_type) = handle_command_types.get(parent) {
-                handle_command_types.insert(handle.name, *parent_command_type);
-            } else {
-                pending_handles.push_back(handle);
-            }
-        }
-    }
-
-    let versions = registry
-        .features
-        .iter()
-        .chunk_by(|feature| (feature.version.major, feature.version.minor))
-        .into_iter()
-        .map(|(version, features)| VersionInfo {
-            major: version.0,
-            minor: version.1,
-            features: features.into_iter().collect(),
-        })
-        .collect::<Vec<_>>();
-
-    let version_or_extension = versions.into_iter().map(VersionOrExtension::Version).chain(
-        registry
-            .extensions
-            .iter()
-            .map(VersionOrExtension::Extension),
-    );
-
     let mut req_enum_variants = BTreeMap::new();
     let mut req_bitspos = BTreeMap::new();
     let mut req_enum_aliases = BTreeMap::new();
     let mut req_enum_values = BTreeMap::new();
 
-    for version_or_extension in version_or_extension.clone() {
-        let requires: Vec<_> = match version_or_extension {
-            VersionOrExtension::Version(ref version) => version
-                .features
-                .iter()
-                .flat_map(|feature| feature.requires.iter())
-                .collect(),
-            VersionOrExtension::Extension(extension) => extension.requires.iter().collect(),
-        };
-
-        let ext_number = match version_or_extension {
-            VersionOrExtension::Version(_) => None,
-            VersionOrExtension::Extension(extension) => extension.number,
-        };
-
-        for req in requires {
+    for module in Module::from_registry(registry) {
+        let ext_number = module.ext_number();
+        for req in module.requires() {
             for variant in &req.enum_variants {
                 let variants = req_enum_variants
                     .entry(variant.extends)
@@ -157,15 +87,15 @@ fn generate(analysis: &analysis::Analysis) {
         }
     }
 
-    for version_or_extension in version_or_extension {
-        let requires: Vec<_> = match version_or_extension {
-            VersionOrExtension::Version(ref version) => version
-                .features
-                .iter()
-                .flat_map(|feature| feature.requires.iter())
-                .collect(),
-            VersionOrExtension::Extension(extension) => extension.requires.iter().collect(),
-        };
+    let req_enum_data = ReqEnumData {
+        enum_variants: &req_enum_variants,
+        enum_aliases: &req_enum_aliases,
+        enum_values: &req_enum_values,
+        bitspos: &req_bitspos,
+    };
+
+    for module in Module::from_registry(registry) {
+        let requires: Vec<_> = module.requires();
 
         let required_types = requires.iter().map(|r| &r.types).flatten();
 
@@ -207,33 +137,10 @@ fn generate(analysis: &analysis::Analysis) {
             .iter()
             .filter(|cmd| new_items.contains(cmd.name));
 
-        let (vendor, module_name) = match version_or_extension {
-            VersionOrExtension::Version(version) => {
-                let name = format!("vk{}_{}", version.major, version.minor);
-                (None, name.to_ascii_lowercase())
-            }
-            VersionOrExtension::Extension(extension) => {
-                let (vendor, name) = if extension.name.starts_with("VK_") {
-                    extension
-                        .name
-                        .strip_prefix("VK_")
-                        .unwrap()
-                        .split_once("_")
-                        .unwrap()
-                } else {
-                    let name = extension.name.strip_prefix("vulkan_video_").unwrap();
-                    ("video", name)
-                };
-
-                let name = if name.chars().next().unwrap().is_ascii_digit() {
-                    format!("_{}", name)
-                } else {
-                    name.to_string()
-                };
-
-                (Some(vendor.to_lowercase()), name)
-            }
-        };
+        let ModuleName {
+            vendor,
+            name: module_name,
+        } = module.name();
 
         if !new_items.is_empty() {
             sys_vendor_modules
@@ -249,248 +156,35 @@ fn generate(analysis: &analysis::Analysis) {
             let mut sys_file =
                 File::create(format!("{}/{}.rs", &vendor_path, module_name)).unwrap();
 
-            writeln!(sys_file, "#![allow(non_camel_case_types, unused_imports)]").unwrap();
-            writeln!(sys_file, "use core::ffi::{{c_char, c_int, c_void, CStr}};").unwrap();
-            writeln!(sys_file, "use core::marker::PhantomData;").unwrap();
-            writeln!(sys_file, "use bitflags::bitflags;").unwrap();
-            writeln!(sys_file, "use crate::{{*, vk::*}};").unwrap();
+            writeln!(
+                sys_file,
+                "#![allow(non_camel_case_types, unused_imports)]
+                use core::ffi::{{c_char, c_int, c_void, CStr}};
+                use core::marker::PhantomData;
+                use bitflags::bitflags;
+                use crate::{{*, vk::*}};"
+            )
+            .unwrap();
 
-            let constants =
-                required_api_constants.filter(|constant| new_items.contains(constant.name));
+            generate_api_constants(&mut sys_file, analysis, &new_items, required_api_constants);
 
-            for constant in constants {
-                writeln!(
-                    sys_file,
-                    "pub const {}: {} = {};",
-                    normalize_const_name(constant.name),
-                    ctype_to_rust_type_str(constant.ty),
-                    convert_c_expr(constant.value),
-                )
-                .unwrap();
-            }
+            generate_basetypes(&mut sys_file, analysis, &new_items);
 
-            let basetypes = registry
-                .basetypes
-                .iter()
-                .filter(|ty| new_items.contains(ty.name));
-            for ty in basetypes {
-                writeln!(
-                    sys_file,
-                    "pub type {} = {};",
-                    normalize_ty_name(ty.name),
-                    ctype_to_rust_type_str(ty.ty.unwrap_or("*const c_void"))
-                )
-                .unwrap();
-            }
+            generate_handles(&mut sys_file, analysis, &new_items);
 
-            let handles = registry
-                .handles
-                .iter()
-                .filter(|ty| new_items.contains(ty.name));
+            generate_type_aliases(&mut sys_file, analysis, &new_items);
 
-            for ty in handles {
-                let underlying_ty = match ty.ty {
-                    "VK_DEFINE_HANDLE" => "usize",
-                    "VK_DEFINE_NON_DISPATCHABLE_HANDLE" => "u64",
-                    _ => panic!(),
-                };
-                writeln!(sys_file, "#[repr(C)]").unwrap();
-                writeln!(sys_file, "#[derive(Copy, Clone, Default)]").unwrap();
-                writeln!(
-                    sys_file,
-                    "pub struct {}({});",
-                    normalize_ty_name(ty.name),
-                    underlying_ty
-                )
-                .unwrap();
-            }
+            generate_structs(&mut sys_file, analysis, &new_items);
 
-            let type_aliases = registry
-                .enum_aliases
-                .iter()
-                .clone()
-                .filter(|alias| {
-                    registry
-                        .enums
-                        .iter()
-                        .find(|ty| ty.name == alias.alias)
-                        .is_some()
-                })
-                .chain(registry.handle_aliases.iter())
-                .chain(registry.struct_aliases.iter())
-                .chain(registry.bitmask_aliases.iter())
-                .filter(|alias| new_items.contains(alias.name));
+            generate_unions(&mut sys_file, analysis, &new_items);
 
-            for ty in type_aliases {
-                writeln!(
-                    sys_file,
-                    "pub type {} = {};",
-                    type_name_with_lifetime(analysis, ty.name, Some("a")),
-                    type_name_with_lifetime(analysis, ty.alias, Some("a"))
-                )
-                .unwrap();
-            }
+            generate_enum_types(&mut sys_file, analysis, &new_items, &req_enum_data);
 
-            let command_aliases = registry
-                .command_aliases
-                .iter()
-                .filter(|alias| new_items.contains(alias.name));
+            generate_bitmask_types(&mut sys_file, analysis, &new_items, &req_enum_data);
 
-            for ty in command_aliases {
-                writeln!(
-                    sys_file,
-                    "pub type PFN_{} = PFN_{};",
-                    normalize_ty_name(ty.name),
-                    normalize_ty_name(ty.alias)
-                )
-                .unwrap();
-            }
+            generate_funcpointers(&mut sys_file, analysis, &new_items);
 
-            let new_structs = registry
-                .structs
-                .iter()
-                .filter(|ty| new_items.contains(ty.name));
-            for ty in new_structs {
-                write_struct(&mut sys_file, analysis, ty);
-            }
-
-            let unions = registry
-                .unions
-                .iter()
-                .filter(|ty| new_items.contains(ty.name));
-            for ty in unions {
-                let name = normalize_ty_name(ty.name);
-                let type_info = analysis.get_base_type_info(ty.name).unwrap();
-                writeln!(
-                    sys_file,
-                    "#[repr(C)]
-                    #[derive(Copy, Clone)]
-                    pub union {}{} {{",
-                    name,
-                    if type_info.lifetime_param { "<'a>" } else { "" }
-                )
-                .unwrap();
-                for member in &ty.members {
-                    let field_ty = ctype_to_rust_type(analysis, &member.c_decl.ty, Some("a"));
-                    writeln!(
-                        sys_file,
-                        "    pub {}: {},",
-                        normalize_name(member.c_decl.name),
-                        field_ty
-                    )
-                    .unwrap();
-                }
-                if type_info.lifetime_param {
-                    writeln!(sys_file, "pub _marker: PhantomData<&'a ()>,",).unwrap();
-                }
-                writeln!(sys_file, "}}").unwrap();
-                writeln!(
-                    sys_file,
-                    "impl Default for {}{} {{
-                        fn default() -> Self {{
-                            unsafe {{ core::mem::zeroed() }}
-                        }}
-                    }}",
-                    name,
-                    if type_info.lifetime_param { "<'_>" } else { "" }
-                )
-                .unwrap();
-            }
-
-            let enums = registry
-                .enums
-                .iter()
-                .filter(|ty| new_items.contains(ty.name));
-            let req_enum_data = ReqEnumData {
-                enum_variants: &req_enum_variants,
-                enum_aliases: &req_enum_aliases,
-                enum_values: &req_enum_values,
-                bitspos: &req_bitspos,
-            };
-            for ty in enums {
-                write_enum(&mut sys_file, ty, &req_enum_data, &trailing_number);
-            }
-
-            let bitmask_types = registry
-                .bitmask_types
-                .iter()
-                .clone()
-                .filter(|ty| new_items.contains(ty.name));
-            for ty in bitmask_types {
-                let bitmask = ty
-                    .bitvalues
-                    .or(ty.requires)
-                    .and_then(|b| registry.bitmasks.iter().find(|bitmask| bitmask.name == b));
-                write_bitmask(
-                    &mut sys_file,
-                    ty,
-                    bitmask,
-                    registry,
-                    &req_enum_data,
-                    &trailing_number,
-                );
-            }
-
-            let funcpointers = registry
-                .funcpointers
-                .iter()
-                .clone()
-                .filter(|ty| new_items.contains(ty.name));
-            for ty in funcpointers {
-                writeln!(
-                    sys_file,
-                    "pub type {} = unsafe extern \"system\" fn(",
-                    ty.name
-                )
-                .unwrap();
-                for param in &ty.params {
-                    writeln!(
-                        sys_file,
-                        "    {}: {},",
-                        normalize_name(param.c_decl.name),
-                        ctype_to_rust_type(analysis, &param.c_decl.ty, None)
-                    )
-                    .unwrap();
-                }
-                if let Some(ref return_type) = ty.return_type {
-                    writeln!(
-                        sys_file,
-                        ") -> {};",
-                        ctype_to_rust_type(analysis, &return_type, None)
-                    )
-                    .unwrap();
-                } else {
-                    writeln!(sys_file, ");").unwrap();
-                }
-            }
-
-            for command in new_commands.clone() {
-                writeln!(
-                    sys_file,
-                    "pub type PFN_{} = unsafe extern \"system\" fn(",
-                    command.name
-                )
-                .unwrap();
-                for param in &command.params {
-                    writeln!(
-                        sys_file,
-                        "    {}: {},",
-                        normalize_name(param.c_decl.name),
-                        ctype_to_rust_type(analysis, &param.c_decl.ty, None)
-                    )
-                    .unwrap();
-                }
-                if let Some(ref return_type) = command.return_type {
-                    writeln!(
-                        sys_file,
-                        ") -> {};",
-                        ctype_to_rust_type(analysis, &return_type, None)
-                    )
-                    .unwrap();
-                } else {
-                    writeln!(sys_file, ");").unwrap();
-                }
-            }
+            generate_functions(&mut sys_file, analysis, new_commands.clone());
         }
 
         if required_commands.clone().next().is_some() {
@@ -506,113 +200,7 @@ fn generate(analysis: &analysis::Analysis) {
             fs::create_dir_all(&vendor_path).unwrap();
             let mut file = File::create(format!("{}/{}.rs", &vendor_path, module_name)).unwrap();
 
-            writeln!(file, "#![allow(unused_imports)]").unwrap();
-            writeln!(file, "use core::ffi::{{c_char, c_int, c_void, CStr}};").unwrap();
-            writeln!(file, "use core::mem::transmute;").unwrap();
-            writeln!(file, "use kazan_sys::{{*, vk::*, vk::Result as VkResult}};").unwrap();
-            writeln!(file, "use crate::*;").unwrap();
-
-            let mut generate_commands = |cmd_type: CommandType, fn_type_name: &str| {
-                let command_groups: Vec<_> = requires
-                    .iter()
-                    .flat_map(|require| {
-                        let commands: Vec<_> = require
-                            .commands
-                            .iter()
-                            .map(|req_cmd| {
-                                let alias = registry.command_aliases.iter().find_map(|alias| {
-                                    if alias.name == req_cmd.name {
-                                        Some(alias.alias)
-                                    } else {
-                                        None
-                                    }
-                                });
-                                let name = alias.unwrap_or(req_cmd.name);
-                                let command = registry
-                                    .commands
-                                    .iter()
-                                    .find(|cmd| cmd.name == name)
-                                    .unwrap();
-                                CommandInfo {
-                                    alias: req_cmd.name,
-                                    command,
-                                    optional: !require.depends.is_empty(),
-                                }
-                            })
-                            .filter(|cmd| {
-                                let ty = &cmd.command.params.iter().next().unwrap().c_decl.ty;
-                                if let CType::Base(base) = ty {
-                                    handle_command_types
-                                        .get(base.name)
-                                        .copied()
-                                        .unwrap_or(CommandType::Entry)
-                                        == cmd_type
-                                } else {
-                                    cmd_type == CommandType::Entry
-                                }
-                            })
-                            .collect();
-
-                        if commands.is_empty() {
-                            None
-                        } else {
-                            Some(CommandGroup { require, commands })
-                        }
-                    })
-                    .collect::<Vec<_>>();
-
-                if command_groups.is_empty() {
-                    return;
-                }
-
-                writeln!(file, "pub struct {} {{", fn_type_name).unwrap();
-                for command_group in &command_groups {
-                    for command in &command_group.commands {
-                        let name = normalize_command_name(command.alias);
-                        let ty = format!("PFN_{}", normalize_ty_name(command.command.name));
-                        let ty = if command.optional {
-                            format!("Option<{}>", ty)
-                        } else {
-                            ty
-                        };
-                        writeln!(file, "{}: {},", name, ty).unwrap();
-                    }
-                }
-                writeln!(file, "}}").unwrap();
-
-                writeln!(file, "impl {} {{", fn_type_name).unwrap();
-                writeln!(file, "pub unsafe fn load(load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>) -> core::result::Result<Self, LoadingError> {{").unwrap();
-                writeln!(file, "unsafe {{ Ok(Self {{").unwrap();
-                for command_group in &command_groups {
-                    for command in &command_group.commands {
-                        let name = normalize_command_name(command.alias);
-                        if command.optional {
-                            writeln!(file, "{}: transmute(load(c\"{}\")),", name, command.alias)
-                                .unwrap();
-                        } else {
-                            writeln!(
-                                file,
-                                "{}: transmute(load(c\"{}\").ok_or(LoadingError)?),",
-                                name, command.alias
-                            )
-                            .unwrap();
-                        }
-                    }
-                }
-                writeln!(file, "}}) }} }} }}").unwrap();
-
-                writeln!(file, "impl {} {{", fn_type_name).unwrap();
-                for command_group in &command_groups {
-                    for command in &command_group.commands {
-                        write_command_wrapper(&mut file, analysis, command);
-                    }
-                }
-                writeln!(file, "}}").unwrap();
-            };
-
-            generate_commands(CommandType::Entry, "EntryFn");
-            generate_commands(CommandType::Instance, "InstanceFn");
-            generate_commands(CommandType::Device, "DeviceFn");
+            generate_commands(&mut file, analysis, &requires);
         }
     }
 
@@ -668,6 +256,300 @@ fn generate(analysis: &analysis::Analysis) {
         .arg("--edition=2024")
         .output()
         .unwrap();
+}
+
+fn generate_api_constants<'a>(
+    file: &mut impl std::io::Write,
+    analysis: &Analysis,
+    new_items: &HashSet<&str>,
+    required_api_constants: impl Iterator<Item = xml::Constant>,
+) {
+    let constants = required_api_constants.filter(|constant| new_items.contains(constant.name));
+
+    for constant in constants {
+        writeln!(
+            file,
+            "pub const {}: {} = {};",
+            normalize_const_name(constant.name),
+            ctype_to_rust_type_str(constant.ty),
+            convert_c_expr(constant.value),
+        )
+        .unwrap();
+    }
+}
+
+fn generate_basetypes(
+    file: &mut impl std::io::Write,
+    analysis: &Analysis,
+    new_items: &HashSet<&str>,
+) {
+    let basetypes = analysis
+        .registry()
+        .basetypes
+        .iter()
+        .filter(|ty| new_items.contains(ty.name));
+
+    for ty in basetypes {
+        writeln!(
+            file,
+            "pub type {} = {};",
+            normalize_ty_name(ty.name),
+            ctype_to_rust_type_str(ty.ty.unwrap_or("*const c_void"))
+        )
+        .unwrap();
+    }
+}
+
+fn generate_handles(
+    file: &mut impl std::io::Write,
+    analysis: &Analysis,
+    new_items: &HashSet<&str>,
+) {
+    let handles = analysis
+        .registry()
+        .handles
+        .iter()
+        .filter(|ty| new_items.contains(ty.name));
+
+    for handle in handles {
+        let underlying_ty = match handle.ty {
+            "VK_DEFINE_HANDLE" => "usize",
+            "VK_DEFINE_NON_DISPATCHABLE_HANDLE" => "u64",
+            _ => panic!(),
+        };
+        writeln!(
+            file,
+            "#[repr(C)]
+            #[derive(Copy, Clone, Default)]
+            pub struct {}({});",
+            normalize_ty_name(handle.name),
+            underlying_ty
+        )
+        .unwrap();
+    }
+}
+
+fn generate_type_aliases(
+    file: &mut impl std::io::Write,
+    analysis: &Analysis,
+    new_items: &HashSet<&str>,
+) {
+    let registry = analysis.registry();
+    let aliases = registry
+        .enum_aliases
+        .iter()
+        .clone()
+        .filter(|alias| {
+            registry
+                .enums
+                .iter()
+                .find(|ty| ty.name == alias.alias)
+                .is_some()
+        })
+        .chain(registry.handle_aliases.iter())
+        .chain(registry.struct_aliases.iter())
+        .chain(registry.bitmask_aliases.iter())
+        .filter(|alias| new_items.contains(alias.name));
+
+    for alias in aliases {
+        writeln!(
+            file,
+            "pub type {} = {};",
+            type_name_with_lifetime(analysis, alias.name, Some("a")),
+            type_name_with_lifetime(analysis, alias.alias, Some("a"))
+        )
+        .unwrap();
+    }
+
+    let command_aliases = registry
+        .command_aliases
+        .iter()
+        .filter(|alias| new_items.contains(alias.name));
+
+    for ty in command_aliases {
+        writeln!(
+            file,
+            "pub type PFN_{} = PFN_{};",
+            normalize_ty_name(ty.name),
+            normalize_ty_name(ty.alias)
+        )
+        .unwrap();
+    }
+}
+
+fn generate_structs(
+    file: &mut impl std::io::Write,
+    analysis: &Analysis,
+    new_items: &HashSet<&str>,
+) {
+    let new_structs = analysis
+        .registry()
+        .structs
+        .iter()
+        .filter(|ty| new_items.contains(ty.name));
+
+    for ty in new_structs {
+        write_struct(file, analysis, ty);
+    }
+}
+
+fn generate_unions(file: &mut impl std::io::Write, analysis: &Analysis, new_items: &HashSet<&str>) {
+    let unions = analysis
+        .registry()
+        .unions
+        .iter()
+        .filter(|ty| new_items.contains(ty.name));
+    for ty in unions {
+        let name = normalize_ty_name(ty.name);
+        let type_info = analysis.get_base_type_info(ty.name).unwrap();
+        writeln!(
+            file,
+            "#[repr(C)]
+            #[derive(Copy, Clone)]
+            pub union {}{} {{",
+            name,
+            if type_info.lifetime_param { "<'a>" } else { "" }
+        )
+        .unwrap();
+        for member in &ty.members {
+            let field_ty = ctype_to_rust_type(analysis, &member.c_decl.ty, Some("a"));
+            writeln!(
+                file,
+                "pub {}: {},",
+                normalize_name(member.c_decl.name),
+                field_ty
+            )
+            .unwrap();
+        }
+        if type_info.lifetime_param {
+            writeln!(file, "pub _marker: PhantomData<&'a ()>,",).unwrap();
+        }
+        writeln!(file, "}}").unwrap();
+        writeln!(
+            file,
+            "impl Default for {}{} {{
+                fn default() -> Self {{
+                    unsafe {{ core::mem::zeroed() }}
+                }}
+            }}",
+            name,
+            if type_info.lifetime_param { "<'_>" } else { "" }
+        )
+        .unwrap();
+    }
+}
+
+fn generate_enum_types(
+    file: &mut impl std::io::Write,
+    analysis: &Analysis,
+    new_items: &HashSet<&str>,
+    req_enum_data: &ReqEnumData<'_>,
+) {
+    let enums = analysis
+        .registry()
+        .enums
+        .iter()
+        .filter(|ty| new_items.contains(ty.name));
+
+    for ty in enums {
+        write_enum(file, req_enum_data, ty);
+    }
+}
+
+fn generate_bitmask_types(
+    file: &mut impl std::io::Write,
+    analysis: &Analysis,
+    new_items: &HashSet<&str>,
+    req_enum_data: &ReqEnumData<'_>,
+) {
+    let bitmask_types = analysis
+        .registry()
+        .bitmask_types
+        .iter()
+        .clone()
+        .filter(|ty| new_items.contains(ty.name));
+
+    for ty in bitmask_types {
+        let bitmask = ty.bitvalues.or(ty.requires).and_then(|b| {
+            analysis
+                .registry()
+                .bitmasks
+                .iter()
+                .find(|bitmask| bitmask.name == b)
+        });
+
+        write_bitmask(file, analysis, ty, bitmask, &req_enum_data);
+    }
+}
+
+fn generate_funcpointers(
+    file: &mut impl std::io::Write,
+    analysis: &Analysis,
+    new_items: &HashSet<&str>,
+) {
+    let funcpointers = analysis
+        .registry()
+        .funcpointers
+        .iter()
+        .clone()
+        .filter(|ty| new_items.contains(ty.name));
+
+    for ty in funcpointers {
+        writeln!(file, "pub type {} = unsafe extern \"system\" fn(", ty.name).unwrap();
+        for param in &ty.params {
+            writeln!(
+                file,
+                "    {}: {},",
+                normalize_name(param.c_decl.name),
+                ctype_to_rust_type(analysis, &param.c_decl.ty, None)
+            )
+            .unwrap();
+        }
+        if let Some(ref return_type) = ty.return_type {
+            writeln!(
+                file,
+                ") -> {};",
+                ctype_to_rust_type(analysis, &return_type, None)
+            )
+            .unwrap();
+        } else {
+            writeln!(file, ");").unwrap();
+        }
+    }
+}
+
+fn generate_functions<'a>(
+    file: &mut impl std::io::Write,
+    analysis: &Analysis,
+    new_commands: impl Iterator<Item = &'a xml::Command>,
+) {
+    for command in new_commands {
+        writeln!(
+            file,
+            "pub type PFN_{} = unsafe extern \"system\" fn(",
+            command.name
+        )
+        .unwrap();
+        for param in &command.params {
+            writeln!(
+                file,
+                "    {}: {},",
+                normalize_name(param.c_decl.name),
+                ctype_to_rust_type(analysis, &param.c_decl.ty, None)
+            )
+            .unwrap();
+        }
+        if let Some(ref return_type) = command.return_type {
+            writeln!(
+                file,
+                ") -> {};",
+                ctype_to_rust_type(analysis, &return_type, None)
+            )
+            .unwrap();
+        } else {
+            writeln!(file, ");").unwrap();
+        }
+    }
 }
 
 fn convert_c_expr<'a>(expr: &'a str) -> Cow<'a, str> {
@@ -763,7 +645,7 @@ fn ctype_to_rust_type(analysis: &Analysis, ty: &CType, lifetime: Option<&str>) -
                 cdecl::CArrayLen::Literal(len) => format!("[{}; {}]", element_ty, len),
             }
         }
-        CType::Func { ret_ty, params, .. } => todo!(),
+        CType::Func { .. } => todo!(),
     }
 }
 

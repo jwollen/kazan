@@ -5,7 +5,11 @@ use std::{
 };
 use tracing::{debug, error_span};
 
-use crate::{cdecl::CType, xml};
+use crate::{
+    cdecl::CType,
+    handle::{HandleCommandTypes, collect_handle_command_types},
+    xml,
+};
 
 /// Holds the analysis results for easy querying.
 #[derive(Debug)]
@@ -14,6 +18,7 @@ pub struct Analysis {
     custom_types: CustomTypes,
     type_refs: TypeRefs,
     type_infos: BTreeMap<&'static str, TypeInfo>,
+    handle_command_types: HandleCommandTypes,
 }
 
 impl Analysis {
@@ -42,12 +47,14 @@ impl Analysis {
         let custom_types = custom_types();
         let type_refs = build_type_refs(&registry, &custom_types);
         let type_infos = compute_type_infos(&registry, &custom_types, &type_refs);
+        let handle_command_types = collect_handle_command_types(&registry);
 
         Self {
             registry,
             custom_types,
             type_refs,
             type_infos,
+            handle_command_types,
         }
     }
 
@@ -70,6 +77,10 @@ impl Analysis {
 
     pub fn get_type_info(&self, ty: &CType<'_>) -> Option<TypeInfo> {
         get_type_info(&self.types(), &self.type_infos, ty)
+    }
+
+    pub fn handle_command_types(&self) -> &HandleCommandTypes {
+        &self.handle_command_types
     }
 }
 
@@ -376,15 +387,8 @@ fn compute_type_infos(
                 for member in &ty.members {
                     let member_ty = &member.c_decl.ty;
 
-                    if ty_name == "VkPerformanceValueINTEL" {
-                        println!("{}: {:?}", member.c_decl.name, member_ty);
-                    }
-
                     // No TypeInfo means this is a circular type
                     if let Some(member_ty_info) = get_type_info(&types, &type_infos, member_ty) {
-                        if ty_name == "VkPerformanceValueINTEL" {
-                            println!("{}: {:?}", member.c_decl.name, member_ty_info);
-                        }
                         type_info.merge(&member_ty_info);
                     }
                 }

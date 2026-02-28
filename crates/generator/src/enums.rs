@@ -1,9 +1,13 @@
-use std::collections::{BTreeMap, HashSet};
+use std::{
+    borrow::Cow,
+    collections::{BTreeMap, HashSet},
+    sync::OnceLock,
+};
 
 use heck::ToShoutySnakeCase;
 use regex::Regex;
 
-use crate::{ctype_to_rust_type_str, normalize_ty_name, xml};
+use crate::{analysis::Analysis, ctype_to_rust_type_str, normalize_ty_name, xml};
 
 /// Data from `<require>` blocks: extension/version enum variants, aliases, values, and bit positions.
 pub struct ReqEnumData<'a> {
@@ -118,18 +122,19 @@ fn normalize_bit_name(name: &str, value_prefix: Option<&str>) -> String {
     }
 }
 
-/// Writes Vulkan enum type and its constants to `file`.
-pub fn write_enum(
-    file: &mut impl std::io::Write,
-    ty: &xml::Enum,
-    req: &ReqEnumData<'_>,
-    trailing_number: &Regex,
-) {
+static TRAILING_NUMBER: OnceLock<Regex> = OnceLock::new();
+
+fn separate_trailing_number(name: &str) -> Cow<'_, str> {
+    let trailing_number = TRAILING_NUMBER.get_or_init(|| regex::Regex::new(r"(\d+)$").unwrap());
+    trailing_number.replace(name, "_$1")
+}
+
+pub fn write_enum(file: &mut impl std::io::Write, req: &ReqEnumData<'_>, ty: &xml::Enum) {
     let value_prefix = if ty.name == "VkResult" {
         "VK".to_string()
     } else {
         let prefix = strip_vendor_suffix(ty.name).to_shouty_snake_case();
-        trailing_number.replace(&prefix, "_$1").to_string()
+        separate_trailing_number(&prefix).to_string()
     };
 
     let variants = {
@@ -154,13 +159,14 @@ pub fn write_enum(
         bits
     };
 
-    writeln!(file, "#[repr(transparent)]").unwrap();
     writeln!(
         file,
-        "#[derive(Copy, Clone, Default,PartialEq, Eq, PartialOrd, Ord, Hash)]"
+        "#[repr(transparent)]
+        #[derive(Copy, Clone, Default,PartialEq, Eq, PartialOrd, Ord, Hash)]
+        pub struct {}(i32);",
+        normalize_ty_name(ty.name)
     )
     .unwrap();
-    writeln!(file, "pub struct {}(i32);", normalize_ty_name(ty.name)).unwrap();
 
     writeln!(file, "impl {} {{", normalize_ty_name(ty.name)).unwrap();
     for (name, value) in &variants {
@@ -188,29 +194,29 @@ pub fn write_enum(
 /// Writes a bitmask type (bitflags + optional FlagBits struct) to `file`.
 pub fn write_bitmask(
     file: &mut impl std::io::Write,
+    _analysis: &Analysis,
     ty: &xml::BitMaskType,
     bitmask: Option<&xml::BitMask>,
-    _registry: &xml::Registry,
     req: &ReqEnumData<'_>,
-    trailing_number: &Regex,
 ) {
     let name = normalize_ty_name(ty.name);
+    let base_type = ctype_to_rust_type_str(ty.ty);
 
-    writeln!(file, "bitflags! {{").unwrap();
-    writeln!(file, "    #[repr(transparent)]").unwrap();
     writeln!(
         file,
-        "    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]"
+        "bitflags! {{
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    pub struct {}: {} {{",
+        name, base_type
     )
     .unwrap();
-    let base_type = ctype_to_rust_type_str(ty.ty);
-    writeln!(file, "    pub struct {}: {} {{", name, base_type).unwrap();
 
     let value_prefix = bitmask.map(|bitmask| {
         let prefix = strip_vendor_suffix(bitmask.name)
             .replace("FlagBits", "")
             .to_shouty_snake_case();
-        trailing_number.replace(&prefix, "_$1").to_string()
+        separate_trailing_number(&prefix).to_string()
     });
 
     let bits = if let Some(bitmask) = bitmask {
