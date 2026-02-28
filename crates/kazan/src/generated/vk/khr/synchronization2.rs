@@ -1,8 +1,32 @@
 #![allow(unused_imports)]
-use crate::*;
+use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::Result as VkResult, vk::*, *};
+pub(super) mod defs {
+    #![allow(non_camel_case_types, unused_imports)]
+    use crate::{vk::*, *};
+    use bitflags::bitflags;
+    use core::ffi::{CStr, c_char, c_int, c_void};
+    use core::marker::PhantomData;
+    pub type MemoryBarrier2KHR<'a> = MemoryBarrier2<'a>;
+    pub type ImageMemoryBarrier2KHR<'a> = ImageMemoryBarrier2<'a>;
+    pub type BufferMemoryBarrier2KHR<'a> = BufferMemoryBarrier2<'a>;
+    pub type DependencyInfoKHR<'a> = DependencyInfo<'a>;
+    pub type SemaphoreSubmitInfoKHR<'a> = SemaphoreSubmitInfo<'a>;
+    pub type CommandBufferSubmitInfoKHR<'a> = CommandBufferSubmitInfo<'a>;
+    pub type SubmitInfo2KHR<'a> = SubmitInfo2<'a>;
+    pub type PhysicalDeviceSynchronization2FeaturesKHR<'a> =
+        PhysicalDeviceSynchronization2Features<'a>;
+    pub type AccessFlags2KHR = AccessFlags2;
+    pub type PipelineStageFlags2KHR = PipelineStageFlags2;
+    pub type SubmitFlagsKHR = SubmitFlags;
+    pub type PFN_vkCmdSetEvent2KHR = PFN_vkCmdSetEvent2;
+    pub type PFN_vkCmdResetEvent2KHR = PFN_vkCmdResetEvent2;
+    pub type PFN_vkCmdWaitEvents2KHR = PFN_vkCmdWaitEvents2;
+    pub type PFN_vkCmdPipelineBarrier2KHR = PFN_vkCmdPipelineBarrier2;
+    pub type PFN_vkQueueSubmit2KHR = PFN_vkQueueSubmit2;
+    pub type PFN_vkCmdWriteTimestamp2KHR = PFN_vkCmdWriteTimestamp2;
+}
 pub struct DeviceFn {
     cmd_set_event2_khr: PFN_vkCmdSetEvent2,
     cmd_reset_event2_khr: PFN_vkCmdResetEvent2,

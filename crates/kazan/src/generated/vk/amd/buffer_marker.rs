@@ -1,8 +1,28 @@
 #![allow(unused_imports)]
-use crate::*;
+use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::Result as VkResult, vk::*, *};
+pub(super) mod defs {
+    #![allow(non_camel_case_types, unused_imports)]
+    use crate::{vk::*, *};
+    use bitflags::bitflags;
+    use core::ffi::{CStr, c_char, c_int, c_void};
+    use core::marker::PhantomData;
+    pub type PFN_vkCmdWriteBufferMarkerAMD = unsafe extern "system" fn(
+        command_buffer: CommandBuffer,
+        pipeline_stage: PipelineStageFlagBits,
+        dst_buffer: Buffer,
+        dst_offset: DeviceSize,
+        marker: u32,
+    );
+    pub type PFN_vkCmdWriteBufferMarker2AMD = unsafe extern "system" fn(
+        command_buffer: CommandBuffer,
+        stage: PipelineStageFlags2,
+        dst_buffer: Buffer,
+        dst_offset: DeviceSize,
+        marker: u32,
+    );
+}
 pub struct DeviceFn {
     cmd_write_buffer_marker_amd: PFN_vkCmdWriteBufferMarkerAMD,
     cmd_write_buffer_marker2_amd: Option<PFN_vkCmdWriteBufferMarker2AMD>,

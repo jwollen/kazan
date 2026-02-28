@@ -1,8 +1,33 @@
 #![allow(unused_imports)]
-use crate::*;
+use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::Result as VkResult, vk::*, *};
+pub(super) mod defs {
+    #![allow(non_camel_case_types, unused_imports)]
+    use crate::{vk::*, *};
+    use bitflags::bitflags;
+    use core::ffi::{CStr, c_char, c_int, c_void};
+    use core::marker::PhantomData;
+    pub type PhysicalDeviceHostImageCopyFeaturesEXT<'a> = PhysicalDeviceHostImageCopyFeatures<'a>;
+    pub type PhysicalDeviceHostImageCopyPropertiesEXT<'a> =
+        PhysicalDeviceHostImageCopyProperties<'a>;
+    pub type MemoryToImageCopyEXT<'a> = MemoryToImageCopy<'a>;
+    pub type ImageToMemoryCopyEXT<'a> = ImageToMemoryCopy<'a>;
+    pub type CopyMemoryToImageInfoEXT<'a> = CopyMemoryToImageInfo<'a>;
+    pub type CopyImageToMemoryInfoEXT<'a> = CopyImageToMemoryInfo<'a>;
+    pub type CopyImageToImageInfoEXT<'a> = CopyImageToImageInfo<'a>;
+    pub type HostImageLayoutTransitionInfoEXT<'a> = HostImageLayoutTransitionInfo<'a>;
+    pub type SubresourceHostMemcpySizeEXT<'a> = SubresourceHostMemcpySize<'a>;
+    pub type HostImageCopyDevicePerformanceQueryEXT<'a> = HostImageCopyDevicePerformanceQuery<'a>;
+    pub type ImageSubresource2EXT<'a> = ImageSubresource2<'a>;
+    pub type SubresourceLayout2EXT<'a> = SubresourceLayout2<'a>;
+    pub type HostImageCopyFlagsEXT = HostImageCopyFlags;
+    pub type PFN_vkCopyMemoryToImageEXT = PFN_vkCopyMemoryToImage;
+    pub type PFN_vkCopyImageToMemoryEXT = PFN_vkCopyImageToMemory;
+    pub type PFN_vkCopyImageToImageEXT = PFN_vkCopyImageToImage;
+    pub type PFN_vkTransitionImageLayoutEXT = PFN_vkTransitionImageLayout;
+    pub type PFN_vkGetImageSubresourceLayout2EXT = PFN_vkGetImageSubresourceLayout2;
+}
 pub struct DeviceFn {
     copy_memory_to_image_ext: PFN_vkCopyMemoryToImage,
     copy_image_to_memory_ext: PFN_vkCopyImageToMemory,

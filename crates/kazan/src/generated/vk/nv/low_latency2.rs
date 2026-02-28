@@ -1,8 +1,386 @@
 #![allow(unused_imports)]
-use crate::*;
+use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::Result as VkResult, vk::*, *};
+pub(super) mod defs {
+    #![allow(non_camel_case_types, unused_imports)]
+    use crate::{vk::*, *};
+    use bitflags::bitflags;
+    use core::ffi::{CStr, c_char, c_int, c_void};
+    use core::marker::PhantomData;
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct LatencySleepModeInfoNV<'a> {
+        pub s_type: StructureType,
+        pub p_next: *const c_void,
+        pub low_latency_mode: Bool32,
+        pub low_latency_boost: Bool32,
+        pub minimum_interval_us: u32,
+        pub _marker: PhantomData<&'a ()>,
+    }
+    impl Default for LatencySleepModeInfoNV<'_> {
+        fn default() -> Self {
+            Self {
+                s_type: StructureType::LATENCY_SLEEP_MODE_INFO_NV,
+                p_next: core::ptr::null(),
+                low_latency_mode: Default::default(),
+                low_latency_boost: Default::default(),
+                minimum_interval_us: Default::default(),
+                _marker: PhantomData,
+            }
+        }
+    }
+    impl<'a> LatencySleepModeInfoNV<'a> {
+        pub fn low_latency_mode(mut self, low_latency_mode: Bool32) -> Self {
+            self.low_latency_mode = low_latency_mode;
+            self
+        }
+        pub fn low_latency_boost(mut self, low_latency_boost: Bool32) -> Self {
+            self.low_latency_boost = low_latency_boost;
+            self
+        }
+        pub fn minimum_interval_us(mut self, minimum_interval_us: u32) -> Self {
+            self.minimum_interval_us = minimum_interval_us;
+            self
+        }
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct LatencySleepInfoNV<'a> {
+        pub s_type: StructureType,
+        pub p_next: *const c_void,
+        pub signal_semaphore: Semaphore,
+        pub value: u64,
+        pub _marker: PhantomData<&'a ()>,
+    }
+    impl Default for LatencySleepInfoNV<'_> {
+        fn default() -> Self {
+            Self {
+                s_type: StructureType::LATENCY_SLEEP_INFO_NV,
+                p_next: core::ptr::null(),
+                signal_semaphore: Default::default(),
+                value: Default::default(),
+                _marker: PhantomData,
+            }
+        }
+    }
+    impl<'a> LatencySleepInfoNV<'a> {
+        pub fn signal_semaphore(mut self, signal_semaphore: Semaphore) -> Self {
+            self.signal_semaphore = signal_semaphore;
+            self
+        }
+        pub fn value(mut self, value: u64) -> Self {
+            self.value = value;
+            self
+        }
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct SetLatencyMarkerInfoNV<'a> {
+        pub s_type: StructureType,
+        pub p_next: *const c_void,
+        pub present_id: u64,
+        pub marker: LatencyMarkerNV,
+        pub _marker: PhantomData<&'a ()>,
+    }
+    impl Default for SetLatencyMarkerInfoNV<'_> {
+        fn default() -> Self {
+            Self {
+                s_type: StructureType::SET_LATENCY_MARKER_INFO_NV,
+                p_next: core::ptr::null(),
+                present_id: Default::default(),
+                marker: Default::default(),
+                _marker: PhantomData,
+            }
+        }
+    }
+    impl<'a> SetLatencyMarkerInfoNV<'a> {
+        pub fn present_id(mut self, present_id: u64) -> Self {
+            self.present_id = present_id;
+            self
+        }
+        pub fn marker(mut self, marker: LatencyMarkerNV) -> Self {
+            self.marker = marker;
+            self
+        }
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct GetLatencyMarkerInfoNV<'a> {
+        pub s_type: StructureType,
+        pub p_next: *const c_void,
+        pub timing_count: u32,
+        pub p_timings: *mut LatencyTimingsFrameReportNV<'a>,
+        pub _marker: PhantomData<&'a ()>,
+    }
+    impl Default for GetLatencyMarkerInfoNV<'_> {
+        fn default() -> Self {
+            Self {
+                s_type: StructureType::GET_LATENCY_MARKER_INFO_NV,
+                p_next: core::ptr::null(),
+                timing_count: Default::default(),
+                p_timings: core::ptr::null_mut(),
+                _marker: PhantomData,
+            }
+        }
+    }
+    impl<'a> GetLatencyMarkerInfoNV<'a> {
+        pub fn timings(mut self, timings: &'a mut [LatencyTimingsFrameReportNV<'a>]) -> Self {
+            self.timing_count = timings.len().try_into().unwrap();
+            self.p_timings = timings.as_mut_ptr();
+            self
+        }
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct LatencyTimingsFrameReportNV<'a> {
+        pub s_type: StructureType,
+        pub p_next: *mut c_void,
+        pub present_id: u64,
+        pub input_sample_time_us: u64,
+        pub sim_start_time_us: u64,
+        pub sim_end_time_us: u64,
+        pub render_submit_start_time_us: u64,
+        pub render_submit_end_time_us: u64,
+        pub present_start_time_us: u64,
+        pub present_end_time_us: u64,
+        pub driver_start_time_us: u64,
+        pub driver_end_time_us: u64,
+        pub os_render_queue_start_time_us: u64,
+        pub os_render_queue_end_time_us: u64,
+        pub gpu_render_start_time_us: u64,
+        pub gpu_render_end_time_us: u64,
+        pub _marker: PhantomData<&'a ()>,
+    }
+    impl Default for LatencyTimingsFrameReportNV<'_> {
+        fn default() -> Self {
+            Self {
+                s_type: StructureType::LATENCY_TIMINGS_FRAME_REPORT_NV,
+                p_next: core::ptr::null_mut(),
+                present_id: Default::default(),
+                input_sample_time_us: Default::default(),
+                sim_start_time_us: Default::default(),
+                sim_end_time_us: Default::default(),
+                render_submit_start_time_us: Default::default(),
+                render_submit_end_time_us: Default::default(),
+                present_start_time_us: Default::default(),
+                present_end_time_us: Default::default(),
+                driver_start_time_us: Default::default(),
+                driver_end_time_us: Default::default(),
+                os_render_queue_start_time_us: Default::default(),
+                os_render_queue_end_time_us: Default::default(),
+                gpu_render_start_time_us: Default::default(),
+                gpu_render_end_time_us: Default::default(),
+                _marker: PhantomData,
+            }
+        }
+    }
+    impl<'a> LatencyTimingsFrameReportNV<'a> {
+        pub fn present_id(mut self, present_id: u64) -> Self {
+            self.present_id = present_id;
+            self
+        }
+        pub fn input_sample_time_us(mut self, input_sample_time_us: u64) -> Self {
+            self.input_sample_time_us = input_sample_time_us;
+            self
+        }
+        pub fn sim_start_time_us(mut self, sim_start_time_us: u64) -> Self {
+            self.sim_start_time_us = sim_start_time_us;
+            self
+        }
+        pub fn sim_end_time_us(mut self, sim_end_time_us: u64) -> Self {
+            self.sim_end_time_us = sim_end_time_us;
+            self
+        }
+        pub fn render_submit_start_time_us(mut self, render_submit_start_time_us: u64) -> Self {
+            self.render_submit_start_time_us = render_submit_start_time_us;
+            self
+        }
+        pub fn render_submit_end_time_us(mut self, render_submit_end_time_us: u64) -> Self {
+            self.render_submit_end_time_us = render_submit_end_time_us;
+            self
+        }
+        pub fn present_start_time_us(mut self, present_start_time_us: u64) -> Self {
+            self.present_start_time_us = present_start_time_us;
+            self
+        }
+        pub fn present_end_time_us(mut self, present_end_time_us: u64) -> Self {
+            self.present_end_time_us = present_end_time_us;
+            self
+        }
+        pub fn driver_start_time_us(mut self, driver_start_time_us: u64) -> Self {
+            self.driver_start_time_us = driver_start_time_us;
+            self
+        }
+        pub fn driver_end_time_us(mut self, driver_end_time_us: u64) -> Self {
+            self.driver_end_time_us = driver_end_time_us;
+            self
+        }
+        pub fn os_render_queue_start_time_us(mut self, os_render_queue_start_time_us: u64) -> Self {
+            self.os_render_queue_start_time_us = os_render_queue_start_time_us;
+            self
+        }
+        pub fn os_render_queue_end_time_us(mut self, os_render_queue_end_time_us: u64) -> Self {
+            self.os_render_queue_end_time_us = os_render_queue_end_time_us;
+            self
+        }
+        pub fn gpu_render_start_time_us(mut self, gpu_render_start_time_us: u64) -> Self {
+            self.gpu_render_start_time_us = gpu_render_start_time_us;
+            self
+        }
+        pub fn gpu_render_end_time_us(mut self, gpu_render_end_time_us: u64) -> Self {
+            self.gpu_render_end_time_us = gpu_render_end_time_us;
+            self
+        }
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct OutOfBandQueueTypeInfoNV<'a> {
+        pub s_type: StructureType,
+        pub p_next: *const c_void,
+        pub queue_type: OutOfBandQueueTypeNV,
+        pub _marker: PhantomData<&'a ()>,
+    }
+    impl Default for OutOfBandQueueTypeInfoNV<'_> {
+        fn default() -> Self {
+            Self {
+                s_type: StructureType::OUT_OF_BAND_QUEUE_TYPE_INFO_NV,
+                p_next: core::ptr::null(),
+                queue_type: Default::default(),
+                _marker: PhantomData,
+            }
+        }
+    }
+    impl<'a> OutOfBandQueueTypeInfoNV<'a> {
+        pub fn queue_type(mut self, queue_type: OutOfBandQueueTypeNV) -> Self {
+            self.queue_type = queue_type;
+            self
+        }
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct LatencySubmissionPresentIdNV<'a> {
+        pub s_type: StructureType,
+        pub p_next: *const c_void,
+        pub present_id: u64,
+        pub _marker: PhantomData<&'a ()>,
+    }
+    impl Default for LatencySubmissionPresentIdNV<'_> {
+        fn default() -> Self {
+            Self {
+                s_type: StructureType::LATENCY_SUBMISSION_PRESENT_ID_NV,
+                p_next: core::ptr::null(),
+                present_id: Default::default(),
+                _marker: PhantomData,
+            }
+        }
+    }
+    impl<'a> LatencySubmissionPresentIdNV<'a> {
+        pub fn present_id(mut self, present_id: u64) -> Self {
+            self.present_id = present_id;
+            self
+        }
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct SwapchainLatencyCreateInfoNV<'a> {
+        pub s_type: StructureType,
+        pub p_next: *const c_void,
+        pub latency_mode_enable: Bool32,
+        pub _marker: PhantomData<&'a ()>,
+    }
+    impl Default for SwapchainLatencyCreateInfoNV<'_> {
+        fn default() -> Self {
+            Self {
+                s_type: StructureType::SWAPCHAIN_LATENCY_CREATE_INFO_NV,
+                p_next: core::ptr::null(),
+                latency_mode_enable: Default::default(),
+                _marker: PhantomData,
+            }
+        }
+    }
+    impl<'a> SwapchainLatencyCreateInfoNV<'a> {
+        pub fn latency_mode_enable(mut self, latency_mode_enable: Bool32) -> Self {
+            self.latency_mode_enable = latency_mode_enable;
+            self
+        }
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct LatencySurfaceCapabilitiesNV<'a> {
+        pub s_type: StructureType,
+        pub p_next: *const c_void,
+        pub present_mode_count: u32,
+        pub p_present_modes: *mut PresentModeKHR,
+        pub _marker: PhantomData<&'a ()>,
+    }
+    impl Default for LatencySurfaceCapabilitiesNV<'_> {
+        fn default() -> Self {
+            Self {
+                s_type: StructureType::LATENCY_SURFACE_CAPABILITIES_NV,
+                p_next: core::ptr::null(),
+                present_mode_count: Default::default(),
+                p_present_modes: core::ptr::null_mut(),
+                _marker: PhantomData,
+            }
+        }
+    }
+    impl<'a> LatencySurfaceCapabilitiesNV<'a> {
+        pub fn present_modes(mut self, present_modes: &'a mut [PresentModeKHR]) -> Self {
+            self.present_mode_count = present_modes.len().try_into().unwrap();
+            self.p_present_modes = present_modes.as_mut_ptr();
+            self
+        }
+    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    pub struct LatencyMarkerNV(i32);
+    impl LatencyMarkerNV {
+        pub const SIMULATION_START_NV: Self = Self(0);
+        pub const SIMULATION_END_NV: Self = Self(1);
+        pub const RENDERSUBMIT_START_NV: Self = Self(2);
+        pub const RENDERSUBMIT_END_NV: Self = Self(3);
+        pub const PRESENT_START_NV: Self = Self(4);
+        pub const PRESENT_END_NV: Self = Self(5);
+        pub const INPUT_SAMPLE_NV: Self = Self(6);
+        pub const TRIGGER_FLASH_NV: Self = Self(7);
+        pub const OUT_OF_BAND_RENDERSUBMIT_START_NV: Self = Self(8);
+        pub const OUT_OF_BAND_RENDERSUBMIT_END_NV: Self = Self(9);
+        pub const OUT_OF_BAND_PRESENT_START_NV: Self = Self(10);
+        pub const OUT_OF_BAND_PRESENT_END_NV: Self = Self(11);
+    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    pub struct OutOfBandQueueTypeNV(i32);
+    impl OutOfBandQueueTypeNV {
+        pub const RENDER_NV: Self = Self(0);
+        pub const PRESENT_NV: Self = Self(1);
+    }
+    pub type PFN_vkSetLatencySleepModeNV = unsafe extern "system" fn(
+        device: Device,
+        swapchain: SwapchainKHR,
+        p_sleep_mode_info: *const LatencySleepModeInfoNV<'_>,
+    ) -> vk::Result;
+    pub type PFN_vkLatencySleepNV = unsafe extern "system" fn(
+        device: Device,
+        swapchain: SwapchainKHR,
+        p_sleep_info: *const LatencySleepInfoNV<'_>,
+    ) -> vk::Result;
+    pub type PFN_vkSetLatencyMarkerNV = unsafe extern "system" fn(
+        device: Device,
+        swapchain: SwapchainKHR,
+        p_latency_marker_info: *const SetLatencyMarkerInfoNV<'_>,
+    );
+    pub type PFN_vkGetLatencyTimingsNV = unsafe extern "system" fn(
+        device: Device,
+        swapchain: SwapchainKHR,
+        p_latency_marker_info: *mut GetLatencyMarkerInfoNV<'_>,
+    );
+    pub type PFN_vkQueueNotifyOutOfBandNV = unsafe extern "system" fn(
+        queue: Queue,
+        p_queue_type_info: *const OutOfBandQueueTypeInfoNV<'_>,
+    );
+}
 pub struct DeviceFn {
     set_latency_sleep_mode_nv: PFN_vkSetLatencySleepModeNV,
     latency_sleep_nv: PFN_vkLatencySleepNV,

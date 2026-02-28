@@ -1,8 +1,17 @@
 #![allow(unused_imports)]
-use crate::*;
+use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::Result as VkResult, vk::*, *};
+pub(super) mod defs {
+    #![allow(non_camel_case_types, unused_imports)]
+    use crate::{vk::*, *};
+    use bitflags::bitflags;
+    use core::ffi::{CStr, c_char, c_int, c_void};
+    use core::marker::PhantomData;
+    pub type PhysicalDeviceMaintenance3PropertiesKHR<'a> = PhysicalDeviceMaintenance3Properties<'a>;
+    pub type DescriptorSetLayoutSupportKHR<'a> = DescriptorSetLayoutSupport<'a>;
+    pub type PFN_vkGetDescriptorSetLayoutSupportKHR = PFN_vkGetDescriptorSetLayoutSupport;
+}
 pub struct DeviceFn {
     get_descriptor_set_layout_support_khr: PFN_vkGetDescriptorSetLayoutSupport,
 }

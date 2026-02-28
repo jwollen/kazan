@@ -1,0 +1,59 @@
+#![allow(unused_imports)]
+use crate::{vk::Result as VkResult, vk::*, *};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
+pub(super) mod defs {
+    #![allow(non_camel_case_types, unused_imports)]
+    use crate::{vk::*, *};
+    use bitflags::bitflags;
+    use core::ffi::{CStr, c_char, c_int, c_void};
+    use core::marker::PhantomData;
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct PhysicalDeviceShaderLongVectorFeaturesEXT<'a> {
+        pub s_type: StructureType,
+        pub p_next: *mut c_void,
+        pub long_vector: Bool32,
+        pub _marker: PhantomData<&'a ()>,
+    }
+    impl Default for PhysicalDeviceShaderLongVectorFeaturesEXT<'_> {
+        fn default() -> Self {
+            Self {
+                s_type: StructureType::PHYSICAL_DEVICE_SHADER_LONG_VECTOR_FEATURES_EXT,
+                p_next: core::ptr::null_mut(),
+                long_vector: Default::default(),
+                _marker: PhantomData,
+            }
+        }
+    }
+    impl<'a> PhysicalDeviceShaderLongVectorFeaturesEXT<'a> {
+        pub fn long_vector(mut self, long_vector: Bool32) -> Self {
+            self.long_vector = long_vector;
+            self
+        }
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct PhysicalDeviceShaderLongVectorPropertiesEXT<'a> {
+        pub s_type: StructureType,
+        pub p_next: *mut c_void,
+        pub max_vector_components: u32,
+        pub _marker: PhantomData<&'a ()>,
+    }
+    impl Default for PhysicalDeviceShaderLongVectorPropertiesEXT<'_> {
+        fn default() -> Self {
+            Self {
+                s_type: StructureType::PHYSICAL_DEVICE_SHADER_LONG_VECTOR_PROPERTIES_EXT,
+                p_next: core::ptr::null_mut(),
+                max_vector_components: Default::default(),
+                _marker: PhantomData,
+            }
+        }
+    }
+    impl<'a> PhysicalDeviceShaderLongVectorPropertiesEXT<'a> {
+        pub fn max_vector_components(mut self, max_vector_components: u32) -> Self {
+            self.max_vector_components = max_vector_components;
+            self
+        }
+    }
+}

@@ -159,16 +159,22 @@ pub fn write_enum(file: &mut impl std::io::Write, req: &ReqEnumData<'_>, ty: &xm
         bits
     };
 
+    let name = if ty.name == "VkResult" {
+        "Result"
+    } else {
+        normalize_ty_name(ty.name)
+    };
+
     writeln!(
         file,
         "#[repr(transparent)]
         #[derive(Copy, Clone, Default,PartialEq, Eq, PartialOrd, Ord, Hash)]
         pub struct {}(i32);",
-        normalize_ty_name(ty.name)
+        name
     )
     .unwrap();
 
-    writeln!(file, "impl {} {{", normalize_ty_name(ty.name)).unwrap();
+    writeln!(file, "impl {} {{", name).unwrap();
     for (name, value) in &variants {
         writeln!(file, "pub const {}: Self = Self({});", name, value).unwrap();
     }

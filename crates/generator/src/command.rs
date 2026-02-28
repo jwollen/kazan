@@ -81,16 +81,6 @@ pub fn generate_commands(
     analysis: &Analysis,
     requires: &[&xml::Require],
 ) {
-    writeln!(
-        file,
-        "#![allow(unused_imports)]
-        use core::ffi::{{c_char, c_int, c_void, CStr}};
-        use core::mem::transmute;
-        use kazan_sys::{{*, vk::*, vk::Result as VkResult}};
-        use crate::*;"
-    )
-    .unwrap();
-
     let mut generate_commands = |cmd_type: CommandType, fn_type_name: &str| {
         let command_groups: Vec<_> = requires
             .iter()

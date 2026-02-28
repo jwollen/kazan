@@ -1,8 +1,19 @@
 #![allow(unused_imports)]
-use crate::*;
+use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::Result as VkResult, vk::*, *};
+pub(super) mod defs {
+    #![allow(non_camel_case_types, unused_imports)]
+    use crate::{vk::*, *};
+    use bitflags::bitflags;
+    use core::ffi::{CStr, c_char, c_int, c_void};
+    use core::marker::PhantomData;
+    pub type MemoryMapInfoKHR<'a> = MemoryMapInfo<'a>;
+    pub type MemoryUnmapInfoKHR<'a> = MemoryUnmapInfo<'a>;
+    pub type MemoryUnmapFlagsKHR = MemoryUnmapFlags;
+    pub type PFN_vkMapMemory2KHR = PFN_vkMapMemory2;
+    pub type PFN_vkUnmapMemory2KHR = PFN_vkUnmapMemory2;
+}
 pub struct DeviceFn {
     map_memory2_khr: PFN_vkMapMemory2,
     unmap_memory2_khr: PFN_vkUnmapMemory2,

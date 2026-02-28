@@ -1,8 +1,99 @@
 #![allow(unused_imports)]
-use crate::*;
+use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::Result as VkResult, vk::*, *};
+pub(super) mod defs {
+    #![allow(non_camel_case_types, unused_imports)]
+    use crate::{vk::*, *};
+    use bitflags::bitflags;
+    use core::ffi::{CStr, c_char, c_int, c_void};
+    use core::marker::PhantomData;
+    #[repr(C)]
+    #[derive(Copy, Clone, Default)]
+    pub struct ExternalImageFormatPropertiesNV {
+        pub image_format_properties: ImageFormatProperties,
+        pub external_memory_features: ExternalMemoryFeatureFlagsNV,
+        pub export_from_imported_handle_types: ExternalMemoryHandleTypeFlagsNV,
+        pub compatible_handle_types: ExternalMemoryHandleTypeFlagsNV,
+    }
+    impl ExternalImageFormatPropertiesNV {
+        pub fn image_format_properties(
+            mut self,
+            image_format_properties: ImageFormatProperties,
+        ) -> Self {
+            self.image_format_properties = image_format_properties;
+            self
+        }
+        pub fn external_memory_features(
+            mut self,
+            external_memory_features: ExternalMemoryFeatureFlagsNV,
+        ) -> Self {
+            self.external_memory_features = external_memory_features;
+            self
+        }
+        pub fn export_from_imported_handle_types(
+            mut self,
+            export_from_imported_handle_types: ExternalMemoryHandleTypeFlagsNV,
+        ) -> Self {
+            self.export_from_imported_handle_types = export_from_imported_handle_types;
+            self
+        }
+        pub fn compatible_handle_types(
+            mut self,
+            compatible_handle_types: ExternalMemoryHandleTypeFlagsNV,
+        ) -> Self {
+            self.compatible_handle_types = compatible_handle_types;
+            self
+        }
+    }
+    bitflags! {
+        #[repr(transparent)]
+        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+        pub struct ExternalMemoryHandleTypeFlagsNV: Flags {
+            const OPAQUE_WIN32_NV = ExternalMemoryHandleTypeFlagBitsNV::OPAQUE_WIN32_NV.0;
+            const OPAQUE_WIN32_KMT_NV = ExternalMemoryHandleTypeFlagBitsNV::OPAQUE_WIN32_KMT_NV.0;
+            const D3D11_IMAGE_NV = ExternalMemoryHandleTypeFlagBitsNV::D3D11_IMAGE_NV.0;
+            const D3D11_IMAGE_KMT_NV = ExternalMemoryHandleTypeFlagBitsNV::D3D11_IMAGE_KMT_NV.0;
+        }
+    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    pub struct ExternalMemoryHandleTypeFlagBitsNV(u32);
+    impl ExternalMemoryHandleTypeFlagBitsNV {
+        pub const OPAQUE_WIN32_NV: Self = Self(1 << 0);
+        pub const OPAQUE_WIN32_KMT_NV: Self = Self(1 << 1);
+        pub const D3D11_IMAGE_NV: Self = Self(1 << 2);
+        pub const D3D11_IMAGE_KMT_NV: Self = Self(1 << 3);
+    }
+    bitflags! {
+        #[repr(transparent)]
+        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+        pub struct ExternalMemoryFeatureFlagsNV: Flags {
+            const DEDICATED_ONLY_NV = ExternalMemoryFeatureFlagBitsNV::DEDICATED_ONLY_NV.0;
+            const EXPORTABLE_NV = ExternalMemoryFeatureFlagBitsNV::EXPORTABLE_NV.0;
+            const IMPORTABLE_NV = ExternalMemoryFeatureFlagBitsNV::IMPORTABLE_NV.0;
+        }
+    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    pub struct ExternalMemoryFeatureFlagBitsNV(u32);
+    impl ExternalMemoryFeatureFlagBitsNV {
+        pub const DEDICATED_ONLY_NV: Self = Self(1 << 0);
+        pub const EXPORTABLE_NV: Self = Self(1 << 1);
+        pub const IMPORTABLE_NV: Self = Self(1 << 2);
+    }
+    pub type PFN_vkGetPhysicalDeviceExternalImageFormatPropertiesNV =
+        unsafe extern "system" fn(
+            physical_device: PhysicalDevice,
+            format: Format,
+            ty: ImageType,
+            tiling: ImageTiling,
+            usage: ImageUsageFlags,
+            flags: ImageCreateFlags,
+            external_handle_type: ExternalMemoryHandleTypeFlagsNV,
+            p_external_image_format_properties: *mut ExternalImageFormatPropertiesNV,
+        ) -> vk::Result;
+}
 pub struct InstanceFn {
     get_physical_device_external_image_format_properties_nv:
         PFN_vkGetPhysicalDeviceExternalImageFormatPropertiesNV,

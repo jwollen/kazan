@@ -1,8 +1,25 @@
 #![allow(unused_imports)]
-use crate::*;
+use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::Result as VkResult, vk::*, *};
+pub(super) mod defs {
+    #![allow(non_camel_case_types, unused_imports)]
+    use crate::{vk::*, *};
+    use bitflags::bitflags;
+    use core::ffi::{CStr, c_char, c_int, c_void};
+    use core::marker::PhantomData;
+    pub type PFN_vkAcquireXlibDisplayEXT = unsafe extern "system" fn(
+        physical_device: PhysicalDevice,
+        dpy: *mut Display,
+        display: DisplayKHR,
+    ) -> vk::Result;
+    pub type PFN_vkGetRandROutputDisplayEXT = unsafe extern "system" fn(
+        physical_device: PhysicalDevice,
+        dpy: *mut Display,
+        rr_output: RROutput,
+        p_display: *mut DisplayKHR,
+    ) -> vk::Result;
+}
 pub struct InstanceFn {
     acquire_xlib_display_ext: PFN_vkAcquireXlibDisplayEXT,
     get_rand_r_output_display_ext: PFN_vkGetRandROutputDisplayEXT,

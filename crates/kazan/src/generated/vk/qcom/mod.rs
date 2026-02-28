@@ -1,3 +1,31 @@
+pub mod data_graph_model;
+pub mod filter_cubic_clamp;
+pub mod filter_cubic_weights;
+pub mod fragment_density_map_offset;
+pub mod image_processing;
+pub mod image_processing2;
+pub mod multiview_per_view_render_areas;
+pub mod multiview_per_view_viewports;
+pub mod render_pass_transform;
+pub mod rotated_copy_commands;
 pub mod tile_memory_heap;
 pub mod tile_properties;
 pub mod tile_shading;
+pub mod ycbcr_degamma;
+pub(super) mod defs {
+    use super::*;
+    pub use data_graph_model::defs::*;
+    pub use filter_cubic_clamp::defs::*;
+    pub use filter_cubic_weights::defs::*;
+    pub use fragment_density_map_offset::defs::*;
+    pub use image_processing::defs::*;
+    pub use image_processing2::defs::*;
+    pub use multiview_per_view_render_areas::defs::*;
+    pub use multiview_per_view_viewports::defs::*;
+    pub use render_pass_transform::defs::*;
+    pub use rotated_copy_commands::defs::*;
+    pub use tile_memory_heap::defs::*;
+    pub use tile_properties::defs::*;
+    pub use tile_shading::defs::*;
+    pub use ycbcr_degamma::defs::*;
+}

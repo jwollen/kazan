@@ -1,5 +1,31 @@
 pub mod anti_lag;
 pub mod buffer_marker;
+pub mod device_coherent_memory;
 pub mod display_native_hdr;
 pub mod draw_indirect_count;
+pub mod memory_overallocation_behavior;
+pub mod mixed_attachment_samples;
+pub mod pipeline_compiler_control;
+pub mod rasterization_order;
+pub mod shader_core_properties;
+pub mod shader_core_properties2;
+pub mod shader_early_and_late_fragment_tests;
 pub mod shader_info;
+pub mod texture_gather_bias_lod;
+pub(super) mod defs {
+    use super::*;
+    pub use anti_lag::defs::*;
+    pub use buffer_marker::defs::*;
+    pub use device_coherent_memory::defs::*;
+    pub use display_native_hdr::defs::*;
+    pub use draw_indirect_count::defs::*;
+    pub use memory_overallocation_behavior::defs::*;
+    pub use mixed_attachment_samples::defs::*;
+    pub use pipeline_compiler_control::defs::*;
+    pub use rasterization_order::defs::*;
+    pub use shader_core_properties::defs::*;
+    pub use shader_core_properties2::defs::*;
+    pub use shader_early_and_late_fragment_tests::defs::*;
+    pub use shader_info::defs::*;
+    pub use texture_gather_bias_lod::defs::*;
+}

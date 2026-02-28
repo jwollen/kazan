@@ -1,8 +1,22 @@
 #![allow(unused_imports)]
-use crate::*;
+use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::Result as VkResult, vk::*, *};
+pub(super) mod defs {
+    #![allow(non_camel_case_types, unused_imports)]
+    use crate::{vk::*, *};
+    use bitflags::bitflags;
+    use core::ffi::{CStr, c_char, c_int, c_void};
+    use core::marker::PhantomData;
+    pub type LineRasterizationModeKHR = LineRasterizationMode;
+    pub type PhysicalDeviceLineRasterizationFeaturesKHR<'a> =
+        PhysicalDeviceLineRasterizationFeatures<'a>;
+    pub type PhysicalDeviceLineRasterizationPropertiesKHR<'a> =
+        PhysicalDeviceLineRasterizationProperties<'a>;
+    pub type PipelineRasterizationLineStateCreateInfoKHR<'a> =
+        PipelineRasterizationLineStateCreateInfo<'a>;
+    pub type PFN_vkCmdSetLineStippleKHR = PFN_vkCmdSetLineStipple;
+}
 pub struct DeviceFn {
     cmd_set_line_stipple_khr: PFN_vkCmdSetLineStipple,
 }

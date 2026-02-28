@@ -35,13 +35,10 @@ fn main() {
 fn generate(analysis: &analysis::Analysis) {
     let registry = analysis.registry();
 
-    let sys_output_dir = "crates/kazan-sys/src/generated/vk";
     let output_dir = "crates/kazan/src/generated/vk";
 
-    let _ = fs::remove_dir_all(sys_output_dir);
     let _ = fs::remove_dir_all(output_dir);
 
-    let mut sys_vendor_modules = BTreeMap::new();
     let mut vendor_modules = BTreeMap::new();
 
     let mut visited_items = HashSet::new();
@@ -142,96 +139,77 @@ fn generate(analysis: &analysis::Analysis) {
             name: module_name,
         } = module.name();
 
-        if !new_items.is_empty() {
-            sys_vendor_modules
-                .entry(vendor.clone())
-                .or_insert_with(Vec::new)
-                .push(module_name.clone());
-
-            let vendor_path = match vendor {
-                Some(ref vendor) => format!("{}/{}", sys_output_dir, vendor),
-                None => sys_output_dir.to_string(),
-            };
-            fs::create_dir_all(&vendor_path).unwrap();
-            let mut sys_file =
-                File::create(format!("{}/{}.rs", &vendor_path, module_name)).unwrap();
-
-            writeln!(
-                sys_file,
-                "#![allow(non_camel_case_types, unused_imports)]
-                use core::ffi::{{c_char, c_int, c_void, CStr}};
-                use core::marker::PhantomData;
-                use bitflags::bitflags;
-                use crate::{{*, vk::*}};"
-            )
-            .unwrap();
-
-            generate_api_constants(&mut sys_file, analysis, &new_items, required_api_constants);
-
-            generate_basetypes(&mut sys_file, analysis, &new_items);
-
-            generate_handles(&mut sys_file, analysis, &new_items);
-
-            generate_type_aliases(&mut sys_file, analysis, &new_items);
-
-            generate_structs(&mut sys_file, analysis, &new_items);
-
-            generate_unions(&mut sys_file, analysis, &new_items);
-
-            generate_enum_types(&mut sys_file, analysis, &new_items, &req_enum_data);
-
-            generate_bitmask_types(&mut sys_file, analysis, &new_items, &req_enum_data);
-
-            generate_funcpointers(&mut sys_file, analysis, &new_items);
-
-            generate_functions(&mut sys_file, analysis, new_commands.clone());
-        }
-
-        if required_commands.clone().next().is_some() {
+        if !new_items.is_empty() || required_commands.clone().next().is_some() {
             vendor_modules
                 .entry(vendor.clone())
                 .or_insert_with(Vec::new)
                 .push(module_name.clone());
 
             let vendor_path = match vendor {
-                Some(vendor) => format!("{}/{}", output_dir, vendor),
+                Some(ref vendor) => format!("{}/{}", output_dir, vendor),
                 None => output_dir.to_string(),
             };
+
             fs::create_dir_all(&vendor_path).unwrap();
             let mut file = File::create(format!("{}/{}.rs", &vendor_path, module_name)).unwrap();
 
-            generate_commands(&mut file, analysis, &requires);
+            writeln!(
+                file,
+                "#![allow(unused_imports)]
+                use core::ffi::{{c_char, c_int, c_void, CStr}};
+                use core::mem::transmute;
+                use crate::{{*, vk::*, vk::Result as VkResult}};"
+            )
+            .unwrap();
+
+            writeln!(file, "pub(super) mod defs {{").unwrap();
+
+            if !new_items.is_empty() {
+                writeln!(
+                    file,
+                    "#![allow(non_camel_case_types, unused_imports)]
+                    use core::ffi::{{c_char, c_int, c_void, CStr}};
+                    use core::marker::PhantomData;
+                    use bitflags::bitflags;
+                    use crate::{{*, vk::*}};"
+                )
+                .unwrap();
+
+                generate_api_constants(&mut file, analysis, &new_items, required_api_constants);
+
+                generate_basetypes(&mut file, analysis, &new_items);
+
+                generate_handles(&mut file, analysis, &new_items);
+
+                generate_type_aliases(&mut file, analysis, &new_items);
+
+                generate_structs(&mut file, analysis, &new_items);
+
+                generate_unions(&mut file, analysis, &new_items);
+
+                generate_enum_types(&mut file, analysis, &new_items, &req_enum_data);
+
+                generate_bitmask_types(&mut file, analysis, &new_items, &req_enum_data);
+
+                generate_funcpointers(&mut file, analysis, &new_items);
+
+                generate_functions(&mut file, analysis, new_commands.clone());
+            }
+            writeln!(file, "}}").unwrap();
+
+            if required_commands.clone().next().is_some() {
+                generate_commands(&mut file, analysis, &requires);
+            }
         }
     }
 
-    fs::create_dir_all(sys_output_dir).unwrap();
-    let mut sys_mod_file = File::create(format!("{}/mod.rs", sys_output_dir)).unwrap();
+    fs::create_dir_all(output_dir).unwrap();
     let mut mod_file = File::create(format!("{}/mod.rs", output_dir)).unwrap();
-
-    for (vendor, names) in &sys_vendor_modules {
-        if let Some(vendor) = vendor {
-            writeln!(sys_mod_file, "mod {};", vendor).unwrap();
-            writeln!(sys_mod_file, "pub use {}::*;", vendor).unwrap();
-
-            fs::create_dir_all(format!("{}/{}", sys_output_dir, vendor)).unwrap();
-            let mut sys_file =
-                File::create(format!("{}/{}/mod.rs", sys_output_dir, vendor)).unwrap();
-
-            for name in names {
-                writeln!(sys_file, "mod {};", name).unwrap();
-                writeln!(sys_file, "pub use {}::*;", name).unwrap();
-            }
-        } else {
-            for name in names {
-                writeln!(sys_mod_file, "mod {};", name).unwrap();
-                writeln!(sys_mod_file, "pub use {}::*;", name).unwrap();
-            }
-        }
-    }
 
     for (vendor, names) in &vendor_modules {
         if let Some(vendor) = vendor {
             writeln!(mod_file, "pub mod {};", vendor).unwrap();
+            writeln!(mod_file, "pub use {}::defs::*;", vendor).unwrap();
 
             fs::create_dir_all(format!("{}/{}", output_dir, vendor)).unwrap();
             let mut file = File::create(format!("{}/{}/mod.rs", output_dir, vendor)).unwrap();
@@ -239,20 +217,23 @@ fn generate(analysis: &analysis::Analysis) {
             for name in names {
                 writeln!(file, "pub mod {};", name).unwrap();
             }
+
+            writeln!(file, "pub(super) mod defs {{").unwrap();
+            writeln!(file, "use super::*;").unwrap();
+            for name in names {
+                writeln!(file, "pub use {}::defs::*;", name).unwrap();
+            }
+            writeln!(file, "}}").unwrap();
         } else {
             for name in names {
                 writeln!(mod_file, "pub mod {};", name).unwrap();
+                writeln!(mod_file, "pub use {}::defs::*;", name).unwrap();
             }
         }
     }
 
     std::process::Command::new("rustfmt")
         .arg(format!("{}/mod.rs", output_dir))
-        .arg("--edition=2024")
-        .output()
-        .unwrap();
-    std::process::Command::new("rustfmt")
-        .arg(format!("{}/mod.rs", sys_output_dir))
         .arg("--edition=2024")
         .output()
         .unwrap();
@@ -585,8 +566,11 @@ fn normalize_const_name(name: &str) -> &str {
 }
 
 pub(crate) fn normalize_ty_name(name: &str) -> &str {
-    //strip_vendor_suffix(name.strip_prefix("Vk").unwrap_or(name))
-    name.strip_prefix("Vk").unwrap_or(name)
+    if name == "VkResult" {
+        "vk::Result"
+    } else {
+        name.strip_prefix("Vk").unwrap_or(name)
+    }
 }
 
 fn type_name_with_lifetime(analysis: &Analysis, name: &str, lifetime: Option<&str>) -> String {

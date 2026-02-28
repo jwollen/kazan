@@ -1,0 +1,184 @@
+#![allow(unused_imports)]
+use crate::{vk::Result as VkResult, vk::*, *};
+use core::ffi::{CStr, c_char, c_int, c_void};
+use core::mem::transmute;
+pub(super) mod defs {
+    #![allow(non_camel_case_types, unused_imports)]
+    use crate::{vk::*, *};
+    use bitflags::bitflags;
+    use core::ffi::{CStr, c_char, c_int, c_void};
+    use core::marker::PhantomData;
+    pub const STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE: u32 = 2;
+    #[repr(C)]
+    #[derive(Copy, Clone, Default)]
+    pub struct StdVideoDecodeH264PictureInfoFlags {
+        pub field_pic_flag: u32,
+        pub is_intra: u32,
+        pub idr_pic_flag: u32,
+        pub bottom_field_flag: u32,
+        pub is_reference: u32,
+        pub complementary_field_pair: u32,
+    }
+    impl StdVideoDecodeH264PictureInfoFlags {
+        pub fn field_pic_flag(mut self, field_pic_flag: u32) -> Self {
+            self.field_pic_flag = field_pic_flag;
+            self
+        }
+        pub fn is_intra(mut self, is_intra: u32) -> Self {
+            self.is_intra = is_intra;
+            self
+        }
+        pub fn idr_pic_flag(mut self, idr_pic_flag: u32) -> Self {
+            self.idr_pic_flag = idr_pic_flag;
+            self
+        }
+        pub fn bottom_field_flag(mut self, bottom_field_flag: u32) -> Self {
+            self.bottom_field_flag = bottom_field_flag;
+            self
+        }
+        pub fn is_reference(mut self, is_reference: u32) -> Self {
+            self.is_reference = is_reference;
+            self
+        }
+        pub fn complementary_field_pair(mut self, complementary_field_pair: u32) -> Self {
+            self.complementary_field_pair = complementary_field_pair;
+            self
+        }
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct StdVideoDecodeH264PictureInfo {
+        pub flags: StdVideoDecodeH264PictureInfoFlags,
+        pub seq_parameter_set_id: u8,
+        pub pic_parameter_set_id: u8,
+        pub reserved1: u8,
+        pub reserved2: u8,
+        pub frame_num: u16,
+        pub idr_pic_id: u16,
+        pub pic_order_cnt: [i32; STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE as usize],
+    }
+    impl Default for StdVideoDecodeH264PictureInfo {
+        fn default() -> Self {
+            Self {
+                flags: Default::default(),
+                seq_parameter_set_id: Default::default(),
+                pic_parameter_set_id: Default::default(),
+                reserved1: Default::default(),
+                reserved2: Default::default(),
+                frame_num: Default::default(),
+                idr_pic_id: Default::default(),
+                pic_order_cnt: [Default::default(); _],
+            }
+        }
+    }
+    impl StdVideoDecodeH264PictureInfo {
+        pub fn flags(mut self, flags: StdVideoDecodeH264PictureInfoFlags) -> Self {
+            self.flags = flags;
+            self
+        }
+        pub fn seq_parameter_set_id(mut self, seq_parameter_set_id: u8) -> Self {
+            self.seq_parameter_set_id = seq_parameter_set_id;
+            self
+        }
+        pub fn pic_parameter_set_id(mut self, pic_parameter_set_id: u8) -> Self {
+            self.pic_parameter_set_id = pic_parameter_set_id;
+            self
+        }
+        pub fn reserved1(mut self, reserved1: u8) -> Self {
+            self.reserved1 = reserved1;
+            self
+        }
+        pub fn reserved2(mut self, reserved2: u8) -> Self {
+            self.reserved2 = reserved2;
+            self
+        }
+        pub fn frame_num(mut self, frame_num: u16) -> Self {
+            self.frame_num = frame_num;
+            self
+        }
+        pub fn idr_pic_id(mut self, idr_pic_id: u16) -> Self {
+            self.idr_pic_id = idr_pic_id;
+            self
+        }
+        pub fn pic_order_cnt(
+            mut self,
+            pic_order_cnt: [i32; STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE as usize],
+        ) -> Self {
+            self.pic_order_cnt = pic_order_cnt;
+            self
+        }
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone, Default)]
+    pub struct StdVideoDecodeH264ReferenceInfoFlags {
+        pub top_field_flag: u32,
+        pub bottom_field_flag: u32,
+        pub used_for_long_term_reference: u32,
+        pub is_non_existing: u32,
+    }
+    impl StdVideoDecodeH264ReferenceInfoFlags {
+        pub fn top_field_flag(mut self, top_field_flag: u32) -> Self {
+            self.top_field_flag = top_field_flag;
+            self
+        }
+        pub fn bottom_field_flag(mut self, bottom_field_flag: u32) -> Self {
+            self.bottom_field_flag = bottom_field_flag;
+            self
+        }
+        pub fn used_for_long_term_reference(mut self, used_for_long_term_reference: u32) -> Self {
+            self.used_for_long_term_reference = used_for_long_term_reference;
+            self
+        }
+        pub fn is_non_existing(mut self, is_non_existing: u32) -> Self {
+            self.is_non_existing = is_non_existing;
+            self
+        }
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct StdVideoDecodeH264ReferenceInfo {
+        pub flags: StdVideoDecodeH264ReferenceInfoFlags,
+        pub frame_num: u16,
+        pub reserved: u16,
+        pub pic_order_cnt: [i32; STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE as usize],
+    }
+    impl Default for StdVideoDecodeH264ReferenceInfo {
+        fn default() -> Self {
+            Self {
+                flags: Default::default(),
+                frame_num: Default::default(),
+                reserved: Default::default(),
+                pic_order_cnt: [Default::default(); _],
+            }
+        }
+    }
+    impl StdVideoDecodeH264ReferenceInfo {
+        pub fn flags(mut self, flags: StdVideoDecodeH264ReferenceInfoFlags) -> Self {
+            self.flags = flags;
+            self
+        }
+        pub fn frame_num(mut self, frame_num: u16) -> Self {
+            self.frame_num = frame_num;
+            self
+        }
+        pub fn reserved(mut self, reserved: u16) -> Self {
+            self.reserved = reserved;
+            self
+        }
+        pub fn pic_order_cnt(
+            mut self,
+            pic_order_cnt: [i32; STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE as usize],
+        ) -> Self {
+            self.pic_order_cnt = pic_order_cnt;
+            self
+        }
+    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    pub struct StdVideoDecodeH264FieldOrderCount(i32);
+    impl StdVideoDecodeH264FieldOrderCount {
+        pub const TOP: Self = Self(0);
+        pub const BOTTOM: Self = Self(1);
+        pub const INVALID: Self = Self(0x7FFFFFFF);
+    }
+}

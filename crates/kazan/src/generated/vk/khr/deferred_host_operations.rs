@@ -1,8 +1,33 @@
 #![allow(unused_imports)]
-use crate::*;
+use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::Result as VkResult, vk::*, *};
+pub(super) mod defs {
+    #![allow(non_camel_case_types, unused_imports)]
+    use crate::{vk::*, *};
+    use bitflags::bitflags;
+    use core::ffi::{CStr, c_char, c_int, c_void};
+    use core::marker::PhantomData;
+    #[repr(C)]
+    #[derive(Copy, Clone, Default)]
+    pub struct DeferredOperationKHR(u64);
+    pub type PFN_vkCreateDeferredOperationKHR = unsafe extern "system" fn(
+        device: Device,
+        p_allocator: *const AllocationCallbacks<'_>,
+        p_deferred_operation: *mut DeferredOperationKHR,
+    ) -> vk::Result;
+    pub type PFN_vkDestroyDeferredOperationKHR = unsafe extern "system" fn(
+        device: Device,
+        operation: DeferredOperationKHR,
+        p_allocator: *const AllocationCallbacks<'_>,
+    );
+    pub type PFN_vkGetDeferredOperationMaxConcurrencyKHR =
+        unsafe extern "system" fn(device: Device, operation: DeferredOperationKHR) -> u32;
+    pub type PFN_vkGetDeferredOperationResultKHR =
+        unsafe extern "system" fn(device: Device, operation: DeferredOperationKHR) -> vk::Result;
+    pub type PFN_vkDeferredOperationJoinKHR =
+        unsafe extern "system" fn(device: Device, operation: DeferredOperationKHR) -> vk::Result;
+}
 pub struct DeviceFn {
     create_deferred_operation_khr: PFN_vkCreateDeferredOperationKHR,
     destroy_deferred_operation_khr: PFN_vkDestroyDeferredOperationKHR,

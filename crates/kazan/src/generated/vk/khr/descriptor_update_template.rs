@@ -1,8 +1,22 @@
 #![allow(unused_imports)]
-use crate::*;
+use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
-use kazan_sys::{vk::Result as VkResult, vk::*, *};
+pub(super) mod defs {
+    #![allow(non_camel_case_types, unused_imports)]
+    use crate::{vk::*, *};
+    use bitflags::bitflags;
+    use core::ffi::{CStr, c_char, c_int, c_void};
+    use core::marker::PhantomData;
+    pub type DescriptorUpdateTemplateTypeKHR = DescriptorUpdateTemplateType;
+    pub type DescriptorUpdateTemplateKHR = DescriptorUpdateTemplate;
+    pub type DescriptorUpdateTemplateEntryKHR = DescriptorUpdateTemplateEntry;
+    pub type DescriptorUpdateTemplateCreateInfoKHR<'a> = DescriptorUpdateTemplateCreateInfo<'a>;
+    pub type DescriptorUpdateTemplateCreateFlagsKHR = DescriptorUpdateTemplateCreateFlags;
+    pub type PFN_vkCreateDescriptorUpdateTemplateKHR = PFN_vkCreateDescriptorUpdateTemplate;
+    pub type PFN_vkDestroyDescriptorUpdateTemplateKHR = PFN_vkDestroyDescriptorUpdateTemplate;
+    pub type PFN_vkUpdateDescriptorSetWithTemplateKHR = PFN_vkUpdateDescriptorSetWithTemplate;
+}
 pub struct DeviceFn {
     create_descriptor_update_template_khr: PFN_vkCreateDescriptorUpdateTemplate,
     destroy_descriptor_update_template_khr: PFN_vkDestroyDescriptorUpdateTemplate,
