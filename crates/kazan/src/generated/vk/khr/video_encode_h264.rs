@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -792,8 +791,9 @@ pub(super) mod defs {
         }
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeH264CapabilityFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoEncodeH264CapabilityFlagsKHR, Flags);
     impl VideoEncodeH264CapabilityFlagsKHR {
         pub const HRD_COMPLIANCE_KHR: Self =
             Self(VideoEncodeH264CapabilityFlagBitsKHR::HRD_COMPLIANCE_KHR.0);
@@ -835,8 +835,9 @@ pub(super) mod defs {
         pub const B_PICTURE_INTRA_REFRESH_KHR: Self = Self(1 << 10);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeH264StdFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoEncodeH264StdFlagsKHR, Flags);
     impl VideoEncodeH264StdFlagsKHR {
         pub const SEPARATE_COLOR_PLANE_FLAG_SET_KHR: Self =
             Self(VideoEncodeH264StdFlagBitsKHR::SEPARATE_COLOR_PLANE_FLAG_SET_KHR.0);
@@ -905,8 +906,9 @@ pub(super) mod defs {
         pub const DIFFERENT_SLICE_QP_DELTA_KHR: Self = Self(1 << 20);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeH264RateControlFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoEncodeH264RateControlFlagsKHR, Flags);
     impl VideoEncodeH264RateControlFlagsKHR {
         pub const ATTEMPT_HRD_COMPLIANCE_KHR: Self =
             Self(VideoEncodeH264RateControlFlagBitsKHR::ATTEMPT_HRD_COMPLIANCE_KHR.0);

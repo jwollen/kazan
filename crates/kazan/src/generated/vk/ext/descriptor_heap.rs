@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -1258,8 +1257,9 @@ pub(super) mod defs {
         pub const SHADER_RECORD_DATA_EXT: Self = Self(9);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct TensorViewCreateFlagsARM(Flags64);
+    vk_bitflags_wrapped!(TensorViewCreateFlagsARM, Flags64);
     impl TensorViewCreateFlagsARM {
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM: Self =
             Self(TensorViewCreateFlagBitsARM::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM.0);
@@ -1271,8 +1271,9 @@ pub(super) mod defs {
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM: Self = Self(1 << 0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SpirvResourceTypeFlagsEXT(Flags);
+    vk_bitflags_wrapped!(SpirvResourceTypeFlagsEXT, Flags);
     impl SpirvResourceTypeFlagsEXT {
         pub const SAMPLER_EXT: Self = Self(SpirvResourceTypeFlagBitsEXT::SAMPLER_EXT.0);
         pub const SAMPLED_IMAGE_EXT: Self = Self(SpirvResourceTypeFlagBitsEXT::SAMPLED_IMAGE_EXT.0);

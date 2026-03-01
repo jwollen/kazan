@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -973,8 +972,9 @@ pub(super) mod defs {
         pub const INCOMPATIBLE_KHR: Self = Self(1);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct GeometryFlagsKHR(Flags);
+    vk_bitflags_wrapped!(GeometryFlagsKHR, Flags);
     impl GeometryFlagsKHR {
         pub const OPAQUE_KHR: Self = Self(GeometryFlagBitsKHR::OPAQUE_KHR.0);
         pub const NO_DUPLICATE_ANY_HIT_INVOCATION_KHR: Self =
@@ -994,8 +994,9 @@ pub(super) mod defs {
         pub const OPAQUE_NV: Self = Self::OPAQUE_KHR;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct GeometryInstanceFlagsKHR(Flags);
+    vk_bitflags_wrapped!(GeometryInstanceFlagsKHR, Flags);
     impl GeometryInstanceFlagsKHR {
         pub const TRIANGLE_FACING_CULL_DISABLE_KHR: Self =
             Self(GeometryInstanceFlagBitsKHR::TRIANGLE_FACING_CULL_DISABLE_KHR.0);
@@ -1030,8 +1031,9 @@ pub(super) mod defs {
         pub const TRIANGLE_CULL_DISABLE_NV: Self = Self::TRIANGLE_FACING_CULL_DISABLE_KHR;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct BuildAccelerationStructureFlagsKHR(Flags);
+    vk_bitflags_wrapped!(BuildAccelerationStructureFlagsKHR, Flags);
     impl BuildAccelerationStructureFlagsKHR {
         pub const ALLOW_UPDATE_KHR: Self =
             Self(BuildAccelerationStructureFlagBitsKHR::ALLOW_UPDATE_KHR.0);
@@ -1085,8 +1087,9 @@ pub(super) mod defs {
         pub const PREFER_FAST_TRACE_NV: Self = Self::PREFER_FAST_TRACE_KHR;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AccelerationStructureCreateFlagsKHR(Flags);
+    vk_bitflags_wrapped!(AccelerationStructureCreateFlagsKHR, Flags);
     impl AccelerationStructureCreateFlagsKHR {
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR: Self =
             Self(AccelerationStructureCreateFlagBitsKHR::DEVICE_ADDRESS_CAPTURE_REPLAY_KHR.0);

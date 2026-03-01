@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -884,8 +883,9 @@ pub(super) mod defs {
         pub const TRACE_RAYS2_EXT: Self = Self(1000386004);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct IndirectCommandsLayoutUsageFlagsEXT(Flags);
+    vk_bitflags_wrapped!(IndirectCommandsLayoutUsageFlagsEXT, Flags);
     impl IndirectCommandsLayoutUsageFlagsEXT {
         pub const EXPLICIT_PREPROCESS_EXT: Self =
             Self(IndirectCommandsLayoutUsageFlagBitsEXT::EXPLICIT_PREPROCESS_EXT.0);
@@ -900,8 +900,9 @@ pub(super) mod defs {
         pub const UNORDERED_SEQUENCES_EXT: Self = Self(1 << 1);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct IndirectCommandsInputModeFlagsEXT(Flags);
+    vk_bitflags_wrapped!(IndirectCommandsInputModeFlagsEXT, Flags);
     impl IndirectCommandsInputModeFlagsEXT {
         pub const VULKAN_INDEX_BUFFER_EXT: Self =
             Self(IndirectCommandsInputModeFlagBitsEXT::VULKAN_INDEX_BUFFER_EXT.0);

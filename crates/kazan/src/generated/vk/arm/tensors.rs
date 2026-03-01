@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -1010,8 +1009,9 @@ pub(super) mod defs {
         pub const LINEAR_ARM: Self = Self(1);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct TensorCreateFlagsARM(Flags64);
+    vk_bitflags_wrapped!(TensorCreateFlagsARM, Flags64);
     impl TensorCreateFlagsARM {
         pub const MUTABLE_FORMAT_ARM: Self = Self(TensorCreateFlagBitsARM::MUTABLE_FORMAT_ARM.0);
         pub const PROTECTED_ARM: Self = Self(TensorCreateFlagBitsARM::PROTECTED_ARM.0);
@@ -1030,8 +1030,9 @@ pub(super) mod defs {
         pub const DESCRIPTOR_HEAP_CAPTURE_REPLAY_ARM: Self = Self(1 << 3);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct TensorUsageFlagsARM(Flags64);
+    vk_bitflags_wrapped!(TensorUsageFlagsARM, Flags64);
     impl TensorUsageFlagsARM {
         pub const SHADER_ARM: Self = Self(TensorUsageFlagBitsARM::SHADER_ARM.0);
         pub const TRANSFER_SRC_ARM: Self = Self(TensorUsageFlagBitsARM::TRANSFER_SRC_ARM.0);

@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -175,8 +174,9 @@ pub(super) mod defs {
         pub const SPIRV_EXT: Self = Self(1);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ShaderCreateFlagsEXT(Flags);
+    vk_bitflags_wrapped!(ShaderCreateFlagsEXT, Flags);
     impl ShaderCreateFlagsEXT {
         pub const LINK_STAGE_EXT: Self = Self(ShaderCreateFlagBitsEXT::LINK_STAGE_EXT.0);
         pub const ALLOW_VARYING_SUBGROUP_SIZE_EXT: Self =

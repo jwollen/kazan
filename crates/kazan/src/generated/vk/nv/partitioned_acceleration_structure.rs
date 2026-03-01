@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     pub const PARTITIONED_ACCELERATION_STRUCTURE_PARTITION_INDEX_GLOBAL_NV: u32 = !0;
@@ -434,8 +433,9 @@ pub(super) mod defs {
         pub const WRITE_PARTITION_TRANSLATION_NV: Self = Self(2);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PartitionedAccelerationStructureInstanceFlagsNV(Flags);
+    vk_bitflags_wrapped!(PartitionedAccelerationStructureInstanceFlagsNV, Flags);
     impl PartitionedAccelerationStructureInstanceFlagsNV {
         pub const FLAG_TRIANGLE_FACING_CULL_DISABLE_NV: Self = Self(PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_TRIANGLE_FACING_CULL_DISABLE_NV.0);
         pub const FLAG_TRIANGLE_FLIP_FACING_NV: Self = Self(

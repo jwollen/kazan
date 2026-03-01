@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     pub type Flags64 = u64;
@@ -3201,12 +3200,14 @@ _marker: PhantomData
         }
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PrivateDataSlotCreateFlags(Flags);
+    vk_bitflags_wrapped!(PrivateDataSlotCreateFlags, Flags);
     impl PrivateDataSlotCreateFlags {}
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineCreationFeedbackFlags(Flags);
+    vk_bitflags_wrapped!(PipelineCreationFeedbackFlags, Flags);
     impl PipelineCreationFeedbackFlags {
         pub const VALID: Self = Self(PipelineCreationFeedbackFlagBits::VALID.0);
         pub const APPLICATION_PIPELINE_CACHE_HIT: Self =
@@ -3229,8 +3230,9 @@ _marker: PhantomData
         pub const VALID_EXT: Self = Self::VALID;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AccessFlags2(Flags64);
+    vk_bitflags_wrapped!(AccessFlags2, Flags64);
     impl AccessFlags2 {
         pub const INDIRECT_COMMAND_READ: Self = Self(AccessFlagBits2::INDIRECT_COMMAND_READ.0);
         pub const INDEX_READ: Self = Self(AccessFlagBits2::INDEX_READ.0);
@@ -3413,8 +3415,9 @@ _marker: PhantomData
         pub const VERTEX_ATTRIBUTE_READ_KHR: Self = Self::VERTEX_ATTRIBUTE_READ;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineStageFlags2(Flags64);
+    vk_bitflags_wrapped!(PipelineStageFlags2, Flags64);
     impl PipelineStageFlags2 {
         pub const TOP_OF_PIPE: Self = Self(PipelineStageFlagBits2::TOP_OF_PIPE.0);
         pub const DRAW_INDIRECT: Self = Self(PipelineStageFlagBits2::DRAW_INDIRECT.0);
@@ -3598,8 +3601,9 @@ _marker: PhantomData
         pub const VERTEX_SHADER_KHR: Self = Self::VERTEX_SHADER;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct FormatFeatureFlags2(Flags64);
+    vk_bitflags_wrapped!(FormatFeatureFlags2, Flags64);
     impl FormatFeatureFlags2 {
         pub const SAMPLED_IMAGE: Self = Self(FormatFeatureFlagBits2::SAMPLED_IMAGE.0);
         pub const STORAGE_IMAGE: Self = Self(FormatFeatureFlagBits2::STORAGE_IMAGE.0);
@@ -3819,8 +3823,9 @@ _marker: PhantomData
         pub const VERTEX_BUFFER_KHR: Self = Self::VERTEX_BUFFER;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct RenderingFlags(Flags);
+    vk_bitflags_wrapped!(RenderingFlags, Flags);
     impl RenderingFlags {
         pub const CONTENTS_SECONDARY_COMMAND_BUFFERS: Self =
             Self(RenderingFlagBits::CONTENTS_SECONDARY_COMMAND_BUFFERS.0);
@@ -3861,8 +3866,9 @@ _marker: PhantomData
         pub const SUSPENDING_KHR: Self = Self::SUSPENDING;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ToolPurposeFlags(Flags);
+    vk_bitflags_wrapped!(ToolPurposeFlags, Flags);
     impl ToolPurposeFlags {
         pub const VALIDATION: Self = Self(ToolPurposeFlagBits::VALIDATION.0);
         pub const PROFILING: Self = Self(ToolPurposeFlagBits::PROFILING.0);
@@ -3895,8 +3901,9 @@ _marker: PhantomData
         pub const VALIDATION_EXT: Self = Self::VALIDATION;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SubmitFlags(Flags);
+    vk_bitflags_wrapped!(SubmitFlags, Flags);
     impl SubmitFlags {
         pub const PROTECTED: Self = Self(SubmitFlagBits::PROTECTED.0);
         pub const PROTECTED_KHR: Self = Self::PROTECTED;

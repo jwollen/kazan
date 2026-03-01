@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -141,8 +140,9 @@ pub(super) mod defs {
         }
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoDecodeUsageFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoDecodeUsageFlagsKHR, Flags);
     impl VideoDecodeUsageFlagsKHR {
         pub const TRANSCODING_KHR: Self = Self(VideoDecodeUsageFlagBitsKHR::TRANSCODING_KHR.0);
         pub const OFFLINE_KHR: Self = Self(VideoDecodeUsageFlagBitsKHR::OFFLINE_KHR.0);
@@ -158,8 +158,9 @@ pub(super) mod defs {
         pub const STREAMING_KHR: Self = Self(1 << 2);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoDecodeCapabilityFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoDecodeCapabilityFlagsKHR, Flags);
     impl VideoDecodeCapabilityFlagsKHR {
         pub const DPB_AND_OUTPUT_COINCIDE_KHR: Self =
             Self(VideoDecodeCapabilityFlagBitsKHR::DPB_AND_OUTPUT_COINCIDE_KHR.0);
@@ -174,8 +175,9 @@ pub(super) mod defs {
         pub const DPB_AND_OUTPUT_DISTINCT_KHR: Self = Self(1 << 1);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoDecodeFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoDecodeFlagsKHR, Flags);
     impl VideoDecodeFlagsKHR {}
     pub type PFN_vkCmdDecodeVideoKHR = unsafe extern "system" fn(
         command_buffer: CommandBuffer,

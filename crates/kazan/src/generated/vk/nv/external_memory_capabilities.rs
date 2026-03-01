@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -47,8 +46,9 @@ pub(super) mod defs {
         }
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ExternalMemoryHandleTypeFlagsNV(Flags);
+    vk_bitflags_wrapped!(ExternalMemoryHandleTypeFlagsNV, Flags);
     impl ExternalMemoryHandleTypeFlagsNV {
         pub const OPAQUE_WIN32_NV: Self =
             Self(ExternalMemoryHandleTypeFlagBitsNV::OPAQUE_WIN32_NV.0);
@@ -68,8 +68,9 @@ pub(super) mod defs {
         pub const D3D11_IMAGE_KMT_NV: Self = Self(1 << 3);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ExternalMemoryFeatureFlagsNV(Flags);
+    vk_bitflags_wrapped!(ExternalMemoryFeatureFlagsNV, Flags);
     impl ExternalMemoryFeatureFlagsNV {
         pub const DEDICATED_ONLY_NV: Self =
             Self(ExternalMemoryFeatureFlagBitsNV::DEDICATED_ONLY_NV.0);

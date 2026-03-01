@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -189,8 +188,9 @@ pub(super) mod defs {
         }
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRgbModelConversionFlagsVALVE(Flags);
+    vk_bitflags_wrapped!(VideoEncodeRgbModelConversionFlagsVALVE, Flags);
     impl VideoEncodeRgbModelConversionFlagsVALVE {
         pub const RGB_IDENTITY_VALVE: Self =
             Self(VideoEncodeRgbModelConversionFlagBitsVALVE::RGB_IDENTITY_VALVE.0);
@@ -214,8 +214,9 @@ pub(super) mod defs {
         pub const YCBCR_2020_VALVE: Self = Self(1 << 4);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRgbRangeCompressionFlagsVALVE(Flags);
+    vk_bitflags_wrapped!(VideoEncodeRgbRangeCompressionFlagsVALVE, Flags);
     impl VideoEncodeRgbRangeCompressionFlagsVALVE {
         pub const FULL_RANGE_VALVE: Self =
             Self(VideoEncodeRgbRangeCompressionFlagBitsVALVE::FULL_RANGE_VALVE.0);
@@ -230,8 +231,9 @@ pub(super) mod defs {
         pub const NARROW_RANGE_VALVE: Self = Self(1 << 1);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRgbChromaOffsetFlagsVALVE(Flags);
+    vk_bitflags_wrapped!(VideoEncodeRgbChromaOffsetFlagsVALVE, Flags);
     impl VideoEncodeRgbChromaOffsetFlagsVALVE {
         pub const COSITED_EVEN_VALVE: Self =
             Self(VideoEncodeRgbChromaOffsetFlagBitsVALVE::COSITED_EVEN_VALVE.0);

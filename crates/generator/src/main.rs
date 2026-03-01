@@ -170,7 +170,6 @@ fn generate(analysis: &analysis::Analysis) {
                     "#![allow(non_camel_case_types, unused_imports)]
                     use core::ffi::{{c_char, c_int, c_void, CStr}};
                     use core::marker::PhantomData;
-                    use bitflags::bitflags;
                     use crate::{{*, vk::*}};"
                 )
                 .unwrap();

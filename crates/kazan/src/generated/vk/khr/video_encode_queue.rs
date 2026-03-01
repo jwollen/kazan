@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -525,8 +524,9 @@ pub(super) mod defs {
         pub const LOSSLESS_KHR: Self = Self(4);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoEncodeFlagsKHR, Flags);
     impl VideoEncodeFlagsKHR {
         pub const WITH_QUANTIZATION_DELTA_MAP_KHR: Self =
             Self(VideoEncodeFlagBitsKHR::WITH_QUANTIZATION_DELTA_MAP_KHR.0);
@@ -543,8 +543,9 @@ pub(super) mod defs {
         pub const INTRA_REFRESH_KHR: Self = Self(1 << 2);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeUsageFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoEncodeUsageFlagsKHR, Flags);
     impl VideoEncodeUsageFlagsKHR {
         pub const TRANSCODING_KHR: Self = Self(VideoEncodeUsageFlagBitsKHR::TRANSCODING_KHR.0);
         pub const STREAMING_KHR: Self = Self(VideoEncodeUsageFlagBitsKHR::STREAMING_KHR.0);
@@ -562,8 +563,9 @@ pub(super) mod defs {
         pub const CONFERENCING_KHR: Self = Self(1 << 3);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeContentFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoEncodeContentFlagsKHR, Flags);
     impl VideoEncodeContentFlagsKHR {
         pub const CAMERA_KHR: Self = Self(VideoEncodeContentFlagBitsKHR::CAMERA_KHR.0);
         pub const DESKTOP_KHR: Self = Self(VideoEncodeContentFlagBitsKHR::DESKTOP_KHR.0);
@@ -579,8 +581,9 @@ pub(super) mod defs {
         pub const RENDERED_KHR: Self = Self(1 << 2);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeCapabilityFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoEncodeCapabilityFlagsKHR, Flags);
     impl VideoEncodeCapabilityFlagsKHR {
         pub const PRECEDING_EXTERNALLY_ENCODED_BYTES_KHR: Self =
             Self(VideoEncodeCapabilityFlagBitsKHR::PRECEDING_EXTERNALLY_ENCODED_BYTES_KHR.0);
@@ -601,8 +604,9 @@ pub(super) mod defs {
         pub const EMPHASIS_MAP_KHR: Self = Self(1 << 3);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeFeedbackFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoEncodeFeedbackFlagsKHR, Flags);
     impl VideoEncodeFeedbackFlagsKHR {
         pub const BITSTREAM_BUFFER_OFFSET_KHR: Self =
             Self(VideoEncodeFeedbackFlagBitsKHR::BITSTREAM_BUFFER_OFFSET_KHR.0);
@@ -620,12 +624,14 @@ pub(super) mod defs {
         pub const BITSTREAM_HAS_OVERRIDES_KHR: Self = Self(1 << 2);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRateControlFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoEncodeRateControlFlagsKHR, Flags);
     impl VideoEncodeRateControlFlagsKHR {}
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRateControlModeFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoEncodeRateControlModeFlagsKHR, Flags);
     impl VideoEncodeRateControlModeFlagsKHR {
         pub const DISABLED_KHR: Self = Self(VideoEncodeRateControlModeFlagBitsKHR::DISABLED_KHR.0);
         pub const CBR_KHR: Self = Self(VideoEncodeRateControlModeFlagBitsKHR::CBR_KHR.0);

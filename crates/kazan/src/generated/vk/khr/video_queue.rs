@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -754,8 +753,9 @@ pub(super) mod defs {
         pub const INSUFFICIENT_BITSTREAM_BUFFER_RANGE_KHR: Self = Self(-1000299000);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoCodecOperationFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoCodecOperationFlagsKHR, Flags);
     impl VideoCodecOperationFlagsKHR {
         pub const DECODE_H264_KHR: Self = Self(VideoCodecOperationFlagBitsKHR::DECODE_H264_KHR.0);
         pub const DECODE_H265_KHR: Self = Self(VideoCodecOperationFlagBitsKHR::DECODE_H265_KHR.0);
@@ -779,8 +779,9 @@ pub(super) mod defs {
         pub const ENCODE_AV1_KHR: Self = Self(1 << 18);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoCapabilityFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoCapabilityFlagsKHR, Flags);
     impl VideoCapabilityFlagsKHR {
         pub const PROTECTED_CONTENT_KHR: Self =
             Self(VideoCapabilityFlagBitsKHR::PROTECTED_CONTENT_KHR.0);
@@ -795,8 +796,9 @@ pub(super) mod defs {
         pub const SEPARATE_REFERENCE_IMAGES_KHR: Self = Self(1 << 1);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoSessionCreateFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoSessionCreateFlagsKHR, Flags);
     impl VideoSessionCreateFlagsKHR {
         pub const PROTECTED_CONTENT_KHR: Self =
             Self(VideoSessionCreateFlagBitsKHR::PROTECTED_CONTENT_KHR.0);
@@ -823,8 +825,9 @@ pub(super) mod defs {
         pub const INLINE_SESSION_PARAMETERS_KHR: Self = Self(1 << 5);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoSessionParametersCreateFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoSessionParametersCreateFlagsKHR, Flags);
     impl VideoSessionParametersCreateFlagsKHR {
         pub const QUANTIZATION_MAP_COMPATIBLE_KHR: Self =
             Self(VideoSessionParametersCreateFlagBitsKHR::QUANTIZATION_MAP_COMPATIBLE_KHR.0);
@@ -836,16 +839,19 @@ pub(super) mod defs {
         pub const QUANTIZATION_MAP_COMPATIBLE_KHR: Self = Self(1 << 0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoBeginCodingFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoBeginCodingFlagsKHR, Flags);
     impl VideoBeginCodingFlagsKHR {}
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEndCodingFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoEndCodingFlagsKHR, Flags);
     impl VideoEndCodingFlagsKHR {}
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoCodingControlFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoCodingControlFlagsKHR, Flags);
     impl VideoCodingControlFlagsKHR {
         pub const RESET_KHR: Self = Self(VideoCodingControlFlagBitsKHR::RESET_KHR.0);
         pub const ENCODE_RATE_CONTROL_KHR: Self =
@@ -862,8 +868,9 @@ pub(super) mod defs {
         pub const ENCODE_QUALITY_LEVEL_KHR: Self = Self(1 << 2);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoChromaSubsamplingFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoChromaSubsamplingFlagsKHR, Flags);
     impl VideoChromaSubsamplingFlagsKHR {
         pub const MONOCHROME_KHR: Self = Self(VideoChromaSubsamplingFlagBitsKHR::MONOCHROME_KHR.0);
         pub const _420_KHR: Self = Self(VideoChromaSubsamplingFlagBitsKHR::_420_KHR.0);
@@ -881,8 +888,9 @@ pub(super) mod defs {
         pub const _444_KHR: Self = Self(1 << 3);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoComponentBitDepthFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoComponentBitDepthFlagsKHR, Flags);
     impl VideoComponentBitDepthFlagsKHR {
         pub const _8_KHR: Self = Self(VideoComponentBitDepthFlagBitsKHR::_8_KHR.0);
         pub const _10_KHR: Self = Self(VideoComponentBitDepthFlagBitsKHR::_10_KHR.0);

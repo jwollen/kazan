@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     pub const MAX_DEVICE_GROUP_SIZE: u32 = 32;
@@ -2496,8 +2495,9 @@ pub(super) mod defs {
         pub const MIDPOINT_KHR: Self = Self::MIDPOINT;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SubgroupFeatureFlags(Flags);
+    vk_bitflags_wrapped!(SubgroupFeatureFlags, Flags);
     impl SubgroupFeatureFlags {
         pub const BASIC: Self = Self(SubgroupFeatureFlagBits::BASIC.0);
         pub const VOTE: Self = Self(SubgroupFeatureFlagBits::VOTE.0);
@@ -2534,12 +2534,14 @@ pub(super) mod defs {
         pub const ROTATE_CLUSTERED_KHR: Self = Self::ROTATE_CLUSTERED;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DescriptorUpdateTemplateCreateFlags(Flags);
+    vk_bitflags_wrapped!(DescriptorUpdateTemplateCreateFlags, Flags);
     impl DescriptorUpdateTemplateCreateFlags {}
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PeerMemoryFeatureFlags(Flags);
+    vk_bitflags_wrapped!(PeerMemoryFeatureFlags, Flags);
     impl PeerMemoryFeatureFlags {
         pub const COPY_SRC: Self = Self(PeerMemoryFeatureFlagBits::COPY_SRC.0);
         pub const COPY_DST: Self = Self(PeerMemoryFeatureFlagBits::COPY_DST.0);
@@ -2564,8 +2566,9 @@ pub(super) mod defs {
         pub const GENERIC_SRC_KHR: Self = Self::GENERIC_SRC;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct MemoryAllocateFlags(Flags);
+    vk_bitflags_wrapped!(MemoryAllocateFlags, Flags);
     impl MemoryAllocateFlags {
         pub const DEVICE_MASK: Self = Self(MemoryAllocateFlagBits::DEVICE_MASK.0);
         pub const DEVICE_ADDRESS: Self = Self(MemoryAllocateFlagBits::DEVICE_ADDRESS.0);
@@ -2589,12 +2592,14 @@ pub(super) mod defs {
         pub const DEVICE_MASK_KHR: Self = Self::DEVICE_MASK;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct CommandPoolTrimFlags(Flags);
+    vk_bitflags_wrapped!(CommandPoolTrimFlags, Flags);
     impl CommandPoolTrimFlags {}
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ExternalMemoryHandleTypeFlags(Flags);
+    vk_bitflags_wrapped!(ExternalMemoryHandleTypeFlags, Flags);
     impl ExternalMemoryHandleTypeFlags {
         pub const OPAQUE_FD: Self = Self(ExternalMemoryHandleTypeFlagBits::OPAQUE_FD.0);
         pub const OPAQUE_WIN32: Self = Self(ExternalMemoryHandleTypeFlagBits::OPAQUE_WIN32.0);
@@ -2661,8 +2666,9 @@ pub(super) mod defs {
         pub const OPAQUE_WIN32_KMT_KHR: Self = Self::OPAQUE_WIN32_KMT;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ExternalMemoryFeatureFlags(Flags);
+    vk_bitflags_wrapped!(ExternalMemoryFeatureFlags, Flags);
     impl ExternalMemoryFeatureFlags {
         pub const DEDICATED_ONLY: Self = Self(ExternalMemoryFeatureFlagBits::DEDICATED_ONLY.0);
         pub const EXPORTABLE: Self = Self(ExternalMemoryFeatureFlagBits::EXPORTABLE.0);
@@ -2683,8 +2689,9 @@ pub(super) mod defs {
         pub const IMPORTABLE_KHR: Self = Self::IMPORTABLE;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ExternalSemaphoreHandleTypeFlags(Flags);
+    vk_bitflags_wrapped!(ExternalSemaphoreHandleTypeFlags, Flags);
     impl ExternalSemaphoreHandleTypeFlags {
         pub const OPAQUE_FD: Self = Self(ExternalSemaphoreHandleTypeFlagBits::OPAQUE_FD.0);
         pub const OPAQUE_WIN32: Self = Self(ExternalSemaphoreHandleTypeFlagBits::OPAQUE_WIN32.0);
@@ -2718,8 +2725,9 @@ pub(super) mod defs {
         pub const SYNC_FD_KHR: Self = Self::SYNC_FD;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ExternalSemaphoreFeatureFlags(Flags);
+    vk_bitflags_wrapped!(ExternalSemaphoreFeatureFlags, Flags);
     impl ExternalSemaphoreFeatureFlags {
         pub const EXPORTABLE: Self = Self(ExternalSemaphoreFeatureFlagBits::EXPORTABLE.0);
         pub const IMPORTABLE: Self = Self(ExternalSemaphoreFeatureFlagBits::IMPORTABLE.0);
@@ -2736,8 +2744,9 @@ pub(super) mod defs {
         pub const IMPORTABLE_KHR: Self = Self::IMPORTABLE;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SemaphoreImportFlags(Flags);
+    vk_bitflags_wrapped!(SemaphoreImportFlags, Flags);
     impl SemaphoreImportFlags {
         pub const TEMPORARY: Self = Self(SemaphoreImportFlagBits::TEMPORARY.0);
         pub const TEMPORARY_KHR: Self = Self::TEMPORARY;
@@ -2750,8 +2759,9 @@ pub(super) mod defs {
         pub const TEMPORARY_KHR: Self = Self::TEMPORARY;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ExternalFenceHandleTypeFlags(Flags);
+    vk_bitflags_wrapped!(ExternalFenceHandleTypeFlags, Flags);
     impl ExternalFenceHandleTypeFlags {
         pub const OPAQUE_FD: Self = Self(ExternalFenceHandleTypeFlagBits::OPAQUE_FD.0);
         pub const OPAQUE_WIN32: Self = Self(ExternalFenceHandleTypeFlagBits::OPAQUE_WIN32.0);
@@ -2777,8 +2787,9 @@ pub(super) mod defs {
         pub const SYNC_FD_KHR: Self = Self::SYNC_FD;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ExternalFenceFeatureFlags(Flags);
+    vk_bitflags_wrapped!(ExternalFenceFeatureFlags, Flags);
     impl ExternalFenceFeatureFlags {
         pub const EXPORTABLE: Self = Self(ExternalFenceFeatureFlagBits::EXPORTABLE.0);
         pub const IMPORTABLE: Self = Self(ExternalFenceFeatureFlagBits::IMPORTABLE.0);
@@ -2795,8 +2806,9 @@ pub(super) mod defs {
         pub const IMPORTABLE_KHR: Self = Self::IMPORTABLE;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct FenceImportFlags(Flags);
+    vk_bitflags_wrapped!(FenceImportFlags, Flags);
     impl FenceImportFlags {
         pub const TEMPORARY: Self = Self(FenceImportFlagBits::TEMPORARY.0);
         pub const TEMPORARY_KHR: Self = Self::TEMPORARY;

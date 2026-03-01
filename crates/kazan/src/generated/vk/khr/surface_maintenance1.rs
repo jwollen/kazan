@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -130,8 +129,9 @@ pub(super) mod defs {
         }
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PresentScalingFlagsKHR(Flags);
+    vk_bitflags_wrapped!(PresentScalingFlagsKHR, Flags);
     impl PresentScalingFlagsKHR {
         pub const ONE_TO_ONE_KHR: Self = Self(PresentScalingFlagBitsKHR::ONE_TO_ONE_KHR.0);
         pub const ASPECT_RATIO_STRETCH_KHR: Self =
@@ -150,8 +150,9 @@ pub(super) mod defs {
         pub const STRETCH_KHR: Self = Self(1 << 2);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PresentGravityFlagsKHR(Flags);
+    vk_bitflags_wrapped!(PresentGravityFlagsKHR, Flags);
     impl PresentGravityFlagsKHR {
         pub const MIN_KHR: Self = Self(PresentGravityFlagBitsKHR::MIN_KHR.0);
         pub const MAX_KHR: Self = Self(PresentGravityFlagBitsKHR::MAX_KHR.0);

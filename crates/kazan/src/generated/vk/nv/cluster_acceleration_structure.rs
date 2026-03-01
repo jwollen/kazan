@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -839,8 +838,9 @@ pub(super) mod defs {
         pub const COMPUTE_SIZES_NV: Self = Self(2);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ClusterAccelerationStructureGeometryFlagsNV(Flags);
+    vk_bitflags_wrapped!(ClusterAccelerationStructureGeometryFlagsNV, Flags);
     impl ClusterAccelerationStructureGeometryFlagsNV {
         pub const CULL_DISABLE_NV: Self =
             Self(ClusterAccelerationStructureGeometryFlagBitsNV::CULL_DISABLE_NV.0);
@@ -859,8 +859,9 @@ pub(super) mod defs {
         pub const OPAQUE_NV: Self = Self(1 << 2);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ClusterAccelerationStructureClusterFlagsNV(Flags);
+    vk_bitflags_wrapped!(ClusterAccelerationStructureClusterFlagsNV, Flags);
     impl ClusterAccelerationStructureClusterFlagsNV {
         pub const ALLOW_DISABLE_OPACITY_MICROMAPS_NV: Self = Self(
             ClusterAccelerationStructureClusterFlagBitsNV::ALLOW_DISABLE_OPACITY_MICROMAPS_NV.0,
@@ -873,8 +874,9 @@ pub(super) mod defs {
         pub const ALLOW_DISABLE_OPACITY_MICROMAPS_NV: Self = Self(1 << 0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ClusterAccelerationStructureAddressResolutionFlagsNV(Flags);
+    vk_bitflags_wrapped!(ClusterAccelerationStructureAddressResolutionFlagsNV, Flags);
     impl ClusterAccelerationStructureAddressResolutionFlagsNV {
         pub const INDIRECTED_DST_IMPLICIT_DATA_NV: Self = Self(ClusterAccelerationStructureAddressResolutionFlagBitsNV::INDIRECTED_DST_IMPLICIT_DATA_NV.0);
         pub const INDIRECTED_SCRATCH_DATA_NV: Self = Self(
@@ -907,8 +909,9 @@ pub(super) mod defs {
         pub const INDIRECTED_SRC_INFOS_COUNT_NV: Self = Self(1 << 5);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ClusterAccelerationStructureIndexFormatFlagsNV(Flags);
+    vk_bitflags_wrapped!(ClusterAccelerationStructureIndexFormatFlagsNV, Flags);
     impl ClusterAccelerationStructureIndexFormatFlagsNV {
         pub const _8BIT_NV: Self =
             Self(ClusterAccelerationStructureIndexFormatFlagBitsNV::_8BIT_NV.0);

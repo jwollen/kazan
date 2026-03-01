@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -129,8 +128,9 @@ pub(super) mod defs {
         }
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageCompressionFlagsEXT(Flags);
+    vk_bitflags_wrapped!(ImageCompressionFlagsEXT, Flags);
     impl ImageCompressionFlagsEXT {
         pub const FIXED_RATE_DEFAULT_EXT: Self =
             Self(ImageCompressionFlagBitsEXT::FIXED_RATE_DEFAULT_EXT.0);
@@ -148,8 +148,9 @@ pub(super) mod defs {
         pub const DISABLED_EXT: Self = Self(1 << 2);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageCompressionFixedRateFlagsEXT(Flags);
+    vk_bitflags_wrapped!(ImageCompressionFixedRateFlagsEXT, Flags);
     impl ImageCompressionFixedRateFlagsEXT {
         pub const _1BPC_EXT: Self = Self(ImageCompressionFixedRateFlagBitsEXT::_1BPC_EXT.0);
         pub const _2BPC_EXT: Self = Self(ImageCompressionFixedRateFlagBitsEXT::_2BPC_EXT.0);

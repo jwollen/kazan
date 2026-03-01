@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -250,8 +249,9 @@ pub(super) mod defs {
         }
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DebugUtilsMessageSeverityFlagsEXT(Flags);
+    vk_bitflags_wrapped!(DebugUtilsMessageSeverityFlagsEXT, Flags);
     impl DebugUtilsMessageSeverityFlagsEXT {
         pub const VERBOSE_EXT: Self = Self(DebugUtilsMessageSeverityFlagBitsEXT::VERBOSE_EXT.0);
         pub const INFO_EXT: Self = Self(DebugUtilsMessageSeverityFlagBitsEXT::INFO_EXT.0);
@@ -268,8 +268,9 @@ pub(super) mod defs {
         pub const ERROR_EXT: Self = Self(1 << 12);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DebugUtilsMessageTypeFlagsEXT(Flags);
+    vk_bitflags_wrapped!(DebugUtilsMessageTypeFlagsEXT, Flags);
     impl DebugUtilsMessageTypeFlagsEXT {
         pub const GENERAL_EXT: Self = Self(DebugUtilsMessageTypeFlagBitsEXT::GENERAL_EXT.0);
         pub const VALIDATION_EXT: Self = Self(DebugUtilsMessageTypeFlagBitsEXT::VALIDATION_EXT.0);
@@ -287,12 +288,14 @@ pub(super) mod defs {
         pub const DEVICE_ADDRESS_BINDING_EXT: Self = Self(1 << 3);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DebugUtilsMessengerCreateFlagsEXT(Flags);
+    vk_bitflags_wrapped!(DebugUtilsMessengerCreateFlagsEXT, Flags);
     impl DebugUtilsMessengerCreateFlagsEXT {}
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DebugUtilsMessengerCallbackDataFlagsEXT(Flags);
+    vk_bitflags_wrapped!(DebugUtilsMessengerCallbackDataFlagsEXT, Flags);
     impl DebugUtilsMessengerCallbackDataFlagsEXT {}
     pub type PFN_vkDebugUtilsMessengerCallbackEXT = unsafe extern "system" fn(
         message_severity: DebugUtilsMessageSeverityFlagBitsEXT,

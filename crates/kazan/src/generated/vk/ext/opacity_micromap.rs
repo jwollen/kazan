@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -578,8 +577,9 @@ pub(super) mod defs {
         pub const CLUSTER_GEOMETRY_DISABLE_OPACITY_MICROMAP_NV: Self = Self(-5);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct BuildMicromapFlagsEXT(Flags);
+    vk_bitflags_wrapped!(BuildMicromapFlagsEXT, Flags);
     impl BuildMicromapFlagsEXT {
         pub const PREFER_FAST_TRACE_EXT: Self =
             Self(BuildMicromapFlagBitsEXT::PREFER_FAST_TRACE_EXT.0);
@@ -597,8 +597,9 @@ pub(super) mod defs {
         pub const ALLOW_COMPACTION_EXT: Self = Self(1 << 2);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct MicromapCreateFlagsEXT(Flags);
+    vk_bitflags_wrapped!(MicromapCreateFlagsEXT, Flags);
     impl MicromapCreateFlagsEXT {
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY_EXT: Self =
             Self(MicromapCreateFlagBitsEXT::DEVICE_ADDRESS_CAPTURE_REPLAY_EXT.0);

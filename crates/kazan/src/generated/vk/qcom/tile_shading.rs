@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -292,8 +291,9 @@ pub(super) mod defs {
     }
     impl<'a> DispatchTileInfoQCOM<'a> {}
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct TileShadingRenderPassFlagsQCOM(Flags);
+    vk_bitflags_wrapped!(TileShadingRenderPassFlagsQCOM, Flags);
     impl TileShadingRenderPassFlagsQCOM {
         pub const ENABLE_QCOM: Self = Self(TileShadingRenderPassFlagBitsQCOM::ENABLE_QCOM.0);
         pub const PER_TILE_EXECUTION_QCOM: Self =

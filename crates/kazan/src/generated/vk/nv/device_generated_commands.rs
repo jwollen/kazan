@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -647,8 +646,9 @@ pub(super) mod defs {
         pub const PUSH_DATA_NV: Self = Self(1000135000);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct IndirectCommandsLayoutUsageFlagsNV(Flags);
+    vk_bitflags_wrapped!(IndirectCommandsLayoutUsageFlagsNV, Flags);
     impl IndirectCommandsLayoutUsageFlagsNV {
         pub const EXPLICIT_PREPROCESS_NV: Self =
             Self(IndirectCommandsLayoutUsageFlagBitsNV::EXPLICIT_PREPROCESS_NV.0);
@@ -666,8 +666,9 @@ pub(super) mod defs {
         pub const UNORDERED_SEQUENCES_NV: Self = Self(1 << 2);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct IndirectStateFlagsNV(Flags);
+    vk_bitflags_wrapped!(IndirectStateFlagsNV, Flags);
     impl IndirectStateFlagsNV {
         pub const FLAG_FRONTFACE_NV: Self = Self(IndirectStateFlagBitsNV::FLAG_FRONTFACE_NV.0);
     }

@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -862,8 +861,9 @@ pub(super) mod defs {
         pub const BIPREDICTIVE_KHR: Self = Self(2);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeAV1CapabilityFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoEncodeAV1CapabilityFlagsKHR, Flags);
     impl VideoEncodeAV1CapabilityFlagsKHR {
         pub const PER_RATE_CONTROL_GROUP_MIN_MAX_Q_INDEX_KHR: Self =
             Self(VideoEncodeAV1CapabilityFlagBitsKHR::PER_RATE_CONTROL_GROUP_MIN_MAX_Q_INDEX_KHR.0);
@@ -890,8 +890,9 @@ pub(super) mod defs {
         pub const COMPOUND_PREDICTION_INTRA_REFRESH_KHR: Self = Self(1 << 5);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeAV1StdFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoEncodeAV1StdFlagsKHR, Flags);
     impl VideoEncodeAV1StdFlagsKHR {
         pub const UNIFORM_TILE_SPACING_FLAG_SET_KHR: Self =
             Self(VideoEncodeAV1StdFlagBitsKHR::UNIFORM_TILE_SPACING_FLAG_SET_KHR.0);
@@ -911,8 +912,9 @@ pub(super) mod defs {
         pub const DELTA_Q_KHR: Self = Self(1 << 3);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeAV1RateControlFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoEncodeAV1RateControlFlagsKHR, Flags);
     impl VideoEncodeAV1RateControlFlagsKHR {
         pub const REGULAR_GOP_KHR: Self =
             Self(VideoEncodeAV1RateControlFlagBitsKHR::REGULAR_GOP_KHR.0);
@@ -933,8 +935,9 @@ pub(super) mod defs {
         pub const REFERENCE_PATTERN_DYADIC_KHR: Self = Self(1 << 3);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeAV1SuperblockSizeFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoEncodeAV1SuperblockSizeFlagsKHR, Flags);
     impl VideoEncodeAV1SuperblockSizeFlagsKHR {
         pub const _64_KHR: Self = Self(VideoEncodeAV1SuperblockSizeFlagBitsKHR::_64_KHR.0);
         pub const _128_KHR: Self = Self(VideoEncodeAV1SuperblockSizeFlagBitsKHR::_128_KHR.0);

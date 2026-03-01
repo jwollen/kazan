@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     pub type OHNativeWindow = *const c_void;
@@ -43,8 +42,9 @@ pub(super) mod defs {
         }
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SurfaceCreateFlagsOHOS(Flags);
+    vk_bitflags_wrapped!(SurfaceCreateFlagsOHOS, Flags);
     impl SurfaceCreateFlagsOHOS {}
     pub type PFN_vkCreateSurfaceOHOS = unsafe extern "system" fn(
         instance: Instance,

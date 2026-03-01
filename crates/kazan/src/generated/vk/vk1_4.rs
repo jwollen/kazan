@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     pub const MAX_GLOBAL_PRIORITY_SIZE: u32 = 16;
@@ -2498,8 +2497,9 @@ pub(super) mod defs {
         pub const ROBUST_IMAGE_ACCESS_EXT: Self = Self::ROBUST_IMAGE_ACCESS;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct MemoryUnmapFlags(Flags);
+    vk_bitflags_wrapped!(MemoryUnmapFlags, Flags);
     impl MemoryUnmapFlags {
         pub const RESERVE_EXT: Self = Self(MemoryUnmapFlagBits::RESERVE_EXT.0);
     }
@@ -2510,8 +2510,9 @@ pub(super) mod defs {
         pub const RESERVE_EXT: Self = Self(1 << 0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineCreateFlags2(Flags64);
+    vk_bitflags_wrapped!(PipelineCreateFlags2, Flags64);
     impl PipelineCreateFlags2 {
         pub const DISABLE_OPTIMIZATION: Self =
             Self(PipelineCreateFlagBits2::DISABLE_OPTIMIZATION.0);
@@ -2655,8 +2656,9 @@ pub(super) mod defs {
         pub const VIEW_INDEX_FROM_DEVICE_INDEX_KHR: Self = Self::VIEW_INDEX_FROM_DEVICE_INDEX;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct BufferUsageFlags2(Flags64);
+    vk_bitflags_wrapped!(BufferUsageFlags2, Flags64);
     impl BufferUsageFlags2 {
         pub const TRANSFER_SRC: Self = Self(BufferUsageFlagBits2::TRANSFER_SRC.0);
         pub const TRANSFER_DST: Self = Self(BufferUsageFlagBits2::TRANSFER_DST.0);
@@ -2765,8 +2767,9 @@ pub(super) mod defs {
         pub const VERTEX_BUFFER_KHR: Self = Self::VERTEX_BUFFER;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct HostImageCopyFlags(Flags);
+    vk_bitflags_wrapped!(HostImageCopyFlags, Flags);
     impl HostImageCopyFlags {
         pub const MEMCPY: Self = Self(HostImageCopyFlagBits::MEMCPY.0);
         pub const MEMCPY_EXT: Self = Self::MEMCPY;

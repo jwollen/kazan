@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -381,8 +380,9 @@ pub(super) mod defs {
         pub const GLOBAL_FLOW_NV: Self = Self(8);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct OpticalFlowGridSizeFlagsNV(Flags);
+    vk_bitflags_wrapped!(OpticalFlowGridSizeFlagsNV, Flags);
     impl OpticalFlowGridSizeFlagsNV {
         pub const _1X1_NV: Self = Self(OpticalFlowGridSizeFlagBitsNV::_1X1_NV.0);
         pub const _2X2_NV: Self = Self(OpticalFlowGridSizeFlagBitsNV::_2X2_NV.0);
@@ -400,8 +400,9 @@ pub(super) mod defs {
         pub const _8X8_NV: Self = Self(1 << 3);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct OpticalFlowUsageFlagsNV(Flags);
+    vk_bitflags_wrapped!(OpticalFlowUsageFlagsNV, Flags);
     impl OpticalFlowUsageFlagsNV {
         pub const INPUT_NV: Self = Self(OpticalFlowUsageFlagBitsNV::INPUT_NV.0);
         pub const OUTPUT_NV: Self = Self(OpticalFlowUsageFlagBitsNV::OUTPUT_NV.0);
@@ -421,8 +422,9 @@ pub(super) mod defs {
         pub const GLOBAL_FLOW_NV: Self = Self(1 << 4);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct OpticalFlowSessionCreateFlagsNV(Flags);
+    vk_bitflags_wrapped!(OpticalFlowSessionCreateFlagsNV, Flags);
     impl OpticalFlowSessionCreateFlagsNV {
         pub const ENABLE_HINT_NV: Self = Self(OpticalFlowSessionCreateFlagBitsNV::ENABLE_HINT_NV.0);
         pub const ENABLE_COST_NV: Self = Self(OpticalFlowSessionCreateFlagBitsNV::ENABLE_COST_NV.0);
@@ -444,8 +446,9 @@ pub(super) mod defs {
         pub const BOTH_DIRECTIONS_NV: Self = Self(1 << 4);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct OpticalFlowExecuteFlagsNV(Flags);
+    vk_bitflags_wrapped!(OpticalFlowExecuteFlagsNV, Flags);
     impl OpticalFlowExecuteFlagsNV {
         pub const DISABLE_TEMPORAL_HINTS_NV: Self =
             Self(OpticalFlowExecuteFlagBitsNV::DISABLE_TEMPORAL_HINTS_NV.0);

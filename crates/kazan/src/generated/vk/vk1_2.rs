@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     pub const MAX_DRIVER_NAME_SIZE: u32 = 256;
@@ -3615,8 +3614,9 @@ pub(super) mod defs {
         pub const NONE_KHR: Self = Self::NONE;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SemaphoreWaitFlags(Flags);
+    vk_bitflags_wrapped!(SemaphoreWaitFlags, Flags);
     impl SemaphoreWaitFlags {
         pub const ANY: Self = Self(SemaphoreWaitFlagBits::ANY.0);
         pub const ANY_KHR: Self = Self::ANY;
@@ -3629,8 +3629,9 @@ pub(super) mod defs {
         pub const ANY_KHR: Self = Self::ANY;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DescriptorBindingFlags(Flags);
+    vk_bitflags_wrapped!(DescriptorBindingFlags, Flags);
     impl DescriptorBindingFlags {
         pub const UPDATE_AFTER_BIND: Self = Self(DescriptorBindingFlagBits::UPDATE_AFTER_BIND.0);
         pub const UPDATE_UNUSED_WHILE_PENDING: Self =
@@ -3657,8 +3658,9 @@ pub(super) mod defs {
         pub const VARIABLE_DESCRIPTOR_COUNT_EXT: Self = Self::VARIABLE_DESCRIPTOR_COUNT;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ResolveModeFlags(Flags);
+    vk_bitflags_wrapped!(ResolveModeFlags, Flags);
     impl ResolveModeFlags {
         pub const SAMPLE_ZERO: Self = Self(ResolveModeFlagBits::SAMPLE_ZERO.0);
         pub const AVERAGE: Self = Self(ResolveModeFlagBits::AVERAGE.0);

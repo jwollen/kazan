@@ -3,6 +3,9 @@ pub use generated::*;
 
 mod chain;
 pub use chain::*;
+
+pub(crate) mod macros;
+
 //mod loading;
 
 use core::{

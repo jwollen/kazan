@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -467,8 +466,9 @@ pub(super) mod defs {
         }
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PresentStageFlagsEXT(Flags);
+    vk_bitflags_wrapped!(PresentStageFlagsEXT, Flags);
     impl PresentStageFlagsEXT {
         pub const QUEUE_OPERATIONS_END_EXT: Self =
             Self(PresentStageFlagBitsEXT::QUEUE_OPERATIONS_END_EXT.0);
@@ -489,8 +489,9 @@ pub(super) mod defs {
         pub const IMAGE_FIRST_PIXEL_VISIBLE_EXT: Self = Self(1 << 3);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PastPresentationTimingFlagsEXT(Flags);
+    vk_bitflags_wrapped!(PastPresentationTimingFlagsEXT, Flags);
     impl PastPresentationTimingFlagsEXT {
         pub const ALLOW_PARTIAL_RESULTS_EXT: Self =
             Self(PastPresentationTimingFlagBitsEXT::ALLOW_PARTIAL_RESULTS_EXT.0);
@@ -505,8 +506,9 @@ pub(super) mod defs {
         pub const ALLOW_OUT_OF_ORDER_RESULTS_EXT: Self = Self(1 << 1);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PresentTimingInfoFlagsEXT(Flags);
+    vk_bitflags_wrapped!(PresentTimingInfoFlagsEXT, Flags);
     impl PresentTimingInfoFlagsEXT {
         pub const PRESENT_AT_RELATIVE_TIME_EXT: Self =
             Self(PresentTimingInfoFlagBitsEXT::PRESENT_AT_RELATIVE_TIME_EXT.0);

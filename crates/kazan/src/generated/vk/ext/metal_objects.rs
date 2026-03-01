@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     pub type MTLDevice_id = *const c_void;
@@ -413,8 +412,9 @@ pub(super) mod defs {
         }
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ExportMetalObjectTypeFlagsEXT(Flags);
+    vk_bitflags_wrapped!(ExportMetalObjectTypeFlagsEXT, Flags);
     impl ExportMetalObjectTypeFlagsEXT {
         pub const METAL_DEVICE_EXT: Self =
             Self(ExportMetalObjectTypeFlagBitsEXT::METAL_DEVICE_EXT.0);

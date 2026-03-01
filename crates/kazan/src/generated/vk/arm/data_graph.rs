@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     pub const MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM: u32 = 128;
@@ -882,8 +881,9 @@ pub(super) mod defs {
         pub const NEURAL_MODEL_QCOM: Self = Self(1000629000);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DataGraphPipelineSessionCreateFlagsARM(Flags64);
+    vk_bitflags_wrapped!(DataGraphPipelineSessionCreateFlagsARM, Flags64);
     impl DataGraphPipelineSessionCreateFlagsARM {
         pub const PROTECTED_ARM: Self =
             Self(DataGraphPipelineSessionCreateFlagBitsARM::PROTECTED_ARM.0);
@@ -895,8 +895,9 @@ pub(super) mod defs {
         pub const PROTECTED_ARM: Self = Self(1 << 0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DataGraphPipelineDispatchFlagsARM(Flags64);
+    vk_bitflags_wrapped!(DataGraphPipelineDispatchFlagsARM, Flags64);
     impl DataGraphPipelineDispatchFlagsARM {}
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]

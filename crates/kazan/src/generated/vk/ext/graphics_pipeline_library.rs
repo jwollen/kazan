@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -122,8 +121,9 @@ pub(super) mod defs {
         }
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct GraphicsPipelineLibraryFlagsEXT(Flags);
+    vk_bitflags_wrapped!(GraphicsPipelineLibraryFlagsEXT, Flags);
     impl GraphicsPipelineLibraryFlagsEXT {
         pub const VERTEX_INPUT_INTERFACE_EXT: Self =
             Self(GraphicsPipelineLibraryFlagBitsEXT::VERTEX_INPUT_INTERFACE_EXT.0);

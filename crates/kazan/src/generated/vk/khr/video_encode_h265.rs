@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -831,8 +830,9 @@ pub(super) mod defs {
         }
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeH265CapabilityFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoEncodeH265CapabilityFlagsKHR, Flags);
     impl VideoEncodeH265CapabilityFlagsKHR {
         pub const HRD_COMPLIANCE_KHR: Self =
             Self(VideoEncodeH265CapabilityFlagBitsKHR::HRD_COMPLIANCE_KHR.0);
@@ -877,8 +877,9 @@ pub(super) mod defs {
         pub const B_PICTURE_INTRA_REFRESH_KHR: Self = Self(1 << 11);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeH265StdFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoEncodeH265StdFlagsKHR, Flags);
     impl VideoEncodeH265StdFlagsKHR {
         pub const SEPARATE_COLOR_PLANE_FLAG_SET_KHR: Self =
             Self(VideoEncodeH265StdFlagBitsKHR::SEPARATE_COLOR_PLANE_FLAG_SET_KHR.0);
@@ -950,8 +951,9 @@ pub(super) mod defs {
         pub const DIFFERENT_SLICE_QP_DELTA_KHR: Self = Self(1 << 20);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeH265RateControlFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoEncodeH265RateControlFlagsKHR, Flags);
     impl VideoEncodeH265RateControlFlagsKHR {
         pub const ATTEMPT_HRD_COMPLIANCE_KHR: Self =
             Self(VideoEncodeH265RateControlFlagBitsKHR::ATTEMPT_HRD_COMPLIANCE_KHR.0);
@@ -975,8 +977,9 @@ pub(super) mod defs {
         pub const TEMPORAL_SUB_LAYER_PATTERN_DYADIC_KHR: Self = Self(1 << 4);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeH265CtbSizeFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoEncodeH265CtbSizeFlagsKHR, Flags);
     impl VideoEncodeH265CtbSizeFlagsKHR {
         pub const _16_KHR: Self = Self(VideoEncodeH265CtbSizeFlagBitsKHR::_16_KHR.0);
         pub const _32_KHR: Self = Self(VideoEncodeH265CtbSizeFlagBitsKHR::_32_KHR.0);
@@ -991,8 +994,9 @@ pub(super) mod defs {
         pub const _64_KHR: Self = Self(1 << 2);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeH265TransformBlockSizeFlagsKHR(Flags);
+    vk_bitflags_wrapped!(VideoEncodeH265TransformBlockSizeFlagsKHR, Flags);
     impl VideoEncodeH265TransformBlockSizeFlagsKHR {
         pub const _4_KHR: Self = Self(VideoEncodeH265TransformBlockSizeFlagBitsKHR::_4_KHR.0);
         pub const _8_KHR: Self = Self(VideoEncodeH265TransformBlockSizeFlagBitsKHR::_8_KHR.0);

@@ -210,11 +210,11 @@ pub fn write_bitmask(
 
     writeln!(
         file,
-        "bitflags! {{
-    #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct {}: {} {{",
-        name, base_type
+        "#[repr(transparent)]
+        #[derive(Copy, Clone, PartialEq, Eq, Hash)]
+        pub struct {name}({base_type});
+        vk_bitflags_wrapped!({name}, {base_type});
+        impl {name} {{"
     )
     .unwrap();
 
@@ -257,7 +257,7 @@ pub fn write_bitmask(
             }
             writeln!(
                 file,
-                "        const {} = {}::{}.0;",
+                "        pub const {}: Self = Self({}::{}.0);",
                 name, bitmask_name, name
             )
             .unwrap();
@@ -271,7 +271,7 @@ pub fn write_bitmask(
                 continue;
             }
 
-            writeln!(file, "        const {} = Self::{}.bits();", name, alias).unwrap();
+            writeln!(file, "        pub const {}: Self = Self::{};", name, alias).unwrap();
         }
 
         if let Some(aliases) = req.enum_aliases.get(bitmask.name) {
@@ -283,7 +283,7 @@ pub fn write_bitmask(
                     continue;
                 }
 
-                writeln!(file, "        const {} = Self::{}.bits();", name, alias).unwrap();
+                writeln!(file, "        pub const {}: Self = Self::{};", name, alias).unwrap();
             }
         }
 
@@ -295,18 +295,22 @@ pub fn write_bitmask(
                 .strip_prefix('_')
                 .unwrap();
             let name = strip_vendor_suffix(name);
-            writeln!(file, "        const {} = {};", name, value.value).unwrap();
+            writeln!(
+                file,
+                "        pub const {}: Self = Self({});",
+                name, value.value
+            )
+            .unwrap();
         }
 
         if let Some(values) = req.enum_values.get(bitmask.name) {
             for (name, value) in values {
                 let name = normalize_bit_name(name, value_prefix.as_deref());
-                writeln!(file, "        const {} = {};", name, value).unwrap();
+                writeln!(file, "        pub const {}: Self = Self({});", name, value).unwrap();
             }
         }
     }
 
-    writeln!(file, "    }}").unwrap();
     writeln!(file, "}}").unwrap();
 
     if let Some(bitmask) = bitmask {
@@ -314,7 +318,7 @@ pub fn write_bitmask(
         writeln!(
             file,
             "#[repr(transparent)]
-            #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+            #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
             pub struct {}(u{});
             impl {} {{",
             bitmask_name,

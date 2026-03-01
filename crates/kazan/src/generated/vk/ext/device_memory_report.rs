@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -159,8 +158,9 @@ pub(super) mod defs {
         pub const ALLOCATION_FAILED_EXT: Self = Self(4);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DeviceMemoryReportFlagsEXT(Flags);
+    vk_bitflags_wrapped!(DeviceMemoryReportFlagsEXT, Flags);
     impl DeviceMemoryReportFlagsEXT {}
     pub type PFN_vkDeviceMemoryReportCallbackEXT = unsafe extern "system" fn(
         p_callback_data: *const DeviceMemoryReportCallbackDataEXT<'_>,

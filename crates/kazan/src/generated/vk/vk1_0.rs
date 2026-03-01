@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     pub const FALSE: u32 = 0;
@@ -8208,8 +8207,9 @@ pub(super) mod defs {
         pub const MOBILEYE: Self = Self(0x10007);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct FramebufferCreateFlags(Flags);
+    vk_bitflags_wrapped!(FramebufferCreateFlags, Flags);
     impl FramebufferCreateFlags {
         pub const IMAGELESS: Self = Self(FramebufferCreateFlagBits::IMAGELESS.0);
         pub const IMAGELESS_KHR: Self = Self::IMAGELESS;
@@ -8222,8 +8222,9 @@ pub(super) mod defs {
         pub const IMAGELESS_KHR: Self = Self::IMAGELESS;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct QueryPoolCreateFlags(Flags);
+    vk_bitflags_wrapped!(QueryPoolCreateFlags, Flags);
     impl QueryPoolCreateFlags {
         pub const RESET_KHR: Self = Self(QueryPoolCreateFlagBits::RESET_KHR.0);
     }
@@ -8234,8 +8235,9 @@ pub(super) mod defs {
         pub const RESET_KHR: Self = Self(1 << 0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct RenderPassCreateFlags(Flags);
+    vk_bitflags_wrapped!(RenderPassCreateFlags, Flags);
     impl RenderPassCreateFlags {
         pub const TRANSFORM_QCOM: Self = Self(RenderPassCreateFlagBits::TRANSFORM_QCOM.0);
         pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self =
@@ -8249,8 +8251,9 @@ pub(super) mod defs {
         pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self = Self(1 << 2);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SamplerCreateFlags(Flags);
+    vk_bitflags_wrapped!(SamplerCreateFlags, Flags);
     impl SamplerCreateFlags {
         pub const SUBSAMPLED_EXT: Self = Self(SamplerCreateFlagBits::SUBSAMPLED_EXT.0);
         pub const SUBSAMPLED_COARSE_RECONSTRUCTION_EXT: Self =
@@ -8273,8 +8276,9 @@ pub(super) mod defs {
         pub const IMAGE_PROCESSING_QCOM: Self = Self(1 << 4);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineLayoutCreateFlags(Flags);
+    vk_bitflags_wrapped!(PipelineLayoutCreateFlags, Flags);
     impl PipelineLayoutCreateFlags {
         pub const INDEPENDENT_SETS_EXT: Self =
             Self(PipelineLayoutCreateFlagBits::INDEPENDENT_SETS_EXT.0);
@@ -8286,8 +8290,9 @@ pub(super) mod defs {
         pub const INDEPENDENT_SETS_EXT: Self = Self(1 << 1);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineCacheCreateFlags(Flags);
+    vk_bitflags_wrapped!(PipelineCacheCreateFlags, Flags);
     impl PipelineCacheCreateFlags {
         pub const EXTERNALLY_SYNCHRONIZED: Self =
             Self(PipelineCacheCreateFlagBits::EXTERNALLY_SYNCHRONIZED.0);
@@ -8304,8 +8309,9 @@ pub(super) mod defs {
         pub const EXTERNALLY_SYNCHRONIZED_EXT: Self = Self::EXTERNALLY_SYNCHRONIZED;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineDepthStencilStateCreateFlags(Flags);
+    vk_bitflags_wrapped!(PipelineDepthStencilStateCreateFlags, Flags);
     impl PipelineDepthStencilStateCreateFlags {
         pub const RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT: Self = Self(PipelineDepthStencilStateCreateFlagBits::RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT.0);
         pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT: Self = Self(PipelineDepthStencilStateCreateFlagBits::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT.0);
@@ -8326,12 +8332,14 @@ pub(super) mod defs {
             Self::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineDynamicStateCreateFlags(Flags);
+    vk_bitflags_wrapped!(PipelineDynamicStateCreateFlags, Flags);
     impl PipelineDynamicStateCreateFlags {}
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineColorBlendStateCreateFlags(Flags);
+    vk_bitflags_wrapped!(PipelineColorBlendStateCreateFlags, Flags);
     impl PipelineColorBlendStateCreateFlags {
         pub const RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT: Self = Self(
             PipelineColorBlendStateCreateFlagBits::RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT.0,
@@ -8348,32 +8356,39 @@ pub(super) mod defs {
             Self::RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineMultisampleStateCreateFlags(Flags);
+    vk_bitflags_wrapped!(PipelineMultisampleStateCreateFlags, Flags);
     impl PipelineMultisampleStateCreateFlags {}
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineRasterizationStateCreateFlags(Flags);
+    vk_bitflags_wrapped!(PipelineRasterizationStateCreateFlags, Flags);
     impl PipelineRasterizationStateCreateFlags {}
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineViewportStateCreateFlags(Flags);
+    vk_bitflags_wrapped!(PipelineViewportStateCreateFlags, Flags);
     impl PipelineViewportStateCreateFlags {}
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineTessellationStateCreateFlags(Flags);
+    vk_bitflags_wrapped!(PipelineTessellationStateCreateFlags, Flags);
     impl PipelineTessellationStateCreateFlags {}
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineInputAssemblyStateCreateFlags(Flags);
+    vk_bitflags_wrapped!(PipelineInputAssemblyStateCreateFlags, Flags);
     impl PipelineInputAssemblyStateCreateFlags {}
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineVertexInputStateCreateFlags(Flags);
+    vk_bitflags_wrapped!(PipelineVertexInputStateCreateFlags, Flags);
     impl PipelineVertexInputStateCreateFlags {}
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineShaderStageCreateFlags(Flags);
+    vk_bitflags_wrapped!(PipelineShaderStageCreateFlags, Flags);
     impl PipelineShaderStageCreateFlags {
         pub const ALLOW_VARYING_SUBGROUP_SIZE: Self =
             Self(PipelineShaderStageCreateFlagBits::ALLOW_VARYING_SUBGROUP_SIZE.0);
@@ -8392,8 +8407,9 @@ pub(super) mod defs {
         pub const REQUIRE_FULL_SUBGROUPS_EXT: Self = Self::REQUIRE_FULL_SUBGROUPS;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DescriptorSetLayoutCreateFlags(Flags);
+    vk_bitflags_wrapped!(DescriptorSetLayoutCreateFlags, Flags);
     impl DescriptorSetLayoutCreateFlags {
         pub const PUSH_DESCRIPTOR: Self =
             Self(DescriptorSetLayoutCreateFlagBits::PUSH_DESCRIPTOR.0);
@@ -8428,12 +8444,14 @@ pub(super) mod defs {
         pub const UPDATE_AFTER_BIND_POOL_EXT: Self = Self::UPDATE_AFTER_BIND_POOL;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct BufferViewCreateFlags(Flags);
+    vk_bitflags_wrapped!(BufferViewCreateFlags, Flags);
     impl BufferViewCreateFlags {}
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct InstanceCreateFlags(Flags);
+    vk_bitflags_wrapped!(InstanceCreateFlags, Flags);
     impl InstanceCreateFlags {
         pub const ENUMERATE_PORTABILITY_KHR: Self =
             Self(InstanceCreateFlagBits::ENUMERATE_PORTABILITY_KHR.0);
@@ -8445,12 +8463,14 @@ pub(super) mod defs {
         pub const ENUMERATE_PORTABILITY_KHR: Self = Self(1 << 0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DeviceCreateFlags(Flags);
+    vk_bitflags_wrapped!(DeviceCreateFlags, Flags);
     impl DeviceCreateFlags {}
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DeviceQueueCreateFlags(Flags);
+    vk_bitflags_wrapped!(DeviceQueueCreateFlags, Flags);
     impl DeviceQueueCreateFlags {
         pub const PROTECTED: Self = Self(DeviceQueueCreateFlagBits::PROTECTED.0);
         pub const INTERNALLY_SYNCHRONIZED_KHR: Self =
@@ -8464,8 +8484,9 @@ pub(super) mod defs {
         pub const INTERNALLY_SYNCHRONIZED_KHR: Self = Self(1 << 2);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct QueueFlags(Flags);
+    vk_bitflags_wrapped!(QueueFlags, Flags);
     impl QueueFlags {
         pub const GRAPHICS: Self = Self(QueueFlagBits::GRAPHICS.0);
         pub const COMPUTE: Self = Self(QueueFlagBits::COMPUTE.0);
@@ -8492,8 +8513,9 @@ pub(super) mod defs {
         pub const DATA_GRAPH_ARM: Self = Self(1 << 10);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct MemoryPropertyFlags(Flags);
+    vk_bitflags_wrapped!(MemoryPropertyFlags, Flags);
     impl MemoryPropertyFlags {
         pub const DEVICE_LOCAL: Self = Self(MemoryPropertyFlagBits::DEVICE_LOCAL.0);
         pub const HOST_VISIBLE: Self = Self(MemoryPropertyFlagBits::HOST_VISIBLE.0);
@@ -8520,8 +8542,9 @@ pub(super) mod defs {
         pub const RDMA_CAPABLE_NV: Self = Self(1 << 8);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct MemoryHeapFlags(Flags);
+    vk_bitflags_wrapped!(MemoryHeapFlags, Flags);
     impl MemoryHeapFlags {
         pub const DEVICE_LOCAL: Self = Self(MemoryHeapFlagBits::DEVICE_LOCAL.0);
         pub const MULTI_INSTANCE: Self = Self(MemoryHeapFlagBits::MULTI_INSTANCE.0);
@@ -8538,8 +8561,9 @@ pub(super) mod defs {
         pub const MULTI_INSTANCE_KHR: Self = Self::MULTI_INSTANCE;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AccessFlags(Flags);
+    vk_bitflags_wrapped!(AccessFlags, Flags);
     impl AccessFlags {
         pub const INDIRECT_COMMAND_READ: Self = Self(AccessFlagBits::INDIRECT_COMMAND_READ.0);
         pub const INDEX_READ: Self = Self(AccessFlagBits::INDEX_READ.0);
@@ -8631,8 +8655,9 @@ pub(super) mod defs {
             Self::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct BufferUsageFlags(Flags);
+    vk_bitflags_wrapped!(BufferUsageFlags, Flags);
     impl BufferUsageFlags {
         pub const TRANSFER_SRC: Self = Self(BufferUsageFlagBits::TRANSFER_SRC.0);
         pub const TRANSFER_DST: Self = Self(BufferUsageFlagBits::TRANSFER_DST.0);
@@ -8714,8 +8739,9 @@ pub(super) mod defs {
         pub const SHADER_DEVICE_ADDRESS_KHR: Self = Self::SHADER_DEVICE_ADDRESS;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct BufferCreateFlags(Flags);
+    vk_bitflags_wrapped!(BufferCreateFlags, Flags);
     impl BufferCreateFlags {
         pub const SPARSE_BINDING: Self = Self(BufferCreateFlagBits::SPARSE_BINDING.0);
         pub const SPARSE_RESIDENCY: Self = Self(BufferCreateFlagBits::SPARSE_RESIDENCY.0);
@@ -8745,8 +8771,9 @@ pub(super) mod defs {
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR: Self = Self::DEVICE_ADDRESS_CAPTURE_REPLAY;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ShaderStageFlags(Flags);
+    vk_bitflags_wrapped!(ShaderStageFlags, Flags);
     impl ShaderStageFlags {
         pub const VERTEX: Self = Self(ShaderStageFlagBits::VERTEX.0);
         pub const TESSELLATION_CONTROL: Self = Self(ShaderStageFlagBits::TESSELLATION_CONTROL.0);
@@ -8808,8 +8835,9 @@ pub(super) mod defs {
         pub const TASK_NV: Self = Self::TASK_EXT;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageUsageFlags(Flags);
+    vk_bitflags_wrapped!(ImageUsageFlags, Flags);
     impl ImageUsageFlags {
         pub const TRANSFER_SRC: Self = Self(ImageUsageFlagBits::TRANSFER_SRC.0);
         pub const TRANSFER_DST: Self = Self(ImageUsageFlagBits::TRANSFER_DST.0);
@@ -8879,8 +8907,9 @@ pub(super) mod defs {
         pub const SHADING_RATE_IMAGE_NV: Self = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageCreateFlags(Flags);
+    vk_bitflags_wrapped!(ImageCreateFlags, Flags);
     impl ImageCreateFlags {
         pub const SPARSE_BINDING: Self = Self(ImageCreateFlagBits::SPARSE_BINDING.0);
         pub const SPARSE_RESIDENCY: Self = Self(ImageCreateFlagBits::SPARSE_RESIDENCY.0);
@@ -8955,8 +8984,9 @@ pub(super) mod defs {
         pub const SPLIT_INSTANCE_BIND_REGIONS_KHR: Self = Self::SPLIT_INSTANCE_BIND_REGIONS;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageViewCreateFlags(Flags);
+    vk_bitflags_wrapped!(ImageViewCreateFlags, Flags);
     impl ImageViewCreateFlags {
         pub const FRAGMENT_DENSITY_MAP_DYNAMIC_EXT: Self =
             Self(ImageViewCreateFlagBits::FRAGMENT_DENSITY_MAP_DYNAMIC_EXT.0);
@@ -8974,8 +9004,9 @@ pub(super) mod defs {
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self = Self(1 << 2);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineCreateFlags(Flags);
+    vk_bitflags_wrapped!(PipelineCreateFlags, Flags);
     impl PipelineCreateFlags {
         pub const DISABLE_OPTIMIZATION: Self = Self(PipelineCreateFlagBits::DISABLE_OPTIMIZATION.0);
         pub const ALLOW_DERIVATIVES: Self = Self(PipelineCreateFlagBits::ALLOW_DERIVATIVES.0);
@@ -9091,8 +9122,9 @@ pub(super) mod defs {
             Self::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ColorComponentFlags(Flags);
+    vk_bitflags_wrapped!(ColorComponentFlags, Flags);
     impl ColorComponentFlags {
         pub const R: Self = Self(ColorComponentFlagBits::R.0);
         pub const G: Self = Self(ColorComponentFlagBits::G.0);
@@ -9109,8 +9141,9 @@ pub(super) mod defs {
         pub const A: Self = Self(1 << 3);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct FenceCreateFlags(Flags);
+    vk_bitflags_wrapped!(FenceCreateFlags, Flags);
     impl FenceCreateFlags {
         pub const SIGNALED: Self = Self(FenceCreateFlagBits::SIGNALED.0);
     }
@@ -9121,12 +9154,14 @@ pub(super) mod defs {
         pub const SIGNALED: Self = Self(1 << 0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SemaphoreCreateFlags(Flags);
+    vk_bitflags_wrapped!(SemaphoreCreateFlags, Flags);
     impl SemaphoreCreateFlags {}
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct FormatFeatureFlags(Flags);
+    vk_bitflags_wrapped!(FormatFeatureFlags, Flags);
     impl FormatFeatureFlags {
         pub const SAMPLED_IMAGE: Self = Self(FormatFeatureFlagBits::SAMPLED_IMAGE.0);
         pub const STORAGE_IMAGE: Self = Self(FormatFeatureFlagBits::STORAGE_IMAGE.0);
@@ -9248,8 +9283,9 @@ pub(super) mod defs {
         pub const TRANSFER_SRC_KHR: Self = Self::TRANSFER_SRC;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct QueryControlFlags(Flags);
+    vk_bitflags_wrapped!(QueryControlFlags, Flags);
     impl QueryControlFlags {
         pub const PRECISE: Self = Self(QueryControlFlagBits::PRECISE.0);
     }
@@ -9260,8 +9296,9 @@ pub(super) mod defs {
         pub const PRECISE: Self = Self(1 << 0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct QueryResultFlags(Flags);
+    vk_bitflags_wrapped!(QueryResultFlags, Flags);
     impl QueryResultFlags {
         pub const _64: Self = Self(QueryResultFlagBits::_64.0);
         pub const WAIT: Self = Self(QueryResultFlagBits::WAIT.0);
@@ -9280,12 +9317,14 @@ pub(super) mod defs {
         pub const WITH_STATUS_KHR: Self = Self(1 << 4);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ShaderModuleCreateFlags(Flags);
+    vk_bitflags_wrapped!(ShaderModuleCreateFlags, Flags);
     impl ShaderModuleCreateFlags {}
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct EventCreateFlags(Flags);
+    vk_bitflags_wrapped!(EventCreateFlags, Flags);
     impl EventCreateFlags {
         pub const DEVICE_ONLY: Self = Self(EventCreateFlagBits::DEVICE_ONLY.0);
         pub const DEVICE_ONLY_KHR: Self = Self::DEVICE_ONLY;
@@ -9298,8 +9337,9 @@ pub(super) mod defs {
         pub const DEVICE_ONLY_KHR: Self = Self::DEVICE_ONLY;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct CommandPoolCreateFlags(Flags);
+    vk_bitflags_wrapped!(CommandPoolCreateFlags, Flags);
     impl CommandPoolCreateFlags {
         pub const TRANSIENT: Self = Self(CommandPoolCreateFlagBits::TRANSIENT.0);
         pub const RESET_COMMAND_BUFFER: Self =
@@ -9315,8 +9355,9 @@ pub(super) mod defs {
         pub const PROTECTED: Self = Self(1 << 2);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct CommandPoolResetFlags(Flags);
+    vk_bitflags_wrapped!(CommandPoolResetFlags, Flags);
     impl CommandPoolResetFlags {
         pub const RELEASE_RESOURCES: Self = Self(CommandPoolResetFlagBits::RELEASE_RESOURCES.0);
     }
@@ -9327,8 +9368,9 @@ pub(super) mod defs {
         pub const RELEASE_RESOURCES: Self = Self(1 << 0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct CommandBufferResetFlags(Flags);
+    vk_bitflags_wrapped!(CommandBufferResetFlags, Flags);
     impl CommandBufferResetFlags {
         pub const RELEASE_RESOURCES: Self = Self(CommandBufferResetFlagBits::RELEASE_RESOURCES.0);
     }
@@ -9339,8 +9381,9 @@ pub(super) mod defs {
         pub const RELEASE_RESOURCES: Self = Self(1 << 0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct CommandBufferUsageFlags(Flags);
+    vk_bitflags_wrapped!(CommandBufferUsageFlags, Flags);
     impl CommandBufferUsageFlags {
         pub const ONE_TIME_SUBMIT: Self = Self(CommandBufferUsageFlagBits::ONE_TIME_SUBMIT.0);
         pub const RENDER_PASS_CONTINUE: Self =
@@ -9356,8 +9399,9 @@ pub(super) mod defs {
         pub const SIMULTANEOUS_USE: Self = Self(1 << 2);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct QueryPipelineStatisticFlags(Flags);
+    vk_bitflags_wrapped!(QueryPipelineStatisticFlags, Flags);
     impl QueryPipelineStatisticFlags {
         pub const INPUT_ASSEMBLY_VERTICES: Self =
             Self(QueryPipelineStatisticFlagBits::INPUT_ASSEMBLY_VERTICES.0);
@@ -9408,8 +9452,9 @@ pub(super) mod defs {
         pub const CLUSTER_CULLING_SHADER_INVOCATIONS_HUAWEI: Self = Self(1 << 13);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct MemoryMapFlags(Flags);
+    vk_bitflags_wrapped!(MemoryMapFlags, Flags);
     impl MemoryMapFlags {
         pub const PLACED_EXT: Self = Self(MemoryMapFlagBits::PLACED_EXT.0);
     }
@@ -9420,8 +9465,9 @@ pub(super) mod defs {
         pub const PLACED_EXT: Self = Self(1 << 0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageAspectFlags(Flags);
+    vk_bitflags_wrapped!(ImageAspectFlags, Flags);
     impl ImageAspectFlags {
         pub const COLOR: Self = Self(ImageAspectFlagBits::COLOR.0);
         pub const DEPTH: Self = Self(ImageAspectFlagBits::DEPTH.0);
@@ -9460,8 +9506,9 @@ pub(super) mod defs {
         pub const PLANE_2_KHR: Self = Self::PLANE_2;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SparseMemoryBindFlags(Flags);
+    vk_bitflags_wrapped!(SparseMemoryBindFlags, Flags);
     impl SparseMemoryBindFlags {
         pub const METADATA: Self = Self(SparseMemoryBindFlagBits::METADATA.0);
     }
@@ -9472,8 +9519,9 @@ pub(super) mod defs {
         pub const METADATA: Self = Self(1 << 0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SparseImageFormatFlags(Flags);
+    vk_bitflags_wrapped!(SparseImageFormatFlags, Flags);
     impl SparseImageFormatFlags {
         pub const SINGLE_MIPTAIL: Self = Self(SparseImageFormatFlagBits::SINGLE_MIPTAIL.0);
         pub const ALIGNED_MIP_SIZE: Self = Self(SparseImageFormatFlagBits::ALIGNED_MIP_SIZE.0);
@@ -9489,8 +9537,9 @@ pub(super) mod defs {
         pub const NONSTANDARD_BLOCK_SIZE: Self = Self(1 << 2);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SubpassDescriptionFlags(Flags);
+    vk_bitflags_wrapped!(SubpassDescriptionFlags, Flags);
     impl SubpassDescriptionFlags {
         pub const PER_VIEW_ATTRIBUTES_NVX: Self =
             Self(SubpassDescriptionFlagBits::PER_VIEW_ATTRIBUTES_NVX.0);
@@ -9541,8 +9590,9 @@ pub(super) mod defs {
         pub const SHADER_RESOLVE_QCOM: Self = Self::CUSTOM_RESOLVE_EXT;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineStageFlags(Flags);
+    vk_bitflags_wrapped!(PipelineStageFlags, Flags);
     impl PipelineStageFlags {
         pub const TOP_OF_PIPE: Self = Self(PipelineStageFlagBits::TOP_OF_PIPE.0);
         pub const DRAW_INDIRECT: Self = Self(PipelineStageFlagBits::DRAW_INDIRECT.0);
@@ -9627,8 +9677,9 @@ pub(super) mod defs {
         pub const TASK_SHADER_NV: Self = Self::TASK_SHADER_EXT;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SampleCountFlags(Flags);
+    vk_bitflags_wrapped!(SampleCountFlags, Flags);
     impl SampleCountFlags {
         pub const _1: Self = Self(SampleCountFlagBits::_1.0);
         pub const _2: Self = Self(SampleCountFlagBits::_2.0);
@@ -9651,8 +9702,9 @@ pub(super) mod defs {
         pub const _64: Self = Self(1 << 6);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AttachmentDescriptionFlags(Flags);
+    vk_bitflags_wrapped!(AttachmentDescriptionFlags, Flags);
     impl AttachmentDescriptionFlags {
         pub const MAY_ALIAS: Self = Self(AttachmentDescriptionFlagBits::MAY_ALIAS.0);
         pub const RESOLVE_SKIP_TRANSFER_FUNCTION_KHR: Self =
@@ -9669,8 +9721,9 @@ pub(super) mod defs {
         pub const RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR: Self = Self(1 << 2);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct StencilFaceFlags(Flags);
+    vk_bitflags_wrapped!(StencilFaceFlags, Flags);
     impl StencilFaceFlags {
         pub const FRONT: Self = Self(StencilFaceFlagBits::FRONT.0);
         pub const BACK: Self = Self(StencilFaceFlagBits::BACK.0);
@@ -9685,8 +9738,9 @@ pub(super) mod defs {
         pub const BACK: Self = Self(1 << 1);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct CullModeFlags(Flags);
+    vk_bitflags_wrapped!(CullModeFlags, Flags);
     impl CullModeFlags {
         pub const FRONT: Self = Self(CullModeFlagBits::FRONT.0);
         pub const BACK: Self = Self(CullModeFlagBits::BACK.0);
@@ -9701,8 +9755,9 @@ pub(super) mod defs {
         pub const BACK: Self = Self(1 << 1);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DescriptorPoolCreateFlags(Flags);
+    vk_bitflags_wrapped!(DescriptorPoolCreateFlags, Flags);
     impl DescriptorPoolCreateFlags {
         pub const FREE_DESCRIPTOR_SET: Self =
             Self(DescriptorPoolCreateFlagBits::FREE_DESCRIPTOR_SET.0);
@@ -9728,12 +9783,14 @@ pub(super) mod defs {
         pub const UPDATE_AFTER_BIND_EXT: Self = Self::UPDATE_AFTER_BIND;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DescriptorPoolResetFlags(Flags);
+    vk_bitflags_wrapped!(DescriptorPoolResetFlags, Flags);
     impl DescriptorPoolResetFlags {}
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DependencyFlags(Flags);
+    vk_bitflags_wrapped!(DependencyFlags, Flags);
     impl DependencyFlags {
         pub const BY_REGION: Self = Self(DependencyFlagBits::BY_REGION.0);
         pub const VIEW_LOCAL: Self = Self(DependencyFlagBits::VIEW_LOCAL.0);

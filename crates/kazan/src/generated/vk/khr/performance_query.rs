@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -317,8 +316,9 @@ pub(super) mod defs {
         pub const FLOAT64_KHR: Self = Self(5);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PerformanceCounterDescriptionFlagsKHR(Flags);
+    vk_bitflags_wrapped!(PerformanceCounterDescriptionFlagsKHR, Flags);
     impl PerformanceCounterDescriptionFlagsKHR {
         pub const PERFORMANCE_IMPACTING_KHR: Self =
             Self(PerformanceCounterDescriptionFlagBitsKHR::PERFORMANCE_IMPACTING_KHR.0);
@@ -333,8 +333,9 @@ pub(super) mod defs {
         pub const CONCURRENTLY_IMPACTED_KHR: Self = Self(1 << 1);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AcquireProfilingLockFlagsKHR(Flags);
+    vk_bitflags_wrapped!(AcquireProfilingLockFlagsKHR, Flags);
     impl AcquireProfilingLockFlagsKHR {}
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]

@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -271,8 +270,9 @@ pub(super) mod defs {
         }
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DisplayPlaneAlphaFlagsKHR(Flags);
+    vk_bitflags_wrapped!(DisplayPlaneAlphaFlagsKHR, Flags);
     impl DisplayPlaneAlphaFlagsKHR {
         pub const OPAQUE_KHR: Self = Self(DisplayPlaneAlphaFlagBitsKHR::OPAQUE_KHR.0);
         pub const GLOBAL_KHR: Self = Self(DisplayPlaneAlphaFlagBitsKHR::GLOBAL_KHR.0);
@@ -290,8 +290,9 @@ pub(super) mod defs {
         pub const PER_PIXEL_PREMULTIPLIED_KHR: Self = Self(1 << 3);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SurfaceTransformFlagsKHR(Flags);
+    vk_bitflags_wrapped!(SurfaceTransformFlagsKHR, Flags);
     impl SurfaceTransformFlagsKHR {
         pub const IDENTITY_KHR: Self = Self(SurfaceTransformFlagBitsKHR::IDENTITY_KHR.0);
         pub const ROTATE_90_KHR: Self = Self(SurfaceTransformFlagBitsKHR::ROTATE_90_KHR.0);
@@ -322,12 +323,14 @@ pub(super) mod defs {
         pub const INHERIT_KHR: Self = Self(1 << 8);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DisplayModeCreateFlagsKHR(Flags);
+    vk_bitflags_wrapped!(DisplayModeCreateFlagsKHR, Flags);
     impl DisplayModeCreateFlagsKHR {}
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DisplaySurfaceCreateFlagsKHR(Flags);
+    vk_bitflags_wrapped!(DisplaySurfaceCreateFlagsKHR, Flags);
     impl DisplaySurfaceCreateFlagsKHR {}
     pub type PFN_vkGetPhysicalDeviceDisplayPropertiesKHR = unsafe extern "system" fn(
         physical_device: PhysicalDevice,

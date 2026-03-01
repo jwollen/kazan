@@ -5,7 +5,6 @@ use core::mem::transmute;
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
-    use bitflags::bitflags;
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::marker::PhantomData;
     #[repr(C)]
@@ -182,8 +181,9 @@ pub(super) mod defs {
         }
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct RenderingAttachmentFlagsKHR(Flags);
+    vk_bitflags_wrapped!(RenderingAttachmentFlagsKHR, Flags);
     impl RenderingAttachmentFlagsKHR {
         pub const INPUT_ATTACHMENT_FEEDBACK_KHR: Self =
             Self(RenderingAttachmentFlagBitsKHR::INPUT_ATTACHMENT_FEEDBACK_KHR.0);
@@ -201,8 +201,9 @@ pub(super) mod defs {
         pub const RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR: Self = Self(1 << 2);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ResolveImageFlagsKHR(Flags);
+    vk_bitflags_wrapped!(ResolveImageFlagsKHR, Flags);
     impl ResolveImageFlagsKHR {
         pub const SKIP_TRANSFER_FUNCTION_KHR: Self =
             Self(ResolveImageFlagBitsKHR::SKIP_TRANSFER_FUNCTION_KHR.0);
