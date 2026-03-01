@@ -18,10 +18,15 @@ pub(super) mod defs {
         pub num_phases: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImageViewSampleWeightCreateInfoQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM;
+    }
+    unsafe impl<'a> Extends<ImageViewCreateInfo<'a>> for ImageViewSampleWeightCreateInfoQCOM<'a> {}
     impl Default for ImageViewSampleWeightCreateInfoQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 filter_center: Default::default(),
                 filter_size: Default::default(),
@@ -54,10 +59,19 @@ pub(super) mod defs {
         pub texture_block_match: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageProcessingFeaturesQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceImageProcessingFeaturesQCOM<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceImageProcessingFeaturesQCOM<'a> {}
     impl Default for PhysicalDeviceImageProcessingFeaturesQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 texture_sample_weighted: Default::default(),
                 texture_box_filter: Default::default(),
@@ -91,10 +105,18 @@ pub(super) mod defs {
         pub max_box_filter_block_size: Extent2D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageProcessingPropertiesQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_IMAGE_PROCESSING_PROPERTIES_QCOM;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceImageProcessingPropertiesQCOM<'a>
+    {
+    }
     impl Default for PhysicalDeviceImageProcessingPropertiesQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_IMAGE_PROCESSING_PROPERTIES_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_weight_filter_phases: Default::default(),
                 max_weight_filter_dimension: Default::default(),

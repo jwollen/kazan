@@ -18,10 +18,19 @@ pub(super) mod defs {
         pub nested_command_buffer_simultaneous_use: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceNestedCommandBufferFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceNestedCommandBufferFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceNestedCommandBufferFeaturesEXT<'a> {}
     impl Default for PhysicalDeviceNestedCommandBufferFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 nested_command_buffer: Default::default(),
                 nested_command_buffer_rendering: Default::default(),
@@ -58,10 +67,18 @@ pub(super) mod defs {
         pub max_command_buffer_nesting_level: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceNestedCommandBufferPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_PROPERTIES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceNestedCommandBufferPropertiesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceNestedCommandBufferPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_command_buffer_nesting_level: Default::default(),
                 _marker: PhantomData,

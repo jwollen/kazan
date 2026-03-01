@@ -24,10 +24,18 @@ pub(super) mod defs {
         pub conservative_rasterization_post_depth_coverage: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceConservativeRasterizationPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_CONSERVATIVE_RASTERIZATION_PROPERTIES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceConservativeRasterizationPropertiesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceConservativeRasterizationPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_CONSERVATIVE_RASTERIZATION_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 primitive_overestimation_size: Default::default(),
                 max_extra_primitive_overestimation_size: Default::default(),
@@ -112,10 +120,18 @@ pub(super) mod defs {
         pub extra_primitive_overestimation_size: f32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineRasterizationConservativeStateCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_RASTERIZATION_CONSERVATIVE_STATE_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<PipelineRasterizationStateCreateInfo<'a>>
+        for PipelineRasterizationConservativeStateCreateInfoEXT<'a>
+    {
+    }
     impl Default for PipelineRasterizationConservativeStateCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_RASTERIZATION_CONSERVATIVE_STATE_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 conservative_rasterization_mode: Default::default(),
@@ -155,10 +171,8 @@ pub(super) mod defs {
         pub const OVERESTIMATE_EXT: Self = Self(1);
         pub const UNDERESTIMATE_EXT: Self = Self(2);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct PipelineRasterizationConservativeStateCreateFlagsEXT: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct PipelineRasterizationConservativeStateCreateFlagsEXT(Flags);
+    impl PipelineRasterizationConservativeStateCreateFlagsEXT {}
 }

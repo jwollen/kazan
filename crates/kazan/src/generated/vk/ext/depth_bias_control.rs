@@ -18,10 +18,13 @@ pub(super) mod defs {
         pub depth_bias_slope_factor: f32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DepthBiasInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEPTH_BIAS_INFO_EXT;
+    }
     impl Default for DepthBiasInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEPTH_BIAS_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 depth_bias_constant_factor: Default::default(),
                 depth_bias_clamp: Default::default(),
@@ -53,10 +56,18 @@ pub(super) mod defs {
         pub depth_bias_exact: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DepthBiasRepresentationInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEPTH_BIAS_REPRESENTATION_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<DepthBiasInfoEXT<'a>> for DepthBiasRepresentationInfoEXT<'a> {}
+    unsafe impl<'a> Extends<PipelineRasterizationStateCreateInfo<'a>>
+        for DepthBiasRepresentationInfoEXT<'a>
+    {
+    }
     impl Default for DepthBiasRepresentationInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEPTH_BIAS_REPRESENTATION_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 depth_bias_representation: Default::default(),
                 depth_bias_exact: Default::default(),
@@ -88,10 +99,19 @@ pub(super) mod defs {
         pub depth_bias_exact: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDepthBiasControlFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_DEPTH_BIAS_CONTROL_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceDepthBiasControlFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceDepthBiasControlFeaturesEXT<'a> {}
     impl Default for PhysicalDeviceDepthBiasControlFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_DEPTH_BIAS_CONTROL_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 depth_bias_control: Default::default(),
                 least_representable_value_force_unorm_representation: Default::default(),

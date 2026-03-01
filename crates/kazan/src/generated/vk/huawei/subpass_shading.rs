@@ -17,10 +17,18 @@ pub(super) mod defs {
         pub subpass: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SubpassShadingPipelineCreateInfoHUAWEI<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::SUBPASS_SHADING_PIPELINE_CREATE_INFO_HUAWEI;
+    }
+    unsafe impl<'a> Extends<ComputePipelineCreateInfo<'a>>
+        for SubpassShadingPipelineCreateInfoHUAWEI<'a>
+    {
+    }
     impl Default for SubpassShadingPipelineCreateInfoHUAWEI<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SUBPASS_SHADING_PIPELINE_CREATE_INFO_HUAWEI,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 render_pass: Default::default(),
                 subpass: Default::default(),
@@ -46,10 +54,18 @@ pub(super) mod defs {
         pub max_subpass_shading_workgroup_size_aspect_ratio: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSubpassShadingPropertiesHUAWEI<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SUBPASS_SHADING_PROPERTIES_HUAWEI;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceSubpassShadingPropertiesHUAWEI<'a>
+    {
+    }
     impl Default for PhysicalDeviceSubpassShadingPropertiesHUAWEI<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SUBPASS_SHADING_PROPERTIES_HUAWEI,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_subpass_shading_workgroup_size_aspect_ratio: Default::default(),
                 _marker: PhantomData,
@@ -74,10 +90,19 @@ pub(super) mod defs {
         pub subpass_shading: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSubpassShadingFeaturesHUAWEI<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SUBPASS_SHADING_FEATURES_HUAWEI;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceSubpassShadingFeaturesHUAWEI<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceSubpassShadingFeaturesHUAWEI<'a> {}
     impl Default for PhysicalDeviceSubpassShadingFeaturesHUAWEI<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SUBPASS_SHADING_FEATURES_HUAWEI,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 subpass_shading: Default::default(),
                 _marker: PhantomData,

@@ -18,10 +18,15 @@ pub(super) mod defs {
         pub pipeline_device_address_capture_replay: DeviceAddress,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ComputePipelineIndirectBufferInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV;
+    }
+    unsafe impl<'a> Extends<ComputePipelineCreateInfo<'a>> for ComputePipelineIndirectBufferInfoNV<'a> {}
     impl Default for ComputePipelineIndirectBufferInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 device_address: Default::default(),
                 size: Default::default(),
@@ -57,11 +62,22 @@ pub(super) mod defs {
         pub device_generated_compute_capture_replay: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV<'a>
+    {
+    }
     impl Default for PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type:
-                    StructureType::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 device_generated_compute: Default::default(),
                 device_generated_compute_pipelines: Default::default(),
@@ -99,10 +115,14 @@ pub(super) mod defs {
         pub pipeline: Pipeline,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineIndirectDeviceAddressInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV;
+    }
     impl Default for PipelineIndirectDeviceAddressInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 pipeline_bind_point: Default::default(),
                 pipeline: Default::default(),

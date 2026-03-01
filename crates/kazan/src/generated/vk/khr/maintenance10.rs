@@ -18,10 +18,18 @@ pub(super) mod defs {
         pub resolve_srgb_format_supports_transfer_function_control: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMaintenance10PropertiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_MAINTENANCE_10_PROPERTIES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceMaintenance10PropertiesKHR<'a>
+    {
+    }
     impl Default for PhysicalDeviceMaintenance10PropertiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_MAINTENANCE_10_PROPERTIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 rgba4_opaque_black_swizzled: Default::default(),
                 resolve_srgb_format_applies_transfer_function: Default::default(),
@@ -60,10 +68,19 @@ pub(super) mod defs {
         pub maintenance10: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMaintenance10FeaturesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_MAINTENANCE_10_FEATURES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceMaintenance10FeaturesKHR<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceMaintenance10FeaturesKHR<'a> {}
     impl Default for PhysicalDeviceMaintenance10FeaturesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_MAINTENANCE_10_FEATURES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 maintenance10: Default::default(),
                 _marker: PhantomData,
@@ -83,10 +100,13 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RenderingEndInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::RENDERING_END_INFO_KHR;
+    }
     impl Default for RenderingEndInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RENDERING_END_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 _marker: PhantomData,
             }
@@ -101,10 +121,14 @@ pub(super) mod defs {
         pub flags: RenderingAttachmentFlagsKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RenderingAttachmentFlagsInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::RENDERING_ATTACHMENT_FLAGS_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<RenderingAttachmentInfo<'a>> for RenderingAttachmentFlagsInfoKHR<'a> {}
     impl Default for RenderingAttachmentFlagsInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RENDERING_ATTACHMENT_FLAGS_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 _marker: PhantomData,
@@ -127,10 +151,14 @@ pub(super) mod defs {
         pub stencil_resolve_mode: ResolveModeFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ResolveImageModeInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::RESOLVE_IMAGE_MODE_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<ResolveImageInfo2<'a>> for ResolveImageModeInfoKHR<'a> {}
     impl Default for ResolveImageModeInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RESOLVE_IMAGE_MODE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 resolve_mode: Default::default(),
@@ -153,33 +181,36 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct RenderingAttachmentFlagsKHR: Flags {
-            const INPUT_ATTACHMENT_FEEDBACK_KHR = RenderingAttachmentFlagBitsKHR::INPUT_ATTACHMENT_FEEDBACK_KHR.0;
-            const RESOLVE_SKIP_TRANSFER_FUNCTION_KHR = RenderingAttachmentFlagBitsKHR::RESOLVE_SKIP_TRANSFER_FUNCTION_KHR.0;
-            const RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR = RenderingAttachmentFlagBitsKHR::RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct RenderingAttachmentFlagsKHR(Flags);
+    impl RenderingAttachmentFlagsKHR {
+        pub const INPUT_ATTACHMENT_FEEDBACK_KHR: Self =
+            Self(RenderingAttachmentFlagBitsKHR::INPUT_ATTACHMENT_FEEDBACK_KHR.0);
+        pub const RESOLVE_SKIP_TRANSFER_FUNCTION_KHR: Self =
+            Self(RenderingAttachmentFlagBitsKHR::RESOLVE_SKIP_TRANSFER_FUNCTION_KHR.0);
+        pub const RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR: Self =
+            Self(RenderingAttachmentFlagBitsKHR::RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct RenderingAttachmentFlagBitsKHR(u32);
     impl RenderingAttachmentFlagBitsKHR {
         pub const INPUT_ATTACHMENT_FEEDBACK_KHR: Self = Self(1 << 0);
         pub const RESOLVE_SKIP_TRANSFER_FUNCTION_KHR: Self = Self(1 << 1);
         pub const RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR: Self = Self(1 << 2);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct ResolveImageFlagsKHR: Flags {
-            const SKIP_TRANSFER_FUNCTION_KHR = ResolveImageFlagBitsKHR::SKIP_TRANSFER_FUNCTION_KHR.0;
-            const ENABLE_TRANSFER_FUNCTION_KHR = ResolveImageFlagBitsKHR::ENABLE_TRANSFER_FUNCTION_KHR.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct ResolveImageFlagsKHR(Flags);
+    impl ResolveImageFlagsKHR {
+        pub const SKIP_TRANSFER_FUNCTION_KHR: Self =
+            Self(ResolveImageFlagBitsKHR::SKIP_TRANSFER_FUNCTION_KHR.0);
+        pub const ENABLE_TRANSFER_FUNCTION_KHR: Self =
+            Self(ResolveImageFlagBitsKHR::ENABLE_TRANSFER_FUNCTION_KHR.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ResolveImageFlagBitsKHR(u32);
     impl ResolveImageFlagBitsKHR {
         pub const SKIP_TRANSFER_FUNCTION_KHR: Self = Self(1 << 0);

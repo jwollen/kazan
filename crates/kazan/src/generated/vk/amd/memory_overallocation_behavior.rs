@@ -16,10 +16,15 @@ pub(super) mod defs {
         pub overallocation_behavior: MemoryOverallocationBehaviorAMD,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DeviceMemoryOverallocationCreateInfoAMD<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD;
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for DeviceMemoryOverallocationCreateInfoAMD<'a> {}
     impl Default for DeviceMemoryOverallocationCreateInfoAMD<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 overallocation_behavior: Default::default(),
                 _marker: PhantomData,

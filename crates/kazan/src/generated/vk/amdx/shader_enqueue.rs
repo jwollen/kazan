@@ -23,10 +23,18 @@ pub(super) mod defs {
         pub max_execution_graph_workgroups: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderEnqueuePropertiesAMDX<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SHADER_ENQUEUE_PROPERTIES_AMDX;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceShaderEnqueuePropertiesAMDX<'a>
+    {
+    }
     impl Default for PhysicalDeviceShaderEnqueuePropertiesAMDX<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SHADER_ENQUEUE_PROPERTIES_AMDX,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_execution_graph_depth: Default::default(),
                 max_execution_graph_shader_output_nodes: Default::default(),
@@ -98,10 +106,19 @@ pub(super) mod defs {
         pub shader_mesh_enqueue: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderEnqueueFeaturesAMDX<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SHADER_ENQUEUE_FEATURES_AMDX;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceShaderEnqueueFeaturesAMDX<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShaderEnqueueFeaturesAMDX<'a> {}
     impl Default for PhysicalDeviceShaderEnqueueFeaturesAMDX<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SHADER_ENQUEUE_FEATURES_AMDX,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shader_enqueue: Default::default(),
                 shader_mesh_enqueue: Default::default(),
@@ -133,10 +150,14 @@ pub(super) mod defs {
         pub base_pipeline_index: i32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExecutionGraphPipelineCreateInfoAMDX<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::EXECUTION_GRAPH_PIPELINE_CREATE_INFO_AMDX;
+    }
     impl Default for ExecutionGraphPipelineCreateInfoAMDX<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXECUTION_GRAPH_PIPELINE_CREATE_INFO_AMDX,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 stage_count: Default::default(),
@@ -185,10 +206,18 @@ pub(super) mod defs {
         pub index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineShaderStageNodeCreateInfoAMDX<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_SHADER_STAGE_NODE_CREATE_INFO_AMDX;
+    }
+    unsafe impl<'a> Extends<PipelineShaderStageCreateInfo<'a>>
+        for PipelineShaderStageNodeCreateInfoAMDX<'a>
+    {
+    }
     impl Default for PipelineShaderStageNodeCreateInfoAMDX<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_SHADER_STAGE_NODE_CREATE_INFO_AMDX,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_name: core::ptr::null(),
                 index: Default::default(),
@@ -212,10 +241,14 @@ pub(super) mod defs {
         pub size_granularity: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExecutionGraphPipelineScratchSizeAMDX<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::EXECUTION_GRAPH_PIPELINE_SCRATCH_SIZE_AMDX;
+    }
     impl Default for ExecutionGraphPipelineScratchSizeAMDX<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXECUTION_GRAPH_PIPELINE_SCRATCH_SIZE_AMDX,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 min_size: Default::default(),
                 max_size: Default::default(),

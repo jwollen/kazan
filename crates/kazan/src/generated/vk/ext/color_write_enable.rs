@@ -16,10 +16,19 @@ pub(super) mod defs {
         pub color_write_enable: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceColorWriteEnableFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_COLOR_WRITE_ENABLE_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceColorWriteEnableFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceColorWriteEnableFeaturesEXT<'a> {}
     impl Default for PhysicalDeviceColorWriteEnableFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_COLOR_WRITE_ENABLE_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 color_write_enable: Default::default(),
                 _marker: PhantomData,
@@ -41,10 +50,17 @@ pub(super) mod defs {
         pub p_color_write_enables: *const Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineColorWriteCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_COLOR_WRITE_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<PipelineColorBlendStateCreateInfo<'a>>
+        for PipelineColorWriteCreateInfoEXT<'a>
+    {
+    }
     impl Default for PipelineColorWriteCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_COLOR_WRITE_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 attachment_count: Default::default(),
                 p_color_write_enables: core::ptr::null(),

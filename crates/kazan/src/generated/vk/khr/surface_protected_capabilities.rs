@@ -16,10 +16,14 @@ pub(super) mod defs {
         pub supports_protected: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SurfaceProtectedCapabilitiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SURFACE_PROTECTED_CAPABILITIES_KHR;
+    }
+    unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>> for SurfaceProtectedCapabilitiesKHR<'a> {}
     impl Default for SurfaceProtectedCapabilitiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SURFACE_PROTECTED_CAPABILITIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 supports_protected: Default::default(),
                 _marker: PhantomData,

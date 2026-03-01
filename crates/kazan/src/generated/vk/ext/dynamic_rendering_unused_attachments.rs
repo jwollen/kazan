@@ -16,11 +16,24 @@ pub(super) mod defs {
         pub dynamic_rendering_unused_attachments: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a>
+        for PhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT<'a>
+    {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_DYNAMIC_RENDERING_UNUSED_ATTACHMENTS_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type:
-                    StructureType::PHYSICAL_DEVICE_DYNAMIC_RENDERING_UNUSED_ATTACHMENTS_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 dynamic_rendering_unused_attachments: Default::default(),
                 _marker: PhantomData,

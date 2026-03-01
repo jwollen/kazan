@@ -16,10 +16,22 @@ pub(super) mod defs {
         pub pipeline_library_group_handles: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PIPELINE_LIBRARY_GROUP_HANDLES_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT<'a>
+    {
+    }
     impl Default for PhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PIPELINE_LIBRARY_GROUP_HANDLES_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 pipeline_library_group_handles: Default::default(),
                 _marker: PhantomData,

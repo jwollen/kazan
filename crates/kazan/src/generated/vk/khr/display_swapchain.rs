@@ -18,10 +18,14 @@ pub(super) mod defs {
         pub persistent: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DisplayPresentInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_PRESENT_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<PresentInfoKHR<'a>> for DisplayPresentInfoKHR<'a> {}
     impl Default for DisplayPresentInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DISPLAY_PRESENT_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 src_rect: Default::default(),
                 dst_rect: Default::default(),

@@ -22,10 +22,19 @@ pub(super) mod defs {
         pub buffer_device_address_multi_device: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceBufferDeviceAddressFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceBufferDeviceAddressFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceBufferDeviceAddressFeaturesEXT<'a> {}
     impl Default for PhysicalDeviceBufferDeviceAddressFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 buffer_device_address: Default::default(),
                 buffer_device_address_capture_replay: Default::default(),
@@ -62,10 +71,14 @@ pub(super) mod defs {
         pub device_address: DeviceAddress,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BufferDeviceAddressCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::BUFFER_DEVICE_ADDRESS_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<BufferCreateInfo<'a>> for BufferDeviceAddressCreateInfoEXT<'a> {}
     impl Default for BufferDeviceAddressCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BUFFER_DEVICE_ADDRESS_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 device_address: Default::default(),
                 _marker: PhantomData,

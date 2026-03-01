@@ -16,10 +16,22 @@ pub(super) mod defs {
         pub video_encode_rgb_conversion: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_VIDEO_ENCODE_RGB_CONVERSION_FEATURES_VALVE;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE<'a>
+    {
+    }
     impl Default for PhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_VIDEO_ENCODE_RGB_CONVERSION_FEATURES_VALVE,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 video_encode_rgb_conversion: Default::default(),
                 _marker: PhantomData,
@@ -43,10 +55,18 @@ pub(super) mod defs {
         pub y_chroma_offsets: VideoEncodeRgbChromaOffsetFlagsVALVE,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoEncodeRgbConversionCapabilitiesVALVE<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::VIDEO_ENCODE_RGB_CONVERSION_CAPABILITIES_VALVE;
+    }
+    unsafe impl<'a> Extends<VideoCapabilitiesKHR<'a>>
+        for VideoEncodeRgbConversionCapabilitiesVALVE<'a>
+    {
+    }
     impl Default for VideoEncodeRgbConversionCapabilitiesVALVE<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_ENCODE_RGB_CONVERSION_CAPABILITIES_VALVE,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 rgb_models: Default::default(),
                 rgb_ranges: Default::default(),
@@ -88,10 +108,15 @@ pub(super) mod defs {
         pub perform_encode_rgb_conversion: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoEncodeProfileRgbConversionInfoVALVE<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::VIDEO_ENCODE_PROFILE_RGB_CONVERSION_INFO_VALVE;
+    }
+    unsafe impl<'a> Extends<VideoProfileInfoKHR<'a>> for VideoEncodeProfileRgbConversionInfoVALVE<'a> {}
     impl Default for VideoEncodeProfileRgbConversionInfoVALVE<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_ENCODE_PROFILE_RGB_CONVERSION_INFO_VALVE,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 perform_encode_rgb_conversion: Default::default(),
                 _marker: PhantomData,
@@ -118,10 +143,18 @@ pub(super) mod defs {
         pub y_chroma_offset: VideoEncodeRgbChromaOffsetFlagBitsVALVE,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoEncodeSessionRgbConversionCreateInfoVALVE<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::VIDEO_ENCODE_SESSION_RGB_CONVERSION_CREATE_INFO_VALVE;
+    }
+    unsafe impl<'a> Extends<VideoSessionCreateInfoKHR<'a>>
+        for VideoEncodeSessionRgbConversionCreateInfoVALVE<'a>
+    {
+    }
     impl Default for VideoEncodeSessionRgbConversionCreateInfoVALVE<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_ENCODE_SESSION_RGB_CONVERSION_CREATE_INFO_VALVE,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 rgb_model: Default::default(),
                 rgb_range: Default::default(),
@@ -155,19 +188,23 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct VideoEncodeRgbModelConversionFlagsVALVE: Flags {
-            const RGB_IDENTITY_VALVE = VideoEncodeRgbModelConversionFlagBitsVALVE::RGB_IDENTITY_VALVE.0;
-            const YCBCR_IDENTITY_VALVE = VideoEncodeRgbModelConversionFlagBitsVALVE::YCBCR_IDENTITY_VALVE.0;
-            const YCBCR_709_VALVE = VideoEncodeRgbModelConversionFlagBitsVALVE::YCBCR_709_VALVE.0;
-            const YCBCR_601_VALVE = VideoEncodeRgbModelConversionFlagBitsVALVE::YCBCR_601_VALVE.0;
-            const YCBCR_2020_VALVE = VideoEncodeRgbModelConversionFlagBitsVALVE::YCBCR_2020_VALVE.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct VideoEncodeRgbModelConversionFlagsVALVE(Flags);
+    impl VideoEncodeRgbModelConversionFlagsVALVE {
+        pub const RGB_IDENTITY_VALVE: Self =
+            Self(VideoEncodeRgbModelConversionFlagBitsVALVE::RGB_IDENTITY_VALVE.0);
+        pub const YCBCR_IDENTITY_VALVE: Self =
+            Self(VideoEncodeRgbModelConversionFlagBitsVALVE::YCBCR_IDENTITY_VALVE.0);
+        pub const YCBCR_709_VALVE: Self =
+            Self(VideoEncodeRgbModelConversionFlagBitsVALVE::YCBCR_709_VALVE.0);
+        pub const YCBCR_601_VALVE: Self =
+            Self(VideoEncodeRgbModelConversionFlagBitsVALVE::YCBCR_601_VALVE.0);
+        pub const YCBCR_2020_VALVE: Self =
+            Self(VideoEncodeRgbModelConversionFlagBitsVALVE::YCBCR_2020_VALVE.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRgbModelConversionFlagBitsVALVE(u32);
     impl VideoEncodeRgbModelConversionFlagBitsVALVE {
         pub const RGB_IDENTITY_VALVE: Self = Self(1 << 0);
@@ -176,31 +213,33 @@ pub(super) mod defs {
         pub const YCBCR_601_VALVE: Self = Self(1 << 3);
         pub const YCBCR_2020_VALVE: Self = Self(1 << 4);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct VideoEncodeRgbRangeCompressionFlagsVALVE: Flags {
-            const FULL_RANGE_VALVE = VideoEncodeRgbRangeCompressionFlagBitsVALVE::FULL_RANGE_VALVE.0;
-            const NARROW_RANGE_VALVE = VideoEncodeRgbRangeCompressionFlagBitsVALVE::NARROW_RANGE_VALVE.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct VideoEncodeRgbRangeCompressionFlagsVALVE(Flags);
+    impl VideoEncodeRgbRangeCompressionFlagsVALVE {
+        pub const FULL_RANGE_VALVE: Self =
+            Self(VideoEncodeRgbRangeCompressionFlagBitsVALVE::FULL_RANGE_VALVE.0);
+        pub const NARROW_RANGE_VALVE: Self =
+            Self(VideoEncodeRgbRangeCompressionFlagBitsVALVE::NARROW_RANGE_VALVE.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRgbRangeCompressionFlagBitsVALVE(u32);
     impl VideoEncodeRgbRangeCompressionFlagBitsVALVE {
         pub const FULL_RANGE_VALVE: Self = Self(1 << 0);
         pub const NARROW_RANGE_VALVE: Self = Self(1 << 1);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct VideoEncodeRgbChromaOffsetFlagsVALVE: Flags {
-            const COSITED_EVEN_VALVE = VideoEncodeRgbChromaOffsetFlagBitsVALVE::COSITED_EVEN_VALVE.0;
-            const MIDPOINT_VALVE = VideoEncodeRgbChromaOffsetFlagBitsVALVE::MIDPOINT_VALVE.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct VideoEncodeRgbChromaOffsetFlagsVALVE(Flags);
+    impl VideoEncodeRgbChromaOffsetFlagsVALVE {
+        pub const COSITED_EVEN_VALVE: Self =
+            Self(VideoEncodeRgbChromaOffsetFlagBitsVALVE::COSITED_EVEN_VALVE.0);
+        pub const MIDPOINT_VALVE: Self =
+            Self(VideoEncodeRgbChromaOffsetFlagBitsVALVE::MIDPOINT_VALVE.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRgbChromaOffsetFlagBitsVALVE(u32);
     impl VideoEncodeRgbChromaOffsetFlagBitsVALVE {
         pub const COSITED_EVEN_VALVE: Self = Self(1 << 0);

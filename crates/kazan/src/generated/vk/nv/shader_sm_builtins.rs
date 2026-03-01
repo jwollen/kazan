@@ -17,10 +17,18 @@ pub(super) mod defs {
         pub shader_warps_per_sm: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderSMBuiltinsPropertiesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SHADER_SM_BUILTINS_PROPERTIES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceShaderSMBuiltinsPropertiesNV<'a>
+    {
+    }
     impl Default for PhysicalDeviceShaderSMBuiltinsPropertiesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SHADER_SM_BUILTINS_PROPERTIES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shader_sm_count: Default::default(),
                 shader_warps_per_sm: Default::default(),
@@ -46,10 +54,19 @@ pub(super) mod defs {
         pub shader_sm_builtins: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderSMBuiltinsFeaturesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SHADER_SM_BUILTINS_FEATURES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceShaderSMBuiltinsFeaturesNV<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShaderSMBuiltinsFeaturesNV<'a> {}
     impl Default for PhysicalDeviceShaderSMBuiltinsFeaturesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SHADER_SM_BUILTINS_FEATURES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shader_sm_builtins: Default::default(),
                 _marker: PhantomData,

@@ -20,10 +20,13 @@ pub(super) mod defs {
         pub name: LPCWSTR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImportSemaphoreWin32HandleInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR;
+    }
     impl Default for ImportSemaphoreWin32HandleInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 semaphore: Default::default(),
                 flags: Default::default(),
@@ -66,10 +69,14 @@ pub(super) mod defs {
         pub name: LPCWSTR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExportSemaphoreWin32HandleInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<SemaphoreCreateInfo<'a>> for ExportSemaphoreWin32HandleInfoKHR<'a> {}
     impl Default for ExportSemaphoreWin32HandleInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_attributes: core::ptr::null(),
                 dw_access: Default::default(),
@@ -103,10 +110,14 @@ pub(super) mod defs {
         pub p_signal_semaphore_values: *const u64,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for D3D12FenceSubmitInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::D3D12_FENCE_SUBMIT_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<SubmitInfo<'a>> for D3D12FenceSubmitInfoKHR<'a> {}
     impl Default for D3D12FenceSubmitInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::D3D12_FENCE_SUBMIT_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 wait_semaphore_values_count: Default::default(),
                 p_wait_semaphore_values: core::ptr::null(),
@@ -137,10 +148,13 @@ pub(super) mod defs {
         pub handle_type: ExternalSemaphoreHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SemaphoreGetWin32HandleInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SEMAPHORE_GET_WIN32_HANDLE_INFO_KHR;
+    }
     impl Default for SemaphoreGetWin32HandleInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SEMAPHORE_GET_WIN32_HANDLE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 semaphore: Default::default(),
                 handle_type: Default::default(),

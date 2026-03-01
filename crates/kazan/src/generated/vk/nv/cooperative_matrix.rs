@@ -19,10 +19,19 @@ pub(super) mod defs {
         pub cooperative_matrix_robust_buffer_access: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCooperativeMatrixFeaturesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceCooperativeMatrixFeaturesNV<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceCooperativeMatrixFeaturesNV<'a> {}
     impl Default for PhysicalDeviceCooperativeMatrixFeaturesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 cooperative_matrix: Default::default(),
                 cooperative_matrix_robust_buffer_access: Default::default(),
@@ -51,10 +60,18 @@ pub(super) mod defs {
         pub cooperative_matrix_supported_stages: ShaderStageFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCooperativeMatrixPropertiesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceCooperativeMatrixPropertiesNV<'a>
+    {
+    }
     impl Default for PhysicalDeviceCooperativeMatrixPropertiesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 cooperative_matrix_supported_stages: Default::default(),
                 _marker: PhantomData,
@@ -85,10 +102,13 @@ pub(super) mod defs {
         pub scope: ScopeNV,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CooperativeMatrixPropertiesNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::COOPERATIVE_MATRIX_PROPERTIES_NV;
+    }
     impl Default for CooperativeMatrixPropertiesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::COOPERATIVE_MATRIX_PROPERTIES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 m_size: Default::default(),
                 n_size: Default::default(),

@@ -16,10 +16,18 @@ pub(super) mod defs {
         pub image_view_type: ImageViewType,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageViewImageFormatInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceImageFormatInfo2<'a>>
+        for PhysicalDeviceImageViewImageFormatInfoEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceImageViewImageFormatInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 image_view_type: Default::default(),
                 _marker: PhantomData,
@@ -41,10 +49,18 @@ pub(super) mod defs {
         pub filter_cubic_minmax: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for FilterCubicImageViewImageFormatPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::FILTER_CUBIC_IMAGE_VIEW_IMAGE_FORMAT_PROPERTIES_EXT;
+    }
+    unsafe impl<'a> Extends<ImageFormatProperties2<'a>>
+        for FilterCubicImageViewImageFormatPropertiesEXT<'a>
+    {
+    }
     impl Default for FilterCubicImageViewImageFormatPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::FILTER_CUBIC_IMAGE_VIEW_IMAGE_FORMAT_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 filter_cubic: Default::default(),
                 filter_cubic_minmax: Default::default(),

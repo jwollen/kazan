@@ -17,10 +17,14 @@ pub(super) mod defs {
         pub p_libraries: *const Pipeline,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineLibraryCreateInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_LIBRARY_CREATE_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>> for PipelineLibraryCreateInfoKHR<'a> {}
     impl Default for PipelineLibraryCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_LIBRARY_CREATE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 library_count: Default::default(),
                 p_libraries: core::ptr::null(),

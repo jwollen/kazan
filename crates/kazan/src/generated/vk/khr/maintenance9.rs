@@ -16,10 +16,16 @@ pub(super) mod defs {
         pub maintenance9: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMaintenance9FeaturesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_MAINTENANCE_9_FEATURES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceMaintenance9FeaturesKHR<'a> {}
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceMaintenance9FeaturesKHR<'a> {}
     impl Default for PhysicalDeviceMaintenance9FeaturesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_MAINTENANCE_9_FEATURES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 maintenance9: Default::default(),
                 _marker: PhantomData,
@@ -41,10 +47,18 @@ pub(super) mod defs {
         pub default_vertex_attribute_value: DefaultVertexAttributeValueKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMaintenance9PropertiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_MAINTENANCE_9_PROPERTIES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceMaintenance9PropertiesKHR<'a>
+    {
+    }
     impl Default for PhysicalDeviceMaintenance9PropertiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_MAINTENANCE_9_PROPERTIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 image2_d_view_of3_d_sparse: Default::default(),
                 default_vertex_attribute_value: Default::default(),
@@ -73,10 +87,18 @@ pub(super) mod defs {
         pub optimal_image_transfer_to_queue_families: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for QueueFamilyOwnershipTransferPropertiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::QUEUE_FAMILY_OWNERSHIP_TRANSFER_PROPERTIES_KHR;
+    }
+    unsafe impl<'a> Extends<QueueFamilyProperties2<'a>>
+        for QueueFamilyOwnershipTransferPropertiesKHR<'a>
+    {
+    }
     impl Default for QueueFamilyOwnershipTransferPropertiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::QUEUE_FAMILY_OWNERSHIP_TRANSFER_PROPERTIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 optimal_image_transfer_to_queue_families: Default::default(),
                 _marker: PhantomData,

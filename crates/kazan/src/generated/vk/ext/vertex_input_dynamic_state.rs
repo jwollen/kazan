@@ -16,10 +16,22 @@ pub(super) mod defs {
         pub vertex_input_dynamic_state: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 vertex_input_dynamic_state: Default::default(),
                 _marker: PhantomData,
@@ -43,10 +55,13 @@ pub(super) mod defs {
         pub divisor: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VertexInputBindingDescription2EXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT;
+    }
     impl Default for VertexInputBindingDescription2EXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 binding: Default::default(),
                 stride: Default::default(),
@@ -85,10 +100,14 @@ pub(super) mod defs {
         pub offset: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VertexInputAttributeDescription2EXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT;
+    }
     impl Default for VertexInputAttributeDescription2EXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 location: Default::default(),
                 binding: Default::default(),

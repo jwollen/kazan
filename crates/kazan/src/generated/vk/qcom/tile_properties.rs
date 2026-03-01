@@ -16,10 +16,19 @@ pub(super) mod defs {
         pub tile_properties: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTilePropertiesFeaturesQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_TILE_PROPERTIES_FEATURES_QCOM;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceTilePropertiesFeaturesQCOM<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceTilePropertiesFeaturesQCOM<'a> {}
     impl Default for PhysicalDeviceTilePropertiesFeaturesQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_TILE_PROPERTIES_FEATURES_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 tile_properties: Default::default(),
                 _marker: PhantomData,
@@ -42,10 +51,13 @@ pub(super) mod defs {
         pub origin: Offset2D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for TilePropertiesQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::TILE_PROPERTIES_QCOM;
+    }
     impl Default for TilePropertiesQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::TILE_PROPERTIES_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 tile_size: Default::default(),
                 apron_size: Default::default(),

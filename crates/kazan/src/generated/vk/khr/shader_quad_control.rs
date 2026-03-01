@@ -16,10 +16,19 @@ pub(super) mod defs {
         pub shader_quad_control: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderQuadControlFeaturesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SHADER_QUAD_CONTROL_FEATURES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceShaderQuadControlFeaturesKHR<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShaderQuadControlFeaturesKHR<'a> {}
     impl Default for PhysicalDeviceShaderQuadControlFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SHADER_QUAD_CONTROL_FEATURES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shader_quad_control: Default::default(),
                 _marker: PhantomData,

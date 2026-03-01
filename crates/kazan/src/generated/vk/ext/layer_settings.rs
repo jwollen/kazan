@@ -17,10 +17,14 @@ pub(super) mod defs {
         pub p_settings: *const LayerSettingEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for LayerSettingsCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::LAYER_SETTINGS_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<InstanceCreateInfo<'a>> for LayerSettingsCreateInfoEXT<'a> {}
     impl Default for LayerSettingsCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::LAYER_SETTINGS_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 setting_count: Default::default(),
                 p_settings: core::ptr::null(),

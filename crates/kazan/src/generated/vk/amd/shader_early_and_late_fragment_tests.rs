@@ -16,11 +16,24 @@ pub(super) mod defs {
         pub shader_early_and_late_fragment_tests: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a>
+        for PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'a>
+    {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SHADER_EARLY_AND_LATE_FRAGMENT_TESTS_FEATURES_AMD;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'a>
+    {
+    }
     impl Default for PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'_> {
         fn default() -> Self {
             Self {
-                s_type:
-                    StructureType::PHYSICAL_DEVICE_SHADER_EARLY_AND_LATE_FRAGMENT_TESTS_FEATURES_AMD,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shader_early_and_late_fragment_tests: Default::default(),
                 _marker: PhantomData,

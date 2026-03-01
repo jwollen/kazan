@@ -20,10 +20,15 @@ pub(super) mod defs {
         pub non_rectangular_intra_refresh_regions: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoEncodeIntraRefreshCapabilitiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::VIDEO_ENCODE_INTRA_REFRESH_CAPABILITIES_KHR;
+    }
+    unsafe impl<'a> Extends<VideoCapabilitiesKHR<'a>> for VideoEncodeIntraRefreshCapabilitiesKHR<'a> {}
     impl Default for VideoEncodeIntraRefreshCapabilitiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_ENCODE_INTRA_REFRESH_CAPABILITIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 intra_refresh_modes: Default::default(),
                 max_intra_refresh_cycle_duration: Default::default(),
@@ -81,10 +86,18 @@ pub(super) mod defs {
         pub intra_refresh_mode: VideoEncodeIntraRefreshModeFlagBitsKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoEncodeSessionIntraRefreshCreateInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::VIDEO_ENCODE_SESSION_INTRA_REFRESH_CREATE_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<VideoSessionCreateInfoKHR<'a>>
+        for VideoEncodeSessionIntraRefreshCreateInfoKHR<'a>
+    {
+    }
     impl Default for VideoEncodeSessionIntraRefreshCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_ENCODE_SESSION_INTRA_REFRESH_CREATE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 intra_refresh_mode: Default::default(),
                 _marker: PhantomData,
@@ -109,10 +122,14 @@ pub(super) mod defs {
         pub intra_refresh_index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoEncodeIntraRefreshInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_INTRA_REFRESH_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<VideoEncodeInfoKHR<'a>> for VideoEncodeIntraRefreshInfoKHR<'a> {}
     impl Default for VideoEncodeIntraRefreshInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_ENCODE_INTRA_REFRESH_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 intra_refresh_cycle_duration: Default::default(),
                 intra_refresh_index: Default::default(),
@@ -138,10 +155,14 @@ pub(super) mod defs {
         pub dirty_intra_refresh_regions: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoReferenceIntraRefreshInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_REFERENCE_INTRA_REFRESH_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<VideoReferenceSlotInfoKHR<'a>> for VideoReferenceIntraRefreshInfoKHR<'a> {}
     impl Default for VideoReferenceIntraRefreshInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_REFERENCE_INTRA_REFRESH_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 dirty_intra_refresh_regions: Default::default(),
                 _marker: PhantomData,
@@ -162,10 +183,22 @@ pub(super) mod defs {
         pub video_encode_intra_refresh: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_VIDEO_ENCODE_INTRA_REFRESH_FEATURES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR<'a>
+    {
+    }
     impl Default for PhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_VIDEO_ENCODE_INTRA_REFRESH_FEATURES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 video_encode_intra_refresh: Default::default(),
                 _marker: PhantomData,
@@ -178,19 +211,22 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct VideoEncodeIntraRefreshModeFlagsKHR: Flags {
-            const PER_PICTURE_PARTITION_KHR = VideoEncodeIntraRefreshModeFlagBitsKHR::PER_PICTURE_PARTITION_KHR.0;
-            const BLOCK_BASED_KHR = VideoEncodeIntraRefreshModeFlagBitsKHR::BLOCK_BASED_KHR.0;
-            const BLOCK_ROW_BASED_KHR = VideoEncodeIntraRefreshModeFlagBitsKHR::BLOCK_ROW_BASED_KHR.0;
-            const BLOCK_COLUMN_BASED_KHR = VideoEncodeIntraRefreshModeFlagBitsKHR::BLOCK_COLUMN_BASED_KHR.0;
-            const NONE = 0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct VideoEncodeIntraRefreshModeFlagsKHR(Flags);
+    impl VideoEncodeIntraRefreshModeFlagsKHR {
+        pub const PER_PICTURE_PARTITION_KHR: Self =
+            Self(VideoEncodeIntraRefreshModeFlagBitsKHR::PER_PICTURE_PARTITION_KHR.0);
+        pub const BLOCK_BASED_KHR: Self =
+            Self(VideoEncodeIntraRefreshModeFlagBitsKHR::BLOCK_BASED_KHR.0);
+        pub const BLOCK_ROW_BASED_KHR: Self =
+            Self(VideoEncodeIntraRefreshModeFlagBitsKHR::BLOCK_ROW_BASED_KHR.0);
+        pub const BLOCK_COLUMN_BASED_KHR: Self =
+            Self(VideoEncodeIntraRefreshModeFlagBitsKHR::BLOCK_COLUMN_BASED_KHR.0);
+        pub const NONE: Self = Self(0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeIntraRefreshModeFlagBitsKHR(u32);
     impl VideoEncodeIntraRefreshModeFlagBitsKHR {
         pub const PER_PICTURE_PARTITION_KHR: Self = Self(1 << 0);

@@ -16,10 +16,14 @@ pub(super) mod defs {
         pub frame_token: GgpFrameToken,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PresentFrameTokenGGP<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PRESENT_FRAME_TOKEN_GGP;
+    }
+    unsafe impl<'a> Extends<PresentInfoKHR<'a>> for PresentFrameTokenGGP<'a> {}
     impl Default for PresentFrameTokenGGP<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PRESENT_FRAME_TOKEN_GGP,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 frame_token: Default::default(),
                 _marker: PhantomData,

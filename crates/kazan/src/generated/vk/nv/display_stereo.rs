@@ -16,10 +16,14 @@ pub(super) mod defs {
         pub stereo_type: DisplaySurfaceStereoTypeNV,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DisplaySurfaceStereoCreateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_SURFACE_STEREO_CREATE_INFO_NV;
+    }
+    unsafe impl<'a> Extends<DisplaySurfaceCreateInfoKHR<'a>> for DisplaySurfaceStereoCreateInfoNV<'a> {}
     impl Default for DisplaySurfaceStereoCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DISPLAY_SURFACE_STEREO_CREATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 stereo_type: Default::default(),
                 _marker: PhantomData,
@@ -40,10 +44,14 @@ pub(super) mod defs {
         pub hdmi3_d_supported: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DisplayModeStereoPropertiesNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_MODE_STEREO_PROPERTIES_NV;
+    }
+    unsafe impl<'a> Extends<DisplayModeProperties2KHR<'a>> for DisplayModeStereoPropertiesNV<'a> {}
     impl Default for DisplayModeStereoPropertiesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DISPLAY_MODE_STEREO_PROPERTIES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 hdmi3_d_supported: Default::default(),
                 _marker: PhantomData,

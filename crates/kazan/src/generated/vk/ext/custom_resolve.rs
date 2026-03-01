@@ -15,10 +15,13 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BeginCustomResolveInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::BEGIN_CUSTOM_RESOLVE_INFO_EXT;
+    }
     impl Default for BeginCustomResolveInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BEGIN_CUSTOM_RESOLVE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 _marker: PhantomData,
             }
@@ -33,10 +36,19 @@ pub(super) mod defs {
         pub custom_resolve: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCustomResolveFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_CUSTOM_RESOLVE_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceCustomResolveFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceCustomResolveFeaturesEXT<'a> {}
     impl Default for PhysicalDeviceCustomResolveFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_CUSTOM_RESOLVE_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 custom_resolve: Default::default(),
                 _marker: PhantomData,
@@ -61,10 +73,16 @@ pub(super) mod defs {
         pub stencil_attachment_format: Format,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CustomResolveCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::CUSTOM_RESOLVE_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>> for CustomResolveCreateInfoEXT<'a> {}
+    unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>> for CustomResolveCreateInfoEXT<'a> {}
+    unsafe impl<'a> Extends<ShaderCreateInfoEXT<'a>> for CustomResolveCreateInfoEXT<'a> {}
     impl Default for CustomResolveCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::CUSTOM_RESOLVE_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 custom_resolve: Default::default(),
                 color_attachment_count: Default::default(),

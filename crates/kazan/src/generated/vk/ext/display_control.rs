@@ -16,10 +16,13 @@ pub(super) mod defs {
         pub power_state: DisplayPowerStateEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DisplayPowerInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_POWER_INFO_EXT;
+    }
     impl Default for DisplayPowerInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DISPLAY_POWER_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 power_state: Default::default(),
                 _marker: PhantomData,
@@ -40,10 +43,13 @@ pub(super) mod defs {
         pub device_event: DeviceEventTypeEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DeviceEventInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_EVENT_INFO_EXT;
+    }
     impl Default for DeviceEventInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEVICE_EVENT_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 device_event: Default::default(),
                 _marker: PhantomData,
@@ -64,10 +70,13 @@ pub(super) mod defs {
         pub display_event: DisplayEventTypeEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DisplayEventInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_EVENT_INFO_EXT;
+    }
     impl Default for DisplayEventInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DISPLAY_EVENT_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 display_event: Default::default(),
                 _marker: PhantomData,
@@ -88,10 +97,14 @@ pub(super) mod defs {
         pub surface_counters: SurfaceCounterFlagsEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SwapchainCounterCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SWAPCHAIN_COUNTER_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<SwapchainCreateInfoKHR<'a>> for SwapchainCounterCreateInfoEXT<'a> {}
     impl Default for SwapchainCounterCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SWAPCHAIN_COUNTER_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 surface_counters: Default::default(),
                 _marker: PhantomData,

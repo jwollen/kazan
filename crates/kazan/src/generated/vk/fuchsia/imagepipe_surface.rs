@@ -17,10 +17,13 @@ pub(super) mod defs {
         pub image_pipe_handle: zx_handle_t,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImagePipeSurfaceCreateInfoFUCHSIA<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMAGEPIPE_SURFACE_CREATE_INFO_FUCHSIA;
+    }
     impl Default for ImagePipeSurfaceCreateInfoFUCHSIA<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGEPIPE_SURFACE_CREATE_INFO_FUCHSIA,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 image_pipe_handle: Default::default(),
@@ -38,12 +41,10 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct ImagePipeSurfaceCreateFlagsFUCHSIA: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct ImagePipeSurfaceCreateFlagsFUCHSIA(Flags);
+    impl ImagePipeSurfaceCreateFlagsFUCHSIA {}
     pub type PFN_vkCreateImagePipeSurfaceFUCHSIA = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const ImagePipeSurfaceCreateInfoFUCHSIA<'_>,

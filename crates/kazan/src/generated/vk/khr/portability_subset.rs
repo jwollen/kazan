@@ -30,10 +30,19 @@ pub(super) mod defs {
         pub vertex_attribute_access_beyond_stride: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePortabilitySubsetFeaturesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PORTABILITY_SUBSET_FEATURES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDevicePortabilitySubsetFeaturesKHR<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePortabilitySubsetFeaturesKHR<'a> {}
     impl Default for PhysicalDevicePortabilitySubsetFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PORTABILITY_SUBSET_FEATURES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 constant_alpha_color_blend_factors: Default::default(),
                 events: Default::default(),
@@ -137,10 +146,18 @@ pub(super) mod defs {
         pub min_vertex_input_binding_stride_alignment: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePortabilitySubsetPropertiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PORTABILITY_SUBSET_PROPERTIES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDevicePortabilitySubsetPropertiesKHR<'a>
+    {
+    }
     impl Default for PhysicalDevicePortabilitySubsetPropertiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PORTABILITY_SUBSET_PROPERTIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 min_vertex_input_binding_stride_alignment: Default::default(),
                 _marker: PhantomData,

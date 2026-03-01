@@ -16,10 +16,22 @@ pub(super) mod defs {
         pub pipeline_executable_info: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePipelineExecutablePropertiesFeaturesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDevicePipelineExecutablePropertiesFeaturesKHR<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDevicePipelineExecutablePropertiesFeaturesKHR<'a>
+    {
+    }
     impl Default for PhysicalDevicePipelineExecutablePropertiesFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 pipeline_executable_info: Default::default(),
                 _marker: PhantomData,
@@ -40,10 +52,13 @@ pub(super) mod defs {
         pub pipeline: Pipeline,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_INFO_KHR;
+    }
     impl Default for PipelineInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 pipeline: Default::default(),
                 _marker: PhantomData,
@@ -67,10 +82,13 @@ pub(super) mod defs {
         pub subgroup_size: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineExecutablePropertiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_EXECUTABLE_PROPERTIES_KHR;
+    }
     impl Default for PipelineExecutablePropertiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_EXECUTABLE_PROPERTIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 stages: Default::default(),
                 name: [Default::default(); _],
@@ -99,10 +117,13 @@ pub(super) mod defs {
         pub executable_index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineExecutableInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_EXECUTABLE_INFO_KHR;
+    }
     impl Default for PipelineExecutableInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_EXECUTABLE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 pipeline: Default::default(),
                 executable_index: Default::default(),
@@ -131,10 +152,13 @@ pub(super) mod defs {
         pub value: PipelineExecutableStatisticValueKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineExecutableStatisticKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_EXECUTABLE_STATISTIC_KHR;
+    }
     impl Default for PipelineExecutableStatisticKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_EXECUTABLE_STATISTIC_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 name: [Default::default(); _],
                 description: [Default::default(); _],
@@ -166,10 +190,14 @@ pub(super) mod defs {
         pub p_data: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineExecutableInternalRepresentationKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_EXECUTABLE_INTERNAL_REPRESENTATION_KHR;
+    }
     impl Default for PipelineExecutableInternalRepresentationKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_EXECUTABLE_INTERNAL_REPRESENTATION_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 name: [Default::default(); _],
                 description: [Default::default(); _],

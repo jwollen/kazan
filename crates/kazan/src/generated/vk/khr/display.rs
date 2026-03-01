@@ -126,10 +126,13 @@ pub(super) mod defs {
         pub parameters: DisplayModeParametersKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DisplayModeCreateInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_MODE_CREATE_INFO_KHR;
+    }
     impl Default for DisplayModeCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DISPLAY_MODE_CREATE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 parameters: Default::default(),
@@ -213,10 +216,13 @@ pub(super) mod defs {
         pub image_extent: Extent2D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DisplaySurfaceCreateInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_SURFACE_CREATE_INFO_KHR;
+    }
     impl Default for DisplaySurfaceCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DISPLAY_SURFACE_CREATE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 display_mode: Default::default(),
@@ -264,18 +270,18 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct DisplayPlaneAlphaFlagsKHR: Flags {
-            const OPAQUE_KHR = DisplayPlaneAlphaFlagBitsKHR::OPAQUE_KHR.0;
-            const GLOBAL_KHR = DisplayPlaneAlphaFlagBitsKHR::GLOBAL_KHR.0;
-            const PER_PIXEL_KHR = DisplayPlaneAlphaFlagBitsKHR::PER_PIXEL_KHR.0;
-            const PER_PIXEL_PREMULTIPLIED_KHR = DisplayPlaneAlphaFlagBitsKHR::PER_PIXEL_PREMULTIPLIED_KHR.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct DisplayPlaneAlphaFlagsKHR(Flags);
+    impl DisplayPlaneAlphaFlagsKHR {
+        pub const OPAQUE_KHR: Self = Self(DisplayPlaneAlphaFlagBitsKHR::OPAQUE_KHR.0);
+        pub const GLOBAL_KHR: Self = Self(DisplayPlaneAlphaFlagBitsKHR::GLOBAL_KHR.0);
+        pub const PER_PIXEL_KHR: Self = Self(DisplayPlaneAlphaFlagBitsKHR::PER_PIXEL_KHR.0);
+        pub const PER_PIXEL_PREMULTIPLIED_KHR: Self =
+            Self(DisplayPlaneAlphaFlagBitsKHR::PER_PIXEL_PREMULTIPLIED_KHR.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DisplayPlaneAlphaFlagBitsKHR(u32);
     impl DisplayPlaneAlphaFlagBitsKHR {
         pub const OPAQUE_KHR: Self = Self(1 << 0);
@@ -283,23 +289,26 @@ pub(super) mod defs {
         pub const PER_PIXEL_KHR: Self = Self(1 << 2);
         pub const PER_PIXEL_PREMULTIPLIED_KHR: Self = Self(1 << 3);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct SurfaceTransformFlagsKHR: Flags {
-            const IDENTITY_KHR = SurfaceTransformFlagBitsKHR::IDENTITY_KHR.0;
-            const ROTATE_90_KHR = SurfaceTransformFlagBitsKHR::ROTATE_90_KHR.0;
-            const ROTATE_180_KHR = SurfaceTransformFlagBitsKHR::ROTATE_180_KHR.0;
-            const ROTATE_270_KHR = SurfaceTransformFlagBitsKHR::ROTATE_270_KHR.0;
-            const HORIZONTAL_MIRROR_KHR = SurfaceTransformFlagBitsKHR::HORIZONTAL_MIRROR_KHR.0;
-            const HORIZONTAL_MIRROR_ROTATE_90_KHR = SurfaceTransformFlagBitsKHR::HORIZONTAL_MIRROR_ROTATE_90_KHR.0;
-            const HORIZONTAL_MIRROR_ROTATE_180_KHR = SurfaceTransformFlagBitsKHR::HORIZONTAL_MIRROR_ROTATE_180_KHR.0;
-            const HORIZONTAL_MIRROR_ROTATE_270_KHR = SurfaceTransformFlagBitsKHR::HORIZONTAL_MIRROR_ROTATE_270_KHR.0;
-            const INHERIT_KHR = SurfaceTransformFlagBitsKHR::INHERIT_KHR.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct SurfaceTransformFlagsKHR(Flags);
+    impl SurfaceTransformFlagsKHR {
+        pub const IDENTITY_KHR: Self = Self(SurfaceTransformFlagBitsKHR::IDENTITY_KHR.0);
+        pub const ROTATE_90_KHR: Self = Self(SurfaceTransformFlagBitsKHR::ROTATE_90_KHR.0);
+        pub const ROTATE_180_KHR: Self = Self(SurfaceTransformFlagBitsKHR::ROTATE_180_KHR.0);
+        pub const ROTATE_270_KHR: Self = Self(SurfaceTransformFlagBitsKHR::ROTATE_270_KHR.0);
+        pub const HORIZONTAL_MIRROR_KHR: Self =
+            Self(SurfaceTransformFlagBitsKHR::HORIZONTAL_MIRROR_KHR.0);
+        pub const HORIZONTAL_MIRROR_ROTATE_90_KHR: Self =
+            Self(SurfaceTransformFlagBitsKHR::HORIZONTAL_MIRROR_ROTATE_90_KHR.0);
+        pub const HORIZONTAL_MIRROR_ROTATE_180_KHR: Self =
+            Self(SurfaceTransformFlagBitsKHR::HORIZONTAL_MIRROR_ROTATE_180_KHR.0);
+        pub const HORIZONTAL_MIRROR_ROTATE_270_KHR: Self =
+            Self(SurfaceTransformFlagBitsKHR::HORIZONTAL_MIRROR_ROTATE_270_KHR.0);
+        pub const INHERIT_KHR: Self = Self(SurfaceTransformFlagBitsKHR::INHERIT_KHR.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SurfaceTransformFlagBitsKHR(u32);
     impl SurfaceTransformFlagBitsKHR {
         pub const IDENTITY_KHR: Self = Self(1 << 0);
@@ -312,18 +321,14 @@ pub(super) mod defs {
         pub const HORIZONTAL_MIRROR_ROTATE_270_KHR: Self = Self(1 << 7);
         pub const INHERIT_KHR: Self = Self(1 << 8);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct DisplayModeCreateFlagsKHR: Flags {
-        }
-    }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct DisplaySurfaceCreateFlagsKHR: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct DisplayModeCreateFlagsKHR(Flags);
+    impl DisplayModeCreateFlagsKHR {}
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct DisplaySurfaceCreateFlagsKHR(Flags);
+    impl DisplaySurfaceCreateFlagsKHR {}
     pub type PFN_vkGetPhysicalDeviceDisplayPropertiesKHR = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         p_property_count: *mut u32,

@@ -16,10 +16,18 @@ pub(super) mod defs {
         pub rasterization_order: RasterizationOrderAMD,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineRasterizationStateRasterizationOrderAMD<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_RASTERIZATION_STATE_RASTERIZATION_ORDER_AMD;
+    }
+    unsafe impl<'a> Extends<PipelineRasterizationStateCreateInfo<'a>>
+        for PipelineRasterizationStateRasterizationOrderAMD<'a>
+    {
+    }
     impl Default for PipelineRasterizationStateRasterizationOrderAMD<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_RASTERIZATION_STATE_RASTERIZATION_ORDER_AMD,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 rasterization_order: Default::default(),
                 _marker: PhantomData,

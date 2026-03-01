@@ -62,10 +62,18 @@ pub(super) mod defs {
         pub p_operation: *const PhysicalDeviceDataGraphOperationSupportARM,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineBuiltinModelCreateInfoQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::DATA_GRAPH_PIPELINE_BUILTIN_MODEL_CREATE_INFO_QCOM;
+    }
+    unsafe impl<'a> Extends<DataGraphPipelineCreateInfoARM<'a>>
+        for DataGraphPipelineBuiltinModelCreateInfoQCOM<'a>
+    {
+    }
     impl Default for DataGraphPipelineBuiltinModelCreateInfoQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DATA_GRAPH_PIPELINE_BUILTIN_MODEL_CREATE_INFO_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_operation: core::ptr::null(),
                 _marker: PhantomData,
@@ -89,10 +97,19 @@ pub(super) mod defs {
         pub data_graph_model: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDataGraphModelFeaturesQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceDataGraphModelFeaturesQCOM<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceDataGraphModelFeaturesQCOM<'a> {}
     impl Default for PhysicalDeviceDataGraphModelFeaturesQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 data_graph_model: Default::default(),
                 _marker: PhantomData,

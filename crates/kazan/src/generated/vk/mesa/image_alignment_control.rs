@@ -16,10 +16,22 @@ pub(super) mod defs {
         pub image_alignment_control: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageAlignmentControlFeaturesMESA<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_FEATURES_MESA;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceImageAlignmentControlFeaturesMESA<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceImageAlignmentControlFeaturesMESA<'a>
+    {
+    }
     impl Default for PhysicalDeviceImageAlignmentControlFeaturesMESA<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_FEATURES_MESA,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 image_alignment_control: Default::default(),
                 _marker: PhantomData,
@@ -40,10 +52,18 @@ pub(super) mod defs {
         pub supported_image_alignment_mask: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageAlignmentControlPropertiesMESA<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_PROPERTIES_MESA;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceImageAlignmentControlPropertiesMESA<'a>
+    {
+    }
     impl Default for PhysicalDeviceImageAlignmentControlPropertiesMESA<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_PROPERTIES_MESA,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 supported_image_alignment_mask: Default::default(),
                 _marker: PhantomData,
@@ -67,10 +87,15 @@ pub(super) mod defs {
         pub maximum_requested_alignment: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImageAlignmentControlCreateInfoMESA<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::IMAGE_ALIGNMENT_CONTROL_CREATE_INFO_MESA;
+    }
+    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ImageAlignmentControlCreateInfoMESA<'a> {}
     impl Default for ImageAlignmentControlCreateInfoMESA<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGE_ALIGNMENT_CONTROL_CREATE_INFO_MESA,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 maximum_requested_alignment: Default::default(),
                 _marker: PhantomData,

@@ -16,10 +16,22 @@ pub(super) mod defs {
         pub advanced_blend_coherent_operations: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceBlendOperationAdvancedFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceBlendOperationAdvancedFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceBlendOperationAdvancedFeaturesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceBlendOperationAdvancedFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 advanced_blend_coherent_operations: Default::default(),
                 _marker: PhantomData,
@@ -48,10 +60,18 @@ pub(super) mod defs {
         pub advanced_blend_all_operations: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceBlendOperationAdvancedPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceBlendOperationAdvancedPropertiesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceBlendOperationAdvancedPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 advanced_blend_max_color_attachments: Default::default(),
                 advanced_blend_independent_blend: Default::default(),
@@ -119,10 +139,18 @@ pub(super) mod defs {
         pub blend_overlap: BlendOverlapEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineColorBlendAdvancedStateCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_COLOR_BLEND_ADVANCED_STATE_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<PipelineColorBlendStateCreateInfo<'a>>
+        for PipelineColorBlendAdvancedStateCreateInfoEXT<'a>
+    {
+    }
     impl Default for PipelineColorBlendAdvancedStateCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_COLOR_BLEND_ADVANCED_STATE_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 src_premultiplied: Default::default(),
                 dst_premultiplied: Default::default(),

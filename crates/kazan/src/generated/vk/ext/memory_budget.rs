@@ -17,10 +17,18 @@ pub(super) mod defs {
         pub heap_usage: [DeviceSize; MAX_MEMORY_HEAPS as usize],
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMemoryBudgetPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_MEMORY_BUDGET_PROPERTIES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceMemoryProperties2<'a>>
+        for PhysicalDeviceMemoryBudgetPropertiesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceMemoryBudgetPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_MEMORY_BUDGET_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 heap_budget: [Default::default(); _],
                 heap_usage: [Default::default(); _],

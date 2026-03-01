@@ -20,10 +20,13 @@ pub(super) mod defs {
         pub name: LPCWSTR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImportFenceWin32HandleInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_FENCE_WIN32_HANDLE_INFO_KHR;
+    }
     impl Default for ImportFenceWin32HandleInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMPORT_FENCE_WIN32_HANDLE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 fence: Default::default(),
                 flags: Default::default(),
@@ -66,10 +69,14 @@ pub(super) mod defs {
         pub name: LPCWSTR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExportFenceWin32HandleInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_FENCE_WIN32_HANDLE_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<FenceCreateInfo<'a>> for ExportFenceWin32HandleInfoKHR<'a> {}
     impl Default for ExportFenceWin32HandleInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXPORT_FENCE_WIN32_HANDLE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_attributes: core::ptr::null(),
                 dw_access: Default::default(),
@@ -101,10 +108,13 @@ pub(super) mod defs {
         pub handle_type: ExternalFenceHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for FenceGetWin32HandleInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::FENCE_GET_WIN32_HANDLE_INFO_KHR;
+    }
     impl Default for FenceGetWin32HandleInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::FENCE_GET_WIN32_HANDLE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 fence: Default::default(),
                 handle_type: Default::default(),

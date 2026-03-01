@@ -17,10 +17,15 @@ pub(super) mod defs {
         pub p_drm_format_modifier_properties: *mut DrmFormatModifierPropertiesEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DrmFormatModifierPropertiesListEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::DRM_FORMAT_MODIFIER_PROPERTIES_LIST_EXT;
+    }
+    unsafe impl<'a> Extends<FormatProperties2<'a>> for DrmFormatModifierPropertiesListEXT<'a> {}
     impl Default for DrmFormatModifierPropertiesListEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DRM_FORMAT_MODIFIER_PROPERTIES_LIST_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 drm_format_modifier_count: Default::default(),
                 p_drm_format_modifier_properties: core::ptr::null_mut(),
@@ -77,10 +82,18 @@ pub(super) mod defs {
         pub p_queue_family_indices: *const u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageDrmFormatModifierInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_IMAGE_DRM_FORMAT_MODIFIER_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceImageFormatInfo2<'a>>
+        for PhysicalDeviceImageDrmFormatModifierInfoEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceImageDrmFormatModifierInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_IMAGE_DRM_FORMAT_MODIFIER_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 drm_format_modifier: Default::default(),
                 sharing_mode: Default::default(),
@@ -114,10 +127,15 @@ pub(super) mod defs {
         pub p_drm_format_modifiers: *const u64,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImageDrmFormatModifierListCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::IMAGE_DRM_FORMAT_MODIFIER_LIST_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ImageDrmFormatModifierListCreateInfoEXT<'a> {}
     impl Default for ImageDrmFormatModifierListCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGE_DRM_FORMAT_MODIFIER_LIST_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 drm_format_modifier_count: Default::default(),
                 p_drm_format_modifiers: core::ptr::null(),
@@ -142,10 +160,15 @@ pub(super) mod defs {
         pub p_plane_layouts: *const SubresourceLayout,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImageDrmFormatModifierExplicitCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::IMAGE_DRM_FORMAT_MODIFIER_EXPLICIT_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ImageDrmFormatModifierExplicitCreateInfoEXT<'a> {}
     impl Default for ImageDrmFormatModifierExplicitCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGE_DRM_FORMAT_MODIFIER_EXPLICIT_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 drm_format_modifier: Default::default(),
                 drm_format_modifier_plane_count: Default::default(),
@@ -173,10 +196,14 @@ pub(super) mod defs {
         pub drm_format_modifier: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImageDrmFormatModifierPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::IMAGE_DRM_FORMAT_MODIFIER_PROPERTIES_EXT;
+    }
     impl Default for ImageDrmFormatModifierPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGE_DRM_FORMAT_MODIFIER_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 drm_format_modifier: Default::default(),
                 _marker: PhantomData,
@@ -198,10 +225,15 @@ pub(super) mod defs {
         pub p_drm_format_modifier_properties: *mut DrmFormatModifierProperties2EXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DrmFormatModifierPropertiesList2EXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::DRM_FORMAT_MODIFIER_PROPERTIES_LIST_2_EXT;
+    }
+    unsafe impl<'a> Extends<FormatProperties2<'a>> for DrmFormatModifierPropertiesList2EXT<'a> {}
     impl Default for DrmFormatModifierPropertiesList2EXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DRM_FORMAT_MODIFIER_PROPERTIES_LIST_2_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 drm_format_modifier_count: Default::default(),
                 p_drm_format_modifier_properties: core::ptr::null_mut(),

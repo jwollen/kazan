@@ -16,10 +16,15 @@ pub(super) mod defs {
         pub anti_lag: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceAntiLagFeaturesAMD<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_ANTI_LAG_FEATURES_AMD;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceAntiLagFeaturesAMD<'a> {}
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceAntiLagFeaturesAMD<'a> {}
     impl Default for PhysicalDeviceAntiLagFeaturesAMD<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_ANTI_LAG_FEATURES_AMD,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 anti_lag: Default::default(),
                 _marker: PhantomData,
@@ -42,10 +47,13 @@ pub(super) mod defs {
         pub p_presentation_info: *const AntiLagPresentationInfoAMD<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AntiLagDataAMD<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::ANTI_LAG_DATA_AMD;
+    }
     impl Default for AntiLagDataAMD<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ANTI_LAG_DATA_AMD,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 mode: Default::default(),
                 max_fps: Default::default(),
@@ -80,10 +88,13 @@ pub(super) mod defs {
         pub frame_index: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AntiLagPresentationInfoAMD<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::ANTI_LAG_PRESENTATION_INFO_AMD;
+    }
     impl Default for AntiLagPresentationInfoAMD<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ANTI_LAG_PRESENTATION_INFO_AMD,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 stage: Default::default(),
                 frame_index: Default::default(),

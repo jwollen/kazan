@@ -19,10 +19,18 @@ pub(super) mod defs {
         pub indirect_buffer_offset_alignment: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceClusterCullingShaderPropertiesHUAWEI<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceClusterCullingShaderPropertiesHUAWEI<'a>
+    {
+    }
     impl Default for PhysicalDeviceClusterCullingShaderPropertiesHUAWEI<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_work_group_count: [Default::default(); _],
                 max_work_group_size: [Default::default(); _],
@@ -62,10 +70,22 @@ pub(super) mod defs {
         pub multiview_cluster_culling_shader: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'a>
+    {
+    }
     impl Default for PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 clusterculling_shader: Default::default(),
                 multiview_cluster_culling_shader: Default::default(),
@@ -94,10 +114,18 @@ pub(super) mod defs {
         pub cluster_shading_rate: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_VRS_FEATURES_HUAWEI;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'a>>
+        for PhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI<'a>
+    {
+    }
     impl Default for PhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_VRS_FEATURES_HUAWEI,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 cluster_shading_rate: Default::default(),
                 _marker: PhantomData,

@@ -23,10 +23,13 @@ pub(super) mod defs {
         pub p_data: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CudaModuleCreateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::CUDA_MODULE_CREATE_INFO_NV;
+    }
     impl Default for CudaModuleCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::CUDA_MODULE_CREATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 data_size: Default::default(),
                 p_data: core::ptr::null(),
@@ -50,10 +53,13 @@ pub(super) mod defs {
         pub p_name: *const c_char,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CudaFunctionCreateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::CUDA_FUNCTION_CREATE_INFO_NV;
+    }
     impl Default for CudaFunctionCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::CUDA_FUNCTION_CREATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 module: Default::default(),
                 p_name: core::ptr::null(),
@@ -86,10 +92,13 @@ pub(super) mod defs {
         pub p_extras: *const *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CudaLaunchInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::CUDA_LAUNCH_INFO_NV;
+    }
     impl Default for CudaLaunchInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::CUDA_LAUNCH_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 function: Default::default(),
                 grid_dim_x: Default::default(),
@@ -159,10 +168,19 @@ pub(super) mod defs {
         pub cuda_kernel_launch_features: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCudaKernelLaunchFeaturesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_FEATURES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceCudaKernelLaunchFeaturesNV<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceCudaKernelLaunchFeaturesNV<'a> {}
     impl Default for PhysicalDeviceCudaKernelLaunchFeaturesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_FEATURES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 cuda_kernel_launch_features: Default::default(),
                 _marker: PhantomData,
@@ -184,10 +202,18 @@ pub(super) mod defs {
         pub compute_capability_major: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCudaKernelLaunchPropertiesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_PROPERTIES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceCudaKernelLaunchPropertiesNV<'a>
+    {
+    }
     impl Default for PhysicalDeviceCudaKernelLaunchPropertiesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_PROPERTIES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 compute_capability_minor: Default::default(),
                 compute_capability_major: Default::default(),

@@ -24,10 +24,17 @@ pub(super) mod defs {
         pub p_tag: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for FrameBoundaryEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::FRAME_BOUNDARY_EXT;
+    }
+    unsafe impl<'a> Extends<SubmitInfo<'a>> for FrameBoundaryEXT<'a> {}
+    unsafe impl<'a> Extends<SubmitInfo2<'a>> for FrameBoundaryEXT<'a> {}
+    unsafe impl<'a> Extends<PresentInfoKHR<'a>> for FrameBoundaryEXT<'a> {}
+    unsafe impl<'a> Extends<BindSparseInfo<'a>> for FrameBoundaryEXT<'a> {}
     impl Default for FrameBoundaryEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::FRAME_BOUNDARY_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 frame_id: Default::default(),
@@ -79,10 +86,19 @@ pub(super) mod defs {
         pub frame_boundary: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFrameBoundaryFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceFrameBoundaryFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceFrameBoundaryFeaturesEXT<'a> {}
     impl Default for PhysicalDeviceFrameBoundaryFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 frame_boundary: Default::default(),
                 _marker: PhantomData,
@@ -95,15 +111,14 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct FrameBoundaryFlagsEXT: Flags {
-            const FRAME_END_EXT = FrameBoundaryFlagBitsEXT::FRAME_END_EXT.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct FrameBoundaryFlagsEXT(Flags);
+    impl FrameBoundaryFlagsEXT {
+        pub const FRAME_END_EXT: Self = Self(FrameBoundaryFlagBitsEXT::FRAME_END_EXT.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct FrameBoundaryFlagBitsEXT(u32);
     impl FrameBoundaryFlagBitsEXT {
         pub const FRAME_END_EXT: Self = Self(1 << 0);

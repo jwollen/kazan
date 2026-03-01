@@ -16,10 +16,19 @@ pub(super) mod defs {
         pub present_barrier: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePresentBarrierFeaturesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PRESENT_BARRIER_FEATURES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDevicePresentBarrierFeaturesNV<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePresentBarrierFeaturesNV<'a> {}
     impl Default for PhysicalDevicePresentBarrierFeaturesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PRESENT_BARRIER_FEATURES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 present_barrier: Default::default(),
                 _marker: PhantomData,
@@ -40,10 +49,15 @@ pub(super) mod defs {
         pub present_barrier_supported: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SurfaceCapabilitiesPresentBarrierNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::SURFACE_CAPABILITIES_PRESENT_BARRIER_NV;
+    }
+    unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>> for SurfaceCapabilitiesPresentBarrierNV<'a> {}
     impl Default for SurfaceCapabilitiesPresentBarrierNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SURFACE_CAPABILITIES_PRESENT_BARRIER_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 present_barrier_supported: Default::default(),
                 _marker: PhantomData,
@@ -64,10 +78,15 @@ pub(super) mod defs {
         pub present_barrier_enable: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SwapchainPresentBarrierCreateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::SWAPCHAIN_PRESENT_BARRIER_CREATE_INFO_NV;
+    }
+    unsafe impl<'a> Extends<SwapchainCreateInfoKHR<'a>> for SwapchainPresentBarrierCreateInfoNV<'a> {}
     impl Default for SwapchainPresentBarrierCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SWAPCHAIN_PRESENT_BARRIER_CREATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 present_barrier_enable: Default::default(),
                 _marker: PhantomData,

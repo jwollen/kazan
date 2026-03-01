@@ -18,10 +18,13 @@ pub(super) mod defs {
         pub p_object_name: *const c_char,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DebugMarkerObjectNameInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEBUG_MARKER_OBJECT_NAME_INFO_EXT;
+    }
     impl Default for DebugMarkerObjectNameInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEBUG_MARKER_OBJECT_NAME_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 object_type: Default::default(),
                 object: Default::default(),
@@ -52,10 +55,13 @@ pub(super) mod defs {
         pub p_tag: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DebugMarkerObjectTagInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEBUG_MARKER_OBJECT_TAG_INFO_EXT;
+    }
     impl Default for DebugMarkerObjectTagInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEBUG_MARKER_OBJECT_TAG_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 object_type: Default::default(),
                 object: Default::default(),
@@ -94,10 +100,13 @@ pub(super) mod defs {
         pub color: [f32; 4],
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DebugMarkerMarkerInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEBUG_MARKER_MARKER_INFO_EXT;
+    }
     impl Default for DebugMarkerMarkerInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEBUG_MARKER_MARKER_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_marker_name: core::ptr::null(),
                 color: [Default::default(); _],

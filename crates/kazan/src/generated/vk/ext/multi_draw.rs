@@ -53,10 +53,18 @@ pub(super) mod defs {
         pub max_multi_draw_count: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMultiDrawPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_MULTI_DRAW_PROPERTIES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceMultiDrawPropertiesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceMultiDrawPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_MULTI_DRAW_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_multi_draw_count: Default::default(),
                 _marker: PhantomData,
@@ -77,10 +85,16 @@ pub(super) mod defs {
         pub multi_draw: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMultiDrawFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceMultiDrawFeaturesEXT<'a> {}
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceMultiDrawFeaturesEXT<'a> {}
     impl Default for PhysicalDeviceMultiDrawFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 multi_draw: Default::default(),
                 _marker: PhantomData,

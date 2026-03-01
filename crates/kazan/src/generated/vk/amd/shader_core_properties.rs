@@ -29,10 +29,18 @@ pub(super) mod defs {
         pub vgpr_allocation_granularity: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderCorePropertiesAMD<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_AMD;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceShaderCorePropertiesAMD<'a>
+    {
+    }
     impl Default for PhysicalDeviceShaderCorePropertiesAMD<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_AMD,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shader_engine_count: Default::default(),
                 shader_arrays_per_engine_count: Default::default(),

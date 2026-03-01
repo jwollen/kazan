@@ -16,10 +16,19 @@ pub(super) mod defs {
         pub amigo_profiling: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceAmigoProfilingFeaturesSEC<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_AMIGO_PROFILING_FEATURES_SEC;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceAmigoProfilingFeaturesSEC<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceAmigoProfilingFeaturesSEC<'a> {}
     impl Default for PhysicalDeviceAmigoProfilingFeaturesSEC<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_AMIGO_PROFILING_FEATURES_SEC,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 amigo_profiling: Default::default(),
                 _marker: PhantomData,
@@ -41,10 +50,14 @@ pub(super) mod defs {
         pub swap_buffer_timestamp: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AmigoProfilingSubmitInfoSEC<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::AMIGO_PROFILING_SUBMIT_INFO_SEC;
+    }
+    unsafe impl<'a> Extends<SubmitInfo<'a>> for AmigoProfilingSubmitInfoSEC<'a> {}
     impl Default for AmigoProfilingSubmitInfoSEC<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::AMIGO_PROFILING_SUBMIT_INFO_SEC,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 first_draw_timestamp: Default::default(),
                 swap_buffer_timestamp: Default::default(),

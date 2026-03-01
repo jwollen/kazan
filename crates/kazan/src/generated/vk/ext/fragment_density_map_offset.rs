@@ -18,10 +18,22 @@ pub(super) mod defs {
         pub fragment_density_map_offset: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 fragment_density_map_offset: Default::default(),
                 _marker: PhantomData,
@@ -42,10 +54,18 @@ pub(super) mod defs {
         pub fragment_density_offset_granularity: Extent2D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 fragment_density_offset_granularity: Default::default(),
                 _marker: PhantomData,
@@ -70,10 +90,19 @@ pub(super) mod defs {
         pub p_fragment_density_offsets: *const Offset2D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RenderPassFragmentDensityMapOffsetEndInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<SubpassEndInfo<'a>> for RenderPassFragmentDensityMapOffsetEndInfoEXT<'a> {}
+    unsafe impl<'a> Extends<RenderingEndInfoKHR<'a>>
+        for RenderPassFragmentDensityMapOffsetEndInfoEXT<'a>
+    {
+    }
     impl Default for RenderPassFragmentDensityMapOffsetEndInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 fragment_density_offset_count: Default::default(),
                 p_fragment_density_offsets: core::ptr::null(),

@@ -17,10 +17,19 @@ pub(super) mod defs {
         pub performance_counter_multiple_query_pools: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePerformanceQueryFeaturesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDevicePerformanceQueryFeaturesKHR<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePerformanceQueryFeaturesKHR<'a> {}
     impl Default for PhysicalDevicePerformanceQueryFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 performance_counter_query_pools: Default::default(),
                 performance_counter_multiple_query_pools: Default::default(),
@@ -53,10 +62,18 @@ pub(super) mod defs {
         pub allow_command_buffer_query_copies: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePerformanceQueryPropertiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PERFORMANCE_QUERY_PROPERTIES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDevicePerformanceQueryPropertiesKHR<'a>
+    {
+    }
     impl Default for PhysicalDevicePerformanceQueryPropertiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PERFORMANCE_QUERY_PROPERTIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 allow_command_buffer_query_copies: Default::default(),
                 _marker: PhantomData,
@@ -83,10 +100,13 @@ pub(super) mod defs {
         pub uuid: [u8; UUID_SIZE as usize],
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PerformanceCounterKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PERFORMANCE_COUNTER_KHR;
+    }
     impl Default for PerformanceCounterKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PERFORMANCE_COUNTER_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 unit: Default::default(),
                 scope: Default::default(),
@@ -125,10 +145,13 @@ pub(super) mod defs {
         pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PerformanceCounterDescriptionKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PERFORMANCE_COUNTER_DESCRIPTION_KHR;
+    }
     impl Default for PerformanceCounterDescriptionKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PERFORMANCE_COUNTER_DESCRIPTION_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 flags: Default::default(),
                 name: [Default::default(); _],
@@ -154,10 +177,14 @@ pub(super) mod defs {
         pub p_counter_indices: *const u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for QueryPoolPerformanceCreateInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::QUERY_POOL_PERFORMANCE_CREATE_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<QueryPoolCreateInfo<'a>> for QueryPoolPerformanceCreateInfoKHR<'a> {}
     impl Default for QueryPoolPerformanceCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::QUERY_POOL_PERFORMANCE_CREATE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 queue_family_index: Default::default(),
                 counter_index_count: Default::default(),
@@ -186,10 +213,13 @@ pub(super) mod defs {
         pub timeout: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AcquireProfilingLockInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::ACQUIRE_PROFILING_LOCK_INFO_KHR;
+    }
     impl Default for AcquireProfilingLockInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ACQUIRE_PROFILING_LOCK_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 timeout: Default::default(),
@@ -215,10 +245,15 @@ pub(super) mod defs {
         pub counter_pass_index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PerformanceQuerySubmitInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PERFORMANCE_QUERY_SUBMIT_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<SubmitInfo<'a>> for PerformanceQuerySubmitInfoKHR<'a> {}
+    unsafe impl<'a> Extends<SubmitInfo2<'a>> for PerformanceQuerySubmitInfoKHR<'a> {}
     impl Default for PerformanceQuerySubmitInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PERFORMANCE_QUERY_SUBMIT_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 counter_pass_index: Default::default(),
                 _marker: PhantomData,
@@ -281,29 +316,28 @@ pub(super) mod defs {
         pub const FLOAT32_KHR: Self = Self(4);
         pub const FLOAT64_KHR: Self = Self(5);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct PerformanceCounterDescriptionFlagsKHR: Flags {
-            const PERFORMANCE_IMPACTING_KHR = PerformanceCounterDescriptionFlagBitsKHR::PERFORMANCE_IMPACTING_KHR.0;
-            const CONCURRENTLY_IMPACTED_KHR = PerformanceCounterDescriptionFlagBitsKHR::CONCURRENTLY_IMPACTED_KHR.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct PerformanceCounterDescriptionFlagsKHR(Flags);
+    impl PerformanceCounterDescriptionFlagsKHR {
+        pub const PERFORMANCE_IMPACTING_KHR: Self =
+            Self(PerformanceCounterDescriptionFlagBitsKHR::PERFORMANCE_IMPACTING_KHR.0);
+        pub const CONCURRENTLY_IMPACTED_KHR: Self =
+            Self(PerformanceCounterDescriptionFlagBitsKHR::CONCURRENTLY_IMPACTED_KHR.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PerformanceCounterDescriptionFlagBitsKHR(u32);
     impl PerformanceCounterDescriptionFlagBitsKHR {
         pub const PERFORMANCE_IMPACTING_KHR: Self = Self(1 << 0);
         pub const CONCURRENTLY_IMPACTED_KHR: Self = Self(1 << 1);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct AcquireProfilingLockFlagsKHR: Flags {
-        }
-    }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct AcquireProfilingLockFlagsKHR(Flags);
+    impl AcquireProfilingLockFlagsKHR {}
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct AcquireProfilingLockFlagBitsKHR(u32);
     impl AcquireProfilingLockFlagBitsKHR {}
     pub type PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR =

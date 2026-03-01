@@ -18,10 +18,13 @@ pub(super) mod defs {
         pub hwnd: HWND,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for Win32SurfaceCreateInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::WIN32_SURFACE_CREATE_INFO_KHR;
+    }
     impl Default for Win32SurfaceCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::WIN32_SURFACE_CREATE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 hinstance: Default::default(),
@@ -44,12 +47,10 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct Win32SurfaceCreateFlagsKHR: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct Win32SurfaceCreateFlagsKHR(Flags);
+    impl Win32SurfaceCreateFlagsKHR {}
     pub type PFN_vkCreateWin32SurfaceKHR = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const Win32SurfaceCreateInfoKHR<'_>,

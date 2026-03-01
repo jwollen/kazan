@@ -16,10 +16,14 @@ pub(super) mod defs {
         pub video_session_parameters: VideoSessionParametersKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoEncodeSessionParametersGetInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR;
+    }
     impl Default for VideoEncodeSessionParametersGetInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 video_session_parameters: Default::default(),
                 _marker: PhantomData,
@@ -43,10 +47,14 @@ pub(super) mod defs {
         pub has_overrides: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoEncodeSessionParametersFeedbackInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::VIDEO_ENCODE_SESSION_PARAMETERS_FEEDBACK_INFO_KHR;
+    }
     impl Default for VideoEncodeSessionParametersFeedbackInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_ENCODE_SESSION_PARAMETERS_FEEDBACK_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 has_overrides: Default::default(),
                 _marker: PhantomData,
@@ -69,10 +77,15 @@ pub(super) mod defs {
         pub tuning_mode: VideoEncodeTuningModeKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoEncodeUsageInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_USAGE_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<VideoProfileInfoKHR<'a>> for VideoEncodeUsageInfoKHR<'a> {}
+    unsafe impl<'a> Extends<QueryPoolCreateInfo<'a>> for VideoEncodeUsageInfoKHR<'a> {}
     impl Default for VideoEncodeUsageInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_ENCODE_USAGE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 video_usage_hints: Default::default(),
                 video_content_hints: Default::default(),
@@ -114,10 +127,13 @@ pub(super) mod defs {
         pub preceding_externally_encoded_bytes: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoEncodeInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_INFO_KHR;
+    }
     impl Default for VideoEncodeInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_ENCODE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 dst_buffer: Default::default(),
@@ -187,10 +203,15 @@ pub(super) mod defs {
         pub encode_feedback_flags: VideoEncodeFeedbackFlagsKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for QueryPoolVideoEncodeFeedbackCreateInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<QueryPoolCreateInfo<'a>> for QueryPoolVideoEncodeFeedbackCreateInfoKHR<'a> {}
     impl Default for QueryPoolVideoEncodeFeedbackCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 encode_feedback_flags: Default::default(),
                 _marker: PhantomData,
@@ -214,10 +235,18 @@ pub(super) mod defs {
         pub quality_level: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoEncodeQualityLevelInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<VideoCodingControlInfoKHR<'a>> for VideoEncodeQualityLevelInfoKHR<'a> {}
+    unsafe impl<'a> Extends<VideoSessionParametersCreateInfoKHR<'a>>
+        for VideoEncodeQualityLevelInfoKHR<'a>
+    {
+    }
     impl Default for VideoEncodeQualityLevelInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 quality_level: Default::default(),
                 _marker: PhantomData,
@@ -239,10 +268,14 @@ pub(super) mod defs {
         pub quality_level: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVideoEncodeQualityLevelInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR;
+    }
     impl Default for PhysicalDeviceVideoEncodeQualityLevelInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_video_profile: core::ptr::null(),
                 quality_level: Default::default(),
@@ -269,10 +302,14 @@ pub(super) mod defs {
         pub preferred_rate_control_layer_count: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoEncodeQualityLevelPropertiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR;
+    }
     impl Default for VideoEncodeQualityLevelPropertiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 preferred_rate_control_mode: Default::default(),
                 preferred_rate_control_layer_count: Default::default(),
@@ -309,10 +346,15 @@ pub(super) mod defs {
         pub initial_virtual_buffer_size_in_ms: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoEncodeRateControlInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_RATE_CONTROL_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<VideoCodingControlInfoKHR<'a>> for VideoEncodeRateControlInfoKHR<'a> {}
+    unsafe impl<'a> Extends<VideoBeginCodingInfoKHR<'a>> for VideoEncodeRateControlInfoKHR<'a> {}
     impl Default for VideoEncodeRateControlInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_ENCODE_RATE_CONTROL_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 rate_control_mode: Default::default(),
@@ -364,10 +406,14 @@ pub(super) mod defs {
         pub frame_rate_denominator: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoEncodeRateControlLayerInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::VIDEO_ENCODE_RATE_CONTROL_LAYER_INFO_KHR;
+    }
     impl Default for VideoEncodeRateControlLayerInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_ENCODE_RATE_CONTROL_LAYER_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 average_bitrate: Default::default(),
                 max_bitrate: Default::default(),
@@ -409,10 +455,14 @@ pub(super) mod defs {
         pub supported_encode_feedback_flags: VideoEncodeFeedbackFlagsKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoEncodeCapabilitiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_CAPABILITIES_KHR;
+    }
+    unsafe impl<'a> Extends<VideoCapabilitiesKHR<'a>> for VideoEncodeCapabilitiesKHR<'a> {}
     impl Default for VideoEncodeCapabilitiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_ENCODE_CAPABILITIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 flags: Default::default(),
                 rate_control_modes: Default::default(),
@@ -474,36 +524,36 @@ pub(super) mod defs {
         pub const ULTRA_LOW_LATENCY_KHR: Self = Self(3);
         pub const LOSSLESS_KHR: Self = Self(4);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct VideoEncodeFlagsKHR: Flags {
-            const WITH_QUANTIZATION_DELTA_MAP_KHR = VideoEncodeFlagBitsKHR::WITH_QUANTIZATION_DELTA_MAP_KHR.0;
-            const WITH_EMPHASIS_MAP_KHR = VideoEncodeFlagBitsKHR::WITH_EMPHASIS_MAP_KHR.0;
-            const INTRA_REFRESH_KHR = VideoEncodeFlagBitsKHR::INTRA_REFRESH_KHR.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct VideoEncodeFlagsKHR(Flags);
+    impl VideoEncodeFlagsKHR {
+        pub const WITH_QUANTIZATION_DELTA_MAP_KHR: Self =
+            Self(VideoEncodeFlagBitsKHR::WITH_QUANTIZATION_DELTA_MAP_KHR.0);
+        pub const WITH_EMPHASIS_MAP_KHR: Self =
+            Self(VideoEncodeFlagBitsKHR::WITH_EMPHASIS_MAP_KHR.0);
+        pub const INTRA_REFRESH_KHR: Self = Self(VideoEncodeFlagBitsKHR::INTRA_REFRESH_KHR.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeFlagBitsKHR(u32);
     impl VideoEncodeFlagBitsKHR {
         pub const WITH_QUANTIZATION_DELTA_MAP_KHR: Self = Self(1 << 0);
         pub const WITH_EMPHASIS_MAP_KHR: Self = Self(1 << 1);
         pub const INTRA_REFRESH_KHR: Self = Self(1 << 2);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct VideoEncodeUsageFlagsKHR: Flags {
-            const TRANSCODING_KHR = VideoEncodeUsageFlagBitsKHR::TRANSCODING_KHR.0;
-            const STREAMING_KHR = VideoEncodeUsageFlagBitsKHR::STREAMING_KHR.0;
-            const RECORDING_KHR = VideoEncodeUsageFlagBitsKHR::RECORDING_KHR.0;
-            const CONFERENCING_KHR = VideoEncodeUsageFlagBitsKHR::CONFERENCING_KHR.0;
-            const DEFAULT = 0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct VideoEncodeUsageFlagsKHR(Flags);
+    impl VideoEncodeUsageFlagsKHR {
+        pub const TRANSCODING_KHR: Self = Self(VideoEncodeUsageFlagBitsKHR::TRANSCODING_KHR.0);
+        pub const STREAMING_KHR: Self = Self(VideoEncodeUsageFlagBitsKHR::STREAMING_KHR.0);
+        pub const RECORDING_KHR: Self = Self(VideoEncodeUsageFlagBitsKHR::RECORDING_KHR.0);
+        pub const CONFERENCING_KHR: Self = Self(VideoEncodeUsageFlagBitsKHR::CONFERENCING_KHR.0);
+        pub const DEFAULT: Self = Self(0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeUsageFlagBitsKHR(u32);
     impl VideoEncodeUsageFlagBitsKHR {
         pub const TRANSCODING_KHR: Self = Self(1 << 0);
@@ -511,36 +561,38 @@ pub(super) mod defs {
         pub const RECORDING_KHR: Self = Self(1 << 2);
         pub const CONFERENCING_KHR: Self = Self(1 << 3);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct VideoEncodeContentFlagsKHR: Flags {
-            const CAMERA_KHR = VideoEncodeContentFlagBitsKHR::CAMERA_KHR.0;
-            const DESKTOP_KHR = VideoEncodeContentFlagBitsKHR::DESKTOP_KHR.0;
-            const RENDERED_KHR = VideoEncodeContentFlagBitsKHR::RENDERED_KHR.0;
-            const DEFAULT = 0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct VideoEncodeContentFlagsKHR(Flags);
+    impl VideoEncodeContentFlagsKHR {
+        pub const CAMERA_KHR: Self = Self(VideoEncodeContentFlagBitsKHR::CAMERA_KHR.0);
+        pub const DESKTOP_KHR: Self = Self(VideoEncodeContentFlagBitsKHR::DESKTOP_KHR.0);
+        pub const RENDERED_KHR: Self = Self(VideoEncodeContentFlagBitsKHR::RENDERED_KHR.0);
+        pub const DEFAULT: Self = Self(0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeContentFlagBitsKHR(u32);
     impl VideoEncodeContentFlagBitsKHR {
         pub const CAMERA_KHR: Self = Self(1 << 0);
         pub const DESKTOP_KHR: Self = Self(1 << 1);
         pub const RENDERED_KHR: Self = Self(1 << 2);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct VideoEncodeCapabilityFlagsKHR: Flags {
-            const PRECEDING_EXTERNALLY_ENCODED_BYTES_KHR = VideoEncodeCapabilityFlagBitsKHR::PRECEDING_EXTERNALLY_ENCODED_BYTES_KHR.0;
-            const INSUFFICIENTSTREAM_BUFFER_RANGE_DETECTION_KHR = VideoEncodeCapabilityFlagBitsKHR::INSUFFICIENTSTREAM_BUFFER_RANGE_DETECTION_KHR.0;
-            const QUANTIZATION_DELTA_MAP_KHR = VideoEncodeCapabilityFlagBitsKHR::QUANTIZATION_DELTA_MAP_KHR.0;
-            const EMPHASIS_MAP_KHR = VideoEncodeCapabilityFlagBitsKHR::EMPHASIS_MAP_KHR.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct VideoEncodeCapabilityFlagsKHR(Flags);
+    impl VideoEncodeCapabilityFlagsKHR {
+        pub const PRECEDING_EXTERNALLY_ENCODED_BYTES_KHR: Self =
+            Self(VideoEncodeCapabilityFlagBitsKHR::PRECEDING_EXTERNALLY_ENCODED_BYTES_KHR.0);
+        pub const INSUFFICIENTSTREAM_BUFFER_RANGE_DETECTION_KHR: Self =
+            Self(VideoEncodeCapabilityFlagBitsKHR::INSUFFICIENTSTREAM_BUFFER_RANGE_DETECTION_KHR.0);
+        pub const QUANTIZATION_DELTA_MAP_KHR: Self =
+            Self(VideoEncodeCapabilityFlagBitsKHR::QUANTIZATION_DELTA_MAP_KHR.0);
+        pub const EMPHASIS_MAP_KHR: Self =
+            Self(VideoEncodeCapabilityFlagBitsKHR::EMPHASIS_MAP_KHR.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeCapabilityFlagBitsKHR(u32);
     impl VideoEncodeCapabilityFlagBitsKHR {
         pub const PRECEDING_EXTERNALLY_ENCODED_BYTES_KHR: Self = Self(1 << 0);
@@ -548,41 +600,40 @@ pub(super) mod defs {
         pub const QUANTIZATION_DELTA_MAP_KHR: Self = Self(1 << 2);
         pub const EMPHASIS_MAP_KHR: Self = Self(1 << 3);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct VideoEncodeFeedbackFlagsKHR: Flags {
-            const BITSTREAM_BUFFER_OFFSET_KHR = VideoEncodeFeedbackFlagBitsKHR::BITSTREAM_BUFFER_OFFSET_KHR.0;
-            const BITSTREAM_BYTES_WRITTEN_KHR = VideoEncodeFeedbackFlagBitsKHR::BITSTREAM_BYTES_WRITTEN_KHR.0;
-            const BITSTREAM_HAS_OVERRIDES_KHR = VideoEncodeFeedbackFlagBitsKHR::BITSTREAM_HAS_OVERRIDES_KHR.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct VideoEncodeFeedbackFlagsKHR(Flags);
+    impl VideoEncodeFeedbackFlagsKHR {
+        pub const BITSTREAM_BUFFER_OFFSET_KHR: Self =
+            Self(VideoEncodeFeedbackFlagBitsKHR::BITSTREAM_BUFFER_OFFSET_KHR.0);
+        pub const BITSTREAM_BYTES_WRITTEN_KHR: Self =
+            Self(VideoEncodeFeedbackFlagBitsKHR::BITSTREAM_BYTES_WRITTEN_KHR.0);
+        pub const BITSTREAM_HAS_OVERRIDES_KHR: Self =
+            Self(VideoEncodeFeedbackFlagBitsKHR::BITSTREAM_HAS_OVERRIDES_KHR.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeFeedbackFlagBitsKHR(u32);
     impl VideoEncodeFeedbackFlagBitsKHR {
         pub const BITSTREAM_BUFFER_OFFSET_KHR: Self = Self(1 << 0);
         pub const BITSTREAM_BYTES_WRITTEN_KHR: Self = Self(1 << 1);
         pub const BITSTREAM_HAS_OVERRIDES_KHR: Self = Self(1 << 2);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct VideoEncodeRateControlFlagsKHR: Flags {
-        }
-    }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct VideoEncodeRateControlModeFlagsKHR: Flags {
-            const DISABLED_KHR = VideoEncodeRateControlModeFlagBitsKHR::DISABLED_KHR.0;
-            const CBR_KHR = VideoEncodeRateControlModeFlagBitsKHR::CBR_KHR.0;
-            const VBR_KHR = VideoEncodeRateControlModeFlagBitsKHR::VBR_KHR.0;
-            const DEFAULT = 0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct VideoEncodeRateControlFlagsKHR(Flags);
+    impl VideoEncodeRateControlFlagsKHR {}
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct VideoEncodeRateControlModeFlagsKHR(Flags);
+    impl VideoEncodeRateControlModeFlagsKHR {
+        pub const DISABLED_KHR: Self = Self(VideoEncodeRateControlModeFlagBitsKHR::DISABLED_KHR.0);
+        pub const CBR_KHR: Self = Self(VideoEncodeRateControlModeFlagBitsKHR::CBR_KHR.0);
+        pub const VBR_KHR: Self = Self(VideoEncodeRateControlModeFlagBitsKHR::VBR_KHR.0);
+        pub const DEFAULT: Self = Self(0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRateControlModeFlagBitsKHR(u32);
     impl VideoEncodeRateControlModeFlagBitsKHR {
         pub const DISABLED_KHR: Self = Self(1 << 0);

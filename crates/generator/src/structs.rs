@@ -1,8 +1,9 @@
 use std::collections::BTreeMap;
 
 use crate::{
-    LengthKind, analysis::Analysis, cdecl::CType, ctype_to_rust_type, get_len_kind, is_opaque_type,
-    normalize_name, normalize_param_name, normalize_setter_param_name, normalize_ty_name, xml,
+    LengthKind, analysis::Analysis, cdecl::CType, ctype_to_rust_type, ctype_to_rust_type_str,
+    get_len_kind, is_opaque_type, normalize_name, normalize_param_name,
+    normalize_setter_param_name, normalize_ty_name, xml,
 };
 use itertools::Itertools;
 
@@ -238,6 +239,27 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
     }
     writeln!(file, "}}").unwrap();
 
+    if let Some(tag) = info.tag {
+        writeln!(
+            file,
+            "unsafe impl<'a> TaggedStructure<'a> for {}<'a> {{
+                const STRUCTURE_TYPE: StructureType = StructureType::{};
+            }}",
+            info.name, tag
+        )
+        .unwrap();
+    }
+
+    for extends in &ty.structextends {
+        let ty = ctype_to_rust_type_str(extends);
+        writeln!(
+            file,
+            "unsafe impl<'a> Extends<{}<'a>> for {}<'a> {{}}",
+            ty, info.name
+        )
+        .unwrap();
+    }
+
     if info.has_default && !type_info.default {
         writeln!(
             file,
@@ -250,7 +272,7 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
         for member in &info.members {
             write!(file, "{}: ", member.name).unwrap();
             if member.member.c_decl.name == "sType" {
-                writeln!(file, "StructureType::{}", info.tag.unwrap()).unwrap()
+                writeln!(file, "Self::STRUCTURE_TYPE").unwrap()
             } else {
                 write!(file, "{}", default_value(&member.member.c_decl.ty)).unwrap();
             }

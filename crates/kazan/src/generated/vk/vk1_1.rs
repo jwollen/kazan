@@ -28,10 +28,14 @@ pub(super) mod defs {
         pub features: PhysicalDeviceFeatures,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFeatures2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_FEATURES_2;
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceFeatures2<'a> {}
     impl Default for PhysicalDeviceFeatures2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_FEATURES_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 features: Default::default(),
                 _marker: PhantomData,
@@ -52,10 +56,13 @@ pub(super) mod defs {
         pub properties: PhysicalDeviceProperties,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceProperties2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_PROPERTIES_2;
+    }
     impl Default for PhysicalDeviceProperties2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PROPERTIES_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 properties: Default::default(),
                 _marker: PhantomData,
@@ -76,10 +83,13 @@ pub(super) mod defs {
         pub format_properties: FormatProperties,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for FormatProperties2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::FORMAT_PROPERTIES_2;
+    }
     impl Default for FormatProperties2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::FORMAT_PROPERTIES_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 format_properties: Default::default(),
                 _marker: PhantomData,
@@ -100,10 +110,13 @@ pub(super) mod defs {
         pub image_format_properties: ImageFormatProperties,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImageFormatProperties2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_FORMAT_PROPERTIES_2;
+    }
     impl Default for ImageFormatProperties2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGE_FORMAT_PROPERTIES_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 image_format_properties: Default::default(),
                 _marker: PhantomData,
@@ -131,10 +144,13 @@ pub(super) mod defs {
         pub flags: ImageCreateFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageFormatInfo2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_IMAGE_FORMAT_INFO_2;
+    }
     impl Default for PhysicalDeviceImageFormatInfo2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_IMAGE_FORMAT_INFO_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 format: Default::default(),
                 ty: Default::default(),
@@ -175,10 +191,13 @@ pub(super) mod defs {
         pub queue_family_properties: QueueFamilyProperties,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for QueueFamilyProperties2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::QUEUE_FAMILY_PROPERTIES_2;
+    }
     impl Default for QueueFamilyProperties2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::QUEUE_FAMILY_PROPERTIES_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 queue_family_properties: Default::default(),
                 _marker: PhantomData,
@@ -202,10 +221,13 @@ pub(super) mod defs {
         pub memory_properties: PhysicalDeviceMemoryProperties,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMemoryProperties2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_MEMORY_PROPERTIES_2;
+    }
     impl Default for PhysicalDeviceMemoryProperties2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_MEMORY_PROPERTIES_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 memory_properties: Default::default(),
                 _marker: PhantomData,
@@ -229,10 +251,13 @@ pub(super) mod defs {
         pub properties: SparseImageFormatProperties,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SparseImageFormatProperties2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SPARSE_IMAGE_FORMAT_PROPERTIES_2;
+    }
     impl Default for SparseImageFormatProperties2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SPARSE_IMAGE_FORMAT_PROPERTIES_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 properties: Default::default(),
                 _marker: PhantomData,
@@ -257,10 +282,14 @@ pub(super) mod defs {
         pub tiling: ImageTiling,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSparseImageFormatInfo2<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2;
+    }
     impl Default for PhysicalDeviceSparseImageFormatInfo2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 format: Default::default(),
                 ty: Default::default(),
@@ -302,10 +331,19 @@ pub(super) mod defs {
         pub variable_pointers: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVariablePointersFeatures<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceVariablePointersFeatures<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceVariablePointersFeatures<'a> {}
     impl Default for PhysicalDeviceVariablePointersFeatures<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 variable_pointers_storage_buffer: Default::default(),
                 variable_pointers: Default::default(),
@@ -364,10 +402,18 @@ pub(super) mod defs {
         pub handle_type: ExternalMemoryHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExternalImageFormatInfo<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceImageFormatInfo2<'a>>
+        for PhysicalDeviceExternalImageFormatInfo<'a>
+    {
+    }
     impl Default for PhysicalDeviceExternalImageFormatInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 handle_type: Default::default(),
                 _marker: PhantomData,
@@ -388,10 +434,14 @@ pub(super) mod defs {
         pub external_memory_properties: ExternalMemoryProperties,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExternalImageFormatProperties<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_IMAGE_FORMAT_PROPERTIES;
+    }
+    unsafe impl<'a> Extends<ImageFormatProperties2<'a>> for ExternalImageFormatProperties<'a> {}
     impl Default for ExternalImageFormatProperties<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXTERNAL_IMAGE_FORMAT_PROPERTIES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 external_memory_properties: Default::default(),
                 _marker: PhantomData,
@@ -417,10 +467,13 @@ pub(super) mod defs {
         pub handle_type: ExternalMemoryHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExternalBufferInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO;
+    }
     impl Default for PhysicalDeviceExternalBufferInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 usage: Default::default(),
@@ -451,10 +504,13 @@ pub(super) mod defs {
         pub external_memory_properties: ExternalMemoryProperties,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExternalBufferProperties<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_BUFFER_PROPERTIES;
+    }
     impl Default for ExternalBufferProperties<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXTERNAL_BUFFER_PROPERTIES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 external_memory_properties: Default::default(),
                 _marker: PhantomData,
@@ -482,10 +538,14 @@ pub(super) mod defs {
         pub device_luid_valid: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceIDProperties<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_ID_PROPERTIES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>> for PhysicalDeviceIDProperties<'a> {}
     impl Default for PhysicalDeviceIDProperties<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_ID_PROPERTIES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 device_uuid: [Default::default(); _],
                 driver_uuid: [Default::default(); _],
@@ -526,10 +586,14 @@ pub(super) mod defs {
         pub handle_types: ExternalMemoryHandleTypeFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExternalMemoryImageCreateInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_MEMORY_IMAGE_CREATE_INFO;
+    }
+    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ExternalMemoryImageCreateInfo<'a> {}
     impl Default for ExternalMemoryImageCreateInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXTERNAL_MEMORY_IMAGE_CREATE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 handle_types: Default::default(),
                 _marker: PhantomData,
@@ -550,10 +614,14 @@ pub(super) mod defs {
         pub handle_types: ExternalMemoryHandleTypeFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExternalMemoryBufferCreateInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_MEMORY_BUFFER_CREATE_INFO;
+    }
+    unsafe impl<'a> Extends<BufferCreateInfo<'a>> for ExternalMemoryBufferCreateInfo<'a> {}
     impl Default for ExternalMemoryBufferCreateInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXTERNAL_MEMORY_BUFFER_CREATE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 handle_types: Default::default(),
                 _marker: PhantomData,
@@ -574,10 +642,14 @@ pub(super) mod defs {
         pub handle_types: ExternalMemoryHandleTypeFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExportMemoryAllocateInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_MEMORY_ALLOCATE_INFO;
+    }
+    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ExportMemoryAllocateInfo<'a> {}
     impl Default for ExportMemoryAllocateInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXPORT_MEMORY_ALLOCATE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 handle_types: Default::default(),
                 _marker: PhantomData,
@@ -598,10 +670,14 @@ pub(super) mod defs {
         pub handle_type: ExternalSemaphoreHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExternalSemaphoreInfo<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_EXTERNAL_SEMAPHORE_INFO;
+    }
     impl Default for PhysicalDeviceExternalSemaphoreInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_EXTERNAL_SEMAPHORE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 handle_type: Default::default(),
                 _marker: PhantomData,
@@ -624,10 +700,13 @@ pub(super) mod defs {
         pub external_semaphore_features: ExternalSemaphoreFeatureFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExternalSemaphoreProperties<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_SEMAPHORE_PROPERTIES;
+    }
     impl Default for ExternalSemaphoreProperties<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXTERNAL_SEMAPHORE_PROPERTIES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 export_from_imported_handle_types: Default::default(),
                 compatible_handle_types: Default::default(),
@@ -667,10 +746,14 @@ pub(super) mod defs {
         pub handle_types: ExternalSemaphoreHandleTypeFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExportSemaphoreCreateInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_SEMAPHORE_CREATE_INFO;
+    }
+    unsafe impl<'a> Extends<SemaphoreCreateInfo<'a>> for ExportSemaphoreCreateInfo<'a> {}
     impl Default for ExportSemaphoreCreateInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXPORT_SEMAPHORE_CREATE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 handle_types: Default::default(),
                 _marker: PhantomData,
@@ -691,10 +774,13 @@ pub(super) mod defs {
         pub handle_type: ExternalFenceHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExternalFenceInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_EXTERNAL_FENCE_INFO;
+    }
     impl Default for PhysicalDeviceExternalFenceInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_EXTERNAL_FENCE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 handle_type: Default::default(),
                 _marker: PhantomData,
@@ -717,10 +803,13 @@ pub(super) mod defs {
         pub external_fence_features: ExternalFenceFeatureFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExternalFenceProperties<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_FENCE_PROPERTIES;
+    }
     impl Default for ExternalFenceProperties<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXTERNAL_FENCE_PROPERTIES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 export_from_imported_handle_types: Default::default(),
                 compatible_handle_types: Default::default(),
@@ -760,10 +849,14 @@ pub(super) mod defs {
         pub handle_types: ExternalFenceHandleTypeFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExportFenceCreateInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_FENCE_CREATE_INFO;
+    }
+    unsafe impl<'a> Extends<FenceCreateInfo<'a>> for ExportFenceCreateInfo<'a> {}
     impl Default for ExportFenceCreateInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXPORT_FENCE_CREATE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 handle_types: Default::default(),
                 _marker: PhantomData,
@@ -786,10 +879,15 @@ pub(super) mod defs {
         pub multiview_tessellation_shader: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMultiviewFeatures<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_MULTIVIEW_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceMultiviewFeatures<'a> {}
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceMultiviewFeatures<'a> {}
     impl Default for PhysicalDeviceMultiviewFeatures<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_MULTIVIEW_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 multiview: Default::default(),
                 multiview_geometry_shader: Default::default(),
@@ -824,10 +922,14 @@ pub(super) mod defs {
         pub max_multiview_instance_index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMultiviewProperties<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>> for PhysicalDeviceMultiviewProperties<'a> {}
     impl Default for PhysicalDeviceMultiviewProperties<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_multiview_view_count: Default::default(),
                 max_multiview_instance_index: Default::default(),
@@ -858,10 +960,14 @@ pub(super) mod defs {
         pub p_correlation_masks: *const u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RenderPassMultiviewCreateInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::RENDER_PASS_MULTIVIEW_CREATE_INFO;
+    }
+    unsafe impl<'a> Extends<RenderPassCreateInfo<'a>> for RenderPassMultiviewCreateInfo<'a> {}
     impl Default for RenderPassMultiviewCreateInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RENDER_PASS_MULTIVIEW_CREATE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 subpass_count: Default::default(),
                 p_view_masks: core::ptr::null(),
@@ -900,10 +1006,13 @@ pub(super) mod defs {
         pub subset_allocation: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceGroupProperties<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_GROUP_PROPERTIES;
+    }
     impl Default for PhysicalDeviceGroupProperties<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_GROUP_PROPERTIES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 physical_device_count: Default::default(),
                 physical_devices: [Default::default(); _],
@@ -932,10 +1041,14 @@ pub(super) mod defs {
         pub device_mask: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MemoryAllocateFlagsInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_ALLOCATE_FLAGS_INFO;
+    }
+    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for MemoryAllocateFlagsInfo<'a> {}
     impl Default for MemoryAllocateFlagsInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MEMORY_ALLOCATE_FLAGS_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 device_mask: Default::default(),
@@ -963,10 +1076,13 @@ pub(super) mod defs {
         pub memory_offset: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BindBufferMemoryInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::BIND_BUFFER_MEMORY_INFO;
+    }
     impl Default for BindBufferMemoryInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BIND_BUFFER_MEMORY_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 buffer: Default::default(),
                 memory: Default::default(),
@@ -998,10 +1114,14 @@ pub(super) mod defs {
         pub p_device_indices: *const u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BindBufferMemoryDeviceGroupInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::BIND_BUFFER_MEMORY_DEVICE_GROUP_INFO;
+    }
+    unsafe impl<'a> Extends<BindBufferMemoryInfo<'a>> for BindBufferMemoryDeviceGroupInfo<'a> {}
     impl Default for BindBufferMemoryDeviceGroupInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BIND_BUFFER_MEMORY_DEVICE_GROUP_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 device_index_count: Default::default(),
                 p_device_indices: core::ptr::null(),
@@ -1026,10 +1146,13 @@ pub(super) mod defs {
         pub memory_offset: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BindImageMemoryInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::BIND_IMAGE_MEMORY_INFO;
+    }
     impl Default for BindImageMemoryInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BIND_IMAGE_MEMORY_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 image: Default::default(),
                 memory: Default::default(),
@@ -1063,10 +1186,14 @@ pub(super) mod defs {
         pub p_split_instance_bind_regions: *const Rect2D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BindImageMemoryDeviceGroupInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO;
+    }
+    unsafe impl<'a> Extends<BindImageMemoryInfo<'a>> for BindImageMemoryDeviceGroupInfo<'a> {}
     impl Default for BindImageMemoryDeviceGroupInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 device_index_count: Default::default(),
                 p_device_indices: core::ptr::null(),
@@ -1102,10 +1229,15 @@ pub(super) mod defs {
         pub p_device_render_areas: *const Rect2D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DeviceGroupRenderPassBeginInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_GROUP_RENDER_PASS_BEGIN_INFO;
+    }
+    unsafe impl<'a> Extends<RenderPassBeginInfo<'a>> for DeviceGroupRenderPassBeginInfo<'a> {}
+    unsafe impl<'a> Extends<RenderingInfo<'a>> for DeviceGroupRenderPassBeginInfo<'a> {}
     impl Default for DeviceGroupRenderPassBeginInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEVICE_GROUP_RENDER_PASS_BEGIN_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 device_mask: Default::default(),
                 device_render_area_count: Default::default(),
@@ -1133,10 +1265,14 @@ pub(super) mod defs {
         pub device_mask: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DeviceGroupCommandBufferBeginInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO;
+    }
+    unsafe impl<'a> Extends<CommandBufferBeginInfo<'a>> for DeviceGroupCommandBufferBeginInfo<'a> {}
     impl Default for DeviceGroupCommandBufferBeginInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 device_mask: Default::default(),
                 _marker: PhantomData,
@@ -1162,10 +1298,14 @@ pub(super) mod defs {
         pub p_signal_semaphore_device_indices: *const u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DeviceGroupSubmitInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_GROUP_SUBMIT_INFO;
+    }
+    unsafe impl<'a> Extends<SubmitInfo<'a>> for DeviceGroupSubmitInfo<'a> {}
     impl Default for DeviceGroupSubmitInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEVICE_GROUP_SUBMIT_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 wait_semaphore_count: Default::default(),
                 p_wait_semaphore_device_indices: core::ptr::null(),
@@ -1212,10 +1352,14 @@ pub(super) mod defs {
         pub memory_device_index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DeviceGroupBindSparseInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_GROUP_BIND_SPARSE_INFO;
+    }
+    unsafe impl<'a> Extends<BindSparseInfo<'a>> for DeviceGroupBindSparseInfo<'a> {}
     impl Default for DeviceGroupBindSparseInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEVICE_GROUP_BIND_SPARSE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 resource_device_index: Default::default(),
                 memory_device_index: Default::default(),
@@ -1242,10 +1386,14 @@ pub(super) mod defs {
         pub p_physical_devices: *const PhysicalDevice,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DeviceGroupDeviceCreateInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_GROUP_DEVICE_CREATE_INFO;
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for DeviceGroupDeviceCreateInfo<'a> {}
     impl Default for DeviceGroupDeviceCreateInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEVICE_GROUP_DEVICE_CREATE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 physical_device_count: Default::default(),
                 p_physical_devices: core::ptr::null(),
@@ -1311,10 +1459,13 @@ pub(super) mod defs {
         pub set: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DescriptorUpdateTemplateCreateInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO;
+    }
     impl Default for DescriptorUpdateTemplateCreateInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 descriptor_update_entry_count: Default::default(),
@@ -1393,10 +1544,18 @@ pub(super) mod defs {
         pub p_aspect_references: *const InputAttachmentAspectReference,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RenderPassInputAttachmentAspectCreateInfo<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO;
+    }
+    unsafe impl<'a> Extends<RenderPassCreateInfo<'a>>
+        for RenderPassInputAttachmentAspectCreateInfo<'a>
+    {
+    }
     impl Default for RenderPassInputAttachmentAspectCreateInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 aspect_reference_count: Default::default(),
                 p_aspect_references: core::ptr::null(),
@@ -1425,10 +1584,15 @@ pub(super) mod defs {
         pub storage_input_output16: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevice16BitStorageFeatures<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDevice16BitStorageFeatures<'a> {}
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevice16BitStorageFeatures<'a> {}
     impl Default for PhysicalDevice16BitStorageFeatures<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 storage_buffer16_bit_access: Default::default(),
                 uniform_and_storage_buffer16_bit_access: Default::default(),
@@ -1470,10 +1634,14 @@ pub(super) mod defs {
         pub quad_operations_in_all_stages: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSubgroupProperties<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_SUBGROUP_PROPERTIES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>> for PhysicalDeviceSubgroupProperties<'a> {}
     impl Default for PhysicalDeviceSubgroupProperties<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SUBGROUP_PROPERTIES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 subgroup_size: Default::default(),
                 supported_stages: Default::default(),
@@ -1512,10 +1680,13 @@ pub(super) mod defs {
         pub buffer: Buffer,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BufferMemoryRequirementsInfo2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::BUFFER_MEMORY_REQUIREMENTS_INFO_2;
+    }
     impl Default for BufferMemoryRequirementsInfo2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BUFFER_MEMORY_REQUIREMENTS_INFO_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 buffer: Default::default(),
                 _marker: PhantomData,
@@ -1536,10 +1707,13 @@ pub(super) mod defs {
         pub image: Image,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImageMemoryRequirementsInfo2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_MEMORY_REQUIREMENTS_INFO_2;
+    }
     impl Default for ImageMemoryRequirementsInfo2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGE_MEMORY_REQUIREMENTS_INFO_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 image: Default::default(),
                 _marker: PhantomData,
@@ -1560,10 +1734,14 @@ pub(super) mod defs {
         pub image: Image,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImageSparseMemoryRequirementsInfo2<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::IMAGE_SPARSE_MEMORY_REQUIREMENTS_INFO_2;
+    }
     impl Default for ImageSparseMemoryRequirementsInfo2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGE_SPARSE_MEMORY_REQUIREMENTS_INFO_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 image: Default::default(),
                 _marker: PhantomData,
@@ -1584,10 +1762,13 @@ pub(super) mod defs {
         pub memory_requirements: MemoryRequirements,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MemoryRequirements2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_REQUIREMENTS_2;
+    }
     impl Default for MemoryRequirements2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MEMORY_REQUIREMENTS_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 memory_requirements: Default::default(),
                 _marker: PhantomData,
@@ -1608,10 +1789,13 @@ pub(super) mod defs {
         pub memory_requirements: SparseImageMemoryRequirements,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SparseImageMemoryRequirements2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SPARSE_IMAGE_MEMORY_REQUIREMENTS_2;
+    }
     impl Default for SparseImageMemoryRequirements2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SPARSE_IMAGE_MEMORY_REQUIREMENTS_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 memory_requirements: Default::default(),
                 _marker: PhantomData,
@@ -1635,10 +1819,18 @@ pub(super) mod defs {
         pub point_clipping_behavior: PointClippingBehavior,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePointClippingProperties<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDevicePointClippingProperties<'a>
+    {
+    }
     impl Default for PhysicalDevicePointClippingProperties<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 point_clipping_behavior: Default::default(),
                 _marker: PhantomData,
@@ -1663,10 +1855,14 @@ pub(super) mod defs {
         pub requires_dedicated_allocation: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MemoryDedicatedRequirements<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_DEDICATED_REQUIREMENTS;
+    }
+    unsafe impl<'a> Extends<MemoryRequirements2<'a>> for MemoryDedicatedRequirements<'a> {}
     impl Default for MemoryDedicatedRequirements<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MEMORY_DEDICATED_REQUIREMENTS,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 prefers_dedicated_allocation: Default::default(),
                 requires_dedicated_allocation: Default::default(),
@@ -1699,10 +1895,14 @@ pub(super) mod defs {
         pub buffer: Buffer,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MemoryDedicatedAllocateInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_DEDICATED_ALLOCATE_INFO;
+    }
+    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for MemoryDedicatedAllocateInfo<'a> {}
     impl Default for MemoryDedicatedAllocateInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MEMORY_DEDICATED_ALLOCATE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 image: Default::default(),
                 buffer: Default::default(),
@@ -1728,10 +1928,14 @@ pub(super) mod defs {
         pub usage: ImageUsageFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImageViewUsageCreateInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_VIEW_USAGE_CREATE_INFO;
+    }
+    unsafe impl<'a> Extends<ImageViewCreateInfo<'a>> for ImageViewUsageCreateInfo<'a> {}
     impl Default for ImageViewUsageCreateInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGE_VIEW_USAGE_CREATE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 usage: Default::default(),
                 _marker: PhantomData,
@@ -1752,10 +1956,18 @@ pub(super) mod defs {
         pub domain_origin: TessellationDomainOrigin,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineTessellationDomainOriginStateCreateInfo<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO;
+    }
+    unsafe impl<'a> Extends<PipelineTessellationStateCreateInfo<'a>>
+        for PipelineTessellationDomainOriginStateCreateInfo<'a>
+    {
+    }
     impl Default for PipelineTessellationDomainOriginStateCreateInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 domain_origin: Default::default(),
                 _marker: PhantomData,
@@ -1776,10 +1988,15 @@ pub(super) mod defs {
         pub conversion: SamplerYcbcrConversion,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SamplerYcbcrConversionInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SAMPLER_YCBCR_CONVERSION_INFO;
+    }
+    unsafe impl<'a> Extends<SamplerCreateInfo<'a>> for SamplerYcbcrConversionInfo<'a> {}
+    unsafe impl<'a> Extends<ImageViewCreateInfo<'a>> for SamplerYcbcrConversionInfo<'a> {}
     impl Default for SamplerYcbcrConversionInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SAMPLER_YCBCR_CONVERSION_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 conversion: Default::default(),
                 _marker: PhantomData,
@@ -1807,10 +2024,13 @@ pub(super) mod defs {
         pub force_explicit_reconstruction: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SamplerYcbcrConversionCreateInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SAMPLER_YCBCR_CONVERSION_CREATE_INFO;
+    }
     impl Default for SamplerYcbcrConversionCreateInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SAMPLER_YCBCR_CONVERSION_CREATE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 format: Default::default(),
                 ycbcr_model: Default::default(),
@@ -1869,10 +2089,14 @@ pub(super) mod defs {
         pub plane_aspect: ImageAspectFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BindImagePlaneMemoryInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::BIND_IMAGE_PLANE_MEMORY_INFO;
+    }
+    unsafe impl<'a> Extends<BindImageMemoryInfo<'a>> for BindImagePlaneMemoryInfo<'a> {}
     impl Default for BindImagePlaneMemoryInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BIND_IMAGE_PLANE_MEMORY_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 plane_aspect: Default::default(),
                 _marker: PhantomData,
@@ -1893,10 +2117,14 @@ pub(super) mod defs {
         pub plane_aspect: ImageAspectFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImagePlaneMemoryRequirementsInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO;
+    }
+    unsafe impl<'a> Extends<ImageMemoryRequirementsInfo2<'a>> for ImagePlaneMemoryRequirementsInfo<'a> {}
     impl Default for ImagePlaneMemoryRequirementsInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 plane_aspect: Default::default(),
                 _marker: PhantomData,
@@ -1917,10 +2145,19 @@ pub(super) mod defs {
         pub sampler_ycbcr_conversion: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSamplerYcbcrConversionFeatures<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceSamplerYcbcrConversionFeatures<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceSamplerYcbcrConversionFeatures<'a> {}
     impl Default for PhysicalDeviceSamplerYcbcrConversionFeatures<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 sampler_ycbcr_conversion: Default::default(),
                 _marker: PhantomData,
@@ -1941,10 +2178,18 @@ pub(super) mod defs {
         pub combined_image_sampler_descriptor_count: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SamplerYcbcrConversionImageFormatProperties<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES;
+    }
+    unsafe impl<'a> Extends<ImageFormatProperties2<'a>>
+        for SamplerYcbcrConversionImageFormatProperties<'a>
+    {
+    }
     impl Default for SamplerYcbcrConversionImageFormatProperties<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 combined_image_sampler_descriptor_count: Default::default(),
                 _marker: PhantomData,
@@ -1968,10 +2213,14 @@ pub(super) mod defs {
         pub protected_submit: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ProtectedSubmitInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PROTECTED_SUBMIT_INFO;
+    }
+    unsafe impl<'a> Extends<SubmitInfo<'a>> for ProtectedSubmitInfo<'a> {}
     impl Default for ProtectedSubmitInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PROTECTED_SUBMIT_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 protected_submit: Default::default(),
                 _marker: PhantomData,
@@ -1992,10 +2241,16 @@ pub(super) mod defs {
         pub protected_memory: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceProtectedMemoryFeatures<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PROTECTED_MEMORY_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceProtectedMemoryFeatures<'a> {}
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceProtectedMemoryFeatures<'a> {}
     impl Default for PhysicalDeviceProtectedMemoryFeatures<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PROTECTED_MEMORY_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 protected_memory: Default::default(),
                 _marker: PhantomData,
@@ -2016,10 +2271,18 @@ pub(super) mod defs {
         pub protected_no_fault: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceProtectedMemoryProperties<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PROTECTED_MEMORY_PROPERTIES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceProtectedMemoryProperties<'a>
+    {
+    }
     impl Default for PhysicalDeviceProtectedMemoryProperties<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PROTECTED_MEMORY_PROPERTIES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 protected_no_fault: Default::default(),
                 _marker: PhantomData,
@@ -2042,10 +2305,13 @@ pub(super) mod defs {
         pub queue_index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DeviceQueueInfo2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_QUEUE_INFO_2;
+    }
     impl Default for DeviceQueueInfo2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEVICE_QUEUE_INFO_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 queue_family_index: Default::default(),
@@ -2077,10 +2343,18 @@ pub(super) mod defs {
         pub max_memory_allocation_size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMaintenance3Properties<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceMaintenance3Properties<'a>
+    {
+    }
     impl Default for PhysicalDeviceMaintenance3Properties<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_per_set_descriptors: Default::default(),
                 max_memory_allocation_size: Default::default(),
@@ -2109,10 +2383,13 @@ pub(super) mod defs {
         pub supported: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DescriptorSetLayoutSupport<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DESCRIPTOR_SET_LAYOUT_SUPPORT;
+    }
     impl Default for DescriptorSetLayoutSupport<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DESCRIPTOR_SET_LAYOUT_SUPPORT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 supported: Default::default(),
                 _marker: PhantomData,
@@ -2133,10 +2410,19 @@ pub(super) mod defs {
         pub shader_draw_parameters: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderDrawParametersFeatures<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceShaderDrawParametersFeatures<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShaderDrawParametersFeatures<'a> {}
     impl Default for PhysicalDeviceShaderDrawParametersFeatures<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shader_draw_parameters: Default::default(),
                 _marker: PhantomData,
@@ -2209,28 +2495,27 @@ pub(super) mod defs {
         pub const COSITED_EVEN_KHR: Self = Self::COSITED_EVEN;
         pub const MIDPOINT_KHR: Self = Self::MIDPOINT;
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct SubgroupFeatureFlags: Flags {
-            const BASIC = SubgroupFeatureFlagBits::BASIC.0;
-            const VOTE = SubgroupFeatureFlagBits::VOTE.0;
-            const ARITHMETIC = SubgroupFeatureFlagBits::ARITHMETIC.0;
-            const BALLOT = SubgroupFeatureFlagBits::BALLOT.0;
-            const SHUFFLE = SubgroupFeatureFlagBits::SHUFFLE.0;
-            const SHUFFLE_RELATIVE = SubgroupFeatureFlagBits::SHUFFLE_RELATIVE.0;
-            const CLUSTERED = SubgroupFeatureFlagBits::CLUSTERED.0;
-            const QUAD = SubgroupFeatureFlagBits::QUAD.0;
-            const PARTITIONED_EXT = SubgroupFeatureFlagBits::PARTITIONED_EXT.0;
-            const ROTATE = SubgroupFeatureFlagBits::ROTATE.0;
-            const ROTATE_CLUSTERED = SubgroupFeatureFlagBits::ROTATE_CLUSTERED.0;
-            const PARTITIONED_NV = Self::PARTITIONED_EXT.bits();
-            const ROTATE_KHR = Self::ROTATE.bits();
-            const ROTATE_CLUSTERED_KHR = Self::ROTATE_CLUSTERED.bits();
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct SubgroupFeatureFlags(Flags);
+    impl SubgroupFeatureFlags {
+        pub const BASIC: Self = Self(SubgroupFeatureFlagBits::BASIC.0);
+        pub const VOTE: Self = Self(SubgroupFeatureFlagBits::VOTE.0);
+        pub const ARITHMETIC: Self = Self(SubgroupFeatureFlagBits::ARITHMETIC.0);
+        pub const BALLOT: Self = Self(SubgroupFeatureFlagBits::BALLOT.0);
+        pub const SHUFFLE: Self = Self(SubgroupFeatureFlagBits::SHUFFLE.0);
+        pub const SHUFFLE_RELATIVE: Self = Self(SubgroupFeatureFlagBits::SHUFFLE_RELATIVE.0);
+        pub const CLUSTERED: Self = Self(SubgroupFeatureFlagBits::CLUSTERED.0);
+        pub const QUAD: Self = Self(SubgroupFeatureFlagBits::QUAD.0);
+        pub const PARTITIONED_EXT: Self = Self(SubgroupFeatureFlagBits::PARTITIONED_EXT.0);
+        pub const ROTATE: Self = Self(SubgroupFeatureFlagBits::ROTATE.0);
+        pub const ROTATE_CLUSTERED: Self = Self(SubgroupFeatureFlagBits::ROTATE_CLUSTERED.0);
+        pub const PARTITIONED_NV: Self = Self::PARTITIONED_EXT;
+        pub const ROTATE_KHR: Self = Self::ROTATE;
+        pub const ROTATE_CLUSTERED_KHR: Self = Self::ROTATE_CLUSTERED;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SubgroupFeatureFlagBits(u32);
     impl SubgroupFeatureFlagBits {
         pub const BASIC: Self = Self(1 << 0);
@@ -2248,28 +2533,25 @@ pub(super) mod defs {
         pub const ROTATE_KHR: Self = Self::ROTATE;
         pub const ROTATE_CLUSTERED_KHR: Self = Self::ROTATE_CLUSTERED;
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct DescriptorUpdateTemplateCreateFlags: Flags {
-        }
-    }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct PeerMemoryFeatureFlags: Flags {
-            const COPY_SRC = PeerMemoryFeatureFlagBits::COPY_SRC.0;
-            const COPY_DST = PeerMemoryFeatureFlagBits::COPY_DST.0;
-            const GENERIC_SRC = PeerMemoryFeatureFlagBits::GENERIC_SRC.0;
-            const GENERIC_DST = PeerMemoryFeatureFlagBits::GENERIC_DST.0;
-            const COPY_DST_KHR = Self::COPY_DST.bits();
-            const COPY_SRC_KHR = Self::COPY_SRC.bits();
-            const GENERIC_DST_KHR = Self::GENERIC_DST.bits();
-            const GENERIC_SRC_KHR = Self::GENERIC_SRC.bits();
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct DescriptorUpdateTemplateCreateFlags(Flags);
+    impl DescriptorUpdateTemplateCreateFlags {}
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct PeerMemoryFeatureFlags(Flags);
+    impl PeerMemoryFeatureFlags {
+        pub const COPY_SRC: Self = Self(PeerMemoryFeatureFlagBits::COPY_SRC.0);
+        pub const COPY_DST: Self = Self(PeerMemoryFeatureFlagBits::COPY_DST.0);
+        pub const GENERIC_SRC: Self = Self(PeerMemoryFeatureFlagBits::GENERIC_SRC.0);
+        pub const GENERIC_DST: Self = Self(PeerMemoryFeatureFlagBits::GENERIC_DST.0);
+        pub const COPY_DST_KHR: Self = Self::COPY_DST;
+        pub const COPY_SRC_KHR: Self = Self::COPY_SRC;
+        pub const GENERIC_DST_KHR: Self = Self::GENERIC_DST;
+        pub const GENERIC_SRC_KHR: Self = Self::GENERIC_SRC;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PeerMemoryFeatureFlagBits(u32);
     impl PeerMemoryFeatureFlagBits {
         pub const COPY_SRC: Self = Self(1 << 0);
@@ -2281,21 +2563,21 @@ pub(super) mod defs {
         pub const GENERIC_DST_KHR: Self = Self::GENERIC_DST;
         pub const GENERIC_SRC_KHR: Self = Self::GENERIC_SRC;
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct MemoryAllocateFlags: Flags {
-            const DEVICE_MASK = MemoryAllocateFlagBits::DEVICE_MASK.0;
-            const DEVICE_ADDRESS = MemoryAllocateFlagBits::DEVICE_ADDRESS.0;
-            const DEVICE_ADDRESS_CAPTURE_REPLAY = MemoryAllocateFlagBits::DEVICE_ADDRESS_CAPTURE_REPLAY.0;
-            const ZERO_INITIALIZE_EXT = MemoryAllocateFlagBits::ZERO_INITIALIZE_EXT.0;
-            const DEVICE_ADDRESS_KHR = Self::DEVICE_ADDRESS.bits();
-            const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR = Self::DEVICE_ADDRESS_CAPTURE_REPLAY.bits();
-            const DEVICE_MASK_KHR = Self::DEVICE_MASK.bits();
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct MemoryAllocateFlags(Flags);
+    impl MemoryAllocateFlags {
+        pub const DEVICE_MASK: Self = Self(MemoryAllocateFlagBits::DEVICE_MASK.0);
+        pub const DEVICE_ADDRESS: Self = Self(MemoryAllocateFlagBits::DEVICE_ADDRESS.0);
+        pub const DEVICE_ADDRESS_CAPTURE_REPLAY: Self =
+            Self(MemoryAllocateFlagBits::DEVICE_ADDRESS_CAPTURE_REPLAY.0);
+        pub const ZERO_INITIALIZE_EXT: Self = Self(MemoryAllocateFlagBits::ZERO_INITIALIZE_EXT.0);
+        pub const DEVICE_ADDRESS_KHR: Self = Self::DEVICE_ADDRESS;
+        pub const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR: Self = Self::DEVICE_ADDRESS_CAPTURE_REPLAY;
+        pub const DEVICE_MASK_KHR: Self = Self::DEVICE_MASK;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MemoryAllocateFlagBits(u32);
     impl MemoryAllocateFlagBits {
         pub const DEVICE_MASK: Self = Self(1 << 0);
@@ -2306,45 +2588,50 @@ pub(super) mod defs {
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR: Self = Self::DEVICE_ADDRESS_CAPTURE_REPLAY;
         pub const DEVICE_MASK_KHR: Self = Self::DEVICE_MASK;
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct CommandPoolTrimFlags: Flags {
-        }
-    }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct ExternalMemoryHandleTypeFlags: Flags {
-            const OPAQUE_FD = ExternalMemoryHandleTypeFlagBits::OPAQUE_FD.0;
-            const OPAQUE_WIN32 = ExternalMemoryHandleTypeFlagBits::OPAQUE_WIN32.0;
-            const OPAQUE_WIN32_KMT = ExternalMemoryHandleTypeFlagBits::OPAQUE_WIN32_KMT.0;
-            const D3D11_TEXTURE = ExternalMemoryHandleTypeFlagBits::D3D11_TEXTURE.0;
-            const D3D11_TEXTURE_KMT = ExternalMemoryHandleTypeFlagBits::D3D11_TEXTURE_KMT.0;
-            const D3D12_HEAP = ExternalMemoryHandleTypeFlagBits::D3D12_HEAP.0;
-            const D3D12_RESOURCE = ExternalMemoryHandleTypeFlagBits::D3D12_RESOURCE.0;
-            const HOST_ALLOCATION_EXT = ExternalMemoryHandleTypeFlagBits::HOST_ALLOCATION_EXT.0;
-            const HOST_MAPPED_FOREIGN_MEMORY_EXT = ExternalMemoryHandleTypeFlagBits::HOST_MAPPED_FOREIGN_MEMORY_EXT.0;
-            const DMA_BUF_EXT = ExternalMemoryHandleTypeFlagBits::DMA_BUF_EXT.0;
-            const ANDROID_HARDWARE_BUFFER_ANDROID = ExternalMemoryHandleTypeFlagBits::ANDROID_HARDWARE_BUFFER_ANDROID.0;
-            const ZIRCON_VMO_FUCHSIA = ExternalMemoryHandleTypeFlagBits::ZIRCON_VMO_FUCHSIA.0;
-            const RDMA_ADDRESS_NV = ExternalMemoryHandleTypeFlagBits::RDMA_ADDRESS_NV.0;
-            const SCREEN_BUFFER_QNX = ExternalMemoryHandleTypeFlagBits::SCREEN_BUFFER_QNX.0;
-            const OH_NATIVE_BUFFER_OHOS = ExternalMemoryHandleTypeFlagBits::OH_NATIVE_BUFFER_OHOS.0;
-            const MTLBUFFER_EXT = ExternalMemoryHandleTypeFlagBits::MTLBUFFER_EXT.0;
-            const MTLTEXTURE_EXT = ExternalMemoryHandleTypeFlagBits::MTLTEXTURE_EXT.0;
-            const MTLHEAP_EXT = ExternalMemoryHandleTypeFlagBits::MTLHEAP_EXT.0;
-            const D3D11_TEXTURE_KHR = Self::D3D11_TEXTURE.bits();
-            const D3D11_TEXTURE_KMT_KHR = Self::D3D11_TEXTURE_KMT.bits();
-            const D3D12_HEAP_KHR = Self::D3D12_HEAP.bits();
-            const D3D12_RESOURCE_KHR = Self::D3D12_RESOURCE.bits();
-            const OPAQUE_FD_KHR = Self::OPAQUE_FD.bits();
-            const OPAQUE_WIN32_KHR = Self::OPAQUE_WIN32.bits();
-            const OPAQUE_WIN32_KMT_KHR = Self::OPAQUE_WIN32_KMT.bits();
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct CommandPoolTrimFlags(Flags);
+    impl CommandPoolTrimFlags {}
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct ExternalMemoryHandleTypeFlags(Flags);
+    impl ExternalMemoryHandleTypeFlags {
+        pub const OPAQUE_FD: Self = Self(ExternalMemoryHandleTypeFlagBits::OPAQUE_FD.0);
+        pub const OPAQUE_WIN32: Self = Self(ExternalMemoryHandleTypeFlagBits::OPAQUE_WIN32.0);
+        pub const OPAQUE_WIN32_KMT: Self =
+            Self(ExternalMemoryHandleTypeFlagBits::OPAQUE_WIN32_KMT.0);
+        pub const D3D11_TEXTURE: Self = Self(ExternalMemoryHandleTypeFlagBits::D3D11_TEXTURE.0);
+        pub const D3D11_TEXTURE_KMT: Self =
+            Self(ExternalMemoryHandleTypeFlagBits::D3D11_TEXTURE_KMT.0);
+        pub const D3D12_HEAP: Self = Self(ExternalMemoryHandleTypeFlagBits::D3D12_HEAP.0);
+        pub const D3D12_RESOURCE: Self = Self(ExternalMemoryHandleTypeFlagBits::D3D12_RESOURCE.0);
+        pub const HOST_ALLOCATION_EXT: Self =
+            Self(ExternalMemoryHandleTypeFlagBits::HOST_ALLOCATION_EXT.0);
+        pub const HOST_MAPPED_FOREIGN_MEMORY_EXT: Self =
+            Self(ExternalMemoryHandleTypeFlagBits::HOST_MAPPED_FOREIGN_MEMORY_EXT.0);
+        pub const DMA_BUF_EXT: Self = Self(ExternalMemoryHandleTypeFlagBits::DMA_BUF_EXT.0);
+        pub const ANDROID_HARDWARE_BUFFER_ANDROID: Self =
+            Self(ExternalMemoryHandleTypeFlagBits::ANDROID_HARDWARE_BUFFER_ANDROID.0);
+        pub const ZIRCON_VMO_FUCHSIA: Self =
+            Self(ExternalMemoryHandleTypeFlagBits::ZIRCON_VMO_FUCHSIA.0);
+        pub const RDMA_ADDRESS_NV: Self = Self(ExternalMemoryHandleTypeFlagBits::RDMA_ADDRESS_NV.0);
+        pub const SCREEN_BUFFER_QNX: Self =
+            Self(ExternalMemoryHandleTypeFlagBits::SCREEN_BUFFER_QNX.0);
+        pub const OH_NATIVE_BUFFER_OHOS: Self =
+            Self(ExternalMemoryHandleTypeFlagBits::OH_NATIVE_BUFFER_OHOS.0);
+        pub const MTLBUFFER_EXT: Self = Self(ExternalMemoryHandleTypeFlagBits::MTLBUFFER_EXT.0);
+        pub const MTLTEXTURE_EXT: Self = Self(ExternalMemoryHandleTypeFlagBits::MTLTEXTURE_EXT.0);
+        pub const MTLHEAP_EXT: Self = Self(ExternalMemoryHandleTypeFlagBits::MTLHEAP_EXT.0);
+        pub const D3D11_TEXTURE_KHR: Self = Self::D3D11_TEXTURE;
+        pub const D3D11_TEXTURE_KMT_KHR: Self = Self::D3D11_TEXTURE_KMT;
+        pub const D3D12_HEAP_KHR: Self = Self::D3D12_HEAP;
+        pub const D3D12_RESOURCE_KHR: Self = Self::D3D12_RESOURCE;
+        pub const OPAQUE_FD_KHR: Self = Self::OPAQUE_FD;
+        pub const OPAQUE_WIN32_KHR: Self = Self::OPAQUE_WIN32;
+        pub const OPAQUE_WIN32_KMT_KHR: Self = Self::OPAQUE_WIN32_KMT;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExternalMemoryHandleTypeFlagBits(u32);
     impl ExternalMemoryHandleTypeFlagBits {
         pub const OPAQUE_FD: Self = Self(1 << 0);
@@ -2373,20 +2660,19 @@ pub(super) mod defs {
         pub const OPAQUE_WIN32_KHR: Self = Self::OPAQUE_WIN32;
         pub const OPAQUE_WIN32_KMT_KHR: Self = Self::OPAQUE_WIN32_KMT;
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct ExternalMemoryFeatureFlags: Flags {
-            const DEDICATED_ONLY = ExternalMemoryFeatureFlagBits::DEDICATED_ONLY.0;
-            const EXPORTABLE = ExternalMemoryFeatureFlagBits::EXPORTABLE.0;
-            const IMPORTABLE = ExternalMemoryFeatureFlagBits::IMPORTABLE.0;
-            const DEDICATED_ONLY_KHR = Self::DEDICATED_ONLY.bits();
-            const EXPORTABLE_KHR = Self::EXPORTABLE.bits();
-            const IMPORTABLE_KHR = Self::IMPORTABLE.bits();
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct ExternalMemoryFeatureFlags(Flags);
+    impl ExternalMemoryFeatureFlags {
+        pub const DEDICATED_ONLY: Self = Self(ExternalMemoryFeatureFlagBits::DEDICATED_ONLY.0);
+        pub const EXPORTABLE: Self = Self(ExternalMemoryFeatureFlagBits::EXPORTABLE.0);
+        pub const IMPORTABLE: Self = Self(ExternalMemoryFeatureFlagBits::IMPORTABLE.0);
+        pub const DEDICATED_ONLY_KHR: Self = Self::DEDICATED_ONLY;
+        pub const EXPORTABLE_KHR: Self = Self::EXPORTABLE;
+        pub const IMPORTABLE_KHR: Self = Self::IMPORTABLE;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExternalMemoryFeatureFlagBits(u32);
     impl ExternalMemoryFeatureFlagBits {
         pub const DEDICATED_ONLY: Self = Self(1 << 0);
@@ -2396,26 +2682,27 @@ pub(super) mod defs {
         pub const EXPORTABLE_KHR: Self = Self::EXPORTABLE;
         pub const IMPORTABLE_KHR: Self = Self::IMPORTABLE;
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct ExternalSemaphoreHandleTypeFlags: Flags {
-            const OPAQUE_FD = ExternalSemaphoreHandleTypeFlagBits::OPAQUE_FD.0;
-            const OPAQUE_WIN32 = ExternalSemaphoreHandleTypeFlagBits::OPAQUE_WIN32.0;
-            const OPAQUE_WIN32_KMT = ExternalSemaphoreHandleTypeFlagBits::OPAQUE_WIN32_KMT.0;
-            const D3D12_FENCE = ExternalSemaphoreHandleTypeFlagBits::D3D12_FENCE.0;
-            const SYNC_FD = ExternalSemaphoreHandleTypeFlagBits::SYNC_FD.0;
-            const ZIRCON_EVENT_FUCHSIA = ExternalSemaphoreHandleTypeFlagBits::ZIRCON_EVENT_FUCHSIA.0;
-            const D3D11_FENCE = Self::D3D12_FENCE.bits();
-            const D3D12_FENCE_KHR = Self::D3D12_FENCE.bits();
-            const OPAQUE_FD_KHR = Self::OPAQUE_FD.bits();
-            const OPAQUE_WIN32_KHR = Self::OPAQUE_WIN32.bits();
-            const OPAQUE_WIN32_KMT_KHR = Self::OPAQUE_WIN32_KMT.bits();
-            const SYNC_FD_KHR = Self::SYNC_FD.bits();
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct ExternalSemaphoreHandleTypeFlags(Flags);
+    impl ExternalSemaphoreHandleTypeFlags {
+        pub const OPAQUE_FD: Self = Self(ExternalSemaphoreHandleTypeFlagBits::OPAQUE_FD.0);
+        pub const OPAQUE_WIN32: Self = Self(ExternalSemaphoreHandleTypeFlagBits::OPAQUE_WIN32.0);
+        pub const OPAQUE_WIN32_KMT: Self =
+            Self(ExternalSemaphoreHandleTypeFlagBits::OPAQUE_WIN32_KMT.0);
+        pub const D3D12_FENCE: Self = Self(ExternalSemaphoreHandleTypeFlagBits::D3D12_FENCE.0);
+        pub const SYNC_FD: Self = Self(ExternalSemaphoreHandleTypeFlagBits::SYNC_FD.0);
+        pub const ZIRCON_EVENT_FUCHSIA: Self =
+            Self(ExternalSemaphoreHandleTypeFlagBits::ZIRCON_EVENT_FUCHSIA.0);
+        pub const D3D11_FENCE: Self = Self::D3D12_FENCE;
+        pub const D3D12_FENCE_KHR: Self = Self::D3D12_FENCE;
+        pub const OPAQUE_FD_KHR: Self = Self::OPAQUE_FD;
+        pub const OPAQUE_WIN32_KHR: Self = Self::OPAQUE_WIN32;
+        pub const OPAQUE_WIN32_KMT_KHR: Self = Self::OPAQUE_WIN32_KMT;
+        pub const SYNC_FD_KHR: Self = Self::SYNC_FD;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExternalSemaphoreHandleTypeFlagBits(u32);
     impl ExternalSemaphoreHandleTypeFlagBits {
         pub const OPAQUE_FD: Self = Self(1 << 0);
@@ -2430,18 +2717,17 @@ pub(super) mod defs {
         pub const OPAQUE_WIN32_KMT_KHR: Self = Self::OPAQUE_WIN32_KMT;
         pub const SYNC_FD_KHR: Self = Self::SYNC_FD;
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct ExternalSemaphoreFeatureFlags: Flags {
-            const EXPORTABLE = ExternalSemaphoreFeatureFlagBits::EXPORTABLE.0;
-            const IMPORTABLE = ExternalSemaphoreFeatureFlagBits::IMPORTABLE.0;
-            const EXPORTABLE_KHR = Self::EXPORTABLE.bits();
-            const IMPORTABLE_KHR = Self::IMPORTABLE.bits();
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct ExternalSemaphoreFeatureFlags(Flags);
+    impl ExternalSemaphoreFeatureFlags {
+        pub const EXPORTABLE: Self = Self(ExternalSemaphoreFeatureFlagBits::EXPORTABLE.0);
+        pub const IMPORTABLE: Self = Self(ExternalSemaphoreFeatureFlagBits::IMPORTABLE.0);
+        pub const EXPORTABLE_KHR: Self = Self::EXPORTABLE;
+        pub const IMPORTABLE_KHR: Self = Self::IMPORTABLE;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExternalSemaphoreFeatureFlagBits(u32);
     impl ExternalSemaphoreFeatureFlagBits {
         pub const EXPORTABLE: Self = Self(1 << 0);
@@ -2449,37 +2735,36 @@ pub(super) mod defs {
         pub const EXPORTABLE_KHR: Self = Self::EXPORTABLE;
         pub const IMPORTABLE_KHR: Self = Self::IMPORTABLE;
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct SemaphoreImportFlags: Flags {
-            const TEMPORARY = SemaphoreImportFlagBits::TEMPORARY.0;
-            const TEMPORARY_KHR = Self::TEMPORARY.bits();
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct SemaphoreImportFlags(Flags);
+    impl SemaphoreImportFlags {
+        pub const TEMPORARY: Self = Self(SemaphoreImportFlagBits::TEMPORARY.0);
+        pub const TEMPORARY_KHR: Self = Self::TEMPORARY;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SemaphoreImportFlagBits(u32);
     impl SemaphoreImportFlagBits {
         pub const TEMPORARY: Self = Self(1 << 0);
         pub const TEMPORARY_KHR: Self = Self::TEMPORARY;
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct ExternalFenceHandleTypeFlags: Flags {
-            const OPAQUE_FD = ExternalFenceHandleTypeFlagBits::OPAQUE_FD.0;
-            const OPAQUE_WIN32 = ExternalFenceHandleTypeFlagBits::OPAQUE_WIN32.0;
-            const OPAQUE_WIN32_KMT = ExternalFenceHandleTypeFlagBits::OPAQUE_WIN32_KMT.0;
-            const SYNC_FD = ExternalFenceHandleTypeFlagBits::SYNC_FD.0;
-            const OPAQUE_FD_KHR = Self::OPAQUE_FD.bits();
-            const OPAQUE_WIN32_KHR = Self::OPAQUE_WIN32.bits();
-            const OPAQUE_WIN32_KMT_KHR = Self::OPAQUE_WIN32_KMT.bits();
-            const SYNC_FD_KHR = Self::SYNC_FD.bits();
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct ExternalFenceHandleTypeFlags(Flags);
+    impl ExternalFenceHandleTypeFlags {
+        pub const OPAQUE_FD: Self = Self(ExternalFenceHandleTypeFlagBits::OPAQUE_FD.0);
+        pub const OPAQUE_WIN32: Self = Self(ExternalFenceHandleTypeFlagBits::OPAQUE_WIN32.0);
+        pub const OPAQUE_WIN32_KMT: Self =
+            Self(ExternalFenceHandleTypeFlagBits::OPAQUE_WIN32_KMT.0);
+        pub const SYNC_FD: Self = Self(ExternalFenceHandleTypeFlagBits::SYNC_FD.0);
+        pub const OPAQUE_FD_KHR: Self = Self::OPAQUE_FD;
+        pub const OPAQUE_WIN32_KHR: Self = Self::OPAQUE_WIN32;
+        pub const OPAQUE_WIN32_KMT_KHR: Self = Self::OPAQUE_WIN32_KMT;
+        pub const SYNC_FD_KHR: Self = Self::SYNC_FD;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExternalFenceHandleTypeFlagBits(u32);
     impl ExternalFenceHandleTypeFlagBits {
         pub const OPAQUE_FD: Self = Self(1 << 0);
@@ -2491,18 +2776,17 @@ pub(super) mod defs {
         pub const OPAQUE_WIN32_KMT_KHR: Self = Self::OPAQUE_WIN32_KMT;
         pub const SYNC_FD_KHR: Self = Self::SYNC_FD;
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct ExternalFenceFeatureFlags: Flags {
-            const EXPORTABLE = ExternalFenceFeatureFlagBits::EXPORTABLE.0;
-            const IMPORTABLE = ExternalFenceFeatureFlagBits::IMPORTABLE.0;
-            const EXPORTABLE_KHR = Self::EXPORTABLE.bits();
-            const IMPORTABLE_KHR = Self::IMPORTABLE.bits();
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct ExternalFenceFeatureFlags(Flags);
+    impl ExternalFenceFeatureFlags {
+        pub const EXPORTABLE: Self = Self(ExternalFenceFeatureFlagBits::EXPORTABLE.0);
+        pub const IMPORTABLE: Self = Self(ExternalFenceFeatureFlagBits::IMPORTABLE.0);
+        pub const EXPORTABLE_KHR: Self = Self::EXPORTABLE;
+        pub const IMPORTABLE_KHR: Self = Self::IMPORTABLE;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExternalFenceFeatureFlagBits(u32);
     impl ExternalFenceFeatureFlagBits {
         pub const EXPORTABLE: Self = Self(1 << 0);
@@ -2510,16 +2794,15 @@ pub(super) mod defs {
         pub const EXPORTABLE_KHR: Self = Self::EXPORTABLE;
         pub const IMPORTABLE_KHR: Self = Self::IMPORTABLE;
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct FenceImportFlags: Flags {
-            const TEMPORARY = FenceImportFlagBits::TEMPORARY.0;
-            const TEMPORARY_KHR = Self::TEMPORARY.bits();
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct FenceImportFlags(Flags);
+    impl FenceImportFlags {
+        pub const TEMPORARY: Self = Self(FenceImportFlagBits::TEMPORARY.0);
+        pub const TEMPORARY_KHR: Self = Self::TEMPORARY;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct FenceImportFlagBits(u32);
     impl FenceImportFlagBits {
         pub const TEMPORARY: Self = Self(1 << 0);

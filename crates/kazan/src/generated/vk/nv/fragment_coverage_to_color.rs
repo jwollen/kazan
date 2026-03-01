@@ -18,10 +18,18 @@ pub(super) mod defs {
         pub coverage_to_color_location: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineCoverageToColorStateCreateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_COVERAGE_TO_COLOR_STATE_CREATE_INFO_NV;
+    }
+    unsafe impl<'a> Extends<PipelineMultisampleStateCreateInfo<'a>>
+        for PipelineCoverageToColorStateCreateInfoNV<'a>
+    {
+    }
     impl Default for PipelineCoverageToColorStateCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_COVERAGE_TO_COLOR_STATE_CREATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 coverage_to_color_enable: Default::default(),
@@ -44,10 +52,8 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct PipelineCoverageToColorStateCreateFlagsNV: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct PipelineCoverageToColorStateCreateFlagsNV(Flags);
+    impl PipelineCoverageToColorStateCreateFlagsNV {}
 }

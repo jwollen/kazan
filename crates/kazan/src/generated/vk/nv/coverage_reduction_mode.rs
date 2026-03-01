@@ -16,10 +16,22 @@ pub(super) mod defs {
         pub coverage_reduction_mode: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCoverageReductionModeFeaturesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_COVERAGE_REDUCTION_MODE_FEATURES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceCoverageReductionModeFeaturesNV<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceCoverageReductionModeFeaturesNV<'a>
+    {
+    }
     impl Default for PhysicalDeviceCoverageReductionModeFeaturesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_COVERAGE_REDUCTION_MODE_FEATURES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 coverage_reduction_mode: Default::default(),
                 _marker: PhantomData,
@@ -41,10 +53,18 @@ pub(super) mod defs {
         pub coverage_reduction_mode: CoverageReductionModeNV,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineCoverageReductionStateCreateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV;
+    }
+    unsafe impl<'a> Extends<PipelineMultisampleStateCreateInfo<'a>>
+        for PipelineCoverageReductionStateCreateInfoNV<'a>
+    {
+    }
     impl Default for PipelineCoverageReductionStateCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 coverage_reduction_mode: Default::default(),
@@ -76,10 +96,14 @@ pub(super) mod defs {
         pub color_samples: SampleCountFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for FramebufferMixedSamplesCombinationNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::FRAMEBUFFER_MIXED_SAMPLES_COMBINATION_NV;
+    }
     impl Default for FramebufferMixedSamplesCombinationNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::FRAMEBUFFER_MIXED_SAMPLES_COMBINATION_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 coverage_reduction_mode: Default::default(),
                 rasterization_samples: Default::default(),
@@ -117,12 +141,10 @@ pub(super) mod defs {
         pub const MERGE_NV: Self = Self(0);
         pub const TRUNCATE_NV: Self = Self(1);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct PipelineCoverageReductionStateCreateFlagsNV: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct PipelineCoverageReductionStateCreateFlagsNV(Flags);
+    impl PipelineCoverageReductionStateCreateFlagsNV {}
     pub type PFN_vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV =
         unsafe extern "system" fn(
             physical_device: PhysicalDevice,

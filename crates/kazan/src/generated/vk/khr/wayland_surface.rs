@@ -18,10 +18,13 @@ pub(super) mod defs {
         pub surface: *mut wl_surface,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for WaylandSurfaceCreateInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::WAYLAND_SURFACE_CREATE_INFO_KHR;
+    }
     impl Default for WaylandSurfaceCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::WAYLAND_SURFACE_CREATE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 display: core::ptr::null_mut(),
@@ -44,12 +47,10 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct WaylandSurfaceCreateFlagsKHR: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct WaylandSurfaceCreateFlagsKHR(Flags);
+    impl WaylandSurfaceCreateFlagsKHR {}
     pub type PFN_vkCreateWaylandSurfaceKHR = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const WaylandSurfaceCreateInfoKHR<'_>,

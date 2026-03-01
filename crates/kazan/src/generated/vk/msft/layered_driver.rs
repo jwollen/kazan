@@ -16,10 +16,18 @@ pub(super) mod defs {
         pub underlying_api: LayeredDriverUnderlyingApiMSFT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceLayeredDriverPropertiesMSFT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceLayeredDriverPropertiesMSFT<'a>
+    {
+    }
     impl Default for PhysicalDeviceLayeredDriverPropertiesMSFT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 underlying_api: Default::default(),
                 _marker: PhantomData,

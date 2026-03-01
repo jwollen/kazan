@@ -17,11 +17,24 @@ pub(super) mod defs {
         pub partitioned_acceleration_structure: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a>
+        for PhysicalDevicePartitionedAccelerationStructureFeaturesNV<'a>
+    {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_FEATURES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDevicePartitionedAccelerationStructureFeaturesNV<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDevicePartitionedAccelerationStructureFeaturesNV<'a>
+    {
+    }
     impl Default for PhysicalDevicePartitionedAccelerationStructureFeaturesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type:
-                    StructureType::PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_FEATURES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 partitioned_acceleration_structure: Default::default(),
                 _marker: PhantomData,
@@ -45,11 +58,20 @@ pub(super) mod defs {
         pub max_partition_count: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a>
+        for PhysicalDevicePartitionedAccelerationStructurePropertiesNV<'a>
+    {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_PROPERTIES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDevicePartitionedAccelerationStructurePropertiesNV<'a>
+    {
+    }
     impl Default for PhysicalDevicePartitionedAccelerationStructurePropertiesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type:
-                    StructureType::PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_PROPERTIES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_partition_count: Default::default(),
                 _marker: PhantomData,
@@ -91,10 +113,18 @@ pub(super) mod defs {
         pub enable_partition_translation: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PartitionedAccelerationStructureFlagsNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PARTITIONED_ACCELERATION_STRUCTURE_FLAGS_NV;
+    }
+    unsafe impl<'a> Extends<PartitionedAccelerationStructureInstancesInputNV<'a>>
+        for PartitionedAccelerationStructureFlagsNV<'a>
+    {
+    }
     impl Default for PartitionedAccelerationStructureFlagsNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PARTITIONED_ACCELERATION_STRUCTURE_FLAGS_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 enable_partition_translation: Default::default(),
                 _marker: PhantomData,
@@ -241,10 +271,18 @@ pub(super) mod defs {
         pub p_acceleration_structures: *const DeviceAddress,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for WriteDescriptorSetPartitionedAccelerationStructureNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::WRITE_DESCRIPTOR_SET_PARTITIONED_ACCELERATION_STRUCTURE_NV;
+    }
+    unsafe impl<'a> Extends<WriteDescriptorSet<'a>>
+        for WriteDescriptorSetPartitionedAccelerationStructureNV<'a>
+    {
+    }
     impl Default for WriteDescriptorSetPartitionedAccelerationStructureNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::WRITE_DESCRIPTOR_SET_PARTITIONED_ACCELERATION_STRUCTURE_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 acceleration_structure_count: Default::default(),
                 p_acceleration_structures: core::ptr::null(),
@@ -274,10 +312,14 @@ pub(super) mod defs {
         pub max_instance_in_global_partition_count: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PartitionedAccelerationStructureInstancesInputNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PARTITIONED_ACCELERATION_STRUCTURE_INSTANCES_INPUT_NV;
+    }
     impl Default for PartitionedAccelerationStructureInstancesInputNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PARTITIONED_ACCELERATION_STRUCTURE_INSTANCES_INPUT_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 flags: Default::default(),
                 instance_count: Default::default(),
@@ -329,10 +371,14 @@ pub(super) mod defs {
         pub src_infos_count: DeviceAddress,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BuildPartitionedAccelerationStructureInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::BUILD_PARTITIONED_ACCELERATION_STRUCTURE_INFO_NV;
+    }
     impl Default for BuildPartitionedAccelerationStructureInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BUILD_PARTITIONED_ACCELERATION_STRUCTURE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 input: Default::default(),
                 src_acceleration_structure_data: Default::default(),
@@ -387,19 +433,22 @@ pub(super) mod defs {
         pub const UPDATE_INSTANCE_NV: Self = Self(1);
         pub const WRITE_PARTITION_TRANSLATION_NV: Self = Self(2);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct PartitionedAccelerationStructureInstanceFlagsNV: Flags {
-            const FLAG_TRIANGLE_FACING_CULL_DISABLE_NV = PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_TRIANGLE_FACING_CULL_DISABLE_NV.0;
-            const FLAG_TRIANGLE_FLIP_FACING_NV = PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_TRIANGLE_FLIP_FACING_NV.0;
-            const FLAG_FORCE_OPAQUE_NV = PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_FORCE_OPAQUE_NV.0;
-            const FLAG_FORCE_NO_OPAQUE_NV = PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_FORCE_NO_OPAQUE_NV.0;
-            const FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV = PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct PartitionedAccelerationStructureInstanceFlagsNV(Flags);
+    impl PartitionedAccelerationStructureInstanceFlagsNV {
+        pub const FLAG_TRIANGLE_FACING_CULL_DISABLE_NV: Self = Self(PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_TRIANGLE_FACING_CULL_DISABLE_NV.0);
+        pub const FLAG_TRIANGLE_FLIP_FACING_NV: Self = Self(
+            PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_TRIANGLE_FLIP_FACING_NV.0,
+        );
+        pub const FLAG_FORCE_OPAQUE_NV: Self =
+            Self(PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_FORCE_OPAQUE_NV.0);
+        pub const FLAG_FORCE_NO_OPAQUE_NV: Self =
+            Self(PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_FORCE_NO_OPAQUE_NV.0);
+        pub const FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV: Self = Self(PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PartitionedAccelerationStructureInstanceFlagBitsNV(u32);
     impl PartitionedAccelerationStructureInstanceFlagBitsNV {
         pub const FLAG_TRIANGLE_FACING_CULL_DISABLE_NV: Self = Self(1 << 0);

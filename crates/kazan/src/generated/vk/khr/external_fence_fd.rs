@@ -19,10 +19,13 @@ pub(super) mod defs {
         pub fd: c_int,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImportFenceFdInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_FENCE_FD_INFO_KHR;
+    }
     impl Default for ImportFenceFdInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMPORT_FENCE_FD_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 fence: Default::default(),
                 flags: Default::default(),
@@ -59,10 +62,13 @@ pub(super) mod defs {
         pub handle_type: ExternalFenceHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for FenceGetFdInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::FENCE_GET_FD_INFO_KHR;
+    }
     impl Default for FenceGetFdInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::FENCE_GET_FD_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 fence: Default::default(),
                 handle_type: Default::default(),

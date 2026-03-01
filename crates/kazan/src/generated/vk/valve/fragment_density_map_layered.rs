@@ -16,11 +16,18 @@ pub(super) mod defs {
         pub max_fragment_density_map_layers: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_PROPERTIES_VALVE;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE<'a>
+    {
+    }
     impl Default for PhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE<'_> {
         fn default() -> Self {
             Self {
-                s_type:
-                    StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_PROPERTIES_VALVE,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_fragment_density_map_layers: Default::default(),
                 _marker: PhantomData,
@@ -44,10 +51,22 @@ pub(super) mod defs {
         pub fragment_density_map_layered: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_FEATURES_VALVE;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE<'a>
+    {
+    }
     impl Default for PhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_FEATURES_VALVE,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 fragment_density_map_layered: Default::default(),
                 _marker: PhantomData,
@@ -71,10 +90,18 @@ pub(super) mod defs {
         pub max_fragment_density_map_layers: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineFragmentDensityMapLayeredCreateInfoVALVE<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_FRAGMENT_DENSITY_MAP_LAYERED_CREATE_INFO_VALVE;
+    }
+    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>>
+        for PipelineFragmentDensityMapLayeredCreateInfoVALVE<'a>
+    {
+    }
     impl Default for PipelineFragmentDensityMapLayeredCreateInfoVALVE<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_FRAGMENT_DENSITY_MAP_LAYERED_CREATE_INFO_VALVE,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 max_fragment_density_map_layers: Default::default(),
                 _marker: PhantomData,

@@ -17,10 +17,14 @@ pub(super) mod defs {
         pub p_regions: *const PresentRegionKHR<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PresentRegionsKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PRESENT_REGIONS_KHR;
+    }
+    unsafe impl<'a> Extends<PresentInfoKHR<'a>> for PresentRegionsKHR<'a> {}
     impl Default for PresentRegionsKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PRESENT_REGIONS_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 swapchain_count: Default::default(),
                 p_regions: core::ptr::null(),

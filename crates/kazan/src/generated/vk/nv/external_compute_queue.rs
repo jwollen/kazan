@@ -19,10 +19,15 @@ pub(super) mod defs {
         pub reserved_external_queues: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExternalComputeQueueDeviceCreateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::EXTERNAL_COMPUTE_QUEUE_DEVICE_CREATE_INFO_NV;
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for ExternalComputeQueueDeviceCreateInfoNV<'a> {}
     impl Default for ExternalComputeQueueDeviceCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXTERNAL_COMPUTE_QUEUE_DEVICE_CREATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 reserved_external_queues: Default::default(),
                 _marker: PhantomData,
@@ -43,10 +48,13 @@ pub(super) mod defs {
         pub preferred_queue: Queue,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExternalComputeQueueCreateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_COMPUTE_QUEUE_CREATE_INFO_NV;
+    }
     impl Default for ExternalComputeQueueCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXTERNAL_COMPUTE_QUEUE_CREATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 preferred_queue: Default::default(),
                 _marker: PhantomData,
@@ -67,10 +75,13 @@ pub(super) mod defs {
         pub device_index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExternalComputeQueueDataParamsNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_COMPUTE_QUEUE_DATA_PARAMS_NV;
+    }
     impl Default for ExternalComputeQueueDataParamsNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXTERNAL_COMPUTE_QUEUE_DATA_PARAMS_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 device_index: Default::default(),
                 _marker: PhantomData,
@@ -92,10 +103,18 @@ pub(super) mod defs {
         pub max_external_queues: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExternalComputeQueuePropertiesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_EXTERNAL_COMPUTE_QUEUE_PROPERTIES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceExternalComputeQueuePropertiesNV<'a>
+    {
+    }
     impl Default for PhysicalDeviceExternalComputeQueuePropertiesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_EXTERNAL_COMPUTE_QUEUE_PROPERTIES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 external_data_size: Default::default(),
                 max_external_queues: Default::default(),

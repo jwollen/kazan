@@ -16,11 +16,22 @@ pub(super) mod defs {
         pub multiview_per_view_render_areas: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_RENDER_AREAS_FEATURES_QCOM;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'a>
+    {
+    }
     impl Default for PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type:
-                    StructureType::PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_RENDER_AREAS_FEATURES_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 multiview_per_view_render_areas: Default::default(),
                 _marker: PhantomData,
@@ -45,10 +56,22 @@ pub(super) mod defs {
         pub p_per_view_render_areas: *const Rect2D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::MULTIVIEW_PER_VIEW_RENDER_AREAS_RENDER_PASS_BEGIN_INFO_QCOM;
+    }
+    unsafe impl<'a> Extends<RenderPassBeginInfo<'a>>
+        for MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'a>
+    {
+    }
+    unsafe impl<'a> Extends<RenderingInfo<'a>>
+        for MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'a>
+    {
+    }
     impl Default for MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MULTIVIEW_PER_VIEW_RENDER_AREAS_RENDER_PASS_BEGIN_INFO_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 per_view_render_area_count: Default::default(),
                 p_per_view_render_areas: core::ptr::null(),

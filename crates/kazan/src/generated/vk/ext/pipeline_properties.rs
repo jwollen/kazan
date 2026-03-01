@@ -17,10 +17,13 @@ pub(super) mod defs {
         pub pipeline_identifier: [u8; UUID_SIZE as usize],
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelinePropertiesIdentifierEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_PROPERTIES_IDENTIFIER_EXT;
+    }
     impl Default for PipelinePropertiesIdentifierEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_PROPERTIES_IDENTIFIER_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 pipeline_identifier: [Default::default(); _],
                 _marker: PhantomData,
@@ -44,10 +47,19 @@ pub(super) mod defs {
         pub pipeline_properties_identifier: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePipelinePropertiesFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PIPELINE_PROPERTIES_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDevicePipelinePropertiesFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePipelinePropertiesFeaturesEXT<'a> {}
     impl Default for PhysicalDevicePipelinePropertiesFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PIPELINE_PROPERTIES_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 pipeline_properties_identifier: Default::default(),
                 _marker: PhantomData,
@@ -66,7 +78,7 @@ pub(super) mod defs {
     pub type PFN_vkGetPipelinePropertiesEXT = unsafe extern "system" fn(
         device: Device,
         p_pipeline_info: *const PipelineInfoEXT<'_>,
-        p_pipeline_properties: *mut BaseOutStructure,
+        p_pipeline_properties: *mut BaseOutStructure<'_>,
     ) -> vk::Result;
 }
 pub struct DeviceFn {
@@ -90,7 +102,7 @@ impl DeviceFn {
         &self,
         device: Device,
         pipeline_info: &PipelineInfoEXT<'_>,
-    ) -> crate::Result<BaseOutStructure> {
+    ) -> crate::Result<BaseOutStructure<'_>> {
         unsafe {
             let mut pipeline_properties = core::mem::MaybeUninit::uninit();
             let result = (self.get_pipeline_properties_ext)(

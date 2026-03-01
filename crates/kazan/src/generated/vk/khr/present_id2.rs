@@ -16,10 +16,16 @@ pub(super) mod defs {
         pub present_id2: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePresentId2FeaturesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PRESENT_ID_2_FEATURES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDevicePresentId2FeaturesKHR<'a> {}
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePresentId2FeaturesKHR<'a> {}
     impl Default for PhysicalDevicePresentId2FeaturesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PRESENT_ID_2_FEATURES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 present_id2: Default::default(),
                 _marker: PhantomData,
@@ -41,10 +47,14 @@ pub(super) mod defs {
         pub p_present_ids: *const u64,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PresentId2KHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PRESENT_ID_2_KHR;
+    }
+    unsafe impl<'a> Extends<PresentInfoKHR<'a>> for PresentId2KHR<'a> {}
     impl Default for PresentId2KHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PRESENT_ID_2_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 swapchain_count: Default::default(),
                 p_present_ids: core::ptr::null(),
@@ -67,10 +77,14 @@ pub(super) mod defs {
         pub present_id2_supported: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SurfaceCapabilitiesPresentId2KHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SURFACE_CAPABILITIES_PRESENT_ID_2_KHR;
+    }
+    unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>> for SurfaceCapabilitiesPresentId2KHR<'a> {}
     impl Default for SurfaceCapabilitiesPresentId2KHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SURFACE_CAPABILITIES_PRESENT_ID_2_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 present_id2_supported: Default::default(),
                 _marker: PhantomData,

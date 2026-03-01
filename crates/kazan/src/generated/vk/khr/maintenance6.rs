@@ -32,10 +32,13 @@ pub(super) mod defs {
         pub p_offsets: *const DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SetDescriptorBufferOffsetsInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT;
+    }
     impl Default for SetDescriptorBufferOffsetsInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 stage_flags: Default::default(),
                 layout: Default::default(),
@@ -81,10 +84,14 @@ pub(super) mod defs {
         pub set: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BindDescriptorBufferEmbeddedSamplersInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::BIND_DESCRIPTOR_BUFFER_EMBEDDED_SAMPLERS_INFO_EXT;
+    }
     impl Default for BindDescriptorBufferEmbeddedSamplersInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BIND_DESCRIPTOR_BUFFER_EMBEDDED_SAMPLERS_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 stage_flags: Default::default(),
                 layout: Default::default(),

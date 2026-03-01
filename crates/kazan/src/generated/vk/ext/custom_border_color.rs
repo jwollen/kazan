@@ -17,10 +17,15 @@ pub(super) mod defs {
         pub format: Format,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SamplerCustomBorderColorCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::SAMPLER_CUSTOM_BORDER_COLOR_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<SamplerCreateInfo<'a>> for SamplerCustomBorderColorCreateInfoEXT<'a> {}
     impl Default for SamplerCustomBorderColorCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SAMPLER_CUSTOM_BORDER_COLOR_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 custom_border_color: Default::default(),
                 format: Default::default(),
@@ -46,10 +51,18 @@ pub(super) mod defs {
         pub max_custom_border_color_samplers: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCustomBorderColorPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_PROPERTIES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceCustomBorderColorPropertiesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceCustomBorderColorPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_custom_border_color_samplers: Default::default(),
                 _marker: PhantomData,
@@ -74,10 +87,19 @@ pub(super) mod defs {
         pub custom_border_color_without_format: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCustomBorderColorFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceCustomBorderColorFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceCustomBorderColorFeaturesEXT<'a> {}
     impl Default for PhysicalDeviceCustomBorderColorFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 custom_border_colors: Default::default(),
                 custom_border_color_without_format: Default::default(),

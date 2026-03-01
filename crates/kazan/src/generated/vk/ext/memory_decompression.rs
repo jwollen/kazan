@@ -16,10 +16,19 @@ pub(super) mod defs {
         pub memory_decompression: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMemoryDecompressionFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceMemoryDecompressionFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceMemoryDecompressionFeaturesEXT<'a> {}
     impl Default for PhysicalDeviceMemoryDecompressionFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 memory_decompression: Default::default(),
                 _marker: PhantomData,
@@ -41,10 +50,18 @@ pub(super) mod defs {
         pub max_decompression_indirect_count: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMemoryDecompressionPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceMemoryDecompressionPropertiesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceMemoryDecompressionPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 decompression_methods: Default::default(),
                 max_decompression_indirect_count: Default::default(),
@@ -104,10 +121,13 @@ pub(super) mod defs {
         pub p_regions: *const DecompressMemoryRegionEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DecompressMemoryInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DECOMPRESS_MEMORY_INFO_EXT;
+    }
     impl Default for DecompressMemoryInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DECOMPRESS_MEMORY_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 decompression_method: Default::default(),
                 region_count: Default::default(),
@@ -130,16 +150,16 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct MemoryDecompressionMethodFlagsEXT: Flags64 {
-            const GDEFLATE_1_0_EXT = MemoryDecompressionMethodFlagBitsEXT::GDEFLATE_1_0_EXT.0;
-            const GDEFLATE_1_0_NV = Self::GDEFLATE_1_0_EXT.bits();
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct MemoryDecompressionMethodFlagsEXT(Flags64);
+    impl MemoryDecompressionMethodFlagsEXT {
+        pub const GDEFLATE_1_0_EXT: Self =
+            Self(MemoryDecompressionMethodFlagBitsEXT::GDEFLATE_1_0_EXT.0);
+        pub const GDEFLATE_1_0_NV: Self = Self::GDEFLATE_1_0_EXT;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MemoryDecompressionMethodFlagBitsEXT(u64);
     impl MemoryDecompressionMethodFlagBitsEXT {
         pub const GDEFLATE_1_0_EXT: Self = Self(1 << 0);

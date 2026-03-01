@@ -20,10 +20,15 @@ pub(super) mod defs {
         pub p_acceleration_structures: *const AccelerationStructureKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for WriteDescriptorSetAccelerationStructureKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_KHR;
+    }
+    unsafe impl<'a> Extends<WriteDescriptorSet<'a>> for WriteDescriptorSetAccelerationStructureKHR<'a> {}
     impl Default for WriteDescriptorSetAccelerationStructureKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 acceleration_structure_count: Default::default(),
                 p_acceleration_structures: core::ptr::null(),
@@ -53,10 +58,22 @@ pub(super) mod defs {
         pub descriptor_binding_acceleration_structure_update_after_bind: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceAccelerationStructureFeaturesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceAccelerationStructureFeaturesKHR<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceAccelerationStructureFeaturesKHR<'a>
+    {
+    }
     impl Default for PhysicalDeviceAccelerationStructureFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 acceleration_structure: Default::default(),
                 acceleration_structure_capture_replay: Default::default(),
@@ -117,10 +134,18 @@ pub(super) mod defs {
         pub min_acceleration_structure_scratch_offset_alignment: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceAccelerationStructurePropertiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_PROPERTIES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceAccelerationStructurePropertiesKHR<'a>
+    {
+    }
     impl Default for PhysicalDeviceAccelerationStructurePropertiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_PROPERTIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_geometry_count: Default::default(),
                 max_instance_count: Default::default(),
@@ -203,10 +228,14 @@ pub(super) mod defs {
         pub transform_data: DeviceOrHostAddressConstKHR<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureGeometryTrianglesDataKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::ACCELERATION_STRUCTURE_GEOMETRY_TRIANGLES_DATA_KHR;
+    }
     impl Default for AccelerationStructureGeometryTrianglesDataKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ACCELERATION_STRUCTURE_GEOMETRY_TRIANGLES_DATA_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 vertex_format: Default::default(),
                 vertex_data: Default::default(),
@@ -258,10 +287,14 @@ pub(super) mod defs {
         pub stride: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureGeometryAabbsDataKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::ACCELERATION_STRUCTURE_GEOMETRY_AABBS_DATA_KHR;
+    }
     impl Default for AccelerationStructureGeometryAabbsDataKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ACCELERATION_STRUCTURE_GEOMETRY_AABBS_DATA_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 data: Default::default(),
                 stride: Default::default(),
@@ -288,10 +321,14 @@ pub(super) mod defs {
         pub data: DeviceOrHostAddressConstKHR<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureGeometryInstancesDataKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::ACCELERATION_STRUCTURE_GEOMETRY_INSTANCES_DATA_KHR;
+    }
     impl Default for AccelerationStructureGeometryInstancesDataKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ACCELERATION_STRUCTURE_GEOMETRY_INSTANCES_DATA_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 array_of_pointers: Default::default(),
                 data: Default::default(),
@@ -319,10 +356,13 @@ pub(super) mod defs {
         pub flags: GeometryFlagsKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureGeometryKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::ACCELERATION_STRUCTURE_GEOMETRY_KHR;
+    }
     impl Default for AccelerationStructureGeometryKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ACCELERATION_STRUCTURE_GEOMETRY_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 geometry_type: Default::default(),
                 geometry: Default::default(),
@@ -361,10 +401,14 @@ pub(super) mod defs {
         pub scratch_data: DeviceOrHostAddressKHR<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureBuildGeometryInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR;
+    }
     impl Default for AccelerationStructureBuildGeometryInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 ty: Default::default(),
                 flags: Default::default(),
@@ -466,10 +510,13 @@ pub(super) mod defs {
         pub device_address: DeviceAddress,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureCreateInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::ACCELERATION_STRUCTURE_CREATE_INFO_KHR;
+    }
     impl Default for AccelerationStructureCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ACCELERATION_STRUCTURE_CREATE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 create_flags: Default::default(),
                 buffer: Default::default(),
@@ -624,10 +671,14 @@ pub(super) mod defs {
         pub acceleration_structure: AccelerationStructureKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureDeviceAddressInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::ACCELERATION_STRUCTURE_DEVICE_ADDRESS_INFO_KHR;
+    }
     impl Default for AccelerationStructureDeviceAddressInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ACCELERATION_STRUCTURE_DEVICE_ADDRESS_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 acceleration_structure: Default::default(),
                 _marker: PhantomData,
@@ -651,10 +702,14 @@ pub(super) mod defs {
         pub p_version_data: *const u8,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureVersionInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::ACCELERATION_STRUCTURE_VERSION_INFO_KHR;
+    }
     impl Default for AccelerationStructureVersionInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ACCELERATION_STRUCTURE_VERSION_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_version_data: core::ptr::null(),
                 _marker: PhantomData,
@@ -672,10 +727,13 @@ pub(super) mod defs {
         pub mode: CopyAccelerationStructureModeKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CopyAccelerationStructureInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::COPY_ACCELERATION_STRUCTURE_INFO_KHR;
+    }
     impl Default for CopyAccelerationStructureInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::COPY_ACCELERATION_STRUCTURE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 src: Default::default(),
                 dst: Default::default(),
@@ -708,10 +766,14 @@ pub(super) mod defs {
         pub mode: CopyAccelerationStructureModeKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CopyAccelerationStructureToMemoryInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::COPY_ACCELERATION_STRUCTURE_TO_MEMORY_INFO_KHR;
+    }
     impl Default for CopyAccelerationStructureToMemoryInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::COPY_ACCELERATION_STRUCTURE_TO_MEMORY_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 src: Default::default(),
                 dst: Default::default(),
@@ -744,10 +806,14 @@ pub(super) mod defs {
         pub mode: CopyAccelerationStructureModeKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CopyMemoryToAccelerationStructureInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::COPY_MEMORY_TO_ACCELERATION_STRUCTURE_INFO_KHR;
+    }
     impl Default for CopyMemoryToAccelerationStructureInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::COPY_MEMORY_TO_ACCELERATION_STRUCTURE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 src: Default::default(),
                 dst: Default::default(),
@@ -780,10 +846,14 @@ pub(super) mod defs {
         pub build_scratch_size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureBuildSizesInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::ACCELERATION_STRUCTURE_BUILD_SIZES_INFO_KHR;
+    }
     impl Default for AccelerationStructureBuildSizesInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ACCELERATION_STRUCTURE_BUILD_SIZES_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 acceleration_structure_size: Default::default(),
                 update_scratch_size: Default::default(),
@@ -902,18 +972,19 @@ pub(super) mod defs {
         pub const COMPATIBLE_KHR: Self = Self(0);
         pub const INCOMPATIBLE_KHR: Self = Self(1);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct GeometryFlagsKHR: Flags {
-            const OPAQUE_KHR = GeometryFlagBitsKHR::OPAQUE_KHR.0;
-            const NO_DUPLICATE_ANY_HIT_INVOCATION_KHR = GeometryFlagBitsKHR::NO_DUPLICATE_ANY_HIT_INVOCATION_KHR.0;
-            const NO_DUPLICATE_ANY_HIT_INVOCATION_NV = Self::NO_DUPLICATE_ANY_HIT_INVOCATION_KHR.bits();
-            const OPAQUE_NV = Self::OPAQUE_KHR.bits();
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct GeometryFlagsKHR(Flags);
+    impl GeometryFlagsKHR {
+        pub const OPAQUE_KHR: Self = Self(GeometryFlagBitsKHR::OPAQUE_KHR.0);
+        pub const NO_DUPLICATE_ANY_HIT_INVOCATION_KHR: Self =
+            Self(GeometryFlagBitsKHR::NO_DUPLICATE_ANY_HIT_INVOCATION_KHR.0);
+        pub const NO_DUPLICATE_ANY_HIT_INVOCATION_NV: Self =
+            Self::NO_DUPLICATE_ANY_HIT_INVOCATION_KHR;
+        pub const OPAQUE_NV: Self = Self::OPAQUE_KHR;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct GeometryFlagBitsKHR(u32);
     impl GeometryFlagBitsKHR {
         pub const OPAQUE_KHR: Self = Self(1 << 0);
@@ -922,25 +993,30 @@ pub(super) mod defs {
             Self::NO_DUPLICATE_ANY_HIT_INVOCATION_KHR;
         pub const OPAQUE_NV: Self = Self::OPAQUE_KHR;
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct GeometryInstanceFlagsKHR: Flags {
-            const TRIANGLE_FACING_CULL_DISABLE_KHR = GeometryInstanceFlagBitsKHR::TRIANGLE_FACING_CULL_DISABLE_KHR.0;
-            const TRIANGLE_FLIP_FACING_KHR = GeometryInstanceFlagBitsKHR::TRIANGLE_FLIP_FACING_KHR.0;
-            const FORCE_OPAQUE_KHR = GeometryInstanceFlagBitsKHR::FORCE_OPAQUE_KHR.0;
-            const FORCE_NO_OPAQUE_KHR = GeometryInstanceFlagBitsKHR::FORCE_NO_OPAQUE_KHR.0;
-            const FORCE_OPACITY_MICROMAP_2_STATE_EXT = GeometryInstanceFlagBitsKHR::FORCE_OPACITY_MICROMAP_2_STATE_EXT.0;
-            const DISABLE_OPACITY_MICROMAPS_EXT = GeometryInstanceFlagBitsKHR::DISABLE_OPACITY_MICROMAPS_EXT.0;
-            const TRIANGLE_FRONT_COUNTERCLOCKWISE_KHR = Self::TRIANGLE_FLIP_FACING_KHR.bits();
-            const FORCE_NO_OPAQUE_NV = Self::FORCE_NO_OPAQUE_KHR.bits();
-            const FORCE_OPAQUE_NV = Self::FORCE_OPAQUE_KHR.bits();
-            const TRIANGLE_CULL_DISABLE_NV = Self::TRIANGLE_FACING_CULL_DISABLE_KHR.bits();
-            const TRIANGLE_FRONT_COUNTERCLOCKWISE_NV = Self::TRIANGLE_FRONT_COUNTERCLOCKWISE_KHR.bits();
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct GeometryInstanceFlagsKHR(Flags);
+    impl GeometryInstanceFlagsKHR {
+        pub const TRIANGLE_FACING_CULL_DISABLE_KHR: Self =
+            Self(GeometryInstanceFlagBitsKHR::TRIANGLE_FACING_CULL_DISABLE_KHR.0);
+        pub const TRIANGLE_FLIP_FACING_KHR: Self =
+            Self(GeometryInstanceFlagBitsKHR::TRIANGLE_FLIP_FACING_KHR.0);
+        pub const FORCE_OPAQUE_KHR: Self = Self(GeometryInstanceFlagBitsKHR::FORCE_OPAQUE_KHR.0);
+        pub const FORCE_NO_OPAQUE_KHR: Self =
+            Self(GeometryInstanceFlagBitsKHR::FORCE_NO_OPAQUE_KHR.0);
+        pub const FORCE_OPACITY_MICROMAP_2_STATE_EXT: Self =
+            Self(GeometryInstanceFlagBitsKHR::FORCE_OPACITY_MICROMAP_2_STATE_EXT.0);
+        pub const DISABLE_OPACITY_MICROMAPS_EXT: Self =
+            Self(GeometryInstanceFlagBitsKHR::DISABLE_OPACITY_MICROMAPS_EXT.0);
+        pub const TRIANGLE_FRONT_COUNTERCLOCKWISE_KHR: Self = Self::TRIANGLE_FLIP_FACING_KHR;
+        pub const FORCE_NO_OPAQUE_NV: Self = Self::FORCE_NO_OPAQUE_KHR;
+        pub const FORCE_OPAQUE_NV: Self = Self::FORCE_OPAQUE_KHR;
+        pub const TRIANGLE_CULL_DISABLE_NV: Self = Self::TRIANGLE_FACING_CULL_DISABLE_KHR;
+        pub const TRIANGLE_FRONT_COUNTERCLOCKWISE_NV: Self =
+            Self::TRIANGLE_FRONT_COUNTERCLOCKWISE_KHR;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct GeometryInstanceFlagBitsKHR(u32);
     impl GeometryInstanceFlagBitsKHR {
         pub const TRIANGLE_FACING_CULL_DISABLE_KHR: Self = Self(1 << 0);
@@ -953,31 +1029,41 @@ pub(super) mod defs {
         pub const FORCE_OPAQUE_NV: Self = Self::FORCE_OPAQUE_KHR;
         pub const TRIANGLE_CULL_DISABLE_NV: Self = Self::TRIANGLE_FACING_CULL_DISABLE_KHR;
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct BuildAccelerationStructureFlagsKHR: Flags {
-            const ALLOW_UPDATE_KHR = BuildAccelerationStructureFlagBitsKHR::ALLOW_UPDATE_KHR.0;
-            const ALLOW_COMPACTION_KHR = BuildAccelerationStructureFlagBitsKHR::ALLOW_COMPACTION_KHR.0;
-            const PREFER_FAST_TRACE_KHR = BuildAccelerationStructureFlagBitsKHR::PREFER_FAST_TRACE_KHR.0;
-            const PREFER_FAST_BUILD_KHR = BuildAccelerationStructureFlagBitsKHR::PREFER_FAST_BUILD_KHR.0;
-            const LOW_MEMORY_KHR = BuildAccelerationStructureFlagBitsKHR::LOW_MEMORY_KHR.0;
-            const MOTION_NV = BuildAccelerationStructureFlagBitsKHR::MOTION_NV.0;
-            const ALLOW_OPACITY_MICROMAP_UPDATE_EXT = BuildAccelerationStructureFlagBitsKHR::ALLOW_OPACITY_MICROMAP_UPDATE_EXT.0;
-            const ALLOW_DISABLE_OPACITY_MICROMAPS_EXT = BuildAccelerationStructureFlagBitsKHR::ALLOW_DISABLE_OPACITY_MICROMAPS_EXT.0;
-            const ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT = BuildAccelerationStructureFlagBitsKHR::ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT.0;
-            const ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV = BuildAccelerationStructureFlagBitsKHR::ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV.0;
-            const ALLOW_DATA_ACCESS_KHR = BuildAccelerationStructureFlagBitsKHR::ALLOW_DATA_ACCESS_KHR.0;
-            const ALLOW_CLUSTER_OPACITY_MICROMAPS_NV = BuildAccelerationStructureFlagBitsKHR::ALLOW_CLUSTER_OPACITY_MICROMAPS_NV.0;
-            const ALLOW_COMPACTION_NV = Self::ALLOW_COMPACTION_KHR.bits();
-            const ALLOW_UPDATE_NV = Self::ALLOW_UPDATE_KHR.bits();
-            const LOW_MEMORY_NV = Self::LOW_MEMORY_KHR.bits();
-            const PREFER_FAST_BUILD_NV = Self::PREFER_FAST_BUILD_KHR.bits();
-            const PREFER_FAST_TRACE_NV = Self::PREFER_FAST_TRACE_KHR.bits();
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct BuildAccelerationStructureFlagsKHR(Flags);
+    impl BuildAccelerationStructureFlagsKHR {
+        pub const ALLOW_UPDATE_KHR: Self =
+            Self(BuildAccelerationStructureFlagBitsKHR::ALLOW_UPDATE_KHR.0);
+        pub const ALLOW_COMPACTION_KHR: Self =
+            Self(BuildAccelerationStructureFlagBitsKHR::ALLOW_COMPACTION_KHR.0);
+        pub const PREFER_FAST_TRACE_KHR: Self =
+            Self(BuildAccelerationStructureFlagBitsKHR::PREFER_FAST_TRACE_KHR.0);
+        pub const PREFER_FAST_BUILD_KHR: Self =
+            Self(BuildAccelerationStructureFlagBitsKHR::PREFER_FAST_BUILD_KHR.0);
+        pub const LOW_MEMORY_KHR: Self =
+            Self(BuildAccelerationStructureFlagBitsKHR::LOW_MEMORY_KHR.0);
+        pub const MOTION_NV: Self = Self(BuildAccelerationStructureFlagBitsKHR::MOTION_NV.0);
+        pub const ALLOW_OPACITY_MICROMAP_UPDATE_EXT: Self =
+            Self(BuildAccelerationStructureFlagBitsKHR::ALLOW_OPACITY_MICROMAP_UPDATE_EXT.0);
+        pub const ALLOW_DISABLE_OPACITY_MICROMAPS_EXT: Self =
+            Self(BuildAccelerationStructureFlagBitsKHR::ALLOW_DISABLE_OPACITY_MICROMAPS_EXT.0);
+        pub const ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT: Self =
+            Self(BuildAccelerationStructureFlagBitsKHR::ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT.0);
+        pub const ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV: Self =
+            Self(BuildAccelerationStructureFlagBitsKHR::ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV.0);
+        pub const ALLOW_DATA_ACCESS_KHR: Self =
+            Self(BuildAccelerationStructureFlagBitsKHR::ALLOW_DATA_ACCESS_KHR.0);
+        pub const ALLOW_CLUSTER_OPACITY_MICROMAPS_NV: Self =
+            Self(BuildAccelerationStructureFlagBitsKHR::ALLOW_CLUSTER_OPACITY_MICROMAPS_NV.0);
+        pub const ALLOW_COMPACTION_NV: Self = Self::ALLOW_COMPACTION_KHR;
+        pub const ALLOW_UPDATE_NV: Self = Self::ALLOW_UPDATE_KHR;
+        pub const LOW_MEMORY_NV: Self = Self::LOW_MEMORY_KHR;
+        pub const PREFER_FAST_BUILD_NV: Self = Self::PREFER_FAST_BUILD_KHR;
+        pub const PREFER_FAST_TRACE_NV: Self = Self::PREFER_FAST_TRACE_KHR;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct BuildAccelerationStructureFlagBitsKHR(u32);
     impl BuildAccelerationStructureFlagBitsKHR {
         pub const ALLOW_UPDATE_KHR: Self = Self(1 << 0);
@@ -998,17 +1084,18 @@ pub(super) mod defs {
         pub const PREFER_FAST_BUILD_NV: Self = Self::PREFER_FAST_BUILD_KHR;
         pub const PREFER_FAST_TRACE_NV: Self = Self::PREFER_FAST_TRACE_KHR;
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct AccelerationStructureCreateFlagsKHR: Flags {
-            const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR = AccelerationStructureCreateFlagBitsKHR::DEVICE_ADDRESS_CAPTURE_REPLAY_KHR.0;
-            const MOTION_NV = AccelerationStructureCreateFlagBitsKHR::MOTION_NV.0;
-            const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT = AccelerationStructureCreateFlagBitsKHR::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct AccelerationStructureCreateFlagsKHR(Flags);
+    impl AccelerationStructureCreateFlagsKHR {
+        pub const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR: Self =
+            Self(AccelerationStructureCreateFlagBitsKHR::DEVICE_ADDRESS_CAPTURE_REPLAY_KHR.0);
+        pub const MOTION_NV: Self = Self(AccelerationStructureCreateFlagBitsKHR::MOTION_NV.0);
+        pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self =
+            Self(AccelerationStructureCreateFlagBitsKHR::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct AccelerationStructureCreateFlagBitsKHR(u32);
     impl AccelerationStructureCreateFlagBitsKHR {
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR: Self = Self(1 << 0);

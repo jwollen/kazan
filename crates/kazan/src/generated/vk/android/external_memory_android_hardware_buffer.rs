@@ -17,10 +17,15 @@ pub(super) mod defs {
         pub buffer: *mut AHardwareBuffer,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImportAndroidHardwareBufferInfoANDROID<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID;
+    }
+    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportAndroidHardwareBufferInfoANDROID<'a> {}
     impl Default for ImportAndroidHardwareBufferInfoANDROID<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 buffer: core::ptr::null_mut(),
                 _marker: PhantomData,
@@ -41,10 +46,14 @@ pub(super) mod defs {
         pub android_hardware_buffer_usage: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AndroidHardwareBufferUsageANDROID<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::ANDROID_HARDWARE_BUFFER_USAGE_ANDROID;
+    }
+    unsafe impl<'a> Extends<ImageFormatProperties2<'a>> for AndroidHardwareBufferUsageANDROID<'a> {}
     impl Default for AndroidHardwareBufferUsageANDROID<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ANDROID_HARDWARE_BUFFER_USAGE_ANDROID,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 android_hardware_buffer_usage: Default::default(),
                 _marker: PhantomData,
@@ -66,10 +75,14 @@ pub(super) mod defs {
         pub memory_type_bits: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AndroidHardwareBufferPropertiesANDROID<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::ANDROID_HARDWARE_BUFFER_PROPERTIES_ANDROID;
+    }
     impl Default for AndroidHardwareBufferPropertiesANDROID<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ANDROID_HARDWARE_BUFFER_PROPERTIES_ANDROID,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 allocation_size: Default::default(),
                 memory_type_bits: Default::default(),
@@ -95,10 +108,14 @@ pub(super) mod defs {
         pub memory: DeviceMemory,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MemoryGetAndroidHardwareBufferInfoANDROID<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::MEMORY_GET_ANDROID_HARDWARE_BUFFER_INFO_ANDROID;
+    }
     impl Default for MemoryGetAndroidHardwareBufferInfoANDROID<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MEMORY_GET_ANDROID_HARDWARE_BUFFER_INFO_ANDROID,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 memory: Default::default(),
                 _marker: PhantomData,
@@ -126,10 +143,18 @@ pub(super) mod defs {
         pub suggested_y_chroma_offset: ChromaLocation,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AndroidHardwareBufferFormatPropertiesANDROID<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_ANDROID;
+    }
+    unsafe impl<'a> Extends<AndroidHardwareBufferPropertiesANDROID<'a>>
+        for AndroidHardwareBufferFormatPropertiesANDROID<'a>
+    {
+    }
     impl Default for AndroidHardwareBufferFormatPropertiesANDROID<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_ANDROID,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 format: Default::default(),
                 external_format: Default::default(),
@@ -197,10 +222,18 @@ pub(super) mod defs {
         pub external_format: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExternalFormatANDROID<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_FORMAT_ANDROID;
+    }
+    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ExternalFormatANDROID<'a> {}
+    unsafe impl<'a> Extends<SamplerYcbcrConversionCreateInfo<'a>> for ExternalFormatANDROID<'a> {}
+    unsafe impl<'a> Extends<AttachmentDescription2<'a>> for ExternalFormatANDROID<'a> {}
+    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>> for ExternalFormatANDROID<'a> {}
+    unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>> for ExternalFormatANDROID<'a> {}
     impl Default for ExternalFormatANDROID<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXTERNAL_FORMAT_ANDROID,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 external_format: Default::default(),
                 _marker: PhantomData,
@@ -228,10 +261,18 @@ pub(super) mod defs {
         pub suggested_y_chroma_offset: ChromaLocation,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AndroidHardwareBufferFormatProperties2ANDROID<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_2_ANDROID;
+    }
+    unsafe impl<'a> Extends<AndroidHardwareBufferPropertiesANDROID<'a>>
+        for AndroidHardwareBufferFormatProperties2ANDROID<'a>
+    {
+    }
     impl Default for AndroidHardwareBufferFormatProperties2ANDROID<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_2_ANDROID,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 format: Default::default(),
                 external_format: Default::default(),

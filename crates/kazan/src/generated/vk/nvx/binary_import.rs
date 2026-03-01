@@ -23,10 +23,13 @@ pub(super) mod defs {
         pub p_data: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CuModuleCreateInfoNVX<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::CU_MODULE_CREATE_INFO_NVX;
+    }
     impl Default for CuModuleCreateInfoNVX<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::CU_MODULE_CREATE_INFO_NVX,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 data_size: Default::default(),
                 p_data: core::ptr::null(),
@@ -49,10 +52,15 @@ pub(super) mod defs {
         pub use64bit_texturing: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CuModuleTexturingModeCreateInfoNVX<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::CU_MODULE_TEXTURING_MODE_CREATE_INFO_NVX;
+    }
+    unsafe impl<'a> Extends<CuModuleCreateInfoNVX<'a>> for CuModuleTexturingModeCreateInfoNVX<'a> {}
     impl Default for CuModuleTexturingModeCreateInfoNVX<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::CU_MODULE_TEXTURING_MODE_CREATE_INFO_NVX,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 use64bit_texturing: Default::default(),
                 _marker: PhantomData,
@@ -74,10 +82,13 @@ pub(super) mod defs {
         pub p_name: *const c_char,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CuFunctionCreateInfoNVX<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::CU_FUNCTION_CREATE_INFO_NVX;
+    }
     impl Default for CuFunctionCreateInfoNVX<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::CU_FUNCTION_CREATE_INFO_NVX,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 module: Default::default(),
                 p_name: core::ptr::null(),
@@ -110,10 +121,13 @@ pub(super) mod defs {
         pub p_extras: *const *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CuLaunchInfoNVX<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::CU_LAUNCH_INFO_NVX;
+    }
     impl Default for CuLaunchInfoNVX<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::CU_LAUNCH_INFO_NVX,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 function: Default::default(),
                 grid_dim_x: Default::default(),

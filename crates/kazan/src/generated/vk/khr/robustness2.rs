@@ -18,10 +18,16 @@ pub(super) mod defs {
         pub null_descriptor: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRobustness2FeaturesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceRobustness2FeaturesKHR<'a> {}
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceRobustness2FeaturesKHR<'a> {}
     impl Default for PhysicalDeviceRobustness2FeaturesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 robust_buffer_access2: Default::default(),
                 robust_image_access2: Default::default(),
@@ -53,10 +59,18 @@ pub(super) mod defs {
         pub robust_uniform_buffer_access_size_alignment: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRobustness2PropertiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceRobustness2PropertiesKHR<'a>
+    {
+    }
     impl Default for PhysicalDeviceRobustness2PropertiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 robust_storage_buffer_access_size_alignment: Default::default(),
                 robust_uniform_buffer_access_size_alignment: Default::default(),

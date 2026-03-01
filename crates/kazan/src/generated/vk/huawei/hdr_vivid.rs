@@ -17,10 +17,14 @@ pub(super) mod defs {
         pub p_dynamic_metadata: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for HdrVividDynamicMetadataHUAWEI<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::HDR_VIVID_DYNAMIC_METADATA_HUAWEI;
+    }
+    unsafe impl<'a> Extends<HdrMetadataEXT<'a>> for HdrVividDynamicMetadataHUAWEI<'a> {}
     impl Default for HdrVividDynamicMetadataHUAWEI<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::HDR_VIVID_DYNAMIC_METADATA_HUAWEI,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 dynamic_metadata_size: Default::default(),
                 p_dynamic_metadata: core::ptr::null(),
@@ -43,10 +47,16 @@ pub(super) mod defs {
         pub hdr_vivid: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceHdrVividFeaturesHUAWEI<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_HDR_VIVID_FEATURES_HUAWEI;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceHdrVividFeaturesHUAWEI<'a> {}
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceHdrVividFeaturesHUAWEI<'a> {}
     impl Default for PhysicalDeviceHdrVividFeaturesHUAWEI<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_HDR_VIVID_FEATURES_HUAWEI,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 hdr_vivid: Default::default(),
                 _marker: PhantomData,

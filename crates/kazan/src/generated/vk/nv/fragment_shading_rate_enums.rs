@@ -18,10 +18,22 @@ pub(super) mod defs {
         pub no_invocation_fragment_shading_rates: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_FEATURES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'a>
+    {
+    }
     impl Default for PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_FEATURES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 fragment_shading_rate_enums: Default::default(),
                 supersample_fragment_shading_rates: Default::default(),
@@ -58,10 +70,18 @@ pub(super) mod defs {
         pub max_fragment_shading_rate_invocation_count: SampleCountFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentShadingRateEnumsPropertiesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_PROPERTIES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceFragmentShadingRateEnumsPropertiesNV<'a>
+    {
+    }
     impl Default for PhysicalDeviceFragmentShadingRateEnumsPropertiesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_PROPERTIES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_fragment_shading_rate_invocation_count: Default::default(),
                 _marker: PhantomData,
@@ -88,10 +108,18 @@ pub(super) mod defs {
         pub combiner_ops: [FragmentShadingRateCombinerOpKHR; 2],
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineFragmentShadingRateEnumStateCreateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_FRAGMENT_SHADING_RATE_ENUM_STATE_CREATE_INFO_NV;
+    }
+    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>>
+        for PipelineFragmentShadingRateEnumStateCreateInfoNV<'a>
+    {
+    }
     impl Default for PipelineFragmentShadingRateEnumStateCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_FRAGMENT_SHADING_RATE_ENUM_STATE_CREATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 shading_rate_type: Default::default(),
                 shading_rate: Default::default(),

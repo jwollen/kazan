@@ -17,10 +17,19 @@ pub(super) mod defs {
         pub unified_image_layouts_video: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceUnifiedImageLayoutsFeaturesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_UNIFIED_IMAGE_LAYOUTS_FEATURES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceUnifiedImageLayoutsFeaturesKHR<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceUnifiedImageLayoutsFeaturesKHR<'a> {}
     impl Default for PhysicalDeviceUnifiedImageLayoutsFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_UNIFIED_IMAGE_LAYOUTS_FEATURES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 unified_image_layouts: Default::default(),
                 unified_image_layouts_video: Default::default(),
@@ -46,10 +55,14 @@ pub(super) mod defs {
         pub feedback_loop_enable: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AttachmentFeedbackLoopInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::ATTACHMENT_FEEDBACK_LOOP_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<RenderingAttachmentInfo<'a>> for AttachmentFeedbackLoopInfoEXT<'a> {}
     impl Default for AttachmentFeedbackLoopInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ATTACHMENT_FEEDBACK_LOOP_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 feedback_loop_enable: Default::default(),
                 _marker: PhantomData,

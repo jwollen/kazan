@@ -16,10 +16,19 @@ pub(super) mod defs {
         pub memory_priority: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMemoryPriorityFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_MEMORY_PRIORITY_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceMemoryPriorityFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceMemoryPriorityFeaturesEXT<'a> {}
     impl Default for PhysicalDeviceMemoryPriorityFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_MEMORY_PRIORITY_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 memory_priority: Default::default(),
                 _marker: PhantomData,
@@ -40,10 +49,14 @@ pub(super) mod defs {
         pub priority: f32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MemoryPriorityAllocateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_PRIORITY_ALLOCATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for MemoryPriorityAllocateInfoEXT<'a> {}
     impl Default for MemoryPriorityAllocateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MEMORY_PRIORITY_ALLOCATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 priority: Default::default(),
                 _marker: PhantomData,

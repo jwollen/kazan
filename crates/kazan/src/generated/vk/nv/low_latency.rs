@@ -16,10 +16,14 @@ pub(super) mod defs {
         pub p_queried_low_latency_data: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for QueryLowLatencySupportNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::QUERY_LOW_LATENCY_SUPPORT_NV;
+    }
+    unsafe impl<'a> Extends<SemaphoreCreateInfo<'a>> for QueryLowLatencySupportNV<'a> {}
     impl Default for QueryLowLatencySupportNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::QUERY_LOW_LATENCY_SUPPORT_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_queried_low_latency_data: core::ptr::null_mut(),
                 _marker: PhantomData,

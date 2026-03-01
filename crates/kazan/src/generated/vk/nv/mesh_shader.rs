@@ -17,10 +17,16 @@ pub(super) mod defs {
         pub mesh_shader: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMeshShaderFeaturesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_MESH_SHADER_FEATURES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceMeshShaderFeaturesNV<'a> {}
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceMeshShaderFeaturesNV<'a> {}
     impl Default for PhysicalDeviceMeshShaderFeaturesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_MESH_SHADER_FEATURES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 task_shader: Default::default(),
                 mesh_shader: Default::default(),
@@ -58,10 +64,18 @@ pub(super) mod defs {
         pub mesh_output_per_primitive_granularity: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMeshShaderPropertiesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceMeshShaderPropertiesNV<'a>
+    {
+    }
     impl Default for PhysicalDeviceMeshShaderPropertiesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_draw_mesh_tasks_count: Default::default(),
                 max_task_work_group_invocations: Default::default(),

@@ -16,10 +16,15 @@ pub(super) mod defs {
         pub supports_texture_gather_lod_bias_amd: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for TextureLODGatherFormatPropertiesAMD<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::TEXTURE_LOD_GATHER_FORMAT_PROPERTIES_AMD;
+    }
+    unsafe impl<'a> Extends<ImageFormatProperties2<'a>> for TextureLODGatherFormatPropertiesAMD<'a> {}
     impl Default for TextureLODGatherFormatPropertiesAMD<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::TEXTURE_LOD_GATHER_FORMAT_PROPERTIES_AMD,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 supports_texture_gather_lod_bias_amd: Default::default(),
                 _marker: PhantomData,

@@ -16,10 +16,18 @@ pub(super) mod defs {
         pub max_quantization_map_extent: Extent2D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoEncodeQuantizationMapCapabilitiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::VIDEO_ENCODE_QUANTIZATION_MAP_CAPABILITIES_KHR;
+    }
+    unsafe impl<'a> Extends<VideoCapabilitiesKHR<'a>>
+        for VideoEncodeQuantizationMapCapabilitiesKHR<'a>
+    {
+    }
     impl Default for VideoEncodeQuantizationMapCapabilitiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_ENCODE_QUANTIZATION_MAP_CAPABILITIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_quantization_map_extent: Default::default(),
                 _marker: PhantomData,
@@ -44,10 +52,18 @@ pub(super) mod defs {
         pub max_qp_delta: i32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoEncodeH264QuantizationMapCapabilitiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::VIDEO_ENCODE_H264_QUANTIZATION_MAP_CAPABILITIES_KHR;
+    }
+    unsafe impl<'a> Extends<VideoCapabilitiesKHR<'a>>
+        for VideoEncodeH264QuantizationMapCapabilitiesKHR<'a>
+    {
+    }
     impl Default for VideoEncodeH264QuantizationMapCapabilitiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_ENCODE_H264_QUANTIZATION_MAP_CAPABILITIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 min_qp_delta: Default::default(),
                 max_qp_delta: Default::default(),
@@ -74,10 +90,18 @@ pub(super) mod defs {
         pub max_qp_delta: i32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoEncodeH265QuantizationMapCapabilitiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::VIDEO_ENCODE_H265_QUANTIZATION_MAP_CAPABILITIES_KHR;
+    }
+    unsafe impl<'a> Extends<VideoCapabilitiesKHR<'a>>
+        for VideoEncodeH265QuantizationMapCapabilitiesKHR<'a>
+    {
+    }
     impl Default for VideoEncodeH265QuantizationMapCapabilitiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_ENCODE_H265_QUANTIZATION_MAP_CAPABILITIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 min_qp_delta: Default::default(),
                 max_qp_delta: Default::default(),
@@ -104,10 +128,18 @@ pub(super) mod defs {
         pub max_q_index_delta: i32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoEncodeAV1QuantizationMapCapabilitiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::VIDEO_ENCODE_AV1_QUANTIZATION_MAP_CAPABILITIES_KHR;
+    }
+    unsafe impl<'a> Extends<VideoCapabilitiesKHR<'a>>
+        for VideoEncodeAV1QuantizationMapCapabilitiesKHR<'a>
+    {
+    }
     impl Default for VideoEncodeAV1QuantizationMapCapabilitiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_ENCODE_AV1_QUANTIZATION_MAP_CAPABILITIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 min_q_index_delta: Default::default(),
                 max_q_index_delta: Default::default(),
@@ -133,10 +165,18 @@ pub(super) mod defs {
         pub quantization_map_texel_size: Extent2D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoFormatQuantizationMapPropertiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::VIDEO_FORMAT_QUANTIZATION_MAP_PROPERTIES_KHR;
+    }
+    unsafe impl<'a> Extends<VideoFormatPropertiesKHR<'a>>
+        for VideoFormatQuantizationMapPropertiesKHR<'a>
+    {
+    }
     impl Default for VideoFormatQuantizationMapPropertiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_FORMAT_QUANTIZATION_MAP_PROPERTIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 quantization_map_texel_size: Default::default(),
                 _marker: PhantomData,
@@ -160,10 +200,18 @@ pub(super) mod defs {
         pub compatible_ctb_sizes: VideoEncodeH265CtbSizeFlagsKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoFormatH265QuantizationMapPropertiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::VIDEO_FORMAT_H265_QUANTIZATION_MAP_PROPERTIES_KHR;
+    }
+    unsafe impl<'a> Extends<VideoFormatPropertiesKHR<'a>>
+        for VideoFormatH265QuantizationMapPropertiesKHR<'a>
+    {
+    }
     impl Default for VideoFormatH265QuantizationMapPropertiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_FORMAT_H265_QUANTIZATION_MAP_PROPERTIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 compatible_ctb_sizes: Default::default(),
                 _marker: PhantomData,
@@ -187,10 +235,18 @@ pub(super) mod defs {
         pub compatible_superblock_sizes: VideoEncodeAV1SuperblockSizeFlagsKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoFormatAV1QuantizationMapPropertiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::VIDEO_FORMAT_AV1_QUANTIZATION_MAP_PROPERTIES_KHR;
+    }
+    unsafe impl<'a> Extends<VideoFormatPropertiesKHR<'a>>
+        for VideoFormatAV1QuantizationMapPropertiesKHR<'a>
+    {
+    }
     impl Default for VideoFormatAV1QuantizationMapPropertiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_FORMAT_AV1_QUANTIZATION_MAP_PROPERTIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 compatible_superblock_sizes: Default::default(),
                 _marker: PhantomData,
@@ -215,10 +271,14 @@ pub(super) mod defs {
         pub quantization_map_extent: Extent2D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoEncodeQuantizationMapInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_QUANTIZATION_MAP_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<VideoEncodeInfoKHR<'a>> for VideoEncodeQuantizationMapInfoKHR<'a> {}
     impl Default for VideoEncodeQuantizationMapInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_ENCODE_QUANTIZATION_MAP_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 quantization_map: Default::default(),
                 quantization_map_extent: Default::default(),
@@ -244,11 +304,20 @@ pub(super) mod defs {
         pub quantization_map_texel_size: Extent2D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a>
+        for VideoEncodeQuantizationMapSessionParametersCreateInfoKHR<'a>
+    {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::VIDEO_ENCODE_QUANTIZATION_MAP_SESSION_PARAMETERS_CREATE_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<VideoSessionParametersCreateInfoKHR<'a>>
+        for VideoEncodeQuantizationMapSessionParametersCreateInfoKHR<'a>
+    {
+    }
     impl Default for VideoEncodeQuantizationMapSessionParametersCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type:
-                    StructureType::VIDEO_ENCODE_QUANTIZATION_MAP_SESSION_PARAMETERS_CREATE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 quantization_map_texel_size: Default::default(),
                 _marker: PhantomData,
@@ -272,10 +341,22 @@ pub(super) mod defs {
         pub video_encode_quantization_map: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_VIDEO_ENCODE_QUANTIZATION_MAP_FEATURES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR<'a>
+    {
+    }
     impl Default for PhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_VIDEO_ENCODE_QUANTIZATION_MAP_FEATURES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 video_encode_quantization_map: Default::default(),
                 _marker: PhantomData,

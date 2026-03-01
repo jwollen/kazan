@@ -16,10 +16,19 @@ pub(super) mod defs {
         pub displacement_micromap: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDisplacementMicromapFeaturesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceDisplacementMicromapFeaturesNV<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceDisplacementMicromapFeaturesNV<'a> {}
     impl Default for PhysicalDeviceDisplacementMicromapFeaturesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 displacement_micromap: Default::default(),
                 _marker: PhantomData,
@@ -40,10 +49,18 @@ pub(super) mod defs {
         pub max_displacement_micromap_subdivision_level: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDisplacementMicromapPropertiesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_PROPERTIES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceDisplacementMicromapPropertiesNV<'a>
+    {
+    }
     impl Default for PhysicalDeviceDisplacementMicromapPropertiesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_PROPERTIES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_displacement_micromap_subdivision_level: Default::default(),
                 _marker: PhantomData,
@@ -83,10 +100,18 @@ pub(super) mod defs {
         pub micromap: MicromapEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureTrianglesDisplacementMicromapNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::ACCELERATION_STRUCTURE_TRIANGLES_DISPLACEMENT_MICROMAP_NV;
+    }
+    unsafe impl<'a> Extends<AccelerationStructureGeometryTrianglesDataKHR<'a>>
+        for AccelerationStructureTrianglesDisplacementMicromapNV<'a>
+    {
+    }
     impl Default for AccelerationStructureTrianglesDisplacementMicromapNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ACCELERATION_STRUCTURE_TRIANGLES_DISPLACEMENT_MICROMAP_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 displacement_bias_and_scale_format: Default::default(),
                 displacement_vector_format: Default::default(),

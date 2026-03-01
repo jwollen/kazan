@@ -19,10 +19,19 @@ pub(super) mod defs {
         pub descriptor_buffer_push_descriptors: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDescriptorBufferFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceDescriptorBufferFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceDescriptorBufferFeaturesEXT<'a> {}
     impl Default for PhysicalDeviceDescriptorBufferFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 descriptor_buffer: Default::default(),
                 descriptor_buffer_capture_replay: Default::default(),
@@ -99,10 +108,18 @@ pub(super) mod defs {
         pub descriptor_buffer_address_space_size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDescriptorBufferPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_PROPERTIES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceDescriptorBufferPropertiesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceDescriptorBufferPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 combined_image_sampler_descriptor_single_array: Default::default(),
                 bufferless_push_descriptors: Default::default(),
@@ -387,10 +404,18 @@ pub(super) mod defs {
         pub combined_image_sampler_density_map_descriptor_size: usize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_DENSITY_MAP_PROPERTIES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_DENSITY_MAP_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 combined_image_sampler_density_map_descriptor_size: Default::default(),
                 _marker: PhantomData,
@@ -417,10 +442,13 @@ pub(super) mod defs {
         pub format: Format,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DescriptorAddressInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DESCRIPTOR_ADDRESS_INFO_EXT;
+    }
     impl Default for DescriptorAddressInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DESCRIPTOR_ADDRESS_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 address: Default::default(),
                 range: Default::default(),
@@ -452,10 +480,13 @@ pub(super) mod defs {
         pub usage: BufferUsageFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DescriptorBufferBindingInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DESCRIPTOR_BUFFER_BINDING_INFO_EXT;
+    }
     impl Default for DescriptorBufferBindingInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DESCRIPTOR_BUFFER_BINDING_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 address: Default::default(),
                 usage: Default::default(),
@@ -481,10 +512,18 @@ pub(super) mod defs {
         pub buffer: Buffer,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DescriptorBufferBindingPushDescriptorBufferHandleEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT;
+    }
+    unsafe impl<'a> Extends<DescriptorBufferBindingInfoEXT<'a>>
+        for DescriptorBufferBindingPushDescriptorBufferHandleEXT<'a>
+    {
+    }
     impl Default for DescriptorBufferBindingPushDescriptorBufferHandleEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 buffer: Default::default(),
                 _marker: PhantomData,
@@ -506,10 +545,13 @@ pub(super) mod defs {
         pub data: DescriptorDataEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DescriptorGetInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DESCRIPTOR_GET_INFO_EXT;
+    }
     impl Default for DescriptorGetInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DESCRIPTOR_GET_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 ty: Default::default(),
                 data: Default::default(),
@@ -535,10 +577,14 @@ pub(super) mod defs {
         pub buffer: Buffer,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BufferCaptureDescriptorDataInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT;
+    }
     impl Default for BufferCaptureDescriptorDataInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 buffer: Default::default(),
                 _marker: PhantomData,
@@ -559,10 +605,13 @@ pub(super) mod defs {
         pub image: Image,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImageCaptureDescriptorDataInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT;
+    }
     impl Default for ImageCaptureDescriptorDataInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 image: Default::default(),
                 _marker: PhantomData,
@@ -583,10 +632,14 @@ pub(super) mod defs {
         pub image_view: ImageView,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImageViewCaptureDescriptorDataInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT;
+    }
     impl Default for ImageViewCaptureDescriptorDataInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 image_view: Default::default(),
                 _marker: PhantomData,
@@ -607,10 +660,14 @@ pub(super) mod defs {
         pub sampler: Sampler,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SamplerCaptureDescriptorDataInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::SAMPLER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT;
+    }
     impl Default for SamplerCaptureDescriptorDataInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SAMPLER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 sampler: Default::default(),
                 _marker: PhantomData,
@@ -632,10 +689,14 @@ pub(super) mod defs {
         pub acceleration_structure_nv: AccelerationStructureNV,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureCaptureDescriptorDataInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT;
+    }
     impl Default for AccelerationStructureCaptureDescriptorDataInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 acceleration_structure: Default::default(),
                 acceleration_structure_nv: Default::default(),
@@ -667,10 +728,31 @@ pub(super) mod defs {
         pub opaque_capture_descriptor_data: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for OpaqueCaptureDescriptorDataCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::OPAQUE_CAPTURE_DESCRIPTOR_DATA_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<BufferCreateInfo<'a>> for OpaqueCaptureDescriptorDataCreateInfoEXT<'a> {}
+    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for OpaqueCaptureDescriptorDataCreateInfoEXT<'a> {}
+    unsafe impl<'a> Extends<ImageViewCreateInfo<'a>> for OpaqueCaptureDescriptorDataCreateInfoEXT<'a> {}
+    unsafe impl<'a> Extends<SamplerCreateInfo<'a>> for OpaqueCaptureDescriptorDataCreateInfoEXT<'a> {}
+    unsafe impl<'a> Extends<AccelerationStructureCreateInfoKHR<'a>>
+        for OpaqueCaptureDescriptorDataCreateInfoEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<AccelerationStructureCreateInfoNV<'a>>
+        for OpaqueCaptureDescriptorDataCreateInfoEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<TensorCreateInfoARM<'a>> for OpaqueCaptureDescriptorDataCreateInfoEXT<'a> {}
+    unsafe impl<'a> Extends<TensorViewCreateInfoARM<'a>>
+        for OpaqueCaptureDescriptorDataCreateInfoEXT<'a>
+    {
+    }
     impl Default for OpaqueCaptureDescriptorDataCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::OPAQUE_CAPTURE_DESCRIPTOR_DATA_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 opaque_capture_descriptor_data: core::ptr::null(),
                 _marker: PhantomData,

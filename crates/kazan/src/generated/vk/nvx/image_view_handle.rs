@@ -18,10 +18,13 @@ pub(super) mod defs {
         pub sampler: Sampler,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImageViewHandleInfoNVX<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_VIEW_HANDLE_INFO_NVX;
+    }
     impl Default for ImageViewHandleInfoNVX<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGE_VIEW_HANDLE_INFO_NVX,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 image_view: Default::default(),
                 descriptor_type: Default::default(),
@@ -53,10 +56,13 @@ pub(super) mod defs {
         pub size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImageViewAddressPropertiesNVX<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_VIEW_ADDRESS_PROPERTIES_NVX;
+    }
     impl Default for ImageViewAddressPropertiesNVX<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGE_VIEW_ADDRESS_PROPERTIES_NVX,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 device_address: Default::default(),
                 size: Default::default(),

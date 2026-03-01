@@ -16,10 +16,19 @@ pub(super) mod defs {
         pub video_maintenance1: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVideoMaintenance1FeaturesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_VIDEO_MAINTENANCE_1_FEATURES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceVideoMaintenance1FeaturesKHR<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceVideoMaintenance1FeaturesKHR<'a> {}
     impl Default for PhysicalDeviceVideoMaintenance1FeaturesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_VIDEO_MAINTENANCE_1_FEATURES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 video_maintenance1: Default::default(),
                 _marker: PhantomData,
@@ -42,10 +51,15 @@ pub(super) mod defs {
         pub query_count: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoInlineQueryInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_INLINE_QUERY_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<VideoDecodeInfoKHR<'a>> for VideoInlineQueryInfoKHR<'a> {}
+    unsafe impl<'a> Extends<VideoEncodeInfoKHR<'a>> for VideoInlineQueryInfoKHR<'a> {}
     impl Default for VideoInlineQueryInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_INLINE_QUERY_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 query_pool: Default::default(),
                 first_query: Default::default(),

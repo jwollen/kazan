@@ -16,10 +16,19 @@ pub(super) mod defs {
         pub ycbcr_degamma: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceYcbcrDegammaFeaturesQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceYcbcrDegammaFeaturesQCOM<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceYcbcrDegammaFeaturesQCOM<'a> {}
     impl Default for PhysicalDeviceYcbcrDegammaFeaturesQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 ycbcr_degamma: Default::default(),
                 _marker: PhantomData,
@@ -41,10 +50,18 @@ pub(super) mod defs {
         pub enable_cb_cr_degamma: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::SAMPLER_YCBCR_CONVERSION_YCBCR_DEGAMMA_CREATE_INFO_QCOM;
+    }
+    unsafe impl<'a> Extends<SamplerYcbcrConversionCreateInfo<'a>>
+        for SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM<'a>
+    {
+    }
     impl Default for SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SAMPLER_YCBCR_CONVERSION_YCBCR_DEGAMMA_CREATE_INFO_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 enable_y_degamma: Default::default(),
                 enable_cb_cr_degamma: Default::default(),

@@ -17,10 +17,14 @@ pub(super) mod defs {
         pub fd: c_int,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImportMemoryFdInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_MEMORY_FD_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportMemoryFdInfoKHR<'a> {}
     impl Default for ImportMemoryFdInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMPORT_MEMORY_FD_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 handle_type: Default::default(),
                 fd: Default::default(),
@@ -46,10 +50,13 @@ pub(super) mod defs {
         pub memory_type_bits: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MemoryFdPropertiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_FD_PROPERTIES_KHR;
+    }
     impl Default for MemoryFdPropertiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MEMORY_FD_PROPERTIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 memory_type_bits: Default::default(),
                 _marker: PhantomData,
@@ -71,10 +78,13 @@ pub(super) mod defs {
         pub handle_type: ExternalMemoryHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MemoryGetFdInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_GET_FD_INFO_KHR;
+    }
     impl Default for MemoryGetFdInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MEMORY_GET_FD_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 memory: Default::default(),
                 handle_type: Default::default(),

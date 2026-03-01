@@ -18,10 +18,13 @@ pub(super) mod defs {
         pub p_layer: *const CAMetalLayer,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MetalSurfaceCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::METAL_SURFACE_CREATE_INFO_EXT;
+    }
     impl Default for MetalSurfaceCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::METAL_SURFACE_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 p_layer: core::ptr::null(),
@@ -39,12 +42,10 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct MetalSurfaceCreateFlagsEXT: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct MetalSurfaceCreateFlagsEXT(Flags);
+    impl MetalSurfaceCreateFlagsEXT {}
     pub type PFN_vkCreateMetalSurfaceEXT = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const MetalSurfaceCreateInfoEXT<'_>,

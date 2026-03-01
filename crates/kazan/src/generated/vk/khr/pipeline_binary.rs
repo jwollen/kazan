@@ -22,10 +22,13 @@ pub(super) mod defs {
         pub p_pipeline_create_info: *const PipelineCreateInfoKHR<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineBinaryCreateInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_BINARY_CREATE_INFO_KHR;
+    }
     impl Default for PipelineBinaryCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_BINARY_CREATE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_keys_and_data_info: core::ptr::null(),
                 pipeline: Default::default(),
@@ -63,10 +66,13 @@ pub(super) mod defs {
         pub p_pipeline_binaries: *mut PipelineBinaryKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineBinaryHandlesInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_BINARY_HANDLES_INFO_KHR;
+    }
     impl Default for PipelineBinaryHandlesInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_BINARY_HANDLES_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 pipeline_binary_count: Default::default(),
                 p_pipeline_binaries: core::ptr::null_mut(),
@@ -149,10 +155,13 @@ pub(super) mod defs {
         pub key: [u8; MAX_PIPELINE_BINARY_KEY_SIZE_KHR as usize],
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineBinaryKeyKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_BINARY_KEY_KHR;
+    }
     impl Default for PipelineBinaryKeyKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_BINARY_KEY_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 key_size: Default::default(),
                 key: [Default::default(); _],
@@ -179,10 +188,16 @@ pub(super) mod defs {
         pub p_pipeline_binaries: *const PipelineBinaryKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineBinaryInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_BINARY_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>> for PipelineBinaryInfoKHR<'a> {}
+    unsafe impl<'a> Extends<ComputePipelineCreateInfo<'a>> for PipelineBinaryInfoKHR<'a> {}
+    unsafe impl<'a> Extends<RayTracingPipelineCreateInfoKHR<'a>> for PipelineBinaryInfoKHR<'a> {}
     impl Default for PipelineBinaryInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_BINARY_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 binary_count: Default::default(),
                 p_pipeline_binaries: core::ptr::null(),
@@ -205,10 +220,14 @@ pub(super) mod defs {
         pub pipeline: Pipeline,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ReleaseCapturedPipelineDataInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::RELEASE_CAPTURED_PIPELINE_DATA_INFO_KHR;
+    }
     impl Default for ReleaseCapturedPipelineDataInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RELEASE_CAPTURED_PIPELINE_DATA_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 pipeline: Default::default(),
                 _marker: PhantomData,
@@ -229,10 +248,13 @@ pub(super) mod defs {
         pub pipeline_binary: PipelineBinaryKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineBinaryDataInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_BINARY_DATA_INFO_KHR;
+    }
     impl Default for PipelineBinaryDataInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_BINARY_DATA_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 pipeline_binary: Default::default(),
                 _marker: PhantomData,
@@ -252,10 +274,13 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineCreateInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_CREATE_INFO_KHR;
+    }
     impl Default for PipelineCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_CREATE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 _marker: PhantomData,
             }
@@ -270,10 +295,19 @@ pub(super) mod defs {
         pub pipeline_binaries: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePipelineBinaryFeaturesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PIPELINE_BINARY_FEATURES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDevicePipelineBinaryFeaturesKHR<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePipelineBinaryFeaturesKHR<'a> {}
     impl Default for PhysicalDevicePipelineBinaryFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PIPELINE_BINARY_FEATURES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 pipeline_binaries: Default::default(),
                 _marker: PhantomData,
@@ -294,10 +328,15 @@ pub(super) mod defs {
         pub disable_internal_cache: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DevicePipelineBinaryInternalCacheControlKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::DEVICE_PIPELINE_BINARY_INTERNAL_CACHE_CONTROL_KHR;
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for DevicePipelineBinaryInternalCacheControlKHR<'a> {}
     impl Default for DevicePipelineBinaryInternalCacheControlKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEVICE_PIPELINE_BINARY_INTERNAL_CACHE_CONTROL_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 disable_internal_cache: Default::default(),
                 _marker: PhantomData,
@@ -322,10 +361,18 @@ pub(super) mod defs {
         pub pipeline_binary_compressed_data: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePipelineBinaryPropertiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PIPELINE_BINARY_PROPERTIES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDevicePipelineBinaryPropertiesKHR<'a>
+    {
+    }
     impl Default for PhysicalDevicePipelineBinaryPropertiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PIPELINE_BINARY_PROPERTIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 pipeline_binary_internal_cache: Default::default(),
                 pipeline_binary_internal_cache_control: Default::default(),

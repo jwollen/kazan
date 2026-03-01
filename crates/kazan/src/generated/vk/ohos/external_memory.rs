@@ -17,10 +17,14 @@ pub(super) mod defs {
         pub ohos_native_buffer_usage: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for NativeBufferUsageOHOS<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::NATIVE_BUFFER_USAGE_OHOS;
+    }
+    unsafe impl<'a> Extends<ImageFormatProperties2<'a>> for NativeBufferUsageOHOS<'a> {}
     impl Default for NativeBufferUsageOHOS<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::NATIVE_BUFFER_USAGE_OHOS,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 ohos_native_buffer_usage: Default::default(),
                 _marker: PhantomData,
@@ -42,10 +46,13 @@ pub(super) mod defs {
         pub memory_type_bits: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for NativeBufferPropertiesOHOS<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::NATIVE_BUFFER_PROPERTIES_OHOS;
+    }
     impl Default for NativeBufferPropertiesOHOS<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::NATIVE_BUFFER_PROPERTIES_OHOS,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 allocation_size: Default::default(),
                 memory_type_bits: Default::default(),
@@ -78,10 +85,14 @@ pub(super) mod defs {
         pub suggested_y_chroma_offset: ChromaLocation,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for NativeBufferFormatPropertiesOHOS<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::NATIVE_BUFFER_FORMAT_PROPERTIES_OHOS;
+    }
+    unsafe impl<'a> Extends<NativeBufferPropertiesOHOS<'a>> for NativeBufferFormatPropertiesOHOS<'a> {}
     impl Default for NativeBufferFormatPropertiesOHOS<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::NATIVE_BUFFER_FORMAT_PROPERTIES_OHOS,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 format: Default::default(),
                 external_format: Default::default(),
@@ -149,10 +160,14 @@ pub(super) mod defs {
         pub buffer: *mut OH_NativeBuffer,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImportNativeBufferInfoOHOS<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_NATIVE_BUFFER_INFO_OHOS;
+    }
+    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportNativeBufferInfoOHOS<'a> {}
     impl Default for ImportNativeBufferInfoOHOS<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMPORT_NATIVE_BUFFER_INFO_OHOS,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 buffer: core::ptr::null_mut(),
                 _marker: PhantomData,
@@ -173,10 +188,13 @@ pub(super) mod defs {
         pub memory: DeviceMemory,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MemoryGetNativeBufferInfoOHOS<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_GET_NATIVE_BUFFER_INFO_OHOS;
+    }
     impl Default for MemoryGetNativeBufferInfoOHOS<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MEMORY_GET_NATIVE_BUFFER_INFO_OHOS,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 memory: Default::default(),
                 _marker: PhantomData,
@@ -197,10 +215,18 @@ pub(super) mod defs {
         pub external_format: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExternalFormatOHOS<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_FORMAT_OHOS;
+    }
+    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ExternalFormatOHOS<'a> {}
+    unsafe impl<'a> Extends<SamplerYcbcrConversionCreateInfo<'a>> for ExternalFormatOHOS<'a> {}
+    unsafe impl<'a> Extends<AttachmentDescription2<'a>> for ExternalFormatOHOS<'a> {}
+    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>> for ExternalFormatOHOS<'a> {}
+    unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>> for ExternalFormatOHOS<'a> {}
     impl Default for ExternalFormatOHOS<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXTERNAL_FORMAT_OHOS,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 external_format: Default::default(),
                 _marker: PhantomData,

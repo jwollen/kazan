@@ -18,10 +18,18 @@ pub(super) mod defs {
         pub fma_rate: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderCorePropertiesARM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceShaderCorePropertiesARM<'a>
+    {
+    }
     impl Default for PhysicalDeviceShaderCorePropertiesARM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 pixel_rate: Default::default(),
                 texel_rate: Default::default(),

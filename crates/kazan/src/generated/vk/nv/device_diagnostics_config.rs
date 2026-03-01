@@ -16,10 +16,19 @@ pub(super) mod defs {
         pub diagnostics_config: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDiagnosticsConfigFeaturesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_DIAGNOSTICS_CONFIG_FEATURES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceDiagnosticsConfigFeaturesNV<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceDiagnosticsConfigFeaturesNV<'a> {}
     impl Default for PhysicalDeviceDiagnosticsConfigFeaturesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_DIAGNOSTICS_CONFIG_FEATURES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 diagnostics_config: Default::default(),
                 _marker: PhantomData,
@@ -40,10 +49,15 @@ pub(super) mod defs {
         pub flags: DeviceDiagnosticsConfigFlagsNV,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DeviceDiagnosticsConfigCreateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::DEVICE_DIAGNOSTICS_CONFIG_CREATE_INFO_NV;
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for DeviceDiagnosticsConfigCreateInfoNV<'a> {}
     impl Default for DeviceDiagnosticsConfigCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEVICE_DIAGNOSTICS_CONFIG_CREATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 _marker: PhantomData,
@@ -56,18 +70,21 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct DeviceDiagnosticsConfigFlagsNV: Flags {
-            const ENABLE_SHADER_DEBUG_INFO_NV = DeviceDiagnosticsConfigFlagBitsNV::ENABLE_SHADER_DEBUG_INFO_NV.0;
-            const ENABLE_RESOURCE_TRACKING_NV = DeviceDiagnosticsConfigFlagBitsNV::ENABLE_RESOURCE_TRACKING_NV.0;
-            const ENABLE_AUTOMATIC_CHECKPOINTS_NV = DeviceDiagnosticsConfigFlagBitsNV::ENABLE_AUTOMATIC_CHECKPOINTS_NV.0;
-            const ENABLE_SHADER_ERROR_REPORTING_NV = DeviceDiagnosticsConfigFlagBitsNV::ENABLE_SHADER_ERROR_REPORTING_NV.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct DeviceDiagnosticsConfigFlagsNV(Flags);
+    impl DeviceDiagnosticsConfigFlagsNV {
+        pub const ENABLE_SHADER_DEBUG_INFO_NV: Self =
+            Self(DeviceDiagnosticsConfigFlagBitsNV::ENABLE_SHADER_DEBUG_INFO_NV.0);
+        pub const ENABLE_RESOURCE_TRACKING_NV: Self =
+            Self(DeviceDiagnosticsConfigFlagBitsNV::ENABLE_RESOURCE_TRACKING_NV.0);
+        pub const ENABLE_AUTOMATIC_CHECKPOINTS_NV: Self =
+            Self(DeviceDiagnosticsConfigFlagBitsNV::ENABLE_AUTOMATIC_CHECKPOINTS_NV.0);
+        pub const ENABLE_SHADER_ERROR_REPORTING_NV: Self =
+            Self(DeviceDiagnosticsConfigFlagBitsNV::ENABLE_SHADER_ERROR_REPORTING_NV.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DeviceDiagnosticsConfigFlagBitsNV(u32);
     impl DeviceDiagnosticsConfigFlagBitsNV {
         pub const ENABLE_SHADER_DEBUG_INFO_NV: Self = Self(1 << 0);

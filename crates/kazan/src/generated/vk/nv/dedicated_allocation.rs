@@ -16,10 +16,15 @@ pub(super) mod defs {
         pub dedicated_allocation: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DedicatedAllocationImageCreateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV;
+    }
+    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for DedicatedAllocationImageCreateInfoNV<'a> {}
     impl Default for DedicatedAllocationImageCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 dedicated_allocation: Default::default(),
                 _marker: PhantomData,
@@ -40,10 +45,15 @@ pub(super) mod defs {
         pub dedicated_allocation: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DedicatedAllocationBufferCreateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV;
+    }
+    unsafe impl<'a> Extends<BufferCreateInfo<'a>> for DedicatedAllocationBufferCreateInfoNV<'a> {}
     impl Default for DedicatedAllocationBufferCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 dedicated_allocation: Default::default(),
                 _marker: PhantomData,
@@ -65,10 +75,15 @@ pub(super) mod defs {
         pub buffer: Buffer,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DedicatedAllocationMemoryAllocateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::DEDICATED_ALLOCATION_MEMORY_ALLOCATE_INFO_NV;
+    }
+    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for DedicatedAllocationMemoryAllocateInfoNV<'a> {}
     impl Default for DedicatedAllocationMemoryAllocateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEDICATED_ALLOCATION_MEMORY_ALLOCATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 image: Default::default(),
                 buffer: Default::default(),

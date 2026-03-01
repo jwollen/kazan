@@ -19,11 +19,22 @@ pub(super) mod defs {
         pub workgroup_memory_explicit_layout16_bit_access: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_WORKGROUP_MEMORY_EXPLICIT_LAYOUT_FEATURES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR<'a>
+    {
+    }
     impl Default for PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type:
-                    StructureType::PHYSICAL_DEVICE_WORKGROUP_MEMORY_EXPLICIT_LAYOUT_FEATURES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 workgroup_memory_explicit_layout: Default::default(),
                 workgroup_memory_explicit_layout_scalar_block_layout: Default::default(),

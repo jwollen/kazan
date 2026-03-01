@@ -16,10 +16,19 @@ pub(super) mod defs {
         pub invocation_mask: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceInvocationMaskFeaturesHUAWEI<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceInvocationMaskFeaturesHUAWEI<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceInvocationMaskFeaturesHUAWEI<'a> {}
     impl Default for PhysicalDeviceInvocationMaskFeaturesHUAWEI<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 invocation_mask: Default::default(),
                 _marker: PhantomData,

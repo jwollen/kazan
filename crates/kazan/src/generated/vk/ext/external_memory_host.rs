@@ -17,10 +17,14 @@ pub(super) mod defs {
         pub p_host_pointer: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImportMemoryHostPointerInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_MEMORY_HOST_POINTER_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportMemoryHostPointerInfoEXT<'a> {}
     impl Default for ImportMemoryHostPointerInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMPORT_MEMORY_HOST_POINTER_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 handle_type: Default::default(),
                 p_host_pointer: core::ptr::null_mut(),
@@ -46,10 +50,13 @@ pub(super) mod defs {
         pub memory_type_bits: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MemoryHostPointerPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_HOST_POINTER_PROPERTIES_EXT;
+    }
     impl Default for MemoryHostPointerPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MEMORY_HOST_POINTER_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 memory_type_bits: Default::default(),
                 _marker: PhantomData,
@@ -70,10 +77,18 @@ pub(super) mod defs {
         pub min_imported_host_pointer_alignment: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExternalMemoryHostPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_EXTERNAL_MEMORY_HOST_PROPERTIES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceExternalMemoryHostPropertiesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceExternalMemoryHostPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_EXTERNAL_MEMORY_HOST_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 min_imported_host_pointer_alignment: Default::default(),
                 _marker: PhantomData,

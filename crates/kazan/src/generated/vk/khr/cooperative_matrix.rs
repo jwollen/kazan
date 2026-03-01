@@ -17,10 +17,19 @@ pub(super) mod defs {
         pub cooperative_matrix_robust_buffer_access: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCooperativeMatrixFeaturesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceCooperativeMatrixFeaturesKHR<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceCooperativeMatrixFeaturesKHR<'a> {}
     impl Default for PhysicalDeviceCooperativeMatrixFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 cooperative_matrix: Default::default(),
                 cooperative_matrix_robust_buffer_access: Default::default(),
@@ -57,10 +66,13 @@ pub(super) mod defs {
         pub scope: ScopeKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CooperativeMatrixPropertiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::COOPERATIVE_MATRIX_PROPERTIES_KHR;
+    }
     impl Default for CooperativeMatrixPropertiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::COOPERATIVE_MATRIX_PROPERTIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 m_size: Default::default(),
                 n_size: Default::default(),
@@ -121,10 +133,18 @@ pub(super) mod defs {
         pub cooperative_matrix_supported_stages: ShaderStageFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCooperativeMatrixPropertiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceCooperativeMatrixPropertiesKHR<'a>
+    {
+    }
     impl Default for PhysicalDeviceCooperativeMatrixPropertiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 cooperative_matrix_supported_stages: Default::default(),
                 _marker: PhantomData,

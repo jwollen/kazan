@@ -21,10 +21,14 @@ pub(super) mod defs {
         pub p_user_data: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DebugReportCallbackCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<InstanceCreateInfo<'a>> for DebugReportCallbackCreateInfoEXT<'a> {}
     impl Default for DebugReportCallbackCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 pfn_callback: Default::default(),
@@ -95,19 +99,19 @@ pub(super) mod defs {
         pub const DESCRIPTOR_UPDATE_TEMPLATE_KHR_EXT: Self = Self::DESCRIPTOR_UPDATE_TEMPLATE_EXT;
         pub const SAMPLER_YCBCR_CONVERSION_KHR_EXT: Self = Self::SAMPLER_YCBCR_CONVERSION_EXT;
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct DebugReportFlagsEXT: Flags {
-            const INFORMATION_EXT = DebugReportFlagBitsEXT::INFORMATION_EXT.0;
-            const WARNING_EXT = DebugReportFlagBitsEXT::WARNING_EXT.0;
-            const PERFORMANCE_WARNING_EXT = DebugReportFlagBitsEXT::PERFORMANCE_WARNING_EXT.0;
-            const ERROR_EXT = DebugReportFlagBitsEXT::ERROR_EXT.0;
-            const DEBUG_EXT = DebugReportFlagBitsEXT::DEBUG_EXT.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct DebugReportFlagsEXT(Flags);
+    impl DebugReportFlagsEXT {
+        pub const INFORMATION_EXT: Self = Self(DebugReportFlagBitsEXT::INFORMATION_EXT.0);
+        pub const WARNING_EXT: Self = Self(DebugReportFlagBitsEXT::WARNING_EXT.0);
+        pub const PERFORMANCE_WARNING_EXT: Self =
+            Self(DebugReportFlagBitsEXT::PERFORMANCE_WARNING_EXT.0);
+        pub const ERROR_EXT: Self = Self(DebugReportFlagBitsEXT::ERROR_EXT.0);
+        pub const DEBUG_EXT: Self = Self(DebugReportFlagBitsEXT::DEBUG_EXT.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DebugReportFlagBitsEXT(u32);
     impl DebugReportFlagBitsEXT {
         pub const INFORMATION_EXT: Self = Self(1 << 0);

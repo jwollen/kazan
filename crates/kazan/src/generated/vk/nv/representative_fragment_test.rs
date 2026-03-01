@@ -16,10 +16,22 @@ pub(super) mod defs {
         pub representative_fragment_test: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRepresentativeFragmentTestFeaturesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_REPRESENTATIVE_FRAGMENT_TEST_FEATURES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceRepresentativeFragmentTestFeaturesNV<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceRepresentativeFragmentTestFeaturesNV<'a>
+    {
+    }
     impl Default for PhysicalDeviceRepresentativeFragmentTestFeaturesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_REPRESENTATIVE_FRAGMENT_TEST_FEATURES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 representative_fragment_test: Default::default(),
                 _marker: PhantomData,
@@ -43,10 +55,18 @@ pub(super) mod defs {
         pub representative_fragment_test_enable: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineRepresentativeFragmentTestStateCreateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_REPRESENTATIVE_FRAGMENT_TEST_STATE_CREATE_INFO_NV;
+    }
+    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>>
+        for PipelineRepresentativeFragmentTestStateCreateInfoNV<'a>
+    {
+    }
     impl Default for PipelineRepresentativeFragmentTestStateCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_REPRESENTATIVE_FRAGMENT_TEST_STATE_CREATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 representative_fragment_test_enable: Default::default(),
                 _marker: PhantomData,

@@ -17,10 +17,13 @@ pub(super) mod defs {
         pub timeout: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PresentWait2InfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PRESENT_WAIT_2_INFO_KHR;
+    }
     impl Default for PresentWait2InfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PRESENT_WAIT_2_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 present_id: Default::default(),
                 timeout: Default::default(),
@@ -46,10 +49,16 @@ pub(super) mod defs {
         pub present_wait2: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePresentWait2FeaturesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PRESENT_WAIT_2_FEATURES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDevicePresentWait2FeaturesKHR<'a> {}
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePresentWait2FeaturesKHR<'a> {}
     impl Default for PhysicalDevicePresentWait2FeaturesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PRESENT_WAIT_2_FEATURES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 present_wait2: Default::default(),
                 _marker: PhantomData,
@@ -70,10 +79,15 @@ pub(super) mod defs {
         pub present_wait2_supported: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SurfaceCapabilitiesPresentWait2KHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::SURFACE_CAPABILITIES_PRESENT_WAIT_2_KHR;
+    }
+    unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>> for SurfaceCapabilitiesPresentWait2KHR<'a> {}
     impl Default for SurfaceCapabilitiesPresentWait2KHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SURFACE_CAPABILITIES_PRESENT_WAIT_2_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 present_wait2_supported: Default::default(),
                 _marker: PhantomData,

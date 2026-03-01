@@ -21,10 +21,13 @@ pub(super) mod defs {
         pub format: Format,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for TensorViewCreateInfoARM<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::TENSOR_VIEW_CREATE_INFO_ARM;
+    }
     impl Default for TensorViewCreateInfoARM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::TENSOR_VIEW_CREATE_INFO_ARM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 tensor: Default::default(),
@@ -118,10 +121,13 @@ pub(super) mod defs {
         pub address_range: DeviceAddressRangeEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for TexelBufferDescriptorInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::TEXEL_BUFFER_DESCRIPTOR_INFO_EXT;
+    }
     impl Default for TexelBufferDescriptorInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::TEXEL_BUFFER_DESCRIPTOR_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 format: Default::default(),
                 address_range: Default::default(),
@@ -148,10 +154,13 @@ pub(super) mod defs {
         pub layout: ImageLayout,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImageDescriptorInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_DESCRIPTOR_INFO_EXT;
+    }
     impl Default for ImageDescriptorInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGE_DESCRIPTOR_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_view: core::ptr::null(),
                 layout: Default::default(),
@@ -178,10 +187,13 @@ pub(super) mod defs {
         pub data: ResourceDescriptorDataEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ResourceDescriptorInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::RESOURCE_DESCRIPTOR_INFO_EXT;
+    }
     impl Default for ResourceDescriptorInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RESOURCE_DESCRIPTOR_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 ty: Default::default(),
                 data: Default::default(),
@@ -209,10 +221,13 @@ pub(super) mod defs {
         pub reserved_range_size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BindHeapInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::BIND_HEAP_INFO_EXT;
+    }
     impl Default for BindHeapInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BIND_HEAP_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 heap_range: Default::default(),
                 reserved_range_offset: Default::default(),
@@ -244,10 +259,13 @@ pub(super) mod defs {
         pub data: HostAddressRangeConstEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PushDataInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PUSH_DATA_INFO_EXT;
+    }
     impl Default for PushDataInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PUSH_DATA_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 offset: Default::default(),
                 data: Default::default(),
@@ -674,10 +692,13 @@ pub(super) mod defs {
         pub source_data: DescriptorMappingSourceDataEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DescriptorSetAndBindingMappingEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DESCRIPTOR_SET_AND_BINDING_MAPPING_EXT;
+    }
     impl Default for DescriptorSetAndBindingMappingEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DESCRIPTOR_SET_AND_BINDING_MAPPING_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 descriptor_set: Default::default(),
                 first_binding: Default::default(),
@@ -724,10 +745,22 @@ pub(super) mod defs {
         pub p_mappings: *const DescriptorSetAndBindingMappingEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ShaderDescriptorSetAndBindingMappingInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::SHADER_DESCRIPTOR_SET_AND_BINDING_MAPPING_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<PipelineShaderStageCreateInfo<'a>>
+        for ShaderDescriptorSetAndBindingMappingInfoEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<ShaderCreateInfoEXT<'a>>
+        for ShaderDescriptorSetAndBindingMappingInfoEXT<'a>
+    {
+    }
     impl Default for ShaderDescriptorSetAndBindingMappingInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SHADER_DESCRIPTOR_SET_AND_BINDING_MAPPING_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 mapping_count: Default::default(),
                 p_mappings: core::ptr::null(),
@@ -750,10 +783,15 @@ pub(super) mod defs {
         pub index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SamplerCustomBorderColorIndexCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::SAMPLER_CUSTOM_BORDER_COLOR_INDEX_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<SamplerCreateInfo<'a>> for SamplerCustomBorderColorIndexCreateInfoEXT<'a> {}
     impl Default for SamplerCustomBorderColorIndexCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SAMPLER_CUSTOM_BORDER_COLOR_INDEX_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 index: Default::default(),
                 _marker: PhantomData,
@@ -774,10 +812,15 @@ pub(super) mod defs {
         pub p_data: *const HostAddressRangeConstEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for OpaqueCaptureDataCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::OPAQUE_CAPTURE_DATA_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for OpaqueCaptureDataCreateInfoEXT<'a> {}
+    unsafe impl<'a> Extends<TensorCreateInfoARM<'a>> for OpaqueCaptureDataCreateInfoEXT<'a> {}
     impl Default for OpaqueCaptureDataCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::OPAQUE_CAPTURE_DATA_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_data: core::ptr::null(),
                 _marker: PhantomData,
@@ -799,10 +842,18 @@ pub(super) mod defs {
         pub push_data_size: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for IndirectCommandsLayoutPushDataTokenNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::INDIRECT_COMMANDS_LAYOUT_PUSH_DATA_TOKEN_NV;
+    }
+    unsafe impl<'a> Extends<IndirectCommandsLayoutTokenNV<'a>>
+        for IndirectCommandsLayoutPushDataTokenNV<'a>
+    {
+    }
     impl Default for IndirectCommandsLayoutPushDataTokenNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::INDIRECT_COMMANDS_LAYOUT_PUSH_DATA_TOKEN_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 push_data_offset: Default::default(),
                 push_data_size: Default::default(),
@@ -828,10 +879,14 @@ pub(super) mod defs {
         pub subsampled_image_descriptor_count: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SubsampledImageFormatPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SUBSAMPLED_IMAGE_FORMAT_PROPERTIES_EXT;
+    }
+    unsafe impl<'a> Extends<ImageFormatProperties2<'a>> for SubsampledImageFormatPropertiesEXT<'a> {}
     impl Default for SubsampledImageFormatPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SUBSAMPLED_IMAGE_FORMAT_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 subsampled_image_descriptor_count: Default::default(),
                 _marker: PhantomData,
@@ -856,10 +911,19 @@ pub(super) mod defs {
         pub descriptor_heap_capture_replay: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDescriptorHeapFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_DESCRIPTOR_HEAP_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceDescriptorHeapFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceDescriptorHeapFeaturesEXT<'a> {}
     impl Default for PhysicalDeviceDescriptorHeapFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_DESCRIPTOR_HEAP_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 descriptor_heap: Default::default(),
                 descriptor_heap_capture_replay: Default::default(),
@@ -906,10 +970,18 @@ pub(super) mod defs {
         pub protected_descriptor_heaps: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDescriptorHeapPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_DESCRIPTOR_HEAP_PROPERTIES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceDescriptorHeapPropertiesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceDescriptorHeapPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_DESCRIPTOR_HEAP_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 sampler_heap_alignment: Default::default(),
                 resource_heap_alignment: Default::default(),
@@ -1049,10 +1121,18 @@ pub(super) mod defs {
         pub p_resource_heap_bind_info: *const BindHeapInfoEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CommandBufferInheritanceDescriptorHeapInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::COMMAND_BUFFER_INHERITANCE_DESCRIPTOR_HEAP_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>>
+        for CommandBufferInheritanceDescriptorHeapInfoEXT<'a>
+    {
+    }
     impl Default for CommandBufferInheritanceDescriptorHeapInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::COMMAND_BUFFER_INHERITANCE_DESCRIPTOR_HEAP_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_sampler_heap_bind_info: core::ptr::null(),
                 p_resource_heap_bind_info: core::ptr::null(),
@@ -1086,10 +1166,18 @@ pub(super) mod defs {
         pub tensor_capture_replay_opaque_data_size: usize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDescriptorHeapTensorPropertiesARM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_DESCRIPTOR_HEAP_TENSOR_PROPERTIES_ARM;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceDescriptorHeapTensorPropertiesARM<'a>
+    {
+    }
     impl Default for PhysicalDeviceDescriptorHeapTensorPropertiesARM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_DESCRIPTOR_HEAP_TENSOR_PROPERTIES_ARM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 tensor_descriptor_size: Default::default(),
                 tensor_descriptor_alignment: Default::default(),
@@ -1169,38 +1257,44 @@ pub(super) mod defs {
         pub const SHADER_RECORD_ADDRESS_EXT: Self = Self(10);
         pub const SHADER_RECORD_DATA_EXT: Self = Self(9);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct TensorViewCreateFlagsARM: Flags64 {
-            const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM = TensorViewCreateFlagBitsARM::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct TensorViewCreateFlagsARM(Flags64);
+    impl TensorViewCreateFlagsARM {
+        pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM: Self =
+            Self(TensorViewCreateFlagBitsARM::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct TensorViewCreateFlagBitsARM(u64);
     impl TensorViewCreateFlagBitsARM {
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM: Self = Self(1 << 0);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct SpirvResourceTypeFlagsEXT: Flags {
-            const SAMPLER_EXT = SpirvResourceTypeFlagBitsEXT::SAMPLER_EXT.0;
-            const SAMPLED_IMAGE_EXT = SpirvResourceTypeFlagBitsEXT::SAMPLED_IMAGE_EXT.0;
-            const READ_ONLY_IMAGE_EXT = SpirvResourceTypeFlagBitsEXT::READ_ONLY_IMAGE_EXT.0;
-            const READ_WRITE_IMAGE_EXT = SpirvResourceTypeFlagBitsEXT::READ_WRITE_IMAGE_EXT.0;
-            const COMBINED_SAMPLED_IMAGE_EXT = SpirvResourceTypeFlagBitsEXT::COMBINED_SAMPLED_IMAGE_EXT.0;
-            const UNIFORM_BUFFER_EXT = SpirvResourceTypeFlagBitsEXT::UNIFORM_BUFFER_EXT.0;
-            const READ_ONLY_STORAGE_BUFFER_EXT = SpirvResourceTypeFlagBitsEXT::READ_ONLY_STORAGE_BUFFER_EXT.0;
-            const READ_WRITE_STORAGE_BUFFER_EXT = SpirvResourceTypeFlagBitsEXT::READ_WRITE_STORAGE_BUFFER_EXT.0;
-            const ACCELERATION_STRUCTURE_EXT = SpirvResourceTypeFlagBitsEXT::ACCELERATION_STRUCTURE_EXT.0;
-            const TENSOR_ARM = SpirvResourceTypeFlagBitsEXT::TENSOR_ARM.0;
-            const ALL = 0x7FFFFFFF;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct SpirvResourceTypeFlagsEXT(Flags);
+    impl SpirvResourceTypeFlagsEXT {
+        pub const SAMPLER_EXT: Self = Self(SpirvResourceTypeFlagBitsEXT::SAMPLER_EXT.0);
+        pub const SAMPLED_IMAGE_EXT: Self = Self(SpirvResourceTypeFlagBitsEXT::SAMPLED_IMAGE_EXT.0);
+        pub const READ_ONLY_IMAGE_EXT: Self =
+            Self(SpirvResourceTypeFlagBitsEXT::READ_ONLY_IMAGE_EXT.0);
+        pub const READ_WRITE_IMAGE_EXT: Self =
+            Self(SpirvResourceTypeFlagBitsEXT::READ_WRITE_IMAGE_EXT.0);
+        pub const COMBINED_SAMPLED_IMAGE_EXT: Self =
+            Self(SpirvResourceTypeFlagBitsEXT::COMBINED_SAMPLED_IMAGE_EXT.0);
+        pub const UNIFORM_BUFFER_EXT: Self =
+            Self(SpirvResourceTypeFlagBitsEXT::UNIFORM_BUFFER_EXT.0);
+        pub const READ_ONLY_STORAGE_BUFFER_EXT: Self =
+            Self(SpirvResourceTypeFlagBitsEXT::READ_ONLY_STORAGE_BUFFER_EXT.0);
+        pub const READ_WRITE_STORAGE_BUFFER_EXT: Self =
+            Self(SpirvResourceTypeFlagBitsEXT::READ_WRITE_STORAGE_BUFFER_EXT.0);
+        pub const ACCELERATION_STRUCTURE_EXT: Self =
+            Self(SpirvResourceTypeFlagBitsEXT::ACCELERATION_STRUCTURE_EXT.0);
+        pub const TENSOR_ARM: Self = Self(SpirvResourceTypeFlagBitsEXT::TENSOR_ARM.0);
+        pub const ALL: Self = Self(0x7FFFFFFF);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SpirvResourceTypeFlagBitsEXT(u32);
     impl SpirvResourceTypeFlagBitsEXT {
         pub const SAMPLER_EXT: Self = Self(1 << 0);

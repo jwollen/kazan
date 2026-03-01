@@ -17,10 +17,22 @@ pub(super) mod defs {
         pub shader_module_identifier: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shader_module_identifier: Default::default(),
                 _marker: PhantomData,
@@ -41,10 +53,18 @@ pub(super) mod defs {
         pub shader_module_identifier_algorithm_uuid: [u8; UUID_SIZE as usize],
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderModuleIdentifierPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_PROPERTIES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceShaderModuleIdentifierPropertiesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceShaderModuleIdentifierPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shader_module_identifier_algorithm_uuid: [Default::default(); _],
                 _marker: PhantomData,
@@ -69,10 +89,18 @@ pub(super) mod defs {
         pub p_identifier: *const u8,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineShaderStageModuleIdentifierCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<PipelineShaderStageCreateInfo<'a>>
+        for PipelineShaderStageModuleIdentifierCreateInfoEXT<'a>
+    {
+    }
     impl Default for PipelineShaderStageModuleIdentifierCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 identifier_size: Default::default(),
                 p_identifier: core::ptr::null(),
@@ -96,10 +124,13 @@ pub(super) mod defs {
         pub identifier: [u8; MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT as usize],
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ShaderModuleIdentifierEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SHADER_MODULE_IDENTIFIER_EXT;
+    }
     impl Default for ShaderModuleIdentifierEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SHADER_MODULE_IDENTIFIER_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 identifier_size: Default::default(),
                 identifier: [Default::default(); _],

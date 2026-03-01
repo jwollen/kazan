@@ -17,10 +17,14 @@ pub(super) mod defs {
         pub handle: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImportMemoryMetalHandleInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_MEMORY_METAL_HANDLE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportMemoryMetalHandleInfoEXT<'a> {}
     impl Default for ImportMemoryMetalHandleInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMPORT_MEMORY_METAL_HANDLE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 handle_type: Default::default(),
                 handle: core::ptr::null_mut(),
@@ -46,10 +50,13 @@ pub(super) mod defs {
         pub memory_type_bits: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MemoryMetalHandlePropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_METAL_HANDLE_PROPERTIES_EXT;
+    }
     impl Default for MemoryMetalHandlePropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MEMORY_METAL_HANDLE_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 memory_type_bits: Default::default(),
                 _marker: PhantomData,
@@ -71,10 +78,13 @@ pub(super) mod defs {
         pub handle_type: ExternalMemoryHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MemoryGetMetalHandleInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_GET_METAL_HANDLE_INFO_EXT;
+    }
     impl Default for MemoryGetMetalHandleInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MEMORY_GET_METAL_HANDLE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 memory: Default::default(),
                 handle_type: Default::default(),

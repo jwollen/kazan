@@ -34,10 +34,18 @@ pub(super) mod defs {
         pub p_viewport_w_scalings: *const ViewportWScalingNV,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineViewportWScalingStateCreateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV;
+    }
+    unsafe impl<'a> Extends<PipelineViewportStateCreateInfo<'a>>
+        for PipelineViewportWScalingStateCreateInfoNV<'a>
+    {
+    }
     impl Default for PipelineViewportWScalingStateCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 viewport_w_scaling_enable: Default::default(),
                 viewport_count: Default::default(),

@@ -16,10 +16,15 @@ pub(super) mod defs {
         pub transform: SurfaceTransformFlagBitsKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CopyCommandTransformInfoQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::COPY_COMMAND_TRANSFORM_INFO_QCOM;
+    }
+    unsafe impl<'a> Extends<BufferImageCopy2<'a>> for CopyCommandTransformInfoQCOM<'a> {}
+    unsafe impl<'a> Extends<ImageBlit2<'a>> for CopyCommandTransformInfoQCOM<'a> {}
     impl Default for CopyCommandTransformInfoQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::COPY_COMMAND_TRANSFORM_INFO_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 transform: Default::default(),
                 _marker: PhantomData,

@@ -18,10 +18,15 @@ pub(super) mod defs {
         pub film_grain_support: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoDecodeAV1ProfileInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_AV1_PROFILE_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<VideoProfileInfoKHR<'a>> for VideoDecodeAV1ProfileInfoKHR<'a> {}
+    unsafe impl<'a> Extends<QueryPoolCreateInfo<'a>> for VideoDecodeAV1ProfileInfoKHR<'a> {}
     impl Default for VideoDecodeAV1ProfileInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_DECODE_AV1_PROFILE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 std_profile: Default::default(),
                 film_grain_support: Default::default(),
@@ -47,10 +52,14 @@ pub(super) mod defs {
         pub max_level: StdVideoAV1Level,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoDecodeAV1CapabilitiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_AV1_CAPABILITIES_KHR;
+    }
+    unsafe impl<'a> Extends<VideoCapabilitiesKHR<'a>> for VideoDecodeAV1CapabilitiesKHR<'a> {}
     impl Default for VideoDecodeAV1CapabilitiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_DECODE_AV1_CAPABILITIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_level: Default::default(),
                 _marker: PhantomData,
@@ -71,10 +80,18 @@ pub(super) mod defs {
         pub p_std_sequence_header: *const StdVideoAV1SequenceHeader<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoDecodeAV1SessionParametersCreateInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::VIDEO_DECODE_AV1_SESSION_PARAMETERS_CREATE_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<VideoSessionParametersCreateInfoKHR<'a>>
+        for VideoDecodeAV1SessionParametersCreateInfoKHR<'a>
+    {
+    }
     impl Default for VideoDecodeAV1SessionParametersCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_DECODE_AV1_SESSION_PARAMETERS_CREATE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_std_sequence_header: core::ptr::null(),
                 _marker: PhantomData,
@@ -103,10 +120,14 @@ pub(super) mod defs {
         pub p_tile_sizes: *const u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoDecodeAV1PictureInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_AV1_PICTURE_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<VideoDecodeInfoKHR<'a>> for VideoDecodeAV1PictureInfoKHR<'a> {}
     impl Default for VideoDecodeAV1PictureInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_DECODE_AV1_PICTURE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_std_picture_info: core::ptr::null(),
                 reference_name_slot_indices: [Default::default(); _],
@@ -156,10 +177,14 @@ pub(super) mod defs {
         pub p_std_reference_info: *const StdVideoDecodeAV1ReferenceInfo,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoDecodeAV1DpbSlotInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_AV1_DPB_SLOT_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<VideoReferenceSlotInfoKHR<'a>> for VideoDecodeAV1DpbSlotInfoKHR<'a> {}
     impl Default for VideoDecodeAV1DpbSlotInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_DECODE_AV1_DPB_SLOT_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_std_reference_info: core::ptr::null(),
                 _marker: PhantomData,

@@ -18,10 +18,15 @@ pub(super) mod defs {
         pub depth_stencil_attachment_samples: SampleCountFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AttachmentSampleCountInfoAMD<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::ATTACHMENT_SAMPLE_COUNT_INFO_AMD;
+    }
+    unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>> for AttachmentSampleCountInfoAMD<'a> {}
+    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>> for AttachmentSampleCountInfoAMD<'a> {}
     impl Default for AttachmentSampleCountInfoAMD<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ATTACHMENT_SAMPLE_COUNT_INFO_AMD,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 color_attachment_count: Default::default(),
                 p_color_attachment_samples: core::ptr::null(),

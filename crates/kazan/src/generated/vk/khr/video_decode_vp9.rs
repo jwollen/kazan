@@ -17,10 +17,19 @@ pub(super) mod defs {
         pub video_decode_vp9: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVideoDecodeVP9FeaturesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_VIDEO_DECODE_VP9_FEATURES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceVideoDecodeVP9FeaturesKHR<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceVideoDecodeVP9FeaturesKHR<'a> {}
     impl Default for PhysicalDeviceVideoDecodeVP9FeaturesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_VIDEO_DECODE_VP9_FEATURES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 video_decode_vp9: Default::default(),
                 _marker: PhantomData,
@@ -41,10 +50,15 @@ pub(super) mod defs {
         pub std_profile: StdVideoVP9Profile,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoDecodeVP9ProfileInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_VP9_PROFILE_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<VideoProfileInfoKHR<'a>> for VideoDecodeVP9ProfileInfoKHR<'a> {}
+    unsafe impl<'a> Extends<QueryPoolCreateInfo<'a>> for VideoDecodeVP9ProfileInfoKHR<'a> {}
     impl Default for VideoDecodeVP9ProfileInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_DECODE_VP9_PROFILE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 std_profile: Default::default(),
                 _marker: PhantomData,
@@ -65,10 +79,14 @@ pub(super) mod defs {
         pub max_level: StdVideoVP9Level,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoDecodeVP9CapabilitiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_VP9_CAPABILITIES_KHR;
+    }
+    unsafe impl<'a> Extends<VideoCapabilitiesKHR<'a>> for VideoDecodeVP9CapabilitiesKHR<'a> {}
     impl Default for VideoDecodeVP9CapabilitiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_DECODE_VP9_CAPABILITIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_level: Default::default(),
                 _marker: PhantomData,
@@ -93,10 +111,14 @@ pub(super) mod defs {
         pub tiles_offset: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoDecodeVP9PictureInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_VP9_PICTURE_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<VideoDecodeInfoKHR<'a>> for VideoDecodeVP9PictureInfoKHR<'a> {}
     impl Default for VideoDecodeVP9PictureInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_DECODE_VP9_PICTURE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_std_picture_info: core::ptr::null(),
                 reference_name_slot_indices: [Default::default(); _],

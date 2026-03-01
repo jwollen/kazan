@@ -18,10 +18,19 @@ pub(super) mod defs {
         pub present_at_relative_time: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePresentTimingFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PRESENT_TIMING_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDevicePresentTimingFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePresentTimingFeaturesEXT<'a> {}
     impl Default for PhysicalDevicePresentTimingFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PRESENT_TIMING_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 present_timing: Default::default(),
                 present_at_absolute_time: Default::default(),
@@ -55,10 +64,15 @@ pub(super) mod defs {
         pub present_stage_queries: PresentStageFlagsEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PresentTimingSurfaceCapabilitiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PRESENT_TIMING_SURFACE_CAPABILITIES_EXT;
+    }
+    unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>> for PresentTimingSurfaceCapabilitiesEXT<'a> {}
     impl Default for PresentTimingSurfaceCapabilitiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PRESENT_TIMING_SURFACE_CAPABILITIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 present_timing_supported: Default::default(),
                 present_at_absolute_time_supported: Default::default(),
@@ -104,10 +118,13 @@ pub(super) mod defs {
         pub refresh_interval: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SwapchainTimingPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SWAPCHAIN_TIMING_PROPERTIES_EXT;
+    }
     impl Default for SwapchainTimingPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SWAPCHAIN_TIMING_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 refresh_duration: Default::default(),
                 refresh_interval: Default::default(),
@@ -135,10 +152,13 @@ pub(super) mod defs {
         pub p_time_domain_ids: *mut u64,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SwapchainTimeDomainPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SWAPCHAIN_TIME_DOMAIN_PROPERTIES_EXT;
+    }
     impl Default for SwapchainTimeDomainPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SWAPCHAIN_TIME_DOMAIN_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 time_domain_count: Default::default(),
                 p_time_domains: core::ptr::null_mut(),
@@ -184,10 +204,13 @@ pub(super) mod defs {
         pub swapchain: SwapchainKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PastPresentationTimingInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PAST_PRESENTATION_TIMING_INFO_EXT;
+    }
     impl Default for PastPresentationTimingInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PAST_PRESENTATION_TIMING_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 swapchain: Default::default(),
@@ -216,10 +239,14 @@ pub(super) mod defs {
         pub p_presentation_timings: *mut PastPresentationTimingEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PastPresentationTimingPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PAST_PRESENTATION_TIMING_PROPERTIES_EXT;
+    }
     impl Default for PastPresentationTimingPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PAST_PRESENTATION_TIMING_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 timing_properties_counter: Default::default(),
                 time_domains_counter: Default::default(),
@@ -261,10 +288,13 @@ pub(super) mod defs {
         pub report_complete: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PastPresentationTimingEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PAST_PRESENTATION_TIMING_EXT;
+    }
     impl Default for PastPresentationTimingEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PAST_PRESENTATION_TIMING_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 present_id: Default::default(),
                 target_time: Default::default(),
@@ -313,10 +343,14 @@ pub(super) mod defs {
         pub p_timing_infos: *const PresentTimingInfoEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PresentTimingsInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PRESENT_TIMINGS_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<PresentInfoKHR<'a>> for PresentTimingsInfoEXT<'a> {}
     impl Default for PresentTimingsInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PRESENT_TIMINGS_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 swapchain_count: Default::default(),
                 p_timing_infos: core::ptr::null(),
@@ -343,10 +377,13 @@ pub(super) mod defs {
         pub target_time_domain_present_stage: PresentStageFlagsEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PresentTimingInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PRESENT_TIMING_INFO_EXT;
+    }
     impl Default for PresentTimingInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PRESENT_TIMING_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 target_time: Default::default(),
@@ -395,10 +432,18 @@ pub(super) mod defs {
         pub time_domain_id: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SwapchainCalibratedTimestampInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::SWAPCHAIN_CALIBRATED_TIMESTAMP_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<CalibratedTimestampInfoKHR<'a>>
+        for SwapchainCalibratedTimestampInfoEXT<'a>
+    {
+    }
     impl Default for SwapchainCalibratedTimestampInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SWAPCHAIN_CALIBRATED_TIMESTAMP_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 swapchain: Default::default(),
                 present_stage: Default::default(),
@@ -421,18 +466,21 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct PresentStageFlagsEXT: Flags {
-            const QUEUE_OPERATIONS_END_EXT = PresentStageFlagBitsEXT::QUEUE_OPERATIONS_END_EXT.0;
-            const REQUEST_DEQUEUED_EXT = PresentStageFlagBitsEXT::REQUEST_DEQUEUED_EXT.0;
-            const IMAGE_FIRST_PIXEL_OUT_EXT = PresentStageFlagBitsEXT::IMAGE_FIRST_PIXEL_OUT_EXT.0;
-            const IMAGE_FIRST_PIXEL_VISIBLE_EXT = PresentStageFlagBitsEXT::IMAGE_FIRST_PIXEL_VISIBLE_EXT.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct PresentStageFlagsEXT(Flags);
+    impl PresentStageFlagsEXT {
+        pub const QUEUE_OPERATIONS_END_EXT: Self =
+            Self(PresentStageFlagBitsEXT::QUEUE_OPERATIONS_END_EXT.0);
+        pub const REQUEST_DEQUEUED_EXT: Self =
+            Self(PresentStageFlagBitsEXT::REQUEST_DEQUEUED_EXT.0);
+        pub const IMAGE_FIRST_PIXEL_OUT_EXT: Self =
+            Self(PresentStageFlagBitsEXT::IMAGE_FIRST_PIXEL_OUT_EXT.0);
+        pub const IMAGE_FIRST_PIXEL_VISIBLE_EXT: Self =
+            Self(PresentStageFlagBitsEXT::IMAGE_FIRST_PIXEL_VISIBLE_EXT.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PresentStageFlagBitsEXT(u32);
     impl PresentStageFlagBitsEXT {
         pub const QUEUE_OPERATIONS_END_EXT: Self = Self(1 << 0);
@@ -440,31 +488,33 @@ pub(super) mod defs {
         pub const IMAGE_FIRST_PIXEL_OUT_EXT: Self = Self(1 << 2);
         pub const IMAGE_FIRST_PIXEL_VISIBLE_EXT: Self = Self(1 << 3);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct PastPresentationTimingFlagsEXT: Flags {
-            const ALLOW_PARTIAL_RESULTS_EXT = PastPresentationTimingFlagBitsEXT::ALLOW_PARTIAL_RESULTS_EXT.0;
-            const ALLOW_OUT_OF_ORDER_RESULTS_EXT = PastPresentationTimingFlagBitsEXT::ALLOW_OUT_OF_ORDER_RESULTS_EXT.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct PastPresentationTimingFlagsEXT(Flags);
+    impl PastPresentationTimingFlagsEXT {
+        pub const ALLOW_PARTIAL_RESULTS_EXT: Self =
+            Self(PastPresentationTimingFlagBitsEXT::ALLOW_PARTIAL_RESULTS_EXT.0);
+        pub const ALLOW_OUT_OF_ORDER_RESULTS_EXT: Self =
+            Self(PastPresentationTimingFlagBitsEXT::ALLOW_OUT_OF_ORDER_RESULTS_EXT.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PastPresentationTimingFlagBitsEXT(u32);
     impl PastPresentationTimingFlagBitsEXT {
         pub const ALLOW_PARTIAL_RESULTS_EXT: Self = Self(1 << 0);
         pub const ALLOW_OUT_OF_ORDER_RESULTS_EXT: Self = Self(1 << 1);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct PresentTimingInfoFlagsEXT: Flags {
-            const PRESENT_AT_RELATIVE_TIME_EXT = PresentTimingInfoFlagBitsEXT::PRESENT_AT_RELATIVE_TIME_EXT.0;
-            const PRESENT_AT_NEAREST_REFRESH_CYCLE_EXT = PresentTimingInfoFlagBitsEXT::PRESENT_AT_NEAREST_REFRESH_CYCLE_EXT.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct PresentTimingInfoFlagsEXT(Flags);
+    impl PresentTimingInfoFlagsEXT {
+        pub const PRESENT_AT_RELATIVE_TIME_EXT: Self =
+            Self(PresentTimingInfoFlagBitsEXT::PRESENT_AT_RELATIVE_TIME_EXT.0);
+        pub const PRESENT_AT_NEAREST_REFRESH_CYCLE_EXT: Self =
+            Self(PresentTimingInfoFlagBitsEXT::PRESENT_AT_NEAREST_REFRESH_CYCLE_EXT.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PresentTimingInfoFlagBitsEXT(u32);
     impl PresentTimingInfoFlagBitsEXT {
         pub const PRESENT_AT_RELATIVE_TIME_EXT: Self = Self(1 << 0);

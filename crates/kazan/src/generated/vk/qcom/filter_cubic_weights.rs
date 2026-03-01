@@ -16,10 +16,19 @@ pub(super) mod defs {
         pub selectable_cubic_weights: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCubicWeightsFeaturesQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_CUBIC_WEIGHTS_FEATURES_QCOM;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceCubicWeightsFeaturesQCOM<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceCubicWeightsFeaturesQCOM<'a> {}
     impl Default for PhysicalDeviceCubicWeightsFeaturesQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_CUBIC_WEIGHTS_FEATURES_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 selectable_cubic_weights: Default::default(),
                 _marker: PhantomData,
@@ -40,10 +49,14 @@ pub(super) mod defs {
         pub cubic_weights: CubicFilterWeightsQCOM,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SamplerCubicWeightsCreateInfoQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SAMPLER_CUBIC_WEIGHTS_CREATE_INFO_QCOM;
+    }
+    unsafe impl<'a> Extends<SamplerCreateInfo<'a>> for SamplerCubicWeightsCreateInfoQCOM<'a> {}
     impl Default for SamplerCubicWeightsCreateInfoQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SAMPLER_CUBIC_WEIGHTS_CREATE_INFO_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 cubic_weights: Default::default(),
                 _marker: PhantomData,
@@ -64,10 +77,14 @@ pub(super) mod defs {
         pub cubic_weights: CubicFilterWeightsQCOM,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BlitImageCubicWeightsInfoQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM;
+    }
+    unsafe impl<'a> Extends<BlitImageInfo2<'a>> for BlitImageCubicWeightsInfoQCOM<'a> {}
     impl Default for BlitImageCubicWeightsInfoQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 cubic_weights: Default::default(),
                 _marker: PhantomData,

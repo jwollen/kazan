@@ -21,10 +21,16 @@ pub(super) mod defs {
         pub shader_object: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderObjectFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SHADER_OBJECT_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceShaderObjectFeaturesEXT<'a> {}
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShaderObjectFeaturesEXT<'a> {}
     impl Default for PhysicalDeviceShaderObjectFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SHADER_OBJECT_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shader_object: Default::default(),
                 _marker: PhantomData,
@@ -46,10 +52,18 @@ pub(super) mod defs {
         pub shader_binary_version: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderObjectPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SHADER_OBJECT_PROPERTIES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceShaderObjectPropertiesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceShaderObjectPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SHADER_OBJECT_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shader_binary_uuid: [Default::default(); _],
                 shader_binary_version: Default::default(),
@@ -86,10 +100,13 @@ pub(super) mod defs {
         pub p_specialization_info: *const SpecializationInfo<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ShaderCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SHADER_CREATE_INFO_EXT;
+    }
     impl Default for ShaderCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SHADER_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 stage: Default::default(),
@@ -157,24 +174,28 @@ pub(super) mod defs {
         pub const BINARY_EXT: Self = Self(0);
         pub const SPIRV_EXT: Self = Self(1);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct ShaderCreateFlagsEXT: Flags {
-            const LINK_STAGE_EXT = ShaderCreateFlagBitsEXT::LINK_STAGE_EXT.0;
-            const ALLOW_VARYING_SUBGROUP_SIZE_EXT = ShaderCreateFlagBitsEXT::ALLOW_VARYING_SUBGROUP_SIZE_EXT.0;
-            const REQUIRE_FULL_SUBGROUPS_EXT = ShaderCreateFlagBitsEXT::REQUIRE_FULL_SUBGROUPS_EXT.0;
-            const NO_TASK_SHADER_EXT = ShaderCreateFlagBitsEXT::NO_TASK_SHADER_EXT.0;
-            const DISPATCH_BASE_EXT = ShaderCreateFlagBitsEXT::DISPATCH_BASE_EXT.0;
-            const FRAGMENT_SHADING_RATE_ATTACHMENT_EXT = ShaderCreateFlagBitsEXT::FRAGMENT_SHADING_RATE_ATTACHMENT_EXT.0;
-            const FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT = ShaderCreateFlagBitsEXT::FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT.0;
-            const INDIRECT_BINDABLE_EXT = ShaderCreateFlagBitsEXT::INDIRECT_BINDABLE_EXT.0;
-            const DESCRIPTOR_HEAP_EXT = ShaderCreateFlagBitsEXT::DESCRIPTOR_HEAP_EXT.0;
-            const _64_INDEXING_EXT = ShaderCreateFlagBitsEXT::_64_INDEXING_EXT.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct ShaderCreateFlagsEXT(Flags);
+    impl ShaderCreateFlagsEXT {
+        pub const LINK_STAGE_EXT: Self = Self(ShaderCreateFlagBitsEXT::LINK_STAGE_EXT.0);
+        pub const ALLOW_VARYING_SUBGROUP_SIZE_EXT: Self =
+            Self(ShaderCreateFlagBitsEXT::ALLOW_VARYING_SUBGROUP_SIZE_EXT.0);
+        pub const REQUIRE_FULL_SUBGROUPS_EXT: Self =
+            Self(ShaderCreateFlagBitsEXT::REQUIRE_FULL_SUBGROUPS_EXT.0);
+        pub const NO_TASK_SHADER_EXT: Self = Self(ShaderCreateFlagBitsEXT::NO_TASK_SHADER_EXT.0);
+        pub const DISPATCH_BASE_EXT: Self = Self(ShaderCreateFlagBitsEXT::DISPATCH_BASE_EXT.0);
+        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_EXT: Self =
+            Self(ShaderCreateFlagBitsEXT::FRAGMENT_SHADING_RATE_ATTACHMENT_EXT.0);
+        pub const FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT: Self =
+            Self(ShaderCreateFlagBitsEXT::FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT.0);
+        pub const INDIRECT_BINDABLE_EXT: Self =
+            Self(ShaderCreateFlagBitsEXT::INDIRECT_BINDABLE_EXT.0);
+        pub const DESCRIPTOR_HEAP_EXT: Self = Self(ShaderCreateFlagBitsEXT::DESCRIPTOR_HEAP_EXT.0);
+        pub const _64_INDEXING_EXT: Self = Self(ShaderCreateFlagBitsEXT::_64_INDEXING_EXT.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ShaderCreateFlagBitsEXT(u32);
     impl ShaderCreateFlagBitsEXT {
         pub const LINK_STAGE_EXT: Self = Self(1 << 0);

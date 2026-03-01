@@ -16,10 +16,13 @@ pub(super) mod defs {
         pub display_properties: DisplayPropertiesKHR<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DisplayProperties2KHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_PROPERTIES_2_KHR;
+    }
     impl Default for DisplayProperties2KHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DISPLAY_PROPERTIES_2_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 display_properties: Default::default(),
                 _marker: PhantomData,
@@ -40,10 +43,13 @@ pub(super) mod defs {
         pub display_plane_properties: DisplayPlanePropertiesKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DisplayPlaneProperties2KHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_PLANE_PROPERTIES_2_KHR;
+    }
     impl Default for DisplayPlaneProperties2KHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DISPLAY_PLANE_PROPERTIES_2_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 display_plane_properties: Default::default(),
                 _marker: PhantomData,
@@ -67,10 +73,13 @@ pub(super) mod defs {
         pub display_mode_properties: DisplayModePropertiesKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DisplayModeProperties2KHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_MODE_PROPERTIES_2_KHR;
+    }
     impl Default for DisplayModeProperties2KHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DISPLAY_MODE_PROPERTIES_2_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 display_mode_properties: Default::default(),
                 _marker: PhantomData,
@@ -95,10 +104,13 @@ pub(super) mod defs {
         pub plane_index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DisplayPlaneInfo2KHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_PLANE_INFO_2_KHR;
+    }
     impl Default for DisplayPlaneInfo2KHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DISPLAY_PLANE_INFO_2_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 mode: Default::default(),
                 plane_index: Default::default(),
@@ -124,10 +136,13 @@ pub(super) mod defs {
         pub capabilities: DisplayPlaneCapabilitiesKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DisplayPlaneCapabilities2KHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_PLANE_CAPABILITIES_2_KHR;
+    }
     impl Default for DisplayPlaneCapabilities2KHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DISPLAY_PLANE_CAPABILITIES_2_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 capabilities: Default::default(),
                 _marker: PhantomData,

@@ -17,10 +17,19 @@ pub(super) mod defs {
         pub ray_tracing_motion_blur_pipeline_trace_rays_indirect: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRayTracingMotionBlurFeaturesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_RAY_TRACING_MOTION_BLUR_FEATURES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceRayTracingMotionBlurFeaturesNV<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceRayTracingMotionBlurFeaturesNV<'a> {}
     impl Default for PhysicalDeviceRayTracingMotionBlurFeaturesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_RAY_TRACING_MOTION_BLUR_FEATURES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 ray_tracing_motion_blur: Default::default(),
                 ray_tracing_motion_blur_pipeline_trace_rays_indirect: Default::default(),
@@ -50,10 +59,18 @@ pub(super) mod defs {
         pub vertex_data: DeviceOrHostAddressConstKHR<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureGeometryMotionTrianglesDataNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::ACCELERATION_STRUCTURE_GEOMETRY_MOTION_TRIANGLES_DATA_NV;
+    }
+    unsafe impl<'a> Extends<AccelerationStructureGeometryTrianglesDataKHR<'a>>
+        for AccelerationStructureGeometryMotionTrianglesDataNV<'a>
+    {
+    }
     impl Default for AccelerationStructureGeometryMotionTrianglesDataNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ACCELERATION_STRUCTURE_GEOMETRY_MOTION_TRIANGLES_DATA_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 vertex_data: Default::default(),
                 _marker: PhantomData,
@@ -75,10 +92,17 @@ pub(super) mod defs {
         pub flags: AccelerationStructureMotionInfoFlagsNV,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureMotionInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::ACCELERATION_STRUCTURE_MOTION_INFO_NV;
+    }
+    unsafe impl<'a> Extends<AccelerationStructureCreateInfoKHR<'a>>
+        for AccelerationStructureMotionInfoNV<'a>
+    {
+    }
     impl Default for AccelerationStructureMotionInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ACCELERATION_STRUCTURE_MOTION_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 max_instances: Default::default(),
                 flags: Default::default(),
@@ -341,16 +365,12 @@ pub(super) mod defs {
         pub const MATRIX_MOTION_NV: Self = Self(1);
         pub const SRT_MOTION_NV: Self = Self(2);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct AccelerationStructureMotionInfoFlagsNV: Flags {
-        }
-    }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct AccelerationStructureMotionInstanceFlagsNV: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct AccelerationStructureMotionInfoFlagsNV(Flags);
+    impl AccelerationStructureMotionInfoFlagsNV {}
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct AccelerationStructureMotionInstanceFlagsNV(Flags);
+    impl AccelerationStructureMotionInstanceFlagsNV {}
 }

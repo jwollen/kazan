@@ -16,10 +16,14 @@ pub(super) mod defs {
         pub present_mode: PresentModeKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SurfacePresentModeKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SURFACE_PRESENT_MODE_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceSurfaceInfo2KHR<'a>> for SurfacePresentModeKHR<'a> {}
     impl Default for SurfacePresentModeKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SURFACE_PRESENT_MODE_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 present_mode: Default::default(),
                 _marker: PhantomData,
@@ -44,10 +48,15 @@ pub(super) mod defs {
         pub max_scaled_image_extent: Extent2D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SurfacePresentScalingCapabilitiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::SURFACE_PRESENT_SCALING_CAPABILITIES_KHR;
+    }
+    unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>> for SurfacePresentScalingCapabilitiesKHR<'a> {}
     impl Default for SurfacePresentScalingCapabilitiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SURFACE_PRESENT_SCALING_CAPABILITIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 supported_present_scaling: Default::default(),
                 supported_present_gravity_x: Default::default(),
@@ -98,10 +107,14 @@ pub(super) mod defs {
         pub p_present_modes: *mut PresentModeKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SurfacePresentModeCompatibilityKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SURFACE_PRESENT_MODE_COMPATIBILITY_KHR;
+    }
+    unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>> for SurfacePresentModeCompatibilityKHR<'a> {}
     impl Default for SurfacePresentModeCompatibilityKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SURFACE_PRESENT_MODE_COMPATIBILITY_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 present_mode_count: Default::default(),
                 p_present_modes: core::ptr::null_mut(),
@@ -116,40 +129,39 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct PresentScalingFlagsKHR: Flags {
-            const ONE_TO_ONE_KHR = PresentScalingFlagBitsKHR::ONE_TO_ONE_KHR.0;
-            const ASPECT_RATIO_STRETCH_KHR = PresentScalingFlagBitsKHR::ASPECT_RATIO_STRETCH_KHR.0;
-            const STRETCH_KHR = PresentScalingFlagBitsKHR::STRETCH_KHR.0;
-            const ONE_TO_ONE_EXT = Self::ONE_TO_ONE_KHR.bits();
-            const ASPECT_RATIO_STRETCH_EXT = Self::ASPECT_RATIO_STRETCH_KHR.bits();
-            const STRETCH_EXT = Self::STRETCH_KHR.bits();
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct PresentScalingFlagsKHR(Flags);
+    impl PresentScalingFlagsKHR {
+        pub const ONE_TO_ONE_KHR: Self = Self(PresentScalingFlagBitsKHR::ONE_TO_ONE_KHR.0);
+        pub const ASPECT_RATIO_STRETCH_KHR: Self =
+            Self(PresentScalingFlagBitsKHR::ASPECT_RATIO_STRETCH_KHR.0);
+        pub const STRETCH_KHR: Self = Self(PresentScalingFlagBitsKHR::STRETCH_KHR.0);
+        pub const ONE_TO_ONE_EXT: Self = Self::ONE_TO_ONE_KHR;
+        pub const ASPECT_RATIO_STRETCH_EXT: Self = Self::ASPECT_RATIO_STRETCH_KHR;
+        pub const STRETCH_EXT: Self = Self::STRETCH_KHR;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PresentScalingFlagBitsKHR(u32);
     impl PresentScalingFlagBitsKHR {
         pub const ONE_TO_ONE_KHR: Self = Self(1 << 0);
         pub const ASPECT_RATIO_STRETCH_KHR: Self = Self(1 << 1);
         pub const STRETCH_KHR: Self = Self(1 << 2);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct PresentGravityFlagsKHR: Flags {
-            const MIN_KHR = PresentGravityFlagBitsKHR::MIN_KHR.0;
-            const MAX_KHR = PresentGravityFlagBitsKHR::MAX_KHR.0;
-            const CENTERED_KHR = PresentGravityFlagBitsKHR::CENTERED_KHR.0;
-            const MIN_EXT = Self::MIN_KHR.bits();
-            const MAX_EXT = Self::MAX_KHR.bits();
-            const CENTERED_EXT = Self::CENTERED_KHR.bits();
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct PresentGravityFlagsKHR(Flags);
+    impl PresentGravityFlagsKHR {
+        pub const MIN_KHR: Self = Self(PresentGravityFlagBitsKHR::MIN_KHR.0);
+        pub const MAX_KHR: Self = Self(PresentGravityFlagBitsKHR::MAX_KHR.0);
+        pub const CENTERED_KHR: Self = Self(PresentGravityFlagBitsKHR::CENTERED_KHR.0);
+        pub const MIN_EXT: Self = Self::MIN_KHR;
+        pub const MAX_EXT: Self = Self::MAX_KHR;
+        pub const CENTERED_EXT: Self = Self::CENTERED_KHR;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PresentGravityFlagBitsKHR(u32);
     impl PresentGravityFlagBitsKHR {
         pub const MIN_KHR: Self = Self(1 << 0);

@@ -17,10 +17,19 @@ pub(super) mod defs {
         pub cooperative_vector_training: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCooperativeVectorFeaturesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_COOPERATIVE_VECTOR_FEATURES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceCooperativeVectorFeaturesNV<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceCooperativeVectorFeaturesNV<'a> {}
     impl Default for PhysicalDeviceCooperativeVectorFeaturesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_COOPERATIVE_VECTOR_FEATURES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 cooperative_vector: Default::default(),
                 cooperative_vector_training: Default::default(),
@@ -51,10 +60,13 @@ pub(super) mod defs {
         pub transpose: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CooperativeVectorPropertiesNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::COOPERATIVE_VECTOR_PROPERTIES_NV;
+    }
     impl Default for CooperativeVectorPropertiesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::COOPERATIVE_VECTOR_PROPERTIES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 input_type: Default::default(),
                 input_interpretation: Default::default(),
@@ -103,10 +115,18 @@ pub(super) mod defs {
         pub max_cooperative_vector_components: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCooperativeVectorPropertiesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_COOPERATIVE_VECTOR_PROPERTIES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceCooperativeVectorPropertiesNV<'a>
+    {
+    }
     impl Default for PhysicalDeviceCooperativeVectorPropertiesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_COOPERATIVE_VECTOR_PROPERTIES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 cooperative_vector_supported_stages: Default::default(),
                 cooperative_vector_training_float16_accumulation: Default::default(),
@@ -167,10 +187,14 @@ pub(super) mod defs {
         pub dst_stride: usize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ConvertCooperativeVectorMatrixInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::CONVERT_COOPERATIVE_VECTOR_MATRIX_INFO_NV;
+    }
     impl Default for ConvertCooperativeVectorMatrixInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::CONVERT_COOPERATIVE_VECTOR_MATRIX_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 src_size: Default::default(),
                 src_data: Default::default(),

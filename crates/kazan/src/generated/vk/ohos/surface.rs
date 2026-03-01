@@ -18,10 +18,13 @@ pub(super) mod defs {
         pub window: *mut OHNativeWindow,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SurfaceCreateInfoOHOS<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SURFACE_CREATE_INFO_OHOS;
+    }
     impl Default for SurfaceCreateInfoOHOS<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SURFACE_CREATE_INFO_OHOS,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 window: core::ptr::null_mut(),
@@ -39,12 +42,10 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct SurfaceCreateFlagsOHOS: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct SurfaceCreateFlagsOHOS(Flags);
+    impl SurfaceCreateFlagsOHOS {}
     pub type PFN_vkCreateSurfaceOHOS = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const SurfaceCreateInfoOHOS<'_>,

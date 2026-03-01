@@ -19,10 +19,13 @@ pub(super) mod defs {
         pub fd: c_int,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImportSemaphoreFdInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_SEMAPHORE_FD_INFO_KHR;
+    }
     impl Default for ImportSemaphoreFdInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMPORT_SEMAPHORE_FD_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 semaphore: Default::default(),
                 flags: Default::default(),
@@ -59,10 +62,13 @@ pub(super) mod defs {
         pub handle_type: ExternalSemaphoreHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SemaphoreGetFdInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SEMAPHORE_GET_FD_INFO_KHR;
+    }
     impl Default for SemaphoreGetFdInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SEMAPHORE_GET_FD_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 semaphore: Default::default(),
                 handle_type: Default::default(),

@@ -387,10 +387,14 @@ fn compute_type_infos(
                 for member in &ty.members {
                     let member_ty = &member.c_decl.ty;
 
-                    // No TypeInfo means this is a circular type
-                    if let Some(member_ty_info) = get_type_info(&types, &type_infos, member_ty) {
-                        type_info.merge(&member_ty_info);
-                    }
+                    // No TypeInfo means this is a circular type. Introduce a lifetime.
+                    let member_ty_info =
+                        get_type_info(&types, &type_infos, member_ty).unwrap_or(TypeInfo {
+                            lifetime_param: true,
+                            ..TypeInfo::POINTER
+                        });
+
+                    type_info.merge(&member_ty_info);
                 }
 
                 type_infos.insert(ty_name, type_info);

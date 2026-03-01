@@ -21,10 +21,18 @@ pub(super) mod defs {
         pub p_coverage_modulation_table: *const f32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineCoverageModulationStateCreateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV;
+    }
+    unsafe impl<'a> Extends<PipelineMultisampleStateCreateInfo<'a>>
+        for PipelineCoverageModulationStateCreateInfoNV<'a>
+    {
+    }
     impl Default for PipelineCoverageModulationStateCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 coverage_modulation_mode: Default::default(),
@@ -70,10 +78,8 @@ pub(super) mod defs {
         pub const ALPHA_NV: Self = Self(2);
         pub const RGBA_NV: Self = Self(3);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct PipelineCoverageModulationStateCreateFlagsNV: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct PipelineCoverageModulationStateCreateFlagsNV(Flags);
+    impl PipelineCoverageModulationStateCreateFlagsNV {}
 }

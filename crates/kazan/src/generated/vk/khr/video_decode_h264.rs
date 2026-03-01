@@ -17,10 +17,15 @@ pub(super) mod defs {
         pub picture_layout: VideoDecodeH264PictureLayoutFlagBitsKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoDecodeH264ProfileInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_H264_PROFILE_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<VideoProfileInfoKHR<'a>> for VideoDecodeH264ProfileInfoKHR<'a> {}
+    unsafe impl<'a> Extends<QueryPoolCreateInfo<'a>> for VideoDecodeH264ProfileInfoKHR<'a> {}
     impl Default for VideoDecodeH264ProfileInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_DECODE_H264_PROFILE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 std_profile_idc: Default::default(),
                 picture_layout: Default::default(),
@@ -50,10 +55,14 @@ pub(super) mod defs {
         pub field_offset_granularity: Offset2D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoDecodeH264CapabilitiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_H264_CAPABILITIES_KHR;
+    }
+    unsafe impl<'a> Extends<VideoCapabilitiesKHR<'a>> for VideoDecodeH264CapabilitiesKHR<'a> {}
     impl Default for VideoDecodeH264CapabilitiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_DECODE_H264_CAPABILITIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_level_idc: Default::default(),
                 field_offset_granularity: Default::default(),
@@ -82,10 +91,18 @@ pub(super) mod defs {
         pub p_std_pp_ss: *const StdVideoH264PictureParameterSet<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoDecodeH264SessionParametersAddInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::VIDEO_DECODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<VideoSessionParametersUpdateInfoKHR<'a>>
+        for VideoDecodeH264SessionParametersAddInfoKHR<'a>
+    {
+    }
     impl Default for VideoDecodeH264SessionParametersAddInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_DECODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 std_sps_count: Default::default(),
                 p_std_sp_ss: core::ptr::null(),
@@ -117,10 +134,18 @@ pub(super) mod defs {
         pub p_parameters_add_info: *const VideoDecodeH264SessionParametersAddInfoKHR<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoDecodeH264SessionParametersCreateInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::VIDEO_DECODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<VideoSessionParametersCreateInfoKHR<'a>>
+        for VideoDecodeH264SessionParametersCreateInfoKHR<'a>
+    {
+    }
     impl Default for VideoDecodeH264SessionParametersCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_DECODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 max_std_sps_count: Default::default(),
                 max_std_pps_count: Default::default(),
@@ -156,10 +181,14 @@ pub(super) mod defs {
         pub p_slice_offsets: *const u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoDecodeH264PictureInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_H264_PICTURE_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<VideoDecodeInfoKHR<'a>> for VideoDecodeH264PictureInfoKHR<'a> {}
     impl Default for VideoDecodeH264PictureInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_DECODE_H264_PICTURE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_std_picture_info: core::ptr::null(),
                 slice_count: Default::default(),
@@ -190,10 +219,14 @@ pub(super) mod defs {
         pub p_std_reference_info: *const StdVideoDecodeH264ReferenceInfo,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoDecodeH264DpbSlotInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_H264_DPB_SLOT_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<VideoReferenceSlotInfoKHR<'a>> for VideoDecodeH264DpbSlotInfoKHR<'a> {}
     impl Default for VideoDecodeH264DpbSlotInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_DECODE_H264_DPB_SLOT_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_std_reference_info: core::ptr::null(),
                 _marker: PhantomData,
@@ -209,17 +242,18 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct VideoDecodeH264PictureLayoutFlagsKHR: Flags {
-            const INTERLACED_INTERLEAVED_LINES_KHR = VideoDecodeH264PictureLayoutFlagBitsKHR::INTERLACED_INTERLEAVED_LINES_KHR.0;
-            const INTERLACED_SEPARATE_PLANES_KHR = VideoDecodeH264PictureLayoutFlagBitsKHR::INTERLACED_SEPARATE_PLANES_KHR.0;
-            const PROGRESSIVE = 0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct VideoDecodeH264PictureLayoutFlagsKHR(Flags);
+    impl VideoDecodeH264PictureLayoutFlagsKHR {
+        pub const INTERLACED_INTERLEAVED_LINES_KHR: Self =
+            Self(VideoDecodeH264PictureLayoutFlagBitsKHR::INTERLACED_INTERLEAVED_LINES_KHR.0);
+        pub const INTERLACED_SEPARATE_PLANES_KHR: Self =
+            Self(VideoDecodeH264PictureLayoutFlagBitsKHR::INTERLACED_SEPARATE_PLANES_KHR.0);
+        pub const PROGRESSIVE: Self = Self(0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoDecodeH264PictureLayoutFlagBitsKHR(u32);
     impl VideoDecodeH264PictureLayoutFlagBitsKHR {
         pub const INTERLACED_INTERLEAVED_LINES_KHR: Self = Self(1 << 0);

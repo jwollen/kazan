@@ -21,10 +21,13 @@ pub(super) mod defs {
         pub p_initial_data: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ValidationCacheCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::VALIDATION_CACHE_CREATE_INFO_EXT;
+    }
     impl Default for ValidationCacheCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VALIDATION_CACHE_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 initial_data_size: Default::default(),
@@ -52,10 +55,22 @@ pub(super) mod defs {
         pub validation_cache: ValidationCacheEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ShaderModuleValidationCacheCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::SHADER_MODULE_VALIDATION_CACHE_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<ShaderModuleCreateInfo<'a>>
+        for ShaderModuleValidationCacheCreateInfoEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<PipelineShaderStageCreateInfo<'a>>
+        for ShaderModuleValidationCacheCreateInfoEXT<'a>
+    {
+    }
     impl Default for ShaderModuleValidationCacheCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SHADER_MODULE_VALIDATION_CACHE_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 validation_cache: Default::default(),
                 _marker: PhantomData,
@@ -74,12 +89,10 @@ pub(super) mod defs {
     impl ValidationCacheHeaderVersionEXT {
         pub const ONE_EXT: Self = Self(1);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct ValidationCacheCreateFlagsEXT: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct ValidationCacheCreateFlagsEXT(Flags);
+    impl ValidationCacheCreateFlagsEXT {}
     pub type PFN_vkCreateValidationCacheEXT = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const ValidationCacheCreateInfoEXT<'_>,

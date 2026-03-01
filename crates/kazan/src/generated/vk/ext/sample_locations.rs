@@ -35,10 +35,15 @@ pub(super) mod defs {
         pub p_sample_locations: *const SampleLocationEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SampleLocationsInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SAMPLE_LOCATIONS_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<ImageMemoryBarrier<'a>> for SampleLocationsInfoEXT<'a> {}
+    unsafe impl<'a> Extends<ImageMemoryBarrier2<'a>> for SampleLocationsInfoEXT<'a> {}
     impl Default for SampleLocationsInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SAMPLE_LOCATIONS_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 sample_locations_per_pixel: Default::default(),
                 sample_location_grid_size: Default::default(),
@@ -135,10 +140,15 @@ pub(super) mod defs {
         pub p_post_subpass_sample_locations: *const SubpassSampleLocationsEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RenderPassSampleLocationsBeginInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::RENDER_PASS_SAMPLE_LOCATIONS_BEGIN_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<RenderPassBeginInfo<'a>> for RenderPassSampleLocationsBeginInfoEXT<'a> {}
     impl Default for RenderPassSampleLocationsBeginInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RENDER_PASS_SAMPLE_LOCATIONS_BEGIN_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 attachment_initial_sample_locations_count: Default::default(),
                 p_attachment_initial_sample_locations: core::ptr::null(),
@@ -180,10 +190,18 @@ pub(super) mod defs {
         pub sample_locations_info: SampleLocationsInfoEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineSampleLocationsStateCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<PipelineMultisampleStateCreateInfo<'a>>
+        for PipelineSampleLocationsStateCreateInfoEXT<'a>
+    {
+    }
     impl Default for PipelineSampleLocationsStateCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 sample_locations_enable: Default::default(),
                 sample_locations_info: Default::default(),
@@ -216,10 +234,18 @@ pub(super) mod defs {
         pub variable_sample_locations: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSampleLocationsPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SAMPLE_LOCATIONS_PROPERTIES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceSampleLocationsPropertiesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceSampleLocationsPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SAMPLE_LOCATIONS_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 sample_location_sample_counts: Default::default(),
                 max_sample_location_grid_size: Default::default(),
@@ -272,10 +298,13 @@ pub(super) mod defs {
         pub max_sample_location_grid_size: Extent2D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MultisamplePropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::MULTISAMPLE_PROPERTIES_EXT;
+    }
     impl Default for MultisamplePropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MULTISAMPLE_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_sample_location_grid_size: Default::default(),
                 _marker: PhantomData,

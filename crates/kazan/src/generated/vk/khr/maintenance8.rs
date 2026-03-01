@@ -16,10 +16,16 @@ pub(super) mod defs {
         pub maintenance8: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMaintenance8FeaturesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_MAINTENANCE_8_FEATURES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceMaintenance8FeaturesKHR<'a> {}
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceMaintenance8FeaturesKHR<'a> {}
     impl Default for PhysicalDeviceMaintenance8FeaturesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_MAINTENANCE_8_FEATURES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 maintenance8: Default::default(),
                 _marker: PhantomData,
@@ -41,10 +47,16 @@ pub(super) mod defs {
         pub dst_access_mask3: AccessFlags3KHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MemoryBarrierAccessFlags3KHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_BARRIER_ACCESS_FLAGS_3_KHR;
+    }
+    unsafe impl<'a> Extends<SubpassDependency2<'a>> for MemoryBarrierAccessFlags3KHR<'a> {}
+    unsafe impl<'a> Extends<BufferMemoryBarrier2<'a>> for MemoryBarrierAccessFlags3KHR<'a> {}
+    unsafe impl<'a> Extends<ImageMemoryBarrier2<'a>> for MemoryBarrierAccessFlags3KHR<'a> {}
     impl Default for MemoryBarrierAccessFlags3KHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MEMORY_BARRIER_ACCESS_FLAGS_3_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 src_access_mask3: Default::default(),
                 dst_access_mask3: Default::default(),
@@ -62,15 +74,14 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct AccessFlags3KHR: Flags64 {
-            const NONE = 0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct AccessFlags3KHR(Flags64);
+    impl AccessFlags3KHR {
+        pub const NONE: Self = Self(0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct AccessFlagBits3KHR(u64);
     impl AccessFlagBits3KHR {}
 }

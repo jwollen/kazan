@@ -16,10 +16,14 @@ pub(super) mod defs {
         pub transform: SurfaceTransformFlagBitsKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RenderPassTransformBeginInfoQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::RENDER_PASS_TRANSFORM_BEGIN_INFO_QCOM;
+    }
+    unsafe impl<'a> Extends<RenderPassBeginInfo<'a>> for RenderPassTransformBeginInfoQCOM<'a> {}
     impl Default for RenderPassTransformBeginInfoQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RENDER_PASS_TRANSFORM_BEGIN_INFO_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 transform: Default::default(),
                 _marker: PhantomData,
@@ -41,10 +45,18 @@ pub(super) mod defs {
         pub render_area: Rect2D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CommandBufferInheritanceRenderPassTransformInfoQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::COMMAND_BUFFER_INHERITANCE_RENDER_PASS_TRANSFORM_INFO_QCOM;
+    }
+    unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>>
+        for CommandBufferInheritanceRenderPassTransformInfoQCOM<'a>
+    {
+    }
     impl Default for CommandBufferInheritanceRenderPassTransformInfoQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::COMMAND_BUFFER_INHERITANCE_RENDER_PASS_TRANSFORM_INFO_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 transform: Default::default(),
                 render_area: Default::default(),

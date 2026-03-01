@@ -29,10 +29,13 @@ pub(super) mod defs {
         pub triangle_array_stride: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MicromapBuildInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::MICROMAP_BUILD_INFO_EXT;
+    }
     impl Default for MicromapBuildInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MICROMAP_BUILD_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 ty: Default::default(),
                 flags: Default::default(),
@@ -106,10 +109,13 @@ pub(super) mod defs {
         pub device_address: DeviceAddress,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MicromapCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::MICROMAP_CREATE_INFO_EXT;
+    }
     impl Default for MicromapCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MICROMAP_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 create_flags: Default::default(),
                 buffer: Default::default(),
@@ -155,10 +161,13 @@ pub(super) mod defs {
         pub p_version_data: *const u8,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MicromapVersionInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::MICROMAP_VERSION_INFO_EXT;
+    }
     impl Default for MicromapVersionInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MICROMAP_VERSION_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_version_data: core::ptr::null(),
                 _marker: PhantomData,
@@ -176,10 +185,13 @@ pub(super) mod defs {
         pub mode: CopyMicromapModeEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CopyMicromapInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::COPY_MICROMAP_INFO_EXT;
+    }
     impl Default for CopyMicromapInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::COPY_MICROMAP_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 src: Default::default(),
                 dst: Default::default(),
@@ -212,10 +224,13 @@ pub(super) mod defs {
         pub mode: CopyMicromapModeEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CopyMicromapToMemoryInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::COPY_MICROMAP_TO_MEMORY_INFO_EXT;
+    }
     impl Default for CopyMicromapToMemoryInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::COPY_MICROMAP_TO_MEMORY_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 src: Default::default(),
                 dst: Default::default(),
@@ -248,10 +263,13 @@ pub(super) mod defs {
         pub mode: CopyMicromapModeEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CopyMemoryToMicromapInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::COPY_MEMORY_TO_MICROMAP_INFO_EXT;
+    }
     impl Default for CopyMemoryToMicromapInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::COPY_MEMORY_TO_MICROMAP_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 src: Default::default(),
                 dst: Default::default(),
@@ -284,10 +302,13 @@ pub(super) mod defs {
         pub discardable: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MicromapBuildSizesInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::MICROMAP_BUILD_SIZES_INFO_EXT;
+    }
     impl Default for MicromapBuildSizesInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MICROMAP_BUILD_SIZES_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 micromap_size: Default::default(),
                 build_scratch_size: Default::default(),
@@ -362,10 +383,19 @@ pub(super) mod defs {
         pub micromap_host_commands: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceOpacityMicromapFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceOpacityMicromapFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceOpacityMicromapFeaturesEXT<'a> {}
     impl Default for PhysicalDeviceOpacityMicromapFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 micromap: Default::default(),
                 micromap_capture_replay: Default::default(),
@@ -397,10 +427,18 @@ pub(super) mod defs {
         pub max_opacity4_state_subdivision_level: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceOpacityMicromapPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_OPACITY_MICROMAP_PROPERTIES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceOpacityMicromapPropertiesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceOpacityMicromapPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_OPACITY_MICROMAP_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_opacity2_state_subdivision_level: Default::default(),
                 max_opacity4_state_subdivision_level: Default::default(),
@@ -439,10 +477,22 @@ pub(super) mod defs {
         pub micromap: MicromapEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureTrianglesOpacityMicromapEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_EXT;
+    }
+    unsafe impl<'a> Extends<AccelerationStructureGeometryTrianglesDataKHR<'a>>
+        for AccelerationStructureTrianglesOpacityMicromapEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<AccelerationStructureDenseGeometryFormatTrianglesDataAMDX<'a>>
+        for AccelerationStructureTrianglesOpacityMicromapEXT<'a>
+    {
+    }
     impl Default for AccelerationStructureTrianglesOpacityMicromapEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 index_type: Default::default(),
                 index_buffer: Default::default(),
@@ -527,32 +577,34 @@ pub(super) mod defs {
         pub const FULLY_UNKNOWN_OPAQUE_EXT: Self = Self(-4);
         pub const CLUSTER_GEOMETRY_DISABLE_OPACITY_MICROMAP_NV: Self = Self(-5);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct BuildMicromapFlagsEXT: Flags {
-            const PREFER_FAST_TRACE_EXT = BuildMicromapFlagBitsEXT::PREFER_FAST_TRACE_EXT.0;
-            const PREFER_FAST_BUILD_EXT = BuildMicromapFlagBitsEXT::PREFER_FAST_BUILD_EXT.0;
-            const ALLOW_COMPACTION_EXT = BuildMicromapFlagBitsEXT::ALLOW_COMPACTION_EXT.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct BuildMicromapFlagsEXT(Flags);
+    impl BuildMicromapFlagsEXT {
+        pub const PREFER_FAST_TRACE_EXT: Self =
+            Self(BuildMicromapFlagBitsEXT::PREFER_FAST_TRACE_EXT.0);
+        pub const PREFER_FAST_BUILD_EXT: Self =
+            Self(BuildMicromapFlagBitsEXT::PREFER_FAST_BUILD_EXT.0);
+        pub const ALLOW_COMPACTION_EXT: Self =
+            Self(BuildMicromapFlagBitsEXT::ALLOW_COMPACTION_EXT.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct BuildMicromapFlagBitsEXT(u32);
     impl BuildMicromapFlagBitsEXT {
         pub const PREFER_FAST_TRACE_EXT: Self = Self(1 << 0);
         pub const PREFER_FAST_BUILD_EXT: Self = Self(1 << 1);
         pub const ALLOW_COMPACTION_EXT: Self = Self(1 << 2);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct MicromapCreateFlagsEXT: Flags {
-            const DEVICE_ADDRESS_CAPTURE_REPLAY_EXT = MicromapCreateFlagBitsEXT::DEVICE_ADDRESS_CAPTURE_REPLAY_EXT.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct MicromapCreateFlagsEXT(Flags);
+    impl MicromapCreateFlagsEXT {
+        pub const DEVICE_ADDRESS_CAPTURE_REPLAY_EXT: Self =
+            Self(MicromapCreateFlagBitsEXT::DEVICE_ADDRESS_CAPTURE_REPLAY_EXT.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MicromapCreateFlagBitsEXT(u32);
     impl MicromapCreateFlagBitsEXT {
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY_EXT: Self = Self(1 << 0);

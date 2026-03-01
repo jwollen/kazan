@@ -22,10 +22,20 @@ pub(super) mod defs {
         pub export_object_type: ExportMetalObjectTypeFlagBitsEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExportMetalObjectCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_METAL_OBJECT_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<InstanceCreateInfo<'a>> for ExportMetalObjectCreateInfoEXT<'a> {}
+    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ExportMetalObjectCreateInfoEXT<'a> {}
+    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ExportMetalObjectCreateInfoEXT<'a> {}
+    unsafe impl<'a> Extends<ImageViewCreateInfo<'a>> for ExportMetalObjectCreateInfoEXT<'a> {}
+    unsafe impl<'a> Extends<BufferViewCreateInfo<'a>> for ExportMetalObjectCreateInfoEXT<'a> {}
+    unsafe impl<'a> Extends<SemaphoreCreateInfo<'a>> for ExportMetalObjectCreateInfoEXT<'a> {}
+    unsafe impl<'a> Extends<EventCreateInfo<'a>> for ExportMetalObjectCreateInfoEXT<'a> {}
     impl Default for ExportMetalObjectCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXPORT_METAL_OBJECT_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 export_object_type: Default::default(),
                 _marker: PhantomData,
@@ -48,10 +58,13 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExportMetalObjectsInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_METAL_OBJECTS_INFO_EXT;
+    }
     impl Default for ExportMetalObjectsInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXPORT_METAL_OBJECTS_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 _marker: PhantomData,
             }
@@ -66,10 +79,14 @@ pub(super) mod defs {
         pub mtl_device: MTLDevice_id,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExportMetalDeviceInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_METAL_DEVICE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<ExportMetalObjectsInfoEXT<'a>> for ExportMetalDeviceInfoEXT<'a> {}
     impl Default for ExportMetalDeviceInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXPORT_METAL_DEVICE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 mtl_device: Default::default(),
                 _marker: PhantomData,
@@ -91,10 +108,14 @@ pub(super) mod defs {
         pub mtl_command_queue: MTLCommandQueue_id,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExportMetalCommandQueueInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_METAL_COMMAND_QUEUE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<ExportMetalObjectsInfoEXT<'a>> for ExportMetalCommandQueueInfoEXT<'a> {}
     impl Default for ExportMetalCommandQueueInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXPORT_METAL_COMMAND_QUEUE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 queue: Default::default(),
                 mtl_command_queue: Default::default(),
@@ -121,10 +142,14 @@ pub(super) mod defs {
         pub mtl_buffer: MTLBuffer_id,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExportMetalBufferInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_METAL_BUFFER_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<ExportMetalObjectsInfoEXT<'a>> for ExportMetalBufferInfoEXT<'a> {}
     impl Default for ExportMetalBufferInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXPORT_METAL_BUFFER_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 memory: Default::default(),
                 mtl_buffer: Default::default(),
@@ -150,10 +175,14 @@ pub(super) mod defs {
         pub mtl_buffer: MTLBuffer_id,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImportMetalBufferInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_METAL_BUFFER_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportMetalBufferInfoEXT<'a> {}
     impl Default for ImportMetalBufferInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMPORT_METAL_BUFFER_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 mtl_buffer: Default::default(),
                 _marker: PhantomData,
@@ -178,10 +207,14 @@ pub(super) mod defs {
         pub mtl_texture: MTLTexture_id,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExportMetalTextureInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_METAL_TEXTURE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<ExportMetalObjectsInfoEXT<'a>> for ExportMetalTextureInfoEXT<'a> {}
     impl Default for ExportMetalTextureInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXPORT_METAL_TEXTURE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 image: Default::default(),
                 image_view: Default::default(),
@@ -223,10 +256,14 @@ pub(super) mod defs {
         pub mtl_texture: MTLTexture_id,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImportMetalTextureInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_METAL_TEXTURE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ImportMetalTextureInfoEXT<'a> {}
     impl Default for ImportMetalTextureInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMPORT_METAL_TEXTURE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 plane: Default::default(),
                 mtl_texture: Default::default(),
@@ -253,10 +290,14 @@ pub(super) mod defs {
         pub io_surface: IOSurfaceRef,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExportMetalIOSurfaceInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_METAL_IO_SURFACE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<ExportMetalObjectsInfoEXT<'a>> for ExportMetalIOSurfaceInfoEXT<'a> {}
     impl Default for ExportMetalIOSurfaceInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXPORT_METAL_IO_SURFACE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 image: Default::default(),
                 io_surface: Default::default(),
@@ -282,10 +323,14 @@ pub(super) mod defs {
         pub io_surface: IOSurfaceRef,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImportMetalIOSurfaceInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_METAL_IO_SURFACE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ImportMetalIOSurfaceInfoEXT<'a> {}
     impl Default for ImportMetalIOSurfaceInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMPORT_METAL_IO_SURFACE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 io_surface: Default::default(),
                 _marker: PhantomData,
@@ -308,10 +353,14 @@ pub(super) mod defs {
         pub mtl_shared_event: MTLSharedEvent_id,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExportMetalSharedEventInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_METAL_SHARED_EVENT_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<ExportMetalObjectsInfoEXT<'a>> for ExportMetalSharedEventInfoEXT<'a> {}
     impl Default for ExportMetalSharedEventInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXPORT_METAL_SHARED_EVENT_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 semaphore: Default::default(),
                 event: Default::default(),
@@ -342,10 +391,15 @@ pub(super) mod defs {
         pub mtl_shared_event: MTLSharedEvent_id,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImportMetalSharedEventInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_METAL_SHARED_EVENT_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<SemaphoreCreateInfo<'a>> for ImportMetalSharedEventInfoEXT<'a> {}
+    unsafe impl<'a> Extends<EventCreateInfo<'a>> for ImportMetalSharedEventInfoEXT<'a> {}
     impl Default for ImportMetalSharedEventInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMPORT_METAL_SHARED_EVENT_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 mtl_shared_event: Default::default(),
                 _marker: PhantomData,
@@ -358,20 +412,25 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct ExportMetalObjectTypeFlagsEXT: Flags {
-            const METAL_DEVICE_EXT = ExportMetalObjectTypeFlagBitsEXT::METAL_DEVICE_EXT.0;
-            const METAL_COMMAND_QUEUE_EXT = ExportMetalObjectTypeFlagBitsEXT::METAL_COMMAND_QUEUE_EXT.0;
-            const METAL_BUFFER_EXT = ExportMetalObjectTypeFlagBitsEXT::METAL_BUFFER_EXT.0;
-            const METAL_TEXTURE_EXT = ExportMetalObjectTypeFlagBitsEXT::METAL_TEXTURE_EXT.0;
-            const METAL_IOSURFACE_EXT = ExportMetalObjectTypeFlagBitsEXT::METAL_IOSURFACE_EXT.0;
-            const METAL_SHARED_EVENT_EXT = ExportMetalObjectTypeFlagBitsEXT::METAL_SHARED_EVENT_EXT.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct ExportMetalObjectTypeFlagsEXT(Flags);
+    impl ExportMetalObjectTypeFlagsEXT {
+        pub const METAL_DEVICE_EXT: Self =
+            Self(ExportMetalObjectTypeFlagBitsEXT::METAL_DEVICE_EXT.0);
+        pub const METAL_COMMAND_QUEUE_EXT: Self =
+            Self(ExportMetalObjectTypeFlagBitsEXT::METAL_COMMAND_QUEUE_EXT.0);
+        pub const METAL_BUFFER_EXT: Self =
+            Self(ExportMetalObjectTypeFlagBitsEXT::METAL_BUFFER_EXT.0);
+        pub const METAL_TEXTURE_EXT: Self =
+            Self(ExportMetalObjectTypeFlagBitsEXT::METAL_TEXTURE_EXT.0);
+        pub const METAL_IOSURFACE_EXT: Self =
+            Self(ExportMetalObjectTypeFlagBitsEXT::METAL_IOSURFACE_EXT.0);
+        pub const METAL_SHARED_EVENT_EXT: Self =
+            Self(ExportMetalObjectTypeFlagBitsEXT::METAL_SHARED_EVENT_EXT.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExportMetalObjectTypeFlagBitsEXT(u32);
     impl ExportMetalObjectTypeFlagBitsEXT {
         pub const METAL_DEVICE_EXT: Self = Self(1 << 0);

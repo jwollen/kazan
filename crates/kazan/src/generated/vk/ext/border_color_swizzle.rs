@@ -17,10 +17,18 @@ pub(super) mod defs {
         pub srgb: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SamplerBorderColorComponentMappingCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::SAMPLER_BORDER_COLOR_COMPONENT_MAPPING_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<SamplerCreateInfo<'a>>
+        for SamplerBorderColorComponentMappingCreateInfoEXT<'a>
+    {
+    }
     impl Default for SamplerBorderColorComponentMappingCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SAMPLER_BORDER_COLOR_COMPONENT_MAPPING_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 components: Default::default(),
                 srgb: Default::default(),
@@ -47,10 +55,19 @@ pub(super) mod defs {
         pub border_color_swizzle_from_image: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceBorderColorSwizzleFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceBorderColorSwizzleFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceBorderColorSwizzleFeaturesEXT<'a> {}
     impl Default for PhysicalDeviceBorderColorSwizzleFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 border_color_swizzle: Default::default(),
                 border_color_swizzle_from_image: Default::default(),

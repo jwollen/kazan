@@ -16,10 +16,14 @@ pub(super) mod defs {
         pub memory: DeviceMemory,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for TileMemoryBindInfoQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::TILE_MEMORY_BIND_INFO_QCOM;
+    }
+    unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>> for TileMemoryBindInfoQCOM<'a> {}
     impl Default for TileMemoryBindInfoQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::TILE_MEMORY_BIND_INFO_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 memory: Default::default(),
                 _marker: PhantomData,
@@ -40,10 +44,19 @@ pub(super) mod defs {
         pub tile_memory_heap: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTileMemoryHeapFeaturesQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_TILE_MEMORY_HEAP_FEATURES_QCOM;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceTileMemoryHeapFeaturesQCOM<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceTileMemoryHeapFeaturesQCOM<'a> {}
     impl Default for PhysicalDeviceTileMemoryHeapFeaturesQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_TILE_MEMORY_HEAP_FEATURES_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 tile_memory_heap: Default::default(),
                 _marker: PhantomData,
@@ -65,10 +78,18 @@ pub(super) mod defs {
         pub tile_buffer_transfers: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTileMemoryHeapPropertiesQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_TILE_MEMORY_HEAP_PROPERTIES_QCOM;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceTileMemoryHeapPropertiesQCOM<'a>
+    {
+    }
     impl Default for PhysicalDeviceTileMemoryHeapPropertiesQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_TILE_MEMORY_HEAP_PROPERTIES_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 queue_submit_boundary: Default::default(),
                 tile_buffer_transfers: Default::default(),
@@ -94,10 +115,16 @@ pub(super) mod defs {
         pub size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for TileMemorySizeInfoQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::TILE_MEMORY_SIZE_INFO_QCOM;
+    }
+    unsafe impl<'a> Extends<RenderPassCreateInfo<'a>> for TileMemorySizeInfoQCOM<'a> {}
+    unsafe impl<'a> Extends<RenderPassCreateInfo2<'a>> for TileMemorySizeInfoQCOM<'a> {}
+    unsafe impl<'a> Extends<RenderingInfo<'a>> for TileMemorySizeInfoQCOM<'a> {}
     impl Default for TileMemorySizeInfoQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::TILE_MEMORY_SIZE_INFO_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 size: Default::default(),
                 _marker: PhantomData,
@@ -119,10 +146,14 @@ pub(super) mod defs {
         pub alignment: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for TileMemoryRequirementsQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::TILE_MEMORY_REQUIREMENTS_QCOM;
+    }
+    unsafe impl<'a> Extends<MemoryRequirements2<'a>> for TileMemoryRequirementsQCOM<'a> {}
     impl Default for TileMemoryRequirementsQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::TILE_MEMORY_REQUIREMENTS_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 size: Default::default(),
                 alignment: Default::default(),

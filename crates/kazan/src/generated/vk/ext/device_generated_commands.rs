@@ -23,10 +23,22 @@ pub(super) mod defs {
         pub dynamic_generated_pipeline_layout: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 device_generated_commands: Default::default(),
                 dynamic_generated_pipeline_layout: Default::default(),
@@ -66,10 +78,18 @@ pub(super) mod defs {
         pub device_generated_commands_multi_draw_indirect_count: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDeviceGeneratedCommandsPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceDeviceGeneratedCommandsPropertiesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceDeviceGeneratedCommandsPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_indirect_pipeline_count: Default::default(),
                 max_indirect_shader_object_count: Default::default(),
@@ -180,10 +200,18 @@ pub(super) mod defs {
         pub pipeline: Pipeline,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for GeneratedCommandsPipelineInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::GENERATED_COMMANDS_PIPELINE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<GeneratedCommandsInfoEXT<'a>> for GeneratedCommandsPipelineInfoEXT<'a> {}
+    unsafe impl<'a> Extends<GeneratedCommandsMemoryRequirementsInfoEXT<'a>>
+        for GeneratedCommandsPipelineInfoEXT<'a>
+    {
+    }
     impl Default for GeneratedCommandsPipelineInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::GENERATED_COMMANDS_PIPELINE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 pipeline: Default::default(),
                 _marker: PhantomData,
@@ -205,10 +233,18 @@ pub(super) mod defs {
         pub p_shaders: *const ShaderEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for GeneratedCommandsShaderInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::GENERATED_COMMANDS_SHADER_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<GeneratedCommandsInfoEXT<'a>> for GeneratedCommandsShaderInfoEXT<'a> {}
+    unsafe impl<'a> Extends<GeneratedCommandsMemoryRequirementsInfoEXT<'a>>
+        for GeneratedCommandsShaderInfoEXT<'a>
+    {
+    }
     impl Default for GeneratedCommandsShaderInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::GENERATED_COMMANDS_SHADER_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shader_count: Default::default(),
                 p_shaders: core::ptr::null(),
@@ -234,10 +270,14 @@ pub(super) mod defs {
         pub max_draw_count: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for GeneratedCommandsMemoryRequirementsInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_EXT;
+    }
     impl Default for GeneratedCommandsMemoryRequirementsInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 indirect_execution_set: Default::default(),
                 indirect_commands_layout: Default::default(),
@@ -280,10 +320,14 @@ pub(super) mod defs {
         pub max_pipeline_count: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for IndirectExecutionSetPipelineInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::INDIRECT_EXECUTION_SET_PIPELINE_INFO_EXT;
+    }
     impl Default for IndirectExecutionSetPipelineInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::INDIRECT_EXECUTION_SET_PIPELINE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 initial_pipeline: Default::default(),
                 max_pipeline_count: Default::default(),
@@ -310,10 +354,14 @@ pub(super) mod defs {
         pub p_set_layouts: *const DescriptorSetLayout,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for IndirectExecutionSetShaderLayoutInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::INDIRECT_EXECUTION_SET_SHADER_LAYOUT_INFO_EXT;
+    }
     impl Default for IndirectExecutionSetShaderLayoutInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::INDIRECT_EXECUTION_SET_SHADER_LAYOUT_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 set_layout_count: Default::default(),
                 p_set_layouts: core::ptr::null(),
@@ -341,10 +389,13 @@ pub(super) mod defs {
         pub p_push_constant_ranges: *const PushConstantRange,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for IndirectExecutionSetShaderInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::INDIRECT_EXECUTION_SET_SHADER_INFO_EXT;
+    }
     impl Default for IndirectExecutionSetShaderInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::INDIRECT_EXECUTION_SET_SHADER_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 shader_count: Default::default(),
                 p_initial_shaders: core::ptr::null(),
@@ -392,10 +443,13 @@ pub(super) mod defs {
         pub info: IndirectExecutionSetInfoEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for IndirectExecutionSetCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::INDIRECT_EXECUTION_SET_CREATE_INFO_EXT;
+    }
     impl Default for IndirectExecutionSetCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::INDIRECT_EXECUTION_SET_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 ty: Default::default(),
                 info: Default::default(),
@@ -430,10 +484,13 @@ pub(super) mod defs {
         pub max_draw_count: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for GeneratedCommandsInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::GENERATED_COMMANDS_INFO_EXT;
+    }
     impl Default for GeneratedCommandsInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::GENERATED_COMMANDS_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 shader_stages: Default::default(),
                 indirect_execution_set: Default::default(),
@@ -506,10 +563,14 @@ pub(super) mod defs {
         pub pipeline: Pipeline,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for WriteIndirectExecutionSetPipelineEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::WRITE_INDIRECT_EXECUTION_SET_PIPELINE_EXT;
+    }
     impl Default for WriteIndirectExecutionSetPipelineEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::WRITE_INDIRECT_EXECUTION_SET_PIPELINE_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 index: Default::default(),
                 pipeline: Default::default(),
@@ -536,10 +597,14 @@ pub(super) mod defs {
         pub shader: ShaderEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for WriteIndirectExecutionSetShaderEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::WRITE_INDIRECT_EXECUTION_SET_SHADER_EXT;
+    }
     impl Default for WriteIndirectExecutionSetShaderEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::WRITE_INDIRECT_EXECUTION_SET_SHADER_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 index: Default::default(),
                 shader: Default::default(),
@@ -570,10 +635,14 @@ pub(super) mod defs {
         pub p_tokens: *const IndirectCommandsLayoutTokenEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for IndirectCommandsLayoutCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_EXT;
+    }
     impl Default for IndirectCommandsLayoutCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 shader_stages: Default::default(),
@@ -618,10 +687,13 @@ pub(super) mod defs {
         pub offset: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for IndirectCommandsLayoutTokenEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::INDIRECT_COMMANDS_LAYOUT_TOKEN_EXT;
+    }
     impl Default for IndirectCommandsLayoutTokenEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::INDIRECT_COMMANDS_LAYOUT_TOKEN_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 ty: Default::default(),
                 data: Default::default(),
@@ -811,31 +883,33 @@ pub(super) mod defs {
         pub const PUSH_DATA_SEQUENCE_INDEX_EXT: Self = Self(1000135001);
         pub const TRACE_RAYS2_EXT: Self = Self(1000386004);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct IndirectCommandsLayoutUsageFlagsEXT: Flags {
-            const EXPLICIT_PREPROCESS_EXT = IndirectCommandsLayoutUsageFlagBitsEXT::EXPLICIT_PREPROCESS_EXT.0;
-            const UNORDERED_SEQUENCES_EXT = IndirectCommandsLayoutUsageFlagBitsEXT::UNORDERED_SEQUENCES_EXT.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct IndirectCommandsLayoutUsageFlagsEXT(Flags);
+    impl IndirectCommandsLayoutUsageFlagsEXT {
+        pub const EXPLICIT_PREPROCESS_EXT: Self =
+            Self(IndirectCommandsLayoutUsageFlagBitsEXT::EXPLICIT_PREPROCESS_EXT.0);
+        pub const UNORDERED_SEQUENCES_EXT: Self =
+            Self(IndirectCommandsLayoutUsageFlagBitsEXT::UNORDERED_SEQUENCES_EXT.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct IndirectCommandsLayoutUsageFlagBitsEXT(u32);
     impl IndirectCommandsLayoutUsageFlagBitsEXT {
         pub const EXPLICIT_PREPROCESS_EXT: Self = Self(1 << 0);
         pub const UNORDERED_SEQUENCES_EXT: Self = Self(1 << 1);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct IndirectCommandsInputModeFlagsEXT: Flags {
-            const VULKAN_INDEX_BUFFER_EXT = IndirectCommandsInputModeFlagBitsEXT::VULKAN_INDEX_BUFFER_EXT.0;
-            const DXGI_INDEX_BUFFER_EXT = IndirectCommandsInputModeFlagBitsEXT::DXGI_INDEX_BUFFER_EXT.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct IndirectCommandsInputModeFlagsEXT(Flags);
+    impl IndirectCommandsInputModeFlagsEXT {
+        pub const VULKAN_INDEX_BUFFER_EXT: Self =
+            Self(IndirectCommandsInputModeFlagBitsEXT::VULKAN_INDEX_BUFFER_EXT.0);
+        pub const DXGI_INDEX_BUFFER_EXT: Self =
+            Self(IndirectCommandsInputModeFlagBitsEXT::DXGI_INDEX_BUFFER_EXT.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct IndirectCommandsInputModeFlagBitsEXT(u32);
     impl IndirectCommandsInputModeFlagBitsEXT {
         pub const VULKAN_INDEX_BUFFER_EXT: Self = Self(1 << 0);

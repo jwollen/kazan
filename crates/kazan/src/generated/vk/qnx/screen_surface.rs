@@ -18,10 +18,13 @@ pub(super) mod defs {
         pub window: *mut _screen_window,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ScreenSurfaceCreateInfoQNX<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SCREEN_SURFACE_CREATE_INFO_QNX;
+    }
     impl Default for ScreenSurfaceCreateInfoQNX<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SCREEN_SURFACE_CREATE_INFO_QNX,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 context: core::ptr::null_mut(),
@@ -44,12 +47,10 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct ScreenSurfaceCreateFlagsQNX: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct ScreenSurfaceCreateFlagsQNX(Flags);
+    impl ScreenSurfaceCreateFlagsQNX {}
     pub type PFN_vkCreateScreenSurfaceQNX = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const ScreenSurfaceCreateInfoQNX<'_>,

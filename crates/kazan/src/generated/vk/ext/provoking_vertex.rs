@@ -17,10 +17,19 @@ pub(super) mod defs {
         pub transform_feedback_preserves_provoking_vertex: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceProvokingVertexFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PROVOKING_VERTEX_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceProvokingVertexFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceProvokingVertexFeaturesEXT<'a> {}
     impl Default for PhysicalDeviceProvokingVertexFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PROVOKING_VERTEX_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 provoking_vertex_last: Default::default(),
                 transform_feedback_preserves_provoking_vertex: Default::default(),
@@ -51,10 +60,18 @@ pub(super) mod defs {
         pub transform_feedback_preserves_triangle_fan_provoking_vertex: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceProvokingVertexPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PROVOKING_VERTEX_PROPERTIES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceProvokingVertexPropertiesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceProvokingVertexPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PROVOKING_VERTEX_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 provoking_vertex_mode_per_pipeline: Default::default(),
                 transform_feedback_preserves_triangle_fan_provoking_vertex: Default::default(),
@@ -87,11 +104,18 @@ pub(super) mod defs {
         pub provoking_vertex_mode: ProvokingVertexModeEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineRasterizationProvokingVertexStateCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<PipelineRasterizationStateCreateInfo<'a>>
+        for PipelineRasterizationProvokingVertexStateCreateInfoEXT<'a>
+    {
+    }
     impl Default for PipelineRasterizationProvokingVertexStateCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type:
-                    StructureType::PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 provoking_vertex_mode: Default::default(),
                 _marker: PhantomData,

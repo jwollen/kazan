@@ -20,10 +20,14 @@ pub(super) mod defs {
         pub occupancy_throttling: f32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ComputeOccupancyPriorityParametersNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::COMPUTE_OCCUPANCY_PRIORITY_PARAMETERS_NV;
+    }
     impl Default for ComputeOccupancyPriorityParametersNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::COMPUTE_OCCUPANCY_PRIORITY_PARAMETERS_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 occupancy_priority: Default::default(),
                 occupancy_throttling: Default::default(),
@@ -49,10 +53,22 @@ pub(super) mod defs {
         pub compute_occupancy_priority: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceComputeOccupancyPriorityFeaturesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_COMPUTE_OCCUPANCY_PRIORITY_FEATURES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceComputeOccupancyPriorityFeaturesNV<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceComputeOccupancyPriorityFeaturesNV<'a>
+    {
+    }
     impl Default for PhysicalDeviceComputeOccupancyPriorityFeaturesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_COMPUTE_OCCUPANCY_PRIORITY_FEATURES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 compute_occupancy_priority: Default::default(),
                 _marker: PhantomData,

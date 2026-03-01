@@ -16,10 +16,22 @@ pub(super) mod defs {
         pub descriptor_set_host_mapping: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDescriptorSetHostMappingFeaturesVALVE<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceDescriptorSetHostMappingFeaturesVALVE<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceDescriptorSetHostMappingFeaturesVALVE<'a>
+    {
+    }
     impl Default for PhysicalDeviceDescriptorSetHostMappingFeaturesVALVE<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 descriptor_set_host_mapping: Default::default(),
                 _marker: PhantomData,
@@ -41,10 +53,13 @@ pub(super) mod defs {
         pub binding: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DescriptorSetBindingReferenceVALVE<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DESCRIPTOR_SET_BINDING_REFERENCE_VALVE;
+    }
     impl Default for DescriptorSetBindingReferenceVALVE<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DESCRIPTOR_SET_BINDING_REFERENCE_VALVE,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 descriptor_set_layout: Default::default(),
                 binding: Default::default(),
@@ -71,10 +86,14 @@ pub(super) mod defs {
         pub descriptor_size: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DescriptorSetLayoutHostMappingInfoVALVE<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::DESCRIPTOR_SET_LAYOUT_HOST_MAPPING_INFO_VALVE;
+    }
     impl Default for DescriptorSetLayoutHostMappingInfoVALVE<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DESCRIPTOR_SET_LAYOUT_HOST_MAPPING_INFO_VALVE,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 descriptor_offset: Default::default(),
                 descriptor_size: Default::default(),

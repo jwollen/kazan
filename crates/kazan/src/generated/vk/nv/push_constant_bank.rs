@@ -16,10 +16,17 @@ pub(super) mod defs {
         pub bank: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PushConstantBankInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PUSH_CONSTANT_BANK_INFO_NV;
+    }
+    unsafe impl<'a> Extends<DescriptorSetAndBindingMappingEXT<'a>> for PushConstantBankInfoNV<'a> {}
+    unsafe impl<'a> Extends<PushDataInfoEXT<'a>> for PushConstantBankInfoNV<'a> {}
+    unsafe impl<'a> Extends<PushConstantsInfo<'a>> for PushConstantBankInfoNV<'a> {}
+    unsafe impl<'a> Extends<IndirectCommandsLayoutTokenEXT<'a>> for PushConstantBankInfoNV<'a> {}
     impl Default for PushConstantBankInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PUSH_CONSTANT_BANK_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 bank: Default::default(),
                 _marker: PhantomData,
@@ -40,10 +47,19 @@ pub(super) mod defs {
         pub push_constant_bank: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePushConstantBankFeaturesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_FEATURES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDevicePushConstantBankFeaturesNV<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePushConstantBankFeaturesNV<'a> {}
     impl Default for PhysicalDevicePushConstantBankFeaturesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_FEATURES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 push_constant_bank: Default::default(),
                 _marker: PhantomData,
@@ -67,10 +83,18 @@ pub(super) mod defs {
         pub max_compute_push_data_banks: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePushConstantBankPropertiesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_PROPERTIES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDevicePushConstantBankPropertiesNV<'a>
+    {
+    }
     impl Default for PhysicalDevicePushConstantBankPropertiesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_PROPERTIES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_graphics_push_constant_banks: Default::default(),
                 max_compute_push_constant_banks: Default::default(),

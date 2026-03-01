@@ -18,10 +18,14 @@ pub(super) mod defs {
         pub slice_count: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImageViewSlicedCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_VIEW_SLICED_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<ImageViewCreateInfo<'a>> for ImageViewSlicedCreateInfoEXT<'a> {}
     impl Default for ImageViewSlicedCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGE_VIEW_SLICED_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 slice_offset: Default::default(),
                 slice_count: Default::default(),
@@ -47,10 +51,19 @@ pub(super) mod defs {
         pub image_sliced_view_of3_d: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageSlicedViewOf3DFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_IMAGE_SLICED_VIEW_OF_3D_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceImageSlicedViewOf3DFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceImageSlicedViewOf3DFeaturesEXT<'a> {}
     impl Default for PhysicalDeviceImageSlicedViewOf3DFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_IMAGE_SLICED_VIEW_OF_3D_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 image_sliced_view_of3_d: Default::default(),
                 _marker: PhantomData,

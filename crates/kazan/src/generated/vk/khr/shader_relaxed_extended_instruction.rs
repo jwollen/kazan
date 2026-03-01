@@ -16,11 +16,24 @@ pub(super) mod defs {
         pub shader_relaxed_extended_instruction: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a>
+        for PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'a>
+    {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SHADER_RELAXED_EXTENDED_INSTRUCTION_FEATURES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'a>
+    {
+    }
     impl Default for PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type:
-                    StructureType::PHYSICAL_DEVICE_SHADER_RELAXED_EXTENDED_INSTRUCTION_FEATURES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shader_relaxed_extended_instruction: Default::default(),
                 _marker: PhantomData,

@@ -16,10 +16,13 @@ pub(super) mod defs {
         pub flags: HeadlessSurfaceCreateFlagsEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for HeadlessSurfaceCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::HEADLESS_SURFACE_CREATE_INFO_EXT;
+    }
     impl Default for HeadlessSurfaceCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::HEADLESS_SURFACE_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 _marker: PhantomData,
@@ -32,12 +35,10 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct HeadlessSurfaceCreateFlagsEXT: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct HeadlessSurfaceCreateFlagsEXT(Flags);
+    impl HeadlessSurfaceCreateFlagsEXT {}
     pub type PFN_vkCreateHeadlessSurfaceEXT = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const HeadlessSurfaceCreateInfoEXT<'_>,

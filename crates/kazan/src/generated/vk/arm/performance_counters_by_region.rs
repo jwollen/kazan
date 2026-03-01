@@ -16,10 +16,22 @@ pub(super) mod defs {
         pub performance_counters_by_region: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePerformanceCountersByRegionFeaturesARM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_FEATURES_ARM;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDevicePerformanceCountersByRegionFeaturesARM<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDevicePerformanceCountersByRegionFeaturesARM<'a>
+    {
+    }
     impl Default for PhysicalDevicePerformanceCountersByRegionFeaturesARM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_FEATURES_ARM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 performance_counters_by_region: Default::default(),
                 _marker: PhantomData,
@@ -47,11 +59,18 @@ pub(super) mod defs {
         pub identity_transform_order: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePerformanceCountersByRegionPropertiesARM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_PROPERTIES_ARM;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDevicePerformanceCountersByRegionPropertiesARM<'a>
+    {
+    }
     impl Default for PhysicalDevicePerformanceCountersByRegionPropertiesARM<'_> {
         fn default() -> Self {
             Self {
-                s_type:
-                    StructureType::PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_PROPERTIES_ARM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_per_region_performance_counters: Default::default(),
                 performance_counter_region_size: Default::default(),
@@ -98,10 +117,13 @@ pub(super) mod defs {
         pub counter_id: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PerformanceCounterARM<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PERFORMANCE_COUNTER_ARM;
+    }
     impl Default for PerformanceCounterARM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PERFORMANCE_COUNTER_ARM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 counter_id: Default::default(),
                 _marker: PhantomData,
@@ -123,10 +145,13 @@ pub(super) mod defs {
         pub name: [c_char; MAX_DESCRIPTION_SIZE as usize],
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PerformanceCounterDescriptionARM<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PERFORMANCE_COUNTER_DESCRIPTION_ARM;
+    }
     impl Default for PerformanceCounterDescriptionARM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PERFORMANCE_COUNTER_DESCRIPTION_ARM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 flags: Default::default(),
                 name: [Default::default(); _],
@@ -152,10 +177,22 @@ pub(super) mod defs {
         pub p_counter_indices: *mut u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RenderPassPerformanceCountersByRegionBeginInfoARM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::RENDER_PASS_PERFORMANCE_COUNTERS_BY_REGION_BEGIN_INFO_ARM;
+    }
+    unsafe impl<'a> Extends<RenderPassBeginInfo<'a>>
+        for RenderPassPerformanceCountersByRegionBeginInfoARM<'a>
+    {
+    }
+    unsafe impl<'a> Extends<RenderingInfo<'a>>
+        for RenderPassPerformanceCountersByRegionBeginInfoARM<'a>
+    {
+    }
     impl Default for RenderPassPerformanceCountersByRegionBeginInfoARM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RENDER_PASS_PERFORMANCE_COUNTERS_BY_REGION_BEGIN_INFO_ARM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 counter_address_count: Default::default(),
                 p_counter_addresses: core::ptr::null(),
@@ -188,12 +225,10 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct PerformanceCounterDescriptionFlagsARM: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct PerformanceCounterDescriptionFlagsARM(Flags);
+    impl PerformanceCounterDescriptionFlagsARM {}
     pub type PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM =
         unsafe extern "system" fn(
             physical_device: PhysicalDevice,

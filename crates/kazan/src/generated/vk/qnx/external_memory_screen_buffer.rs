@@ -16,10 +16,14 @@ pub(super) mod defs {
         pub buffer: *mut _screen_buffer,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImportScreenBufferInfoQNX<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_SCREEN_BUFFER_INFO_QNX;
+    }
+    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportScreenBufferInfoQNX<'a> {}
     impl Default for ImportScreenBufferInfoQNX<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMPORT_SCREEN_BUFFER_INFO_QNX,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 buffer: core::ptr::null_mut(),
                 _marker: PhantomData,
@@ -41,10 +45,13 @@ pub(super) mod defs {
         pub memory_type_bits: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ScreenBufferPropertiesQNX<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SCREEN_BUFFER_PROPERTIES_QNX;
+    }
     impl Default for ScreenBufferPropertiesQNX<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SCREEN_BUFFER_PROPERTIES_QNX,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 allocation_size: Default::default(),
                 memory_type_bits: Default::default(),
@@ -78,10 +85,14 @@ pub(super) mod defs {
         pub suggested_y_chroma_offset: ChromaLocation,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ScreenBufferFormatPropertiesQNX<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SCREEN_BUFFER_FORMAT_PROPERTIES_QNX;
+    }
+    unsafe impl<'a> Extends<ScreenBufferPropertiesQNX<'a>> for ScreenBufferFormatPropertiesQNX<'a> {}
     impl Default for ScreenBufferFormatPropertiesQNX<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SCREEN_BUFFER_FORMAT_PROPERTIES_QNX,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 format: Default::default(),
                 external_format: Default::default(),
@@ -154,10 +165,15 @@ pub(super) mod defs {
         pub external_format: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExternalFormatQNX<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_FORMAT_QNX;
+    }
+    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ExternalFormatQNX<'a> {}
+    unsafe impl<'a> Extends<SamplerYcbcrConversionCreateInfo<'a>> for ExternalFormatQNX<'a> {}
     impl Default for ExternalFormatQNX<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXTERNAL_FORMAT_QNX,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 external_format: Default::default(),
                 _marker: PhantomData,
@@ -178,10 +194,22 @@ pub(super) mod defs {
         pub screen_buffer_import: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_EXTERNAL_MEMORY_SCREEN_BUFFER_FEATURES_QNX;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'a>
+    {
+    }
     impl Default for PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_EXTERNAL_MEMORY_SCREEN_BUFFER_FEATURES_QNX,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 screen_buffer_import: Default::default(),
                 _marker: PhantomData,

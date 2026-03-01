@@ -29,10 +29,16 @@ pub(super) mod defs {
         pub tile_shading_image_processing: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTileShadingFeaturesQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_TILE_SHADING_FEATURES_QCOM;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceTileShadingFeaturesQCOM<'a> {}
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceTileShadingFeaturesQCOM<'a> {}
     impl Default for PhysicalDeviceTileShadingFeaturesQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_TILE_SHADING_FEATURES_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 tile_shading: Default::default(),
                 tile_shading_fragment_stage: Default::default(),
@@ -145,10 +151,18 @@ pub(super) mod defs {
         pub max_tile_shading_rate: Extent2D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTileShadingPropertiesQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_TILE_SHADING_PROPERTIES_QCOM;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceTileShadingPropertiesQCOM<'a>
+    {
+    }
     impl Default for PhysicalDeviceTileShadingPropertiesQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_TILE_SHADING_PROPERTIES_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_apron_size: Default::default(),
                 prefer_non_coherent: Default::default(),
@@ -185,10 +199,21 @@ pub(super) mod defs {
         pub tile_apron_size: Extent2D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RenderPassTileShadingCreateInfoQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::RENDER_PASS_TILE_SHADING_CREATE_INFO_QCOM;
+    }
+    unsafe impl<'a> Extends<RenderPassCreateInfo<'a>> for RenderPassTileShadingCreateInfoQCOM<'a> {}
+    unsafe impl<'a> Extends<RenderPassCreateInfo2<'a>> for RenderPassTileShadingCreateInfoQCOM<'a> {}
+    unsafe impl<'a> Extends<RenderingInfo<'a>> for RenderPassTileShadingCreateInfoQCOM<'a> {}
+    unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>>
+        for RenderPassTileShadingCreateInfoQCOM<'a>
+    {
+    }
     impl Default for RenderPassTileShadingCreateInfoQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RENDER_PASS_TILE_SHADING_CREATE_INFO_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 tile_apron_size: Default::default(),
@@ -213,10 +238,13 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PerTileBeginInfoQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PER_TILE_BEGIN_INFO_QCOM;
+    }
     impl Default for PerTileBeginInfoQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PER_TILE_BEGIN_INFO_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 _marker: PhantomData,
             }
@@ -230,10 +258,13 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PerTileEndInfoQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PER_TILE_END_INFO_QCOM;
+    }
     impl Default for PerTileEndInfoQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PER_TILE_END_INFO_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 _marker: PhantomData,
             }
@@ -247,26 +278,29 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DispatchTileInfoQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DISPATCH_TILE_INFO_QCOM;
+    }
     impl Default for DispatchTileInfoQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DISPATCH_TILE_INFO_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 _marker: PhantomData,
             }
         }
     }
     impl<'a> DispatchTileInfoQCOM<'a> {}
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct TileShadingRenderPassFlagsQCOM: Flags {
-            const ENABLE_QCOM = TileShadingRenderPassFlagBitsQCOM::ENABLE_QCOM.0;
-            const PER_TILE_EXECUTION_QCOM = TileShadingRenderPassFlagBitsQCOM::PER_TILE_EXECUTION_QCOM.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct TileShadingRenderPassFlagsQCOM(Flags);
+    impl TileShadingRenderPassFlagsQCOM {
+        pub const ENABLE_QCOM: Self = Self(TileShadingRenderPassFlagBitsQCOM::ENABLE_QCOM.0);
+        pub const PER_TILE_EXECUTION_QCOM: Self =
+            Self(TileShadingRenderPassFlagBitsQCOM::PER_TILE_EXECUTION_QCOM.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct TileShadingRenderPassFlagBitsQCOM(u32);
     impl TileShadingRenderPassFlagBitsQCOM {
         pub const ENABLE_QCOM: Self = Self(1 << 0);

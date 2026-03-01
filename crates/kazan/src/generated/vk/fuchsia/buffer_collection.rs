@@ -20,10 +20,15 @@ pub(super) mod defs {
         pub index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImportMemoryBufferCollectionFUCHSIA<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::IMPORT_MEMORY_BUFFER_COLLECTION_FUCHSIA;
+    }
+    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportMemoryBufferCollectionFUCHSIA<'a> {}
     impl Default for ImportMemoryBufferCollectionFUCHSIA<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMPORT_MEMORY_BUFFER_COLLECTION_FUCHSIA,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 collection: Default::default(),
                 index: Default::default(),
@@ -50,10 +55,15 @@ pub(super) mod defs {
         pub index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BufferCollectionImageCreateInfoFUCHSIA<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::BUFFER_COLLECTION_IMAGE_CREATE_INFO_FUCHSIA;
+    }
+    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for BufferCollectionImageCreateInfoFUCHSIA<'a> {}
     impl Default for BufferCollectionImageCreateInfoFUCHSIA<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BUFFER_COLLECTION_IMAGE_CREATE_INFO_FUCHSIA,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 collection: Default::default(),
                 index: Default::default(),
@@ -80,10 +90,15 @@ pub(super) mod defs {
         pub index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BufferCollectionBufferCreateInfoFUCHSIA<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::BUFFER_COLLECTION_BUFFER_CREATE_INFO_FUCHSIA;
+    }
+    unsafe impl<'a> Extends<BufferCreateInfo<'a>> for BufferCollectionBufferCreateInfoFUCHSIA<'a> {}
     impl Default for BufferCollectionBufferCreateInfoFUCHSIA<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BUFFER_COLLECTION_BUFFER_CREATE_INFO_FUCHSIA,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 collection: Default::default(),
                 index: Default::default(),
@@ -109,10 +124,13 @@ pub(super) mod defs {
         pub collection_token: zx_handle_t,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BufferCollectionCreateInfoFUCHSIA<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::BUFFER_COLLECTION_CREATE_INFO_FUCHSIA;
+    }
     impl Default for BufferCollectionCreateInfoFUCHSIA<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BUFFER_COLLECTION_CREATE_INFO_FUCHSIA,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 collection_token: Default::default(),
                 _marker: PhantomData,
@@ -143,10 +161,13 @@ pub(super) mod defs {
         pub suggested_y_chroma_offset: ChromaLocation,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BufferCollectionPropertiesFUCHSIA<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::BUFFER_COLLECTION_PROPERTIES_FUCHSIA;
+    }
     impl Default for BufferCollectionPropertiesFUCHSIA<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BUFFER_COLLECTION_PROPERTIES_FUCHSIA,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 memory_type_bits: Default::default(),
                 buffer_count: Default::default(),
@@ -234,10 +255,13 @@ pub(super) mod defs {
         pub buffer_collection_constraints: BufferCollectionConstraintsInfoFUCHSIA<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BufferConstraintsInfoFUCHSIA<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::BUFFER_CONSTRAINTS_INFO_FUCHSIA;
+    }
     impl Default for BufferConstraintsInfoFUCHSIA<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BUFFER_CONSTRAINTS_INFO_FUCHSIA,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 create_info: Default::default(),
                 required_format_features: Default::default(),
@@ -274,10 +298,13 @@ pub(super) mod defs {
         pub color_space: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SysmemColorSpaceFUCHSIA<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SYSMEM_COLOR_SPACE_FUCHSIA;
+    }
     impl Default for SysmemColorSpaceFUCHSIA<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SYSMEM_COLOR_SPACE_FUCHSIA,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 color_space: Default::default(),
                 _marker: PhantomData,
@@ -303,10 +330,13 @@ pub(super) mod defs {
         pub p_color_spaces: *const SysmemColorSpaceFUCHSIA<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImageFormatConstraintsInfoFUCHSIA<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_FORMAT_CONSTRAINTS_INFO_FUCHSIA;
+    }
     impl Default for ImageFormatConstraintsInfoFUCHSIA<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGE_FORMAT_CONSTRAINTS_INFO_FUCHSIA,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 image_create_info: Default::default(),
                 required_format_features: Default::default(),
@@ -355,10 +385,13 @@ pub(super) mod defs {
         pub flags: ImageConstraintsInfoFlagsFUCHSIA,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImageConstraintsInfoFUCHSIA<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_CONSTRAINTS_INFO_FUCHSIA;
+    }
     impl Default for ImageConstraintsInfoFUCHSIA<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGE_CONSTRAINTS_INFO_FUCHSIA,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 format_constraints_count: Default::default(),
                 p_format_constraints: core::ptr::null(),
@@ -401,10 +434,14 @@ pub(super) mod defs {
         pub min_buffer_count_for_shared_slack: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BufferCollectionConstraintsInfoFUCHSIA<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::BUFFER_COLLECTION_CONSTRAINTS_INFO_FUCHSIA;
+    }
     impl Default for BufferCollectionConstraintsInfoFUCHSIA<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BUFFER_COLLECTION_CONSTRAINTS_INFO_FUCHSIA,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 min_buffer_count: Default::default(),
                 max_buffer_count: Default::default(),
@@ -443,25 +480,27 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct ImageFormatConstraintsFlagsFUCHSIA: Flags {
-        }
-    }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct ImageConstraintsInfoFlagsFUCHSIA: Flags {
-            const CPU_READ_RARELY_FUCHSIA = ImageConstraintsInfoFlagBitsFUCHSIA::CPU_READ_RARELY_FUCHSIA.0;
-            const CPU_READ_OFTEN_FUCHSIA = ImageConstraintsInfoFlagBitsFUCHSIA::CPU_READ_OFTEN_FUCHSIA.0;
-            const CPU_WRITE_RARELY_FUCHSIA = ImageConstraintsInfoFlagBitsFUCHSIA::CPU_WRITE_RARELY_FUCHSIA.0;
-            const CPU_WRITE_OFTEN_FUCHSIA = ImageConstraintsInfoFlagBitsFUCHSIA::CPU_WRITE_OFTEN_FUCHSIA.0;
-            const PROTECTED_OPTIONAL_FUCHSIA = ImageConstraintsInfoFlagBitsFUCHSIA::PROTECTED_OPTIONAL_FUCHSIA.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct ImageFormatConstraintsFlagsFUCHSIA(Flags);
+    impl ImageFormatConstraintsFlagsFUCHSIA {}
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct ImageConstraintsInfoFlagsFUCHSIA(Flags);
+    impl ImageConstraintsInfoFlagsFUCHSIA {
+        pub const CPU_READ_RARELY_FUCHSIA: Self =
+            Self(ImageConstraintsInfoFlagBitsFUCHSIA::CPU_READ_RARELY_FUCHSIA.0);
+        pub const CPU_READ_OFTEN_FUCHSIA: Self =
+            Self(ImageConstraintsInfoFlagBitsFUCHSIA::CPU_READ_OFTEN_FUCHSIA.0);
+        pub const CPU_WRITE_RARELY_FUCHSIA: Self =
+            Self(ImageConstraintsInfoFlagBitsFUCHSIA::CPU_WRITE_RARELY_FUCHSIA.0);
+        pub const CPU_WRITE_OFTEN_FUCHSIA: Self =
+            Self(ImageConstraintsInfoFlagBitsFUCHSIA::CPU_WRITE_OFTEN_FUCHSIA.0);
+        pub const PROTECTED_OPTIONAL_FUCHSIA: Self =
+            Self(ImageConstraintsInfoFlagBitsFUCHSIA::PROTECTED_OPTIONAL_FUCHSIA.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ImageConstraintsInfoFlagBitsFUCHSIA(u32);
     impl ImageConstraintsInfoFlagBitsFUCHSIA {
         pub const CPU_READ_RARELY_FUCHSIA: Self = Self(1 << 0);

@@ -16,10 +16,18 @@ pub(super) mod defs {
         pub full_screen_exclusive: FullScreenExclusiveEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SurfaceFullScreenExclusiveInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SURFACE_FULL_SCREEN_EXCLUSIVE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceSurfaceInfo2KHR<'a>>
+        for SurfaceFullScreenExclusiveInfoEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<SwapchainCreateInfoKHR<'a>> for SurfaceFullScreenExclusiveInfoEXT<'a> {}
     impl Default for SurfaceFullScreenExclusiveInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SURFACE_FULL_SCREEN_EXCLUSIVE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 full_screen_exclusive: Default::default(),
                 _marker: PhantomData,
@@ -43,10 +51,19 @@ pub(super) mod defs {
         pub hmonitor: HMONITOR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SurfaceFullScreenExclusiveWin32InfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::SURFACE_FULL_SCREEN_EXCLUSIVE_WIN32_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceSurfaceInfo2KHR<'a>>
+        for SurfaceFullScreenExclusiveWin32InfoEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<SwapchainCreateInfoKHR<'a>> for SurfaceFullScreenExclusiveWin32InfoEXT<'a> {}
     impl Default for SurfaceFullScreenExclusiveWin32InfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SURFACE_FULL_SCREEN_EXCLUSIVE_WIN32_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 hmonitor: Default::default(),
                 _marker: PhantomData,
@@ -67,10 +84,18 @@ pub(super) mod defs {
         pub full_screen_exclusive_supported: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SurfaceCapabilitiesFullScreenExclusiveEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::SURFACE_CAPABILITIES_FULL_SCREEN_EXCLUSIVE_EXT;
+    }
+    unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>>
+        for SurfaceCapabilitiesFullScreenExclusiveEXT<'a>
+    {
+    }
     impl Default for SurfaceCapabilitiesFullScreenExclusiveEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SURFACE_CAPABILITIES_FULL_SCREEN_EXCLUSIVE_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 full_screen_exclusive_supported: Default::default(),
                 _marker: PhantomData,

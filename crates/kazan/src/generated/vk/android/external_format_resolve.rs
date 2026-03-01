@@ -16,10 +16,22 @@ pub(super) mod defs {
         pub external_format_resolve: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExternalFormatResolveFeaturesANDROID<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_FEATURES_ANDROID;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceExternalFormatResolveFeaturesANDROID<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceExternalFormatResolveFeaturesANDROID<'a>
+    {
+    }
     impl Default for PhysicalDeviceExternalFormatResolveFeaturesANDROID<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_FEATURES_ANDROID,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 external_format_resolve: Default::default(),
                 _marker: PhantomData,
@@ -42,10 +54,18 @@ pub(super) mod defs {
         pub external_format_resolve_chroma_offset_y: ChromaLocation,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExternalFormatResolvePropertiesANDROID<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_PROPERTIES_ANDROID;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceExternalFormatResolvePropertiesANDROID<'a>
+    {
+    }
     impl Default for PhysicalDeviceExternalFormatResolvePropertiesANDROID<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_PROPERTIES_ANDROID,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 null_color_attachment_with_external_format_resolve: Default::default(),
                 external_format_resolve_chroma_offset_x: Default::default(),
@@ -86,10 +106,18 @@ pub(super) mod defs {
         pub color_attachment_format: Format,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AndroidHardwareBufferFormatResolvePropertiesANDROID<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::ANDROID_HARDWARE_BUFFER_FORMAT_RESOLVE_PROPERTIES_ANDROID;
+    }
+    unsafe impl<'a> Extends<AndroidHardwareBufferPropertiesANDROID<'a>>
+        for AndroidHardwareBufferFormatResolvePropertiesANDROID<'a>
+    {
+    }
     impl Default for AndroidHardwareBufferFormatResolvePropertiesANDROID<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ANDROID_HARDWARE_BUFFER_FORMAT_RESOLVE_PROPERTIES_ANDROID,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 color_attachment_format: Default::default(),
                 _marker: PhantomData,

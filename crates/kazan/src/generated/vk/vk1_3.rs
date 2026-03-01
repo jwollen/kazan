@@ -20,10 +20,14 @@ pub(super) mod defs {
         pub private_data_slot_request_count: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DevicePrivateDataCreateInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_PRIVATE_DATA_CREATE_INFO;
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for DevicePrivateDataCreateInfo<'a> {}
     impl Default for DevicePrivateDataCreateInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEVICE_PRIVATE_DATA_CREATE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 private_data_slot_request_count: Default::default(),
                 _marker: PhantomData,
@@ -47,10 +51,13 @@ pub(super) mod defs {
         pub flags: PrivateDataSlotCreateFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PrivateDataSlotCreateInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PRIVATE_DATA_SLOT_CREATE_INFO;
+    }
     impl Default for PrivateDataSlotCreateInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PRIVATE_DATA_SLOT_CREATE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 _marker: PhantomData,
@@ -71,10 +78,15 @@ pub(super) mod defs {
         pub private_data: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePrivateDataFeatures<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_PRIVATE_DATA_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDevicePrivateDataFeatures<'a> {}
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePrivateDataFeatures<'a> {}
     impl Default for PhysicalDevicePrivateDataFeatures<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PRIVATE_DATA_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 private_data: Default::default(),
                 _marker: PhantomData,
@@ -95,10 +107,13 @@ pub(super) mod defs {
         pub p_create_info: *const BufferCreateInfo<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DeviceBufferMemoryRequirements<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_BUFFER_MEMORY_REQUIREMENTS;
+    }
     impl Default for DeviceBufferMemoryRequirements<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEVICE_BUFFER_MEMORY_REQUIREMENTS,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_create_info: core::ptr::null(),
                 _marker: PhantomData,
@@ -120,10 +135,13 @@ pub(super) mod defs {
         pub plane_aspect: ImageAspectFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DeviceImageMemoryRequirements<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_IMAGE_MEMORY_REQUIREMENTS;
+    }
     impl Default for DeviceImageMemoryRequirements<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEVICE_IMAGE_MEMORY_REQUIREMENTS,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_create_info: core::ptr::null(),
                 plane_aspect: Default::default(),
@@ -150,10 +168,19 @@ pub(super) mod defs {
         pub descriptor_binding_inline_uniform_block_update_after_bind: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceInlineUniformBlockFeatures<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceInlineUniformBlockFeatures<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceInlineUniformBlockFeatures<'a> {}
     impl Default for PhysicalDeviceInlineUniformBlockFeatures<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 inline_uniform_block: Default::default(),
                 descriptor_binding_inline_uniform_block_update_after_bind: Default::default(),
@@ -187,10 +214,18 @@ pub(super) mod defs {
         pub max_descriptor_set_update_after_bind_inline_uniform_blocks: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceInlineUniformBlockProperties<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_PROPERTIES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceInlineUniformBlockProperties<'a>
+    {
+    }
     impl Default for PhysicalDeviceInlineUniformBlockProperties<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_PROPERTIES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_inline_uniform_block_size: Default::default(),
                 max_per_stage_descriptor_inline_uniform_blocks: Default::default(),
@@ -249,10 +284,15 @@ pub(super) mod defs {
         pub p_data: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for WriteDescriptorSetInlineUniformBlock<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::WRITE_DESCRIPTOR_SET_INLINE_UNIFORM_BLOCK;
+    }
+    unsafe impl<'a> Extends<WriteDescriptorSet<'a>> for WriteDescriptorSetInlineUniformBlock<'a> {}
     impl Default for WriteDescriptorSetInlineUniformBlock<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::WRITE_DESCRIPTOR_SET_INLINE_UNIFORM_BLOCK,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 data_size: Default::default(),
                 p_data: core::ptr::null(),
@@ -275,10 +315,18 @@ pub(super) mod defs {
         pub max_inline_uniform_block_bindings: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DescriptorPoolInlineUniformBlockCreateInfo<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO;
+    }
+    unsafe impl<'a> Extends<DescriptorPoolCreateInfo<'a>>
+        for DescriptorPoolInlineUniformBlockCreateInfo<'a>
+    {
+    }
     impl Default for DescriptorPoolInlineUniformBlockCreateInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 max_inline_uniform_block_bindings: Default::default(),
                 _marker: PhantomData,
@@ -302,10 +350,15 @@ pub(super) mod defs {
         pub maintenance4: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMaintenance4Features<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceMaintenance4Features<'a> {}
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceMaintenance4Features<'a> {}
     impl Default for PhysicalDeviceMaintenance4Features<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 maintenance4: Default::default(),
                 _marker: PhantomData,
@@ -326,10 +379,18 @@ pub(super) mod defs {
         pub max_buffer_size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMaintenance4Properties<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceMaintenance4Properties<'a>
+    {
+    }
     impl Default for PhysicalDeviceMaintenance4Properties<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_buffer_size: Default::default(),
                 _marker: PhantomData,
@@ -350,10 +411,22 @@ pub(super) mod defs {
         pub texture_compression_astc_hdr: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTextureCompressionASTCHDRFeatures<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceTextureCompressionASTCHDRFeatures<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceTextureCompressionASTCHDRFeatures<'a>
+    {
+    }
     impl Default for PhysicalDeviceTextureCompressionASTCHDRFeatures<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 texture_compression_astc_hdr: Default::default(),
                 _marker: PhantomData,
@@ -395,10 +468,31 @@ pub(super) mod defs {
         pub p_pipeline_stage_creation_feedbacks: *mut PipelineCreationFeedback,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineCreationFeedbackCreateInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_CREATION_FEEDBACK_CREATE_INFO;
+    }
+    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>> for PipelineCreationFeedbackCreateInfo<'a> {}
+    unsafe impl<'a> Extends<ComputePipelineCreateInfo<'a>> for PipelineCreationFeedbackCreateInfo<'a> {}
+    unsafe impl<'a> Extends<RayTracingPipelineCreateInfoNV<'a>>
+        for PipelineCreationFeedbackCreateInfo<'a>
+    {
+    }
+    unsafe impl<'a> Extends<RayTracingPipelineCreateInfoKHR<'a>>
+        for PipelineCreationFeedbackCreateInfo<'a>
+    {
+    }
+    unsafe impl<'a> Extends<ExecutionGraphPipelineCreateInfoAMDX<'a>>
+        for PipelineCreationFeedbackCreateInfo<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DataGraphPipelineCreateInfoARM<'a>>
+        for PipelineCreationFeedbackCreateInfo<'a>
+    {
+    }
     impl Default for PipelineCreationFeedbackCreateInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_CREATION_FEEDBACK_CREATE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_pipeline_creation_feedback: core::ptr::null_mut(),
                 pipeline_stage_creation_feedback_count: Default::default(),
@@ -434,10 +528,22 @@ pub(super) mod defs {
         pub shader_demote_to_helper_invocation: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderDemoteToHelperInvocationFeatures<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceShaderDemoteToHelperInvocationFeatures<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceShaderDemoteToHelperInvocationFeatures<'a>
+    {
+    }
     impl Default for PhysicalDeviceShaderDemoteToHelperInvocationFeatures<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shader_demote_to_helper_invocation: Default::default(),
                 _marker: PhantomData,
@@ -464,10 +570,18 @@ pub(super) mod defs {
         pub uniform_texel_buffer_offset_single_texel_alignment: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTexelBufferAlignmentProperties<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceTexelBufferAlignmentProperties<'a>
+    {
+    }
     impl Default for PhysicalDeviceTexelBufferAlignmentProperties<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 storage_texel_buffer_offset_alignment_bytes: Default::default(),
                 storage_texel_buffer_offset_single_texel_alignment: Default::default(),
@@ -520,10 +634,19 @@ pub(super) mod defs {
         pub compute_full_subgroups: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSubgroupSizeControlFeatures<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceSubgroupSizeControlFeatures<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceSubgroupSizeControlFeatures<'a> {}
     impl Default for PhysicalDeviceSubgroupSizeControlFeatures<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 subgroup_size_control: Default::default(),
                 compute_full_subgroups: Default::default(),
@@ -552,10 +675,18 @@ pub(super) mod defs {
         pub required_subgroup_size_stages: ShaderStageFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSubgroupSizeControlProperties<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_PROPERTIES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceSubgroupSizeControlProperties<'a>
+    {
+    }
     impl Default for PhysicalDeviceSubgroupSizeControlProperties<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_PROPERTIES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 min_subgroup_size: Default::default(),
                 max_subgroup_size: Default::default(),
@@ -597,10 +728,22 @@ pub(super) mod defs {
         pub required_subgroup_size: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineShaderStageRequiredSubgroupSizeCreateInfo<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO;
+    }
+    unsafe impl<'a> Extends<PipelineShaderStageCreateInfo<'a>>
+        for PipelineShaderStageRequiredSubgroupSizeCreateInfo<'a>
+    {
+    }
+    unsafe impl<'a> Extends<ShaderCreateInfoEXT<'a>>
+        for PipelineShaderStageRequiredSubgroupSizeCreateInfo<'a>
+    {
+    }
     impl Default for PipelineShaderStageRequiredSubgroupSizeCreateInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 required_subgroup_size: Default::default(),
                 _marker: PhantomData,
@@ -621,10 +764,22 @@ pub(super) mod defs {
         pub pipeline_creation_cache_control: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePipelineCreationCacheControlFeatures<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PIPELINE_CREATION_CACHE_CONTROL_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDevicePipelineCreationCacheControlFeatures<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDevicePipelineCreationCacheControlFeatures<'a>
+    {
+    }
     impl Default for PhysicalDevicePipelineCreationCacheControlFeatures<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PIPELINE_CREATION_CACHE_CONTROL_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 pipeline_creation_cache_control: Default::default(),
                 _marker: PhantomData,
@@ -662,10 +817,15 @@ pub(super) mod defs {
         pub maintenance4: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVulkan13Features<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_VULKAN_1_3_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceVulkan13Features<'a> {}
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceVulkan13Features<'a> {}
     impl Default for PhysicalDeviceVulkan13Features<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_VULKAN_1_3_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 robust_image_access: Default::default(),
                 inline_uniform_block: Default::default(),
@@ -817,10 +977,14 @@ pub(super) mod defs {
         pub max_buffer_size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVulkan13Properties<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>> for PhysicalDeviceVulkan13Properties<'a> {}
     impl Default for PhysicalDeviceVulkan13Properties<'_> {
         fn default() -> Self {
             Self {
-s_type: StructureType::PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES
+s_type: Self::STRUCTURE_TYPE
 ,
 p_next: core::ptr::null_mut(),
 min_subgroup_size: Default::default(),
@@ -1223,10 +1387,13 @@ _marker: PhantomData
         pub layer: [c_char; MAX_EXTENSION_NAME_SIZE as usize],
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceToolProperties<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_TOOL_PROPERTIES;
+    }
     impl Default for PhysicalDeviceToolProperties<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_TOOL_PROPERTIES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 name: [Default::default(); _],
                 version: [Default::default(); _],
@@ -1251,10 +1418,22 @@ _marker: PhantomData
         pub shader_zero_initialize_workgroup_memory: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures<'a>
+    {
+    }
     impl Default for PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shader_zero_initialize_workgroup_memory: Default::default(),
                 _marker: PhantomData,
@@ -1278,10 +1457,16 @@ _marker: PhantomData
         pub robust_image_access: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageRobustnessFeatures<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_IMAGE_ROBUSTNESS_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceImageRobustnessFeatures<'a> {}
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceImageRobustnessFeatures<'a> {}
     impl Default for PhysicalDeviceImageRobustnessFeatures<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_IMAGE_ROBUSTNESS_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 robust_image_access: Default::default(),
                 _marker: PhantomData,
@@ -1304,10 +1489,13 @@ _marker: PhantomData
         pub size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BufferCopy2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::BUFFER_COPY_2;
+    }
     impl Default for BufferCopy2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BUFFER_COPY_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 src_offset: Default::default(),
                 dst_offset: Default::default(),
@@ -1342,10 +1530,13 @@ _marker: PhantomData
         pub extent: Extent3D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImageCopy2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_COPY_2;
+    }
     impl Default for ImageCopy2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGE_COPY_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 src_subresource: Default::default(),
                 src_offset: Default::default(),
@@ -1389,10 +1580,13 @@ _marker: PhantomData
         pub dst_offsets: [Offset3D; 2],
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImageBlit2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_BLIT_2;
+    }
     impl Default for ImageBlit2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGE_BLIT_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 src_subresource: Default::default(),
                 src_offsets: [Default::default(); _],
@@ -1433,10 +1627,13 @@ _marker: PhantomData
         pub image_extent: Extent3D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BufferImageCopy2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::BUFFER_IMAGE_COPY_2;
+    }
     impl Default for BufferImageCopy2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BUFFER_IMAGE_COPY_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 buffer_offset: Default::default(),
                 buffer_row_length: Default::default(),
@@ -1486,10 +1683,13 @@ _marker: PhantomData
         pub extent: Extent3D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImageResolve2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_RESOLVE_2;
+    }
     impl Default for ImageResolve2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGE_RESOLVE_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 src_subresource: Default::default(),
                 src_offset: Default::default(),
@@ -1533,10 +1733,13 @@ _marker: PhantomData
         pub p_regions: *const BufferCopy2<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CopyBufferInfo2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::COPY_BUFFER_INFO_2;
+    }
     impl Default for CopyBufferInfo2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::COPY_BUFFER_INFO_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 src_buffer: Default::default(),
                 dst_buffer: Default::default(),
@@ -1574,10 +1777,13 @@ _marker: PhantomData
         pub p_regions: *const ImageCopy2<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CopyImageInfo2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::COPY_IMAGE_INFO_2;
+    }
     impl Default for CopyImageInfo2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::COPY_IMAGE_INFO_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 src_image: Default::default(),
                 src_image_layout: Default::default(),
@@ -1626,10 +1832,13 @@ _marker: PhantomData
         pub filter: Filter,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BlitImageInfo2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::BLIT_IMAGE_INFO_2;
+    }
     impl Default for BlitImageInfo2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BLIT_IMAGE_INFO_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 src_image: Default::default(),
                 src_image_layout: Default::default(),
@@ -1681,10 +1890,13 @@ _marker: PhantomData
         pub p_regions: *const BufferImageCopy2<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CopyBufferToImageInfo2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::COPY_BUFFER_TO_IMAGE_INFO_2;
+    }
     impl Default for CopyBufferToImageInfo2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::COPY_BUFFER_TO_IMAGE_INFO_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 src_buffer: Default::default(),
                 dst_image: Default::default(),
@@ -1726,10 +1938,13 @@ _marker: PhantomData
         pub p_regions: *const BufferImageCopy2<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CopyImageToBufferInfo2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::COPY_IMAGE_TO_BUFFER_INFO_2;
+    }
     impl Default for CopyImageToBufferInfo2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::COPY_IMAGE_TO_BUFFER_INFO_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 src_image: Default::default(),
                 src_image_layout: Default::default(),
@@ -1772,10 +1987,13 @@ _marker: PhantomData
         pub p_regions: *const ImageResolve2<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ResolveImageInfo2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::RESOLVE_IMAGE_INFO_2;
+    }
     impl Default for ResolveImageInfo2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RESOLVE_IMAGE_INFO_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 src_image: Default::default(),
                 src_image_layout: Default::default(),
@@ -1818,10 +2036,22 @@ _marker: PhantomData
         pub shader_terminate_invocation: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderTerminateInvocationFeatures<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceShaderTerminateInvocationFeatures<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceShaderTerminateInvocationFeatures<'a>
+    {
+    }
     impl Default for PhysicalDeviceShaderTerminateInvocationFeatures<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shader_terminate_invocation: Default::default(),
                 _marker: PhantomData,
@@ -1845,10 +2075,14 @@ _marker: PhantomData
         pub dst_access_mask: AccessFlags2,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MemoryBarrier2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_BARRIER_2;
+    }
+    unsafe impl<'a> Extends<SubpassDependency2<'a>> for MemoryBarrier2<'a> {}
     impl Default for MemoryBarrier2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MEMORY_BARRIER_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 src_stage_mask: Default::default(),
                 src_access_mask: Default::default(),
@@ -1893,10 +2127,13 @@ _marker: PhantomData
         pub subresource_range: ImageSubresourceRange,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImageMemoryBarrier2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_MEMORY_BARRIER_2;
+    }
     impl Default for ImageMemoryBarrier2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGE_MEMORY_BARRIER_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 src_stage_mask: Default::default(),
                 src_access_mask: Default::default(),
@@ -1970,10 +2207,13 @@ _marker: PhantomData
         pub size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BufferMemoryBarrier2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::BUFFER_MEMORY_BARRIER_2;
+    }
     impl Default for BufferMemoryBarrier2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BUFFER_MEMORY_BARRIER_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 src_stage_mask: Default::default(),
                 src_access_mask: Default::default(),
@@ -2040,10 +2280,13 @@ _marker: PhantomData
         pub p_image_memory_barriers: *const ImageMemoryBarrier2<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DependencyInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEPENDENCY_INFO;
+    }
     impl Default for DependencyInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEPENDENCY_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 dependency_flags: Default::default(),
                 memory_barrier_count: Default::default(),
@@ -2094,10 +2337,13 @@ _marker: PhantomData
         pub device_index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SemaphoreSubmitInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SEMAPHORE_SUBMIT_INFO;
+    }
     impl Default for SemaphoreSubmitInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SEMAPHORE_SUBMIT_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 semaphore: Default::default(),
                 value: Default::default(),
@@ -2134,10 +2380,13 @@ _marker: PhantomData
         pub device_mask: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CommandBufferSubmitInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::COMMAND_BUFFER_SUBMIT_INFO;
+    }
     impl Default for CommandBufferSubmitInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::COMMAND_BUFFER_SUBMIT_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 command_buffer: Default::default(),
                 device_mask: Default::default(),
@@ -2169,10 +2418,13 @@ _marker: PhantomData
         pub p_signal_semaphore_infos: *const SemaphoreSubmitInfo<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SubmitInfo2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SUBMIT_INFO_2;
+    }
     impl Default for SubmitInfo2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SUBMIT_INFO_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 wait_semaphore_info_count: Default::default(),
@@ -2223,10 +2475,19 @@ _marker: PhantomData
         pub synchronization2: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSynchronization2Features<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceSynchronization2Features<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceSynchronization2Features<'a> {}
     impl Default for PhysicalDeviceSynchronization2Features<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 synchronization2: Default::default(),
                 _marker: PhantomData,
@@ -2247,10 +2508,22 @@ _marker: PhantomData
         pub shader_integer_dot_product: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderIntegerDotProductFeatures<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceShaderIntegerDotProductFeatures<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceShaderIntegerDotProductFeatures<'a>
+    {
+    }
     impl Default for PhysicalDeviceShaderIntegerDotProductFeatures<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shader_integer_dot_product: Default::default(),
                 _marker: PhantomData,
@@ -2301,10 +2574,18 @@ _marker: PhantomData
         pub integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderIntegerDotProductProperties<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceShaderIntegerDotProductProperties<'a>
+    {
+    }
     impl Default for PhysicalDeviceShaderIntegerDotProductProperties<'_> {
         fn default() -> Self {
             Self {
-s_type: StructureType::PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES
+s_type: Self::STRUCTURE_TYPE
 ,
 p_next: core::ptr::null_mut(),
 integer_dot_product8_bit_unsigned_accelerated: Default::default(),
@@ -2592,10 +2873,14 @@ _marker: PhantomData
         pub buffer_features: FormatFeatureFlags2,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for FormatProperties3<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::FORMAT_PROPERTIES_3;
+    }
+    unsafe impl<'a> Extends<FormatProperties2<'a>> for FormatProperties3<'a> {}
     impl Default for FormatProperties3<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::FORMAT_PROPERTIES_3,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 linear_tiling_features: Default::default(),
                 optimal_tiling_features: Default::default(),
@@ -2636,10 +2921,14 @@ _marker: PhantomData
         pub stencil_attachment_format: Format,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineRenderingCreateInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_RENDERING_CREATE_INFO;
+    }
+    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>> for PipelineRenderingCreateInfo<'a> {}
     impl Default for PipelineRenderingCreateInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_RENDERING_CREATE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 view_mask: Default::default(),
                 color_attachment_count: Default::default(),
@@ -2684,10 +2973,13 @@ _marker: PhantomData
         pub p_stencil_attachment: *const RenderingAttachmentInfo<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RenderingInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::RENDERING_INFO;
+    }
     impl Default for RenderingInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RENDERING_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 render_area: Default::default(),
@@ -2756,10 +3048,13 @@ _marker: PhantomData
         pub clear_value: ClearValue,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RenderingAttachmentInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::RENDERING_ATTACHMENT_INFO;
+    }
     impl Default for RenderingAttachmentInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RENDERING_ATTACHMENT_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 image_view: Default::default(),
                 image_layout: Default::default(),
@@ -2815,10 +3110,19 @@ _marker: PhantomData
         pub dynamic_rendering: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDynamicRenderingFeatures<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceDynamicRenderingFeatures<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceDynamicRenderingFeatures<'a> {}
     impl Default for PhysicalDeviceDynamicRenderingFeatures<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 dynamic_rendering: Default::default(),
                 _marker: PhantomData,
@@ -2845,10 +3149,18 @@ _marker: PhantomData
         pub rasterization_samples: SampleCountFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CommandBufferInheritanceRenderingInfo<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::COMMAND_BUFFER_INHERITANCE_RENDERING_INFO;
+    }
+    unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>>
+        for CommandBufferInheritanceRenderingInfo<'a>
+    {
+    }
     impl Default for CommandBufferInheritanceRenderingInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::COMMAND_BUFFER_INHERITANCE_RENDERING_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 view_mask: Default::default(),
@@ -2888,26 +3200,25 @@ _marker: PhantomData
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct PrivateDataSlotCreateFlags: Flags {
-        }
-    }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct PipelineCreationFeedbackFlags: Flags {
-            const VALID = PipelineCreationFeedbackFlagBits::VALID.0;
-            const APPLICATION_PIPELINE_CACHE_HIT = PipelineCreationFeedbackFlagBits::APPLICATION_PIPELINE_CACHE_HIT.0;
-            const BASE_PIPELINE_ACCELERATION = PipelineCreationFeedbackFlagBits::BASE_PIPELINE_ACCELERATION.0;
-            const APPLICATION_PIPELINE_CACHE_HIT_EXT = Self::APPLICATION_PIPELINE_CACHE_HIT.bits();
-            const BASE_PIPELINE_ACCELERATION_EXT = Self::BASE_PIPELINE_ACCELERATION.bits();
-            const VALID_EXT = Self::VALID.bits();
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct PrivateDataSlotCreateFlags(Flags);
+    impl PrivateDataSlotCreateFlags {}
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct PipelineCreationFeedbackFlags(Flags);
+    impl PipelineCreationFeedbackFlags {
+        pub const VALID: Self = Self(PipelineCreationFeedbackFlagBits::VALID.0);
+        pub const APPLICATION_PIPELINE_CACHE_HIT: Self =
+            Self(PipelineCreationFeedbackFlagBits::APPLICATION_PIPELINE_CACHE_HIT.0);
+        pub const BASE_PIPELINE_ACCELERATION: Self =
+            Self(PipelineCreationFeedbackFlagBits::BASE_PIPELINE_ACCELERATION.0);
+        pub const APPLICATION_PIPELINE_CACHE_HIT_EXT: Self = Self::APPLICATION_PIPELINE_CACHE_HIT;
+        pub const BASE_PIPELINE_ACCELERATION_EXT: Self = Self::BASE_PIPELINE_ACCELERATION;
+        pub const VALID_EXT: Self = Self::VALID;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineCreationFeedbackFlagBits(u32);
     impl PipelineCreationFeedbackFlagBits {
         pub const VALID: Self = Self(1 << 0);
@@ -2917,91 +3228,111 @@ _marker: PhantomData
         pub const BASE_PIPELINE_ACCELERATION_EXT: Self = Self::BASE_PIPELINE_ACCELERATION;
         pub const VALID_EXT: Self = Self::VALID;
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct AccessFlags2: Flags64 {
-            const INDIRECT_COMMAND_READ = AccessFlagBits2::INDIRECT_COMMAND_READ.0;
-            const INDEX_READ = AccessFlagBits2::INDEX_READ.0;
-            const VERTEX_ATTRIBUTE_READ = AccessFlagBits2::VERTEX_ATTRIBUTE_READ.0;
-            const UNIFORM_READ = AccessFlagBits2::UNIFORM_READ.0;
-            const INPUT_ATTACHMENT_READ = AccessFlagBits2::INPUT_ATTACHMENT_READ.0;
-            const SHADER_READ = AccessFlagBits2::SHADER_READ.0;
-            const SHADER_WRITE = AccessFlagBits2::SHADER_WRITE.0;
-            const COLOR_ATTACHMENT_READ = AccessFlagBits2::COLOR_ATTACHMENT_READ.0;
-            const COLOR_ATTACHMENT_WRITE = AccessFlagBits2::COLOR_ATTACHMENT_WRITE.0;
-            const DEPTH_STENCIL_ATTACHMENT_READ = AccessFlagBits2::DEPTH_STENCIL_ATTACHMENT_READ.0;
-            const DEPTH_STENCIL_ATTACHMENT_WRITE = AccessFlagBits2::DEPTH_STENCIL_ATTACHMENT_WRITE.0;
-            const TRANSFER_READ = AccessFlagBits2::TRANSFER_READ.0;
-            const TRANSFER_WRITE = AccessFlagBits2::TRANSFER_WRITE.0;
-            const HOST_READ = AccessFlagBits2::HOST_READ.0;
-            const HOST_WRITE = AccessFlagBits2::HOST_WRITE.0;
-            const MEMORY_READ = AccessFlagBits2::MEMORY_READ.0;
-            const MEMORY_WRITE = AccessFlagBits2::MEMORY_WRITE.0;
-            const COMMAND_PREPROCESS_READ_EXT = AccessFlagBits2::COMMAND_PREPROCESS_READ_EXT.0;
-            const COMMAND_PREPROCESS_WRITE_EXT = AccessFlagBits2::COMMAND_PREPROCESS_WRITE_EXT.0;
-            const COLOR_ATTACHMENT_READ_NONCOHERENT_EXT = AccessFlagBits2::COLOR_ATTACHMENT_READ_NONCOHERENT_EXT.0;
-            const CONDITIONAL_RENDERING_READ_EXT = AccessFlagBits2::CONDITIONAL_RENDERING_READ_EXT.0;
-            const ACCELERATION_STRUCTURE_READ_KHR = AccessFlagBits2::ACCELERATION_STRUCTURE_READ_KHR.0;
-            const ACCELERATION_STRUCTURE_WRITE_KHR = AccessFlagBits2::ACCELERATION_STRUCTURE_WRITE_KHR.0;
-            const FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR = AccessFlagBits2::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR.0;
-            const FRAGMENT_DENSITY_MAP_READ_EXT = AccessFlagBits2::FRAGMENT_DENSITY_MAP_READ_EXT.0;
-            const TRANSFORM_FEEDBACK_WRITE_EXT = AccessFlagBits2::TRANSFORM_FEEDBACK_WRITE_EXT.0;
-            const TRANSFORM_FEEDBACK_COUNTER_READ_EXT = AccessFlagBits2::TRANSFORM_FEEDBACK_COUNTER_READ_EXT.0;
-            const TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT = AccessFlagBits2::TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT.0;
-            const SHADER_SAMPLED_READ = AccessFlagBits2::SHADER_SAMPLED_READ.0;
-            const SHADER_STORAGE_READ = AccessFlagBits2::SHADER_STORAGE_READ.0;
-            const SHADER_STORAGE_WRITE = AccessFlagBits2::SHADER_STORAGE_WRITE.0;
-            const VIDEO_DECODE_READ_KHR = AccessFlagBits2::VIDEO_DECODE_READ_KHR.0;
-            const VIDEO_DECODE_WRITE_KHR = AccessFlagBits2::VIDEO_DECODE_WRITE_KHR.0;
-            const VIDEO_ENCODE_READ_KHR = AccessFlagBits2::VIDEO_ENCODE_READ_KHR.0;
-            const VIDEO_ENCODE_WRITE_KHR = AccessFlagBits2::VIDEO_ENCODE_WRITE_KHR.0;
-            const INVOCATION_MASK_READ_HUAWEI = AccessFlagBits2::INVOCATION_MASK_READ_HUAWEI.0;
-            const SHADER_BINDING_TABLE_READ_KHR = AccessFlagBits2::SHADER_BINDING_TABLE_READ_KHR.0;
-            const DESCRIPTOR_BUFFER_READ_EXT = AccessFlagBits2::DESCRIPTOR_BUFFER_READ_EXT.0;
-            const OPTICAL_FLOW_READ_NV = AccessFlagBits2::OPTICAL_FLOW_READ_NV.0;
-            const OPTICAL_FLOW_WRITE_NV = AccessFlagBits2::OPTICAL_FLOW_WRITE_NV.0;
-            const MICROMAP_READ_EXT = AccessFlagBits2::MICROMAP_READ_EXT.0;
-            const MICROMAP_WRITE_EXT = AccessFlagBits2::MICROMAP_WRITE_EXT.0;
-            const DATA_GRAPH_READ_ARM = AccessFlagBits2::DATA_GRAPH_READ_ARM.0;
-            const DATA_GRAPH_WRITE_ARM = AccessFlagBits2::DATA_GRAPH_WRITE_ARM.0;
-            const SHADER_TILE_ATTACHMENT_READ_QCOM = AccessFlagBits2::SHADER_TILE_ATTACHMENT_READ_QCOM.0;
-            const SHADER_TILE_ATTACHMENT_WRITE_QCOM = AccessFlagBits2::SHADER_TILE_ATTACHMENT_WRITE_QCOM.0;
-            const MEMORY_DECOMPRESSION_READ_EXT = AccessFlagBits2::MEMORY_DECOMPRESSION_READ_EXT.0;
-            const MEMORY_DECOMPRESSION_WRITE_EXT = AccessFlagBits2::MEMORY_DECOMPRESSION_WRITE_EXT.0;
-            const SAMPLER_HEAP_READ_EXT = AccessFlagBits2::SAMPLER_HEAP_READ_EXT.0;
-            const RESOURCE_HEAP_READ_EXT = AccessFlagBits2::RESOURCE_HEAP_READ_EXT.0;
-            const ACCELERATION_STRUCTURE_READ_NV = Self::ACCELERATION_STRUCTURE_READ_KHR.bits();
-            const ACCELERATION_STRUCTURE_WRITE_NV = Self::ACCELERATION_STRUCTURE_WRITE_KHR.bits();
-            const COLOR_ATTACHMENT_READ_KHR = Self::COLOR_ATTACHMENT_READ.bits();
-            const COLOR_ATTACHMENT_WRITE_KHR = Self::COLOR_ATTACHMENT_WRITE.bits();
-            const COMMAND_PREPROCESS_READ_NV = Self::COMMAND_PREPROCESS_READ_EXT.bits();
-            const COMMAND_PREPROCESS_WRITE_NV = Self::COMMAND_PREPROCESS_WRITE_EXT.bits();
-            const DEPTH_STENCIL_ATTACHMENT_READ_KHR = Self::DEPTH_STENCIL_ATTACHMENT_READ.bits();
-            const DEPTH_STENCIL_ATTACHMENT_WRITE_KHR = Self::DEPTH_STENCIL_ATTACHMENT_WRITE.bits();
-            const HOST_READ_KHR = Self::HOST_READ.bits();
-            const HOST_WRITE_KHR = Self::HOST_WRITE.bits();
-            const INDEX_READ_KHR = Self::INDEX_READ.bits();
-            const INDIRECT_COMMAND_READ_KHR = Self::INDIRECT_COMMAND_READ.bits();
-            const INPUT_ATTACHMENT_READ_KHR = Self::INPUT_ATTACHMENT_READ.bits();
-            const MEMORY_READ_KHR = Self::MEMORY_READ.bits();
-            const MEMORY_WRITE_KHR = Self::MEMORY_WRITE.bits();
-            const NONE_KHR = Self::NONE.bits();
-            const SHADER_READ_KHR = Self::SHADER_READ.bits();
-            const SHADER_SAMPLED_READ_KHR = Self::SHADER_SAMPLED_READ.bits();
-            const SHADER_STORAGE_READ_KHR = Self::SHADER_STORAGE_READ.bits();
-            const SHADER_STORAGE_WRITE_KHR = Self::SHADER_STORAGE_WRITE.bits();
-            const SHADER_WRITE_KHR = Self::SHADER_WRITE.bits();
-            const SHADING_RATE_IMAGE_READ_NV = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR.bits();
-            const TRANSFER_READ_KHR = Self::TRANSFER_READ.bits();
-            const TRANSFER_WRITE_KHR = Self::TRANSFER_WRITE.bits();
-            const UNIFORM_READ_KHR = Self::UNIFORM_READ.bits();
-            const VERTEX_ATTRIBUTE_READ_KHR = Self::VERTEX_ATTRIBUTE_READ.bits();
-            const NONE = 0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct AccessFlags2(Flags64);
+    impl AccessFlags2 {
+        pub const INDIRECT_COMMAND_READ: Self = Self(AccessFlagBits2::INDIRECT_COMMAND_READ.0);
+        pub const INDEX_READ: Self = Self(AccessFlagBits2::INDEX_READ.0);
+        pub const VERTEX_ATTRIBUTE_READ: Self = Self(AccessFlagBits2::VERTEX_ATTRIBUTE_READ.0);
+        pub const UNIFORM_READ: Self = Self(AccessFlagBits2::UNIFORM_READ.0);
+        pub const INPUT_ATTACHMENT_READ: Self = Self(AccessFlagBits2::INPUT_ATTACHMENT_READ.0);
+        pub const SHADER_READ: Self = Self(AccessFlagBits2::SHADER_READ.0);
+        pub const SHADER_WRITE: Self = Self(AccessFlagBits2::SHADER_WRITE.0);
+        pub const COLOR_ATTACHMENT_READ: Self = Self(AccessFlagBits2::COLOR_ATTACHMENT_READ.0);
+        pub const COLOR_ATTACHMENT_WRITE: Self = Self(AccessFlagBits2::COLOR_ATTACHMENT_WRITE.0);
+        pub const DEPTH_STENCIL_ATTACHMENT_READ: Self =
+            Self(AccessFlagBits2::DEPTH_STENCIL_ATTACHMENT_READ.0);
+        pub const DEPTH_STENCIL_ATTACHMENT_WRITE: Self =
+            Self(AccessFlagBits2::DEPTH_STENCIL_ATTACHMENT_WRITE.0);
+        pub const TRANSFER_READ: Self = Self(AccessFlagBits2::TRANSFER_READ.0);
+        pub const TRANSFER_WRITE: Self = Self(AccessFlagBits2::TRANSFER_WRITE.0);
+        pub const HOST_READ: Self = Self(AccessFlagBits2::HOST_READ.0);
+        pub const HOST_WRITE: Self = Self(AccessFlagBits2::HOST_WRITE.0);
+        pub const MEMORY_READ: Self = Self(AccessFlagBits2::MEMORY_READ.0);
+        pub const MEMORY_WRITE: Self = Self(AccessFlagBits2::MEMORY_WRITE.0);
+        pub const COMMAND_PREPROCESS_READ_EXT: Self =
+            Self(AccessFlagBits2::COMMAND_PREPROCESS_READ_EXT.0);
+        pub const COMMAND_PREPROCESS_WRITE_EXT: Self =
+            Self(AccessFlagBits2::COMMAND_PREPROCESS_WRITE_EXT.0);
+        pub const COLOR_ATTACHMENT_READ_NONCOHERENT_EXT: Self =
+            Self(AccessFlagBits2::COLOR_ATTACHMENT_READ_NONCOHERENT_EXT.0);
+        pub const CONDITIONAL_RENDERING_READ_EXT: Self =
+            Self(AccessFlagBits2::CONDITIONAL_RENDERING_READ_EXT.0);
+        pub const ACCELERATION_STRUCTURE_READ_KHR: Self =
+            Self(AccessFlagBits2::ACCELERATION_STRUCTURE_READ_KHR.0);
+        pub const ACCELERATION_STRUCTURE_WRITE_KHR: Self =
+            Self(AccessFlagBits2::ACCELERATION_STRUCTURE_WRITE_KHR.0);
+        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR: Self =
+            Self(AccessFlagBits2::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR.0);
+        pub const FRAGMENT_DENSITY_MAP_READ_EXT: Self =
+            Self(AccessFlagBits2::FRAGMENT_DENSITY_MAP_READ_EXT.0);
+        pub const TRANSFORM_FEEDBACK_WRITE_EXT: Self =
+            Self(AccessFlagBits2::TRANSFORM_FEEDBACK_WRITE_EXT.0);
+        pub const TRANSFORM_FEEDBACK_COUNTER_READ_EXT: Self =
+            Self(AccessFlagBits2::TRANSFORM_FEEDBACK_COUNTER_READ_EXT.0);
+        pub const TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT: Self =
+            Self(AccessFlagBits2::TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT.0);
+        pub const SHADER_SAMPLED_READ: Self = Self(AccessFlagBits2::SHADER_SAMPLED_READ.0);
+        pub const SHADER_STORAGE_READ: Self = Self(AccessFlagBits2::SHADER_STORAGE_READ.0);
+        pub const SHADER_STORAGE_WRITE: Self = Self(AccessFlagBits2::SHADER_STORAGE_WRITE.0);
+        pub const VIDEO_DECODE_READ_KHR: Self = Self(AccessFlagBits2::VIDEO_DECODE_READ_KHR.0);
+        pub const VIDEO_DECODE_WRITE_KHR: Self = Self(AccessFlagBits2::VIDEO_DECODE_WRITE_KHR.0);
+        pub const VIDEO_ENCODE_READ_KHR: Self = Self(AccessFlagBits2::VIDEO_ENCODE_READ_KHR.0);
+        pub const VIDEO_ENCODE_WRITE_KHR: Self = Self(AccessFlagBits2::VIDEO_ENCODE_WRITE_KHR.0);
+        pub const INVOCATION_MASK_READ_HUAWEI: Self =
+            Self(AccessFlagBits2::INVOCATION_MASK_READ_HUAWEI.0);
+        pub const SHADER_BINDING_TABLE_READ_KHR: Self =
+            Self(AccessFlagBits2::SHADER_BINDING_TABLE_READ_KHR.0);
+        pub const DESCRIPTOR_BUFFER_READ_EXT: Self =
+            Self(AccessFlagBits2::DESCRIPTOR_BUFFER_READ_EXT.0);
+        pub const OPTICAL_FLOW_READ_NV: Self = Self(AccessFlagBits2::OPTICAL_FLOW_READ_NV.0);
+        pub const OPTICAL_FLOW_WRITE_NV: Self = Self(AccessFlagBits2::OPTICAL_FLOW_WRITE_NV.0);
+        pub const MICROMAP_READ_EXT: Self = Self(AccessFlagBits2::MICROMAP_READ_EXT.0);
+        pub const MICROMAP_WRITE_EXT: Self = Self(AccessFlagBits2::MICROMAP_WRITE_EXT.0);
+        pub const DATA_GRAPH_READ_ARM: Self = Self(AccessFlagBits2::DATA_GRAPH_READ_ARM.0);
+        pub const DATA_GRAPH_WRITE_ARM: Self = Self(AccessFlagBits2::DATA_GRAPH_WRITE_ARM.0);
+        pub const SHADER_TILE_ATTACHMENT_READ_QCOM: Self =
+            Self(AccessFlagBits2::SHADER_TILE_ATTACHMENT_READ_QCOM.0);
+        pub const SHADER_TILE_ATTACHMENT_WRITE_QCOM: Self =
+            Self(AccessFlagBits2::SHADER_TILE_ATTACHMENT_WRITE_QCOM.0);
+        pub const MEMORY_DECOMPRESSION_READ_EXT: Self =
+            Self(AccessFlagBits2::MEMORY_DECOMPRESSION_READ_EXT.0);
+        pub const MEMORY_DECOMPRESSION_WRITE_EXT: Self =
+            Self(AccessFlagBits2::MEMORY_DECOMPRESSION_WRITE_EXT.0);
+        pub const SAMPLER_HEAP_READ_EXT: Self = Self(AccessFlagBits2::SAMPLER_HEAP_READ_EXT.0);
+        pub const RESOURCE_HEAP_READ_EXT: Self = Self(AccessFlagBits2::RESOURCE_HEAP_READ_EXT.0);
+        pub const ACCELERATION_STRUCTURE_READ_NV: Self = Self::ACCELERATION_STRUCTURE_READ_KHR;
+        pub const ACCELERATION_STRUCTURE_WRITE_NV: Self = Self::ACCELERATION_STRUCTURE_WRITE_KHR;
+        pub const COLOR_ATTACHMENT_READ_KHR: Self = Self::COLOR_ATTACHMENT_READ;
+        pub const COLOR_ATTACHMENT_WRITE_KHR: Self = Self::COLOR_ATTACHMENT_WRITE;
+        pub const COMMAND_PREPROCESS_READ_NV: Self = Self::COMMAND_PREPROCESS_READ_EXT;
+        pub const COMMAND_PREPROCESS_WRITE_NV: Self = Self::COMMAND_PREPROCESS_WRITE_EXT;
+        pub const DEPTH_STENCIL_ATTACHMENT_READ_KHR: Self = Self::DEPTH_STENCIL_ATTACHMENT_READ;
+        pub const DEPTH_STENCIL_ATTACHMENT_WRITE_KHR: Self = Self::DEPTH_STENCIL_ATTACHMENT_WRITE;
+        pub const HOST_READ_KHR: Self = Self::HOST_READ;
+        pub const HOST_WRITE_KHR: Self = Self::HOST_WRITE;
+        pub const INDEX_READ_KHR: Self = Self::INDEX_READ;
+        pub const INDIRECT_COMMAND_READ_KHR: Self = Self::INDIRECT_COMMAND_READ;
+        pub const INPUT_ATTACHMENT_READ_KHR: Self = Self::INPUT_ATTACHMENT_READ;
+        pub const MEMORY_READ_KHR: Self = Self::MEMORY_READ;
+        pub const MEMORY_WRITE_KHR: Self = Self::MEMORY_WRITE;
+        pub const NONE_KHR: Self = Self::NONE;
+        pub const SHADER_READ_KHR: Self = Self::SHADER_READ;
+        pub const SHADER_SAMPLED_READ_KHR: Self = Self::SHADER_SAMPLED_READ;
+        pub const SHADER_STORAGE_READ_KHR: Self = Self::SHADER_STORAGE_READ;
+        pub const SHADER_STORAGE_WRITE_KHR: Self = Self::SHADER_STORAGE_WRITE;
+        pub const SHADER_WRITE_KHR: Self = Self::SHADER_WRITE;
+        pub const SHADING_RATE_IMAGE_READ_NV: Self =
+            Self::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR;
+        pub const TRANSFER_READ_KHR: Self = Self::TRANSFER_READ;
+        pub const TRANSFER_WRITE_KHR: Self = Self::TRANSFER_WRITE;
+        pub const UNIFORM_READ_KHR: Self = Self::UNIFORM_READ;
+        pub const VERTEX_ATTRIBUTE_READ_KHR: Self = Self::VERTEX_ATTRIBUTE_READ;
+        pub const NONE: Self = Self(0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct AccessFlagBits2(u64);
     impl AccessFlagBits2 {
         pub const INDIRECT_COMMAND_READ: Self = Self(1 << 0);
@@ -3081,94 +3412,111 @@ _marker: PhantomData
         pub const UNIFORM_READ_KHR: Self = Self::UNIFORM_READ;
         pub const VERTEX_ATTRIBUTE_READ_KHR: Self = Self::VERTEX_ATTRIBUTE_READ;
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct PipelineStageFlags2: Flags64 {
-            const TOP_OF_PIPE = PipelineStageFlagBits2::TOP_OF_PIPE.0;
-            const DRAW_INDIRECT = PipelineStageFlagBits2::DRAW_INDIRECT.0;
-            const VERTEX_INPUT = PipelineStageFlagBits2::VERTEX_INPUT.0;
-            const VERTEX_SHADER = PipelineStageFlagBits2::VERTEX_SHADER.0;
-            const TESSELLATION_CONTROL_SHADER = PipelineStageFlagBits2::TESSELLATION_CONTROL_SHADER.0;
-            const TESSELLATION_EVALUATION_SHADER = PipelineStageFlagBits2::TESSELLATION_EVALUATION_SHADER.0;
-            const GEOMETRY_SHADER = PipelineStageFlagBits2::GEOMETRY_SHADER.0;
-            const FRAGMENT_SHADER = PipelineStageFlagBits2::FRAGMENT_SHADER.0;
-            const EARLY_FRAGMENT_TESTS = PipelineStageFlagBits2::EARLY_FRAGMENT_TESTS.0;
-            const LATE_FRAGMENT_TESTS = PipelineStageFlagBits2::LATE_FRAGMENT_TESTS.0;
-            const COLOR_ATTACHMENT_OUTPUT = PipelineStageFlagBits2::COLOR_ATTACHMENT_OUTPUT.0;
-            const COMPUTE_SHADER = PipelineStageFlagBits2::COMPUTE_SHADER.0;
-            const ALL_TRANSFER = PipelineStageFlagBits2::ALL_TRANSFER.0;
-            const BOTTOM_OF_PIPE = PipelineStageFlagBits2::BOTTOM_OF_PIPE.0;
-            const HOST = PipelineStageFlagBits2::HOST.0;
-            const ALL_GRAPHICS = PipelineStageFlagBits2::ALL_GRAPHICS.0;
-            const ALL_COMMANDS = PipelineStageFlagBits2::ALL_COMMANDS.0;
-            const COMMAND_PREPROCESS_EXT = PipelineStageFlagBits2::COMMAND_PREPROCESS_EXT.0;
-            const CONDITIONAL_RENDERING_EXT = PipelineStageFlagBits2::CONDITIONAL_RENDERING_EXT.0;
-            const TASK_SHADER_EXT = PipelineStageFlagBits2::TASK_SHADER_EXT.0;
-            const MESH_SHADER_EXT = PipelineStageFlagBits2::MESH_SHADER_EXT.0;
-            const RAY_TRACING_SHADER_KHR = PipelineStageFlagBits2::RAY_TRACING_SHADER_KHR.0;
-            const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR = PipelineStageFlagBits2::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0;
-            const FRAGMENT_DENSITY_PROCESS_EXT = PipelineStageFlagBits2::FRAGMENT_DENSITY_PROCESS_EXT.0;
-            const TRANSFORM_FEEDBACK_EXT = PipelineStageFlagBits2::TRANSFORM_FEEDBACK_EXT.0;
-            const ACCELERATION_STRUCTURE_BUILD_KHR = PipelineStageFlagBits2::ACCELERATION_STRUCTURE_BUILD_KHR.0;
-            const VIDEO_DECODE_KHR = PipelineStageFlagBits2::VIDEO_DECODE_KHR.0;
-            const VIDEO_ENCODE_KHR = PipelineStageFlagBits2::VIDEO_ENCODE_KHR.0;
-            const ACCELERATION_STRUCTURE_COPY_KHR = PipelineStageFlagBits2::ACCELERATION_STRUCTURE_COPY_KHR.0;
-            const OPTICAL_FLOW_NV = PipelineStageFlagBits2::OPTICAL_FLOW_NV.0;
-            const MICROMAP_BUILD_EXT = PipelineStageFlagBits2::MICROMAP_BUILD_EXT.0;
-            const COPY = PipelineStageFlagBits2::COPY.0;
-            const RESOLVE = PipelineStageFlagBits2::RESOLVE.0;
-            const BLIT = PipelineStageFlagBits2::BLIT.0;
-            const CLEAR = PipelineStageFlagBits2::CLEAR.0;
-            const INDEX_INPUT = PipelineStageFlagBits2::INDEX_INPUT.0;
-            const VERTEX_ATTRIBUTE_INPUT = PipelineStageFlagBits2::VERTEX_ATTRIBUTE_INPUT.0;
-            const PRE_RASTERIZATION_SHADERS = PipelineStageFlagBits2::PRE_RASTERIZATION_SHADERS.0;
-            const SUBPASS_SHADER_HUAWEI = PipelineStageFlagBits2::SUBPASS_SHADER_HUAWEI.0;
-            const INVOCATION_MASK_HUAWEI = PipelineStageFlagBits2::INVOCATION_MASK_HUAWEI.0;
-            const CLUSTER_CULLING_SHADER_HUAWEI = PipelineStageFlagBits2::CLUSTER_CULLING_SHADER_HUAWEI.0;
-            const DATA_GRAPH_ARM = PipelineStageFlagBits2::DATA_GRAPH_ARM.0;
-            const CONVERT_COOPERATIVE_VECTOR_MATRIX_NV = PipelineStageFlagBits2::CONVERT_COOPERATIVE_VECTOR_MATRIX_NV.0;
-            const MEMORY_DECOMPRESSION_EXT = PipelineStageFlagBits2::MEMORY_DECOMPRESSION_EXT.0;
-            const COPY_INDIRECT_KHR = PipelineStageFlagBits2::COPY_INDIRECT_KHR.0;
-            const TRANSFER = Self::ALL_TRANSFER.bits();
-            const ACCELERATION_STRUCTURE_BUILD_NV = Self::ACCELERATION_STRUCTURE_BUILD_KHR.bits();
-            const ALL_COMMANDS_KHR = Self::ALL_COMMANDS.bits();
-            const ALL_GRAPHICS_KHR = Self::ALL_GRAPHICS.bits();
-            const ALL_TRANSFER_KHR = Self::ALL_TRANSFER.bits();
-            const BLIT_KHR = Self::BLIT.bits();
-            const BOTTOM_OF_PIPE_KHR = Self::BOTTOM_OF_PIPE.bits();
-            const CLEAR_KHR = Self::CLEAR.bits();
-            const COLOR_ATTACHMENT_OUTPUT_KHR = Self::COLOR_ATTACHMENT_OUTPUT.bits();
-            const COMMAND_PREPROCESS_NV = Self::COMMAND_PREPROCESS_EXT.bits();
-            const COMPUTE_SHADER_KHR = Self::COMPUTE_SHADER.bits();
-            const COPY_KHR = Self::COPY.bits();
-            const DRAW_INDIRECT_KHR = Self::DRAW_INDIRECT.bits();
-            const EARLY_FRAGMENT_TESTS_KHR = Self::EARLY_FRAGMENT_TESTS.bits();
-            const FRAGMENT_SHADER_KHR = Self::FRAGMENT_SHADER.bits();
-            const GEOMETRY_SHADER_KHR = Self::GEOMETRY_SHADER.bits();
-            const HOST_KHR = Self::HOST.bits();
-            const INDEX_INPUT_KHR = Self::INDEX_INPUT.bits();
-            const LATE_FRAGMENT_TESTS_KHR = Self::LATE_FRAGMENT_TESTS.bits();
-            const MESH_SHADER_NV = Self::MESH_SHADER_EXT.bits();
-            const NONE_KHR = Self::NONE.bits();
-            const PRE_RASTERIZATION_SHADERS_KHR = Self::PRE_RASTERIZATION_SHADERS.bits();
-            const RAY_TRACING_SHADER_NV = Self::RAY_TRACING_SHADER_KHR.bits();
-            const RESOLVE_KHR = Self::RESOLVE.bits();
-            const SHADING_RATE_IMAGE_NV = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.bits();
-            const SUBPASS_SHADING_HUAWEI = Self::SUBPASS_SHADER_HUAWEI.bits();
-            const TASK_SHADER_NV = Self::TASK_SHADER_EXT.bits();
-            const TESSELLATION_CONTROL_SHADER_KHR = Self::TESSELLATION_CONTROL_SHADER.bits();
-            const TESSELLATION_EVALUATION_SHADER_KHR = Self::TESSELLATION_EVALUATION_SHADER.bits();
-            const TOP_OF_PIPE_KHR = Self::TOP_OF_PIPE.bits();
-            const TRANSFER_KHR = Self::ALL_TRANSFER.bits();
-            const VERTEX_ATTRIBUTE_INPUT_KHR = Self::VERTEX_ATTRIBUTE_INPUT.bits();
-            const VERTEX_INPUT_KHR = Self::VERTEX_INPUT.bits();
-            const VERTEX_SHADER_KHR = Self::VERTEX_SHADER.bits();
-            const NONE = 0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct PipelineStageFlags2(Flags64);
+    impl PipelineStageFlags2 {
+        pub const TOP_OF_PIPE: Self = Self(PipelineStageFlagBits2::TOP_OF_PIPE.0);
+        pub const DRAW_INDIRECT: Self = Self(PipelineStageFlagBits2::DRAW_INDIRECT.0);
+        pub const VERTEX_INPUT: Self = Self(PipelineStageFlagBits2::VERTEX_INPUT.0);
+        pub const VERTEX_SHADER: Self = Self(PipelineStageFlagBits2::VERTEX_SHADER.0);
+        pub const TESSELLATION_CONTROL_SHADER: Self =
+            Self(PipelineStageFlagBits2::TESSELLATION_CONTROL_SHADER.0);
+        pub const TESSELLATION_EVALUATION_SHADER: Self =
+            Self(PipelineStageFlagBits2::TESSELLATION_EVALUATION_SHADER.0);
+        pub const GEOMETRY_SHADER: Self = Self(PipelineStageFlagBits2::GEOMETRY_SHADER.0);
+        pub const FRAGMENT_SHADER: Self = Self(PipelineStageFlagBits2::FRAGMENT_SHADER.0);
+        pub const EARLY_FRAGMENT_TESTS: Self = Self(PipelineStageFlagBits2::EARLY_FRAGMENT_TESTS.0);
+        pub const LATE_FRAGMENT_TESTS: Self = Self(PipelineStageFlagBits2::LATE_FRAGMENT_TESTS.0);
+        pub const COLOR_ATTACHMENT_OUTPUT: Self =
+            Self(PipelineStageFlagBits2::COLOR_ATTACHMENT_OUTPUT.0);
+        pub const COMPUTE_SHADER: Self = Self(PipelineStageFlagBits2::COMPUTE_SHADER.0);
+        pub const ALL_TRANSFER: Self = Self(PipelineStageFlagBits2::ALL_TRANSFER.0);
+        pub const BOTTOM_OF_PIPE: Self = Self(PipelineStageFlagBits2::BOTTOM_OF_PIPE.0);
+        pub const HOST: Self = Self(PipelineStageFlagBits2::HOST.0);
+        pub const ALL_GRAPHICS: Self = Self(PipelineStageFlagBits2::ALL_GRAPHICS.0);
+        pub const ALL_COMMANDS: Self = Self(PipelineStageFlagBits2::ALL_COMMANDS.0);
+        pub const COMMAND_PREPROCESS_EXT: Self =
+            Self(PipelineStageFlagBits2::COMMAND_PREPROCESS_EXT.0);
+        pub const CONDITIONAL_RENDERING_EXT: Self =
+            Self(PipelineStageFlagBits2::CONDITIONAL_RENDERING_EXT.0);
+        pub const TASK_SHADER_EXT: Self = Self(PipelineStageFlagBits2::TASK_SHADER_EXT.0);
+        pub const MESH_SHADER_EXT: Self = Self(PipelineStageFlagBits2::MESH_SHADER_EXT.0);
+        pub const RAY_TRACING_SHADER_KHR: Self =
+            Self(PipelineStageFlagBits2::RAY_TRACING_SHADER_KHR.0);
+        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
+            Self(PipelineStageFlagBits2::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0);
+        pub const FRAGMENT_DENSITY_PROCESS_EXT: Self =
+            Self(PipelineStageFlagBits2::FRAGMENT_DENSITY_PROCESS_EXT.0);
+        pub const TRANSFORM_FEEDBACK_EXT: Self =
+            Self(PipelineStageFlagBits2::TRANSFORM_FEEDBACK_EXT.0);
+        pub const ACCELERATION_STRUCTURE_BUILD_KHR: Self =
+            Self(PipelineStageFlagBits2::ACCELERATION_STRUCTURE_BUILD_KHR.0);
+        pub const VIDEO_DECODE_KHR: Self = Self(PipelineStageFlagBits2::VIDEO_DECODE_KHR.0);
+        pub const VIDEO_ENCODE_KHR: Self = Self(PipelineStageFlagBits2::VIDEO_ENCODE_KHR.0);
+        pub const ACCELERATION_STRUCTURE_COPY_KHR: Self =
+            Self(PipelineStageFlagBits2::ACCELERATION_STRUCTURE_COPY_KHR.0);
+        pub const OPTICAL_FLOW_NV: Self = Self(PipelineStageFlagBits2::OPTICAL_FLOW_NV.0);
+        pub const MICROMAP_BUILD_EXT: Self = Self(PipelineStageFlagBits2::MICROMAP_BUILD_EXT.0);
+        pub const COPY: Self = Self(PipelineStageFlagBits2::COPY.0);
+        pub const RESOLVE: Self = Self(PipelineStageFlagBits2::RESOLVE.0);
+        pub const BLIT: Self = Self(PipelineStageFlagBits2::BLIT.0);
+        pub const CLEAR: Self = Self(PipelineStageFlagBits2::CLEAR.0);
+        pub const INDEX_INPUT: Self = Self(PipelineStageFlagBits2::INDEX_INPUT.0);
+        pub const VERTEX_ATTRIBUTE_INPUT: Self =
+            Self(PipelineStageFlagBits2::VERTEX_ATTRIBUTE_INPUT.0);
+        pub const PRE_RASTERIZATION_SHADERS: Self =
+            Self(PipelineStageFlagBits2::PRE_RASTERIZATION_SHADERS.0);
+        pub const SUBPASS_SHADER_HUAWEI: Self =
+            Self(PipelineStageFlagBits2::SUBPASS_SHADER_HUAWEI.0);
+        pub const INVOCATION_MASK_HUAWEI: Self =
+            Self(PipelineStageFlagBits2::INVOCATION_MASK_HUAWEI.0);
+        pub const CLUSTER_CULLING_SHADER_HUAWEI: Self =
+            Self(PipelineStageFlagBits2::CLUSTER_CULLING_SHADER_HUAWEI.0);
+        pub const DATA_GRAPH_ARM: Self = Self(PipelineStageFlagBits2::DATA_GRAPH_ARM.0);
+        pub const CONVERT_COOPERATIVE_VECTOR_MATRIX_NV: Self =
+            Self(PipelineStageFlagBits2::CONVERT_COOPERATIVE_VECTOR_MATRIX_NV.0);
+        pub const MEMORY_DECOMPRESSION_EXT: Self =
+            Self(PipelineStageFlagBits2::MEMORY_DECOMPRESSION_EXT.0);
+        pub const COPY_INDIRECT_KHR: Self = Self(PipelineStageFlagBits2::COPY_INDIRECT_KHR.0);
+        pub const TRANSFER: Self = Self::ALL_TRANSFER;
+        pub const ACCELERATION_STRUCTURE_BUILD_NV: Self = Self::ACCELERATION_STRUCTURE_BUILD_KHR;
+        pub const ALL_COMMANDS_KHR: Self = Self::ALL_COMMANDS;
+        pub const ALL_GRAPHICS_KHR: Self = Self::ALL_GRAPHICS;
+        pub const ALL_TRANSFER_KHR: Self = Self::ALL_TRANSFER;
+        pub const BLIT_KHR: Self = Self::BLIT;
+        pub const BOTTOM_OF_PIPE_KHR: Self = Self::BOTTOM_OF_PIPE;
+        pub const CLEAR_KHR: Self = Self::CLEAR;
+        pub const COLOR_ATTACHMENT_OUTPUT_KHR: Self = Self::COLOR_ATTACHMENT_OUTPUT;
+        pub const COMMAND_PREPROCESS_NV: Self = Self::COMMAND_PREPROCESS_EXT;
+        pub const COMPUTE_SHADER_KHR: Self = Self::COMPUTE_SHADER;
+        pub const COPY_KHR: Self = Self::COPY;
+        pub const DRAW_INDIRECT_KHR: Self = Self::DRAW_INDIRECT;
+        pub const EARLY_FRAGMENT_TESTS_KHR: Self = Self::EARLY_FRAGMENT_TESTS;
+        pub const FRAGMENT_SHADER_KHR: Self = Self::FRAGMENT_SHADER;
+        pub const GEOMETRY_SHADER_KHR: Self = Self::GEOMETRY_SHADER;
+        pub const HOST_KHR: Self = Self::HOST;
+        pub const INDEX_INPUT_KHR: Self = Self::INDEX_INPUT;
+        pub const LATE_FRAGMENT_TESTS_KHR: Self = Self::LATE_FRAGMENT_TESTS;
+        pub const MESH_SHADER_NV: Self = Self::MESH_SHADER_EXT;
+        pub const NONE_KHR: Self = Self::NONE;
+        pub const PRE_RASTERIZATION_SHADERS_KHR: Self = Self::PRE_RASTERIZATION_SHADERS;
+        pub const RAY_TRACING_SHADER_NV: Self = Self::RAY_TRACING_SHADER_KHR;
+        pub const RESOLVE_KHR: Self = Self::RESOLVE;
+        pub const SHADING_RATE_IMAGE_NV: Self = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
+        pub const SUBPASS_SHADING_HUAWEI: Self = Self::SUBPASS_SHADER_HUAWEI;
+        pub const TASK_SHADER_NV: Self = Self::TASK_SHADER_EXT;
+        pub const TESSELLATION_CONTROL_SHADER_KHR: Self = Self::TESSELLATION_CONTROL_SHADER;
+        pub const TESSELLATION_EVALUATION_SHADER_KHR: Self = Self::TESSELLATION_EVALUATION_SHADER;
+        pub const TOP_OF_PIPE_KHR: Self = Self::TOP_OF_PIPE;
+        pub const TRANSFER_KHR: Self = Self::ALL_TRANSFER;
+        pub const VERTEX_ATTRIBUTE_INPUT_KHR: Self = Self::VERTEX_ATTRIBUTE_INPUT;
+        pub const VERTEX_INPUT_KHR: Self = Self::VERTEX_INPUT;
+        pub const VERTEX_SHADER_KHR: Self = Self::VERTEX_SHADER;
+        pub const NONE: Self = Self(0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineStageFlagBits2(u64);
     impl PipelineStageFlagBits2 {
         pub const TOP_OF_PIPE: Self = Self(1 << 0);
@@ -3249,96 +3597,135 @@ _marker: PhantomData
         pub const VERTEX_INPUT_KHR: Self = Self::VERTEX_INPUT;
         pub const VERTEX_SHADER_KHR: Self = Self::VERTEX_SHADER;
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct FormatFeatureFlags2: Flags64 {
-            const SAMPLED_IMAGE = FormatFeatureFlagBits2::SAMPLED_IMAGE.0;
-            const STORAGE_IMAGE = FormatFeatureFlagBits2::STORAGE_IMAGE.0;
-            const STORAGE_IMAGE_ATOMIC = FormatFeatureFlagBits2::STORAGE_IMAGE_ATOMIC.0;
-            const UNIFORM_TEXEL_BUFFER = FormatFeatureFlagBits2::UNIFORM_TEXEL_BUFFER.0;
-            const STORAGE_TEXEL_BUFFER = FormatFeatureFlagBits2::STORAGE_TEXEL_BUFFER.0;
-            const STORAGE_TEXEL_BUFFER_ATOMIC = FormatFeatureFlagBits2::STORAGE_TEXEL_BUFFER_ATOMIC.0;
-            const VERTEX_BUFFER = FormatFeatureFlagBits2::VERTEX_BUFFER.0;
-            const COLOR_ATTACHMENT = FormatFeatureFlagBits2::COLOR_ATTACHMENT.0;
-            const COLOR_ATTACHMENT_BLEND = FormatFeatureFlagBits2::COLOR_ATTACHMENT_BLEND.0;
-            const DEPTH_STENCIL_ATTACHMENT = FormatFeatureFlagBits2::DEPTH_STENCIL_ATTACHMENT.0;
-            const BLIT_SRC = FormatFeatureFlagBits2::BLIT_SRC.0;
-            const BLIT_DST = FormatFeatureFlagBits2::BLIT_DST.0;
-            const SAMPLED_IMAGE_FILTER_LINEAR = FormatFeatureFlagBits2::SAMPLED_IMAGE_FILTER_LINEAR.0;
-            const SAMPLED_IMAGE_FILTER_CUBIC = FormatFeatureFlagBits2::SAMPLED_IMAGE_FILTER_CUBIC.0;
-            const TRANSFER_SRC = FormatFeatureFlagBits2::TRANSFER_SRC.0;
-            const TRANSFER_DST = FormatFeatureFlagBits2::TRANSFER_DST.0;
-            const SAMPLED_IMAGE_FILTER_MINMAX = FormatFeatureFlagBits2::SAMPLED_IMAGE_FILTER_MINMAX.0;
-            const MIDPOINT_CHROMA_SAMPLES = FormatFeatureFlagBits2::MIDPOINT_CHROMA_SAMPLES.0;
-            const SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER = FormatFeatureFlagBits2::SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER.0;
-            const SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER = FormatFeatureFlagBits2::SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER.0;
-            const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT = FormatFeatureFlagBits2::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT.0;
-            const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE = FormatFeatureFlagBits2::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE.0;
-            const DISJOINT = FormatFeatureFlagBits2::DISJOINT.0;
-            const COSITED_CHROMA_SAMPLES = FormatFeatureFlagBits2::COSITED_CHROMA_SAMPLES.0;
-            const FRAGMENT_DENSITY_MAP_EXT = FormatFeatureFlagBits2::FRAGMENT_DENSITY_MAP_EXT.0;
-            const VIDEO_DECODE_OUTPUT_KHR = FormatFeatureFlagBits2::VIDEO_DECODE_OUTPUT_KHR.0;
-            const VIDEO_DECODE_DPB_KHR = FormatFeatureFlagBits2::VIDEO_DECODE_DPB_KHR.0;
-            const VIDEO_ENCODE_INPUT_KHR = FormatFeatureFlagBits2::VIDEO_ENCODE_INPUT_KHR.0;
-            const VIDEO_ENCODE_DPB_KHR = FormatFeatureFlagBits2::VIDEO_ENCODE_DPB_KHR.0;
-            const ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR = FormatFeatureFlagBits2::ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR.0;
-            const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR = FormatFeatureFlagBits2::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0;
-            const STORAGE_READ_WITHOUT_FORMAT = FormatFeatureFlagBits2::STORAGE_READ_WITHOUT_FORMAT.0;
-            const STORAGE_WRITE_WITHOUT_FORMAT = FormatFeatureFlagBits2::STORAGE_WRITE_WITHOUT_FORMAT.0;
-            const SAMPLED_IMAGE_DEPTH_COMPARISON = FormatFeatureFlagBits2::SAMPLED_IMAGE_DEPTH_COMPARISON.0;
-            const WEIGHT_IMAGE_QCOM = FormatFeatureFlagBits2::WEIGHT_IMAGE_QCOM.0;
-            const WEIGHT_SAMPLED_IMAGE_QCOM = FormatFeatureFlagBits2::WEIGHT_SAMPLED_IMAGE_QCOM.0;
-            const BLOCK_MATCHING_QCOM = FormatFeatureFlagBits2::BLOCK_MATCHING_QCOM.0;
-            const BOX_FILTER_SAMPLED_QCOM = FormatFeatureFlagBits2::BOX_FILTER_SAMPLED_QCOM.0;
-            const LINEAR_COLOR_ATTACHMENT_NV = FormatFeatureFlagBits2::LINEAR_COLOR_ATTACHMENT_NV.0;
-            const TENSOR_SHADER_ARM = FormatFeatureFlagBits2::TENSOR_SHADER_ARM.0;
-            const OPTICAL_FLOW_IMAGE_NV = FormatFeatureFlagBits2::OPTICAL_FLOW_IMAGE_NV.0;
-            const OPTICAL_FLOW_VECTOR_NV = FormatFeatureFlagBits2::OPTICAL_FLOW_VECTOR_NV.0;
-            const OPTICAL_FLOW_COST_NV = FormatFeatureFlagBits2::OPTICAL_FLOW_COST_NV.0;
-            const TENSOR_IMAGE_ALIASING_ARM = FormatFeatureFlagBits2::TENSOR_IMAGE_ALIASING_ARM.0;
-            const HOST_IMAGE_TRANSFER = FormatFeatureFlagBits2::HOST_IMAGE_TRANSFER.0;
-            const TENSOR_DATA_GRAPH_ARM = FormatFeatureFlagBits2::TENSOR_DATA_GRAPH_ARM.0;
-            const VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR = FormatFeatureFlagBits2::VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR.0;
-            const VIDEO_ENCODE_EMPHASIS_MAP_KHR = FormatFeatureFlagBits2::VIDEO_ENCODE_EMPHASIS_MAP_KHR.0;
-            const ACCELERATION_STRUCTURE_RADIUS_BUFFER_NV = FormatFeatureFlagBits2::ACCELERATION_STRUCTURE_RADIUS_BUFFER_NV.0;
-            const DEPTH_COPY_ON_COMPUTE_QUEUE_KHR = FormatFeatureFlagBits2::DEPTH_COPY_ON_COMPUTE_QUEUE_KHR.0;
-            const DEPTH_COPY_ON_TRANSFER_QUEUE_KHR = FormatFeatureFlagBits2::DEPTH_COPY_ON_TRANSFER_QUEUE_KHR.0;
-            const STENCIL_COPY_ON_COMPUTE_QUEUE_KHR = FormatFeatureFlagBits2::STENCIL_COPY_ON_COMPUTE_QUEUE_KHR.0;
-            const STENCIL_COPY_ON_TRANSFER_QUEUE_KHR = FormatFeatureFlagBits2::STENCIL_COPY_ON_TRANSFER_QUEUE_KHR.0;
-            const COPY_IMAGE_INDIRECT_DST_KHR = FormatFeatureFlagBits2::COPY_IMAGE_INDIRECT_DST_KHR.0;
-            const BLIT_DST_KHR = Self::BLIT_DST.bits();
-            const BLIT_SRC_KHR = Self::BLIT_SRC.bits();
-            const COLOR_ATTACHMENT_KHR = Self::COLOR_ATTACHMENT.bits();
-            const COLOR_ATTACHMENT_BLEND_KHR = Self::COLOR_ATTACHMENT_BLEND.bits();
-            const COSITED_CHROMA_SAMPLES_KHR = Self::COSITED_CHROMA_SAMPLES.bits();
-            const DEPTH_STENCIL_ATTACHMENT_KHR = Self::DEPTH_STENCIL_ATTACHMENT.bits();
-            const DISJOINT_KHR = Self::DISJOINT.bits();
-            const HOST_IMAGE_TRANSFER_EXT = Self::HOST_IMAGE_TRANSFER.bits();
-            const MIDPOINT_CHROMA_SAMPLES_KHR = Self::MIDPOINT_CHROMA_SAMPLES.bits();
-            const SAMPLED_IMAGE_KHR = Self::SAMPLED_IMAGE.bits();
-            const SAMPLED_IMAGE_DEPTH_COMPARISON_KHR = Self::SAMPLED_IMAGE_DEPTH_COMPARISON.bits();
-            const SAMPLED_IMAGE_FILTER_CUBIC_EXT = Self::SAMPLED_IMAGE_FILTER_CUBIC.bits();
-            const SAMPLED_IMAGE_FILTER_LINEAR_KHR = Self::SAMPLED_IMAGE_FILTER_LINEAR.bits();
-            const SAMPLED_IMAGE_FILTER_MINMAX_KHR = Self::SAMPLED_IMAGE_FILTER_MINMAX.bits();
-            const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_KHR = Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT.bits();
-            const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_KHR = Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE.bits();
-            const SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_KHR = Self::SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER.bits();
-            const SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_KHR = Self::SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER.bits();
-            const STORAGE_IMAGE_ATOMIC_KHR = Self::STORAGE_IMAGE_ATOMIC.bits();
-            const STORAGE_IMAGE_KHR = Self::STORAGE_IMAGE.bits();
-            const STORAGE_READ_WITHOUT_FORMAT_KHR = Self::STORAGE_READ_WITHOUT_FORMAT.bits();
-            const STORAGE_TEXEL_BUFFER_ATOMIC_KHR = Self::STORAGE_TEXEL_BUFFER_ATOMIC.bits();
-            const STORAGE_TEXEL_BUFFER_KHR = Self::STORAGE_TEXEL_BUFFER.bits();
-            const STORAGE_WRITE_WITHOUT_FORMAT_KHR = Self::STORAGE_WRITE_WITHOUT_FORMAT.bits();
-            const TRANSFER_DST_KHR = Self::TRANSFER_DST.bits();
-            const TRANSFER_SRC_KHR = Self::TRANSFER_SRC.bits();
-            const UNIFORM_TEXEL_BUFFER_KHR = Self::UNIFORM_TEXEL_BUFFER.bits();
-            const VERTEX_BUFFER_KHR = Self::VERTEX_BUFFER.bits();
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct FormatFeatureFlags2(Flags64);
+    impl FormatFeatureFlags2 {
+        pub const SAMPLED_IMAGE: Self = Self(FormatFeatureFlagBits2::SAMPLED_IMAGE.0);
+        pub const STORAGE_IMAGE: Self = Self(FormatFeatureFlagBits2::STORAGE_IMAGE.0);
+        pub const STORAGE_IMAGE_ATOMIC: Self = Self(FormatFeatureFlagBits2::STORAGE_IMAGE_ATOMIC.0);
+        pub const UNIFORM_TEXEL_BUFFER: Self = Self(FormatFeatureFlagBits2::UNIFORM_TEXEL_BUFFER.0);
+        pub const STORAGE_TEXEL_BUFFER: Self = Self(FormatFeatureFlagBits2::STORAGE_TEXEL_BUFFER.0);
+        pub const STORAGE_TEXEL_BUFFER_ATOMIC: Self =
+            Self(FormatFeatureFlagBits2::STORAGE_TEXEL_BUFFER_ATOMIC.0);
+        pub const VERTEX_BUFFER: Self = Self(FormatFeatureFlagBits2::VERTEX_BUFFER.0);
+        pub const COLOR_ATTACHMENT: Self = Self(FormatFeatureFlagBits2::COLOR_ATTACHMENT.0);
+        pub const COLOR_ATTACHMENT_BLEND: Self =
+            Self(FormatFeatureFlagBits2::COLOR_ATTACHMENT_BLEND.0);
+        pub const DEPTH_STENCIL_ATTACHMENT: Self =
+            Self(FormatFeatureFlagBits2::DEPTH_STENCIL_ATTACHMENT.0);
+        pub const BLIT_SRC: Self = Self(FormatFeatureFlagBits2::BLIT_SRC.0);
+        pub const BLIT_DST: Self = Self(FormatFeatureFlagBits2::BLIT_DST.0);
+        pub const SAMPLED_IMAGE_FILTER_LINEAR: Self =
+            Self(FormatFeatureFlagBits2::SAMPLED_IMAGE_FILTER_LINEAR.0);
+        pub const SAMPLED_IMAGE_FILTER_CUBIC: Self =
+            Self(FormatFeatureFlagBits2::SAMPLED_IMAGE_FILTER_CUBIC.0);
+        pub const TRANSFER_SRC: Self = Self(FormatFeatureFlagBits2::TRANSFER_SRC.0);
+        pub const TRANSFER_DST: Self = Self(FormatFeatureFlagBits2::TRANSFER_DST.0);
+        pub const SAMPLED_IMAGE_FILTER_MINMAX: Self =
+            Self(FormatFeatureFlagBits2::SAMPLED_IMAGE_FILTER_MINMAX.0);
+        pub const MIDPOINT_CHROMA_SAMPLES: Self =
+            Self(FormatFeatureFlagBits2::MIDPOINT_CHROMA_SAMPLES.0);
+        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER: Self =
+            Self(FormatFeatureFlagBits2::SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER.0);
+        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER: Self = Self(
+            FormatFeatureFlagBits2::SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER.0,
+        );
+        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT: Self = Self(
+            FormatFeatureFlagBits2::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT.0,
+        );
+        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE: Self = Self(FormatFeatureFlagBits2::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE.0);
+        pub const DISJOINT: Self = Self(FormatFeatureFlagBits2::DISJOINT.0);
+        pub const COSITED_CHROMA_SAMPLES: Self =
+            Self(FormatFeatureFlagBits2::COSITED_CHROMA_SAMPLES.0);
+        pub const FRAGMENT_DENSITY_MAP_EXT: Self =
+            Self(FormatFeatureFlagBits2::FRAGMENT_DENSITY_MAP_EXT.0);
+        pub const VIDEO_DECODE_OUTPUT_KHR: Self =
+            Self(FormatFeatureFlagBits2::VIDEO_DECODE_OUTPUT_KHR.0);
+        pub const VIDEO_DECODE_DPB_KHR: Self = Self(FormatFeatureFlagBits2::VIDEO_DECODE_DPB_KHR.0);
+        pub const VIDEO_ENCODE_INPUT_KHR: Self =
+            Self(FormatFeatureFlagBits2::VIDEO_ENCODE_INPUT_KHR.0);
+        pub const VIDEO_ENCODE_DPB_KHR: Self = Self(FormatFeatureFlagBits2::VIDEO_ENCODE_DPB_KHR.0);
+        pub const ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR: Self =
+            Self(FormatFeatureFlagBits2::ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR.0);
+        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
+            Self(FormatFeatureFlagBits2::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0);
+        pub const STORAGE_READ_WITHOUT_FORMAT: Self =
+            Self(FormatFeatureFlagBits2::STORAGE_READ_WITHOUT_FORMAT.0);
+        pub const STORAGE_WRITE_WITHOUT_FORMAT: Self =
+            Self(FormatFeatureFlagBits2::STORAGE_WRITE_WITHOUT_FORMAT.0);
+        pub const SAMPLED_IMAGE_DEPTH_COMPARISON: Self =
+            Self(FormatFeatureFlagBits2::SAMPLED_IMAGE_DEPTH_COMPARISON.0);
+        pub const WEIGHT_IMAGE_QCOM: Self = Self(FormatFeatureFlagBits2::WEIGHT_IMAGE_QCOM.0);
+        pub const WEIGHT_SAMPLED_IMAGE_QCOM: Self =
+            Self(FormatFeatureFlagBits2::WEIGHT_SAMPLED_IMAGE_QCOM.0);
+        pub const BLOCK_MATCHING_QCOM: Self = Self(FormatFeatureFlagBits2::BLOCK_MATCHING_QCOM.0);
+        pub const BOX_FILTER_SAMPLED_QCOM: Self =
+            Self(FormatFeatureFlagBits2::BOX_FILTER_SAMPLED_QCOM.0);
+        pub const LINEAR_COLOR_ATTACHMENT_NV: Self =
+            Self(FormatFeatureFlagBits2::LINEAR_COLOR_ATTACHMENT_NV.0);
+        pub const TENSOR_SHADER_ARM: Self = Self(FormatFeatureFlagBits2::TENSOR_SHADER_ARM.0);
+        pub const OPTICAL_FLOW_IMAGE_NV: Self =
+            Self(FormatFeatureFlagBits2::OPTICAL_FLOW_IMAGE_NV.0);
+        pub const OPTICAL_FLOW_VECTOR_NV: Self =
+            Self(FormatFeatureFlagBits2::OPTICAL_FLOW_VECTOR_NV.0);
+        pub const OPTICAL_FLOW_COST_NV: Self = Self(FormatFeatureFlagBits2::OPTICAL_FLOW_COST_NV.0);
+        pub const TENSOR_IMAGE_ALIASING_ARM: Self =
+            Self(FormatFeatureFlagBits2::TENSOR_IMAGE_ALIASING_ARM.0);
+        pub const HOST_IMAGE_TRANSFER: Self = Self(FormatFeatureFlagBits2::HOST_IMAGE_TRANSFER.0);
+        pub const TENSOR_DATA_GRAPH_ARM: Self =
+            Self(FormatFeatureFlagBits2::TENSOR_DATA_GRAPH_ARM.0);
+        pub const VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR: Self =
+            Self(FormatFeatureFlagBits2::VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR.0);
+        pub const VIDEO_ENCODE_EMPHASIS_MAP_KHR: Self =
+            Self(FormatFeatureFlagBits2::VIDEO_ENCODE_EMPHASIS_MAP_KHR.0);
+        pub const ACCELERATION_STRUCTURE_RADIUS_BUFFER_NV: Self =
+            Self(FormatFeatureFlagBits2::ACCELERATION_STRUCTURE_RADIUS_BUFFER_NV.0);
+        pub const DEPTH_COPY_ON_COMPUTE_QUEUE_KHR: Self =
+            Self(FormatFeatureFlagBits2::DEPTH_COPY_ON_COMPUTE_QUEUE_KHR.0);
+        pub const DEPTH_COPY_ON_TRANSFER_QUEUE_KHR: Self =
+            Self(FormatFeatureFlagBits2::DEPTH_COPY_ON_TRANSFER_QUEUE_KHR.0);
+        pub const STENCIL_COPY_ON_COMPUTE_QUEUE_KHR: Self =
+            Self(FormatFeatureFlagBits2::STENCIL_COPY_ON_COMPUTE_QUEUE_KHR.0);
+        pub const STENCIL_COPY_ON_TRANSFER_QUEUE_KHR: Self =
+            Self(FormatFeatureFlagBits2::STENCIL_COPY_ON_TRANSFER_QUEUE_KHR.0);
+        pub const COPY_IMAGE_INDIRECT_DST_KHR: Self =
+            Self(FormatFeatureFlagBits2::COPY_IMAGE_INDIRECT_DST_KHR.0);
+        pub const BLIT_DST_KHR: Self = Self::BLIT_DST;
+        pub const BLIT_SRC_KHR: Self = Self::BLIT_SRC;
+        pub const COLOR_ATTACHMENT_KHR: Self = Self::COLOR_ATTACHMENT;
+        pub const COLOR_ATTACHMENT_BLEND_KHR: Self = Self::COLOR_ATTACHMENT_BLEND;
+        pub const COSITED_CHROMA_SAMPLES_KHR: Self = Self::COSITED_CHROMA_SAMPLES;
+        pub const DEPTH_STENCIL_ATTACHMENT_KHR: Self = Self::DEPTH_STENCIL_ATTACHMENT;
+        pub const DISJOINT_KHR: Self = Self::DISJOINT;
+        pub const HOST_IMAGE_TRANSFER_EXT: Self = Self::HOST_IMAGE_TRANSFER;
+        pub const MIDPOINT_CHROMA_SAMPLES_KHR: Self = Self::MIDPOINT_CHROMA_SAMPLES;
+        pub const SAMPLED_IMAGE_KHR: Self = Self::SAMPLED_IMAGE;
+        pub const SAMPLED_IMAGE_DEPTH_COMPARISON_KHR: Self = Self::SAMPLED_IMAGE_DEPTH_COMPARISON;
+        pub const SAMPLED_IMAGE_FILTER_CUBIC_EXT: Self = Self::SAMPLED_IMAGE_FILTER_CUBIC;
+        pub const SAMPLED_IMAGE_FILTER_LINEAR_KHR: Self = Self::SAMPLED_IMAGE_FILTER_LINEAR;
+        pub const SAMPLED_IMAGE_FILTER_MINMAX_KHR: Self = Self::SAMPLED_IMAGE_FILTER_MINMAX;
+        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_KHR: Self =
+            Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT;
+        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_KHR:
+            Self = Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE;
+        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_KHR: Self =
+            Self::SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER;
+        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_KHR: Self =
+            Self::SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER;
+        pub const STORAGE_IMAGE_ATOMIC_KHR: Self = Self::STORAGE_IMAGE_ATOMIC;
+        pub const STORAGE_IMAGE_KHR: Self = Self::STORAGE_IMAGE;
+        pub const STORAGE_READ_WITHOUT_FORMAT_KHR: Self = Self::STORAGE_READ_WITHOUT_FORMAT;
+        pub const STORAGE_TEXEL_BUFFER_ATOMIC_KHR: Self = Self::STORAGE_TEXEL_BUFFER_ATOMIC;
+        pub const STORAGE_TEXEL_BUFFER_KHR: Self = Self::STORAGE_TEXEL_BUFFER;
+        pub const STORAGE_WRITE_WITHOUT_FORMAT_KHR: Self = Self::STORAGE_WRITE_WITHOUT_FORMAT;
+        pub const TRANSFER_DST_KHR: Self = Self::TRANSFER_DST;
+        pub const TRANSFER_SRC_KHR: Self = Self::TRANSFER_SRC;
+        pub const UNIFORM_TEXEL_BUFFER_KHR: Self = Self::UNIFORM_TEXEL_BUFFER;
+        pub const VERTEX_BUFFER_KHR: Self = Self::VERTEX_BUFFER;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct FormatFeatureFlagBits2(u64);
     impl FormatFeatureFlagBits2 {
         pub const SAMPLED_IMAGE: Self = Self(1 << 0);
@@ -3431,27 +3818,31 @@ _marker: PhantomData
         pub const UNIFORM_TEXEL_BUFFER_KHR: Self = Self::UNIFORM_TEXEL_BUFFER;
         pub const VERTEX_BUFFER_KHR: Self = Self::VERTEX_BUFFER;
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct RenderingFlags: Flags {
-            const CONTENTS_SECONDARY_COMMAND_BUFFERS = RenderingFlagBits::CONTENTS_SECONDARY_COMMAND_BUFFERS.0;
-            const SUSPENDING = RenderingFlagBits::SUSPENDING.0;
-            const RESUMING = RenderingFlagBits::RESUMING.0;
-            const ENABLE_LEGACY_DITHERING_EXT = RenderingFlagBits::ENABLE_LEGACY_DITHERING_EXT.0;
-            const CONTENTS_INLINE_KHR = RenderingFlagBits::CONTENTS_INLINE_KHR.0;
-            const PER_LAYER_FRAGMENT_DENSITY_VALVE = RenderingFlagBits::PER_LAYER_FRAGMENT_DENSITY_VALVE.0;
-            const FRAGMENT_REGION_EXT = RenderingFlagBits::FRAGMENT_REGION_EXT.0;
-            const CUSTOM_RESOLVE_EXT = RenderingFlagBits::CUSTOM_RESOLVE_EXT.0;
-            const LOCAL_READ_CONCURRENT_ACCESS_CONTROL_KHR = RenderingFlagBits::LOCAL_READ_CONCURRENT_ACCESS_CONTROL_KHR.0;
-            const CONTENTS_INLINE_EXT = Self::CONTENTS_INLINE_KHR.bits();
-            const CONTENTS_SECONDARY_COMMAND_BUFFERS_KHR = Self::CONTENTS_SECONDARY_COMMAND_BUFFERS.bits();
-            const RESUMING_KHR = Self::RESUMING.bits();
-            const SUSPENDING_KHR = Self::SUSPENDING.bits();
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct RenderingFlags(Flags);
+    impl RenderingFlags {
+        pub const CONTENTS_SECONDARY_COMMAND_BUFFERS: Self =
+            Self(RenderingFlagBits::CONTENTS_SECONDARY_COMMAND_BUFFERS.0);
+        pub const SUSPENDING: Self = Self(RenderingFlagBits::SUSPENDING.0);
+        pub const RESUMING: Self = Self(RenderingFlagBits::RESUMING.0);
+        pub const ENABLE_LEGACY_DITHERING_EXT: Self =
+            Self(RenderingFlagBits::ENABLE_LEGACY_DITHERING_EXT.0);
+        pub const CONTENTS_INLINE_KHR: Self = Self(RenderingFlagBits::CONTENTS_INLINE_KHR.0);
+        pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self =
+            Self(RenderingFlagBits::PER_LAYER_FRAGMENT_DENSITY_VALVE.0);
+        pub const FRAGMENT_REGION_EXT: Self = Self(RenderingFlagBits::FRAGMENT_REGION_EXT.0);
+        pub const CUSTOM_RESOLVE_EXT: Self = Self(RenderingFlagBits::CUSTOM_RESOLVE_EXT.0);
+        pub const LOCAL_READ_CONCURRENT_ACCESS_CONTROL_KHR: Self =
+            Self(RenderingFlagBits::LOCAL_READ_CONCURRENT_ACCESS_CONTROL_KHR.0);
+        pub const CONTENTS_INLINE_EXT: Self = Self::CONTENTS_INLINE_KHR;
+        pub const CONTENTS_SECONDARY_COMMAND_BUFFERS_KHR: Self =
+            Self::CONTENTS_SECONDARY_COMMAND_BUFFERS;
+        pub const RESUMING_KHR: Self = Self::RESUMING;
+        pub const SUSPENDING_KHR: Self = Self::SUSPENDING;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct RenderingFlagBits(u32);
     impl RenderingFlagBits {
         pub const CONTENTS_SECONDARY_COMMAND_BUFFERS: Self = Self(1 << 0);
@@ -3469,26 +3860,25 @@ _marker: PhantomData
         pub const RESUMING_KHR: Self = Self::RESUMING;
         pub const SUSPENDING_KHR: Self = Self::SUSPENDING;
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct ToolPurposeFlags: Flags {
-            const VALIDATION = ToolPurposeFlagBits::VALIDATION.0;
-            const PROFILING = ToolPurposeFlagBits::PROFILING.0;
-            const TRACING = ToolPurposeFlagBits::TRACING.0;
-            const ADDITIONAL_FEATURES = ToolPurposeFlagBits::ADDITIONAL_FEATURES.0;
-            const MODIFYING_FEATURES = ToolPurposeFlagBits::MODIFYING_FEATURES.0;
-            const DEBUG_REPORTING_EXT = ToolPurposeFlagBits::DEBUG_REPORTING_EXT.0;
-            const DEBUG_MARKERS_EXT = ToolPurposeFlagBits::DEBUG_MARKERS_EXT.0;
-            const ADDITIONAL_FEATURES_EXT = Self::ADDITIONAL_FEATURES.bits();
-            const MODIFYING_FEATURES_EXT = Self::MODIFYING_FEATURES.bits();
-            const PROFILING_EXT = Self::PROFILING.bits();
-            const TRACING_EXT = Self::TRACING.bits();
-            const VALIDATION_EXT = Self::VALIDATION.bits();
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct ToolPurposeFlags(Flags);
+    impl ToolPurposeFlags {
+        pub const VALIDATION: Self = Self(ToolPurposeFlagBits::VALIDATION.0);
+        pub const PROFILING: Self = Self(ToolPurposeFlagBits::PROFILING.0);
+        pub const TRACING: Self = Self(ToolPurposeFlagBits::TRACING.0);
+        pub const ADDITIONAL_FEATURES: Self = Self(ToolPurposeFlagBits::ADDITIONAL_FEATURES.0);
+        pub const MODIFYING_FEATURES: Self = Self(ToolPurposeFlagBits::MODIFYING_FEATURES.0);
+        pub const DEBUG_REPORTING_EXT: Self = Self(ToolPurposeFlagBits::DEBUG_REPORTING_EXT.0);
+        pub const DEBUG_MARKERS_EXT: Self = Self(ToolPurposeFlagBits::DEBUG_MARKERS_EXT.0);
+        pub const ADDITIONAL_FEATURES_EXT: Self = Self::ADDITIONAL_FEATURES;
+        pub const MODIFYING_FEATURES_EXT: Self = Self::MODIFYING_FEATURES;
+        pub const PROFILING_EXT: Self = Self::PROFILING;
+        pub const TRACING_EXT: Self = Self::TRACING;
+        pub const VALIDATION_EXT: Self = Self::VALIDATION;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ToolPurposeFlagBits(u32);
     impl ToolPurposeFlagBits {
         pub const VALIDATION: Self = Self(1 << 0);
@@ -3504,16 +3894,15 @@ _marker: PhantomData
         pub const TRACING_EXT: Self = Self::TRACING;
         pub const VALIDATION_EXT: Self = Self::VALIDATION;
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct SubmitFlags: Flags {
-            const PROTECTED = SubmitFlagBits::PROTECTED.0;
-            const PROTECTED_KHR = Self::PROTECTED.bits();
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct SubmitFlags(Flags);
+    impl SubmitFlags {
+        pub const PROTECTED: Self = Self(SubmitFlagBits::PROTECTED.0);
+        pub const PROTECTED_KHR: Self = Self::PROTECTED;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SubmitFlagBits(u32);
     impl SubmitFlagBits {
         pub const PROTECTED: Self = Self(1 << 0);

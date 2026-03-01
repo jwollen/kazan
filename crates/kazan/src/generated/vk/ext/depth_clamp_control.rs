@@ -16,10 +16,19 @@ pub(super) mod defs {
         pub depth_clamp_control: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDepthClampControlFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_DEPTH_CLAMP_CONTROL_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceDepthClampControlFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceDepthClampControlFeaturesEXT<'a> {}
     impl Default for PhysicalDeviceDepthClampControlFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_DEPTH_CLAMP_CONTROL_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 depth_clamp_control: Default::default(),
                 _marker: PhantomData,
@@ -41,10 +50,18 @@ pub(super) mod defs {
         pub p_depth_clamp_range: *const DepthClampRangeEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineViewportDepthClampControlCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_VIEWPORT_DEPTH_CLAMP_CONTROL_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<PipelineViewportStateCreateInfo<'a>>
+        for PipelineViewportDepthClampControlCreateInfoEXT<'a>
+    {
+    }
     impl Default for PipelineViewportDepthClampControlCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_VIEWPORT_DEPTH_CLAMP_CONTROL_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 depth_clamp_mode: Default::default(),
                 p_depth_clamp_range: core::ptr::null(),

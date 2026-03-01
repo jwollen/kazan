@@ -21,10 +21,16 @@ pub(super) mod defs {
         pub p_object_name: *const c_char,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DebugUtilsObjectNameInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEBUG_UTILS_OBJECT_NAME_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<PipelineShaderStageCreateInfo<'a>> for DebugUtilsObjectNameInfoEXT<'a> {}
+    unsafe impl<'a> Extends<ResourceDescriptorInfoEXT<'a>> for DebugUtilsObjectNameInfoEXT<'a> {}
+    unsafe impl<'a> Extends<SamplerCreateInfo<'a>> for DebugUtilsObjectNameInfoEXT<'a> {}
     impl Default for DebugUtilsObjectNameInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEBUG_UTILS_OBJECT_NAME_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 object_type: Default::default(),
                 object_handle: Default::default(),
@@ -55,10 +61,13 @@ pub(super) mod defs {
         pub p_tag: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DebugUtilsObjectTagInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEBUG_UTILS_OBJECT_TAG_INFO_EXT;
+    }
     impl Default for DebugUtilsObjectTagInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEBUG_UTILS_OBJECT_TAG_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 object_type: Default::default(),
                 object_handle: Default::default(),
@@ -97,10 +106,13 @@ pub(super) mod defs {
         pub color: [f32; 4],
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DebugUtilsLabelEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEBUG_UTILS_LABEL_EXT;
+    }
     impl Default for DebugUtilsLabelEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEBUG_UTILS_LABEL_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_label_name: core::ptr::null(),
                 color: [Default::default(); _],
@@ -126,10 +138,14 @@ pub(super) mod defs {
         pub p_user_data: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DebugUtilsMessengerCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<InstanceCreateInfo<'a>> for DebugUtilsMessengerCreateInfoEXT<'a> {}
     impl Default for DebugUtilsMessengerCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 message_severity: Default::default(),
@@ -185,10 +201,14 @@ pub(super) mod defs {
         pub p_objects: *const DebugUtilsObjectNameInfoEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DebugUtilsMessengerCallbackDataEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::DEBUG_UTILS_MESSENGER_CALLBACK_DATA_EXT;
+    }
     impl Default for DebugUtilsMessengerCallbackDataEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEBUG_UTILS_MESSENGER_CALLBACK_DATA_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 p_message_id_name: core::ptr::null(),
@@ -229,18 +249,17 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct DebugUtilsMessageSeverityFlagsEXT: Flags {
-            const VERBOSE_EXT = DebugUtilsMessageSeverityFlagBitsEXT::VERBOSE_EXT.0;
-            const INFO_EXT = DebugUtilsMessageSeverityFlagBitsEXT::INFO_EXT.0;
-            const WARNING_EXT = DebugUtilsMessageSeverityFlagBitsEXT::WARNING_EXT.0;
-            const ERROR_EXT = DebugUtilsMessageSeverityFlagBitsEXT::ERROR_EXT.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct DebugUtilsMessageSeverityFlagsEXT(Flags);
+    impl DebugUtilsMessageSeverityFlagsEXT {
+        pub const VERBOSE_EXT: Self = Self(DebugUtilsMessageSeverityFlagBitsEXT::VERBOSE_EXT.0);
+        pub const INFO_EXT: Self = Self(DebugUtilsMessageSeverityFlagBitsEXT::INFO_EXT.0);
+        pub const WARNING_EXT: Self = Self(DebugUtilsMessageSeverityFlagBitsEXT::WARNING_EXT.0);
+        pub const ERROR_EXT: Self = Self(DebugUtilsMessageSeverityFlagBitsEXT::ERROR_EXT.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DebugUtilsMessageSeverityFlagBitsEXT(u32);
     impl DebugUtilsMessageSeverityFlagBitsEXT {
         pub const VERBOSE_EXT: Self = Self(1 << 0);
@@ -248,18 +267,18 @@ pub(super) mod defs {
         pub const WARNING_EXT: Self = Self(1 << 8);
         pub const ERROR_EXT: Self = Self(1 << 12);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct DebugUtilsMessageTypeFlagsEXT: Flags {
-            const GENERAL_EXT = DebugUtilsMessageTypeFlagBitsEXT::GENERAL_EXT.0;
-            const VALIDATION_EXT = DebugUtilsMessageTypeFlagBitsEXT::VALIDATION_EXT.0;
-            const PERFORMANCE_EXT = DebugUtilsMessageTypeFlagBitsEXT::PERFORMANCE_EXT.0;
-            const DEVICE_ADDRESS_BINDING_EXT = DebugUtilsMessageTypeFlagBitsEXT::DEVICE_ADDRESS_BINDING_EXT.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct DebugUtilsMessageTypeFlagsEXT(Flags);
+    impl DebugUtilsMessageTypeFlagsEXT {
+        pub const GENERAL_EXT: Self = Self(DebugUtilsMessageTypeFlagBitsEXT::GENERAL_EXT.0);
+        pub const VALIDATION_EXT: Self = Self(DebugUtilsMessageTypeFlagBitsEXT::VALIDATION_EXT.0);
+        pub const PERFORMANCE_EXT: Self = Self(DebugUtilsMessageTypeFlagBitsEXT::PERFORMANCE_EXT.0);
+        pub const DEVICE_ADDRESS_BINDING_EXT: Self =
+            Self(DebugUtilsMessageTypeFlagBitsEXT::DEVICE_ADDRESS_BINDING_EXT.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DebugUtilsMessageTypeFlagBitsEXT(u32);
     impl DebugUtilsMessageTypeFlagBitsEXT {
         pub const GENERAL_EXT: Self = Self(1 << 0);
@@ -267,18 +286,14 @@ pub(super) mod defs {
         pub const PERFORMANCE_EXT: Self = Self(1 << 2);
         pub const DEVICE_ADDRESS_BINDING_EXT: Self = Self(1 << 3);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct DebugUtilsMessengerCreateFlagsEXT: Flags {
-        }
-    }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct DebugUtilsMessengerCallbackDataFlagsEXT: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct DebugUtilsMessengerCreateFlagsEXT(Flags);
+    impl DebugUtilsMessengerCreateFlagsEXT {}
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct DebugUtilsMessengerCallbackDataFlagsEXT(Flags);
+    impl DebugUtilsMessengerCallbackDataFlagsEXT {}
     pub type PFN_vkDebugUtilsMessengerCallbackEXT = unsafe extern "system" fn(
         message_severity: DebugUtilsMessageSeverityFlagBitsEXT,
         message_types: DebugUtilsMessageTypeFlagsEXT,

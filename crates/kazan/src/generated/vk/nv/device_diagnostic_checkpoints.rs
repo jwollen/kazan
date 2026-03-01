@@ -16,10 +16,14 @@ pub(super) mod defs {
         pub checkpoint_execution_stage_mask: PipelineStageFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for QueueFamilyCheckpointPropertiesNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::QUEUE_FAMILY_CHECKPOINT_PROPERTIES_NV;
+    }
+    unsafe impl<'a> Extends<QueueFamilyProperties2<'a>> for QueueFamilyCheckpointPropertiesNV<'a> {}
     impl Default for QueueFamilyCheckpointPropertiesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::QUEUE_FAMILY_CHECKPOINT_PROPERTIES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 checkpoint_execution_stage_mask: Default::default(),
                 _marker: PhantomData,
@@ -44,10 +48,13 @@ pub(super) mod defs {
         pub p_checkpoint_marker: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CheckpointDataNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::CHECKPOINT_DATA_NV;
+    }
     impl Default for CheckpointDataNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::CHECKPOINT_DATA_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 stage: Default::default(),
                 p_checkpoint_marker: core::ptr::null_mut(),
@@ -73,10 +80,15 @@ pub(super) mod defs {
         pub checkpoint_execution_stage_mask: PipelineStageFlags2,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for QueueFamilyCheckpointProperties2NV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV;
+    }
+    unsafe impl<'a> Extends<QueueFamilyProperties2<'a>> for QueueFamilyCheckpointProperties2NV<'a> {}
     impl Default for QueueFamilyCheckpointProperties2NV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 checkpoint_execution_stage_mask: Default::default(),
                 _marker: PhantomData,
@@ -101,10 +113,13 @@ pub(super) mod defs {
         pub p_checkpoint_marker: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CheckpointData2NV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::CHECKPOINT_DATA_2_NV;
+    }
     impl Default for CheckpointData2NV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::CHECKPOINT_DATA_2_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 stage: Default::default(),
                 p_checkpoint_marker: core::ptr::null_mut(),

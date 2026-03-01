@@ -19,10 +19,16 @@ pub(super) mod defs {
         pub p_disabled_validation_features: *const ValidationFeatureDisableEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ValidationFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::VALIDATION_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<InstanceCreateInfo<'a>> for ValidationFeaturesEXT<'a> {}
+    unsafe impl<'a> Extends<ShaderModuleCreateInfo<'a>> for ValidationFeaturesEXT<'a> {}
+    unsafe impl<'a> Extends<ShaderCreateInfoEXT<'a>> for ValidationFeaturesEXT<'a> {}
     impl Default for ValidationFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VALIDATION_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 enabled_validation_feature_count: Default::default(),
                 p_enabled_validation_features: core::ptr::null(),

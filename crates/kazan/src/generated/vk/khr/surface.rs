@@ -124,18 +124,18 @@ pub(super) mod defs {
         pub const PASS_THROUGH_EXT: Self = Self(1000104013);
         pub const DCI_P3_LINEAR_EXT: Self = Self::DISPLAY_P3_LINEAR_EXT;
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct CompositeAlphaFlagsKHR: Flags {
-            const OPAQUE_KHR = CompositeAlphaFlagBitsKHR::OPAQUE_KHR.0;
-            const PRE_MULTIPLIED_KHR = CompositeAlphaFlagBitsKHR::PRE_MULTIPLIED_KHR.0;
-            const POST_MULTIPLIED_KHR = CompositeAlphaFlagBitsKHR::POST_MULTIPLIED_KHR.0;
-            const INHERIT_KHR = CompositeAlphaFlagBitsKHR::INHERIT_KHR.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct CompositeAlphaFlagsKHR(Flags);
+    impl CompositeAlphaFlagsKHR {
+        pub const OPAQUE_KHR: Self = Self(CompositeAlphaFlagBitsKHR::OPAQUE_KHR.0);
+        pub const PRE_MULTIPLIED_KHR: Self = Self(CompositeAlphaFlagBitsKHR::PRE_MULTIPLIED_KHR.0);
+        pub const POST_MULTIPLIED_KHR: Self =
+            Self(CompositeAlphaFlagBitsKHR::POST_MULTIPLIED_KHR.0);
+        pub const INHERIT_KHR: Self = Self(CompositeAlphaFlagBitsKHR::INHERIT_KHR.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct CompositeAlphaFlagBitsKHR(u32);
     impl CompositeAlphaFlagBitsKHR {
         pub const OPAQUE_KHR: Self = Self(1 << 0);

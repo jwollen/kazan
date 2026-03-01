@@ -45,10 +45,18 @@ pub(super) mod defs {
         pub p_shading_rate_palettes: *const ShadingRatePaletteNV<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineViewportShadingRateImageStateCreateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_VIEWPORT_SHADING_RATE_IMAGE_STATE_CREATE_INFO_NV;
+    }
+    unsafe impl<'a> Extends<PipelineViewportStateCreateInfo<'a>>
+        for PipelineViewportShadingRateImageStateCreateInfoNV<'a>
+    {
+    }
     impl Default for PipelineViewportShadingRateImageStateCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_VIEWPORT_SHADING_RATE_IMAGE_STATE_CREATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 shading_rate_image_enable: Default::default(),
                 viewport_count: Default::default(),
@@ -80,10 +88,19 @@ pub(super) mod defs {
         pub shading_rate_coarse_sample_order: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShadingRateImageFeaturesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SHADING_RATE_IMAGE_FEATURES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceShadingRateImageFeaturesNV<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShadingRateImageFeaturesNV<'a> {}
     impl Default for PhysicalDeviceShadingRateImageFeaturesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SHADING_RATE_IMAGE_FEATURES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shading_rate_image: Default::default(),
                 shading_rate_coarse_sample_order: Default::default(),
@@ -114,10 +131,18 @@ pub(super) mod defs {
         pub shading_rate_max_coarse_samples: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShadingRateImagePropertiesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceShadingRateImagePropertiesNV<'a>
+    {
+    }
     impl Default for PhysicalDeviceShadingRateImagePropertiesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shading_rate_texel_size: Default::default(),
                 shading_rate_palette_size: Default::default(),
@@ -209,10 +234,18 @@ pub(super) mod defs {
         pub p_custom_sample_orders: *const CoarseSampleOrderCustomNV<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineViewportCoarseSampleOrderStateCreateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_VIEWPORT_COARSE_SAMPLE_ORDER_STATE_CREATE_INFO_NV;
+    }
+    unsafe impl<'a> Extends<PipelineViewportStateCreateInfo<'a>>
+        for PipelineViewportCoarseSampleOrderStateCreateInfoNV<'a>
+    {
+    }
     impl Default for PipelineViewportCoarseSampleOrderStateCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_VIEWPORT_COARSE_SAMPLE_ORDER_STATE_CREATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 sample_order_type: Default::default(),
                 custom_sample_order_count: Default::default(),

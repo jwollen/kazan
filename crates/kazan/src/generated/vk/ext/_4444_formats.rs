@@ -17,10 +17,16 @@ pub(super) mod defs {
         pub format_a4b4g4r4: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevice4444FormatsFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_4444_FORMATS_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDevice4444FormatsFeaturesEXT<'a> {}
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevice4444FormatsFeaturesEXT<'a> {}
     impl Default for PhysicalDevice4444FormatsFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_4444_FORMATS_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 format_a4r4g4b4: Default::default(),
                 format_a4b4g4r4: Default::default(),

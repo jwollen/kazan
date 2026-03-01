@@ -39,10 +39,13 @@ pub(super) mod defs {
         pub max_frame_average_light_level: f32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for HdrMetadataEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::HDR_METADATA_EXT;
+    }
     impl Default for HdrMetadataEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::HDR_METADATA_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 display_primary_red: Default::default(),
                 display_primary_green: Default::default(),

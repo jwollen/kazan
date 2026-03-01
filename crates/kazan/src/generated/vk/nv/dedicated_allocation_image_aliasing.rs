@@ -16,11 +16,24 @@ pub(super) mod defs {
         pub dedicated_allocation_image_aliasing: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a>
+        for PhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV<'a>
+    {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV<'a>
+    {
+    }
     impl Default for PhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type:
-                    StructureType::PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 dedicated_allocation_image_aliasing: Default::default(),
                 _marker: PhantomData,

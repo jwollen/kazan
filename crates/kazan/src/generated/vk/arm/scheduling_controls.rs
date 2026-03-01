@@ -16,10 +16,19 @@ pub(super) mod defs {
         pub shader_core_count: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DeviceQueueShaderCoreControlCreateInfoARM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::DEVICE_QUEUE_SHADER_CORE_CONTROL_CREATE_INFO_ARM;
+    }
+    unsafe impl<'a> Extends<DeviceQueueCreateInfo<'a>>
+        for DeviceQueueShaderCoreControlCreateInfoARM<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for DeviceQueueShaderCoreControlCreateInfoARM<'a> {}
     impl Default for DeviceQueueShaderCoreControlCreateInfoARM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEVICE_QUEUE_SHADER_CORE_CONTROL_CREATE_INFO_ARM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shader_core_count: Default::default(),
                 _marker: PhantomData,
@@ -40,10 +49,19 @@ pub(super) mod defs {
         pub scheduling_controls: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSchedulingControlsFeaturesARM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SCHEDULING_CONTROLS_FEATURES_ARM;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceSchedulingControlsFeaturesARM<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceSchedulingControlsFeaturesARM<'a> {}
     impl Default for PhysicalDeviceSchedulingControlsFeaturesARM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SCHEDULING_CONTROLS_FEATURES_ARM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 scheduling_controls: Default::default(),
                 _marker: PhantomData,
@@ -64,10 +82,18 @@ pub(super) mod defs {
         pub scheduling_controls_flags: PhysicalDeviceSchedulingControlsFlagsARM,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSchedulingControlsPropertiesARM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SCHEDULING_CONTROLS_PROPERTIES_ARM;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceSchedulingControlsPropertiesARM<'a>
+    {
+    }
     impl Default for PhysicalDeviceSchedulingControlsPropertiesARM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SCHEDULING_CONTROLS_PROPERTIES_ARM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 scheduling_controls_flags: Default::default(),
                 _marker: PhantomData,
@@ -83,15 +109,15 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct PhysicalDeviceSchedulingControlsFlagsARM: Flags64 {
-            const SHADER_CORE_COUNT_ARM = PhysicalDeviceSchedulingControlsFlagBitsARM::SHADER_CORE_COUNT_ARM.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct PhysicalDeviceSchedulingControlsFlagsARM(Flags64);
+    impl PhysicalDeviceSchedulingControlsFlagsARM {
+        pub const SHADER_CORE_COUNT_ARM: Self =
+            Self(PhysicalDeviceSchedulingControlsFlagBitsARM::SHADER_CORE_COUNT_ARM.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PhysicalDeviceSchedulingControlsFlagBitsARM(u64);
     impl PhysicalDeviceSchedulingControlsFlagBitsARM {
         pub const SHADER_CORE_COUNT_ARM: Self = Self(1 << 0);

@@ -18,10 +18,13 @@ pub(super) mod defs {
         pub surface: *mut IDirectFBSurface,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DirectFBSurfaceCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DIRECTFB_SURFACE_CREATE_INFO_EXT;
+    }
     impl Default for DirectFBSurfaceCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DIRECTFB_SURFACE_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 dfb: core::ptr::null_mut(),
@@ -44,12 +47,10 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct DirectFBSurfaceCreateFlagsEXT: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct DirectFBSurfaceCreateFlagsEXT(Flags);
+    impl DirectFBSurfaceCreateFlagsEXT {}
     pub type PFN_vkCreateDirectFBSurfaceEXT = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const DirectFBSurfaceCreateInfoEXT<'_>,

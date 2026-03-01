@@ -34,10 +34,14 @@ pub(super) mod defs {
         pub intersection_shader: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RayTracingShaderGroupCreateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::RAY_TRACING_SHADER_GROUP_CREATE_INFO_NV;
+    }
     impl Default for RayTracingShaderGroupCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RAY_TRACING_SHADER_GROUP_CREATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 ty: Default::default(),
                 general_shader: Default::default(),
@@ -86,10 +90,13 @@ pub(super) mod defs {
         pub base_pipeline_index: i32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RayTracingPipelineCreateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::RAY_TRACING_PIPELINE_CREATE_INFO_NV;
+    }
     impl Default for RayTracingPipelineCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RAY_TRACING_PIPELINE_CREATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 stage_count: Default::default(),
@@ -154,10 +161,13 @@ pub(super) mod defs {
         pub transform_offset: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for GeometryTrianglesNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::GEOMETRY_TRIANGLES_NV;
+    }
     impl Default for GeometryTrianglesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::GEOMETRY_TRIANGLES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 vertex_data: Default::default(),
                 vertex_offset: Default::default(),
@@ -231,10 +241,13 @@ pub(super) mod defs {
         pub offset: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for GeometryAABBNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::GEOMETRY_AABB_NV;
+    }
     impl Default for GeometryAABBNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::GEOMETRY_AABB_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 aabb_data: Default::default(),
                 num_aab_bs: Default::default(),
@@ -298,10 +311,13 @@ pub(super) mod defs {
         pub flags: GeometryFlagsKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for GeometryNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::GEOMETRY_NV;
+    }
     impl Default for GeometryNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::GEOMETRY_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 geometry_type: Default::default(),
                 geometry: Default::default(),
@@ -336,10 +352,13 @@ pub(super) mod defs {
         pub p_geometries: *const GeometryNV<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::ACCELERATION_STRUCTURE_INFO_NV;
+    }
     impl Default for AccelerationStructureInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ACCELERATION_STRUCTURE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 ty: Default::default(),
                 flags: Default::default(),
@@ -378,10 +397,13 @@ pub(super) mod defs {
         pub info: AccelerationStructureInfoNV<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureCreateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::ACCELERATION_STRUCTURE_CREATE_INFO_NV;
+    }
     impl Default for AccelerationStructureCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ACCELERATION_STRUCTURE_CREATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 compacted_size: Default::default(),
                 info: Default::default(),
@@ -411,10 +433,14 @@ pub(super) mod defs {
         pub p_device_indices: *const u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BindAccelerationStructureMemoryInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::BIND_ACCELERATION_STRUCTURE_MEMORY_INFO_NV;
+    }
     impl Default for BindAccelerationStructureMemoryInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BIND_ACCELERATION_STRUCTURE_MEMORY_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 acceleration_structure: Default::default(),
                 memory: Default::default(),
@@ -456,10 +482,15 @@ pub(super) mod defs {
         pub p_acceleration_structures: *const AccelerationStructureNV,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for WriteDescriptorSetAccelerationStructureNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_NV;
+    }
+    unsafe impl<'a> Extends<WriteDescriptorSet<'a>> for WriteDescriptorSetAccelerationStructureNV<'a> {}
     impl Default for WriteDescriptorSetAccelerationStructureNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 acceleration_structure_count: Default::default(),
                 p_acceleration_structures: core::ptr::null(),
@@ -486,10 +517,14 @@ pub(super) mod defs {
         pub acceleration_structure: AccelerationStructureNV,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureMemoryRequirementsInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV;
+    }
     impl Default for AccelerationStructureMemoryRequirementsInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 ty: Default::default(),
                 acceleration_structure: Default::default(),
@@ -525,10 +560,18 @@ pub(super) mod defs {
         pub max_descriptor_set_acceleration_structures: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRayTracingPropertiesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_RAY_TRACING_PROPERTIES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceRayTracingPropertiesNV<'a>
+    {
+    }
     impl Default for PhysicalDeviceRayTracingPropertiesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_RAY_TRACING_PROPERTIES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shader_group_handle_size: Default::default(),
                 max_recursion_depth: Default::default(),

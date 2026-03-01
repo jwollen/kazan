@@ -17,10 +17,18 @@ pub(super) mod defs {
         pub active_compute_unit_count: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderCoreProperties2AMD<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_2_AMD;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceShaderCoreProperties2AMD<'a>
+    {
+    }
     impl Default for PhysicalDeviceShaderCoreProperties2AMD<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_2_AMD,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shader_core_features: Default::default(),
                 active_compute_unit_count: Default::default(),
@@ -41,14 +49,12 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct ShaderCorePropertiesFlagsAMD: Flags {
-        }
-    }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct ShaderCorePropertiesFlagsAMD(Flags);
+    impl ShaderCorePropertiesFlagsAMD {}
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ShaderCorePropertiesFlagBitsAMD(u32);
     impl ShaderCorePropertiesFlagBitsAMD {}
 }

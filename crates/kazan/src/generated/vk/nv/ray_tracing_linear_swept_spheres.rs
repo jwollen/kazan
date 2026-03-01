@@ -26,10 +26,18 @@ pub(super) mod defs {
         pub end_caps_mode: RayTracingLssPrimitiveEndCapsModeNV,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureGeometryLinearSweptSpheresDataNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::ACCELERATION_STRUCTURE_GEOMETRY_LINEAR_SWEPT_SPHERES_DATA_NV;
+    }
+    unsafe impl<'a> Extends<AccelerationStructureGeometryKHR<'a>>
+        for AccelerationStructureGeometryLinearSweptSpheresDataNV<'a>
+    {
+    }
     impl Default for AccelerationStructureGeometryLinearSweptSpheresDataNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ACCELERATION_STRUCTURE_GEOMETRY_LINEAR_SWEPT_SPHERES_DATA_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 vertex_format: Default::default(),
                 vertex_data: Default::default(),
@@ -108,10 +116,18 @@ pub(super) mod defs {
         pub index_stride: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureGeometrySpheresDataNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::ACCELERATION_STRUCTURE_GEOMETRY_SPHERES_DATA_NV;
+    }
+    unsafe impl<'a> Extends<AccelerationStructureGeometryKHR<'a>>
+        for AccelerationStructureGeometrySpheresDataNV<'a>
+    {
+    }
     impl Default for AccelerationStructureGeometrySpheresDataNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ACCELERATION_STRUCTURE_GEOMETRY_SPHERES_DATA_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 vertex_format: Default::default(),
                 vertex_data: Default::default(),
@@ -173,10 +189,22 @@ pub(super) mod defs {
         pub linear_swept_spheres: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_RAY_TRACING_LINEAR_SWEPT_SPHERES_FEATURES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV<'a>
+    {
+    }
     impl Default for PhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_RAY_TRACING_LINEAR_SWEPT_SPHERES_FEATURES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 spheres: Default::default(),
                 linear_swept_spheres: Default::default(),

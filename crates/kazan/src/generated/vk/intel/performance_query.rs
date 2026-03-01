@@ -46,10 +46,13 @@ pub(super) mod defs {
         pub p_user_data: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for InitializePerformanceApiInfoINTEL<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::INITIALIZE_PERFORMANCE_API_INFO_INTEL;
+    }
     impl Default for InitializePerformanceApiInfoINTEL<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::INITIALIZE_PERFORMANCE_API_INFO_INTEL,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_user_data: core::ptr::null_mut(),
                 _marker: PhantomData,
@@ -70,10 +73,15 @@ pub(super) mod defs {
         pub performance_counters_sampling: QueryPoolSamplingModeINTEL,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for QueryPoolPerformanceQueryCreateInfoINTEL<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::QUERY_POOL_PERFORMANCE_QUERY_CREATE_INFO_INTEL;
+    }
+    unsafe impl<'a> Extends<QueryPoolCreateInfo<'a>> for QueryPoolPerformanceQueryCreateInfoINTEL<'a> {}
     impl Default for QueryPoolPerformanceQueryCreateInfoINTEL<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::QUERY_POOL_PERFORMANCE_QUERY_CREATE_INFO_INTEL,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 performance_counters_sampling: Default::default(),
                 _marker: PhantomData,
@@ -97,10 +105,13 @@ pub(super) mod defs {
         pub marker: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PerformanceMarkerInfoINTEL<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PERFORMANCE_MARKER_INFO_INTEL;
+    }
     impl Default for PerformanceMarkerInfoINTEL<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PERFORMANCE_MARKER_INFO_INTEL,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 marker: Default::default(),
                 _marker: PhantomData,
@@ -121,10 +132,13 @@ pub(super) mod defs {
         pub marker: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PerformanceStreamMarkerInfoINTEL<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PERFORMANCE_STREAM_MARKER_INFO_INTEL;
+    }
     impl Default for PerformanceStreamMarkerInfoINTEL<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PERFORMANCE_STREAM_MARKER_INFO_INTEL,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 marker: Default::default(),
                 _marker: PhantomData,
@@ -147,10 +161,13 @@ pub(super) mod defs {
         pub parameter: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PerformanceOverrideInfoINTEL<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PERFORMANCE_OVERRIDE_INFO_INTEL;
+    }
     impl Default for PerformanceOverrideInfoINTEL<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PERFORMANCE_OVERRIDE_INFO_INTEL,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 ty: Default::default(),
                 enable: Default::default(),
@@ -181,10 +198,14 @@ pub(super) mod defs {
         pub ty: PerformanceConfigurationTypeINTEL,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PerformanceConfigurationAcquireInfoINTEL<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL;
+    }
     impl Default for PerformanceConfigurationAcquireInfoINTEL<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 ty: Default::default(),
                 _marker: PhantomData,

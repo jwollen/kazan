@@ -16,10 +16,19 @@ pub(super) mod defs {
         pub device_memory_report: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDeviceMemoryReportFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_DEVICE_MEMORY_REPORT_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceDeviceMemoryReportFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceDeviceMemoryReportFeaturesEXT<'a> {}
     impl Default for PhysicalDeviceDeviceMemoryReportFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_DEVICE_MEMORY_REPORT_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 device_memory_report: Default::default(),
                 _marker: PhantomData,
@@ -42,10 +51,15 @@ pub(super) mod defs {
         pub p_user_data: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DeviceDeviceMemoryReportCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::DEVICE_DEVICE_MEMORY_REPORT_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for DeviceDeviceMemoryReportCreateInfoEXT<'a> {}
     impl Default for DeviceDeviceMemoryReportCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEVICE_DEVICE_MEMORY_REPORT_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 pfn_user_callback: Default::default(),
@@ -85,10 +99,13 @@ pub(super) mod defs {
         pub heap_index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DeviceMemoryReportCallbackDataEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_MEMORY_REPORT_CALLBACK_DATA_EXT;
+    }
     impl Default for DeviceMemoryReportCallbackDataEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEVICE_MEMORY_REPORT_CALLBACK_DATA_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 flags: Default::default(),
                 ty: Default::default(),
@@ -141,12 +158,10 @@ pub(super) mod defs {
         pub const UNIMPORT_EXT: Self = Self(3);
         pub const ALLOCATION_FAILED_EXT: Self = Self(4);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct DeviceMemoryReportFlagsEXT: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct DeviceMemoryReportFlagsEXT(Flags);
+    impl DeviceMemoryReportFlagsEXT {}
     pub type PFN_vkDeviceMemoryReportCallbackEXT = unsafe extern "system" fn(
         p_callback_data: *const DeviceMemoryReportCallbackDataEXT<'_>,
         p_user_data: *mut c_void,

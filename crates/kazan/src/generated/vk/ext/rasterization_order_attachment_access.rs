@@ -18,17 +18,30 @@ pub(super) mod defs {
         pub rasterization_order_stencil_attachment_access: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a>
+        for PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT<'a>
+    {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-s_type: StructureType::PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT
-,
-p_next: core::ptr::null_mut(),
-rasterization_order_color_attachment_access: Default::default(),
-rasterization_order_depth_attachment_access: Default::default(),
-rasterization_order_stencil_attachment_access: Default::default(),
-_marker: PhantomData
-}
+                s_type: Self::STRUCTURE_TYPE,
+                p_next: core::ptr::null_mut(),
+                rasterization_order_color_attachment_access: Default::default(),
+                rasterization_order_depth_attachment_access: Default::default(),
+                rasterization_order_stencil_attachment_access: Default::default(),
+                _marker: PhantomData,
+            }
         }
     }
     impl<'a> PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT<'a> {

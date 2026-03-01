@@ -17,10 +17,15 @@ pub(super) mod defs {
         pub handle: zx_handle_t,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImportMemoryZirconHandleInfoFUCHSIA<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::IMPORT_MEMORY_ZIRCON_HANDLE_INFO_FUCHSIA;
+    }
+    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportMemoryZirconHandleInfoFUCHSIA<'a> {}
     impl Default for ImportMemoryZirconHandleInfoFUCHSIA<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMPORT_MEMORY_ZIRCON_HANDLE_INFO_FUCHSIA,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 handle_type: Default::default(),
                 handle: Default::default(),
@@ -46,10 +51,14 @@ pub(super) mod defs {
         pub memory_type_bits: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MemoryZirconHandlePropertiesFUCHSIA<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::MEMORY_ZIRCON_HANDLE_PROPERTIES_FUCHSIA;
+    }
     impl Default for MemoryZirconHandlePropertiesFUCHSIA<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MEMORY_ZIRCON_HANDLE_PROPERTIES_FUCHSIA,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 memory_type_bits: Default::default(),
                 _marker: PhantomData,
@@ -71,10 +80,13 @@ pub(super) mod defs {
         pub handle_type: ExternalMemoryHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MemoryGetZirconHandleInfoFUCHSIA<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_GET_ZIRCON_HANDLE_INFO_FUCHSIA;
+    }
     impl Default for MemoryGetZirconHandleInfoFUCHSIA<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MEMORY_GET_ZIRCON_HANDLE_INFO_FUCHSIA,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 memory: Default::default(),
                 handle_type: Default::default(),

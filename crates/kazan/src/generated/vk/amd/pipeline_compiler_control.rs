@@ -16,10 +16,26 @@ pub(super) mod defs {
         pub compiler_control_flags: PipelineCompilerControlFlagsAMD,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineCompilerControlCreateInfoAMD<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_COMPILER_CONTROL_CREATE_INFO_AMD;
+    }
+    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>>
+        for PipelineCompilerControlCreateInfoAMD<'a>
+    {
+    }
+    unsafe impl<'a> Extends<ComputePipelineCreateInfo<'a>>
+        for PipelineCompilerControlCreateInfoAMD<'a>
+    {
+    }
+    unsafe impl<'a> Extends<ExecutionGraphPipelineCreateInfoAMDX<'a>>
+        for PipelineCompilerControlCreateInfoAMD<'a>
+    {
+    }
     impl Default for PipelineCompilerControlCreateInfoAMD<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_COMPILER_CONTROL_CREATE_INFO_AMD,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 compiler_control_flags: Default::default(),
                 _marker: PhantomData,
@@ -35,14 +51,12 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct PipelineCompilerControlFlagsAMD: Flags {
-        }
-    }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct PipelineCompilerControlFlagsAMD(Flags);
+    impl PipelineCompilerControlFlagsAMD {}
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineCompilerControlFlagBitsAMD(u32);
     impl PipelineCompilerControlFlagBitsAMD {}
 }

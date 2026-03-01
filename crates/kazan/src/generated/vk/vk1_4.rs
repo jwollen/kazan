@@ -17,10 +17,17 @@ pub(super) mod defs {
         pub usage: BufferUsageFlags2,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BufferUsageFlags2CreateInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::BUFFER_USAGE_FLAGS_2_CREATE_INFO;
+    }
+    unsafe impl<'a> Extends<BufferViewCreateInfo<'a>> for BufferUsageFlags2CreateInfo<'a> {}
+    unsafe impl<'a> Extends<BufferCreateInfo<'a>> for BufferUsageFlags2CreateInfo<'a> {}
+    unsafe impl<'a> Extends<PhysicalDeviceExternalBufferInfo<'a>> for BufferUsageFlags2CreateInfo<'a> {}
+    unsafe impl<'a> Extends<DescriptorBufferBindingInfoEXT<'a>> for BufferUsageFlags2CreateInfo<'a> {}
     impl Default for BufferUsageFlags2CreateInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BUFFER_USAGE_FLAGS_2_CREATE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 usage: Default::default(),
                 _marker: PhantomData,
@@ -41,10 +48,20 @@ pub(super) mod defs {
         pub flags: PipelineCreateFlags2,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineCreateFlags2CreateInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_CREATE_FLAGS_2_CREATE_INFO;
+    }
+    unsafe impl<'a> Extends<ComputePipelineCreateInfo<'a>> for PipelineCreateFlags2CreateInfo<'a> {}
+    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>> for PipelineCreateFlags2CreateInfo<'a> {}
+    unsafe impl<'a> Extends<RayTracingPipelineCreateInfoNV<'a>> for PipelineCreateFlags2CreateInfo<'a> {}
+    unsafe impl<'a> Extends<RayTracingPipelineCreateInfoKHR<'a>>
+        for PipelineCreateFlags2CreateInfo<'a>
+    {
+    }
     impl Default for PipelineCreateFlags2CreateInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_CREATE_FLAGS_2_CREATE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 _marker: PhantomData,
@@ -65,10 +82,18 @@ pub(super) mod defs {
         pub max_push_descriptors: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePushDescriptorProperties<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDevicePushDescriptorProperties<'a>
+    {
+    }
     impl Default for PhysicalDevicePushDescriptorProperties<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_push_descriptors: Default::default(),
                 _marker: PhantomData,
@@ -89,10 +114,15 @@ pub(super) mod defs {
         pub maintenance5: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMaintenance5Features<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_MAINTENANCE_5_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceMaintenance5Features<'a> {}
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceMaintenance5Features<'a> {}
     impl Default for PhysicalDeviceMaintenance5Features<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_MAINTENANCE_5_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 maintenance5: Default::default(),
                 _marker: PhantomData,
@@ -118,10 +148,18 @@ pub(super) mod defs {
         pub non_strict_wide_lines_use_parallelogram: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMaintenance5Properties<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_MAINTENANCE_5_PROPERTIES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceMaintenance5Properties<'a>
+    {
+    }
     impl Default for PhysicalDeviceMaintenance5Properties<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_MAINTENANCE_5_PROPERTIES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 early_fragment_multisample_coverage_after_sample_counting: Default::default(),
                 early_fragment_sample_mask_test_before_sample_counting: Default::default(),
@@ -185,10 +223,15 @@ pub(super) mod defs {
         pub maintenance6: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMaintenance6Features<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_MAINTENANCE_6_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceMaintenance6Features<'a> {}
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceMaintenance6Features<'a> {}
     impl Default for PhysicalDeviceMaintenance6Features<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_MAINTENANCE_6_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 maintenance6: Default::default(),
                 _marker: PhantomData,
@@ -211,10 +254,18 @@ pub(super) mod defs {
         pub fragment_shading_rate_clamp_combiner_inputs: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMaintenance6Properties<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_MAINTENANCE_6_PROPERTIES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceMaintenance6Properties<'a>
+    {
+    }
     impl Default for PhysicalDeviceMaintenance6Properties<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_MAINTENANCE_6_PROPERTIES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 block_texel_view_compatible_multiple_layers: Default::default(),
                 max_combined_image_sampler_descriptor_count: Default::default(),
@@ -261,10 +312,13 @@ pub(super) mod defs {
         pub stencil_attachment_format: Format,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RenderingAreaInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::RENDERING_AREA_INFO;
+    }
     impl Default for RenderingAreaInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RENDERING_AREA_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 view_mask: Default::default(),
                 color_attachment_count: Default::default(),
@@ -302,10 +356,15 @@ pub(super) mod defs {
         pub global_priority: QueueGlobalPriority,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DeviceQueueGlobalPriorityCreateInfo<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO;
+    }
+    unsafe impl<'a> Extends<DeviceQueueCreateInfo<'a>> for DeviceQueueGlobalPriorityCreateInfo<'a> {}
     impl Default for DeviceQueueGlobalPriorityCreateInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 global_priority: Default::default(),
                 _marker: PhantomData,
@@ -326,10 +385,19 @@ pub(super) mod defs {
         pub global_priority_query: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceGlobalPriorityQueryFeatures<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceGlobalPriorityQueryFeatures<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceGlobalPriorityQueryFeatures<'a> {}
     impl Default for PhysicalDeviceGlobalPriorityQueryFeatures<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 global_priority_query: Default::default(),
                 _marker: PhantomData,
@@ -351,10 +419,15 @@ pub(super) mod defs {
         pub priorities: [QueueGlobalPriority; MAX_GLOBAL_PRIORITY_SIZE as usize],
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for QueueFamilyGlobalPriorityProperties<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES;
+    }
+    unsafe impl<'a> Extends<QueueFamilyProperties2<'a>> for QueueFamilyGlobalPriorityProperties<'a> {}
     impl Default for QueueFamilyGlobalPriorityProperties<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 priority_count: Default::default(),
                 priorities: [Default::default(); _],
@@ -394,10 +467,18 @@ pub(super) mod defs {
         pub p_vertex_binding_divisors: *const VertexInputBindingDivisorDescription,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineVertexInputDivisorStateCreateInfo<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO;
+    }
+    unsafe impl<'a> Extends<PipelineVertexInputStateCreateInfo<'a>>
+        for PipelineVertexInputDivisorStateCreateInfo<'a>
+    {
+    }
     impl Default for PipelineVertexInputDivisorStateCreateInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 vertex_binding_divisor_count: Default::default(),
                 p_vertex_binding_divisors: core::ptr::null(),
@@ -424,10 +505,18 @@ pub(super) mod defs {
         pub supports_non_zero_first_instance: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVertexAttributeDivisorProperties<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceVertexAttributeDivisorProperties<'a>
+    {
+    }
     impl Default for PhysicalDeviceVertexAttributeDivisorProperties<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_vertex_attrib_divisor: Default::default(),
                 supports_non_zero_first_instance: Default::default(),
@@ -457,10 +546,19 @@ pub(super) mod defs {
         pub vertex_attribute_instance_rate_zero_divisor: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVertexAttributeDivisorFeatures<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceVertexAttributeDivisorFeatures<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceVertexAttributeDivisorFeatures<'a> {}
     impl Default for PhysicalDeviceVertexAttributeDivisorFeatures<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 vertex_attribute_instance_rate_divisor: Default::default(),
                 vertex_attribute_instance_rate_zero_divisor: Default::default(),
@@ -493,10 +591,16 @@ pub(super) mod defs {
         pub index_type_uint8: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceIndexTypeUint8Features<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceIndexTypeUint8Features<'a> {}
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceIndexTypeUint8Features<'a> {}
     impl Default for PhysicalDeviceIndexTypeUint8Features<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 index_type_uint8: Default::default(),
                 _marker: PhantomData,
@@ -522,10 +626,19 @@ pub(super) mod defs {
         pub stippled_smooth_lines: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceLineRasterizationFeatures<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceLineRasterizationFeatures<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceLineRasterizationFeatures<'a> {}
     impl Default for PhysicalDeviceLineRasterizationFeatures<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 rectangular_lines: Default::default(),
                 bresenham_lines: Default::default(),
@@ -571,10 +684,18 @@ pub(super) mod defs {
         pub line_sub_pixel_precision_bits: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceLineRasterizationProperties<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceLineRasterizationProperties<'a>
+    {
+    }
     impl Default for PhysicalDeviceLineRasterizationProperties<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 line_sub_pixel_precision_bits: Default::default(),
                 _marker: PhantomData,
@@ -598,10 +719,18 @@ pub(super) mod defs {
         pub line_stipple_pattern: u16,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineRasterizationLineStateCreateInfo<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO;
+    }
+    unsafe impl<'a> Extends<PipelineRasterizationStateCreateInfo<'a>>
+        for PipelineRasterizationLineStateCreateInfo<'a>
+    {
+    }
     impl Default for PipelineRasterizationLineStateCreateInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 line_rasterization_mode: Default::default(),
                 stippled_line_enable: Default::default(),
@@ -660,10 +789,15 @@ pub(super) mod defs {
         pub push_descriptor: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVulkan14Features<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_VULKAN_1_4_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceVulkan14Features<'a> {}
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceVulkan14Features<'a> {}
     impl Default for PhysicalDeviceVulkan14Features<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_VULKAN_1_4_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 global_priority_query: Default::default(),
                 shader_subgroup_rotate: Default::default(),
@@ -821,10 +955,14 @@ pub(super) mod defs {
         pub identical_memory_type_requirements: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVulkan14Properties<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_VULKAN_1_4_PROPERTIES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>> for PhysicalDeviceVulkan14Properties<'a> {}
     impl Default for PhysicalDeviceVulkan14Properties<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_VULKAN_1_4_PROPERTIES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 line_sub_pixel_precision_bits: Default::default(),
                 max_vertex_attrib_divisor: Default::default(),
@@ -1018,10 +1156,16 @@ pub(super) mod defs {
         pub host_image_copy: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceHostImageCopyFeatures<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_HOST_IMAGE_COPY_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceHostImageCopyFeatures<'a> {}
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceHostImageCopyFeatures<'a> {}
     impl Default for PhysicalDeviceHostImageCopyFeatures<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_HOST_IMAGE_COPY_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 host_image_copy: Default::default(),
                 _marker: PhantomData,
@@ -1047,10 +1191,18 @@ pub(super) mod defs {
         pub identical_memory_type_requirements: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceHostImageCopyProperties<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_HOST_IMAGE_COPY_PROPERTIES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceHostImageCopyProperties<'a>
+    {
+    }
     impl Default for PhysicalDeviceHostImageCopyProperties<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_HOST_IMAGE_COPY_PROPERTIES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 copy_src_layout_count: Default::default(),
                 p_copy_src_layouts: core::ptr::null_mut(),
@@ -1101,10 +1253,13 @@ pub(super) mod defs {
         pub image_extent: Extent3D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MemoryToImageCopy<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_TO_IMAGE_COPY;
+    }
     impl Default for MemoryToImageCopy<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MEMORY_TO_IMAGE_COPY,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_host_pointer: core::ptr::null(),
                 memory_row_length: Default::default(),
@@ -1155,10 +1310,13 @@ pub(super) mod defs {
         pub image_extent: Extent3D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImageToMemoryCopy<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_TO_MEMORY_COPY;
+    }
     impl Default for ImageToMemoryCopy<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGE_TO_MEMORY_COPY,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_host_pointer: core::ptr::null_mut(),
                 memory_row_length: Default::default(),
@@ -1208,10 +1366,13 @@ pub(super) mod defs {
         pub p_regions: *const MemoryToImageCopy<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CopyMemoryToImageInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::COPY_MEMORY_TO_IMAGE_INFO;
+    }
     impl Default for CopyMemoryToImageInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::COPY_MEMORY_TO_IMAGE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 dst_image: Default::default(),
@@ -1253,10 +1414,13 @@ pub(super) mod defs {
         pub p_regions: *const ImageToMemoryCopy<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CopyImageToMemoryInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::COPY_IMAGE_TO_MEMORY_INFO;
+    }
     impl Default for CopyImageToMemoryInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::COPY_IMAGE_TO_MEMORY_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 src_image: Default::default(),
@@ -1300,10 +1464,13 @@ pub(super) mod defs {
         pub p_regions: *const ImageCopy2<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CopyImageToImageInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::COPY_IMAGE_TO_IMAGE_INFO;
+    }
     impl Default for CopyImageToImageInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::COPY_IMAGE_TO_IMAGE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 src_image: Default::default(),
@@ -1354,10 +1521,13 @@ pub(super) mod defs {
         pub subresource_range: ImageSubresourceRange,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for HostImageLayoutTransitionInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::HOST_IMAGE_LAYOUT_TRANSITION_INFO;
+    }
     impl Default for HostImageLayoutTransitionInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::HOST_IMAGE_LAYOUT_TRANSITION_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 image: Default::default(),
                 old_layout: Default::default(),
@@ -1393,10 +1563,14 @@ pub(super) mod defs {
         pub size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SubresourceHostMemcpySize<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SUBRESOURCE_HOST_MEMCPY_SIZE;
+    }
+    unsafe impl<'a> Extends<SubresourceLayout2<'a>> for SubresourceHostMemcpySize<'a> {}
     impl Default for SubresourceHostMemcpySize<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SUBRESOURCE_HOST_MEMCPY_SIZE,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 size: Default::default(),
                 _marker: PhantomData,
@@ -1418,10 +1592,15 @@ pub(super) mod defs {
         pub identical_memory_layout: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for HostImageCopyDevicePerformanceQuery<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::HOST_IMAGE_COPY_DEVICE_PERFORMANCE_QUERY;
+    }
+    unsafe impl<'a> Extends<ImageFormatProperties2<'a>> for HostImageCopyDevicePerformanceQuery<'a> {}
     impl Default for HostImageCopyDevicePerformanceQuery<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::HOST_IMAGE_COPY_DEVICE_PERFORMANCE_QUERY,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 optimal_device_access: Default::default(),
                 identical_memory_layout: Default::default(),
@@ -1447,10 +1626,22 @@ pub(super) mod defs {
         pub pipeline_protected_access: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePipelineProtectedAccessFeatures<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDevicePipelineProtectedAccessFeatures<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDevicePipelineProtectedAccessFeatures<'a>
+    {
+    }
     impl Default for PhysicalDevicePipelineProtectedAccessFeatures<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 pipeline_protected_access: Default::default(),
                 _marker: PhantomData,
@@ -1471,10 +1662,13 @@ pub(super) mod defs {
         pub image_subresource: ImageSubresource,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImageSubresource2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_SUBRESOURCE_2;
+    }
     impl Default for ImageSubresource2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGE_SUBRESOURCE_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 image_subresource: Default::default(),
                 _marker: PhantomData,
@@ -1495,10 +1689,13 @@ pub(super) mod defs {
         pub subresource_layout: SubresourceLayout,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SubresourceLayout2<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SUBRESOURCE_LAYOUT_2;
+    }
     impl Default for SubresourceLayout2<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SUBRESOURCE_LAYOUT_2,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 subresource_layout: Default::default(),
                 _marker: PhantomData,
@@ -1519,10 +1716,19 @@ pub(super) mod defs {
         pub pipeline_robustness: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePipelineRobustnessFeatures<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDevicePipelineRobustnessFeatures<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePipelineRobustnessFeatures<'a> {}
     impl Default for PhysicalDevicePipelineRobustnessFeatures<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 pipeline_robustness: Default::default(),
                 _marker: PhantomData,
@@ -1546,10 +1752,17 @@ pub(super) mod defs {
         pub images: PipelineRobustnessImageBehavior,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineRobustnessCreateInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_ROBUSTNESS_CREATE_INFO;
+    }
+    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>> for PipelineRobustnessCreateInfo<'a> {}
+    unsafe impl<'a> Extends<ComputePipelineCreateInfo<'a>> for PipelineRobustnessCreateInfo<'a> {}
+    unsafe impl<'a> Extends<PipelineShaderStageCreateInfo<'a>> for PipelineRobustnessCreateInfo<'a> {}
+    unsafe impl<'a> Extends<RayTracingPipelineCreateInfoKHR<'a>> for PipelineRobustnessCreateInfo<'a> {}
     impl Default for PipelineRobustnessCreateInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_ROBUSTNESS_CREATE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 storage_buffers: Default::default(),
                 uniform_buffers: Default::default(),
@@ -1594,10 +1807,18 @@ pub(super) mod defs {
         pub default_robustness_images: PipelineRobustnessImageBehavior,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePipelineRobustnessProperties<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_PROPERTIES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDevicePipelineRobustnessProperties<'a>
+    {
+    }
     impl Default for PhysicalDevicePipelineRobustnessProperties<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_PROPERTIES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 default_robustness_storage_buffers: Default::default(),
                 default_robustness_uniform_buffers: Default::default(),
@@ -1646,10 +1867,13 @@ pub(super) mod defs {
         pub p_subresource: *const ImageSubresource2<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DeviceImageSubresourceInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_IMAGE_SUBRESOURCE_INFO;
+    }
     impl Default for DeviceImageSubresourceInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEVICE_IMAGE_SUBRESOURCE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_create_info: core::ptr::null(),
                 p_subresource: core::ptr::null(),
@@ -1678,10 +1902,13 @@ pub(super) mod defs {
         pub size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MemoryMapInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_MAP_INFO;
+    }
     impl Default for MemoryMapInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MEMORY_MAP_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 memory: Default::default(),
@@ -1718,10 +1945,13 @@ pub(super) mod defs {
         pub memory: DeviceMemory,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MemoryUnmapInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_UNMAP_INFO;
+    }
     impl Default for MemoryUnmapInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MEMORY_UNMAP_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 memory: Default::default(),
@@ -1747,10 +1977,15 @@ pub(super) mod defs {
         pub p_result: *mut vk::Result,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BindMemoryStatus<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::BIND_MEMORY_STATUS;
+    }
+    unsafe impl<'a> Extends<BindBufferMemoryInfo<'a>> for BindMemoryStatus<'a> {}
+    unsafe impl<'a> Extends<BindImageMemoryInfo<'a>> for BindMemoryStatus<'a> {}
     impl Default for BindMemoryStatus<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BIND_MEMORY_STATUS,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_result: core::ptr::null_mut(),
                 _marker: PhantomData,
@@ -1777,10 +2012,13 @@ pub(super) mod defs {
         pub p_dynamic_offsets: *const u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BindDescriptorSetsInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::BIND_DESCRIPTOR_SETS_INFO;
+    }
     impl Default for BindDescriptorSetsInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BIND_DESCRIPTOR_SETS_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 stage_flags: Default::default(),
                 layout: Default::default(),
@@ -1829,10 +2067,13 @@ pub(super) mod defs {
         pub p_values: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PushConstantsInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PUSH_CONSTANTS_INFO;
+    }
     impl Default for PushConstantsInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PUSH_CONSTANTS_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 layout: Default::default(),
                 stage_flags: Default::default(),
@@ -1874,10 +2115,13 @@ pub(super) mod defs {
         pub p_descriptor_writes: *const WriteDescriptorSet<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PushDescriptorSetInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PUSH_DESCRIPTOR_SET_INFO;
+    }
     impl Default for PushDescriptorSetInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PUSH_DESCRIPTOR_SET_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 stage_flags: Default::default(),
                 layout: Default::default(),
@@ -1921,10 +2165,13 @@ pub(super) mod defs {
         pub p_data: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PushDescriptorSetWithTemplateInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO;
+    }
     impl Default for PushDescriptorSetWithTemplateInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 descriptor_update_template: Default::default(),
                 layout: Default::default(),
@@ -1964,10 +2211,19 @@ pub(super) mod defs {
         pub shader_subgroup_rotate_clustered: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderSubgroupRotateFeatures<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceShaderSubgroupRotateFeatures<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShaderSubgroupRotateFeatures<'a> {}
     impl Default for PhysicalDeviceShaderSubgroupRotateFeatures<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shader_subgroup_rotate: Default::default(),
                 shader_subgroup_rotate_clustered: Default::default(),
@@ -1996,10 +2252,19 @@ pub(super) mod defs {
         pub shader_expect_assume: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderExpectAssumeFeatures<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceShaderExpectAssumeFeatures<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShaderExpectAssumeFeatures<'a> {}
     impl Default for PhysicalDeviceShaderExpectAssumeFeatures<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shader_expect_assume: Default::default(),
                 _marker: PhantomData,
@@ -2020,10 +2285,19 @@ pub(super) mod defs {
         pub shader_float_controls2: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderFloatControls2Features<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceShaderFloatControls2Features<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShaderFloatControls2Features<'a> {}
     impl Default for PhysicalDeviceShaderFloatControls2Features<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shader_float_controls2: Default::default(),
                 _marker: PhantomData,
@@ -2044,10 +2318,22 @@ pub(super) mod defs {
         pub dynamic_rendering_local_read: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDynamicRenderingLocalReadFeatures<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceDynamicRenderingLocalReadFeatures<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceDynamicRenderingLocalReadFeatures<'a>
+    {
+    }
     impl Default for PhysicalDeviceDynamicRenderingLocalReadFeatures<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 dynamic_rendering_local_read: Default::default(),
                 _marker: PhantomData,
@@ -2072,10 +2358,15 @@ pub(super) mod defs {
         pub p_color_attachment_locations: *const u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RenderingAttachmentLocationInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::RENDERING_ATTACHMENT_LOCATION_INFO;
+    }
+    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>> for RenderingAttachmentLocationInfo<'a> {}
+    unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>> for RenderingAttachmentLocationInfo<'a> {}
     impl Default for RenderingAttachmentLocationInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RENDERING_ATTACHMENT_LOCATION_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 color_attachment_count: Default::default(),
                 p_color_attachment_locations: core::ptr::null(),
@@ -2101,10 +2392,18 @@ pub(super) mod defs {
         pub p_stencil_input_attachment_index: *const u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RenderingInputAttachmentIndexInfo<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::RENDERING_INPUT_ATTACHMENT_INDEX_INFO;
+    }
+    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>> for RenderingInputAttachmentIndexInfo<'a> {}
+    unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>>
+        for RenderingInputAttachmentIndexInfo<'a>
+    {
+    }
     impl Default for RenderingInputAttachmentIndexInfo<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RENDERING_INPUT_ATTACHMENT_INDEX_INFO,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 color_attachment_count: Default::default(),
                 p_color_attachment_input_indices: core::ptr::null(),
@@ -2198,77 +2497,108 @@ pub(super) mod defs {
         pub const ROBUST_IMAGE_ACCESS_2_EXT: Self = Self::ROBUST_IMAGE_ACCESS_2;
         pub const ROBUST_IMAGE_ACCESS_EXT: Self = Self::ROBUST_IMAGE_ACCESS;
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct MemoryUnmapFlags: Flags {
-            const RESERVE_EXT = MemoryUnmapFlagBits::RESERVE_EXT.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct MemoryUnmapFlags(Flags);
+    impl MemoryUnmapFlags {
+        pub const RESERVE_EXT: Self = Self(MemoryUnmapFlagBits::RESERVE_EXT.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MemoryUnmapFlagBits(u32);
     impl MemoryUnmapFlagBits {
         pub const RESERVE_EXT: Self = Self(1 << 0);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct PipelineCreateFlags2: Flags64 {
-            const DISABLE_OPTIMIZATION = PipelineCreateFlagBits2::DISABLE_OPTIMIZATION.0;
-            const ALLOW_DERIVATIVES = PipelineCreateFlagBits2::ALLOW_DERIVATIVES.0;
-            const DERIVATIVE = PipelineCreateFlagBits2::DERIVATIVE.0;
-            const VIEW_INDEX_FROM_DEVICE_INDEX = PipelineCreateFlagBits2::VIEW_INDEX_FROM_DEVICE_INDEX.0;
-            const DISPATCH_BASE = PipelineCreateFlagBits2::DISPATCH_BASE.0;
-            const DEFER_COMPILE_NV = PipelineCreateFlagBits2::DEFER_COMPILE_NV.0;
-            const CAPTURE_STATISTICS_KHR = PipelineCreateFlagBits2::CAPTURE_STATISTICS_KHR.0;
-            const CAPTURE_INTERNAL_REPRESENTATIONS_KHR = PipelineCreateFlagBits2::CAPTURE_INTERNAL_REPRESENTATIONS_KHR.0;
-            const FAIL_ON_PIPELINE_COMPILE_REQUIRED = PipelineCreateFlagBits2::FAIL_ON_PIPELINE_COMPILE_REQUIRED.0;
-            const EARLY_RETURN_ON_FAILURE = PipelineCreateFlagBits2::EARLY_RETURN_ON_FAILURE.0;
-            const LINK_TIME_OPTIMIZATION_EXT = PipelineCreateFlagBits2::LINK_TIME_OPTIMIZATION_EXT.0;
-            const LIBRARY_KHR = PipelineCreateFlagBits2::LIBRARY_KHR.0;
-            const RAY_TRACING_SKIP_TRIANGLES_KHR = PipelineCreateFlagBits2::RAY_TRACING_SKIP_TRIANGLES_KHR.0;
-            const RAY_TRACING_SKIP_AABBS_KHR = PipelineCreateFlagBits2::RAY_TRACING_SKIP_AABBS_KHR.0;
-            const RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_KHR = PipelineCreateFlagBits2::RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_KHR.0;
-            const RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_KHR = PipelineCreateFlagBits2::RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_KHR.0;
-            const RAY_TRACING_NO_NULL_MISS_SHADERS_KHR = PipelineCreateFlagBits2::RAY_TRACING_NO_NULL_MISS_SHADERS_KHR.0;
-            const RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR = PipelineCreateFlagBits2::RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR.0;
-            const INDIRECT_BINDABLE_NV = PipelineCreateFlagBits2::INDIRECT_BINDABLE_NV.0;
-            const RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR = PipelineCreateFlagBits2::RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR.0;
-            const RAY_TRACING_ALLOW_MOTION_NV = PipelineCreateFlagBits2::RAY_TRACING_ALLOW_MOTION_NV.0;
-            const RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR = PipelineCreateFlagBits2::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0;
-            const RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT = PipelineCreateFlagBits2::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT.0;
-            const RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT = PipelineCreateFlagBits2::RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT.0;
-            const RAY_TRACING_OPACITY_MICROMAP_EXT = PipelineCreateFlagBits2::RAY_TRACING_OPACITY_MICROMAP_EXT.0;
-            const COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT = PipelineCreateFlagBits2::COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT.0;
-            const DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT = PipelineCreateFlagBits2::DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT.0;
-            const NO_PROTECTED_ACCESS = PipelineCreateFlagBits2::NO_PROTECTED_ACCESS.0;
-            const RAY_TRACING_DISPLACEMENT_MICROMAP_NV = PipelineCreateFlagBits2::RAY_TRACING_DISPLACEMENT_MICROMAP_NV.0;
-            const DESCRIPTOR_BUFFER_EXT = PipelineCreateFlagBits2::DESCRIPTOR_BUFFER_EXT.0;
-            const PROTECTED_ACCESS_ONLY = PipelineCreateFlagBits2::PROTECTED_ACCESS_ONLY.0;
-            const CAPTURE_DATA_KHR = PipelineCreateFlagBits2::CAPTURE_DATA_KHR.0;
-            const EXECUTION_GRAPH_AMDX = PipelineCreateFlagBits2::EXECUTION_GRAPH_AMDX.0;
-            const RAY_TRACING_ALLOW_SPHERES_AND_LINEAR_SWEPT_SPHERES_NV = PipelineCreateFlagBits2::RAY_TRACING_ALLOW_SPHERES_AND_LINEAR_SWEPT_SPHERES_NV.0;
-            const ENABLE_LEGACY_DITHERING_EXT = PipelineCreateFlagBits2::ENABLE_LEGACY_DITHERING_EXT.0;
-            const DESCRIPTOR_HEAP_EXT = PipelineCreateFlagBits2::DESCRIPTOR_HEAP_EXT.0;
-            const DISALLOW_OPACITY_MICROMAP_ARM = PipelineCreateFlagBits2::DISALLOW_OPACITY_MICROMAP_ARM.0;
-            const INDIRECT_BINDABLE_EXT = PipelineCreateFlagBits2::INDIRECT_BINDABLE_EXT.0;
-            const PER_LAYER_FRAGMENT_DENSITY_VALVE = PipelineCreateFlagBits2::PER_LAYER_FRAGMENT_DENSITY_VALVE.0;
-            const _64_INDEXING_EXT = PipelineCreateFlagBits2::_64_INDEXING_EXT.0;
-            const ALLOW_DERIVATIVES_KHR = Self::ALLOW_DERIVATIVES.bits();
-            const DERIVATIVE_KHR = Self::DERIVATIVE.bits();
-            const DISABLE_OPTIMIZATION_KHR = Self::DISABLE_OPTIMIZATION.bits();
-            const DISPATCH_BASE_KHR = Self::DISPATCH_BASE.bits();
-            const EARLY_RETURN_ON_FAILURE_KHR = Self::EARLY_RETURN_ON_FAILURE.bits();
-            const FAIL_ON_PIPELINE_COMPILE_REQUIRED_KHR = Self::FAIL_ON_PIPELINE_COMPILE_REQUIRED.bits();
-            const NO_PROTECTED_ACCESS_EXT = Self::NO_PROTECTED_ACCESS.bits();
-            const PROTECTED_ACCESS_ONLY_EXT = Self::PROTECTED_ACCESS_ONLY.bits();
-            const RAY_TRACING_SKIP_BUILT_IN_PRIMITIVES_KHR = Self::RAY_TRACING_SKIP_TRIANGLES_KHR.bits();
-            const VIEW_INDEX_FROM_DEVICE_INDEX_KHR = Self::VIEW_INDEX_FROM_DEVICE_INDEX.bits();
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct PipelineCreateFlags2(Flags64);
+    impl PipelineCreateFlags2 {
+        pub const DISABLE_OPTIMIZATION: Self =
+            Self(PipelineCreateFlagBits2::DISABLE_OPTIMIZATION.0);
+        pub const ALLOW_DERIVATIVES: Self = Self(PipelineCreateFlagBits2::ALLOW_DERIVATIVES.0);
+        pub const DERIVATIVE: Self = Self(PipelineCreateFlagBits2::DERIVATIVE.0);
+        pub const VIEW_INDEX_FROM_DEVICE_INDEX: Self =
+            Self(PipelineCreateFlagBits2::VIEW_INDEX_FROM_DEVICE_INDEX.0);
+        pub const DISPATCH_BASE: Self = Self(PipelineCreateFlagBits2::DISPATCH_BASE.0);
+        pub const DEFER_COMPILE_NV: Self = Self(PipelineCreateFlagBits2::DEFER_COMPILE_NV.0);
+        pub const CAPTURE_STATISTICS_KHR: Self =
+            Self(PipelineCreateFlagBits2::CAPTURE_STATISTICS_KHR.0);
+        pub const CAPTURE_INTERNAL_REPRESENTATIONS_KHR: Self =
+            Self(PipelineCreateFlagBits2::CAPTURE_INTERNAL_REPRESENTATIONS_KHR.0);
+        pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED: Self =
+            Self(PipelineCreateFlagBits2::FAIL_ON_PIPELINE_COMPILE_REQUIRED.0);
+        pub const EARLY_RETURN_ON_FAILURE: Self =
+            Self(PipelineCreateFlagBits2::EARLY_RETURN_ON_FAILURE.0);
+        pub const LINK_TIME_OPTIMIZATION_EXT: Self =
+            Self(PipelineCreateFlagBits2::LINK_TIME_OPTIMIZATION_EXT.0);
+        pub const LIBRARY_KHR: Self = Self(PipelineCreateFlagBits2::LIBRARY_KHR.0);
+        pub const RAY_TRACING_SKIP_TRIANGLES_KHR: Self =
+            Self(PipelineCreateFlagBits2::RAY_TRACING_SKIP_TRIANGLES_KHR.0);
+        pub const RAY_TRACING_SKIP_AABBS_KHR: Self =
+            Self(PipelineCreateFlagBits2::RAY_TRACING_SKIP_AABBS_KHR.0);
+        pub const RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_KHR: Self =
+            Self(PipelineCreateFlagBits2::RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_KHR.0);
+        pub const RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_KHR: Self =
+            Self(PipelineCreateFlagBits2::RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_KHR.0);
+        pub const RAY_TRACING_NO_NULL_MISS_SHADERS_KHR: Self =
+            Self(PipelineCreateFlagBits2::RAY_TRACING_NO_NULL_MISS_SHADERS_KHR.0);
+        pub const RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR: Self =
+            Self(PipelineCreateFlagBits2::RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR.0);
+        pub const INDIRECT_BINDABLE_NV: Self =
+            Self(PipelineCreateFlagBits2::INDIRECT_BINDABLE_NV.0);
+        pub const RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR: Self =
+            Self(PipelineCreateFlagBits2::RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR.0);
+        pub const RAY_TRACING_ALLOW_MOTION_NV: Self =
+            Self(PipelineCreateFlagBits2::RAY_TRACING_ALLOW_MOTION_NV.0);
+        pub const RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
+            Self(PipelineCreateFlagBits2::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0);
+        pub const RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT: Self =
+            Self(PipelineCreateFlagBits2::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT.0);
+        pub const RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT: Self =
+            Self(PipelineCreateFlagBits2::RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT.0);
+        pub const RAY_TRACING_OPACITY_MICROMAP_EXT: Self =
+            Self(PipelineCreateFlagBits2::RAY_TRACING_OPACITY_MICROMAP_EXT.0);
+        pub const COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT: Self =
+            Self(PipelineCreateFlagBits2::COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT.0);
+        pub const DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT: Self =
+            Self(PipelineCreateFlagBits2::DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT.0);
+        pub const NO_PROTECTED_ACCESS: Self = Self(PipelineCreateFlagBits2::NO_PROTECTED_ACCESS.0);
+        pub const RAY_TRACING_DISPLACEMENT_MICROMAP_NV: Self =
+            Self(PipelineCreateFlagBits2::RAY_TRACING_DISPLACEMENT_MICROMAP_NV.0);
+        pub const DESCRIPTOR_BUFFER_EXT: Self =
+            Self(PipelineCreateFlagBits2::DESCRIPTOR_BUFFER_EXT.0);
+        pub const PROTECTED_ACCESS_ONLY: Self =
+            Self(PipelineCreateFlagBits2::PROTECTED_ACCESS_ONLY.0);
+        pub const CAPTURE_DATA_KHR: Self = Self(PipelineCreateFlagBits2::CAPTURE_DATA_KHR.0);
+        pub const EXECUTION_GRAPH_AMDX: Self =
+            Self(PipelineCreateFlagBits2::EXECUTION_GRAPH_AMDX.0);
+        pub const RAY_TRACING_ALLOW_SPHERES_AND_LINEAR_SWEPT_SPHERES_NV: Self =
+            Self(PipelineCreateFlagBits2::RAY_TRACING_ALLOW_SPHERES_AND_LINEAR_SWEPT_SPHERES_NV.0);
+        pub const ENABLE_LEGACY_DITHERING_EXT: Self =
+            Self(PipelineCreateFlagBits2::ENABLE_LEGACY_DITHERING_EXT.0);
+        pub const DESCRIPTOR_HEAP_EXT: Self = Self(PipelineCreateFlagBits2::DESCRIPTOR_HEAP_EXT.0);
+        pub const DISALLOW_OPACITY_MICROMAP_ARM: Self =
+            Self(PipelineCreateFlagBits2::DISALLOW_OPACITY_MICROMAP_ARM.0);
+        pub const INDIRECT_BINDABLE_EXT: Self =
+            Self(PipelineCreateFlagBits2::INDIRECT_BINDABLE_EXT.0);
+        pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self =
+            Self(PipelineCreateFlagBits2::PER_LAYER_FRAGMENT_DENSITY_VALVE.0);
+        pub const _64_INDEXING_EXT: Self = Self(PipelineCreateFlagBits2::_64_INDEXING_EXT.0);
+        pub const ALLOW_DERIVATIVES_KHR: Self = Self::ALLOW_DERIVATIVES;
+        pub const DERIVATIVE_KHR: Self = Self::DERIVATIVE;
+        pub const DISABLE_OPTIMIZATION_KHR: Self = Self::DISABLE_OPTIMIZATION;
+        pub const DISPATCH_BASE_KHR: Self = Self::DISPATCH_BASE;
+        pub const EARLY_RETURN_ON_FAILURE_KHR: Self = Self::EARLY_RETURN_ON_FAILURE;
+        pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED_KHR: Self =
+            Self::FAIL_ON_PIPELINE_COMPILE_REQUIRED;
+        pub const NO_PROTECTED_ACCESS_EXT: Self = Self::NO_PROTECTED_ACCESS;
+        pub const PROTECTED_ACCESS_ONLY_EXT: Self = Self::PROTECTED_ACCESS_ONLY;
+        pub const RAY_TRACING_SKIP_BUILT_IN_PRIMITIVES_KHR: Self =
+            Self::RAY_TRACING_SKIP_TRIANGLES_KHR;
+        pub const VIEW_INDEX_FROM_DEVICE_INDEX_KHR: Self = Self::VIEW_INDEX_FROM_DEVICE_INDEX;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineCreateFlagBits2(u64);
     impl PipelineCreateFlagBits2 {
         pub const DISABLE_OPTIMIZATION: Self = Self(1 << 0);
@@ -2324,57 +2654,70 @@ pub(super) mod defs {
             Self::RAY_TRACING_SKIP_TRIANGLES_KHR;
         pub const VIEW_INDEX_FROM_DEVICE_INDEX_KHR: Self = Self::VIEW_INDEX_FROM_DEVICE_INDEX;
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct BufferUsageFlags2: Flags64 {
-            const TRANSFER_SRC = BufferUsageFlagBits2::TRANSFER_SRC.0;
-            const TRANSFER_DST = BufferUsageFlagBits2::TRANSFER_DST.0;
-            const UNIFORM_TEXEL_BUFFER = BufferUsageFlagBits2::UNIFORM_TEXEL_BUFFER.0;
-            const STORAGE_TEXEL_BUFFER = BufferUsageFlagBits2::STORAGE_TEXEL_BUFFER.0;
-            const UNIFORM_BUFFER = BufferUsageFlagBits2::UNIFORM_BUFFER.0;
-            const STORAGE_BUFFER = BufferUsageFlagBits2::STORAGE_BUFFER.0;
-            const INDEX_BUFFER = BufferUsageFlagBits2::INDEX_BUFFER.0;
-            const VERTEX_BUFFER = BufferUsageFlagBits2::VERTEX_BUFFER.0;
-            const INDIRECT_BUFFER = BufferUsageFlagBits2::INDIRECT_BUFFER.0;
-            const CONDITIONAL_RENDERING_EXT = BufferUsageFlagBits2::CONDITIONAL_RENDERING_EXT.0;
-            const SHADER_BINDING_TABLE_KHR = BufferUsageFlagBits2::SHADER_BINDING_TABLE_KHR.0;
-            const TRANSFORM_FEEDBACK_BUFFER_EXT = BufferUsageFlagBits2::TRANSFORM_FEEDBACK_BUFFER_EXT.0;
-            const TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT = BufferUsageFlagBits2::TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT.0;
-            const VIDEO_DECODE_SRC_KHR = BufferUsageFlagBits2::VIDEO_DECODE_SRC_KHR.0;
-            const VIDEO_DECODE_DST_KHR = BufferUsageFlagBits2::VIDEO_DECODE_DST_KHR.0;
-            const VIDEO_ENCODE_DST_KHR = BufferUsageFlagBits2::VIDEO_ENCODE_DST_KHR.0;
-            const VIDEO_ENCODE_SRC_KHR = BufferUsageFlagBits2::VIDEO_ENCODE_SRC_KHR.0;
-            const SHADER_DEVICE_ADDRESS = BufferUsageFlagBits2::SHADER_DEVICE_ADDRESS.0;
-            const ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR = BufferUsageFlagBits2::ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR.0;
-            const ACCELERATION_STRUCTURE_STORAGE_KHR = BufferUsageFlagBits2::ACCELERATION_STRUCTURE_STORAGE_KHR.0;
-            const SAMPLER_DESCRIPTOR_BUFFER_EXT = BufferUsageFlagBits2::SAMPLER_DESCRIPTOR_BUFFER_EXT.0;
-            const RESOURCE_DESCRIPTOR_BUFFER_EXT = BufferUsageFlagBits2::RESOURCE_DESCRIPTOR_BUFFER_EXT.0;
-            const MICROMAP_BUILD_INPUT_READ_ONLY_EXT = BufferUsageFlagBits2::MICROMAP_BUILD_INPUT_READ_ONLY_EXT.0;
-            const MICROMAP_STORAGE_EXT = BufferUsageFlagBits2::MICROMAP_STORAGE_EXT.0;
-            const EXECUTION_GRAPH_SCRATCH_AMDX = BufferUsageFlagBits2::EXECUTION_GRAPH_SCRATCH_AMDX.0;
-            const PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT = BufferUsageFlagBits2::PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT.0;
-            const TILE_MEMORY_QCOM = BufferUsageFlagBits2::TILE_MEMORY_QCOM.0;
-            const DESCRIPTOR_HEAP_EXT = BufferUsageFlagBits2::DESCRIPTOR_HEAP_EXT.0;
-            const DATA_GRAPH_FOREIGN_DESCRIPTOR_ARM = BufferUsageFlagBits2::DATA_GRAPH_FOREIGN_DESCRIPTOR_ARM.0;
-            const PREPROCESS_BUFFER_EXT = BufferUsageFlagBits2::PREPROCESS_BUFFER_EXT.0;
-            const MEMORY_DECOMPRESSION_EXT = BufferUsageFlagBits2::MEMORY_DECOMPRESSION_EXT.0;
-            const COMPRESSED_DATA_DGF1_AMDX = BufferUsageFlagBits2::COMPRESSED_DATA_DGF1_AMDX.0;
-            const INDEX_BUFFER_KHR = Self::INDEX_BUFFER.bits();
-            const INDIRECT_BUFFER_KHR = Self::INDIRECT_BUFFER.bits();
-            const RAY_TRACING_NV = Self::SHADER_BINDING_TABLE_KHR.bits();
-            const SHADER_DEVICE_ADDRESS_KHR = Self::SHADER_DEVICE_ADDRESS.bits();
-            const STORAGE_BUFFER_KHR = Self::STORAGE_BUFFER.bits();
-            const STORAGE_TEXEL_BUFFER_KHR = Self::STORAGE_TEXEL_BUFFER.bits();
-            const TRANSFER_DST_KHR = Self::TRANSFER_DST.bits();
-            const TRANSFER_SRC_KHR = Self::TRANSFER_SRC.bits();
-            const UNIFORM_BUFFER_KHR = Self::UNIFORM_BUFFER.bits();
-            const UNIFORM_TEXEL_BUFFER_KHR = Self::UNIFORM_TEXEL_BUFFER.bits();
-            const VERTEX_BUFFER_KHR = Self::VERTEX_BUFFER.bits();
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct BufferUsageFlags2(Flags64);
+    impl BufferUsageFlags2 {
+        pub const TRANSFER_SRC: Self = Self(BufferUsageFlagBits2::TRANSFER_SRC.0);
+        pub const TRANSFER_DST: Self = Self(BufferUsageFlagBits2::TRANSFER_DST.0);
+        pub const UNIFORM_TEXEL_BUFFER: Self = Self(BufferUsageFlagBits2::UNIFORM_TEXEL_BUFFER.0);
+        pub const STORAGE_TEXEL_BUFFER: Self = Self(BufferUsageFlagBits2::STORAGE_TEXEL_BUFFER.0);
+        pub const UNIFORM_BUFFER: Self = Self(BufferUsageFlagBits2::UNIFORM_BUFFER.0);
+        pub const STORAGE_BUFFER: Self = Self(BufferUsageFlagBits2::STORAGE_BUFFER.0);
+        pub const INDEX_BUFFER: Self = Self(BufferUsageFlagBits2::INDEX_BUFFER.0);
+        pub const VERTEX_BUFFER: Self = Self(BufferUsageFlagBits2::VERTEX_BUFFER.0);
+        pub const INDIRECT_BUFFER: Self = Self(BufferUsageFlagBits2::INDIRECT_BUFFER.0);
+        pub const CONDITIONAL_RENDERING_EXT: Self =
+            Self(BufferUsageFlagBits2::CONDITIONAL_RENDERING_EXT.0);
+        pub const SHADER_BINDING_TABLE_KHR: Self =
+            Self(BufferUsageFlagBits2::SHADER_BINDING_TABLE_KHR.0);
+        pub const TRANSFORM_FEEDBACK_BUFFER_EXT: Self =
+            Self(BufferUsageFlagBits2::TRANSFORM_FEEDBACK_BUFFER_EXT.0);
+        pub const TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT: Self =
+            Self(BufferUsageFlagBits2::TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT.0);
+        pub const VIDEO_DECODE_SRC_KHR: Self = Self(BufferUsageFlagBits2::VIDEO_DECODE_SRC_KHR.0);
+        pub const VIDEO_DECODE_DST_KHR: Self = Self(BufferUsageFlagBits2::VIDEO_DECODE_DST_KHR.0);
+        pub const VIDEO_ENCODE_DST_KHR: Self = Self(BufferUsageFlagBits2::VIDEO_ENCODE_DST_KHR.0);
+        pub const VIDEO_ENCODE_SRC_KHR: Self = Self(BufferUsageFlagBits2::VIDEO_ENCODE_SRC_KHR.0);
+        pub const SHADER_DEVICE_ADDRESS: Self = Self(BufferUsageFlagBits2::SHADER_DEVICE_ADDRESS.0);
+        pub const ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR: Self =
+            Self(BufferUsageFlagBits2::ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR.0);
+        pub const ACCELERATION_STRUCTURE_STORAGE_KHR: Self =
+            Self(BufferUsageFlagBits2::ACCELERATION_STRUCTURE_STORAGE_KHR.0);
+        pub const SAMPLER_DESCRIPTOR_BUFFER_EXT: Self =
+            Self(BufferUsageFlagBits2::SAMPLER_DESCRIPTOR_BUFFER_EXT.0);
+        pub const RESOURCE_DESCRIPTOR_BUFFER_EXT: Self =
+            Self(BufferUsageFlagBits2::RESOURCE_DESCRIPTOR_BUFFER_EXT.0);
+        pub const MICROMAP_BUILD_INPUT_READ_ONLY_EXT: Self =
+            Self(BufferUsageFlagBits2::MICROMAP_BUILD_INPUT_READ_ONLY_EXT.0);
+        pub const MICROMAP_STORAGE_EXT: Self = Self(BufferUsageFlagBits2::MICROMAP_STORAGE_EXT.0);
+        pub const EXECUTION_GRAPH_SCRATCH_AMDX: Self =
+            Self(BufferUsageFlagBits2::EXECUTION_GRAPH_SCRATCH_AMDX.0);
+        pub const PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT: Self =
+            Self(BufferUsageFlagBits2::PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT.0);
+        pub const TILE_MEMORY_QCOM: Self = Self(BufferUsageFlagBits2::TILE_MEMORY_QCOM.0);
+        pub const DESCRIPTOR_HEAP_EXT: Self = Self(BufferUsageFlagBits2::DESCRIPTOR_HEAP_EXT.0);
+        pub const DATA_GRAPH_FOREIGN_DESCRIPTOR_ARM: Self =
+            Self(BufferUsageFlagBits2::DATA_GRAPH_FOREIGN_DESCRIPTOR_ARM.0);
+        pub const PREPROCESS_BUFFER_EXT: Self = Self(BufferUsageFlagBits2::PREPROCESS_BUFFER_EXT.0);
+        pub const MEMORY_DECOMPRESSION_EXT: Self =
+            Self(BufferUsageFlagBits2::MEMORY_DECOMPRESSION_EXT.0);
+        pub const COMPRESSED_DATA_DGF1_AMDX: Self =
+            Self(BufferUsageFlagBits2::COMPRESSED_DATA_DGF1_AMDX.0);
+        pub const INDEX_BUFFER_KHR: Self = Self::INDEX_BUFFER;
+        pub const INDIRECT_BUFFER_KHR: Self = Self::INDIRECT_BUFFER;
+        pub const RAY_TRACING_NV: Self = Self::SHADER_BINDING_TABLE_KHR;
+        pub const SHADER_DEVICE_ADDRESS_KHR: Self = Self::SHADER_DEVICE_ADDRESS;
+        pub const STORAGE_BUFFER_KHR: Self = Self::STORAGE_BUFFER;
+        pub const STORAGE_TEXEL_BUFFER_KHR: Self = Self::STORAGE_TEXEL_BUFFER;
+        pub const TRANSFER_DST_KHR: Self = Self::TRANSFER_DST;
+        pub const TRANSFER_SRC_KHR: Self = Self::TRANSFER_SRC;
+        pub const UNIFORM_BUFFER_KHR: Self = Self::UNIFORM_BUFFER;
+        pub const UNIFORM_TEXEL_BUFFER_KHR: Self = Self::UNIFORM_TEXEL_BUFFER;
+        pub const VERTEX_BUFFER_KHR: Self = Self::VERTEX_BUFFER;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct BufferUsageFlagBits2(u64);
     impl BufferUsageFlagBits2 {
         pub const TRANSFER_SRC: Self = Self(1 << 0);
@@ -2421,16 +2764,15 @@ pub(super) mod defs {
         pub const UNIFORM_TEXEL_BUFFER_KHR: Self = Self::UNIFORM_TEXEL_BUFFER;
         pub const VERTEX_BUFFER_KHR: Self = Self::VERTEX_BUFFER;
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct HostImageCopyFlags: Flags {
-            const MEMCPY = HostImageCopyFlagBits::MEMCPY.0;
-            const MEMCPY_EXT = Self::MEMCPY.bits();
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct HostImageCopyFlags(Flags);
+    impl HostImageCopyFlags {
+        pub const MEMCPY: Self = Self(HostImageCopyFlagBits::MEMCPY.0);
+        pub const MEMCPY_EXT: Self = Self::MEMCPY;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct HostImageCopyFlagBits(u32);
     impl HostImageCopyFlagBits {
         pub const MEMCPY: Self = Self(1 << 0);

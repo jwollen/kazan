@@ -44,10 +44,18 @@ pub(super) mod defs {
         pub p_viewport_swizzles: *const ViewportSwizzleNV,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineViewportSwizzleStateCreateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_VIEWPORT_SWIZZLE_STATE_CREATE_INFO_NV;
+    }
+    unsafe impl<'a> Extends<PipelineViewportStateCreateInfo<'a>>
+        for PipelineViewportSwizzleStateCreateInfoNV<'a>
+    {
+    }
     impl Default for PipelineViewportSwizzleStateCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_VIEWPORT_SWIZZLE_STATE_CREATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 viewport_count: Default::default(),
@@ -80,10 +88,8 @@ pub(super) mod defs {
         pub const POSITIVE_W_NV: Self = Self(6);
         pub const NEGATIVE_W_NV: Self = Self(7);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct PipelineViewportSwizzleStateCreateFlagsNV: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct PipelineViewportSwizzleStateCreateFlagsNV(Flags);
+    impl PipelineViewportSwizzleStateCreateFlagsNV {}
 }

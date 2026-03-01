@@ -16,15 +16,28 @@ pub(super) mod defs {
         pub attachment_feedback_loop_dynamic_state: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a>
+        for PhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT<'a>
+    {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_DYNAMIC_STATE_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-s_type: StructureType::PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_DYNAMIC_STATE_FEATURES_EXT
-,
-p_next: core::ptr::null_mut(),
-attachment_feedback_loop_dynamic_state: Default::default(),
-_marker: PhantomData
-}
+                s_type: Self::STRUCTURE_TYPE,
+                p_next: core::ptr::null_mut(),
+                attachment_feedback_loop_dynamic_state: Default::default(),
+                _marker: PhantomData,
+            }
         }
     }
     impl<'a> PhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT<'a> {

@@ -18,10 +18,13 @@ pub(super) mod defs {
         pub window: xcb_window_t,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for XcbSurfaceCreateInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::XCB_SURFACE_CREATE_INFO_KHR;
+    }
     impl Default for XcbSurfaceCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::XCB_SURFACE_CREATE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 connection: core::ptr::null_mut(),
@@ -44,12 +47,10 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct XcbSurfaceCreateFlagsKHR: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct XcbSurfaceCreateFlagsKHR(Flags);
+    impl XcbSurfaceCreateFlagsKHR {}
     pub type PFN_vkCreateXcbSurfaceKHR = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const XcbSurfaceCreateInfoKHR<'_>,

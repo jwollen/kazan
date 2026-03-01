@@ -34,10 +34,13 @@ pub(super) mod defs {
         pub old_swapchain: SwapchainKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SwapchainCreateInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SWAPCHAIN_CREATE_INFO_KHR;
+    }
     impl Default for SwapchainCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SWAPCHAIN_CREATE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 surface: Default::default(),
@@ -135,10 +138,13 @@ pub(super) mod defs {
         pub p_results: *mut vk::Result,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PresentInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PRESENT_INFO_KHR;
+    }
     impl Default for PresentInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PRESENT_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 wait_semaphore_count: Default::default(),
                 p_wait_semaphores: core::ptr::null(),
@@ -181,10 +187,13 @@ pub(super) mod defs {
         pub modes: DeviceGroupPresentModeFlagsKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DeviceGroupPresentCapabilitiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_GROUP_PRESENT_CAPABILITIES_KHR;
+    }
     impl Default for DeviceGroupPresentCapabilitiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEVICE_GROUP_PRESENT_CAPABILITIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 present_mask: [Default::default(); _],
                 modes: Default::default(),
@@ -210,10 +219,14 @@ pub(super) mod defs {
         pub swapchain: SwapchainKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImageSwapchainCreateInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_SWAPCHAIN_CREATE_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ImageSwapchainCreateInfoKHR<'a> {}
     impl Default for ImageSwapchainCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGE_SWAPCHAIN_CREATE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 swapchain: Default::default(),
                 _marker: PhantomData,
@@ -235,10 +248,14 @@ pub(super) mod defs {
         pub image_index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for BindImageMemorySwapchainInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<BindImageMemoryInfo<'a>> for BindImageMemorySwapchainInfoKHR<'a> {}
     impl Default for BindImageMemorySwapchainInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 swapchain: Default::default(),
                 image_index: Default::default(),
@@ -268,10 +285,13 @@ pub(super) mod defs {
         pub device_mask: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AcquireNextImageInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::ACQUIRE_NEXT_IMAGE_INFO_KHR;
+    }
     impl Default for AcquireNextImageInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ACQUIRE_NEXT_IMAGE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 swapchain: Default::default(),
                 timeout: Default::default(),
@@ -314,10 +334,14 @@ pub(super) mod defs {
         pub mode: DeviceGroupPresentModeFlagBitsKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DeviceGroupPresentInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_GROUP_PRESENT_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<PresentInfoKHR<'a>> for DeviceGroupPresentInfoKHR<'a> {}
     impl Default for DeviceGroupPresentInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEVICE_GROUP_PRESENT_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 swapchain_count: Default::default(),
                 p_device_masks: core::ptr::null(),
@@ -345,10 +369,14 @@ pub(super) mod defs {
         pub modes: DeviceGroupPresentModeFlagsKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DeviceGroupSwapchainCreateInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<SwapchainCreateInfoKHR<'a>> for DeviceGroupSwapchainCreateInfoKHR<'a> {}
     impl Default for DeviceGroupSwapchainCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 modes: Default::default(),
                 _marker: PhantomData,
@@ -361,22 +389,23 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct SwapchainCreateFlagsKHR: Flags {
-            const SPLIT_INSTANCE_BIND_REGIONS_KHR = SwapchainCreateFlagBitsKHR::SPLIT_INSTANCE_BIND_REGIONS_KHR.0;
-            const PROTECTED_KHR = SwapchainCreateFlagBitsKHR::PROTECTED_KHR.0;
-            const MUTABLE_FORMAT_KHR = SwapchainCreateFlagBitsKHR::MUTABLE_FORMAT_KHR.0;
-            const DEFERRED_MEMORY_ALLOCATION_KHR = SwapchainCreateFlagBitsKHR::DEFERRED_MEMORY_ALLOCATION_KHR.0;
-            const PRESENT_ID_2_KHR = SwapchainCreateFlagBitsKHR::PRESENT_ID_2_KHR.0;
-            const PRESENT_WAIT_2_KHR = SwapchainCreateFlagBitsKHR::PRESENT_WAIT_2_KHR.0;
-            const PRESENT_TIMING_EXT = SwapchainCreateFlagBitsKHR::PRESENT_TIMING_EXT.0;
-            const DEFERRED_MEMORY_ALLOCATION_EXT = Self::DEFERRED_MEMORY_ALLOCATION_KHR.bits();
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct SwapchainCreateFlagsKHR(Flags);
+    impl SwapchainCreateFlagsKHR {
+        pub const SPLIT_INSTANCE_BIND_REGIONS_KHR: Self =
+            Self(SwapchainCreateFlagBitsKHR::SPLIT_INSTANCE_BIND_REGIONS_KHR.0);
+        pub const PROTECTED_KHR: Self = Self(SwapchainCreateFlagBitsKHR::PROTECTED_KHR.0);
+        pub const MUTABLE_FORMAT_KHR: Self = Self(SwapchainCreateFlagBitsKHR::MUTABLE_FORMAT_KHR.0);
+        pub const DEFERRED_MEMORY_ALLOCATION_KHR: Self =
+            Self(SwapchainCreateFlagBitsKHR::DEFERRED_MEMORY_ALLOCATION_KHR.0);
+        pub const PRESENT_ID_2_KHR: Self = Self(SwapchainCreateFlagBitsKHR::PRESENT_ID_2_KHR.0);
+        pub const PRESENT_WAIT_2_KHR: Self = Self(SwapchainCreateFlagBitsKHR::PRESENT_WAIT_2_KHR.0);
+        pub const PRESENT_TIMING_EXT: Self = Self(SwapchainCreateFlagBitsKHR::PRESENT_TIMING_EXT.0);
+        pub const DEFERRED_MEMORY_ALLOCATION_EXT: Self = Self::DEFERRED_MEMORY_ALLOCATION_KHR;
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SwapchainCreateFlagBitsKHR(u32);
     impl SwapchainCreateFlagBitsKHR {
         pub const SPLIT_INSTANCE_BIND_REGIONS_KHR: Self = Self(1 << 0);
@@ -388,18 +417,18 @@ pub(super) mod defs {
         pub const PRESENT_TIMING_EXT: Self = Self(1 << 9);
         pub const DEFERRED_MEMORY_ALLOCATION_EXT: Self = Self::DEFERRED_MEMORY_ALLOCATION_KHR;
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct DeviceGroupPresentModeFlagsKHR: Flags {
-            const LOCAL_KHR = DeviceGroupPresentModeFlagBitsKHR::LOCAL_KHR.0;
-            const REMOTE_KHR = DeviceGroupPresentModeFlagBitsKHR::REMOTE_KHR.0;
-            const SUM_KHR = DeviceGroupPresentModeFlagBitsKHR::SUM_KHR.0;
-            const LOCAL_MULTI_DEVICE_KHR = DeviceGroupPresentModeFlagBitsKHR::LOCAL_MULTI_DEVICE_KHR.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct DeviceGroupPresentModeFlagsKHR(Flags);
+    impl DeviceGroupPresentModeFlagsKHR {
+        pub const LOCAL_KHR: Self = Self(DeviceGroupPresentModeFlagBitsKHR::LOCAL_KHR.0);
+        pub const REMOTE_KHR: Self = Self(DeviceGroupPresentModeFlagBitsKHR::REMOTE_KHR.0);
+        pub const SUM_KHR: Self = Self(DeviceGroupPresentModeFlagBitsKHR::SUM_KHR.0);
+        pub const LOCAL_MULTI_DEVICE_KHR: Self =
+            Self(DeviceGroupPresentModeFlagBitsKHR::LOCAL_MULTI_DEVICE_KHR.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DeviceGroupPresentModeFlagBitsKHR(u32);
     impl DeviceGroupPresentModeFlagBitsKHR {
         pub const LOCAL_KHR: Self = Self(1 << 0);

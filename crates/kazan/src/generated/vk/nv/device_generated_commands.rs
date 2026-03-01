@@ -19,10 +19,22 @@ pub(super) mod defs {
         pub device_generated_commands: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'a>
+    {
+    }
     impl Default for PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 device_generated_commands: Default::default(),
                 _marker: PhantomData,
@@ -51,10 +63,18 @@ pub(super) mod defs {
         pub min_indirect_commands_buffer_offset_alignment: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDeviceGeneratedCommandsPropertiesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceDeviceGeneratedCommandsPropertiesNV<'a>
+    {
+    }
     impl Default for PhysicalDeviceDeviceGeneratedCommandsPropertiesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_graphics_shader_group_count: Default::default(),
                 max_indirect_sequence_count: Default::default(),
@@ -145,10 +165,13 @@ pub(super) mod defs {
         pub p_tessellation_state: *const PipelineTessellationStateCreateInfo<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for GraphicsShaderGroupCreateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::GRAPHICS_SHADER_GROUP_CREATE_INFO_NV;
+    }
     impl Default for GraphicsShaderGroupCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::GRAPHICS_SHADER_GROUP_CREATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 stage_count: Default::default(),
                 p_stages: core::ptr::null(),
@@ -190,10 +213,18 @@ pub(super) mod defs {
         pub p_pipelines: *const Pipeline,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for GraphicsPipelineShaderGroupsCreateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::GRAPHICS_PIPELINE_SHADER_GROUPS_CREATE_INFO_NV;
+    }
+    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>>
+        for GraphicsPipelineShaderGroupsCreateInfoNV<'a>
+    {
+    }
     impl Default for GraphicsPipelineShaderGroupsCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::GRAPHICS_PIPELINE_SHADER_GROUPS_CREATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 group_count: Default::default(),
                 p_groups: core::ptr::null(),
@@ -315,10 +346,13 @@ pub(super) mod defs {
         pub p_index_type_values: *const u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for IndirectCommandsLayoutTokenNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::INDIRECT_COMMANDS_LAYOUT_TOKEN_NV;
+    }
     impl Default for IndirectCommandsLayoutTokenNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::INDIRECT_COMMANDS_LAYOUT_TOKEN_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 token_type: Default::default(),
                 stream: Default::default(),
@@ -408,10 +442,14 @@ pub(super) mod defs {
         pub p_stream_strides: *const u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for IndirectCommandsLayoutCreateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_NV;
+    }
     impl Default for IndirectCommandsLayoutCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 pipeline_bind_point: Default::default(),
@@ -463,10 +501,13 @@ pub(super) mod defs {
         pub sequences_index_offset: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for GeneratedCommandsInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::GENERATED_COMMANDS_INFO_NV;
+    }
     impl Default for GeneratedCommandsInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::GENERATED_COMMANDS_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 pipeline_bind_point: Default::default(),
                 pipeline: Default::default(),
@@ -550,10 +591,14 @@ pub(super) mod defs {
         pub max_sequences_count: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for GeneratedCommandsMemoryRequirementsInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_NV;
+    }
     impl Default for GeneratedCommandsMemoryRequirementsInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 pipeline_bind_point: Default::default(),
                 pipeline: Default::default(),
@@ -601,32 +646,33 @@ pub(super) mod defs {
         pub const PIPELINE_NV: Self = Self(1000428003);
         pub const PUSH_DATA_NV: Self = Self(1000135000);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct IndirectCommandsLayoutUsageFlagsNV: Flags {
-            const EXPLICIT_PREPROCESS_NV = IndirectCommandsLayoutUsageFlagBitsNV::EXPLICIT_PREPROCESS_NV.0;
-            const INDEXED_SEQUENCES_NV = IndirectCommandsLayoutUsageFlagBitsNV::INDEXED_SEQUENCES_NV.0;
-            const UNORDERED_SEQUENCES_NV = IndirectCommandsLayoutUsageFlagBitsNV::UNORDERED_SEQUENCES_NV.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct IndirectCommandsLayoutUsageFlagsNV(Flags);
+    impl IndirectCommandsLayoutUsageFlagsNV {
+        pub const EXPLICIT_PREPROCESS_NV: Self =
+            Self(IndirectCommandsLayoutUsageFlagBitsNV::EXPLICIT_PREPROCESS_NV.0);
+        pub const INDEXED_SEQUENCES_NV: Self =
+            Self(IndirectCommandsLayoutUsageFlagBitsNV::INDEXED_SEQUENCES_NV.0);
+        pub const UNORDERED_SEQUENCES_NV: Self =
+            Self(IndirectCommandsLayoutUsageFlagBitsNV::UNORDERED_SEQUENCES_NV.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct IndirectCommandsLayoutUsageFlagBitsNV(u32);
     impl IndirectCommandsLayoutUsageFlagBitsNV {
         pub const EXPLICIT_PREPROCESS_NV: Self = Self(1 << 0);
         pub const INDEXED_SEQUENCES_NV: Self = Self(1 << 1);
         pub const UNORDERED_SEQUENCES_NV: Self = Self(1 << 2);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct IndirectStateFlagsNV: Flags {
-            const FLAG_FRONTFACE_NV = IndirectStateFlagBitsNV::FLAG_FRONTFACE_NV.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct IndirectStateFlagsNV(Flags);
+    impl IndirectStateFlagsNV {
+        pub const FLAG_FRONTFACE_NV: Self = Self(IndirectStateFlagBitsNV::FLAG_FRONTFACE_NV.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct IndirectStateFlagBitsNV(u32);
     impl IndirectStateFlagBitsNV {
         pub const FLAG_FRONTFACE_NV: Self = Self(1 << 0);

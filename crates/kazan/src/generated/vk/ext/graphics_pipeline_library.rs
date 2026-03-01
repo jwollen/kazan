@@ -16,10 +16,22 @@ pub(super) mod defs {
         pub graphics_pipeline_library: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 graphics_pipeline_library: Default::default(),
                 _marker: PhantomData,
@@ -41,10 +53,18 @@ pub(super) mod defs {
         pub graphics_pipeline_library_independent_interpolation_decoration: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_PROPERTIES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 graphics_pipeline_library_fast_linking: Default::default(),
                 graphics_pipeline_library_independent_interpolation_decoration: Default::default(),
@@ -77,10 +97,18 @@ pub(super) mod defs {
         pub flags: GraphicsPipelineLibraryFlagsEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for GraphicsPipelineLibraryCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>>
+        for GraphicsPipelineLibraryCreateInfoEXT<'a>
+    {
+    }
     impl Default for GraphicsPipelineLibraryCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 _marker: PhantomData,
@@ -93,18 +121,21 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct GraphicsPipelineLibraryFlagsEXT: Flags {
-            const VERTEX_INPUT_INTERFACE_EXT = GraphicsPipelineLibraryFlagBitsEXT::VERTEX_INPUT_INTERFACE_EXT.0;
-            const PRE_RASTERIZATION_SHADERS_EXT = GraphicsPipelineLibraryFlagBitsEXT::PRE_RASTERIZATION_SHADERS_EXT.0;
-            const FRAGMENT_SHADER_EXT = GraphicsPipelineLibraryFlagBitsEXT::FRAGMENT_SHADER_EXT.0;
-            const FRAGMENT_OUTPUT_INTERFACE_EXT = GraphicsPipelineLibraryFlagBitsEXT::FRAGMENT_OUTPUT_INTERFACE_EXT.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct GraphicsPipelineLibraryFlagsEXT(Flags);
+    impl GraphicsPipelineLibraryFlagsEXT {
+        pub const VERTEX_INPUT_INTERFACE_EXT: Self =
+            Self(GraphicsPipelineLibraryFlagBitsEXT::VERTEX_INPUT_INTERFACE_EXT.0);
+        pub const PRE_RASTERIZATION_SHADERS_EXT: Self =
+            Self(GraphicsPipelineLibraryFlagBitsEXT::PRE_RASTERIZATION_SHADERS_EXT.0);
+        pub const FRAGMENT_SHADER_EXT: Self =
+            Self(GraphicsPipelineLibraryFlagBitsEXT::FRAGMENT_SHADER_EXT.0);
+        pub const FRAGMENT_OUTPUT_INTERFACE_EXT: Self =
+            Self(GraphicsPipelineLibraryFlagBitsEXT::FRAGMENT_OUTPUT_INTERFACE_EXT.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct GraphicsPipelineLibraryFlagBitsEXT(u32);
     impl GraphicsPipelineLibraryFlagBitsEXT {
         pub const VERTEX_INPUT_INTERFACE_EXT: Self = Self(1 << 0);

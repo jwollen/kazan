@@ -16,10 +16,22 @@ pub(super) mod defs {
         pub report_address_binding: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceAddressBindingReportFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceAddressBindingReportFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceAddressBindingReportFeaturesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceAddressBindingReportFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 report_address_binding: Default::default(),
                 _marker: PhantomData,
@@ -43,10 +55,18 @@ pub(super) mod defs {
         pub binding_type: DeviceAddressBindingTypeEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DeviceAddressBindingCallbackDataEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::DEVICE_ADDRESS_BINDING_CALLBACK_DATA_EXT;
+    }
+    unsafe impl<'a> Extends<DebugUtilsMessengerCallbackDataEXT<'a>>
+        for DeviceAddressBindingCallbackDataEXT<'a>
+    {
+    }
     impl Default for DeviceAddressBindingCallbackDataEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEVICE_ADDRESS_BINDING_CALLBACK_DATA_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 flags: Default::default(),
                 base_address: Default::default(),
@@ -81,15 +101,15 @@ pub(super) mod defs {
         pub const BIND_EXT: Self = Self(0);
         pub const UNBIND_EXT: Self = Self(1);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct DeviceAddressBindingFlagsEXT: Flags {
-            const INTERNAL_OBJECT_EXT = DeviceAddressBindingFlagBitsEXT::INTERNAL_OBJECT_EXT.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct DeviceAddressBindingFlagsEXT(Flags);
+    impl DeviceAddressBindingFlagsEXT {
+        pub const INTERNAL_OBJECT_EXT: Self =
+            Self(DeviceAddressBindingFlagBitsEXT::INTERNAL_OBJECT_EXT.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DeviceAddressBindingFlagBitsEXT(u32);
     impl DeviceAddressBindingFlagBitsEXT {
         pub const INTERNAL_OBJECT_EXT: Self = Self(1 << 0);

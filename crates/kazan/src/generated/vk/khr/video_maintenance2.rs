@@ -16,10 +16,19 @@ pub(super) mod defs {
         pub video_maintenance2: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVideoMaintenance2FeaturesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_VIDEO_MAINTENANCE_2_FEATURES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceVideoMaintenance2FeaturesKHR<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceVideoMaintenance2FeaturesKHR<'a> {}
     impl Default for PhysicalDeviceVideoMaintenance2FeaturesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_VIDEO_MAINTENANCE_2_FEATURES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 video_maintenance2: Default::default(),
                 _marker: PhantomData,
@@ -41,10 +50,18 @@ pub(super) mod defs {
         pub p_std_pps: *const StdVideoH264PictureParameterSet<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoDecodeH264InlineSessionParametersInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::VIDEO_DECODE_H264_INLINE_SESSION_PARAMETERS_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<VideoDecodeInfoKHR<'a>>
+        for VideoDecodeH264InlineSessionParametersInfoKHR<'a>
+    {
+    }
     impl Default for VideoDecodeH264InlineSessionParametersInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_DECODE_H264_INLINE_SESSION_PARAMETERS_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_std_sps: core::ptr::null(),
                 p_std_pps: core::ptr::null(),
@@ -72,10 +89,18 @@ pub(super) mod defs {
         pub p_std_pps: *const StdVideoH265PictureParameterSet<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoDecodeH265InlineSessionParametersInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::VIDEO_DECODE_H265_INLINE_SESSION_PARAMETERS_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<VideoDecodeInfoKHR<'a>>
+        for VideoDecodeH265InlineSessionParametersInfoKHR<'a>
+    {
+    }
     impl Default for VideoDecodeH265InlineSessionParametersInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_DECODE_H265_INLINE_SESSION_PARAMETERS_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_std_vps: core::ptr::null(),
                 p_std_sps: core::ptr::null(),
@@ -106,10 +131,18 @@ pub(super) mod defs {
         pub p_std_sequence_header: *const StdVideoAV1SequenceHeader<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for VideoDecodeAV1InlineSessionParametersInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::VIDEO_DECODE_AV1_INLINE_SESSION_PARAMETERS_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<VideoDecodeInfoKHR<'a>>
+        for VideoDecodeAV1InlineSessionParametersInfoKHR<'a>
+    {
+    }
     impl Default for VideoDecodeAV1InlineSessionParametersInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VIDEO_DECODE_AV1_INLINE_SESSION_PARAMETERS_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_std_sequence_header: core::ptr::null(),
                 _marker: PhantomData,

@@ -17,10 +17,14 @@ pub(super) mod defs {
         pub stream_descriptor: GgpStreamDescriptor,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for StreamDescriptorSurfaceCreateInfoGGP<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::STREAM_DESCRIPTOR_SURFACE_CREATE_INFO_GGP;
+    }
     impl Default for StreamDescriptorSurfaceCreateInfoGGP<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::STREAM_DESCRIPTOR_SURFACE_CREATE_INFO_GGP,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 stream_descriptor: Default::default(),
@@ -38,12 +42,10 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct StreamDescriptorSurfaceCreateFlagsGGP: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct StreamDescriptorSurfaceCreateFlagsGGP(Flags);
+    impl StreamDescriptorSurfaceCreateFlagsGGP {}
     pub type PFN_vkCreateStreamDescriptorSurfaceGGP = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const StreamDescriptorSurfaceCreateInfoGGP<'_>,

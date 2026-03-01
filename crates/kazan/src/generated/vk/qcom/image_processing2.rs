@@ -16,10 +16,19 @@ pub(super) mod defs {
         pub texture_block_match2: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageProcessing2FeaturesQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_IMAGE_PROCESSING_2_FEATURES_QCOM;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceImageProcessing2FeaturesQCOM<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceImageProcessing2FeaturesQCOM<'a> {}
     impl Default for PhysicalDeviceImageProcessing2FeaturesQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_IMAGE_PROCESSING_2_FEATURES_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 texture_block_match2: Default::default(),
                 _marker: PhantomData,
@@ -40,10 +49,18 @@ pub(super) mod defs {
         pub max_block_match_window: Extent2D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageProcessing2PropertiesQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceImageProcessing2PropertiesQCOM<'a>
+    {
+    }
     impl Default for PhysicalDeviceImageProcessing2PropertiesQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_block_match_window: Default::default(),
                 _marker: PhantomData,
@@ -65,10 +82,15 @@ pub(super) mod defs {
         pub window_compare_mode: BlockMatchWindowCompareModeQCOM,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SamplerBlockMatchWindowCreateInfoQCOM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::SAMPLER_BLOCK_MATCH_WINDOW_CREATE_INFO_QCOM;
+    }
+    unsafe impl<'a> Extends<SamplerCreateInfo<'a>> for SamplerBlockMatchWindowCreateInfoQCOM<'a> {}
     impl Default for SamplerBlockMatchWindowCreateInfoQCOM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SAMPLER_BLOCK_MATCH_WINDOW_CREATE_INFO_QCOM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 window_extent: Default::default(),
                 window_compare_mode: Default::default(),

@@ -17,10 +17,13 @@ pub(super) mod defs {
         pub window: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ViSurfaceCreateInfoNN<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::VI_SURFACE_CREATE_INFO_NN;
+    }
     impl Default for ViSurfaceCreateInfoNN<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::VI_SURFACE_CREATE_INFO_NN,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 window: core::ptr::null_mut(),
@@ -38,12 +41,10 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct ViSurfaceCreateFlagsNN: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct ViSurfaceCreateFlagsNN(Flags);
+    impl ViSurfaceCreateFlagsNN {}
     pub type PFN_vkCreateViSurfaceNN = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const ViSurfaceCreateInfoNN<'_>,

@@ -18,10 +18,19 @@ pub(super) mod defs {
         pub memory_unmap_reserve: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMapMemoryPlacedFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_MAP_MEMORY_PLACED_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceMapMemoryPlacedFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceMapMemoryPlacedFeaturesEXT<'a> {}
     impl Default for PhysicalDeviceMapMemoryPlacedFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_MAP_MEMORY_PLACED_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 memory_map_placed: Default::default(),
                 memory_map_range_placed: Default::default(),
@@ -52,10 +61,18 @@ pub(super) mod defs {
         pub min_placed_memory_map_alignment: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMapMemoryPlacedPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_MAP_MEMORY_PLACED_PROPERTIES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceMapMemoryPlacedPropertiesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceMapMemoryPlacedPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_MAP_MEMORY_PLACED_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 min_placed_memory_map_alignment: Default::default(),
                 _marker: PhantomData,
@@ -79,10 +96,14 @@ pub(super) mod defs {
         pub p_placed_address: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MemoryMapPlacedInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_MAP_PLACED_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<MemoryMapInfo<'a>> for MemoryMapPlacedInfoEXT<'a> {}
     impl Default for MemoryMapPlacedInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MEMORY_MAP_PLACED_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_placed_address: core::ptr::null_mut(),
                 _marker: PhantomData,

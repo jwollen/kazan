@@ -61,10 +61,13 @@ pub(super) mod defs {
         pub copy_address_range: StridedDeviceAddressRangeKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CopyMemoryIndirectInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::COPY_MEMORY_INDIRECT_INFO_KHR;
+    }
     impl Default for CopyMemoryIndirectInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::COPY_MEMORY_INDIRECT_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 src_copy_flags: Default::default(),
                 dst_copy_flags: Default::default(),
@@ -144,10 +147,13 @@ pub(super) mod defs {
         pub p_image_subresources: *const ImageSubresourceLayers,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CopyMemoryToImageIndirectInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::COPY_MEMORY_TO_IMAGE_INDIRECT_INFO_KHR;
+    }
     impl Default for CopyMemoryToImageIndirectInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::COPY_MEMORY_TO_IMAGE_INDIRECT_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 src_copy_flags: Default::default(),
                 copy_count: Default::default(),
@@ -197,10 +203,19 @@ pub(super) mod defs {
         pub indirect_memory_to_image_copy: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'a> {}
     impl Default for PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 indirect_memory_copy: Default::default(),
                 indirect_memory_to_image_copy: Default::default(),
@@ -229,10 +244,18 @@ pub(super) mod defs {
         pub supported_queues: QueueFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'a>
+    {
+    }
     impl Default for PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 supported_queues: Default::default(),
                 _marker: PhantomData,
@@ -245,17 +268,16 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct AddressCopyFlagsKHR: Flags {
-            const DEVICE_LOCAL_KHR = AddressCopyFlagBitsKHR::DEVICE_LOCAL_KHR.0;
-            const SPARSE_KHR = AddressCopyFlagBitsKHR::SPARSE_KHR.0;
-            const PROTECTED_KHR = AddressCopyFlagBitsKHR::PROTECTED_KHR.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct AddressCopyFlagsKHR(Flags);
+    impl AddressCopyFlagsKHR {
+        pub const DEVICE_LOCAL_KHR: Self = Self(AddressCopyFlagBitsKHR::DEVICE_LOCAL_KHR.0);
+        pub const SPARSE_KHR: Self = Self(AddressCopyFlagBitsKHR::SPARSE_KHR.0);
+        pub const PROTECTED_KHR: Self = Self(AddressCopyFlagBitsKHR::PROTECTED_KHR.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct AddressCopyFlagBitsKHR(u32);
     impl AddressCopyFlagBitsKHR {
         pub const DEVICE_LOCAL_KHR: Self = Self(1 << 0);

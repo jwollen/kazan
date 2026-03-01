@@ -1,6 +1,8 @@
 mod generated;
 pub use generated::*;
 
+mod chain;
+pub use chain::*;
 //mod loading;
 
 use core::{

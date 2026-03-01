@@ -18,10 +18,22 @@ pub(super) mod defs {
         pub dense_geometry_format: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDenseGeometryFormatFeaturesAMDX<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_DENSE_GEOMETRY_FORMAT_FEATURES_AMDX;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceDenseGeometryFormatFeaturesAMDX<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceDenseGeometryFormatFeaturesAMDX<'a>
+    {
+    }
     impl Default for PhysicalDeviceDenseGeometryFormatFeaturesAMDX<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_DENSE_GEOMETRY_FORMAT_FEATURES_AMDX,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 dense_geometry_format: Default::default(),
                 _marker: PhantomData,
@@ -48,11 +60,20 @@ pub(super) mod defs {
         pub format: CompressedTriangleFormatAMDX,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a>
+        for AccelerationStructureDenseGeometryFormatTrianglesDataAMDX<'a>
+    {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::ACCELERATION_STRUCTURE_DENSE_GEOMETRY_FORMAT_TRIANGLES_DATA_AMDX;
+    }
+    unsafe impl<'a> Extends<AccelerationStructureGeometryKHR<'a>>
+        for AccelerationStructureDenseGeometryFormatTrianglesDataAMDX<'a>
+    {
+    }
     impl Default for AccelerationStructureDenseGeometryFormatTrianglesDataAMDX<'_> {
         fn default() -> Self {
             Self {
-                s_type:
-                    StructureType::ACCELERATION_STRUCTURE_DENSE_GEOMETRY_FORMAT_TRIANGLES_DATA_AMDX,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 compressed_data: Default::default(),
                 data_size: Default::default(),

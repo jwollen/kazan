@@ -22,10 +22,14 @@ pub(super) mod defs {
         pub p_shader_group_capture_replay_handle: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RayTracingShaderGroupCreateInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::RAY_TRACING_SHADER_GROUP_CREATE_INFO_KHR;
+    }
     impl Default for RayTracingShaderGroupCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RAY_TRACING_SHADER_GROUP_CREATE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 ty: Default::default(),
                 general_shader: Default::default(),
@@ -85,10 +89,13 @@ pub(super) mod defs {
         pub base_pipeline_index: i32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RayTracingPipelineCreateInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::RAY_TRACING_PIPELINE_CREATE_INFO_KHR;
+    }
     impl Default for RayTracingPipelineCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RAY_TRACING_PIPELINE_CREATE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 stage_count: Default::default(),
@@ -171,10 +178,19 @@ pub(super) mod defs {
         pub ray_traversal_primitive_culling: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRayTracingPipelineFeaturesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceRayTracingPipelineFeaturesKHR<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceRayTracingPipelineFeaturesKHR<'a> {}
     impl Default for PhysicalDeviceRayTracingPipelineFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 ray_tracing_pipeline: Default::default(),
                 ray_tracing_pipeline_shader_group_handle_capture_replay: Default::default(),
@@ -237,10 +253,18 @@ pub(super) mod defs {
         pub max_ray_hit_attribute_size: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRayTracingPipelinePropertiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceRayTracingPipelinePropertiesKHR<'a>
+    {
+    }
     impl Default for PhysicalDeviceRayTracingPipelinePropertiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shader_group_handle_size: Default::default(),
                 max_ray_recursion_depth: Default::default(),
@@ -345,10 +369,14 @@ pub(super) mod defs {
         pub max_pipeline_ray_hit_attribute_size: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RayTracingPipelineInterfaceCreateInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR;
+    }
     impl Default for RayTracingPipelineInterfaceCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 max_pipeline_ray_payload_size: Default::default(),
                 max_pipeline_ray_hit_attribute_size: Default::default(),

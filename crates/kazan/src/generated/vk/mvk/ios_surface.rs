@@ -17,10 +17,13 @@ pub(super) mod defs {
         pub p_view: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for IOSSurfaceCreateInfoMVK<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IOS_SURFACE_CREATE_INFO_MVK;
+    }
     impl Default for IOSSurfaceCreateInfoMVK<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IOS_SURFACE_CREATE_INFO_MVK,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 p_view: core::ptr::null(),
@@ -38,12 +41,10 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct IOSSurfaceCreateFlagsMVK: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct IOSSurfaceCreateFlagsMVK(Flags);
+    impl IOSSurfaceCreateFlagsMVK {}
     pub type PFN_vkCreateIOSSurfaceMVK = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const IOSSurfaceCreateInfoMVK<'_>,

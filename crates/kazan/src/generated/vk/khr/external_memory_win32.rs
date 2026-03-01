@@ -18,10 +18,14 @@ pub(super) mod defs {
         pub name: LPCWSTR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImportMemoryWin32HandleInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_MEMORY_WIN32_HANDLE_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportMemoryWin32HandleInfoKHR<'a> {}
     impl Default for ImportMemoryWin32HandleInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMPORT_MEMORY_WIN32_HANDLE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 handle_type: Default::default(),
                 handle: Default::default(),
@@ -54,10 +58,14 @@ pub(super) mod defs {
         pub name: LPCWSTR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExportMemoryWin32HandleInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_MEMORY_WIN32_HANDLE_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ExportMemoryWin32HandleInfoKHR<'a> {}
     impl Default for ExportMemoryWin32HandleInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXPORT_MEMORY_WIN32_HANDLE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_attributes: core::ptr::null(),
                 dw_access: Default::default(),
@@ -88,10 +96,13 @@ pub(super) mod defs {
         pub memory_type_bits: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MemoryWin32HandlePropertiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_WIN32_HANDLE_PROPERTIES_KHR;
+    }
     impl Default for MemoryWin32HandlePropertiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MEMORY_WIN32_HANDLE_PROPERTIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 memory_type_bits: Default::default(),
                 _marker: PhantomData,
@@ -113,10 +124,13 @@ pub(super) mod defs {
         pub handle_type: ExternalMemoryHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MemoryGetWin32HandleInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_GET_WIN32_HANDLE_INFO_KHR;
+    }
     impl Default for MemoryGetWin32HandleInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MEMORY_GET_WIN32_HANDLE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 memory: Default::default(),
                 handle_type: Default::default(),

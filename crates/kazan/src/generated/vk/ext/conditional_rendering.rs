@@ -18,10 +18,13 @@ pub(super) mod defs {
         pub flags: ConditionalRenderingFlagsEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ConditionalRenderingBeginInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::CONDITIONAL_RENDERING_BEGIN_INFO_EXT;
+    }
     impl Default for ConditionalRenderingBeginInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::CONDITIONAL_RENDERING_BEGIN_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 buffer: Default::default(),
                 offset: Default::default(),
@@ -52,10 +55,18 @@ pub(super) mod defs {
         pub conditional_rendering_enable: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CommandBufferInheritanceConditionalRenderingInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::COMMAND_BUFFER_INHERITANCE_CONDITIONAL_RENDERING_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>>
+        for CommandBufferInheritanceConditionalRenderingInfoEXT<'a>
+    {
+    }
     impl Default for CommandBufferInheritanceConditionalRenderingInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::COMMAND_BUFFER_INHERITANCE_CONDITIONAL_RENDERING_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 conditional_rendering_enable: Default::default(),
                 _marker: PhantomData,
@@ -80,10 +91,22 @@ pub(super) mod defs {
         pub inherited_conditional_rendering: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceConditionalRenderingFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_CONDITIONAL_RENDERING_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceConditionalRenderingFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceConditionalRenderingFeaturesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceConditionalRenderingFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_CONDITIONAL_RENDERING_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 conditional_rendering: Default::default(),
                 inherited_conditional_rendering: Default::default(),
@@ -104,15 +127,14 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct ConditionalRenderingFlagsEXT: Flags {
-            const INVERTED_EXT = ConditionalRenderingFlagBitsEXT::INVERTED_EXT.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct ConditionalRenderingFlagsEXT(Flags);
+    impl ConditionalRenderingFlagsEXT {
+        pub const INVERTED_EXT: Self = Self(ConditionalRenderingFlagBitsEXT::INVERTED_EXT.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ConditionalRenderingFlagBitsEXT(u32);
     impl ConditionalRenderingFlagBitsEXT {
         pub const INVERTED_EXT: Self = Self(1 << 0);

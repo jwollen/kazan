@@ -22,10 +22,16 @@ pub(super) mod defs {
         pub p_release_keys: *const u64,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for Win32KeyedMutexAcquireReleaseInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<SubmitInfo<'a>> for Win32KeyedMutexAcquireReleaseInfoKHR<'a> {}
+    unsafe impl<'a> Extends<SubmitInfo2<'a>> for Win32KeyedMutexAcquireReleaseInfoKHR<'a> {}
     impl Default for Win32KeyedMutexAcquireReleaseInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 acquire_count: Default::default(),
                 p_acquire_syncs: core::ptr::null(),

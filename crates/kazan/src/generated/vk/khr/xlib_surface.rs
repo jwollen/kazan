@@ -18,10 +18,13 @@ pub(super) mod defs {
         pub window: Window,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for XlibSurfaceCreateInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::XLIB_SURFACE_CREATE_INFO_KHR;
+    }
     impl Default for XlibSurfaceCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::XLIB_SURFACE_CREATE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 dpy: core::ptr::null_mut(),
@@ -44,12 +47,10 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct XlibSurfaceCreateFlagsKHR: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct XlibSurfaceCreateFlagsKHR(Flags);
+    impl XlibSurfaceCreateFlagsKHR {}
     pub type PFN_vkCreateXlibSurfaceKHR = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const XlibSurfaceCreateInfoKHR<'_>,

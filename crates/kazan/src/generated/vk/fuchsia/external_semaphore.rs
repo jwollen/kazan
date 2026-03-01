@@ -19,10 +19,14 @@ pub(super) mod defs {
         pub zircon_handle: zx_handle_t,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImportSemaphoreZirconHandleInfoFUCHSIA<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::IMPORT_SEMAPHORE_ZIRCON_HANDLE_INFO_FUCHSIA;
+    }
     impl Default for ImportSemaphoreZirconHandleInfoFUCHSIA<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMPORT_SEMAPHORE_ZIRCON_HANDLE_INFO_FUCHSIA,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 semaphore: Default::default(),
                 flags: Default::default(),
@@ -59,10 +63,14 @@ pub(super) mod defs {
         pub handle_type: ExternalSemaphoreHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SemaphoreGetZirconHandleInfoFUCHSIA<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::SEMAPHORE_GET_ZIRCON_HANDLE_INFO_FUCHSIA;
+    }
     impl Default for SemaphoreGetZirconHandleInfoFUCHSIA<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SEMAPHORE_GET_ZIRCON_HANDLE_INFO_FUCHSIA,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 semaphore: Default::default(),
                 handle_type: Default::default(),

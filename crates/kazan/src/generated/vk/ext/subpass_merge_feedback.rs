@@ -16,10 +16,15 @@ pub(super) mod defs {
         pub disallow_merging: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RenderPassCreationControlEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::RENDER_PASS_CREATION_CONTROL_EXT;
+    }
+    unsafe impl<'a> Extends<RenderPassCreateInfo2<'a>> for RenderPassCreationControlEXT<'a> {}
+    unsafe impl<'a> Extends<SubpassDescription2<'a>> for RenderPassCreationControlEXT<'a> {}
     impl Default for RenderPassCreationControlEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RENDER_PASS_CREATION_CONTROL_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 disallow_merging: Default::default(),
                 _marker: PhantomData,
@@ -51,10 +56,15 @@ pub(super) mod defs {
         pub p_render_pass_feedback: *mut RenderPassCreationFeedbackInfoEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RenderPassCreationFeedbackCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<RenderPassCreateInfo2<'a>> for RenderPassCreationFeedbackCreateInfoEXT<'a> {}
     impl Default for RenderPassCreationFeedbackCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_render_pass_feedback: core::ptr::null_mut(),
                 _marker: PhantomData,
@@ -104,10 +114,15 @@ pub(super) mod defs {
         pub p_subpass_feedback: *mut RenderPassSubpassFeedbackInfoEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RenderPassSubpassFeedbackCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::RENDER_PASS_SUBPASS_FEEDBACK_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<SubpassDescription2<'a>> for RenderPassSubpassFeedbackCreateInfoEXT<'a> {}
     impl Default for RenderPassSubpassFeedbackCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RENDER_PASS_SUBPASS_FEEDBACK_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_subpass_feedback: core::ptr::null_mut(),
                 _marker: PhantomData,
@@ -131,10 +146,22 @@ pub(super) mod defs {
         pub subpass_merge_feedback: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SUBPASS_MERGE_FEEDBACK_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SUBPASS_MERGE_FEEDBACK_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 subpass_merge_feedback: Default::default(),
                 _marker: PhantomData,

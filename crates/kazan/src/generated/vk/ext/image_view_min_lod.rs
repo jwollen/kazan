@@ -16,10 +16,19 @@ pub(super) mod defs {
         pub min_lod: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageViewMinLodFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_IMAGE_VIEW_MIN_LOD_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceImageViewMinLodFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceImageViewMinLodFeaturesEXT<'a> {}
     impl Default for PhysicalDeviceImageViewMinLodFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_IMAGE_VIEW_MIN_LOD_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 min_lod: Default::default(),
                 _marker: PhantomData,
@@ -40,10 +49,14 @@ pub(super) mod defs {
         pub min_lod: f32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ImageViewMinLodCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_VIEW_MIN_LOD_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<ImageViewCreateInfo<'a>> for ImageViewMinLodCreateInfoEXT<'a> {}
     impl Default for ImageViewMinLodCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::IMAGE_VIEW_MIN_LOD_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 min_lod: Default::default(),
                 _marker: PhantomData,

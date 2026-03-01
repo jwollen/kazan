@@ -17,10 +17,13 @@ pub(super) mod defs {
         pub pfn_get_instance_proc_addr: Option<PFN_vkGetInstanceProcAddrLUNARG>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DirectDriverLoadingInfoLUNARG<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DIRECT_DRIVER_LOADING_INFO_LUNARG;
+    }
     impl Default for DirectDriverLoadingInfoLUNARG<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DIRECT_DRIVER_LOADING_INFO_LUNARG,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 flags: Default::default(),
                 pfn_get_instance_proc_addr: Default::default(),
@@ -51,10 +54,14 @@ pub(super) mod defs {
         pub p_drivers: *const DirectDriverLoadingInfoLUNARG<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DirectDriverLoadingListLUNARG<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DIRECT_DRIVER_LOADING_LIST_LUNARG;
+    }
+    unsafe impl<'a> Extends<InstanceCreateInfo<'a>> for DirectDriverLoadingListLUNARG<'a> {}
     impl Default for DirectDriverLoadingListLUNARG<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DIRECT_DRIVER_LOADING_LIST_LUNARG,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 mode: Default::default(),
                 driver_count: Default::default(),
@@ -81,12 +88,10 @@ pub(super) mod defs {
         pub const EXCLUSIVE_LUNARG: Self = Self(0);
         pub const INCLUSIVE_LUNARG: Self = Self(1);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct DirectDriverLoadingFlagsLUNARG: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct DirectDriverLoadingFlagsLUNARG(Flags);
+    impl DirectDriverLoadingFlagsLUNARG {}
     pub type PFN_vkGetInstanceProcAddrLUNARG =
         unsafe extern "system" fn(instance: Instance, p_name: *const c_char) -> PFN_vkVoidFunction;
 }

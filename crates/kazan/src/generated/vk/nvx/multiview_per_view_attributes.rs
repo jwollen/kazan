@@ -16,10 +16,18 @@ pub(super) mod defs {
         pub per_view_position_all_components: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_ATTRIBUTES_PROPERTIES_NVX;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX<'a>
+    {
+    }
     impl Default for PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_ATTRIBUTES_PROPERTIES_NVX,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 per_view_position_all_components: Default::default(),
                 _marker: PhantomData,
@@ -44,10 +52,19 @@ pub(super) mod defs {
         pub per_view_attributes_position_x_only: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MultiviewPerViewAttributesInfoNVX<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX;
+    }
+    unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>>
+        for MultiviewPerViewAttributesInfoNVX<'a>
+    {
+    }
+    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>> for MultiviewPerViewAttributesInfoNVX<'a> {}
+    unsafe impl<'a> Extends<RenderingInfo<'a>> for MultiviewPerViewAttributesInfoNVX<'a> {}
     impl Default for MultiviewPerViewAttributesInfoNVX<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 per_view_attributes: Default::default(),
                 per_view_attributes_position_x_only: Default::default(),

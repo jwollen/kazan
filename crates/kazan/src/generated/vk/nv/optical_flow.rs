@@ -19,10 +19,16 @@ pub(super) mod defs {
         pub optical_flow: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceOpticalFlowFeaturesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceOpticalFlowFeaturesNV<'a> {}
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceOpticalFlowFeaturesNV<'a> {}
     impl Default for PhysicalDeviceOpticalFlowFeaturesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 optical_flow: Default::default(),
                 _marker: PhantomData,
@@ -53,10 +59,18 @@ pub(super) mod defs {
         pub max_num_regions_of_interest: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceOpticalFlowPropertiesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_OPTICAL_FLOW_PROPERTIES_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceOpticalFlowPropertiesNV<'a>
+    {
+    }
     impl Default for PhysicalDeviceOpticalFlowPropertiesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_OPTICAL_FLOW_PROPERTIES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 supported_output_grid_sizes: Default::default(),
                 supported_hint_grid_sizes: Default::default(),
@@ -136,10 +150,15 @@ pub(super) mod defs {
         pub usage: OpticalFlowUsageFlagsNV,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for OpticalFlowImageFormatInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::OPTICAL_FLOW_IMAGE_FORMAT_INFO_NV;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceImageFormatInfo2<'a>> for OpticalFlowImageFormatInfoNV<'a> {}
+    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for OpticalFlowImageFormatInfoNV<'a> {}
     impl Default for OpticalFlowImageFormatInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::OPTICAL_FLOW_IMAGE_FORMAT_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 usage: Default::default(),
                 _marker: PhantomData,
@@ -160,10 +179,14 @@ pub(super) mod defs {
         pub format: Format,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for OpticalFlowImageFormatPropertiesNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_NV;
+    }
     impl Default for OpticalFlowImageFormatPropertiesNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 format: Default::default(),
                 _marker: PhantomData,
@@ -192,10 +215,13 @@ pub(super) mod defs {
         pub flags: OpticalFlowSessionCreateFlagsNV,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for OpticalFlowSessionCreateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::OPTICAL_FLOW_SESSION_CREATE_INFO_NV;
+    }
     impl Default for OpticalFlowSessionCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::OPTICAL_FLOW_SESSION_CREATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 width: Default::default(),
                 height: Default::default(),
@@ -261,10 +287,18 @@ pub(super) mod defs {
         pub p_private_data: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for OpticalFlowSessionCreatePrivateDataInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV;
+    }
+    unsafe impl<'a> Extends<OpticalFlowSessionCreateInfoNV<'a>>
+        for OpticalFlowSessionCreatePrivateDataInfoNV<'a>
+    {
+    }
     impl Default for OpticalFlowSessionCreatePrivateDataInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 id: Default::default(),
                 size: Default::default(),
@@ -297,10 +331,13 @@ pub(super) mod defs {
         pub p_regions: *const Rect2D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for OpticalFlowExecuteInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::OPTICAL_FLOW_EXECUTE_INFO_NV;
+    }
     impl Default for OpticalFlowExecuteInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::OPTICAL_FLOW_EXECUTE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 flags: Default::default(),
                 region_count: Default::default(),
@@ -343,19 +380,18 @@ pub(super) mod defs {
         pub const BACKWARD_COST_NV: Self = Self(7);
         pub const GLOBAL_FLOW_NV: Self = Self(8);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct OpticalFlowGridSizeFlagsNV: Flags {
-            const _1X1_NV = OpticalFlowGridSizeFlagBitsNV::_1X1_NV.0;
-            const _2X2_NV = OpticalFlowGridSizeFlagBitsNV::_2X2_NV.0;
-            const _4X4_NV = OpticalFlowGridSizeFlagBitsNV::_4X4_NV.0;
-            const _8X8_NV = OpticalFlowGridSizeFlagBitsNV::_8X8_NV.0;
-            const UNKNOWN = 0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct OpticalFlowGridSizeFlagsNV(Flags);
+    impl OpticalFlowGridSizeFlagsNV {
+        pub const _1X1_NV: Self = Self(OpticalFlowGridSizeFlagBitsNV::_1X1_NV.0);
+        pub const _2X2_NV: Self = Self(OpticalFlowGridSizeFlagBitsNV::_2X2_NV.0);
+        pub const _4X4_NV: Self = Self(OpticalFlowGridSizeFlagBitsNV::_4X4_NV.0);
+        pub const _8X8_NV: Self = Self(OpticalFlowGridSizeFlagBitsNV::_8X8_NV.0);
+        pub const UNKNOWN: Self = Self(0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct OpticalFlowGridSizeFlagBitsNV(u32);
     impl OpticalFlowGridSizeFlagBitsNV {
         pub const _1X1_NV: Self = Self(1 << 0);
@@ -363,20 +399,19 @@ pub(super) mod defs {
         pub const _4X4_NV: Self = Self(1 << 2);
         pub const _8X8_NV: Self = Self(1 << 3);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct OpticalFlowUsageFlagsNV: Flags {
-            const INPUT_NV = OpticalFlowUsageFlagBitsNV::INPUT_NV.0;
-            const OUTPUT_NV = OpticalFlowUsageFlagBitsNV::OUTPUT_NV.0;
-            const HINT_NV = OpticalFlowUsageFlagBitsNV::HINT_NV.0;
-            const COST_NV = OpticalFlowUsageFlagBitsNV::COST_NV.0;
-            const GLOBAL_FLOW_NV = OpticalFlowUsageFlagBitsNV::GLOBAL_FLOW_NV.0;
-            const UNKNOWN = 0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct OpticalFlowUsageFlagsNV(Flags);
+    impl OpticalFlowUsageFlagsNV {
+        pub const INPUT_NV: Self = Self(OpticalFlowUsageFlagBitsNV::INPUT_NV.0);
+        pub const OUTPUT_NV: Self = Self(OpticalFlowUsageFlagBitsNV::OUTPUT_NV.0);
+        pub const HINT_NV: Self = Self(OpticalFlowUsageFlagBitsNV::HINT_NV.0);
+        pub const COST_NV: Self = Self(OpticalFlowUsageFlagBitsNV::COST_NV.0);
+        pub const GLOBAL_FLOW_NV: Self = Self(OpticalFlowUsageFlagBitsNV::GLOBAL_FLOW_NV.0);
+        pub const UNKNOWN: Self = Self(0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct OpticalFlowUsageFlagBitsNV(u32);
     impl OpticalFlowUsageFlagBitsNV {
         pub const INPUT_NV: Self = Self(1 << 0);
@@ -385,19 +420,21 @@ pub(super) mod defs {
         pub const COST_NV: Self = Self(1 << 3);
         pub const GLOBAL_FLOW_NV: Self = Self(1 << 4);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct OpticalFlowSessionCreateFlagsNV: Flags {
-            const ENABLE_HINT_NV = OpticalFlowSessionCreateFlagBitsNV::ENABLE_HINT_NV.0;
-            const ENABLE_COST_NV = OpticalFlowSessionCreateFlagBitsNV::ENABLE_COST_NV.0;
-            const ENABLE_GLOBAL_FLOW_NV = OpticalFlowSessionCreateFlagBitsNV::ENABLE_GLOBAL_FLOW_NV.0;
-            const ALLOW_REGIONS_NV = OpticalFlowSessionCreateFlagBitsNV::ALLOW_REGIONS_NV.0;
-            const BOTH_DIRECTIONS_NV = OpticalFlowSessionCreateFlagBitsNV::BOTH_DIRECTIONS_NV.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct OpticalFlowSessionCreateFlagsNV(Flags);
+    impl OpticalFlowSessionCreateFlagsNV {
+        pub const ENABLE_HINT_NV: Self = Self(OpticalFlowSessionCreateFlagBitsNV::ENABLE_HINT_NV.0);
+        pub const ENABLE_COST_NV: Self = Self(OpticalFlowSessionCreateFlagBitsNV::ENABLE_COST_NV.0);
+        pub const ENABLE_GLOBAL_FLOW_NV: Self =
+            Self(OpticalFlowSessionCreateFlagBitsNV::ENABLE_GLOBAL_FLOW_NV.0);
+        pub const ALLOW_REGIONS_NV: Self =
+            Self(OpticalFlowSessionCreateFlagBitsNV::ALLOW_REGIONS_NV.0);
+        pub const BOTH_DIRECTIONS_NV: Self =
+            Self(OpticalFlowSessionCreateFlagBitsNV::BOTH_DIRECTIONS_NV.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct OpticalFlowSessionCreateFlagBitsNV(u32);
     impl OpticalFlowSessionCreateFlagBitsNV {
         pub const ENABLE_HINT_NV: Self = Self(1 << 0);
@@ -406,15 +443,15 @@ pub(super) mod defs {
         pub const ALLOW_REGIONS_NV: Self = Self(1 << 3);
         pub const BOTH_DIRECTIONS_NV: Self = Self(1 << 4);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct OpticalFlowExecuteFlagsNV: Flags {
-            const DISABLE_TEMPORAL_HINTS_NV = OpticalFlowExecuteFlagBitsNV::DISABLE_TEMPORAL_HINTS_NV.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct OpticalFlowExecuteFlagsNV(Flags);
+    impl OpticalFlowExecuteFlagsNV {
+        pub const DISABLE_TEMPORAL_HINTS_NV: Self =
+            Self(OpticalFlowExecuteFlagBitsNV::DISABLE_TEMPORAL_HINTS_NV.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct OpticalFlowExecuteFlagBitsNV(u32);
     impl OpticalFlowExecuteFlagBitsNV {
         pub const DISABLE_TEMPORAL_HINTS_NV: Self = Self(1 << 0);

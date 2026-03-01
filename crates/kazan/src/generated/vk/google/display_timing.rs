@@ -59,10 +59,14 @@ pub(super) mod defs {
         pub p_times: *const PresentTimeGOOGLE,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PresentTimesInfoGOOGLE<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PRESENT_TIMES_INFO_GOOGLE;
+    }
+    unsafe impl<'a> Extends<PresentInfoKHR<'a>> for PresentTimesInfoGOOGLE<'a> {}
     impl Default for PresentTimesInfoGOOGLE<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PRESENT_TIMES_INFO_GOOGLE,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 swapchain_count: Default::default(),
                 p_times: core::ptr::null(),

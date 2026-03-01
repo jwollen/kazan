@@ -16,10 +16,15 @@ pub(super) mod defs {
         pub shared_present_supported_usage_flags: ImageUsageFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SharedPresentSurfaceCapabilitiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::SHARED_PRESENT_SURFACE_CAPABILITIES_KHR;
+    }
+    unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>> for SharedPresentSurfaceCapabilitiesKHR<'a> {}
     impl Default for SharedPresentSurfaceCapabilitiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SHARED_PRESENT_SURFACE_CAPABILITIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 shared_present_supported_usage_flags: Default::default(),
                 _marker: PhantomData,

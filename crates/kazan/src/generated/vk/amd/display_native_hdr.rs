@@ -16,10 +16,18 @@ pub(super) mod defs {
         pub local_dimming_support: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DisplayNativeHdrSurfaceCapabilitiesAMD<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD;
+    }
+    unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>>
+        for DisplayNativeHdrSurfaceCapabilitiesAMD<'a>
+    {
+    }
     impl Default for DisplayNativeHdrSurfaceCapabilitiesAMD<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 local_dimming_support: Default::default(),
                 _marker: PhantomData,
@@ -40,10 +48,15 @@ pub(super) mod defs {
         pub local_dimming_enable: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SwapchainDisplayNativeHdrCreateInfoAMD<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::SWAPCHAIN_DISPLAY_NATIVE_HDR_CREATE_INFO_AMD;
+    }
+    unsafe impl<'a> Extends<SwapchainCreateInfoKHR<'a>> for SwapchainDisplayNativeHdrCreateInfoAMD<'a> {}
     impl Default for SwapchainDisplayNativeHdrCreateInfoAMD<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SWAPCHAIN_DISPLAY_NATIVE_HDR_CREATE_INFO_AMD,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 local_dimming_enable: Default::default(),
                 _marker: PhantomData,

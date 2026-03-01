@@ -16,10 +16,13 @@ pub(super) mod defs {
         pub time_domain: TimeDomainKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for CalibratedTimestampInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::CALIBRATED_TIMESTAMP_INFO_KHR;
+    }
     impl Default for CalibratedTimestampInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::CALIBRATED_TIMESTAMP_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 time_domain: Default::default(),
                 _marker: PhantomData,

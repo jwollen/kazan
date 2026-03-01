@@ -18,10 +18,19 @@ pub(super) mod defs {
         pub fragment_density_map_non_subsampled_images: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentDensityMapFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceFragmentDensityMapFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceFragmentDensityMapFeaturesEXT<'a> {}
     impl Default for PhysicalDeviceFragmentDensityMapFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 fragment_density_map: Default::default(),
                 fragment_density_map_dynamic: Default::default(),
@@ -61,10 +70,18 @@ pub(super) mod defs {
         pub fragment_density_invocations: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentDensityMapPropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceFragmentDensityMapPropertiesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceFragmentDensityMapPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 min_fragment_density_texel_size: Default::default(),
                 max_fragment_density_texel_size: Default::default(),
@@ -104,10 +121,22 @@ pub(super) mod defs {
         pub fragment_density_map_attachment: AttachmentReference,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RenderPassFragmentDensityMapCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::RENDER_PASS_FRAGMENT_DENSITY_MAP_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<RenderPassCreateInfo<'a>>
+        for RenderPassFragmentDensityMapCreateInfoEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<RenderPassCreateInfo2<'a>>
+        for RenderPassFragmentDensityMapCreateInfoEXT<'a>
+    {
+    }
     impl Default for RenderPassFragmentDensityMapCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RENDER_PASS_FRAGMENT_DENSITY_MAP_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 fragment_density_map_attachment: Default::default(),
                 _marker: PhantomData,
@@ -132,10 +161,15 @@ pub(super) mod defs {
         pub image_layout: ImageLayout,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RenderingFragmentDensityMapAttachmentInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<RenderingInfo<'a>> for RenderingFragmentDensityMapAttachmentInfoEXT<'a> {}
     impl Default for RenderingFragmentDensityMapAttachmentInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 image_view: Default::default(),
                 image_layout: Default::default(),

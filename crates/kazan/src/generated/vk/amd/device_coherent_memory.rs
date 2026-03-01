@@ -16,10 +16,19 @@ pub(super) mod defs {
         pub device_coherent_memory: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCoherentMemoryFeaturesAMD<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceCoherentMemoryFeaturesAMD<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceCoherentMemoryFeaturesAMD<'a> {}
     impl Default for PhysicalDeviceCoherentMemoryFeaturesAMD<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 device_coherent_memory: Default::default(),
                 _marker: PhantomData,

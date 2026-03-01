@@ -17,10 +17,15 @@ pub(super) mod defs {
         pub device_fault_vendor_binary: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFaultFeaturesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_FAULT_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceFaultFeaturesEXT<'a> {}
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceFaultFeaturesEXT<'a> {}
     impl Default for PhysicalDeviceFaultFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_FAULT_FEATURES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 device_fault: Default::default(),
                 device_fault_vendor_binary: Default::default(),
@@ -95,10 +100,13 @@ pub(super) mod defs {
         pub vendor_binary_size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DeviceFaultCountsEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_FAULT_COUNTS_EXT;
+    }
     impl Default for DeviceFaultCountsEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEVICE_FAULT_COUNTS_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 address_info_count: Default::default(),
                 vendor_info_count: Default::default(),
@@ -132,10 +140,13 @@ pub(super) mod defs {
         pub p_vendor_binary_data: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for DeviceFaultInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_FAULT_INFO_EXT;
+    }
     impl Default for DeviceFaultInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::DEVICE_FAULT_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 description: [Default::default(); _],
                 p_address_infos: core::ptr::null_mut(),

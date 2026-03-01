@@ -17,10 +17,15 @@ pub(super) mod defs {
         pub shading_rate_attachment_texel_size: Extent2D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for FragmentShadingRateAttachmentInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<SubpassDescription2<'a>> for FragmentShadingRateAttachmentInfoKHR<'a> {}
     impl Default for FragmentShadingRateAttachmentInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 p_fragment_shading_rate_attachment: core::ptr::null(),
                 shading_rate_attachment_texel_size: Default::default(),
@@ -53,10 +58,18 @@ pub(super) mod defs {
         pub combiner_ops: [FragmentShadingRateCombinerOpKHR; 2],
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineFragmentShadingRateStateCreateInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_FRAGMENT_SHADING_RATE_STATE_CREATE_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>>
+        for PipelineFragmentShadingRateStateCreateInfoKHR<'a>
+    {
+    }
     impl Default for PipelineFragmentShadingRateStateCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_FRAGMENT_SHADING_RATE_STATE_CREATE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 fragment_size: Default::default(),
                 combiner_ops: [Default::default(); _],
@@ -84,10 +97,19 @@ pub(super) mod defs {
         pub attachment_fragment_shading_rate: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentShadingRateFeaturesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_FEATURES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceFragmentShadingRateFeaturesKHR<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceFragmentShadingRateFeaturesKHR<'a> {}
     impl Default for PhysicalDeviceFragmentShadingRateFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_FEATURES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 pipeline_fragment_shading_rate: Default::default(),
                 primitive_fragment_shading_rate: Default::default(),
@@ -143,10 +165,18 @@ pub(super) mod defs {
         pub fragment_shading_rate_strict_multiply_combiner: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentShadingRatePropertiesKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_PROPERTIES_KHR;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceFragmentShadingRatePropertiesKHR<'a>
+    {
+    }
     impl Default for PhysicalDeviceFragmentShadingRatePropertiesKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_PROPERTIES_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 min_fragment_shading_rate_attachment_texel_size: Default::default(),
                 max_fragment_shading_rate_attachment_texel_size: Default::default(),
@@ -309,10 +339,14 @@ pub(super) mod defs {
         pub fragment_size: Extent2D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentShadingRateKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR;
+    }
     impl Default for PhysicalDeviceFragmentShadingRateKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 sample_counts: Default::default(),
                 fragment_size: Default::default(),
@@ -340,10 +374,15 @@ pub(super) mod defs {
         pub shading_rate_attachment_texel_size: Extent2D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RenderingFragmentShadingRateAttachmentInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR;
+    }
+    unsafe impl<'a> Extends<RenderingInfo<'a>> for RenderingFragmentShadingRateAttachmentInfoKHR<'a> {}
     impl Default for RenderingFragmentShadingRateAttachmentInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 image_view: Default::default(),
                 image_layout: Default::default(),

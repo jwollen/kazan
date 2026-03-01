@@ -16,15 +16,28 @@ pub(super) mod defs {
         pub multisampled_render_to_single_sampled: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a>
+        for PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<'a>
+    {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_FEATURES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
-s_type: StructureType::PHYSICAL_DEVICE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_FEATURES_EXT
-,
-p_next: core::ptr::null_mut(),
-multisampled_render_to_single_sampled: Default::default(),
-_marker: PhantomData
-}
+                s_type: Self::STRUCTURE_TYPE,
+                p_next: core::ptr::null_mut(),
+                multisampled_render_to_single_sampled: Default::default(),
+                _marker: PhantomData,
+            }
         }
     }
     impl<'a> PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<'a> {
@@ -44,10 +57,14 @@ _marker: PhantomData
         pub optimal: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SubpassResolvePerformanceQueryEXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SUBPASS_RESOLVE_PERFORMANCE_QUERY_EXT;
+    }
+    unsafe impl<'a> Extends<FormatProperties2<'a>> for SubpassResolvePerformanceQueryEXT<'a> {}
     impl Default for SubpassResolvePerformanceQueryEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SUBPASS_RESOLVE_PERFORMANCE_QUERY_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 optimal: Default::default(),
                 _marker: PhantomData,
@@ -69,10 +86,16 @@ _marker: PhantomData
         pub rasterization_samples: SampleCountFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for MultisampledRenderToSingleSampledInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<SubpassDescription2<'a>> for MultisampledRenderToSingleSampledInfoEXT<'a> {}
+    unsafe impl<'a> Extends<RenderingInfo<'a>> for MultisampledRenderToSingleSampledInfoEXT<'a> {}
     impl Default for MultisampledRenderToSingleSampledInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 multisampled_render_to_single_sampled_enable: Default::default(),
                 rasterization_samples: Default::default(),

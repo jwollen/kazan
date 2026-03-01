@@ -16,10 +16,18 @@ pub(super) mod defs {
         pub max_discard_rectangles: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDiscardRectanglePropertiesEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_DISCARD_RECTANGLE_PROPERTIES_EXT;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceDiscardRectanglePropertiesEXT<'a>
+    {
+    }
     impl Default for PhysicalDeviceDiscardRectanglePropertiesEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_DISCARD_RECTANGLE_PROPERTIES_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 max_discard_rectangles: Default::default(),
                 _marker: PhantomData,
@@ -43,10 +51,18 @@ pub(super) mod defs {
         pub p_discard_rectangles: *const Rect2D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PipelineDiscardRectangleStateCreateInfoEXT<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PIPELINE_DISCARD_RECTANGLE_STATE_CREATE_INFO_EXT;
+    }
+    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>>
+        for PipelineDiscardRectangleStateCreateInfoEXT<'a>
+    {
+    }
     impl Default for PipelineDiscardRectangleStateCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PIPELINE_DISCARD_RECTANGLE_STATE_CREATE_INFO_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 discard_rectangle_mode: Default::default(),
@@ -81,12 +97,10 @@ pub(super) mod defs {
         pub const INCLUSIVE_EXT: Self = Self(0);
         pub const EXCLUSIVE_EXT: Self = Self(1);
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct PipelineDiscardRectangleStateCreateFlagsEXT: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct PipelineDiscardRectangleStateCreateFlagsEXT(Flags);
+    impl PipelineDiscardRectangleStateCreateFlagsEXT {}
     pub type PFN_vkCmdSetDiscardRectangleEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         first_discard_rectangle: u32,

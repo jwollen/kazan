@@ -16,10 +16,19 @@ pub(super) mod defs {
         pub render_pass_striped: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRenderPassStripedFeaturesARM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_RENDER_PASS_STRIPED_FEATURES_ARM;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDeviceRenderPassStripedFeaturesARM<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceRenderPassStripedFeaturesARM<'a> {}
     impl Default for PhysicalDeviceRenderPassStripedFeaturesARM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_RENDER_PASS_STRIPED_FEATURES_ARM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 render_pass_striped: Default::default(),
                 _marker: PhantomData,
@@ -41,10 +50,18 @@ pub(super) mod defs {
         pub max_render_pass_stripes: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRenderPassStripedPropertiesARM<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_RENDER_PASS_STRIPED_PROPERTIES_ARM;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
+        for PhysicalDeviceRenderPassStripedPropertiesARM<'a>
+    {
+    }
     impl Default for PhysicalDeviceRenderPassStripedPropertiesARM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_RENDER_PASS_STRIPED_PROPERTIES_ARM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 render_pass_stripe_granularity: Default::default(),
                 max_render_pass_stripes: Default::default(),
@@ -73,10 +90,13 @@ pub(super) mod defs {
         pub stripe_area: Rect2D,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RenderPassStripeInfoARM<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::RENDER_PASS_STRIPE_INFO_ARM;
+    }
     impl Default for RenderPassStripeInfoARM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RENDER_PASS_STRIPE_INFO_ARM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 stripe_area: Default::default(),
                 _marker: PhantomData,
@@ -98,10 +118,15 @@ pub(super) mod defs {
         pub p_stripe_infos: *const RenderPassStripeInfoARM<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RenderPassStripeBeginInfoARM<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::RENDER_PASS_STRIPE_BEGIN_INFO_ARM;
+    }
+    unsafe impl<'a> Extends<RenderingInfo<'a>> for RenderPassStripeBeginInfoARM<'a> {}
+    unsafe impl<'a> Extends<RenderPassBeginInfo<'a>> for RenderPassStripeBeginInfoARM<'a> {}
     impl Default for RenderPassStripeBeginInfoARM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RENDER_PASS_STRIPE_BEGIN_INFO_ARM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 stripe_info_count: Default::default(),
                 p_stripe_infos: core::ptr::null(),
@@ -125,10 +150,14 @@ pub(super) mod defs {
         pub p_stripe_semaphore_infos: *const SemaphoreSubmitInfo<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for RenderPassStripeSubmitInfoARM<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::RENDER_PASS_STRIPE_SUBMIT_INFO_ARM;
+    }
+    unsafe impl<'a> Extends<CommandBufferSubmitInfo<'a>> for RenderPassStripeSubmitInfoARM<'a> {}
     impl Default for RenderPassStripeSubmitInfoARM<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::RENDER_PASS_STRIPE_SUBMIT_INFO_ARM,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 stripe_semaphore_info_count: Default::default(),
                 p_stripe_semaphore_infos: core::ptr::null(),

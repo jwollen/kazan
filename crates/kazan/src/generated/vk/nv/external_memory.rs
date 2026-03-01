@@ -16,10 +16,14 @@ pub(super) mod defs {
         pub handle_types: ExternalMemoryHandleTypeFlagsNV,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExternalMemoryImageCreateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_MEMORY_IMAGE_CREATE_INFO_NV;
+    }
+    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ExternalMemoryImageCreateInfoNV<'a> {}
     impl Default for ExternalMemoryImageCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXTERNAL_MEMORY_IMAGE_CREATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 handle_types: Default::default(),
                 _marker: PhantomData,
@@ -40,10 +44,14 @@ pub(super) mod defs {
         pub handle_types: ExternalMemoryHandleTypeFlagsNV,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for ExportMemoryAllocateInfoNV<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_MEMORY_ALLOCATE_INFO_NV;
+    }
+    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ExportMemoryAllocateInfoNV<'a> {}
     impl Default for ExportMemoryAllocateInfoNV<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::EXPORT_MEMORY_ALLOCATE_INFO_NV,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 handle_types: Default::default(),
                 _marker: PhantomData,

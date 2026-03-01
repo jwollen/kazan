@@ -16,10 +16,22 @@ pub(super) mod defs {
         pub pipeline_cache_incremental_mode: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePipelineCacheIncrementalModeFeaturesSEC<'a> {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC;
+    }
+    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
+        for PhysicalDevicePipelineCacheIncrementalModeFeaturesSEC<'a>
+    {
+    }
+    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
+        for PhysicalDevicePipelineCacheIncrementalModeFeaturesSEC<'a>
+    {
+    }
     impl Default for PhysicalDevicePipelineCacheIncrementalModeFeaturesSEC<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 pipeline_cache_incremental_mode: Default::default(),
                 _marker: PhantomData,

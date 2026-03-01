@@ -18,10 +18,13 @@ pub(super) mod defs {
         pub window: *mut ANativeWindow,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for AndroidSurfaceCreateInfoKHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::ANDROID_SURFACE_CREATE_INFO_KHR;
+    }
     impl Default for AndroidSurfaceCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::ANDROID_SURFACE_CREATE_INFO_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 flags: Default::default(),
                 window: core::ptr::null_mut(),
@@ -39,12 +42,10 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct AndroidSurfaceCreateFlagsKHR: Flags {
-        }
-    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct AndroidSurfaceCreateFlagsKHR(Flags);
+    impl AndroidSurfaceCreateFlagsKHR {}
     pub type PFN_vkCreateAndroidSurfaceKHR = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const AndroidSurfaceCreateInfoKHR<'_>,

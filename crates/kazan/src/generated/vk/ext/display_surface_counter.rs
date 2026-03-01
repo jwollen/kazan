@@ -26,10 +26,13 @@ pub(super) mod defs {
         pub supported_surface_counters: SurfaceCounterFlagsEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SurfaceCapabilities2EXT<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SURFACE_CAPABILITIES_2_EXT;
+    }
     impl Default for SurfaceCapabilities2EXT<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SURFACE_CAPABILITIES_2_EXT,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 min_image_count: Default::default(),
                 max_image_count: Default::default(),
@@ -101,15 +104,14 @@ pub(super) mod defs {
             self
         }
     }
-    bitflags! {
-        #[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct SurfaceCounterFlagsEXT: Flags {
-            const VBLANK_EXT = SurfaceCounterFlagBitsEXT::VBLANK_EXT.0;
-        }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct SurfaceCounterFlagsEXT(Flags);
+    impl SurfaceCounterFlagsEXT {
+        pub const VBLANK_EXT: Self = Self(SurfaceCounterFlagBitsEXT::VBLANK_EXT.0);
     }
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SurfaceCounterFlagBitsEXT(u32);
     impl SurfaceCounterFlagBitsEXT {
         pub const VBLANK_EXT: Self = Self(1 << 0);

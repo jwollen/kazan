@@ -16,10 +16,13 @@ pub(super) mod defs {
         pub surface: SurfaceKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSurfaceInfo2KHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_SURFACE_INFO_2_KHR;
+    }
     impl Default for PhysicalDeviceSurfaceInfo2KHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::PHYSICAL_DEVICE_SURFACE_INFO_2_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null(),
                 surface: Default::default(),
                 _marker: PhantomData,
@@ -40,10 +43,13 @@ pub(super) mod defs {
         pub surface_capabilities: SurfaceCapabilitiesKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SurfaceCapabilities2KHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SURFACE_CAPABILITIES_2_KHR;
+    }
     impl Default for SurfaceCapabilities2KHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SURFACE_CAPABILITIES_2_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 surface_capabilities: Default::default(),
                 _marker: PhantomData,
@@ -67,10 +73,13 @@ pub(super) mod defs {
         pub surface_format: SurfaceFormatKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+    unsafe impl<'a> TaggedStructure<'a> for SurfaceFormat2KHR<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::SURFACE_FORMAT_2_KHR;
+    }
     impl Default for SurfaceFormat2KHR<'_> {
         fn default() -> Self {
             Self {
-                s_type: StructureType::SURFACE_FORMAT_2_KHR,
+                s_type: Self::STRUCTURE_TYPE,
                 p_next: core::ptr::null_mut(),
                 surface_format: Default::default(),
                 _marker: PhantomData,
