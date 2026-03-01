@@ -6,13 +6,10 @@ pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
+    use core::fmt;
     use core::marker::PhantomData;
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct CuModuleNVX(u64);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct CuFunctionNVX(u64);
+    handle_nondispatchable!(CuModuleNVX, CU_MODULE_NVX, doc = "");
+    handle_nondispatchable!(CuFunctionNVX, CU_FUNCTION_NVX, doc = "");
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct CuModuleCreateInfoNVX<'a> {

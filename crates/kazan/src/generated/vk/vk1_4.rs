@@ -6,6 +6,7 @@ pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
+    use core::fmt;
     use core::marker::PhantomData;
     pub const MAX_GLOBAL_PRIORITY_SIZE: u32 = 16;
     #[repr(C)]

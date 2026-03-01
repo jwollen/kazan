@@ -6,10 +6,13 @@ pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
+    use core::fmt;
     use core::marker::PhantomData;
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct IndirectCommandsLayoutNV(u64);
+    handle_nondispatchable!(
+        IndirectCommandsLayoutNV,
+        INDIRECT_COMMANDS_LAYOUT_NV,
+        doc = ""
+    );
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'a> {

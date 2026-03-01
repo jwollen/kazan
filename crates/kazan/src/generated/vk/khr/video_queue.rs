@@ -6,13 +6,14 @@ pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
+    use core::fmt;
     use core::marker::PhantomData;
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct VideoSessionKHR(u64);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct VideoSessionParametersKHR(u64);
+    handle_nondispatchable!(VideoSessionKHR, VIDEO_SESSION_KHR, doc = "");
+    handle_nondispatchable!(
+        VideoSessionParametersKHR,
+        VIDEO_SESSION_PARAMETERS_KHR,
+        doc = ""
+    );
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct QueueFamilyVideoPropertiesKHR<'a> {

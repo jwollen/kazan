@@ -6,10 +6,9 @@ pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
+    use core::fmt;
     use core::marker::PhantomData;
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct DebugUtilsMessengerEXT(u64);
+    handle_nondispatchable!(DebugUtilsMessengerEXT, DEBUG_UTILS_MESSENGER_EXT, doc = "");
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DebugUtilsObjectNameInfoEXT<'a> {

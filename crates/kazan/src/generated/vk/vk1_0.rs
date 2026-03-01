@@ -6,6 +6,7 @@ pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
+    use core::fmt;
     use core::marker::PhantomData;
     pub const FALSE: u32 = 0;
     pub const LOD_CLAMP_NONE: f32 = 1000.0;
@@ -27,81 +28,31 @@ pub(super) mod defs {
     pub type Flags = u32;
     pub type DeviceSize = u64;
     pub type DeviceAddress = u64;
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct Instance(usize);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct PhysicalDevice(usize);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct Device(usize);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct Queue(usize);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct CommandBuffer(usize);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct DeviceMemory(u64);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct CommandPool(u64);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct Buffer(u64);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct BufferView(u64);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct Image(u64);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct ImageView(u64);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct ShaderModule(u64);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct Pipeline(u64);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct PipelineLayout(u64);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct Sampler(u64);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct DescriptorSet(u64);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct DescriptorSetLayout(u64);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct DescriptorPool(u64);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct Fence(u64);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct Semaphore(u64);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct Event(u64);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct QueryPool(u64);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct Framebuffer(u64);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct RenderPass(u64);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct PipelineCache(u64);
+    define_handle!(Instance, INSTANCE, doc = "");
+    define_handle!(PhysicalDevice, PHYSICAL_DEVICE, doc = "");
+    define_handle!(Device, DEVICE, doc = "");
+    define_handle!(Queue, QUEUE, doc = "");
+    define_handle!(CommandBuffer, COMMAND_BUFFER, doc = "");
+    handle_nondispatchable!(DeviceMemory, DEVICE_MEMORY, doc = "");
+    handle_nondispatchable!(CommandPool, COMMAND_POOL, doc = "");
+    handle_nondispatchable!(Buffer, BUFFER, doc = "");
+    handle_nondispatchable!(BufferView, BUFFER_VIEW, doc = "");
+    handle_nondispatchable!(Image, IMAGE, doc = "");
+    handle_nondispatchable!(ImageView, IMAGE_VIEW, doc = "");
+    handle_nondispatchable!(ShaderModule, SHADER_MODULE, doc = "");
+    handle_nondispatchable!(Pipeline, PIPELINE, doc = "");
+    handle_nondispatchable!(PipelineLayout, PIPELINE_LAYOUT, doc = "");
+    handle_nondispatchable!(Sampler, SAMPLER, doc = "");
+    handle_nondispatchable!(DescriptorSet, DESCRIPTOR_SET, doc = "");
+    handle_nondispatchable!(DescriptorSetLayout, DESCRIPTOR_SET_LAYOUT, doc = "");
+    handle_nondispatchable!(DescriptorPool, DESCRIPTOR_POOL, doc = "");
+    handle_nondispatchable!(Fence, FENCE, doc = "");
+    handle_nondispatchable!(Semaphore, SEMAPHORE, doc = "");
+    handle_nondispatchable!(Event, EVENT, doc = "");
+    handle_nondispatchable!(QueryPool, QUERY_POOL, doc = "");
+    handle_nondispatchable!(Framebuffer, FRAMEBUFFER, doc = "");
+    handle_nondispatchable!(RenderPass, RENDER_PASS, doc = "");
+    handle_nondispatchable!(PipelineCache, PIPELINE_CACHE, doc = "");
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct BaseOutStructure<'a> {

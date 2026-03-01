@@ -169,6 +169,7 @@ fn generate(analysis: &analysis::Analysis) {
                     file,
                     "#![allow(non_camel_case_types, unused_imports)]
                     use core::ffi::{{c_char, c_int, c_void, CStr}};
+                    use core::fmt;
                     use core::marker::PhantomData;
                     use crate::{{*, vk::*}};"
                 )
@@ -292,20 +293,16 @@ fn generate_handles(
         .filter(|ty| new_items.contains(ty.name));
 
     for handle in handles {
-        let underlying_ty = match handle.ty {
-            "VK_DEFINE_HANDLE" => "usize",
-            "VK_DEFINE_NON_DISPATCHABLE_HANDLE" => "u64",
+        let macro_name = match handle.ty {
+            "VK_DEFINE_HANDLE" => "define_handle",
+            "VK_DEFINE_NON_DISPATCHABLE_HANDLE" => "handle_nondispatchable",
             _ => panic!(),
         };
-        writeln!(
-            file,
-            "#[repr(C)]
-            #[derive(Copy, Clone, Default)]
-            pub struct {}({});",
-            normalize_ty_name(handle.name),
-            underlying_ty
-        )
-        .unwrap();
+
+        let name = normalize_ty_name(handle.name);
+        let obj_type = handle.objtypeenum.strip_prefix("VK_OBJECT_TYPE_").unwrap();
+
+        writeln!(file, "{macro_name}!({name}, {obj_type}, doc = \"\");").unwrap();
     }
 }
 

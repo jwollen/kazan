@@ -6,11 +6,14 @@ pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
+    use core::fmt;
     use core::marker::PhantomData;
     pub const MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM: u32 = 128;
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct DataGraphPipelineSessionARM(u64);
+    handle_nondispatchable!(
+        DataGraphPipelineSessionARM,
+        DATA_GRAPH_PIPELINE_SESSION_ARM,
+        doc = ""
+    );
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceDataGraphFeaturesARM<'a> {

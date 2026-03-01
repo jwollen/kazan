@@ -6,11 +6,10 @@ pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
+    use core::fmt;
     use core::marker::PhantomData;
     pub const MAX_PIPELINE_BINARY_KEY_SIZE_KHR: u32 = 32;
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct PipelineBinaryKHR(u64);
+    handle_nondispatchable!(PipelineBinaryKHR, PIPELINE_BINARY_KHR, doc = "");
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineBinaryCreateInfoKHR<'a> {

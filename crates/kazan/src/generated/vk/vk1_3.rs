@@ -6,11 +6,10 @@ pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
+    use core::fmt;
     use core::marker::PhantomData;
     pub type Flags64 = u64;
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct PrivateDataSlot(u64);
+    handle_nondispatchable!(PrivateDataSlot, PRIVATE_DATA_SLOT, doc = "");
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DevicePrivateDataCreateInfo<'a> {

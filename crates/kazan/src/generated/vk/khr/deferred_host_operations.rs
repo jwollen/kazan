@@ -6,10 +6,9 @@ pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
+    use core::fmt;
     use core::marker::PhantomData;
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct DeferredOperationKHR(u64);
+    handle_nondispatchable!(DeferredOperationKHR, DEFERRED_OPERATION_KHR, doc = "");
     pub type PFN_vkCreateDeferredOperationKHR = unsafe extern "system" fn(
         device: Device,
         p_allocator: *const AllocationCallbacks<'_>,

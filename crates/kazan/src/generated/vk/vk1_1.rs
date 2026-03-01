@@ -6,16 +6,17 @@ pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
+    use core::fmt;
     use core::marker::PhantomData;
     pub const MAX_DEVICE_GROUP_SIZE: u32 = 32;
     pub const LUID_SIZE: u32 = 8;
     pub const QUEUE_FAMILY_EXTERNAL: u32 = !1;
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct DescriptorUpdateTemplate(u64);
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct SamplerYcbcrConversion(u64);
+    handle_nondispatchable!(
+        DescriptorUpdateTemplate,
+        DESCRIPTOR_UPDATE_TEMPLATE,
+        doc = ""
+    );
+    handle_nondispatchable!(SamplerYcbcrConversion, SAMPLER_YCBCR_CONVERSION, doc = "");
     pub type PhysicalDeviceVariablePointerFeatures<'a> = PhysicalDeviceVariablePointersFeatures<'a>;
     pub type PhysicalDeviceShaderDrawParameterFeatures<'a> =
         PhysicalDeviceShaderDrawParametersFeatures<'a>;

@@ -6,10 +6,9 @@ pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
+    use core::fmt;
     use core::marker::PhantomData;
-    #[repr(C)]
-    #[derive(Copy, Clone, Default)]
-    pub struct ShaderEXT(u64);
+    handle_nondispatchable!(ShaderEXT, SHADER_EXT, doc = "");
     pub type ShaderRequiredSubgroupSizeCreateInfoEXT<'a> =
         PipelineShaderStageRequiredSubgroupSizeCreateInfo<'a>;
     #[repr(C)]
