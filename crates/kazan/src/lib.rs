@@ -22,7 +22,7 @@ pub trait ExtendUninit<T> {
 
 impl<T> ExtendUninit<T> for Vec<T> {
     unsafe fn reserve(&mut self, capacity: usize) -> &mut [MaybeUninit<T>] {
-        self.reserve(capacity.saturating_div(self.capacity()));
+        self.reserve(capacity.saturating_sub(self.capacity()));
         self.spare_capacity_mut()
     }
 
