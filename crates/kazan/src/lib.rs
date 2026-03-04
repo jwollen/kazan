@@ -6,7 +6,7 @@ pub use chain::*;
 
 pub(crate) mod macros;
 
-//mod loading;
+mod loading;
 
 use core::{
     ffi::{CStr, c_char}, fmt, mem::MaybeUninit, ptr
@@ -186,7 +186,7 @@ pub trait Handle: Sized {
     }
 }
 
-pub struct LoadingError;
+pub use loading::MissingEntryPointError;
 
 pub type Result<T> = core::result::Result<T, vk::Result>;
 

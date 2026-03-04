@@ -132,12 +132,14 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_draw_multi_ext: transmute(load(c"vkCmdDrawMultiEXT").ok_or(LoadingError)?),
+                cmd_draw_multi_ext: transmute(
+                    load(c"vkCmdDrawMultiEXT").ok_or(MissingEntryPointError)?,
+                ),
                 cmd_draw_multi_indexed_ext: transmute(
-                    load(c"vkCmdDrawMultiIndexedEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdDrawMultiIndexedEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

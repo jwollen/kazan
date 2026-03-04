@@ -23,11 +23,11 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 release_swapchain_images_ext: transmute(
-                    load(c"vkReleaseSwapchainImagesEXT").ok_or(LoadingError)?,
+                    load(c"vkReleaseSwapchainImagesEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

@@ -25,17 +25,18 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_image_memory_requirements2_khr: transmute(
-                    load(c"vkGetImageMemoryRequirements2KHR").ok_or(LoadingError)?,
+                    load(c"vkGetImageMemoryRequirements2KHR").ok_or(MissingEntryPointError)?,
                 ),
                 get_buffer_memory_requirements2_khr: transmute(
-                    load(c"vkGetBufferMemoryRequirements2KHR").ok_or(LoadingError)?,
+                    load(c"vkGetBufferMemoryRequirements2KHR").ok_or(MissingEntryPointError)?,
                 ),
                 get_image_sparse_memory_requirements2_khr: transmute(
-                    load(c"vkGetImageSparseMemoryRequirements2KHR").ok_or(LoadingError)?,
+                    load(c"vkGetImageSparseMemoryRequirements2KHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }

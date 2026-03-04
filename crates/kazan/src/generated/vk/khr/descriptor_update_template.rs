@@ -26,17 +26,17 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 create_descriptor_update_template_khr: transmute(
-                    load(c"vkCreateDescriptorUpdateTemplateKHR").ok_or(LoadingError)?,
+                    load(c"vkCreateDescriptorUpdateTemplateKHR").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_descriptor_update_template_khr: transmute(
-                    load(c"vkDestroyDescriptorUpdateTemplateKHR").ok_or(LoadingError)?,
+                    load(c"vkDestroyDescriptorUpdateTemplateKHR").ok_or(MissingEntryPointError)?,
                 ),
                 update_descriptor_set_with_template_khr: transmute(
-                    load(c"vkUpdateDescriptorSetWithTemplateKHR").ok_or(LoadingError)?,
+                    load(c"vkUpdateDescriptorSetWithTemplateKHR").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_push_descriptor_set_with_template_khr: transmute(load(
                     c"vkCmdPushDescriptorSetWithTemplateKHR",

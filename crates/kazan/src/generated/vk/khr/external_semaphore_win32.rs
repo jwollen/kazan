@@ -189,14 +189,14 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 import_semaphore_win32_handle_khr: transmute(
-                    load(c"vkImportSemaphoreWin32HandleKHR").ok_or(LoadingError)?,
+                    load(c"vkImportSemaphoreWin32HandleKHR").ok_or(MissingEntryPointError)?,
                 ),
                 get_semaphore_win32_handle_khr: transmute(
-                    load(c"vkGetSemaphoreWin32HandleKHR").ok_or(LoadingError)?,
+                    load(c"vkGetSemaphoreWin32HandleKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

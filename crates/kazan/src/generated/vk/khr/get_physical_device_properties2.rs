@@ -41,30 +41,34 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_physical_device_features2_khr: transmute(
-                    load(c"vkGetPhysicalDeviceFeatures2KHR").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceFeatures2KHR").ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_properties2_khr: transmute(
-                    load(c"vkGetPhysicalDeviceProperties2KHR").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceProperties2KHR").ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_format_properties2_khr: transmute(
-                    load(c"vkGetPhysicalDeviceFormatProperties2KHR").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceFormatProperties2KHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_image_format_properties2_khr: transmute(
-                    load(c"vkGetPhysicalDeviceImageFormatProperties2KHR").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceImageFormatProperties2KHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_queue_family_properties2_khr: transmute(
-                    load(c"vkGetPhysicalDeviceQueueFamilyProperties2KHR").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceQueueFamilyProperties2KHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_memory_properties2_khr: transmute(
-                    load(c"vkGetPhysicalDeviceMemoryProperties2KHR").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceMemoryProperties2KHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_sparse_image_format_properties2_khr: transmute(
                     load(c"vkGetPhysicalDeviceSparseImageFormatProperties2KHR")
-                        .ok_or(LoadingError)?,
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }

@@ -175,17 +175,18 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_pipeline_indirect_memory_requirements_nv: transmute(
-                    load(c"vkGetPipelineIndirectMemoryRequirementsNV").ok_or(LoadingError)?,
+                    load(c"vkGetPipelineIndirectMemoryRequirementsNV")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 cmd_update_pipeline_indirect_buffer_nv: transmute(
-                    load(c"vkCmdUpdatePipelineIndirectBufferNV").ok_or(LoadingError)?,
+                    load(c"vkCmdUpdatePipelineIndirectBufferNV").ok_or(MissingEntryPointError)?,
                 ),
                 get_pipeline_indirect_device_address_nv: transmute(
-                    load(c"vkGetPipelineIndirectDeviceAddressNV").ok_or(LoadingError)?,
+                    load(c"vkGetPipelineIndirectDeviceAddressNV").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

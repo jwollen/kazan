@@ -21,11 +21,12 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_physical_device_calibrateable_time_domains_ext: transmute(
-                    load(c"vkGetPhysicalDeviceCalibrateableTimeDomainsEXT").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceCalibrateableTimeDomainsEXT")
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }
@@ -60,11 +61,11 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_calibrated_timestamps_ext: transmute(
-                    load(c"vkGetCalibratedTimestampsEXT").ok_or(LoadingError)?,
+                    load(c"vkGetCalibratedTimestampsEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

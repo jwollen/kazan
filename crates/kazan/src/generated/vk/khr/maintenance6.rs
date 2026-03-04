@@ -135,14 +135,14 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 cmd_bind_descriptor_sets2_khr: transmute(
-                    load(c"vkCmdBindDescriptorSets2KHR").ok_or(LoadingError)?,
+                    load(c"vkCmdBindDescriptorSets2KHR").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_push_constants2_khr: transmute(
-                    load(c"vkCmdPushConstants2KHR").ok_or(LoadingError)?,
+                    load(c"vkCmdPushConstants2KHR").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_push_descriptor_set2_khr: transmute(load(c"vkCmdPushDescriptorSet2KHR")),
                 cmd_push_descriptor_set_with_template2_khr: transmute(load(

@@ -398,35 +398,38 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 initialize_performance_api_intel: transmute(
-                    load(c"vkInitializePerformanceApiINTEL").ok_or(LoadingError)?,
+                    load(c"vkInitializePerformanceApiINTEL").ok_or(MissingEntryPointError)?,
                 ),
                 uninitialize_performance_api_intel: transmute(
-                    load(c"vkUninitializePerformanceApiINTEL").ok_or(LoadingError)?,
+                    load(c"vkUninitializePerformanceApiINTEL").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_performance_marker_intel: transmute(
-                    load(c"vkCmdSetPerformanceMarkerINTEL").ok_or(LoadingError)?,
+                    load(c"vkCmdSetPerformanceMarkerINTEL").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_performance_stream_marker_intel: transmute(
-                    load(c"vkCmdSetPerformanceStreamMarkerINTEL").ok_or(LoadingError)?,
+                    load(c"vkCmdSetPerformanceStreamMarkerINTEL").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_performance_override_intel: transmute(
-                    load(c"vkCmdSetPerformanceOverrideINTEL").ok_or(LoadingError)?,
+                    load(c"vkCmdSetPerformanceOverrideINTEL").ok_or(MissingEntryPointError)?,
                 ),
                 acquire_performance_configuration_intel: transmute(
-                    load(c"vkAcquirePerformanceConfigurationINTEL").ok_or(LoadingError)?,
+                    load(c"vkAcquirePerformanceConfigurationINTEL")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 release_performance_configuration_intel: transmute(
-                    load(c"vkReleasePerformanceConfigurationINTEL").ok_or(LoadingError)?,
+                    load(c"vkReleasePerformanceConfigurationINTEL")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 queue_set_performance_configuration_intel: transmute(
-                    load(c"vkQueueSetPerformanceConfigurationINTEL").ok_or(LoadingError)?,
+                    load(c"vkQueueSetPerformanceConfigurationINTEL")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_performance_parameter_intel: transmute(
-                    load(c"vkGetPerformanceParameterINTEL").ok_or(LoadingError)?,
+                    load(c"vkGetPerformanceParameterINTEL").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

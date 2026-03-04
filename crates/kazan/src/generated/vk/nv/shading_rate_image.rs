@@ -360,17 +360,17 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 cmd_bind_shading_rate_image_nv: transmute(
-                    load(c"vkCmdBindShadingRateImageNV").ok_or(LoadingError)?,
+                    load(c"vkCmdBindShadingRateImageNV").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_viewport_shading_rate_palette_nv: transmute(
-                    load(c"vkCmdSetViewportShadingRatePaletteNV").ok_or(LoadingError)?,
+                    load(c"vkCmdSetViewportShadingRatePaletteNV").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_coarse_sample_order_nv: transmute(
-                    load(c"vkCmdSetCoarseSampleOrderNV").ok_or(LoadingError)?,
+                    load(c"vkCmdSetCoarseSampleOrderNV").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

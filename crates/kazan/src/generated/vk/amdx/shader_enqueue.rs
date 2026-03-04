@@ -411,29 +411,31 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 create_execution_graph_pipelines_amdx: transmute(
-                    load(c"vkCreateExecutionGraphPipelinesAMDX").ok_or(LoadingError)?,
+                    load(c"vkCreateExecutionGraphPipelinesAMDX").ok_or(MissingEntryPointError)?,
                 ),
                 get_execution_graph_pipeline_scratch_size_amdx: transmute(
-                    load(c"vkGetExecutionGraphPipelineScratchSizeAMDX").ok_or(LoadingError)?,
+                    load(c"vkGetExecutionGraphPipelineScratchSizeAMDX")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_execution_graph_pipeline_node_index_amdx: transmute(
-                    load(c"vkGetExecutionGraphPipelineNodeIndexAMDX").ok_or(LoadingError)?,
+                    load(c"vkGetExecutionGraphPipelineNodeIndexAMDX")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 cmd_initialize_graph_scratch_memory_amdx: transmute(
-                    load(c"vkCmdInitializeGraphScratchMemoryAMDX").ok_or(LoadingError)?,
+                    load(c"vkCmdInitializeGraphScratchMemoryAMDX").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_dispatch_graph_amdx: transmute(
-                    load(c"vkCmdDispatchGraphAMDX").ok_or(LoadingError)?,
+                    load(c"vkCmdDispatchGraphAMDX").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_dispatch_graph_indirect_amdx: transmute(
-                    load(c"vkCmdDispatchGraphIndirectAMDX").ok_or(LoadingError)?,
+                    load(c"vkCmdDispatchGraphIndirectAMDX").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_dispatch_graph_indirect_count_amdx: transmute(
-                    load(c"vkCmdDispatchGraphIndirectCountAMDX").ok_or(LoadingError)?,
+                    load(c"vkCmdDispatchGraphIndirectCountAMDX").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

@@ -100,14 +100,15 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_framebuffer_tile_properties_qcom: transmute(
-                    load(c"vkGetFramebufferTilePropertiesQCOM").ok_or(LoadingError)?,
+                    load(c"vkGetFramebufferTilePropertiesQCOM").ok_or(MissingEntryPointError)?,
                 ),
                 get_dynamic_rendering_tile_properties_qcom: transmute(
-                    load(c"vkGetDynamicRenderingTilePropertiesQCOM").ok_or(LoadingError)?,
+                    load(c"vkGetDynamicRenderingTilePropertiesQCOM")
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }

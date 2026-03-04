@@ -596,38 +596,38 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 cmd_set_depth_clamp_enable_ext: transmute(
-                    load(c"vkCmdSetDepthClampEnableEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetDepthClampEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_polygon_mode_ext: transmute(
-                    load(c"vkCmdSetPolygonModeEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetPolygonModeEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_rasterization_samples_ext: transmute(
-                    load(c"vkCmdSetRasterizationSamplesEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetRasterizationSamplesEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_sample_mask_ext: transmute(
-                    load(c"vkCmdSetSampleMaskEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetSampleMaskEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_alpha_to_coverage_enable_ext: transmute(
-                    load(c"vkCmdSetAlphaToCoverageEnableEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetAlphaToCoverageEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_alpha_to_one_enable_ext: transmute(
-                    load(c"vkCmdSetAlphaToOneEnableEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetAlphaToOneEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_logic_op_enable_ext: transmute(
-                    load(c"vkCmdSetLogicOpEnableEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetLogicOpEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_color_blend_enable_ext: transmute(
-                    load(c"vkCmdSetColorBlendEnableEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetColorBlendEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_color_blend_equation_ext: transmute(
-                    load(c"vkCmdSetColorBlendEquationEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetColorBlendEquationEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_color_write_mask_ext: transmute(
-                    load(c"vkCmdSetColorWriteMaskEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetColorWriteMaskEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_tessellation_domain_origin_ext: transmute(load(
                     c"vkCmdSetTessellationDomainOriginEXT",

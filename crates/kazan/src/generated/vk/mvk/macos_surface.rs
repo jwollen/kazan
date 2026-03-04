@@ -59,11 +59,11 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 create_mac_os_surface_mvk: transmute(
-                    load(c"vkCreateMacOSSurfaceMVK").ok_or(LoadingError)?,
+                    load(c"vkCreateMacOSSurfaceMVK").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

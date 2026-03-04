@@ -288,18 +288,18 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_pipeline_executable_properties_khr: transmute(
-                    load(c"vkGetPipelineExecutablePropertiesKHR").ok_or(LoadingError)?,
+                    load(c"vkGetPipelineExecutablePropertiesKHR").ok_or(MissingEntryPointError)?,
                 ),
                 get_pipeline_executable_statistics_khr: transmute(
-                    load(c"vkGetPipelineExecutableStatisticsKHR").ok_or(LoadingError)?,
+                    load(c"vkGetPipelineExecutableStatisticsKHR").ok_or(MissingEntryPointError)?,
                 ),
                 get_pipeline_executable_internal_representations_khr: transmute(
                     load(c"vkGetPipelineExecutableInternalRepresentationsKHR")
-                        .ok_or(LoadingError)?,
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }

@@ -29,20 +29,20 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 create_render_pass2_khr: transmute(
-                    load(c"vkCreateRenderPass2KHR").ok_or(LoadingError)?,
+                    load(c"vkCreateRenderPass2KHR").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_begin_render_pass2_khr: transmute(
-                    load(c"vkCmdBeginRenderPass2KHR").ok_or(LoadingError)?,
+                    load(c"vkCmdBeginRenderPass2KHR").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_next_subpass2_khr: transmute(
-                    load(c"vkCmdNextSubpass2KHR").ok_or(LoadingError)?,
+                    load(c"vkCmdNextSubpass2KHR").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_end_render_pass2_khr: transmute(
-                    load(c"vkCmdEndRenderPass2KHR").ok_or(LoadingError)?,
+                    load(c"vkCmdEndRenderPass2KHR").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

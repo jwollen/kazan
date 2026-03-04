@@ -37,20 +37,26 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_copy_buffer2_khr: transmute(load(c"vkCmdCopyBuffer2KHR").ok_or(LoadingError)?),
-                cmd_copy_image2_khr: transmute(load(c"vkCmdCopyImage2KHR").ok_or(LoadingError)?),
+                cmd_copy_buffer2_khr: transmute(
+                    load(c"vkCmdCopyBuffer2KHR").ok_or(MissingEntryPointError)?,
+                ),
+                cmd_copy_image2_khr: transmute(
+                    load(c"vkCmdCopyImage2KHR").ok_or(MissingEntryPointError)?,
+                ),
                 cmd_copy_buffer_to_image2_khr: transmute(
-                    load(c"vkCmdCopyBufferToImage2KHR").ok_or(LoadingError)?,
+                    load(c"vkCmdCopyBufferToImage2KHR").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_copy_image_to_buffer2_khr: transmute(
-                    load(c"vkCmdCopyImageToBuffer2KHR").ok_or(LoadingError)?,
+                    load(c"vkCmdCopyImageToBuffer2KHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_blit_image2_khr: transmute(load(c"vkCmdBlitImage2KHR").ok_or(LoadingError)?),
+                cmd_blit_image2_khr: transmute(
+                    load(c"vkCmdBlitImage2KHR").ok_or(MissingEntryPointError)?,
+                ),
                 cmd_resolve_image2_khr: transmute(
-                    load(c"vkCmdResolveImage2KHR").ok_or(LoadingError)?,
+                    load(c"vkCmdResolveImage2KHR").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

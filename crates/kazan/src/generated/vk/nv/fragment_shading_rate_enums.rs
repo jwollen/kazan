@@ -216,11 +216,11 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 cmd_set_fragment_shading_rate_enum_nv: transmute(
-                    load(c"vkCmdSetFragmentShadingRateEnumNV").ok_or(LoadingError)?,
+                    load(c"vkCmdSetFragmentShadingRateEnumNV").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

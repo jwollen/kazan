@@ -18,14 +18,14 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 cmd_draw_indirect_count_khr: transmute(
-                    load(c"vkCmdDrawIndirectCountKHR").ok_or(LoadingError)?,
+                    load(c"vkCmdDrawIndirectCountKHR").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_draw_indexed_indirect_count_khr: transmute(
-                    load(c"vkCmdDrawIndexedIndirectCountKHR").ok_or(LoadingError)?,
+                    load(c"vkCmdDrawIndexedIndirectCountKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

@@ -782,42 +782,50 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_micromap_ext: transmute(load(c"vkCreateMicromapEXT").ok_or(LoadingError)?),
-                destroy_micromap_ext: transmute(load(c"vkDestroyMicromapEXT").ok_or(LoadingError)?),
-                cmd_build_micromaps_ext: transmute(
-                    load(c"vkCmdBuildMicromapsEXT").ok_or(LoadingError)?,
+                create_micromap_ext: transmute(
+                    load(c"vkCreateMicromapEXT").ok_or(MissingEntryPointError)?,
                 ),
-                build_micromaps_ext: transmute(load(c"vkBuildMicromapsEXT").ok_or(LoadingError)?),
-                copy_micromap_ext: transmute(load(c"vkCopyMicromapEXT").ok_or(LoadingError)?),
+                destroy_micromap_ext: transmute(
+                    load(c"vkDestroyMicromapEXT").ok_or(MissingEntryPointError)?,
+                ),
+                cmd_build_micromaps_ext: transmute(
+                    load(c"vkCmdBuildMicromapsEXT").ok_or(MissingEntryPointError)?,
+                ),
+                build_micromaps_ext: transmute(
+                    load(c"vkBuildMicromapsEXT").ok_or(MissingEntryPointError)?,
+                ),
+                copy_micromap_ext: transmute(
+                    load(c"vkCopyMicromapEXT").ok_or(MissingEntryPointError)?,
+                ),
                 copy_micromap_to_memory_ext: transmute(
-                    load(c"vkCopyMicromapToMemoryEXT").ok_or(LoadingError)?,
+                    load(c"vkCopyMicromapToMemoryEXT").ok_or(MissingEntryPointError)?,
                 ),
                 copy_memory_to_micromap_ext: transmute(
-                    load(c"vkCopyMemoryToMicromapEXT").ok_or(LoadingError)?,
+                    load(c"vkCopyMemoryToMicromapEXT").ok_or(MissingEntryPointError)?,
                 ),
                 write_micromaps_properties_ext: transmute(
-                    load(c"vkWriteMicromapsPropertiesEXT").ok_or(LoadingError)?,
+                    load(c"vkWriteMicromapsPropertiesEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_copy_micromap_ext: transmute(
-                    load(c"vkCmdCopyMicromapEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdCopyMicromapEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_copy_micromap_to_memory_ext: transmute(
-                    load(c"vkCmdCopyMicromapToMemoryEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdCopyMicromapToMemoryEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_copy_memory_to_micromap_ext: transmute(
-                    load(c"vkCmdCopyMemoryToMicromapEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdCopyMemoryToMicromapEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_write_micromaps_properties_ext: transmute(
-                    load(c"vkCmdWriteMicromapsPropertiesEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdWriteMicromapsPropertiesEXT").ok_or(MissingEntryPointError)?,
                 ),
                 get_device_micromap_compatibility_ext: transmute(
-                    load(c"vkGetDeviceMicromapCompatibilityEXT").ok_or(LoadingError)?,
+                    load(c"vkGetDeviceMicromapCompatibilityEXT").ok_or(MissingEntryPointError)?,
                 ),
                 get_micromap_build_sizes_ext: transmute(
-                    load(c"vkGetMicromapBuildSizesEXT").ok_or(LoadingError)?,
+                    load(c"vkGetMicromapBuildSizesEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

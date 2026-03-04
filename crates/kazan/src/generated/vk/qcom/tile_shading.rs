@@ -328,17 +328,17 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 cmd_dispatch_tile_qcom: transmute(
-                    load(c"vkCmdDispatchTileQCOM").ok_or(LoadingError)?,
+                    load(c"vkCmdDispatchTileQCOM").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_begin_per_tile_execution_qcom: transmute(
-                    load(c"vkCmdBeginPerTileExecutionQCOM").ok_or(LoadingError)?,
+                    load(c"vkCmdBeginPerTileExecutionQCOM").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_end_per_tile_execution_qcom: transmute(
-                    load(c"vkCmdEndPerTileExecutionQCOM").ok_or(LoadingError)?,
+                    load(c"vkCmdEndPerTileExecutionQCOM").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

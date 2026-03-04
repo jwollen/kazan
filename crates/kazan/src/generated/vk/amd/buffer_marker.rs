@@ -30,11 +30,11 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 cmd_write_buffer_marker_amd: transmute(
-                    load(c"vkCmdWriteBufferMarkerAMD").ok_or(LoadingError)?,
+                    load(c"vkCmdWriteBufferMarkerAMD").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_write_buffer_marker2_amd: transmute(load(c"vkCmdWriteBufferMarker2AMD")),
             })

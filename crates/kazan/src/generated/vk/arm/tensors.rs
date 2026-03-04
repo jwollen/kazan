@@ -1129,11 +1129,12 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_physical_device_external_tensor_properties_arm: transmute(
-                    load(c"vkGetPhysicalDeviceExternalTensorPropertiesARM").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceExternalTensorPropertiesARM")
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }
@@ -1173,27 +1174,34 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_tensor_arm: transmute(load(c"vkCreateTensorARM").ok_or(LoadingError)?),
-                destroy_tensor_arm: transmute(load(c"vkDestroyTensorARM").ok_or(LoadingError)?),
+                create_tensor_arm: transmute(
+                    load(c"vkCreateTensorARM").ok_or(MissingEntryPointError)?,
+                ),
+                destroy_tensor_arm: transmute(
+                    load(c"vkDestroyTensorARM").ok_or(MissingEntryPointError)?,
+                ),
                 create_tensor_view_arm: transmute(
-                    load(c"vkCreateTensorViewARM").ok_or(LoadingError)?,
+                    load(c"vkCreateTensorViewARM").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_tensor_view_arm: transmute(
-                    load(c"vkDestroyTensorViewARM").ok_or(LoadingError)?,
+                    load(c"vkDestroyTensorViewARM").ok_or(MissingEntryPointError)?,
                 ),
                 get_tensor_memory_requirements_arm: transmute(
-                    load(c"vkGetTensorMemoryRequirementsARM").ok_or(LoadingError)?,
+                    load(c"vkGetTensorMemoryRequirementsARM").ok_or(MissingEntryPointError)?,
                 ),
                 bind_tensor_memory_arm: transmute(
-                    load(c"vkBindTensorMemoryARM").ok_or(LoadingError)?,
+                    load(c"vkBindTensorMemoryARM").ok_or(MissingEntryPointError)?,
                 ),
                 get_device_tensor_memory_requirements_arm: transmute(
-                    load(c"vkGetDeviceTensorMemoryRequirementsARM").ok_or(LoadingError)?,
+                    load(c"vkGetDeviceTensorMemoryRequirementsARM")
+                        .ok_or(MissingEntryPointError)?,
                 ),
-                cmd_copy_tensor_arm: transmute(load(c"vkCmdCopyTensorARM").ok_or(LoadingError)?),
+                cmd_copy_tensor_arm: transmute(
+                    load(c"vkCmdCopyTensorARM").ok_or(MissingEntryPointError)?,
+                ),
                 get_tensor_opaque_capture_descriptor_data_arm: transmute(load(
                     c"vkGetTensorOpaqueCaptureDescriptorDataARM",
                 )),

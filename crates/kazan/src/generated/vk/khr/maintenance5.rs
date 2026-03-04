@@ -32,20 +32,20 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 cmd_bind_index_buffer2_khr: transmute(
-                    load(c"vkCmdBindIndexBuffer2KHR").ok_or(LoadingError)?,
+                    load(c"vkCmdBindIndexBuffer2KHR").ok_or(MissingEntryPointError)?,
                 ),
                 get_rendering_area_granularity_khr: transmute(
-                    load(c"vkGetRenderingAreaGranularityKHR").ok_or(LoadingError)?,
+                    load(c"vkGetRenderingAreaGranularityKHR").ok_or(MissingEntryPointError)?,
                 ),
                 get_device_image_subresource_layout_khr: transmute(
-                    load(c"vkGetDeviceImageSubresourceLayoutKHR").ok_or(LoadingError)?,
+                    load(c"vkGetDeviceImageSubresourceLayoutKHR").ok_or(MissingEntryPointError)?,
                 ),
                 get_image_subresource_layout2_khr: transmute(
-                    load(c"vkGetImageSubresourceLayout2KHR").ok_or(LoadingError)?,
+                    load(c"vkGetImageSubresourceLayout2KHR").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

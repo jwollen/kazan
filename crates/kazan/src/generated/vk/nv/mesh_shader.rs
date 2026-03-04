@@ -203,14 +203,14 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 cmd_draw_mesh_tasks_nv: transmute(
-                    load(c"vkCmdDrawMeshTasksNV").ok_or(LoadingError)?,
+                    load(c"vkCmdDrawMeshTasksNV").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_draw_mesh_tasks_indirect_nv: transmute(
-                    load(c"vkCmdDrawMeshTasksIndirectNV").ok_or(LoadingError)?,
+                    load(c"vkCmdDrawMeshTasksIndirectNV").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_draw_mesh_tasks_indirect_count_nv: transmute(load(
                     c"vkCmdDrawMeshTasksIndirectCountNV",

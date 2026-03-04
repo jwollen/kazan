@@ -103,11 +103,15 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                import_fence_fd_khr: transmute(load(c"vkImportFenceFdKHR").ok_or(LoadingError)?),
-                get_fence_fd_khr: transmute(load(c"vkGetFenceFdKHR").ok_or(LoadingError)?),
+                import_fence_fd_khr: transmute(
+                    load(c"vkImportFenceFdKHR").ok_or(MissingEntryPointError)?,
+                ),
+                get_fence_fd_khr: transmute(
+                    load(c"vkGetFenceFdKHR").ok_or(MissingEntryPointError)?,
+                ),
             })
         }
     }

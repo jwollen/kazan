@@ -301,14 +301,14 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 cmd_copy_memory_indirect_khr: transmute(
-                    load(c"vkCmdCopyMemoryIndirectKHR").ok_or(LoadingError)?,
+                    load(c"vkCmdCopyMemoryIndirectKHR").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_copy_memory_to_image_indirect_khr: transmute(
-                    load(c"vkCmdCopyMemoryToImageIndirectKHR").ok_or(LoadingError)?,
+                    load(c"vkCmdCopyMemoryToImageIndirectKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

@@ -22,12 +22,12 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_physical_device_external_semaphore_properties_khr: transmute(
                     load(c"vkGetPhysicalDeviceExternalSemaphorePropertiesKHR")
-                        .ok_or(LoadingError)?,
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }

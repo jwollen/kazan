@@ -96,14 +96,14 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 cmd_set_exclusive_scissor_enable_nv: transmute(
-                    load(c"vkCmdSetExclusiveScissorEnableNV").ok_or(LoadingError)?,
+                    load(c"vkCmdSetExclusiveScissorEnableNV").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_exclusive_scissor_nv: transmute(
-                    load(c"vkCmdSetExclusiveScissorNV").ok_or(LoadingError)?,
+                    load(c"vkCmdSetExclusiveScissorNV").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

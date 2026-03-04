@@ -458,21 +458,23 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 create_pipeline_binaries_khr: transmute(
-                    load(c"vkCreatePipelineBinariesKHR").ok_or(LoadingError)?,
+                    load(c"vkCreatePipelineBinariesKHR").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_pipeline_binary_khr: transmute(
-                    load(c"vkDestroyPipelineBinaryKHR").ok_or(LoadingError)?,
+                    load(c"vkDestroyPipelineBinaryKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_pipeline_key_khr: transmute(load(c"vkGetPipelineKeyKHR").ok_or(LoadingError)?),
+                get_pipeline_key_khr: transmute(
+                    load(c"vkGetPipelineKeyKHR").ok_or(MissingEntryPointError)?,
+                ),
                 get_pipeline_binary_data_khr: transmute(
-                    load(c"vkGetPipelineBinaryDataKHR").ok_or(LoadingError)?,
+                    load(c"vkGetPipelineBinaryDataKHR").ok_or(MissingEntryPointError)?,
                 ),
                 release_captured_pipeline_data_khr: transmute(
-                    load(c"vkReleaseCapturedPipelineDataKHR").ok_or(LoadingError)?,
+                    load(c"vkReleaseCapturedPipelineDataKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

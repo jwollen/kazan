@@ -51,10 +51,12 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                wait_for_present_khr: transmute(load(c"vkWaitForPresentKHR").ok_or(LoadingError)?),
+                wait_for_present_khr: transmute(
+                    load(c"vkWaitForPresentKHR").ok_or(MissingEntryPointError)?,
+                ),
             })
         }
     }

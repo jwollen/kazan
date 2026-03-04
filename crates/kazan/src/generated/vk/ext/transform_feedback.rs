@@ -259,26 +259,26 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 cmd_bind_transform_feedback_buffers_ext: transmute(
-                    load(c"vkCmdBindTransformFeedbackBuffersEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdBindTransformFeedbackBuffersEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_begin_transform_feedback_ext: transmute(
-                    load(c"vkCmdBeginTransformFeedbackEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdBeginTransformFeedbackEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_end_transform_feedback_ext: transmute(
-                    load(c"vkCmdEndTransformFeedbackEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdEndTransformFeedbackEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_begin_query_indexed_ext: transmute(
-                    load(c"vkCmdBeginQueryIndexedEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdBeginQueryIndexedEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_end_query_indexed_ext: transmute(
-                    load(c"vkCmdEndQueryIndexedEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdEndQueryIndexedEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_draw_indirect_byte_count_ext: transmute(
-                    load(c"vkCmdDrawIndirectByteCountEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdDrawIndirectByteCountEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

@@ -59,10 +59,12 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_vi_surface_nn: transmute(load(c"vkCreateViSurfaceNN").ok_or(LoadingError)?),
+                create_vi_surface_nn: transmute(
+                    load(c"vkCreateViSurfaceNN").ok_or(MissingEntryPointError)?,
+                ),
             })
         }
     }

@@ -160,14 +160,14 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 cmd_set_checkpoint_nv: transmute(
-                    load(c"vkCmdSetCheckpointNV").ok_or(LoadingError)?,
+                    load(c"vkCmdSetCheckpointNV").ok_or(MissingEntryPointError)?,
                 ),
                 get_queue_checkpoint_data_nv: transmute(
-                    load(c"vkGetQueueCheckpointDataNV").ok_or(LoadingError)?,
+                    load(c"vkGetQueueCheckpointDataNV").ok_or(MissingEntryPointError)?,
                 ),
                 get_queue_checkpoint_data2_nv: transmute(load(c"vkGetQueueCheckpointData2NV")),
             })

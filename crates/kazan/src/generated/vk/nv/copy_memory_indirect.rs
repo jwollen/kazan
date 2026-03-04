@@ -68,14 +68,14 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 cmd_copy_memory_indirect_nv: transmute(
-                    load(c"vkCmdCopyMemoryIndirectNV").ok_or(LoadingError)?,
+                    load(c"vkCmdCopyMemoryIndirectNV").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_copy_memory_to_image_indirect_nv: transmute(
-                    load(c"vkCmdCopyMemoryToImageIndirectNV").ok_or(LoadingError)?,
+                    load(c"vkCmdCopyMemoryToImageIndirectNV").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

@@ -106,10 +106,12 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                set_hdr_metadata_ext: transmute(load(c"vkSetHdrMetadataEXT").ok_or(LoadingError)?),
+                set_hdr_metadata_ext: transmute(
+                    load(c"vkSetHdrMetadataEXT").ok_or(MissingEntryPointError)?,
+                ),
             })
         }
     }

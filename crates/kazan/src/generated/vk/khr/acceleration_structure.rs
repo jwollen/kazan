@@ -1322,57 +1322,66 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 create_acceleration_structure_khr: transmute(
-                    load(c"vkCreateAccelerationStructureKHR").ok_or(LoadingError)?,
+                    load(c"vkCreateAccelerationStructureKHR").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_acceleration_structure_khr: transmute(
-                    load(c"vkDestroyAccelerationStructureKHR").ok_or(LoadingError)?,
+                    load(c"vkDestroyAccelerationStructureKHR").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_build_acceleration_structures_khr: transmute(
-                    load(c"vkCmdBuildAccelerationStructuresKHR").ok_or(LoadingError)?,
+                    load(c"vkCmdBuildAccelerationStructuresKHR").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_build_acceleration_structures_indirect_khr: transmute(
-                    load(c"vkCmdBuildAccelerationStructuresIndirectKHR").ok_or(LoadingError)?,
+                    load(c"vkCmdBuildAccelerationStructuresIndirectKHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 build_acceleration_structures_khr: transmute(
-                    load(c"vkBuildAccelerationStructuresKHR").ok_or(LoadingError)?,
+                    load(c"vkBuildAccelerationStructuresKHR").ok_or(MissingEntryPointError)?,
                 ),
                 copy_acceleration_structure_khr: transmute(
-                    load(c"vkCopyAccelerationStructureKHR").ok_or(LoadingError)?,
+                    load(c"vkCopyAccelerationStructureKHR").ok_or(MissingEntryPointError)?,
                 ),
                 copy_acceleration_structure_to_memory_khr: transmute(
-                    load(c"vkCopyAccelerationStructureToMemoryKHR").ok_or(LoadingError)?,
+                    load(c"vkCopyAccelerationStructureToMemoryKHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 copy_memory_to_acceleration_structure_khr: transmute(
-                    load(c"vkCopyMemoryToAccelerationStructureKHR").ok_or(LoadingError)?,
+                    load(c"vkCopyMemoryToAccelerationStructureKHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 write_acceleration_structures_properties_khr: transmute(
-                    load(c"vkWriteAccelerationStructuresPropertiesKHR").ok_or(LoadingError)?,
+                    load(c"vkWriteAccelerationStructuresPropertiesKHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 cmd_copy_acceleration_structure_khr: transmute(
-                    load(c"vkCmdCopyAccelerationStructureKHR").ok_or(LoadingError)?,
+                    load(c"vkCmdCopyAccelerationStructureKHR").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_copy_acceleration_structure_to_memory_khr: transmute(
-                    load(c"vkCmdCopyAccelerationStructureToMemoryKHR").ok_or(LoadingError)?,
+                    load(c"vkCmdCopyAccelerationStructureToMemoryKHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 cmd_copy_memory_to_acceleration_structure_khr: transmute(
-                    load(c"vkCmdCopyMemoryToAccelerationStructureKHR").ok_or(LoadingError)?,
+                    load(c"vkCmdCopyMemoryToAccelerationStructureKHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_acceleration_structure_device_address_khr: transmute(
-                    load(c"vkGetAccelerationStructureDeviceAddressKHR").ok_or(LoadingError)?,
+                    load(c"vkGetAccelerationStructureDeviceAddressKHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 cmd_write_acceleration_structures_properties_khr: transmute(
-                    load(c"vkCmdWriteAccelerationStructuresPropertiesKHR").ok_or(LoadingError)?,
+                    load(c"vkCmdWriteAccelerationStructuresPropertiesKHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_device_acceleration_structure_compatibility_khr: transmute(
                     load(c"vkGetDeviceAccelerationStructureCompatibilityKHR")
-                        .ok_or(LoadingError)?,
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_acceleration_structure_build_sizes_khr: transmute(
-                    load(c"vkGetAccelerationStructureBuildSizesKHR").ok_or(LoadingError)?,
+                    load(c"vkGetAccelerationStructureBuildSizesKHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }

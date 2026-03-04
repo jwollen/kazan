@@ -74,14 +74,15 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 create_xlib_surface_khr: transmute(
-                    load(c"vkCreateXlibSurfaceKHR").ok_or(LoadingError)?,
+                    load(c"vkCreateXlibSurfaceKHR").ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_xlib_presentation_support_khr: transmute(
-                    load(c"vkGetPhysicalDeviceXlibPresentationSupportKHR").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceXlibPresentationSupportKHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }

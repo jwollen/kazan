@@ -89,11 +89,11 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_memory_win32_handle_nv: transmute(
-                    load(c"vkGetMemoryWin32HandleNV").ok_or(LoadingError)?,
+                    load(c"vkGetMemoryWin32HandleNV").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

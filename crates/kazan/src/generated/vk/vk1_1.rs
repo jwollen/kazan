@@ -3058,11 +3058,11 @@ pub struct EntryFn {
 impl EntryFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 enumerate_instance_version: transmute(
-                    load(c"vkEnumerateInstanceVersion").ok_or(LoadingError)?,
+                    load(c"vkEnumerateInstanceVersion").ok_or(MissingEntryPointError)?,
                 ),
             })
         }
@@ -3099,41 +3099,47 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 enumerate_physical_device_groups: transmute(
-                    load(c"vkEnumeratePhysicalDeviceGroups").ok_or(LoadingError)?,
+                    load(c"vkEnumeratePhysicalDeviceGroups").ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_features2: transmute(
-                    load(c"vkGetPhysicalDeviceFeatures2").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceFeatures2").ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_properties2: transmute(
-                    load(c"vkGetPhysicalDeviceProperties2").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceProperties2").ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_format_properties2: transmute(
-                    load(c"vkGetPhysicalDeviceFormatProperties2").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceFormatProperties2").ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_image_format_properties2: transmute(
-                    load(c"vkGetPhysicalDeviceImageFormatProperties2").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceImageFormatProperties2")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_queue_family_properties2: transmute(
-                    load(c"vkGetPhysicalDeviceQueueFamilyProperties2").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceQueueFamilyProperties2")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_memory_properties2: transmute(
-                    load(c"vkGetPhysicalDeviceMemoryProperties2").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceMemoryProperties2").ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_sparse_image_format_properties2: transmute(
-                    load(c"vkGetPhysicalDeviceSparseImageFormatProperties2").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceSparseImageFormatProperties2")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_external_buffer_properties: transmute(
-                    load(c"vkGetPhysicalDeviceExternalBufferProperties").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceExternalBufferProperties")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_external_fence_properties: transmute(
-                    load(c"vkGetPhysicalDeviceExternalFenceProperties").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceExternalFenceProperties")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_external_semaphore_properties: transmute(
-                    load(c"vkGetPhysicalDeviceExternalSemaphoreProperties").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceExternalSemaphoreProperties")
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }
@@ -3333,44 +3339,56 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                bind_buffer_memory2: transmute(load(c"vkBindBufferMemory2").ok_or(LoadingError)?),
-                bind_image_memory2: transmute(load(c"vkBindImageMemory2").ok_or(LoadingError)?),
-                get_device_group_peer_memory_features: transmute(
-                    load(c"vkGetDeviceGroupPeerMemoryFeatures").ok_or(LoadingError)?,
+                bind_buffer_memory2: transmute(
+                    load(c"vkBindBufferMemory2").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_device_mask: transmute(load(c"vkCmdSetDeviceMask").ok_or(LoadingError)?),
+                bind_image_memory2: transmute(
+                    load(c"vkBindImageMemory2").ok_or(MissingEntryPointError)?,
+                ),
+                get_device_group_peer_memory_features: transmute(
+                    load(c"vkGetDeviceGroupPeerMemoryFeatures").ok_or(MissingEntryPointError)?,
+                ),
+                cmd_set_device_mask: transmute(
+                    load(c"vkCmdSetDeviceMask").ok_or(MissingEntryPointError)?,
+                ),
                 get_image_memory_requirements2: transmute(
-                    load(c"vkGetImageMemoryRequirements2").ok_or(LoadingError)?,
+                    load(c"vkGetImageMemoryRequirements2").ok_or(MissingEntryPointError)?,
                 ),
                 get_buffer_memory_requirements2: transmute(
-                    load(c"vkGetBufferMemoryRequirements2").ok_or(LoadingError)?,
+                    load(c"vkGetBufferMemoryRequirements2").ok_or(MissingEntryPointError)?,
                 ),
                 get_image_sparse_memory_requirements2: transmute(
-                    load(c"vkGetImageSparseMemoryRequirements2").ok_or(LoadingError)?,
+                    load(c"vkGetImageSparseMemoryRequirements2").ok_or(MissingEntryPointError)?,
                 ),
-                trim_command_pool: transmute(load(c"vkTrimCommandPool").ok_or(LoadingError)?),
-                get_device_queue2: transmute(load(c"vkGetDeviceQueue2").ok_or(LoadingError)?),
-                cmd_dispatch_base: transmute(load(c"vkCmdDispatchBase").ok_or(LoadingError)?),
+                trim_command_pool: transmute(
+                    load(c"vkTrimCommandPool").ok_or(MissingEntryPointError)?,
+                ),
+                get_device_queue2: transmute(
+                    load(c"vkGetDeviceQueue2").ok_or(MissingEntryPointError)?,
+                ),
+                cmd_dispatch_base: transmute(
+                    load(c"vkCmdDispatchBase").ok_or(MissingEntryPointError)?,
+                ),
                 create_descriptor_update_template: transmute(
-                    load(c"vkCreateDescriptorUpdateTemplate").ok_or(LoadingError)?,
+                    load(c"vkCreateDescriptorUpdateTemplate").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_descriptor_update_template: transmute(
-                    load(c"vkDestroyDescriptorUpdateTemplate").ok_or(LoadingError)?,
+                    load(c"vkDestroyDescriptorUpdateTemplate").ok_or(MissingEntryPointError)?,
                 ),
                 update_descriptor_set_with_template: transmute(
-                    load(c"vkUpdateDescriptorSetWithTemplate").ok_or(LoadingError)?,
+                    load(c"vkUpdateDescriptorSetWithTemplate").ok_or(MissingEntryPointError)?,
                 ),
                 get_descriptor_set_layout_support: transmute(
-                    load(c"vkGetDescriptorSetLayoutSupport").ok_or(LoadingError)?,
+                    load(c"vkGetDescriptorSetLayoutSupport").ok_or(MissingEntryPointError)?,
                 ),
                 create_sampler_ycbcr_conversion: transmute(
-                    load(c"vkCreateSamplerYcbcrConversion").ok_or(LoadingError)?,
+                    load(c"vkCreateSamplerYcbcrConversion").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_sampler_ycbcr_conversion: transmute(
-                    load(c"vkDestroySamplerYcbcrConversion").ok_or(LoadingError)?,
+                    load(c"vkDestroySamplerYcbcrConversion").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

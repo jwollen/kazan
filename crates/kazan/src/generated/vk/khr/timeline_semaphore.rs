@@ -30,14 +30,18 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_semaphore_counter_value_khr: transmute(
-                    load(c"vkGetSemaphoreCounterValueKHR").ok_or(LoadingError)?,
+                    load(c"vkGetSemaphoreCounterValueKHR").ok_or(MissingEntryPointError)?,
                 ),
-                wait_semaphores_khr: transmute(load(c"vkWaitSemaphoresKHR").ok_or(LoadingError)?),
-                signal_semaphore_khr: transmute(load(c"vkSignalSemaphoreKHR").ok_or(LoadingError)?),
+                wait_semaphores_khr: transmute(
+                    load(c"vkWaitSemaphoresKHR").ok_or(MissingEntryPointError)?,
+                ),
+                signal_semaphore_khr: transmute(
+                    load(c"vkSignalSemaphoreKHR").ok_or(MissingEntryPointError)?,
+                ),
             })
         }
     }

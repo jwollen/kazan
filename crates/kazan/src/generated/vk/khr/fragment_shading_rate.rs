@@ -453,11 +453,12 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_physical_device_fragment_shading_rates_khr: transmute(
-                    load(c"vkGetPhysicalDeviceFragmentShadingRatesKHR").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceFragmentShadingRatesKHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }
@@ -495,11 +496,11 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 cmd_set_fragment_shading_rate_khr: transmute(
-                    load(c"vkCmdSetFragmentShadingRateKHR").ok_or(LoadingError)?,
+                    load(c"vkCmdSetFragmentShadingRateKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

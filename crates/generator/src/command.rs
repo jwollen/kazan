@@ -156,7 +156,7 @@ pub fn generate_commands(
         writeln!(file, "}}").unwrap();
 
         writeln!(file, "impl {} {{", fn_type_name).unwrap();
-        writeln!(file, "pub unsafe fn load(load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>) -> core::result::Result<Self, LoadingError> {{").unwrap();
+        writeln!(file, "pub unsafe fn load(load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>) -> core::result::Result<Self, MissingEntryPointError> {{").unwrap();
         writeln!(file, "unsafe {{ Ok(Self {{").unwrap();
         for command_group in &command_groups {
             for command in &command_group.commands {
@@ -166,7 +166,7 @@ pub fn generate_commands(
                 } else {
                     writeln!(
                         file,
-                        "{}: transmute(load(c\"{}\").ok_or(LoadingError)?),",
+                        "{}: transmute(load(c\"{}\").ok_or(MissingEntryPointError)?),",
                         name, command.alias
                     )
                     .unwrap();

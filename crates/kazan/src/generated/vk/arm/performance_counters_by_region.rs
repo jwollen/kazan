@@ -246,13 +246,13 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 enumerate_physical_device_queue_family_performance_counters_by_region_arm:
                     transmute(
                         load(c"vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM")
-                            .ok_or(LoadingError)?,
+                            .ok_or(MissingEntryPointError)?,
                     ),
             })
         }

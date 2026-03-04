@@ -18,11 +18,11 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_descriptor_set_layout_support_khr: transmute(
-                    load(c"vkGetDescriptorSetLayoutSupportKHR").ok_or(LoadingError)?,
+                    load(c"vkGetDescriptorSetLayoutSupportKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

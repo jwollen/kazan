@@ -27,7 +27,7 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_physical_device_present_rectangles_khr: transmute(load(
@@ -73,17 +73,17 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_device_group_peer_memory_features_khr: transmute(
-                    load(c"vkGetDeviceGroupPeerMemoryFeaturesKHR").ok_or(LoadingError)?,
+                    load(c"vkGetDeviceGroupPeerMemoryFeaturesKHR").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_device_mask_khr: transmute(
-                    load(c"vkCmdSetDeviceMaskKHR").ok_or(LoadingError)?,
+                    load(c"vkCmdSetDeviceMaskKHR").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_dispatch_base_khr: transmute(
-                    load(c"vkCmdDispatchBaseKHR").ok_or(LoadingError)?,
+                    load(c"vkCmdDispatchBaseKHR").ok_or(MissingEntryPointError)?,
                 ),
                 get_device_group_present_capabilities_khr: transmute(load(
                     c"vkGetDeviceGroupPresentCapabilitiesKHR",

@@ -234,11 +234,11 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_screen_buffer_properties_qnx: transmute(
-                    load(c"vkGetScreenBufferPropertiesQNX").ok_or(LoadingError)?,
+                    load(c"vkGetScreenBufferPropertiesQNX").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

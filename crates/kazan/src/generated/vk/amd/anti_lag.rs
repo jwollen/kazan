@@ -165,10 +165,12 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                anti_lag_update_amd: transmute(load(c"vkAntiLagUpdateAMD").ok_or(LoadingError)?),
+                anti_lag_update_amd: transmute(
+                    load(c"vkAntiLagUpdateAMD").ok_or(MissingEntryPointError)?,
+                ),
             })
         }
     }

@@ -998,14 +998,16 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_physical_device_video_capabilities_khr: transmute(
-                    load(c"vkGetPhysicalDeviceVideoCapabilitiesKHR").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceVideoCapabilitiesKHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_video_format_properties_khr: transmute(
-                    load(c"vkGetPhysicalDeviceVideoFormatPropertiesKHR").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceVideoFormatPropertiesKHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }
@@ -1073,38 +1075,39 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 create_video_session_khr: transmute(
-                    load(c"vkCreateVideoSessionKHR").ok_or(LoadingError)?,
+                    load(c"vkCreateVideoSessionKHR").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_video_session_khr: transmute(
-                    load(c"vkDestroyVideoSessionKHR").ok_or(LoadingError)?,
+                    load(c"vkDestroyVideoSessionKHR").ok_or(MissingEntryPointError)?,
                 ),
                 get_video_session_memory_requirements_khr: transmute(
-                    load(c"vkGetVideoSessionMemoryRequirementsKHR").ok_or(LoadingError)?,
+                    load(c"vkGetVideoSessionMemoryRequirementsKHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 bind_video_session_memory_khr: transmute(
-                    load(c"vkBindVideoSessionMemoryKHR").ok_or(LoadingError)?,
+                    load(c"vkBindVideoSessionMemoryKHR").ok_or(MissingEntryPointError)?,
                 ),
                 create_video_session_parameters_khr: transmute(
-                    load(c"vkCreateVideoSessionParametersKHR").ok_or(LoadingError)?,
+                    load(c"vkCreateVideoSessionParametersKHR").ok_or(MissingEntryPointError)?,
                 ),
                 update_video_session_parameters_khr: transmute(
-                    load(c"vkUpdateVideoSessionParametersKHR").ok_or(LoadingError)?,
+                    load(c"vkUpdateVideoSessionParametersKHR").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_video_session_parameters_khr: transmute(
-                    load(c"vkDestroyVideoSessionParametersKHR").ok_or(LoadingError)?,
+                    load(c"vkDestroyVideoSessionParametersKHR").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_begin_video_coding_khr: transmute(
-                    load(c"vkCmdBeginVideoCodingKHR").ok_or(LoadingError)?,
+                    load(c"vkCmdBeginVideoCodingKHR").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_end_video_coding_khr: transmute(
-                    load(c"vkCmdEndVideoCodingKHR").ok_or(LoadingError)?,
+                    load(c"vkCmdEndVideoCodingKHR").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_control_video_coding_khr: transmute(
-                    load(c"vkCmdControlVideoCodingKHR").ok_or(LoadingError)?,
+                    load(c"vkCmdControlVideoCodingKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

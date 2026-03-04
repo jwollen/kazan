@@ -138,20 +138,20 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 create_validation_cache_ext: transmute(
-                    load(c"vkCreateValidationCacheEXT").ok_or(LoadingError)?,
+                    load(c"vkCreateValidationCacheEXT").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_validation_cache_ext: transmute(
-                    load(c"vkDestroyValidationCacheEXT").ok_or(LoadingError)?,
+                    load(c"vkDestroyValidationCacheEXT").ok_or(MissingEntryPointError)?,
                 ),
                 merge_validation_caches_ext: transmute(
-                    load(c"vkMergeValidationCachesEXT").ok_or(LoadingError)?,
+                    load(c"vkMergeValidationCachesEXT").ok_or(MissingEntryPointError)?,
                 ),
                 get_validation_cache_data_ext: transmute(
-                    load(c"vkGetValidationCacheDataEXT").ok_or(LoadingError)?,
+                    load(c"vkGetValidationCacheDataEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

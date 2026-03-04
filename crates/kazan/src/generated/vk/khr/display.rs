@@ -387,29 +387,31 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_physical_device_display_properties_khr: transmute(
-                    load(c"vkGetPhysicalDeviceDisplayPropertiesKHR").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceDisplayPropertiesKHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_display_plane_properties_khr: transmute(
-                    load(c"vkGetPhysicalDeviceDisplayPlanePropertiesKHR").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceDisplayPlanePropertiesKHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_display_plane_supported_displays_khr: transmute(
-                    load(c"vkGetDisplayPlaneSupportedDisplaysKHR").ok_or(LoadingError)?,
+                    load(c"vkGetDisplayPlaneSupportedDisplaysKHR").ok_or(MissingEntryPointError)?,
                 ),
                 get_display_mode_properties_khr: transmute(
-                    load(c"vkGetDisplayModePropertiesKHR").ok_or(LoadingError)?,
+                    load(c"vkGetDisplayModePropertiesKHR").ok_or(MissingEntryPointError)?,
                 ),
                 create_display_mode_khr: transmute(
-                    load(c"vkCreateDisplayModeKHR").ok_or(LoadingError)?,
+                    load(c"vkCreateDisplayModeKHR").ok_or(MissingEntryPointError)?,
                 ),
                 get_display_plane_capabilities_khr: transmute(
-                    load(c"vkGetDisplayPlaneCapabilitiesKHR").ok_or(LoadingError)?,
+                    load(c"vkGetDisplayPlaneCapabilitiesKHR").ok_or(MissingEntryPointError)?,
                 ),
                 create_display_plane_surface_khr: transmute(
-                    load(c"vkCreateDisplayPlaneSurfaceKHR").ok_or(LoadingError)?,
+                    load(c"vkCreateDisplayPlaneSurfaceKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

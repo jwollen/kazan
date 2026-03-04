@@ -2964,51 +2964,62 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                map_memory2: transmute(load(c"vkMapMemory2").ok_or(LoadingError)?),
-                unmap_memory2: transmute(load(c"vkUnmapMemory2").ok_or(LoadingError)?),
+                map_memory2: transmute(load(c"vkMapMemory2").ok_or(MissingEntryPointError)?),
+                unmap_memory2: transmute(load(c"vkUnmapMemory2").ok_or(MissingEntryPointError)?),
                 get_device_image_subresource_layout: transmute(
-                    load(c"vkGetDeviceImageSubresourceLayout").ok_or(LoadingError)?,
+                    load(c"vkGetDeviceImageSubresourceLayout").ok_or(MissingEntryPointError)?,
                 ),
                 get_image_subresource_layout2: transmute(
-                    load(c"vkGetImageSubresourceLayout2").ok_or(LoadingError)?,
+                    load(c"vkGetImageSubresourceLayout2").ok_or(MissingEntryPointError)?,
                 ),
-                copy_memory_to_image: transmute(load(c"vkCopyMemoryToImage").ok_or(LoadingError)?),
-                copy_image_to_memory: transmute(load(c"vkCopyImageToMemory").ok_or(LoadingError)?),
-                copy_image_to_image: transmute(load(c"vkCopyImageToImage").ok_or(LoadingError)?),
+                copy_memory_to_image: transmute(
+                    load(c"vkCopyMemoryToImage").ok_or(MissingEntryPointError)?,
+                ),
+                copy_image_to_memory: transmute(
+                    load(c"vkCopyImageToMemory").ok_or(MissingEntryPointError)?,
+                ),
+                copy_image_to_image: transmute(
+                    load(c"vkCopyImageToImage").ok_or(MissingEntryPointError)?,
+                ),
                 transition_image_layout: transmute(
-                    load(c"vkTransitionImageLayout").ok_or(LoadingError)?,
+                    load(c"vkTransitionImageLayout").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_push_descriptor_set: transmute(
-                    load(c"vkCmdPushDescriptorSet").ok_or(LoadingError)?,
+                    load(c"vkCmdPushDescriptorSet").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_push_descriptor_set_with_template: transmute(
-                    load(c"vkCmdPushDescriptorSetWithTemplate").ok_or(LoadingError)?,
+                    load(c"vkCmdPushDescriptorSetWithTemplate").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_bind_descriptor_sets2: transmute(
-                    load(c"vkCmdBindDescriptorSets2").ok_or(LoadingError)?,
+                    load(c"vkCmdBindDescriptorSets2").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_push_constants2: transmute(load(c"vkCmdPushConstants2").ok_or(LoadingError)?),
+                cmd_push_constants2: transmute(
+                    load(c"vkCmdPushConstants2").ok_or(MissingEntryPointError)?,
+                ),
                 cmd_push_descriptor_set2: transmute(
-                    load(c"vkCmdPushDescriptorSet2").ok_or(LoadingError)?,
+                    load(c"vkCmdPushDescriptorSet2").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_push_descriptor_set_with_template2: transmute(
-                    load(c"vkCmdPushDescriptorSetWithTemplate2").ok_or(LoadingError)?,
+                    load(c"vkCmdPushDescriptorSetWithTemplate2").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_line_stipple: transmute(load(c"vkCmdSetLineStipple").ok_or(LoadingError)?),
+                cmd_set_line_stipple: transmute(
+                    load(c"vkCmdSetLineStipple").ok_or(MissingEntryPointError)?,
+                ),
                 cmd_bind_index_buffer2: transmute(
-                    load(c"vkCmdBindIndexBuffer2").ok_or(LoadingError)?,
+                    load(c"vkCmdBindIndexBuffer2").ok_or(MissingEntryPointError)?,
                 ),
                 get_rendering_area_granularity: transmute(
-                    load(c"vkGetRenderingAreaGranularity").ok_or(LoadingError)?,
+                    load(c"vkGetRenderingAreaGranularity").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_rendering_attachment_locations: transmute(
-                    load(c"vkCmdSetRenderingAttachmentLocations").ok_or(LoadingError)?,
+                    load(c"vkCmdSetRenderingAttachmentLocations").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_rendering_input_attachment_indices: transmute(
-                    load(c"vkCmdSetRenderingInputAttachmentIndices").ok_or(LoadingError)?,
+                    load(c"vkCmdSetRenderingInputAttachmentIndices")
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }

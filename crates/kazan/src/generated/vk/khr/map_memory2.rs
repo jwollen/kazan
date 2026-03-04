@@ -21,11 +21,13 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                map_memory2_khr: transmute(load(c"vkMapMemory2KHR").ok_or(LoadingError)?),
-                unmap_memory2_khr: transmute(load(c"vkUnmapMemory2KHR").ok_or(LoadingError)?),
+                map_memory2_khr: transmute(load(c"vkMapMemory2KHR").ok_or(MissingEntryPointError)?),
+                unmap_memory2_khr: transmute(
+                    load(c"vkUnmapMemory2KHR").ok_or(MissingEntryPointError)?,
+                ),
             })
         }
     }

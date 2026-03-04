@@ -117,11 +117,11 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_memory_host_pointer_properties_ext: transmute(
-                    load(c"vkGetMemoryHostPointerPropertiesEXT").ok_or(LoadingError)?,
+                    load(c"vkGetMemoryHostPointerPropertiesEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

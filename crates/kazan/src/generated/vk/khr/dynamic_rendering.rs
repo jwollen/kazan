@@ -26,14 +26,14 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 cmd_begin_rendering_khr: transmute(
-                    load(c"vkCmdBeginRenderingKHR").ok_or(LoadingError)?,
+                    load(c"vkCmdBeginRenderingKHR").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_end_rendering_khr: transmute(
-                    load(c"vkCmdEndRenderingKHR").ok_or(LoadingError)?,
+                    load(c"vkCmdEndRenderingKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

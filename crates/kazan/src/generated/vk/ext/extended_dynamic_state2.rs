@@ -81,21 +81,23 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 cmd_set_patch_control_points_ext: transmute(
-                    load(c"vkCmdSetPatchControlPointsEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetPatchControlPointsEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_rasterizer_discard_enable_ext: transmute(
-                    load(c"vkCmdSetRasterizerDiscardEnableEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetRasterizerDiscardEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_depth_bias_enable_ext: transmute(
-                    load(c"vkCmdSetDepthBiasEnableEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetDepthBiasEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_logic_op_ext: transmute(load(c"vkCmdSetLogicOpEXT").ok_or(LoadingError)?),
+                cmd_set_logic_op_ext: transmute(
+                    load(c"vkCmdSetLogicOpEXT").ok_or(MissingEntryPointError)?,
+                ),
                 cmd_set_primitive_restart_enable_ext: transmute(
-                    load(c"vkCmdSetPrimitiveRestartEnableEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetPrimitiveRestartEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

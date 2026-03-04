@@ -189,20 +189,22 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_physical_device_display_properties2_khr: transmute(
-                    load(c"vkGetPhysicalDeviceDisplayProperties2KHR").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceDisplayProperties2KHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_display_plane_properties2_khr: transmute(
-                    load(c"vkGetPhysicalDeviceDisplayPlaneProperties2KHR").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceDisplayPlaneProperties2KHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_display_mode_properties2_khr: transmute(
-                    load(c"vkGetDisplayModeProperties2KHR").ok_or(LoadingError)?,
+                    load(c"vkGetDisplayModeProperties2KHR").ok_or(MissingEntryPointError)?,
                 ),
                 get_display_plane_capabilities2_khr: transmute(
-                    load(c"vkGetDisplayPlaneCapabilities2KHR").ok_or(LoadingError)?,
+                    load(c"vkGetDisplayPlaneCapabilities2KHR").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

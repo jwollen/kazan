@@ -3866,36 +3866,48 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                reset_query_pool: transmute(load(c"vkResetQueryPool").ok_or(LoadingError)?),
-                get_semaphore_counter_value: transmute(
-                    load(c"vkGetSemaphoreCounterValue").ok_or(LoadingError)?,
+                reset_query_pool: transmute(
+                    load(c"vkResetQueryPool").ok_or(MissingEntryPointError)?,
                 ),
-                wait_semaphores: transmute(load(c"vkWaitSemaphores").ok_or(LoadingError)?),
-                signal_semaphore: transmute(load(c"vkSignalSemaphore").ok_or(LoadingError)?),
+                get_semaphore_counter_value: transmute(
+                    load(c"vkGetSemaphoreCounterValue").ok_or(MissingEntryPointError)?,
+                ),
+                wait_semaphores: transmute(
+                    load(c"vkWaitSemaphores").ok_or(MissingEntryPointError)?,
+                ),
+                signal_semaphore: transmute(
+                    load(c"vkSignalSemaphore").ok_or(MissingEntryPointError)?,
+                ),
                 get_buffer_device_address: transmute(
-                    load(c"vkGetBufferDeviceAddress").ok_or(LoadingError)?,
+                    load(c"vkGetBufferDeviceAddress").ok_or(MissingEntryPointError)?,
                 ),
                 get_buffer_opaque_capture_address: transmute(
-                    load(c"vkGetBufferOpaqueCaptureAddress").ok_or(LoadingError)?,
+                    load(c"vkGetBufferOpaqueCaptureAddress").ok_or(MissingEntryPointError)?,
                 ),
                 get_device_memory_opaque_capture_address: transmute(
-                    load(c"vkGetDeviceMemoryOpaqueCaptureAddress").ok_or(LoadingError)?,
+                    load(c"vkGetDeviceMemoryOpaqueCaptureAddress").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_draw_indirect_count: transmute(
-                    load(c"vkCmdDrawIndirectCount").ok_or(LoadingError)?,
+                    load(c"vkCmdDrawIndirectCount").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_draw_indexed_indirect_count: transmute(
-                    load(c"vkCmdDrawIndexedIndirectCount").ok_or(LoadingError)?,
+                    load(c"vkCmdDrawIndexedIndirectCount").ok_or(MissingEntryPointError)?,
                 ),
-                create_render_pass2: transmute(load(c"vkCreateRenderPass2").ok_or(LoadingError)?),
+                create_render_pass2: transmute(
+                    load(c"vkCreateRenderPass2").ok_or(MissingEntryPointError)?,
+                ),
                 cmd_begin_render_pass2: transmute(
-                    load(c"vkCmdBeginRenderPass2").ok_or(LoadingError)?,
+                    load(c"vkCmdBeginRenderPass2").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_next_subpass2: transmute(load(c"vkCmdNextSubpass2").ok_or(LoadingError)?),
-                cmd_end_render_pass2: transmute(load(c"vkCmdEndRenderPass2").ok_or(LoadingError)?),
+                cmd_next_subpass2: transmute(
+                    load(c"vkCmdNextSubpass2").ok_or(MissingEntryPointError)?,
+                ),
+                cmd_end_render_pass2: transmute(
+                    load(c"vkCmdEndRenderPass2").ok_or(MissingEntryPointError)?,
+                ),
             })
         }
     }

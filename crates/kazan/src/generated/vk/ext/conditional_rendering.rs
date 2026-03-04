@@ -154,14 +154,14 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 cmd_begin_conditional_rendering_ext: transmute(
-                    load(c"vkCmdBeginConditionalRenderingEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdBeginConditionalRenderingEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_end_conditional_rendering_ext: transmute(
-                    load(c"vkCmdEndConditionalRenderingEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdEndConditionalRenderingEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

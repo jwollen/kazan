@@ -92,11 +92,11 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 cmd_set_compute_occupancy_priority_nv: transmute(
-                    load(c"vkCmdSetComputeOccupancyPriorityNV").ok_or(LoadingError)?,
+                    load(c"vkCmdSetComputeOccupancyPriorityNV").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

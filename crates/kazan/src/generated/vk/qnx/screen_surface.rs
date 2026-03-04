@@ -73,14 +73,15 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 create_screen_surface_qnx: transmute(
-                    load(c"vkCreateScreenSurfaceQNX").ok_or(LoadingError)?,
+                    load(c"vkCreateScreenSurfaceQNX").ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_screen_presentation_support_qnx: transmute(
-                    load(c"vkGetPhysicalDeviceScreenPresentationSupportQNX").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceScreenPresentationSupportQNX")
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }

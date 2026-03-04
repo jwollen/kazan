@@ -1028,35 +1028,37 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_generated_commands_memory_requirements_ext: transmute(
-                    load(c"vkGetGeneratedCommandsMemoryRequirementsEXT").ok_or(LoadingError)?,
+                    load(c"vkGetGeneratedCommandsMemoryRequirementsEXT")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 cmd_preprocess_generated_commands_ext: transmute(
-                    load(c"vkCmdPreprocessGeneratedCommandsEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdPreprocessGeneratedCommandsEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_execute_generated_commands_ext: transmute(
-                    load(c"vkCmdExecuteGeneratedCommandsEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdExecuteGeneratedCommandsEXT").ok_or(MissingEntryPointError)?,
                 ),
                 create_indirect_commands_layout_ext: transmute(
-                    load(c"vkCreateIndirectCommandsLayoutEXT").ok_or(LoadingError)?,
+                    load(c"vkCreateIndirectCommandsLayoutEXT").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_indirect_commands_layout_ext: transmute(
-                    load(c"vkDestroyIndirectCommandsLayoutEXT").ok_or(LoadingError)?,
+                    load(c"vkDestroyIndirectCommandsLayoutEXT").ok_or(MissingEntryPointError)?,
                 ),
                 create_indirect_execution_set_ext: transmute(
-                    load(c"vkCreateIndirectExecutionSetEXT").ok_or(LoadingError)?,
+                    load(c"vkCreateIndirectExecutionSetEXT").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_indirect_execution_set_ext: transmute(
-                    load(c"vkDestroyIndirectExecutionSetEXT").ok_or(LoadingError)?,
+                    load(c"vkDestroyIndirectExecutionSetEXT").ok_or(MissingEntryPointError)?,
                 ),
                 update_indirect_execution_set_pipeline_ext: transmute(
-                    load(c"vkUpdateIndirectExecutionSetPipelineEXT").ok_or(LoadingError)?,
+                    load(c"vkUpdateIndirectExecutionSetPipelineEXT")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 update_indirect_execution_set_shader_ext: transmute(
-                    load(c"vkUpdateIndirectExecutionSetShaderEXT").ok_or(LoadingError)?,
+                    load(c"vkUpdateIndirectExecutionSetShaderEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

@@ -116,14 +116,14 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_refresh_cycle_duration_google: transmute(
-                    load(c"vkGetRefreshCycleDurationGOOGLE").ok_or(LoadingError)?,
+                    load(c"vkGetRefreshCycleDurationGOOGLE").ok_or(MissingEntryPointError)?,
                 ),
                 get_past_presentation_timing_google: transmute(
-                    load(c"vkGetPastPresentationTimingGOOGLE").ok_or(LoadingError)?,
+                    load(c"vkGetPastPresentationTimingGOOGLE").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

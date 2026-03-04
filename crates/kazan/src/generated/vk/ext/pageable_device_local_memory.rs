@@ -56,11 +56,11 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 set_device_memory_priority_ext: transmute(
-                    load(c"vkSetDeviceMemoryPriorityEXT").ok_or(LoadingError)?,
+                    load(c"vkSetDeviceMemoryPriorityEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

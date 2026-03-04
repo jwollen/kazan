@@ -174,12 +174,12 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_physical_device_supported_framebuffer_mixed_samples_combinations_nv: transmute(
                     load(c"vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV")
-                        .ok_or(LoadingError)?,
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }

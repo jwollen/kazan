@@ -155,17 +155,17 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 create_external_compute_queue_nv: transmute(
-                    load(c"vkCreateExternalComputeQueueNV").ok_or(LoadingError)?,
+                    load(c"vkCreateExternalComputeQueueNV").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_external_compute_queue_nv: transmute(
-                    load(c"vkDestroyExternalComputeQueueNV").ok_or(LoadingError)?,
+                    load(c"vkDestroyExternalComputeQueueNV").ok_or(MissingEntryPointError)?,
                 ),
                 get_external_compute_queue_data_nv: transmute(
-                    load(c"vkGetExternalComputeQueueDataNV").ok_or(LoadingError)?,
+                    load(c"vkGetExternalComputeQueueDataNV").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

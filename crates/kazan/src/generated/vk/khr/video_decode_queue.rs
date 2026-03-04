@@ -191,10 +191,12 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_decode_video_khr: transmute(load(c"vkCmdDecodeVideoKHR").ok_or(LoadingError)?),
+                cmd_decode_video_khr: transmute(
+                    load(c"vkCmdDecodeVideoKHR").ok_or(MissingEntryPointError)?,
+                ),
             })
         }
     }

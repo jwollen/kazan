@@ -74,42 +74,44 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_set_cull_mode_ext: transmute(load(c"vkCmdSetCullModeEXT").ok_or(LoadingError)?),
+                cmd_set_cull_mode_ext: transmute(
+                    load(c"vkCmdSetCullModeEXT").ok_or(MissingEntryPointError)?,
+                ),
                 cmd_set_front_face_ext: transmute(
-                    load(c"vkCmdSetFrontFaceEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetFrontFaceEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_primitive_topology_ext: transmute(
-                    load(c"vkCmdSetPrimitiveTopologyEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetPrimitiveTopologyEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_viewport_with_count_ext: transmute(
-                    load(c"vkCmdSetViewportWithCountEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetViewportWithCountEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_scissor_with_count_ext: transmute(
-                    load(c"vkCmdSetScissorWithCountEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetScissorWithCountEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_bind_vertex_buffers2_ext: transmute(
-                    load(c"vkCmdBindVertexBuffers2EXT").ok_or(LoadingError)?,
+                    load(c"vkCmdBindVertexBuffers2EXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_depth_test_enable_ext: transmute(
-                    load(c"vkCmdSetDepthTestEnableEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetDepthTestEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_depth_write_enable_ext: transmute(
-                    load(c"vkCmdSetDepthWriteEnableEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetDepthWriteEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_depth_compare_op_ext: transmute(
-                    load(c"vkCmdSetDepthCompareOpEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetDepthCompareOpEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_depth_bounds_test_enable_ext: transmute(
-                    load(c"vkCmdSetDepthBoundsTestEnableEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetDepthBoundsTestEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_stencil_test_enable_ext: transmute(
-                    load(c"vkCmdSetStencilTestEnableEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetStencilTestEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_stencil_op_ext: transmute(
-                    load(c"vkCmdSetStencilOpEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetStencilOpEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

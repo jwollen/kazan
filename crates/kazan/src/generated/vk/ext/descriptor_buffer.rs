@@ -875,36 +875,44 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_descriptor_set_layout_size_ext: transmute(
-                    load(c"vkGetDescriptorSetLayoutSizeEXT").ok_or(LoadingError)?,
+                    load(c"vkGetDescriptorSetLayoutSizeEXT").ok_or(MissingEntryPointError)?,
                 ),
                 get_descriptor_set_layout_binding_offset_ext: transmute(
-                    load(c"vkGetDescriptorSetLayoutBindingOffsetEXT").ok_or(LoadingError)?,
+                    load(c"vkGetDescriptorSetLayoutBindingOffsetEXT")
+                        .ok_or(MissingEntryPointError)?,
                 ),
-                get_descriptor_ext: transmute(load(c"vkGetDescriptorEXT").ok_or(LoadingError)?),
+                get_descriptor_ext: transmute(
+                    load(c"vkGetDescriptorEXT").ok_or(MissingEntryPointError)?,
+                ),
                 cmd_bind_descriptor_buffers_ext: transmute(
-                    load(c"vkCmdBindDescriptorBuffersEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdBindDescriptorBuffersEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_descriptor_buffer_offsets_ext: transmute(
-                    load(c"vkCmdSetDescriptorBufferOffsetsEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetDescriptorBufferOffsetsEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_bind_descriptor_buffer_embedded_samplers_ext: transmute(
-                    load(c"vkCmdBindDescriptorBufferEmbeddedSamplersEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdBindDescriptorBufferEmbeddedSamplersEXT")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_buffer_opaque_capture_descriptor_data_ext: transmute(
-                    load(c"vkGetBufferOpaqueCaptureDescriptorDataEXT").ok_or(LoadingError)?,
+                    load(c"vkGetBufferOpaqueCaptureDescriptorDataEXT")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_image_opaque_capture_descriptor_data_ext: transmute(
-                    load(c"vkGetImageOpaqueCaptureDescriptorDataEXT").ok_or(LoadingError)?,
+                    load(c"vkGetImageOpaqueCaptureDescriptorDataEXT")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_image_view_opaque_capture_descriptor_data_ext: transmute(
-                    load(c"vkGetImageViewOpaqueCaptureDescriptorDataEXT").ok_or(LoadingError)?,
+                    load(c"vkGetImageViewOpaqueCaptureDescriptorDataEXT")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_sampler_opaque_capture_descriptor_data_ext: transmute(
-                    load(c"vkGetSamplerOpaqueCaptureDescriptorDataEXT").ok_or(LoadingError)?,
+                    load(c"vkGetSamplerOpaqueCaptureDescriptorDataEXT")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_acceleration_structure_opaque_capture_descriptor_data_ext: transmute(load(
                     c"vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT",

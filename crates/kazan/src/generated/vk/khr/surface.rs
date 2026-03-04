@@ -232,21 +232,25 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                destroy_surface_khr: transmute(load(c"vkDestroySurfaceKHR").ok_or(LoadingError)?),
+                destroy_surface_khr: transmute(
+                    load(c"vkDestroySurfaceKHR").ok_or(MissingEntryPointError)?,
+                ),
                 get_physical_device_surface_support_khr: transmute(
-                    load(c"vkGetPhysicalDeviceSurfaceSupportKHR").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceSurfaceSupportKHR").ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_surface_capabilities_khr: transmute(
-                    load(c"vkGetPhysicalDeviceSurfaceCapabilitiesKHR").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceSurfaceCapabilitiesKHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_surface_formats_khr: transmute(
-                    load(c"vkGetPhysicalDeviceSurfaceFormatsKHR").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceSurfaceFormatsKHR").ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_surface_present_modes_khr: transmute(
-                    load(c"vkGetPhysicalDeviceSurfacePresentModesKHR").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceSurfacePresentModesKHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }

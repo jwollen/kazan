@@ -212,17 +212,17 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 create_debug_report_callback_ext: transmute(
-                    load(c"vkCreateDebugReportCallbackEXT").ok_or(LoadingError)?,
+                    load(c"vkCreateDebugReportCallbackEXT").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_debug_report_callback_ext: transmute(
-                    load(c"vkDestroyDebugReportCallbackEXT").ok_or(LoadingError)?,
+                    load(c"vkDestroyDebugReportCallbackEXT").ok_or(MissingEntryPointError)?,
                 ),
                 debug_report_message_ext: transmute(
-                    load(c"vkDebugReportMessageEXT").ok_or(LoadingError)?,
+                    load(c"vkDebugReportMessageEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

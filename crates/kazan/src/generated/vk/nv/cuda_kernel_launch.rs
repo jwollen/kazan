@@ -271,26 +271,26 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 create_cuda_module_nv: transmute(
-                    load(c"vkCreateCudaModuleNV").ok_or(LoadingError)?,
+                    load(c"vkCreateCudaModuleNV").ok_or(MissingEntryPointError)?,
                 ),
                 get_cuda_module_cache_nv: transmute(
-                    load(c"vkGetCudaModuleCacheNV").ok_or(LoadingError)?,
+                    load(c"vkGetCudaModuleCacheNV").ok_or(MissingEntryPointError)?,
                 ),
                 create_cuda_function_nv: transmute(
-                    load(c"vkCreateCudaFunctionNV").ok_or(LoadingError)?,
+                    load(c"vkCreateCudaFunctionNV").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_cuda_module_nv: transmute(
-                    load(c"vkDestroyCudaModuleNV").ok_or(LoadingError)?,
+                    load(c"vkDestroyCudaModuleNV").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_cuda_function_nv: transmute(
-                    load(c"vkDestroyCudaFunctionNV").ok_or(LoadingError)?,
+                    load(c"vkDestroyCudaFunctionNV").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_cuda_launch_kernel_nv: transmute(
-                    load(c"vkCmdCudaLaunchKernelNV").ok_or(LoadingError)?,
+                    load(c"vkCmdCudaLaunchKernelNV").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

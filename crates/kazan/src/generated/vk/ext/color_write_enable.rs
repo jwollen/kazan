@@ -87,11 +87,11 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 cmd_set_color_write_enable_ext: transmute(
-                    load(c"vkCmdSetColorWriteEnableEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetColorWriteEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

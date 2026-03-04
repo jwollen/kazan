@@ -462,21 +462,23 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 set_latency_sleep_mode_nv: transmute(
-                    load(c"vkSetLatencySleepModeNV").ok_or(LoadingError)?,
+                    load(c"vkSetLatencySleepModeNV").ok_or(MissingEntryPointError)?,
                 ),
-                latency_sleep_nv: transmute(load(c"vkLatencySleepNV").ok_or(LoadingError)?),
+                latency_sleep_nv: transmute(
+                    load(c"vkLatencySleepNV").ok_or(MissingEntryPointError)?,
+                ),
                 set_latency_marker_nv: transmute(
-                    load(c"vkSetLatencyMarkerNV").ok_or(LoadingError)?,
+                    load(c"vkSetLatencyMarkerNV").ok_or(MissingEntryPointError)?,
                 ),
                 get_latency_timings_nv: transmute(
-                    load(c"vkGetLatencyTimingsNV").ok_or(LoadingError)?,
+                    load(c"vkGetLatencyTimingsNV").ok_or(MissingEntryPointError)?,
                 ),
                 queue_notify_out_of_band_nv: transmute(
-                    load(c"vkQueueNotifyOutOfBandNV").ok_or(LoadingError)?,
+                    load(c"vkQueueNotifyOutOfBandNV").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

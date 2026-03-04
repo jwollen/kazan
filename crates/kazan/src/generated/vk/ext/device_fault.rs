@@ -316,11 +316,11 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_device_fault_info_ext: transmute(
-                    load(c"vkGetDeviceFaultInfoEXT").ok_or(LoadingError)?,
+                    load(c"vkGetDeviceFaultInfoEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

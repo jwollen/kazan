@@ -124,14 +124,15 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_memory_zircon_handle_fuchsia: transmute(
-                    load(c"vkGetMemoryZirconHandleFUCHSIA").ok_or(LoadingError)?,
+                    load(c"vkGetMemoryZirconHandleFUCHSIA").ok_or(MissingEntryPointError)?,
                 ),
                 get_memory_zircon_handle_properties_fuchsia: transmute(
-                    load(c"vkGetMemoryZirconHandlePropertiesFUCHSIA").ok_or(LoadingError)?,
+                    load(c"vkGetMemoryZirconHandlePropertiesFUCHSIA")
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }

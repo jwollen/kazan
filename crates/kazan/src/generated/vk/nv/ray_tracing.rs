@@ -743,41 +743,47 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 create_acceleration_structure_nv: transmute(
-                    load(c"vkCreateAccelerationStructureNV").ok_or(LoadingError)?,
+                    load(c"vkCreateAccelerationStructureNV").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_acceleration_structure_nv: transmute(
-                    load(c"vkDestroyAccelerationStructureNV").ok_or(LoadingError)?,
+                    load(c"vkDestroyAccelerationStructureNV").ok_or(MissingEntryPointError)?,
                 ),
                 get_acceleration_structure_memory_requirements_nv: transmute(
-                    load(c"vkGetAccelerationStructureMemoryRequirementsNV").ok_or(LoadingError)?,
+                    load(c"vkGetAccelerationStructureMemoryRequirementsNV")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 bind_acceleration_structure_memory_nv: transmute(
-                    load(c"vkBindAccelerationStructureMemoryNV").ok_or(LoadingError)?,
+                    load(c"vkBindAccelerationStructureMemoryNV").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_build_acceleration_structure_nv: transmute(
-                    load(c"vkCmdBuildAccelerationStructureNV").ok_or(LoadingError)?,
+                    load(c"vkCmdBuildAccelerationStructureNV").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_copy_acceleration_structure_nv: transmute(
-                    load(c"vkCmdCopyAccelerationStructureNV").ok_or(LoadingError)?,
+                    load(c"vkCmdCopyAccelerationStructureNV").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_trace_rays_nv: transmute(load(c"vkCmdTraceRaysNV").ok_or(LoadingError)?),
+                cmd_trace_rays_nv: transmute(
+                    load(c"vkCmdTraceRaysNV").ok_or(MissingEntryPointError)?,
+                ),
                 create_ray_tracing_pipelines_nv: transmute(
-                    load(c"vkCreateRayTracingPipelinesNV").ok_or(LoadingError)?,
+                    load(c"vkCreateRayTracingPipelinesNV").ok_or(MissingEntryPointError)?,
                 ),
                 get_ray_tracing_shader_group_handles_nv: transmute(
-                    load(c"vkGetRayTracingShaderGroupHandlesNV").ok_or(LoadingError)?,
+                    load(c"vkGetRayTracingShaderGroupHandlesNV").ok_or(MissingEntryPointError)?,
                 ),
                 get_acceleration_structure_handle_nv: transmute(
-                    load(c"vkGetAccelerationStructureHandleNV").ok_or(LoadingError)?,
+                    load(c"vkGetAccelerationStructureHandleNV").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_write_acceleration_structures_properties_nv: transmute(
-                    load(c"vkCmdWriteAccelerationStructuresPropertiesNV").ok_or(LoadingError)?,
+                    load(c"vkCmdWriteAccelerationStructuresPropertiesNV")
+                        .ok_or(MissingEntryPointError)?,
                 ),
-                compile_deferred_nv: transmute(load(c"vkCompileDeferredNV").ok_or(LoadingError)?),
+                compile_deferred_nv: transmute(
+                    load(c"vkCompileDeferredNV").ok_or(MissingEntryPointError)?,
+                ),
             })
         }
     }

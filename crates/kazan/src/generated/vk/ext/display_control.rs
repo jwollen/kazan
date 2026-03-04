@@ -212,20 +212,20 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 display_power_control_ext: transmute(
-                    load(c"vkDisplayPowerControlEXT").ok_or(LoadingError)?,
+                    load(c"vkDisplayPowerControlEXT").ok_or(MissingEntryPointError)?,
                 ),
                 register_device_event_ext: transmute(
-                    load(c"vkRegisterDeviceEventEXT").ok_or(LoadingError)?,
+                    load(c"vkRegisterDeviceEventEXT").ok_or(MissingEntryPointError)?,
                 ),
                 register_display_event_ext: transmute(
-                    load(c"vkRegisterDisplayEventEXT").ok_or(LoadingError)?,
+                    load(c"vkRegisterDisplayEventEXT").ok_or(MissingEntryPointError)?,
                 ),
                 get_swapchain_counter_ext: transmute(
-                    load(c"vkGetSwapchainCounterEXT").ok_or(LoadingError)?,
+                    load(c"vkGetSwapchainCounterEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

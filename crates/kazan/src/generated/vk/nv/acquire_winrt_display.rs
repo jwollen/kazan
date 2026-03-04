@@ -25,13 +25,15 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 acquire_winrt_display_nv: transmute(
-                    load(c"vkAcquireWinrtDisplayNV").ok_or(LoadingError)?,
+                    load(c"vkAcquireWinrtDisplayNV").ok_or(MissingEntryPointError)?,
                 ),
-                get_winrt_display_nv: transmute(load(c"vkGetWinrtDisplayNV").ok_or(LoadingError)?),
+                get_winrt_display_nv: transmute(
+                    load(c"vkGetWinrtDisplayNV").ok_or(MissingEntryPointError)?,
+                ),
             })
         }
     }

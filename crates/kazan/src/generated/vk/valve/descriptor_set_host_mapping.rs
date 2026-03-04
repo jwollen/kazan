@@ -130,14 +130,15 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_descriptor_set_layout_host_mapping_info_valve: transmute(
-                    load(c"vkGetDescriptorSetLayoutHostMappingInfoVALVE").ok_or(LoadingError)?,
+                    load(c"vkGetDescriptorSetLayoutHostMappingInfoVALVE")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_descriptor_set_host_mapping_valve: transmute(
-                    load(c"vkGetDescriptorSetHostMappingVALVE").ok_or(LoadingError)?,
+                    load(c"vkGetDescriptorSetHostMappingVALVE").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

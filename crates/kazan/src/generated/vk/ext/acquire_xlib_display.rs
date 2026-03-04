@@ -27,14 +27,14 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 acquire_xlib_display_ext: transmute(
-                    load(c"vkAcquireXlibDisplayEXT").ok_or(LoadingError)?,
+                    load(c"vkAcquireXlibDisplayEXT").ok_or(MissingEntryPointError)?,
                 ),
                 get_rand_r_output_display_ext: transmute(
-                    load(c"vkGetRandROutputDisplayEXT").ok_or(LoadingError)?,
+                    load(c"vkGetRandROutputDisplayEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

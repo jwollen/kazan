@@ -492,15 +492,16 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_partitioned_acceleration_structures_build_sizes_nv: transmute(
                     load(c"vkGetPartitionedAccelerationStructuresBuildSizesNV")
-                        .ok_or(LoadingError)?,
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 cmd_build_partitioned_acceleration_structures_nv: transmute(
-                    load(c"vkCmdBuildPartitionedAccelerationStructuresNV").ok_or(LoadingError)?,
+                    load(c"vkCmdBuildPartitionedAccelerationStructuresNV")
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }

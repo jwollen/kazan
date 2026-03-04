@@ -4079,11 +4079,11 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_physical_device_tool_properties: transmute(
-                    load(c"vkGetPhysicalDeviceToolProperties").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceToolProperties").ok_or(MissingEntryPointError)?,
                 ),
             })
         }
@@ -4153,84 +4153,109 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 create_private_data_slot: transmute(
-                    load(c"vkCreatePrivateDataSlot").ok_or(LoadingError)?,
+                    load(c"vkCreatePrivateDataSlot").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_private_data_slot: transmute(
-                    load(c"vkDestroyPrivateDataSlot").ok_or(LoadingError)?,
+                    load(c"vkDestroyPrivateDataSlot").ok_or(MissingEntryPointError)?,
                 ),
-                set_private_data: transmute(load(c"vkSetPrivateData").ok_or(LoadingError)?),
-                get_private_data: transmute(load(c"vkGetPrivateData").ok_or(LoadingError)?),
+                set_private_data: transmute(
+                    load(c"vkSetPrivateData").ok_or(MissingEntryPointError)?,
+                ),
+                get_private_data: transmute(
+                    load(c"vkGetPrivateData").ok_or(MissingEntryPointError)?,
+                ),
                 cmd_pipeline_barrier2: transmute(
-                    load(c"vkCmdPipelineBarrier2").ok_or(LoadingError)?,
+                    load(c"vkCmdPipelineBarrier2").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_write_timestamp2: transmute(load(c"vkCmdWriteTimestamp2").ok_or(LoadingError)?),
-                queue_submit2: transmute(load(c"vkQueueSubmit2").ok_or(LoadingError)?),
-                cmd_copy_buffer2: transmute(load(c"vkCmdCopyBuffer2").ok_or(LoadingError)?),
-                cmd_copy_image2: transmute(load(c"vkCmdCopyImage2").ok_or(LoadingError)?),
+                cmd_write_timestamp2: transmute(
+                    load(c"vkCmdWriteTimestamp2").ok_or(MissingEntryPointError)?,
+                ),
+                queue_submit2: transmute(load(c"vkQueueSubmit2").ok_or(MissingEntryPointError)?),
+                cmd_copy_buffer2: transmute(
+                    load(c"vkCmdCopyBuffer2").ok_or(MissingEntryPointError)?,
+                ),
+                cmd_copy_image2: transmute(load(c"vkCmdCopyImage2").ok_or(MissingEntryPointError)?),
                 cmd_copy_buffer_to_image2: transmute(
-                    load(c"vkCmdCopyBufferToImage2").ok_or(LoadingError)?,
+                    load(c"vkCmdCopyBufferToImage2").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_copy_image_to_buffer2: transmute(
-                    load(c"vkCmdCopyImageToBuffer2").ok_or(LoadingError)?,
+                    load(c"vkCmdCopyImageToBuffer2").ok_or(MissingEntryPointError)?,
                 ),
                 get_device_buffer_memory_requirements: transmute(
-                    load(c"vkGetDeviceBufferMemoryRequirements").ok_or(LoadingError)?,
+                    load(c"vkGetDeviceBufferMemoryRequirements").ok_or(MissingEntryPointError)?,
                 ),
                 get_device_image_memory_requirements: transmute(
-                    load(c"vkGetDeviceImageMemoryRequirements").ok_or(LoadingError)?,
+                    load(c"vkGetDeviceImageMemoryRequirements").ok_or(MissingEntryPointError)?,
                 ),
                 get_device_image_sparse_memory_requirements: transmute(
-                    load(c"vkGetDeviceImageSparseMemoryRequirements").ok_or(LoadingError)?,
+                    load(c"vkGetDeviceImageSparseMemoryRequirements")
+                        .ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_event2: transmute(load(c"vkCmdSetEvent2").ok_or(LoadingError)?),
-                cmd_reset_event2: transmute(load(c"vkCmdResetEvent2").ok_or(LoadingError)?),
-                cmd_wait_events2: transmute(load(c"vkCmdWaitEvents2").ok_or(LoadingError)?),
-                cmd_blit_image2: transmute(load(c"vkCmdBlitImage2").ok_or(LoadingError)?),
-                cmd_resolve_image2: transmute(load(c"vkCmdResolveImage2").ok_or(LoadingError)?),
-                cmd_begin_rendering: transmute(load(c"vkCmdBeginRendering").ok_or(LoadingError)?),
-                cmd_end_rendering: transmute(load(c"vkCmdEndRendering").ok_or(LoadingError)?),
-                cmd_set_cull_mode: transmute(load(c"vkCmdSetCullMode").ok_or(LoadingError)?),
-                cmd_set_front_face: transmute(load(c"vkCmdSetFrontFace").ok_or(LoadingError)?),
+                cmd_set_event2: transmute(load(c"vkCmdSetEvent2").ok_or(MissingEntryPointError)?),
+                cmd_reset_event2: transmute(
+                    load(c"vkCmdResetEvent2").ok_or(MissingEntryPointError)?,
+                ),
+                cmd_wait_events2: transmute(
+                    load(c"vkCmdWaitEvents2").ok_or(MissingEntryPointError)?,
+                ),
+                cmd_blit_image2: transmute(load(c"vkCmdBlitImage2").ok_or(MissingEntryPointError)?),
+                cmd_resolve_image2: transmute(
+                    load(c"vkCmdResolveImage2").ok_or(MissingEntryPointError)?,
+                ),
+                cmd_begin_rendering: transmute(
+                    load(c"vkCmdBeginRendering").ok_or(MissingEntryPointError)?,
+                ),
+                cmd_end_rendering: transmute(
+                    load(c"vkCmdEndRendering").ok_or(MissingEntryPointError)?,
+                ),
+                cmd_set_cull_mode: transmute(
+                    load(c"vkCmdSetCullMode").ok_or(MissingEntryPointError)?,
+                ),
+                cmd_set_front_face: transmute(
+                    load(c"vkCmdSetFrontFace").ok_or(MissingEntryPointError)?,
+                ),
                 cmd_set_primitive_topology: transmute(
-                    load(c"vkCmdSetPrimitiveTopology").ok_or(LoadingError)?,
+                    load(c"vkCmdSetPrimitiveTopology").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_viewport_with_count: transmute(
-                    load(c"vkCmdSetViewportWithCount").ok_or(LoadingError)?,
+                    load(c"vkCmdSetViewportWithCount").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_scissor_with_count: transmute(
-                    load(c"vkCmdSetScissorWithCount").ok_or(LoadingError)?,
+                    load(c"vkCmdSetScissorWithCount").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_bind_vertex_buffers2: transmute(
-                    load(c"vkCmdBindVertexBuffers2").ok_or(LoadingError)?,
+                    load(c"vkCmdBindVertexBuffers2").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_depth_test_enable: transmute(
-                    load(c"vkCmdSetDepthTestEnable").ok_or(LoadingError)?,
+                    load(c"vkCmdSetDepthTestEnable").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_depth_write_enable: transmute(
-                    load(c"vkCmdSetDepthWriteEnable").ok_or(LoadingError)?,
+                    load(c"vkCmdSetDepthWriteEnable").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_depth_compare_op: transmute(
-                    load(c"vkCmdSetDepthCompareOp").ok_or(LoadingError)?,
+                    load(c"vkCmdSetDepthCompareOp").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_depth_bounds_test_enable: transmute(
-                    load(c"vkCmdSetDepthBoundsTestEnable").ok_or(LoadingError)?,
+                    load(c"vkCmdSetDepthBoundsTestEnable").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_stencil_test_enable: transmute(
-                    load(c"vkCmdSetStencilTestEnable").ok_or(LoadingError)?,
+                    load(c"vkCmdSetStencilTestEnable").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_stencil_op: transmute(load(c"vkCmdSetStencilOp").ok_or(LoadingError)?),
+                cmd_set_stencil_op: transmute(
+                    load(c"vkCmdSetStencilOp").ok_or(MissingEntryPointError)?,
+                ),
                 cmd_set_rasterizer_discard_enable: transmute(
-                    load(c"vkCmdSetRasterizerDiscardEnable").ok_or(LoadingError)?,
+                    load(c"vkCmdSetRasterizerDiscardEnable").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_depth_bias_enable: transmute(
-                    load(c"vkCmdSetDepthBiasEnable").ok_or(LoadingError)?,
+                    load(c"vkCmdSetDepthBiasEnable").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_primitive_restart_enable: transmute(
-                    load(c"vkCmdSetPrimitiveRestartEnable").ok_or(LoadingError)?,
+                    load(c"vkCmdSetPrimitiveRestartEnable").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

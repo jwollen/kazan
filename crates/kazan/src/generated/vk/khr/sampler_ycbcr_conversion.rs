@@ -30,14 +30,14 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 create_sampler_ycbcr_conversion_khr: transmute(
-                    load(c"vkCreateSamplerYcbcrConversionKHR").ok_or(LoadingError)?,
+                    load(c"vkCreateSamplerYcbcrConversionKHR").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_sampler_ycbcr_conversion_khr: transmute(
-                    load(c"vkDestroySamplerYcbcrConversionKHR").ok_or(LoadingError)?,
+                    load(c"vkDestroySamplerYcbcrConversionKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

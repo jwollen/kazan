@@ -690,12 +690,12 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_physical_device_video_encode_quality_level_properties_khr: transmute(
                     load(c"vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR")
-                        .ok_or(LoadingError)?,
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }
@@ -729,13 +729,15 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_encoded_video_session_parameters_khr: transmute(
-                    load(c"vkGetEncodedVideoSessionParametersKHR").ok_or(LoadingError)?,
+                    load(c"vkGetEncodedVideoSessionParametersKHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_encode_video_khr: transmute(load(c"vkCmdEncodeVideoKHR").ok_or(LoadingError)?),
+                cmd_encode_video_khr: transmute(
+                    load(c"vkCmdEncodeVideoKHR").ok_or(MissingEntryPointError)?,
+                ),
             })
         }
     }

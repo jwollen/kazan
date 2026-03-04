@@ -27,17 +27,21 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 create_private_data_slot_ext: transmute(
-                    load(c"vkCreatePrivateDataSlotEXT").ok_or(LoadingError)?,
+                    load(c"vkCreatePrivateDataSlotEXT").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_private_data_slot_ext: transmute(
-                    load(c"vkDestroyPrivateDataSlotEXT").ok_or(LoadingError)?,
+                    load(c"vkDestroyPrivateDataSlotEXT").ok_or(MissingEntryPointError)?,
                 ),
-                set_private_data_ext: transmute(load(c"vkSetPrivateDataEXT").ok_or(LoadingError)?),
-                get_private_data_ext: transmute(load(c"vkGetPrivateDataEXT").ok_or(LoadingError)?),
+                set_private_data_ext: transmute(
+                    load(c"vkSetPrivateDataEXT").ok_or(MissingEntryPointError)?,
+                ),
+                get_private_data_ext: transmute(
+                    load(c"vkGetPrivateDataEXT").ok_or(MissingEntryPointError)?,
+                ),
             })
         }
     }

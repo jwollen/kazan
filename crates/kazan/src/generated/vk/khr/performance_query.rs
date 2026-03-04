@@ -427,16 +427,16 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 enumerate_physical_device_queue_family_performance_query_counters_khr: transmute(
                     load(c"vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR")
-                        .ok_or(LoadingError)?,
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_queue_family_performance_query_passes_khr: transmute(
                     load(c"vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR")
-                        .ok_or(LoadingError)?,
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }
@@ -496,14 +496,14 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 acquire_profiling_lock_khr: transmute(
-                    load(c"vkAcquireProfilingLockKHR").ok_or(LoadingError)?,
+                    load(c"vkAcquireProfilingLockKHR").ok_or(MissingEntryPointError)?,
                 ),
                 release_profiling_lock_khr: transmute(
-                    load(c"vkReleaseProfilingLockKHR").ok_or(LoadingError)?,
+                    load(c"vkReleaseProfilingLockKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

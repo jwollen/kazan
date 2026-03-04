@@ -137,17 +137,17 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 cmd_set_discard_rectangle_ext: transmute(
-                    load(c"vkCmdSetDiscardRectangleEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetDiscardRectangleEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_discard_rectangle_enable_ext: transmute(
-                    load(c"vkCmdSetDiscardRectangleEnableEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetDiscardRectangleEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_discard_rectangle_mode_ext: transmute(
-                    load(c"vkCmdSetDiscardRectangleModeEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetDiscardRectangleModeEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

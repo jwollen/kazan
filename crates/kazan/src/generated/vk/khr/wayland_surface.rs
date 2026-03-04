@@ -73,15 +73,15 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 create_wayland_surface_khr: transmute(
-                    load(c"vkCreateWaylandSurfaceKHR").ok_or(LoadingError)?,
+                    load(c"vkCreateWaylandSurfaceKHR").ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_wayland_presentation_support_khr: transmute(
                     load(c"vkGetPhysicalDeviceWaylandPresentationSupportKHR")
-                        .ok_or(LoadingError)?,
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }

@@ -157,14 +157,14 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 cmd_draw_cluster_huawei: transmute(
-                    load(c"vkCmdDrawClusterHUAWEI").ok_or(LoadingError)?,
+                    load(c"vkCmdDrawClusterHUAWEI").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_draw_cluster_indirect_huawei: transmute(
-                    load(c"vkCmdDrawClusterIndirectHUAWEI").ok_or(LoadingError)?,
+                    load(c"vkCmdDrawClusterIndirectHUAWEI").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

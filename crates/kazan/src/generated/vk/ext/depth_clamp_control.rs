@@ -123,11 +123,11 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 cmd_set_depth_clamp_range_ext: transmute(
-                    load(c"vkCmdSetDepthClampRangeEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetDepthClampRangeEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

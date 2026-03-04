@@ -101,20 +101,21 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_image_view_handle_nvx: transmute(
-                    load(c"vkGetImageViewHandleNVX").ok_or(LoadingError)?,
+                    load(c"vkGetImageViewHandleNVX").ok_or(MissingEntryPointError)?,
                 ),
                 get_image_view_handle64_nvx: transmute(
-                    load(c"vkGetImageViewHandle64NVX").ok_or(LoadingError)?,
+                    load(c"vkGetImageViewHandle64NVX").ok_or(MissingEntryPointError)?,
                 ),
                 get_image_view_address_nvx: transmute(
-                    load(c"vkGetImageViewAddressNVX").ok_or(LoadingError)?,
+                    load(c"vkGetImageViewAddressNVX").ok_or(MissingEntryPointError)?,
                 ),
                 get_device_combined_image_sampler_index_nvx: transmute(
-                    load(c"vkGetDeviceCombinedImageSamplerIndexNVX").ok_or(LoadingError)?,
+                    load(c"vkGetDeviceCombinedImageSamplerIndexNVX")
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }

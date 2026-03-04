@@ -36,23 +36,24 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 create_deferred_operation_khr: transmute(
-                    load(c"vkCreateDeferredOperationKHR").ok_or(LoadingError)?,
+                    load(c"vkCreateDeferredOperationKHR").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_deferred_operation_khr: transmute(
-                    load(c"vkDestroyDeferredOperationKHR").ok_or(LoadingError)?,
+                    load(c"vkDestroyDeferredOperationKHR").ok_or(MissingEntryPointError)?,
                 ),
                 get_deferred_operation_max_concurrency_khr: transmute(
-                    load(c"vkGetDeferredOperationMaxConcurrencyKHR").ok_or(LoadingError)?,
+                    load(c"vkGetDeferredOperationMaxConcurrencyKHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_deferred_operation_result_khr: transmute(
-                    load(c"vkGetDeferredOperationResultKHR").ok_or(LoadingError)?,
+                    load(c"vkGetDeferredOperationResultKHR").ok_or(MissingEntryPointError)?,
                 ),
                 deferred_operation_join_khr: transmute(
-                    load(c"vkDeferredOperationJoinKHR").ok_or(LoadingError)?,
+                    load(c"vkDeferredOperationJoinKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

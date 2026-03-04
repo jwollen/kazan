@@ -62,11 +62,11 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 create_shared_swapchains_khr: transmute(
-                    load(c"vkCreateSharedSwapchainsKHR").ok_or(LoadingError)?,
+                    load(c"vkCreateSharedSwapchainsKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

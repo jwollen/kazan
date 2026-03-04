@@ -106,14 +106,14 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 import_semaphore_zircon_handle_fuchsia: transmute(
-                    load(c"vkImportSemaphoreZirconHandleFUCHSIA").ok_or(LoadingError)?,
+                    load(c"vkImportSemaphoreZirconHandleFUCHSIA").ok_or(MissingEntryPointError)?,
                 ),
                 get_semaphore_zircon_handle_fuchsia: transmute(
-                    load(c"vkGetSemaphoreZirconHandleFUCHSIA").ok_or(LoadingError)?,
+                    load(c"vkGetSemaphoreZirconHandleFUCHSIA").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

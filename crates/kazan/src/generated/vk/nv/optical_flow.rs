@@ -533,11 +533,12 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_physical_device_optical_flow_image_formats_nv: transmute(
-                    load(c"vkGetPhysicalDeviceOpticalFlowImageFormatsNV").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceOpticalFlowImageFormatsNV")
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }
@@ -580,20 +581,20 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 create_optical_flow_session_nv: transmute(
-                    load(c"vkCreateOpticalFlowSessionNV").ok_or(LoadingError)?,
+                    load(c"vkCreateOpticalFlowSessionNV").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_optical_flow_session_nv: transmute(
-                    load(c"vkDestroyOpticalFlowSessionNV").ok_or(LoadingError)?,
+                    load(c"vkDestroyOpticalFlowSessionNV").ok_or(MissingEntryPointError)?,
                 ),
                 bind_optical_flow_session_image_nv: transmute(
-                    load(c"vkBindOpticalFlowSessionImageNV").ok_or(LoadingError)?,
+                    load(c"vkBindOpticalFlowSessionImageNV").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_optical_flow_execute_nv: transmute(
-                    load(c"vkCmdOpticalFlowExecuteNV").ok_or(LoadingError)?,
+                    load(c"vkCmdOpticalFlowExecuteNV").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

@@ -14682,15 +14682,18 @@ pub struct EntryFn {
 impl EntryFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_instance: transmute(load(c"vkCreateInstance").ok_or(LoadingError)?),
+                create_instance: transmute(
+                    load(c"vkCreateInstance").ok_or(MissingEntryPointError)?,
+                ),
                 enumerate_instance_extension_properties: transmute(
-                    load(c"vkEnumerateInstanceExtensionProperties").ok_or(LoadingError)?,
+                    load(c"vkEnumerateInstanceExtensionProperties")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 enumerate_instance_layer_properties: transmute(
-                    load(c"vkEnumerateInstanceLayerProperties").ok_or(LoadingError)?,
+                    load(c"vkEnumerateInstanceLayerProperties").ok_or(MissingEntryPointError)?,
                 ),
             })
         }
@@ -14771,43 +14774,48 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                destroy_instance: transmute(load(c"vkDestroyInstance").ok_or(LoadingError)?),
+                destroy_instance: transmute(
+                    load(c"vkDestroyInstance").ok_or(MissingEntryPointError)?,
+                ),
                 enumerate_physical_devices: transmute(
-                    load(c"vkEnumeratePhysicalDevices").ok_or(LoadingError)?,
+                    load(c"vkEnumeratePhysicalDevices").ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_features: transmute(
-                    load(c"vkGetPhysicalDeviceFeatures").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceFeatures").ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_format_properties: transmute(
-                    load(c"vkGetPhysicalDeviceFormatProperties").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceFormatProperties").ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_image_format_properties: transmute(
-                    load(c"vkGetPhysicalDeviceImageFormatProperties").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceImageFormatProperties")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_properties: transmute(
-                    load(c"vkGetPhysicalDeviceProperties").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceProperties").ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_queue_family_properties: transmute(
-                    load(c"vkGetPhysicalDeviceQueueFamilyProperties").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceQueueFamilyProperties")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_memory_properties: transmute(
-                    load(c"vkGetPhysicalDeviceMemoryProperties").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceMemoryProperties").ok_or(MissingEntryPointError)?,
                 ),
                 get_instance_proc_addr: transmute(
-                    load(c"vkGetInstanceProcAddr").ok_or(LoadingError)?,
+                    load(c"vkGetInstanceProcAddr").ok_or(MissingEntryPointError)?,
                 ),
-                create_device: transmute(load(c"vkCreateDevice").ok_or(LoadingError)?),
+                create_device: transmute(load(c"vkCreateDevice").ok_or(MissingEntryPointError)?),
                 enumerate_device_extension_properties: transmute(
-                    load(c"vkEnumerateDeviceExtensionProperties").ok_or(LoadingError)?,
+                    load(c"vkEnumerateDeviceExtensionProperties").ok_or(MissingEntryPointError)?,
                 ),
                 enumerate_device_layer_properties: transmute(
-                    load(c"vkEnumerateDeviceLayerProperties").ok_or(LoadingError)?,
+                    load(c"vkEnumerateDeviceLayerProperties").ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_sparse_image_format_properties: transmute(
-                    load(c"vkGetPhysicalDeviceSparseImageFormatProperties").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceSparseImageFormatProperties")
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }
@@ -15162,214 +15170,310 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_device_proc_addr: transmute(load(c"vkGetDeviceProcAddr").ok_or(LoadingError)?),
-                destroy_device: transmute(load(c"vkDestroyDevice").ok_or(LoadingError)?),
-                get_device_queue: transmute(load(c"vkGetDeviceQueue").ok_or(LoadingError)?),
-                queue_submit: transmute(load(c"vkQueueSubmit").ok_or(LoadingError)?),
-                queue_wait_idle: transmute(load(c"vkQueueWaitIdle").ok_or(LoadingError)?),
-                device_wait_idle: transmute(load(c"vkDeviceWaitIdle").ok_or(LoadingError)?),
-                allocate_memory: transmute(load(c"vkAllocateMemory").ok_or(LoadingError)?),
-                free_memory: transmute(load(c"vkFreeMemory").ok_or(LoadingError)?),
-                map_memory: transmute(load(c"vkMapMemory").ok_or(LoadingError)?),
-                unmap_memory: transmute(load(c"vkUnmapMemory").ok_or(LoadingError)?),
+                get_device_proc_addr: transmute(
+                    load(c"vkGetDeviceProcAddr").ok_or(MissingEntryPointError)?,
+                ),
+                destroy_device: transmute(load(c"vkDestroyDevice").ok_or(MissingEntryPointError)?),
+                get_device_queue: transmute(
+                    load(c"vkGetDeviceQueue").ok_or(MissingEntryPointError)?,
+                ),
+                queue_submit: transmute(load(c"vkQueueSubmit").ok_or(MissingEntryPointError)?),
+                queue_wait_idle: transmute(load(c"vkQueueWaitIdle").ok_or(MissingEntryPointError)?),
+                device_wait_idle: transmute(
+                    load(c"vkDeviceWaitIdle").ok_or(MissingEntryPointError)?,
+                ),
+                allocate_memory: transmute(
+                    load(c"vkAllocateMemory").ok_or(MissingEntryPointError)?,
+                ),
+                free_memory: transmute(load(c"vkFreeMemory").ok_or(MissingEntryPointError)?),
+                map_memory: transmute(load(c"vkMapMemory").ok_or(MissingEntryPointError)?),
+                unmap_memory: transmute(load(c"vkUnmapMemory").ok_or(MissingEntryPointError)?),
                 flush_mapped_memory_ranges: transmute(
-                    load(c"vkFlushMappedMemoryRanges").ok_or(LoadingError)?,
+                    load(c"vkFlushMappedMemoryRanges").ok_or(MissingEntryPointError)?,
                 ),
                 invalidate_mapped_memory_ranges: transmute(
-                    load(c"vkInvalidateMappedMemoryRanges").ok_or(LoadingError)?,
+                    load(c"vkInvalidateMappedMemoryRanges").ok_or(MissingEntryPointError)?,
                 ),
                 get_device_memory_commitment: transmute(
-                    load(c"vkGetDeviceMemoryCommitment").ok_or(LoadingError)?,
+                    load(c"vkGetDeviceMemoryCommitment").ok_or(MissingEntryPointError)?,
                 ),
-                bind_buffer_memory: transmute(load(c"vkBindBufferMemory").ok_or(LoadingError)?),
-                bind_image_memory: transmute(load(c"vkBindImageMemory").ok_or(LoadingError)?),
+                bind_buffer_memory: transmute(
+                    load(c"vkBindBufferMemory").ok_or(MissingEntryPointError)?,
+                ),
+                bind_image_memory: transmute(
+                    load(c"vkBindImageMemory").ok_or(MissingEntryPointError)?,
+                ),
                 get_buffer_memory_requirements: transmute(
-                    load(c"vkGetBufferMemoryRequirements").ok_or(LoadingError)?,
+                    load(c"vkGetBufferMemoryRequirements").ok_or(MissingEntryPointError)?,
                 ),
                 get_image_memory_requirements: transmute(
-                    load(c"vkGetImageMemoryRequirements").ok_or(LoadingError)?,
+                    load(c"vkGetImageMemoryRequirements").ok_or(MissingEntryPointError)?,
                 ),
                 get_image_sparse_memory_requirements: transmute(
-                    load(c"vkGetImageSparseMemoryRequirements").ok_or(LoadingError)?,
+                    load(c"vkGetImageSparseMemoryRequirements").ok_or(MissingEntryPointError)?,
                 ),
-                queue_bind_sparse: transmute(load(c"vkQueueBindSparse").ok_or(LoadingError)?),
-                create_fence: transmute(load(c"vkCreateFence").ok_or(LoadingError)?),
-                destroy_fence: transmute(load(c"vkDestroyFence").ok_or(LoadingError)?),
-                reset_fences: transmute(load(c"vkResetFences").ok_or(LoadingError)?),
-                get_fence_status: transmute(load(c"vkGetFenceStatus").ok_or(LoadingError)?),
-                wait_for_fences: transmute(load(c"vkWaitForFences").ok_or(LoadingError)?),
-                create_semaphore: transmute(load(c"vkCreateSemaphore").ok_or(LoadingError)?),
-                destroy_semaphore: transmute(load(c"vkDestroySemaphore").ok_or(LoadingError)?),
-                create_query_pool: transmute(load(c"vkCreateQueryPool").ok_or(LoadingError)?),
-                destroy_query_pool: transmute(load(c"vkDestroyQueryPool").ok_or(LoadingError)?),
+                queue_bind_sparse: transmute(
+                    load(c"vkQueueBindSparse").ok_or(MissingEntryPointError)?,
+                ),
+                create_fence: transmute(load(c"vkCreateFence").ok_or(MissingEntryPointError)?),
+                destroy_fence: transmute(load(c"vkDestroyFence").ok_or(MissingEntryPointError)?),
+                reset_fences: transmute(load(c"vkResetFences").ok_or(MissingEntryPointError)?),
+                get_fence_status: transmute(
+                    load(c"vkGetFenceStatus").ok_or(MissingEntryPointError)?,
+                ),
+                wait_for_fences: transmute(load(c"vkWaitForFences").ok_or(MissingEntryPointError)?),
+                create_semaphore: transmute(
+                    load(c"vkCreateSemaphore").ok_or(MissingEntryPointError)?,
+                ),
+                destroy_semaphore: transmute(
+                    load(c"vkDestroySemaphore").ok_or(MissingEntryPointError)?,
+                ),
+                create_query_pool: transmute(
+                    load(c"vkCreateQueryPool").ok_or(MissingEntryPointError)?,
+                ),
+                destroy_query_pool: transmute(
+                    load(c"vkDestroyQueryPool").ok_or(MissingEntryPointError)?,
+                ),
                 get_query_pool_results: transmute(
-                    load(c"vkGetQueryPoolResults").ok_or(LoadingError)?,
+                    load(c"vkGetQueryPoolResults").ok_or(MissingEntryPointError)?,
                 ),
-                create_buffer: transmute(load(c"vkCreateBuffer").ok_or(LoadingError)?),
-                destroy_buffer: transmute(load(c"vkDestroyBuffer").ok_or(LoadingError)?),
-                create_image: transmute(load(c"vkCreateImage").ok_or(LoadingError)?),
-                destroy_image: transmute(load(c"vkDestroyImage").ok_or(LoadingError)?),
+                create_buffer: transmute(load(c"vkCreateBuffer").ok_or(MissingEntryPointError)?),
+                destroy_buffer: transmute(load(c"vkDestroyBuffer").ok_or(MissingEntryPointError)?),
+                create_image: transmute(load(c"vkCreateImage").ok_or(MissingEntryPointError)?),
+                destroy_image: transmute(load(c"vkDestroyImage").ok_or(MissingEntryPointError)?),
                 get_image_subresource_layout: transmute(
-                    load(c"vkGetImageSubresourceLayout").ok_or(LoadingError)?,
+                    load(c"vkGetImageSubresourceLayout").ok_or(MissingEntryPointError)?,
                 ),
-                create_image_view: transmute(load(c"vkCreateImageView").ok_or(LoadingError)?),
-                destroy_image_view: transmute(load(c"vkDestroyImageView").ok_or(LoadingError)?),
-                create_command_pool: transmute(load(c"vkCreateCommandPool").ok_or(LoadingError)?),
-                destroy_command_pool: transmute(load(c"vkDestroyCommandPool").ok_or(LoadingError)?),
-                reset_command_pool: transmute(load(c"vkResetCommandPool").ok_or(LoadingError)?),
+                create_image_view: transmute(
+                    load(c"vkCreateImageView").ok_or(MissingEntryPointError)?,
+                ),
+                destroy_image_view: transmute(
+                    load(c"vkDestroyImageView").ok_or(MissingEntryPointError)?,
+                ),
+                create_command_pool: transmute(
+                    load(c"vkCreateCommandPool").ok_or(MissingEntryPointError)?,
+                ),
+                destroy_command_pool: transmute(
+                    load(c"vkDestroyCommandPool").ok_or(MissingEntryPointError)?,
+                ),
+                reset_command_pool: transmute(
+                    load(c"vkResetCommandPool").ok_or(MissingEntryPointError)?,
+                ),
                 allocate_command_buffers: transmute(
-                    load(c"vkAllocateCommandBuffers").ok_or(LoadingError)?,
+                    load(c"vkAllocateCommandBuffers").ok_or(MissingEntryPointError)?,
                 ),
-                free_command_buffers: transmute(load(c"vkFreeCommandBuffers").ok_or(LoadingError)?),
-                begin_command_buffer: transmute(load(c"vkBeginCommandBuffer").ok_or(LoadingError)?),
-                end_command_buffer: transmute(load(c"vkEndCommandBuffer").ok_or(LoadingError)?),
-                reset_command_buffer: transmute(load(c"vkResetCommandBuffer").ok_or(LoadingError)?),
-                cmd_copy_buffer: transmute(load(c"vkCmdCopyBuffer").ok_or(LoadingError)?),
-                cmd_copy_image: transmute(load(c"vkCmdCopyImage").ok_or(LoadingError)?),
+                free_command_buffers: transmute(
+                    load(c"vkFreeCommandBuffers").ok_or(MissingEntryPointError)?,
+                ),
+                begin_command_buffer: transmute(
+                    load(c"vkBeginCommandBuffer").ok_or(MissingEntryPointError)?,
+                ),
+                end_command_buffer: transmute(
+                    load(c"vkEndCommandBuffer").ok_or(MissingEntryPointError)?,
+                ),
+                reset_command_buffer: transmute(
+                    load(c"vkResetCommandBuffer").ok_or(MissingEntryPointError)?,
+                ),
+                cmd_copy_buffer: transmute(load(c"vkCmdCopyBuffer").ok_or(MissingEntryPointError)?),
+                cmd_copy_image: transmute(load(c"vkCmdCopyImage").ok_or(MissingEntryPointError)?),
                 cmd_copy_buffer_to_image: transmute(
-                    load(c"vkCmdCopyBufferToImage").ok_or(LoadingError)?,
+                    load(c"vkCmdCopyBufferToImage").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_copy_image_to_buffer: transmute(
-                    load(c"vkCmdCopyImageToBuffer").ok_or(LoadingError)?,
+                    load(c"vkCmdCopyImageToBuffer").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_update_buffer: transmute(load(c"vkCmdUpdateBuffer").ok_or(LoadingError)?),
-                cmd_fill_buffer: transmute(load(c"vkCmdFillBuffer").ok_or(LoadingError)?),
-                cmd_pipeline_barrier: transmute(load(c"vkCmdPipelineBarrier").ok_or(LoadingError)?),
-                cmd_begin_query: transmute(load(c"vkCmdBeginQuery").ok_or(LoadingError)?),
-                cmd_end_query: transmute(load(c"vkCmdEndQuery").ok_or(LoadingError)?),
-                cmd_reset_query_pool: transmute(load(c"vkCmdResetQueryPool").ok_or(LoadingError)?),
-                cmd_write_timestamp: transmute(load(c"vkCmdWriteTimestamp").ok_or(LoadingError)?),
+                cmd_update_buffer: transmute(
+                    load(c"vkCmdUpdateBuffer").ok_or(MissingEntryPointError)?,
+                ),
+                cmd_fill_buffer: transmute(load(c"vkCmdFillBuffer").ok_or(MissingEntryPointError)?),
+                cmd_pipeline_barrier: transmute(
+                    load(c"vkCmdPipelineBarrier").ok_or(MissingEntryPointError)?,
+                ),
+                cmd_begin_query: transmute(load(c"vkCmdBeginQuery").ok_or(MissingEntryPointError)?),
+                cmd_end_query: transmute(load(c"vkCmdEndQuery").ok_or(MissingEntryPointError)?),
+                cmd_reset_query_pool: transmute(
+                    load(c"vkCmdResetQueryPool").ok_or(MissingEntryPointError)?,
+                ),
+                cmd_write_timestamp: transmute(
+                    load(c"vkCmdWriteTimestamp").ok_or(MissingEntryPointError)?,
+                ),
                 cmd_copy_query_pool_results: transmute(
-                    load(c"vkCmdCopyQueryPoolResults").ok_or(LoadingError)?,
+                    load(c"vkCmdCopyQueryPoolResults").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_execute_commands: transmute(load(c"vkCmdExecuteCommands").ok_or(LoadingError)?),
-                create_event: transmute(load(c"vkCreateEvent").ok_or(LoadingError)?),
-                destroy_event: transmute(load(c"vkDestroyEvent").ok_or(LoadingError)?),
-                get_event_status: transmute(load(c"vkGetEventStatus").ok_or(LoadingError)?),
-                set_event: transmute(load(c"vkSetEvent").ok_or(LoadingError)?),
-                reset_event: transmute(load(c"vkResetEvent").ok_or(LoadingError)?),
-                create_buffer_view: transmute(load(c"vkCreateBufferView").ok_or(LoadingError)?),
-                destroy_buffer_view: transmute(load(c"vkDestroyBufferView").ok_or(LoadingError)?),
-                create_shader_module: transmute(load(c"vkCreateShaderModule").ok_or(LoadingError)?),
+                cmd_execute_commands: transmute(
+                    load(c"vkCmdExecuteCommands").ok_or(MissingEntryPointError)?,
+                ),
+                create_event: transmute(load(c"vkCreateEvent").ok_or(MissingEntryPointError)?),
+                destroy_event: transmute(load(c"vkDestroyEvent").ok_or(MissingEntryPointError)?),
+                get_event_status: transmute(
+                    load(c"vkGetEventStatus").ok_or(MissingEntryPointError)?,
+                ),
+                set_event: transmute(load(c"vkSetEvent").ok_or(MissingEntryPointError)?),
+                reset_event: transmute(load(c"vkResetEvent").ok_or(MissingEntryPointError)?),
+                create_buffer_view: transmute(
+                    load(c"vkCreateBufferView").ok_or(MissingEntryPointError)?,
+                ),
+                destroy_buffer_view: transmute(
+                    load(c"vkDestroyBufferView").ok_or(MissingEntryPointError)?,
+                ),
+                create_shader_module: transmute(
+                    load(c"vkCreateShaderModule").ok_or(MissingEntryPointError)?,
+                ),
                 destroy_shader_module: transmute(
-                    load(c"vkDestroyShaderModule").ok_or(LoadingError)?,
+                    load(c"vkDestroyShaderModule").ok_or(MissingEntryPointError)?,
                 ),
                 create_pipeline_cache: transmute(
-                    load(c"vkCreatePipelineCache").ok_or(LoadingError)?,
+                    load(c"vkCreatePipelineCache").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_pipeline_cache: transmute(
-                    load(c"vkDestroyPipelineCache").ok_or(LoadingError)?,
+                    load(c"vkDestroyPipelineCache").ok_or(MissingEntryPointError)?,
                 ),
                 get_pipeline_cache_data: transmute(
-                    load(c"vkGetPipelineCacheData").ok_or(LoadingError)?,
+                    load(c"vkGetPipelineCacheData").ok_or(MissingEntryPointError)?,
                 ),
                 merge_pipeline_caches: transmute(
-                    load(c"vkMergePipelineCaches").ok_or(LoadingError)?,
+                    load(c"vkMergePipelineCaches").ok_or(MissingEntryPointError)?,
                 ),
                 create_compute_pipelines: transmute(
-                    load(c"vkCreateComputePipelines").ok_or(LoadingError)?,
+                    load(c"vkCreateComputePipelines").ok_or(MissingEntryPointError)?,
                 ),
-                destroy_pipeline: transmute(load(c"vkDestroyPipeline").ok_or(LoadingError)?),
+                destroy_pipeline: transmute(
+                    load(c"vkDestroyPipeline").ok_or(MissingEntryPointError)?,
+                ),
                 create_pipeline_layout: transmute(
-                    load(c"vkCreatePipelineLayout").ok_or(LoadingError)?,
+                    load(c"vkCreatePipelineLayout").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_pipeline_layout: transmute(
-                    load(c"vkDestroyPipelineLayout").ok_or(LoadingError)?,
+                    load(c"vkDestroyPipelineLayout").ok_or(MissingEntryPointError)?,
                 ),
-                create_sampler: transmute(load(c"vkCreateSampler").ok_or(LoadingError)?),
-                destroy_sampler: transmute(load(c"vkDestroySampler").ok_or(LoadingError)?),
+                create_sampler: transmute(load(c"vkCreateSampler").ok_or(MissingEntryPointError)?),
+                destroy_sampler: transmute(
+                    load(c"vkDestroySampler").ok_or(MissingEntryPointError)?,
+                ),
                 create_descriptor_set_layout: transmute(
-                    load(c"vkCreateDescriptorSetLayout").ok_or(LoadingError)?,
+                    load(c"vkCreateDescriptorSetLayout").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_descriptor_set_layout: transmute(
-                    load(c"vkDestroyDescriptorSetLayout").ok_or(LoadingError)?,
+                    load(c"vkDestroyDescriptorSetLayout").ok_or(MissingEntryPointError)?,
                 ),
                 create_descriptor_pool: transmute(
-                    load(c"vkCreateDescriptorPool").ok_or(LoadingError)?,
+                    load(c"vkCreateDescriptorPool").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_descriptor_pool: transmute(
-                    load(c"vkDestroyDescriptorPool").ok_or(LoadingError)?,
+                    load(c"vkDestroyDescriptorPool").ok_or(MissingEntryPointError)?,
                 ),
                 reset_descriptor_pool: transmute(
-                    load(c"vkResetDescriptorPool").ok_or(LoadingError)?,
+                    load(c"vkResetDescriptorPool").ok_or(MissingEntryPointError)?,
                 ),
                 allocate_descriptor_sets: transmute(
-                    load(c"vkAllocateDescriptorSets").ok_or(LoadingError)?,
+                    load(c"vkAllocateDescriptorSets").ok_or(MissingEntryPointError)?,
                 ),
-                free_descriptor_sets: transmute(load(c"vkFreeDescriptorSets").ok_or(LoadingError)?),
+                free_descriptor_sets: transmute(
+                    load(c"vkFreeDescriptorSets").ok_or(MissingEntryPointError)?,
+                ),
                 update_descriptor_sets: transmute(
-                    load(c"vkUpdateDescriptorSets").ok_or(LoadingError)?,
+                    load(c"vkUpdateDescriptorSets").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_bind_pipeline: transmute(load(c"vkCmdBindPipeline").ok_or(LoadingError)?),
+                cmd_bind_pipeline: transmute(
+                    load(c"vkCmdBindPipeline").ok_or(MissingEntryPointError)?,
+                ),
                 cmd_bind_descriptor_sets: transmute(
-                    load(c"vkCmdBindDescriptorSets").ok_or(LoadingError)?,
+                    load(c"vkCmdBindDescriptorSets").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_clear_color_image: transmute(
-                    load(c"vkCmdClearColorImage").ok_or(LoadingError)?,
+                    load(c"vkCmdClearColorImage").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_dispatch: transmute(load(c"vkCmdDispatch").ok_or(LoadingError)?),
+                cmd_dispatch: transmute(load(c"vkCmdDispatch").ok_or(MissingEntryPointError)?),
                 cmd_dispatch_indirect: transmute(
-                    load(c"vkCmdDispatchIndirect").ok_or(LoadingError)?,
+                    load(c"vkCmdDispatchIndirect").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_event: transmute(load(c"vkCmdSetEvent").ok_or(LoadingError)?),
-                cmd_reset_event: transmute(load(c"vkCmdResetEvent").ok_or(LoadingError)?),
-                cmd_wait_events: transmute(load(c"vkCmdWaitEvents").ok_or(LoadingError)?),
-                cmd_push_constants: transmute(load(c"vkCmdPushConstants").ok_or(LoadingError)?),
+                cmd_set_event: transmute(load(c"vkCmdSetEvent").ok_or(MissingEntryPointError)?),
+                cmd_reset_event: transmute(load(c"vkCmdResetEvent").ok_or(MissingEntryPointError)?),
+                cmd_wait_events: transmute(load(c"vkCmdWaitEvents").ok_or(MissingEntryPointError)?),
+                cmd_push_constants: transmute(
+                    load(c"vkCmdPushConstants").ok_or(MissingEntryPointError)?,
+                ),
                 create_graphics_pipelines: transmute(
-                    load(c"vkCreateGraphicsPipelines").ok_or(LoadingError)?,
+                    load(c"vkCreateGraphicsPipelines").ok_or(MissingEntryPointError)?,
                 ),
-                create_framebuffer: transmute(load(c"vkCreateFramebuffer").ok_or(LoadingError)?),
-                destroy_framebuffer: transmute(load(c"vkDestroyFramebuffer").ok_or(LoadingError)?),
-                create_render_pass: transmute(load(c"vkCreateRenderPass").ok_or(LoadingError)?),
-                destroy_render_pass: transmute(load(c"vkDestroyRenderPass").ok_or(LoadingError)?),
+                create_framebuffer: transmute(
+                    load(c"vkCreateFramebuffer").ok_or(MissingEntryPointError)?,
+                ),
+                destroy_framebuffer: transmute(
+                    load(c"vkDestroyFramebuffer").ok_or(MissingEntryPointError)?,
+                ),
+                create_render_pass: transmute(
+                    load(c"vkCreateRenderPass").ok_or(MissingEntryPointError)?,
+                ),
+                destroy_render_pass: transmute(
+                    load(c"vkDestroyRenderPass").ok_or(MissingEntryPointError)?,
+                ),
                 get_render_area_granularity: transmute(
-                    load(c"vkGetRenderAreaGranularity").ok_or(LoadingError)?,
+                    load(c"vkGetRenderAreaGranularity").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_viewport: transmute(load(c"vkCmdSetViewport").ok_or(LoadingError)?),
-                cmd_set_scissor: transmute(load(c"vkCmdSetScissor").ok_or(LoadingError)?),
-                cmd_set_line_width: transmute(load(c"vkCmdSetLineWidth").ok_or(LoadingError)?),
-                cmd_set_depth_bias: transmute(load(c"vkCmdSetDepthBias").ok_or(LoadingError)?),
+                cmd_set_viewport: transmute(
+                    load(c"vkCmdSetViewport").ok_or(MissingEntryPointError)?,
+                ),
+                cmd_set_scissor: transmute(load(c"vkCmdSetScissor").ok_or(MissingEntryPointError)?),
+                cmd_set_line_width: transmute(
+                    load(c"vkCmdSetLineWidth").ok_or(MissingEntryPointError)?,
+                ),
+                cmd_set_depth_bias: transmute(
+                    load(c"vkCmdSetDepthBias").ok_or(MissingEntryPointError)?,
+                ),
                 cmd_set_blend_constants: transmute(
-                    load(c"vkCmdSetBlendConstants").ok_or(LoadingError)?,
+                    load(c"vkCmdSetBlendConstants").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_depth_bounds: transmute(load(c"vkCmdSetDepthBounds").ok_or(LoadingError)?),
+                cmd_set_depth_bounds: transmute(
+                    load(c"vkCmdSetDepthBounds").ok_or(MissingEntryPointError)?,
+                ),
                 cmd_set_stencil_compare_mask: transmute(
-                    load(c"vkCmdSetStencilCompareMask").ok_or(LoadingError)?,
+                    load(c"vkCmdSetStencilCompareMask").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_stencil_write_mask: transmute(
-                    load(c"vkCmdSetStencilWriteMask").ok_or(LoadingError)?,
+                    load(c"vkCmdSetStencilWriteMask").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_stencil_reference: transmute(
-                    load(c"vkCmdSetStencilReference").ok_or(LoadingError)?,
+                    load(c"vkCmdSetStencilReference").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_bind_index_buffer: transmute(
-                    load(c"vkCmdBindIndexBuffer").ok_or(LoadingError)?,
+                    load(c"vkCmdBindIndexBuffer").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_bind_vertex_buffers: transmute(
-                    load(c"vkCmdBindVertexBuffers").ok_or(LoadingError)?,
+                    load(c"vkCmdBindVertexBuffers").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_draw: transmute(load(c"vkCmdDraw").ok_or(LoadingError)?),
-                cmd_draw_indexed: transmute(load(c"vkCmdDrawIndexed").ok_or(LoadingError)?),
-                cmd_draw_indirect: transmute(load(c"vkCmdDrawIndirect").ok_or(LoadingError)?),
+                cmd_draw: transmute(load(c"vkCmdDraw").ok_or(MissingEntryPointError)?),
+                cmd_draw_indexed: transmute(
+                    load(c"vkCmdDrawIndexed").ok_or(MissingEntryPointError)?,
+                ),
+                cmd_draw_indirect: transmute(
+                    load(c"vkCmdDrawIndirect").ok_or(MissingEntryPointError)?,
+                ),
                 cmd_draw_indexed_indirect: transmute(
-                    load(c"vkCmdDrawIndexedIndirect").ok_or(LoadingError)?,
+                    load(c"vkCmdDrawIndexedIndirect").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_blit_image: transmute(load(c"vkCmdBlitImage").ok_or(LoadingError)?),
+                cmd_blit_image: transmute(load(c"vkCmdBlitImage").ok_or(MissingEntryPointError)?),
                 cmd_clear_depth_stencil_image: transmute(
-                    load(c"vkCmdClearDepthStencilImage").ok_or(LoadingError)?,
+                    load(c"vkCmdClearDepthStencilImage").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_clear_attachments: transmute(
-                    load(c"vkCmdClearAttachments").ok_or(LoadingError)?,
+                    load(c"vkCmdClearAttachments").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_resolve_image: transmute(load(c"vkCmdResolveImage").ok_or(LoadingError)?),
+                cmd_resolve_image: transmute(
+                    load(c"vkCmdResolveImage").ok_or(MissingEntryPointError)?,
+                ),
                 cmd_begin_render_pass: transmute(
-                    load(c"vkCmdBeginRenderPass").ok_or(LoadingError)?,
+                    load(c"vkCmdBeginRenderPass").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_next_subpass: transmute(load(c"vkCmdNextSubpass").ok_or(LoadingError)?),
-                cmd_end_render_pass: transmute(load(c"vkCmdEndRenderPass").ok_or(LoadingError)?),
+                cmd_next_subpass: transmute(
+                    load(c"vkCmdNextSubpass").ok_or(MissingEntryPointError)?,
+                ),
+                cmd_end_render_pass: transmute(
+                    load(c"vkCmdEndRenderPass").ok_or(MissingEntryPointError)?,
+                ),
             })
         }
     }

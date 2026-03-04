@@ -38,23 +38,23 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 copy_memory_to_image_ext: transmute(
-                    load(c"vkCopyMemoryToImageEXT").ok_or(LoadingError)?,
+                    load(c"vkCopyMemoryToImageEXT").ok_or(MissingEntryPointError)?,
                 ),
                 copy_image_to_memory_ext: transmute(
-                    load(c"vkCopyImageToMemoryEXT").ok_or(LoadingError)?,
+                    load(c"vkCopyImageToMemoryEXT").ok_or(MissingEntryPointError)?,
                 ),
                 copy_image_to_image_ext: transmute(
-                    load(c"vkCopyImageToImageEXT").ok_or(LoadingError)?,
+                    load(c"vkCopyImageToImageEXT").ok_or(MissingEntryPointError)?,
                 ),
                 transition_image_layout_ext: transmute(
-                    load(c"vkTransitionImageLayoutEXT").ok_or(LoadingError)?,
+                    load(c"vkTransitionImageLayoutEXT").ok_or(MissingEntryPointError)?,
                 ),
                 get_image_subresource_layout2_ext: transmute(
-                    load(c"vkGetImageSubresourceLayout2EXT").ok_or(LoadingError)?,
+                    load(c"vkGetImageSubresourceLayout2EXT").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

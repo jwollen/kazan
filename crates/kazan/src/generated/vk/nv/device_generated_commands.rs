@@ -748,26 +748,27 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_generated_commands_memory_requirements_nv: transmute(
-                    load(c"vkGetGeneratedCommandsMemoryRequirementsNV").ok_or(LoadingError)?,
+                    load(c"vkGetGeneratedCommandsMemoryRequirementsNV")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 cmd_preprocess_generated_commands_nv: transmute(
-                    load(c"vkCmdPreprocessGeneratedCommandsNV").ok_or(LoadingError)?,
+                    load(c"vkCmdPreprocessGeneratedCommandsNV").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_execute_generated_commands_nv: transmute(
-                    load(c"vkCmdExecuteGeneratedCommandsNV").ok_or(LoadingError)?,
+                    load(c"vkCmdExecuteGeneratedCommandsNV").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_bind_pipeline_shader_group_nv: transmute(
-                    load(c"vkCmdBindPipelineShaderGroupNV").ok_or(LoadingError)?,
+                    load(c"vkCmdBindPipelineShaderGroupNV").ok_or(MissingEntryPointError)?,
                 ),
                 create_indirect_commands_layout_nv: transmute(
-                    load(c"vkCreateIndirectCommandsLayoutNV").ok_or(LoadingError)?,
+                    load(c"vkCreateIndirectCommandsLayoutNV").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_indirect_commands_layout_nv: transmute(
-                    load(c"vkDestroyIndirectCommandsLayoutNV").ok_or(LoadingError)?,
+                    load(c"vkDestroyIndirectCommandsLayoutNV").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

@@ -18,11 +18,11 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 enumerate_physical_device_groups_khr: transmute(
-                    load(c"vkEnumeratePhysicalDeviceGroupsKHR").ok_or(LoadingError)?,
+                    load(c"vkEnumeratePhysicalDeviceGroupsKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

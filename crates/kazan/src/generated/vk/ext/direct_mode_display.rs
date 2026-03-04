@@ -19,10 +19,12 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                release_display_ext: transmute(load(c"vkReleaseDisplayEXT").ok_or(LoadingError)?),
+                release_display_ext: transmute(
+                    load(c"vkReleaseDisplayEXT").ok_or(MissingEntryPointError)?,
+                ),
             })
         }
     }

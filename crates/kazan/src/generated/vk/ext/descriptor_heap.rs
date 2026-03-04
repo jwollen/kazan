@@ -1391,11 +1391,11 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_physical_device_descriptor_size_ext: transmute(
-                    load(c"vkGetPhysicalDeviceDescriptorSizeEXT").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceDescriptorSizeEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
         }
@@ -1424,24 +1424,26 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 write_sampler_descriptors_ext: transmute(
-                    load(c"vkWriteSamplerDescriptorsEXT").ok_or(LoadingError)?,
+                    load(c"vkWriteSamplerDescriptorsEXT").ok_or(MissingEntryPointError)?,
                 ),
                 write_resource_descriptors_ext: transmute(
-                    load(c"vkWriteResourceDescriptorsEXT").ok_or(LoadingError)?,
+                    load(c"vkWriteResourceDescriptorsEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_bind_sampler_heap_ext: transmute(
-                    load(c"vkCmdBindSamplerHeapEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdBindSamplerHeapEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_bind_resource_heap_ext: transmute(
-                    load(c"vkCmdBindResourceHeapEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdBindResourceHeapEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_push_data_ext: transmute(load(c"vkCmdPushDataEXT").ok_or(LoadingError)?),
+                cmd_push_data_ext: transmute(
+                    load(c"vkCmdPushDataEXT").ok_or(MissingEntryPointError)?,
+                ),
                 get_image_opaque_capture_data_ext: transmute(
-                    load(c"vkGetImageOpaqueCaptureDataEXT").ok_or(LoadingError)?,
+                    load(c"vkGetImageOpaqueCaptureDataEXT").ok_or(MissingEntryPointError)?,
                 ),
                 register_custom_border_color_ext: transmute(load(
                     c"vkRegisterCustomBorderColorEXT",

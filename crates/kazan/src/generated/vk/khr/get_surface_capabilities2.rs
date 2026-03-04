@@ -113,14 +113,15 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_physical_device_surface_capabilities2_khr: transmute(
-                    load(c"vkGetPhysicalDeviceSurfaceCapabilities2KHR").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceSurfaceCapabilities2KHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_surface_formats2_khr: transmute(
-                    load(c"vkGetPhysicalDeviceSurfaceFormats2KHR").ok_or(LoadingError)?,
+                    load(c"vkGetPhysicalDeviceSurfaceFormats2KHR").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

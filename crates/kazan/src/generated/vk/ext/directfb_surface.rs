@@ -73,15 +73,15 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 create_direct_fb_surface_ext: transmute(
-                    load(c"vkCreateDirectFBSurfaceEXT").ok_or(LoadingError)?,
+                    load(c"vkCreateDirectFBSurfaceEXT").ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_direct_fb_presentation_support_ext: transmute(
                     load(c"vkGetPhysicalDeviceDirectFBPresentationSupportEXT")
-                        .ok_or(LoadingError)?,
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }

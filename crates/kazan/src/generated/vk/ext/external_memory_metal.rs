@@ -121,14 +121,14 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_memory_metal_handle_ext: transmute(
-                    load(c"vkGetMemoryMetalHandleEXT").ok_or(LoadingError)?,
+                    load(c"vkGetMemoryMetalHandleEXT").ok_or(MissingEntryPointError)?,
                 ),
                 get_memory_metal_handle_properties_ext: transmute(
-                    load(c"vkGetMemoryMetalHandlePropertiesEXT").ok_or(LoadingError)?,
+                    load(c"vkGetMemoryMetalHandlePropertiesEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

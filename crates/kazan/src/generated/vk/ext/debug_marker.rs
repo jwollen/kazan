@@ -148,23 +148,23 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 debug_marker_set_object_tag_ext: transmute(
-                    load(c"vkDebugMarkerSetObjectTagEXT").ok_or(LoadingError)?,
+                    load(c"vkDebugMarkerSetObjectTagEXT").ok_or(MissingEntryPointError)?,
                 ),
                 debug_marker_set_object_name_ext: transmute(
-                    load(c"vkDebugMarkerSetObjectNameEXT").ok_or(LoadingError)?,
+                    load(c"vkDebugMarkerSetObjectNameEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_debug_marker_begin_ext: transmute(
-                    load(c"vkCmdDebugMarkerBeginEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdDebugMarkerBeginEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_debug_marker_end_ext: transmute(
-                    load(c"vkCmdDebugMarkerEndEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdDebugMarkerEndEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_debug_marker_insert_ext: transmute(
-                    load(c"vkCmdDebugMarkerInsertEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdDebugMarkerInsertEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

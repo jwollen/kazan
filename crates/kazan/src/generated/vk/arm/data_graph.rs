@@ -1056,19 +1056,19 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_physical_device_queue_family_data_graph_properties_arm: transmute(
                     load(c"vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM")
-                        .ok_or(LoadingError)?,
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_physical_device_queue_family_data_graph_processing_engine_properties_arm:
                     transmute(
                         load(
                             c"vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM",
                         )
-                        .ok_or(LoadingError)?,
+                        .ok_or(MissingEntryPointError)?,
                     ),
             })
         }
@@ -1135,37 +1135,39 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 create_data_graph_pipelines_arm: transmute(
-                    load(c"vkCreateDataGraphPipelinesARM").ok_or(LoadingError)?,
+                    load(c"vkCreateDataGraphPipelinesARM").ok_or(MissingEntryPointError)?,
                 ),
                 create_data_graph_pipeline_session_arm: transmute(
-                    load(c"vkCreateDataGraphPipelineSessionARM").ok_or(LoadingError)?,
+                    load(c"vkCreateDataGraphPipelineSessionARM").ok_or(MissingEntryPointError)?,
                 ),
                 get_data_graph_pipeline_session_bind_point_requirements_arm: transmute(
                     load(c"vkGetDataGraphPipelineSessionBindPointRequirementsARM")
-                        .ok_or(LoadingError)?,
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_data_graph_pipeline_session_memory_requirements_arm: transmute(
                     load(c"vkGetDataGraphPipelineSessionMemoryRequirementsARM")
-                        .ok_or(LoadingError)?,
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 bind_data_graph_pipeline_session_memory_arm: transmute(
-                    load(c"vkBindDataGraphPipelineSessionMemoryARM").ok_or(LoadingError)?,
+                    load(c"vkBindDataGraphPipelineSessionMemoryARM")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 destroy_data_graph_pipeline_session_arm: transmute(
-                    load(c"vkDestroyDataGraphPipelineSessionARM").ok_or(LoadingError)?,
+                    load(c"vkDestroyDataGraphPipelineSessionARM").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_dispatch_data_graph_arm: transmute(
-                    load(c"vkCmdDispatchDataGraphARM").ok_or(LoadingError)?,
+                    load(c"vkCmdDispatchDataGraphARM").ok_or(MissingEntryPointError)?,
                 ),
                 get_data_graph_pipeline_available_properties_arm: transmute(
-                    load(c"vkGetDataGraphPipelineAvailablePropertiesARM").ok_or(LoadingError)?,
+                    load(c"vkGetDataGraphPipelineAvailablePropertiesARM")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 get_data_graph_pipeline_properties_arm: transmute(
-                    load(c"vkGetDataGraphPipelinePropertiesARM").ok_or(LoadingError)?,
+                    load(c"vkGetDataGraphPipelinePropertiesARM").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

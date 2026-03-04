@@ -185,14 +185,14 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 cmd_decompress_memory_ext: transmute(
-                    load(c"vkCmdDecompressMemoryEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdDecompressMemoryEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_decompress_memory_indirect_count_ext: transmute(
-                    load(c"vkCmdDecompressMemoryIndirectCountEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdDecompressMemoryIndirectCountEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

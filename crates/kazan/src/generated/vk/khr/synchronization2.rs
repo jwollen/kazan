@@ -38,19 +38,27 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_set_event2_khr: transmute(load(c"vkCmdSetEvent2KHR").ok_or(LoadingError)?),
-                cmd_reset_event2_khr: transmute(load(c"vkCmdResetEvent2KHR").ok_or(LoadingError)?),
-                cmd_wait_events2_khr: transmute(load(c"vkCmdWaitEvents2KHR").ok_or(LoadingError)?),
+                cmd_set_event2_khr: transmute(
+                    load(c"vkCmdSetEvent2KHR").ok_or(MissingEntryPointError)?,
+                ),
+                cmd_reset_event2_khr: transmute(
+                    load(c"vkCmdResetEvent2KHR").ok_or(MissingEntryPointError)?,
+                ),
+                cmd_wait_events2_khr: transmute(
+                    load(c"vkCmdWaitEvents2KHR").ok_or(MissingEntryPointError)?,
+                ),
                 cmd_pipeline_barrier2_khr: transmute(
-                    load(c"vkCmdPipelineBarrier2KHR").ok_or(LoadingError)?,
+                    load(c"vkCmdPipelineBarrier2KHR").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_write_timestamp2_khr: transmute(
-                    load(c"vkCmdWriteTimestamp2KHR").ok_or(LoadingError)?,
+                    load(c"vkCmdWriteTimestamp2KHR").ok_or(MissingEntryPointError)?,
                 ),
-                queue_submit2_khr: transmute(load(c"vkQueueSubmit2KHR").ok_or(LoadingError)?),
+                queue_submit2_khr: transmute(
+                    load(c"vkQueueSubmit2KHR").ok_or(MissingEntryPointError)?,
+                ),
             })
         }
     }

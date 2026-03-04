@@ -315,97 +315,107 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_shaders_ext: transmute(load(c"vkCreateShadersEXT").ok_or(LoadingError)?),
-                destroy_shader_ext: transmute(load(c"vkDestroyShaderEXT").ok_or(LoadingError)?),
-                get_shader_binary_data_ext: transmute(
-                    load(c"vkGetShaderBinaryDataEXT").ok_or(LoadingError)?,
+                create_shaders_ext: transmute(
+                    load(c"vkCreateShadersEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_bind_shaders_ext: transmute(load(c"vkCmdBindShadersEXT").ok_or(LoadingError)?),
-                cmd_set_cull_mode_ext: transmute(load(c"vkCmdSetCullModeEXT").ok_or(LoadingError)?),
+                destroy_shader_ext: transmute(
+                    load(c"vkDestroyShaderEXT").ok_or(MissingEntryPointError)?,
+                ),
+                get_shader_binary_data_ext: transmute(
+                    load(c"vkGetShaderBinaryDataEXT").ok_or(MissingEntryPointError)?,
+                ),
+                cmd_bind_shaders_ext: transmute(
+                    load(c"vkCmdBindShadersEXT").ok_or(MissingEntryPointError)?,
+                ),
+                cmd_set_cull_mode_ext: transmute(
+                    load(c"vkCmdSetCullModeEXT").ok_or(MissingEntryPointError)?,
+                ),
                 cmd_set_front_face_ext: transmute(
-                    load(c"vkCmdSetFrontFaceEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetFrontFaceEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_primitive_topology_ext: transmute(
-                    load(c"vkCmdSetPrimitiveTopologyEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetPrimitiveTopologyEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_viewport_with_count_ext: transmute(
-                    load(c"vkCmdSetViewportWithCountEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetViewportWithCountEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_scissor_with_count_ext: transmute(
-                    load(c"vkCmdSetScissorWithCountEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetScissorWithCountEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_bind_vertex_buffers2_ext: transmute(
-                    load(c"vkCmdBindVertexBuffers2EXT").ok_or(LoadingError)?,
+                    load(c"vkCmdBindVertexBuffers2EXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_depth_test_enable_ext: transmute(
-                    load(c"vkCmdSetDepthTestEnableEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetDepthTestEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_depth_write_enable_ext: transmute(
-                    load(c"vkCmdSetDepthWriteEnableEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetDepthWriteEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_depth_compare_op_ext: transmute(
-                    load(c"vkCmdSetDepthCompareOpEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetDepthCompareOpEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_depth_bounds_test_enable_ext: transmute(
-                    load(c"vkCmdSetDepthBoundsTestEnableEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetDepthBoundsTestEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_stencil_test_enable_ext: transmute(
-                    load(c"vkCmdSetStencilTestEnableEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetStencilTestEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_stencil_op_ext: transmute(
-                    load(c"vkCmdSetStencilOpEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetStencilOpEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_vertex_input_ext: transmute(
-                    load(c"vkCmdSetVertexInputEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetVertexInputEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_patch_control_points_ext: transmute(
-                    load(c"vkCmdSetPatchControlPointsEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetPatchControlPointsEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_rasterizer_discard_enable_ext: transmute(
-                    load(c"vkCmdSetRasterizerDiscardEnableEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetRasterizerDiscardEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_depth_bias_enable_ext: transmute(
-                    load(c"vkCmdSetDepthBiasEnableEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetDepthBiasEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_logic_op_ext: transmute(load(c"vkCmdSetLogicOpEXT").ok_or(LoadingError)?),
+                cmd_set_logic_op_ext: transmute(
+                    load(c"vkCmdSetLogicOpEXT").ok_or(MissingEntryPointError)?,
+                ),
                 cmd_set_primitive_restart_enable_ext: transmute(
-                    load(c"vkCmdSetPrimitiveRestartEnableEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetPrimitiveRestartEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_tessellation_domain_origin_ext: transmute(
-                    load(c"vkCmdSetTessellationDomainOriginEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetTessellationDomainOriginEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_depth_clamp_enable_ext: transmute(
-                    load(c"vkCmdSetDepthClampEnableEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetDepthClampEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_polygon_mode_ext: transmute(
-                    load(c"vkCmdSetPolygonModeEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetPolygonModeEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_rasterization_samples_ext: transmute(
-                    load(c"vkCmdSetRasterizationSamplesEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetRasterizationSamplesEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_sample_mask_ext: transmute(
-                    load(c"vkCmdSetSampleMaskEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetSampleMaskEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_alpha_to_coverage_enable_ext: transmute(
-                    load(c"vkCmdSetAlphaToCoverageEnableEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetAlphaToCoverageEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_alpha_to_one_enable_ext: transmute(
-                    load(c"vkCmdSetAlphaToOneEnableEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetAlphaToOneEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_logic_op_enable_ext: transmute(
-                    load(c"vkCmdSetLogicOpEnableEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetLogicOpEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_color_blend_enable_ext: transmute(
-                    load(c"vkCmdSetColorBlendEnableEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetColorBlendEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_color_blend_equation_ext: transmute(
-                    load(c"vkCmdSetColorBlendEquationEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetColorBlendEquationEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_color_write_mask_ext: transmute(
-                    load(c"vkCmdSetColorWriteMaskEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdSetColorWriteMaskEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_rasterization_stream_ext: transmute(load(
                     c"vkCmdSetRasterizationStreamEXT",

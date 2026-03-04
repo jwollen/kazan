@@ -516,28 +516,32 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_trace_rays_khr: transmute(load(c"vkCmdTraceRaysKHR").ok_or(LoadingError)?),
+                cmd_trace_rays_khr: transmute(
+                    load(c"vkCmdTraceRaysKHR").ok_or(MissingEntryPointError)?,
+                ),
                 create_ray_tracing_pipelines_khr: transmute(
-                    load(c"vkCreateRayTracingPipelinesKHR").ok_or(LoadingError)?,
+                    load(c"vkCreateRayTracingPipelinesKHR").ok_or(MissingEntryPointError)?,
                 ),
                 get_ray_tracing_shader_group_handles_khr: transmute(
-                    load(c"vkGetRayTracingShaderGroupHandlesKHR").ok_or(LoadingError)?,
+                    load(c"vkGetRayTracingShaderGroupHandlesKHR").ok_or(MissingEntryPointError)?,
                 ),
                 get_ray_tracing_capture_replay_shader_group_handles_khr: transmute(
                     load(c"vkGetRayTracingCaptureReplayShaderGroupHandlesKHR")
-                        .ok_or(LoadingError)?,
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 cmd_trace_rays_indirect_khr: transmute(
-                    load(c"vkCmdTraceRaysIndirectKHR").ok_or(LoadingError)?,
+                    load(c"vkCmdTraceRaysIndirectKHR").ok_or(MissingEntryPointError)?,
                 ),
                 get_ray_tracing_shader_group_stack_size_khr: transmute(
-                    load(c"vkGetRayTracingShaderGroupStackSizeKHR").ok_or(LoadingError)?,
+                    load(c"vkGetRayTracingShaderGroupStackSizeKHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 cmd_set_ray_tracing_pipeline_stack_size_khr: transmute(
-                    load(c"vkCmdSetRayTracingPipelineStackSizeKHR").ok_or(LoadingError)?,
+                    load(c"vkCmdSetRayTracingPipelineStackSizeKHR")
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }

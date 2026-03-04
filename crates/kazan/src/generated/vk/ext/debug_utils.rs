@@ -351,17 +351,17 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 create_debug_utils_messenger_ext: transmute(
-                    load(c"vkCreateDebugUtilsMessengerEXT").ok_or(LoadingError)?,
+                    load(c"vkCreateDebugUtilsMessengerEXT").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_debug_utils_messenger_ext: transmute(
-                    load(c"vkDestroyDebugUtilsMessengerEXT").ok_or(LoadingError)?,
+                    load(c"vkDestroyDebugUtilsMessengerEXT").ok_or(MissingEntryPointError)?,
                 ),
                 submit_debug_utils_message_ext: transmute(
-                    load(c"vkSubmitDebugUtilsMessageEXT").ok_or(LoadingError)?,
+                    load(c"vkSubmitDebugUtilsMessageEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
         }
@@ -429,32 +429,32 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 set_debug_utils_object_name_ext: transmute(
-                    load(c"vkSetDebugUtilsObjectNameEXT").ok_or(LoadingError)?,
+                    load(c"vkSetDebugUtilsObjectNameEXT").ok_or(MissingEntryPointError)?,
                 ),
                 set_debug_utils_object_tag_ext: transmute(
-                    load(c"vkSetDebugUtilsObjectTagEXT").ok_or(LoadingError)?,
+                    load(c"vkSetDebugUtilsObjectTagEXT").ok_or(MissingEntryPointError)?,
                 ),
                 queue_begin_debug_utils_label_ext: transmute(
-                    load(c"vkQueueBeginDebugUtilsLabelEXT").ok_or(LoadingError)?,
+                    load(c"vkQueueBeginDebugUtilsLabelEXT").ok_or(MissingEntryPointError)?,
                 ),
                 queue_end_debug_utils_label_ext: transmute(
-                    load(c"vkQueueEndDebugUtilsLabelEXT").ok_or(LoadingError)?,
+                    load(c"vkQueueEndDebugUtilsLabelEXT").ok_or(MissingEntryPointError)?,
                 ),
                 queue_insert_debug_utils_label_ext: transmute(
-                    load(c"vkQueueInsertDebugUtilsLabelEXT").ok_or(LoadingError)?,
+                    load(c"vkQueueInsertDebugUtilsLabelEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_begin_debug_utils_label_ext: transmute(
-                    load(c"vkCmdBeginDebugUtilsLabelEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdBeginDebugUtilsLabelEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_end_debug_utils_label_ext: transmute(
-                    load(c"vkCmdEndDebugUtilsLabelEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdEndDebugUtilsLabelEXT").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_insert_debug_utils_label_ext: transmute(
-                    load(c"vkCmdInsertDebugUtilsLabelEXT").ok_or(LoadingError)?,
+                    load(c"vkCmdInsertDebugUtilsLabelEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

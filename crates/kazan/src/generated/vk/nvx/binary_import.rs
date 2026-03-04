@@ -222,21 +222,23 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_cu_module_nvx: transmute(load(c"vkCreateCuModuleNVX").ok_or(LoadingError)?),
+                create_cu_module_nvx: transmute(
+                    load(c"vkCreateCuModuleNVX").ok_or(MissingEntryPointError)?,
+                ),
                 create_cu_function_nvx: transmute(
-                    load(c"vkCreateCuFunctionNVX").ok_or(LoadingError)?,
+                    load(c"vkCreateCuFunctionNVX").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_cu_module_nvx: transmute(
-                    load(c"vkDestroyCuModuleNVX").ok_or(LoadingError)?,
+                    load(c"vkDestroyCuModuleNVX").ok_or(MissingEntryPointError)?,
                 ),
                 destroy_cu_function_nvx: transmute(
-                    load(c"vkDestroyCuFunctionNVX").ok_or(LoadingError)?,
+                    load(c"vkDestroyCuFunctionNVX").ok_or(MissingEntryPointError)?,
                 ),
                 cmd_cu_launch_kernel_nvx: transmute(
-                    load(c"vkCmdCuLaunchKernelNVX").ok_or(LoadingError)?,
+                    load(c"vkCmdCuLaunchKernelNVX").ok_or(MissingEntryPointError)?,
                 ),
             })
         }

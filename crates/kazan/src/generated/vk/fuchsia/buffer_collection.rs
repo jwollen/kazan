@@ -551,23 +551,26 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 create_buffer_collection_fuchsia: transmute(
-                    load(c"vkCreateBufferCollectionFUCHSIA").ok_or(LoadingError)?,
+                    load(c"vkCreateBufferCollectionFUCHSIA").ok_or(MissingEntryPointError)?,
                 ),
                 set_buffer_collection_image_constraints_fuchsia: transmute(
-                    load(c"vkSetBufferCollectionImageConstraintsFUCHSIA").ok_or(LoadingError)?,
+                    load(c"vkSetBufferCollectionImageConstraintsFUCHSIA")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 set_buffer_collection_buffer_constraints_fuchsia: transmute(
-                    load(c"vkSetBufferCollectionBufferConstraintsFUCHSIA").ok_or(LoadingError)?,
+                    load(c"vkSetBufferCollectionBufferConstraintsFUCHSIA")
+                        .ok_or(MissingEntryPointError)?,
                 ),
                 destroy_buffer_collection_fuchsia: transmute(
-                    load(c"vkDestroyBufferCollectionFUCHSIA").ok_or(LoadingError)?,
+                    load(c"vkDestroyBufferCollectionFUCHSIA").ok_or(MissingEntryPointError)?,
                 ),
                 get_buffer_collection_properties_fuchsia: transmute(
-                    load(c"vkGetBufferCollectionPropertiesFUCHSIA").ok_or(LoadingError)?,
+                    load(c"vkGetBufferCollectionPropertiesFUCHSIA")
+                        .ok_or(MissingEntryPointError)?,
                 ),
             })
         }

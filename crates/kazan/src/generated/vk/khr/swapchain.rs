@@ -495,7 +495,7 @@ pub struct InstanceFn {
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
                 get_physical_device_present_rectangles_khr: transmute(load(
@@ -543,20 +543,24 @@ pub struct DeviceFn {
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
-    ) -> core::result::Result<Self, LoadingError> {
+    ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_swapchain_khr: transmute(load(c"vkCreateSwapchainKHR").ok_or(LoadingError)?),
+                create_swapchain_khr: transmute(
+                    load(c"vkCreateSwapchainKHR").ok_or(MissingEntryPointError)?,
+                ),
                 destroy_swapchain_khr: transmute(
-                    load(c"vkDestroySwapchainKHR").ok_or(LoadingError)?,
+                    load(c"vkDestroySwapchainKHR").ok_or(MissingEntryPointError)?,
                 ),
                 get_swapchain_images_khr: transmute(
-                    load(c"vkGetSwapchainImagesKHR").ok_or(LoadingError)?,
+                    load(c"vkGetSwapchainImagesKHR").ok_or(MissingEntryPointError)?,
                 ),
                 acquire_next_image_khr: transmute(
-                    load(c"vkAcquireNextImageKHR").ok_or(LoadingError)?,
+                    load(c"vkAcquireNextImageKHR").ok_or(MissingEntryPointError)?,
                 ),
-                queue_present_khr: transmute(load(c"vkQueuePresentKHR").ok_or(LoadingError)?),
+                queue_present_khr: transmute(
+                    load(c"vkQueuePresentKHR").ok_or(MissingEntryPointError)?,
+                ),
                 get_device_group_present_capabilities_khr: transmute(load(
                     c"vkGetDeviceGroupPresentCapabilitiesKHR",
                 )),
