@@ -88,6 +88,26 @@ pub(super) mod defs {
         pub const POSITIVE_W_NV: Self = Self(6);
         pub const NEGATIVE_W_NV: Self = Self(7);
     }
+    impl fmt::Debug for ViewportCoordinateSwizzleNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::POSITIVE_X_NV => Some("POSITIVE_X_NV"),
+                Self::NEGATIVE_X_NV => Some("NEGATIVE_X_NV"),
+                Self::POSITIVE_Y_NV => Some("POSITIVE_Y_NV"),
+                Self::NEGATIVE_Y_NV => Some("NEGATIVE_Y_NV"),
+                Self::POSITIVE_Z_NV => Some("POSITIVE_Z_NV"),
+                Self::NEGATIVE_Z_NV => Some("NEGATIVE_Z_NV"),
+                Self::POSITIVE_W_NV => Some("POSITIVE_W_NV"),
+                Self::NEGATIVE_W_NV => Some("NEGATIVE_W_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineViewportSwizzleStateCreateFlagsNV(Flags);

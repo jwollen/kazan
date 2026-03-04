@@ -296,6 +296,34 @@ pub(super) mod defs {
         pub const UINT64_NV: Self = Self::UINT64_KHR;
         pub const UINT8_NV: Self = Self::UINT8_KHR;
     }
+    impl fmt::Debug for ComponentTypeKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::FLOAT16_KHR => Some("FLOAT16_KHR"),
+                Self::FLOAT32_KHR => Some("FLOAT32_KHR"),
+                Self::FLOAT64_KHR => Some("FLOAT64_KHR"),
+                Self::SINT8_KHR => Some("SINT8_KHR"),
+                Self::SINT16_KHR => Some("SINT16_KHR"),
+                Self::SINT32_KHR => Some("SINT32_KHR"),
+                Self::SINT64_KHR => Some("SINT64_KHR"),
+                Self::UINT8_KHR => Some("UINT8_KHR"),
+                Self::UINT16_KHR => Some("UINT16_KHR"),
+                Self::UINT32_KHR => Some("UINT32_KHR"),
+                Self::UINT64_KHR => Some("UINT64_KHR"),
+                Self::BFLOAT16_KHR => Some("BFLOAT16_KHR"),
+                Self::FLOAT8_E4M3_EXT => Some("FLOAT8_E4M3_EXT"),
+                Self::FLOAT8_E5M2_EXT => Some("FLOAT8_E5M2_EXT"),
+                Self::SINT8_PACKED_NV => Some("SINT8_PACKED_NV"),
+                Self::UINT8_PACKED_NV => Some("UINT8_PACKED_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct CooperativeVectorMatrixLayoutNV(i32);
@@ -304,6 +332,22 @@ pub(super) mod defs {
         pub const COLUMN_MAJOR_NV: Self = Self(1);
         pub const INFERENCING_OPTIMAL_NV: Self = Self(2);
         pub const TRAINING_OPTIMAL_NV: Self = Self(3);
+    }
+    impl fmt::Debug for CooperativeVectorMatrixLayoutNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::ROW_MAJOR_NV => Some("ROW_MAJOR_NV"),
+                Self::COLUMN_MAJOR_NV => Some("COLUMN_MAJOR_NV"),
+                Self::INFERENCING_OPTIMAL_NV => Some("INFERENCING_OPTIMAL_NV"),
+                Self::TRAINING_OPTIMAL_NV => Some("TRAINING_OPTIMAL_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     pub type PFN_vkGetPhysicalDeviceCooperativeVectorPropertiesNV =
         unsafe extern "system" fn(

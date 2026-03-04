@@ -78,6 +78,22 @@ pub(super) mod defs {
         pub const ALPHA_NV: Self = Self(2);
         pub const RGBA_NV: Self = Self(3);
     }
+    impl fmt::Debug for CoverageModulationModeNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::NONE_NV => Some("NONE_NV"),
+                Self::RGB_NV => Some("RGB_NV"),
+                Self::ALPHA_NV => Some("ALPHA_NV"),
+                Self::RGBA_NV => Some("RGBA_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineCoverageModulationStateCreateFlagsNV(Flags);

@@ -543,6 +543,20 @@ pub(super) mod defs {
         pub const OPACITY_MICROMAP_EXT: Self = Self(0);
         pub const DISPLACEMENT_MICROMAP_NV: Self = Self(1000397000);
     }
+    impl fmt::Debug for MicromapTypeEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::OPACITY_MICROMAP_EXT => Some("OPACITY_MICROMAP_EXT"),
+                Self::DISPLACEMENT_MICROMAP_NV => Some("DISPLACEMENT_MICROMAP_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct CopyMicromapModeEXT(i32);
@@ -552,11 +566,40 @@ pub(super) mod defs {
         pub const DESERIALIZE_EXT: Self = Self(2);
         pub const COMPACT_EXT: Self = Self(3);
     }
+    impl fmt::Debug for CopyMicromapModeEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::CLONE_EXT => Some("CLONE_EXT"),
+                Self::SERIALIZE_EXT => Some("SERIALIZE_EXT"),
+                Self::DESERIALIZE_EXT => Some("DESERIALIZE_EXT"),
+                Self::COMPACT_EXT => Some("COMPACT_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct BuildMicromapModeEXT(i32);
     impl BuildMicromapModeEXT {
         pub const BUILD_EXT: Self = Self(0);
+    }
+    impl fmt::Debug for BuildMicromapModeEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::BUILD_EXT => Some("BUILD_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -564,6 +607,20 @@ pub(super) mod defs {
     impl OpacityMicromapFormatEXT {
         pub const _2_STATE_EXT: Self = Self(1);
         pub const _4_STATE_EXT: Self = Self(2);
+    }
+    impl fmt::Debug for OpacityMicromapFormatEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::_2_STATE_EXT => Some("_2_STATE_EXT"),
+                Self::_4_STATE_EXT => Some("_4_STATE_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -574,6 +631,25 @@ pub(super) mod defs {
         pub const FULLY_UNKNOWN_TRANSPARENT_EXT: Self = Self(-3);
         pub const FULLY_UNKNOWN_OPAQUE_EXT: Self = Self(-4);
         pub const CLUSTER_GEOMETRY_DISABLE_OPACITY_MICROMAP_NV: Self = Self(-5);
+    }
+    impl fmt::Debug for OpacityMicromapSpecialIndexEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::FULLY_TRANSPARENT_EXT => Some("FULLY_TRANSPARENT_EXT"),
+                Self::FULLY_OPAQUE_EXT => Some("FULLY_OPAQUE_EXT"),
+                Self::FULLY_UNKNOWN_TRANSPARENT_EXT => Some("FULLY_UNKNOWN_TRANSPARENT_EXT"),
+                Self::FULLY_UNKNOWN_OPAQUE_EXT => Some("FULLY_UNKNOWN_OPAQUE_EXT"),
+                Self::CLUSTER_GEOMETRY_DISABLE_OPACITY_MICROMAP_NV => {
+                    Some("CLUSTER_GEOMETRY_DISABLE_OPACITY_MICROMAP_NV")
+                }
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]

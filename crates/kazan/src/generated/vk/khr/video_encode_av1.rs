@@ -853,6 +853,22 @@ pub(super) mod defs {
         pub const UNIDIRECTIONAL_COMPOUND_KHR: Self = Self(2);
         pub const BIDIRECTIONAL_COMPOUND_KHR: Self = Self(3);
     }
+    impl fmt::Debug for VideoEncodeAV1PredictionModeKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::INTRA_ONLY_KHR => Some("INTRA_ONLY_KHR"),
+                Self::SINGLE_REFERENCE_KHR => Some("SINGLE_REFERENCE_KHR"),
+                Self::UNIDIRECTIONAL_COMPOUND_KHR => Some("UNIDIRECTIONAL_COMPOUND_KHR"),
+                Self::BIDIRECTIONAL_COMPOUND_KHR => Some("BIDIRECTIONAL_COMPOUND_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VideoEncodeAV1RateControlGroupKHR(i32);
@@ -860,6 +876,21 @@ pub(super) mod defs {
         pub const INTRA_KHR: Self = Self(0);
         pub const PREDICTIVE_KHR: Self = Self(1);
         pub const BIPREDICTIVE_KHR: Self = Self(2);
+    }
+    impl fmt::Debug for VideoEncodeAV1RateControlGroupKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::INTRA_KHR => Some("INTRA_KHR"),
+                Self::PREDICTIVE_KHR => Some("PREDICTIVE_KHR"),
+                Self::BIPREDICTIVE_KHR => Some("BIPREDICTIVE_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]

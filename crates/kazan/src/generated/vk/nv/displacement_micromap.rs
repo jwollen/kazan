@@ -227,4 +227,19 @@ pub(super) mod defs {
         pub const _256_TRIANGLES_128_BYTES_NV: Self = Self(2);
         pub const _1024_TRIANGLES_128_BYTES_NV: Self = Self(3);
     }
+    impl fmt::Debug for DisplacementMicromapFormatNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::_64_TRIANGLES_64_BYTES_NV => Some("_64_TRIANGLES_64_BYTES_NV"),
+                Self::_256_TRIANGLES_128_BYTES_NV => Some("_256_TRIANGLES_128_BYTES_NV"),
+                Self::_1024_TRIANGLES_128_BYTES_NV => Some("_1024_TRIANGLES_128_BYTES_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
 }

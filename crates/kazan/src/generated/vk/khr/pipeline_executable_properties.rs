@@ -241,6 +241,22 @@ pub(super) mod defs {
         pub const UINT64_KHR: Self = Self(2);
         pub const FLOAT64_KHR: Self = Self(3);
     }
+    impl fmt::Debug for PipelineExecutableStatisticFormatKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::BOOL32_KHR => Some("BOOL32_KHR"),
+                Self::INT64_KHR => Some("INT64_KHR"),
+                Self::UINT64_KHR => Some("UINT64_KHR"),
+                Self::FLOAT64_KHR => Some("FLOAT64_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     pub type PFN_vkGetPipelineExecutablePropertiesKHR = unsafe extern "system" fn(
         device: Device,
         p_pipeline_info: *const PipelineInfoKHR<'_>,

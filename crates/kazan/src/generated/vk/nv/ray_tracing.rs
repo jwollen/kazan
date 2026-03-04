@@ -629,6 +629,21 @@ pub(super) mod defs {
         pub const BUILD_SCRATCH_NV: Self = Self(1);
         pub const UPDATE_SCRATCH_NV: Self = Self(2);
     }
+    impl fmt::Debug for AccelerationStructureMemoryRequirementsTypeNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::OBJECT_NV => Some("OBJECT_NV"),
+                Self::BUILD_SCRATCH_NV => Some("BUILD_SCRATCH_NV"),
+                Self::UPDATE_SCRATCH_NV => Some("UPDATE_SCRATCH_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     pub type PFN_vkCompileDeferredNV =
         unsafe extern "system" fn(device: Device, pipeline: Pipeline, shader: u32) -> vk::Result;
     pub type PFN_vkCreateAccelerationStructureNV = unsafe extern "system" fn(

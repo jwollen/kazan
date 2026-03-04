@@ -171,6 +171,21 @@ pub(super) mod defs {
         pub const OVERESTIMATE_EXT: Self = Self(1);
         pub const UNDERESTIMATE_EXT: Self = Self(2);
     }
+    impl fmt::Debug for ConservativeRasterizationModeEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DISABLED_EXT => Some("DISABLED_EXT"),
+                Self::OVERESTIMATE_EXT => Some("OVERESTIMATE_EXT"),
+                Self::UNDERESTIMATE_EXT => Some("UNDERESTIMATE_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineRasterizationConservativeStateCreateFlagsEXT(Flags);

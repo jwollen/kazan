@@ -101,4 +101,18 @@ pub(super) mod defs {
         pub const NONE_NV: Self = Self::NONE_EXT;
         pub const REORDER_NV: Self = Self::REORDER_EXT;
     }
+    impl fmt::Debug for RayTracingInvocationReorderModeEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::NONE_EXT => Some("NONE_EXT"),
+                Self::REORDER_EXT => Some("REORDER_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
 }

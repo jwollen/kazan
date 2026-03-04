@@ -125,17 +125,58 @@ pub(super) mod defs {
         pub const SUSPEND_EXT: Self = Self(1);
         pub const ON_EXT: Self = Self(2);
     }
+    impl fmt::Debug for DisplayPowerStateEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::OFF_EXT => Some("OFF_EXT"),
+                Self::SUSPEND_EXT => Some("SUSPEND_EXT"),
+                Self::ON_EXT => Some("ON_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DeviceEventTypeEXT(i32);
     impl DeviceEventTypeEXT {
         pub const DISPLAY_HOTPLUG_EXT: Self = Self(0);
     }
+    impl fmt::Debug for DeviceEventTypeEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DISPLAY_HOTPLUG_EXT => Some("DISPLAY_HOTPLUG_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DisplayEventTypeEXT(i32);
     impl DisplayEventTypeEXT {
         pub const FIRST_PIXEL_OUT_EXT: Self = Self(0);
+    }
+    impl fmt::Debug for DisplayEventTypeEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::FIRST_PIXEL_OUT_EXT => Some("FIRST_PIXEL_OUT_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     pub type PFN_vkDisplayPowerControlEXT = unsafe extern "system" fn(
         device: Device,

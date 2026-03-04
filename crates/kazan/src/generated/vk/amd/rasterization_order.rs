@@ -47,4 +47,18 @@ pub(super) mod defs {
         pub const STRICT_AMD: Self = Self(0);
         pub const RELAXED_AMD: Self = Self(1);
     }
+    impl fmt::Debug for RasterizationOrderAMD {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::STRICT_AMD => Some("STRICT_AMD"),
+                Self::RELAXED_AMD => Some("RELAXED_AMD"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
 }

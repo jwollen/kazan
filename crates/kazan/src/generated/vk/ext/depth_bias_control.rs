@@ -151,6 +151,25 @@ pub(super) mod defs {
         pub const LEAST_REPRESENTABLE_VALUE_FORCE_UNORM_EXT: Self = Self(1);
         pub const FLOAT_EXT: Self = Self(2);
     }
+    impl fmt::Debug for DepthBiasRepresentationEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::LEAST_REPRESENTABLE_VALUE_FORMAT_EXT => {
+                    Some("LEAST_REPRESENTABLE_VALUE_FORMAT_EXT")
+                }
+                Self::LEAST_REPRESENTABLE_VALUE_FORCE_UNORM_EXT => {
+                    Some("LEAST_REPRESENTABLE_VALUE_FORCE_UNORM_EXT")
+                }
+                Self::FLOAT_EXT => Some("FLOAT_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     pub type PFN_vkCmdSetDepthBias2EXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_depth_bias_info: *const DepthBiasInfoEXT<'_>,

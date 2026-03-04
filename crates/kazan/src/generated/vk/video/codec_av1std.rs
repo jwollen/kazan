@@ -1007,6 +1007,22 @@ pub(super) mod defs {
         pub const PROFESSIONAL: Self = Self(2);
         pub const INVALID: Self = Self(0x7FFFFFFF);
     }
+    impl fmt::Debug for StdVideoAV1Profile {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::MAIN => Some("MAIN"),
+                Self::HIGH => Some("HIGH"),
+                Self::PROFESSIONAL => Some("PROFESSIONAL"),
+                Self::INVALID => Some("INVALID"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoAV1Level(i32);
@@ -1037,6 +1053,43 @@ pub(super) mod defs {
         pub const _7_3: Self = Self(23);
         pub const INVALID: Self = Self(0x7FFFFFFF);
     }
+    impl fmt::Debug for StdVideoAV1Level {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::_2_0 => Some("_2_0"),
+                Self::_2_1 => Some("_2_1"),
+                Self::_2_2 => Some("_2_2"),
+                Self::_2_3 => Some("_2_3"),
+                Self::_3_0 => Some("_3_0"),
+                Self::_3_1 => Some("_3_1"),
+                Self::_3_2 => Some("_3_2"),
+                Self::_3_3 => Some("_3_3"),
+                Self::_4_0 => Some("_4_0"),
+                Self::_4_1 => Some("_4_1"),
+                Self::_4_2 => Some("_4_2"),
+                Self::_4_3 => Some("_4_3"),
+                Self::_5_0 => Some("_5_0"),
+                Self::_5_1 => Some("_5_1"),
+                Self::_5_2 => Some("_5_2"),
+                Self::_5_3 => Some("_5_3"),
+                Self::_6_0 => Some("_6_0"),
+                Self::_6_1 => Some("_6_1"),
+                Self::_6_2 => Some("_6_2"),
+                Self::_6_3 => Some("_6_3"),
+                Self::_7_0 => Some("_7_0"),
+                Self::_7_1 => Some("_7_1"),
+                Self::_7_2 => Some("_7_2"),
+                Self::_7_3 => Some("_7_3"),
+                Self::INVALID => Some("INVALID"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoAV1FrameType(i32);
@@ -1046,6 +1099,23 @@ pub(super) mod defs {
         pub const INTRA_ONLY: Self = Self(2);
         pub const SWITCH: Self = Self(3);
         pub const INVALID: Self = Self(0x7FFFFFFF);
+    }
+    impl fmt::Debug for StdVideoAV1FrameType {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::KEY => Some("KEY"),
+                Self::INTER => Some("INTER"),
+                Self::INTRA_ONLY => Some("INTRA_ONLY"),
+                Self::SWITCH => Some("SWITCH"),
+                Self::INVALID => Some("INVALID"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -1061,6 +1131,27 @@ pub(super) mod defs {
         pub const ALTREF_FRAME: Self = Self(7);
         pub const INVALID: Self = Self(0x7FFFFFFF);
     }
+    impl fmt::Debug for StdVideoAV1ReferenceName {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::INTRA_FRAME => Some("INTRA_FRAME"),
+                Self::LAST_FRAME => Some("LAST_FRAME"),
+                Self::LAST2_FRAME => Some("LAST2_FRAME"),
+                Self::LAST3_FRAME => Some("LAST3_FRAME"),
+                Self::GOLDEN_FRAME => Some("GOLDEN_FRAME"),
+                Self::BWDREF_FRAME => Some("BWDREF_FRAME"),
+                Self::ALTREF2_FRAME => Some("ALTREF2_FRAME"),
+                Self::ALTREF_FRAME => Some("ALTREF_FRAME"),
+                Self::INVALID => Some("INVALID"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoAV1InterpolationFilter(i32);
@@ -1072,6 +1163,24 @@ pub(super) mod defs {
         pub const SWITCHABLE: Self = Self(4);
         pub const INVALID: Self = Self(0x7FFFFFFF);
     }
+    impl fmt::Debug for StdVideoAV1InterpolationFilter {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::EIGHTTAP => Some("EIGHTTAP"),
+                Self::EIGHTTAP_SMOOTH => Some("EIGHTTAP_SMOOTH"),
+                Self::EIGHTTAP_SHARP => Some("EIGHTTAP_SHARP"),
+                Self::BILINEAR => Some("BILINEAR"),
+                Self::SWITCHABLE => Some("SWITCHABLE"),
+                Self::INVALID => Some("INVALID"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoAV1TxMode(i32);
@@ -1080,6 +1189,22 @@ pub(super) mod defs {
         pub const LARGEST: Self = Self(1);
         pub const SELECT: Self = Self(2);
         pub const INVALID: Self = Self(0x7FFFFFFF);
+    }
+    impl fmt::Debug for StdVideoAV1TxMode {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::ONLY_4X4 => Some("ONLY_4X4"),
+                Self::LARGEST => Some("LARGEST"),
+                Self::SELECT => Some("SELECT"),
+                Self::INVALID => Some("INVALID"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -1090,6 +1215,23 @@ pub(super) mod defs {
         pub const SGRPROJ: Self = Self(2);
         pub const SWITCHABLE: Self = Self(3);
         pub const INVALID: Self = Self(0x7FFFFFFF);
+    }
+    impl fmt::Debug for StdVideoAV1FrameRestorationType {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::NONE => Some("NONE"),
+                Self::WIENER => Some("WIENER"),
+                Self::SGRPROJ => Some("SGRPROJ"),
+                Self::SWITCHABLE => Some("SWITCHABLE"),
+                Self::INVALID => Some("INVALID"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -1108,6 +1250,31 @@ pub(super) mod defs {
         pub const SMPTE_432: Self = Self(12);
         pub const EBU_3213: Self = Self(22);
         pub const INVALID: Self = Self(0x7FFFFFFF);
+    }
+    impl fmt::Debug for StdVideoAV1ColorPrimaries {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::BT_709 => Some("BT_709"),
+                Self::UNSPECIFIED => Some("UNSPECIFIED"),
+                Self::BT_470_M => Some("BT_470_M"),
+                Self::BT_470_B_G => Some("BT_470_B_G"),
+                Self::BT_601 => Some("BT_601"),
+                Self::SMPTE_240 => Some("SMPTE_240"),
+                Self::GENERIC_FILM => Some("GENERIC_FILM"),
+                Self::BT_2020 => Some("BT_2020"),
+                Self::XYZ => Some("XYZ"),
+                Self::SMPTE_431 => Some("SMPTE_431"),
+                Self::SMPTE_432 => Some("SMPTE_432"),
+                Self::EBU_3213 => Some("EBU_3213"),
+                Self::INVALID => Some("INVALID"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -1134,6 +1301,38 @@ pub(super) mod defs {
         pub const HLG: Self = Self(18);
         pub const INVALID: Self = Self(0x7FFFFFFF);
     }
+    impl fmt::Debug for StdVideoAV1TransferCharacteristics {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::RESERVED_0 => Some("RESERVED_0"),
+                Self::BT_709 => Some("BT_709"),
+                Self::UNSPECIFIED => Some("UNSPECIFIED"),
+                Self::RESERVED_3 => Some("RESERVED_3"),
+                Self::BT_470_M => Some("BT_470_M"),
+                Self::BT_470_B_G => Some("BT_470_B_G"),
+                Self::BT_601 => Some("BT_601"),
+                Self::SMPTE_240 => Some("SMPTE_240"),
+                Self::LINEAR => Some("LINEAR"),
+                Self::LOG_100 => Some("LOG_100"),
+                Self::LOG_100_SQRT10 => Some("LOG_100_SQRT10"),
+                Self::IEC_61966 => Some("IEC_61966"),
+                Self::BT_1361 => Some("BT_1361"),
+                Self::SRGB => Some("SRGB"),
+                Self::BT_2020_10_BIT => Some("BT_2020_10_BIT"),
+                Self::BT_2020_12_BIT => Some("BT_2020_12_BIT"),
+                Self::SMPTE_2084 => Some("SMPTE_2084"),
+                Self::SMPTE_428 => Some("SMPTE_428"),
+                Self::HLG => Some("HLG"),
+                Self::INVALID => Some("INVALID"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoAV1MatrixCoefficients(i32);
@@ -1155,6 +1354,34 @@ pub(super) mod defs {
         pub const ICTCP: Self = Self(14);
         pub const INVALID: Self = Self(0x7FFFFFFF);
     }
+    impl fmt::Debug for StdVideoAV1MatrixCoefficients {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::IDENTITY => Some("IDENTITY"),
+                Self::BT_709 => Some("BT_709"),
+                Self::UNSPECIFIED => Some("UNSPECIFIED"),
+                Self::RESERVED_3 => Some("RESERVED_3"),
+                Self::FCC => Some("FCC"),
+                Self::BT_470_B_G => Some("BT_470_B_G"),
+                Self::BT_601 => Some("BT_601"),
+                Self::SMPTE_240 => Some("SMPTE_240"),
+                Self::SMPTE_YCGCO => Some("SMPTE_YCGCO"),
+                Self::BT_2020_NCL => Some("BT_2020_NCL"),
+                Self::BT_2020_CL => Some("BT_2020_CL"),
+                Self::SMPTE_2085 => Some("SMPTE_2085"),
+                Self::CHROMAT_NCL => Some("CHROMAT_NCL"),
+                Self::CHROMAT_CL => Some("CHROMAT_CL"),
+                Self::ICTCP => Some("ICTCP"),
+                Self::INVALID => Some("INVALID"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoAV1ChromaSamplePosition(i32);
@@ -1164,5 +1391,22 @@ pub(super) mod defs {
         pub const COLOCATED: Self = Self(2);
         pub const RESERVED: Self = Self(3);
         pub const INVALID: Self = Self(0x7FFFFFFF);
+    }
+    impl fmt::Debug for StdVideoAV1ChromaSamplePosition {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::UNKNOWN => Some("UNKNOWN"),
+                Self::VERTICAL => Some("VERTICAL"),
+                Self::COLOCATED => Some("COLOCATED"),
+                Self::RESERVED => Some("RESERVED"),
+                Self::INVALID => Some("INVALID"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 }

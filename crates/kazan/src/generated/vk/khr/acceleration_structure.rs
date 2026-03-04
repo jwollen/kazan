@@ -929,12 +929,42 @@ pub(super) mod defs {
         pub const CLONE_NV: Self = Self::CLONE_KHR;
         pub const COMPACT_NV: Self = Self::COMPACT_KHR;
     }
+    impl fmt::Debug for CopyAccelerationStructureModeKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::CLONE_KHR => Some("CLONE_KHR"),
+                Self::COMPACT_KHR => Some("COMPACT_KHR"),
+                Self::DESERIALIZE_KHR => Some("DESERIALIZE_KHR"),
+                Self::SERIALIZE_KHR => Some("SERIALIZE_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct BuildAccelerationStructureModeKHR(i32);
     impl BuildAccelerationStructureModeKHR {
         pub const BUILD_KHR: Self = Self(0);
         pub const UPDATE_KHR: Self = Self(1);
+    }
+    impl fmt::Debug for BuildAccelerationStructureModeKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::BUILD_KHR => Some("BUILD_KHR"),
+                Self::UPDATE_KHR => Some("UPDATE_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -945,6 +975,21 @@ pub(super) mod defs {
         pub const GENERIC_KHR: Self = Self(2);
         pub const BOTTOM_LEVEL_NV: Self = Self::BOTTOM_LEVEL_KHR;
         pub const TOP_LEVEL_NV: Self = Self::TOP_LEVEL_KHR;
+    }
+    impl fmt::Debug for AccelerationStructureTypeKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::TOP_LEVEL_KHR => Some("TOP_LEVEL_KHR"),
+                Self::BOTTOM_LEVEL_KHR => Some("BOTTOM_LEVEL_KHR"),
+                Self::GENERIC_KHR => Some("GENERIC_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -959,6 +1004,26 @@ pub(super) mod defs {
         pub const AABBS_NV: Self = Self::AABBS_KHR;
         pub const TRIANGLES_NV: Self = Self::TRIANGLES_KHR;
     }
+    impl fmt::Debug for GeometryTypeKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::TRIANGLES_KHR => Some("TRIANGLES_KHR"),
+                Self::AABBS_KHR => Some("AABBS_KHR"),
+                Self::INSTANCES_KHR => Some("INSTANCES_KHR"),
+                Self::DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX => {
+                    Some("DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX")
+                }
+                Self::LINEAR_SWEPT_SPHERES_NV => Some("LINEAR_SWEPT_SPHERES_NV"),
+                Self::SPHERES_NV => Some("SPHERES_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct AccelerationStructureBuildTypeKHR(i32);
@@ -967,12 +1032,41 @@ pub(super) mod defs {
         pub const DEVICE_KHR: Self = Self(1);
         pub const HOST_OR_DEVICE_KHR: Self = Self(2);
     }
+    impl fmt::Debug for AccelerationStructureBuildTypeKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::HOST_KHR => Some("HOST_KHR"),
+                Self::DEVICE_KHR => Some("DEVICE_KHR"),
+                Self::HOST_OR_DEVICE_KHR => Some("HOST_OR_DEVICE_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct AccelerationStructureCompatibilityKHR(i32);
     impl AccelerationStructureCompatibilityKHR {
         pub const COMPATIBLE_KHR: Self = Self(0);
         pub const INCOMPATIBLE_KHR: Self = Self(1);
+    }
+    impl fmt::Debug for AccelerationStructureCompatibilityKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::COMPATIBLE_KHR => Some("COMPATIBLE_KHR"),
+                Self::INCOMPATIBLE_KHR => Some("INCOMPATIBLE_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]

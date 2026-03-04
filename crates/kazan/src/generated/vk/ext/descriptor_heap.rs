@@ -1255,6 +1255,33 @@ pub(super) mod defs {
         pub const SHADER_RECORD_ADDRESS_EXT: Self = Self(10);
         pub const SHADER_RECORD_DATA_EXT: Self = Self(9);
     }
+    impl fmt::Debug for DescriptorMappingSourceEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::HEAP_WITH_CONSTANT_OFFSET_EXT => Some("HEAP_WITH_CONSTANT_OFFSET_EXT"),
+                Self::HEAP_WITH_PUSH_INDEX_EXT => Some("HEAP_WITH_PUSH_INDEX_EXT"),
+                Self::HEAP_WITH_INDIRECT_INDEX_EXT => Some("HEAP_WITH_INDIRECT_INDEX_EXT"),
+                Self::HEAP_WITH_INDIRECT_INDEX_ARRAY_EXT => {
+                    Some("HEAP_WITH_INDIRECT_INDEX_ARRAY_EXT")
+                }
+                Self::RESOURCE_HEAP_DATA_EXT => Some("RESOURCE_HEAP_DATA_EXT"),
+                Self::PUSH_DATA_EXT => Some("PUSH_DATA_EXT"),
+                Self::PUSH_ADDRESS_EXT => Some("PUSH_ADDRESS_EXT"),
+                Self::INDIRECT_ADDRESS_EXT => Some("INDIRECT_ADDRESS_EXT"),
+                Self::HEAP_WITH_SHADER_RECORD_INDEX_EXT => {
+                    Some("HEAP_WITH_SHADER_RECORD_INDEX_EXT")
+                }
+                Self::SHADER_RECORD_ADDRESS_EXT => Some("SHADER_RECORD_ADDRESS_EXT"),
+                Self::SHADER_RECORD_DATA_EXT => Some("SHADER_RECORD_DATA_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct TensorViewCreateFlagsARM(Flags64);

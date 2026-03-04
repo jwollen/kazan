@@ -364,6 +364,22 @@ pub(super) mod defs {
         pub const MEDIUM_NV: Self = Self(2);
         pub const FAST_NV: Self = Self(3);
     }
+    impl fmt::Debug for OpticalFlowPerformanceLevelNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::UNKNOWN_NV => Some("UNKNOWN_NV"),
+                Self::SLOW_NV => Some("SLOW_NV"),
+                Self::MEDIUM_NV => Some("MEDIUM_NV"),
+                Self::FAST_NV => Some("FAST_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct OpticalFlowSessionBindingPointNV(i32);
@@ -377,6 +393,27 @@ pub(super) mod defs {
         pub const COST_NV: Self = Self(6);
         pub const BACKWARD_COST_NV: Self = Self(7);
         pub const GLOBAL_FLOW_NV: Self = Self(8);
+    }
+    impl fmt::Debug for OpticalFlowSessionBindingPointNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::UNKNOWN_NV => Some("UNKNOWN_NV"),
+                Self::INPUT_NV => Some("INPUT_NV"),
+                Self::REFERENCE_NV => Some("REFERENCE_NV"),
+                Self::HINT_NV => Some("HINT_NV"),
+                Self::FLOW_VECTOR_NV => Some("FLOW_VECTOR_NV"),
+                Self::BACKWARD_FLOW_VECTOR_NV => Some("BACKWARD_FLOW_VECTOR_NV"),
+                Self::COST_NV => Some("COST_NV"),
+                Self::BACKWARD_COST_NV => Some("BACKWARD_COST_NV"),
+                Self::GLOBAL_FLOW_NV => Some("GLOBAL_FLOW_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]

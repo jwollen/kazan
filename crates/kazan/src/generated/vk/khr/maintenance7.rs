@@ -275,4 +275,21 @@ pub(super) mod defs {
         pub const OPENGL_KHR: Self = Self(3);
         pub const OPENGLES_KHR: Self = Self(4);
     }
+    impl fmt::Debug for PhysicalDeviceLayeredApiKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::VULKAN_KHR => Some("VULKAN_KHR"),
+                Self::D3D12_KHR => Some("D3D12_KHR"),
+                Self::METAL_KHR => Some("METAL_KHR"),
+                Self::OPENGL_KHR => Some("OPENGL_KHR"),
+                Self::OPENGLES_KHR => Some("OPENGLES_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
 }

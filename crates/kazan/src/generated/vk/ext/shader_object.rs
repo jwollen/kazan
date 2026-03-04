@@ -172,6 +172,20 @@ pub(super) mod defs {
         pub const BINARY_EXT: Self = Self(0);
         pub const SPIRV_EXT: Self = Self(1);
     }
+    impl fmt::Debug for ShaderCodeTypeEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::BINARY_EXT => Some("BINARY_EXT"),
+                Self::SPIRV_EXT => Some("SPIRV_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ShaderCreateFlagsEXT(Flags);

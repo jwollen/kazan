@@ -68,6 +68,25 @@ pub(super) mod defs {
         pub const DEBUG_PRINTF_EXT: Self = Self(3);
         pub const SYNCHRONIZATION_VALIDATION_EXT: Self = Self(4);
     }
+    impl fmt::Debug for ValidationFeatureEnableEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::GPU_ASSISTED_EXT => Some("GPU_ASSISTED_EXT"),
+                Self::GPU_ASSISTED_RESERVE_BINDING_SLOT_EXT => {
+                    Some("GPU_ASSISTED_RESERVE_BINDING_SLOT_EXT")
+                }
+                Self::BEST_PRACTICES_EXT => Some("BEST_PRACTICES_EXT"),
+                Self::DEBUG_PRINTF_EXT => Some("DEBUG_PRINTF_EXT"),
+                Self::SYNCHRONIZATION_VALIDATION_EXT => Some("SYNCHRONIZATION_VALIDATION_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ValidationFeatureDisableEXT(i32);
@@ -80,5 +99,25 @@ pub(super) mod defs {
         pub const CORE_CHECKS_EXT: Self = Self(5);
         pub const UNIQUE_HANDLES_EXT: Self = Self(6);
         pub const SHADER_VALIDATION_CACHE_EXT: Self = Self(7);
+    }
+    impl fmt::Debug for ValidationFeatureDisableEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::ALL_EXT => Some("ALL_EXT"),
+                Self::SHADERS_EXT => Some("SHADERS_EXT"),
+                Self::THREAD_SAFETY_EXT => Some("THREAD_SAFETY_EXT"),
+                Self::API_PARAMETERS_EXT => Some("API_PARAMETERS_EXT"),
+                Self::OBJECT_LIFETIMES_EXT => Some("OBJECT_LIFETIMES_EXT"),
+                Self::CORE_CHECKS_EXT => Some("CORE_CHECKS_EXT"),
+                Self::UNIQUE_HANDLES_EXT => Some("UNIQUE_HANDLES_EXT"),
+                Self::SHADER_VALIDATION_CACHE_EXT => Some("SHADER_VALIDATION_CACHE_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 }

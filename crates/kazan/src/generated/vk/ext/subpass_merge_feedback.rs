@@ -193,4 +193,40 @@ pub(super) mod defs {
         pub const NOT_MERGED_SINGLE_SUBPASS_EXT: Self = Self(12);
         pub const NOT_MERGED_UNSPECIFIED_EXT: Self = Self(13);
     }
+    impl fmt::Debug for SubpassMergeStatusEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::MERGED_EXT => Some("MERGED_EXT"),
+                Self::DISALLOWED_EXT => Some("DISALLOWED_EXT"),
+                Self::NOT_MERGED_SIDE_EFFECTS_EXT => Some("NOT_MERGED_SIDE_EFFECTS_EXT"),
+                Self::NOT_MERGED_SAMPLES_MISMATCH_EXT => Some("NOT_MERGED_SAMPLES_MISMATCH_EXT"),
+                Self::NOT_MERGED_VIEWS_MISMATCH_EXT => Some("NOT_MERGED_VIEWS_MISMATCH_EXT"),
+                Self::NOT_MERGED_ALIASING_EXT => Some("NOT_MERGED_ALIASING_EXT"),
+                Self::NOT_MERGED_DEPENDENCIES_EXT => Some("NOT_MERGED_DEPENDENCIES_EXT"),
+                Self::NOT_MERGED_INCOMPATIBLE_INPUT_ATTACHMENT_EXT => {
+                    Some("NOT_MERGED_INCOMPATIBLE_INPUT_ATTACHMENT_EXT")
+                }
+                Self::NOT_MERGED_TOO_MANY_ATTACHMENTS_EXT => {
+                    Some("NOT_MERGED_TOO_MANY_ATTACHMENTS_EXT")
+                }
+                Self::NOT_MERGED_INSUFFICIENT_STORAGE_EXT => {
+                    Some("NOT_MERGED_INSUFFICIENT_STORAGE_EXT")
+                }
+                Self::NOT_MERGED_DEPTH_STENCIL_COUNT_EXT => {
+                    Some("NOT_MERGED_DEPTH_STENCIL_COUNT_EXT")
+                }
+                Self::NOT_MERGED_RESOLVE_ATTACHMENT_REUSE_EXT => {
+                    Some("NOT_MERGED_RESOLVE_ATTACHMENT_REUSE_EXT")
+                }
+                Self::NOT_MERGED_SINGLE_SUBPASS_EXT => Some("NOT_MERGED_SINGLE_SUBPASS_EXT"),
+                Self::NOT_MERGED_UNSPECIFIED_EXT => Some("NOT_MERGED_UNSPECIFIED_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
 }

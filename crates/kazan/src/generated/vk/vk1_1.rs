@@ -2444,6 +2444,20 @@ pub(super) mod defs {
         pub const DESCRIPTOR_SET_KHR: Self = Self::DESCRIPTOR_SET;
         pub const PUSH_DESCRIPTORS_KHR: Self = Self::PUSH_DESCRIPTORS;
     }
+    impl fmt::Debug for DescriptorUpdateTemplateType {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DESCRIPTOR_SET => Some("DESCRIPTOR_SET"),
+                Self::PUSH_DESCRIPTORS => Some("PUSH_DESCRIPTORS"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PointClippingBehavior(i32);
@@ -2453,6 +2467,20 @@ pub(super) mod defs {
         pub const ALL_CLIP_PLANES_KHR: Self = Self::ALL_CLIP_PLANES;
         pub const USER_CLIP_PLANES_ONLY_KHR: Self = Self::USER_CLIP_PLANES_ONLY;
     }
+    impl fmt::Debug for PointClippingBehavior {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::ALL_CLIP_PLANES => Some("ALL_CLIP_PLANES"),
+                Self::USER_CLIP_PLANES_ONLY => Some("USER_CLIP_PLANES_ONLY"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct TessellationDomainOrigin(i32);
@@ -2461,6 +2489,20 @@ pub(super) mod defs {
         pub const LOWER_LEFT: Self = Self(1);
         pub const LOWER_LEFT_KHR: Self = Self::LOWER_LEFT;
         pub const UPPER_LEFT_KHR: Self = Self::UPPER_LEFT;
+    }
+    impl fmt::Debug for TessellationDomainOrigin {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::UPPER_LEFT => Some("UPPER_LEFT"),
+                Self::LOWER_LEFT => Some("LOWER_LEFT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -2477,6 +2519,23 @@ pub(super) mod defs {
         pub const YCBCR_709_KHR: Self = Self::YCBCR_709;
         pub const YCBCR_IDENTITY_KHR: Self = Self::YCBCR_IDENTITY;
     }
+    impl fmt::Debug for SamplerYcbcrModelConversion {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::RGB_IDENTITY => Some("RGB_IDENTITY"),
+                Self::YCBCR_IDENTITY => Some("YCBCR_IDENTITY"),
+                Self::YCBCR_709 => Some("YCBCR_709"),
+                Self::YCBCR_601 => Some("YCBCR_601"),
+                Self::YCBCR_2020 => Some("YCBCR_2020"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SamplerYcbcrRange(i32);
@@ -2486,6 +2545,20 @@ pub(super) mod defs {
         pub const ITU_FULL_KHR: Self = Self::ITU_FULL;
         pub const ITU_NARROW_KHR: Self = Self::ITU_NARROW;
     }
+    impl fmt::Debug for SamplerYcbcrRange {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::ITU_FULL => Some("ITU_FULL"),
+                Self::ITU_NARROW => Some("ITU_NARROW"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ChromaLocation(i32);
@@ -2494,6 +2567,20 @@ pub(super) mod defs {
         pub const MIDPOINT: Self = Self(1);
         pub const COSITED_EVEN_KHR: Self = Self::COSITED_EVEN;
         pub const MIDPOINT_KHR: Self = Self::MIDPOINT;
+    }
+    impl fmt::Debug for ChromaLocation {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::COSITED_EVEN => Some("COSITED_EVEN"),
+                Self::MIDPOINT => Some("MIDPOINT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]

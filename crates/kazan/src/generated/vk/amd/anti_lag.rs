@@ -120,12 +120,41 @@ pub(super) mod defs {
         pub const ON_AMD: Self = Self(1);
         pub const OFF_AMD: Self = Self(2);
     }
+    impl fmt::Debug for AntiLagModeAMD {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DRIVER_CONTROL_AMD => Some("DRIVER_CONTROL_AMD"),
+                Self::ON_AMD => Some("ON_AMD"),
+                Self::OFF_AMD => Some("OFF_AMD"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct AntiLagStageAMD(i32);
     impl AntiLagStageAMD {
         pub const INPUT_AMD: Self = Self(0);
         pub const PRESENT_AMD: Self = Self(1);
+    }
+    impl fmt::Debug for AntiLagStageAMD {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::INPUT_AMD => Some("INPUT_AMD"),
+                Self::PRESENT_AMD => Some("PRESENT_AMD"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     pub type PFN_vkAntiLagUpdateAMD =
         unsafe extern "system" fn(device: Device, p_data: *const AntiLagDataAMD<'_>);

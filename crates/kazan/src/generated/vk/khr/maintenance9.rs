@@ -122,4 +122,18 @@ pub(super) mod defs {
         pub const ZERO_ZERO_ZERO_ZERO_KHR: Self = Self(0);
         pub const ZERO_ZERO_ZERO_ONE_KHR: Self = Self(1);
     }
+    impl fmt::Debug for DefaultVertexAttributeValueKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::ZERO_ZERO_ZERO_ZERO_KHR => Some("ZERO_ZERO_ZERO_ZERO_KHR"),
+                Self::ZERO_ZERO_ZERO_ONE_KHR => Some("ZERO_ZERO_ZERO_ONE_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
 }

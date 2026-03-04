@@ -865,6 +865,20 @@ pub(super) mod defs {
         pub const PIPELINES_EXT: Self = Self(0);
         pub const SHADER_OBJECTS_EXT: Self = Self(1);
     }
+    impl fmt::Debug for IndirectExecutionSetInfoTypeEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::PIPELINES_EXT => Some("PIPELINES_EXT"),
+                Self::SHADER_OBJECTS_EXT => Some("SHADER_OBJECTS_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct IndirectCommandsTokenTypeEXT(i32);
@@ -886,6 +900,35 @@ pub(super) mod defs {
         pub const PUSH_DATA_EXT: Self = Self(1000135000);
         pub const PUSH_DATA_SEQUENCE_INDEX_EXT: Self = Self(1000135001);
         pub const TRACE_RAYS2_EXT: Self = Self(1000386004);
+    }
+    impl fmt::Debug for IndirectCommandsTokenTypeEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::EXECUTION_SET_EXT => Some("EXECUTION_SET_EXT"),
+                Self::PUSH_CONSTANT_EXT => Some("PUSH_CONSTANT_EXT"),
+                Self::SEQUENCE_INDEX_EXT => Some("SEQUENCE_INDEX_EXT"),
+                Self::INDEX_BUFFER_EXT => Some("INDEX_BUFFER_EXT"),
+                Self::VERTEX_BUFFER_EXT => Some("VERTEX_BUFFER_EXT"),
+                Self::DRAW_INDEXED_EXT => Some("DRAW_INDEXED_EXT"),
+                Self::DRAW_EXT => Some("DRAW_EXT"),
+                Self::DRAW_INDEXED_COUNT_EXT => Some("DRAW_INDEXED_COUNT_EXT"),
+                Self::DRAW_COUNT_EXT => Some("DRAW_COUNT_EXT"),
+                Self::DISPATCH_EXT => Some("DISPATCH_EXT"),
+                Self::DRAW_MESH_TASKS_COUNT_EXT => Some("DRAW_MESH_TASKS_COUNT_EXT"),
+                Self::DRAW_MESH_TASKS_COUNT_NV_EXT => Some("DRAW_MESH_TASKS_COUNT_NV_EXT"),
+                Self::DRAW_MESH_TASKS_EXT => Some("DRAW_MESH_TASKS_EXT"),
+                Self::DRAW_MESH_TASKS_NV_EXT => Some("DRAW_MESH_TASKS_NV_EXT"),
+                Self::PUSH_DATA_EXT => Some("PUSH_DATA_EXT"),
+                Self::PUSH_DATA_SEQUENCE_INDEX_EXT => Some("PUSH_DATA_SEQUENCE_INDEX_EXT"),
+                Self::TRACE_RAYS2_EXT => Some("TRACE_RAYS2_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]

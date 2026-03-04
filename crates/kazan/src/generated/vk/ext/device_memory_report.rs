@@ -158,6 +158,23 @@ pub(super) mod defs {
         pub const UNIMPORT_EXT: Self = Self(3);
         pub const ALLOCATION_FAILED_EXT: Self = Self(4);
     }
+    impl fmt::Debug for DeviceMemoryReportEventTypeEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::ALLOCATE_EXT => Some("ALLOCATE_EXT"),
+                Self::FREE_EXT => Some("FREE_EXT"),
+                Self::IMPORT_EXT => Some("IMPORT_EXT"),
+                Self::UNIMPORT_EXT => Some("UNIMPORT_EXT"),
+                Self::ALLOCATION_FAILED_EXT => Some("ALLOCATION_FAILED_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DeviceMemoryReportFlagsEXT(Flags);

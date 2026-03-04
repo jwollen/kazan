@@ -87,6 +87,19 @@ pub(super) mod defs {
     impl ValidationCacheHeaderVersionEXT {
         pub const ONE_EXT: Self = Self(1);
     }
+    impl fmt::Debug for ValidationCacheHeaderVersionEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::ONE_EXT => Some("ONE_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ValidationCacheCreateFlagsEXT(Flags);

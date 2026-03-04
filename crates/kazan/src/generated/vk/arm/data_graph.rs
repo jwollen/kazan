@@ -854,11 +854,37 @@ pub(super) mod defs {
     impl DataGraphPipelineSessionBindPointARM {
         pub const TRANSIENT_ARM: Self = Self(0);
     }
+    impl fmt::Debug for DataGraphPipelineSessionBindPointARM {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::TRANSIENT_ARM => Some("TRANSIENT_ARM"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DataGraphPipelineSessionBindPointTypeARM(i32);
     impl DataGraphPipelineSessionBindPointTypeARM {
         pub const MEMORY_ARM: Self = Self(0);
+    }
+    impl fmt::Debug for DataGraphPipelineSessionBindPointTypeARM {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::MEMORY_ARM => Some("MEMORY_ARM"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -866,6 +892,20 @@ pub(super) mod defs {
     impl DataGraphPipelinePropertyARM {
         pub const CREATION_LOG_ARM: Self = Self(0);
         pub const IDENTIFIER_ARM: Self = Self(1);
+    }
+    impl fmt::Debug for DataGraphPipelinePropertyARM {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::CREATION_LOG_ARM => Some("CREATION_LOG_ARM"),
+                Self::IDENTIFIER_ARM => Some("IDENTIFIER_ARM"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -875,6 +915,21 @@ pub(super) mod defs {
         pub const COMPUTE_QCOM: Self = Self(1000629001);
         pub const NEURAL_QCOM: Self = Self(1000629000);
     }
+    impl fmt::Debug for PhysicalDeviceDataGraphProcessingEngineTypeARM {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DEFAULT_ARM => Some("DEFAULT_ARM"),
+                Self::COMPUTE_QCOM => Some("COMPUTE_QCOM"),
+                Self::NEURAL_QCOM => Some("NEURAL_QCOM"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PhysicalDeviceDataGraphOperationTypeARM(i32);
@@ -882,6 +937,23 @@ pub(super) mod defs {
         pub const SPIRV_EXTENDED_INSTRUCTION_SET_ARM: Self = Self(0);
         pub const BUILTIN_MODEL_QCOM: Self = Self(1000629001);
         pub const NEURAL_MODEL_QCOM: Self = Self(1000629000);
+    }
+    impl fmt::Debug for PhysicalDeviceDataGraphOperationTypeARM {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::SPIRV_EXTENDED_INSTRUCTION_SET_ARM => {
+                    Some("SPIRV_EXTENDED_INSTRUCTION_SET_ARM")
+                }
+                Self::BUILTIN_MODEL_QCOM => Some("BUILTIN_MODEL_QCOM"),
+                Self::NEURAL_MODEL_QCOM => Some("NEURAL_MODEL_QCOM"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]

@@ -118,4 +118,18 @@ pub(super) mod defs {
         pub const MIN_QCOM: Self = Self(0);
         pub const MAX_QCOM: Self = Self(1);
     }
+    impl fmt::Debug for BlockMatchWindowCompareModeQCOM {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::MIN_QCOM => Some("MIN_QCOM"),
+                Self::MAX_QCOM => Some("MAX_QCOM"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
 }

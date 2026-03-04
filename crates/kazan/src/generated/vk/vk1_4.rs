@@ -2454,6 +2454,22 @@ pub(super) mod defs {
         pub const REALTIME_EXT: Self = Self::REALTIME;
         pub const REALTIME_KHR: Self = Self::REALTIME;
     }
+    impl fmt::Debug for QueueGlobalPriority {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::LOW => Some("LOW"),
+                Self::MEDIUM => Some("MEDIUM"),
+                Self::HIGH => Some("HIGH"),
+                Self::REALTIME => Some("REALTIME"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct LineRasterizationMode(i32);
@@ -2471,6 +2487,22 @@ pub(super) mod defs {
         pub const RECTANGULAR_SMOOTH_EXT: Self = Self::RECTANGULAR_SMOOTH;
         pub const RECTANGULAR_SMOOTH_KHR: Self = Self::RECTANGULAR_SMOOTH;
     }
+    impl fmt::Debug for LineRasterizationMode {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DEFAULT => Some("DEFAULT"),
+                Self::RECTANGULAR => Some("RECTANGULAR"),
+                Self::BRESENHAM => Some("BRESENHAM"),
+                Self::RECTANGULAR_SMOOTH => Some("RECTANGULAR_SMOOTH"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineRobustnessBufferBehavior(i32);
@@ -2484,6 +2516,22 @@ pub(super) mod defs {
         pub const ROBUST_BUFFER_ACCESS_2_EXT: Self = Self::ROBUST_BUFFER_ACCESS_2;
         pub const ROBUST_BUFFER_ACCESS_EXT: Self = Self::ROBUST_BUFFER_ACCESS;
     }
+    impl fmt::Debug for PipelineRobustnessBufferBehavior {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DEVICE_DEFAULT => Some("DEVICE_DEFAULT"),
+                Self::DISABLED => Some("DISABLED"),
+                Self::ROBUST_BUFFER_ACCESS => Some("ROBUST_BUFFER_ACCESS"),
+                Self::ROBUST_BUFFER_ACCESS_2 => Some("ROBUST_BUFFER_ACCESS_2"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineRobustnessImageBehavior(i32);
@@ -2496,6 +2544,22 @@ pub(super) mod defs {
         pub const DISABLED_EXT: Self = Self::DISABLED;
         pub const ROBUST_IMAGE_ACCESS_2_EXT: Self = Self::ROBUST_IMAGE_ACCESS_2;
         pub const ROBUST_IMAGE_ACCESS_EXT: Self = Self::ROBUST_IMAGE_ACCESS;
+    }
+    impl fmt::Debug for PipelineRobustnessImageBehavior {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DEVICE_DEFAULT => Some("DEVICE_DEFAULT"),
+                Self::DISABLED => Some("DISABLED"),
+                Self::ROBUST_IMAGE_ACCESS => Some("ROBUST_IMAGE_ACCESS"),
+                Self::ROBUST_IMAGE_ACCESS_2 => Some("ROBUST_IMAGE_ACCESS_2"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]

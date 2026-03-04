@@ -229,11 +229,39 @@ pub(super) mod defs {
         pub const LIST_NV: Self = Self(0);
         pub const SUCCESSIVE_NV: Self = Self(1);
     }
+    impl fmt::Debug for RayTracingLssIndexingModeNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::LIST_NV => Some("LIST_NV"),
+                Self::SUCCESSIVE_NV => Some("SUCCESSIVE_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct RayTracingLssPrimitiveEndCapsModeNV(i32);
     impl RayTracingLssPrimitiveEndCapsModeNV {
         pub const NONE_NV: Self = Self(0);
         pub const CHAINED_NV: Self = Self(1);
+    }
+    impl fmt::Debug for RayTracingLssPrimitiveEndCapsModeNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::NONE_NV => Some("NONE_NV"),
+                Self::CHAINED_NV => Some("CHAINED_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 }

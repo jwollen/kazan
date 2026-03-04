@@ -101,6 +101,20 @@ pub(super) mod defs {
         pub const BIND_EXT: Self = Self(0);
         pub const UNBIND_EXT: Self = Self(1);
     }
+    impl fmt::Debug for DeviceAddressBindingTypeEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::BIND_EXT => Some("BIND_EXT"),
+                Self::UNBIND_EXT => Some("UNBIND_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DeviceAddressBindingFlagsEXT(Flags);

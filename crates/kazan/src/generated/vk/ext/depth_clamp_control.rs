@@ -102,6 +102,20 @@ pub(super) mod defs {
         pub const VIEWPORT_RANGE_EXT: Self = Self(0);
         pub const USER_DEFINED_RANGE_EXT: Self = Self(1);
     }
+    impl fmt::Debug for DepthClampModeEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::VIEWPORT_RANGE_EXT => Some("VIEWPORT_RANGE_EXT"),
+                Self::USER_DEFINED_RANGE_EXT => Some("USER_DEFINED_RANGE_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
 }
 pub struct DeviceFn {
     cmd_set_depth_clamp_range_ext: PFN_vkCmdSetDepthClampRangeEXT,

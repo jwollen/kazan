@@ -50,4 +50,18 @@ pub(super) mod defs {
         pub const ALL_EXT: Self = Self(0);
         pub const SHADERS_EXT: Self = Self(1);
     }
+    impl fmt::Debug for ValidationCheckEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::ALL_EXT => Some("ALL_EXT"),
+                Self::SHADERS_EXT => Some("SHADERS_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
 }

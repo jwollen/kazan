@@ -2032,6 +2032,23 @@ pub(super) mod defs {
         pub const _444: Self = Self(3);
         pub const INVALID: Self = Self(0x7FFFFFFF);
     }
+    impl fmt::Debug for StdVideoH265ChromaFormatIdc {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::MONOCHROME => Some("MONOCHROME"),
+                Self::_420 => Some("_420"),
+                Self::_422 => Some("_422"),
+                Self::_444 => Some("_444"),
+                Self::INVALID => Some("INVALID"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoH265ProfileIdc(i32);
@@ -2042,6 +2059,24 @@ pub(super) mod defs {
         pub const FORMAT_RANGE_EXTENSIONS: Self = Self(4);
         pub const SCC_EXTENSIONS: Self = Self(9);
         pub const INVALID: Self = Self(0x7FFFFFFF);
+    }
+    impl fmt::Debug for StdVideoH265ProfileIdc {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::MAIN => Some("MAIN"),
+                Self::MAIN_10 => Some("MAIN_10"),
+                Self::MAIN_STILL_PICTURE => Some("MAIN_STILL_PICTURE"),
+                Self::FORMAT_RANGE_EXTENSIONS => Some("FORMAT_RANGE_EXTENSIONS"),
+                Self::SCC_EXTENSIONS => Some("SCC_EXTENSIONS"),
+                Self::INVALID => Some("INVALID"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -2062,6 +2097,32 @@ pub(super) mod defs {
         pub const _6_2: Self = Self(12);
         pub const INVALID: Self = Self(0x7FFFFFFF);
     }
+    impl fmt::Debug for StdVideoH265LevelIdc {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::_1_0 => Some("_1_0"),
+                Self::_2_0 => Some("_2_0"),
+                Self::_2_1 => Some("_2_1"),
+                Self::_3_0 => Some("_3_0"),
+                Self::_3_1 => Some("_3_1"),
+                Self::_4_0 => Some("_4_0"),
+                Self::_4_1 => Some("_4_1"),
+                Self::_5_0 => Some("_5_0"),
+                Self::_5_1 => Some("_5_1"),
+                Self::_5_2 => Some("_5_2"),
+                Self::_6_0 => Some("_6_0"),
+                Self::_6_1 => Some("_6_1"),
+                Self::_6_2 => Some("_6_2"),
+                Self::INVALID => Some("INVALID"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoH265SliceType(i32);
@@ -2070,6 +2131,22 @@ pub(super) mod defs {
         pub const P: Self = Self(1);
         pub const I: Self = Self(2);
         pub const INVALID: Self = Self(0x7FFFFFFF);
+    }
+    impl fmt::Debug for StdVideoH265SliceType {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::B => Some("B"),
+                Self::P => Some("P"),
+                Self::I => Some("I"),
+                Self::INVALID => Some("INVALID"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -2080,6 +2157,23 @@ pub(super) mod defs {
         pub const I: Self = Self(2);
         pub const IDR: Self = Self(3);
         pub const INVALID: Self = Self(0x7FFFFFFF);
+    }
+    impl fmt::Debug for StdVideoH265PictureType {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::P => Some("P"),
+                Self::B => Some("B"),
+                Self::I => Some("I"),
+                Self::IDR => Some("IDR"),
+                Self::INVALID => Some("INVALID"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -2104,5 +2198,36 @@ pub(super) mod defs {
         pub const _2_1: Self = Self(16);
         pub const EXTENDED_SAR: Self = Self(255);
         pub const INVALID: Self = Self(0x7FFFFFFF);
+    }
+    impl fmt::Debug for StdVideoH265AspectRatioIdc {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::UNSPECIFIED => Some("UNSPECIFIED"),
+                Self::SQUARE => Some("SQUARE"),
+                Self::_12_11 => Some("_12_11"),
+                Self::_10_11 => Some("_10_11"),
+                Self::_16_11 => Some("_16_11"),
+                Self::_40_33 => Some("_40_33"),
+                Self::_24_11 => Some("_24_11"),
+                Self::_20_11 => Some("_20_11"),
+                Self::_32_11 => Some("_32_11"),
+                Self::_80_33 => Some("_80_33"),
+                Self::_18_11 => Some("_18_11"),
+                Self::_15_11 => Some("_15_11"),
+                Self::_64_33 => Some("_64_33"),
+                Self::_160_99 => Some("_160_99"),
+                Self::_4_3 => Some("_4_3"),
+                Self::_3_2 => Some("_3_2"),
+                Self::_2_1 => Some("_2_1"),
+                Self::EXTENDED_SAR => Some("EXTENDED_SAR"),
+                Self::INVALID => Some("INVALID"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 }

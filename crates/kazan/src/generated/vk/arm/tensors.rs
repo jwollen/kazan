@@ -1007,6 +1007,20 @@ pub(super) mod defs {
         pub const OPTIMAL_ARM: Self = Self(0);
         pub const LINEAR_ARM: Self = Self(1);
     }
+    impl fmt::Debug for TensorTilingARM {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::OPTIMAL_ARM => Some("OPTIMAL_ARM"),
+                Self::LINEAR_ARM => Some("LINEAR_ARM"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct TensorCreateFlagsARM(Flags64);

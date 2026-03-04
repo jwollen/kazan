@@ -524,6 +524,23 @@ pub(super) mod defs {
         pub const ULTRA_LOW_LATENCY_KHR: Self = Self(3);
         pub const LOSSLESS_KHR: Self = Self(4);
     }
+    impl fmt::Debug for VideoEncodeTuningModeKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DEFAULT_KHR => Some("DEFAULT_KHR"),
+                Self::HIGH_QUALITY_KHR => Some("HIGH_QUALITY_KHR"),
+                Self::LOW_LATENCY_KHR => Some("LOW_LATENCY_KHR"),
+                Self::ULTRA_LOW_LATENCY_KHR => Some("ULTRA_LOW_LATENCY_KHR"),
+                Self::LOSSLESS_KHR => Some("LOSSLESS_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeFlagsKHR(Flags);

@@ -408,6 +408,21 @@ pub(super) mod defs {
         pub const PROCEDURAL_HIT_GROUP_NV: Self = Self::PROCEDURAL_HIT_GROUP_KHR;
         pub const TRIANGLES_HIT_GROUP_NV: Self = Self::TRIANGLES_HIT_GROUP_KHR;
     }
+    impl fmt::Debug for RayTracingShaderGroupTypeKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::GENERAL_KHR => Some("GENERAL_KHR"),
+                Self::TRIANGLES_HIT_GROUP_KHR => Some("TRIANGLES_HIT_GROUP_KHR"),
+                Self::PROCEDURAL_HIT_GROUP_KHR => Some("PROCEDURAL_HIT_GROUP_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ShaderGroupShaderKHR(i32);
@@ -416,6 +431,22 @@ pub(super) mod defs {
         pub const CLOSEST_HIT_KHR: Self = Self(1);
         pub const ANY_HIT_KHR: Self = Self(2);
         pub const INTERSECTION_KHR: Self = Self(3);
+    }
+    impl fmt::Debug for ShaderGroupShaderKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::GENERAL_KHR => Some("GENERAL_KHR"),
+                Self::CLOSEST_HIT_KHR => Some("CLOSEST_HIT_KHR"),
+                Self::ANY_HIT_KHR => Some("ANY_HIT_KHR"),
+                Self::INTERSECTION_KHR => Some("INTERSECTION_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     pub type PFN_vkCmdTraceRaysKHR = unsafe extern "system" fn(
         command_buffer: CommandBuffer,

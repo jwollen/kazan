@@ -101,6 +101,21 @@ pub(super) mod defs {
         pub const BINARY_AMD: Self = Self(1);
         pub const DISASSEMBLY_AMD: Self = Self(2);
     }
+    impl fmt::Debug for ShaderInfoTypeAMD {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::STATISTICS_AMD => Some("STATISTICS_AMD"),
+                Self::BINARY_AMD => Some("BINARY_AMD"),
+                Self::DISASSEMBLY_AMD => Some("DISASSEMBLY_AMD"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     pub type PFN_vkGetShaderInfoAMD = unsafe extern "system" fn(
         device: Device,
         pipeline: Pipeline,

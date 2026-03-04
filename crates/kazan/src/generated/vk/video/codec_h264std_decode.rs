@@ -181,4 +181,19 @@ pub(super) mod defs {
         pub const BOTTOM: Self = Self(1);
         pub const INVALID: Self = Self(0x7FFFFFFF);
     }
+    impl fmt::Debug for StdVideoDecodeH264FieldOrderCount {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::TOP => Some("TOP"),
+                Self::BOTTOM => Some("BOTTOM"),
+                Self::INVALID => Some("INVALID"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
 }

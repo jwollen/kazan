@@ -753,6 +753,24 @@ pub(super) mod defs {
         pub const COMPLETE_KHR: Self = Self(1);
         pub const INSUFFICIENT_BITSTREAM_BUFFER_RANGE_KHR: Self = Self(-1000299000);
     }
+    impl fmt::Debug for QueryResultStatusKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::ERROR_KHR => Some("ERROR_KHR"),
+                Self::NOT_READY_KHR => Some("NOT_READY_KHR"),
+                Self::COMPLETE_KHR => Some("COMPLETE_KHR"),
+                Self::INSUFFICIENT_BITSTREAM_BUFFER_RANGE_KHR => {
+                    Some("INSUFFICIENT_BITSTREAM_BUFFER_RANGE_KHR")
+                }
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoCodecOperationFlagsKHR(Flags);

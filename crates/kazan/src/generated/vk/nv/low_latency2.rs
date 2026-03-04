@@ -380,12 +380,52 @@ pub(super) mod defs {
         pub const OUT_OF_BAND_PRESENT_START_NV: Self = Self(10);
         pub const OUT_OF_BAND_PRESENT_END_NV: Self = Self(11);
     }
+    impl fmt::Debug for LatencyMarkerNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::SIMULATION_START_NV => Some("SIMULATION_START_NV"),
+                Self::SIMULATION_END_NV => Some("SIMULATION_END_NV"),
+                Self::RENDERSUBMIT_START_NV => Some("RENDERSUBMIT_START_NV"),
+                Self::RENDERSUBMIT_END_NV => Some("RENDERSUBMIT_END_NV"),
+                Self::PRESENT_START_NV => Some("PRESENT_START_NV"),
+                Self::PRESENT_END_NV => Some("PRESENT_END_NV"),
+                Self::INPUT_SAMPLE_NV => Some("INPUT_SAMPLE_NV"),
+                Self::TRIGGER_FLASH_NV => Some("TRIGGER_FLASH_NV"),
+                Self::OUT_OF_BAND_RENDERSUBMIT_START_NV => {
+                    Some("OUT_OF_BAND_RENDERSUBMIT_START_NV")
+                }
+                Self::OUT_OF_BAND_RENDERSUBMIT_END_NV => Some("OUT_OF_BAND_RENDERSUBMIT_END_NV"),
+                Self::OUT_OF_BAND_PRESENT_START_NV => Some("OUT_OF_BAND_PRESENT_START_NV"),
+                Self::OUT_OF_BAND_PRESENT_END_NV => Some("OUT_OF_BAND_PRESENT_END_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct OutOfBandQueueTypeNV(i32);
     impl OutOfBandQueueTypeNV {
         pub const RENDER_NV: Self = Self(0);
         pub const PRESENT_NV: Self = Self(1);
+    }
+    impl fmt::Debug for OutOfBandQueueTypeNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::RENDER_NV => Some("RENDER_NV"),
+                Self::PRESENT_NV => Some("PRESENT_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     pub type PFN_vkSetLatencySleepModeNV = unsafe extern "system" fn(
         device: Device,

@@ -241,11 +241,39 @@ pub(super) mod defs {
     impl PerformanceConfigurationTypeINTEL {
         pub const COMMAND_QUEUE_METRICS_DISCOVERY_ACTIVATED_INTEL: Self = Self(0);
     }
+    impl fmt::Debug for PerformanceConfigurationTypeINTEL {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::COMMAND_QUEUE_METRICS_DISCOVERY_ACTIVATED_INTEL => {
+                    Some("COMMAND_QUEUE_METRICS_DISCOVERY_ACTIVATED_INTEL")
+                }
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct QueryPoolSamplingModeINTEL(i32);
     impl QueryPoolSamplingModeINTEL {
         pub const MANUAL_INTEL: Self = Self(0);
+    }
+    impl fmt::Debug for QueryPoolSamplingModeINTEL {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::MANUAL_INTEL => Some("MANUAL_INTEL"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -254,12 +282,40 @@ pub(super) mod defs {
         pub const NULL_HARDWARE_INTEL: Self = Self(0);
         pub const FLUSH_GPU_CACHES_INTEL: Self = Self(1);
     }
+    impl fmt::Debug for PerformanceOverrideTypeINTEL {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::NULL_HARDWARE_INTEL => Some("NULL_HARDWARE_INTEL"),
+                Self::FLUSH_GPU_CACHES_INTEL => Some("FLUSH_GPU_CACHES_INTEL"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PerformanceParameterTypeINTEL(i32);
     impl PerformanceParameterTypeINTEL {
         pub const HW_COUNTERS_SUPPORTED_INTEL: Self = Self(0);
         pub const STREAM_MARKER_VALID_BITS_INTEL: Self = Self(1);
+    }
+    impl fmt::Debug for PerformanceParameterTypeINTEL {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::HW_COUNTERS_SUPPORTED_INTEL => Some("HW_COUNTERS_SUPPORTED_INTEL"),
+                Self::STREAM_MARKER_VALID_BITS_INTEL => Some("STREAM_MARKER_VALID_BITS_INTEL"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -270,6 +326,23 @@ pub(super) mod defs {
         pub const FLOAT_INTEL: Self = Self(2);
         pub const BOOL_INTEL: Self = Self(3);
         pub const STRING_INTEL: Self = Self(4);
+    }
+    impl fmt::Debug for PerformanceValueTypeINTEL {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::UINT32_INTEL => Some("UINT32_INTEL"),
+                Self::UINT64_INTEL => Some("UINT64_INTEL"),
+                Self::FLOAT_INTEL => Some("FLOAT_INTEL"),
+                Self::BOOL_INTEL => Some("BOOL_INTEL"),
+                Self::STRING_INTEL => Some("STRING_INTEL"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     pub type PFN_vkInitializePerformanceApiINTEL = unsafe extern "system" fn(
         device: Device,

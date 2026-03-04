@@ -120,6 +120,22 @@ pub(super) mod defs {
         pub const DISALLOWED_EXT: Self = Self(2);
         pub const APPLICATION_CONTROLLED_EXT: Self = Self(3);
     }
+    impl fmt::Debug for FullScreenExclusiveEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DEFAULT_EXT => Some("DEFAULT_EXT"),
+                Self::ALLOWED_EXT => Some("ALLOWED_EXT"),
+                Self::DISALLOWED_EXT => Some("DISALLOWED_EXT"),
+                Self::APPLICATION_CONTROLLED_EXT => Some("APPLICATION_CONTROLLED_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     pub type PFN_vkGetPhysicalDeviceSurfacePresentModes2EXT =
         unsafe extern "system" fn(
             physical_device: PhysicalDevice,

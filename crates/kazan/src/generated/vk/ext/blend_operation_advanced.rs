@@ -181,4 +181,19 @@ pub(super) mod defs {
         pub const DISJOINT_EXT: Self = Self(1);
         pub const CONJOINT_EXT: Self = Self(2);
     }
+    impl fmt::Debug for BlendOverlapEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::UNCORRELATED_EXT => Some("UNCORRELATED_EXT"),
+                Self::DISJOINT_EXT => Some("DISJOINT_EXT"),
+                Self::CONJOINT_EXT => Some("CONJOINT_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
 }

@@ -418,6 +418,23 @@ pub(super) mod defs {
         pub const MAX_KHR: Self = Self(3);
         pub const MUL_KHR: Self = Self(4);
     }
+    impl fmt::Debug for FragmentShadingRateCombinerOpKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::KEEP_KHR => Some("KEEP_KHR"),
+                Self::REPLACE_KHR => Some("REPLACE_KHR"),
+                Self::MIN_KHR => Some("MIN_KHR"),
+                Self::MAX_KHR => Some("MAX_KHR"),
+                Self::MUL_KHR => Some("MUL_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     pub type PFN_vkCmdSetFragmentShadingRateKHR = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_fragment_size: *const Extent2D,

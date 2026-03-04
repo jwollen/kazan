@@ -73,4 +73,20 @@ pub(super) mod defs {
         pub const HDMI_3D_NV: Self = Self(2);
         pub const INBAND_DISPLAYPORT_NV: Self = Self(3);
     }
+    impl fmt::Debug for DisplaySurfaceStereoTypeNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::NONE_NV => Some("NONE_NV"),
+                Self::ONBOARD_DIN_NV => Some("ONBOARD_DIN_NV"),
+                Self::HDMI_3D_NV => Some("HDMI_3D_NV"),
+                Self::INBAND_DISPLAYPORT_NV => Some("INBAND_DISPLAYPORT_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
 }

@@ -88,6 +88,20 @@ pub(super) mod defs {
         pub const EXCLUSIVE_LUNARG: Self = Self(0);
         pub const INCLUSIVE_LUNARG: Self = Self(1);
     }
+    impl fmt::Debug for DirectDriverLoadingModeLUNARG {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::EXCLUSIVE_LUNARG => Some("EXCLUSIVE_LUNARG"),
+                Self::INCLUSIVE_LUNARG => Some("INCLUSIVE_LUNARG"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DirectDriverLoadingFlagsLUNARG(Flags);

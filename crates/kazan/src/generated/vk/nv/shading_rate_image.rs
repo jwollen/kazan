@@ -285,6 +285,30 @@ pub(super) mod defs {
         pub const _1_INVOCATION_PER_2X4_PIXELS_NV: Self = Self(10);
         pub const _1_INVOCATION_PER_4X4_PIXELS_NV: Self = Self(11);
     }
+    impl fmt::Debug for ShadingRatePaletteEntryNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::NO_INVOCATIONS_NV => Some("NO_INVOCATIONS_NV"),
+                Self::_16_INVOCATIONS_PER_PIXEL_NV => Some("_16_INVOCATIONS_PER_PIXEL_NV"),
+                Self::_8_INVOCATIONS_PER_PIXEL_NV => Some("_8_INVOCATIONS_PER_PIXEL_NV"),
+                Self::_4_INVOCATIONS_PER_PIXEL_NV => Some("_4_INVOCATIONS_PER_PIXEL_NV"),
+                Self::_2_INVOCATIONS_PER_PIXEL_NV => Some("_2_INVOCATIONS_PER_PIXEL_NV"),
+                Self::_1_INVOCATION_PER_PIXEL_NV => Some("_1_INVOCATION_PER_PIXEL_NV"),
+                Self::_1_INVOCATION_PER_2X1_PIXELS_NV => Some("_1_INVOCATION_PER_2X1_PIXELS_NV"),
+                Self::_1_INVOCATION_PER_1X2_PIXELS_NV => Some("_1_INVOCATION_PER_1X2_PIXELS_NV"),
+                Self::_1_INVOCATION_PER_2X2_PIXELS_NV => Some("_1_INVOCATION_PER_2X2_PIXELS_NV"),
+                Self::_1_INVOCATION_PER_4X2_PIXELS_NV => Some("_1_INVOCATION_PER_4X2_PIXELS_NV"),
+                Self::_1_INVOCATION_PER_2X4_PIXELS_NV => Some("_1_INVOCATION_PER_2X4_PIXELS_NV"),
+                Self::_1_INVOCATION_PER_4X4_PIXELS_NV => Some("_1_INVOCATION_PER_4X4_PIXELS_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct CoarseSampleOrderTypeNV(i32);
@@ -293,6 +317,22 @@ pub(super) mod defs {
         pub const CUSTOM_NV: Self = Self(1);
         pub const PIXEL_MAJOR_NV: Self = Self(2);
         pub const SAMPLE_MAJOR_NV: Self = Self(3);
+    }
+    impl fmt::Debug for CoarseSampleOrderTypeNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DEFAULT_NV => Some("DEFAULT_NV"),
+                Self::CUSTOM_NV => Some("CUSTOM_NV"),
+                Self::PIXEL_MAJOR_NV => Some("PIXEL_MAJOR_NV"),
+                Self::SAMPLE_MAJOR_NV => Some("SAMPLE_MAJOR_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     pub type PFN_vkCmdBindShadingRateImageNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,

@@ -50,6 +50,24 @@ pub(super) mod defs {
         pub const DEVICE_EXT: Self = Self::DEVICE_KHR;
         pub const QUERY_PERFORMANCE_COUNTER_EXT: Self = Self::QUERY_PERFORMANCE_COUNTER_KHR;
     }
+    impl fmt::Debug for TimeDomainKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DEVICE_KHR => Some("DEVICE_KHR"),
+                Self::CLOCK_MONOTONIC_KHR => Some("CLOCK_MONOTONIC_KHR"),
+                Self::CLOCK_MONOTONIC_RAW_KHR => Some("CLOCK_MONOTONIC_RAW_KHR"),
+                Self::QUERY_PERFORMANCE_COUNTER_KHR => Some("QUERY_PERFORMANCE_COUNTER_KHR"),
+                Self::PRESENT_STAGE_LOCAL_EXT => Some("PRESENT_STAGE_LOCAL_EXT"),
+                Self::SWAPCHAIN_LOCAL_EXT => Some("SWAPCHAIN_LOCAL_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     pub type PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsKHR =
         unsafe extern "system" fn(
             physical_device: PhysicalDevice,

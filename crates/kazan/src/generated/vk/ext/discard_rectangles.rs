@@ -97,6 +97,20 @@ pub(super) mod defs {
         pub const INCLUSIVE_EXT: Self = Self(0);
         pub const EXCLUSIVE_EXT: Self = Self(1);
     }
+    impl fmt::Debug for DiscardRectangleModeEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::INCLUSIVE_EXT => Some("INCLUSIVE_EXT"),
+                Self::EXCLUSIVE_EXT => Some("EXCLUSIVE_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineDiscardRectangleStateCreateFlagsEXT(Flags);

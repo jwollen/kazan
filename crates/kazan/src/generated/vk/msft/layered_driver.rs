@@ -47,4 +47,18 @@ pub(super) mod defs {
         pub const NONE_MSFT: Self = Self(0);
         pub const D3D12_MSFT: Self = Self(1);
     }
+    impl fmt::Debug for LayeredDriverUnderlyingApiMSFT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::NONE_MSFT => Some("NONE_MSFT"),
+                Self::D3D12_MSFT => Some("D3D12_MSFT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
 }

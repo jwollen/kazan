@@ -128,4 +128,17 @@ pub(super) mod defs {
     impl DataGraphModelCacheTypeQCOM {
         pub const GENERIC_BINARY_QCOM: Self = Self(0);
     }
+    impl fmt::Debug for DataGraphModelCacheTypeQCOM {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::GENERIC_BINARY_QCOM => Some("GENERIC_BINARY_QCOM"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
 }

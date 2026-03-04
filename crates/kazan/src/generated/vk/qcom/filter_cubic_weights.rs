@@ -106,4 +106,20 @@ pub(super) mod defs {
         pub const B_SPLINE_QCOM: Self = Self(2);
         pub const MITCHELL_NETRAVALI_QCOM: Self = Self(3);
     }
+    impl fmt::Debug for CubicFilterWeightsQCOM {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::CATMULL_ROM_QCOM => Some("CATMULL_ROM_QCOM"),
+                Self::ZERO_TANGENT_CARDINAL_QCOM => Some("ZERO_TANGENT_CARDINAL_QCOM"),
+                Self::B_SPLINE_QCOM => Some("B_SPLINE_QCOM"),
+                Self::MITCHELL_NETRAVALI_QCOM => Some("MITCHELL_NETRAVALI_QCOM"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
 }

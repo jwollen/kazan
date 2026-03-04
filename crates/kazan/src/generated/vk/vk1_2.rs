@@ -3546,6 +3546,20 @@ pub(super) mod defs {
         pub const BINARY_KHR: Self = Self::BINARY;
         pub const TIMELINE_KHR: Self = Self::TIMELINE;
     }
+    impl fmt::Debug for SemaphoreType {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::BINARY => Some("BINARY"),
+                Self::TIMELINE => Some("TIMELINE"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SamplerReductionMode(i32);
@@ -3557,6 +3571,22 @@ pub(super) mod defs {
         pub const MAX_EXT: Self = Self::MAX;
         pub const MIN_EXT: Self = Self::MIN;
         pub const WEIGHTED_AVERAGE_EXT: Self = Self::WEIGHTED_AVERAGE;
+    }
+    impl fmt::Debug for SamplerReductionMode {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::WEIGHTED_AVERAGE => Some("WEIGHTED_AVERAGE"),
+                Self::MIN => Some("MIN"),
+                Self::MAX => Some("MAX"),
+                Self::WEIGHTED_AVERAGE_RANGECLAMP_QCOM => Some("WEIGHTED_AVERAGE_RANGECLAMP_QCOM"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -3603,6 +3633,46 @@ pub(super) mod defs {
         pub const NVIDIA_PROPRIETARY_KHR: Self = Self::NVIDIA_PROPRIETARY;
         pub const QUALCOMM_PROPRIETARY_KHR: Self = Self::QUALCOMM_PROPRIETARY;
     }
+    impl fmt::Debug for DriverId {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::AMD_PROPRIETARY => Some("AMD_PROPRIETARY"),
+                Self::AMD_OPEN_SOURCE => Some("AMD_OPEN_SOURCE"),
+                Self::MESA_RADV => Some("MESA_RADV"),
+                Self::NVIDIA_PROPRIETARY => Some("NVIDIA_PROPRIETARY"),
+                Self::INTEL_PROPRIETARY_WINDOWS => Some("INTEL_PROPRIETARY_WINDOWS"),
+                Self::INTEL_OPEN_SOURCE_MESA => Some("INTEL_OPEN_SOURCE_MESA"),
+                Self::IMAGINATION_PROPRIETARY => Some("IMAGINATION_PROPRIETARY"),
+                Self::QUALCOMM_PROPRIETARY => Some("QUALCOMM_PROPRIETARY"),
+                Self::ARM_PROPRIETARY => Some("ARM_PROPRIETARY"),
+                Self::GOOGLE_SWIFTSHADER => Some("GOOGLE_SWIFTSHADER"),
+                Self::GGP_PROPRIETARY => Some("GGP_PROPRIETARY"),
+                Self::BROADCOM_PROPRIETARY => Some("BROADCOM_PROPRIETARY"),
+                Self::MESA_LLVMPIPE => Some("MESA_LLVMPIPE"),
+                Self::MOLTENVK => Some("MOLTENVK"),
+                Self::COREAVI_PROPRIETARY => Some("COREAVI_PROPRIETARY"),
+                Self::JUICE_PROPRIETARY => Some("JUICE_PROPRIETARY"),
+                Self::VERISILICON_PROPRIETARY => Some("VERISILICON_PROPRIETARY"),
+                Self::MESA_TURNIP => Some("MESA_TURNIP"),
+                Self::MESA_V3DV => Some("MESA_V3DV"),
+                Self::MESA_PANVK => Some("MESA_PANVK"),
+                Self::SAMSUNG_PROPRIETARY => Some("SAMSUNG_PROPRIETARY"),
+                Self::MESA_VENUS => Some("MESA_VENUS"),
+                Self::MESA_DOZEN => Some("MESA_DOZEN"),
+                Self::MESA_NVK => Some("MESA_NVK"),
+                Self::IMAGINATION_OPEN_SOURCE_MESA => Some("IMAGINATION_OPEN_SOURCE_MESA"),
+                Self::MESA_HONEYKRISP => Some("MESA_HONEYKRISP"),
+                Self::VULKAN_SC_EMULATION_ON_VULKAN => Some("VULKAN_SC_EMULATION_ON_VULKAN"),
+                Self::MESA_KOSMICKRISP => Some("MESA_KOSMICKRISP"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ShaderFloatControlsIndependence(i32);
@@ -3613,6 +3683,21 @@ pub(super) mod defs {
         pub const _32_BIT_ONLY_KHR: Self = Self::_32_BIT_ONLY;
         pub const ALL_KHR: Self = Self::ALL;
         pub const NONE_KHR: Self = Self::NONE;
+    }
+    impl fmt::Debug for ShaderFloatControlsIndependence {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::_32_BIT_ONLY => Some("_32_BIT_ONLY"),
+                Self::ALL => Some("ALL"),
+                Self::NONE => Some("NONE"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]

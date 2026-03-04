@@ -365,6 +365,21 @@ pub(super) mod defs {
         pub const MATRIX_MOTION_NV: Self = Self(1);
         pub const SRT_MOTION_NV: Self = Self(2);
     }
+    impl fmt::Debug for AccelerationStructureMotionInstanceTypeNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::STATIC_NV => Some("STATIC_NV"),
+                Self::MATRIX_MOTION_NV => Some("MATRIX_MOTION_NV"),
+                Self::SRT_MOTION_NV => Some("SRT_MOTION_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AccelerationStructureMotionInfoFlagsNV(Flags);

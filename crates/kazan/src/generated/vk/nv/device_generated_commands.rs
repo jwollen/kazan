@@ -648,6 +648,30 @@ pub(super) mod defs {
         pub const PIPELINE_NV: Self = Self(1000428003);
         pub const PUSH_DATA_NV: Self = Self(1000135000);
     }
+    impl fmt::Debug for IndirectCommandsTokenTypeNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::SHADER_GROUP_NV => Some("SHADER_GROUP_NV"),
+                Self::STATE_FLAGS_NV => Some("STATE_FLAGS_NV"),
+                Self::INDEX_BUFFER_NV => Some("INDEX_BUFFER_NV"),
+                Self::VERTEX_BUFFER_NV => Some("VERTEX_BUFFER_NV"),
+                Self::PUSH_CONSTANT_NV => Some("PUSH_CONSTANT_NV"),
+                Self::DRAW_INDEXED_NV => Some("DRAW_INDEXED_NV"),
+                Self::DRAW_NV => Some("DRAW_NV"),
+                Self::DRAW_TASKS_NV => Some("DRAW_TASKS_NV"),
+                Self::DISPATCH_NV => Some("DISPATCH_NV"),
+                Self::DRAW_MESH_TASKS_NV => Some("DRAW_MESH_TASKS_NV"),
+                Self::PIPELINE_NV => Some("PIPELINE_NV"),
+                Self::PUSH_DATA_NV => Some("PUSH_DATA_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct IndirectCommandsLayoutUsageFlagsNV(Flags);

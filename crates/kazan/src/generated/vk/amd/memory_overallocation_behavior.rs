@@ -48,4 +48,19 @@ pub(super) mod defs {
         pub const ALLOWED_AMD: Self = Self(1);
         pub const DISALLOWED_AMD: Self = Self(2);
     }
+    impl fmt::Debug for MemoryOverallocationBehaviorAMD {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DEFAULT_AMD => Some("DEFAULT_AMD"),
+                Self::ALLOWED_AMD => Some("ALLOWED_AMD"),
+                Self::DISALLOWED_AMD => Some("DISALLOWED_AMD"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
 }

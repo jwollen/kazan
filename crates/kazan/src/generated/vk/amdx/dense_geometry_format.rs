@@ -122,4 +122,17 @@ pub(super) mod defs {
     impl CompressedTriangleFormatAMDX {
         pub const DGF1_AMDX: Self = Self(0);
     }
+    impl fmt::Debug for CompressedTriangleFormatAMDX {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DGF1_AMDX => Some("DGF1_AMDX"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
 }

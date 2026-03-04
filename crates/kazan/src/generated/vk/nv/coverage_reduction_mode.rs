@@ -141,6 +141,20 @@ pub(super) mod defs {
         pub const MERGE_NV: Self = Self(0);
         pub const TRUNCATE_NV: Self = Self(1);
     }
+    impl fmt::Debug for CoverageReductionModeNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::MERGE_NV => Some("MERGE_NV"),
+                Self::TRUNCATE_NV => Some("TRUNCATE_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineCoverageReductionStateCreateFlagsNV(Flags);

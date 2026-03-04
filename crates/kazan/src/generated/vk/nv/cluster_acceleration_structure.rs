@@ -819,6 +819,21 @@ pub(super) mod defs {
         pub const TRIANGLE_CLUSTER_NV: Self = Self(1);
         pub const TRIANGLE_CLUSTER_TEMPLATE_NV: Self = Self(2);
     }
+    impl fmt::Debug for ClusterAccelerationStructureTypeNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::CLUSTERS_BOTTOM_LEVEL_NV => Some("CLUSTERS_BOTTOM_LEVEL_NV"),
+                Self::TRIANGLE_CLUSTER_NV => Some("TRIANGLE_CLUSTER_NV"),
+                Self::TRIANGLE_CLUSTER_TEMPLATE_NV => Some("TRIANGLE_CLUSTER_TEMPLATE_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ClusterAccelerationStructureOpTypeNV(i32);
@@ -830,6 +845,26 @@ pub(super) mod defs {
         pub const INSTANTIATE_TRIANGLE_CLUSTER_NV: Self = Self(4);
         pub const GET_CLUSTER_TEMPLATE_INDICES_NV: Self = Self(5);
     }
+    impl fmt::Debug for ClusterAccelerationStructureOpTypeNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::MOVE_OBJECTS_NV => Some("MOVE_OBJECTS_NV"),
+                Self::BUILD_CLUSTERS_BOTTOM_LEVEL_NV => Some("BUILD_CLUSTERS_BOTTOM_LEVEL_NV"),
+                Self::BUILD_TRIANGLE_CLUSTER_NV => Some("BUILD_TRIANGLE_CLUSTER_NV"),
+                Self::BUILD_TRIANGLE_CLUSTER_TEMPLATE_NV => {
+                    Some("BUILD_TRIANGLE_CLUSTER_TEMPLATE_NV")
+                }
+                Self::INSTANTIATE_TRIANGLE_CLUSTER_NV => Some("INSTANTIATE_TRIANGLE_CLUSTER_NV"),
+                Self::GET_CLUSTER_TEMPLATE_INDICES_NV => Some("GET_CLUSTER_TEMPLATE_INDICES_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ClusterAccelerationStructureOpModeNV(i32);
@@ -837,6 +872,21 @@ pub(super) mod defs {
         pub const IMPLICIT_DESTINATIONS_NV: Self = Self(0);
         pub const EXPLICIT_DESTINATIONS_NV: Self = Self(1);
         pub const COMPUTE_SIZES_NV: Self = Self(2);
+    }
+    impl fmt::Debug for ClusterAccelerationStructureOpModeNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::IMPLICIT_DESTINATIONS_NV => Some("IMPLICIT_DESTINATIONS_NV"),
+                Self::EXPLICIT_DESTINATIONS_NV => Some("EXPLICIT_DESTINATIONS_NV"),
+                Self::COMPUTE_SIZES_NV => Some("COMPUTE_SIZES_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]

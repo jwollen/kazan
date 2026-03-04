@@ -85,4 +85,24 @@ pub(super) mod defs {
         pub const FLOAT64_EXT: Self = Self(6);
         pub const STRING_EXT: Self = Self(7);
     }
+    impl fmt::Debug for LayerSettingTypeEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::BOOL32_EXT => Some("BOOL32_EXT"),
+                Self::INT32_EXT => Some("INT32_EXT"),
+                Self::INT64_EXT => Some("INT64_EXT"),
+                Self::UINT32_EXT => Some("UINT32_EXT"),
+                Self::UINT64_EXT => Some("UINT64_EXT"),
+                Self::FLOAT32_EXT => Some("FLOAT32_EXT"),
+                Self::FLOAT64_EXT => Some("FLOAT64_EXT"),
+                Self::STRING_EXT => Some("STRING_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
 }

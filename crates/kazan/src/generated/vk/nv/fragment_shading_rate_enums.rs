@@ -159,12 +159,50 @@ pub(super) mod defs {
         pub const _16_INVOCATIONS_PER_PIXEL_NV: Self = Self(14);
         pub const NO_INVOCATIONS_NV: Self = Self(15);
     }
+    impl fmt::Debug for FragmentShadingRateNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::_1_INVOCATION_PER_PIXEL_NV => Some("_1_INVOCATION_PER_PIXEL_NV"),
+                Self::_1_INVOCATION_PER_1X2_PIXELS_NV => Some("_1_INVOCATION_PER_1X2_PIXELS_NV"),
+                Self::_1_INVOCATION_PER_2X1_PIXELS_NV => Some("_1_INVOCATION_PER_2X1_PIXELS_NV"),
+                Self::_1_INVOCATION_PER_2X2_PIXELS_NV => Some("_1_INVOCATION_PER_2X2_PIXELS_NV"),
+                Self::_1_INVOCATION_PER_2X4_PIXELS_NV => Some("_1_INVOCATION_PER_2X4_PIXELS_NV"),
+                Self::_1_INVOCATION_PER_4X2_PIXELS_NV => Some("_1_INVOCATION_PER_4X2_PIXELS_NV"),
+                Self::_1_INVOCATION_PER_4X4_PIXELS_NV => Some("_1_INVOCATION_PER_4X4_PIXELS_NV"),
+                Self::_2_INVOCATIONS_PER_PIXEL_NV => Some("_2_INVOCATIONS_PER_PIXEL_NV"),
+                Self::_4_INVOCATIONS_PER_PIXEL_NV => Some("_4_INVOCATIONS_PER_PIXEL_NV"),
+                Self::_8_INVOCATIONS_PER_PIXEL_NV => Some("_8_INVOCATIONS_PER_PIXEL_NV"),
+                Self::_16_INVOCATIONS_PER_PIXEL_NV => Some("_16_INVOCATIONS_PER_PIXEL_NV"),
+                Self::NO_INVOCATIONS_NV => Some("NO_INVOCATIONS_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct FragmentShadingRateTypeNV(i32);
     impl FragmentShadingRateTypeNV {
         pub const FRAGMENT_SIZE_NV: Self = Self(0);
         pub const ENUMS_NV: Self = Self(1);
+    }
+    impl fmt::Debug for FragmentShadingRateTypeNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::FRAGMENT_SIZE_NV => Some("FRAGMENT_SIZE_NV"),
+                Self::ENUMS_NV => Some("ENUMS_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     pub type PFN_vkCmdSetFragmentShadingRateEnumNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,

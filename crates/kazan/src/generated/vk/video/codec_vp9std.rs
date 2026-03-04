@@ -249,6 +249,23 @@ pub(super) mod defs {
         pub const _3: Self = Self(3);
         pub const INVALID: Self = Self(0x7FFFFFFF);
     }
+    impl fmt::Debug for StdVideoVP9Profile {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::_0 => Some("_0"),
+                Self::_1 => Some("_1"),
+                Self::_2 => Some("_2"),
+                Self::_3 => Some("_3"),
+                Self::INVALID => Some("INVALID"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoVP9Level(i32);
@@ -269,6 +286,33 @@ pub(super) mod defs {
         pub const _6_2: Self = Self(13);
         pub const INVALID: Self = Self(0x7FFFFFFF);
     }
+    impl fmt::Debug for StdVideoVP9Level {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::_1_0 => Some("_1_0"),
+                Self::_1_1 => Some("_1_1"),
+                Self::_2_0 => Some("_2_0"),
+                Self::_2_1 => Some("_2_1"),
+                Self::_3_0 => Some("_3_0"),
+                Self::_3_1 => Some("_3_1"),
+                Self::_4_0 => Some("_4_0"),
+                Self::_4_1 => Some("_4_1"),
+                Self::_5_0 => Some("_5_0"),
+                Self::_5_1 => Some("_5_1"),
+                Self::_5_2 => Some("_5_2"),
+                Self::_6_0 => Some("_6_0"),
+                Self::_6_1 => Some("_6_1"),
+                Self::_6_2 => Some("_6_2"),
+                Self::INVALID => Some("INVALID"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoVP9FrameType(i32);
@@ -276,6 +320,21 @@ pub(super) mod defs {
         pub const KEY: Self = Self(0);
         pub const NON_KEY: Self = Self(1);
         pub const INVALID: Self = Self(0x7FFFFFFF);
+    }
+    impl fmt::Debug for StdVideoVP9FrameType {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::KEY => Some("KEY"),
+                Self::NON_KEY => Some("NON_KEY"),
+                Self::INVALID => Some("INVALID"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -287,6 +346,23 @@ pub(super) mod defs {
         pub const ALTREF_FRAME: Self = Self(3);
         pub const INVALID: Self = Self(0x7FFFFFFF);
     }
+    impl fmt::Debug for StdVideoVP9ReferenceName {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::INTRA_FRAME => Some("INTRA_FRAME"),
+                Self::LAST_FRAME => Some("LAST_FRAME"),
+                Self::GOLDEN_FRAME => Some("GOLDEN_FRAME"),
+                Self::ALTREF_FRAME => Some("ALTREF_FRAME"),
+                Self::INVALID => Some("INVALID"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoVP9InterpolationFilter(i32);
@@ -297,6 +373,24 @@ pub(super) mod defs {
         pub const BILINEAR: Self = Self(3);
         pub const SWITCHABLE: Self = Self(4);
         pub const INVALID: Self = Self(0x7FFFFFFF);
+    }
+    impl fmt::Debug for StdVideoVP9InterpolationFilter {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::EIGHTTAP => Some("EIGHTTAP"),
+                Self::EIGHTTAP_SMOOTH => Some("EIGHTTAP_SMOOTH"),
+                Self::EIGHTTAP_SHARP => Some("EIGHTTAP_SHARP"),
+                Self::BILINEAR => Some("BILINEAR"),
+                Self::SWITCHABLE => Some("SWITCHABLE"),
+                Self::INVALID => Some("INVALID"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -311,5 +405,26 @@ pub(super) mod defs {
         pub const RESERVED: Self = Self(6);
         pub const RGB: Self = Self(7);
         pub const INVALID: Self = Self(0x7FFFFFFF);
+    }
+    impl fmt::Debug for StdVideoVP9ColorSpace {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::UNKNOWN => Some("UNKNOWN"),
+                Self::BT_601 => Some("BT_601"),
+                Self::BT_709 => Some("BT_709"),
+                Self::SMPTE_170 => Some("SMPTE_170"),
+                Self::SMPTE_240 => Some("SMPTE_240"),
+                Self::BT_2020 => Some("BT_2020"),
+                Self::RESERVED => Some("RESERVED"),
+                Self::RGB => Some("RGB"),
+                Self::INVALID => Some("INVALID"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 }

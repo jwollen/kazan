@@ -168,7 +168,7 @@ pub fn write_enum(file: &mut impl std::io::Write, req: &ReqEnumData<'_>, ty: &xm
     writeln!(
         file,
         "#[repr(transparent)]
-        #[derive(Copy, Clone, Default,PartialEq, Eq, PartialOrd, Ord, Hash)]
+        #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
         pub struct {}(i32);",
         name
     )
@@ -193,8 +193,35 @@ pub fn write_enum(file: &mut impl std::io::Write, req: &ReqEnumData<'_>, ty: &xm
             writeln!(file, "pub const {}: Self = Self::{};", name, alias).unwrap();
         }
     }
-
     writeln!(file, "}}").unwrap();
+
+    writeln!(
+        file,
+        "impl fmt::Debug for {name} {{
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {{"
+    )
+    .unwrap();
+    writeln!(file, "let name  =match *self {{").unwrap();
+    for (name, _) in &variants {
+        writeln!(file, "Self::{name} => Some(\"{name}\"),").unwrap();
+    }
+    if let Some(values) = req.enum_values.get(ty.name) {
+        for (name, _) in values {
+            let name = normalize_variant_name(name, &value_prefix);
+            writeln!(file, "Self::{name} => Some(\"{name}\"),").unwrap();
+        }
+    }    
+    writeln!(
+        file,
+        "_ => None
+        }};
+        if let Some(name) = name {{
+            f.write_str(name)
+        }} else {{
+            self.0.fmt(f)
+        }} }} }}"
+    )
+    .unwrap();
 }
 
 /// Writes a bitmask type (bitflags + optional FlagBits struct) to `file`.

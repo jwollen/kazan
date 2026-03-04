@@ -173,6 +173,22 @@ pub(super) mod defs {
         pub const SUBGROUP_NV: Self = Self::SUBGROUP_KHR;
         pub const WORKGROUP_NV: Self = Self::WORKGROUP_KHR;
     }
+    impl fmt::Debug for ScopeKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DEVICE_KHR => Some("DEVICE_KHR"),
+                Self::WORKGROUP_KHR => Some("WORKGROUP_KHR"),
+                Self::SUBGROUP_KHR => Some("SUBGROUP_KHR"),
+                Self::QUEUE_FAMILY_KHR => Some("QUEUE_FAMILY_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     pub type PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR =
         unsafe extern "system" fn(
             physical_device: PhysicalDevice,

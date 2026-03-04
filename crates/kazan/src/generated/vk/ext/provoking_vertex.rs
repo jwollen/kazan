@@ -138,4 +138,18 @@ pub(super) mod defs {
         pub const FIRST_VERTEX_EXT: Self = Self(0);
         pub const LAST_VERTEX_EXT: Self = Self(1);
     }
+    impl fmt::Debug for ProvokingVertexModeEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::FIRST_VERTEX_EXT => Some("FIRST_VERTEX_EXT"),
+                Self::LAST_VERTEX_EXT => Some("LAST_VERTEX_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
 }

@@ -433,6 +433,21 @@ pub(super) mod defs {
         pub const UPDATE_INSTANCE_NV: Self = Self(1);
         pub const WRITE_PARTITION_TRANSLATION_NV: Self = Self(2);
     }
+    impl fmt::Debug for PartitionedAccelerationStructureOpTypeNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::WRITE_INSTANCE_NV => Some("WRITE_INSTANCE_NV"),
+                Self::UPDATE_INSTANCE_NV => Some("UPDATE_INSTANCE_NV"),
+                Self::WRITE_PARTITION_TRANSLATION_NV => Some("WRITE_PARTITION_TRANSLATION_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PartitionedAccelerationStructureInstanceFlagsNV(Flags);

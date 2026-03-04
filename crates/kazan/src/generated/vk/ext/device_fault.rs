@@ -266,11 +266,43 @@ pub(super) mod defs {
         pub const INSTRUCTION_POINTER_INVALID_EXT: Self = Self(5);
         pub const INSTRUCTION_POINTER_FAULT_EXT: Self = Self(6);
     }
+    impl fmt::Debug for DeviceFaultAddressTypeEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::NONE_EXT => Some("NONE_EXT"),
+                Self::READ_INVALID_EXT => Some("READ_INVALID_EXT"),
+                Self::WRITE_INVALID_EXT => Some("WRITE_INVALID_EXT"),
+                Self::EXECUTE_INVALID_EXT => Some("EXECUTE_INVALID_EXT"),
+                Self::INSTRUCTION_POINTER_UNKNOWN_EXT => Some("INSTRUCTION_POINTER_UNKNOWN_EXT"),
+                Self::INSTRUCTION_POINTER_INVALID_EXT => Some("INSTRUCTION_POINTER_INVALID_EXT"),
+                Self::INSTRUCTION_POINTER_FAULT_EXT => Some("INSTRUCTION_POINTER_FAULT_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DeviceFaultVendorBinaryHeaderVersionEXT(i32);
     impl DeviceFaultVendorBinaryHeaderVersionEXT {
         pub const ONE_EXT: Self = Self(1);
+    }
+    impl fmt::Debug for DeviceFaultVendorBinaryHeaderVersionEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::ONE_EXT => Some("ONE_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
     pub type PFN_vkGetDeviceFaultInfoEXT = unsafe extern "system" fn(
         device: Device,
