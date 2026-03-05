@@ -751,11 +751,15 @@ impl DeviceFn {
         mut data: impl ExtendUninit<u8>,
     ) -> crate::Result<()> {
         unsafe {
-            let call = |data_size, data| {
+            let call = |data_size,
+                        data,
+                        feedback_info: Option<
+                &mut VideoEncodeSessionParametersFeedbackInfoKHR<'a>,
+            >| {
                 let result = (self.get_encoded_video_session_parameters_khr)(
                     device,
                     video_session_parameters_info,
-                    todo!("output parameters in enumeration commands"),
+                    feedback_info.to_raw_mut_ptr(),
                     data_size,
                     data as _,
                 );
@@ -767,11 +771,11 @@ impl DeviceFn {
                 }
             };
             let mut len = 0;
-            call(&mut len, std::ptr::null_mut())?;
+            call(&mut len, std::ptr::null_mut(), None)?;
             let capacity = len.try_into().expect("failed to convert `N` to usize");
             let data_buf = data.reserve(capacity);
             len = data_buf.len().try_into().unwrap();
-            let result = call(&mut len, data_buf.as_mut_ptr() as *mut _)?;
+            let result = call(&mut len, data_buf.as_mut_ptr() as *mut _, feedback_info)?;
             data.set_len(len.try_into().unwrap());
             Ok(result)
         }

@@ -45,6 +45,7 @@ struct EnumerationCommandInfo {
 
 struct WrapperParamInfo<'a> {
     name: String,
+    param_index: usize,
     param: &'a xml::CommandParam,
     ty: String,
     is_enumeration_array: bool,
@@ -364,7 +365,7 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
             }
 
             if is_return_param {
-                return_params.push(param);
+                return_params.push(param_index);
             } else {
                 let name = normalize_param_name(param.c_decl.name);
                 let ty = convert_param_type(
@@ -378,6 +379,7 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
 
                 wrapper_params.push(WrapperParamInfo {
                     name: name.clone(),
+                    param_index,
                     param,
                     ty,
                     is_enumeration_array,
@@ -402,13 +404,15 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
     let wrapper_return = if !return_params.is_empty() {
         let params = return_params
             .into_iter()
-            .map(|param| {
+            .map(|param_index| {
+                let param = params[param_index].param;
                 let CType::Ptr { pointee, .. } = &param.c_decl.ty else {
                     unreachable!()
                 };
                 WrapperParamInfo {
                     name: normalize_param_name(param.c_decl.name),
                     ty: ctype_to_rust_type(analysis, &pointee, None),
+                    param_index,
                     param,
                     is_enumeration_array: false,
                 }
@@ -673,21 +677,35 @@ fn write_enumeration_fn_body(
     wrapper: &WrapperCommandInfo<'_>,
     enumeration_info: &EnumerationCommandInfo,
 ) {
-    let len_param = &wrapper.params[enumeration_info.len_param];
-    let array_params = enumeration_info
-        .array_params
-        .iter()
-        .map(|i| wrapper.params[*i].name.as_str())
-        .collect::<Vec<_>>()
-        .join(", ");
-
-    writeln!(file, "let call = |{}, {array_params}| {{ ", len_param.name).unwrap();
+    let len_param = &wrapper.params[enumeration_info.len_param].name;
+    writeln!(file, "let call = |{len_param}, ").unwrap();
+    for param in &enumeration_info.array_params {
+        writeln!(file, "{}, ", wrapper.params[*param].name).unwrap();
+    }
+    for wrapper_param in &wrapper.wrapper_params {
+        let param = &wrapper.params[wrapper_param.param_index];
+        if param.is_output_param && wrapper_param.param_index != enumeration_info.len_param && !param.is_return_param {
+            writeln!(file, "{}: {}, ", wrapper_param.name, wrapper_param.ty).unwrap();
+        }
+    }
+    writeln!(file, "| {{ ").unwrap();
     write_fn_body(file, analysis, wrapper, info.optional);
     writeln!(file, "}};").unwrap();
 
     writeln!(file, "let mut len = 0; call(&mut len, ").unwrap();
-    for param in &enumeration_info.array_params {
+    for _ in &enumeration_info.array_params {
         writeln!(file, "std::ptr::null_mut(), ").unwrap();
+    }
+    for wrapper_param in &wrapper.wrapper_params {
+        let param = &wrapper.params[wrapper_param.param_index];
+        if param.is_output_param && wrapper_param.param_index != enumeration_info.len_param && !param.is_return_param {
+            // Skip in the first call if optional 
+            if param.optional.0 {
+                writeln!(file, "None, ").unwrap();
+            } else {
+                writeln!(file, "{}, ", param.name).unwrap();
+            }
+        } 
     }
     if wrapper.is_fallible {
         writeln!(file, ")?;").unwrap();
@@ -727,6 +745,12 @@ fn write_enumeration_fn_body(
         let param = &wrapper.params[*param];
         let param_name = &param.name;
         writeln!(file, "{param_name}_buf.as_mut_ptr() as *mut _, ").unwrap();
+    }
+    for wrapper_param in &wrapper.wrapper_params {
+        let param = &wrapper.params[wrapper_param.param_index];
+        if param.is_output_param && wrapper_param.param_index != enumeration_info.len_param && !param.is_return_param {
+            writeln!(file, "{}, ", param.name).unwrap();
+        }
     }
     if wrapper.is_fallible {
         writeln!(file, ")?;").unwrap();
@@ -854,22 +878,11 @@ fn emit_arg(file: &mut impl std::io::Write, param_name: &str, kind: ArgEmitKind)
         ArgEmitKind::ReturnParamAsMutPtr => {
             writeln!(file, "{}.as_mut_ptr(),", param_name).unwrap();
         }
-        ArgEmitKind::OptionalPtrToRaw {
-            is_const,
-            in_enumeration,
-        } => {
+        ArgEmitKind::OptionalPtrToRaw { is_const, .. } => {
             if is_const {
                 writeln!(file, "{}.to_raw_ptr(),", param_name).unwrap();
             } else {
-                if in_enumeration {
-                    writeln!(
-                        file,
-                        "todo!(\"output parameters in enumeration commands\"),"
-                    )
-                    .unwrap();
-                } else {
-                    writeln!(file, "{}.to_raw_mut_ptr(),", param_name).unwrap();
-                }
+                writeln!(file, "{}.to_raw_mut_ptr(),", param_name).unwrap();
             }
         }
         ArgEmitKind::TransmuteForEnumeration => {
