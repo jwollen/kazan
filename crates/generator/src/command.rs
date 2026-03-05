@@ -1,7 +1,6 @@
 use crate::{
-    LengthKind, analysis::Analysis, cdecl::CType, ctype_rust,
-    ctype_to_rust_type, get_len_kind, handle::CommandType, normalize_command_name,
-    normalize_param_name, normalize_ty_name, xml,
+    LengthKind, analysis::Analysis, cdecl::CType, ctype_rust, ctype_to_rust_type, get_len_kind,
+    handle::CommandType, normalize_command_name, normalize_param_name, normalize_ty_name, xml,
 };
 use itertools::Itertools;
 
@@ -48,6 +47,7 @@ struct WrapperParamInfo<'a> {
     name: String,
     param: &'a xml::CommandParam,
     ty: String,
+    is_enumeration_array: bool,
 }
 
 enum WrapperReturnKind<'a> {
@@ -79,7 +79,10 @@ enum ArgEmitKind {
     /// Return (output) param: `{name}.as_mut_ptr()`
     ReturnParamAsMutPtr,
     /// Optional pointer: `.to_raw_ptr()` / `.to_raw_mut_ptr()`, or todo! when in enumeration command
-    OptionalPtrToRaw { is_const: bool, in_enumeration: bool },
+    OptionalPtrToRaw {
+        is_const: bool,
+        in_enumeration: bool,
+    },
     /// Enumeration buffer param: `{name} as _`
     TransmuteForEnumeration,
 }
@@ -146,12 +149,14 @@ pub fn generate_commands(
                         let ty = &cmd.command.params.iter().next().unwrap().c_decl.ty;
                         let category = ctype_rust::CTypeCategory::from_ctype(ty, analysis);
                         match category {
-                            ctype_rust::CTypeCategory::Base(name) => analysis
-                                .handle_command_types()
-                                .get(name)
-                                .copied()
-                                .unwrap_or(CommandType::Entry)
-                                == cmd_type,
+                            ctype_rust::CTypeCategory::Base(name) => {
+                                analysis
+                                    .handle_command_types()
+                                    .get(name)
+                                    .copied()
+                                    .unwrap_or(CommandType::Entry)
+                                    == cmd_type
+                            }
                             _ => cmd_type == CommandType::Entry,
                         }
                     })
@@ -230,18 +235,26 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
         })
         .collect();
 
-    let enumeration_len_param = len_kinds.iter().enumerate().find_map(|(_param_index, len_kind)| {
-        let LengthKind::Param { index: len_param_index, c_decl } = len_kind.as_ref()? else {
-            return None;
-        };
-        let category = ctype_rust::CTypeCategory::from_ctype(&c_decl.ty, analysis);
-        match category {
-            ctype_rust::CTypeCategory::TypedPointer { is_const, .. } if !is_const => {
-                Some(*len_param_index)
-            }
-            _ => None,
-        }
-    });
+    let enumeration_len_param =
+        len_kinds
+            .iter()
+            .enumerate()
+            .find_map(|(_param_index, len_kind)| {
+                let LengthKind::Param {
+                    index: len_param_index,
+                    c_decl,
+                } = len_kind.as_ref()?
+                else {
+                    return None;
+                };
+                let category = ctype_rust::CTypeCategory::from_ctype(&c_decl.ty, analysis);
+                match category {
+                    ctype_rust::CTypeCategory::TypedPointer { is_const, .. } if !is_const => {
+                        Some(*len_param_index)
+                    }
+                    _ => None,
+                }
+            });
 
     let enumeration_info = enumeration_len_param.map(|len_param| {
         let array_params = len_kinds
@@ -321,7 +334,10 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
             let non_const_ptr = match category {
                 ctype_rust::CTypeCategory::OpaquePointer { is_const, .. } => !is_const,
                 ctype_rust::CTypeCategory::TypedPointer { is_const, pointee } => {
-                    !is_const && ctype_rust::is_opaque_type(ctype_to_rust_type(analysis, pointee, None).as_str())
+                    !is_const
+                        && ctype_rust::is_opaque_type(
+                            ctype_to_rust_type(analysis, pointee, None).as_str(),
+                        )
                 }
                 _ => false,
             };
@@ -332,6 +348,12 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
             && !is_implicit_length
             && !has_regular_return
             && command.success_codes.len() <= 1;
+
+        let is_enumeration_array = if let Some(enumeration_info) = &enumeration_info {
+            enumeration_info.array_params.contains(&param_index)
+        } else {
+            false
+        };
 
         if !is_implicit_length {
             if (is_output_param || is_output_opaque_param) && !is_return_param {
@@ -358,6 +380,7 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
                     name: name.clone(),
                     param,
                     ty,
+                    is_enumeration_array,
                 });
             }
         }
@@ -387,6 +410,7 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
                     name: normalize_param_name(param.c_decl.name),
                     ty: ctype_to_rust_type(analysis, &pointee, None),
                     param,
+                    is_enumeration_array: false,
                 }
             })
             .collect();
@@ -431,36 +455,62 @@ pub fn convert_param_type(
         let category = CTypeCategory::from_ctype(ty, analysis);
         match category {
             CTypeCategory::CharPointer { is_const } => {
-                let s = if is_const {
-                    "&CStr"
+                let s = if is_const { "&CStr" } else { "&mut CStr" };
+                let s = if optional.0 {
+                    format!("Option<{}>", s)
                 } else {
-                    "&mut CStr"
+                    s.to_string()
                 };
-                let s = if optional.0 { format!("Option<{}>", s) } else { s.to_string() };
                 return s;
             }
-            CTypeCategory::OpaquePointer { pointee_name: "void", is_const } => {
+            CTypeCategory::OpaquePointer {
+                pointee_name: "void",
+                is_const,
+            } => {
                 // Writable void* with length-from-pointer (two-call pattern) → ExtendUninit<u8>
                 if !is_const && matches!(len.and_then(LengthKind::ty), Some(CType::Ptr { .. })) {
                     return "impl ExtendUninit<u8>".to_string();
                 }
                 let s = if is_const { "&[u8]" } else { "&mut [u8]" };
-                let s = if optional.0 { format!("Option<{}>", s) } else { s.to_string() };
+                let s = if optional.0 {
+                    format!("Option<{}>", s)
+                } else {
+                    s.to_string()
+                };
                 return s;
             }
-            CTypeCategory::OpaquePointer { pointee_name: "char", is_const } => {
-                let s = if is_const { "&[*const c_char]" } else { "&mut [*mut c_char]" };
-                let s = if optional.0 { format!("Option<{}>", s) } else { s.to_string() };
+            CTypeCategory::OpaquePointer {
+                pointee_name: "char",
+                is_const,
+            } => {
+                let s = if is_const {
+                    "&[*const c_char]"
+                } else {
+                    "&mut [*mut c_char]"
+                };
+                let s = if optional.0 {
+                    format!("Option<{}>", s)
+                } else {
+                    s.to_string()
+                };
                 return s;
             }
-            CTypeCategory::OpaquePointer { pointee_name, is_const } => {
-                let inner = ctype_rust::type_name_with_lifetime(analysis, pointee_name, lifetime_param);
+            CTypeCategory::OpaquePointer {
+                pointee_name,
+                is_const,
+            } => {
+                let inner =
+                    ctype_rust::type_name_with_lifetime(analysis, pointee_name, lifetime_param);
                 let s = if is_const {
                     format!("&[*const {}]", inner)
                 } else {
                     format!("&mut [*mut {}]", inner)
                 };
-                let s = if optional.0 { format!("Option<{}>", s) } else { s };
+                let s = if optional.0 {
+                    format!("Option<{}>", s)
+                } else {
+                    s
+                };
                 return s;
             }
             CTypeCategory::TypedPointer { is_const, pointee } => {
@@ -495,7 +545,10 @@ pub fn convert_param_type(
 
     let category = CTypeCategory::from_ctype(ty, analysis);
     match category {
-        CTypeCategory::OpaquePointer { is_const, pointee_name } => {
+        CTypeCategory::OpaquePointer {
+            is_const,
+            pointee_name,
+        } => {
             let inner = ctype_rust::type_name_with_lifetime(analysis, pointee_name, lifetime_param);
             let s = if is_const {
                 format!("*const {}", inner)
@@ -570,6 +623,9 @@ pub fn write_command_wrapper(
     .unwrap();
 
     for param in &wrapper.wrapper_params {
+        if param.is_enumeration_array {
+            write!(file, "mut ").unwrap();
+        }
         writeln!(file, "{}: {},", param.name, param.ty).unwrap();
     }
 
@@ -601,41 +657,91 @@ pub fn write_command_wrapper(
     writeln!(file, "unsafe {{").unwrap();
 
     if let Some(enumeration_info) = &wrapper.enumeration_info {
-        let extend_fn_name = if wrapper.is_fallible {
-            match enumeration_info.array_params.len() {
-                1 => "try_extend_uninit",
-                2 => "try_extend_uninit2",
-                _ => todo!(),
-            }
-        } else {
-            match enumeration_info.array_params.len() {
-                1 => "extend_uninit",
-                _ => todo!(),
-            }
-        };
-
-        let len_param = &wrapper.params[enumeration_info.len_param];
-        let array_params = enumeration_info
-            .array_params
-            .iter()
-            .map(|i| wrapper.params[*i].name.as_str())
-            .collect::<Vec<_>>()
-            .join(", ");
-
-        writeln!(
-            file,
-            "{}({}, |{}, {}| {{",
-            extend_fn_name, array_params, len_param.name, array_params
-        )
-        .unwrap();
-        write_fn_call(file, analysis, &wrapper, info.optional);
-        writeln!(file, "}})").unwrap();
+        write_enumeration_fn_body(file, analysis, info, &wrapper, enumeration_info);
     } else {
-        write_fn_call(file, analysis, &wrapper, info.optional);
+        write_fn_body(file, analysis, &wrapper, info.optional);
     }
 
     writeln!(file, "}}").unwrap();
     writeln!(file, "}}").unwrap();
+}
+
+fn write_enumeration_fn_body(
+    file: &mut impl std::io::Write,
+    analysis: &Analysis,
+    info: &CommandInfo<'_>,
+    wrapper: &WrapperCommandInfo<'_>,
+    enumeration_info: &EnumerationCommandInfo,
+) {
+    let len_param = &wrapper.params[enumeration_info.len_param];
+    let array_params = enumeration_info
+        .array_params
+        .iter()
+        .map(|i| wrapper.params[*i].name.as_str())
+        .collect::<Vec<_>>()
+        .join(", ");
+
+    writeln!(file, "let call = |{}, {array_params}| {{ ", len_param.name).unwrap();
+    write_fn_body(file, analysis, wrapper, info.optional);
+    writeln!(file, "}};").unwrap();
+
+    writeln!(file, "let mut len = 0; call(&mut len, ").unwrap();
+    for param in &enumeration_info.array_params {
+        writeln!(file, "std::ptr::null_mut(), ").unwrap();
+    }
+    if wrapper.is_fallible {
+        writeln!(file, ")?;").unwrap();
+    } else {
+        writeln!(file, ");").unwrap();
+    }
+    writeln!(
+        file,
+        "let capacity = len.try_into().expect(\"failed to convert `N` to usize\");"
+    )
+    .unwrap();
+
+    for (array_param_index, param) in enumeration_info.array_params.iter().enumerate() {
+        let param = &wrapper.params[*param];
+        let param_name = &param.name;
+        writeln!(
+            file,
+            "let {param_name}_buf = {param_name}.reserve(capacity);"
+        )
+        .unwrap();
+        if array_param_index == 0 {
+            writeln!(file, "len = {param_name}_buf.len().try_into().unwrap();").unwrap();
+        } else {
+            let first_param = &wrapper.params[enumeration_info.array_params[0]].name;
+            writeln!(
+                file,
+                "assert_eq!({param_name}_buf.len(), {first_param}_buf.len());"
+            )
+            .unwrap();
+        }
+    }
+    if wrapper.is_fallible {
+        writeln!(file, "let result = ").unwrap();
+    }
+    writeln!(file, "call(&mut len, ").unwrap();
+    for param in &enumeration_info.array_params {
+        let param = &wrapper.params[*param];
+        let param_name = &param.name;
+        writeln!(file, "{param_name}_buf.as_mut_ptr() as *mut _, ").unwrap();
+    }
+    if wrapper.is_fallible {
+        writeln!(file, ")?;").unwrap();
+    } else {
+        writeln!(file, ");").unwrap();
+    }
+
+    for param in &enumeration_info.array_params {
+        let param = &wrapper.params[*param];
+        let param_name = &param.name;
+        writeln!(file, "{param_name}.set_len(len.try_into().unwrap());").unwrap();
+    }
+    if wrapper.is_fallible {
+        writeln!(file, "Ok(result)").unwrap();
+    }
 }
 
 fn arg_emit_kind(
@@ -699,10 +805,12 @@ fn arg_emit_kind(
         return ArgEmitKind::ReturnParamAsMutPtr;
     }
 
-    if matches!(category, ctype_rust::CTypeCategory::TypedPointer { .. }
-        | ctype_rust::CTypeCategory::OpaquePointer { .. }
-        | ctype_rust::CTypeCategory::CharPointer { .. })
-        && param.optional.0
+    if matches!(
+        category,
+        ctype_rust::CTypeCategory::TypedPointer { .. }
+            | ctype_rust::CTypeCategory::OpaquePointer { .. }
+            | ctype_rust::CTypeCategory::CharPointer { .. }
+    ) && param.optional.0
         && !param.is_output_opaque_param
     {
         let is_const = match category {
@@ -726,12 +834,7 @@ fn emit_arg(file: &mut impl std::io::Write, param_name: &str, kind: ArgEmitKind)
             writeln!(file, "{},", param_name).unwrap();
         }
         ArgEmitKind::LenFromSlice { slice_param_name } => {
-            writeln!(
-                file,
-                "{}.len().try_into().unwrap(),",
-                slice_param_name
-            )
-            .unwrap();
+            writeln!(file, "{}.len().try_into().unwrap(),", slice_param_name).unwrap();
         }
         ArgEmitKind::SliceAsPtr { is_const, optional } => {
             if optional {
@@ -751,7 +854,10 @@ fn emit_arg(file: &mut impl std::io::Write, param_name: &str, kind: ArgEmitKind)
         ArgEmitKind::ReturnParamAsMutPtr => {
             writeln!(file, "{}.as_mut_ptr(),", param_name).unwrap();
         }
-        ArgEmitKind::OptionalPtrToRaw { is_const, in_enumeration } => {
+        ArgEmitKind::OptionalPtrToRaw {
+            is_const,
+            in_enumeration,
+        } => {
             if is_const {
                 writeln!(file, "{}.to_raw_ptr(),", param_name).unwrap();
             } else {
@@ -772,7 +878,7 @@ fn emit_arg(file: &mut impl std::io::Write, param_name: &str, kind: ArgEmitKind)
     }
 }
 
-fn write_fn_call(
+fn write_fn_body(
     file: &mut impl std::io::Write,
     analysis: &Analysis,
     wrapper: &WrapperCommandInfo,

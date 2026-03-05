@@ -176,10 +176,10 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         surface_info: &PhysicalDeviceSurfaceInfo2KHR<'a>,
-        present_modes: impl ExtendUninit<PresentModeKHR>,
+        mut present_modes: impl ExtendUninit<PresentModeKHR>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(present_modes, |present_mode_count, present_modes| {
+            let call = |present_mode_count, present_modes| {
                 let result = (self.get_physical_device_surface_present_modes2_ext)(
                     physical_device,
                     surface_info,
@@ -192,7 +192,15 @@ impl InstanceFn {
                     VkResult::INCOMPLETE => Ok(()),
                     err => Err(err),
                 }
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let present_modes_buf = present_modes.reserve(capacity);
+            len = present_modes_buf.len().try_into().unwrap();
+            let result = call(&mut len, present_modes_buf.as_mut_ptr() as *mut _)?;
+            present_modes.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
 }

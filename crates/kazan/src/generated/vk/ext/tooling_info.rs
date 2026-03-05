@@ -32,10 +32,10 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_tool_properties_ext<'a>(
         &self,
         physical_device: PhysicalDevice,
-        tool_properties: impl ExtendUninit<PhysicalDeviceToolProperties<'a>>,
+        mut tool_properties: impl ExtendUninit<PhysicalDeviceToolProperties<'a>>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(tool_properties, |tool_count, tool_properties| {
+            let call = |tool_count, tool_properties| {
                 let result = (self.get_physical_device_tool_properties_ext)(
                     physical_device,
                     tool_count,
@@ -47,7 +47,15 @@ impl InstanceFn {
                     VkResult::INCOMPLETE => Ok(()),
                     err => Err(err),
                 }
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let tool_properties_buf = tool_properties.reserve(capacity);
+            len = tool_properties_buf.len().try_into().unwrap();
+            let result = call(&mut len, tool_properties_buf.as_mut_ptr() as *mut _)?;
+            tool_properties.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
 }

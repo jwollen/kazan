@@ -468,25 +468,30 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_fragment_shading_rates_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
-        fragment_shading_rates: impl ExtendUninit<PhysicalDeviceFragmentShadingRateKHR<'a>>,
+        mut fragment_shading_rates: impl ExtendUninit<PhysicalDeviceFragmentShadingRateKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(
-                fragment_shading_rates,
-                |fragment_shading_rate_count, fragment_shading_rates| {
-                    let result = (self.get_physical_device_fragment_shading_rates_khr)(
-                        physical_device,
-                        fragment_shading_rate_count,
-                        fragment_shading_rates as _,
-                    );
+            let call = |fragment_shading_rate_count, fragment_shading_rates| {
+                let result = (self.get_physical_device_fragment_shading_rates_khr)(
+                    physical_device,
+                    fragment_shading_rate_count,
+                    fragment_shading_rates as _,
+                );
 
-                    match result {
-                        VkResult::SUCCESS => Ok(()),
-                        VkResult::INCOMPLETE => Ok(()),
-                        err => Err(err),
-                    }
-                },
-            )
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let fragment_shading_rates_buf = fragment_shading_rates.reserve(capacity);
+            len = fragment_shading_rates_buf.len().try_into().unwrap();
+            let result = call(&mut len, fragment_shading_rates_buf.as_mut_ptr() as *mut _)?;
+            fragment_shading_rates.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
 }

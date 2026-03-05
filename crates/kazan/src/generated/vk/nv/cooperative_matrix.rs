@@ -185,10 +185,10 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_cooperative_matrix_properties_nv<'a>(
         &self,
         physical_device: PhysicalDevice,
-        properties: impl ExtendUninit<CooperativeMatrixPropertiesNV<'a>>,
+        mut properties: impl ExtendUninit<CooperativeMatrixPropertiesNV<'a>>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(properties, |property_count, properties| {
+            let call = |property_count, properties| {
                 let result = (self.get_physical_device_cooperative_matrix_properties_nv)(
                     physical_device,
                     property_count,
@@ -200,7 +200,15 @@ impl InstanceFn {
                     VkResult::INCOMPLETE => Ok(()),
                     err => Err(err),
                 }
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let properties_buf = properties.reserve(capacity);
+            len = properties_buf.len().try_into().unwrap();
+            let result = call(&mut len, properties_buf.as_mut_ptr() as *mut _)?;
+            properties.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
 }

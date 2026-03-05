@@ -421,10 +421,10 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_display_properties_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
-        properties: impl ExtendUninit<DisplayPropertiesKHR<'a>>,
+        mut properties: impl ExtendUninit<DisplayPropertiesKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(properties, |property_count, properties| {
+            let call = |property_count, properties| {
                 let result = (self.get_physical_device_display_properties_khr)(
                     physical_device,
                     property_count,
@@ -436,16 +436,24 @@ impl InstanceFn {
                     VkResult::INCOMPLETE => Ok(()),
                     err => Err(err),
                 }
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let properties_buf = properties.reserve(capacity);
+            len = properties_buf.len().try_into().unwrap();
+            let result = call(&mut len, properties_buf.as_mut_ptr() as *mut _)?;
+            properties.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
     pub unsafe fn get_physical_device_display_plane_properties_khr(
         &self,
         physical_device: PhysicalDevice,
-        properties: impl ExtendUninit<DisplayPlanePropertiesKHR>,
+        mut properties: impl ExtendUninit<DisplayPlanePropertiesKHR>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(properties, |property_count, properties| {
+            let call = |property_count, properties| {
                 let result = (self.get_physical_device_display_plane_properties_khr)(
                     physical_device,
                     property_count,
@@ -457,17 +465,25 @@ impl InstanceFn {
                     VkResult::INCOMPLETE => Ok(()),
                     err => Err(err),
                 }
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let properties_buf = properties.reserve(capacity);
+            len = properties_buf.len().try_into().unwrap();
+            let result = call(&mut len, properties_buf.as_mut_ptr() as *mut _)?;
+            properties.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
     pub unsafe fn get_display_plane_supported_displays_khr(
         &self,
         physical_device: PhysicalDevice,
         plane_index: u32,
-        displays: impl ExtendUninit<DisplayKHR>,
+        mut displays: impl ExtendUninit<DisplayKHR>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(displays, |display_count, displays| {
+            let call = |display_count, displays| {
                 let result = (self.get_display_plane_supported_displays_khr)(
                     physical_device,
                     plane_index,
@@ -480,17 +496,25 @@ impl InstanceFn {
                     VkResult::INCOMPLETE => Ok(()),
                     err => Err(err),
                 }
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let displays_buf = displays.reserve(capacity);
+            len = displays_buf.len().try_into().unwrap();
+            let result = call(&mut len, displays_buf.as_mut_ptr() as *mut _)?;
+            displays.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
     pub unsafe fn get_display_mode_properties_khr(
         &self,
         physical_device: PhysicalDevice,
         display: DisplayKHR,
-        properties: impl ExtendUninit<DisplayModePropertiesKHR>,
+        mut properties: impl ExtendUninit<DisplayModePropertiesKHR>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(properties, |property_count, properties| {
+            let call = |property_count, properties| {
                 let result = (self.get_display_mode_properties_khr)(
                     physical_device,
                     display,
@@ -503,7 +527,15 @@ impl InstanceFn {
                     VkResult::INCOMPLETE => Ok(()),
                     err => Err(err),
                 }
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let properties_buf = properties.reserve(capacity);
+            len = properties_buf.len().try_into().unwrap();
+            let result = call(&mut len, properties_buf.as_mut_ptr() as *mut _)?;
+            properties.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
     pub unsafe fn create_display_mode_khr(

@@ -132,19 +132,23 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_queue_family_properties2_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
-        queue_family_properties: impl ExtendUninit<QueueFamilyProperties2<'a>>,
+        mut queue_family_properties: impl ExtendUninit<QueueFamilyProperties2<'a>>,
     ) {
         unsafe {
-            extend_uninit(
-                queue_family_properties,
-                |queue_family_property_count, queue_family_properties| {
-                    (self.get_physical_device_queue_family_properties2_khr)(
-                        physical_device,
-                        queue_family_property_count,
-                        queue_family_properties as _,
-                    )
-                },
-            )
+            let call = |queue_family_property_count, queue_family_properties| {
+                (self.get_physical_device_queue_family_properties2_khr)(
+                    physical_device,
+                    queue_family_property_count,
+                    queue_family_properties as _,
+                )
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut());
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let queue_family_properties_buf = queue_family_properties.reserve(capacity);
+            len = queue_family_properties_buf.len().try_into().unwrap();
+            call(&mut len, queue_family_properties_buf.as_mut_ptr() as *mut _);
+            queue_family_properties.set_len(len.try_into().unwrap());
         }
     }
     pub unsafe fn get_physical_device_memory_properties2_khr(
@@ -164,17 +168,24 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         format_info: &PhysicalDeviceSparseImageFormatInfo2<'a>,
-        properties: impl ExtendUninit<SparseImageFormatProperties2<'a>>,
+        mut properties: impl ExtendUninit<SparseImageFormatProperties2<'a>>,
     ) {
         unsafe {
-            extend_uninit(properties, |property_count, properties| {
+            let call = |property_count, properties| {
                 (self.get_physical_device_sparse_image_format_properties2_khr)(
                     physical_device,
                     format_info,
                     property_count,
                     properties as _,
                 )
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut());
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let properties_buf = properties.reserve(capacity);
+            len = properties_buf.len().try_into().unwrap();
+            call(&mut len, properties_buf.as_mut_ptr() as *mut _);
+            properties.set_len(len.try_into().unwrap());
         }
     }
 }

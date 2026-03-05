@@ -748,10 +748,10 @@ impl DeviceFn {
         device: Device,
         video_session_parameters_info: &VideoEncodeSessionParametersGetInfoKHR<'a>,
         feedback_info: Option<&mut VideoEncodeSessionParametersFeedbackInfoKHR<'a>>,
-        data: impl ExtendUninit<u8>,
+        mut data: impl ExtendUninit<u8>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(data, |data_size, data| {
+            let call = |data_size, data| {
                 let result = (self.get_encoded_video_session_parameters_khr)(
                     device,
                     video_session_parameters_info,
@@ -765,7 +765,15 @@ impl DeviceFn {
                     VkResult::INCOMPLETE => Ok(()),
                     err => Err(err),
                 }
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let data_buf = data.reserve(capacity);
+            len = data_buf.len().try_into().unwrap();
+            let result = call(&mut len, data_buf.as_mut_ptr() as *mut _)?;
+            data.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
     pub unsafe fn cmd_encode_video_khr(

@@ -189,10 +189,10 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_supported_framebuffer_mixed_samples_combinations_nv<'a>(
         &self,
         physical_device: PhysicalDevice,
-        combinations: impl ExtendUninit<FramebufferMixedSamplesCombinationNV<'a>>,
+        mut combinations: impl ExtendUninit<FramebufferMixedSamplesCombinationNV<'a>>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(combinations, |combination_count, combinations| {
+            let call = |combination_count, combinations| {
                 let result = (self
                     .get_physical_device_supported_framebuffer_mixed_samples_combinations_nv)(
                     physical_device,
@@ -205,7 +205,15 @@ impl InstanceFn {
                     VkResult::INCOMPLETE => Ok(()),
                     err => Err(err),
                 }
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let combinations_buf = combinations.reserve(capacity);
+            len = combinations_buf.len().try_into().unwrap();
+            let result = call(&mut len, combinations_buf.as_mut_ptr() as *mut _)?;
+            combinations.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
 }

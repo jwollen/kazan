@@ -1037,26 +1037,31 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         video_format_info: &PhysicalDeviceVideoFormatInfoKHR<'a>,
-        video_format_properties: impl ExtendUninit<VideoFormatPropertiesKHR<'a>>,
+        mut video_format_properties: impl ExtendUninit<VideoFormatPropertiesKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(
-                video_format_properties,
-                |video_format_property_count, video_format_properties| {
-                    let result = (self.get_physical_device_video_format_properties_khr)(
-                        physical_device,
-                        video_format_info,
-                        video_format_property_count,
-                        video_format_properties as _,
-                    );
+            let call = |video_format_property_count, video_format_properties| {
+                let result = (self.get_physical_device_video_format_properties_khr)(
+                    physical_device,
+                    video_format_info,
+                    video_format_property_count,
+                    video_format_properties as _,
+                );
 
-                    match result {
-                        VkResult::SUCCESS => Ok(()),
-                        VkResult::INCOMPLETE => Ok(()),
-                        err => Err(err),
-                    }
-                },
-            )
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let video_format_properties_buf = video_format_properties.reserve(capacity);
+            len = video_format_properties_buf.len().try_into().unwrap();
+            let result = call(&mut len, video_format_properties_buf.as_mut_ptr() as *mut _)?;
+            video_format_properties.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
 }
@@ -1147,26 +1152,31 @@ impl DeviceFn {
         &self,
         device: Device,
         video_session: VideoSessionKHR,
-        memory_requirements: impl ExtendUninit<VideoSessionMemoryRequirementsKHR<'a>>,
+        mut memory_requirements: impl ExtendUninit<VideoSessionMemoryRequirementsKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(
-                memory_requirements,
-                |memory_requirements_count, memory_requirements| {
-                    let result = (self.get_video_session_memory_requirements_khr)(
-                        device,
-                        video_session,
-                        memory_requirements_count,
-                        memory_requirements as _,
-                    );
+            let call = |memory_requirements_count, memory_requirements| {
+                let result = (self.get_video_session_memory_requirements_khr)(
+                    device,
+                    video_session,
+                    memory_requirements_count,
+                    memory_requirements as _,
+                );
 
-                    match result {
-                        VkResult::SUCCESS => Ok(()),
-                        VkResult::INCOMPLETE => Ok(()),
-                        err => Err(err),
-                    }
-                },
-            )
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let memory_requirements_buf = memory_requirements.reserve(capacity);
+            len = memory_requirements_buf.len().try_into().unwrap();
+            let result = call(&mut len, memory_requirements_buf.as_mut_ptr() as *mut _)?;
+            memory_requirements.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
     pub unsafe fn bind_video_session_memory_khr(

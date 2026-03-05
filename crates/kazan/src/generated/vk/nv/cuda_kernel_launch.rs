@@ -322,10 +322,10 @@ impl DeviceFn {
         &self,
         device: Device,
         module: CudaModuleNV,
-        cache_data: impl ExtendUninit<u8>,
+        mut cache_data: impl ExtendUninit<u8>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(cache_data, |cache_size, cache_data| {
+            let call = |cache_size, cache_data| {
                 let result =
                     (self.get_cuda_module_cache_nv)(device, module, cache_size, cache_data as _);
 
@@ -334,7 +334,15 @@ impl DeviceFn {
                     VkResult::INCOMPLETE => Ok(()),
                     err => Err(err),
                 }
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let cache_data_buf = cache_data.reserve(capacity);
+            len = cache_data_buf.len().try_into().unwrap();
+            let result = call(&mut len, cache_data_buf.as_mut_ptr() as *mut _)?;
+            cache_data.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
     pub unsafe fn create_cuda_function_nv(

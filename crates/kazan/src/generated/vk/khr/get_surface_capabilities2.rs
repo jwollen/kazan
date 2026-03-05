@@ -151,10 +151,10 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         surface_info: &PhysicalDeviceSurfaceInfo2KHR<'a>,
-        surface_formats: impl ExtendUninit<SurfaceFormat2KHR<'a>>,
+        mut surface_formats: impl ExtendUninit<SurfaceFormat2KHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(surface_formats, |surface_format_count, surface_formats| {
+            let call = |surface_format_count, surface_formats| {
                 let result = (self.get_physical_device_surface_formats2_khr)(
                     physical_device,
                     surface_info,
@@ -167,7 +167,15 @@ impl InstanceFn {
                     VkResult::INCOMPLETE => Ok(()),
                     err => Err(err),
                 }
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let surface_formats_buf = surface_formats.reserve(capacity);
+            len = surface_formats_buf.len().try_into().unwrap();
+            let result = call(&mut len, surface_formats_buf.as_mut_ptr() as *mut _)?;
+            surface_formats.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
 }

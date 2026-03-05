@@ -153,26 +153,31 @@ impl DeviceFn {
         &self,
         device: Device,
         swapchain: SwapchainKHR,
-        presentation_timings: impl ExtendUninit<PastPresentationTimingGOOGLE>,
+        mut presentation_timings: impl ExtendUninit<PastPresentationTimingGOOGLE>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(
-                presentation_timings,
-                |presentation_timing_count, presentation_timings| {
-                    let result = (self.get_past_presentation_timing_google)(
-                        device,
-                        swapchain,
-                        presentation_timing_count,
-                        presentation_timings as _,
-                    );
+            let call = |presentation_timing_count, presentation_timings| {
+                let result = (self.get_past_presentation_timing_google)(
+                    device,
+                    swapchain,
+                    presentation_timing_count,
+                    presentation_timings as _,
+                );
 
-                    match result {
-                        VkResult::SUCCESS => Ok(()),
-                        VkResult::INCOMPLETE => Ok(()),
-                        err => Err(err),
-                    }
-                },
-            )
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let presentation_timings_buf = presentation_timings.reserve(capacity);
+            len = presentation_timings_buf.len().try_into().unwrap();
+            let result = call(&mut len, presentation_timings_buf.as_mut_ptr() as *mut _)?;
+            presentation_timings.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
 }

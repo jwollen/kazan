@@ -185,31 +185,45 @@ impl DeviceFn {
     pub unsafe fn get_queue_checkpoint_data_nv<'a>(
         &self,
         queue: Queue,
-        checkpoint_data: impl ExtendUninit<CheckpointDataNV<'a>>,
+        mut checkpoint_data: impl ExtendUninit<CheckpointDataNV<'a>>,
     ) {
         unsafe {
-            extend_uninit(checkpoint_data, |checkpoint_data_count, checkpoint_data| {
+            let call = |checkpoint_data_count, checkpoint_data| {
                 (self.get_queue_checkpoint_data_nv)(
                     queue,
                     checkpoint_data_count,
                     checkpoint_data as _,
                 )
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut());
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let checkpoint_data_buf = checkpoint_data.reserve(capacity);
+            len = checkpoint_data_buf.len().try_into().unwrap();
+            call(&mut len, checkpoint_data_buf.as_mut_ptr() as *mut _);
+            checkpoint_data.set_len(len.try_into().unwrap());
         }
     }
     pub unsafe fn get_queue_checkpoint_data2_nv<'a>(
         &self,
         queue: Queue,
-        checkpoint_data: impl ExtendUninit<CheckpointData2NV<'a>>,
+        mut checkpoint_data: impl ExtendUninit<CheckpointData2NV<'a>>,
     ) {
         unsafe {
-            extend_uninit(checkpoint_data, |checkpoint_data_count, checkpoint_data| {
+            let call = |checkpoint_data_count, checkpoint_data| {
                 (self.get_queue_checkpoint_data2_nv.unwrap())(
                     queue,
                     checkpoint_data_count,
                     checkpoint_data as _,
                 )
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut());
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let checkpoint_data_buf = checkpoint_data.reserve(capacity);
+            len = checkpoint_data_buf.len().try_into().unwrap();
+            call(&mut len, checkpoint_data_buf.as_mut_ptr() as *mut _);
+            checkpoint_data.set_len(len.try_into().unwrap());
         }
     }
 }

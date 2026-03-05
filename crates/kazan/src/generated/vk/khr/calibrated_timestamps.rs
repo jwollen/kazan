@@ -104,10 +104,10 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_calibrateable_time_domains_khr(
         &self,
         physical_device: PhysicalDevice,
-        time_domains: impl ExtendUninit<TimeDomainKHR>,
+        mut time_domains: impl ExtendUninit<TimeDomainKHR>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(time_domains, |time_domain_count, time_domains| {
+            let call = |time_domain_count, time_domains| {
                 let result = (self.get_physical_device_calibrateable_time_domains_khr)(
                     physical_device,
                     time_domain_count,
@@ -119,7 +119,15 @@ impl InstanceFn {
                     VkResult::INCOMPLETE => Ok(()),
                     err => Err(err),
                 }
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let time_domains_buf = time_domains.reserve(capacity);
+            len = time_domains_buf.len().try_into().unwrap();
+            let result = call(&mut len, time_domains_buf.as_mut_ptr() as *mut _)?;
+            time_domains.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
 }

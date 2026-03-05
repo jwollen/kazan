@@ -119,10 +119,10 @@ impl DeviceFn {
         &self,
         device: Device,
         framebuffer: Framebuffer,
-        properties: impl ExtendUninit<TilePropertiesQCOM<'a>>,
+        mut properties: impl ExtendUninit<TilePropertiesQCOM<'a>>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(properties, |properties_count, properties| {
+            let call = |properties_count, properties| {
                 let result = (self.get_framebuffer_tile_properties_qcom)(
                     device,
                     framebuffer,
@@ -135,7 +135,15 @@ impl DeviceFn {
                     VkResult::INCOMPLETE => Ok(()),
                     err => Err(err),
                 }
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let properties_buf = properties.reserve(capacity);
+            len = properties_buf.len().try_into().unwrap();
+            let result = call(&mut len, properties_buf.as_mut_ptr() as *mut _)?;
+            properties.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
     pub unsafe fn get_dynamic_rendering_tile_properties_qcom(

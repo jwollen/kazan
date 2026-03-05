@@ -42,10 +42,10 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         surface: SurfaceKHR,
-        rects: impl ExtendUninit<Rect2D>,
+        mut rects: impl ExtendUninit<Rect2D>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(rects, |rect_count, rects| {
+            let call = |rect_count, rects| {
                 let result = (self.get_physical_device_present_rectangles_khr.unwrap())(
                     physical_device,
                     surface,
@@ -58,7 +58,15 @@ impl InstanceFn {
                     VkResult::INCOMPLETE => Ok(()),
                     err => Err(err),
                 }
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let rects_buf = rects.reserve(capacity);
+            len = rects_buf.len().try_into().unwrap();
+            let result = call(&mut len, rects_buf.as_mut_ptr() as *mut _)?;
+            rects.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
 }

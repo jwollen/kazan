@@ -78,20 +78,27 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &DeviceImageMemoryRequirements<'a>,
-        sparse_memory_requirements: impl ExtendUninit<SparseImageMemoryRequirements2<'a>>,
+        mut sparse_memory_requirements: impl ExtendUninit<SparseImageMemoryRequirements2<'a>>,
     ) {
         unsafe {
-            extend_uninit(
-                sparse_memory_requirements,
-                |sparse_memory_requirement_count, sparse_memory_requirements| {
-                    (self.get_device_image_sparse_memory_requirements_khr)(
-                        device,
-                        info,
-                        sparse_memory_requirement_count,
-                        sparse_memory_requirements as _,
-                    )
-                },
-            )
+            let call = |sparse_memory_requirement_count, sparse_memory_requirements| {
+                (self.get_device_image_sparse_memory_requirements_khr)(
+                    device,
+                    info,
+                    sparse_memory_requirement_count,
+                    sparse_memory_requirements as _,
+                )
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut());
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let sparse_memory_requirements_buf = sparse_memory_requirements.reserve(capacity);
+            len = sparse_memory_requirements_buf.len().try_into().unwrap();
+            call(
+                &mut len,
+                sparse_memory_requirements_buf.as_mut_ptr() as *mut _,
+            );
+            sparse_memory_requirements.set_len(len.try_into().unwrap());
         }
     }
 }

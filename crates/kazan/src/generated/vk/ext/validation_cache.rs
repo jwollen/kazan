@@ -213,10 +213,10 @@ impl DeviceFn {
         &self,
         device: Device,
         validation_cache: ValidationCacheEXT,
-        data: impl ExtendUninit<u8>,
+        mut data: impl ExtendUninit<u8>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(data, |data_size, data| {
+            let call = |data_size, data| {
                 let result = (self.get_validation_cache_data_ext)(
                     device,
                     validation_cache,
@@ -229,7 +229,15 @@ impl DeviceFn {
                     VkResult::INCOMPLETE => Ok(()),
                     err => Err(err),
                 }
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let data_buf = data.reserve(capacity);
+            len = data_buf.len().try_into().unwrap();
+            let result = call(&mut len, data_buf.as_mut_ptr() as *mut _)?;
+            data.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
 }

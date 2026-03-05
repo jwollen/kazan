@@ -14719,10 +14719,10 @@ impl EntryFn {
     pub unsafe fn enumerate_instance_extension_properties(
         &self,
         layer_name: Option<&CStr>,
-        properties: impl ExtendUninit<ExtensionProperties>,
+        mut properties: impl ExtendUninit<ExtensionProperties>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(properties, |property_count, properties| {
+            let call = |property_count, properties| {
                 let result = (self.enumerate_instance_extension_properties)(
                     layer_name.to_raw_ptr(),
                     property_count,
@@ -14734,15 +14734,23 @@ impl EntryFn {
                     VkResult::INCOMPLETE => Ok(()),
                     err => Err(err),
                 }
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let properties_buf = properties.reserve(capacity);
+            len = properties_buf.len().try_into().unwrap();
+            let result = call(&mut len, properties_buf.as_mut_ptr() as *mut _)?;
+            properties.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
     pub unsafe fn enumerate_instance_layer_properties(
         &self,
-        properties: impl ExtendUninit<LayerProperties>,
+        mut properties: impl ExtendUninit<LayerProperties>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(properties, |property_count, properties| {
+            let call = |property_count, properties| {
                 let result =
                     (self.enumerate_instance_layer_properties)(property_count, properties as _);
 
@@ -14751,7 +14759,15 @@ impl EntryFn {
                     VkResult::INCOMPLETE => Ok(()),
                     err => Err(err),
                 }
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let properties_buf = properties.reserve(capacity);
+            len = properties_buf.len().try_into().unwrap();
+            let result = call(&mut len, properties_buf.as_mut_ptr() as *mut _)?;
+            properties.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
 }
@@ -14832,25 +14848,30 @@ impl InstanceFn {
     pub unsafe fn enumerate_physical_devices(
         &self,
         instance: Instance,
-        physical_devices: impl ExtendUninit<PhysicalDevice>,
+        mut physical_devices: impl ExtendUninit<PhysicalDevice>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(
-                physical_devices,
-                |physical_device_count, physical_devices| {
-                    let result = (self.enumerate_physical_devices)(
-                        instance,
-                        physical_device_count,
-                        physical_devices as _,
-                    );
+            let call = |physical_device_count, physical_devices| {
+                let result = (self.enumerate_physical_devices)(
+                    instance,
+                    physical_device_count,
+                    physical_devices as _,
+                );
 
-                    match result {
-                        VkResult::SUCCESS => Ok(()),
-                        VkResult::INCOMPLETE => Ok(()),
-                        err => Err(err),
-                    }
-                },
-            )
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let physical_devices_buf = physical_devices.reserve(capacity);
+            len = physical_devices_buf.len().try_into().unwrap();
+            let result = call(&mut len, physical_devices_buf.as_mut_ptr() as *mut _)?;
+            physical_devices.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
     pub unsafe fn get_physical_device_features(
@@ -14918,19 +14939,23 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_queue_family_properties(
         &self,
         physical_device: PhysicalDevice,
-        queue_family_properties: impl ExtendUninit<QueueFamilyProperties>,
+        mut queue_family_properties: impl ExtendUninit<QueueFamilyProperties>,
     ) {
         unsafe {
-            extend_uninit(
-                queue_family_properties,
-                |queue_family_property_count, queue_family_properties| {
-                    (self.get_physical_device_queue_family_properties)(
-                        physical_device,
-                        queue_family_property_count,
-                        queue_family_properties as _,
-                    )
-                },
-            )
+            let call = |queue_family_property_count, queue_family_properties| {
+                (self.get_physical_device_queue_family_properties)(
+                    physical_device,
+                    queue_family_property_count,
+                    queue_family_properties as _,
+                )
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut());
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let queue_family_properties_buf = queue_family_properties.reserve(capacity);
+            len = queue_family_properties_buf.len().try_into().unwrap();
+            call(&mut len, queue_family_properties_buf.as_mut_ptr() as *mut _);
+            queue_family_properties.set_len(len.try_into().unwrap());
         }
     }
     pub unsafe fn get_physical_device_memory_properties(
@@ -14978,10 +15003,10 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         layer_name: Option<&CStr>,
-        properties: impl ExtendUninit<ExtensionProperties>,
+        mut properties: impl ExtendUninit<ExtensionProperties>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(properties, |property_count, properties| {
+            let call = |property_count, properties| {
                 let result = (self.enumerate_device_extension_properties)(
                     physical_device,
                     layer_name.to_raw_ptr(),
@@ -14994,16 +15019,24 @@ impl InstanceFn {
                     VkResult::INCOMPLETE => Ok(()),
                     err => Err(err),
                 }
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let properties_buf = properties.reserve(capacity);
+            len = properties_buf.len().try_into().unwrap();
+            let result = call(&mut len, properties_buf.as_mut_ptr() as *mut _)?;
+            properties.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
     pub unsafe fn enumerate_device_layer_properties(
         &self,
         physical_device: PhysicalDevice,
-        properties: impl ExtendUninit<LayerProperties>,
+        mut properties: impl ExtendUninit<LayerProperties>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(properties, |property_count, properties| {
+            let call = |property_count, properties| {
                 let result = (self.enumerate_device_layer_properties)(
                     physical_device,
                     property_count,
@@ -15015,7 +15048,15 @@ impl InstanceFn {
                     VkResult::INCOMPLETE => Ok(()),
                     err => Err(err),
                 }
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let properties_buf = properties.reserve(capacity);
+            len = properties_buf.len().try_into().unwrap();
+            let result = call(&mut len, properties_buf.as_mut_ptr() as *mut _)?;
+            properties.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
     pub unsafe fn get_physical_device_sparse_image_format_properties(
@@ -15026,10 +15067,10 @@ impl InstanceFn {
         samples: SampleCountFlagBits,
         usage: ImageUsageFlags,
         tiling: ImageTiling,
-        properties: impl ExtendUninit<SparseImageFormatProperties>,
+        mut properties: impl ExtendUninit<SparseImageFormatProperties>,
     ) {
         unsafe {
-            extend_uninit(properties, |property_count, properties| {
+            let call = |property_count, properties| {
                 (self.get_physical_device_sparse_image_format_properties)(
                     physical_device,
                     format,
@@ -15040,7 +15081,14 @@ impl InstanceFn {
                     property_count,
                     properties as _,
                 )
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut());
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let properties_buf = properties.reserve(capacity);
+            len = properties_buf.len().try_into().unwrap();
+            call(&mut len, properties_buf.as_mut_ptr() as *mut _);
+            properties.set_len(len.try_into().unwrap());
         }
     }
 }
@@ -15700,20 +15748,27 @@ impl DeviceFn {
         &self,
         device: Device,
         image: Image,
-        sparse_memory_requirements: impl ExtendUninit<SparseImageMemoryRequirements>,
+        mut sparse_memory_requirements: impl ExtendUninit<SparseImageMemoryRequirements>,
     ) {
         unsafe {
-            extend_uninit(
-                sparse_memory_requirements,
-                |sparse_memory_requirement_count, sparse_memory_requirements| {
-                    (self.get_image_sparse_memory_requirements)(
-                        device,
-                        image,
-                        sparse_memory_requirement_count,
-                        sparse_memory_requirements as _,
-                    )
-                },
-            )
+            let call = |sparse_memory_requirement_count, sparse_memory_requirements| {
+                (self.get_image_sparse_memory_requirements)(
+                    device,
+                    image,
+                    sparse_memory_requirement_count,
+                    sparse_memory_requirements as _,
+                )
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut());
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let sparse_memory_requirements_buf = sparse_memory_requirements.reserve(capacity);
+            len = sparse_memory_requirements_buf.len().try_into().unwrap();
+            call(
+                &mut len,
+                sparse_memory_requirements_buf.as_mut_ptr() as *mut _,
+            );
+            sparse_memory_requirements.set_len(len.try_into().unwrap());
         }
     }
     pub unsafe fn queue_bind_sparse(
@@ -16466,10 +16521,10 @@ impl DeviceFn {
         &self,
         device: Device,
         pipeline_cache: PipelineCache,
-        data: impl ExtendUninit<u8>,
+        mut data: impl ExtendUninit<u8>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(data, |data_size, data| {
+            let call = |data_size, data| {
                 let result =
                     (self.get_pipeline_cache_data)(device, pipeline_cache, data_size, data as _);
 
@@ -16478,7 +16533,15 @@ impl DeviceFn {
                     VkResult::INCOMPLETE => Ok(()),
                     err => Err(err),
                 }
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let data_buf = data.reserve(capacity);
+            len = data_buf.len().try_into().unwrap();
+            let result = call(&mut len, data_buf.as_mut_ptr() as *mut _)?;
+            data.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
     pub unsafe fn merge_pipeline_caches(

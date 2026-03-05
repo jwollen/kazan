@@ -148,10 +148,10 @@ impl DeviceFn {
         pipeline: Pipeline,
         shader_stage: ShaderStageFlagBits,
         info_type: ShaderInfoTypeAMD,
-        info: impl ExtendUninit<u8>,
+        mut info: impl ExtendUninit<u8>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(info, |info_size, info| {
+            let call = |info_size, info| {
                 let result = (self.get_shader_info_amd)(
                     device,
                     pipeline,
@@ -166,7 +166,15 @@ impl DeviceFn {
                     VkResult::INCOMPLETE => Ok(()),
                     err => Err(err),
                 }
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let info_buf = info.reserve(capacity);
+            len = info_buf.len().try_into().unwrap();
+            let result = call(&mut len, info_buf.as_mut_ptr() as *mut _)?;
+            info.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
 }

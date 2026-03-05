@@ -1079,26 +1079,39 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         queue_family_index: u32,
-        queue_family_data_graph_properties: impl ExtendUninit<QueueFamilyDataGraphPropertiesARM<'a>>,
+        mut queue_family_data_graph_properties: impl ExtendUninit<QueueFamilyDataGraphPropertiesARM<'a>>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(
-                queue_family_data_graph_properties,
-                |queue_family_data_graph_property_count, queue_family_data_graph_properties| {
-                    let result = (self.get_physical_device_queue_family_data_graph_properties_arm)(
-                        physical_device,
-                        queue_family_index,
-                        queue_family_data_graph_property_count,
-                        queue_family_data_graph_properties as _,
-                    );
+            let call = |queue_family_data_graph_property_count,
+                        queue_family_data_graph_properties| {
+                let result = (self.get_physical_device_queue_family_data_graph_properties_arm)(
+                    physical_device,
+                    queue_family_index,
+                    queue_family_data_graph_property_count,
+                    queue_family_data_graph_properties as _,
+                );
 
-                    match result {
-                        VkResult::SUCCESS => Ok(()),
-                        VkResult::INCOMPLETE => Ok(()),
-                        err => Err(err),
-                    }
-                },
-            )
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let queue_family_data_graph_properties_buf =
+                queue_family_data_graph_properties.reserve(capacity);
+            len = queue_family_data_graph_properties_buf
+                .len()
+                .try_into()
+                .unwrap();
+            let result = call(
+                &mut len,
+                queue_family_data_graph_properties_buf.as_mut_ptr() as *mut _,
+            )?;
+            queue_family_data_graph_properties.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
     pub unsafe fn get_physical_device_queue_family_data_graph_processing_engine_properties_arm(
@@ -1226,26 +1239,33 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &DataGraphPipelineSessionBindPointRequirementsInfoARM<'a>,
-        bind_point_requirements: impl ExtendUninit<DataGraphPipelineSessionBindPointRequirementARM<'a>>,
+        mut bind_point_requirements: impl ExtendUninit<
+            DataGraphPipelineSessionBindPointRequirementARM<'a>,
+        >,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(
-                bind_point_requirements,
-                |bind_point_requirement_count, bind_point_requirements| {
-                    let result = (self.get_data_graph_pipeline_session_bind_point_requirements_arm)(
-                        device,
-                        info,
-                        bind_point_requirement_count,
-                        bind_point_requirements as _,
-                    );
+            let call = |bind_point_requirement_count, bind_point_requirements| {
+                let result = (self.get_data_graph_pipeline_session_bind_point_requirements_arm)(
+                    device,
+                    info,
+                    bind_point_requirement_count,
+                    bind_point_requirements as _,
+                );
 
-                    match result {
-                        VkResult::SUCCESS => Ok(()),
-                        VkResult::INCOMPLETE => Ok(()),
-                        err => Err(err),
-                    }
-                },
-            )
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let bind_point_requirements_buf = bind_point_requirements.reserve(capacity);
+            len = bind_point_requirements_buf.len().try_into().unwrap();
+            let result = call(&mut len, bind_point_requirements_buf.as_mut_ptr() as *mut _)?;
+            bind_point_requirements.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
     pub unsafe fn get_data_graph_pipeline_session_memory_requirements_arm(
@@ -1303,10 +1323,10 @@ impl DeviceFn {
         &self,
         device: Device,
         pipeline_info: &DataGraphPipelineInfoARM<'a>,
-        properties: impl ExtendUninit<DataGraphPipelinePropertyARM>,
+        mut properties: impl ExtendUninit<DataGraphPipelinePropertyARM>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(properties, |properties_count, properties| {
+            let call = |properties_count, properties| {
                 let result = (self.get_data_graph_pipeline_available_properties_arm)(
                     device,
                     pipeline_info,
@@ -1319,7 +1339,15 @@ impl DeviceFn {
                     VkResult::INCOMPLETE => Ok(()),
                     err => Err(err),
                 }
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let properties_buf = properties.reserve(capacity);
+            len = properties_buf.len().try_into().unwrap();
+            let result = call(&mut len, properties_buf.as_mut_ptr() as *mut _)?;
+            properties.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
     pub unsafe fn get_data_graph_pipeline_properties_arm(

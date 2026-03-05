@@ -310,10 +310,10 @@ impl DeviceFn {
         &self,
         device: Device,
         pipeline_info: &PipelineInfoKHR<'a>,
-        properties: impl ExtendUninit<PipelineExecutablePropertiesKHR<'a>>,
+        mut properties: impl ExtendUninit<PipelineExecutablePropertiesKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(properties, |executable_count, properties| {
+            let call = |executable_count, properties| {
                 let result = (self.get_pipeline_executable_properties_khr)(
                     device,
                     pipeline_info,
@@ -326,17 +326,25 @@ impl DeviceFn {
                     VkResult::INCOMPLETE => Ok(()),
                     err => Err(err),
                 }
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let properties_buf = properties.reserve(capacity);
+            len = properties_buf.len().try_into().unwrap();
+            let result = call(&mut len, properties_buf.as_mut_ptr() as *mut _)?;
+            properties.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
     pub unsafe fn get_pipeline_executable_statistics_khr<'a>(
         &self,
         device: Device,
         executable_info: &PipelineExecutableInfoKHR<'a>,
-        statistics: impl ExtendUninit<PipelineExecutableStatisticKHR<'a>>,
+        mut statistics: impl ExtendUninit<PipelineExecutableStatisticKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(statistics, |statistic_count, statistics| {
+            let call = |statistic_count, statistics| {
                 let result = (self.get_pipeline_executable_statistics_khr)(
                     device,
                     executable_info,
@@ -349,33 +357,49 @@ impl DeviceFn {
                     VkResult::INCOMPLETE => Ok(()),
                     err => Err(err),
                 }
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let statistics_buf = statistics.reserve(capacity);
+            len = statistics_buf.len().try_into().unwrap();
+            let result = call(&mut len, statistics_buf.as_mut_ptr() as *mut _)?;
+            statistics.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
     pub unsafe fn get_pipeline_executable_internal_representations_khr<'a>(
         &self,
         device: Device,
         executable_info: &PipelineExecutableInfoKHR<'a>,
-        internal_representations: impl ExtendUninit<PipelineExecutableInternalRepresentationKHR<'a>>,
+        mut internal_representations: impl ExtendUninit<PipelineExecutableInternalRepresentationKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(
-                internal_representations,
-                |internal_representation_count, internal_representations| {
-                    let result = (self.get_pipeline_executable_internal_representations_khr)(
-                        device,
-                        executable_info,
-                        internal_representation_count,
-                        internal_representations as _,
-                    );
+            let call = |internal_representation_count, internal_representations| {
+                let result = (self.get_pipeline_executable_internal_representations_khr)(
+                    device,
+                    executable_info,
+                    internal_representation_count,
+                    internal_representations as _,
+                );
 
-                    match result {
-                        VkResult::SUCCESS => Ok(()),
-                        VkResult::INCOMPLETE => Ok(()),
-                        err => Err(err),
-                    }
-                },
-            )
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let internal_representations_buf = internal_representations.reserve(capacity);
+            len = internal_representations_buf.len().try_into().unwrap();
+            let result = call(
+                &mut len,
+                internal_representations_buf.as_mut_ptr() as *mut _,
+            )?;
+            internal_representations.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
 }

@@ -549,26 +549,31 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         optical_flow_image_format_info: &OpticalFlowImageFormatInfoNV<'a>,
-        image_format_properties: impl ExtendUninit<OpticalFlowImageFormatPropertiesNV<'a>>,
+        mut image_format_properties: impl ExtendUninit<OpticalFlowImageFormatPropertiesNV<'a>>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(
-                image_format_properties,
-                |format_count, image_format_properties| {
-                    let result = (self.get_physical_device_optical_flow_image_formats_nv)(
-                        physical_device,
-                        optical_flow_image_format_info,
-                        format_count,
-                        image_format_properties as _,
-                    );
+            let call = |format_count, image_format_properties| {
+                let result = (self.get_physical_device_optical_flow_image_formats_nv)(
+                    physical_device,
+                    optical_flow_image_format_info,
+                    format_count,
+                    image_format_properties as _,
+                );
 
-                    match result {
-                        VkResult::SUCCESS => Ok(()),
-                        VkResult::INCOMPLETE => Ok(()),
-                        err => Err(err),
-                    }
-                },
-            )
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let image_format_properties_buf = image_format_properties.reserve(capacity);
+            len = image_format_properties_buf.len().try_into().unwrap();
+            let result = call(&mut len, image_format_properties_buf.as_mut_ptr() as *mut _)?;
+            image_format_properties.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
 }

@@ -263,30 +263,41 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         queue_family_index: u32,
-        counters: impl ExtendUninit<PerformanceCounterARM<'a>>,
-        counter_descriptions: impl ExtendUninit<PerformanceCounterDescriptionARM<'a>>,
+        mut counters: impl ExtendUninit<PerformanceCounterARM<'a>>,
+        mut counter_descriptions: impl ExtendUninit<PerformanceCounterDescriptionARM<'a>>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit2(
-                counters,
-                counter_descriptions,
-                |counter_count, counters, counter_descriptions| {
-                    let result = (self
-                        .enumerate_physical_device_queue_family_performance_counters_by_region_arm)(
-                        physical_device,
-                        queue_family_index,
-                        counter_count,
-                        counters as _,
-                        counter_descriptions as _,
-                    );
+            let call = |counter_count, counters, counter_descriptions| {
+                let result = (self
+                    .enumerate_physical_device_queue_family_performance_counters_by_region_arm)(
+                    physical_device,
+                    queue_family_index,
+                    counter_count,
+                    counters as _,
+                    counter_descriptions as _,
+                );
 
-                    match result {
-                        VkResult::SUCCESS => Ok(()),
-                        VkResult::INCOMPLETE => Ok(()),
-                        err => Err(err),
-                    }
-                },
-            )
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut(), std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let counters_buf = counters.reserve(capacity);
+            len = counters_buf.len().try_into().unwrap();
+            let counter_descriptions_buf = counter_descriptions.reserve(capacity);
+            assert_eq!(counter_descriptions_buf.len(), counters_buf.len());
+            let result = call(
+                &mut len,
+                counters_buf.as_mut_ptr() as *mut _,
+                counter_descriptions_buf.as_mut_ptr() as *mut _,
+            )?;
+            counters.set_len(len.try_into().unwrap());
+            counter_descriptions.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
 }

@@ -510,10 +510,10 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         surface: SurfaceKHR,
-        rects: impl ExtendUninit<Rect2D>,
+        mut rects: impl ExtendUninit<Rect2D>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(rects, |rect_count, rects| {
+            let call = |rect_count, rects| {
                 let result = (self.get_physical_device_present_rectangles_khr.unwrap())(
                     physical_device,
                     surface,
@@ -526,7 +526,15 @@ impl InstanceFn {
                     VkResult::INCOMPLETE => Ok(()),
                     err => Err(err),
                 }
-            })
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let rects_buf = rects.reserve(capacity);
+            len = rects_buf.len().try_into().unwrap();
+            let result = call(&mut len, rects_buf.as_mut_ptr() as *mut _)?;
+            rects.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
 }
@@ -606,26 +614,31 @@ impl DeviceFn {
         &self,
         device: Device,
         swapchain: SwapchainKHR,
-        swapchain_images: impl ExtendUninit<Image>,
+        mut swapchain_images: impl ExtendUninit<Image>,
     ) -> crate::Result<()> {
         unsafe {
-            try_extend_uninit(
-                swapchain_images,
-                |swapchain_image_count, swapchain_images| {
-                    let result = (self.get_swapchain_images_khr)(
-                        device,
-                        swapchain,
-                        swapchain_image_count,
-                        swapchain_images as _,
-                    );
+            let call = |swapchain_image_count, swapchain_images| {
+                let result = (self.get_swapchain_images_khr)(
+                    device,
+                    swapchain,
+                    swapchain_image_count,
+                    swapchain_images as _,
+                );
 
-                    match result {
-                        VkResult::SUCCESS => Ok(()),
-                        VkResult::INCOMPLETE => Ok(()),
-                        err => Err(err),
-                    }
-                },
-            )
+                match result {
+                    VkResult::SUCCESS => Ok(()),
+                    VkResult::INCOMPLETE => Ok(()),
+                    err => Err(err),
+                }
+            };
+            let mut len = 0;
+            call(&mut len, std::ptr::null_mut())?;
+            let capacity = len.try_into().expect("failed to convert `N` to usize");
+            let swapchain_images_buf = swapchain_images.reserve(capacity);
+            len = swapchain_images_buf.len().try_into().unwrap();
+            let result = call(&mut len, swapchain_images_buf.as_mut_ptr() as *mut _)?;
+            swapchain_images.set_len(len.try_into().unwrap());
+            Ok(result)
         }
     }
     pub unsafe fn acquire_next_image_khr(
