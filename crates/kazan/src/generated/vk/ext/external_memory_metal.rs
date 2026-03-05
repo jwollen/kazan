@@ -37,7 +37,7 @@ pub(super) mod defs {
             self.handle_type = handle_type;
             self
         }
-        pub fn handle(mut self, handle: &'a mut c_void) -> Self {
+        pub fn handle(mut self, handle: *mut c_void) -> Self {
             self.handle = handle;
             self
         }
@@ -139,13 +139,17 @@ impl DeviceFn {
         &self,
         device: Device,
         get_metal_handle_info: &MemoryGetMetalHandleInfoEXT<'_>,
-        handle: &mut *mut c_void,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<*mut c_void> {
         unsafe {
-            let result = (self.get_memory_metal_handle_ext)(device, get_metal_handle_info, handle);
+            let mut handle = core::mem::MaybeUninit::uninit();
+            let result = (self.get_memory_metal_handle_ext)(
+                device,
+                get_metal_handle_info,
+                handle.as_mut_ptr(),
+            );
 
             match result {
-                VkResult::SUCCESS => Ok(()),
+                VkResult::SUCCESS => Ok(handle.assume_init()),
                 err => Err(err),
             }
         }
@@ -154,7 +158,7 @@ impl DeviceFn {
         &self,
         device: Device,
         handle_type: ExternalMemoryHandleTypeFlagBits,
-        handle: &c_void,
+        handle: *const c_void,
     ) -> crate::Result<MemoryMetalHandlePropertiesEXT<'_>> {
         unsafe {
             let mut memory_metal_handle_properties = core::mem::MaybeUninit::uninit();

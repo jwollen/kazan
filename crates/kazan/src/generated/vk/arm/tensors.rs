@@ -1330,7 +1330,7 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &TensorCaptureDescriptorDataInfoARM<'_>,
-        data: &mut c_void,
+        data: *mut c_void,
     ) -> crate::Result<()> {
         unsafe {
             let result =
@@ -1346,7 +1346,7 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &TensorViewCaptureDescriptorDataInfoARM<'_>,
-        data: &mut c_void,
+        data: *mut c_void,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self

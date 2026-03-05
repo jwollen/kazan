@@ -164,8 +164,11 @@ impl DeviceFn {
         &self,
         device: Device,
         descriptor_set: DescriptorSet,
-        data: &mut *mut c_void,
-    ) {
-        unsafe { (self.get_descriptor_set_host_mapping_valve)(device, descriptor_set, data) }
+    ) -> *mut c_void {
+        unsafe {
+            let mut data = core::mem::MaybeUninit::uninit();
+            (self.get_descriptor_set_host_mapping_valve)(device, descriptor_set, data.as_mut_ptr());
+            data.assume_init()
+        }
     }
 }

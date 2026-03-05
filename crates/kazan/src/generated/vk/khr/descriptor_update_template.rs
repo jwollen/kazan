@@ -86,7 +86,7 @@ impl DeviceFn {
         device: Device,
         descriptor_set: DescriptorSet,
         descriptor_update_template: DescriptorUpdateTemplate,
-        data: &c_void,
+        data: *const c_void,
     ) {
         unsafe {
             (self.update_descriptor_set_with_template_khr)(
@@ -103,7 +103,7 @@ impl DeviceFn {
         descriptor_update_template: DescriptorUpdateTemplate,
         layout: PipelineLayout,
         set: u32,
-        data: &c_void,
+        data: *const c_void,
     ) {
         unsafe {
             (self.cmd_push_descriptor_set_with_template_khr.unwrap())(

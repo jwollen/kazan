@@ -4432,7 +4432,7 @@ impl DeviceFn {
     pub unsafe fn get_device_image_sparse_memory_requirements<'a>(
         &self,
         device: Device,
-        info: &DeviceImageMemoryRequirements<'_>,
+        info: &DeviceImageMemoryRequirements<'a>,
         sparse_memory_requirements: impl ExtendUninit<SparseImageMemoryRequirements2<'a>>,
     ) {
         unsafe {

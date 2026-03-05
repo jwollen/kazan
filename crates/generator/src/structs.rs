@@ -1,11 +1,8 @@
-use std::collections::BTreeMap;
-
 use crate::{
-    LengthKind, analysis::Analysis, cdecl::CType, ctype_to_rust_type, ctype_to_rust_type_str,
-    get_len_kind, is_opaque_type, normalize_name, normalize_param_name,
-    normalize_setter_param_name, normalize_ty_name, xml,
+    LengthKind, analysis::Analysis, cdecl::CType, ctype_rust,
+    ctype_to_rust_type, ctype_to_rust_type_str, get_len_kind,
+    normalize_name, normalize_setter_param_name, normalize_ty_name, xml,
 };
-use itertools::Itertools;
 
 #[derive(Debug)]
 struct StructInfo<'a> {
@@ -37,6 +34,21 @@ struct SetterParamInfo {
     name: String,
     member_index: usize,
     ty: String,
+    /// How to assign this param to the struct member when emitting the setter body.
+    assignment: SetterAssignmentKind,
+}
+
+/// Describes how to emit the assignment of a setter parameter to a struct member.
+#[derive(Debug, Clone, Copy)]
+enum SetterAssignmentKind {
+    /// Copy slice into fixed array: `self.member[..param.len()].copy_from_slice(param)`
+    CopyFromSlice,
+    /// Assign raw pointer from slice (void*/char*): `self.member = param.as_ptr() as _` (or as_mut_ptr)
+    PtrFromSlice { is_const: bool },
+    /// Assign pointer from slice when pointee is double pointer: same as PtrFromSlice
+    PtrFromRefNested { is_const: bool },
+    /// Assign reference to pointer: `self.member = param.as_ptr()` (or as_mut_ptr)
+    PtrFromRef { is_const: bool },
 }
 
 #[derive(Debug)]
@@ -106,11 +118,14 @@ fn analyze_struct<'a>(analysis: &'a Analysis, struct_ty: &'a xml::Structure) -> 
                     );
 
                     let name = normalize_setter_param_name(array_member.c_decl.name);
+                    let assignment =
+                        setter_assignment_kind(analysis, &array_member.c_decl.ty);
 
                     array_params.push(SetterParamInfo {
                         name,
                         member_index: array_member_index,
                         ty: array_param_ty,
+                        assignment,
                     });
                 }
             }
@@ -163,6 +178,7 @@ fn analyze_struct<'a>(analysis: &'a Analysis, struct_ty: &'a xml::Structure) -> 
                         name: param_name.clone(),
                         member_index,
                         ty: param_ty,
+                        assignment: SetterAssignmentKind::CopyFromSlice, // unused for Value
                     })
                 } else {
                     SetterKind::Array {
@@ -224,12 +240,12 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
         let name = normalize_name(member.c_decl.name);
 
         let field_ty = ctype_to_rust_type(analysis, &member.c_decl.ty, Some("a"));
-        let field_ty = if let CType::Base(base) = &member.c_decl.ty
-            && base.name.starts_with("PFN_")
-        {
-            format!("Option<{}>", field_ty)
-        } else {
-            field_ty
+        let field_ty = {
+            let category = ctype_rust::CTypeCategory::from_ctype(&member.c_decl.ty, analysis);
+            match category {
+                ctype_rust::CTypeCategory::FuncPointer => format!("Option<{}>", field_ty),
+                _ => field_ty,
+            }
         };
 
         writeln!(file, "pub {}: {},", name, field_ty).unwrap();
@@ -274,7 +290,7 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
             if member.member.c_decl.name == "sType" {
                 writeln!(file, "Self::STRUCTURE_TYPE").unwrap()
             } else {
-                write!(file, "{}", default_value(&member.member.c_decl.ty)).unwrap();
+                write!(file, "{}", default_value(analysis, &member.member.c_decl.ty)).unwrap();
             }
             writeln!(file, ",").unwrap();
         }
@@ -340,74 +356,7 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
                 .unwrap();
                 for param in params {
                     let member = &info.members[param.member_index];
-                    if let CType::Array { element, .. } = &member.member.c_decl.ty {
-                        writeln!(
-                            file,
-                            "self.{}[..{}.len()].copy_from_slice({});",
-                            member.name, param.name, param.name
-                        )
-                        .unwrap();
-                    } else if let CType::Ptr {
-                        is_const, pointee, ..
-                    } = &member.member.c_decl.ty
-                    {
-                        if let CType::Base(base) = &pointee.as_ref()
-                            && (base.name == "void" || base.name == "char")
-                        {
-                            if *is_const {
-                                writeln!(
-                                    file,
-                                    "self.{} = {}.as_ptr() as _;",
-                                    member.name, param.name
-                                )
-                                .unwrap();
-                            } else {
-                                writeln!(
-                                    file,
-                                    "self.{} = {}.as_mut_ptr() as _;",
-                                    member.name, param.name
-                                )
-                                .unwrap();
-                            }
-                        } else {
-                            if let CType::Ptr {
-                                pointee, is_const, ..
-                            } = &pointee.as_ref()
-                            {
-                                if *is_const {
-                                    writeln!(
-                                        file,
-                                        "self.{} = {}.as_ptr() as _;",
-                                        member.name, param.name
-                                    )
-                                    .unwrap();
-                                } else {
-                                    writeln!(
-                                        file,
-                                        "self.{} = {}.as_mut_ptr() as _;",
-                                        member.name, param.name
-                                    )
-                                    .unwrap();
-                                }
-                            } else {
-                                if *is_const {
-                                    writeln!(
-                                        file,
-                                        "self.{} = {}.as_ptr();",
-                                        member.name, param.name
-                                    )
-                                    .unwrap();
-                                } else {
-                                    writeln!(
-                                        file,
-                                        "self.{} = {}.as_mut_ptr();",
-                                        member.name, param.name
-                                    )
-                                    .unwrap();
-                                }
-                            }
-                        }
-                    }
+                    emit_setter_assignment(file, &member.name, &param.name, param.assignment);
                 }
             }
         }
@@ -418,21 +367,80 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
     writeln!(file, "}}").unwrap();
 }
 
-fn default_value(ty: &CType) -> std::borrow::Cow<'static, str> {
-    if let CType::Array { element, .. } = ty {
-        format!("[{}; _]", default_value(element)).into()
-    } else if let CType::Ptr { is_const, .. } = ty {
-        if *is_const {
-            "core::ptr::null()".into()
-        } else {
-            "core::ptr::null_mut()".into()
+fn default_value(analysis: &Analysis, ty: &CType) -> std::borrow::Cow<'static, str> {
+    let category = ctype_rust::CTypeCategory::from_ctype(ty, analysis);
+    match category {
+        ctype_rust::CTypeCategory::Array { element, .. } => {
+            format!("[{}; _]", default_value(analysis, element)).into()
         }
-    // } else if let CType::Base(base) = &member.member.c_decl.ty
-    //     && base.name.starts_with("PFN_")
-    // {
-    //     write!(file, "core::ptr::null()").unwrap();
-    } else {
-        "Default::default()".into()
+        ctype_rust::CTypeCategory::OpaquePointer { is_const, .. }
+        | ctype_rust::CTypeCategory::CharPointer { is_const }
+        | ctype_rust::CTypeCategory::TypedPointer { is_const, .. } => {
+            if is_const {
+                "core::ptr::null()".into()
+            } else {
+                "core::ptr::null_mut()".into()
+            }
+        }
+        _ => "Default::default()".into(),
+    }
+}
+
+fn setter_assignment_kind(analysis: &Analysis, ty: &CType) -> SetterAssignmentKind {
+    use ctype_rust::CTypeCategory;
+    let category = CTypeCategory::from_ctype(ty, analysis);
+    match category {
+        CTypeCategory::Array { .. } => SetterAssignmentKind::CopyFromSlice,
+        CTypeCategory::OpaquePointer { is_const, .. } | CTypeCategory::CharPointer { is_const } => {
+            SetterAssignmentKind::PtrFromSlice { is_const }
+        }
+        CTypeCategory::TypedPointer { is_const, pointee } => {
+            if matches!(pointee, CType::Ptr { .. }) {
+                SetterAssignmentKind::PtrFromRefNested { is_const }
+            } else {
+                SetterAssignmentKind::PtrFromRef { is_const }
+            }
+        }
+        _ => SetterAssignmentKind::CopyFromSlice, // fallback
+    }
+}
+
+fn emit_setter_assignment(
+    file: &mut impl std::io::Write,
+    member_name: &str,
+    param_name: &str,
+    kind: SetterAssignmentKind,
+) {
+    match kind {
+        SetterAssignmentKind::CopyFromSlice => {
+            writeln!(
+                file,
+                "self.{}[..{}.len()].copy_from_slice({});",
+                member_name, param_name, param_name
+            )
+            .unwrap();
+        }
+        SetterAssignmentKind::PtrFromSlice { is_const } => {
+            if is_const {
+                writeln!(file, "self.{} = {}.as_ptr() as _;", member_name, param_name).unwrap();
+            } else {
+                writeln!(file, "self.{} = {}.as_mut_ptr() as _;", member_name, param_name).unwrap();
+            }
+        }
+        SetterAssignmentKind::PtrFromRefNested { is_const } => {
+            if is_const {
+                writeln!(file, "self.{} = {}.as_ptr() as _;", member_name, param_name).unwrap();
+            } else {
+                writeln!(file, "self.{} = {}.as_mut_ptr() as _;", member_name, param_name).unwrap();
+            }
+        }
+        SetterAssignmentKind::PtrFromRef { is_const } => {
+            if is_const {
+                writeln!(file, "self.{} = {}.as_ptr();", member_name, param_name).unwrap();
+            } else {
+                writeln!(file, "self.{} = {}.as_mut_ptr();", member_name, param_name).unwrap();
+            }
+        }
     }
 }
 
@@ -443,95 +451,117 @@ pub fn convert_setter_param_type(
     optional: &[bool],
     lifetime_param: Option<&str>,
 ) -> String {
-    if let Some(len) = lengths.iter().next()
-        && !matches!(len, LengthKind::Literal(1))
-    {
-        let ty = match ty {
-            CType::Ptr {
-                pointee, is_const, ..
-            } => {
-                if matches!(pointee.as_ref(), CType::Base(base) if base.name == "char") {
-                    let pointee = "CStr";
-                    if *is_const {
-                        format!("&'a {}", pointee)
+    use ctype_rust::CTypeCategory;
+
+    if let Some(len) = lengths.iter().next() {
+        if !matches!(len, LengthKind::Literal(1)) {
+            let category = CTypeCategory::from_ctype(ty, analysis);
+            return match category {
+                CTypeCategory::CharPointer { is_const } => {
+                    if is_const {
+                        "&'a CStr".to_string()
                     } else {
-                        format!("&'amut {}", pointee)
+                        "&'a mut CStr".to_string()
                     }
-                } else {
-                    let lengths = if lengths.len() > 1 {
-                        &lengths[1..]
+                }
+                // Ptr to Ptr to char (e.g. const char* const*) with length: original recursed to *const c_char, so &'a [*const c_char]
+                CTypeCategory::OpaquePointer { pointee_name: "char", is_const } => {
+                    if is_const {
+                        "&'a [*const c_char]".to_string()
                     } else {
-                        &[]
-                    };
-                    let optional = if optional.len() > 1 {
-                        &optional[1..]
+                        "&'a mut [*mut c_char]".to_string()
+                    }
+                }
+                // void* with length becomes &[u8] / &mut [u8]
+                CTypeCategory::OpaquePointer { pointee_name: "void", is_const } => {
+                    if is_const {
+                        "&'a [u8]".to_string()
                     } else {
-                        &[]
-                    };
+                        "&'a mut [u8]".to_string()
+                    }
+                }
+                // Ptr to Ptr to T (e.g. const VkAccelerationStructureGeometryKHR**) with length → slice of raw pointers
+                // Exception: Ptr to Ptr to known non-opaque struct (e.g. const VkMicromapUsageEXT* const*) → &'a [&'a T]
+                CTypeCategory::OpaquePointer { pointee_name, is_const } => {
+                    let use_slice_of_refs = matches!(ty, CType::Ptr { pointee: p, .. } if matches!(p.as_ref(), CType::Ptr { pointee: inner, .. } if matches!(inner.as_ref(), CType::Base(b) if !ctype_rust::is_opaque_type(b.name) && b.name == pointee_name)));
+                    if use_slice_of_refs {
+                        let inner = ctype_rust::type_name_with_lifetime(analysis, pointee_name, lifetime_param);
+                        if is_const {
+                            format!("&'a [&'a {}]", inner)
+                        } else {
+                            format!("&'a mut [&'a mut {}]", inner)
+                        }
+                    } else {
+                        let inner = ctype_rust::type_name_with_lifetime(analysis, pointee_name, lifetime_param);
+                        if is_const {
+                            format!("&'a [*const {}]", inner)
+                        } else {
+                            format!("&'a mut [*mut {}]", inner)
+                        }
+                    }
+                }
+                CTypeCategory::TypedPointer { is_const, pointee } => {
+                    let rest_lengths = if lengths.len() > 1 { &lengths[1..] } else { &[] as &[LengthKind] };
+                    let rest_optional = if optional.len() > 1 { &optional[1..] } else { &[] as &[bool] };
                     let element_ty = convert_setter_param_type(
                         analysis,
-                        pointee.as_ref(),
-                        lengths,
-                        optional,
+                        pointee,
+                        rest_lengths,
+                        rest_optional,
                         lifetime_param,
                     );
-                    let element_ty = if element_ty == "c_void" {
-                        "u8"
-                    } else {
-                        &element_ty
-                    };
-
-                    if *is_const {
+                    let element_ty = if element_ty == "c_void" { "u8".to_string() } else { element_ty };
+                    if is_const {
                         format!("&'a [{}]", element_ty)
                     } else {
                         format!("&'a mut [{}]", element_ty)
                     }
                 }
-            }
-            CType::Array { element, .. } => {
-                let element_ty = ctype_to_rust_type(analysis, element.as_ref(), lifetime_param);
-                format!("&[{}]", element_ty)
-            }
+                CTypeCategory::Array { element, .. } => {
+                    let element_ty = ctype_to_rust_type(analysis, element, lifetime_param);
+                    format!("&[{}]", element_ty)
+                }
+                _ => panic!(
+                    "expected pointer or array type because of length {:?}, got {:?}",
+                    len, ty
+                ),
+            };
+        }
+    }
 
-            _ => panic!(
-                "expected pointer or arraytype because of length {:?}, got {:?}",
-                len, ty
-            ),
-        };
-
-        ty
-        // if matches!(optional, [true, ..]) {
-        //     format!("Option<{}>", ty)
-        // } else {
-        //     ty
-        // }
-    } else if let CType::Ptr {
-        pointee, is_const, ..
-    } = ty
-    {
-        let ty = ctype_to_rust_type(analysis, &pointee, lifetime_param);
-
-        if is_opaque_type(ty.as_str()) {
-            if *is_const {
+    let category = CTypeCategory::from_ctype(ty, analysis);
+    match category {
+        CTypeCategory::OpaquePointer { is_const, pointee_name } => {
+            let ty = ctype_rust::type_name_with_lifetime(analysis, pointee_name, lifetime_param);
+            if is_const {
                 format!("*const {}", ty)
             } else {
                 format!("*mut {}", ty)
             }
-        } else {
-            let ty = if *is_const {
-                format!("&'a {}", ty)
-            } else {
-                format!("&'a mut {}", ty)
-            };
-
-            ty
-            // if matches!(optional, [true, ..]) {
-            //     format!("Option<{}>", ty)
-            // } else {
-            //     ty
-            // }
         }
-    } else {
-        ctype_to_rust_type(analysis, ty, lifetime_param)
+        CTypeCategory::CharPointer { is_const } => {
+            if is_const {
+                "*const c_char".to_string()
+            } else {
+                "*mut c_char".to_string()
+            }
+        }
+        CTypeCategory::TypedPointer { is_const, pointee } => {
+            let ty = ctype_to_rust_type(analysis, pointee, lifetime_param);
+            if ctype_rust::is_opaque_type(ty.as_str()) {
+                if is_const {
+                    format!("*const {}", ty)
+                } else {
+                    format!("*mut {}", ty)
+                }
+            } else {
+                if is_const {
+                    format!("&'a {}", ty)
+                } else {
+                    format!("&'a mut {}", ty)
+                }
+            }
+        }
+        _ => ctype_to_rust_type(analysis, ty, lifetime_param),
     }
 }

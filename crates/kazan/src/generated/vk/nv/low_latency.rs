@@ -31,10 +31,7 @@ pub(super) mod defs {
         }
     }
     impl<'a> QueryLowLatencySupportNV<'a> {
-        pub fn queried_low_latency_data(
-            mut self,
-            queried_low_latency_data: &'a mut c_void,
-        ) -> Self {
+        pub fn queried_low_latency_data(mut self, queried_low_latency_data: *mut c_void) -> Self {
             self.p_queried_low_latency_data = queried_low_latency_data;
             self
         }

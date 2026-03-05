@@ -1036,7 +1036,7 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_video_format_properties_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
-        video_format_info: &PhysicalDeviceVideoFormatInfoKHR<'_>,
+        video_format_info: &PhysicalDeviceVideoFormatInfoKHR<'a>,
         video_format_properties: impl ExtendUninit<VideoFormatPropertiesKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {

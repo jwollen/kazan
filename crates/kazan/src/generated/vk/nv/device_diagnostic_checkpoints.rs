@@ -67,7 +67,7 @@ pub(super) mod defs {
             self.stage = stage;
             self
         }
-        pub fn checkpoint_marker(mut self, checkpoint_marker: &'a mut c_void) -> Self {
+        pub fn checkpoint_marker(mut self, checkpoint_marker: *mut c_void) -> Self {
             self.p_checkpoint_marker = checkpoint_marker;
             self
         }
@@ -132,7 +132,7 @@ pub(super) mod defs {
             self.stage = stage;
             self
         }
-        pub fn checkpoint_marker(mut self, checkpoint_marker: &'a mut c_void) -> Self {
+        pub fn checkpoint_marker(mut self, checkpoint_marker: *mut c_void) -> Self {
             self.p_checkpoint_marker = checkpoint_marker;
             self
         }
@@ -178,7 +178,7 @@ impl DeviceFn {
     pub unsafe fn cmd_set_checkpoint_nv(
         &self,
         command_buffer: CommandBuffer,
-        checkpoint_marker: &c_void,
+        checkpoint_marker: *const c_void,
     ) {
         unsafe { (self.cmd_set_checkpoint_nv)(command_buffer, checkpoint_marker) }
     }

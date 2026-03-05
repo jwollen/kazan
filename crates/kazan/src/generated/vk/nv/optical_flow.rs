@@ -314,7 +314,7 @@ pub(super) mod defs {
             self.size = size;
             self
         }
-        pub fn private_data(mut self, private_data: &'a c_void) -> Self {
+        pub fn private_data(mut self, private_data: *const c_void) -> Self {
             self.p_private_data = private_data;
             self
         }
@@ -548,7 +548,7 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_optical_flow_image_formats_nv<'a>(
         &self,
         physical_device: PhysicalDevice,
-        optical_flow_image_format_info: &OpticalFlowImageFormatInfoNV<'_>,
+        optical_flow_image_format_info: &OpticalFlowImageFormatInfoNV<'a>,
         image_format_properties: impl ExtendUninit<OpticalFlowImageFormatPropertiesNV<'a>>,
     ) -> crate::Result<()> {
         unsafe {

@@ -163,7 +163,7 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_sparse_image_format_properties2_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
-        format_info: &PhysicalDeviceSparseImageFormatInfo2<'_>,
+        format_info: &PhysicalDeviceSparseImageFormatInfo2<'a>,
         properties: impl ExtendUninit<SparseImageFormatProperties2<'a>>,
     ) {
         unsafe {

@@ -177,7 +177,7 @@ pub(super) mod defs {
             self.pfn_user_callback = Some(pfn_user_callback);
             self
         }
-        pub fn user_data(mut self, user_data: &'a mut c_void) -> Self {
+        pub fn user_data(mut self, user_data: *mut c_void) -> Self {
             self.p_user_data = user_data;
             self
         }

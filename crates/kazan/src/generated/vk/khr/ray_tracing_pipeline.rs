@@ -64,7 +64,7 @@ pub(super) mod defs {
         }
         pub fn shader_group_capture_replay_handle(
             mut self,
-            shader_group_capture_replay_handle: &'a c_void,
+            shader_group_capture_replay_handle: *const c_void,
         ) -> Self {
             self.p_shader_group_capture_replay_handle = shader_group_capture_replay_handle;
             self

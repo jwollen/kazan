@@ -76,7 +76,7 @@ impl DeviceFn {
     pub unsafe fn get_image_sparse_memory_requirements2_khr<'a>(
         &self,
         device: Device,
-        info: &ImageSparseMemoryRequirementsInfo2<'_>,
+        info: &ImageSparseMemoryRequirementsInfo2<'a>,
         sparse_memory_requirements: impl ExtendUninit<SparseImageMemoryRequirements2<'a>>,
     ) {
         unsafe {

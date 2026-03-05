@@ -175,7 +175,7 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_surface_present_modes2_ext<'a>(
         &self,
         physical_device: PhysicalDevice,
-        surface_info: &PhysicalDeviceSurfaceInfo2KHR<'_>,
+        surface_info: &PhysicalDeviceSurfaceInfo2KHR<'a>,
         present_modes: impl ExtendUninit<PresentModeKHR>,
     ) -> crate::Result<()> {
         unsafe {

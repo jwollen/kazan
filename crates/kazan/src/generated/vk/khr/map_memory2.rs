@@ -37,13 +37,13 @@ impl DeviceFn {
         &self,
         device: Device,
         memory_map_info: &MemoryMapInfo<'_>,
-        data: &mut *mut c_void,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<*mut c_void> {
         unsafe {
-            let result = (self.map_memory2_khr)(device, memory_map_info, data);
+            let mut data = core::mem::MaybeUninit::uninit();
+            let result = (self.map_memory2_khr)(device, memory_map_info, data.as_mut_ptr());
 
             match result {
-                VkResult::SUCCESS => Ok(()),
+                VkResult::SUCCESS => Ok(data.assume_init()),
                 err => Err(err),
             }
         }

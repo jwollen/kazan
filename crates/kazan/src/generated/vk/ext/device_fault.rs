@@ -165,7 +165,7 @@ pub(super) mod defs {
             self.p_vendor_infos = vendor_infos;
             self
         }
-        pub fn vendor_binary_data(mut self, vendor_binary_data: &'a mut c_void) -> Self {
+        pub fn vendor_binary_data(mut self, vendor_binary_data: *mut c_void) -> Self {
             self.p_vendor_binary_data = vendor_binary_data;
             self
         }

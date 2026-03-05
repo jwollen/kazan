@@ -1272,7 +1272,7 @@ pub(super) mod defs {
         }
     }
     impl<'a> MemoryToImageCopy<'a> {
-        pub fn host_pointer(mut self, host_pointer: &'a c_void) -> Self {
+        pub fn host_pointer(mut self, host_pointer: *const c_void) -> Self {
             self.p_host_pointer = host_pointer;
             self
         }
@@ -1329,7 +1329,7 @@ pub(super) mod defs {
         }
     }
     impl<'a> ImageToMemoryCopy<'a> {
-        pub fn host_pointer(mut self, host_pointer: &'a mut c_void) -> Self {
+        pub fn host_pointer(mut self, host_pointer: *mut c_void) -> Self {
             self.p_host_pointer = host_pointer;
             self
         }
@@ -2197,7 +2197,7 @@ pub(super) mod defs {
             self.set = set;
             self
         }
-        pub fn data(mut self, data: &'a c_void) -> Self {
+        pub fn data(mut self, data: *const c_void) -> Self {
             self.p_data = data;
             self
         }
@@ -3030,13 +3030,13 @@ impl DeviceFn {
         &self,
         device: Device,
         memory_map_info: &MemoryMapInfo<'_>,
-        data: &mut *mut c_void,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<*mut c_void> {
         unsafe {
-            let result = (self.map_memory2)(device, memory_map_info, data);
+            let mut data = core::mem::MaybeUninit::uninit();
+            let result = (self.map_memory2)(device, memory_map_info, data.as_mut_ptr());
 
             match result {
-                VkResult::SUCCESS => Ok(()),
+                VkResult::SUCCESS => Ok(data.assume_init()),
                 err => Err(err),
             }
         }
@@ -3163,7 +3163,7 @@ impl DeviceFn {
         descriptor_update_template: DescriptorUpdateTemplate,
         layout: PipelineLayout,
         set: u32,
-        data: &c_void,
+        data: *const c_void,
     ) {
         unsafe {
             (self.cmd_push_descriptor_set_with_template)(

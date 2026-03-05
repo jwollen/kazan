@@ -426,7 +426,7 @@ pub(super) mod defs {
         }
     }
     impl<'a> AllocationCallbacks<'a> {
-        pub fn user_data(mut self, user_data: &'a mut c_void) -> Self {
+        pub fn user_data(mut self, user_data: *mut c_void) -> Self {
             self.p_user_data = user_data;
             self
         }
@@ -549,7 +549,7 @@ pub(super) mod defs {
         }
         pub fn enabled_layer_names_ptrs(
             mut self,
-            enabled_layer_names_ptrs: &'a [&'a CStr],
+            enabled_layer_names_ptrs: &'a [*const c_char],
         ) -> Self {
             self.enabled_layer_count = enabled_layer_names_ptrs.len().try_into().unwrap();
             self.pp_enabled_layer_names = enabled_layer_names_ptrs.as_ptr() as _;
@@ -557,7 +557,7 @@ pub(super) mod defs {
         }
         pub fn enabled_extension_names_ptrs(
             mut self,
-            enabled_extension_names_ptrs: &'a [&'a CStr],
+            enabled_extension_names_ptrs: &'a [*const c_char],
         ) -> Self {
             self.enabled_extension_count = enabled_extension_names_ptrs.len().try_into().unwrap();
             self.pp_enabled_extension_names = enabled_extension_names_ptrs.as_ptr() as _;
@@ -610,7 +610,7 @@ pub(super) mod defs {
         }
         pub fn enabled_layer_names_ptrs(
             mut self,
-            enabled_layer_names_ptrs: &'a [&'a CStr],
+            enabled_layer_names_ptrs: &'a [*const c_char],
         ) -> Self {
             self.enabled_layer_count = enabled_layer_names_ptrs.len().try_into().unwrap();
             self.pp_enabled_layer_names = enabled_layer_names_ptrs.as_ptr() as _;
@@ -618,7 +618,7 @@ pub(super) mod defs {
         }
         pub fn enabled_extension_names_ptrs(
             mut self,
-            enabled_extension_names_ptrs: &'a [&'a CStr],
+            enabled_extension_names_ptrs: &'a [*const c_char],
         ) -> Self {
             self.enabled_extension_count = enabled_extension_names_ptrs.len().try_into().unwrap();
             self.pp_enabled_extension_names = enabled_extension_names_ptrs.as_ptr() as _;
@@ -15577,13 +15577,13 @@ impl DeviceFn {
         offset: DeviceSize,
         size: DeviceSize,
         flags: MemoryMapFlags,
-        data: &mut *mut c_void,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<*mut c_void> {
         unsafe {
-            let result = (self.map_memory)(device, memory, offset, size, flags, data);
+            let mut data = core::mem::MaybeUninit::uninit();
+            let result = (self.map_memory)(device, memory, offset, size, flags, data.as_mut_ptr());
 
             match result {
-                VkResult::SUCCESS => Ok(()),
+                VkResult::SUCCESS => Ok(data.assume_init()),
                 err => Err(err),
             }
         }

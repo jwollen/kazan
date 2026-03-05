@@ -174,12 +174,12 @@ pub(super) mod defs {
             self.shared_mem_bytes = shared_mem_bytes;
             self
         }
-        pub fn params(mut self, params: &'a [&'a c_void]) -> Self {
+        pub fn params(mut self, params: &'a [u8]) -> Self {
             self.param_count = params.len().try_into().unwrap();
             self.p_params = params.as_ptr() as _;
             self
         }
-        pub fn extras(mut self, extras: &'a [&'a c_void]) -> Self {
+        pub fn extras(mut self, extras: &'a [u8]) -> Self {
             self.extra_count = extras.len().try_into().unwrap();
             self.p_extras = extras.as_ptr() as _;
             self

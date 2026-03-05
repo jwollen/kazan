@@ -3258,7 +3258,7 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_sparse_image_format_properties2<'a>(
         &self,
         physical_device: PhysicalDevice,
-        format_info: &PhysicalDeviceSparseImageFormatInfo2<'_>,
+        format_info: &PhysicalDeviceSparseImageFormatInfo2<'a>,
         properties: impl ExtendUninit<SparseImageFormatProperties2<'a>>,
     ) {
         unsafe {
@@ -3478,7 +3478,7 @@ impl DeviceFn {
     pub unsafe fn get_image_sparse_memory_requirements2<'a>(
         &self,
         device: Device,
-        info: &ImageSparseMemoryRequirementsInfo2<'_>,
+        info: &ImageSparseMemoryRequirementsInfo2<'a>,
         sparse_memory_requirements: impl ExtendUninit<SparseImageMemoryRequirements2<'a>>,
     ) {
         unsafe {
@@ -3576,7 +3576,7 @@ impl DeviceFn {
         device: Device,
         descriptor_set: DescriptorSet,
         descriptor_update_template: DescriptorUpdateTemplate,
-        data: &c_void,
+        data: *const c_void,
     ) {
         unsafe {
             (self.update_descriptor_set_with_template)(

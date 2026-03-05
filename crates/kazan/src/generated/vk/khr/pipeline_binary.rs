@@ -536,7 +536,7 @@ impl DeviceFn {
     pub unsafe fn get_pipeline_binary_data_khr<'a>(
         &self,
         device: Device,
-        info: &PipelineBinaryDataInfoKHR<'_>,
+        info: &PipelineBinaryDataInfoKHR<'a>,
         pipeline_binary_data: impl ExtendUninit<u8>,
     ) -> crate::Result<PipelineBinaryKeyKHR<'_>> {
         unsafe {

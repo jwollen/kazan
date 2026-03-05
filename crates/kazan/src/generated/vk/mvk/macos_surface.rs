@@ -36,7 +36,7 @@ pub(super) mod defs {
             self.flags = flags;
             self
         }
-        pub fn view(mut self, view: &'a c_void) -> Self {
+        pub fn view(mut self, view: *const c_void) -> Self {
             self.p_view = view;
             self
         }

@@ -37,7 +37,7 @@ pub(super) mod defs {
             self.handle_type = handle_type;
             self
         }
-        pub fn host_pointer(mut self, host_pointer: &'a mut c_void) -> Self {
+        pub fn host_pointer(mut self, host_pointer: *mut c_void) -> Self {
             self.p_host_pointer = host_pointer;
             self
         }
@@ -132,7 +132,7 @@ impl DeviceFn {
         &self,
         device: Device,
         handle_type: ExternalMemoryHandleTypeFlagBits,
-        host_pointer: &c_void,
+        host_pointer: *const c_void,
     ) -> crate::Result<MemoryHostPointerPropertiesEXT<'_>> {
         unsafe {
             let mut memory_host_pointer_properties = core::mem::MaybeUninit::uninit();

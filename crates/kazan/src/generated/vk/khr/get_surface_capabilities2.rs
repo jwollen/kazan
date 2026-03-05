@@ -150,7 +150,7 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_surface_formats2_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
-        surface_info: &PhysicalDeviceSurfaceInfo2KHR<'_>,
+        surface_info: &PhysicalDeviceSurfaceInfo2KHR<'a>,
         surface_formats: impl ExtendUninit<SurfaceFormat2KHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {

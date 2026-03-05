@@ -20,6 +20,7 @@ use crate::{
 mod analysis;
 mod cdecl;
 mod command;
+mod ctype_rust;
 mod enums;
 mod handle;
 mod module;
@@ -557,7 +558,7 @@ fn normalize_name(name: &str) -> String {
     }
 }
 
-fn normalize_const_name(name: &str) -> &str {
+pub(crate) fn normalize_const_name(name: &str) -> &str {
     name.strip_prefix("VK_").unwrap_or(name)
 }
 

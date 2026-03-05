@@ -151,7 +151,7 @@ pub(super) mod defs {
             self.id = id;
             self
         }
-        pub fn constant_data(mut self, constant_data: &'a c_void) -> Self {
+        pub fn constant_data(mut self, constant_data: *const c_void) -> Self {
             self.p_constant_data = constant_data;
             self
         }
@@ -1225,7 +1225,7 @@ impl DeviceFn {
     pub unsafe fn get_data_graph_pipeline_session_bind_point_requirements_arm<'a>(
         &self,
         device: Device,
-        info: &DataGraphPipelineSessionBindPointRequirementsInfoARM<'_>,
+        info: &DataGraphPipelineSessionBindPointRequirementsInfoARM<'a>,
         bind_point_requirements: impl ExtendUninit<DataGraphPipelineSessionBindPointRequirementARM<'a>>,
     ) -> crate::Result<()> {
         unsafe {
@@ -1302,7 +1302,7 @@ impl DeviceFn {
     pub unsafe fn get_data_graph_pipeline_available_properties_arm<'a>(
         &self,
         device: Device,
-        pipeline_info: &DataGraphPipelineInfoARM<'_>,
+        pipeline_info: &DataGraphPipelineInfoARM<'a>,
         properties: impl ExtendUninit<DataGraphPipelinePropertyARM>,
     ) -> crate::Result<()> {
         unsafe {

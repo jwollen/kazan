@@ -762,7 +762,7 @@ pub(super) mod defs {
     impl<'a> OpaqueCaptureDescriptorDataCreateInfoEXT<'a> {
         pub fn opaque_capture_descriptor_data(
             mut self,
-            opaque_capture_descriptor_data: &'a c_void,
+            opaque_capture_descriptor_data: *const c_void,
         ) -> Self {
             self.opaque_capture_descriptor_data = opaque_capture_descriptor_data;
             self
@@ -1023,7 +1023,7 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &BufferCaptureDescriptorDataInfoEXT<'_>,
-        data: &mut c_void,
+        data: *mut c_void,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.get_buffer_opaque_capture_descriptor_data_ext)(device, info, data);
@@ -1038,7 +1038,7 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &ImageCaptureDescriptorDataInfoEXT<'_>,
-        data: &mut c_void,
+        data: *mut c_void,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.get_image_opaque_capture_descriptor_data_ext)(device, info, data);
@@ -1053,7 +1053,7 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &ImageViewCaptureDescriptorDataInfoEXT<'_>,
-        data: &mut c_void,
+        data: *mut c_void,
     ) -> crate::Result<()> {
         unsafe {
             let result =
@@ -1069,7 +1069,7 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &SamplerCaptureDescriptorDataInfoEXT<'_>,
-        data: &mut c_void,
+        data: *mut c_void,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self.get_sampler_opaque_capture_descriptor_data_ext)(device, info, data);
@@ -1084,7 +1084,7 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &AccelerationStructureCaptureDescriptorDataInfoEXT<'_>,
-        data: &mut c_void,
+        data: *mut c_void,
     ) -> crate::Result<()> {
         unsafe {
             let result = (self

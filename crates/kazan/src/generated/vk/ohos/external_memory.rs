@@ -291,13 +291,13 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &MemoryGetNativeBufferInfoOHOS<'_>,
-        buffer: &mut *mut OH_NativeBuffer,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<*mut OH_NativeBuffer> {
         unsafe {
-            let result = (self.get_memory_native_buffer_ohos)(device, info, buffer);
+            let mut buffer = core::mem::MaybeUninit::uninit();
+            let result = (self.get_memory_native_buffer_ohos)(device, info, buffer.as_mut_ptr());
 
             match result {
-                VkResult::SUCCESS => Ok(()),
+                VkResult::SUCCESS => Ok(buffer.assume_init()),
                 err => Err(err),
             }
         }

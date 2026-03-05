@@ -309,7 +309,7 @@ impl DeviceFn {
     pub unsafe fn get_pipeline_executable_properties_khr<'a>(
         &self,
         device: Device,
-        pipeline_info: &PipelineInfoKHR<'_>,
+        pipeline_info: &PipelineInfoKHR<'a>,
         properties: impl ExtendUninit<PipelineExecutablePropertiesKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
@@ -332,7 +332,7 @@ impl DeviceFn {
     pub unsafe fn get_pipeline_executable_statistics_khr<'a>(
         &self,
         device: Device,
-        executable_info: &PipelineExecutableInfoKHR<'_>,
+        executable_info: &PipelineExecutableInfoKHR<'a>,
         statistics: impl ExtendUninit<PipelineExecutableStatisticKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
@@ -355,7 +355,7 @@ impl DeviceFn {
     pub unsafe fn get_pipeline_executable_internal_representations_khr<'a>(
         &self,
         device: Device,
-        executable_info: &PipelineExecutableInfoKHR<'_>,
+        executable_info: &PipelineExecutableInfoKHR<'a>,
         internal_representations: impl ExtendUninit<PipelineExecutableInternalRepresentationKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {

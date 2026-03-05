@@ -746,8 +746,8 @@ impl DeviceFn {
     pub unsafe fn get_encoded_video_session_parameters_khr<'a>(
         &self,
         device: Device,
-        video_session_parameters_info: &VideoEncodeSessionParametersGetInfoKHR<'_>,
-        feedback_info: Option<&mut VideoEncodeSessionParametersFeedbackInfoKHR<'_>>,
+        video_session_parameters_info: &VideoEncodeSessionParametersGetInfoKHR<'a>,
+        feedback_info: Option<&mut VideoEncodeSessionParametersFeedbackInfoKHR<'a>>,
         data: impl ExtendUninit<u8>,
     ) -> crate::Result<()> {
         unsafe {

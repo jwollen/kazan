@@ -1,7 +1,7 @@
 use crate::{
-    LengthKind, analysis::Analysis, cdecl::CType, ctype_to_rust_type, get_len_kind,
-    handle::CommandType, is_opaque_type, normalize_command_name, normalize_param_name,
-    normalize_ty_name, xml,
+    LengthKind, analysis::Analysis, cdecl::CType, ctype_rust,
+    ctype_to_rust_type, get_len_kind, handle::CommandType, normalize_command_name,
+    normalize_param_name, normalize_ty_name, xml,
 };
 use itertools::Itertools;
 
@@ -64,6 +64,24 @@ struct ParamInfo<'a> {
     optional: (bool, bool),
     is_output_param: bool,
     is_return_param: bool,
+    is_output_opaque_param: bool,
+}
+
+/// Describes how to emit a single argument in the generated FFI call.
+#[derive(Debug, Clone)]
+enum ArgEmitKind {
+    /// Pass the wrapper param name as-is.
+    Direct,
+    /// Emit length from a slice param: `{slice_name}.len().try_into().unwrap()`
+    LenFromSlice { slice_param_name: String },
+    /// Slice/array param: `.as_ptr() as _` / `.as_mut_ptr() as _`, or optional `.to_raw_ptr()` / `.to_raw_mut_ptr()`
+    SliceAsPtr { is_const: bool, optional: bool },
+    /// Return (output) param: `{name}.as_mut_ptr()`
+    ReturnParamAsMutPtr,
+    /// Optional pointer: `.to_raw_ptr()` / `.to_raw_mut_ptr()`, or todo! when in enumeration command
+    OptionalPtrToRaw { is_const: bool, in_enumeration: bool },
+    /// Enumeration buffer param: `{name} as _`
+    TransmuteForEnumeration,
 }
 
 impl<'a> LengthKind<'a> {
@@ -74,6 +92,17 @@ impl<'a> LengthKind<'a> {
             _ => None,
         }
     }
+}
+
+/// True only for pointer-to-pointer C types (e.g. void**, T**), not single pointers (void*, T*).
+fn is_pointer_to_pointer(ty: &CType) -> bool {
+    matches!(
+        ty,
+        CType::Ptr {
+            pointee,
+            ..
+        } if matches!(pointee.as_ref(), CType::Ptr { .. })
+    )
 }
 
 pub fn generate_commands(
@@ -115,15 +144,15 @@ pub fn generate_commands(
                     })
                     .filter(|cmd| {
                         let ty = &cmd.command.params.iter().next().unwrap().c_decl.ty;
-                        if let CType::Base(base) = ty {
-                            analysis
+                        let category = ctype_rust::CTypeCategory::from_ctype(ty, analysis);
+                        match category {
+                            ctype_rust::CTypeCategory::Base(name) => analysis
                                 .handle_command_types()
-                                .get(base.name)
+                                .get(name)
                                 .copied()
                                 .unwrap_or(CommandType::Entry)
-                                == cmd_type
-                        } else {
-                            cmd_type == CommandType::Entry
+                                == cmd_type,
+                            _ => cmd_type == CommandType::Entry,
                         }
                     })
                     .collect();
@@ -201,15 +230,17 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
         })
         .collect();
 
-    let enumeration_len_param = len_kinds.iter().find_map(|len_kind| match len_kind {
-        Some(LengthKind::Param { index, c_decl }) => {
-            let param_ty = &c_decl.ty;
-            match param_ty {
-                CType::Ptr { is_const, .. } if !*is_const => Some(*index),
-                _ => None,
+    let enumeration_len_param = len_kinds.iter().enumerate().find_map(|(_param_index, len_kind)| {
+        let LengthKind::Param { index: len_param_index, c_decl } = len_kind.as_ref()? else {
+            return None;
+        };
+        let category = ctype_rust::CTypeCategory::from_ctype(&c_decl.ty, analysis);
+        match category {
+            ctype_rust::CTypeCategory::TypedPointer { is_const, .. } if !is_const => {
+                Some(*len_param_index)
             }
+            _ => None,
         }
-        _ => None,
     });
 
     let enumeration_info = enumeration_len_param.map(|len_param| {
@@ -267,25 +298,43 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
             |len| matches!(len, Some(LengthKind::Param { index, .. }) if *index == param_index),
         );
 
-        let is_output_param = match &param.c_decl.ty {
-            CType::Ptr {
-                is_const, pointee, ..
-            } => match pointee.as_ref() {
-                CType::Base(base) => {
-                    !*is_const && !is_opaque_type(base.name) && param.len.is_none()
+        let is_output_param = {
+            let category = ctype_rust::CTypeCategory::from_ctype(&param.c_decl.ty, analysis);
+            match category {
+                ctype_rust::CTypeCategory::TypedPointer { is_const, pointee } => {
+                    if is_const || param.len.is_some() {
+                        false
+                    } else if let CType::Base(base) = pointee {
+                        !ctype_rust::is_opaque_type(base.name)
+                    } else {
+                        false
+                    }
                 }
                 _ => false,
-            },
-            _ => false,
+            }
         };
 
-        let is_return_param = is_output_param
+        // Output opaque pointer only when C type is pointer-to-pointer (e.g. void**, OH_NativeBuffer**).
+        // Single opaque pointers (void* pData) stay as *mut T or &mut [u8] when they have a length.
+        let is_output_opaque_param = {
+            let category = ctype_rust::CTypeCategory::from_ctype(&param.c_decl.ty, analysis);
+            let non_const_ptr = match category {
+                ctype_rust::CTypeCategory::OpaquePointer { is_const, .. } => !is_const,
+                ctype_rust::CTypeCategory::TypedPointer { is_const, pointee } => {
+                    !is_const && ctype_rust::is_opaque_type(ctype_to_rust_type(analysis, pointee, None).as_str())
+                }
+                _ => false,
+            };
+            non_const_ptr && param.len.is_none() && is_pointer_to_pointer(&param.c_decl.ty)
+        };
+
+        let is_return_param = (is_output_param || is_output_opaque_param)
             && !is_implicit_length
             && !has_regular_return
             && command.success_codes.len() <= 1;
 
         if !is_implicit_length {
-            if is_output_param && !is_return_param {
+            if (is_output_param || is_output_opaque_param) && !is_return_param {
                 println!(
                     "output param can't be turned into a return value: {} -> {}",
                     command.name, param.c_decl.name
@@ -302,6 +351,7 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
                     len_kinds[param_index].as_ref(),
                     optional,
                     lifetime_param,
+                    is_output_param || is_output_opaque_param,
                 );
 
                 wrapper_params.push(WrapperParamInfo {
@@ -320,6 +370,7 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
             optional,
             is_output_param,
             is_return_param,
+            is_output_opaque_param,
         });
     }
 
@@ -368,79 +419,135 @@ pub fn convert_param_type(
     len: Option<&LengthKind<'_>>,
     optional: (bool, bool),
     lifetime_param: Option<&str>,
+    is_output_param: bool,
 ) -> String {
-    if let Some(len) = len
-        && !matches!(len, LengthKind::Literal(1))
-    {
-        let CType::Ptr {
-            pointee, is_const, ..
-        } = ty
-        else {
-            panic!(
+    use ctype_rust::CTypeCategory;
+
+    let has_non_literal_len = len
+        .map(|l| !matches!(l, LengthKind::Literal(1)))
+        .unwrap_or(false);
+
+    if has_non_literal_len {
+        let category = CTypeCategory::from_ctype(ty, analysis);
+        match category {
+            CTypeCategory::CharPointer { is_const } => {
+                let s = if is_const {
+                    "&CStr"
+                } else {
+                    "&mut CStr"
+                };
+                let s = if optional.0 { format!("Option<{}>", s) } else { s.to_string() };
+                return s;
+            }
+            CTypeCategory::OpaquePointer { pointee_name: "void", is_const } => {
+                // Writable void* with length-from-pointer (two-call pattern) → ExtendUninit<u8>
+                if !is_const && matches!(len.and_then(LengthKind::ty), Some(CType::Ptr { .. })) {
+                    return "impl ExtendUninit<u8>".to_string();
+                }
+                let s = if is_const { "&[u8]" } else { "&mut [u8]" };
+                let s = if optional.0 { format!("Option<{}>", s) } else { s.to_string() };
+                return s;
+            }
+            CTypeCategory::OpaquePointer { pointee_name: "char", is_const } => {
+                let s = if is_const { "&[*const c_char]" } else { "&mut [*mut c_char]" };
+                let s = if optional.0 { format!("Option<{}>", s) } else { s.to_string() };
+                return s;
+            }
+            CTypeCategory::OpaquePointer { pointee_name, is_const } => {
+                let inner = ctype_rust::type_name_with_lifetime(analysis, pointee_name, lifetime_param);
+                let s = if is_const {
+                    format!("&[*const {}]", inner)
+                } else {
+                    format!("&mut [*mut {}]", inner)
+                };
+                let s = if optional.0 { format!("Option<{}>", s) } else { s };
+                return s;
+            }
+            CTypeCategory::TypedPointer { is_const, pointee } => {
+                let element_ty = ctype_to_rust_type(analysis, pointee, lifetime_param);
+                let element_ty = if element_ty == "c_void" {
+                    "u8".to_string()
+                } else {
+                    element_ty
+                };
+                let slice_ty = if is_const {
+                    format!("&[{}]", element_ty)
+                } else {
+                    // Command-specific: length can be from a pointer (count param) → ExtendUninit
+                    if matches!(len.and_then(LengthKind::ty), Some(CType::Ptr { .. })) {
+                        return format!("impl ExtendUninit<{}>", element_ty);
+                    }
+                    format!("&mut [{}]", element_ty)
+                };
+                let s = if optional.0 {
+                    format!("Option<{}>", slice_ty)
+                } else {
+                    slice_ty
+                };
+                return s;
+            }
+            _ => panic!(
                 "expected pointer type because of length {:?}, got {:?}",
                 len, ty
-            );
-        };
+            ),
+        }
+    }
 
-        let ty = if matches!(pointee.as_ref(), CType::Base(base) if base.name == "char") {
-            let pointee = "CStr";
-            if *is_const {
-                format!("&{}", pointee)
+    let category = CTypeCategory::from_ctype(ty, analysis);
+    match category {
+        CTypeCategory::OpaquePointer { is_const, pointee_name } => {
+            let inner = ctype_rust::type_name_with_lifetime(analysis, pointee_name, lifetime_param);
+            let s = if is_const {
+                format!("*const {}", inner)
+            } else if is_output_param {
+                format!("&mut *mut {}", inner)
             } else {
-                format!("&mut {}", pointee)
-            }
-        } else {
-            let element_ty = ctype_to_rust_type(analysis, pointee.as_ref(), lifetime_param);
-            let element_ty = if element_ty == "c_void" {
-                "u8"
-            } else {
-                &element_ty
+                format!("*mut {}", inner)
             };
-
-            if *is_const {
-                format!("&[{}]", element_ty)
+            if optional.0 {
+                format!("Option<{}>", s)
             } else {
-                if matches!(len.ty(), Some(CType::Base { .. })) {
-                    format!("&mut [{}]", element_ty)
+                s
+            }
+        }
+        CTypeCategory::CharPointer { is_const } => {
+            let s = if is_const {
+                "*const c_char".to_string()
+            } else if is_output_param {
+                "&mut *mut c_char".to_string()
+            } else {
+                "*mut c_char".to_string()
+            };
+            if optional.0 {
+                format!("Option<{}>", s)
+            } else {
+                s
+            }
+        }
+        CTypeCategory::TypedPointer { is_const, pointee } => {
+            let ty = ctype_to_rust_type(analysis, pointee, lifetime_param);
+            let s = if ctype_rust::is_opaque_type(ty.as_str()) {
+                if is_const {
+                    format!("*const {}", ty)
+                } else if is_output_param {
+                    format!("&mut *mut {}", ty)
                 } else {
-                    assert!(matches!(len.ty(), Some(CType::Ptr { .. })));
-                    return format!("impl ExtendUninit<{}>", element_ty);
+                    format!("*mut {}", ty)
                 }
-            }
-        };
-
-        if (optional).0 {
-            format!("Option<{}>", ty)
-        } else {
-            ty
-        }
-    } else if let CType::Ptr {
-        pointee, is_const, ..
-    } = ty
-    {
-        let ty = ctype_to_rust_type(analysis, &pointee, None);
-
-        if is_opaque_type(ty.as_str()) {
-            if *is_const {
-                format!("*const {}", ty)
             } else {
-                format!("*mut {}", ty)
-            }
-        } else {
-            let ty = if *is_const {
-                format!("&{}", ty)
-            } else {
-                format!("&mut {}", ty)
+                if is_const {
+                    format!("&{}", ty)
+                } else {
+                    format!("&mut {}", ty)
+                }
             };
-
-            if (optional).0 {
-                format!("Option<{}>", ty)
+            if optional.0 {
+                format!("Option<{}>", s)
             } else {
-                ty
+                s
             }
         }
-    } else {
-        ctype_to_rust_type(analysis, ty, None)
+        _ => ctype_to_rust_type(analysis, ty, lifetime_param),
     }
 }
 
@@ -521,17 +628,156 @@ pub fn write_command_wrapper(
             extend_fn_name, array_params, len_param.name, array_params
         )
         .unwrap();
-        write_fn_call(file, &wrapper, info.optional);
+        write_fn_call(file, analysis, &wrapper, info.optional);
         writeln!(file, "}})").unwrap();
     } else {
-        write_fn_call(file, &wrapper, info.optional);
+        write_fn_call(file, analysis, &wrapper, info.optional);
     }
 
     writeln!(file, "}}").unwrap();
     writeln!(file, "}}").unwrap();
 }
 
-fn write_fn_call(file: &mut impl std::io::Write, wrapper: &WrapperCommandInfo, optional: bool) {
+fn arg_emit_kind(
+    param_index: usize,
+    param: &ParamInfo,
+    wrapper: &WrapperCommandInfo,
+    analysis: &Analysis,
+) -> ArgEmitKind {
+    let ty = &param.param.c_decl.ty;
+    let category = ctype_rust::CTypeCategory::from_ctype(ty, analysis);
+    let in_enumeration = wrapper.enumeration_info.is_some();
+
+    // Is this param the length for another param (another param's len points to this index)?
+    let is_length_for = wrapper.params.iter().any(|p| {
+        matches!(
+            &p.len,
+            Some(LengthKind::Param { index, .. }) if *index == param_index
+        )
+    });
+    let array_param_for_len = wrapper.params.iter().find(|p| {
+        matches!(
+            &p.len,
+            Some(LengthKind::Param { index, .. }) if *index == param_index
+        )
+    });
+
+    if is_length_for {
+        // This param is a length; the "array" param (whose len we are) gets passed the slice.
+        if matches!(ty, CType::Ptr { .. }) {
+            return ArgEmitKind::Direct; // length param that is a pointer: pass through (e.g. two-call pattern)
+        }
+        if let Some(array_param) = array_param_for_len {
+            return ArgEmitKind::LenFromSlice {
+                slice_param_name: array_param.name.clone(),
+            };
+        }
+    }
+
+    if let Some(enumeration_info) = &wrapper.enumeration_info {
+        if enumeration_info.array_params.contains(&param_index) {
+            return ArgEmitKind::TransmuteForEnumeration;
+        }
+    }
+
+    if let Some(len) = &param.len {
+        if !matches!(len, LengthKind::Literal(1)) {
+            let is_const = match category {
+                ctype_rust::CTypeCategory::TypedPointer { is_const, .. }
+                | ctype_rust::CTypeCategory::CharPointer { is_const }
+                | ctype_rust::CTypeCategory::OpaquePointer { is_const, .. } => is_const,
+                _ => false,
+            };
+            return ArgEmitKind::SliceAsPtr {
+                is_const,
+                optional: param.optional.0,
+            };
+        }
+    }
+
+    if param.is_return_param {
+        return ArgEmitKind::ReturnParamAsMutPtr;
+    }
+
+    if matches!(category, ctype_rust::CTypeCategory::TypedPointer { .. }
+        | ctype_rust::CTypeCategory::OpaquePointer { .. }
+        | ctype_rust::CTypeCategory::CharPointer { .. })
+        && param.optional.0
+        && !param.is_output_opaque_param
+    {
+        let is_const = match category {
+            ctype_rust::CTypeCategory::TypedPointer { is_const, .. }
+            | ctype_rust::CTypeCategory::CharPointer { is_const }
+            | ctype_rust::CTypeCategory::OpaquePointer { is_const, .. } => is_const,
+            _ => true,
+        };
+        return ArgEmitKind::OptionalPtrToRaw {
+            is_const,
+            in_enumeration,
+        };
+    }
+
+    ArgEmitKind::Direct
+}
+
+fn emit_arg(file: &mut impl std::io::Write, param_name: &str, kind: ArgEmitKind) {
+    match kind {
+        ArgEmitKind::Direct => {
+            writeln!(file, "{},", param_name).unwrap();
+        }
+        ArgEmitKind::LenFromSlice { slice_param_name } => {
+            writeln!(
+                file,
+                "{}.len().try_into().unwrap(),",
+                slice_param_name
+            )
+            .unwrap();
+        }
+        ArgEmitKind::SliceAsPtr { is_const, optional } => {
+            if optional {
+                if is_const {
+                    writeln!(file, "{}.to_raw_ptr(),", param_name).unwrap();
+                } else {
+                    writeln!(file, "{}.to_raw_mut_ptr(),", param_name).unwrap();
+                }
+            } else {
+                if is_const {
+                    writeln!(file, "{}.as_ptr() as _,", param_name).unwrap();
+                } else {
+                    writeln!(file, "{}.as_mut_ptr() as _,", param_name).unwrap();
+                }
+            }
+        }
+        ArgEmitKind::ReturnParamAsMutPtr => {
+            writeln!(file, "{}.as_mut_ptr(),", param_name).unwrap();
+        }
+        ArgEmitKind::OptionalPtrToRaw { is_const, in_enumeration } => {
+            if is_const {
+                writeln!(file, "{}.to_raw_ptr(),", param_name).unwrap();
+            } else {
+                if in_enumeration {
+                    writeln!(
+                        file,
+                        "todo!(\"output parameters in enumeration commands\"),"
+                    )
+                    .unwrap();
+                } else {
+                    writeln!(file, "{}.to_raw_mut_ptr(),", param_name).unwrap();
+                }
+            }
+        }
+        ArgEmitKind::TransmuteForEnumeration => {
+            writeln!(file, "{} as _,", param_name).unwrap();
+        }
+    }
+}
+
+fn write_fn_call(
+    file: &mut impl std::io::Write,
+    analysis: &Analysis,
+    wrapper: &WrapperCommandInfo,
+    optional: bool,
+) {
     if let WrapperReturnKind::OutputParams(params) = &wrapper.wrapper_return {
         for param in params {
             writeln!(
@@ -554,65 +800,8 @@ fn write_fn_call(file: &mut impl std::io::Write, wrapper: &WrapperCommandInfo, o
     }
 
     for (param_index, param) in wrapper.params.iter().enumerate() {
-        let array_param = wrapper.params.iter().find(
-            |p| matches!(p.len, Some(LengthKind::Param { index, .. }) if index == param_index),
-        );
-
-        let ty = &param.param.c_decl.ty;
-
-        if let Some(array_param) = array_param {
-            if matches!(ty, CType::Ptr { .. }) {
-                writeln!(file, "{},", param.name).unwrap();
-            } else {
-                writeln!(file, "{}.len().try_into().unwrap(),", array_param.name).unwrap();
-            }
-        } else {
-            if let Some(enumeration_info) = &wrapper.enumeration_info
-                && enumeration_info.array_params.contains(&param_index)
-            {
-                writeln!(file, "{} as _,", param.name).unwrap();
-            } else if let Some(len) = &param.len
-                && !matches!(len, LengthKind::Literal(1))
-            {
-                let CType::Ptr { is_const, .. } = ty else {
-                    panic!();
-                };
-
-                if param.optional.0 {
-                    if *is_const {
-                        writeln!(file, "{}.to_raw_ptr(),", param.name).unwrap();
-                    } else {
-                        writeln!(file, "{}.to_raw_mut_ptr(),", param.name).unwrap();
-                    }
-                } else {
-                    if *is_const {
-                        writeln!(file, "{}.as_ptr() as _,", param.name).unwrap();
-                    } else {
-                        writeln!(file, "{}.as_mut_ptr() as _,", param.name).unwrap();
-                    }
-                }
-            } else if param.is_return_param {
-                writeln!(file, "{}.as_mut_ptr(),", param.name).unwrap();
-            } else if let CType::Ptr { is_const, .. } = ty
-                && param.optional.0
-            {
-                if *is_const {
-                    writeln!(file, "{}.to_raw_ptr(),", param.name).unwrap();
-                } else {
-                    if wrapper.enumeration_info.is_some() {
-                        writeln!(
-                            file,
-                            "todo!(\"output parameters in enumeration commands\"),"
-                        )
-                        .unwrap();
-                    } else {
-                        writeln!(file, "{}.to_raw_mut_ptr(),", param.name).unwrap();
-                    }
-                }
-            } else {
-                writeln!(file, "{},", param.name).unwrap();
-            }
-        }
+        let kind = arg_emit_kind(param_index, param, wrapper, analysis);
+        emit_arg(file, &param.name, kind);
     }
     writeln!(file, ")").unwrap();
 
