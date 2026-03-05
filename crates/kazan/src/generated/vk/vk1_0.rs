@@ -388,8 +388,16 @@ pub(super) mod defs {
         }
     }
     impl<'a> ApplicationInfo<'a> {
+        pub fn application_name(mut self, application_name: &'a CStr) -> Self {
+            self.p_application_name = application_name.as_ptr();
+            self
+        }
         pub fn application_version(mut self, application_version: u32) -> Self {
             self.application_version = application_version;
+            self
+        }
+        pub fn engine_name(mut self, engine_name: &'a CStr) -> Self {
+            self.p_engine_name = engine_name.as_ptr();
             self
         }
         pub fn engine_version(mut self, engine_version: u32) -> Self {
@@ -2303,6 +2311,10 @@ pub(super) mod defs {
         }
         pub fn module(mut self, module: ShaderModule) -> Self {
             self.module = module;
+            self
+        }
+        pub fn name(mut self, name: &'a CStr) -> Self {
+            self.p_name = name.as_ptr();
             self
         }
         pub fn specialization_info(

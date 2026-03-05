@@ -226,6 +226,10 @@ pub(super) mod defs {
         }
     }
     impl<'a> PipelineShaderStageNodeCreateInfoAMDX<'a> {
+        pub fn name(mut self, name: &'a CStr) -> Self {
+            self.p_name = name.as_ptr();
+            self
+        }
         pub fn index(mut self, index: u32) -> Self {
             self.index = index;
             self

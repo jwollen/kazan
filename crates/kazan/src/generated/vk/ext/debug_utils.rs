@@ -46,6 +46,10 @@ pub(super) mod defs {
             self.object_handle = object_handle;
             self
         }
+        pub fn object_name(mut self, object_name: &'a CStr) -> Self {
+            self.p_object_name = object_name.as_ptr();
+            self
+        }
     }
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -119,6 +123,10 @@ pub(super) mod defs {
         }
     }
     impl<'a> DebugUtilsLabelEXT<'a> {
+        pub fn label_name(mut self, label_name: &'a CStr) -> Self {
+            self.p_label_name = label_name.as_ptr();
+            self
+        }
         pub fn color(mut self, color: [f32; 4]) -> Self {
             self.color = color;
             self
@@ -227,8 +235,16 @@ pub(super) mod defs {
             self.flags = flags;
             self
         }
+        pub fn message_id_name(mut self, message_id_name: &'a CStr) -> Self {
+            self.p_message_id_name = message_id_name.as_ptr();
+            self
+        }
         pub fn message_id_number(mut self, message_id_number: i32) -> Self {
             self.message_id_number = message_id_number;
+            self
+        }
+        pub fn message(mut self, message: &'a CStr) -> Self {
+            self.p_message = message.as_ptr();
             self
         }
         pub fn queue_labels(mut self, queue_labels: &'a [DebugUtilsLabelEXT<'a>]) -> Self {

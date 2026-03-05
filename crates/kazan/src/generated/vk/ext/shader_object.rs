@@ -144,6 +144,10 @@ pub(super) mod defs {
             self.p_code = code.as_ptr() as _;
             self
         }
+        pub fn name(mut self, name: &'a CStr) -> Self {
+            self.p_name = name.as_ptr();
+            self
+        }
         pub fn set_layouts(mut self, set_layouts: &'a [DescriptorSetLayout]) -> Self {
             self.set_layout_count = set_layouts.len().try_into().unwrap();
             self.p_set_layouts = set_layouts.as_ptr();

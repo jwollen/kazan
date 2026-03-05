@@ -42,6 +42,10 @@ pub(super) mod defs {
             self.object = object;
             self
         }
+        pub fn object_name(mut self, object_name: &'a CStr) -> Self {
+            self.p_object_name = object_name.as_ptr();
+            self
+        }
     }
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -115,6 +119,10 @@ pub(super) mod defs {
         }
     }
     impl<'a> DebugMarkerMarkerInfoEXT<'a> {
+        pub fn marker_name(mut self, marker_name: &'a CStr) -> Self {
+            self.p_marker_name = marker_name.as_ptr();
+            self
+        }
         pub fn color(mut self, color: [f32; 4]) -> Self {
             self.color = color;
             self

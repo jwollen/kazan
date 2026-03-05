@@ -41,6 +41,10 @@ pub(super) mod defs {
             self.display = display;
             self
         }
+        pub fn display_name(mut self, display_name: &'a CStr) -> Self {
+            self.display_name = display_name.as_ptr();
+            self
+        }
         pub fn physical_dimensions(mut self, physical_dimensions: Extent2D) -> Self {
             self.physical_dimensions = physical_dimensions;
             self

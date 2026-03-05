@@ -68,6 +68,10 @@ pub(super) mod defs {
             self.module = module;
             self
         }
+        pub fn name(mut self, name: &'a CStr) -> Self {
+            self.p_name = name.as_ptr();
+            self
+        }
     }
     #[repr(C)]
     #[derive(Copy, Clone)]

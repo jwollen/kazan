@@ -62,6 +62,14 @@ pub(super) mod defs {
         }
     }
     impl<'a> LayerSettingEXT<'a> {
+        pub fn layer_name(mut self, layer_name: &'a CStr) -> Self {
+            self.p_layer_name = layer_name.as_ptr();
+            self
+        }
+        pub fn setting_name(mut self, setting_name: &'a CStr) -> Self {
+            self.p_setting_name = setting_name.as_ptr();
+            self
+        }
         pub fn ty(mut self, ty: LayerSettingTypeEXT) -> Self {
             self.ty = ty;
             self

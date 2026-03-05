@@ -221,7 +221,12 @@ pub(super) mod defs {
             }
         }
     }
-    impl<'a> DataGraphPipelineCompilerControlCreateInfoARM<'a> {}
+    impl<'a> DataGraphPipelineCompilerControlCreateInfoARM<'a> {
+        pub fn vendor_options(mut self, vendor_options: &'a CStr) -> Self {
+            self.p_vendor_options = vendor_options.as_ptr();
+            self
+        }
+    }
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DataGraphPipelineCreateInfoARM<'a> {
@@ -304,6 +309,10 @@ pub(super) mod defs {
     impl<'a> DataGraphPipelineShaderModuleCreateInfoARM<'a> {
         pub fn module(mut self, module: ShaderModule) -> Self {
             self.module = module;
+            self
+        }
+        pub fn name(mut self, name: &'a CStr) -> Self {
+            self.p_name = name.as_ptr();
             self
         }
         pub fn specialization_info(
