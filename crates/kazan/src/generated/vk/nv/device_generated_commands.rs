@@ -779,15 +779,10 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &GeneratedCommandsMemoryRequirementsInfoNV<'_>,
-    ) -> MemoryRequirements2<'_> {
+        memory_requirements: &mut MemoryRequirements2<'_>,
+    ) {
         unsafe {
-            let mut memory_requirements = core::mem::MaybeUninit::uninit();
-            (self.get_generated_commands_memory_requirements_nv)(
-                device,
-                info,
-                memory_requirements.as_mut_ptr(),
-            );
-            memory_requirements.assume_init()
+            (self.get_generated_commands_memory_requirements_nv)(device, info, memory_requirements)
         }
     }
     pub unsafe fn cmd_preprocess_generated_commands_nv(

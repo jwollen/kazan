@@ -345,9 +345,21 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
             non_const_ptr && param.len.is_none() && is_pointer_to_pointer(&param.c_decl.ty)
         };
 
+        // Extensible structs (with sType/pNext) must remain as &mut output parameters
+        // so callers can pre-populate the pNext chain before calling.
+        let is_extensible_output = is_output_param && {
+            let category = ctype_rust::CTypeCategory::from_ctype(&param.c_decl.ty, analysis);
+            matches!(
+                category,
+                ctype_rust::CTypeCategory::TypedPointer { pointee: CType::Base(base), .. }
+                    if analysis.is_extensible_struct(base.name)
+            )
+        };
+
         let is_return_param = (is_output_param || is_output_opaque_param)
             && !is_implicit_length
             && !has_regular_return
+            && !is_extensible_output
             && command.success_codes.len() <= 1;
 
         let is_enumeration_array = if let Some(enumeration_info) = &enumeration_info {

@@ -304,17 +304,17 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         display_plane_info: &DisplayPlaneInfo2KHR<'_>,
-    ) -> crate::Result<DisplayPlaneCapabilities2KHR<'_>> {
+        capabilities: &mut DisplayPlaneCapabilities2KHR<'_>,
+    ) -> crate::Result<()> {
         unsafe {
-            let mut capabilities = core::mem::MaybeUninit::uninit();
             let result = (self.get_display_plane_capabilities2_khr)(
                 physical_device,
                 display_plane_info,
-                capabilities.as_mut_ptr(),
+                capabilities,
             );
 
             match result {
-                VkResult::SUCCESS => Ok(capabilities.assume_init()),
+                VkResult::SUCCESS => Ok(()),
                 err => Err(err),
             }
         }

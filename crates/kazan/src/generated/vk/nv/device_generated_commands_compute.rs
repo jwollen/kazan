@@ -197,15 +197,14 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &ComputePipelineCreateInfo<'_>,
-    ) -> MemoryRequirements2<'_> {
+        memory_requirements: &mut MemoryRequirements2<'_>,
+    ) {
         unsafe {
-            let mut memory_requirements = core::mem::MaybeUninit::uninit();
             (self.get_pipeline_indirect_memory_requirements_nv)(
                 device,
                 create_info,
-                memory_requirements.as_mut_ptr(),
-            );
-            memory_requirements.assume_init()
+                memory_requirements,
+            )
         }
     }
     pub unsafe fn cmd_update_pipeline_indirect_buffer_nv(

@@ -146,17 +146,17 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         surface: SurfaceKHR,
-    ) -> crate::Result<SurfaceCapabilities2EXT<'_>> {
+        surface_capabilities: &mut SurfaceCapabilities2EXT<'_>,
+    ) -> crate::Result<()> {
         unsafe {
-            let mut surface_capabilities = core::mem::MaybeUninit::uninit();
             let result = (self.get_physical_device_surface_capabilities2_ext)(
                 physical_device,
                 surface,
-                surface_capabilities.as_mut_ptr(),
+                surface_capabilities,
             );
 
             match result {
-                VkResult::SUCCESS => Ok(surface_capabilities.assume_init()),
+                VkResult::SUCCESS => Ok(()),
                 err => Err(err),
             }
         }

@@ -152,16 +152,16 @@ impl DeviceFn {
     pub unsafe fn get_device_group_present_capabilities_khr(
         &self,
         device: Device,
-    ) -> crate::Result<DeviceGroupPresentCapabilitiesKHR<'_>> {
+        device_group_present_capabilities: &mut DeviceGroupPresentCapabilitiesKHR<'_>,
+    ) -> crate::Result<()> {
         unsafe {
-            let mut device_group_present_capabilities = core::mem::MaybeUninit::uninit();
             let result = (self.get_device_group_present_capabilities_khr.unwrap())(
                 device,
-                device_group_present_capabilities.as_mut_ptr(),
+                device_group_present_capabilities,
             );
 
             match result {
-                VkResult::SUCCESS => Ok(device_group_present_capabilities.assume_init()),
+                VkResult::SUCCESS => Ok(()),
                 err => Err(err),
             }
         }

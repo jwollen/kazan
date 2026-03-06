@@ -706,17 +706,17 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         quality_level_info: &PhysicalDeviceVideoEncodeQualityLevelInfoKHR<'_>,
-    ) -> crate::Result<VideoEncodeQualityLevelPropertiesKHR<'_>> {
+        quality_level_properties: &mut VideoEncodeQualityLevelPropertiesKHR<'_>,
+    ) -> crate::Result<()> {
         unsafe {
-            let mut quality_level_properties = core::mem::MaybeUninit::uninit();
             let result = (self.get_physical_device_video_encode_quality_level_properties_khr)(
                 physical_device,
                 quality_level_info,
-                quality_level_properties.as_mut_ptr(),
+                quality_level_properties,
             );
 
             match result {
-                VkResult::SUCCESS => Ok(quality_level_properties.assume_init()),
+                VkResult::SUCCESS => Ok(()),
                 err => Err(err),
             }
         }

@@ -140,14 +140,13 @@ impl DeviceFn {
         &self,
         device: Device,
         image_view: ImageView,
-    ) -> crate::Result<ImageViewAddressPropertiesNVX<'_>> {
+        properties: &mut ImageViewAddressPropertiesNVX<'_>,
+    ) -> crate::Result<()> {
         unsafe {
-            let mut properties = core::mem::MaybeUninit::uninit();
-            let result =
-                (self.get_image_view_address_nvx)(device, image_view, properties.as_mut_ptr());
+            let result = (self.get_image_view_address_nvx)(device, image_view, properties);
 
             match result {
-                VkResult::SUCCESS => Ok(properties.assume_init()),
+                VkResult::SUCCESS => Ok(()),
                 err => Err(err),
             }
         }

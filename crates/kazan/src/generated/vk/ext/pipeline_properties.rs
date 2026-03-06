@@ -102,17 +102,14 @@ impl DeviceFn {
         &self,
         device: Device,
         pipeline_info: &PipelineInfoEXT<'_>,
-    ) -> crate::Result<BaseOutStructure<'_>> {
+        pipeline_properties: &mut BaseOutStructure<'_>,
+    ) -> crate::Result<()> {
         unsafe {
-            let mut pipeline_properties = core::mem::MaybeUninit::uninit();
-            let result = (self.get_pipeline_properties_ext)(
-                device,
-                pipeline_info,
-                pipeline_properties.as_mut_ptr(),
-            );
+            let result =
+                (self.get_pipeline_properties_ext)(device, pipeline_info, pipeline_properties);
 
             match result {
-                VkResult::SUCCESS => Ok(pipeline_properties.assume_init()),
+                VkResult::SUCCESS => Ok(()),
                 err => Err(err),
             }
         }

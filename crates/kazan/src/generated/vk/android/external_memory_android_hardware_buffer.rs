@@ -372,17 +372,14 @@ impl DeviceFn {
         &self,
         device: Device,
         buffer: *const AHardwareBuffer,
-    ) -> crate::Result<AndroidHardwareBufferPropertiesANDROID<'_>> {
+        properties: &mut AndroidHardwareBufferPropertiesANDROID<'_>,
+    ) -> crate::Result<()> {
         unsafe {
-            let mut properties = core::mem::MaybeUninit::uninit();
-            let result = (self.get_android_hardware_buffer_properties_android)(
-                device,
-                buffer,
-                properties.as_mut_ptr(),
-            );
+            let result =
+                (self.get_android_hardware_buffer_properties_android)(device, buffer, properties);
 
             match result {
-                VkResult::SUCCESS => Ok(properties.assume_init()),
+                VkResult::SUCCESS => Ok(()),
                 err => Err(err),
             }
         }

@@ -475,17 +475,17 @@ impl DeviceFn {
         &self,
         device: Device,
         execution_graph: Pipeline,
-    ) -> crate::Result<ExecutionGraphPipelineScratchSizeAMDX<'_>> {
+        size_info: &mut ExecutionGraphPipelineScratchSizeAMDX<'_>,
+    ) -> crate::Result<()> {
         unsafe {
-            let mut size_info = core::mem::MaybeUninit::uninit();
             let result = (self.get_execution_graph_pipeline_scratch_size_amdx)(
                 device,
                 execution_graph,
-                size_info.as_mut_ptr(),
+                size_info,
             );
 
             match result {
-                VkResult::SUCCESS => Ok(size_info.assume_init()),
+                VkResult::SUCCESS => Ok(()),
                 err => Err(err),
             }
         }

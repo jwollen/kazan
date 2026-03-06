@@ -1032,16 +1032,8 @@ impl DeviceFn {
         device: Device,
         build_type: AccelerationStructureBuildTypeKHR,
         build_info: &MicromapBuildInfoEXT<'_>,
-    ) -> MicromapBuildSizesInfoEXT<'_> {
-        unsafe {
-            let mut size_info = core::mem::MaybeUninit::uninit();
-            (self.get_micromap_build_sizes_ext)(
-                device,
-                build_type,
-                build_info,
-                size_info.as_mut_ptr(),
-            );
-            size_info.assume_init()
-        }
+        size_info: &mut MicromapBuildSizesInfoEXT<'_>,
+    ) {
+        unsafe { (self.get_micromap_build_sizes_ext)(device, build_type, build_info, size_info) }
     }
 }

@@ -83,28 +83,17 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &DeviceImageSubresourceInfo<'_>,
-    ) -> SubresourceLayout2<'_> {
-        unsafe {
-            let mut layout = core::mem::MaybeUninit::uninit();
-            (self.get_device_image_subresource_layout_khr)(device, info, layout.as_mut_ptr());
-            layout.assume_init()
-        }
+        layout: &mut SubresourceLayout2<'_>,
+    ) {
+        unsafe { (self.get_device_image_subresource_layout_khr)(device, info, layout) }
     }
     pub unsafe fn get_image_subresource_layout2_khr(
         &self,
         device: Device,
         image: Image,
         subresource: &ImageSubresource2<'_>,
-    ) -> SubresourceLayout2<'_> {
-        unsafe {
-            let mut layout = core::mem::MaybeUninit::uninit();
-            (self.get_image_subresource_layout2_khr)(
-                device,
-                image,
-                subresource,
-                layout.as_mut_ptr(),
-            );
-            layout.assume_init()
-        }
+        layout: &mut SubresourceLayout2<'_>,
+    ) {
+        unsafe { (self.get_image_subresource_layout2_khr)(device, image, subresource, layout) }
     }
 }

@@ -518,17 +518,17 @@ impl DeviceFn {
         &self,
         device: Device,
         pipeline_create_info: Option<&PipelineCreateInfoKHR<'_>>,
-    ) -> crate::Result<PipelineBinaryKeyKHR<'_>> {
+        pipeline_key: &mut PipelineBinaryKeyKHR<'_>,
+    ) -> crate::Result<()> {
         unsafe {
-            let mut pipeline_key = core::mem::MaybeUninit::uninit();
             let result = (self.get_pipeline_key_khr)(
                 device,
                 pipeline_create_info.to_raw_ptr(),
-                pipeline_key.as_mut_ptr(),
+                pipeline_key,
             );
 
             match result {
-                VkResult::SUCCESS => Ok(pipeline_key.assume_init()),
+                VkResult::SUCCESS => Ok(()),
                 err => Err(err),
             }
         }
@@ -537,30 +537,36 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &PipelineBinaryDataInfoKHR<'a>,
+        pipeline_binary_key: &mut PipelineBinaryKeyKHR<'a>,
         mut pipeline_binary_data: impl ExtendUninit<u8>,
-    ) -> crate::Result<PipelineBinaryKeyKHR<'_>> {
+    ) -> crate::Result<()> {
         unsafe {
-            let call = |pipeline_binary_data_size, pipeline_binary_data| {
-                let mut pipeline_binary_key = core::mem::MaybeUninit::uninit();
+            let call = |pipeline_binary_data_size,
+                        pipeline_binary_data,
+                        pipeline_binary_key: &mut PipelineBinaryKeyKHR<'a>| {
                 let result = (self.get_pipeline_binary_data_khr)(
                     device,
                     info,
-                    pipeline_binary_key.as_mut_ptr(),
+                    pipeline_binary_key,
                     pipeline_binary_data_size,
                     pipeline_binary_data as _,
                 );
 
                 match result {
-                    VkResult::SUCCESS => Ok(pipeline_binary_key.assume_init()),
+                    VkResult::SUCCESS => Ok(()),
                     err => Err(err),
                 }
             };
             let mut len = 0;
-            call(&mut len, std::ptr::null_mut())?;
+            call(&mut len, std::ptr::null_mut(), pipeline_binary_key)?;
             let capacity = len.try_into().expect("failed to convert `N` to usize");
             let pipeline_binary_data_buf = pipeline_binary_data.reserve(capacity);
             len = pipeline_binary_data_buf.len().try_into().unwrap();
-            let result = call(&mut len, pipeline_binary_data_buf.as_mut_ptr() as *mut _)?;
+            let result = call(
+                &mut len,
+                pipeline_binary_data_buf.as_mut_ptr() as *mut _,
+                pipeline_binary_key,
+            )?;
             pipeline_binary_data.set_len(len.try_into().unwrap());
             Ok(result)
         }

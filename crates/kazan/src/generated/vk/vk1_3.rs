@@ -4411,31 +4411,17 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &DeviceBufferMemoryRequirements<'_>,
-    ) -> MemoryRequirements2<'_> {
-        unsafe {
-            let mut memory_requirements = core::mem::MaybeUninit::uninit();
-            (self.get_device_buffer_memory_requirements)(
-                device,
-                info,
-                memory_requirements.as_mut_ptr(),
-            );
-            memory_requirements.assume_init()
-        }
+        memory_requirements: &mut MemoryRequirements2<'_>,
+    ) {
+        unsafe { (self.get_device_buffer_memory_requirements)(device, info, memory_requirements) }
     }
     pub unsafe fn get_device_image_memory_requirements(
         &self,
         device: Device,
         info: &DeviceImageMemoryRequirements<'_>,
-    ) -> MemoryRequirements2<'_> {
-        unsafe {
-            let mut memory_requirements = core::mem::MaybeUninit::uninit();
-            (self.get_device_image_memory_requirements)(
-                device,
-                info,
-                memory_requirements.as_mut_ptr(),
-            );
-            memory_requirements.assume_init()
-        }
+        memory_requirements: &mut MemoryRequirements2<'_>,
+    ) {
+        unsafe { (self.get_device_image_memory_requirements)(device, info, memory_requirements) }
     }
     pub unsafe fn get_device_image_sparse_memory_requirements<'a>(
         &self,

@@ -38,15 +38,14 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         external_semaphore_info: &PhysicalDeviceExternalSemaphoreInfo<'_>,
-    ) -> ExternalSemaphoreProperties<'_> {
+        external_semaphore_properties: &mut ExternalSemaphoreProperties<'_>,
+    ) {
         unsafe {
-            let mut external_semaphore_properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_external_semaphore_properties_khr)(
                 physical_device,
                 external_semaphore_info,
-                external_semaphore_properties.as_mut_ptr(),
-            );
-            external_semaphore_properties.assume_init()
+                external_semaphore_properties,
+            )
         }
     }
 }

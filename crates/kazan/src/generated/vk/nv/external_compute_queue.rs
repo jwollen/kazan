@@ -206,12 +206,9 @@ impl DeviceFn {
     pub unsafe fn get_external_compute_queue_data_nv(
         &self,
         external_queue: ExternalComputeQueueNV,
+        params: &mut ExternalComputeQueueDataParamsNV<'_>,
         data: *mut c_void,
-    ) -> ExternalComputeQueueDataParamsNV<'_> {
-        unsafe {
-            let mut params = core::mem::MaybeUninit::uninit();
-            (self.get_external_compute_queue_data_nv)(external_queue, params.as_mut_ptr(), data);
-            params.assume_init()
-        }
+    ) {
+        unsafe { (self.get_external_compute_queue_data_nv)(external_queue, params, data) }
     }
 }

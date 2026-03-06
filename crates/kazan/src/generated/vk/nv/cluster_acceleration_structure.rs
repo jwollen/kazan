@@ -1018,16 +1018,9 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &ClusterAccelerationStructureInputInfoNV<'_>,
-    ) -> AccelerationStructureBuildSizesInfoKHR<'_> {
-        unsafe {
-            let mut size_info = core::mem::MaybeUninit::uninit();
-            (self.get_cluster_acceleration_structure_build_sizes_nv)(
-                device,
-                info,
-                size_info.as_mut_ptr(),
-            );
-            size_info.assume_init()
-        }
+        size_info: &mut AccelerationStructureBuildSizesInfoKHR<'_>,
+    ) {
+        unsafe { (self.get_cluster_acceleration_structure_build_sizes_nv)(device, info, size_info) }
     }
     pub unsafe fn cmd_build_cluster_acceleration_structure_indirect_nv(
         &self,

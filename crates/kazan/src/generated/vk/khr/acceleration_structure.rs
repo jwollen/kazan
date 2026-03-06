@@ -1627,17 +1627,16 @@ impl DeviceFn {
         build_type: AccelerationStructureBuildTypeKHR,
         build_info: &AccelerationStructureBuildGeometryInfoKHR<'_>,
         max_primitive_counts: Option<&[u32]>,
-    ) -> AccelerationStructureBuildSizesInfoKHR<'_> {
+        size_info: &mut AccelerationStructureBuildSizesInfoKHR<'_>,
+    ) {
         unsafe {
-            let mut size_info = core::mem::MaybeUninit::uninit();
             (self.get_acceleration_structure_build_sizes_khr)(
                 device,
                 build_type,
                 build_info,
                 max_primitive_counts.to_raw_ptr(),
-                size_info.as_mut_ptr(),
-            );
-            size_info.assume_init()
+                size_info,
+            )
         }
     }
 }

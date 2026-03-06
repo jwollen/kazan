@@ -352,15 +352,14 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         samples: SampleCountFlagBits,
-    ) -> MultisamplePropertiesEXT<'_> {
+        multisample_properties: &mut MultisamplePropertiesEXT<'_>,
+    ) {
         unsafe {
-            let mut multisample_properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_multisample_properties_ext)(
                 physical_device,
                 samples,
-                multisample_properties.as_mut_ptr(),
-            );
-            multisample_properties.assume_init()
+                multisample_properties,
+            )
         }
     }
 }

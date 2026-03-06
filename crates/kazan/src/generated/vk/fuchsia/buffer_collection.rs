@@ -650,17 +650,14 @@ impl DeviceFn {
         &self,
         device: Device,
         collection: BufferCollectionFUCHSIA,
-    ) -> crate::Result<BufferCollectionPropertiesFUCHSIA<'_>> {
+        properties: &mut BufferCollectionPropertiesFUCHSIA<'_>,
+    ) -> crate::Result<()> {
         unsafe {
-            let mut properties = core::mem::MaybeUninit::uninit();
-            let result = (self.get_buffer_collection_properties_fuchsia)(
-                device,
-                collection,
-                properties.as_mut_ptr(),
-            );
+            let result =
+                (self.get_buffer_collection_properties_fuchsia)(device, collection, properties);
 
             match result {
-                VkResult::SUCCESS => Ok(properties.assume_init()),
+                VkResult::SUCCESS => Ok(()),
                 err => Err(err),
             }
         }

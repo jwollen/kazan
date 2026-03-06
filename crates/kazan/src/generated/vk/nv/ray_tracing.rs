@@ -828,15 +828,14 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &AccelerationStructureMemoryRequirementsInfoNV<'_>,
-    ) -> MemoryRequirements2KHR<'_> {
+        memory_requirements: &mut MemoryRequirements2KHR<'_>,
+    ) {
         unsafe {
-            let mut memory_requirements = core::mem::MaybeUninit::uninit();
             (self.get_acceleration_structure_memory_requirements_nv)(
                 device,
                 info,
-                memory_requirements.as_mut_ptr(),
-            );
-            memory_requirements.assume_init()
+                memory_requirements,
+            )
         }
     }
     pub unsafe fn bind_acceleration_structure_memory_nv(

@@ -133,18 +133,18 @@ impl DeviceFn {
         device: Device,
         handle_type: ExternalMemoryHandleTypeFlagBits,
         host_pointer: *const c_void,
-    ) -> crate::Result<MemoryHostPointerPropertiesEXT<'_>> {
+        memory_host_pointer_properties: &mut MemoryHostPointerPropertiesEXT<'_>,
+    ) -> crate::Result<()> {
         unsafe {
-            let mut memory_host_pointer_properties = core::mem::MaybeUninit::uninit();
             let result = (self.get_memory_host_pointer_properties_ext)(
                 device,
                 handle_type,
                 host_pointer,
-                memory_host_pointer_properties.as_mut_ptr(),
+                memory_host_pointer_properties,
             );
 
             match result {
-                VkResult::SUCCESS => Ok(memory_host_pointer_properties.assume_init()),
+                VkResult::SUCCESS => Ok(()),
                 err => Err(err),
             }
         }

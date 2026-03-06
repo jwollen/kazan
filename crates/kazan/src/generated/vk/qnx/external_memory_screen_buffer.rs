@@ -249,14 +249,13 @@ impl DeviceFn {
         &self,
         device: Device,
         buffer: *const _screen_buffer,
-    ) -> crate::Result<ScreenBufferPropertiesQNX<'_>> {
+        properties: &mut ScreenBufferPropertiesQNX<'_>,
+    ) -> crate::Result<()> {
         unsafe {
-            let mut properties = core::mem::MaybeUninit::uninit();
-            let result =
-                (self.get_screen_buffer_properties_qnx)(device, buffer, properties.as_mut_ptr());
+            let result = (self.get_screen_buffer_properties_qnx)(device, buffer, properties);
 
             match result {
-                VkResult::SUCCESS => Ok(properties.assume_init()),
+                VkResult::SUCCESS => Ok(()),
                 err => Err(err),
             }
         }

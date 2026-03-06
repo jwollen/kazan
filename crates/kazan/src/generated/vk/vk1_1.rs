@@ -3185,53 +3185,46 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_features2(
         &self,
         physical_device: PhysicalDevice,
-    ) -> PhysicalDeviceFeatures2<'_> {
-        unsafe {
-            let mut features = core::mem::MaybeUninit::uninit();
-            (self.get_physical_device_features2)(physical_device, features.as_mut_ptr());
-            features.assume_init()
-        }
+        features: &mut PhysicalDeviceFeatures2<'_>,
+    ) {
+        unsafe { (self.get_physical_device_features2)(physical_device, features) }
     }
     pub unsafe fn get_physical_device_properties2(
         &self,
         physical_device: PhysicalDevice,
-    ) -> PhysicalDeviceProperties2<'_> {
-        unsafe {
-            let mut properties = core::mem::MaybeUninit::uninit();
-            (self.get_physical_device_properties2)(physical_device, properties.as_mut_ptr());
-            properties.assume_init()
-        }
+        properties: &mut PhysicalDeviceProperties2<'_>,
+    ) {
+        unsafe { (self.get_physical_device_properties2)(physical_device, properties) }
     }
     pub unsafe fn get_physical_device_format_properties2(
         &self,
         physical_device: PhysicalDevice,
         format: Format,
-    ) -> FormatProperties2<'_> {
+        format_properties: &mut FormatProperties2<'_>,
+    ) {
         unsafe {
-            let mut format_properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_format_properties2)(
                 physical_device,
                 format,
-                format_properties.as_mut_ptr(),
-            );
-            format_properties.assume_init()
+                format_properties,
+            )
         }
     }
     pub unsafe fn get_physical_device_image_format_properties2(
         &self,
         physical_device: PhysicalDevice,
         image_format_info: &PhysicalDeviceImageFormatInfo2<'_>,
-    ) -> crate::Result<ImageFormatProperties2<'_>> {
+        image_format_properties: &mut ImageFormatProperties2<'_>,
+    ) -> crate::Result<()> {
         unsafe {
-            let mut image_format_properties = core::mem::MaybeUninit::uninit();
             let result = (self.get_physical_device_image_format_properties2)(
                 physical_device,
                 image_format_info,
-                image_format_properties.as_mut_ptr(),
+                image_format_properties,
             );
 
             match result {
-                VkResult::SUCCESS => Ok(image_format_properties.assume_init()),
+                VkResult::SUCCESS => Ok(()),
                 err => Err(err),
             }
         }
@@ -3261,15 +3254,9 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_memory_properties2(
         &self,
         physical_device: PhysicalDevice,
-    ) -> PhysicalDeviceMemoryProperties2<'_> {
-        unsafe {
-            let mut memory_properties = core::mem::MaybeUninit::uninit();
-            (self.get_physical_device_memory_properties2)(
-                physical_device,
-                memory_properties.as_mut_ptr(),
-            );
-            memory_properties.assume_init()
-        }
+        memory_properties: &mut PhysicalDeviceMemoryProperties2<'_>,
+    ) {
+        unsafe { (self.get_physical_device_memory_properties2)(physical_device, memory_properties) }
     }
     pub unsafe fn get_physical_device_sparse_image_format_properties2<'a>(
         &self,
@@ -3299,45 +3286,42 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         external_buffer_info: &PhysicalDeviceExternalBufferInfo<'_>,
-    ) -> ExternalBufferProperties<'_> {
+        external_buffer_properties: &mut ExternalBufferProperties<'_>,
+    ) {
         unsafe {
-            let mut external_buffer_properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_external_buffer_properties)(
                 physical_device,
                 external_buffer_info,
-                external_buffer_properties.as_mut_ptr(),
-            );
-            external_buffer_properties.assume_init()
+                external_buffer_properties,
+            )
         }
     }
     pub unsafe fn get_physical_device_external_fence_properties(
         &self,
         physical_device: PhysicalDevice,
         external_fence_info: &PhysicalDeviceExternalFenceInfo<'_>,
-    ) -> ExternalFenceProperties<'_> {
+        external_fence_properties: &mut ExternalFenceProperties<'_>,
+    ) {
         unsafe {
-            let mut external_fence_properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_external_fence_properties)(
                 physical_device,
                 external_fence_info,
-                external_fence_properties.as_mut_ptr(),
-            );
-            external_fence_properties.assume_init()
+                external_fence_properties,
+            )
         }
     }
     pub unsafe fn get_physical_device_external_semaphore_properties(
         &self,
         physical_device: PhysicalDevice,
         external_semaphore_info: &PhysicalDeviceExternalSemaphoreInfo<'_>,
-    ) -> ExternalSemaphoreProperties<'_> {
+        external_semaphore_properties: &mut ExternalSemaphoreProperties<'_>,
+    ) {
         unsafe {
-            let mut external_semaphore_properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_external_semaphore_properties)(
                 physical_device,
                 external_semaphore_info,
-                external_semaphore_properties.as_mut_ptr(),
-            );
-            external_semaphore_properties.assume_init()
+                external_semaphore_properties,
+            )
         }
     }
 }
@@ -3480,23 +3464,17 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &ImageMemoryRequirementsInfo2<'_>,
-    ) -> MemoryRequirements2<'_> {
-        unsafe {
-            let mut memory_requirements = core::mem::MaybeUninit::uninit();
-            (self.get_image_memory_requirements2)(device, info, memory_requirements.as_mut_ptr());
-            memory_requirements.assume_init()
-        }
+        memory_requirements: &mut MemoryRequirements2<'_>,
+    ) {
+        unsafe { (self.get_image_memory_requirements2)(device, info, memory_requirements) }
     }
     pub unsafe fn get_buffer_memory_requirements2(
         &self,
         device: Device,
         info: &BufferMemoryRequirementsInfo2<'_>,
-    ) -> MemoryRequirements2<'_> {
-        unsafe {
-            let mut memory_requirements = core::mem::MaybeUninit::uninit();
-            (self.get_buffer_memory_requirements2)(device, info, memory_requirements.as_mut_ptr());
-            memory_requirements.assume_init()
-        }
+        memory_requirements: &mut MemoryRequirements2<'_>,
+    ) {
+        unsafe { (self.get_buffer_memory_requirements2)(device, info, memory_requirements) }
     }
     pub unsafe fn get_image_sparse_memory_requirements2<'a>(
         &self,
@@ -3621,12 +3599,9 @@ impl DeviceFn {
         &self,
         device: Device,
         create_info: &DescriptorSetLayoutCreateInfo<'_>,
-    ) -> DescriptorSetLayoutSupport<'_> {
-        unsafe {
-            let mut support = core::mem::MaybeUninit::uninit();
-            (self.get_descriptor_set_layout_support)(device, create_info, support.as_mut_ptr());
-            support.assume_init()
-        }
+        support: &mut DescriptorSetLayoutSupport<'_>,
+    ) {
+        unsafe { (self.get_descriptor_set_layout_support)(device, create_info, support) }
     }
     pub unsafe fn create_sampler_ycbcr_conversion(
         &self,

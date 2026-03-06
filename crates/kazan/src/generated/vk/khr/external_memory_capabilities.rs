@@ -43,15 +43,14 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         external_buffer_info: &PhysicalDeviceExternalBufferInfo<'_>,
-    ) -> ExternalBufferProperties<'_> {
+        external_buffer_properties: &mut ExternalBufferProperties<'_>,
+    ) {
         unsafe {
-            let mut external_buffer_properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_external_buffer_properties_khr)(
                 physical_device,
                 external_buffer_info,
-                external_buffer_properties.as_mut_ptr(),
-            );
-            external_buffer_properties.assume_init()
+                external_buffer_properties,
+            )
         }
     }
 }

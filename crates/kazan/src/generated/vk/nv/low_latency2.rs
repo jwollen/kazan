@@ -527,12 +527,9 @@ impl DeviceFn {
         &self,
         device: Device,
         swapchain: SwapchainKHR,
-    ) -> GetLatencyMarkerInfoNV<'_> {
-        unsafe {
-            let mut latency_marker_info = core::mem::MaybeUninit::uninit();
-            (self.get_latency_timings_nv)(device, swapchain, latency_marker_info.as_mut_ptr());
-            latency_marker_info.assume_init()
-        }
+        latency_marker_info: &mut GetLatencyMarkerInfoNV<'_>,
+    ) {
+        unsafe { (self.get_latency_timings_nv)(device, swapchain, latency_marker_info) }
     }
     pub unsafe fn queue_notify_out_of_band_nv(
         &self,

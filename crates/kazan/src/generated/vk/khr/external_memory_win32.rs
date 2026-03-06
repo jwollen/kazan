@@ -205,18 +205,18 @@ impl DeviceFn {
         device: Device,
         handle_type: ExternalMemoryHandleTypeFlagBits,
         handle: HANDLE,
-    ) -> crate::Result<MemoryWin32HandlePropertiesKHR<'_>> {
+        memory_win32_handle_properties: &mut MemoryWin32HandlePropertiesKHR<'_>,
+    ) -> crate::Result<()> {
         unsafe {
-            let mut memory_win32_handle_properties = core::mem::MaybeUninit::uninit();
             let result = (self.get_memory_win32_handle_properties_khr)(
                 device,
                 handle_type,
                 handle,
-                memory_win32_handle_properties.as_mut_ptr(),
+                memory_win32_handle_properties,
             );
 
             match result {
-                VkResult::SUCCESS => Ok(memory_win32_handle_properties.assume_init()),
+                VkResult::SUCCESS => Ok(()),
                 err => Err(err),
             }
         }

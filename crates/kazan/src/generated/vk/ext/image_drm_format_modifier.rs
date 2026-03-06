@@ -308,17 +308,14 @@ impl DeviceFn {
         &self,
         device: Device,
         image: Image,
-    ) -> crate::Result<ImageDrmFormatModifierPropertiesEXT<'_>> {
+        properties: &mut ImageDrmFormatModifierPropertiesEXT<'_>,
+    ) -> crate::Result<()> {
         unsafe {
-            let mut properties = core::mem::MaybeUninit::uninit();
-            let result = (self.get_image_drm_format_modifier_properties_ext)(
-                device,
-                image,
-                properties.as_mut_ptr(),
-            );
+            let result =
+                (self.get_image_drm_format_modifier_properties_ext)(device, image, properties);
 
             match result {
-                VkResult::SUCCESS => Ok(properties.assume_init()),
+                VkResult::SUCCESS => Ok(()),
                 err => Err(err),
             }
         }

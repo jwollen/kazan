@@ -1018,17 +1018,17 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         video_profile: &VideoProfileInfoKHR<'_>,
-    ) -> crate::Result<VideoCapabilitiesKHR<'_>> {
+        capabilities: &mut VideoCapabilitiesKHR<'_>,
+    ) -> crate::Result<()> {
         unsafe {
-            let mut capabilities = core::mem::MaybeUninit::uninit();
             let result = (self.get_physical_device_video_capabilities_khr)(
                 physical_device,
                 video_profile,
-                capabilities.as_mut_ptr(),
+                capabilities,
             );
 
             match result {
-                VkResult::SUCCESS => Ok(capabilities.assume_init()),
+                VkResult::SUCCESS => Ok(()),
                 err => Err(err),
             }
         }

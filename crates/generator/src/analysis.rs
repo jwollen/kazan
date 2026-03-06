@@ -82,6 +82,23 @@ impl Analysis {
     pub fn handle_command_types(&self) -> &HandleCommandTypes {
         &self.handle_command_types
     }
+
+    /// Returns true if the named type is a struct with an `sType` member (i.e. extensible via pNext).
+    pub fn is_extensible_struct(&self, type_name: &str) -> bool {
+        let types = self.types();
+        let mut name = type_name;
+        loop {
+            match types.get(name) {
+                Some(TypeKind::Struct(s)) => {
+                    return s.members.iter().any(|m| m.c_decl.name == "sType");
+                }
+                Some(TypeKind::Alias(a)) => {
+                    name = a.alias;
+                }
+                _ => return false,
+            }
+        }
+    }
 }
 
 #[derive(Debug)]

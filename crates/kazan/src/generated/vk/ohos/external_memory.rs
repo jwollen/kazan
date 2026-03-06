@@ -275,14 +275,13 @@ impl DeviceFn {
         &self,
         device: Device,
         buffer: &OH_NativeBuffer,
-    ) -> crate::Result<NativeBufferPropertiesOHOS<'_>> {
+        properties: &mut NativeBufferPropertiesOHOS<'_>,
+    ) -> crate::Result<()> {
         unsafe {
-            let mut properties = core::mem::MaybeUninit::uninit();
-            let result =
-                (self.get_native_buffer_properties_ohos)(device, buffer, properties.as_mut_ptr());
+            let result = (self.get_native_buffer_properties_ohos)(device, buffer, properties);
 
             match result {
-                VkResult::SUCCESS => Ok(properties.assume_init()),
+                VkResult::SUCCESS => Ok(()),
                 err => Err(err),
             }
         }

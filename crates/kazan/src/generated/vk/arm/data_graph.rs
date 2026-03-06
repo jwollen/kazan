@@ -1127,16 +1127,14 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         queue_family_data_graph_processing_engine_info: &PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM<'_>,
-    ) -> QueueFamilyDataGraphProcessingEnginePropertiesARM<'_> {
+        queue_family_data_graph_processing_engine_properties: &mut QueueFamilyDataGraphProcessingEnginePropertiesARM<'_>,
+    ) {
         unsafe {
-            let mut queue_family_data_graph_processing_engine_properties =
-                core::mem::MaybeUninit::uninit();
             (self.get_physical_device_queue_family_data_graph_processing_engine_properties_arm)(
                 physical_device,
                 queue_family_data_graph_processing_engine_info,
-                queue_family_data_graph_processing_engine_properties.as_mut_ptr(),
-            );
-            queue_family_data_graph_processing_engine_properties.assume_init()
+                queue_family_data_graph_processing_engine_properties,
+            )
         }
     }
 }
@@ -1281,15 +1279,14 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &DataGraphPipelineSessionMemoryRequirementsInfoARM<'_>,
-    ) -> MemoryRequirements2<'_> {
+        memory_requirements: &mut MemoryRequirements2<'_>,
+    ) {
         unsafe {
-            let mut memory_requirements = core::mem::MaybeUninit::uninit();
             (self.get_data_graph_pipeline_session_memory_requirements_arm)(
                 device,
                 info,
-                memory_requirements.as_mut_ptr(),
-            );
-            memory_requirements.assume_init()
+                memory_requirements,
+            )
         }
     }
     pub unsafe fn bind_data_graph_pipeline_session_memory_arm(

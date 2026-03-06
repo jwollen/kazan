@@ -159,18 +159,18 @@ impl DeviceFn {
         device: Device,
         handle_type: ExternalMemoryHandleTypeFlagBits,
         handle: *const c_void,
-    ) -> crate::Result<MemoryMetalHandlePropertiesEXT<'_>> {
+        memory_metal_handle_properties: &mut MemoryMetalHandlePropertiesEXT<'_>,
+    ) -> crate::Result<()> {
         unsafe {
-            let mut memory_metal_handle_properties = core::mem::MaybeUninit::uninit();
             let result = (self.get_memory_metal_handle_properties_ext)(
                 device,
                 handle_type,
                 handle,
-                memory_metal_handle_properties.as_mut_ptr(),
+                memory_metal_handle_properties,
             );
 
             match result {
-                VkResult::SUCCESS => Ok(memory_metal_handle_properties.assume_init()),
+                VkResult::SUCCESS => Ok(()),
                 err => Err(err),
             }
         }

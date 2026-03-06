@@ -512,15 +512,10 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &PartitionedAccelerationStructureInstancesInputNV<'_>,
-    ) -> AccelerationStructureBuildSizesInfoKHR<'_> {
+        size_info: &mut AccelerationStructureBuildSizesInfoKHR<'_>,
+    ) {
         unsafe {
-            let mut size_info = core::mem::MaybeUninit::uninit();
-            (self.get_partitioned_acceleration_structures_build_sizes_nv)(
-                device,
-                info,
-                size_info.as_mut_ptr(),
-            );
-            size_info.assume_init()
+            (self.get_partitioned_acceleration_structures_build_sizes_nv)(device, info, size_info)
         }
     }
     pub unsafe fn cmd_build_partitioned_acceleration_structures_nv(

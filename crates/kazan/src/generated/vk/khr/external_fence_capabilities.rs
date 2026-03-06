@@ -38,15 +38,14 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         external_fence_info: &PhysicalDeviceExternalFenceInfo<'_>,
-    ) -> ExternalFenceProperties<'_> {
+        external_fence_properties: &mut ExternalFenceProperties<'_>,
+    ) {
         unsafe {
-            let mut external_fence_properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_external_fence_properties_khr)(
                 physical_device,
                 external_fence_info,
-                external_fence_properties.as_mut_ptr(),
-            );
-            external_fence_properties.assume_init()
+                external_fence_properties,
+            )
         }
     }
 }

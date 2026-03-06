@@ -163,18 +163,18 @@ impl DeviceFn {
         device: Device,
         handle_type: ExternalMemoryHandleTypeFlagBits,
         zircon_handle: zx_handle_t,
-    ) -> crate::Result<MemoryZirconHandlePropertiesFUCHSIA<'_>> {
+        memory_zircon_handle_properties: &mut MemoryZirconHandlePropertiesFUCHSIA<'_>,
+    ) -> crate::Result<()> {
         unsafe {
-            let mut memory_zircon_handle_properties = core::mem::MaybeUninit::uninit();
             let result = (self.get_memory_zircon_handle_properties_fuchsia)(
                 device,
                 handle_type,
                 zircon_handle,
-                memory_zircon_handle_properties.as_mut_ptr(),
+                memory_zircon_handle_properties,
             );
 
             match result {
-                VkResult::SUCCESS => Ok(memory_zircon_handle_properties.assume_init()),
+                VkResult::SUCCESS => Ok(()),
                 err => Err(err),
             }
         }

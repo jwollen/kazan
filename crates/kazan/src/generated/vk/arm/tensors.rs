@@ -1145,15 +1145,14 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         external_tensor_info: &PhysicalDeviceExternalTensorInfoARM<'_>,
-    ) -> ExternalTensorPropertiesARM<'_> {
+        external_tensor_properties: &mut ExternalTensorPropertiesARM<'_>,
+    ) {
         unsafe {
-            let mut external_tensor_properties = core::mem::MaybeUninit::uninit();
             (self.get_physical_device_external_tensor_properties_arm)(
                 physical_device,
                 external_tensor_info,
-                external_tensor_properties.as_mut_ptr(),
-            );
-            external_tensor_properties.assume_init()
+                external_tensor_properties,
+            )
         }
     }
 }
@@ -1275,16 +1274,9 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &TensorMemoryRequirementsInfoARM<'_>,
-    ) -> MemoryRequirements2<'_> {
-        unsafe {
-            let mut memory_requirements = core::mem::MaybeUninit::uninit();
-            (self.get_tensor_memory_requirements_arm)(
-                device,
-                info,
-                memory_requirements.as_mut_ptr(),
-            );
-            memory_requirements.assume_init()
-        }
+        memory_requirements: &mut MemoryRequirements2<'_>,
+    ) {
+        unsafe { (self.get_tensor_memory_requirements_arm)(device, info, memory_requirements) }
     }
     pub unsafe fn bind_tensor_memory_arm(
         &self,
@@ -1308,15 +1300,10 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &DeviceTensorMemoryRequirementsARM<'_>,
-    ) -> MemoryRequirements2<'_> {
+        memory_requirements: &mut MemoryRequirements2<'_>,
+    ) {
         unsafe {
-            let mut memory_requirements = core::mem::MaybeUninit::uninit();
-            (self.get_device_tensor_memory_requirements_arm)(
-                device,
-                info,
-                memory_requirements.as_mut_ptr(),
-            );
-            memory_requirements.assume_init()
+            (self.get_device_tensor_memory_requirements_arm)(device, info, memory_requirements)
         }
     }
     pub unsafe fn cmd_copy_tensor_arm(
