@@ -117,6 +117,7 @@ impl CDecl<'static> {
 /// Raw representation of Vulkan XML files (`vk.xml`, `video.xml`).
 #[derive(Debug, Default)]
 pub struct Registry {
+    pub tags: Vec<&'static str>,
     pub externals: Vec<External>,
     pub basetypes: Vec<BaseType>,
     pub bitmask_types: Vec<BitMaskType>,
@@ -145,7 +146,29 @@ impl Registry {
         Registry::from_node(doc.root_element(), api)
     }
 
+    /// Returns the vendor tag suffix of a Vulkan name (e.g. "KHR" from "VkFooKHR"),
+    /// or `None` if the name has no recognized vendor suffix.
+    pub fn vendor_suffix(&self, name: &str) -> Option<&'static str> {
+        // For type names like "VkFooBarKHR", the suffix is an uppercase tag at the end.
+        // For constant names like "VK_FOO_BAR_KHR", the suffix follows the last underscore.
+        // We try both: first check if the name ends with `_TAG`, then check if it ends
+        // with `TAG` preceded by a lowercase letter (camelCase boundary).
+        self.tags
+            .iter()
+            .copied()
+            .filter(|tag| name.ends_with(tag))
+            .max_by_key(|tag| tag.len())
+    }
+
+    /// Returns the vendor tag of an extension name (e.g. "KHR" from "VK_KHR_swapchain").
+    pub fn extension_vendor(&self, extension_name: &str) -> Option<&'static str> {
+        let rest = extension_name.strip_prefix("VK_")?;
+        let tag = rest.split('_').next()?;
+        self.tags.iter().copied().find(|t| *t == tag)
+    }
+
     pub fn merge(&mut self, mut other: Registry) {
+        self.tags.append(&mut other.tags);
         self.externals.append(&mut other.externals);
         self.basetypes.append(&mut other.basetypes);
         self.bitmask_types.append(&mut other.bitmask_types);
@@ -175,6 +198,16 @@ impl Registry {
             .filter(|node| api_matches(node, api))
         {
             match registry_child.tag_name().name() {
+                "tags" => {
+                    for tag_node in registry_child
+                        .children()
+                        .filter(|node| node.has_tag_name("tag"))
+                    {
+                        if let Some(name) = attribute(tag_node, "name") {
+                            registry.tags.push(name);
+                        }
+                    }
+                }
                 "types" => {
                     for type_node in registry_child
                         .children()

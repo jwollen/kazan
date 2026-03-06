@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    handle_nondispatchable!(TensorARM, TENSOR_ARM, doc = "");
     handle_nondispatchable!(TensorViewARM, TENSOR_VIEW_ARM, doc = "");
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -111,6 +112,45 @@ pub(super) mod defs {
         pub fn queue_family_indices(mut self, queue_family_indices: &'a [u32]) -> Self {
             self.queue_family_index_count = queue_family_indices.len().try_into().unwrap();
             self.p_queue_family_indices = queue_family_indices.as_ptr();
+            self
+        }
+    }
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    pub struct TensorViewCreateInfoARM<'a> {
+        pub s_type: StructureType,
+        pub p_next: *const c_void,
+        pub flags: TensorViewCreateFlagsARM,
+        pub tensor: TensorARM,
+        pub format: Format,
+        pub _marker: PhantomData<&'a ()>,
+    }
+    unsafe impl<'a> TaggedStructure<'a> for TensorViewCreateInfoARM<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::TENSOR_VIEW_CREATE_INFO_ARM;
+    }
+    impl Default for TensorViewCreateInfoARM<'_> {
+        fn default() -> Self {
+            Self {
+                s_type: Self::STRUCTURE_TYPE,
+                p_next: core::ptr::null(),
+                flags: Default::default(),
+                tensor: Default::default(),
+                format: Default::default(),
+                _marker: PhantomData,
+            }
+        }
+    }
+    impl<'a> TensorViewCreateInfoARM<'a> {
+        pub fn flags(mut self, flags: TensorViewCreateFlagsARM) -> Self {
+            self.flags = flags;
+            self
+        }
+        pub fn tensor(mut self, tensor: TensorARM) -> Self {
+            self.tensor = tensor;
+            self
+        }
+        pub fn format(mut self, format: Format) -> Self {
+            self.format = format;
             self
         }
     }
@@ -1068,6 +1108,22 @@ pub(super) mod defs {
         pub const IMAGE_ALIASING_ARM: Self = Self(1 << 4);
         // VK_ARM_data_graph
         pub const DATA_GRAPH_ARM: Self = Self(1 << 5);
+    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
+    pub struct TensorViewCreateFlagsARM(Flags64);
+    vk_bitflags_wrapped!(TensorViewCreateFlagsARM, Flags64);
+    impl TensorViewCreateFlagsARM {
+        // VK_ARM_tensors
+        pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM: Self =
+            Self(TensorViewCreateFlagBitsARM::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM.0);
+    }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct TensorViewCreateFlagBitsARM(u64);
+    impl TensorViewCreateFlagBitsARM {
+        // VK_ARM_tensors
+        pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM: Self = Self(1 << 0);
     }
     pub type PFN_vkCreateTensorARM = unsafe extern "system" fn(
         device: Device,

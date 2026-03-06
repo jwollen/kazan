@@ -191,6 +191,72 @@ pub(super) mod defs {
             }
         }
     }
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    pub struct ComponentTypeKHR(i32);
+    impl ComponentTypeKHR {
+        pub const FLOAT16_KHR: Self = Self(0);
+        pub const FLOAT32_KHR: Self = Self(1);
+        pub const FLOAT64_KHR: Self = Self(2);
+        pub const SINT8_KHR: Self = Self(3);
+        pub const SINT16_KHR: Self = Self(4);
+        pub const SINT32_KHR: Self = Self(5);
+        pub const SINT64_KHR: Self = Self(6);
+        pub const UINT8_KHR: Self = Self(7);
+        pub const UINT16_KHR: Self = Self(8);
+        pub const UINT32_KHR: Self = Self(9);
+        pub const UINT64_KHR: Self = Self(10);
+        // VK_EXT_shader_float8
+        pub const FLOAT8_E4M3_EXT: Self = Self(1000491002);
+        pub const FLOAT8_E5M2_EXT: Self = Self(1000491003);
+        // VK_KHR_shader_bfloat16
+        pub const BFLOAT16_KHR: Self = Self(1000141000);
+        // VK_NV_cooperative_matrix
+        pub const FLOAT16_NV: Self = Self::FLOAT16_KHR;
+        pub const FLOAT32_NV: Self = Self::FLOAT32_KHR;
+        pub const FLOAT64_NV: Self = Self::FLOAT64_KHR;
+        pub const SINT8_NV: Self = Self::SINT8_KHR;
+        pub const SINT16_NV: Self = Self::SINT16_KHR;
+        pub const SINT32_NV: Self = Self::SINT32_KHR;
+        pub const SINT64_NV: Self = Self::SINT64_KHR;
+        pub const UINT8_NV: Self = Self::UINT8_KHR;
+        pub const UINT16_NV: Self = Self::UINT16_KHR;
+        pub const UINT32_NV: Self = Self::UINT32_KHR;
+        pub const UINT64_NV: Self = Self::UINT64_KHR;
+        // VK_NV_cooperative_vector
+        pub const SINT8_PACKED_NV: Self = Self(1000491000);
+        pub const UINT8_PACKED_NV: Self = Self(1000491001);
+        pub const FLOAT_E4M3_NV: Self = Self::FLOAT8_E4M3_EXT;
+        pub const FLOAT_E5M2_NV: Self = Self::FLOAT8_E5M2_EXT;
+    }
+    impl fmt::Debug for ComponentTypeKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::FLOAT16_KHR => Some("FLOAT16_KHR"),
+                Self::FLOAT32_KHR => Some("FLOAT32_KHR"),
+                Self::FLOAT64_KHR => Some("FLOAT64_KHR"),
+                Self::SINT8_KHR => Some("SINT8_KHR"),
+                Self::SINT16_KHR => Some("SINT16_KHR"),
+                Self::SINT32_KHR => Some("SINT32_KHR"),
+                Self::SINT64_KHR => Some("SINT64_KHR"),
+                Self::UINT8_KHR => Some("UINT8_KHR"),
+                Self::UINT16_KHR => Some("UINT16_KHR"),
+                Self::UINT32_KHR => Some("UINT32_KHR"),
+                Self::UINT64_KHR => Some("UINT64_KHR"),
+                Self::FLOAT8_E4M3_EXT => Some("FLOAT8_E4M3_EXT"),
+                Self::FLOAT8_E5M2_EXT => Some("FLOAT8_E5M2_EXT"),
+                Self::BFLOAT16_KHR => Some("BFLOAT16_KHR"),
+                Self::SINT8_PACKED_NV => Some("SINT8_PACKED_NV"),
+                Self::UINT8_PACKED_NV => Some("UINT8_PACKED_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
     pub type PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR =
         unsafe extern "system" fn(
             physical_device: PhysicalDevice,

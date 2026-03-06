@@ -1,6 +1,6 @@
 use std::{
     borrow::Cow,
-    collections::{BTreeMap, HashSet},
+    collections::{BTreeMap, HashMap, HashSet},
     fs::{self, File},
     io::Write,
 };
@@ -43,9 +43,12 @@ fn generate(analysis: &analysis::Analysis) {
 
     let mut vendor_modules = BTreeMap::new();
 
-    let mut visited_items = HashSet::new();
+    // Build ownership map: for each item, determine which module should define it.
+    // Prefer the module whose vendor tag matches the item's vendor suffix.
+    let modules: Vec<_> = Module::from_registry(registry).collect();
+    let item_owner = compute_item_owners(registry, &modules);
 
-    for module in Module::from_registry(registry) {
+    for (module_index, module) in modules.iter().enumerate() {
         let requires: Vec<_> = module.requires();
 
         let required_types = requires.iter().map(|r| &r.types).flatten();
@@ -80,7 +83,7 @@ fn generate(analysis: &analysis::Analysis) {
             .map(|ty| ty.name)
             .chain(required_commands.clone().map(|cmd| cmd.name))
             .chain(required_api_constants.clone().map(|constant| constant.name))
-            .filter(|name| visited_items.insert(*name))
+            .filter(|name| item_owner.get(name) == Some(&module_index))
             .collect::<HashSet<_>>();
 
         let new_commands = registry
@@ -117,7 +120,7 @@ fn generate(analysis: &analysis::Analysis) {
             )
             .unwrap();
 
-            if let Module::Extension(extension) = &module {
+            if let Module::Extension(extension) = module {
                 //writeln!(file, "pub const EXTENSION_NAME: &CStr = c\"{}\";", extension.name).unwrap();
             }
 
@@ -196,6 +199,65 @@ fn generate(analysis: &analysis::Analysis) {
         .arg("--edition=2024")
         .output()
         .unwrap();
+}
+
+/// For each item (type, command, constant) required by any module, determines which
+/// module should own its definition. If the item has a vendor suffix that matches
+/// a specific module's vendor tag, that module is preferred. Otherwise, the first
+/// module that requires the item wins.
+fn compute_item_owners(
+    registry: &xml::Registry,
+    modules: &[Module],
+) -> HashMap<&'static str, usize> {
+    // Collect all items required by each module, along with the module index.
+    let mut first_requirer: HashMap<&'static str, usize> = HashMap::new();
+    let mut vendor_requirer: HashMap<&'static str, usize> = HashMap::new();
+
+    for (index, module) in modules.iter().enumerate() {
+        let module_vendor = match module {
+            Module::Extension(ext) => registry.extension_vendor(ext.name),
+            Module::Version(_) => None,
+        };
+
+        for require in module.requires() {
+            let item_names = require
+                .types
+                .iter()
+                .map(|t| t.name)
+                .chain(require.commands.iter().map(|c| c.name))
+                .chain(require.constants.iter().filter_map(|c| {
+                    // Only include constants that actually resolve to a definition
+                    let exists_global = registry
+                        .constants
+                        .iter()
+                        .any(|api_constant| api_constant.name == c.name);
+                    let has_inline_def = c.ty.is_some() && c.value.is_some();
+                    if exists_global || has_inline_def {
+                        Some(c.name)
+                    } else {
+                        None
+                    }
+                }));
+
+            for name in item_names {
+                first_requirer.entry(name).or_insert(index);
+
+                if let Some(item_vendor) = registry.vendor_suffix(name) {
+                    if module_vendor == Some(item_vendor) {
+                        vendor_requirer.entry(name).or_insert(index);
+                    }
+                }
+            }
+        }
+    }
+
+    // For each item, prefer the vendor-matched module; fall back to first requirer.
+    let mut owners = HashMap::new();
+    for (name, first) in &first_requirer {
+        let owner = vendor_requirer.get(name).unwrap_or(first);
+        owners.insert(*name, *owner);
+    }
+    owners
 }
 
 fn generate_api_constants<'a>(
