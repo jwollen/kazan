@@ -15844,7 +15844,6 @@ impl DeviceFn {
 
             match result {
                 VkResult::SUCCESS => Ok(()),
-                VkResult::NOT_READY => Ok(()),
                 err => Err(err),
             }
         }
@@ -15867,7 +15866,6 @@ impl DeviceFn {
 
             match result {
                 VkResult::SUCCESS => Ok(()),
-                VkResult::TIMEOUT => Ok(()),
                 err => Err(err),
             }
         }
@@ -15954,7 +15952,6 @@ impl DeviceFn {
 
             match result {
                 VkResult::SUCCESS => Ok(()),
-                VkResult::NOT_READY => Ok(()),
                 err => Err(err),
             }
         }
@@ -16408,8 +16405,7 @@ impl DeviceFn {
             let result = (self.get_event_status)(device, event);
 
             match result {
-                VkResult::EVENT_SET => Ok(()),
-                VkResult::EVENT_RESET => Ok(()),
+                VkResult::SUCCESS => Ok(()),
                 err => Err(err),
             }
         }
@@ -16588,7 +16584,6 @@ impl DeviceFn {
 
             match result {
                 VkResult::SUCCESS => Ok(()),
-                VkResult::PIPELINE_COMPILE_REQUIRED_EXT => Ok(()),
                 err => Err(err),
             }
         }
@@ -16940,7 +16935,6 @@ impl DeviceFn {
 
             match result {
                 VkResult::SUCCESS => Ok(()),
-                VkResult::PIPELINE_COMPILE_REQUIRED_EXT => Ok(()),
                 err => Err(err),
             }
         }

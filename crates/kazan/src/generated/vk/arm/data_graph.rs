@@ -1210,7 +1210,6 @@ impl DeviceFn {
 
             match result {
                 VkResult::SUCCESS => Ok(()),
-                VkResult::PIPELINE_COMPILE_REQUIRED_EXT => Ok(()),
                 err => Err(err),
             }
         }
@@ -1366,7 +1365,6 @@ impl DeviceFn {
 
             match result {
                 VkResult::SUCCESS => Ok(()),
-                VkResult::INCOMPLETE => Ok(()),
                 err => Err(err),
             }
         }

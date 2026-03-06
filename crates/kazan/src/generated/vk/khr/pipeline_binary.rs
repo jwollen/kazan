@@ -500,8 +500,6 @@ impl DeviceFn {
 
             match result {
                 VkResult::SUCCESS => Ok(()),
-                VkResult::INCOMPLETE => Ok(()),
-                VkResult::PIPELINE_BINARY_MISSING_KHR => Ok(()),
                 err => Err(err),
             }
         }

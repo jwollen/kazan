@@ -1477,8 +1477,6 @@ impl DeviceFn {
 
             match result {
                 VkResult::SUCCESS => Ok(()),
-                VkResult::OPERATION_DEFERRED_KHR => Ok(()),
-                VkResult::OPERATION_NOT_DEFERRED_KHR => Ok(()),
                 err => Err(err),
             }
         }
@@ -1494,8 +1492,6 @@ impl DeviceFn {
 
             match result {
                 VkResult::SUCCESS => Ok(()),
-                VkResult::OPERATION_DEFERRED_KHR => Ok(()),
-                VkResult::OPERATION_NOT_DEFERRED_KHR => Ok(()),
                 err => Err(err),
             }
         }
@@ -1512,8 +1508,6 @@ impl DeviceFn {
 
             match result {
                 VkResult::SUCCESS => Ok(()),
-                VkResult::OPERATION_DEFERRED_KHR => Ok(()),
-                VkResult::OPERATION_NOT_DEFERRED_KHR => Ok(()),
                 err => Err(err),
             }
         }
@@ -1530,8 +1524,6 @@ impl DeviceFn {
 
             match result {
                 VkResult::SUCCESS => Ok(()),
-                VkResult::OPERATION_DEFERRED_KHR => Ok(()),
-                VkResult::OPERATION_NOT_DEFERRED_KHR => Ok(()),
                 err => Err(err),
             }
         }

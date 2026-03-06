@@ -74,7 +74,6 @@ impl DeviceFn {
 
             match result {
                 VkResult::SUCCESS => Ok(()),
-                VkResult::TIMEOUT => Ok(()),
                 err => Err(err),
             }
         }

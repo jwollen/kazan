@@ -497,7 +497,6 @@ impl DeviceFn {
 
             match result {
                 VkResult::SUCCESS => Ok(()),
-                VkResult::INCOMPATIBLE_SHADER_BINARY_EXT => Ok(()),
                 err => Err(err),
             }
         }

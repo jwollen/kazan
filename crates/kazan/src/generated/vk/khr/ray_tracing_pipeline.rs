@@ -594,9 +594,6 @@ impl DeviceFn {
 
             match result {
                 VkResult::SUCCESS => Ok(()),
-                VkResult::OPERATION_DEFERRED_KHR => Ok(()),
-                VkResult::OPERATION_NOT_DEFERRED_KHR => Ok(()),
-                VkResult::PIPELINE_COMPILE_REQUIRED_EXT => Ok(()),
                 err => Err(err),
             }
         }

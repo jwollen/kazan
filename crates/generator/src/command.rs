@@ -297,7 +297,7 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
     for (param_index, param) in command.params.iter().enumerate() {
         let name = normalize_param_name(param.c_decl.name);
 
-        let optional = (
+        let optional: (bool, bool) = (
             param
                 .optional
                 .get(0)
@@ -362,7 +362,7 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
             && !is_implicit_length
             && !has_regular_return
             && !is_extensible_output
-            && command.success_codes.len() <= 1;
+            && !optional.0;
 
         let is_enumeration_array = if let Some(enumeration_info) = &enumeration_info {
             enumeration_info.array_params.contains(&param_index)
@@ -642,6 +642,10 @@ pub fn write_command_wrapper(
     analysis: &Analysis,
     info: &CommandInfo<'_>,
 ) {
+    if crate::overrides::write_command_override(file, info.alias, info.optional) {
+        return;
+    }
+
     let wrapper = analyze_command(analysis, info);
 
     let lifetime_param = wrapper
@@ -662,6 +666,11 @@ pub fn write_command_wrapper(
         writeln!(file, "{}: {},", param.name, param.ty).unwrap();
     }
 
+    let ok_codes_override = crate::overrides::ok_codes(info.alias);
+    let has_multiple_ok_codes = ok_codes_override
+        .as_ref()
+        .is_some_and(|o| o.codes.len() > 1);
+
     let return_ty = match &wrapper.wrapper_return {
         WrapperReturnKind::None => None,
         WrapperReturnKind::CommandReturnValue { ty } => Some(ty.to_string()),
@@ -675,12 +684,20 @@ pub fn write_command_wrapper(
     };
 
     if wrapper.is_fallible {
-        writeln!(
-            file,
-            ") -> crate::Result<{}> {{",
-            return_ty.as_deref().unwrap_or("()")
-        )
-        .unwrap();
+        let inner = if has_multiple_ok_codes {
+            let ok = ok_codes_override.as_ref().unwrap();
+            let code_ty = match ok.repr {
+                crate::overrides::SuccessCodeRepr::RawResult => "VkResult",
+                crate::overrides::SuccessCodeRepr::Bool => "bool",
+            };
+            match return_ty.as_deref() {
+                Some(ty) => format!("({}, {})", ty, code_ty),
+                None => code_ty.to_string(),
+            }
+        } else {
+            return_ty.as_deref().unwrap_or("()").to_string()
+        };
+        writeln!(file, ") -> crate::Result<{}> {{", inner).unwrap();
     } else if let Some(return_ty) = return_ty {
         writeln!(file, ") -> {} {{", return_ty).unwrap();
     } else {
@@ -692,7 +709,7 @@ pub fn write_command_wrapper(
     if let Some(enumeration_info) = &wrapper.enumeration_info {
         write_enumeration_fn_body(file, analysis, info, &wrapper, enumeration_info);
     } else {
-        write_fn_body(file, analysis, &wrapper, info.optional);
+        write_fn_body(file, analysis, &wrapper, info.optional, ok_codes_override.as_ref(), false);
     }
 
     writeln!(file, "}}").unwrap();
@@ -718,7 +735,13 @@ fn write_enumeration_fn_body(
         }
     }
     writeln!(file, "| {{ ").unwrap();
-    write_fn_body(file, analysis, wrapper, info.optional);
+    // Accept all declared success codes in the enumeration closure
+    // (SUCCESS and INCOMPLETE) so the two-call pattern works.
+    let enum_ok_codes = crate::overrides::OkCodes {
+        codes: &wrapper.command.success_codes,
+        repr: crate::overrides::SuccessCodeRepr::RawResult, // unused since in_enumeration=true
+    };
+    write_fn_body(file, analysis, wrapper, info.optional, Some(&enum_ok_codes), true);
     writeln!(file, "}};").unwrap();
 
     writeln!(file, "let mut len = 0; call(&mut len, ").unwrap();
@@ -932,6 +955,8 @@ fn write_fn_body(
     analysis: &Analysis,
     wrapper: &WrapperCommandInfo,
     optional: bool,
+    ok_codes: Option<&crate::overrides::OkCodes>,
+    in_enumeration: bool,
 ) {
     if let WrapperReturnKind::OutputParams(params) = &wrapper.wrapper_return {
         for param in params {
@@ -993,17 +1018,50 @@ fn write_fn_body(
     };
 
     if wrapper.is_fallible {
+        let default_codes: &[&str] = &["VK_SUCCESS"];
+        let codes = ok_codes.map(|o| o.codes).unwrap_or(default_codes);
+
+        // Expose the success code when the override provides multiple ok codes,
+        // but not in enumeration closures (which accept INCOMPLETE silently).
+        let expose_success_code = !in_enumeration && ok_codes.is_some_and(|o| o.codes.len() > 1);
+
         writeln!(file, ";\n").unwrap();
         writeln!(file, "match result {{").unwrap();
-        for success_code in &wrapper.command.success_codes {
-            writeln!(
-                file,
-                "VkResult::{} => Ok({}),",
-                success_code.strip_prefix("VK_").unwrap_or(success_code),
-                return_value.as_deref().unwrap_or("()"),
-            )
-            .unwrap();
+
+        if expose_success_code {
+            let ok_codes = ok_codes.unwrap();
+            for (i, code) in codes.iter().enumerate() {
+                let code_value = match ok_codes.repr {
+                    crate::overrides::SuccessCodeRepr::RawResult => "result".to_string(),
+                    crate::overrides::SuccessCodeRepr::Bool => {
+                        if i == 0 { "false".to_string() } else { "true".to_string() }
+                    }
+                };
+                let ok_value = match return_value.as_deref() {
+                    Some(rv) => format!("({}, {})", rv, code_value),
+                    None => code_value,
+                };
+                writeln!(
+                    file,
+                    "VkResult::{} => Ok({}),",
+                    code.strip_prefix("VK_").unwrap_or(code),
+                    ok_value,
+                )
+                .unwrap();
+            }
+        } else {
+            let ok_value = return_value.as_deref().unwrap_or("()");
+            for code in codes {
+                writeln!(
+                    file,
+                    "VkResult::{} => Ok({}),",
+                    code.strip_prefix("VK_").unwrap_or(code),
+                    ok_value,
+                )
+                .unwrap();
+            }
         }
+
         writeln!(file, "err => Err(err),").unwrap();
         writeln!(file, "}}").unwrap();
     } else if let Some(return_value) = return_value {

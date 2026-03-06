@@ -104,7 +104,6 @@ impl DeviceFn {
 
             match result {
                 VkResult::SUCCESS => Ok(()),
-                VkResult::NOT_READY => Ok(()),
                 err => Err(err),
             }
         }
@@ -119,8 +118,6 @@ impl DeviceFn {
 
             match result {
                 VkResult::SUCCESS => Ok(()),
-                VkResult::THREAD_DONE_KHR => Ok(()),
-                VkResult::THREAD_IDLE_KHR => Ok(()),
                 err => Err(err),
             }
         }

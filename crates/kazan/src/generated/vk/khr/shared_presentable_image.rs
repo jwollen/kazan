@@ -70,7 +70,6 @@ impl DeviceFn {
 
             match result {
                 VkResult::SUCCESS => Ok(()),
-                VkResult::SUBOPTIMAL_KHR => Ok(()),
                 err => Err(err),
             }
         }

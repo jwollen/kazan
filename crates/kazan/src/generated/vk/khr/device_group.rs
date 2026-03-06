@@ -189,16 +189,18 @@ impl DeviceFn {
         &self,
         device: Device,
         acquire_info: &AcquireNextImageInfoKHR<'_>,
-        image_index: &mut u32,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<(u32, bool)> {
         unsafe {
-            let result = (self.acquire_next_image2_khr.unwrap())(device, acquire_info, image_index);
+            let mut image_index = core::mem::MaybeUninit::uninit();
+            let result = (self.acquire_next_image2_khr.unwrap())(
+                device,
+                acquire_info,
+                image_index.as_mut_ptr(),
+            );
 
             match result {
-                VkResult::SUCCESS => Ok(()),
-                VkResult::TIMEOUT => Ok(()),
-                VkResult::NOT_READY => Ok(()),
-                VkResult::SUBOPTIMAL_KHR => Ok(()),
+                VkResult::SUCCESS => Ok((image_index.assume_init(), false)),
+                VkResult::SUBOPTIMAL_KHR => Ok((image_index.assume_init(), true)),
                 err => Err(err),
             }
         }

@@ -134,8 +134,6 @@ impl DeviceFn {
 
             match result {
                 VkResult::SUCCESS => Ok(()),
-                VkResult::TIMEOUT => Ok(()),
-                VkResult::SUBOPTIMAL_KHR => Ok(()),
                 err => Err(err),
             }
         }

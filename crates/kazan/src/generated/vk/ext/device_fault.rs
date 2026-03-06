@@ -339,7 +339,6 @@ impl DeviceFn {
 
             match result {
                 VkResult::SUCCESS => Ok(()),
-                VkResult::INCOMPLETE => Ok(()),
                 err => Err(err),
             }
         }
