@@ -8,12 +8,17 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceBufferDeviceAddressFeaturesKHR.html>
     pub type PhysicalDeviceBufferDeviceAddressFeaturesKHR<'a> =
         PhysicalDeviceBufferDeviceAddressFeatures<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferDeviceAddressInfoKHR.html>
     pub type BufferDeviceAddressInfoKHR<'a> = BufferDeviceAddressInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferOpaqueCaptureAddressCreateInfoKHR.html>
     pub type BufferOpaqueCaptureAddressCreateInfoKHR<'a> = BufferOpaqueCaptureAddressCreateInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryOpaqueCaptureAddressAllocateInfoKHR.html>
     pub type MemoryOpaqueCaptureAddressAllocateInfoKHR<'a> =
         MemoryOpaqueCaptureAddressAllocateInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceMemoryOpaqueCaptureAddressInfoKHR.html>
     pub type DeviceMemoryOpaqueCaptureAddressInfoKHR<'a> = DeviceMemoryOpaqueCaptureAddressInfo<'a>;
     pub type PFN_vkGetBufferOpaqueCaptureAddressKHR = PFN_vkGetBufferOpaqueCaptureAddress;
     pub type PFN_vkGetBufferDeviceAddressKHR = PFN_vkGetBufferDeviceAddress;
@@ -46,6 +51,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferDeviceAddressKHR.html>
     pub unsafe fn get_buffer_device_address_khr(
         &self,
         device: Device,
@@ -53,6 +59,7 @@ impl DeviceFn {
     ) -> DeviceAddress {
         unsafe { (self.get_buffer_device_address_khr)(device, info) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferOpaqueCaptureAddressKHR.html>
     pub unsafe fn get_buffer_opaque_capture_address_khr(
         &self,
         device: Device,
@@ -60,6 +67,7 @@ impl DeviceFn {
     ) -> u64 {
         unsafe { (self.get_buffer_opaque_capture_address_khr)(device, info) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceMemoryOpaqueCaptureAddressKHR.html>
     pub unsafe fn get_device_memory_opaque_capture_address_khr(
         &self,
         device: Device,

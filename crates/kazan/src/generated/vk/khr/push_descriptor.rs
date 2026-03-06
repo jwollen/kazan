@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePushDescriptorPropertiesKHR.html>
     pub type PhysicalDevicePushDescriptorPropertiesKHR<'a> =
         PhysicalDevicePushDescriptorProperties<'a>;
     pub type PFN_vkCmdPushDescriptorSetKHR = PFN_vkCmdPushDescriptorSet;
@@ -34,6 +35,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushDescriptorSetKHR.html>
     pub unsafe fn cmd_push_descriptor_set_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -53,6 +55,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushDescriptorSetWithTemplateKHR.html>
     pub unsafe fn cmd_push_descriptor_set_with_template_khr(
         &self,
         command_buffer: CommandBuffer,

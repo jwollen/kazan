@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCoverageToColorStateCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineCoverageToColorStateCreateInfoNV<'a> {
@@ -52,6 +53,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCoverageToColorStateCreateFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineCoverageToColorStateCreateFlagsNV(Flags);

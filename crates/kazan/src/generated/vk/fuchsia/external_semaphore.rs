@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportSemaphoreZirconHandleInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImportSemaphoreZirconHandleInfoFUCHSIA<'a> {
@@ -54,6 +55,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreGetZirconHandleInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SemaphoreGetZirconHandleInfoFUCHSIA<'a> {
@@ -88,11 +90,13 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSemaphoreZirconHandleFUCHSIA.html>
     pub type PFN_vkGetSemaphoreZirconHandleFUCHSIA = unsafe extern "system" fn(
         device: Device,
         p_get_zircon_handle_info: *const SemaphoreGetZirconHandleInfoFUCHSIA<'_>,
         p_zircon_handle: *mut zx_handle_t,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportSemaphoreZirconHandleFUCHSIA.html>
     pub type PFN_vkImportSemaphoreZirconHandleFUCHSIA = unsafe extern "system" fn(
         device: Device,
         p_import_semaphore_zircon_handle_info: *const ImportSemaphoreZirconHandleInfoFUCHSIA<'_>,
@@ -120,6 +124,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportSemaphoreZirconHandleFUCHSIA.html>
     pub unsafe fn import_semaphore_zircon_handle_fuchsia(
         &self,
         device: Device,
@@ -137,6 +142,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSemaphoreZirconHandleFUCHSIA.html>
     pub unsafe fn get_semaphore_zircon_handle_fuchsia(
         &self,
         device: Device,

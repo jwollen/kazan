@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'a> {
@@ -44,6 +45,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'a> {
@@ -90,6 +92,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGraphicsPipelineLibraryCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct GraphicsPipelineLibraryCreateInfoEXT<'a> {
@@ -122,6 +125,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGraphicsPipelineLibraryFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct GraphicsPipelineLibraryFlagsEXT(Flags);
@@ -159,6 +163,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGraphicsPipelineLibraryFlagBitsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct GraphicsPipelineLibraryFlagBitsEXT(u32);

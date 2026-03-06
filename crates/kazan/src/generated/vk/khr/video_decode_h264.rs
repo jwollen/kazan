@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeH264ProfileInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoDecodeH264ProfileInfoKHR<'a> {
@@ -46,6 +47,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeH264CapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoDecodeH264CapabilitiesKHR<'a> {
@@ -80,6 +82,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeH264SessionParametersAddInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoDecodeH264SessionParametersAddInfoKHR<'a> {
@@ -124,6 +127,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeH264SessionParametersCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoDecodeH264SessionParametersCreateInfoKHR<'a> {
@@ -171,6 +175,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeH264PictureInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoDecodeH264PictureInfoKHR<'a> {
@@ -211,6 +216,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeH264DpbSlotInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoDecodeH264DpbSlotInfoKHR<'a> {
@@ -242,6 +248,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeH264PictureLayoutFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoDecodeH264PictureLayoutFlagsKHR(Flags);
@@ -268,6 +275,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeH264PictureLayoutFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoDecodeH264PictureLayoutFlagBitsKHR(u32);

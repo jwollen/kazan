@@ -8,10 +8,13 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM.html>
     pub type PhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM<'a> =
         PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM.html>
     pub type PhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM<'a> =
         PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassFragmentDensityMapOffsetEndInfoQCOM.html>
     pub type SubpassFragmentDensityMapOffsetEndInfoQCOM<'a> =
         RenderPassFragmentDensityMapOffsetEndInfoEXT<'a>;
 }

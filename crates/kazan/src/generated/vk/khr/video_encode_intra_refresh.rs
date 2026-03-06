@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeIntraRefreshCapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeIntraRefreshCapabilitiesKHR<'a> {
@@ -79,6 +80,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeSessionIntraRefreshCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeSessionIntraRefreshCreateInfoKHR<'a> {
@@ -114,6 +116,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeIntraRefreshInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeIntraRefreshInfoKHR<'a> {
@@ -148,6 +151,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoReferenceIntraRefreshInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoReferenceIntraRefreshInfoKHR<'a> {
@@ -176,6 +180,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR<'a> {
@@ -212,6 +217,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeIntraRefreshModeFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeIntraRefreshModeFlagsKHR(Flags);
@@ -250,6 +256,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeIntraRefreshModeFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeIntraRefreshModeFlagBitsKHR(u32);

@@ -8,10 +8,15 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferMemoryRequirementsInfo2KHR.html>
     pub type BufferMemoryRequirementsInfo2KHR<'a> = BufferMemoryRequirementsInfo2<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageMemoryRequirementsInfo2KHR.html>
     pub type ImageMemoryRequirementsInfo2KHR<'a> = ImageMemoryRequirementsInfo2<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageSparseMemoryRequirementsInfo2KHR.html>
     pub type ImageSparseMemoryRequirementsInfo2KHR<'a> = ImageSparseMemoryRequirementsInfo2<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryRequirements2KHR.html>
     pub type MemoryRequirements2KHR<'a> = MemoryRequirements2<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageMemoryRequirements2KHR.html>
     pub type SparseImageMemoryRequirements2KHR<'a> = SparseImageMemoryRequirements2<'a>;
     pub type PFN_vkGetBufferMemoryRequirements2KHR = PFN_vkGetBufferMemoryRequirements2;
     pub type PFN_vkGetImageMemoryRequirements2KHR = PFN_vkGetImageMemoryRequirements2;
@@ -43,6 +48,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageMemoryRequirements2KHR.html>
     pub unsafe fn get_image_memory_requirements2_khr(
         &self,
         device: Device,
@@ -51,6 +57,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.get_image_memory_requirements2_khr)(device, info, memory_requirements) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferMemoryRequirements2KHR.html>
     pub unsafe fn get_buffer_memory_requirements2_khr(
         &self,
         device: Device,
@@ -59,6 +66,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.get_buffer_memory_requirements2_khr)(device, info, memory_requirements) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageSparseMemoryRequirements2KHR.html>
     pub unsafe fn get_image_sparse_memory_requirements2_khr<'a>(
         &self,
         device: Device,

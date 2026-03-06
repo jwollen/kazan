@@ -8,9 +8,13 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalFenceInfoKHR.html>
     pub type PhysicalDeviceExternalFenceInfoKHR<'a> = PhysicalDeviceExternalFenceInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalFencePropertiesKHR.html>
     pub type ExternalFencePropertiesKHR<'a> = ExternalFenceProperties<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalFenceHandleTypeFlagsKHR.html>
     pub type ExternalFenceHandleTypeFlagsKHR = ExternalFenceHandleTypeFlags;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalFenceFeatureFlagsKHR.html>
     pub type ExternalFenceFeatureFlagsKHR = ExternalFenceFeatureFlags;
     pub type PFN_vkGetPhysicalDeviceExternalFencePropertiesKHR =
         PFN_vkGetPhysicalDeviceExternalFenceProperties;
@@ -34,6 +38,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceExternalFencePropertiesKHR.html>
     pub unsafe fn get_physical_device_external_fence_properties_khr(
         &self,
         physical_device: PhysicalDevice,

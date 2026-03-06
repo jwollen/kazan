@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleaseDisplayEXT.html>
     pub type PFN_vkReleaseDisplayEXT = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         display: DisplayKHR,
@@ -30,6 +31,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleaseDisplayEXT.html>
     pub unsafe fn release_display_ext(
         &self,
         physical_device: PhysicalDevice,

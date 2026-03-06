@@ -8,17 +8,25 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance6FeaturesKHR.html>
     pub type PhysicalDeviceMaintenance6FeaturesKHR<'a> = PhysicalDeviceMaintenance6Features<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance6PropertiesKHR.html>
     pub type PhysicalDeviceMaintenance6PropertiesKHR<'a> = PhysicalDeviceMaintenance6Properties<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindMemoryStatusKHR.html>
     pub type BindMemoryStatusKHR<'a> = BindMemoryStatus<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindDescriptorSetsInfoKHR.html>
     pub type BindDescriptorSetsInfoKHR<'a> = BindDescriptorSetsInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPushConstantsInfoKHR.html>
     pub type PushConstantsInfoKHR<'a> = PushConstantsInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPushDescriptorSetInfoKHR.html>
     pub type PushDescriptorSetInfoKHR<'a> = PushDescriptorSetInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPushDescriptorSetWithTemplateInfoKHR.html>
     pub type PushDescriptorSetWithTemplateInfoKHR<'a> = PushDescriptorSetWithTemplateInfo<'a>;
     pub type PFN_vkCmdBindDescriptorSets2KHR = PFN_vkCmdBindDescriptorSets2;
     pub type PFN_vkCmdPushConstants2KHR = PFN_vkCmdPushConstants2;
     pub type PFN_vkCmdPushDescriptorSet2KHR = PFN_vkCmdPushDescriptorSet2;
     pub type PFN_vkCmdPushDescriptorSetWithTemplate2KHR = PFN_vkCmdPushDescriptorSetWithTemplate2;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSetDescriptorBufferOffsetsInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SetDescriptorBufferOffsetsInfoEXT<'a> {
@@ -74,6 +82,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindDescriptorBufferEmbeddedSamplersInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct BindDescriptorBufferEmbeddedSamplersInfoEXT<'a> {
@@ -114,10 +123,12 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDescriptorBufferOffsets2EXT.html>
     pub type PFN_vkCmdSetDescriptorBufferOffsets2EXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_set_descriptor_buffer_offsets_info: *const SetDescriptorBufferOffsetsInfoEXT<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindDescriptorBufferEmbeddedSamplers2EXT.html>
     pub type PFN_vkCmdBindDescriptorBufferEmbeddedSamplers2EXT = unsafe extern "system" fn(
     command_buffer: CommandBuffer,
     p_bind_descriptor_buffer_embedded_samplers_info: *const BindDescriptorBufferEmbeddedSamplersInfoEXT<'_>,
@@ -159,6 +170,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindDescriptorSets2KHR.html>
     pub unsafe fn cmd_bind_descriptor_sets2_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -166,6 +178,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_bind_descriptor_sets2_khr)(command_buffer, bind_descriptor_sets_info) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushConstants2KHR.html>
     pub unsafe fn cmd_push_constants2_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -173,6 +186,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_push_constants2_khr)(command_buffer, push_constants_info) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushDescriptorSet2KHR.html>
     pub unsafe fn cmd_push_descriptor_set2_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -182,6 +196,7 @@ impl DeviceFn {
             (self.cmd_push_descriptor_set2_khr.unwrap())(command_buffer, push_descriptor_set_info)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushDescriptorSetWithTemplate2KHR.html>
     pub unsafe fn cmd_push_descriptor_set_with_template2_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -194,6 +209,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDescriptorBufferOffsets2EXT.html>
     pub unsafe fn cmd_set_descriptor_buffer_offsets2_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -206,6 +222,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindDescriptorBufferEmbeddedSamplers2EXT.html>
     pub unsafe fn cmd_bind_descriptor_buffer_embedded_samplers2_ext(
         &self,
         command_buffer: CommandBuffer,

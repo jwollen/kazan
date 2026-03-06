@@ -8,7 +8,12 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
-    handle_nondispatchable!(MicromapEXT, MICROMAP_EXT, doc = "");
+    handle_nondispatchable!(
+        MicromapEXT,
+        MICROMAP_EXT,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkMicromapEXT.html>"
+    );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMicromapBuildInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct MicromapBuildInfoEXT<'a> {
@@ -94,6 +99,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMicromapCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct MicromapCreateInfoEXT<'a> {
@@ -151,6 +157,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMicromapVersionInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct MicromapVersionInfoEXT<'a> {
@@ -173,6 +180,7 @@ pub(super) mod defs {
         }
     }
     impl<'a> MicromapVersionInfoEXT<'a> {}
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyMicromapInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct CopyMicromapInfoEXT<'a> {
@@ -212,6 +220,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyMicromapToMemoryInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct CopyMicromapToMemoryInfoEXT<'a> {
@@ -251,6 +260,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyMemoryToMicromapInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct CopyMemoryToMicromapInfoEXT<'a> {
@@ -290,6 +300,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMicromapBuildSizesInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct MicromapBuildSizesInfoEXT<'a> {
@@ -329,6 +340,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMicromapUsageEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct MicromapUsageEXT {
@@ -350,6 +362,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMicromapTriangleEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct MicromapTriangleEXT {
@@ -371,6 +384,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceOpacityMicromapFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceOpacityMicromapFeaturesEXT<'a> {
@@ -416,6 +430,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceOpacityMicromapPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceOpacityMicromapPropertiesEXT<'a> {
@@ -460,6 +475,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureTrianglesOpacityMicromapEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct AccelerationStructureTrianglesOpacityMicromapEXT<'a> {
@@ -536,6 +552,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMicromapTypeEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct MicromapTypeEXT(i32);
@@ -558,6 +575,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyMicromapModeEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct CopyMicromapModeEXT(i32);
@@ -583,6 +601,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBuildMicromapModeEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct BuildMicromapModeEXT(i32);
@@ -602,6 +621,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpacityMicromapFormatEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct OpacityMicromapFormatEXT(i32);
@@ -623,6 +643,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpacityMicromapSpecialIndexEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct OpacityMicromapSpecialIndexEXT(i32);
@@ -653,6 +674,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBuildMicromapFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct BuildMicromapFlagsEXT(Flags);
@@ -684,6 +706,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBuildMicromapFlagBitsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct BuildMicromapFlagBitsEXT(u32);
@@ -692,6 +715,7 @@ pub(super) mod defs {
         pub const PREFER_FAST_BUILD_EXT: Self = Self(1 << 1);
         pub const ALLOW_COMPACTION_EXT: Self = Self(1 << 2);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMicromapCreateFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct MicromapCreateFlagsEXT(Flags);
@@ -709,61 +733,73 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMicromapCreateFlagBitsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MicromapCreateFlagBitsEXT(u32);
     impl MicromapCreateFlagBitsEXT {
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY_EXT: Self = Self(1 << 0);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateMicromapEXT.html>
     pub type PFN_vkCreateMicromapEXT = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const MicromapCreateInfoEXT<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_micromap: *mut MicromapEXT,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBuildMicromapsEXT.html>
     pub type PFN_vkCmdBuildMicromapsEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         info_count: u32,
         p_infos: *const MicromapBuildInfoEXT<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBuildMicromapsEXT.html>
     pub type PFN_vkBuildMicromapsEXT = unsafe extern "system" fn(
         device: Device,
         deferred_operation: DeferredOperationKHR,
         info_count: u32,
         p_infos: *const MicromapBuildInfoEXT<'_>,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyMicromapEXT.html>
     pub type PFN_vkDestroyMicromapEXT = unsafe extern "system" fn(
         device: Device,
         micromap: MicromapEXT,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMicromapEXT.html>
     pub type PFN_vkCmdCopyMicromapEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_info: *const CopyMicromapInfoEXT<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMicromapEXT.html>
     pub type PFN_vkCopyMicromapEXT = unsafe extern "system" fn(
         device: Device,
         deferred_operation: DeferredOperationKHR,
         p_info: *const CopyMicromapInfoEXT<'_>,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMicromapToMemoryEXT.html>
     pub type PFN_vkCmdCopyMicromapToMemoryEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_info: *const CopyMicromapToMemoryInfoEXT<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMicromapToMemoryEXT.html>
     pub type PFN_vkCopyMicromapToMemoryEXT = unsafe extern "system" fn(
         device: Device,
         deferred_operation: DeferredOperationKHR,
         p_info: *const CopyMicromapToMemoryInfoEXT<'_>,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryToMicromapEXT.html>
     pub type PFN_vkCmdCopyMemoryToMicromapEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_info: *const CopyMemoryToMicromapInfoEXT<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMemoryToMicromapEXT.html>
     pub type PFN_vkCopyMemoryToMicromapEXT = unsafe extern "system" fn(
         device: Device,
         deferred_operation: DeferredOperationKHR,
         p_info: *const CopyMemoryToMicromapInfoEXT<'_>,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteMicromapsPropertiesEXT.html>
     pub type PFN_vkCmdWriteMicromapsPropertiesEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         micromap_count: u32,
@@ -772,6 +808,7 @@ pub(super) mod defs {
         query_pool: QueryPool,
         first_query: u32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWriteMicromapsPropertiesEXT.html>
     pub type PFN_vkWriteMicromapsPropertiesEXT = unsafe extern "system" fn(
         device: Device,
         micromap_count: u32,
@@ -781,11 +818,13 @@ pub(super) mod defs {
         p_data: *mut c_void,
         stride: usize,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceMicromapCompatibilityEXT.html>
     pub type PFN_vkGetDeviceMicromapCompatibilityEXT = unsafe extern "system" fn(
         device: Device,
         p_version_info: *const MicromapVersionInfoEXT<'_>,
         p_compatibility: *mut AccelerationStructureCompatibilityKHR,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMicromapBuildSizesEXT.html>
     pub type PFN_vkGetMicromapBuildSizesEXT = unsafe extern "system" fn(
         device: Device,
         build_type: AccelerationStructureBuildTypeKHR,
@@ -862,6 +901,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateMicromapEXT.html>
     pub unsafe fn create_micromap_ext(
         &self,
         device: Device,
@@ -883,6 +923,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyMicromapEXT.html>
     pub unsafe fn destroy_micromap_ext(
         &self,
         device: Device,
@@ -891,6 +932,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_micromap_ext)(device, micromap, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBuildMicromapsEXT.html>
     pub unsafe fn cmd_build_micromaps_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -904,6 +946,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBuildMicromapsEXT.html>
     pub unsafe fn build_micromaps_ext(
         &self,
         device: Device,
@@ -924,6 +967,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMicromapEXT.html>
     pub unsafe fn copy_micromap_ext(
         &self,
         device: Device,
@@ -939,6 +983,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMicromapToMemoryEXT.html>
     pub unsafe fn copy_micromap_to_memory_ext(
         &self,
         device: Device,
@@ -954,6 +999,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMemoryToMicromapEXT.html>
     pub unsafe fn copy_memory_to_micromap_ext(
         &self,
         device: Device,
@@ -969,6 +1015,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWriteMicromapsPropertiesEXT.html>
     pub unsafe fn write_micromaps_properties_ext(
         &self,
         device: Device,
@@ -994,6 +1041,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMicromapEXT.html>
     pub unsafe fn cmd_copy_micromap_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1001,6 +1049,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_copy_micromap_ext)(command_buffer, info) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMicromapToMemoryEXT.html>
     pub unsafe fn cmd_copy_micromap_to_memory_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1008,6 +1057,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_copy_micromap_to_memory_ext)(command_buffer, info) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryToMicromapEXT.html>
     pub unsafe fn cmd_copy_memory_to_micromap_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1015,6 +1065,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_copy_memory_to_micromap_ext)(command_buffer, info) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteMicromapsPropertiesEXT.html>
     pub unsafe fn cmd_write_micromaps_properties_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1034,6 +1085,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceMicromapCompatibilityEXT.html>
     pub unsafe fn get_device_micromap_compatibility_ext(
         &self,
         device: Device,
@@ -1049,6 +1101,7 @@ impl DeviceFn {
             compatibility.assume_init()
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMicromapBuildSizesEXT.html>
     pub unsafe fn get_micromap_build_sizes_ext(
         &self,
         device: Device,

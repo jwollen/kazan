@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalImageFormatPropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct ExternalImageFormatPropertiesNV {
@@ -46,6 +47,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalMemoryHandleTypeFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ExternalMemoryHandleTypeFlagsNV(Flags);
@@ -82,6 +84,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalMemoryHandleTypeFlagBitsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExternalMemoryHandleTypeFlagBitsNV(u32);
@@ -91,6 +94,7 @@ pub(super) mod defs {
         pub const D3D11_IMAGE_NV: Self = Self(1 << 2);
         pub const D3D11_IMAGE_KMT_NV: Self = Self(1 << 3);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalMemoryFeatureFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ExternalMemoryFeatureFlagsNV(Flags);
@@ -120,6 +124,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalMemoryFeatureFlagBitsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExternalMemoryFeatureFlagBitsNV(u32);
@@ -128,6 +133,7 @@ pub(super) mod defs {
         pub const EXPORTABLE_NV: Self = Self(1 << 1);
         pub const IMPORTABLE_NV: Self = Self(1 << 2);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceExternalImageFormatPropertiesNV.html>
     pub type PFN_vkGetPhysicalDeviceExternalImageFormatPropertiesNV =
         unsafe extern "system" fn(
             physical_device: PhysicalDevice,
@@ -159,6 +165,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceExternalImageFormatPropertiesNV.html>
     pub unsafe fn get_physical_device_external_image_format_properties_nv(
         &self,
         physical_device: PhysicalDevice,

@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE<'a> {
@@ -44,6 +45,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeRgbConversionCapabilitiesVALVE.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeRgbConversionCapabilitiesVALVE<'a> {
@@ -100,6 +102,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeProfileRgbConversionInfoVALVE.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeProfileRgbConversionInfoVALVE<'a> {
@@ -132,6 +135,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeSessionRgbConversionCreateInfoVALVE.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeSessionRgbConversionCreateInfoVALVE<'a> {
@@ -188,6 +192,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeRgbModelConversionFlagsVALVE.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRgbModelConversionFlagsVALVE(Flags);
@@ -231,6 +236,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeRgbModelConversionFlagBitsVALVE.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRgbModelConversionFlagBitsVALVE(u32);
@@ -241,6 +247,7 @@ pub(super) mod defs {
         pub const YCBCR_601_VALVE: Self = Self(1 << 3);
         pub const YCBCR_2020_VALVE: Self = Self(1 << 4);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeRgbRangeCompressionFlagsVALVE.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRgbRangeCompressionFlagsVALVE(Flags);
@@ -266,6 +273,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeRgbRangeCompressionFlagBitsVALVE.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRgbRangeCompressionFlagBitsVALVE(u32);
@@ -273,6 +281,7 @@ pub(super) mod defs {
         pub const FULL_RANGE_VALVE: Self = Self(1 << 0);
         pub const NARROW_RANGE_VALVE: Self = Self(1 << 1);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeRgbChromaOffsetFlagsVALVE.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRgbChromaOffsetFlagsVALVE(Flags);
@@ -298,6 +307,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeRgbChromaOffsetFlagBitsVALVE.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRgbChromaOffsetFlagBitsVALVE(u32);

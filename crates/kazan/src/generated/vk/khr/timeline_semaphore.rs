@@ -8,15 +8,23 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreTypeKHR.html>
     pub type SemaphoreTypeKHR = SemaphoreType;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTimelineSemaphoreFeaturesKHR.html>
     pub type PhysicalDeviceTimelineSemaphoreFeaturesKHR<'a> =
         PhysicalDeviceTimelineSemaphoreFeatures<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTimelineSemaphorePropertiesKHR.html>
     pub type PhysicalDeviceTimelineSemaphorePropertiesKHR<'a> =
         PhysicalDeviceTimelineSemaphoreProperties<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreTypeCreateInfoKHR.html>
     pub type SemaphoreTypeCreateInfoKHR<'a> = SemaphoreTypeCreateInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTimelineSemaphoreSubmitInfoKHR.html>
     pub type TimelineSemaphoreSubmitInfoKHR<'a> = TimelineSemaphoreSubmitInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreWaitInfoKHR.html>
     pub type SemaphoreWaitInfoKHR<'a> = SemaphoreWaitInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreSignalInfoKHR.html>
     pub type SemaphoreSignalInfoKHR<'a> = SemaphoreSignalInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreWaitFlagsKHR.html>
     pub type SemaphoreWaitFlagsKHR = SemaphoreWaitFlags;
     pub type PFN_vkGetSemaphoreCounterValueKHR = PFN_vkGetSemaphoreCounterValue;
     pub type PFN_vkWaitSemaphoresKHR = PFN_vkWaitSemaphores;
@@ -47,6 +55,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSemaphoreCounterValueKHR.html>
     pub unsafe fn get_semaphore_counter_value_khr(
         &self,
         device: Device,
@@ -63,6 +72,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWaitSemaphoresKHR.html>
     pub unsafe fn wait_semaphores_khr(
         &self,
         device: Device,
@@ -78,6 +88,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSignalSemaphoreKHR.html>
     pub unsafe fn signal_semaphore_khr(
         &self,
         device: Device,

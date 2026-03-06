@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTraceRaysIndirectCommand2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct TraceRaysIndirectCommand2KHR {
@@ -114,6 +115,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'a> {
@@ -160,6 +162,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdTraceRaysIndirect2KHR.html>
     pub type PFN_vkCmdTraceRaysIndirect2KHR = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         indirect_device_address: DeviceAddress,
@@ -180,6 +183,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdTraceRaysIndirect2KHR.html>
     pub unsafe fn cmd_trace_rays_indirect2_khr(
         &self,
         command_buffer: CommandBuffer,

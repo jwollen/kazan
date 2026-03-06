@@ -9,6 +9,7 @@ pub(super) mod defs {
     use core::fmt;
     use core::marker::PhantomData;
     pub const MAX_VIDEO_VP9_REFERENCES_PER_FRAME_KHR: u32 = 3;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVideoDecodeVP9FeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceVideoDecodeVP9FeaturesKHR<'a> {
@@ -42,6 +43,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeVP9ProfileInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoDecodeVP9ProfileInfoKHR<'a> {
@@ -71,6 +73,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeVP9CapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoDecodeVP9CapabilitiesKHR<'a> {
@@ -99,6 +102,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeVP9PictureInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoDecodeVP9PictureInfoKHR<'a> {

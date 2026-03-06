@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBeginCustomResolveInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct BeginCustomResolveInfoEXT<'a> {
@@ -28,6 +29,7 @@ pub(super) mod defs {
         }
     }
     impl<'a> BeginCustomResolveInfoEXT<'a> {}
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCustomResolveFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceCustomResolveFeaturesEXT<'a> {
@@ -61,6 +63,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCustomResolveCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct CustomResolveCreateInfoEXT<'a> {
@@ -112,6 +115,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginCustomResolveEXT.html>
     pub type PFN_vkCmdBeginCustomResolveEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_begin_custom_resolve_info: *const BeginCustomResolveInfoEXT<'_>,
@@ -132,6 +136,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginCustomResolveEXT.html>
     pub unsafe fn cmd_begin_custom_resolve_ext(
         &self,
         command_buffer: CommandBuffer,

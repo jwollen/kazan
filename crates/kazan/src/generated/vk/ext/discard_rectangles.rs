@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDiscardRectanglePropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceDiscardRectanglePropertiesEXT<'a> {
@@ -40,6 +41,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineDiscardRectangleStateCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineDiscardRectangleStateCreateInfoEXT<'a> {
@@ -90,6 +92,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDiscardRectangleModeEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DiscardRectangleModeEXT(i32);
@@ -111,6 +114,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineDiscardRectangleStateCreateFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineDiscardRectangleStateCreateFlagsEXT(Flags);
@@ -120,14 +124,17 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDiscardRectangleEXT.html>
     pub type PFN_vkCmdSetDiscardRectangleEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         first_discard_rectangle: u32,
         discard_rectangle_count: u32,
         p_discard_rectangles: *const Rect2D,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDiscardRectangleEnableEXT.html>
     pub type PFN_vkCmdSetDiscardRectangleEnableEXT =
         unsafe extern "system" fn(command_buffer: CommandBuffer, discard_rectangle_enable: Bool32);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDiscardRectangleModeEXT.html>
     pub type PFN_vkCmdSetDiscardRectangleModeEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         discard_rectangle_mode: DiscardRectangleModeEXT,
@@ -158,6 +165,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDiscardRectangleEXT.html>
     pub unsafe fn cmd_set_discard_rectangle_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -173,6 +181,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDiscardRectangleEnableEXT.html>
     pub unsafe fn cmd_set_discard_rectangle_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -185,6 +194,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDiscardRectangleModeEXT.html>
     pub unsafe fn cmd_set_discard_rectangle_mode_ext(
         &self,
         command_buffer: CommandBuffer,

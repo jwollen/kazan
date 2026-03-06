@@ -9,6 +9,7 @@ pub(super) mod defs {
     use core::fmt;
     use core::marker::PhantomData;
     pub type CAMetalLayer = *const c_void;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMetalSurfaceCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct MetalSurfaceCreateInfoEXT<'a> {
@@ -42,6 +43,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMetalSurfaceCreateFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct MetalSurfaceCreateFlagsEXT(Flags);
@@ -51,6 +53,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateMetalSurfaceEXT.html>
     pub type PFN_vkCreateMetalSurfaceEXT = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const MetalSurfaceCreateInfoEXT<'_>,
@@ -75,6 +78,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateMetalSurfaceEXT.html>
     pub unsafe fn create_metal_surface_ext(
         &self,
         instance: Instance,

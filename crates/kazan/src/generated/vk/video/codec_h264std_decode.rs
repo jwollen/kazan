@@ -9,6 +9,7 @@ pub(super) mod defs {
     use core::fmt;
     use core::marker::PhantomData;
     pub const STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE: u32 = 2;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeH264PictureInfoFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoDecodeH264PictureInfoFlags {
@@ -45,6 +46,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeH264PictureInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoDecodeH264PictureInfo {
@@ -108,6 +110,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeH264ReferenceInfoFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoDecodeH264ReferenceInfoFlags {
@@ -134,6 +137,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeH264ReferenceInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoDecodeH264ReferenceInfo {
@@ -173,6 +177,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeH264FieldOrderCount.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoDecodeH264FieldOrderCount(i32);

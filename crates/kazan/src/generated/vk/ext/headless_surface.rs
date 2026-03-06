@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkHeadlessSurfaceCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct HeadlessSurfaceCreateInfoEXT<'a> {
@@ -35,6 +36,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkHeadlessSurfaceCreateFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct HeadlessSurfaceCreateFlagsEXT(Flags);
@@ -44,6 +46,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateHeadlessSurfaceEXT.html>
     pub type PFN_vkCreateHeadlessSurfaceEXT = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const HeadlessSurfaceCreateInfoEXT<'_>,
@@ -68,6 +71,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateHeadlessSurfaceEXT.html>
     pub unsafe fn create_headless_surface_ext(
         &self,
         instance: Instance,

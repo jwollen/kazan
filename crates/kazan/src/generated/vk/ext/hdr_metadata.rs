@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkXYColorEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct XYColorEXT {
@@ -24,6 +25,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkHdrMetadataEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct HdrMetadataEXT<'a> {
@@ -93,6 +95,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetHdrMetadataEXT.html>
     pub type PFN_vkSetHdrMetadataEXT = unsafe extern "system" fn(
         device: Device,
         swapchain_count: u32,
@@ -117,6 +120,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetHdrMetadataEXT.html>
     pub unsafe fn set_hdr_metadata_ext(
         &self,
         device: Device,

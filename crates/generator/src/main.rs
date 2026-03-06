@@ -323,7 +323,8 @@ fn generate_handles(
         let name = normalize_ty_name(handle.name);
         let obj_type = handle.objtypeenum.strip_prefix("VK_OBJECT_TYPE_").unwrap();
 
-        writeln!(file, "{macro_name}!({name}, {obj_type}, doc = \"\");").unwrap();
+        let doc_url = doc_url(handle.name);
+        writeln!(file, "{macro_name}!({name}, {obj_type}, doc = \"<{doc_url}>\");").unwrap();
     }
 }
 
@@ -350,6 +351,7 @@ fn generate_type_aliases(
         .filter(|alias| new_items.contains(alias.name));
 
     for alias in aliases {
+        write_doc_link(file, alias.name);
         writeln!(
             file,
             "pub type {} = {};",
@@ -400,6 +402,7 @@ fn generate_unions(file: &mut impl std::io::Write, analysis: &Analysis, new_item
     for ty in unions {
         let name = normalize_ty_name(ty.name);
         let type_info = analysis.get_base_type_info(ty.name).unwrap();
+        write_doc_link(file, ty.name);
         writeln!(
             file,
             "#[repr(C)]
@@ -491,6 +494,7 @@ fn generate_funcpointers(
         .filter(|ty| new_items.contains(ty.name));
 
     for ty in funcpointers {
+        write_doc_link(file, ty.name);
         writeln!(file, "pub type {} = unsafe extern \"system\" fn(", ty.name).unwrap();
         for param in &ty.params {
             writeln!(
@@ -520,6 +524,7 @@ fn generate_functions<'a>(
     new_commands: impl Iterator<Item = &'a xml::Command>,
 ) {
     for command in new_commands {
+        write_doc_link(file, command.name);
         writeln!(
             file,
             "pub type PFN_{} = unsafe extern \"system\" fn(",
@@ -567,6 +572,16 @@ fn convert_c_expr<'a>(expr: &'a str) -> Cow<'a, str> {
     } else {
         Cow::Borrowed(expr)
     }
+}
+
+pub(crate) fn doc_url(name: &str) -> String {
+    format!("https://registry.khronos.org/vulkan/specs/latest/man/html/{name}.html")
+}
+
+/// Write a doc comment linking to the Vulkan spec for the given Vk-prefixed name.
+pub(crate) fn write_doc_link(file: &mut impl std::io::Write, name: &str) {
+    let url = doc_url(name);
+    writeln!(file, "/// <{url}>").unwrap();
 }
 
 fn normalize_name(name: &str) -> String {

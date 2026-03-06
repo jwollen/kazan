@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance7FeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceMaintenance7FeaturesKHR<'a> {
@@ -38,6 +39,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance7PropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceMaintenance7PropertiesKHR<'a> {
@@ -146,6 +148,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceLayeredApiPropertiesListKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceLayeredApiPropertiesListKHR<'a> {
@@ -184,6 +187,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceLayeredApiPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceLayeredApiPropertiesKHR<'a> {
@@ -233,6 +237,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceLayeredApiVulkanPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceLayeredApiVulkanPropertiesKHR<'a> {
@@ -265,6 +270,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceLayeredApiKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PhysicalDeviceLayeredApiKHR(i32);

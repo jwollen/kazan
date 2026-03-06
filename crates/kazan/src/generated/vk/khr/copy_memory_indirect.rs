@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkStridedDeviceAddressRangeKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StridedDeviceAddressRangeKHR {
@@ -29,6 +30,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyMemoryIndirectCommandKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct CopyMemoryIndirectCommandKHR {
@@ -50,6 +52,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyMemoryIndirectInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct CopyMemoryIndirectInfoKHR<'a> {
@@ -98,6 +101,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyMemoryToImageIndirectCommandKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct CopyMemoryToImageIndirectCommandKHR {
@@ -134,6 +138,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyMemoryToImageIndirectInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct CopyMemoryToImageIndirectInfoKHR<'a> {
@@ -194,6 +199,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'a> {
@@ -236,6 +242,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'a> {
@@ -268,6 +275,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAddressCopyFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AddressCopyFlagsKHR(Flags);
@@ -287,6 +295,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAddressCopyFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct AddressCopyFlagBitsKHR(u32);
@@ -295,10 +304,12 @@ pub(super) mod defs {
         pub const SPARSE_KHR: Self = Self(1 << 1);
         pub const PROTECTED_KHR: Self = Self(1 << 2);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryIndirectKHR.html>
     pub type PFN_vkCmdCopyMemoryIndirectKHR = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_copy_memory_indirect_info: *const CopyMemoryIndirectInfoKHR<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryToImageIndirectKHR.html>
     pub type PFN_vkCmdCopyMemoryToImageIndirectKHR = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_copy_memory_to_image_indirect_info: *const CopyMemoryToImageIndirectInfoKHR<'_>,
@@ -325,6 +336,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryIndirectKHR.html>
     pub unsafe fn cmd_copy_memory_indirect_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -332,6 +344,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_copy_memory_indirect_khr)(command_buffer, copy_memory_indirect_info) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryToImageIndirectKHR.html>
     pub unsafe fn cmd_copy_memory_to_image_indirect_khr(
         &self,
         command_buffer: CommandBuffer,

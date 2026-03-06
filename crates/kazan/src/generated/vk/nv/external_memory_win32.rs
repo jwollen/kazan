@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportMemoryWin32HandleInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImportMemoryWin32HandleInfoNV<'a> {
@@ -42,6 +43,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMemoryWin32HandleInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ExportMemoryWin32HandleInfoNV<'a> {
@@ -76,6 +78,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryWin32HandleNV.html>
     pub type PFN_vkGetMemoryWin32HandleNV = unsafe extern "system" fn(
         device: Device,
         memory: DeviceMemory,
@@ -100,6 +103,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryWin32HandleNV.html>
     pub unsafe fn get_memory_win32_handle_nv(
         &self,
         device: Device,

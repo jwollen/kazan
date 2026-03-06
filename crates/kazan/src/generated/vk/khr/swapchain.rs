@@ -8,7 +8,12 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
-    handle_nondispatchable!(SwapchainKHR, SWAPCHAIN_KHR, doc = "");
+    handle_nondispatchable!(
+        SwapchainKHR,
+        SWAPCHAIN_KHR,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkSwapchainKHR.html>"
+    );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSwapchainCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SwapchainCreateInfoKHR<'a> {
@@ -123,6 +128,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PresentInfoKHR<'a> {
@@ -176,6 +182,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceGroupPresentCapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DeviceGroupPresentCapabilitiesKHR<'a> {
@@ -209,6 +216,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageSwapchainCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImageSwapchainCreateInfoKHR<'a> {
@@ -237,6 +245,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindImageMemorySwapchainInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct BindImageMemorySwapchainInfoKHR<'a> {
@@ -271,6 +280,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAcquireNextImageInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct AcquireNextImageInfoKHR<'a> {
@@ -322,6 +332,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceGroupPresentInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DeviceGroupPresentInfoKHR<'a> {
@@ -359,6 +370,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceGroupSwapchainCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DeviceGroupSwapchainCreateInfoKHR<'a> {
@@ -387,6 +399,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSwapchainCreateFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SwapchainCreateFlagsKHR(Flags);
@@ -443,6 +456,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSwapchainCreateFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SwapchainCreateFlagBitsKHR(u32);
@@ -464,6 +478,7 @@ pub(super) mod defs {
         // VK_KHR_swapchain_mutable_format
         pub const MUTABLE_FORMAT_KHR: Self = Self(1 << 2);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceGroupPresentModeFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DeviceGroupPresentModeFlagsKHR(Flags);
@@ -489,6 +504,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceGroupPresentModeFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DeviceGroupPresentModeFlagBitsKHR(u32);
@@ -498,23 +514,27 @@ pub(super) mod defs {
         pub const SUM_KHR: Self = Self(1 << 2);
         pub const LOCAL_MULTI_DEVICE_KHR: Self = Self(1 << 3);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSwapchainKHR.html>
     pub type PFN_vkCreateSwapchainKHR = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const SwapchainCreateInfoKHR<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_swapchain: *mut SwapchainKHR,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroySwapchainKHR.html>
     pub type PFN_vkDestroySwapchainKHR = unsafe extern "system" fn(
         device: Device,
         swapchain: SwapchainKHR,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSwapchainImagesKHR.html>
     pub type PFN_vkGetSwapchainImagesKHR = unsafe extern "system" fn(
         device: Device,
         swapchain: SwapchainKHR,
         p_swapchain_image_count: *mut u32,
         p_swapchain_images: *mut Image,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireNextImageKHR.html>
     pub type PFN_vkAcquireNextImageKHR = unsafe extern "system" fn(
         device: Device,
         swapchain: SwapchainKHR,
@@ -523,26 +543,31 @@ pub(super) mod defs {
         fence: Fence,
         p_image_index: *mut u32,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueuePresentKHR.html>
     pub type PFN_vkQueuePresentKHR = unsafe extern "system" fn(
         queue: Queue,
         p_present_info: *const PresentInfoKHR<'_>,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceGroupPresentCapabilitiesKHR.html>
     pub type PFN_vkGetDeviceGroupPresentCapabilitiesKHR = unsafe extern "system" fn(
         device: Device,
         p_device_group_present_capabilities: *mut DeviceGroupPresentCapabilitiesKHR<'_>,
     )
         -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceGroupSurfacePresentModesKHR.html>
     pub type PFN_vkGetDeviceGroupSurfacePresentModesKHR = unsafe extern "system" fn(
         device: Device,
         surface: SurfaceKHR,
         p_modes: *mut DeviceGroupPresentModeFlagsKHR,
     )
         -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireNextImage2KHR.html>
     pub type PFN_vkAcquireNextImage2KHR = unsafe extern "system" fn(
         device: Device,
         p_acquire_info: *const AcquireNextImageInfoKHR<'_>,
         p_image_index: *mut u32,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDevicePresentRectanglesKHR.html>
     pub type PFN_vkGetPhysicalDevicePresentRectanglesKHR = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         surface: SurfaceKHR,
@@ -568,6 +593,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDevicePresentRectanglesKHR.html>
     pub unsafe fn get_physical_device_present_rectangles_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -643,6 +669,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSwapchainKHR.html>
     pub unsafe fn create_swapchain_khr(
         &self,
         device: Device,
@@ -664,6 +691,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroySwapchainKHR.html>
     pub unsafe fn destroy_swapchain_khr(
         &self,
         device: Device,
@@ -672,6 +700,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_swapchain_khr)(device, swapchain, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSwapchainImagesKHR.html>
     pub unsafe fn get_swapchain_images_khr(
         &self,
         device: Device,
@@ -703,6 +732,7 @@ impl DeviceFn {
             Ok(result)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireNextImageKHR.html>
     pub unsafe fn acquire_next_image_khr(
         &self,
         device: Device,
@@ -729,6 +759,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueuePresentKHR.html>
     pub unsafe fn queue_present_khr(
         &self,
         queue: Queue,
@@ -743,6 +774,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceGroupPresentCapabilitiesKHR.html>
     pub unsafe fn get_device_group_present_capabilities_khr(
         &self,
         device: Device,
@@ -760,6 +792,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceGroupSurfacePresentModesKHR.html>
     pub unsafe fn get_device_group_surface_present_modes_khr(
         &self,
         device: Device,
@@ -779,6 +812,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireNextImage2KHR.html>
     pub unsafe fn acquire_next_image2_khr(
         &self,
         device: Device,

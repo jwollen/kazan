@@ -8,14 +8,23 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFeatures2KHR.html>
     pub type PhysicalDeviceFeatures2KHR<'a> = PhysicalDeviceFeatures2<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceProperties2KHR.html>
     pub type PhysicalDeviceProperties2KHR<'a> = PhysicalDeviceProperties2<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFormatProperties2KHR.html>
     pub type FormatProperties2KHR<'a> = FormatProperties2<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageFormatProperties2KHR.html>
     pub type ImageFormatProperties2KHR<'a> = ImageFormatProperties2<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceImageFormatInfo2KHR.html>
     pub type PhysicalDeviceImageFormatInfo2KHR<'a> = PhysicalDeviceImageFormatInfo2<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyProperties2KHR.html>
     pub type QueueFamilyProperties2KHR<'a> = QueueFamilyProperties2<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMemoryProperties2KHR.html>
     pub type PhysicalDeviceMemoryProperties2KHR<'a> = PhysicalDeviceMemoryProperties2<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageFormatProperties2KHR.html>
     pub type SparseImageFormatProperties2KHR<'a> = SparseImageFormatProperties2<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSparseImageFormatInfo2KHR.html>
     pub type PhysicalDeviceSparseImageFormatInfo2KHR<'a> = PhysicalDeviceSparseImageFormatInfo2<'a>;
     pub type PFN_vkGetPhysicalDeviceFeatures2KHR = PFN_vkGetPhysicalDeviceFeatures2;
     pub type PFN_vkGetPhysicalDeviceProperties2KHR = PFN_vkGetPhysicalDeviceProperties2;
@@ -75,6 +84,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFeatures2KHR.html>
     pub unsafe fn get_physical_device_features2_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -82,6 +92,7 @@ impl InstanceFn {
     ) {
         unsafe { (self.get_physical_device_features2_khr)(physical_device, features) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceProperties2KHR.html>
     pub unsafe fn get_physical_device_properties2_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -89,6 +100,7 @@ impl InstanceFn {
     ) {
         unsafe { (self.get_physical_device_properties2_khr)(physical_device, properties) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFormatProperties2KHR.html>
     pub unsafe fn get_physical_device_format_properties2_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -103,6 +115,7 @@ impl InstanceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceImageFormatProperties2KHR.html>
     pub unsafe fn get_physical_device_image_format_properties2_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -122,6 +135,7 @@ impl InstanceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceQueueFamilyProperties2KHR.html>
     pub unsafe fn get_physical_device_queue_family_properties2_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
@@ -144,6 +158,7 @@ impl InstanceFn {
             queue_family_properties.set_len(len.try_into().unwrap());
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceMemoryProperties2KHR.html>
     pub unsafe fn get_physical_device_memory_properties2_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -153,6 +168,7 @@ impl InstanceFn {
             (self.get_physical_device_memory_properties2_khr)(physical_device, memory_properties)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSparseImageFormatProperties2KHR.html>
     pub unsafe fn get_physical_device_sparse_image_format_properties2_khr<'a>(
         &self,
         physical_device: PhysicalDevice,

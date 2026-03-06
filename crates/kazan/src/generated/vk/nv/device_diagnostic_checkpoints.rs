@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyCheckpointPropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct QueueFamilyCheckpointPropertiesNV<'a> {
@@ -39,6 +40,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCheckpointDataNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct CheckpointDataNV<'a> {
@@ -72,6 +74,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyCheckpointProperties2NV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct QueueFamilyCheckpointProperties2NV<'a> {
@@ -104,6 +107,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCheckpointData2NV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct CheckpointData2NV<'a> {
@@ -137,15 +141,18 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCheckpointNV.html>
     pub type PFN_vkCmdSetCheckpointNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_checkpoint_marker: *const c_void,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetQueueCheckpointDataNV.html>
     pub type PFN_vkGetQueueCheckpointDataNV = unsafe extern "system" fn(
         queue: Queue,
         p_checkpoint_data_count: *mut u32,
         p_checkpoint_data: *mut CheckpointDataNV<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetQueueCheckpointData2NV.html>
     pub type PFN_vkGetQueueCheckpointData2NV = unsafe extern "system" fn(
         queue: Queue,
         p_checkpoint_data_count: *mut u32,
@@ -175,6 +182,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCheckpointNV.html>
     pub unsafe fn cmd_set_checkpoint_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -182,6 +190,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_checkpoint_nv)(command_buffer, checkpoint_marker) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetQueueCheckpointDataNV.html>
     pub unsafe fn get_queue_checkpoint_data_nv<'a>(
         &self,
         queue: Queue,
@@ -204,6 +213,7 @@ impl DeviceFn {
             checkpoint_data.set_len(len.try_into().unwrap());
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetQueueCheckpointData2NV.html>
     pub unsafe fn get_queue_checkpoint_data2_nv<'a>(
         &self,
         queue: Queue,

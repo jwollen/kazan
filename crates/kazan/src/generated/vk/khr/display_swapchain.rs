@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPresentInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DisplayPresentInfoKHR<'a> {
@@ -48,6 +49,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSharedSwapchainsKHR.html>
     pub type PFN_vkCreateSharedSwapchainsKHR = unsafe extern "system" fn(
         device: Device,
         swapchain_count: u32,
@@ -73,6 +75,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSharedSwapchainsKHR.html>
     pub unsafe fn create_shared_swapchains_khr(
         &self,
         device: Device,

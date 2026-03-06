@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE<'a> {
@@ -43,6 +44,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE<'a> {
@@ -79,6 +81,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineFragmentDensityMapLayeredCreateInfoVALVE.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineFragmentDensityMapLayeredCreateInfoVALVE<'a> {

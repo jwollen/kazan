@@ -8,8 +8,10 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderingEndInfoEXT.html>
     pub type RenderingEndInfoEXT<'a> = RenderingEndInfoKHR<'a>;
     pub type PFN_vkCmdEndRendering2EXT = PFN_vkCmdEndRendering2KHR;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT<'a> {
@@ -46,6 +48,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT<'a> {
@@ -81,6 +84,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassFragmentDensityMapOffsetEndInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct RenderPassFragmentDensityMapOffsetEndInfoEXT<'a> {
@@ -138,6 +142,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndRendering2EXT.html>
     pub unsafe fn cmd_end_rendering2_ext(
         &self,
         command_buffer: CommandBuffer,

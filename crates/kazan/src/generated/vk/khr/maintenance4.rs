@@ -8,9 +8,13 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceBufferMemoryRequirementsKHR.html>
     pub type DeviceBufferMemoryRequirementsKHR<'a> = DeviceBufferMemoryRequirements<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceImageMemoryRequirementsKHR.html>
     pub type DeviceImageMemoryRequirementsKHR<'a> = DeviceImageMemoryRequirements<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance4FeaturesKHR.html>
     pub type PhysicalDeviceMaintenance4FeaturesKHR<'a> = PhysicalDeviceMaintenance4Features<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance4PropertiesKHR.html>
     pub type PhysicalDeviceMaintenance4PropertiesKHR<'a> = PhysicalDeviceMaintenance4Properties<'a>;
     pub type PFN_vkGetDeviceBufferMemoryRequirementsKHR = PFN_vkGetDeviceBufferMemoryRequirements;
     pub type PFN_vkGetDeviceImageMemoryRequirementsKHR = PFN_vkGetDeviceImageMemoryRequirements;
@@ -44,6 +48,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceBufferMemoryRequirementsKHR.html>
     pub unsafe fn get_device_buffer_memory_requirements_khr(
         &self,
         device: Device,
@@ -54,6 +59,7 @@ impl DeviceFn {
             (self.get_device_buffer_memory_requirements_khr)(device, info, memory_requirements)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceImageMemoryRequirementsKHR.html>
     pub unsafe fn get_device_image_memory_requirements_khr(
         &self,
         device: Device,
@@ -64,6 +70,7 @@ impl DeviceFn {
             (self.get_device_image_memory_requirements_khr)(device, info, memory_requirements)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceImageSparseMemoryRequirementsKHR.html>
     pub unsafe fn get_device_image_sparse_memory_requirements_khr<'a>(
         &self,
         device: Device,

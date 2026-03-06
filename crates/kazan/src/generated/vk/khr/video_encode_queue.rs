@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeSessionParametersGetInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeSessionParametersGetInfoKHR<'a> {
@@ -39,6 +40,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeSessionParametersFeedbackInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeSessionParametersFeedbackInfoKHR<'a> {
@@ -67,6 +69,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeUsageInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeUsageInfoKHR<'a> {
@@ -111,6 +114,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeInfoKHR<'a> {
@@ -195,6 +199,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct QueryPoolVideoEncodeFeedbackCreateInfoKHR<'a> {
@@ -227,6 +232,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeQualityLevelInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeQualityLevelInfoKHR<'a> {
@@ -259,6 +265,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceVideoEncodeQualityLevelInfoKHR<'a> {
@@ -293,6 +300,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeQualityLevelPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeQualityLevelPropertiesKHR<'a> {
@@ -333,6 +341,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeRateControlInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeRateControlInfoKHR<'a> {
@@ -395,6 +404,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeRateControlLayerInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeRateControlLayerInfoKHR<'a> {
@@ -441,6 +451,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeCapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeCapabilitiesKHR<'a> {
@@ -514,6 +525,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeTuningModeKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VideoEncodeTuningModeKHR(i32);
@@ -541,6 +553,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeFlagsKHR(Flags);
@@ -573,6 +586,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeFlagBitsKHR(u32);
@@ -583,6 +597,7 @@ pub(super) mod defs {
         pub const WITH_QUANTIZATION_DELTA_MAP_KHR: Self = Self(1 << 0);
         pub const WITH_EMPHASIS_MAP_KHR: Self = Self(1 << 1);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeUsageFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeUsageFlagsKHR(Flags);
@@ -611,6 +626,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeUsageFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeUsageFlagBitsKHR(u32);
@@ -620,6 +636,7 @@ pub(super) mod defs {
         pub const RECORDING_KHR: Self = Self(1 << 2);
         pub const CONFERENCING_KHR: Self = Self(1 << 3);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeContentFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeContentFlagsKHR(Flags);
@@ -640,6 +657,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeContentFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeContentFlagBitsKHR(u32);
@@ -648,6 +666,7 @@ pub(super) mod defs {
         pub const DESKTOP_KHR: Self = Self(1 << 1);
         pub const RENDERED_KHR: Self = Self(1 << 2);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeCapabilityFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeCapabilityFlagsKHR(Flags);
@@ -686,6 +705,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeCapabilityFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeCapabilityFlagBitsKHR(u32);
@@ -696,6 +716,7 @@ pub(super) mod defs {
         pub const QUANTIZATION_DELTA_MAP_KHR: Self = Self(1 << 2);
         pub const EMPHASIS_MAP_KHR: Self = Self(1 << 3);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeFeedbackFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeFeedbackFlagsKHR(Flags);
@@ -727,6 +748,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeFeedbackFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeFeedbackFlagBitsKHR(u32);
@@ -735,6 +757,7 @@ pub(super) mod defs {
         pub const BITSTREAM_BYTES_WRITTEN_KHR: Self = Self(1 << 1);
         pub const BITSTREAM_HAS_OVERRIDES_KHR: Self = Self(1 << 2);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeRateControlFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRateControlFlagsKHR(Flags);
@@ -744,6 +767,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeRateControlModeFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRateControlModeFlagsKHR(Flags);
@@ -767,6 +791,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeRateControlModeFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRateControlModeFlagBitsKHR(u32);
@@ -775,12 +800,14 @@ pub(super) mod defs {
         pub const CBR_KHR: Self = Self(1 << 1);
         pub const VBR_KHR: Self = Self(1 << 2);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR.html>
     pub type PFN_vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR =
         unsafe extern "system" fn(
             physical_device: PhysicalDevice,
             p_quality_level_info: *const PhysicalDeviceVideoEncodeQualityLevelInfoKHR<'_>,
             p_quality_level_properties: *mut VideoEncodeQualityLevelPropertiesKHR<'_>,
         ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetEncodedVideoSessionParametersKHR.html>
     pub type PFN_vkGetEncodedVideoSessionParametersKHR = unsafe extern "system" fn(
         device: Device,
         p_video_session_parameters_info: *const VideoEncodeSessionParametersGetInfoKHR<'_>,
@@ -789,6 +816,7 @@ pub(super) mod defs {
         p_data: *mut c_void,
     )
         -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEncodeVideoKHR.html>
     pub type PFN_vkCmdEncodeVideoKHR = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_encode_info: *const VideoEncodeInfoKHR<'_>,
@@ -813,6 +841,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR.html>
     pub unsafe fn get_physical_device_video_encode_quality_level_properties_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -854,6 +883,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetEncodedVideoSessionParametersKHR.html>
     pub unsafe fn get_encoded_video_session_parameters_khr<'a>(
         &self,
         device: Device,
@@ -891,6 +921,7 @@ impl DeviceFn {
             Ok(result)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEncodeVideoKHR.html>
     pub unsafe fn cmd_encode_video_khr(
         &self,
         command_buffer: CommandBuffer,

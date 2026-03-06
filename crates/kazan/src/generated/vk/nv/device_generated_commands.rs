@@ -11,8 +11,9 @@ pub(super) mod defs {
     handle_nondispatchable!(
         IndirectCommandsLayoutNV,
         INDIRECT_COMMANDS_LAYOUT_NV,
-        doc = ""
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutNV.html>"
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDeviceGeneratedCommandsFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'a> {
@@ -49,6 +50,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceDeviceGeneratedCommandsPropertiesNV<'a> {
@@ -156,6 +158,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGraphicsShaderGroupCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct GraphicsShaderGroupCreateInfoNV<'a> {
@@ -204,6 +207,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGraphicsPipelineShaderGroupsCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct GraphicsPipelineShaderGroupsCreateInfoNV<'a> {
@@ -248,6 +252,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindShaderGroupIndirectCommandNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct BindShaderGroupIndirectCommandNV {
@@ -259,6 +264,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindIndexBufferIndirectCommandNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct BindIndexBufferIndirectCommandNV {
@@ -280,6 +286,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindVertexBufferIndirectCommandNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct BindVertexBufferIndirectCommandNV {
@@ -301,6 +308,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSetStateFlagsIndirectCommandNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct SetStateFlagsIndirectCommandNV {
@@ -312,6 +320,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsStreamNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct IndirectCommandsStreamNV {
@@ -328,6 +337,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutTokenNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct IndirectCommandsLayoutTokenNV<'a> {
@@ -431,6 +441,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct IndirectCommandsLayoutCreateInfoNV<'a> {
@@ -483,6 +494,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGeneratedCommandsInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct GeneratedCommandsInfoNV<'a> {
@@ -582,6 +594,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGeneratedCommandsMemoryRequirementsInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct GeneratedCommandsMemoryRequirementsInfoNV<'a> {
@@ -631,6 +644,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsTokenTypeNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct IndirectCommandsTokenTypeNV(i32);
@@ -675,6 +689,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutUsageFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct IndirectCommandsLayoutUsageFlagsNV(Flags);
@@ -706,6 +721,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutUsageFlagBitsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct IndirectCommandsLayoutUsageFlagBitsNV(u32);
@@ -714,6 +730,7 @@ pub(super) mod defs {
         pub const INDEXED_SEQUENCES_NV: Self = Self(1 << 1);
         pub const UNORDERED_SEQUENCES_NV: Self = Self(1 << 2);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectStateFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct IndirectStateFlagsNV(Flags);
@@ -730,38 +747,45 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectStateFlagBitsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct IndirectStateFlagBitsNV(u32);
     impl IndirectStateFlagBitsNV {
         pub const FLAG_FRONTFACE_NV: Self = Self(1 << 0);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdExecuteGeneratedCommandsNV.html>
     pub type PFN_vkCmdExecuteGeneratedCommandsNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         is_preprocessed: Bool32,
         p_generated_commands_info: *const GeneratedCommandsInfoNV<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPreprocessGeneratedCommandsNV.html>
     pub type PFN_vkCmdPreprocessGeneratedCommandsNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_generated_commands_info: *const GeneratedCommandsInfoNV<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindPipelineShaderGroupNV.html>
     pub type PFN_vkCmdBindPipelineShaderGroupNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         pipeline_bind_point: PipelineBindPoint,
         pipeline: Pipeline,
         group_index: u32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetGeneratedCommandsMemoryRequirementsNV.html>
     pub type PFN_vkGetGeneratedCommandsMemoryRequirementsNV = unsafe extern "system" fn(
         device: Device,
         p_info: *const GeneratedCommandsMemoryRequirementsInfoNV<'_>,
         p_memory_requirements: *mut MemoryRequirements2<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateIndirectCommandsLayoutNV.html>
     pub type PFN_vkCreateIndirectCommandsLayoutNV = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const IndirectCommandsLayoutCreateInfoNV<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_indirect_commands_layout: *mut IndirectCommandsLayoutNV,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyIndirectCommandsLayoutNV.html>
     pub type PFN_vkDestroyIndirectCommandsLayoutNV = unsafe extern "system" fn(
         device: Device,
         indirect_commands_layout: IndirectCommandsLayoutNV,
@@ -806,6 +830,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetGeneratedCommandsMemoryRequirementsNV.html>
     pub unsafe fn get_generated_commands_memory_requirements_nv(
         &self,
         device: Device,
@@ -816,6 +841,7 @@ impl DeviceFn {
             (self.get_generated_commands_memory_requirements_nv)(device, info, memory_requirements)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPreprocessGeneratedCommandsNV.html>
     pub unsafe fn cmd_preprocess_generated_commands_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -825,6 +851,7 @@ impl DeviceFn {
             (self.cmd_preprocess_generated_commands_nv)(command_buffer, generated_commands_info)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdExecuteGeneratedCommandsNV.html>
     pub unsafe fn cmd_execute_generated_commands_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -839,6 +866,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindPipelineShaderGroupNV.html>
     pub unsafe fn cmd_bind_pipeline_shader_group_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -855,6 +883,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateIndirectCommandsLayoutNV.html>
     pub unsafe fn create_indirect_commands_layout_nv(
         &self,
         device: Device,
@@ -876,6 +905,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyIndirectCommandsLayoutNV.html>
     pub unsafe fn destroy_indirect_commands_layout_nv(
         &self,
         device: Device,

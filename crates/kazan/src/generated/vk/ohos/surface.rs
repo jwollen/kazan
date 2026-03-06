@@ -9,6 +9,7 @@ pub(super) mod defs {
     use core::fmt;
     use core::marker::PhantomData;
     pub type OHNativeWindow = *const c_void;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceCreateInfoOHOS.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SurfaceCreateInfoOHOS<'a> {
@@ -42,6 +43,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceCreateFlagsOHOS.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SurfaceCreateFlagsOHOS(Flags);
@@ -51,6 +53,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSurfaceOHOS.html>
     pub type PFN_vkCreateSurfaceOHOS = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const SurfaceCreateInfoOHOS<'_>,
@@ -75,6 +78,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSurfaceOHOS.html>
     pub unsafe fn create_surface_ohos(
         &self,
         instance: Instance,

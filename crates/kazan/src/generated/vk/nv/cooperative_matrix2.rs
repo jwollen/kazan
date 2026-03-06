@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCooperativeMatrix2FeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceCooperativeMatrix2FeaturesNV<'a> {
@@ -100,6 +101,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCooperativeMatrix2PropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceCooperativeMatrix2PropertiesNV<'a> {
@@ -156,6 +158,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCooperativeMatrixFlexibleDimensionsPropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct CooperativeMatrixFlexibleDimensionsPropertiesNV<'a> {
@@ -238,6 +241,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV.html>
     pub type PFN_vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV =
         unsafe extern "system" fn(
             physical_device: PhysicalDevice,
@@ -264,6 +268,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV.html>
     pub unsafe fn get_physical_device_cooperative_matrix_flexible_dimensions_properties_nv<'a>(
         &self,
         physical_device: PhysicalDevice,

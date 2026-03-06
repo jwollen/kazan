@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRefreshCycleDurationGOOGLE.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct RefreshCycleDurationGOOGLE {
@@ -19,6 +20,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPastPresentationTimingGOOGLE.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct PastPresentationTimingGOOGLE {
@@ -50,6 +52,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentTimesInfoGOOGLE.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PresentTimesInfoGOOGLE<'a> {
@@ -81,6 +84,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentTimeGOOGLE.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct PresentTimeGOOGLE {
@@ -97,11 +101,13 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRefreshCycleDurationGOOGLE.html>
     pub type PFN_vkGetRefreshCycleDurationGOOGLE = unsafe extern "system" fn(
         device: Device,
         swapchain: SwapchainKHR,
         p_display_timing_properties: *mut RefreshCycleDurationGOOGLE,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPastPresentationTimingGOOGLE.html>
     pub type PFN_vkGetPastPresentationTimingGOOGLE = unsafe extern "system" fn(
         device: Device,
         swapchain: SwapchainKHR,
@@ -130,6 +136,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRefreshCycleDurationGOOGLE.html>
     pub unsafe fn get_refresh_cycle_duration_google(
         &self,
         device: Device,
@@ -149,6 +156,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPastPresentationTimingGOOGLE.html>
     pub unsafe fn get_past_presentation_timing_google(
         &self,
         device: Device,

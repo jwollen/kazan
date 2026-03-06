@@ -29,6 +29,7 @@ pub(super) mod defs {
     pub const STD_VIDEO_AV1_MAX_NUM_CR_POINTS: u32 = 10;
     pub const STD_VIDEO_AV1_MAX_NUM_POS_LUMA: u32 = 24;
     pub const STD_VIDEO_AV1_MAX_NUM_POS_CHROMA: u32 = 25;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1ColorConfigFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoAV1ColorConfigFlags {
@@ -63,6 +64,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1ColorConfig.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoAV1ColorConfig {
@@ -123,6 +125,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1TimingInfoFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoAV1TimingInfoFlags {
@@ -139,6 +142,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1TimingInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoAV1TimingInfo {
@@ -165,6 +169,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1SequenceHeaderFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoAV1SequenceHeaderFlags {
@@ -274,6 +279,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1SequenceHeader.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoAV1SequenceHeader<'a> {
@@ -378,6 +384,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1LoopFilterFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoAV1LoopFilterFlags {
@@ -399,6 +406,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1LoopFilter.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoAV1LoopFilter {
@@ -462,6 +470,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1QuantizationFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoAV1QuantizationFlags {
@@ -483,6 +492,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1Quantization.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoAV1Quantization {
@@ -539,6 +549,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1Segmentation.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoAV1Segmentation {
@@ -571,6 +582,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1TileInfoFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoAV1TileInfoFlags {
@@ -587,6 +599,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1TileInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoAV1TileInfo<'a> {
@@ -657,6 +670,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1CDEF.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoAV1CDEF {
@@ -717,6 +731,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1LoopRestoration.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoAV1LoopRestoration {
@@ -749,6 +764,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1GlobalMotion.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoAV1GlobalMotion {
@@ -778,6 +794,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1FilmGrainFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoAV1FilmGrainFlags {
@@ -809,6 +826,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1FilmGrain.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoAV1FilmGrain {
@@ -998,6 +1016,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1Profile.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoAV1Profile(i32);
@@ -1023,6 +1042,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1Level.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoAV1Level(i32);
@@ -1090,6 +1110,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1FrameType.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoAV1FrameType(i32);
@@ -1117,6 +1138,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1ReferenceName.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoAV1ReferenceName(i32);
@@ -1152,6 +1174,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1InterpolationFilter.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoAV1InterpolationFilter(i32);
@@ -1181,6 +1204,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1TxMode.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoAV1TxMode(i32);
@@ -1206,6 +1230,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1FrameRestorationType.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoAV1FrameRestorationType(i32);
@@ -1233,6 +1258,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1ColorPrimaries.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoAV1ColorPrimaries(i32);
@@ -1276,6 +1302,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1TransferCharacteristics.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoAV1TransferCharacteristics(i32);
@@ -1333,6 +1360,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1MatrixCoefficients.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoAV1MatrixCoefficients(i32);
@@ -1382,6 +1410,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1ChromaSamplePosition.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoAV1ChromaSamplePosition(i32);

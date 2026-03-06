@@ -8,7 +8,9 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceToolPropertiesEXT.html>
     pub type PhysicalDeviceToolPropertiesEXT<'a> = PhysicalDeviceToolProperties<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkToolPurposeFlagsEXT.html>
     pub type ToolPurposeFlagsEXT = ToolPurposeFlags;
     pub type PFN_vkGetPhysicalDeviceToolPropertiesEXT = PFN_vkGetPhysicalDeviceToolProperties;
 }
@@ -29,6 +31,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceToolPropertiesEXT.html>
     pub unsafe fn get_physical_device_tool_properties_ext<'a>(
         &self,
         physical_device: PhysicalDevice,

@@ -8,6 +8,8 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFormatProperties3KHR.html>
     pub type FormatProperties3KHR<'a> = FormatProperties3<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFormatFeatureFlags2KHR.html>
     pub type FormatFeatureFlags2KHR = FormatFeatureFlags2;
 }

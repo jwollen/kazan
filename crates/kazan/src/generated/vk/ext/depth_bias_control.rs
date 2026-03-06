@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDepthBiasInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DepthBiasInfoEXT<'a> {
@@ -47,6 +48,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDepthBiasRepresentationInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DepthBiasRepresentationInfoEXT<'a> {
@@ -88,6 +90,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDepthBiasControlFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceDepthBiasControlFeaturesEXT<'a> {
@@ -143,6 +146,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDepthBiasRepresentationEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DepthBiasRepresentationEXT(i32);
@@ -170,6 +174,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthBias2EXT.html>
     pub type PFN_vkCmdSetDepthBias2EXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_depth_bias_info: *const DepthBiasInfoEXT<'_>,
@@ -192,6 +197,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthBias2EXT.html>
     pub unsafe fn cmd_set_depth_bias2_ext(
         &self,
         command_buffer: CommandBuffer,

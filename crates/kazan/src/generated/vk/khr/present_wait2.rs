@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentWait2InfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PresentWait2InfoKHR<'a> {
@@ -41,6 +42,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePresentWait2FeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDevicePresentWait2FeaturesKHR<'a> {
@@ -71,6 +73,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceCapabilitiesPresentWait2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SurfaceCapabilitiesPresentWait2KHR<'a> {
@@ -100,6 +103,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWaitForPresent2KHR.html>
     pub type PFN_vkWaitForPresent2KHR = unsafe extern "system" fn(
         device: Device,
         swapchain: SwapchainKHR,
@@ -123,6 +127,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWaitForPresent2KHR.html>
     pub unsafe fn wait_for_present2_khr(
         &self,
         device: Device,

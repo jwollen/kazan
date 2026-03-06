@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264CapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeH264CapabilitiesKHR<'a> {
@@ -120,6 +121,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264QualityLevelPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeH264QualityLevelPropertiesKHR<'a> {
@@ -222,6 +224,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264SessionCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeH264SessionCreateInfoKHR<'a> {
@@ -257,6 +260,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264SessionParametersAddInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeH264SessionParametersAddInfoKHR<'a> {
@@ -301,6 +305,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264SessionParametersCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeH264SessionParametersCreateInfoKHR<'a> {
@@ -348,6 +353,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264SessionParametersGetInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeH264SessionParametersGetInfoKHR<'a> {
@@ -398,6 +404,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264SessionParametersFeedbackInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeH264SessionParametersFeedbackInfoKHR<'a> {
@@ -436,6 +443,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264DpbSlotInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeH264DpbSlotInfoKHR<'a> {
@@ -467,6 +475,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264PictureInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeH264PictureInfoKHR<'a> {
@@ -516,6 +525,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264ProfileInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeH264ProfileInfoKHR<'a> {
@@ -545,6 +555,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264NaluSliceInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeH264NaluSliceInfoKHR<'a> {
@@ -581,6 +592,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264RateControlInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeH264RateControlInfoKHR<'a> {
@@ -635,6 +647,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264QpKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct VideoEncodeH264QpKHR {
@@ -656,6 +669,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264FrameSizeKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct VideoEncodeH264FrameSizeKHR {
@@ -677,6 +691,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264GopRemainingFrameInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeH264GopRemainingFrameInfoKHR<'a> {
@@ -727,6 +742,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264RateControlLayerInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeH264RateControlLayerInfoKHR<'a> {
@@ -789,6 +805,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264CapabilityFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeH264CapabilityFlagsKHR(Flags);
@@ -870,6 +887,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264CapabilityFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeH264CapabilityFlagBitsKHR(u32);
@@ -888,6 +906,7 @@ pub(super) mod defs {
         // VK_KHR_video_encode_quantization_map
         pub const MB_QP_DIFF_WRAPAROUND_KHR: Self = Self(1 << 9);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264StdFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeH264StdFlagsKHR(Flags);
@@ -1021,6 +1040,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264StdFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeH264StdFlagBitsKHR(u32);
@@ -1046,6 +1066,7 @@ pub(super) mod defs {
         pub const SLICE_QP_DELTA_KHR: Self = Self(1 << 19);
         pub const DIFFERENT_SLICE_QP_DELTA_KHR: Self = Self(1 << 20);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264RateControlFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeH264RateControlFlagsKHR(Flags);
@@ -1089,6 +1110,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264RateControlFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeH264RateControlFlagBitsKHR(u32);

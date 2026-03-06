@@ -9,6 +9,7 @@ pub(super) mod defs {
     use core::fmt;
     use core::marker::PhantomData;
     pub const PARTITIONED_ACCELERATION_STRUCTURE_PARTITION_INDEX_GLOBAL_NV: u32 = !0;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePartitionedAccelerationStructureFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDevicePartitionedAccelerationStructureFeaturesNV<'a> {
@@ -50,6 +51,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePartitionedAccelerationStructurePropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDevicePartitionedAccelerationStructurePropertiesNV<'a> {
@@ -84,6 +86,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBuildPartitionedAccelerationStructureIndirectCommandNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct BuildPartitionedAccelerationStructureIndirectCommandNV {
@@ -105,6 +108,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureFlagsNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PartitionedAccelerationStructureFlagsNV<'a> {
@@ -137,6 +141,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureWriteInstanceDataNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PartitionedAccelerationStructureWriteInstanceDataNV {
@@ -210,6 +215,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureUpdateInstanceDataNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct PartitionedAccelerationStructureUpdateInstanceDataNV {
@@ -235,6 +241,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureWritePartitionTranslationDataNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PartitionedAccelerationStructureWritePartitionTranslationDataNV {
@@ -259,6 +266,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkWriteDescriptorSetPartitionedAccelerationStructureNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct WriteDescriptorSetPartitionedAccelerationStructureNV<'a> {
@@ -297,6 +305,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureInstancesInputNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PartitionedAccelerationStructureInstancesInputNV<'a> {
@@ -355,6 +364,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBuildPartitionedAccelerationStructureInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct BuildPartitionedAccelerationStructureInfoNV<'a> {
@@ -422,6 +432,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureOpTypeNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PartitionedAccelerationStructureOpTypeNV(i32);
@@ -445,6 +456,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureInstanceFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PartitionedAccelerationStructureInstanceFlagsNV(Flags);
@@ -472,6 +484,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureInstanceFlagBitsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PartitionedAccelerationStructureInstanceFlagBitsNV(u32);
@@ -482,11 +495,13 @@ pub(super) mod defs {
         pub const FLAG_FORCE_NO_OPAQUE_NV: Self = Self(1 << 3);
         pub const FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV: Self = Self(1 << 4);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPartitionedAccelerationStructuresBuildSizesNV.html>
     pub type PFN_vkGetPartitionedAccelerationStructuresBuildSizesNV = unsafe extern "system" fn(
         device: Device,
         p_info: *const PartitionedAccelerationStructureInstancesInputNV<'_>,
         p_size_info: *mut AccelerationStructureBuildSizesInfoKHR<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBuildPartitionedAccelerationStructuresNV.html>
     pub type PFN_vkCmdBuildPartitionedAccelerationStructuresNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_build_info: *const BuildPartitionedAccelerationStructureInfoNV<'_>,
@@ -517,6 +532,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPartitionedAccelerationStructuresBuildSizesNV.html>
     pub unsafe fn get_partitioned_acceleration_structures_build_sizes_nv(
         &self,
         device: Device,
@@ -527,6 +543,7 @@ impl DeviceFn {
             (self.get_partitioned_acceleration_structures_build_sizes_nv)(device, info, size_info)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBuildPartitionedAccelerationStructuresNV.html>
     pub unsafe fn cmd_build_partitioned_acceleration_structures_nv(
         &self,
         command_buffer: CommandBuffer,

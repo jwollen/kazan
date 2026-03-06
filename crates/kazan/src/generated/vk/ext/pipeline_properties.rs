@@ -8,7 +8,9 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineInfoEXT.html>
     pub type PipelineInfoEXT<'a> = PipelineInfoKHR<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelinePropertiesIdentifierEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelinePropertiesIdentifierEXT<'a> {
@@ -39,6 +41,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePipelinePropertiesFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDevicePipelinePropertiesFeaturesEXT<'a> {
@@ -75,6 +78,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelinePropertiesEXT.html>
     pub type PFN_vkGetPipelinePropertiesEXT = unsafe extern "system" fn(
         device: Device,
         p_pipeline_info: *const PipelineInfoEXT<'_>,
@@ -98,6 +102,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelinePropertiesEXT.html>
     pub unsafe fn get_pipeline_properties_ext(
         &self,
         device: Device,

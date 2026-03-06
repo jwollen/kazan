@@ -9,6 +9,7 @@ pub(super) mod defs {
     use core::fmt;
     use core::marker::PhantomData;
     pub const STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE: u32 = 8;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeH265PictureInfoFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoDecodeH265PictureInfoFlags {
@@ -38,6 +39,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeH265PictureInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoDecodeH265PictureInfo {
@@ -128,6 +130,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeH265ReferenceInfoFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoDecodeH265ReferenceInfoFlags {
@@ -144,6 +147,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeH265ReferenceInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoDecodeH265ReferenceInfo {

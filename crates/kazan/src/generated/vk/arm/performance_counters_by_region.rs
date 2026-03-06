@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePerformanceCountersByRegionFeaturesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDevicePerformanceCountersByRegionFeaturesARM<'a> {
@@ -47,6 +48,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePerformanceCountersByRegionPropertiesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDevicePerformanceCountersByRegionPropertiesARM<'a> {
@@ -109,6 +111,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PerformanceCounterARM<'a> {
@@ -136,6 +139,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterDescriptionARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PerformanceCounterDescriptionARM<'a> {
@@ -165,6 +169,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassPerformanceCountersByRegionBeginInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct RenderPassPerformanceCountersByRegionBeginInfoARM<'a> {
@@ -225,6 +230,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterDescriptionFlagsARM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PerformanceCounterDescriptionFlagsARM(Flags);
@@ -234,6 +240,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM.html>
     pub type PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM =
         unsafe extern "system" fn(
             physical_device: PhysicalDevice,
@@ -263,6 +270,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM.html>
     pub unsafe fn enumerate_physical_device_queue_family_performance_counters_by_region_arm<'a>(
         &self,
         physical_device: PhysicalDevice,

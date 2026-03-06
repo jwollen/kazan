@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderResourceUsageAMD.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct ShaderResourceUsageAMD {
@@ -39,6 +40,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderStatisticsInfoAMD.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ShaderStatisticsInfoAMD {
@@ -93,6 +95,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderInfoTypeAMD.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ShaderInfoTypeAMD(i32);
@@ -116,6 +119,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetShaderInfoAMD.html>
     pub type PFN_vkGetShaderInfoAMD = unsafe extern "system" fn(
         device: Device,
         pipeline: Pipeline,
@@ -142,6 +146,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetShaderInfoAMD.html>
     pub unsafe fn get_shader_info_amd(
         &self,
         device: Device,

@@ -8,18 +8,33 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
-    handle_nondispatchable!(AccelerationStructureNV, ACCELERATION_STRUCTURE_NV, doc = "");
+    handle_nondispatchable!(
+        AccelerationStructureNV,
+        ACCELERATION_STRUCTURE_NV,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureNV.html>"
+    );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyAccelerationStructureModeNV.html>
     pub type CopyAccelerationStructureModeNV = CopyAccelerationStructureModeKHR;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureTypeNV.html>
     pub type AccelerationStructureTypeNV = AccelerationStructureTypeKHR;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGeometryTypeNV.html>
     pub type GeometryTypeNV = GeometryTypeKHR;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRayTracingShaderGroupTypeNV.html>
     pub type RayTracingShaderGroupTypeNV = RayTracingShaderGroupTypeKHR;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAabbPositionsNV.html>
     pub type AabbPositionsNV = AabbPositionsKHR;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTransformMatrixNV.html>
     pub type TransformMatrixNV = TransformMatrixKHR;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureInstanceNV.html>
     pub type AccelerationStructureInstanceNV = AccelerationStructureInstanceKHR;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGeometryFlagsNV.html>
     pub type GeometryFlagsNV = GeometryFlagsKHR;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGeometryInstanceFlagsNV.html>
     pub type GeometryInstanceFlagsNV = GeometryInstanceFlagsKHR;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBuildAccelerationStructureFlagsNV.html>
     pub type BuildAccelerationStructureFlagsNV = BuildAccelerationStructureFlagsKHR;
     pub type PFN_vkGetRayTracingShaderGroupHandlesNV = PFN_vkGetRayTracingShaderGroupHandlesKHR;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRayTracingShaderGroupCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct RayTracingShaderGroupCreateInfoNV<'a> {
@@ -72,6 +87,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRayTracingPipelineCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct RayTracingPipelineCreateInfoNV<'a> {
@@ -141,6 +157,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGeometryTrianglesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct GeometryTrianglesNV<'a> {
@@ -228,6 +245,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGeometryAABBNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct GeometryAABBNV<'a> {
@@ -273,6 +291,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGeometryDataNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct GeometryDataNV<'a> {
@@ -299,6 +318,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGeometryNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct GeometryNV<'a> {
@@ -338,6 +358,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct AccelerationStructureInfoNV<'a> {
@@ -386,6 +407,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct AccelerationStructureCreateInfoNV<'a> {
@@ -419,6 +441,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindAccelerationStructureMemoryInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct BindAccelerationStructureMemoryInfoNV<'a> {
@@ -471,6 +494,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkWriteDescriptorSetAccelerationStructureNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct WriteDescriptorSetAccelerationStructureNV<'a> {
@@ -506,6 +530,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureMemoryRequirementsInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct AccelerationStructureMemoryRequirementsInfoNV<'a> {
@@ -543,6 +568,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingPropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceRayTracingPropertiesNV<'a> {
@@ -621,6 +647,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureMemoryRequirementsTypeNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct AccelerationStructureMemoryRequirementsTypeNV(i32);
@@ -644,35 +671,42 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCompileDeferredNV.html>
     pub type PFN_vkCompileDeferredNV =
         unsafe extern "system" fn(device: Device, pipeline: Pipeline, shader: u32) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateAccelerationStructureNV.html>
     pub type PFN_vkCreateAccelerationStructureNV = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const AccelerationStructureCreateInfoNV<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_acceleration_structure: *mut AccelerationStructureNV,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyAccelerationStructureNV.html>
     pub type PFN_vkDestroyAccelerationStructureNV = unsafe extern "system" fn(
         device: Device,
         acceleration_structure: AccelerationStructureNV,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAccelerationStructureMemoryRequirementsNV.html>
     pub type PFN_vkGetAccelerationStructureMemoryRequirementsNV = unsafe extern "system" fn(
         device: Device,
         p_info: *const AccelerationStructureMemoryRequirementsInfoNV<'_>,
         p_memory_requirements: *mut MemoryRequirements2KHR<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindAccelerationStructureMemoryNV.html>
     pub type PFN_vkBindAccelerationStructureMemoryNV = unsafe extern "system" fn(
         device: Device,
         bind_info_count: u32,
         p_bind_infos: *const BindAccelerationStructureMemoryInfoNV<'_>,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyAccelerationStructureNV.html>
     pub type PFN_vkCmdCopyAccelerationStructureNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         dst: AccelerationStructureNV,
         src: AccelerationStructureNV,
         mode: CopyAccelerationStructureModeKHR,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteAccelerationStructuresPropertiesNV.html>
     pub type PFN_vkCmdWriteAccelerationStructuresPropertiesNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         acceleration_structure_count: u32,
@@ -681,6 +715,7 @@ pub(super) mod defs {
         query_pool: QueryPool,
         first_query: u32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBuildAccelerationStructureNV.html>
     pub type PFN_vkCmdBuildAccelerationStructureNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_info: *const AccelerationStructureInfoNV<'_>,
@@ -692,6 +727,7 @@ pub(super) mod defs {
         scratch: Buffer,
         scratch_offset: DeviceSize,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdTraceRaysNV.html>
     pub type PFN_vkCmdTraceRaysNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         raygen_shader_binding_table_buffer: Buffer,
@@ -709,12 +745,14 @@ pub(super) mod defs {
         height: u32,
         depth: u32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAccelerationStructureHandleNV.html>
     pub type PFN_vkGetAccelerationStructureHandleNV = unsafe extern "system" fn(
         device: Device,
         acceleration_structure: AccelerationStructureNV,
         data_size: usize,
         p_data: *mut c_void,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateRayTracingPipelinesNV.html>
     pub type PFN_vkCreateRayTracingPipelinesNV = unsafe extern "system" fn(
         device: Device,
         pipeline_cache: PipelineCache,
@@ -789,6 +827,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateAccelerationStructureNV.html>
     pub unsafe fn create_acceleration_structure_nv(
         &self,
         device: Device,
@@ -810,6 +849,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyAccelerationStructureNV.html>
     pub unsafe fn destroy_acceleration_structure_nv(
         &self,
         device: Device,
@@ -824,6 +864,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAccelerationStructureMemoryRequirementsNV.html>
     pub unsafe fn get_acceleration_structure_memory_requirements_nv(
         &self,
         device: Device,
@@ -838,6 +879,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindAccelerationStructureMemoryNV.html>
     pub unsafe fn bind_acceleration_structure_memory_nv(
         &self,
         device: Device,
@@ -856,6 +898,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBuildAccelerationStructureNV.html>
     pub unsafe fn cmd_build_acceleration_structure_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -882,6 +925,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyAccelerationStructureNV.html>
     pub unsafe fn cmd_copy_acceleration_structure_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -891,6 +935,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_copy_acceleration_structure_nv)(command_buffer, dst, src, mode) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdTraceRaysNV.html>
     pub unsafe fn cmd_trace_rays_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -929,6 +974,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateRayTracingPipelinesNV.html>
     pub unsafe fn create_ray_tracing_pipelines_nv(
         &self,
         device: Device,
@@ -953,6 +999,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRayTracingShaderGroupHandlesNV.html>
     pub unsafe fn get_ray_tracing_shader_group_handles_nv(
         &self,
         device: Device,
@@ -977,6 +1024,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAccelerationStructureHandleNV.html>
     pub unsafe fn get_acceleration_structure_handle_nv(
         &self,
         device: Device,
@@ -997,6 +1045,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteAccelerationStructuresPropertiesNV.html>
     pub unsafe fn cmd_write_acceleration_structures_properties_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -1016,6 +1065,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCompileDeferredNV.html>
     pub unsafe fn compile_deferred_nv(
         &self,
         device: Device,

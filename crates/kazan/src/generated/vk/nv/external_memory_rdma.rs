@@ -9,6 +9,7 @@ pub(super) mod defs {
     use core::fmt;
     use core::marker::PhantomData;
     pub type RemoteAddressNV = c_void;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceExternalMemoryRDMAFeaturesNV<'a> {
@@ -42,6 +43,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryGetRemoteAddressInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct MemoryGetRemoteAddressInfoNV<'a> {
@@ -75,6 +77,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryRemoteAddressNV.html>
     pub type PFN_vkGetMemoryRemoteAddressNV = unsafe extern "system" fn(
         device: Device,
         p_memory_get_remote_address_info: *const MemoryGetRemoteAddressInfoNV<'_>,
@@ -98,6 +101,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryRemoteAddressNV.html>
     pub unsafe fn get_memory_remote_address_nv(
         &self,
         device: Device,

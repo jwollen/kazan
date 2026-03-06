@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkViSurfaceCreateInfoNN.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ViSurfaceCreateInfoNN<'a> {
@@ -41,6 +42,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkViSurfaceCreateFlagsNN.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ViSurfaceCreateFlagsNN(Flags);
@@ -50,6 +52,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateViSurfaceNN.html>
     pub type PFN_vkCreateViSurfaceNN = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const ViSurfaceCreateInfoNN<'_>,
@@ -74,6 +77,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateViSurfaceNN.html>
     pub unsafe fn create_vi_surface_nn(
         &self,
         instance: Instance,

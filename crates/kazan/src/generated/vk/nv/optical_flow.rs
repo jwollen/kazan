@@ -8,7 +8,12 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
-    handle_nondispatchable!(OpticalFlowSessionNV, OPTICAL_FLOW_SESSION_NV, doc = "");
+    handle_nondispatchable!(
+        OpticalFlowSessionNV,
+        OPTICAL_FLOW_SESSION_NV,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowSessionNV.html>"
+    );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceOpticalFlowFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceOpticalFlowFeaturesNV<'a> {
@@ -39,6 +44,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceOpticalFlowPropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceOpticalFlowPropertiesNV<'a> {
@@ -137,6 +143,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowImageFormatInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct OpticalFlowImageFormatInfoNV<'a> {
@@ -166,6 +173,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowImageFormatPropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct OpticalFlowImageFormatPropertiesNV<'a> {
@@ -194,6 +202,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowSessionCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct OpticalFlowSessionCreateInfoNV<'a> {
@@ -272,6 +281,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowSessionCreatePrivateDataInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct OpticalFlowSessionCreatePrivateDataInfoNV<'a> {
@@ -316,6 +326,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowExecuteInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct OpticalFlowExecuteInfoNV<'a> {
@@ -352,6 +363,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowPerformanceLevelNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct OpticalFlowPerformanceLevelNV(i32);
@@ -377,6 +389,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowSessionBindingPointNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct OpticalFlowSessionBindingPointNV(i32);
@@ -412,6 +425,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowGridSizeFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct OpticalFlowGridSizeFlagsNV(Flags);
@@ -434,6 +448,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowGridSizeFlagBitsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct OpticalFlowGridSizeFlagBitsNV(u32);
@@ -443,6 +458,7 @@ pub(super) mod defs {
         pub const _4X4_NV: Self = Self(1 << 2);
         pub const _8X8_NV: Self = Self(1 << 3);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowUsageFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct OpticalFlowUsageFlagsNV(Flags);
@@ -467,6 +483,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowUsageFlagBitsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct OpticalFlowUsageFlagBitsNV(u32);
@@ -477,6 +494,7 @@ pub(super) mod defs {
         pub const COST_NV: Self = Self(1 << 3);
         pub const GLOBAL_FLOW_NV: Self = Self(1 << 4);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowSessionCreateFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct OpticalFlowSessionCreateFlagsNV(Flags);
@@ -518,6 +536,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowSessionCreateFlagBitsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct OpticalFlowSessionCreateFlagBitsNV(u32);
@@ -528,6 +547,7 @@ pub(super) mod defs {
         pub const ALLOW_REGIONS_NV: Self = Self(1 << 3);
         pub const BOTH_DIRECTIONS_NV: Self = Self(1 << 4);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowExecuteFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct OpticalFlowExecuteFlagsNV(Flags);
@@ -545,12 +565,14 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowExecuteFlagBitsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct OpticalFlowExecuteFlagBitsNV(u32);
     impl OpticalFlowExecuteFlagBitsNV {
         pub const DISABLE_TEMPORAL_HINTS_NV: Self = Self(1 << 0);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceOpticalFlowImageFormatsNV.html>
     pub type PFN_vkGetPhysicalDeviceOpticalFlowImageFormatsNV =
         unsafe extern "system" fn(
             physical_device: PhysicalDevice,
@@ -558,17 +580,20 @@ pub(super) mod defs {
             p_format_count: *mut u32,
             p_image_format_properties: *mut OpticalFlowImageFormatPropertiesNV<'_>,
         ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateOpticalFlowSessionNV.html>
     pub type PFN_vkCreateOpticalFlowSessionNV = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const OpticalFlowSessionCreateInfoNV<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_session: *mut OpticalFlowSessionNV,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyOpticalFlowSessionNV.html>
     pub type PFN_vkDestroyOpticalFlowSessionNV = unsafe extern "system" fn(
         device: Device,
         session: OpticalFlowSessionNV,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindOpticalFlowSessionImageNV.html>
     pub type PFN_vkBindOpticalFlowSessionImageNV = unsafe extern "system" fn(
         device: Device,
         session: OpticalFlowSessionNV,
@@ -576,6 +601,7 @@ pub(super) mod defs {
         view: ImageView,
         layout: ImageLayout,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdOpticalFlowExecuteNV.html>
     pub type PFN_vkCmdOpticalFlowExecuteNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         session: OpticalFlowSessionNV,
@@ -601,6 +627,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceOpticalFlowImageFormatsNV.html>
     pub unsafe fn get_physical_device_optical_flow_image_formats_nv<'a>(
         &self,
         physical_device: PhysicalDevice,
@@ -662,6 +689,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateOpticalFlowSessionNV.html>
     pub unsafe fn create_optical_flow_session_nv(
         &self,
         device: Device,
@@ -683,6 +711,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyOpticalFlowSessionNV.html>
     pub unsafe fn destroy_optical_flow_session_nv(
         &self,
         device: Device,
@@ -691,6 +720,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_optical_flow_session_nv)(device, session, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindOpticalFlowSessionImageNV.html>
     pub unsafe fn bind_optical_flow_session_image_nv(
         &self,
         device: Device,
@@ -714,6 +744,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdOpticalFlowExecuteNV.html>
     pub unsafe fn cmd_optical_flow_execute_nv(
         &self,
         command_buffer: CommandBuffer,

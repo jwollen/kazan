@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceAntiLagFeaturesAMD.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceAntiLagFeaturesAMD<'a> {
@@ -37,6 +38,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAntiLagDataAMD.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct AntiLagDataAMD<'a> {
@@ -79,6 +81,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAntiLagPresentationInfoAMD.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct AntiLagPresentationInfoAMD<'a> {
@@ -112,6 +115,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAntiLagModeAMD.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct AntiLagModeAMD(i32);
@@ -135,6 +139,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAntiLagStageAMD.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct AntiLagStageAMD(i32);
@@ -156,6 +161,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAntiLagUpdateAMD.html>
     pub type PFN_vkAntiLagUpdateAMD =
         unsafe extern "system" fn(device: Device, p_data: *const AntiLagDataAMD<'_>);
 }
@@ -176,6 +182,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAntiLagUpdateAMD.html>
     pub unsafe fn anti_lag_update_amd(&self, device: Device, data: &AntiLagDataAMD<'_>) {
         unsafe { (self.anti_lag_update_amd)(device, data) }
     }

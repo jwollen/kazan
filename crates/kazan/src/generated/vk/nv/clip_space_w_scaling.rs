@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkViewportWScalingNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct ViewportWScalingNV {
@@ -24,6 +25,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineViewportWScalingStateCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineViewportWScalingStateCreateInfoNV<'a> {
@@ -68,6 +70,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewportWScalingNV.html>
     pub type PFN_vkCmdSetViewportWScalingNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         first_viewport: u32,
@@ -92,6 +95,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewportWScalingNV.html>
     pub unsafe fn cmd_set_viewport_w_scaling_nv(
         &self,
         command_buffer: CommandBuffer,

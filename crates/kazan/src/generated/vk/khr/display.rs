@@ -8,8 +8,17 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
-    handle_nondispatchable!(DisplayKHR, DISPLAY_KHR, doc = "");
-    handle_nondispatchable!(DisplayModeKHR, DISPLAY_MODE_KHR, doc = "");
+    handle_nondispatchable!(
+        DisplayKHR,
+        DISPLAY_KHR,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayKHR.html>"
+    );
+    handle_nondispatchable!(
+        DisplayModeKHR,
+        DISPLAY_MODE_KHR,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayModeKHR.html>"
+    );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DisplayPropertiesKHR<'a> {
@@ -69,6 +78,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPlanePropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct DisplayPlanePropertiesKHR {
@@ -85,6 +95,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayModeParametersKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct DisplayModeParametersKHR {
@@ -101,6 +112,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayModePropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct DisplayModePropertiesKHR {
@@ -117,6 +129,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayModeCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DisplayModeCreateInfoKHR<'a> {
@@ -150,6 +163,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPlaneCapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct DisplayPlaneCapabilitiesKHR {
@@ -201,6 +215,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplaySurfaceCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DisplaySurfaceCreateInfoKHR<'a> {
@@ -270,6 +285,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPlaneAlphaFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DisplayPlaneAlphaFlagsKHR(Flags);
@@ -295,6 +311,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPlaneAlphaFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DisplayPlaneAlphaFlagBitsKHR(u32);
@@ -304,6 +321,7 @@ pub(super) mod defs {
         pub const PER_PIXEL_KHR: Self = Self(1 << 2);
         pub const PER_PIXEL_PREMULTIPLIED_KHR: Self = Self(1 << 3);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceTransformFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SurfaceTransformFlagsKHR(Flags);
@@ -351,6 +369,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceTransformFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SurfaceTransformFlagBitsKHR(u32);
@@ -365,6 +384,7 @@ pub(super) mod defs {
         pub const HORIZONTAL_MIRROR_ROTATE_270_KHR: Self = Self(1 << 7);
         pub const INHERIT_KHR: Self = Self(1 << 8);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayModeCreateFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DisplayModeCreateFlagsKHR(Flags);
@@ -374,6 +394,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplaySurfaceCreateFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DisplaySurfaceCreateFlagsKHR(Flags);
@@ -383,18 +404,21 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDisplayPropertiesKHR.html>
     pub type PFN_vkGetPhysicalDeviceDisplayPropertiesKHR = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         p_property_count: *mut u32,
         p_properties: *mut DisplayPropertiesKHR<'_>,
     )
         -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDisplayPlanePropertiesKHR.html>
     pub type PFN_vkGetPhysicalDeviceDisplayPlanePropertiesKHR =
         unsafe extern "system" fn(
             physical_device: PhysicalDevice,
             p_property_count: *mut u32,
             p_properties: *mut DisplayPlanePropertiesKHR,
         ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDisplayPlaneSupportedDisplaysKHR.html>
     pub type PFN_vkGetDisplayPlaneSupportedDisplaysKHR = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         plane_index: u32,
@@ -402,12 +426,14 @@ pub(super) mod defs {
         p_displays: *mut DisplayKHR,
     )
         -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDisplayModePropertiesKHR.html>
     pub type PFN_vkGetDisplayModePropertiesKHR = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         display: DisplayKHR,
         p_property_count: *mut u32,
         p_properties: *mut DisplayModePropertiesKHR,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDisplayModeKHR.html>
     pub type PFN_vkCreateDisplayModeKHR = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         display: DisplayKHR,
@@ -415,12 +441,14 @@ pub(super) mod defs {
         p_allocator: *const AllocationCallbacks<'_>,
         p_mode: *mut DisplayModeKHR,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDisplayPlaneCapabilitiesKHR.html>
     pub type PFN_vkGetDisplayPlaneCapabilitiesKHR = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         mode: DisplayModeKHR,
         plane_index: u32,
         p_capabilities: *mut DisplayPlaneCapabilitiesKHR,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDisplayPlaneSurfaceKHR.html>
     pub type PFN_vkCreateDisplayPlaneSurfaceKHR = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const DisplaySurfaceCreateInfoKHR<'_>,
@@ -472,6 +500,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDisplayPropertiesKHR.html>
     pub unsafe fn get_physical_device_display_properties_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
@@ -501,6 +530,7 @@ impl InstanceFn {
             Ok(result)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDisplayPlanePropertiesKHR.html>
     pub unsafe fn get_physical_device_display_plane_properties_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -530,6 +560,7 @@ impl InstanceFn {
             Ok(result)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDisplayPlaneSupportedDisplaysKHR.html>
     pub unsafe fn get_display_plane_supported_displays_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -561,6 +592,7 @@ impl InstanceFn {
             Ok(result)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDisplayModePropertiesKHR.html>
     pub unsafe fn get_display_mode_properties_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -592,6 +624,7 @@ impl InstanceFn {
             Ok(result)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDisplayModeKHR.html>
     pub unsafe fn create_display_mode_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -615,6 +648,7 @@ impl InstanceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDisplayPlaneCapabilitiesKHR.html>
     pub unsafe fn get_display_plane_capabilities_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -636,6 +670,7 @@ impl InstanceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDisplayPlaneSurfaceKHR.html>
     pub unsafe fn create_display_plane_surface_khr(
         &self,
         instance: Instance,

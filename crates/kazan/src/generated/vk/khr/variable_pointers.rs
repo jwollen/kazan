@@ -8,8 +8,10 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVariablePointersFeaturesKHR.html>
     pub type PhysicalDeviceVariablePointersFeaturesKHR<'a> =
         PhysicalDeviceVariablePointersFeatures<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVariablePointerFeaturesKHR.html>
     pub type PhysicalDeviceVariablePointerFeaturesKHR<'a> =
         PhysicalDeviceVariablePointersFeatures<'a>;
 }

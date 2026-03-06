@@ -8,11 +8,15 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVertexInputBindingDivisorDescriptionEXT.html>
     pub type VertexInputBindingDivisorDescriptionEXT = VertexInputBindingDivisorDescription;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineVertexInputDivisorStateCreateInfoEXT.html>
     pub type PipelineVertexInputDivisorStateCreateInfoEXT<'a> =
         PipelineVertexInputDivisorStateCreateInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT.html>
     pub type PhysicalDeviceVertexAttributeDivisorFeaturesEXT<'a> =
         PhysicalDeviceVertexAttributeDivisorFeatures<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceVertexAttributeDivisorPropertiesEXT<'a> {

@@ -8,21 +8,30 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
-    handle_nondispatchable!(DeferredOperationKHR, DEFERRED_OPERATION_KHR, doc = "");
+    handle_nondispatchable!(
+        DeferredOperationKHR,
+        DEFERRED_OPERATION_KHR,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeferredOperationKHR.html>"
+    );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDeferredOperationKHR.html>
     pub type PFN_vkCreateDeferredOperationKHR = unsafe extern "system" fn(
         device: Device,
         p_allocator: *const AllocationCallbacks<'_>,
         p_deferred_operation: *mut DeferredOperationKHR,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDeferredOperationKHR.html>
     pub type PFN_vkDestroyDeferredOperationKHR = unsafe extern "system" fn(
         device: Device,
         operation: DeferredOperationKHR,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeferredOperationMaxConcurrencyKHR.html>
     pub type PFN_vkGetDeferredOperationMaxConcurrencyKHR =
         unsafe extern "system" fn(device: Device, operation: DeferredOperationKHR) -> u32;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeferredOperationResultKHR.html>
     pub type PFN_vkGetDeferredOperationResultKHR =
         unsafe extern "system" fn(device: Device, operation: DeferredOperationKHR) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDeferredOperationJoinKHR.html>
     pub type PFN_vkDeferredOperationJoinKHR =
         unsafe extern "system" fn(device: Device, operation: DeferredOperationKHR) -> vk::Result;
 }
@@ -60,6 +69,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDeferredOperationKHR.html>
     pub unsafe fn create_deferred_operation_khr(
         &self,
         device: Device,
@@ -79,6 +89,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDeferredOperationKHR.html>
     pub unsafe fn destroy_deferred_operation_khr(
         &self,
         device: Device,
@@ -87,6 +98,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_deferred_operation_khr)(device, operation, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeferredOperationMaxConcurrencyKHR.html>
     pub unsafe fn get_deferred_operation_max_concurrency_khr(
         &self,
         device: Device,
@@ -94,6 +106,7 @@ impl DeviceFn {
     ) -> u32 {
         unsafe { (self.get_deferred_operation_max_concurrency_khr)(device, operation) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeferredOperationResultKHR.html>
     pub unsafe fn get_deferred_operation_result_khr(
         &self,
         device: Device,
@@ -108,6 +121,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDeferredOperationJoinKHR.html>
     pub unsafe fn deferred_operation_join_khr(
         &self,
         device: Device,

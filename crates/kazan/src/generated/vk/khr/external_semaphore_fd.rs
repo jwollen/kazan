@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportSemaphoreFdInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImportSemaphoreFdInfoKHR<'a> {
@@ -53,6 +54,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreGetFdInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SemaphoreGetFdInfoKHR<'a> {
@@ -86,11 +88,13 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSemaphoreFdKHR.html>
     pub type PFN_vkGetSemaphoreFdKHR = unsafe extern "system" fn(
         device: Device,
         p_get_fd_info: *const SemaphoreGetFdInfoKHR<'_>,
         p_fd: *mut c_int,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportSemaphoreFdKHR.html>
     pub type PFN_vkImportSemaphoreFdKHR = unsafe extern "system" fn(
         device: Device,
         p_import_semaphore_fd_info: *const ImportSemaphoreFdInfoKHR<'_>,
@@ -117,6 +121,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportSemaphoreFdKHR.html>
     pub unsafe fn import_semaphore_fd_khr(
         &self,
         device: Device,
@@ -131,6 +136,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSemaphoreFdKHR.html>
     pub unsafe fn get_semaphore_fd_khr(
         &self,
         device: Device,

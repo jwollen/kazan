@@ -8,7 +8,9 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderFloatControlsIndependenceKHR.html>
     pub type ShaderFloatControlsIndependenceKHR = ShaderFloatControlsIndependence;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFloatControlsPropertiesKHR.html>
     pub type PhysicalDeviceFloatControlsPropertiesKHR<'a> =
         PhysicalDeviceFloatControlsProperties<'a>;
 }

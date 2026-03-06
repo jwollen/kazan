@@ -11,6 +11,7 @@ pub(super) mod defs {
     pub type PFN_vkCmdSetRasterizerDiscardEnableEXT = PFN_vkCmdSetRasterizerDiscardEnable;
     pub type PFN_vkCmdSetDepthBiasEnableEXT = PFN_vkCmdSetDepthBiasEnable;
     pub type PFN_vkCmdSetPrimitiveRestartEnableEXT = PFN_vkCmdSetPrimitiveRestartEnable;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExtendedDynamicState2FeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceExtendedDynamicState2FeaturesEXT<'a> {
@@ -66,8 +67,10 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPatchControlPointsEXT.html>
     pub type PFN_vkCmdSetPatchControlPointsEXT =
         unsafe extern "system" fn(command_buffer: CommandBuffer, patch_control_points: u32);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLogicOpEXT.html>
     pub type PFN_vkCmdSetLogicOpEXT =
         unsafe extern "system" fn(command_buffer: CommandBuffer, logic_op: LogicOp);
 }
@@ -104,6 +107,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPatchControlPointsEXT.html>
     pub unsafe fn cmd_set_patch_control_points_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -111,6 +115,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_patch_control_points_ext)(command_buffer, patch_control_points) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRasterizerDiscardEnableEXT.html>
     pub unsafe fn cmd_set_rasterizer_discard_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -123,6 +128,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthBiasEnableEXT.html>
     pub unsafe fn cmd_set_depth_bias_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -130,9 +136,11 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_depth_bias_enable_ext)(command_buffer, depth_bias_enable.into()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLogicOpEXT.html>
     pub unsafe fn cmd_set_logic_op_ext(&self, command_buffer: CommandBuffer, logic_op: LogicOp) {
         unsafe { (self.cmd_set_logic_op_ext)(command_buffer, logic_op) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPrimitiveRestartEnableEXT.html>
     pub unsafe fn cmd_set_primitive_restart_enable_ext(
         &self,
         command_buffer: CommandBuffer,

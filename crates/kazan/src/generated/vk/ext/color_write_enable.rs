@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceColorWriteEnableFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceColorWriteEnableFeaturesEXT<'a> {
@@ -41,6 +42,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineColorWriteCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineColorWriteCreateInfoEXT<'a> {
@@ -75,6 +77,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorWriteEnableEXT.html>
     pub type PFN_vkCmdSetColorWriteEnableEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         attachment_count: u32,
@@ -98,6 +101,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorWriteEnableEXT.html>
     pub unsafe fn cmd_set_color_write_enable_ext(
         &self,
         command_buffer: CommandBuffer,

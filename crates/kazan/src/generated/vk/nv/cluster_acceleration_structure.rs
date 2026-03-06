@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceClusterAccelerationStructureFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceClusterAccelerationStructureFeaturesNV<'a> {
@@ -47,6 +48,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceClusterAccelerationStructurePropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceClusterAccelerationStructurePropertiesNV<'a> {
@@ -133,6 +135,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkStridedDeviceAddressNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StridedDeviceAddressNV {
@@ -149,6 +152,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRayTracingPipelineClusterAccelerationStructureCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct RayTracingPipelineClusterAccelerationStructureCreateInfoNV<'a> {
@@ -186,6 +190,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct ClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV {
@@ -207,6 +212,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureMoveObjectsInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct ClusterAccelerationStructureMoveObjectsInfoNV {
@@ -221,6 +227,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct ClusterAccelerationStructureBuildClustersBottomLevelInfoNV {
@@ -242,6 +249,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureGetTemplateIndicesInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct ClusterAccelerationStructureGetTemplateIndicesInfoNV {
@@ -253,6 +261,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureBuildTriangleClusterInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct ClusterAccelerationStructureBuildTriangleClusterInfoNV {
@@ -363,6 +372,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct ClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV {
@@ -481,6 +491,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureInstantiateClusterInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct ClusterAccelerationStructureInstantiateClusterInfoNV {
@@ -512,6 +523,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureClustersBottomLevelInputNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ClusterAccelerationStructureClustersBottomLevelInputNV<'a> {
@@ -550,6 +562,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureTriangleClusterInputNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ClusterAccelerationStructureTriangleClusterInputNV<'a> {
@@ -626,6 +639,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureMoveObjectsInputNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ClusterAccelerationStructureMoveObjectsInputNV<'a> {
@@ -666,6 +680,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureInputInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ClusterAccelerationStructureInputInfoNV<'a> {
@@ -721,6 +736,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureCommandsInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ClusterAccelerationStructureCommandsInfoNV<'a> {
@@ -797,6 +813,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureOpInputNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub union ClusterAccelerationStructureOpInputNV<'a> {
@@ -811,6 +828,7 @@ pub(super) mod defs {
             unsafe { core::mem::zeroed() }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureTypeNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ClusterAccelerationStructureTypeNV(i32);
@@ -834,6 +852,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureOpTypeNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ClusterAccelerationStructureOpTypeNV(i32);
@@ -865,6 +884,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureOpModeNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ClusterAccelerationStructureOpModeNV(i32);
@@ -888,6 +908,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureGeometryFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ClusterAccelerationStructureGeometryFlagsNV(Flags);
@@ -921,6 +942,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureGeometryFlagBitsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ClusterAccelerationStructureGeometryFlagBitsNV(u32);
@@ -929,6 +951,7 @@ pub(super) mod defs {
         pub const NO_DUPLICATE_ANYHIT_INVOCATION_NV: Self = Self(1 << 1);
         pub const OPAQUE_NV: Self = Self(1 << 2);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureClusterFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ClusterAccelerationStructureClusterFlagsNV(Flags);
@@ -947,12 +970,14 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureClusterFlagBitsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ClusterAccelerationStructureClusterFlagBitsNV(u32);
     impl ClusterAccelerationStructureClusterFlagBitsNV {
         pub const ALLOW_DISABLE_OPACITY_MICROMAPS_NV: Self = Self(1 << 0);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureAddressResolutionFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ClusterAccelerationStructureAddressResolutionFlagsNV(Flags);
@@ -990,6 +1015,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureAddressResolutionFlagBitsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ClusterAccelerationStructureAddressResolutionFlagBitsNV(u32);
@@ -1001,6 +1027,7 @@ pub(super) mod defs {
         pub const INDIRECTED_SRC_INFOS_ARRAY_NV: Self = Self(1 << 4);
         pub const INDIRECTED_SRC_INFOS_COUNT_NV: Self = Self(1 << 5);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureIndexFormatFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ClusterAccelerationStructureIndexFormatFlagsNV(Flags);
@@ -1032,6 +1059,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureIndexFormatFlagBitsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ClusterAccelerationStructureIndexFormatFlagBitsNV(u32);
@@ -1040,11 +1068,13 @@ pub(super) mod defs {
         pub const _16BIT_NV: Self = Self(1 << 1);
         pub const _32BIT_NV: Self = Self(1 << 2);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetClusterAccelerationStructureBuildSizesNV.html>
     pub type PFN_vkGetClusterAccelerationStructureBuildSizesNV = unsafe extern "system" fn(
         device: Device,
         p_info: *const ClusterAccelerationStructureInputInfoNV<'_>,
         p_size_info: *mut AccelerationStructureBuildSizesInfoKHR<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBuildClusterAccelerationStructureIndirectNV.html>
     pub type PFN_vkCmdBuildClusterAccelerationStructureIndirectNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_command_infos: *const ClusterAccelerationStructureCommandsInfoNV<'_>,
@@ -1075,6 +1105,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetClusterAccelerationStructureBuildSizesNV.html>
     pub unsafe fn get_cluster_acceleration_structure_build_sizes_nv(
         &self,
         device: Device,
@@ -1083,6 +1114,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.get_cluster_acceleration_structure_build_sizes_nv)(device, info, size_info) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBuildClusterAccelerationStructureIndirectNV.html>
     pub unsafe fn cmd_build_cluster_acceleration_structure_indirect_nv(
         &self,
         command_buffer: CommandBuffer,

@@ -8,12 +8,19 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentDescription2KHR.html>
     pub type AttachmentDescription2KHR<'a> = AttachmentDescription2<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentReference2KHR.html>
     pub type AttachmentReference2KHR<'a> = AttachmentReference2<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassDescription2KHR.html>
     pub type SubpassDescription2KHR<'a> = SubpassDescription2<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassDependency2KHR.html>
     pub type SubpassDependency2KHR<'a> = SubpassDependency2<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassCreateInfo2KHR.html>
     pub type RenderPassCreateInfo2KHR<'a> = RenderPassCreateInfo2<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassBeginInfoKHR.html>
     pub type SubpassBeginInfoKHR<'a> = SubpassBeginInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassEndInfoKHR.html>
     pub type SubpassEndInfoKHR<'a> = SubpassEndInfo<'a>;
     pub type PFN_vkCreateRenderPass2KHR = PFN_vkCreateRenderPass2;
     pub type PFN_vkCmdBeginRenderPass2KHR = PFN_vkCmdBeginRenderPass2;
@@ -49,6 +56,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateRenderPass2KHR.html>
     pub unsafe fn create_render_pass2_khr(
         &self,
         device: Device,
@@ -70,6 +78,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginRenderPass2KHR.html>
     pub unsafe fn cmd_begin_render_pass2_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -80,6 +89,7 @@ impl DeviceFn {
             (self.cmd_begin_render_pass2_khr)(command_buffer, render_pass_begin, subpass_begin_info)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdNextSubpass2KHR.html>
     pub unsafe fn cmd_next_subpass2_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -90,6 +100,7 @@ impl DeviceFn {
             (self.cmd_next_subpass2_khr)(command_buffer, subpass_begin_info, subpass_end_info)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndRenderPass2KHR.html>
     pub unsafe fn cmd_end_render_pass2_khr(
         &self,
         command_buffer: CommandBuffer,

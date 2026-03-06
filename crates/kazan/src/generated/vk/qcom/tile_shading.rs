@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTileShadingFeaturesQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceTileShadingFeaturesQCOM<'a> {
@@ -140,6 +141,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTileShadingPropertiesQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceTileShadingPropertiesQCOM<'a> {
@@ -190,6 +192,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassTileShadingCreateInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct RenderPassTileShadingCreateInfoQCOM<'a> {
@@ -231,6 +234,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerTileBeginInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PerTileBeginInfoQCOM<'a> {
@@ -251,6 +255,7 @@ pub(super) mod defs {
         }
     }
     impl<'a> PerTileBeginInfoQCOM<'a> {}
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerTileEndInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PerTileEndInfoQCOM<'a> {
@@ -271,6 +276,7 @@ pub(super) mod defs {
         }
     }
     impl<'a> PerTileEndInfoQCOM<'a> {}
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDispatchTileInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DispatchTileInfoQCOM<'a> {
@@ -291,6 +297,7 @@ pub(super) mod defs {
         }
     }
     impl<'a> DispatchTileInfoQCOM<'a> {}
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTileShadingRenderPassFlagsQCOM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct TileShadingRenderPassFlagsQCOM(Flags);
@@ -312,6 +319,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTileShadingRenderPassFlagBitsQCOM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct TileShadingRenderPassFlagBitsQCOM(u32);
@@ -319,14 +327,17 @@ pub(super) mod defs {
         pub const ENABLE_QCOM: Self = Self(1 << 0);
         pub const PER_TILE_EXECUTION_QCOM: Self = Self(1 << 1);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatchTileQCOM.html>
     pub type PFN_vkCmdDispatchTileQCOM = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_dispatch_tile_info: *const DispatchTileInfoQCOM<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginPerTileExecutionQCOM.html>
     pub type PFN_vkCmdBeginPerTileExecutionQCOM = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_per_tile_begin_info: *const PerTileBeginInfoQCOM<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndPerTileExecutionQCOM.html>
     pub type PFN_vkCmdEndPerTileExecutionQCOM = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_per_tile_end_info: *const PerTileEndInfoQCOM<'_>,
@@ -357,6 +368,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatchTileQCOM.html>
     pub unsafe fn cmd_dispatch_tile_qcom(
         &self,
         command_buffer: CommandBuffer,
@@ -364,6 +376,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_dispatch_tile_qcom)(command_buffer, dispatch_tile_info) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginPerTileExecutionQCOM.html>
     pub unsafe fn cmd_begin_per_tile_execution_qcom(
         &self,
         command_buffer: CommandBuffer,
@@ -371,6 +384,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_begin_per_tile_execution_qcom)(command_buffer, per_tile_begin_info) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndPerTileExecutionQCOM.html>
     pub unsafe fn cmd_end_per_tile_execution_qcom(
         &self,
         command_buffer: CommandBuffer,

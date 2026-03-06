@@ -16,6 +16,7 @@ pub(super) mod defs {
     pub const STD_VIDEO_VP9_SEG_LVL_MAX: u32 = 4;
     pub const STD_VIDEO_VP9_MAX_SEGMENTATION_TREE_PROBS: u32 = 7;
     pub const STD_VIDEO_VP9_MAX_SEGMENTATION_PRED_PROB: u32 = 3;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoVP9ColorConfigFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoVP9ColorConfigFlags {
@@ -32,6 +33,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoVP9ColorConfig.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoVP9ColorConfig {
@@ -68,6 +70,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoVP9LoopFilterFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoVP9LoopFilterFlags {
@@ -89,6 +92,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoVP9LoopFilter.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoVP9LoopFilter {
@@ -149,6 +153,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoVP9SegmentationFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoVP9SegmentationFlags {
@@ -183,6 +188,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoVP9Segmentation.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoVP9Segmentation {
@@ -239,6 +245,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoVP9Profile.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoVP9Profile(i32);
@@ -266,6 +273,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoVP9Level.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoVP9Level(i32);
@@ -313,6 +321,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoVP9FrameType.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoVP9FrameType(i32);
@@ -336,6 +345,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoVP9ReferenceName.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoVP9ReferenceName(i32);
@@ -363,6 +373,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoVP9InterpolationFilter.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoVP9InterpolationFilter(i32);
@@ -392,6 +403,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoVP9ColorSpace.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoVP9ColorSpace(i32);

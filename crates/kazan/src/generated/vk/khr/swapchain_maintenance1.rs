@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceSwapchainMaintenance1FeaturesKHR<'a> {
@@ -44,6 +45,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSwapchainPresentFenceInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SwapchainPresentFenceInfoKHR<'a> {
@@ -75,6 +77,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSwapchainPresentModesCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SwapchainPresentModesCreateInfoKHR<'a> {
@@ -107,6 +110,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSwapchainPresentModeInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SwapchainPresentModeInfoKHR<'a> {
@@ -138,6 +142,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSwapchainPresentScalingCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SwapchainPresentScalingCreateInfoKHR<'a> {
@@ -179,6 +184,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkReleaseSwapchainImagesInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ReleaseSwapchainImagesInfoKHR<'a> {
@@ -215,6 +221,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleaseSwapchainImagesKHR.html>
     pub type PFN_vkReleaseSwapchainImagesKHR = unsafe extern "system" fn(
         device: Device,
         p_release_info: *const ReleaseSwapchainImagesInfoKHR<'_>,
@@ -237,6 +244,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleaseSwapchainImagesKHR.html>
     pub unsafe fn release_swapchain_images_khr(
         &self,
         device: Device,

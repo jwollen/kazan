@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportScreenBufferInfoQNX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImportScreenBufferInfoQNX<'a> {
@@ -36,6 +37,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkScreenBufferPropertiesQNX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ScreenBufferPropertiesQNX<'a> {
@@ -69,6 +71,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkScreenBufferFormatPropertiesQNX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ScreenBufferFormatPropertiesQNX<'a> {
@@ -157,6 +160,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalFormatQNX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ExternalFormatQNX<'a> {
@@ -186,6 +190,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalMemoryScreenBufferFeaturesQNX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'a> {
@@ -222,6 +227,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetScreenBufferPropertiesQNX.html>
     pub type PFN_vkGetScreenBufferPropertiesQNX = unsafe extern "system" fn(
         device: Device,
         buffer: *const _screen_buffer,
@@ -245,6 +251,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetScreenBufferPropertiesQNX.html>
     pub unsafe fn get_screen_buffer_properties_qnx(
         &self,
         device: Device,

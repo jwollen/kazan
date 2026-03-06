@@ -8,9 +8,12 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDepthStencilResolvePropertiesKHR.html>
     pub type PhysicalDeviceDepthStencilResolvePropertiesKHR<'a> =
         PhysicalDeviceDepthStencilResolveProperties<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassDescriptionDepthStencilResolveKHR.html>
     pub type SubpassDescriptionDepthStencilResolveKHR<'a> =
         SubpassDescriptionDepthStencilResolve<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkResolveModeFlagsKHR.html>
     pub type ResolveModeFlagsKHR = ResolveModeFlags;
 }

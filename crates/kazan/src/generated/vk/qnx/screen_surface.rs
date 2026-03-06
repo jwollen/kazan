@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkScreenSurfaceCreateInfoQNX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ScreenSurfaceCreateInfoQNX<'a> {
@@ -47,6 +48,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkScreenSurfaceCreateFlagsQNX.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ScreenSurfaceCreateFlagsQNX(Flags);
@@ -56,12 +58,14 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateScreenSurfaceQNX.html>
     pub type PFN_vkCreateScreenSurfaceQNX = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const ScreenSurfaceCreateInfoQNX<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_surface: *mut SurfaceKHR,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceScreenPresentationSupportQNX.html>
     pub type PFN_vkGetPhysicalDeviceScreenPresentationSupportQNX =
         unsafe extern "system" fn(
             physical_device: PhysicalDevice,
@@ -92,6 +96,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateScreenSurfaceQNX.html>
     pub unsafe fn create_screen_surface_qnx(
         &self,
         instance: Instance,
@@ -113,6 +118,7 @@ impl InstanceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceScreenPresentationSupportQNX.html>
     pub unsafe fn get_physical_device_screen_presentation_support_qnx(
         &self,
         physical_device: PhysicalDevice,

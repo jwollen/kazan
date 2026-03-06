@@ -8,15 +8,25 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferUsageFlags2CreateInfoKHR.html>
     pub type BufferUsageFlags2CreateInfoKHR<'a> = BufferUsageFlags2CreateInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCreateFlags2CreateInfoKHR.html>
     pub type PipelineCreateFlags2CreateInfoKHR<'a> = PipelineCreateFlags2CreateInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance5FeaturesKHR.html>
     pub type PhysicalDeviceMaintenance5FeaturesKHR<'a> = PhysicalDeviceMaintenance5Features<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance5PropertiesKHR.html>
     pub type PhysicalDeviceMaintenance5PropertiesKHR<'a> = PhysicalDeviceMaintenance5Properties<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderingAreaInfoKHR.html>
     pub type RenderingAreaInfoKHR<'a> = RenderingAreaInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageSubresource2KHR.html>
     pub type ImageSubresource2KHR<'a> = ImageSubresource2<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubresourceLayout2KHR.html>
     pub type SubresourceLayout2KHR<'a> = SubresourceLayout2<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceImageSubresourceInfoKHR.html>
     pub type DeviceImageSubresourceInfoKHR<'a> = DeviceImageSubresourceInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCreateFlags2KHR.html>
     pub type PipelineCreateFlags2KHR = PipelineCreateFlags2;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferUsageFlags2KHR.html>
     pub type BufferUsageFlags2KHR = BufferUsageFlags2;
     pub type PFN_vkGetRenderingAreaGranularityKHR = PFN_vkGetRenderingAreaGranularity;
     pub type PFN_vkCmdBindIndexBuffer2KHR = PFN_vkCmdBindIndexBuffer2;
@@ -52,6 +62,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindIndexBuffer2KHR.html>
     pub unsafe fn cmd_bind_index_buffer2_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -64,6 +75,7 @@ impl DeviceFn {
             (self.cmd_bind_index_buffer2_khr)(command_buffer, buffer, offset, size, index_type)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRenderingAreaGranularityKHR.html>
     pub unsafe fn get_rendering_area_granularity_khr(
         &self,
         device: Device,
@@ -79,6 +91,7 @@ impl DeviceFn {
             granularity.assume_init()
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceImageSubresourceLayoutKHR.html>
     pub unsafe fn get_device_image_subresource_layout_khr(
         &self,
         device: Device,
@@ -87,6 +100,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.get_device_image_subresource_layout_khr)(device, info, layout) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageSubresourceLayout2KHR.html>
     pub unsafe fn get_image_subresource_layout2_khr(
         &self,
         device: Device,

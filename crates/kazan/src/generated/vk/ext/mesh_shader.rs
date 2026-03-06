@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMeshShaderFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceMeshShaderFeaturesEXT<'a> {
@@ -66,6 +67,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMeshShaderPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceMeshShaderPropertiesEXT<'a> {
@@ -309,6 +311,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDrawMeshTasksIndirectCommandEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct DrawMeshTasksIndirectCommandEXT {
@@ -330,12 +333,14 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawMeshTasksEXT.html>
     pub type PFN_vkCmdDrawMeshTasksEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         group_count_x: u32,
         group_count_y: u32,
         group_count_z: u32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawMeshTasksIndirectEXT.html>
     pub type PFN_vkCmdDrawMeshTasksIndirectEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         buffer: Buffer,
@@ -343,6 +348,7 @@ pub(super) mod defs {
         draw_count: u32,
         stride: u32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawMeshTasksIndirectCountEXT.html>
     pub type PFN_vkCmdDrawMeshTasksIndirectCountEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         buffer: Buffer,
@@ -378,6 +384,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawMeshTasksEXT.html>
     pub unsafe fn cmd_draw_mesh_tasks_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -394,6 +401,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawMeshTasksIndirectEXT.html>
     pub unsafe fn cmd_draw_mesh_tasks_indirect_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -412,6 +420,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawMeshTasksIndirectCountEXT.html>
     pub unsafe fn cmd_draw_mesh_tasks_indirect_count_ext(
         &self,
         command_buffer: CommandBuffer,

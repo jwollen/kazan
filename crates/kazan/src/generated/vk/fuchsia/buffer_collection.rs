@@ -8,7 +8,12 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
-    handle_nondispatchable!(BufferCollectionFUCHSIA, BUFFER_COLLECTION_FUCHSIA, doc = "");
+    handle_nondispatchable!(
+        BufferCollectionFUCHSIA,
+        BUFFER_COLLECTION_FUCHSIA,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCollectionFUCHSIA.html>"
+    );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportMemoryBufferCollectionFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImportMemoryBufferCollectionFUCHSIA<'a> {
@@ -44,6 +49,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCollectionImageCreateInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct BufferCollectionImageCreateInfoFUCHSIA<'a> {
@@ -79,6 +85,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCollectionBufferCreateInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct BufferCollectionBufferCreateInfoFUCHSIA<'a> {
@@ -114,6 +121,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCollectionCreateInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct BufferCollectionCreateInfoFUCHSIA<'a> {
@@ -141,6 +149,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCollectionPropertiesFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct BufferCollectionPropertiesFUCHSIA<'a> {
@@ -243,6 +252,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferConstraintsInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct BufferConstraintsInfoFUCHSIA<'a> {
@@ -288,6 +298,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSysmemColorSpaceFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SysmemColorSpaceFUCHSIA<'a> {
@@ -315,6 +326,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageFormatConstraintsInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImageFormatConstraintsInfoFUCHSIA<'a> {
@@ -372,6 +384,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageConstraintsInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImageConstraintsInfoFUCHSIA<'a> {
@@ -420,6 +433,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCollectionConstraintsInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct BufferCollectionConstraintsInfoFUCHSIA<'a> {
@@ -478,6 +492,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageFormatConstraintsFlagsFUCHSIA.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageFormatConstraintsFlagsFUCHSIA(Flags);
@@ -487,6 +502,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageConstraintsInfoFlagsFUCHSIA.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageConstraintsInfoFlagsFUCHSIA(Flags);
@@ -530,6 +546,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageConstraintsInfoFlagBitsFUCHSIA.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ImageConstraintsInfoFlagBitsFUCHSIA(u32);
@@ -540,29 +557,34 @@ pub(super) mod defs {
         pub const CPU_WRITE_OFTEN_FUCHSIA: Self = Self(1 << 3);
         pub const PROTECTED_OPTIONAL_FUCHSIA: Self = Self(1 << 4);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateBufferCollectionFUCHSIA.html>
     pub type PFN_vkCreateBufferCollectionFUCHSIA = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const BufferCollectionCreateInfoFUCHSIA<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_collection: *mut BufferCollectionFUCHSIA,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetBufferCollectionBufferConstraintsFUCHSIA.html>
     pub type PFN_vkSetBufferCollectionBufferConstraintsFUCHSIA =
         unsafe extern "system" fn(
             device: Device,
             collection: BufferCollectionFUCHSIA,
             p_buffer_constraints_info: *const BufferConstraintsInfoFUCHSIA<'_>,
         ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetBufferCollectionImageConstraintsFUCHSIA.html>
     pub type PFN_vkSetBufferCollectionImageConstraintsFUCHSIA =
         unsafe extern "system" fn(
             device: Device,
             collection: BufferCollectionFUCHSIA,
             p_image_constraints_info: *const ImageConstraintsInfoFUCHSIA<'_>,
         ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyBufferCollectionFUCHSIA.html>
     pub type PFN_vkDestroyBufferCollectionFUCHSIA = unsafe extern "system" fn(
         device: Device,
         collection: BufferCollectionFUCHSIA,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferCollectionPropertiesFUCHSIA.html>
     pub type PFN_vkGetBufferCollectionPropertiesFUCHSIA = unsafe extern "system" fn(
         device: Device,
         collection: BufferCollectionFUCHSIA,
@@ -608,6 +630,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateBufferCollectionFUCHSIA.html>
     pub unsafe fn create_buffer_collection_fuchsia(
         &self,
         device: Device,
@@ -629,6 +652,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetBufferCollectionImageConstraintsFUCHSIA.html>
     pub unsafe fn set_buffer_collection_image_constraints_fuchsia(
         &self,
         device: Device,
@@ -648,6 +672,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetBufferCollectionBufferConstraintsFUCHSIA.html>
     pub unsafe fn set_buffer_collection_buffer_constraints_fuchsia(
         &self,
         device: Device,
@@ -667,6 +692,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyBufferCollectionFUCHSIA.html>
     pub unsafe fn destroy_buffer_collection_fuchsia(
         &self,
         device: Device,
@@ -677,6 +703,7 @@ impl DeviceFn {
             (self.destroy_buffer_collection_fuchsia)(device, collection, allocator.to_raw_ptr())
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferCollectionPropertiesFUCHSIA.html>
     pub unsafe fn get_buffer_collection_properties_fuchsia(
         &self,
         device: Device,

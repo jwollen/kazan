@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'a> {
@@ -44,6 +45,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVertexInputBindingDescription2EXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VertexInputBindingDescription2EXT<'a> {
@@ -89,6 +91,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVertexInputAttributeDescription2EXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VertexInputAttributeDescription2EXT<'a> {
@@ -135,6 +138,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetVertexInputEXT.html>
     pub type PFN_vkCmdSetVertexInputEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         vertex_binding_description_count: u32,
@@ -160,6 +164,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetVertexInputEXT.html>
     pub unsafe fn cmd_set_vertex_input_ext(
         &self,
         command_buffer: CommandBuffer,

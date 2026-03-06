@@ -8,10 +8,13 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceBufferAddressFeaturesEXT.html>
     pub type PhysicalDeviceBufferAddressFeaturesEXT<'a> =
         PhysicalDeviceBufferDeviceAddressFeaturesEXT<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferDeviceAddressInfoEXT.html>
     pub type BufferDeviceAddressInfoEXT<'a> = BufferDeviceAddressInfo<'a>;
     pub type PFN_vkGetBufferDeviceAddressEXT = PFN_vkGetBufferDeviceAddress;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceBufferDeviceAddressFeaturesEXT<'a> {
@@ -63,6 +66,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferDeviceAddressCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct BufferDeviceAddressCreateInfoEXT<'a> {
@@ -109,6 +113,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferDeviceAddressEXT.html>
     pub unsafe fn get_buffer_device_address_ext(
         &self,
         device: Device,

@@ -8,9 +8,13 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalSemaphoreInfoKHR.html>
     pub type PhysicalDeviceExternalSemaphoreInfoKHR<'a> = PhysicalDeviceExternalSemaphoreInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalSemaphorePropertiesKHR.html>
     pub type ExternalSemaphorePropertiesKHR<'a> = ExternalSemaphoreProperties<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalSemaphoreHandleTypeFlagsKHR.html>
     pub type ExternalSemaphoreHandleTypeFlagsKHR = ExternalSemaphoreHandleTypeFlags;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalSemaphoreFeatureFlagsKHR.html>
     pub type ExternalSemaphoreFeatureFlagsKHR = ExternalSemaphoreFeatureFlags;
     pub type PFN_vkGetPhysicalDeviceExternalSemaphorePropertiesKHR =
         PFN_vkGetPhysicalDeviceExternalSemaphoreProperties;
@@ -34,6 +38,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceExternalSemaphorePropertiesKHR.html>
     pub unsafe fn get_physical_device_external_semaphore_properties_khr(
         &self,
         physical_device: PhysicalDevice,

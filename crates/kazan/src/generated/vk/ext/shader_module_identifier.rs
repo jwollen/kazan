@@ -9,6 +9,7 @@ pub(super) mod defs {
     use core::fmt;
     use core::marker::PhantomData;
     pub const MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT: u32 = 32;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderModuleIdentifierFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'a> {
@@ -45,6 +46,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceShaderModuleIdentifierPropertiesEXT<'a> {
@@ -80,6 +82,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineShaderStageModuleIdentifierCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineShaderStageModuleIdentifierCreateInfoEXT<'a> {
@@ -115,6 +118,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderModuleIdentifierEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ShaderModuleIdentifierEXT<'a> {
@@ -145,11 +149,13 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetShaderModuleIdentifierEXT.html>
     pub type PFN_vkGetShaderModuleIdentifierEXT = unsafe extern "system" fn(
         device: Device,
         shader_module: ShaderModule,
         p_identifier: *mut ShaderModuleIdentifierEXT<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetShaderModuleCreateInfoIdentifierEXT.html>
     pub type PFN_vkGetShaderModuleCreateInfoIdentifierEXT = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const ShaderModuleCreateInfo<'_>,
@@ -178,6 +184,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetShaderModuleIdentifierEXT.html>
     pub unsafe fn get_shader_module_identifier_ext(
         &self,
         device: Device,
@@ -186,6 +193,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.get_shader_module_identifier_ext)(device, shader_module, identifier) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetShaderModuleCreateInfoIdentifierEXT.html>
     pub unsafe fn get_shader_module_create_info_identifier_ext(
         &self,
         device: Device,

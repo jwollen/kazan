@@ -8,11 +8,15 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkLineRasterizationModeEXT.html>
     pub type LineRasterizationModeEXT = LineRasterizationMode;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceLineRasterizationFeaturesEXT.html>
     pub type PhysicalDeviceLineRasterizationFeaturesEXT<'a> =
         PhysicalDeviceLineRasterizationFeatures<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceLineRasterizationPropertiesEXT.html>
     pub type PhysicalDeviceLineRasterizationPropertiesEXT<'a> =
         PhysicalDeviceLineRasterizationProperties<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineRasterizationLineStateCreateInfoEXT.html>
     pub type PipelineRasterizationLineStateCreateInfoEXT<'a> =
         PipelineRasterizationLineStateCreateInfo<'a>;
     pub type PFN_vkCmdSetLineStippleEXT = PFN_vkCmdSetLineStipple;
@@ -34,6 +38,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLineStippleEXT.html>
     pub unsafe fn cmd_set_line_stipple_ext(
         &self,
         command_buffer: CommandBuffer,

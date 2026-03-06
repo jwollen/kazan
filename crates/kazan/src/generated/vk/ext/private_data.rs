@@ -8,10 +8,15 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPrivateDataSlotEXT.html>
     pub type PrivateDataSlotEXT = PrivateDataSlot;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDevicePrivateDataCreateInfoEXT.html>
     pub type DevicePrivateDataCreateInfoEXT<'a> = DevicePrivateDataCreateInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPrivateDataSlotCreateInfoEXT.html>
     pub type PrivateDataSlotCreateInfoEXT<'a> = PrivateDataSlotCreateInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePrivateDataFeaturesEXT.html>
     pub type PhysicalDevicePrivateDataFeaturesEXT<'a> = PhysicalDevicePrivateDataFeatures<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPrivateDataSlotCreateFlagsEXT.html>
     pub type PrivateDataSlotCreateFlagsEXT = PrivateDataSlotCreateFlags;
     pub type PFN_vkCreatePrivateDataSlotEXT = PFN_vkCreatePrivateDataSlot;
     pub type PFN_vkDestroyPrivateDataSlotEXT = PFN_vkDestroyPrivateDataSlot;
@@ -47,6 +52,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreatePrivateDataSlotEXT.html>
     pub unsafe fn create_private_data_slot_ext(
         &self,
         device: Device,
@@ -68,6 +74,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyPrivateDataSlotEXT.html>
     pub unsafe fn destroy_private_data_slot_ext(
         &self,
         device: Device,
@@ -78,6 +85,7 @@ impl DeviceFn {
             (self.destroy_private_data_slot_ext)(device, private_data_slot, allocator.to_raw_ptr())
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetPrivateDataEXT.html>
     pub unsafe fn set_private_data_ext(
         &self,
         device: Device,
@@ -101,6 +109,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPrivateDataEXT.html>
     pub unsafe fn get_private_data_ext(
         &self,
         device: Device,

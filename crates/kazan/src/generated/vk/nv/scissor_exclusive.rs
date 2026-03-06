@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExclusiveScissorFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceExclusiveScissorFeaturesNV<'a> {
@@ -41,6 +42,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineViewportExclusiveScissorStateCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineViewportExclusiveScissorStateCreateInfoNV<'a> {
@@ -76,12 +78,14 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetExclusiveScissorNV.html>
     pub type PFN_vkCmdSetExclusiveScissorNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         first_exclusive_scissor: u32,
         exclusive_scissor_count: u32,
         p_exclusive_scissors: *const Rect2D,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetExclusiveScissorEnableNV.html>
     pub type PFN_vkCmdSetExclusiveScissorEnableNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         first_exclusive_scissor: u32,
@@ -110,6 +114,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetExclusiveScissorEnableNV.html>
     pub unsafe fn cmd_set_exclusive_scissor_enable_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -125,6 +130,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetExclusiveScissorNV.html>
     pub unsafe fn cmd_set_exclusive_scissor_nv(
         &self,
         command_buffer: CommandBuffer,

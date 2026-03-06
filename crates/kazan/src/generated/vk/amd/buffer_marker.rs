@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteBufferMarkerAMD.html>
     pub type PFN_vkCmdWriteBufferMarkerAMD = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         pipeline_stage: PipelineStageFlagBits,
@@ -15,6 +16,7 @@ pub(super) mod defs {
         dst_offset: DeviceSize,
         marker: u32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteBufferMarker2AMD.html>
     pub type PFN_vkCmdWriteBufferMarker2AMD = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         stage: PipelineStageFlags2,
@@ -42,6 +44,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteBufferMarkerAMD.html>
     pub unsafe fn cmd_write_buffer_marker_amd(
         &self,
         command_buffer: CommandBuffer,
@@ -60,6 +63,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteBufferMarker2AMD.html>
     pub unsafe fn cmd_write_buffer_marker2_amd(
         &self,
         command_buffer: CommandBuffer,

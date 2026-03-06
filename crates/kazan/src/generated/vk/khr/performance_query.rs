@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePerformanceQueryFeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDevicePerformanceQueryFeaturesKHR<'a> {
@@ -54,6 +55,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePerformanceQueryPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDevicePerformanceQueryPropertiesKHR<'a> {
@@ -89,6 +91,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PerformanceCounterKHR<'a> {
@@ -134,6 +137,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterDescriptionKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PerformanceCounterDescriptionKHR<'a> {
@@ -167,6 +171,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPoolPerformanceCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct QueryPoolPerformanceCreateInfoKHR<'a> {
@@ -204,6 +209,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAcquireProfilingLockInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct AcquireProfilingLockInfoKHR<'a> {
@@ -237,6 +243,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceQuerySubmitInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PerformanceQuerySubmitInfoKHR<'a> {
@@ -266,6 +273,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterResultKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub union PerformanceCounterResultKHR {
@@ -281,6 +289,7 @@ pub(super) mod defs {
             unsafe { core::mem::zeroed() }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterScopeKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PerformanceCounterScopeKHR(i32);
@@ -304,6 +313,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterUnitKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PerformanceCounterUnitKHR(i32);
@@ -343,6 +353,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterStorageKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PerformanceCounterStorageKHR(i32);
@@ -372,6 +383,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterDescriptionFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PerformanceCounterDescriptionFlagsKHR(Flags);
@@ -397,6 +409,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterDescriptionFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PerformanceCounterDescriptionFlagBitsKHR(u32);
@@ -404,6 +417,7 @@ pub(super) mod defs {
         pub const PERFORMANCE_IMPACTING_KHR: Self = Self(1 << 0);
         pub const CONCURRENTLY_IMPACTED_KHR: Self = Self(1 << 1);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAcquireProfilingLockFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AcquireProfilingLockFlagsKHR(Flags);
@@ -415,10 +429,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAcquireProfilingLockFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct AcquireProfilingLockFlagBitsKHR(u32);
     impl AcquireProfilingLockFlagBitsKHR {}
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR.html>
     pub type PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR =
         unsafe extern "system" fn(
             physical_device: PhysicalDevice,
@@ -427,16 +443,19 @@ pub(super) mod defs {
             p_counters: *mut PerformanceCounterKHR<'_>,
             p_counter_descriptions: *mut PerformanceCounterDescriptionKHR<'_>,
         ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR.html>
     pub type PFN_vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR =
         unsafe extern "system" fn(
             physical_device: PhysicalDevice,
             p_performance_query_create_info: *const QueryPoolPerformanceCreateInfoKHR<'_>,
             p_num_passes: *mut u32,
         );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireProfilingLockKHR.html>
     pub type PFN_vkAcquireProfilingLockKHR = unsafe extern "system" fn(
         device: Device,
         p_info: *const AcquireProfilingLockInfoKHR<'_>,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleaseProfilingLockKHR.html>
     pub type PFN_vkReleaseProfilingLockKHR = unsafe extern "system" fn(device: Device);
 }
 pub struct InstanceFn {
@@ -464,6 +483,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR.html>
     pub unsafe fn enumerate_physical_device_queue_family_performance_query_counters_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
@@ -505,6 +525,7 @@ impl InstanceFn {
             Ok(result)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR.html>
     pub unsafe fn get_physical_device_queue_family_performance_query_passes_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -542,6 +563,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireProfilingLockKHR.html>
     pub unsafe fn acquire_profiling_lock_khr(
         &self,
         device: Device,
@@ -556,6 +578,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleaseProfilingLockKHR.html>
     pub unsafe fn release_profiling_lock_khr(&self, device: Device) {
         unsafe { (self.release_profiling_lock_khr)(device) }
     }

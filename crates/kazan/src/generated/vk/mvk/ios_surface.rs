@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIOSSurfaceCreateInfoMVK.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct IOSSurfaceCreateInfoMVK<'a> {
@@ -41,6 +42,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIOSSurfaceCreateFlagsMVK.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct IOSSurfaceCreateFlagsMVK(Flags);
@@ -50,6 +52,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateIOSSurfaceMVK.html>
     pub type PFN_vkCreateIOSSurfaceMVK = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const IOSSurfaceCreateInfoMVK<'_>,
@@ -74,6 +77,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateIOSSurfaceMVK.html>
     pub unsafe fn create_ios_surface_mvk(
         &self,
         instance: Instance,

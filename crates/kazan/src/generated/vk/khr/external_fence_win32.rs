@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportFenceWin32HandleInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImportFenceWin32HandleInfoKHR<'a> {
@@ -59,6 +60,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportFenceWin32HandleInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ExportFenceWin32HandleInfoKHR<'a> {
@@ -99,6 +101,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFenceGetWin32HandleInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct FenceGetWin32HandleInfoKHR<'a> {
@@ -132,11 +135,13 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetFenceWin32HandleKHR.html>
     pub type PFN_vkGetFenceWin32HandleKHR = unsafe extern "system" fn(
         device: Device,
         p_get_win32_handle_info: *const FenceGetWin32HandleInfoKHR<'_>,
         p_handle: *mut HANDLE,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportFenceWin32HandleKHR.html>
     pub type PFN_vkImportFenceWin32HandleKHR = unsafe extern "system" fn(
         device: Device,
         p_import_fence_win32_handle_info: *const ImportFenceWin32HandleInfoKHR<'_>,
@@ -163,6 +168,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportFenceWin32HandleKHR.html>
     pub unsafe fn import_fence_win32_handle_khr(
         &self,
         device: Device,
@@ -178,6 +184,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetFenceWin32HandleKHR.html>
     pub unsafe fn get_fence_win32_handle_khr(
         &self,
         device: Device,

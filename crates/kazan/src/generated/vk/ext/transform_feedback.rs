@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTransformFeedbackFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceTransformFeedbackFeaturesEXT<'a> {
@@ -47,6 +48,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTransformFeedbackPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceTransformFeedbackPropertiesEXT<'a> {
@@ -160,6 +162,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineRasterizationStateStreamCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineRasterizationStateStreamCreateInfoEXT<'a> {
@@ -198,6 +201,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineRasterizationStateStreamCreateFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineRasterizationStateStreamCreateFlagsEXT(Flags);
@@ -207,6 +211,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindTransformFeedbackBuffersEXT.html>
     pub type PFN_vkCmdBindTransformFeedbackBuffersEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         first_binding: u32,
@@ -215,6 +220,7 @@ pub(super) mod defs {
         p_offsets: *const DeviceSize,
         p_sizes: *const DeviceSize,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginTransformFeedbackEXT.html>
     pub type PFN_vkCmdBeginTransformFeedbackEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         first_counter_buffer: u32,
@@ -222,6 +228,7 @@ pub(super) mod defs {
         p_counter_buffers: *const Buffer,
         p_counter_buffer_offsets: *const DeviceSize,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndTransformFeedbackEXT.html>
     pub type PFN_vkCmdEndTransformFeedbackEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         first_counter_buffer: u32,
@@ -229,6 +236,7 @@ pub(super) mod defs {
         p_counter_buffers: *const Buffer,
         p_counter_buffer_offsets: *const DeviceSize,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginQueryIndexedEXT.html>
     pub type PFN_vkCmdBeginQueryIndexedEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         query_pool: QueryPool,
@@ -236,12 +244,14 @@ pub(super) mod defs {
         flags: QueryControlFlags,
         index: u32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndQueryIndexedEXT.html>
     pub type PFN_vkCmdEndQueryIndexedEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         query_pool: QueryPool,
         query: u32,
         index: u32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawIndirectByteCountEXT.html>
     pub type PFN_vkCmdDrawIndirectByteCountEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         instance_count: u32,
@@ -289,6 +299,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindTransformFeedbackBuffersEXT.html>
     pub unsafe fn cmd_bind_transform_feedback_buffers_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -308,6 +319,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginTransformFeedbackEXT.html>
     pub unsafe fn cmd_begin_transform_feedback_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -325,6 +337,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndTransformFeedbackEXT.html>
     pub unsafe fn cmd_end_transform_feedback_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -342,6 +355,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginQueryIndexedEXT.html>
     pub unsafe fn cmd_begin_query_indexed_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -354,6 +368,7 @@ impl DeviceFn {
             (self.cmd_begin_query_indexed_ext)(command_buffer, query_pool, query, flags, index)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndQueryIndexedEXT.html>
     pub unsafe fn cmd_end_query_indexed_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -363,6 +378,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_end_query_indexed_ext)(command_buffer, query_pool, query, index) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawIndirectByteCountEXT.html>
     pub unsafe fn cmd_draw_indirect_byte_count_ext(
         &self,
         command_buffer: CommandBuffer,

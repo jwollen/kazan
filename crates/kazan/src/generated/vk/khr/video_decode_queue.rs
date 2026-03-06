@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeCapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoDecodeCapabilitiesKHR<'a> {
@@ -36,6 +37,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeUsageInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoDecodeUsageInfoKHR<'a> {
@@ -65,6 +67,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoDecodeInfoKHR<'a> {
@@ -140,6 +143,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeUsageFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoDecodeUsageFlagsKHR(Flags);
@@ -163,6 +167,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeUsageFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoDecodeUsageFlagBitsKHR(u32);
@@ -171,6 +176,7 @@ pub(super) mod defs {
         pub const OFFLINE_KHR: Self = Self(1 << 1);
         pub const STREAMING_KHR: Self = Self(1 << 2);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeCapabilityFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoDecodeCapabilityFlagsKHR(Flags);
@@ -196,6 +202,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeCapabilityFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoDecodeCapabilityFlagBitsKHR(u32);
@@ -203,6 +210,7 @@ pub(super) mod defs {
         pub const DPB_AND_OUTPUT_COINCIDE_KHR: Self = Self(1 << 0);
         pub const DPB_AND_OUTPUT_DISTINCT_KHR: Self = Self(1 << 1);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoDecodeFlagsKHR(Flags);
@@ -212,6 +220,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDecodeVideoKHR.html>
     pub type PFN_vkCmdDecodeVideoKHR = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_decode_info: *const VideoDecodeInfoKHR<'_>,
@@ -234,6 +243,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDecodeVideoKHR.html>
     pub unsafe fn cmd_decode_video_khr(
         &self,
         command_buffer: CommandBuffer,

@@ -8,17 +8,28 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryBarrier2KHR.html>
     pub type MemoryBarrier2KHR<'a> = MemoryBarrier2<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageMemoryBarrier2KHR.html>
     pub type ImageMemoryBarrier2KHR<'a> = ImageMemoryBarrier2<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferMemoryBarrier2KHR.html>
     pub type BufferMemoryBarrier2KHR<'a> = BufferMemoryBarrier2<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDependencyInfoKHR.html>
     pub type DependencyInfoKHR<'a> = DependencyInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreSubmitInfoKHR.html>
     pub type SemaphoreSubmitInfoKHR<'a> = SemaphoreSubmitInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferSubmitInfoKHR.html>
     pub type CommandBufferSubmitInfoKHR<'a> = CommandBufferSubmitInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubmitInfo2KHR.html>
     pub type SubmitInfo2KHR<'a> = SubmitInfo2<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSynchronization2FeaturesKHR.html>
     pub type PhysicalDeviceSynchronization2FeaturesKHR<'a> =
         PhysicalDeviceSynchronization2Features<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccessFlags2KHR.html>
     pub type AccessFlags2KHR = AccessFlags2;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineStageFlags2KHR.html>
     pub type PipelineStageFlags2KHR = PipelineStageFlags2;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubmitFlagsKHR.html>
     pub type SubmitFlagsKHR = SubmitFlags;
     pub type PFN_vkCmdSetEvent2KHR = PFN_vkCmdSetEvent2;
     pub type PFN_vkCmdResetEvent2KHR = PFN_vkCmdResetEvent2;
@@ -64,6 +75,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetEvent2KHR.html>
     pub unsafe fn cmd_set_event2_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -72,6 +84,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_event2_khr)(command_buffer, event, dependency_info) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdResetEvent2KHR.html>
     pub unsafe fn cmd_reset_event2_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -80,6 +93,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_reset_event2_khr)(command_buffer, event, stage_mask) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWaitEvents2KHR.html>
     pub unsafe fn cmd_wait_events2_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -95,6 +109,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPipelineBarrier2KHR.html>
     pub unsafe fn cmd_pipeline_barrier2_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -102,6 +117,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_pipeline_barrier2_khr)(command_buffer, dependency_info) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteTimestamp2KHR.html>
     pub unsafe fn cmd_write_timestamp2_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -111,6 +127,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_write_timestamp2_khr)(command_buffer, stage, query_pool, query) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueSubmit2KHR.html>
     pub unsafe fn queue_submit2_khr(
         &self,
         queue: Queue,

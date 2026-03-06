@@ -8,7 +8,12 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
-    define_handle!(ExternalComputeQueueNV, EXTERNAL_COMPUTE_QUEUE_NV, doc = "");
+    define_handle!(
+        ExternalComputeQueueNV,
+        EXTERNAL_COMPUTE_QUEUE_NV,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalComputeQueueNV.html>"
+    );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalComputeQueueDeviceCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ExternalComputeQueueDeviceCreateInfoNV<'a> {
@@ -38,6 +43,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalComputeQueueCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ExternalComputeQueueCreateInfoNV<'a> {
@@ -65,6 +71,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalComputeQueueDataParamsNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ExternalComputeQueueDataParamsNV<'a> {
@@ -92,6 +99,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalComputeQueuePropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceExternalComputeQueuePropertiesNV<'a> {
@@ -130,17 +138,20 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateExternalComputeQueueNV.html>
     pub type PFN_vkCreateExternalComputeQueueNV = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const ExternalComputeQueueCreateInfoNV<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_external_queue: *mut ExternalComputeQueueNV,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyExternalComputeQueueNV.html>
     pub type PFN_vkDestroyExternalComputeQueueNV = unsafe extern "system" fn(
         device: Device,
         external_queue: ExternalComputeQueueNV,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetExternalComputeQueueDataNV.html>
     pub type PFN_vkGetExternalComputeQueueDataNV = unsafe extern "system" fn(
         external_queue: ExternalComputeQueueNV,
         params: *mut ExternalComputeQueueDataParamsNV<'_>,
@@ -172,6 +183,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateExternalComputeQueueNV.html>
     pub unsafe fn create_external_compute_queue_nv(
         &self,
         device: Device,
@@ -193,6 +205,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyExternalComputeQueueNV.html>
     pub unsafe fn destroy_external_compute_queue_nv(
         &self,
         device: Device,
@@ -203,6 +216,7 @@ impl DeviceFn {
             (self.destroy_external_compute_queue_nv)(device, external_queue, allocator.to_raw_ptr())
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetExternalComputeQueueDataNV.html>
     pub unsafe fn get_external_compute_queue_data_nv(
         &self,
         external_queue: ExternalComputeQueueNV,

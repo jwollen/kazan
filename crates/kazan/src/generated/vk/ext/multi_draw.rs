@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMultiDrawInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct MultiDrawInfoEXT {
@@ -24,6 +25,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMultiDrawIndexedInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct MultiDrawIndexedInfoEXT {
@@ -45,6 +47,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMultiDrawPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceMultiDrawPropertiesEXT<'a> {
@@ -77,6 +80,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMultiDrawFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceMultiDrawFeaturesEXT<'a> {
@@ -107,6 +111,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawMultiEXT.html>
     pub type PFN_vkCmdDrawMultiEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         draw_count: u32,
@@ -115,6 +120,7 @@ pub(super) mod defs {
         first_instance: u32,
         stride: u32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawMultiIndexedEXT.html>
     pub type PFN_vkCmdDrawMultiIndexedEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         draw_count: u32,
@@ -146,6 +152,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawMultiEXT.html>
     pub unsafe fn cmd_draw_multi_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -165,6 +172,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawMultiIndexedEXT.html>
     pub unsafe fn cmd_draw_multi_indexed_ext(
         &self,
         command_buffer: CommandBuffer,

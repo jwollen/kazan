@@ -31,6 +31,7 @@ pub(super) mod defs {
     pub const STD_VIDEO_H265_MAX_LONG_TERM_PICS: u32 = 16;
     pub const STD_VIDEO_H265_MAX_DELTA_POC: u32 = 48;
     pub const STD_VIDEO_H265_NO_REFERENCE_PICTURE: u8 = 0xF;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265ProfileTierLevelFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoH265ProfileTierLevelFlags {
@@ -74,6 +75,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265ProfileTierLevel.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoH265ProfileTierLevel {
@@ -95,6 +97,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265DecPicBufMgr.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoH265DecPicBufMgr {
@@ -134,6 +137,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265SubLayerHrdParameters.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoH265SubLayerHrdParameters {
@@ -188,6 +192,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265HrdFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoH265HrdFlags {
@@ -245,6 +250,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265HrdParameters.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoH265HrdParameters<'a> {
@@ -363,6 +369,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265VpsFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoH265VpsFlags {
@@ -396,6 +403,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265VideoParameterSet.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoH265VideoParameterSet<'a> {
@@ -488,6 +496,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265ScalingLists.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoH265ScalingLists {
@@ -562,6 +571,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265ShortTermRefPicSetFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoH265ShortTermRefPicSetFlags {
@@ -581,6 +591,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265ShortTermRefPicSet.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoH265ShortTermRefPicSet {
@@ -683,6 +694,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265LongTermRefPicsSps.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoH265LongTermRefPicsSps {
@@ -710,6 +722,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265SpsVuiFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoH265SpsVuiFlags {
@@ -827,6 +840,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265SequenceParameterSetVui.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoH265SequenceParameterSetVui<'a> {
@@ -1006,6 +1020,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265PredictorPaletteEntries.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoH265PredictorPaletteEntries {
@@ -1031,6 +1046,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265SpsFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoH265SpsFlags {
@@ -1228,6 +1244,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265SequenceParameterSet.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoH265SequenceParameterSet<'a> {
@@ -1536,6 +1553,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265PpsFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoH265PpsFlags {
@@ -1753,6 +1771,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265PictureParameterSet.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoH265PictureParameterSet<'a> {
@@ -2022,6 +2041,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265ChromaFormatIdc.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoH265ChromaFormatIdc(i32);
@@ -2049,6 +2069,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265ProfileIdc.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoH265ProfileIdc(i32);
@@ -2078,6 +2099,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265LevelIdc.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoH265LevelIdc(i32);
@@ -2123,6 +2145,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265SliceType.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoH265SliceType(i32);
@@ -2148,6 +2171,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265PictureType.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoH265PictureType(i32);
@@ -2175,6 +2199,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265AspectRatioIdc.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoH265AspectRatioIdc(i32);

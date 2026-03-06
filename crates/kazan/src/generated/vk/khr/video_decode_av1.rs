@@ -9,6 +9,7 @@ pub(super) mod defs {
     use core::fmt;
     use core::marker::PhantomData;
     pub const MAX_VIDEO_AV1_REFERENCES_PER_FRAME_KHR: u32 = 7;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeAV1ProfileInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoDecodeAV1ProfileInfoKHR<'a> {
@@ -44,6 +45,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeAV1CapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoDecodeAV1CapabilitiesKHR<'a> {
@@ -72,6 +74,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeAV1SessionParametersCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoDecodeAV1SessionParametersCreateInfoKHR<'a> {
@@ -107,6 +110,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeAV1PictureInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoDecodeAV1PictureInfoKHR<'a> {
@@ -169,6 +173,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeAV1DpbSlotInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoDecodeAV1DpbSlotInfoKHR<'a> {

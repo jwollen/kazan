@@ -8,7 +8,9 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceGlobalPriorityQueryFeaturesEXT.html>
     pub type PhysicalDeviceGlobalPriorityQueryFeaturesEXT<'a> =
         PhysicalDeviceGlobalPriorityQueryFeatures<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyGlobalPriorityPropertiesEXT.html>
     pub type QueueFamilyGlobalPriorityPropertiesEXT<'a> = QueueFamilyGlobalPriorityProperties<'a>;
 }

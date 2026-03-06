@@ -8,14 +8,22 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalMemoryPropertiesKHR.html>
     pub type ExternalMemoryPropertiesKHR = ExternalMemoryProperties;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalImageFormatInfoKHR.html>
     pub type PhysicalDeviceExternalImageFormatInfoKHR<'a> =
         PhysicalDeviceExternalImageFormatInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalImageFormatPropertiesKHR.html>
     pub type ExternalImageFormatPropertiesKHR<'a> = ExternalImageFormatProperties<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalBufferInfoKHR.html>
     pub type PhysicalDeviceExternalBufferInfoKHR<'a> = PhysicalDeviceExternalBufferInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalBufferPropertiesKHR.html>
     pub type ExternalBufferPropertiesKHR<'a> = ExternalBufferProperties<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceIDPropertiesKHR.html>
     pub type PhysicalDeviceIDPropertiesKHR<'a> = PhysicalDeviceIDProperties<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalMemoryHandleTypeFlagsKHR.html>
     pub type ExternalMemoryHandleTypeFlagsKHR = ExternalMemoryHandleTypeFlags;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalMemoryFeatureFlagsKHR.html>
     pub type ExternalMemoryFeatureFlagsKHR = ExternalMemoryFeatureFlags;
     pub type PFN_vkGetPhysicalDeviceExternalBufferPropertiesKHR =
         PFN_vkGetPhysicalDeviceExternalBufferProperties;
@@ -39,6 +47,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceExternalBufferPropertiesKHR.html>
     pub unsafe fn get_physical_device_external_buffer_properties_khr(
         &self,
         physical_device: PhysicalDevice,

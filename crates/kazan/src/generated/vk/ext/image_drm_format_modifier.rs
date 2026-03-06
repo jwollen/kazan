@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDrmFormatModifierPropertiesListEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DrmFormatModifierPropertiesListEXT<'a> {
@@ -44,6 +45,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDrmFormatModifierPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct DrmFormatModifierPropertiesEXT {
@@ -71,6 +73,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceImageDrmFormatModifierInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceImageDrmFormatModifierInfoEXT<'a> {
@@ -118,6 +121,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageDrmFormatModifierListCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImageDrmFormatModifierListCreateInfoEXT<'a> {
@@ -150,6 +154,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageDrmFormatModifierExplicitCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImageDrmFormatModifierExplicitCreateInfoEXT<'a> {
@@ -188,6 +193,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageDrmFormatModifierPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImageDrmFormatModifierPropertiesEXT<'a> {
@@ -216,6 +222,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDrmFormatModifierPropertiesList2EXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DrmFormatModifierPropertiesList2EXT<'a> {
@@ -252,6 +259,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDrmFormatModifierProperties2EXT.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct DrmFormatModifierProperties2EXT {
@@ -279,6 +287,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageDrmFormatModifierPropertiesEXT.html>
     pub type PFN_vkGetImageDrmFormatModifierPropertiesEXT = unsafe extern "system" fn(
         device: Device,
         image: Image,
@@ -304,6 +313,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageDrmFormatModifierPropertiesEXT.html>
     pub unsafe fn get_image_drm_format_modifier_properties_ext(
         &self,
         device: Device,

@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandPoolTrimFlagsKHR.html>
     pub type CommandPoolTrimFlagsKHR = CommandPoolTrimFlags;
     pub type PFN_vkTrimCommandPoolKHR = PFN_vkTrimCommandPool;
 }
@@ -28,6 +29,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkTrimCommandPoolKHR.html>
     pub unsafe fn trim_command_pool_khr(
         &self,
         device: Device,

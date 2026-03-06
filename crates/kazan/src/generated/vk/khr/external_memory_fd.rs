@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportMemoryFdInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImportMemoryFdInfoKHR<'a> {
@@ -42,6 +43,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryFdPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct MemoryFdPropertiesKHR<'a> {
@@ -69,6 +71,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryGetFdInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct MemoryGetFdInfoKHR<'a> {
@@ -102,11 +105,13 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryFdKHR.html>
     pub type PFN_vkGetMemoryFdKHR = unsafe extern "system" fn(
         device: Device,
         p_get_fd_info: *const MemoryGetFdInfoKHR<'_>,
         p_fd: *mut c_int,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryFdPropertiesKHR.html>
     pub type PFN_vkGetMemoryFdPropertiesKHR = unsafe extern "system" fn(
         device: Device,
         handle_type: ExternalMemoryHandleTypeFlagBits,
@@ -135,6 +140,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryFdKHR.html>
     pub unsafe fn get_memory_fd_khr(
         &self,
         device: Device,
@@ -150,6 +156,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryFdPropertiesKHR.html>
     pub unsafe fn get_memory_fd_properties_khr(
         &self,
         device: Device,

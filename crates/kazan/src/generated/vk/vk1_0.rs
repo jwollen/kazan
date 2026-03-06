@@ -28,31 +28,132 @@ pub(super) mod defs {
     pub type Flags = u32;
     pub type DeviceSize = u64;
     pub type DeviceAddress = u64;
-    define_handle!(Instance, INSTANCE, doc = "");
-    define_handle!(PhysicalDevice, PHYSICAL_DEVICE, doc = "");
-    define_handle!(Device, DEVICE, doc = "");
-    define_handle!(Queue, QUEUE, doc = "");
-    define_handle!(CommandBuffer, COMMAND_BUFFER, doc = "");
-    handle_nondispatchable!(DeviceMemory, DEVICE_MEMORY, doc = "");
-    handle_nondispatchable!(CommandPool, COMMAND_POOL, doc = "");
-    handle_nondispatchable!(Buffer, BUFFER, doc = "");
-    handle_nondispatchable!(BufferView, BUFFER_VIEW, doc = "");
-    handle_nondispatchable!(Image, IMAGE, doc = "");
-    handle_nondispatchable!(ImageView, IMAGE_VIEW, doc = "");
-    handle_nondispatchable!(ShaderModule, SHADER_MODULE, doc = "");
-    handle_nondispatchable!(Pipeline, PIPELINE, doc = "");
-    handle_nondispatchable!(PipelineLayout, PIPELINE_LAYOUT, doc = "");
-    handle_nondispatchable!(Sampler, SAMPLER, doc = "");
-    handle_nondispatchable!(DescriptorSet, DESCRIPTOR_SET, doc = "");
-    handle_nondispatchable!(DescriptorSetLayout, DESCRIPTOR_SET_LAYOUT, doc = "");
-    handle_nondispatchable!(DescriptorPool, DESCRIPTOR_POOL, doc = "");
-    handle_nondispatchable!(Fence, FENCE, doc = "");
-    handle_nondispatchable!(Semaphore, SEMAPHORE, doc = "");
-    handle_nondispatchable!(Event, EVENT, doc = "");
-    handle_nondispatchable!(QueryPool, QUERY_POOL, doc = "");
-    handle_nondispatchable!(Framebuffer, FRAMEBUFFER, doc = "");
-    handle_nondispatchable!(RenderPass, RENDER_PASS, doc = "");
-    handle_nondispatchable!(PipelineCache, PIPELINE_CACHE, doc = "");
+    define_handle!(
+        Instance,
+        INSTANCE,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkInstance.html>"
+    );
+    define_handle!(
+        PhysicalDevice,
+        PHYSICAL_DEVICE,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevice.html>"
+    );
+    define_handle!(
+        Device,
+        DEVICE,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkDevice.html>"
+    );
+    define_handle!(
+        Queue,
+        QUEUE,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueue.html>"
+    );
+    define_handle!(
+        CommandBuffer,
+        COMMAND_BUFFER,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBuffer.html>"
+    );
+    handle_nondispatchable!(
+        DeviceMemory,
+        DEVICE_MEMORY,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceMemory.html>"
+    );
+    handle_nondispatchable!(
+        CommandPool,
+        COMMAND_POOL,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandPool.html>"
+    );
+    handle_nondispatchable!(
+        Buffer,
+        BUFFER,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkBuffer.html>"
+    );
+    handle_nondispatchable!(
+        BufferView,
+        BUFFER_VIEW,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferView.html>"
+    );
+    handle_nondispatchable!(
+        Image,
+        IMAGE,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkImage.html>"
+    );
+    handle_nondispatchable!(
+        ImageView,
+        IMAGE_VIEW,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageView.html>"
+    );
+    handle_nondispatchable!(
+        ShaderModule,
+        SHADER_MODULE,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderModule.html>"
+    );
+    handle_nondispatchable!(
+        Pipeline,
+        PIPELINE,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipeline.html>"
+    );
+    handle_nondispatchable!(
+        PipelineLayout,
+        PIPELINE_LAYOUT,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineLayout.html>"
+    );
+    handle_nondispatchable!(
+        Sampler,
+        SAMPLER,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkSampler.html>"
+    );
+    handle_nondispatchable!(
+        DescriptorSet,
+        DESCRIPTOR_SET,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSet.html>"
+    );
+    handle_nondispatchable!(
+        DescriptorSetLayout,
+        DESCRIPTOR_SET_LAYOUT,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetLayout.html>"
+    );
+    handle_nondispatchable!(
+        DescriptorPool,
+        DESCRIPTOR_POOL,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorPool.html>"
+    );
+    handle_nondispatchable!(
+        Fence,
+        FENCE,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkFence.html>"
+    );
+    handle_nondispatchable!(
+        Semaphore,
+        SEMAPHORE,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphore.html>"
+    );
+    handle_nondispatchable!(
+        Event,
+        EVENT,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkEvent.html>"
+    );
+    handle_nondispatchable!(
+        QueryPool,
+        QUERY_POOL,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPool.html>"
+    );
+    handle_nondispatchable!(
+        Framebuffer,
+        FRAMEBUFFER,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkFramebuffer.html>"
+    );
+    handle_nondispatchable!(
+        RenderPass,
+        RENDER_PASS,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPass.html>"
+    );
+    handle_nondispatchable!(
+        PipelineCache,
+        PIPELINE_CACHE,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCache.html>"
+    );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBaseOutStructure.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct BaseOutStructure<'a> {
@@ -61,6 +162,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
     impl<'a> BaseOutStructure<'a> {}
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBaseInStructure.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct BaseInStructure<'a> {
@@ -69,6 +171,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
     impl<'a> BaseInStructure<'a> {}
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOffset2D.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct Offset2D {
@@ -85,6 +188,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOffset3D.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct Offset3D {
@@ -106,6 +210,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExtent2D.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct Extent2D {
@@ -122,6 +227,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExtent3D.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct Extent3D {
@@ -143,6 +249,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkViewport.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct Viewport {
@@ -179,6 +286,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRect2D.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct Rect2D {
@@ -195,6 +303,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClearRect.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct ClearRect {
@@ -216,6 +325,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkComponentMapping.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct ComponentMapping {
@@ -242,6 +352,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceProperties {
@@ -310,6 +421,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExtensionProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ExtensionProperties {
@@ -330,6 +442,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkLayerProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct LayerProperties {
@@ -358,6 +471,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkApplicationInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ApplicationInfo<'a> {
@@ -409,6 +523,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAllocationCallbacks.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct AllocationCallbacks<'a> {
@@ -465,6 +580,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceQueueCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DeviceQueueCreateInfo<'a> {
@@ -507,6 +623,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DeviceCreateInfo<'a> {
@@ -576,6 +693,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkInstanceCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct InstanceCreateInfo<'a> {
@@ -633,6 +751,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct QueueFamilyProperties {
@@ -662,6 +781,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMemoryProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceMemoryProperties {
@@ -692,6 +812,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryAllocateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct MemoryAllocateInfo<'a> {
@@ -725,6 +846,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryRequirements.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct MemoryRequirements {
@@ -746,6 +868,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageFormatProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct SparseImageFormatProperties {
@@ -767,6 +890,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageMemoryRequirements.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct SparseImageMemoryRequirements {
@@ -798,6 +922,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryType.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct MemoryType {
@@ -814,6 +939,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryHeap.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct MemoryHeap {
@@ -830,6 +956,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMappedMemoryRange.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct MappedMemoryRange<'a> {
@@ -869,6 +996,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFormatProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct FormatProperties {
@@ -896,6 +1024,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageFormatProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct ImageFormatProperties {
@@ -927,6 +1056,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorBufferInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct DescriptorBufferInfo {
@@ -948,6 +1078,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorImageInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct DescriptorImageInfo {
@@ -969,6 +1100,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkWriteDescriptorSet.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct WriteDescriptorSet<'a> {
@@ -1037,6 +1169,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyDescriptorSet.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct CopyDescriptorSet<'a> {
@@ -1100,6 +1233,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct BufferCreateInfo<'a> {
@@ -1154,6 +1288,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferViewCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct BufferViewCreateInfo<'a> {
@@ -1205,6 +1340,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageSubresource.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct ImageSubresource {
@@ -1226,6 +1362,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageSubresourceLayers.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct ImageSubresourceLayers {
@@ -1252,6 +1389,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageSubresourceRange.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct ImageSubresourceRange {
@@ -1283,6 +1421,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryBarrier.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct MemoryBarrier<'a> {
@@ -1316,6 +1455,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferMemoryBarrier.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct BufferMemoryBarrier<'a> {
@@ -1379,6 +1519,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageMemoryBarrier.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImageMemoryBarrier<'a> {
@@ -1448,6 +1589,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImageCreateInfo<'a> {
@@ -1544,6 +1686,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubresourceLayout.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct SubresourceLayout {
@@ -1575,6 +1718,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageViewCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImageViewCreateInfo<'a> {
@@ -1632,6 +1776,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCopy.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct BufferCopy {
@@ -1653,6 +1798,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseMemoryBind.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct SparseMemoryBind {
@@ -1684,6 +1830,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageMemoryBind.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct SparseImageMemoryBind {
@@ -1720,6 +1867,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseBufferMemoryBindInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SparseBufferMemoryBindInfo<'a> {
@@ -1749,6 +1897,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageOpaqueMemoryBindInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SparseImageOpaqueMemoryBindInfo<'a> {
@@ -1778,6 +1927,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageMemoryBindInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SparseImageMemoryBindInfo<'a> {
@@ -1807,6 +1957,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindSparseInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct BindSparseInfo<'a> {
@@ -1876,6 +2027,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCopy.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct ImageCopy {
@@ -1907,6 +2059,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageBlit.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImageBlit {
@@ -1943,6 +2096,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferImageCopy.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct BufferImageCopy {
@@ -1979,6 +2133,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageResolve.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct ImageResolve {
@@ -2010,6 +2165,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderModuleCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ShaderModuleCreateInfo<'a> {
@@ -2047,6 +2203,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetLayoutBinding.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DescriptorSetLayoutBinding<'a> {
@@ -2088,6 +2245,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetLayoutCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DescriptorSetLayoutCreateInfo<'a> {
@@ -2124,6 +2282,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorPoolSize.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct DescriptorPoolSize {
@@ -2140,6 +2299,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorPoolCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DescriptorPoolCreateInfo<'a> {
@@ -2182,6 +2342,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetAllocateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DescriptorSetAllocateInfo<'a> {
@@ -2218,6 +2379,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSpecializationMapEntry.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct SpecializationMapEntry {
@@ -2239,6 +2401,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSpecializationInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SpecializationInfo<'a> {
@@ -2271,6 +2434,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineShaderStageCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineShaderStageCreateInfo<'a> {
@@ -2325,6 +2489,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkComputePipelineCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ComputePipelineCreateInfo<'a> {
@@ -2376,6 +2541,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVertexInputBindingDescription.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct VertexInputBindingDescription {
@@ -2397,6 +2563,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVertexInputAttributeDescription.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct VertexInputAttributeDescription {
@@ -2423,6 +2590,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineVertexInputStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineVertexInputStateCreateInfo<'a> {
@@ -2477,6 +2645,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineInputAssemblyStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineInputAssemblyStateCreateInfo<'a> {
@@ -2517,6 +2686,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineTessellationStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineTessellationStateCreateInfo<'a> {
@@ -2551,6 +2721,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineViewportStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineViewportStateCreateInfo<'a> {
@@ -2596,6 +2767,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineRasterizationStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineRasterizationStateCreateInfo<'a> {
@@ -2684,6 +2856,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineMultisampleStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineMultisampleStateCreateInfo<'a> {
@@ -2743,6 +2916,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineColorBlendAttachmentState.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct PipelineColorBlendAttachmentState {
@@ -2789,6 +2963,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineColorBlendStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineColorBlendStateCreateInfo<'a> {
@@ -2843,6 +3018,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineDynamicStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineDynamicStateCreateInfo<'a> {
@@ -2879,6 +3055,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkStencilOpState.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StencilOpState {
@@ -2920,6 +3097,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineDepthStencilStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineDepthStencilStateCreateInfo<'a> {
@@ -3002,6 +3180,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGraphicsPipelineCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct GraphicsPipelineCreateInfo<'a> {
@@ -3149,6 +3328,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCacheCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineCacheCreateInfo<'a> {
@@ -3185,6 +3365,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCacheHeaderVersionOne.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineCacheHeaderVersionOne {
@@ -3230,6 +3411,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPushConstantRange.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct PushConstantRange {
@@ -3251,6 +3433,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineLayoutCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineLayoutCreateInfo<'a> {
@@ -3309,6 +3492,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SamplerCreateInfo<'a> {
@@ -3426,6 +3610,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandPoolCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct CommandPoolCreateInfo<'a> {
@@ -3459,6 +3644,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferAllocateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct CommandBufferAllocateInfo<'a> {
@@ -3498,6 +3684,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferInheritanceInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct CommandBufferInheritanceInfo<'a> {
@@ -3558,6 +3745,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferBeginInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct CommandBufferBeginInfo<'a> {
@@ -3594,6 +3782,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassBeginInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct RenderPassBeginInfo<'a> {
@@ -3642,6 +3831,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClearDepthStencilValue.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct ClearDepthStencilValue {
@@ -3658,6 +3848,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClearAttachment.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ClearAttachment {
@@ -3688,6 +3879,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentDescription.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct AttachmentDescription {
@@ -3739,6 +3931,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentReference.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct AttachmentReference {
@@ -3755,6 +3948,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassDescription.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SubpassDescription<'a> {
@@ -3827,6 +4021,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassDependency.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct SubpassDependency {
@@ -3868,6 +4063,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct RenderPassCreateInfo<'a> {
@@ -3922,6 +4118,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkEventCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct EventCreateInfo<'a> {
@@ -3949,6 +4146,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFenceCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct FenceCreateInfo<'a> {
@@ -3976,6 +4174,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFeatures.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct PhysicalDeviceFeatures {
@@ -4295,6 +4494,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSparseProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct PhysicalDeviceSparseProperties {
@@ -4339,6 +4539,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceLimits.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceLimits {
@@ -5146,6 +5347,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SemaphoreCreateInfo<'a> {
@@ -5173,6 +5375,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPoolCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct QueryPoolCreateInfo<'a> {
@@ -5221,6 +5424,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFramebufferCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct FramebufferCreateInfo<'a> {
@@ -5281,6 +5485,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDrawIndirectCommand.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct DrawIndirectCommand {
@@ -5307,6 +5512,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDrawIndexedIndirectCommand.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct DrawIndexedIndirectCommand {
@@ -5338,6 +5544,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDispatchIndirectCommand.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct DispatchIndirectCommand {
@@ -5359,6 +5566,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubmitInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SubmitInfo<'a> {
@@ -5417,6 +5625,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClearColorValue.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub union ClearColorValue {
@@ -5429,6 +5638,7 @@ pub(super) mod defs {
             unsafe { core::mem::zeroed() }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClearValue.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub union ClearValue {
@@ -5440,6 +5650,7 @@ pub(super) mod defs {
             unsafe { core::mem::zeroed() }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageLayout.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ImageLayout(i32);
@@ -5563,6 +5774,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentLoadOp.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct AttachmentLoadOp(i32);
@@ -5593,6 +5805,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentStoreOp.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct AttachmentStoreOp(i32);
@@ -5623,6 +5836,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageType.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ImageType(i32);
@@ -5646,6 +5860,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageTiling.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ImageTiling(i32);
@@ -5670,6 +5885,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageViewType.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ImageViewType(i32);
@@ -5701,6 +5917,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferLevel.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct CommandBufferLevel(i32);
@@ -5722,6 +5939,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkComponentSwizzle.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ComponentSwizzle(i32);
@@ -5753,6 +5971,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorType.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DescriptorType(i32);
@@ -5821,6 +6040,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryType.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct QueryType(i32);
@@ -5892,6 +6112,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBorderColor.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct BorderColor(i32);
@@ -5926,6 +6147,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBindPoint.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineBindPoint(i32);
@@ -5961,6 +6183,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCacheHeaderVersion.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineCacheHeaderVersion(i32);
@@ -5983,6 +6206,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPrimitiveTopology.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PrimitiveTopology(i32);
@@ -6022,6 +6246,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSharingMode.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SharingMode(i32);
@@ -6043,6 +6268,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndexType.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct IndexType(i32);
@@ -6076,6 +6302,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFilter.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct Filter(i32);
@@ -6102,6 +6329,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerMipmapMode.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SamplerMipmapMode(i32);
@@ -6123,6 +6351,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerAddressMode.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SamplerAddressMode(i32);
@@ -6152,6 +6381,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCompareOp.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct CompareOp(i32);
@@ -6185,6 +6415,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPolygonMode.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PolygonMode(i32);
@@ -6211,6 +6442,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFrontFace.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct FrontFace(i32);
@@ -6232,6 +6464,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBlendFactor.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct BlendFactor(i32);
@@ -6287,6 +6520,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBlendOp.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct BlendOp(i32);
@@ -6407,6 +6641,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkStencilOp.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StencilOp(i32);
@@ -6440,6 +6675,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkLogicOp.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct LogicOp(i32);
@@ -6489,6 +6725,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkInternalAllocationType.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct InternalAllocationType(i32);
@@ -6508,6 +6745,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSystemAllocationScope.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SystemAllocationScope(i32);
@@ -6535,6 +6773,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceType.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PhysicalDeviceType(i32);
@@ -6562,6 +6801,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVertexInputRate.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VertexInputRate(i32);
@@ -6583,6 +6823,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFormat.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct Format(i32);
@@ -7326,6 +7567,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkStructureType.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StructureType(i32);
@@ -12204,6 +12446,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassContents.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SubpassContents(i32);
@@ -12233,6 +12476,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkResult.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct Result(i32);
@@ -12412,6 +12656,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDynamicState.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DynamicState(i32);
@@ -12624,6 +12869,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkObjectType.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ObjectType(i32);
@@ -12788,6 +13034,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVendorId.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VendorId(i32);
@@ -12821,6 +13068,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFramebufferCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct FramebufferCreateFlags(Flags);
@@ -12837,6 +13085,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFramebufferCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct FramebufferCreateFlagBits(u32);
@@ -12846,6 +13095,7 @@ pub(super) mod defs {
         // VK_VERSION_1_2
         pub const IMAGELESS: Self = Self(1 << 0);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPoolCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct QueryPoolCreateFlags(Flags);
@@ -12860,6 +13110,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPoolCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct QueryPoolCreateFlagBits(u32);
@@ -12867,6 +13118,7 @@ pub(super) mod defs {
         // VK_KHR_maintenance9
         pub const RESET_KHR: Self = Self(1 << 0);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct RenderPassCreateFlags(Flags);
@@ -12890,6 +13142,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct RenderPassCreateFlagBits(u32);
@@ -12899,6 +13152,7 @@ pub(super) mod defs {
         // VK_VALVE_fragment_density_map_layered
         pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self = Self(1 << 2);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SamplerCreateFlags(Flags);
@@ -12942,6 +13196,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SamplerCreateFlagBits(u32);
@@ -12956,6 +13211,7 @@ pub(super) mod defs {
         // VK_QCOM_image_processing
         pub const IMAGE_PROCESSING_QCOM: Self = Self(1 << 4);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineLayoutCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineLayoutCreateFlags(Flags);
@@ -12974,6 +13230,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineLayoutCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineLayoutCreateFlagBits(u32);
@@ -12981,6 +13238,7 @@ pub(super) mod defs {
         // VK_EXT_graphics_pipeline_library
         pub const INDEPENDENT_SETS_EXT: Self = Self(1 << 1);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCacheCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineCacheCreateFlags(Flags);
@@ -13010,6 +13268,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCacheCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineCacheCreateFlagBits(u32);
@@ -13021,6 +13280,7 @@ pub(super) mod defs {
         // VK_VERSION_1_3
         pub const EXTERNALLY_SYNCHRONIZED: Self = Self(1 << 0);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineDepthStencilStateCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineDepthStencilStateCreateFlags(Flags);
@@ -13044,6 +13304,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineDepthStencilStateCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineDepthStencilStateCreateFlagBits(u32);
@@ -13057,6 +13318,7 @@ pub(super) mod defs {
         pub const RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT: Self = Self(1 << 0);
         pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT: Self = Self(1 << 1);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineDynamicStateCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineDynamicStateCreateFlags(Flags);
@@ -13066,6 +13328,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineColorBlendStateCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineColorBlendStateCreateFlags(Flags);
@@ -13088,6 +13351,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineColorBlendStateCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineColorBlendStateCreateFlagBits(u32);
@@ -13098,6 +13362,7 @@ pub(super) mod defs {
         // VK_EXT_rasterization_order_attachment_access
         pub const RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT: Self = Self(1 << 0);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineMultisampleStateCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineMultisampleStateCreateFlags(Flags);
@@ -13107,6 +13372,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineRasterizationStateCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineRasterizationStateCreateFlags(Flags);
@@ -13116,6 +13382,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineViewportStateCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineViewportStateCreateFlags(Flags);
@@ -13125,6 +13392,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineTessellationStateCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineTessellationStateCreateFlags(Flags);
@@ -13134,6 +13402,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineInputAssemblyStateCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineInputAssemblyStateCreateFlags(Flags);
@@ -13143,6 +13412,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineVertexInputStateCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineVertexInputStateCreateFlags(Flags);
@@ -13152,6 +13422,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineShaderStageCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineShaderStageCreateFlags(Flags);
@@ -13181,6 +13452,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineShaderStageCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineShaderStageCreateFlagBits(u32);
@@ -13192,6 +13464,7 @@ pub(super) mod defs {
         pub const ALLOW_VARYING_SUBGROUP_SIZE: Self = Self(1 << 0);
         pub const REQUIRE_FULL_SUBGROUPS: Self = Self(1 << 1);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetLayoutCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DescriptorSetLayoutCreateFlags(Flags);
@@ -13258,6 +13531,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetLayoutCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DescriptorSetLayoutCreateFlagBits(u32);
@@ -13282,6 +13556,7 @@ pub(super) mod defs {
         // VK_VERSION_1_4
         pub const PUSH_DESCRIPTOR: Self = Self(1 << 0);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferViewCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct BufferViewCreateFlags(Flags);
@@ -13291,6 +13566,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkInstanceCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct InstanceCreateFlags(Flags);
@@ -13309,6 +13585,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkInstanceCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct InstanceCreateFlagBits(u32);
@@ -13316,6 +13593,7 @@ pub(super) mod defs {
         // VK_KHR_portability_enumeration
         pub const ENUMERATE_PORTABILITY_KHR: Self = Self(1 << 0);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DeviceCreateFlags(Flags);
@@ -13325,6 +13603,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceQueueCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DeviceQueueCreateFlags(Flags);
@@ -13348,6 +13627,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceQueueCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DeviceQueueCreateFlagBits(u32);
@@ -13357,6 +13637,7 @@ pub(super) mod defs {
         // VK_VERSION_1_1
         pub const PROTECTED: Self = Self(1 << 0);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct QueueFlags(Flags);
@@ -13393,6 +13674,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct QueueFlagBits(u32);
@@ -13412,6 +13694,7 @@ pub(super) mod defs {
         // VK_VERSION_1_1
         pub const PROTECTED: Self = Self(1 << 4);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryPropertyFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct MemoryPropertyFlags(Flags);
@@ -13452,6 +13735,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryPropertyFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MemoryPropertyFlagBits(u32);
@@ -13469,6 +13753,7 @@ pub(super) mod defs {
         // VK_VERSION_1_1
         pub const PROTECTED: Self = Self(1 << 5);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryHeapFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct MemoryHeapFlags(Flags);
@@ -13492,6 +13777,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryHeapFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MemoryHeapFlagBits(u32);
@@ -13504,6 +13790,7 @@ pub(super) mod defs {
         // VK_VERSION_1_1
         pub const MULTI_INSTANCE: Self = Self(1 << 1);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccessFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AccessFlags(Flags);
@@ -13660,6 +13947,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccessFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct AccessFlagBits(u32);
@@ -13709,6 +13997,7 @@ pub(super) mod defs {
         pub const SHADING_RATE_IMAGE_READ_NV: Self =
             Self::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR;
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferUsageFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct BufferUsageFlags(Flags);
@@ -13867,6 +14156,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferUsageFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct BufferUsageFlagBits(u32);
@@ -13918,6 +14208,7 @@ pub(super) mod defs {
         // VK_VERSION_1_2
         pub const SHADER_DEVICE_ADDRESS: Self = Self(1 << 17);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct BufferCreateFlags(Flags);
@@ -13965,6 +14256,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct BufferCreateFlagBits(u32);
@@ -13985,6 +14277,7 @@ pub(super) mod defs {
         // VK_VERSION_1_2
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY: Self = Self(1 << 4);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderStageFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ShaderStageFlags(Flags);
@@ -14061,6 +14354,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderStageFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ShaderStageFlagBits(u32);
@@ -14096,6 +14390,7 @@ pub(super) mod defs {
         pub const INTERSECTION_NV: Self = Self::INTERSECTION_KHR;
         pub const CALLABLE_NV: Self = Self::CALLABLE_KHR;
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageUsageFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageUsageFlags(Flags);
@@ -14229,6 +14524,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageUsageFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ImageUsageFlagBits(u32);
@@ -14274,6 +14570,7 @@ pub(super) mod defs {
         // VK_VERSION_1_4
         pub const HOST_TRANSFER: Self = Self(1 << 22);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageCreateFlags(Flags);
@@ -14387,6 +14684,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ImageCreateFlagBits(u32);
@@ -14437,6 +14735,7 @@ pub(super) mod defs {
         pub const ALIAS: Self = Self(1 << 10);
         pub const PROTECTED: Self = Self(1 << 11);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageViewCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageViewCreateFlags(Flags);
@@ -14471,6 +14770,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageViewCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ImageViewCreateFlagBits(u32);
@@ -14482,6 +14782,7 @@ pub(super) mod defs {
         // VK_EXT_fragment_density_map2
         pub const FRAGMENT_DENSITY_MAP_DEFERRED_EXT: Self = Self(1 << 1);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineCreateFlags(Flags);
@@ -14691,6 +14992,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineCreateFlagBits(u32);
@@ -14757,6 +15059,7 @@ pub(super) mod defs {
         pub const NO_PROTECTED_ACCESS: Self = Self(1 << 27);
         pub const PROTECTED_ACCESS_ONLY: Self = Self(1 << 30);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkColorComponentFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ColorComponentFlags(Flags);
@@ -14778,6 +15081,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkColorComponentFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ColorComponentFlagBits(u32);
@@ -14787,6 +15091,7 @@ pub(super) mod defs {
         pub const B: Self = Self(1 << 2);
         pub const A: Self = Self(1 << 3);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFenceCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct FenceCreateFlags(Flags);
@@ -14800,12 +15105,14 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFenceCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct FenceCreateFlagBits(u32);
     impl FenceCreateFlagBits {
         pub const SIGNALED: Self = Self(1 << 0);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SemaphoreCreateFlags(Flags);
@@ -14815,6 +15122,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFormatFeatureFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct FormatFeatureFlags(Flags);
@@ -14935,6 +15243,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFormatFeatureFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct FormatFeatureFlagBits(u32);
@@ -15001,6 +15310,7 @@ pub(super) mod defs {
         // VK_VERSION_1_2
         pub const SAMPLED_IMAGE_FILTER_MINMAX: Self = Self(1 << 16);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryControlFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct QueryControlFlags(Flags);
@@ -15014,12 +15324,14 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryControlFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct QueryControlFlagBits(u32);
     impl QueryControlFlagBits {
         pub const PRECISE: Self = Self(1 << 0);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryResultFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct QueryResultFlags(Flags);
@@ -15044,6 +15356,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryResultFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct QueryResultFlagBits(u32);
@@ -15055,6 +15368,7 @@ pub(super) mod defs {
         // VK_KHR_video_queue
         pub const WITH_STATUS_KHR: Self = Self(1 << 4);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderModuleCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ShaderModuleCreateFlags(Flags);
@@ -15064,6 +15378,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkEventCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct EventCreateFlags(Flags);
@@ -15080,6 +15395,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkEventCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct EventCreateFlagBits(u32);
@@ -15089,6 +15405,7 @@ pub(super) mod defs {
         // VK_VERSION_1_3
         pub const DEVICE_ONLY: Self = Self(1 << 0);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandPoolCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct CommandPoolCreateFlags(Flags);
@@ -15113,6 +15430,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandPoolCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct CommandPoolCreateFlagBits(u32);
@@ -15122,6 +15440,7 @@ pub(super) mod defs {
         // VK_VERSION_1_1
         pub const PROTECTED: Self = Self(1 << 2);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandPoolResetFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct CommandPoolResetFlags(Flags);
@@ -15138,12 +15457,14 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandPoolResetFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct CommandPoolResetFlagBits(u32);
     impl CommandPoolResetFlagBits {
         pub const RELEASE_RESOURCES: Self = Self(1 << 0);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferResetFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct CommandBufferResetFlags(Flags);
@@ -15160,12 +15481,14 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferResetFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct CommandBufferResetFlagBits(u32);
     impl CommandBufferResetFlagBits {
         pub const RELEASE_RESOURCES: Self = Self(1 << 0);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferUsageFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct CommandBufferUsageFlags(Flags);
@@ -15195,6 +15518,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferUsageFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct CommandBufferUsageFlagBits(u32);
@@ -15203,6 +15527,7 @@ pub(super) mod defs {
         pub const RENDER_PASS_CONTINUE: Self = Self(1 << 1);
         pub const SIMULTANEOUS_USE: Self = Self(1 << 2);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPipelineStatisticFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct QueryPipelineStatisticFlags(Flags);
@@ -15302,6 +15627,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPipelineStatisticFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct QueryPipelineStatisticFlagBits(u32);
@@ -15323,6 +15649,7 @@ pub(super) mod defs {
         // VK_HUAWEI_cluster_culling_shader
         pub const CLUSTER_CULLING_SHADER_INVOCATIONS_HUAWEI: Self = Self(1 << 13);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryMapFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct MemoryMapFlags(Flags);
@@ -15337,6 +15664,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryMapFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MemoryMapFlagBits(u32);
@@ -15344,6 +15672,7 @@ pub(super) mod defs {
         // VK_EXT_map_memory_placed
         pub const PLACED_EXT: Self = Self(1 << 0);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageAspectFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageAspectFlags(Flags);
@@ -15389,6 +15718,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageAspectFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ImageAspectFlagBits(u32);
@@ -15411,6 +15741,7 @@ pub(super) mod defs {
         pub const PLANE_1: Self = Self(1 << 5);
         pub const PLANE_2: Self = Self(1 << 6);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseMemoryBindFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SparseMemoryBindFlags(Flags);
@@ -15424,12 +15755,14 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseMemoryBindFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SparseMemoryBindFlagBits(u32);
     impl SparseMemoryBindFlagBits {
         pub const METADATA: Self = Self(1 << 0);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageFormatFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SparseImageFormatFlags(Flags);
@@ -15456,6 +15789,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageFormatFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SparseImageFormatFlagBits(u32);
@@ -15464,6 +15798,7 @@ pub(super) mod defs {
         pub const ALIGNED_MIP_SIZE: Self = Self(1 << 1);
         pub const NONSTANDARD_BLOCK_SIZE: Self = Self(1 << 2);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassDescriptionFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SubpassDescriptionFlags(Flags);
@@ -15545,6 +15880,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassDescriptionFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SubpassDescriptionFlagBits(u32);
@@ -15574,6 +15910,7 @@ pub(super) mod defs {
         // VK_QCOM_tile_shading
         pub const TILE_SHADING_APRON_QCOM: Self = Self(1 << 8);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineStageFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineStageFlags(Flags);
@@ -15707,6 +16044,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineStageFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineStageFlagBits(u32);
@@ -15756,6 +16094,7 @@ pub(super) mod defs {
         // VK_NV_shading_rate_image
         pub const SHADING_RATE_IMAGE_NV: Self = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSampleCountFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SampleCountFlags(Flags);
@@ -15783,6 +16122,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSampleCountFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SampleCountFlagBits(u32);
@@ -15795,6 +16135,7 @@ pub(super) mod defs {
         pub const _32: Self = Self(1 << 5);
         pub const _64: Self = Self(1 << 6);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentDescriptionFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AttachmentDescriptionFlags(Flags);
@@ -15823,6 +16164,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentDescriptionFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct AttachmentDescriptionFlagBits(u32);
@@ -15832,6 +16174,7 @@ pub(super) mod defs {
         pub const RESOLVE_SKIP_TRANSFER_FUNCTION_KHR: Self = Self(1 << 1);
         pub const RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR: Self = Self(1 << 2);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkStencilFaceFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct StencilFaceFlags(Flags);
@@ -15851,6 +16194,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkStencilFaceFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct StencilFaceFlagBits(u32);
@@ -15858,6 +16202,7 @@ pub(super) mod defs {
         pub const FRONT: Self = Self(1 << 0);
         pub const BACK: Self = Self(1 << 1);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCullModeFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct CullModeFlags(Flags);
@@ -15877,6 +16222,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCullModeFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct CullModeFlagBits(u32);
@@ -15884,6 +16230,7 @@ pub(super) mod defs {
         pub const FRONT: Self = Self(1 << 0);
         pub const BACK: Self = Self(1 << 1);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorPoolCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DescriptorPoolCreateFlags(Flags);
@@ -15929,6 +16276,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorPoolCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DescriptorPoolCreateFlagBits(u32);
@@ -15946,6 +16294,7 @@ pub(super) mod defs {
         // VK_VERSION_1_2
         pub const UPDATE_AFTER_BIND: Self = Self(1 << 1);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorPoolResetFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DescriptorPoolResetFlags(Flags);
@@ -15955,6 +16304,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDependencyFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DependencyFlags(Flags);
@@ -15995,6 +16345,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDependencyFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DependencyFlagBits(u32);
@@ -16014,18 +16365,21 @@ pub(super) mod defs {
         pub const VIEW_LOCAL: Self = Self(1 << 1);
         pub const DEVICE_GROUP: Self = Self(1 << 2);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/PFN_vkInternalAllocationNotification.html>
     pub type PFN_vkInternalAllocationNotification = unsafe extern "system" fn(
         p_user_data: *mut c_void,
         size: usize,
         allocation_type: InternalAllocationType,
         allocation_scope: SystemAllocationScope,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/PFN_vkInternalFreeNotification.html>
     pub type PFN_vkInternalFreeNotification = unsafe extern "system" fn(
         p_user_data: *mut c_void,
         size: usize,
         allocation_type: InternalAllocationType,
         allocation_scope: SystemAllocationScope,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/PFN_vkReallocationFunction.html>
     pub type PFN_vkReallocationFunction = unsafe extern "system" fn(
         p_user_data: *mut c_void,
         p_original: *mut c_void,
@@ -16033,53 +16387,67 @@ pub(super) mod defs {
         alignment: usize,
         allocation_scope: SystemAllocationScope,
     ) -> *mut c_void;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/PFN_vkAllocationFunction.html>
     pub type PFN_vkAllocationFunction = unsafe extern "system" fn(
         p_user_data: *mut c_void,
         size: usize,
         alignment: usize,
         allocation_scope: SystemAllocationScope,
     ) -> *mut c_void;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/PFN_vkFreeFunction.html>
     pub type PFN_vkFreeFunction =
         unsafe extern "system" fn(p_user_data: *mut c_void, p_memory: *mut c_void);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/PFN_vkVoidFunction.html>
     pub type PFN_vkVoidFunction = unsafe extern "system" fn();
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateInstance.html>
     pub type PFN_vkCreateInstance = unsafe extern "system" fn(
         p_create_info: *const InstanceCreateInfo<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_instance: *mut Instance,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyInstance.html>
     pub type PFN_vkDestroyInstance =
         unsafe extern "system" fn(instance: Instance, p_allocator: *const AllocationCallbacks<'_>);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumeratePhysicalDevices.html>
     pub type PFN_vkEnumeratePhysicalDevices = unsafe extern "system" fn(
         instance: Instance,
         p_physical_device_count: *mut u32,
         p_physical_devices: *mut PhysicalDevice,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceProcAddr.html>
     pub type PFN_vkGetDeviceProcAddr =
         unsafe extern "system" fn(device: Device, p_name: *const c_char) -> PFN_vkVoidFunction;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetInstanceProcAddr.html>
     pub type PFN_vkGetInstanceProcAddr =
         unsafe extern "system" fn(instance: Instance, p_name: *const c_char) -> PFN_vkVoidFunction;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceProperties.html>
     pub type PFN_vkGetPhysicalDeviceProperties = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         p_properties: *mut PhysicalDeviceProperties,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceQueueFamilyProperties.html>
     pub type PFN_vkGetPhysicalDeviceQueueFamilyProperties = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         p_queue_family_property_count: *mut u32,
         p_queue_family_properties: *mut QueueFamilyProperties,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceMemoryProperties.html>
     pub type PFN_vkGetPhysicalDeviceMemoryProperties = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         p_memory_properties: *mut PhysicalDeviceMemoryProperties,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFeatures.html>
     pub type PFN_vkGetPhysicalDeviceFeatures = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         p_features: *mut PhysicalDeviceFeatures,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFormatProperties.html>
     pub type PFN_vkGetPhysicalDeviceFormatProperties = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         format: Format,
         p_format_properties: *mut FormatProperties,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceImageFormatProperties.html>
     pub type PFN_vkGetPhysicalDeviceImageFormatProperties = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         format: Format,
@@ -16090,29 +16458,35 @@ pub(super) mod defs {
         p_image_format_properties: *mut ImageFormatProperties,
     )
         -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDevice.html>
     pub type PFN_vkCreateDevice = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         p_create_info: *const DeviceCreateInfo<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_device: *mut Device,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDevice.html>
     pub type PFN_vkDestroyDevice =
         unsafe extern "system" fn(device: Device, p_allocator: *const AllocationCallbacks<'_>);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumerateInstanceLayerProperties.html>
     pub type PFN_vkEnumerateInstanceLayerProperties = unsafe extern "system" fn(
         p_property_count: *mut u32,
         p_properties: *mut LayerProperties,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumerateInstanceExtensionProperties.html>
     pub type PFN_vkEnumerateInstanceExtensionProperties = unsafe extern "system" fn(
         p_layer_name: *const c_char,
         p_property_count: *mut u32,
         p_properties: *mut ExtensionProperties,
     )
         -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumerateDeviceLayerProperties.html>
     pub type PFN_vkEnumerateDeviceLayerProperties = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         p_property_count: *mut u32,
         p_properties: *mut LayerProperties,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumerateDeviceExtensionProperties.html>
     pub type PFN_vkEnumerateDeviceExtensionProperties = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         p_layer_name: *const c_char,
@@ -16120,31 +16494,38 @@ pub(super) mod defs {
         p_properties: *mut ExtensionProperties,
     )
         -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceQueue.html>
     pub type PFN_vkGetDeviceQueue = unsafe extern "system" fn(
         device: Device,
         queue_family_index: u32,
         queue_index: u32,
         p_queue: *mut Queue,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueSubmit.html>
     pub type PFN_vkQueueSubmit = unsafe extern "system" fn(
         queue: Queue,
         submit_count: u32,
         p_submits: *const SubmitInfo<'_>,
         fence: Fence,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueWaitIdle.html>
     pub type PFN_vkQueueWaitIdle = unsafe extern "system" fn(queue: Queue) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDeviceWaitIdle.html>
     pub type PFN_vkDeviceWaitIdle = unsafe extern "system" fn(device: Device) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAllocateMemory.html>
     pub type PFN_vkAllocateMemory = unsafe extern "system" fn(
         device: Device,
         p_allocate_info: *const MemoryAllocateInfo<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_memory: *mut DeviceMemory,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkFreeMemory.html>
     pub type PFN_vkFreeMemory = unsafe extern "system" fn(
         device: Device,
         memory: DeviceMemory,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkMapMemory.html>
     pub type PFN_vkMapMemory = unsafe extern "system" fn(
         device: Device,
         memory: DeviceMemory,
@@ -16153,50 +16534,60 @@ pub(super) mod defs {
         flags: MemoryMapFlags,
         pp_data: *mut *mut c_void,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUnmapMemory.html>
     pub type PFN_vkUnmapMemory = unsafe extern "system" fn(device: Device, memory: DeviceMemory);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkFlushMappedMemoryRanges.html>
     pub type PFN_vkFlushMappedMemoryRanges = unsafe extern "system" fn(
         device: Device,
         memory_range_count: u32,
         p_memory_ranges: *const MappedMemoryRange<'_>,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkInvalidateMappedMemoryRanges.html>
     pub type PFN_vkInvalidateMappedMemoryRanges = unsafe extern "system" fn(
         device: Device,
         memory_range_count: u32,
         p_memory_ranges: *const MappedMemoryRange<'_>,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceMemoryCommitment.html>
     pub type PFN_vkGetDeviceMemoryCommitment = unsafe extern "system" fn(
         device: Device,
         memory: DeviceMemory,
         p_committed_memory_in_bytes: *mut DeviceSize,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferMemoryRequirements.html>
     pub type PFN_vkGetBufferMemoryRequirements = unsafe extern "system" fn(
         device: Device,
         buffer: Buffer,
         p_memory_requirements: *mut MemoryRequirements,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindBufferMemory.html>
     pub type PFN_vkBindBufferMemory = unsafe extern "system" fn(
         device: Device,
         buffer: Buffer,
         memory: DeviceMemory,
         memory_offset: DeviceSize,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageMemoryRequirements.html>
     pub type PFN_vkGetImageMemoryRequirements = unsafe extern "system" fn(
         device: Device,
         image: Image,
         p_memory_requirements: *mut MemoryRequirements,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindImageMemory.html>
     pub type PFN_vkBindImageMemory = unsafe extern "system" fn(
         device: Device,
         image: Image,
         memory: DeviceMemory,
         memory_offset: DeviceSize,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageSparseMemoryRequirements.html>
     pub type PFN_vkGetImageSparseMemoryRequirements = unsafe extern "system" fn(
         device: Device,
         image: Image,
         p_sparse_memory_requirement_count: *mut u32,
         p_sparse_memory_requirements: *mut SparseImageMemoryRequirements,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSparseImageFormatProperties.html>
     pub type PFN_vkGetPhysicalDeviceSparseImageFormatProperties = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         format: Format,
@@ -16207,30 +16598,36 @@ pub(super) mod defs {
         p_property_count: *mut u32,
         p_properties: *mut SparseImageFormatProperties,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueBindSparse.html>
     pub type PFN_vkQueueBindSparse = unsafe extern "system" fn(
         queue: Queue,
         bind_info_count: u32,
         p_bind_info: *const BindSparseInfo<'_>,
         fence: Fence,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateFence.html>
     pub type PFN_vkCreateFence = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const FenceCreateInfo<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_fence: *mut Fence,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyFence.html>
     pub type PFN_vkDestroyFence = unsafe extern "system" fn(
         device: Device,
         fence: Fence,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkResetFences.html>
     pub type PFN_vkResetFences = unsafe extern "system" fn(
         device: Device,
         fence_count: u32,
         p_fences: *const Fence,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetFenceStatus.html>
     pub type PFN_vkGetFenceStatus =
         unsafe extern "system" fn(device: Device, fence: Fence) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWaitForFences.html>
     pub type PFN_vkWaitForFences = unsafe extern "system" fn(
         device: Device,
         fence_count: u32,
@@ -16238,44 +16635,54 @@ pub(super) mod defs {
         wait_all: Bool32,
         timeout: u64,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSemaphore.html>
     pub type PFN_vkCreateSemaphore = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const SemaphoreCreateInfo<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_semaphore: *mut Semaphore,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroySemaphore.html>
     pub type PFN_vkDestroySemaphore = unsafe extern "system" fn(
         device: Device,
         semaphore: Semaphore,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateEvent.html>
     pub type PFN_vkCreateEvent = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const EventCreateInfo<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_event: *mut Event,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyEvent.html>
     pub type PFN_vkDestroyEvent = unsafe extern "system" fn(
         device: Device,
         event: Event,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetEventStatus.html>
     pub type PFN_vkGetEventStatus =
         unsafe extern "system" fn(device: Device, event: Event) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetEvent.html>
     pub type PFN_vkSetEvent = unsafe extern "system" fn(device: Device, event: Event) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkResetEvent.html>
     pub type PFN_vkResetEvent =
         unsafe extern "system" fn(device: Device, event: Event) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateQueryPool.html>
     pub type PFN_vkCreateQueryPool = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const QueryPoolCreateInfo<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_query_pool: *mut QueryPool,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyQueryPool.html>
     pub type PFN_vkDestroyQueryPool = unsafe extern "system" fn(
         device: Device,
         query_pool: QueryPool,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetQueryPoolResults.html>
     pub type PFN_vkGetQueryPoolResults = unsafe extern "system" fn(
         device: Device,
         query_pool: QueryPool,
@@ -16286,90 +16693,106 @@ pub(super) mod defs {
         stride: DeviceSize,
         flags: QueryResultFlags,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateBuffer.html>
     pub type PFN_vkCreateBuffer = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const BufferCreateInfo<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_buffer: *mut Buffer,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyBuffer.html>
     pub type PFN_vkDestroyBuffer = unsafe extern "system" fn(
         device: Device,
         buffer: Buffer,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateBufferView.html>
     pub type PFN_vkCreateBufferView = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const BufferViewCreateInfo<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_view: *mut BufferView,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyBufferView.html>
     pub type PFN_vkDestroyBufferView = unsafe extern "system" fn(
         device: Device,
         buffer_view: BufferView,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateImage.html>
     pub type PFN_vkCreateImage = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const ImageCreateInfo<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_image: *mut Image,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyImage.html>
     pub type PFN_vkDestroyImage = unsafe extern "system" fn(
         device: Device,
         image: Image,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageSubresourceLayout.html>
     pub type PFN_vkGetImageSubresourceLayout = unsafe extern "system" fn(
         device: Device,
         image: Image,
         p_subresource: *const ImageSubresource,
         p_layout: *mut SubresourceLayout,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateImageView.html>
     pub type PFN_vkCreateImageView = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const ImageViewCreateInfo<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_view: *mut ImageView,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyImageView.html>
     pub type PFN_vkDestroyImageView = unsafe extern "system" fn(
         device: Device,
         image_view: ImageView,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateShaderModule.html>
     pub type PFN_vkCreateShaderModule = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const ShaderModuleCreateInfo<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_shader_module: *mut ShaderModule,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyShaderModule.html>
     pub type PFN_vkDestroyShaderModule = unsafe extern "system" fn(
         device: Device,
         shader_module: ShaderModule,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreatePipelineCache.html>
     pub type PFN_vkCreatePipelineCache = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const PipelineCacheCreateInfo<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_pipeline_cache: *mut PipelineCache,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyPipelineCache.html>
     pub type PFN_vkDestroyPipelineCache = unsafe extern "system" fn(
         device: Device,
         pipeline_cache: PipelineCache,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineCacheData.html>
     pub type PFN_vkGetPipelineCacheData = unsafe extern "system" fn(
         device: Device,
         pipeline_cache: PipelineCache,
         p_data_size: *mut usize,
         p_data: *mut c_void,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkMergePipelineCaches.html>
     pub type PFN_vkMergePipelineCaches = unsafe extern "system" fn(
         device: Device,
         dst_cache: PipelineCache,
         src_cache_count: u32,
         p_src_caches: *const PipelineCache,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateGraphicsPipelines.html>
     pub type PFN_vkCreateGraphicsPipelines = unsafe extern "system" fn(
         device: Device,
         pipeline_cache: PipelineCache,
@@ -16378,6 +16801,7 @@ pub(super) mod defs {
         p_allocator: *const AllocationCallbacks<'_>,
         p_pipelines: *mut Pipeline,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateComputePipelines.html>
     pub type PFN_vkCreateComputePipelines = unsafe extern "system" fn(
         device: Device,
         pipeline_cache: PipelineCache,
@@ -16386,71 +16810,84 @@ pub(super) mod defs {
         p_allocator: *const AllocationCallbacks<'_>,
         p_pipelines: *mut Pipeline,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyPipeline.html>
     pub type PFN_vkDestroyPipeline = unsafe extern "system" fn(
         device: Device,
         pipeline: Pipeline,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreatePipelineLayout.html>
     pub type PFN_vkCreatePipelineLayout = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const PipelineLayoutCreateInfo<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_pipeline_layout: *mut PipelineLayout,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyPipelineLayout.html>
     pub type PFN_vkDestroyPipelineLayout = unsafe extern "system" fn(
         device: Device,
         pipeline_layout: PipelineLayout,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSampler.html>
     pub type PFN_vkCreateSampler = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const SamplerCreateInfo<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_sampler: *mut Sampler,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroySampler.html>
     pub type PFN_vkDestroySampler = unsafe extern "system" fn(
         device: Device,
         sampler: Sampler,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDescriptorSetLayout.html>
     pub type PFN_vkCreateDescriptorSetLayout = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const DescriptorSetLayoutCreateInfo<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_set_layout: *mut DescriptorSetLayout,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDescriptorSetLayout.html>
     pub type PFN_vkDestroyDescriptorSetLayout = unsafe extern "system" fn(
         device: Device,
         descriptor_set_layout: DescriptorSetLayout,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDescriptorPool.html>
     pub type PFN_vkCreateDescriptorPool = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const DescriptorPoolCreateInfo<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_descriptor_pool: *mut DescriptorPool,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDescriptorPool.html>
     pub type PFN_vkDestroyDescriptorPool = unsafe extern "system" fn(
         device: Device,
         descriptor_pool: DescriptorPool,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkResetDescriptorPool.html>
     pub type PFN_vkResetDescriptorPool = unsafe extern "system" fn(
         device: Device,
         descriptor_pool: DescriptorPool,
         flags: DescriptorPoolResetFlags,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAllocateDescriptorSets.html>
     pub type PFN_vkAllocateDescriptorSets = unsafe extern "system" fn(
         device: Device,
         p_allocate_info: *const DescriptorSetAllocateInfo<'_>,
         p_descriptor_sets: *mut DescriptorSet,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkFreeDescriptorSets.html>
     pub type PFN_vkFreeDescriptorSets = unsafe extern "system" fn(
         device: Device,
         descriptor_pool: DescriptorPool,
         descriptor_set_count: u32,
         p_descriptor_sets: *const DescriptorSet,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUpdateDescriptorSets.html>
     pub type PFN_vkUpdateDescriptorSets = unsafe extern "system" fn(
         device: Device,
         descriptor_write_count: u32,
@@ -16458,117 +16895,141 @@ pub(super) mod defs {
         descriptor_copy_count: u32,
         p_descriptor_copies: *const CopyDescriptorSet<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateFramebuffer.html>
     pub type PFN_vkCreateFramebuffer = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const FramebufferCreateInfo<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_framebuffer: *mut Framebuffer,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyFramebuffer.html>
     pub type PFN_vkDestroyFramebuffer = unsafe extern "system" fn(
         device: Device,
         framebuffer: Framebuffer,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateRenderPass.html>
     pub type PFN_vkCreateRenderPass = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const RenderPassCreateInfo<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_render_pass: *mut RenderPass,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyRenderPass.html>
     pub type PFN_vkDestroyRenderPass = unsafe extern "system" fn(
         device: Device,
         render_pass: RenderPass,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRenderAreaGranularity.html>
     pub type PFN_vkGetRenderAreaGranularity = unsafe extern "system" fn(
         device: Device,
         render_pass: RenderPass,
         p_granularity: *mut Extent2D,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateCommandPool.html>
     pub type PFN_vkCreateCommandPool = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const CommandPoolCreateInfo<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_command_pool: *mut CommandPool,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyCommandPool.html>
     pub type PFN_vkDestroyCommandPool = unsafe extern "system" fn(
         device: Device,
         command_pool: CommandPool,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkResetCommandPool.html>
     pub type PFN_vkResetCommandPool = unsafe extern "system" fn(
         device: Device,
         command_pool: CommandPool,
         flags: CommandPoolResetFlags,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAllocateCommandBuffers.html>
     pub type PFN_vkAllocateCommandBuffers = unsafe extern "system" fn(
         device: Device,
         p_allocate_info: *const CommandBufferAllocateInfo<'_>,
         p_command_buffers: *mut CommandBuffer,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkFreeCommandBuffers.html>
     pub type PFN_vkFreeCommandBuffers = unsafe extern "system" fn(
         device: Device,
         command_pool: CommandPool,
         command_buffer_count: u32,
         p_command_buffers: *const CommandBuffer,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBeginCommandBuffer.html>
     pub type PFN_vkBeginCommandBuffer = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_begin_info: *const CommandBufferBeginInfo<'_>,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEndCommandBuffer.html>
     pub type PFN_vkEndCommandBuffer =
         unsafe extern "system" fn(command_buffer: CommandBuffer) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkResetCommandBuffer.html>
     pub type PFN_vkResetCommandBuffer = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         flags: CommandBufferResetFlags,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindPipeline.html>
     pub type PFN_vkCmdBindPipeline = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         pipeline_bind_point: PipelineBindPoint,
         pipeline: Pipeline,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewport.html>
     pub type PFN_vkCmdSetViewport = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         first_viewport: u32,
         viewport_count: u32,
         p_viewports: *const Viewport,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetScissor.html>
     pub type PFN_vkCmdSetScissor = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         first_scissor: u32,
         scissor_count: u32,
         p_scissors: *const Rect2D,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLineWidth.html>
     pub type PFN_vkCmdSetLineWidth =
         unsafe extern "system" fn(command_buffer: CommandBuffer, line_width: f32);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthBias.html>
     pub type PFN_vkCmdSetDepthBias = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         depth_bias_constant_factor: f32,
         depth_bias_clamp: f32,
         depth_bias_slope_factor: f32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetBlendConstants.html>
     pub type PFN_vkCmdSetBlendConstants =
         unsafe extern "system" fn(command_buffer: CommandBuffer, blend_constants: *const [f32; 4]);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthBounds.html>
     pub type PFN_vkCmdSetDepthBounds = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         min_depth_bounds: f32,
         max_depth_bounds: f32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetStencilCompareMask.html>
     pub type PFN_vkCmdSetStencilCompareMask = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         face_mask: StencilFaceFlags,
         compare_mask: u32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetStencilWriteMask.html>
     pub type PFN_vkCmdSetStencilWriteMask = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         face_mask: StencilFaceFlags,
         write_mask: u32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetStencilReference.html>
     pub type PFN_vkCmdSetStencilReference = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         face_mask: StencilFaceFlags,
         reference: u32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindDescriptorSets.html>
     pub type PFN_vkCmdBindDescriptorSets = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         pipeline_bind_point: PipelineBindPoint,
@@ -16579,12 +17040,14 @@ pub(super) mod defs {
         dynamic_offset_count: u32,
         p_dynamic_offsets: *const u32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindIndexBuffer.html>
     pub type PFN_vkCmdBindIndexBuffer = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         buffer: Buffer,
         offset: DeviceSize,
         index_type: IndexType,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindVertexBuffers.html>
     pub type PFN_vkCmdBindVertexBuffers = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         first_binding: u32,
@@ -16592,6 +17055,7 @@ pub(super) mod defs {
         p_buffers: *const Buffer,
         p_offsets: *const DeviceSize,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDraw.html>
     pub type PFN_vkCmdDraw = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         vertex_count: u32,
@@ -16599,6 +17063,7 @@ pub(super) mod defs {
         first_vertex: u32,
         first_instance: u32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawIndexed.html>
     pub type PFN_vkCmdDrawIndexed = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         index_count: u32,
@@ -16607,6 +17072,7 @@ pub(super) mod defs {
         vertex_offset: i32,
         first_instance: u32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawIndirect.html>
     pub type PFN_vkCmdDrawIndirect = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         buffer: Buffer,
@@ -16614,6 +17080,7 @@ pub(super) mod defs {
         draw_count: u32,
         stride: u32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawIndexedIndirect.html>
     pub type PFN_vkCmdDrawIndexedIndirect = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         buffer: Buffer,
@@ -16621,17 +17088,20 @@ pub(super) mod defs {
         draw_count: u32,
         stride: u32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatch.html>
     pub type PFN_vkCmdDispatch = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         group_count_x: u32,
         group_count_y: u32,
         group_count_z: u32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatchIndirect.html>
     pub type PFN_vkCmdDispatchIndirect = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         buffer: Buffer,
         offset: DeviceSize,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyBuffer.html>
     pub type PFN_vkCmdCopyBuffer = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         src_buffer: Buffer,
@@ -16639,6 +17109,7 @@ pub(super) mod defs {
         region_count: u32,
         p_regions: *const BufferCopy,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyImage.html>
     pub type PFN_vkCmdCopyImage = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         src_image: Image,
@@ -16648,6 +17119,7 @@ pub(super) mod defs {
         region_count: u32,
         p_regions: *const ImageCopy,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBlitImage.html>
     pub type PFN_vkCmdBlitImage = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         src_image: Image,
@@ -16658,6 +17130,7 @@ pub(super) mod defs {
         p_regions: *const ImageBlit,
         filter: Filter,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyBufferToImage.html>
     pub type PFN_vkCmdCopyBufferToImage = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         src_buffer: Buffer,
@@ -16666,6 +17139,7 @@ pub(super) mod defs {
         region_count: u32,
         p_regions: *const BufferImageCopy,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyImageToBuffer.html>
     pub type PFN_vkCmdCopyImageToBuffer = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         src_image: Image,
@@ -16674,6 +17148,7 @@ pub(super) mod defs {
         region_count: u32,
         p_regions: *const BufferImageCopy,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdUpdateBuffer.html>
     pub type PFN_vkCmdUpdateBuffer = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         dst_buffer: Buffer,
@@ -16681,6 +17156,7 @@ pub(super) mod defs {
         data_size: DeviceSize,
         p_data: *const c_void,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdFillBuffer.html>
     pub type PFN_vkCmdFillBuffer = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         dst_buffer: Buffer,
@@ -16688,6 +17164,7 @@ pub(super) mod defs {
         size: DeviceSize,
         data: u32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdClearColorImage.html>
     pub type PFN_vkCmdClearColorImage = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         image: Image,
@@ -16696,6 +17173,7 @@ pub(super) mod defs {
         range_count: u32,
         p_ranges: *const ImageSubresourceRange,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdClearDepthStencilImage.html>
     pub type PFN_vkCmdClearDepthStencilImage = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         image: Image,
@@ -16704,6 +17182,7 @@ pub(super) mod defs {
         range_count: u32,
         p_ranges: *const ImageSubresourceRange,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdClearAttachments.html>
     pub type PFN_vkCmdClearAttachments = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         attachment_count: u32,
@@ -16711,6 +17190,7 @@ pub(super) mod defs {
         rect_count: u32,
         p_rects: *const ClearRect,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdResolveImage.html>
     pub type PFN_vkCmdResolveImage = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         src_image: Image,
@@ -16720,16 +17200,19 @@ pub(super) mod defs {
         region_count: u32,
         p_regions: *const ImageResolve,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetEvent.html>
     pub type PFN_vkCmdSetEvent = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         event: Event,
         stage_mask: PipelineStageFlags,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdResetEvent.html>
     pub type PFN_vkCmdResetEvent = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         event: Event,
         stage_mask: PipelineStageFlags,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWaitEvents.html>
     pub type PFN_vkCmdWaitEvents = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         event_count: u32,
@@ -16743,6 +17226,7 @@ pub(super) mod defs {
         image_memory_barrier_count: u32,
         p_image_memory_barriers: *const ImageMemoryBarrier<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPipelineBarrier.html>
     pub type PFN_vkCmdPipelineBarrier = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         src_stage_mask: PipelineStageFlags,
@@ -16755,26 +17239,31 @@ pub(super) mod defs {
         image_memory_barrier_count: u32,
         p_image_memory_barriers: *const ImageMemoryBarrier<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginQuery.html>
     pub type PFN_vkCmdBeginQuery = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         query_pool: QueryPool,
         query: u32,
         flags: QueryControlFlags,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndQuery.html>
     pub type PFN_vkCmdEndQuery =
         unsafe extern "system" fn(command_buffer: CommandBuffer, query_pool: QueryPool, query: u32);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdResetQueryPool.html>
     pub type PFN_vkCmdResetQueryPool = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         query_pool: QueryPool,
         first_query: u32,
         query_count: u32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteTimestamp.html>
     pub type PFN_vkCmdWriteTimestamp = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         pipeline_stage: PipelineStageFlagBits,
         query_pool: QueryPool,
         query: u32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyQueryPoolResults.html>
     pub type PFN_vkCmdCopyQueryPoolResults = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         query_pool: QueryPool,
@@ -16785,6 +17274,7 @@ pub(super) mod defs {
         stride: DeviceSize,
         flags: QueryResultFlags,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushConstants.html>
     pub type PFN_vkCmdPushConstants = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         layout: PipelineLayout,
@@ -16793,14 +17283,18 @@ pub(super) mod defs {
         size: u32,
         p_values: *const c_void,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginRenderPass.html>
     pub type PFN_vkCmdBeginRenderPass = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_render_pass_begin: *const RenderPassBeginInfo<'_>,
         contents: SubpassContents,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdNextSubpass.html>
     pub type PFN_vkCmdNextSubpass =
         unsafe extern "system" fn(command_buffer: CommandBuffer, contents: SubpassContents);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndRenderPass.html>
     pub type PFN_vkCmdEndRenderPass = unsafe extern "system" fn(command_buffer: CommandBuffer);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdExecuteCommands.html>
     pub type PFN_vkCmdExecuteCommands = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         command_buffer_count: u32,
@@ -16833,6 +17327,7 @@ impl EntryFn {
     }
 }
 impl EntryFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateInstance.html>
     pub unsafe fn create_instance(
         &self,
         create_info: &InstanceCreateInfo<'_>,
@@ -16849,6 +17344,7 @@ impl EntryFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumerateInstanceExtensionProperties.html>
     pub unsafe fn enumerate_instance_extension_properties(
         &self,
         layer_name: Option<&CStr>,
@@ -16878,6 +17374,7 @@ impl EntryFn {
             Ok(result)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumerateInstanceLayerProperties.html>
     pub unsafe fn enumerate_instance_layer_properties(
         &self,
         mut properties: impl ExtendUninit<LayerProperties>,
@@ -16971,6 +17468,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyInstance.html>
     pub unsafe fn destroy_instance(
         &self,
         instance: Instance,
@@ -16978,6 +17476,7 @@ impl InstanceFn {
     ) {
         unsafe { (self.destroy_instance)(instance, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumeratePhysicalDevices.html>
     pub unsafe fn enumerate_physical_devices(
         &self,
         instance: Instance,
@@ -17007,6 +17506,7 @@ impl InstanceFn {
             Ok(result)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFeatures.html>
     pub unsafe fn get_physical_device_features(
         &self,
         physical_device: PhysicalDevice,
@@ -17017,6 +17517,7 @@ impl InstanceFn {
             features.assume_init()
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFormatProperties.html>
     pub unsafe fn get_physical_device_format_properties(
         &self,
         physical_device: PhysicalDevice,
@@ -17032,6 +17533,7 @@ impl InstanceFn {
             format_properties.assume_init()
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceImageFormatProperties.html>
     pub unsafe fn get_physical_device_image_format_properties(
         &self,
         physical_device: PhysicalDevice,
@@ -17059,6 +17561,7 @@ impl InstanceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceProperties.html>
     pub unsafe fn get_physical_device_properties(
         &self,
         physical_device: PhysicalDevice,
@@ -17069,6 +17572,7 @@ impl InstanceFn {
             properties.assume_init()
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceQueueFamilyProperties.html>
     pub unsafe fn get_physical_device_queue_family_properties(
         &self,
         physical_device: PhysicalDevice,
@@ -17091,6 +17595,7 @@ impl InstanceFn {
             queue_family_properties.set_len(len.try_into().unwrap());
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceMemoryProperties.html>
     pub unsafe fn get_physical_device_memory_properties(
         &self,
         physical_device: PhysicalDevice,
@@ -17104,6 +17609,7 @@ impl InstanceFn {
             memory_properties.assume_init()
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetInstanceProcAddr.html>
     pub unsafe fn get_instance_proc_addr(
         &self,
         instance: Instance,
@@ -17111,6 +17617,7 @@ impl InstanceFn {
     ) -> PFN_vkVoidFunction {
         unsafe { (self.get_instance_proc_addr)(instance, name.as_ptr() as _) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDevice.html>
     pub unsafe fn create_device(
         &self,
         physical_device: PhysicalDevice,
@@ -17132,6 +17639,7 @@ impl InstanceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumerateDeviceExtensionProperties.html>
     pub unsafe fn enumerate_device_extension_properties(
         &self,
         physical_device: PhysicalDevice,
@@ -17163,6 +17671,7 @@ impl InstanceFn {
             Ok(result)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumerateDeviceLayerProperties.html>
     pub unsafe fn enumerate_device_layer_properties(
         &self,
         physical_device: PhysicalDevice,
@@ -17192,6 +17701,7 @@ impl InstanceFn {
             Ok(result)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSparseImageFormatProperties.html>
     pub unsafe fn get_physical_device_sparse_image_format_properties(
         &self,
         physical_device: PhysicalDevice,
@@ -17660,9 +18170,11 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceProcAddr.html>
     pub unsafe fn get_device_proc_addr(&self, device: Device, name: &CStr) -> PFN_vkVoidFunction {
         unsafe { (self.get_device_proc_addr)(device, name.as_ptr() as _) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDevice.html>
     pub unsafe fn destroy_device(
         &self,
         device: Device,
@@ -17670,6 +18182,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_device)(device, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceQueue.html>
     pub unsafe fn get_device_queue(
         &self,
         device: Device,
@@ -17682,6 +18195,7 @@ impl DeviceFn {
             queue.assume_init()
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueSubmit.html>
     pub unsafe fn queue_submit(
         &self,
         queue: Queue,
@@ -17702,6 +18216,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueWaitIdle.html>
     pub unsafe fn queue_wait_idle(&self, queue: Queue) -> crate::Result<()> {
         unsafe {
             let result = (self.queue_wait_idle)(queue);
@@ -17712,6 +18227,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDeviceWaitIdle.html>
     pub unsafe fn device_wait_idle(&self, device: Device) -> crate::Result<()> {
         unsafe {
             let result = (self.device_wait_idle)(device);
@@ -17722,6 +18238,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAllocateMemory.html>
     pub unsafe fn allocate_memory(
         &self,
         device: Device,
@@ -17743,6 +18260,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkFreeMemory.html>
     pub unsafe fn free_memory(
         &self,
         device: Device,
@@ -17751,6 +18269,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.free_memory)(device, memory, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkMapMemory.html>
     pub unsafe fn map_memory(
         &self,
         device: Device,
@@ -17769,9 +18288,11 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUnmapMemory.html>
     pub unsafe fn unmap_memory(&self, device: Device, memory: DeviceMemory) {
         unsafe { (self.unmap_memory)(device, memory) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkFlushMappedMemoryRanges.html>
     pub unsafe fn flush_mapped_memory_ranges(
         &self,
         device: Device,
@@ -17790,6 +18311,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkInvalidateMappedMemoryRanges.html>
     pub unsafe fn invalidate_mapped_memory_ranges(
         &self,
         device: Device,
@@ -17808,6 +18330,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceMemoryCommitment.html>
     pub unsafe fn get_device_memory_commitment(
         &self,
         device: Device,
@@ -17823,6 +18346,7 @@ impl DeviceFn {
             committed_memory_in_bytes.assume_init()
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindBufferMemory.html>
     pub unsafe fn bind_buffer_memory(
         &self,
         device: Device,
@@ -17839,6 +18363,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindImageMemory.html>
     pub unsafe fn bind_image_memory(
         &self,
         device: Device,
@@ -17855,6 +18380,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferMemoryRequirements.html>
     pub unsafe fn get_buffer_memory_requirements(
         &self,
         device: Device,
@@ -17866,6 +18392,7 @@ impl DeviceFn {
             memory_requirements.assume_init()
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageMemoryRequirements.html>
     pub unsafe fn get_image_memory_requirements(
         &self,
         device: Device,
@@ -17877,6 +18404,7 @@ impl DeviceFn {
             memory_requirements.assume_init()
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageSparseMemoryRequirements.html>
     pub unsafe fn get_image_sparse_memory_requirements(
         &self,
         device: Device,
@@ -17904,6 +18432,7 @@ impl DeviceFn {
             sparse_memory_requirements.set_len(len.try_into().unwrap());
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueBindSparse.html>
     pub unsafe fn queue_bind_sparse(
         &self,
         queue: Queue,
@@ -17924,6 +18453,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateFence.html>
     pub unsafe fn create_fence(
         &self,
         device: Device,
@@ -17945,6 +18475,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyFence.html>
     pub unsafe fn destroy_fence(
         &self,
         device: Device,
@@ -17953,6 +18484,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_fence)(device, fence, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkResetFences.html>
     pub unsafe fn reset_fences(&self, device: Device, fences: &[Fence]) -> crate::Result<()> {
         unsafe {
             let result = (self.reset_fences)(
@@ -17967,6 +18499,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetFenceStatus.html>
     pub unsafe fn get_fence_status(&self, device: Device, fence: Fence) -> crate::Result<()> {
         unsafe {
             let result = (self.get_fence_status)(device, fence);
@@ -17977,6 +18510,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWaitForFences.html>
     pub unsafe fn wait_for_fences(
         &self,
         device: Device,
@@ -17999,6 +18533,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSemaphore.html>
     pub unsafe fn create_semaphore(
         &self,
         device: Device,
@@ -18020,6 +18555,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroySemaphore.html>
     pub unsafe fn destroy_semaphore(
         &self,
         device: Device,
@@ -18028,6 +18564,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_semaphore)(device, semaphore, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateQueryPool.html>
     pub unsafe fn create_query_pool(
         &self,
         device: Device,
@@ -18049,6 +18586,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyQueryPool.html>
     pub unsafe fn destroy_query_pool(
         &self,
         device: Device,
@@ -18057,6 +18595,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_query_pool)(device, query_pool, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetQueryPoolResults.html>
     pub unsafe fn get_query_pool_results(
         &self,
         device: Device,
@@ -18085,6 +18624,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateBuffer.html>
     pub unsafe fn create_buffer(
         &self,
         device: Device,
@@ -18106,6 +18646,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyBuffer.html>
     pub unsafe fn destroy_buffer(
         &self,
         device: Device,
@@ -18114,6 +18655,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_buffer)(device, buffer, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateImage.html>
     pub unsafe fn create_image(
         &self,
         device: Device,
@@ -18135,6 +18677,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyImage.html>
     pub unsafe fn destroy_image(
         &self,
         device: Device,
@@ -18143,6 +18686,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_image)(device, image, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageSubresourceLayout.html>
     pub unsafe fn get_image_subresource_layout(
         &self,
         device: Device,
@@ -18155,6 +18699,7 @@ impl DeviceFn {
             layout.assume_init()
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateImageView.html>
     pub unsafe fn create_image_view(
         &self,
         device: Device,
@@ -18176,6 +18721,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyImageView.html>
     pub unsafe fn destroy_image_view(
         &self,
         device: Device,
@@ -18184,6 +18730,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_image_view)(device, image_view, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateCommandPool.html>
     pub unsafe fn create_command_pool(
         &self,
         device: Device,
@@ -18205,6 +18752,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyCommandPool.html>
     pub unsafe fn destroy_command_pool(
         &self,
         device: Device,
@@ -18213,6 +18761,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_command_pool)(device, command_pool, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkResetCommandPool.html>
     pub unsafe fn reset_command_pool(
         &self,
         device: Device,
@@ -18228,6 +18777,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAllocateCommandBuffers.html>
     pub unsafe fn allocate_command_buffers(
         &self,
         device: Device,
@@ -18247,6 +18797,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkFreeCommandBuffers.html>
     pub unsafe fn free_command_buffers(
         &self,
         device: Device,
@@ -18262,6 +18813,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBeginCommandBuffer.html>
     pub unsafe fn begin_command_buffer(
         &self,
         command_buffer: CommandBuffer,
@@ -18276,6 +18828,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEndCommandBuffer.html>
     pub unsafe fn end_command_buffer(&self, command_buffer: CommandBuffer) -> crate::Result<()> {
         unsafe {
             let result = (self.end_command_buffer)(command_buffer);
@@ -18286,6 +18839,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkResetCommandBuffer.html>
     pub unsafe fn reset_command_buffer(
         &self,
         command_buffer: CommandBuffer,
@@ -18300,6 +18854,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyBuffer.html>
     pub unsafe fn cmd_copy_buffer(
         &self,
         command_buffer: CommandBuffer,
@@ -18317,6 +18872,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyImage.html>
     pub unsafe fn cmd_copy_image(
         &self,
         command_buffer: CommandBuffer,
@@ -18338,6 +18894,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyBufferToImage.html>
     pub unsafe fn cmd_copy_buffer_to_image(
         &self,
         command_buffer: CommandBuffer,
@@ -18357,6 +18914,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyImageToBuffer.html>
     pub unsafe fn cmd_copy_image_to_buffer(
         &self,
         command_buffer: CommandBuffer,
@@ -18376,6 +18934,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdUpdateBuffer.html>
     pub unsafe fn cmd_update_buffer(
         &self,
         command_buffer: CommandBuffer,
@@ -18393,6 +18952,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdFillBuffer.html>
     pub unsafe fn cmd_fill_buffer(
         &self,
         command_buffer: CommandBuffer,
@@ -18403,6 +18963,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_fill_buffer)(command_buffer, dst_buffer, dst_offset, size, data) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPipelineBarrier.html>
     pub unsafe fn cmd_pipeline_barrier(
         &self,
         command_buffer: CommandBuffer,
@@ -18428,6 +18989,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginQuery.html>
     pub unsafe fn cmd_begin_query(
         &self,
         command_buffer: CommandBuffer,
@@ -18437,6 +18999,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_begin_query)(command_buffer, query_pool, query, flags) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndQuery.html>
     pub unsafe fn cmd_end_query(
         &self,
         command_buffer: CommandBuffer,
@@ -18445,6 +19008,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_end_query)(command_buffer, query_pool, query) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdResetQueryPool.html>
     pub unsafe fn cmd_reset_query_pool(
         &self,
         command_buffer: CommandBuffer,
@@ -18454,6 +19018,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_reset_query_pool)(command_buffer, query_pool, first_query, query_count) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteTimestamp.html>
     pub unsafe fn cmd_write_timestamp(
         &self,
         command_buffer: CommandBuffer,
@@ -18463,6 +19028,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_write_timestamp)(command_buffer, pipeline_stage, query_pool, query) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyQueryPoolResults.html>
     pub unsafe fn cmd_copy_query_pool_results(
         &self,
         command_buffer: CommandBuffer,
@@ -18487,6 +19053,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdExecuteCommands.html>
     pub unsafe fn cmd_execute_commands(
         &self,
         command_buffer: CommandBuffer,
@@ -18500,6 +19067,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateEvent.html>
     pub unsafe fn create_event(
         &self,
         device: Device,
@@ -18521,6 +19089,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyEvent.html>
     pub unsafe fn destroy_event(
         &self,
         device: Device,
@@ -18529,6 +19098,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_event)(device, event, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetEventStatus.html>
     pub unsafe fn get_event_status(&self, device: Device, event: Event) -> crate::Result<()> {
         unsafe {
             let result = (self.get_event_status)(device, event);
@@ -18539,6 +19109,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetEvent.html>
     pub unsafe fn set_event(&self, device: Device, event: Event) -> crate::Result<()> {
         unsafe {
             let result = (self.set_event)(device, event);
@@ -18549,6 +19120,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkResetEvent.html>
     pub unsafe fn reset_event(&self, device: Device, event: Event) -> crate::Result<()> {
         unsafe {
             let result = (self.reset_event)(device, event);
@@ -18559,6 +19131,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateBufferView.html>
     pub unsafe fn create_buffer_view(
         &self,
         device: Device,
@@ -18580,6 +19153,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyBufferView.html>
     pub unsafe fn destroy_buffer_view(
         &self,
         device: Device,
@@ -18588,6 +19162,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_buffer_view)(device, buffer_view, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateShaderModule.html>
     pub unsafe fn create_shader_module(
         &self,
         device: Device,
@@ -18609,6 +19184,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyShaderModule.html>
     pub unsafe fn destroy_shader_module(
         &self,
         device: Device,
@@ -18617,6 +19193,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_shader_module)(device, shader_module, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreatePipelineCache.html>
     pub unsafe fn create_pipeline_cache(
         &self,
         device: Device,
@@ -18638,6 +19215,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyPipelineCache.html>
     pub unsafe fn destroy_pipeline_cache(
         &self,
         device: Device,
@@ -18646,6 +19224,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_pipeline_cache)(device, pipeline_cache, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineCacheData.html>
     pub unsafe fn get_pipeline_cache_data(
         &self,
         device: Device,
@@ -18673,6 +19252,7 @@ impl DeviceFn {
             Ok(result)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkMergePipelineCaches.html>
     pub unsafe fn merge_pipeline_caches(
         &self,
         device: Device,
@@ -18693,6 +19273,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateComputePipelines.html>
     pub unsafe fn create_compute_pipelines(
         &self,
         device: Device,
@@ -18717,6 +19298,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyPipeline.html>
     pub unsafe fn destroy_pipeline(
         &self,
         device: Device,
@@ -18725,6 +19307,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_pipeline)(device, pipeline, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreatePipelineLayout.html>
     pub unsafe fn create_pipeline_layout(
         &self,
         device: Device,
@@ -18746,6 +19329,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyPipelineLayout.html>
     pub unsafe fn destroy_pipeline_layout(
         &self,
         device: Device,
@@ -18754,6 +19338,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_pipeline_layout)(device, pipeline_layout, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSampler.html>
     pub unsafe fn create_sampler(
         &self,
         device: Device,
@@ -18775,6 +19360,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroySampler.html>
     pub unsafe fn destroy_sampler(
         &self,
         device: Device,
@@ -18783,6 +19369,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_sampler)(device, sampler, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDescriptorSetLayout.html>
     pub unsafe fn create_descriptor_set_layout(
         &self,
         device: Device,
@@ -18804,6 +19391,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDescriptorSetLayout.html>
     pub unsafe fn destroy_descriptor_set_layout(
         &self,
         device: Device,
@@ -18818,6 +19406,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDescriptorPool.html>
     pub unsafe fn create_descriptor_pool(
         &self,
         device: Device,
@@ -18839,6 +19428,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDescriptorPool.html>
     pub unsafe fn destroy_descriptor_pool(
         &self,
         device: Device,
@@ -18847,6 +19437,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_descriptor_pool)(device, descriptor_pool, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkResetDescriptorPool.html>
     pub unsafe fn reset_descriptor_pool(
         &self,
         device: Device,
@@ -18862,6 +19453,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAllocateDescriptorSets.html>
     pub unsafe fn allocate_descriptor_sets(
         &self,
         device: Device,
@@ -18881,6 +19473,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkFreeDescriptorSets.html>
     pub unsafe fn free_descriptor_sets(
         &self,
         device: Device,
@@ -18901,6 +19494,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUpdateDescriptorSets.html>
     pub unsafe fn update_descriptor_sets(
         &self,
         device: Device,
@@ -18917,6 +19511,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindPipeline.html>
     pub unsafe fn cmd_bind_pipeline(
         &self,
         command_buffer: CommandBuffer,
@@ -18925,6 +19520,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_bind_pipeline)(command_buffer, pipeline_bind_point, pipeline) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindDescriptorSets.html>
     pub unsafe fn cmd_bind_descriptor_sets(
         &self,
         command_buffer: CommandBuffer,
@@ -18947,6 +19543,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdClearColorImage.html>
     pub unsafe fn cmd_clear_color_image(
         &self,
         command_buffer: CommandBuffer,
@@ -18966,6 +19563,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatch.html>
     pub unsafe fn cmd_dispatch(
         &self,
         command_buffer: CommandBuffer,
@@ -18975,6 +19573,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_dispatch)(command_buffer, group_count_x, group_count_y, group_count_z) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatchIndirect.html>
     pub unsafe fn cmd_dispatch_indirect(
         &self,
         command_buffer: CommandBuffer,
@@ -18983,6 +19582,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_dispatch_indirect)(command_buffer, buffer, offset) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetEvent.html>
     pub unsafe fn cmd_set_event(
         &self,
         command_buffer: CommandBuffer,
@@ -18991,6 +19591,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_event)(command_buffer, event, stage_mask) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdResetEvent.html>
     pub unsafe fn cmd_reset_event(
         &self,
         command_buffer: CommandBuffer,
@@ -18999,6 +19600,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_reset_event)(command_buffer, event, stage_mask) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWaitEvents.html>
     pub unsafe fn cmd_wait_events(
         &self,
         command_buffer: CommandBuffer,
@@ -19025,6 +19627,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushConstants.html>
     pub unsafe fn cmd_push_constants(
         &self,
         command_buffer: CommandBuffer,
@@ -19044,6 +19647,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateGraphicsPipelines.html>
     pub unsafe fn create_graphics_pipelines(
         &self,
         device: Device,
@@ -19068,6 +19672,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateFramebuffer.html>
     pub unsafe fn create_framebuffer(
         &self,
         device: Device,
@@ -19089,6 +19694,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyFramebuffer.html>
     pub unsafe fn destroy_framebuffer(
         &self,
         device: Device,
@@ -19097,6 +19703,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_framebuffer)(device, framebuffer, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateRenderPass.html>
     pub unsafe fn create_render_pass(
         &self,
         device: Device,
@@ -19118,6 +19725,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyRenderPass.html>
     pub unsafe fn destroy_render_pass(
         &self,
         device: Device,
@@ -19126,6 +19734,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_render_pass)(device, render_pass, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRenderAreaGranularity.html>
     pub unsafe fn get_render_area_granularity(
         &self,
         device: Device,
@@ -19137,6 +19746,7 @@ impl DeviceFn {
             granularity.assume_init()
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewport.html>
     pub unsafe fn cmd_set_viewport(
         &self,
         command_buffer: CommandBuffer,
@@ -19152,6 +19762,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetScissor.html>
     pub unsafe fn cmd_set_scissor(
         &self,
         command_buffer: CommandBuffer,
@@ -19167,9 +19778,11 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLineWidth.html>
     pub unsafe fn cmd_set_line_width(&self, command_buffer: CommandBuffer, line_width: f32) {
         unsafe { (self.cmd_set_line_width)(command_buffer, line_width) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthBias.html>
     pub unsafe fn cmd_set_depth_bias(
         &self,
         command_buffer: CommandBuffer,
@@ -19186,6 +19799,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetBlendConstants.html>
     pub unsafe fn cmd_set_blend_constants(
         &self,
         command_buffer: CommandBuffer,
@@ -19193,6 +19807,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_blend_constants)(command_buffer, blend_constants) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthBounds.html>
     pub unsafe fn cmd_set_depth_bounds(
         &self,
         command_buffer: CommandBuffer,
@@ -19201,6 +19816,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_depth_bounds)(command_buffer, min_depth_bounds, max_depth_bounds) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetStencilCompareMask.html>
     pub unsafe fn cmd_set_stencil_compare_mask(
         &self,
         command_buffer: CommandBuffer,
@@ -19209,6 +19825,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_stencil_compare_mask)(command_buffer, face_mask, compare_mask) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetStencilWriteMask.html>
     pub unsafe fn cmd_set_stencil_write_mask(
         &self,
         command_buffer: CommandBuffer,
@@ -19217,6 +19834,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_stencil_write_mask)(command_buffer, face_mask, write_mask) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetStencilReference.html>
     pub unsafe fn cmd_set_stencil_reference(
         &self,
         command_buffer: CommandBuffer,
@@ -19225,6 +19843,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_stencil_reference)(command_buffer, face_mask, reference) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindIndexBuffer.html>
     pub unsafe fn cmd_bind_index_buffer(
         &self,
         command_buffer: CommandBuffer,
@@ -19234,6 +19853,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_bind_index_buffer)(command_buffer, buffer, offset, index_type) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindVertexBuffers.html>
     pub unsafe fn cmd_bind_vertex_buffers(
         &self,
         command_buffer: CommandBuffer,
@@ -19251,6 +19871,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDraw.html>
     pub unsafe fn cmd_draw(
         &self,
         command_buffer: CommandBuffer,
@@ -19269,6 +19890,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawIndexed.html>
     pub unsafe fn cmd_draw_indexed(
         &self,
         command_buffer: CommandBuffer,
@@ -19289,6 +19911,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawIndirect.html>
     pub unsafe fn cmd_draw_indirect(
         &self,
         command_buffer: CommandBuffer,
@@ -19299,6 +19922,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_draw_indirect)(command_buffer, buffer, offset, draw_count, stride) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawIndexedIndirect.html>
     pub unsafe fn cmd_draw_indexed_indirect(
         &self,
         command_buffer: CommandBuffer,
@@ -19311,6 +19935,7 @@ impl DeviceFn {
             (self.cmd_draw_indexed_indirect)(command_buffer, buffer, offset, draw_count, stride)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBlitImage.html>
     pub unsafe fn cmd_blit_image(
         &self,
         command_buffer: CommandBuffer,
@@ -19334,6 +19959,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdClearDepthStencilImage.html>
     pub unsafe fn cmd_clear_depth_stencil_image(
         &self,
         command_buffer: CommandBuffer,
@@ -19353,6 +19979,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdClearAttachments.html>
     pub unsafe fn cmd_clear_attachments(
         &self,
         command_buffer: CommandBuffer,
@@ -19369,6 +19996,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdResolveImage.html>
     pub unsafe fn cmd_resolve_image(
         &self,
         command_buffer: CommandBuffer,
@@ -19390,6 +20018,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginRenderPass.html>
     pub unsafe fn cmd_begin_render_pass(
         &self,
         command_buffer: CommandBuffer,
@@ -19398,6 +20027,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_begin_render_pass)(command_buffer, render_pass_begin, contents) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdNextSubpass.html>
     pub unsafe fn cmd_next_subpass(
         &self,
         command_buffer: CommandBuffer,
@@ -19405,6 +20035,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_next_subpass)(command_buffer, contents) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndRenderPass.html>
     pub unsafe fn cmd_end_render_pass(&self, command_buffer: CommandBuffer) {
         unsafe { (self.cmd_end_render_pass)(command_buffer) }
     }

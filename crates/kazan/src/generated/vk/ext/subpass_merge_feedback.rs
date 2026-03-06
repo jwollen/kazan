@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassCreationControlEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct RenderPassCreationControlEXT<'a> {
@@ -37,6 +38,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassCreationFeedbackInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct RenderPassCreationFeedbackInfoEXT {
@@ -48,6 +50,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassCreationFeedbackCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct RenderPassCreationFeedbackCreateInfoEXT<'a> {
@@ -80,6 +83,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassSubpassFeedbackInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct RenderPassSubpassFeedbackInfoEXT {
@@ -106,6 +110,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassSubpassFeedbackCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct RenderPassSubpassFeedbackCreateInfoEXT<'a> {
@@ -138,6 +143,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSubpassMergeFeedbackFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'a> {
@@ -174,6 +180,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassMergeStatusEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SubpassMergeStatusEXT(i32);

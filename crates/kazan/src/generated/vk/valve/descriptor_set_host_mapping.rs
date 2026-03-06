@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceDescriptorSetHostMappingFeaturesVALVE<'a> {
@@ -44,6 +45,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetBindingReferenceVALVE.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DescriptorSetBindingReferenceVALVE<'a> {
@@ -77,6 +79,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetLayoutHostMappingInfoVALVE.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DescriptorSetLayoutHostMappingInfoVALVE<'a> {
@@ -111,11 +114,13 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDescriptorSetLayoutHostMappingInfoVALVE.html>
     pub type PFN_vkGetDescriptorSetLayoutHostMappingInfoVALVE = unsafe extern "system" fn(
         device: Device,
         p_binding_reference: *const DescriptorSetBindingReferenceVALVE<'_>,
         p_host_mapping: *mut DescriptorSetLayoutHostMappingInfoVALVE<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDescriptorSetHostMappingVALVE.html>
     pub type PFN_vkGetDescriptorSetHostMappingVALVE = unsafe extern "system" fn(
         device: Device,
         descriptor_set: DescriptorSet,
@@ -145,6 +150,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDescriptorSetLayoutHostMappingInfoVALVE.html>
     pub unsafe fn get_descriptor_set_layout_host_mapping_info_valve(
         &self,
         device: Device,
@@ -159,6 +165,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDescriptorSetHostMappingVALVE.html>
     pub unsafe fn get_descriptor_set_host_mapping_valve(
         &self,
         device: Device,

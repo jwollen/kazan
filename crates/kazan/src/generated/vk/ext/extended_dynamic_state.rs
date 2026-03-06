@@ -20,6 +20,7 @@ pub(super) mod defs {
     pub type PFN_vkCmdSetDepthBoundsTestEnableEXT = PFN_vkCmdSetDepthBoundsTestEnable;
     pub type PFN_vkCmdSetStencilTestEnableEXT = PFN_vkCmdSetStencilTestEnable;
     pub type PFN_vkCmdSetStencilOpEXT = PFN_vkCmdSetStencilOp;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExtendedDynamicStateFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceExtendedDynamicStateFeaturesEXT<'a> {
@@ -118,6 +119,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCullModeEXT.html>
     pub unsafe fn cmd_set_cull_mode_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -125,6 +127,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_cull_mode_ext)(command_buffer, cull_mode) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetFrontFaceEXT.html>
     pub unsafe fn cmd_set_front_face_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -132,6 +135,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_front_face_ext)(command_buffer, front_face) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPrimitiveTopologyEXT.html>
     pub unsafe fn cmd_set_primitive_topology_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -139,6 +143,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_primitive_topology_ext)(command_buffer, primitive_topology) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewportWithCountEXT.html>
     pub unsafe fn cmd_set_viewport_with_count_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -152,6 +157,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetScissorWithCountEXT.html>
     pub unsafe fn cmd_set_scissor_with_count_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -165,6 +171,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindVertexBuffers2EXT.html>
     pub unsafe fn cmd_bind_vertex_buffers2_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -186,6 +193,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthTestEnableEXT.html>
     pub unsafe fn cmd_set_depth_test_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -193,6 +201,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_depth_test_enable_ext)(command_buffer, depth_test_enable.into()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthWriteEnableEXT.html>
     pub unsafe fn cmd_set_depth_write_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -200,6 +209,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_depth_write_enable_ext)(command_buffer, depth_write_enable.into()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthCompareOpEXT.html>
     pub unsafe fn cmd_set_depth_compare_op_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -207,6 +217,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_depth_compare_op_ext)(command_buffer, depth_compare_op) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthBoundsTestEnableEXT.html>
     pub unsafe fn cmd_set_depth_bounds_test_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -219,6 +230,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetStencilTestEnableEXT.html>
     pub unsafe fn cmd_set_stencil_test_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -228,6 +240,7 @@ impl DeviceFn {
             (self.cmd_set_stencil_test_enable_ext)(command_buffer, stencil_test_enable.into())
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetStencilOpEXT.html>
     pub unsafe fn cmd_set_stencil_op_ext(
         &self,
         command_buffer: CommandBuffer,

@@ -11,6 +11,7 @@ pub(super) mod defs {
     pub const COMPUTE_OCCUPANCY_PRIORITY_LOW_NV: f32 = 0.25;
     pub const COMPUTE_OCCUPANCY_PRIORITY_NORMAL_NV: f32 = 0.50;
     pub const COMPUTE_OCCUPANCY_PRIORITY_HIGH_NV: f32 = 0.75;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkComputeOccupancyPriorityParametersNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ComputeOccupancyPriorityParametersNV<'a> {
@@ -45,6 +46,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceComputeOccupancyPriorityFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceComputeOccupancyPriorityFeaturesNV<'a> {
@@ -81,6 +83,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetComputeOccupancyPriorityNV.html>
     pub type PFN_vkCmdSetComputeOccupancyPriorityNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_parameters: *const ComputeOccupancyPriorityParametersNV<'_>,
@@ -103,6 +106,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetComputeOccupancyPriorityNV.html>
     pub unsafe fn cmd_set_compute_occupancy_priority_nv(
         &self,
         command_buffer: CommandBuffer,

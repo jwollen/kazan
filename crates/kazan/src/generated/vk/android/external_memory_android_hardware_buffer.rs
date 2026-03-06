@@ -9,6 +9,7 @@ pub(super) mod defs {
     use core::fmt;
     use core::marker::PhantomData;
     pub type AHardwareBuffer = *const c_void;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportAndroidHardwareBufferInfoANDROID.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImportAndroidHardwareBufferInfoANDROID<'a> {
@@ -38,6 +39,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAndroidHardwareBufferUsageANDROID.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct AndroidHardwareBufferUsageANDROID<'a> {
@@ -66,6 +68,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAndroidHardwareBufferPropertiesANDROID.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct AndroidHardwareBufferPropertiesANDROID<'a> {
@@ -100,6 +103,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryGetAndroidHardwareBufferInfoANDROID.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct MemoryGetAndroidHardwareBufferInfoANDROID<'a> {
@@ -128,6 +132,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAndroidHardwareBufferFormatPropertiesANDROID.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct AndroidHardwareBufferFormatPropertiesANDROID<'a> {
@@ -214,6 +219,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalFormatANDROID.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ExternalFormatANDROID<'a> {
@@ -246,6 +252,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAndroidHardwareBufferFormatProperties2ANDROID.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct AndroidHardwareBufferFormatProperties2ANDROID<'a> {
@@ -332,12 +339,14 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAndroidHardwareBufferPropertiesANDROID.html>
     pub type PFN_vkGetAndroidHardwareBufferPropertiesANDROID =
         unsafe extern "system" fn(
             device: Device,
             buffer: *const AHardwareBuffer,
             p_properties: *mut AndroidHardwareBufferPropertiesANDROID<'_>,
         ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryAndroidHardwareBufferANDROID.html>
     pub type PFN_vkGetMemoryAndroidHardwareBufferANDROID = unsafe extern "system" fn(
         device: Device,
         p_info: *const MemoryGetAndroidHardwareBufferInfoANDROID<'_>,
@@ -368,6 +377,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAndroidHardwareBufferPropertiesANDROID.html>
     pub unsafe fn get_android_hardware_buffer_properties_android(
         &self,
         device: Device,
@@ -384,6 +394,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryAndroidHardwareBufferANDROID.html>
     pub unsafe fn get_memory_android_hardware_buffer_android(
         &self,
         device: Device,

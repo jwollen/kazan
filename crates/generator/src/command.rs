@@ -652,6 +652,7 @@ pub fn write_command_wrapper(
         .lifetime_param
         .map(|lifetime| format!("<'{}>", lifetime))
         .unwrap_or_default();
+    crate::write_doc_link(file, info.alias);
     writeln!(
         file,
         "pub unsafe fn {}{}(&self,",

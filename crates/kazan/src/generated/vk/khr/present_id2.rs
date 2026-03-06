@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePresentId2FeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDevicePresentId2FeaturesKHR<'a> {
@@ -38,6 +39,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentId2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PresentId2KHR<'a> {
@@ -69,6 +71,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceCapabilitiesPresentId2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SurfaceCapabilitiesPresentId2KHR<'a> {

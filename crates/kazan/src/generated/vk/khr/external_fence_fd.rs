@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportFenceFdInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImportFenceFdInfoKHR<'a> {
@@ -53,6 +54,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFenceGetFdInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct FenceGetFdInfoKHR<'a> {
@@ -86,11 +88,13 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetFenceFdKHR.html>
     pub type PFN_vkGetFenceFdKHR = unsafe extern "system" fn(
         device: Device,
         p_get_fd_info: *const FenceGetFdInfoKHR<'_>,
         p_fd: *mut c_int,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportFenceFdKHR.html>
     pub type PFN_vkImportFenceFdKHR = unsafe extern "system" fn(
         device: Device,
         p_import_fence_fd_info: *const ImportFenceFdInfoKHR<'_>,
@@ -117,6 +121,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportFenceFdKHR.html>
     pub unsafe fn import_fence_fd_khr(
         &self,
         device: Device,
@@ -131,6 +136,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetFenceFdKHR.html>
     pub unsafe fn get_fence_fd_khr(
         &self,
         device: Device,

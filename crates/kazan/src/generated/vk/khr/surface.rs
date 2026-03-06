@@ -8,7 +8,12 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
-    handle_nondispatchable!(SurfaceKHR, SURFACE_KHR, doc = "");
+    handle_nondispatchable!(
+        SurfaceKHR,
+        SURFACE_KHR,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceKHR.html>"
+    );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceCapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct SurfaceCapabilitiesKHR {
@@ -71,6 +76,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceFormatKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct SurfaceFormatKHR {
@@ -87,6 +93,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentModeKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PresentModeKHR(i32);
@@ -122,6 +129,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkColorSpaceKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ColorSpaceKHR(i32);
@@ -174,6 +182,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCompositeAlphaFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct CompositeAlphaFlagsKHR(Flags);
@@ -202,6 +211,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCompositeAlphaFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct CompositeAlphaFlagBitsKHR(u32);
@@ -211,11 +221,13 @@ pub(super) mod defs {
         pub const POST_MULTIPLIED_KHR: Self = Self(1 << 2);
         pub const INHERIT_KHR: Self = Self(1 << 3);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroySurfaceKHR.html>
     pub type PFN_vkDestroySurfaceKHR = unsafe extern "system" fn(
         instance: Instance,
         surface: SurfaceKHR,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceSupportKHR.html>
     pub type PFN_vkGetPhysicalDeviceSurfaceSupportKHR = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         queue_family_index: u32,
@@ -223,12 +235,14 @@ pub(super) mod defs {
         p_supported: *mut Bool32,
     )
         -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html>
     pub type PFN_vkGetPhysicalDeviceSurfaceCapabilitiesKHR =
         unsafe extern "system" fn(
             physical_device: PhysicalDevice,
             surface: SurfaceKHR,
             p_surface_capabilities: *mut SurfaceCapabilitiesKHR,
         ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceFormatsKHR.html>
     pub type PFN_vkGetPhysicalDeviceSurfaceFormatsKHR = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         surface: SurfaceKHR,
@@ -236,6 +250,7 @@ pub(super) mod defs {
         p_surface_formats: *mut SurfaceFormatKHR,
     )
         -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfacePresentModesKHR.html>
     pub type PFN_vkGetPhysicalDeviceSurfacePresentModesKHR =
         unsafe extern "system" fn(
             physical_device: PhysicalDevice,
@@ -279,6 +294,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroySurfaceKHR.html>
     pub unsafe fn destroy_surface_khr(
         &self,
         instance: Instance,
@@ -287,6 +303,7 @@ impl InstanceFn {
     ) {
         unsafe { (self.destroy_surface_khr)(instance, surface, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceSupportKHR.html>
     pub unsafe fn get_physical_device_surface_support_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -308,6 +325,7 @@ impl InstanceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html>
     pub unsafe fn get_physical_device_surface_capabilities_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -327,6 +345,7 @@ impl InstanceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceFormatsKHR.html>
     pub unsafe fn get_physical_device_surface_formats_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -358,6 +377,7 @@ impl InstanceFn {
             Ok(result)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfacePresentModesKHR.html>
     pub unsafe fn get_physical_device_surface_present_modes_khr(
         &self,
         physical_device: PhysicalDevice,

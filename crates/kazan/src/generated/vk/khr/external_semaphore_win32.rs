@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportSemaphoreWin32HandleInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImportSemaphoreWin32HandleInfoKHR<'a> {
@@ -59,6 +60,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportSemaphoreWin32HandleInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ExportSemaphoreWin32HandleInfoKHR<'a> {
@@ -99,6 +101,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkD3D12FenceSubmitInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct D3D12FenceSubmitInfoKHR<'a> {
@@ -139,6 +142,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreGetWin32HandleInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SemaphoreGetWin32HandleInfoKHR<'a> {
@@ -172,11 +176,13 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSemaphoreWin32HandleKHR.html>
     pub type PFN_vkGetSemaphoreWin32HandleKHR = unsafe extern "system" fn(
         device: Device,
         p_get_win32_handle_info: *const SemaphoreGetWin32HandleInfoKHR<'_>,
         p_handle: *mut HANDLE,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportSemaphoreWin32HandleKHR.html>
     pub type PFN_vkImportSemaphoreWin32HandleKHR = unsafe extern "system" fn(
         device: Device,
         p_import_semaphore_win32_handle_info: *const ImportSemaphoreWin32HandleInfoKHR<'_>,
@@ -203,6 +209,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportSemaphoreWin32HandleKHR.html>
     pub unsafe fn import_semaphore_win32_handle_khr(
         &self,
         device: Device,
@@ -220,6 +227,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSemaphoreWin32HandleKHR.html>
     pub unsafe fn get_semaphore_win32_handle_khr(
         &self,
         device: Device,

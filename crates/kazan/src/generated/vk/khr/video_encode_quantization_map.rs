@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeQuantizationMapCapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeQuantizationMapCapabilitiesKHR<'a> {
@@ -43,6 +44,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264QuantizationMapCapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeH264QuantizationMapCapabilitiesKHR<'a> {
@@ -81,6 +83,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265QuantizationMapCapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeH265QuantizationMapCapabilitiesKHR<'a> {
@@ -119,6 +122,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeAV1QuantizationMapCapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeAV1QuantizationMapCapabilitiesKHR<'a> {
@@ -157,6 +161,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoFormatQuantizationMapPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoFormatQuantizationMapPropertiesKHR<'a> {
@@ -192,6 +197,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoFormatH265QuantizationMapPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoFormatH265QuantizationMapPropertiesKHR<'a> {
@@ -227,6 +233,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoFormatAV1QuantizationMapPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoFormatAV1QuantizationMapPropertiesKHR<'a> {
@@ -262,6 +269,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeQuantizationMapInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeQuantizationMapInfoKHR<'a> {
@@ -296,6 +304,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeQuantizationMapSessionParametersCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEncodeQuantizationMapSessionParametersCreateInfoKHR<'a> {
@@ -333,6 +342,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR<'a> {

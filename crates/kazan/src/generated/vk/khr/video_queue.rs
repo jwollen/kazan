@@ -8,12 +8,17 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
-    handle_nondispatchable!(VideoSessionKHR, VIDEO_SESSION_KHR, doc = "");
+    handle_nondispatchable!(
+        VideoSessionKHR,
+        VIDEO_SESSION_KHR,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoSessionKHR.html>"
+    );
     handle_nondispatchable!(
         VideoSessionParametersKHR,
         VIDEO_SESSION_PARAMETERS_KHR,
-        doc = ""
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoSessionParametersKHR.html>"
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyVideoPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct QueueFamilyVideoPropertiesKHR<'a> {
@@ -45,6 +50,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyQueryResultStatusPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct QueueFamilyQueryResultStatusPropertiesKHR<'a> {
@@ -77,6 +83,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoProfileListInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoProfileListInfoKHR<'a> {
@@ -111,6 +118,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVideoFormatInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceVideoFormatInfoKHR<'a> {
@@ -138,6 +146,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoFormatPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoFormatPropertiesKHR<'a> {
@@ -195,6 +204,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoProfileInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoProfileInfoKHR<'a> {
@@ -250,6 +260,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoCapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoCapabilitiesKHR<'a> {
@@ -331,6 +342,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoSessionMemoryRequirementsKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoSessionMemoryRequirementsKHR<'a> {
@@ -364,6 +376,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindVideoSessionMemoryInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct BindVideoSessionMemoryInfoKHR<'a> {
@@ -409,6 +422,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoPictureResourceInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoPictureResourceInfoKHR<'a> {
@@ -454,6 +468,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoReferenceSlotInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoReferenceSlotInfoKHR<'a> {
@@ -490,6 +505,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoSessionCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoSessionCreateInfoKHR<'a> {
@@ -565,6 +581,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoSessionParametersCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoSessionParametersCreateInfoKHR<'a> {
@@ -608,6 +625,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoSessionParametersUpdateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoSessionParametersUpdateInfoKHR<'a> {
@@ -636,6 +654,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoBeginCodingInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoBeginCodingInfoKHR<'a> {
@@ -690,6 +709,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEndCodingInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoEndCodingInfoKHR<'a> {
@@ -717,6 +737,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoCodingControlInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct VideoCodingControlInfoKHR<'a> {
@@ -744,6 +765,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryResultStatusKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct QueryResultStatusKHR(i32);
@@ -772,6 +794,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoCodecOperationFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoCodecOperationFlagsKHR(Flags);
@@ -828,6 +851,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoCodecOperationFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoCodecOperationFlagBitsKHR(u32);
@@ -847,6 +871,7 @@ pub(super) mod defs {
         // VK_KHR_video_encode_h265
         pub const ENCODE_H265_KHR: Self = Self(1 << 17);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoCapabilityFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoCapabilityFlagsKHR(Flags);
@@ -872,6 +897,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoCapabilityFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoCapabilityFlagBitsKHR(u32);
@@ -879,6 +905,7 @@ pub(super) mod defs {
         pub const PROTECTED_CONTENT_KHR: Self = Self(1 << 0);
         pub const SEPARATE_REFERENCE_IMAGES_KHR: Self = Self(1 << 1);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoSessionCreateFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoSessionCreateFlagsKHR(Flags);
@@ -932,6 +959,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoSessionCreateFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoSessionCreateFlagBitsKHR(u32);
@@ -947,6 +975,7 @@ pub(super) mod defs {
         // VK_KHR_video_maintenance2
         pub const INLINE_SESSION_PARAMETERS_KHR: Self = Self(1 << 5);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoSessionParametersCreateFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoSessionParametersCreateFlagsKHR(Flags);
@@ -965,6 +994,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoSessionParametersCreateFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoSessionParametersCreateFlagBitsKHR(u32);
@@ -972,6 +1002,7 @@ pub(super) mod defs {
         // VK_KHR_video_encode_quantization_map
         pub const QUANTIZATION_MAP_COMPATIBLE_KHR: Self = Self(1 << 0);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoBeginCodingFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoBeginCodingFlagsKHR(Flags);
@@ -981,6 +1012,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEndCodingFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEndCodingFlagsKHR(Flags);
@@ -990,6 +1022,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoCodingControlFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoCodingControlFlagsKHR(Flags);
@@ -1018,6 +1051,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoCodingControlFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoCodingControlFlagBitsKHR(u32);
@@ -1027,6 +1061,7 @@ pub(super) mod defs {
         pub const ENCODE_RATE_CONTROL_KHR: Self = Self(1 << 1);
         pub const ENCODE_QUALITY_LEVEL_KHR: Self = Self(1 << 2);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoChromaSubsamplingFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoChromaSubsamplingFlagsKHR(Flags);
@@ -1052,6 +1087,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoChromaSubsamplingFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoChromaSubsamplingFlagBitsKHR(u32);
@@ -1061,6 +1097,7 @@ pub(super) mod defs {
         pub const _422_KHR: Self = Self(1 << 2);
         pub const _444_KHR: Self = Self(1 << 3);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoComponentBitDepthFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoComponentBitDepthFlagsKHR(Flags);
@@ -1081,6 +1118,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoComponentBitDepthFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoComponentBitDepthFlagBitsKHR(u32);
@@ -1089,12 +1127,14 @@ pub(super) mod defs {
         pub const _10_KHR: Self = Self(1 << 2);
         pub const _12_KHR: Self = Self(1 << 4);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceVideoCapabilitiesKHR.html>
     pub type PFN_vkGetPhysicalDeviceVideoCapabilitiesKHR = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         p_video_profile: *const VideoProfileInfoKHR<'_>,
         p_capabilities: *mut VideoCapabilitiesKHR<'_>,
     )
         -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceVideoFormatPropertiesKHR.html>
     pub type PFN_vkGetPhysicalDeviceVideoFormatPropertiesKHR =
         unsafe extern "system" fn(
             physical_device: PhysicalDevice,
@@ -1102,33 +1142,39 @@ pub(super) mod defs {
             p_video_format_property_count: *mut u32,
             p_video_format_properties: *mut VideoFormatPropertiesKHR<'_>,
         ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateVideoSessionKHR.html>
     pub type PFN_vkCreateVideoSessionKHR = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const VideoSessionCreateInfoKHR<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_video_session: *mut VideoSessionKHR,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyVideoSessionKHR.html>
     pub type PFN_vkDestroyVideoSessionKHR = unsafe extern "system" fn(
         device: Device,
         video_session: VideoSessionKHR,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateVideoSessionParametersKHR.html>
     pub type PFN_vkCreateVideoSessionParametersKHR = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const VideoSessionParametersCreateInfoKHR<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_video_session_parameters: *mut VideoSessionParametersKHR,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUpdateVideoSessionParametersKHR.html>
     pub type PFN_vkUpdateVideoSessionParametersKHR = unsafe extern "system" fn(
         device: Device,
         video_session_parameters: VideoSessionParametersKHR,
         p_update_info: *const VideoSessionParametersUpdateInfoKHR<'_>,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyVideoSessionParametersKHR.html>
     pub type PFN_vkDestroyVideoSessionParametersKHR = unsafe extern "system" fn(
         device: Device,
         video_session_parameters: VideoSessionParametersKHR,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetVideoSessionMemoryRequirementsKHR.html>
     pub type PFN_vkGetVideoSessionMemoryRequirementsKHR = unsafe extern "system" fn(
         device: Device,
         video_session: VideoSessionKHR,
@@ -1136,20 +1182,24 @@ pub(super) mod defs {
         p_memory_requirements: *mut VideoSessionMemoryRequirementsKHR<'_>,
     )
         -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindVideoSessionMemoryKHR.html>
     pub type PFN_vkBindVideoSessionMemoryKHR = unsafe extern "system" fn(
         device: Device,
         video_session: VideoSessionKHR,
         bind_session_memory_info_count: u32,
         p_bind_session_memory_infos: *const BindVideoSessionMemoryInfoKHR<'_>,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginVideoCodingKHR.html>
     pub type PFN_vkCmdBeginVideoCodingKHR = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_begin_info: *const VideoBeginCodingInfoKHR<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdControlVideoCodingKHR.html>
     pub type PFN_vkCmdControlVideoCodingKHR = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_coding_control_info: *const VideoCodingControlInfoKHR<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndVideoCodingKHR.html>
     pub type PFN_vkCmdEndVideoCodingKHR = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_end_coding_info: *const VideoEndCodingInfoKHR<'_>,
@@ -1179,6 +1229,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceVideoCapabilitiesKHR.html>
     pub unsafe fn get_physical_device_video_capabilities_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -1198,6 +1249,7 @@ impl InstanceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceVideoFormatPropertiesKHR.html>
     pub unsafe fn get_physical_device_video_format_properties_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
@@ -1284,6 +1336,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateVideoSessionKHR.html>
     pub unsafe fn create_video_session_khr(
         &self,
         device: Device,
@@ -1305,6 +1358,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyVideoSessionKHR.html>
     pub unsafe fn destroy_video_session_khr(
         &self,
         device: Device,
@@ -1313,6 +1367,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_video_session_khr)(device, video_session, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetVideoSessionMemoryRequirementsKHR.html>
     pub unsafe fn get_video_session_memory_requirements_khr<'a>(
         &self,
         device: Device,
@@ -1344,6 +1399,7 @@ impl DeviceFn {
             Ok(result)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindVideoSessionMemoryKHR.html>
     pub unsafe fn bind_video_session_memory_khr(
         &self,
         device: Device,
@@ -1364,6 +1420,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateVideoSessionParametersKHR.html>
     pub unsafe fn create_video_session_parameters_khr(
         &self,
         device: Device,
@@ -1385,6 +1442,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUpdateVideoSessionParametersKHR.html>
     pub unsafe fn update_video_session_parameters_khr(
         &self,
         device: Device,
@@ -1404,6 +1462,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyVideoSessionParametersKHR.html>
     pub unsafe fn destroy_video_session_parameters_khr(
         &self,
         device: Device,
@@ -1418,6 +1477,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginVideoCodingKHR.html>
     pub unsafe fn cmd_begin_video_coding_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -1425,6 +1485,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_begin_video_coding_khr)(command_buffer, begin_info) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndVideoCodingKHR.html>
     pub unsafe fn cmd_end_video_coding_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -1432,6 +1493,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_end_video_coding_khr)(command_buffer, end_coding_info) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdControlVideoCodingKHR.html>
     pub unsafe fn cmd_control_video_coding_khr(
         &self,
         command_buffer: CommandBuffer,

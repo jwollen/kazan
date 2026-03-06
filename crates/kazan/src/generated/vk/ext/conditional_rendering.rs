@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkConditionalRenderingBeginInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ConditionalRenderingBeginInfoEXT<'a> {
@@ -47,6 +48,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferInheritanceConditionalRenderingInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct CommandBufferInheritanceConditionalRenderingInfoEXT<'a> {
@@ -79,6 +81,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceConditionalRenderingFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceConditionalRenderingFeaturesEXT<'a> {
@@ -124,6 +127,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkConditionalRenderingFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ConditionalRenderingFlagsEXT(Flags);
@@ -138,16 +142,19 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkConditionalRenderingFlagBitsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ConditionalRenderingFlagBitsEXT(u32);
     impl ConditionalRenderingFlagBitsEXT {
         pub const INVERTED_EXT: Self = Self(1 << 0);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginConditionalRenderingEXT.html>
     pub type PFN_vkCmdBeginConditionalRenderingEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_conditional_rendering_begin: *const ConditionalRenderingBeginInfoEXT<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndConditionalRenderingEXT.html>
     pub type PFN_vkCmdEndConditionalRenderingEXT =
         unsafe extern "system" fn(command_buffer: CommandBuffer);
 }
@@ -172,6 +179,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginConditionalRenderingEXT.html>
     pub unsafe fn cmd_begin_conditional_rendering_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -181,6 +189,7 @@ impl DeviceFn {
             (self.cmd_begin_conditional_rendering_ext)(command_buffer, conditional_rendering_begin)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndConditionalRenderingEXT.html>
     pub unsafe fn cmd_end_conditional_rendering_ext(&self, command_buffer: CommandBuffer) {
         unsafe { (self.cmd_end_conditional_rendering_ext)(command_buffer) }
     }

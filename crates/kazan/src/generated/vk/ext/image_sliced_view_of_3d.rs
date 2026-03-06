@@ -9,6 +9,7 @@ pub(super) mod defs {
     use core::fmt;
     use core::marker::PhantomData;
     pub const REMAINING_3D_SLICES_EXT: u32 = !0;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageViewSlicedCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImageViewSlicedCreateInfoEXT<'a> {
@@ -43,6 +44,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceImageSlicedViewOf3DFeaturesEXT<'a> {

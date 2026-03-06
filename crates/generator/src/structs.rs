@@ -252,6 +252,7 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
     let lifetime_spec = if type_info.lifetime_param { "<'a>" } else { "" };
     let lifetime_spec_anon = if type_info.lifetime_param { "<'_>" } else { "" };
 
+    crate::write_doc_link(file, ty.name);
     writeln!(
         file,
         "#[repr(C)]

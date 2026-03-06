@@ -8,19 +8,32 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceHostImageCopyFeaturesEXT.html>
     pub type PhysicalDeviceHostImageCopyFeaturesEXT<'a> = PhysicalDeviceHostImageCopyFeatures<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceHostImageCopyPropertiesEXT.html>
     pub type PhysicalDeviceHostImageCopyPropertiesEXT<'a> =
         PhysicalDeviceHostImageCopyProperties<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryToImageCopyEXT.html>
     pub type MemoryToImageCopyEXT<'a> = MemoryToImageCopy<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageToMemoryCopyEXT.html>
     pub type ImageToMemoryCopyEXT<'a> = ImageToMemoryCopy<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyMemoryToImageInfoEXT.html>
     pub type CopyMemoryToImageInfoEXT<'a> = CopyMemoryToImageInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyImageToMemoryInfoEXT.html>
     pub type CopyImageToMemoryInfoEXT<'a> = CopyImageToMemoryInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyImageToImageInfoEXT.html>
     pub type CopyImageToImageInfoEXT<'a> = CopyImageToImageInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkHostImageLayoutTransitionInfoEXT.html>
     pub type HostImageLayoutTransitionInfoEXT<'a> = HostImageLayoutTransitionInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubresourceHostMemcpySizeEXT.html>
     pub type SubresourceHostMemcpySizeEXT<'a> = SubresourceHostMemcpySize<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkHostImageCopyDevicePerformanceQueryEXT.html>
     pub type HostImageCopyDevicePerformanceQueryEXT<'a> = HostImageCopyDevicePerformanceQuery<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageSubresource2EXT.html>
     pub type ImageSubresource2EXT<'a> = ImageSubresource2<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubresourceLayout2EXT.html>
     pub type SubresourceLayout2EXT<'a> = SubresourceLayout2<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkHostImageCopyFlagsEXT.html>
     pub type HostImageCopyFlagsEXT = HostImageCopyFlags;
     pub type PFN_vkCopyMemoryToImageEXT = PFN_vkCopyMemoryToImage;
     pub type PFN_vkCopyImageToMemoryEXT = PFN_vkCopyImageToMemory;
@@ -61,6 +74,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMemoryToImageEXT.html>
     pub unsafe fn copy_memory_to_image_ext(
         &self,
         device: Device,
@@ -75,6 +89,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyImageToMemoryEXT.html>
     pub unsafe fn copy_image_to_memory_ext(
         &self,
         device: Device,
@@ -89,6 +104,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyImageToImageEXT.html>
     pub unsafe fn copy_image_to_image_ext(
         &self,
         device: Device,
@@ -103,6 +119,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkTransitionImageLayoutEXT.html>
     pub unsafe fn transition_image_layout_ext(
         &self,
         device: Device,
@@ -121,6 +138,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageSubresourceLayout2EXT.html>
     pub unsafe fn get_image_subresource_layout2_ext(
         &self,
         device: Device,

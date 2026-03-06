@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPowerInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DisplayPowerInfoEXT<'a> {
@@ -35,6 +36,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceEventInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DeviceEventInfoEXT<'a> {
@@ -62,6 +64,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayEventInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DisplayEventInfoEXT<'a> {
@@ -89,6 +92,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSwapchainCounterCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SwapchainCounterCreateInfoEXT<'a> {
@@ -117,6 +121,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPowerStateEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DisplayPowerStateEXT(i32);
@@ -140,6 +145,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceEventTypeEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DeviceEventTypeEXT(i32);
@@ -159,6 +165,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayEventTypeEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DisplayEventTypeEXT(i32);
@@ -178,17 +185,20 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDisplayPowerControlEXT.html>
     pub type PFN_vkDisplayPowerControlEXT = unsafe extern "system" fn(
         device: Device,
         display: DisplayKHR,
         p_display_power_info: *const DisplayPowerInfoEXT<'_>,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkRegisterDeviceEventEXT.html>
     pub type PFN_vkRegisterDeviceEventEXT = unsafe extern "system" fn(
         device: Device,
         p_device_event_info: *const DeviceEventInfoEXT<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_fence: *mut Fence,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkRegisterDisplayEventEXT.html>
     pub type PFN_vkRegisterDisplayEventEXT = unsafe extern "system" fn(
         device: Device,
         display: DisplayKHR,
@@ -196,6 +206,7 @@ pub(super) mod defs {
         p_allocator: *const AllocationCallbacks<'_>,
         p_fence: *mut Fence,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSwapchainCounterEXT.html>
     pub type PFN_vkGetSwapchainCounterEXT = unsafe extern "system" fn(
         device: Device,
         swapchain: SwapchainKHR,
@@ -232,6 +243,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDisplayPowerControlEXT.html>
     pub unsafe fn display_power_control_ext(
         &self,
         device: Device,
@@ -247,6 +259,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkRegisterDeviceEventEXT.html>
     pub unsafe fn register_device_event_ext(
         &self,
         device: Device,
@@ -268,6 +281,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkRegisterDisplayEventEXT.html>
     pub unsafe fn register_display_event_ext(
         &self,
         device: Device,
@@ -291,6 +305,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSwapchainCounterEXT.html>
     pub unsafe fn get_swapchain_counter_ext(
         &self,
         device: Device,

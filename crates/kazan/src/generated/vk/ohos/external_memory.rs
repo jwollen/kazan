@@ -9,6 +9,7 @@ pub(super) mod defs {
     use core::fmt;
     use core::marker::PhantomData;
     pub type OH_NativeBuffer = *const c_void;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkNativeBufferUsageOHOS.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct NativeBufferUsageOHOS<'a> {
@@ -37,6 +38,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkNativeBufferPropertiesOHOS.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct NativeBufferPropertiesOHOS<'a> {
@@ -70,6 +72,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkNativeBufferFormatPropertiesOHOS.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct NativeBufferFormatPropertiesOHOS<'a> {
@@ -152,6 +155,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportNativeBufferInfoOHOS.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImportNativeBufferInfoOHOS<'a> {
@@ -180,6 +184,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryGetNativeBufferInfoOHOS.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct MemoryGetNativeBufferInfoOHOS<'a> {
@@ -207,6 +212,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalFormatOHOS.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ExternalFormatOHOS<'a> {
@@ -239,11 +245,13 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetNativeBufferPropertiesOHOS.html>
     pub type PFN_vkGetNativeBufferPropertiesOHOS = unsafe extern "system" fn(
         device: Device,
         buffer: *const OH_NativeBuffer,
         p_properties: *mut NativeBufferPropertiesOHOS<'_>,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryNativeBufferOHOS.html>
     pub type PFN_vkGetMemoryNativeBufferOHOS = unsafe extern "system" fn(
         device: Device,
         p_info: *const MemoryGetNativeBufferInfoOHOS<'_>,
@@ -271,6 +279,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetNativeBufferPropertiesOHOS.html>
     pub unsafe fn get_native_buffer_properties_ohos(
         &self,
         device: Device,
@@ -286,6 +295,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryNativeBufferOHOS.html>
     pub unsafe fn get_memory_native_buffer_ohos(
         &self,
         device: Device,

@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSampleLocationEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct SampleLocationEXT {
@@ -24,6 +25,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSampleLocationsInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SampleLocationsInfoEXT<'a> {
@@ -71,6 +73,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentSampleLocationsEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct AttachmentSampleLocationsEXT<'a> {
@@ -100,6 +103,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassSampleLocationsEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SubpassSampleLocationsEXT<'a> {
@@ -129,6 +133,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassSampleLocationsBeginInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct RenderPassSampleLocationsBeginInfoEXT<'a> {
@@ -181,6 +186,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineSampleLocationsStateCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineSampleLocationsStateCreateInfoEXT<'a> {
@@ -222,6 +228,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSampleLocationsPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceSampleLocationsPropertiesEXT<'a> {
@@ -290,6 +297,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMultisamplePropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct MultisamplePropertiesEXT<'a> {
@@ -320,10 +328,12 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetSampleLocationsEXT.html>
     pub type PFN_vkCmdSetSampleLocationsEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_sample_locations_info: *const SampleLocationsInfoEXT<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceMultisamplePropertiesEXT.html>
     pub type PFN_vkGetPhysicalDeviceMultisamplePropertiesEXT = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         samples: SampleCountFlagBits,
@@ -348,6 +358,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceMultisamplePropertiesEXT.html>
     pub unsafe fn get_physical_device_multisample_properties_ext(
         &self,
         physical_device: PhysicalDevice,
@@ -380,6 +391,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetSampleLocationsEXT.html>
     pub unsafe fn cmd_set_sample_locations_ext(
         &self,
         command_buffer: CommandBuffer,

@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImagePipeSurfaceCreateInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImagePipeSurfaceCreateInfoFUCHSIA<'a> {
@@ -41,6 +42,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImagePipeSurfaceCreateFlagsFUCHSIA.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImagePipeSurfaceCreateFlagsFUCHSIA(Flags);
@@ -50,6 +52,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateImagePipeSurfaceFUCHSIA.html>
     pub type PFN_vkCreateImagePipeSurfaceFUCHSIA = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const ImagePipeSurfaceCreateInfoFUCHSIA<'_>,
@@ -74,6 +77,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateImagePipeSurfaceFUCHSIA.html>
     pub unsafe fn create_image_pipe_surface_fuchsia(
         &self,
         instance: Instance,

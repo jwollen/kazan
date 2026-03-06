@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceExtendedDynamicState3FeaturesEXT<'a> {
@@ -346,6 +347,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExtendedDynamicState3PropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceExtendedDynamicState3PropertiesEXT<'a> {
@@ -382,6 +384,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkColorBlendEquationEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct ColorBlendEquationEXT {
@@ -418,6 +421,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkColorBlendAdvancedEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct ColorBlendAdvancedEXT {
@@ -449,110 +453,141 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetTessellationDomainOriginEXT.html>
     pub type PFN_vkCmdSetTessellationDomainOriginEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         domain_origin: TessellationDomainOrigin,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthClampEnableEXT.html>
     pub type PFN_vkCmdSetDepthClampEnableEXT =
         unsafe extern "system" fn(command_buffer: CommandBuffer, depth_clamp_enable: Bool32);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPolygonModeEXT.html>
     pub type PFN_vkCmdSetPolygonModeEXT =
         unsafe extern "system" fn(command_buffer: CommandBuffer, polygon_mode: PolygonMode);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRasterizationSamplesEXT.html>
     pub type PFN_vkCmdSetRasterizationSamplesEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         rasterization_samples: SampleCountFlagBits,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetSampleMaskEXT.html>
     pub type PFN_vkCmdSetSampleMaskEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         samples: SampleCountFlagBits,
         p_sample_mask: *const SampleMask,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetAlphaToCoverageEnableEXT.html>
     pub type PFN_vkCmdSetAlphaToCoverageEnableEXT =
         unsafe extern "system" fn(command_buffer: CommandBuffer, alpha_to_coverage_enable: Bool32);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetAlphaToOneEnableEXT.html>
     pub type PFN_vkCmdSetAlphaToOneEnableEXT =
         unsafe extern "system" fn(command_buffer: CommandBuffer, alpha_to_one_enable: Bool32);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLogicOpEnableEXT.html>
     pub type PFN_vkCmdSetLogicOpEnableEXT =
         unsafe extern "system" fn(command_buffer: CommandBuffer, logic_op_enable: Bool32);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorBlendEnableEXT.html>
     pub type PFN_vkCmdSetColorBlendEnableEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         first_attachment: u32,
         attachment_count: u32,
         p_color_blend_enables: *const Bool32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorBlendEquationEXT.html>
     pub type PFN_vkCmdSetColorBlendEquationEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         first_attachment: u32,
         attachment_count: u32,
         p_color_blend_equations: *const ColorBlendEquationEXT,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorWriteMaskEXT.html>
     pub type PFN_vkCmdSetColorWriteMaskEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         first_attachment: u32,
         attachment_count: u32,
         p_color_write_masks: *const ColorComponentFlags,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRasterizationStreamEXT.html>
     pub type PFN_vkCmdSetRasterizationStreamEXT =
         unsafe extern "system" fn(command_buffer: CommandBuffer, rasterization_stream: u32);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetConservativeRasterizationModeEXT.html>
     pub type PFN_vkCmdSetConservativeRasterizationModeEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         conservative_rasterization_mode: ConservativeRasterizationModeEXT,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetExtraPrimitiveOverestimationSizeEXT.html>
     pub type PFN_vkCmdSetExtraPrimitiveOverestimationSizeEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         extra_primitive_overestimation_size: f32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthClipEnableEXT.html>
     pub type PFN_vkCmdSetDepthClipEnableEXT =
         unsafe extern "system" fn(command_buffer: CommandBuffer, depth_clip_enable: Bool32);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetSampleLocationsEnableEXT.html>
     pub type PFN_vkCmdSetSampleLocationsEnableEXT =
         unsafe extern "system" fn(command_buffer: CommandBuffer, sample_locations_enable: Bool32);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorBlendAdvancedEXT.html>
     pub type PFN_vkCmdSetColorBlendAdvancedEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         first_attachment: u32,
         attachment_count: u32,
         p_color_blend_advanced: *const ColorBlendAdvancedEXT,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetProvokingVertexModeEXT.html>
     pub type PFN_vkCmdSetProvokingVertexModeEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         provoking_vertex_mode: ProvokingVertexModeEXT,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLineRasterizationModeEXT.html>
     pub type PFN_vkCmdSetLineRasterizationModeEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         line_rasterization_mode: LineRasterizationModeEXT,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLineStippleEnableEXT.html>
     pub type PFN_vkCmdSetLineStippleEnableEXT =
         unsafe extern "system" fn(command_buffer: CommandBuffer, stippled_line_enable: Bool32);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthClipNegativeOneToOneEXT.html>
     pub type PFN_vkCmdSetDepthClipNegativeOneToOneEXT =
         unsafe extern "system" fn(command_buffer: CommandBuffer, negative_one_to_one: Bool32);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewportWScalingEnableNV.html>
     pub type PFN_vkCmdSetViewportWScalingEnableNV =
         unsafe extern "system" fn(command_buffer: CommandBuffer, viewport_w_scaling_enable: Bool32);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewportSwizzleNV.html>
     pub type PFN_vkCmdSetViewportSwizzleNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         first_viewport: u32,
         viewport_count: u32,
         p_viewport_swizzles: *const ViewportSwizzleNV,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageToColorEnableNV.html>
     pub type PFN_vkCmdSetCoverageToColorEnableNV =
         unsafe extern "system" fn(command_buffer: CommandBuffer, coverage_to_color_enable: Bool32);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageToColorLocationNV.html>
     pub type PFN_vkCmdSetCoverageToColorLocationNV =
         unsafe extern "system" fn(command_buffer: CommandBuffer, coverage_to_color_location: u32);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageModulationModeNV.html>
     pub type PFN_vkCmdSetCoverageModulationModeNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         coverage_modulation_mode: CoverageModulationModeNV,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageModulationTableEnableNV.html>
     pub type PFN_vkCmdSetCoverageModulationTableEnableNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         coverage_modulation_table_enable: Bool32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageModulationTableNV.html>
     pub type PFN_vkCmdSetCoverageModulationTableNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         coverage_modulation_table_count: u32,
         p_coverage_modulation_table: *const f32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetShadingRateImageEnableNV.html>
     pub type PFN_vkCmdSetShadingRateImageEnableNV =
         unsafe extern "system" fn(command_buffer: CommandBuffer, shading_rate_image_enable: Bool32);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageReductionModeNV.html>
     pub type PFN_vkCmdSetCoverageReductionModeNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         coverage_reduction_mode: CoverageReductionModeNV,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRepresentativeFragmentTestEnableNV.html>
     pub type PFN_vkCmdSetRepresentativeFragmentTestEnableNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         representative_fragment_test_enable: Bool32,
@@ -691,6 +726,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthClampEnableEXT.html>
     pub unsafe fn cmd_set_depth_clamp_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -698,6 +734,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_depth_clamp_enable_ext)(command_buffer, depth_clamp_enable.into()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPolygonModeEXT.html>
     pub unsafe fn cmd_set_polygon_mode_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -705,6 +742,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_polygon_mode_ext)(command_buffer, polygon_mode) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRasterizationSamplesEXT.html>
     pub unsafe fn cmd_set_rasterization_samples_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -712,6 +750,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_rasterization_samples_ext)(command_buffer, rasterization_samples) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetSampleMaskEXT.html>
     pub unsafe fn cmd_set_sample_mask_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -720,6 +759,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_sample_mask_ext)(command_buffer, samples, sample_mask.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetAlphaToCoverageEnableEXT.html>
     pub unsafe fn cmd_set_alpha_to_coverage_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -732,6 +772,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetAlphaToOneEnableEXT.html>
     pub unsafe fn cmd_set_alpha_to_one_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -741,6 +782,7 @@ impl DeviceFn {
             (self.cmd_set_alpha_to_one_enable_ext)(command_buffer, alpha_to_one_enable.into())
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLogicOpEnableEXT.html>
     pub unsafe fn cmd_set_logic_op_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -748,6 +790,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_logic_op_enable_ext)(command_buffer, logic_op_enable.into()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorBlendEnableEXT.html>
     pub unsafe fn cmd_set_color_blend_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -763,6 +806,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorBlendEquationEXT.html>
     pub unsafe fn cmd_set_color_blend_equation_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -778,6 +822,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorWriteMaskEXT.html>
     pub unsafe fn cmd_set_color_write_mask_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -793,6 +838,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetTessellationDomainOriginEXT.html>
     pub unsafe fn cmd_set_tessellation_domain_origin_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -802,6 +848,7 @@ impl DeviceFn {
             (self.cmd_set_tessellation_domain_origin_ext.unwrap())(command_buffer, domain_origin)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRasterizationStreamEXT.html>
     pub unsafe fn cmd_set_rasterization_stream_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -811,6 +858,7 @@ impl DeviceFn {
             (self.cmd_set_rasterization_stream_ext.unwrap())(command_buffer, rasterization_stream)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetConservativeRasterizationModeEXT.html>
     pub unsafe fn cmd_set_conservative_rasterization_mode_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -823,6 +871,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetExtraPrimitiveOverestimationSizeEXT.html>
     pub unsafe fn cmd_set_extra_primitive_overestimation_size_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -834,6 +883,7 @@ impl DeviceFn {
                 .unwrap())(command_buffer, extra_primitive_overestimation_size)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthClipEnableEXT.html>
     pub unsafe fn cmd_set_depth_clip_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -843,6 +893,7 @@ impl DeviceFn {
             (self.cmd_set_depth_clip_enable_ext.unwrap())(command_buffer, depth_clip_enable.into())
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetSampleLocationsEnableEXT.html>
     pub unsafe fn cmd_set_sample_locations_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -855,6 +906,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorBlendAdvancedEXT.html>
     pub unsafe fn cmd_set_color_blend_advanced_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -870,6 +922,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetProvokingVertexModeEXT.html>
     pub unsafe fn cmd_set_provoking_vertex_mode_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -879,6 +932,7 @@ impl DeviceFn {
             (self.cmd_set_provoking_vertex_mode_ext.unwrap())(command_buffer, provoking_vertex_mode)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLineRasterizationModeEXT.html>
     pub unsafe fn cmd_set_line_rasterization_mode_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -891,6 +945,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLineStippleEnableEXT.html>
     pub unsafe fn cmd_set_line_stipple_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -903,6 +958,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthClipNegativeOneToOneEXT.html>
     pub unsafe fn cmd_set_depth_clip_negative_one_to_one_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -915,6 +971,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewportWScalingEnableNV.html>
     pub unsafe fn cmd_set_viewport_w_scaling_enable_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -927,6 +984,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewportSwizzleNV.html>
     pub unsafe fn cmd_set_viewport_swizzle_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -942,6 +1000,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageToColorEnableNV.html>
     pub unsafe fn cmd_set_coverage_to_color_enable_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -954,6 +1013,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageToColorLocationNV.html>
     pub unsafe fn cmd_set_coverage_to_color_location_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -966,6 +1026,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageModulationModeNV.html>
     pub unsafe fn cmd_set_coverage_modulation_mode_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -978,6 +1039,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageModulationTableEnableNV.html>
     pub unsafe fn cmd_set_coverage_modulation_table_enable_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -990,6 +1052,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageModulationTableNV.html>
     pub unsafe fn cmd_set_coverage_modulation_table_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -1003,6 +1066,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetShadingRateImageEnableNV.html>
     pub unsafe fn cmd_set_shading_rate_image_enable_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -1015,6 +1079,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRepresentativeFragmentTestEnableNV.html>
     pub unsafe fn cmd_set_representative_fragment_test_enable_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -1027,6 +1092,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageReductionModeNV.html>
     pub unsafe fn cmd_set_coverage_reduction_mode_nv(
         &self,
         command_buffer: CommandBuffer,

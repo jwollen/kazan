@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTileMemoryBindInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct TileMemoryBindInfoQCOM<'a> {
@@ -36,6 +37,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTileMemoryHeapFeaturesQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceTileMemoryHeapFeaturesQCOM<'a> {
@@ -69,6 +71,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTileMemoryHeapPropertiesQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceTileMemoryHeapPropertiesQCOM<'a> {
@@ -107,6 +110,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTileMemorySizeInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct TileMemorySizeInfoQCOM<'a> {
@@ -137,6 +141,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTileMemoryRequirementsQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct TileMemoryRequirementsQCOM<'a> {
@@ -171,6 +176,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindTileMemoryQCOM.html>
     pub type PFN_vkCmdBindTileMemoryQCOM = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_tile_memory_bind_info: *const TileMemoryBindInfoQCOM<'_>,
@@ -193,6 +199,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindTileMemoryQCOM.html>
     pub unsafe fn cmd_bind_tile_memory_qcom(
         &self,
         command_buffer: CommandBuffer,

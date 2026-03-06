@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSurfaceInfo2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceSurfaceInfo2KHR<'a> {
@@ -35,6 +36,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceCapabilities2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SurfaceCapabilities2KHR<'a> {
@@ -65,6 +67,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceFormat2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SurfaceFormat2KHR<'a> {
@@ -92,12 +95,14 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceCapabilities2KHR.html>
     pub type PFN_vkGetPhysicalDeviceSurfaceCapabilities2KHR =
         unsafe extern "system" fn(
             physical_device: PhysicalDevice,
             p_surface_info: *const PhysicalDeviceSurfaceInfo2KHR<'_>,
             p_surface_capabilities: *mut SurfaceCapabilities2KHR<'_>,
         ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceFormats2KHR.html>
     pub type PFN_vkGetPhysicalDeviceSurfaceFormats2KHR = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         p_surface_info: *const PhysicalDeviceSurfaceInfo2KHR<'_>,
@@ -128,6 +133,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceCapabilities2KHR.html>
     pub unsafe fn get_physical_device_surface_capabilities2_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -147,6 +153,7 @@ impl InstanceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceFormats2KHR.html>
     pub unsafe fn get_physical_device_surface_formats2_khr<'a>(
         &self,
         physical_device: PhysicalDevice,

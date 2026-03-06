@@ -8,8 +8,17 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
-    handle_nondispatchable!(CudaModuleNV, CUDA_MODULE_NV, doc = "");
-    handle_nondispatchable!(CudaFunctionNV, CUDA_FUNCTION_NV, doc = "");
+    handle_nondispatchable!(
+        CudaModuleNV,
+        CUDA_MODULE_NV,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkCudaModuleNV.html>"
+    );
+    handle_nondispatchable!(
+        CudaFunctionNV,
+        CUDA_FUNCTION_NV,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkCudaFunctionNV.html>"
+    );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCudaModuleCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct CudaModuleCreateInfoNV<'a> {
@@ -40,6 +49,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCudaFunctionCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct CudaFunctionCreateInfoNV<'a> {
@@ -73,6 +83,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCudaLaunchInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct CudaLaunchInfoNV<'a> {
@@ -160,6 +171,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCudaKernelLaunchFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceCudaKernelLaunchFeaturesNV<'a> {
@@ -193,6 +205,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCudaKernelLaunchPropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceCudaKernelLaunchPropertiesNV<'a> {
@@ -231,34 +244,40 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateCudaModuleNV.html>
     pub type PFN_vkCreateCudaModuleNV = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const CudaModuleCreateInfoNV<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_module: *mut CudaModuleNV,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetCudaModuleCacheNV.html>
     pub type PFN_vkGetCudaModuleCacheNV = unsafe extern "system" fn(
         device: Device,
         module: CudaModuleNV,
         p_cache_size: *mut usize,
         p_cache_data: *mut c_void,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateCudaFunctionNV.html>
     pub type PFN_vkCreateCudaFunctionNV = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const CudaFunctionCreateInfoNV<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_function: *mut CudaFunctionNV,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyCudaModuleNV.html>
     pub type PFN_vkDestroyCudaModuleNV = unsafe extern "system" fn(
         device: Device,
         module: CudaModuleNV,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyCudaFunctionNV.html>
     pub type PFN_vkDestroyCudaFunctionNV = unsafe extern "system" fn(
         device: Device,
         function: CudaFunctionNV,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCudaLaunchKernelNV.html>
     pub type PFN_vkCmdCudaLaunchKernelNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_launch_info: *const CudaLaunchInfoNV<'_>,
@@ -301,6 +320,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateCudaModuleNV.html>
     pub unsafe fn create_cuda_module_nv(
         &self,
         device: Device,
@@ -322,6 +342,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetCudaModuleCacheNV.html>
     pub unsafe fn get_cuda_module_cache_nv(
         &self,
         device: Device,
@@ -349,6 +370,7 @@ impl DeviceFn {
             Ok(result)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateCudaFunctionNV.html>
     pub unsafe fn create_cuda_function_nv(
         &self,
         device: Device,
@@ -370,6 +392,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyCudaModuleNV.html>
     pub unsafe fn destroy_cuda_module_nv(
         &self,
         device: Device,
@@ -378,6 +401,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_cuda_module_nv)(device, module, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyCudaFunctionNV.html>
     pub unsafe fn destroy_cuda_function_nv(
         &self,
         device: Device,
@@ -386,6 +410,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_cuda_function_nv)(device, function, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCudaLaunchKernelNV.html>
     pub unsafe fn cmd_cuda_launch_kernel_nv(
         &self,
         command_buffer: CommandBuffer,

@@ -8,7 +8,9 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTimeDomainEXT.html>
     pub type TimeDomainEXT = TimeDomainKHR;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCalibratedTimestampInfoEXT.html>
     pub type CalibratedTimestampInfoEXT<'a> = CalibratedTimestampInfoKHR<'a>;
     pub type PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsEXT =
         PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsKHR;
@@ -33,6 +35,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCalibrateableTimeDomainsEXT.html>
     pub unsafe fn get_physical_device_calibrateable_time_domains_ext(
         &self,
         physical_device: PhysicalDevice,
@@ -80,6 +83,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetCalibratedTimestampsEXT.html>
     pub unsafe fn get_calibrated_timestamps_ext(
         &self,
         device: Device,

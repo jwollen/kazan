@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264WeightTableFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeH264WeightTableFlags {
@@ -34,6 +35,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264WeightTable.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoEncodeH264WeightTable {
@@ -144,6 +146,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264SliceHeaderFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeH264SliceHeaderFlags {
@@ -168,6 +171,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264PictureInfoFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeH264PictureInfoFlags {
@@ -207,6 +211,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264ReferenceInfoFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeH264ReferenceInfoFlags {
@@ -223,6 +228,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264ReferenceListsInfoFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeH264ReferenceListsInfoFlags {
@@ -250,6 +256,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264RefListModEntry.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeH264RefListModEntry {
@@ -274,6 +281,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264RefPicMarkingEntry.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeH264RefPicMarkingEntry {
@@ -308,6 +316,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264ReferenceListsInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoEncodeH264ReferenceListsInfo<'a> {
@@ -400,6 +409,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264PictureInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoEncodeH264PictureInfo<'a> {
@@ -477,6 +487,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264ReferenceInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeH264ReferenceInfo {
@@ -518,6 +529,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264SliceHeader.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoEncodeH264SliceHeader<'a> {

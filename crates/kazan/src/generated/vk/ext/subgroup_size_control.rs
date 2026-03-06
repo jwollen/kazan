@@ -8,10 +8,13 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSubgroupSizeControlFeaturesEXT.html>
     pub type PhysicalDeviceSubgroupSizeControlFeaturesEXT<'a> =
         PhysicalDeviceSubgroupSizeControlFeatures<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSubgroupSizeControlPropertiesEXT.html>
     pub type PhysicalDeviceSubgroupSizeControlPropertiesEXT<'a> =
         PhysicalDeviceSubgroupSizeControlProperties<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT.html>
     pub type PipelineShaderStageRequiredSubgroupSizeCreateInfoEXT<'a> =
         PipelineShaderStageRequiredSubgroupSizeCreateInfo<'a>;
 }

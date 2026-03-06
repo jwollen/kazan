@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance10PropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceMaintenance10PropertiesKHR<'a> {
@@ -60,6 +61,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance10FeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceMaintenance10FeaturesKHR<'a> {
@@ -93,6 +95,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderingEndInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct RenderingEndInfoKHR<'a> {
@@ -113,6 +116,7 @@ pub(super) mod defs {
         }
     }
     impl<'a> RenderingEndInfoKHR<'a> {}
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderingAttachmentFlagsInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct RenderingAttachmentFlagsInfoKHR<'a> {
@@ -141,6 +145,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkResolveImageModeInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ResolveImageModeInfoKHR<'a> {
@@ -181,6 +186,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderingAttachmentFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct RenderingAttachmentFlagsKHR(Flags);
@@ -213,6 +219,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderingAttachmentFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct RenderingAttachmentFlagBitsKHR(u32);
@@ -222,6 +229,7 @@ pub(super) mod defs {
         pub const RESOLVE_SKIP_TRANSFER_FUNCTION_KHR: Self = Self(1 << 1);
         pub const RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR: Self = Self(1 << 2);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkResolveImageFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ResolveImageFlagsKHR(Flags);
@@ -248,6 +256,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkResolveImageFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ResolveImageFlagBitsKHR(u32);
@@ -256,6 +265,7 @@ pub(super) mod defs {
         pub const SKIP_TRANSFER_FUNCTION_KHR: Self = Self(1 << 0);
         pub const ENABLE_TRANSFER_FUNCTION_KHR: Self = Self(1 << 1);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndRendering2KHR.html>
     pub type PFN_vkCmdEndRendering2KHR = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_rendering_end_info: *const RenderingEndInfoKHR<'_>,
@@ -278,6 +288,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndRendering2KHR.html>
     pub unsafe fn cmd_end_rendering2_khr(
         &self,
         command_buffer: CommandBuffer,

@@ -8,7 +8,12 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
-    handle_nondispatchable!(DebugReportCallbackEXT, DEBUG_REPORT_CALLBACK_EXT, doc = "");
+    handle_nondispatchable!(
+        DebugReportCallbackEXT,
+        DEBUG_REPORT_CALLBACK_EXT,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugReportCallbackEXT.html>"
+    );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugReportCallbackCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DebugReportCallbackCreateInfoEXT<'a> {
@@ -49,6 +54,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugReportObjectTypeEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DebugReportObjectTypeEXT(i32);
@@ -158,6 +164,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugReportFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DebugReportFlagsEXT(Flags);
@@ -185,6 +192,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugReportFlagBitsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DebugReportFlagBitsEXT(u32);
@@ -195,6 +203,7 @@ pub(super) mod defs {
         pub const ERROR_EXT: Self = Self(1 << 3);
         pub const DEBUG_EXT: Self = Self(1 << 4);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/PFN_vkDebugReportCallbackEXT.html>
     pub type PFN_vkDebugReportCallbackEXT = unsafe extern "system" fn(
         flags: DebugReportFlagsEXT,
         object_type: DebugReportObjectTypeEXT,
@@ -205,17 +214,20 @@ pub(super) mod defs {
         p_message: *const c_char,
         p_user_data: *mut c_void,
     ) -> Bool32;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDebugReportCallbackEXT.html>
     pub type PFN_vkCreateDebugReportCallbackEXT = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const DebugReportCallbackCreateInfoEXT<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_callback: *mut DebugReportCallbackEXT,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDebugReportCallbackEXT.html>
     pub type PFN_vkDestroyDebugReportCallbackEXT = unsafe extern "system" fn(
         instance: Instance,
         callback: DebugReportCallbackEXT,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDebugReportMessageEXT.html>
     pub type PFN_vkDebugReportMessageEXT = unsafe extern "system" fn(
         instance: Instance,
         flags: DebugReportFlagsEXT,
@@ -252,6 +264,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDebugReportCallbackEXT.html>
     pub unsafe fn create_debug_report_callback_ext(
         &self,
         instance: Instance,
@@ -273,6 +286,7 @@ impl InstanceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDebugReportCallbackEXT.html>
     pub unsafe fn destroy_debug_report_callback_ext(
         &self,
         instance: Instance,
@@ -283,6 +297,7 @@ impl InstanceFn {
             (self.destroy_debug_report_callback_ext)(instance, callback, allocator.to_raw_ptr())
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDebugReportMessageEXT.html>
     pub unsafe fn debug_report_message_ext(
         &self,
         instance: Instance,

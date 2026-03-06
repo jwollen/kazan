@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceClusterCullingShaderPropertiesHUAWEI<'a> {
@@ -61,6 +62,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'a> {
@@ -106,6 +108,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI<'a> {
@@ -138,12 +141,14 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawClusterHUAWEI.html>
     pub type PFN_vkCmdDrawClusterHUAWEI = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         group_count_x: u32,
         group_count_y: u32,
         group_count_z: u32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawClusterIndirectHUAWEI.html>
     pub type PFN_vkCmdDrawClusterIndirectHUAWEI = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         buffer: Buffer,
@@ -171,6 +176,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawClusterHUAWEI.html>
     pub unsafe fn cmd_draw_cluster_huawei(
         &self,
         command_buffer: CommandBuffer,
@@ -187,6 +193,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawClusterIndirectHUAWEI.html>
     pub unsafe fn cmd_draw_cluster_indirect_huawei(
         &self,
         command_buffer: CommandBuffer,

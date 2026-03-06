@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorBufferFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceDescriptorBufferFeaturesEXT<'a> {
@@ -69,6 +70,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorBufferPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceDescriptorBufferPropertiesEXT<'a> {
@@ -397,6 +399,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a> {
@@ -433,6 +436,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorAddressInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DescriptorAddressInfoEXT<'a> {
@@ -472,6 +476,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorBufferBindingInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DescriptorBufferBindingInfoEXT<'a> {
@@ -505,6 +510,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorBufferBindingPushDescriptorBufferHandleEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DescriptorBufferBindingPushDescriptorBufferHandleEXT<'a> {
@@ -537,6 +543,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorGetInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DescriptorGetInfoEXT<'a> {
@@ -570,6 +577,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCaptureDescriptorDataInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct BufferCaptureDescriptorDataInfoEXT<'a> {
@@ -598,6 +606,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCaptureDescriptorDataInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImageCaptureDescriptorDataInfoEXT<'a> {
@@ -625,6 +634,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageViewCaptureDescriptorDataInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImageViewCaptureDescriptorDataInfoEXT<'a> {
@@ -653,6 +663,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerCaptureDescriptorDataInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SamplerCaptureDescriptorDataInfoEXT<'a> {
@@ -681,6 +692,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureCaptureDescriptorDataInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct AccelerationStructureCaptureDescriptorDataInfoEXT<'a> {
@@ -721,6 +733,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpaqueCaptureDescriptorDataCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct OpaqueCaptureDescriptorDataCreateInfoEXT<'a> {
@@ -769,6 +782,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorDataEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub union DescriptorDataEXT<'a> {
@@ -789,28 +803,33 @@ pub(super) mod defs {
             unsafe { core::mem::zeroed() }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDescriptorSetLayoutSizeEXT.html>
     pub type PFN_vkGetDescriptorSetLayoutSizeEXT = unsafe extern "system" fn(
         device: Device,
         layout: DescriptorSetLayout,
         p_layout_size_in_bytes: *mut DeviceSize,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDescriptorSetLayoutBindingOffsetEXT.html>
     pub type PFN_vkGetDescriptorSetLayoutBindingOffsetEXT = unsafe extern "system" fn(
         device: Device,
         layout: DescriptorSetLayout,
         binding: u32,
         p_offset: *mut DeviceSize,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDescriptorEXT.html>
     pub type PFN_vkGetDescriptorEXT = unsafe extern "system" fn(
         device: Device,
         p_descriptor_info: *const DescriptorGetInfoEXT<'_>,
         data_size: usize,
         p_descriptor: *mut c_void,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindDescriptorBuffersEXT.html>
     pub type PFN_vkCmdBindDescriptorBuffersEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         buffer_count: u32,
         p_binding_infos: *const DescriptorBufferBindingInfoEXT<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDescriptorBufferOffsetsEXT.html>
     pub type PFN_vkCmdSetDescriptorBufferOffsetsEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         pipeline_bind_point: PipelineBindPoint,
@@ -820,36 +839,42 @@ pub(super) mod defs {
         p_buffer_indices: *const u32,
         p_offsets: *const DeviceSize,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindDescriptorBufferEmbeddedSamplersEXT.html>
     pub type PFN_vkCmdBindDescriptorBufferEmbeddedSamplersEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         pipeline_bind_point: PipelineBindPoint,
         layout: PipelineLayout,
         set: u32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferOpaqueCaptureDescriptorDataEXT.html>
     pub type PFN_vkGetBufferOpaqueCaptureDescriptorDataEXT =
         unsafe extern "system" fn(
             device: Device,
             p_info: *const BufferCaptureDescriptorDataInfoEXT<'_>,
             p_data: *mut c_void,
         ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageOpaqueCaptureDescriptorDataEXT.html>
     pub type PFN_vkGetImageOpaqueCaptureDescriptorDataEXT = unsafe extern "system" fn(
         device: Device,
         p_info: *const ImageCaptureDescriptorDataInfoEXT<'_>,
         p_data: *mut c_void,
     )
         -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageViewOpaqueCaptureDescriptorDataEXT.html>
     pub type PFN_vkGetImageViewOpaqueCaptureDescriptorDataEXT =
         unsafe extern "system" fn(
             device: Device,
             p_info: *const ImageViewCaptureDescriptorDataInfoEXT<'_>,
             p_data: *mut c_void,
         ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSamplerOpaqueCaptureDescriptorDataEXT.html>
     pub type PFN_vkGetSamplerOpaqueCaptureDescriptorDataEXT =
         unsafe extern "system" fn(
             device: Device,
             p_info: *const SamplerCaptureDescriptorDataInfoEXT<'_>,
             p_data: *mut c_void,
         ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT.html>
     pub type PFN_vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT =
         unsafe extern "system" fn(
             device: Device,
@@ -923,6 +948,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDescriptorSetLayoutSizeEXT.html>
     pub unsafe fn get_descriptor_set_layout_size_ext(
         &self,
         device: Device,
@@ -938,6 +964,7 @@ impl DeviceFn {
             layout_size_in_bytes.assume_init()
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDescriptorSetLayoutBindingOffsetEXT.html>
     pub unsafe fn get_descriptor_set_layout_binding_offset_ext(
         &self,
         device: Device,
@@ -955,6 +982,7 @@ impl DeviceFn {
             offset.assume_init()
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDescriptorEXT.html>
     pub unsafe fn get_descriptor_ext(
         &self,
         device: Device,
@@ -970,6 +998,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindDescriptorBuffersEXT.html>
     pub unsafe fn cmd_bind_descriptor_buffers_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -983,6 +1012,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDescriptorBufferOffsetsEXT.html>
     pub unsafe fn cmd_set_descriptor_buffer_offsets_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1004,6 +1034,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindDescriptorBufferEmbeddedSamplersEXT.html>
     pub unsafe fn cmd_bind_descriptor_buffer_embedded_samplers_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1020,6 +1051,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferOpaqueCaptureDescriptorDataEXT.html>
     pub unsafe fn get_buffer_opaque_capture_descriptor_data_ext(
         &self,
         device: Device,
@@ -1035,6 +1067,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageOpaqueCaptureDescriptorDataEXT.html>
     pub unsafe fn get_image_opaque_capture_descriptor_data_ext(
         &self,
         device: Device,
@@ -1050,6 +1083,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageViewOpaqueCaptureDescriptorDataEXT.html>
     pub unsafe fn get_image_view_opaque_capture_descriptor_data_ext(
         &self,
         device: Device,
@@ -1066,6 +1100,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSamplerOpaqueCaptureDescriptorDataEXT.html>
     pub unsafe fn get_sampler_opaque_capture_descriptor_data_ext(
         &self,
         device: Device,
@@ -1081,6 +1116,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT.html>
     pub unsafe fn get_acceleration_structure_opaque_capture_descriptor_data_ext(
         &self,
         device: Device,

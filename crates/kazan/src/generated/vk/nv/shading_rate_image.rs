@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShadingRatePaletteNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ShadingRatePaletteNV<'a> {
@@ -35,6 +36,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineViewportShadingRateImageStateCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineViewportShadingRateImageStateCreateInfoNV<'a> {
@@ -79,6 +81,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShadingRateImageFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceShadingRateImageFeaturesNV<'a> {
@@ -121,6 +124,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShadingRateImagePropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceShadingRateImagePropertiesNV<'a> {
@@ -168,6 +172,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCoarseSampleLocationNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct CoarseSampleLocationNV {
@@ -189,6 +194,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCoarseSampleOrderCustomNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct CoarseSampleOrderCustomNV<'a> {
@@ -224,6 +230,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineViewportCoarseSampleOrderStateCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineViewportCoarseSampleOrderStateCreateInfoNV<'a> {
@@ -268,6 +275,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShadingRatePaletteEntryNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ShadingRatePaletteEntryNV(i32);
@@ -309,6 +317,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCoarseSampleOrderTypeNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct CoarseSampleOrderTypeNV(i32);
@@ -334,17 +343,20 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindShadingRateImageNV.html>
     pub type PFN_vkCmdBindShadingRateImageNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         image_view: ImageView,
         image_layout: ImageLayout,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewportShadingRatePaletteNV.html>
     pub type PFN_vkCmdSetViewportShadingRatePaletteNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         first_viewport: u32,
         viewport_count: u32,
         p_shading_rate_palettes: *const ShadingRatePaletteNV<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoarseSampleOrderNV.html>
     pub type PFN_vkCmdSetCoarseSampleOrderNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         sample_order_type: CoarseSampleOrderTypeNV,
@@ -377,6 +389,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindShadingRateImageNV.html>
     pub unsafe fn cmd_bind_shading_rate_image_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -385,6 +398,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_bind_shading_rate_image_nv)(command_buffer, image_view, image_layout) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewportShadingRatePaletteNV.html>
     pub unsafe fn cmd_set_viewport_shading_rate_palette_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -400,6 +414,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoarseSampleOrderNV.html>
     pub unsafe fn cmd_set_coarse_sample_order_nv(
         &self,
         command_buffer: CommandBuffer,

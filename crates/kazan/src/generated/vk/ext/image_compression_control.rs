@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCompressionControlEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImageCompressionControlEXT<'a> {
@@ -50,6 +51,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceImageCompressionControlFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceImageCompressionControlFeaturesEXT<'a> {
@@ -86,6 +88,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCompressionPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImageCompressionPropertiesEXT<'a> {
@@ -128,6 +131,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCompressionFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageCompressionFlagsEXT(Flags);
@@ -156,6 +160,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCompressionFlagBitsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ImageCompressionFlagBitsEXT(u32);
@@ -164,6 +169,7 @@ pub(super) mod defs {
         pub const FIXED_RATE_EXPLICIT_EXT: Self = Self(1 << 1);
         pub const DISABLED_EXT: Self = Self(1 << 2);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCompressionFixedRateFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageCompressionFixedRateFlagsEXT(Flags);
@@ -271,6 +277,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCompressionFixedRateFlagBitsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ImageCompressionFixedRateFlagBitsEXT(u32);
@@ -318,6 +325,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageSubresourceLayout2EXT.html>
     pub unsafe fn get_image_subresource_layout2_ext(
         &self,
         device: Device,

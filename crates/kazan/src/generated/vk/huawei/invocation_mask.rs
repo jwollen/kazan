@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceInvocationMaskFeaturesHUAWEI<'a> {
@@ -41,6 +42,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindInvocationMaskHUAWEI.html>
     pub type PFN_vkCmdBindInvocationMaskHUAWEI = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         image_view: ImageView,
@@ -64,6 +66,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindInvocationMaskHUAWEI.html>
     pub unsafe fn cmd_bind_invocation_mask_huawei(
         &self,
         command_buffer: CommandBuffer,

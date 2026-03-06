@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCooperativeVectorFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceCooperativeVectorFeaturesNV<'a> {
@@ -47,6 +48,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCooperativeVectorPropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct CooperativeVectorPropertiesNV<'a> {
@@ -104,6 +106,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCooperativeVectorPropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceCooperativeVectorPropertiesNV<'a> {
@@ -168,6 +171,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkConvertCooperativeVectorMatrixInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ConvertCooperativeVectorMatrixInfoNV<'a> {
@@ -262,6 +266,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCooperativeVectorMatrixLayoutNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct CooperativeVectorMatrixLayoutNV(i32);
@@ -287,16 +292,19 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCooperativeVectorPropertiesNV.html>
     pub type PFN_vkGetPhysicalDeviceCooperativeVectorPropertiesNV =
         unsafe extern "system" fn(
             physical_device: PhysicalDevice,
             p_property_count: *mut u32,
             p_properties: *mut CooperativeVectorPropertiesNV<'_>,
         ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkConvertCooperativeVectorMatrixNV.html>
     pub type PFN_vkConvertCooperativeVectorMatrixNV = unsafe extern "system" fn(
         device: Device,
         p_info: *const ConvertCooperativeVectorMatrixInfoNV<'_>,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdConvertCooperativeVectorMatrixNV.html>
     pub type PFN_vkCmdConvertCooperativeVectorMatrixNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         info_count: u32,
@@ -322,6 +330,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCooperativeVectorPropertiesNV.html>
     pub unsafe fn get_physical_device_cooperative_vector_properties_nv<'a>(
         &self,
         physical_device: PhysicalDevice,
@@ -373,6 +382,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkConvertCooperativeVectorMatrixNV.html>
     pub unsafe fn convert_cooperative_vector_matrix_nv(
         &self,
         device: Device,
@@ -387,6 +397,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdConvertCooperativeVectorMatrixNV.html>
     pub unsafe fn cmd_convert_cooperative_vector_matrix_nv(
         &self,
         command_buffer: CommandBuffer,

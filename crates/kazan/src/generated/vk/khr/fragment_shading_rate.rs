@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFragmentShadingRateAttachmentInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct FragmentShadingRateAttachmentInfoKHR<'a> {
@@ -49,6 +50,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineFragmentShadingRateStateCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineFragmentShadingRateStateCreateInfoKHR<'a> {
@@ -87,6 +89,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentShadingRateFeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceFragmentShadingRateFeaturesKHR<'a> {
@@ -141,6 +144,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentShadingRatePropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceFragmentShadingRatePropertiesKHR<'a> {
@@ -331,6 +335,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentShadingRateKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceFragmentShadingRateKHR<'a> {
@@ -365,6 +370,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderingFragmentShadingRateAttachmentInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct RenderingFragmentShadingRateAttachmentInfoKHR<'a> {
@@ -409,6 +415,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFragmentShadingRateCombinerOpKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct FragmentShadingRateCombinerOpKHR(i32);
@@ -436,11 +443,13 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetFragmentShadingRateKHR.html>
     pub type PFN_vkCmdSetFragmentShadingRateKHR = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_fragment_size: *const Extent2D,
         combiner_ops: *const [FragmentShadingRateCombinerOpKHR; 2],
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFragmentShadingRatesKHR.html>
     pub type PFN_vkGetPhysicalDeviceFragmentShadingRatesKHR =
         unsafe extern "system" fn(
             physical_device: PhysicalDevice,
@@ -466,6 +475,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFragmentShadingRatesKHR.html>
     pub unsafe fn get_physical_device_fragment_shading_rates_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
@@ -513,6 +523,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetFragmentShadingRateKHR.html>
     pub unsafe fn cmd_set_fragment_shading_rate_khr(
         &self,
         command_buffer: CommandBuffer,

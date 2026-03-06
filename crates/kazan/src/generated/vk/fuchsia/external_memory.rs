@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportMemoryZirconHandleInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImportMemoryZirconHandleInfoFUCHSIA<'a> {
@@ -43,6 +44,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryZirconHandlePropertiesFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct MemoryZirconHandlePropertiesFUCHSIA<'a> {
@@ -71,6 +73,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryGetZirconHandleInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct MemoryGetZirconHandleInfoFUCHSIA<'a> {
@@ -104,11 +107,13 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryZirconHandleFUCHSIA.html>
     pub type PFN_vkGetMemoryZirconHandleFUCHSIA = unsafe extern "system" fn(
         device: Device,
         p_get_zircon_handle_info: *const MemoryGetZirconHandleInfoFUCHSIA<'_>,
         p_zircon_handle: *mut zx_handle_t,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryZirconHandlePropertiesFUCHSIA.html>
     pub type PFN_vkGetMemoryZirconHandlePropertiesFUCHSIA = unsafe extern "system" fn(
         device: Device,
         handle_type: ExternalMemoryHandleTypeFlagBits,
@@ -139,6 +144,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryZirconHandleFUCHSIA.html>
     pub unsafe fn get_memory_zircon_handle_fuchsia(
         &self,
         device: Device,
@@ -158,6 +164,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryZirconHandlePropertiesFUCHSIA.html>
     pub unsafe fn get_memory_zircon_handle_properties_fuchsia(
         &self,
         device: Device,

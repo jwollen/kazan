@@ -8,8 +8,17 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
-    handle_nondispatchable!(CuModuleNVX, CU_MODULE_NVX, doc = "");
-    handle_nondispatchable!(CuFunctionNVX, CU_FUNCTION_NVX, doc = "");
+    handle_nondispatchable!(
+        CuModuleNVX,
+        CU_MODULE_NVX,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkCuModuleNVX.html>"
+    );
+    handle_nondispatchable!(
+        CuFunctionNVX,
+        CU_FUNCTION_NVX,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkCuFunctionNVX.html>"
+    );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCuModuleCreateInfoNVX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct CuModuleCreateInfoNVX<'a> {
@@ -40,6 +49,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCuModuleTexturingModeCreateInfoNVX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct CuModuleTexturingModeCreateInfoNVX<'a> {
@@ -69,6 +79,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCuFunctionCreateInfoNVX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct CuFunctionCreateInfoNVX<'a> {
@@ -102,6 +113,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCuLaunchInfoNVX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct CuLaunchInfoNVX<'a> {
@@ -189,28 +201,33 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateCuModuleNVX.html>
     pub type PFN_vkCreateCuModuleNVX = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const CuModuleCreateInfoNVX<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_module: *mut CuModuleNVX,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateCuFunctionNVX.html>
     pub type PFN_vkCreateCuFunctionNVX = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const CuFunctionCreateInfoNVX<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_function: *mut CuFunctionNVX,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyCuModuleNVX.html>
     pub type PFN_vkDestroyCuModuleNVX = unsafe extern "system" fn(
         device: Device,
         module: CuModuleNVX,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyCuFunctionNVX.html>
     pub type PFN_vkDestroyCuFunctionNVX = unsafe extern "system" fn(
         device: Device,
         function: CuFunctionNVX,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCuLaunchKernelNVX.html>
     pub type PFN_vkCmdCuLaunchKernelNVX = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_launch_info: *const CuLaunchInfoNVX<'_>,
@@ -249,6 +266,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateCuModuleNVX.html>
     pub unsafe fn create_cu_module_nvx(
         &self,
         device: Device,
@@ -270,6 +288,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateCuFunctionNVX.html>
     pub unsafe fn create_cu_function_nvx(
         &self,
         device: Device,
@@ -291,6 +310,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyCuModuleNVX.html>
     pub unsafe fn destroy_cu_module_nvx(
         &self,
         device: Device,
@@ -299,6 +319,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_cu_module_nvx)(device, module, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyCuFunctionNVX.html>
     pub unsafe fn destroy_cu_function_nvx(
         &self,
         device: Device,
@@ -307,6 +328,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_cu_function_nvx)(device, function, allocator.to_raw_ptr()) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCuLaunchKernelNVX.html>
     pub unsafe fn cmd_cu_launch_kernel_nvx(
         &self,
         command_buffer: CommandBuffer,

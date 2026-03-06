@@ -8,9 +8,12 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDynamicRenderingLocalReadFeaturesKHR.html>
     pub type PhysicalDeviceDynamicRenderingLocalReadFeaturesKHR<'a> =
         PhysicalDeviceDynamicRenderingLocalReadFeatures<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderingAttachmentLocationInfoKHR.html>
     pub type RenderingAttachmentLocationInfoKHR<'a> = RenderingAttachmentLocationInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderingInputAttachmentIndexInfoKHR.html>
     pub type RenderingInputAttachmentIndexInfoKHR<'a> = RenderingInputAttachmentIndexInfo<'a>;
     pub type PFN_vkCmdSetRenderingAttachmentLocationsKHR = PFN_vkCmdSetRenderingAttachmentLocations;
     pub type PFN_vkCmdSetRenderingInputAttachmentIndicesKHR =
@@ -39,6 +42,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRenderingAttachmentLocationsKHR.html>
     pub unsafe fn cmd_set_rendering_attachment_locations_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -46,6 +50,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_rendering_attachment_locations_khr)(command_buffer, location_info) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRenderingInputAttachmentIndicesKHR.html>
     pub unsafe fn cmd_set_rendering_input_attachment_indices_khr(
         &self,
         command_buffer: CommandBuffer,

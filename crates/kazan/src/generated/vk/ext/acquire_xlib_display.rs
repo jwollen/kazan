@@ -8,11 +8,13 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireXlibDisplayEXT.html>
     pub type PFN_vkAcquireXlibDisplayEXT = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         dpy: *mut Display,
         display: DisplayKHR,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRandROutputDisplayEXT.html>
     pub type PFN_vkGetRandROutputDisplayEXT = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         dpy: *mut Display,
@@ -41,6 +43,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireXlibDisplayEXT.html>
     pub unsafe fn acquire_xlib_display_ext(
         &self,
         physical_device: PhysicalDevice,
@@ -56,6 +59,7 @@ impl InstanceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRandROutputDisplayEXT.html>
     pub unsafe fn get_rand_r_output_display_ext(
         &self,
         physical_device: PhysicalDevice,

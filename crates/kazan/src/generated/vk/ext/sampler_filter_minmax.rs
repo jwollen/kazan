@@ -8,8 +8,11 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerReductionModeEXT.html>
     pub type SamplerReductionModeEXT = SamplerReductionMode;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT.html>
     pub type PhysicalDeviceSamplerFilterMinmaxPropertiesEXT<'a> =
         PhysicalDeviceSamplerFilterMinmaxProperties<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerReductionModeCreateInfoEXT.html>
     pub type SamplerReductionModeCreateInfoEXT<'a> = SamplerReductionModeCreateInfo<'a>;
 }

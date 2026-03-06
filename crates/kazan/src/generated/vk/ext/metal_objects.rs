@@ -14,6 +14,7 @@ pub(super) mod defs {
     pub type MTLTexture_id = *const c_void;
     pub type MTLSharedEvent_id = *const c_void;
     pub type IOSurfaceRef = *const c_void;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalObjectCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ExportMetalObjectCreateInfoEXT<'a> {
@@ -51,6 +52,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalObjectsInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ExportMetalObjectsInfoEXT<'a> {
@@ -71,6 +73,7 @@ pub(super) mod defs {
         }
     }
     impl<'a> ExportMetalObjectsInfoEXT<'a> {}
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalDeviceInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ExportMetalDeviceInfoEXT<'a> {
@@ -99,6 +102,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalCommandQueueInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ExportMetalCommandQueueInfoEXT<'a> {
@@ -133,6 +137,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalBufferInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ExportMetalBufferInfoEXT<'a> {
@@ -167,6 +172,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportMetalBufferInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImportMetalBufferInfoEXT<'a> {
@@ -195,6 +201,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalTextureInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ExportMetalTextureInfoEXT<'a> {
@@ -247,6 +254,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportMetalTextureInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImportMetalTextureInfoEXT<'a> {
@@ -281,6 +289,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalIOSurfaceInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ExportMetalIOSurfaceInfoEXT<'a> {
@@ -315,6 +324,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportMetalIOSurfaceInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImportMetalIOSurfaceInfoEXT<'a> {
@@ -343,6 +353,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalSharedEventInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ExportMetalSharedEventInfoEXT<'a> {
@@ -383,6 +394,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportMetalSharedEventInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImportMetalSharedEventInfoEXT<'a> {
@@ -412,6 +424,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalObjectTypeFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ExportMetalObjectTypeFlagsEXT(Flags);
@@ -461,6 +474,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalObjectTypeFlagBitsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExportMetalObjectTypeFlagBitsEXT(u32);
@@ -472,6 +486,7 @@ pub(super) mod defs {
         pub const METAL_IOSURFACE_EXT: Self = Self(1 << 4);
         pub const METAL_SHARED_EVENT_EXT: Self = Self(1 << 5);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkExportMetalObjectsEXT.html>
     pub type PFN_vkExportMetalObjectsEXT = unsafe extern "system" fn(
         device: Device,
         p_metal_objects_info: *mut ExportMetalObjectsInfoEXT<'_>,
@@ -494,6 +509,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkExportMetalObjectsEXT.html>
     pub unsafe fn export_metal_objects_ext(
         &self,
         device: Device,

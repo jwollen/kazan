@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayProperties2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DisplayProperties2KHR<'a> {
@@ -35,6 +36,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPlaneProperties2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DisplayPlaneProperties2KHR<'a> {
@@ -65,6 +67,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayModeProperties2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DisplayModeProperties2KHR<'a> {
@@ -95,6 +98,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPlaneInfo2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DisplayPlaneInfo2KHR<'a> {
@@ -128,6 +132,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPlaneCapabilities2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DisplayPlaneCapabilities2KHR<'a> {
@@ -155,24 +160,28 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDisplayProperties2KHR.html>
     pub type PFN_vkGetPhysicalDeviceDisplayProperties2KHR = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         p_property_count: *mut u32,
         p_properties: *mut DisplayProperties2KHR<'_>,
     )
         -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDisplayPlaneProperties2KHR.html>
     pub type PFN_vkGetPhysicalDeviceDisplayPlaneProperties2KHR =
         unsafe extern "system" fn(
             physical_device: PhysicalDevice,
             p_property_count: *mut u32,
             p_properties: *mut DisplayPlaneProperties2KHR<'_>,
         ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDisplayModeProperties2KHR.html>
     pub type PFN_vkGetDisplayModeProperties2KHR = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         display: DisplayKHR,
         p_property_count: *mut u32,
         p_properties: *mut DisplayModeProperties2KHR<'_>,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDisplayPlaneCapabilities2KHR.html>
     pub type PFN_vkGetDisplayPlaneCapabilities2KHR = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         p_display_plane_info: *const DisplayPlaneInfo2KHR<'_>,
@@ -211,6 +220,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDisplayProperties2KHR.html>
     pub unsafe fn get_physical_device_display_properties2_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
@@ -240,6 +250,7 @@ impl InstanceFn {
             Ok(result)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDisplayPlaneProperties2KHR.html>
     pub unsafe fn get_physical_device_display_plane_properties2_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
@@ -269,6 +280,7 @@ impl InstanceFn {
             Ok(result)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDisplayModeProperties2KHR.html>
     pub unsafe fn get_display_mode_properties2_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
@@ -300,6 +312,7 @@ impl InstanceFn {
             Ok(result)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDisplayPlaneCapabilities2KHR.html>
     pub unsafe fn get_display_plane_capabilities2_khr(
         &self,
         physical_device: PhysicalDevice,

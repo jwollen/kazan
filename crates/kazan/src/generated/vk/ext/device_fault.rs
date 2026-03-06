@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFaultFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceFaultFeaturesEXT<'a> {
@@ -43,6 +44,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceFaultAddressInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct DeviceFaultAddressInfoEXT {
@@ -64,6 +66,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceFaultVendorInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DeviceFaultVendorInfoEXT {
@@ -90,6 +93,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceFaultCountsEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DeviceFaultCountsEXT<'a> {
@@ -129,6 +133,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceFaultInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DeviceFaultInfoEXT<'a> {
@@ -170,6 +175,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceFaultVendorBinaryHeaderVersionOneEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DeviceFaultVendorBinaryHeaderVersionOneEXT {
@@ -254,6 +260,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceFaultAddressTypeEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DeviceFaultAddressTypeEXT(i32);
@@ -285,6 +292,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceFaultVendorBinaryHeaderVersionEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DeviceFaultVendorBinaryHeaderVersionEXT(i32);
@@ -304,6 +312,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceFaultInfoEXT.html>
     pub type PFN_vkGetDeviceFaultInfoEXT = unsafe extern "system" fn(
         device: Device,
         p_fault_counts: *mut DeviceFaultCountsEXT<'_>,
@@ -327,6 +336,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceFaultInfoEXT.html>
     pub unsafe fn get_device_fault_info_ext(
         &self,
         device: Device,

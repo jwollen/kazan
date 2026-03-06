@@ -8,9 +8,13 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceImagelessFramebufferFeaturesKHR.html>
     pub type PhysicalDeviceImagelessFramebufferFeaturesKHR<'a> =
         PhysicalDeviceImagelessFramebufferFeatures<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFramebufferAttachmentsCreateInfoKHR.html>
     pub type FramebufferAttachmentsCreateInfoKHR<'a> = FramebufferAttachmentsCreateInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFramebufferAttachmentImageInfoKHR.html>
     pub type FramebufferAttachmentImageInfoKHR<'a> = FramebufferAttachmentImageInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassAttachmentBeginInfoKHR.html>
     pub type RenderPassAttachmentBeginInfoKHR<'a> = RenderPassAttachmentBeginInfo<'a>;
 }

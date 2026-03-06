@@ -11,9 +11,11 @@ pub(super) mod defs {
     handle_nondispatchable!(
         PerformanceConfigurationINTEL,
         PERFORMANCE_CONFIGURATION_INTEL,
-        doc = ""
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceConfigurationINTEL.html>"
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPoolCreateInfoINTEL.html>
     pub type QueryPoolCreateInfoINTEL<'a> = QueryPoolPerformanceQueryCreateInfoINTEL<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceValueINTEL.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PerformanceValueINTEL<'a> {
@@ -40,6 +42,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkInitializePerformanceApiInfoINTEL.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct InitializePerformanceApiInfoINTEL<'a> {
@@ -67,6 +70,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPoolPerformanceQueryCreateInfoINTEL.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct QueryPoolPerformanceQueryCreateInfoINTEL<'a> {
@@ -99,6 +103,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceMarkerInfoINTEL.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PerformanceMarkerInfoINTEL<'a> {
@@ -126,6 +131,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceStreamMarkerInfoINTEL.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PerformanceStreamMarkerInfoINTEL<'a> {
@@ -153,6 +159,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceOverrideInfoINTEL.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PerformanceOverrideInfoINTEL<'a> {
@@ -192,6 +199,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceConfigurationAcquireInfoINTEL.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PerformanceConfigurationAcquireInfoINTEL<'a> {
@@ -220,6 +228,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceValueDataINTEL.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub union PerformanceValueDataINTEL<'a> {
@@ -235,6 +244,7 @@ pub(super) mod defs {
             unsafe { core::mem::zeroed() }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceConfigurationTypeINTEL.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PerformanceConfigurationTypeINTEL(i32);
@@ -256,6 +266,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPoolSamplingModeINTEL.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct QueryPoolSamplingModeINTEL(i32);
@@ -275,6 +286,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceOverrideTypeINTEL.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PerformanceOverrideTypeINTEL(i32);
@@ -296,6 +308,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceParameterTypeINTEL.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PerformanceParameterTypeINTEL(i32);
@@ -317,6 +330,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceValueTypeINTEL.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PerformanceValueTypeINTEL(i32);
@@ -344,40 +358,49 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkInitializePerformanceApiINTEL.html>
     pub type PFN_vkInitializePerformanceApiINTEL = unsafe extern "system" fn(
         device: Device,
         p_initialize_info: *const InitializePerformanceApiInfoINTEL<'_>,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUninitializePerformanceApiINTEL.html>
     pub type PFN_vkUninitializePerformanceApiINTEL = unsafe extern "system" fn(device: Device);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPerformanceMarkerINTEL.html>
     pub type PFN_vkCmdSetPerformanceMarkerINTEL = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_marker_info: *const PerformanceMarkerInfoINTEL<'_>,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPerformanceStreamMarkerINTEL.html>
     pub type PFN_vkCmdSetPerformanceStreamMarkerINTEL = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_marker_info: *const PerformanceStreamMarkerInfoINTEL<'_>,
     )
         -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPerformanceOverrideINTEL.html>
     pub type PFN_vkCmdSetPerformanceOverrideINTEL = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_override_info: *const PerformanceOverrideInfoINTEL<'_>,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquirePerformanceConfigurationINTEL.html>
     pub type PFN_vkAcquirePerformanceConfigurationINTEL = unsafe extern "system" fn(
         device: Device,
         p_acquire_info: *const PerformanceConfigurationAcquireInfoINTEL<'_>,
         p_configuration: *mut PerformanceConfigurationINTEL,
     )
         -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleasePerformanceConfigurationINTEL.html>
     pub type PFN_vkReleasePerformanceConfigurationINTEL = unsafe extern "system" fn(
         device: Device,
         configuration: PerformanceConfigurationINTEL,
     )
         -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueSetPerformanceConfigurationINTEL.html>
     pub type PFN_vkQueueSetPerformanceConfigurationINTEL = unsafe extern "system" fn(
         queue: Queue,
         configuration: PerformanceConfigurationINTEL,
     )
         -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPerformanceParameterINTEL.html>
     pub type PFN_vkGetPerformanceParameterINTEL = unsafe extern "system" fn(
         device: Device,
         parameter: PerformanceParameterTypeINTEL,
@@ -436,6 +459,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkInitializePerformanceApiINTEL.html>
     pub unsafe fn initialize_performance_api_intel(
         &self,
         device: Device,
@@ -450,9 +474,11 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUninitializePerformanceApiINTEL.html>
     pub unsafe fn uninitialize_performance_api_intel(&self, device: Device) {
         unsafe { (self.uninitialize_performance_api_intel)(device) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPerformanceMarkerINTEL.html>
     pub unsafe fn cmd_set_performance_marker_intel(
         &self,
         command_buffer: CommandBuffer,
@@ -467,6 +493,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPerformanceStreamMarkerINTEL.html>
     pub unsafe fn cmd_set_performance_stream_marker_intel(
         &self,
         command_buffer: CommandBuffer,
@@ -482,6 +509,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPerformanceOverrideINTEL.html>
     pub unsafe fn cmd_set_performance_override_intel(
         &self,
         command_buffer: CommandBuffer,
@@ -496,6 +524,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquirePerformanceConfigurationINTEL.html>
     pub unsafe fn acquire_performance_configuration_intel(
         &self,
         device: Device,
@@ -515,6 +544,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleasePerformanceConfigurationINTEL.html>
     pub unsafe fn release_performance_configuration_intel(
         &self,
         device: Device,
@@ -529,6 +559,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueSetPerformanceConfigurationINTEL.html>
     pub unsafe fn queue_set_performance_configuration_intel(
         &self,
         queue: Queue,
@@ -543,6 +574,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPerformanceParameterINTEL.html>
     pub unsafe fn get_performance_parameter_intel(
         &self,
         device: Device,

@@ -8,11 +8,15 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMemoryDecompressionFeaturesNV.html>
     pub type PhysicalDeviceMemoryDecompressionFeaturesNV<'a> =
         PhysicalDeviceMemoryDecompressionFeaturesEXT<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMemoryDecompressionPropertiesNV.html>
     pub type PhysicalDeviceMemoryDecompressionPropertiesNV<'a> =
         PhysicalDeviceMemoryDecompressionPropertiesEXT<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryDecompressionMethodFlagsNV.html>
     pub type MemoryDecompressionMethodFlagsNV = MemoryDecompressionMethodFlagsEXT;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDecompressMemoryRegionNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct DecompressMemoryRegionNV {
@@ -47,11 +51,13 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDecompressMemoryNV.html>
     pub type PFN_vkCmdDecompressMemoryNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         decompress_region_count: u32,
         p_decompress_memory_regions: *const DecompressMemoryRegionNV,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDecompressMemoryIndirectCountNV.html>
     pub type PFN_vkCmdDecompressMemoryIndirectCountNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         indirect_commands_address: DeviceAddress,
@@ -80,6 +86,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDecompressMemoryNV.html>
     pub unsafe fn cmd_decompress_memory_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -93,6 +100,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDecompressMemoryIndirectCountNV.html>
     pub unsafe fn cmd_decompress_memory_indirect_count_nv(
         &self,
         command_buffer: CommandBuffer,

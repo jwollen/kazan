@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR.html>
     pub type PhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR<'a> =
         PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures<'a>;
 }

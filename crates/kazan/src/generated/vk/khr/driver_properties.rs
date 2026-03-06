@@ -8,7 +8,10 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDriverIdKHR.html>
     pub type DriverIdKHR = DriverId;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkConformanceVersionKHR.html>
     pub type ConformanceVersionKHR = ConformanceVersion;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDriverPropertiesKHR.html>
     pub type PhysicalDeviceDriverPropertiesKHR<'a> = PhysicalDeviceDriverProperties<'a>;
 }

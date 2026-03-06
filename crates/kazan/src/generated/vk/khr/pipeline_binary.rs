@@ -9,7 +9,13 @@ pub(super) mod defs {
     use core::fmt;
     use core::marker::PhantomData;
     pub const MAX_PIPELINE_BINARY_KEY_SIZE_KHR: u32 = 32;
-    handle_nondispatchable!(PipelineBinaryKHR, PIPELINE_BINARY_KHR, doc = "");
+    handle_nondispatchable!(
+        PipelineBinaryKHR,
+        PIPELINE_BINARY_KHR,
+        doc =
+            "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBinaryKHR.html>"
+    );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBinaryCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineBinaryCreateInfoKHR<'a> {
@@ -55,6 +61,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBinaryHandlesInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineBinaryHandlesInfoKHR<'a> {
@@ -85,6 +92,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBinaryDataKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineBinaryDataKHR<'a> {
@@ -108,6 +116,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBinaryKeysAndDataKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineBinaryKeysAndDataKHR<'a> {
@@ -144,6 +153,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBinaryKeyKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineBinaryKeyKHR<'a> {
@@ -177,6 +187,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBinaryInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineBinaryInfoKHR<'a> {
@@ -210,6 +221,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkReleaseCapturedPipelineDataInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ReleaseCapturedPipelineDataInfoKHR<'a> {
@@ -238,6 +250,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBinaryDataInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineBinaryDataInfoKHR<'a> {
@@ -265,6 +278,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineCreateInfoKHR<'a> {
@@ -285,6 +299,7 @@ pub(super) mod defs {
         }
     }
     impl<'a> PipelineCreateInfoKHR<'a> {}
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePipelineBinaryFeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDevicePipelineBinaryFeaturesKHR<'a> {
@@ -318,6 +333,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDevicePipelineBinaryInternalCacheControlKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DevicePipelineBinaryInternalCacheControlKHR<'a> {
@@ -347,6 +363,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePipelineBinaryPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDevicePipelineBinaryPropertiesKHR<'a> {
@@ -421,22 +438,26 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreatePipelineBinariesKHR.html>
     pub type PFN_vkCreatePipelineBinariesKHR = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const PipelineBinaryCreateInfoKHR<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_binaries: *mut PipelineBinaryHandlesInfoKHR<'_>,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyPipelineBinaryKHR.html>
     pub type PFN_vkDestroyPipelineBinaryKHR = unsafe extern "system" fn(
         device: Device,
         pipeline_binary: PipelineBinaryKHR,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineKeyKHR.html>
     pub type PFN_vkGetPipelineKeyKHR = unsafe extern "system" fn(
         device: Device,
         p_pipeline_create_info: *const PipelineCreateInfoKHR<'_>,
         p_pipeline_key: *mut PipelineBinaryKeyKHR<'_>,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineBinaryDataKHR.html>
     pub type PFN_vkGetPipelineBinaryDataKHR = unsafe extern "system" fn(
         device: Device,
         p_info: *const PipelineBinaryDataInfoKHR<'_>,
@@ -444,6 +465,7 @@ pub(super) mod defs {
         p_pipeline_binary_data_size: *mut usize,
         p_pipeline_binary_data: *mut c_void,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleaseCapturedPipelineDataKHR.html>
     pub type PFN_vkReleaseCapturedPipelineDataKHR = unsafe extern "system" fn(
         device: Device,
         p_info: *const ReleaseCapturedPipelineDataInfoKHR<'_>,
@@ -483,6 +505,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreatePipelineBinariesKHR.html>
     pub unsafe fn create_pipeline_binaries_khr(
         &self,
         device: Device,
@@ -504,6 +527,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyPipelineBinaryKHR.html>
     pub unsafe fn destroy_pipeline_binary_khr(
         &self,
         device: Device,
@@ -514,6 +538,7 @@ impl DeviceFn {
             (self.destroy_pipeline_binary_khr)(device, pipeline_binary, allocator.to_raw_ptr())
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineKeyKHR.html>
     pub unsafe fn get_pipeline_key_khr(
         &self,
         device: Device,
@@ -533,6 +558,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineBinaryDataKHR.html>
     pub unsafe fn get_pipeline_binary_data_khr<'a>(
         &self,
         device: Device,
@@ -571,6 +597,7 @@ impl DeviceFn {
             Ok(result)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleaseCapturedPipelineDataKHR.html>
     pub unsafe fn release_captured_pipeline_data_khr(
         &self,
         device: Device,

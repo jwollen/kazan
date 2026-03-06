@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTilePropertiesFeaturesQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceTilePropertiesFeaturesQCOM<'a> {
@@ -41,6 +42,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTilePropertiesQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct TilePropertiesQCOM<'a> {
@@ -80,12 +82,14 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetFramebufferTilePropertiesQCOM.html>
     pub type PFN_vkGetFramebufferTilePropertiesQCOM = unsafe extern "system" fn(
         device: Device,
         framebuffer: Framebuffer,
         p_properties_count: *mut u32,
         p_properties: *mut TilePropertiesQCOM<'_>,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDynamicRenderingTilePropertiesQCOM.html>
     pub type PFN_vkGetDynamicRenderingTilePropertiesQCOM = unsafe extern "system" fn(
         device: Device,
         p_rendering_info: *const RenderingInfo<'_>,
@@ -115,6 +119,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetFramebufferTilePropertiesQCOM.html>
     pub unsafe fn get_framebuffer_tile_properties_qcom<'a>(
         &self,
         device: Device,
@@ -146,6 +151,7 @@ impl DeviceFn {
             Ok(result)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDynamicRenderingTilePropertiesQCOM.html>
     pub unsafe fn get_dynamic_rendering_tile_properties_qcom(
         &self,
         device: Device,

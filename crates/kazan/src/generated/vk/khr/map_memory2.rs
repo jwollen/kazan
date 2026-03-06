@@ -8,8 +8,11 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryMapInfoKHR.html>
     pub type MemoryMapInfoKHR<'a> = MemoryMapInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryUnmapInfoKHR.html>
     pub type MemoryUnmapInfoKHR<'a> = MemoryUnmapInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryUnmapFlagsKHR.html>
     pub type MemoryUnmapFlagsKHR = MemoryUnmapFlags;
     pub type PFN_vkMapMemory2KHR = PFN_vkMapMemory2;
     pub type PFN_vkUnmapMemory2KHR = PFN_vkUnmapMemory2;
@@ -33,6 +36,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkMapMemory2KHR.html>
     pub unsafe fn map_memory2_khr(
         &self,
         device: Device,
@@ -48,6 +52,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUnmapMemory2KHR.html>
     pub unsafe fn unmap_memory2_khr(
         &self,
         device: Device,

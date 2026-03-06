@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportMemoryMetalHandleInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImportMemoryMetalHandleInfoEXT<'a> {
@@ -42,6 +43,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryMetalHandlePropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct MemoryMetalHandlePropertiesEXT<'a> {
@@ -69,6 +71,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryGetMetalHandleInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct MemoryGetMetalHandleInfoEXT<'a> {
@@ -102,11 +105,13 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryMetalHandleEXT.html>
     pub type PFN_vkGetMemoryMetalHandleEXT = unsafe extern "system" fn(
         device: Device,
         p_get_metal_handle_info: *const MemoryGetMetalHandleInfoEXT<'_>,
         p_handle: *mut *mut c_void,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryMetalHandlePropertiesEXT.html>
     pub type PFN_vkGetMemoryMetalHandlePropertiesEXT = unsafe extern "system" fn(
         device: Device,
         handle_type: ExternalMemoryHandleTypeFlagBits,
@@ -135,6 +140,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryMetalHandleEXT.html>
     pub unsafe fn get_memory_metal_handle_ext(
         &self,
         device: Device,
@@ -154,6 +160,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryMetalHandlePropertiesEXT.html>
     pub unsafe fn get_memory_metal_handle_properties_ext(
         &self,
         device: Device,

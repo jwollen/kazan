@@ -8,10 +8,15 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorUpdateTemplateTypeKHR.html>
     pub type DescriptorUpdateTemplateTypeKHR = DescriptorUpdateTemplateType;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorUpdateTemplateKHR.html>
     pub type DescriptorUpdateTemplateKHR = DescriptorUpdateTemplate;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorUpdateTemplateEntryKHR.html>
     pub type DescriptorUpdateTemplateEntryKHR = DescriptorUpdateTemplateEntry;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorUpdateTemplateCreateInfoKHR.html>
     pub type DescriptorUpdateTemplateCreateInfoKHR<'a> = DescriptorUpdateTemplateCreateInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorUpdateTemplateCreateFlagsKHR.html>
     pub type DescriptorUpdateTemplateCreateFlagsKHR = DescriptorUpdateTemplateCreateFlags;
     pub type PFN_vkCreateDescriptorUpdateTemplateKHR = PFN_vkCreateDescriptorUpdateTemplate;
     pub type PFN_vkDestroyDescriptorUpdateTemplateKHR = PFN_vkDestroyDescriptorUpdateTemplate;
@@ -46,6 +51,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDescriptorUpdateTemplateKHR.html>
     pub unsafe fn create_descriptor_update_template_khr(
         &self,
         device: Device,
@@ -67,6 +73,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDescriptorUpdateTemplateKHR.html>
     pub unsafe fn destroy_descriptor_update_template_khr(
         &self,
         device: Device,
@@ -81,6 +88,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUpdateDescriptorSetWithTemplateKHR.html>
     pub unsafe fn update_descriptor_set_with_template_khr(
         &self,
         device: Device,
@@ -97,6 +105,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushDescriptorSetWithTemplateKHR.html>
     pub unsafe fn cmd_push_descriptor_set_with_template_khr(
         &self,
         command_buffer: CommandBuffer,

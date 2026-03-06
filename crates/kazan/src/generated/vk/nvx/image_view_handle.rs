@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageViewHandleInfoNVX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImageViewHandleInfoNVX<'a> {
@@ -47,6 +48,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageViewAddressPropertiesNVX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ImageViewAddressPropertiesNVX<'a> {
@@ -80,15 +82,19 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageViewHandleNVX.html>
     pub type PFN_vkGetImageViewHandleNVX =
         unsafe extern "system" fn(device: Device, p_info: *const ImageViewHandleInfoNVX<'_>) -> u32;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageViewHandle64NVX.html>
     pub type PFN_vkGetImageViewHandle64NVX =
         unsafe extern "system" fn(device: Device, p_info: *const ImageViewHandleInfoNVX<'_>) -> u64;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageViewAddressNVX.html>
     pub type PFN_vkGetImageViewAddressNVX = unsafe extern "system" fn(
         device: Device,
         image_view: ImageView,
         p_properties: *mut ImageViewAddressPropertiesNVX<'_>,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceCombinedImageSamplerIndexNVX.html>
     pub type PFN_vkGetDeviceCombinedImageSamplerIndexNVX =
         unsafe extern "system" fn(device: Device, image_view_index: u64, sampler_index: u64) -> u64;
 }
@@ -122,6 +128,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageViewHandleNVX.html>
     pub unsafe fn get_image_view_handle_nvx(
         &self,
         device: Device,
@@ -129,6 +136,7 @@ impl DeviceFn {
     ) -> u32 {
         unsafe { (self.get_image_view_handle_nvx)(device, info) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageViewHandle64NVX.html>
     pub unsafe fn get_image_view_handle64_nvx(
         &self,
         device: Device,
@@ -136,6 +144,7 @@ impl DeviceFn {
     ) -> u64 {
         unsafe { (self.get_image_view_handle64_nvx)(device, info) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageViewAddressNVX.html>
     pub unsafe fn get_image_view_address_nvx(
         &self,
         device: Device,
@@ -151,6 +160,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceCombinedImageSamplerIndexNVX.html>
     pub unsafe fn get_device_combined_image_sampler_index_nvx(
         &self,
         device: Device,

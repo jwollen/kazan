@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayNativeHdrSurfaceCapabilitiesAMD.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DisplayNativeHdrSurfaceCapabilitiesAMD<'a> {
@@ -40,6 +41,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSwapchainDisplayNativeHdrCreateInfoAMD.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SwapchainDisplayNativeHdrCreateInfoAMD<'a> {
@@ -69,6 +71,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetLocalDimmingAMD.html>
     pub type PFN_vkSetLocalDimmingAMD = unsafe extern "system" fn(
         device: Device,
         swap_chain: SwapchainKHR,
@@ -92,6 +95,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetLocalDimmingAMD.html>
     pub unsafe fn set_local_dimming_amd(
         &self,
         device: Device,

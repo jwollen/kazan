@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkComputePipelineIndirectBufferInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct ComputePipelineIndirectBufferInfoNV<'a> {
@@ -52,6 +53,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV<'a> {
@@ -107,6 +109,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineIndirectDeviceAddressInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PipelineIndirectDeviceAddressInfoNV<'a> {
@@ -141,6 +144,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindPipelineIndirectCommandNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct BindPipelineIndirectCommandNV {
@@ -152,16 +156,19 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdUpdatePipelineIndirectBufferNV.html>
     pub type PFN_vkCmdUpdatePipelineIndirectBufferNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         pipeline_bind_point: PipelineBindPoint,
         pipeline: Pipeline,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineIndirectMemoryRequirementsNV.html>
     pub type PFN_vkGetPipelineIndirectMemoryRequirementsNV = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const ComputePipelineCreateInfo<'_>,
         p_memory_requirements: *mut MemoryRequirements2<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineIndirectDeviceAddressNV.html>
     pub type PFN_vkGetPipelineIndirectDeviceAddressNV = unsafe extern "system" fn(
         device: Device,
         p_info: *const PipelineIndirectDeviceAddressInfoNV<'_>,
@@ -194,6 +201,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineIndirectMemoryRequirementsNV.html>
     pub unsafe fn get_pipeline_indirect_memory_requirements_nv(
         &self,
         device: Device,
@@ -208,6 +216,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdUpdatePipelineIndirectBufferNV.html>
     pub unsafe fn cmd_update_pipeline_indirect_buffer_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -222,6 +231,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineIndirectDeviceAddressNV.html>
     pub unsafe fn get_pipeline_indirect_device_address_nv(
         &self,
         device: Device,

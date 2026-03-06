@@ -8,7 +8,12 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
-    handle_nondispatchable!(DebugUtilsMessengerEXT, DEBUG_UTILS_MESSENGER_EXT, doc = "");
+    handle_nondispatchable!(
+        DebugUtilsMessengerEXT,
+        DEBUG_UTILS_MESSENGER_EXT,
+        doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugUtilsMessengerEXT.html>"
+    );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugUtilsObjectNameInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DebugUtilsObjectNameInfoEXT<'a> {
@@ -51,6 +56,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugUtilsObjectTagInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DebugUtilsObjectTagInfoEXT<'a> {
@@ -99,6 +105,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugUtilsLabelEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DebugUtilsLabelEXT<'a> {
@@ -132,6 +139,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugUtilsMessengerCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DebugUtilsMessengerCreateInfoEXT<'a> {
@@ -190,6 +198,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugUtilsMessengerCallbackDataEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct DebugUtilsMessengerCallbackDataEXT<'a> {
@@ -263,6 +272,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugUtilsMessageSeverityFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DebugUtilsMessageSeverityFlagsEXT(Flags);
@@ -290,6 +300,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugUtilsMessageSeverityFlagBitsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DebugUtilsMessageSeverityFlagBitsEXT(u32);
@@ -299,6 +310,7 @@ pub(super) mod defs {
         pub const WARNING_EXT: Self = Self(1 << 8);
         pub const ERROR_EXT: Self = Self(1 << 12);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugUtilsMessageTypeFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DebugUtilsMessageTypeFlagsEXT(Flags);
@@ -331,6 +343,7 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugUtilsMessageTypeFlagBitsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DebugUtilsMessageTypeFlagBitsEXT(u32);
@@ -341,6 +354,7 @@ pub(super) mod defs {
         // VK_EXT_device_address_binding_report
         pub const DEVICE_ADDRESS_BINDING_EXT: Self = Self(1 << 3);
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugUtilsMessengerCreateFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DebugUtilsMessengerCreateFlagsEXT(Flags);
@@ -350,6 +364,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugUtilsMessengerCallbackDataFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DebugUtilsMessengerCallbackDataFlagsEXT(Flags);
@@ -359,46 +374,58 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/PFN_vkDebugUtilsMessengerCallbackEXT.html>
     pub type PFN_vkDebugUtilsMessengerCallbackEXT = unsafe extern "system" fn(
         message_severity: DebugUtilsMessageSeverityFlagBitsEXT,
         message_types: DebugUtilsMessageTypeFlagsEXT,
         p_callback_data: *const DebugUtilsMessengerCallbackDataEXT<'_>,
         p_user_data: *mut c_void,
     ) -> Bool32;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetDebugUtilsObjectNameEXT.html>
     pub type PFN_vkSetDebugUtilsObjectNameEXT = unsafe extern "system" fn(
         device: Device,
         p_name_info: *const DebugUtilsObjectNameInfoEXT<'_>,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetDebugUtilsObjectTagEXT.html>
     pub type PFN_vkSetDebugUtilsObjectTagEXT = unsafe extern "system" fn(
         device: Device,
         p_tag_info: *const DebugUtilsObjectTagInfoEXT<'_>,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueBeginDebugUtilsLabelEXT.html>
     pub type PFN_vkQueueBeginDebugUtilsLabelEXT =
         unsafe extern "system" fn(queue: Queue, p_label_info: *const DebugUtilsLabelEXT<'_>);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueEndDebugUtilsLabelEXT.html>
     pub type PFN_vkQueueEndDebugUtilsLabelEXT = unsafe extern "system" fn(queue: Queue);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueInsertDebugUtilsLabelEXT.html>
     pub type PFN_vkQueueInsertDebugUtilsLabelEXT =
         unsafe extern "system" fn(queue: Queue, p_label_info: *const DebugUtilsLabelEXT<'_>);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginDebugUtilsLabelEXT.html>
     pub type PFN_vkCmdBeginDebugUtilsLabelEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_label_info: *const DebugUtilsLabelEXT<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndDebugUtilsLabelEXT.html>
     pub type PFN_vkCmdEndDebugUtilsLabelEXT =
         unsafe extern "system" fn(command_buffer: CommandBuffer);
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdInsertDebugUtilsLabelEXT.html>
     pub type PFN_vkCmdInsertDebugUtilsLabelEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_label_info: *const DebugUtilsLabelEXT<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDebugUtilsMessengerEXT.html>
     pub type PFN_vkCreateDebugUtilsMessengerEXT = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const DebugUtilsMessengerCreateInfoEXT<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_messenger: *mut DebugUtilsMessengerEXT,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDebugUtilsMessengerEXT.html>
     pub type PFN_vkDestroyDebugUtilsMessengerEXT = unsafe extern "system" fn(
         instance: Instance,
         messenger: DebugUtilsMessengerEXT,
         p_allocator: *const AllocationCallbacks<'_>,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSubmitDebugUtilsMessageEXT.html>
     pub type PFN_vkSubmitDebugUtilsMessageEXT = unsafe extern "system" fn(
         instance: Instance,
         message_severity: DebugUtilsMessageSeverityFlagBitsEXT,
@@ -431,6 +458,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDebugUtilsMessengerEXT.html>
     pub unsafe fn create_debug_utils_messenger_ext(
         &self,
         instance: Instance,
@@ -452,6 +480,7 @@ impl InstanceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDebugUtilsMessengerEXT.html>
     pub unsafe fn destroy_debug_utils_messenger_ext(
         &self,
         instance: Instance,
@@ -462,6 +491,7 @@ impl InstanceFn {
             (self.destroy_debug_utils_messenger_ext)(instance, messenger, allocator.to_raw_ptr())
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSubmitDebugUtilsMessageEXT.html>
     pub unsafe fn submit_debug_utils_message_ext(
         &self,
         instance: Instance,
@@ -524,6 +554,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetDebugUtilsObjectNameEXT.html>
     pub unsafe fn set_debug_utils_object_name_ext(
         &self,
         device: Device,
@@ -538,6 +569,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetDebugUtilsObjectTagEXT.html>
     pub unsafe fn set_debug_utils_object_tag_ext(
         &self,
         device: Device,
@@ -552,6 +584,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueBeginDebugUtilsLabelEXT.html>
     pub unsafe fn queue_begin_debug_utils_label_ext(
         &self,
         queue: Queue,
@@ -559,9 +592,11 @@ impl DeviceFn {
     ) {
         unsafe { (self.queue_begin_debug_utils_label_ext)(queue, label_info) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueEndDebugUtilsLabelEXT.html>
     pub unsafe fn queue_end_debug_utils_label_ext(&self, queue: Queue) {
         unsafe { (self.queue_end_debug_utils_label_ext)(queue) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueInsertDebugUtilsLabelEXT.html>
     pub unsafe fn queue_insert_debug_utils_label_ext(
         &self,
         queue: Queue,
@@ -569,6 +604,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.queue_insert_debug_utils_label_ext)(queue, label_info) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginDebugUtilsLabelEXT.html>
     pub unsafe fn cmd_begin_debug_utils_label_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -576,9 +612,11 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_begin_debug_utils_label_ext)(command_buffer, label_info) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndDebugUtilsLabelEXT.html>
     pub unsafe fn cmd_end_debug_utils_label_ext(&self, command_buffer: CommandBuffer) {
         unsafe { (self.cmd_end_debug_utils_label_ext)(command_buffer) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdInsertDebugUtilsLabelEXT.html>
     pub unsafe fn cmd_insert_debug_utils_label_ext(
         &self,
         command_buffer: CommandBuffer,

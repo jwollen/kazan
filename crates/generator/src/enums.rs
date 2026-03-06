@@ -166,6 +166,7 @@ pub fn write_enum(file: &mut impl Write, analysis: &Analysis, ty: &xml::Enum) {
         normalize_ty_name(ty.name)
     };
 
+    crate::write_doc_link(file, ty.name);
     writeln!(
         file,
         "#[repr(transparent)]
@@ -253,6 +254,7 @@ pub fn write_bitmask(
     let name = normalize_ty_name(ty.name);
     let base_type = ctype_to_rust_type_str(ty.ty);
 
+    crate::write_doc_link(file, ty.name);
     writeln!(
         file,
         "#[repr(transparent)]
@@ -436,6 +438,7 @@ pub fn write_bitmask(
     }
 
     // === FlagBits ===
+    crate::write_doc_link(file, bitmask.name);
     writeln!(
         file,
         "#[repr(transparent)]

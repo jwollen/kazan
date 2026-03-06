@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeAV1ExtensionHeader.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeAV1ExtensionHeader {
@@ -24,6 +25,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeAV1DecoderModelInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeAV1DecoderModelInfo {
@@ -61,6 +63,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeAV1OperatingPointInfoFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeAV1OperatingPointInfoFlags {
@@ -94,6 +97,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeAV1OperatingPointInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeAV1OperatingPointInfo {
@@ -135,6 +139,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeAV1PictureInfoFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeAV1PictureInfoFlags {
@@ -297,6 +302,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeAV1PictureInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoEncodeAV1PictureInfo<'a> {
@@ -491,6 +497,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeAV1ReferenceInfoFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeAV1ReferenceInfoFlags {
@@ -512,6 +519,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeAV1ReferenceInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct StdVideoEncodeAV1ReferenceInfo<'a> {

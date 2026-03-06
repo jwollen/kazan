@@ -8,7 +8,10 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCreationFeedbackEXT.html>
     pub type PipelineCreationFeedbackEXT = PipelineCreationFeedback;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCreationFeedbackCreateInfoEXT.html>
     pub type PipelineCreationFeedbackCreateInfoEXT<'a> = PipelineCreationFeedbackCreateInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCreationFeedbackFlagsEXT.html>
     pub type PipelineCreationFeedbackFlagsEXT = PipelineCreationFeedbackFlags;
 }

@@ -8,10 +8,14 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyMemoryIndirectCommandNV.html>
     pub type CopyMemoryIndirectCommandNV = CopyMemoryIndirectCommandKHR;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyMemoryToImageIndirectCommandNV.html>
     pub type CopyMemoryToImageIndirectCommandNV = CopyMemoryToImageIndirectCommandKHR;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCopyMemoryIndirectPropertiesNV.html>
     pub type PhysicalDeviceCopyMemoryIndirectPropertiesNV<'a> =
         PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCopyMemoryIndirectFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceCopyMemoryIndirectFeaturesNV<'a> {
@@ -45,12 +49,14 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryIndirectNV.html>
     pub type PFN_vkCmdCopyMemoryIndirectNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         copy_buffer_address: DeviceAddress,
         copy_count: u32,
         stride: u32,
     );
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryToImageIndirectNV.html>
     pub type PFN_vkCmdCopyMemoryToImageIndirectNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         copy_buffer_address: DeviceAddress,
@@ -82,6 +88,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryIndirectNV.html>
     pub unsafe fn cmd_copy_memory_indirect_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -98,6 +105,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryToImageIndirectNV.html>
     pub unsafe fn cmd_copy_memory_to_image_indirect_nv(
         &self,
         command_buffer: CommandBuffer,

@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkXcbSurfaceCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct XcbSurfaceCreateInfoKHR<'a> {
@@ -47,6 +48,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkXcbSurfaceCreateFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct XcbSurfaceCreateFlagsKHR(Flags);
@@ -56,12 +58,14 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateXcbSurfaceKHR.html>
     pub type PFN_vkCreateXcbSurfaceKHR = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const XcbSurfaceCreateInfoKHR<'_>,
         p_allocator: *const AllocationCallbacks<'_>,
         p_surface: *mut SurfaceKHR,
     ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceXcbPresentationSupportKHR.html>
     pub type PFN_vkGetPhysicalDeviceXcbPresentationSupportKHR = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         queue_family_index: u32,
@@ -93,6 +97,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateXcbSurfaceKHR.html>
     pub unsafe fn create_xcb_surface_khr(
         &self,
         instance: Instance,
@@ -114,6 +119,7 @@ impl InstanceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceXcbPresentationSupportKHR.html>
     pub unsafe fn get_physical_device_xcb_presentation_support_khr(
         &self,
         physical_device: PhysicalDevice,

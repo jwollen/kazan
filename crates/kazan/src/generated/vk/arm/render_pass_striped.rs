@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRenderPassStripedFeaturesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceRenderPassStripedFeaturesARM<'a> {
@@ -41,6 +42,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRenderPassStripedPropertiesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceRenderPassStripedPropertiesARM<'a> {
@@ -82,6 +84,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassStripeInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct RenderPassStripeInfoARM<'a> {
@@ -109,6 +112,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassStripeBeginInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct RenderPassStripeBeginInfoARM<'a> {
@@ -141,6 +145,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassStripeSubmitInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct RenderPassStripeSubmitInfoARM<'a> {

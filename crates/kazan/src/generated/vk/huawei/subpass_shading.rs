@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassShadingPipelineCreateInfoHUAWEI.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SubpassShadingPipelineCreateInfoHUAWEI<'a> {
@@ -46,6 +47,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSubpassShadingPropertiesHUAWEI.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceSubpassShadingPropertiesHUAWEI<'a> {
@@ -82,6 +84,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSubpassShadingFeaturesHUAWEI.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceSubpassShadingFeaturesHUAWEI<'a> {
@@ -115,12 +118,14 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI.html>
     pub type PFN_vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI =
         unsafe extern "system" fn(
             device: Device,
             renderpass: RenderPass,
             p_max_workgroup_size: *mut Extent2D,
         ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSubpassShadingHUAWEI.html>
     pub type PFN_vkCmdSubpassShadingHUAWEI =
         unsafe extern "system" fn(command_buffer: CommandBuffer);
 }
@@ -147,6 +152,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI.html>
     pub unsafe fn get_device_subpass_shading_max_workgroup_size_huawei(
         &self,
         device: Device,
@@ -166,6 +172,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSubpassShadingHUAWEI.html>
     pub unsafe fn cmd_subpass_shading_huawei(&self, command_buffer: CommandBuffer) {
         unsafe { (self.cmd_subpass_shading_huawei)(command_buffer) }
     }

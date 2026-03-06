@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceFullScreenExclusiveInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SurfaceFullScreenExclusiveInfoEXT<'a> {
@@ -43,6 +44,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceFullScreenExclusiveWin32InfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SurfaceFullScreenExclusiveWin32InfoEXT<'a> {
@@ -76,6 +78,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceCapabilitiesFullScreenExclusiveEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SurfaceCapabilitiesFullScreenExclusiveEXT<'a> {
@@ -111,6 +114,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFullScreenExclusiveEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct FullScreenExclusiveEXT(i32);
@@ -136,6 +140,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfacePresentModes2EXT.html>
     pub type PFN_vkGetPhysicalDeviceSurfacePresentModes2EXT =
         unsafe extern "system" fn(
             physical_device: PhysicalDevice,
@@ -143,14 +148,17 @@ pub(super) mod defs {
             p_present_mode_count: *mut u32,
             p_present_modes: *mut PresentModeKHR,
         ) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceGroupSurfacePresentModes2EXT.html>
     pub type PFN_vkGetDeviceGroupSurfacePresentModes2EXT = unsafe extern "system" fn(
         device: Device,
         p_surface_info: *const PhysicalDeviceSurfaceInfo2KHR<'_>,
         p_modes: *mut DeviceGroupPresentModeFlagsKHR,
     )
         -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireFullScreenExclusiveModeEXT.html>
     pub type PFN_vkAcquireFullScreenExclusiveModeEXT =
         unsafe extern "system" fn(device: Device, swapchain: SwapchainKHR) -> vk::Result;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleaseFullScreenExclusiveModeEXT.html>
     pub type PFN_vkReleaseFullScreenExclusiveModeEXT =
         unsafe extern "system" fn(device: Device, swapchain: SwapchainKHR) -> vk::Result;
 }
@@ -172,6 +180,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfacePresentModes2EXT.html>
     pub unsafe fn get_physical_device_surface_present_modes2_ext<'a>(
         &self,
         physical_device: PhysicalDevice,
@@ -230,6 +239,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireFullScreenExclusiveModeEXT.html>
     pub unsafe fn acquire_full_screen_exclusive_mode_ext(
         &self,
         device: Device,
@@ -244,6 +254,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleaseFullScreenExclusiveModeEXT.html>
     pub unsafe fn release_full_screen_exclusive_mode_ext(
         &self,
         device: Device,
@@ -258,6 +269,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceGroupSurfacePresentModes2EXT.html>
     pub unsafe fn get_device_group_surface_present_modes2_ext(
         &self,
         device: Device,

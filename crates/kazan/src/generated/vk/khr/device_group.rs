@@ -8,14 +8,23 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryAllocateFlagsInfoKHR.html>
     pub type MemoryAllocateFlagsInfoKHR<'a> = MemoryAllocateFlagsInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindBufferMemoryDeviceGroupInfoKHR.html>
     pub type BindBufferMemoryDeviceGroupInfoKHR<'a> = BindBufferMemoryDeviceGroupInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindImageMemoryDeviceGroupInfoKHR.html>
     pub type BindImageMemoryDeviceGroupInfoKHR<'a> = BindImageMemoryDeviceGroupInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceGroupRenderPassBeginInfoKHR.html>
     pub type DeviceGroupRenderPassBeginInfoKHR<'a> = DeviceGroupRenderPassBeginInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceGroupCommandBufferBeginInfoKHR.html>
     pub type DeviceGroupCommandBufferBeginInfoKHR<'a> = DeviceGroupCommandBufferBeginInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceGroupSubmitInfoKHR.html>
     pub type DeviceGroupSubmitInfoKHR<'a> = DeviceGroupSubmitInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceGroupBindSparseInfoKHR.html>
     pub type DeviceGroupBindSparseInfoKHR<'a> = DeviceGroupBindSparseInfo<'a>;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPeerMemoryFeatureFlagsKHR.html>
     pub type PeerMemoryFeatureFlagsKHR = PeerMemoryFeatureFlags;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryAllocateFlagsKHR.html>
     pub type MemoryAllocateFlagsKHR = MemoryAllocateFlags;
     pub type PFN_vkGetDeviceGroupPeerMemoryFeaturesKHR = PFN_vkGetDeviceGroupPeerMemoryFeatures;
     pub type PFN_vkCmdSetDeviceMaskKHR = PFN_vkCmdSetDeviceMask;
@@ -38,6 +47,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDevicePresentRectanglesKHR.html>
     pub unsafe fn get_physical_device_present_rectangles_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -105,6 +115,7 @@ impl DeviceFn {
     }
 }
 impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceGroupPeerMemoryFeaturesKHR.html>
     pub unsafe fn get_device_group_peer_memory_features_khr(
         &self,
         device: Device,
@@ -124,9 +135,11 @@ impl DeviceFn {
             peer_memory_features.assume_init()
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDeviceMaskKHR.html>
     pub unsafe fn cmd_set_device_mask_khr(&self, command_buffer: CommandBuffer, device_mask: u32) {
         unsafe { (self.cmd_set_device_mask_khr)(command_buffer, device_mask) }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatchBaseKHR.html>
     pub unsafe fn cmd_dispatch_base_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -149,6 +162,7 @@ impl DeviceFn {
             )
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceGroupPresentCapabilitiesKHR.html>
     pub unsafe fn get_device_group_present_capabilities_khr(
         &self,
         device: Device,
@@ -166,6 +180,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceGroupSurfacePresentModesKHR.html>
     pub unsafe fn get_device_group_surface_present_modes_khr(
         &self,
         device: Device,
@@ -185,6 +200,7 @@ impl DeviceFn {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireNextImage2KHR.html>
     pub unsafe fn acquire_next_image2_khr(
         &self,
         device: Device,

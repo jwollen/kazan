@@ -9,6 +9,7 @@ pub(super) mod defs {
     use core::fmt;
     use core::marker::PhantomData;
     pub type ANativeWindow = *const c_void;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAndroidSurfaceCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct AndroidSurfaceCreateInfoKHR<'a> {
@@ -42,6 +43,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAndroidSurfaceCreateFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AndroidSurfaceCreateFlagsKHR(Flags);
@@ -51,6 +53,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateAndroidSurfaceKHR.html>
     pub type PFN_vkCreateAndroidSurfaceKHR = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const AndroidSurfaceCreateInfoKHR<'_>,
@@ -75,6 +78,7 @@ impl InstanceFn {
     }
 }
 impl InstanceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateAndroidSurfaceKHR.html>
     pub unsafe fn create_android_surface_khr(
         &self,
         instance: Instance,

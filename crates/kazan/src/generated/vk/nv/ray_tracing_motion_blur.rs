@@ -8,6 +8,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingMotionBlurFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct PhysicalDeviceRayTracingMotionBlurFeaturesNV<'a> {
@@ -51,6 +52,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureGeometryMotionTrianglesDataNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct AccelerationStructureGeometryMotionTrianglesDataNV<'a> {
@@ -83,6 +85,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureMotionInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct AccelerationStructureMotionInfoNV<'a> {
@@ -120,6 +123,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSRTDataNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct SRTDataNV {
@@ -206,6 +210,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureSRTMotionInstanceNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct AccelerationStructureSRTMotionInstanceNV {
@@ -254,6 +259,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureMatrixMotionInstanceNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct AccelerationStructureMatrixMotionInstanceNV {
@@ -315,6 +321,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureMotionInstanceNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct AccelerationStructureMotionInstanceNV {
@@ -345,6 +352,7 @@ pub(super) mod defs {
             self
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureMotionInstanceDataNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub union AccelerationStructureMotionInstanceDataNV {
@@ -357,6 +365,7 @@ pub(super) mod defs {
             unsafe { core::mem::zeroed() }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureMotionInstanceTypeNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct AccelerationStructureMotionInstanceTypeNV(i32);
@@ -380,6 +389,7 @@ pub(super) mod defs {
             }
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureMotionInfoFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AccelerationStructureMotionInfoFlagsNV(Flags);
@@ -389,6 +399,7 @@ pub(super) mod defs {
             debug_flags(f, &[], self.0)
         }
     }
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureMotionInstanceFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AccelerationStructureMotionInstanceFlagsNV(Flags);
