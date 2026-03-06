@@ -3208,7 +3208,6 @@ _marker: PhantomData
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PrivateDataSlotCreateFlags(Flags);
     vk_bitflags_wrapped!(PrivateDataSlotCreateFlags, Flags);
-    impl PrivateDataSlotCreateFlags {}
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineCreationFeedbackFlags(Flags);
@@ -3219,9 +3218,10 @@ _marker: PhantomData
             Self(PipelineCreationFeedbackFlagBits::APPLICATION_PIPELINE_CACHE_HIT.0);
         pub const BASE_PIPELINE_ACCELERATION: Self =
             Self(PipelineCreationFeedbackFlagBits::BASE_PIPELINE_ACCELERATION.0);
+        // VK_EXT_pipeline_creation_feedback
+        pub const VALID_EXT: Self = Self::VALID;
         pub const APPLICATION_PIPELINE_CACHE_HIT_EXT: Self = Self::APPLICATION_PIPELINE_CACHE_HIT;
         pub const BASE_PIPELINE_ACCELERATION_EXT: Self = Self::BASE_PIPELINE_ACCELERATION;
-        pub const VALID_EXT: Self = Self::VALID;
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -3230,9 +3230,10 @@ _marker: PhantomData
         pub const VALID: Self = Self(1 << 0);
         pub const APPLICATION_PIPELINE_CACHE_HIT: Self = Self(1 << 1);
         pub const BASE_PIPELINE_ACCELERATION: Self = Self(1 << 2);
+        // VK_EXT_pipeline_creation_feedback
+        pub const VALID_EXT: Self = Self::VALID;
         pub const APPLICATION_PIPELINE_CACHE_HIT_EXT: Self = Self::APPLICATION_PIPELINE_CACHE_HIT;
         pub const BASE_PIPELINE_ACCELERATION_EXT: Self = Self::BASE_PIPELINE_ACCELERATION;
-        pub const VALID_EXT: Self = Self::VALID;
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -3258,6 +3259,34 @@ _marker: PhantomData
         pub const HOST_WRITE: Self = Self(AccessFlagBits2::HOST_WRITE.0);
         pub const MEMORY_READ: Self = Self(AccessFlagBits2::MEMORY_READ.0);
         pub const MEMORY_WRITE: Self = Self(AccessFlagBits2::MEMORY_WRITE.0);
+        pub const SHADER_SAMPLED_READ: Self = Self(AccessFlagBits2::SHADER_SAMPLED_READ.0);
+        pub const SHADER_STORAGE_READ: Self = Self(AccessFlagBits2::SHADER_STORAGE_READ.0);
+        pub const SHADER_STORAGE_WRITE: Self = Self(AccessFlagBits2::SHADER_STORAGE_WRITE.0);
+        pub const NONE: Self = Self(0);
+        // VK_ARM_data_graph
+        pub const DATA_GRAPH_READ_ARM: Self = Self(AccessFlagBits2::DATA_GRAPH_READ_ARM.0);
+        pub const DATA_GRAPH_WRITE_ARM: Self = Self(AccessFlagBits2::DATA_GRAPH_WRITE_ARM.0);
+        // VK_EXT_descriptor_buffer
+        pub const DESCRIPTOR_BUFFER_READ_EXT: Self =
+            Self(AccessFlagBits2::DESCRIPTOR_BUFFER_READ_EXT.0);
+        // VK_EXT_descriptor_heap
+        pub const SAMPLER_HEAP_READ_EXT: Self = Self(AccessFlagBits2::SAMPLER_HEAP_READ_EXT.0);
+        pub const RESOURCE_HEAP_READ_EXT: Self = Self(AccessFlagBits2::RESOURCE_HEAP_READ_EXT.0);
+        // VK_EXT_memory_decompression
+        pub const MEMORY_DECOMPRESSION_READ_EXT: Self =
+            Self(AccessFlagBits2::MEMORY_DECOMPRESSION_READ_EXT.0);
+        pub const MEMORY_DECOMPRESSION_WRITE_EXT: Self =
+            Self(AccessFlagBits2::MEMORY_DECOMPRESSION_WRITE_EXT.0);
+        // VK_EXT_opacity_micromap
+        pub const MICROMAP_READ_EXT: Self = Self(AccessFlagBits2::MICROMAP_READ_EXT.0);
+        pub const MICROMAP_WRITE_EXT: Self = Self(AccessFlagBits2::MICROMAP_WRITE_EXT.0);
+        // VK_HUAWEI_invocation_mask
+        pub const INVOCATION_MASK_READ_HUAWEI: Self =
+            Self(AccessFlagBits2::INVOCATION_MASK_READ_HUAWEI.0);
+        // VK_KHR_ray_tracing_maintenance1
+        pub const SHADER_BINDING_TABLE_READ_KHR: Self =
+            Self(AccessFlagBits2::SHADER_BINDING_TABLE_READ_KHR.0);
+        // VK_KHR_synchronization2
         pub const COMMAND_PREPROCESS_READ_EXT: Self =
             Self(AccessFlagBits2::COMMAND_PREPROCESS_READ_EXT.0);
         pub const COMMAND_PREPROCESS_WRITE_EXT: Self =
@@ -3280,63 +3309,47 @@ _marker: PhantomData
             Self(AccessFlagBits2::TRANSFORM_FEEDBACK_COUNTER_READ_EXT.0);
         pub const TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT: Self =
             Self(AccessFlagBits2::TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT.0);
-        pub const SHADER_SAMPLED_READ: Self = Self(AccessFlagBits2::SHADER_SAMPLED_READ.0);
-        pub const SHADER_STORAGE_READ: Self = Self(AccessFlagBits2::SHADER_STORAGE_READ.0);
-        pub const SHADER_STORAGE_WRITE: Self = Self(AccessFlagBits2::SHADER_STORAGE_WRITE.0);
+        pub const NONE_KHR: Self = Self::NONE;
+        pub const INDIRECT_COMMAND_READ_KHR: Self = Self::INDIRECT_COMMAND_READ;
+        pub const INDEX_READ_KHR: Self = Self::INDEX_READ;
+        pub const VERTEX_ATTRIBUTE_READ_KHR: Self = Self::VERTEX_ATTRIBUTE_READ;
+        pub const UNIFORM_READ_KHR: Self = Self::UNIFORM_READ;
+        pub const INPUT_ATTACHMENT_READ_KHR: Self = Self::INPUT_ATTACHMENT_READ;
+        pub const SHADER_READ_KHR: Self = Self::SHADER_READ;
+        pub const SHADER_WRITE_KHR: Self = Self::SHADER_WRITE;
+        pub const COLOR_ATTACHMENT_READ_KHR: Self = Self::COLOR_ATTACHMENT_READ;
+        pub const COLOR_ATTACHMENT_WRITE_KHR: Self = Self::COLOR_ATTACHMENT_WRITE;
+        pub const DEPTH_STENCIL_ATTACHMENT_READ_KHR: Self = Self::DEPTH_STENCIL_ATTACHMENT_READ;
+        pub const DEPTH_STENCIL_ATTACHMENT_WRITE_KHR: Self = Self::DEPTH_STENCIL_ATTACHMENT_WRITE;
+        pub const TRANSFER_READ_KHR: Self = Self::TRANSFER_READ;
+        pub const TRANSFER_WRITE_KHR: Self = Self::TRANSFER_WRITE;
+        pub const HOST_READ_KHR: Self = Self::HOST_READ;
+        pub const HOST_WRITE_KHR: Self = Self::HOST_WRITE;
+        pub const MEMORY_READ_KHR: Self = Self::MEMORY_READ;
+        pub const MEMORY_WRITE_KHR: Self = Self::MEMORY_WRITE;
+        pub const SHADER_SAMPLED_READ_KHR: Self = Self::SHADER_SAMPLED_READ;
+        pub const SHADER_STORAGE_READ_KHR: Self = Self::SHADER_STORAGE_READ;
+        pub const SHADER_STORAGE_WRITE_KHR: Self = Self::SHADER_STORAGE_WRITE;
+        pub const COMMAND_PREPROCESS_READ_NV: Self = Self::COMMAND_PREPROCESS_READ_EXT;
+        pub const COMMAND_PREPROCESS_WRITE_NV: Self = Self::COMMAND_PREPROCESS_WRITE_EXT;
+        pub const SHADING_RATE_IMAGE_READ_NV: Self =
+            Self::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR;
+        pub const ACCELERATION_STRUCTURE_READ_NV: Self = Self::ACCELERATION_STRUCTURE_READ_KHR;
+        pub const ACCELERATION_STRUCTURE_WRITE_NV: Self = Self::ACCELERATION_STRUCTURE_WRITE_KHR;
+        // VK_KHR_video_decode_queue
         pub const VIDEO_DECODE_READ_KHR: Self = Self(AccessFlagBits2::VIDEO_DECODE_READ_KHR.0);
         pub const VIDEO_DECODE_WRITE_KHR: Self = Self(AccessFlagBits2::VIDEO_DECODE_WRITE_KHR.0);
+        // VK_KHR_video_encode_queue
         pub const VIDEO_ENCODE_READ_KHR: Self = Self(AccessFlagBits2::VIDEO_ENCODE_READ_KHR.0);
         pub const VIDEO_ENCODE_WRITE_KHR: Self = Self(AccessFlagBits2::VIDEO_ENCODE_WRITE_KHR.0);
-        pub const INVOCATION_MASK_READ_HUAWEI: Self =
-            Self(AccessFlagBits2::INVOCATION_MASK_READ_HUAWEI.0);
-        pub const SHADER_BINDING_TABLE_READ_KHR: Self =
-            Self(AccessFlagBits2::SHADER_BINDING_TABLE_READ_KHR.0);
-        pub const DESCRIPTOR_BUFFER_READ_EXT: Self =
-            Self(AccessFlagBits2::DESCRIPTOR_BUFFER_READ_EXT.0);
+        // VK_NV_optical_flow
         pub const OPTICAL_FLOW_READ_NV: Self = Self(AccessFlagBits2::OPTICAL_FLOW_READ_NV.0);
         pub const OPTICAL_FLOW_WRITE_NV: Self = Self(AccessFlagBits2::OPTICAL_FLOW_WRITE_NV.0);
-        pub const MICROMAP_READ_EXT: Self = Self(AccessFlagBits2::MICROMAP_READ_EXT.0);
-        pub const MICROMAP_WRITE_EXT: Self = Self(AccessFlagBits2::MICROMAP_WRITE_EXT.0);
-        pub const DATA_GRAPH_READ_ARM: Self = Self(AccessFlagBits2::DATA_GRAPH_READ_ARM.0);
-        pub const DATA_GRAPH_WRITE_ARM: Self = Self(AccessFlagBits2::DATA_GRAPH_WRITE_ARM.0);
+        // VK_QCOM_tile_shading
         pub const SHADER_TILE_ATTACHMENT_READ_QCOM: Self =
             Self(AccessFlagBits2::SHADER_TILE_ATTACHMENT_READ_QCOM.0);
         pub const SHADER_TILE_ATTACHMENT_WRITE_QCOM: Self =
             Self(AccessFlagBits2::SHADER_TILE_ATTACHMENT_WRITE_QCOM.0);
-        pub const MEMORY_DECOMPRESSION_READ_EXT: Self =
-            Self(AccessFlagBits2::MEMORY_DECOMPRESSION_READ_EXT.0);
-        pub const MEMORY_DECOMPRESSION_WRITE_EXT: Self =
-            Self(AccessFlagBits2::MEMORY_DECOMPRESSION_WRITE_EXT.0);
-        pub const SAMPLER_HEAP_READ_EXT: Self = Self(AccessFlagBits2::SAMPLER_HEAP_READ_EXT.0);
-        pub const RESOURCE_HEAP_READ_EXT: Self = Self(AccessFlagBits2::RESOURCE_HEAP_READ_EXT.0);
-        pub const ACCELERATION_STRUCTURE_READ_NV: Self = Self::ACCELERATION_STRUCTURE_READ_KHR;
-        pub const ACCELERATION_STRUCTURE_WRITE_NV: Self = Self::ACCELERATION_STRUCTURE_WRITE_KHR;
-        pub const COLOR_ATTACHMENT_READ_KHR: Self = Self::COLOR_ATTACHMENT_READ;
-        pub const COLOR_ATTACHMENT_WRITE_KHR: Self = Self::COLOR_ATTACHMENT_WRITE;
-        pub const COMMAND_PREPROCESS_READ_NV: Self = Self::COMMAND_PREPROCESS_READ_EXT;
-        pub const COMMAND_PREPROCESS_WRITE_NV: Self = Self::COMMAND_PREPROCESS_WRITE_EXT;
-        pub const DEPTH_STENCIL_ATTACHMENT_READ_KHR: Self = Self::DEPTH_STENCIL_ATTACHMENT_READ;
-        pub const DEPTH_STENCIL_ATTACHMENT_WRITE_KHR: Self = Self::DEPTH_STENCIL_ATTACHMENT_WRITE;
-        pub const HOST_READ_KHR: Self = Self::HOST_READ;
-        pub const HOST_WRITE_KHR: Self = Self::HOST_WRITE;
-        pub const INDEX_READ_KHR: Self = Self::INDEX_READ;
-        pub const INDIRECT_COMMAND_READ_KHR: Self = Self::INDIRECT_COMMAND_READ;
-        pub const INPUT_ATTACHMENT_READ_KHR: Self = Self::INPUT_ATTACHMENT_READ;
-        pub const MEMORY_READ_KHR: Self = Self::MEMORY_READ;
-        pub const MEMORY_WRITE_KHR: Self = Self::MEMORY_WRITE;
-        pub const NONE_KHR: Self = Self::NONE;
-        pub const SHADER_READ_KHR: Self = Self::SHADER_READ;
-        pub const SHADER_SAMPLED_READ_KHR: Self = Self::SHADER_SAMPLED_READ;
-        pub const SHADER_STORAGE_READ_KHR: Self = Self::SHADER_STORAGE_READ;
-        pub const SHADER_STORAGE_WRITE_KHR: Self = Self::SHADER_STORAGE_WRITE;
-        pub const SHADER_WRITE_KHR: Self = Self::SHADER_WRITE;
-        pub const SHADING_RATE_IMAGE_READ_NV: Self =
-            Self::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR;
-        pub const TRANSFER_READ_KHR: Self = Self::TRANSFER_READ;
-        pub const TRANSFER_WRITE_KHR: Self = Self::TRANSFER_WRITE;
-        pub const UNIFORM_READ_KHR: Self = Self::UNIFORM_READ;
-        pub const VERTEX_ATTRIBUTE_READ_KHR: Self = Self::VERTEX_ATTRIBUTE_READ;
-        pub const NONE: Self = Self(0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -3359,6 +3372,28 @@ _marker: PhantomData
         pub const HOST_WRITE: Self = Self(1 << 14);
         pub const MEMORY_READ: Self = Self(1 << 15);
         pub const MEMORY_WRITE: Self = Self(1 << 16);
+        pub const SHADER_SAMPLED_READ: Self = Self(1 << 32);
+        pub const SHADER_STORAGE_READ: Self = Self(1 << 33);
+        pub const SHADER_STORAGE_WRITE: Self = Self(1 << 34);
+        // VK_ARM_data_graph
+        pub const DATA_GRAPH_READ_ARM: Self = Self(1 << 47);
+        pub const DATA_GRAPH_WRITE_ARM: Self = Self(1 << 48);
+        // VK_EXT_descriptor_buffer
+        pub const DESCRIPTOR_BUFFER_READ_EXT: Self = Self(1 << 41);
+        // VK_EXT_descriptor_heap
+        pub const SAMPLER_HEAP_READ_EXT: Self = Self(1 << 57);
+        pub const RESOURCE_HEAP_READ_EXT: Self = Self(1 << 58);
+        // VK_EXT_memory_decompression
+        pub const MEMORY_DECOMPRESSION_READ_EXT: Self = Self(1 << 55);
+        pub const MEMORY_DECOMPRESSION_WRITE_EXT: Self = Self(1 << 56);
+        // VK_EXT_opacity_micromap
+        pub const MICROMAP_READ_EXT: Self = Self(1 << 44);
+        pub const MICROMAP_WRITE_EXT: Self = Self(1 << 45);
+        // VK_HUAWEI_invocation_mask
+        pub const INVOCATION_MASK_READ_HUAWEI: Self = Self(1 << 39);
+        // VK_KHR_ray_tracing_maintenance1
+        pub const SHADER_BINDING_TABLE_READ_KHR: Self = Self(1 << 40);
+        // VK_KHR_synchronization2
         pub const COMMAND_PREPROCESS_READ_EXT: Self = Self(1 << 17);
         pub const COMMAND_PREPROCESS_WRITE_EXT: Self = Self(1 << 18);
         pub const COLOR_ATTACHMENT_READ_NONCOHERENT_EXT: Self = Self(1 << 19);
@@ -3370,54 +3405,44 @@ _marker: PhantomData
         pub const TRANSFORM_FEEDBACK_WRITE_EXT: Self = Self(1 << 25);
         pub const TRANSFORM_FEEDBACK_COUNTER_READ_EXT: Self = Self(1 << 26);
         pub const TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT: Self = Self(1 << 27);
-        pub const SHADER_SAMPLED_READ: Self = Self(1 << 32);
-        pub const SHADER_STORAGE_READ: Self = Self(1 << 33);
-        pub const SHADER_STORAGE_WRITE: Self = Self(1 << 34);
-        pub const VIDEO_DECODE_READ_KHR: Self = Self(1 << 35);
-        pub const VIDEO_DECODE_WRITE_KHR: Self = Self(1 << 36);
-        pub const VIDEO_ENCODE_READ_KHR: Self = Self(1 << 37);
-        pub const VIDEO_ENCODE_WRITE_KHR: Self = Self(1 << 38);
-        pub const INVOCATION_MASK_READ_HUAWEI: Self = Self(1 << 39);
-        pub const SHADER_BINDING_TABLE_READ_KHR: Self = Self(1 << 40);
-        pub const DESCRIPTOR_BUFFER_READ_EXT: Self = Self(1 << 41);
-        pub const OPTICAL_FLOW_READ_NV: Self = Self(1 << 42);
-        pub const OPTICAL_FLOW_WRITE_NV: Self = Self(1 << 43);
-        pub const MICROMAP_READ_EXT: Self = Self(1 << 44);
-        pub const MICROMAP_WRITE_EXT: Self = Self(1 << 45);
-        pub const DATA_GRAPH_READ_ARM: Self = Self(1 << 47);
-        pub const DATA_GRAPH_WRITE_ARM: Self = Self(1 << 48);
-        pub const SHADER_TILE_ATTACHMENT_READ_QCOM: Self = Self(1 << 51);
-        pub const SHADER_TILE_ATTACHMENT_WRITE_QCOM: Self = Self(1 << 52);
-        pub const MEMORY_DECOMPRESSION_READ_EXT: Self = Self(1 << 55);
-        pub const MEMORY_DECOMPRESSION_WRITE_EXT: Self = Self(1 << 56);
-        pub const SAMPLER_HEAP_READ_EXT: Self = Self(1 << 57);
-        pub const RESOURCE_HEAP_READ_EXT: Self = Self(1 << 58);
-        pub const ACCELERATION_STRUCTURE_READ_NV: Self = Self::ACCELERATION_STRUCTURE_READ_KHR;
-        pub const ACCELERATION_STRUCTURE_WRITE_NV: Self = Self::ACCELERATION_STRUCTURE_WRITE_KHR;
+        pub const INDIRECT_COMMAND_READ_KHR: Self = Self::INDIRECT_COMMAND_READ;
+        pub const INDEX_READ_KHR: Self = Self::INDEX_READ;
+        pub const VERTEX_ATTRIBUTE_READ_KHR: Self = Self::VERTEX_ATTRIBUTE_READ;
+        pub const UNIFORM_READ_KHR: Self = Self::UNIFORM_READ;
+        pub const INPUT_ATTACHMENT_READ_KHR: Self = Self::INPUT_ATTACHMENT_READ;
+        pub const SHADER_READ_KHR: Self = Self::SHADER_READ;
+        pub const SHADER_WRITE_KHR: Self = Self::SHADER_WRITE;
         pub const COLOR_ATTACHMENT_READ_KHR: Self = Self::COLOR_ATTACHMENT_READ;
         pub const COLOR_ATTACHMENT_WRITE_KHR: Self = Self::COLOR_ATTACHMENT_WRITE;
-        pub const COMMAND_PREPROCESS_READ_NV: Self = Self::COMMAND_PREPROCESS_READ_EXT;
-        pub const COMMAND_PREPROCESS_WRITE_NV: Self = Self::COMMAND_PREPROCESS_WRITE_EXT;
         pub const DEPTH_STENCIL_ATTACHMENT_READ_KHR: Self = Self::DEPTH_STENCIL_ATTACHMENT_READ;
         pub const DEPTH_STENCIL_ATTACHMENT_WRITE_KHR: Self = Self::DEPTH_STENCIL_ATTACHMENT_WRITE;
+        pub const TRANSFER_READ_KHR: Self = Self::TRANSFER_READ;
+        pub const TRANSFER_WRITE_KHR: Self = Self::TRANSFER_WRITE;
         pub const HOST_READ_KHR: Self = Self::HOST_READ;
         pub const HOST_WRITE_KHR: Self = Self::HOST_WRITE;
-        pub const INDEX_READ_KHR: Self = Self::INDEX_READ;
-        pub const INDIRECT_COMMAND_READ_KHR: Self = Self::INDIRECT_COMMAND_READ;
-        pub const INPUT_ATTACHMENT_READ_KHR: Self = Self::INPUT_ATTACHMENT_READ;
         pub const MEMORY_READ_KHR: Self = Self::MEMORY_READ;
         pub const MEMORY_WRITE_KHR: Self = Self::MEMORY_WRITE;
-        pub const SHADER_READ_KHR: Self = Self::SHADER_READ;
         pub const SHADER_SAMPLED_READ_KHR: Self = Self::SHADER_SAMPLED_READ;
         pub const SHADER_STORAGE_READ_KHR: Self = Self::SHADER_STORAGE_READ;
         pub const SHADER_STORAGE_WRITE_KHR: Self = Self::SHADER_STORAGE_WRITE;
-        pub const SHADER_WRITE_KHR: Self = Self::SHADER_WRITE;
+        pub const COMMAND_PREPROCESS_READ_NV: Self = Self::COMMAND_PREPROCESS_READ_EXT;
+        pub const COMMAND_PREPROCESS_WRITE_NV: Self = Self::COMMAND_PREPROCESS_WRITE_EXT;
         pub const SHADING_RATE_IMAGE_READ_NV: Self =
             Self::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR;
-        pub const TRANSFER_READ_KHR: Self = Self::TRANSFER_READ;
-        pub const TRANSFER_WRITE_KHR: Self = Self::TRANSFER_WRITE;
-        pub const UNIFORM_READ_KHR: Self = Self::UNIFORM_READ;
-        pub const VERTEX_ATTRIBUTE_READ_KHR: Self = Self::VERTEX_ATTRIBUTE_READ;
+        pub const ACCELERATION_STRUCTURE_READ_NV: Self = Self::ACCELERATION_STRUCTURE_READ_KHR;
+        pub const ACCELERATION_STRUCTURE_WRITE_NV: Self = Self::ACCELERATION_STRUCTURE_WRITE_KHR;
+        // VK_KHR_video_decode_queue
+        pub const VIDEO_DECODE_READ_KHR: Self = Self(1 << 35);
+        pub const VIDEO_DECODE_WRITE_KHR: Self = Self(1 << 36);
+        // VK_KHR_video_encode_queue
+        pub const VIDEO_ENCODE_READ_KHR: Self = Self(1 << 37);
+        pub const VIDEO_ENCODE_WRITE_KHR: Self = Self(1 << 38);
+        // VK_NV_optical_flow
+        pub const OPTICAL_FLOW_READ_NV: Self = Self(1 << 42);
+        pub const OPTICAL_FLOW_WRITE_NV: Self = Self(1 << 43);
+        // VK_QCOM_tile_shading
+        pub const SHADER_TILE_ATTACHMENT_READ_QCOM: Self = Self(1 << 51);
+        pub const SHADER_TILE_ATTACHMENT_WRITE_QCOM: Self = Self(1 << 52);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -3444,6 +3469,40 @@ _marker: PhantomData
         pub const HOST: Self = Self(PipelineStageFlagBits2::HOST.0);
         pub const ALL_GRAPHICS: Self = Self(PipelineStageFlagBits2::ALL_GRAPHICS.0);
         pub const ALL_COMMANDS: Self = Self(PipelineStageFlagBits2::ALL_COMMANDS.0);
+        pub const COPY: Self = Self(PipelineStageFlagBits2::COPY.0);
+        pub const RESOLVE: Self = Self(PipelineStageFlagBits2::RESOLVE.0);
+        pub const BLIT: Self = Self(PipelineStageFlagBits2::BLIT.0);
+        pub const CLEAR: Self = Self(PipelineStageFlagBits2::CLEAR.0);
+        pub const INDEX_INPUT: Self = Self(PipelineStageFlagBits2::INDEX_INPUT.0);
+        pub const VERTEX_ATTRIBUTE_INPUT: Self =
+            Self(PipelineStageFlagBits2::VERTEX_ATTRIBUTE_INPUT.0);
+        pub const PRE_RASTERIZATION_SHADERS: Self =
+            Self(PipelineStageFlagBits2::PRE_RASTERIZATION_SHADERS.0);
+        pub const TRANSFER: Self = Self::ALL_TRANSFER;
+        pub const NONE: Self = Self(0);
+        // VK_ARM_data_graph
+        pub const DATA_GRAPH_ARM: Self = Self(PipelineStageFlagBits2::DATA_GRAPH_ARM.0);
+        // VK_EXT_memory_decompression
+        pub const MEMORY_DECOMPRESSION_EXT: Self =
+            Self(PipelineStageFlagBits2::MEMORY_DECOMPRESSION_EXT.0);
+        // VK_EXT_opacity_micromap
+        pub const MICROMAP_BUILD_EXT: Self = Self(PipelineStageFlagBits2::MICROMAP_BUILD_EXT.0);
+        // VK_HUAWEI_cluster_culling_shader
+        pub const CLUSTER_CULLING_SHADER_HUAWEI: Self =
+            Self(PipelineStageFlagBits2::CLUSTER_CULLING_SHADER_HUAWEI.0);
+        // VK_HUAWEI_invocation_mask
+        pub const INVOCATION_MASK_HUAWEI: Self =
+            Self(PipelineStageFlagBits2::INVOCATION_MASK_HUAWEI.0);
+        // VK_HUAWEI_subpass_shading
+        pub const SUBPASS_SHADER_HUAWEI: Self =
+            Self(PipelineStageFlagBits2::SUBPASS_SHADER_HUAWEI.0);
+        pub const SUBPASS_SHADING_HUAWEI: Self = Self::SUBPASS_SHADER_HUAWEI;
+        // VK_KHR_copy_memory_indirect
+        pub const COPY_INDIRECT_KHR: Self = Self(PipelineStageFlagBits2::COPY_INDIRECT_KHR.0);
+        // VK_KHR_ray_tracing_maintenance1
+        pub const ACCELERATION_STRUCTURE_COPY_KHR: Self =
+            Self(PipelineStageFlagBits2::ACCELERATION_STRUCTURE_COPY_KHR.0);
+        // VK_KHR_synchronization2
         pub const COMMAND_PREPROCESS_EXT: Self =
             Self(PipelineStageFlagBits2::COMMAND_PREPROCESS_EXT.0);
         pub const CONDITIONAL_RENDERING_EXT: Self =
@@ -3460,68 +3519,47 @@ _marker: PhantomData
             Self(PipelineStageFlagBits2::TRANSFORM_FEEDBACK_EXT.0);
         pub const ACCELERATION_STRUCTURE_BUILD_KHR: Self =
             Self(PipelineStageFlagBits2::ACCELERATION_STRUCTURE_BUILD_KHR.0);
-        pub const VIDEO_DECODE_KHR: Self = Self(PipelineStageFlagBits2::VIDEO_DECODE_KHR.0);
-        pub const VIDEO_ENCODE_KHR: Self = Self(PipelineStageFlagBits2::VIDEO_ENCODE_KHR.0);
-        pub const ACCELERATION_STRUCTURE_COPY_KHR: Self =
-            Self(PipelineStageFlagBits2::ACCELERATION_STRUCTURE_COPY_KHR.0);
-        pub const OPTICAL_FLOW_NV: Self = Self(PipelineStageFlagBits2::OPTICAL_FLOW_NV.0);
-        pub const MICROMAP_BUILD_EXT: Self = Self(PipelineStageFlagBits2::MICROMAP_BUILD_EXT.0);
-        pub const COPY: Self = Self(PipelineStageFlagBits2::COPY.0);
-        pub const RESOLVE: Self = Self(PipelineStageFlagBits2::RESOLVE.0);
-        pub const BLIT: Self = Self(PipelineStageFlagBits2::BLIT.0);
-        pub const CLEAR: Self = Self(PipelineStageFlagBits2::CLEAR.0);
-        pub const INDEX_INPUT: Self = Self(PipelineStageFlagBits2::INDEX_INPUT.0);
-        pub const VERTEX_ATTRIBUTE_INPUT: Self =
-            Self(PipelineStageFlagBits2::VERTEX_ATTRIBUTE_INPUT.0);
-        pub const PRE_RASTERIZATION_SHADERS: Self =
-            Self(PipelineStageFlagBits2::PRE_RASTERIZATION_SHADERS.0);
-        pub const SUBPASS_SHADER_HUAWEI: Self =
-            Self(PipelineStageFlagBits2::SUBPASS_SHADER_HUAWEI.0);
-        pub const INVOCATION_MASK_HUAWEI: Self =
-            Self(PipelineStageFlagBits2::INVOCATION_MASK_HUAWEI.0);
-        pub const CLUSTER_CULLING_SHADER_HUAWEI: Self =
-            Self(PipelineStageFlagBits2::CLUSTER_CULLING_SHADER_HUAWEI.0);
-        pub const DATA_GRAPH_ARM: Self = Self(PipelineStageFlagBits2::DATA_GRAPH_ARM.0);
-        pub const CONVERT_COOPERATIVE_VECTOR_MATRIX_NV: Self =
-            Self(PipelineStageFlagBits2::CONVERT_COOPERATIVE_VECTOR_MATRIX_NV.0);
-        pub const MEMORY_DECOMPRESSION_EXT: Self =
-            Self(PipelineStageFlagBits2::MEMORY_DECOMPRESSION_EXT.0);
-        pub const COPY_INDIRECT_KHR: Self = Self(PipelineStageFlagBits2::COPY_INDIRECT_KHR.0);
-        pub const TRANSFER: Self = Self::ALL_TRANSFER;
-        pub const ACCELERATION_STRUCTURE_BUILD_NV: Self = Self::ACCELERATION_STRUCTURE_BUILD_KHR;
-        pub const ALL_COMMANDS_KHR: Self = Self::ALL_COMMANDS;
-        pub const ALL_GRAPHICS_KHR: Self = Self::ALL_GRAPHICS;
-        pub const ALL_TRANSFER_KHR: Self = Self::ALL_TRANSFER;
-        pub const BLIT_KHR: Self = Self::BLIT;
-        pub const BOTTOM_OF_PIPE_KHR: Self = Self::BOTTOM_OF_PIPE;
-        pub const CLEAR_KHR: Self = Self::CLEAR;
-        pub const COLOR_ATTACHMENT_OUTPUT_KHR: Self = Self::COLOR_ATTACHMENT_OUTPUT;
-        pub const COMMAND_PREPROCESS_NV: Self = Self::COMMAND_PREPROCESS_EXT;
-        pub const COMPUTE_SHADER_KHR: Self = Self::COMPUTE_SHADER;
-        pub const COPY_KHR: Self = Self::COPY;
-        pub const DRAW_INDIRECT_KHR: Self = Self::DRAW_INDIRECT;
-        pub const EARLY_FRAGMENT_TESTS_KHR: Self = Self::EARLY_FRAGMENT_TESTS;
-        pub const FRAGMENT_SHADER_KHR: Self = Self::FRAGMENT_SHADER;
-        pub const GEOMETRY_SHADER_KHR: Self = Self::GEOMETRY_SHADER;
-        pub const HOST_KHR: Self = Self::HOST;
-        pub const INDEX_INPUT_KHR: Self = Self::INDEX_INPUT;
-        pub const LATE_FRAGMENT_TESTS_KHR: Self = Self::LATE_FRAGMENT_TESTS;
-        pub const MESH_SHADER_NV: Self = Self::MESH_SHADER_EXT;
         pub const NONE_KHR: Self = Self::NONE;
-        pub const PRE_RASTERIZATION_SHADERS_KHR: Self = Self::PRE_RASTERIZATION_SHADERS;
-        pub const RAY_TRACING_SHADER_NV: Self = Self::RAY_TRACING_SHADER_KHR;
-        pub const RESOLVE_KHR: Self = Self::RESOLVE;
-        pub const SHADING_RATE_IMAGE_NV: Self = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
-        pub const SUBPASS_SHADING_HUAWEI: Self = Self::SUBPASS_SHADER_HUAWEI;
-        pub const TASK_SHADER_NV: Self = Self::TASK_SHADER_EXT;
-        pub const TESSELLATION_CONTROL_SHADER_KHR: Self = Self::TESSELLATION_CONTROL_SHADER;
-        pub const TESSELLATION_EVALUATION_SHADER_KHR: Self = Self::TESSELLATION_EVALUATION_SHADER;
         pub const TOP_OF_PIPE_KHR: Self = Self::TOP_OF_PIPE;
-        pub const TRANSFER_KHR: Self = Self::ALL_TRANSFER;
-        pub const VERTEX_ATTRIBUTE_INPUT_KHR: Self = Self::VERTEX_ATTRIBUTE_INPUT;
+        pub const DRAW_INDIRECT_KHR: Self = Self::DRAW_INDIRECT;
         pub const VERTEX_INPUT_KHR: Self = Self::VERTEX_INPUT;
         pub const VERTEX_SHADER_KHR: Self = Self::VERTEX_SHADER;
-        pub const NONE: Self = Self(0);
+        pub const TESSELLATION_CONTROL_SHADER_KHR: Self = Self::TESSELLATION_CONTROL_SHADER;
+        pub const TESSELLATION_EVALUATION_SHADER_KHR: Self = Self::TESSELLATION_EVALUATION_SHADER;
+        pub const GEOMETRY_SHADER_KHR: Self = Self::GEOMETRY_SHADER;
+        pub const FRAGMENT_SHADER_KHR: Self = Self::FRAGMENT_SHADER;
+        pub const EARLY_FRAGMENT_TESTS_KHR: Self = Self::EARLY_FRAGMENT_TESTS;
+        pub const LATE_FRAGMENT_TESTS_KHR: Self = Self::LATE_FRAGMENT_TESTS;
+        pub const COLOR_ATTACHMENT_OUTPUT_KHR: Self = Self::COLOR_ATTACHMENT_OUTPUT;
+        pub const COMPUTE_SHADER_KHR: Self = Self::COMPUTE_SHADER;
+        pub const ALL_TRANSFER_KHR: Self = Self::ALL_TRANSFER;
+        pub const TRANSFER_KHR: Self = Self::ALL_TRANSFER;
+        pub const BOTTOM_OF_PIPE_KHR: Self = Self::BOTTOM_OF_PIPE;
+        pub const HOST_KHR: Self = Self::HOST;
+        pub const ALL_GRAPHICS_KHR: Self = Self::ALL_GRAPHICS;
+        pub const ALL_COMMANDS_KHR: Self = Self::ALL_COMMANDS;
+        pub const COPY_KHR: Self = Self::COPY;
+        pub const RESOLVE_KHR: Self = Self::RESOLVE;
+        pub const BLIT_KHR: Self = Self::BLIT;
+        pub const CLEAR_KHR: Self = Self::CLEAR;
+        pub const INDEX_INPUT_KHR: Self = Self::INDEX_INPUT;
+        pub const VERTEX_ATTRIBUTE_INPUT_KHR: Self = Self::VERTEX_ATTRIBUTE_INPUT;
+        pub const PRE_RASTERIZATION_SHADERS_KHR: Self = Self::PRE_RASTERIZATION_SHADERS;
+        pub const COMMAND_PREPROCESS_NV: Self = Self::COMMAND_PREPROCESS_EXT;
+        pub const SHADING_RATE_IMAGE_NV: Self = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
+        pub const RAY_TRACING_SHADER_NV: Self = Self::RAY_TRACING_SHADER_KHR;
+        pub const ACCELERATION_STRUCTURE_BUILD_NV: Self = Self::ACCELERATION_STRUCTURE_BUILD_KHR;
+        pub const TASK_SHADER_NV: Self = Self::TASK_SHADER_EXT;
+        pub const MESH_SHADER_NV: Self = Self::MESH_SHADER_EXT;
+        // VK_KHR_video_decode_queue
+        pub const VIDEO_DECODE_KHR: Self = Self(PipelineStageFlagBits2::VIDEO_DECODE_KHR.0);
+        // VK_KHR_video_encode_queue
+        pub const VIDEO_ENCODE_KHR: Self = Self(PipelineStageFlagBits2::VIDEO_ENCODE_KHR.0);
+        // VK_NV_cooperative_vector
+        pub const CONVERT_COOPERATIVE_VECTOR_MATRIX_NV: Self =
+            Self(PipelineStageFlagBits2::CONVERT_COOPERATIVE_VECTOR_MATRIX_NV.0);
+        // VK_NV_optical_flow
+        pub const OPTICAL_FLOW_NV: Self = Self(PipelineStageFlagBits2::OPTICAL_FLOW_NV.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -3544,6 +3582,31 @@ _marker: PhantomData
         pub const HOST: Self = Self(1 << 14);
         pub const ALL_GRAPHICS: Self = Self(1 << 15);
         pub const ALL_COMMANDS: Self = Self(1 << 16);
+        pub const COPY: Self = Self(1 << 32);
+        pub const RESOLVE: Self = Self(1 << 33);
+        pub const BLIT: Self = Self(1 << 34);
+        pub const CLEAR: Self = Self(1 << 35);
+        pub const INDEX_INPUT: Self = Self(1 << 36);
+        pub const VERTEX_ATTRIBUTE_INPUT: Self = Self(1 << 37);
+        pub const PRE_RASTERIZATION_SHADERS: Self = Self(1 << 38);
+        // VK_ARM_data_graph
+        pub const DATA_GRAPH_ARM: Self = Self(1 << 42);
+        // VK_EXT_memory_decompression
+        pub const MEMORY_DECOMPRESSION_EXT: Self = Self(1 << 45);
+        // VK_EXT_opacity_micromap
+        pub const MICROMAP_BUILD_EXT: Self = Self(1 << 30);
+        // VK_HUAWEI_cluster_culling_shader
+        pub const CLUSTER_CULLING_SHADER_HUAWEI: Self = Self(1 << 41);
+        // VK_HUAWEI_invocation_mask
+        pub const INVOCATION_MASK_HUAWEI: Self = Self(1 << 40);
+        // VK_HUAWEI_subpass_shading
+        pub const SUBPASS_SHADER_HUAWEI: Self = Self(1 << 39);
+        pub const SUBPASS_SHADING_HUAWEI: Self = Self::SUBPASS_SHADER_HUAWEI;
+        // VK_KHR_copy_memory_indirect
+        pub const COPY_INDIRECT_KHR: Self = Self(1 << 46);
+        // VK_KHR_ray_tracing_maintenance1
+        pub const ACCELERATION_STRUCTURE_COPY_KHR: Self = Self(1 << 28);
+        // VK_KHR_synchronization2
         pub const COMMAND_PREPROCESS_EXT: Self = Self(1 << 17);
         pub const CONDITIONAL_RENDERING_EXT: Self = Self(1 << 18);
         pub const TASK_SHADER_EXT: Self = Self(1 << 19);
@@ -3553,57 +3616,45 @@ _marker: PhantomData
         pub const FRAGMENT_DENSITY_PROCESS_EXT: Self = Self(1 << 23);
         pub const TRANSFORM_FEEDBACK_EXT: Self = Self(1 << 24);
         pub const ACCELERATION_STRUCTURE_BUILD_KHR: Self = Self(1 << 25);
-        pub const VIDEO_DECODE_KHR: Self = Self(1 << 26);
-        pub const VIDEO_ENCODE_KHR: Self = Self(1 << 27);
-        pub const ACCELERATION_STRUCTURE_COPY_KHR: Self = Self(1 << 28);
-        pub const OPTICAL_FLOW_NV: Self = Self(1 << 29);
-        pub const MICROMAP_BUILD_EXT: Self = Self(1 << 30);
-        pub const COPY: Self = Self(1 << 32);
-        pub const RESOLVE: Self = Self(1 << 33);
-        pub const BLIT: Self = Self(1 << 34);
-        pub const CLEAR: Self = Self(1 << 35);
-        pub const INDEX_INPUT: Self = Self(1 << 36);
-        pub const VERTEX_ATTRIBUTE_INPUT: Self = Self(1 << 37);
-        pub const PRE_RASTERIZATION_SHADERS: Self = Self(1 << 38);
-        pub const SUBPASS_SHADER_HUAWEI: Self = Self(1 << 39);
-        pub const INVOCATION_MASK_HUAWEI: Self = Self(1 << 40);
-        pub const CLUSTER_CULLING_SHADER_HUAWEI: Self = Self(1 << 41);
-        pub const DATA_GRAPH_ARM: Self = Self(1 << 42);
-        pub const CONVERT_COOPERATIVE_VECTOR_MATRIX_NV: Self = Self(1 << 44);
-        pub const MEMORY_DECOMPRESSION_EXT: Self = Self(1 << 45);
-        pub const COPY_INDIRECT_KHR: Self = Self(1 << 46);
-        pub const ACCELERATION_STRUCTURE_BUILD_NV: Self = Self::ACCELERATION_STRUCTURE_BUILD_KHR;
-        pub const ALL_COMMANDS_KHR: Self = Self::ALL_COMMANDS;
-        pub const ALL_GRAPHICS_KHR: Self = Self::ALL_GRAPHICS;
-        pub const ALL_TRANSFER_KHR: Self = Self::ALL_TRANSFER;
-        pub const BLIT_KHR: Self = Self::BLIT;
-        pub const BOTTOM_OF_PIPE_KHR: Self = Self::BOTTOM_OF_PIPE;
-        pub const CLEAR_KHR: Self = Self::CLEAR;
-        pub const COLOR_ATTACHMENT_OUTPUT_KHR: Self = Self::COLOR_ATTACHMENT_OUTPUT;
-        pub const COMMAND_PREPROCESS_NV: Self = Self::COMMAND_PREPROCESS_EXT;
-        pub const COMPUTE_SHADER_KHR: Self = Self::COMPUTE_SHADER;
-        pub const COPY_KHR: Self = Self::COPY;
-        pub const DRAW_INDIRECT_KHR: Self = Self::DRAW_INDIRECT;
-        pub const EARLY_FRAGMENT_TESTS_KHR: Self = Self::EARLY_FRAGMENT_TESTS;
-        pub const FRAGMENT_SHADER_KHR: Self = Self::FRAGMENT_SHADER;
-        pub const GEOMETRY_SHADER_KHR: Self = Self::GEOMETRY_SHADER;
-        pub const HOST_KHR: Self = Self::HOST;
-        pub const INDEX_INPUT_KHR: Self = Self::INDEX_INPUT;
-        pub const LATE_FRAGMENT_TESTS_KHR: Self = Self::LATE_FRAGMENT_TESTS;
-        pub const MESH_SHADER_NV: Self = Self::MESH_SHADER_EXT;
-        pub const PRE_RASTERIZATION_SHADERS_KHR: Self = Self::PRE_RASTERIZATION_SHADERS;
-        pub const RAY_TRACING_SHADER_NV: Self = Self::RAY_TRACING_SHADER_KHR;
-        pub const RESOLVE_KHR: Self = Self::RESOLVE;
-        pub const SHADING_RATE_IMAGE_NV: Self = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
-        pub const SUBPASS_SHADING_HUAWEI: Self = Self::SUBPASS_SHADER_HUAWEI;
-        pub const TASK_SHADER_NV: Self = Self::TASK_SHADER_EXT;
-        pub const TESSELLATION_CONTROL_SHADER_KHR: Self = Self::TESSELLATION_CONTROL_SHADER;
-        pub const TESSELLATION_EVALUATION_SHADER_KHR: Self = Self::TESSELLATION_EVALUATION_SHADER;
         pub const TOP_OF_PIPE_KHR: Self = Self::TOP_OF_PIPE;
-        pub const TRANSFER_KHR: Self = Self::ALL_TRANSFER;
-        pub const VERTEX_ATTRIBUTE_INPUT_KHR: Self = Self::VERTEX_ATTRIBUTE_INPUT;
+        pub const DRAW_INDIRECT_KHR: Self = Self::DRAW_INDIRECT;
         pub const VERTEX_INPUT_KHR: Self = Self::VERTEX_INPUT;
         pub const VERTEX_SHADER_KHR: Self = Self::VERTEX_SHADER;
+        pub const TESSELLATION_CONTROL_SHADER_KHR: Self = Self::TESSELLATION_CONTROL_SHADER;
+        pub const TESSELLATION_EVALUATION_SHADER_KHR: Self = Self::TESSELLATION_EVALUATION_SHADER;
+        pub const GEOMETRY_SHADER_KHR: Self = Self::GEOMETRY_SHADER;
+        pub const FRAGMENT_SHADER_KHR: Self = Self::FRAGMENT_SHADER;
+        pub const EARLY_FRAGMENT_TESTS_KHR: Self = Self::EARLY_FRAGMENT_TESTS;
+        pub const LATE_FRAGMENT_TESTS_KHR: Self = Self::LATE_FRAGMENT_TESTS;
+        pub const COLOR_ATTACHMENT_OUTPUT_KHR: Self = Self::COLOR_ATTACHMENT_OUTPUT;
+        pub const COMPUTE_SHADER_KHR: Self = Self::COMPUTE_SHADER;
+        pub const ALL_TRANSFER_KHR: Self = Self::ALL_TRANSFER;
+        pub const TRANSFER_KHR: Self = Self::ALL_TRANSFER;
+        pub const BOTTOM_OF_PIPE_KHR: Self = Self::BOTTOM_OF_PIPE;
+        pub const HOST_KHR: Self = Self::HOST;
+        pub const ALL_GRAPHICS_KHR: Self = Self::ALL_GRAPHICS;
+        pub const ALL_COMMANDS_KHR: Self = Self::ALL_COMMANDS;
+        pub const COPY_KHR: Self = Self::COPY;
+        pub const RESOLVE_KHR: Self = Self::RESOLVE;
+        pub const BLIT_KHR: Self = Self::BLIT;
+        pub const CLEAR_KHR: Self = Self::CLEAR;
+        pub const INDEX_INPUT_KHR: Self = Self::INDEX_INPUT;
+        pub const VERTEX_ATTRIBUTE_INPUT_KHR: Self = Self::VERTEX_ATTRIBUTE_INPUT;
+        pub const PRE_RASTERIZATION_SHADERS_KHR: Self = Self::PRE_RASTERIZATION_SHADERS;
+        pub const COMMAND_PREPROCESS_NV: Self = Self::COMMAND_PREPROCESS_EXT;
+        pub const SHADING_RATE_IMAGE_NV: Self = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
+        pub const RAY_TRACING_SHADER_NV: Self = Self::RAY_TRACING_SHADER_KHR;
+        pub const ACCELERATION_STRUCTURE_BUILD_NV: Self = Self::ACCELERATION_STRUCTURE_BUILD_KHR;
+        pub const TASK_SHADER_NV: Self = Self::TASK_SHADER_EXT;
+        pub const MESH_SHADER_NV: Self = Self::MESH_SHADER_EXT;
+        // VK_KHR_video_decode_queue
+        pub const VIDEO_DECODE_KHR: Self = Self(1 << 26);
+        // VK_KHR_video_encode_queue
+        pub const VIDEO_ENCODE_KHR: Self = Self(1 << 27);
+        // VK_NV_cooperative_vector
+        pub const CONVERT_COOPERATIVE_VECTOR_MATRIX_NV: Self = Self(1 << 44);
+        // VK_NV_optical_flow
+        pub const OPTICAL_FLOW_NV: Self = Self(1 << 29);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -3627,8 +3678,6 @@ _marker: PhantomData
         pub const BLIT_DST: Self = Self(FormatFeatureFlagBits2::BLIT_DST.0);
         pub const SAMPLED_IMAGE_FILTER_LINEAR: Self =
             Self(FormatFeatureFlagBits2::SAMPLED_IMAGE_FILTER_LINEAR.0);
-        pub const SAMPLED_IMAGE_FILTER_CUBIC: Self =
-            Self(FormatFeatureFlagBits2::SAMPLED_IMAGE_FILTER_CUBIC.0);
         pub const TRANSFER_SRC: Self = Self(FormatFeatureFlagBits2::TRANSFER_SRC.0);
         pub const TRANSFER_DST: Self = Self(FormatFeatureFlagBits2::TRANSFER_DST.0);
         pub const SAMPLED_IMAGE_FILTER_MINMAX: Self =
@@ -3647,49 +3696,66 @@ _marker: PhantomData
         pub const DISJOINT: Self = Self(FormatFeatureFlagBits2::DISJOINT.0);
         pub const COSITED_CHROMA_SAMPLES: Self =
             Self(FormatFeatureFlagBits2::COSITED_CHROMA_SAMPLES.0);
-        pub const FRAGMENT_DENSITY_MAP_EXT: Self =
-            Self(FormatFeatureFlagBits2::FRAGMENT_DENSITY_MAP_EXT.0);
-        pub const VIDEO_DECODE_OUTPUT_KHR: Self =
-            Self(FormatFeatureFlagBits2::VIDEO_DECODE_OUTPUT_KHR.0);
-        pub const VIDEO_DECODE_DPB_KHR: Self = Self(FormatFeatureFlagBits2::VIDEO_DECODE_DPB_KHR.0);
-        pub const VIDEO_ENCODE_INPUT_KHR: Self =
-            Self(FormatFeatureFlagBits2::VIDEO_ENCODE_INPUT_KHR.0);
-        pub const VIDEO_ENCODE_DPB_KHR: Self = Self(FormatFeatureFlagBits2::VIDEO_ENCODE_DPB_KHR.0);
-        pub const ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR: Self =
-            Self(FormatFeatureFlagBits2::ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR.0);
-        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
-            Self(FormatFeatureFlagBits2::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0);
         pub const STORAGE_READ_WITHOUT_FORMAT: Self =
             Self(FormatFeatureFlagBits2::STORAGE_READ_WITHOUT_FORMAT.0);
         pub const STORAGE_WRITE_WITHOUT_FORMAT: Self =
             Self(FormatFeatureFlagBits2::STORAGE_WRITE_WITHOUT_FORMAT.0);
         pub const SAMPLED_IMAGE_DEPTH_COMPARISON: Self =
             Self(FormatFeatureFlagBits2::SAMPLED_IMAGE_DEPTH_COMPARISON.0);
-        pub const WEIGHT_IMAGE_QCOM: Self = Self(FormatFeatureFlagBits2::WEIGHT_IMAGE_QCOM.0);
-        pub const WEIGHT_SAMPLED_IMAGE_QCOM: Self =
-            Self(FormatFeatureFlagBits2::WEIGHT_SAMPLED_IMAGE_QCOM.0);
-        pub const BLOCK_MATCHING_QCOM: Self = Self(FormatFeatureFlagBits2::BLOCK_MATCHING_QCOM.0);
-        pub const BOX_FILTER_SAMPLED_QCOM: Self =
-            Self(FormatFeatureFlagBits2::BOX_FILTER_SAMPLED_QCOM.0);
-        pub const LINEAR_COLOR_ATTACHMENT_NV: Self =
-            Self(FormatFeatureFlagBits2::LINEAR_COLOR_ATTACHMENT_NV.0);
-        pub const TENSOR_SHADER_ARM: Self = Self(FormatFeatureFlagBits2::TENSOR_SHADER_ARM.0);
-        pub const OPTICAL_FLOW_IMAGE_NV: Self =
-            Self(FormatFeatureFlagBits2::OPTICAL_FLOW_IMAGE_NV.0);
-        pub const OPTICAL_FLOW_VECTOR_NV: Self =
-            Self(FormatFeatureFlagBits2::OPTICAL_FLOW_VECTOR_NV.0);
-        pub const OPTICAL_FLOW_COST_NV: Self = Self(FormatFeatureFlagBits2::OPTICAL_FLOW_COST_NV.0);
-        pub const TENSOR_IMAGE_ALIASING_ARM: Self =
-            Self(FormatFeatureFlagBits2::TENSOR_IMAGE_ALIASING_ARM.0);
-        pub const HOST_IMAGE_TRANSFER: Self = Self(FormatFeatureFlagBits2::HOST_IMAGE_TRANSFER.0);
+        // VK_ARM_data_graph
         pub const TENSOR_DATA_GRAPH_ARM: Self =
             Self(FormatFeatureFlagBits2::TENSOR_DATA_GRAPH_ARM.0);
-        pub const VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR: Self =
-            Self(FormatFeatureFlagBits2::VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR.0);
-        pub const VIDEO_ENCODE_EMPHASIS_MAP_KHR: Self =
-            Self(FormatFeatureFlagBits2::VIDEO_ENCODE_EMPHASIS_MAP_KHR.0);
-        pub const ACCELERATION_STRUCTURE_RADIUS_BUFFER_NV: Self =
-            Self(FormatFeatureFlagBits2::ACCELERATION_STRUCTURE_RADIUS_BUFFER_NV.0);
+        // VK_ARM_tensors
+        pub const TENSOR_SHADER_ARM: Self = Self(FormatFeatureFlagBits2::TENSOR_SHADER_ARM.0);
+        pub const TENSOR_IMAGE_ALIASING_ARM: Self =
+            Self(FormatFeatureFlagBits2::TENSOR_IMAGE_ALIASING_ARM.0);
+        // VK_EXT_fragment_density_map
+        pub const FRAGMENT_DENSITY_MAP_EXT: Self =
+            Self(FormatFeatureFlagBits2::FRAGMENT_DENSITY_MAP_EXT.0);
+        // VK_EXT_host_image_copy
+        pub const HOST_IMAGE_TRANSFER_EXT: Self = Self::HOST_IMAGE_TRANSFER;
+        // VK_KHR_acceleration_structure
+        pub const ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR: Self =
+            Self(FormatFeatureFlagBits2::ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR.0);
+        // VK_KHR_copy_memory_indirect
+        pub const COPY_IMAGE_INDIRECT_DST_KHR: Self =
+            Self(FormatFeatureFlagBits2::COPY_IMAGE_INDIRECT_DST_KHR.0);
+        // VK_KHR_format_feature_flags2
+        pub const SAMPLED_IMAGE_KHR: Self = Self::SAMPLED_IMAGE;
+        pub const STORAGE_IMAGE_KHR: Self = Self::STORAGE_IMAGE;
+        pub const STORAGE_IMAGE_ATOMIC_KHR: Self = Self::STORAGE_IMAGE_ATOMIC;
+        pub const UNIFORM_TEXEL_BUFFER_KHR: Self = Self::UNIFORM_TEXEL_BUFFER;
+        pub const STORAGE_TEXEL_BUFFER_KHR: Self = Self::STORAGE_TEXEL_BUFFER;
+        pub const STORAGE_TEXEL_BUFFER_ATOMIC_KHR: Self = Self::STORAGE_TEXEL_BUFFER_ATOMIC;
+        pub const VERTEX_BUFFER_KHR: Self = Self::VERTEX_BUFFER;
+        pub const COLOR_ATTACHMENT_KHR: Self = Self::COLOR_ATTACHMENT;
+        pub const COLOR_ATTACHMENT_BLEND_KHR: Self = Self::COLOR_ATTACHMENT_BLEND;
+        pub const DEPTH_STENCIL_ATTACHMENT_KHR: Self = Self::DEPTH_STENCIL_ATTACHMENT;
+        pub const BLIT_SRC_KHR: Self = Self::BLIT_SRC;
+        pub const BLIT_DST_KHR: Self = Self::BLIT_DST;
+        pub const SAMPLED_IMAGE_FILTER_LINEAR_KHR: Self = Self::SAMPLED_IMAGE_FILTER_LINEAR;
+        pub const TRANSFER_SRC_KHR: Self = Self::TRANSFER_SRC;
+        pub const TRANSFER_DST_KHR: Self = Self::TRANSFER_DST;
+        pub const MIDPOINT_CHROMA_SAMPLES_KHR: Self = Self::MIDPOINT_CHROMA_SAMPLES;
+        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_KHR: Self =
+            Self::SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER;
+        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_KHR: Self =
+            Self::SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER;
+        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_KHR: Self =
+            Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT;
+        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_KHR:
+            Self = Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE;
+        pub const DISJOINT_KHR: Self = Self::DISJOINT;
+        pub const COSITED_CHROMA_SAMPLES_KHR: Self = Self::COSITED_CHROMA_SAMPLES;
+        pub const STORAGE_READ_WITHOUT_FORMAT_KHR: Self = Self::STORAGE_READ_WITHOUT_FORMAT;
+        pub const STORAGE_WRITE_WITHOUT_FORMAT_KHR: Self = Self::STORAGE_WRITE_WITHOUT_FORMAT;
+        pub const SAMPLED_IMAGE_DEPTH_COMPARISON_KHR: Self = Self::SAMPLED_IMAGE_DEPTH_COMPARISON;
+        pub const SAMPLED_IMAGE_FILTER_MINMAX_KHR: Self = Self::SAMPLED_IMAGE_FILTER_MINMAX;
+        pub const SAMPLED_IMAGE_FILTER_CUBIC_EXT: Self = Self::SAMPLED_IMAGE_FILTER_CUBIC;
+        // VK_KHR_fragment_shading_rate
+        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
+            Self(FormatFeatureFlagBits2::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0);
+        // VK_KHR_maintenance10
         pub const DEPTH_COPY_ON_COMPUTE_QUEUE_KHR: Self =
             Self(FormatFeatureFlagBits2::DEPTH_COPY_ON_COMPUTE_QUEUE_KHR.0);
         pub const DEPTH_COPY_ON_TRANSFER_QUEUE_KHR: Self =
@@ -3698,40 +3764,43 @@ _marker: PhantomData
             Self(FormatFeatureFlagBits2::STENCIL_COPY_ON_COMPUTE_QUEUE_KHR.0);
         pub const STENCIL_COPY_ON_TRANSFER_QUEUE_KHR: Self =
             Self(FormatFeatureFlagBits2::STENCIL_COPY_ON_TRANSFER_QUEUE_KHR.0);
-        pub const COPY_IMAGE_INDIRECT_DST_KHR: Self =
-            Self(FormatFeatureFlagBits2::COPY_IMAGE_INDIRECT_DST_KHR.0);
-        pub const BLIT_DST_KHR: Self = Self::BLIT_DST;
-        pub const BLIT_SRC_KHR: Self = Self::BLIT_SRC;
-        pub const COLOR_ATTACHMENT_KHR: Self = Self::COLOR_ATTACHMENT;
-        pub const COLOR_ATTACHMENT_BLEND_KHR: Self = Self::COLOR_ATTACHMENT_BLEND;
-        pub const COSITED_CHROMA_SAMPLES_KHR: Self = Self::COSITED_CHROMA_SAMPLES;
-        pub const DEPTH_STENCIL_ATTACHMENT_KHR: Self = Self::DEPTH_STENCIL_ATTACHMENT;
-        pub const DISJOINT_KHR: Self = Self::DISJOINT;
-        pub const HOST_IMAGE_TRANSFER_EXT: Self = Self::HOST_IMAGE_TRANSFER;
-        pub const MIDPOINT_CHROMA_SAMPLES_KHR: Self = Self::MIDPOINT_CHROMA_SAMPLES;
-        pub const SAMPLED_IMAGE_KHR: Self = Self::SAMPLED_IMAGE;
-        pub const SAMPLED_IMAGE_DEPTH_COMPARISON_KHR: Self = Self::SAMPLED_IMAGE_DEPTH_COMPARISON;
-        pub const SAMPLED_IMAGE_FILTER_CUBIC_EXT: Self = Self::SAMPLED_IMAGE_FILTER_CUBIC;
-        pub const SAMPLED_IMAGE_FILTER_LINEAR_KHR: Self = Self::SAMPLED_IMAGE_FILTER_LINEAR;
-        pub const SAMPLED_IMAGE_FILTER_MINMAX_KHR: Self = Self::SAMPLED_IMAGE_FILTER_MINMAX;
-        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_KHR: Self =
-            Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT;
-        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_KHR:
-            Self = Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE;
-        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_KHR: Self =
-            Self::SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER;
-        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_KHR: Self =
-            Self::SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER;
-        pub const STORAGE_IMAGE_ATOMIC_KHR: Self = Self::STORAGE_IMAGE_ATOMIC;
-        pub const STORAGE_IMAGE_KHR: Self = Self::STORAGE_IMAGE;
-        pub const STORAGE_READ_WITHOUT_FORMAT_KHR: Self = Self::STORAGE_READ_WITHOUT_FORMAT;
-        pub const STORAGE_TEXEL_BUFFER_ATOMIC_KHR: Self = Self::STORAGE_TEXEL_BUFFER_ATOMIC;
-        pub const STORAGE_TEXEL_BUFFER_KHR: Self = Self::STORAGE_TEXEL_BUFFER;
-        pub const STORAGE_WRITE_WITHOUT_FORMAT_KHR: Self = Self::STORAGE_WRITE_WITHOUT_FORMAT;
-        pub const TRANSFER_DST_KHR: Self = Self::TRANSFER_DST;
-        pub const TRANSFER_SRC_KHR: Self = Self::TRANSFER_SRC;
-        pub const UNIFORM_TEXEL_BUFFER_KHR: Self = Self::UNIFORM_TEXEL_BUFFER;
-        pub const VERTEX_BUFFER_KHR: Self = Self::VERTEX_BUFFER;
+        // VK_KHR_video_decode_queue
+        pub const VIDEO_DECODE_OUTPUT_KHR: Self =
+            Self(FormatFeatureFlagBits2::VIDEO_DECODE_OUTPUT_KHR.0);
+        pub const VIDEO_DECODE_DPB_KHR: Self = Self(FormatFeatureFlagBits2::VIDEO_DECODE_DPB_KHR.0);
+        // VK_KHR_video_encode_quantization_map
+        pub const VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR: Self =
+            Self(FormatFeatureFlagBits2::VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR.0);
+        pub const VIDEO_ENCODE_EMPHASIS_MAP_KHR: Self =
+            Self(FormatFeatureFlagBits2::VIDEO_ENCODE_EMPHASIS_MAP_KHR.0);
+        // VK_KHR_video_encode_queue
+        pub const VIDEO_ENCODE_INPUT_KHR: Self =
+            Self(FormatFeatureFlagBits2::VIDEO_ENCODE_INPUT_KHR.0);
+        pub const VIDEO_ENCODE_DPB_KHR: Self = Self(FormatFeatureFlagBits2::VIDEO_ENCODE_DPB_KHR.0);
+        // VK_NV_linear_color_attachment
+        pub const LINEAR_COLOR_ATTACHMENT_NV: Self =
+            Self(FormatFeatureFlagBits2::LINEAR_COLOR_ATTACHMENT_NV.0);
+        // VK_NV_optical_flow
+        pub const OPTICAL_FLOW_IMAGE_NV: Self =
+            Self(FormatFeatureFlagBits2::OPTICAL_FLOW_IMAGE_NV.0);
+        pub const OPTICAL_FLOW_VECTOR_NV: Self =
+            Self(FormatFeatureFlagBits2::OPTICAL_FLOW_VECTOR_NV.0);
+        pub const OPTICAL_FLOW_COST_NV: Self = Self(FormatFeatureFlagBits2::OPTICAL_FLOW_COST_NV.0);
+        // VK_NV_ray_tracing_linear_swept_spheres
+        pub const ACCELERATION_STRUCTURE_RADIUS_BUFFER_NV: Self =
+            Self(FormatFeatureFlagBits2::ACCELERATION_STRUCTURE_RADIUS_BUFFER_NV.0);
+        // VK_QCOM_image_processing
+        pub const WEIGHT_IMAGE_QCOM: Self = Self(FormatFeatureFlagBits2::WEIGHT_IMAGE_QCOM.0);
+        pub const WEIGHT_SAMPLED_IMAGE_QCOM: Self =
+            Self(FormatFeatureFlagBits2::WEIGHT_SAMPLED_IMAGE_QCOM.0);
+        pub const BLOCK_MATCHING_QCOM: Self = Self(FormatFeatureFlagBits2::BLOCK_MATCHING_QCOM.0);
+        pub const BOX_FILTER_SAMPLED_QCOM: Self =
+            Self(FormatFeatureFlagBits2::BOX_FILTER_SAMPLED_QCOM.0);
+        // VK_VERSION_1_3
+        pub const SAMPLED_IMAGE_FILTER_CUBIC: Self =
+            Self(FormatFeatureFlagBits2::SAMPLED_IMAGE_FILTER_CUBIC.0);
+        // VK_VERSION_1_4
+        pub const HOST_IMAGE_TRANSFER: Self = Self(FormatFeatureFlagBits2::HOST_IMAGE_TRANSFER.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -3750,7 +3819,6 @@ _marker: PhantomData
         pub const BLIT_SRC: Self = Self(1 << 10);
         pub const BLIT_DST: Self = Self(1 << 11);
         pub const SAMPLED_IMAGE_FILTER_LINEAR: Self = Self(1 << 12);
-        pub const SAMPLED_IMAGE_FILTER_CUBIC: Self = Self(1 << 13);
         pub const TRANSFER_SRC: Self = Self(1 << 14);
         pub const TRANSFER_DST: Self = Self(1 << 15);
         pub const SAMPLED_IMAGE_FILTER_MINMAX: Self = Self(1 << 16);
@@ -3764,68 +3832,87 @@ _marker: PhantomData
             Self(1 << 21);
         pub const DISJOINT: Self = Self(1 << 22);
         pub const COSITED_CHROMA_SAMPLES: Self = Self(1 << 23);
-        pub const FRAGMENT_DENSITY_MAP_EXT: Self = Self(1 << 24);
-        pub const VIDEO_DECODE_OUTPUT_KHR: Self = Self(1 << 25);
-        pub const VIDEO_DECODE_DPB_KHR: Self = Self(1 << 26);
-        pub const VIDEO_ENCODE_INPUT_KHR: Self = Self(1 << 27);
-        pub const VIDEO_ENCODE_DPB_KHR: Self = Self(1 << 28);
-        pub const ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR: Self = Self(1 << 29);
-        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self = Self(1 << 30);
         pub const STORAGE_READ_WITHOUT_FORMAT: Self = Self(1 << 31);
         pub const STORAGE_WRITE_WITHOUT_FORMAT: Self = Self(1 << 32);
         pub const SAMPLED_IMAGE_DEPTH_COMPARISON: Self = Self(1 << 33);
-        pub const WEIGHT_IMAGE_QCOM: Self = Self(1 << 34);
-        pub const WEIGHT_SAMPLED_IMAGE_QCOM: Self = Self(1 << 35);
-        pub const BLOCK_MATCHING_QCOM: Self = Self(1 << 36);
-        pub const BOX_FILTER_SAMPLED_QCOM: Self = Self(1 << 37);
-        pub const LINEAR_COLOR_ATTACHMENT_NV: Self = Self(1 << 38);
-        pub const TENSOR_SHADER_ARM: Self = Self(1 << 39);
-        pub const OPTICAL_FLOW_IMAGE_NV: Self = Self(1 << 40);
-        pub const OPTICAL_FLOW_VECTOR_NV: Self = Self(1 << 41);
-        pub const OPTICAL_FLOW_COST_NV: Self = Self(1 << 42);
-        pub const TENSOR_IMAGE_ALIASING_ARM: Self = Self(1 << 43);
-        pub const HOST_IMAGE_TRANSFER: Self = Self(1 << 46);
+        // VK_ARM_data_graph
         pub const TENSOR_DATA_GRAPH_ARM: Self = Self(1 << 48);
-        pub const VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR: Self = Self(1 << 49);
-        pub const VIDEO_ENCODE_EMPHASIS_MAP_KHR: Self = Self(1 << 50);
-        pub const ACCELERATION_STRUCTURE_RADIUS_BUFFER_NV: Self = Self(1 << 51);
-        pub const DEPTH_COPY_ON_COMPUTE_QUEUE_KHR: Self = Self(1 << 52);
-        pub const DEPTH_COPY_ON_TRANSFER_QUEUE_KHR: Self = Self(1 << 53);
-        pub const STENCIL_COPY_ON_COMPUTE_QUEUE_KHR: Self = Self(1 << 54);
-        pub const STENCIL_COPY_ON_TRANSFER_QUEUE_KHR: Self = Self(1 << 55);
+        // VK_ARM_tensors
+        pub const TENSOR_SHADER_ARM: Self = Self(1 << 39);
+        pub const TENSOR_IMAGE_ALIASING_ARM: Self = Self(1 << 43);
+        // VK_EXT_fragment_density_map
+        pub const FRAGMENT_DENSITY_MAP_EXT: Self = Self(1 << 24);
+        // VK_EXT_host_image_copy
+        pub const HOST_IMAGE_TRANSFER_EXT: Self = Self::HOST_IMAGE_TRANSFER;
+        // VK_KHR_acceleration_structure
+        pub const ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR: Self = Self(1 << 29);
+        // VK_KHR_copy_memory_indirect
         pub const COPY_IMAGE_INDIRECT_DST_KHR: Self = Self(1 << 59);
-        pub const BLIT_DST_KHR: Self = Self::BLIT_DST;
-        pub const BLIT_SRC_KHR: Self = Self::BLIT_SRC;
+        // VK_KHR_format_feature_flags2
+        pub const SAMPLED_IMAGE_KHR: Self = Self::SAMPLED_IMAGE;
+        pub const STORAGE_IMAGE_KHR: Self = Self::STORAGE_IMAGE;
+        pub const STORAGE_IMAGE_ATOMIC_KHR: Self = Self::STORAGE_IMAGE_ATOMIC;
+        pub const UNIFORM_TEXEL_BUFFER_KHR: Self = Self::UNIFORM_TEXEL_BUFFER;
+        pub const STORAGE_TEXEL_BUFFER_KHR: Self = Self::STORAGE_TEXEL_BUFFER;
+        pub const STORAGE_TEXEL_BUFFER_ATOMIC_KHR: Self = Self::STORAGE_TEXEL_BUFFER_ATOMIC;
+        pub const VERTEX_BUFFER_KHR: Self = Self::VERTEX_BUFFER;
         pub const COLOR_ATTACHMENT_KHR: Self = Self::COLOR_ATTACHMENT;
         pub const COLOR_ATTACHMENT_BLEND_KHR: Self = Self::COLOR_ATTACHMENT_BLEND;
-        pub const COSITED_CHROMA_SAMPLES_KHR: Self = Self::COSITED_CHROMA_SAMPLES;
         pub const DEPTH_STENCIL_ATTACHMENT_KHR: Self = Self::DEPTH_STENCIL_ATTACHMENT;
-        pub const DISJOINT_KHR: Self = Self::DISJOINT;
-        pub const HOST_IMAGE_TRANSFER_EXT: Self = Self::HOST_IMAGE_TRANSFER;
-        pub const MIDPOINT_CHROMA_SAMPLES_KHR: Self = Self::MIDPOINT_CHROMA_SAMPLES;
-        pub const SAMPLED_IMAGE_KHR: Self = Self::SAMPLED_IMAGE;
-        pub const SAMPLED_IMAGE_DEPTH_COMPARISON_KHR: Self = Self::SAMPLED_IMAGE_DEPTH_COMPARISON;
-        pub const SAMPLED_IMAGE_FILTER_CUBIC_EXT: Self = Self::SAMPLED_IMAGE_FILTER_CUBIC;
+        pub const BLIT_SRC_KHR: Self = Self::BLIT_SRC;
+        pub const BLIT_DST_KHR: Self = Self::BLIT_DST;
         pub const SAMPLED_IMAGE_FILTER_LINEAR_KHR: Self = Self::SAMPLED_IMAGE_FILTER_LINEAR;
-        pub const SAMPLED_IMAGE_FILTER_MINMAX_KHR: Self = Self::SAMPLED_IMAGE_FILTER_MINMAX;
-        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_KHR: Self =
-            Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT;
-        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_KHR:
-            Self = Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE;
+        pub const TRANSFER_SRC_KHR: Self = Self::TRANSFER_SRC;
+        pub const TRANSFER_DST_KHR: Self = Self::TRANSFER_DST;
+        pub const MIDPOINT_CHROMA_SAMPLES_KHR: Self = Self::MIDPOINT_CHROMA_SAMPLES;
         pub const SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_KHR: Self =
             Self::SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER;
         pub const SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_KHR: Self =
             Self::SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER;
-        pub const STORAGE_IMAGE_ATOMIC_KHR: Self = Self::STORAGE_IMAGE_ATOMIC;
-        pub const STORAGE_IMAGE_KHR: Self = Self::STORAGE_IMAGE;
+        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_KHR: Self =
+            Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT;
+        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_KHR:
+            Self = Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE;
+        pub const DISJOINT_KHR: Self = Self::DISJOINT;
+        pub const COSITED_CHROMA_SAMPLES_KHR: Self = Self::COSITED_CHROMA_SAMPLES;
         pub const STORAGE_READ_WITHOUT_FORMAT_KHR: Self = Self::STORAGE_READ_WITHOUT_FORMAT;
-        pub const STORAGE_TEXEL_BUFFER_ATOMIC_KHR: Self = Self::STORAGE_TEXEL_BUFFER_ATOMIC;
-        pub const STORAGE_TEXEL_BUFFER_KHR: Self = Self::STORAGE_TEXEL_BUFFER;
         pub const STORAGE_WRITE_WITHOUT_FORMAT_KHR: Self = Self::STORAGE_WRITE_WITHOUT_FORMAT;
-        pub const TRANSFER_DST_KHR: Self = Self::TRANSFER_DST;
-        pub const TRANSFER_SRC_KHR: Self = Self::TRANSFER_SRC;
-        pub const UNIFORM_TEXEL_BUFFER_KHR: Self = Self::UNIFORM_TEXEL_BUFFER;
-        pub const VERTEX_BUFFER_KHR: Self = Self::VERTEX_BUFFER;
+        pub const SAMPLED_IMAGE_DEPTH_COMPARISON_KHR: Self = Self::SAMPLED_IMAGE_DEPTH_COMPARISON;
+        pub const SAMPLED_IMAGE_FILTER_MINMAX_KHR: Self = Self::SAMPLED_IMAGE_FILTER_MINMAX;
+        pub const SAMPLED_IMAGE_FILTER_CUBIC_EXT: Self = Self::SAMPLED_IMAGE_FILTER_CUBIC;
+        // VK_KHR_fragment_shading_rate
+        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self = Self(1 << 30);
+        // VK_KHR_maintenance10
+        pub const DEPTH_COPY_ON_COMPUTE_QUEUE_KHR: Self = Self(1 << 52);
+        pub const DEPTH_COPY_ON_TRANSFER_QUEUE_KHR: Self = Self(1 << 53);
+        pub const STENCIL_COPY_ON_COMPUTE_QUEUE_KHR: Self = Self(1 << 54);
+        pub const STENCIL_COPY_ON_TRANSFER_QUEUE_KHR: Self = Self(1 << 55);
+        // VK_KHR_video_decode_queue
+        pub const VIDEO_DECODE_OUTPUT_KHR: Self = Self(1 << 25);
+        pub const VIDEO_DECODE_DPB_KHR: Self = Self(1 << 26);
+        // VK_KHR_video_encode_quantization_map
+        pub const VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR: Self = Self(1 << 49);
+        pub const VIDEO_ENCODE_EMPHASIS_MAP_KHR: Self = Self(1 << 50);
+        // VK_KHR_video_encode_queue
+        pub const VIDEO_ENCODE_INPUT_KHR: Self = Self(1 << 27);
+        pub const VIDEO_ENCODE_DPB_KHR: Self = Self(1 << 28);
+        // VK_NV_linear_color_attachment
+        pub const LINEAR_COLOR_ATTACHMENT_NV: Self = Self(1 << 38);
+        // VK_NV_optical_flow
+        pub const OPTICAL_FLOW_IMAGE_NV: Self = Self(1 << 40);
+        pub const OPTICAL_FLOW_VECTOR_NV: Self = Self(1 << 41);
+        pub const OPTICAL_FLOW_COST_NV: Self = Self(1 << 42);
+        // VK_NV_ray_tracing_linear_swept_spheres
+        pub const ACCELERATION_STRUCTURE_RADIUS_BUFFER_NV: Self = Self(1 << 51);
+        // VK_QCOM_image_processing
+        pub const WEIGHT_IMAGE_QCOM: Self = Self(1 << 34);
+        pub const WEIGHT_SAMPLED_IMAGE_QCOM: Self = Self(1 << 35);
+        pub const BLOCK_MATCHING_QCOM: Self = Self(1 << 36);
+        pub const BOX_FILTER_SAMPLED_QCOM: Self = Self(1 << 37);
+        // VK_VERSION_1_3
+        pub const SAMPLED_IMAGE_FILTER_CUBIC: Self = Self(1 << 13);
+        // VK_VERSION_1_4
+        pub const HOST_IMAGE_TRANSFER: Self = Self(1 << 46);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -3836,20 +3923,27 @@ _marker: PhantomData
             Self(RenderingFlagBits::CONTENTS_SECONDARY_COMMAND_BUFFERS.0);
         pub const SUSPENDING: Self = Self(RenderingFlagBits::SUSPENDING.0);
         pub const RESUMING: Self = Self(RenderingFlagBits::RESUMING.0);
-        pub const ENABLE_LEGACY_DITHERING_EXT: Self =
-            Self(RenderingFlagBits::ENABLE_LEGACY_DITHERING_EXT.0);
-        pub const CONTENTS_INLINE_KHR: Self = Self(RenderingFlagBits::CONTENTS_INLINE_KHR.0);
-        pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self =
-            Self(RenderingFlagBits::PER_LAYER_FRAGMENT_DENSITY_VALVE.0);
+        // VK_EXT_custom_resolve
         pub const FRAGMENT_REGION_EXT: Self = Self(RenderingFlagBits::FRAGMENT_REGION_EXT.0);
         pub const CUSTOM_RESOLVE_EXT: Self = Self(RenderingFlagBits::CUSTOM_RESOLVE_EXT.0);
-        pub const LOCAL_READ_CONCURRENT_ACCESS_CONTROL_KHR: Self =
-            Self(RenderingFlagBits::LOCAL_READ_CONCURRENT_ACCESS_CONTROL_KHR.0);
+        // VK_EXT_legacy_dithering
+        pub const ENABLE_LEGACY_DITHERING_EXT: Self =
+            Self(RenderingFlagBits::ENABLE_LEGACY_DITHERING_EXT.0);
+        // VK_EXT_nested_command_buffer
         pub const CONTENTS_INLINE_EXT: Self = Self::CONTENTS_INLINE_KHR;
+        // VK_KHR_dynamic_rendering
         pub const CONTENTS_SECONDARY_COMMAND_BUFFERS_KHR: Self =
             Self::CONTENTS_SECONDARY_COMMAND_BUFFERS;
-        pub const RESUMING_KHR: Self = Self::RESUMING;
         pub const SUSPENDING_KHR: Self = Self::SUSPENDING;
+        pub const RESUMING_KHR: Self = Self::RESUMING;
+        // VK_KHR_maintenance10
+        pub const LOCAL_READ_CONCURRENT_ACCESS_CONTROL_KHR: Self =
+            Self(RenderingFlagBits::LOCAL_READ_CONCURRENT_ACCESS_CONTROL_KHR.0);
+        // VK_KHR_maintenance7
+        pub const CONTENTS_INLINE_KHR: Self = Self(RenderingFlagBits::CONTENTS_INLINE_KHR.0);
+        // VK_VALVE_fragment_density_map_layered
+        pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self =
+            Self(RenderingFlagBits::PER_LAYER_FRAGMENT_DENSITY_VALVE.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -3858,17 +3952,24 @@ _marker: PhantomData
         pub const CONTENTS_SECONDARY_COMMAND_BUFFERS: Self = Self(1 << 0);
         pub const SUSPENDING: Self = Self(1 << 1);
         pub const RESUMING: Self = Self(1 << 2);
-        pub const ENABLE_LEGACY_DITHERING_EXT: Self = Self(1 << 3);
-        pub const CONTENTS_INLINE_KHR: Self = Self(1 << 4);
-        pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self = Self(1 << 5);
+        // VK_EXT_custom_resolve
         pub const FRAGMENT_REGION_EXT: Self = Self(1 << 6);
         pub const CUSTOM_RESOLVE_EXT: Self = Self(1 << 7);
-        pub const LOCAL_READ_CONCURRENT_ACCESS_CONTROL_KHR: Self = Self(1 << 8);
+        // VK_EXT_legacy_dithering
+        pub const ENABLE_LEGACY_DITHERING_EXT: Self = Self(1 << 3);
+        // VK_EXT_nested_command_buffer
         pub const CONTENTS_INLINE_EXT: Self = Self::CONTENTS_INLINE_KHR;
+        // VK_KHR_dynamic_rendering
         pub const CONTENTS_SECONDARY_COMMAND_BUFFERS_KHR: Self =
             Self::CONTENTS_SECONDARY_COMMAND_BUFFERS;
-        pub const RESUMING_KHR: Self = Self::RESUMING;
         pub const SUSPENDING_KHR: Self = Self::SUSPENDING;
+        pub const RESUMING_KHR: Self = Self::RESUMING;
+        // VK_KHR_maintenance10
+        pub const LOCAL_READ_CONCURRENT_ACCESS_CONTROL_KHR: Self = Self(1 << 8);
+        // VK_KHR_maintenance7
+        pub const CONTENTS_INLINE_KHR: Self = Self(1 << 4);
+        // VK_VALVE_fragment_density_map_layered
+        pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self = Self(1 << 5);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -3880,13 +3981,14 @@ _marker: PhantomData
         pub const TRACING: Self = Self(ToolPurposeFlagBits::TRACING.0);
         pub const ADDITIONAL_FEATURES: Self = Self(ToolPurposeFlagBits::ADDITIONAL_FEATURES.0);
         pub const MODIFYING_FEATURES: Self = Self(ToolPurposeFlagBits::MODIFYING_FEATURES.0);
+        // VK_EXT_tooling_info
         pub const DEBUG_REPORTING_EXT: Self = Self(ToolPurposeFlagBits::DEBUG_REPORTING_EXT.0);
         pub const DEBUG_MARKERS_EXT: Self = Self(ToolPurposeFlagBits::DEBUG_MARKERS_EXT.0);
-        pub const ADDITIONAL_FEATURES_EXT: Self = Self::ADDITIONAL_FEATURES;
-        pub const MODIFYING_FEATURES_EXT: Self = Self::MODIFYING_FEATURES;
+        pub const VALIDATION_EXT: Self = Self::VALIDATION;
         pub const PROFILING_EXT: Self = Self::PROFILING;
         pub const TRACING_EXT: Self = Self::TRACING;
-        pub const VALIDATION_EXT: Self = Self::VALIDATION;
+        pub const ADDITIONAL_FEATURES_EXT: Self = Self::ADDITIONAL_FEATURES;
+        pub const MODIFYING_FEATURES_EXT: Self = Self::MODIFYING_FEATURES;
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -3897,13 +3999,14 @@ _marker: PhantomData
         pub const TRACING: Self = Self(1 << 2);
         pub const ADDITIONAL_FEATURES: Self = Self(1 << 3);
         pub const MODIFYING_FEATURES: Self = Self(1 << 4);
+        // VK_EXT_tooling_info
         pub const DEBUG_REPORTING_EXT: Self = Self(1 << 5);
         pub const DEBUG_MARKERS_EXT: Self = Self(1 << 6);
-        pub const ADDITIONAL_FEATURES_EXT: Self = Self::ADDITIONAL_FEATURES;
-        pub const MODIFYING_FEATURES_EXT: Self = Self::MODIFYING_FEATURES;
+        pub const VALIDATION_EXT: Self = Self::VALIDATION;
         pub const PROFILING_EXT: Self = Self::PROFILING;
         pub const TRACING_EXT: Self = Self::TRACING;
-        pub const VALIDATION_EXT: Self = Self::VALIDATION;
+        pub const ADDITIONAL_FEATURES_EXT: Self = Self::ADDITIONAL_FEATURES;
+        pub const MODIFYING_FEATURES_EXT: Self = Self::MODIFYING_FEATURES;
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -3911,6 +4014,7 @@ _marker: PhantomData
     vk_bitflags_wrapped!(SubmitFlags, Flags);
     impl SubmitFlags {
         pub const PROTECTED: Self = Self(SubmitFlagBits::PROTECTED.0);
+        // VK_KHR_synchronization2
         pub const PROTECTED_KHR: Self = Self::PROTECTED;
     }
     #[repr(transparent)]
@@ -3918,6 +4022,7 @@ _marker: PhantomData
     pub struct SubmitFlagBits(u32);
     impl SubmitFlagBits {
         pub const PROTECTED: Self = Self(1 << 0);
+        // VK_KHR_synchronization2
         pub const PROTECTED_KHR: Self = Self::PROTECTED;
     }
     pub type PFN_vkGetDeviceBufferMemoryRequirements = unsafe extern "system" fn(

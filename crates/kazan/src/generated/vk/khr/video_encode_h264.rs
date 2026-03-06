@@ -812,10 +812,12 @@ pub(super) mod defs {
             Self(VideoEncodeH264CapabilityFlagBitsKHR::PER_SLICE_CONSTANT_QP_KHR.0);
         pub const GENERATE_PREFIX_NALU_KHR: Self =
             Self(VideoEncodeH264CapabilityFlagBitsKHR::GENERATE_PREFIX_NALU_KHR.0);
-        pub const MB_QP_DIFF_WRAPAROUND_KHR: Self =
-            Self(VideoEncodeH264CapabilityFlagBitsKHR::MB_QP_DIFF_WRAPAROUND_KHR.0);
+        // VK_KHR_video_encode_intra_refresh
         pub const B_PICTURE_INTRA_REFRESH_KHR: Self =
             Self(VideoEncodeH264CapabilityFlagBitsKHR::B_PICTURE_INTRA_REFRESH_KHR.0);
+        // VK_KHR_video_encode_quantization_map
+        pub const MB_QP_DIFF_WRAPAROUND_KHR: Self =
+            Self(VideoEncodeH264CapabilityFlagBitsKHR::MB_QP_DIFF_WRAPAROUND_KHR.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -830,8 +832,10 @@ pub(super) mod defs {
         pub const PER_PICTURE_TYPE_MIN_MAX_QP_KHR: Self = Self(1 << 6);
         pub const PER_SLICE_CONSTANT_QP_KHR: Self = Self(1 << 7);
         pub const GENERATE_PREFIX_NALU_KHR: Self = Self(1 << 8);
-        pub const MB_QP_DIFF_WRAPAROUND_KHR: Self = Self(1 << 9);
+        // VK_KHR_video_encode_intra_refresh
         pub const B_PICTURE_INTRA_REFRESH_KHR: Self = Self(1 << 10);
+        // VK_KHR_video_encode_quantization_map
+        pub const MB_QP_DIFF_WRAPAROUND_KHR: Self = Self(1 << 9);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]

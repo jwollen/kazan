@@ -22,6 +22,13 @@ pub struct VersionInfo<'a> {
 }
 
 impl Module<'_> {
+    pub fn display_name(&self) -> String {
+        match self {
+            Module::Version(version) => format!("VK_VERSION_{}_{}", version.major, version.minor),
+            Module::Extension(extension) => extension.name.to_string(),
+        }
+    }
+
     pub fn ext_number(&self) -> Option<u32> {
         let ext_number = match self {
             Module::Version(_) => None,

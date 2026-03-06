@@ -751,6 +751,7 @@ pub(super) mod defs {
         pub const ERROR_KHR: Self = Self(-1);
         pub const NOT_READY_KHR: Self = Self(0);
         pub const COMPLETE_KHR: Self = Self(1);
+        // VK_KHR_video_encode_queue
         pub const INSUFFICIENT_BITSTREAM_BUFFER_RANGE_KHR: Self = Self(-1000299000);
     }
     impl fmt::Debug for QueryResultStatusKHR {
@@ -776,26 +777,40 @@ pub(super) mod defs {
     pub struct VideoCodecOperationFlagsKHR(Flags);
     vk_bitflags_wrapped!(VideoCodecOperationFlagsKHR, Flags);
     impl VideoCodecOperationFlagsKHR {
-        pub const DECODE_H264_KHR: Self = Self(VideoCodecOperationFlagBitsKHR::DECODE_H264_KHR.0);
-        pub const DECODE_H265_KHR: Self = Self(VideoCodecOperationFlagBitsKHR::DECODE_H265_KHR.0);
-        pub const DECODE_AV1_KHR: Self = Self(VideoCodecOperationFlagBitsKHR::DECODE_AV1_KHR.0);
-        pub const DECODE_VP9_KHR: Self = Self(VideoCodecOperationFlagBitsKHR::DECODE_VP9_KHR.0);
-        pub const ENCODE_H264_KHR: Self = Self(VideoCodecOperationFlagBitsKHR::ENCODE_H264_KHR.0);
-        pub const ENCODE_H265_KHR: Self = Self(VideoCodecOperationFlagBitsKHR::ENCODE_H265_KHR.0);
-        pub const ENCODE_AV1_KHR: Self = Self(VideoCodecOperationFlagBitsKHR::ENCODE_AV1_KHR.0);
         pub const NONE: Self = Self(0);
+        // VK_KHR_video_decode_av1
+        pub const DECODE_AV1_KHR: Self = Self(VideoCodecOperationFlagBitsKHR::DECODE_AV1_KHR.0);
+        // VK_KHR_video_decode_h264
+        pub const DECODE_H264_KHR: Self = Self(VideoCodecOperationFlagBitsKHR::DECODE_H264_KHR.0);
+        // VK_KHR_video_decode_h265
+        pub const DECODE_H265_KHR: Self = Self(VideoCodecOperationFlagBitsKHR::DECODE_H265_KHR.0);
+        // VK_KHR_video_decode_vp9
+        pub const DECODE_VP9_KHR: Self = Self(VideoCodecOperationFlagBitsKHR::DECODE_VP9_KHR.0);
+        // VK_KHR_video_encode_av1
+        pub const ENCODE_AV1_KHR: Self = Self(VideoCodecOperationFlagBitsKHR::ENCODE_AV1_KHR.0);
+        // VK_KHR_video_encode_h264
+        pub const ENCODE_H264_KHR: Self = Self(VideoCodecOperationFlagBitsKHR::ENCODE_H264_KHR.0);
+        // VK_KHR_video_encode_h265
+        pub const ENCODE_H265_KHR: Self = Self(VideoCodecOperationFlagBitsKHR::ENCODE_H265_KHR.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoCodecOperationFlagBitsKHR(u32);
     impl VideoCodecOperationFlagBitsKHR {
-        pub const DECODE_H264_KHR: Self = Self(1 << 0);
-        pub const DECODE_H265_KHR: Self = Self(1 << 1);
+        // VK_KHR_video_decode_av1
         pub const DECODE_AV1_KHR: Self = Self(1 << 2);
+        // VK_KHR_video_decode_h264
+        pub const DECODE_H264_KHR: Self = Self(1 << 0);
+        // VK_KHR_video_decode_h265
+        pub const DECODE_H265_KHR: Self = Self(1 << 1);
+        // VK_KHR_video_decode_vp9
         pub const DECODE_VP9_KHR: Self = Self(1 << 3);
-        pub const ENCODE_H264_KHR: Self = Self(1 << 16);
-        pub const ENCODE_H265_KHR: Self = Self(1 << 17);
+        // VK_KHR_video_encode_av1
         pub const ENCODE_AV1_KHR: Self = Self(1 << 18);
+        // VK_KHR_video_encode_h264
+        pub const ENCODE_H264_KHR: Self = Self(1 << 16);
+        // VK_KHR_video_encode_h265
+        pub const ENCODE_H265_KHR: Self = Self(1 << 17);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -821,14 +836,18 @@ pub(super) mod defs {
     impl VideoSessionCreateFlagsKHR {
         pub const PROTECTED_CONTENT_KHR: Self =
             Self(VideoSessionCreateFlagBitsKHR::PROTECTED_CONTENT_KHR.0);
-        pub const ALLOW_ENCODE_PARAMETER_OPTIMIZATIONS_KHR: Self =
-            Self(VideoSessionCreateFlagBitsKHR::ALLOW_ENCODE_PARAMETER_OPTIMIZATIONS_KHR.0);
-        pub const INLINE_QUERIES_KHR: Self =
-            Self(VideoSessionCreateFlagBitsKHR::INLINE_QUERIES_KHR.0);
+        // VK_KHR_video_encode_quantization_map
         pub const ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_KHR: Self =
             Self(VideoSessionCreateFlagBitsKHR::ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_KHR.0);
         pub const ALLOW_ENCODE_EMPHASIS_MAP_KHR: Self =
             Self(VideoSessionCreateFlagBitsKHR::ALLOW_ENCODE_EMPHASIS_MAP_KHR.0);
+        // VK_KHR_video_encode_queue
+        pub const ALLOW_ENCODE_PARAMETER_OPTIMIZATIONS_KHR: Self =
+            Self(VideoSessionCreateFlagBitsKHR::ALLOW_ENCODE_PARAMETER_OPTIMIZATIONS_KHR.0);
+        // VK_KHR_video_maintenance1
+        pub const INLINE_QUERIES_KHR: Self =
+            Self(VideoSessionCreateFlagBitsKHR::INLINE_QUERIES_KHR.0);
+        // VK_KHR_video_maintenance2
         pub const INLINE_SESSION_PARAMETERS_KHR: Self =
             Self(VideoSessionCreateFlagBitsKHR::INLINE_SESSION_PARAMETERS_KHR.0);
     }
@@ -837,10 +856,14 @@ pub(super) mod defs {
     pub struct VideoSessionCreateFlagBitsKHR(u32);
     impl VideoSessionCreateFlagBitsKHR {
         pub const PROTECTED_CONTENT_KHR: Self = Self(1 << 0);
-        pub const ALLOW_ENCODE_PARAMETER_OPTIMIZATIONS_KHR: Self = Self(1 << 1);
-        pub const INLINE_QUERIES_KHR: Self = Self(1 << 2);
+        // VK_KHR_video_encode_quantization_map
         pub const ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_KHR: Self = Self(1 << 3);
         pub const ALLOW_ENCODE_EMPHASIS_MAP_KHR: Self = Self(1 << 4);
+        // VK_KHR_video_encode_queue
+        pub const ALLOW_ENCODE_PARAMETER_OPTIMIZATIONS_KHR: Self = Self(1 << 1);
+        // VK_KHR_video_maintenance1
+        pub const INLINE_QUERIES_KHR: Self = Self(1 << 2);
+        // VK_KHR_video_maintenance2
         pub const INLINE_SESSION_PARAMETERS_KHR: Self = Self(1 << 5);
     }
     #[repr(transparent)]
@@ -848,6 +871,7 @@ pub(super) mod defs {
     pub struct VideoSessionParametersCreateFlagsKHR(Flags);
     vk_bitflags_wrapped!(VideoSessionParametersCreateFlagsKHR, Flags);
     impl VideoSessionParametersCreateFlagsKHR {
+        // VK_KHR_video_encode_quantization_map
         pub const QUANTIZATION_MAP_COMPATIBLE_KHR: Self =
             Self(VideoSessionParametersCreateFlagBitsKHR::QUANTIZATION_MAP_COMPATIBLE_KHR.0);
     }
@@ -855,24 +879,24 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoSessionParametersCreateFlagBitsKHR(u32);
     impl VideoSessionParametersCreateFlagBitsKHR {
+        // VK_KHR_video_encode_quantization_map
         pub const QUANTIZATION_MAP_COMPATIBLE_KHR: Self = Self(1 << 0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoBeginCodingFlagsKHR(Flags);
     vk_bitflags_wrapped!(VideoBeginCodingFlagsKHR, Flags);
-    impl VideoBeginCodingFlagsKHR {}
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEndCodingFlagsKHR(Flags);
     vk_bitflags_wrapped!(VideoEndCodingFlagsKHR, Flags);
-    impl VideoEndCodingFlagsKHR {}
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoCodingControlFlagsKHR(Flags);
     vk_bitflags_wrapped!(VideoCodingControlFlagsKHR, Flags);
     impl VideoCodingControlFlagsKHR {
         pub const RESET_KHR: Self = Self(VideoCodingControlFlagBitsKHR::RESET_KHR.0);
+        // VK_KHR_video_encode_queue
         pub const ENCODE_RATE_CONTROL_KHR: Self =
             Self(VideoCodingControlFlagBitsKHR::ENCODE_RATE_CONTROL_KHR.0);
         pub const ENCODE_QUALITY_LEVEL_KHR: Self =
@@ -883,6 +907,7 @@ pub(super) mod defs {
     pub struct VideoCodingControlFlagBitsKHR(u32);
     impl VideoCodingControlFlagBitsKHR {
         pub const RESET_KHR: Self = Self(1 << 0);
+        // VK_KHR_video_encode_queue
         pub const ENCODE_RATE_CONTROL_KHR: Self = Self(1 << 1);
         pub const ENCODE_QUALITY_LEVEL_KHR: Self = Self(1 << 2);
     }

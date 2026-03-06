@@ -926,8 +926,10 @@ pub(super) mod defs {
     impl CopyAccelerationStructureModeKHR {
         pub const CLONE_KHR: Self = Self(0);
         pub const COMPACT_KHR: Self = Self(1);
-        pub const DESERIALIZE_KHR: Self = Self(3);
+        // VK_KHR_acceleration_structure
         pub const SERIALIZE_KHR: Self = Self(2);
+        pub const DESERIALIZE_KHR: Self = Self(3);
+        // VK_NV_ray_tracing
         pub const CLONE_NV: Self = Self::CLONE_KHR;
         pub const COMPACT_NV: Self = Self::COMPACT_KHR;
     }
@@ -936,8 +938,8 @@ pub(super) mod defs {
             let name = match *self {
                 Self::CLONE_KHR => Some("CLONE_KHR"),
                 Self::COMPACT_KHR => Some("COMPACT_KHR"),
-                Self::DESERIALIZE_KHR => Some("DESERIALIZE_KHR"),
                 Self::SERIALIZE_KHR => Some("SERIALIZE_KHR"),
+                Self::DESERIALIZE_KHR => Some("DESERIALIZE_KHR"),
                 _ => None,
             };
             if let Some(name) = name {
@@ -975,8 +977,9 @@ pub(super) mod defs {
         pub const TOP_LEVEL_KHR: Self = Self(0);
         pub const BOTTOM_LEVEL_KHR: Self = Self(1);
         pub const GENERIC_KHR: Self = Self(2);
-        pub const BOTTOM_LEVEL_NV: Self = Self::BOTTOM_LEVEL_KHR;
+        // VK_NV_ray_tracing
         pub const TOP_LEVEL_NV: Self = Self::TOP_LEVEL_KHR;
+        pub const BOTTOM_LEVEL_NV: Self = Self::BOTTOM_LEVEL_KHR;
     }
     impl fmt::Debug for AccelerationStructureTypeKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -1000,11 +1003,14 @@ pub(super) mod defs {
         pub const TRIANGLES_KHR: Self = Self(0);
         pub const AABBS_KHR: Self = Self(1);
         pub const INSTANCES_KHR: Self = Self(2);
+        // VK_AMDX_dense_geometry_format
         pub const DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX: Self = Self(1000478000);
-        pub const LINEAR_SWEPT_SPHERES_NV: Self = Self(1000429005);
-        pub const SPHERES_NV: Self = Self(1000429004);
-        pub const AABBS_NV: Self = Self::AABBS_KHR;
+        // VK_NV_ray_tracing
         pub const TRIANGLES_NV: Self = Self::TRIANGLES_KHR;
+        pub const AABBS_NV: Self = Self::AABBS_KHR;
+        // VK_NV_ray_tracing_linear_swept_spheres
+        pub const SPHERES_NV: Self = Self(1000429004);
+        pub const LINEAR_SWEPT_SPHERES_NV: Self = Self(1000429005);
     }
     impl fmt::Debug for GeometryTypeKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -1015,8 +1021,8 @@ pub(super) mod defs {
                 Self::DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX => {
                     Some("DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX")
                 }
-                Self::LINEAR_SWEPT_SPHERES_NV => Some("LINEAR_SWEPT_SPHERES_NV"),
                 Self::SPHERES_NV => Some("SPHERES_NV"),
+                Self::LINEAR_SWEPT_SPHERES_NV => Some("LINEAR_SWEPT_SPHERES_NV"),
                 _ => None,
             };
             if let Some(name) = name {
@@ -1078,9 +1084,10 @@ pub(super) mod defs {
         pub const OPAQUE_KHR: Self = Self(GeometryFlagBitsKHR::OPAQUE_KHR.0);
         pub const NO_DUPLICATE_ANY_HIT_INVOCATION_KHR: Self =
             Self(GeometryFlagBitsKHR::NO_DUPLICATE_ANY_HIT_INVOCATION_KHR.0);
+        // VK_NV_ray_tracing
+        pub const OPAQUE_NV: Self = Self::OPAQUE_KHR;
         pub const NO_DUPLICATE_ANY_HIT_INVOCATION_NV: Self =
             Self::NO_DUPLICATE_ANY_HIT_INVOCATION_KHR;
-        pub const OPAQUE_NV: Self = Self::OPAQUE_KHR;
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -1088,9 +1095,10 @@ pub(super) mod defs {
     impl GeometryFlagBitsKHR {
         pub const OPAQUE_KHR: Self = Self(1 << 0);
         pub const NO_DUPLICATE_ANY_HIT_INVOCATION_KHR: Self = Self(1 << 1);
+        // VK_NV_ray_tracing
+        pub const OPAQUE_NV: Self = Self::OPAQUE_KHR;
         pub const NO_DUPLICATE_ANY_HIT_INVOCATION_NV: Self =
             Self::NO_DUPLICATE_ANY_HIT_INVOCATION_KHR;
-        pub const OPAQUE_NV: Self = Self::OPAQUE_KHR;
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -1104,16 +1112,18 @@ pub(super) mod defs {
         pub const FORCE_OPAQUE_KHR: Self = Self(GeometryInstanceFlagBitsKHR::FORCE_OPAQUE_KHR.0);
         pub const FORCE_NO_OPAQUE_KHR: Self =
             Self(GeometryInstanceFlagBitsKHR::FORCE_NO_OPAQUE_KHR.0);
+        pub const TRIANGLE_FRONT_COUNTERCLOCKWISE_KHR: Self = Self::TRIANGLE_FLIP_FACING_KHR;
+        // VK_EXT_opacity_micromap
         pub const FORCE_OPACITY_MICROMAP_2_STATE_EXT: Self =
             Self(GeometryInstanceFlagBitsKHR::FORCE_OPACITY_MICROMAP_2_STATE_EXT.0);
         pub const DISABLE_OPACITY_MICROMAPS_EXT: Self =
             Self(GeometryInstanceFlagBitsKHR::DISABLE_OPACITY_MICROMAPS_EXT.0);
-        pub const TRIANGLE_FRONT_COUNTERCLOCKWISE_KHR: Self = Self::TRIANGLE_FLIP_FACING_KHR;
-        pub const FORCE_NO_OPAQUE_NV: Self = Self::FORCE_NO_OPAQUE_KHR;
-        pub const FORCE_OPAQUE_NV: Self = Self::FORCE_OPAQUE_KHR;
+        // VK_NV_ray_tracing
         pub const TRIANGLE_CULL_DISABLE_NV: Self = Self::TRIANGLE_FACING_CULL_DISABLE_KHR;
         pub const TRIANGLE_FRONT_COUNTERCLOCKWISE_NV: Self =
             Self::TRIANGLE_FRONT_COUNTERCLOCKWISE_KHR;
+        pub const FORCE_OPAQUE_NV: Self = Self::FORCE_OPAQUE_KHR;
+        pub const FORCE_NO_OPAQUE_NV: Self = Self::FORCE_NO_OPAQUE_KHR;
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -1123,11 +1133,13 @@ pub(super) mod defs {
         pub const TRIANGLE_FLIP_FACING_KHR: Self = Self(1 << 1);
         pub const FORCE_OPAQUE_KHR: Self = Self(1 << 2);
         pub const FORCE_NO_OPAQUE_KHR: Self = Self(1 << 3);
+        // VK_EXT_opacity_micromap
         pub const FORCE_OPACITY_MICROMAP_2_STATE_EXT: Self = Self(1 << 4);
         pub const DISABLE_OPACITY_MICROMAPS_EXT: Self = Self(1 << 5);
-        pub const FORCE_NO_OPAQUE_NV: Self = Self::FORCE_NO_OPAQUE_KHR;
-        pub const FORCE_OPAQUE_NV: Self = Self::FORCE_OPAQUE_KHR;
+        // VK_NV_ray_tracing
         pub const TRIANGLE_CULL_DISABLE_NV: Self = Self::TRIANGLE_FACING_CULL_DISABLE_KHR;
+        pub const FORCE_OPAQUE_NV: Self = Self::FORCE_OPAQUE_KHR;
+        pub const FORCE_NO_OPAQUE_NV: Self = Self::FORCE_NO_OPAQUE_KHR;
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -1144,24 +1156,30 @@ pub(super) mod defs {
             Self(BuildAccelerationStructureFlagBitsKHR::PREFER_FAST_BUILD_KHR.0);
         pub const LOW_MEMORY_KHR: Self =
             Self(BuildAccelerationStructureFlagBitsKHR::LOW_MEMORY_KHR.0);
-        pub const MOTION_NV: Self = Self(BuildAccelerationStructureFlagBitsKHR::MOTION_NV.0);
+        // VK_EXT_opacity_micromap
         pub const ALLOW_OPACITY_MICROMAP_UPDATE_EXT: Self =
             Self(BuildAccelerationStructureFlagBitsKHR::ALLOW_OPACITY_MICROMAP_UPDATE_EXT.0);
         pub const ALLOW_DISABLE_OPACITY_MICROMAPS_EXT: Self =
             Self(BuildAccelerationStructureFlagBitsKHR::ALLOW_DISABLE_OPACITY_MICROMAPS_EXT.0);
         pub const ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT: Self =
             Self(BuildAccelerationStructureFlagBitsKHR::ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT.0);
-        pub const ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV: Self =
-            Self(BuildAccelerationStructureFlagBitsKHR::ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV.0);
+        // VK_KHR_ray_tracing_position_fetch
         pub const ALLOW_DATA_ACCESS_KHR: Self =
             Self(BuildAccelerationStructureFlagBitsKHR::ALLOW_DATA_ACCESS_KHR.0);
+        // VK_NV_cluster_acceleration_structure
         pub const ALLOW_CLUSTER_OPACITY_MICROMAPS_NV: Self =
             Self(BuildAccelerationStructureFlagBitsKHR::ALLOW_CLUSTER_OPACITY_MICROMAPS_NV.0);
-        pub const ALLOW_COMPACTION_NV: Self = Self::ALLOW_COMPACTION_KHR;
+        // VK_NV_displacement_micromap
+        pub const ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV: Self =
+            Self(BuildAccelerationStructureFlagBitsKHR::ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV.0);
+        // VK_NV_ray_tracing
         pub const ALLOW_UPDATE_NV: Self = Self::ALLOW_UPDATE_KHR;
-        pub const LOW_MEMORY_NV: Self = Self::LOW_MEMORY_KHR;
-        pub const PREFER_FAST_BUILD_NV: Self = Self::PREFER_FAST_BUILD_KHR;
+        pub const ALLOW_COMPACTION_NV: Self = Self::ALLOW_COMPACTION_KHR;
         pub const PREFER_FAST_TRACE_NV: Self = Self::PREFER_FAST_TRACE_KHR;
+        pub const PREFER_FAST_BUILD_NV: Self = Self::PREFER_FAST_BUILD_KHR;
+        pub const LOW_MEMORY_NV: Self = Self::LOW_MEMORY_KHR;
+        // VK_NV_ray_tracing_motion_blur
+        pub const MOTION_NV: Self = Self(BuildAccelerationStructureFlagBitsKHR::MOTION_NV.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -1172,18 +1190,24 @@ pub(super) mod defs {
         pub const PREFER_FAST_TRACE_KHR: Self = Self(1 << 2);
         pub const PREFER_FAST_BUILD_KHR: Self = Self(1 << 3);
         pub const LOW_MEMORY_KHR: Self = Self(1 << 4);
-        pub const MOTION_NV: Self = Self(1 << 5);
+        // VK_EXT_opacity_micromap
         pub const ALLOW_OPACITY_MICROMAP_UPDATE_EXT: Self = Self(1 << 6);
         pub const ALLOW_DISABLE_OPACITY_MICROMAPS_EXT: Self = Self(1 << 7);
         pub const ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT: Self = Self(1 << 8);
-        pub const ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV: Self = Self(1 << 9);
+        // VK_KHR_ray_tracing_position_fetch
         pub const ALLOW_DATA_ACCESS_KHR: Self = Self(1 << 11);
+        // VK_NV_cluster_acceleration_structure
         pub const ALLOW_CLUSTER_OPACITY_MICROMAPS_NV: Self = Self(1 << 12);
-        pub const ALLOW_COMPACTION_NV: Self = Self::ALLOW_COMPACTION_KHR;
+        // VK_NV_displacement_micromap
+        pub const ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV: Self = Self(1 << 9);
+        // VK_NV_ray_tracing
         pub const ALLOW_UPDATE_NV: Self = Self::ALLOW_UPDATE_KHR;
-        pub const LOW_MEMORY_NV: Self = Self::LOW_MEMORY_KHR;
-        pub const PREFER_FAST_BUILD_NV: Self = Self::PREFER_FAST_BUILD_KHR;
+        pub const ALLOW_COMPACTION_NV: Self = Self::ALLOW_COMPACTION_KHR;
         pub const PREFER_FAST_TRACE_NV: Self = Self::PREFER_FAST_TRACE_KHR;
+        pub const PREFER_FAST_BUILD_NV: Self = Self::PREFER_FAST_BUILD_KHR;
+        pub const LOW_MEMORY_NV: Self = Self::LOW_MEMORY_KHR;
+        // VK_NV_ray_tracing_motion_blur
+        pub const MOTION_NV: Self = Self(1 << 5);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -1192,17 +1216,21 @@ pub(super) mod defs {
     impl AccelerationStructureCreateFlagsKHR {
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR: Self =
             Self(AccelerationStructureCreateFlagBitsKHR::DEVICE_ADDRESS_CAPTURE_REPLAY_KHR.0);
-        pub const MOTION_NV: Self = Self(AccelerationStructureCreateFlagBitsKHR::MOTION_NV.0);
+        // VK_EXT_descriptor_buffer
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self =
             Self(AccelerationStructureCreateFlagBitsKHR::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT.0);
+        // VK_NV_ray_tracing_motion_blur
+        pub const MOTION_NV: Self = Self(AccelerationStructureCreateFlagBitsKHR::MOTION_NV.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct AccelerationStructureCreateFlagBitsKHR(u32);
     impl AccelerationStructureCreateFlagBitsKHR {
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR: Self = Self(1 << 0);
-        pub const MOTION_NV: Self = Self(1 << 2);
+        // VK_EXT_descriptor_buffer
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self = Self(1 << 3);
+        // VK_NV_ray_tracing_motion_blur
+        pub const MOTION_NV: Self = Self(1 << 2);
     }
     pub type PFN_vkDestroyAccelerationStructureKHR = unsafe extern "system" fn(
         device: Device,

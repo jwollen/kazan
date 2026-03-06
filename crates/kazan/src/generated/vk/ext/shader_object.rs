@@ -196,6 +196,14 @@ pub(super) mod defs {
     vk_bitflags_wrapped!(ShaderCreateFlagsEXT, Flags);
     impl ShaderCreateFlagsEXT {
         pub const LINK_STAGE_EXT: Self = Self(ShaderCreateFlagBitsEXT::LINK_STAGE_EXT.0);
+        // VK_EXT_descriptor_heap
+        pub const DESCRIPTOR_HEAP_EXT: Self = Self(ShaderCreateFlagBitsEXT::DESCRIPTOR_HEAP_EXT.0);
+        // VK_EXT_device_generated_commands
+        pub const INDIRECT_BINDABLE_EXT: Self =
+            Self(ShaderCreateFlagBitsEXT::INDIRECT_BINDABLE_EXT.0);
+        // VK_EXT_shader_64bit_indexing
+        pub const _64_INDEXING_EXT: Self = Self(ShaderCreateFlagBitsEXT::_64_INDEXING_EXT.0);
+        // VK_EXT_shader_object
         pub const ALLOW_VARYING_SUBGROUP_SIZE_EXT: Self =
             Self(ShaderCreateFlagBitsEXT::ALLOW_VARYING_SUBGROUP_SIZE_EXT.0);
         pub const REQUIRE_FULL_SUBGROUPS_EXT: Self =
@@ -206,25 +214,25 @@ pub(super) mod defs {
             Self(ShaderCreateFlagBitsEXT::FRAGMENT_SHADING_RATE_ATTACHMENT_EXT.0);
         pub const FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT: Self =
             Self(ShaderCreateFlagBitsEXT::FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT.0);
-        pub const INDIRECT_BINDABLE_EXT: Self =
-            Self(ShaderCreateFlagBitsEXT::INDIRECT_BINDABLE_EXT.0);
-        pub const DESCRIPTOR_HEAP_EXT: Self = Self(ShaderCreateFlagBitsEXT::DESCRIPTOR_HEAP_EXT.0);
-        pub const _64_INDEXING_EXT: Self = Self(ShaderCreateFlagBitsEXT::_64_INDEXING_EXT.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ShaderCreateFlagBitsEXT(u32);
     impl ShaderCreateFlagBitsEXT {
         pub const LINK_STAGE_EXT: Self = Self(1 << 0);
+        // VK_EXT_descriptor_heap
+        pub const DESCRIPTOR_HEAP_EXT: Self = Self(1 << 10);
+        // VK_EXT_device_generated_commands
+        pub const INDIRECT_BINDABLE_EXT: Self = Self(1 << 7);
+        // VK_EXT_shader_64bit_indexing
+        pub const _64_INDEXING_EXT: Self = Self(1 << 15);
+        // VK_EXT_shader_object
         pub const ALLOW_VARYING_SUBGROUP_SIZE_EXT: Self = Self(1 << 1);
         pub const REQUIRE_FULL_SUBGROUPS_EXT: Self = Self(1 << 2);
         pub const NO_TASK_SHADER_EXT: Self = Self(1 << 3);
         pub const DISPATCH_BASE_EXT: Self = Self(1 << 4);
         pub const FRAGMENT_SHADING_RATE_ATTACHMENT_EXT: Self = Self(1 << 5);
         pub const FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT: Self = Self(1 << 6);
-        pub const INDIRECT_BINDABLE_EXT: Self = Self(1 << 7);
-        pub const DESCRIPTOR_HEAP_EXT: Self = Self(1 << 10);
-        pub const _64_INDEXING_EXT: Self = Self(1 << 15);
     }
     pub type PFN_vkCreateShadersEXT = unsafe extern "system" fn(
         device: Device,

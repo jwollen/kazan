@@ -2443,13 +2443,15 @@ pub(super) mod defs {
         pub const MEDIUM: Self = Self(256);
         pub const HIGH: Self = Self(512);
         pub const REALTIME: Self = Self(1024);
-        pub const HIGH_EXT: Self = Self::HIGH;
-        pub const HIGH_KHR: Self = Self::HIGH;
+        // VK_EXT_global_priority
         pub const LOW_EXT: Self = Self::LOW;
-        pub const LOW_KHR: Self = Self::LOW;
         pub const MEDIUM_EXT: Self = Self::MEDIUM;
-        pub const MEDIUM_KHR: Self = Self::MEDIUM;
+        pub const HIGH_EXT: Self = Self::HIGH;
         pub const REALTIME_EXT: Self = Self::REALTIME;
+        // VK_KHR_global_priority
+        pub const LOW_KHR: Self = Self::LOW;
+        pub const MEDIUM_KHR: Self = Self::MEDIUM;
+        pub const HIGH_KHR: Self = Self::HIGH;
         pub const REALTIME_KHR: Self = Self::REALTIME;
     }
     impl fmt::Debug for QueueGlobalPriority {
@@ -2476,13 +2478,15 @@ pub(super) mod defs {
         pub const RECTANGULAR: Self = Self(1);
         pub const BRESENHAM: Self = Self(2);
         pub const RECTANGULAR_SMOOTH: Self = Self(3);
-        pub const BRESENHAM_EXT: Self = Self::BRESENHAM;
-        pub const BRESENHAM_KHR: Self = Self::BRESENHAM;
+        // VK_EXT_line_rasterization
         pub const DEFAULT_EXT: Self = Self::DEFAULT;
-        pub const DEFAULT_KHR: Self = Self::DEFAULT;
         pub const RECTANGULAR_EXT: Self = Self::RECTANGULAR;
-        pub const RECTANGULAR_KHR: Self = Self::RECTANGULAR;
+        pub const BRESENHAM_EXT: Self = Self::BRESENHAM;
         pub const RECTANGULAR_SMOOTH_EXT: Self = Self::RECTANGULAR_SMOOTH;
+        // VK_KHR_line_rasterization
+        pub const DEFAULT_KHR: Self = Self::DEFAULT;
+        pub const RECTANGULAR_KHR: Self = Self::RECTANGULAR;
+        pub const BRESENHAM_KHR: Self = Self::BRESENHAM;
         pub const RECTANGULAR_SMOOTH_KHR: Self = Self::RECTANGULAR_SMOOTH;
     }
     impl fmt::Debug for LineRasterizationMode {
@@ -2509,10 +2513,11 @@ pub(super) mod defs {
         pub const DISABLED: Self = Self(1);
         pub const ROBUST_BUFFER_ACCESS: Self = Self(2);
         pub const ROBUST_BUFFER_ACCESS_2: Self = Self(3);
+        // VK_EXT_pipeline_robustness
         pub const DEVICE_DEFAULT_EXT: Self = Self::DEVICE_DEFAULT;
         pub const DISABLED_EXT: Self = Self::DISABLED;
-        pub const ROBUST_BUFFER_ACCESS_2_EXT: Self = Self::ROBUST_BUFFER_ACCESS_2;
         pub const ROBUST_BUFFER_ACCESS_EXT: Self = Self::ROBUST_BUFFER_ACCESS;
+        pub const ROBUST_BUFFER_ACCESS_2_EXT: Self = Self::ROBUST_BUFFER_ACCESS_2;
     }
     impl fmt::Debug for PipelineRobustnessBufferBehavior {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -2538,10 +2543,11 @@ pub(super) mod defs {
         pub const DISABLED: Self = Self(1);
         pub const ROBUST_IMAGE_ACCESS: Self = Self(2);
         pub const ROBUST_IMAGE_ACCESS_2: Self = Self(3);
+        // VK_EXT_pipeline_robustness
         pub const DEVICE_DEFAULT_EXT: Self = Self::DEVICE_DEFAULT;
         pub const DISABLED_EXT: Self = Self::DISABLED;
-        pub const ROBUST_IMAGE_ACCESS_2_EXT: Self = Self::ROBUST_IMAGE_ACCESS_2;
         pub const ROBUST_IMAGE_ACCESS_EXT: Self = Self::ROBUST_IMAGE_ACCESS;
+        pub const ROBUST_IMAGE_ACCESS_2_EXT: Self = Self::ROBUST_IMAGE_ACCESS_2;
     }
     impl fmt::Debug for PipelineRobustnessImageBehavior {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -2564,12 +2570,14 @@ pub(super) mod defs {
     pub struct MemoryUnmapFlags(Flags);
     vk_bitflags_wrapped!(MemoryUnmapFlags, Flags);
     impl MemoryUnmapFlags {
+        // VK_EXT_map_memory_placed
         pub const RESERVE_EXT: Self = Self(MemoryUnmapFlagBits::RESERVE_EXT.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MemoryUnmapFlagBits(u32);
     impl MemoryUnmapFlagBits {
+        // VK_EXT_map_memory_placed
         pub const RESERVE_EXT: Self = Self(1 << 0);
     }
     #[repr(transparent)]
@@ -2584,15 +2592,35 @@ pub(super) mod defs {
         pub const VIEW_INDEX_FROM_DEVICE_INDEX: Self =
             Self(PipelineCreateFlagBits2::VIEW_INDEX_FROM_DEVICE_INDEX.0);
         pub const DISPATCH_BASE: Self = Self(PipelineCreateFlagBits2::DISPATCH_BASE.0);
+        pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED: Self =
+            Self(PipelineCreateFlagBits2::FAIL_ON_PIPELINE_COMPILE_REQUIRED.0);
+        pub const EARLY_RETURN_ON_FAILURE: Self =
+            Self(PipelineCreateFlagBits2::EARLY_RETURN_ON_FAILURE.0);
+        pub const NO_PROTECTED_ACCESS: Self = Self(PipelineCreateFlagBits2::NO_PROTECTED_ACCESS.0);
+        pub const PROTECTED_ACCESS_ONLY: Self =
+            Self(PipelineCreateFlagBits2::PROTECTED_ACCESS_ONLY.0);
+        // VK_AMDX_shader_enqueue
+        pub const EXECUTION_GRAPH_AMDX: Self =
+            Self(PipelineCreateFlagBits2::EXECUTION_GRAPH_AMDX.0);
+        // VK_ARM_pipeline_opacity_micromap
+        pub const DISALLOW_OPACITY_MICROMAP_ARM: Self =
+            Self(PipelineCreateFlagBits2::DISALLOW_OPACITY_MICROMAP_ARM.0);
+        // VK_EXT_descriptor_heap
+        pub const DESCRIPTOR_HEAP_EXT: Self = Self(PipelineCreateFlagBits2::DESCRIPTOR_HEAP_EXT.0);
+        // VK_EXT_device_generated_commands
+        pub const INDIRECT_BINDABLE_EXT: Self =
+            Self(PipelineCreateFlagBits2::INDIRECT_BINDABLE_EXT.0);
+        // VK_EXT_legacy_dithering
+        pub const ENABLE_LEGACY_DITHERING_EXT: Self =
+            Self(PipelineCreateFlagBits2::ENABLE_LEGACY_DITHERING_EXT.0);
+        // VK_EXT_shader_64bit_indexing
+        pub const _64_INDEXING_EXT: Self = Self(PipelineCreateFlagBits2::_64_INDEXING_EXT.0);
+        // VK_KHR_maintenance5
         pub const DEFER_COMPILE_NV: Self = Self(PipelineCreateFlagBits2::DEFER_COMPILE_NV.0);
         pub const CAPTURE_STATISTICS_KHR: Self =
             Self(PipelineCreateFlagBits2::CAPTURE_STATISTICS_KHR.0);
         pub const CAPTURE_INTERNAL_REPRESENTATIONS_KHR: Self =
             Self(PipelineCreateFlagBits2::CAPTURE_INTERNAL_REPRESENTATIONS_KHR.0);
-        pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED: Self =
-            Self(PipelineCreateFlagBits2::FAIL_ON_PIPELINE_COMPILE_REQUIRED.0);
-        pub const EARLY_RETURN_ON_FAILURE: Self =
-            Self(PipelineCreateFlagBits2::EARLY_RETURN_ON_FAILURE.0);
         pub const LINK_TIME_OPTIMIZATION_EXT: Self =
             Self(PipelineCreateFlagBits2::LINK_TIME_OPTIMIZATION_EXT.0);
         pub const LIBRARY_KHR: Self = Self(PipelineCreateFlagBits2::LIBRARY_KHR.0);
@@ -2626,40 +2654,31 @@ pub(super) mod defs {
             Self(PipelineCreateFlagBits2::COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT.0);
         pub const DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT: Self =
             Self(PipelineCreateFlagBits2::DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT.0);
-        pub const NO_PROTECTED_ACCESS: Self = Self(PipelineCreateFlagBits2::NO_PROTECTED_ACCESS.0);
         pub const RAY_TRACING_DISPLACEMENT_MICROMAP_NV: Self =
             Self(PipelineCreateFlagBits2::RAY_TRACING_DISPLACEMENT_MICROMAP_NV.0);
         pub const DESCRIPTOR_BUFFER_EXT: Self =
             Self(PipelineCreateFlagBits2::DESCRIPTOR_BUFFER_EXT.0);
-        pub const PROTECTED_ACCESS_ONLY: Self =
-            Self(PipelineCreateFlagBits2::PROTECTED_ACCESS_ONLY.0);
-        pub const CAPTURE_DATA_KHR: Self = Self(PipelineCreateFlagBits2::CAPTURE_DATA_KHR.0);
-        pub const EXECUTION_GRAPH_AMDX: Self =
-            Self(PipelineCreateFlagBits2::EXECUTION_GRAPH_AMDX.0);
-        pub const RAY_TRACING_ALLOW_SPHERES_AND_LINEAR_SWEPT_SPHERES_NV: Self =
-            Self(PipelineCreateFlagBits2::RAY_TRACING_ALLOW_SPHERES_AND_LINEAR_SWEPT_SPHERES_NV.0);
-        pub const ENABLE_LEGACY_DITHERING_EXT: Self =
-            Self(PipelineCreateFlagBits2::ENABLE_LEGACY_DITHERING_EXT.0);
-        pub const DESCRIPTOR_HEAP_EXT: Self = Self(PipelineCreateFlagBits2::DESCRIPTOR_HEAP_EXT.0);
-        pub const DISALLOW_OPACITY_MICROMAP_ARM: Self =
-            Self(PipelineCreateFlagBits2::DISALLOW_OPACITY_MICROMAP_ARM.0);
-        pub const INDIRECT_BINDABLE_EXT: Self =
-            Self(PipelineCreateFlagBits2::INDIRECT_BINDABLE_EXT.0);
-        pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self =
-            Self(PipelineCreateFlagBits2::PER_LAYER_FRAGMENT_DENSITY_VALVE.0);
-        pub const _64_INDEXING_EXT: Self = Self(PipelineCreateFlagBits2::_64_INDEXING_EXT.0);
+        pub const DISABLE_OPTIMIZATION_KHR: Self = Self::DISABLE_OPTIMIZATION;
         pub const ALLOW_DERIVATIVES_KHR: Self = Self::ALLOW_DERIVATIVES;
         pub const DERIVATIVE_KHR: Self = Self::DERIVATIVE;
-        pub const DISABLE_OPTIMIZATION_KHR: Self = Self::DISABLE_OPTIMIZATION;
+        pub const VIEW_INDEX_FROM_DEVICE_INDEX_KHR: Self = Self::VIEW_INDEX_FROM_DEVICE_INDEX;
         pub const DISPATCH_BASE_KHR: Self = Self::DISPATCH_BASE;
-        pub const EARLY_RETURN_ON_FAILURE_KHR: Self = Self::EARLY_RETURN_ON_FAILURE;
         pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED_KHR: Self =
             Self::FAIL_ON_PIPELINE_COMPILE_REQUIRED;
+        pub const EARLY_RETURN_ON_FAILURE_KHR: Self = Self::EARLY_RETURN_ON_FAILURE;
         pub const NO_PROTECTED_ACCESS_EXT: Self = Self::NO_PROTECTED_ACCESS;
         pub const PROTECTED_ACCESS_ONLY_EXT: Self = Self::PROTECTED_ACCESS_ONLY;
+        // VK_KHR_pipeline_binary
+        pub const CAPTURE_DATA_KHR: Self = Self(PipelineCreateFlagBits2::CAPTURE_DATA_KHR.0);
+        // VK_KHR_ray_tracing_pipeline
         pub const RAY_TRACING_SKIP_BUILT_IN_PRIMITIVES_KHR: Self =
             Self::RAY_TRACING_SKIP_TRIANGLES_KHR;
-        pub const VIEW_INDEX_FROM_DEVICE_INDEX_KHR: Self = Self::VIEW_INDEX_FROM_DEVICE_INDEX;
+        // VK_NV_ray_tracing_linear_swept_spheres
+        pub const RAY_TRACING_ALLOW_SPHERES_AND_LINEAR_SWEPT_SPHERES_NV: Self =
+            Self(PipelineCreateFlagBits2::RAY_TRACING_ALLOW_SPHERES_AND_LINEAR_SWEPT_SPHERES_NV.0);
+        // VK_VALVE_fragment_density_map_layered
+        pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self =
+            Self(PipelineCreateFlagBits2::PER_LAYER_FRAGMENT_DENSITY_VALVE.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -2670,11 +2689,26 @@ pub(super) mod defs {
         pub const DERIVATIVE: Self = Self(1 << 2);
         pub const VIEW_INDEX_FROM_DEVICE_INDEX: Self = Self(1 << 3);
         pub const DISPATCH_BASE: Self = Self(1 << 4);
+        pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED: Self = Self(1 << 8);
+        pub const EARLY_RETURN_ON_FAILURE: Self = Self(1 << 9);
+        pub const NO_PROTECTED_ACCESS: Self = Self(1 << 27);
+        pub const PROTECTED_ACCESS_ONLY: Self = Self(1 << 30);
+        // VK_AMDX_shader_enqueue
+        pub const EXECUTION_GRAPH_AMDX: Self = Self(1 << 32);
+        // VK_ARM_pipeline_opacity_micromap
+        pub const DISALLOW_OPACITY_MICROMAP_ARM: Self = Self(1 << 37);
+        // VK_EXT_descriptor_heap
+        pub const DESCRIPTOR_HEAP_EXT: Self = Self(1 << 36);
+        // VK_EXT_device_generated_commands
+        pub const INDIRECT_BINDABLE_EXT: Self = Self(1 << 38);
+        // VK_EXT_legacy_dithering
+        pub const ENABLE_LEGACY_DITHERING_EXT: Self = Self(1 << 34);
+        // VK_EXT_shader_64bit_indexing
+        pub const _64_INDEXING_EXT: Self = Self(1 << 43);
+        // VK_KHR_maintenance5
         pub const DEFER_COMPILE_NV: Self = Self(1 << 5);
         pub const CAPTURE_STATISTICS_KHR: Self = Self(1 << 6);
         pub const CAPTURE_INTERNAL_REPRESENTATIONS_KHR: Self = Self(1 << 7);
-        pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED: Self = Self(1 << 8);
-        pub const EARLY_RETURN_ON_FAILURE: Self = Self(1 << 9);
         pub const LINK_TIME_OPTIMIZATION_EXT: Self = Self(1 << 10);
         pub const LIBRARY_KHR: Self = Self(1 << 11);
         pub const RAY_TRACING_SKIP_TRIANGLES_KHR: Self = Self(1 << 12);
@@ -2692,31 +2726,27 @@ pub(super) mod defs {
         pub const RAY_TRACING_OPACITY_MICROMAP_EXT: Self = Self(1 << 24);
         pub const COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT: Self = Self(1 << 25);
         pub const DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT: Self = Self(1 << 26);
-        pub const NO_PROTECTED_ACCESS: Self = Self(1 << 27);
         pub const RAY_TRACING_DISPLACEMENT_MICROMAP_NV: Self = Self(1 << 28);
         pub const DESCRIPTOR_BUFFER_EXT: Self = Self(1 << 29);
-        pub const PROTECTED_ACCESS_ONLY: Self = Self(1 << 30);
-        pub const CAPTURE_DATA_KHR: Self = Self(1 << 31);
-        pub const EXECUTION_GRAPH_AMDX: Self = Self(1 << 32);
-        pub const RAY_TRACING_ALLOW_SPHERES_AND_LINEAR_SWEPT_SPHERES_NV: Self = Self(1 << 33);
-        pub const ENABLE_LEGACY_DITHERING_EXT: Self = Self(1 << 34);
-        pub const DESCRIPTOR_HEAP_EXT: Self = Self(1 << 36);
-        pub const DISALLOW_OPACITY_MICROMAP_ARM: Self = Self(1 << 37);
-        pub const INDIRECT_BINDABLE_EXT: Self = Self(1 << 38);
-        pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self = Self(1 << 40);
-        pub const _64_INDEXING_EXT: Self = Self(1 << 43);
+        pub const DISABLE_OPTIMIZATION_KHR: Self = Self::DISABLE_OPTIMIZATION;
         pub const ALLOW_DERIVATIVES_KHR: Self = Self::ALLOW_DERIVATIVES;
         pub const DERIVATIVE_KHR: Self = Self::DERIVATIVE;
-        pub const DISABLE_OPTIMIZATION_KHR: Self = Self::DISABLE_OPTIMIZATION;
+        pub const VIEW_INDEX_FROM_DEVICE_INDEX_KHR: Self = Self::VIEW_INDEX_FROM_DEVICE_INDEX;
         pub const DISPATCH_BASE_KHR: Self = Self::DISPATCH_BASE;
-        pub const EARLY_RETURN_ON_FAILURE_KHR: Self = Self::EARLY_RETURN_ON_FAILURE;
         pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED_KHR: Self =
             Self::FAIL_ON_PIPELINE_COMPILE_REQUIRED;
+        pub const EARLY_RETURN_ON_FAILURE_KHR: Self = Self::EARLY_RETURN_ON_FAILURE;
         pub const NO_PROTECTED_ACCESS_EXT: Self = Self::NO_PROTECTED_ACCESS;
         pub const PROTECTED_ACCESS_ONLY_EXT: Self = Self::PROTECTED_ACCESS_ONLY;
+        // VK_KHR_pipeline_binary
+        pub const CAPTURE_DATA_KHR: Self = Self(1 << 31);
+        // VK_KHR_ray_tracing_pipeline
         pub const RAY_TRACING_SKIP_BUILT_IN_PRIMITIVES_KHR: Self =
             Self::RAY_TRACING_SKIP_TRIANGLES_KHR;
-        pub const VIEW_INDEX_FROM_DEVICE_INDEX_KHR: Self = Self::VIEW_INDEX_FROM_DEVICE_INDEX;
+        // VK_NV_ray_tracing_linear_swept_spheres
+        pub const RAY_TRACING_ALLOW_SPHERES_AND_LINEAR_SWEPT_SPHERES_NV: Self = Self(1 << 33);
+        // VK_VALVE_fragment_density_map_layered
+        pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self = Self(1 << 40);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -2732,6 +2762,23 @@ pub(super) mod defs {
         pub const INDEX_BUFFER: Self = Self(BufferUsageFlagBits2::INDEX_BUFFER.0);
         pub const VERTEX_BUFFER: Self = Self(BufferUsageFlagBits2::VERTEX_BUFFER.0);
         pub const INDIRECT_BUFFER: Self = Self(BufferUsageFlagBits2::INDIRECT_BUFFER.0);
+        // VK_AMDX_dense_geometry_format
+        pub const COMPRESSED_DATA_DGF1_AMDX: Self =
+            Self(BufferUsageFlagBits2::COMPRESSED_DATA_DGF1_AMDX.0);
+        // VK_AMDX_shader_enqueue
+        pub const EXECUTION_GRAPH_SCRATCH_AMDX: Self =
+            Self(BufferUsageFlagBits2::EXECUTION_GRAPH_SCRATCH_AMDX.0);
+        // VK_ARM_data_graph
+        pub const DATA_GRAPH_FOREIGN_DESCRIPTOR_ARM: Self =
+            Self(BufferUsageFlagBits2::DATA_GRAPH_FOREIGN_DESCRIPTOR_ARM.0);
+        // VK_EXT_descriptor_heap
+        pub const DESCRIPTOR_HEAP_EXT: Self = Self(BufferUsageFlagBits2::DESCRIPTOR_HEAP_EXT.0);
+        // VK_EXT_device_generated_commands
+        pub const PREPROCESS_BUFFER_EXT: Self = Self(BufferUsageFlagBits2::PREPROCESS_BUFFER_EXT.0);
+        // VK_EXT_memory_decompression
+        pub const MEMORY_DECOMPRESSION_EXT: Self =
+            Self(BufferUsageFlagBits2::MEMORY_DECOMPRESSION_EXT.0);
+        // VK_KHR_maintenance5
         pub const CONDITIONAL_RENDERING_EXT: Self =
             Self(BufferUsageFlagBits2::CONDITIONAL_RENDERING_EXT.0);
         pub const SHADER_BINDING_TABLE_KHR: Self =
@@ -2744,7 +2791,6 @@ pub(super) mod defs {
         pub const VIDEO_DECODE_DST_KHR: Self = Self(BufferUsageFlagBits2::VIDEO_DECODE_DST_KHR.0);
         pub const VIDEO_ENCODE_DST_KHR: Self = Self(BufferUsageFlagBits2::VIDEO_ENCODE_DST_KHR.0);
         pub const VIDEO_ENCODE_SRC_KHR: Self = Self(BufferUsageFlagBits2::VIDEO_ENCODE_SRC_KHR.0);
-        pub const SHADER_DEVICE_ADDRESS: Self = Self(BufferUsageFlagBits2::SHADER_DEVICE_ADDRESS.0);
         pub const ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR: Self =
             Self(BufferUsageFlagBits2::ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR.0);
         pub const ACCELERATION_STRUCTURE_STORAGE_KHR: Self =
@@ -2756,30 +2802,23 @@ pub(super) mod defs {
         pub const MICROMAP_BUILD_INPUT_READ_ONLY_EXT: Self =
             Self(BufferUsageFlagBits2::MICROMAP_BUILD_INPUT_READ_ONLY_EXT.0);
         pub const MICROMAP_STORAGE_EXT: Self = Self(BufferUsageFlagBits2::MICROMAP_STORAGE_EXT.0);
-        pub const EXECUTION_GRAPH_SCRATCH_AMDX: Self =
-            Self(BufferUsageFlagBits2::EXECUTION_GRAPH_SCRATCH_AMDX.0);
         pub const PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT: Self =
             Self(BufferUsageFlagBits2::PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT.0);
-        pub const TILE_MEMORY_QCOM: Self = Self(BufferUsageFlagBits2::TILE_MEMORY_QCOM.0);
-        pub const DESCRIPTOR_HEAP_EXT: Self = Self(BufferUsageFlagBits2::DESCRIPTOR_HEAP_EXT.0);
-        pub const DATA_GRAPH_FOREIGN_DESCRIPTOR_ARM: Self =
-            Self(BufferUsageFlagBits2::DATA_GRAPH_FOREIGN_DESCRIPTOR_ARM.0);
-        pub const PREPROCESS_BUFFER_EXT: Self = Self(BufferUsageFlagBits2::PREPROCESS_BUFFER_EXT.0);
-        pub const MEMORY_DECOMPRESSION_EXT: Self =
-            Self(BufferUsageFlagBits2::MEMORY_DECOMPRESSION_EXT.0);
-        pub const COMPRESSED_DATA_DGF1_AMDX: Self =
-            Self(BufferUsageFlagBits2::COMPRESSED_DATA_DGF1_AMDX.0);
+        pub const TRANSFER_SRC_KHR: Self = Self::TRANSFER_SRC;
+        pub const TRANSFER_DST_KHR: Self = Self::TRANSFER_DST;
+        pub const UNIFORM_TEXEL_BUFFER_KHR: Self = Self::UNIFORM_TEXEL_BUFFER;
+        pub const STORAGE_TEXEL_BUFFER_KHR: Self = Self::STORAGE_TEXEL_BUFFER;
+        pub const UNIFORM_BUFFER_KHR: Self = Self::UNIFORM_BUFFER;
+        pub const STORAGE_BUFFER_KHR: Self = Self::STORAGE_BUFFER;
         pub const INDEX_BUFFER_KHR: Self = Self::INDEX_BUFFER;
+        pub const VERTEX_BUFFER_KHR: Self = Self::VERTEX_BUFFER;
         pub const INDIRECT_BUFFER_KHR: Self = Self::INDIRECT_BUFFER;
         pub const RAY_TRACING_NV: Self = Self::SHADER_BINDING_TABLE_KHR;
         pub const SHADER_DEVICE_ADDRESS_KHR: Self = Self::SHADER_DEVICE_ADDRESS;
-        pub const STORAGE_BUFFER_KHR: Self = Self::STORAGE_BUFFER;
-        pub const STORAGE_TEXEL_BUFFER_KHR: Self = Self::STORAGE_TEXEL_BUFFER;
-        pub const TRANSFER_DST_KHR: Self = Self::TRANSFER_DST;
-        pub const TRANSFER_SRC_KHR: Self = Self::TRANSFER_SRC;
-        pub const UNIFORM_BUFFER_KHR: Self = Self::UNIFORM_BUFFER;
-        pub const UNIFORM_TEXEL_BUFFER_KHR: Self = Self::UNIFORM_TEXEL_BUFFER;
-        pub const VERTEX_BUFFER_KHR: Self = Self::VERTEX_BUFFER;
+        // VK_QCOM_tile_memory_heap
+        pub const TILE_MEMORY_QCOM: Self = Self(BufferUsageFlagBits2::TILE_MEMORY_QCOM.0);
+        // VK_VERSION_1_4
+        pub const SHADER_DEVICE_ADDRESS: Self = Self(BufferUsageFlagBits2::SHADER_DEVICE_ADDRESS.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -2794,6 +2833,19 @@ pub(super) mod defs {
         pub const INDEX_BUFFER: Self = Self(1 << 6);
         pub const VERTEX_BUFFER: Self = Self(1 << 7);
         pub const INDIRECT_BUFFER: Self = Self(1 << 8);
+        // VK_AMDX_dense_geometry_format
+        pub const COMPRESSED_DATA_DGF1_AMDX: Self = Self(1 << 33);
+        // VK_AMDX_shader_enqueue
+        pub const EXECUTION_GRAPH_SCRATCH_AMDX: Self = Self(1 << 25);
+        // VK_ARM_data_graph
+        pub const DATA_GRAPH_FOREIGN_DESCRIPTOR_ARM: Self = Self(1 << 29);
+        // VK_EXT_descriptor_heap
+        pub const DESCRIPTOR_HEAP_EXT: Self = Self(1 << 28);
+        // VK_EXT_device_generated_commands
+        pub const PREPROCESS_BUFFER_EXT: Self = Self(1 << 31);
+        // VK_EXT_memory_decompression
+        pub const MEMORY_DECOMPRESSION_EXT: Self = Self(1 << 32);
+        // VK_KHR_maintenance5
         pub const CONDITIONAL_RENDERING_EXT: Self = Self(1 << 9);
         pub const SHADER_BINDING_TABLE_KHR: Self = Self(1 << 10);
         pub const TRANSFORM_FEEDBACK_BUFFER_EXT: Self = Self(1 << 11);
@@ -2802,32 +2854,28 @@ pub(super) mod defs {
         pub const VIDEO_DECODE_DST_KHR: Self = Self(1 << 14);
         pub const VIDEO_ENCODE_DST_KHR: Self = Self(1 << 15);
         pub const VIDEO_ENCODE_SRC_KHR: Self = Self(1 << 16);
-        pub const SHADER_DEVICE_ADDRESS: Self = Self(1 << 17);
         pub const ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR: Self = Self(1 << 19);
         pub const ACCELERATION_STRUCTURE_STORAGE_KHR: Self = Self(1 << 20);
         pub const SAMPLER_DESCRIPTOR_BUFFER_EXT: Self = Self(1 << 21);
         pub const RESOURCE_DESCRIPTOR_BUFFER_EXT: Self = Self(1 << 22);
         pub const MICROMAP_BUILD_INPUT_READ_ONLY_EXT: Self = Self(1 << 23);
         pub const MICROMAP_STORAGE_EXT: Self = Self(1 << 24);
-        pub const EXECUTION_GRAPH_SCRATCH_AMDX: Self = Self(1 << 25);
         pub const PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT: Self = Self(1 << 26);
-        pub const TILE_MEMORY_QCOM: Self = Self(1 << 27);
-        pub const DESCRIPTOR_HEAP_EXT: Self = Self(1 << 28);
-        pub const DATA_GRAPH_FOREIGN_DESCRIPTOR_ARM: Self = Self(1 << 29);
-        pub const PREPROCESS_BUFFER_EXT: Self = Self(1 << 31);
-        pub const MEMORY_DECOMPRESSION_EXT: Self = Self(1 << 32);
-        pub const COMPRESSED_DATA_DGF1_AMDX: Self = Self(1 << 33);
+        pub const TRANSFER_SRC_KHR: Self = Self::TRANSFER_SRC;
+        pub const TRANSFER_DST_KHR: Self = Self::TRANSFER_DST;
+        pub const UNIFORM_TEXEL_BUFFER_KHR: Self = Self::UNIFORM_TEXEL_BUFFER;
+        pub const STORAGE_TEXEL_BUFFER_KHR: Self = Self::STORAGE_TEXEL_BUFFER;
+        pub const UNIFORM_BUFFER_KHR: Self = Self::UNIFORM_BUFFER;
+        pub const STORAGE_BUFFER_KHR: Self = Self::STORAGE_BUFFER;
         pub const INDEX_BUFFER_KHR: Self = Self::INDEX_BUFFER;
+        pub const VERTEX_BUFFER_KHR: Self = Self::VERTEX_BUFFER;
         pub const INDIRECT_BUFFER_KHR: Self = Self::INDIRECT_BUFFER;
         pub const RAY_TRACING_NV: Self = Self::SHADER_BINDING_TABLE_KHR;
         pub const SHADER_DEVICE_ADDRESS_KHR: Self = Self::SHADER_DEVICE_ADDRESS;
-        pub const STORAGE_BUFFER_KHR: Self = Self::STORAGE_BUFFER;
-        pub const STORAGE_TEXEL_BUFFER_KHR: Self = Self::STORAGE_TEXEL_BUFFER;
-        pub const TRANSFER_DST_KHR: Self = Self::TRANSFER_DST;
-        pub const TRANSFER_SRC_KHR: Self = Self::TRANSFER_SRC;
-        pub const UNIFORM_BUFFER_KHR: Self = Self::UNIFORM_BUFFER;
-        pub const UNIFORM_TEXEL_BUFFER_KHR: Self = Self::UNIFORM_TEXEL_BUFFER;
-        pub const VERTEX_BUFFER_KHR: Self = Self::VERTEX_BUFFER;
+        // VK_QCOM_tile_memory_heap
+        pub const TILE_MEMORY_QCOM: Self = Self(1 << 27);
+        // VK_VERSION_1_4
+        pub const SHADER_DEVICE_ADDRESS: Self = Self(1 << 17);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -2835,6 +2883,7 @@ pub(super) mod defs {
     vk_bitflags_wrapped!(HostImageCopyFlags, Flags);
     impl HostImageCopyFlags {
         pub const MEMCPY: Self = Self(HostImageCopyFlagBits::MEMCPY.0);
+        // VK_EXT_host_image_copy
         pub const MEMCPY_EXT: Self = Self::MEMCPY;
     }
     #[repr(transparent)]
@@ -2842,6 +2891,7 @@ pub(super) mod defs {
     pub struct HostImageCopyFlagBits(u32);
     impl HostImageCopyFlagBits {
         pub const MEMCPY: Self = Self(1 << 0);
+        // VK_EXT_host_image_copy
         pub const MEMCPY_EXT: Self = Self::MEMCPY;
     }
     pub type PFN_vkGetRenderingAreaGranularity = unsafe extern "system" fn(

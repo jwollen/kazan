@@ -852,10 +852,12 @@ pub(super) mod defs {
             Self(VideoEncodeH265CapabilityFlagBitsKHR::MULTIPLE_TILES_PER_SLICE_SEGMENT_KHR.0);
         pub const MULTIPLE_SLICE_SEGMENTS_PER_TILE_KHR: Self =
             Self(VideoEncodeH265CapabilityFlagBitsKHR::MULTIPLE_SLICE_SEGMENTS_PER_TILE_KHR.0);
-        pub const CU_QP_DIFF_WRAPAROUND_KHR: Self =
-            Self(VideoEncodeH265CapabilityFlagBitsKHR::CU_QP_DIFF_WRAPAROUND_KHR.0);
+        // VK_KHR_video_encode_intra_refresh
         pub const B_PICTURE_INTRA_REFRESH_KHR: Self =
             Self(VideoEncodeH265CapabilityFlagBitsKHR::B_PICTURE_INTRA_REFRESH_KHR.0);
+        // VK_KHR_video_encode_quantization_map
+        pub const CU_QP_DIFF_WRAPAROUND_KHR: Self =
+            Self(VideoEncodeH265CapabilityFlagBitsKHR::CU_QP_DIFF_WRAPAROUND_KHR.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -871,8 +873,10 @@ pub(super) mod defs {
         pub const PER_SLICE_SEGMENT_CONSTANT_QP_KHR: Self = Self(1 << 7);
         pub const MULTIPLE_TILES_PER_SLICE_SEGMENT_KHR: Self = Self(1 << 8);
         pub const MULTIPLE_SLICE_SEGMENTS_PER_TILE_KHR: Self = Self(1 << 9);
-        pub const CU_QP_DIFF_WRAPAROUND_KHR: Self = Self(1 << 10);
+        // VK_KHR_video_encode_intra_refresh
         pub const B_PICTURE_INTRA_REFRESH_KHR: Self = Self(1 << 11);
+        // VK_KHR_video_encode_quantization_map
+        pub const CU_QP_DIFF_WRAPAROUND_KHR: Self = Self(1 << 10);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]

@@ -98,5 +98,4 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineCoverageModulationStateCreateFlagsNV(Flags);
     vk_bitflags_wrapped!(PipelineCoverageModulationStateCreateFlagsNV, Flags);
-    impl PipelineCoverageModulationStateCreateFlagsNV {}
 }

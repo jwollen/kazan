@@ -106,7 +106,6 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DirectDriverLoadingFlagsLUNARG(Flags);
     vk_bitflags_wrapped!(DirectDriverLoadingFlagsLUNARG, Flags);
-    impl DirectDriverLoadingFlagsLUNARG {}
     pub type PFN_vkGetInstanceProcAddrLUNARG =
         unsafe extern "system" fn(instance: Instance, p_name: *const c_char) -> PFN_vkVoidFunction;
 }

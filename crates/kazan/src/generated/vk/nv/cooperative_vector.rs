@@ -277,24 +277,28 @@ pub(super) mod defs {
         pub const UINT16_KHR: Self = Self(8);
         pub const UINT32_KHR: Self = Self(9);
         pub const UINT64_KHR: Self = Self(10);
-        pub const BFLOAT16_KHR: Self = Self(1000141000);
+        // VK_EXT_shader_float8
         pub const FLOAT8_E4M3_EXT: Self = Self(1000491002);
         pub const FLOAT8_E5M2_EXT: Self = Self(1000491003);
-        pub const SINT8_PACKED_NV: Self = Self(1000491000);
-        pub const UINT8_PACKED_NV: Self = Self(1000491001);
+        // VK_KHR_shader_bfloat16
+        pub const BFLOAT16_KHR: Self = Self(1000141000);
+        // VK_NV_cooperative_matrix
         pub const FLOAT16_NV: Self = Self::FLOAT16_KHR;
         pub const FLOAT32_NV: Self = Self::FLOAT32_KHR;
         pub const FLOAT64_NV: Self = Self::FLOAT64_KHR;
-        pub const FLOAT_E4M3_NV: Self = Self::FLOAT8_E4M3_EXT;
-        pub const FLOAT_E5M2_NV: Self = Self::FLOAT8_E5M2_EXT;
+        pub const SINT8_NV: Self = Self::SINT8_KHR;
         pub const SINT16_NV: Self = Self::SINT16_KHR;
         pub const SINT32_NV: Self = Self::SINT32_KHR;
         pub const SINT64_NV: Self = Self::SINT64_KHR;
-        pub const SINT8_NV: Self = Self::SINT8_KHR;
+        pub const UINT8_NV: Self = Self::UINT8_KHR;
         pub const UINT16_NV: Self = Self::UINT16_KHR;
         pub const UINT32_NV: Self = Self::UINT32_KHR;
         pub const UINT64_NV: Self = Self::UINT64_KHR;
-        pub const UINT8_NV: Self = Self::UINT8_KHR;
+        // VK_NV_cooperative_vector
+        pub const SINT8_PACKED_NV: Self = Self(1000491000);
+        pub const UINT8_PACKED_NV: Self = Self(1000491001);
+        pub const FLOAT_E4M3_NV: Self = Self::FLOAT8_E4M3_EXT;
+        pub const FLOAT_E5M2_NV: Self = Self::FLOAT8_E5M2_EXT;
     }
     impl fmt::Debug for ComponentTypeKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -310,9 +314,9 @@ pub(super) mod defs {
                 Self::UINT16_KHR => Some("UINT16_KHR"),
                 Self::UINT32_KHR => Some("UINT32_KHR"),
                 Self::UINT64_KHR => Some("UINT64_KHR"),
-                Self::BFLOAT16_KHR => Some("BFLOAT16_KHR"),
                 Self::FLOAT8_E4M3_EXT => Some("FLOAT8_E4M3_EXT"),
                 Self::FLOAT8_E5M2_EXT => Some("FLOAT8_E5M2_EXT"),
+                Self::BFLOAT16_KHR => Some("BFLOAT16_KHR"),
                 Self::SINT8_PACKED_NV => Some("SINT8_PACKED_NV"),
                 Self::UINT8_PACKED_NV => Some("UINT8_PACKED_NV"),
                 _ => None,

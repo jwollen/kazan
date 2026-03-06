@@ -95,10 +95,13 @@ pub(super) mod defs {
         pub const MAILBOX_KHR: Self = Self(1);
         pub const FIFO_KHR: Self = Self(2);
         pub const FIFO_RELAXED_KHR: Self = Self(3);
-        pub const FIFO_LATEST_READY_KHR: Self = Self(1000361000);
-        pub const SHARED_CONTINUOUS_REFRESH_KHR: Self = Self(1000111001);
-        pub const SHARED_DEMAND_REFRESH_KHR: Self = Self(1000111000);
+        // VK_EXT_present_mode_fifo_latest_ready
         pub const FIFO_LATEST_READY_EXT: Self = Self::FIFO_LATEST_READY_KHR;
+        // VK_KHR_present_mode_fifo_latest_ready
+        pub const FIFO_LATEST_READY_KHR: Self = Self(1000361000);
+        // VK_KHR_shared_presentable_image
+        pub const SHARED_DEMAND_REFRESH_KHR: Self = Self(1000111000);
+        pub const SHARED_CONTINUOUS_REFRESH_KHR: Self = Self(1000111001);
     }
     impl fmt::Debug for PresentModeKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -108,8 +111,8 @@ pub(super) mod defs {
                 Self::FIFO_KHR => Some("FIFO_KHR"),
                 Self::FIFO_RELAXED_KHR => Some("FIFO_RELAXED_KHR"),
                 Self::FIFO_LATEST_READY_KHR => Some("FIFO_LATEST_READY_KHR"),
-                Self::SHARED_CONTINUOUS_REFRESH_KHR => Some("SHARED_CONTINUOUS_REFRESH_KHR"),
                 Self::SHARED_DEMAND_REFRESH_KHR => Some("SHARED_DEMAND_REFRESH_KHR"),
+                Self::SHARED_CONTINUOUS_REFRESH_KHR => Some("SHARED_CONTINUOUS_REFRESH_KHR"),
                 _ => None,
             };
             if let Some(name) = name {
@@ -124,42 +127,44 @@ pub(super) mod defs {
     pub struct ColorSpaceKHR(i32);
     impl ColorSpaceKHR {
         pub const SRGB_NONLINEAR_KHR: Self = Self(0);
-        pub const ADOBERGB_LINEAR_EXT: Self = Self(1000104011);
-        pub const ADOBERGB_NONLINEAR_EXT: Self = Self(1000104012);
-        pub const BT2020_LINEAR_EXT: Self = Self(1000104007);
+        // VK_AMD_display_native_hdr
+        pub const DISPLAY_NATIVE_AMD: Self = Self(1000213000);
+        // VK_EXT_swapchain_colorspace
+        pub const DISPLAY_P3_NONLINEAR_EXT: Self = Self(1000104001);
+        pub const EXTENDED_SRGB_LINEAR_EXT: Self = Self(1000104002);
+        pub const DISPLAY_P3_LINEAR_EXT: Self = Self(1000104003);
+        pub const DCI_P3_NONLINEAR_EXT: Self = Self(1000104004);
         pub const BT709_LINEAR_EXT: Self = Self(1000104005);
         pub const BT709_NONLINEAR_EXT: Self = Self(1000104006);
-        pub const DCI_P3_NONLINEAR_EXT: Self = Self(1000104004);
-        pub const DISPLAY_NATIVE_AMD: Self = Self(1000213000);
-        pub const DISPLAY_P3_LINEAR_EXT: Self = Self(1000104003);
-        pub const DISPLAY_P3_NONLINEAR_EXT: Self = Self(1000104001);
-        pub const DOLBYVISION_EXT: Self = Self(1000104009);
-        pub const EXTENDED_SRGB_LINEAR_EXT: Self = Self(1000104002);
-        pub const EXTENDED_SRGB_NONLINEAR_EXT: Self = Self(1000104014);
-        pub const HDR10_HLG_EXT: Self = Self(1000104010);
+        pub const BT2020_LINEAR_EXT: Self = Self(1000104007);
         pub const HDR10_ST2084_EXT: Self = Self(1000104008);
+        pub const DOLBYVISION_EXT: Self = Self(1000104009);
+        pub const HDR10_HLG_EXT: Self = Self(1000104010);
+        pub const ADOBERGB_LINEAR_EXT: Self = Self(1000104011);
+        pub const ADOBERGB_NONLINEAR_EXT: Self = Self(1000104012);
         pub const PASS_THROUGH_EXT: Self = Self(1000104013);
+        pub const EXTENDED_SRGB_NONLINEAR_EXT: Self = Self(1000104014);
         pub const DCI_P3_LINEAR_EXT: Self = Self::DISPLAY_P3_LINEAR_EXT;
     }
     impl fmt::Debug for ColorSpaceKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
                 Self::SRGB_NONLINEAR_KHR => Some("SRGB_NONLINEAR_KHR"),
-                Self::ADOBERGB_LINEAR_EXT => Some("ADOBERGB_LINEAR_EXT"),
-                Self::ADOBERGB_NONLINEAR_EXT => Some("ADOBERGB_NONLINEAR_EXT"),
-                Self::BT2020_LINEAR_EXT => Some("BT2020_LINEAR_EXT"),
+                Self::DISPLAY_NATIVE_AMD => Some("DISPLAY_NATIVE_AMD"),
+                Self::DISPLAY_P3_NONLINEAR_EXT => Some("DISPLAY_P3_NONLINEAR_EXT"),
+                Self::EXTENDED_SRGB_LINEAR_EXT => Some("EXTENDED_SRGB_LINEAR_EXT"),
+                Self::DISPLAY_P3_LINEAR_EXT => Some("DISPLAY_P3_LINEAR_EXT"),
+                Self::DCI_P3_NONLINEAR_EXT => Some("DCI_P3_NONLINEAR_EXT"),
                 Self::BT709_LINEAR_EXT => Some("BT709_LINEAR_EXT"),
                 Self::BT709_NONLINEAR_EXT => Some("BT709_NONLINEAR_EXT"),
-                Self::DCI_P3_NONLINEAR_EXT => Some("DCI_P3_NONLINEAR_EXT"),
-                Self::DISPLAY_NATIVE_AMD => Some("DISPLAY_NATIVE_AMD"),
-                Self::DISPLAY_P3_LINEAR_EXT => Some("DISPLAY_P3_LINEAR_EXT"),
-                Self::DISPLAY_P3_NONLINEAR_EXT => Some("DISPLAY_P3_NONLINEAR_EXT"),
-                Self::DOLBYVISION_EXT => Some("DOLBYVISION_EXT"),
-                Self::EXTENDED_SRGB_LINEAR_EXT => Some("EXTENDED_SRGB_LINEAR_EXT"),
-                Self::EXTENDED_SRGB_NONLINEAR_EXT => Some("EXTENDED_SRGB_NONLINEAR_EXT"),
-                Self::HDR10_HLG_EXT => Some("HDR10_HLG_EXT"),
+                Self::BT2020_LINEAR_EXT => Some("BT2020_LINEAR_EXT"),
                 Self::HDR10_ST2084_EXT => Some("HDR10_ST2084_EXT"),
+                Self::DOLBYVISION_EXT => Some("DOLBYVISION_EXT"),
+                Self::HDR10_HLG_EXT => Some("HDR10_HLG_EXT"),
+                Self::ADOBERGB_LINEAR_EXT => Some("ADOBERGB_LINEAR_EXT"),
+                Self::ADOBERGB_NONLINEAR_EXT => Some("ADOBERGB_NONLINEAR_EXT"),
                 Self::PASS_THROUGH_EXT => Some("PASS_THROUGH_EXT"),
+                Self::EXTENDED_SRGB_NONLINEAR_EXT => Some("EXTENDED_SRGB_NONLINEAR_EXT"),
                 _ => None,
             };
             if let Some(name) = name {

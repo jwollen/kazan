@@ -39,7 +39,6 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct HeadlessSurfaceCreateFlagsEXT(Flags);
     vk_bitflags_wrapped!(HeadlessSurfaceCreateFlagsEXT, Flags);
-    impl HeadlessSurfaceCreateFlagsEXT {}
     pub type PFN_vkCreateHeadlessSurfaceEXT = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const HeadlessSurfaceCreateInfoEXT<'_>,

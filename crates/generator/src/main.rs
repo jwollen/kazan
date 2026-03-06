@@ -11,7 +11,7 @@ use crate::{
     analysis::Analysis,
     cdecl::CType,
     command::generate_commands,
-    enums::{ReqEnumData, write_bitmask, write_enum},
+    enums::{write_bitmask, write_enum},
     module::{Module, ModuleName},
     structs::write_struct,
     xml::Constant,
@@ -44,54 +44,6 @@ fn generate(analysis: &analysis::Analysis) {
     let mut vendor_modules = BTreeMap::new();
 
     let mut visited_items = HashSet::new();
-
-    let mut req_enum_variants = BTreeMap::new();
-    let mut req_bitspos = BTreeMap::new();
-    let mut req_enum_aliases = BTreeMap::new();
-    let mut req_enum_values = BTreeMap::new();
-
-    for module in Module::from_registry(registry) {
-        let ext_number = module.ext_number();
-        for req in module.requires() {
-            for variant in &req.enum_variants {
-                let variants = req_enum_variants
-                    .entry(variant.extends)
-                    .or_insert_with(BTreeMap::new);
-
-                let ext_number = variant.extnumber.or(ext_number).unwrap() as i32;
-                let value = 1_000_000_000i32 + (ext_number - 1) * 1000 + variant.offset as i32;
-                let value = if variant.negative { -value } else { value };
-                variants.insert(variant.name, value);
-            }
-            for bitpos in &req.bitpositions {
-                let variants = req_bitspos
-                    .entry(bitpos.extends)
-                    .or_insert_with(BTreeMap::new);
-                variants.insert(bitpos.name, bitpos.bitpos);
-            }
-            for alias in &req.enum_aliases {
-                if let Some(extends) = alias.extends {
-                    let aliases = req_enum_aliases
-                        .entry(extends)
-                        .or_insert_with(BTreeMap::new);
-                    aliases.insert(alias.name, alias.alias);
-                }
-            }
-            for value in &req.enum_values {
-                let values = req_enum_values
-                    .entry(value.extends)
-                    .or_insert_with(BTreeMap::new);
-                values.insert(value.name, value.value);
-            }
-        }
-    }
-
-    let req_enum_data = ReqEnumData {
-        enum_variants: &req_enum_variants,
-        enum_aliases: &req_enum_aliases,
-        enum_values: &req_enum_values,
-        bitspos: &req_bitspos,
-    };
 
     for module in Module::from_registry(registry) {
         let requires: Vec<_> = module.requires();
@@ -141,7 +93,8 @@ fn generate(analysis: &analysis::Analysis) {
             name: module_name,
         } = module.name();
 
-        if !new_items.is_empty() || required_commands.clone().next().is_some() {
+        let is_extension = false;//matches!(module, Module::Extension(_));
+        if !new_items.is_empty() || required_commands.clone().next().is_some() || is_extension {
             vendor_modules
                 .entry(vendor.clone())
                 .or_insert_with(Vec::new)
@@ -163,6 +116,10 @@ fn generate(analysis: &analysis::Analysis) {
                 use crate::{{*, vk::*, vk::Result as VkResult}};"
             )
             .unwrap();
+
+            if let Module::Extension(extension) = &module {
+                //writeln!(file, "pub const EXTENSION_NAME: &CStr = c\"{}\";", extension.name).unwrap();
+            }
 
             writeln!(file, "pub(super) mod defs {{").unwrap();
 
@@ -189,9 +146,9 @@ fn generate(analysis: &analysis::Analysis) {
 
                 generate_unions(&mut file, analysis, &new_items);
 
-                generate_enum_types(&mut file, analysis, &new_items, &req_enum_data);
+                generate_enum_types(&mut file, analysis, &new_items);
 
-                generate_bitmask_types(&mut file, analysis, &new_items, &req_enum_data);
+                generate_bitmask_types(&mut file, analysis, &new_items);
 
                 generate_funcpointers(&mut file, analysis, &new_items);
 
@@ -422,7 +379,6 @@ fn generate_enum_types(
     file: &mut impl std::io::Write,
     analysis: &Analysis,
     new_items: &HashSet<&str>,
-    req_enum_data: &ReqEnumData<'_>,
 ) {
     let enums = analysis
         .registry()
@@ -431,7 +387,7 @@ fn generate_enum_types(
         .filter(|ty| new_items.contains(ty.name));
 
     for ty in enums {
-        write_enum(file, req_enum_data, ty);
+        write_enum(file, analysis.req_enum_data(), ty);
     }
 }
 
@@ -439,7 +395,6 @@ fn generate_bitmask_types(
     file: &mut impl std::io::Write,
     analysis: &Analysis,
     new_items: &HashSet<&str>,
-    req_enum_data: &ReqEnumData<'_>,
 ) {
     let bitmask_types = analysis
         .registry()
@@ -457,7 +412,7 @@ fn generate_bitmask_types(
                 .find(|bitmask| bitmask.name == b)
         });
 
-        write_bitmask(file, analysis, ty, bitmask, &req_enum_data);
+        write_bitmask(file, analysis, ty, bitmask, analysis.req_enum_data());
     }
 }
 

@@ -384,10 +384,8 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AccelerationStructureMotionInfoFlagsNV(Flags);
     vk_bitflags_wrapped!(AccelerationStructureMotionInfoFlagsNV, Flags);
-    impl AccelerationStructureMotionInfoFlagsNV {}
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AccelerationStructureMotionInstanceFlagsNV(Flags);
     vk_bitflags_wrapped!(AccelerationStructureMotionInstanceFlagsNV, Flags);
-    impl AccelerationStructureMotionInstanceFlagsNV {}
 }

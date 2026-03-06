@@ -104,7 +104,6 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ValidationCacheCreateFlagsEXT(Flags);
     vk_bitflags_wrapped!(ValidationCacheCreateFlagsEXT, Flags);
-    impl ValidationCacheCreateFlagsEXT {}
     pub type PFN_vkCreateValidationCacheEXT = unsafe extern "system" fn(
         device: Device,
         p_create_info: *const ValidationCacheCreateInfoEXT<'_>,

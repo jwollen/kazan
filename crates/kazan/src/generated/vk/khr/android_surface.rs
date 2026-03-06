@@ -46,7 +46,6 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AndroidSurfaceCreateFlagsKHR(Flags);
     vk_bitflags_wrapped!(AndroidSurfaceCreateFlagsKHR, Flags);
-    impl AndroidSurfaceCreateFlagsKHR {}
     pub type PFN_vkCreateAndroidSurfaceKHR = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const AndroidSurfaceCreateInfoKHR<'_>,

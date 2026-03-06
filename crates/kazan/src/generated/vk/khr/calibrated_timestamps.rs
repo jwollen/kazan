@@ -43,12 +43,14 @@ pub(super) mod defs {
         pub const CLOCK_MONOTONIC_KHR: Self = Self(1);
         pub const CLOCK_MONOTONIC_RAW_KHR: Self = Self(2);
         pub const QUERY_PERFORMANCE_COUNTER_KHR: Self = Self(3);
-        pub const PRESENT_STAGE_LOCAL_EXT: Self = Self(1000208000);
-        pub const SWAPCHAIN_LOCAL_EXT: Self = Self(1000208001);
+        // VK_EXT_calibrated_timestamps
+        pub const DEVICE_EXT: Self = Self::DEVICE_KHR;
         pub const CLOCK_MONOTONIC_EXT: Self = Self::CLOCK_MONOTONIC_KHR;
         pub const CLOCK_MONOTONIC_RAW_EXT: Self = Self::CLOCK_MONOTONIC_RAW_KHR;
-        pub const DEVICE_EXT: Self = Self::DEVICE_KHR;
         pub const QUERY_PERFORMANCE_COUNTER_EXT: Self = Self::QUERY_PERFORMANCE_COUNTER_KHR;
+        // VK_EXT_present_timing
+        pub const PRESENT_STAGE_LOCAL_EXT: Self = Self(1000208000);
+        pub const SWAPCHAIN_LOCAL_EXT: Self = Self(1000208001);
     }
     impl fmt::Debug for TimeDomainKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {

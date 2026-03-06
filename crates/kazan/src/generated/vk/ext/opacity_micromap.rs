@@ -541,6 +541,7 @@ pub(super) mod defs {
     pub struct MicromapTypeEXT(i32);
     impl MicromapTypeEXT {
         pub const OPACITY_MICROMAP_EXT: Self = Self(0);
+        // VK_NV_displacement_micromap
         pub const DISPLACEMENT_MICROMAP_NV: Self = Self(1000397000);
     }
     impl fmt::Debug for MicromapTypeEXT {
@@ -630,6 +631,7 @@ pub(super) mod defs {
         pub const FULLY_OPAQUE_EXT: Self = Self(-2);
         pub const FULLY_UNKNOWN_TRANSPARENT_EXT: Self = Self(-3);
         pub const FULLY_UNKNOWN_OPAQUE_EXT: Self = Self(-4);
+        // VK_NV_cluster_acceleration_structure
         pub const CLUSTER_GEOMETRY_DISABLE_OPACITY_MICROMAP_NV: Self = Self(-5);
     }
     impl fmt::Debug for OpacityMicromapSpecialIndexEXT {

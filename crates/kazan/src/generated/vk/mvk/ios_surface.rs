@@ -45,7 +45,6 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct IOSSurfaceCreateFlagsMVK(Flags);
     vk_bitflags_wrapped!(IOSSurfaceCreateFlagsMVK, Flags);
-    impl IOSSurfaceCreateFlagsMVK {}
     pub type PFN_vkCreateIOSSurfaceMVK = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const IOSSurfaceCreateInfoMVK<'_>,

@@ -45,7 +45,6 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImagePipeSurfaceCreateFlagsFUCHSIA(Flags);
     vk_bitflags_wrapped!(ImagePipeSurfaceCreateFlagsFUCHSIA, Flags);
-    impl ImagePipeSurfaceCreateFlagsFUCHSIA {}
     pub type PFN_vkCreateImagePipeSurfaceFUCHSIA = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const ImagePipeSurfaceCreateInfoFUCHSIA<'_>,

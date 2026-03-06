@@ -482,7 +482,6 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageFormatConstraintsFlagsFUCHSIA(Flags);
     vk_bitflags_wrapped!(ImageFormatConstraintsFlagsFUCHSIA, Flags);
-    impl ImageFormatConstraintsFlagsFUCHSIA {}
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageConstraintsInfoFlagsFUCHSIA(Flags);

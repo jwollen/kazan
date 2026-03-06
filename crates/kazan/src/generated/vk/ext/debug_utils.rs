@@ -290,6 +290,7 @@ pub(super) mod defs {
         pub const GENERAL_EXT: Self = Self(DebugUtilsMessageTypeFlagBitsEXT::GENERAL_EXT.0);
         pub const VALIDATION_EXT: Self = Self(DebugUtilsMessageTypeFlagBitsEXT::VALIDATION_EXT.0);
         pub const PERFORMANCE_EXT: Self = Self(DebugUtilsMessageTypeFlagBitsEXT::PERFORMANCE_EXT.0);
+        // VK_EXT_device_address_binding_report
         pub const DEVICE_ADDRESS_BINDING_EXT: Self =
             Self(DebugUtilsMessageTypeFlagBitsEXT::DEVICE_ADDRESS_BINDING_EXT.0);
     }
@@ -300,18 +301,17 @@ pub(super) mod defs {
         pub const GENERAL_EXT: Self = Self(1 << 0);
         pub const VALIDATION_EXT: Self = Self(1 << 1);
         pub const PERFORMANCE_EXT: Self = Self(1 << 2);
+        // VK_EXT_device_address_binding_report
         pub const DEVICE_ADDRESS_BINDING_EXT: Self = Self(1 << 3);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DebugUtilsMessengerCreateFlagsEXT(Flags);
     vk_bitflags_wrapped!(DebugUtilsMessengerCreateFlagsEXT, Flags);
-    impl DebugUtilsMessengerCreateFlagsEXT {}
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DebugUtilsMessengerCallbackDataFlagsEXT(Flags);
     vk_bitflags_wrapped!(DebugUtilsMessengerCallbackDataFlagsEXT, Flags);
-    impl DebugUtilsMessengerCallbackDataFlagsEXT {}
     pub type PFN_vkDebugUtilsMessengerCallbackEXT = unsafe extern "system" fn(
         message_severity: DebugUtilsMessageSeverityFlagBitsEXT,
         message_types: DebugUtilsMessageTypeFlagsEXT,

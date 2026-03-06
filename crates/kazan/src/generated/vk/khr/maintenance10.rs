@@ -186,6 +186,7 @@ pub(super) mod defs {
     pub struct RenderingAttachmentFlagsKHR(Flags);
     vk_bitflags_wrapped!(RenderingAttachmentFlagsKHR, Flags);
     impl RenderingAttachmentFlagsKHR {
+        // VK_KHR_maintenance10
         pub const INPUT_ATTACHMENT_FEEDBACK_KHR: Self =
             Self(RenderingAttachmentFlagBitsKHR::INPUT_ATTACHMENT_FEEDBACK_KHR.0);
         pub const RESOLVE_SKIP_TRANSFER_FUNCTION_KHR: Self =
@@ -197,6 +198,7 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct RenderingAttachmentFlagBitsKHR(u32);
     impl RenderingAttachmentFlagBitsKHR {
+        // VK_KHR_maintenance10
         pub const INPUT_ATTACHMENT_FEEDBACK_KHR: Self = Self(1 << 0);
         pub const RESOLVE_SKIP_TRANSFER_FUNCTION_KHR: Self = Self(1 << 1);
         pub const RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR: Self = Self(1 << 2);
@@ -206,6 +208,7 @@ pub(super) mod defs {
     pub struct ResolveImageFlagsKHR(Flags);
     vk_bitflags_wrapped!(ResolveImageFlagsKHR, Flags);
     impl ResolveImageFlagsKHR {
+        // VK_KHR_maintenance10
         pub const SKIP_TRANSFER_FUNCTION_KHR: Self =
             Self(ResolveImageFlagBitsKHR::SKIP_TRANSFER_FUNCTION_KHR.0);
         pub const ENABLE_TRANSFER_FUNCTION_KHR: Self =
@@ -215,6 +218,7 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ResolveImageFlagBitsKHR(u32);
     impl ResolveImageFlagBitsKHR {
+        // VK_KHR_maintenance10
         pub const SKIP_TRANSFER_FUNCTION_KHR: Self = Self(1 << 0);
         pub const ENABLE_TRANSFER_FUNCTION_KHR: Self = Self(1 << 1);
     }

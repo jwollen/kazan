@@ -5453,42 +5453,61 @@ pub(super) mod defs {
         pub const TRANSFER_SRC_OPTIMAL: Self = Self(6);
         pub const TRANSFER_DST_OPTIMAL: Self = Self(7);
         pub const PREINITIALIZED: Self = Self(8);
-        pub const ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT: Self = Self(1000339000);
-        pub const ATTACHMENT_OPTIMAL: Self = Self(1000314001);
-        pub const DEPTH_ATTACHMENT_OPTIMAL: Self = Self(1000241000);
-        pub const DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL: Self = Self(1000117001);
-        pub const DEPTH_READ_ONLY_OPTIMAL: Self = Self(1000241001);
-        pub const DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL: Self = Self(1000117000);
-        pub const FRAGMENT_DENSITY_MAP_OPTIMAL_EXT: Self = Self(1000218000);
-        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_OPTIMAL_KHR: Self = Self(1000164003);
-        pub const PRESENT_SRC_KHR: Self = Self(1000001002);
-        pub const READ_ONLY_OPTIMAL: Self = Self(1000314000);
-        pub const RENDERING_LOCAL_READ: Self = Self(1000232000);
-        pub const SHARED_PRESENT_KHR: Self = Self(1000111000);
-        pub const STENCIL_ATTACHMENT_OPTIMAL: Self = Self(1000241002);
-        pub const STENCIL_READ_ONLY_OPTIMAL: Self = Self(1000241003);
+        // VK_ARM_tensors
         pub const TENSOR_ALIASING_ARM: Self = Self(1000460000);
-        pub const VIDEO_DECODE_DPB_KHR: Self = Self(1000024002);
-        pub const VIDEO_DECODE_DST_KHR: Self = Self(1000024000);
-        pub const VIDEO_DECODE_SRC_KHR: Self = Self(1000024001);
-        pub const VIDEO_ENCODE_DPB_KHR: Self = Self(1000299002);
-        pub const VIDEO_ENCODE_DST_KHR: Self = Self(1000299000);
-        pub const VIDEO_ENCODE_QUANTIZATION_MAP_KHR: Self = Self(1000553000);
-        pub const VIDEO_ENCODE_SRC_KHR: Self = Self(1000299001);
+        // VK_EXT_attachment_feedback_loop_layout
+        pub const ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT: Self = Self(1000339000);
+        // VK_EXT_fragment_density_map
+        pub const FRAGMENT_DENSITY_MAP_OPTIMAL_EXT: Self = Self(1000218000);
+        // VK_EXT_zero_initialize_device_memory
         pub const ZERO_INITIALIZED_EXT: Self = Self(1000620000);
-        pub const ATTACHMENT_OPTIMAL_KHR: Self = Self::ATTACHMENT_OPTIMAL;
-        pub const DEPTH_ATTACHMENT_OPTIMAL_KHR: Self = Self::DEPTH_ATTACHMENT_OPTIMAL;
-        pub const DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL_KHR: Self =
-            Self::DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL;
-        pub const DEPTH_READ_ONLY_OPTIMAL_KHR: Self = Self::DEPTH_READ_ONLY_OPTIMAL;
+        // VK_KHR_dynamic_rendering_local_read
+        pub const RENDERING_LOCAL_READ_KHR: Self = Self::RENDERING_LOCAL_READ;
+        // VK_KHR_fragment_shading_rate
+        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_OPTIMAL_KHR: Self = Self(1000164003);
+        // VK_KHR_maintenance2
         pub const DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL_KHR: Self =
             Self::DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL;
-        pub const READ_ONLY_OPTIMAL_KHR: Self = Self::READ_ONLY_OPTIMAL;
-        pub const RENDERING_LOCAL_READ_KHR: Self = Self::RENDERING_LOCAL_READ;
-        pub const SHADING_RATE_OPTIMAL_NV: Self =
-            Self::FRAGMENT_SHADING_RATE_ATTACHMENT_OPTIMAL_KHR;
+        pub const DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL_KHR: Self =
+            Self::DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL;
+        // VK_KHR_separate_depth_stencil_layouts
+        pub const DEPTH_ATTACHMENT_OPTIMAL_KHR: Self = Self::DEPTH_ATTACHMENT_OPTIMAL;
+        pub const DEPTH_READ_ONLY_OPTIMAL_KHR: Self = Self::DEPTH_READ_ONLY_OPTIMAL;
         pub const STENCIL_ATTACHMENT_OPTIMAL_KHR: Self = Self::STENCIL_ATTACHMENT_OPTIMAL;
         pub const STENCIL_READ_ONLY_OPTIMAL_KHR: Self = Self::STENCIL_READ_ONLY_OPTIMAL;
+        // VK_KHR_shared_presentable_image
+        pub const SHARED_PRESENT_KHR: Self = Self(1000111000);
+        // VK_KHR_swapchain
+        pub const PRESENT_SRC_KHR: Self = Self(1000001002);
+        // VK_KHR_synchronization2
+        pub const READ_ONLY_OPTIMAL_KHR: Self = Self::READ_ONLY_OPTIMAL;
+        pub const ATTACHMENT_OPTIMAL_KHR: Self = Self::ATTACHMENT_OPTIMAL;
+        // VK_KHR_video_decode_queue
+        pub const VIDEO_DECODE_DST_KHR: Self = Self(1000024000);
+        pub const VIDEO_DECODE_SRC_KHR: Self = Self(1000024001);
+        pub const VIDEO_DECODE_DPB_KHR: Self = Self(1000024002);
+        // VK_KHR_video_encode_quantization_map
+        pub const VIDEO_ENCODE_QUANTIZATION_MAP_KHR: Self = Self(1000553000);
+        // VK_KHR_video_encode_queue
+        pub const VIDEO_ENCODE_DST_KHR: Self = Self(1000299000);
+        pub const VIDEO_ENCODE_SRC_KHR: Self = Self(1000299001);
+        pub const VIDEO_ENCODE_DPB_KHR: Self = Self(1000299002);
+        // VK_NV_shading_rate_image
+        pub const SHADING_RATE_OPTIMAL_NV: Self =
+            Self::FRAGMENT_SHADING_RATE_ATTACHMENT_OPTIMAL_KHR;
+        // VK_VERSION_1_1
+        pub const DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL: Self = Self(1000117000);
+        pub const DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL: Self = Self(1000117001);
+        // VK_VERSION_1_2
+        pub const DEPTH_ATTACHMENT_OPTIMAL: Self = Self(1000241000);
+        pub const DEPTH_READ_ONLY_OPTIMAL: Self = Self(1000241001);
+        pub const STENCIL_ATTACHMENT_OPTIMAL: Self = Self(1000241002);
+        pub const STENCIL_READ_ONLY_OPTIMAL: Self = Self(1000241003);
+        // VK_VERSION_1_3
+        pub const READ_ONLY_OPTIMAL: Self = Self(1000314000);
+        pub const ATTACHMENT_OPTIMAL: Self = Self(1000314001);
+        // VK_VERSION_1_4
+        pub const RENDERING_LOCAL_READ: Self = Self(1000232000);
     }
     impl fmt::Debug for ImageLayout {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -5502,39 +5521,39 @@ pub(super) mod defs {
                 Self::TRANSFER_SRC_OPTIMAL => Some("TRANSFER_SRC_OPTIMAL"),
                 Self::TRANSFER_DST_OPTIMAL => Some("TRANSFER_DST_OPTIMAL"),
                 Self::PREINITIALIZED => Some("PREINITIALIZED"),
+                Self::TENSOR_ALIASING_ARM => Some("TENSOR_ALIASING_ARM"),
                 Self::ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT => {
                     Some("ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT")
                 }
-                Self::ATTACHMENT_OPTIMAL => Some("ATTACHMENT_OPTIMAL"),
-                Self::DEPTH_ATTACHMENT_OPTIMAL => Some("DEPTH_ATTACHMENT_OPTIMAL"),
-                Self::DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL => {
-                    Some("DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL")
-                }
-                Self::DEPTH_READ_ONLY_OPTIMAL => Some("DEPTH_READ_ONLY_OPTIMAL"),
-                Self::DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL => {
-                    Some("DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL")
-                }
                 Self::FRAGMENT_DENSITY_MAP_OPTIMAL_EXT => Some("FRAGMENT_DENSITY_MAP_OPTIMAL_EXT"),
+                Self::ZERO_INITIALIZED_EXT => Some("ZERO_INITIALIZED_EXT"),
                 Self::FRAGMENT_SHADING_RATE_ATTACHMENT_OPTIMAL_KHR => {
                     Some("FRAGMENT_SHADING_RATE_ATTACHMENT_OPTIMAL_KHR")
                 }
-                Self::PRESENT_SRC_KHR => Some("PRESENT_SRC_KHR"),
-                Self::READ_ONLY_OPTIMAL => Some("READ_ONLY_OPTIMAL"),
-                Self::RENDERING_LOCAL_READ => Some("RENDERING_LOCAL_READ"),
                 Self::SHARED_PRESENT_KHR => Some("SHARED_PRESENT_KHR"),
-                Self::STENCIL_ATTACHMENT_OPTIMAL => Some("STENCIL_ATTACHMENT_OPTIMAL"),
-                Self::STENCIL_READ_ONLY_OPTIMAL => Some("STENCIL_READ_ONLY_OPTIMAL"),
-                Self::TENSOR_ALIASING_ARM => Some("TENSOR_ALIASING_ARM"),
-                Self::VIDEO_DECODE_DPB_KHR => Some("VIDEO_DECODE_DPB_KHR"),
+                Self::PRESENT_SRC_KHR => Some("PRESENT_SRC_KHR"),
                 Self::VIDEO_DECODE_DST_KHR => Some("VIDEO_DECODE_DST_KHR"),
                 Self::VIDEO_DECODE_SRC_KHR => Some("VIDEO_DECODE_SRC_KHR"),
-                Self::VIDEO_ENCODE_DPB_KHR => Some("VIDEO_ENCODE_DPB_KHR"),
-                Self::VIDEO_ENCODE_DST_KHR => Some("VIDEO_ENCODE_DST_KHR"),
+                Self::VIDEO_DECODE_DPB_KHR => Some("VIDEO_DECODE_DPB_KHR"),
                 Self::VIDEO_ENCODE_QUANTIZATION_MAP_KHR => {
                     Some("VIDEO_ENCODE_QUANTIZATION_MAP_KHR")
                 }
+                Self::VIDEO_ENCODE_DST_KHR => Some("VIDEO_ENCODE_DST_KHR"),
                 Self::VIDEO_ENCODE_SRC_KHR => Some("VIDEO_ENCODE_SRC_KHR"),
-                Self::ZERO_INITIALIZED_EXT => Some("ZERO_INITIALIZED_EXT"),
+                Self::VIDEO_ENCODE_DPB_KHR => Some("VIDEO_ENCODE_DPB_KHR"),
+                Self::DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL => {
+                    Some("DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL")
+                }
+                Self::DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL => {
+                    Some("DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL")
+                }
+                Self::DEPTH_ATTACHMENT_OPTIMAL => Some("DEPTH_ATTACHMENT_OPTIMAL"),
+                Self::DEPTH_READ_ONLY_OPTIMAL => Some("DEPTH_READ_ONLY_OPTIMAL"),
+                Self::STENCIL_ATTACHMENT_OPTIMAL => Some("STENCIL_ATTACHMENT_OPTIMAL"),
+                Self::STENCIL_READ_ONLY_OPTIMAL => Some("STENCIL_READ_ONLY_OPTIMAL"),
+                Self::READ_ONLY_OPTIMAL => Some("READ_ONLY_OPTIMAL"),
+                Self::ATTACHMENT_OPTIMAL => Some("ATTACHMENT_OPTIMAL"),
+                Self::RENDERING_LOCAL_READ => Some("RENDERING_LOCAL_READ"),
                 _ => None,
             };
             if let Some(name) = name {
@@ -5551,9 +5570,12 @@ pub(super) mod defs {
         pub const LOAD: Self = Self(0);
         pub const CLEAR: Self = Self(1);
         pub const DONT_CARE: Self = Self(2);
-        pub const NONE: Self = Self(1000400000);
+        // VK_EXT_load_store_op_none
         pub const NONE_EXT: Self = Self::NONE;
+        // VK_KHR_load_store_op_none
         pub const NONE_KHR: Self = Self::NONE;
+        // VK_VERSION_1_4
+        pub const NONE: Self = Self(1000400000);
     }
     impl fmt::Debug for AttachmentLoadOp {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -5577,10 +5599,14 @@ pub(super) mod defs {
     impl AttachmentStoreOp {
         pub const STORE: Self = Self(0);
         pub const DONT_CARE: Self = Self(1);
-        pub const NONE: Self = Self(1000301000);
+        // VK_EXT_load_store_op_none
         pub const NONE_EXT: Self = Self::NONE;
+        // VK_KHR_dynamic_rendering
         pub const NONE_KHR: Self = Self::NONE;
+        // VK_QCOM_render_pass_store_ops
         pub const NONE_QCOM: Self = Self::NONE;
+        // VK_VERSION_1_3
+        pub const NONE: Self = Self(1000301000);
     }
     impl fmt::Debug for AttachmentStoreOp {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -5626,6 +5652,7 @@ pub(super) mod defs {
     impl ImageTiling {
         pub const OPTIMAL: Self = Self(0);
         pub const LINEAR: Self = Self(1);
+        // VK_EXT_image_drm_format_modifier
         pub const DRM_FORMAT_MODIFIER_EXT: Self = Self(1000158000);
     }
     impl fmt::Debug for ImageTiling {
@@ -5741,16 +5768,25 @@ pub(super) mod defs {
         pub const UNIFORM_BUFFER_DYNAMIC: Self = Self(8);
         pub const STORAGE_BUFFER_DYNAMIC: Self = Self(9);
         pub const INPUT_ATTACHMENT: Self = Self(10);
-        pub const ACCELERATION_STRUCTURE_KHR: Self = Self(1000150000);
-        pub const ACCELERATION_STRUCTURE_NV: Self = Self(1000165000);
-        pub const BLOCK_MATCH_IMAGE_QCOM: Self = Self(1000440001);
-        pub const INLINE_UNIFORM_BLOCK: Self = Self(1000138000);
-        pub const MUTABLE_EXT: Self = Self(1000351000);
-        pub const PARTITIONED_ACCELERATION_STRUCTURE_NV: Self = Self(1000570000);
-        pub const SAMPLE_WEIGHT_IMAGE_QCOM: Self = Self(1000440000);
+        // VK_ARM_tensors
         pub const TENSOR_ARM: Self = Self(1000460000);
+        // VK_EXT_inline_uniform_block
         pub const INLINE_UNIFORM_BLOCK_EXT: Self = Self::INLINE_UNIFORM_BLOCK;
+        // VK_EXT_mutable_descriptor_type
+        pub const MUTABLE_EXT: Self = Self(1000351000);
+        // VK_KHR_acceleration_structure
+        pub const ACCELERATION_STRUCTURE_KHR: Self = Self(1000150000);
+        // VK_NV_partitioned_acceleration_structure
+        pub const PARTITIONED_ACCELERATION_STRUCTURE_NV: Self = Self(1000570000);
+        // VK_NV_ray_tracing
+        pub const ACCELERATION_STRUCTURE_NV: Self = Self(1000165000);
+        // VK_QCOM_image_processing
+        pub const SAMPLE_WEIGHT_IMAGE_QCOM: Self = Self(1000440000);
+        pub const BLOCK_MATCH_IMAGE_QCOM: Self = Self(1000440001);
+        // VK_VALVE_mutable_descriptor_type
         pub const MUTABLE_VALVE: Self = Self::MUTABLE_EXT;
+        // VK_VERSION_1_3
+        pub const INLINE_UNIFORM_BLOCK: Self = Self(1000138000);
     }
     impl fmt::Debug for DescriptorType {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -5766,16 +5802,16 @@ pub(super) mod defs {
                 Self::UNIFORM_BUFFER_DYNAMIC => Some("UNIFORM_BUFFER_DYNAMIC"),
                 Self::STORAGE_BUFFER_DYNAMIC => Some("STORAGE_BUFFER_DYNAMIC"),
                 Self::INPUT_ATTACHMENT => Some("INPUT_ATTACHMENT"),
-                Self::ACCELERATION_STRUCTURE_KHR => Some("ACCELERATION_STRUCTURE_KHR"),
-                Self::ACCELERATION_STRUCTURE_NV => Some("ACCELERATION_STRUCTURE_NV"),
-                Self::BLOCK_MATCH_IMAGE_QCOM => Some("BLOCK_MATCH_IMAGE_QCOM"),
-                Self::INLINE_UNIFORM_BLOCK => Some("INLINE_UNIFORM_BLOCK"),
+                Self::TENSOR_ARM => Some("TENSOR_ARM"),
                 Self::MUTABLE_EXT => Some("MUTABLE_EXT"),
+                Self::ACCELERATION_STRUCTURE_KHR => Some("ACCELERATION_STRUCTURE_KHR"),
                 Self::PARTITIONED_ACCELERATION_STRUCTURE_NV => {
                     Some("PARTITIONED_ACCELERATION_STRUCTURE_NV")
                 }
+                Self::ACCELERATION_STRUCTURE_NV => Some("ACCELERATION_STRUCTURE_NV"),
                 Self::SAMPLE_WEIGHT_IMAGE_QCOM => Some("SAMPLE_WEIGHT_IMAGE_QCOM"),
-                Self::TENSOR_ARM => Some("TENSOR_ARM"),
+                Self::BLOCK_MATCH_IMAGE_QCOM => Some("BLOCK_MATCH_IMAGE_QCOM"),
+                Self::INLINE_UNIFORM_BLOCK => Some("INLINE_UNIFORM_BLOCK"),
                 _ => None,
             };
             if let Some(name) = name {
@@ -5792,21 +5828,32 @@ pub(super) mod defs {
         pub const OCCLUSION: Self = Self(0);
         pub const PIPELINE_STATISTICS: Self = Self(1);
         pub const TIMESTAMP: Self = Self(2);
+        // VK_EXT_mesh_shader
+        pub const MESH_PRIMITIVES_GENERATED_EXT: Self = Self(1000328000);
+        // VK_EXT_opacity_micromap
+        pub const MICROMAP_SERIALIZATION_SIZE_EXT: Self = Self(1000396000);
+        pub const MICROMAP_COMPACTED_SIZE_EXT: Self = Self(1000396001);
+        // VK_EXT_primitives_generated_query
+        pub const PRIMITIVES_GENERATED_EXT: Self = Self(1000382000);
+        // VK_EXT_transform_feedback
+        pub const TRANSFORM_FEEDBACK_STREAM_EXT: Self = Self(1000028004);
+        // VK_INTEL_performance_query
+        pub const PERFORMANCE_QUERY_INTEL: Self = Self(1000210000);
+        // VK_KHR_acceleration_structure
         pub const ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR: Self = Self(1000150000);
-        pub const ACCELERATION_STRUCTURE_COMPACTED_SIZE_NV: Self = Self(1000165000);
+        pub const ACCELERATION_STRUCTURE_SERIALIZATION_SIZE_KHR: Self = Self(1000150001);
+        // VK_KHR_performance_query
+        pub const PERFORMANCE_QUERY_KHR: Self = Self(1000116000);
+        // VK_KHR_ray_tracing_maintenance1
         pub const ACCELERATION_STRUCTURE_SERIALIZATION_BOTTOM_LEVEL_POINTERS_KHR: Self =
             Self(1000386000);
-        pub const ACCELERATION_STRUCTURE_SERIALIZATION_SIZE_KHR: Self = Self(1000150001);
         pub const ACCELERATION_STRUCTURE_SIZE_KHR: Self = Self(1000386001);
-        pub const MESH_PRIMITIVES_GENERATED_EXT: Self = Self(1000328000);
-        pub const MICROMAP_COMPACTED_SIZE_EXT: Self = Self(1000396001);
-        pub const MICROMAP_SERIALIZATION_SIZE_EXT: Self = Self(1000396000);
-        pub const PERFORMANCE_QUERY_INTEL: Self = Self(1000210000);
-        pub const PERFORMANCE_QUERY_KHR: Self = Self(1000116000);
-        pub const PRIMITIVES_GENERATED_EXT: Self = Self(1000382000);
-        pub const RESULT_STATUS_ONLY_KHR: Self = Self(1000023000);
-        pub const TRANSFORM_FEEDBACK_STREAM_EXT: Self = Self(1000028004);
+        // VK_KHR_video_encode_queue
         pub const VIDEO_ENCODE_FEEDBACK_KHR: Self = Self(1000299000);
+        // VK_KHR_video_queue
+        pub const RESULT_STATUS_ONLY_KHR: Self = Self(1000023000);
+        // VK_NV_ray_tracing
+        pub const ACCELERATION_STRUCTURE_COMPACTED_SIZE_NV: Self = Self(1000165000);
     }
     impl fmt::Debug for QueryType {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -5814,28 +5861,28 @@ pub(super) mod defs {
                 Self::OCCLUSION => Some("OCCLUSION"),
                 Self::PIPELINE_STATISTICS => Some("PIPELINE_STATISTICS"),
                 Self::TIMESTAMP => Some("TIMESTAMP"),
+                Self::MESH_PRIMITIVES_GENERATED_EXT => Some("MESH_PRIMITIVES_GENERATED_EXT"),
+                Self::MICROMAP_SERIALIZATION_SIZE_EXT => Some("MICROMAP_SERIALIZATION_SIZE_EXT"),
+                Self::MICROMAP_COMPACTED_SIZE_EXT => Some("MICROMAP_COMPACTED_SIZE_EXT"),
+                Self::PRIMITIVES_GENERATED_EXT => Some("PRIMITIVES_GENERATED_EXT"),
+                Self::TRANSFORM_FEEDBACK_STREAM_EXT => Some("TRANSFORM_FEEDBACK_STREAM_EXT"),
+                Self::PERFORMANCE_QUERY_INTEL => Some("PERFORMANCE_QUERY_INTEL"),
                 Self::ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR => {
                     Some("ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR")
-                }
-                Self::ACCELERATION_STRUCTURE_COMPACTED_SIZE_NV => {
-                    Some("ACCELERATION_STRUCTURE_COMPACTED_SIZE_NV")
-                }
-                Self::ACCELERATION_STRUCTURE_SERIALIZATION_BOTTOM_LEVEL_POINTERS_KHR => {
-                    Some("ACCELERATION_STRUCTURE_SERIALIZATION_BOTTOM_LEVEL_POINTERS_KHR")
                 }
                 Self::ACCELERATION_STRUCTURE_SERIALIZATION_SIZE_KHR => {
                     Some("ACCELERATION_STRUCTURE_SERIALIZATION_SIZE_KHR")
                 }
-                Self::ACCELERATION_STRUCTURE_SIZE_KHR => Some("ACCELERATION_STRUCTURE_SIZE_KHR"),
-                Self::MESH_PRIMITIVES_GENERATED_EXT => Some("MESH_PRIMITIVES_GENERATED_EXT"),
-                Self::MICROMAP_COMPACTED_SIZE_EXT => Some("MICROMAP_COMPACTED_SIZE_EXT"),
-                Self::MICROMAP_SERIALIZATION_SIZE_EXT => Some("MICROMAP_SERIALIZATION_SIZE_EXT"),
-                Self::PERFORMANCE_QUERY_INTEL => Some("PERFORMANCE_QUERY_INTEL"),
                 Self::PERFORMANCE_QUERY_KHR => Some("PERFORMANCE_QUERY_KHR"),
-                Self::PRIMITIVES_GENERATED_EXT => Some("PRIMITIVES_GENERATED_EXT"),
-                Self::RESULT_STATUS_ONLY_KHR => Some("RESULT_STATUS_ONLY_KHR"),
-                Self::TRANSFORM_FEEDBACK_STREAM_EXT => Some("TRANSFORM_FEEDBACK_STREAM_EXT"),
+                Self::ACCELERATION_STRUCTURE_SERIALIZATION_BOTTOM_LEVEL_POINTERS_KHR => {
+                    Some("ACCELERATION_STRUCTURE_SERIALIZATION_BOTTOM_LEVEL_POINTERS_KHR")
+                }
+                Self::ACCELERATION_STRUCTURE_SIZE_KHR => Some("ACCELERATION_STRUCTURE_SIZE_KHR"),
                 Self::VIDEO_ENCODE_FEEDBACK_KHR => Some("VIDEO_ENCODE_FEEDBACK_KHR"),
+                Self::RESULT_STATUS_ONLY_KHR => Some("RESULT_STATUS_ONLY_KHR"),
+                Self::ACCELERATION_STRUCTURE_COMPACTED_SIZE_NV => {
+                    Some("ACCELERATION_STRUCTURE_COMPACTED_SIZE_NV")
+                }
                 _ => None,
             };
             if let Some(name) = name {
@@ -5855,6 +5902,7 @@ pub(super) mod defs {
         pub const INT_OPAQUE_BLACK: Self = Self(3);
         pub const FLOAT_OPAQUE_WHITE: Self = Self(4);
         pub const INT_OPAQUE_WHITE: Self = Self(5);
+        // VK_EXT_custom_border_color
         pub const FLOAT_CUSTOM_EXT: Self = Self(1000287003);
         pub const INT_CUSTOM_EXT: Self = Self(1000287004);
     }
@@ -5884,10 +5932,15 @@ pub(super) mod defs {
     impl PipelineBindPoint {
         pub const GRAPHICS: Self = Self(0);
         pub const COMPUTE: Self = Self(1);
-        pub const DATA_GRAPH_ARM: Self = Self(1000507000);
+        // VK_AMDX_shader_enqueue
         pub const EXECUTION_GRAPH_AMDX: Self = Self(1000134000);
-        pub const RAY_TRACING_KHR: Self = Self(1000165000);
+        // VK_ARM_data_graph
+        pub const DATA_GRAPH_ARM: Self = Self(1000507000);
+        // VK_HUAWEI_subpass_shading
         pub const SUBPASS_SHADING_HUAWEI: Self = Self(1000369003);
+        // VK_KHR_ray_tracing_pipeline
+        pub const RAY_TRACING_KHR: Self = Self(1000165000);
+        // VK_NV_ray_tracing
         pub const RAY_TRACING_NV: Self = Self::RAY_TRACING_KHR;
     }
     impl fmt::Debug for PipelineBindPoint {
@@ -5895,10 +5948,10 @@ pub(super) mod defs {
             let name = match *self {
                 Self::GRAPHICS => Some("GRAPHICS"),
                 Self::COMPUTE => Some("COMPUTE"),
-                Self::DATA_GRAPH_ARM => Some("DATA_GRAPH_ARM"),
                 Self::EXECUTION_GRAPH_AMDX => Some("EXECUTION_GRAPH_AMDX"),
-                Self::RAY_TRACING_KHR => Some("RAY_TRACING_KHR"),
+                Self::DATA_GRAPH_ARM => Some("DATA_GRAPH_ARM"),
                 Self::SUBPASS_SHADING_HUAWEI => Some("SUBPASS_SHADING_HUAWEI"),
+                Self::RAY_TRACING_KHR => Some("RAY_TRACING_KHR"),
                 _ => None,
             };
             if let Some(name) = name {
@@ -5913,6 +5966,7 @@ pub(super) mod defs {
     pub struct PipelineCacheHeaderVersion(i32);
     impl PipelineCacheHeaderVersion {
         pub const ONE: Self = Self(1);
+        // VK_QCOM_data_graph_model
         pub const DATA_GRAPH_QCOM: Self = Self(1000629000);
     }
     impl fmt::Debug for PipelineCacheHeaderVersion {
@@ -5995,11 +6049,16 @@ pub(super) mod defs {
     impl IndexType {
         pub const UINT16: Self = Self(0);
         pub const UINT32: Self = Self(1);
-        pub const NONE_KHR: Self = Self(1000165000);
-        pub const UINT8: Self = Self(1000265000);
-        pub const NONE_NV: Self = Self::NONE_KHR;
+        // VK_EXT_index_type_uint8
         pub const UINT8_EXT: Self = Self::UINT8;
+        // VK_KHR_acceleration_structure
+        pub const NONE_KHR: Self = Self(1000165000);
+        // VK_KHR_index_type_uint8
         pub const UINT8_KHR: Self = Self::UINT8;
+        // VK_NV_ray_tracing
+        pub const NONE_NV: Self = Self::NONE_KHR;
+        // VK_VERSION_1_4
+        pub const UINT8: Self = Self(1000265000);
     }
     impl fmt::Debug for IndexType {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -6023,7 +6082,9 @@ pub(super) mod defs {
     impl Filter {
         pub const NEAREST: Self = Self(0);
         pub const LINEAR: Self = Self(1);
+        // VK_EXT_filter_cubic
         pub const CUBIC_EXT: Self = Self(1000015000);
+        // VK_IMG_filter_cubic
         pub const CUBIC_IMG: Self = Self::CUBIC_EXT;
     }
     impl fmt::Debug for Filter {
@@ -6070,6 +6131,7 @@ pub(super) mod defs {
         pub const MIRRORED_REPEAT: Self = Self(1);
         pub const CLAMP_TO_EDGE: Self = Self(2);
         pub const CLAMP_TO_BORDER: Self = Self(3);
+        // VK_KHR_sampler_mirror_clamp_to_edge
         pub const MIRROR_CLAMP_TO_EDGE: Self = Self(4);
         pub const MIRROR_CLAMP_TO_EDGE_KHR: Self = Self::MIRROR_CLAMP_TO_EDGE;
     }
@@ -6130,6 +6192,7 @@ pub(super) mod defs {
         pub const FILL: Self = Self(0);
         pub const LINE: Self = Self(1);
         pub const POINT: Self = Self(2);
+        // VK_NV_fill_rectangle
         pub const FILL_RECTANGLE_NV: Self = Self(1000153000);
     }
     impl fmt::Debug for PolygonMode {
@@ -6233,52 +6296,53 @@ pub(super) mod defs {
         pub const REVERSE_SUBTRACT: Self = Self(2);
         pub const MIN: Self = Self(3);
         pub const MAX: Self = Self(4);
-        pub const BLUE_EXT: Self = Self(1000148045);
-        pub const COLORBURN_EXT: Self = Self(1000148018);
-        pub const COLORDODGE_EXT: Self = Self(1000148017);
-        pub const CONTRAST_EXT: Self = Self(1000148041);
-        pub const DARKEN_EXT: Self = Self(1000148015);
-        pub const DIFFERENCE_EXT: Self = Self(1000148021);
-        pub const DST_ATOP_EXT: Self = Self(1000148010);
-        pub const DST_EXT: Self = Self(1000148002);
-        pub const DST_IN_EXT: Self = Self(1000148006);
-        pub const DST_OUT_EXT: Self = Self(1000148008);
-        pub const DST_OVER_EXT: Self = Self(1000148004);
-        pub const EXCLUSION_EXT: Self = Self(1000148022);
-        pub const GREEN_EXT: Self = Self(1000148044);
-        pub const HARDLIGHT_EXT: Self = Self(1000148019);
-        pub const HARDMIX_EXT: Self = Self(1000148030);
-        pub const HSL_COLOR_EXT: Self = Self(1000148033);
-        pub const HSL_HUE_EXT: Self = Self(1000148031);
-        pub const HSL_LUMINOSITY_EXT: Self = Self(1000148034);
-        pub const HSL_SATURATION_EXT: Self = Self(1000148032);
-        pub const INVERT_EXT: Self = Self(1000148023);
-        pub const INVERT_OVG_EXT: Self = Self(1000148042);
-        pub const INVERT_RGB_EXT: Self = Self(1000148024);
-        pub const LIGHTEN_EXT: Self = Self(1000148016);
-        pub const LINEARBURN_EXT: Self = Self(1000148026);
-        pub const LINEARDODGE_EXT: Self = Self(1000148025);
-        pub const LINEARLIGHT_EXT: Self = Self(1000148028);
-        pub const MINUS_CLAMPED_EXT: Self = Self(1000148040);
-        pub const MINUS_EXT: Self = Self(1000148039);
-        pub const MULTIPLY_EXT: Self = Self(1000148012);
-        pub const OVERLAY_EXT: Self = Self(1000148014);
-        pub const PINLIGHT_EXT: Self = Self(1000148029);
-        pub const PLUS_CLAMPED_ALPHA_EXT: Self = Self(1000148037);
-        pub const PLUS_CLAMPED_EXT: Self = Self(1000148036);
-        pub const PLUS_DARKER_EXT: Self = Self(1000148038);
-        pub const PLUS_EXT: Self = Self(1000148035);
-        pub const RED_EXT: Self = Self(1000148043);
-        pub const SCREEN_EXT: Self = Self(1000148013);
-        pub const SOFTLIGHT_EXT: Self = Self(1000148020);
-        pub const SRC_ATOP_EXT: Self = Self(1000148009);
-        pub const SRC_EXT: Self = Self(1000148001);
-        pub const SRC_IN_EXT: Self = Self(1000148005);
-        pub const SRC_OUT_EXT: Self = Self(1000148007);
-        pub const SRC_OVER_EXT: Self = Self(1000148003);
-        pub const VIVIDLIGHT_EXT: Self = Self(1000148027);
-        pub const XOR_EXT: Self = Self(1000148011);
+        // VK_EXT_blend_operation_advanced
         pub const ZERO_EXT: Self = Self(1000148000);
+        pub const SRC_EXT: Self = Self(1000148001);
+        pub const DST_EXT: Self = Self(1000148002);
+        pub const SRC_OVER_EXT: Self = Self(1000148003);
+        pub const DST_OVER_EXT: Self = Self(1000148004);
+        pub const SRC_IN_EXT: Self = Self(1000148005);
+        pub const DST_IN_EXT: Self = Self(1000148006);
+        pub const SRC_OUT_EXT: Self = Self(1000148007);
+        pub const DST_OUT_EXT: Self = Self(1000148008);
+        pub const SRC_ATOP_EXT: Self = Self(1000148009);
+        pub const DST_ATOP_EXT: Self = Self(1000148010);
+        pub const XOR_EXT: Self = Self(1000148011);
+        pub const MULTIPLY_EXT: Self = Self(1000148012);
+        pub const SCREEN_EXT: Self = Self(1000148013);
+        pub const OVERLAY_EXT: Self = Self(1000148014);
+        pub const DARKEN_EXT: Self = Self(1000148015);
+        pub const LIGHTEN_EXT: Self = Self(1000148016);
+        pub const COLORDODGE_EXT: Self = Self(1000148017);
+        pub const COLORBURN_EXT: Self = Self(1000148018);
+        pub const HARDLIGHT_EXT: Self = Self(1000148019);
+        pub const SOFTLIGHT_EXT: Self = Self(1000148020);
+        pub const DIFFERENCE_EXT: Self = Self(1000148021);
+        pub const EXCLUSION_EXT: Self = Self(1000148022);
+        pub const INVERT_EXT: Self = Self(1000148023);
+        pub const INVERT_RGB_EXT: Self = Self(1000148024);
+        pub const LINEARDODGE_EXT: Self = Self(1000148025);
+        pub const LINEARBURN_EXT: Self = Self(1000148026);
+        pub const VIVIDLIGHT_EXT: Self = Self(1000148027);
+        pub const LINEARLIGHT_EXT: Self = Self(1000148028);
+        pub const PINLIGHT_EXT: Self = Self(1000148029);
+        pub const HARDMIX_EXT: Self = Self(1000148030);
+        pub const HSL_HUE_EXT: Self = Self(1000148031);
+        pub const HSL_SATURATION_EXT: Self = Self(1000148032);
+        pub const HSL_COLOR_EXT: Self = Self(1000148033);
+        pub const HSL_LUMINOSITY_EXT: Self = Self(1000148034);
+        pub const PLUS_EXT: Self = Self(1000148035);
+        pub const PLUS_CLAMPED_EXT: Self = Self(1000148036);
+        pub const PLUS_CLAMPED_ALPHA_EXT: Self = Self(1000148037);
+        pub const PLUS_DARKER_EXT: Self = Self(1000148038);
+        pub const MINUS_EXT: Self = Self(1000148039);
+        pub const MINUS_CLAMPED_EXT: Self = Self(1000148040);
+        pub const CONTRAST_EXT: Self = Self(1000148041);
+        pub const INVERT_OVG_EXT: Self = Self(1000148042);
+        pub const RED_EXT: Self = Self(1000148043);
+        pub const GREEN_EXT: Self = Self(1000148044);
+        pub const BLUE_EXT: Self = Self(1000148045);
     }
     impl fmt::Debug for BlendOp {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -6288,52 +6352,52 @@ pub(super) mod defs {
                 Self::REVERSE_SUBTRACT => Some("REVERSE_SUBTRACT"),
                 Self::MIN => Some("MIN"),
                 Self::MAX => Some("MAX"),
-                Self::BLUE_EXT => Some("BLUE_EXT"),
-                Self::COLORBURN_EXT => Some("COLORBURN_EXT"),
-                Self::COLORDODGE_EXT => Some("COLORDODGE_EXT"),
-                Self::CONTRAST_EXT => Some("CONTRAST_EXT"),
-                Self::DARKEN_EXT => Some("DARKEN_EXT"),
-                Self::DIFFERENCE_EXT => Some("DIFFERENCE_EXT"),
-                Self::DST_ATOP_EXT => Some("DST_ATOP_EXT"),
-                Self::DST_EXT => Some("DST_EXT"),
-                Self::DST_IN_EXT => Some("DST_IN_EXT"),
-                Self::DST_OUT_EXT => Some("DST_OUT_EXT"),
-                Self::DST_OVER_EXT => Some("DST_OVER_EXT"),
-                Self::EXCLUSION_EXT => Some("EXCLUSION_EXT"),
-                Self::GREEN_EXT => Some("GREEN_EXT"),
-                Self::HARDLIGHT_EXT => Some("HARDLIGHT_EXT"),
-                Self::HARDMIX_EXT => Some("HARDMIX_EXT"),
-                Self::HSL_COLOR_EXT => Some("HSL_COLOR_EXT"),
-                Self::HSL_HUE_EXT => Some("HSL_HUE_EXT"),
-                Self::HSL_LUMINOSITY_EXT => Some("HSL_LUMINOSITY_EXT"),
-                Self::HSL_SATURATION_EXT => Some("HSL_SATURATION_EXT"),
-                Self::INVERT_EXT => Some("INVERT_EXT"),
-                Self::INVERT_OVG_EXT => Some("INVERT_OVG_EXT"),
-                Self::INVERT_RGB_EXT => Some("INVERT_RGB_EXT"),
-                Self::LIGHTEN_EXT => Some("LIGHTEN_EXT"),
-                Self::LINEARBURN_EXT => Some("LINEARBURN_EXT"),
-                Self::LINEARDODGE_EXT => Some("LINEARDODGE_EXT"),
-                Self::LINEARLIGHT_EXT => Some("LINEARLIGHT_EXT"),
-                Self::MINUS_CLAMPED_EXT => Some("MINUS_CLAMPED_EXT"),
-                Self::MINUS_EXT => Some("MINUS_EXT"),
-                Self::MULTIPLY_EXT => Some("MULTIPLY_EXT"),
-                Self::OVERLAY_EXT => Some("OVERLAY_EXT"),
-                Self::PINLIGHT_EXT => Some("PINLIGHT_EXT"),
-                Self::PLUS_CLAMPED_ALPHA_EXT => Some("PLUS_CLAMPED_ALPHA_EXT"),
-                Self::PLUS_CLAMPED_EXT => Some("PLUS_CLAMPED_EXT"),
-                Self::PLUS_DARKER_EXT => Some("PLUS_DARKER_EXT"),
-                Self::PLUS_EXT => Some("PLUS_EXT"),
-                Self::RED_EXT => Some("RED_EXT"),
-                Self::SCREEN_EXT => Some("SCREEN_EXT"),
-                Self::SOFTLIGHT_EXT => Some("SOFTLIGHT_EXT"),
-                Self::SRC_ATOP_EXT => Some("SRC_ATOP_EXT"),
-                Self::SRC_EXT => Some("SRC_EXT"),
-                Self::SRC_IN_EXT => Some("SRC_IN_EXT"),
-                Self::SRC_OUT_EXT => Some("SRC_OUT_EXT"),
-                Self::SRC_OVER_EXT => Some("SRC_OVER_EXT"),
-                Self::VIVIDLIGHT_EXT => Some("VIVIDLIGHT_EXT"),
-                Self::XOR_EXT => Some("XOR_EXT"),
                 Self::ZERO_EXT => Some("ZERO_EXT"),
+                Self::SRC_EXT => Some("SRC_EXT"),
+                Self::DST_EXT => Some("DST_EXT"),
+                Self::SRC_OVER_EXT => Some("SRC_OVER_EXT"),
+                Self::DST_OVER_EXT => Some("DST_OVER_EXT"),
+                Self::SRC_IN_EXT => Some("SRC_IN_EXT"),
+                Self::DST_IN_EXT => Some("DST_IN_EXT"),
+                Self::SRC_OUT_EXT => Some("SRC_OUT_EXT"),
+                Self::DST_OUT_EXT => Some("DST_OUT_EXT"),
+                Self::SRC_ATOP_EXT => Some("SRC_ATOP_EXT"),
+                Self::DST_ATOP_EXT => Some("DST_ATOP_EXT"),
+                Self::XOR_EXT => Some("XOR_EXT"),
+                Self::MULTIPLY_EXT => Some("MULTIPLY_EXT"),
+                Self::SCREEN_EXT => Some("SCREEN_EXT"),
+                Self::OVERLAY_EXT => Some("OVERLAY_EXT"),
+                Self::DARKEN_EXT => Some("DARKEN_EXT"),
+                Self::LIGHTEN_EXT => Some("LIGHTEN_EXT"),
+                Self::COLORDODGE_EXT => Some("COLORDODGE_EXT"),
+                Self::COLORBURN_EXT => Some("COLORBURN_EXT"),
+                Self::HARDLIGHT_EXT => Some("HARDLIGHT_EXT"),
+                Self::SOFTLIGHT_EXT => Some("SOFTLIGHT_EXT"),
+                Self::DIFFERENCE_EXT => Some("DIFFERENCE_EXT"),
+                Self::EXCLUSION_EXT => Some("EXCLUSION_EXT"),
+                Self::INVERT_EXT => Some("INVERT_EXT"),
+                Self::INVERT_RGB_EXT => Some("INVERT_RGB_EXT"),
+                Self::LINEARDODGE_EXT => Some("LINEARDODGE_EXT"),
+                Self::LINEARBURN_EXT => Some("LINEARBURN_EXT"),
+                Self::VIVIDLIGHT_EXT => Some("VIVIDLIGHT_EXT"),
+                Self::LINEARLIGHT_EXT => Some("LINEARLIGHT_EXT"),
+                Self::PINLIGHT_EXT => Some("PINLIGHT_EXT"),
+                Self::HARDMIX_EXT => Some("HARDMIX_EXT"),
+                Self::HSL_HUE_EXT => Some("HSL_HUE_EXT"),
+                Self::HSL_SATURATION_EXT => Some("HSL_SATURATION_EXT"),
+                Self::HSL_COLOR_EXT => Some("HSL_COLOR_EXT"),
+                Self::HSL_LUMINOSITY_EXT => Some("HSL_LUMINOSITY_EXT"),
+                Self::PLUS_EXT => Some("PLUS_EXT"),
+                Self::PLUS_CLAMPED_EXT => Some("PLUS_CLAMPED_EXT"),
+                Self::PLUS_CLAMPED_ALPHA_EXT => Some("PLUS_CLAMPED_ALPHA_EXT"),
+                Self::PLUS_DARKER_EXT => Some("PLUS_DARKER_EXT"),
+                Self::MINUS_EXT => Some("MINUS_EXT"),
+                Self::MINUS_CLAMPED_EXT => Some("MINUS_CLAMPED_EXT"),
+                Self::CONTRAST_EXT => Some("CONTRAST_EXT"),
+                Self::INVERT_OVG_EXT => Some("INVERT_OVG_EXT"),
+                Self::RED_EXT => Some("RED_EXT"),
+                Self::GREEN_EXT => Some("GREEN_EXT"),
+                Self::BLUE_EXT => Some("BLUE_EXT"),
                 _ => None,
             };
             if let Some(name) = name {
@@ -6708,126 +6772,58 @@ pub(super) mod defs {
         pub const ASTC_12X10_SRGB_BLOCK: Self = Self(182);
         pub const ASTC_12X12_UNORM_BLOCK: Self = Self(183);
         pub const ASTC_12X12_SRGB_BLOCK: Self = Self(184);
-        pub const A1B5G5R5_UNORM_PACK16: Self = Self(1000470000);
-        pub const A4B4G4R4_UNORM_PACK16: Self = Self(1000340001);
-        pub const A4R4G4B4_UNORM_PACK16: Self = Self(1000340000);
-        pub const A8_UNORM: Self = Self(1000470001);
-        pub const ASTC_10X10_SFLOAT_BLOCK: Self = Self(1000066011);
-        pub const ASTC_10X5_SFLOAT_BLOCK: Self = Self(1000066008);
-        pub const ASTC_10X6_SFLOAT_BLOCK: Self = Self(1000066009);
-        pub const ASTC_10X8_SFLOAT_BLOCK: Self = Self(1000066010);
-        pub const ASTC_12X10_SFLOAT_BLOCK: Self = Self(1000066012);
-        pub const ASTC_12X12_SFLOAT_BLOCK: Self = Self(1000066013);
-        pub const ASTC_3X3X3_SFLOAT_BLOCK_EXT: Self = Self(1000288002);
-        pub const ASTC_3X3X3_SRGB_BLOCK_EXT: Self = Self(1000288001);
-        pub const ASTC_3X3X3_UNORM_BLOCK_EXT: Self = Self(1000288000);
-        pub const ASTC_4X3X3_SFLOAT_BLOCK_EXT: Self = Self(1000288005);
-        pub const ASTC_4X3X3_SRGB_BLOCK_EXT: Self = Self(1000288004);
-        pub const ASTC_4X3X3_UNORM_BLOCK_EXT: Self = Self(1000288003);
-        pub const ASTC_4X4_SFLOAT_BLOCK: Self = Self(1000066000);
-        pub const ASTC_4X4X3_SFLOAT_BLOCK_EXT: Self = Self(1000288008);
-        pub const ASTC_4X4X3_SRGB_BLOCK_EXT: Self = Self(1000288007);
-        pub const ASTC_4X4X3_UNORM_BLOCK_EXT: Self = Self(1000288006);
-        pub const ASTC_4X4X4_SFLOAT_BLOCK_EXT: Self = Self(1000288011);
-        pub const ASTC_4X4X4_SRGB_BLOCK_EXT: Self = Self(1000288010);
-        pub const ASTC_4X4X4_UNORM_BLOCK_EXT: Self = Self(1000288009);
-        pub const ASTC_5X4_SFLOAT_BLOCK: Self = Self(1000066001);
-        pub const ASTC_5X4X4_SFLOAT_BLOCK_EXT: Self = Self(1000288014);
-        pub const ASTC_5X4X4_SRGB_BLOCK_EXT: Self = Self(1000288013);
-        pub const ASTC_5X4X4_UNORM_BLOCK_EXT: Self = Self(1000288012);
-        pub const ASTC_5X5_SFLOAT_BLOCK: Self = Self(1000066002);
-        pub const ASTC_5X5X4_SFLOAT_BLOCK_EXT: Self = Self(1000288017);
-        pub const ASTC_5X5X4_SRGB_BLOCK_EXT: Self = Self(1000288016);
-        pub const ASTC_5X5X4_UNORM_BLOCK_EXT: Self = Self(1000288015);
-        pub const ASTC_5X5X5_SFLOAT_BLOCK_EXT: Self = Self(1000288020);
-        pub const ASTC_5X5X5_SRGB_BLOCK_EXT: Self = Self(1000288019);
-        pub const ASTC_5X5X5_UNORM_BLOCK_EXT: Self = Self(1000288018);
-        pub const ASTC_6X5_SFLOAT_BLOCK: Self = Self(1000066003);
-        pub const ASTC_6X5X5_SFLOAT_BLOCK_EXT: Self = Self(1000288023);
-        pub const ASTC_6X5X5_SRGB_BLOCK_EXT: Self = Self(1000288022);
-        pub const ASTC_6X5X5_UNORM_BLOCK_EXT: Self = Self(1000288021);
-        pub const ASTC_6X6_SFLOAT_BLOCK: Self = Self(1000066004);
-        pub const ASTC_6X6X5_SFLOAT_BLOCK_EXT: Self = Self(1000288026);
-        pub const ASTC_6X6X5_SRGB_BLOCK_EXT: Self = Self(1000288025);
-        pub const ASTC_6X6X5_UNORM_BLOCK_EXT: Self = Self(1000288024);
-        pub const ASTC_6X6X6_SFLOAT_BLOCK_EXT: Self = Self(1000288029);
-        pub const ASTC_6X6X6_SRGB_BLOCK_EXT: Self = Self(1000288028);
-        pub const ASTC_6X6X6_UNORM_BLOCK_EXT: Self = Self(1000288027);
-        pub const ASTC_8X5_SFLOAT_BLOCK: Self = Self(1000066005);
-        pub const ASTC_8X6_SFLOAT_BLOCK: Self = Self(1000066006);
-        pub const ASTC_8X8_SFLOAT_BLOCK: Self = Self(1000066007);
-        pub const B10X6G10X6R10X6G10X6_422_UNORM_4PACK16: Self = Self(1000156011);
-        pub const B12X4G12X4R12X4G12X4_422_UNORM_4PACK16: Self = Self(1000156021);
-        pub const B16G16R16G16_422_UNORM: Self = Self(1000156028);
-        pub const B8G8R8G8_422_UNORM: Self = Self(1000156001);
-        pub const G10X6B10X6G10X6R10X6_422_UNORM_4PACK16: Self = Self(1000156010);
-        pub const G10X6_B10X6R10X6_2PLANE_420_UNORM_3PACK16: Self = Self(1000156013);
-        pub const G10X6_B10X6R10X6_2PLANE_422_UNORM_3PACK16: Self = Self(1000156015);
-        pub const G10X6_B10X6R10X6_2PLANE_444_UNORM_3PACK16: Self = Self(1000330001);
-        pub const G10X6_B10X6_R10X6_3PLANE_420_UNORM_3PACK16: Self = Self(1000156012);
-        pub const G10X6_B10X6_R10X6_3PLANE_422_UNORM_3PACK16: Self = Self(1000156014);
-        pub const G10X6_B10X6_R10X6_3PLANE_444_UNORM_3PACK16: Self = Self(1000156016);
-        pub const G12X4B12X4G12X4R12X4_422_UNORM_4PACK16: Self = Self(1000156020);
-        pub const G12X4_B12X4R12X4_2PLANE_420_UNORM_3PACK16: Self = Self(1000156023);
-        pub const G12X4_B12X4R12X4_2PLANE_422_UNORM_3PACK16: Self = Self(1000156025);
-        pub const G12X4_B12X4R12X4_2PLANE_444_UNORM_3PACK16: Self = Self(1000330002);
-        pub const G12X4_B12X4_R12X4_3PLANE_420_UNORM_3PACK16: Self = Self(1000156022);
-        pub const G12X4_B12X4_R12X4_3PLANE_422_UNORM_3PACK16: Self = Self(1000156024);
-        pub const G12X4_B12X4_R12X4_3PLANE_444_UNORM_3PACK16: Self = Self(1000156026);
+        // VK_ARM_format_pack
+        pub const R10X6_UINT_PACK16_ARM: Self = Self(1000609000);
+        pub const R10X6G10X6_UINT_2PACK16_ARM: Self = Self(1000609001);
+        pub const R10X6G10X6B10X6A10X6_UINT_4PACK16_ARM: Self = Self(1000609002);
+        pub const R12X4_UINT_PACK16_ARM: Self = Self(1000609003);
+        pub const R12X4G12X4_UINT_2PACK16_ARM: Self = Self(1000609004);
+        pub const R12X4G12X4B12X4A12X4_UINT_4PACK16_ARM: Self = Self(1000609005);
+        pub const R14X2_UINT_PACK16_ARM: Self = Self(1000609006);
+        pub const R14X2G14X2_UINT_2PACK16_ARM: Self = Self(1000609007);
+        pub const R14X2G14X2B14X2A14X2_UINT_4PACK16_ARM: Self = Self(1000609008);
+        pub const R14X2_UNORM_PACK16_ARM: Self = Self(1000609009);
+        pub const R14X2G14X2_UNORM_2PACK16_ARM: Self = Self(1000609010);
+        pub const R14X2G14X2B14X2A14X2_UNORM_4PACK16_ARM: Self = Self(1000609011);
         pub const G14X2_B14X2R14X2_2PLANE_420_UNORM_3PACK16_ARM: Self = Self(1000609012);
         pub const G14X2_B14X2R14X2_2PLANE_422_UNORM_3PACK16_ARM: Self = Self(1000609013);
-        pub const G16B16G16R16_422_UNORM: Self = Self(1000156027);
-        pub const G16_B16R16_2PLANE_420_UNORM: Self = Self(1000156030);
-        pub const G16_B16R16_2PLANE_422_UNORM: Self = Self(1000156032);
-        pub const G16_B16R16_2PLANE_444_UNORM: Self = Self(1000330003);
-        pub const G16_B16_R16_3PLANE_420_UNORM: Self = Self(1000156029);
-        pub const G16_B16_R16_3PLANE_422_UNORM: Self = Self(1000156031);
-        pub const G16_B16_R16_3PLANE_444_UNORM: Self = Self(1000156033);
-        pub const G8B8G8R8_422_UNORM: Self = Self(1000156000);
-        pub const G8_B8R8_2PLANE_420_UNORM: Self = Self(1000156003);
-        pub const G8_B8R8_2PLANE_422_UNORM: Self = Self(1000156005);
-        pub const G8_B8R8_2PLANE_444_UNORM: Self = Self(1000330000);
-        pub const G8_B8_R8_3PLANE_420_UNORM: Self = Self(1000156002);
-        pub const G8_B8_R8_3PLANE_422_UNORM: Self = Self(1000156004);
-        pub const G8_B8_R8_3PLANE_444_UNORM: Self = Self(1000156006);
-        pub const PVRTC1_2BPP_SRGB_BLOCK_IMG: Self = Self(1000054004);
-        pub const PVRTC1_2BPP_UNORM_BLOCK_IMG: Self = Self(1000054000);
-        pub const PVRTC1_4BPP_SRGB_BLOCK_IMG: Self = Self(1000054005);
-        pub const PVRTC1_4BPP_UNORM_BLOCK_IMG: Self = Self(1000054001);
-        pub const PVRTC2_2BPP_SRGB_BLOCK_IMG: Self = Self(1000054006);
-        pub const PVRTC2_2BPP_UNORM_BLOCK_IMG: Self = Self(1000054002);
-        pub const PVRTC2_4BPP_SRGB_BLOCK_IMG: Self = Self(1000054007);
-        pub const PVRTC2_4BPP_UNORM_BLOCK_IMG: Self = Self(1000054003);
-        pub const R10X6G10X6B10X6A10X6_UINT_4PACK16_ARM: Self = Self(1000609002);
-        pub const R10X6G10X6B10X6A10X6_UNORM_4PACK16: Self = Self(1000156009);
-        pub const R10X6G10X6_UINT_2PACK16_ARM: Self = Self(1000609001);
-        pub const R10X6G10X6_UNORM_2PACK16: Self = Self(1000156008);
-        pub const R10X6_UINT_PACK16_ARM: Self = Self(1000609000);
-        pub const R10X6_UNORM_PACK16: Self = Self(1000156007);
-        pub const R12X4G12X4B12X4A12X4_UINT_4PACK16_ARM: Self = Self(1000609005);
-        pub const R12X4G12X4B12X4A12X4_UNORM_4PACK16: Self = Self(1000156019);
-        pub const R12X4G12X4_UINT_2PACK16_ARM: Self = Self(1000609004);
-        pub const R12X4G12X4_UNORM_2PACK16: Self = Self(1000156018);
-        pub const R12X4_UINT_PACK16_ARM: Self = Self(1000609003);
-        pub const R12X4_UNORM_PACK16: Self = Self(1000156017);
-        pub const R14X2G14X2B14X2A14X2_UINT_4PACK16_ARM: Self = Self(1000609008);
-        pub const R14X2G14X2B14X2A14X2_UNORM_4PACK16_ARM: Self = Self(1000609011);
-        pub const R14X2G14X2_UINT_2PACK16_ARM: Self = Self(1000609007);
-        pub const R14X2G14X2_UNORM_2PACK16_ARM: Self = Self(1000609010);
-        pub const R14X2_UINT_PACK16_ARM: Self = Self(1000609006);
-        pub const R14X2_UNORM_PACK16_ARM: Self = Self(1000609009);
-        pub const R16G16_SFIXED5_NV: Self = Self(1000464000);
+        // VK_ARM_tensors
         pub const R8_BOOL_ARM: Self = Self(1000460000);
-        pub const A1B5G5R5_UNORM_PACK16_KHR: Self = Self::A1B5G5R5_UNORM_PACK16;
-        pub const A4B4G4R4_UNORM_PACK16_EXT: Self = Self::A4B4G4R4_UNORM_PACK16;
+        // VK_EXT_4444_formats
         pub const A4R4G4B4_UNORM_PACK16_EXT: Self = Self::A4R4G4B4_UNORM_PACK16;
-        pub const A8_UNORM_KHR: Self = Self::A8_UNORM;
-        pub const ASTC_10X10_SFLOAT_BLOCK_EXT: Self = Self::ASTC_10X10_SFLOAT_BLOCK;
-        pub const ASTC_10X5_SFLOAT_BLOCK_EXT: Self = Self::ASTC_10X5_SFLOAT_BLOCK;
-        pub const ASTC_10X6_SFLOAT_BLOCK_EXT: Self = Self::ASTC_10X6_SFLOAT_BLOCK;
-        pub const ASTC_10X8_SFLOAT_BLOCK_EXT: Self = Self::ASTC_10X8_SFLOAT_BLOCK;
-        pub const ASTC_12X10_SFLOAT_BLOCK_EXT: Self = Self::ASTC_12X10_SFLOAT_BLOCK;
-        pub const ASTC_12X12_SFLOAT_BLOCK_EXT: Self = Self::ASTC_12X12_SFLOAT_BLOCK;
+        pub const A4B4G4R4_UNORM_PACK16_EXT: Self = Self::A4B4G4R4_UNORM_PACK16;
+        // VK_EXT_texture_compression_astc_3d
+        pub const ASTC_3X3X3_UNORM_BLOCK_EXT: Self = Self(1000288000);
+        pub const ASTC_3X3X3_SRGB_BLOCK_EXT: Self = Self(1000288001);
+        pub const ASTC_3X3X3_SFLOAT_BLOCK_EXT: Self = Self(1000288002);
+        pub const ASTC_4X3X3_UNORM_BLOCK_EXT: Self = Self(1000288003);
+        pub const ASTC_4X3X3_SRGB_BLOCK_EXT: Self = Self(1000288004);
+        pub const ASTC_4X3X3_SFLOAT_BLOCK_EXT: Self = Self(1000288005);
+        pub const ASTC_4X4X3_UNORM_BLOCK_EXT: Self = Self(1000288006);
+        pub const ASTC_4X4X3_SRGB_BLOCK_EXT: Self = Self(1000288007);
+        pub const ASTC_4X4X3_SFLOAT_BLOCK_EXT: Self = Self(1000288008);
+        pub const ASTC_4X4X4_UNORM_BLOCK_EXT: Self = Self(1000288009);
+        pub const ASTC_4X4X4_SRGB_BLOCK_EXT: Self = Self(1000288010);
+        pub const ASTC_4X4X4_SFLOAT_BLOCK_EXT: Self = Self(1000288011);
+        pub const ASTC_5X4X4_UNORM_BLOCK_EXT: Self = Self(1000288012);
+        pub const ASTC_5X4X4_SRGB_BLOCK_EXT: Self = Self(1000288013);
+        pub const ASTC_5X4X4_SFLOAT_BLOCK_EXT: Self = Self(1000288014);
+        pub const ASTC_5X5X4_UNORM_BLOCK_EXT: Self = Self(1000288015);
+        pub const ASTC_5X5X4_SRGB_BLOCK_EXT: Self = Self(1000288016);
+        pub const ASTC_5X5X4_SFLOAT_BLOCK_EXT: Self = Self(1000288017);
+        pub const ASTC_5X5X5_UNORM_BLOCK_EXT: Self = Self(1000288018);
+        pub const ASTC_5X5X5_SRGB_BLOCK_EXT: Self = Self(1000288019);
+        pub const ASTC_5X5X5_SFLOAT_BLOCK_EXT: Self = Self(1000288020);
+        pub const ASTC_6X5X5_UNORM_BLOCK_EXT: Self = Self(1000288021);
+        pub const ASTC_6X5X5_SRGB_BLOCK_EXT: Self = Self(1000288022);
+        pub const ASTC_6X5X5_SFLOAT_BLOCK_EXT: Self = Self(1000288023);
+        pub const ASTC_6X6X5_UNORM_BLOCK_EXT: Self = Self(1000288024);
+        pub const ASTC_6X6X5_SRGB_BLOCK_EXT: Self = Self(1000288025);
+        pub const ASTC_6X6X5_SFLOAT_BLOCK_EXT: Self = Self(1000288026);
+        pub const ASTC_6X6X6_UNORM_BLOCK_EXT: Self = Self(1000288027);
+        pub const ASTC_6X6X6_SRGB_BLOCK_EXT: Self = Self(1000288028);
+        pub const ASTC_6X6X6_SFLOAT_BLOCK_EXT: Self = Self(1000288029);
+        // VK_EXT_texture_compression_astc_hdr
         pub const ASTC_4X4_SFLOAT_BLOCK_EXT: Self = Self::ASTC_4X4_SFLOAT_BLOCK;
         pub const ASTC_5X4_SFLOAT_BLOCK_EXT: Self = Self::ASTC_5X4_SFLOAT_BLOCK;
         pub const ASTC_5X5_SFLOAT_BLOCK_EXT: Self = Self::ASTC_5X5_SFLOAT_BLOCK;
@@ -6836,63 +6832,144 @@ pub(super) mod defs {
         pub const ASTC_8X5_SFLOAT_BLOCK_EXT: Self = Self::ASTC_8X5_SFLOAT_BLOCK;
         pub const ASTC_8X6_SFLOAT_BLOCK_EXT: Self = Self::ASTC_8X6_SFLOAT_BLOCK;
         pub const ASTC_8X8_SFLOAT_BLOCK_EXT: Self = Self::ASTC_8X8_SFLOAT_BLOCK;
-        pub const B10X6G10X6R10X6G10X6_422_UNORM_4PACK16_KHR: Self =
-            Self::B10X6G10X6R10X6G10X6_422_UNORM_4PACK16;
-        pub const B12X4G12X4R12X4G12X4_422_UNORM_4PACK16_KHR: Self =
-            Self::B12X4G12X4R12X4G12X4_422_UNORM_4PACK16;
-        pub const B16G16R16G16_422_UNORM_KHR: Self = Self::B16G16R16G16_422_UNORM;
-        pub const B8G8R8G8_422_UNORM_KHR: Self = Self::B8G8R8G8_422_UNORM;
-        pub const G10X6B10X6G10X6R10X6_422_UNORM_4PACK16_KHR: Self =
-            Self::G10X6B10X6G10X6R10X6_422_UNORM_4PACK16;
-        pub const G10X6_B10X6R10X6_2PLANE_420_UNORM_3PACK16_KHR: Self =
-            Self::G10X6_B10X6R10X6_2PLANE_420_UNORM_3PACK16;
-        pub const G10X6_B10X6R10X6_2PLANE_422_UNORM_3PACK16_KHR: Self =
-            Self::G10X6_B10X6R10X6_2PLANE_422_UNORM_3PACK16;
+        pub const ASTC_10X5_SFLOAT_BLOCK_EXT: Self = Self::ASTC_10X5_SFLOAT_BLOCK;
+        pub const ASTC_10X6_SFLOAT_BLOCK_EXT: Self = Self::ASTC_10X6_SFLOAT_BLOCK;
+        pub const ASTC_10X8_SFLOAT_BLOCK_EXT: Self = Self::ASTC_10X8_SFLOAT_BLOCK;
+        pub const ASTC_10X10_SFLOAT_BLOCK_EXT: Self = Self::ASTC_10X10_SFLOAT_BLOCK;
+        pub const ASTC_12X10_SFLOAT_BLOCK_EXT: Self = Self::ASTC_12X10_SFLOAT_BLOCK;
+        pub const ASTC_12X12_SFLOAT_BLOCK_EXT: Self = Self::ASTC_12X12_SFLOAT_BLOCK;
+        // VK_EXT_ycbcr_2plane_444_formats
+        pub const G8_B8R8_2PLANE_444_UNORM_EXT: Self = Self::G8_B8R8_2PLANE_444_UNORM;
         pub const G10X6_B10X6R10X6_2PLANE_444_UNORM_3PACK16_EXT: Self =
             Self::G10X6_B10X6R10X6_2PLANE_444_UNORM_3PACK16;
-        pub const G10X6_B10X6_R10X6_3PLANE_420_UNORM_3PACK16_KHR: Self =
-            Self::G10X6_B10X6_R10X6_3PLANE_420_UNORM_3PACK16;
-        pub const G10X6_B10X6_R10X6_3PLANE_422_UNORM_3PACK16_KHR: Self =
-            Self::G10X6_B10X6_R10X6_3PLANE_422_UNORM_3PACK16;
-        pub const G10X6_B10X6_R10X6_3PLANE_444_UNORM_3PACK16_KHR: Self =
-            Self::G10X6_B10X6_R10X6_3PLANE_444_UNORM_3PACK16;
-        pub const G12X4B12X4G12X4R12X4_422_UNORM_4PACK16_KHR: Self =
-            Self::G12X4B12X4G12X4R12X4_422_UNORM_4PACK16;
-        pub const G12X4_B12X4R12X4_2PLANE_420_UNORM_3PACK16_KHR: Self =
-            Self::G12X4_B12X4R12X4_2PLANE_420_UNORM_3PACK16;
-        pub const G12X4_B12X4R12X4_2PLANE_422_UNORM_3PACK16_KHR: Self =
-            Self::G12X4_B12X4R12X4_2PLANE_422_UNORM_3PACK16;
         pub const G12X4_B12X4R12X4_2PLANE_444_UNORM_3PACK16_EXT: Self =
             Self::G12X4_B12X4R12X4_2PLANE_444_UNORM_3PACK16;
+        pub const G16_B16R16_2PLANE_444_UNORM_EXT: Self = Self::G16_B16R16_2PLANE_444_UNORM;
+        // VK_IMG_format_pvrtc
+        pub const PVRTC1_2BPP_UNORM_BLOCK_IMG: Self = Self(1000054000);
+        pub const PVRTC1_4BPP_UNORM_BLOCK_IMG: Self = Self(1000054001);
+        pub const PVRTC2_2BPP_UNORM_BLOCK_IMG: Self = Self(1000054002);
+        pub const PVRTC2_4BPP_UNORM_BLOCK_IMG: Self = Self(1000054003);
+        pub const PVRTC1_2BPP_SRGB_BLOCK_IMG: Self = Self(1000054004);
+        pub const PVRTC1_4BPP_SRGB_BLOCK_IMG: Self = Self(1000054005);
+        pub const PVRTC2_2BPP_SRGB_BLOCK_IMG: Self = Self(1000054006);
+        pub const PVRTC2_4BPP_SRGB_BLOCK_IMG: Self = Self(1000054007);
+        // VK_KHR_maintenance5
+        pub const A1B5G5R5_UNORM_PACK16_KHR: Self = Self::A1B5G5R5_UNORM_PACK16;
+        pub const A8_UNORM_KHR: Self = Self::A8_UNORM;
+        // VK_KHR_sampler_ycbcr_conversion
+        pub const G8B8G8R8_422_UNORM_KHR: Self = Self::G8B8G8R8_422_UNORM;
+        pub const B8G8R8G8_422_UNORM_KHR: Self = Self::B8G8R8G8_422_UNORM;
+        pub const G8_B8_R8_3PLANE_420_UNORM_KHR: Self = Self::G8_B8_R8_3PLANE_420_UNORM;
+        pub const G8_B8R8_2PLANE_420_UNORM_KHR: Self = Self::G8_B8R8_2PLANE_420_UNORM;
+        pub const G8_B8_R8_3PLANE_422_UNORM_KHR: Self = Self::G8_B8_R8_3PLANE_422_UNORM;
+        pub const G8_B8R8_2PLANE_422_UNORM_KHR: Self = Self::G8_B8R8_2PLANE_422_UNORM;
+        pub const G8_B8_R8_3PLANE_444_UNORM_KHR: Self = Self::G8_B8_R8_3PLANE_444_UNORM;
+        pub const R10X6_UNORM_PACK16_KHR: Self = Self::R10X6_UNORM_PACK16;
+        pub const R10X6G10X6_UNORM_2PACK16_KHR: Self = Self::R10X6G10X6_UNORM_2PACK16;
+        pub const R10X6G10X6B10X6A10X6_UNORM_4PACK16_KHR: Self =
+            Self::R10X6G10X6B10X6A10X6_UNORM_4PACK16;
+        pub const G10X6B10X6G10X6R10X6_422_UNORM_4PACK16_KHR: Self =
+            Self::G10X6B10X6G10X6R10X6_422_UNORM_4PACK16;
+        pub const B10X6G10X6R10X6G10X6_422_UNORM_4PACK16_KHR: Self =
+            Self::B10X6G10X6R10X6G10X6_422_UNORM_4PACK16;
+        pub const G10X6_B10X6_R10X6_3PLANE_420_UNORM_3PACK16_KHR: Self =
+            Self::G10X6_B10X6_R10X6_3PLANE_420_UNORM_3PACK16;
+        pub const G10X6_B10X6R10X6_2PLANE_420_UNORM_3PACK16_KHR: Self =
+            Self::G10X6_B10X6R10X6_2PLANE_420_UNORM_3PACK16;
+        pub const G10X6_B10X6_R10X6_3PLANE_422_UNORM_3PACK16_KHR: Self =
+            Self::G10X6_B10X6_R10X6_3PLANE_422_UNORM_3PACK16;
+        pub const G10X6_B10X6R10X6_2PLANE_422_UNORM_3PACK16_KHR: Self =
+            Self::G10X6_B10X6R10X6_2PLANE_422_UNORM_3PACK16;
+        pub const G10X6_B10X6_R10X6_3PLANE_444_UNORM_3PACK16_KHR: Self =
+            Self::G10X6_B10X6_R10X6_3PLANE_444_UNORM_3PACK16;
+        pub const R12X4_UNORM_PACK16_KHR: Self = Self::R12X4_UNORM_PACK16;
+        pub const R12X4G12X4_UNORM_2PACK16_KHR: Self = Self::R12X4G12X4_UNORM_2PACK16;
+        pub const R12X4G12X4B12X4A12X4_UNORM_4PACK16_KHR: Self =
+            Self::R12X4G12X4B12X4A12X4_UNORM_4PACK16;
+        pub const G12X4B12X4G12X4R12X4_422_UNORM_4PACK16_KHR: Self =
+            Self::G12X4B12X4G12X4R12X4_422_UNORM_4PACK16;
+        pub const B12X4G12X4R12X4G12X4_422_UNORM_4PACK16_KHR: Self =
+            Self::B12X4G12X4R12X4G12X4_422_UNORM_4PACK16;
         pub const G12X4_B12X4_R12X4_3PLANE_420_UNORM_3PACK16_KHR: Self =
             Self::G12X4_B12X4_R12X4_3PLANE_420_UNORM_3PACK16;
+        pub const G12X4_B12X4R12X4_2PLANE_420_UNORM_3PACK16_KHR: Self =
+            Self::G12X4_B12X4R12X4_2PLANE_420_UNORM_3PACK16;
         pub const G12X4_B12X4_R12X4_3PLANE_422_UNORM_3PACK16_KHR: Self =
             Self::G12X4_B12X4_R12X4_3PLANE_422_UNORM_3PACK16;
+        pub const G12X4_B12X4R12X4_2PLANE_422_UNORM_3PACK16_KHR: Self =
+            Self::G12X4_B12X4R12X4_2PLANE_422_UNORM_3PACK16;
         pub const G12X4_B12X4_R12X4_3PLANE_444_UNORM_3PACK16_KHR: Self =
             Self::G12X4_B12X4_R12X4_3PLANE_444_UNORM_3PACK16;
         pub const G16B16G16R16_422_UNORM_KHR: Self = Self::G16B16G16R16_422_UNORM;
-        pub const G16_B16R16_2PLANE_420_UNORM_KHR: Self = Self::G16_B16R16_2PLANE_420_UNORM;
-        pub const G16_B16R16_2PLANE_422_UNORM_KHR: Self = Self::G16_B16R16_2PLANE_422_UNORM;
-        pub const G16_B16R16_2PLANE_444_UNORM_EXT: Self = Self::G16_B16R16_2PLANE_444_UNORM;
+        pub const B16G16R16G16_422_UNORM_KHR: Self = Self::B16G16R16G16_422_UNORM;
         pub const G16_B16_R16_3PLANE_420_UNORM_KHR: Self = Self::G16_B16_R16_3PLANE_420_UNORM;
+        pub const G16_B16R16_2PLANE_420_UNORM_KHR: Self = Self::G16_B16R16_2PLANE_420_UNORM;
         pub const G16_B16_R16_3PLANE_422_UNORM_KHR: Self = Self::G16_B16_R16_3PLANE_422_UNORM;
+        pub const G16_B16R16_2PLANE_422_UNORM_KHR: Self = Self::G16_B16R16_2PLANE_422_UNORM;
         pub const G16_B16_R16_3PLANE_444_UNORM_KHR: Self = Self::G16_B16_R16_3PLANE_444_UNORM;
-        pub const G8B8G8R8_422_UNORM_KHR: Self = Self::G8B8G8R8_422_UNORM;
-        pub const G8_B8R8_2PLANE_420_UNORM_KHR: Self = Self::G8_B8R8_2PLANE_420_UNORM;
-        pub const G8_B8R8_2PLANE_422_UNORM_KHR: Self = Self::G8_B8R8_2PLANE_422_UNORM;
-        pub const G8_B8R8_2PLANE_444_UNORM_EXT: Self = Self::G8_B8R8_2PLANE_444_UNORM;
-        pub const G8_B8_R8_3PLANE_420_UNORM_KHR: Self = Self::G8_B8_R8_3PLANE_420_UNORM;
-        pub const G8_B8_R8_3PLANE_422_UNORM_KHR: Self = Self::G8_B8_R8_3PLANE_422_UNORM;
-        pub const G8_B8_R8_3PLANE_444_UNORM_KHR: Self = Self::G8_B8_R8_3PLANE_444_UNORM;
-        pub const R10X6G10X6B10X6A10X6_UNORM_4PACK16_KHR: Self =
-            Self::R10X6G10X6B10X6A10X6_UNORM_4PACK16;
-        pub const R10X6G10X6_UNORM_2PACK16_KHR: Self = Self::R10X6G10X6_UNORM_2PACK16;
-        pub const R10X6_UNORM_PACK16_KHR: Self = Self::R10X6_UNORM_PACK16;
-        pub const R12X4G12X4B12X4A12X4_UNORM_4PACK16_KHR: Self =
-            Self::R12X4G12X4B12X4A12X4_UNORM_4PACK16;
-        pub const R12X4G12X4_UNORM_2PACK16_KHR: Self = Self::R12X4G12X4_UNORM_2PACK16;
-        pub const R12X4_UNORM_PACK16_KHR: Self = Self::R12X4_UNORM_PACK16;
+        // VK_NV_optical_flow
+        pub const R16G16_SFIXED5_NV: Self = Self(1000464000);
         pub const R16G16_S10_5_NV: Self = Self::R16G16_SFIXED5_NV;
+        // VK_VERSION_1_1
+        pub const G8B8G8R8_422_UNORM: Self = Self(1000156000);
+        pub const B8G8R8G8_422_UNORM: Self = Self(1000156001);
+        pub const G8_B8_R8_3PLANE_420_UNORM: Self = Self(1000156002);
+        pub const G8_B8R8_2PLANE_420_UNORM: Self = Self(1000156003);
+        pub const G8_B8_R8_3PLANE_422_UNORM: Self = Self(1000156004);
+        pub const G8_B8R8_2PLANE_422_UNORM: Self = Self(1000156005);
+        pub const G8_B8_R8_3PLANE_444_UNORM: Self = Self(1000156006);
+        pub const R10X6_UNORM_PACK16: Self = Self(1000156007);
+        pub const R10X6G10X6_UNORM_2PACK16: Self = Self(1000156008);
+        pub const R10X6G10X6B10X6A10X6_UNORM_4PACK16: Self = Self(1000156009);
+        pub const G10X6B10X6G10X6R10X6_422_UNORM_4PACK16: Self = Self(1000156010);
+        pub const B10X6G10X6R10X6G10X6_422_UNORM_4PACK16: Self = Self(1000156011);
+        pub const G10X6_B10X6_R10X6_3PLANE_420_UNORM_3PACK16: Self = Self(1000156012);
+        pub const G10X6_B10X6R10X6_2PLANE_420_UNORM_3PACK16: Self = Self(1000156013);
+        pub const G10X6_B10X6_R10X6_3PLANE_422_UNORM_3PACK16: Self = Self(1000156014);
+        pub const G10X6_B10X6R10X6_2PLANE_422_UNORM_3PACK16: Self = Self(1000156015);
+        pub const G10X6_B10X6_R10X6_3PLANE_444_UNORM_3PACK16: Self = Self(1000156016);
+        pub const R12X4_UNORM_PACK16: Self = Self(1000156017);
+        pub const R12X4G12X4_UNORM_2PACK16: Self = Self(1000156018);
+        pub const R12X4G12X4B12X4A12X4_UNORM_4PACK16: Self = Self(1000156019);
+        pub const G12X4B12X4G12X4R12X4_422_UNORM_4PACK16: Self = Self(1000156020);
+        pub const B12X4G12X4R12X4G12X4_422_UNORM_4PACK16: Self = Self(1000156021);
+        pub const G12X4_B12X4_R12X4_3PLANE_420_UNORM_3PACK16: Self = Self(1000156022);
+        pub const G12X4_B12X4R12X4_2PLANE_420_UNORM_3PACK16: Self = Self(1000156023);
+        pub const G12X4_B12X4_R12X4_3PLANE_422_UNORM_3PACK16: Self = Self(1000156024);
+        pub const G12X4_B12X4R12X4_2PLANE_422_UNORM_3PACK16: Self = Self(1000156025);
+        pub const G12X4_B12X4_R12X4_3PLANE_444_UNORM_3PACK16: Self = Self(1000156026);
+        pub const G16B16G16R16_422_UNORM: Self = Self(1000156027);
+        pub const B16G16R16G16_422_UNORM: Self = Self(1000156028);
+        pub const G16_B16_R16_3PLANE_420_UNORM: Self = Self(1000156029);
+        pub const G16_B16R16_2PLANE_420_UNORM: Self = Self(1000156030);
+        pub const G16_B16_R16_3PLANE_422_UNORM: Self = Self(1000156031);
+        pub const G16_B16R16_2PLANE_422_UNORM: Self = Self(1000156032);
+        pub const G16_B16_R16_3PLANE_444_UNORM: Self = Self(1000156033);
+        // VK_VERSION_1_3
+        pub const G8_B8R8_2PLANE_444_UNORM: Self = Self(1000330000);
+        pub const G10X6_B10X6R10X6_2PLANE_444_UNORM_3PACK16: Self = Self(1000330001);
+        pub const G12X4_B12X4R12X4_2PLANE_444_UNORM_3PACK16: Self = Self(1000330002);
+        pub const G16_B16R16_2PLANE_444_UNORM: Self = Self(1000330003);
+        pub const A4R4G4B4_UNORM_PACK16: Self = Self(1000340000);
+        pub const A4B4G4R4_UNORM_PACK16: Self = Self(1000340001);
+        pub const ASTC_4X4_SFLOAT_BLOCK: Self = Self(1000066000);
+        pub const ASTC_5X4_SFLOAT_BLOCK: Self = Self(1000066001);
+        pub const ASTC_5X5_SFLOAT_BLOCK: Self = Self(1000066002);
+        pub const ASTC_6X5_SFLOAT_BLOCK: Self = Self(1000066003);
+        pub const ASTC_6X6_SFLOAT_BLOCK: Self = Self(1000066004);
+        pub const ASTC_8X5_SFLOAT_BLOCK: Self = Self(1000066005);
+        pub const ASTC_8X6_SFLOAT_BLOCK: Self = Self(1000066006);
+        pub const ASTC_8X8_SFLOAT_BLOCK: Self = Self(1000066007);
+        pub const ASTC_10X5_SFLOAT_BLOCK: Self = Self(1000066008);
+        pub const ASTC_10X6_SFLOAT_BLOCK: Self = Self(1000066009);
+        pub const ASTC_10X8_SFLOAT_BLOCK: Self = Self(1000066010);
+        pub const ASTC_10X10_SFLOAT_BLOCK: Self = Self(1000066011);
+        pub const ASTC_12X10_SFLOAT_BLOCK: Self = Self(1000066012);
+        pub const ASTC_12X12_SFLOAT_BLOCK: Self = Self(1000066013);
+        // VK_VERSION_1_4
+        pub const A1B5G5R5_UNORM_PACK16: Self = Self(1000470000);
+        pub const A8_UNORM: Self = Self(1000470001);
     }
     impl fmt::Debug for Format {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -7082,103 +7159,25 @@ pub(super) mod defs {
                 Self::ASTC_12X10_SRGB_BLOCK => Some("ASTC_12X10_SRGB_BLOCK"),
                 Self::ASTC_12X12_UNORM_BLOCK => Some("ASTC_12X12_UNORM_BLOCK"),
                 Self::ASTC_12X12_SRGB_BLOCK => Some("ASTC_12X12_SRGB_BLOCK"),
-                Self::A1B5G5R5_UNORM_PACK16 => Some("A1B5G5R5_UNORM_PACK16"),
-                Self::A4B4G4R4_UNORM_PACK16 => Some("A4B4G4R4_UNORM_PACK16"),
-                Self::A4R4G4B4_UNORM_PACK16 => Some("A4R4G4B4_UNORM_PACK16"),
-                Self::A8_UNORM => Some("A8_UNORM"),
-                Self::ASTC_10X10_SFLOAT_BLOCK => Some("ASTC_10X10_SFLOAT_BLOCK"),
-                Self::ASTC_10X5_SFLOAT_BLOCK => Some("ASTC_10X5_SFLOAT_BLOCK"),
-                Self::ASTC_10X6_SFLOAT_BLOCK => Some("ASTC_10X6_SFLOAT_BLOCK"),
-                Self::ASTC_10X8_SFLOAT_BLOCK => Some("ASTC_10X8_SFLOAT_BLOCK"),
-                Self::ASTC_12X10_SFLOAT_BLOCK => Some("ASTC_12X10_SFLOAT_BLOCK"),
-                Self::ASTC_12X12_SFLOAT_BLOCK => Some("ASTC_12X12_SFLOAT_BLOCK"),
-                Self::ASTC_3X3X3_SFLOAT_BLOCK_EXT => Some("ASTC_3X3X3_SFLOAT_BLOCK_EXT"),
-                Self::ASTC_3X3X3_SRGB_BLOCK_EXT => Some("ASTC_3X3X3_SRGB_BLOCK_EXT"),
-                Self::ASTC_3X3X3_UNORM_BLOCK_EXT => Some("ASTC_3X3X3_UNORM_BLOCK_EXT"),
-                Self::ASTC_4X3X3_SFLOAT_BLOCK_EXT => Some("ASTC_4X3X3_SFLOAT_BLOCK_EXT"),
-                Self::ASTC_4X3X3_SRGB_BLOCK_EXT => Some("ASTC_4X3X3_SRGB_BLOCK_EXT"),
-                Self::ASTC_4X3X3_UNORM_BLOCK_EXT => Some("ASTC_4X3X3_UNORM_BLOCK_EXT"),
-                Self::ASTC_4X4_SFLOAT_BLOCK => Some("ASTC_4X4_SFLOAT_BLOCK"),
-                Self::ASTC_4X4X3_SFLOAT_BLOCK_EXT => Some("ASTC_4X4X3_SFLOAT_BLOCK_EXT"),
-                Self::ASTC_4X4X3_SRGB_BLOCK_EXT => Some("ASTC_4X4X3_SRGB_BLOCK_EXT"),
-                Self::ASTC_4X4X3_UNORM_BLOCK_EXT => Some("ASTC_4X4X3_UNORM_BLOCK_EXT"),
-                Self::ASTC_4X4X4_SFLOAT_BLOCK_EXT => Some("ASTC_4X4X4_SFLOAT_BLOCK_EXT"),
-                Self::ASTC_4X4X4_SRGB_BLOCK_EXT => Some("ASTC_4X4X4_SRGB_BLOCK_EXT"),
-                Self::ASTC_4X4X4_UNORM_BLOCK_EXT => Some("ASTC_4X4X4_UNORM_BLOCK_EXT"),
-                Self::ASTC_5X4_SFLOAT_BLOCK => Some("ASTC_5X4_SFLOAT_BLOCK"),
-                Self::ASTC_5X4X4_SFLOAT_BLOCK_EXT => Some("ASTC_5X4X4_SFLOAT_BLOCK_EXT"),
-                Self::ASTC_5X4X4_SRGB_BLOCK_EXT => Some("ASTC_5X4X4_SRGB_BLOCK_EXT"),
-                Self::ASTC_5X4X4_UNORM_BLOCK_EXT => Some("ASTC_5X4X4_UNORM_BLOCK_EXT"),
-                Self::ASTC_5X5_SFLOAT_BLOCK => Some("ASTC_5X5_SFLOAT_BLOCK"),
-                Self::ASTC_5X5X4_SFLOAT_BLOCK_EXT => Some("ASTC_5X5X4_SFLOAT_BLOCK_EXT"),
-                Self::ASTC_5X5X4_SRGB_BLOCK_EXT => Some("ASTC_5X5X4_SRGB_BLOCK_EXT"),
-                Self::ASTC_5X5X4_UNORM_BLOCK_EXT => Some("ASTC_5X5X4_UNORM_BLOCK_EXT"),
-                Self::ASTC_5X5X5_SFLOAT_BLOCK_EXT => Some("ASTC_5X5X5_SFLOAT_BLOCK_EXT"),
-                Self::ASTC_5X5X5_SRGB_BLOCK_EXT => Some("ASTC_5X5X5_SRGB_BLOCK_EXT"),
-                Self::ASTC_5X5X5_UNORM_BLOCK_EXT => Some("ASTC_5X5X5_UNORM_BLOCK_EXT"),
-                Self::ASTC_6X5_SFLOAT_BLOCK => Some("ASTC_6X5_SFLOAT_BLOCK"),
-                Self::ASTC_6X5X5_SFLOAT_BLOCK_EXT => Some("ASTC_6X5X5_SFLOAT_BLOCK_EXT"),
-                Self::ASTC_6X5X5_SRGB_BLOCK_EXT => Some("ASTC_6X5X5_SRGB_BLOCK_EXT"),
-                Self::ASTC_6X5X5_UNORM_BLOCK_EXT => Some("ASTC_6X5X5_UNORM_BLOCK_EXT"),
-                Self::ASTC_6X6_SFLOAT_BLOCK => Some("ASTC_6X6_SFLOAT_BLOCK"),
-                Self::ASTC_6X6X5_SFLOAT_BLOCK_EXT => Some("ASTC_6X6X5_SFLOAT_BLOCK_EXT"),
-                Self::ASTC_6X6X5_SRGB_BLOCK_EXT => Some("ASTC_6X6X5_SRGB_BLOCK_EXT"),
-                Self::ASTC_6X6X5_UNORM_BLOCK_EXT => Some("ASTC_6X6X5_UNORM_BLOCK_EXT"),
-                Self::ASTC_6X6X6_SFLOAT_BLOCK_EXT => Some("ASTC_6X6X6_SFLOAT_BLOCK_EXT"),
-                Self::ASTC_6X6X6_SRGB_BLOCK_EXT => Some("ASTC_6X6X6_SRGB_BLOCK_EXT"),
-                Self::ASTC_6X6X6_UNORM_BLOCK_EXT => Some("ASTC_6X6X6_UNORM_BLOCK_EXT"),
-                Self::ASTC_8X5_SFLOAT_BLOCK => Some("ASTC_8X5_SFLOAT_BLOCK"),
-                Self::ASTC_8X6_SFLOAT_BLOCK => Some("ASTC_8X6_SFLOAT_BLOCK"),
-                Self::ASTC_8X8_SFLOAT_BLOCK => Some("ASTC_8X8_SFLOAT_BLOCK"),
-                Self::B10X6G10X6R10X6G10X6_422_UNORM_4PACK16 => {
-                    Some("B10X6G10X6R10X6G10X6_422_UNORM_4PACK16")
+                Self::R10X6_UINT_PACK16_ARM => Some("R10X6_UINT_PACK16_ARM"),
+                Self::R10X6G10X6_UINT_2PACK16_ARM => Some("R10X6G10X6_UINT_2PACK16_ARM"),
+                Self::R10X6G10X6B10X6A10X6_UINT_4PACK16_ARM => {
+                    Some("R10X6G10X6B10X6A10X6_UINT_4PACK16_ARM")
                 }
-                Self::B12X4G12X4R12X4G12X4_422_UNORM_4PACK16 => {
-                    Some("B12X4G12X4R12X4G12X4_422_UNORM_4PACK16")
+                Self::R12X4_UINT_PACK16_ARM => Some("R12X4_UINT_PACK16_ARM"),
+                Self::R12X4G12X4_UINT_2PACK16_ARM => Some("R12X4G12X4_UINT_2PACK16_ARM"),
+                Self::R12X4G12X4B12X4A12X4_UINT_4PACK16_ARM => {
+                    Some("R12X4G12X4B12X4A12X4_UINT_4PACK16_ARM")
                 }
-                Self::B16G16R16G16_422_UNORM => Some("B16G16R16G16_422_UNORM"),
-                Self::B8G8R8G8_422_UNORM => Some("B8G8R8G8_422_UNORM"),
-                Self::G10X6B10X6G10X6R10X6_422_UNORM_4PACK16 => {
-                    Some("G10X6B10X6G10X6R10X6_422_UNORM_4PACK16")
+                Self::R14X2_UINT_PACK16_ARM => Some("R14X2_UINT_PACK16_ARM"),
+                Self::R14X2G14X2_UINT_2PACK16_ARM => Some("R14X2G14X2_UINT_2PACK16_ARM"),
+                Self::R14X2G14X2B14X2A14X2_UINT_4PACK16_ARM => {
+                    Some("R14X2G14X2B14X2A14X2_UINT_4PACK16_ARM")
                 }
-                Self::G10X6_B10X6R10X6_2PLANE_420_UNORM_3PACK16 => {
-                    Some("G10X6_B10X6R10X6_2PLANE_420_UNORM_3PACK16")
-                }
-                Self::G10X6_B10X6R10X6_2PLANE_422_UNORM_3PACK16 => {
-                    Some("G10X6_B10X6R10X6_2PLANE_422_UNORM_3PACK16")
-                }
-                Self::G10X6_B10X6R10X6_2PLANE_444_UNORM_3PACK16 => {
-                    Some("G10X6_B10X6R10X6_2PLANE_444_UNORM_3PACK16")
-                }
-                Self::G10X6_B10X6_R10X6_3PLANE_420_UNORM_3PACK16 => {
-                    Some("G10X6_B10X6_R10X6_3PLANE_420_UNORM_3PACK16")
-                }
-                Self::G10X6_B10X6_R10X6_3PLANE_422_UNORM_3PACK16 => {
-                    Some("G10X6_B10X6_R10X6_3PLANE_422_UNORM_3PACK16")
-                }
-                Self::G10X6_B10X6_R10X6_3PLANE_444_UNORM_3PACK16 => {
-                    Some("G10X6_B10X6_R10X6_3PLANE_444_UNORM_3PACK16")
-                }
-                Self::G12X4B12X4G12X4R12X4_422_UNORM_4PACK16 => {
-                    Some("G12X4B12X4G12X4R12X4_422_UNORM_4PACK16")
-                }
-                Self::G12X4_B12X4R12X4_2PLANE_420_UNORM_3PACK16 => {
-                    Some("G12X4_B12X4R12X4_2PLANE_420_UNORM_3PACK16")
-                }
-                Self::G12X4_B12X4R12X4_2PLANE_422_UNORM_3PACK16 => {
-                    Some("G12X4_B12X4R12X4_2PLANE_422_UNORM_3PACK16")
-                }
-                Self::G12X4_B12X4R12X4_2PLANE_444_UNORM_3PACK16 => {
-                    Some("G12X4_B12X4R12X4_2PLANE_444_UNORM_3PACK16")
-                }
-                Self::G12X4_B12X4_R12X4_3PLANE_420_UNORM_3PACK16 => {
-                    Some("G12X4_B12X4_R12X4_3PLANE_420_UNORM_3PACK16")
-                }
-                Self::G12X4_B12X4_R12X4_3PLANE_422_UNORM_3PACK16 => {
-                    Some("G12X4_B12X4_R12X4_3PLANE_422_UNORM_3PACK16")
-                }
-                Self::G12X4_B12X4_R12X4_3PLANE_444_UNORM_3PACK16 => {
-                    Some("G12X4_B12X4_R12X4_3PLANE_444_UNORM_3PACK16")
+                Self::R14X2_UNORM_PACK16_ARM => Some("R14X2_UNORM_PACK16_ARM"),
+                Self::R14X2G14X2_UNORM_2PACK16_ARM => Some("R14X2G14X2_UNORM_2PACK16_ARM"),
+                Self::R14X2G14X2B14X2A14X2_UNORM_4PACK16_ARM => {
+                    Some("R14X2G14X2B14X2A14X2_UNORM_4PACK16_ARM")
                 }
                 Self::G14X2_B14X2R14X2_2PLANE_420_UNORM_3PACK16_ARM => {
                     Some("G14X2_B14X2R14X2_2PLANE_420_UNORM_3PACK16_ARM")
@@ -7186,60 +7185,138 @@ pub(super) mod defs {
                 Self::G14X2_B14X2R14X2_2PLANE_422_UNORM_3PACK16_ARM => {
                     Some("G14X2_B14X2R14X2_2PLANE_422_UNORM_3PACK16_ARM")
                 }
-                Self::G16B16G16R16_422_UNORM => Some("G16B16G16R16_422_UNORM"),
-                Self::G16_B16R16_2PLANE_420_UNORM => Some("G16_B16R16_2PLANE_420_UNORM"),
-                Self::G16_B16R16_2PLANE_422_UNORM => Some("G16_B16R16_2PLANE_422_UNORM"),
-                Self::G16_B16R16_2PLANE_444_UNORM => Some("G16_B16R16_2PLANE_444_UNORM"),
-                Self::G16_B16_R16_3PLANE_420_UNORM => Some("G16_B16_R16_3PLANE_420_UNORM"),
-                Self::G16_B16_R16_3PLANE_422_UNORM => Some("G16_B16_R16_3PLANE_422_UNORM"),
-                Self::G16_B16_R16_3PLANE_444_UNORM => Some("G16_B16_R16_3PLANE_444_UNORM"),
-                Self::G8B8G8R8_422_UNORM => Some("G8B8G8R8_422_UNORM"),
-                Self::G8_B8R8_2PLANE_420_UNORM => Some("G8_B8R8_2PLANE_420_UNORM"),
-                Self::G8_B8R8_2PLANE_422_UNORM => Some("G8_B8R8_2PLANE_422_UNORM"),
-                Self::G8_B8R8_2PLANE_444_UNORM => Some("G8_B8R8_2PLANE_444_UNORM"),
-                Self::G8_B8_R8_3PLANE_420_UNORM => Some("G8_B8_R8_3PLANE_420_UNORM"),
-                Self::G8_B8_R8_3PLANE_422_UNORM => Some("G8_B8_R8_3PLANE_422_UNORM"),
-                Self::G8_B8_R8_3PLANE_444_UNORM => Some("G8_B8_R8_3PLANE_444_UNORM"),
-                Self::PVRTC1_2BPP_SRGB_BLOCK_IMG => Some("PVRTC1_2BPP_SRGB_BLOCK_IMG"),
+                Self::R8_BOOL_ARM => Some("R8_BOOL_ARM"),
+                Self::ASTC_3X3X3_UNORM_BLOCK_EXT => Some("ASTC_3X3X3_UNORM_BLOCK_EXT"),
+                Self::ASTC_3X3X3_SRGB_BLOCK_EXT => Some("ASTC_3X3X3_SRGB_BLOCK_EXT"),
+                Self::ASTC_3X3X3_SFLOAT_BLOCK_EXT => Some("ASTC_3X3X3_SFLOAT_BLOCK_EXT"),
+                Self::ASTC_4X3X3_UNORM_BLOCK_EXT => Some("ASTC_4X3X3_UNORM_BLOCK_EXT"),
+                Self::ASTC_4X3X3_SRGB_BLOCK_EXT => Some("ASTC_4X3X3_SRGB_BLOCK_EXT"),
+                Self::ASTC_4X3X3_SFLOAT_BLOCK_EXT => Some("ASTC_4X3X3_SFLOAT_BLOCK_EXT"),
+                Self::ASTC_4X4X3_UNORM_BLOCK_EXT => Some("ASTC_4X4X3_UNORM_BLOCK_EXT"),
+                Self::ASTC_4X4X3_SRGB_BLOCK_EXT => Some("ASTC_4X4X3_SRGB_BLOCK_EXT"),
+                Self::ASTC_4X4X3_SFLOAT_BLOCK_EXT => Some("ASTC_4X4X3_SFLOAT_BLOCK_EXT"),
+                Self::ASTC_4X4X4_UNORM_BLOCK_EXT => Some("ASTC_4X4X4_UNORM_BLOCK_EXT"),
+                Self::ASTC_4X4X4_SRGB_BLOCK_EXT => Some("ASTC_4X4X4_SRGB_BLOCK_EXT"),
+                Self::ASTC_4X4X4_SFLOAT_BLOCK_EXT => Some("ASTC_4X4X4_SFLOAT_BLOCK_EXT"),
+                Self::ASTC_5X4X4_UNORM_BLOCK_EXT => Some("ASTC_5X4X4_UNORM_BLOCK_EXT"),
+                Self::ASTC_5X4X4_SRGB_BLOCK_EXT => Some("ASTC_5X4X4_SRGB_BLOCK_EXT"),
+                Self::ASTC_5X4X4_SFLOAT_BLOCK_EXT => Some("ASTC_5X4X4_SFLOAT_BLOCK_EXT"),
+                Self::ASTC_5X5X4_UNORM_BLOCK_EXT => Some("ASTC_5X5X4_UNORM_BLOCK_EXT"),
+                Self::ASTC_5X5X4_SRGB_BLOCK_EXT => Some("ASTC_5X5X4_SRGB_BLOCK_EXT"),
+                Self::ASTC_5X5X4_SFLOAT_BLOCK_EXT => Some("ASTC_5X5X4_SFLOAT_BLOCK_EXT"),
+                Self::ASTC_5X5X5_UNORM_BLOCK_EXT => Some("ASTC_5X5X5_UNORM_BLOCK_EXT"),
+                Self::ASTC_5X5X5_SRGB_BLOCK_EXT => Some("ASTC_5X5X5_SRGB_BLOCK_EXT"),
+                Self::ASTC_5X5X5_SFLOAT_BLOCK_EXT => Some("ASTC_5X5X5_SFLOAT_BLOCK_EXT"),
+                Self::ASTC_6X5X5_UNORM_BLOCK_EXT => Some("ASTC_6X5X5_UNORM_BLOCK_EXT"),
+                Self::ASTC_6X5X5_SRGB_BLOCK_EXT => Some("ASTC_6X5X5_SRGB_BLOCK_EXT"),
+                Self::ASTC_6X5X5_SFLOAT_BLOCK_EXT => Some("ASTC_6X5X5_SFLOAT_BLOCK_EXT"),
+                Self::ASTC_6X6X5_UNORM_BLOCK_EXT => Some("ASTC_6X6X5_UNORM_BLOCK_EXT"),
+                Self::ASTC_6X6X5_SRGB_BLOCK_EXT => Some("ASTC_6X6X5_SRGB_BLOCK_EXT"),
+                Self::ASTC_6X6X5_SFLOAT_BLOCK_EXT => Some("ASTC_6X6X5_SFLOAT_BLOCK_EXT"),
+                Self::ASTC_6X6X6_UNORM_BLOCK_EXT => Some("ASTC_6X6X6_UNORM_BLOCK_EXT"),
+                Self::ASTC_6X6X6_SRGB_BLOCK_EXT => Some("ASTC_6X6X6_SRGB_BLOCK_EXT"),
+                Self::ASTC_6X6X6_SFLOAT_BLOCK_EXT => Some("ASTC_6X6X6_SFLOAT_BLOCK_EXT"),
                 Self::PVRTC1_2BPP_UNORM_BLOCK_IMG => Some("PVRTC1_2BPP_UNORM_BLOCK_IMG"),
-                Self::PVRTC1_4BPP_SRGB_BLOCK_IMG => Some("PVRTC1_4BPP_SRGB_BLOCK_IMG"),
                 Self::PVRTC1_4BPP_UNORM_BLOCK_IMG => Some("PVRTC1_4BPP_UNORM_BLOCK_IMG"),
-                Self::PVRTC2_2BPP_SRGB_BLOCK_IMG => Some("PVRTC2_2BPP_SRGB_BLOCK_IMG"),
                 Self::PVRTC2_2BPP_UNORM_BLOCK_IMG => Some("PVRTC2_2BPP_UNORM_BLOCK_IMG"),
-                Self::PVRTC2_4BPP_SRGB_BLOCK_IMG => Some("PVRTC2_4BPP_SRGB_BLOCK_IMG"),
                 Self::PVRTC2_4BPP_UNORM_BLOCK_IMG => Some("PVRTC2_4BPP_UNORM_BLOCK_IMG"),
-                Self::R10X6G10X6B10X6A10X6_UINT_4PACK16_ARM => {
-                    Some("R10X6G10X6B10X6A10X6_UINT_4PACK16_ARM")
-                }
+                Self::PVRTC1_2BPP_SRGB_BLOCK_IMG => Some("PVRTC1_2BPP_SRGB_BLOCK_IMG"),
+                Self::PVRTC1_4BPP_SRGB_BLOCK_IMG => Some("PVRTC1_4BPP_SRGB_BLOCK_IMG"),
+                Self::PVRTC2_2BPP_SRGB_BLOCK_IMG => Some("PVRTC2_2BPP_SRGB_BLOCK_IMG"),
+                Self::PVRTC2_4BPP_SRGB_BLOCK_IMG => Some("PVRTC2_4BPP_SRGB_BLOCK_IMG"),
+                Self::R16G16_SFIXED5_NV => Some("R16G16_SFIXED5_NV"),
+                Self::G8B8G8R8_422_UNORM => Some("G8B8G8R8_422_UNORM"),
+                Self::B8G8R8G8_422_UNORM => Some("B8G8R8G8_422_UNORM"),
+                Self::G8_B8_R8_3PLANE_420_UNORM => Some("G8_B8_R8_3PLANE_420_UNORM"),
+                Self::G8_B8R8_2PLANE_420_UNORM => Some("G8_B8R8_2PLANE_420_UNORM"),
+                Self::G8_B8_R8_3PLANE_422_UNORM => Some("G8_B8_R8_3PLANE_422_UNORM"),
+                Self::G8_B8R8_2PLANE_422_UNORM => Some("G8_B8R8_2PLANE_422_UNORM"),
+                Self::G8_B8_R8_3PLANE_444_UNORM => Some("G8_B8_R8_3PLANE_444_UNORM"),
+                Self::R10X6_UNORM_PACK16 => Some("R10X6_UNORM_PACK16"),
+                Self::R10X6G10X6_UNORM_2PACK16 => Some("R10X6G10X6_UNORM_2PACK16"),
                 Self::R10X6G10X6B10X6A10X6_UNORM_4PACK16 => {
                     Some("R10X6G10X6B10X6A10X6_UNORM_4PACK16")
                 }
-                Self::R10X6G10X6_UINT_2PACK16_ARM => Some("R10X6G10X6_UINT_2PACK16_ARM"),
-                Self::R10X6G10X6_UNORM_2PACK16 => Some("R10X6G10X6_UNORM_2PACK16"),
-                Self::R10X6_UINT_PACK16_ARM => Some("R10X6_UINT_PACK16_ARM"),
-                Self::R10X6_UNORM_PACK16 => Some("R10X6_UNORM_PACK16"),
-                Self::R12X4G12X4B12X4A12X4_UINT_4PACK16_ARM => {
-                    Some("R12X4G12X4B12X4A12X4_UINT_4PACK16_ARM")
+                Self::G10X6B10X6G10X6R10X6_422_UNORM_4PACK16 => {
+                    Some("G10X6B10X6G10X6R10X6_422_UNORM_4PACK16")
                 }
+                Self::B10X6G10X6R10X6G10X6_422_UNORM_4PACK16 => {
+                    Some("B10X6G10X6R10X6G10X6_422_UNORM_4PACK16")
+                }
+                Self::G10X6_B10X6_R10X6_3PLANE_420_UNORM_3PACK16 => {
+                    Some("G10X6_B10X6_R10X6_3PLANE_420_UNORM_3PACK16")
+                }
+                Self::G10X6_B10X6R10X6_2PLANE_420_UNORM_3PACK16 => {
+                    Some("G10X6_B10X6R10X6_2PLANE_420_UNORM_3PACK16")
+                }
+                Self::G10X6_B10X6_R10X6_3PLANE_422_UNORM_3PACK16 => {
+                    Some("G10X6_B10X6_R10X6_3PLANE_422_UNORM_3PACK16")
+                }
+                Self::G10X6_B10X6R10X6_2PLANE_422_UNORM_3PACK16 => {
+                    Some("G10X6_B10X6R10X6_2PLANE_422_UNORM_3PACK16")
+                }
+                Self::G10X6_B10X6_R10X6_3PLANE_444_UNORM_3PACK16 => {
+                    Some("G10X6_B10X6_R10X6_3PLANE_444_UNORM_3PACK16")
+                }
+                Self::R12X4_UNORM_PACK16 => Some("R12X4_UNORM_PACK16"),
+                Self::R12X4G12X4_UNORM_2PACK16 => Some("R12X4G12X4_UNORM_2PACK16"),
                 Self::R12X4G12X4B12X4A12X4_UNORM_4PACK16 => {
                     Some("R12X4G12X4B12X4A12X4_UNORM_4PACK16")
                 }
-                Self::R12X4G12X4_UINT_2PACK16_ARM => Some("R12X4G12X4_UINT_2PACK16_ARM"),
-                Self::R12X4G12X4_UNORM_2PACK16 => Some("R12X4G12X4_UNORM_2PACK16"),
-                Self::R12X4_UINT_PACK16_ARM => Some("R12X4_UINT_PACK16_ARM"),
-                Self::R12X4_UNORM_PACK16 => Some("R12X4_UNORM_PACK16"),
-                Self::R14X2G14X2B14X2A14X2_UINT_4PACK16_ARM => {
-                    Some("R14X2G14X2B14X2A14X2_UINT_4PACK16_ARM")
+                Self::G12X4B12X4G12X4R12X4_422_UNORM_4PACK16 => {
+                    Some("G12X4B12X4G12X4R12X4_422_UNORM_4PACK16")
                 }
-                Self::R14X2G14X2B14X2A14X2_UNORM_4PACK16_ARM => {
-                    Some("R14X2G14X2B14X2A14X2_UNORM_4PACK16_ARM")
+                Self::B12X4G12X4R12X4G12X4_422_UNORM_4PACK16 => {
+                    Some("B12X4G12X4R12X4G12X4_422_UNORM_4PACK16")
                 }
-                Self::R14X2G14X2_UINT_2PACK16_ARM => Some("R14X2G14X2_UINT_2PACK16_ARM"),
-                Self::R14X2G14X2_UNORM_2PACK16_ARM => Some("R14X2G14X2_UNORM_2PACK16_ARM"),
-                Self::R14X2_UINT_PACK16_ARM => Some("R14X2_UINT_PACK16_ARM"),
-                Self::R14X2_UNORM_PACK16_ARM => Some("R14X2_UNORM_PACK16_ARM"),
-                Self::R16G16_SFIXED5_NV => Some("R16G16_SFIXED5_NV"),
-                Self::R8_BOOL_ARM => Some("R8_BOOL_ARM"),
+                Self::G12X4_B12X4_R12X4_3PLANE_420_UNORM_3PACK16 => {
+                    Some("G12X4_B12X4_R12X4_3PLANE_420_UNORM_3PACK16")
+                }
+                Self::G12X4_B12X4R12X4_2PLANE_420_UNORM_3PACK16 => {
+                    Some("G12X4_B12X4R12X4_2PLANE_420_UNORM_3PACK16")
+                }
+                Self::G12X4_B12X4_R12X4_3PLANE_422_UNORM_3PACK16 => {
+                    Some("G12X4_B12X4_R12X4_3PLANE_422_UNORM_3PACK16")
+                }
+                Self::G12X4_B12X4R12X4_2PLANE_422_UNORM_3PACK16 => {
+                    Some("G12X4_B12X4R12X4_2PLANE_422_UNORM_3PACK16")
+                }
+                Self::G12X4_B12X4_R12X4_3PLANE_444_UNORM_3PACK16 => {
+                    Some("G12X4_B12X4_R12X4_3PLANE_444_UNORM_3PACK16")
+                }
+                Self::G16B16G16R16_422_UNORM => Some("G16B16G16R16_422_UNORM"),
+                Self::B16G16R16G16_422_UNORM => Some("B16G16R16G16_422_UNORM"),
+                Self::G16_B16_R16_3PLANE_420_UNORM => Some("G16_B16_R16_3PLANE_420_UNORM"),
+                Self::G16_B16R16_2PLANE_420_UNORM => Some("G16_B16R16_2PLANE_420_UNORM"),
+                Self::G16_B16_R16_3PLANE_422_UNORM => Some("G16_B16_R16_3PLANE_422_UNORM"),
+                Self::G16_B16R16_2PLANE_422_UNORM => Some("G16_B16R16_2PLANE_422_UNORM"),
+                Self::G16_B16_R16_3PLANE_444_UNORM => Some("G16_B16_R16_3PLANE_444_UNORM"),
+                Self::G8_B8R8_2PLANE_444_UNORM => Some("G8_B8R8_2PLANE_444_UNORM"),
+                Self::G10X6_B10X6R10X6_2PLANE_444_UNORM_3PACK16 => {
+                    Some("G10X6_B10X6R10X6_2PLANE_444_UNORM_3PACK16")
+                }
+                Self::G12X4_B12X4R12X4_2PLANE_444_UNORM_3PACK16 => {
+                    Some("G12X4_B12X4R12X4_2PLANE_444_UNORM_3PACK16")
+                }
+                Self::G16_B16R16_2PLANE_444_UNORM => Some("G16_B16R16_2PLANE_444_UNORM"),
+                Self::A4R4G4B4_UNORM_PACK16 => Some("A4R4G4B4_UNORM_PACK16"),
+                Self::A4B4G4R4_UNORM_PACK16 => Some("A4B4G4R4_UNORM_PACK16"),
+                Self::ASTC_4X4_SFLOAT_BLOCK => Some("ASTC_4X4_SFLOAT_BLOCK"),
+                Self::ASTC_5X4_SFLOAT_BLOCK => Some("ASTC_5X4_SFLOAT_BLOCK"),
+                Self::ASTC_5X5_SFLOAT_BLOCK => Some("ASTC_5X5_SFLOAT_BLOCK"),
+                Self::ASTC_6X5_SFLOAT_BLOCK => Some("ASTC_6X5_SFLOAT_BLOCK"),
+                Self::ASTC_6X6_SFLOAT_BLOCK => Some("ASTC_6X6_SFLOAT_BLOCK"),
+                Self::ASTC_8X5_SFLOAT_BLOCK => Some("ASTC_8X5_SFLOAT_BLOCK"),
+                Self::ASTC_8X6_SFLOAT_BLOCK => Some("ASTC_8X6_SFLOAT_BLOCK"),
+                Self::ASTC_8X8_SFLOAT_BLOCK => Some("ASTC_8X8_SFLOAT_BLOCK"),
+                Self::ASTC_10X5_SFLOAT_BLOCK => Some("ASTC_10X5_SFLOAT_BLOCK"),
+                Self::ASTC_10X6_SFLOAT_BLOCK => Some("ASTC_10X6_SFLOAT_BLOCK"),
+                Self::ASTC_10X8_SFLOAT_BLOCK => Some("ASTC_10X8_SFLOAT_BLOCK"),
+                Self::ASTC_10X10_SFLOAT_BLOCK => Some("ASTC_10X10_SFLOAT_BLOCK"),
+                Self::ASTC_12X10_SFLOAT_BLOCK => Some("ASTC_12X10_SFLOAT_BLOCK"),
+                Self::ASTC_12X12_SFLOAT_BLOCK => Some("ASTC_12X12_SFLOAT_BLOCK"),
+                Self::A1B5G5R5_UNORM_PACK16 => Some("A1B5G5R5_UNORM_PACK16"),
+                Self::A8_UNORM => Some("A8_UNORM"),
                 _ => None,
             };
             if let Some(name) = name {
@@ -7302,1608 +7379,2001 @@ pub(super) mod defs {
         pub const MEMORY_BARRIER: Self = Self(46);
         pub const LOADER_INSTANCE_CREATE_INFO: Self = Self(47);
         pub const LOADER_DEVICE_CREATE_INFO: Self = Self(48);
-        pub const ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR: Self = Self(1000150000);
-        pub const ACCELERATION_STRUCTURE_BUILD_SIZES_INFO_KHR: Self = Self(1000150020);
-        pub const ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT: Self = Self(1000316009);
-        pub const ACCELERATION_STRUCTURE_CREATE_INFO_KHR: Self = Self(1000150017);
-        pub const ACCELERATION_STRUCTURE_CREATE_INFO_NV: Self = Self(1000165001);
+        // VK_AMDX_dense_geometry_format
+        pub const PHYSICAL_DEVICE_DENSE_GEOMETRY_FORMAT_FEATURES_AMDX: Self = Self(1000478000);
         pub const ACCELERATION_STRUCTURE_DENSE_GEOMETRY_FORMAT_TRIANGLES_DATA_AMDX: Self =
             Self(1000478001);
-        pub const ACCELERATION_STRUCTURE_DEVICE_ADDRESS_INFO_KHR: Self = Self(1000150002);
-        pub const ACCELERATION_STRUCTURE_GEOMETRY_AABBS_DATA_KHR: Self = Self(1000150003);
-        pub const ACCELERATION_STRUCTURE_GEOMETRY_INSTANCES_DATA_KHR: Self = Self(1000150004);
-        pub const ACCELERATION_STRUCTURE_GEOMETRY_KHR: Self = Self(1000150006);
-        pub const ACCELERATION_STRUCTURE_GEOMETRY_LINEAR_SWEPT_SPHERES_DATA_NV: Self =
-            Self(1000429009);
-        pub const ACCELERATION_STRUCTURE_GEOMETRY_MOTION_TRIANGLES_DATA_NV: Self = Self(1000327000);
-        pub const ACCELERATION_STRUCTURE_GEOMETRY_SPHERES_DATA_NV: Self = Self(1000429010);
-        pub const ACCELERATION_STRUCTURE_GEOMETRY_TRIANGLES_DATA_KHR: Self = Self(1000150005);
-        pub const ACCELERATION_STRUCTURE_INFO_NV: Self = Self(1000165012);
-        pub const ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV: Self = Self(1000165008);
-        pub const ACCELERATION_STRUCTURE_MOTION_INFO_NV: Self = Self(1000327002);
-        pub const ACCELERATION_STRUCTURE_TRIANGLES_DISPLACEMENT_MICROMAP_NV: Self =
-            Self(1000397002);
-        pub const ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_EXT: Self = Self(1000396009);
-        pub const ACCELERATION_STRUCTURE_VERSION_INFO_KHR: Self = Self(1000150009);
-        pub const ACQUIRE_NEXT_IMAGE_INFO_KHR: Self = Self(1000060010);
-        pub const ACQUIRE_PROFILING_LOCK_INFO_KHR: Self = Self(1000116004);
-        pub const AMIGO_PROFILING_SUBMIT_INFO_SEC: Self = Self(1000485001);
-        pub const ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_2_ANDROID: Self = Self(1000129006);
-        pub const ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_ANDROID: Self = Self(1000129002);
-        pub const ANDROID_HARDWARE_BUFFER_FORMAT_RESOLVE_PROPERTIES_ANDROID: Self =
-            Self(1000468002);
-        pub const ANDROID_HARDWARE_BUFFER_PROPERTIES_ANDROID: Self = Self(1000129001);
-        pub const ANDROID_HARDWARE_BUFFER_USAGE_ANDROID: Self = Self(1000129000);
-        pub const ANDROID_SURFACE_CREATE_INFO_KHR: Self = Self(1000008000);
+        // VK_AMDX_shader_enqueue
+        pub const PHYSICAL_DEVICE_SHADER_ENQUEUE_FEATURES_AMDX: Self = Self(1000134000);
+        pub const PHYSICAL_DEVICE_SHADER_ENQUEUE_PROPERTIES_AMDX: Self = Self(1000134001);
+        pub const EXECUTION_GRAPH_PIPELINE_SCRATCH_SIZE_AMDX: Self = Self(1000134002);
+        pub const EXECUTION_GRAPH_PIPELINE_CREATE_INFO_AMDX: Self = Self(1000134003);
+        pub const PIPELINE_SHADER_STAGE_NODE_CREATE_INFO_AMDX: Self = Self(1000134004);
+        // VK_AMD_anti_lag
+        pub const PHYSICAL_DEVICE_ANTI_LAG_FEATURES_AMD: Self = Self(1000476000);
         pub const ANTI_LAG_DATA_AMD: Self = Self(1000476001);
         pub const ANTI_LAG_PRESENTATION_INFO_AMD: Self = Self(1000476002);
-        pub const ATTACHMENT_DESCRIPTION_2: Self = Self(1000109000);
-        pub const ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT: Self = Self(1000241002);
-        pub const ATTACHMENT_FEEDBACK_LOOP_INFO_EXT: Self = Self(1000527001);
-        pub const ATTACHMENT_REFERENCE_2: Self = Self(1000109001);
-        pub const ATTACHMENT_REFERENCE_STENCIL_LAYOUT: Self = Self(1000241001);
-        pub const ATTACHMENT_SAMPLE_COUNT_INFO_AMD: Self = Self(1000044008);
-        pub const BEGIN_CUSTOM_RESOLVE_INFO_EXT: Self = Self(1000628001);
-        pub const BIND_ACCELERATION_STRUCTURE_MEMORY_INFO_NV: Self = Self(1000165006);
-        pub const BIND_BUFFER_MEMORY_DEVICE_GROUP_INFO: Self = Self(1000060013);
-        pub const BIND_BUFFER_MEMORY_INFO: Self = Self(1000157000);
-        pub const BIND_DATA_GRAPH_PIPELINE_SESSION_MEMORY_INFO_ARM: Self = Self(1000507005);
-        pub const BIND_DESCRIPTOR_BUFFER_EMBEDDED_SAMPLERS_INFO_EXT: Self = Self(1000545008);
-        pub const BIND_DESCRIPTOR_SETS_INFO: Self = Self(1000545003);
-        pub const BIND_HEAP_INFO_EXT: Self = Self(1000135003);
-        pub const BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO: Self = Self(1000060014);
-        pub const BIND_IMAGE_MEMORY_INFO: Self = Self(1000157001);
-        pub const BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR: Self = Self(1000060009);
-        pub const BIND_IMAGE_PLANE_MEMORY_INFO: Self = Self(1000156002);
-        pub const BIND_MEMORY_STATUS: Self = Self(1000545002);
-        pub const BIND_TENSOR_MEMORY_INFO_ARM: Self = Self(1000460002);
-        pub const BIND_VIDEO_SESSION_MEMORY_INFO_KHR: Self = Self(1000023004);
-        pub const BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM: Self = Self(1000519002);
-        pub const BLIT_IMAGE_INFO_2: Self = Self(1000337004);
-        pub const BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT: Self = Self(1000316005);
-        pub const BUFFER_COLLECTION_BUFFER_CREATE_INFO_FUCHSIA: Self = Self(1000366005);
-        pub const BUFFER_COLLECTION_CONSTRAINTS_INFO_FUCHSIA: Self = Self(1000366009);
-        pub const BUFFER_COLLECTION_CREATE_INFO_FUCHSIA: Self = Self(1000366000);
-        pub const BUFFER_COLLECTION_IMAGE_CREATE_INFO_FUCHSIA: Self = Self(1000366002);
-        pub const BUFFER_COLLECTION_PROPERTIES_FUCHSIA: Self = Self(1000366003);
-        pub const BUFFER_CONSTRAINTS_INFO_FUCHSIA: Self = Self(1000366004);
-        pub const BUFFER_COPY_2: Self = Self(1000337006);
-        pub const BUFFER_DEVICE_ADDRESS_CREATE_INFO_EXT: Self = Self(1000244002);
-        pub const BUFFER_DEVICE_ADDRESS_INFO: Self = Self(1000244001);
-        pub const BUFFER_IMAGE_COPY_2: Self = Self(1000337009);
-        pub const BUFFER_MEMORY_BARRIER_2: Self = Self(1000314001);
-        pub const BUFFER_MEMORY_REQUIREMENTS_INFO_2: Self = Self(1000146000);
-        pub const BUFFER_OPAQUE_CAPTURE_ADDRESS_CREATE_INFO: Self = Self(1000257002);
-        pub const BUFFER_USAGE_FLAGS_2_CREATE_INFO: Self = Self(1000470006);
-        pub const BUILD_PARTITIONED_ACCELERATION_STRUCTURE_INFO_NV: Self = Self(1000570004);
-        pub const CALIBRATED_TIMESTAMP_INFO_KHR: Self = Self(1000184000);
-        pub const CHECKPOINT_DATA_2_NV: Self = Self(1000314009);
-        pub const CHECKPOINT_DATA_NV: Self = Self(1000206000);
-        pub const CLUSTER_ACCELERATION_STRUCTURE_CLUSTERS_BOTTOM_LEVEL_INPUT_NV: Self =
-            Self(1000569002);
-        pub const CLUSTER_ACCELERATION_STRUCTURE_COMMANDS_INFO_NV: Self = Self(1000569006);
-        pub const CLUSTER_ACCELERATION_STRUCTURE_INPUT_INFO_NV: Self = Self(1000569005);
-        pub const CLUSTER_ACCELERATION_STRUCTURE_MOVE_OBJECTS_INPUT_NV: Self = Self(1000569004);
-        pub const CLUSTER_ACCELERATION_STRUCTURE_TRIANGLE_CLUSTER_INPUT_NV: Self = Self(1000569003);
-        pub const COMMAND_BUFFER_INHERITANCE_CONDITIONAL_RENDERING_INFO_EXT: Self =
-            Self(1000081000);
-        pub const COMMAND_BUFFER_INHERITANCE_DESCRIPTOR_HEAP_INFO_EXT: Self = Self(1000135010);
-        pub const COMMAND_BUFFER_INHERITANCE_RENDERING_INFO: Self = Self(1000044004);
-        pub const COMMAND_BUFFER_INHERITANCE_RENDER_PASS_TRANSFORM_INFO_QCOM: Self =
-            Self(1000282000);
-        pub const COMMAND_BUFFER_INHERITANCE_VIEWPORT_SCISSOR_INFO_NV: Self = Self(1000278001);
-        pub const COMMAND_BUFFER_SUBMIT_INFO: Self = Self(1000314006);
-        pub const COMPUTE_OCCUPANCY_PRIORITY_PARAMETERS_NV: Self = Self(1000645000);
-        pub const COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV: Self = Self(1000428001);
-        pub const CONDITIONAL_RENDERING_BEGIN_INFO_EXT: Self = Self(1000081002);
-        pub const CONVERT_COOPERATIVE_VECTOR_MATRIX_INFO_NV: Self = Self(1000491004);
-        pub const COOPERATIVE_MATRIX_FLEXIBLE_DIMENSIONS_PROPERTIES_NV: Self = Self(1000593001);
-        pub const COOPERATIVE_MATRIX_PROPERTIES_KHR: Self = Self(1000506001);
-        pub const COOPERATIVE_MATRIX_PROPERTIES_NV: Self = Self(1000249001);
-        pub const COOPERATIVE_VECTOR_PROPERTIES_NV: Self = Self(1000491002);
-        pub const COPY_ACCELERATION_STRUCTURE_INFO_KHR: Self = Self(1000150010);
-        pub const COPY_ACCELERATION_STRUCTURE_TO_MEMORY_INFO_KHR: Self = Self(1000150011);
-        pub const COPY_BUFFER_INFO_2: Self = Self(1000337000);
-        pub const COPY_BUFFER_TO_IMAGE_INFO_2: Self = Self(1000337002);
-        pub const COPY_COMMAND_TRANSFORM_INFO_QCOM: Self = Self(1000333000);
-        pub const COPY_IMAGE_INFO_2: Self = Self(1000337001);
-        pub const COPY_IMAGE_TO_BUFFER_INFO_2: Self = Self(1000337003);
-        pub const COPY_IMAGE_TO_IMAGE_INFO: Self = Self(1000270007);
-        pub const COPY_IMAGE_TO_MEMORY_INFO: Self = Self(1000270004);
-        pub const COPY_MEMORY_INDIRECT_INFO_KHR: Self = Self(1000549002);
-        pub const COPY_MEMORY_TO_ACCELERATION_STRUCTURE_INFO_KHR: Self = Self(1000150012);
-        pub const COPY_MEMORY_TO_IMAGE_INDIRECT_INFO_KHR: Self = Self(1000549003);
-        pub const COPY_MEMORY_TO_IMAGE_INFO: Self = Self(1000270005);
-        pub const COPY_MEMORY_TO_MICROMAP_INFO_EXT: Self = Self(1000396004);
-        pub const COPY_MICROMAP_INFO_EXT: Self = Self(1000396002);
-        pub const COPY_MICROMAP_TO_MEMORY_INFO_EXT: Self = Self(1000396003);
-        pub const COPY_TENSOR_INFO_ARM: Self = Self(1000460011);
-        pub const CUDA_FUNCTION_CREATE_INFO_NV: Self = Self(1000307001);
-        pub const CUDA_LAUNCH_INFO_NV: Self = Self(1000307002);
-        pub const CUDA_MODULE_CREATE_INFO_NV: Self = Self(1000307000);
-        pub const CUSTOM_RESOLVE_CREATE_INFO_EXT: Self = Self(1000628002);
-        pub const CU_FUNCTION_CREATE_INFO_NVX: Self = Self(1000029001);
-        pub const CU_LAUNCH_INFO_NVX: Self = Self(1000029002);
-        pub const CU_MODULE_CREATE_INFO_NVX: Self = Self(1000029000);
-        pub const CU_MODULE_TEXTURING_MODE_CREATE_INFO_NVX: Self = Self(1000029004);
-        pub const D3D12_FENCE_SUBMIT_INFO_KHR: Self = Self(1000078002);
-        pub const DATA_GRAPH_PIPELINE_BUILTIN_MODEL_CREATE_INFO_QCOM: Self = Self(1000629001);
-        pub const DATA_GRAPH_PIPELINE_COMPILER_CONTROL_CREATE_INFO_ARM: Self = Self(1000507010);
-        pub const DATA_GRAPH_PIPELINE_CONSTANT_ARM: Self = Self(1000507003);
-        pub const DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM: Self =
-            Self(1000507015);
-        pub const DATA_GRAPH_PIPELINE_CREATE_INFO_ARM: Self = Self(1000507000);
-        pub const DATA_GRAPH_PIPELINE_DISPATCH_INFO_ARM: Self = Self(1000507014);
-        pub const DATA_GRAPH_PIPELINE_IDENTIFIER_CREATE_INFO_ARM: Self = Self(1000507013);
-        pub const DATA_GRAPH_PIPELINE_INFO_ARM: Self = Self(1000507009);
-        pub const DATA_GRAPH_PIPELINE_PROPERTY_QUERY_RESULT_ARM: Self = Self(1000507008);
-        pub const DATA_GRAPH_PIPELINE_RESOURCE_INFO_ARM: Self = Self(1000507002);
-        pub const DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENTS_INFO_ARM: Self =
-            Self(1000507011);
-        pub const DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENT_ARM: Self = Self(1000507012);
-        pub const DATA_GRAPH_PIPELINE_SESSION_CREATE_INFO_ARM: Self = Self(1000507001);
-        pub const DATA_GRAPH_PIPELINE_SESSION_MEMORY_REQUIREMENTS_INFO_ARM: Self = Self(1000507004);
-        pub const DATA_GRAPH_PIPELINE_SHADER_MODULE_CREATE_INFO_ARM: Self = Self(1000507007);
-        pub const DATA_GRAPH_PROCESSING_ENGINE_CREATE_INFO_ARM: Self = Self(1000507016);
-        pub const DEBUG_MARKER_MARKER_INFO_EXT: Self = Self(1000022002);
-        pub const DEBUG_MARKER_OBJECT_NAME_INFO_EXT: Self = Self(1000022000);
-        pub const DEBUG_MARKER_OBJECT_TAG_INFO_EXT: Self = Self(1000022001);
-        pub const DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT: Self = Self(1000011000);
-        pub const DEBUG_UTILS_LABEL_EXT: Self = Self(1000128002);
-        pub const DEBUG_UTILS_MESSENGER_CALLBACK_DATA_EXT: Self = Self(1000128003);
-        pub const DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT: Self = Self(1000128004);
-        pub const DEBUG_UTILS_OBJECT_NAME_INFO_EXT: Self = Self(1000128000);
-        pub const DEBUG_UTILS_OBJECT_TAG_INFO_EXT: Self = Self(1000128001);
-        pub const DECOMPRESS_MEMORY_INFO_EXT: Self = Self(1000550002);
-        pub const DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV: Self = Self(1000026001);
-        pub const DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV: Self = Self(1000026000);
-        pub const DEDICATED_ALLOCATION_MEMORY_ALLOCATE_INFO_NV: Self = Self(1000026002);
-        pub const DEPENDENCY_INFO: Self = Self(1000314003);
-        pub const DEPTH_BIAS_INFO_EXT: Self = Self(1000283001);
-        pub const DEPTH_BIAS_REPRESENTATION_INFO_EXT: Self = Self(1000283002);
-        pub const DESCRIPTOR_ADDRESS_INFO_EXT: Self = Self(1000316003);
-        pub const DESCRIPTOR_BUFFER_BINDING_INFO_EXT: Self = Self(1000316011);
-        pub const DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT: Self =
-            Self(1000316012);
-        pub const DESCRIPTOR_GET_INFO_EXT: Self = Self(1000316004);
-        pub const DESCRIPTOR_GET_TENSOR_INFO_ARM: Self = Self(1000460020);
-        pub const DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO: Self = Self(1000138003);
-        pub const DESCRIPTOR_SET_AND_BINDING_MAPPING_EXT: Self = Self(1000135005);
-        pub const DESCRIPTOR_SET_BINDING_REFERENCE_VALVE: Self = Self(1000420001);
-        pub const DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO: Self = Self(1000161000);
-        pub const DESCRIPTOR_SET_LAYOUT_HOST_MAPPING_INFO_VALVE: Self = Self(1000420002);
-        pub const DESCRIPTOR_SET_LAYOUT_SUPPORT: Self = Self(1000168001);
-        pub const DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO: Self = Self(1000161003);
-        pub const DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT: Self = Self(1000161004);
-        pub const DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO: Self = Self(1000085000);
-        pub const DEVICE_ADDRESS_BINDING_CALLBACK_DATA_EXT: Self = Self(1000354001);
-        pub const DEVICE_BUFFER_MEMORY_REQUIREMENTS: Self = Self(1000413002);
-        pub const DEVICE_DEVICE_MEMORY_REPORT_CREATE_INFO_EXT: Self = Self(1000284001);
-        pub const DEVICE_DIAGNOSTICS_CONFIG_CREATE_INFO_NV: Self = Self(1000300001);
-        pub const DEVICE_EVENT_INFO_EXT: Self = Self(1000091001);
-        pub const DEVICE_FAULT_COUNTS_EXT: Self = Self(1000341001);
-        pub const DEVICE_FAULT_INFO_EXT: Self = Self(1000341002);
-        pub const DEVICE_GROUP_BIND_SPARSE_INFO: Self = Self(1000060006);
-        pub const DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO: Self = Self(1000060004);
-        pub const DEVICE_GROUP_DEVICE_CREATE_INFO: Self = Self(1000070001);
-        pub const DEVICE_GROUP_PRESENT_CAPABILITIES_KHR: Self = Self(1000060007);
-        pub const DEVICE_GROUP_PRESENT_INFO_KHR: Self = Self(1000060011);
-        pub const DEVICE_GROUP_RENDER_PASS_BEGIN_INFO: Self = Self(1000060003);
-        pub const DEVICE_GROUP_SUBMIT_INFO: Self = Self(1000060005);
-        pub const DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR: Self = Self(1000060012);
-        pub const DEVICE_IMAGE_MEMORY_REQUIREMENTS: Self = Self(1000413003);
-        pub const DEVICE_IMAGE_SUBRESOURCE_INFO: Self = Self(1000470004);
-        pub const DEVICE_MEMORY_OPAQUE_CAPTURE_ADDRESS_INFO: Self = Self(1000257004);
-        pub const DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD: Self = Self(1000189000);
-        pub const DEVICE_MEMORY_REPORT_CALLBACK_DATA_EXT: Self = Self(1000284002);
-        pub const DEVICE_PIPELINE_BINARY_INTERNAL_CACHE_CONTROL_KHR: Self = Self(1000483008);
-        pub const DEVICE_PRIVATE_DATA_CREATE_INFO: Self = Self(1000295001);
-        pub const DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO: Self = Self(1000174000);
-        pub const DEVICE_QUEUE_INFO_2: Self = Self(1000145003);
-        pub const DEVICE_QUEUE_SHADER_CORE_CONTROL_CREATE_INFO_ARM: Self = Self(1000417000);
-        pub const DEVICE_TENSOR_MEMORY_REQUIREMENTS_ARM: Self = Self(1000460010);
-        pub const DIRECTFB_SURFACE_CREATE_INFO_EXT: Self = Self(1000346000);
-        pub const DIRECT_DRIVER_LOADING_INFO_LUNARG: Self = Self(1000459000);
-        pub const DIRECT_DRIVER_LOADING_LIST_LUNARG: Self = Self(1000459001);
-        pub const DISPATCH_TILE_INFO_QCOM: Self = Self(1000309005);
-        pub const DISPLAY_EVENT_INFO_EXT: Self = Self(1000091002);
-        pub const DISPLAY_MODE_CREATE_INFO_KHR: Self = Self(1000002000);
-        pub const DISPLAY_MODE_PROPERTIES_2_KHR: Self = Self(1000121002);
-        pub const DISPLAY_MODE_STEREO_PROPERTIES_NV: Self = Self(1000551001);
-        pub const DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD: Self = Self(1000213000);
-        pub const DISPLAY_PLANE_CAPABILITIES_2_KHR: Self = Self(1000121004);
-        pub const DISPLAY_PLANE_INFO_2_KHR: Self = Self(1000121003);
-        pub const DISPLAY_PLANE_PROPERTIES_2_KHR: Self = Self(1000121001);
-        pub const DISPLAY_POWER_INFO_EXT: Self = Self(1000091000);
-        pub const DISPLAY_PRESENT_INFO_KHR: Self = Self(1000003000);
-        pub const DISPLAY_PROPERTIES_2_KHR: Self = Self(1000121000);
-        pub const DISPLAY_SURFACE_CREATE_INFO_KHR: Self = Self(1000002001);
-        pub const DISPLAY_SURFACE_STEREO_CREATE_INFO_NV: Self = Self(1000551000);
-        pub const DRM_FORMAT_MODIFIER_PROPERTIES_LIST_2_EXT: Self = Self(1000158006);
-        pub const DRM_FORMAT_MODIFIER_PROPERTIES_LIST_EXT: Self = Self(1000158000);
-        pub const EXECUTION_GRAPH_PIPELINE_CREATE_INFO_AMDX: Self = Self(1000134003);
-        pub const EXECUTION_GRAPH_PIPELINE_SCRATCH_SIZE_AMDX: Self = Self(1000134002);
-        pub const EXPORT_FENCE_CREATE_INFO: Self = Self(1000113000);
-        pub const EXPORT_FENCE_WIN32_HANDLE_INFO_KHR: Self = Self(1000114001);
-        pub const EXPORT_MEMORY_ALLOCATE_INFO: Self = Self(1000072002);
-        pub const EXPORT_MEMORY_ALLOCATE_INFO_NV: Self = Self(1000056001);
-        pub const EXPORT_MEMORY_WIN32_HANDLE_INFO_KHR: Self = Self(1000073001);
-        pub const EXPORT_MEMORY_WIN32_HANDLE_INFO_NV: Self = Self(1000057001);
-        pub const EXPORT_METAL_BUFFER_INFO_EXT: Self = Self(1000311004);
-        pub const EXPORT_METAL_COMMAND_QUEUE_INFO_EXT: Self = Self(1000311003);
-        pub const EXPORT_METAL_DEVICE_INFO_EXT: Self = Self(1000311002);
-        pub const EXPORT_METAL_IO_SURFACE_INFO_EXT: Self = Self(1000311008);
-        pub const EXPORT_METAL_OBJECTS_INFO_EXT: Self = Self(1000311001);
-        pub const EXPORT_METAL_OBJECT_CREATE_INFO_EXT: Self = Self(1000311000);
-        pub const EXPORT_METAL_SHARED_EVENT_INFO_EXT: Self = Self(1000311010);
-        pub const EXPORT_METAL_TEXTURE_INFO_EXT: Self = Self(1000311006);
-        pub const EXPORT_SEMAPHORE_CREATE_INFO: Self = Self(1000077000);
-        pub const EXPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR: Self = Self(1000078001);
-        pub const EXTERNAL_BUFFER_PROPERTIES: Self = Self(1000071003);
-        pub const EXTERNAL_COMPUTE_QUEUE_CREATE_INFO_NV: Self = Self(1000556001);
-        pub const EXTERNAL_COMPUTE_QUEUE_DATA_PARAMS_NV: Self = Self(1000556002);
-        pub const EXTERNAL_COMPUTE_QUEUE_DEVICE_CREATE_INFO_NV: Self = Self(1000556000);
-        pub const EXTERNAL_FENCE_PROPERTIES: Self = Self(1000112001);
-        pub const EXTERNAL_FORMAT_ANDROID: Self = Self(1000129005);
-        pub const EXTERNAL_FORMAT_OHOS: Self = Self(1000452005);
-        pub const EXTERNAL_FORMAT_QNX: Self = Self(1000529003);
-        pub const EXTERNAL_IMAGE_FORMAT_PROPERTIES: Self = Self(1000071001);
-        pub const EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT: Self = Self(1000453000);
-        pub const EXTERNAL_MEMORY_BUFFER_CREATE_INFO: Self = Self(1000072000);
-        pub const EXTERNAL_MEMORY_IMAGE_CREATE_INFO: Self = Self(1000072001);
-        pub const EXTERNAL_MEMORY_IMAGE_CREATE_INFO_NV: Self = Self(1000056000);
-        pub const EXTERNAL_MEMORY_TENSOR_CREATE_INFO_ARM: Self = Self(1000460017);
-        pub const EXTERNAL_SEMAPHORE_PROPERTIES: Self = Self(1000076001);
-        pub const EXTERNAL_TENSOR_PROPERTIES_ARM: Self = Self(1000460016);
-        pub const FENCE_GET_FD_INFO_KHR: Self = Self(1000115001);
-        pub const FENCE_GET_WIN32_HANDLE_INFO_KHR: Self = Self(1000114002);
-        pub const FILTER_CUBIC_IMAGE_VIEW_IMAGE_FORMAT_PROPERTIES_EXT: Self = Self(1000170001);
-        pub const FORMAT_PROPERTIES_2: Self = Self(1000059002);
-        pub const FORMAT_PROPERTIES_3: Self = Self(1000360000);
-        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR: Self = Self(1000226000);
-        pub const FRAMEBUFFER_ATTACHMENTS_CREATE_INFO: Self = Self(1000108001);
-        pub const FRAMEBUFFER_ATTACHMENT_IMAGE_INFO: Self = Self(1000108002);
-        pub const FRAMEBUFFER_MIXED_SAMPLES_COMBINATION_NV: Self = Self(1000250002);
-        pub const FRAME_BOUNDARY_EXT: Self = Self(1000375001);
-        pub const FRAME_BOUNDARY_TENSORS_ARM: Self = Self(1000460023);
-        pub const GENERATED_COMMANDS_INFO_EXT: Self = Self(1000572004);
-        pub const GENERATED_COMMANDS_INFO_NV: Self = Self(1000277005);
-        pub const GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_EXT: Self = Self(1000572002);
-        pub const GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_NV: Self = Self(1000277006);
-        pub const GENERATED_COMMANDS_PIPELINE_INFO_EXT: Self = Self(1000572013);
-        pub const GENERATED_COMMANDS_SHADER_INFO_EXT: Self = Self(1000572014);
-        pub const GEOMETRY_AABB_NV: Self = Self(1000165005);
-        pub const GEOMETRY_NV: Self = Self(1000165003);
-        pub const GEOMETRY_TRIANGLES_NV: Self = Self(1000165004);
-        pub const GET_LATENCY_MARKER_INFO_NV: Self = Self(1000505003);
-        pub const GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT: Self = Self(1000320002);
-        pub const GRAPHICS_PIPELINE_SHADER_GROUPS_CREATE_INFO_NV: Self = Self(1000277002);
-        pub const GRAPHICS_SHADER_GROUP_CREATE_INFO_NV: Self = Self(1000277001);
-        pub const HDR_METADATA_EXT: Self = Self(1000105000);
-        pub const HDR_VIVID_DYNAMIC_METADATA_HUAWEI: Self = Self(1000590001);
-        pub const HEADLESS_SURFACE_CREATE_INFO_EXT: Self = Self(1000256000);
-        pub const HOST_IMAGE_COPY_DEVICE_PERFORMANCE_QUERY: Self = Self(1000270009);
-        pub const HOST_IMAGE_LAYOUT_TRANSITION_INFO: Self = Self(1000270006);
-        pub const IMAGEPIPE_SURFACE_CREATE_INFO_FUCHSIA: Self = Self(1000214000);
-        pub const IMAGE_ALIGNMENT_CONTROL_CREATE_INFO_MESA: Self = Self(1000575002);
-        pub const IMAGE_BLIT_2: Self = Self(1000337008);
-        pub const IMAGE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT: Self = Self(1000316006);
-        pub const IMAGE_COMPRESSION_CONTROL_EXT: Self = Self(1000338001);
-        pub const IMAGE_COMPRESSION_PROPERTIES_EXT: Self = Self(1000338004);
-        pub const IMAGE_CONSTRAINTS_INFO_FUCHSIA: Self = Self(1000366006);
-        pub const IMAGE_COPY_2: Self = Self(1000337007);
-        pub const IMAGE_DESCRIPTOR_INFO_EXT: Self = Self(1000135001);
-        pub const IMAGE_DRM_FORMAT_MODIFIER_EXPLICIT_CREATE_INFO_EXT: Self = Self(1000158004);
-        pub const IMAGE_DRM_FORMAT_MODIFIER_LIST_CREATE_INFO_EXT: Self = Self(1000158003);
-        pub const IMAGE_DRM_FORMAT_MODIFIER_PROPERTIES_EXT: Self = Self(1000158005);
-        pub const IMAGE_FORMAT_CONSTRAINTS_INFO_FUCHSIA: Self = Self(1000366007);
-        pub const IMAGE_FORMAT_LIST_CREATE_INFO: Self = Self(1000147000);
-        pub const IMAGE_FORMAT_PROPERTIES_2: Self = Self(1000059003);
-        pub const IMAGE_MEMORY_BARRIER_2: Self = Self(1000314002);
-        pub const IMAGE_MEMORY_REQUIREMENTS_INFO_2: Self = Self(1000146001);
-        pub const IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO: Self = Self(1000156003);
-        pub const IMAGE_RESOLVE_2: Self = Self(1000337010);
-        pub const IMAGE_SPARSE_MEMORY_REQUIREMENTS_INFO_2: Self = Self(1000146002);
-        pub const IMAGE_STENCIL_USAGE_CREATE_INFO: Self = Self(1000246000);
-        pub const IMAGE_SUBRESOURCE_2: Self = Self(1000338003);
-        pub const IMAGE_SWAPCHAIN_CREATE_INFO_KHR: Self = Self(1000060008);
-        pub const IMAGE_TO_MEMORY_COPY: Self = Self(1000270003);
-        pub const IMAGE_VIEW_ADDRESS_PROPERTIES_NVX: Self = Self(1000030001);
-        pub const IMAGE_VIEW_ASTC_DECODE_MODE_EXT: Self = Self(1000067000);
-        pub const IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT: Self = Self(1000316007);
-        pub const IMAGE_VIEW_HANDLE_INFO_NVX: Self = Self(1000030000);
-        pub const IMAGE_VIEW_MIN_LOD_CREATE_INFO_EXT: Self = Self(1000391001);
-        pub const IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM: Self = Self(1000440002);
-        pub const IMAGE_VIEW_SLICED_CREATE_INFO_EXT: Self = Self(1000418001);
-        pub const IMAGE_VIEW_USAGE_CREATE_INFO: Self = Self(1000117002);
-        pub const IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID: Self = Self(1000129003);
-        pub const IMPORT_FENCE_FD_INFO_KHR: Self = Self(1000115000);
-        pub const IMPORT_FENCE_WIN32_HANDLE_INFO_KHR: Self = Self(1000114000);
-        pub const IMPORT_MEMORY_BUFFER_COLLECTION_FUCHSIA: Self = Self(1000366001);
-        pub const IMPORT_MEMORY_FD_INFO_KHR: Self = Self(1000074000);
-        pub const IMPORT_MEMORY_HOST_POINTER_INFO_EXT: Self = Self(1000178000);
-        pub const IMPORT_MEMORY_METAL_HANDLE_INFO_EXT: Self = Self(1000602000);
-        pub const IMPORT_MEMORY_WIN32_HANDLE_INFO_KHR: Self = Self(1000073000);
-        pub const IMPORT_MEMORY_WIN32_HANDLE_INFO_NV: Self = Self(1000057000);
-        pub const IMPORT_MEMORY_ZIRCON_HANDLE_INFO_FUCHSIA: Self = Self(1000364000);
-        pub const IMPORT_METAL_BUFFER_INFO_EXT: Self = Self(1000311005);
-        pub const IMPORT_METAL_IO_SURFACE_INFO_EXT: Self = Self(1000311009);
-        pub const IMPORT_METAL_SHARED_EVENT_INFO_EXT: Self = Self(1000311011);
-        pub const IMPORT_METAL_TEXTURE_INFO_EXT: Self = Self(1000311007);
-        pub const IMPORT_NATIVE_BUFFER_INFO_OHOS: Self = Self(1000452003);
-        pub const IMPORT_SCREEN_BUFFER_INFO_QNX: Self = Self(1000529002);
-        pub const IMPORT_SEMAPHORE_FD_INFO_KHR: Self = Self(1000079000);
-        pub const IMPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR: Self = Self(1000078000);
-        pub const IMPORT_SEMAPHORE_ZIRCON_HANDLE_INFO_FUCHSIA: Self = Self(1000365000);
-        pub const INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_EXT: Self = Self(1000572006);
-        pub const INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_NV: Self = Self(1000277004);
-        pub const INDIRECT_COMMANDS_LAYOUT_PUSH_DATA_TOKEN_NV: Self = Self(1000135012);
-        pub const INDIRECT_COMMANDS_LAYOUT_TOKEN_EXT: Self = Self(1000572007);
-        pub const INDIRECT_COMMANDS_LAYOUT_TOKEN_NV: Self = Self(1000277003);
-        pub const INDIRECT_EXECUTION_SET_CREATE_INFO_EXT: Self = Self(1000572003);
-        pub const INDIRECT_EXECUTION_SET_PIPELINE_INFO_EXT: Self = Self(1000572010);
-        pub const INDIRECT_EXECUTION_SET_SHADER_INFO_EXT: Self = Self(1000572011);
-        pub const INDIRECT_EXECUTION_SET_SHADER_LAYOUT_INFO_EXT: Self = Self(1000572012);
-        pub const INITIALIZE_PERFORMANCE_API_INFO_INTEL: Self = Self(1000210001);
-        pub const IOS_SURFACE_CREATE_INFO_MVK: Self = Self(1000122000);
-        pub const LATENCY_SLEEP_INFO_NV: Self = Self(1000505001);
-        pub const LATENCY_SLEEP_MODE_INFO_NV: Self = Self(1000505000);
-        pub const LATENCY_SUBMISSION_PRESENT_ID_NV: Self = Self(1000505005);
-        pub const LATENCY_SURFACE_CAPABILITIES_NV: Self = Self(1000505008);
-        pub const LATENCY_TIMINGS_FRAME_REPORT_NV: Self = Self(1000505004);
-        pub const LAYER_SETTINGS_CREATE_INFO_EXT: Self = Self(1000496000);
-        pub const MACOS_SURFACE_CREATE_INFO_MVK: Self = Self(1000123000);
-        pub const MEMORY_ALLOCATE_FLAGS_INFO: Self = Self(1000060000);
-        pub const MEMORY_BARRIER_2: Self = Self(1000314000);
-        pub const MEMORY_BARRIER_ACCESS_FLAGS_3_KHR: Self = Self(1000574002);
-        pub const MEMORY_DEDICATED_ALLOCATE_INFO: Self = Self(1000127001);
-        pub const MEMORY_DEDICATED_ALLOCATE_INFO_TENSOR_ARM: Self = Self(1000460014);
-        pub const MEMORY_DEDICATED_REQUIREMENTS: Self = Self(1000127000);
-        pub const MEMORY_FD_PROPERTIES_KHR: Self = Self(1000074001);
-        pub const MEMORY_GET_ANDROID_HARDWARE_BUFFER_INFO_ANDROID: Self = Self(1000129004);
-        pub const MEMORY_GET_FD_INFO_KHR: Self = Self(1000074002);
-        pub const MEMORY_GET_METAL_HANDLE_INFO_EXT: Self = Self(1000602002);
-        pub const MEMORY_GET_NATIVE_BUFFER_INFO_OHOS: Self = Self(1000452004);
-        pub const MEMORY_GET_REMOTE_ADDRESS_INFO_NV: Self = Self(1000371000);
-        pub const MEMORY_GET_WIN32_HANDLE_INFO_KHR: Self = Self(1000073003);
-        pub const MEMORY_GET_ZIRCON_HANDLE_INFO_FUCHSIA: Self = Self(1000364002);
-        pub const MEMORY_HOST_POINTER_PROPERTIES_EXT: Self = Self(1000178001);
-        pub const MEMORY_MAP_INFO: Self = Self(1000271000);
-        pub const MEMORY_MAP_PLACED_INFO_EXT: Self = Self(1000272002);
-        pub const MEMORY_METAL_HANDLE_PROPERTIES_EXT: Self = Self(1000602001);
-        pub const MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO: Self = Self(1000257003);
-        pub const MEMORY_PRIORITY_ALLOCATE_INFO_EXT: Self = Self(1000238001);
-        pub const MEMORY_REQUIREMENTS_2: Self = Self(1000146003);
-        pub const MEMORY_TO_IMAGE_COPY: Self = Self(1000270002);
-        pub const MEMORY_UNMAP_INFO: Self = Self(1000271001);
-        pub const MEMORY_WIN32_HANDLE_PROPERTIES_KHR: Self = Self(1000073002);
-        pub const MEMORY_ZIRCON_HANDLE_PROPERTIES_FUCHSIA: Self = Self(1000364001);
-        pub const METAL_SURFACE_CREATE_INFO_EXT: Self = Self(1000217000);
-        pub const MICROMAP_BUILD_INFO_EXT: Self = Self(1000396000);
-        pub const MICROMAP_BUILD_SIZES_INFO_EXT: Self = Self(1000396008);
-        pub const MICROMAP_CREATE_INFO_EXT: Self = Self(1000396007);
-        pub const MICROMAP_VERSION_INFO_EXT: Self = Self(1000396001);
-        pub const MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_INFO_EXT: Self = Self(1000376002);
-        pub const MULTISAMPLE_PROPERTIES_EXT: Self = Self(1000143004);
-        pub const MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX: Self = Self(1000044009);
-        pub const MULTIVIEW_PER_VIEW_RENDER_AREAS_RENDER_PASS_BEGIN_INFO_QCOM: Self =
-            Self(1000510001);
-        pub const MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_EXT: Self = Self(1000351002);
-        pub const NATIVE_BUFFER_FORMAT_PROPERTIES_OHOS: Self = Self(1000452002);
-        pub const NATIVE_BUFFER_PROPERTIES_OHOS: Self = Self(1000452001);
-        pub const NATIVE_BUFFER_USAGE_OHOS: Self = Self(1000452000);
-        pub const OPAQUE_CAPTURE_DATA_CREATE_INFO_EXT: Self = Self(1000135007);
-        pub const OPAQUE_CAPTURE_DESCRIPTOR_DATA_CREATE_INFO_EXT: Self = Self(1000316010);
-        pub const OPTICAL_FLOW_EXECUTE_INFO_NV: Self = Self(1000464005);
-        pub const OPTICAL_FLOW_IMAGE_FORMAT_INFO_NV: Self = Self(1000464002);
-        pub const OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_NV: Self = Self(1000464003);
-        pub const OPTICAL_FLOW_SESSION_CREATE_INFO_NV: Self = Self(1000464004);
-        pub const OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV: Self = Self(1000464010);
-        pub const OUT_OF_BAND_QUEUE_TYPE_INFO_NV: Self = Self(1000505006);
-        pub const PARTITIONED_ACCELERATION_STRUCTURE_FLAGS_NV: Self = Self(1000570005);
-        pub const PARTITIONED_ACCELERATION_STRUCTURE_INSTANCES_INPUT_NV: Self = Self(1000570003);
-        pub const PAST_PRESENTATION_TIMING_EXT: Self = Self(1000208007);
-        pub const PAST_PRESENTATION_TIMING_INFO_EXT: Self = Self(1000208005);
-        pub const PAST_PRESENTATION_TIMING_PROPERTIES_EXT: Self = Self(1000208006);
-        pub const PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL: Self = Self(1000210005);
-        pub const PERFORMANCE_COUNTER_ARM: Self = Self(1000605002);
-        pub const PERFORMANCE_COUNTER_DESCRIPTION_ARM: Self = Self(1000605003);
-        pub const PERFORMANCE_COUNTER_DESCRIPTION_KHR: Self = Self(1000116006);
-        pub const PERFORMANCE_COUNTER_KHR: Self = Self(1000116005);
-        pub const PERFORMANCE_MARKER_INFO_INTEL: Self = Self(1000210002);
-        pub const PERFORMANCE_OVERRIDE_INFO_INTEL: Self = Self(1000210004);
-        pub const PERFORMANCE_QUERY_SUBMIT_INFO_KHR: Self = Self(1000116003);
-        pub const PERFORMANCE_STREAM_MARKER_INFO_INTEL: Self = Self(1000210003);
-        pub const PER_TILE_BEGIN_INFO_QCOM: Self = Self(1000309003);
-        pub const PER_TILE_END_INFO_QCOM: Self = Self(1000309004);
-        pub const PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES: Self = Self(1000083000);
-        pub const PHYSICAL_DEVICE_4444_FORMATS_FEATURES_EXT: Self = Self(1000340000);
-        pub const PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES: Self = Self(1000177000);
-        pub const PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR: Self = Self(1000150013);
-        pub const PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_PROPERTIES_KHR: Self = Self(1000150014);
-        pub const PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT: Self = Self(1000354000);
-        pub const PHYSICAL_DEVICE_AMIGO_PROFILING_FEATURES_SEC: Self = Self(1000485000);
-        pub const PHYSICAL_DEVICE_ANTI_LAG_FEATURES_AMD: Self = Self(1000476000);
-        pub const PHYSICAL_DEVICE_ASTC_DECODE_FEATURES_EXT: Self = Self(1000067001);
-        pub const PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_DYNAMIC_STATE_FEATURES_EXT: Self =
-            Self(1000524000);
-        pub const PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_LAYOUT_FEATURES_EXT: Self =
-            Self(1000339000);
-        pub const PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_FEATURES_EXT: Self = Self(1000148000);
-        pub const PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT: Self = Self(1000148001);
-        pub const PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT: Self = Self(1000411000);
-        pub const PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES: Self = Self(1000257000);
-        pub const PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES_EXT: Self = Self(1000244000);
-        pub const PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_FEATURES_NV: Self =
-            Self(1000569000);
-        pub const PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_PROPERTIES_NV: Self =
-            Self(1000569001);
-        pub const PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI: Self = Self(1000404000);
-        pub const PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI: Self = Self(1000404001);
-        pub const PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_VRS_FEATURES_HUAWEI: Self =
-            Self(1000404002);
+        // VK_AMD_device_coherent_memory
         pub const PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD: Self = Self(1000229000);
-        pub const PHYSICAL_DEVICE_COLOR_WRITE_ENABLE_FEATURES_EXT: Self = Self(1000381000);
-        pub const PHYSICAL_DEVICE_COMMAND_BUFFER_INHERITANCE_FEATURES_NV: Self = Self(1000559000);
-        pub const PHYSICAL_DEVICE_COMPUTE_OCCUPANCY_PRIORITY_FEATURES_NV: Self = Self(1000645001);
-        pub const PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_FEATURES_KHR: Self = Self(1000201000);
-        pub const PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_PROPERTIES_KHR: Self =
-            Self(1000511000);
-        pub const PHYSICAL_DEVICE_CONDITIONAL_RENDERING_FEATURES_EXT: Self = Self(1000081001);
-        pub const PHYSICAL_DEVICE_CONSERVATIVE_RASTERIZATION_PROPERTIES_EXT: Self =
-            Self(1000101000);
-        pub const PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_FEATURES_NV: Self = Self(1000593000);
-        pub const PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_PROPERTIES_NV: Self = Self(1000593002);
-        pub const PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_KHR: Self = Self(1000506000);
-        pub const PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_NV: Self = Self(1000249000);
-        pub const PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_KHR: Self = Self(1000506002);
-        pub const PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_NV: Self = Self(1000249002);
-        pub const PHYSICAL_DEVICE_COOPERATIVE_VECTOR_FEATURES_NV: Self = Self(1000491000);
-        pub const PHYSICAL_DEVICE_COOPERATIVE_VECTOR_PROPERTIES_NV: Self = Self(1000491001);
-        pub const PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_KHR: Self = Self(1000549000);
-        pub const PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_NV: Self = Self(1000426000);
-        pub const PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR: Self = Self(1000426001);
-        pub const PHYSICAL_DEVICE_CORNER_SAMPLED_IMAGE_FEATURES_NV: Self = Self(1000050000);
-        pub const PHYSICAL_DEVICE_COVERAGE_REDUCTION_MODE_FEATURES_NV: Self = Self(1000250000);
-        pub const PHYSICAL_DEVICE_CUBIC_CLAMP_FEATURES_QCOM: Self = Self(1000521000);
-        pub const PHYSICAL_DEVICE_CUBIC_WEIGHTS_FEATURES_QCOM: Self = Self(1000519001);
-        pub const PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_FEATURES_NV: Self = Self(1000307003);
-        pub const PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_PROPERTIES_NV: Self = Self(1000307004);
-        pub const PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT: Self = Self(1000287002);
-        pub const PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_PROPERTIES_EXT: Self = Self(1000287001);
-        pub const PHYSICAL_DEVICE_CUSTOM_RESOLVE_FEATURES_EXT: Self = Self(1000628000);
-        pub const PHYSICAL_DEVICE_DATA_GRAPH_FEATURES_ARM: Self = Self(1000507006);
-        pub const PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM: Self = Self(1000629000);
-        pub const PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV: Self =
-            Self(1000240000);
-        pub const PHYSICAL_DEVICE_DENSE_GEOMETRY_FORMAT_FEATURES_AMDX: Self = Self(1000478000);
-        pub const PHYSICAL_DEVICE_DEPTH_BIAS_CONTROL_FEATURES_EXT: Self = Self(1000283000);
-        pub const PHYSICAL_DEVICE_DEPTH_CLAMP_CONTROL_FEATURES_EXT: Self = Self(1000582000);
-        pub const PHYSICAL_DEVICE_DEPTH_CLAMP_ZERO_ONE_FEATURES_KHR: Self = Self(1000421000);
-        pub const PHYSICAL_DEVICE_DEPTH_CLIP_CONTROL_FEATURES_EXT: Self = Self(1000355000);
-        pub const PHYSICAL_DEVICE_DEPTH_CLIP_ENABLE_FEATURES_EXT: Self = Self(1000102000);
-        pub const PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES: Self = Self(1000199000);
-        pub const PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_DENSITY_MAP_PROPERTIES_EXT: Self =
-            Self(1000316001);
-        pub const PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_FEATURES_EXT: Self = Self(1000316002);
-        pub const PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_PROPERTIES_EXT: Self = Self(1000316000);
-        pub const PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_FEATURES_ARM: Self = Self(1000460018);
-        pub const PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_PROPERTIES_ARM: Self = Self(1000460019);
-        pub const PHYSICAL_DEVICE_DESCRIPTOR_HEAP_FEATURES_EXT: Self = Self(1000135009);
-        pub const PHYSICAL_DEVICE_DESCRIPTOR_HEAP_PROPERTIES_EXT: Self = Self(1000135008);
-        pub const PHYSICAL_DEVICE_DESCRIPTOR_HEAP_TENSOR_PROPERTIES_ARM: Self = Self(1000135014);
-        pub const PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES: Self = Self(1000161001);
-        pub const PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES: Self = Self(1000161002);
-        pub const PHYSICAL_DEVICE_DESCRIPTOR_POOL_OVERALLOCATION_FEATURES_NV: Self =
-            Self(1000546000);
-        pub const PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE: Self =
-            Self(1000420000);
-        pub const PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV: Self =
-            Self(1000428000);
-        pub const PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_EXT: Self = Self(1000572000);
-        pub const PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_NV: Self = Self(1000277007);
-        pub const PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_EXT: Self = Self(1000572001);
-        pub const PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_NV: Self = Self(1000277000);
-        pub const PHYSICAL_DEVICE_DEVICE_MEMORY_REPORT_FEATURES_EXT: Self = Self(1000284000);
-        pub const PHYSICAL_DEVICE_DIAGNOSTICS_CONFIG_FEATURES_NV: Self = Self(1000300000);
-        pub const PHYSICAL_DEVICE_DISCARD_RECTANGLE_PROPERTIES_EXT: Self = Self(1000099000);
-        pub const PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV: Self = Self(1000397000);
-        pub const PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_PROPERTIES_NV: Self = Self(1000397001);
-        pub const PHYSICAL_DEVICE_DRIVER_PROPERTIES: Self = Self(1000196000);
-        pub const PHYSICAL_DEVICE_DRM_PROPERTIES_EXT: Self = Self(1000353000);
-        pub const PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES: Self = Self(1000044003);
-        pub const PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES: Self = Self(1000232000);
-        pub const PHYSICAL_DEVICE_DYNAMIC_RENDERING_UNUSED_ATTACHMENTS_FEATURES_EXT: Self =
-            Self(1000499000);
-        pub const PHYSICAL_DEVICE_EXCLUSIVE_SCISSOR_FEATURES_NV: Self = Self(1000205002);
-        pub const PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_2_FEATURES_EXT: Self = Self(1000377000);
-        pub const PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_FEATURES_EXT: Self = Self(1000455000);
-        pub const PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_PROPERTIES_EXT: Self = Self(1000455001);
-        pub const PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_FEATURES_EXT: Self = Self(1000267000);
-        pub const PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_FEATURES_NV: Self =
-            Self(1000492000);
-        pub const PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_PROPERTIES_NV: Self =
-            Self(1000492001);
-        pub const PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO: Self = Self(1000071002);
-        pub const PHYSICAL_DEVICE_EXTERNAL_COMPUTE_QUEUE_PROPERTIES_NV: Self = Self(1000556003);
-        pub const PHYSICAL_DEVICE_EXTERNAL_FENCE_INFO: Self = Self(1000112000);
+        // VK_AMD_display_native_hdr
+        pub const DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD: Self = Self(1000213000);
+        pub const SWAPCHAIN_DISPLAY_NATIVE_HDR_CREATE_INFO_AMD: Self = Self(1000213001);
+        // VK_AMD_memory_overallocation_behavior
+        pub const DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD: Self = Self(1000189000);
+        // VK_AMD_mixed_attachment_samples
+        pub const ATTACHMENT_SAMPLE_COUNT_INFO_AMD: Self = Self(1000044008);
+        // VK_AMD_pipeline_compiler_control
+        pub const PIPELINE_COMPILER_CONTROL_CREATE_INFO_AMD: Self = Self(1000183000);
+        // VK_AMD_rasterization_order
+        pub const PIPELINE_RASTERIZATION_STATE_RASTERIZATION_ORDER_AMD: Self = Self(1000018000);
+        // VK_AMD_shader_core_properties
+        pub const PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_AMD: Self = Self(1000185000);
+        // VK_AMD_shader_core_properties2
+        pub const PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_2_AMD: Self = Self(1000227000);
+        // VK_AMD_shader_early_and_late_fragment_tests
+        pub const PHYSICAL_DEVICE_SHADER_EARLY_AND_LATE_FRAGMENT_TESTS_FEATURES_AMD: Self =
+            Self(1000321000);
+        // VK_AMD_texture_gather_bias_lod
+        pub const TEXTURE_LOD_GATHER_FORMAT_PROPERTIES_AMD: Self = Self(1000041000);
+        // VK_ANDROID_external_format_resolve
         pub const PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_FEATURES_ANDROID: Self = Self(1000468000);
         pub const PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_PROPERTIES_ANDROID: Self =
             Self(1000468001);
-        pub const PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO: Self = Self(1000071000);
-        pub const PHYSICAL_DEVICE_EXTERNAL_MEMORY_HOST_PROPERTIES_EXT: Self = Self(1000178002);
-        pub const PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV: Self = Self(1000371001);
-        pub const PHYSICAL_DEVICE_EXTERNAL_MEMORY_SCREEN_BUFFER_FEATURES_QNX: Self =
-            Self(1000529004);
-        pub const PHYSICAL_DEVICE_EXTERNAL_SEMAPHORE_INFO: Self = Self(1000076000);
-        pub const PHYSICAL_DEVICE_EXTERNAL_TENSOR_INFO_ARM: Self = Self(1000460015);
-        pub const PHYSICAL_DEVICE_FAULT_FEATURES_EXT: Self = Self(1000341000);
-        pub const PHYSICAL_DEVICE_FEATURES_2: Self = Self(1000059000);
-        pub const PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES: Self = Self(1000197000);
+        pub const ANDROID_HARDWARE_BUFFER_FORMAT_RESOLVE_PROPERTIES_ANDROID: Self =
+            Self(1000468002);
+        // VK_ANDROID_external_memory_android_hardware_buffer
+        pub const ANDROID_HARDWARE_BUFFER_USAGE_ANDROID: Self = Self(1000129000);
+        pub const ANDROID_HARDWARE_BUFFER_PROPERTIES_ANDROID: Self = Self(1000129001);
+        pub const ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_ANDROID: Self = Self(1000129002);
+        pub const IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID: Self = Self(1000129003);
+        pub const MEMORY_GET_ANDROID_HARDWARE_BUFFER_INFO_ANDROID: Self = Self(1000129004);
+        pub const EXTERNAL_FORMAT_ANDROID: Self = Self(1000129005);
+        pub const ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_2_ANDROID: Self = Self(1000129006);
+        // VK_ARM_data_graph
+        pub const DATA_GRAPH_PIPELINE_CREATE_INFO_ARM: Self = Self(1000507000);
+        pub const DATA_GRAPH_PIPELINE_SESSION_CREATE_INFO_ARM: Self = Self(1000507001);
+        pub const DATA_GRAPH_PIPELINE_RESOURCE_INFO_ARM: Self = Self(1000507002);
+        pub const DATA_GRAPH_PIPELINE_CONSTANT_ARM: Self = Self(1000507003);
+        pub const DATA_GRAPH_PIPELINE_SESSION_MEMORY_REQUIREMENTS_INFO_ARM: Self = Self(1000507004);
+        pub const BIND_DATA_GRAPH_PIPELINE_SESSION_MEMORY_INFO_ARM: Self = Self(1000507005);
+        pub const PHYSICAL_DEVICE_DATA_GRAPH_FEATURES_ARM: Self = Self(1000507006);
+        pub const DATA_GRAPH_PIPELINE_SHADER_MODULE_CREATE_INFO_ARM: Self = Self(1000507007);
+        pub const DATA_GRAPH_PIPELINE_PROPERTY_QUERY_RESULT_ARM: Self = Self(1000507008);
+        pub const DATA_GRAPH_PIPELINE_INFO_ARM: Self = Self(1000507009);
+        pub const DATA_GRAPH_PIPELINE_COMPILER_CONTROL_CREATE_INFO_ARM: Self = Self(1000507010);
+        pub const DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENTS_INFO_ARM: Self =
+            Self(1000507011);
+        pub const DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENT_ARM: Self = Self(1000507012);
+        pub const DATA_GRAPH_PIPELINE_IDENTIFIER_CREATE_INFO_ARM: Self = Self(1000507013);
+        pub const DATA_GRAPH_PIPELINE_DISPATCH_INFO_ARM: Self = Self(1000507014);
+        pub const DATA_GRAPH_PROCESSING_ENGINE_CREATE_INFO_ARM: Self = Self(1000507016);
+        pub const QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_PROPERTIES_ARM: Self = Self(1000507017);
+        pub const QUEUE_FAMILY_DATA_GRAPH_PROPERTIES_ARM: Self = Self(1000507018);
+        pub const PHYSICAL_DEVICE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_INFO_ARM: Self =
+            Self(1000507019);
+        pub const DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM: Self =
+            Self(1000507015);
+        // VK_ARM_format_pack
         pub const PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM: Self = Self(1000609000);
-        pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_2_FEATURES_EXT: Self = Self(1000332000);
-        pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_2_PROPERTIES_EXT: Self = Self(1000332001);
-        pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_FEATURES_EXT: Self = Self(1000218000);
-        pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_FEATURES_VALVE: Self =
-            Self(1000611000);
-        pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_PROPERTIES_VALVE: Self =
-            Self(1000611001);
-        pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_EXT: Self = Self(1000425000);
-        pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT: Self =
-            Self(1000425001);
-        pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT: Self = Self(1000218001);
-        pub const PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_FEATURES_KHR: Self = Self(1000203000);
-        pub const PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_PROPERTIES_KHR: Self =
-            Self(1000322000);
-        pub const PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT: Self = Self(1000251000);
-        pub const PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_FEATURES_NV: Self = Self(1000326001);
-        pub const PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_PROPERTIES_NV: Self =
-            Self(1000326000);
-        pub const PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_FEATURES_KHR: Self = Self(1000226003);
-        pub const PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR: Self = Self(1000226004);
-        pub const PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_PROPERTIES_KHR: Self = Self(1000226002);
-        pub const PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT: Self = Self(1000375000);
-        pub const PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES: Self = Self(1000388000);
-        pub const PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_FEATURES_EXT: Self = Self(1000320000);
-        pub const PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_PROPERTIES_EXT: Self = Self(1000320001);
-        pub const PHYSICAL_DEVICE_GROUP_PROPERTIES: Self = Self(1000070000);
-        pub const PHYSICAL_DEVICE_HDR_VIVID_FEATURES_HUAWEI: Self = Self(1000590000);
-        pub const PHYSICAL_DEVICE_HOST_IMAGE_COPY_FEATURES: Self = Self(1000270000);
-        pub const PHYSICAL_DEVICE_HOST_IMAGE_COPY_PROPERTIES: Self = Self(1000270001);
-        pub const PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES: Self = Self(1000261000);
-        pub const PHYSICAL_DEVICE_ID_PROPERTIES: Self = Self(1000071004);
-        pub const PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES: Self = Self(1000108000);
-        pub const PHYSICAL_DEVICE_IMAGE_2D_VIEW_OF_3D_FEATURES_EXT: Self = Self(1000393000);
-        pub const PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_FEATURES_MESA: Self = Self(1000575000);
-        pub const PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_PROPERTIES_MESA: Self = Self(1000575001);
-        pub const PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_FEATURES_EXT: Self = Self(1000338000);
-        pub const PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_SWAPCHAIN_FEATURES_EXT: Self =
-            Self(1000437000);
-        pub const PHYSICAL_DEVICE_IMAGE_DRM_FORMAT_MODIFIER_INFO_EXT: Self = Self(1000158002);
-        pub const PHYSICAL_DEVICE_IMAGE_FORMAT_INFO_2: Self = Self(1000059004);
-        pub const PHYSICAL_DEVICE_IMAGE_PROCESSING_2_FEATURES_QCOM: Self = Self(1000518000);
-        pub const PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM: Self = Self(1000518001);
-        pub const PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM: Self = Self(1000440000);
-        pub const PHYSICAL_DEVICE_IMAGE_PROCESSING_PROPERTIES_QCOM: Self = Self(1000440001);
-        pub const PHYSICAL_DEVICE_IMAGE_ROBUSTNESS_FEATURES: Self = Self(1000335000);
-        pub const PHYSICAL_DEVICE_IMAGE_SLICED_VIEW_OF_3D_FEATURES_EXT: Self = Self(1000418000);
-        pub const PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT: Self = Self(1000170000);
-        pub const PHYSICAL_DEVICE_IMAGE_VIEW_MIN_LOD_FEATURES_EXT: Self = Self(1000391000);
-        pub const PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES: Self = Self(1000265000);
-        pub const PHYSICAL_DEVICE_INHERITED_VIEWPORT_SCISSOR_FEATURES_NV: Self = Self(1000278000);
-        pub const PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_FEATURES: Self = Self(1000138000);
-        pub const PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_PROPERTIES: Self = Self(1000138001);
-        pub const PHYSICAL_DEVICE_INTERNALLY_SYNCHRONIZED_QUEUES_FEATURES_KHR: Self =
-            Self(1000504000);
-        pub const PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI: Self = Self(1000370000);
-        pub const PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_KHR: Self = Self(1000562003);
-        pub const PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_LIST_KHR: Self = Self(1000562002);
-        pub const PHYSICAL_DEVICE_LAYERED_API_VULKAN_PROPERTIES_KHR: Self = Self(1000562004);
-        pub const PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT: Self = Self(1000530000);
-        pub const PHYSICAL_DEVICE_LEGACY_DITHERING_FEATURES_EXT: Self = Self(1000465000);
-        pub const PHYSICAL_DEVICE_LEGACY_VERTEX_ATTRIBUTES_FEATURES_EXT: Self = Self(1000495000);
-        pub const PHYSICAL_DEVICE_LEGACY_VERTEX_ATTRIBUTES_PROPERTIES_EXT: Self = Self(1000495001);
-        pub const PHYSICAL_DEVICE_LINEAR_COLOR_ATTACHMENT_FEATURES_NV: Self = Self(1000430000);
-        pub const PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES: Self = Self(1000259000);
-        pub const PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES: Self = Self(1000259002);
-        pub const PHYSICAL_DEVICE_MAINTENANCE_10_FEATURES_KHR: Self = Self(1000630000);
-        pub const PHYSICAL_DEVICE_MAINTENANCE_10_PROPERTIES_KHR: Self = Self(1000630001);
-        pub const PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES: Self = Self(1000168000);
-        pub const PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES: Self = Self(1000413000);
-        pub const PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES: Self = Self(1000413001);
-        pub const PHYSICAL_DEVICE_MAINTENANCE_5_FEATURES: Self = Self(1000470000);
-        pub const PHYSICAL_DEVICE_MAINTENANCE_5_PROPERTIES: Self = Self(1000470001);
-        pub const PHYSICAL_DEVICE_MAINTENANCE_6_FEATURES: Self = Self(1000545000);
-        pub const PHYSICAL_DEVICE_MAINTENANCE_6_PROPERTIES: Self = Self(1000545001);
-        pub const PHYSICAL_DEVICE_MAINTENANCE_7_FEATURES_KHR: Self = Self(1000562000);
-        pub const PHYSICAL_DEVICE_MAINTENANCE_7_PROPERTIES_KHR: Self = Self(1000562001);
-        pub const PHYSICAL_DEVICE_MAINTENANCE_8_FEATURES_KHR: Self = Self(1000574000);
-        pub const PHYSICAL_DEVICE_MAINTENANCE_9_FEATURES_KHR: Self = Self(1000584000);
-        pub const PHYSICAL_DEVICE_MAINTENANCE_9_PROPERTIES_KHR: Self = Self(1000584001);
-        pub const PHYSICAL_DEVICE_MAP_MEMORY_PLACED_FEATURES_EXT: Self = Self(1000272000);
-        pub const PHYSICAL_DEVICE_MAP_MEMORY_PLACED_PROPERTIES_EXT: Self = Self(1000272001);
-        pub const PHYSICAL_DEVICE_MEMORY_BUDGET_PROPERTIES_EXT: Self = Self(1000237000);
-        pub const PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_EXT: Self = Self(1000427000);
-        pub const PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_EXT: Self = Self(1000427001);
-        pub const PHYSICAL_DEVICE_MEMORY_PRIORITY_FEATURES_EXT: Self = Self(1000238000);
-        pub const PHYSICAL_DEVICE_MEMORY_PROPERTIES_2: Self = Self(1000059006);
-        pub const PHYSICAL_DEVICE_MESH_SHADER_FEATURES_EXT: Self = Self(1000328000);
-        pub const PHYSICAL_DEVICE_MESH_SHADER_FEATURES_NV: Self = Self(1000202000);
-        pub const PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_EXT: Self = Self(1000328001);
-        pub const PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV: Self = Self(1000202001);
-        pub const PHYSICAL_DEVICE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_FEATURES_EXT: Self =
-            Self(1000376000);
-        pub const PHYSICAL_DEVICE_MULTIVIEW_FEATURES: Self = Self(1000053001);
-        pub const PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_ATTRIBUTES_PROPERTIES_NVX: Self =
-            Self(1000097000);
-        pub const PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_RENDER_AREAS_FEATURES_QCOM: Self =
-            Self(1000510000);
-        pub const PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_VIEWPORTS_FEATURES_QCOM: Self =
-            Self(1000488000);
-        pub const PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES: Self = Self(1000053002);
-        pub const PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT: Self = Self(1000392000);
-        pub const PHYSICAL_DEVICE_MULTI_DRAW_PROPERTIES_EXT: Self = Self(1000392001);
-        pub const PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT: Self = Self(1000351000);
-        pub const PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_FEATURES_EXT: Self = Self(1000451000);
-        pub const PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_PROPERTIES_EXT: Self = Self(1000451001);
-        pub const PHYSICAL_DEVICE_NON_SEAMLESS_CUBE_MAP_FEATURES_EXT: Self = Self(1000422000);
-        pub const PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_EXT: Self = Self(1000396005);
-        pub const PHYSICAL_DEVICE_OPACITY_MICROMAP_PROPERTIES_EXT: Self = Self(1000396006);
-        pub const PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV: Self = Self(1000464000);
-        pub const PHYSICAL_DEVICE_OPTICAL_FLOW_PROPERTIES_NV: Self = Self(1000464001);
-        pub const PHYSICAL_DEVICE_PAGEABLE_DEVICE_LOCAL_MEMORY_FEATURES_EXT: Self =
-            Self(1000412000);
-        pub const PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_FEATURES_NV: Self =
-            Self(1000570000);
-        pub const PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_PROPERTIES_NV: Self =
-            Self(1000570001);
-        pub const PHYSICAL_DEVICE_PCI_BUS_INFO_PROPERTIES_EXT: Self = Self(1000212000);
+        // VK_ARM_performance_counters_by_region
         pub const PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_FEATURES_ARM: Self =
             Self(1000605000);
         pub const PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_PROPERTIES_ARM: Self =
             Self(1000605001);
-        pub const PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR: Self = Self(1000116000);
-        pub const PHYSICAL_DEVICE_PERFORMANCE_QUERY_PROPERTIES_KHR: Self = Self(1000116001);
-        pub const PHYSICAL_DEVICE_PER_STAGE_DESCRIPTOR_SET_FEATURES_NV: Self = Self(1000516000);
-        pub const PHYSICAL_DEVICE_PIPELINE_BINARY_FEATURES_KHR: Self = Self(1000483000);
-        pub const PHYSICAL_DEVICE_PIPELINE_BINARY_PROPERTIES_KHR: Self = Self(1000483004);
-        pub const PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC: Self =
-            Self(1000637000);
-        pub const PHYSICAL_DEVICE_PIPELINE_CREATION_CACHE_CONTROL_FEATURES: Self = Self(1000297000);
-        pub const PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR: Self =
-            Self(1000269000);
-        pub const PHYSICAL_DEVICE_PIPELINE_LIBRARY_GROUP_HANDLES_FEATURES_EXT: Self =
-            Self(1000498000);
-        pub const PHYSICAL_DEVICE_PIPELINE_OPACITY_MICROMAP_FEATURES_ARM: Self = Self(1000596000);
-        pub const PHYSICAL_DEVICE_PIPELINE_PROPERTIES_FEATURES_EXT: Self = Self(1000372001);
-        pub const PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES: Self = Self(1000466000);
-        pub const PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_FEATURES: Self = Self(1000068001);
-        pub const PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_PROPERTIES: Self = Self(1000068002);
-        pub const PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES: Self = Self(1000117000);
-        pub const PHYSICAL_DEVICE_PORTABILITY_SUBSET_FEATURES_KHR: Self = Self(1000163000);
-        pub const PHYSICAL_DEVICE_PORTABILITY_SUBSET_PROPERTIES_KHR: Self = Self(1000163001);
-        pub const PHYSICAL_DEVICE_PRESENT_BARRIER_FEATURES_NV: Self = Self(1000292000);
-        pub const PHYSICAL_DEVICE_PRESENT_ID_2_FEATURES_KHR: Self = Self(1000479002);
-        pub const PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR: Self = Self(1000294001);
-        pub const PHYSICAL_DEVICE_PRESENT_METERING_FEATURES_NV: Self = Self(1000613001);
-        pub const PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_KHR: Self =
-            Self(1000361000);
-        pub const PHYSICAL_DEVICE_PRESENT_TIMING_FEATURES_EXT: Self = Self(1000208000);
-        pub const PHYSICAL_DEVICE_PRESENT_WAIT_2_FEATURES_KHR: Self = Self(1000480001);
-        pub const PHYSICAL_DEVICE_PRESENT_WAIT_FEATURES_KHR: Self = Self(1000248000);
-        pub const PHYSICAL_DEVICE_PRIMITIVES_GENERATED_QUERY_FEATURES_EXT: Self = Self(1000382000);
-        pub const PHYSICAL_DEVICE_PRIMITIVE_TOPOLOGY_LIST_RESTART_FEATURES_EXT: Self =
-            Self(1000356000);
-        pub const PHYSICAL_DEVICE_PRIVATE_DATA_FEATURES: Self = Self(1000295000);
-        pub const PHYSICAL_DEVICE_PROPERTIES_2: Self = Self(1000059001);
-        pub const PHYSICAL_DEVICE_PROTECTED_MEMORY_FEATURES: Self = Self(1000145001);
-        pub const PHYSICAL_DEVICE_PROTECTED_MEMORY_PROPERTIES: Self = Self(1000145002);
-        pub const PHYSICAL_DEVICE_PROVOKING_VERTEX_FEATURES_EXT: Self = Self(1000254000);
-        pub const PHYSICAL_DEVICE_PROVOKING_VERTEX_PROPERTIES_EXT: Self = Self(1000254002);
-        pub const PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_FEATURES_NV: Self = Self(1000580001);
-        pub const PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_PROPERTIES_NV: Self = Self(1000580002);
-        pub const PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES: Self = Self(1000080000);
-        pub const PHYSICAL_DEVICE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_INFO_ARM: Self =
-            Self(1000507019);
-        pub const PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT: Self =
-            Self(1000342000);
-        pub const PHYSICAL_DEVICE_RAW_ACCESS_CHAINS_FEATURES_NV: Self = Self(1000555000);
-        pub const PHYSICAL_DEVICE_RAY_QUERY_FEATURES_KHR: Self = Self(1000348013);
-        pub const PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_EXT: Self =
-            Self(1000581000);
-        pub const PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_NV: Self =
-            Self(1000490000);
-        pub const PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_EXT: Self =
-            Self(1000581001);
-        pub const PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_NV: Self =
-            Self(1000490001);
-        pub const PHYSICAL_DEVICE_RAY_TRACING_LINEAR_SWEPT_SPHERES_FEATURES_NV: Self =
-            Self(1000429008);
-        pub const PHYSICAL_DEVICE_RAY_TRACING_MAINTENANCE_1_FEATURES_KHR: Self = Self(1000386000);
-        pub const PHYSICAL_DEVICE_RAY_TRACING_MOTION_BLUR_FEATURES_NV: Self = Self(1000327001);
-        pub const PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR: Self = Self(1000347000);
-        pub const PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR: Self = Self(1000347001);
-        pub const PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR: Self = Self(1000481000);
-        pub const PHYSICAL_DEVICE_RAY_TRACING_PROPERTIES_NV: Self = Self(1000165009);
-        pub const PHYSICAL_DEVICE_RAY_TRACING_VALIDATION_FEATURES_NV: Self = Self(1000568000);
-        pub const PHYSICAL_DEVICE_RELAXED_LINE_RASTERIZATION_FEATURES_IMG: Self = Self(1000110000);
-        pub const PHYSICAL_DEVICE_RENDER_PASS_STRIPED_FEATURES_ARM: Self = Self(1000424000);
-        pub const PHYSICAL_DEVICE_RENDER_PASS_STRIPED_PROPERTIES_ARM: Self = Self(1000424001);
-        pub const PHYSICAL_DEVICE_REPRESENTATIVE_FRAGMENT_TEST_FEATURES_NV: Self = Self(1000166000);
-        pub const PHYSICAL_DEVICE_RGBA10X6_FORMATS_FEATURES_EXT: Self = Self(1000344000);
-        pub const PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR: Self = Self(1000286000);
-        pub const PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_KHR: Self = Self(1000286001);
-        pub const PHYSICAL_DEVICE_SAMPLER_FILTER_MINMAX_PROPERTIES: Self = Self(1000130000);
-        pub const PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES: Self = Self(1000156004);
-        pub const PHYSICAL_DEVICE_SAMPLE_LOCATIONS_PROPERTIES_EXT: Self = Self(1000143003);
-        pub const PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES: Self = Self(1000221000);
-        pub const PHYSICAL_DEVICE_SCHEDULING_CONTROLS_FEATURES_ARM: Self = Self(1000417001);
-        pub const PHYSICAL_DEVICE_SCHEDULING_CONTROLS_PROPERTIES_ARM: Self = Self(1000417002);
-        pub const PHYSICAL_DEVICE_SEPARATE_DEPTH_STENCIL_LAYOUTS_FEATURES: Self = Self(1000241000);
-        pub const PHYSICAL_DEVICE_SHADER_64_BIT_INDEXING_FEATURES_EXT: Self = Self(1000627000);
-        pub const PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT16_VECTOR_FEATURES_NV: Self = Self(1000563000);
-        pub const PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_2_FEATURES_EXT: Self = Self(1000273000);
-        pub const PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_FEATURES_EXT: Self = Self(1000260000);
-        pub const PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES: Self = Self(1000180000);
-        pub const PHYSICAL_DEVICE_SHADER_BFLOAT16_FEATURES_KHR: Self = Self(1000141000);
-        pub const PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR: Self = Self(1000181000);
-        pub const PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_FEATURES_ARM: Self = Self(1000497000);
-        pub const PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_PROPERTIES_ARM: Self = Self(1000497001);
-        pub const PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_2_AMD: Self = Self(1000227000);
-        pub const PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_AMD: Self = Self(1000185000);
-        pub const PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM: Self = Self(1000415000);
-        pub const PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES: Self =
-            Self(1000276000);
-        pub const PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES: Self = Self(1000063000);
-        pub const PHYSICAL_DEVICE_SHADER_EARLY_AND_LATE_FRAGMENT_TESTS_FEATURES_AMD: Self =
-            Self(1000321000);
-        pub const PHYSICAL_DEVICE_SHADER_ENQUEUE_FEATURES_AMDX: Self = Self(1000134000);
-        pub const PHYSICAL_DEVICE_SHADER_ENQUEUE_PROPERTIES_AMDX: Self = Self(1000134001);
-        pub const PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES: Self = Self(1000544000);
-        pub const PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES: Self = Self(1000082000);
-        pub const PHYSICAL_DEVICE_SHADER_FLOAT8_FEATURES_EXT: Self = Self(1000567000);
-        pub const PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES: Self = Self(1000528000);
-        pub const PHYSICAL_DEVICE_SHADER_FMA_FEATURES_KHR: Self = Self(1000579000);
-        pub const PHYSICAL_DEVICE_SHADER_IMAGE_ATOMIC_INT64_FEATURES_EXT: Self = Self(1000234000);
-        pub const PHYSICAL_DEVICE_SHADER_IMAGE_FOOTPRINT_FEATURES_NV: Self = Self(1000204000);
-        pub const PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES: Self = Self(1000280000);
-        pub const PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES: Self = Self(1000280001);
-        pub const PHYSICAL_DEVICE_SHADER_INTEGER_FUNCTIONS_2_FEATURES_INTEL: Self =
-            Self(1000209000);
-        pub const PHYSICAL_DEVICE_SHADER_LONG_VECTOR_FEATURES_EXT: Self = Self(1000635000);
-        pub const PHYSICAL_DEVICE_SHADER_LONG_VECTOR_PROPERTIES_EXT: Self = Self(1000635001);
-        pub const PHYSICAL_DEVICE_SHADER_MAXIMAL_RECONVERGENCE_FEATURES_KHR: Self =
-            Self(1000434000);
-        pub const PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_FEATURES_EXT: Self = Self(1000462000);
-        pub const PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_PROPERTIES_EXT: Self = Self(1000462001);
-        pub const PHYSICAL_DEVICE_SHADER_OBJECT_FEATURES_EXT: Self = Self(1000482000);
-        pub const PHYSICAL_DEVICE_SHADER_OBJECT_PROPERTIES_EXT: Self = Self(1000482001);
-        pub const PHYSICAL_DEVICE_SHADER_QUAD_CONTROL_FEATURES_KHR: Self = Self(1000235000);
-        pub const PHYSICAL_DEVICE_SHADER_RELAXED_EXTENDED_INSTRUCTION_FEATURES_KHR: Self =
-            Self(1000558000);
-        pub const PHYSICAL_DEVICE_SHADER_REPLICATED_COMPOSITES_FEATURES_EXT: Self =
-            Self(1000564000);
-        pub const PHYSICAL_DEVICE_SHADER_SM_BUILTINS_FEATURES_NV: Self = Self(1000154000);
-        pub const PHYSICAL_DEVICE_SHADER_SM_BUILTINS_PROPERTIES_NV: Self = Self(1000154001);
-        pub const PHYSICAL_DEVICE_SHADER_SUBGROUP_EXTENDED_TYPES_FEATURES: Self = Self(1000175000);
-        pub const PHYSICAL_DEVICE_SHADER_SUBGROUP_PARTITIONED_FEATURES_EXT: Self = Self(1000662000);
-        pub const PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES: Self = Self(1000416000);
-        pub const PHYSICAL_DEVICE_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_FEATURES_KHR: Self =
-            Self(1000323000);
-        pub const PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES: Self = Self(1000215000);
-        pub const PHYSICAL_DEVICE_SHADER_TILE_IMAGE_FEATURES_EXT: Self = Self(1000395000);
-        pub const PHYSICAL_DEVICE_SHADER_TILE_IMAGE_PROPERTIES_EXT: Self = Self(1000395001);
-        pub const PHYSICAL_DEVICE_SHADER_UNIFORM_BUFFER_UNSIZED_ARRAY_FEATURES_EXT: Self =
-            Self(1000642000);
-        pub const PHYSICAL_DEVICE_SHADER_UNTYPED_POINTERS_FEATURES_KHR: Self = Self(1000387000);
-        pub const PHYSICAL_DEVICE_SHADING_RATE_IMAGE_FEATURES_NV: Self = Self(1000164001);
-        pub const PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV: Self = Self(1000164002);
-        pub const PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2: Self = Self(1000059008);
-        pub const PHYSICAL_DEVICE_SUBGROUP_PROPERTIES: Self = Self(1000094000);
-        pub const PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_FEATURES: Self = Self(1000225002);
-        pub const PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_PROPERTIES: Self = Self(1000225000);
-        pub const PHYSICAL_DEVICE_SUBPASS_MERGE_FEEDBACK_FEATURES_EXT: Self = Self(1000458000);
-        pub const PHYSICAL_DEVICE_SUBPASS_SHADING_FEATURES_HUAWEI: Self = Self(1000369001);
-        pub const PHYSICAL_DEVICE_SUBPASS_SHADING_PROPERTIES_HUAWEI: Self = Self(1000369002);
-        pub const PHYSICAL_DEVICE_SURFACE_INFO_2_KHR: Self = Self(1000119000);
-        pub const PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR: Self = Self(1000275000);
-        pub const PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES: Self = Self(1000314007);
-        pub const PHYSICAL_DEVICE_TENSOR_FEATURES_ARM: Self = Self(1000460009);
-        pub const PHYSICAL_DEVICE_TENSOR_PROPERTIES_ARM: Self = Self(1000460004);
-        pub const PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_FEATURES_EXT: Self = Self(1000281000);
-        pub const PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES: Self = Self(1000281001);
-        pub const PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_3D_FEATURES_EXT: Self = Self(1000288000);
-        pub const PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES: Self = Self(1000066000);
-        pub const PHYSICAL_DEVICE_TILE_MEMORY_HEAP_FEATURES_QCOM: Self = Self(1000547000);
-        pub const PHYSICAL_DEVICE_TILE_MEMORY_HEAP_PROPERTIES_QCOM: Self = Self(1000547001);
-        pub const PHYSICAL_DEVICE_TILE_PROPERTIES_FEATURES_QCOM: Self = Self(1000484000);
-        pub const PHYSICAL_DEVICE_TILE_SHADING_FEATURES_QCOM: Self = Self(1000309000);
-        pub const PHYSICAL_DEVICE_TILE_SHADING_PROPERTIES_QCOM: Self = Self(1000309001);
-        pub const PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES: Self = Self(1000207000);
-        pub const PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_PROPERTIES: Self = Self(1000207001);
-        pub const PHYSICAL_DEVICE_TOOL_PROPERTIES: Self = Self(1000245000);
-        pub const PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_FEATURES_EXT: Self = Self(1000028000);
-        pub const PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_PROPERTIES_EXT: Self = Self(1000028001);
-        pub const PHYSICAL_DEVICE_UNIFIED_IMAGE_LAYOUTS_FEATURES_KHR: Self = Self(1000527000);
-        pub const PHYSICAL_DEVICE_UNIFORM_BUFFER_STANDARD_LAYOUT_FEATURES: Self = Self(1000253000);
-        pub const PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES: Self = Self(1000120000);
-        pub const PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES: Self = Self(1000190002);
-        pub const PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES: Self = Self(1000525000);
-        pub const PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_EXT: Self = Self(1000190000);
-        pub const PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_ROBUSTNESS_FEATURES_EXT: Self = Self(1000608000);
-        pub const PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT: Self = Self(1000352000);
-        pub const PHYSICAL_DEVICE_VIDEO_DECODE_VP9_FEATURES_KHR: Self = Self(1000514000);
-        pub const PHYSICAL_DEVICE_VIDEO_ENCODE_AV1_FEATURES_KHR: Self = Self(1000513004);
-        pub const PHYSICAL_DEVICE_VIDEO_ENCODE_INTRA_REFRESH_FEATURES_KHR: Self = Self(1000552004);
-        pub const PHYSICAL_DEVICE_VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR: Self = Self(1000299006);
-        pub const PHYSICAL_DEVICE_VIDEO_ENCODE_QUANTIZATION_MAP_FEATURES_KHR: Self =
-            Self(1000553009);
-        pub const PHYSICAL_DEVICE_VIDEO_ENCODE_RGB_CONVERSION_FEATURES_VALVE: Self =
-            Self(1000390000);
-        pub const PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR: Self = Self(1000023014);
-        pub const PHYSICAL_DEVICE_VIDEO_MAINTENANCE_1_FEATURES_KHR: Self = Self(1000515000);
-        pub const PHYSICAL_DEVICE_VIDEO_MAINTENANCE_2_FEATURES_KHR: Self = Self(1000586000);
-        pub const PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES: Self = Self(1000211000);
-        pub const PHYSICAL_DEVICE_WORKGROUP_MEMORY_EXPLICIT_LAYOUT_FEATURES_KHR: Self =
-            Self(1000336000);
-        pub const PHYSICAL_DEVICE_YCBCR_2_PLANE_444_FORMATS_FEATURES_EXT: Self = Self(1000330000);
-        pub const PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM: Self = Self(1000520000);
-        pub const PHYSICAL_DEVICE_YCBCR_IMAGE_ARRAYS_FEATURES_EXT: Self = Self(1000252000);
-        pub const PHYSICAL_DEVICE_ZERO_INITIALIZE_DEVICE_MEMORY_FEATURES_EXT: Self =
-            Self(1000620000);
-        pub const PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES: Self =
-            Self(1000325000);
-        pub const PIPELINE_BINARY_CREATE_INFO_KHR: Self = Self(1000483001);
-        pub const PIPELINE_BINARY_DATA_INFO_KHR: Self = Self(1000483006);
-        pub const PIPELINE_BINARY_HANDLES_INFO_KHR: Self = Self(1000483009);
-        pub const PIPELINE_BINARY_INFO_KHR: Self = Self(1000483002);
-        pub const PIPELINE_BINARY_KEY_KHR: Self = Self(1000483003);
-        pub const PIPELINE_COLOR_BLEND_ADVANCED_STATE_CREATE_INFO_EXT: Self = Self(1000148002);
-        pub const PIPELINE_COLOR_WRITE_CREATE_INFO_EXT: Self = Self(1000381001);
-        pub const PIPELINE_COMPILER_CONTROL_CREATE_INFO_AMD: Self = Self(1000183000);
-        pub const PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV: Self = Self(1000152000);
-        pub const PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV: Self = Self(1000250001);
-        pub const PIPELINE_COVERAGE_TO_COLOR_STATE_CREATE_INFO_NV: Self = Self(1000149000);
-        pub const PIPELINE_CREATE_FLAGS_2_CREATE_INFO: Self = Self(1000470005);
-        pub const PIPELINE_CREATE_INFO_KHR: Self = Self(1000483007);
-        pub const PIPELINE_CREATION_FEEDBACK_CREATE_INFO: Self = Self(1000192000);
-        pub const PIPELINE_DISCARD_RECTANGLE_STATE_CREATE_INFO_EXT: Self = Self(1000099001);
-        pub const PIPELINE_EXECUTABLE_INFO_KHR: Self = Self(1000269003);
-        pub const PIPELINE_EXECUTABLE_INTERNAL_REPRESENTATION_KHR: Self = Self(1000269005);
-        pub const PIPELINE_EXECUTABLE_PROPERTIES_KHR: Self = Self(1000269002);
-        pub const PIPELINE_EXECUTABLE_STATISTIC_KHR: Self = Self(1000269004);
-        pub const PIPELINE_FRAGMENT_DENSITY_MAP_LAYERED_CREATE_INFO_VALVE: Self = Self(1000611002);
-        pub const PIPELINE_FRAGMENT_SHADING_RATE_ENUM_STATE_CREATE_INFO_NV: Self = Self(1000326002);
-        pub const PIPELINE_FRAGMENT_SHADING_RATE_STATE_CREATE_INFO_KHR: Self = Self(1000226001);
-        pub const PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV: Self = Self(1000428002);
-        pub const PIPELINE_INFO_KHR: Self = Self(1000269001);
-        pub const PIPELINE_LIBRARY_CREATE_INFO_KHR: Self = Self(1000290000);
-        pub const PIPELINE_PROPERTIES_IDENTIFIER_EXT: Self = Self(1000372000);
-        pub const PIPELINE_RASTERIZATION_CONSERVATIVE_STATE_CREATE_INFO_EXT: Self =
-            Self(1000101001);
-        pub const PIPELINE_RASTERIZATION_DEPTH_CLIP_STATE_CREATE_INFO_EXT: Self = Self(1000102001);
-        pub const PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO: Self = Self(1000259001);
-        pub const PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT: Self =
-            Self(1000254001);
-        pub const PIPELINE_RASTERIZATION_STATE_RASTERIZATION_ORDER_AMD: Self = Self(1000018000);
-        pub const PIPELINE_RASTERIZATION_STATE_STREAM_CREATE_INFO_EXT: Self = Self(1000028002);
-        pub const PIPELINE_RENDERING_CREATE_INFO: Self = Self(1000044002);
-        pub const PIPELINE_REPRESENTATIVE_FRAGMENT_TEST_STATE_CREATE_INFO_NV: Self =
-            Self(1000166001);
-        pub const PIPELINE_ROBUSTNESS_CREATE_INFO: Self = Self(1000068000);
-        pub const PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT: Self = Self(1000143002);
-        pub const PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT: Self = Self(1000462002);
-        pub const PIPELINE_SHADER_STAGE_NODE_CREATE_INFO_AMDX: Self = Self(1000134004);
-        pub const PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO: Self = Self(1000225001);
-        pub const PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO: Self = Self(1000117003);
-        pub const PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO: Self = Self(1000190001);
-        pub const PIPELINE_VIEWPORT_COARSE_SAMPLE_ORDER_STATE_CREATE_INFO_NV: Self =
-            Self(1000164005);
-        pub const PIPELINE_VIEWPORT_DEPTH_CLAMP_CONTROL_CREATE_INFO_EXT: Self = Self(1000582001);
-        pub const PIPELINE_VIEWPORT_DEPTH_CLIP_CONTROL_CREATE_INFO_EXT: Self = Self(1000355001);
-        pub const PIPELINE_VIEWPORT_EXCLUSIVE_SCISSOR_STATE_CREATE_INFO_NV: Self = Self(1000205000);
-        pub const PIPELINE_VIEWPORT_SHADING_RATE_IMAGE_STATE_CREATE_INFO_NV: Self =
-            Self(1000164000);
-        pub const PIPELINE_VIEWPORT_SWIZZLE_STATE_CREATE_INFO_NV: Self = Self(1000098000);
-        pub const PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV: Self = Self(1000087000);
-        pub const PRESENT_FRAME_TOKEN_GGP: Self = Self(1000191000);
-        pub const PRESENT_ID_2_KHR: Self = Self(1000479001);
-        pub const PRESENT_ID_KHR: Self = Self(1000294000);
-        pub const PRESENT_INFO_KHR: Self = Self(1000001001);
-        pub const PRESENT_REGIONS_KHR: Self = Self(1000084000);
-        pub const PRESENT_TIMES_INFO_GOOGLE: Self = Self(1000092000);
-        pub const PRESENT_TIMINGS_INFO_EXT: Self = Self(1000208003);
-        pub const PRESENT_TIMING_INFO_EXT: Self = Self(1000208004);
-        pub const PRESENT_TIMING_SURFACE_CAPABILITIES_EXT: Self = Self(1000208008);
-        pub const PRESENT_WAIT_2_INFO_KHR: Self = Self(1000480002);
-        pub const PRIVATE_DATA_SLOT_CREATE_INFO: Self = Self(1000295002);
-        pub const PROTECTED_SUBMIT_INFO: Self = Self(1000145000);
-        pub const PUSH_CONSTANTS_INFO: Self = Self(1000545004);
-        pub const PUSH_CONSTANT_BANK_INFO_NV: Self = Self(1000580000);
-        pub const PUSH_DATA_INFO_EXT: Self = Self(1000135004);
-        pub const PUSH_DESCRIPTOR_SET_INFO: Self = Self(1000545005);
-        pub const PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO: Self = Self(1000545006);
-        pub const QUERY_LOW_LATENCY_SUPPORT_NV: Self = Self(1000310000);
-        pub const QUERY_POOL_PERFORMANCE_CREATE_INFO_KHR: Self = Self(1000116002);
-        pub const QUERY_POOL_PERFORMANCE_QUERY_CREATE_INFO_INTEL: Self = Self(1000210000);
-        pub const QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR: Self = Self(1000299005);
-        pub const QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV: Self = Self(1000314008);
-        pub const QUEUE_FAMILY_CHECKPOINT_PROPERTIES_NV: Self = Self(1000206001);
-        pub const QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_PROPERTIES_ARM: Self = Self(1000507017);
-        pub const QUEUE_FAMILY_DATA_GRAPH_PROPERTIES_ARM: Self = Self(1000507018);
-        pub const QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES: Self = Self(1000388001);
-        pub const QUEUE_FAMILY_OWNERSHIP_TRANSFER_PROPERTIES_KHR: Self = Self(1000584002);
-        pub const QUEUE_FAMILY_PROPERTIES_2: Self = Self(1000059005);
-        pub const QUEUE_FAMILY_QUERY_RESULT_STATUS_PROPERTIES_KHR: Self = Self(1000023016);
-        pub const QUEUE_FAMILY_VIDEO_PROPERTIES_KHR: Self = Self(1000023012);
-        pub const RAY_TRACING_PIPELINE_CLUSTER_ACCELERATION_STRUCTURE_CREATE_INFO_NV: Self =
-            Self(1000569007);
-        pub const RAY_TRACING_PIPELINE_CREATE_INFO_KHR: Self = Self(1000150015);
-        pub const RAY_TRACING_PIPELINE_CREATE_INFO_NV: Self = Self(1000165000);
-        pub const RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR: Self = Self(1000150018);
-        pub const RAY_TRACING_SHADER_GROUP_CREATE_INFO_KHR: Self = Self(1000150016);
-        pub const RAY_TRACING_SHADER_GROUP_CREATE_INFO_NV: Self = Self(1000165011);
-        pub const RELEASE_CAPTURED_PIPELINE_DATA_INFO_KHR: Self = Self(1000483005);
-        pub const RELEASE_SWAPCHAIN_IMAGES_INFO_KHR: Self = Self(1000275005);
-        pub const RENDERING_AREA_INFO: Self = Self(1000470003);
-        pub const RENDERING_ATTACHMENT_FLAGS_INFO_KHR: Self = Self(1000630002);
-        pub const RENDERING_ATTACHMENT_INFO: Self = Self(1000044001);
-        pub const RENDERING_ATTACHMENT_LOCATION_INFO: Self = Self(1000232001);
-        pub const RENDERING_END_INFO_KHR: Self = Self(1000619003);
-        pub const RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_INFO_EXT: Self = Self(1000044007);
-        pub const RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR: Self = Self(1000044006);
-        pub const RENDERING_INFO: Self = Self(1000044000);
-        pub const RENDERING_INPUT_ATTACHMENT_INDEX_INFO: Self = Self(1000232002);
-        pub const RENDER_PASS_ATTACHMENT_BEGIN_INFO: Self = Self(1000108003);
-        pub const RENDER_PASS_CREATE_INFO_2: Self = Self(1000109004);
-        pub const RENDER_PASS_CREATION_CONTROL_EXT: Self = Self(1000458001);
-        pub const RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT: Self = Self(1000458002);
-        pub const RENDER_PASS_FRAGMENT_DENSITY_MAP_CREATE_INFO_EXT: Self = Self(1000218002);
-        pub const RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT: Self = Self(1000425002);
-        pub const RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO: Self = Self(1000117001);
-        pub const RENDER_PASS_MULTIVIEW_CREATE_INFO: Self = Self(1000053000);
+        pub const PERFORMANCE_COUNTER_ARM: Self = Self(1000605002);
+        pub const PERFORMANCE_COUNTER_DESCRIPTION_ARM: Self = Self(1000605003);
         pub const RENDER_PASS_PERFORMANCE_COUNTERS_BY_REGION_BEGIN_INFO_ARM: Self =
             Self(1000605004);
-        pub const RENDER_PASS_SAMPLE_LOCATIONS_BEGIN_INFO_EXT: Self = Self(1000143001);
+        // VK_ARM_pipeline_opacity_micromap
+        pub const PHYSICAL_DEVICE_PIPELINE_OPACITY_MICROMAP_FEATURES_ARM: Self = Self(1000596000);
+        // VK_ARM_rasterization_order_attachment_access
+        pub const PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_ARM: Self =
+            Self::PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT;
+        // VK_ARM_render_pass_striped
+        pub const PHYSICAL_DEVICE_RENDER_PASS_STRIPED_FEATURES_ARM: Self = Self(1000424000);
+        pub const PHYSICAL_DEVICE_RENDER_PASS_STRIPED_PROPERTIES_ARM: Self = Self(1000424001);
         pub const RENDER_PASS_STRIPE_BEGIN_INFO_ARM: Self = Self(1000424002);
         pub const RENDER_PASS_STRIPE_INFO_ARM: Self = Self(1000424003);
         pub const RENDER_PASS_STRIPE_SUBMIT_INFO_ARM: Self = Self(1000424004);
-        pub const RENDER_PASS_SUBPASS_FEEDBACK_CREATE_INFO_EXT: Self = Self(1000458003);
-        pub const RENDER_PASS_TILE_SHADING_CREATE_INFO_QCOM: Self = Self(1000309002);
-        pub const RENDER_PASS_TRANSFORM_BEGIN_INFO_QCOM: Self = Self(1000282001);
-        pub const RESOLVE_IMAGE_INFO_2: Self = Self(1000337005);
-        pub const RESOLVE_IMAGE_MODE_INFO_KHR: Self = Self(1000630004);
-        pub const RESOURCE_DESCRIPTOR_INFO_EXT: Self = Self(1000135002);
-        pub const SAMPLER_BLOCK_MATCH_WINDOW_CREATE_INFO_QCOM: Self = Self(1000518002);
-        pub const SAMPLER_BORDER_COLOR_COMPONENT_MAPPING_CREATE_INFO_EXT: Self = Self(1000411001);
-        pub const SAMPLER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT: Self = Self(1000316008);
-        pub const SAMPLER_CUBIC_WEIGHTS_CREATE_INFO_QCOM: Self = Self(1000519000);
-        pub const SAMPLER_CUSTOM_BORDER_COLOR_CREATE_INFO_EXT: Self = Self(1000287000);
-        pub const SAMPLER_CUSTOM_BORDER_COLOR_INDEX_CREATE_INFO_EXT: Self = Self(1000135011);
-        pub const SAMPLER_REDUCTION_MODE_CREATE_INFO: Self = Self(1000130001);
-        pub const SAMPLER_YCBCR_CONVERSION_CREATE_INFO: Self = Self(1000156000);
-        pub const SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES: Self = Self(1000156005);
-        pub const SAMPLER_YCBCR_CONVERSION_INFO: Self = Self(1000156001);
-        pub const SAMPLER_YCBCR_CONVERSION_YCBCR_DEGAMMA_CREATE_INFO_QCOM: Self = Self(1000520001);
-        pub const SAMPLE_LOCATIONS_INFO_EXT: Self = Self(1000143000);
-        pub const SCREEN_BUFFER_FORMAT_PROPERTIES_QNX: Self = Self(1000529001);
-        pub const SCREEN_BUFFER_PROPERTIES_QNX: Self = Self(1000529000);
-        pub const SCREEN_SURFACE_CREATE_INFO_QNX: Self = Self(1000378000);
-        pub const SEMAPHORE_GET_FD_INFO_KHR: Self = Self(1000079001);
-        pub const SEMAPHORE_GET_WIN32_HANDLE_INFO_KHR: Self = Self(1000078003);
-        pub const SEMAPHORE_GET_ZIRCON_HANDLE_INFO_FUCHSIA: Self = Self(1000365001);
-        pub const SEMAPHORE_SIGNAL_INFO: Self = Self(1000207005);
-        pub const SEMAPHORE_SUBMIT_INFO: Self = Self(1000314005);
-        pub const SEMAPHORE_TYPE_CREATE_INFO: Self = Self(1000207002);
-        pub const SEMAPHORE_WAIT_INFO: Self = Self(1000207004);
-        pub const SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT: Self = Self(1000545007);
-        pub const SET_LATENCY_MARKER_INFO_NV: Self = Self(1000505002);
-        pub const SET_PRESENT_CONFIG_NV: Self = Self(1000613000);
-        pub const SHADER_CREATE_INFO_EXT: Self = Self(1000482002);
-        pub const SHADER_DESCRIPTOR_SET_AND_BINDING_MAPPING_INFO_EXT: Self = Self(1000135006);
-        pub const SHADER_MODULE_IDENTIFIER_EXT: Self = Self(1000462003);
-        pub const SHADER_MODULE_VALIDATION_CACHE_CREATE_INFO_EXT: Self = Self(1000160001);
-        pub const SHARED_PRESENT_SURFACE_CAPABILITIES_KHR: Self = Self(1000111000);
-        pub const SPARSE_IMAGE_FORMAT_PROPERTIES_2: Self = Self(1000059007);
-        pub const SPARSE_IMAGE_MEMORY_REQUIREMENTS_2: Self = Self(1000146004);
-        pub const STREAM_DESCRIPTOR_SURFACE_CREATE_INFO_GGP: Self = Self(1000049000);
-        pub const SUBMIT_INFO_2: Self = Self(1000314004);
-        pub const SUBPASS_BEGIN_INFO: Self = Self(1000109005);
-        pub const SUBPASS_DEPENDENCY_2: Self = Self(1000109003);
-        pub const SUBPASS_DESCRIPTION_2: Self = Self(1000109002);
-        pub const SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE: Self = Self(1000199001);
-        pub const SUBPASS_END_INFO: Self = Self(1000109006);
-        pub const SUBPASS_RESOLVE_PERFORMANCE_QUERY_EXT: Self = Self(1000376001);
-        pub const SUBPASS_SHADING_PIPELINE_CREATE_INFO_HUAWEI: Self = Self(1000369000);
-        pub const SUBRESOURCE_HOST_MEMCPY_SIZE: Self = Self(1000270008);
-        pub const SUBRESOURCE_LAYOUT_2: Self = Self(1000338002);
-        pub const SUBSAMPLED_IMAGE_FORMAT_PROPERTIES_EXT: Self = Self(1000135013);
-        pub const SURFACE_CAPABILITIES_2_EXT: Self = Self(1000090000);
-        pub const SURFACE_CAPABILITIES_2_KHR: Self = Self(1000119001);
-        pub const SURFACE_CAPABILITIES_FULL_SCREEN_EXCLUSIVE_EXT: Self = Self(1000255002);
-        pub const SURFACE_CAPABILITIES_PRESENT_BARRIER_NV: Self = Self(1000292001);
-        pub const SURFACE_CAPABILITIES_PRESENT_ID_2_KHR: Self = Self(1000479000);
-        pub const SURFACE_CAPABILITIES_PRESENT_WAIT_2_KHR: Self = Self(1000480000);
-        pub const SURFACE_FORMAT_2_KHR: Self = Self(1000119002);
-        pub const SURFACE_FULL_SCREEN_EXCLUSIVE_INFO_EXT: Self = Self(1000255000);
-        pub const SURFACE_FULL_SCREEN_EXCLUSIVE_WIN32_INFO_EXT: Self = Self(1000255001);
-        pub const SURFACE_PRESENT_MODE_COMPATIBILITY_KHR: Self = Self(1000274002);
-        pub const SURFACE_PRESENT_MODE_KHR: Self = Self(1000274000);
-        pub const SURFACE_PRESENT_SCALING_CAPABILITIES_KHR: Self = Self(1000274001);
-        pub const SURFACE_PROTECTED_CAPABILITIES_KHR: Self = Self(1000239000);
-        pub const SWAPCHAIN_CALIBRATED_TIMESTAMP_INFO_EXT: Self = Self(1000208009);
-        pub const SWAPCHAIN_COUNTER_CREATE_INFO_EXT: Self = Self(1000091003);
-        pub const SWAPCHAIN_CREATE_INFO_KHR: Self = Self(1000001000);
-        pub const SWAPCHAIN_DISPLAY_NATIVE_HDR_CREATE_INFO_AMD: Self = Self(1000213001);
-        pub const SWAPCHAIN_LATENCY_CREATE_INFO_NV: Self = Self(1000505007);
-        pub const SWAPCHAIN_PRESENT_BARRIER_CREATE_INFO_NV: Self = Self(1000292002);
-        pub const SWAPCHAIN_PRESENT_FENCE_INFO_KHR: Self = Self(1000275001);
-        pub const SWAPCHAIN_PRESENT_MODES_CREATE_INFO_KHR: Self = Self(1000275002);
-        pub const SWAPCHAIN_PRESENT_MODE_INFO_KHR: Self = Self(1000275003);
-        pub const SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_KHR: Self = Self(1000275004);
-        pub const SWAPCHAIN_TIME_DOMAIN_PROPERTIES_EXT: Self = Self(1000208002);
-        pub const SWAPCHAIN_TIMING_PROPERTIES_EXT: Self = Self(1000208001);
-        pub const SYSMEM_COLOR_SPACE_FUCHSIA: Self = Self(1000366008);
-        pub const TENSOR_CAPTURE_DESCRIPTOR_DATA_INFO_ARM: Self = Self(1000460021);
-        pub const TENSOR_COPY_ARM: Self = Self(1000460012);
+        // VK_ARM_scheduling_controls
+        pub const DEVICE_QUEUE_SHADER_CORE_CONTROL_CREATE_INFO_ARM: Self = Self(1000417000);
+        pub const PHYSICAL_DEVICE_SCHEDULING_CONTROLS_FEATURES_ARM: Self = Self(1000417001);
+        pub const PHYSICAL_DEVICE_SCHEDULING_CONTROLS_PROPERTIES_ARM: Self = Self(1000417002);
+        // VK_ARM_shader_core_builtins
+        pub const PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_FEATURES_ARM: Self = Self(1000497000);
+        pub const PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_PROPERTIES_ARM: Self = Self(1000497001);
+        // VK_ARM_shader_core_properties
+        pub const PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM: Self = Self(1000415000);
+        // VK_ARM_tensors
         pub const TENSOR_CREATE_INFO_ARM: Self = Self(1000460000);
-        pub const TENSOR_DEPENDENCY_INFO_ARM: Self = Self(1000460013);
-        pub const TENSOR_DESCRIPTION_ARM: Self = Self(1000460006);
-        pub const TENSOR_FORMAT_PROPERTIES_ARM: Self = Self(1000460005);
-        pub const TENSOR_MEMORY_BARRIER_ARM: Self = Self(1000460008);
-        pub const TENSOR_MEMORY_REQUIREMENTS_INFO_ARM: Self = Self(1000460007);
-        pub const TENSOR_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_ARM: Self = Self(1000460022);
         pub const TENSOR_VIEW_CREATE_INFO_ARM: Self = Self(1000460001);
-        pub const TEXEL_BUFFER_DESCRIPTOR_INFO_EXT: Self = Self(1000135000);
-        pub const TEXTURE_LOD_GATHER_FORMAT_PROPERTIES_AMD: Self = Self(1000041000);
-        pub const TILE_MEMORY_BIND_INFO_QCOM: Self = Self(1000547003);
-        pub const TILE_MEMORY_REQUIREMENTS_QCOM: Self = Self(1000547002);
-        pub const TILE_MEMORY_SIZE_INFO_QCOM: Self = Self(1000547004);
-        pub const TILE_PROPERTIES_QCOM: Self = Self(1000484001);
-        pub const TIMELINE_SEMAPHORE_SUBMIT_INFO: Self = Self(1000207003);
-        pub const VALIDATION_CACHE_CREATE_INFO_EXT: Self = Self(1000160000);
-        pub const VALIDATION_FEATURES_EXT: Self = Self(1000247000);
-        pub const VALIDATION_FLAGS_EXT: Self = Self(1000061000);
-        pub const VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT: Self = Self(1000352002);
-        pub const VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT: Self = Self(1000352001);
-        pub const VIDEO_BEGIN_CODING_INFO_KHR: Self = Self(1000023008);
-        pub const VIDEO_CAPABILITIES_KHR: Self = Self(1000023001);
-        pub const VIDEO_CODING_CONTROL_INFO_KHR: Self = Self(1000023010);
-        pub const VIDEO_DECODE_AV1_CAPABILITIES_KHR: Self = Self(1000512000);
-        pub const VIDEO_DECODE_AV1_DPB_SLOT_INFO_KHR: Self = Self(1000512005);
-        pub const VIDEO_DECODE_AV1_INLINE_SESSION_PARAMETERS_INFO_KHR: Self = Self(1000586003);
-        pub const VIDEO_DECODE_AV1_PICTURE_INFO_KHR: Self = Self(1000512001);
-        pub const VIDEO_DECODE_AV1_PROFILE_INFO_KHR: Self = Self(1000512003);
-        pub const VIDEO_DECODE_AV1_SESSION_PARAMETERS_CREATE_INFO_KHR: Self = Self(1000512004);
-        pub const VIDEO_DECODE_CAPABILITIES_KHR: Self = Self(1000024001);
-        pub const VIDEO_DECODE_H264_CAPABILITIES_KHR: Self = Self(1000040000);
-        pub const VIDEO_DECODE_H264_DPB_SLOT_INFO_KHR: Self = Self(1000040006);
-        pub const VIDEO_DECODE_H264_INLINE_SESSION_PARAMETERS_INFO_KHR: Self = Self(1000586001);
-        pub const VIDEO_DECODE_H264_PICTURE_INFO_KHR: Self = Self(1000040001);
-        pub const VIDEO_DECODE_H264_PROFILE_INFO_KHR: Self = Self(1000040003);
-        pub const VIDEO_DECODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR: Self = Self(1000040005);
-        pub const VIDEO_DECODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR: Self = Self(1000040004);
-        pub const VIDEO_DECODE_H265_CAPABILITIES_KHR: Self = Self(1000187000);
-        pub const VIDEO_DECODE_H265_DPB_SLOT_INFO_KHR: Self = Self(1000187005);
-        pub const VIDEO_DECODE_H265_INLINE_SESSION_PARAMETERS_INFO_KHR: Self = Self(1000586002);
-        pub const VIDEO_DECODE_H265_PICTURE_INFO_KHR: Self = Self(1000187004);
-        pub const VIDEO_DECODE_H265_PROFILE_INFO_KHR: Self = Self(1000187003);
-        pub const VIDEO_DECODE_H265_SESSION_PARAMETERS_ADD_INFO_KHR: Self = Self(1000187002);
-        pub const VIDEO_DECODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR: Self = Self(1000187001);
-        pub const VIDEO_DECODE_INFO_KHR: Self = Self(1000024000);
-        pub const VIDEO_DECODE_USAGE_INFO_KHR: Self = Self(1000024002);
-        pub const VIDEO_DECODE_VP9_CAPABILITIES_KHR: Self = Self(1000514001);
-        pub const VIDEO_DECODE_VP9_PICTURE_INFO_KHR: Self = Self(1000514002);
-        pub const VIDEO_DECODE_VP9_PROFILE_INFO_KHR: Self = Self(1000514003);
-        pub const VIDEO_ENCODE_AV1_CAPABILITIES_KHR: Self = Self(1000513000);
-        pub const VIDEO_ENCODE_AV1_DPB_SLOT_INFO_KHR: Self = Self(1000513003);
-        pub const VIDEO_ENCODE_AV1_GOP_REMAINING_FRAME_INFO_KHR: Self = Self(1000513010);
-        pub const VIDEO_ENCODE_AV1_PICTURE_INFO_KHR: Self = Self(1000513002);
-        pub const VIDEO_ENCODE_AV1_PROFILE_INFO_KHR: Self = Self(1000513005);
-        pub const VIDEO_ENCODE_AV1_QUALITY_LEVEL_PROPERTIES_KHR: Self = Self(1000513008);
-        pub const VIDEO_ENCODE_AV1_QUANTIZATION_MAP_CAPABILITIES_KHR: Self = Self(1000553007);
-        pub const VIDEO_ENCODE_AV1_RATE_CONTROL_INFO_KHR: Self = Self(1000513006);
-        pub const VIDEO_ENCODE_AV1_RATE_CONTROL_LAYER_INFO_KHR: Self = Self(1000513007);
-        pub const VIDEO_ENCODE_AV1_SESSION_CREATE_INFO_KHR: Self = Self(1000513009);
-        pub const VIDEO_ENCODE_AV1_SESSION_PARAMETERS_CREATE_INFO_KHR: Self = Self(1000513001);
-        pub const VIDEO_ENCODE_CAPABILITIES_KHR: Self = Self(1000299003);
-        pub const VIDEO_ENCODE_H264_CAPABILITIES_KHR: Self = Self(1000038000);
-        pub const VIDEO_ENCODE_H264_DPB_SLOT_INFO_KHR: Self = Self(1000038004);
-        pub const VIDEO_ENCODE_H264_GOP_REMAINING_FRAME_INFO_KHR: Self = Self(1000038006);
-        pub const VIDEO_ENCODE_H264_NALU_SLICE_INFO_KHR: Self = Self(1000038005);
-        pub const VIDEO_ENCODE_H264_PICTURE_INFO_KHR: Self = Self(1000038003);
-        pub const VIDEO_ENCODE_H264_PROFILE_INFO_KHR: Self = Self(1000038007);
-        pub const VIDEO_ENCODE_H264_QUALITY_LEVEL_PROPERTIES_KHR: Self = Self(1000038011);
-        pub const VIDEO_ENCODE_H264_QUANTIZATION_MAP_CAPABILITIES_KHR: Self = Self(1000553003);
-        pub const VIDEO_ENCODE_H264_RATE_CONTROL_INFO_KHR: Self = Self(1000038008);
-        pub const VIDEO_ENCODE_H264_RATE_CONTROL_LAYER_INFO_KHR: Self = Self(1000038009);
-        pub const VIDEO_ENCODE_H264_SESSION_CREATE_INFO_KHR: Self = Self(1000038010);
-        pub const VIDEO_ENCODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR: Self = Self(1000038002);
-        pub const VIDEO_ENCODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR: Self = Self(1000038001);
-        pub const VIDEO_ENCODE_H264_SESSION_PARAMETERS_FEEDBACK_INFO_KHR: Self = Self(1000038013);
-        pub const VIDEO_ENCODE_H264_SESSION_PARAMETERS_GET_INFO_KHR: Self = Self(1000038012);
-        pub const VIDEO_ENCODE_H265_CAPABILITIES_KHR: Self = Self(1000039000);
-        pub const VIDEO_ENCODE_H265_DPB_SLOT_INFO_KHR: Self = Self(1000039004);
-        pub const VIDEO_ENCODE_H265_GOP_REMAINING_FRAME_INFO_KHR: Self = Self(1000039006);
-        pub const VIDEO_ENCODE_H265_NALU_SLICE_SEGMENT_INFO_KHR: Self = Self(1000039005);
-        pub const VIDEO_ENCODE_H265_PICTURE_INFO_KHR: Self = Self(1000039003);
-        pub const VIDEO_ENCODE_H265_PROFILE_INFO_KHR: Self = Self(1000039007);
-        pub const VIDEO_ENCODE_H265_QUALITY_LEVEL_PROPERTIES_KHR: Self = Self(1000039012);
-        pub const VIDEO_ENCODE_H265_QUANTIZATION_MAP_CAPABILITIES_KHR: Self = Self(1000553004);
-        pub const VIDEO_ENCODE_H265_RATE_CONTROL_INFO_KHR: Self = Self(1000039009);
-        pub const VIDEO_ENCODE_H265_RATE_CONTROL_LAYER_INFO_KHR: Self = Self(1000039010);
-        pub const VIDEO_ENCODE_H265_SESSION_CREATE_INFO_KHR: Self = Self(1000039011);
-        pub const VIDEO_ENCODE_H265_SESSION_PARAMETERS_ADD_INFO_KHR: Self = Self(1000039002);
-        pub const VIDEO_ENCODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR: Self = Self(1000039001);
-        pub const VIDEO_ENCODE_H265_SESSION_PARAMETERS_FEEDBACK_INFO_KHR: Self = Self(1000039014);
-        pub const VIDEO_ENCODE_H265_SESSION_PARAMETERS_GET_INFO_KHR: Self = Self(1000039013);
-        pub const VIDEO_ENCODE_INFO_KHR: Self = Self(1000299000);
-        pub const VIDEO_ENCODE_INTRA_REFRESH_CAPABILITIES_KHR: Self = Self(1000552000);
-        pub const VIDEO_ENCODE_INTRA_REFRESH_INFO_KHR: Self = Self(1000552002);
-        pub const VIDEO_ENCODE_PROFILE_RGB_CONVERSION_INFO_VALVE: Self = Self(1000390002);
-        pub const VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR: Self = Self(1000299008);
-        pub const VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR: Self = Self(1000299007);
-        pub const VIDEO_ENCODE_QUANTIZATION_MAP_CAPABILITIES_KHR: Self = Self(1000553000);
-        pub const VIDEO_ENCODE_QUANTIZATION_MAP_INFO_KHR: Self = Self(1000553002);
-        pub const VIDEO_ENCODE_QUANTIZATION_MAP_SESSION_PARAMETERS_CREATE_INFO_KHR: Self =
-            Self(1000553005);
-        pub const VIDEO_ENCODE_RATE_CONTROL_INFO_KHR: Self = Self(1000299001);
-        pub const VIDEO_ENCODE_RATE_CONTROL_LAYER_INFO_KHR: Self = Self(1000299002);
-        pub const VIDEO_ENCODE_RGB_CONVERSION_CAPABILITIES_VALVE: Self = Self(1000390001);
-        pub const VIDEO_ENCODE_SESSION_INTRA_REFRESH_CREATE_INFO_KHR: Self = Self(1000552001);
-        pub const VIDEO_ENCODE_SESSION_PARAMETERS_FEEDBACK_INFO_KHR: Self = Self(1000299010);
-        pub const VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR: Self = Self(1000299009);
-        pub const VIDEO_ENCODE_SESSION_RGB_CONVERSION_CREATE_INFO_VALVE: Self = Self(1000390003);
-        pub const VIDEO_ENCODE_USAGE_INFO_KHR: Self = Self(1000299004);
-        pub const VIDEO_END_CODING_INFO_KHR: Self = Self(1000023009);
-        pub const VIDEO_FORMAT_AV1_QUANTIZATION_MAP_PROPERTIES_KHR: Self = Self(1000553008);
-        pub const VIDEO_FORMAT_H265_QUANTIZATION_MAP_PROPERTIES_KHR: Self = Self(1000553006);
-        pub const VIDEO_FORMAT_PROPERTIES_KHR: Self = Self(1000023015);
-        pub const VIDEO_FORMAT_QUANTIZATION_MAP_PROPERTIES_KHR: Self = Self(1000553001);
-        pub const VIDEO_INLINE_QUERY_INFO_KHR: Self = Self(1000515001);
-        pub const VIDEO_PICTURE_RESOURCE_INFO_KHR: Self = Self(1000023002);
-        pub const VIDEO_PROFILE_INFO_KHR: Self = Self(1000023000);
-        pub const VIDEO_PROFILE_LIST_INFO_KHR: Self = Self(1000023013);
-        pub const VIDEO_REFERENCE_INTRA_REFRESH_INFO_KHR: Self = Self(1000552003);
-        pub const VIDEO_REFERENCE_SLOT_INFO_KHR: Self = Self(1000023011);
-        pub const VIDEO_SESSION_CREATE_INFO_KHR: Self = Self(1000023005);
-        pub const VIDEO_SESSION_MEMORY_REQUIREMENTS_KHR: Self = Self(1000023003);
-        pub const VIDEO_SESSION_PARAMETERS_CREATE_INFO_KHR: Self = Self(1000023006);
-        pub const VIDEO_SESSION_PARAMETERS_UPDATE_INFO_KHR: Self = Self(1000023007);
-        pub const VI_SURFACE_CREATE_INFO_NN: Self = Self(1000062000);
-        pub const WAYLAND_SURFACE_CREATE_INFO_KHR: Self = Self(1000006000);
-        pub const WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_KHR: Self = Self(1000075000);
-        pub const WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_NV: Self = Self(1000058000);
-        pub const WIN32_SURFACE_CREATE_INFO_KHR: Self = Self(1000009000);
-        pub const WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_KHR: Self = Self(1000150007);
-        pub const WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_NV: Self = Self(1000165007);
-        pub const WRITE_DESCRIPTOR_SET_INLINE_UNIFORM_BLOCK: Self = Self(1000138002);
-        pub const WRITE_DESCRIPTOR_SET_PARTITIONED_ACCELERATION_STRUCTURE_NV: Self =
-            Self(1000570002);
+        pub const BIND_TENSOR_MEMORY_INFO_ARM: Self = Self(1000460002);
         pub const WRITE_DESCRIPTOR_SET_TENSOR_ARM: Self = Self(1000460003);
-        pub const WRITE_INDIRECT_EXECUTION_SET_PIPELINE_EXT: Self = Self(1000572008);
-        pub const WRITE_INDIRECT_EXECUTION_SET_SHADER_EXT: Self = Self(1000572009);
-        pub const XCB_SURFACE_CREATE_INFO_KHR: Self = Self(1000005000);
-        pub const XLIB_SURFACE_CREATE_INFO_KHR: Self = Self(1000004000);
-        pub const PHYSICAL_DEVICE_VULKAN_1_1_FEATURES: Self = Self(49);
-        pub const PHYSICAL_DEVICE_VULKAN_1_1_PROPERTIES: Self = Self(50);
-        pub const PHYSICAL_DEVICE_VULKAN_1_2_FEATURES: Self = Self(51);
-        pub const PHYSICAL_DEVICE_VULKAN_1_2_PROPERTIES: Self = Self(52);
-        pub const PHYSICAL_DEVICE_VULKAN_1_3_FEATURES: Self = Self(53);
-        pub const PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES: Self = Self(54);
-        pub const PHYSICAL_DEVICE_VULKAN_1_4_FEATURES: Self = Self(55);
-        pub const PHYSICAL_DEVICE_VULKAN_1_4_PROPERTIES: Self = Self(56);
-        pub const SURFACE_CREATE_INFO_OHOS: Self = Self(1000685000);
-        pub const ATTACHMENT_DESCRIPTION_2_KHR: Self = Self::ATTACHMENT_DESCRIPTION_2;
-        pub const ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT_KHR: Self =
-            Self::ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT;
-        pub const ATTACHMENT_REFERENCE_2_KHR: Self = Self::ATTACHMENT_REFERENCE_2;
-        pub const ATTACHMENT_REFERENCE_STENCIL_LAYOUT_KHR: Self =
-            Self::ATTACHMENT_REFERENCE_STENCIL_LAYOUT;
-        pub const ATTACHMENT_SAMPLE_COUNT_INFO_NV: Self = Self::ATTACHMENT_SAMPLE_COUNT_INFO_AMD;
-        pub const BIND_BUFFER_MEMORY_DEVICE_GROUP_INFO_KHR: Self =
-            Self::BIND_BUFFER_MEMORY_DEVICE_GROUP_INFO;
-        pub const BIND_BUFFER_MEMORY_INFO_KHR: Self = Self::BIND_BUFFER_MEMORY_INFO;
-        pub const BIND_DESCRIPTOR_SETS_INFO_KHR: Self = Self::BIND_DESCRIPTOR_SETS_INFO;
-        pub const BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO_KHR: Self =
-            Self::BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO;
-        pub const BIND_IMAGE_MEMORY_INFO_KHR: Self = Self::BIND_IMAGE_MEMORY_INFO;
-        pub const BIND_IMAGE_PLANE_MEMORY_INFO_KHR: Self = Self::BIND_IMAGE_PLANE_MEMORY_INFO;
-        pub const BIND_MEMORY_STATUS_KHR: Self = Self::BIND_MEMORY_STATUS;
-        pub const BLIT_IMAGE_INFO_2_KHR: Self = Self::BLIT_IMAGE_INFO_2;
-        pub const BUFFER_COPY_2_KHR: Self = Self::BUFFER_COPY_2;
-        pub const BUFFER_DEVICE_ADDRESS_INFO_EXT: Self = Self::BUFFER_DEVICE_ADDRESS_INFO;
-        pub const BUFFER_DEVICE_ADDRESS_INFO_KHR: Self = Self::BUFFER_DEVICE_ADDRESS_INFO;
-        pub const BUFFER_IMAGE_COPY_2_KHR: Self = Self::BUFFER_IMAGE_COPY_2;
-        pub const BUFFER_MEMORY_BARRIER_2_KHR: Self = Self::BUFFER_MEMORY_BARRIER_2;
-        pub const BUFFER_MEMORY_REQUIREMENTS_INFO_2_KHR: Self =
-            Self::BUFFER_MEMORY_REQUIREMENTS_INFO_2;
-        pub const BUFFER_OPAQUE_CAPTURE_ADDRESS_CREATE_INFO_KHR: Self =
-            Self::BUFFER_OPAQUE_CAPTURE_ADDRESS_CREATE_INFO;
-        pub const BUFFER_USAGE_FLAGS_2_CREATE_INFO_KHR: Self =
-            Self::BUFFER_USAGE_FLAGS_2_CREATE_INFO;
-        pub const CALIBRATED_TIMESTAMP_INFO_EXT: Self = Self::CALIBRATED_TIMESTAMP_INFO_KHR;
-        pub const COMMAND_BUFFER_INHERITANCE_RENDERING_INFO_KHR: Self =
-            Self::COMMAND_BUFFER_INHERITANCE_RENDERING_INFO;
-        pub const COMMAND_BUFFER_SUBMIT_INFO_KHR: Self = Self::COMMAND_BUFFER_SUBMIT_INFO;
-        pub const COPY_BUFFER_INFO_2_KHR: Self = Self::COPY_BUFFER_INFO_2;
-        pub const COPY_BUFFER_TO_IMAGE_INFO_2_KHR: Self = Self::COPY_BUFFER_TO_IMAGE_INFO_2;
-        pub const COPY_IMAGE_INFO_2_KHR: Self = Self::COPY_IMAGE_INFO_2;
-        pub const COPY_IMAGE_TO_BUFFER_INFO_2_KHR: Self = Self::COPY_IMAGE_TO_BUFFER_INFO_2;
-        pub const COPY_IMAGE_TO_IMAGE_INFO_EXT: Self = Self::COPY_IMAGE_TO_IMAGE_INFO;
-        pub const COPY_IMAGE_TO_MEMORY_INFO_EXT: Self = Self::COPY_IMAGE_TO_MEMORY_INFO;
-        pub const COPY_MEMORY_TO_IMAGE_INFO_EXT: Self = Self::COPY_MEMORY_TO_IMAGE_INFO;
-        pub const DEBUG_REPORT_CREATE_INFO_EXT: Self = Self::DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT;
-        pub const DEPENDENCY_INFO_KHR: Self = Self::DEPENDENCY_INFO;
-        pub const DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO_EXT: Self =
-            Self::DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO;
-        pub const DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO_EXT: Self =
-            Self::DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO;
-        pub const DESCRIPTOR_SET_LAYOUT_SUPPORT_KHR: Self = Self::DESCRIPTOR_SET_LAYOUT_SUPPORT;
-        pub const DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO_EXT: Self =
-            Self::DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO;
-        pub const DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT_EXT: Self =
-            Self::DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT;
-        pub const DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO_KHR: Self =
-            Self::DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO;
-        pub const DEVICE_BUFFER_MEMORY_REQUIREMENTS_KHR: Self =
-            Self::DEVICE_BUFFER_MEMORY_REQUIREMENTS;
-        pub const DEVICE_GROUP_BIND_SPARSE_INFO_KHR: Self = Self::DEVICE_GROUP_BIND_SPARSE_INFO;
-        pub const DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO_KHR: Self =
-            Self::DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO;
-        pub const DEVICE_GROUP_DEVICE_CREATE_INFO_KHR: Self = Self::DEVICE_GROUP_DEVICE_CREATE_INFO;
-        pub const DEVICE_GROUP_RENDER_PASS_BEGIN_INFO_KHR: Self =
-            Self::DEVICE_GROUP_RENDER_PASS_BEGIN_INFO;
-        pub const DEVICE_GROUP_SUBMIT_INFO_KHR: Self = Self::DEVICE_GROUP_SUBMIT_INFO;
-        pub const DEVICE_IMAGE_MEMORY_REQUIREMENTS_KHR: Self =
-            Self::DEVICE_IMAGE_MEMORY_REQUIREMENTS;
-        pub const DEVICE_IMAGE_SUBRESOURCE_INFO_KHR: Self = Self::DEVICE_IMAGE_SUBRESOURCE_INFO;
-        pub const DEVICE_MEMORY_OPAQUE_CAPTURE_ADDRESS_INFO_KHR: Self =
-            Self::DEVICE_MEMORY_OPAQUE_CAPTURE_ADDRESS_INFO;
-        pub const DEVICE_PRIVATE_DATA_CREATE_INFO_EXT: Self = Self::DEVICE_PRIVATE_DATA_CREATE_INFO;
-        pub const DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO_EXT: Self =
-            Self::DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO;
-        pub const DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO_KHR: Self =
-            Self::DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO;
-        pub const EXPORT_FENCE_CREATE_INFO_KHR: Self = Self::EXPORT_FENCE_CREATE_INFO;
-        pub const EXPORT_MEMORY_ALLOCATE_INFO_KHR: Self = Self::EXPORT_MEMORY_ALLOCATE_INFO;
-        pub const EXPORT_SEMAPHORE_CREATE_INFO_KHR: Self = Self::EXPORT_SEMAPHORE_CREATE_INFO;
-        pub const EXTERNAL_BUFFER_PROPERTIES_KHR: Self = Self::EXTERNAL_BUFFER_PROPERTIES;
-        pub const EXTERNAL_FENCE_PROPERTIES_KHR: Self = Self::EXTERNAL_FENCE_PROPERTIES;
-        pub const EXTERNAL_IMAGE_FORMAT_PROPERTIES_KHR: Self =
-            Self::EXTERNAL_IMAGE_FORMAT_PROPERTIES;
-        pub const EXTERNAL_MEMORY_BUFFER_CREATE_INFO_KHR: Self =
-            Self::EXTERNAL_MEMORY_BUFFER_CREATE_INFO;
-        pub const EXTERNAL_MEMORY_IMAGE_CREATE_INFO_KHR: Self =
-            Self::EXTERNAL_MEMORY_IMAGE_CREATE_INFO;
-        pub const EXTERNAL_SEMAPHORE_PROPERTIES_KHR: Self = Self::EXTERNAL_SEMAPHORE_PROPERTIES;
-        pub const FORMAT_PROPERTIES_2_KHR: Self = Self::FORMAT_PROPERTIES_2;
-        pub const FORMAT_PROPERTIES_3_KHR: Self = Self::FORMAT_PROPERTIES_3;
-        pub const FRAMEBUFFER_ATTACHMENTS_CREATE_INFO_KHR: Self =
-            Self::FRAMEBUFFER_ATTACHMENTS_CREATE_INFO;
-        pub const FRAMEBUFFER_ATTACHMENT_IMAGE_INFO_KHR: Self =
-            Self::FRAMEBUFFER_ATTACHMENT_IMAGE_INFO;
-        pub const HOST_IMAGE_COPY_DEVICE_PERFORMANCE_QUERY_EXT: Self =
-            Self::HOST_IMAGE_COPY_DEVICE_PERFORMANCE_QUERY;
-        pub const HOST_IMAGE_LAYOUT_TRANSITION_INFO_EXT: Self =
-            Self::HOST_IMAGE_LAYOUT_TRANSITION_INFO;
-        pub const IMAGE_BLIT_2_KHR: Self = Self::IMAGE_BLIT_2;
-        pub const IMAGE_COPY_2_KHR: Self = Self::IMAGE_COPY_2;
-        pub const IMAGE_FORMAT_LIST_CREATE_INFO_KHR: Self = Self::IMAGE_FORMAT_LIST_CREATE_INFO;
-        pub const IMAGE_FORMAT_PROPERTIES_2_KHR: Self = Self::IMAGE_FORMAT_PROPERTIES_2;
-        pub const IMAGE_MEMORY_BARRIER_2_KHR: Self = Self::IMAGE_MEMORY_BARRIER_2;
-        pub const IMAGE_MEMORY_REQUIREMENTS_INFO_2_KHR: Self =
-            Self::IMAGE_MEMORY_REQUIREMENTS_INFO_2;
-        pub const IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO_KHR: Self =
-            Self::IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO;
-        pub const IMAGE_RESOLVE_2_KHR: Self = Self::IMAGE_RESOLVE_2;
-        pub const IMAGE_SPARSE_MEMORY_REQUIREMENTS_INFO_2_KHR: Self =
-            Self::IMAGE_SPARSE_MEMORY_REQUIREMENTS_INFO_2;
-        pub const IMAGE_STENCIL_USAGE_CREATE_INFO_EXT: Self = Self::IMAGE_STENCIL_USAGE_CREATE_INFO;
-        pub const IMAGE_SUBRESOURCE_2_EXT: Self = Self::IMAGE_SUBRESOURCE_2;
-        pub const IMAGE_SUBRESOURCE_2_KHR: Self = Self::IMAGE_SUBRESOURCE_2;
-        pub const IMAGE_TO_MEMORY_COPY_EXT: Self = Self::IMAGE_TO_MEMORY_COPY;
-        pub const IMAGE_VIEW_USAGE_CREATE_INFO_KHR: Self = Self::IMAGE_VIEW_USAGE_CREATE_INFO;
-        pub const MEMORY_ALLOCATE_FLAGS_INFO_KHR: Self = Self::MEMORY_ALLOCATE_FLAGS_INFO;
-        pub const MEMORY_BARRIER_2_KHR: Self = Self::MEMORY_BARRIER_2;
-        pub const MEMORY_DEDICATED_ALLOCATE_INFO_KHR: Self = Self::MEMORY_DEDICATED_ALLOCATE_INFO;
-        pub const MEMORY_DEDICATED_REQUIREMENTS_KHR: Self = Self::MEMORY_DEDICATED_REQUIREMENTS;
-        pub const MEMORY_MAP_INFO_KHR: Self = Self::MEMORY_MAP_INFO;
-        pub const MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO_KHR: Self =
-            Self::MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO;
-        pub const MEMORY_REQUIREMENTS_2_KHR: Self = Self::MEMORY_REQUIREMENTS_2;
-        pub const MEMORY_TO_IMAGE_COPY_EXT: Self = Self::MEMORY_TO_IMAGE_COPY;
-        pub const MEMORY_UNMAP_INFO_KHR: Self = Self::MEMORY_UNMAP_INFO;
-        pub const MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_VALVE: Self =
-            Self::MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_EXT;
-        pub const PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES;
-        pub const PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES;
+        pub const PHYSICAL_DEVICE_TENSOR_PROPERTIES_ARM: Self = Self(1000460004);
+        pub const TENSOR_FORMAT_PROPERTIES_ARM: Self = Self(1000460005);
+        pub const TENSOR_DESCRIPTION_ARM: Self = Self(1000460006);
+        pub const TENSOR_MEMORY_REQUIREMENTS_INFO_ARM: Self = Self(1000460007);
+        pub const TENSOR_MEMORY_BARRIER_ARM: Self = Self(1000460008);
+        pub const PHYSICAL_DEVICE_TENSOR_FEATURES_ARM: Self = Self(1000460009);
+        pub const DEVICE_TENSOR_MEMORY_REQUIREMENTS_ARM: Self = Self(1000460010);
+        pub const COPY_TENSOR_INFO_ARM: Self = Self(1000460011);
+        pub const TENSOR_COPY_ARM: Self = Self(1000460012);
+        pub const TENSOR_DEPENDENCY_INFO_ARM: Self = Self(1000460013);
+        pub const MEMORY_DEDICATED_ALLOCATE_INFO_TENSOR_ARM: Self = Self(1000460014);
+        pub const PHYSICAL_DEVICE_EXTERNAL_TENSOR_INFO_ARM: Self = Self(1000460015);
+        pub const EXTERNAL_TENSOR_PROPERTIES_ARM: Self = Self(1000460016);
+        pub const EXTERNAL_MEMORY_TENSOR_CREATE_INFO_ARM: Self = Self(1000460017);
+        pub const PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_FEATURES_ARM: Self = Self(1000460018);
+        pub const PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_PROPERTIES_ARM: Self = Self(1000460019);
+        pub const DESCRIPTOR_GET_TENSOR_INFO_ARM: Self = Self(1000460020);
+        pub const TENSOR_CAPTURE_DESCRIPTOR_DATA_INFO_ARM: Self = Self(1000460021);
+        pub const TENSOR_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_ARM: Self = Self(1000460022);
+        pub const FRAME_BOUNDARY_TENSORS_ARM: Self = Self(1000460023);
+        // VK_EXT_4444_formats
+        pub const PHYSICAL_DEVICE_4444_FORMATS_FEATURES_EXT: Self = Self(1000340000);
+        // VK_EXT_astc_decode_mode
+        pub const IMAGE_VIEW_ASTC_DECODE_MODE_EXT: Self = Self(1000067000);
+        pub const PHYSICAL_DEVICE_ASTC_DECODE_FEATURES_EXT: Self = Self(1000067001);
+        // VK_EXT_attachment_feedback_loop_dynamic_state
+        pub const PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_DYNAMIC_STATE_FEATURES_EXT: Self =
+            Self(1000524000);
+        // VK_EXT_attachment_feedback_loop_layout
+        pub const PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_LAYOUT_FEATURES_EXT: Self =
+            Self(1000339000);
+        // VK_EXT_blend_operation_advanced
+        pub const PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_FEATURES_EXT: Self = Self(1000148000);
+        pub const PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT: Self = Self(1000148001);
+        pub const PIPELINE_COLOR_BLEND_ADVANCED_STATE_CREATE_INFO_EXT: Self = Self(1000148002);
+        // VK_EXT_border_color_swizzle
+        pub const PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT: Self = Self(1000411000);
+        pub const SAMPLER_BORDER_COLOR_COMPONENT_MAPPING_CREATE_INFO_EXT: Self = Self(1000411001);
+        // VK_EXT_buffer_device_address
+        pub const PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES_EXT: Self = Self(1000244000);
+        pub const BUFFER_DEVICE_ADDRESS_CREATE_INFO_EXT: Self = Self(1000244002);
         pub const PHYSICAL_DEVICE_BUFFER_ADDRESS_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES_EXT;
-        pub const PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES;
-        pub const PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_FEATURES_NV: Self =
-            Self::PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_FEATURES_KHR;
-        pub const PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_NV: Self =
-            Self::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR;
+        pub const BUFFER_DEVICE_ADDRESS_INFO_EXT: Self = Self::BUFFER_DEVICE_ADDRESS_INFO;
+        // VK_EXT_calibrated_timestamps
+        pub const CALIBRATED_TIMESTAMP_INFO_EXT: Self = Self::CALIBRATED_TIMESTAMP_INFO_KHR;
+        // VK_EXT_color_write_enable
+        pub const PHYSICAL_DEVICE_COLOR_WRITE_ENABLE_FEATURES_EXT: Self = Self(1000381000);
+        pub const PIPELINE_COLOR_WRITE_CREATE_INFO_EXT: Self = Self(1000381001);
+        // VK_EXT_conditional_rendering
+        pub const COMMAND_BUFFER_INHERITANCE_CONDITIONAL_RENDERING_INFO_EXT: Self =
+            Self(1000081000);
+        pub const PHYSICAL_DEVICE_CONDITIONAL_RENDERING_FEATURES_EXT: Self = Self(1000081001);
+        pub const CONDITIONAL_RENDERING_BEGIN_INFO_EXT: Self = Self(1000081002);
+        // VK_EXT_conservative_rasterization
+        pub const PHYSICAL_DEVICE_CONSERVATIVE_RASTERIZATION_PROPERTIES_EXT: Self =
+            Self(1000101000);
+        pub const PIPELINE_RASTERIZATION_CONSERVATIVE_STATE_CREATE_INFO_EXT: Self =
+            Self(1000101001);
+        // VK_EXT_custom_border_color
+        pub const SAMPLER_CUSTOM_BORDER_COLOR_CREATE_INFO_EXT: Self = Self(1000287000);
+        pub const PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_PROPERTIES_EXT: Self = Self(1000287001);
+        pub const PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT: Self = Self(1000287002);
+        // VK_EXT_custom_resolve
+        pub const PHYSICAL_DEVICE_CUSTOM_RESOLVE_FEATURES_EXT: Self = Self(1000628000);
+        pub const BEGIN_CUSTOM_RESOLVE_INFO_EXT: Self = Self(1000628001);
+        pub const CUSTOM_RESOLVE_CREATE_INFO_EXT: Self = Self(1000628002);
+        // VK_EXT_debug_marker
+        pub const DEBUG_MARKER_OBJECT_NAME_INFO_EXT: Self = Self(1000022000);
+        pub const DEBUG_MARKER_OBJECT_TAG_INFO_EXT: Self = Self(1000022001);
+        pub const DEBUG_MARKER_MARKER_INFO_EXT: Self = Self(1000022002);
+        // VK_EXT_debug_report
+        pub const DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT: Self = Self(1000011000);
+        pub const DEBUG_REPORT_CREATE_INFO_EXT: Self = Self::DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT;
+        // VK_EXT_debug_utils
+        pub const DEBUG_UTILS_OBJECT_NAME_INFO_EXT: Self = Self(1000128000);
+        pub const DEBUG_UTILS_OBJECT_TAG_INFO_EXT: Self = Self(1000128001);
+        pub const DEBUG_UTILS_LABEL_EXT: Self = Self(1000128002);
+        pub const DEBUG_UTILS_MESSENGER_CALLBACK_DATA_EXT: Self = Self(1000128003);
+        pub const DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT: Self = Self(1000128004);
+        // VK_EXT_depth_bias_control
+        pub const PHYSICAL_DEVICE_DEPTH_BIAS_CONTROL_FEATURES_EXT: Self = Self(1000283000);
+        pub const DEPTH_BIAS_INFO_EXT: Self = Self(1000283001);
+        pub const DEPTH_BIAS_REPRESENTATION_INFO_EXT: Self = Self(1000283002);
+        // VK_EXT_depth_clamp_control
+        pub const PHYSICAL_DEVICE_DEPTH_CLAMP_CONTROL_FEATURES_EXT: Self = Self(1000582000);
+        pub const PIPELINE_VIEWPORT_DEPTH_CLAMP_CONTROL_CREATE_INFO_EXT: Self = Self(1000582001);
+        // VK_EXT_depth_clamp_zero_one
         pub const PHYSICAL_DEVICE_DEPTH_CLAMP_ZERO_ONE_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_DEPTH_CLAMP_ZERO_ONE_FEATURES_KHR;
-        pub const PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES_KHR: Self =
-            Self::PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES;
+        // VK_EXT_depth_clip_control
+        pub const PHYSICAL_DEVICE_DEPTH_CLIP_CONTROL_FEATURES_EXT: Self = Self(1000355000);
+        pub const PIPELINE_VIEWPORT_DEPTH_CLIP_CONTROL_CREATE_INFO_EXT: Self = Self(1000355001);
+        // VK_EXT_depth_clip_enable
+        pub const PHYSICAL_DEVICE_DEPTH_CLIP_ENABLE_FEATURES_EXT: Self = Self(1000102000);
+        pub const PIPELINE_RASTERIZATION_DEPTH_CLIP_STATE_CREATE_INFO_EXT: Self = Self(1000102001);
+        // VK_EXT_descriptor_buffer
+        pub const PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_PROPERTIES_EXT: Self = Self(1000316000);
+        pub const PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_DENSITY_MAP_PROPERTIES_EXT: Self =
+            Self(1000316001);
+        pub const PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_FEATURES_EXT: Self = Self(1000316002);
+        pub const DESCRIPTOR_ADDRESS_INFO_EXT: Self = Self(1000316003);
+        pub const DESCRIPTOR_GET_INFO_EXT: Self = Self(1000316004);
+        pub const BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT: Self = Self(1000316005);
+        pub const IMAGE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT: Self = Self(1000316006);
+        pub const IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT: Self = Self(1000316007);
+        pub const SAMPLER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT: Self = Self(1000316008);
+        pub const OPAQUE_CAPTURE_DESCRIPTOR_DATA_CREATE_INFO_EXT: Self = Self(1000316010);
+        pub const DESCRIPTOR_BUFFER_BINDING_INFO_EXT: Self = Self(1000316011);
+        pub const DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT: Self =
+            Self(1000316012);
+        pub const ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT: Self = Self(1000316009);
+        // VK_EXT_descriptor_heap
+        pub const TEXEL_BUFFER_DESCRIPTOR_INFO_EXT: Self = Self(1000135000);
+        pub const IMAGE_DESCRIPTOR_INFO_EXT: Self = Self(1000135001);
+        pub const RESOURCE_DESCRIPTOR_INFO_EXT: Self = Self(1000135002);
+        pub const BIND_HEAP_INFO_EXT: Self = Self(1000135003);
+        pub const PUSH_DATA_INFO_EXT: Self = Self(1000135004);
+        pub const DESCRIPTOR_SET_AND_BINDING_MAPPING_EXT: Self = Self(1000135005);
+        pub const SHADER_DESCRIPTOR_SET_AND_BINDING_MAPPING_INFO_EXT: Self = Self(1000135006);
+        pub const OPAQUE_CAPTURE_DATA_CREATE_INFO_EXT: Self = Self(1000135007);
+        pub const PHYSICAL_DEVICE_DESCRIPTOR_HEAP_PROPERTIES_EXT: Self = Self(1000135008);
+        pub const PHYSICAL_DEVICE_DESCRIPTOR_HEAP_FEATURES_EXT: Self = Self(1000135009);
+        pub const COMMAND_BUFFER_INHERITANCE_DESCRIPTOR_HEAP_INFO_EXT: Self = Self(1000135010);
+        pub const SAMPLER_CUSTOM_BORDER_COLOR_INDEX_CREATE_INFO_EXT: Self = Self(1000135011);
+        pub const INDIRECT_COMMANDS_LAYOUT_PUSH_DATA_TOKEN_NV: Self = Self(1000135012);
+        pub const SUBSAMPLED_IMAGE_FORMAT_PROPERTIES_EXT: Self = Self(1000135013);
+        pub const PHYSICAL_DEVICE_DESCRIPTOR_HEAP_TENSOR_PROPERTIES_ARM: Self = Self(1000135014);
+        // VK_EXT_descriptor_indexing
+        pub const DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO_EXT: Self =
+            Self::DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO;
         pub const PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES;
         pub const PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES_EXT: Self =
             Self::PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES;
-        pub const PHYSICAL_DEVICE_DRIVER_PROPERTIES_KHR: Self =
-            Self::PHYSICAL_DEVICE_DRIVER_PROPERTIES;
-        pub const PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES;
-        pub const PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES;
-        pub const PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO_KHR: Self =
-            Self::PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO;
-        pub const PHYSICAL_DEVICE_EXTERNAL_FENCE_INFO_KHR: Self =
-            Self::PHYSICAL_DEVICE_EXTERNAL_FENCE_INFO;
-        pub const PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO_KHR: Self =
-            Self::PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO;
-        pub const PHYSICAL_DEVICE_EXTERNAL_SEMAPHORE_INFO_KHR: Self =
-            Self::PHYSICAL_DEVICE_EXTERNAL_SEMAPHORE_INFO;
-        pub const PHYSICAL_DEVICE_FEATURES_2_KHR: Self = Self::PHYSICAL_DEVICE_FEATURES_2;
-        pub const PHYSICAL_DEVICE_FLOAT16_INT8_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES;
-        pub const PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES_KHR: Self =
-            Self::PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES;
-        pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_QCOM: Self =
-            Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_EXT;
-        pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_QCOM: Self =
-            Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT;
-        pub const PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_FEATURES_NV: Self =
-            Self::PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_FEATURES_KHR;
+        pub const DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO_EXT: Self =
+            Self::DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO;
+        pub const DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT_EXT: Self =
+            Self::DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT;
+        // VK_EXT_device_address_binding_report
+        pub const PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT: Self = Self(1000354000);
+        pub const DEVICE_ADDRESS_BINDING_CALLBACK_DATA_EXT: Self = Self(1000354001);
+        // VK_EXT_device_fault
+        pub const PHYSICAL_DEVICE_FAULT_FEATURES_EXT: Self = Self(1000341000);
+        pub const DEVICE_FAULT_COUNTS_EXT: Self = Self(1000341001);
+        pub const DEVICE_FAULT_INFO_EXT: Self = Self(1000341002);
+        // VK_EXT_device_generated_commands
+        pub const PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_EXT: Self = Self(1000572000);
+        pub const PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_EXT: Self = Self(1000572001);
+        pub const GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_EXT: Self = Self(1000572002);
+        pub const INDIRECT_EXECUTION_SET_CREATE_INFO_EXT: Self = Self(1000572003);
+        pub const GENERATED_COMMANDS_INFO_EXT: Self = Self(1000572004);
+        pub const INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_EXT: Self = Self(1000572006);
+        pub const INDIRECT_COMMANDS_LAYOUT_TOKEN_EXT: Self = Self(1000572007);
+        pub const WRITE_INDIRECT_EXECUTION_SET_PIPELINE_EXT: Self = Self(1000572008);
+        pub const WRITE_INDIRECT_EXECUTION_SET_SHADER_EXT: Self = Self(1000572009);
+        pub const INDIRECT_EXECUTION_SET_PIPELINE_INFO_EXT: Self = Self(1000572010);
+        pub const INDIRECT_EXECUTION_SET_SHADER_INFO_EXT: Self = Self(1000572011);
+        pub const INDIRECT_EXECUTION_SET_SHADER_LAYOUT_INFO_EXT: Self = Self(1000572012);
+        pub const GENERATED_COMMANDS_PIPELINE_INFO_EXT: Self = Self(1000572013);
+        pub const GENERATED_COMMANDS_SHADER_INFO_EXT: Self = Self(1000572014);
+        // VK_EXT_device_memory_report
+        pub const PHYSICAL_DEVICE_DEVICE_MEMORY_REPORT_FEATURES_EXT: Self = Self(1000284000);
+        pub const DEVICE_DEVICE_MEMORY_REPORT_CREATE_INFO_EXT: Self = Self(1000284001);
+        pub const DEVICE_MEMORY_REPORT_CALLBACK_DATA_EXT: Self = Self(1000284002);
+        // VK_EXT_directfb_surface
+        pub const DIRECTFB_SURFACE_CREATE_INFO_EXT: Self = Self(1000346000);
+        // VK_EXT_discard_rectangles
+        pub const PHYSICAL_DEVICE_DISCARD_RECTANGLE_PROPERTIES_EXT: Self = Self(1000099000);
+        pub const PIPELINE_DISCARD_RECTANGLE_STATE_CREATE_INFO_EXT: Self = Self(1000099001);
+        // VK_EXT_display_control
+        pub const DISPLAY_POWER_INFO_EXT: Self = Self(1000091000);
+        pub const DEVICE_EVENT_INFO_EXT: Self = Self(1000091001);
+        pub const DISPLAY_EVENT_INFO_EXT: Self = Self(1000091002);
+        pub const SWAPCHAIN_COUNTER_CREATE_INFO_EXT: Self = Self(1000091003);
+        // VK_EXT_display_surface_counter
+        pub const SURFACE_CAPABILITIES_2_EXT: Self = Self(1000090000);
+        pub const SURFACE_CAPABILITIES2_EXT: Self = Self::SURFACE_CAPABILITIES_2_EXT;
+        // VK_EXT_dynamic_rendering_unused_attachments
+        pub const PHYSICAL_DEVICE_DYNAMIC_RENDERING_UNUSED_ATTACHMENTS_FEATURES_EXT: Self =
+            Self(1000499000);
+        // VK_EXT_extended_dynamic_state
+        pub const PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_FEATURES_EXT: Self = Self(1000267000);
+        // VK_EXT_extended_dynamic_state2
+        pub const PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_2_FEATURES_EXT: Self = Self(1000377000);
+        // VK_EXT_extended_dynamic_state3
+        pub const PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_FEATURES_EXT: Self = Self(1000455000);
+        pub const PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_PROPERTIES_EXT: Self = Self(1000455001);
+        // VK_EXT_external_memory_acquire_unmodified
+        pub const EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT: Self = Self(1000453000);
+        // VK_EXT_external_memory_host
+        pub const IMPORT_MEMORY_HOST_POINTER_INFO_EXT: Self = Self(1000178000);
+        pub const MEMORY_HOST_POINTER_PROPERTIES_EXT: Self = Self(1000178001);
+        pub const PHYSICAL_DEVICE_EXTERNAL_MEMORY_HOST_PROPERTIES_EXT: Self = Self(1000178002);
+        // VK_EXT_external_memory_metal
+        pub const IMPORT_MEMORY_METAL_HANDLE_INFO_EXT: Self = Self(1000602000);
+        pub const MEMORY_METAL_HANDLE_PROPERTIES_EXT: Self = Self(1000602001);
+        pub const MEMORY_GET_METAL_HANDLE_INFO_EXT: Self = Self(1000602002);
+        // VK_EXT_filter_cubic
+        pub const PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT: Self = Self(1000170000);
+        pub const FILTER_CUBIC_IMAGE_VIEW_IMAGE_FORMAT_PROPERTIES_EXT: Self = Self(1000170001);
+        // VK_EXT_fragment_density_map
+        pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_FEATURES_EXT: Self = Self(1000218000);
+        pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT: Self = Self(1000218001);
+        pub const RENDER_PASS_FRAGMENT_DENSITY_MAP_CREATE_INFO_EXT: Self = Self(1000218002);
+        pub const RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_INFO_EXT: Self = Self(1000044007);
+        // VK_EXT_fragment_density_map2
+        pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_2_FEATURES_EXT: Self = Self(1000332000);
+        pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_2_PROPERTIES_EXT: Self = Self(1000332001);
+        // VK_EXT_fragment_density_map_offset
+        pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_EXT: Self = Self(1000425000);
+        pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT: Self =
+            Self(1000425001);
+        pub const RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT: Self = Self(1000425002);
+        pub const RENDERING_END_INFO_EXT: Self = Self::RENDERING_END_INFO_KHR;
+        // VK_EXT_fragment_shader_interlock
+        pub const PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT: Self = Self(1000251000);
+        // VK_EXT_frame_boundary
+        pub const PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT: Self = Self(1000375000);
+        pub const FRAME_BOUNDARY_EXT: Self = Self(1000375001);
+        // VK_EXT_full_screen_exclusive
+        pub const SURFACE_FULL_SCREEN_EXCLUSIVE_INFO_EXT: Self = Self(1000255000);
+        pub const SURFACE_CAPABILITIES_FULL_SCREEN_EXCLUSIVE_EXT: Self = Self(1000255002);
+        pub const SURFACE_FULL_SCREEN_EXCLUSIVE_WIN32_INFO_EXT: Self = Self(1000255001);
+        // VK_EXT_global_priority
+        pub const DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO_EXT: Self =
+            Self::DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO;
+        // VK_EXT_global_priority_query
         pub const PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES;
-        pub const PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES;
-        pub const PHYSICAL_DEVICE_GROUP_PROPERTIES_KHR: Self =
-            Self::PHYSICAL_DEVICE_GROUP_PROPERTIES;
+        pub const QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES_EXT: Self =
+            Self::QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES;
+        // VK_EXT_graphics_pipeline_library
+        pub const PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_FEATURES_EXT: Self = Self(1000320000);
+        pub const PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_PROPERTIES_EXT: Self = Self(1000320001);
+        pub const GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT: Self = Self(1000320002);
+        // VK_EXT_hdr_metadata
+        pub const HDR_METADATA_EXT: Self = Self(1000105000);
+        // VK_EXT_headless_surface
+        pub const HEADLESS_SURFACE_CREATE_INFO_EXT: Self = Self(1000256000);
+        // VK_EXT_host_image_copy
         pub const PHYSICAL_DEVICE_HOST_IMAGE_COPY_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_HOST_IMAGE_COPY_FEATURES;
         pub const PHYSICAL_DEVICE_HOST_IMAGE_COPY_PROPERTIES_EXT: Self =
             Self::PHYSICAL_DEVICE_HOST_IMAGE_COPY_PROPERTIES;
+        pub const MEMORY_TO_IMAGE_COPY_EXT: Self = Self::MEMORY_TO_IMAGE_COPY;
+        pub const IMAGE_TO_MEMORY_COPY_EXT: Self = Self::IMAGE_TO_MEMORY_COPY;
+        pub const COPY_IMAGE_TO_MEMORY_INFO_EXT: Self = Self::COPY_IMAGE_TO_MEMORY_INFO;
+        pub const COPY_MEMORY_TO_IMAGE_INFO_EXT: Self = Self::COPY_MEMORY_TO_IMAGE_INFO;
+        pub const HOST_IMAGE_LAYOUT_TRANSITION_INFO_EXT: Self =
+            Self::HOST_IMAGE_LAYOUT_TRANSITION_INFO;
+        pub const COPY_IMAGE_TO_IMAGE_INFO_EXT: Self = Self::COPY_IMAGE_TO_IMAGE_INFO;
+        pub const SUBRESOURCE_HOST_MEMCPY_SIZE_EXT: Self = Self::SUBRESOURCE_HOST_MEMCPY_SIZE;
+        pub const HOST_IMAGE_COPY_DEVICE_PERFORMANCE_QUERY_EXT: Self =
+            Self::HOST_IMAGE_COPY_DEVICE_PERFORMANCE_QUERY;
+        // VK_EXT_host_query_reset
         pub const PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES;
-        pub const PHYSICAL_DEVICE_ID_PROPERTIES_KHR: Self = Self::PHYSICAL_DEVICE_ID_PROPERTIES;
-        pub const PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES;
-        pub const PHYSICAL_DEVICE_IMAGE_FORMAT_INFO_2_KHR: Self =
-            Self::PHYSICAL_DEVICE_IMAGE_FORMAT_INFO_2;
+        // VK_EXT_image_2d_view_of_3d
+        pub const PHYSICAL_DEVICE_IMAGE_2D_VIEW_OF_3D_FEATURES_EXT: Self = Self(1000393000);
+        // VK_EXT_image_compression_control
+        pub const PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_FEATURES_EXT: Self = Self(1000338000);
+        pub const IMAGE_COMPRESSION_CONTROL_EXT: Self = Self(1000338001);
+        pub const IMAGE_COMPRESSION_PROPERTIES_EXT: Self = Self(1000338004);
+        pub const SUBRESOURCE_LAYOUT_2_EXT: Self = Self::SUBRESOURCE_LAYOUT_2;
+        pub const IMAGE_SUBRESOURCE_2_EXT: Self = Self::IMAGE_SUBRESOURCE_2;
+        // VK_EXT_image_compression_control_swapchain
+        pub const PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_SWAPCHAIN_FEATURES_EXT: Self =
+            Self(1000437000);
+        // VK_EXT_image_drm_format_modifier
+        pub const DRM_FORMAT_MODIFIER_PROPERTIES_LIST_EXT: Self = Self(1000158000);
+        pub const PHYSICAL_DEVICE_IMAGE_DRM_FORMAT_MODIFIER_INFO_EXT: Self = Self(1000158002);
+        pub const IMAGE_DRM_FORMAT_MODIFIER_LIST_CREATE_INFO_EXT: Self = Self(1000158003);
+        pub const IMAGE_DRM_FORMAT_MODIFIER_EXPLICIT_CREATE_INFO_EXT: Self = Self(1000158004);
+        pub const IMAGE_DRM_FORMAT_MODIFIER_PROPERTIES_EXT: Self = Self(1000158005);
+        pub const DRM_FORMAT_MODIFIER_PROPERTIES_LIST_2_EXT: Self = Self(1000158006);
+        // VK_EXT_image_robustness
         pub const PHYSICAL_DEVICE_IMAGE_ROBUSTNESS_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_IMAGE_ROBUSTNESS_FEATURES;
+        // VK_EXT_image_sliced_view_of_3d
+        pub const PHYSICAL_DEVICE_IMAGE_SLICED_VIEW_OF_3D_FEATURES_EXT: Self = Self(1000418000);
+        pub const IMAGE_VIEW_SLICED_CREATE_INFO_EXT: Self = Self(1000418001);
+        // VK_EXT_image_view_min_lod
+        pub const PHYSICAL_DEVICE_IMAGE_VIEW_MIN_LOD_FEATURES_EXT: Self = Self(1000391000);
+        pub const IMAGE_VIEW_MIN_LOD_CREATE_INFO_EXT: Self = Self(1000391001);
+        // VK_EXT_index_type_uint8
         pub const PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES;
-        pub const PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES;
+        // VK_EXT_inline_uniform_block
         pub const PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_FEATURES;
         pub const PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_PROPERTIES_EXT: Self =
             Self::PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_PROPERTIES;
+        pub const WRITE_DESCRIPTOR_SET_INLINE_UNIFORM_BLOCK_EXT: Self =
+            Self::WRITE_DESCRIPTOR_SET_INLINE_UNIFORM_BLOCK;
+        pub const DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO_EXT: Self =
+            Self::DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO;
+        // VK_EXT_layer_settings
+        pub const LAYER_SETTINGS_CREATE_INFO_EXT: Self = Self(1000496000);
+        // VK_EXT_legacy_dithering
+        pub const PHYSICAL_DEVICE_LEGACY_DITHERING_FEATURES_EXT: Self = Self(1000465000);
+        // VK_EXT_legacy_vertex_attributes
+        pub const PHYSICAL_DEVICE_LEGACY_VERTEX_ATTRIBUTES_FEATURES_EXT: Self = Self(1000495000);
+        pub const PHYSICAL_DEVICE_LEGACY_VERTEX_ATTRIBUTES_PROPERTIES_EXT: Self = Self(1000495001);
+        // VK_EXT_line_rasterization
         pub const PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES;
-        pub const PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES;
+        pub const PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO_EXT: Self =
+            Self::PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO;
         pub const PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES_EXT: Self =
             Self::PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES;
-        pub const PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES_KHR: Self =
-            Self::PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES;
-        pub const PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES_KHR: Self =
-            Self::PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES;
-        pub const PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES;
-        pub const PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES_KHR: Self =
-            Self::PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES;
-        pub const PHYSICAL_DEVICE_MAINTENANCE_5_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_MAINTENANCE_5_FEATURES;
-        pub const PHYSICAL_DEVICE_MAINTENANCE_5_PROPERTIES_KHR: Self =
-            Self::PHYSICAL_DEVICE_MAINTENANCE_5_PROPERTIES;
-        pub const PHYSICAL_DEVICE_MAINTENANCE_6_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_MAINTENANCE_6_FEATURES;
-        pub const PHYSICAL_DEVICE_MAINTENANCE_6_PROPERTIES_KHR: Self =
-            Self::PHYSICAL_DEVICE_MAINTENANCE_6_PROPERTIES;
-        pub const PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_NV: Self =
-            Self::PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_EXT;
-        pub const PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_NV: Self =
-            Self::PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_EXT;
-        pub const PHYSICAL_DEVICE_MEMORY_PROPERTIES_2_KHR: Self =
-            Self::PHYSICAL_DEVICE_MEMORY_PROPERTIES_2;
-        pub const PHYSICAL_DEVICE_MULTIVIEW_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_MULTIVIEW_FEATURES;
-        pub const PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES_KHR: Self =
-            Self::PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES;
-        pub const PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_VALVE: Self =
-            Self::PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT;
+        // VK_EXT_map_memory_placed
+        pub const PHYSICAL_DEVICE_MAP_MEMORY_PLACED_FEATURES_EXT: Self = Self(1000272000);
+        pub const PHYSICAL_DEVICE_MAP_MEMORY_PLACED_PROPERTIES_EXT: Self = Self(1000272001);
+        pub const MEMORY_MAP_PLACED_INFO_EXT: Self = Self(1000272002);
+        // VK_EXT_memory_budget
+        pub const PHYSICAL_DEVICE_MEMORY_BUDGET_PROPERTIES_EXT: Self = Self(1000237000);
+        // VK_EXT_memory_decompression
+        pub const PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_EXT: Self = Self(1000427000);
+        pub const PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_EXT: Self = Self(1000427001);
+        pub const DECOMPRESS_MEMORY_INFO_EXT: Self = Self(1000550002);
+        // VK_EXT_memory_priority
+        pub const PHYSICAL_DEVICE_MEMORY_PRIORITY_FEATURES_EXT: Self = Self(1000238000);
+        pub const MEMORY_PRIORITY_ALLOCATE_INFO_EXT: Self = Self(1000238001);
+        // VK_EXT_mesh_shader
+        pub const PHYSICAL_DEVICE_MESH_SHADER_FEATURES_EXT: Self = Self(1000328000);
+        pub const PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_EXT: Self = Self(1000328001);
+        // VK_EXT_metal_objects
+        pub const EXPORT_METAL_OBJECT_CREATE_INFO_EXT: Self = Self(1000311000);
+        pub const EXPORT_METAL_OBJECTS_INFO_EXT: Self = Self(1000311001);
+        pub const EXPORT_METAL_DEVICE_INFO_EXT: Self = Self(1000311002);
+        pub const EXPORT_METAL_COMMAND_QUEUE_INFO_EXT: Self = Self(1000311003);
+        pub const EXPORT_METAL_BUFFER_INFO_EXT: Self = Self(1000311004);
+        pub const IMPORT_METAL_BUFFER_INFO_EXT: Self = Self(1000311005);
+        pub const EXPORT_METAL_TEXTURE_INFO_EXT: Self = Self(1000311006);
+        pub const IMPORT_METAL_TEXTURE_INFO_EXT: Self = Self(1000311007);
+        pub const EXPORT_METAL_IO_SURFACE_INFO_EXT: Self = Self(1000311008);
+        pub const IMPORT_METAL_IO_SURFACE_INFO_EXT: Self = Self(1000311009);
+        pub const EXPORT_METAL_SHARED_EVENT_INFO_EXT: Self = Self(1000311010);
+        pub const IMPORT_METAL_SHARED_EVENT_INFO_EXT: Self = Self(1000311011);
+        // VK_EXT_metal_surface
+        pub const METAL_SURFACE_CREATE_INFO_EXT: Self = Self(1000217000);
+        // VK_EXT_multi_draw
+        pub const PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT: Self = Self(1000392000);
+        pub const PHYSICAL_DEVICE_MULTI_DRAW_PROPERTIES_EXT: Self = Self(1000392001);
+        // VK_EXT_multisampled_render_to_single_sampled
+        pub const PHYSICAL_DEVICE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_FEATURES_EXT: Self =
+            Self(1000376000);
+        pub const SUBPASS_RESOLVE_PERFORMANCE_QUERY_EXT: Self = Self(1000376001);
+        pub const MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_INFO_EXT: Self = Self(1000376002);
+        // VK_EXT_mutable_descriptor_type
+        pub const PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT: Self = Self(1000351000);
+        pub const MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_EXT: Self = Self(1000351002);
+        // VK_EXT_nested_command_buffer
+        pub const PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_FEATURES_EXT: Self = Self(1000451000);
+        pub const PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_PROPERTIES_EXT: Self = Self(1000451001);
+        // VK_EXT_non_seamless_cube_map
+        pub const PHYSICAL_DEVICE_NON_SEAMLESS_CUBE_MAP_FEATURES_EXT: Self = Self(1000422000);
+        // VK_EXT_opacity_micromap
+        pub const MICROMAP_BUILD_INFO_EXT: Self = Self(1000396000);
+        pub const MICROMAP_VERSION_INFO_EXT: Self = Self(1000396001);
+        pub const COPY_MICROMAP_INFO_EXT: Self = Self(1000396002);
+        pub const COPY_MICROMAP_TO_MEMORY_INFO_EXT: Self = Self(1000396003);
+        pub const COPY_MEMORY_TO_MICROMAP_INFO_EXT: Self = Self(1000396004);
+        pub const PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_EXT: Self = Self(1000396005);
+        pub const PHYSICAL_DEVICE_OPACITY_MICROMAP_PROPERTIES_EXT: Self = Self(1000396006);
+        pub const MICROMAP_CREATE_INFO_EXT: Self = Self(1000396007);
+        pub const MICROMAP_BUILD_SIZES_INFO_EXT: Self = Self(1000396008);
+        pub const ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_EXT: Self = Self(1000396009);
+        // VK_EXT_pageable_device_local_memory
+        pub const PHYSICAL_DEVICE_PAGEABLE_DEVICE_LOCAL_MEMORY_FEATURES_EXT: Self =
+            Self(1000412000);
+        // VK_EXT_pci_bus_info
+        pub const PHYSICAL_DEVICE_PCI_BUS_INFO_PROPERTIES_EXT: Self = Self(1000212000);
+        // VK_EXT_physical_device_drm
+        pub const PHYSICAL_DEVICE_DRM_PROPERTIES_EXT: Self = Self(1000353000);
+        // VK_EXT_pipeline_creation_cache_control
         pub const PHYSICAL_DEVICE_PIPELINE_CREATION_CACHE_CONTROL_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_PIPELINE_CREATION_CACHE_CONTROL_FEATURES;
+        // VK_EXT_pipeline_creation_feedback
+        pub const PIPELINE_CREATION_FEEDBACK_CREATE_INFO_EXT: Self =
+            Self::PIPELINE_CREATION_FEEDBACK_CREATE_INFO;
+        // VK_EXT_pipeline_library_group_handles
+        pub const PHYSICAL_DEVICE_PIPELINE_LIBRARY_GROUP_HANDLES_FEATURES_EXT: Self =
+            Self(1000498000);
+        // VK_EXT_pipeline_properties
+        pub const PIPELINE_PROPERTIES_IDENTIFIER_EXT: Self = Self(1000372000);
+        pub const PHYSICAL_DEVICE_PIPELINE_PROPERTIES_FEATURES_EXT: Self = Self(1000372001);
+        pub const PIPELINE_INFO_EXT: Self = Self::PIPELINE_INFO_KHR;
+        // VK_EXT_pipeline_protected_access
         pub const PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES;
+        // VK_EXT_pipeline_robustness
+        pub const PIPELINE_ROBUSTNESS_CREATE_INFO_EXT: Self = Self::PIPELINE_ROBUSTNESS_CREATE_INFO;
         pub const PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_FEATURES;
         pub const PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_PROPERTIES_EXT: Self =
             Self::PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_PROPERTIES;
-        pub const PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES_KHR: Self =
-            Self::PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES;
+        // VK_EXT_present_mode_fifo_latest_ready
         pub const PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_KHR;
+        // VK_EXT_present_timing
+        pub const PHYSICAL_DEVICE_PRESENT_TIMING_FEATURES_EXT: Self = Self(1000208000);
+        pub const SWAPCHAIN_TIMING_PROPERTIES_EXT: Self = Self(1000208001);
+        pub const SWAPCHAIN_TIME_DOMAIN_PROPERTIES_EXT: Self = Self(1000208002);
+        pub const PRESENT_TIMINGS_INFO_EXT: Self = Self(1000208003);
+        pub const PRESENT_TIMING_INFO_EXT: Self = Self(1000208004);
+        pub const PAST_PRESENTATION_TIMING_INFO_EXT: Self = Self(1000208005);
+        pub const PAST_PRESENTATION_TIMING_PROPERTIES_EXT: Self = Self(1000208006);
+        pub const PAST_PRESENTATION_TIMING_EXT: Self = Self(1000208007);
+        pub const PRESENT_TIMING_SURFACE_CAPABILITIES_EXT: Self = Self(1000208008);
+        pub const SWAPCHAIN_CALIBRATED_TIMESTAMP_INFO_EXT: Self = Self(1000208009);
+        // VK_EXT_primitive_topology_list_restart
+        pub const PHYSICAL_DEVICE_PRIMITIVE_TOPOLOGY_LIST_RESTART_FEATURES_EXT: Self =
+            Self(1000356000);
+        // VK_EXT_primitives_generated_query
+        pub const PHYSICAL_DEVICE_PRIMITIVES_GENERATED_QUERY_FEATURES_EXT: Self = Self(1000382000);
+        // VK_EXT_private_data
         pub const PHYSICAL_DEVICE_PRIVATE_DATA_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_PRIVATE_DATA_FEATURES;
-        pub const PHYSICAL_DEVICE_PROPERTIES_2_KHR: Self = Self::PHYSICAL_DEVICE_PROPERTIES_2;
-        pub const PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES_KHR: Self =
-            Self::PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES;
-        pub const PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_ARM: Self =
-            Self::PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT;
+        pub const DEVICE_PRIVATE_DATA_CREATE_INFO_EXT: Self = Self::DEVICE_PRIVATE_DATA_CREATE_INFO;
+        pub const PRIVATE_DATA_SLOT_CREATE_INFO_EXT: Self = Self::PRIVATE_DATA_SLOT_CREATE_INFO;
+        // VK_EXT_provoking_vertex
+        pub const PHYSICAL_DEVICE_PROVOKING_VERTEX_FEATURES_EXT: Self = Self(1000254000);
+        pub const PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT: Self =
+            Self(1000254001);
+        pub const PHYSICAL_DEVICE_PROVOKING_VERTEX_PROPERTIES_EXT: Self = Self(1000254002);
+        // VK_EXT_rasterization_order_attachment_access
+        pub const PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT: Self =
+            Self(1000342000);
+        // VK_EXT_ray_tracing_invocation_reorder
+        pub const PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_EXT: Self =
+            Self(1000581000);
+        pub const PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_EXT: Self =
+            Self(1000581001);
+        // VK_EXT_rgba10x6_formats
+        pub const PHYSICAL_DEVICE_RGBA10X6_FORMATS_FEATURES_EXT: Self = Self(1000344000);
+        // VK_EXT_robustness2
         pub const PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR;
         pub const PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_EXT: Self =
             Self::PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_KHR;
+        // VK_EXT_sample_locations
+        pub const SAMPLE_LOCATIONS_INFO_EXT: Self = Self(1000143000);
+        pub const RENDER_PASS_SAMPLE_LOCATIONS_BEGIN_INFO_EXT: Self = Self(1000143001);
+        pub const PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT: Self = Self(1000143002);
+        pub const PHYSICAL_DEVICE_SAMPLE_LOCATIONS_PROPERTIES_EXT: Self = Self(1000143003);
+        pub const MULTISAMPLE_PROPERTIES_EXT: Self = Self(1000143004);
+        // VK_EXT_sampler_filter_minmax
         pub const PHYSICAL_DEVICE_SAMPLER_FILTER_MINMAX_PROPERTIES_EXT: Self =
             Self::PHYSICAL_DEVICE_SAMPLER_FILTER_MINMAX_PROPERTIES;
-        pub const PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES;
-        pub const PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES_EXT: Self =
-            Self::PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES;
-        pub const PHYSICAL_DEVICE_SEPARATE_DEPTH_STENCIL_LAYOUTS_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_SEPARATE_DEPTH_STENCIL_LAYOUTS_FEATURES;
-        pub const PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES;
-        pub const PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES_EXT: Self =
-            Self::PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES;
-        pub const PHYSICAL_DEVICE_SHADER_DRAW_PARAMETER_FEATURES: Self =
-            Self::PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES;
-        pub const PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES;
-        pub const PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES;
-        pub const PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES;
-        pub const PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES;
-        pub const PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES_KHR: Self =
-            Self::PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES;
-        pub const PHYSICAL_DEVICE_SHADER_SUBGROUP_EXTENDED_TYPES_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_SHADER_SUBGROUP_EXTENDED_TYPES_FEATURES;
-        pub const PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES;
-        pub const PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES;
-        pub const PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2_KHR: Self =
-            Self::PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2;
-        pub const PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_FEATURES_EXT: Self =
-            Self::PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_FEATURES;
-        pub const PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_PROPERTIES_EXT: Self =
-            Self::PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_PROPERTIES;
-        pub const PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_EXT: Self =
-            Self::PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR;
-        pub const PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES;
-        pub const PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES_EXT: Self =
-            Self::PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES;
-        pub const PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES_EXT: Self =
-            Self::PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES;
-        pub const PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES;
-        pub const PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_PROPERTIES_KHR: Self =
-            Self::PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_PROPERTIES;
-        pub const PHYSICAL_DEVICE_TOOL_PROPERTIES_EXT: Self = Self::PHYSICAL_DEVICE_TOOL_PROPERTIES;
-        pub const PHYSICAL_DEVICE_UNIFORM_BUFFER_STANDARD_LAYOUT_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_UNIFORM_BUFFER_STANDARD_LAYOUT_FEATURES;
-        pub const PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES;
-        pub const PHYSICAL_DEVICE_VARIABLE_POINTER_FEATURES: Self =
-            Self::PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES;
-        pub const PHYSICAL_DEVICE_VARIABLE_POINTER_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES_KHR;
-        pub const PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES_EXT: Self =
-            Self::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES;
-        pub const PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES;
-        pub const PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_KHR: Self =
-            Self::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES;
-        pub const PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES;
-        pub const PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES_KHR: Self =
-            Self::PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES;
-        pub const PIPELINE_CREATE_FLAGS_2_CREATE_INFO_KHR: Self =
-            Self::PIPELINE_CREATE_FLAGS_2_CREATE_INFO;
-        pub const PIPELINE_CREATION_FEEDBACK_CREATE_INFO_EXT: Self =
-            Self::PIPELINE_CREATION_FEEDBACK_CREATE_INFO;
-        pub const PIPELINE_INFO_EXT: Self = Self::PIPELINE_INFO_KHR;
-        pub const PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO_EXT: Self =
-            Self::PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO;
-        pub const PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO_KHR: Self =
-            Self::PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO;
-        pub const PIPELINE_RENDERING_CREATE_INFO_KHR: Self = Self::PIPELINE_RENDERING_CREATE_INFO;
-        pub const PIPELINE_ROBUSTNESS_CREATE_INFO_EXT: Self = Self::PIPELINE_ROBUSTNESS_CREATE_INFO;
-        pub const PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO_EXT: Self =
-            Self::PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO;
-        pub const PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO_KHR: Self =
-            Self::PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO;
-        pub const PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO_EXT: Self =
-            Self::PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO;
-        pub const PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO_KHR: Self =
-            Self::PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO;
-        pub const PRIVATE_DATA_SLOT_CREATE_INFO_EXT: Self = Self::PRIVATE_DATA_SLOT_CREATE_INFO;
-        pub const PUSH_CONSTANTS_INFO_KHR: Self = Self::PUSH_CONSTANTS_INFO;
-        pub const PUSH_DESCRIPTOR_SET_INFO_KHR: Self = Self::PUSH_DESCRIPTOR_SET_INFO;
-        pub const PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO_KHR: Self =
-            Self::PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO;
-        pub const QUERY_POOL_CREATE_INFO_INTEL: Self =
-            Self::QUERY_POOL_PERFORMANCE_QUERY_CREATE_INFO_INTEL;
-        pub const QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES_EXT: Self =
-            Self::QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES;
-        pub const QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES_KHR: Self =
-            Self::QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES;
-        pub const QUEUE_FAMILY_PROPERTIES_2_KHR: Self = Self::QUEUE_FAMILY_PROPERTIES_2;
-        pub const RELEASE_SWAPCHAIN_IMAGES_INFO_EXT: Self = Self::RELEASE_SWAPCHAIN_IMAGES_INFO_KHR;
-        pub const RENDERING_AREA_INFO_KHR: Self = Self::RENDERING_AREA_INFO;
-        pub const RENDERING_ATTACHMENT_INFO_KHR: Self = Self::RENDERING_ATTACHMENT_INFO;
-        pub const RENDERING_ATTACHMENT_LOCATION_INFO_KHR: Self =
-            Self::RENDERING_ATTACHMENT_LOCATION_INFO;
-        pub const RENDERING_END_INFO_EXT: Self = Self::RENDERING_END_INFO_KHR;
-        pub const RENDERING_INFO_KHR: Self = Self::RENDERING_INFO;
-        pub const RENDERING_INPUT_ATTACHMENT_INDEX_INFO_KHR: Self =
-            Self::RENDERING_INPUT_ATTACHMENT_INDEX_INFO;
-        pub const RENDER_PASS_ATTACHMENT_BEGIN_INFO_KHR: Self =
-            Self::RENDER_PASS_ATTACHMENT_BEGIN_INFO;
-        pub const RENDER_PASS_CREATE_INFO_2_KHR: Self = Self::RENDER_PASS_CREATE_INFO_2;
-        pub const RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO_KHR: Self =
-            Self::RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO;
-        pub const RENDER_PASS_MULTIVIEW_CREATE_INFO_KHR: Self =
-            Self::RENDER_PASS_MULTIVIEW_CREATE_INFO;
-        pub const RESOLVE_IMAGE_INFO_2_KHR: Self = Self::RESOLVE_IMAGE_INFO_2;
         pub const SAMPLER_REDUCTION_MODE_CREATE_INFO_EXT: Self =
             Self::SAMPLER_REDUCTION_MODE_CREATE_INFO;
-        pub const SAMPLER_YCBCR_CONVERSION_CREATE_INFO_KHR: Self =
-            Self::SAMPLER_YCBCR_CONVERSION_CREATE_INFO;
-        pub const SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES_KHR: Self =
-            Self::SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES;
-        pub const SAMPLER_YCBCR_CONVERSION_INFO_KHR: Self = Self::SAMPLER_YCBCR_CONVERSION_INFO;
-        pub const SEMAPHORE_SIGNAL_INFO_KHR: Self = Self::SEMAPHORE_SIGNAL_INFO;
-        pub const SEMAPHORE_SUBMIT_INFO_KHR: Self = Self::SEMAPHORE_SUBMIT_INFO;
-        pub const SEMAPHORE_TYPE_CREATE_INFO_KHR: Self = Self::SEMAPHORE_TYPE_CREATE_INFO;
-        pub const SEMAPHORE_WAIT_INFO_KHR: Self = Self::SEMAPHORE_WAIT_INFO;
+        // VK_EXT_scalar_block_layout
+        pub const PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES_EXT: Self =
+            Self::PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES;
+        // VK_EXT_separate_stencil_usage
+        pub const IMAGE_STENCIL_USAGE_CREATE_INFO_EXT: Self = Self::IMAGE_STENCIL_USAGE_CREATE_INFO;
+        // VK_EXT_shader_64bit_indexing
+        pub const PHYSICAL_DEVICE_SHADER_64_BIT_INDEXING_FEATURES_EXT: Self = Self(1000627000);
+        // VK_EXT_shader_atomic_float
+        pub const PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_FEATURES_EXT: Self = Self(1000260000);
+        // VK_EXT_shader_atomic_float2
+        pub const PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_2_FEATURES_EXT: Self = Self(1000273000);
+        // VK_EXT_shader_demote_to_helper_invocation
+        pub const PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES_EXT: Self =
+            Self::PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES;
+        // VK_EXT_shader_float8
+        pub const PHYSICAL_DEVICE_SHADER_FLOAT8_FEATURES_EXT: Self = Self(1000567000);
+        // VK_EXT_shader_image_atomic_int64
+        pub const PHYSICAL_DEVICE_SHADER_IMAGE_ATOMIC_INT64_FEATURES_EXT: Self = Self(1000234000);
+        // VK_EXT_shader_long_vector
+        pub const PHYSICAL_DEVICE_SHADER_LONG_VECTOR_FEATURES_EXT: Self = Self(1000635000);
+        pub const PHYSICAL_DEVICE_SHADER_LONG_VECTOR_PROPERTIES_EXT: Self = Self(1000635001);
+        // VK_EXT_shader_module_identifier
+        pub const PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_FEATURES_EXT: Self = Self(1000462000);
+        pub const PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_PROPERTIES_EXT: Self = Self(1000462001);
+        pub const PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT: Self = Self(1000462002);
+        pub const SHADER_MODULE_IDENTIFIER_EXT: Self = Self(1000462003);
+        // VK_EXT_shader_object
+        pub const PHYSICAL_DEVICE_SHADER_OBJECT_FEATURES_EXT: Self = Self(1000482000);
+        pub const PHYSICAL_DEVICE_SHADER_OBJECT_PROPERTIES_EXT: Self = Self(1000482001);
+        pub const SHADER_CREATE_INFO_EXT: Self = Self(1000482002);
+        pub const VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT: Self = Self(1000352001);
+        pub const VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT: Self = Self(1000352002);
         pub const SHADER_REQUIRED_SUBGROUP_SIZE_CREATE_INFO_EXT: Self =
             Self::PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO;
-        pub const SPARSE_IMAGE_FORMAT_PROPERTIES_2_KHR: Self =
-            Self::SPARSE_IMAGE_FORMAT_PROPERTIES_2;
-        pub const SPARSE_IMAGE_MEMORY_REQUIREMENTS_2_KHR: Self =
-            Self::SPARSE_IMAGE_MEMORY_REQUIREMENTS_2;
-        pub const SUBMIT_INFO_2_KHR: Self = Self::SUBMIT_INFO_2;
-        pub const SUBPASS_BEGIN_INFO_KHR: Self = Self::SUBPASS_BEGIN_INFO;
-        pub const SUBPASS_DEPENDENCY_2_KHR: Self = Self::SUBPASS_DEPENDENCY_2;
-        pub const SUBPASS_DESCRIPTION_2_KHR: Self = Self::SUBPASS_DESCRIPTION_2;
-        pub const SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE_KHR: Self =
-            Self::SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE;
-        pub const SUBPASS_END_INFO_KHR: Self = Self::SUBPASS_END_INFO;
-        pub const SUBPASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_QCOM: Self =
-            Self::RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT;
-        pub const SUBRESOURCE_HOST_MEMCPY_SIZE_EXT: Self = Self::SUBRESOURCE_HOST_MEMCPY_SIZE;
-        pub const SUBRESOURCE_LAYOUT_2_EXT: Self = Self::SUBRESOURCE_LAYOUT_2;
-        pub const SUBRESOURCE_LAYOUT_2_KHR: Self = Self::SUBRESOURCE_LAYOUT_2;
-        pub const SURFACE_CAPABILITIES2_EXT: Self = Self::SURFACE_CAPABILITIES_2_EXT;
-        pub const SURFACE_PRESENT_MODE_COMPATIBILITY_EXT: Self =
-            Self::SURFACE_PRESENT_MODE_COMPATIBILITY_KHR;
+        // VK_EXT_shader_replicated_composites
+        pub const PHYSICAL_DEVICE_SHADER_REPLICATED_COMPOSITES_FEATURES_EXT: Self =
+            Self(1000564000);
+        // VK_EXT_shader_subgroup_partitioned
+        pub const PHYSICAL_DEVICE_SHADER_SUBGROUP_PARTITIONED_FEATURES_EXT: Self = Self(1000662000);
+        // VK_EXT_shader_tile_image
+        pub const PHYSICAL_DEVICE_SHADER_TILE_IMAGE_FEATURES_EXT: Self = Self(1000395000);
+        pub const PHYSICAL_DEVICE_SHADER_TILE_IMAGE_PROPERTIES_EXT: Self = Self(1000395001);
+        // VK_EXT_shader_uniform_buffer_unsized_array
+        pub const PHYSICAL_DEVICE_SHADER_UNIFORM_BUFFER_UNSIZED_ARRAY_FEATURES_EXT: Self =
+            Self(1000642000);
+        // VK_EXT_subgroup_size_control
+        pub const PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_PROPERTIES_EXT: Self =
+            Self::PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_PROPERTIES;
+        pub const PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO_EXT: Self =
+            Self::PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO;
+        pub const PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_FEATURES_EXT: Self =
+            Self::PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_FEATURES;
+        // VK_EXT_subpass_merge_feedback
+        pub const PHYSICAL_DEVICE_SUBPASS_MERGE_FEEDBACK_FEATURES_EXT: Self = Self(1000458000);
+        pub const RENDER_PASS_CREATION_CONTROL_EXT: Self = Self(1000458001);
+        pub const RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT: Self = Self(1000458002);
+        pub const RENDER_PASS_SUBPASS_FEEDBACK_CREATE_INFO_EXT: Self = Self(1000458003);
+        // VK_EXT_surface_maintenance1
         pub const SURFACE_PRESENT_MODE_EXT: Self = Self::SURFACE_PRESENT_MODE_KHR;
         pub const SURFACE_PRESENT_SCALING_CAPABILITIES_EXT: Self =
             Self::SURFACE_PRESENT_SCALING_CAPABILITIES_KHR;
+        pub const SURFACE_PRESENT_MODE_COMPATIBILITY_EXT: Self =
+            Self::SURFACE_PRESENT_MODE_COMPATIBILITY_KHR;
+        // VK_EXT_swapchain_maintenance1
+        pub const PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_EXT: Self =
+            Self::PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR;
         pub const SWAPCHAIN_PRESENT_FENCE_INFO_EXT: Self = Self::SWAPCHAIN_PRESENT_FENCE_INFO_KHR;
         pub const SWAPCHAIN_PRESENT_MODES_CREATE_INFO_EXT: Self =
             Self::SWAPCHAIN_PRESENT_MODES_CREATE_INFO_KHR;
         pub const SWAPCHAIN_PRESENT_MODE_INFO_EXT: Self = Self::SWAPCHAIN_PRESENT_MODE_INFO_KHR;
         pub const SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_EXT: Self =
             Self::SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_KHR;
+        pub const RELEASE_SWAPCHAIN_IMAGES_INFO_EXT: Self = Self::RELEASE_SWAPCHAIN_IMAGES_INFO_KHR;
+        // VK_EXT_texel_buffer_alignment
+        pub const PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_FEATURES_EXT: Self = Self(1000281000);
+        pub const PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES_EXT: Self =
+            Self::PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES;
+        // VK_EXT_texture_compression_astc_3d
+        pub const PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_3D_FEATURES_EXT: Self = Self(1000288000);
+        // VK_EXT_texture_compression_astc_hdr
+        pub const PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES_EXT: Self =
+            Self::PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES;
+        // VK_EXT_tooling_info
+        pub const PHYSICAL_DEVICE_TOOL_PROPERTIES_EXT: Self = Self::PHYSICAL_DEVICE_TOOL_PROPERTIES;
+        // VK_EXT_transform_feedback
+        pub const PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_FEATURES_EXT: Self = Self(1000028000);
+        pub const PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_PROPERTIES_EXT: Self = Self(1000028001);
+        pub const PIPELINE_RASTERIZATION_STATE_STREAM_CREATE_INFO_EXT: Self = Self(1000028002);
+        // VK_EXT_validation_cache
+        pub const VALIDATION_CACHE_CREATE_INFO_EXT: Self = Self(1000160000);
+        pub const SHADER_MODULE_VALIDATION_CACHE_CREATE_INFO_EXT: Self = Self(1000160001);
+        // VK_EXT_validation_features
+        pub const VALIDATION_FEATURES_EXT: Self = Self(1000247000);
+        // VK_EXT_validation_flags
+        pub const VALIDATION_FLAGS_EXT: Self = Self(1000061000);
+        // VK_EXT_vertex_attribute_divisor
+        pub const PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_EXT: Self = Self(1000190000);
+        pub const PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO_EXT: Self =
+            Self::PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO;
+        pub const PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES_EXT: Self =
+            Self::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES;
+        // VK_EXT_vertex_attribute_robustness
+        pub const PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_ROBUSTNESS_FEATURES_EXT: Self = Self(1000608000);
+        // VK_EXT_vertex_input_dynamic_state
+        pub const PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT: Self = Self(1000352000);
+        // VK_EXT_ycbcr_2plane_444_formats
+        pub const PHYSICAL_DEVICE_YCBCR_2_PLANE_444_FORMATS_FEATURES_EXT: Self = Self(1000330000);
+        // VK_EXT_ycbcr_image_arrays
+        pub const PHYSICAL_DEVICE_YCBCR_IMAGE_ARRAYS_FEATURES_EXT: Self = Self(1000252000);
+        // VK_EXT_zero_initialize_device_memory
+        pub const PHYSICAL_DEVICE_ZERO_INITIALIZE_DEVICE_MEMORY_FEATURES_EXT: Self =
+            Self(1000620000);
+        // VK_FUCHSIA_buffer_collection
+        pub const BUFFER_COLLECTION_CREATE_INFO_FUCHSIA: Self = Self(1000366000);
+        pub const IMPORT_MEMORY_BUFFER_COLLECTION_FUCHSIA: Self = Self(1000366001);
+        pub const BUFFER_COLLECTION_IMAGE_CREATE_INFO_FUCHSIA: Self = Self(1000366002);
+        pub const BUFFER_COLLECTION_PROPERTIES_FUCHSIA: Self = Self(1000366003);
+        pub const BUFFER_CONSTRAINTS_INFO_FUCHSIA: Self = Self(1000366004);
+        pub const BUFFER_COLLECTION_BUFFER_CREATE_INFO_FUCHSIA: Self = Self(1000366005);
+        pub const IMAGE_CONSTRAINTS_INFO_FUCHSIA: Self = Self(1000366006);
+        pub const IMAGE_FORMAT_CONSTRAINTS_INFO_FUCHSIA: Self = Self(1000366007);
+        pub const SYSMEM_COLOR_SPACE_FUCHSIA: Self = Self(1000366008);
+        pub const BUFFER_COLLECTION_CONSTRAINTS_INFO_FUCHSIA: Self = Self(1000366009);
+        // VK_FUCHSIA_external_memory
+        pub const IMPORT_MEMORY_ZIRCON_HANDLE_INFO_FUCHSIA: Self = Self(1000364000);
+        pub const MEMORY_ZIRCON_HANDLE_PROPERTIES_FUCHSIA: Self = Self(1000364001);
+        pub const MEMORY_GET_ZIRCON_HANDLE_INFO_FUCHSIA: Self = Self(1000364002);
+        // VK_FUCHSIA_external_semaphore
+        pub const IMPORT_SEMAPHORE_ZIRCON_HANDLE_INFO_FUCHSIA: Self = Self(1000365000);
+        pub const SEMAPHORE_GET_ZIRCON_HANDLE_INFO_FUCHSIA: Self = Self(1000365001);
+        // VK_FUCHSIA_imagepipe_surface
+        pub const IMAGEPIPE_SURFACE_CREATE_INFO_FUCHSIA: Self = Self(1000214000);
+        // VK_GGP_frame_token
+        pub const PRESENT_FRAME_TOKEN_GGP: Self = Self(1000191000);
+        // VK_GGP_stream_descriptor_surface
+        pub const STREAM_DESCRIPTOR_SURFACE_CREATE_INFO_GGP: Self = Self(1000049000);
+        // VK_GOOGLE_display_timing
+        pub const PRESENT_TIMES_INFO_GOOGLE: Self = Self(1000092000);
+        // VK_HUAWEI_cluster_culling_shader
+        pub const PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI: Self = Self(1000404000);
+        pub const PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI: Self = Self(1000404001);
+        pub const PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_VRS_FEATURES_HUAWEI: Self =
+            Self(1000404002);
+        // VK_HUAWEI_hdr_vivid
+        pub const PHYSICAL_DEVICE_HDR_VIVID_FEATURES_HUAWEI: Self = Self(1000590000);
+        pub const HDR_VIVID_DYNAMIC_METADATA_HUAWEI: Self = Self(1000590001);
+        // VK_HUAWEI_invocation_mask
+        pub const PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI: Self = Self(1000370000);
+        // VK_HUAWEI_subpass_shading
+        pub const SUBPASS_SHADING_PIPELINE_CREATE_INFO_HUAWEI: Self = Self(1000369000);
+        pub const PHYSICAL_DEVICE_SUBPASS_SHADING_FEATURES_HUAWEI: Self = Self(1000369001);
+        pub const PHYSICAL_DEVICE_SUBPASS_SHADING_PROPERTIES_HUAWEI: Self = Self(1000369002);
+        // VK_IMG_relaxed_line_rasterization
+        pub const PHYSICAL_DEVICE_RELAXED_LINE_RASTERIZATION_FEATURES_IMG: Self = Self(1000110000);
+        // VK_INTEL_performance_query
+        pub const QUERY_POOL_PERFORMANCE_QUERY_CREATE_INFO_INTEL: Self = Self(1000210000);
+        pub const INITIALIZE_PERFORMANCE_API_INFO_INTEL: Self = Self(1000210001);
+        pub const PERFORMANCE_MARKER_INFO_INTEL: Self = Self(1000210002);
+        pub const PERFORMANCE_STREAM_MARKER_INFO_INTEL: Self = Self(1000210003);
+        pub const PERFORMANCE_OVERRIDE_INFO_INTEL: Self = Self(1000210004);
+        pub const PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL: Self = Self(1000210005);
+        pub const QUERY_POOL_CREATE_INFO_INTEL: Self =
+            Self::QUERY_POOL_PERFORMANCE_QUERY_CREATE_INFO_INTEL;
+        // VK_INTEL_shader_integer_functions2
+        pub const PHYSICAL_DEVICE_SHADER_INTEGER_FUNCTIONS_2_FEATURES_INTEL: Self =
+            Self(1000209000);
+        // VK_KHR_16bit_storage
+        pub const PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES;
+        // VK_KHR_8bit_storage
+        pub const PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES;
+        // VK_KHR_acceleration_structure
+        pub const WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_KHR: Self = Self(1000150007);
+        pub const ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR: Self = Self(1000150000);
+        pub const ACCELERATION_STRUCTURE_DEVICE_ADDRESS_INFO_KHR: Self = Self(1000150002);
+        pub const ACCELERATION_STRUCTURE_GEOMETRY_AABBS_DATA_KHR: Self = Self(1000150003);
+        pub const ACCELERATION_STRUCTURE_GEOMETRY_INSTANCES_DATA_KHR: Self = Self(1000150004);
+        pub const ACCELERATION_STRUCTURE_GEOMETRY_TRIANGLES_DATA_KHR: Self = Self(1000150005);
+        pub const ACCELERATION_STRUCTURE_GEOMETRY_KHR: Self = Self(1000150006);
+        pub const ACCELERATION_STRUCTURE_VERSION_INFO_KHR: Self = Self(1000150009);
+        pub const COPY_ACCELERATION_STRUCTURE_INFO_KHR: Self = Self(1000150010);
+        pub const COPY_ACCELERATION_STRUCTURE_TO_MEMORY_INFO_KHR: Self = Self(1000150011);
+        pub const COPY_MEMORY_TO_ACCELERATION_STRUCTURE_INFO_KHR: Self = Self(1000150012);
+        pub const PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR: Self = Self(1000150013);
+        pub const PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_PROPERTIES_KHR: Self = Self(1000150014);
+        pub const ACCELERATION_STRUCTURE_CREATE_INFO_KHR: Self = Self(1000150017);
+        pub const ACCELERATION_STRUCTURE_BUILD_SIZES_INFO_KHR: Self = Self(1000150020);
+        // VK_KHR_android_surface
+        pub const ANDROID_SURFACE_CREATE_INFO_KHR: Self = Self(1000008000);
+        // VK_KHR_bind_memory2
+        pub const BIND_BUFFER_MEMORY_INFO_KHR: Self = Self::BIND_BUFFER_MEMORY_INFO;
+        pub const BIND_IMAGE_MEMORY_INFO_KHR: Self = Self::BIND_IMAGE_MEMORY_INFO;
+        // VK_KHR_buffer_device_address
+        pub const PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES;
+        pub const BUFFER_DEVICE_ADDRESS_INFO_KHR: Self = Self::BUFFER_DEVICE_ADDRESS_INFO;
+        pub const BUFFER_OPAQUE_CAPTURE_ADDRESS_CREATE_INFO_KHR: Self =
+            Self::BUFFER_OPAQUE_CAPTURE_ADDRESS_CREATE_INFO;
+        pub const MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO_KHR: Self =
+            Self::MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO;
+        pub const DEVICE_MEMORY_OPAQUE_CAPTURE_ADDRESS_INFO_KHR: Self =
+            Self::DEVICE_MEMORY_OPAQUE_CAPTURE_ADDRESS_INFO;
+        // VK_KHR_calibrated_timestamps
+        pub const CALIBRATED_TIMESTAMP_INFO_KHR: Self = Self(1000184000);
+        // VK_KHR_compute_shader_derivatives
+        pub const PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_FEATURES_KHR: Self = Self(1000201000);
+        pub const PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_PROPERTIES_KHR: Self =
+            Self(1000511000);
+        // VK_KHR_cooperative_matrix
+        pub const PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_KHR: Self = Self(1000506000);
+        pub const COOPERATIVE_MATRIX_PROPERTIES_KHR: Self = Self(1000506001);
+        pub const PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_KHR: Self = Self(1000506002);
+        // VK_KHR_copy_commands2
+        pub const COPY_BUFFER_INFO_2_KHR: Self = Self::COPY_BUFFER_INFO_2;
+        pub const COPY_IMAGE_INFO_2_KHR: Self = Self::COPY_IMAGE_INFO_2;
+        pub const COPY_BUFFER_TO_IMAGE_INFO_2_KHR: Self = Self::COPY_BUFFER_TO_IMAGE_INFO_2;
+        pub const COPY_IMAGE_TO_BUFFER_INFO_2_KHR: Self = Self::COPY_IMAGE_TO_BUFFER_INFO_2;
+        pub const BLIT_IMAGE_INFO_2_KHR: Self = Self::BLIT_IMAGE_INFO_2;
+        pub const RESOLVE_IMAGE_INFO_2_KHR: Self = Self::RESOLVE_IMAGE_INFO_2;
+        pub const BUFFER_COPY_2_KHR: Self = Self::BUFFER_COPY_2;
+        pub const IMAGE_COPY_2_KHR: Self = Self::IMAGE_COPY_2;
+        pub const IMAGE_BLIT_2_KHR: Self = Self::IMAGE_BLIT_2;
+        pub const BUFFER_IMAGE_COPY_2_KHR: Self = Self::BUFFER_IMAGE_COPY_2;
+        pub const IMAGE_RESOLVE_2_KHR: Self = Self::IMAGE_RESOLVE_2;
+        // VK_KHR_copy_memory_indirect
+        pub const PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_KHR: Self = Self(1000549000);
+        pub const PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR: Self = Self(1000426001);
+        pub const COPY_MEMORY_INDIRECT_INFO_KHR: Self = Self(1000549002);
+        pub const COPY_MEMORY_TO_IMAGE_INDIRECT_INFO_KHR: Self = Self(1000549003);
+        // VK_KHR_create_renderpass2
+        pub const ATTACHMENT_DESCRIPTION_2_KHR: Self = Self::ATTACHMENT_DESCRIPTION_2;
+        pub const ATTACHMENT_REFERENCE_2_KHR: Self = Self::ATTACHMENT_REFERENCE_2;
+        pub const SUBPASS_DESCRIPTION_2_KHR: Self = Self::SUBPASS_DESCRIPTION_2;
+        pub const SUBPASS_DEPENDENCY_2_KHR: Self = Self::SUBPASS_DEPENDENCY_2;
+        pub const RENDER_PASS_CREATE_INFO_2_KHR: Self = Self::RENDER_PASS_CREATE_INFO_2;
+        pub const SUBPASS_BEGIN_INFO_KHR: Self = Self::SUBPASS_BEGIN_INFO;
+        pub const SUBPASS_END_INFO_KHR: Self = Self::SUBPASS_END_INFO;
+        // VK_KHR_dedicated_allocation
+        pub const MEMORY_DEDICATED_REQUIREMENTS_KHR: Self = Self::MEMORY_DEDICATED_REQUIREMENTS;
+        pub const MEMORY_DEDICATED_ALLOCATE_INFO_KHR: Self = Self::MEMORY_DEDICATED_ALLOCATE_INFO;
+        // VK_KHR_depth_clamp_zero_one
+        pub const PHYSICAL_DEVICE_DEPTH_CLAMP_ZERO_ONE_FEATURES_KHR: Self = Self(1000421000);
+        // VK_KHR_depth_stencil_resolve
+        pub const PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES_KHR: Self =
+            Self::PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES;
+        pub const SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE_KHR: Self =
+            Self::SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE;
+        // VK_KHR_descriptor_update_template
+        pub const DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO_KHR: Self =
+            Self::DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO;
+        // VK_KHR_device_group
+        pub const DEVICE_GROUP_PRESENT_CAPABILITIES_KHR: Self = Self(1000060007);
+        pub const IMAGE_SWAPCHAIN_CREATE_INFO_KHR: Self = Self(1000060008);
+        pub const BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR: Self = Self(1000060009);
+        pub const ACQUIRE_NEXT_IMAGE_INFO_KHR: Self = Self(1000060010);
+        pub const DEVICE_GROUP_PRESENT_INFO_KHR: Self = Self(1000060011);
+        pub const DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR: Self = Self(1000060012);
+        pub const MEMORY_ALLOCATE_FLAGS_INFO_KHR: Self = Self::MEMORY_ALLOCATE_FLAGS_INFO;
+        pub const DEVICE_GROUP_RENDER_PASS_BEGIN_INFO_KHR: Self =
+            Self::DEVICE_GROUP_RENDER_PASS_BEGIN_INFO;
+        pub const DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO_KHR: Self =
+            Self::DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO;
+        pub const DEVICE_GROUP_SUBMIT_INFO_KHR: Self = Self::DEVICE_GROUP_SUBMIT_INFO;
+        pub const DEVICE_GROUP_BIND_SPARSE_INFO_KHR: Self = Self::DEVICE_GROUP_BIND_SPARSE_INFO;
+        pub const BIND_BUFFER_MEMORY_DEVICE_GROUP_INFO_KHR: Self =
+            Self::BIND_BUFFER_MEMORY_DEVICE_GROUP_INFO;
+        pub const BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO_KHR: Self =
+            Self::BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO;
+        // VK_KHR_device_group_creation
+        pub const PHYSICAL_DEVICE_GROUP_PROPERTIES_KHR: Self =
+            Self::PHYSICAL_DEVICE_GROUP_PROPERTIES;
+        pub const DEVICE_GROUP_DEVICE_CREATE_INFO_KHR: Self = Self::DEVICE_GROUP_DEVICE_CREATE_INFO;
+        // VK_KHR_display
+        pub const DISPLAY_MODE_CREATE_INFO_KHR: Self = Self(1000002000);
+        pub const DISPLAY_SURFACE_CREATE_INFO_KHR: Self = Self(1000002001);
+        // VK_KHR_display_swapchain
+        pub const DISPLAY_PRESENT_INFO_KHR: Self = Self(1000003000);
+        // VK_KHR_driver_properties
+        pub const PHYSICAL_DEVICE_DRIVER_PROPERTIES_KHR: Self =
+            Self::PHYSICAL_DEVICE_DRIVER_PROPERTIES;
+        // VK_KHR_dynamic_rendering
+        pub const RENDERING_INFO_KHR: Self = Self::RENDERING_INFO;
+        pub const RENDERING_ATTACHMENT_INFO_KHR: Self = Self::RENDERING_ATTACHMENT_INFO;
+        pub const PIPELINE_RENDERING_CREATE_INFO_KHR: Self = Self::PIPELINE_RENDERING_CREATE_INFO;
+        pub const PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES;
+        pub const COMMAND_BUFFER_INHERITANCE_RENDERING_INFO_KHR: Self =
+            Self::COMMAND_BUFFER_INHERITANCE_RENDERING_INFO;
+        // VK_KHR_dynamic_rendering_local_read
+        pub const PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES;
+        pub const RENDERING_ATTACHMENT_LOCATION_INFO_KHR: Self =
+            Self::RENDERING_ATTACHMENT_LOCATION_INFO;
+        pub const RENDERING_INPUT_ATTACHMENT_INDEX_INFO_KHR: Self =
+            Self::RENDERING_INPUT_ATTACHMENT_INDEX_INFO;
+        // VK_KHR_external_fence
+        pub const EXPORT_FENCE_CREATE_INFO_KHR: Self = Self::EXPORT_FENCE_CREATE_INFO;
+        // VK_KHR_external_fence_capabilities
+        pub const PHYSICAL_DEVICE_EXTERNAL_FENCE_INFO_KHR: Self =
+            Self::PHYSICAL_DEVICE_EXTERNAL_FENCE_INFO;
+        pub const EXTERNAL_FENCE_PROPERTIES_KHR: Self = Self::EXTERNAL_FENCE_PROPERTIES;
+        pub const PHYSICAL_DEVICE_ID_PROPERTIES_KHR: Self = Self::PHYSICAL_DEVICE_ID_PROPERTIES;
+        // VK_KHR_external_fence_fd
+        pub const IMPORT_FENCE_FD_INFO_KHR: Self = Self(1000115000);
+        pub const FENCE_GET_FD_INFO_KHR: Self = Self(1000115001);
+        // VK_KHR_external_fence_win32
+        pub const IMPORT_FENCE_WIN32_HANDLE_INFO_KHR: Self = Self(1000114000);
+        pub const EXPORT_FENCE_WIN32_HANDLE_INFO_KHR: Self = Self(1000114001);
+        pub const FENCE_GET_WIN32_HANDLE_INFO_KHR: Self = Self(1000114002);
+        // VK_KHR_external_memory
+        pub const EXTERNAL_MEMORY_BUFFER_CREATE_INFO_KHR: Self =
+            Self::EXTERNAL_MEMORY_BUFFER_CREATE_INFO;
+        pub const EXTERNAL_MEMORY_IMAGE_CREATE_INFO_KHR: Self =
+            Self::EXTERNAL_MEMORY_IMAGE_CREATE_INFO;
+        pub const EXPORT_MEMORY_ALLOCATE_INFO_KHR: Self = Self::EXPORT_MEMORY_ALLOCATE_INFO;
+        // VK_KHR_external_memory_capabilities
+        pub const PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO_KHR: Self =
+            Self::PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO;
+        pub const EXTERNAL_IMAGE_FORMAT_PROPERTIES_KHR: Self =
+            Self::EXTERNAL_IMAGE_FORMAT_PROPERTIES;
+        pub const PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO_KHR: Self =
+            Self::PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO;
+        pub const EXTERNAL_BUFFER_PROPERTIES_KHR: Self = Self::EXTERNAL_BUFFER_PROPERTIES;
+        // VK_KHR_external_memory_fd
+        pub const IMPORT_MEMORY_FD_INFO_KHR: Self = Self(1000074000);
+        pub const MEMORY_FD_PROPERTIES_KHR: Self = Self(1000074001);
+        pub const MEMORY_GET_FD_INFO_KHR: Self = Self(1000074002);
+        // VK_KHR_external_memory_win32
+        pub const IMPORT_MEMORY_WIN32_HANDLE_INFO_KHR: Self = Self(1000073000);
+        pub const EXPORT_MEMORY_WIN32_HANDLE_INFO_KHR: Self = Self(1000073001);
+        pub const MEMORY_WIN32_HANDLE_PROPERTIES_KHR: Self = Self(1000073002);
+        pub const MEMORY_GET_WIN32_HANDLE_INFO_KHR: Self = Self(1000073003);
+        // VK_KHR_external_semaphore
+        pub const EXPORT_SEMAPHORE_CREATE_INFO_KHR: Self = Self::EXPORT_SEMAPHORE_CREATE_INFO;
+        // VK_KHR_external_semaphore_capabilities
+        pub const PHYSICAL_DEVICE_EXTERNAL_SEMAPHORE_INFO_KHR: Self =
+            Self::PHYSICAL_DEVICE_EXTERNAL_SEMAPHORE_INFO;
+        pub const EXTERNAL_SEMAPHORE_PROPERTIES_KHR: Self = Self::EXTERNAL_SEMAPHORE_PROPERTIES;
+        // VK_KHR_external_semaphore_fd
+        pub const IMPORT_SEMAPHORE_FD_INFO_KHR: Self = Self(1000079000);
+        pub const SEMAPHORE_GET_FD_INFO_KHR: Self = Self(1000079001);
+        // VK_KHR_external_semaphore_win32
+        pub const IMPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR: Self = Self(1000078000);
+        pub const EXPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR: Self = Self(1000078001);
+        pub const D3D12_FENCE_SUBMIT_INFO_KHR: Self = Self(1000078002);
+        pub const SEMAPHORE_GET_WIN32_HANDLE_INFO_KHR: Self = Self(1000078003);
+        // VK_KHR_format_feature_flags2
+        pub const FORMAT_PROPERTIES_3_KHR: Self = Self::FORMAT_PROPERTIES_3;
+        // VK_KHR_fragment_shader_barycentric
+        pub const PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_FEATURES_KHR: Self = Self(1000203000);
+        pub const PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_PROPERTIES_KHR: Self =
+            Self(1000322000);
+        // VK_KHR_fragment_shading_rate
+        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR: Self = Self(1000226000);
+        pub const PIPELINE_FRAGMENT_SHADING_RATE_STATE_CREATE_INFO_KHR: Self = Self(1000226001);
+        pub const PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_PROPERTIES_KHR: Self = Self(1000226002);
+        pub const PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_FEATURES_KHR: Self = Self(1000226003);
+        pub const PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR: Self = Self(1000226004);
+        pub const RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR: Self = Self(1000044006);
+        // VK_KHR_get_display_properties2
+        pub const DISPLAY_PROPERTIES_2_KHR: Self = Self(1000121000);
+        pub const DISPLAY_PLANE_PROPERTIES_2_KHR: Self = Self(1000121001);
+        pub const DISPLAY_MODE_PROPERTIES_2_KHR: Self = Self(1000121002);
+        pub const DISPLAY_PLANE_INFO_2_KHR: Self = Self(1000121003);
+        pub const DISPLAY_PLANE_CAPABILITIES_2_KHR: Self = Self(1000121004);
+        // VK_KHR_get_memory_requirements2
+        pub const BUFFER_MEMORY_REQUIREMENTS_INFO_2_KHR: Self =
+            Self::BUFFER_MEMORY_REQUIREMENTS_INFO_2;
+        pub const IMAGE_MEMORY_REQUIREMENTS_INFO_2_KHR: Self =
+            Self::IMAGE_MEMORY_REQUIREMENTS_INFO_2;
+        pub const IMAGE_SPARSE_MEMORY_REQUIREMENTS_INFO_2_KHR: Self =
+            Self::IMAGE_SPARSE_MEMORY_REQUIREMENTS_INFO_2;
+        pub const MEMORY_REQUIREMENTS_2_KHR: Self = Self::MEMORY_REQUIREMENTS_2;
+        pub const SPARSE_IMAGE_MEMORY_REQUIREMENTS_2_KHR: Self =
+            Self::SPARSE_IMAGE_MEMORY_REQUIREMENTS_2;
+        // VK_KHR_get_physical_device_properties2
+        pub const PHYSICAL_DEVICE_FEATURES_2_KHR: Self = Self::PHYSICAL_DEVICE_FEATURES_2;
+        pub const PHYSICAL_DEVICE_PROPERTIES_2_KHR: Self = Self::PHYSICAL_DEVICE_PROPERTIES_2;
+        pub const FORMAT_PROPERTIES_2_KHR: Self = Self::FORMAT_PROPERTIES_2;
+        pub const IMAGE_FORMAT_PROPERTIES_2_KHR: Self = Self::IMAGE_FORMAT_PROPERTIES_2;
+        pub const PHYSICAL_DEVICE_IMAGE_FORMAT_INFO_2_KHR: Self =
+            Self::PHYSICAL_DEVICE_IMAGE_FORMAT_INFO_2;
+        pub const QUEUE_FAMILY_PROPERTIES_2_KHR: Self = Self::QUEUE_FAMILY_PROPERTIES_2;
+        pub const PHYSICAL_DEVICE_MEMORY_PROPERTIES_2_KHR: Self =
+            Self::PHYSICAL_DEVICE_MEMORY_PROPERTIES_2;
+        pub const SPARSE_IMAGE_FORMAT_PROPERTIES_2_KHR: Self =
+            Self::SPARSE_IMAGE_FORMAT_PROPERTIES_2;
+        pub const PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2_KHR: Self =
+            Self::PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2;
+        // VK_KHR_get_surface_capabilities2
+        pub const PHYSICAL_DEVICE_SURFACE_INFO_2_KHR: Self = Self(1000119000);
+        pub const SURFACE_CAPABILITIES_2_KHR: Self = Self(1000119001);
+        pub const SURFACE_FORMAT_2_KHR: Self = Self(1000119002);
+        // VK_KHR_global_priority
+        pub const DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO_KHR: Self =
+            Self::DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO;
+        pub const PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES;
+        pub const QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES_KHR: Self =
+            Self::QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES;
+        // VK_KHR_image_format_list
+        pub const IMAGE_FORMAT_LIST_CREATE_INFO_KHR: Self = Self::IMAGE_FORMAT_LIST_CREATE_INFO;
+        // VK_KHR_imageless_framebuffer
+        pub const PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES;
+        pub const FRAMEBUFFER_ATTACHMENTS_CREATE_INFO_KHR: Self =
+            Self::FRAMEBUFFER_ATTACHMENTS_CREATE_INFO;
+        pub const FRAMEBUFFER_ATTACHMENT_IMAGE_INFO_KHR: Self =
+            Self::FRAMEBUFFER_ATTACHMENT_IMAGE_INFO;
+        pub const RENDER_PASS_ATTACHMENT_BEGIN_INFO_KHR: Self =
+            Self::RENDER_PASS_ATTACHMENT_BEGIN_INFO;
+        // VK_KHR_incremental_present
+        pub const PRESENT_REGIONS_KHR: Self = Self(1000084000);
+        // VK_KHR_index_type_uint8
+        pub const PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES;
+        // VK_KHR_internally_synchronized_queues
+        pub const PHYSICAL_DEVICE_INTERNALLY_SYNCHRONIZED_QUEUES_FEATURES_KHR: Self =
+            Self(1000504000);
+        // VK_KHR_line_rasterization
+        pub const PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES;
+        pub const PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO_KHR: Self =
+            Self::PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO;
+        pub const PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES_KHR: Self =
+            Self::PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES;
+        // VK_KHR_maintenance10
+        pub const PHYSICAL_DEVICE_MAINTENANCE_10_FEATURES_KHR: Self = Self(1000630000);
+        pub const PHYSICAL_DEVICE_MAINTENANCE_10_PROPERTIES_KHR: Self = Self(1000630001);
+        pub const RENDERING_ATTACHMENT_FLAGS_INFO_KHR: Self = Self(1000630002);
+        pub const RENDERING_END_INFO_KHR: Self = Self(1000619003);
+        pub const RESOLVE_IMAGE_MODE_INFO_KHR: Self = Self(1000630004);
+        // VK_KHR_maintenance2
+        pub const PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES_KHR: Self =
+            Self::PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES;
+        pub const RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO_KHR: Self =
+            Self::RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO;
+        pub const IMAGE_VIEW_USAGE_CREATE_INFO_KHR: Self = Self::IMAGE_VIEW_USAGE_CREATE_INFO;
+        pub const PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO_KHR: Self =
+            Self::PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO;
+        // VK_KHR_maintenance3
+        pub const PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES_KHR: Self =
+            Self::PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES;
+        pub const DESCRIPTOR_SET_LAYOUT_SUPPORT_KHR: Self = Self::DESCRIPTOR_SET_LAYOUT_SUPPORT;
+        // VK_KHR_maintenance4
+        pub const PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES;
+        pub const PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES_KHR: Self =
+            Self::PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES;
+        pub const DEVICE_BUFFER_MEMORY_REQUIREMENTS_KHR: Self =
+            Self::DEVICE_BUFFER_MEMORY_REQUIREMENTS;
+        pub const DEVICE_IMAGE_MEMORY_REQUIREMENTS_KHR: Self =
+            Self::DEVICE_IMAGE_MEMORY_REQUIREMENTS;
+        // VK_KHR_maintenance5
+        pub const PHYSICAL_DEVICE_MAINTENANCE_5_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_MAINTENANCE_5_FEATURES;
+        pub const PHYSICAL_DEVICE_MAINTENANCE_5_PROPERTIES_KHR: Self =
+            Self::PHYSICAL_DEVICE_MAINTENANCE_5_PROPERTIES;
+        pub const RENDERING_AREA_INFO_KHR: Self = Self::RENDERING_AREA_INFO;
+        pub const DEVICE_IMAGE_SUBRESOURCE_INFO_KHR: Self = Self::DEVICE_IMAGE_SUBRESOURCE_INFO;
+        pub const SUBRESOURCE_LAYOUT_2_KHR: Self = Self::SUBRESOURCE_LAYOUT_2;
+        pub const IMAGE_SUBRESOURCE_2_KHR: Self = Self::IMAGE_SUBRESOURCE_2;
+        pub const PIPELINE_CREATE_FLAGS_2_CREATE_INFO_KHR: Self =
+            Self::PIPELINE_CREATE_FLAGS_2_CREATE_INFO;
+        pub const BUFFER_USAGE_FLAGS_2_CREATE_INFO_KHR: Self =
+            Self::BUFFER_USAGE_FLAGS_2_CREATE_INFO;
+        // VK_KHR_maintenance6
+        pub const SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT: Self = Self(1000545007);
+        pub const BIND_DESCRIPTOR_BUFFER_EMBEDDED_SAMPLERS_INFO_EXT: Self = Self(1000545008);
+        pub const PHYSICAL_DEVICE_MAINTENANCE_6_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_MAINTENANCE_6_FEATURES;
+        pub const PHYSICAL_DEVICE_MAINTENANCE_6_PROPERTIES_KHR: Self =
+            Self::PHYSICAL_DEVICE_MAINTENANCE_6_PROPERTIES;
+        pub const BIND_MEMORY_STATUS_KHR: Self = Self::BIND_MEMORY_STATUS;
+        pub const BIND_DESCRIPTOR_SETS_INFO_KHR: Self = Self::BIND_DESCRIPTOR_SETS_INFO;
+        pub const PUSH_CONSTANTS_INFO_KHR: Self = Self::PUSH_CONSTANTS_INFO;
+        pub const PUSH_DESCRIPTOR_SET_INFO_KHR: Self = Self::PUSH_DESCRIPTOR_SET_INFO;
+        pub const PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO_KHR: Self =
+            Self::PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO;
+        // VK_KHR_maintenance7
+        pub const PHYSICAL_DEVICE_MAINTENANCE_7_FEATURES_KHR: Self = Self(1000562000);
+        pub const PHYSICAL_DEVICE_MAINTENANCE_7_PROPERTIES_KHR: Self = Self(1000562001);
+        pub const PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_LIST_KHR: Self = Self(1000562002);
+        pub const PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_KHR: Self = Self(1000562003);
+        pub const PHYSICAL_DEVICE_LAYERED_API_VULKAN_PROPERTIES_KHR: Self = Self(1000562004);
+        // VK_KHR_maintenance8
+        pub const PHYSICAL_DEVICE_MAINTENANCE_8_FEATURES_KHR: Self = Self(1000574000);
+        pub const MEMORY_BARRIER_ACCESS_FLAGS_3_KHR: Self = Self(1000574002);
+        // VK_KHR_maintenance9
+        pub const PHYSICAL_DEVICE_MAINTENANCE_9_FEATURES_KHR: Self = Self(1000584000);
+        pub const PHYSICAL_DEVICE_MAINTENANCE_9_PROPERTIES_KHR: Self = Self(1000584001);
+        pub const QUEUE_FAMILY_OWNERSHIP_TRANSFER_PROPERTIES_KHR: Self = Self(1000584002);
+        // VK_KHR_map_memory2
+        pub const MEMORY_MAP_INFO_KHR: Self = Self::MEMORY_MAP_INFO;
+        pub const MEMORY_UNMAP_INFO_KHR: Self = Self::MEMORY_UNMAP_INFO;
+        // VK_KHR_multiview
+        pub const RENDER_PASS_MULTIVIEW_CREATE_INFO_KHR: Self =
+            Self::RENDER_PASS_MULTIVIEW_CREATE_INFO;
+        pub const PHYSICAL_DEVICE_MULTIVIEW_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_MULTIVIEW_FEATURES;
+        pub const PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES_KHR: Self =
+            Self::PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES;
+        // VK_KHR_performance_query
+        pub const PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR: Self = Self(1000116000);
+        pub const PHYSICAL_DEVICE_PERFORMANCE_QUERY_PROPERTIES_KHR: Self = Self(1000116001);
+        pub const QUERY_POOL_PERFORMANCE_CREATE_INFO_KHR: Self = Self(1000116002);
+        pub const PERFORMANCE_QUERY_SUBMIT_INFO_KHR: Self = Self(1000116003);
+        pub const ACQUIRE_PROFILING_LOCK_INFO_KHR: Self = Self(1000116004);
+        pub const PERFORMANCE_COUNTER_KHR: Self = Self(1000116005);
+        pub const PERFORMANCE_COUNTER_DESCRIPTION_KHR: Self = Self(1000116006);
+        // VK_KHR_pipeline_binary
+        pub const PHYSICAL_DEVICE_PIPELINE_BINARY_FEATURES_KHR: Self = Self(1000483000);
+        pub const PIPELINE_BINARY_CREATE_INFO_KHR: Self = Self(1000483001);
+        pub const PIPELINE_BINARY_INFO_KHR: Self = Self(1000483002);
+        pub const PIPELINE_BINARY_KEY_KHR: Self = Self(1000483003);
+        pub const PHYSICAL_DEVICE_PIPELINE_BINARY_PROPERTIES_KHR: Self = Self(1000483004);
+        pub const RELEASE_CAPTURED_PIPELINE_DATA_INFO_KHR: Self = Self(1000483005);
+        pub const PIPELINE_BINARY_DATA_INFO_KHR: Self = Self(1000483006);
+        pub const PIPELINE_CREATE_INFO_KHR: Self = Self(1000483007);
+        pub const DEVICE_PIPELINE_BINARY_INTERNAL_CACHE_CONTROL_KHR: Self = Self(1000483008);
+        pub const PIPELINE_BINARY_HANDLES_INFO_KHR: Self = Self(1000483009);
+        // VK_KHR_pipeline_executable_properties
+        pub const PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR: Self =
+            Self(1000269000);
+        pub const PIPELINE_INFO_KHR: Self = Self(1000269001);
+        pub const PIPELINE_EXECUTABLE_PROPERTIES_KHR: Self = Self(1000269002);
+        pub const PIPELINE_EXECUTABLE_INFO_KHR: Self = Self(1000269003);
+        pub const PIPELINE_EXECUTABLE_STATISTIC_KHR: Self = Self(1000269004);
+        pub const PIPELINE_EXECUTABLE_INTERNAL_REPRESENTATION_KHR: Self = Self(1000269005);
+        // VK_KHR_pipeline_library
+        pub const PIPELINE_LIBRARY_CREATE_INFO_KHR: Self = Self(1000290000);
+        // VK_KHR_portability_subset
+        pub const PHYSICAL_DEVICE_PORTABILITY_SUBSET_FEATURES_KHR: Self = Self(1000163000);
+        pub const PHYSICAL_DEVICE_PORTABILITY_SUBSET_PROPERTIES_KHR: Self = Self(1000163001);
+        // VK_KHR_present_id
+        pub const PRESENT_ID_KHR: Self = Self(1000294000);
+        pub const PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR: Self = Self(1000294001);
+        // VK_KHR_present_id2
+        pub const SURFACE_CAPABILITIES_PRESENT_ID_2_KHR: Self = Self(1000479000);
+        pub const PRESENT_ID_2_KHR: Self = Self(1000479001);
+        pub const PHYSICAL_DEVICE_PRESENT_ID_2_FEATURES_KHR: Self = Self(1000479002);
+        // VK_KHR_present_mode_fifo_latest_ready
+        pub const PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_KHR: Self =
+            Self(1000361000);
+        // VK_KHR_present_wait
+        pub const PHYSICAL_DEVICE_PRESENT_WAIT_FEATURES_KHR: Self = Self(1000248000);
+        // VK_KHR_present_wait2
+        pub const SURFACE_CAPABILITIES_PRESENT_WAIT_2_KHR: Self = Self(1000480000);
+        pub const PHYSICAL_DEVICE_PRESENT_WAIT_2_FEATURES_KHR: Self = Self(1000480001);
+        pub const PRESENT_WAIT_2_INFO_KHR: Self = Self(1000480002);
+        // VK_KHR_push_descriptor
+        pub const PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES_KHR: Self =
+            Self::PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES;
+        // VK_KHR_ray_query
+        pub const PHYSICAL_DEVICE_RAY_QUERY_FEATURES_KHR: Self = Self(1000348013);
+        // VK_KHR_ray_tracing_maintenance1
+        pub const PHYSICAL_DEVICE_RAY_TRACING_MAINTENANCE_1_FEATURES_KHR: Self = Self(1000386000);
+        // VK_KHR_ray_tracing_pipeline
+        pub const PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR: Self = Self(1000347000);
+        pub const PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR: Self = Self(1000347001);
+        pub const RAY_TRACING_PIPELINE_CREATE_INFO_KHR: Self = Self(1000150015);
+        pub const RAY_TRACING_SHADER_GROUP_CREATE_INFO_KHR: Self = Self(1000150016);
+        pub const RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR: Self = Self(1000150018);
+        // VK_KHR_ray_tracing_position_fetch
+        pub const PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR: Self = Self(1000481000);
+        // VK_KHR_robustness2
+        pub const PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR: Self = Self(1000286000);
+        pub const PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_KHR: Self = Self(1000286001);
+        // VK_KHR_sampler_ycbcr_conversion
+        pub const SAMPLER_YCBCR_CONVERSION_CREATE_INFO_KHR: Self =
+            Self::SAMPLER_YCBCR_CONVERSION_CREATE_INFO;
+        pub const SAMPLER_YCBCR_CONVERSION_INFO_KHR: Self = Self::SAMPLER_YCBCR_CONVERSION_INFO;
+        pub const BIND_IMAGE_PLANE_MEMORY_INFO_KHR: Self = Self::BIND_IMAGE_PLANE_MEMORY_INFO;
+        pub const IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO_KHR: Self =
+            Self::IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO;
+        pub const PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES;
+        pub const SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES_KHR: Self =
+            Self::SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES;
+        // VK_KHR_separate_depth_stencil_layouts
+        pub const PHYSICAL_DEVICE_SEPARATE_DEPTH_STENCIL_LAYOUTS_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_SEPARATE_DEPTH_STENCIL_LAYOUTS_FEATURES;
+        pub const ATTACHMENT_REFERENCE_STENCIL_LAYOUT_KHR: Self =
+            Self::ATTACHMENT_REFERENCE_STENCIL_LAYOUT;
+        pub const ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT_KHR: Self =
+            Self::ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT;
+        // VK_KHR_shader_atomic_int64
+        pub const PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES;
+        // VK_KHR_shader_bfloat16
+        pub const PHYSICAL_DEVICE_SHADER_BFLOAT16_FEATURES_KHR: Self = Self(1000141000);
+        // VK_KHR_shader_clock
+        pub const PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR: Self = Self(1000181000);
+        // VK_KHR_shader_expect_assume
+        pub const PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES;
+        // VK_KHR_shader_float16_int8
+        pub const PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES;
+        pub const PHYSICAL_DEVICE_FLOAT16_INT8_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES;
+        // VK_KHR_shader_float_controls
+        pub const PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES_KHR: Self =
+            Self::PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES;
+        // VK_KHR_shader_float_controls2
+        pub const PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES;
+        // VK_KHR_shader_fma
+        pub const PHYSICAL_DEVICE_SHADER_FMA_FEATURES_KHR: Self = Self(1000579000);
+        // VK_KHR_shader_integer_dot_product
+        pub const PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES;
+        pub const PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES_KHR: Self =
+            Self::PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES;
+        // VK_KHR_shader_maximal_reconvergence
+        pub const PHYSICAL_DEVICE_SHADER_MAXIMAL_RECONVERGENCE_FEATURES_KHR: Self =
+            Self(1000434000);
+        // VK_KHR_shader_quad_control
+        pub const PHYSICAL_DEVICE_SHADER_QUAD_CONTROL_FEATURES_KHR: Self = Self(1000235000);
+        // VK_KHR_shader_relaxed_extended_instruction
+        pub const PHYSICAL_DEVICE_SHADER_RELAXED_EXTENDED_INSTRUCTION_FEATURES_KHR: Self =
+            Self(1000558000);
+        // VK_KHR_shader_subgroup_extended_types
+        pub const PHYSICAL_DEVICE_SHADER_SUBGROUP_EXTENDED_TYPES_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_SHADER_SUBGROUP_EXTENDED_TYPES_FEATURES;
+        // VK_KHR_shader_subgroup_rotate
+        pub const PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES;
+        // VK_KHR_shader_subgroup_uniform_control_flow
+        pub const PHYSICAL_DEVICE_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_FEATURES_KHR: Self =
+            Self(1000323000);
+        // VK_KHR_shader_terminate_invocation
+        pub const PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES;
+        // VK_KHR_shader_untyped_pointers
+        pub const PHYSICAL_DEVICE_SHADER_UNTYPED_POINTERS_FEATURES_KHR: Self = Self(1000387000);
+        // VK_KHR_shared_presentable_image
+        pub const SHARED_PRESENT_SURFACE_CAPABILITIES_KHR: Self = Self(1000111000);
+        // VK_KHR_surface_maintenance1
+        pub const SURFACE_PRESENT_MODE_KHR: Self = Self(1000274000);
+        pub const SURFACE_PRESENT_SCALING_CAPABILITIES_KHR: Self = Self(1000274001);
+        pub const SURFACE_PRESENT_MODE_COMPATIBILITY_KHR: Self = Self(1000274002);
+        // VK_KHR_surface_protected_capabilities
+        pub const SURFACE_PROTECTED_CAPABILITIES_KHR: Self = Self(1000239000);
+        // VK_KHR_swapchain
+        pub const SWAPCHAIN_CREATE_INFO_KHR: Self = Self(1000001000);
+        pub const PRESENT_INFO_KHR: Self = Self(1000001001);
+        // VK_KHR_swapchain_maintenance1
+        pub const PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR: Self = Self(1000275000);
+        pub const SWAPCHAIN_PRESENT_FENCE_INFO_KHR: Self = Self(1000275001);
+        pub const SWAPCHAIN_PRESENT_MODES_CREATE_INFO_KHR: Self = Self(1000275002);
+        pub const SWAPCHAIN_PRESENT_MODE_INFO_KHR: Self = Self(1000275003);
+        pub const SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_KHR: Self = Self(1000275004);
+        pub const RELEASE_SWAPCHAIN_IMAGES_INFO_KHR: Self = Self(1000275005);
+        // VK_KHR_synchronization2
+        pub const MEMORY_BARRIER_2_KHR: Self = Self::MEMORY_BARRIER_2;
+        pub const BUFFER_MEMORY_BARRIER_2_KHR: Self = Self::BUFFER_MEMORY_BARRIER_2;
+        pub const IMAGE_MEMORY_BARRIER_2_KHR: Self = Self::IMAGE_MEMORY_BARRIER_2;
+        pub const DEPENDENCY_INFO_KHR: Self = Self::DEPENDENCY_INFO;
+        pub const SUBMIT_INFO_2_KHR: Self = Self::SUBMIT_INFO_2;
+        pub const SEMAPHORE_SUBMIT_INFO_KHR: Self = Self::SEMAPHORE_SUBMIT_INFO;
+        pub const COMMAND_BUFFER_SUBMIT_INFO_KHR: Self = Self::COMMAND_BUFFER_SUBMIT_INFO;
+        pub const PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES;
+        // VK_KHR_timeline_semaphore
+        pub const PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES;
+        pub const PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_PROPERTIES_KHR: Self =
+            Self::PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_PROPERTIES;
+        pub const SEMAPHORE_TYPE_CREATE_INFO_KHR: Self = Self::SEMAPHORE_TYPE_CREATE_INFO;
         pub const TIMELINE_SEMAPHORE_SUBMIT_INFO_KHR: Self = Self::TIMELINE_SEMAPHORE_SUBMIT_INFO;
-        pub const WRITE_DESCRIPTOR_SET_INLINE_UNIFORM_BLOCK_EXT: Self =
-            Self::WRITE_DESCRIPTOR_SET_INLINE_UNIFORM_BLOCK;
+        pub const SEMAPHORE_WAIT_INFO_KHR: Self = Self::SEMAPHORE_WAIT_INFO;
+        pub const SEMAPHORE_SIGNAL_INFO_KHR: Self = Self::SEMAPHORE_SIGNAL_INFO;
+        // VK_KHR_unified_image_layouts
+        pub const PHYSICAL_DEVICE_UNIFIED_IMAGE_LAYOUTS_FEATURES_KHR: Self = Self(1000527000);
+        pub const ATTACHMENT_FEEDBACK_LOOP_INFO_EXT: Self = Self(1000527001);
+        // VK_KHR_uniform_buffer_standard_layout
+        pub const PHYSICAL_DEVICE_UNIFORM_BUFFER_STANDARD_LAYOUT_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_UNIFORM_BUFFER_STANDARD_LAYOUT_FEATURES;
+        // VK_KHR_variable_pointers
+        pub const PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES;
+        pub const PHYSICAL_DEVICE_VARIABLE_POINTER_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES_KHR;
+        // VK_KHR_vertex_attribute_divisor
+        pub const PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_KHR: Self =
+            Self::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES;
+        pub const PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO_KHR: Self =
+            Self::PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO;
+        pub const PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES;
+        // VK_KHR_video_decode_av1
+        pub const VIDEO_DECODE_AV1_CAPABILITIES_KHR: Self = Self(1000512000);
+        pub const VIDEO_DECODE_AV1_PICTURE_INFO_KHR: Self = Self(1000512001);
+        pub const VIDEO_DECODE_AV1_PROFILE_INFO_KHR: Self = Self(1000512003);
+        pub const VIDEO_DECODE_AV1_SESSION_PARAMETERS_CREATE_INFO_KHR: Self = Self(1000512004);
+        pub const VIDEO_DECODE_AV1_DPB_SLOT_INFO_KHR: Self = Self(1000512005);
+        // VK_KHR_video_decode_h264
+        pub const VIDEO_DECODE_H264_CAPABILITIES_KHR: Self = Self(1000040000);
+        pub const VIDEO_DECODE_H264_PICTURE_INFO_KHR: Self = Self(1000040001);
+        pub const VIDEO_DECODE_H264_PROFILE_INFO_KHR: Self = Self(1000040003);
+        pub const VIDEO_DECODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR: Self = Self(1000040004);
+        pub const VIDEO_DECODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR: Self = Self(1000040005);
+        pub const VIDEO_DECODE_H264_DPB_SLOT_INFO_KHR: Self = Self(1000040006);
+        // VK_KHR_video_decode_h265
+        pub const VIDEO_DECODE_H265_CAPABILITIES_KHR: Self = Self(1000187000);
+        pub const VIDEO_DECODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR: Self = Self(1000187001);
+        pub const VIDEO_DECODE_H265_SESSION_PARAMETERS_ADD_INFO_KHR: Self = Self(1000187002);
+        pub const VIDEO_DECODE_H265_PROFILE_INFO_KHR: Self = Self(1000187003);
+        pub const VIDEO_DECODE_H265_PICTURE_INFO_KHR: Self = Self(1000187004);
+        pub const VIDEO_DECODE_H265_DPB_SLOT_INFO_KHR: Self = Self(1000187005);
+        // VK_KHR_video_decode_queue
+        pub const VIDEO_DECODE_INFO_KHR: Self = Self(1000024000);
+        pub const VIDEO_DECODE_CAPABILITIES_KHR: Self = Self(1000024001);
+        pub const VIDEO_DECODE_USAGE_INFO_KHR: Self = Self(1000024002);
+        // VK_KHR_video_decode_vp9
+        pub const PHYSICAL_DEVICE_VIDEO_DECODE_VP9_FEATURES_KHR: Self = Self(1000514000);
+        pub const VIDEO_DECODE_VP9_CAPABILITIES_KHR: Self = Self(1000514001);
+        pub const VIDEO_DECODE_VP9_PICTURE_INFO_KHR: Self = Self(1000514002);
+        pub const VIDEO_DECODE_VP9_PROFILE_INFO_KHR: Self = Self(1000514003);
+        // VK_KHR_video_encode_av1
+        pub const VIDEO_ENCODE_AV1_CAPABILITIES_KHR: Self = Self(1000513000);
+        pub const VIDEO_ENCODE_AV1_SESSION_PARAMETERS_CREATE_INFO_KHR: Self = Self(1000513001);
+        pub const VIDEO_ENCODE_AV1_PICTURE_INFO_KHR: Self = Self(1000513002);
+        pub const VIDEO_ENCODE_AV1_DPB_SLOT_INFO_KHR: Self = Self(1000513003);
+        pub const PHYSICAL_DEVICE_VIDEO_ENCODE_AV1_FEATURES_KHR: Self = Self(1000513004);
+        pub const VIDEO_ENCODE_AV1_PROFILE_INFO_KHR: Self = Self(1000513005);
+        pub const VIDEO_ENCODE_AV1_RATE_CONTROL_INFO_KHR: Self = Self(1000513006);
+        pub const VIDEO_ENCODE_AV1_RATE_CONTROL_LAYER_INFO_KHR: Self = Self(1000513007);
+        pub const VIDEO_ENCODE_AV1_QUALITY_LEVEL_PROPERTIES_KHR: Self = Self(1000513008);
+        pub const VIDEO_ENCODE_AV1_SESSION_CREATE_INFO_KHR: Self = Self(1000513009);
+        pub const VIDEO_ENCODE_AV1_GOP_REMAINING_FRAME_INFO_KHR: Self = Self(1000513010);
+        // VK_KHR_video_encode_h264
+        pub const VIDEO_ENCODE_H264_CAPABILITIES_KHR: Self = Self(1000038000);
+        pub const VIDEO_ENCODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR: Self = Self(1000038001);
+        pub const VIDEO_ENCODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR: Self = Self(1000038002);
+        pub const VIDEO_ENCODE_H264_PICTURE_INFO_KHR: Self = Self(1000038003);
+        pub const VIDEO_ENCODE_H264_DPB_SLOT_INFO_KHR: Self = Self(1000038004);
+        pub const VIDEO_ENCODE_H264_NALU_SLICE_INFO_KHR: Self = Self(1000038005);
+        pub const VIDEO_ENCODE_H264_GOP_REMAINING_FRAME_INFO_KHR: Self = Self(1000038006);
+        pub const VIDEO_ENCODE_H264_PROFILE_INFO_KHR: Self = Self(1000038007);
+        pub const VIDEO_ENCODE_H264_RATE_CONTROL_INFO_KHR: Self = Self(1000038008);
+        pub const VIDEO_ENCODE_H264_RATE_CONTROL_LAYER_INFO_KHR: Self = Self(1000038009);
+        pub const VIDEO_ENCODE_H264_SESSION_CREATE_INFO_KHR: Self = Self(1000038010);
+        pub const VIDEO_ENCODE_H264_QUALITY_LEVEL_PROPERTIES_KHR: Self = Self(1000038011);
+        pub const VIDEO_ENCODE_H264_SESSION_PARAMETERS_GET_INFO_KHR: Self = Self(1000038012);
+        pub const VIDEO_ENCODE_H264_SESSION_PARAMETERS_FEEDBACK_INFO_KHR: Self = Self(1000038013);
+        // VK_KHR_video_encode_h265
+        pub const VIDEO_ENCODE_H265_CAPABILITIES_KHR: Self = Self(1000039000);
+        pub const VIDEO_ENCODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR: Self = Self(1000039001);
+        pub const VIDEO_ENCODE_H265_SESSION_PARAMETERS_ADD_INFO_KHR: Self = Self(1000039002);
+        pub const VIDEO_ENCODE_H265_PICTURE_INFO_KHR: Self = Self(1000039003);
+        pub const VIDEO_ENCODE_H265_DPB_SLOT_INFO_KHR: Self = Self(1000039004);
+        pub const VIDEO_ENCODE_H265_NALU_SLICE_SEGMENT_INFO_KHR: Self = Self(1000039005);
+        pub const VIDEO_ENCODE_H265_GOP_REMAINING_FRAME_INFO_KHR: Self = Self(1000039006);
+        pub const VIDEO_ENCODE_H265_PROFILE_INFO_KHR: Self = Self(1000039007);
+        pub const VIDEO_ENCODE_H265_RATE_CONTROL_INFO_KHR: Self = Self(1000039009);
+        pub const VIDEO_ENCODE_H265_RATE_CONTROL_LAYER_INFO_KHR: Self = Self(1000039010);
+        pub const VIDEO_ENCODE_H265_SESSION_CREATE_INFO_KHR: Self = Self(1000039011);
+        pub const VIDEO_ENCODE_H265_QUALITY_LEVEL_PROPERTIES_KHR: Self = Self(1000039012);
+        pub const VIDEO_ENCODE_H265_SESSION_PARAMETERS_GET_INFO_KHR: Self = Self(1000039013);
+        pub const VIDEO_ENCODE_H265_SESSION_PARAMETERS_FEEDBACK_INFO_KHR: Self = Self(1000039014);
+        // VK_KHR_video_encode_intra_refresh
+        pub const VIDEO_ENCODE_INTRA_REFRESH_CAPABILITIES_KHR: Self = Self(1000552000);
+        pub const VIDEO_ENCODE_SESSION_INTRA_REFRESH_CREATE_INFO_KHR: Self = Self(1000552001);
+        pub const VIDEO_ENCODE_INTRA_REFRESH_INFO_KHR: Self = Self(1000552002);
+        pub const VIDEO_REFERENCE_INTRA_REFRESH_INFO_KHR: Self = Self(1000552003);
+        pub const PHYSICAL_DEVICE_VIDEO_ENCODE_INTRA_REFRESH_FEATURES_KHR: Self = Self(1000552004);
+        // VK_KHR_video_encode_quantization_map
+        pub const VIDEO_ENCODE_QUANTIZATION_MAP_CAPABILITIES_KHR: Self = Self(1000553000);
+        pub const VIDEO_FORMAT_QUANTIZATION_MAP_PROPERTIES_KHR: Self = Self(1000553001);
+        pub const VIDEO_ENCODE_QUANTIZATION_MAP_INFO_KHR: Self = Self(1000553002);
+        pub const VIDEO_ENCODE_QUANTIZATION_MAP_SESSION_PARAMETERS_CREATE_INFO_KHR: Self =
+            Self(1000553005);
+        pub const PHYSICAL_DEVICE_VIDEO_ENCODE_QUANTIZATION_MAP_FEATURES_KHR: Self =
+            Self(1000553009);
+        pub const VIDEO_ENCODE_H264_QUANTIZATION_MAP_CAPABILITIES_KHR: Self = Self(1000553003);
+        pub const VIDEO_ENCODE_H265_QUANTIZATION_MAP_CAPABILITIES_KHR: Self = Self(1000553004);
+        pub const VIDEO_FORMAT_H265_QUANTIZATION_MAP_PROPERTIES_KHR: Self = Self(1000553006);
+        pub const VIDEO_ENCODE_AV1_QUANTIZATION_MAP_CAPABILITIES_KHR: Self = Self(1000553007);
+        pub const VIDEO_FORMAT_AV1_QUANTIZATION_MAP_PROPERTIES_KHR: Self = Self(1000553008);
+        // VK_KHR_video_encode_queue
+        pub const VIDEO_ENCODE_INFO_KHR: Self = Self(1000299000);
+        pub const VIDEO_ENCODE_RATE_CONTROL_INFO_KHR: Self = Self(1000299001);
+        pub const VIDEO_ENCODE_RATE_CONTROL_LAYER_INFO_KHR: Self = Self(1000299002);
+        pub const VIDEO_ENCODE_CAPABILITIES_KHR: Self = Self(1000299003);
+        pub const VIDEO_ENCODE_USAGE_INFO_KHR: Self = Self(1000299004);
+        pub const QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR: Self = Self(1000299005);
+        pub const PHYSICAL_DEVICE_VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR: Self = Self(1000299006);
+        pub const VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR: Self = Self(1000299007);
+        pub const VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR: Self = Self(1000299008);
+        pub const VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR: Self = Self(1000299009);
+        pub const VIDEO_ENCODE_SESSION_PARAMETERS_FEEDBACK_INFO_KHR: Self = Self(1000299010);
+        // VK_KHR_video_maintenance1
+        pub const PHYSICAL_DEVICE_VIDEO_MAINTENANCE_1_FEATURES_KHR: Self = Self(1000515000);
+        pub const VIDEO_INLINE_QUERY_INFO_KHR: Self = Self(1000515001);
+        // VK_KHR_video_maintenance2
+        pub const PHYSICAL_DEVICE_VIDEO_MAINTENANCE_2_FEATURES_KHR: Self = Self(1000586000);
+        pub const VIDEO_DECODE_H264_INLINE_SESSION_PARAMETERS_INFO_KHR: Self = Self(1000586001);
+        pub const VIDEO_DECODE_H265_INLINE_SESSION_PARAMETERS_INFO_KHR: Self = Self(1000586002);
+        pub const VIDEO_DECODE_AV1_INLINE_SESSION_PARAMETERS_INFO_KHR: Self = Self(1000586003);
+        // VK_KHR_video_queue
+        pub const VIDEO_PROFILE_INFO_KHR: Self = Self(1000023000);
+        pub const VIDEO_CAPABILITIES_KHR: Self = Self(1000023001);
+        pub const VIDEO_PICTURE_RESOURCE_INFO_KHR: Self = Self(1000023002);
+        pub const VIDEO_SESSION_MEMORY_REQUIREMENTS_KHR: Self = Self(1000023003);
+        pub const BIND_VIDEO_SESSION_MEMORY_INFO_KHR: Self = Self(1000023004);
+        pub const VIDEO_SESSION_CREATE_INFO_KHR: Self = Self(1000023005);
+        pub const VIDEO_SESSION_PARAMETERS_CREATE_INFO_KHR: Self = Self(1000023006);
+        pub const VIDEO_SESSION_PARAMETERS_UPDATE_INFO_KHR: Self = Self(1000023007);
+        pub const VIDEO_BEGIN_CODING_INFO_KHR: Self = Self(1000023008);
+        pub const VIDEO_END_CODING_INFO_KHR: Self = Self(1000023009);
+        pub const VIDEO_CODING_CONTROL_INFO_KHR: Self = Self(1000023010);
+        pub const VIDEO_REFERENCE_SLOT_INFO_KHR: Self = Self(1000023011);
+        pub const QUEUE_FAMILY_VIDEO_PROPERTIES_KHR: Self = Self(1000023012);
+        pub const VIDEO_PROFILE_LIST_INFO_KHR: Self = Self(1000023013);
+        pub const PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR: Self = Self(1000023014);
+        pub const VIDEO_FORMAT_PROPERTIES_KHR: Self = Self(1000023015);
+        pub const QUEUE_FAMILY_QUERY_RESULT_STATUS_PROPERTIES_KHR: Self = Self(1000023016);
+        // VK_KHR_vulkan_memory_model
+        pub const PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES;
+        // VK_KHR_wayland_surface
+        pub const WAYLAND_SURFACE_CREATE_INFO_KHR: Self = Self(1000006000);
+        // VK_KHR_win32_keyed_mutex
+        pub const WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_KHR: Self = Self(1000075000);
+        // VK_KHR_win32_surface
+        pub const WIN32_SURFACE_CREATE_INFO_KHR: Self = Self(1000009000);
+        // VK_KHR_workgroup_memory_explicit_layout
+        pub const PHYSICAL_DEVICE_WORKGROUP_MEMORY_EXPLICIT_LAYOUT_FEATURES_KHR: Self =
+            Self(1000336000);
+        // VK_KHR_xcb_surface
+        pub const XCB_SURFACE_CREATE_INFO_KHR: Self = Self(1000005000);
+        // VK_KHR_xlib_surface
+        pub const XLIB_SURFACE_CREATE_INFO_KHR: Self = Self(1000004000);
+        // VK_KHR_zero_initialize_workgroup_memory
+        pub const PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES_KHR: Self =
+            Self::PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES;
+        // VK_LUNARG_direct_driver_loading
+        pub const DIRECT_DRIVER_LOADING_INFO_LUNARG: Self = Self(1000459000);
+        pub const DIRECT_DRIVER_LOADING_LIST_LUNARG: Self = Self(1000459001);
+        // VK_MESA_image_alignment_control
+        pub const PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_FEATURES_MESA: Self = Self(1000575000);
+        pub const PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_PROPERTIES_MESA: Self = Self(1000575001);
+        pub const IMAGE_ALIGNMENT_CONTROL_CREATE_INFO_MESA: Self = Self(1000575002);
+        // VK_MSFT_layered_driver
+        pub const PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT: Self = Self(1000530000);
+        // VK_MVK_ios_surface
+        pub const IOS_SURFACE_CREATE_INFO_MVK: Self = Self(1000122000);
+        // VK_MVK_macos_surface
+        pub const MACOS_SURFACE_CREATE_INFO_MVK: Self = Self(1000123000);
+        // VK_NN_vi_surface
+        pub const VI_SURFACE_CREATE_INFO_NN: Self = Self(1000062000);
+        // VK_NVX_binary_import
+        pub const CU_MODULE_CREATE_INFO_NVX: Self = Self(1000029000);
+        pub const CU_FUNCTION_CREATE_INFO_NVX: Self = Self(1000029001);
+        pub const CU_LAUNCH_INFO_NVX: Self = Self(1000029002);
+        pub const CU_MODULE_TEXTURING_MODE_CREATE_INFO_NVX: Self = Self(1000029004);
+        // VK_NVX_image_view_handle
+        pub const IMAGE_VIEW_HANDLE_INFO_NVX: Self = Self(1000030000);
+        pub const IMAGE_VIEW_ADDRESS_PROPERTIES_NVX: Self = Self(1000030001);
+        // VK_NVX_multiview_per_view_attributes
+        pub const PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_ATTRIBUTES_PROPERTIES_NVX: Self =
+            Self(1000097000);
+        pub const MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX: Self = Self(1000044009);
+        // VK_NV_clip_space_w_scaling
+        pub const PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV: Self = Self(1000087000);
+        // VK_NV_cluster_acceleration_structure
+        pub const PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_FEATURES_NV: Self =
+            Self(1000569000);
+        pub const PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_PROPERTIES_NV: Self =
+            Self(1000569001);
+        pub const CLUSTER_ACCELERATION_STRUCTURE_CLUSTERS_BOTTOM_LEVEL_INPUT_NV: Self =
+            Self(1000569002);
+        pub const CLUSTER_ACCELERATION_STRUCTURE_TRIANGLE_CLUSTER_INPUT_NV: Self = Self(1000569003);
+        pub const CLUSTER_ACCELERATION_STRUCTURE_MOVE_OBJECTS_INPUT_NV: Self = Self(1000569004);
+        pub const CLUSTER_ACCELERATION_STRUCTURE_INPUT_INFO_NV: Self = Self(1000569005);
+        pub const CLUSTER_ACCELERATION_STRUCTURE_COMMANDS_INFO_NV: Self = Self(1000569006);
+        pub const RAY_TRACING_PIPELINE_CLUSTER_ACCELERATION_STRUCTURE_CREATE_INFO_NV: Self =
+            Self(1000569007);
+        // VK_NV_command_buffer_inheritance
+        pub const PHYSICAL_DEVICE_COMMAND_BUFFER_INHERITANCE_FEATURES_NV: Self = Self(1000559000);
+        // VK_NV_compute_occupancy_priority
+        pub const COMPUTE_OCCUPANCY_PRIORITY_PARAMETERS_NV: Self = Self(1000645000);
+        pub const PHYSICAL_DEVICE_COMPUTE_OCCUPANCY_PRIORITY_FEATURES_NV: Self = Self(1000645001);
+        // VK_NV_compute_shader_derivatives
+        pub const PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_FEATURES_NV: Self =
+            Self::PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_FEATURES_KHR;
+        // VK_NV_cooperative_matrix
+        pub const PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_NV: Self = Self(1000249000);
+        pub const COOPERATIVE_MATRIX_PROPERTIES_NV: Self = Self(1000249001);
+        pub const PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_NV: Self = Self(1000249002);
+        // VK_NV_cooperative_matrix2
+        pub const PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_FEATURES_NV: Self = Self(1000593000);
+        pub const COOPERATIVE_MATRIX_FLEXIBLE_DIMENSIONS_PROPERTIES_NV: Self = Self(1000593001);
+        pub const PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_PROPERTIES_NV: Self = Self(1000593002);
+        // VK_NV_cooperative_vector
+        pub const PHYSICAL_DEVICE_COOPERATIVE_VECTOR_FEATURES_NV: Self = Self(1000491000);
+        pub const PHYSICAL_DEVICE_COOPERATIVE_VECTOR_PROPERTIES_NV: Self = Self(1000491001);
+        pub const COOPERATIVE_VECTOR_PROPERTIES_NV: Self = Self(1000491002);
+        pub const CONVERT_COOPERATIVE_VECTOR_MATRIX_INFO_NV: Self = Self(1000491004);
+        // VK_NV_copy_memory_indirect
+        pub const PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_NV: Self = Self(1000426000);
+        pub const PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_NV: Self =
+            Self::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR;
+        // VK_NV_corner_sampled_image
+        pub const PHYSICAL_DEVICE_CORNER_SAMPLED_IMAGE_FEATURES_NV: Self = Self(1000050000);
+        // VK_NV_coverage_reduction_mode
+        pub const PHYSICAL_DEVICE_COVERAGE_REDUCTION_MODE_FEATURES_NV: Self = Self(1000250000);
+        pub const PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV: Self = Self(1000250001);
+        pub const FRAMEBUFFER_MIXED_SAMPLES_COMBINATION_NV: Self = Self(1000250002);
+        // VK_NV_cuda_kernel_launch
+        pub const CUDA_MODULE_CREATE_INFO_NV: Self = Self(1000307000);
+        pub const CUDA_FUNCTION_CREATE_INFO_NV: Self = Self(1000307001);
+        pub const CUDA_LAUNCH_INFO_NV: Self = Self(1000307002);
+        pub const PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_FEATURES_NV: Self = Self(1000307003);
+        pub const PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_PROPERTIES_NV: Self = Self(1000307004);
+        // VK_NV_dedicated_allocation
+        pub const DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV: Self = Self(1000026000);
+        pub const DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV: Self = Self(1000026001);
+        pub const DEDICATED_ALLOCATION_MEMORY_ALLOCATE_INFO_NV: Self = Self(1000026002);
+        // VK_NV_dedicated_allocation_image_aliasing
+        pub const PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV: Self =
+            Self(1000240000);
+        // VK_NV_descriptor_pool_overallocation
+        pub const PHYSICAL_DEVICE_DESCRIPTOR_POOL_OVERALLOCATION_FEATURES_NV: Self =
+            Self(1000546000);
+        // VK_NV_device_diagnostic_checkpoints
+        pub const CHECKPOINT_DATA_NV: Self = Self(1000206000);
+        pub const QUEUE_FAMILY_CHECKPOINT_PROPERTIES_NV: Self = Self(1000206001);
+        pub const QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV: Self = Self(1000314008);
+        pub const CHECKPOINT_DATA_2_NV: Self = Self(1000314009);
+        // VK_NV_device_diagnostics_config
+        pub const PHYSICAL_DEVICE_DIAGNOSTICS_CONFIG_FEATURES_NV: Self = Self(1000300000);
+        pub const DEVICE_DIAGNOSTICS_CONFIG_CREATE_INFO_NV: Self = Self(1000300001);
+        // VK_NV_device_generated_commands
+        pub const PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_NV: Self = Self(1000277000);
+        pub const GRAPHICS_SHADER_GROUP_CREATE_INFO_NV: Self = Self(1000277001);
+        pub const GRAPHICS_PIPELINE_SHADER_GROUPS_CREATE_INFO_NV: Self = Self(1000277002);
+        pub const INDIRECT_COMMANDS_LAYOUT_TOKEN_NV: Self = Self(1000277003);
+        pub const INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_NV: Self = Self(1000277004);
+        pub const GENERATED_COMMANDS_INFO_NV: Self = Self(1000277005);
+        pub const GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_NV: Self = Self(1000277006);
+        pub const PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_NV: Self = Self(1000277007);
+        // VK_NV_device_generated_commands_compute
+        pub const PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV: Self =
+            Self(1000428000);
+        pub const COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV: Self = Self(1000428001);
+        pub const PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV: Self = Self(1000428002);
+        // VK_NV_displacement_micromap
+        pub const PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV: Self = Self(1000397000);
+        pub const PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_PROPERTIES_NV: Self = Self(1000397001);
+        pub const ACCELERATION_STRUCTURE_TRIANGLES_DISPLACEMENT_MICROMAP_NV: Self =
+            Self(1000397002);
+        // VK_NV_display_stereo
+        pub const DISPLAY_SURFACE_STEREO_CREATE_INFO_NV: Self = Self(1000551000);
+        pub const DISPLAY_MODE_STEREO_PROPERTIES_NV: Self = Self(1000551001);
+        // VK_NV_extended_sparse_address_space
+        pub const PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_FEATURES_NV: Self =
+            Self(1000492000);
+        pub const PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_PROPERTIES_NV: Self =
+            Self(1000492001);
+        // VK_NV_external_compute_queue
+        pub const EXTERNAL_COMPUTE_QUEUE_DEVICE_CREATE_INFO_NV: Self = Self(1000556000);
+        pub const EXTERNAL_COMPUTE_QUEUE_CREATE_INFO_NV: Self = Self(1000556001);
+        pub const EXTERNAL_COMPUTE_QUEUE_DATA_PARAMS_NV: Self = Self(1000556002);
+        pub const PHYSICAL_DEVICE_EXTERNAL_COMPUTE_QUEUE_PROPERTIES_NV: Self = Self(1000556003);
+        // VK_NV_external_memory
+        pub const EXTERNAL_MEMORY_IMAGE_CREATE_INFO_NV: Self = Self(1000056000);
+        pub const EXPORT_MEMORY_ALLOCATE_INFO_NV: Self = Self(1000056001);
+        // VK_NV_external_memory_rdma
+        pub const MEMORY_GET_REMOTE_ADDRESS_INFO_NV: Self = Self(1000371000);
+        pub const PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV: Self = Self(1000371001);
+        // VK_NV_external_memory_win32
+        pub const IMPORT_MEMORY_WIN32_HANDLE_INFO_NV: Self = Self(1000057000);
+        pub const EXPORT_MEMORY_WIN32_HANDLE_INFO_NV: Self = Self(1000057001);
+        // VK_NV_fragment_coverage_to_color
+        pub const PIPELINE_COVERAGE_TO_COLOR_STATE_CREATE_INFO_NV: Self = Self(1000149000);
+        // VK_NV_fragment_shader_barycentric
+        pub const PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_FEATURES_NV: Self =
+            Self::PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_FEATURES_KHR;
+        // VK_NV_fragment_shading_rate_enums
+        pub const PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_PROPERTIES_NV: Self =
+            Self(1000326000);
+        pub const PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_FEATURES_NV: Self = Self(1000326001);
+        pub const PIPELINE_FRAGMENT_SHADING_RATE_ENUM_STATE_CREATE_INFO_NV: Self = Self(1000326002);
+        // VK_NV_framebuffer_mixed_samples
+        pub const PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV: Self = Self(1000152000);
+        pub const ATTACHMENT_SAMPLE_COUNT_INFO_NV: Self = Self::ATTACHMENT_SAMPLE_COUNT_INFO_AMD;
+        // VK_NV_inherited_viewport_scissor
+        pub const PHYSICAL_DEVICE_INHERITED_VIEWPORT_SCISSOR_FEATURES_NV: Self = Self(1000278000);
+        pub const COMMAND_BUFFER_INHERITANCE_VIEWPORT_SCISSOR_INFO_NV: Self = Self(1000278001);
+        // VK_NV_linear_color_attachment
+        pub const PHYSICAL_DEVICE_LINEAR_COLOR_ATTACHMENT_FEATURES_NV: Self = Self(1000430000);
+        // VK_NV_low_latency
+        pub const QUERY_LOW_LATENCY_SUPPORT_NV: Self = Self(1000310000);
+        // VK_NV_low_latency2
+        pub const LATENCY_SLEEP_MODE_INFO_NV: Self = Self(1000505000);
+        pub const LATENCY_SLEEP_INFO_NV: Self = Self(1000505001);
+        pub const SET_LATENCY_MARKER_INFO_NV: Self = Self(1000505002);
+        pub const GET_LATENCY_MARKER_INFO_NV: Self = Self(1000505003);
+        pub const LATENCY_TIMINGS_FRAME_REPORT_NV: Self = Self(1000505004);
+        pub const LATENCY_SUBMISSION_PRESENT_ID_NV: Self = Self(1000505005);
+        pub const OUT_OF_BAND_QUEUE_TYPE_INFO_NV: Self = Self(1000505006);
+        pub const SWAPCHAIN_LATENCY_CREATE_INFO_NV: Self = Self(1000505007);
+        pub const LATENCY_SURFACE_CAPABILITIES_NV: Self = Self(1000505008);
+        // VK_NV_memory_decompression
+        pub const PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_NV: Self =
+            Self::PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_EXT;
+        pub const PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_NV: Self =
+            Self::PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_EXT;
+        // VK_NV_mesh_shader
+        pub const PHYSICAL_DEVICE_MESH_SHADER_FEATURES_NV: Self = Self(1000202000);
+        pub const PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV: Self = Self(1000202001);
+        // VK_NV_optical_flow
+        pub const PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV: Self = Self(1000464000);
+        pub const PHYSICAL_DEVICE_OPTICAL_FLOW_PROPERTIES_NV: Self = Self(1000464001);
+        pub const OPTICAL_FLOW_IMAGE_FORMAT_INFO_NV: Self = Self(1000464002);
+        pub const OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_NV: Self = Self(1000464003);
+        pub const OPTICAL_FLOW_SESSION_CREATE_INFO_NV: Self = Self(1000464004);
+        pub const OPTICAL_FLOW_EXECUTE_INFO_NV: Self = Self(1000464005);
+        pub const OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV: Self = Self(1000464010);
+        // VK_NV_partitioned_acceleration_structure
+        pub const PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_FEATURES_NV: Self =
+            Self(1000570000);
+        pub const PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_PROPERTIES_NV: Self =
+            Self(1000570001);
+        pub const WRITE_DESCRIPTOR_SET_PARTITIONED_ACCELERATION_STRUCTURE_NV: Self =
+            Self(1000570002);
+        pub const PARTITIONED_ACCELERATION_STRUCTURE_INSTANCES_INPUT_NV: Self = Self(1000570003);
+        pub const BUILD_PARTITIONED_ACCELERATION_STRUCTURE_INFO_NV: Self = Self(1000570004);
+        pub const PARTITIONED_ACCELERATION_STRUCTURE_FLAGS_NV: Self = Self(1000570005);
+        // VK_NV_per_stage_descriptor_set
+        pub const PHYSICAL_DEVICE_PER_STAGE_DESCRIPTOR_SET_FEATURES_NV: Self = Self(1000516000);
+        // VK_NV_present_barrier
+        pub const PHYSICAL_DEVICE_PRESENT_BARRIER_FEATURES_NV: Self = Self(1000292000);
+        pub const SURFACE_CAPABILITIES_PRESENT_BARRIER_NV: Self = Self(1000292001);
+        pub const SWAPCHAIN_PRESENT_BARRIER_CREATE_INFO_NV: Self = Self(1000292002);
+        // VK_NV_present_metering
+        pub const SET_PRESENT_CONFIG_NV: Self = Self(1000613000);
+        pub const PHYSICAL_DEVICE_PRESENT_METERING_FEATURES_NV: Self = Self(1000613001);
+        // VK_NV_push_constant_bank
+        pub const PUSH_CONSTANT_BANK_INFO_NV: Self = Self(1000580000);
+        pub const PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_FEATURES_NV: Self = Self(1000580001);
+        pub const PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_PROPERTIES_NV: Self = Self(1000580002);
+        // VK_NV_raw_access_chains
+        pub const PHYSICAL_DEVICE_RAW_ACCESS_CHAINS_FEATURES_NV: Self = Self(1000555000);
+        // VK_NV_ray_tracing
+        pub const RAY_TRACING_PIPELINE_CREATE_INFO_NV: Self = Self(1000165000);
+        pub const ACCELERATION_STRUCTURE_CREATE_INFO_NV: Self = Self(1000165001);
+        pub const GEOMETRY_NV: Self = Self(1000165003);
+        pub const GEOMETRY_TRIANGLES_NV: Self = Self(1000165004);
+        pub const GEOMETRY_AABB_NV: Self = Self(1000165005);
+        pub const BIND_ACCELERATION_STRUCTURE_MEMORY_INFO_NV: Self = Self(1000165006);
+        pub const WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_NV: Self = Self(1000165007);
+        pub const ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV: Self = Self(1000165008);
+        pub const PHYSICAL_DEVICE_RAY_TRACING_PROPERTIES_NV: Self = Self(1000165009);
+        pub const RAY_TRACING_SHADER_GROUP_CREATE_INFO_NV: Self = Self(1000165011);
+        pub const ACCELERATION_STRUCTURE_INFO_NV: Self = Self(1000165012);
+        // VK_NV_ray_tracing_invocation_reorder
+        pub const PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_NV: Self =
+            Self(1000490000);
+        pub const PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_NV: Self =
+            Self(1000490001);
+        // VK_NV_ray_tracing_linear_swept_spheres
+        pub const PHYSICAL_DEVICE_RAY_TRACING_LINEAR_SWEPT_SPHERES_FEATURES_NV: Self =
+            Self(1000429008);
+        pub const ACCELERATION_STRUCTURE_GEOMETRY_LINEAR_SWEPT_SPHERES_DATA_NV: Self =
+            Self(1000429009);
+        pub const ACCELERATION_STRUCTURE_GEOMETRY_SPHERES_DATA_NV: Self = Self(1000429010);
+        // VK_NV_ray_tracing_motion_blur
+        pub const ACCELERATION_STRUCTURE_GEOMETRY_MOTION_TRIANGLES_DATA_NV: Self = Self(1000327000);
+        pub const PHYSICAL_DEVICE_RAY_TRACING_MOTION_BLUR_FEATURES_NV: Self = Self(1000327001);
+        pub const ACCELERATION_STRUCTURE_MOTION_INFO_NV: Self = Self(1000327002);
+        // VK_NV_ray_tracing_validation
+        pub const PHYSICAL_DEVICE_RAY_TRACING_VALIDATION_FEATURES_NV: Self = Self(1000568000);
+        // VK_NV_representative_fragment_test
+        pub const PHYSICAL_DEVICE_REPRESENTATIVE_FRAGMENT_TEST_FEATURES_NV: Self = Self(1000166000);
+        pub const PIPELINE_REPRESENTATIVE_FRAGMENT_TEST_STATE_CREATE_INFO_NV: Self =
+            Self(1000166001);
+        // VK_NV_scissor_exclusive
+        pub const PIPELINE_VIEWPORT_EXCLUSIVE_SCISSOR_STATE_CREATE_INFO_NV: Self = Self(1000205000);
+        pub const PHYSICAL_DEVICE_EXCLUSIVE_SCISSOR_FEATURES_NV: Self = Self(1000205002);
+        // VK_NV_shader_atomic_float16_vector
+        pub const PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT16_VECTOR_FEATURES_NV: Self = Self(1000563000);
+        // VK_NV_shader_image_footprint
+        pub const PHYSICAL_DEVICE_SHADER_IMAGE_FOOTPRINT_FEATURES_NV: Self = Self(1000204000);
+        // VK_NV_shader_sm_builtins
+        pub const PHYSICAL_DEVICE_SHADER_SM_BUILTINS_FEATURES_NV: Self = Self(1000154000);
+        pub const PHYSICAL_DEVICE_SHADER_SM_BUILTINS_PROPERTIES_NV: Self = Self(1000154001);
+        // VK_NV_shading_rate_image
+        pub const PIPELINE_VIEWPORT_SHADING_RATE_IMAGE_STATE_CREATE_INFO_NV: Self =
+            Self(1000164000);
+        pub const PHYSICAL_DEVICE_SHADING_RATE_IMAGE_FEATURES_NV: Self = Self(1000164001);
+        pub const PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV: Self = Self(1000164002);
+        pub const PIPELINE_VIEWPORT_COARSE_SAMPLE_ORDER_STATE_CREATE_INFO_NV: Self =
+            Self(1000164005);
+        // VK_NV_viewport_swizzle
+        pub const PIPELINE_VIEWPORT_SWIZZLE_STATE_CREATE_INFO_NV: Self = Self(1000098000);
+        // VK_NV_win32_keyed_mutex
+        pub const WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_NV: Self = Self(1000058000);
+        // VK_OHOS_external_memory
+        pub const NATIVE_BUFFER_USAGE_OHOS: Self = Self(1000452000);
+        pub const NATIVE_BUFFER_PROPERTIES_OHOS: Self = Self(1000452001);
+        pub const NATIVE_BUFFER_FORMAT_PROPERTIES_OHOS: Self = Self(1000452002);
+        pub const IMPORT_NATIVE_BUFFER_INFO_OHOS: Self = Self(1000452003);
+        pub const MEMORY_GET_NATIVE_BUFFER_INFO_OHOS: Self = Self(1000452004);
+        pub const EXTERNAL_FORMAT_OHOS: Self = Self(1000452005);
+        // VK_OHOS_surface
+        pub const SURFACE_CREATE_INFO_OHOS: Self = Self(1000685000);
+        // VK_QCOM_data_graph_model
+        pub const PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM: Self = Self(1000629000);
+        pub const DATA_GRAPH_PIPELINE_BUILTIN_MODEL_CREATE_INFO_QCOM: Self = Self(1000629001);
+        // VK_QCOM_filter_cubic_clamp
+        pub const PHYSICAL_DEVICE_CUBIC_CLAMP_FEATURES_QCOM: Self = Self(1000521000);
+        // VK_QCOM_filter_cubic_weights
+        pub const SAMPLER_CUBIC_WEIGHTS_CREATE_INFO_QCOM: Self = Self(1000519000);
+        pub const PHYSICAL_DEVICE_CUBIC_WEIGHTS_FEATURES_QCOM: Self = Self(1000519001);
+        pub const BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM: Self = Self(1000519002);
+        // VK_QCOM_fragment_density_map_offset
+        pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_QCOM: Self =
+            Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_EXT;
+        pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_QCOM: Self =
+            Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT;
+        pub const SUBPASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_QCOM: Self =
+            Self::RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT;
+        // VK_QCOM_image_processing
+        pub const PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM: Self = Self(1000440000);
+        pub const PHYSICAL_DEVICE_IMAGE_PROCESSING_PROPERTIES_QCOM: Self = Self(1000440001);
+        pub const IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM: Self = Self(1000440002);
+        // VK_QCOM_image_processing2
+        pub const PHYSICAL_DEVICE_IMAGE_PROCESSING_2_FEATURES_QCOM: Self = Self(1000518000);
+        pub const PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM: Self = Self(1000518001);
+        pub const SAMPLER_BLOCK_MATCH_WINDOW_CREATE_INFO_QCOM: Self = Self(1000518002);
+        // VK_QCOM_multiview_per_view_render_areas
+        pub const PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_RENDER_AREAS_FEATURES_QCOM: Self =
+            Self(1000510000);
+        pub const MULTIVIEW_PER_VIEW_RENDER_AREAS_RENDER_PASS_BEGIN_INFO_QCOM: Self =
+            Self(1000510001);
+        // VK_QCOM_multiview_per_view_viewports
+        pub const PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_VIEWPORTS_FEATURES_QCOM: Self =
+            Self(1000488000);
+        // VK_QCOM_render_pass_transform
+        pub const COMMAND_BUFFER_INHERITANCE_RENDER_PASS_TRANSFORM_INFO_QCOM: Self =
+            Self(1000282000);
+        pub const RENDER_PASS_TRANSFORM_BEGIN_INFO_QCOM: Self = Self(1000282001);
+        // VK_QCOM_rotated_copy_commands
+        pub const COPY_COMMAND_TRANSFORM_INFO_QCOM: Self = Self(1000333000);
+        // VK_QCOM_tile_memory_heap
+        pub const PHYSICAL_DEVICE_TILE_MEMORY_HEAP_FEATURES_QCOM: Self = Self(1000547000);
+        pub const PHYSICAL_DEVICE_TILE_MEMORY_HEAP_PROPERTIES_QCOM: Self = Self(1000547001);
+        pub const TILE_MEMORY_REQUIREMENTS_QCOM: Self = Self(1000547002);
+        pub const TILE_MEMORY_BIND_INFO_QCOM: Self = Self(1000547003);
+        pub const TILE_MEMORY_SIZE_INFO_QCOM: Self = Self(1000547004);
+        // VK_QCOM_tile_properties
+        pub const PHYSICAL_DEVICE_TILE_PROPERTIES_FEATURES_QCOM: Self = Self(1000484000);
+        pub const TILE_PROPERTIES_QCOM: Self = Self(1000484001);
+        // VK_QCOM_tile_shading
+        pub const PHYSICAL_DEVICE_TILE_SHADING_FEATURES_QCOM: Self = Self(1000309000);
+        pub const PHYSICAL_DEVICE_TILE_SHADING_PROPERTIES_QCOM: Self = Self(1000309001);
+        pub const RENDER_PASS_TILE_SHADING_CREATE_INFO_QCOM: Self = Self(1000309002);
+        pub const PER_TILE_BEGIN_INFO_QCOM: Self = Self(1000309003);
+        pub const PER_TILE_END_INFO_QCOM: Self = Self(1000309004);
+        pub const DISPATCH_TILE_INFO_QCOM: Self = Self(1000309005);
+        // VK_QCOM_ycbcr_degamma
+        pub const PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM: Self = Self(1000520000);
+        pub const SAMPLER_YCBCR_CONVERSION_YCBCR_DEGAMMA_CREATE_INFO_QCOM: Self = Self(1000520001);
+        // VK_QNX_external_memory_screen_buffer
+        pub const SCREEN_BUFFER_PROPERTIES_QNX: Self = Self(1000529000);
+        pub const SCREEN_BUFFER_FORMAT_PROPERTIES_QNX: Self = Self(1000529001);
+        pub const IMPORT_SCREEN_BUFFER_INFO_QNX: Self = Self(1000529002);
+        pub const EXTERNAL_FORMAT_QNX: Self = Self(1000529003);
+        pub const PHYSICAL_DEVICE_EXTERNAL_MEMORY_SCREEN_BUFFER_FEATURES_QNX: Self =
+            Self(1000529004);
+        // VK_QNX_screen_surface
+        pub const SCREEN_SURFACE_CREATE_INFO_QNX: Self = Self(1000378000);
+        // VK_SEC_amigo_profiling
+        pub const PHYSICAL_DEVICE_AMIGO_PROFILING_FEATURES_SEC: Self = Self(1000485000);
+        pub const AMIGO_PROFILING_SUBMIT_INFO_SEC: Self = Self(1000485001);
+        // VK_SEC_pipeline_cache_incremental_mode
+        pub const PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC: Self =
+            Self(1000637000);
+        // VK_VALVE_descriptor_set_host_mapping
+        pub const PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE: Self =
+            Self(1000420000);
+        pub const DESCRIPTOR_SET_BINDING_REFERENCE_VALVE: Self = Self(1000420001);
+        pub const DESCRIPTOR_SET_LAYOUT_HOST_MAPPING_INFO_VALVE: Self = Self(1000420002);
+        // VK_VALVE_fragment_density_map_layered
+        pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_FEATURES_VALVE: Self =
+            Self(1000611000);
+        pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_PROPERTIES_VALVE: Self =
+            Self(1000611001);
+        pub const PIPELINE_FRAGMENT_DENSITY_MAP_LAYERED_CREATE_INFO_VALVE: Self = Self(1000611002);
+        // VK_VALVE_mutable_descriptor_type
+        pub const PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_VALVE: Self =
+            Self::PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT;
+        pub const MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_VALVE: Self =
+            Self::MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_EXT;
+        // VK_VALVE_video_encode_rgb_conversion
+        pub const PHYSICAL_DEVICE_VIDEO_ENCODE_RGB_CONVERSION_FEATURES_VALVE: Self =
+            Self(1000390000);
+        pub const VIDEO_ENCODE_RGB_CONVERSION_CAPABILITIES_VALVE: Self = Self(1000390001);
+        pub const VIDEO_ENCODE_PROFILE_RGB_CONVERSION_INFO_VALVE: Self = Self(1000390002);
+        pub const VIDEO_ENCODE_SESSION_RGB_CONVERSION_CREATE_INFO_VALVE: Self = Self(1000390003);
+        // VK_VERSION_1_1
+        pub const BIND_BUFFER_MEMORY_INFO: Self = Self(1000157000);
+        pub const BIND_IMAGE_MEMORY_INFO: Self = Self(1000157001);
+        pub const MEMORY_DEDICATED_REQUIREMENTS: Self = Self(1000127000);
+        pub const MEMORY_DEDICATED_ALLOCATE_INFO: Self = Self(1000127001);
+        pub const MEMORY_ALLOCATE_FLAGS_INFO: Self = Self(1000060000);
+        pub const DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO: Self = Self(1000060004);
+        pub const DEVICE_GROUP_SUBMIT_INFO: Self = Self(1000060005);
+        pub const DEVICE_GROUP_BIND_SPARSE_INFO: Self = Self(1000060006);
+        pub const BIND_BUFFER_MEMORY_DEVICE_GROUP_INFO: Self = Self(1000060013);
+        pub const BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO: Self = Self(1000060014);
+        pub const PHYSICAL_DEVICE_GROUP_PROPERTIES: Self = Self(1000070000);
+        pub const DEVICE_GROUP_DEVICE_CREATE_INFO: Self = Self(1000070001);
+        pub const BUFFER_MEMORY_REQUIREMENTS_INFO_2: Self = Self(1000146000);
+        pub const IMAGE_MEMORY_REQUIREMENTS_INFO_2: Self = Self(1000146001);
+        pub const IMAGE_SPARSE_MEMORY_REQUIREMENTS_INFO_2: Self = Self(1000146002);
+        pub const MEMORY_REQUIREMENTS_2: Self = Self(1000146003);
+        pub const SPARSE_IMAGE_MEMORY_REQUIREMENTS_2: Self = Self(1000146004);
+        pub const PHYSICAL_DEVICE_FEATURES_2: Self = Self(1000059000);
+        pub const PHYSICAL_DEVICE_PROPERTIES_2: Self = Self(1000059001);
+        pub const FORMAT_PROPERTIES_2: Self = Self(1000059002);
+        pub const IMAGE_FORMAT_PROPERTIES_2: Self = Self(1000059003);
+        pub const PHYSICAL_DEVICE_IMAGE_FORMAT_INFO_2: Self = Self(1000059004);
+        pub const QUEUE_FAMILY_PROPERTIES_2: Self = Self(1000059005);
+        pub const PHYSICAL_DEVICE_MEMORY_PROPERTIES_2: Self = Self(1000059006);
+        pub const SPARSE_IMAGE_FORMAT_PROPERTIES_2: Self = Self(1000059007);
+        pub const PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2: Self = Self(1000059008);
+        pub const IMAGE_VIEW_USAGE_CREATE_INFO: Self = Self(1000117002);
+        pub const PROTECTED_SUBMIT_INFO: Self = Self(1000145000);
+        pub const PHYSICAL_DEVICE_PROTECTED_MEMORY_FEATURES: Self = Self(1000145001);
+        pub const PHYSICAL_DEVICE_PROTECTED_MEMORY_PROPERTIES: Self = Self(1000145002);
+        pub const DEVICE_QUEUE_INFO_2: Self = Self(1000145003);
+        pub const PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO: Self = Self(1000071000);
+        pub const EXTERNAL_IMAGE_FORMAT_PROPERTIES: Self = Self(1000071001);
+        pub const PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO: Self = Self(1000071002);
+        pub const EXTERNAL_BUFFER_PROPERTIES: Self = Self(1000071003);
+        pub const PHYSICAL_DEVICE_ID_PROPERTIES: Self = Self(1000071004);
+        pub const EXTERNAL_MEMORY_BUFFER_CREATE_INFO: Self = Self(1000072000);
+        pub const EXTERNAL_MEMORY_IMAGE_CREATE_INFO: Self = Self(1000072001);
+        pub const EXPORT_MEMORY_ALLOCATE_INFO: Self = Self(1000072002);
+        pub const PHYSICAL_DEVICE_EXTERNAL_FENCE_INFO: Self = Self(1000112000);
+        pub const EXTERNAL_FENCE_PROPERTIES: Self = Self(1000112001);
+        pub const EXPORT_FENCE_CREATE_INFO: Self = Self(1000113000);
+        pub const EXPORT_SEMAPHORE_CREATE_INFO: Self = Self(1000077000);
+        pub const PHYSICAL_DEVICE_EXTERNAL_SEMAPHORE_INFO: Self = Self(1000076000);
+        pub const EXTERNAL_SEMAPHORE_PROPERTIES: Self = Self(1000076001);
+        pub const PHYSICAL_DEVICE_SUBGROUP_PROPERTIES: Self = Self(1000094000);
+        pub const PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES: Self = Self(1000083000);
+        pub const PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES: Self = Self(1000120000);
+        pub const DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO: Self = Self(1000085000);
+        pub const PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES: Self = Self(1000168000);
+        pub const DESCRIPTOR_SET_LAYOUT_SUPPORT: Self = Self(1000168001);
+        pub const SAMPLER_YCBCR_CONVERSION_CREATE_INFO: Self = Self(1000156000);
+        pub const SAMPLER_YCBCR_CONVERSION_INFO: Self = Self(1000156001);
+        pub const BIND_IMAGE_PLANE_MEMORY_INFO: Self = Self(1000156002);
+        pub const IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO: Self = Self(1000156003);
+        pub const PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES: Self = Self(1000156004);
+        pub const SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES: Self = Self(1000156005);
+        pub const DEVICE_GROUP_RENDER_PASS_BEGIN_INFO: Self = Self(1000060003);
+        pub const PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES: Self = Self(1000117000);
+        pub const RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO: Self = Self(1000117001);
+        pub const PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO: Self = Self(1000117003);
+        pub const RENDER_PASS_MULTIVIEW_CREATE_INFO: Self = Self(1000053000);
+        pub const PHYSICAL_DEVICE_MULTIVIEW_FEATURES: Self = Self(1000053001);
+        pub const PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES: Self = Self(1000053002);
+        pub const PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES: Self = Self(1000063000);
+        pub const PHYSICAL_DEVICE_VARIABLE_POINTER_FEATURES: Self =
+            Self::PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES;
+        pub const PHYSICAL_DEVICE_SHADER_DRAW_PARAMETER_FEATURES: Self =
+            Self::PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES;
+        // VK_VERSION_1_2
+        pub const IMAGE_FORMAT_LIST_CREATE_INFO: Self = Self(1000147000);
+        pub const PHYSICAL_DEVICE_DRIVER_PROPERTIES: Self = Self(1000196000);
+        pub const PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES: Self = Self(1000211000);
+        pub const PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES: Self = Self(1000261000);
+        pub const PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES: Self = Self(1000207000);
+        pub const PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_PROPERTIES: Self = Self(1000207001);
+        pub const SEMAPHORE_TYPE_CREATE_INFO: Self = Self(1000207002);
+        pub const TIMELINE_SEMAPHORE_SUBMIT_INFO: Self = Self(1000207003);
+        pub const SEMAPHORE_WAIT_INFO: Self = Self(1000207004);
+        pub const SEMAPHORE_SIGNAL_INFO: Self = Self(1000207005);
+        pub const PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES: Self = Self(1000257000);
+        pub const BUFFER_DEVICE_ADDRESS_INFO: Self = Self(1000244001);
+        pub const BUFFER_OPAQUE_CAPTURE_ADDRESS_CREATE_INFO: Self = Self(1000257002);
+        pub const MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO: Self = Self(1000257003);
+        pub const DEVICE_MEMORY_OPAQUE_CAPTURE_ADDRESS_INFO: Self = Self(1000257004);
+        pub const PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES: Self = Self(1000177000);
+        pub const PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES: Self = Self(1000180000);
+        pub const PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES: Self = Self(1000082000);
+        pub const PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES: Self = Self(1000197000);
+        pub const DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO: Self = Self(1000161000);
+        pub const PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES: Self = Self(1000161001);
+        pub const PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES: Self = Self(1000161002);
+        pub const DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO: Self = Self(1000161003);
+        pub const DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT: Self = Self(1000161004);
+        pub const PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES: Self = Self(1000221000);
+        pub const PHYSICAL_DEVICE_SAMPLER_FILTER_MINMAX_PROPERTIES: Self = Self(1000130000);
+        pub const SAMPLER_REDUCTION_MODE_CREATE_INFO: Self = Self(1000130001);
+        pub const PHYSICAL_DEVICE_UNIFORM_BUFFER_STANDARD_LAYOUT_FEATURES: Self = Self(1000253000);
+        pub const PHYSICAL_DEVICE_SHADER_SUBGROUP_EXTENDED_TYPES_FEATURES: Self = Self(1000175000);
+        pub const ATTACHMENT_DESCRIPTION_2: Self = Self(1000109000);
+        pub const ATTACHMENT_REFERENCE_2: Self = Self(1000109001);
+        pub const SUBPASS_DESCRIPTION_2: Self = Self(1000109002);
+        pub const SUBPASS_DEPENDENCY_2: Self = Self(1000109003);
+        pub const RENDER_PASS_CREATE_INFO_2: Self = Self(1000109004);
+        pub const SUBPASS_BEGIN_INFO: Self = Self(1000109005);
+        pub const SUBPASS_END_INFO: Self = Self(1000109006);
+        pub const PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES: Self = Self(1000199000);
+        pub const SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE: Self = Self(1000199001);
+        pub const IMAGE_STENCIL_USAGE_CREATE_INFO: Self = Self(1000246000);
+        pub const PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES: Self = Self(1000108000);
+        pub const FRAMEBUFFER_ATTACHMENTS_CREATE_INFO: Self = Self(1000108001);
+        pub const FRAMEBUFFER_ATTACHMENT_IMAGE_INFO: Self = Self(1000108002);
+        pub const RENDER_PASS_ATTACHMENT_BEGIN_INFO: Self = Self(1000108003);
+        pub const PHYSICAL_DEVICE_SEPARATE_DEPTH_STENCIL_LAYOUTS_FEATURES: Self = Self(1000241000);
+        pub const ATTACHMENT_REFERENCE_STENCIL_LAYOUT: Self = Self(1000241001);
+        pub const ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT: Self = Self(1000241002);
+        pub const PHYSICAL_DEVICE_VULKAN_1_1_FEATURES: Self = Self(49);
+        pub const PHYSICAL_DEVICE_VULKAN_1_1_PROPERTIES: Self = Self(50);
+        pub const PHYSICAL_DEVICE_VULKAN_1_2_FEATURES: Self = Self(51);
+        pub const PHYSICAL_DEVICE_VULKAN_1_2_PROPERTIES: Self = Self(52);
+        // VK_VERSION_1_3
+        pub const PHYSICAL_DEVICE_TOOL_PROPERTIES: Self = Self(1000245000);
+        pub const PHYSICAL_DEVICE_PRIVATE_DATA_FEATURES: Self = Self(1000295000);
+        pub const DEVICE_PRIVATE_DATA_CREATE_INFO: Self = Self(1000295001);
+        pub const PRIVATE_DATA_SLOT_CREATE_INFO: Self = Self(1000295002);
+        pub const MEMORY_BARRIER_2: Self = Self(1000314000);
+        pub const BUFFER_MEMORY_BARRIER_2: Self = Self(1000314001);
+        pub const IMAGE_MEMORY_BARRIER_2: Self = Self(1000314002);
+        pub const DEPENDENCY_INFO: Self = Self(1000314003);
+        pub const SUBMIT_INFO_2: Self = Self(1000314004);
+        pub const SEMAPHORE_SUBMIT_INFO: Self = Self(1000314005);
+        pub const COMMAND_BUFFER_SUBMIT_INFO: Self = Self(1000314006);
+        pub const PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES: Self = Self(1000314007);
+        pub const COPY_BUFFER_INFO_2: Self = Self(1000337000);
+        pub const COPY_IMAGE_INFO_2: Self = Self(1000337001);
+        pub const COPY_BUFFER_TO_IMAGE_INFO_2: Self = Self(1000337002);
+        pub const COPY_IMAGE_TO_BUFFER_INFO_2: Self = Self(1000337003);
+        pub const BUFFER_COPY_2: Self = Self(1000337006);
+        pub const IMAGE_COPY_2: Self = Self(1000337007);
+        pub const BUFFER_IMAGE_COPY_2: Self = Self(1000337009);
+        pub const PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES: Self = Self(1000066000);
+        pub const FORMAT_PROPERTIES_3: Self = Self(1000360000);
+        pub const PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES: Self = Self(1000413000);
+        pub const PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES: Self = Self(1000413001);
+        pub const DEVICE_BUFFER_MEMORY_REQUIREMENTS: Self = Self(1000413002);
+        pub const DEVICE_IMAGE_MEMORY_REQUIREMENTS: Self = Self(1000413003);
+        pub const PIPELINE_CREATION_FEEDBACK_CREATE_INFO: Self = Self(1000192000);
+        pub const PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES: Self = Self(1000215000);
+        pub const PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES: Self =
+            Self(1000276000);
+        pub const PHYSICAL_DEVICE_PIPELINE_CREATION_CACHE_CONTROL_FEATURES: Self = Self(1000297000);
+        pub const PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES: Self =
+            Self(1000325000);
+        pub const PHYSICAL_DEVICE_IMAGE_ROBUSTNESS_FEATURES: Self = Self(1000335000);
+        pub const PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_PROPERTIES: Self = Self(1000225000);
+        pub const PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO: Self = Self(1000225001);
+        pub const PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_FEATURES: Self = Self(1000225002);
+        pub const PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_FEATURES: Self = Self(1000138000);
+        pub const PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_PROPERTIES: Self = Self(1000138001);
+        pub const WRITE_DESCRIPTOR_SET_INLINE_UNIFORM_BLOCK: Self = Self(1000138002);
+        pub const DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO: Self = Self(1000138003);
+        pub const PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES: Self = Self(1000280000);
+        pub const PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES: Self = Self(1000280001);
+        pub const PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES: Self = Self(1000281001);
+        pub const BLIT_IMAGE_INFO_2: Self = Self(1000337004);
+        pub const RESOLVE_IMAGE_INFO_2: Self = Self(1000337005);
+        pub const IMAGE_BLIT_2: Self = Self(1000337008);
+        pub const IMAGE_RESOLVE_2: Self = Self(1000337010);
+        pub const RENDERING_INFO: Self = Self(1000044000);
+        pub const RENDERING_ATTACHMENT_INFO: Self = Self(1000044001);
+        pub const PIPELINE_RENDERING_CREATE_INFO: Self = Self(1000044002);
+        pub const PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES: Self = Self(1000044003);
+        pub const COMMAND_BUFFER_INHERITANCE_RENDERING_INFO: Self = Self(1000044004);
+        pub const PHYSICAL_DEVICE_VULKAN_1_3_FEATURES: Self = Self(53);
+        pub const PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES: Self = Self(54);
+        // VK_VERSION_1_4
+        pub const DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO: Self = Self(1000174000);
+        pub const PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES: Self = Self(1000388000);
+        pub const QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES: Self = Self(1000388001);
+        pub const PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES: Self = Self(1000265000);
+        pub const MEMORY_MAP_INFO: Self = Self(1000271000);
+        pub const MEMORY_UNMAP_INFO: Self = Self(1000271001);
+        pub const PHYSICAL_DEVICE_MAINTENANCE_5_FEATURES: Self = Self(1000470000);
+        pub const PHYSICAL_DEVICE_MAINTENANCE_5_PROPERTIES: Self = Self(1000470001);
+        pub const DEVICE_IMAGE_SUBRESOURCE_INFO: Self = Self(1000470004);
+        pub const SUBRESOURCE_LAYOUT_2: Self = Self(1000338002);
+        pub const IMAGE_SUBRESOURCE_2: Self = Self(1000338003);
+        pub const BUFFER_USAGE_FLAGS_2_CREATE_INFO: Self = Self(1000470006);
+        pub const PHYSICAL_DEVICE_MAINTENANCE_6_FEATURES: Self = Self(1000545000);
+        pub const PHYSICAL_DEVICE_MAINTENANCE_6_PROPERTIES: Self = Self(1000545001);
+        pub const BIND_MEMORY_STATUS: Self = Self(1000545002);
+        pub const PHYSICAL_DEVICE_HOST_IMAGE_COPY_FEATURES: Self = Self(1000270000);
+        pub const PHYSICAL_DEVICE_HOST_IMAGE_COPY_PROPERTIES: Self = Self(1000270001);
+        pub const MEMORY_TO_IMAGE_COPY: Self = Self(1000270002);
+        pub const IMAGE_TO_MEMORY_COPY: Self = Self(1000270003);
+        pub const COPY_IMAGE_TO_MEMORY_INFO: Self = Self(1000270004);
+        pub const COPY_MEMORY_TO_IMAGE_INFO: Self = Self(1000270005);
+        pub const HOST_IMAGE_LAYOUT_TRANSITION_INFO: Self = Self(1000270006);
+        pub const COPY_IMAGE_TO_IMAGE_INFO: Self = Self(1000270007);
+        pub const SUBRESOURCE_HOST_MEMCPY_SIZE: Self = Self(1000270008);
+        pub const HOST_IMAGE_COPY_DEVICE_PERFORMANCE_QUERY: Self = Self(1000270009);
+        pub const PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES: Self = Self(1000416000);
+        pub const PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES: Self = Self(1000528000);
+        pub const PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES: Self = Self(1000544000);
+        pub const PIPELINE_CREATE_FLAGS_2_CREATE_INFO: Self = Self(1000470005);
+        pub const PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES: Self = Self(1000080000);
+        pub const BIND_DESCRIPTOR_SETS_INFO: Self = Self(1000545003);
+        pub const PUSH_CONSTANTS_INFO: Self = Self(1000545004);
+        pub const PUSH_DESCRIPTOR_SET_INFO: Self = Self(1000545005);
+        pub const PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO: Self = Self(1000545006);
+        pub const PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES: Self = Self(1000466000);
+        pub const PIPELINE_ROBUSTNESS_CREATE_INFO: Self = Self(1000068000);
+        pub const PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_FEATURES: Self = Self(1000068001);
+        pub const PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_PROPERTIES: Self = Self(1000068002);
+        pub const PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES: Self = Self(1000259000);
+        pub const PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO: Self = Self(1000259001);
+        pub const PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES: Self = Self(1000259002);
+        pub const PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES: Self = Self(1000525000);
+        pub const PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO: Self = Self(1000190001);
+        pub const PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES: Self = Self(1000190002);
+        pub const RENDERING_AREA_INFO: Self = Self(1000470003);
+        pub const PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES: Self = Self(1000232000);
+        pub const RENDERING_ATTACHMENT_LOCATION_INFO: Self = Self(1000232001);
+        pub const RENDERING_INPUT_ATTACHMENT_INDEX_INFO: Self = Self(1000232002);
+        pub const PHYSICAL_DEVICE_VULKAN_1_4_FEATURES: Self = Self(55);
+        pub const PHYSICAL_DEVICE_VULKAN_1_4_PROPERTIES: Self = Self(56);
     }
     impl fmt::Debug for StructureType {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -8979,281 +9449,119 @@ pub(super) mod defs {
                 Self::MEMORY_BARRIER => Some("MEMORY_BARRIER"),
                 Self::LOADER_INSTANCE_CREATE_INFO => Some("LOADER_INSTANCE_CREATE_INFO"),
                 Self::LOADER_DEVICE_CREATE_INFO => Some("LOADER_DEVICE_CREATE_INFO"),
-                Self::ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR => {
-                    Some("ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR")
-                }
-                Self::ACCELERATION_STRUCTURE_BUILD_SIZES_INFO_KHR => {
-                    Some("ACCELERATION_STRUCTURE_BUILD_SIZES_INFO_KHR")
-                }
-                Self::ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT => {
-                    Some("ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT")
-                }
-                Self::ACCELERATION_STRUCTURE_CREATE_INFO_KHR => {
-                    Some("ACCELERATION_STRUCTURE_CREATE_INFO_KHR")
-                }
-                Self::ACCELERATION_STRUCTURE_CREATE_INFO_NV => {
-                    Some("ACCELERATION_STRUCTURE_CREATE_INFO_NV")
+                Self::PHYSICAL_DEVICE_DENSE_GEOMETRY_FORMAT_FEATURES_AMDX => {
+                    Some("PHYSICAL_DEVICE_DENSE_GEOMETRY_FORMAT_FEATURES_AMDX")
                 }
                 Self::ACCELERATION_STRUCTURE_DENSE_GEOMETRY_FORMAT_TRIANGLES_DATA_AMDX => {
                     Some("ACCELERATION_STRUCTURE_DENSE_GEOMETRY_FORMAT_TRIANGLES_DATA_AMDX")
                 }
-                Self::ACCELERATION_STRUCTURE_DEVICE_ADDRESS_INFO_KHR => {
-                    Some("ACCELERATION_STRUCTURE_DEVICE_ADDRESS_INFO_KHR")
+                Self::PHYSICAL_DEVICE_SHADER_ENQUEUE_FEATURES_AMDX => {
+                    Some("PHYSICAL_DEVICE_SHADER_ENQUEUE_FEATURES_AMDX")
                 }
-                Self::ACCELERATION_STRUCTURE_GEOMETRY_AABBS_DATA_KHR => {
-                    Some("ACCELERATION_STRUCTURE_GEOMETRY_AABBS_DATA_KHR")
+                Self::PHYSICAL_DEVICE_SHADER_ENQUEUE_PROPERTIES_AMDX => {
+                    Some("PHYSICAL_DEVICE_SHADER_ENQUEUE_PROPERTIES_AMDX")
                 }
-                Self::ACCELERATION_STRUCTURE_GEOMETRY_INSTANCES_DATA_KHR => {
-                    Some("ACCELERATION_STRUCTURE_GEOMETRY_INSTANCES_DATA_KHR")
+                Self::EXECUTION_GRAPH_PIPELINE_SCRATCH_SIZE_AMDX => {
+                    Some("EXECUTION_GRAPH_PIPELINE_SCRATCH_SIZE_AMDX")
                 }
-                Self::ACCELERATION_STRUCTURE_GEOMETRY_KHR => {
-                    Some("ACCELERATION_STRUCTURE_GEOMETRY_KHR")
+                Self::EXECUTION_GRAPH_PIPELINE_CREATE_INFO_AMDX => {
+                    Some("EXECUTION_GRAPH_PIPELINE_CREATE_INFO_AMDX")
                 }
-                Self::ACCELERATION_STRUCTURE_GEOMETRY_LINEAR_SWEPT_SPHERES_DATA_NV => {
-                    Some("ACCELERATION_STRUCTURE_GEOMETRY_LINEAR_SWEPT_SPHERES_DATA_NV")
+                Self::PIPELINE_SHADER_STAGE_NODE_CREATE_INFO_AMDX => {
+                    Some("PIPELINE_SHADER_STAGE_NODE_CREATE_INFO_AMDX")
                 }
-                Self::ACCELERATION_STRUCTURE_GEOMETRY_MOTION_TRIANGLES_DATA_NV => {
-                    Some("ACCELERATION_STRUCTURE_GEOMETRY_MOTION_TRIANGLES_DATA_NV")
+                Self::PHYSICAL_DEVICE_ANTI_LAG_FEATURES_AMD => {
+                    Some("PHYSICAL_DEVICE_ANTI_LAG_FEATURES_AMD")
                 }
-                Self::ACCELERATION_STRUCTURE_GEOMETRY_SPHERES_DATA_NV => {
-                    Some("ACCELERATION_STRUCTURE_GEOMETRY_SPHERES_DATA_NV")
+                Self::ANTI_LAG_DATA_AMD => Some("ANTI_LAG_DATA_AMD"),
+                Self::ANTI_LAG_PRESENTATION_INFO_AMD => Some("ANTI_LAG_PRESENTATION_INFO_AMD"),
+                Self::PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD => {
+                    Some("PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD")
                 }
-                Self::ACCELERATION_STRUCTURE_GEOMETRY_TRIANGLES_DATA_KHR => {
-                    Some("ACCELERATION_STRUCTURE_GEOMETRY_TRIANGLES_DATA_KHR")
+                Self::DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD => {
+                    Some("DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD")
                 }
-                Self::ACCELERATION_STRUCTURE_INFO_NV => Some("ACCELERATION_STRUCTURE_INFO_NV"),
-                Self::ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV => {
-                    Some("ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV")
+                Self::SWAPCHAIN_DISPLAY_NATIVE_HDR_CREATE_INFO_AMD => {
+                    Some("SWAPCHAIN_DISPLAY_NATIVE_HDR_CREATE_INFO_AMD")
                 }
-                Self::ACCELERATION_STRUCTURE_MOTION_INFO_NV => {
-                    Some("ACCELERATION_STRUCTURE_MOTION_INFO_NV")
+                Self::DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD => {
+                    Some("DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD")
                 }
-                Self::ACCELERATION_STRUCTURE_TRIANGLES_DISPLACEMENT_MICROMAP_NV => {
-                    Some("ACCELERATION_STRUCTURE_TRIANGLES_DISPLACEMENT_MICROMAP_NV")
+                Self::ATTACHMENT_SAMPLE_COUNT_INFO_AMD => Some("ATTACHMENT_SAMPLE_COUNT_INFO_AMD"),
+                Self::PIPELINE_COMPILER_CONTROL_CREATE_INFO_AMD => {
+                    Some("PIPELINE_COMPILER_CONTROL_CREATE_INFO_AMD")
                 }
-                Self::ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_EXT => {
-                    Some("ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_EXT")
+                Self::PIPELINE_RASTERIZATION_STATE_RASTERIZATION_ORDER_AMD => {
+                    Some("PIPELINE_RASTERIZATION_STATE_RASTERIZATION_ORDER_AMD")
                 }
-                Self::ACCELERATION_STRUCTURE_VERSION_INFO_KHR => {
-                    Some("ACCELERATION_STRUCTURE_VERSION_INFO_KHR")
+                Self::PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_AMD => {
+                    Some("PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_AMD")
                 }
-                Self::ACQUIRE_NEXT_IMAGE_INFO_KHR => Some("ACQUIRE_NEXT_IMAGE_INFO_KHR"),
-                Self::ACQUIRE_PROFILING_LOCK_INFO_KHR => Some("ACQUIRE_PROFILING_LOCK_INFO_KHR"),
-                Self::AMIGO_PROFILING_SUBMIT_INFO_SEC => Some("AMIGO_PROFILING_SUBMIT_INFO_SEC"),
-                Self::ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_2_ANDROID => {
-                    Some("ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_2_ANDROID")
+                Self::PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_2_AMD => {
+                    Some("PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_2_AMD")
                 }
-                Self::ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_ANDROID => {
-                    Some("ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_ANDROID")
+                Self::PHYSICAL_DEVICE_SHADER_EARLY_AND_LATE_FRAGMENT_TESTS_FEATURES_AMD => {
+                    Some("PHYSICAL_DEVICE_SHADER_EARLY_AND_LATE_FRAGMENT_TESTS_FEATURES_AMD")
+                }
+                Self::TEXTURE_LOD_GATHER_FORMAT_PROPERTIES_AMD => {
+                    Some("TEXTURE_LOD_GATHER_FORMAT_PROPERTIES_AMD")
+                }
+                Self::PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_FEATURES_ANDROID => {
+                    Some("PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_FEATURES_ANDROID")
+                }
+                Self::PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_PROPERTIES_ANDROID => {
+                    Some("PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_PROPERTIES_ANDROID")
                 }
                 Self::ANDROID_HARDWARE_BUFFER_FORMAT_RESOLVE_PROPERTIES_ANDROID => {
                     Some("ANDROID_HARDWARE_BUFFER_FORMAT_RESOLVE_PROPERTIES_ANDROID")
                 }
-                Self::ANDROID_HARDWARE_BUFFER_PROPERTIES_ANDROID => {
-                    Some("ANDROID_HARDWARE_BUFFER_PROPERTIES_ANDROID")
-                }
                 Self::ANDROID_HARDWARE_BUFFER_USAGE_ANDROID => {
                     Some("ANDROID_HARDWARE_BUFFER_USAGE_ANDROID")
                 }
-                Self::ANDROID_SURFACE_CREATE_INFO_KHR => Some("ANDROID_SURFACE_CREATE_INFO_KHR"),
-                Self::ANTI_LAG_DATA_AMD => Some("ANTI_LAG_DATA_AMD"),
-                Self::ANTI_LAG_PRESENTATION_INFO_AMD => Some("ANTI_LAG_PRESENTATION_INFO_AMD"),
-                Self::ATTACHMENT_DESCRIPTION_2 => Some("ATTACHMENT_DESCRIPTION_2"),
-                Self::ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT => {
-                    Some("ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT")
+                Self::ANDROID_HARDWARE_BUFFER_PROPERTIES_ANDROID => {
+                    Some("ANDROID_HARDWARE_BUFFER_PROPERTIES_ANDROID")
                 }
-                Self::ATTACHMENT_FEEDBACK_LOOP_INFO_EXT => {
-                    Some("ATTACHMENT_FEEDBACK_LOOP_INFO_EXT")
+                Self::ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_ANDROID => {
+                    Some("ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_ANDROID")
                 }
-                Self::ATTACHMENT_REFERENCE_2 => Some("ATTACHMENT_REFERENCE_2"),
-                Self::ATTACHMENT_REFERENCE_STENCIL_LAYOUT => {
-                    Some("ATTACHMENT_REFERENCE_STENCIL_LAYOUT")
+                Self::IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID => {
+                    Some("IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID")
                 }
-                Self::ATTACHMENT_SAMPLE_COUNT_INFO_AMD => Some("ATTACHMENT_SAMPLE_COUNT_INFO_AMD"),
-                Self::BEGIN_CUSTOM_RESOLVE_INFO_EXT => Some("BEGIN_CUSTOM_RESOLVE_INFO_EXT"),
-                Self::BIND_ACCELERATION_STRUCTURE_MEMORY_INFO_NV => {
-                    Some("BIND_ACCELERATION_STRUCTURE_MEMORY_INFO_NV")
+                Self::MEMORY_GET_ANDROID_HARDWARE_BUFFER_INFO_ANDROID => {
+                    Some("MEMORY_GET_ANDROID_HARDWARE_BUFFER_INFO_ANDROID")
                 }
-                Self::BIND_BUFFER_MEMORY_DEVICE_GROUP_INFO => {
-                    Some("BIND_BUFFER_MEMORY_DEVICE_GROUP_INFO")
-                }
-                Self::BIND_BUFFER_MEMORY_INFO => Some("BIND_BUFFER_MEMORY_INFO"),
-                Self::BIND_DATA_GRAPH_PIPELINE_SESSION_MEMORY_INFO_ARM => {
-                    Some("BIND_DATA_GRAPH_PIPELINE_SESSION_MEMORY_INFO_ARM")
-                }
-                Self::BIND_DESCRIPTOR_BUFFER_EMBEDDED_SAMPLERS_INFO_EXT => {
-                    Some("BIND_DESCRIPTOR_BUFFER_EMBEDDED_SAMPLERS_INFO_EXT")
-                }
-                Self::BIND_DESCRIPTOR_SETS_INFO => Some("BIND_DESCRIPTOR_SETS_INFO"),
-                Self::BIND_HEAP_INFO_EXT => Some("BIND_HEAP_INFO_EXT"),
-                Self::BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO => {
-                    Some("BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO")
-                }
-                Self::BIND_IMAGE_MEMORY_INFO => Some("BIND_IMAGE_MEMORY_INFO"),
-                Self::BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR => {
-                    Some("BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR")
-                }
-                Self::BIND_IMAGE_PLANE_MEMORY_INFO => Some("BIND_IMAGE_PLANE_MEMORY_INFO"),
-                Self::BIND_MEMORY_STATUS => Some("BIND_MEMORY_STATUS"),
-                Self::BIND_TENSOR_MEMORY_INFO_ARM => Some("BIND_TENSOR_MEMORY_INFO_ARM"),
-                Self::BIND_VIDEO_SESSION_MEMORY_INFO_KHR => {
-                    Some("BIND_VIDEO_SESSION_MEMORY_INFO_KHR")
-                }
-                Self::BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM => {
-                    Some("BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM")
-                }
-                Self::BLIT_IMAGE_INFO_2 => Some("BLIT_IMAGE_INFO_2"),
-                Self::BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT => {
-                    Some("BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT")
-                }
-                Self::BUFFER_COLLECTION_BUFFER_CREATE_INFO_FUCHSIA => {
-                    Some("BUFFER_COLLECTION_BUFFER_CREATE_INFO_FUCHSIA")
-                }
-                Self::BUFFER_COLLECTION_CONSTRAINTS_INFO_FUCHSIA => {
-                    Some("BUFFER_COLLECTION_CONSTRAINTS_INFO_FUCHSIA")
-                }
-                Self::BUFFER_COLLECTION_CREATE_INFO_FUCHSIA => {
-                    Some("BUFFER_COLLECTION_CREATE_INFO_FUCHSIA")
-                }
-                Self::BUFFER_COLLECTION_IMAGE_CREATE_INFO_FUCHSIA => {
-                    Some("BUFFER_COLLECTION_IMAGE_CREATE_INFO_FUCHSIA")
-                }
-                Self::BUFFER_COLLECTION_PROPERTIES_FUCHSIA => {
-                    Some("BUFFER_COLLECTION_PROPERTIES_FUCHSIA")
-                }
-                Self::BUFFER_CONSTRAINTS_INFO_FUCHSIA => Some("BUFFER_CONSTRAINTS_INFO_FUCHSIA"),
-                Self::BUFFER_COPY_2 => Some("BUFFER_COPY_2"),
-                Self::BUFFER_DEVICE_ADDRESS_CREATE_INFO_EXT => {
-                    Some("BUFFER_DEVICE_ADDRESS_CREATE_INFO_EXT")
-                }
-                Self::BUFFER_DEVICE_ADDRESS_INFO => Some("BUFFER_DEVICE_ADDRESS_INFO"),
-                Self::BUFFER_IMAGE_COPY_2 => Some("BUFFER_IMAGE_COPY_2"),
-                Self::BUFFER_MEMORY_BARRIER_2 => Some("BUFFER_MEMORY_BARRIER_2"),
-                Self::BUFFER_MEMORY_REQUIREMENTS_INFO_2 => {
-                    Some("BUFFER_MEMORY_REQUIREMENTS_INFO_2")
-                }
-                Self::BUFFER_OPAQUE_CAPTURE_ADDRESS_CREATE_INFO => {
-                    Some("BUFFER_OPAQUE_CAPTURE_ADDRESS_CREATE_INFO")
-                }
-                Self::BUFFER_USAGE_FLAGS_2_CREATE_INFO => Some("BUFFER_USAGE_FLAGS_2_CREATE_INFO"),
-                Self::BUILD_PARTITIONED_ACCELERATION_STRUCTURE_INFO_NV => {
-                    Some("BUILD_PARTITIONED_ACCELERATION_STRUCTURE_INFO_NV")
-                }
-                Self::CALIBRATED_TIMESTAMP_INFO_KHR => Some("CALIBRATED_TIMESTAMP_INFO_KHR"),
-                Self::CHECKPOINT_DATA_2_NV => Some("CHECKPOINT_DATA_2_NV"),
-                Self::CHECKPOINT_DATA_NV => Some("CHECKPOINT_DATA_NV"),
-                Self::CLUSTER_ACCELERATION_STRUCTURE_CLUSTERS_BOTTOM_LEVEL_INPUT_NV => {
-                    Some("CLUSTER_ACCELERATION_STRUCTURE_CLUSTERS_BOTTOM_LEVEL_INPUT_NV")
-                }
-                Self::CLUSTER_ACCELERATION_STRUCTURE_COMMANDS_INFO_NV => {
-                    Some("CLUSTER_ACCELERATION_STRUCTURE_COMMANDS_INFO_NV")
-                }
-                Self::CLUSTER_ACCELERATION_STRUCTURE_INPUT_INFO_NV => {
-                    Some("CLUSTER_ACCELERATION_STRUCTURE_INPUT_INFO_NV")
-                }
-                Self::CLUSTER_ACCELERATION_STRUCTURE_MOVE_OBJECTS_INPUT_NV => {
-                    Some("CLUSTER_ACCELERATION_STRUCTURE_MOVE_OBJECTS_INPUT_NV")
-                }
-                Self::CLUSTER_ACCELERATION_STRUCTURE_TRIANGLE_CLUSTER_INPUT_NV => {
-                    Some("CLUSTER_ACCELERATION_STRUCTURE_TRIANGLE_CLUSTER_INPUT_NV")
-                }
-                Self::COMMAND_BUFFER_INHERITANCE_CONDITIONAL_RENDERING_INFO_EXT => {
-                    Some("COMMAND_BUFFER_INHERITANCE_CONDITIONAL_RENDERING_INFO_EXT")
-                }
-                Self::COMMAND_BUFFER_INHERITANCE_DESCRIPTOR_HEAP_INFO_EXT => {
-                    Some("COMMAND_BUFFER_INHERITANCE_DESCRIPTOR_HEAP_INFO_EXT")
-                }
-                Self::COMMAND_BUFFER_INHERITANCE_RENDERING_INFO => {
-                    Some("COMMAND_BUFFER_INHERITANCE_RENDERING_INFO")
-                }
-                Self::COMMAND_BUFFER_INHERITANCE_RENDER_PASS_TRANSFORM_INFO_QCOM => {
-                    Some("COMMAND_BUFFER_INHERITANCE_RENDER_PASS_TRANSFORM_INFO_QCOM")
-                }
-                Self::COMMAND_BUFFER_INHERITANCE_VIEWPORT_SCISSOR_INFO_NV => {
-                    Some("COMMAND_BUFFER_INHERITANCE_VIEWPORT_SCISSOR_INFO_NV")
-                }
-                Self::COMMAND_BUFFER_SUBMIT_INFO => Some("COMMAND_BUFFER_SUBMIT_INFO"),
-                Self::COMPUTE_OCCUPANCY_PRIORITY_PARAMETERS_NV => {
-                    Some("COMPUTE_OCCUPANCY_PRIORITY_PARAMETERS_NV")
-                }
-                Self::COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV => {
-                    Some("COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV")
-                }
-                Self::CONDITIONAL_RENDERING_BEGIN_INFO_EXT => {
-                    Some("CONDITIONAL_RENDERING_BEGIN_INFO_EXT")
-                }
-                Self::CONVERT_COOPERATIVE_VECTOR_MATRIX_INFO_NV => {
-                    Some("CONVERT_COOPERATIVE_VECTOR_MATRIX_INFO_NV")
-                }
-                Self::COOPERATIVE_MATRIX_FLEXIBLE_DIMENSIONS_PROPERTIES_NV => {
-                    Some("COOPERATIVE_MATRIX_FLEXIBLE_DIMENSIONS_PROPERTIES_NV")
-                }
-                Self::COOPERATIVE_MATRIX_PROPERTIES_KHR => {
-                    Some("COOPERATIVE_MATRIX_PROPERTIES_KHR")
-                }
-                Self::COOPERATIVE_MATRIX_PROPERTIES_NV => Some("COOPERATIVE_MATRIX_PROPERTIES_NV"),
-                Self::COOPERATIVE_VECTOR_PROPERTIES_NV => Some("COOPERATIVE_VECTOR_PROPERTIES_NV"),
-                Self::COPY_ACCELERATION_STRUCTURE_INFO_KHR => {
-                    Some("COPY_ACCELERATION_STRUCTURE_INFO_KHR")
-                }
-                Self::COPY_ACCELERATION_STRUCTURE_TO_MEMORY_INFO_KHR => {
-                    Some("COPY_ACCELERATION_STRUCTURE_TO_MEMORY_INFO_KHR")
-                }
-                Self::COPY_BUFFER_INFO_2 => Some("COPY_BUFFER_INFO_2"),
-                Self::COPY_BUFFER_TO_IMAGE_INFO_2 => Some("COPY_BUFFER_TO_IMAGE_INFO_2"),
-                Self::COPY_COMMAND_TRANSFORM_INFO_QCOM => Some("COPY_COMMAND_TRANSFORM_INFO_QCOM"),
-                Self::COPY_IMAGE_INFO_2 => Some("COPY_IMAGE_INFO_2"),
-                Self::COPY_IMAGE_TO_BUFFER_INFO_2 => Some("COPY_IMAGE_TO_BUFFER_INFO_2"),
-                Self::COPY_IMAGE_TO_IMAGE_INFO => Some("COPY_IMAGE_TO_IMAGE_INFO"),
-                Self::COPY_IMAGE_TO_MEMORY_INFO => Some("COPY_IMAGE_TO_MEMORY_INFO"),
-                Self::COPY_MEMORY_INDIRECT_INFO_KHR => Some("COPY_MEMORY_INDIRECT_INFO_KHR"),
-                Self::COPY_MEMORY_TO_ACCELERATION_STRUCTURE_INFO_KHR => {
-                    Some("COPY_MEMORY_TO_ACCELERATION_STRUCTURE_INFO_KHR")
-                }
-                Self::COPY_MEMORY_TO_IMAGE_INDIRECT_INFO_KHR => {
-                    Some("COPY_MEMORY_TO_IMAGE_INDIRECT_INFO_KHR")
-                }
-                Self::COPY_MEMORY_TO_IMAGE_INFO => Some("COPY_MEMORY_TO_IMAGE_INFO"),
-                Self::COPY_MEMORY_TO_MICROMAP_INFO_EXT => Some("COPY_MEMORY_TO_MICROMAP_INFO_EXT"),
-                Self::COPY_MICROMAP_INFO_EXT => Some("COPY_MICROMAP_INFO_EXT"),
-                Self::COPY_MICROMAP_TO_MEMORY_INFO_EXT => Some("COPY_MICROMAP_TO_MEMORY_INFO_EXT"),
-                Self::COPY_TENSOR_INFO_ARM => Some("COPY_TENSOR_INFO_ARM"),
-                Self::CUDA_FUNCTION_CREATE_INFO_NV => Some("CUDA_FUNCTION_CREATE_INFO_NV"),
-                Self::CUDA_LAUNCH_INFO_NV => Some("CUDA_LAUNCH_INFO_NV"),
-                Self::CUDA_MODULE_CREATE_INFO_NV => Some("CUDA_MODULE_CREATE_INFO_NV"),
-                Self::CUSTOM_RESOLVE_CREATE_INFO_EXT => Some("CUSTOM_RESOLVE_CREATE_INFO_EXT"),
-                Self::CU_FUNCTION_CREATE_INFO_NVX => Some("CU_FUNCTION_CREATE_INFO_NVX"),
-                Self::CU_LAUNCH_INFO_NVX => Some("CU_LAUNCH_INFO_NVX"),
-                Self::CU_MODULE_CREATE_INFO_NVX => Some("CU_MODULE_CREATE_INFO_NVX"),
-                Self::CU_MODULE_TEXTURING_MODE_CREATE_INFO_NVX => {
-                    Some("CU_MODULE_TEXTURING_MODE_CREATE_INFO_NVX")
-                }
-                Self::D3D12_FENCE_SUBMIT_INFO_KHR => Some("D3D12_FENCE_SUBMIT_INFO_KHR"),
-                Self::DATA_GRAPH_PIPELINE_BUILTIN_MODEL_CREATE_INFO_QCOM => {
-                    Some("DATA_GRAPH_PIPELINE_BUILTIN_MODEL_CREATE_INFO_QCOM")
-                }
-                Self::DATA_GRAPH_PIPELINE_COMPILER_CONTROL_CREATE_INFO_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_COMPILER_CONTROL_CREATE_INFO_ARM")
-                }
-                Self::DATA_GRAPH_PIPELINE_CONSTANT_ARM => Some("DATA_GRAPH_PIPELINE_CONSTANT_ARM"),
-                Self::DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM")
+                Self::EXTERNAL_FORMAT_ANDROID => Some("EXTERNAL_FORMAT_ANDROID"),
+                Self::ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_2_ANDROID => {
+                    Some("ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_2_ANDROID")
                 }
                 Self::DATA_GRAPH_PIPELINE_CREATE_INFO_ARM => {
                     Some("DATA_GRAPH_PIPELINE_CREATE_INFO_ARM")
                 }
-                Self::DATA_GRAPH_PIPELINE_DISPATCH_INFO_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_DISPATCH_INFO_ARM")
-                }
-                Self::DATA_GRAPH_PIPELINE_IDENTIFIER_CREATE_INFO_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_IDENTIFIER_CREATE_INFO_ARM")
-                }
-                Self::DATA_GRAPH_PIPELINE_INFO_ARM => Some("DATA_GRAPH_PIPELINE_INFO_ARM"),
-                Self::DATA_GRAPH_PIPELINE_PROPERTY_QUERY_RESULT_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_PROPERTY_QUERY_RESULT_ARM")
+                Self::DATA_GRAPH_PIPELINE_SESSION_CREATE_INFO_ARM => {
+                    Some("DATA_GRAPH_PIPELINE_SESSION_CREATE_INFO_ARM")
                 }
                 Self::DATA_GRAPH_PIPELINE_RESOURCE_INFO_ARM => {
                     Some("DATA_GRAPH_PIPELINE_RESOURCE_INFO_ARM")
+                }
+                Self::DATA_GRAPH_PIPELINE_CONSTANT_ARM => Some("DATA_GRAPH_PIPELINE_CONSTANT_ARM"),
+                Self::DATA_GRAPH_PIPELINE_SESSION_MEMORY_REQUIREMENTS_INFO_ARM => {
+                    Some("DATA_GRAPH_PIPELINE_SESSION_MEMORY_REQUIREMENTS_INFO_ARM")
+                }
+                Self::BIND_DATA_GRAPH_PIPELINE_SESSION_MEMORY_INFO_ARM => {
+                    Some("BIND_DATA_GRAPH_PIPELINE_SESSION_MEMORY_INFO_ARM")
+                }
+                Self::PHYSICAL_DEVICE_DATA_GRAPH_FEATURES_ARM => {
+                    Some("PHYSICAL_DEVICE_DATA_GRAPH_FEATURES_ARM")
+                }
+                Self::DATA_GRAPH_PIPELINE_SHADER_MODULE_CREATE_INFO_ARM => {
+                    Some("DATA_GRAPH_PIPELINE_SHADER_MODULE_CREATE_INFO_ARM")
+                }
+                Self::DATA_GRAPH_PIPELINE_PROPERTY_QUERY_RESULT_ARM => {
+                    Some("DATA_GRAPH_PIPELINE_PROPERTY_QUERY_RESULT_ARM")
+                }
+                Self::DATA_GRAPH_PIPELINE_INFO_ARM => Some("DATA_GRAPH_PIPELINE_INFO_ARM"),
+                Self::DATA_GRAPH_PIPELINE_COMPILER_CONTROL_CREATE_INFO_ARM => {
+                    Some("DATA_GRAPH_PIPELINE_COMPILER_CONTROL_CREATE_INFO_ARM")
                 }
                 Self::DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENTS_INFO_ARM => {
                     Some("DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENTS_INFO_ARM")
@@ -9261,589 +9569,127 @@ pub(super) mod defs {
                 Self::DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENT_ARM => {
                     Some("DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENT_ARM")
                 }
-                Self::DATA_GRAPH_PIPELINE_SESSION_CREATE_INFO_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_SESSION_CREATE_INFO_ARM")
+                Self::DATA_GRAPH_PIPELINE_IDENTIFIER_CREATE_INFO_ARM => {
+                    Some("DATA_GRAPH_PIPELINE_IDENTIFIER_CREATE_INFO_ARM")
                 }
-                Self::DATA_GRAPH_PIPELINE_SESSION_MEMORY_REQUIREMENTS_INFO_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_SESSION_MEMORY_REQUIREMENTS_INFO_ARM")
-                }
-                Self::DATA_GRAPH_PIPELINE_SHADER_MODULE_CREATE_INFO_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_SHADER_MODULE_CREATE_INFO_ARM")
+                Self::DATA_GRAPH_PIPELINE_DISPATCH_INFO_ARM => {
+                    Some("DATA_GRAPH_PIPELINE_DISPATCH_INFO_ARM")
                 }
                 Self::DATA_GRAPH_PROCESSING_ENGINE_CREATE_INFO_ARM => {
                     Some("DATA_GRAPH_PROCESSING_ENGINE_CREATE_INFO_ARM")
                 }
-                Self::DEBUG_MARKER_MARKER_INFO_EXT => Some("DEBUG_MARKER_MARKER_INFO_EXT"),
-                Self::DEBUG_MARKER_OBJECT_NAME_INFO_EXT => {
-                    Some("DEBUG_MARKER_OBJECT_NAME_INFO_EXT")
+                Self::QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_PROPERTIES_ARM => {
+                    Some("QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_PROPERTIES_ARM")
                 }
-                Self::DEBUG_MARKER_OBJECT_TAG_INFO_EXT => Some("DEBUG_MARKER_OBJECT_TAG_INFO_EXT"),
-                Self::DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT => {
-                    Some("DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT")
+                Self::QUEUE_FAMILY_DATA_GRAPH_PROPERTIES_ARM => {
+                    Some("QUEUE_FAMILY_DATA_GRAPH_PROPERTIES_ARM")
                 }
-                Self::DEBUG_UTILS_LABEL_EXT => Some("DEBUG_UTILS_LABEL_EXT"),
-                Self::DEBUG_UTILS_MESSENGER_CALLBACK_DATA_EXT => {
-                    Some("DEBUG_UTILS_MESSENGER_CALLBACK_DATA_EXT")
+                Self::PHYSICAL_DEVICE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_INFO_ARM => {
+                    Some("PHYSICAL_DEVICE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_INFO_ARM")
                 }
-                Self::DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT => {
-                    Some("DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT")
+                Self::DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM => {
+                    Some("DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM")
                 }
-                Self::DEBUG_UTILS_OBJECT_NAME_INFO_EXT => Some("DEBUG_UTILS_OBJECT_NAME_INFO_EXT"),
-                Self::DEBUG_UTILS_OBJECT_TAG_INFO_EXT => Some("DEBUG_UTILS_OBJECT_TAG_INFO_EXT"),
-                Self::DECOMPRESS_MEMORY_INFO_EXT => Some("DECOMPRESS_MEMORY_INFO_EXT"),
-                Self::DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV => {
-                    Some("DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV")
+                Self::PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM => {
+                    Some("PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM")
                 }
-                Self::DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV => {
-                    Some("DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV")
+                Self::PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_FEATURES_ARM => {
+                    Some("PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_FEATURES_ARM")
                 }
-                Self::DEDICATED_ALLOCATION_MEMORY_ALLOCATE_INFO_NV => {
-                    Some("DEDICATED_ALLOCATION_MEMORY_ALLOCATE_INFO_NV")
-                }
-                Self::DEPENDENCY_INFO => Some("DEPENDENCY_INFO"),
-                Self::DEPTH_BIAS_INFO_EXT => Some("DEPTH_BIAS_INFO_EXT"),
-                Self::DEPTH_BIAS_REPRESENTATION_INFO_EXT => {
-                    Some("DEPTH_BIAS_REPRESENTATION_INFO_EXT")
-                }
-                Self::DESCRIPTOR_ADDRESS_INFO_EXT => Some("DESCRIPTOR_ADDRESS_INFO_EXT"),
-                Self::DESCRIPTOR_BUFFER_BINDING_INFO_EXT => {
-                    Some("DESCRIPTOR_BUFFER_BINDING_INFO_EXT")
-                }
-                Self::DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT => {
-                    Some("DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT")
-                }
-                Self::DESCRIPTOR_GET_INFO_EXT => Some("DESCRIPTOR_GET_INFO_EXT"),
-                Self::DESCRIPTOR_GET_TENSOR_INFO_ARM => Some("DESCRIPTOR_GET_TENSOR_INFO_ARM"),
-                Self::DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO => {
-                    Some("DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO")
-                }
-                Self::DESCRIPTOR_SET_AND_BINDING_MAPPING_EXT => {
-                    Some("DESCRIPTOR_SET_AND_BINDING_MAPPING_EXT")
-                }
-                Self::DESCRIPTOR_SET_BINDING_REFERENCE_VALVE => {
-                    Some("DESCRIPTOR_SET_BINDING_REFERENCE_VALVE")
-                }
-                Self::DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO => {
-                    Some("DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO")
-                }
-                Self::DESCRIPTOR_SET_LAYOUT_HOST_MAPPING_INFO_VALVE => {
-                    Some("DESCRIPTOR_SET_LAYOUT_HOST_MAPPING_INFO_VALVE")
-                }
-                Self::DESCRIPTOR_SET_LAYOUT_SUPPORT => Some("DESCRIPTOR_SET_LAYOUT_SUPPORT"),
-                Self::DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO => {
-                    Some("DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO")
-                }
-                Self::DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT => {
-                    Some("DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT")
-                }
-                Self::DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO => {
-                    Some("DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO")
-                }
-                Self::DEVICE_ADDRESS_BINDING_CALLBACK_DATA_EXT => {
-                    Some("DEVICE_ADDRESS_BINDING_CALLBACK_DATA_EXT")
-                }
-                Self::DEVICE_BUFFER_MEMORY_REQUIREMENTS => {
-                    Some("DEVICE_BUFFER_MEMORY_REQUIREMENTS")
-                }
-                Self::DEVICE_DEVICE_MEMORY_REPORT_CREATE_INFO_EXT => {
-                    Some("DEVICE_DEVICE_MEMORY_REPORT_CREATE_INFO_EXT")
-                }
-                Self::DEVICE_DIAGNOSTICS_CONFIG_CREATE_INFO_NV => {
-                    Some("DEVICE_DIAGNOSTICS_CONFIG_CREATE_INFO_NV")
-                }
-                Self::DEVICE_EVENT_INFO_EXT => Some("DEVICE_EVENT_INFO_EXT"),
-                Self::DEVICE_FAULT_COUNTS_EXT => Some("DEVICE_FAULT_COUNTS_EXT"),
-                Self::DEVICE_FAULT_INFO_EXT => Some("DEVICE_FAULT_INFO_EXT"),
-                Self::DEVICE_GROUP_BIND_SPARSE_INFO => Some("DEVICE_GROUP_BIND_SPARSE_INFO"),
-                Self::DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO => {
-                    Some("DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO")
-                }
-                Self::DEVICE_GROUP_DEVICE_CREATE_INFO => Some("DEVICE_GROUP_DEVICE_CREATE_INFO"),
-                Self::DEVICE_GROUP_PRESENT_CAPABILITIES_KHR => {
-                    Some("DEVICE_GROUP_PRESENT_CAPABILITIES_KHR")
-                }
-                Self::DEVICE_GROUP_PRESENT_INFO_KHR => Some("DEVICE_GROUP_PRESENT_INFO_KHR"),
-                Self::DEVICE_GROUP_RENDER_PASS_BEGIN_INFO => {
-                    Some("DEVICE_GROUP_RENDER_PASS_BEGIN_INFO")
-                }
-                Self::DEVICE_GROUP_SUBMIT_INFO => Some("DEVICE_GROUP_SUBMIT_INFO"),
-                Self::DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR => {
-                    Some("DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR")
-                }
-                Self::DEVICE_IMAGE_MEMORY_REQUIREMENTS => Some("DEVICE_IMAGE_MEMORY_REQUIREMENTS"),
-                Self::DEVICE_IMAGE_SUBRESOURCE_INFO => Some("DEVICE_IMAGE_SUBRESOURCE_INFO"),
-                Self::DEVICE_MEMORY_OPAQUE_CAPTURE_ADDRESS_INFO => {
-                    Some("DEVICE_MEMORY_OPAQUE_CAPTURE_ADDRESS_INFO")
-                }
-                Self::DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD => {
-                    Some("DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD")
-                }
-                Self::DEVICE_MEMORY_REPORT_CALLBACK_DATA_EXT => {
-                    Some("DEVICE_MEMORY_REPORT_CALLBACK_DATA_EXT")
-                }
-                Self::DEVICE_PIPELINE_BINARY_INTERNAL_CACHE_CONTROL_KHR => {
-                    Some("DEVICE_PIPELINE_BINARY_INTERNAL_CACHE_CONTROL_KHR")
-                }
-                Self::DEVICE_PRIVATE_DATA_CREATE_INFO => Some("DEVICE_PRIVATE_DATA_CREATE_INFO"),
-                Self::DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO => {
-                    Some("DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO")
-                }
-                Self::DEVICE_QUEUE_INFO_2 => Some("DEVICE_QUEUE_INFO_2"),
-                Self::DEVICE_QUEUE_SHADER_CORE_CONTROL_CREATE_INFO_ARM => {
-                    Some("DEVICE_QUEUE_SHADER_CORE_CONTROL_CREATE_INFO_ARM")
-                }
-                Self::DEVICE_TENSOR_MEMORY_REQUIREMENTS_ARM => {
-                    Some("DEVICE_TENSOR_MEMORY_REQUIREMENTS_ARM")
-                }
-                Self::DIRECTFB_SURFACE_CREATE_INFO_EXT => Some("DIRECTFB_SURFACE_CREATE_INFO_EXT"),
-                Self::DIRECT_DRIVER_LOADING_INFO_LUNARG => {
-                    Some("DIRECT_DRIVER_LOADING_INFO_LUNARG")
-                }
-                Self::DIRECT_DRIVER_LOADING_LIST_LUNARG => {
-                    Some("DIRECT_DRIVER_LOADING_LIST_LUNARG")
-                }
-                Self::DISPATCH_TILE_INFO_QCOM => Some("DISPATCH_TILE_INFO_QCOM"),
-                Self::DISPLAY_EVENT_INFO_EXT => Some("DISPLAY_EVENT_INFO_EXT"),
-                Self::DISPLAY_MODE_CREATE_INFO_KHR => Some("DISPLAY_MODE_CREATE_INFO_KHR"),
-                Self::DISPLAY_MODE_PROPERTIES_2_KHR => Some("DISPLAY_MODE_PROPERTIES_2_KHR"),
-                Self::DISPLAY_MODE_STEREO_PROPERTIES_NV => {
-                    Some("DISPLAY_MODE_STEREO_PROPERTIES_NV")
-                }
-                Self::DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD => {
-                    Some("DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD")
-                }
-                Self::DISPLAY_PLANE_CAPABILITIES_2_KHR => Some("DISPLAY_PLANE_CAPABILITIES_2_KHR"),
-                Self::DISPLAY_PLANE_INFO_2_KHR => Some("DISPLAY_PLANE_INFO_2_KHR"),
-                Self::DISPLAY_PLANE_PROPERTIES_2_KHR => Some("DISPLAY_PLANE_PROPERTIES_2_KHR"),
-                Self::DISPLAY_POWER_INFO_EXT => Some("DISPLAY_POWER_INFO_EXT"),
-                Self::DISPLAY_PRESENT_INFO_KHR => Some("DISPLAY_PRESENT_INFO_KHR"),
-                Self::DISPLAY_PROPERTIES_2_KHR => Some("DISPLAY_PROPERTIES_2_KHR"),
-                Self::DISPLAY_SURFACE_CREATE_INFO_KHR => Some("DISPLAY_SURFACE_CREATE_INFO_KHR"),
-                Self::DISPLAY_SURFACE_STEREO_CREATE_INFO_NV => {
-                    Some("DISPLAY_SURFACE_STEREO_CREATE_INFO_NV")
-                }
-                Self::DRM_FORMAT_MODIFIER_PROPERTIES_LIST_2_EXT => {
-                    Some("DRM_FORMAT_MODIFIER_PROPERTIES_LIST_2_EXT")
-                }
-                Self::DRM_FORMAT_MODIFIER_PROPERTIES_LIST_EXT => {
-                    Some("DRM_FORMAT_MODIFIER_PROPERTIES_LIST_EXT")
-                }
-                Self::EXECUTION_GRAPH_PIPELINE_CREATE_INFO_AMDX => {
-                    Some("EXECUTION_GRAPH_PIPELINE_CREATE_INFO_AMDX")
-                }
-                Self::EXECUTION_GRAPH_PIPELINE_SCRATCH_SIZE_AMDX => {
-                    Some("EXECUTION_GRAPH_PIPELINE_SCRATCH_SIZE_AMDX")
-                }
-                Self::EXPORT_FENCE_CREATE_INFO => Some("EXPORT_FENCE_CREATE_INFO"),
-                Self::EXPORT_FENCE_WIN32_HANDLE_INFO_KHR => {
-                    Some("EXPORT_FENCE_WIN32_HANDLE_INFO_KHR")
-                }
-                Self::EXPORT_MEMORY_ALLOCATE_INFO => Some("EXPORT_MEMORY_ALLOCATE_INFO"),
-                Self::EXPORT_MEMORY_ALLOCATE_INFO_NV => Some("EXPORT_MEMORY_ALLOCATE_INFO_NV"),
-                Self::EXPORT_MEMORY_WIN32_HANDLE_INFO_KHR => {
-                    Some("EXPORT_MEMORY_WIN32_HANDLE_INFO_KHR")
-                }
-                Self::EXPORT_MEMORY_WIN32_HANDLE_INFO_NV => {
-                    Some("EXPORT_MEMORY_WIN32_HANDLE_INFO_NV")
-                }
-                Self::EXPORT_METAL_BUFFER_INFO_EXT => Some("EXPORT_METAL_BUFFER_INFO_EXT"),
-                Self::EXPORT_METAL_COMMAND_QUEUE_INFO_EXT => {
-                    Some("EXPORT_METAL_COMMAND_QUEUE_INFO_EXT")
-                }
-                Self::EXPORT_METAL_DEVICE_INFO_EXT => Some("EXPORT_METAL_DEVICE_INFO_EXT"),
-                Self::EXPORT_METAL_IO_SURFACE_INFO_EXT => Some("EXPORT_METAL_IO_SURFACE_INFO_EXT"),
-                Self::EXPORT_METAL_OBJECTS_INFO_EXT => Some("EXPORT_METAL_OBJECTS_INFO_EXT"),
-                Self::EXPORT_METAL_OBJECT_CREATE_INFO_EXT => {
-                    Some("EXPORT_METAL_OBJECT_CREATE_INFO_EXT")
-                }
-                Self::EXPORT_METAL_SHARED_EVENT_INFO_EXT => {
-                    Some("EXPORT_METAL_SHARED_EVENT_INFO_EXT")
-                }
-                Self::EXPORT_METAL_TEXTURE_INFO_EXT => Some("EXPORT_METAL_TEXTURE_INFO_EXT"),
-                Self::EXPORT_SEMAPHORE_CREATE_INFO => Some("EXPORT_SEMAPHORE_CREATE_INFO"),
-                Self::EXPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR => {
-                    Some("EXPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR")
-                }
-                Self::EXTERNAL_BUFFER_PROPERTIES => Some("EXTERNAL_BUFFER_PROPERTIES"),
-                Self::EXTERNAL_COMPUTE_QUEUE_CREATE_INFO_NV => {
-                    Some("EXTERNAL_COMPUTE_QUEUE_CREATE_INFO_NV")
-                }
-                Self::EXTERNAL_COMPUTE_QUEUE_DATA_PARAMS_NV => {
-                    Some("EXTERNAL_COMPUTE_QUEUE_DATA_PARAMS_NV")
-                }
-                Self::EXTERNAL_COMPUTE_QUEUE_DEVICE_CREATE_INFO_NV => {
-                    Some("EXTERNAL_COMPUTE_QUEUE_DEVICE_CREATE_INFO_NV")
-                }
-                Self::EXTERNAL_FENCE_PROPERTIES => Some("EXTERNAL_FENCE_PROPERTIES"),
-                Self::EXTERNAL_FORMAT_ANDROID => Some("EXTERNAL_FORMAT_ANDROID"),
-                Self::EXTERNAL_FORMAT_OHOS => Some("EXTERNAL_FORMAT_OHOS"),
-                Self::EXTERNAL_FORMAT_QNX => Some("EXTERNAL_FORMAT_QNX"),
-                Self::EXTERNAL_IMAGE_FORMAT_PROPERTIES => Some("EXTERNAL_IMAGE_FORMAT_PROPERTIES"),
-                Self::EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT => {
-                    Some("EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT")
-                }
-                Self::EXTERNAL_MEMORY_BUFFER_CREATE_INFO => {
-                    Some("EXTERNAL_MEMORY_BUFFER_CREATE_INFO")
-                }
-                Self::EXTERNAL_MEMORY_IMAGE_CREATE_INFO => {
-                    Some("EXTERNAL_MEMORY_IMAGE_CREATE_INFO")
-                }
-                Self::EXTERNAL_MEMORY_IMAGE_CREATE_INFO_NV => {
-                    Some("EXTERNAL_MEMORY_IMAGE_CREATE_INFO_NV")
-                }
-                Self::EXTERNAL_MEMORY_TENSOR_CREATE_INFO_ARM => {
-                    Some("EXTERNAL_MEMORY_TENSOR_CREATE_INFO_ARM")
-                }
-                Self::EXTERNAL_SEMAPHORE_PROPERTIES => Some("EXTERNAL_SEMAPHORE_PROPERTIES"),
-                Self::EXTERNAL_TENSOR_PROPERTIES_ARM => Some("EXTERNAL_TENSOR_PROPERTIES_ARM"),
-                Self::FENCE_GET_FD_INFO_KHR => Some("FENCE_GET_FD_INFO_KHR"),
-                Self::FENCE_GET_WIN32_HANDLE_INFO_KHR => Some("FENCE_GET_WIN32_HANDLE_INFO_KHR"),
-                Self::FILTER_CUBIC_IMAGE_VIEW_IMAGE_FORMAT_PROPERTIES_EXT => {
-                    Some("FILTER_CUBIC_IMAGE_VIEW_IMAGE_FORMAT_PROPERTIES_EXT")
-                }
-                Self::FORMAT_PROPERTIES_2 => Some("FORMAT_PROPERTIES_2"),
-                Self::FORMAT_PROPERTIES_3 => Some("FORMAT_PROPERTIES_3"),
-                Self::FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR => {
-                    Some("FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR")
-                }
-                Self::FRAMEBUFFER_ATTACHMENTS_CREATE_INFO => {
-                    Some("FRAMEBUFFER_ATTACHMENTS_CREATE_INFO")
-                }
-                Self::FRAMEBUFFER_ATTACHMENT_IMAGE_INFO => {
-                    Some("FRAMEBUFFER_ATTACHMENT_IMAGE_INFO")
-                }
-                Self::FRAMEBUFFER_MIXED_SAMPLES_COMBINATION_NV => {
-                    Some("FRAMEBUFFER_MIXED_SAMPLES_COMBINATION_NV")
-                }
-                Self::FRAME_BOUNDARY_EXT => Some("FRAME_BOUNDARY_EXT"),
-                Self::FRAME_BOUNDARY_TENSORS_ARM => Some("FRAME_BOUNDARY_TENSORS_ARM"),
-                Self::GENERATED_COMMANDS_INFO_EXT => Some("GENERATED_COMMANDS_INFO_EXT"),
-                Self::GENERATED_COMMANDS_INFO_NV => Some("GENERATED_COMMANDS_INFO_NV"),
-                Self::GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_EXT => {
-                    Some("GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_EXT")
-                }
-                Self::GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_NV => {
-                    Some("GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_NV")
-                }
-                Self::GENERATED_COMMANDS_PIPELINE_INFO_EXT => {
-                    Some("GENERATED_COMMANDS_PIPELINE_INFO_EXT")
-                }
-                Self::GENERATED_COMMANDS_SHADER_INFO_EXT => {
-                    Some("GENERATED_COMMANDS_SHADER_INFO_EXT")
-                }
-                Self::GEOMETRY_AABB_NV => Some("GEOMETRY_AABB_NV"),
-                Self::GEOMETRY_NV => Some("GEOMETRY_NV"),
-                Self::GEOMETRY_TRIANGLES_NV => Some("GEOMETRY_TRIANGLES_NV"),
-                Self::GET_LATENCY_MARKER_INFO_NV => Some("GET_LATENCY_MARKER_INFO_NV"),
-                Self::GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT => {
-                    Some("GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT")
-                }
-                Self::GRAPHICS_PIPELINE_SHADER_GROUPS_CREATE_INFO_NV => {
-                    Some("GRAPHICS_PIPELINE_SHADER_GROUPS_CREATE_INFO_NV")
-                }
-                Self::GRAPHICS_SHADER_GROUP_CREATE_INFO_NV => {
-                    Some("GRAPHICS_SHADER_GROUP_CREATE_INFO_NV")
-                }
-                Self::HDR_METADATA_EXT => Some("HDR_METADATA_EXT"),
-                Self::HDR_VIVID_DYNAMIC_METADATA_HUAWEI => {
-                    Some("HDR_VIVID_DYNAMIC_METADATA_HUAWEI")
-                }
-                Self::HEADLESS_SURFACE_CREATE_INFO_EXT => Some("HEADLESS_SURFACE_CREATE_INFO_EXT"),
-                Self::HOST_IMAGE_COPY_DEVICE_PERFORMANCE_QUERY => {
-                    Some("HOST_IMAGE_COPY_DEVICE_PERFORMANCE_QUERY")
-                }
-                Self::HOST_IMAGE_LAYOUT_TRANSITION_INFO => {
-                    Some("HOST_IMAGE_LAYOUT_TRANSITION_INFO")
-                }
-                Self::IMAGEPIPE_SURFACE_CREATE_INFO_FUCHSIA => {
-                    Some("IMAGEPIPE_SURFACE_CREATE_INFO_FUCHSIA")
-                }
-                Self::IMAGE_ALIGNMENT_CONTROL_CREATE_INFO_MESA => {
-                    Some("IMAGE_ALIGNMENT_CONTROL_CREATE_INFO_MESA")
-                }
-                Self::IMAGE_BLIT_2 => Some("IMAGE_BLIT_2"),
-                Self::IMAGE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT => {
-                    Some("IMAGE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT")
-                }
-                Self::IMAGE_COMPRESSION_CONTROL_EXT => Some("IMAGE_COMPRESSION_CONTROL_EXT"),
-                Self::IMAGE_COMPRESSION_PROPERTIES_EXT => Some("IMAGE_COMPRESSION_PROPERTIES_EXT"),
-                Self::IMAGE_CONSTRAINTS_INFO_FUCHSIA => Some("IMAGE_CONSTRAINTS_INFO_FUCHSIA"),
-                Self::IMAGE_COPY_2 => Some("IMAGE_COPY_2"),
-                Self::IMAGE_DESCRIPTOR_INFO_EXT => Some("IMAGE_DESCRIPTOR_INFO_EXT"),
-                Self::IMAGE_DRM_FORMAT_MODIFIER_EXPLICIT_CREATE_INFO_EXT => {
-                    Some("IMAGE_DRM_FORMAT_MODIFIER_EXPLICIT_CREATE_INFO_EXT")
-                }
-                Self::IMAGE_DRM_FORMAT_MODIFIER_LIST_CREATE_INFO_EXT => {
-                    Some("IMAGE_DRM_FORMAT_MODIFIER_LIST_CREATE_INFO_EXT")
-                }
-                Self::IMAGE_DRM_FORMAT_MODIFIER_PROPERTIES_EXT => {
-                    Some("IMAGE_DRM_FORMAT_MODIFIER_PROPERTIES_EXT")
-                }
-                Self::IMAGE_FORMAT_CONSTRAINTS_INFO_FUCHSIA => {
-                    Some("IMAGE_FORMAT_CONSTRAINTS_INFO_FUCHSIA")
-                }
-                Self::IMAGE_FORMAT_LIST_CREATE_INFO => Some("IMAGE_FORMAT_LIST_CREATE_INFO"),
-                Self::IMAGE_FORMAT_PROPERTIES_2 => Some("IMAGE_FORMAT_PROPERTIES_2"),
-                Self::IMAGE_MEMORY_BARRIER_2 => Some("IMAGE_MEMORY_BARRIER_2"),
-                Self::IMAGE_MEMORY_REQUIREMENTS_INFO_2 => Some("IMAGE_MEMORY_REQUIREMENTS_INFO_2"),
-                Self::IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO => {
-                    Some("IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO")
-                }
-                Self::IMAGE_RESOLVE_2 => Some("IMAGE_RESOLVE_2"),
-                Self::IMAGE_SPARSE_MEMORY_REQUIREMENTS_INFO_2 => {
-                    Some("IMAGE_SPARSE_MEMORY_REQUIREMENTS_INFO_2")
-                }
-                Self::IMAGE_STENCIL_USAGE_CREATE_INFO => Some("IMAGE_STENCIL_USAGE_CREATE_INFO"),
-                Self::IMAGE_SUBRESOURCE_2 => Some("IMAGE_SUBRESOURCE_2"),
-                Self::IMAGE_SWAPCHAIN_CREATE_INFO_KHR => Some("IMAGE_SWAPCHAIN_CREATE_INFO_KHR"),
-                Self::IMAGE_TO_MEMORY_COPY => Some("IMAGE_TO_MEMORY_COPY"),
-                Self::IMAGE_VIEW_ADDRESS_PROPERTIES_NVX => {
-                    Some("IMAGE_VIEW_ADDRESS_PROPERTIES_NVX")
-                }
-                Self::IMAGE_VIEW_ASTC_DECODE_MODE_EXT => Some("IMAGE_VIEW_ASTC_DECODE_MODE_EXT"),
-                Self::IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT => {
-                    Some("IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT")
-                }
-                Self::IMAGE_VIEW_HANDLE_INFO_NVX => Some("IMAGE_VIEW_HANDLE_INFO_NVX"),
-                Self::IMAGE_VIEW_MIN_LOD_CREATE_INFO_EXT => {
-                    Some("IMAGE_VIEW_MIN_LOD_CREATE_INFO_EXT")
-                }
-                Self::IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM => {
-                    Some("IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM")
-                }
-                Self::IMAGE_VIEW_SLICED_CREATE_INFO_EXT => {
-                    Some("IMAGE_VIEW_SLICED_CREATE_INFO_EXT")
-                }
-                Self::IMAGE_VIEW_USAGE_CREATE_INFO => Some("IMAGE_VIEW_USAGE_CREATE_INFO"),
-                Self::IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID => {
-                    Some("IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID")
-                }
-                Self::IMPORT_FENCE_FD_INFO_KHR => Some("IMPORT_FENCE_FD_INFO_KHR"),
-                Self::IMPORT_FENCE_WIN32_HANDLE_INFO_KHR => {
-                    Some("IMPORT_FENCE_WIN32_HANDLE_INFO_KHR")
-                }
-                Self::IMPORT_MEMORY_BUFFER_COLLECTION_FUCHSIA => {
-                    Some("IMPORT_MEMORY_BUFFER_COLLECTION_FUCHSIA")
-                }
-                Self::IMPORT_MEMORY_FD_INFO_KHR => Some("IMPORT_MEMORY_FD_INFO_KHR"),
-                Self::IMPORT_MEMORY_HOST_POINTER_INFO_EXT => {
-                    Some("IMPORT_MEMORY_HOST_POINTER_INFO_EXT")
-                }
-                Self::IMPORT_MEMORY_METAL_HANDLE_INFO_EXT => {
-                    Some("IMPORT_MEMORY_METAL_HANDLE_INFO_EXT")
-                }
-                Self::IMPORT_MEMORY_WIN32_HANDLE_INFO_KHR => {
-                    Some("IMPORT_MEMORY_WIN32_HANDLE_INFO_KHR")
-                }
-                Self::IMPORT_MEMORY_WIN32_HANDLE_INFO_NV => {
-                    Some("IMPORT_MEMORY_WIN32_HANDLE_INFO_NV")
-                }
-                Self::IMPORT_MEMORY_ZIRCON_HANDLE_INFO_FUCHSIA => {
-                    Some("IMPORT_MEMORY_ZIRCON_HANDLE_INFO_FUCHSIA")
-                }
-                Self::IMPORT_METAL_BUFFER_INFO_EXT => Some("IMPORT_METAL_BUFFER_INFO_EXT"),
-                Self::IMPORT_METAL_IO_SURFACE_INFO_EXT => Some("IMPORT_METAL_IO_SURFACE_INFO_EXT"),
-                Self::IMPORT_METAL_SHARED_EVENT_INFO_EXT => {
-                    Some("IMPORT_METAL_SHARED_EVENT_INFO_EXT")
-                }
-                Self::IMPORT_METAL_TEXTURE_INFO_EXT => Some("IMPORT_METAL_TEXTURE_INFO_EXT"),
-                Self::IMPORT_NATIVE_BUFFER_INFO_OHOS => Some("IMPORT_NATIVE_BUFFER_INFO_OHOS"),
-                Self::IMPORT_SCREEN_BUFFER_INFO_QNX => Some("IMPORT_SCREEN_BUFFER_INFO_QNX"),
-                Self::IMPORT_SEMAPHORE_FD_INFO_KHR => Some("IMPORT_SEMAPHORE_FD_INFO_KHR"),
-                Self::IMPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR => {
-                    Some("IMPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR")
-                }
-                Self::IMPORT_SEMAPHORE_ZIRCON_HANDLE_INFO_FUCHSIA => {
-                    Some("IMPORT_SEMAPHORE_ZIRCON_HANDLE_INFO_FUCHSIA")
-                }
-                Self::INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_EXT => {
-                    Some("INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_EXT")
-                }
-                Self::INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_NV => {
-                    Some("INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_NV")
-                }
-                Self::INDIRECT_COMMANDS_LAYOUT_PUSH_DATA_TOKEN_NV => {
-                    Some("INDIRECT_COMMANDS_LAYOUT_PUSH_DATA_TOKEN_NV")
-                }
-                Self::INDIRECT_COMMANDS_LAYOUT_TOKEN_EXT => {
-                    Some("INDIRECT_COMMANDS_LAYOUT_TOKEN_EXT")
-                }
-                Self::INDIRECT_COMMANDS_LAYOUT_TOKEN_NV => {
-                    Some("INDIRECT_COMMANDS_LAYOUT_TOKEN_NV")
-                }
-                Self::INDIRECT_EXECUTION_SET_CREATE_INFO_EXT => {
-                    Some("INDIRECT_EXECUTION_SET_CREATE_INFO_EXT")
-                }
-                Self::INDIRECT_EXECUTION_SET_PIPELINE_INFO_EXT => {
-                    Some("INDIRECT_EXECUTION_SET_PIPELINE_INFO_EXT")
-                }
-                Self::INDIRECT_EXECUTION_SET_SHADER_INFO_EXT => {
-                    Some("INDIRECT_EXECUTION_SET_SHADER_INFO_EXT")
-                }
-                Self::INDIRECT_EXECUTION_SET_SHADER_LAYOUT_INFO_EXT => {
-                    Some("INDIRECT_EXECUTION_SET_SHADER_LAYOUT_INFO_EXT")
-                }
-                Self::INITIALIZE_PERFORMANCE_API_INFO_INTEL => {
-                    Some("INITIALIZE_PERFORMANCE_API_INFO_INTEL")
-                }
-                Self::IOS_SURFACE_CREATE_INFO_MVK => Some("IOS_SURFACE_CREATE_INFO_MVK"),
-                Self::LATENCY_SLEEP_INFO_NV => Some("LATENCY_SLEEP_INFO_NV"),
-                Self::LATENCY_SLEEP_MODE_INFO_NV => Some("LATENCY_SLEEP_MODE_INFO_NV"),
-                Self::LATENCY_SUBMISSION_PRESENT_ID_NV => Some("LATENCY_SUBMISSION_PRESENT_ID_NV"),
-                Self::LATENCY_SURFACE_CAPABILITIES_NV => Some("LATENCY_SURFACE_CAPABILITIES_NV"),
-                Self::LATENCY_TIMINGS_FRAME_REPORT_NV => Some("LATENCY_TIMINGS_FRAME_REPORT_NV"),
-                Self::LAYER_SETTINGS_CREATE_INFO_EXT => Some("LAYER_SETTINGS_CREATE_INFO_EXT"),
-                Self::MACOS_SURFACE_CREATE_INFO_MVK => Some("MACOS_SURFACE_CREATE_INFO_MVK"),
-                Self::MEMORY_ALLOCATE_FLAGS_INFO => Some("MEMORY_ALLOCATE_FLAGS_INFO"),
-                Self::MEMORY_BARRIER_2 => Some("MEMORY_BARRIER_2"),
-                Self::MEMORY_BARRIER_ACCESS_FLAGS_3_KHR => {
-                    Some("MEMORY_BARRIER_ACCESS_FLAGS_3_KHR")
-                }
-                Self::MEMORY_DEDICATED_ALLOCATE_INFO => Some("MEMORY_DEDICATED_ALLOCATE_INFO"),
-                Self::MEMORY_DEDICATED_ALLOCATE_INFO_TENSOR_ARM => {
-                    Some("MEMORY_DEDICATED_ALLOCATE_INFO_TENSOR_ARM")
-                }
-                Self::MEMORY_DEDICATED_REQUIREMENTS => Some("MEMORY_DEDICATED_REQUIREMENTS"),
-                Self::MEMORY_FD_PROPERTIES_KHR => Some("MEMORY_FD_PROPERTIES_KHR"),
-                Self::MEMORY_GET_ANDROID_HARDWARE_BUFFER_INFO_ANDROID => {
-                    Some("MEMORY_GET_ANDROID_HARDWARE_BUFFER_INFO_ANDROID")
-                }
-                Self::MEMORY_GET_FD_INFO_KHR => Some("MEMORY_GET_FD_INFO_KHR"),
-                Self::MEMORY_GET_METAL_HANDLE_INFO_EXT => Some("MEMORY_GET_METAL_HANDLE_INFO_EXT"),
-                Self::MEMORY_GET_NATIVE_BUFFER_INFO_OHOS => {
-                    Some("MEMORY_GET_NATIVE_BUFFER_INFO_OHOS")
-                }
-                Self::MEMORY_GET_REMOTE_ADDRESS_INFO_NV => {
-                    Some("MEMORY_GET_REMOTE_ADDRESS_INFO_NV")
-                }
-                Self::MEMORY_GET_WIN32_HANDLE_INFO_KHR => Some("MEMORY_GET_WIN32_HANDLE_INFO_KHR"),
-                Self::MEMORY_GET_ZIRCON_HANDLE_INFO_FUCHSIA => {
-                    Some("MEMORY_GET_ZIRCON_HANDLE_INFO_FUCHSIA")
-                }
-                Self::MEMORY_HOST_POINTER_PROPERTIES_EXT => {
-                    Some("MEMORY_HOST_POINTER_PROPERTIES_EXT")
-                }
-                Self::MEMORY_MAP_INFO => Some("MEMORY_MAP_INFO"),
-                Self::MEMORY_MAP_PLACED_INFO_EXT => Some("MEMORY_MAP_PLACED_INFO_EXT"),
-                Self::MEMORY_METAL_HANDLE_PROPERTIES_EXT => {
-                    Some("MEMORY_METAL_HANDLE_PROPERTIES_EXT")
-                }
-                Self::MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO => {
-                    Some("MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO")
-                }
-                Self::MEMORY_PRIORITY_ALLOCATE_INFO_EXT => {
-                    Some("MEMORY_PRIORITY_ALLOCATE_INFO_EXT")
-                }
-                Self::MEMORY_REQUIREMENTS_2 => Some("MEMORY_REQUIREMENTS_2"),
-                Self::MEMORY_TO_IMAGE_COPY => Some("MEMORY_TO_IMAGE_COPY"),
-                Self::MEMORY_UNMAP_INFO => Some("MEMORY_UNMAP_INFO"),
-                Self::MEMORY_WIN32_HANDLE_PROPERTIES_KHR => {
-                    Some("MEMORY_WIN32_HANDLE_PROPERTIES_KHR")
-                }
-                Self::MEMORY_ZIRCON_HANDLE_PROPERTIES_FUCHSIA => {
-                    Some("MEMORY_ZIRCON_HANDLE_PROPERTIES_FUCHSIA")
-                }
-                Self::METAL_SURFACE_CREATE_INFO_EXT => Some("METAL_SURFACE_CREATE_INFO_EXT"),
-                Self::MICROMAP_BUILD_INFO_EXT => Some("MICROMAP_BUILD_INFO_EXT"),
-                Self::MICROMAP_BUILD_SIZES_INFO_EXT => Some("MICROMAP_BUILD_SIZES_INFO_EXT"),
-                Self::MICROMAP_CREATE_INFO_EXT => Some("MICROMAP_CREATE_INFO_EXT"),
-                Self::MICROMAP_VERSION_INFO_EXT => Some("MICROMAP_VERSION_INFO_EXT"),
-                Self::MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_INFO_EXT => {
-                    Some("MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_INFO_EXT")
-                }
-                Self::MULTISAMPLE_PROPERTIES_EXT => Some("MULTISAMPLE_PROPERTIES_EXT"),
-                Self::MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX => {
-                    Some("MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX")
-                }
-                Self::MULTIVIEW_PER_VIEW_RENDER_AREAS_RENDER_PASS_BEGIN_INFO_QCOM => {
-                    Some("MULTIVIEW_PER_VIEW_RENDER_AREAS_RENDER_PASS_BEGIN_INFO_QCOM")
-                }
-                Self::MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_EXT => {
-                    Some("MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_EXT")
-                }
-                Self::NATIVE_BUFFER_FORMAT_PROPERTIES_OHOS => {
-                    Some("NATIVE_BUFFER_FORMAT_PROPERTIES_OHOS")
-                }
-                Self::NATIVE_BUFFER_PROPERTIES_OHOS => Some("NATIVE_BUFFER_PROPERTIES_OHOS"),
-                Self::NATIVE_BUFFER_USAGE_OHOS => Some("NATIVE_BUFFER_USAGE_OHOS"),
-                Self::OPAQUE_CAPTURE_DATA_CREATE_INFO_EXT => {
-                    Some("OPAQUE_CAPTURE_DATA_CREATE_INFO_EXT")
-                }
-                Self::OPAQUE_CAPTURE_DESCRIPTOR_DATA_CREATE_INFO_EXT => {
-                    Some("OPAQUE_CAPTURE_DESCRIPTOR_DATA_CREATE_INFO_EXT")
-                }
-                Self::OPTICAL_FLOW_EXECUTE_INFO_NV => Some("OPTICAL_FLOW_EXECUTE_INFO_NV"),
-                Self::OPTICAL_FLOW_IMAGE_FORMAT_INFO_NV => {
-                    Some("OPTICAL_FLOW_IMAGE_FORMAT_INFO_NV")
-                }
-                Self::OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_NV => {
-                    Some("OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_NV")
-                }
-                Self::OPTICAL_FLOW_SESSION_CREATE_INFO_NV => {
-                    Some("OPTICAL_FLOW_SESSION_CREATE_INFO_NV")
-                }
-                Self::OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV => {
-                    Some("OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV")
-                }
-                Self::OUT_OF_BAND_QUEUE_TYPE_INFO_NV => Some("OUT_OF_BAND_QUEUE_TYPE_INFO_NV"),
-                Self::PARTITIONED_ACCELERATION_STRUCTURE_FLAGS_NV => {
-                    Some("PARTITIONED_ACCELERATION_STRUCTURE_FLAGS_NV")
-                }
-                Self::PARTITIONED_ACCELERATION_STRUCTURE_INSTANCES_INPUT_NV => {
-                    Some("PARTITIONED_ACCELERATION_STRUCTURE_INSTANCES_INPUT_NV")
-                }
-                Self::PAST_PRESENTATION_TIMING_EXT => Some("PAST_PRESENTATION_TIMING_EXT"),
-                Self::PAST_PRESENTATION_TIMING_INFO_EXT => {
-                    Some("PAST_PRESENTATION_TIMING_INFO_EXT")
-                }
-                Self::PAST_PRESENTATION_TIMING_PROPERTIES_EXT => {
-                    Some("PAST_PRESENTATION_TIMING_PROPERTIES_EXT")
-                }
-                Self::PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL => {
-                    Some("PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL")
+                Self::PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_PROPERTIES_ARM => {
+                    Some("PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_PROPERTIES_ARM")
                 }
                 Self::PERFORMANCE_COUNTER_ARM => Some("PERFORMANCE_COUNTER_ARM"),
                 Self::PERFORMANCE_COUNTER_DESCRIPTION_ARM => {
                     Some("PERFORMANCE_COUNTER_DESCRIPTION_ARM")
                 }
-                Self::PERFORMANCE_COUNTER_DESCRIPTION_KHR => {
-                    Some("PERFORMANCE_COUNTER_DESCRIPTION_KHR")
+                Self::RENDER_PASS_PERFORMANCE_COUNTERS_BY_REGION_BEGIN_INFO_ARM => {
+                    Some("RENDER_PASS_PERFORMANCE_COUNTERS_BY_REGION_BEGIN_INFO_ARM")
                 }
-                Self::PERFORMANCE_COUNTER_KHR => Some("PERFORMANCE_COUNTER_KHR"),
-                Self::PERFORMANCE_MARKER_INFO_INTEL => Some("PERFORMANCE_MARKER_INFO_INTEL"),
-                Self::PERFORMANCE_OVERRIDE_INFO_INTEL => Some("PERFORMANCE_OVERRIDE_INFO_INTEL"),
-                Self::PERFORMANCE_QUERY_SUBMIT_INFO_KHR => {
-                    Some("PERFORMANCE_QUERY_SUBMIT_INFO_KHR")
+                Self::PHYSICAL_DEVICE_PIPELINE_OPACITY_MICROMAP_FEATURES_ARM => {
+                    Some("PHYSICAL_DEVICE_PIPELINE_OPACITY_MICROMAP_FEATURES_ARM")
                 }
-                Self::PERFORMANCE_STREAM_MARKER_INFO_INTEL => {
-                    Some("PERFORMANCE_STREAM_MARKER_INFO_INTEL")
+                Self::PHYSICAL_DEVICE_RENDER_PASS_STRIPED_FEATURES_ARM => {
+                    Some("PHYSICAL_DEVICE_RENDER_PASS_STRIPED_FEATURES_ARM")
                 }
-                Self::PER_TILE_BEGIN_INFO_QCOM => Some("PER_TILE_BEGIN_INFO_QCOM"),
-                Self::PER_TILE_END_INFO_QCOM => Some("PER_TILE_END_INFO_QCOM"),
-                Self::PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES => {
-                    Some("PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES")
+                Self::PHYSICAL_DEVICE_RENDER_PASS_STRIPED_PROPERTIES_ARM => {
+                    Some("PHYSICAL_DEVICE_RENDER_PASS_STRIPED_PROPERTIES_ARM")
                 }
+                Self::RENDER_PASS_STRIPE_BEGIN_INFO_ARM => {
+                    Some("RENDER_PASS_STRIPE_BEGIN_INFO_ARM")
+                }
+                Self::RENDER_PASS_STRIPE_INFO_ARM => Some("RENDER_PASS_STRIPE_INFO_ARM"),
+                Self::RENDER_PASS_STRIPE_SUBMIT_INFO_ARM => {
+                    Some("RENDER_PASS_STRIPE_SUBMIT_INFO_ARM")
+                }
+                Self::DEVICE_QUEUE_SHADER_CORE_CONTROL_CREATE_INFO_ARM => {
+                    Some("DEVICE_QUEUE_SHADER_CORE_CONTROL_CREATE_INFO_ARM")
+                }
+                Self::PHYSICAL_DEVICE_SCHEDULING_CONTROLS_FEATURES_ARM => {
+                    Some("PHYSICAL_DEVICE_SCHEDULING_CONTROLS_FEATURES_ARM")
+                }
+                Self::PHYSICAL_DEVICE_SCHEDULING_CONTROLS_PROPERTIES_ARM => {
+                    Some("PHYSICAL_DEVICE_SCHEDULING_CONTROLS_PROPERTIES_ARM")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_FEATURES_ARM => {
+                    Some("PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_FEATURES_ARM")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_PROPERTIES_ARM => {
+                    Some("PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_PROPERTIES_ARM")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM => {
+                    Some("PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM")
+                }
+                Self::TENSOR_CREATE_INFO_ARM => Some("TENSOR_CREATE_INFO_ARM"),
+                Self::TENSOR_VIEW_CREATE_INFO_ARM => Some("TENSOR_VIEW_CREATE_INFO_ARM"),
+                Self::BIND_TENSOR_MEMORY_INFO_ARM => Some("BIND_TENSOR_MEMORY_INFO_ARM"),
+                Self::WRITE_DESCRIPTOR_SET_TENSOR_ARM => Some("WRITE_DESCRIPTOR_SET_TENSOR_ARM"),
+                Self::PHYSICAL_DEVICE_TENSOR_PROPERTIES_ARM => {
+                    Some("PHYSICAL_DEVICE_TENSOR_PROPERTIES_ARM")
+                }
+                Self::TENSOR_FORMAT_PROPERTIES_ARM => Some("TENSOR_FORMAT_PROPERTIES_ARM"),
+                Self::TENSOR_DESCRIPTION_ARM => Some("TENSOR_DESCRIPTION_ARM"),
+                Self::TENSOR_MEMORY_REQUIREMENTS_INFO_ARM => {
+                    Some("TENSOR_MEMORY_REQUIREMENTS_INFO_ARM")
+                }
+                Self::TENSOR_MEMORY_BARRIER_ARM => Some("TENSOR_MEMORY_BARRIER_ARM"),
+                Self::PHYSICAL_DEVICE_TENSOR_FEATURES_ARM => {
+                    Some("PHYSICAL_DEVICE_TENSOR_FEATURES_ARM")
+                }
+                Self::DEVICE_TENSOR_MEMORY_REQUIREMENTS_ARM => {
+                    Some("DEVICE_TENSOR_MEMORY_REQUIREMENTS_ARM")
+                }
+                Self::COPY_TENSOR_INFO_ARM => Some("COPY_TENSOR_INFO_ARM"),
+                Self::TENSOR_COPY_ARM => Some("TENSOR_COPY_ARM"),
+                Self::TENSOR_DEPENDENCY_INFO_ARM => Some("TENSOR_DEPENDENCY_INFO_ARM"),
+                Self::MEMORY_DEDICATED_ALLOCATE_INFO_TENSOR_ARM => {
+                    Some("MEMORY_DEDICATED_ALLOCATE_INFO_TENSOR_ARM")
+                }
+                Self::PHYSICAL_DEVICE_EXTERNAL_TENSOR_INFO_ARM => {
+                    Some("PHYSICAL_DEVICE_EXTERNAL_TENSOR_INFO_ARM")
+                }
+                Self::EXTERNAL_TENSOR_PROPERTIES_ARM => Some("EXTERNAL_TENSOR_PROPERTIES_ARM"),
+                Self::EXTERNAL_MEMORY_TENSOR_CREATE_INFO_ARM => {
+                    Some("EXTERNAL_MEMORY_TENSOR_CREATE_INFO_ARM")
+                }
+                Self::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_FEATURES_ARM => {
+                    Some("PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_FEATURES_ARM")
+                }
+                Self::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_PROPERTIES_ARM => {
+                    Some("PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_PROPERTIES_ARM")
+                }
+                Self::DESCRIPTOR_GET_TENSOR_INFO_ARM => Some("DESCRIPTOR_GET_TENSOR_INFO_ARM"),
+                Self::TENSOR_CAPTURE_DESCRIPTOR_DATA_INFO_ARM => {
+                    Some("TENSOR_CAPTURE_DESCRIPTOR_DATA_INFO_ARM")
+                }
+                Self::TENSOR_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_ARM => {
+                    Some("TENSOR_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_ARM")
+                }
+                Self::FRAME_BOUNDARY_TENSORS_ARM => Some("FRAME_BOUNDARY_TENSORS_ARM"),
                 Self::PHYSICAL_DEVICE_4444_FORMATS_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_4444_FORMATS_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES => {
-                    Some("PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_PROPERTIES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_AMIGO_PROFILING_FEATURES_SEC => {
-                    Some("PHYSICAL_DEVICE_AMIGO_PROFILING_FEATURES_SEC")
-                }
-                Self::PHYSICAL_DEVICE_ANTI_LAG_FEATURES_AMD => {
-                    Some("PHYSICAL_DEVICE_ANTI_LAG_FEATURES_AMD")
-                }
+                Self::IMAGE_VIEW_ASTC_DECODE_MODE_EXT => Some("IMAGE_VIEW_ASTC_DECODE_MODE_EXT"),
                 Self::PHYSICAL_DEVICE_ASTC_DECODE_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_ASTC_DECODE_FEATURES_EXT")
                 }
@@ -9859,143 +9705,100 @@ pub(super) mod defs {
                 Self::PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT")
                 }
+                Self::PIPELINE_COLOR_BLEND_ADVANCED_STATE_CREATE_INFO_EXT => {
+                    Some("PIPELINE_COLOR_BLEND_ADVANCED_STATE_CREATE_INFO_EXT")
+                }
                 Self::PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES => {
-                    Some("PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES")
+                Self::SAMPLER_BORDER_COLOR_COMPONENT_MAPPING_CREATE_INFO_EXT => {
+                    Some("SAMPLER_BORDER_COLOR_COMPONENT_MAPPING_CREATE_INFO_EXT")
                 }
                 Self::PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_PROPERTIES_NV")
-                }
-                Self::PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI => {
-                    Some("PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI")
-                }
-                Self::PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI => {
-                    Some("PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI")
-                }
-                Self::PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_VRS_FEATURES_HUAWEI => {
-                    Some("PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_VRS_FEATURES_HUAWEI")
-                }
-                Self::PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD => {
-                    Some("PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD")
+                Self::BUFFER_DEVICE_ADDRESS_CREATE_INFO_EXT => {
+                    Some("BUFFER_DEVICE_ADDRESS_CREATE_INFO_EXT")
                 }
                 Self::PHYSICAL_DEVICE_COLOR_WRITE_ENABLE_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_COLOR_WRITE_ENABLE_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_COMMAND_BUFFER_INHERITANCE_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_COMMAND_BUFFER_INHERITANCE_FEATURES_NV")
+                Self::PIPELINE_COLOR_WRITE_CREATE_INFO_EXT => {
+                    Some("PIPELINE_COLOR_WRITE_CREATE_INFO_EXT")
                 }
-                Self::PHYSICAL_DEVICE_COMPUTE_OCCUPANCY_PRIORITY_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_COMPUTE_OCCUPANCY_PRIORITY_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_PROPERTIES_KHR")
+                Self::COMMAND_BUFFER_INHERITANCE_CONDITIONAL_RENDERING_INFO_EXT => {
+                    Some("COMMAND_BUFFER_INHERITANCE_CONDITIONAL_RENDERING_INFO_EXT")
                 }
                 Self::PHYSICAL_DEVICE_CONDITIONAL_RENDERING_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_CONDITIONAL_RENDERING_FEATURES_EXT")
                 }
+                Self::CONDITIONAL_RENDERING_BEGIN_INFO_EXT => {
+                    Some("CONDITIONAL_RENDERING_BEGIN_INFO_EXT")
+                }
                 Self::PHYSICAL_DEVICE_CONSERVATIVE_RASTERIZATION_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_CONSERVATIVE_RASTERIZATION_PROPERTIES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_FEATURES_NV")
+                Self::PIPELINE_RASTERIZATION_CONSERVATIVE_STATE_CREATE_INFO_EXT => {
+                    Some("PIPELINE_RASTERIZATION_CONSERVATIVE_STATE_CREATE_INFO_EXT")
                 }
-                Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_PROPERTIES_NV")
-                }
-                Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_NV")
-                }
-                Self::PHYSICAL_DEVICE_COOPERATIVE_VECTOR_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_COOPERATIVE_VECTOR_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_COOPERATIVE_VECTOR_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_COOPERATIVE_VECTOR_PROPERTIES_NV")
-                }
-                Self::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_CORNER_SAMPLED_IMAGE_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_CORNER_SAMPLED_IMAGE_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_COVERAGE_REDUCTION_MODE_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_COVERAGE_REDUCTION_MODE_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_CUBIC_CLAMP_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_CUBIC_CLAMP_FEATURES_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_CUBIC_WEIGHTS_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_CUBIC_WEIGHTS_FEATURES_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_PROPERTIES_NV")
-                }
-                Self::PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT")
+                Self::SAMPLER_CUSTOM_BORDER_COLOR_CREATE_INFO_EXT => {
+                    Some("SAMPLER_CUSTOM_BORDER_COLOR_CREATE_INFO_EXT")
                 }
                 Self::PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_PROPERTIES_EXT")
                 }
+                Self::PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT => {
+                    Some("PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT")
+                }
                 Self::PHYSICAL_DEVICE_CUSTOM_RESOLVE_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_CUSTOM_RESOLVE_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_DATA_GRAPH_FEATURES_ARM => {
-                    Some("PHYSICAL_DEVICE_DATA_GRAPH_FEATURES_ARM")
+                Self::BEGIN_CUSTOM_RESOLVE_INFO_EXT => Some("BEGIN_CUSTOM_RESOLVE_INFO_EXT"),
+                Self::CUSTOM_RESOLVE_CREATE_INFO_EXT => Some("CUSTOM_RESOLVE_CREATE_INFO_EXT"),
+                Self::DEBUG_MARKER_OBJECT_NAME_INFO_EXT => {
+                    Some("DEBUG_MARKER_OBJECT_NAME_INFO_EXT")
                 }
-                Self::PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM")
+                Self::DEBUG_MARKER_OBJECT_TAG_INFO_EXT => Some("DEBUG_MARKER_OBJECT_TAG_INFO_EXT"),
+                Self::DEBUG_MARKER_MARKER_INFO_EXT => Some("DEBUG_MARKER_MARKER_INFO_EXT"),
+                Self::DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT => {
+                    Some("DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT")
                 }
-                Self::PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV")
+                Self::DEBUG_UTILS_OBJECT_NAME_INFO_EXT => Some("DEBUG_UTILS_OBJECT_NAME_INFO_EXT"),
+                Self::DEBUG_UTILS_OBJECT_TAG_INFO_EXT => Some("DEBUG_UTILS_OBJECT_TAG_INFO_EXT"),
+                Self::DEBUG_UTILS_LABEL_EXT => Some("DEBUG_UTILS_LABEL_EXT"),
+                Self::DEBUG_UTILS_MESSENGER_CALLBACK_DATA_EXT => {
+                    Some("DEBUG_UTILS_MESSENGER_CALLBACK_DATA_EXT")
                 }
-                Self::PHYSICAL_DEVICE_DENSE_GEOMETRY_FORMAT_FEATURES_AMDX => {
-                    Some("PHYSICAL_DEVICE_DENSE_GEOMETRY_FORMAT_FEATURES_AMDX")
+                Self::DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT => {
+                    Some("DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT")
                 }
                 Self::PHYSICAL_DEVICE_DEPTH_BIAS_CONTROL_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_DEPTH_BIAS_CONTROL_FEATURES_EXT")
                 }
+                Self::DEPTH_BIAS_INFO_EXT => Some("DEPTH_BIAS_INFO_EXT"),
+                Self::DEPTH_BIAS_REPRESENTATION_INFO_EXT => {
+                    Some("DEPTH_BIAS_REPRESENTATION_INFO_EXT")
+                }
                 Self::PHYSICAL_DEVICE_DEPTH_CLAMP_CONTROL_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_DEPTH_CLAMP_CONTROL_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_DEPTH_CLAMP_ZERO_ONE_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_DEPTH_CLAMP_ZERO_ONE_FEATURES_KHR")
+                Self::PIPELINE_VIEWPORT_DEPTH_CLAMP_CONTROL_CREATE_INFO_EXT => {
+                    Some("PIPELINE_VIEWPORT_DEPTH_CLAMP_CONTROL_CREATE_INFO_EXT")
                 }
                 Self::PHYSICAL_DEVICE_DEPTH_CLIP_CONTROL_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_DEPTH_CLIP_CONTROL_FEATURES_EXT")
                 }
+                Self::PIPELINE_VIEWPORT_DEPTH_CLIP_CONTROL_CREATE_INFO_EXT => {
+                    Some("PIPELINE_VIEWPORT_DEPTH_CLIP_CONTROL_CREATE_INFO_EXT")
+                }
                 Self::PHYSICAL_DEVICE_DEPTH_CLIP_ENABLE_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_DEPTH_CLIP_ENABLE_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES")
+                Self::PIPELINE_RASTERIZATION_DEPTH_CLIP_STATE_CREATE_INFO_EXT => {
+                    Some("PIPELINE_RASTERIZATION_DEPTH_CLIP_STATE_CREATE_INFO_EXT")
+                }
+                Self::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_PROPERTIES_EXT => {
+                    Some("PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_PROPERTIES_EXT")
                 }
                 Self::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_DENSITY_MAP_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_DENSITY_MAP_PROPERTIES_EXT")
@@ -10003,83 +9806,146 @@ pub(super) mod defs {
                 Self::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_PROPERTIES_EXT")
+                Self::DESCRIPTOR_ADDRESS_INFO_EXT => Some("DESCRIPTOR_ADDRESS_INFO_EXT"),
+                Self::DESCRIPTOR_GET_INFO_EXT => Some("DESCRIPTOR_GET_INFO_EXT"),
+                Self::BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT => {
+                    Some("BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT")
                 }
-                Self::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_FEATURES_ARM => {
-                    Some("PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_FEATURES_ARM")
+                Self::IMAGE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT => {
+                    Some("IMAGE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT")
                 }
-                Self::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_PROPERTIES_ARM => {
-                    Some("PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_PROPERTIES_ARM")
+                Self::IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT => {
+                    Some("IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT")
                 }
-                Self::PHYSICAL_DEVICE_DESCRIPTOR_HEAP_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_DESCRIPTOR_HEAP_FEATURES_EXT")
+                Self::SAMPLER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT => {
+                    Some("SAMPLER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT")
+                }
+                Self::OPAQUE_CAPTURE_DESCRIPTOR_DATA_CREATE_INFO_EXT => {
+                    Some("OPAQUE_CAPTURE_DESCRIPTOR_DATA_CREATE_INFO_EXT")
+                }
+                Self::DESCRIPTOR_BUFFER_BINDING_INFO_EXT => {
+                    Some("DESCRIPTOR_BUFFER_BINDING_INFO_EXT")
+                }
+                Self::DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT => {
+                    Some("DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT")
+                }
+                Self::ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT => {
+                    Some("ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT")
+                }
+                Self::TEXEL_BUFFER_DESCRIPTOR_INFO_EXT => Some("TEXEL_BUFFER_DESCRIPTOR_INFO_EXT"),
+                Self::IMAGE_DESCRIPTOR_INFO_EXT => Some("IMAGE_DESCRIPTOR_INFO_EXT"),
+                Self::RESOURCE_DESCRIPTOR_INFO_EXT => Some("RESOURCE_DESCRIPTOR_INFO_EXT"),
+                Self::BIND_HEAP_INFO_EXT => Some("BIND_HEAP_INFO_EXT"),
+                Self::PUSH_DATA_INFO_EXT => Some("PUSH_DATA_INFO_EXT"),
+                Self::DESCRIPTOR_SET_AND_BINDING_MAPPING_EXT => {
+                    Some("DESCRIPTOR_SET_AND_BINDING_MAPPING_EXT")
+                }
+                Self::SHADER_DESCRIPTOR_SET_AND_BINDING_MAPPING_INFO_EXT => {
+                    Some("SHADER_DESCRIPTOR_SET_AND_BINDING_MAPPING_INFO_EXT")
+                }
+                Self::OPAQUE_CAPTURE_DATA_CREATE_INFO_EXT => {
+                    Some("OPAQUE_CAPTURE_DATA_CREATE_INFO_EXT")
                 }
                 Self::PHYSICAL_DEVICE_DESCRIPTOR_HEAP_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_DESCRIPTOR_HEAP_PROPERTIES_EXT")
                 }
+                Self::PHYSICAL_DEVICE_DESCRIPTOR_HEAP_FEATURES_EXT => {
+                    Some("PHYSICAL_DEVICE_DESCRIPTOR_HEAP_FEATURES_EXT")
+                }
+                Self::COMMAND_BUFFER_INHERITANCE_DESCRIPTOR_HEAP_INFO_EXT => {
+                    Some("COMMAND_BUFFER_INHERITANCE_DESCRIPTOR_HEAP_INFO_EXT")
+                }
+                Self::SAMPLER_CUSTOM_BORDER_COLOR_INDEX_CREATE_INFO_EXT => {
+                    Some("SAMPLER_CUSTOM_BORDER_COLOR_INDEX_CREATE_INFO_EXT")
+                }
+                Self::INDIRECT_COMMANDS_LAYOUT_PUSH_DATA_TOKEN_NV => {
+                    Some("INDIRECT_COMMANDS_LAYOUT_PUSH_DATA_TOKEN_NV")
+                }
+                Self::SUBSAMPLED_IMAGE_FORMAT_PROPERTIES_EXT => {
+                    Some("SUBSAMPLED_IMAGE_FORMAT_PROPERTIES_EXT")
+                }
                 Self::PHYSICAL_DEVICE_DESCRIPTOR_HEAP_TENSOR_PROPERTIES_ARM => {
                     Some("PHYSICAL_DEVICE_DESCRIPTOR_HEAP_TENSOR_PROPERTIES_ARM")
                 }
-                Self::PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES => {
-                    Some("PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES")
+                Self::PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT => {
+                    Some("PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES")
+                Self::DEVICE_ADDRESS_BINDING_CALLBACK_DATA_EXT => {
+                    Some("DEVICE_ADDRESS_BINDING_CALLBACK_DATA_EXT")
                 }
-                Self::PHYSICAL_DEVICE_DESCRIPTOR_POOL_OVERALLOCATION_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_DESCRIPTOR_POOL_OVERALLOCATION_FEATURES_NV")
+                Self::PHYSICAL_DEVICE_FAULT_FEATURES_EXT => {
+                    Some("PHYSICAL_DEVICE_FAULT_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE => {
-                    Some("PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE")
-                }
-                Self::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV")
-                }
+                Self::DEVICE_FAULT_COUNTS_EXT => Some("DEVICE_FAULT_COUNTS_EXT"),
+                Self::DEVICE_FAULT_INFO_EXT => Some("DEVICE_FAULT_INFO_EXT"),
                 Self::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_NV")
                 }
                 Self::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_NV")
+                Self::GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_EXT => {
+                    Some("GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_EXT")
+                }
+                Self::INDIRECT_EXECUTION_SET_CREATE_INFO_EXT => {
+                    Some("INDIRECT_EXECUTION_SET_CREATE_INFO_EXT")
+                }
+                Self::GENERATED_COMMANDS_INFO_EXT => Some("GENERATED_COMMANDS_INFO_EXT"),
+                Self::INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_EXT => {
+                    Some("INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_EXT")
+                }
+                Self::INDIRECT_COMMANDS_LAYOUT_TOKEN_EXT => {
+                    Some("INDIRECT_COMMANDS_LAYOUT_TOKEN_EXT")
+                }
+                Self::WRITE_INDIRECT_EXECUTION_SET_PIPELINE_EXT => {
+                    Some("WRITE_INDIRECT_EXECUTION_SET_PIPELINE_EXT")
+                }
+                Self::WRITE_INDIRECT_EXECUTION_SET_SHADER_EXT => {
+                    Some("WRITE_INDIRECT_EXECUTION_SET_SHADER_EXT")
+                }
+                Self::INDIRECT_EXECUTION_SET_PIPELINE_INFO_EXT => {
+                    Some("INDIRECT_EXECUTION_SET_PIPELINE_INFO_EXT")
+                }
+                Self::INDIRECT_EXECUTION_SET_SHADER_INFO_EXT => {
+                    Some("INDIRECT_EXECUTION_SET_SHADER_INFO_EXT")
+                }
+                Self::INDIRECT_EXECUTION_SET_SHADER_LAYOUT_INFO_EXT => {
+                    Some("INDIRECT_EXECUTION_SET_SHADER_LAYOUT_INFO_EXT")
+                }
+                Self::GENERATED_COMMANDS_PIPELINE_INFO_EXT => {
+                    Some("GENERATED_COMMANDS_PIPELINE_INFO_EXT")
+                }
+                Self::GENERATED_COMMANDS_SHADER_INFO_EXT => {
+                    Some("GENERATED_COMMANDS_SHADER_INFO_EXT")
                 }
                 Self::PHYSICAL_DEVICE_DEVICE_MEMORY_REPORT_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_DEVICE_MEMORY_REPORT_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_DIAGNOSTICS_CONFIG_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_DIAGNOSTICS_CONFIG_FEATURES_NV")
+                Self::DEVICE_DEVICE_MEMORY_REPORT_CREATE_INFO_EXT => {
+                    Some("DEVICE_DEVICE_MEMORY_REPORT_CREATE_INFO_EXT")
                 }
+                Self::DEVICE_MEMORY_REPORT_CALLBACK_DATA_EXT => {
+                    Some("DEVICE_MEMORY_REPORT_CALLBACK_DATA_EXT")
+                }
+                Self::DIRECTFB_SURFACE_CREATE_INFO_EXT => Some("DIRECTFB_SURFACE_CREATE_INFO_EXT"),
                 Self::PHYSICAL_DEVICE_DISCARD_RECTANGLE_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_DISCARD_RECTANGLE_PROPERTIES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV")
+                Self::PIPELINE_DISCARD_RECTANGLE_STATE_CREATE_INFO_EXT => {
+                    Some("PIPELINE_DISCARD_RECTANGLE_STATE_CREATE_INFO_EXT")
                 }
-                Self::PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_PROPERTIES_NV")
+                Self::DISPLAY_POWER_INFO_EXT => Some("DISPLAY_POWER_INFO_EXT"),
+                Self::DEVICE_EVENT_INFO_EXT => Some("DEVICE_EVENT_INFO_EXT"),
+                Self::DISPLAY_EVENT_INFO_EXT => Some("DISPLAY_EVENT_INFO_EXT"),
+                Self::SWAPCHAIN_COUNTER_CREATE_INFO_EXT => {
+                    Some("SWAPCHAIN_COUNTER_CREATE_INFO_EXT")
                 }
-                Self::PHYSICAL_DEVICE_DRIVER_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_DRIVER_PROPERTIES")
-                }
-                Self::PHYSICAL_DEVICE_DRM_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_DRM_PROPERTIES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES => {
-                    Some("PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES => {
-                    Some("PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES")
-                }
+                Self::SURFACE_CAPABILITIES_2_EXT => Some("SURFACE_CAPABILITIES_2_EXT"),
                 Self::PHYSICAL_DEVICE_DYNAMIC_RENDERING_UNUSED_ATTACHMENTS_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_DYNAMIC_RENDERING_UNUSED_ATTACHMENTS_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_EXCLUSIVE_SCISSOR_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_EXCLUSIVE_SCISSOR_FEATURES_NV")
+                Self::PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_FEATURES_EXT => {
+                    Some("PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_FEATURES_EXT")
                 }
                 Self::PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_2_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_2_FEATURES_EXT")
@@ -10090,57 +9956,42 @@ pub(super) mod defs {
                 Self::PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_PROPERTIES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_FEATURES_EXT")
+                Self::EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT => {
+                    Some("EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT")
                 }
-                Self::PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_FEATURES_NV")
+                Self::IMPORT_MEMORY_HOST_POINTER_INFO_EXT => {
+                    Some("IMPORT_MEMORY_HOST_POINTER_INFO_EXT")
                 }
-                Self::PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_PROPERTIES_NV")
-                }
-                Self::PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO => {
-                    Some("PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO")
-                }
-                Self::PHYSICAL_DEVICE_EXTERNAL_COMPUTE_QUEUE_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_EXTERNAL_COMPUTE_QUEUE_PROPERTIES_NV")
-                }
-                Self::PHYSICAL_DEVICE_EXTERNAL_FENCE_INFO => {
-                    Some("PHYSICAL_DEVICE_EXTERNAL_FENCE_INFO")
-                }
-                Self::PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_FEATURES_ANDROID => {
-                    Some("PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_FEATURES_ANDROID")
-                }
-                Self::PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_PROPERTIES_ANDROID => {
-                    Some("PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_PROPERTIES_ANDROID")
-                }
-                Self::PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO => {
-                    Some("PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO")
+                Self::MEMORY_HOST_POINTER_PROPERTIES_EXT => {
+                    Some("MEMORY_HOST_POINTER_PROPERTIES_EXT")
                 }
                 Self::PHYSICAL_DEVICE_EXTERNAL_MEMORY_HOST_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_EXTERNAL_MEMORY_HOST_PROPERTIES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV")
+                Self::IMPORT_MEMORY_METAL_HANDLE_INFO_EXT => {
+                    Some("IMPORT_MEMORY_METAL_HANDLE_INFO_EXT")
                 }
-                Self::PHYSICAL_DEVICE_EXTERNAL_MEMORY_SCREEN_BUFFER_FEATURES_QNX => {
-                    Some("PHYSICAL_DEVICE_EXTERNAL_MEMORY_SCREEN_BUFFER_FEATURES_QNX")
+                Self::MEMORY_METAL_HANDLE_PROPERTIES_EXT => {
+                    Some("MEMORY_METAL_HANDLE_PROPERTIES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_EXTERNAL_SEMAPHORE_INFO => {
-                    Some("PHYSICAL_DEVICE_EXTERNAL_SEMAPHORE_INFO")
+                Self::MEMORY_GET_METAL_HANDLE_INFO_EXT => Some("MEMORY_GET_METAL_HANDLE_INFO_EXT"),
+                Self::PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT => {
+                    Some("PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT")
                 }
-                Self::PHYSICAL_DEVICE_EXTERNAL_TENSOR_INFO_ARM => {
-                    Some("PHYSICAL_DEVICE_EXTERNAL_TENSOR_INFO_ARM")
+                Self::FILTER_CUBIC_IMAGE_VIEW_IMAGE_FORMAT_PROPERTIES_EXT => {
+                    Some("FILTER_CUBIC_IMAGE_VIEW_IMAGE_FORMAT_PROPERTIES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_FAULT_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_FAULT_FEATURES_EXT")
+                Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_FEATURES_EXT => {
+                    Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_FEATURES_2 => Some("PHYSICAL_DEVICE_FEATURES_2"),
-                Self::PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES")
+                Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT => {
+                    Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM => {
-                    Some("PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM")
+                Self::RENDER_PASS_FRAGMENT_DENSITY_MAP_CREATE_INFO_EXT => {
+                    Some("RENDER_PASS_FRAGMENT_DENSITY_MAP_CREATE_INFO_EXT")
+                }
+                Self::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_INFO_EXT => {
+                    Some("RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_INFO_EXT")
                 }
                 Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_2_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_2_FEATURES_EXT")
@@ -10148,53 +9999,30 @@ pub(super) mod defs {
                 Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_2_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_2_PROPERTIES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_FEATURES_VALVE => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_FEATURES_VALVE")
-                }
-                Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_PROPERTIES_VALVE => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_PROPERTIES_VALVE")
-                }
                 Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_EXT")
                 }
                 Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_PROPERTIES_KHR")
+                Self::RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT => {
+                    Some("RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT")
                 }
                 Self::PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_PROPERTIES_NV")
-                }
-                Self::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR")
-                }
-                Self::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_PROPERTIES_KHR")
-                }
                 Self::PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES => {
-                    Some("PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES")
+                Self::FRAME_BOUNDARY_EXT => Some("FRAME_BOUNDARY_EXT"),
+                Self::SURFACE_FULL_SCREEN_EXCLUSIVE_INFO_EXT => {
+                    Some("SURFACE_FULL_SCREEN_EXCLUSIVE_INFO_EXT")
+                }
+                Self::SURFACE_CAPABILITIES_FULL_SCREEN_EXCLUSIVE_EXT => {
+                    Some("SURFACE_CAPABILITIES_FULL_SCREEN_EXCLUSIVE_EXT")
+                }
+                Self::SURFACE_FULL_SCREEN_EXCLUSIVE_WIN32_INFO_EXT => {
+                    Some("SURFACE_FULL_SCREEN_EXCLUSIVE_WIN32_INFO_EXT")
                 }
                 Self::PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_FEATURES_EXT")
@@ -10202,98 +10030,53 @@ pub(super) mod defs {
                 Self::PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_PROPERTIES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_GROUP_PROPERTIES => Some("PHYSICAL_DEVICE_GROUP_PROPERTIES"),
-                Self::PHYSICAL_DEVICE_HDR_VIVID_FEATURES_HUAWEI => {
-                    Some("PHYSICAL_DEVICE_HDR_VIVID_FEATURES_HUAWEI")
+                Self::GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT => {
+                    Some("GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT")
                 }
-                Self::PHYSICAL_DEVICE_HOST_IMAGE_COPY_FEATURES => {
-                    Some("PHYSICAL_DEVICE_HOST_IMAGE_COPY_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_HOST_IMAGE_COPY_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_HOST_IMAGE_COPY_PROPERTIES")
-                }
-                Self::PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES => {
-                    Some("PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_ID_PROPERTIES => Some("PHYSICAL_DEVICE_ID_PROPERTIES"),
-                Self::PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES => {
-                    Some("PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES")
-                }
+                Self::HDR_METADATA_EXT => Some("HDR_METADATA_EXT"),
+                Self::HEADLESS_SURFACE_CREATE_INFO_EXT => Some("HEADLESS_SURFACE_CREATE_INFO_EXT"),
                 Self::PHYSICAL_DEVICE_IMAGE_2D_VIEW_OF_3D_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_IMAGE_2D_VIEW_OF_3D_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_FEATURES_MESA => {
-                    Some("PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_FEATURES_MESA")
-                }
-                Self::PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_PROPERTIES_MESA => {
-                    Some("PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_PROPERTIES_MESA")
                 }
                 Self::PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_FEATURES_EXT")
                 }
+                Self::IMAGE_COMPRESSION_CONTROL_EXT => Some("IMAGE_COMPRESSION_CONTROL_EXT"),
+                Self::IMAGE_COMPRESSION_PROPERTIES_EXT => Some("IMAGE_COMPRESSION_PROPERTIES_EXT"),
                 Self::PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_SWAPCHAIN_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_SWAPCHAIN_FEATURES_EXT")
+                }
+                Self::DRM_FORMAT_MODIFIER_PROPERTIES_LIST_EXT => {
+                    Some("DRM_FORMAT_MODIFIER_PROPERTIES_LIST_EXT")
                 }
                 Self::PHYSICAL_DEVICE_IMAGE_DRM_FORMAT_MODIFIER_INFO_EXT => {
                     Some("PHYSICAL_DEVICE_IMAGE_DRM_FORMAT_MODIFIER_INFO_EXT")
                 }
-                Self::PHYSICAL_DEVICE_IMAGE_FORMAT_INFO_2 => {
-                    Some("PHYSICAL_DEVICE_IMAGE_FORMAT_INFO_2")
+                Self::IMAGE_DRM_FORMAT_MODIFIER_LIST_CREATE_INFO_EXT => {
+                    Some("IMAGE_DRM_FORMAT_MODIFIER_LIST_CREATE_INFO_EXT")
                 }
-                Self::PHYSICAL_DEVICE_IMAGE_PROCESSING_2_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_IMAGE_PROCESSING_2_FEATURES_QCOM")
+                Self::IMAGE_DRM_FORMAT_MODIFIER_EXPLICIT_CREATE_INFO_EXT => {
+                    Some("IMAGE_DRM_FORMAT_MODIFIER_EXPLICIT_CREATE_INFO_EXT")
                 }
-                Self::PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM => {
-                    Some("PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM")
+                Self::IMAGE_DRM_FORMAT_MODIFIER_PROPERTIES_EXT => {
+                    Some("IMAGE_DRM_FORMAT_MODIFIER_PROPERTIES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_IMAGE_PROCESSING_PROPERTIES_QCOM => {
-                    Some("PHYSICAL_DEVICE_IMAGE_PROCESSING_PROPERTIES_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_IMAGE_ROBUSTNESS_FEATURES => {
-                    Some("PHYSICAL_DEVICE_IMAGE_ROBUSTNESS_FEATURES")
+                Self::DRM_FORMAT_MODIFIER_PROPERTIES_LIST_2_EXT => {
+                    Some("DRM_FORMAT_MODIFIER_PROPERTIES_LIST_2_EXT")
                 }
                 Self::PHYSICAL_DEVICE_IMAGE_SLICED_VIEW_OF_3D_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_IMAGE_SLICED_VIEW_OF_3D_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT => {
-                    Some("PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT")
+                Self::IMAGE_VIEW_SLICED_CREATE_INFO_EXT => {
+                    Some("IMAGE_VIEW_SLICED_CREATE_INFO_EXT")
                 }
                 Self::PHYSICAL_DEVICE_IMAGE_VIEW_MIN_LOD_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_IMAGE_VIEW_MIN_LOD_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES => {
-                    Some("PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES")
+                Self::IMAGE_VIEW_MIN_LOD_CREATE_INFO_EXT => {
+                    Some("IMAGE_VIEW_MIN_LOD_CREATE_INFO_EXT")
                 }
-                Self::PHYSICAL_DEVICE_INHERITED_VIEWPORT_SCISSOR_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_INHERITED_VIEWPORT_SCISSOR_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_FEATURES => {
-                    Some("PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_PROPERTIES")
-                }
-                Self::PHYSICAL_DEVICE_INTERNALLY_SYNCHRONIZED_QUEUES_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_INTERNALLY_SYNCHRONIZED_QUEUES_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI => {
-                    Some("PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI")
-                }
-                Self::PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_LIST_KHR => {
-                    Some("PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_LIST_KHR")
-                }
-                Self::PHYSICAL_DEVICE_LAYERED_API_VULKAN_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_LAYERED_API_VULKAN_PROPERTIES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT => {
-                    Some("PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT")
-                }
+                Self::LAYER_SETTINGS_CREATE_INFO_EXT => Some("LAYER_SETTINGS_CREATE_INFO_EXT"),
                 Self::PHYSICAL_DEVICE_LEGACY_DITHERING_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_LEGACY_DITHERING_FEATURES_EXT")
                 }
@@ -10303,63 +10086,13 @@ pub(super) mod defs {
                 Self::PHYSICAL_DEVICE_LEGACY_VERTEX_ATTRIBUTES_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_LEGACY_VERTEX_ATTRIBUTES_PROPERTIES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_LINEAR_COLOR_ATTACHMENT_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_LINEAR_COLOR_ATTACHMENT_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES => {
-                    Some("PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES")
-                }
-                Self::PHYSICAL_DEVICE_MAINTENANCE_10_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_10_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_MAINTENANCE_10_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_10_PROPERTIES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES")
-                }
-                Self::PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES")
-                }
-                Self::PHYSICAL_DEVICE_MAINTENANCE_5_FEATURES => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_5_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_MAINTENANCE_5_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_5_PROPERTIES")
-                }
-                Self::PHYSICAL_DEVICE_MAINTENANCE_6_FEATURES => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_6_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_MAINTENANCE_6_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_6_PROPERTIES")
-                }
-                Self::PHYSICAL_DEVICE_MAINTENANCE_7_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_7_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_MAINTENANCE_7_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_7_PROPERTIES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_MAINTENANCE_8_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_8_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_MAINTENANCE_9_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_9_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_MAINTENANCE_9_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_9_PROPERTIES_KHR")
-                }
                 Self::PHYSICAL_DEVICE_MAP_MEMORY_PLACED_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_MAP_MEMORY_PLACED_FEATURES_EXT")
                 }
                 Self::PHYSICAL_DEVICE_MAP_MEMORY_PLACED_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_MAP_MEMORY_PLACED_PROPERTIES_EXT")
                 }
+                Self::MEMORY_MAP_PLACED_INFO_EXT => Some("MEMORY_MAP_PLACED_INFO_EXT"),
                 Self::PHYSICAL_DEVICE_MEMORY_BUDGET_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_MEMORY_BUDGET_PROPERTIES_EXT")
                 }
@@ -10369,50 +10102,60 @@ pub(super) mod defs {
                 Self::PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_EXT")
                 }
+                Self::DECOMPRESS_MEMORY_INFO_EXT => Some("DECOMPRESS_MEMORY_INFO_EXT"),
                 Self::PHYSICAL_DEVICE_MEMORY_PRIORITY_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_MEMORY_PRIORITY_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_MEMORY_PROPERTIES_2 => {
-                    Some("PHYSICAL_DEVICE_MEMORY_PROPERTIES_2")
+                Self::MEMORY_PRIORITY_ALLOCATE_INFO_EXT => {
+                    Some("MEMORY_PRIORITY_ALLOCATE_INFO_EXT")
                 }
                 Self::PHYSICAL_DEVICE_MESH_SHADER_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_MESH_SHADER_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_MESH_SHADER_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_MESH_SHADER_FEATURES_NV")
-                }
                 Self::PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV")
+                Self::EXPORT_METAL_OBJECT_CREATE_INFO_EXT => {
+                    Some("EXPORT_METAL_OBJECT_CREATE_INFO_EXT")
                 }
-                Self::PHYSICAL_DEVICE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_FEATURES_EXT")
+                Self::EXPORT_METAL_OBJECTS_INFO_EXT => Some("EXPORT_METAL_OBJECTS_INFO_EXT"),
+                Self::EXPORT_METAL_DEVICE_INFO_EXT => Some("EXPORT_METAL_DEVICE_INFO_EXT"),
+                Self::EXPORT_METAL_COMMAND_QUEUE_INFO_EXT => {
+                    Some("EXPORT_METAL_COMMAND_QUEUE_INFO_EXT")
                 }
-                Self::PHYSICAL_DEVICE_MULTIVIEW_FEATURES => {
-                    Some("PHYSICAL_DEVICE_MULTIVIEW_FEATURES")
+                Self::EXPORT_METAL_BUFFER_INFO_EXT => Some("EXPORT_METAL_BUFFER_INFO_EXT"),
+                Self::IMPORT_METAL_BUFFER_INFO_EXT => Some("IMPORT_METAL_BUFFER_INFO_EXT"),
+                Self::EXPORT_METAL_TEXTURE_INFO_EXT => Some("EXPORT_METAL_TEXTURE_INFO_EXT"),
+                Self::IMPORT_METAL_TEXTURE_INFO_EXT => Some("IMPORT_METAL_TEXTURE_INFO_EXT"),
+                Self::EXPORT_METAL_IO_SURFACE_INFO_EXT => Some("EXPORT_METAL_IO_SURFACE_INFO_EXT"),
+                Self::IMPORT_METAL_IO_SURFACE_INFO_EXT => Some("IMPORT_METAL_IO_SURFACE_INFO_EXT"),
+                Self::EXPORT_METAL_SHARED_EVENT_INFO_EXT => {
+                    Some("EXPORT_METAL_SHARED_EVENT_INFO_EXT")
                 }
-                Self::PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_ATTRIBUTES_PROPERTIES_NVX => {
-                    Some("PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_ATTRIBUTES_PROPERTIES_NVX")
+                Self::IMPORT_METAL_SHARED_EVENT_INFO_EXT => {
+                    Some("IMPORT_METAL_SHARED_EVENT_INFO_EXT")
                 }
-                Self::PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_RENDER_AREAS_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_RENDER_AREAS_FEATURES_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_VIEWPORTS_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_VIEWPORTS_FEATURES_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES")
-                }
+                Self::METAL_SURFACE_CREATE_INFO_EXT => Some("METAL_SURFACE_CREATE_INFO_EXT"),
                 Self::PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT")
                 }
                 Self::PHYSICAL_DEVICE_MULTI_DRAW_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_MULTI_DRAW_PROPERTIES_EXT")
                 }
+                Self::PHYSICAL_DEVICE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_FEATURES_EXT => {
+                    Some("PHYSICAL_DEVICE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_FEATURES_EXT")
+                }
+                Self::SUBPASS_RESOLVE_PERFORMANCE_QUERY_EXT => {
+                    Some("SUBPASS_RESOLVE_PERFORMANCE_QUERY_EXT")
+                }
+                Self::MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_INFO_EXT => {
+                    Some("MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_INFO_EXT")
+                }
                 Self::PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT")
+                }
+                Self::MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_EXT => {
+                    Some("MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_EXT")
                 }
                 Self::PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_FEATURES_EXT")
@@ -10423,312 +10166,114 @@ pub(super) mod defs {
                 Self::PHYSICAL_DEVICE_NON_SEAMLESS_CUBE_MAP_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_NON_SEAMLESS_CUBE_MAP_FEATURES_EXT")
                 }
+                Self::MICROMAP_BUILD_INFO_EXT => Some("MICROMAP_BUILD_INFO_EXT"),
+                Self::MICROMAP_VERSION_INFO_EXT => Some("MICROMAP_VERSION_INFO_EXT"),
+                Self::COPY_MICROMAP_INFO_EXT => Some("COPY_MICROMAP_INFO_EXT"),
+                Self::COPY_MICROMAP_TO_MEMORY_INFO_EXT => Some("COPY_MICROMAP_TO_MEMORY_INFO_EXT"),
+                Self::COPY_MEMORY_TO_MICROMAP_INFO_EXT => Some("COPY_MEMORY_TO_MICROMAP_INFO_EXT"),
                 Self::PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_EXT")
                 }
                 Self::PHYSICAL_DEVICE_OPACITY_MICROMAP_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_OPACITY_MICROMAP_PROPERTIES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_OPTICAL_FLOW_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_OPTICAL_FLOW_PROPERTIES_NV")
+                Self::MICROMAP_CREATE_INFO_EXT => Some("MICROMAP_CREATE_INFO_EXT"),
+                Self::MICROMAP_BUILD_SIZES_INFO_EXT => Some("MICROMAP_BUILD_SIZES_INFO_EXT"),
+                Self::ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_EXT => {
+                    Some("ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_EXT")
                 }
                 Self::PHYSICAL_DEVICE_PAGEABLE_DEVICE_LOCAL_MEMORY_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_PAGEABLE_DEVICE_LOCAL_MEMORY_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_PROPERTIES_NV")
-                }
                 Self::PHYSICAL_DEVICE_PCI_BUS_INFO_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_PCI_BUS_INFO_PROPERTIES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_FEATURES_ARM => {
-                    Some("PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_FEATURES_ARM")
-                }
-                Self::PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_PROPERTIES_ARM => {
-                    Some("PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_PROPERTIES_ARM")
-                }
-                Self::PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_PERFORMANCE_QUERY_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_PERFORMANCE_QUERY_PROPERTIES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_PER_STAGE_DESCRIPTOR_SET_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_PER_STAGE_DESCRIPTOR_SET_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_PIPELINE_BINARY_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_PIPELINE_BINARY_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_PIPELINE_BINARY_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_PIPELINE_BINARY_PROPERTIES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC => {
-                    Some("PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC")
-                }
-                Self::PHYSICAL_DEVICE_PIPELINE_CREATION_CACHE_CONTROL_FEATURES => {
-                    Some("PHYSICAL_DEVICE_PIPELINE_CREATION_CACHE_CONTROL_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR")
+                Self::PHYSICAL_DEVICE_DRM_PROPERTIES_EXT => {
+                    Some("PHYSICAL_DEVICE_DRM_PROPERTIES_EXT")
                 }
                 Self::PHYSICAL_DEVICE_PIPELINE_LIBRARY_GROUP_HANDLES_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_PIPELINE_LIBRARY_GROUP_HANDLES_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_PIPELINE_OPACITY_MICROMAP_FEATURES_ARM => {
-                    Some("PHYSICAL_DEVICE_PIPELINE_OPACITY_MICROMAP_FEATURES_ARM")
+                Self::PIPELINE_PROPERTIES_IDENTIFIER_EXT => {
+                    Some("PIPELINE_PROPERTIES_IDENTIFIER_EXT")
                 }
                 Self::PHYSICAL_DEVICE_PIPELINE_PROPERTIES_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_PIPELINE_PROPERTIES_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES => {
-                    Some("PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_FEATURES => {
-                    Some("PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_PROPERTIES")
-                }
-                Self::PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES")
-                }
-                Self::PHYSICAL_DEVICE_PORTABILITY_SUBSET_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_PORTABILITY_SUBSET_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_PORTABILITY_SUBSET_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_PORTABILITY_SUBSET_PROPERTIES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_PRESENT_BARRIER_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_PRESENT_BARRIER_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_PRESENT_ID_2_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_PRESENT_ID_2_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_PRESENT_METERING_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_PRESENT_METERING_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_KHR")
-                }
                 Self::PHYSICAL_DEVICE_PRESENT_TIMING_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_PRESENT_TIMING_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_PRESENT_WAIT_2_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_PRESENT_WAIT_2_FEATURES_KHR")
+                Self::SWAPCHAIN_TIMING_PROPERTIES_EXT => Some("SWAPCHAIN_TIMING_PROPERTIES_EXT"),
+                Self::SWAPCHAIN_TIME_DOMAIN_PROPERTIES_EXT => {
+                    Some("SWAPCHAIN_TIME_DOMAIN_PROPERTIES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_PRESENT_WAIT_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_PRESENT_WAIT_FEATURES_KHR")
+                Self::PRESENT_TIMINGS_INFO_EXT => Some("PRESENT_TIMINGS_INFO_EXT"),
+                Self::PRESENT_TIMING_INFO_EXT => Some("PRESENT_TIMING_INFO_EXT"),
+                Self::PAST_PRESENTATION_TIMING_INFO_EXT => {
+                    Some("PAST_PRESENTATION_TIMING_INFO_EXT")
                 }
-                Self::PHYSICAL_DEVICE_PRIMITIVES_GENERATED_QUERY_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_PRIMITIVES_GENERATED_QUERY_FEATURES_EXT")
+                Self::PAST_PRESENTATION_TIMING_PROPERTIES_EXT => {
+                    Some("PAST_PRESENTATION_TIMING_PROPERTIES_EXT")
+                }
+                Self::PAST_PRESENTATION_TIMING_EXT => Some("PAST_PRESENTATION_TIMING_EXT"),
+                Self::PRESENT_TIMING_SURFACE_CAPABILITIES_EXT => {
+                    Some("PRESENT_TIMING_SURFACE_CAPABILITIES_EXT")
+                }
+                Self::SWAPCHAIN_CALIBRATED_TIMESTAMP_INFO_EXT => {
+                    Some("SWAPCHAIN_CALIBRATED_TIMESTAMP_INFO_EXT")
                 }
                 Self::PHYSICAL_DEVICE_PRIMITIVE_TOPOLOGY_LIST_RESTART_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_PRIMITIVE_TOPOLOGY_LIST_RESTART_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_PRIVATE_DATA_FEATURES => {
-                    Some("PHYSICAL_DEVICE_PRIVATE_DATA_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_PROPERTIES_2 => Some("PHYSICAL_DEVICE_PROPERTIES_2"),
-                Self::PHYSICAL_DEVICE_PROTECTED_MEMORY_FEATURES => {
-                    Some("PHYSICAL_DEVICE_PROTECTED_MEMORY_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_PROTECTED_MEMORY_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_PROTECTED_MEMORY_PROPERTIES")
+                Self::PHYSICAL_DEVICE_PRIMITIVES_GENERATED_QUERY_FEATURES_EXT => {
+                    Some("PHYSICAL_DEVICE_PRIMITIVES_GENERATED_QUERY_FEATURES_EXT")
                 }
                 Self::PHYSICAL_DEVICE_PROVOKING_VERTEX_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_PROVOKING_VERTEX_FEATURES_EXT")
                 }
+                Self::PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT => {
+                    Some("PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT")
+                }
                 Self::PHYSICAL_DEVICE_PROVOKING_VERTEX_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_PROVOKING_VERTEX_PROPERTIES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_PROPERTIES_NV")
-                }
-                Self::PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES")
-                }
-                Self::PHYSICAL_DEVICE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_INFO_ARM => {
-                    Some("PHYSICAL_DEVICE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_INFO_ARM")
                 }
                 Self::PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_RAW_ACCESS_CHAINS_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_RAW_ACCESS_CHAINS_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_RAY_QUERY_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_RAY_QUERY_FEATURES_KHR")
-                }
                 Self::PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_NV")
                 }
                 Self::PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_NV")
-                }
-                Self::PHYSICAL_DEVICE_RAY_TRACING_LINEAR_SWEPT_SPHERES_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_RAY_TRACING_LINEAR_SWEPT_SPHERES_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_RAY_TRACING_MAINTENANCE_1_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_RAY_TRACING_MAINTENANCE_1_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_RAY_TRACING_MOTION_BLUR_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_RAY_TRACING_MOTION_BLUR_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_RAY_TRACING_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_RAY_TRACING_PROPERTIES_NV")
-                }
-                Self::PHYSICAL_DEVICE_RAY_TRACING_VALIDATION_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_RAY_TRACING_VALIDATION_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_RELAXED_LINE_RASTERIZATION_FEATURES_IMG => {
-                    Some("PHYSICAL_DEVICE_RELAXED_LINE_RASTERIZATION_FEATURES_IMG")
-                }
-                Self::PHYSICAL_DEVICE_RENDER_PASS_STRIPED_FEATURES_ARM => {
-                    Some("PHYSICAL_DEVICE_RENDER_PASS_STRIPED_FEATURES_ARM")
-                }
-                Self::PHYSICAL_DEVICE_RENDER_PASS_STRIPED_PROPERTIES_ARM => {
-                    Some("PHYSICAL_DEVICE_RENDER_PASS_STRIPED_PROPERTIES_ARM")
-                }
-                Self::PHYSICAL_DEVICE_REPRESENTATIVE_FRAGMENT_TEST_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_REPRESENTATIVE_FRAGMENT_TEST_FEATURES_NV")
-                }
                 Self::PHYSICAL_DEVICE_RGBA10X6_FORMATS_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_RGBA10X6_FORMATS_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR")
+                Self::SAMPLE_LOCATIONS_INFO_EXT => Some("SAMPLE_LOCATIONS_INFO_EXT"),
+                Self::RENDER_PASS_SAMPLE_LOCATIONS_BEGIN_INFO_EXT => {
+                    Some("RENDER_PASS_SAMPLE_LOCATIONS_BEGIN_INFO_EXT")
                 }
-                Self::PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_SAMPLER_FILTER_MINMAX_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_SAMPLER_FILTER_MINMAX_PROPERTIES")
-                }
-                Self::PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES")
+                Self::PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT => {
+                    Some("PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT")
                 }
                 Self::PHYSICAL_DEVICE_SAMPLE_LOCATIONS_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_SAMPLE_LOCATIONS_PROPERTIES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_SCHEDULING_CONTROLS_FEATURES_ARM => {
-                    Some("PHYSICAL_DEVICE_SCHEDULING_CONTROLS_FEATURES_ARM")
-                }
-                Self::PHYSICAL_DEVICE_SCHEDULING_CONTROLS_PROPERTIES_ARM => {
-                    Some("PHYSICAL_DEVICE_SCHEDULING_CONTROLS_PROPERTIES_ARM")
-                }
-                Self::PHYSICAL_DEVICE_SEPARATE_DEPTH_STENCIL_LAYOUTS_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SEPARATE_DEPTH_STENCIL_LAYOUTS_FEATURES")
-                }
+                Self::MULTISAMPLE_PROPERTIES_EXT => Some("MULTISAMPLE_PROPERTIES_EXT"),
                 Self::PHYSICAL_DEVICE_SHADER_64_BIT_INDEXING_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_SHADER_64_BIT_INDEXING_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT16_VECTOR_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT16_VECTOR_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_2_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_2_FEATURES_EXT")
                 }
                 Self::PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_BFLOAT16_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_SHADER_BFLOAT16_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_FEATURES_ARM => {
-                    Some("PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_FEATURES_ARM")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_PROPERTIES_ARM => {
-                    Some("PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_PROPERTIES_ARM")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_2_AMD => {
-                    Some("PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_2_AMD")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_AMD => {
-                    Some("PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_AMD")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM => {
-                    Some("PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_EARLY_AND_LATE_FRAGMENT_TESTS_FEATURES_AMD => {
-                    Some("PHYSICAL_DEVICE_SHADER_EARLY_AND_LATE_FRAGMENT_TESTS_FEATURES_AMD")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_ENQUEUE_FEATURES_AMDX => {
-                    Some("PHYSICAL_DEVICE_SHADER_ENQUEUE_FEATURES_AMDX")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_ENQUEUE_PROPERTIES_AMDX => {
-                    Some("PHYSICAL_DEVICE_SHADER_ENQUEUE_PROPERTIES_AMDX")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES")
+                Self::PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_2_FEATURES_EXT => {
+                    Some("PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_2_FEATURES_EXT")
                 }
                 Self::PHYSICAL_DEVICE_SHADER_FLOAT8_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_SHADER_FLOAT8_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_FMA_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_SHADER_FMA_FEATURES_KHR")
-                }
                 Self::PHYSICAL_DEVICE_SHADER_IMAGE_ATOMIC_INT64_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_SHADER_IMAGE_ATOMIC_INT64_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_IMAGE_FOOTPRINT_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_SHADER_IMAGE_FOOTPRINT_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_INTEGER_FUNCTIONS_2_FEATURES_INTEL => {
-                    Some("PHYSICAL_DEVICE_SHADER_INTEGER_FUNCTIONS_2_FEATURES_INTEL")
                 }
                 Self::PHYSICAL_DEVICE_SHADER_LONG_VECTOR_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_SHADER_LONG_VECTOR_FEATURES_EXT")
@@ -10736,50 +10281,34 @@ pub(super) mod defs {
                 Self::PHYSICAL_DEVICE_SHADER_LONG_VECTOR_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_SHADER_LONG_VECTOR_PROPERTIES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_SHADER_MAXIMAL_RECONVERGENCE_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_SHADER_MAXIMAL_RECONVERGENCE_FEATURES_KHR")
-                }
                 Self::PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_FEATURES_EXT")
                 }
                 Self::PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_PROPERTIES_EXT")
                 }
+                Self::PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT => {
+                    Some("PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT")
+                }
+                Self::SHADER_MODULE_IDENTIFIER_EXT => Some("SHADER_MODULE_IDENTIFIER_EXT"),
                 Self::PHYSICAL_DEVICE_SHADER_OBJECT_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_SHADER_OBJECT_FEATURES_EXT")
                 }
                 Self::PHYSICAL_DEVICE_SHADER_OBJECT_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_SHADER_OBJECT_PROPERTIES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_SHADER_QUAD_CONTROL_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_SHADER_QUAD_CONTROL_FEATURES_KHR")
+                Self::SHADER_CREATE_INFO_EXT => Some("SHADER_CREATE_INFO_EXT"),
+                Self::VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT => {
+                    Some("VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT")
                 }
-                Self::PHYSICAL_DEVICE_SHADER_RELAXED_EXTENDED_INSTRUCTION_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_SHADER_RELAXED_EXTENDED_INSTRUCTION_FEATURES_KHR")
+                Self::VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT => {
+                    Some("VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT")
                 }
                 Self::PHYSICAL_DEVICE_SHADER_REPLICATED_COMPOSITES_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_SHADER_REPLICATED_COMPOSITES_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_SHADER_SM_BUILTINS_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_SHADER_SM_BUILTINS_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_SM_BUILTINS_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_SHADER_SM_BUILTINS_PROPERTIES_NV")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_SUBGROUP_EXTENDED_TYPES_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SHADER_SUBGROUP_EXTENDED_TYPES_FEATURES")
-                }
                 Self::PHYSICAL_DEVICE_SHADER_SUBGROUP_PARTITIONED_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_SHADER_SUBGROUP_PARTITIONED_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES")
                 }
                 Self::PHYSICAL_DEVICE_SHADER_TILE_IMAGE_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_SHADER_TILE_IMAGE_FEATURES_EXT")
@@ -10790,106 +10319,37 @@ pub(super) mod defs {
                 Self::PHYSICAL_DEVICE_SHADER_UNIFORM_BUFFER_UNSIZED_ARRAY_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_SHADER_UNIFORM_BUFFER_UNSIZED_ARRAY_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_SHADER_UNTYPED_POINTERS_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_SHADER_UNTYPED_POINTERS_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_SHADING_RATE_IMAGE_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_SHADING_RATE_IMAGE_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV")
-                }
-                Self::PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2 => {
-                    Some("PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2")
-                }
-                Self::PHYSICAL_DEVICE_SUBGROUP_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_SUBGROUP_PROPERTIES")
-                }
-                Self::PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_PROPERTIES")
-                }
                 Self::PHYSICAL_DEVICE_SUBPASS_MERGE_FEEDBACK_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_SUBPASS_MERGE_FEEDBACK_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_SUBPASS_SHADING_FEATURES_HUAWEI => {
-                    Some("PHYSICAL_DEVICE_SUBPASS_SHADING_FEATURES_HUAWEI")
+                Self::RENDER_PASS_CREATION_CONTROL_EXT => Some("RENDER_PASS_CREATION_CONTROL_EXT"),
+                Self::RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT => {
+                    Some("RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT")
                 }
-                Self::PHYSICAL_DEVICE_SUBPASS_SHADING_PROPERTIES_HUAWEI => {
-                    Some("PHYSICAL_DEVICE_SUBPASS_SHADING_PROPERTIES_HUAWEI")
-                }
-                Self::PHYSICAL_DEVICE_SURFACE_INFO_2_KHR => {
-                    Some("PHYSICAL_DEVICE_SURFACE_INFO_2_KHR")
-                }
-                Self::PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_TENSOR_FEATURES_ARM => {
-                    Some("PHYSICAL_DEVICE_TENSOR_FEATURES_ARM")
-                }
-                Self::PHYSICAL_DEVICE_TENSOR_PROPERTIES_ARM => {
-                    Some("PHYSICAL_DEVICE_TENSOR_PROPERTIES_ARM")
+                Self::RENDER_PASS_SUBPASS_FEEDBACK_CREATE_INFO_EXT => {
+                    Some("RENDER_PASS_SUBPASS_FEEDBACK_CREATE_INFO_EXT")
                 }
                 Self::PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES")
-                }
                 Self::PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_3D_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_3D_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES => {
-                    Some("PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_TILE_MEMORY_HEAP_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_TILE_MEMORY_HEAP_FEATURES_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_TILE_MEMORY_HEAP_PROPERTIES_QCOM => {
-                    Some("PHYSICAL_DEVICE_TILE_MEMORY_HEAP_PROPERTIES_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_TILE_PROPERTIES_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_TILE_PROPERTIES_FEATURES_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_TILE_SHADING_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_TILE_SHADING_FEATURES_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_TILE_SHADING_PROPERTIES_QCOM => {
-                    Some("PHYSICAL_DEVICE_TILE_SHADING_PROPERTIES_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES => {
-                    Some("PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_PROPERTIES")
-                }
-                Self::PHYSICAL_DEVICE_TOOL_PROPERTIES => Some("PHYSICAL_DEVICE_TOOL_PROPERTIES"),
                 Self::PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_FEATURES_EXT")
                 }
                 Self::PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_PROPERTIES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_UNIFIED_IMAGE_LAYOUTS_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_UNIFIED_IMAGE_LAYOUTS_FEATURES_KHR")
+                Self::PIPELINE_RASTERIZATION_STATE_STREAM_CREATE_INFO_EXT => {
+                    Some("PIPELINE_RASTERIZATION_STATE_STREAM_CREATE_INFO_EXT")
                 }
-                Self::PHYSICAL_DEVICE_UNIFORM_BUFFER_STANDARD_LAYOUT_FEATURES => {
-                    Some("PHYSICAL_DEVICE_UNIFORM_BUFFER_STANDARD_LAYOUT_FEATURES")
+                Self::VALIDATION_CACHE_CREATE_INFO_EXT => Some("VALIDATION_CACHE_CREATE_INFO_EXT"),
+                Self::SHADER_MODULE_VALIDATION_CACHE_CREATE_INFO_EXT => {
+                    Some("SHADER_MODULE_VALIDATION_CACHE_CREATE_INFO_EXT")
                 }
-                Self::PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES => {
-                    Some("PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES => {
-                    Some("PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES")
-                }
+                Self::VALIDATION_FEATURES_EXT => Some("VALIDATION_FEATURES_EXT"),
+                Self::VALIDATION_FLAGS_EXT => Some("VALIDATION_FLAGS_EXT"),
                 Self::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_EXT => {
                     Some("PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_EXT")
                 }
@@ -10899,44 +10359,8 @@ pub(super) mod defs {
                 Self::PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_VIDEO_DECODE_VP9_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_VIDEO_DECODE_VP9_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_VIDEO_ENCODE_AV1_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_VIDEO_ENCODE_AV1_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_VIDEO_ENCODE_INTRA_REFRESH_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_VIDEO_ENCODE_INTRA_REFRESH_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR => {
-                    Some("PHYSICAL_DEVICE_VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR")
-                }
-                Self::PHYSICAL_DEVICE_VIDEO_ENCODE_QUANTIZATION_MAP_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_VIDEO_ENCODE_QUANTIZATION_MAP_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_VIDEO_ENCODE_RGB_CONVERSION_FEATURES_VALVE => {
-                    Some("PHYSICAL_DEVICE_VIDEO_ENCODE_RGB_CONVERSION_FEATURES_VALVE")
-                }
-                Self::PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR => {
-                    Some("PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR")
-                }
-                Self::PHYSICAL_DEVICE_VIDEO_MAINTENANCE_1_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_VIDEO_MAINTENANCE_1_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_VIDEO_MAINTENANCE_2_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_VIDEO_MAINTENANCE_2_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES => {
-                    Some("PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_WORKGROUP_MEMORY_EXPLICIT_LAYOUT_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_WORKGROUP_MEMORY_EXPLICIT_LAYOUT_FEATURES_KHR")
-                }
                 Self::PHYSICAL_DEVICE_YCBCR_2_PLANE_444_FORMATS_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_YCBCR_2_PLANE_444_FORMATS_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM")
                 }
                 Self::PHYSICAL_DEVICE_YCBCR_IMAGE_ARRAYS_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_YCBCR_IMAGE_ARRAYS_FEATURES_EXT")
@@ -10944,409 +10368,460 @@ pub(super) mod defs {
                 Self::PHYSICAL_DEVICE_ZERO_INITIALIZE_DEVICE_MEMORY_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_ZERO_INITIALIZE_DEVICE_MEMORY_FEATURES_EXT")
                 }
-                Self::PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES => {
-                    Some("PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES")
+                Self::BUFFER_COLLECTION_CREATE_INFO_FUCHSIA => {
+                    Some("BUFFER_COLLECTION_CREATE_INFO_FUCHSIA")
                 }
-                Self::PIPELINE_BINARY_CREATE_INFO_KHR => Some("PIPELINE_BINARY_CREATE_INFO_KHR"),
-                Self::PIPELINE_BINARY_DATA_INFO_KHR => Some("PIPELINE_BINARY_DATA_INFO_KHR"),
-                Self::PIPELINE_BINARY_HANDLES_INFO_KHR => Some("PIPELINE_BINARY_HANDLES_INFO_KHR"),
-                Self::PIPELINE_BINARY_INFO_KHR => Some("PIPELINE_BINARY_INFO_KHR"),
-                Self::PIPELINE_BINARY_KEY_KHR => Some("PIPELINE_BINARY_KEY_KHR"),
-                Self::PIPELINE_COLOR_BLEND_ADVANCED_STATE_CREATE_INFO_EXT => {
-                    Some("PIPELINE_COLOR_BLEND_ADVANCED_STATE_CREATE_INFO_EXT")
+                Self::IMPORT_MEMORY_BUFFER_COLLECTION_FUCHSIA => {
+                    Some("IMPORT_MEMORY_BUFFER_COLLECTION_FUCHSIA")
                 }
-                Self::PIPELINE_COLOR_WRITE_CREATE_INFO_EXT => {
-                    Some("PIPELINE_COLOR_WRITE_CREATE_INFO_EXT")
+                Self::BUFFER_COLLECTION_IMAGE_CREATE_INFO_FUCHSIA => {
+                    Some("BUFFER_COLLECTION_IMAGE_CREATE_INFO_FUCHSIA")
                 }
-                Self::PIPELINE_COMPILER_CONTROL_CREATE_INFO_AMD => {
-                    Some("PIPELINE_COMPILER_CONTROL_CREATE_INFO_AMD")
+                Self::BUFFER_COLLECTION_PROPERTIES_FUCHSIA => {
+                    Some("BUFFER_COLLECTION_PROPERTIES_FUCHSIA")
                 }
-                Self::PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV => {
-                    Some("PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV")
+                Self::BUFFER_CONSTRAINTS_INFO_FUCHSIA => Some("BUFFER_CONSTRAINTS_INFO_FUCHSIA"),
+                Self::BUFFER_COLLECTION_BUFFER_CREATE_INFO_FUCHSIA => {
+                    Some("BUFFER_COLLECTION_BUFFER_CREATE_INFO_FUCHSIA")
                 }
-                Self::PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV => {
-                    Some("PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV")
+                Self::IMAGE_CONSTRAINTS_INFO_FUCHSIA => Some("IMAGE_CONSTRAINTS_INFO_FUCHSIA"),
+                Self::IMAGE_FORMAT_CONSTRAINTS_INFO_FUCHSIA => {
+                    Some("IMAGE_FORMAT_CONSTRAINTS_INFO_FUCHSIA")
                 }
-                Self::PIPELINE_COVERAGE_TO_COLOR_STATE_CREATE_INFO_NV => {
-                    Some("PIPELINE_COVERAGE_TO_COLOR_STATE_CREATE_INFO_NV")
+                Self::SYSMEM_COLOR_SPACE_FUCHSIA => Some("SYSMEM_COLOR_SPACE_FUCHSIA"),
+                Self::BUFFER_COLLECTION_CONSTRAINTS_INFO_FUCHSIA => {
+                    Some("BUFFER_COLLECTION_CONSTRAINTS_INFO_FUCHSIA")
                 }
-                Self::PIPELINE_CREATE_FLAGS_2_CREATE_INFO => {
-                    Some("PIPELINE_CREATE_FLAGS_2_CREATE_INFO")
+                Self::IMPORT_MEMORY_ZIRCON_HANDLE_INFO_FUCHSIA => {
+                    Some("IMPORT_MEMORY_ZIRCON_HANDLE_INFO_FUCHSIA")
                 }
-                Self::PIPELINE_CREATE_INFO_KHR => Some("PIPELINE_CREATE_INFO_KHR"),
-                Self::PIPELINE_CREATION_FEEDBACK_CREATE_INFO => {
-                    Some("PIPELINE_CREATION_FEEDBACK_CREATE_INFO")
+                Self::MEMORY_ZIRCON_HANDLE_PROPERTIES_FUCHSIA => {
+                    Some("MEMORY_ZIRCON_HANDLE_PROPERTIES_FUCHSIA")
                 }
-                Self::PIPELINE_DISCARD_RECTANGLE_STATE_CREATE_INFO_EXT => {
-                    Some("PIPELINE_DISCARD_RECTANGLE_STATE_CREATE_INFO_EXT")
+                Self::MEMORY_GET_ZIRCON_HANDLE_INFO_FUCHSIA => {
+                    Some("MEMORY_GET_ZIRCON_HANDLE_INFO_FUCHSIA")
                 }
-                Self::PIPELINE_EXECUTABLE_INFO_KHR => Some("PIPELINE_EXECUTABLE_INFO_KHR"),
-                Self::PIPELINE_EXECUTABLE_INTERNAL_REPRESENTATION_KHR => {
-                    Some("PIPELINE_EXECUTABLE_INTERNAL_REPRESENTATION_KHR")
-                }
-                Self::PIPELINE_EXECUTABLE_PROPERTIES_KHR => {
-                    Some("PIPELINE_EXECUTABLE_PROPERTIES_KHR")
-                }
-                Self::PIPELINE_EXECUTABLE_STATISTIC_KHR => {
-                    Some("PIPELINE_EXECUTABLE_STATISTIC_KHR")
-                }
-                Self::PIPELINE_FRAGMENT_DENSITY_MAP_LAYERED_CREATE_INFO_VALVE => {
-                    Some("PIPELINE_FRAGMENT_DENSITY_MAP_LAYERED_CREATE_INFO_VALVE")
-                }
-                Self::PIPELINE_FRAGMENT_SHADING_RATE_ENUM_STATE_CREATE_INFO_NV => {
-                    Some("PIPELINE_FRAGMENT_SHADING_RATE_ENUM_STATE_CREATE_INFO_NV")
-                }
-                Self::PIPELINE_FRAGMENT_SHADING_RATE_STATE_CREATE_INFO_KHR => {
-                    Some("PIPELINE_FRAGMENT_SHADING_RATE_STATE_CREATE_INFO_KHR")
-                }
-                Self::PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV => {
-                    Some("PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV")
-                }
-                Self::PIPELINE_INFO_KHR => Some("PIPELINE_INFO_KHR"),
-                Self::PIPELINE_LIBRARY_CREATE_INFO_KHR => Some("PIPELINE_LIBRARY_CREATE_INFO_KHR"),
-                Self::PIPELINE_PROPERTIES_IDENTIFIER_EXT => {
-                    Some("PIPELINE_PROPERTIES_IDENTIFIER_EXT")
-                }
-                Self::PIPELINE_RASTERIZATION_CONSERVATIVE_STATE_CREATE_INFO_EXT => {
-                    Some("PIPELINE_RASTERIZATION_CONSERVATIVE_STATE_CREATE_INFO_EXT")
-                }
-                Self::PIPELINE_RASTERIZATION_DEPTH_CLIP_STATE_CREATE_INFO_EXT => {
-                    Some("PIPELINE_RASTERIZATION_DEPTH_CLIP_STATE_CREATE_INFO_EXT")
-                }
-                Self::PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO => {
-                    Some("PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO")
-                }
-                Self::PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT => {
-                    Some("PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT")
-                }
-                Self::PIPELINE_RASTERIZATION_STATE_RASTERIZATION_ORDER_AMD => {
-                    Some("PIPELINE_RASTERIZATION_STATE_RASTERIZATION_ORDER_AMD")
-                }
-                Self::PIPELINE_RASTERIZATION_STATE_STREAM_CREATE_INFO_EXT => {
-                    Some("PIPELINE_RASTERIZATION_STATE_STREAM_CREATE_INFO_EXT")
-                }
-                Self::PIPELINE_RENDERING_CREATE_INFO => Some("PIPELINE_RENDERING_CREATE_INFO"),
-                Self::PIPELINE_REPRESENTATIVE_FRAGMENT_TEST_STATE_CREATE_INFO_NV => {
-                    Some("PIPELINE_REPRESENTATIVE_FRAGMENT_TEST_STATE_CREATE_INFO_NV")
-                }
-                Self::PIPELINE_ROBUSTNESS_CREATE_INFO => Some("PIPELINE_ROBUSTNESS_CREATE_INFO"),
-                Self::PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT => {
-                    Some("PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT")
-                }
-                Self::PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT => {
-                    Some("PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT")
-                }
-                Self::PIPELINE_SHADER_STAGE_NODE_CREATE_INFO_AMDX => {
-                    Some("PIPELINE_SHADER_STAGE_NODE_CREATE_INFO_AMDX")
-                }
-                Self::PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO => {
-                    Some("PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO")
-                }
-                Self::PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO => {
-                    Some("PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO")
-                }
-                Self::PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO => {
-                    Some("PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO")
-                }
-                Self::PIPELINE_VIEWPORT_COARSE_SAMPLE_ORDER_STATE_CREATE_INFO_NV => {
-                    Some("PIPELINE_VIEWPORT_COARSE_SAMPLE_ORDER_STATE_CREATE_INFO_NV")
-                }
-                Self::PIPELINE_VIEWPORT_DEPTH_CLAMP_CONTROL_CREATE_INFO_EXT => {
-                    Some("PIPELINE_VIEWPORT_DEPTH_CLAMP_CONTROL_CREATE_INFO_EXT")
-                }
-                Self::PIPELINE_VIEWPORT_DEPTH_CLIP_CONTROL_CREATE_INFO_EXT => {
-                    Some("PIPELINE_VIEWPORT_DEPTH_CLIP_CONTROL_CREATE_INFO_EXT")
-                }
-                Self::PIPELINE_VIEWPORT_EXCLUSIVE_SCISSOR_STATE_CREATE_INFO_NV => {
-                    Some("PIPELINE_VIEWPORT_EXCLUSIVE_SCISSOR_STATE_CREATE_INFO_NV")
-                }
-                Self::PIPELINE_VIEWPORT_SHADING_RATE_IMAGE_STATE_CREATE_INFO_NV => {
-                    Some("PIPELINE_VIEWPORT_SHADING_RATE_IMAGE_STATE_CREATE_INFO_NV")
-                }
-                Self::PIPELINE_VIEWPORT_SWIZZLE_STATE_CREATE_INFO_NV => {
-                    Some("PIPELINE_VIEWPORT_SWIZZLE_STATE_CREATE_INFO_NV")
-                }
-                Self::PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV => {
-                    Some("PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV")
-                }
-                Self::PRESENT_FRAME_TOKEN_GGP => Some("PRESENT_FRAME_TOKEN_GGP"),
-                Self::PRESENT_ID_2_KHR => Some("PRESENT_ID_2_KHR"),
-                Self::PRESENT_ID_KHR => Some("PRESENT_ID_KHR"),
-                Self::PRESENT_INFO_KHR => Some("PRESENT_INFO_KHR"),
-                Self::PRESENT_REGIONS_KHR => Some("PRESENT_REGIONS_KHR"),
-                Self::PRESENT_TIMES_INFO_GOOGLE => Some("PRESENT_TIMES_INFO_GOOGLE"),
-                Self::PRESENT_TIMINGS_INFO_EXT => Some("PRESENT_TIMINGS_INFO_EXT"),
-                Self::PRESENT_TIMING_INFO_EXT => Some("PRESENT_TIMING_INFO_EXT"),
-                Self::PRESENT_TIMING_SURFACE_CAPABILITIES_EXT => {
-                    Some("PRESENT_TIMING_SURFACE_CAPABILITIES_EXT")
-                }
-                Self::PRESENT_WAIT_2_INFO_KHR => Some("PRESENT_WAIT_2_INFO_KHR"),
-                Self::PRIVATE_DATA_SLOT_CREATE_INFO => Some("PRIVATE_DATA_SLOT_CREATE_INFO"),
-                Self::PROTECTED_SUBMIT_INFO => Some("PROTECTED_SUBMIT_INFO"),
-                Self::PUSH_CONSTANTS_INFO => Some("PUSH_CONSTANTS_INFO"),
-                Self::PUSH_CONSTANT_BANK_INFO_NV => Some("PUSH_CONSTANT_BANK_INFO_NV"),
-                Self::PUSH_DATA_INFO_EXT => Some("PUSH_DATA_INFO_EXT"),
-                Self::PUSH_DESCRIPTOR_SET_INFO => Some("PUSH_DESCRIPTOR_SET_INFO"),
-                Self::PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO => {
-                    Some("PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO")
-                }
-                Self::QUERY_LOW_LATENCY_SUPPORT_NV => Some("QUERY_LOW_LATENCY_SUPPORT_NV"),
-                Self::QUERY_POOL_PERFORMANCE_CREATE_INFO_KHR => {
-                    Some("QUERY_POOL_PERFORMANCE_CREATE_INFO_KHR")
-                }
-                Self::QUERY_POOL_PERFORMANCE_QUERY_CREATE_INFO_INTEL => {
-                    Some("QUERY_POOL_PERFORMANCE_QUERY_CREATE_INFO_INTEL")
-                }
-                Self::QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR => {
-                    Some("QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR")
-                }
-                Self::QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV => {
-                    Some("QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV")
-                }
-                Self::QUEUE_FAMILY_CHECKPOINT_PROPERTIES_NV => {
-                    Some("QUEUE_FAMILY_CHECKPOINT_PROPERTIES_NV")
-                }
-                Self::QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_PROPERTIES_ARM => {
-                    Some("QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_PROPERTIES_ARM")
-                }
-                Self::QUEUE_FAMILY_DATA_GRAPH_PROPERTIES_ARM => {
-                    Some("QUEUE_FAMILY_DATA_GRAPH_PROPERTIES_ARM")
-                }
-                Self::QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES => {
-                    Some("QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES")
-                }
-                Self::QUEUE_FAMILY_OWNERSHIP_TRANSFER_PROPERTIES_KHR => {
-                    Some("QUEUE_FAMILY_OWNERSHIP_TRANSFER_PROPERTIES_KHR")
-                }
-                Self::QUEUE_FAMILY_PROPERTIES_2 => Some("QUEUE_FAMILY_PROPERTIES_2"),
-                Self::QUEUE_FAMILY_QUERY_RESULT_STATUS_PROPERTIES_KHR => {
-                    Some("QUEUE_FAMILY_QUERY_RESULT_STATUS_PROPERTIES_KHR")
-                }
-                Self::QUEUE_FAMILY_VIDEO_PROPERTIES_KHR => {
-                    Some("QUEUE_FAMILY_VIDEO_PROPERTIES_KHR")
-                }
-                Self::RAY_TRACING_PIPELINE_CLUSTER_ACCELERATION_STRUCTURE_CREATE_INFO_NV => {
-                    Some("RAY_TRACING_PIPELINE_CLUSTER_ACCELERATION_STRUCTURE_CREATE_INFO_NV")
-                }
-                Self::RAY_TRACING_PIPELINE_CREATE_INFO_KHR => {
-                    Some("RAY_TRACING_PIPELINE_CREATE_INFO_KHR")
-                }
-                Self::RAY_TRACING_PIPELINE_CREATE_INFO_NV => {
-                    Some("RAY_TRACING_PIPELINE_CREATE_INFO_NV")
-                }
-                Self::RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR => {
-                    Some("RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR")
-                }
-                Self::RAY_TRACING_SHADER_GROUP_CREATE_INFO_KHR => {
-                    Some("RAY_TRACING_SHADER_GROUP_CREATE_INFO_KHR")
-                }
-                Self::RAY_TRACING_SHADER_GROUP_CREATE_INFO_NV => {
-                    Some("RAY_TRACING_SHADER_GROUP_CREATE_INFO_NV")
-                }
-                Self::RELEASE_CAPTURED_PIPELINE_DATA_INFO_KHR => {
-                    Some("RELEASE_CAPTURED_PIPELINE_DATA_INFO_KHR")
-                }
-                Self::RELEASE_SWAPCHAIN_IMAGES_INFO_KHR => {
-                    Some("RELEASE_SWAPCHAIN_IMAGES_INFO_KHR")
-                }
-                Self::RENDERING_AREA_INFO => Some("RENDERING_AREA_INFO"),
-                Self::RENDERING_ATTACHMENT_FLAGS_INFO_KHR => {
-                    Some("RENDERING_ATTACHMENT_FLAGS_INFO_KHR")
-                }
-                Self::RENDERING_ATTACHMENT_INFO => Some("RENDERING_ATTACHMENT_INFO"),
-                Self::RENDERING_ATTACHMENT_LOCATION_INFO => {
-                    Some("RENDERING_ATTACHMENT_LOCATION_INFO")
-                }
-                Self::RENDERING_END_INFO_KHR => Some("RENDERING_END_INFO_KHR"),
-                Self::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_INFO_EXT => {
-                    Some("RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_INFO_EXT")
-                }
-                Self::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR => {
-                    Some("RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR")
-                }
-                Self::RENDERING_INFO => Some("RENDERING_INFO"),
-                Self::RENDERING_INPUT_ATTACHMENT_INDEX_INFO => {
-                    Some("RENDERING_INPUT_ATTACHMENT_INDEX_INFO")
-                }
-                Self::RENDER_PASS_ATTACHMENT_BEGIN_INFO => {
-                    Some("RENDER_PASS_ATTACHMENT_BEGIN_INFO")
-                }
-                Self::RENDER_PASS_CREATE_INFO_2 => Some("RENDER_PASS_CREATE_INFO_2"),
-                Self::RENDER_PASS_CREATION_CONTROL_EXT => Some("RENDER_PASS_CREATION_CONTROL_EXT"),
-                Self::RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT => {
-                    Some("RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT")
-                }
-                Self::RENDER_PASS_FRAGMENT_DENSITY_MAP_CREATE_INFO_EXT => {
-                    Some("RENDER_PASS_FRAGMENT_DENSITY_MAP_CREATE_INFO_EXT")
-                }
-                Self::RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT => {
-                    Some("RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT")
-                }
-                Self::RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO => {
-                    Some("RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO")
-                }
-                Self::RENDER_PASS_MULTIVIEW_CREATE_INFO => {
-                    Some("RENDER_PASS_MULTIVIEW_CREATE_INFO")
-                }
-                Self::RENDER_PASS_PERFORMANCE_COUNTERS_BY_REGION_BEGIN_INFO_ARM => {
-                    Some("RENDER_PASS_PERFORMANCE_COUNTERS_BY_REGION_BEGIN_INFO_ARM")
-                }
-                Self::RENDER_PASS_SAMPLE_LOCATIONS_BEGIN_INFO_EXT => {
-                    Some("RENDER_PASS_SAMPLE_LOCATIONS_BEGIN_INFO_EXT")
-                }
-                Self::RENDER_PASS_STRIPE_BEGIN_INFO_ARM => {
-                    Some("RENDER_PASS_STRIPE_BEGIN_INFO_ARM")
-                }
-                Self::RENDER_PASS_STRIPE_INFO_ARM => Some("RENDER_PASS_STRIPE_INFO_ARM"),
-                Self::RENDER_PASS_STRIPE_SUBMIT_INFO_ARM => {
-                    Some("RENDER_PASS_STRIPE_SUBMIT_INFO_ARM")
-                }
-                Self::RENDER_PASS_SUBPASS_FEEDBACK_CREATE_INFO_EXT => {
-                    Some("RENDER_PASS_SUBPASS_FEEDBACK_CREATE_INFO_EXT")
-                }
-                Self::RENDER_PASS_TILE_SHADING_CREATE_INFO_QCOM => {
-                    Some("RENDER_PASS_TILE_SHADING_CREATE_INFO_QCOM")
-                }
-                Self::RENDER_PASS_TRANSFORM_BEGIN_INFO_QCOM => {
-                    Some("RENDER_PASS_TRANSFORM_BEGIN_INFO_QCOM")
-                }
-                Self::RESOLVE_IMAGE_INFO_2 => Some("RESOLVE_IMAGE_INFO_2"),
-                Self::RESOLVE_IMAGE_MODE_INFO_KHR => Some("RESOLVE_IMAGE_MODE_INFO_KHR"),
-                Self::RESOURCE_DESCRIPTOR_INFO_EXT => Some("RESOURCE_DESCRIPTOR_INFO_EXT"),
-                Self::SAMPLER_BLOCK_MATCH_WINDOW_CREATE_INFO_QCOM => {
-                    Some("SAMPLER_BLOCK_MATCH_WINDOW_CREATE_INFO_QCOM")
-                }
-                Self::SAMPLER_BORDER_COLOR_COMPONENT_MAPPING_CREATE_INFO_EXT => {
-                    Some("SAMPLER_BORDER_COLOR_COMPONENT_MAPPING_CREATE_INFO_EXT")
-                }
-                Self::SAMPLER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT => {
-                    Some("SAMPLER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT")
-                }
-                Self::SAMPLER_CUBIC_WEIGHTS_CREATE_INFO_QCOM => {
-                    Some("SAMPLER_CUBIC_WEIGHTS_CREATE_INFO_QCOM")
-                }
-                Self::SAMPLER_CUSTOM_BORDER_COLOR_CREATE_INFO_EXT => {
-                    Some("SAMPLER_CUSTOM_BORDER_COLOR_CREATE_INFO_EXT")
-                }
-                Self::SAMPLER_CUSTOM_BORDER_COLOR_INDEX_CREATE_INFO_EXT => {
-                    Some("SAMPLER_CUSTOM_BORDER_COLOR_INDEX_CREATE_INFO_EXT")
-                }
-                Self::SAMPLER_REDUCTION_MODE_CREATE_INFO => {
-                    Some("SAMPLER_REDUCTION_MODE_CREATE_INFO")
-                }
-                Self::SAMPLER_YCBCR_CONVERSION_CREATE_INFO => {
-                    Some("SAMPLER_YCBCR_CONVERSION_CREATE_INFO")
-                }
-                Self::SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES => {
-                    Some("SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES")
-                }
-                Self::SAMPLER_YCBCR_CONVERSION_INFO => Some("SAMPLER_YCBCR_CONVERSION_INFO"),
-                Self::SAMPLER_YCBCR_CONVERSION_YCBCR_DEGAMMA_CREATE_INFO_QCOM => {
-                    Some("SAMPLER_YCBCR_CONVERSION_YCBCR_DEGAMMA_CREATE_INFO_QCOM")
-                }
-                Self::SAMPLE_LOCATIONS_INFO_EXT => Some("SAMPLE_LOCATIONS_INFO_EXT"),
-                Self::SCREEN_BUFFER_FORMAT_PROPERTIES_QNX => {
-                    Some("SCREEN_BUFFER_FORMAT_PROPERTIES_QNX")
-                }
-                Self::SCREEN_BUFFER_PROPERTIES_QNX => Some("SCREEN_BUFFER_PROPERTIES_QNX"),
-                Self::SCREEN_SURFACE_CREATE_INFO_QNX => Some("SCREEN_SURFACE_CREATE_INFO_QNX"),
-                Self::SEMAPHORE_GET_FD_INFO_KHR => Some("SEMAPHORE_GET_FD_INFO_KHR"),
-                Self::SEMAPHORE_GET_WIN32_HANDLE_INFO_KHR => {
-                    Some("SEMAPHORE_GET_WIN32_HANDLE_INFO_KHR")
+                Self::IMPORT_SEMAPHORE_ZIRCON_HANDLE_INFO_FUCHSIA => {
+                    Some("IMPORT_SEMAPHORE_ZIRCON_HANDLE_INFO_FUCHSIA")
                 }
                 Self::SEMAPHORE_GET_ZIRCON_HANDLE_INFO_FUCHSIA => {
                     Some("SEMAPHORE_GET_ZIRCON_HANDLE_INFO_FUCHSIA")
                 }
-                Self::SEMAPHORE_SIGNAL_INFO => Some("SEMAPHORE_SIGNAL_INFO"),
-                Self::SEMAPHORE_SUBMIT_INFO => Some("SEMAPHORE_SUBMIT_INFO"),
-                Self::SEMAPHORE_TYPE_CREATE_INFO => Some("SEMAPHORE_TYPE_CREATE_INFO"),
-                Self::SEMAPHORE_WAIT_INFO => Some("SEMAPHORE_WAIT_INFO"),
-                Self::SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT => {
-                    Some("SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT")
+                Self::IMAGEPIPE_SURFACE_CREATE_INFO_FUCHSIA => {
+                    Some("IMAGEPIPE_SURFACE_CREATE_INFO_FUCHSIA")
                 }
-                Self::SET_LATENCY_MARKER_INFO_NV => Some("SET_LATENCY_MARKER_INFO_NV"),
-                Self::SET_PRESENT_CONFIG_NV => Some("SET_PRESENT_CONFIG_NV"),
-                Self::SHADER_CREATE_INFO_EXT => Some("SHADER_CREATE_INFO_EXT"),
-                Self::SHADER_DESCRIPTOR_SET_AND_BINDING_MAPPING_INFO_EXT => {
-                    Some("SHADER_DESCRIPTOR_SET_AND_BINDING_MAPPING_INFO_EXT")
-                }
-                Self::SHADER_MODULE_IDENTIFIER_EXT => Some("SHADER_MODULE_IDENTIFIER_EXT"),
-                Self::SHADER_MODULE_VALIDATION_CACHE_CREATE_INFO_EXT => {
-                    Some("SHADER_MODULE_VALIDATION_CACHE_CREATE_INFO_EXT")
-                }
-                Self::SHARED_PRESENT_SURFACE_CAPABILITIES_KHR => {
-                    Some("SHARED_PRESENT_SURFACE_CAPABILITIES_KHR")
-                }
-                Self::SPARSE_IMAGE_FORMAT_PROPERTIES_2 => Some("SPARSE_IMAGE_FORMAT_PROPERTIES_2"),
-                Self::SPARSE_IMAGE_MEMORY_REQUIREMENTS_2 => {
-                    Some("SPARSE_IMAGE_MEMORY_REQUIREMENTS_2")
-                }
+                Self::PRESENT_FRAME_TOKEN_GGP => Some("PRESENT_FRAME_TOKEN_GGP"),
                 Self::STREAM_DESCRIPTOR_SURFACE_CREATE_INFO_GGP => {
                     Some("STREAM_DESCRIPTOR_SURFACE_CREATE_INFO_GGP")
                 }
-                Self::SUBMIT_INFO_2 => Some("SUBMIT_INFO_2"),
-                Self::SUBPASS_BEGIN_INFO => Some("SUBPASS_BEGIN_INFO"),
-                Self::SUBPASS_DEPENDENCY_2 => Some("SUBPASS_DEPENDENCY_2"),
-                Self::SUBPASS_DESCRIPTION_2 => Some("SUBPASS_DESCRIPTION_2"),
-                Self::SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE => {
-                    Some("SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE")
+                Self::PRESENT_TIMES_INFO_GOOGLE => Some("PRESENT_TIMES_INFO_GOOGLE"),
+                Self::PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI => {
+                    Some("PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI")
                 }
-                Self::SUBPASS_END_INFO => Some("SUBPASS_END_INFO"),
-                Self::SUBPASS_RESOLVE_PERFORMANCE_QUERY_EXT => {
-                    Some("SUBPASS_RESOLVE_PERFORMANCE_QUERY_EXT")
+                Self::PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI => {
+                    Some("PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI")
+                }
+                Self::PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_VRS_FEATURES_HUAWEI => {
+                    Some("PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_VRS_FEATURES_HUAWEI")
+                }
+                Self::PHYSICAL_DEVICE_HDR_VIVID_FEATURES_HUAWEI => {
+                    Some("PHYSICAL_DEVICE_HDR_VIVID_FEATURES_HUAWEI")
+                }
+                Self::HDR_VIVID_DYNAMIC_METADATA_HUAWEI => {
+                    Some("HDR_VIVID_DYNAMIC_METADATA_HUAWEI")
+                }
+                Self::PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI => {
+                    Some("PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI")
                 }
                 Self::SUBPASS_SHADING_PIPELINE_CREATE_INFO_HUAWEI => {
                     Some("SUBPASS_SHADING_PIPELINE_CREATE_INFO_HUAWEI")
                 }
-                Self::SUBRESOURCE_HOST_MEMCPY_SIZE => Some("SUBRESOURCE_HOST_MEMCPY_SIZE"),
-                Self::SUBRESOURCE_LAYOUT_2 => Some("SUBRESOURCE_LAYOUT_2"),
-                Self::SUBSAMPLED_IMAGE_FORMAT_PROPERTIES_EXT => {
-                    Some("SUBSAMPLED_IMAGE_FORMAT_PROPERTIES_EXT")
+                Self::PHYSICAL_DEVICE_SUBPASS_SHADING_FEATURES_HUAWEI => {
+                    Some("PHYSICAL_DEVICE_SUBPASS_SHADING_FEATURES_HUAWEI")
                 }
-                Self::SURFACE_CAPABILITIES_2_EXT => Some("SURFACE_CAPABILITIES_2_EXT"),
+                Self::PHYSICAL_DEVICE_SUBPASS_SHADING_PROPERTIES_HUAWEI => {
+                    Some("PHYSICAL_DEVICE_SUBPASS_SHADING_PROPERTIES_HUAWEI")
+                }
+                Self::PHYSICAL_DEVICE_RELAXED_LINE_RASTERIZATION_FEATURES_IMG => {
+                    Some("PHYSICAL_DEVICE_RELAXED_LINE_RASTERIZATION_FEATURES_IMG")
+                }
+                Self::QUERY_POOL_PERFORMANCE_QUERY_CREATE_INFO_INTEL => {
+                    Some("QUERY_POOL_PERFORMANCE_QUERY_CREATE_INFO_INTEL")
+                }
+                Self::INITIALIZE_PERFORMANCE_API_INFO_INTEL => {
+                    Some("INITIALIZE_PERFORMANCE_API_INFO_INTEL")
+                }
+                Self::PERFORMANCE_MARKER_INFO_INTEL => Some("PERFORMANCE_MARKER_INFO_INTEL"),
+                Self::PERFORMANCE_STREAM_MARKER_INFO_INTEL => {
+                    Some("PERFORMANCE_STREAM_MARKER_INFO_INTEL")
+                }
+                Self::PERFORMANCE_OVERRIDE_INFO_INTEL => Some("PERFORMANCE_OVERRIDE_INFO_INTEL"),
+                Self::PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL => {
+                    Some("PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_INTEGER_FUNCTIONS_2_FEATURES_INTEL => {
+                    Some("PHYSICAL_DEVICE_SHADER_INTEGER_FUNCTIONS_2_FEATURES_INTEL")
+                }
+                Self::WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_KHR => {
+                    Some("WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_KHR")
+                }
+                Self::ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR => {
+                    Some("ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR")
+                }
+                Self::ACCELERATION_STRUCTURE_DEVICE_ADDRESS_INFO_KHR => {
+                    Some("ACCELERATION_STRUCTURE_DEVICE_ADDRESS_INFO_KHR")
+                }
+                Self::ACCELERATION_STRUCTURE_GEOMETRY_AABBS_DATA_KHR => {
+                    Some("ACCELERATION_STRUCTURE_GEOMETRY_AABBS_DATA_KHR")
+                }
+                Self::ACCELERATION_STRUCTURE_GEOMETRY_INSTANCES_DATA_KHR => {
+                    Some("ACCELERATION_STRUCTURE_GEOMETRY_INSTANCES_DATA_KHR")
+                }
+                Self::ACCELERATION_STRUCTURE_GEOMETRY_TRIANGLES_DATA_KHR => {
+                    Some("ACCELERATION_STRUCTURE_GEOMETRY_TRIANGLES_DATA_KHR")
+                }
+                Self::ACCELERATION_STRUCTURE_GEOMETRY_KHR => {
+                    Some("ACCELERATION_STRUCTURE_GEOMETRY_KHR")
+                }
+                Self::ACCELERATION_STRUCTURE_VERSION_INFO_KHR => {
+                    Some("ACCELERATION_STRUCTURE_VERSION_INFO_KHR")
+                }
+                Self::COPY_ACCELERATION_STRUCTURE_INFO_KHR => {
+                    Some("COPY_ACCELERATION_STRUCTURE_INFO_KHR")
+                }
+                Self::COPY_ACCELERATION_STRUCTURE_TO_MEMORY_INFO_KHR => {
+                    Some("COPY_ACCELERATION_STRUCTURE_TO_MEMORY_INFO_KHR")
+                }
+                Self::COPY_MEMORY_TO_ACCELERATION_STRUCTURE_INFO_KHR => {
+                    Some("COPY_MEMORY_TO_ACCELERATION_STRUCTURE_INFO_KHR")
+                }
+                Self::PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_PROPERTIES_KHR => {
+                    Some("PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_PROPERTIES_KHR")
+                }
+                Self::ACCELERATION_STRUCTURE_CREATE_INFO_KHR => {
+                    Some("ACCELERATION_STRUCTURE_CREATE_INFO_KHR")
+                }
+                Self::ACCELERATION_STRUCTURE_BUILD_SIZES_INFO_KHR => {
+                    Some("ACCELERATION_STRUCTURE_BUILD_SIZES_INFO_KHR")
+                }
+                Self::ANDROID_SURFACE_CREATE_INFO_KHR => Some("ANDROID_SURFACE_CREATE_INFO_KHR"),
+                Self::CALIBRATED_TIMESTAMP_INFO_KHR => Some("CALIBRATED_TIMESTAMP_INFO_KHR"),
+                Self::PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_FEATURES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_PROPERTIES_KHR => {
+                    Some("PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_PROPERTIES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_KHR")
+                }
+                Self::COOPERATIVE_MATRIX_PROPERTIES_KHR => {
+                    Some("COOPERATIVE_MATRIX_PROPERTIES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_KHR => {
+                    Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR => {
+                    Some("PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR")
+                }
+                Self::COPY_MEMORY_INDIRECT_INFO_KHR => Some("COPY_MEMORY_INDIRECT_INFO_KHR"),
+                Self::COPY_MEMORY_TO_IMAGE_INDIRECT_INFO_KHR => {
+                    Some("COPY_MEMORY_TO_IMAGE_INDIRECT_INFO_KHR")
+                }
+                Self::PHYSICAL_DEVICE_DEPTH_CLAMP_ZERO_ONE_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_DEPTH_CLAMP_ZERO_ONE_FEATURES_KHR")
+                }
+                Self::DEVICE_GROUP_PRESENT_CAPABILITIES_KHR => {
+                    Some("DEVICE_GROUP_PRESENT_CAPABILITIES_KHR")
+                }
+                Self::IMAGE_SWAPCHAIN_CREATE_INFO_KHR => Some("IMAGE_SWAPCHAIN_CREATE_INFO_KHR"),
+                Self::BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR => {
+                    Some("BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR")
+                }
+                Self::ACQUIRE_NEXT_IMAGE_INFO_KHR => Some("ACQUIRE_NEXT_IMAGE_INFO_KHR"),
+                Self::DEVICE_GROUP_PRESENT_INFO_KHR => Some("DEVICE_GROUP_PRESENT_INFO_KHR"),
+                Self::DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR => {
+                    Some("DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR")
+                }
+                Self::DISPLAY_MODE_CREATE_INFO_KHR => Some("DISPLAY_MODE_CREATE_INFO_KHR"),
+                Self::DISPLAY_SURFACE_CREATE_INFO_KHR => Some("DISPLAY_SURFACE_CREATE_INFO_KHR"),
+                Self::DISPLAY_PRESENT_INFO_KHR => Some("DISPLAY_PRESENT_INFO_KHR"),
+                Self::IMPORT_FENCE_FD_INFO_KHR => Some("IMPORT_FENCE_FD_INFO_KHR"),
+                Self::FENCE_GET_FD_INFO_KHR => Some("FENCE_GET_FD_INFO_KHR"),
+                Self::IMPORT_FENCE_WIN32_HANDLE_INFO_KHR => {
+                    Some("IMPORT_FENCE_WIN32_HANDLE_INFO_KHR")
+                }
+                Self::EXPORT_FENCE_WIN32_HANDLE_INFO_KHR => {
+                    Some("EXPORT_FENCE_WIN32_HANDLE_INFO_KHR")
+                }
+                Self::FENCE_GET_WIN32_HANDLE_INFO_KHR => Some("FENCE_GET_WIN32_HANDLE_INFO_KHR"),
+                Self::IMPORT_MEMORY_FD_INFO_KHR => Some("IMPORT_MEMORY_FD_INFO_KHR"),
+                Self::MEMORY_FD_PROPERTIES_KHR => Some("MEMORY_FD_PROPERTIES_KHR"),
+                Self::MEMORY_GET_FD_INFO_KHR => Some("MEMORY_GET_FD_INFO_KHR"),
+                Self::IMPORT_MEMORY_WIN32_HANDLE_INFO_KHR => {
+                    Some("IMPORT_MEMORY_WIN32_HANDLE_INFO_KHR")
+                }
+                Self::EXPORT_MEMORY_WIN32_HANDLE_INFO_KHR => {
+                    Some("EXPORT_MEMORY_WIN32_HANDLE_INFO_KHR")
+                }
+                Self::MEMORY_WIN32_HANDLE_PROPERTIES_KHR => {
+                    Some("MEMORY_WIN32_HANDLE_PROPERTIES_KHR")
+                }
+                Self::MEMORY_GET_WIN32_HANDLE_INFO_KHR => Some("MEMORY_GET_WIN32_HANDLE_INFO_KHR"),
+                Self::IMPORT_SEMAPHORE_FD_INFO_KHR => Some("IMPORT_SEMAPHORE_FD_INFO_KHR"),
+                Self::SEMAPHORE_GET_FD_INFO_KHR => Some("SEMAPHORE_GET_FD_INFO_KHR"),
+                Self::IMPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR => {
+                    Some("IMPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR")
+                }
+                Self::EXPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR => {
+                    Some("EXPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR")
+                }
+                Self::D3D12_FENCE_SUBMIT_INFO_KHR => Some("D3D12_FENCE_SUBMIT_INFO_KHR"),
+                Self::SEMAPHORE_GET_WIN32_HANDLE_INFO_KHR => {
+                    Some("SEMAPHORE_GET_WIN32_HANDLE_INFO_KHR")
+                }
+                Self::PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_FEATURES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_PROPERTIES_KHR => {
+                    Some("PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_PROPERTIES_KHR")
+                }
+                Self::FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR => {
+                    Some("FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR")
+                }
+                Self::PIPELINE_FRAGMENT_SHADING_RATE_STATE_CREATE_INFO_KHR => {
+                    Some("PIPELINE_FRAGMENT_SHADING_RATE_STATE_CREATE_INFO_KHR")
+                }
+                Self::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_PROPERTIES_KHR => {
+                    Some("PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_PROPERTIES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_FEATURES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR => {
+                    Some("PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR")
+                }
+                Self::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR => {
+                    Some("RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR")
+                }
+                Self::DISPLAY_PROPERTIES_2_KHR => Some("DISPLAY_PROPERTIES_2_KHR"),
+                Self::DISPLAY_PLANE_PROPERTIES_2_KHR => Some("DISPLAY_PLANE_PROPERTIES_2_KHR"),
+                Self::DISPLAY_MODE_PROPERTIES_2_KHR => Some("DISPLAY_MODE_PROPERTIES_2_KHR"),
+                Self::DISPLAY_PLANE_INFO_2_KHR => Some("DISPLAY_PLANE_INFO_2_KHR"),
+                Self::DISPLAY_PLANE_CAPABILITIES_2_KHR => Some("DISPLAY_PLANE_CAPABILITIES_2_KHR"),
+                Self::PHYSICAL_DEVICE_SURFACE_INFO_2_KHR => {
+                    Some("PHYSICAL_DEVICE_SURFACE_INFO_2_KHR")
+                }
                 Self::SURFACE_CAPABILITIES_2_KHR => Some("SURFACE_CAPABILITIES_2_KHR"),
-                Self::SURFACE_CAPABILITIES_FULL_SCREEN_EXCLUSIVE_EXT => {
-                    Some("SURFACE_CAPABILITIES_FULL_SCREEN_EXCLUSIVE_EXT")
+                Self::SURFACE_FORMAT_2_KHR => Some("SURFACE_FORMAT_2_KHR"),
+                Self::PRESENT_REGIONS_KHR => Some("PRESENT_REGIONS_KHR"),
+                Self::PHYSICAL_DEVICE_INTERNALLY_SYNCHRONIZED_QUEUES_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_INTERNALLY_SYNCHRONIZED_QUEUES_FEATURES_KHR")
                 }
-                Self::SURFACE_CAPABILITIES_PRESENT_BARRIER_NV => {
-                    Some("SURFACE_CAPABILITIES_PRESENT_BARRIER_NV")
+                Self::PHYSICAL_DEVICE_MAINTENANCE_10_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_MAINTENANCE_10_FEATURES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_MAINTENANCE_10_PROPERTIES_KHR => {
+                    Some("PHYSICAL_DEVICE_MAINTENANCE_10_PROPERTIES_KHR")
+                }
+                Self::RENDERING_ATTACHMENT_FLAGS_INFO_KHR => {
+                    Some("RENDERING_ATTACHMENT_FLAGS_INFO_KHR")
+                }
+                Self::RENDERING_END_INFO_KHR => Some("RENDERING_END_INFO_KHR"),
+                Self::RESOLVE_IMAGE_MODE_INFO_KHR => Some("RESOLVE_IMAGE_MODE_INFO_KHR"),
+                Self::SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT => {
+                    Some("SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT")
+                }
+                Self::BIND_DESCRIPTOR_BUFFER_EMBEDDED_SAMPLERS_INFO_EXT => {
+                    Some("BIND_DESCRIPTOR_BUFFER_EMBEDDED_SAMPLERS_INFO_EXT")
+                }
+                Self::PHYSICAL_DEVICE_MAINTENANCE_7_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_MAINTENANCE_7_FEATURES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_MAINTENANCE_7_PROPERTIES_KHR => {
+                    Some("PHYSICAL_DEVICE_MAINTENANCE_7_PROPERTIES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_LIST_KHR => {
+                    Some("PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_LIST_KHR")
+                }
+                Self::PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_KHR => {
+                    Some("PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_LAYERED_API_VULKAN_PROPERTIES_KHR => {
+                    Some("PHYSICAL_DEVICE_LAYERED_API_VULKAN_PROPERTIES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_MAINTENANCE_8_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_MAINTENANCE_8_FEATURES_KHR")
+                }
+                Self::MEMORY_BARRIER_ACCESS_FLAGS_3_KHR => {
+                    Some("MEMORY_BARRIER_ACCESS_FLAGS_3_KHR")
+                }
+                Self::PHYSICAL_DEVICE_MAINTENANCE_9_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_MAINTENANCE_9_FEATURES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_MAINTENANCE_9_PROPERTIES_KHR => {
+                    Some("PHYSICAL_DEVICE_MAINTENANCE_9_PROPERTIES_KHR")
+                }
+                Self::QUEUE_FAMILY_OWNERSHIP_TRANSFER_PROPERTIES_KHR => {
+                    Some("QUEUE_FAMILY_OWNERSHIP_TRANSFER_PROPERTIES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_PERFORMANCE_QUERY_PROPERTIES_KHR => {
+                    Some("PHYSICAL_DEVICE_PERFORMANCE_QUERY_PROPERTIES_KHR")
+                }
+                Self::QUERY_POOL_PERFORMANCE_CREATE_INFO_KHR => {
+                    Some("QUERY_POOL_PERFORMANCE_CREATE_INFO_KHR")
+                }
+                Self::PERFORMANCE_QUERY_SUBMIT_INFO_KHR => {
+                    Some("PERFORMANCE_QUERY_SUBMIT_INFO_KHR")
+                }
+                Self::ACQUIRE_PROFILING_LOCK_INFO_KHR => Some("ACQUIRE_PROFILING_LOCK_INFO_KHR"),
+                Self::PERFORMANCE_COUNTER_KHR => Some("PERFORMANCE_COUNTER_KHR"),
+                Self::PERFORMANCE_COUNTER_DESCRIPTION_KHR => {
+                    Some("PERFORMANCE_COUNTER_DESCRIPTION_KHR")
+                }
+                Self::PHYSICAL_DEVICE_PIPELINE_BINARY_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_PIPELINE_BINARY_FEATURES_KHR")
+                }
+                Self::PIPELINE_BINARY_CREATE_INFO_KHR => Some("PIPELINE_BINARY_CREATE_INFO_KHR"),
+                Self::PIPELINE_BINARY_INFO_KHR => Some("PIPELINE_BINARY_INFO_KHR"),
+                Self::PIPELINE_BINARY_KEY_KHR => Some("PIPELINE_BINARY_KEY_KHR"),
+                Self::PHYSICAL_DEVICE_PIPELINE_BINARY_PROPERTIES_KHR => {
+                    Some("PHYSICAL_DEVICE_PIPELINE_BINARY_PROPERTIES_KHR")
+                }
+                Self::RELEASE_CAPTURED_PIPELINE_DATA_INFO_KHR => {
+                    Some("RELEASE_CAPTURED_PIPELINE_DATA_INFO_KHR")
+                }
+                Self::PIPELINE_BINARY_DATA_INFO_KHR => Some("PIPELINE_BINARY_DATA_INFO_KHR"),
+                Self::PIPELINE_CREATE_INFO_KHR => Some("PIPELINE_CREATE_INFO_KHR"),
+                Self::DEVICE_PIPELINE_BINARY_INTERNAL_CACHE_CONTROL_KHR => {
+                    Some("DEVICE_PIPELINE_BINARY_INTERNAL_CACHE_CONTROL_KHR")
+                }
+                Self::PIPELINE_BINARY_HANDLES_INFO_KHR => Some("PIPELINE_BINARY_HANDLES_INFO_KHR"),
+                Self::PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR")
+                }
+                Self::PIPELINE_INFO_KHR => Some("PIPELINE_INFO_KHR"),
+                Self::PIPELINE_EXECUTABLE_PROPERTIES_KHR => {
+                    Some("PIPELINE_EXECUTABLE_PROPERTIES_KHR")
+                }
+                Self::PIPELINE_EXECUTABLE_INFO_KHR => Some("PIPELINE_EXECUTABLE_INFO_KHR"),
+                Self::PIPELINE_EXECUTABLE_STATISTIC_KHR => {
+                    Some("PIPELINE_EXECUTABLE_STATISTIC_KHR")
+                }
+                Self::PIPELINE_EXECUTABLE_INTERNAL_REPRESENTATION_KHR => {
+                    Some("PIPELINE_EXECUTABLE_INTERNAL_REPRESENTATION_KHR")
+                }
+                Self::PIPELINE_LIBRARY_CREATE_INFO_KHR => Some("PIPELINE_LIBRARY_CREATE_INFO_KHR"),
+                Self::PHYSICAL_DEVICE_PORTABILITY_SUBSET_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_PORTABILITY_SUBSET_FEATURES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_PORTABILITY_SUBSET_PROPERTIES_KHR => {
+                    Some("PHYSICAL_DEVICE_PORTABILITY_SUBSET_PROPERTIES_KHR")
+                }
+                Self::PRESENT_ID_KHR => Some("PRESENT_ID_KHR"),
+                Self::PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR")
                 }
                 Self::SURFACE_CAPABILITIES_PRESENT_ID_2_KHR => {
                     Some("SURFACE_CAPABILITIES_PRESENT_ID_2_KHR")
                 }
+                Self::PRESENT_ID_2_KHR => Some("PRESENT_ID_2_KHR"),
+                Self::PHYSICAL_DEVICE_PRESENT_ID_2_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_PRESENT_ID_2_FEATURES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_PRESENT_WAIT_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_PRESENT_WAIT_FEATURES_KHR")
+                }
                 Self::SURFACE_CAPABILITIES_PRESENT_WAIT_2_KHR => {
                     Some("SURFACE_CAPABILITIES_PRESENT_WAIT_2_KHR")
                 }
-                Self::SURFACE_FORMAT_2_KHR => Some("SURFACE_FORMAT_2_KHR"),
-                Self::SURFACE_FULL_SCREEN_EXCLUSIVE_INFO_EXT => {
-                    Some("SURFACE_FULL_SCREEN_EXCLUSIVE_INFO_EXT")
+                Self::PHYSICAL_DEVICE_PRESENT_WAIT_2_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_PRESENT_WAIT_2_FEATURES_KHR")
                 }
-                Self::SURFACE_FULL_SCREEN_EXCLUSIVE_WIN32_INFO_EXT => {
-                    Some("SURFACE_FULL_SCREEN_EXCLUSIVE_WIN32_INFO_EXT")
+                Self::PRESENT_WAIT_2_INFO_KHR => Some("PRESENT_WAIT_2_INFO_KHR"),
+                Self::PHYSICAL_DEVICE_RAY_QUERY_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_RAY_QUERY_FEATURES_KHR")
                 }
-                Self::SURFACE_PRESENT_MODE_COMPATIBILITY_KHR => {
-                    Some("SURFACE_PRESENT_MODE_COMPATIBILITY_KHR")
+                Self::PHYSICAL_DEVICE_RAY_TRACING_MAINTENANCE_1_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_RAY_TRACING_MAINTENANCE_1_FEATURES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR => {
+                    Some("PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR")
+                }
+                Self::RAY_TRACING_PIPELINE_CREATE_INFO_KHR => {
+                    Some("RAY_TRACING_PIPELINE_CREATE_INFO_KHR")
+                }
+                Self::RAY_TRACING_SHADER_GROUP_CREATE_INFO_KHR => {
+                    Some("RAY_TRACING_SHADER_GROUP_CREATE_INFO_KHR")
+                }
+                Self::RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR => {
+                    Some("RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR")
+                }
+                Self::PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_KHR => {
+                    Some("PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_BFLOAT16_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_SHADER_BFLOAT16_FEATURES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_FMA_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_SHADER_FMA_FEATURES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_MAXIMAL_RECONVERGENCE_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_SHADER_MAXIMAL_RECONVERGENCE_FEATURES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_QUAD_CONTROL_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_SHADER_QUAD_CONTROL_FEATURES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_RELAXED_EXTENDED_INSTRUCTION_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_SHADER_RELAXED_EXTENDED_INSTRUCTION_FEATURES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_FEATURES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_UNTYPED_POINTERS_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_SHADER_UNTYPED_POINTERS_FEATURES_KHR")
+                }
+                Self::SHARED_PRESENT_SURFACE_CAPABILITIES_KHR => {
+                    Some("SHARED_PRESENT_SURFACE_CAPABILITIES_KHR")
                 }
                 Self::SURFACE_PRESENT_MODE_KHR => Some("SURFACE_PRESENT_MODE_KHR"),
                 Self::SURFACE_PRESENT_SCALING_CAPABILITIES_KHR => {
                     Some("SURFACE_PRESENT_SCALING_CAPABILITIES_KHR")
                 }
+                Self::SURFACE_PRESENT_MODE_COMPATIBILITY_KHR => {
+                    Some("SURFACE_PRESENT_MODE_COMPATIBILITY_KHR")
+                }
                 Self::SURFACE_PROTECTED_CAPABILITIES_KHR => {
                     Some("SURFACE_PROTECTED_CAPABILITIES_KHR")
                 }
-                Self::SWAPCHAIN_CALIBRATED_TIMESTAMP_INFO_EXT => {
-                    Some("SWAPCHAIN_CALIBRATED_TIMESTAMP_INFO_EXT")
-                }
-                Self::SWAPCHAIN_COUNTER_CREATE_INFO_EXT => {
-                    Some("SWAPCHAIN_COUNTER_CREATE_INFO_EXT")
-                }
                 Self::SWAPCHAIN_CREATE_INFO_KHR => Some("SWAPCHAIN_CREATE_INFO_KHR"),
-                Self::SWAPCHAIN_DISPLAY_NATIVE_HDR_CREATE_INFO_AMD => {
-                    Some("SWAPCHAIN_DISPLAY_NATIVE_HDR_CREATE_INFO_AMD")
-                }
-                Self::SWAPCHAIN_LATENCY_CREATE_INFO_NV => Some("SWAPCHAIN_LATENCY_CREATE_INFO_NV"),
-                Self::SWAPCHAIN_PRESENT_BARRIER_CREATE_INFO_NV => {
-                    Some("SWAPCHAIN_PRESENT_BARRIER_CREATE_INFO_NV")
+                Self::PRESENT_INFO_KHR => Some("PRESENT_INFO_KHR"),
+                Self::PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR")
                 }
                 Self::SWAPCHAIN_PRESENT_FENCE_INFO_KHR => Some("SWAPCHAIN_PRESENT_FENCE_INFO_KHR"),
                 Self::SWAPCHAIN_PRESENT_MODES_CREATE_INFO_KHR => {
@@ -11356,56 +10831,17 @@ pub(super) mod defs {
                 Self::SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_KHR => {
                     Some("SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_KHR")
                 }
-                Self::SWAPCHAIN_TIME_DOMAIN_PROPERTIES_EXT => {
-                    Some("SWAPCHAIN_TIME_DOMAIN_PROPERTIES_EXT")
+                Self::RELEASE_SWAPCHAIN_IMAGES_INFO_KHR => {
+                    Some("RELEASE_SWAPCHAIN_IMAGES_INFO_KHR")
                 }
-                Self::SWAPCHAIN_TIMING_PROPERTIES_EXT => Some("SWAPCHAIN_TIMING_PROPERTIES_EXT"),
-                Self::SYSMEM_COLOR_SPACE_FUCHSIA => Some("SYSMEM_COLOR_SPACE_FUCHSIA"),
-                Self::TENSOR_CAPTURE_DESCRIPTOR_DATA_INFO_ARM => {
-                    Some("TENSOR_CAPTURE_DESCRIPTOR_DATA_INFO_ARM")
+                Self::PHYSICAL_DEVICE_UNIFIED_IMAGE_LAYOUTS_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_UNIFIED_IMAGE_LAYOUTS_FEATURES_KHR")
                 }
-                Self::TENSOR_COPY_ARM => Some("TENSOR_COPY_ARM"),
-                Self::TENSOR_CREATE_INFO_ARM => Some("TENSOR_CREATE_INFO_ARM"),
-                Self::TENSOR_DEPENDENCY_INFO_ARM => Some("TENSOR_DEPENDENCY_INFO_ARM"),
-                Self::TENSOR_DESCRIPTION_ARM => Some("TENSOR_DESCRIPTION_ARM"),
-                Self::TENSOR_FORMAT_PROPERTIES_ARM => Some("TENSOR_FORMAT_PROPERTIES_ARM"),
-                Self::TENSOR_MEMORY_BARRIER_ARM => Some("TENSOR_MEMORY_BARRIER_ARM"),
-                Self::TENSOR_MEMORY_REQUIREMENTS_INFO_ARM => {
-                    Some("TENSOR_MEMORY_REQUIREMENTS_INFO_ARM")
+                Self::ATTACHMENT_FEEDBACK_LOOP_INFO_EXT => {
+                    Some("ATTACHMENT_FEEDBACK_LOOP_INFO_EXT")
                 }
-                Self::TENSOR_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_ARM => {
-                    Some("TENSOR_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_ARM")
-                }
-                Self::TENSOR_VIEW_CREATE_INFO_ARM => Some("TENSOR_VIEW_CREATE_INFO_ARM"),
-                Self::TEXEL_BUFFER_DESCRIPTOR_INFO_EXT => Some("TEXEL_BUFFER_DESCRIPTOR_INFO_EXT"),
-                Self::TEXTURE_LOD_GATHER_FORMAT_PROPERTIES_AMD => {
-                    Some("TEXTURE_LOD_GATHER_FORMAT_PROPERTIES_AMD")
-                }
-                Self::TILE_MEMORY_BIND_INFO_QCOM => Some("TILE_MEMORY_BIND_INFO_QCOM"),
-                Self::TILE_MEMORY_REQUIREMENTS_QCOM => Some("TILE_MEMORY_REQUIREMENTS_QCOM"),
-                Self::TILE_MEMORY_SIZE_INFO_QCOM => Some("TILE_MEMORY_SIZE_INFO_QCOM"),
-                Self::TILE_PROPERTIES_QCOM => Some("TILE_PROPERTIES_QCOM"),
-                Self::TIMELINE_SEMAPHORE_SUBMIT_INFO => Some("TIMELINE_SEMAPHORE_SUBMIT_INFO"),
-                Self::VALIDATION_CACHE_CREATE_INFO_EXT => Some("VALIDATION_CACHE_CREATE_INFO_EXT"),
-                Self::VALIDATION_FEATURES_EXT => Some("VALIDATION_FEATURES_EXT"),
-                Self::VALIDATION_FLAGS_EXT => Some("VALIDATION_FLAGS_EXT"),
-                Self::VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT => {
-                    Some("VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT")
-                }
-                Self::VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT => {
-                    Some("VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT")
-                }
-                Self::VIDEO_BEGIN_CODING_INFO_KHR => Some("VIDEO_BEGIN_CODING_INFO_KHR"),
-                Self::VIDEO_CAPABILITIES_KHR => Some("VIDEO_CAPABILITIES_KHR"),
-                Self::VIDEO_CODING_CONTROL_INFO_KHR => Some("VIDEO_CODING_CONTROL_INFO_KHR"),
                 Self::VIDEO_DECODE_AV1_CAPABILITIES_KHR => {
                     Some("VIDEO_DECODE_AV1_CAPABILITIES_KHR")
-                }
-                Self::VIDEO_DECODE_AV1_DPB_SLOT_INFO_KHR => {
-                    Some("VIDEO_DECODE_AV1_DPB_SLOT_INFO_KHR")
-                }
-                Self::VIDEO_DECODE_AV1_INLINE_SESSION_PARAMETERS_INFO_KHR => {
-                    Some("VIDEO_DECODE_AV1_INLINE_SESSION_PARAMETERS_INFO_KHR")
                 }
                 Self::VIDEO_DECODE_AV1_PICTURE_INFO_KHR => {
                     Some("VIDEO_DECODE_AV1_PICTURE_INFO_KHR")
@@ -11416,15 +10852,11 @@ pub(super) mod defs {
                 Self::VIDEO_DECODE_AV1_SESSION_PARAMETERS_CREATE_INFO_KHR => {
                     Some("VIDEO_DECODE_AV1_SESSION_PARAMETERS_CREATE_INFO_KHR")
                 }
-                Self::VIDEO_DECODE_CAPABILITIES_KHR => Some("VIDEO_DECODE_CAPABILITIES_KHR"),
+                Self::VIDEO_DECODE_AV1_DPB_SLOT_INFO_KHR => {
+                    Some("VIDEO_DECODE_AV1_DPB_SLOT_INFO_KHR")
+                }
                 Self::VIDEO_DECODE_H264_CAPABILITIES_KHR => {
                     Some("VIDEO_DECODE_H264_CAPABILITIES_KHR")
-                }
-                Self::VIDEO_DECODE_H264_DPB_SLOT_INFO_KHR => {
-                    Some("VIDEO_DECODE_H264_DPB_SLOT_INFO_KHR")
-                }
-                Self::VIDEO_DECODE_H264_INLINE_SESSION_PARAMETERS_INFO_KHR => {
-                    Some("VIDEO_DECODE_H264_INLINE_SESSION_PARAMETERS_INFO_KHR")
                 }
                 Self::VIDEO_DECODE_H264_PICTURE_INFO_KHR => {
                     Some("VIDEO_DECODE_H264_PICTURE_INFO_KHR")
@@ -11432,35 +10864,39 @@ pub(super) mod defs {
                 Self::VIDEO_DECODE_H264_PROFILE_INFO_KHR => {
                     Some("VIDEO_DECODE_H264_PROFILE_INFO_KHR")
                 }
+                Self::VIDEO_DECODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR => {
+                    Some("VIDEO_DECODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR")
+                }
                 Self::VIDEO_DECODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR => {
                     Some("VIDEO_DECODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR")
                 }
-                Self::VIDEO_DECODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR => {
-                    Some("VIDEO_DECODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR")
+                Self::VIDEO_DECODE_H264_DPB_SLOT_INFO_KHR => {
+                    Some("VIDEO_DECODE_H264_DPB_SLOT_INFO_KHR")
                 }
                 Self::VIDEO_DECODE_H265_CAPABILITIES_KHR => {
                     Some("VIDEO_DECODE_H265_CAPABILITIES_KHR")
                 }
-                Self::VIDEO_DECODE_H265_DPB_SLOT_INFO_KHR => {
-                    Some("VIDEO_DECODE_H265_DPB_SLOT_INFO_KHR")
-                }
-                Self::VIDEO_DECODE_H265_INLINE_SESSION_PARAMETERS_INFO_KHR => {
-                    Some("VIDEO_DECODE_H265_INLINE_SESSION_PARAMETERS_INFO_KHR")
-                }
-                Self::VIDEO_DECODE_H265_PICTURE_INFO_KHR => {
-                    Some("VIDEO_DECODE_H265_PICTURE_INFO_KHR")
-                }
-                Self::VIDEO_DECODE_H265_PROFILE_INFO_KHR => {
-                    Some("VIDEO_DECODE_H265_PROFILE_INFO_KHR")
+                Self::VIDEO_DECODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR => {
+                    Some("VIDEO_DECODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR")
                 }
                 Self::VIDEO_DECODE_H265_SESSION_PARAMETERS_ADD_INFO_KHR => {
                     Some("VIDEO_DECODE_H265_SESSION_PARAMETERS_ADD_INFO_KHR")
                 }
-                Self::VIDEO_DECODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR => {
-                    Some("VIDEO_DECODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR")
+                Self::VIDEO_DECODE_H265_PROFILE_INFO_KHR => {
+                    Some("VIDEO_DECODE_H265_PROFILE_INFO_KHR")
+                }
+                Self::VIDEO_DECODE_H265_PICTURE_INFO_KHR => {
+                    Some("VIDEO_DECODE_H265_PICTURE_INFO_KHR")
+                }
+                Self::VIDEO_DECODE_H265_DPB_SLOT_INFO_KHR => {
+                    Some("VIDEO_DECODE_H265_DPB_SLOT_INFO_KHR")
                 }
                 Self::VIDEO_DECODE_INFO_KHR => Some("VIDEO_DECODE_INFO_KHR"),
+                Self::VIDEO_DECODE_CAPABILITIES_KHR => Some("VIDEO_DECODE_CAPABILITIES_KHR"),
                 Self::VIDEO_DECODE_USAGE_INFO_KHR => Some("VIDEO_DECODE_USAGE_INFO_KHR"),
+                Self::PHYSICAL_DEVICE_VIDEO_DECODE_VP9_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_VIDEO_DECODE_VP9_FEATURES_KHR")
+                }
                 Self::VIDEO_DECODE_VP9_CAPABILITIES_KHR => {
                     Some("VIDEO_DECODE_VP9_CAPABILITIES_KHR")
                 }
@@ -11473,23 +10909,20 @@ pub(super) mod defs {
                 Self::VIDEO_ENCODE_AV1_CAPABILITIES_KHR => {
                     Some("VIDEO_ENCODE_AV1_CAPABILITIES_KHR")
                 }
-                Self::VIDEO_ENCODE_AV1_DPB_SLOT_INFO_KHR => {
-                    Some("VIDEO_ENCODE_AV1_DPB_SLOT_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_AV1_GOP_REMAINING_FRAME_INFO_KHR => {
-                    Some("VIDEO_ENCODE_AV1_GOP_REMAINING_FRAME_INFO_KHR")
+                Self::VIDEO_ENCODE_AV1_SESSION_PARAMETERS_CREATE_INFO_KHR => {
+                    Some("VIDEO_ENCODE_AV1_SESSION_PARAMETERS_CREATE_INFO_KHR")
                 }
                 Self::VIDEO_ENCODE_AV1_PICTURE_INFO_KHR => {
                     Some("VIDEO_ENCODE_AV1_PICTURE_INFO_KHR")
                 }
+                Self::VIDEO_ENCODE_AV1_DPB_SLOT_INFO_KHR => {
+                    Some("VIDEO_ENCODE_AV1_DPB_SLOT_INFO_KHR")
+                }
+                Self::PHYSICAL_DEVICE_VIDEO_ENCODE_AV1_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_VIDEO_ENCODE_AV1_FEATURES_KHR")
+                }
                 Self::VIDEO_ENCODE_AV1_PROFILE_INFO_KHR => {
                     Some("VIDEO_ENCODE_AV1_PROFILE_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_AV1_QUALITY_LEVEL_PROPERTIES_KHR => {
-                    Some("VIDEO_ENCODE_AV1_QUALITY_LEVEL_PROPERTIES_KHR")
-                }
-                Self::VIDEO_ENCODE_AV1_QUANTIZATION_MAP_CAPABILITIES_KHR => {
-                    Some("VIDEO_ENCODE_AV1_QUANTIZATION_MAP_CAPABILITIES_KHR")
                 }
                 Self::VIDEO_ENCODE_AV1_RATE_CONTROL_INFO_KHR => {
                     Some("VIDEO_ENCODE_AV1_RATE_CONTROL_INFO_KHR")
@@ -11497,36 +10930,38 @@ pub(super) mod defs {
                 Self::VIDEO_ENCODE_AV1_RATE_CONTROL_LAYER_INFO_KHR => {
                     Some("VIDEO_ENCODE_AV1_RATE_CONTROL_LAYER_INFO_KHR")
                 }
+                Self::VIDEO_ENCODE_AV1_QUALITY_LEVEL_PROPERTIES_KHR => {
+                    Some("VIDEO_ENCODE_AV1_QUALITY_LEVEL_PROPERTIES_KHR")
+                }
                 Self::VIDEO_ENCODE_AV1_SESSION_CREATE_INFO_KHR => {
                     Some("VIDEO_ENCODE_AV1_SESSION_CREATE_INFO_KHR")
                 }
-                Self::VIDEO_ENCODE_AV1_SESSION_PARAMETERS_CREATE_INFO_KHR => {
-                    Some("VIDEO_ENCODE_AV1_SESSION_PARAMETERS_CREATE_INFO_KHR")
+                Self::VIDEO_ENCODE_AV1_GOP_REMAINING_FRAME_INFO_KHR => {
+                    Some("VIDEO_ENCODE_AV1_GOP_REMAINING_FRAME_INFO_KHR")
                 }
-                Self::VIDEO_ENCODE_CAPABILITIES_KHR => Some("VIDEO_ENCODE_CAPABILITIES_KHR"),
                 Self::VIDEO_ENCODE_H264_CAPABILITIES_KHR => {
                     Some("VIDEO_ENCODE_H264_CAPABILITIES_KHR")
                 }
-                Self::VIDEO_ENCODE_H264_DPB_SLOT_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H264_DPB_SLOT_INFO_KHR")
+                Self::VIDEO_ENCODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR => {
+                    Some("VIDEO_ENCODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR")
                 }
-                Self::VIDEO_ENCODE_H264_GOP_REMAINING_FRAME_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H264_GOP_REMAINING_FRAME_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H264_NALU_SLICE_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H264_NALU_SLICE_INFO_KHR")
+                Self::VIDEO_ENCODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR => {
+                    Some("VIDEO_ENCODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR")
                 }
                 Self::VIDEO_ENCODE_H264_PICTURE_INFO_KHR => {
                     Some("VIDEO_ENCODE_H264_PICTURE_INFO_KHR")
                 }
+                Self::VIDEO_ENCODE_H264_DPB_SLOT_INFO_KHR => {
+                    Some("VIDEO_ENCODE_H264_DPB_SLOT_INFO_KHR")
+                }
+                Self::VIDEO_ENCODE_H264_NALU_SLICE_INFO_KHR => {
+                    Some("VIDEO_ENCODE_H264_NALU_SLICE_INFO_KHR")
+                }
+                Self::VIDEO_ENCODE_H264_GOP_REMAINING_FRAME_INFO_KHR => {
+                    Some("VIDEO_ENCODE_H264_GOP_REMAINING_FRAME_INFO_KHR")
+                }
                 Self::VIDEO_ENCODE_H264_PROFILE_INFO_KHR => {
                     Some("VIDEO_ENCODE_H264_PROFILE_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H264_QUALITY_LEVEL_PROPERTIES_KHR => {
-                    Some("VIDEO_ENCODE_H264_QUALITY_LEVEL_PROPERTIES_KHR")
-                }
-                Self::VIDEO_ENCODE_H264_QUANTIZATION_MAP_CAPABILITIES_KHR => {
-                    Some("VIDEO_ENCODE_H264_QUANTIZATION_MAP_CAPABILITIES_KHR")
                 }
                 Self::VIDEO_ENCODE_H264_RATE_CONTROL_INFO_KHR => {
                     Some("VIDEO_ENCODE_H264_RATE_CONTROL_INFO_KHR")
@@ -11537,41 +10972,38 @@ pub(super) mod defs {
                 Self::VIDEO_ENCODE_H264_SESSION_CREATE_INFO_KHR => {
                     Some("VIDEO_ENCODE_H264_SESSION_CREATE_INFO_KHR")
                 }
-                Self::VIDEO_ENCODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H264_SESSION_PARAMETERS_FEEDBACK_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H264_SESSION_PARAMETERS_FEEDBACK_INFO_KHR")
+                Self::VIDEO_ENCODE_H264_QUALITY_LEVEL_PROPERTIES_KHR => {
+                    Some("VIDEO_ENCODE_H264_QUALITY_LEVEL_PROPERTIES_KHR")
                 }
                 Self::VIDEO_ENCODE_H264_SESSION_PARAMETERS_GET_INFO_KHR => {
                     Some("VIDEO_ENCODE_H264_SESSION_PARAMETERS_GET_INFO_KHR")
                 }
+                Self::VIDEO_ENCODE_H264_SESSION_PARAMETERS_FEEDBACK_INFO_KHR => {
+                    Some("VIDEO_ENCODE_H264_SESSION_PARAMETERS_FEEDBACK_INFO_KHR")
+                }
                 Self::VIDEO_ENCODE_H265_CAPABILITIES_KHR => {
                     Some("VIDEO_ENCODE_H265_CAPABILITIES_KHR")
                 }
-                Self::VIDEO_ENCODE_H265_DPB_SLOT_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H265_DPB_SLOT_INFO_KHR")
+                Self::VIDEO_ENCODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR => {
+                    Some("VIDEO_ENCODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR")
                 }
-                Self::VIDEO_ENCODE_H265_GOP_REMAINING_FRAME_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H265_GOP_REMAINING_FRAME_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H265_NALU_SLICE_SEGMENT_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H265_NALU_SLICE_SEGMENT_INFO_KHR")
+                Self::VIDEO_ENCODE_H265_SESSION_PARAMETERS_ADD_INFO_KHR => {
+                    Some("VIDEO_ENCODE_H265_SESSION_PARAMETERS_ADD_INFO_KHR")
                 }
                 Self::VIDEO_ENCODE_H265_PICTURE_INFO_KHR => {
                     Some("VIDEO_ENCODE_H265_PICTURE_INFO_KHR")
                 }
+                Self::VIDEO_ENCODE_H265_DPB_SLOT_INFO_KHR => {
+                    Some("VIDEO_ENCODE_H265_DPB_SLOT_INFO_KHR")
+                }
+                Self::VIDEO_ENCODE_H265_NALU_SLICE_SEGMENT_INFO_KHR => {
+                    Some("VIDEO_ENCODE_H265_NALU_SLICE_SEGMENT_INFO_KHR")
+                }
+                Self::VIDEO_ENCODE_H265_GOP_REMAINING_FRAME_INFO_KHR => {
+                    Some("VIDEO_ENCODE_H265_GOP_REMAINING_FRAME_INFO_KHR")
+                }
                 Self::VIDEO_ENCODE_H265_PROFILE_INFO_KHR => {
                     Some("VIDEO_ENCODE_H265_PROFILE_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H265_QUALITY_LEVEL_PROPERTIES_KHR => {
-                    Some("VIDEO_ENCODE_H265_QUALITY_LEVEL_PROPERTIES_KHR")
-                }
-                Self::VIDEO_ENCODE_H265_QUANTIZATION_MAP_CAPABILITIES_KHR => {
-                    Some("VIDEO_ENCODE_H265_QUANTIZATION_MAP_CAPABILITIES_KHR")
                 }
                 Self::VIDEO_ENCODE_H265_RATE_CONTROL_INFO_KHR => {
                     Some("VIDEO_ENCODE_H265_RATE_CONTROL_INFO_KHR")
@@ -11582,36 +11014,35 @@ pub(super) mod defs {
                 Self::VIDEO_ENCODE_H265_SESSION_CREATE_INFO_KHR => {
                     Some("VIDEO_ENCODE_H265_SESSION_CREATE_INFO_KHR")
                 }
-                Self::VIDEO_ENCODE_H265_SESSION_PARAMETERS_ADD_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H265_SESSION_PARAMETERS_ADD_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H265_SESSION_PARAMETERS_FEEDBACK_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H265_SESSION_PARAMETERS_FEEDBACK_INFO_KHR")
+                Self::VIDEO_ENCODE_H265_QUALITY_LEVEL_PROPERTIES_KHR => {
+                    Some("VIDEO_ENCODE_H265_QUALITY_LEVEL_PROPERTIES_KHR")
                 }
                 Self::VIDEO_ENCODE_H265_SESSION_PARAMETERS_GET_INFO_KHR => {
                     Some("VIDEO_ENCODE_H265_SESSION_PARAMETERS_GET_INFO_KHR")
                 }
-                Self::VIDEO_ENCODE_INFO_KHR => Some("VIDEO_ENCODE_INFO_KHR"),
+                Self::VIDEO_ENCODE_H265_SESSION_PARAMETERS_FEEDBACK_INFO_KHR => {
+                    Some("VIDEO_ENCODE_H265_SESSION_PARAMETERS_FEEDBACK_INFO_KHR")
+                }
                 Self::VIDEO_ENCODE_INTRA_REFRESH_CAPABILITIES_KHR => {
                     Some("VIDEO_ENCODE_INTRA_REFRESH_CAPABILITIES_KHR")
+                }
+                Self::VIDEO_ENCODE_SESSION_INTRA_REFRESH_CREATE_INFO_KHR => {
+                    Some("VIDEO_ENCODE_SESSION_INTRA_REFRESH_CREATE_INFO_KHR")
                 }
                 Self::VIDEO_ENCODE_INTRA_REFRESH_INFO_KHR => {
                     Some("VIDEO_ENCODE_INTRA_REFRESH_INFO_KHR")
                 }
-                Self::VIDEO_ENCODE_PROFILE_RGB_CONVERSION_INFO_VALVE => {
-                    Some("VIDEO_ENCODE_PROFILE_RGB_CONVERSION_INFO_VALVE")
+                Self::VIDEO_REFERENCE_INTRA_REFRESH_INFO_KHR => {
+                    Some("VIDEO_REFERENCE_INTRA_REFRESH_INFO_KHR")
                 }
-                Self::VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR => {
-                    Some("VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR => {
-                    Some("VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR")
+                Self::PHYSICAL_DEVICE_VIDEO_ENCODE_INTRA_REFRESH_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_VIDEO_ENCODE_INTRA_REFRESH_FEATURES_KHR")
                 }
                 Self::VIDEO_ENCODE_QUANTIZATION_MAP_CAPABILITIES_KHR => {
                     Some("VIDEO_ENCODE_QUANTIZATION_MAP_CAPABILITIES_KHR")
+                }
+                Self::VIDEO_FORMAT_QUANTIZATION_MAP_PROPERTIES_KHR => {
+                    Some("VIDEO_FORMAT_QUANTIZATION_MAP_PROPERTIES_KHR")
                 }
                 Self::VIDEO_ENCODE_QUANTIZATION_MAP_INFO_KHR => {
                     Some("VIDEO_ENCODE_QUANTIZATION_MAP_INFO_KHR")
@@ -11619,87 +11050,921 @@ pub(super) mod defs {
                 Self::VIDEO_ENCODE_QUANTIZATION_MAP_SESSION_PARAMETERS_CREATE_INFO_KHR => {
                     Some("VIDEO_ENCODE_QUANTIZATION_MAP_SESSION_PARAMETERS_CREATE_INFO_KHR")
                 }
+                Self::PHYSICAL_DEVICE_VIDEO_ENCODE_QUANTIZATION_MAP_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_VIDEO_ENCODE_QUANTIZATION_MAP_FEATURES_KHR")
+                }
+                Self::VIDEO_ENCODE_H264_QUANTIZATION_MAP_CAPABILITIES_KHR => {
+                    Some("VIDEO_ENCODE_H264_QUANTIZATION_MAP_CAPABILITIES_KHR")
+                }
+                Self::VIDEO_ENCODE_H265_QUANTIZATION_MAP_CAPABILITIES_KHR => {
+                    Some("VIDEO_ENCODE_H265_QUANTIZATION_MAP_CAPABILITIES_KHR")
+                }
+                Self::VIDEO_FORMAT_H265_QUANTIZATION_MAP_PROPERTIES_KHR => {
+                    Some("VIDEO_FORMAT_H265_QUANTIZATION_MAP_PROPERTIES_KHR")
+                }
+                Self::VIDEO_ENCODE_AV1_QUANTIZATION_MAP_CAPABILITIES_KHR => {
+                    Some("VIDEO_ENCODE_AV1_QUANTIZATION_MAP_CAPABILITIES_KHR")
+                }
+                Self::VIDEO_FORMAT_AV1_QUANTIZATION_MAP_PROPERTIES_KHR => {
+                    Some("VIDEO_FORMAT_AV1_QUANTIZATION_MAP_PROPERTIES_KHR")
+                }
+                Self::VIDEO_ENCODE_INFO_KHR => Some("VIDEO_ENCODE_INFO_KHR"),
                 Self::VIDEO_ENCODE_RATE_CONTROL_INFO_KHR => {
                     Some("VIDEO_ENCODE_RATE_CONTROL_INFO_KHR")
                 }
                 Self::VIDEO_ENCODE_RATE_CONTROL_LAYER_INFO_KHR => {
                     Some("VIDEO_ENCODE_RATE_CONTROL_LAYER_INFO_KHR")
                 }
-                Self::VIDEO_ENCODE_RGB_CONVERSION_CAPABILITIES_VALVE => {
-                    Some("VIDEO_ENCODE_RGB_CONVERSION_CAPABILITIES_VALVE")
+                Self::VIDEO_ENCODE_CAPABILITIES_KHR => Some("VIDEO_ENCODE_CAPABILITIES_KHR"),
+                Self::VIDEO_ENCODE_USAGE_INFO_KHR => Some("VIDEO_ENCODE_USAGE_INFO_KHR"),
+                Self::QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR => {
+                    Some("QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR")
                 }
-                Self::VIDEO_ENCODE_SESSION_INTRA_REFRESH_CREATE_INFO_KHR => {
-                    Some("VIDEO_ENCODE_SESSION_INTRA_REFRESH_CREATE_INFO_KHR")
+                Self::PHYSICAL_DEVICE_VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR => {
+                    Some("PHYSICAL_DEVICE_VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR")
                 }
-                Self::VIDEO_ENCODE_SESSION_PARAMETERS_FEEDBACK_INFO_KHR => {
-                    Some("VIDEO_ENCODE_SESSION_PARAMETERS_FEEDBACK_INFO_KHR")
+                Self::VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR => {
+                    Some("VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR")
+                }
+                Self::VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR => {
+                    Some("VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR")
                 }
                 Self::VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR => {
                     Some("VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR")
                 }
-                Self::VIDEO_ENCODE_SESSION_RGB_CONVERSION_CREATE_INFO_VALVE => {
-                    Some("VIDEO_ENCODE_SESSION_RGB_CONVERSION_CREATE_INFO_VALVE")
+                Self::VIDEO_ENCODE_SESSION_PARAMETERS_FEEDBACK_INFO_KHR => {
+                    Some("VIDEO_ENCODE_SESSION_PARAMETERS_FEEDBACK_INFO_KHR")
                 }
-                Self::VIDEO_ENCODE_USAGE_INFO_KHR => Some("VIDEO_ENCODE_USAGE_INFO_KHR"),
-                Self::VIDEO_END_CODING_INFO_KHR => Some("VIDEO_END_CODING_INFO_KHR"),
-                Self::VIDEO_FORMAT_AV1_QUANTIZATION_MAP_PROPERTIES_KHR => {
-                    Some("VIDEO_FORMAT_AV1_QUANTIZATION_MAP_PROPERTIES_KHR")
-                }
-                Self::VIDEO_FORMAT_H265_QUANTIZATION_MAP_PROPERTIES_KHR => {
-                    Some("VIDEO_FORMAT_H265_QUANTIZATION_MAP_PROPERTIES_KHR")
-                }
-                Self::VIDEO_FORMAT_PROPERTIES_KHR => Some("VIDEO_FORMAT_PROPERTIES_KHR"),
-                Self::VIDEO_FORMAT_QUANTIZATION_MAP_PROPERTIES_KHR => {
-                    Some("VIDEO_FORMAT_QUANTIZATION_MAP_PROPERTIES_KHR")
+                Self::PHYSICAL_DEVICE_VIDEO_MAINTENANCE_1_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_VIDEO_MAINTENANCE_1_FEATURES_KHR")
                 }
                 Self::VIDEO_INLINE_QUERY_INFO_KHR => Some("VIDEO_INLINE_QUERY_INFO_KHR"),
-                Self::VIDEO_PICTURE_RESOURCE_INFO_KHR => Some("VIDEO_PICTURE_RESOURCE_INFO_KHR"),
-                Self::VIDEO_PROFILE_INFO_KHR => Some("VIDEO_PROFILE_INFO_KHR"),
-                Self::VIDEO_PROFILE_LIST_INFO_KHR => Some("VIDEO_PROFILE_LIST_INFO_KHR"),
-                Self::VIDEO_REFERENCE_INTRA_REFRESH_INFO_KHR => {
-                    Some("VIDEO_REFERENCE_INTRA_REFRESH_INFO_KHR")
+                Self::PHYSICAL_DEVICE_VIDEO_MAINTENANCE_2_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_VIDEO_MAINTENANCE_2_FEATURES_KHR")
                 }
-                Self::VIDEO_REFERENCE_SLOT_INFO_KHR => Some("VIDEO_REFERENCE_SLOT_INFO_KHR"),
-                Self::VIDEO_SESSION_CREATE_INFO_KHR => Some("VIDEO_SESSION_CREATE_INFO_KHR"),
+                Self::VIDEO_DECODE_H264_INLINE_SESSION_PARAMETERS_INFO_KHR => {
+                    Some("VIDEO_DECODE_H264_INLINE_SESSION_PARAMETERS_INFO_KHR")
+                }
+                Self::VIDEO_DECODE_H265_INLINE_SESSION_PARAMETERS_INFO_KHR => {
+                    Some("VIDEO_DECODE_H265_INLINE_SESSION_PARAMETERS_INFO_KHR")
+                }
+                Self::VIDEO_DECODE_AV1_INLINE_SESSION_PARAMETERS_INFO_KHR => {
+                    Some("VIDEO_DECODE_AV1_INLINE_SESSION_PARAMETERS_INFO_KHR")
+                }
+                Self::VIDEO_PROFILE_INFO_KHR => Some("VIDEO_PROFILE_INFO_KHR"),
+                Self::VIDEO_CAPABILITIES_KHR => Some("VIDEO_CAPABILITIES_KHR"),
+                Self::VIDEO_PICTURE_RESOURCE_INFO_KHR => Some("VIDEO_PICTURE_RESOURCE_INFO_KHR"),
                 Self::VIDEO_SESSION_MEMORY_REQUIREMENTS_KHR => {
                     Some("VIDEO_SESSION_MEMORY_REQUIREMENTS_KHR")
                 }
+                Self::BIND_VIDEO_SESSION_MEMORY_INFO_KHR => {
+                    Some("BIND_VIDEO_SESSION_MEMORY_INFO_KHR")
+                }
+                Self::VIDEO_SESSION_CREATE_INFO_KHR => Some("VIDEO_SESSION_CREATE_INFO_KHR"),
                 Self::VIDEO_SESSION_PARAMETERS_CREATE_INFO_KHR => {
                     Some("VIDEO_SESSION_PARAMETERS_CREATE_INFO_KHR")
                 }
                 Self::VIDEO_SESSION_PARAMETERS_UPDATE_INFO_KHR => {
                     Some("VIDEO_SESSION_PARAMETERS_UPDATE_INFO_KHR")
                 }
-                Self::VI_SURFACE_CREATE_INFO_NN => Some("VI_SURFACE_CREATE_INFO_NN"),
+                Self::VIDEO_BEGIN_CODING_INFO_KHR => Some("VIDEO_BEGIN_CODING_INFO_KHR"),
+                Self::VIDEO_END_CODING_INFO_KHR => Some("VIDEO_END_CODING_INFO_KHR"),
+                Self::VIDEO_CODING_CONTROL_INFO_KHR => Some("VIDEO_CODING_CONTROL_INFO_KHR"),
+                Self::VIDEO_REFERENCE_SLOT_INFO_KHR => Some("VIDEO_REFERENCE_SLOT_INFO_KHR"),
+                Self::QUEUE_FAMILY_VIDEO_PROPERTIES_KHR => {
+                    Some("QUEUE_FAMILY_VIDEO_PROPERTIES_KHR")
+                }
+                Self::VIDEO_PROFILE_LIST_INFO_KHR => Some("VIDEO_PROFILE_LIST_INFO_KHR"),
+                Self::PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR => {
+                    Some("PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR")
+                }
+                Self::VIDEO_FORMAT_PROPERTIES_KHR => Some("VIDEO_FORMAT_PROPERTIES_KHR"),
+                Self::QUEUE_FAMILY_QUERY_RESULT_STATUS_PROPERTIES_KHR => {
+                    Some("QUEUE_FAMILY_QUERY_RESULT_STATUS_PROPERTIES_KHR")
+                }
                 Self::WAYLAND_SURFACE_CREATE_INFO_KHR => Some("WAYLAND_SURFACE_CREATE_INFO_KHR"),
                 Self::WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_KHR => {
                     Some("WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_KHR")
                 }
-                Self::WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_NV => {
-                    Some("WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_NV")
-                }
                 Self::WIN32_SURFACE_CREATE_INFO_KHR => Some("WIN32_SURFACE_CREATE_INFO_KHR"),
-                Self::WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_KHR => {
-                    Some("WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_KHR")
+                Self::PHYSICAL_DEVICE_WORKGROUP_MEMORY_EXPLICIT_LAYOUT_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_WORKGROUP_MEMORY_EXPLICIT_LAYOUT_FEATURES_KHR")
                 }
-                Self::WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_NV => {
-                    Some("WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_NV")
+                Self::XCB_SURFACE_CREATE_INFO_KHR => Some("XCB_SURFACE_CREATE_INFO_KHR"),
+                Self::XLIB_SURFACE_CREATE_INFO_KHR => Some("XLIB_SURFACE_CREATE_INFO_KHR"),
+                Self::DIRECT_DRIVER_LOADING_INFO_LUNARG => {
+                    Some("DIRECT_DRIVER_LOADING_INFO_LUNARG")
                 }
-                Self::WRITE_DESCRIPTOR_SET_INLINE_UNIFORM_BLOCK => {
-                    Some("WRITE_DESCRIPTOR_SET_INLINE_UNIFORM_BLOCK")
+                Self::DIRECT_DRIVER_LOADING_LIST_LUNARG => {
+                    Some("DIRECT_DRIVER_LOADING_LIST_LUNARG")
+                }
+                Self::PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_FEATURES_MESA => {
+                    Some("PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_FEATURES_MESA")
+                }
+                Self::PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_PROPERTIES_MESA => {
+                    Some("PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_PROPERTIES_MESA")
+                }
+                Self::IMAGE_ALIGNMENT_CONTROL_CREATE_INFO_MESA => {
+                    Some("IMAGE_ALIGNMENT_CONTROL_CREATE_INFO_MESA")
+                }
+                Self::PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT => {
+                    Some("PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT")
+                }
+                Self::IOS_SURFACE_CREATE_INFO_MVK => Some("IOS_SURFACE_CREATE_INFO_MVK"),
+                Self::MACOS_SURFACE_CREATE_INFO_MVK => Some("MACOS_SURFACE_CREATE_INFO_MVK"),
+                Self::VI_SURFACE_CREATE_INFO_NN => Some("VI_SURFACE_CREATE_INFO_NN"),
+                Self::CU_MODULE_CREATE_INFO_NVX => Some("CU_MODULE_CREATE_INFO_NVX"),
+                Self::CU_FUNCTION_CREATE_INFO_NVX => Some("CU_FUNCTION_CREATE_INFO_NVX"),
+                Self::CU_LAUNCH_INFO_NVX => Some("CU_LAUNCH_INFO_NVX"),
+                Self::CU_MODULE_TEXTURING_MODE_CREATE_INFO_NVX => {
+                    Some("CU_MODULE_TEXTURING_MODE_CREATE_INFO_NVX")
+                }
+                Self::IMAGE_VIEW_HANDLE_INFO_NVX => Some("IMAGE_VIEW_HANDLE_INFO_NVX"),
+                Self::IMAGE_VIEW_ADDRESS_PROPERTIES_NVX => {
+                    Some("IMAGE_VIEW_ADDRESS_PROPERTIES_NVX")
+                }
+                Self::PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_ATTRIBUTES_PROPERTIES_NVX => {
+                    Some("PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_ATTRIBUTES_PROPERTIES_NVX")
+                }
+                Self::MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX => {
+                    Some("MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX")
+                }
+                Self::PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV => {
+                    Some("PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV")
+                }
+                Self::PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_FEATURES_NV")
+                }
+                Self::PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_PROPERTIES_NV => {
+                    Some("PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_PROPERTIES_NV")
+                }
+                Self::CLUSTER_ACCELERATION_STRUCTURE_CLUSTERS_BOTTOM_LEVEL_INPUT_NV => {
+                    Some("CLUSTER_ACCELERATION_STRUCTURE_CLUSTERS_BOTTOM_LEVEL_INPUT_NV")
+                }
+                Self::CLUSTER_ACCELERATION_STRUCTURE_TRIANGLE_CLUSTER_INPUT_NV => {
+                    Some("CLUSTER_ACCELERATION_STRUCTURE_TRIANGLE_CLUSTER_INPUT_NV")
+                }
+                Self::CLUSTER_ACCELERATION_STRUCTURE_MOVE_OBJECTS_INPUT_NV => {
+                    Some("CLUSTER_ACCELERATION_STRUCTURE_MOVE_OBJECTS_INPUT_NV")
+                }
+                Self::CLUSTER_ACCELERATION_STRUCTURE_INPUT_INFO_NV => {
+                    Some("CLUSTER_ACCELERATION_STRUCTURE_INPUT_INFO_NV")
+                }
+                Self::CLUSTER_ACCELERATION_STRUCTURE_COMMANDS_INFO_NV => {
+                    Some("CLUSTER_ACCELERATION_STRUCTURE_COMMANDS_INFO_NV")
+                }
+                Self::RAY_TRACING_PIPELINE_CLUSTER_ACCELERATION_STRUCTURE_CREATE_INFO_NV => {
+                    Some("RAY_TRACING_PIPELINE_CLUSTER_ACCELERATION_STRUCTURE_CREATE_INFO_NV")
+                }
+                Self::PHYSICAL_DEVICE_COMMAND_BUFFER_INHERITANCE_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_COMMAND_BUFFER_INHERITANCE_FEATURES_NV")
+                }
+                Self::COMPUTE_OCCUPANCY_PRIORITY_PARAMETERS_NV => {
+                    Some("COMPUTE_OCCUPANCY_PRIORITY_PARAMETERS_NV")
+                }
+                Self::PHYSICAL_DEVICE_COMPUTE_OCCUPANCY_PRIORITY_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_COMPUTE_OCCUPANCY_PRIORITY_FEATURES_NV")
+                }
+                Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_NV")
+                }
+                Self::COOPERATIVE_MATRIX_PROPERTIES_NV => Some("COOPERATIVE_MATRIX_PROPERTIES_NV"),
+                Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_NV => {
+                    Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_NV")
+                }
+                Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_FEATURES_NV")
+                }
+                Self::COOPERATIVE_MATRIX_FLEXIBLE_DIMENSIONS_PROPERTIES_NV => {
+                    Some("COOPERATIVE_MATRIX_FLEXIBLE_DIMENSIONS_PROPERTIES_NV")
+                }
+                Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_PROPERTIES_NV => {
+                    Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_PROPERTIES_NV")
+                }
+                Self::PHYSICAL_DEVICE_COOPERATIVE_VECTOR_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_COOPERATIVE_VECTOR_FEATURES_NV")
+                }
+                Self::PHYSICAL_DEVICE_COOPERATIVE_VECTOR_PROPERTIES_NV => {
+                    Some("PHYSICAL_DEVICE_COOPERATIVE_VECTOR_PROPERTIES_NV")
+                }
+                Self::COOPERATIVE_VECTOR_PROPERTIES_NV => Some("COOPERATIVE_VECTOR_PROPERTIES_NV"),
+                Self::CONVERT_COOPERATIVE_VECTOR_MATRIX_INFO_NV => {
+                    Some("CONVERT_COOPERATIVE_VECTOR_MATRIX_INFO_NV")
+                }
+                Self::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_NV")
+                }
+                Self::PHYSICAL_DEVICE_CORNER_SAMPLED_IMAGE_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_CORNER_SAMPLED_IMAGE_FEATURES_NV")
+                }
+                Self::PHYSICAL_DEVICE_COVERAGE_REDUCTION_MODE_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_COVERAGE_REDUCTION_MODE_FEATURES_NV")
+                }
+                Self::PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV => {
+                    Some("PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV")
+                }
+                Self::FRAMEBUFFER_MIXED_SAMPLES_COMBINATION_NV => {
+                    Some("FRAMEBUFFER_MIXED_SAMPLES_COMBINATION_NV")
+                }
+                Self::CUDA_MODULE_CREATE_INFO_NV => Some("CUDA_MODULE_CREATE_INFO_NV"),
+                Self::CUDA_FUNCTION_CREATE_INFO_NV => Some("CUDA_FUNCTION_CREATE_INFO_NV"),
+                Self::CUDA_LAUNCH_INFO_NV => Some("CUDA_LAUNCH_INFO_NV"),
+                Self::PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_FEATURES_NV")
+                }
+                Self::PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_PROPERTIES_NV => {
+                    Some("PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_PROPERTIES_NV")
+                }
+                Self::DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV => {
+                    Some("DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV")
+                }
+                Self::DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV => {
+                    Some("DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV")
+                }
+                Self::DEDICATED_ALLOCATION_MEMORY_ALLOCATE_INFO_NV => {
+                    Some("DEDICATED_ALLOCATION_MEMORY_ALLOCATE_INFO_NV")
+                }
+                Self::PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV")
+                }
+                Self::PHYSICAL_DEVICE_DESCRIPTOR_POOL_OVERALLOCATION_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_DESCRIPTOR_POOL_OVERALLOCATION_FEATURES_NV")
+                }
+                Self::CHECKPOINT_DATA_NV => Some("CHECKPOINT_DATA_NV"),
+                Self::QUEUE_FAMILY_CHECKPOINT_PROPERTIES_NV => {
+                    Some("QUEUE_FAMILY_CHECKPOINT_PROPERTIES_NV")
+                }
+                Self::QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV => {
+                    Some("QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV")
+                }
+                Self::CHECKPOINT_DATA_2_NV => Some("CHECKPOINT_DATA_2_NV"),
+                Self::PHYSICAL_DEVICE_DIAGNOSTICS_CONFIG_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_DIAGNOSTICS_CONFIG_FEATURES_NV")
+                }
+                Self::DEVICE_DIAGNOSTICS_CONFIG_CREATE_INFO_NV => {
+                    Some("DEVICE_DIAGNOSTICS_CONFIG_CREATE_INFO_NV")
+                }
+                Self::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_NV => {
+                    Some("PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_NV")
+                }
+                Self::GRAPHICS_SHADER_GROUP_CREATE_INFO_NV => {
+                    Some("GRAPHICS_SHADER_GROUP_CREATE_INFO_NV")
+                }
+                Self::GRAPHICS_PIPELINE_SHADER_GROUPS_CREATE_INFO_NV => {
+                    Some("GRAPHICS_PIPELINE_SHADER_GROUPS_CREATE_INFO_NV")
+                }
+                Self::INDIRECT_COMMANDS_LAYOUT_TOKEN_NV => {
+                    Some("INDIRECT_COMMANDS_LAYOUT_TOKEN_NV")
+                }
+                Self::INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_NV => {
+                    Some("INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_NV")
+                }
+                Self::GENERATED_COMMANDS_INFO_NV => Some("GENERATED_COMMANDS_INFO_NV"),
+                Self::GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_NV => {
+                    Some("GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_NV")
+                }
+                Self::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_NV")
+                }
+                Self::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV")
+                }
+                Self::COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV => {
+                    Some("COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV")
+                }
+                Self::PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV => {
+                    Some("PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV")
+                }
+                Self::PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV")
+                }
+                Self::PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_PROPERTIES_NV => {
+                    Some("PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_PROPERTIES_NV")
+                }
+                Self::ACCELERATION_STRUCTURE_TRIANGLES_DISPLACEMENT_MICROMAP_NV => {
+                    Some("ACCELERATION_STRUCTURE_TRIANGLES_DISPLACEMENT_MICROMAP_NV")
+                }
+                Self::DISPLAY_SURFACE_STEREO_CREATE_INFO_NV => {
+                    Some("DISPLAY_SURFACE_STEREO_CREATE_INFO_NV")
+                }
+                Self::DISPLAY_MODE_STEREO_PROPERTIES_NV => {
+                    Some("DISPLAY_MODE_STEREO_PROPERTIES_NV")
+                }
+                Self::PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_FEATURES_NV")
+                }
+                Self::PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_PROPERTIES_NV => {
+                    Some("PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_PROPERTIES_NV")
+                }
+                Self::EXTERNAL_COMPUTE_QUEUE_DEVICE_CREATE_INFO_NV => {
+                    Some("EXTERNAL_COMPUTE_QUEUE_DEVICE_CREATE_INFO_NV")
+                }
+                Self::EXTERNAL_COMPUTE_QUEUE_CREATE_INFO_NV => {
+                    Some("EXTERNAL_COMPUTE_QUEUE_CREATE_INFO_NV")
+                }
+                Self::EXTERNAL_COMPUTE_QUEUE_DATA_PARAMS_NV => {
+                    Some("EXTERNAL_COMPUTE_QUEUE_DATA_PARAMS_NV")
+                }
+                Self::PHYSICAL_DEVICE_EXTERNAL_COMPUTE_QUEUE_PROPERTIES_NV => {
+                    Some("PHYSICAL_DEVICE_EXTERNAL_COMPUTE_QUEUE_PROPERTIES_NV")
+                }
+                Self::EXTERNAL_MEMORY_IMAGE_CREATE_INFO_NV => {
+                    Some("EXTERNAL_MEMORY_IMAGE_CREATE_INFO_NV")
+                }
+                Self::EXPORT_MEMORY_ALLOCATE_INFO_NV => Some("EXPORT_MEMORY_ALLOCATE_INFO_NV"),
+                Self::MEMORY_GET_REMOTE_ADDRESS_INFO_NV => {
+                    Some("MEMORY_GET_REMOTE_ADDRESS_INFO_NV")
+                }
+                Self::PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV")
+                }
+                Self::IMPORT_MEMORY_WIN32_HANDLE_INFO_NV => {
+                    Some("IMPORT_MEMORY_WIN32_HANDLE_INFO_NV")
+                }
+                Self::EXPORT_MEMORY_WIN32_HANDLE_INFO_NV => {
+                    Some("EXPORT_MEMORY_WIN32_HANDLE_INFO_NV")
+                }
+                Self::PIPELINE_COVERAGE_TO_COLOR_STATE_CREATE_INFO_NV => {
+                    Some("PIPELINE_COVERAGE_TO_COLOR_STATE_CREATE_INFO_NV")
+                }
+                Self::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_PROPERTIES_NV => {
+                    Some("PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_PROPERTIES_NV")
+                }
+                Self::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_FEATURES_NV")
+                }
+                Self::PIPELINE_FRAGMENT_SHADING_RATE_ENUM_STATE_CREATE_INFO_NV => {
+                    Some("PIPELINE_FRAGMENT_SHADING_RATE_ENUM_STATE_CREATE_INFO_NV")
+                }
+                Self::PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV => {
+                    Some("PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV")
+                }
+                Self::PHYSICAL_DEVICE_INHERITED_VIEWPORT_SCISSOR_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_INHERITED_VIEWPORT_SCISSOR_FEATURES_NV")
+                }
+                Self::COMMAND_BUFFER_INHERITANCE_VIEWPORT_SCISSOR_INFO_NV => {
+                    Some("COMMAND_BUFFER_INHERITANCE_VIEWPORT_SCISSOR_INFO_NV")
+                }
+                Self::PHYSICAL_DEVICE_LINEAR_COLOR_ATTACHMENT_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_LINEAR_COLOR_ATTACHMENT_FEATURES_NV")
+                }
+                Self::QUERY_LOW_LATENCY_SUPPORT_NV => Some("QUERY_LOW_LATENCY_SUPPORT_NV"),
+                Self::LATENCY_SLEEP_MODE_INFO_NV => Some("LATENCY_SLEEP_MODE_INFO_NV"),
+                Self::LATENCY_SLEEP_INFO_NV => Some("LATENCY_SLEEP_INFO_NV"),
+                Self::SET_LATENCY_MARKER_INFO_NV => Some("SET_LATENCY_MARKER_INFO_NV"),
+                Self::GET_LATENCY_MARKER_INFO_NV => Some("GET_LATENCY_MARKER_INFO_NV"),
+                Self::LATENCY_TIMINGS_FRAME_REPORT_NV => Some("LATENCY_TIMINGS_FRAME_REPORT_NV"),
+                Self::LATENCY_SUBMISSION_PRESENT_ID_NV => Some("LATENCY_SUBMISSION_PRESENT_ID_NV"),
+                Self::OUT_OF_BAND_QUEUE_TYPE_INFO_NV => Some("OUT_OF_BAND_QUEUE_TYPE_INFO_NV"),
+                Self::SWAPCHAIN_LATENCY_CREATE_INFO_NV => Some("SWAPCHAIN_LATENCY_CREATE_INFO_NV"),
+                Self::LATENCY_SURFACE_CAPABILITIES_NV => Some("LATENCY_SURFACE_CAPABILITIES_NV"),
+                Self::PHYSICAL_DEVICE_MESH_SHADER_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_MESH_SHADER_FEATURES_NV")
+                }
+                Self::PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV => {
+                    Some("PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV")
+                }
+                Self::PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV")
+                }
+                Self::PHYSICAL_DEVICE_OPTICAL_FLOW_PROPERTIES_NV => {
+                    Some("PHYSICAL_DEVICE_OPTICAL_FLOW_PROPERTIES_NV")
+                }
+                Self::OPTICAL_FLOW_IMAGE_FORMAT_INFO_NV => {
+                    Some("OPTICAL_FLOW_IMAGE_FORMAT_INFO_NV")
+                }
+                Self::OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_NV => {
+                    Some("OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_NV")
+                }
+                Self::OPTICAL_FLOW_SESSION_CREATE_INFO_NV => {
+                    Some("OPTICAL_FLOW_SESSION_CREATE_INFO_NV")
+                }
+                Self::OPTICAL_FLOW_EXECUTE_INFO_NV => Some("OPTICAL_FLOW_EXECUTE_INFO_NV"),
+                Self::OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV => {
+                    Some("OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV")
+                }
+                Self::PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_FEATURES_NV")
+                }
+                Self::PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_PROPERTIES_NV => {
+                    Some("PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_PROPERTIES_NV")
                 }
                 Self::WRITE_DESCRIPTOR_SET_PARTITIONED_ACCELERATION_STRUCTURE_NV => {
                     Some("WRITE_DESCRIPTOR_SET_PARTITIONED_ACCELERATION_STRUCTURE_NV")
                 }
-                Self::WRITE_DESCRIPTOR_SET_TENSOR_ARM => Some("WRITE_DESCRIPTOR_SET_TENSOR_ARM"),
-                Self::WRITE_INDIRECT_EXECUTION_SET_PIPELINE_EXT => {
-                    Some("WRITE_INDIRECT_EXECUTION_SET_PIPELINE_EXT")
+                Self::PARTITIONED_ACCELERATION_STRUCTURE_INSTANCES_INPUT_NV => {
+                    Some("PARTITIONED_ACCELERATION_STRUCTURE_INSTANCES_INPUT_NV")
                 }
-                Self::WRITE_INDIRECT_EXECUTION_SET_SHADER_EXT => {
-                    Some("WRITE_INDIRECT_EXECUTION_SET_SHADER_EXT")
+                Self::BUILD_PARTITIONED_ACCELERATION_STRUCTURE_INFO_NV => {
+                    Some("BUILD_PARTITIONED_ACCELERATION_STRUCTURE_INFO_NV")
                 }
-                Self::XCB_SURFACE_CREATE_INFO_KHR => Some("XCB_SURFACE_CREATE_INFO_KHR"),
-                Self::XLIB_SURFACE_CREATE_INFO_KHR => Some("XLIB_SURFACE_CREATE_INFO_KHR"),
+                Self::PARTITIONED_ACCELERATION_STRUCTURE_FLAGS_NV => {
+                    Some("PARTITIONED_ACCELERATION_STRUCTURE_FLAGS_NV")
+                }
+                Self::PHYSICAL_DEVICE_PER_STAGE_DESCRIPTOR_SET_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_PER_STAGE_DESCRIPTOR_SET_FEATURES_NV")
+                }
+                Self::PHYSICAL_DEVICE_PRESENT_BARRIER_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_PRESENT_BARRIER_FEATURES_NV")
+                }
+                Self::SURFACE_CAPABILITIES_PRESENT_BARRIER_NV => {
+                    Some("SURFACE_CAPABILITIES_PRESENT_BARRIER_NV")
+                }
+                Self::SWAPCHAIN_PRESENT_BARRIER_CREATE_INFO_NV => {
+                    Some("SWAPCHAIN_PRESENT_BARRIER_CREATE_INFO_NV")
+                }
+                Self::SET_PRESENT_CONFIG_NV => Some("SET_PRESENT_CONFIG_NV"),
+                Self::PHYSICAL_DEVICE_PRESENT_METERING_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_PRESENT_METERING_FEATURES_NV")
+                }
+                Self::PUSH_CONSTANT_BANK_INFO_NV => Some("PUSH_CONSTANT_BANK_INFO_NV"),
+                Self::PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_FEATURES_NV")
+                }
+                Self::PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_PROPERTIES_NV => {
+                    Some("PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_PROPERTIES_NV")
+                }
+                Self::PHYSICAL_DEVICE_RAW_ACCESS_CHAINS_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_RAW_ACCESS_CHAINS_FEATURES_NV")
+                }
+                Self::RAY_TRACING_PIPELINE_CREATE_INFO_NV => {
+                    Some("RAY_TRACING_PIPELINE_CREATE_INFO_NV")
+                }
+                Self::ACCELERATION_STRUCTURE_CREATE_INFO_NV => {
+                    Some("ACCELERATION_STRUCTURE_CREATE_INFO_NV")
+                }
+                Self::GEOMETRY_NV => Some("GEOMETRY_NV"),
+                Self::GEOMETRY_TRIANGLES_NV => Some("GEOMETRY_TRIANGLES_NV"),
+                Self::GEOMETRY_AABB_NV => Some("GEOMETRY_AABB_NV"),
+                Self::BIND_ACCELERATION_STRUCTURE_MEMORY_INFO_NV => {
+                    Some("BIND_ACCELERATION_STRUCTURE_MEMORY_INFO_NV")
+                }
+                Self::WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_NV => {
+                    Some("WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_NV")
+                }
+                Self::ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV => {
+                    Some("ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV")
+                }
+                Self::PHYSICAL_DEVICE_RAY_TRACING_PROPERTIES_NV => {
+                    Some("PHYSICAL_DEVICE_RAY_TRACING_PROPERTIES_NV")
+                }
+                Self::RAY_TRACING_SHADER_GROUP_CREATE_INFO_NV => {
+                    Some("RAY_TRACING_SHADER_GROUP_CREATE_INFO_NV")
+                }
+                Self::ACCELERATION_STRUCTURE_INFO_NV => Some("ACCELERATION_STRUCTURE_INFO_NV"),
+                Self::PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_NV")
+                }
+                Self::PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_NV => {
+                    Some("PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_NV")
+                }
+                Self::PHYSICAL_DEVICE_RAY_TRACING_LINEAR_SWEPT_SPHERES_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_RAY_TRACING_LINEAR_SWEPT_SPHERES_FEATURES_NV")
+                }
+                Self::ACCELERATION_STRUCTURE_GEOMETRY_LINEAR_SWEPT_SPHERES_DATA_NV => {
+                    Some("ACCELERATION_STRUCTURE_GEOMETRY_LINEAR_SWEPT_SPHERES_DATA_NV")
+                }
+                Self::ACCELERATION_STRUCTURE_GEOMETRY_SPHERES_DATA_NV => {
+                    Some("ACCELERATION_STRUCTURE_GEOMETRY_SPHERES_DATA_NV")
+                }
+                Self::ACCELERATION_STRUCTURE_GEOMETRY_MOTION_TRIANGLES_DATA_NV => {
+                    Some("ACCELERATION_STRUCTURE_GEOMETRY_MOTION_TRIANGLES_DATA_NV")
+                }
+                Self::PHYSICAL_DEVICE_RAY_TRACING_MOTION_BLUR_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_RAY_TRACING_MOTION_BLUR_FEATURES_NV")
+                }
+                Self::ACCELERATION_STRUCTURE_MOTION_INFO_NV => {
+                    Some("ACCELERATION_STRUCTURE_MOTION_INFO_NV")
+                }
+                Self::PHYSICAL_DEVICE_RAY_TRACING_VALIDATION_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_RAY_TRACING_VALIDATION_FEATURES_NV")
+                }
+                Self::PHYSICAL_DEVICE_REPRESENTATIVE_FRAGMENT_TEST_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_REPRESENTATIVE_FRAGMENT_TEST_FEATURES_NV")
+                }
+                Self::PIPELINE_REPRESENTATIVE_FRAGMENT_TEST_STATE_CREATE_INFO_NV => {
+                    Some("PIPELINE_REPRESENTATIVE_FRAGMENT_TEST_STATE_CREATE_INFO_NV")
+                }
+                Self::PIPELINE_VIEWPORT_EXCLUSIVE_SCISSOR_STATE_CREATE_INFO_NV => {
+                    Some("PIPELINE_VIEWPORT_EXCLUSIVE_SCISSOR_STATE_CREATE_INFO_NV")
+                }
+                Self::PHYSICAL_DEVICE_EXCLUSIVE_SCISSOR_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_EXCLUSIVE_SCISSOR_FEATURES_NV")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT16_VECTOR_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT16_VECTOR_FEATURES_NV")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_IMAGE_FOOTPRINT_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_SHADER_IMAGE_FOOTPRINT_FEATURES_NV")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_SM_BUILTINS_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_SHADER_SM_BUILTINS_FEATURES_NV")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_SM_BUILTINS_PROPERTIES_NV => {
+                    Some("PHYSICAL_DEVICE_SHADER_SM_BUILTINS_PROPERTIES_NV")
+                }
+                Self::PIPELINE_VIEWPORT_SHADING_RATE_IMAGE_STATE_CREATE_INFO_NV => {
+                    Some("PIPELINE_VIEWPORT_SHADING_RATE_IMAGE_STATE_CREATE_INFO_NV")
+                }
+                Self::PHYSICAL_DEVICE_SHADING_RATE_IMAGE_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_SHADING_RATE_IMAGE_FEATURES_NV")
+                }
+                Self::PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV => {
+                    Some("PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV")
+                }
+                Self::PIPELINE_VIEWPORT_COARSE_SAMPLE_ORDER_STATE_CREATE_INFO_NV => {
+                    Some("PIPELINE_VIEWPORT_COARSE_SAMPLE_ORDER_STATE_CREATE_INFO_NV")
+                }
+                Self::PIPELINE_VIEWPORT_SWIZZLE_STATE_CREATE_INFO_NV => {
+                    Some("PIPELINE_VIEWPORT_SWIZZLE_STATE_CREATE_INFO_NV")
+                }
+                Self::WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_NV => {
+                    Some("WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_NV")
+                }
+                Self::NATIVE_BUFFER_USAGE_OHOS => Some("NATIVE_BUFFER_USAGE_OHOS"),
+                Self::NATIVE_BUFFER_PROPERTIES_OHOS => Some("NATIVE_BUFFER_PROPERTIES_OHOS"),
+                Self::NATIVE_BUFFER_FORMAT_PROPERTIES_OHOS => {
+                    Some("NATIVE_BUFFER_FORMAT_PROPERTIES_OHOS")
+                }
+                Self::IMPORT_NATIVE_BUFFER_INFO_OHOS => Some("IMPORT_NATIVE_BUFFER_INFO_OHOS"),
+                Self::MEMORY_GET_NATIVE_BUFFER_INFO_OHOS => {
+                    Some("MEMORY_GET_NATIVE_BUFFER_INFO_OHOS")
+                }
+                Self::EXTERNAL_FORMAT_OHOS => Some("EXTERNAL_FORMAT_OHOS"),
+                Self::SURFACE_CREATE_INFO_OHOS => Some("SURFACE_CREATE_INFO_OHOS"),
+                Self::PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM => {
+                    Some("PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM")
+                }
+                Self::DATA_GRAPH_PIPELINE_BUILTIN_MODEL_CREATE_INFO_QCOM => {
+                    Some("DATA_GRAPH_PIPELINE_BUILTIN_MODEL_CREATE_INFO_QCOM")
+                }
+                Self::PHYSICAL_DEVICE_CUBIC_CLAMP_FEATURES_QCOM => {
+                    Some("PHYSICAL_DEVICE_CUBIC_CLAMP_FEATURES_QCOM")
+                }
+                Self::SAMPLER_CUBIC_WEIGHTS_CREATE_INFO_QCOM => {
+                    Some("SAMPLER_CUBIC_WEIGHTS_CREATE_INFO_QCOM")
+                }
+                Self::PHYSICAL_DEVICE_CUBIC_WEIGHTS_FEATURES_QCOM => {
+                    Some("PHYSICAL_DEVICE_CUBIC_WEIGHTS_FEATURES_QCOM")
+                }
+                Self::BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM => {
+                    Some("BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM")
+                }
+                Self::PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM => {
+                    Some("PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM")
+                }
+                Self::PHYSICAL_DEVICE_IMAGE_PROCESSING_PROPERTIES_QCOM => {
+                    Some("PHYSICAL_DEVICE_IMAGE_PROCESSING_PROPERTIES_QCOM")
+                }
+                Self::IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM => {
+                    Some("IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM")
+                }
+                Self::PHYSICAL_DEVICE_IMAGE_PROCESSING_2_FEATURES_QCOM => {
+                    Some("PHYSICAL_DEVICE_IMAGE_PROCESSING_2_FEATURES_QCOM")
+                }
+                Self::PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM => {
+                    Some("PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM")
+                }
+                Self::SAMPLER_BLOCK_MATCH_WINDOW_CREATE_INFO_QCOM => {
+                    Some("SAMPLER_BLOCK_MATCH_WINDOW_CREATE_INFO_QCOM")
+                }
+                Self::PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_RENDER_AREAS_FEATURES_QCOM => {
+                    Some("PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_RENDER_AREAS_FEATURES_QCOM")
+                }
+                Self::MULTIVIEW_PER_VIEW_RENDER_AREAS_RENDER_PASS_BEGIN_INFO_QCOM => {
+                    Some("MULTIVIEW_PER_VIEW_RENDER_AREAS_RENDER_PASS_BEGIN_INFO_QCOM")
+                }
+                Self::PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_VIEWPORTS_FEATURES_QCOM => {
+                    Some("PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_VIEWPORTS_FEATURES_QCOM")
+                }
+                Self::COMMAND_BUFFER_INHERITANCE_RENDER_PASS_TRANSFORM_INFO_QCOM => {
+                    Some("COMMAND_BUFFER_INHERITANCE_RENDER_PASS_TRANSFORM_INFO_QCOM")
+                }
+                Self::RENDER_PASS_TRANSFORM_BEGIN_INFO_QCOM => {
+                    Some("RENDER_PASS_TRANSFORM_BEGIN_INFO_QCOM")
+                }
+                Self::COPY_COMMAND_TRANSFORM_INFO_QCOM => Some("COPY_COMMAND_TRANSFORM_INFO_QCOM"),
+                Self::PHYSICAL_DEVICE_TILE_MEMORY_HEAP_FEATURES_QCOM => {
+                    Some("PHYSICAL_DEVICE_TILE_MEMORY_HEAP_FEATURES_QCOM")
+                }
+                Self::PHYSICAL_DEVICE_TILE_MEMORY_HEAP_PROPERTIES_QCOM => {
+                    Some("PHYSICAL_DEVICE_TILE_MEMORY_HEAP_PROPERTIES_QCOM")
+                }
+                Self::TILE_MEMORY_REQUIREMENTS_QCOM => Some("TILE_MEMORY_REQUIREMENTS_QCOM"),
+                Self::TILE_MEMORY_BIND_INFO_QCOM => Some("TILE_MEMORY_BIND_INFO_QCOM"),
+                Self::TILE_MEMORY_SIZE_INFO_QCOM => Some("TILE_MEMORY_SIZE_INFO_QCOM"),
+                Self::PHYSICAL_DEVICE_TILE_PROPERTIES_FEATURES_QCOM => {
+                    Some("PHYSICAL_DEVICE_TILE_PROPERTIES_FEATURES_QCOM")
+                }
+                Self::TILE_PROPERTIES_QCOM => Some("TILE_PROPERTIES_QCOM"),
+                Self::PHYSICAL_DEVICE_TILE_SHADING_FEATURES_QCOM => {
+                    Some("PHYSICAL_DEVICE_TILE_SHADING_FEATURES_QCOM")
+                }
+                Self::PHYSICAL_DEVICE_TILE_SHADING_PROPERTIES_QCOM => {
+                    Some("PHYSICAL_DEVICE_TILE_SHADING_PROPERTIES_QCOM")
+                }
+                Self::RENDER_PASS_TILE_SHADING_CREATE_INFO_QCOM => {
+                    Some("RENDER_PASS_TILE_SHADING_CREATE_INFO_QCOM")
+                }
+                Self::PER_TILE_BEGIN_INFO_QCOM => Some("PER_TILE_BEGIN_INFO_QCOM"),
+                Self::PER_TILE_END_INFO_QCOM => Some("PER_TILE_END_INFO_QCOM"),
+                Self::DISPATCH_TILE_INFO_QCOM => Some("DISPATCH_TILE_INFO_QCOM"),
+                Self::PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM => {
+                    Some("PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM")
+                }
+                Self::SAMPLER_YCBCR_CONVERSION_YCBCR_DEGAMMA_CREATE_INFO_QCOM => {
+                    Some("SAMPLER_YCBCR_CONVERSION_YCBCR_DEGAMMA_CREATE_INFO_QCOM")
+                }
+                Self::SCREEN_BUFFER_PROPERTIES_QNX => Some("SCREEN_BUFFER_PROPERTIES_QNX"),
+                Self::SCREEN_BUFFER_FORMAT_PROPERTIES_QNX => {
+                    Some("SCREEN_BUFFER_FORMAT_PROPERTIES_QNX")
+                }
+                Self::IMPORT_SCREEN_BUFFER_INFO_QNX => Some("IMPORT_SCREEN_BUFFER_INFO_QNX"),
+                Self::EXTERNAL_FORMAT_QNX => Some("EXTERNAL_FORMAT_QNX"),
+                Self::PHYSICAL_DEVICE_EXTERNAL_MEMORY_SCREEN_BUFFER_FEATURES_QNX => {
+                    Some("PHYSICAL_DEVICE_EXTERNAL_MEMORY_SCREEN_BUFFER_FEATURES_QNX")
+                }
+                Self::SCREEN_SURFACE_CREATE_INFO_QNX => Some("SCREEN_SURFACE_CREATE_INFO_QNX"),
+                Self::PHYSICAL_DEVICE_AMIGO_PROFILING_FEATURES_SEC => {
+                    Some("PHYSICAL_DEVICE_AMIGO_PROFILING_FEATURES_SEC")
+                }
+                Self::AMIGO_PROFILING_SUBMIT_INFO_SEC => Some("AMIGO_PROFILING_SUBMIT_INFO_SEC"),
+                Self::PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC => {
+                    Some("PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC")
+                }
+                Self::PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE => {
+                    Some("PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE")
+                }
+                Self::DESCRIPTOR_SET_BINDING_REFERENCE_VALVE => {
+                    Some("DESCRIPTOR_SET_BINDING_REFERENCE_VALVE")
+                }
+                Self::DESCRIPTOR_SET_LAYOUT_HOST_MAPPING_INFO_VALVE => {
+                    Some("DESCRIPTOR_SET_LAYOUT_HOST_MAPPING_INFO_VALVE")
+                }
+                Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_FEATURES_VALVE => {
+                    Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_FEATURES_VALVE")
+                }
+                Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_PROPERTIES_VALVE => {
+                    Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_PROPERTIES_VALVE")
+                }
+                Self::PIPELINE_FRAGMENT_DENSITY_MAP_LAYERED_CREATE_INFO_VALVE => {
+                    Some("PIPELINE_FRAGMENT_DENSITY_MAP_LAYERED_CREATE_INFO_VALVE")
+                }
+                Self::PHYSICAL_DEVICE_VIDEO_ENCODE_RGB_CONVERSION_FEATURES_VALVE => {
+                    Some("PHYSICAL_DEVICE_VIDEO_ENCODE_RGB_CONVERSION_FEATURES_VALVE")
+                }
+                Self::VIDEO_ENCODE_RGB_CONVERSION_CAPABILITIES_VALVE => {
+                    Some("VIDEO_ENCODE_RGB_CONVERSION_CAPABILITIES_VALVE")
+                }
+                Self::VIDEO_ENCODE_PROFILE_RGB_CONVERSION_INFO_VALVE => {
+                    Some("VIDEO_ENCODE_PROFILE_RGB_CONVERSION_INFO_VALVE")
+                }
+                Self::VIDEO_ENCODE_SESSION_RGB_CONVERSION_CREATE_INFO_VALVE => {
+                    Some("VIDEO_ENCODE_SESSION_RGB_CONVERSION_CREATE_INFO_VALVE")
+                }
+                Self::BIND_BUFFER_MEMORY_INFO => Some("BIND_BUFFER_MEMORY_INFO"),
+                Self::BIND_IMAGE_MEMORY_INFO => Some("BIND_IMAGE_MEMORY_INFO"),
+                Self::MEMORY_DEDICATED_REQUIREMENTS => Some("MEMORY_DEDICATED_REQUIREMENTS"),
+                Self::MEMORY_DEDICATED_ALLOCATE_INFO => Some("MEMORY_DEDICATED_ALLOCATE_INFO"),
+                Self::MEMORY_ALLOCATE_FLAGS_INFO => Some("MEMORY_ALLOCATE_FLAGS_INFO"),
+                Self::DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO => {
+                    Some("DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO")
+                }
+                Self::DEVICE_GROUP_SUBMIT_INFO => Some("DEVICE_GROUP_SUBMIT_INFO"),
+                Self::DEVICE_GROUP_BIND_SPARSE_INFO => Some("DEVICE_GROUP_BIND_SPARSE_INFO"),
+                Self::BIND_BUFFER_MEMORY_DEVICE_GROUP_INFO => {
+                    Some("BIND_BUFFER_MEMORY_DEVICE_GROUP_INFO")
+                }
+                Self::BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO => {
+                    Some("BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO")
+                }
+                Self::PHYSICAL_DEVICE_GROUP_PROPERTIES => Some("PHYSICAL_DEVICE_GROUP_PROPERTIES"),
+                Self::DEVICE_GROUP_DEVICE_CREATE_INFO => Some("DEVICE_GROUP_DEVICE_CREATE_INFO"),
+                Self::BUFFER_MEMORY_REQUIREMENTS_INFO_2 => {
+                    Some("BUFFER_MEMORY_REQUIREMENTS_INFO_2")
+                }
+                Self::IMAGE_MEMORY_REQUIREMENTS_INFO_2 => Some("IMAGE_MEMORY_REQUIREMENTS_INFO_2"),
+                Self::IMAGE_SPARSE_MEMORY_REQUIREMENTS_INFO_2 => {
+                    Some("IMAGE_SPARSE_MEMORY_REQUIREMENTS_INFO_2")
+                }
+                Self::MEMORY_REQUIREMENTS_2 => Some("MEMORY_REQUIREMENTS_2"),
+                Self::SPARSE_IMAGE_MEMORY_REQUIREMENTS_2 => {
+                    Some("SPARSE_IMAGE_MEMORY_REQUIREMENTS_2")
+                }
+                Self::PHYSICAL_DEVICE_FEATURES_2 => Some("PHYSICAL_DEVICE_FEATURES_2"),
+                Self::PHYSICAL_DEVICE_PROPERTIES_2 => Some("PHYSICAL_DEVICE_PROPERTIES_2"),
+                Self::FORMAT_PROPERTIES_2 => Some("FORMAT_PROPERTIES_2"),
+                Self::IMAGE_FORMAT_PROPERTIES_2 => Some("IMAGE_FORMAT_PROPERTIES_2"),
+                Self::PHYSICAL_DEVICE_IMAGE_FORMAT_INFO_2 => {
+                    Some("PHYSICAL_DEVICE_IMAGE_FORMAT_INFO_2")
+                }
+                Self::QUEUE_FAMILY_PROPERTIES_2 => Some("QUEUE_FAMILY_PROPERTIES_2"),
+                Self::PHYSICAL_DEVICE_MEMORY_PROPERTIES_2 => {
+                    Some("PHYSICAL_DEVICE_MEMORY_PROPERTIES_2")
+                }
+                Self::SPARSE_IMAGE_FORMAT_PROPERTIES_2 => Some("SPARSE_IMAGE_FORMAT_PROPERTIES_2"),
+                Self::PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2 => {
+                    Some("PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2")
+                }
+                Self::IMAGE_VIEW_USAGE_CREATE_INFO => Some("IMAGE_VIEW_USAGE_CREATE_INFO"),
+                Self::PROTECTED_SUBMIT_INFO => Some("PROTECTED_SUBMIT_INFO"),
+                Self::PHYSICAL_DEVICE_PROTECTED_MEMORY_FEATURES => {
+                    Some("PHYSICAL_DEVICE_PROTECTED_MEMORY_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_PROTECTED_MEMORY_PROPERTIES => {
+                    Some("PHYSICAL_DEVICE_PROTECTED_MEMORY_PROPERTIES")
+                }
+                Self::DEVICE_QUEUE_INFO_2 => Some("DEVICE_QUEUE_INFO_2"),
+                Self::PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO => {
+                    Some("PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO")
+                }
+                Self::EXTERNAL_IMAGE_FORMAT_PROPERTIES => Some("EXTERNAL_IMAGE_FORMAT_PROPERTIES"),
+                Self::PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO => {
+                    Some("PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO")
+                }
+                Self::EXTERNAL_BUFFER_PROPERTIES => Some("EXTERNAL_BUFFER_PROPERTIES"),
+                Self::PHYSICAL_DEVICE_ID_PROPERTIES => Some("PHYSICAL_DEVICE_ID_PROPERTIES"),
+                Self::EXTERNAL_MEMORY_BUFFER_CREATE_INFO => {
+                    Some("EXTERNAL_MEMORY_BUFFER_CREATE_INFO")
+                }
+                Self::EXTERNAL_MEMORY_IMAGE_CREATE_INFO => {
+                    Some("EXTERNAL_MEMORY_IMAGE_CREATE_INFO")
+                }
+                Self::EXPORT_MEMORY_ALLOCATE_INFO => Some("EXPORT_MEMORY_ALLOCATE_INFO"),
+                Self::PHYSICAL_DEVICE_EXTERNAL_FENCE_INFO => {
+                    Some("PHYSICAL_DEVICE_EXTERNAL_FENCE_INFO")
+                }
+                Self::EXTERNAL_FENCE_PROPERTIES => Some("EXTERNAL_FENCE_PROPERTIES"),
+                Self::EXPORT_FENCE_CREATE_INFO => Some("EXPORT_FENCE_CREATE_INFO"),
+                Self::EXPORT_SEMAPHORE_CREATE_INFO => Some("EXPORT_SEMAPHORE_CREATE_INFO"),
+                Self::PHYSICAL_DEVICE_EXTERNAL_SEMAPHORE_INFO => {
+                    Some("PHYSICAL_DEVICE_EXTERNAL_SEMAPHORE_INFO")
+                }
+                Self::EXTERNAL_SEMAPHORE_PROPERTIES => Some("EXTERNAL_SEMAPHORE_PROPERTIES"),
+                Self::PHYSICAL_DEVICE_SUBGROUP_PROPERTIES => {
+                    Some("PHYSICAL_DEVICE_SUBGROUP_PROPERTIES")
+                }
+                Self::PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES => {
+                    Some("PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES => {
+                    Some("PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES")
+                }
+                Self::DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO => {
+                    Some("DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO")
+                }
+                Self::PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES => {
+                    Some("PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES")
+                }
+                Self::DESCRIPTOR_SET_LAYOUT_SUPPORT => Some("DESCRIPTOR_SET_LAYOUT_SUPPORT"),
+                Self::SAMPLER_YCBCR_CONVERSION_CREATE_INFO => {
+                    Some("SAMPLER_YCBCR_CONVERSION_CREATE_INFO")
+                }
+                Self::SAMPLER_YCBCR_CONVERSION_INFO => Some("SAMPLER_YCBCR_CONVERSION_INFO"),
+                Self::BIND_IMAGE_PLANE_MEMORY_INFO => Some("BIND_IMAGE_PLANE_MEMORY_INFO"),
+                Self::IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO => {
+                    Some("IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO")
+                }
+                Self::PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES => {
+                    Some("PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES")
+                }
+                Self::SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES => {
+                    Some("SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES")
+                }
+                Self::DEVICE_GROUP_RENDER_PASS_BEGIN_INFO => {
+                    Some("DEVICE_GROUP_RENDER_PASS_BEGIN_INFO")
+                }
+                Self::PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES => {
+                    Some("PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES")
+                }
+                Self::RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO => {
+                    Some("RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO")
+                }
+                Self::PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO => {
+                    Some("PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO")
+                }
+                Self::RENDER_PASS_MULTIVIEW_CREATE_INFO => {
+                    Some("RENDER_PASS_MULTIVIEW_CREATE_INFO")
+                }
+                Self::PHYSICAL_DEVICE_MULTIVIEW_FEATURES => {
+                    Some("PHYSICAL_DEVICE_MULTIVIEW_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES => {
+                    Some("PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES => {
+                    Some("PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES")
+                }
+                Self::IMAGE_FORMAT_LIST_CREATE_INFO => Some("IMAGE_FORMAT_LIST_CREATE_INFO"),
+                Self::PHYSICAL_DEVICE_DRIVER_PROPERTIES => {
+                    Some("PHYSICAL_DEVICE_DRIVER_PROPERTIES")
+                }
+                Self::PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES => {
+                    Some("PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES => {
+                    Some("PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES => {
+                    Some("PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_PROPERTIES => {
+                    Some("PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_PROPERTIES")
+                }
+                Self::SEMAPHORE_TYPE_CREATE_INFO => Some("SEMAPHORE_TYPE_CREATE_INFO"),
+                Self::TIMELINE_SEMAPHORE_SUBMIT_INFO => Some("TIMELINE_SEMAPHORE_SUBMIT_INFO"),
+                Self::SEMAPHORE_WAIT_INFO => Some("SEMAPHORE_WAIT_INFO"),
+                Self::SEMAPHORE_SIGNAL_INFO => Some("SEMAPHORE_SIGNAL_INFO"),
+                Self::PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES => {
+                    Some("PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES")
+                }
+                Self::BUFFER_DEVICE_ADDRESS_INFO => Some("BUFFER_DEVICE_ADDRESS_INFO"),
+                Self::BUFFER_OPAQUE_CAPTURE_ADDRESS_CREATE_INFO => {
+                    Some("BUFFER_OPAQUE_CAPTURE_ADDRESS_CREATE_INFO")
+                }
+                Self::MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO => {
+                    Some("MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO")
+                }
+                Self::DEVICE_MEMORY_OPAQUE_CAPTURE_ADDRESS_INFO => {
+                    Some("DEVICE_MEMORY_OPAQUE_CAPTURE_ADDRESS_INFO")
+                }
+                Self::PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES => {
+                    Some("PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES => {
+                    Some("PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES => {
+                    Some("PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES => {
+                    Some("PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES")
+                }
+                Self::DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO => {
+                    Some("DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO")
+                }
+                Self::PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES => {
+                    Some("PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES => {
+                    Some("PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES")
+                }
+                Self::DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO => {
+                    Some("DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO")
+                }
+                Self::DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT => {
+                    Some("DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT")
+                }
+                Self::PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES => {
+                    Some("PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_SAMPLER_FILTER_MINMAX_PROPERTIES => {
+                    Some("PHYSICAL_DEVICE_SAMPLER_FILTER_MINMAX_PROPERTIES")
+                }
+                Self::SAMPLER_REDUCTION_MODE_CREATE_INFO => {
+                    Some("SAMPLER_REDUCTION_MODE_CREATE_INFO")
+                }
+                Self::PHYSICAL_DEVICE_UNIFORM_BUFFER_STANDARD_LAYOUT_FEATURES => {
+                    Some("PHYSICAL_DEVICE_UNIFORM_BUFFER_STANDARD_LAYOUT_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_SUBGROUP_EXTENDED_TYPES_FEATURES => {
+                    Some("PHYSICAL_DEVICE_SHADER_SUBGROUP_EXTENDED_TYPES_FEATURES")
+                }
+                Self::ATTACHMENT_DESCRIPTION_2 => Some("ATTACHMENT_DESCRIPTION_2"),
+                Self::ATTACHMENT_REFERENCE_2 => Some("ATTACHMENT_REFERENCE_2"),
+                Self::SUBPASS_DESCRIPTION_2 => Some("SUBPASS_DESCRIPTION_2"),
+                Self::SUBPASS_DEPENDENCY_2 => Some("SUBPASS_DEPENDENCY_2"),
+                Self::RENDER_PASS_CREATE_INFO_2 => Some("RENDER_PASS_CREATE_INFO_2"),
+                Self::SUBPASS_BEGIN_INFO => Some("SUBPASS_BEGIN_INFO"),
+                Self::SUBPASS_END_INFO => Some("SUBPASS_END_INFO"),
+                Self::PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES => {
+                    Some("PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES")
+                }
+                Self::SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE => {
+                    Some("SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE")
+                }
+                Self::IMAGE_STENCIL_USAGE_CREATE_INFO => Some("IMAGE_STENCIL_USAGE_CREATE_INFO"),
+                Self::PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES => {
+                    Some("PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES")
+                }
+                Self::FRAMEBUFFER_ATTACHMENTS_CREATE_INFO => {
+                    Some("FRAMEBUFFER_ATTACHMENTS_CREATE_INFO")
+                }
+                Self::FRAMEBUFFER_ATTACHMENT_IMAGE_INFO => {
+                    Some("FRAMEBUFFER_ATTACHMENT_IMAGE_INFO")
+                }
+                Self::RENDER_PASS_ATTACHMENT_BEGIN_INFO => {
+                    Some("RENDER_PASS_ATTACHMENT_BEGIN_INFO")
+                }
+                Self::PHYSICAL_DEVICE_SEPARATE_DEPTH_STENCIL_LAYOUTS_FEATURES => {
+                    Some("PHYSICAL_DEVICE_SEPARATE_DEPTH_STENCIL_LAYOUTS_FEATURES")
+                }
+                Self::ATTACHMENT_REFERENCE_STENCIL_LAYOUT => {
+                    Some("ATTACHMENT_REFERENCE_STENCIL_LAYOUT")
+                }
+                Self::ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT => {
+                    Some("ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT")
+                }
                 Self::PHYSICAL_DEVICE_VULKAN_1_1_FEATURES => {
                     Some("PHYSICAL_DEVICE_VULKAN_1_1_FEATURES")
                 }
@@ -11712,11 +11977,217 @@ pub(super) mod defs {
                 Self::PHYSICAL_DEVICE_VULKAN_1_2_PROPERTIES => {
                     Some("PHYSICAL_DEVICE_VULKAN_1_2_PROPERTIES")
                 }
+                Self::PHYSICAL_DEVICE_TOOL_PROPERTIES => Some("PHYSICAL_DEVICE_TOOL_PROPERTIES"),
+                Self::PHYSICAL_DEVICE_PRIVATE_DATA_FEATURES => {
+                    Some("PHYSICAL_DEVICE_PRIVATE_DATA_FEATURES")
+                }
+                Self::DEVICE_PRIVATE_DATA_CREATE_INFO => Some("DEVICE_PRIVATE_DATA_CREATE_INFO"),
+                Self::PRIVATE_DATA_SLOT_CREATE_INFO => Some("PRIVATE_DATA_SLOT_CREATE_INFO"),
+                Self::MEMORY_BARRIER_2 => Some("MEMORY_BARRIER_2"),
+                Self::BUFFER_MEMORY_BARRIER_2 => Some("BUFFER_MEMORY_BARRIER_2"),
+                Self::IMAGE_MEMORY_BARRIER_2 => Some("IMAGE_MEMORY_BARRIER_2"),
+                Self::DEPENDENCY_INFO => Some("DEPENDENCY_INFO"),
+                Self::SUBMIT_INFO_2 => Some("SUBMIT_INFO_2"),
+                Self::SEMAPHORE_SUBMIT_INFO => Some("SEMAPHORE_SUBMIT_INFO"),
+                Self::COMMAND_BUFFER_SUBMIT_INFO => Some("COMMAND_BUFFER_SUBMIT_INFO"),
+                Self::PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES => {
+                    Some("PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES")
+                }
+                Self::COPY_BUFFER_INFO_2 => Some("COPY_BUFFER_INFO_2"),
+                Self::COPY_IMAGE_INFO_2 => Some("COPY_IMAGE_INFO_2"),
+                Self::COPY_BUFFER_TO_IMAGE_INFO_2 => Some("COPY_BUFFER_TO_IMAGE_INFO_2"),
+                Self::COPY_IMAGE_TO_BUFFER_INFO_2 => Some("COPY_IMAGE_TO_BUFFER_INFO_2"),
+                Self::BUFFER_COPY_2 => Some("BUFFER_COPY_2"),
+                Self::IMAGE_COPY_2 => Some("IMAGE_COPY_2"),
+                Self::BUFFER_IMAGE_COPY_2 => Some("BUFFER_IMAGE_COPY_2"),
+                Self::PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES => {
+                    Some("PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES")
+                }
+                Self::FORMAT_PROPERTIES_3 => Some("FORMAT_PROPERTIES_3"),
+                Self::PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES => {
+                    Some("PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES => {
+                    Some("PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES")
+                }
+                Self::DEVICE_BUFFER_MEMORY_REQUIREMENTS => {
+                    Some("DEVICE_BUFFER_MEMORY_REQUIREMENTS")
+                }
+                Self::DEVICE_IMAGE_MEMORY_REQUIREMENTS => Some("DEVICE_IMAGE_MEMORY_REQUIREMENTS"),
+                Self::PIPELINE_CREATION_FEEDBACK_CREATE_INFO => {
+                    Some("PIPELINE_CREATION_FEEDBACK_CREATE_INFO")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES => {
+                    Some("PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES => {
+                    Some("PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_PIPELINE_CREATION_CACHE_CONTROL_FEATURES => {
+                    Some("PHYSICAL_DEVICE_PIPELINE_CREATION_CACHE_CONTROL_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES => {
+                    Some("PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_IMAGE_ROBUSTNESS_FEATURES => {
+                    Some("PHYSICAL_DEVICE_IMAGE_ROBUSTNESS_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_PROPERTIES => {
+                    Some("PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_PROPERTIES")
+                }
+                Self::PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO => {
+                    Some("PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO")
+                }
+                Self::PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_FEATURES => {
+                    Some("PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_FEATURES => {
+                    Some("PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_PROPERTIES => {
+                    Some("PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_PROPERTIES")
+                }
+                Self::WRITE_DESCRIPTOR_SET_INLINE_UNIFORM_BLOCK => {
+                    Some("WRITE_DESCRIPTOR_SET_INLINE_UNIFORM_BLOCK")
+                }
+                Self::DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO => {
+                    Some("DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES => {
+                    Some("PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES => {
+                    Some("PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES")
+                }
+                Self::PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES => {
+                    Some("PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES")
+                }
+                Self::BLIT_IMAGE_INFO_2 => Some("BLIT_IMAGE_INFO_2"),
+                Self::RESOLVE_IMAGE_INFO_2 => Some("RESOLVE_IMAGE_INFO_2"),
+                Self::IMAGE_BLIT_2 => Some("IMAGE_BLIT_2"),
+                Self::IMAGE_RESOLVE_2 => Some("IMAGE_RESOLVE_2"),
+                Self::RENDERING_INFO => Some("RENDERING_INFO"),
+                Self::RENDERING_ATTACHMENT_INFO => Some("RENDERING_ATTACHMENT_INFO"),
+                Self::PIPELINE_RENDERING_CREATE_INFO => Some("PIPELINE_RENDERING_CREATE_INFO"),
+                Self::PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES => {
+                    Some("PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES")
+                }
+                Self::COMMAND_BUFFER_INHERITANCE_RENDERING_INFO => {
+                    Some("COMMAND_BUFFER_INHERITANCE_RENDERING_INFO")
+                }
                 Self::PHYSICAL_DEVICE_VULKAN_1_3_FEATURES => {
                     Some("PHYSICAL_DEVICE_VULKAN_1_3_FEATURES")
                 }
                 Self::PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES => {
                     Some("PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES")
+                }
+                Self::DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO => {
+                    Some("DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO")
+                }
+                Self::PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES => {
+                    Some("PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES")
+                }
+                Self::QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES => {
+                    Some("QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES")
+                }
+                Self::PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES => {
+                    Some("PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES")
+                }
+                Self::MEMORY_MAP_INFO => Some("MEMORY_MAP_INFO"),
+                Self::MEMORY_UNMAP_INFO => Some("MEMORY_UNMAP_INFO"),
+                Self::PHYSICAL_DEVICE_MAINTENANCE_5_FEATURES => {
+                    Some("PHYSICAL_DEVICE_MAINTENANCE_5_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_MAINTENANCE_5_PROPERTIES => {
+                    Some("PHYSICAL_DEVICE_MAINTENANCE_5_PROPERTIES")
+                }
+                Self::DEVICE_IMAGE_SUBRESOURCE_INFO => Some("DEVICE_IMAGE_SUBRESOURCE_INFO"),
+                Self::SUBRESOURCE_LAYOUT_2 => Some("SUBRESOURCE_LAYOUT_2"),
+                Self::IMAGE_SUBRESOURCE_2 => Some("IMAGE_SUBRESOURCE_2"),
+                Self::BUFFER_USAGE_FLAGS_2_CREATE_INFO => Some("BUFFER_USAGE_FLAGS_2_CREATE_INFO"),
+                Self::PHYSICAL_DEVICE_MAINTENANCE_6_FEATURES => {
+                    Some("PHYSICAL_DEVICE_MAINTENANCE_6_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_MAINTENANCE_6_PROPERTIES => {
+                    Some("PHYSICAL_DEVICE_MAINTENANCE_6_PROPERTIES")
+                }
+                Self::BIND_MEMORY_STATUS => Some("BIND_MEMORY_STATUS"),
+                Self::PHYSICAL_DEVICE_HOST_IMAGE_COPY_FEATURES => {
+                    Some("PHYSICAL_DEVICE_HOST_IMAGE_COPY_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_HOST_IMAGE_COPY_PROPERTIES => {
+                    Some("PHYSICAL_DEVICE_HOST_IMAGE_COPY_PROPERTIES")
+                }
+                Self::MEMORY_TO_IMAGE_COPY => Some("MEMORY_TO_IMAGE_COPY"),
+                Self::IMAGE_TO_MEMORY_COPY => Some("IMAGE_TO_MEMORY_COPY"),
+                Self::COPY_IMAGE_TO_MEMORY_INFO => Some("COPY_IMAGE_TO_MEMORY_INFO"),
+                Self::COPY_MEMORY_TO_IMAGE_INFO => Some("COPY_MEMORY_TO_IMAGE_INFO"),
+                Self::HOST_IMAGE_LAYOUT_TRANSITION_INFO => {
+                    Some("HOST_IMAGE_LAYOUT_TRANSITION_INFO")
+                }
+                Self::COPY_IMAGE_TO_IMAGE_INFO => Some("COPY_IMAGE_TO_IMAGE_INFO"),
+                Self::SUBRESOURCE_HOST_MEMCPY_SIZE => Some("SUBRESOURCE_HOST_MEMCPY_SIZE"),
+                Self::HOST_IMAGE_COPY_DEVICE_PERFORMANCE_QUERY => {
+                    Some("HOST_IMAGE_COPY_DEVICE_PERFORMANCE_QUERY")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES => {
+                    Some("PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES => {
+                    Some("PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES => {
+                    Some("PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES")
+                }
+                Self::PIPELINE_CREATE_FLAGS_2_CREATE_INFO => {
+                    Some("PIPELINE_CREATE_FLAGS_2_CREATE_INFO")
+                }
+                Self::PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES => {
+                    Some("PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES")
+                }
+                Self::BIND_DESCRIPTOR_SETS_INFO => Some("BIND_DESCRIPTOR_SETS_INFO"),
+                Self::PUSH_CONSTANTS_INFO => Some("PUSH_CONSTANTS_INFO"),
+                Self::PUSH_DESCRIPTOR_SET_INFO => Some("PUSH_DESCRIPTOR_SET_INFO"),
+                Self::PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO => {
+                    Some("PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO")
+                }
+                Self::PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES => {
+                    Some("PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES")
+                }
+                Self::PIPELINE_ROBUSTNESS_CREATE_INFO => Some("PIPELINE_ROBUSTNESS_CREATE_INFO"),
+                Self::PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_FEATURES => {
+                    Some("PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_FEATURES")
+                }
+                Self::PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_PROPERTIES => {
+                    Some("PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_PROPERTIES")
+                }
+                Self::PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES => {
+                    Some("PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES")
+                }
+                Self::PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO => {
+                    Some("PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO")
+                }
+                Self::PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES => {
+                    Some("PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES")
+                }
+                Self::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES => {
+                    Some("PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES")
+                }
+                Self::PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO => {
+                    Some("PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO")
+                }
+                Self::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES => {
+                    Some("PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES")
+                }
+                Self::RENDERING_AREA_INFO => Some("RENDERING_AREA_INFO"),
+                Self::PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES => {
+                    Some("PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES")
+                }
+                Self::RENDERING_ATTACHMENT_LOCATION_INFO => {
+                    Some("RENDERING_ATTACHMENT_LOCATION_INFO")
+                }
+                Self::RENDERING_INPUT_ATTACHMENT_INDEX_INFO => {
+                    Some("RENDERING_INPUT_ATTACHMENT_INDEX_INFO")
                 }
                 Self::PHYSICAL_DEVICE_VULKAN_1_4_FEATURES => {
                     Some("PHYSICAL_DEVICE_VULKAN_1_4_FEATURES")
@@ -11724,7 +12195,6 @@ pub(super) mod defs {
                 Self::PHYSICAL_DEVICE_VULKAN_1_4_PROPERTIES => {
                     Some("PHYSICAL_DEVICE_VULKAN_1_4_PROPERTIES")
                 }
-                Self::SURFACE_CREATE_INFO_OHOS => Some("SURFACE_CREATE_INFO_OHOS"),
                 _ => None,
             };
             if let Some(name) = name {
@@ -11740,9 +12210,11 @@ pub(super) mod defs {
     impl SubpassContents {
         pub const INLINE: Self = Self(0);
         pub const SECONDARY_COMMAND_BUFFERS: Self = Self(1);
-        pub const INLINE_AND_SECONDARY_COMMAND_BUFFERS_KHR: Self = Self(1000451000);
+        // VK_EXT_nested_command_buffer
         pub const INLINE_AND_SECONDARY_COMMAND_BUFFERS_EXT: Self =
             Self::INLINE_AND_SECONDARY_COMMAND_BUFFERS_KHR;
+        // VK_KHR_maintenance7
+        pub const INLINE_AND_SECONDARY_COMMAND_BUFFERS_KHR: Self = Self(1000451000);
     }
     impl fmt::Debug for SubpassContents {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -11784,50 +12256,77 @@ pub(super) mod defs {
         pub const ERROR_FORMAT_NOT_SUPPORTED: Self = Self(-11);
         pub const ERROR_FRAGMENTED_POOL: Self = Self(-12);
         pub const ERROR_UNKNOWN: Self = Self(-13);
-        pub const ERROR_COMPRESSION_EXHAUSTED_EXT: Self = Self(-1000338000);
-        pub const ERROR_FRAGMENTATION: Self = Self(-1000161000);
-        pub const ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT: Self = Self(-1000255000);
-        pub const ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR: Self = Self(-1000023000);
-        pub const ERROR_INCOMPATIBLE_DISPLAY_KHR: Self = Self(-1000003001);
-        pub const ERROR_INVALID_DRM_FORMAT_MODIFIER_PLANE_LAYOUT_EXT: Self = Self(-1000158000);
-        pub const ERROR_INVALID_EXTERNAL_HANDLE: Self = Self(-1000072003);
-        pub const ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS: Self = Self(-1000257000);
-        pub const ERROR_INVALID_SHADER_NV: Self = Self(-1000012000);
-        pub const ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR: Self = Self(-1000299000);
-        pub const ERROR_NATIVE_WINDOW_IN_USE_KHR: Self = Self(-1000000001);
-        pub const ERROR_NOT_ENOUGH_SPACE_KHR: Self = Self(-1000483000);
-        pub const ERROR_NOT_PERMITTED: Self = Self(-1000174001);
-        pub const ERROR_OUT_OF_DATE_KHR: Self = Self(-1000001004);
-        pub const ERROR_OUT_OF_POOL_MEMORY: Self = Self(-1000069000);
-        pub const ERROR_PRESENT_TIMING_QUEUE_FULL_EXT: Self = Self(-1000208000);
-        pub const ERROR_SURFACE_LOST_KHR: Self = Self(-1000000000);
-        pub const ERROR_VALIDATION_FAILED: Self = Self(-1000011001);
-        pub const ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR: Self = Self(-1000023001);
-        pub const ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR: Self = Self(-1000023004);
-        pub const ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR: Self = Self(-1000023003);
-        pub const ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR: Self = Self(-1000023002);
-        pub const ERROR_VIDEO_STD_VERSION_NOT_SUPPORTED_KHR: Self = Self(-1000023005);
-        pub const INCOMPATIBLE_SHADER_BINARY_EXT: Self = Self(1000482000);
-        pub const OPERATION_DEFERRED_KHR: Self = Self(1000268002);
-        pub const OPERATION_NOT_DEFERRED_KHR: Self = Self(1000268003);
-        pub const PIPELINE_BINARY_MISSING_KHR: Self = Self(1000483000);
-        pub const PIPELINE_COMPILE_REQUIRED: Self = Self(1000297000);
-        pub const SUBOPTIMAL_KHR: Self = Self(1000001003);
-        pub const THREAD_DONE_KHR: Self = Self(1000268001);
-        pub const THREAD_IDLE_KHR: Self = Self(1000268000);
-        pub const ERROR_FRAGMENTATION_EXT: Self = Self::ERROR_FRAGMENTATION;
-        pub const ERROR_INCOMPATIBLE_SHADER_BINARY_EXT: Self = Self::INCOMPATIBLE_SHADER_BINARY_EXT;
+        // VK_EXT_buffer_device_address
         pub const ERROR_INVALID_DEVICE_ADDRESS_EXT: Self =
             Self::ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS;
-        pub const ERROR_INVALID_EXTERNAL_HANDLE_KHR: Self = Self::ERROR_INVALID_EXTERNAL_HANDLE;
+        // VK_EXT_debug_report
+        pub const ERROR_VALIDATION_FAILED_EXT: Self = Self::ERROR_VALIDATION_FAILED;
+        // VK_EXT_descriptor_indexing
+        pub const ERROR_FRAGMENTATION_EXT: Self = Self::ERROR_FRAGMENTATION;
+        // VK_EXT_full_screen_exclusive
+        pub const ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT: Self = Self(-1000255000);
+        // VK_EXT_global_priority
+        pub const ERROR_NOT_PERMITTED_EXT: Self = Self::ERROR_NOT_PERMITTED;
+        // VK_EXT_image_compression_control
+        pub const ERROR_COMPRESSION_EXHAUSTED_EXT: Self = Self(-1000338000);
+        // VK_EXT_image_drm_format_modifier
+        pub const ERROR_INVALID_DRM_FORMAT_MODIFIER_PLANE_LAYOUT_EXT: Self = Self(-1000158000);
+        // VK_EXT_pipeline_creation_cache_control
+        pub const PIPELINE_COMPILE_REQUIRED_EXT: Self = Self::PIPELINE_COMPILE_REQUIRED;
+        pub const ERROR_PIPELINE_COMPILE_REQUIRED_EXT: Self = Self::PIPELINE_COMPILE_REQUIRED;
+        // VK_EXT_present_timing
+        pub const ERROR_PRESENT_TIMING_QUEUE_FULL_EXT: Self = Self(-1000208000);
+        // VK_EXT_shader_object
+        pub const INCOMPATIBLE_SHADER_BINARY_EXT: Self = Self(1000482000);
+        pub const ERROR_INCOMPATIBLE_SHADER_BINARY_EXT: Self = Self::INCOMPATIBLE_SHADER_BINARY_EXT;
+        // VK_KHR_buffer_device_address
         pub const ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR: Self =
             Self::ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS;
-        pub const ERROR_NOT_PERMITTED_EXT: Self = Self::ERROR_NOT_PERMITTED;
+        // VK_KHR_deferred_host_operations
+        pub const THREAD_IDLE_KHR: Self = Self(1000268000);
+        pub const THREAD_DONE_KHR: Self = Self(1000268001);
+        pub const OPERATION_DEFERRED_KHR: Self = Self(1000268002);
+        pub const OPERATION_NOT_DEFERRED_KHR: Self = Self(1000268003);
+        // VK_KHR_display_swapchain
+        pub const ERROR_INCOMPATIBLE_DISPLAY_KHR: Self = Self(-1000003001);
+        // VK_KHR_external_memory
+        pub const ERROR_INVALID_EXTERNAL_HANDLE_KHR: Self = Self::ERROR_INVALID_EXTERNAL_HANDLE;
+        // VK_KHR_global_priority
         pub const ERROR_NOT_PERMITTED_KHR: Self = Self::ERROR_NOT_PERMITTED;
+        // VK_KHR_maintenance1
         pub const ERROR_OUT_OF_POOL_MEMORY_KHR: Self = Self::ERROR_OUT_OF_POOL_MEMORY;
-        pub const ERROR_PIPELINE_COMPILE_REQUIRED_EXT: Self = Self::PIPELINE_COMPILE_REQUIRED;
-        pub const ERROR_VALIDATION_FAILED_EXT: Self = Self::ERROR_VALIDATION_FAILED;
-        pub const PIPELINE_COMPILE_REQUIRED_EXT: Self = Self::PIPELINE_COMPILE_REQUIRED;
+        // VK_KHR_pipeline_binary
+        pub const PIPELINE_BINARY_MISSING_KHR: Self = Self(1000483000);
+        pub const ERROR_NOT_ENOUGH_SPACE_KHR: Self = Self(-1000483000);
+        // VK_KHR_surface
+        pub const ERROR_SURFACE_LOST_KHR: Self = Self(-1000000000);
+        pub const ERROR_NATIVE_WINDOW_IN_USE_KHR: Self = Self(-1000000001);
+        // VK_KHR_swapchain
+        pub const SUBOPTIMAL_KHR: Self = Self(1000001003);
+        pub const ERROR_OUT_OF_DATE_KHR: Self = Self(-1000001004);
+        // VK_KHR_video_encode_queue
+        pub const ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR: Self = Self(-1000299000);
+        // VK_KHR_video_queue
+        pub const ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR: Self = Self(-1000023000);
+        pub const ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR: Self = Self(-1000023001);
+        pub const ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR: Self = Self(-1000023002);
+        pub const ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR: Self = Self(-1000023003);
+        pub const ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR: Self = Self(-1000023004);
+        pub const ERROR_VIDEO_STD_VERSION_NOT_SUPPORTED_KHR: Self = Self(-1000023005);
+        // VK_NV_glsl_shader
+        pub const ERROR_INVALID_SHADER_NV: Self = Self(-1000012000);
+        // VK_VERSION_1_0
+        pub const ERROR_VALIDATION_FAILED: Self = Self(-1000011001);
+        // VK_VERSION_1_1
+        pub const ERROR_OUT_OF_POOL_MEMORY: Self = Self(-1000069000);
+        pub const ERROR_INVALID_EXTERNAL_HANDLE: Self = Self(-1000072003);
+        // VK_VERSION_1_2
+        pub const ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS: Self = Self(-1000257000);
+        pub const ERROR_FRAGMENTATION: Self = Self(-1000161000);
+        // VK_VERSION_1_3
+        pub const PIPELINE_COMPILE_REQUIRED: Self = Self(1000297000);
+        // VK_VERSION_1_4
+        pub const ERROR_NOT_PERMITTED: Self = Self(-1000174001);
     }
     impl fmt::Debug for Result {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -11851,59 +12350,59 @@ pub(super) mod defs {
                 Self::ERROR_FORMAT_NOT_SUPPORTED => Some("ERROR_FORMAT_NOT_SUPPORTED"),
                 Self::ERROR_FRAGMENTED_POOL => Some("ERROR_FRAGMENTED_POOL"),
                 Self::ERROR_UNKNOWN => Some("ERROR_UNKNOWN"),
-                Self::ERROR_COMPRESSION_EXHAUSTED_EXT => Some("ERROR_COMPRESSION_EXHAUSTED_EXT"),
-                Self::ERROR_FRAGMENTATION => Some("ERROR_FRAGMENTATION"),
                 Self::ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT => {
                     Some("ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT")
+                }
+                Self::ERROR_COMPRESSION_EXHAUSTED_EXT => Some("ERROR_COMPRESSION_EXHAUSTED_EXT"),
+                Self::ERROR_INVALID_DRM_FORMAT_MODIFIER_PLANE_LAYOUT_EXT => {
+                    Some("ERROR_INVALID_DRM_FORMAT_MODIFIER_PLANE_LAYOUT_EXT")
+                }
+                Self::ERROR_PRESENT_TIMING_QUEUE_FULL_EXT => {
+                    Some("ERROR_PRESENT_TIMING_QUEUE_FULL_EXT")
+                }
+                Self::INCOMPATIBLE_SHADER_BINARY_EXT => Some("INCOMPATIBLE_SHADER_BINARY_EXT"),
+                Self::THREAD_IDLE_KHR => Some("THREAD_IDLE_KHR"),
+                Self::THREAD_DONE_KHR => Some("THREAD_DONE_KHR"),
+                Self::OPERATION_DEFERRED_KHR => Some("OPERATION_DEFERRED_KHR"),
+                Self::OPERATION_NOT_DEFERRED_KHR => Some("OPERATION_NOT_DEFERRED_KHR"),
+                Self::ERROR_INCOMPATIBLE_DISPLAY_KHR => Some("ERROR_INCOMPATIBLE_DISPLAY_KHR"),
+                Self::PIPELINE_BINARY_MISSING_KHR => Some("PIPELINE_BINARY_MISSING_KHR"),
+                Self::ERROR_NOT_ENOUGH_SPACE_KHR => Some("ERROR_NOT_ENOUGH_SPACE_KHR"),
+                Self::ERROR_SURFACE_LOST_KHR => Some("ERROR_SURFACE_LOST_KHR"),
+                Self::ERROR_NATIVE_WINDOW_IN_USE_KHR => Some("ERROR_NATIVE_WINDOW_IN_USE_KHR"),
+                Self::SUBOPTIMAL_KHR => Some("SUBOPTIMAL_KHR"),
+                Self::ERROR_OUT_OF_DATE_KHR => Some("ERROR_OUT_OF_DATE_KHR"),
+                Self::ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR => {
+                    Some("ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR")
                 }
                 Self::ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR => {
                     Some("ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR")
                 }
-                Self::ERROR_INCOMPATIBLE_DISPLAY_KHR => Some("ERROR_INCOMPATIBLE_DISPLAY_KHR"),
-                Self::ERROR_INVALID_DRM_FORMAT_MODIFIER_PLANE_LAYOUT_EXT => {
-                    Some("ERROR_INVALID_DRM_FORMAT_MODIFIER_PLANE_LAYOUT_EXT")
-                }
-                Self::ERROR_INVALID_EXTERNAL_HANDLE => Some("ERROR_INVALID_EXTERNAL_HANDLE"),
-                Self::ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS => {
-                    Some("ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS")
-                }
-                Self::ERROR_INVALID_SHADER_NV => Some("ERROR_INVALID_SHADER_NV"),
-                Self::ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR => {
-                    Some("ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR")
-                }
-                Self::ERROR_NATIVE_WINDOW_IN_USE_KHR => Some("ERROR_NATIVE_WINDOW_IN_USE_KHR"),
-                Self::ERROR_NOT_ENOUGH_SPACE_KHR => Some("ERROR_NOT_ENOUGH_SPACE_KHR"),
-                Self::ERROR_NOT_PERMITTED => Some("ERROR_NOT_PERMITTED"),
-                Self::ERROR_OUT_OF_DATE_KHR => Some("ERROR_OUT_OF_DATE_KHR"),
-                Self::ERROR_OUT_OF_POOL_MEMORY => Some("ERROR_OUT_OF_POOL_MEMORY"),
-                Self::ERROR_PRESENT_TIMING_QUEUE_FULL_EXT => {
-                    Some("ERROR_PRESENT_TIMING_QUEUE_FULL_EXT")
-                }
-                Self::ERROR_SURFACE_LOST_KHR => Some("ERROR_SURFACE_LOST_KHR"),
-                Self::ERROR_VALIDATION_FAILED => Some("ERROR_VALIDATION_FAILED"),
                 Self::ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR => {
                     Some("ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR")
-                }
-                Self::ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR => {
-                    Some("ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR")
-                }
-                Self::ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR => {
-                    Some("ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR")
                 }
                 Self::ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR => {
                     Some("ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR")
                 }
+                Self::ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR => {
+                    Some("ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR")
+                }
+                Self::ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR => {
+                    Some("ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR")
+                }
                 Self::ERROR_VIDEO_STD_VERSION_NOT_SUPPORTED_KHR => {
                     Some("ERROR_VIDEO_STD_VERSION_NOT_SUPPORTED_KHR")
                 }
-                Self::INCOMPATIBLE_SHADER_BINARY_EXT => Some("INCOMPATIBLE_SHADER_BINARY_EXT"),
-                Self::OPERATION_DEFERRED_KHR => Some("OPERATION_DEFERRED_KHR"),
-                Self::OPERATION_NOT_DEFERRED_KHR => Some("OPERATION_NOT_DEFERRED_KHR"),
-                Self::PIPELINE_BINARY_MISSING_KHR => Some("PIPELINE_BINARY_MISSING_KHR"),
+                Self::ERROR_INVALID_SHADER_NV => Some("ERROR_INVALID_SHADER_NV"),
+                Self::ERROR_VALIDATION_FAILED => Some("ERROR_VALIDATION_FAILED"),
+                Self::ERROR_OUT_OF_POOL_MEMORY => Some("ERROR_OUT_OF_POOL_MEMORY"),
+                Self::ERROR_INVALID_EXTERNAL_HANDLE => Some("ERROR_INVALID_EXTERNAL_HANDLE"),
+                Self::ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS => {
+                    Some("ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS")
+                }
+                Self::ERROR_FRAGMENTATION => Some("ERROR_FRAGMENTATION"),
                 Self::PIPELINE_COMPILE_REQUIRED => Some("PIPELINE_COMPILE_REQUIRED"),
-                Self::SUBOPTIMAL_KHR => Some("SUBOPTIMAL_KHR"),
-                Self::THREAD_DONE_KHR => Some("THREAD_DONE_KHR"),
-                Self::THREAD_IDLE_KHR => Some("THREAD_IDLE_KHR"),
+                Self::ERROR_NOT_PERMITTED => Some("ERROR_NOT_PERMITTED"),
                 _ => None,
             };
             if let Some(name) = name {
@@ -11926,87 +12425,105 @@ pub(super) mod defs {
         pub const STENCIL_COMPARE_MASK: Self = Self(6);
         pub const STENCIL_WRITE_MASK: Self = Self(7);
         pub const STENCIL_REFERENCE: Self = Self(8);
+        // VK_EXT_attachment_feedback_loop_dynamic_state
+        pub const ATTACHMENT_FEEDBACK_LOOP_ENABLE_EXT: Self = Self(1000524000);
+        // VK_EXT_color_write_enable
+        pub const COLOR_WRITE_ENABLE_EXT: Self = Self(1000381000);
+        // VK_EXT_depth_clamp_control
+        pub const DEPTH_CLAMP_RANGE_EXT: Self = Self(1000582000);
+        // VK_EXT_discard_rectangles
+        pub const DISCARD_RECTANGLE_EXT: Self = Self(1000099000);
+        pub const DISCARD_RECTANGLE_ENABLE_EXT: Self = Self(1000099001);
+        pub const DISCARD_RECTANGLE_MODE_EXT: Self = Self(1000099002);
+        // VK_EXT_extended_dynamic_state
+        pub const CULL_MODE_EXT: Self = Self::CULL_MODE;
+        pub const FRONT_FACE_EXT: Self = Self::FRONT_FACE;
+        pub const PRIMITIVE_TOPOLOGY_EXT: Self = Self::PRIMITIVE_TOPOLOGY;
+        pub const VIEWPORT_WITH_COUNT_EXT: Self = Self::VIEWPORT_WITH_COUNT;
+        pub const SCISSOR_WITH_COUNT_EXT: Self = Self::SCISSOR_WITH_COUNT;
+        pub const VERTEX_INPUT_BINDING_STRIDE_EXT: Self = Self::VERTEX_INPUT_BINDING_STRIDE;
+        pub const DEPTH_TEST_ENABLE_EXT: Self = Self::DEPTH_TEST_ENABLE;
+        pub const DEPTH_WRITE_ENABLE_EXT: Self = Self::DEPTH_WRITE_ENABLE;
+        pub const DEPTH_COMPARE_OP_EXT: Self = Self::DEPTH_COMPARE_OP;
+        pub const DEPTH_BOUNDS_TEST_ENABLE_EXT: Self = Self::DEPTH_BOUNDS_TEST_ENABLE;
+        pub const STENCIL_TEST_ENABLE_EXT: Self = Self::STENCIL_TEST_ENABLE;
+        pub const STENCIL_OP_EXT: Self = Self::STENCIL_OP;
+        // VK_EXT_extended_dynamic_state2
+        pub const PATCH_CONTROL_POINTS_EXT: Self = Self(1000377000);
+        pub const LOGIC_OP_EXT: Self = Self(1000377003);
+        pub const RASTERIZER_DISCARD_ENABLE_EXT: Self = Self::RASTERIZER_DISCARD_ENABLE;
+        pub const DEPTH_BIAS_ENABLE_EXT: Self = Self::DEPTH_BIAS_ENABLE;
+        pub const PRIMITIVE_RESTART_ENABLE_EXT: Self = Self::PRIMITIVE_RESTART_ENABLE;
+        // VK_EXT_extended_dynamic_state3
+        pub const DEPTH_CLAMP_ENABLE_EXT: Self = Self(1000455003);
+        pub const POLYGON_MODE_EXT: Self = Self(1000455004);
+        pub const RASTERIZATION_SAMPLES_EXT: Self = Self(1000455005);
+        pub const SAMPLE_MASK_EXT: Self = Self(1000455006);
         pub const ALPHA_TO_COVERAGE_ENABLE_EXT: Self = Self(1000455007);
         pub const ALPHA_TO_ONE_ENABLE_EXT: Self = Self(1000455008);
-        pub const ATTACHMENT_FEEDBACK_LOOP_ENABLE_EXT: Self = Self(1000524000);
-        pub const COLOR_BLEND_ADVANCED_EXT: Self = Self(1000455018);
+        pub const LOGIC_OP_ENABLE_EXT: Self = Self(1000455009);
         pub const COLOR_BLEND_ENABLE_EXT: Self = Self(1000455010);
         pub const COLOR_BLEND_EQUATION_EXT: Self = Self(1000455011);
-        pub const COLOR_WRITE_ENABLE_EXT: Self = Self(1000381000);
         pub const COLOR_WRITE_MASK_EXT: Self = Self(1000455012);
+        pub const TESSELLATION_DOMAIN_ORIGIN_EXT: Self = Self(1000455002);
+        pub const RASTERIZATION_STREAM_EXT: Self = Self(1000455013);
         pub const CONSERVATIVE_RASTERIZATION_MODE_EXT: Self = Self(1000455014);
+        pub const EXTRA_PRIMITIVE_OVERESTIMATION_SIZE_EXT: Self = Self(1000455015);
+        pub const DEPTH_CLIP_ENABLE_EXT: Self = Self(1000455016);
+        pub const SAMPLE_LOCATIONS_ENABLE_EXT: Self = Self(1000455017);
+        pub const COLOR_BLEND_ADVANCED_EXT: Self = Self(1000455018);
+        pub const PROVOKING_VERTEX_MODE_EXT: Self = Self(1000455019);
+        pub const LINE_RASTERIZATION_MODE_EXT: Self = Self(1000455020);
+        pub const LINE_STIPPLE_ENABLE_EXT: Self = Self(1000455021);
+        pub const DEPTH_CLIP_NEGATIVE_ONE_TO_ONE_EXT: Self = Self(1000455022);
+        pub const VIEWPORT_W_SCALING_ENABLE_NV: Self = Self(1000455023);
+        pub const VIEWPORT_SWIZZLE_NV: Self = Self(1000455024);
+        pub const COVERAGE_TO_COLOR_ENABLE_NV: Self = Self(1000455025);
+        pub const COVERAGE_TO_COLOR_LOCATION_NV: Self = Self(1000455026);
         pub const COVERAGE_MODULATION_MODE_NV: Self = Self(1000455027);
         pub const COVERAGE_MODULATION_TABLE_ENABLE_NV: Self = Self(1000455028);
         pub const COVERAGE_MODULATION_TABLE_NV: Self = Self(1000455029);
+        pub const SHADING_RATE_IMAGE_ENABLE_NV: Self = Self(1000455030);
+        pub const REPRESENTATIVE_FRAGMENT_TEST_ENABLE_NV: Self = Self(1000455031);
         pub const COVERAGE_REDUCTION_MODE_NV: Self = Self(1000455032);
-        pub const COVERAGE_TO_COLOR_ENABLE_NV: Self = Self(1000455025);
-        pub const COVERAGE_TO_COLOR_LOCATION_NV: Self = Self(1000455026);
-        pub const CULL_MODE: Self = Self(1000267000);
-        pub const DEPTH_BIAS_ENABLE: Self = Self(1000377002);
-        pub const DEPTH_BOUNDS_TEST_ENABLE: Self = Self(1000267009);
-        pub const DEPTH_CLAMP_ENABLE_EXT: Self = Self(1000455003);
-        pub const DEPTH_CLAMP_RANGE_EXT: Self = Self(1000582000);
-        pub const DEPTH_CLIP_ENABLE_EXT: Self = Self(1000455016);
-        pub const DEPTH_CLIP_NEGATIVE_ONE_TO_ONE_EXT: Self = Self(1000455022);
-        pub const DEPTH_COMPARE_OP: Self = Self(1000267008);
-        pub const DEPTH_TEST_ENABLE: Self = Self(1000267006);
-        pub const DEPTH_WRITE_ENABLE: Self = Self(1000267007);
-        pub const DISCARD_RECTANGLE_ENABLE_EXT: Self = Self(1000099001);
-        pub const DISCARD_RECTANGLE_EXT: Self = Self(1000099000);
-        pub const DISCARD_RECTANGLE_MODE_EXT: Self = Self(1000099002);
+        // VK_EXT_line_rasterization
+        pub const LINE_STIPPLE_EXT: Self = Self::LINE_STIPPLE;
+        // VK_EXT_sample_locations
+        pub const SAMPLE_LOCATIONS_EXT: Self = Self(1000143000);
+        // VK_EXT_vertex_input_dynamic_state
+        pub const VERTEX_INPUT_EXT: Self = Self(1000352000);
+        // VK_KHR_fragment_shading_rate
+        pub const FRAGMENT_SHADING_RATE_KHR: Self = Self(1000226000);
+        // VK_KHR_line_rasterization
+        pub const LINE_STIPPLE_KHR: Self = Self::LINE_STIPPLE;
+        // VK_KHR_ray_tracing_pipeline
+        pub const RAY_TRACING_PIPELINE_STACK_SIZE_KHR: Self = Self(1000347000);
+        // VK_NV_clip_space_w_scaling
+        pub const VIEWPORT_W_SCALING_NV: Self = Self(1000087000);
+        // VK_NV_scissor_exclusive
         pub const EXCLUSIVE_SCISSOR_ENABLE_NV: Self = Self(1000205000);
         pub const EXCLUSIVE_SCISSOR_NV: Self = Self(1000205001);
-        pub const EXTRA_PRIMITIVE_OVERESTIMATION_SIZE_EXT: Self = Self(1000455015);
-        pub const FRAGMENT_SHADING_RATE_KHR: Self = Self(1000226000);
-        pub const FRONT_FACE: Self = Self(1000267001);
-        pub const LINE_RASTERIZATION_MODE_EXT: Self = Self(1000455020);
-        pub const LINE_STIPPLE: Self = Self(1000259000);
-        pub const LINE_STIPPLE_ENABLE_EXT: Self = Self(1000455021);
-        pub const LOGIC_OP_ENABLE_EXT: Self = Self(1000455009);
-        pub const LOGIC_OP_EXT: Self = Self(1000377003);
-        pub const PATCH_CONTROL_POINTS_EXT: Self = Self(1000377000);
-        pub const POLYGON_MODE_EXT: Self = Self(1000455004);
-        pub const PRIMITIVE_RESTART_ENABLE: Self = Self(1000377004);
-        pub const PRIMITIVE_TOPOLOGY: Self = Self(1000267002);
-        pub const PROVOKING_VERTEX_MODE_EXT: Self = Self(1000455019);
-        pub const RASTERIZATION_SAMPLES_EXT: Self = Self(1000455005);
-        pub const RASTERIZATION_STREAM_EXT: Self = Self(1000455013);
-        pub const RASTERIZER_DISCARD_ENABLE: Self = Self(1000377001);
-        pub const RAY_TRACING_PIPELINE_STACK_SIZE_KHR: Self = Self(1000347000);
-        pub const REPRESENTATIVE_FRAGMENT_TEST_ENABLE_NV: Self = Self(1000455031);
-        pub const SAMPLE_LOCATIONS_ENABLE_EXT: Self = Self(1000455017);
-        pub const SAMPLE_LOCATIONS_EXT: Self = Self(1000143000);
-        pub const SAMPLE_MASK_EXT: Self = Self(1000455006);
-        pub const SCISSOR_WITH_COUNT: Self = Self(1000267004);
-        pub const SHADING_RATE_IMAGE_ENABLE_NV: Self = Self(1000455030);
-        pub const STENCIL_OP: Self = Self(1000267011);
-        pub const STENCIL_TEST_ENABLE: Self = Self(1000267010);
-        pub const TESSELLATION_DOMAIN_ORIGIN_EXT: Self = Self(1000455002);
-        pub const VERTEX_INPUT_BINDING_STRIDE: Self = Self(1000267005);
-        pub const VERTEX_INPUT_EXT: Self = Self(1000352000);
-        pub const VIEWPORT_COARSE_SAMPLE_ORDER_NV: Self = Self(1000164006);
+        // VK_NV_shading_rate_image
         pub const VIEWPORT_SHADING_RATE_PALETTE_NV: Self = Self(1000164004);
-        pub const VIEWPORT_SWIZZLE_NV: Self = Self(1000455024);
+        pub const VIEWPORT_COARSE_SAMPLE_ORDER_NV: Self = Self(1000164006);
+        // VK_VERSION_1_3
+        pub const CULL_MODE: Self = Self(1000267000);
+        pub const FRONT_FACE: Self = Self(1000267001);
+        pub const PRIMITIVE_TOPOLOGY: Self = Self(1000267002);
         pub const VIEWPORT_WITH_COUNT: Self = Self(1000267003);
-        pub const VIEWPORT_W_SCALING_ENABLE_NV: Self = Self(1000455023);
-        pub const VIEWPORT_W_SCALING_NV: Self = Self(1000087000);
-        pub const CULL_MODE_EXT: Self = Self::CULL_MODE;
-        pub const DEPTH_BIAS_ENABLE_EXT: Self = Self::DEPTH_BIAS_ENABLE;
-        pub const DEPTH_BOUNDS_TEST_ENABLE_EXT: Self = Self::DEPTH_BOUNDS_TEST_ENABLE;
-        pub const DEPTH_COMPARE_OP_EXT: Self = Self::DEPTH_COMPARE_OP;
-        pub const DEPTH_TEST_ENABLE_EXT: Self = Self::DEPTH_TEST_ENABLE;
-        pub const DEPTH_WRITE_ENABLE_EXT: Self = Self::DEPTH_WRITE_ENABLE;
-        pub const FRONT_FACE_EXT: Self = Self::FRONT_FACE;
-        pub const LINE_STIPPLE_EXT: Self = Self::LINE_STIPPLE;
-        pub const LINE_STIPPLE_KHR: Self = Self::LINE_STIPPLE;
-        pub const PRIMITIVE_RESTART_ENABLE_EXT: Self = Self::PRIMITIVE_RESTART_ENABLE;
-        pub const PRIMITIVE_TOPOLOGY_EXT: Self = Self::PRIMITIVE_TOPOLOGY;
-        pub const RASTERIZER_DISCARD_ENABLE_EXT: Self = Self::RASTERIZER_DISCARD_ENABLE;
-        pub const SCISSOR_WITH_COUNT_EXT: Self = Self::SCISSOR_WITH_COUNT;
-        pub const STENCIL_OP_EXT: Self = Self::STENCIL_OP;
-        pub const STENCIL_TEST_ENABLE_EXT: Self = Self::STENCIL_TEST_ENABLE;
-        pub const VERTEX_INPUT_BINDING_STRIDE_EXT: Self = Self::VERTEX_INPUT_BINDING_STRIDE;
-        pub const VIEWPORT_WITH_COUNT_EXT: Self = Self::VIEWPORT_WITH_COUNT;
+        pub const SCISSOR_WITH_COUNT: Self = Self(1000267004);
+        pub const VERTEX_INPUT_BINDING_STRIDE: Self = Self(1000267005);
+        pub const DEPTH_TEST_ENABLE: Self = Self(1000267006);
+        pub const DEPTH_WRITE_ENABLE: Self = Self(1000267007);
+        pub const DEPTH_COMPARE_OP: Self = Self(1000267008);
+        pub const DEPTH_BOUNDS_TEST_ENABLE: Self = Self(1000267009);
+        pub const STENCIL_TEST_ENABLE: Self = Self(1000267010);
+        pub const STENCIL_OP: Self = Self(1000267011);
+        pub const RASTERIZER_DISCARD_ENABLE: Self = Self(1000377001);
+        pub const DEPTH_BIAS_ENABLE: Self = Self(1000377002);
+        pub const PRIMITIVE_RESTART_ENABLE: Self = Self(1000377004);
+        // VK_VERSION_1_4
+        pub const LINE_STIPPLE: Self = Self(1000259000);
     }
     impl fmt::Debug for DynamicState {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -12020,84 +12537,84 @@ pub(super) mod defs {
                 Self::STENCIL_COMPARE_MASK => Some("STENCIL_COMPARE_MASK"),
                 Self::STENCIL_WRITE_MASK => Some("STENCIL_WRITE_MASK"),
                 Self::STENCIL_REFERENCE => Some("STENCIL_REFERENCE"),
-                Self::ALPHA_TO_COVERAGE_ENABLE_EXT => Some("ALPHA_TO_COVERAGE_ENABLE_EXT"),
-                Self::ALPHA_TO_ONE_ENABLE_EXT => Some("ALPHA_TO_ONE_ENABLE_EXT"),
                 Self::ATTACHMENT_FEEDBACK_LOOP_ENABLE_EXT => {
                     Some("ATTACHMENT_FEEDBACK_LOOP_ENABLE_EXT")
                 }
-                Self::COLOR_BLEND_ADVANCED_EXT => Some("COLOR_BLEND_ADVANCED_EXT"),
+                Self::COLOR_WRITE_ENABLE_EXT => Some("COLOR_WRITE_ENABLE_EXT"),
+                Self::DEPTH_CLAMP_RANGE_EXT => Some("DEPTH_CLAMP_RANGE_EXT"),
+                Self::DISCARD_RECTANGLE_EXT => Some("DISCARD_RECTANGLE_EXT"),
+                Self::DISCARD_RECTANGLE_ENABLE_EXT => Some("DISCARD_RECTANGLE_ENABLE_EXT"),
+                Self::DISCARD_RECTANGLE_MODE_EXT => Some("DISCARD_RECTANGLE_MODE_EXT"),
+                Self::PATCH_CONTROL_POINTS_EXT => Some("PATCH_CONTROL_POINTS_EXT"),
+                Self::LOGIC_OP_EXT => Some("LOGIC_OP_EXT"),
+                Self::DEPTH_CLAMP_ENABLE_EXT => Some("DEPTH_CLAMP_ENABLE_EXT"),
+                Self::POLYGON_MODE_EXT => Some("POLYGON_MODE_EXT"),
+                Self::RASTERIZATION_SAMPLES_EXT => Some("RASTERIZATION_SAMPLES_EXT"),
+                Self::SAMPLE_MASK_EXT => Some("SAMPLE_MASK_EXT"),
+                Self::ALPHA_TO_COVERAGE_ENABLE_EXT => Some("ALPHA_TO_COVERAGE_ENABLE_EXT"),
+                Self::ALPHA_TO_ONE_ENABLE_EXT => Some("ALPHA_TO_ONE_ENABLE_EXT"),
+                Self::LOGIC_OP_ENABLE_EXT => Some("LOGIC_OP_ENABLE_EXT"),
                 Self::COLOR_BLEND_ENABLE_EXT => Some("COLOR_BLEND_ENABLE_EXT"),
                 Self::COLOR_BLEND_EQUATION_EXT => Some("COLOR_BLEND_EQUATION_EXT"),
-                Self::COLOR_WRITE_ENABLE_EXT => Some("COLOR_WRITE_ENABLE_EXT"),
                 Self::COLOR_WRITE_MASK_EXT => Some("COLOR_WRITE_MASK_EXT"),
+                Self::TESSELLATION_DOMAIN_ORIGIN_EXT => Some("TESSELLATION_DOMAIN_ORIGIN_EXT"),
+                Self::RASTERIZATION_STREAM_EXT => Some("RASTERIZATION_STREAM_EXT"),
                 Self::CONSERVATIVE_RASTERIZATION_MODE_EXT => {
                     Some("CONSERVATIVE_RASTERIZATION_MODE_EXT")
                 }
+                Self::EXTRA_PRIMITIVE_OVERESTIMATION_SIZE_EXT => {
+                    Some("EXTRA_PRIMITIVE_OVERESTIMATION_SIZE_EXT")
+                }
+                Self::DEPTH_CLIP_ENABLE_EXT => Some("DEPTH_CLIP_ENABLE_EXT"),
+                Self::SAMPLE_LOCATIONS_ENABLE_EXT => Some("SAMPLE_LOCATIONS_ENABLE_EXT"),
+                Self::COLOR_BLEND_ADVANCED_EXT => Some("COLOR_BLEND_ADVANCED_EXT"),
+                Self::PROVOKING_VERTEX_MODE_EXT => Some("PROVOKING_VERTEX_MODE_EXT"),
+                Self::LINE_RASTERIZATION_MODE_EXT => Some("LINE_RASTERIZATION_MODE_EXT"),
+                Self::LINE_STIPPLE_ENABLE_EXT => Some("LINE_STIPPLE_ENABLE_EXT"),
+                Self::DEPTH_CLIP_NEGATIVE_ONE_TO_ONE_EXT => {
+                    Some("DEPTH_CLIP_NEGATIVE_ONE_TO_ONE_EXT")
+                }
+                Self::VIEWPORT_W_SCALING_ENABLE_NV => Some("VIEWPORT_W_SCALING_ENABLE_NV"),
+                Self::VIEWPORT_SWIZZLE_NV => Some("VIEWPORT_SWIZZLE_NV"),
+                Self::COVERAGE_TO_COLOR_ENABLE_NV => Some("COVERAGE_TO_COLOR_ENABLE_NV"),
+                Self::COVERAGE_TO_COLOR_LOCATION_NV => Some("COVERAGE_TO_COLOR_LOCATION_NV"),
                 Self::COVERAGE_MODULATION_MODE_NV => Some("COVERAGE_MODULATION_MODE_NV"),
                 Self::COVERAGE_MODULATION_TABLE_ENABLE_NV => {
                     Some("COVERAGE_MODULATION_TABLE_ENABLE_NV")
                 }
                 Self::COVERAGE_MODULATION_TABLE_NV => Some("COVERAGE_MODULATION_TABLE_NV"),
-                Self::COVERAGE_REDUCTION_MODE_NV => Some("COVERAGE_REDUCTION_MODE_NV"),
-                Self::COVERAGE_TO_COLOR_ENABLE_NV => Some("COVERAGE_TO_COLOR_ENABLE_NV"),
-                Self::COVERAGE_TO_COLOR_LOCATION_NV => Some("COVERAGE_TO_COLOR_LOCATION_NV"),
-                Self::CULL_MODE => Some("CULL_MODE"),
-                Self::DEPTH_BIAS_ENABLE => Some("DEPTH_BIAS_ENABLE"),
-                Self::DEPTH_BOUNDS_TEST_ENABLE => Some("DEPTH_BOUNDS_TEST_ENABLE"),
-                Self::DEPTH_CLAMP_ENABLE_EXT => Some("DEPTH_CLAMP_ENABLE_EXT"),
-                Self::DEPTH_CLAMP_RANGE_EXT => Some("DEPTH_CLAMP_RANGE_EXT"),
-                Self::DEPTH_CLIP_ENABLE_EXT => Some("DEPTH_CLIP_ENABLE_EXT"),
-                Self::DEPTH_CLIP_NEGATIVE_ONE_TO_ONE_EXT => {
-                    Some("DEPTH_CLIP_NEGATIVE_ONE_TO_ONE_EXT")
-                }
-                Self::DEPTH_COMPARE_OP => Some("DEPTH_COMPARE_OP"),
-                Self::DEPTH_TEST_ENABLE => Some("DEPTH_TEST_ENABLE"),
-                Self::DEPTH_WRITE_ENABLE => Some("DEPTH_WRITE_ENABLE"),
-                Self::DISCARD_RECTANGLE_ENABLE_EXT => Some("DISCARD_RECTANGLE_ENABLE_EXT"),
-                Self::DISCARD_RECTANGLE_EXT => Some("DISCARD_RECTANGLE_EXT"),
-                Self::DISCARD_RECTANGLE_MODE_EXT => Some("DISCARD_RECTANGLE_MODE_EXT"),
-                Self::EXCLUSIVE_SCISSOR_ENABLE_NV => Some("EXCLUSIVE_SCISSOR_ENABLE_NV"),
-                Self::EXCLUSIVE_SCISSOR_NV => Some("EXCLUSIVE_SCISSOR_NV"),
-                Self::EXTRA_PRIMITIVE_OVERESTIMATION_SIZE_EXT => {
-                    Some("EXTRA_PRIMITIVE_OVERESTIMATION_SIZE_EXT")
-                }
-                Self::FRAGMENT_SHADING_RATE_KHR => Some("FRAGMENT_SHADING_RATE_KHR"),
-                Self::FRONT_FACE => Some("FRONT_FACE"),
-                Self::LINE_RASTERIZATION_MODE_EXT => Some("LINE_RASTERIZATION_MODE_EXT"),
-                Self::LINE_STIPPLE => Some("LINE_STIPPLE"),
-                Self::LINE_STIPPLE_ENABLE_EXT => Some("LINE_STIPPLE_ENABLE_EXT"),
-                Self::LOGIC_OP_ENABLE_EXT => Some("LOGIC_OP_ENABLE_EXT"),
-                Self::LOGIC_OP_EXT => Some("LOGIC_OP_EXT"),
-                Self::PATCH_CONTROL_POINTS_EXT => Some("PATCH_CONTROL_POINTS_EXT"),
-                Self::POLYGON_MODE_EXT => Some("POLYGON_MODE_EXT"),
-                Self::PRIMITIVE_RESTART_ENABLE => Some("PRIMITIVE_RESTART_ENABLE"),
-                Self::PRIMITIVE_TOPOLOGY => Some("PRIMITIVE_TOPOLOGY"),
-                Self::PROVOKING_VERTEX_MODE_EXT => Some("PROVOKING_VERTEX_MODE_EXT"),
-                Self::RASTERIZATION_SAMPLES_EXT => Some("RASTERIZATION_SAMPLES_EXT"),
-                Self::RASTERIZATION_STREAM_EXT => Some("RASTERIZATION_STREAM_EXT"),
-                Self::RASTERIZER_DISCARD_ENABLE => Some("RASTERIZER_DISCARD_ENABLE"),
-                Self::RAY_TRACING_PIPELINE_STACK_SIZE_KHR => {
-                    Some("RAY_TRACING_PIPELINE_STACK_SIZE_KHR")
-                }
+                Self::SHADING_RATE_IMAGE_ENABLE_NV => Some("SHADING_RATE_IMAGE_ENABLE_NV"),
                 Self::REPRESENTATIVE_FRAGMENT_TEST_ENABLE_NV => {
                     Some("REPRESENTATIVE_FRAGMENT_TEST_ENABLE_NV")
                 }
-                Self::SAMPLE_LOCATIONS_ENABLE_EXT => Some("SAMPLE_LOCATIONS_ENABLE_EXT"),
+                Self::COVERAGE_REDUCTION_MODE_NV => Some("COVERAGE_REDUCTION_MODE_NV"),
                 Self::SAMPLE_LOCATIONS_EXT => Some("SAMPLE_LOCATIONS_EXT"),
-                Self::SAMPLE_MASK_EXT => Some("SAMPLE_MASK_EXT"),
-                Self::SCISSOR_WITH_COUNT => Some("SCISSOR_WITH_COUNT"),
-                Self::SHADING_RATE_IMAGE_ENABLE_NV => Some("SHADING_RATE_IMAGE_ENABLE_NV"),
-                Self::STENCIL_OP => Some("STENCIL_OP"),
-                Self::STENCIL_TEST_ENABLE => Some("STENCIL_TEST_ENABLE"),
-                Self::TESSELLATION_DOMAIN_ORIGIN_EXT => Some("TESSELLATION_DOMAIN_ORIGIN_EXT"),
-                Self::VERTEX_INPUT_BINDING_STRIDE => Some("VERTEX_INPUT_BINDING_STRIDE"),
                 Self::VERTEX_INPUT_EXT => Some("VERTEX_INPUT_EXT"),
-                Self::VIEWPORT_COARSE_SAMPLE_ORDER_NV => Some("VIEWPORT_COARSE_SAMPLE_ORDER_NV"),
-                Self::VIEWPORT_SHADING_RATE_PALETTE_NV => Some("VIEWPORT_SHADING_RATE_PALETTE_NV"),
-                Self::VIEWPORT_SWIZZLE_NV => Some("VIEWPORT_SWIZZLE_NV"),
-                Self::VIEWPORT_WITH_COUNT => Some("VIEWPORT_WITH_COUNT"),
-                Self::VIEWPORT_W_SCALING_ENABLE_NV => Some("VIEWPORT_W_SCALING_ENABLE_NV"),
+                Self::FRAGMENT_SHADING_RATE_KHR => Some("FRAGMENT_SHADING_RATE_KHR"),
+                Self::RAY_TRACING_PIPELINE_STACK_SIZE_KHR => {
+                    Some("RAY_TRACING_PIPELINE_STACK_SIZE_KHR")
+                }
                 Self::VIEWPORT_W_SCALING_NV => Some("VIEWPORT_W_SCALING_NV"),
+                Self::EXCLUSIVE_SCISSOR_ENABLE_NV => Some("EXCLUSIVE_SCISSOR_ENABLE_NV"),
+                Self::EXCLUSIVE_SCISSOR_NV => Some("EXCLUSIVE_SCISSOR_NV"),
+                Self::VIEWPORT_SHADING_RATE_PALETTE_NV => Some("VIEWPORT_SHADING_RATE_PALETTE_NV"),
+                Self::VIEWPORT_COARSE_SAMPLE_ORDER_NV => Some("VIEWPORT_COARSE_SAMPLE_ORDER_NV"),
+                Self::CULL_MODE => Some("CULL_MODE"),
+                Self::FRONT_FACE => Some("FRONT_FACE"),
+                Self::PRIMITIVE_TOPOLOGY => Some("PRIMITIVE_TOPOLOGY"),
+                Self::VIEWPORT_WITH_COUNT => Some("VIEWPORT_WITH_COUNT"),
+                Self::SCISSOR_WITH_COUNT => Some("SCISSOR_WITH_COUNT"),
+                Self::VERTEX_INPUT_BINDING_STRIDE => Some("VERTEX_INPUT_BINDING_STRIDE"),
+                Self::DEPTH_TEST_ENABLE => Some("DEPTH_TEST_ENABLE"),
+                Self::DEPTH_WRITE_ENABLE => Some("DEPTH_WRITE_ENABLE"),
+                Self::DEPTH_COMPARE_OP => Some("DEPTH_COMPARE_OP"),
+                Self::DEPTH_BOUNDS_TEST_ENABLE => Some("DEPTH_BOUNDS_TEST_ENABLE"),
+                Self::STENCIL_TEST_ENABLE => Some("STENCIL_TEST_ENABLE"),
+                Self::STENCIL_OP => Some("STENCIL_OP"),
+                Self::RASTERIZER_DISCARD_ENABLE => Some("RASTERIZER_DISCARD_ENABLE"),
+                Self::DEPTH_BIAS_ENABLE => Some("DEPTH_BIAS_ENABLE"),
+                Self::PRIMITIVE_RESTART_ENABLE => Some("PRIMITIVE_RESTART_ENABLE"),
+                Self::LINE_STIPPLE => Some("LINE_STIPPLE"),
                 _ => None,
             };
             if let Some(name) = name {
@@ -12137,41 +12654,69 @@ pub(super) mod defs {
         pub const DESCRIPTOR_SET: Self = Self(23);
         pub const FRAMEBUFFER: Self = Self(24);
         pub const COMMAND_POOL: Self = Self(25);
-        pub const ACCELERATION_STRUCTURE_KHR: Self = Self(1000150000);
-        pub const ACCELERATION_STRUCTURE_NV: Self = Self(1000165000);
-        pub const BUFFER_COLLECTION_FUCHSIA: Self = Self(1000366000);
-        pub const CUDA_FUNCTION_NV: Self = Self(1000307001);
-        pub const CUDA_MODULE_NV: Self = Self(1000307000);
-        pub const CU_FUNCTION_NVX: Self = Self(1000029001);
-        pub const CU_MODULE_NVX: Self = Self(1000029000);
+        // VK_ARM_data_graph
         pub const DATA_GRAPH_PIPELINE_SESSION_ARM: Self = Self(1000507000);
-        pub const DEBUG_REPORT_CALLBACK_EXT: Self = Self(1000011000);
-        pub const DEBUG_UTILS_MESSENGER_EXT: Self = Self(1000128000);
-        pub const DEFERRED_OPERATION_KHR: Self = Self(1000268000);
-        pub const DESCRIPTOR_UPDATE_TEMPLATE: Self = Self(1000085000);
-        pub const DISPLAY_KHR: Self = Self(1000002000);
-        pub const DISPLAY_MODE_KHR: Self = Self(1000002001);
-        pub const EXTERNAL_COMPUTE_QUEUE_NV: Self = Self(1000556000);
-        pub const INDIRECT_COMMANDS_LAYOUT_EXT: Self = Self(1000572000);
-        pub const INDIRECT_COMMANDS_LAYOUT_NV: Self = Self(1000277000);
-        pub const INDIRECT_EXECUTION_SET_EXT: Self = Self(1000572001);
-        pub const MICROMAP_EXT: Self = Self(1000396000);
-        pub const OPTICAL_FLOW_SESSION_NV: Self = Self(1000464000);
-        pub const PERFORMANCE_CONFIGURATION_INTEL: Self = Self(1000210000);
-        pub const PIPELINE_BINARY_KHR: Self = Self(1000483000);
-        pub const PRIVATE_DATA_SLOT: Self = Self(1000295000);
-        pub const SAMPLER_YCBCR_CONVERSION: Self = Self(1000156000);
-        pub const SHADER_EXT: Self = Self(1000482000);
-        pub const SURFACE_KHR: Self = Self(1000000000);
-        pub const SWAPCHAIN_KHR: Self = Self(1000001000);
+        // VK_ARM_tensors
         pub const TENSOR_ARM: Self = Self(1000460000);
         pub const TENSOR_VIEW_ARM: Self = Self(1000460001);
+        // VK_EXT_debug_report
+        pub const DEBUG_REPORT_CALLBACK_EXT: Self = Self(1000011000);
+        // VK_EXT_debug_utils
+        pub const DEBUG_UTILS_MESSENGER_EXT: Self = Self(1000128000);
+        // VK_EXT_device_generated_commands
+        pub const INDIRECT_COMMANDS_LAYOUT_EXT: Self = Self(1000572000);
+        pub const INDIRECT_EXECUTION_SET_EXT: Self = Self(1000572001);
+        // VK_EXT_opacity_micromap
+        pub const MICROMAP_EXT: Self = Self(1000396000);
+        // VK_EXT_private_data
+        pub const PRIVATE_DATA_SLOT_EXT: Self = Self::PRIVATE_DATA_SLOT;
+        // VK_EXT_shader_object
+        pub const SHADER_EXT: Self = Self(1000482000);
+        // VK_EXT_validation_cache
         pub const VALIDATION_CACHE_EXT: Self = Self(1000160000);
+        // VK_FUCHSIA_buffer_collection
+        pub const BUFFER_COLLECTION_FUCHSIA: Self = Self(1000366000);
+        // VK_INTEL_performance_query
+        pub const PERFORMANCE_CONFIGURATION_INTEL: Self = Self(1000210000);
+        // VK_KHR_acceleration_structure
+        pub const ACCELERATION_STRUCTURE_KHR: Self = Self(1000150000);
+        // VK_KHR_deferred_host_operations
+        pub const DEFERRED_OPERATION_KHR: Self = Self(1000268000);
+        // VK_KHR_descriptor_update_template
+        pub const DESCRIPTOR_UPDATE_TEMPLATE_KHR: Self = Self::DESCRIPTOR_UPDATE_TEMPLATE;
+        // VK_KHR_display
+        pub const DISPLAY_KHR: Self = Self(1000002000);
+        pub const DISPLAY_MODE_KHR: Self = Self(1000002001);
+        // VK_KHR_pipeline_binary
+        pub const PIPELINE_BINARY_KHR: Self = Self(1000483000);
+        // VK_KHR_sampler_ycbcr_conversion
+        pub const SAMPLER_YCBCR_CONVERSION_KHR: Self = Self::SAMPLER_YCBCR_CONVERSION;
+        // VK_KHR_surface
+        pub const SURFACE_KHR: Self = Self(1000000000);
+        // VK_KHR_swapchain
+        pub const SWAPCHAIN_KHR: Self = Self(1000001000);
+        // VK_KHR_video_queue
         pub const VIDEO_SESSION_KHR: Self = Self(1000023000);
         pub const VIDEO_SESSION_PARAMETERS_KHR: Self = Self(1000023001);
-        pub const DESCRIPTOR_UPDATE_TEMPLATE_KHR: Self = Self::DESCRIPTOR_UPDATE_TEMPLATE;
-        pub const PRIVATE_DATA_SLOT_EXT: Self = Self::PRIVATE_DATA_SLOT;
-        pub const SAMPLER_YCBCR_CONVERSION_KHR: Self = Self::SAMPLER_YCBCR_CONVERSION;
+        // VK_NVX_binary_import
+        pub const CU_MODULE_NVX: Self = Self(1000029000);
+        pub const CU_FUNCTION_NVX: Self = Self(1000029001);
+        // VK_NV_cuda_kernel_launch
+        pub const CUDA_MODULE_NV: Self = Self(1000307000);
+        pub const CUDA_FUNCTION_NV: Self = Self(1000307001);
+        // VK_NV_device_generated_commands
+        pub const INDIRECT_COMMANDS_LAYOUT_NV: Self = Self(1000277000);
+        // VK_NV_external_compute_queue
+        pub const EXTERNAL_COMPUTE_QUEUE_NV: Self = Self(1000556000);
+        // VK_NV_optical_flow
+        pub const OPTICAL_FLOW_SESSION_NV: Self = Self(1000464000);
+        // VK_NV_ray_tracing
+        pub const ACCELERATION_STRUCTURE_NV: Self = Self(1000165000);
+        // VK_VERSION_1_1
+        pub const DESCRIPTOR_UPDATE_TEMPLATE: Self = Self(1000085000);
+        pub const SAMPLER_YCBCR_CONVERSION: Self = Self(1000156000);
+        // VK_VERSION_1_3
+        pub const PRIVATE_DATA_SLOT: Self = Self(1000295000);
     }
     impl fmt::Debug for ObjectType {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -12202,38 +12747,38 @@ pub(super) mod defs {
                 Self::DESCRIPTOR_SET => Some("DESCRIPTOR_SET"),
                 Self::FRAMEBUFFER => Some("FRAMEBUFFER"),
                 Self::COMMAND_POOL => Some("COMMAND_POOL"),
-                Self::ACCELERATION_STRUCTURE_KHR => Some("ACCELERATION_STRUCTURE_KHR"),
-                Self::ACCELERATION_STRUCTURE_NV => Some("ACCELERATION_STRUCTURE_NV"),
-                Self::BUFFER_COLLECTION_FUCHSIA => Some("BUFFER_COLLECTION_FUCHSIA"),
-                Self::CUDA_FUNCTION_NV => Some("CUDA_FUNCTION_NV"),
-                Self::CUDA_MODULE_NV => Some("CUDA_MODULE_NV"),
-                Self::CU_FUNCTION_NVX => Some("CU_FUNCTION_NVX"),
-                Self::CU_MODULE_NVX => Some("CU_MODULE_NVX"),
                 Self::DATA_GRAPH_PIPELINE_SESSION_ARM => Some("DATA_GRAPH_PIPELINE_SESSION_ARM"),
-                Self::DEBUG_REPORT_CALLBACK_EXT => Some("DEBUG_REPORT_CALLBACK_EXT"),
-                Self::DEBUG_UTILS_MESSENGER_EXT => Some("DEBUG_UTILS_MESSENGER_EXT"),
-                Self::DEFERRED_OPERATION_KHR => Some("DEFERRED_OPERATION_KHR"),
-                Self::DESCRIPTOR_UPDATE_TEMPLATE => Some("DESCRIPTOR_UPDATE_TEMPLATE"),
-                Self::DISPLAY_KHR => Some("DISPLAY_KHR"),
-                Self::DISPLAY_MODE_KHR => Some("DISPLAY_MODE_KHR"),
-                Self::EXTERNAL_COMPUTE_QUEUE_NV => Some("EXTERNAL_COMPUTE_QUEUE_NV"),
-                Self::INDIRECT_COMMANDS_LAYOUT_EXT => Some("INDIRECT_COMMANDS_LAYOUT_EXT"),
-                Self::INDIRECT_COMMANDS_LAYOUT_NV => Some("INDIRECT_COMMANDS_LAYOUT_NV"),
-                Self::INDIRECT_EXECUTION_SET_EXT => Some("INDIRECT_EXECUTION_SET_EXT"),
-                Self::MICROMAP_EXT => Some("MICROMAP_EXT"),
-                Self::OPTICAL_FLOW_SESSION_NV => Some("OPTICAL_FLOW_SESSION_NV"),
-                Self::PERFORMANCE_CONFIGURATION_INTEL => Some("PERFORMANCE_CONFIGURATION_INTEL"),
-                Self::PIPELINE_BINARY_KHR => Some("PIPELINE_BINARY_KHR"),
-                Self::PRIVATE_DATA_SLOT => Some("PRIVATE_DATA_SLOT"),
-                Self::SAMPLER_YCBCR_CONVERSION => Some("SAMPLER_YCBCR_CONVERSION"),
-                Self::SHADER_EXT => Some("SHADER_EXT"),
-                Self::SURFACE_KHR => Some("SURFACE_KHR"),
-                Self::SWAPCHAIN_KHR => Some("SWAPCHAIN_KHR"),
                 Self::TENSOR_ARM => Some("TENSOR_ARM"),
                 Self::TENSOR_VIEW_ARM => Some("TENSOR_VIEW_ARM"),
+                Self::DEBUG_REPORT_CALLBACK_EXT => Some("DEBUG_REPORT_CALLBACK_EXT"),
+                Self::DEBUG_UTILS_MESSENGER_EXT => Some("DEBUG_UTILS_MESSENGER_EXT"),
+                Self::INDIRECT_COMMANDS_LAYOUT_EXT => Some("INDIRECT_COMMANDS_LAYOUT_EXT"),
+                Self::INDIRECT_EXECUTION_SET_EXT => Some("INDIRECT_EXECUTION_SET_EXT"),
+                Self::MICROMAP_EXT => Some("MICROMAP_EXT"),
+                Self::SHADER_EXT => Some("SHADER_EXT"),
                 Self::VALIDATION_CACHE_EXT => Some("VALIDATION_CACHE_EXT"),
+                Self::BUFFER_COLLECTION_FUCHSIA => Some("BUFFER_COLLECTION_FUCHSIA"),
+                Self::PERFORMANCE_CONFIGURATION_INTEL => Some("PERFORMANCE_CONFIGURATION_INTEL"),
+                Self::ACCELERATION_STRUCTURE_KHR => Some("ACCELERATION_STRUCTURE_KHR"),
+                Self::DEFERRED_OPERATION_KHR => Some("DEFERRED_OPERATION_KHR"),
+                Self::DISPLAY_KHR => Some("DISPLAY_KHR"),
+                Self::DISPLAY_MODE_KHR => Some("DISPLAY_MODE_KHR"),
+                Self::PIPELINE_BINARY_KHR => Some("PIPELINE_BINARY_KHR"),
+                Self::SURFACE_KHR => Some("SURFACE_KHR"),
+                Self::SWAPCHAIN_KHR => Some("SWAPCHAIN_KHR"),
                 Self::VIDEO_SESSION_KHR => Some("VIDEO_SESSION_KHR"),
                 Self::VIDEO_SESSION_PARAMETERS_KHR => Some("VIDEO_SESSION_PARAMETERS_KHR"),
+                Self::CU_MODULE_NVX => Some("CU_MODULE_NVX"),
+                Self::CU_FUNCTION_NVX => Some("CU_FUNCTION_NVX"),
+                Self::CUDA_MODULE_NV => Some("CUDA_MODULE_NV"),
+                Self::CUDA_FUNCTION_NV => Some("CUDA_FUNCTION_NV"),
+                Self::INDIRECT_COMMANDS_LAYOUT_NV => Some("INDIRECT_COMMANDS_LAYOUT_NV"),
+                Self::EXTERNAL_COMPUTE_QUEUE_NV => Some("EXTERNAL_COMPUTE_QUEUE_NV"),
+                Self::OPTICAL_FLOW_SESSION_NV => Some("OPTICAL_FLOW_SESSION_NV"),
+                Self::ACCELERATION_STRUCTURE_NV => Some("ACCELERATION_STRUCTURE_NV"),
+                Self::DESCRIPTOR_UPDATE_TEMPLATE => Some("DESCRIPTOR_UPDATE_TEMPLATE"),
+                Self::SAMPLER_YCBCR_CONVERSION => Some("SAMPLER_YCBCR_CONVERSION"),
+                Self::PRIVATE_DATA_SLOT => Some("PRIVATE_DATA_SLOT"),
                 _ => None,
             };
             if let Some(name) = name {
@@ -12281,27 +12826,33 @@ pub(super) mod defs {
     pub struct FramebufferCreateFlags(Flags);
     vk_bitflags_wrapped!(FramebufferCreateFlags, Flags);
     impl FramebufferCreateFlags {
-        pub const IMAGELESS: Self = Self(FramebufferCreateFlagBits::IMAGELESS.0);
+        // VK_KHR_imageless_framebuffer
         pub const IMAGELESS_KHR: Self = Self::IMAGELESS;
+        // VK_VERSION_1_2
+        pub const IMAGELESS: Self = Self(FramebufferCreateFlagBits::IMAGELESS.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct FramebufferCreateFlagBits(u32);
     impl FramebufferCreateFlagBits {
-        pub const IMAGELESS: Self = Self(1 << 0);
+        // VK_KHR_imageless_framebuffer
         pub const IMAGELESS_KHR: Self = Self::IMAGELESS;
+        // VK_VERSION_1_2
+        pub const IMAGELESS: Self = Self(1 << 0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct QueryPoolCreateFlags(Flags);
     vk_bitflags_wrapped!(QueryPoolCreateFlags, Flags);
     impl QueryPoolCreateFlags {
+        // VK_KHR_maintenance9
         pub const RESET_KHR: Self = Self(QueryPoolCreateFlagBits::RESET_KHR.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct QueryPoolCreateFlagBits(u32);
     impl QueryPoolCreateFlagBits {
+        // VK_KHR_maintenance9
         pub const RESET_KHR: Self = Self(1 << 0);
     }
     #[repr(transparent)]
@@ -12309,7 +12860,9 @@ pub(super) mod defs {
     pub struct RenderPassCreateFlags(Flags);
     vk_bitflags_wrapped!(RenderPassCreateFlags, Flags);
     impl RenderPassCreateFlags {
+        // VK_QCOM_render_pass_transform
         pub const TRANSFORM_QCOM: Self = Self(RenderPassCreateFlagBits::TRANSFORM_QCOM.0);
+        // VK_VALVE_fragment_density_map_layered
         pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self =
             Self(RenderPassCreateFlagBits::PER_LAYER_FRAGMENT_DENSITY_VALVE.0);
     }
@@ -12317,7 +12870,9 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct RenderPassCreateFlagBits(u32);
     impl RenderPassCreateFlagBits {
+        // VK_QCOM_render_pass_transform
         pub const TRANSFORM_QCOM: Self = Self(1 << 1);
+        // VK_VALVE_fragment_density_map_layered
         pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self = Self(1 << 2);
     }
     #[repr(transparent)]
@@ -12325,13 +12880,17 @@ pub(super) mod defs {
     pub struct SamplerCreateFlags(Flags);
     vk_bitflags_wrapped!(SamplerCreateFlags, Flags);
     impl SamplerCreateFlags {
+        // VK_EXT_descriptor_buffer
+        pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self =
+            Self(SamplerCreateFlagBits::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT.0);
+        // VK_EXT_fragment_density_map
         pub const SUBSAMPLED_EXT: Self = Self(SamplerCreateFlagBits::SUBSAMPLED_EXT.0);
         pub const SUBSAMPLED_COARSE_RECONSTRUCTION_EXT: Self =
             Self(SamplerCreateFlagBits::SUBSAMPLED_COARSE_RECONSTRUCTION_EXT.0);
+        // VK_EXT_non_seamless_cube_map
         pub const NON_SEAMLESS_CUBE_MAP_EXT: Self =
             Self(SamplerCreateFlagBits::NON_SEAMLESS_CUBE_MAP_EXT.0);
-        pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self =
-            Self(SamplerCreateFlagBits::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT.0);
+        // VK_QCOM_image_processing
         pub const IMAGE_PROCESSING_QCOM: Self =
             Self(SamplerCreateFlagBits::IMAGE_PROCESSING_QCOM.0);
     }
@@ -12339,10 +12898,14 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SamplerCreateFlagBits(u32);
     impl SamplerCreateFlagBits {
+        // VK_EXT_descriptor_buffer
+        pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self = Self(1 << 3);
+        // VK_EXT_fragment_density_map
         pub const SUBSAMPLED_EXT: Self = Self(1 << 0);
         pub const SUBSAMPLED_COARSE_RECONSTRUCTION_EXT: Self = Self(1 << 1);
+        // VK_EXT_non_seamless_cube_map
         pub const NON_SEAMLESS_CUBE_MAP_EXT: Self = Self(1 << 2);
-        pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self = Self(1 << 3);
+        // VK_QCOM_image_processing
         pub const IMAGE_PROCESSING_QCOM: Self = Self(1 << 4);
     }
     #[repr(transparent)]
@@ -12350,6 +12913,7 @@ pub(super) mod defs {
     pub struct PipelineLayoutCreateFlags(Flags);
     vk_bitflags_wrapped!(PipelineLayoutCreateFlags, Flags);
     impl PipelineLayoutCreateFlags {
+        // VK_EXT_graphics_pipeline_library
         pub const INDEPENDENT_SETS_EXT: Self =
             Self(PipelineLayoutCreateFlagBits::INDEPENDENT_SETS_EXT.0);
     }
@@ -12357,6 +12921,7 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineLayoutCreateFlagBits(u32);
     impl PipelineLayoutCreateFlagBits {
+        // VK_EXT_graphics_pipeline_library
         pub const INDEPENDENT_SETS_EXT: Self = Self(1 << 1);
     }
     #[repr(transparent)]
@@ -12364,165 +12929,194 @@ pub(super) mod defs {
     pub struct PipelineCacheCreateFlags(Flags);
     vk_bitflags_wrapped!(PipelineCacheCreateFlags, Flags);
     impl PipelineCacheCreateFlags {
-        pub const EXTERNALLY_SYNCHRONIZED: Self =
-            Self(PipelineCacheCreateFlagBits::EXTERNALLY_SYNCHRONIZED.0);
+        // VK_EXT_pipeline_creation_cache_control
+        pub const EXTERNALLY_SYNCHRONIZED_EXT: Self = Self::EXTERNALLY_SYNCHRONIZED;
+        // VK_KHR_maintenance8
         pub const INTERNALLY_SYNCHRONIZED_MERGE_KHR: Self =
             Self(PipelineCacheCreateFlagBits::INTERNALLY_SYNCHRONIZED_MERGE_KHR.0);
-        pub const EXTERNALLY_SYNCHRONIZED_EXT: Self = Self::EXTERNALLY_SYNCHRONIZED;
+        // VK_VERSION_1_3
+        pub const EXTERNALLY_SYNCHRONIZED: Self =
+            Self(PipelineCacheCreateFlagBits::EXTERNALLY_SYNCHRONIZED.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineCacheCreateFlagBits(u32);
     impl PipelineCacheCreateFlagBits {
-        pub const EXTERNALLY_SYNCHRONIZED: Self = Self(1 << 0);
-        pub const INTERNALLY_SYNCHRONIZED_MERGE_KHR: Self = Self(1 << 3);
+        // VK_EXT_pipeline_creation_cache_control
         pub const EXTERNALLY_SYNCHRONIZED_EXT: Self = Self::EXTERNALLY_SYNCHRONIZED;
+        // VK_KHR_maintenance8
+        pub const INTERNALLY_SYNCHRONIZED_MERGE_KHR: Self = Self(1 << 3);
+        // VK_VERSION_1_3
+        pub const EXTERNALLY_SYNCHRONIZED: Self = Self(1 << 0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineDepthStencilStateCreateFlags(Flags);
     vk_bitflags_wrapped!(PipelineDepthStencilStateCreateFlags, Flags);
     impl PipelineDepthStencilStateCreateFlags {
-        pub const RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT: Self = Self(PipelineDepthStencilStateCreateFlagBits::RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT.0);
-        pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT: Self = Self(PipelineDepthStencilStateCreateFlagBits::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT.0);
+        // VK_ARM_rasterization_order_attachment_access
         pub const RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_ARM: Self =
             Self::RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT;
         pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_ARM: Self =
             Self::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT;
+        // VK_EXT_rasterization_order_attachment_access
+        pub const RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT: Self = Self(PipelineDepthStencilStateCreateFlagBits::RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT.0);
+        pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT: Self = Self(PipelineDepthStencilStateCreateFlagBits::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineDepthStencilStateCreateFlagBits(u32);
     impl PipelineDepthStencilStateCreateFlagBits {
-        pub const RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT: Self = Self(1 << 0);
-        pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT: Self = Self(1 << 1);
+        // VK_ARM_rasterization_order_attachment_access
         pub const RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_ARM: Self =
             Self::RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT;
         pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_ARM: Self =
             Self::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT;
+        // VK_EXT_rasterization_order_attachment_access
+        pub const RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT: Self = Self(1 << 0);
+        pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT: Self = Self(1 << 1);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineDynamicStateCreateFlags(Flags);
     vk_bitflags_wrapped!(PipelineDynamicStateCreateFlags, Flags);
-    impl PipelineDynamicStateCreateFlags {}
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineColorBlendStateCreateFlags(Flags);
     vk_bitflags_wrapped!(PipelineColorBlendStateCreateFlags, Flags);
     impl PipelineColorBlendStateCreateFlags {
+        // VK_ARM_rasterization_order_attachment_access
+        pub const RASTERIZATION_ORDER_ATTACHMENT_ACCESS_ARM: Self =
+            Self::RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT;
+        // VK_EXT_rasterization_order_attachment_access
         pub const RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT: Self = Self(
             PipelineColorBlendStateCreateFlagBits::RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT.0,
         );
-        pub const RASTERIZATION_ORDER_ATTACHMENT_ACCESS_ARM: Self =
-            Self::RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT;
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineColorBlendStateCreateFlagBits(u32);
     impl PipelineColorBlendStateCreateFlagBits {
-        pub const RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT: Self = Self(1 << 0);
+        // VK_ARM_rasterization_order_attachment_access
         pub const RASTERIZATION_ORDER_ATTACHMENT_ACCESS_ARM: Self =
             Self::RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT;
+        // VK_EXT_rasterization_order_attachment_access
+        pub const RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT: Self = Self(1 << 0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineMultisampleStateCreateFlags(Flags);
     vk_bitflags_wrapped!(PipelineMultisampleStateCreateFlags, Flags);
-    impl PipelineMultisampleStateCreateFlags {}
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineRasterizationStateCreateFlags(Flags);
     vk_bitflags_wrapped!(PipelineRasterizationStateCreateFlags, Flags);
-    impl PipelineRasterizationStateCreateFlags {}
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineViewportStateCreateFlags(Flags);
     vk_bitflags_wrapped!(PipelineViewportStateCreateFlags, Flags);
-    impl PipelineViewportStateCreateFlags {}
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineTessellationStateCreateFlags(Flags);
     vk_bitflags_wrapped!(PipelineTessellationStateCreateFlags, Flags);
-    impl PipelineTessellationStateCreateFlags {}
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineInputAssemblyStateCreateFlags(Flags);
     vk_bitflags_wrapped!(PipelineInputAssemblyStateCreateFlags, Flags);
-    impl PipelineInputAssemblyStateCreateFlags {}
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineVertexInputStateCreateFlags(Flags);
     vk_bitflags_wrapped!(PipelineVertexInputStateCreateFlags, Flags);
-    impl PipelineVertexInputStateCreateFlags {}
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineShaderStageCreateFlags(Flags);
     vk_bitflags_wrapped!(PipelineShaderStageCreateFlags, Flags);
     impl PipelineShaderStageCreateFlags {
+        // VK_EXT_subgroup_size_control
+        pub const ALLOW_VARYING_SUBGROUP_SIZE_EXT: Self = Self::ALLOW_VARYING_SUBGROUP_SIZE;
+        pub const REQUIRE_FULL_SUBGROUPS_EXT: Self = Self::REQUIRE_FULL_SUBGROUPS;
+        // VK_VERSION_1_3
         pub const ALLOW_VARYING_SUBGROUP_SIZE: Self =
             Self(PipelineShaderStageCreateFlagBits::ALLOW_VARYING_SUBGROUP_SIZE.0);
         pub const REQUIRE_FULL_SUBGROUPS: Self =
             Self(PipelineShaderStageCreateFlagBits::REQUIRE_FULL_SUBGROUPS.0);
-        pub const ALLOW_VARYING_SUBGROUP_SIZE_EXT: Self = Self::ALLOW_VARYING_SUBGROUP_SIZE;
-        pub const REQUIRE_FULL_SUBGROUPS_EXT: Self = Self::REQUIRE_FULL_SUBGROUPS;
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineShaderStageCreateFlagBits(u32);
     impl PipelineShaderStageCreateFlagBits {
-        pub const ALLOW_VARYING_SUBGROUP_SIZE: Self = Self(1 << 0);
-        pub const REQUIRE_FULL_SUBGROUPS: Self = Self(1 << 1);
+        // VK_EXT_subgroup_size_control
         pub const ALLOW_VARYING_SUBGROUP_SIZE_EXT: Self = Self::ALLOW_VARYING_SUBGROUP_SIZE;
         pub const REQUIRE_FULL_SUBGROUPS_EXT: Self = Self::REQUIRE_FULL_SUBGROUPS;
+        // VK_VERSION_1_3
+        pub const ALLOW_VARYING_SUBGROUP_SIZE: Self = Self(1 << 0);
+        pub const REQUIRE_FULL_SUBGROUPS: Self = Self(1 << 1);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DescriptorSetLayoutCreateFlags(Flags);
     vk_bitflags_wrapped!(DescriptorSetLayoutCreateFlags, Flags);
     impl DescriptorSetLayoutCreateFlags {
-        pub const PUSH_DESCRIPTOR: Self =
-            Self(DescriptorSetLayoutCreateFlagBits::PUSH_DESCRIPTOR.0);
-        pub const UPDATE_AFTER_BIND_POOL: Self =
-            Self(DescriptorSetLayoutCreateFlagBits::UPDATE_AFTER_BIND_POOL.0);
-        pub const HOST_ONLY_POOL_EXT: Self =
-            Self(DescriptorSetLayoutCreateFlagBits::HOST_ONLY_POOL_EXT.0);
+        // VK_EXT_descriptor_buffer
         pub const DESCRIPTOR_BUFFER_EXT: Self =
             Self(DescriptorSetLayoutCreateFlagBits::DESCRIPTOR_BUFFER_EXT.0);
         pub const EMBEDDED_IMMUTABLE_SAMPLERS_EXT: Self =
             Self(DescriptorSetLayoutCreateFlagBits::EMBEDDED_IMMUTABLE_SAMPLERS_EXT.0);
-        pub const PER_STAGE_NV: Self = Self(DescriptorSetLayoutCreateFlagBits::PER_STAGE_NV.0);
+        // VK_EXT_descriptor_indexing
+        pub const UPDATE_AFTER_BIND_POOL_EXT: Self = Self::UPDATE_AFTER_BIND_POOL;
+        // VK_EXT_mutable_descriptor_type
+        pub const HOST_ONLY_POOL_EXT: Self =
+            Self(DescriptorSetLayoutCreateFlagBits::HOST_ONLY_POOL_EXT.0);
+        // VK_KHR_push_descriptor
+        pub const PUSH_DESCRIPTOR_KHR: Self = Self::PUSH_DESCRIPTOR;
+        // VK_NV_device_generated_commands_compute
         pub const INDIRECT_BINDABLE_NV: Self =
             Self(DescriptorSetLayoutCreateFlagBits::INDIRECT_BINDABLE_NV.0);
+        // VK_NV_per_stage_descriptor_set
+        pub const PER_STAGE_NV: Self = Self(DescriptorSetLayoutCreateFlagBits::PER_STAGE_NV.0);
+        // VK_VALVE_mutable_descriptor_type
         pub const HOST_ONLY_POOL_VALVE: Self = Self::HOST_ONLY_POOL_EXT;
-        pub const PUSH_DESCRIPTOR_KHR: Self = Self::PUSH_DESCRIPTOR;
-        pub const UPDATE_AFTER_BIND_POOL_EXT: Self = Self::UPDATE_AFTER_BIND_POOL;
+        // VK_VERSION_1_2
+        pub const UPDATE_AFTER_BIND_POOL: Self =
+            Self(DescriptorSetLayoutCreateFlagBits::UPDATE_AFTER_BIND_POOL.0);
+        // VK_VERSION_1_4
+        pub const PUSH_DESCRIPTOR: Self =
+            Self(DescriptorSetLayoutCreateFlagBits::PUSH_DESCRIPTOR.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DescriptorSetLayoutCreateFlagBits(u32);
     impl DescriptorSetLayoutCreateFlagBits {
-        pub const PUSH_DESCRIPTOR: Self = Self(1 << 0);
-        pub const UPDATE_AFTER_BIND_POOL: Self = Self(1 << 1);
-        pub const HOST_ONLY_POOL_EXT: Self = Self(1 << 2);
+        // VK_EXT_descriptor_buffer
         pub const DESCRIPTOR_BUFFER_EXT: Self = Self(1 << 4);
         pub const EMBEDDED_IMMUTABLE_SAMPLERS_EXT: Self = Self(1 << 5);
-        pub const PER_STAGE_NV: Self = Self(1 << 6);
-        pub const INDIRECT_BINDABLE_NV: Self = Self(1 << 7);
-        pub const HOST_ONLY_POOL_VALVE: Self = Self::HOST_ONLY_POOL_EXT;
-        pub const PUSH_DESCRIPTOR_KHR: Self = Self::PUSH_DESCRIPTOR;
+        // VK_EXT_descriptor_indexing
         pub const UPDATE_AFTER_BIND_POOL_EXT: Self = Self::UPDATE_AFTER_BIND_POOL;
+        // VK_EXT_mutable_descriptor_type
+        pub const HOST_ONLY_POOL_EXT: Self = Self(1 << 2);
+        // VK_KHR_push_descriptor
+        pub const PUSH_DESCRIPTOR_KHR: Self = Self::PUSH_DESCRIPTOR;
+        // VK_NV_device_generated_commands_compute
+        pub const INDIRECT_BINDABLE_NV: Self = Self(1 << 7);
+        // VK_NV_per_stage_descriptor_set
+        pub const PER_STAGE_NV: Self = Self(1 << 6);
+        // VK_VALVE_mutable_descriptor_type
+        pub const HOST_ONLY_POOL_VALVE: Self = Self::HOST_ONLY_POOL_EXT;
+        // VK_VERSION_1_2
+        pub const UPDATE_AFTER_BIND_POOL: Self = Self(1 << 1);
+        // VK_VERSION_1_4
+        pub const PUSH_DESCRIPTOR: Self = Self(1 << 0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct BufferViewCreateFlags(Flags);
     vk_bitflags_wrapped!(BufferViewCreateFlags, Flags);
-    impl BufferViewCreateFlags {}
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct InstanceCreateFlags(Flags);
     vk_bitflags_wrapped!(InstanceCreateFlags, Flags);
     impl InstanceCreateFlags {
+        // VK_KHR_portability_enumeration
         pub const ENUMERATE_PORTABILITY_KHR: Self =
             Self(InstanceCreateFlagBits::ENUMERATE_PORTABILITY_KHR.0);
     }
@@ -12530,28 +13124,32 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct InstanceCreateFlagBits(u32);
     impl InstanceCreateFlagBits {
+        // VK_KHR_portability_enumeration
         pub const ENUMERATE_PORTABILITY_KHR: Self = Self(1 << 0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DeviceCreateFlags(Flags);
     vk_bitflags_wrapped!(DeviceCreateFlags, Flags);
-    impl DeviceCreateFlags {}
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DeviceQueueCreateFlags(Flags);
     vk_bitflags_wrapped!(DeviceQueueCreateFlags, Flags);
     impl DeviceQueueCreateFlags {
-        pub const PROTECTED: Self = Self(DeviceQueueCreateFlagBits::PROTECTED.0);
+        // VK_KHR_internally_synchronized_queues
         pub const INTERNALLY_SYNCHRONIZED_KHR: Self =
             Self(DeviceQueueCreateFlagBits::INTERNALLY_SYNCHRONIZED_KHR.0);
+        // VK_VERSION_1_1
+        pub const PROTECTED: Self = Self(DeviceQueueCreateFlagBits::PROTECTED.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DeviceQueueCreateFlagBits(u32);
     impl DeviceQueueCreateFlagBits {
-        pub const PROTECTED: Self = Self(1 << 0);
+        // VK_KHR_internally_synchronized_queues
         pub const INTERNALLY_SYNCHRONIZED_KHR: Self = Self(1 << 2);
+        // VK_VERSION_1_1
+        pub const PROTECTED: Self = Self(1 << 0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -12562,11 +13160,16 @@ pub(super) mod defs {
         pub const COMPUTE: Self = Self(QueueFlagBits::COMPUTE.0);
         pub const TRANSFER: Self = Self(QueueFlagBits::TRANSFER.0);
         pub const SPARSE_BINDING: Self = Self(QueueFlagBits::SPARSE_BINDING.0);
-        pub const PROTECTED: Self = Self(QueueFlagBits::PROTECTED.0);
-        pub const VIDEO_DECODE_KHR: Self = Self(QueueFlagBits::VIDEO_DECODE_KHR.0);
-        pub const VIDEO_ENCODE_KHR: Self = Self(QueueFlagBits::VIDEO_ENCODE_KHR.0);
-        pub const OPTICAL_FLOW_NV: Self = Self(QueueFlagBits::OPTICAL_FLOW_NV.0);
+        // VK_ARM_data_graph
         pub const DATA_GRAPH_ARM: Self = Self(QueueFlagBits::DATA_GRAPH_ARM.0);
+        // VK_KHR_video_decode_queue
+        pub const VIDEO_DECODE_KHR: Self = Self(QueueFlagBits::VIDEO_DECODE_KHR.0);
+        // VK_KHR_video_encode_queue
+        pub const VIDEO_ENCODE_KHR: Self = Self(QueueFlagBits::VIDEO_ENCODE_KHR.0);
+        // VK_NV_optical_flow
+        pub const OPTICAL_FLOW_NV: Self = Self(QueueFlagBits::OPTICAL_FLOW_NV.0);
+        // VK_VERSION_1_1
+        pub const PROTECTED: Self = Self(QueueFlagBits::PROTECTED.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -12576,11 +13179,16 @@ pub(super) mod defs {
         pub const COMPUTE: Self = Self(1 << 1);
         pub const TRANSFER: Self = Self(1 << 2);
         pub const SPARSE_BINDING: Self = Self(1 << 3);
-        pub const PROTECTED: Self = Self(1 << 4);
-        pub const VIDEO_DECODE_KHR: Self = Self(1 << 5);
-        pub const VIDEO_ENCODE_KHR: Self = Self(1 << 6);
-        pub const OPTICAL_FLOW_NV: Self = Self(1 << 8);
+        // VK_ARM_data_graph
         pub const DATA_GRAPH_ARM: Self = Self(1 << 10);
+        // VK_KHR_video_decode_queue
+        pub const VIDEO_DECODE_KHR: Self = Self(1 << 5);
+        // VK_KHR_video_encode_queue
+        pub const VIDEO_ENCODE_KHR: Self = Self(1 << 6);
+        // VK_NV_optical_flow
+        pub const OPTICAL_FLOW_NV: Self = Self(1 << 8);
+        // VK_VERSION_1_1
+        pub const PROTECTED: Self = Self(1 << 4);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -12592,10 +13200,13 @@ pub(super) mod defs {
         pub const HOST_COHERENT: Self = Self(MemoryPropertyFlagBits::HOST_COHERENT.0);
         pub const HOST_CACHED: Self = Self(MemoryPropertyFlagBits::HOST_CACHED.0);
         pub const LAZILY_ALLOCATED: Self = Self(MemoryPropertyFlagBits::LAZILY_ALLOCATED.0);
-        pub const PROTECTED: Self = Self(MemoryPropertyFlagBits::PROTECTED.0);
+        // VK_AMD_device_coherent_memory
         pub const DEVICE_COHERENT_AMD: Self = Self(MemoryPropertyFlagBits::DEVICE_COHERENT_AMD.0);
         pub const DEVICE_UNCACHED_AMD: Self = Self(MemoryPropertyFlagBits::DEVICE_UNCACHED_AMD.0);
+        // VK_NV_external_memory_rdma
         pub const RDMA_CAPABLE_NV: Self = Self(MemoryPropertyFlagBits::RDMA_CAPABLE_NV.0);
+        // VK_VERSION_1_1
+        pub const PROTECTED: Self = Self(MemoryPropertyFlagBits::PROTECTED.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -12606,10 +13217,13 @@ pub(super) mod defs {
         pub const HOST_COHERENT: Self = Self(1 << 2);
         pub const HOST_CACHED: Self = Self(1 << 3);
         pub const LAZILY_ALLOCATED: Self = Self(1 << 4);
-        pub const PROTECTED: Self = Self(1 << 5);
+        // VK_AMD_device_coherent_memory
         pub const DEVICE_COHERENT_AMD: Self = Self(1 << 6);
         pub const DEVICE_UNCACHED_AMD: Self = Self(1 << 7);
+        // VK_NV_external_memory_rdma
         pub const RDMA_CAPABLE_NV: Self = Self(1 << 8);
+        // VK_VERSION_1_1
+        pub const PROTECTED: Self = Self(1 << 5);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -12617,18 +13231,24 @@ pub(super) mod defs {
     vk_bitflags_wrapped!(MemoryHeapFlags, Flags);
     impl MemoryHeapFlags {
         pub const DEVICE_LOCAL: Self = Self(MemoryHeapFlagBits::DEVICE_LOCAL.0);
-        pub const MULTI_INSTANCE: Self = Self(MemoryHeapFlagBits::MULTI_INSTANCE.0);
-        pub const TILE_MEMORY_QCOM: Self = Self(MemoryHeapFlagBits::TILE_MEMORY_QCOM.0);
+        // VK_KHR_device_group_creation
         pub const MULTI_INSTANCE_KHR: Self = Self::MULTI_INSTANCE;
+        // VK_QCOM_tile_memory_heap
+        pub const TILE_MEMORY_QCOM: Self = Self(MemoryHeapFlagBits::TILE_MEMORY_QCOM.0);
+        // VK_VERSION_1_1
+        pub const MULTI_INSTANCE: Self = Self(MemoryHeapFlagBits::MULTI_INSTANCE.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MemoryHeapFlagBits(u32);
     impl MemoryHeapFlagBits {
         pub const DEVICE_LOCAL: Self = Self(1 << 0);
-        pub const MULTI_INSTANCE: Self = Self(1 << 1);
-        pub const TILE_MEMORY_QCOM: Self = Self(1 << 3);
+        // VK_KHR_device_group_creation
         pub const MULTI_INSTANCE_KHR: Self = Self::MULTI_INSTANCE;
+        // VK_QCOM_tile_memory_heap
+        pub const TILE_MEMORY_QCOM: Self = Self(1 << 3);
+        // VK_VERSION_1_1
+        pub const MULTI_INSTANCE: Self = Self(1 << 1);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -12654,35 +13274,47 @@ pub(super) mod defs {
         pub const HOST_WRITE: Self = Self(AccessFlagBits::HOST_WRITE.0);
         pub const MEMORY_READ: Self = Self(AccessFlagBits::MEMORY_READ.0);
         pub const MEMORY_WRITE: Self = Self(AccessFlagBits::MEMORY_WRITE.0);
+        // VK_EXT_blend_operation_advanced
+        pub const COLOR_ATTACHMENT_READ_NONCOHERENT_EXT: Self =
+            Self(AccessFlagBits::COLOR_ATTACHMENT_READ_NONCOHERENT_EXT.0);
+        // VK_EXT_conditional_rendering
+        pub const CONDITIONAL_RENDERING_READ_EXT: Self =
+            Self(AccessFlagBits::CONDITIONAL_RENDERING_READ_EXT.0);
+        // VK_EXT_device_generated_commands
         pub const COMMAND_PREPROCESS_READ_EXT: Self =
             Self(AccessFlagBits::COMMAND_PREPROCESS_READ_EXT.0);
         pub const COMMAND_PREPROCESS_WRITE_EXT: Self =
             Self(AccessFlagBits::COMMAND_PREPROCESS_WRITE_EXT.0);
-        pub const COLOR_ATTACHMENT_READ_NONCOHERENT_EXT: Self =
-            Self(AccessFlagBits::COLOR_ATTACHMENT_READ_NONCOHERENT_EXT.0);
-        pub const CONDITIONAL_RENDERING_READ_EXT: Self =
-            Self(AccessFlagBits::CONDITIONAL_RENDERING_READ_EXT.0);
-        pub const ACCELERATION_STRUCTURE_READ_KHR: Self =
-            Self(AccessFlagBits::ACCELERATION_STRUCTURE_READ_KHR.0);
-        pub const ACCELERATION_STRUCTURE_WRITE_KHR: Self =
-            Self(AccessFlagBits::ACCELERATION_STRUCTURE_WRITE_KHR.0);
-        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR: Self =
-            Self(AccessFlagBits::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR.0);
+        // VK_EXT_fragment_density_map
         pub const FRAGMENT_DENSITY_MAP_READ_EXT: Self =
             Self(AccessFlagBits::FRAGMENT_DENSITY_MAP_READ_EXT.0);
+        // VK_EXT_transform_feedback
         pub const TRANSFORM_FEEDBACK_WRITE_EXT: Self =
             Self(AccessFlagBits::TRANSFORM_FEEDBACK_WRITE_EXT.0);
         pub const TRANSFORM_FEEDBACK_COUNTER_READ_EXT: Self =
             Self(AccessFlagBits::TRANSFORM_FEEDBACK_COUNTER_READ_EXT.0);
         pub const TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT: Self =
             Self(AccessFlagBits::TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT.0);
-        pub const ACCELERATION_STRUCTURE_READ_NV: Self = Self::ACCELERATION_STRUCTURE_READ_KHR;
-        pub const ACCELERATION_STRUCTURE_WRITE_NV: Self = Self::ACCELERATION_STRUCTURE_WRITE_KHR;
+        // VK_KHR_acceleration_structure
+        pub const ACCELERATION_STRUCTURE_READ_KHR: Self =
+            Self(AccessFlagBits::ACCELERATION_STRUCTURE_READ_KHR.0);
+        pub const ACCELERATION_STRUCTURE_WRITE_KHR: Self =
+            Self(AccessFlagBits::ACCELERATION_STRUCTURE_WRITE_KHR.0);
+        // VK_KHR_fragment_shading_rate
+        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR: Self =
+            Self(AccessFlagBits::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR.0);
+        // VK_KHR_synchronization2
+        pub const NONE_KHR: Self = Self::NONE;
+        // VK_NV_device_generated_commands
         pub const COMMAND_PREPROCESS_READ_NV: Self = Self::COMMAND_PREPROCESS_READ_EXT;
         pub const COMMAND_PREPROCESS_WRITE_NV: Self = Self::COMMAND_PREPROCESS_WRITE_EXT;
-        pub const NONE_KHR: Self = Self::NONE;
+        // VK_NV_ray_tracing
+        pub const ACCELERATION_STRUCTURE_READ_NV: Self = Self::ACCELERATION_STRUCTURE_READ_KHR;
+        pub const ACCELERATION_STRUCTURE_WRITE_NV: Self = Self::ACCELERATION_STRUCTURE_WRITE_KHR;
+        // VK_NV_shading_rate_image
         pub const SHADING_RATE_IMAGE_READ_NV: Self =
             Self::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR;
+        // VK_VERSION_1_3
         pub const NONE: Self = Self(0);
     }
     #[repr(transparent)]
@@ -12706,21 +13338,31 @@ pub(super) mod defs {
         pub const HOST_WRITE: Self = Self(1 << 14);
         pub const MEMORY_READ: Self = Self(1 << 15);
         pub const MEMORY_WRITE: Self = Self(1 << 16);
+        // VK_EXT_blend_operation_advanced
+        pub const COLOR_ATTACHMENT_READ_NONCOHERENT_EXT: Self = Self(1 << 19);
+        // VK_EXT_conditional_rendering
+        pub const CONDITIONAL_RENDERING_READ_EXT: Self = Self(1 << 20);
+        // VK_EXT_device_generated_commands
         pub const COMMAND_PREPROCESS_READ_EXT: Self = Self(1 << 17);
         pub const COMMAND_PREPROCESS_WRITE_EXT: Self = Self(1 << 18);
-        pub const COLOR_ATTACHMENT_READ_NONCOHERENT_EXT: Self = Self(1 << 19);
-        pub const CONDITIONAL_RENDERING_READ_EXT: Self = Self(1 << 20);
-        pub const ACCELERATION_STRUCTURE_READ_KHR: Self = Self(1 << 21);
-        pub const ACCELERATION_STRUCTURE_WRITE_KHR: Self = Self(1 << 22);
-        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR: Self = Self(1 << 23);
+        // VK_EXT_fragment_density_map
         pub const FRAGMENT_DENSITY_MAP_READ_EXT: Self = Self(1 << 24);
+        // VK_EXT_transform_feedback
         pub const TRANSFORM_FEEDBACK_WRITE_EXT: Self = Self(1 << 25);
         pub const TRANSFORM_FEEDBACK_COUNTER_READ_EXT: Self = Self(1 << 26);
         pub const TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT: Self = Self(1 << 27);
-        pub const ACCELERATION_STRUCTURE_READ_NV: Self = Self::ACCELERATION_STRUCTURE_READ_KHR;
-        pub const ACCELERATION_STRUCTURE_WRITE_NV: Self = Self::ACCELERATION_STRUCTURE_WRITE_KHR;
+        // VK_KHR_acceleration_structure
+        pub const ACCELERATION_STRUCTURE_READ_KHR: Self = Self(1 << 21);
+        pub const ACCELERATION_STRUCTURE_WRITE_KHR: Self = Self(1 << 22);
+        // VK_KHR_fragment_shading_rate
+        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR: Self = Self(1 << 23);
+        // VK_NV_device_generated_commands
         pub const COMMAND_PREPROCESS_READ_NV: Self = Self::COMMAND_PREPROCESS_READ_EXT;
         pub const COMMAND_PREPROCESS_WRITE_NV: Self = Self::COMMAND_PREPROCESS_WRITE_EXT;
+        // VK_NV_ray_tracing
+        pub const ACCELERATION_STRUCTURE_READ_NV: Self = Self::ACCELERATION_STRUCTURE_READ_KHR;
+        pub const ACCELERATION_STRUCTURE_WRITE_NV: Self = Self::ACCELERATION_STRUCTURE_WRITE_KHR;
+        // VK_NV_shading_rate_image
         pub const SHADING_RATE_IMAGE_READ_NV: Self =
             Self::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR;
     }
@@ -12738,39 +13380,54 @@ pub(super) mod defs {
         pub const INDEX_BUFFER: Self = Self(BufferUsageFlagBits::INDEX_BUFFER.0);
         pub const VERTEX_BUFFER: Self = Self(BufferUsageFlagBits::VERTEX_BUFFER.0);
         pub const INDIRECT_BUFFER: Self = Self(BufferUsageFlagBits::INDIRECT_BUFFER.0);
+        // VK_AMDX_shader_enqueue
+        pub const EXECUTION_GRAPH_SCRATCH_AMDX: Self =
+            Self(BufferUsageFlagBits::EXECUTION_GRAPH_SCRATCH_AMDX.0);
+        // VK_EXT_buffer_device_address
+        pub const SHADER_DEVICE_ADDRESS_EXT: Self = Self::SHADER_DEVICE_ADDRESS;
+        // VK_EXT_conditional_rendering
         pub const CONDITIONAL_RENDERING_EXT: Self =
             Self(BufferUsageFlagBits::CONDITIONAL_RENDERING_EXT.0);
-        pub const SHADER_BINDING_TABLE_KHR: Self =
-            Self(BufferUsageFlagBits::SHADER_BINDING_TABLE_KHR.0);
-        pub const TRANSFORM_FEEDBACK_BUFFER_EXT: Self =
-            Self(BufferUsageFlagBits::TRANSFORM_FEEDBACK_BUFFER_EXT.0);
-        pub const TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT: Self =
-            Self(BufferUsageFlagBits::TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT.0);
-        pub const VIDEO_DECODE_SRC_KHR: Self = Self(BufferUsageFlagBits::VIDEO_DECODE_SRC_KHR.0);
-        pub const VIDEO_DECODE_DST_KHR: Self = Self(BufferUsageFlagBits::VIDEO_DECODE_DST_KHR.0);
-        pub const VIDEO_ENCODE_DST_KHR: Self = Self(BufferUsageFlagBits::VIDEO_ENCODE_DST_KHR.0);
-        pub const VIDEO_ENCODE_SRC_KHR: Self = Self(BufferUsageFlagBits::VIDEO_ENCODE_SRC_KHR.0);
-        pub const SHADER_DEVICE_ADDRESS: Self = Self(BufferUsageFlagBits::SHADER_DEVICE_ADDRESS.0);
-        pub const ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR: Self =
-            Self(BufferUsageFlagBits::ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR.0);
-        pub const ACCELERATION_STRUCTURE_STORAGE_KHR: Self =
-            Self(BufferUsageFlagBits::ACCELERATION_STRUCTURE_STORAGE_KHR.0);
+        // VK_EXT_descriptor_buffer
         pub const SAMPLER_DESCRIPTOR_BUFFER_EXT: Self =
             Self(BufferUsageFlagBits::SAMPLER_DESCRIPTOR_BUFFER_EXT.0);
         pub const RESOURCE_DESCRIPTOR_BUFFER_EXT: Self =
             Self(BufferUsageFlagBits::RESOURCE_DESCRIPTOR_BUFFER_EXT.0);
+        pub const PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT: Self =
+            Self(BufferUsageFlagBits::PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT.0);
+        // VK_EXT_descriptor_heap
+        pub const DESCRIPTOR_HEAP_EXT: Self = Self(BufferUsageFlagBits::DESCRIPTOR_HEAP_EXT.0);
+        // VK_EXT_opacity_micromap
         pub const MICROMAP_BUILD_INPUT_READ_ONLY_EXT: Self =
             Self(BufferUsageFlagBits::MICROMAP_BUILD_INPUT_READ_ONLY_EXT.0);
         pub const MICROMAP_STORAGE_EXT: Self = Self(BufferUsageFlagBits::MICROMAP_STORAGE_EXT.0);
-        pub const EXECUTION_GRAPH_SCRATCH_AMDX: Self =
-            Self(BufferUsageFlagBits::EXECUTION_GRAPH_SCRATCH_AMDX.0);
-        pub const PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT: Self =
-            Self(BufferUsageFlagBits::PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT.0);
-        pub const TILE_MEMORY_QCOM: Self = Self(BufferUsageFlagBits::TILE_MEMORY_QCOM.0);
-        pub const DESCRIPTOR_HEAP_EXT: Self = Self(BufferUsageFlagBits::DESCRIPTOR_HEAP_EXT.0);
-        pub const RAY_TRACING_NV: Self = Self::SHADER_BINDING_TABLE_KHR;
-        pub const SHADER_DEVICE_ADDRESS_EXT: Self = Self::SHADER_DEVICE_ADDRESS;
+        // VK_EXT_transform_feedback
+        pub const TRANSFORM_FEEDBACK_BUFFER_EXT: Self =
+            Self(BufferUsageFlagBits::TRANSFORM_FEEDBACK_BUFFER_EXT.0);
+        pub const TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT: Self =
+            Self(BufferUsageFlagBits::TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT.0);
+        // VK_KHR_acceleration_structure
+        pub const ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR: Self =
+            Self(BufferUsageFlagBits::ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR.0);
+        pub const ACCELERATION_STRUCTURE_STORAGE_KHR: Self =
+            Self(BufferUsageFlagBits::ACCELERATION_STRUCTURE_STORAGE_KHR.0);
+        // VK_KHR_buffer_device_address
         pub const SHADER_DEVICE_ADDRESS_KHR: Self = Self::SHADER_DEVICE_ADDRESS;
+        // VK_KHR_ray_tracing_pipeline
+        pub const SHADER_BINDING_TABLE_KHR: Self =
+            Self(BufferUsageFlagBits::SHADER_BINDING_TABLE_KHR.0);
+        // VK_KHR_video_decode_queue
+        pub const VIDEO_DECODE_SRC_KHR: Self = Self(BufferUsageFlagBits::VIDEO_DECODE_SRC_KHR.0);
+        pub const VIDEO_DECODE_DST_KHR: Self = Self(BufferUsageFlagBits::VIDEO_DECODE_DST_KHR.0);
+        // VK_KHR_video_encode_queue
+        pub const VIDEO_ENCODE_DST_KHR: Self = Self(BufferUsageFlagBits::VIDEO_ENCODE_DST_KHR.0);
+        pub const VIDEO_ENCODE_SRC_KHR: Self = Self(BufferUsageFlagBits::VIDEO_ENCODE_SRC_KHR.0);
+        // VK_NV_ray_tracing
+        pub const RAY_TRACING_NV: Self = Self::SHADER_BINDING_TABLE_KHR;
+        // VK_QCOM_tile_memory_heap
+        pub const TILE_MEMORY_QCOM: Self = Self(BufferUsageFlagBits::TILE_MEMORY_QCOM.0);
+        // VK_VERSION_1_2
+        pub const SHADER_DEVICE_ADDRESS: Self = Self(BufferUsageFlagBits::SHADER_DEVICE_ADDRESS.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -12785,28 +13442,43 @@ pub(super) mod defs {
         pub const INDEX_BUFFER: Self = Self(1 << 6);
         pub const VERTEX_BUFFER: Self = Self(1 << 7);
         pub const INDIRECT_BUFFER: Self = Self(1 << 8);
+        // VK_AMDX_shader_enqueue
+        pub const EXECUTION_GRAPH_SCRATCH_AMDX: Self = Self(1 << 25);
+        // VK_EXT_buffer_device_address
+        pub const SHADER_DEVICE_ADDRESS_EXT: Self = Self::SHADER_DEVICE_ADDRESS;
+        // VK_EXT_conditional_rendering
         pub const CONDITIONAL_RENDERING_EXT: Self = Self(1 << 9);
-        pub const SHADER_BINDING_TABLE_KHR: Self = Self(1 << 10);
-        pub const TRANSFORM_FEEDBACK_BUFFER_EXT: Self = Self(1 << 11);
-        pub const TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT: Self = Self(1 << 12);
-        pub const VIDEO_DECODE_SRC_KHR: Self = Self(1 << 13);
-        pub const VIDEO_DECODE_DST_KHR: Self = Self(1 << 14);
-        pub const VIDEO_ENCODE_DST_KHR: Self = Self(1 << 15);
-        pub const VIDEO_ENCODE_SRC_KHR: Self = Self(1 << 16);
-        pub const SHADER_DEVICE_ADDRESS: Self = Self(1 << 17);
-        pub const ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR: Self = Self(1 << 19);
-        pub const ACCELERATION_STRUCTURE_STORAGE_KHR: Self = Self(1 << 20);
+        // VK_EXT_descriptor_buffer
         pub const SAMPLER_DESCRIPTOR_BUFFER_EXT: Self = Self(1 << 21);
         pub const RESOURCE_DESCRIPTOR_BUFFER_EXT: Self = Self(1 << 22);
+        pub const PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT: Self = Self(1 << 26);
+        // VK_EXT_descriptor_heap
+        pub const DESCRIPTOR_HEAP_EXT: Self = Self(1 << 28);
+        // VK_EXT_opacity_micromap
         pub const MICROMAP_BUILD_INPUT_READ_ONLY_EXT: Self = Self(1 << 23);
         pub const MICROMAP_STORAGE_EXT: Self = Self(1 << 24);
-        pub const EXECUTION_GRAPH_SCRATCH_AMDX: Self = Self(1 << 25);
-        pub const PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT: Self = Self(1 << 26);
-        pub const TILE_MEMORY_QCOM: Self = Self(1 << 27);
-        pub const DESCRIPTOR_HEAP_EXT: Self = Self(1 << 28);
-        pub const RAY_TRACING_NV: Self = Self::SHADER_BINDING_TABLE_KHR;
-        pub const SHADER_DEVICE_ADDRESS_EXT: Self = Self::SHADER_DEVICE_ADDRESS;
+        // VK_EXT_transform_feedback
+        pub const TRANSFORM_FEEDBACK_BUFFER_EXT: Self = Self(1 << 11);
+        pub const TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT: Self = Self(1 << 12);
+        // VK_KHR_acceleration_structure
+        pub const ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR: Self = Self(1 << 19);
+        pub const ACCELERATION_STRUCTURE_STORAGE_KHR: Self = Self(1 << 20);
+        // VK_KHR_buffer_device_address
         pub const SHADER_DEVICE_ADDRESS_KHR: Self = Self::SHADER_DEVICE_ADDRESS;
+        // VK_KHR_ray_tracing_pipeline
+        pub const SHADER_BINDING_TABLE_KHR: Self = Self(1 << 10);
+        // VK_KHR_video_decode_queue
+        pub const VIDEO_DECODE_SRC_KHR: Self = Self(1 << 13);
+        pub const VIDEO_DECODE_DST_KHR: Self = Self(1 << 14);
+        // VK_KHR_video_encode_queue
+        pub const VIDEO_ENCODE_DST_KHR: Self = Self(1 << 15);
+        pub const VIDEO_ENCODE_SRC_KHR: Self = Self(1 << 16);
+        // VK_NV_ray_tracing
+        pub const RAY_TRACING_NV: Self = Self::SHADER_BINDING_TABLE_KHR;
+        // VK_QCOM_tile_memory_heap
+        pub const TILE_MEMORY_QCOM: Self = Self(1 << 27);
+        // VK_VERSION_1_2
+        pub const SHADER_DEVICE_ADDRESS: Self = Self(1 << 17);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -12816,15 +13488,21 @@ pub(super) mod defs {
         pub const SPARSE_BINDING: Self = Self(BufferCreateFlagBits::SPARSE_BINDING.0);
         pub const SPARSE_RESIDENCY: Self = Self(BufferCreateFlagBits::SPARSE_RESIDENCY.0);
         pub const SPARSE_ALIASED: Self = Self(BufferCreateFlagBits::SPARSE_ALIASED.0);
-        pub const PROTECTED: Self = Self(BufferCreateFlagBits::PROTECTED.0);
-        pub const DEVICE_ADDRESS_CAPTURE_REPLAY: Self =
-            Self(BufferCreateFlagBits::DEVICE_ADDRESS_CAPTURE_REPLAY.0);
+        // VK_EXT_buffer_device_address
+        pub const DEVICE_ADDRESS_CAPTURE_REPLAY_EXT: Self = Self::DEVICE_ADDRESS_CAPTURE_REPLAY;
+        // VK_EXT_descriptor_buffer
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self =
             Self(BufferCreateFlagBits::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT.0);
+        // VK_KHR_buffer_device_address
+        pub const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR: Self = Self::DEVICE_ADDRESS_CAPTURE_REPLAY;
+        // VK_KHR_video_maintenance1
         pub const VIDEO_PROFILE_INDEPENDENT_KHR: Self =
             Self(BufferCreateFlagBits::VIDEO_PROFILE_INDEPENDENT_KHR.0);
-        pub const DEVICE_ADDRESS_CAPTURE_REPLAY_EXT: Self = Self::DEVICE_ADDRESS_CAPTURE_REPLAY;
-        pub const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR: Self = Self::DEVICE_ADDRESS_CAPTURE_REPLAY;
+        // VK_VERSION_1_1
+        pub const PROTECTED: Self = Self(BufferCreateFlagBits::PROTECTED.0);
+        // VK_VERSION_1_2
+        pub const DEVICE_ADDRESS_CAPTURE_REPLAY: Self =
+            Self(BufferCreateFlagBits::DEVICE_ADDRESS_CAPTURE_REPLAY.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -12833,12 +13511,18 @@ pub(super) mod defs {
         pub const SPARSE_BINDING: Self = Self(1 << 0);
         pub const SPARSE_RESIDENCY: Self = Self(1 << 1);
         pub const SPARSE_ALIASED: Self = Self(1 << 2);
-        pub const PROTECTED: Self = Self(1 << 3);
-        pub const DEVICE_ADDRESS_CAPTURE_REPLAY: Self = Self(1 << 4);
-        pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self = Self(1 << 5);
-        pub const VIDEO_PROFILE_INDEPENDENT_KHR: Self = Self(1 << 6);
+        // VK_EXT_buffer_device_address
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY_EXT: Self = Self::DEVICE_ADDRESS_CAPTURE_REPLAY;
+        // VK_EXT_descriptor_buffer
+        pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self = Self(1 << 5);
+        // VK_KHR_buffer_device_address
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR: Self = Self::DEVICE_ADDRESS_CAPTURE_REPLAY;
+        // VK_KHR_video_maintenance1
+        pub const VIDEO_PROFILE_INDEPENDENT_KHR: Self = Self(1 << 6);
+        // VK_VERSION_1_1
+        pub const PROTECTED: Self = Self(1 << 3);
+        // VK_VERSION_1_2
+        pub const DEVICE_ADDRESS_CAPTURE_REPLAY: Self = Self(1 << 4);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -12852,28 +13536,34 @@ pub(super) mod defs {
         pub const GEOMETRY: Self = Self(ShaderStageFlagBits::GEOMETRY.0);
         pub const FRAGMENT: Self = Self(ShaderStageFlagBits::FRAGMENT.0);
         pub const COMPUTE: Self = Self(ShaderStageFlagBits::COMPUTE.0);
+        pub const ALL_GRAPHICS: Self = Self(0x0000001F);
+        pub const ALL: Self = Self(0x7FFFFFFF);
+        // VK_EXT_mesh_shader
         pub const TASK_EXT: Self = Self(ShaderStageFlagBits::TASK_EXT.0);
         pub const MESH_EXT: Self = Self(ShaderStageFlagBits::MESH_EXT.0);
+        // VK_HUAWEI_cluster_culling_shader
+        pub const CLUSTER_CULLING_HUAWEI: Self =
+            Self(ShaderStageFlagBits::CLUSTER_CULLING_HUAWEI.0);
+        // VK_HUAWEI_subpass_shading
+        pub const SUBPASS_SHADING_HUAWEI: Self =
+            Self(ShaderStageFlagBits::SUBPASS_SHADING_HUAWEI.0);
+        // VK_KHR_ray_tracing_pipeline
         pub const RAYGEN_KHR: Self = Self(ShaderStageFlagBits::RAYGEN_KHR.0);
         pub const ANY_HIT_KHR: Self = Self(ShaderStageFlagBits::ANY_HIT_KHR.0);
         pub const CLOSEST_HIT_KHR: Self = Self(ShaderStageFlagBits::CLOSEST_HIT_KHR.0);
         pub const MISS_KHR: Self = Self(ShaderStageFlagBits::MISS_KHR.0);
         pub const INTERSECTION_KHR: Self = Self(ShaderStageFlagBits::INTERSECTION_KHR.0);
         pub const CALLABLE_KHR: Self = Self(ShaderStageFlagBits::CALLABLE_KHR.0);
-        pub const SUBPASS_SHADING_HUAWEI: Self =
-            Self(ShaderStageFlagBits::SUBPASS_SHADING_HUAWEI.0);
-        pub const CLUSTER_CULLING_HUAWEI: Self =
-            Self(ShaderStageFlagBits::CLUSTER_CULLING_HUAWEI.0);
-        pub const ANY_HIT_NV: Self = Self::ANY_HIT_KHR;
-        pub const CALLABLE_NV: Self = Self::CALLABLE_KHR;
-        pub const CLOSEST_HIT_NV: Self = Self::CLOSEST_HIT_KHR;
-        pub const INTERSECTION_NV: Self = Self::INTERSECTION_KHR;
-        pub const MESH_NV: Self = Self::MESH_EXT;
-        pub const MISS_NV: Self = Self::MISS_KHR;
-        pub const RAYGEN_NV: Self = Self::RAYGEN_KHR;
+        // VK_NV_mesh_shader
         pub const TASK_NV: Self = Self::TASK_EXT;
-        pub const ALL_GRAPHICS: Self = Self(0x0000001F);
-        pub const ALL: Self = Self(0x7FFFFFFF);
+        pub const MESH_NV: Self = Self::MESH_EXT;
+        // VK_NV_ray_tracing
+        pub const RAYGEN_NV: Self = Self::RAYGEN_KHR;
+        pub const ANY_HIT_NV: Self = Self::ANY_HIT_KHR;
+        pub const CLOSEST_HIT_NV: Self = Self::CLOSEST_HIT_KHR;
+        pub const MISS_NV: Self = Self::MISS_KHR;
+        pub const INTERSECTION_NV: Self = Self::INTERSECTION_KHR;
+        pub const CALLABLE_NV: Self = Self::CALLABLE_KHR;
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -12885,24 +13575,30 @@ pub(super) mod defs {
         pub const GEOMETRY: Self = Self(1 << 3);
         pub const FRAGMENT: Self = Self(1 << 4);
         pub const COMPUTE: Self = Self(1 << 5);
+        // VK_EXT_mesh_shader
         pub const TASK_EXT: Self = Self(1 << 6);
         pub const MESH_EXT: Self = Self(1 << 7);
+        // VK_HUAWEI_cluster_culling_shader
+        pub const CLUSTER_CULLING_HUAWEI: Self = Self(1 << 19);
+        // VK_HUAWEI_subpass_shading
+        pub const SUBPASS_SHADING_HUAWEI: Self = Self(1 << 14);
+        // VK_KHR_ray_tracing_pipeline
         pub const RAYGEN_KHR: Self = Self(1 << 8);
         pub const ANY_HIT_KHR: Self = Self(1 << 9);
         pub const CLOSEST_HIT_KHR: Self = Self(1 << 10);
         pub const MISS_KHR: Self = Self(1 << 11);
         pub const INTERSECTION_KHR: Self = Self(1 << 12);
         pub const CALLABLE_KHR: Self = Self(1 << 13);
-        pub const SUBPASS_SHADING_HUAWEI: Self = Self(1 << 14);
-        pub const CLUSTER_CULLING_HUAWEI: Self = Self(1 << 19);
-        pub const ANY_HIT_NV: Self = Self::ANY_HIT_KHR;
-        pub const CALLABLE_NV: Self = Self::CALLABLE_KHR;
-        pub const CLOSEST_HIT_NV: Self = Self::CLOSEST_HIT_KHR;
-        pub const INTERSECTION_NV: Self = Self::INTERSECTION_KHR;
-        pub const MESH_NV: Self = Self::MESH_EXT;
-        pub const MISS_NV: Self = Self::MISS_KHR;
-        pub const RAYGEN_NV: Self = Self::RAYGEN_KHR;
+        // VK_NV_mesh_shader
         pub const TASK_NV: Self = Self::TASK_EXT;
+        pub const MESH_NV: Self = Self::MESH_EXT;
+        // VK_NV_ray_tracing
+        pub const RAYGEN_NV: Self = Self::RAYGEN_KHR;
+        pub const ANY_HIT_NV: Self = Self::ANY_HIT_KHR;
+        pub const CLOSEST_HIT_NV: Self = Self::CLOSEST_HIT_KHR;
+        pub const MISS_NV: Self = Self::MISS_KHR;
+        pub const INTERSECTION_NV: Self = Self::INTERSECTION_KHR;
+        pub const CALLABLE_NV: Self = Self::CALLABLE_KHR;
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -12918,31 +13614,44 @@ pub(super) mod defs {
             Self(ImageUsageFlagBits::DEPTH_STENCIL_ATTACHMENT.0);
         pub const TRANSIENT_ATTACHMENT: Self = Self(ImageUsageFlagBits::TRANSIENT_ATTACHMENT.0);
         pub const INPUT_ATTACHMENT: Self = Self(ImageUsageFlagBits::INPUT_ATTACHMENT.0);
-        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
-            Self(ImageUsageFlagBits::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0);
+        // VK_ARM_tensors
+        pub const TENSOR_ALIASING_ARM: Self = Self(ImageUsageFlagBits::TENSOR_ALIASING_ARM.0);
+        // VK_EXT_attachment_feedback_loop_layout
+        pub const ATTACHMENT_FEEDBACK_LOOP_EXT: Self =
+            Self(ImageUsageFlagBits::ATTACHMENT_FEEDBACK_LOOP_EXT.0);
+        // VK_EXT_fragment_density_map
         pub const FRAGMENT_DENSITY_MAP_EXT: Self =
             Self(ImageUsageFlagBits::FRAGMENT_DENSITY_MAP_EXT.0);
+        // VK_EXT_host_image_copy
+        pub const HOST_TRANSFER_EXT: Self = Self::HOST_TRANSFER;
+        // VK_HUAWEI_invocation_mask
+        pub const INVOCATION_MASK_HUAWEI: Self = Self(ImageUsageFlagBits::INVOCATION_MASK_HUAWEI.0);
+        // VK_KHR_fragment_shading_rate
+        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
+            Self(ImageUsageFlagBits::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0);
+        // VK_KHR_video_decode_queue
         pub const VIDEO_DECODE_DST_KHR: Self = Self(ImageUsageFlagBits::VIDEO_DECODE_DST_KHR.0);
         pub const VIDEO_DECODE_SRC_KHR: Self = Self(ImageUsageFlagBits::VIDEO_DECODE_SRC_KHR.0);
         pub const VIDEO_DECODE_DPB_KHR: Self = Self(ImageUsageFlagBits::VIDEO_DECODE_DPB_KHR.0);
-        pub const VIDEO_ENCODE_DST_KHR: Self = Self(ImageUsageFlagBits::VIDEO_ENCODE_DST_KHR.0);
-        pub const VIDEO_ENCODE_SRC_KHR: Self = Self(ImageUsageFlagBits::VIDEO_ENCODE_SRC_KHR.0);
-        pub const VIDEO_ENCODE_DPB_KHR: Self = Self(ImageUsageFlagBits::VIDEO_ENCODE_DPB_KHR.0);
-        pub const INVOCATION_MASK_HUAWEI: Self = Self(ImageUsageFlagBits::INVOCATION_MASK_HUAWEI.0);
-        pub const ATTACHMENT_FEEDBACK_LOOP_EXT: Self =
-            Self(ImageUsageFlagBits::ATTACHMENT_FEEDBACK_LOOP_EXT.0);
-        pub const SAMPLE_WEIGHT_QCOM: Self = Self(ImageUsageFlagBits::SAMPLE_WEIGHT_QCOM.0);
-        pub const SAMPLE_BLOCK_MATCH_QCOM: Self =
-            Self(ImageUsageFlagBits::SAMPLE_BLOCK_MATCH_QCOM.0);
-        pub const HOST_TRANSFER: Self = Self(ImageUsageFlagBits::HOST_TRANSFER.0);
-        pub const TENSOR_ALIASING_ARM: Self = Self(ImageUsageFlagBits::TENSOR_ALIASING_ARM.0);
+        // VK_KHR_video_encode_quantization_map
         pub const VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR: Self =
             Self(ImageUsageFlagBits::VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR.0);
         pub const VIDEO_ENCODE_EMPHASIS_MAP_KHR: Self =
             Self(ImageUsageFlagBits::VIDEO_ENCODE_EMPHASIS_MAP_KHR.0);
-        pub const TILE_MEMORY_QCOM: Self = Self(ImageUsageFlagBits::TILE_MEMORY_QCOM.0);
-        pub const HOST_TRANSFER_EXT: Self = Self::HOST_TRANSFER;
+        // VK_KHR_video_encode_queue
+        pub const VIDEO_ENCODE_DST_KHR: Self = Self(ImageUsageFlagBits::VIDEO_ENCODE_DST_KHR.0);
+        pub const VIDEO_ENCODE_SRC_KHR: Self = Self(ImageUsageFlagBits::VIDEO_ENCODE_SRC_KHR.0);
+        pub const VIDEO_ENCODE_DPB_KHR: Self = Self(ImageUsageFlagBits::VIDEO_ENCODE_DPB_KHR.0);
+        // VK_NV_shading_rate_image
         pub const SHADING_RATE_IMAGE_NV: Self = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
+        // VK_QCOM_image_processing
+        pub const SAMPLE_WEIGHT_QCOM: Self = Self(ImageUsageFlagBits::SAMPLE_WEIGHT_QCOM.0);
+        pub const SAMPLE_BLOCK_MATCH_QCOM: Self =
+            Self(ImageUsageFlagBits::SAMPLE_BLOCK_MATCH_QCOM.0);
+        // VK_QCOM_tile_memory_heap
+        pub const TILE_MEMORY_QCOM: Self = Self(ImageUsageFlagBits::TILE_MEMORY_QCOM.0);
+        // VK_VERSION_1_4
+        pub const HOST_TRANSFER: Self = Self(ImageUsageFlagBits::HOST_TRANSFER.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -12956,25 +13665,38 @@ pub(super) mod defs {
         pub const DEPTH_STENCIL_ATTACHMENT: Self = Self(1 << 5);
         pub const TRANSIENT_ATTACHMENT: Self = Self(1 << 6);
         pub const INPUT_ATTACHMENT: Self = Self(1 << 7);
-        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self = Self(1 << 8);
+        // VK_ARM_tensors
+        pub const TENSOR_ALIASING_ARM: Self = Self(1 << 23);
+        // VK_EXT_attachment_feedback_loop_layout
+        pub const ATTACHMENT_FEEDBACK_LOOP_EXT: Self = Self(1 << 19);
+        // VK_EXT_fragment_density_map
         pub const FRAGMENT_DENSITY_MAP_EXT: Self = Self(1 << 9);
+        // VK_EXT_host_image_copy
+        pub const HOST_TRANSFER_EXT: Self = Self::HOST_TRANSFER;
+        // VK_HUAWEI_invocation_mask
+        pub const INVOCATION_MASK_HUAWEI: Self = Self(1 << 18);
+        // VK_KHR_fragment_shading_rate
+        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self = Self(1 << 8);
+        // VK_KHR_video_decode_queue
         pub const VIDEO_DECODE_DST_KHR: Self = Self(1 << 10);
         pub const VIDEO_DECODE_SRC_KHR: Self = Self(1 << 11);
         pub const VIDEO_DECODE_DPB_KHR: Self = Self(1 << 12);
+        // VK_KHR_video_encode_quantization_map
+        pub const VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR: Self = Self(1 << 25);
+        pub const VIDEO_ENCODE_EMPHASIS_MAP_KHR: Self = Self(1 << 26);
+        // VK_KHR_video_encode_queue
         pub const VIDEO_ENCODE_DST_KHR: Self = Self(1 << 13);
         pub const VIDEO_ENCODE_SRC_KHR: Self = Self(1 << 14);
         pub const VIDEO_ENCODE_DPB_KHR: Self = Self(1 << 15);
-        pub const INVOCATION_MASK_HUAWEI: Self = Self(1 << 18);
-        pub const ATTACHMENT_FEEDBACK_LOOP_EXT: Self = Self(1 << 19);
+        // VK_NV_shading_rate_image
+        pub const SHADING_RATE_IMAGE_NV: Self = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
+        // VK_QCOM_image_processing
         pub const SAMPLE_WEIGHT_QCOM: Self = Self(1 << 20);
         pub const SAMPLE_BLOCK_MATCH_QCOM: Self = Self(1 << 21);
-        pub const HOST_TRANSFER: Self = Self(1 << 22);
-        pub const TENSOR_ALIASING_ARM: Self = Self(1 << 23);
-        pub const VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR: Self = Self(1 << 25);
-        pub const VIDEO_ENCODE_EMPHASIS_MAP_KHR: Self = Self(1 << 26);
+        // VK_QCOM_tile_memory_heap
         pub const TILE_MEMORY_QCOM: Self = Self(1 << 27);
-        pub const HOST_TRANSFER_EXT: Self = Self::HOST_TRANSFER;
-        pub const SHADING_RATE_IMAGE_NV: Self = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
+        // VK_VERSION_1_4
+        pub const HOST_TRANSFER: Self = Self(1 << 22);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -12986,6 +13708,45 @@ pub(super) mod defs {
         pub const SPARSE_ALIASED: Self = Self(ImageCreateFlagBits::SPARSE_ALIASED.0);
         pub const MUTABLE_FORMAT: Self = Self(ImageCreateFlagBits::MUTABLE_FORMAT.0);
         pub const CUBE_COMPATIBLE: Self = Self(ImageCreateFlagBits::CUBE_COMPATIBLE.0);
+        // VK_EXT_descriptor_buffer
+        pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self =
+            Self::DESCRIPTOR_HEAP_CAPTURE_REPLAY_EXT;
+        // VK_EXT_descriptor_heap
+        pub const DESCRIPTOR_HEAP_CAPTURE_REPLAY_EXT: Self =
+            Self(ImageCreateFlagBits::DESCRIPTOR_HEAP_CAPTURE_REPLAY_EXT.0);
+        // VK_EXT_fragment_density_map
+        pub const SUBSAMPLED_EXT: Self = Self(ImageCreateFlagBits::SUBSAMPLED_EXT.0);
+        // VK_EXT_fragment_density_map_offset
+        pub const FRAGMENT_DENSITY_MAP_OFFSET_EXT: Self =
+            Self(ImageCreateFlagBits::FRAGMENT_DENSITY_MAP_OFFSET_EXT.0);
+        // VK_EXT_image_2d_view_of_3d
+        pub const _2D_VIEW_COMPATIBLE_EXT: Self =
+            Self(ImageCreateFlagBits::_2D_VIEW_COMPATIBLE_EXT.0);
+        // VK_EXT_multisampled_render_to_single_sampled
+        pub const MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_EXT: Self =
+            Self(ImageCreateFlagBits::MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_EXT.0);
+        // VK_EXT_sample_locations
+        pub const SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_EXT: Self =
+            Self(ImageCreateFlagBits::SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_EXT.0);
+        // VK_KHR_bind_memory2
+        pub const ALIAS_KHR: Self = Self::ALIAS;
+        // VK_KHR_device_group
+        pub const SPLIT_INSTANCE_BIND_REGIONS_KHR: Self = Self::SPLIT_INSTANCE_BIND_REGIONS;
+        // VK_KHR_maintenance1
+        pub const _2D_ARRAY_COMPATIBLE_KHR: Self = Self::_2D_ARRAY_COMPATIBLE;
+        // VK_KHR_maintenance2
+        pub const BLOCK_TEXEL_VIEW_COMPATIBLE_KHR: Self = Self::BLOCK_TEXEL_VIEW_COMPATIBLE;
+        pub const EXTENDED_USAGE_KHR: Self = Self::EXTENDED_USAGE;
+        // VK_KHR_sampler_ycbcr_conversion
+        pub const DISJOINT_KHR: Self = Self::DISJOINT;
+        // VK_KHR_video_maintenance1
+        pub const VIDEO_PROFILE_INDEPENDENT_KHR: Self =
+            Self(ImageCreateFlagBits::VIDEO_PROFILE_INDEPENDENT_KHR.0);
+        // VK_NV_corner_sampled_image
+        pub const CORNER_SAMPLED_NV: Self = Self(ImageCreateFlagBits::CORNER_SAMPLED_NV.0);
+        // VK_QCOM_fragment_density_map_offset
+        pub const FRAGMENT_DENSITY_MAP_OFFSET_QCOM: Self = Self::FRAGMENT_DENSITY_MAP_OFFSET_EXT;
+        // VK_VERSION_1_1
         pub const _2D_ARRAY_COMPATIBLE: Self = Self(ImageCreateFlagBits::_2D_ARRAY_COMPATIBLE.0);
         pub const SPLIT_INSTANCE_BIND_REGIONS: Self =
             Self(ImageCreateFlagBits::SPLIT_INSTANCE_BIND_REGIONS.0);
@@ -12995,29 +13756,6 @@ pub(super) mod defs {
         pub const DISJOINT: Self = Self(ImageCreateFlagBits::DISJOINT.0);
         pub const ALIAS: Self = Self(ImageCreateFlagBits::ALIAS.0);
         pub const PROTECTED: Self = Self(ImageCreateFlagBits::PROTECTED.0);
-        pub const SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_EXT: Self =
-            Self(ImageCreateFlagBits::SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_EXT.0);
-        pub const CORNER_SAMPLED_NV: Self = Self(ImageCreateFlagBits::CORNER_SAMPLED_NV.0);
-        pub const SUBSAMPLED_EXT: Self = Self(ImageCreateFlagBits::SUBSAMPLED_EXT.0);
-        pub const FRAGMENT_DENSITY_MAP_OFFSET_EXT: Self =
-            Self(ImageCreateFlagBits::FRAGMENT_DENSITY_MAP_OFFSET_EXT.0);
-        pub const DESCRIPTOR_HEAP_CAPTURE_REPLAY_EXT: Self =
-            Self(ImageCreateFlagBits::DESCRIPTOR_HEAP_CAPTURE_REPLAY_EXT.0);
-        pub const _2D_VIEW_COMPATIBLE_EXT: Self =
-            Self(ImageCreateFlagBits::_2D_VIEW_COMPATIBLE_EXT.0);
-        pub const MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_EXT: Self =
-            Self(ImageCreateFlagBits::MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_EXT.0);
-        pub const VIDEO_PROFILE_INDEPENDENT_KHR: Self =
-            Self(ImageCreateFlagBits::VIDEO_PROFILE_INDEPENDENT_KHR.0);
-        pub const _2D_ARRAY_COMPATIBLE_KHR: Self = Self::_2D_ARRAY_COMPATIBLE;
-        pub const ALIAS_KHR: Self = Self::ALIAS;
-        pub const BLOCK_TEXEL_VIEW_COMPATIBLE_KHR: Self = Self::BLOCK_TEXEL_VIEW_COMPATIBLE;
-        pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self =
-            Self::DESCRIPTOR_HEAP_CAPTURE_REPLAY_EXT;
-        pub const DISJOINT_KHR: Self = Self::DISJOINT;
-        pub const EXTENDED_USAGE_KHR: Self = Self::EXTENDED_USAGE;
-        pub const FRAGMENT_DENSITY_MAP_OFFSET_QCOM: Self = Self::FRAGMENT_DENSITY_MAP_OFFSET_EXT;
-        pub const SPLIT_INSTANCE_BIND_REGIONS_KHR: Self = Self::SPLIT_INSTANCE_BIND_REGIONS;
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -13028,6 +13766,39 @@ pub(super) mod defs {
         pub const SPARSE_ALIASED: Self = Self(1 << 2);
         pub const MUTABLE_FORMAT: Self = Self(1 << 3);
         pub const CUBE_COMPATIBLE: Self = Self(1 << 4);
+        // VK_EXT_descriptor_buffer
+        pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self =
+            Self::DESCRIPTOR_HEAP_CAPTURE_REPLAY_EXT;
+        // VK_EXT_descriptor_heap
+        pub const DESCRIPTOR_HEAP_CAPTURE_REPLAY_EXT: Self = Self(1 << 16);
+        // VK_EXT_fragment_density_map
+        pub const SUBSAMPLED_EXT: Self = Self(1 << 14);
+        // VK_EXT_fragment_density_map_offset
+        pub const FRAGMENT_DENSITY_MAP_OFFSET_EXT: Self = Self(1 << 15);
+        // VK_EXT_image_2d_view_of_3d
+        pub const _2D_VIEW_COMPATIBLE_EXT: Self = Self(1 << 17);
+        // VK_EXT_multisampled_render_to_single_sampled
+        pub const MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_EXT: Self = Self(1 << 18);
+        // VK_EXT_sample_locations
+        pub const SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_EXT: Self = Self(1 << 12);
+        // VK_KHR_bind_memory2
+        pub const ALIAS_KHR: Self = Self::ALIAS;
+        // VK_KHR_device_group
+        pub const SPLIT_INSTANCE_BIND_REGIONS_KHR: Self = Self::SPLIT_INSTANCE_BIND_REGIONS;
+        // VK_KHR_maintenance1
+        pub const _2D_ARRAY_COMPATIBLE_KHR: Self = Self::_2D_ARRAY_COMPATIBLE;
+        // VK_KHR_maintenance2
+        pub const BLOCK_TEXEL_VIEW_COMPATIBLE_KHR: Self = Self::BLOCK_TEXEL_VIEW_COMPATIBLE;
+        pub const EXTENDED_USAGE_KHR: Self = Self::EXTENDED_USAGE;
+        // VK_KHR_sampler_ycbcr_conversion
+        pub const DISJOINT_KHR: Self = Self::DISJOINT;
+        // VK_KHR_video_maintenance1
+        pub const VIDEO_PROFILE_INDEPENDENT_KHR: Self = Self(1 << 20);
+        // VK_NV_corner_sampled_image
+        pub const CORNER_SAMPLED_NV: Self = Self(1 << 13);
+        // VK_QCOM_fragment_density_map_offset
+        pub const FRAGMENT_DENSITY_MAP_OFFSET_QCOM: Self = Self::FRAGMENT_DENSITY_MAP_OFFSET_EXT;
+        // VK_VERSION_1_1
         pub const _2D_ARRAY_COMPATIBLE: Self = Self(1 << 5);
         pub const SPLIT_INSTANCE_BIND_REGIONS: Self = Self(1 << 6);
         pub const BLOCK_TEXEL_VIEW_COMPATIBLE: Self = Self(1 << 7);
@@ -13035,43 +13806,32 @@ pub(super) mod defs {
         pub const DISJOINT: Self = Self(1 << 9);
         pub const ALIAS: Self = Self(1 << 10);
         pub const PROTECTED: Self = Self(1 << 11);
-        pub const SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_EXT: Self = Self(1 << 12);
-        pub const CORNER_SAMPLED_NV: Self = Self(1 << 13);
-        pub const SUBSAMPLED_EXT: Self = Self(1 << 14);
-        pub const FRAGMENT_DENSITY_MAP_OFFSET_EXT: Self = Self(1 << 15);
-        pub const DESCRIPTOR_HEAP_CAPTURE_REPLAY_EXT: Self = Self(1 << 16);
-        pub const _2D_VIEW_COMPATIBLE_EXT: Self = Self(1 << 17);
-        pub const MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_EXT: Self = Self(1 << 18);
-        pub const VIDEO_PROFILE_INDEPENDENT_KHR: Self = Self(1 << 20);
-        pub const _2D_ARRAY_COMPATIBLE_KHR: Self = Self::_2D_ARRAY_COMPATIBLE;
-        pub const ALIAS_KHR: Self = Self::ALIAS;
-        pub const BLOCK_TEXEL_VIEW_COMPATIBLE_KHR: Self = Self::BLOCK_TEXEL_VIEW_COMPATIBLE;
-        pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self =
-            Self::DESCRIPTOR_HEAP_CAPTURE_REPLAY_EXT;
-        pub const DISJOINT_KHR: Self = Self::DISJOINT;
-        pub const EXTENDED_USAGE_KHR: Self = Self::EXTENDED_USAGE;
-        pub const FRAGMENT_DENSITY_MAP_OFFSET_QCOM: Self = Self::FRAGMENT_DENSITY_MAP_OFFSET_EXT;
-        pub const SPLIT_INSTANCE_BIND_REGIONS_KHR: Self = Self::SPLIT_INSTANCE_BIND_REGIONS;
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageViewCreateFlags(Flags);
     vk_bitflags_wrapped!(ImageViewCreateFlags, Flags);
     impl ImageViewCreateFlags {
-        pub const FRAGMENT_DENSITY_MAP_DYNAMIC_EXT: Self =
-            Self(ImageViewCreateFlagBits::FRAGMENT_DENSITY_MAP_DYNAMIC_EXT.0);
-        pub const FRAGMENT_DENSITY_MAP_DEFERRED_EXT: Self =
-            Self(ImageViewCreateFlagBits::FRAGMENT_DENSITY_MAP_DEFERRED_EXT.0);
+        // VK_EXT_descriptor_buffer
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self =
             Self(ImageViewCreateFlagBits::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT.0);
+        // VK_EXT_fragment_density_map
+        pub const FRAGMENT_DENSITY_MAP_DYNAMIC_EXT: Self =
+            Self(ImageViewCreateFlagBits::FRAGMENT_DENSITY_MAP_DYNAMIC_EXT.0);
+        // VK_EXT_fragment_density_map2
+        pub const FRAGMENT_DENSITY_MAP_DEFERRED_EXT: Self =
+            Self(ImageViewCreateFlagBits::FRAGMENT_DENSITY_MAP_DEFERRED_EXT.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ImageViewCreateFlagBits(u32);
     impl ImageViewCreateFlagBits {
-        pub const FRAGMENT_DENSITY_MAP_DYNAMIC_EXT: Self = Self(1 << 0);
-        pub const FRAGMENT_DENSITY_MAP_DEFERRED_EXT: Self = Self(1 << 1);
+        // VK_EXT_descriptor_buffer
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self = Self(1 << 2);
+        // VK_EXT_fragment_density_map
+        pub const FRAGMENT_DENSITY_MAP_DYNAMIC_EXT: Self = Self(1 << 0);
+        // VK_EXT_fragment_density_map2
+        pub const FRAGMENT_DENSITY_MAP_DEFERRED_EXT: Self = Self(1 << 1);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -13081,21 +13841,50 @@ pub(super) mod defs {
         pub const DISABLE_OPTIMIZATION: Self = Self(PipelineCreateFlagBits::DISABLE_OPTIMIZATION.0);
         pub const ALLOW_DERIVATIVES: Self = Self(PipelineCreateFlagBits::ALLOW_DERIVATIVES.0);
         pub const DERIVATIVE: Self = Self(PipelineCreateFlagBits::DERIVATIVE.0);
-        pub const VIEW_INDEX_FROM_DEVICE_INDEX: Self =
-            Self(PipelineCreateFlagBits::VIEW_INDEX_FROM_DEVICE_INDEX.0);
-        pub const DISPATCH_BASE: Self = Self(PipelineCreateFlagBits::DISPATCH_BASE.0);
-        pub const DEFER_COMPILE_NV: Self = Self(PipelineCreateFlagBits::DEFER_COMPILE_NV.0);
+        // VK_EXT_attachment_feedback_loop_layout
+        pub const COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT: Self =
+            Self(PipelineCreateFlagBits::COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT.0);
+        pub const DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT: Self =
+            Self(PipelineCreateFlagBits::DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT.0);
+        // VK_EXT_descriptor_buffer
+        pub const DESCRIPTOR_BUFFER_EXT: Self =
+            Self(PipelineCreateFlagBits::DESCRIPTOR_BUFFER_EXT.0);
+        // VK_EXT_fragment_density_map
+        pub const RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT: Self =
+            Self(PipelineCreateFlagBits::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT.0);
+        pub const PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT: Self =
+            Self::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT;
+        // VK_EXT_graphics_pipeline_library
+        pub const LINK_TIME_OPTIMIZATION_EXT: Self =
+            Self(PipelineCreateFlagBits::LINK_TIME_OPTIMIZATION_EXT.0);
+        pub const RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT: Self =
+            Self(PipelineCreateFlagBits::RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT.0);
+        // VK_EXT_opacity_micromap
+        pub const RAY_TRACING_OPACITY_MICROMAP_EXT: Self =
+            Self(PipelineCreateFlagBits::RAY_TRACING_OPACITY_MICROMAP_EXT.0);
+        // VK_EXT_pipeline_creation_cache_control
+        pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED_EXT: Self =
+            Self::FAIL_ON_PIPELINE_COMPILE_REQUIRED;
+        pub const EARLY_RETURN_ON_FAILURE_EXT: Self = Self::EARLY_RETURN_ON_FAILURE;
+        // VK_EXT_pipeline_protected_access
+        pub const NO_PROTECTED_ACCESS_EXT: Self = Self::NO_PROTECTED_ACCESS;
+        pub const PROTECTED_ACCESS_ONLY_EXT: Self = Self::PROTECTED_ACCESS_ONLY;
+        // VK_KHR_device_group
+        pub const VIEW_INDEX_FROM_DEVICE_INDEX_KHR: Self = Self::VIEW_INDEX_FROM_DEVICE_INDEX;
+        pub const DISPATCH_BASE_KHR: Self = Self::DISPATCH_BASE;
+        // VK_KHR_fragment_shading_rate
+        pub const RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
+            Self(PipelineCreateFlagBits::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0);
+        pub const PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
+            Self::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
+        // VK_KHR_pipeline_executable_properties
         pub const CAPTURE_STATISTICS_KHR: Self =
             Self(PipelineCreateFlagBits::CAPTURE_STATISTICS_KHR.0);
         pub const CAPTURE_INTERNAL_REPRESENTATIONS_KHR: Self =
             Self(PipelineCreateFlagBits::CAPTURE_INTERNAL_REPRESENTATIONS_KHR.0);
-        pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED: Self =
-            Self(PipelineCreateFlagBits::FAIL_ON_PIPELINE_COMPILE_REQUIRED.0);
-        pub const EARLY_RETURN_ON_FAILURE: Self =
-            Self(PipelineCreateFlagBits::EARLY_RETURN_ON_FAILURE.0);
-        pub const LINK_TIME_OPTIMIZATION_EXT: Self =
-            Self(PipelineCreateFlagBits::LINK_TIME_OPTIMIZATION_EXT.0);
+        // VK_KHR_pipeline_library
         pub const LIBRARY_KHR: Self = Self(PipelineCreateFlagBits::LIBRARY_KHR.0);
+        // VK_KHR_ray_tracing_pipeline
         pub const RAY_TRACING_SKIP_TRIANGLES_KHR: Self =
             Self(PipelineCreateFlagBits::RAY_TRACING_SKIP_TRIANGLES_KHR.0);
         pub const RAY_TRACING_SKIP_AABBS_KHR: Self =
@@ -13108,41 +13897,31 @@ pub(super) mod defs {
             Self(PipelineCreateFlagBits::RAY_TRACING_NO_NULL_MISS_SHADERS_KHR.0);
         pub const RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR: Self =
             Self(PipelineCreateFlagBits::RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR.0);
-        pub const INDIRECT_BINDABLE_NV: Self = Self(PipelineCreateFlagBits::INDIRECT_BINDABLE_NV.0);
         pub const RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR: Self =
             Self(PipelineCreateFlagBits::RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR.0);
-        pub const RAY_TRACING_ALLOW_MOTION_NV: Self =
-            Self(PipelineCreateFlagBits::RAY_TRACING_ALLOW_MOTION_NV.0);
-        pub const RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
-            Self(PipelineCreateFlagBits::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0);
-        pub const RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT: Self =
-            Self(PipelineCreateFlagBits::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT.0);
-        pub const RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT: Self =
-            Self(PipelineCreateFlagBits::RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT.0);
-        pub const RAY_TRACING_OPACITY_MICROMAP_EXT: Self =
-            Self(PipelineCreateFlagBits::RAY_TRACING_OPACITY_MICROMAP_EXT.0);
-        pub const COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT: Self =
-            Self(PipelineCreateFlagBits::COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT.0);
-        pub const DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT: Self =
-            Self(PipelineCreateFlagBits::DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT.0);
-        pub const NO_PROTECTED_ACCESS: Self = Self(PipelineCreateFlagBits::NO_PROTECTED_ACCESS.0);
+        // VK_NV_device_generated_commands
+        pub const INDIRECT_BINDABLE_NV: Self = Self(PipelineCreateFlagBits::INDIRECT_BINDABLE_NV.0);
+        // VK_NV_displacement_micromap
         pub const RAY_TRACING_DISPLACEMENT_MICROMAP_NV: Self =
             Self(PipelineCreateFlagBits::RAY_TRACING_DISPLACEMENT_MICROMAP_NV.0);
-        pub const DESCRIPTOR_BUFFER_EXT: Self =
-            Self(PipelineCreateFlagBits::DESCRIPTOR_BUFFER_EXT.0);
+        // VK_NV_ray_tracing
+        pub const DEFER_COMPILE_NV: Self = Self(PipelineCreateFlagBits::DEFER_COMPILE_NV.0);
+        // VK_NV_ray_tracing_motion_blur
+        pub const RAY_TRACING_ALLOW_MOTION_NV: Self =
+            Self(PipelineCreateFlagBits::RAY_TRACING_ALLOW_MOTION_NV.0);
+        // VK_VERSION_1_1
+        pub const VIEW_INDEX_FROM_DEVICE_INDEX: Self =
+            Self(PipelineCreateFlagBits::VIEW_INDEX_FROM_DEVICE_INDEX.0);
+        pub const DISPATCH_BASE: Self = Self(PipelineCreateFlagBits::DISPATCH_BASE.0);
+        // VK_VERSION_1_3
+        pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED: Self =
+            Self(PipelineCreateFlagBits::FAIL_ON_PIPELINE_COMPILE_REQUIRED.0);
+        pub const EARLY_RETURN_ON_FAILURE: Self =
+            Self(PipelineCreateFlagBits::EARLY_RETURN_ON_FAILURE.0);
+        // VK_VERSION_1_4
+        pub const NO_PROTECTED_ACCESS: Self = Self(PipelineCreateFlagBits::NO_PROTECTED_ACCESS.0);
         pub const PROTECTED_ACCESS_ONLY: Self =
             Self(PipelineCreateFlagBits::PROTECTED_ACCESS_ONLY.0);
-        pub const DISPATCH_BASE_KHR: Self = Self::DISPATCH_BASE;
-        pub const EARLY_RETURN_ON_FAILURE_EXT: Self = Self::EARLY_RETURN_ON_FAILURE;
-        pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED_EXT: Self =
-            Self::FAIL_ON_PIPELINE_COMPILE_REQUIRED;
-        pub const NO_PROTECTED_ACCESS_EXT: Self = Self::NO_PROTECTED_ACCESS;
-        pub const PROTECTED_ACCESS_ONLY_EXT: Self = Self::PROTECTED_ACCESS_ONLY;
-        pub const VIEW_INDEX_FROM_DEVICE_INDEX_KHR: Self = Self::VIEW_INDEX_FROM_DEVICE_INDEX;
-        pub const PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT: Self =
-            Self::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT;
-        pub const PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
-            Self::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -13151,45 +13930,64 @@ pub(super) mod defs {
         pub const DISABLE_OPTIMIZATION: Self = Self(1 << 0);
         pub const ALLOW_DERIVATIVES: Self = Self(1 << 1);
         pub const DERIVATIVE: Self = Self(1 << 2);
-        pub const VIEW_INDEX_FROM_DEVICE_INDEX: Self = Self(1 << 3);
-        pub const DISPATCH_BASE: Self = Self(1 << 4);
-        pub const DEFER_COMPILE_NV: Self = Self(1 << 5);
+        // VK_EXT_attachment_feedback_loop_layout
+        pub const COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT: Self = Self(1 << 25);
+        pub const DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT: Self = Self(1 << 26);
+        // VK_EXT_descriptor_buffer
+        pub const DESCRIPTOR_BUFFER_EXT: Self = Self(1 << 29);
+        // VK_EXT_fragment_density_map
+        pub const RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT: Self = Self(1 << 22);
+        pub const PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT: Self =
+            Self::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT;
+        // VK_EXT_graphics_pipeline_library
+        pub const LINK_TIME_OPTIMIZATION_EXT: Self = Self(1 << 10);
+        pub const RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT: Self = Self(1 << 23);
+        // VK_EXT_opacity_micromap
+        pub const RAY_TRACING_OPACITY_MICROMAP_EXT: Self = Self(1 << 24);
+        // VK_EXT_pipeline_creation_cache_control
+        pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED_EXT: Self =
+            Self::FAIL_ON_PIPELINE_COMPILE_REQUIRED;
+        pub const EARLY_RETURN_ON_FAILURE_EXT: Self = Self::EARLY_RETURN_ON_FAILURE;
+        // VK_EXT_pipeline_protected_access
+        pub const NO_PROTECTED_ACCESS_EXT: Self = Self::NO_PROTECTED_ACCESS;
+        pub const PROTECTED_ACCESS_ONLY_EXT: Self = Self::PROTECTED_ACCESS_ONLY;
+        // VK_KHR_device_group
+        pub const VIEW_INDEX_FROM_DEVICE_INDEX_KHR: Self = Self::VIEW_INDEX_FROM_DEVICE_INDEX;
+        pub const DISPATCH_BASE_KHR: Self = Self::DISPATCH_BASE;
+        // VK_KHR_fragment_shading_rate
+        pub const RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self = Self(1 << 21);
+        pub const PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
+            Self::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
+        // VK_KHR_pipeline_executable_properties
         pub const CAPTURE_STATISTICS_KHR: Self = Self(1 << 6);
         pub const CAPTURE_INTERNAL_REPRESENTATIONS_KHR: Self = Self(1 << 7);
-        pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED: Self = Self(1 << 8);
-        pub const EARLY_RETURN_ON_FAILURE: Self = Self(1 << 9);
-        pub const LINK_TIME_OPTIMIZATION_EXT: Self = Self(1 << 10);
+        // VK_KHR_pipeline_library
         pub const LIBRARY_KHR: Self = Self(1 << 11);
+        // VK_KHR_ray_tracing_pipeline
         pub const RAY_TRACING_SKIP_TRIANGLES_KHR: Self = Self(1 << 12);
         pub const RAY_TRACING_SKIP_AABBS_KHR: Self = Self(1 << 13);
         pub const RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_KHR: Self = Self(1 << 14);
         pub const RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_KHR: Self = Self(1 << 15);
         pub const RAY_TRACING_NO_NULL_MISS_SHADERS_KHR: Self = Self(1 << 16);
         pub const RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR: Self = Self(1 << 17);
-        pub const INDIRECT_BINDABLE_NV: Self = Self(1 << 18);
         pub const RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR: Self = Self(1 << 19);
-        pub const RAY_TRACING_ALLOW_MOTION_NV: Self = Self(1 << 20);
-        pub const RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self = Self(1 << 21);
-        pub const RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT: Self = Self(1 << 22);
-        pub const RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT: Self = Self(1 << 23);
-        pub const RAY_TRACING_OPACITY_MICROMAP_EXT: Self = Self(1 << 24);
-        pub const COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT: Self = Self(1 << 25);
-        pub const DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT: Self = Self(1 << 26);
-        pub const NO_PROTECTED_ACCESS: Self = Self(1 << 27);
+        // VK_NV_device_generated_commands
+        pub const INDIRECT_BINDABLE_NV: Self = Self(1 << 18);
+        // VK_NV_displacement_micromap
         pub const RAY_TRACING_DISPLACEMENT_MICROMAP_NV: Self = Self(1 << 28);
-        pub const DESCRIPTOR_BUFFER_EXT: Self = Self(1 << 29);
+        // VK_NV_ray_tracing
+        pub const DEFER_COMPILE_NV: Self = Self(1 << 5);
+        // VK_NV_ray_tracing_motion_blur
+        pub const RAY_TRACING_ALLOW_MOTION_NV: Self = Self(1 << 20);
+        // VK_VERSION_1_1
+        pub const VIEW_INDEX_FROM_DEVICE_INDEX: Self = Self(1 << 3);
+        pub const DISPATCH_BASE: Self = Self(1 << 4);
+        // VK_VERSION_1_3
+        pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED: Self = Self(1 << 8);
+        pub const EARLY_RETURN_ON_FAILURE: Self = Self(1 << 9);
+        // VK_VERSION_1_4
+        pub const NO_PROTECTED_ACCESS: Self = Self(1 << 27);
         pub const PROTECTED_ACCESS_ONLY: Self = Self(1 << 30);
-        pub const DISPATCH_BASE_KHR: Self = Self::DISPATCH_BASE;
-        pub const EARLY_RETURN_ON_FAILURE_EXT: Self = Self::EARLY_RETURN_ON_FAILURE;
-        pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED_EXT: Self =
-            Self::FAIL_ON_PIPELINE_COMPILE_REQUIRED;
-        pub const NO_PROTECTED_ACCESS_EXT: Self = Self::NO_PROTECTED_ACCESS;
-        pub const PROTECTED_ACCESS_ONLY_EXT: Self = Self::PROTECTED_ACCESS_ONLY;
-        pub const VIEW_INDEX_FROM_DEVICE_INDEX_KHR: Self = Self::VIEW_INDEX_FROM_DEVICE_INDEX;
-        pub const PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT: Self =
-            Self::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT;
-        pub const PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
-            Self::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -13227,7 +14025,6 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SemaphoreCreateFlags(Flags);
     vk_bitflags_wrapped!(SemaphoreCreateFlags, Flags);
-    impl SemaphoreCreateFlags {}
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct FormatFeatureFlags(Flags);
@@ -13250,12 +14047,48 @@ pub(super) mod defs {
         pub const BLIT_DST: Self = Self(FormatFeatureFlagBits::BLIT_DST.0);
         pub const SAMPLED_IMAGE_FILTER_LINEAR: Self =
             Self(FormatFeatureFlagBits::SAMPLED_IMAGE_FILTER_LINEAR.0);
+        // VK_EXT_filter_cubic
         pub const SAMPLED_IMAGE_FILTER_CUBIC_EXT: Self =
             Self(FormatFeatureFlagBits::SAMPLED_IMAGE_FILTER_CUBIC_EXT.0);
+        // VK_EXT_fragment_density_map
+        pub const FRAGMENT_DENSITY_MAP_EXT: Self =
+            Self(FormatFeatureFlagBits::FRAGMENT_DENSITY_MAP_EXT.0);
+        // VK_EXT_sampler_filter_minmax
+        pub const SAMPLED_IMAGE_FILTER_MINMAX_EXT: Self = Self::SAMPLED_IMAGE_FILTER_MINMAX;
+        // VK_IMG_filter_cubic
+        pub const SAMPLED_IMAGE_FILTER_CUBIC_IMG: Self = Self::SAMPLED_IMAGE_FILTER_CUBIC_EXT;
+        // VK_KHR_acceleration_structure
+        pub const ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR: Self =
+            Self(FormatFeatureFlagBits::ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR.0);
+        // VK_KHR_fragment_shading_rate
+        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
+            Self(FormatFeatureFlagBits::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0);
+        // VK_KHR_maintenance1
+        pub const TRANSFER_SRC_KHR: Self = Self::TRANSFER_SRC;
+        pub const TRANSFER_DST_KHR: Self = Self::TRANSFER_DST;
+        // VK_KHR_sampler_ycbcr_conversion
+        pub const MIDPOINT_CHROMA_SAMPLES_KHR: Self = Self::MIDPOINT_CHROMA_SAMPLES;
+        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_KHR: Self =
+            Self::SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER;
+        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_KHR: Self =
+            Self::SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER;
+        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_KHR: Self =
+            Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT;
+        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_KHR:
+            Self = Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE;
+        pub const DISJOINT_KHR: Self = Self::DISJOINT;
+        pub const COSITED_CHROMA_SAMPLES_KHR: Self = Self::COSITED_CHROMA_SAMPLES;
+        // VK_KHR_video_decode_queue
+        pub const VIDEO_DECODE_OUTPUT_KHR: Self =
+            Self(FormatFeatureFlagBits::VIDEO_DECODE_OUTPUT_KHR.0);
+        pub const VIDEO_DECODE_DPB_KHR: Self = Self(FormatFeatureFlagBits::VIDEO_DECODE_DPB_KHR.0);
+        // VK_KHR_video_encode_queue
+        pub const VIDEO_ENCODE_INPUT_KHR: Self =
+            Self(FormatFeatureFlagBits::VIDEO_ENCODE_INPUT_KHR.0);
+        pub const VIDEO_ENCODE_DPB_KHR: Self = Self(FormatFeatureFlagBits::VIDEO_ENCODE_DPB_KHR.0);
+        // VK_VERSION_1_1
         pub const TRANSFER_SRC: Self = Self(FormatFeatureFlagBits::TRANSFER_SRC.0);
         pub const TRANSFER_DST: Self = Self(FormatFeatureFlagBits::TRANSFER_DST.0);
-        pub const SAMPLED_IMAGE_FILTER_MINMAX: Self =
-            Self(FormatFeatureFlagBits::SAMPLED_IMAGE_FILTER_MINMAX.0);
         pub const MIDPOINT_CHROMA_SAMPLES: Self =
             Self(FormatFeatureFlagBits::MIDPOINT_CHROMA_SAMPLES.0);
         pub const SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER: Self =
@@ -13270,33 +14103,9 @@ pub(super) mod defs {
         pub const DISJOINT: Self = Self(FormatFeatureFlagBits::DISJOINT.0);
         pub const COSITED_CHROMA_SAMPLES: Self =
             Self(FormatFeatureFlagBits::COSITED_CHROMA_SAMPLES.0);
-        pub const FRAGMENT_DENSITY_MAP_EXT: Self =
-            Self(FormatFeatureFlagBits::FRAGMENT_DENSITY_MAP_EXT.0);
-        pub const VIDEO_DECODE_OUTPUT_KHR: Self =
-            Self(FormatFeatureFlagBits::VIDEO_DECODE_OUTPUT_KHR.0);
-        pub const VIDEO_DECODE_DPB_KHR: Self = Self(FormatFeatureFlagBits::VIDEO_DECODE_DPB_KHR.0);
-        pub const VIDEO_ENCODE_INPUT_KHR: Self =
-            Self(FormatFeatureFlagBits::VIDEO_ENCODE_INPUT_KHR.0);
-        pub const VIDEO_ENCODE_DPB_KHR: Self = Self(FormatFeatureFlagBits::VIDEO_ENCODE_DPB_KHR.0);
-        pub const ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR: Self =
-            Self(FormatFeatureFlagBits::ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR.0);
-        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
-            Self(FormatFeatureFlagBits::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0);
-        pub const COSITED_CHROMA_SAMPLES_KHR: Self = Self::COSITED_CHROMA_SAMPLES;
-        pub const DISJOINT_KHR: Self = Self::DISJOINT;
-        pub const MIDPOINT_CHROMA_SAMPLES_KHR: Self = Self::MIDPOINT_CHROMA_SAMPLES;
-        pub const SAMPLED_IMAGE_FILTER_CUBIC_IMG: Self = Self::SAMPLED_IMAGE_FILTER_CUBIC_EXT;
-        pub const SAMPLED_IMAGE_FILTER_MINMAX_EXT: Self = Self::SAMPLED_IMAGE_FILTER_MINMAX;
-        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_KHR: Self =
-            Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT;
-        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_KHR:
-            Self = Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE;
-        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_KHR: Self =
-            Self::SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER;
-        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_KHR: Self =
-            Self::SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER;
-        pub const TRANSFER_DST_KHR: Self = Self::TRANSFER_DST;
-        pub const TRANSFER_SRC_KHR: Self = Self::TRANSFER_SRC;
+        // VK_VERSION_1_2
+        pub const SAMPLED_IMAGE_FILTER_MINMAX: Self =
+            Self(FormatFeatureFlagBits::SAMPLED_IMAGE_FILTER_MINMAX.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -13315,10 +14124,42 @@ pub(super) mod defs {
         pub const BLIT_SRC: Self = Self(1 << 10);
         pub const BLIT_DST: Self = Self(1 << 11);
         pub const SAMPLED_IMAGE_FILTER_LINEAR: Self = Self(1 << 12);
+        // VK_EXT_filter_cubic
         pub const SAMPLED_IMAGE_FILTER_CUBIC_EXT: Self = Self(1 << 13);
+        // VK_EXT_fragment_density_map
+        pub const FRAGMENT_DENSITY_MAP_EXT: Self = Self(1 << 24);
+        // VK_EXT_sampler_filter_minmax
+        pub const SAMPLED_IMAGE_FILTER_MINMAX_EXT: Self = Self::SAMPLED_IMAGE_FILTER_MINMAX;
+        // VK_IMG_filter_cubic
+        pub const SAMPLED_IMAGE_FILTER_CUBIC_IMG: Self = Self::SAMPLED_IMAGE_FILTER_CUBIC_EXT;
+        // VK_KHR_acceleration_structure
+        pub const ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR: Self = Self(1 << 29);
+        // VK_KHR_fragment_shading_rate
+        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self = Self(1 << 30);
+        // VK_KHR_maintenance1
+        pub const TRANSFER_SRC_KHR: Self = Self::TRANSFER_SRC;
+        pub const TRANSFER_DST_KHR: Self = Self::TRANSFER_DST;
+        // VK_KHR_sampler_ycbcr_conversion
+        pub const MIDPOINT_CHROMA_SAMPLES_KHR: Self = Self::MIDPOINT_CHROMA_SAMPLES;
+        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_KHR: Self =
+            Self::SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER;
+        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_KHR: Self =
+            Self::SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER;
+        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_KHR: Self =
+            Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT;
+        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_KHR:
+            Self = Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE;
+        pub const DISJOINT_KHR: Self = Self::DISJOINT;
+        pub const COSITED_CHROMA_SAMPLES_KHR: Self = Self::COSITED_CHROMA_SAMPLES;
+        // VK_KHR_video_decode_queue
+        pub const VIDEO_DECODE_OUTPUT_KHR: Self = Self(1 << 25);
+        pub const VIDEO_DECODE_DPB_KHR: Self = Self(1 << 26);
+        // VK_KHR_video_encode_queue
+        pub const VIDEO_ENCODE_INPUT_KHR: Self = Self(1 << 27);
+        pub const VIDEO_ENCODE_DPB_KHR: Self = Self(1 << 28);
+        // VK_VERSION_1_1
         pub const TRANSFER_SRC: Self = Self(1 << 14);
         pub const TRANSFER_DST: Self = Self(1 << 15);
-        pub const SAMPLED_IMAGE_FILTER_MINMAX: Self = Self(1 << 16);
         pub const MIDPOINT_CHROMA_SAMPLES: Self = Self(1 << 17);
         pub const SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER: Self = Self(1 << 18);
         pub const SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER: Self =
@@ -13329,28 +14170,8 @@ pub(super) mod defs {
             Self(1 << 21);
         pub const DISJOINT: Self = Self(1 << 22);
         pub const COSITED_CHROMA_SAMPLES: Self = Self(1 << 23);
-        pub const FRAGMENT_DENSITY_MAP_EXT: Self = Self(1 << 24);
-        pub const VIDEO_DECODE_OUTPUT_KHR: Self = Self(1 << 25);
-        pub const VIDEO_DECODE_DPB_KHR: Self = Self(1 << 26);
-        pub const VIDEO_ENCODE_INPUT_KHR: Self = Self(1 << 27);
-        pub const VIDEO_ENCODE_DPB_KHR: Self = Self(1 << 28);
-        pub const ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR: Self = Self(1 << 29);
-        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self = Self(1 << 30);
-        pub const COSITED_CHROMA_SAMPLES_KHR: Self = Self::COSITED_CHROMA_SAMPLES;
-        pub const DISJOINT_KHR: Self = Self::DISJOINT;
-        pub const MIDPOINT_CHROMA_SAMPLES_KHR: Self = Self::MIDPOINT_CHROMA_SAMPLES;
-        pub const SAMPLED_IMAGE_FILTER_CUBIC_IMG: Self = Self::SAMPLED_IMAGE_FILTER_CUBIC_EXT;
-        pub const SAMPLED_IMAGE_FILTER_MINMAX_EXT: Self = Self::SAMPLED_IMAGE_FILTER_MINMAX;
-        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_KHR: Self =
-            Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT;
-        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_KHR:
-            Self = Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE;
-        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_KHR: Self =
-            Self::SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER;
-        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_KHR: Self =
-            Self::SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER;
-        pub const TRANSFER_DST_KHR: Self = Self::TRANSFER_DST;
-        pub const TRANSFER_SRC_KHR: Self = Self::TRANSFER_SRC;
+        // VK_VERSION_1_2
+        pub const SAMPLED_IMAGE_FILTER_MINMAX: Self = Self(1 << 16);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -13374,6 +14195,7 @@ pub(super) mod defs {
         pub const WAIT: Self = Self(QueryResultFlagBits::WAIT.0);
         pub const WITH_AVAILABILITY: Self = Self(QueryResultFlagBits::WITH_AVAILABILITY.0);
         pub const PARTIAL: Self = Self(QueryResultFlagBits::PARTIAL.0);
+        // VK_KHR_video_queue
         pub const WITH_STATUS_KHR: Self = Self(QueryResultFlagBits::WITH_STATUS_KHR.0);
     }
     #[repr(transparent)]
@@ -13384,27 +14206,31 @@ pub(super) mod defs {
         pub const WAIT: Self = Self(1 << 1);
         pub const WITH_AVAILABILITY: Self = Self(1 << 2);
         pub const PARTIAL: Self = Self(1 << 3);
+        // VK_KHR_video_queue
         pub const WITH_STATUS_KHR: Self = Self(1 << 4);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ShaderModuleCreateFlags(Flags);
     vk_bitflags_wrapped!(ShaderModuleCreateFlags, Flags);
-    impl ShaderModuleCreateFlags {}
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct EventCreateFlags(Flags);
     vk_bitflags_wrapped!(EventCreateFlags, Flags);
     impl EventCreateFlags {
-        pub const DEVICE_ONLY: Self = Self(EventCreateFlagBits::DEVICE_ONLY.0);
+        // VK_KHR_synchronization2
         pub const DEVICE_ONLY_KHR: Self = Self::DEVICE_ONLY;
+        // VK_VERSION_1_3
+        pub const DEVICE_ONLY: Self = Self(EventCreateFlagBits::DEVICE_ONLY.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct EventCreateFlagBits(u32);
     impl EventCreateFlagBits {
-        pub const DEVICE_ONLY: Self = Self(1 << 0);
+        // VK_KHR_synchronization2
         pub const DEVICE_ONLY_KHR: Self = Self::DEVICE_ONLY;
+        // VK_VERSION_1_3
+        pub const DEVICE_ONLY: Self = Self(1 << 0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -13414,6 +14240,7 @@ pub(super) mod defs {
         pub const TRANSIENT: Self = Self(CommandPoolCreateFlagBits::TRANSIENT.0);
         pub const RESET_COMMAND_BUFFER: Self =
             Self(CommandPoolCreateFlagBits::RESET_COMMAND_BUFFER.0);
+        // VK_VERSION_1_1
         pub const PROTECTED: Self = Self(CommandPoolCreateFlagBits::PROTECTED.0);
     }
     #[repr(transparent)]
@@ -13422,6 +14249,7 @@ pub(super) mod defs {
     impl CommandPoolCreateFlagBits {
         pub const TRANSIENT: Self = Self(1 << 0);
         pub const RESET_COMMAND_BUFFER: Self = Self(1 << 1);
+        // VK_VERSION_1_1
         pub const PROTECTED: Self = Self(1 << 2);
     }
     #[repr(transparent)]
@@ -13495,10 +14323,12 @@ pub(super) mod defs {
             Self(QueryPipelineStatisticFlagBits::TESSELLATION_EVALUATION_SHADER_INVOCATIONS.0);
         pub const COMPUTE_SHADER_INVOCATIONS: Self =
             Self(QueryPipelineStatisticFlagBits::COMPUTE_SHADER_INVOCATIONS.0);
+        // VK_EXT_mesh_shader
         pub const TASK_SHADER_INVOCATIONS_EXT: Self =
             Self(QueryPipelineStatisticFlagBits::TASK_SHADER_INVOCATIONS_EXT.0);
         pub const MESH_SHADER_INVOCATIONS_EXT: Self =
             Self(QueryPipelineStatisticFlagBits::MESH_SHADER_INVOCATIONS_EXT.0);
+        // VK_HUAWEI_cluster_culling_shader
         pub const CLUSTER_CULLING_SHADER_INVOCATIONS_HUAWEI: Self =
             Self(QueryPipelineStatisticFlagBits::CLUSTER_CULLING_SHADER_INVOCATIONS_HUAWEI.0);
     }
@@ -13517,8 +14347,10 @@ pub(super) mod defs {
         pub const TESSELLATION_CONTROL_SHADER_PATCHES: Self = Self(1 << 8);
         pub const TESSELLATION_EVALUATION_SHADER_INVOCATIONS: Self = Self(1 << 9);
         pub const COMPUTE_SHADER_INVOCATIONS: Self = Self(1 << 10);
+        // VK_EXT_mesh_shader
         pub const TASK_SHADER_INVOCATIONS_EXT: Self = Self(1 << 11);
         pub const MESH_SHADER_INVOCATIONS_EXT: Self = Self(1 << 12);
+        // VK_HUAWEI_cluster_culling_shader
         pub const CLUSTER_CULLING_SHADER_INVOCATIONS_HUAWEI: Self = Self(1 << 13);
     }
     #[repr(transparent)]
@@ -13526,12 +14358,14 @@ pub(super) mod defs {
     pub struct MemoryMapFlags(Flags);
     vk_bitflags_wrapped!(MemoryMapFlags, Flags);
     impl MemoryMapFlags {
+        // VK_EXT_map_memory_placed
         pub const PLACED_EXT: Self = Self(MemoryMapFlagBits::PLACED_EXT.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MemoryMapFlagBits(u32);
     impl MemoryMapFlagBits {
+        // VK_EXT_map_memory_placed
         pub const PLACED_EXT: Self = Self(1 << 0);
     }
     #[repr(transparent)]
@@ -13543,17 +14377,22 @@ pub(super) mod defs {
         pub const DEPTH: Self = Self(ImageAspectFlagBits::DEPTH.0);
         pub const STENCIL: Self = Self(ImageAspectFlagBits::STENCIL.0);
         pub const METADATA: Self = Self(ImageAspectFlagBits::METADATA.0);
-        pub const PLANE_0: Self = Self(ImageAspectFlagBits::PLANE_0.0);
-        pub const PLANE_1: Self = Self(ImageAspectFlagBits::PLANE_1.0);
-        pub const PLANE_2: Self = Self(ImageAspectFlagBits::PLANE_2.0);
+        // VK_EXT_image_drm_format_modifier
         pub const MEMORY_PLANE_0_EXT: Self = Self(ImageAspectFlagBits::MEMORY_PLANE_0_EXT.0);
         pub const MEMORY_PLANE_1_EXT: Self = Self(ImageAspectFlagBits::MEMORY_PLANE_1_EXT.0);
         pub const MEMORY_PLANE_2_EXT: Self = Self(ImageAspectFlagBits::MEMORY_PLANE_2_EXT.0);
         pub const MEMORY_PLANE_3_EXT: Self = Self(ImageAspectFlagBits::MEMORY_PLANE_3_EXT.0);
+        // VK_KHR_maintenance4
         pub const NONE_KHR: Self = Self::NONE;
+        // VK_KHR_sampler_ycbcr_conversion
         pub const PLANE_0_KHR: Self = Self::PLANE_0;
         pub const PLANE_1_KHR: Self = Self::PLANE_1;
         pub const PLANE_2_KHR: Self = Self::PLANE_2;
+        // VK_VERSION_1_1
+        pub const PLANE_0: Self = Self(ImageAspectFlagBits::PLANE_0.0);
+        pub const PLANE_1: Self = Self(ImageAspectFlagBits::PLANE_1.0);
+        pub const PLANE_2: Self = Self(ImageAspectFlagBits::PLANE_2.0);
+        // VK_VERSION_1_3
         pub const NONE: Self = Self(0);
     }
     #[repr(transparent)]
@@ -13564,16 +14403,19 @@ pub(super) mod defs {
         pub const DEPTH: Self = Self(1 << 1);
         pub const STENCIL: Self = Self(1 << 2);
         pub const METADATA: Self = Self(1 << 3);
-        pub const PLANE_0: Self = Self(1 << 4);
-        pub const PLANE_1: Self = Self(1 << 5);
-        pub const PLANE_2: Self = Self(1 << 6);
+        // VK_EXT_image_drm_format_modifier
         pub const MEMORY_PLANE_0_EXT: Self = Self(1 << 7);
         pub const MEMORY_PLANE_1_EXT: Self = Self(1 << 8);
         pub const MEMORY_PLANE_2_EXT: Self = Self(1 << 9);
         pub const MEMORY_PLANE_3_EXT: Self = Self(1 << 10);
+        // VK_KHR_sampler_ycbcr_conversion
         pub const PLANE_0_KHR: Self = Self::PLANE_0;
         pub const PLANE_1_KHR: Self = Self::PLANE_1;
         pub const PLANE_2_KHR: Self = Self::PLANE_2;
+        // VK_VERSION_1_1
+        pub const PLANE_0: Self = Self(1 << 4);
+        pub const PLANE_1: Self = Self(1 << 5);
+        pub const PLANE_2: Self = Self(1 << 6);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -13611,53 +14453,67 @@ pub(super) mod defs {
     pub struct SubpassDescriptionFlags(Flags);
     vk_bitflags_wrapped!(SubpassDescriptionFlags, Flags);
     impl SubpassDescriptionFlags {
-        pub const PER_VIEW_ATTRIBUTES_NVX: Self =
-            Self(SubpassDescriptionFlagBits::PER_VIEW_ATTRIBUTES_NVX.0);
-        pub const PER_VIEW_POSITION_X_ONLY_NVX: Self =
-            Self(SubpassDescriptionFlagBits::PER_VIEW_POSITION_X_ONLY_NVX.0);
+        // VK_ARM_rasterization_order_attachment_access
+        pub const RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_ARM: Self =
+            Self::RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_EXT;
+        pub const RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_ARM: Self =
+            Self::RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT;
+        pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_ARM: Self =
+            Self::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT;
+        // VK_EXT_custom_resolve
         pub const FRAGMENT_REGION_EXT: Self =
             Self(SubpassDescriptionFlagBits::FRAGMENT_REGION_EXT.0);
         pub const CUSTOM_RESOLVE_EXT: Self = Self(SubpassDescriptionFlagBits::CUSTOM_RESOLVE_EXT.0);
+        // VK_EXT_legacy_dithering
+        pub const ENABLE_LEGACY_DITHERING_EXT: Self =
+            Self(SubpassDescriptionFlagBits::ENABLE_LEGACY_DITHERING_EXT.0);
+        // VK_EXT_rasterization_order_attachment_access
         pub const RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_EXT: Self =
             Self(SubpassDescriptionFlagBits::RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_EXT.0);
         pub const RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT: Self =
             Self(SubpassDescriptionFlagBits::RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT.0);
         pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT: Self =
             Self(SubpassDescriptionFlagBits::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT.0);
-        pub const ENABLE_LEGACY_DITHERING_EXT: Self =
-            Self(SubpassDescriptionFlagBits::ENABLE_LEGACY_DITHERING_EXT.0);
+        // VK_NVX_multiview_per_view_attributes
+        pub const PER_VIEW_ATTRIBUTES_NVX: Self =
+            Self(SubpassDescriptionFlagBits::PER_VIEW_ATTRIBUTES_NVX.0);
+        pub const PER_VIEW_POSITION_X_ONLY_NVX: Self =
+            Self(SubpassDescriptionFlagBits::PER_VIEW_POSITION_X_ONLY_NVX.0);
+        // VK_QCOM_render_pass_shader_resolve
+        pub const FRAGMENT_REGION_QCOM: Self = Self::FRAGMENT_REGION_EXT;
+        pub const SHADER_RESOLVE_QCOM: Self = Self::CUSTOM_RESOLVE_EXT;
+        // VK_QCOM_tile_shading
         pub const TILE_SHADING_APRON_QCOM: Self =
             Self(SubpassDescriptionFlagBits::TILE_SHADING_APRON_QCOM.0);
-        pub const FRAGMENT_REGION_QCOM: Self = Self::FRAGMENT_REGION_EXT;
-        pub const RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_ARM: Self =
-            Self::RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_EXT;
-        pub const RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_ARM: Self =
-            Self::RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT;
-        pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_ARM: Self =
-            Self::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT;
-        pub const SHADER_RESOLVE_QCOM: Self = Self::CUSTOM_RESOLVE_EXT;
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SubpassDescriptionFlagBits(u32);
     impl SubpassDescriptionFlagBits {
-        pub const PER_VIEW_ATTRIBUTES_NVX: Self = Self(1 << 0);
-        pub const PER_VIEW_POSITION_X_ONLY_NVX: Self = Self(1 << 1);
-        pub const FRAGMENT_REGION_EXT: Self = Self(1 << 2);
-        pub const CUSTOM_RESOLVE_EXT: Self = Self(1 << 3);
-        pub const RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_EXT: Self = Self(1 << 4);
-        pub const RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT: Self = Self(1 << 5);
-        pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT: Self = Self(1 << 6);
-        pub const ENABLE_LEGACY_DITHERING_EXT: Self = Self(1 << 7);
-        pub const TILE_SHADING_APRON_QCOM: Self = Self(1 << 8);
-        pub const FRAGMENT_REGION_QCOM: Self = Self::FRAGMENT_REGION_EXT;
+        // VK_ARM_rasterization_order_attachment_access
         pub const RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_ARM: Self =
             Self::RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_EXT;
         pub const RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_ARM: Self =
             Self::RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT;
         pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_ARM: Self =
             Self::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT;
+        // VK_EXT_custom_resolve
+        pub const FRAGMENT_REGION_EXT: Self = Self(1 << 2);
+        pub const CUSTOM_RESOLVE_EXT: Self = Self(1 << 3);
+        // VK_EXT_legacy_dithering
+        pub const ENABLE_LEGACY_DITHERING_EXT: Self = Self(1 << 7);
+        // VK_EXT_rasterization_order_attachment_access
+        pub const RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_EXT: Self = Self(1 << 4);
+        pub const RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT: Self = Self(1 << 5);
+        pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT: Self = Self(1 << 6);
+        // VK_NVX_multiview_per_view_attributes
+        pub const PER_VIEW_ATTRIBUTES_NVX: Self = Self(1 << 0);
+        pub const PER_VIEW_POSITION_X_ONLY_NVX: Self = Self(1 << 1);
+        // VK_QCOM_render_pass_shader_resolve
+        pub const FRAGMENT_REGION_QCOM: Self = Self::FRAGMENT_REGION_EXT;
         pub const SHADER_RESOLVE_QCOM: Self = Self::CUSTOM_RESOLVE_EXT;
+        // VK_QCOM_tile_shading
+        pub const TILE_SHADING_APRON_QCOM: Self = Self(1 << 8);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -13684,29 +14540,43 @@ pub(super) mod defs {
         pub const HOST: Self = Self(PipelineStageFlagBits::HOST.0);
         pub const ALL_GRAPHICS: Self = Self(PipelineStageFlagBits::ALL_GRAPHICS.0);
         pub const ALL_COMMANDS: Self = Self(PipelineStageFlagBits::ALL_COMMANDS.0);
-        pub const COMMAND_PREPROCESS_EXT: Self =
-            Self(PipelineStageFlagBits::COMMAND_PREPROCESS_EXT.0);
+        // VK_EXT_conditional_rendering
         pub const CONDITIONAL_RENDERING_EXT: Self =
             Self(PipelineStageFlagBits::CONDITIONAL_RENDERING_EXT.0);
-        pub const TASK_SHADER_EXT: Self = Self(PipelineStageFlagBits::TASK_SHADER_EXT.0);
-        pub const MESH_SHADER_EXT: Self = Self(PipelineStageFlagBits::MESH_SHADER_EXT.0);
-        pub const RAY_TRACING_SHADER_KHR: Self =
-            Self(PipelineStageFlagBits::RAY_TRACING_SHADER_KHR.0);
-        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
-            Self(PipelineStageFlagBits::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0);
+        // VK_EXT_device_generated_commands
+        pub const COMMAND_PREPROCESS_EXT: Self =
+            Self(PipelineStageFlagBits::COMMAND_PREPROCESS_EXT.0);
+        // VK_EXT_fragment_density_map
         pub const FRAGMENT_DENSITY_PROCESS_EXT: Self =
             Self(PipelineStageFlagBits::FRAGMENT_DENSITY_PROCESS_EXT.0);
+        // VK_EXT_mesh_shader
+        pub const TASK_SHADER_EXT: Self = Self(PipelineStageFlagBits::TASK_SHADER_EXT.0);
+        pub const MESH_SHADER_EXT: Self = Self(PipelineStageFlagBits::MESH_SHADER_EXT.0);
+        // VK_EXT_transform_feedback
         pub const TRANSFORM_FEEDBACK_EXT: Self =
             Self(PipelineStageFlagBits::TRANSFORM_FEEDBACK_EXT.0);
+        // VK_KHR_acceleration_structure
         pub const ACCELERATION_STRUCTURE_BUILD_KHR: Self =
             Self(PipelineStageFlagBits::ACCELERATION_STRUCTURE_BUILD_KHR.0);
-        pub const ACCELERATION_STRUCTURE_BUILD_NV: Self = Self::ACCELERATION_STRUCTURE_BUILD_KHR;
-        pub const COMMAND_PREPROCESS_NV: Self = Self::COMMAND_PREPROCESS_EXT;
-        pub const MESH_SHADER_NV: Self = Self::MESH_SHADER_EXT;
+        // VK_KHR_fragment_shading_rate
+        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
+            Self(PipelineStageFlagBits::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0);
+        // VK_KHR_ray_tracing_pipeline
+        pub const RAY_TRACING_SHADER_KHR: Self =
+            Self(PipelineStageFlagBits::RAY_TRACING_SHADER_KHR.0);
+        // VK_KHR_synchronization2
         pub const NONE_KHR: Self = Self::NONE;
-        pub const RAY_TRACING_SHADER_NV: Self = Self::RAY_TRACING_SHADER_KHR;
-        pub const SHADING_RATE_IMAGE_NV: Self = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
+        // VK_NV_device_generated_commands
+        pub const COMMAND_PREPROCESS_NV: Self = Self::COMMAND_PREPROCESS_EXT;
+        // VK_NV_mesh_shader
         pub const TASK_SHADER_NV: Self = Self::TASK_SHADER_EXT;
+        pub const MESH_SHADER_NV: Self = Self::MESH_SHADER_EXT;
+        // VK_NV_ray_tracing
+        pub const RAY_TRACING_SHADER_NV: Self = Self::RAY_TRACING_SHADER_KHR;
+        pub const ACCELERATION_STRUCTURE_BUILD_NV: Self = Self::ACCELERATION_STRUCTURE_BUILD_KHR;
+        // VK_NV_shading_rate_image
+        pub const SHADING_RATE_IMAGE_NV: Self = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
+        // VK_VERSION_1_3
         pub const NONE: Self = Self(0);
     }
     #[repr(transparent)]
@@ -13730,21 +14600,33 @@ pub(super) mod defs {
         pub const HOST: Self = Self(1 << 14);
         pub const ALL_GRAPHICS: Self = Self(1 << 15);
         pub const ALL_COMMANDS: Self = Self(1 << 16);
-        pub const COMMAND_PREPROCESS_EXT: Self = Self(1 << 17);
+        // VK_EXT_conditional_rendering
         pub const CONDITIONAL_RENDERING_EXT: Self = Self(1 << 18);
+        // VK_EXT_device_generated_commands
+        pub const COMMAND_PREPROCESS_EXT: Self = Self(1 << 17);
+        // VK_EXT_fragment_density_map
+        pub const FRAGMENT_DENSITY_PROCESS_EXT: Self = Self(1 << 23);
+        // VK_EXT_mesh_shader
         pub const TASK_SHADER_EXT: Self = Self(1 << 19);
         pub const MESH_SHADER_EXT: Self = Self(1 << 20);
-        pub const RAY_TRACING_SHADER_KHR: Self = Self(1 << 21);
-        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self = Self(1 << 22);
-        pub const FRAGMENT_DENSITY_PROCESS_EXT: Self = Self(1 << 23);
+        // VK_EXT_transform_feedback
         pub const TRANSFORM_FEEDBACK_EXT: Self = Self(1 << 24);
+        // VK_KHR_acceleration_structure
         pub const ACCELERATION_STRUCTURE_BUILD_KHR: Self = Self(1 << 25);
-        pub const ACCELERATION_STRUCTURE_BUILD_NV: Self = Self::ACCELERATION_STRUCTURE_BUILD_KHR;
+        // VK_KHR_fragment_shading_rate
+        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self = Self(1 << 22);
+        // VK_KHR_ray_tracing_pipeline
+        pub const RAY_TRACING_SHADER_KHR: Self = Self(1 << 21);
+        // VK_NV_device_generated_commands
         pub const COMMAND_PREPROCESS_NV: Self = Self::COMMAND_PREPROCESS_EXT;
-        pub const MESH_SHADER_NV: Self = Self::MESH_SHADER_EXT;
-        pub const RAY_TRACING_SHADER_NV: Self = Self::RAY_TRACING_SHADER_KHR;
-        pub const SHADING_RATE_IMAGE_NV: Self = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
+        // VK_NV_mesh_shader
         pub const TASK_SHADER_NV: Self = Self::TASK_SHADER_EXT;
+        pub const MESH_SHADER_NV: Self = Self::MESH_SHADER_EXT;
+        // VK_NV_ray_tracing
+        pub const RAY_TRACING_SHADER_NV: Self = Self::RAY_TRACING_SHADER_KHR;
+        pub const ACCELERATION_STRUCTURE_BUILD_NV: Self = Self::ACCELERATION_STRUCTURE_BUILD_KHR;
+        // VK_NV_shading_rate_image
+        pub const SHADING_RATE_IMAGE_NV: Self = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -13777,6 +14659,7 @@ pub(super) mod defs {
     vk_bitflags_wrapped!(AttachmentDescriptionFlags, Flags);
     impl AttachmentDescriptionFlags {
         pub const MAY_ALIAS: Self = Self(AttachmentDescriptionFlagBits::MAY_ALIAS.0);
+        // VK_KHR_maintenance10
         pub const RESOLVE_SKIP_TRANSFER_FUNCTION_KHR: Self =
             Self(AttachmentDescriptionFlagBits::RESOLVE_SKIP_TRANSFER_FUNCTION_KHR.0);
         pub const RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR: Self =
@@ -13787,6 +14670,7 @@ pub(super) mod defs {
     pub struct AttachmentDescriptionFlagBits(u32);
     impl AttachmentDescriptionFlagBits {
         pub const MAY_ALIAS: Self = Self(1 << 0);
+        // VK_KHR_maintenance10
         pub const RESOLVE_SKIP_TRANSFER_FUNCTION_KHR: Self = Self(1 << 1);
         pub const RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR: Self = Self(1 << 2);
     }
@@ -13831,59 +14715,80 @@ pub(super) mod defs {
     impl DescriptorPoolCreateFlags {
         pub const FREE_DESCRIPTOR_SET: Self =
             Self(DescriptorPoolCreateFlagBits::FREE_DESCRIPTOR_SET.0);
-        pub const UPDATE_AFTER_BIND: Self = Self(DescriptorPoolCreateFlagBits::UPDATE_AFTER_BIND.0);
+        // VK_EXT_descriptor_indexing
+        pub const UPDATE_AFTER_BIND_EXT: Self = Self::UPDATE_AFTER_BIND;
+        // VK_EXT_mutable_descriptor_type
         pub const HOST_ONLY_EXT: Self = Self(DescriptorPoolCreateFlagBits::HOST_ONLY_EXT.0);
+        // VK_NV_descriptor_pool_overallocation
         pub const ALLOW_OVERALLOCATION_SETS_NV: Self =
             Self(DescriptorPoolCreateFlagBits::ALLOW_OVERALLOCATION_SETS_NV.0);
         pub const ALLOW_OVERALLOCATION_POOLS_NV: Self =
             Self(DescriptorPoolCreateFlagBits::ALLOW_OVERALLOCATION_POOLS_NV.0);
+        // VK_VALVE_mutable_descriptor_type
         pub const HOST_ONLY_VALVE: Self = Self::HOST_ONLY_EXT;
-        pub const UPDATE_AFTER_BIND_EXT: Self = Self::UPDATE_AFTER_BIND;
+        // VK_VERSION_1_2
+        pub const UPDATE_AFTER_BIND: Self = Self(DescriptorPoolCreateFlagBits::UPDATE_AFTER_BIND.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DescriptorPoolCreateFlagBits(u32);
     impl DescriptorPoolCreateFlagBits {
         pub const FREE_DESCRIPTOR_SET: Self = Self(1 << 0);
-        pub const UPDATE_AFTER_BIND: Self = Self(1 << 1);
+        // VK_EXT_descriptor_indexing
+        pub const UPDATE_AFTER_BIND_EXT: Self = Self::UPDATE_AFTER_BIND;
+        // VK_EXT_mutable_descriptor_type
         pub const HOST_ONLY_EXT: Self = Self(1 << 2);
+        // VK_NV_descriptor_pool_overallocation
         pub const ALLOW_OVERALLOCATION_SETS_NV: Self = Self(1 << 3);
         pub const ALLOW_OVERALLOCATION_POOLS_NV: Self = Self(1 << 4);
+        // VK_VALVE_mutable_descriptor_type
         pub const HOST_ONLY_VALVE: Self = Self::HOST_ONLY_EXT;
-        pub const UPDATE_AFTER_BIND_EXT: Self = Self::UPDATE_AFTER_BIND;
+        // VK_VERSION_1_2
+        pub const UPDATE_AFTER_BIND: Self = Self(1 << 1);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DescriptorPoolResetFlags(Flags);
     vk_bitflags_wrapped!(DescriptorPoolResetFlags, Flags);
-    impl DescriptorPoolResetFlags {}
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DependencyFlags(Flags);
     vk_bitflags_wrapped!(DependencyFlags, Flags);
     impl DependencyFlags {
         pub const BY_REGION: Self = Self(DependencyFlagBits::BY_REGION.0);
-        pub const VIEW_LOCAL: Self = Self(DependencyFlagBits::VIEW_LOCAL.0);
-        pub const DEVICE_GROUP: Self = Self(DependencyFlagBits::DEVICE_GROUP.0);
+        // VK_EXT_attachment_feedback_loop_layout
         pub const FEEDBACK_LOOP_EXT: Self = Self(DependencyFlagBits::FEEDBACK_LOOP_EXT.0);
+        // VK_KHR_device_group
+        pub const DEVICE_GROUP_KHR: Self = Self::DEVICE_GROUP;
+        // VK_KHR_maintenance8
         pub const QUEUE_FAMILY_OWNERSHIP_TRANSFER_USE_ALL_STAGES_KHR: Self =
             Self(DependencyFlagBits::QUEUE_FAMILY_OWNERSHIP_TRANSFER_USE_ALL_STAGES_KHR.0);
+        // VK_KHR_maintenance9
         pub const ASYMMETRIC_EVENT_KHR: Self = Self(DependencyFlagBits::ASYMMETRIC_EVENT_KHR.0);
-        pub const DEVICE_GROUP_KHR: Self = Self::DEVICE_GROUP;
+        // VK_KHR_multiview
         pub const VIEW_LOCAL_KHR: Self = Self::VIEW_LOCAL;
+        // VK_VERSION_1_1
+        pub const VIEW_LOCAL: Self = Self(DependencyFlagBits::VIEW_LOCAL.0);
+        pub const DEVICE_GROUP: Self = Self(DependencyFlagBits::DEVICE_GROUP.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DependencyFlagBits(u32);
     impl DependencyFlagBits {
         pub const BY_REGION: Self = Self(1 << 0);
+        // VK_EXT_attachment_feedback_loop_layout
+        pub const FEEDBACK_LOOP_EXT: Self = Self(1 << 3);
+        // VK_KHR_device_group
+        pub const DEVICE_GROUP_KHR: Self = Self::DEVICE_GROUP;
+        // VK_KHR_maintenance8
+        pub const QUEUE_FAMILY_OWNERSHIP_TRANSFER_USE_ALL_STAGES_KHR: Self = Self(1 << 5);
+        // VK_KHR_maintenance9
+        pub const ASYMMETRIC_EVENT_KHR: Self = Self(1 << 6);
+        // VK_KHR_multiview
+        pub const VIEW_LOCAL_KHR: Self = Self::VIEW_LOCAL;
+        // VK_VERSION_1_1
         pub const VIEW_LOCAL: Self = Self(1 << 1);
         pub const DEVICE_GROUP: Self = Self(1 << 2);
-        pub const FEEDBACK_LOOP_EXT: Self = Self(1 << 3);
-        pub const QUEUE_FAMILY_OWNERSHIP_TRANSFER_USE_ALL_STAGES_KHR: Self = Self(1 << 5);
-        pub const ASYMMETRIC_EVENT_KHR: Self = Self(1 << 6);
-        pub const DEVICE_GROUP_KHR: Self = Self::DEVICE_GROUP;
-        pub const VIEW_LOCAL_KHR: Self = Self::VIEW_LOCAL;
     }
     pub type PFN_vkInternalAllocationNotification = unsafe extern "system" fn(
         p_user_data: *mut c_void,

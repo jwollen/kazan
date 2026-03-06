@@ -1251,9 +1251,10 @@ pub(super) mod defs {
         pub const PUSH_DATA_EXT: Self = Self(5);
         pub const PUSH_ADDRESS_EXT: Self = Self(6);
         pub const INDIRECT_ADDRESS_EXT: Self = Self(7);
+        // VK_EXT_descriptor_heap
         pub const HEAP_WITH_SHADER_RECORD_INDEX_EXT: Self = Self(8);
-        pub const SHADER_RECORD_ADDRESS_EXT: Self = Self(10);
         pub const SHADER_RECORD_DATA_EXT: Self = Self(9);
+        pub const SHADER_RECORD_ADDRESS_EXT: Self = Self(10);
     }
     impl fmt::Debug for DescriptorMappingSourceEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -1271,8 +1272,8 @@ pub(super) mod defs {
                 Self::HEAP_WITH_SHADER_RECORD_INDEX_EXT => {
                     Some("HEAP_WITH_SHADER_RECORD_INDEX_EXT")
                 }
-                Self::SHADER_RECORD_ADDRESS_EXT => Some("SHADER_RECORD_ADDRESS_EXT"),
                 Self::SHADER_RECORD_DATA_EXT => Some("SHADER_RECORD_DATA_EXT"),
+                Self::SHADER_RECORD_ADDRESS_EXT => Some("SHADER_RECORD_ADDRESS_EXT"),
                 _ => None,
             };
             if let Some(name) = name {
@@ -1287,6 +1288,7 @@ pub(super) mod defs {
     pub struct TensorViewCreateFlagsARM(Flags64);
     vk_bitflags_wrapped!(TensorViewCreateFlagsARM, Flags64);
     impl TensorViewCreateFlagsARM {
+        // VK_ARM_tensors
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM: Self =
             Self(TensorViewCreateFlagBitsARM::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM.0);
     }
@@ -1294,6 +1296,7 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct TensorViewCreateFlagBitsARM(u64);
     impl TensorViewCreateFlagBitsARM {
+        // VK_ARM_tensors
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM: Self = Self(1 << 0);
     }
     #[repr(transparent)]
@@ -1315,10 +1318,11 @@ pub(super) mod defs {
             Self(SpirvResourceTypeFlagBitsEXT::READ_ONLY_STORAGE_BUFFER_EXT.0);
         pub const READ_WRITE_STORAGE_BUFFER_EXT: Self =
             Self(SpirvResourceTypeFlagBitsEXT::READ_WRITE_STORAGE_BUFFER_EXT.0);
+        pub const ALL: Self = Self(0x7FFFFFFF);
+        // VK_EXT_descriptor_heap
         pub const ACCELERATION_STRUCTURE_EXT: Self =
             Self(SpirvResourceTypeFlagBitsEXT::ACCELERATION_STRUCTURE_EXT.0);
         pub const TENSOR_ARM: Self = Self(SpirvResourceTypeFlagBitsEXT::TENSOR_ARM.0);
-        pub const ALL: Self = Self(0x7FFFFFFF);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -1332,6 +1336,7 @@ pub(super) mod defs {
         pub const UNIFORM_BUFFER_EXT: Self = Self(1 << 5);
         pub const READ_ONLY_STORAGE_BUFFER_EXT: Self = Self(1 << 6);
         pub const READ_WRITE_STORAGE_BUFFER_EXT: Self = Self(1 << 7);
+        // VK_EXT_descriptor_heap
         pub const ACCELERATION_STRUCTURE_EXT: Self = Self(1 << 8);
         pub const TENSOR_ARM: Self = Self(1 << 9);
     }

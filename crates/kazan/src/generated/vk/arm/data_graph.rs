@@ -915,15 +915,16 @@ pub(super) mod defs {
     pub struct PhysicalDeviceDataGraphProcessingEngineTypeARM(i32);
     impl PhysicalDeviceDataGraphProcessingEngineTypeARM {
         pub const DEFAULT_ARM: Self = Self(0);
-        pub const COMPUTE_QCOM: Self = Self(1000629001);
+        // VK_QCOM_data_graph_model
         pub const NEURAL_QCOM: Self = Self(1000629000);
+        pub const COMPUTE_QCOM: Self = Self(1000629001);
     }
     impl fmt::Debug for PhysicalDeviceDataGraphProcessingEngineTypeARM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
                 Self::DEFAULT_ARM => Some("DEFAULT_ARM"),
-                Self::COMPUTE_QCOM => Some("COMPUTE_QCOM"),
                 Self::NEURAL_QCOM => Some("NEURAL_QCOM"),
+                Self::COMPUTE_QCOM => Some("COMPUTE_QCOM"),
                 _ => None,
             };
             if let Some(name) = name {
@@ -938,8 +939,9 @@ pub(super) mod defs {
     pub struct PhysicalDeviceDataGraphOperationTypeARM(i32);
     impl PhysicalDeviceDataGraphOperationTypeARM {
         pub const SPIRV_EXTENDED_INSTRUCTION_SET_ARM: Self = Self(0);
-        pub const BUILTIN_MODEL_QCOM: Self = Self(1000629001);
+        // VK_QCOM_data_graph_model
         pub const NEURAL_MODEL_QCOM: Self = Self(1000629000);
+        pub const BUILTIN_MODEL_QCOM: Self = Self(1000629001);
     }
     impl fmt::Debug for PhysicalDeviceDataGraphOperationTypeARM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -947,8 +949,8 @@ pub(super) mod defs {
                 Self::SPIRV_EXTENDED_INSTRUCTION_SET_ARM => {
                     Some("SPIRV_EXTENDED_INSTRUCTION_SET_ARM")
                 }
-                Self::BUILTIN_MODEL_QCOM => Some("BUILTIN_MODEL_QCOM"),
                 Self::NEURAL_MODEL_QCOM => Some("NEURAL_MODEL_QCOM"),
+                Self::BUILTIN_MODEL_QCOM => Some("BUILTIN_MODEL_QCOM"),
                 _ => None,
             };
             if let Some(name) = name {

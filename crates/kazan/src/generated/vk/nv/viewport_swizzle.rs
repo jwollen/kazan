@@ -112,5 +112,4 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineViewportSwizzleStateCreateFlagsNV(Flags);
     vk_bitflags_wrapped!(PipelineViewportSwizzleStateCreateFlagsNV, Flags);
-    impl PipelineViewportSwizzleStateCreateFlagsNV {}
 }

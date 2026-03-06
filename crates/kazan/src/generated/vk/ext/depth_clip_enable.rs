@@ -83,5 +83,4 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineRasterizationDepthClipStateCreateFlagsEXT(Flags);
     vk_bitflags_wrapped!(PipelineRasterizationDepthClipStateCreateFlagsEXT, Flags);
-    impl PipelineRasterizationDepthClipStateCreateFlagsEXT {}
 }

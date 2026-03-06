@@ -46,7 +46,6 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct MetalSurfaceCreateFlagsEXT(Flags);
     vk_bitflags_wrapped!(MetalSurfaceCreateFlagsEXT, Flags);
-    impl MetalSurfaceCreateFlagsEXT {}
     pub type PFN_vkCreateMetalSurfaceEXT = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const MetalSurfaceCreateInfoEXT<'_>,

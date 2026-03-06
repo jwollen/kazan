@@ -893,13 +893,17 @@ pub(super) mod defs {
         pub const DRAW_INDEXED_COUNT_EXT: Self = Self(7);
         pub const DRAW_COUNT_EXT: Self = Self(8);
         pub const DISPATCH_EXT: Self = Self(9);
-        pub const DRAW_MESH_TASKS_COUNT_EXT: Self = Self(1000328001);
-        pub const DRAW_MESH_TASKS_COUNT_NV_EXT: Self = Self(1000202003);
-        pub const DRAW_MESH_TASKS_EXT: Self = Self(1000328000);
-        pub const DRAW_MESH_TASKS_NV_EXT: Self = Self(1000202002);
+        // VK_EXT_descriptor_heap
         pub const PUSH_DATA_EXT: Self = Self(1000135000);
         pub const PUSH_DATA_SEQUENCE_INDEX_EXT: Self = Self(1000135001);
+        // VK_EXT_mesh_shader
+        pub const DRAW_MESH_TASKS_EXT: Self = Self(1000328000);
+        pub const DRAW_MESH_TASKS_COUNT_EXT: Self = Self(1000328001);
+        // VK_KHR_ray_tracing_maintenance1
         pub const TRACE_RAYS2_EXT: Self = Self(1000386004);
+        // VK_NV_mesh_shader
+        pub const DRAW_MESH_TASKS_NV_EXT: Self = Self(1000202002);
+        pub const DRAW_MESH_TASKS_COUNT_NV_EXT: Self = Self(1000202003);
     }
     impl fmt::Debug for IndirectCommandsTokenTypeEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -914,13 +918,13 @@ pub(super) mod defs {
                 Self::DRAW_INDEXED_COUNT_EXT => Some("DRAW_INDEXED_COUNT_EXT"),
                 Self::DRAW_COUNT_EXT => Some("DRAW_COUNT_EXT"),
                 Self::DISPATCH_EXT => Some("DISPATCH_EXT"),
-                Self::DRAW_MESH_TASKS_COUNT_EXT => Some("DRAW_MESH_TASKS_COUNT_EXT"),
-                Self::DRAW_MESH_TASKS_COUNT_NV_EXT => Some("DRAW_MESH_TASKS_COUNT_NV_EXT"),
-                Self::DRAW_MESH_TASKS_EXT => Some("DRAW_MESH_TASKS_EXT"),
-                Self::DRAW_MESH_TASKS_NV_EXT => Some("DRAW_MESH_TASKS_NV_EXT"),
                 Self::PUSH_DATA_EXT => Some("PUSH_DATA_EXT"),
                 Self::PUSH_DATA_SEQUENCE_INDEX_EXT => Some("PUSH_DATA_SEQUENCE_INDEX_EXT"),
+                Self::DRAW_MESH_TASKS_EXT => Some("DRAW_MESH_TASKS_EXT"),
+                Self::DRAW_MESH_TASKS_COUNT_EXT => Some("DRAW_MESH_TASKS_COUNT_EXT"),
                 Self::TRACE_RAYS2_EXT => Some("TRACE_RAYS2_EXT"),
+                Self::DRAW_MESH_TASKS_NV_EXT => Some("DRAW_MESH_TASKS_NV_EXT"),
+                Self::DRAW_MESH_TASKS_COUNT_NV_EXT => Some("DRAW_MESH_TASKS_COUNT_NV_EXT"),
                 _ => None,
             };
             if let Some(name) = name {

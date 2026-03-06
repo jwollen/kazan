@@ -115,7 +115,6 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineDiscardRectangleStateCreateFlagsEXT(Flags);
     vk_bitflags_wrapped!(PipelineDiscardRectangleStateCreateFlagsEXT, Flags);
-    impl PipelineDiscardRectangleStateCreateFlagsEXT {}
     pub type PFN_vkCmdSetDiscardRectangleEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         first_discard_rectangle: u32,

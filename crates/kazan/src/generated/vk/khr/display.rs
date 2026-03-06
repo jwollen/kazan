@@ -327,12 +327,10 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DisplayModeCreateFlagsKHR(Flags);
     vk_bitflags_wrapped!(DisplayModeCreateFlagsKHR, Flags);
-    impl DisplayModeCreateFlagsKHR {}
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DisplaySurfaceCreateFlagsKHR(Flags);
     vk_bitflags_wrapped!(DisplaySurfaceCreateFlagsKHR, Flags);
-    impl DisplaySurfaceCreateFlagsKHR {}
     pub type PFN_vkGetPhysicalDeviceDisplayPropertiesKHR = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         p_property_count: *mut u32,

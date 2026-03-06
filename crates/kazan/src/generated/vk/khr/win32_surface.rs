@@ -51,7 +51,6 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct Win32SurfaceCreateFlagsKHR(Flags);
     vk_bitflags_wrapped!(Win32SurfaceCreateFlagsKHR, Flags);
-    impl Win32SurfaceCreateFlagsKHR {}
     pub type PFN_vkCreateWin32SurfaceKHR = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const Win32SurfaceCreateInfoKHR<'_>,

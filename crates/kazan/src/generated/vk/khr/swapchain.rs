@@ -392,29 +392,45 @@ pub(super) mod defs {
     pub struct SwapchainCreateFlagsKHR(Flags);
     vk_bitflags_wrapped!(SwapchainCreateFlagsKHR, Flags);
     impl SwapchainCreateFlagsKHR {
+        // VK_EXT_present_timing
+        pub const PRESENT_TIMING_EXT: Self = Self(SwapchainCreateFlagBitsKHR::PRESENT_TIMING_EXT.0);
+        // VK_EXT_swapchain_maintenance1
+        pub const DEFERRED_MEMORY_ALLOCATION_EXT: Self = Self::DEFERRED_MEMORY_ALLOCATION_KHR;
+        // VK_KHR_device_group
         pub const SPLIT_INSTANCE_BIND_REGIONS_KHR: Self =
             Self(SwapchainCreateFlagBitsKHR::SPLIT_INSTANCE_BIND_REGIONS_KHR.0);
+        // VK_KHR_present_id2
+        pub const PRESENT_ID_2_KHR: Self = Self(SwapchainCreateFlagBitsKHR::PRESENT_ID_2_KHR.0);
+        // VK_KHR_present_wait2
+        pub const PRESENT_WAIT_2_KHR: Self = Self(SwapchainCreateFlagBitsKHR::PRESENT_WAIT_2_KHR.0);
+        // VK_KHR_swapchain
         pub const PROTECTED_KHR: Self = Self(SwapchainCreateFlagBitsKHR::PROTECTED_KHR.0);
-        pub const MUTABLE_FORMAT_KHR: Self = Self(SwapchainCreateFlagBitsKHR::MUTABLE_FORMAT_KHR.0);
+        // VK_KHR_swapchain_maintenance1
         pub const DEFERRED_MEMORY_ALLOCATION_KHR: Self =
             Self(SwapchainCreateFlagBitsKHR::DEFERRED_MEMORY_ALLOCATION_KHR.0);
-        pub const PRESENT_ID_2_KHR: Self = Self(SwapchainCreateFlagBitsKHR::PRESENT_ID_2_KHR.0);
-        pub const PRESENT_WAIT_2_KHR: Self = Self(SwapchainCreateFlagBitsKHR::PRESENT_WAIT_2_KHR.0);
-        pub const PRESENT_TIMING_EXT: Self = Self(SwapchainCreateFlagBitsKHR::PRESENT_TIMING_EXT.0);
-        pub const DEFERRED_MEMORY_ALLOCATION_EXT: Self = Self::DEFERRED_MEMORY_ALLOCATION_KHR;
+        // VK_KHR_swapchain_mutable_format
+        pub const MUTABLE_FORMAT_KHR: Self = Self(SwapchainCreateFlagBitsKHR::MUTABLE_FORMAT_KHR.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SwapchainCreateFlagBitsKHR(u32);
     impl SwapchainCreateFlagBitsKHR {
-        pub const SPLIT_INSTANCE_BIND_REGIONS_KHR: Self = Self(1 << 0);
-        pub const PROTECTED_KHR: Self = Self(1 << 1);
-        pub const MUTABLE_FORMAT_KHR: Self = Self(1 << 2);
-        pub const DEFERRED_MEMORY_ALLOCATION_KHR: Self = Self(1 << 3);
-        pub const PRESENT_ID_2_KHR: Self = Self(1 << 6);
-        pub const PRESENT_WAIT_2_KHR: Self = Self(1 << 7);
+        // VK_EXT_present_timing
         pub const PRESENT_TIMING_EXT: Self = Self(1 << 9);
+        // VK_EXT_swapchain_maintenance1
         pub const DEFERRED_MEMORY_ALLOCATION_EXT: Self = Self::DEFERRED_MEMORY_ALLOCATION_KHR;
+        // VK_KHR_device_group
+        pub const SPLIT_INSTANCE_BIND_REGIONS_KHR: Self = Self(1 << 0);
+        // VK_KHR_present_id2
+        pub const PRESENT_ID_2_KHR: Self = Self(1 << 6);
+        // VK_KHR_present_wait2
+        pub const PRESENT_WAIT_2_KHR: Self = Self(1 << 7);
+        // VK_KHR_swapchain
+        pub const PROTECTED_KHR: Self = Self(1 << 1);
+        // VK_KHR_swapchain_maintenance1
+        pub const DEFERRED_MEMORY_ALLOCATION_KHR: Self = Self(1 << 3);
+        // VK_KHR_swapchain_mutable_format
+        pub const MUTABLE_FORMAT_KHR: Self = Self(1 << 2);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]

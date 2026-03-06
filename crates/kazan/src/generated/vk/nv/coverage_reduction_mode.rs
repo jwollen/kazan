@@ -159,7 +159,6 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineCoverageReductionStateCreateFlagsNV(Flags);
     vk_bitflags_wrapped!(PipelineCoverageReductionStateCreateFlagsNV, Flags);
-    impl PipelineCoverageReductionStateCreateFlagsNV {}
     pub type PFN_vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV =
         unsafe extern "system" fn(
             physical_device: PhysicalDevice,

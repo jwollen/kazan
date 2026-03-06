@@ -2438,9 +2438,11 @@ pub(super) mod defs {
     pub struct DescriptorUpdateTemplateType(i32);
     impl DescriptorUpdateTemplateType {
         pub const DESCRIPTOR_SET: Self = Self(0);
-        pub const PUSH_DESCRIPTORS: Self = Self(1);
+        // VK_KHR_descriptor_update_template
         pub const DESCRIPTOR_SET_KHR: Self = Self::DESCRIPTOR_SET;
         pub const PUSH_DESCRIPTORS_KHR: Self = Self::PUSH_DESCRIPTORS;
+        // VK_VERSION_1_4
+        pub const PUSH_DESCRIPTORS: Self = Self(1);
     }
     impl fmt::Debug for DescriptorUpdateTemplateType {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -2462,6 +2464,7 @@ pub(super) mod defs {
     impl PointClippingBehavior {
         pub const ALL_CLIP_PLANES: Self = Self(0);
         pub const USER_CLIP_PLANES_ONLY: Self = Self(1);
+        // VK_KHR_maintenance2
         pub const ALL_CLIP_PLANES_KHR: Self = Self::ALL_CLIP_PLANES;
         pub const USER_CLIP_PLANES_ONLY_KHR: Self = Self::USER_CLIP_PLANES_ONLY;
     }
@@ -2485,8 +2488,9 @@ pub(super) mod defs {
     impl TessellationDomainOrigin {
         pub const UPPER_LEFT: Self = Self(0);
         pub const LOWER_LEFT: Self = Self(1);
-        pub const LOWER_LEFT_KHR: Self = Self::LOWER_LEFT;
+        // VK_KHR_maintenance2
         pub const UPPER_LEFT_KHR: Self = Self::UPPER_LEFT;
+        pub const LOWER_LEFT_KHR: Self = Self::LOWER_LEFT;
     }
     impl fmt::Debug for TessellationDomainOrigin {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -2511,11 +2515,12 @@ pub(super) mod defs {
         pub const YCBCR_709: Self = Self(2);
         pub const YCBCR_601: Self = Self(3);
         pub const YCBCR_2020: Self = Self(4);
+        // VK_KHR_sampler_ycbcr_conversion
         pub const RGB_IDENTITY_KHR: Self = Self::RGB_IDENTITY;
-        pub const YCBCR_2020_KHR: Self = Self::YCBCR_2020;
-        pub const YCBCR_601_KHR: Self = Self::YCBCR_601;
-        pub const YCBCR_709_KHR: Self = Self::YCBCR_709;
         pub const YCBCR_IDENTITY_KHR: Self = Self::YCBCR_IDENTITY;
+        pub const YCBCR_709_KHR: Self = Self::YCBCR_709;
+        pub const YCBCR_601_KHR: Self = Self::YCBCR_601;
+        pub const YCBCR_2020_KHR: Self = Self::YCBCR_2020;
     }
     impl fmt::Debug for SamplerYcbcrModelConversion {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -2540,6 +2545,7 @@ pub(super) mod defs {
     impl SamplerYcbcrRange {
         pub const ITU_FULL: Self = Self(0);
         pub const ITU_NARROW: Self = Self(1);
+        // VK_KHR_sampler_ycbcr_conversion
         pub const ITU_FULL_KHR: Self = Self::ITU_FULL;
         pub const ITU_NARROW_KHR: Self = Self::ITU_NARROW;
     }
@@ -2563,6 +2569,7 @@ pub(super) mod defs {
     impl ChromaLocation {
         pub const COSITED_EVEN: Self = Self(0);
         pub const MIDPOINT: Self = Self(1);
+        // VK_KHR_sampler_ycbcr_conversion
         pub const COSITED_EVEN_KHR: Self = Self::COSITED_EVEN;
         pub const MIDPOINT_KHR: Self = Self::MIDPOINT;
     }
@@ -2593,12 +2600,16 @@ pub(super) mod defs {
         pub const SHUFFLE_RELATIVE: Self = Self(SubgroupFeatureFlagBits::SHUFFLE_RELATIVE.0);
         pub const CLUSTERED: Self = Self(SubgroupFeatureFlagBits::CLUSTERED.0);
         pub const QUAD: Self = Self(SubgroupFeatureFlagBits::QUAD.0);
+        // VK_EXT_shader_subgroup_partitioned
         pub const PARTITIONED_EXT: Self = Self(SubgroupFeatureFlagBits::PARTITIONED_EXT.0);
-        pub const ROTATE: Self = Self(SubgroupFeatureFlagBits::ROTATE.0);
-        pub const ROTATE_CLUSTERED: Self = Self(SubgroupFeatureFlagBits::ROTATE_CLUSTERED.0);
-        pub const PARTITIONED_NV: Self = Self::PARTITIONED_EXT;
+        // VK_KHR_shader_subgroup_rotate
         pub const ROTATE_KHR: Self = Self::ROTATE;
         pub const ROTATE_CLUSTERED_KHR: Self = Self::ROTATE_CLUSTERED;
+        // VK_NV_shader_subgroup_partitioned
+        pub const PARTITIONED_NV: Self = Self::PARTITIONED_EXT;
+        // VK_VERSION_1_4
+        pub const ROTATE: Self = Self(SubgroupFeatureFlagBits::ROTATE.0);
+        pub const ROTATE_CLUSTERED: Self = Self(SubgroupFeatureFlagBits::ROTATE_CLUSTERED.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -2612,18 +2623,21 @@ pub(super) mod defs {
         pub const SHUFFLE_RELATIVE: Self = Self(1 << 5);
         pub const CLUSTERED: Self = Self(1 << 6);
         pub const QUAD: Self = Self(1 << 7);
+        // VK_EXT_shader_subgroup_partitioned
         pub const PARTITIONED_EXT: Self = Self(1 << 8);
-        pub const ROTATE: Self = Self(1 << 9);
-        pub const ROTATE_CLUSTERED: Self = Self(1 << 10);
-        pub const PARTITIONED_NV: Self = Self::PARTITIONED_EXT;
+        // VK_KHR_shader_subgroup_rotate
         pub const ROTATE_KHR: Self = Self::ROTATE;
         pub const ROTATE_CLUSTERED_KHR: Self = Self::ROTATE_CLUSTERED;
+        // VK_NV_shader_subgroup_partitioned
+        pub const PARTITIONED_NV: Self = Self::PARTITIONED_EXT;
+        // VK_VERSION_1_4
+        pub const ROTATE: Self = Self(1 << 9);
+        pub const ROTATE_CLUSTERED: Self = Self(1 << 10);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DescriptorUpdateTemplateCreateFlags(Flags);
     vk_bitflags_wrapped!(DescriptorUpdateTemplateCreateFlags, Flags);
-    impl DescriptorUpdateTemplateCreateFlags {}
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PeerMemoryFeatureFlags(Flags);
@@ -2633,10 +2647,11 @@ pub(super) mod defs {
         pub const COPY_DST: Self = Self(PeerMemoryFeatureFlagBits::COPY_DST.0);
         pub const GENERIC_SRC: Self = Self(PeerMemoryFeatureFlagBits::GENERIC_SRC.0);
         pub const GENERIC_DST: Self = Self(PeerMemoryFeatureFlagBits::GENERIC_DST.0);
-        pub const COPY_DST_KHR: Self = Self::COPY_DST;
+        // VK_KHR_device_group
         pub const COPY_SRC_KHR: Self = Self::COPY_SRC;
-        pub const GENERIC_DST_KHR: Self = Self::GENERIC_DST;
+        pub const COPY_DST_KHR: Self = Self::COPY_DST;
         pub const GENERIC_SRC_KHR: Self = Self::GENERIC_SRC;
+        pub const GENERIC_DST_KHR: Self = Self::GENERIC_DST;
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -2646,10 +2661,11 @@ pub(super) mod defs {
         pub const COPY_DST: Self = Self(1 << 1);
         pub const GENERIC_SRC: Self = Self(1 << 2);
         pub const GENERIC_DST: Self = Self(1 << 3);
-        pub const COPY_DST_KHR: Self = Self::COPY_DST;
+        // VK_KHR_device_group
         pub const COPY_SRC_KHR: Self = Self::COPY_SRC;
-        pub const GENERIC_DST_KHR: Self = Self::GENERIC_DST;
+        pub const COPY_DST_KHR: Self = Self::COPY_DST;
         pub const GENERIC_SRC_KHR: Self = Self::GENERIC_SRC;
+        pub const GENERIC_DST_KHR: Self = Self::GENERIC_DST;
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -2657,31 +2673,38 @@ pub(super) mod defs {
     vk_bitflags_wrapped!(MemoryAllocateFlags, Flags);
     impl MemoryAllocateFlags {
         pub const DEVICE_MASK: Self = Self(MemoryAllocateFlagBits::DEVICE_MASK.0);
+        // VK_EXT_zero_initialize_device_memory
+        pub const ZERO_INITIALIZE_EXT: Self = Self(MemoryAllocateFlagBits::ZERO_INITIALIZE_EXT.0);
+        // VK_KHR_buffer_device_address
+        pub const DEVICE_ADDRESS_KHR: Self = Self::DEVICE_ADDRESS;
+        pub const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR: Self = Self::DEVICE_ADDRESS_CAPTURE_REPLAY;
+        // VK_KHR_device_group
+        pub const DEVICE_MASK_KHR: Self = Self::DEVICE_MASK;
+        // VK_VERSION_1_2
         pub const DEVICE_ADDRESS: Self = Self(MemoryAllocateFlagBits::DEVICE_ADDRESS.0);
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY: Self =
             Self(MemoryAllocateFlagBits::DEVICE_ADDRESS_CAPTURE_REPLAY.0);
-        pub const ZERO_INITIALIZE_EXT: Self = Self(MemoryAllocateFlagBits::ZERO_INITIALIZE_EXT.0);
-        pub const DEVICE_ADDRESS_KHR: Self = Self::DEVICE_ADDRESS;
-        pub const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR: Self = Self::DEVICE_ADDRESS_CAPTURE_REPLAY;
-        pub const DEVICE_MASK_KHR: Self = Self::DEVICE_MASK;
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MemoryAllocateFlagBits(u32);
     impl MemoryAllocateFlagBits {
         pub const DEVICE_MASK: Self = Self(1 << 0);
-        pub const DEVICE_ADDRESS: Self = Self(1 << 1);
-        pub const DEVICE_ADDRESS_CAPTURE_REPLAY: Self = Self(1 << 2);
+        // VK_EXT_zero_initialize_device_memory
         pub const ZERO_INITIALIZE_EXT: Self = Self(1 << 3);
+        // VK_KHR_buffer_device_address
         pub const DEVICE_ADDRESS_KHR: Self = Self::DEVICE_ADDRESS;
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR: Self = Self::DEVICE_ADDRESS_CAPTURE_REPLAY;
+        // VK_KHR_device_group
         pub const DEVICE_MASK_KHR: Self = Self::DEVICE_MASK;
+        // VK_VERSION_1_2
+        pub const DEVICE_ADDRESS: Self = Self(1 << 1);
+        pub const DEVICE_ADDRESS_CAPTURE_REPLAY: Self = Self(1 << 2);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct CommandPoolTrimFlags(Flags);
     vk_bitflags_wrapped!(CommandPoolTrimFlags, Flags);
-    impl CommandPoolTrimFlags {}
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ExternalMemoryHandleTypeFlags(Flags);
@@ -2696,30 +2719,39 @@ pub(super) mod defs {
             Self(ExternalMemoryHandleTypeFlagBits::D3D11_TEXTURE_KMT.0);
         pub const D3D12_HEAP: Self = Self(ExternalMemoryHandleTypeFlagBits::D3D12_HEAP.0);
         pub const D3D12_RESOURCE: Self = Self(ExternalMemoryHandleTypeFlagBits::D3D12_RESOURCE.0);
+        // VK_ANDROID_external_memory_android_hardware_buffer
+        pub const ANDROID_HARDWARE_BUFFER_ANDROID: Self =
+            Self(ExternalMemoryHandleTypeFlagBits::ANDROID_HARDWARE_BUFFER_ANDROID.0);
+        // VK_EXT_external_memory_dma_buf
+        pub const DMA_BUF_EXT: Self = Self(ExternalMemoryHandleTypeFlagBits::DMA_BUF_EXT.0);
+        // VK_EXT_external_memory_host
         pub const HOST_ALLOCATION_EXT: Self =
             Self(ExternalMemoryHandleTypeFlagBits::HOST_ALLOCATION_EXT.0);
         pub const HOST_MAPPED_FOREIGN_MEMORY_EXT: Self =
             Self(ExternalMemoryHandleTypeFlagBits::HOST_MAPPED_FOREIGN_MEMORY_EXT.0);
-        pub const DMA_BUF_EXT: Self = Self(ExternalMemoryHandleTypeFlagBits::DMA_BUF_EXT.0);
-        pub const ANDROID_HARDWARE_BUFFER_ANDROID: Self =
-            Self(ExternalMemoryHandleTypeFlagBits::ANDROID_HARDWARE_BUFFER_ANDROID.0);
-        pub const ZIRCON_VMO_FUCHSIA: Self =
-            Self(ExternalMemoryHandleTypeFlagBits::ZIRCON_VMO_FUCHSIA.0);
-        pub const RDMA_ADDRESS_NV: Self = Self(ExternalMemoryHandleTypeFlagBits::RDMA_ADDRESS_NV.0);
-        pub const SCREEN_BUFFER_QNX: Self =
-            Self(ExternalMemoryHandleTypeFlagBits::SCREEN_BUFFER_QNX.0);
-        pub const OH_NATIVE_BUFFER_OHOS: Self =
-            Self(ExternalMemoryHandleTypeFlagBits::OH_NATIVE_BUFFER_OHOS.0);
+        // VK_EXT_external_memory_metal
         pub const MTLBUFFER_EXT: Self = Self(ExternalMemoryHandleTypeFlagBits::MTLBUFFER_EXT.0);
         pub const MTLTEXTURE_EXT: Self = Self(ExternalMemoryHandleTypeFlagBits::MTLTEXTURE_EXT.0);
         pub const MTLHEAP_EXT: Self = Self(ExternalMemoryHandleTypeFlagBits::MTLHEAP_EXT.0);
+        // VK_FUCHSIA_external_memory
+        pub const ZIRCON_VMO_FUCHSIA: Self =
+            Self(ExternalMemoryHandleTypeFlagBits::ZIRCON_VMO_FUCHSIA.0);
+        // VK_KHR_external_memory_capabilities
+        pub const OPAQUE_FD_KHR: Self = Self::OPAQUE_FD;
+        pub const OPAQUE_WIN32_KHR: Self = Self::OPAQUE_WIN32;
+        pub const OPAQUE_WIN32_KMT_KHR: Self = Self::OPAQUE_WIN32_KMT;
         pub const D3D11_TEXTURE_KHR: Self = Self::D3D11_TEXTURE;
         pub const D3D11_TEXTURE_KMT_KHR: Self = Self::D3D11_TEXTURE_KMT;
         pub const D3D12_HEAP_KHR: Self = Self::D3D12_HEAP;
         pub const D3D12_RESOURCE_KHR: Self = Self::D3D12_RESOURCE;
-        pub const OPAQUE_FD_KHR: Self = Self::OPAQUE_FD;
-        pub const OPAQUE_WIN32_KHR: Self = Self::OPAQUE_WIN32;
-        pub const OPAQUE_WIN32_KMT_KHR: Self = Self::OPAQUE_WIN32_KMT;
+        // VK_NV_external_memory_rdma
+        pub const RDMA_ADDRESS_NV: Self = Self(ExternalMemoryHandleTypeFlagBits::RDMA_ADDRESS_NV.0);
+        // VK_OHOS_external_memory
+        pub const OH_NATIVE_BUFFER_OHOS: Self =
+            Self(ExternalMemoryHandleTypeFlagBits::OH_NATIVE_BUFFER_OHOS.0);
+        // VK_QNX_external_memory_screen_buffer
+        pub const SCREEN_BUFFER_QNX: Self =
+            Self(ExternalMemoryHandleTypeFlagBits::SCREEN_BUFFER_QNX.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -2732,24 +2764,33 @@ pub(super) mod defs {
         pub const D3D11_TEXTURE_KMT: Self = Self(1 << 4);
         pub const D3D12_HEAP: Self = Self(1 << 5);
         pub const D3D12_RESOURCE: Self = Self(1 << 6);
+        // VK_ANDROID_external_memory_android_hardware_buffer
+        pub const ANDROID_HARDWARE_BUFFER_ANDROID: Self = Self(1 << 10);
+        // VK_EXT_external_memory_dma_buf
+        pub const DMA_BUF_EXT: Self = Self(1 << 9);
+        // VK_EXT_external_memory_host
         pub const HOST_ALLOCATION_EXT: Self = Self(1 << 7);
         pub const HOST_MAPPED_FOREIGN_MEMORY_EXT: Self = Self(1 << 8);
-        pub const DMA_BUF_EXT: Self = Self(1 << 9);
-        pub const ANDROID_HARDWARE_BUFFER_ANDROID: Self = Self(1 << 10);
-        pub const ZIRCON_VMO_FUCHSIA: Self = Self(1 << 11);
-        pub const RDMA_ADDRESS_NV: Self = Self(1 << 12);
-        pub const SCREEN_BUFFER_QNX: Self = Self(1 << 14);
-        pub const OH_NATIVE_BUFFER_OHOS: Self = Self(1 << 15);
+        // VK_EXT_external_memory_metal
         pub const MTLBUFFER_EXT: Self = Self(1 << 16);
         pub const MTLTEXTURE_EXT: Self = Self(1 << 17);
         pub const MTLHEAP_EXT: Self = Self(1 << 18);
+        // VK_FUCHSIA_external_memory
+        pub const ZIRCON_VMO_FUCHSIA: Self = Self(1 << 11);
+        // VK_KHR_external_memory_capabilities
+        pub const OPAQUE_FD_KHR: Self = Self::OPAQUE_FD;
+        pub const OPAQUE_WIN32_KHR: Self = Self::OPAQUE_WIN32;
+        pub const OPAQUE_WIN32_KMT_KHR: Self = Self::OPAQUE_WIN32_KMT;
         pub const D3D11_TEXTURE_KHR: Self = Self::D3D11_TEXTURE;
         pub const D3D11_TEXTURE_KMT_KHR: Self = Self::D3D11_TEXTURE_KMT;
         pub const D3D12_HEAP_KHR: Self = Self::D3D12_HEAP;
         pub const D3D12_RESOURCE_KHR: Self = Self::D3D12_RESOURCE;
-        pub const OPAQUE_FD_KHR: Self = Self::OPAQUE_FD;
-        pub const OPAQUE_WIN32_KHR: Self = Self::OPAQUE_WIN32;
-        pub const OPAQUE_WIN32_KMT_KHR: Self = Self::OPAQUE_WIN32_KMT;
+        // VK_NV_external_memory_rdma
+        pub const RDMA_ADDRESS_NV: Self = Self(1 << 12);
+        // VK_OHOS_external_memory
+        pub const OH_NATIVE_BUFFER_OHOS: Self = Self(1 << 15);
+        // VK_QNX_external_memory_screen_buffer
+        pub const SCREEN_BUFFER_QNX: Self = Self(1 << 14);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -2759,6 +2800,7 @@ pub(super) mod defs {
         pub const DEDICATED_ONLY: Self = Self(ExternalMemoryFeatureFlagBits::DEDICATED_ONLY.0);
         pub const EXPORTABLE: Self = Self(ExternalMemoryFeatureFlagBits::EXPORTABLE.0);
         pub const IMPORTABLE: Self = Self(ExternalMemoryFeatureFlagBits::IMPORTABLE.0);
+        // VK_KHR_external_memory_capabilities
         pub const DEDICATED_ONLY_KHR: Self = Self::DEDICATED_ONLY;
         pub const EXPORTABLE_KHR: Self = Self::EXPORTABLE;
         pub const IMPORTABLE_KHR: Self = Self::IMPORTABLE;
@@ -2770,6 +2812,7 @@ pub(super) mod defs {
         pub const DEDICATED_ONLY: Self = Self(1 << 0);
         pub const EXPORTABLE: Self = Self(1 << 1);
         pub const IMPORTABLE: Self = Self(1 << 2);
+        // VK_KHR_external_memory_capabilities
         pub const DEDICATED_ONLY_KHR: Self = Self::DEDICATED_ONLY;
         pub const EXPORTABLE_KHR: Self = Self::EXPORTABLE;
         pub const IMPORTABLE_KHR: Self = Self::IMPORTABLE;
@@ -2785,13 +2828,15 @@ pub(super) mod defs {
             Self(ExternalSemaphoreHandleTypeFlagBits::OPAQUE_WIN32_KMT.0);
         pub const D3D12_FENCE: Self = Self(ExternalSemaphoreHandleTypeFlagBits::D3D12_FENCE.0);
         pub const SYNC_FD: Self = Self(ExternalSemaphoreHandleTypeFlagBits::SYNC_FD.0);
+        pub const D3D11_FENCE: Self = Self::D3D12_FENCE;
+        // VK_FUCHSIA_external_semaphore
         pub const ZIRCON_EVENT_FUCHSIA: Self =
             Self(ExternalSemaphoreHandleTypeFlagBits::ZIRCON_EVENT_FUCHSIA.0);
-        pub const D3D11_FENCE: Self = Self::D3D12_FENCE;
-        pub const D3D12_FENCE_KHR: Self = Self::D3D12_FENCE;
+        // VK_KHR_external_semaphore_capabilities
         pub const OPAQUE_FD_KHR: Self = Self::OPAQUE_FD;
         pub const OPAQUE_WIN32_KHR: Self = Self::OPAQUE_WIN32;
         pub const OPAQUE_WIN32_KMT_KHR: Self = Self::OPAQUE_WIN32_KMT;
+        pub const D3D12_FENCE_KHR: Self = Self::D3D12_FENCE;
         pub const SYNC_FD_KHR: Self = Self::SYNC_FD;
     }
     #[repr(transparent)]
@@ -2803,11 +2848,13 @@ pub(super) mod defs {
         pub const OPAQUE_WIN32_KMT: Self = Self(1 << 2);
         pub const D3D12_FENCE: Self = Self(1 << 3);
         pub const SYNC_FD: Self = Self(1 << 4);
+        // VK_FUCHSIA_external_semaphore
         pub const ZIRCON_EVENT_FUCHSIA: Self = Self(1 << 7);
-        pub const D3D12_FENCE_KHR: Self = Self::D3D12_FENCE;
+        // VK_KHR_external_semaphore_capabilities
         pub const OPAQUE_FD_KHR: Self = Self::OPAQUE_FD;
         pub const OPAQUE_WIN32_KHR: Self = Self::OPAQUE_WIN32;
         pub const OPAQUE_WIN32_KMT_KHR: Self = Self::OPAQUE_WIN32_KMT;
+        pub const D3D12_FENCE_KHR: Self = Self::D3D12_FENCE;
         pub const SYNC_FD_KHR: Self = Self::SYNC_FD;
     }
     #[repr(transparent)]
@@ -2817,6 +2864,7 @@ pub(super) mod defs {
     impl ExternalSemaphoreFeatureFlags {
         pub const EXPORTABLE: Self = Self(ExternalSemaphoreFeatureFlagBits::EXPORTABLE.0);
         pub const IMPORTABLE: Self = Self(ExternalSemaphoreFeatureFlagBits::IMPORTABLE.0);
+        // VK_KHR_external_semaphore_capabilities
         pub const EXPORTABLE_KHR: Self = Self::EXPORTABLE;
         pub const IMPORTABLE_KHR: Self = Self::IMPORTABLE;
     }
@@ -2826,6 +2874,7 @@ pub(super) mod defs {
     impl ExternalSemaphoreFeatureFlagBits {
         pub const EXPORTABLE: Self = Self(1 << 0);
         pub const IMPORTABLE: Self = Self(1 << 1);
+        // VK_KHR_external_semaphore_capabilities
         pub const EXPORTABLE_KHR: Self = Self::EXPORTABLE;
         pub const IMPORTABLE_KHR: Self = Self::IMPORTABLE;
     }
@@ -2835,6 +2884,7 @@ pub(super) mod defs {
     vk_bitflags_wrapped!(SemaphoreImportFlags, Flags);
     impl SemaphoreImportFlags {
         pub const TEMPORARY: Self = Self(SemaphoreImportFlagBits::TEMPORARY.0);
+        // VK_KHR_external_semaphore
         pub const TEMPORARY_KHR: Self = Self::TEMPORARY;
     }
     #[repr(transparent)]
@@ -2842,6 +2892,7 @@ pub(super) mod defs {
     pub struct SemaphoreImportFlagBits(u32);
     impl SemaphoreImportFlagBits {
         pub const TEMPORARY: Self = Self(1 << 0);
+        // VK_KHR_external_semaphore
         pub const TEMPORARY_KHR: Self = Self::TEMPORARY;
     }
     #[repr(transparent)]
@@ -2854,6 +2905,7 @@ pub(super) mod defs {
         pub const OPAQUE_WIN32_KMT: Self =
             Self(ExternalFenceHandleTypeFlagBits::OPAQUE_WIN32_KMT.0);
         pub const SYNC_FD: Self = Self(ExternalFenceHandleTypeFlagBits::SYNC_FD.0);
+        // VK_KHR_external_fence_capabilities
         pub const OPAQUE_FD_KHR: Self = Self::OPAQUE_FD;
         pub const OPAQUE_WIN32_KHR: Self = Self::OPAQUE_WIN32;
         pub const OPAQUE_WIN32_KMT_KHR: Self = Self::OPAQUE_WIN32_KMT;
@@ -2867,6 +2919,7 @@ pub(super) mod defs {
         pub const OPAQUE_WIN32: Self = Self(1 << 1);
         pub const OPAQUE_WIN32_KMT: Self = Self(1 << 2);
         pub const SYNC_FD: Self = Self(1 << 3);
+        // VK_KHR_external_fence_capabilities
         pub const OPAQUE_FD_KHR: Self = Self::OPAQUE_FD;
         pub const OPAQUE_WIN32_KHR: Self = Self::OPAQUE_WIN32;
         pub const OPAQUE_WIN32_KMT_KHR: Self = Self::OPAQUE_WIN32_KMT;
@@ -2879,6 +2932,7 @@ pub(super) mod defs {
     impl ExternalFenceFeatureFlags {
         pub const EXPORTABLE: Self = Self(ExternalFenceFeatureFlagBits::EXPORTABLE.0);
         pub const IMPORTABLE: Self = Self(ExternalFenceFeatureFlagBits::IMPORTABLE.0);
+        // VK_KHR_external_fence_capabilities
         pub const EXPORTABLE_KHR: Self = Self::EXPORTABLE;
         pub const IMPORTABLE_KHR: Self = Self::IMPORTABLE;
     }
@@ -2888,6 +2942,7 @@ pub(super) mod defs {
     impl ExternalFenceFeatureFlagBits {
         pub const EXPORTABLE: Self = Self(1 << 0);
         pub const IMPORTABLE: Self = Self(1 << 1);
+        // VK_KHR_external_fence_capabilities
         pub const EXPORTABLE_KHR: Self = Self::EXPORTABLE;
         pub const IMPORTABLE_KHR: Self = Self::IMPORTABLE;
     }
@@ -2897,6 +2952,7 @@ pub(super) mod defs {
     vk_bitflags_wrapped!(FenceImportFlags, Flags);
     impl FenceImportFlags {
         pub const TEMPORARY: Self = Self(FenceImportFlagBits::TEMPORARY.0);
+        // VK_KHR_external_fence
         pub const TEMPORARY_KHR: Self = Self::TEMPORARY;
     }
     #[repr(transparent)]
@@ -2904,6 +2960,7 @@ pub(super) mod defs {
     pub struct FenceImportFlagBits(u32);
     impl FenceImportFlagBits {
         pub const TEMPORARY: Self = Self(1 << 0);
+        // VK_KHR_external_fence
         pub const TEMPORARY_KHR: Self = Self::TEMPORARY;
     }
     pub type PFN_vkEnumerateInstanceVersion =

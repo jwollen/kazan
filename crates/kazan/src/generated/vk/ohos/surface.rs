@@ -46,7 +46,6 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SurfaceCreateFlagsOHOS(Flags);
     vk_bitflags_wrapped!(SurfaceCreateFlagsOHOS, Flags);
-    impl SurfaceCreateFlagsOHOS {}
     pub type PFN_vkCreateSurfaceOHOS = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const SurfaceCreateInfoOHOS<'_>,

@@ -45,7 +45,6 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ViSurfaceCreateFlagsNN(Flags);
     vk_bitflags_wrapped!(ViSurfaceCreateFlagsNN, Flags);
-    impl ViSurfaceCreateFlagsNN {}
     pub type PFN_vkCreateViSurfaceNN = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const ViSurfaceCreateInfoNN<'_>,

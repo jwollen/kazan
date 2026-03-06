@@ -3547,6 +3547,7 @@ pub(super) mod defs {
     impl SemaphoreType {
         pub const BINARY: Self = Self(0);
         pub const TIMELINE: Self = Self(1);
+        // VK_KHR_timeline_semaphore
         pub const BINARY_KHR: Self = Self::BINARY;
         pub const TIMELINE_KHR: Self = Self::TIMELINE;
     }
@@ -3571,10 +3572,12 @@ pub(super) mod defs {
         pub const WEIGHTED_AVERAGE: Self = Self(0);
         pub const MIN: Self = Self(1);
         pub const MAX: Self = Self(2);
-        pub const WEIGHTED_AVERAGE_RANGECLAMP_QCOM: Self = Self(1000521000);
-        pub const MAX_EXT: Self = Self::MAX;
-        pub const MIN_EXT: Self = Self::MIN;
+        // VK_EXT_sampler_filter_minmax
         pub const WEIGHTED_AVERAGE_EXT: Self = Self::WEIGHTED_AVERAGE;
+        pub const MIN_EXT: Self = Self::MIN;
+        pub const MAX_EXT: Self = Self::MAX;
+        // VK_QCOM_filter_cubic_clamp
+        pub const WEIGHTED_AVERAGE_RANGECLAMP_QCOM: Self = Self(1000521000);
     }
     impl fmt::Debug for SamplerReductionMode {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -3624,18 +3627,19 @@ pub(super) mod defs {
         pub const MESA_HONEYKRISP: Self = Self(26);
         pub const VULKAN_SC_EMULATION_ON_VULKAN: Self = Self(27);
         pub const MESA_KOSMICKRISP: Self = Self(28);
-        pub const AMD_OPEN_SOURCE_KHR: Self = Self::AMD_OPEN_SOURCE;
+        // VK_KHR_driver_properties
         pub const AMD_PROPRIETARY_KHR: Self = Self::AMD_PROPRIETARY;
-        pub const ARM_PROPRIETARY_KHR: Self = Self::ARM_PROPRIETARY;
-        pub const BROADCOM_PROPRIETARY_KHR: Self = Self::BROADCOM_PROPRIETARY;
-        pub const GGP_PROPRIETARY_KHR: Self = Self::GGP_PROPRIETARY;
-        pub const GOOGLE_SWIFTSHADER_KHR: Self = Self::GOOGLE_SWIFTSHADER;
-        pub const IMAGINATION_PROPRIETARY_KHR: Self = Self::IMAGINATION_PROPRIETARY;
-        pub const INTEL_OPEN_SOURCE_MESA_KHR: Self = Self::INTEL_OPEN_SOURCE_MESA;
-        pub const INTEL_PROPRIETARY_WINDOWS_KHR: Self = Self::INTEL_PROPRIETARY_WINDOWS;
+        pub const AMD_OPEN_SOURCE_KHR: Self = Self::AMD_OPEN_SOURCE;
         pub const MESA_RADV_KHR: Self = Self::MESA_RADV;
         pub const NVIDIA_PROPRIETARY_KHR: Self = Self::NVIDIA_PROPRIETARY;
+        pub const INTEL_PROPRIETARY_WINDOWS_KHR: Self = Self::INTEL_PROPRIETARY_WINDOWS;
+        pub const INTEL_OPEN_SOURCE_MESA_KHR: Self = Self::INTEL_OPEN_SOURCE_MESA;
+        pub const IMAGINATION_PROPRIETARY_KHR: Self = Self::IMAGINATION_PROPRIETARY;
         pub const QUALCOMM_PROPRIETARY_KHR: Self = Self::QUALCOMM_PROPRIETARY;
+        pub const ARM_PROPRIETARY_KHR: Self = Self::ARM_PROPRIETARY;
+        pub const GOOGLE_SWIFTSHADER_KHR: Self = Self::GOOGLE_SWIFTSHADER;
+        pub const GGP_PROPRIETARY_KHR: Self = Self::GGP_PROPRIETARY;
+        pub const BROADCOM_PROPRIETARY_KHR: Self = Self::BROADCOM_PROPRIETARY;
     }
     impl fmt::Debug for DriverId {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -3684,6 +3688,7 @@ pub(super) mod defs {
         pub const _32_BIT_ONLY: Self = Self(0);
         pub const ALL: Self = Self(1);
         pub const NONE: Self = Self(2);
+        // VK_KHR_shader_float_controls
         pub const _32_BIT_ONLY_KHR: Self = Self::_32_BIT_ONLY;
         pub const ALL_KHR: Self = Self::ALL;
         pub const NONE_KHR: Self = Self::NONE;
@@ -3709,6 +3714,7 @@ pub(super) mod defs {
     vk_bitflags_wrapped!(SemaphoreWaitFlags, Flags);
     impl SemaphoreWaitFlags {
         pub const ANY: Self = Self(SemaphoreWaitFlagBits::ANY.0);
+        // VK_KHR_timeline_semaphore
         pub const ANY_KHR: Self = Self::ANY;
     }
     #[repr(transparent)]
@@ -3716,6 +3722,7 @@ pub(super) mod defs {
     pub struct SemaphoreWaitFlagBits(u32);
     impl SemaphoreWaitFlagBits {
         pub const ANY: Self = Self(1 << 0);
+        // VK_KHR_timeline_semaphore
         pub const ANY_KHR: Self = Self::ANY;
     }
     #[repr(transparent)]
@@ -3729,9 +3736,10 @@ pub(super) mod defs {
         pub const PARTIALLY_BOUND: Self = Self(DescriptorBindingFlagBits::PARTIALLY_BOUND.0);
         pub const VARIABLE_DESCRIPTOR_COUNT: Self =
             Self(DescriptorBindingFlagBits::VARIABLE_DESCRIPTOR_COUNT.0);
-        pub const PARTIALLY_BOUND_EXT: Self = Self::PARTIALLY_BOUND;
+        // VK_EXT_descriptor_indexing
         pub const UPDATE_AFTER_BIND_EXT: Self = Self::UPDATE_AFTER_BIND;
         pub const UPDATE_UNUSED_WHILE_PENDING_EXT: Self = Self::UPDATE_UNUSED_WHILE_PENDING;
+        pub const PARTIALLY_BOUND_EXT: Self = Self::PARTIALLY_BOUND;
         pub const VARIABLE_DESCRIPTOR_COUNT_EXT: Self = Self::VARIABLE_DESCRIPTOR_COUNT;
     }
     #[repr(transparent)]
@@ -3742,9 +3750,10 @@ pub(super) mod defs {
         pub const UPDATE_UNUSED_WHILE_PENDING: Self = Self(1 << 1);
         pub const PARTIALLY_BOUND: Self = Self(1 << 2);
         pub const VARIABLE_DESCRIPTOR_COUNT: Self = Self(1 << 3);
-        pub const PARTIALLY_BOUND_EXT: Self = Self::PARTIALLY_BOUND;
+        // VK_EXT_descriptor_indexing
         pub const UPDATE_AFTER_BIND_EXT: Self = Self::UPDATE_AFTER_BIND;
         pub const UPDATE_UNUSED_WHILE_PENDING_EXT: Self = Self::UPDATE_UNUSED_WHILE_PENDING;
+        pub const PARTIALLY_BOUND_EXT: Self = Self::PARTIALLY_BOUND;
         pub const VARIABLE_DESCRIPTOR_COUNT_EXT: Self = Self::VARIABLE_DESCRIPTOR_COUNT;
     }
     #[repr(transparent)]
@@ -3756,15 +3765,18 @@ pub(super) mod defs {
         pub const AVERAGE: Self = Self(ResolveModeFlagBits::AVERAGE.0);
         pub const MIN: Self = Self(ResolveModeFlagBits::MIN.0);
         pub const MAX: Self = Self(ResolveModeFlagBits::MAX.0);
+        pub const NONE: Self = Self(0);
+        // VK_ANDROID_external_format_resolve
         pub const EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID: Self =
             Self(ResolveModeFlagBits::EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID.0);
+        // VK_EXT_custom_resolve
         pub const CUSTOM_EXT: Self = Self(ResolveModeFlagBits::CUSTOM_EXT.0);
-        pub const AVERAGE_KHR: Self = Self::AVERAGE;
-        pub const MAX_KHR: Self = Self::MAX;
-        pub const MIN_KHR: Self = Self::MIN;
+        // VK_KHR_depth_stencil_resolve
         pub const NONE_KHR: Self = Self::NONE;
         pub const SAMPLE_ZERO_KHR: Self = Self::SAMPLE_ZERO;
-        pub const NONE: Self = Self(0);
+        pub const AVERAGE_KHR: Self = Self::AVERAGE;
+        pub const MIN_KHR: Self = Self::MIN;
+        pub const MAX_KHR: Self = Self::MAX;
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -3774,12 +3786,15 @@ pub(super) mod defs {
         pub const AVERAGE: Self = Self(1 << 1);
         pub const MIN: Self = Self(1 << 2);
         pub const MAX: Self = Self(1 << 3);
+        // VK_ANDROID_external_format_resolve
         pub const EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID: Self = Self(1 << 4);
+        // VK_EXT_custom_resolve
         pub const CUSTOM_EXT: Self = Self(1 << 5);
-        pub const AVERAGE_KHR: Self = Self::AVERAGE;
-        pub const MAX_KHR: Self = Self::MAX;
-        pub const MIN_KHR: Self = Self::MIN;
+        // VK_KHR_depth_stencil_resolve
         pub const SAMPLE_ZERO_KHR: Self = Self::SAMPLE_ZERO;
+        pub const AVERAGE_KHR: Self = Self::AVERAGE;
+        pub const MIN_KHR: Self = Self::MIN;
+        pub const MAX_KHR: Self = Self::MAX;
     }
     pub type PFN_vkResetQueryPool = unsafe extern "system" fn(
         device: Device,

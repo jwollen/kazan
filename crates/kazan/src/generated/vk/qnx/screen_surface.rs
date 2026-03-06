@@ -51,7 +51,6 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ScreenSurfaceCreateFlagsQNX(Flags);
     vk_bitflags_wrapped!(ScreenSurfaceCreateFlagsQNX, Flags);
-    impl ScreenSurfaceCreateFlagsQNX {}
     pub type PFN_vkCreateScreenSurfaceQNX = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const ScreenSurfaceCreateInfoQNX<'_>,

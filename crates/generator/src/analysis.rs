@@ -7,18 +7,19 @@ use tracing::{debug, error_span};
 
 use crate::{
     cdecl::CType,
+    enums::ReqEnumData,
     handle::{HandleCommandTypes, collect_handle_command_types},
     xml,
 };
 
 /// Holds the analysis results for easy querying.
-#[derive(Debug)]
 pub struct Analysis {
     registry: xml::Registry,
     custom_types: CustomTypes,
     type_refs: TypeRefs,
     type_infos: BTreeMap<&'static str, TypeInfo>,
     handle_command_types: HandleCommandTypes,
+    req_enum_data: ReqEnumData,
 }
 
 impl Analysis {
@@ -48,6 +49,7 @@ impl Analysis {
         let type_refs = build_type_refs(&registry, &custom_types);
         let type_infos = compute_type_infos(&registry, &custom_types, &type_refs);
         let handle_command_types = collect_handle_command_types(&registry);
+        let req_enum_data = ReqEnumData::from_registry(&registry);
 
         Self {
             registry,
@@ -55,6 +57,7 @@ impl Analysis {
             type_refs,
             type_infos,
             handle_command_types,
+            req_enum_data,
         }
     }
 
@@ -81,6 +84,10 @@ impl Analysis {
 
     pub fn handle_command_types(&self) -> &HandleCommandTypes {
         &self.handle_command_types
+    }
+
+    pub fn req_enum_data(&self) -> &ReqEnumData {
+        &self.req_enum_data
     }
 
     /// Returns true if the named type is a struct with an `sType` member (i.e. extensible via pNext).

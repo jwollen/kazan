@@ -546,19 +546,23 @@ pub(super) mod defs {
     pub struct VideoEncodeFlagsKHR(Flags);
     vk_bitflags_wrapped!(VideoEncodeFlagsKHR, Flags);
     impl VideoEncodeFlagsKHR {
+        // VK_KHR_video_encode_intra_refresh
+        pub const INTRA_REFRESH_KHR: Self = Self(VideoEncodeFlagBitsKHR::INTRA_REFRESH_KHR.0);
+        // VK_KHR_video_encode_quantization_map
         pub const WITH_QUANTIZATION_DELTA_MAP_KHR: Self =
             Self(VideoEncodeFlagBitsKHR::WITH_QUANTIZATION_DELTA_MAP_KHR.0);
         pub const WITH_EMPHASIS_MAP_KHR: Self =
             Self(VideoEncodeFlagBitsKHR::WITH_EMPHASIS_MAP_KHR.0);
-        pub const INTRA_REFRESH_KHR: Self = Self(VideoEncodeFlagBitsKHR::INTRA_REFRESH_KHR.0);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeFlagBitsKHR(u32);
     impl VideoEncodeFlagBitsKHR {
+        // VK_KHR_video_encode_intra_refresh
+        pub const INTRA_REFRESH_KHR: Self = Self(1 << 2);
+        // VK_KHR_video_encode_quantization_map
         pub const WITH_QUANTIZATION_DELTA_MAP_KHR: Self = Self(1 << 0);
         pub const WITH_EMPHASIS_MAP_KHR: Self = Self(1 << 1);
-        pub const INTRA_REFRESH_KHR: Self = Self(1 << 2);
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -607,6 +611,7 @@ pub(super) mod defs {
             Self(VideoEncodeCapabilityFlagBitsKHR::PRECEDING_EXTERNALLY_ENCODED_BYTES_KHR.0);
         pub const INSUFFICIENTSTREAM_BUFFER_RANGE_DETECTION_KHR: Self =
             Self(VideoEncodeCapabilityFlagBitsKHR::INSUFFICIENTSTREAM_BUFFER_RANGE_DETECTION_KHR.0);
+        // VK_KHR_video_encode_quantization_map
         pub const QUANTIZATION_DELTA_MAP_KHR: Self =
             Self(VideoEncodeCapabilityFlagBitsKHR::QUANTIZATION_DELTA_MAP_KHR.0);
         pub const EMPHASIS_MAP_KHR: Self =
@@ -618,6 +623,7 @@ pub(super) mod defs {
     impl VideoEncodeCapabilityFlagBitsKHR {
         pub const PRECEDING_EXTERNALLY_ENCODED_BYTES_KHR: Self = Self(1 << 0);
         pub const INSUFFICIENTSTREAM_BUFFER_RANGE_DETECTION_KHR: Self = Self(1 << 1);
+        // VK_KHR_video_encode_quantization_map
         pub const QUANTIZATION_DELTA_MAP_KHR: Self = Self(1 << 2);
         pub const EMPHASIS_MAP_KHR: Self = Self(1 << 3);
     }
@@ -645,7 +651,6 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRateControlFlagsKHR(Flags);
     vk_bitflags_wrapped!(VideoEncodeRateControlFlagsKHR, Flags);
-    impl VideoEncodeRateControlFlagsKHR {}
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRateControlModeFlagsKHR(Flags);

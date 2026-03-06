@@ -85,17 +85,25 @@ pub(super) mod defs {
         pub const DISPLAY_KHR_EXT: Self = Self(29);
         pub const DISPLAY_MODE_KHR_EXT: Self = Self(30);
         pub const VALIDATION_CACHE_EXT_EXT: Self = Self(33);
-        pub const ACCELERATION_STRUCTURE_KHR_EXT: Self = Self(1000150000);
-        pub const ACCELERATION_STRUCTURE_NV_EXT: Self = Self(1000165000);
-        pub const BUFFER_COLLECTION_FUCHSIA_EXT: Self = Self(1000366000);
-        pub const CUDA_FUNCTION_NV_EXT: Self = Self(1000307001);
-        pub const CUDA_MODULE_NV_EXT: Self = Self(1000307000);
-        pub const CU_FUNCTION_NVX_EXT: Self = Self(1000029001);
-        pub const CU_MODULE_NVX_EXT: Self = Self(1000029000);
-        pub const DESCRIPTOR_UPDATE_TEMPLATE_EXT: Self = Self(1000085000);
+        // VK_EXT_debug_report
         pub const SAMPLER_YCBCR_CONVERSION_EXT: Self = Self(1000156000);
+        pub const DESCRIPTOR_UPDATE_TEMPLATE_EXT: Self = Self(1000085000);
+        // VK_FUCHSIA_buffer_collection
+        pub const BUFFER_COLLECTION_FUCHSIA_EXT: Self = Self(1000366000);
+        // VK_KHR_acceleration_structure
+        pub const ACCELERATION_STRUCTURE_KHR_EXT: Self = Self(1000150000);
+        // VK_KHR_descriptor_update_template
         pub const DESCRIPTOR_UPDATE_TEMPLATE_KHR_EXT: Self = Self::DESCRIPTOR_UPDATE_TEMPLATE_EXT;
+        // VK_KHR_sampler_ycbcr_conversion
         pub const SAMPLER_YCBCR_CONVERSION_KHR_EXT: Self = Self::SAMPLER_YCBCR_CONVERSION_EXT;
+        // VK_NVX_binary_import
+        pub const CU_MODULE_NVX_EXT: Self = Self(1000029000);
+        pub const CU_FUNCTION_NVX_EXT: Self = Self(1000029001);
+        // VK_NV_cuda_kernel_launch
+        pub const CUDA_MODULE_NV_EXT: Self = Self(1000307000);
+        pub const CUDA_FUNCTION_NV_EXT: Self = Self(1000307001);
+        // VK_NV_ray_tracing
+        pub const ACCELERATION_STRUCTURE_NV_EXT: Self = Self(1000165000);
     }
     impl fmt::Debug for DebugReportObjectTypeEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -132,15 +140,15 @@ pub(super) mod defs {
                 Self::DISPLAY_KHR_EXT => Some("DISPLAY_KHR_EXT"),
                 Self::DISPLAY_MODE_KHR_EXT => Some("DISPLAY_MODE_KHR_EXT"),
                 Self::VALIDATION_CACHE_EXT_EXT => Some("VALIDATION_CACHE_EXT_EXT"),
-                Self::ACCELERATION_STRUCTURE_KHR_EXT => Some("ACCELERATION_STRUCTURE_KHR_EXT"),
-                Self::ACCELERATION_STRUCTURE_NV_EXT => Some("ACCELERATION_STRUCTURE_NV_EXT"),
-                Self::BUFFER_COLLECTION_FUCHSIA_EXT => Some("BUFFER_COLLECTION_FUCHSIA_EXT"),
-                Self::CUDA_FUNCTION_NV_EXT => Some("CUDA_FUNCTION_NV_EXT"),
-                Self::CUDA_MODULE_NV_EXT => Some("CUDA_MODULE_NV_EXT"),
-                Self::CU_FUNCTION_NVX_EXT => Some("CU_FUNCTION_NVX_EXT"),
-                Self::CU_MODULE_NVX_EXT => Some("CU_MODULE_NVX_EXT"),
-                Self::DESCRIPTOR_UPDATE_TEMPLATE_EXT => Some("DESCRIPTOR_UPDATE_TEMPLATE_EXT"),
                 Self::SAMPLER_YCBCR_CONVERSION_EXT => Some("SAMPLER_YCBCR_CONVERSION_EXT"),
+                Self::DESCRIPTOR_UPDATE_TEMPLATE_EXT => Some("DESCRIPTOR_UPDATE_TEMPLATE_EXT"),
+                Self::BUFFER_COLLECTION_FUCHSIA_EXT => Some("BUFFER_COLLECTION_FUCHSIA_EXT"),
+                Self::ACCELERATION_STRUCTURE_KHR_EXT => Some("ACCELERATION_STRUCTURE_KHR_EXT"),
+                Self::CU_MODULE_NVX_EXT => Some("CU_MODULE_NVX_EXT"),
+                Self::CU_FUNCTION_NVX_EXT => Some("CU_FUNCTION_NVX_EXT"),
+                Self::CUDA_MODULE_NV_EXT => Some("CUDA_MODULE_NV_EXT"),
+                Self::CUDA_FUNCTION_NV_EXT => Some("CUDA_FUNCTION_NV_EXT"),
+                Self::ACCELERATION_STRUCTURE_NV_EXT => Some("ACCELERATION_STRUCTURE_NV_EXT"),
                 _ => None,
             };
             if let Some(name) = name {

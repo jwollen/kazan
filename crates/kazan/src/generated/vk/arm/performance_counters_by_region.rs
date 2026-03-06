@@ -229,7 +229,6 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PerformanceCounterDescriptionFlagsARM(Flags);
     vk_bitflags_wrapped!(PerformanceCounterDescriptionFlagsARM, Flags);
-    impl PerformanceCounterDescriptionFlagsARM {}
     pub type PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM =
         unsafe extern "system" fn(
             physical_device: PhysicalDevice,

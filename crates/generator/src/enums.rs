@@ -1,20 +1,84 @@
 use std::{
     borrow::Cow,
     collections::{BTreeMap, HashSet},
+    io::Write,
     sync::OnceLock,
 };
 
 use heck::ToShoutySnakeCase;
 use regex::Regex;
 
-use crate::{analysis::Analysis, ctype_to_rust_type_str, normalize_ty_name, xml};
+use crate::{analysis::Analysis, ctype_to_rust_type_str, module::Module, normalize_ty_name, xml};
 
-/// Data from `<require>` blocks: extension/version enum variants, aliases, values, and bit positions.
-pub struct ReqEnumData<'a> {
-    pub enum_variants: &'a BTreeMap<&'static str, BTreeMap<&'static str, i32>>,
-    pub enum_aliases: &'a BTreeMap<&'static str, BTreeMap<&'static str, &'static str>>,
-    pub enum_values: &'a BTreeMap<&'static str, BTreeMap<&'static str, &'static str>>,
-    pub bitspos: &'a BTreeMap<&'static str, BTreeMap<&'static str, u8>>,
+/// Contributions from a single version/extension to an enum or bitmask type.
+#[derive(Default)]
+pub struct ModuleEnumContributions {
+    pub variants: Vec<(&'static str, i32)>,
+    pub values: Vec<(&'static str, &'static str)>,
+    pub aliases: Vec<(&'static str, &'static str)>,
+    pub bitpositions: Vec<(&'static str, u8)>,
+}
+
+/// Enum extension data grouped by enum type name, then by module name.
+#[derive(Default)]
+pub struct ReqEnumData {
+    map: BTreeMap<&'static str, BTreeMap<String, ModuleEnumContributions>>,
+}
+
+impl ReqEnumData {
+    fn contributions(
+        &mut self,
+        extends: &'static str,
+        module: &str,
+    ) -> &mut ModuleEnumContributions {
+        self.map
+            .entry(extends)
+            .or_default()
+            .entry(module.to_string())
+            .or_default()
+    }
+
+    pub fn get(&self, enum_name: &str) -> Option<&BTreeMap<String, ModuleEnumContributions>> {
+        self.map.get(enum_name)
+    }
+
+    pub fn from_registry(registry: &xml::Registry) -> Self {
+        let mut data = Self::default();
+
+        for module in Module::from_registry(registry) {
+            let ext_number = module.ext_number();
+            let module_name = module.display_name();
+            for req in module.requires() {
+                for variant in &req.enum_variants {
+                    let ext_number = variant.extnumber.or(ext_number).unwrap() as i32;
+                    let value = 1_000_000_000i32 + (ext_number - 1) * 1000 + variant.offset as i32;
+                    let value = if variant.negative { -value } else { value };
+                    data.contributions(variant.extends, &module_name)
+                        .variants
+                        .push((variant.name, value));
+                }
+                for bitpos in &req.bitpositions {
+                    data.contributions(bitpos.extends, &module_name)
+                        .bitpositions
+                        .push((bitpos.name, bitpos.bitpos));
+                }
+                for alias in &req.enum_aliases {
+                    if let Some(extends) = alias.extends {
+                        data.contributions(extends, &module_name)
+                            .aliases
+                            .push((alias.name, alias.alias));
+                    }
+                }
+                for value in &req.enum_values {
+                    data.contributions(value.extends, &module_name)
+                        .values
+                        .push((value.name, value.value));
+                }
+            }
+        }
+
+        data
+    }
 }
 
 fn strip_vendor_suffix(name: &str) -> &str {
@@ -70,11 +134,7 @@ fn strip_vendor_suffix(name: &str) -> &str {
         .copied();
     if let Some(vendor) = vendor {
         let name = name.strip_suffix(vendor).unwrap();
-        if name.ends_with('_') {
-            name.strip_suffix('_').unwrap()
-        } else {
-            name
-        }
+        name.strip_suffix('_').unwrap_or(name)
     } else {
         name
     }
@@ -87,15 +147,10 @@ fn normalize_variant_name(name: &str, value_prefix: &str) -> String {
         .strip_prefix('_')
         .unwrap()
         .to_uppercase();
-    if name
-        .chars()
-        .next()
-        .map(|c| c.is_ascii_digit())
-        .unwrap_or_default()
-    {
+    if name.starts_with(|c: char| c.is_ascii_digit()) {
         format!("_{}", name)
     } else {
-        name.to_string()
+        name
     }
 }
 
@@ -110,12 +165,7 @@ fn normalize_bit_name(name: &str, value_prefix: Option<&str>) -> String {
         .strip_prefix('_')
         .unwrap();
     let name = name.replace("_BIT", "");
-    if name
-        .chars()
-        .next()
-        .map(|c| c.is_ascii_digit())
-        .unwrap_or_default()
-    {
+    if name.starts_with(|c: char| c.is_ascii_digit()) {
         format!("_{}", name)
     } else {
         name
@@ -129,34 +179,28 @@ fn separate_trailing_number(name: &str) -> Cow<'_, str> {
     trailing_number.replace(name, "_$1")
 }
 
-pub fn write_enum(file: &mut impl std::io::Write, req: &ReqEnumData<'_>, ty: &xml::Enum) {
+fn sorted_bits(iter: impl Iterator<Item = (String, u8)>) -> Vec<(String, u8)> {
+    let mut bits: Vec<_> = iter.collect();
+    bits.sort_by_key(|(_, bp)| *bp);
+    bits
+}
+
+fn write_module_group(file: &mut impl Write, module_name: &str, entries: &[String]) {
+    if entries.is_empty() {
+        return;
+    }
+    writeln!(file, "// {}", module_name).unwrap();
+    for entry in entries {
+        writeln!(file, "{}", entry).unwrap();
+    }
+}
+
+pub fn write_enum(file: &mut impl Write, req: &ReqEnumData, ty: &xml::Enum) {
     let value_prefix = if ty.name == "VkResult" {
         "VK".to_string()
     } else {
         let prefix = strip_vendor_suffix(ty.name).to_shouty_snake_case();
         separate_trailing_number(&prefix).to_string()
-    };
-
-    let variants = {
-        let bits = ty.values.iter().map(|bit| {
-            (
-                normalize_variant_name(bit.name, &value_prefix),
-                bit.value.to_string(),
-            )
-        });
-
-        let req_enum = req.enum_variants.get(ty.name);
-        let req_variants = req_enum.iter().flat_map(|bits| {
-            bits.iter().map(|(name, variant)| {
-                (
-                    normalize_variant_name(name, &value_prefix),
-                    variant.to_string(),
-                )
-            })
-        });
-
-        let bits = bits.chain(req_variants).collect::<Vec<_>>();
-        bits
     };
 
     let name = if ty.name == "VkResult" {
@@ -174,25 +218,48 @@ pub fn write_enum(file: &mut impl std::io::Write, req: &ReqEnumData<'_>, ty: &xm
     )
     .unwrap();
 
+    let mut debug_variants = Vec::new();
+    let mut visited = HashSet::new();
+
     writeln!(file, "impl {} {{", name).unwrap();
-    for (name, value) in &variants {
-        writeln!(file, "pub const {}: Self = Self({});", name, value).unwrap();
+
+    for bit in &ty.values {
+        let vname = normalize_variant_name(bit.name, &value_prefix);
+        writeln!(file, "pub const {}: Self = Self({});", vname, bit.value).unwrap();
+        visited.insert(vname.clone());
+        debug_variants.push(vname);
     }
 
-    if let Some(values) = req.enum_values.get(ty.name) {
-        for (name, value) in values {
-            let name = normalize_variant_name(name, &value_prefix);
-            writeln!(file, "pub const {}: Self = Self({});", name, value).unwrap();
+    if let Some(modules) = req.get(ty.name) {
+        for (module_name, contributions) in modules {
+            let mut entries = Vec::new();
+
+            for (vname, value) in &contributions.variants {
+                let vname = normalize_variant_name(vname, &value_prefix);
+                if visited.insert(vname.clone()) {
+                    entries.push(format!("pub const {}: Self = Self({});", vname, value));
+                    debug_variants.push(vname);
+                }
+            }
+            for (vname, value) in &contributions.values {
+                let vname = normalize_variant_name(vname, &value_prefix);
+                if visited.insert(vname.clone()) {
+                    entries.push(format!("pub const {}: Self = Self({});", vname, value));
+                    debug_variants.push(vname);
+                }
+            }
+            for (aname, alias) in &contributions.aliases {
+                let aname = normalize_variant_name(aname, &value_prefix);
+                if visited.insert(aname.clone()) {
+                    let alias = normalize_variant_name(alias, &value_prefix);
+                    entries.push(format!("pub const {}: Self = Self::{};", aname, alias));
+                }
+            }
+
+            write_module_group(file, module_name, &entries);
         }
     }
 
-    if let Some(aliases) = req.enum_aliases.get(ty.name) {
-        for (name, alias) in aliases {
-            let name = normalize_variant_name(name, &value_prefix);
-            let alias = normalize_variant_name(alias, &value_prefix);
-            writeln!(file, "pub const {}: Self = Self::{};", name, alias).unwrap();
-        }
-    }
     writeln!(file, "}}").unwrap();
 
     writeln!(
@@ -201,16 +268,10 @@ pub fn write_enum(file: &mut impl std::io::Write, req: &ReqEnumData<'_>, ty: &xm
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {{"
     )
     .unwrap();
-    writeln!(file, "let name  =match *self {{").unwrap();
-    for (name, _) in &variants {
-        writeln!(file, "Self::{name} => Some(\"{name}\"),").unwrap();
+    writeln!(file, "let name = match *self {{").unwrap();
+    for vname in &debug_variants {
+        writeln!(file, "Self::{vname} => Some(\"{vname}\"),").unwrap();
     }
-    if let Some(values) = req.enum_values.get(ty.name) {
-        for (name, _) in values {
-            let name = normalize_variant_name(name, &value_prefix);
-            writeln!(file, "Self::{name} => Some(\"{name}\"),").unwrap();
-        }
-    }    
     writeln!(
         file,
         "_ => None
@@ -226,11 +287,11 @@ pub fn write_enum(file: &mut impl std::io::Write, req: &ReqEnumData<'_>, ty: &xm
 
 /// Writes a bitmask type (bitflags + optional FlagBits struct) to `file`.
 pub fn write_bitmask(
-    file: &mut impl std::io::Write,
+    file: &mut impl Write,
     _analysis: &Analysis,
     ty: &xml::BitMaskType,
     bitmask: Option<&xml::BitMask>,
-    req: &ReqEnumData<'_>,
+    req: &ReqEnumData,
 ) {
     let name = normalize_ty_name(ty.name);
     let base_type = ctype_to_rust_type_str(ty.ty);
@@ -240,144 +301,178 @@ pub fn write_bitmask(
         "#[repr(transparent)]
         #[derive(Copy, Clone, PartialEq, Eq, Hash)]
         pub struct {name}({base_type});
-        vk_bitflags_wrapped!({name}, {base_type});
-        impl {name} {{"
+        vk_bitflags_wrapped!({name}, {base_type});"
     )
     .unwrap();
 
-    let value_prefix = bitmask.map(|bitmask| {
+    let Some(bitmask) = bitmask else { return };
+
+    let bitmask_name = normalize_ty_name(bitmask.name);
+    let vp = {
         let prefix = strip_vendor_suffix(bitmask.name)
             .replace("FlagBits", "")
             .to_shouty_snake_case();
         separate_trailing_number(&prefix).to_string()
-    });
-
-    let bits = if let Some(bitmask) = bitmask {
-        let bits = bitmask.bits.iter().map(|bit| {
-            (
-                normalize_bit_name(bit.name, value_prefix.as_deref()),
-                bit.bitpos,
-            )
-        });
-
-        let req_bitmask = req.bitspos.get(bitmask.name);
-        let req_bits = req_bitmask.iter().flat_map(|bits| {
-            bits.iter()
-                .map(|(name, bitpos)| (normalize_bit_name(name, value_prefix.as_deref()), *bitpos))
-        });
-
-        let mut bits = bits.chain(req_bits).collect::<Vec<_>>();
-        bits.sort_by_key(|(_, bit)| *bit);
-        bits
-    } else {
-        Vec::new()
     };
 
-    if let Some(bitmask) = bitmask {
-        let bitmask_name = normalize_ty_name(bitmask.name);
+    // Pre-compute normalized base bits (shared between Flags and FlagBits)
+    let base_bits = sorted_bits(
+        bitmask
+            .bits
+            .iter()
+            .map(|bit| (normalize_bit_name(bit.name, Some(vp.as_str())), bit.bitpos)),
+    );
 
-        let mut visited_bits = HashSet::new();
+    // Pre-compute normalized module data (shared between Flags and FlagBits)
+    struct ModuleBitData {
+        name: String,
+        bits: Vec<(String, u8)>,
+        aliases: Vec<(String, String)>,
+        values: Vec<(String, String)>,
+    }
 
-        for (name, _bit) in &bits {
-            if !visited_bits.insert(name.clone()) {
-                continue;
+    let modules = req.get(bitmask.name);
+    let module_data: Vec<ModuleBitData> = modules
+        .into_iter()
+        .flat_map(|m| m.iter())
+        .map(|(name, c)| ModuleBitData {
+            name: name.clone(),
+            bits: sorted_bits(
+                c.bitpositions
+                    .iter()
+                    .map(|(n, bp)| (normalize_bit_name(n, Some(vp.as_str())), *bp)),
+            ),
+            aliases: c
+                .aliases
+                .iter()
+                .map(|(n, a)| {
+                    (
+                        normalize_bit_name(n, Some(vp.as_str())),
+                        normalize_bit_name(a, Some(vp.as_str())),
+                    )
+                })
+                .collect(),
+            values: c
+                .values
+                .iter()
+                .map(|(n, v)| (normalize_bit_name(n, Some(vp.as_str())), v.to_string()))
+                .collect(),
+        })
+        .collect();
+
+    // All bit names for alias target validation in FlagBits
+    let all_bit_names: HashSet<_> = base_bits
+        .iter()
+        .map(|(n, _)| n.clone())
+        .chain(
+            module_data
+                .iter()
+                .flat_map(|md| md.bits.iter().map(|(n, _)| n.clone())),
+        )
+        .collect();
+
+    // Flags wrapper
+    {
+        let mut visited = HashSet::new();
+        writeln!(file, "impl {name} {{").unwrap();
+
+        for (bit_name, _) in &base_bits {
+            if visited.insert(bit_name.clone()) {
+                writeln!(
+                    file,
+                    "pub const {}: Self = Self({}::{}.0);",
+                    bit_name, bitmask_name, bit_name
+                )
+                .unwrap();
             }
-            writeln!(
-                file,
-                "        pub const {}: Self = Self({}::{}.0);",
-                name, bitmask_name, name
-            )
-            .unwrap();
         }
-
         for alias in &bitmask.aliases {
-            let name = normalize_bit_name(alias.name, value_prefix.as_deref());
-            let alias = normalize_bit_name(alias.alias, value_prefix.as_deref());
-
-            if !visited_bits.insert(name.clone()) {
-                continue;
-            }
-
-            writeln!(file, "        pub const {}: Self = Self::{};", name, alias).unwrap();
-        }
-
-        if let Some(aliases) = req.enum_aliases.get(bitmask.name) {
-            for (name, alias) in aliases {
-                let name = normalize_bit_name(name, value_prefix.as_deref());
-                let alias = normalize_bit_name(alias, value_prefix.as_deref());
-
-                if !visited_bits.insert(name.clone()) {
-                    continue;
-                }
-
-                writeln!(file, "        pub const {}: Self = Self::{};", name, alias).unwrap();
+            let aname = normalize_bit_name(alias.name, Some(vp.as_str()));
+            let target = normalize_bit_name(alias.alias, Some(vp.as_str()));
+            if visited.insert(aname.clone()) {
+                writeln!(file, "pub const {}: Self = Self::{};", aname, target).unwrap();
             }
         }
-
         for value in &bitmask.values {
-            let name = value
+            let vname = value
                 .name
-                .strip_prefix(value_prefix.as_ref().unwrap())
+                .strip_prefix(&vp)
                 .unwrap()
                 .strip_prefix('_')
                 .unwrap();
-            let name = strip_vendor_suffix(name);
-            writeln!(
-                file,
-                "        pub const {}: Self = Self({});",
-                name, value.value
-            )
-            .unwrap();
+            let vname = strip_vendor_suffix(vname);
+            writeln!(file, "pub const {}: Self = Self({});", vname, value.value).unwrap();
         }
 
-        if let Some(values) = req.enum_values.get(bitmask.name) {
-            for (name, value) in values {
-                let name = normalize_bit_name(name, value_prefix.as_deref());
-                writeln!(file, "        pub const {}: Self = Self({});", name, value).unwrap();
+        for md in &module_data {
+            let mut entries = Vec::new();
+            for (bit_name, _) in &md.bits {
+                if visited.insert(bit_name.clone()) {
+                    entries.push(format!(
+                        "pub const {}: Self = Self({}::{}.0);",
+                        bit_name, bitmask_name, bit_name
+                    ));
+                }
             }
+            for (aname, alias) in &md.aliases {
+                if visited.insert(aname.clone()) {
+                    entries.push(format!("pub const {}: Self = Self::{};", aname, alias));
+                }
+            }
+            for (vname, value) in &md.values {
+                entries.push(format!("pub const {}: Self = Self({});", vname, value));
+            }
+            write_module_group(file, &md.name, &entries);
         }
+
+        writeln!(file, "}}").unwrap();
     }
 
-    writeln!(file, "}}").unwrap();
+    // === FlagBits ===
+    writeln!(
+        file,
+        "#[repr(transparent)]
+        #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+        pub struct {}(u{});",
+        bitmask_name,
+        bitmask.bitwidth.unwrap_or(32),
+    )
+    .unwrap();
 
-    if let Some(bitmask) = bitmask {
-        let bitmask_name = normalize_ty_name(bitmask.name);
-        writeln!(
-            file,
-            "#[repr(transparent)]
-            #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
-            pub struct {}(u{});
-            impl {} {{",
-            bitmask_name,
-            bitmask.bitwidth.unwrap_or(32),
-            bitmask_name,
-        )
-        .unwrap();
+    {
+        let mut visited = HashSet::new();
+        writeln!(file, "impl {} {{", bitmask_name).unwrap();
 
-        let mut visited_bits = HashSet::new();
-
-        for (name, bit) in &bits {
-            if !visited_bits.insert(name.clone()) {
-                continue;
+        for (bit_name, bitpos) in &base_bits {
+            if visited.insert(bit_name.clone()) {
+                writeln!(
+                    file,
+                    "pub const {}: Self = Self(1 << {});",
+                    bit_name, bitpos
+                )
+                .unwrap();
             }
-            writeln!(file, "pub const {}: Self = Self(1 << {});", name, bit).unwrap();
         }
 
-        if let Some(aliases) = req.enum_aliases.get(bitmask.name) {
-            for (name, alias) in aliases {
-                let name = normalize_bit_name(name, value_prefix.as_deref());
-                let alias = normalize_bit_name(alias, value_prefix.as_deref());
-
-                if !bits.iter().any(|(n, _)| n.as_str() == alias) {
-                    continue;
+        for md in &module_data {
+            let mut entries = Vec::new();
+            for (bit_name, bitpos) in &md.bits {
+                if visited.insert(bit_name.clone()) {
+                    entries.push(format!(
+                        "pub const {}: Self = Self(1 << {});",
+                        bit_name, bitpos
+                    ));
                 }
-
-                if !visited_bits.insert(name.clone()) {
-                    continue;
-                }
-
-                writeln!(file, "pub const {}: Self = Self::{};", name, alias).unwrap();
             }
+            for (aname, alias) in &md.aliases {
+                if !all_bit_names.contains(alias.as_str()) {
+                    continue;
+                }
+                if visited.insert(aname.clone()) {
+                    entries.push(format!("pub const {}: Self = Self::{};", aname, alias));
+                }
+            }
+            write_module_group(file, &md.name, &entries);
         }
 
         writeln!(file, "}}").unwrap();

@@ -179,7 +179,6 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoDecodeFlagsKHR(Flags);
     vk_bitflags_wrapped!(VideoDecodeFlagsKHR, Flags);
-    impl VideoDecodeFlagsKHR {}
     pub type PFN_vkCmdDecodeVideoKHR = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_decode_info: *const VideoDecodeInfoKHR<'_>,

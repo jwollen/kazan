@@ -643,10 +643,13 @@ pub(super) mod defs {
         pub const DRAW_INDEXED_NV: Self = Self(5);
         pub const DRAW_NV: Self = Self(6);
         pub const DRAW_TASKS_NV: Self = Self(7);
-        pub const DISPATCH_NV: Self = Self(1000428004);
-        pub const DRAW_MESH_TASKS_NV: Self = Self(1000328000);
-        pub const PIPELINE_NV: Self = Self(1000428003);
+        // VK_EXT_descriptor_heap
         pub const PUSH_DATA_NV: Self = Self(1000135000);
+        // VK_EXT_mesh_shader
+        pub const DRAW_MESH_TASKS_NV: Self = Self(1000328000);
+        // VK_NV_device_generated_commands_compute
+        pub const PIPELINE_NV: Self = Self(1000428003);
+        pub const DISPATCH_NV: Self = Self(1000428004);
     }
     impl fmt::Debug for IndirectCommandsTokenTypeNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -659,10 +662,10 @@ pub(super) mod defs {
                 Self::DRAW_INDEXED_NV => Some("DRAW_INDEXED_NV"),
                 Self::DRAW_NV => Some("DRAW_NV"),
                 Self::DRAW_TASKS_NV => Some("DRAW_TASKS_NV"),
-                Self::DISPATCH_NV => Some("DISPATCH_NV"),
+                Self::PUSH_DATA_NV => Some("PUSH_DATA_NV"),
                 Self::DRAW_MESH_TASKS_NV => Some("DRAW_MESH_TASKS_NV"),
                 Self::PIPELINE_NV => Some("PIPELINE_NV"),
-                Self::PUSH_DATA_NV => Some("PUSH_DATA_NV"),
+                Self::DISPATCH_NV => Some("DISPATCH_NV"),
                 _ => None,
             };
             if let Some(name) = name {
