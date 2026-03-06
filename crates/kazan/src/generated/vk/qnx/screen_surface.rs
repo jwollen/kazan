@@ -114,13 +114,13 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         queue_family_index: u32,
         window: *mut _screen_window,
-    ) -> Bool32 {
+    ) -> bool {
         unsafe {
             (self.get_physical_device_screen_presentation_support_qnx)(
                 physical_device,
                 queue_family_index,
                 window,
-            )
+            ) != 0
         }
     }
 }

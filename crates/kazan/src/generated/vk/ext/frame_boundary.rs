@@ -106,8 +106,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceFrameBoundaryFeaturesEXT<'a> {
-        pub fn frame_boundary(mut self, frame_boundary: Bool32) -> Self {
-            self.frame_boundary = frame_boundary;
+        pub fn frame_boundary(mut self, frame_boundary: bool) -> Self {
+            self.frame_boundary = frame_boundary.into();
             self
         }
     }

@@ -40,22 +40,23 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceNestedCommandBufferFeaturesEXT<'a> {
-        pub fn nested_command_buffer(mut self, nested_command_buffer: Bool32) -> Self {
-            self.nested_command_buffer = nested_command_buffer;
+        pub fn nested_command_buffer(mut self, nested_command_buffer: bool) -> Self {
+            self.nested_command_buffer = nested_command_buffer.into();
             self
         }
         pub fn nested_command_buffer_rendering(
             mut self,
-            nested_command_buffer_rendering: Bool32,
+            nested_command_buffer_rendering: bool,
         ) -> Self {
-            self.nested_command_buffer_rendering = nested_command_buffer_rendering;
+            self.nested_command_buffer_rendering = nested_command_buffer_rendering.into();
             self
         }
         pub fn nested_command_buffer_simultaneous_use(
             mut self,
-            nested_command_buffer_simultaneous_use: Bool32,
+            nested_command_buffer_simultaneous_use: bool,
         ) -> Self {
-            self.nested_command_buffer_simultaneous_use = nested_command_buffer_simultaneous_use;
+            self.nested_command_buffer_simultaneous_use =
+                nested_command_buffer_simultaneous_use.into();
             self
         }
     }

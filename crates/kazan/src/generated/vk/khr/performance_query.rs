@@ -40,17 +40,17 @@ pub(super) mod defs {
     impl<'a> PhysicalDevicePerformanceQueryFeaturesKHR<'a> {
         pub fn performance_counter_query_pools(
             mut self,
-            performance_counter_query_pools: Bool32,
+            performance_counter_query_pools: bool,
         ) -> Self {
-            self.performance_counter_query_pools = performance_counter_query_pools;
+            self.performance_counter_query_pools = performance_counter_query_pools.into();
             self
         }
         pub fn performance_counter_multiple_query_pools(
             mut self,
-            performance_counter_multiple_query_pools: Bool32,
+            performance_counter_multiple_query_pools: bool,
         ) -> Self {
             self.performance_counter_multiple_query_pools =
-                performance_counter_multiple_query_pools;
+                performance_counter_multiple_query_pools.into();
             self
         }
     }
@@ -83,9 +83,9 @@ pub(super) mod defs {
     impl<'a> PhysicalDevicePerformanceQueryPropertiesKHR<'a> {
         pub fn allow_command_buffer_query_copies(
             mut self,
-            allow_command_buffer_query_copies: Bool32,
+            allow_command_buffer_query_copies: bool,
         ) -> Self {
-            self.allow_command_buffer_query_copies = allow_command_buffer_query_copies;
+            self.allow_command_buffer_query_copies = allow_command_buffer_query_copies.into();
             self
         }
     }

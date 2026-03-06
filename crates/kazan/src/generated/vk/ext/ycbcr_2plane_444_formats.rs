@@ -39,8 +39,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT<'a> {
-        pub fn ycbcr2plane444_formats(mut self, ycbcr2plane444_formats: Bool32) -> Self {
-            self.ycbcr2plane444_formats = ycbcr2plane444_formats;
+        pub fn ycbcr2plane444_formats(mut self, ycbcr2plane444_formats: bool) -> Self {
+            self.ycbcr2plane444_formats = ycbcr2plane444_formats.into();
             self
         }
     }

@@ -112,10 +112,10 @@ pub(super) mod defs {
         }
         pub fn expect_dyadic_temporal_sub_layer_pattern(
             mut self,
-            expect_dyadic_temporal_sub_layer_pattern: Bool32,
+            expect_dyadic_temporal_sub_layer_pattern: bool,
         ) -> Self {
             self.expect_dyadic_temporal_sub_layer_pattern =
-                expect_dyadic_temporal_sub_layer_pattern;
+                expect_dyadic_temporal_sub_layer_pattern.into();
             self
         }
         pub fn min_qp(mut self, min_qp: i32) -> Self {
@@ -126,18 +126,15 @@ pub(super) mod defs {
             self.max_qp = max_qp;
             self
         }
-        pub fn prefers_gop_remaining_frames(
-            mut self,
-            prefers_gop_remaining_frames: Bool32,
-        ) -> Self {
-            self.prefers_gop_remaining_frames = prefers_gop_remaining_frames;
+        pub fn prefers_gop_remaining_frames(mut self, prefers_gop_remaining_frames: bool) -> Self {
+            self.prefers_gop_remaining_frames = prefers_gop_remaining_frames.into();
             self
         }
         pub fn requires_gop_remaining_frames(
             mut self,
-            requires_gop_remaining_frames: Bool32,
+            requires_gop_remaining_frames: bool,
         ) -> Self {
-            self.requires_gop_remaining_frames = requires_gop_remaining_frames;
+            self.requires_gop_remaining_frames = requires_gop_remaining_frames.into();
             self
         }
         pub fn std_syntax_flags(mut self, std_syntax_flags: VideoEncodeH265StdFlagsKHR) -> Self {
@@ -260,8 +257,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> VideoEncodeH265SessionCreateInfoKHR<'a> {
-        pub fn use_max_level_idc(mut self, use_max_level_idc: Bool32) -> Self {
-            self.use_max_level_idc = use_max_level_idc;
+        pub fn use_max_level_idc(mut self, use_max_level_idc: bool) -> Self {
+            self.use_max_level_idc = use_max_level_idc.into();
             self
         }
         pub fn max_level_idc(mut self, max_level_idc: StdVideoH265LevelIdc) -> Self {
@@ -412,16 +409,16 @@ pub(super) mod defs {
         }
     }
     impl<'a> VideoEncodeH265SessionParametersGetInfoKHR<'a> {
-        pub fn write_std_vps(mut self, write_std_vps: Bool32) -> Self {
-            self.write_std_vps = write_std_vps;
+        pub fn write_std_vps(mut self, write_std_vps: bool) -> Self {
+            self.write_std_vps = write_std_vps.into();
             self
         }
-        pub fn write_std_sps(mut self, write_std_sps: Bool32) -> Self {
-            self.write_std_sps = write_std_sps;
+        pub fn write_std_sps(mut self, write_std_sps: bool) -> Self {
+            self.write_std_sps = write_std_sps.into();
             self
         }
-        pub fn write_std_pps(mut self, write_std_pps: Bool32) -> Self {
-            self.write_std_pps = write_std_pps;
+        pub fn write_std_pps(mut self, write_std_pps: bool) -> Self {
+            self.write_std_pps = write_std_pps.into();
             self
         }
         pub fn std_vps_id(mut self, std_vps_id: u32) -> Self {
@@ -468,16 +465,16 @@ pub(super) mod defs {
         }
     }
     impl<'a> VideoEncodeH265SessionParametersFeedbackInfoKHR<'a> {
-        pub fn has_std_vps_overrides(mut self, has_std_vps_overrides: Bool32) -> Self {
-            self.has_std_vps_overrides = has_std_vps_overrides;
+        pub fn has_std_vps_overrides(mut self, has_std_vps_overrides: bool) -> Self {
+            self.has_std_vps_overrides = has_std_vps_overrides.into();
             self
         }
-        pub fn has_std_sps_overrides(mut self, has_std_sps_overrides: Bool32) -> Self {
-            self.has_std_sps_overrides = has_std_sps_overrides;
+        pub fn has_std_sps_overrides(mut self, has_std_sps_overrides: bool) -> Self {
+            self.has_std_sps_overrides = has_std_sps_overrides.into();
             self
         }
-        pub fn has_std_pps_overrides(mut self, has_std_pps_overrides: Bool32) -> Self {
-            self.has_std_pps_overrides = has_std_pps_overrides;
+        pub fn has_std_pps_overrides(mut self, has_std_pps_overrides: bool) -> Self {
+            self.has_std_pps_overrides = has_std_pps_overrides.into();
             self
         }
     }
@@ -691,8 +688,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> VideoEncodeH265GopRemainingFrameInfoKHR<'a> {
-        pub fn use_gop_remaining_frames(mut self, use_gop_remaining_frames: Bool32) -> Self {
-            self.use_gop_remaining_frames = use_gop_remaining_frames;
+        pub fn use_gop_remaining_frames(mut self, use_gop_remaining_frames: bool) -> Self {
+            self.use_gop_remaining_frames = use_gop_remaining_frames.into();
             self
         }
         pub fn gop_remaining_i(mut self, gop_remaining_i: u32) -> Self {
@@ -745,24 +742,24 @@ pub(super) mod defs {
         }
     }
     impl<'a> VideoEncodeH265RateControlLayerInfoKHR<'a> {
-        pub fn use_min_qp(mut self, use_min_qp: Bool32) -> Self {
-            self.use_min_qp = use_min_qp;
+        pub fn use_min_qp(mut self, use_min_qp: bool) -> Self {
+            self.use_min_qp = use_min_qp.into();
             self
         }
         pub fn min_qp(mut self, min_qp: VideoEncodeH265QpKHR) -> Self {
             self.min_qp = min_qp;
             self
         }
-        pub fn use_max_qp(mut self, use_max_qp: Bool32) -> Self {
-            self.use_max_qp = use_max_qp;
+        pub fn use_max_qp(mut self, use_max_qp: bool) -> Self {
+            self.use_max_qp = use_max_qp.into();
             self
         }
         pub fn max_qp(mut self, max_qp: VideoEncodeH265QpKHR) -> Self {
             self.max_qp = max_qp;
             self
         }
-        pub fn use_max_frame_size(mut self, use_max_frame_size: Bool32) -> Self {
-            self.use_max_frame_size = use_max_frame_size;
+        pub fn use_max_frame_size(mut self, use_max_frame_size: bool) -> Self {
+            self.use_max_frame_size = use_max_frame_size.into();
             self
         }
         pub fn max_frame_size(mut self, max_frame_size: VideoEncodeH265FrameSizeKHR) -> Self {

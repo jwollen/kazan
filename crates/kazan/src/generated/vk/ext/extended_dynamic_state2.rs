@@ -46,23 +46,23 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceExtendedDynamicState2FeaturesEXT<'a> {
-        pub fn extended_dynamic_state2(mut self, extended_dynamic_state2: Bool32) -> Self {
-            self.extended_dynamic_state2 = extended_dynamic_state2;
+        pub fn extended_dynamic_state2(mut self, extended_dynamic_state2: bool) -> Self {
+            self.extended_dynamic_state2 = extended_dynamic_state2.into();
             self
         }
         pub fn extended_dynamic_state2_logic_op(
             mut self,
-            extended_dynamic_state2_logic_op: Bool32,
+            extended_dynamic_state2_logic_op: bool,
         ) -> Self {
-            self.extended_dynamic_state2_logic_op = extended_dynamic_state2_logic_op;
+            self.extended_dynamic_state2_logic_op = extended_dynamic_state2_logic_op.into();
             self
         }
         pub fn extended_dynamic_state2_patch_control_points(
             mut self,
-            extended_dynamic_state2_patch_control_points: Bool32,
+            extended_dynamic_state2_patch_control_points: bool,
         ) -> Self {
             self.extended_dynamic_state2_patch_control_points =
-                extended_dynamic_state2_patch_control_points;
+                extended_dynamic_state2_patch_control_points.into();
             self
         }
     }
@@ -114,18 +114,21 @@ impl DeviceFn {
     pub unsafe fn cmd_set_rasterizer_discard_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        rasterizer_discard_enable: Bool32,
+        rasterizer_discard_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_rasterizer_discard_enable_ext)(command_buffer, rasterizer_discard_enable)
+            (self.cmd_set_rasterizer_discard_enable_ext)(
+                command_buffer,
+                rasterizer_discard_enable.into(),
+            )
         }
     }
     pub unsafe fn cmd_set_depth_bias_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        depth_bias_enable: Bool32,
+        depth_bias_enable: bool,
     ) {
-        unsafe { (self.cmd_set_depth_bias_enable_ext)(command_buffer, depth_bias_enable) }
+        unsafe { (self.cmd_set_depth_bias_enable_ext)(command_buffer, depth_bias_enable.into()) }
     }
     pub unsafe fn cmd_set_logic_op_ext(&self, command_buffer: CommandBuffer, logic_op: LogicOp) {
         unsafe { (self.cmd_set_logic_op_ext)(command_buffer, logic_op) }
@@ -133,10 +136,13 @@ impl DeviceFn {
     pub unsafe fn cmd_set_primitive_restart_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        primitive_restart_enable: Bool32,
+        primitive_restart_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_primitive_restart_enable_ext)(command_buffer, primitive_restart_enable)
+            (self.cmd_set_primitive_restart_enable_ext)(
+                command_buffer,
+                primitive_restart_enable.into(),
+            )
         }
     }
 }

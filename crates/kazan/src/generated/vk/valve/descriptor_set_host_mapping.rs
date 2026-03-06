@@ -39,8 +39,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceDescriptorSetHostMappingFeaturesVALVE<'a> {
-        pub fn descriptor_set_host_mapping(mut self, descriptor_set_host_mapping: Bool32) -> Self {
-            self.descriptor_set_host_mapping = descriptor_set_host_mapping;
+        pub fn descriptor_set_host_mapping(mut self, descriptor_set_host_mapping: bool) -> Self {
+            self.descriptor_set_host_mapping = descriptor_set_host_mapping.into();
             self
         }
     }

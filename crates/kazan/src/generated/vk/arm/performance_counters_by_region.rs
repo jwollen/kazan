@@ -41,9 +41,9 @@ pub(super) mod defs {
     impl<'a> PhysicalDevicePerformanceCountersByRegionFeaturesARM<'a> {
         pub fn performance_counters_by_region(
             mut self,
-            performance_counters_by_region: Bool32,
+            performance_counters_by_region: bool,
         ) -> Self {
-            self.performance_counters_by_region = performance_counters_by_region;
+            self.performance_counters_by_region = performance_counters_by_region.into();
             self
         }
     }
@@ -104,8 +104,8 @@ pub(super) mod defs {
             self.region_alignment = region_alignment;
             self
         }
-        pub fn identity_transform_order(mut self, identity_transform_order: Bool32) -> Self {
-            self.identity_transform_order = identity_transform_order;
+        pub fn identity_transform_order(mut self, identity_transform_order: bool) -> Self {
+            self.identity_transform_order = identity_transform_order.into();
             self
         }
     }
@@ -212,8 +212,8 @@ pub(super) mod defs {
             self.p_counter_addresses = counter_addresses;
             self
         }
-        pub fn serialize_regions(mut self, serialize_regions: Bool32) -> Self {
-            self.serialize_regions = serialize_regions;
+        pub fn serialize_regions(mut self, serialize_regions: bool) -> Self {
+            self.serialize_regions = serialize_regions.into();
             self
         }
         pub fn counter_index_count(mut self, counter_index_count: u32) -> Self {

@@ -36,8 +36,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceShaderLongVectorFeaturesEXT<'a> {
-        pub fn long_vector(mut self, long_vector: Bool32) -> Self {
-            self.long_vector = long_vector;
+        pub fn long_vector(mut self, long_vector: bool) -> Self {
+            self.long_vector = long_vector.into();
             self
         }
     }

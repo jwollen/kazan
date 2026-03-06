@@ -36,8 +36,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceMemoryDecompressionFeaturesEXT<'a> {
-        pub fn memory_decompression(mut self, memory_decompression: Bool32) -> Self {
-            self.memory_decompression = memory_decompression;
+        pub fn memory_decompression(mut self, memory_decompression: bool) -> Self {
+            self.memory_decompression = memory_decompression.into();
             self
         }
     }

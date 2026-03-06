@@ -41,9 +41,9 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'a> {
         pub fn multiview_per_view_render_areas(
             mut self,
-            multiview_per_view_render_areas: Bool32,
+            multiview_per_view_render_areas: bool,
         ) -> Self {
-            self.multiview_per_view_render_areas = multiview_per_view_render_areas;
+            self.multiview_per_view_render_areas = multiview_per_view_render_areas.into();
             self
         }
     }

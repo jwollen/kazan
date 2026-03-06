@@ -39,8 +39,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDevicePipelineOpacityMicromapFeaturesARM<'a> {
-        pub fn pipeline_opacity_micromap(mut self, pipeline_opacity_micromap: Bool32) -> Self {
-            self.pipeline_opacity_micromap = pipeline_opacity_micromap;
+        pub fn pipeline_opacity_micromap(mut self, pipeline_opacity_micromap: bool) -> Self {
+            self.pipeline_opacity_micromap = pipeline_opacity_micromap.into();
             self
         }
     }

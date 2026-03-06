@@ -74,8 +74,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceShaderSMBuiltinsFeaturesNV<'a> {
-        pub fn shader_sm_builtins(mut self, shader_sm_builtins: Bool32) -> Self {
-            self.shader_sm_builtins = shader_sm_builtins;
+        pub fn shader_sm_builtins(mut self, shader_sm_builtins: bool) -> Self {
+            self.shader_sm_builtins = shader_sm_builtins.into();
             self
         }
     }

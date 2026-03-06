@@ -64,8 +64,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> CuModuleTexturingModeCreateInfoNVX<'a> {
-        pub fn use64bit_texturing(mut self, use64bit_texturing: Bool32) -> Self {
-            self.use64bit_texturing = use64bit_texturing;
+        pub fn use64bit_texturing(mut self, use64bit_texturing: bool) -> Self {
+            self.use64bit_texturing = use64bit_texturing.into();
             self
         }
     }

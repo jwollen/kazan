@@ -55,8 +55,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PipelineViewportWScalingStateCreateInfoNV<'a> {
-        pub fn viewport_w_scaling_enable(mut self, viewport_w_scaling_enable: Bool32) -> Self {
-            self.viewport_w_scaling_enable = viewport_w_scaling_enable;
+        pub fn viewport_w_scaling_enable(mut self, viewport_w_scaling_enable: bool) -> Self {
+            self.viewport_w_scaling_enable = viewport_w_scaling_enable.into();
             self
         }
         pub fn viewport_w_scalings(

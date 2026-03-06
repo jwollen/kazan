@@ -32,8 +32,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> RenderPassCreationControlEXT<'a> {
-        pub fn disallow_merging(mut self, disallow_merging: Bool32) -> Self {
-            self.disallow_merging = disallow_merging;
+        pub fn disallow_merging(mut self, disallow_merging: bool) -> Self {
+            self.disallow_merging = disallow_merging.into();
             self
         }
     }
@@ -169,8 +169,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'a> {
-        pub fn subpass_merge_feedback(mut self, subpass_merge_feedback: Bool32) -> Self {
-            self.subpass_merge_feedback = subpass_merge_feedback;
+        pub fn subpass_merge_feedback(mut self, subpass_merge_feedback: bool) -> Self {
+            self.subpass_merge_feedback = subpass_merge_feedback.into();
             self
         }
     }

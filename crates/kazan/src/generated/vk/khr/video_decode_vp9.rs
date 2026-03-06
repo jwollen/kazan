@@ -37,8 +37,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceVideoDecodeVP9FeaturesKHR<'a> {
-        pub fn video_decode_vp9(mut self, video_decode_vp9: Bool32) -> Self {
-            self.video_decode_vp9 = video_decode_vp9;
+        pub fn video_decode_vp9(mut self, video_decode_vp9: bool) -> Self {
+            self.video_decode_vp9 = video_decode_vp9.into();
             self
         }
     }

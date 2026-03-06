@@ -39,8 +39,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'a> {
-        pub fn graphics_pipeline_library(mut self, graphics_pipeline_library: Bool32) -> Self {
-            self.graphics_pipeline_library = graphics_pipeline_library;
+        pub fn graphics_pipeline_library(mut self, graphics_pipeline_library: bool) -> Self {
+            self.graphics_pipeline_library = graphics_pipeline_library.into();
             self
         }
     }
@@ -75,17 +75,18 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'a> {
         pub fn graphics_pipeline_library_fast_linking(
             mut self,
-            graphics_pipeline_library_fast_linking: Bool32,
+            graphics_pipeline_library_fast_linking: bool,
         ) -> Self {
-            self.graphics_pipeline_library_fast_linking = graphics_pipeline_library_fast_linking;
+            self.graphics_pipeline_library_fast_linking =
+                graphics_pipeline_library_fast_linking.into();
             self
         }
         pub fn graphics_pipeline_library_independent_interpolation_decoration(
             mut self,
-            graphics_pipeline_library_independent_interpolation_decoration: Bool32,
+            graphics_pipeline_library_independent_interpolation_decoration: bool,
         ) -> Self {
             self.graphics_pipeline_library_independent_interpolation_decoration =
-                graphics_pipeline_library_independent_interpolation_decoration;
+                graphics_pipeline_library_independent_interpolation_decoration.into();
             self
         }
     }

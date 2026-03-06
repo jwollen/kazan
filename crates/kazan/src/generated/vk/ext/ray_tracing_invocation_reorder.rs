@@ -41,9 +41,9 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceRayTracingInvocationReorderFeaturesEXT<'a> {
         pub fn ray_tracing_invocation_reorder(
             mut self,
-            ray_tracing_invocation_reorder: Bool32,
+            ray_tracing_invocation_reorder: bool,
         ) -> Self {
-            self.ray_tracing_invocation_reorder = ray_tracing_invocation_reorder;
+            self.ray_tracing_invocation_reorder = ray_tracing_invocation_reorder.into();
             self
         }
     }

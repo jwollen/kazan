@@ -36,8 +36,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceNonSeamlessCubeMapFeaturesEXT<'a> {
-        pub fn non_seamless_cube_map(mut self, non_seamless_cube_map: Bool32) -> Self {
-            self.non_seamless_cube_map = non_seamless_cube_map;
+        pub fn non_seamless_cube_map(mut self, non_seamless_cube_map: bool) -> Self {
+            self.non_seamless_cube_map = non_seamless_cube_map.into();
             self
         }
     }

@@ -43,16 +43,16 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceComputeShaderDerivativesFeaturesKHR<'a> {
         pub fn compute_derivative_group_quads(
             mut self,
-            compute_derivative_group_quads: Bool32,
+            compute_derivative_group_quads: bool,
         ) -> Self {
-            self.compute_derivative_group_quads = compute_derivative_group_quads;
+            self.compute_derivative_group_quads = compute_derivative_group_quads.into();
             self
         }
         pub fn compute_derivative_group_linear(
             mut self,
-            compute_derivative_group_linear: Bool32,
+            compute_derivative_group_linear: bool,
         ) -> Self {
-            self.compute_derivative_group_linear = compute_derivative_group_linear;
+            self.compute_derivative_group_linear = compute_derivative_group_linear.into();
             self
         }
     }
@@ -85,9 +85,9 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceComputeShaderDerivativesPropertiesKHR<'a> {
         pub fn mesh_and_task_shader_derivatives(
             mut self,
-            mesh_and_task_shader_derivatives: Bool32,
+            mesh_and_task_shader_derivatives: bool,
         ) -> Self {
-            self.mesh_and_task_shader_derivatives = mesh_and_task_shader_derivatives;
+            self.mesh_and_task_shader_derivatives = mesh_and_task_shader_derivatives.into();
             self
         }
     }

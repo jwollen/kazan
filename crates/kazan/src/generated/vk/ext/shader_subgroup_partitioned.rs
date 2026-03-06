@@ -39,8 +39,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceShaderSubgroupPartitionedFeaturesEXT<'a> {
-        pub fn shader_subgroup_partitioned(mut self, shader_subgroup_partitioned: Bool32) -> Self {
-            self.shader_subgroup_partitioned = shader_subgroup_partitioned;
+        pub fn shader_subgroup_partitioned(mut self, shader_subgroup_partitioned: bool) -> Self {
+            self.shader_subgroup_partitioned = shader_subgroup_partitioned.into();
             self
         }
     }

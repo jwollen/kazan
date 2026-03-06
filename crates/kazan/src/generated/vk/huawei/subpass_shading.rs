@@ -110,8 +110,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceSubpassShadingFeaturesHUAWEI<'a> {
-        pub fn subpass_shading(mut self, subpass_shading: Bool32) -> Self {
-            self.subpass_shading = subpass_shading;
+        pub fn subpass_shading(mut self, subpass_shading: bool) -> Self {
+            self.subpass_shading = subpass_shading.into();
             self
         }
     }

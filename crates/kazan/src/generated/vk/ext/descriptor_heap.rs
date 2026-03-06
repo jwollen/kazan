@@ -380,9 +380,9 @@ pub(super) mod defs {
         }
         pub fn use_combined_image_sampler_index(
             mut self,
-            use_combined_image_sampler_index: Bool32,
+            use_combined_image_sampler_index: bool,
         ) -> Self {
-            self.use_combined_image_sampler_index = use_combined_image_sampler_index;
+            self.use_combined_image_sampler_index = use_combined_image_sampler_index.into();
             self
         }
         pub fn sampler_heap_offset(mut self, sampler_heap_offset: u32) -> Self {
@@ -465,9 +465,9 @@ pub(super) mod defs {
         }
         pub fn use_combined_image_sampler_index(
             mut self,
-            use_combined_image_sampler_index: Bool32,
+            use_combined_image_sampler_index: bool,
         ) -> Self {
-            self.use_combined_image_sampler_index = use_combined_image_sampler_index;
+            self.use_combined_image_sampler_index = use_combined_image_sampler_index.into();
             self
         }
         pub fn sampler_heap_offset(mut self, sampler_heap_offset: u32) -> Self {
@@ -546,9 +546,9 @@ pub(super) mod defs {
         }
         pub fn use_combined_image_sampler_index(
             mut self,
-            use_combined_image_sampler_index: Bool32,
+            use_combined_image_sampler_index: bool,
         ) -> Self {
-            self.use_combined_image_sampler_index = use_combined_image_sampler_index;
+            self.use_combined_image_sampler_index = use_combined_image_sampler_index.into();
             self
         }
         pub fn sampler_heap_offset(mut self, sampler_heap_offset: u32) -> Self {
@@ -639,9 +639,9 @@ pub(super) mod defs {
         }
         pub fn use_combined_image_sampler_index(
             mut self,
-            use_combined_image_sampler_index: Bool32,
+            use_combined_image_sampler_index: bool,
         ) -> Self {
-            self.use_combined_image_sampler_index = use_combined_image_sampler_index;
+            self.use_combined_image_sampler_index = use_combined_image_sampler_index.into();
             self
         }
         pub fn sampler_heap_offset(mut self, sampler_heap_offset: u32) -> Self {
@@ -930,15 +930,15 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceDescriptorHeapFeaturesEXT<'a> {
-        pub fn descriptor_heap(mut self, descriptor_heap: Bool32) -> Self {
-            self.descriptor_heap = descriptor_heap;
+        pub fn descriptor_heap(mut self, descriptor_heap: bool) -> Self {
+            self.descriptor_heap = descriptor_heap.into();
             self
         }
         pub fn descriptor_heap_capture_replay(
             mut self,
-            descriptor_heap_capture_replay: Bool32,
+            descriptor_heap_capture_replay: bool,
         ) -> Self {
-            self.descriptor_heap_capture_replay = descriptor_heap_capture_replay;
+            self.descriptor_heap_capture_replay = descriptor_heap_capture_replay.into();
             self
         }
     }
@@ -1101,12 +1101,12 @@ pub(super) mod defs {
             self.sampler_ycbcr_conversion_count = sampler_ycbcr_conversion_count;
             self
         }
-        pub fn sparse_descriptor_heaps(mut self, sparse_descriptor_heaps: Bool32) -> Self {
-            self.sparse_descriptor_heaps = sparse_descriptor_heaps;
+        pub fn sparse_descriptor_heaps(mut self, sparse_descriptor_heaps: bool) -> Self {
+            self.sparse_descriptor_heaps = sparse_descriptor_heaps.into();
             self
         }
-        pub fn protected_descriptor_heaps(mut self, protected_descriptor_heaps: Bool32) -> Self {
-            self.protected_descriptor_heaps = protected_descriptor_heaps;
+        pub fn protected_descriptor_heaps(mut self, protected_descriptor_heaps: bool) -> Self {
+            self.protected_descriptor_heaps = protected_descriptor_heaps.into();
             self
         }
     }
@@ -1544,14 +1544,14 @@ impl DeviceFn {
         &self,
         device: Device,
         border_color: &SamplerCustomBorderColorCreateInfoEXT<'_>,
-        request_index: Bool32,
+        request_index: bool,
     ) -> crate::Result<u32> {
         unsafe {
             let mut index = core::mem::MaybeUninit::uninit();
             let result = (self.register_custom_border_color_ext.unwrap())(
                 device,
                 border_color,
-                request_index,
+                request_index.into(),
                 index.as_mut_ptr(),
             );
 

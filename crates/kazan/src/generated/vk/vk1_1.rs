@@ -354,13 +354,13 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceVariablePointersFeatures<'a> {
         pub fn variable_pointers_storage_buffer(
             mut self,
-            variable_pointers_storage_buffer: Bool32,
+            variable_pointers_storage_buffer: bool,
         ) -> Self {
-            self.variable_pointers_storage_buffer = variable_pointers_storage_buffer;
+            self.variable_pointers_storage_buffer = variable_pointers_storage_buffer.into();
             self
         }
-        pub fn variable_pointers(mut self, variable_pointers: Bool32) -> Self {
-            self.variable_pointers = variable_pointers;
+        pub fn variable_pointers(mut self, variable_pointers: bool) -> Self {
+            self.variable_pointers = variable_pointers.into();
             self
         }
     }
@@ -573,8 +573,8 @@ pub(super) mod defs {
             self.device_node_mask = device_node_mask;
             self
         }
-        pub fn device_luid_valid(mut self, device_luid_valid: Bool32) -> Self {
-            self.device_luid_valid = device_luid_valid;
+        pub fn device_luid_valid(mut self, device_luid_valid: bool) -> Self {
+            self.device_luid_valid = device_luid_valid.into();
             self
         }
     }
@@ -897,19 +897,19 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceMultiviewFeatures<'a> {
-        pub fn multiview(mut self, multiview: Bool32) -> Self {
-            self.multiview = multiview;
+        pub fn multiview(mut self, multiview: bool) -> Self {
+            self.multiview = multiview.into();
             self
         }
-        pub fn multiview_geometry_shader(mut self, multiview_geometry_shader: Bool32) -> Self {
-            self.multiview_geometry_shader = multiview_geometry_shader;
+        pub fn multiview_geometry_shader(mut self, multiview_geometry_shader: bool) -> Self {
+            self.multiview_geometry_shader = multiview_geometry_shader.into();
             self
         }
         pub fn multiview_tessellation_shader(
             mut self,
-            multiview_tessellation_shader: Bool32,
+            multiview_tessellation_shader: bool,
         ) -> Self {
-            self.multiview_tessellation_shader = multiview_tessellation_shader;
+            self.multiview_tessellation_shader = multiview_tessellation_shader.into();
             self
         }
     }
@@ -1027,8 +1027,8 @@ pub(super) mod defs {
             self.physical_devices[..physical_devices.len()].copy_from_slice(physical_devices);
             self
         }
-        pub fn subset_allocation(mut self, subset_allocation: Bool32) -> Self {
-            self.subset_allocation = subset_allocation;
+        pub fn subset_allocation(mut self, subset_allocation: bool) -> Self {
+            self.subset_allocation = subset_allocation.into();
             self
         }
     }
@@ -1603,23 +1603,24 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDevice16BitStorageFeatures<'a> {
-        pub fn storage_buffer16_bit_access(mut self, storage_buffer16_bit_access: Bool32) -> Self {
-            self.storage_buffer16_bit_access = storage_buffer16_bit_access;
+        pub fn storage_buffer16_bit_access(mut self, storage_buffer16_bit_access: bool) -> Self {
+            self.storage_buffer16_bit_access = storage_buffer16_bit_access.into();
             self
         }
         pub fn uniform_and_storage_buffer16_bit_access(
             mut self,
-            uniform_and_storage_buffer16_bit_access: Bool32,
+            uniform_and_storage_buffer16_bit_access: bool,
         ) -> Self {
-            self.uniform_and_storage_buffer16_bit_access = uniform_and_storage_buffer16_bit_access;
+            self.uniform_and_storage_buffer16_bit_access =
+                uniform_and_storage_buffer16_bit_access.into();
             self
         }
-        pub fn storage_push_constant16(mut self, storage_push_constant16: Bool32) -> Self {
-            self.storage_push_constant16 = storage_push_constant16;
+        pub fn storage_push_constant16(mut self, storage_push_constant16: bool) -> Self {
+            self.storage_push_constant16 = storage_push_constant16.into();
             self
         }
-        pub fn storage_input_output16(mut self, storage_input_output16: Bool32) -> Self {
-            self.storage_input_output16 = storage_input_output16;
+        pub fn storage_input_output16(mut self, storage_input_output16: bool) -> Self {
+            self.storage_input_output16 = storage_input_output16.into();
             self
         }
     }
@@ -1666,9 +1667,9 @@ pub(super) mod defs {
         }
         pub fn quad_operations_in_all_stages(
             mut self,
-            quad_operations_in_all_stages: Bool32,
+            quad_operations_in_all_stages: bool,
         ) -> Self {
-            self.quad_operations_in_all_stages = quad_operations_in_all_stages;
+            self.quad_operations_in_all_stages = quad_operations_in_all_stages.into();
             self
         }
     }
@@ -1871,18 +1872,15 @@ pub(super) mod defs {
         }
     }
     impl<'a> MemoryDedicatedRequirements<'a> {
-        pub fn prefers_dedicated_allocation(
-            mut self,
-            prefers_dedicated_allocation: Bool32,
-        ) -> Self {
-            self.prefers_dedicated_allocation = prefers_dedicated_allocation;
+        pub fn prefers_dedicated_allocation(mut self, prefers_dedicated_allocation: bool) -> Self {
+            self.prefers_dedicated_allocation = prefers_dedicated_allocation.into();
             self
         }
         pub fn requires_dedicated_allocation(
             mut self,
-            requires_dedicated_allocation: Bool32,
+            requires_dedicated_allocation: bool,
         ) -> Self {
-            self.requires_dedicated_allocation = requires_dedicated_allocation;
+            self.requires_dedicated_allocation = requires_dedicated_allocation.into();
             self
         }
     }
@@ -2075,9 +2073,9 @@ pub(super) mod defs {
         }
         pub fn force_explicit_reconstruction(
             mut self,
-            force_explicit_reconstruction: Bool32,
+            force_explicit_reconstruction: bool,
         ) -> Self {
-            self.force_explicit_reconstruction = force_explicit_reconstruction;
+            self.force_explicit_reconstruction = force_explicit_reconstruction.into();
             self
         }
     }
@@ -2165,8 +2163,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceSamplerYcbcrConversionFeatures<'a> {
-        pub fn sampler_ycbcr_conversion(mut self, sampler_ycbcr_conversion: Bool32) -> Self {
-            self.sampler_ycbcr_conversion = sampler_ycbcr_conversion;
+        pub fn sampler_ycbcr_conversion(mut self, sampler_ycbcr_conversion: bool) -> Self {
+            self.sampler_ycbcr_conversion = sampler_ycbcr_conversion.into();
             self
         }
     }
@@ -2228,8 +2226,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> ProtectedSubmitInfo<'a> {
-        pub fn protected_submit(mut self, protected_submit: Bool32) -> Self {
-            self.protected_submit = protected_submit;
+        pub fn protected_submit(mut self, protected_submit: bool) -> Self {
+            self.protected_submit = protected_submit.into();
             self
         }
     }
@@ -2258,8 +2256,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceProtectedMemoryFeatures<'a> {
-        pub fn protected_memory(mut self, protected_memory: Bool32) -> Self {
-            self.protected_memory = protected_memory;
+        pub fn protected_memory(mut self, protected_memory: bool) -> Self {
+            self.protected_memory = protected_memory.into();
             self
         }
     }
@@ -2290,8 +2288,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceProtectedMemoryProperties<'a> {
-        pub fn protected_no_fault(mut self, protected_no_fault: Bool32) -> Self {
-            self.protected_no_fault = protected_no_fault;
+        pub fn protected_no_fault(mut self, protected_no_fault: bool) -> Self {
+            self.protected_no_fault = protected_no_fault.into();
             self
         }
     }
@@ -2397,8 +2395,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> DescriptorSetLayoutSupport<'a> {
-        pub fn supported(mut self, supported: Bool32) -> Self {
-            self.supported = supported;
+        pub fn supported(mut self, supported: bool) -> Self {
+            self.supported = supported.into();
             self
         }
     }
@@ -2430,8 +2428,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceShaderDrawParametersFeatures<'a> {
-        pub fn shader_draw_parameters(mut self, shader_draw_parameters: Bool32) -> Self {
-            self.shader_draw_parameters = shader_draw_parameters;
+        pub fn shader_draw_parameters(mut self, shader_draw_parameters: bool) -> Self {
+            self.shader_draw_parameters = shader_draw_parameters.into();
             self
         }
     }

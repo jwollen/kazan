@@ -147,16 +147,16 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'a> {
-        pub fn ray_tracing_maintenance1(mut self, ray_tracing_maintenance1: Bool32) -> Self {
-            self.ray_tracing_maintenance1 = ray_tracing_maintenance1;
+        pub fn ray_tracing_maintenance1(mut self, ray_tracing_maintenance1: bool) -> Self {
+            self.ray_tracing_maintenance1 = ray_tracing_maintenance1.into();
             self
         }
         pub fn ray_tracing_pipeline_trace_rays_indirect2(
             mut self,
-            ray_tracing_pipeline_trace_rays_indirect2: Bool32,
+            ray_tracing_pipeline_trace_rays_indirect2: bool,
         ) -> Self {
             self.ray_tracing_pipeline_trace_rays_indirect2 =
-                ray_tracing_pipeline_trace_rays_indirect2;
+                ray_tracing_pipeline_trace_rays_indirect2.into();
             self
         }
     }

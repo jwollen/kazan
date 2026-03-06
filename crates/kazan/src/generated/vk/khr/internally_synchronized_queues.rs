@@ -41,9 +41,9 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceInternallySynchronizedQueuesFeaturesKHR<'a> {
         pub fn internally_synchronized_queues(
             mut self,
-            internally_synchronized_queues: Bool32,
+            internally_synchronized_queues: bool,
         ) -> Self {
-            self.internally_synchronized_queues = internally_synchronized_queues;
+            self.internally_synchronized_queues = internally_synchronized_queues.into();
             self
         }
     }

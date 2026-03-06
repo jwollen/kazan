@@ -365,10 +365,10 @@ pub(super) mod defs {
         }
         pub fn shader_storage_tensor_array_non_uniform_indexing_native(
             mut self,
-            shader_storage_tensor_array_non_uniform_indexing_native: Bool32,
+            shader_storage_tensor_array_non_uniform_indexing_native: bool,
         ) -> Self {
             self.shader_storage_tensor_array_non_uniform_indexing_native =
-                shader_storage_tensor_array_non_uniform_indexing_native;
+                shader_storage_tensor_array_non_uniform_indexing_native.into();
             self
         }
         pub fn shader_tensor_supported_stages(
@@ -514,40 +514,40 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceTensorFeaturesARM<'a> {
-        pub fn tensor_non_packed(mut self, tensor_non_packed: Bool32) -> Self {
-            self.tensor_non_packed = tensor_non_packed;
+        pub fn tensor_non_packed(mut self, tensor_non_packed: bool) -> Self {
+            self.tensor_non_packed = tensor_non_packed.into();
             self
         }
-        pub fn shader_tensor_access(mut self, shader_tensor_access: Bool32) -> Self {
-            self.shader_tensor_access = shader_tensor_access;
+        pub fn shader_tensor_access(mut self, shader_tensor_access: bool) -> Self {
+            self.shader_tensor_access = shader_tensor_access.into();
             self
         }
         pub fn shader_storage_tensor_array_dynamic_indexing(
             mut self,
-            shader_storage_tensor_array_dynamic_indexing: Bool32,
+            shader_storage_tensor_array_dynamic_indexing: bool,
         ) -> Self {
             self.shader_storage_tensor_array_dynamic_indexing =
-                shader_storage_tensor_array_dynamic_indexing;
+                shader_storage_tensor_array_dynamic_indexing.into();
             self
         }
         pub fn shader_storage_tensor_array_non_uniform_indexing(
             mut self,
-            shader_storage_tensor_array_non_uniform_indexing: Bool32,
+            shader_storage_tensor_array_non_uniform_indexing: bool,
         ) -> Self {
             self.shader_storage_tensor_array_non_uniform_indexing =
-                shader_storage_tensor_array_non_uniform_indexing;
+                shader_storage_tensor_array_non_uniform_indexing.into();
             self
         }
         pub fn descriptor_binding_storage_tensor_update_after_bind(
             mut self,
-            descriptor_binding_storage_tensor_update_after_bind: Bool32,
+            descriptor_binding_storage_tensor_update_after_bind: bool,
         ) -> Self {
             self.descriptor_binding_storage_tensor_update_after_bind =
-                descriptor_binding_storage_tensor_update_after_bind;
+                descriptor_binding_storage_tensor_update_after_bind.into();
             self
         }
-        pub fn tensors(mut self, tensors: Bool32) -> Self {
-            self.tensors = tensors;
+        pub fn tensors(mut self, tensors: bool) -> Self {
+            self.tensors = tensors.into();
             self
         }
     }
@@ -778,9 +778,9 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceDescriptorBufferTensorFeaturesARM<'a> {
         pub fn descriptor_buffer_tensor_descriptors(
             mut self,
-            descriptor_buffer_tensor_descriptors: Bool32,
+            descriptor_buffer_tensor_descriptors: bool,
         ) -> Self {
-            self.descriptor_buffer_tensor_descriptors = descriptor_buffer_tensor_descriptors;
+            self.descriptor_buffer_tensor_descriptors = descriptor_buffer_tensor_descriptors.into();
             self
         }
     }

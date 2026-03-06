@@ -36,8 +36,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceTilePropertiesFeaturesQCOM<'a> {
-        pub fn tile_properties(mut self, tile_properties: Bool32) -> Self {
-            self.tile_properties = tile_properties;
+        pub fn tile_properties(mut self, tile_properties: bool) -> Self {
+            self.tile_properties = tile_properties.into();
             self
         }
     }

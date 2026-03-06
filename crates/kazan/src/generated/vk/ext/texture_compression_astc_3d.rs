@@ -39,8 +39,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceTextureCompressionASTC3DFeaturesEXT<'a> {
-        pub fn texture_compression_astc_3d(mut self, texture_compression_astc_3d: Bool32) -> Self {
-            self.texture_compression_astc_3d = texture_compression_astc_3d;
+        pub fn texture_compression_astc_3d(mut self, texture_compression_astc_3d: bool) -> Self {
+            self.texture_compression_astc_3d = texture_compression_astc_3d.into();
             self
         }
     }

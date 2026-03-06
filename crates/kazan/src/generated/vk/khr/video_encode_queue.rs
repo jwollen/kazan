@@ -62,8 +62,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> VideoEncodeSessionParametersFeedbackInfoKHR<'a> {
-        pub fn has_overrides(mut self, has_overrides: Bool32) -> Self {
-            self.has_overrides = has_overrides;
+        pub fn has_overrides(mut self, has_overrides: bool) -> Self {
+            self.has_overrides = has_overrides.into();
             self
         }
     }

@@ -41,8 +41,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceDenseGeometryFormatFeaturesAMDX<'a> {
-        pub fn dense_geometry_format(mut self, dense_geometry_format: Bool32) -> Self {
-            self.dense_geometry_format = dense_geometry_format;
+        pub fn dense_geometry_format(mut self, dense_geometry_format: bool) -> Self {
+            self.dense_geometry_format = dense_geometry_format.into();
             self
         }
     }

@@ -43,24 +43,24 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT<'a> {
-        pub fn primitives_generated_query(mut self, primitives_generated_query: Bool32) -> Self {
-            self.primitives_generated_query = primitives_generated_query;
+        pub fn primitives_generated_query(mut self, primitives_generated_query: bool) -> Self {
+            self.primitives_generated_query = primitives_generated_query.into();
             self
         }
         pub fn primitives_generated_query_with_rasterizer_discard(
             mut self,
-            primitives_generated_query_with_rasterizer_discard: Bool32,
+            primitives_generated_query_with_rasterizer_discard: bool,
         ) -> Self {
             self.primitives_generated_query_with_rasterizer_discard =
-                primitives_generated_query_with_rasterizer_discard;
+                primitives_generated_query_with_rasterizer_discard.into();
             self
         }
         pub fn primitives_generated_query_with_non_zero_streams(
             mut self,
-            primitives_generated_query_with_non_zero_streams: Bool32,
+            primitives_generated_query_with_non_zero_streams: bool,
         ) -> Self {
             self.primitives_generated_query_with_non_zero_streams =
-                primitives_generated_query_with_non_zero_streams;
+                primitives_generated_query_with_non_zero_streams.into();
             self
         }
     }

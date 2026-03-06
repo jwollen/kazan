@@ -39,8 +39,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceAddressBindingReportFeaturesEXT<'a> {
-        pub fn report_address_binding(mut self, report_address_binding: Bool32) -> Self {
-            self.report_address_binding = report_address_binding;
+        pub fn report_address_binding(mut self, report_address_binding: bool) -> Self {
+            self.report_address_binding = report_address_binding.into();
             self
         }
     }

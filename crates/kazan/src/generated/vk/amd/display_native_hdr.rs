@@ -35,8 +35,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> DisplayNativeHdrSurfaceCapabilitiesAMD<'a> {
-        pub fn local_dimming_support(mut self, local_dimming_support: Bool32) -> Self {
-            self.local_dimming_support = local_dimming_support;
+        pub fn local_dimming_support(mut self, local_dimming_support: bool) -> Self {
+            self.local_dimming_support = local_dimming_support.into();
             self
         }
     }
@@ -64,8 +64,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> SwapchainDisplayNativeHdrCreateInfoAMD<'a> {
-        pub fn local_dimming_enable(mut self, local_dimming_enable: Bool32) -> Self {
-            self.local_dimming_enable = local_dimming_enable;
+        pub fn local_dimming_enable(mut self, local_dimming_enable: bool) -> Self {
+            self.local_dimming_enable = local_dimming_enable.into();
             self
         }
     }
@@ -96,8 +96,8 @@ impl DeviceFn {
         &self,
         device: Device,
         swap_chain: SwapchainKHR,
-        local_dimming_enable: Bool32,
+        local_dimming_enable: bool,
     ) {
-        unsafe { (self.set_local_dimming_amd)(device, swap_chain, local_dimming_enable) }
+        unsafe { (self.set_local_dimming_amd)(device, swap_chain, local_dimming_enable.into()) }
     }
 }

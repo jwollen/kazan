@@ -114,8 +114,8 @@ pub(super) mod defs {
             self.present_mode = present_mode;
             self
         }
-        pub fn clipped(mut self, clipped: Bool32) -> Self {
-            self.clipped = clipped;
+        pub fn clipped(mut self, clipped: bool) -> Self {
+            self.clipped = clipped.into();
             self
         }
         pub fn old_swapchain(mut self, old_swapchain: SwapchainKHR) -> Self {

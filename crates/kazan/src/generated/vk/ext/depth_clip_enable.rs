@@ -36,8 +36,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceDepthClipEnableFeaturesEXT<'a> {
-        pub fn depth_clip_enable(mut self, depth_clip_enable: Bool32) -> Self {
-            self.depth_clip_enable = depth_clip_enable;
+        pub fn depth_clip_enable(mut self, depth_clip_enable: bool) -> Self {
+            self.depth_clip_enable = depth_clip_enable.into();
             self
         }
     }
@@ -74,8 +74,8 @@ pub(super) mod defs {
             self.flags = flags;
             self
         }
-        pub fn depth_clip_enable(mut self, depth_clip_enable: Bool32) -> Self {
-            self.depth_clip_enable = depth_clip_enable;
+        pub fn depth_clip_enable(mut self, depth_clip_enable: bool) -> Self {
+            self.depth_clip_enable = depth_clip_enable.into();
             self
         }
     }

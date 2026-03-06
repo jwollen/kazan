@@ -44,22 +44,22 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceBufferDeviceAddressFeaturesEXT<'a> {
-        pub fn buffer_device_address(mut self, buffer_device_address: Bool32) -> Self {
-            self.buffer_device_address = buffer_device_address;
+        pub fn buffer_device_address(mut self, buffer_device_address: bool) -> Self {
+            self.buffer_device_address = buffer_device_address.into();
             self
         }
         pub fn buffer_device_address_capture_replay(
             mut self,
-            buffer_device_address_capture_replay: Bool32,
+            buffer_device_address_capture_replay: bool,
         ) -> Self {
-            self.buffer_device_address_capture_replay = buffer_device_address_capture_replay;
+            self.buffer_device_address_capture_replay = buffer_device_address_capture_replay.into();
             self
         }
         pub fn buffer_device_address_multi_device(
             mut self,
-            buffer_device_address_multi_device: Bool32,
+            buffer_device_address_multi_device: bool,
         ) -> Self {
-            self.buffer_device_address_multi_device = buffer_device_address_multi_device;
+            self.buffer_device_address_multi_device = buffer_device_address_multi_device.into();
             self
         }
     }

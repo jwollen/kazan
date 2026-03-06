@@ -64,8 +64,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceTileMemoryHeapFeaturesQCOM<'a> {
-        pub fn tile_memory_heap(mut self, tile_memory_heap: Bool32) -> Self {
-            self.tile_memory_heap = tile_memory_heap;
+        pub fn tile_memory_heap(mut self, tile_memory_heap: bool) -> Self {
+            self.tile_memory_heap = tile_memory_heap.into();
             self
         }
     }
@@ -98,12 +98,12 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceTileMemoryHeapPropertiesQCOM<'a> {
-        pub fn queue_submit_boundary(mut self, queue_submit_boundary: Bool32) -> Self {
-            self.queue_submit_boundary = queue_submit_boundary;
+        pub fn queue_submit_boundary(mut self, queue_submit_boundary: bool) -> Self {
+            self.queue_submit_boundary = queue_submit_boundary.into();
             self
         }
-        pub fn tile_buffer_transfers(mut self, tile_buffer_transfers: Bool32) -> Self {
-            self.tile_buffer_transfers = tile_buffer_transfers;
+        pub fn tile_buffer_transfers(mut self, tile_buffer_transfers: bool) -> Self {
+            self.tile_buffer_transfers = tile_buffer_transfers.into();
             self
         }
     }

@@ -42,23 +42,24 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceShaderTileImageFeaturesEXT<'a> {
         pub fn shader_tile_image_color_read_access(
             mut self,
-            shader_tile_image_color_read_access: Bool32,
+            shader_tile_image_color_read_access: bool,
         ) -> Self {
-            self.shader_tile_image_color_read_access = shader_tile_image_color_read_access;
+            self.shader_tile_image_color_read_access = shader_tile_image_color_read_access.into();
             self
         }
         pub fn shader_tile_image_depth_read_access(
             mut self,
-            shader_tile_image_depth_read_access: Bool32,
+            shader_tile_image_depth_read_access: bool,
         ) -> Self {
-            self.shader_tile_image_depth_read_access = shader_tile_image_depth_read_access;
+            self.shader_tile_image_depth_read_access = shader_tile_image_depth_read_access.into();
             self
         }
         pub fn shader_tile_image_stencil_read_access(
             mut self,
-            shader_tile_image_stencil_read_access: Bool32,
+            shader_tile_image_stencil_read_access: bool,
         ) -> Self {
-            self.shader_tile_image_stencil_read_access = shader_tile_image_stencil_read_access;
+            self.shader_tile_image_stencil_read_access =
+                shader_tile_image_stencil_read_access.into();
             self
         }
     }
@@ -95,26 +96,26 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceShaderTileImagePropertiesEXT<'a> {
         pub fn shader_tile_image_coherent_read_accelerated(
             mut self,
-            shader_tile_image_coherent_read_accelerated: Bool32,
+            shader_tile_image_coherent_read_accelerated: bool,
         ) -> Self {
             self.shader_tile_image_coherent_read_accelerated =
-                shader_tile_image_coherent_read_accelerated;
+                shader_tile_image_coherent_read_accelerated.into();
             self
         }
         pub fn shader_tile_image_read_sample_from_pixel_rate_invocation(
             mut self,
-            shader_tile_image_read_sample_from_pixel_rate_invocation: Bool32,
+            shader_tile_image_read_sample_from_pixel_rate_invocation: bool,
         ) -> Self {
             self.shader_tile_image_read_sample_from_pixel_rate_invocation =
-                shader_tile_image_read_sample_from_pixel_rate_invocation;
+                shader_tile_image_read_sample_from_pixel_rate_invocation.into();
             self
         }
         pub fn shader_tile_image_read_from_helper_invocation(
             mut self,
-            shader_tile_image_read_from_helper_invocation: Bool32,
+            shader_tile_image_read_from_helper_invocation: bool,
         ) -> Self {
             self.shader_tile_image_read_from_helper_invocation =
-                shader_tile_image_read_from_helper_invocation;
+                shader_tile_image_read_from_helper_invocation.into();
             self
         }
     }

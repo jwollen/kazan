@@ -107,9 +107,9 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceShaderSubgroupExtendedTypesFeatures<'a> {
         pub fn shader_subgroup_extended_types(
             mut self,
-            shader_subgroup_extended_types: Bool32,
+            shader_subgroup_extended_types: bool,
         ) -> Self {
-            self.shader_subgroup_extended_types = shader_subgroup_extended_types;
+            self.shader_subgroup_extended_types = shader_subgroup_extended_types.into();
             self
         }
     }
@@ -144,16 +144,18 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceSamplerFilterMinmaxProperties<'a> {
         pub fn filter_minmax_single_component_formats(
             mut self,
-            filter_minmax_single_component_formats: Bool32,
+            filter_minmax_single_component_formats: bool,
         ) -> Self {
-            self.filter_minmax_single_component_formats = filter_minmax_single_component_formats;
+            self.filter_minmax_single_component_formats =
+                filter_minmax_single_component_formats.into();
             self
         }
         pub fn filter_minmax_image_component_mapping(
             mut self,
-            filter_minmax_image_component_mapping: Bool32,
+            filter_minmax_image_component_mapping: bool,
         ) -> Self {
-            self.filter_minmax_image_component_mapping = filter_minmax_image_component_mapping;
+            self.filter_minmax_image_component_mapping =
+                filter_minmax_image_component_mapping.into();
             self
         }
     }
@@ -248,12 +250,12 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceShaderFloat16Int8Features<'a> {
-        pub fn shader_float16(mut self, shader_float16: Bool32) -> Self {
-            self.shader_float16 = shader_float16;
+        pub fn shader_float16(mut self, shader_float16: bool) -> Self {
+            self.shader_float16 = shader_float16.into();
             self
         }
-        pub fn shader_int8(mut self, shader_int8: Bool32) -> Self {
-            self.shader_int8 = shader_int8;
+        pub fn shader_int8(mut self, shader_int8: bool) -> Self {
+            self.shader_int8 = shader_int8.into();
             self
         }
     }
@@ -332,110 +334,110 @@ pub(super) mod defs {
         }
         pub fn shader_signed_zero_inf_nan_preserve_float16(
             mut self,
-            shader_signed_zero_inf_nan_preserve_float16: Bool32,
+            shader_signed_zero_inf_nan_preserve_float16: bool,
         ) -> Self {
             self.shader_signed_zero_inf_nan_preserve_float16 =
-                shader_signed_zero_inf_nan_preserve_float16;
+                shader_signed_zero_inf_nan_preserve_float16.into();
             self
         }
         pub fn shader_signed_zero_inf_nan_preserve_float32(
             mut self,
-            shader_signed_zero_inf_nan_preserve_float32: Bool32,
+            shader_signed_zero_inf_nan_preserve_float32: bool,
         ) -> Self {
             self.shader_signed_zero_inf_nan_preserve_float32 =
-                shader_signed_zero_inf_nan_preserve_float32;
+                shader_signed_zero_inf_nan_preserve_float32.into();
             self
         }
         pub fn shader_signed_zero_inf_nan_preserve_float64(
             mut self,
-            shader_signed_zero_inf_nan_preserve_float64: Bool32,
+            shader_signed_zero_inf_nan_preserve_float64: bool,
         ) -> Self {
             self.shader_signed_zero_inf_nan_preserve_float64 =
-                shader_signed_zero_inf_nan_preserve_float64;
+                shader_signed_zero_inf_nan_preserve_float64.into();
             self
         }
         pub fn shader_denorm_preserve_float16(
             mut self,
-            shader_denorm_preserve_float16: Bool32,
+            shader_denorm_preserve_float16: bool,
         ) -> Self {
-            self.shader_denorm_preserve_float16 = shader_denorm_preserve_float16;
+            self.shader_denorm_preserve_float16 = shader_denorm_preserve_float16.into();
             self
         }
         pub fn shader_denorm_preserve_float32(
             mut self,
-            shader_denorm_preserve_float32: Bool32,
+            shader_denorm_preserve_float32: bool,
         ) -> Self {
-            self.shader_denorm_preserve_float32 = shader_denorm_preserve_float32;
+            self.shader_denorm_preserve_float32 = shader_denorm_preserve_float32.into();
             self
         }
         pub fn shader_denorm_preserve_float64(
             mut self,
-            shader_denorm_preserve_float64: Bool32,
+            shader_denorm_preserve_float64: bool,
         ) -> Self {
-            self.shader_denorm_preserve_float64 = shader_denorm_preserve_float64;
+            self.shader_denorm_preserve_float64 = shader_denorm_preserve_float64.into();
             self
         }
         pub fn shader_denorm_flush_to_zero_float16(
             mut self,
-            shader_denorm_flush_to_zero_float16: Bool32,
+            shader_denorm_flush_to_zero_float16: bool,
         ) -> Self {
-            self.shader_denorm_flush_to_zero_float16 = shader_denorm_flush_to_zero_float16;
+            self.shader_denorm_flush_to_zero_float16 = shader_denorm_flush_to_zero_float16.into();
             self
         }
         pub fn shader_denorm_flush_to_zero_float32(
             mut self,
-            shader_denorm_flush_to_zero_float32: Bool32,
+            shader_denorm_flush_to_zero_float32: bool,
         ) -> Self {
-            self.shader_denorm_flush_to_zero_float32 = shader_denorm_flush_to_zero_float32;
+            self.shader_denorm_flush_to_zero_float32 = shader_denorm_flush_to_zero_float32.into();
             self
         }
         pub fn shader_denorm_flush_to_zero_float64(
             mut self,
-            shader_denorm_flush_to_zero_float64: Bool32,
+            shader_denorm_flush_to_zero_float64: bool,
         ) -> Self {
-            self.shader_denorm_flush_to_zero_float64 = shader_denorm_flush_to_zero_float64;
+            self.shader_denorm_flush_to_zero_float64 = shader_denorm_flush_to_zero_float64.into();
             self
         }
         pub fn shader_rounding_mode_rte_float16(
             mut self,
-            shader_rounding_mode_rte_float16: Bool32,
+            shader_rounding_mode_rte_float16: bool,
         ) -> Self {
-            self.shader_rounding_mode_rte_float16 = shader_rounding_mode_rte_float16;
+            self.shader_rounding_mode_rte_float16 = shader_rounding_mode_rte_float16.into();
             self
         }
         pub fn shader_rounding_mode_rte_float32(
             mut self,
-            shader_rounding_mode_rte_float32: Bool32,
+            shader_rounding_mode_rte_float32: bool,
         ) -> Self {
-            self.shader_rounding_mode_rte_float32 = shader_rounding_mode_rte_float32;
+            self.shader_rounding_mode_rte_float32 = shader_rounding_mode_rte_float32.into();
             self
         }
         pub fn shader_rounding_mode_rte_float64(
             mut self,
-            shader_rounding_mode_rte_float64: Bool32,
+            shader_rounding_mode_rte_float64: bool,
         ) -> Self {
-            self.shader_rounding_mode_rte_float64 = shader_rounding_mode_rte_float64;
+            self.shader_rounding_mode_rte_float64 = shader_rounding_mode_rte_float64.into();
             self
         }
         pub fn shader_rounding_mode_rtz_float16(
             mut self,
-            shader_rounding_mode_rtz_float16: Bool32,
+            shader_rounding_mode_rtz_float16: bool,
         ) -> Self {
-            self.shader_rounding_mode_rtz_float16 = shader_rounding_mode_rtz_float16;
+            self.shader_rounding_mode_rtz_float16 = shader_rounding_mode_rtz_float16.into();
             self
         }
         pub fn shader_rounding_mode_rtz_float32(
             mut self,
-            shader_rounding_mode_rtz_float32: Bool32,
+            shader_rounding_mode_rtz_float32: bool,
         ) -> Self {
-            self.shader_rounding_mode_rtz_float32 = shader_rounding_mode_rtz_float32;
+            self.shader_rounding_mode_rtz_float32 = shader_rounding_mode_rtz_float32.into();
             self
         }
         pub fn shader_rounding_mode_rtz_float64(
             mut self,
-            shader_rounding_mode_rtz_float64: Bool32,
+            shader_rounding_mode_rtz_float64: bool,
         ) -> Self {
-            self.shader_rounding_mode_rtz_float64 = shader_rounding_mode_rtz_float64;
+            self.shader_rounding_mode_rtz_float64 = shader_rounding_mode_rtz_float64.into();
             self
         }
     }
@@ -464,8 +466,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceHostQueryResetFeatures<'a> {
-        pub fn host_query_reset(mut self, host_query_reset: Bool32) -> Self {
-            self.host_query_reset = host_query_reset;
+        pub fn host_query_reset(mut self, host_query_reset: bool) -> Self {
+            self.host_query_reset = host_query_reset.into();
             self
         }
     }
@@ -537,157 +539,157 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceDescriptorIndexingFeatures<'a> {
         pub fn shader_input_attachment_array_dynamic_indexing(
             mut self,
-            shader_input_attachment_array_dynamic_indexing: Bool32,
+            shader_input_attachment_array_dynamic_indexing: bool,
         ) -> Self {
             self.shader_input_attachment_array_dynamic_indexing =
-                shader_input_attachment_array_dynamic_indexing;
+                shader_input_attachment_array_dynamic_indexing.into();
             self
         }
         pub fn shader_uniform_texel_buffer_array_dynamic_indexing(
             mut self,
-            shader_uniform_texel_buffer_array_dynamic_indexing: Bool32,
+            shader_uniform_texel_buffer_array_dynamic_indexing: bool,
         ) -> Self {
             self.shader_uniform_texel_buffer_array_dynamic_indexing =
-                shader_uniform_texel_buffer_array_dynamic_indexing;
+                shader_uniform_texel_buffer_array_dynamic_indexing.into();
             self
         }
         pub fn shader_storage_texel_buffer_array_dynamic_indexing(
             mut self,
-            shader_storage_texel_buffer_array_dynamic_indexing: Bool32,
+            shader_storage_texel_buffer_array_dynamic_indexing: bool,
         ) -> Self {
             self.shader_storage_texel_buffer_array_dynamic_indexing =
-                shader_storage_texel_buffer_array_dynamic_indexing;
+                shader_storage_texel_buffer_array_dynamic_indexing.into();
             self
         }
         pub fn shader_uniform_buffer_array_non_uniform_indexing(
             mut self,
-            shader_uniform_buffer_array_non_uniform_indexing: Bool32,
+            shader_uniform_buffer_array_non_uniform_indexing: bool,
         ) -> Self {
             self.shader_uniform_buffer_array_non_uniform_indexing =
-                shader_uniform_buffer_array_non_uniform_indexing;
+                shader_uniform_buffer_array_non_uniform_indexing.into();
             self
         }
         pub fn shader_sampled_image_array_non_uniform_indexing(
             mut self,
-            shader_sampled_image_array_non_uniform_indexing: Bool32,
+            shader_sampled_image_array_non_uniform_indexing: bool,
         ) -> Self {
             self.shader_sampled_image_array_non_uniform_indexing =
-                shader_sampled_image_array_non_uniform_indexing;
+                shader_sampled_image_array_non_uniform_indexing.into();
             self
         }
         pub fn shader_storage_buffer_array_non_uniform_indexing(
             mut self,
-            shader_storage_buffer_array_non_uniform_indexing: Bool32,
+            shader_storage_buffer_array_non_uniform_indexing: bool,
         ) -> Self {
             self.shader_storage_buffer_array_non_uniform_indexing =
-                shader_storage_buffer_array_non_uniform_indexing;
+                shader_storage_buffer_array_non_uniform_indexing.into();
             self
         }
         pub fn shader_storage_image_array_non_uniform_indexing(
             mut self,
-            shader_storage_image_array_non_uniform_indexing: Bool32,
+            shader_storage_image_array_non_uniform_indexing: bool,
         ) -> Self {
             self.shader_storage_image_array_non_uniform_indexing =
-                shader_storage_image_array_non_uniform_indexing;
+                shader_storage_image_array_non_uniform_indexing.into();
             self
         }
         pub fn shader_input_attachment_array_non_uniform_indexing(
             mut self,
-            shader_input_attachment_array_non_uniform_indexing: Bool32,
+            shader_input_attachment_array_non_uniform_indexing: bool,
         ) -> Self {
             self.shader_input_attachment_array_non_uniform_indexing =
-                shader_input_attachment_array_non_uniform_indexing;
+                shader_input_attachment_array_non_uniform_indexing.into();
             self
         }
         pub fn shader_uniform_texel_buffer_array_non_uniform_indexing(
             mut self,
-            shader_uniform_texel_buffer_array_non_uniform_indexing: Bool32,
+            shader_uniform_texel_buffer_array_non_uniform_indexing: bool,
         ) -> Self {
             self.shader_uniform_texel_buffer_array_non_uniform_indexing =
-                shader_uniform_texel_buffer_array_non_uniform_indexing;
+                shader_uniform_texel_buffer_array_non_uniform_indexing.into();
             self
         }
         pub fn shader_storage_texel_buffer_array_non_uniform_indexing(
             mut self,
-            shader_storage_texel_buffer_array_non_uniform_indexing: Bool32,
+            shader_storage_texel_buffer_array_non_uniform_indexing: bool,
         ) -> Self {
             self.shader_storage_texel_buffer_array_non_uniform_indexing =
-                shader_storage_texel_buffer_array_non_uniform_indexing;
+                shader_storage_texel_buffer_array_non_uniform_indexing.into();
             self
         }
         pub fn descriptor_binding_uniform_buffer_update_after_bind(
             mut self,
-            descriptor_binding_uniform_buffer_update_after_bind: Bool32,
+            descriptor_binding_uniform_buffer_update_after_bind: bool,
         ) -> Self {
             self.descriptor_binding_uniform_buffer_update_after_bind =
-                descriptor_binding_uniform_buffer_update_after_bind;
+                descriptor_binding_uniform_buffer_update_after_bind.into();
             self
         }
         pub fn descriptor_binding_sampled_image_update_after_bind(
             mut self,
-            descriptor_binding_sampled_image_update_after_bind: Bool32,
+            descriptor_binding_sampled_image_update_after_bind: bool,
         ) -> Self {
             self.descriptor_binding_sampled_image_update_after_bind =
-                descriptor_binding_sampled_image_update_after_bind;
+                descriptor_binding_sampled_image_update_after_bind.into();
             self
         }
         pub fn descriptor_binding_storage_image_update_after_bind(
             mut self,
-            descriptor_binding_storage_image_update_after_bind: Bool32,
+            descriptor_binding_storage_image_update_after_bind: bool,
         ) -> Self {
             self.descriptor_binding_storage_image_update_after_bind =
-                descriptor_binding_storage_image_update_after_bind;
+                descriptor_binding_storage_image_update_after_bind.into();
             self
         }
         pub fn descriptor_binding_storage_buffer_update_after_bind(
             mut self,
-            descriptor_binding_storage_buffer_update_after_bind: Bool32,
+            descriptor_binding_storage_buffer_update_after_bind: bool,
         ) -> Self {
             self.descriptor_binding_storage_buffer_update_after_bind =
-                descriptor_binding_storage_buffer_update_after_bind;
+                descriptor_binding_storage_buffer_update_after_bind.into();
             self
         }
         pub fn descriptor_binding_uniform_texel_buffer_update_after_bind(
             mut self,
-            descriptor_binding_uniform_texel_buffer_update_after_bind: Bool32,
+            descriptor_binding_uniform_texel_buffer_update_after_bind: bool,
         ) -> Self {
             self.descriptor_binding_uniform_texel_buffer_update_after_bind =
-                descriptor_binding_uniform_texel_buffer_update_after_bind;
+                descriptor_binding_uniform_texel_buffer_update_after_bind.into();
             self
         }
         pub fn descriptor_binding_storage_texel_buffer_update_after_bind(
             mut self,
-            descriptor_binding_storage_texel_buffer_update_after_bind: Bool32,
+            descriptor_binding_storage_texel_buffer_update_after_bind: bool,
         ) -> Self {
             self.descriptor_binding_storage_texel_buffer_update_after_bind =
-                descriptor_binding_storage_texel_buffer_update_after_bind;
+                descriptor_binding_storage_texel_buffer_update_after_bind.into();
             self
         }
         pub fn descriptor_binding_update_unused_while_pending(
             mut self,
-            descriptor_binding_update_unused_while_pending: Bool32,
+            descriptor_binding_update_unused_while_pending: bool,
         ) -> Self {
             self.descriptor_binding_update_unused_while_pending =
-                descriptor_binding_update_unused_while_pending;
+                descriptor_binding_update_unused_while_pending.into();
             self
         }
         pub fn descriptor_binding_partially_bound(
             mut self,
-            descriptor_binding_partially_bound: Bool32,
+            descriptor_binding_partially_bound: bool,
         ) -> Self {
-            self.descriptor_binding_partially_bound = descriptor_binding_partially_bound;
+            self.descriptor_binding_partially_bound = descriptor_binding_partially_bound.into();
             self
         }
         pub fn descriptor_binding_variable_descriptor_count(
             mut self,
-            descriptor_binding_variable_descriptor_count: Bool32,
+            descriptor_binding_variable_descriptor_count: bool,
         ) -> Self {
             self.descriptor_binding_variable_descriptor_count =
-                descriptor_binding_variable_descriptor_count;
+                descriptor_binding_variable_descriptor_count.into();
             self
         }
-        pub fn runtime_descriptor_array(mut self, runtime_descriptor_array: Bool32) -> Self {
-            self.runtime_descriptor_array = runtime_descriptor_array;
+        pub fn runtime_descriptor_array(mut self, runtime_descriptor_array: bool) -> Self {
+            self.runtime_descriptor_array = runtime_descriptor_array.into();
             self
         }
     }
@@ -772,53 +774,54 @@ pub(super) mod defs {
         }
         pub fn shader_uniform_buffer_array_non_uniform_indexing_native(
             mut self,
-            shader_uniform_buffer_array_non_uniform_indexing_native: Bool32,
+            shader_uniform_buffer_array_non_uniform_indexing_native: bool,
         ) -> Self {
             self.shader_uniform_buffer_array_non_uniform_indexing_native =
-                shader_uniform_buffer_array_non_uniform_indexing_native;
+                shader_uniform_buffer_array_non_uniform_indexing_native.into();
             self
         }
         pub fn shader_sampled_image_array_non_uniform_indexing_native(
             mut self,
-            shader_sampled_image_array_non_uniform_indexing_native: Bool32,
+            shader_sampled_image_array_non_uniform_indexing_native: bool,
         ) -> Self {
             self.shader_sampled_image_array_non_uniform_indexing_native =
-                shader_sampled_image_array_non_uniform_indexing_native;
+                shader_sampled_image_array_non_uniform_indexing_native.into();
             self
         }
         pub fn shader_storage_buffer_array_non_uniform_indexing_native(
             mut self,
-            shader_storage_buffer_array_non_uniform_indexing_native: Bool32,
+            shader_storage_buffer_array_non_uniform_indexing_native: bool,
         ) -> Self {
             self.shader_storage_buffer_array_non_uniform_indexing_native =
-                shader_storage_buffer_array_non_uniform_indexing_native;
+                shader_storage_buffer_array_non_uniform_indexing_native.into();
             self
         }
         pub fn shader_storage_image_array_non_uniform_indexing_native(
             mut self,
-            shader_storage_image_array_non_uniform_indexing_native: Bool32,
+            shader_storage_image_array_non_uniform_indexing_native: bool,
         ) -> Self {
             self.shader_storage_image_array_non_uniform_indexing_native =
-                shader_storage_image_array_non_uniform_indexing_native;
+                shader_storage_image_array_non_uniform_indexing_native.into();
             self
         }
         pub fn shader_input_attachment_array_non_uniform_indexing_native(
             mut self,
-            shader_input_attachment_array_non_uniform_indexing_native: Bool32,
+            shader_input_attachment_array_non_uniform_indexing_native: bool,
         ) -> Self {
             self.shader_input_attachment_array_non_uniform_indexing_native =
-                shader_input_attachment_array_non_uniform_indexing_native;
+                shader_input_attachment_array_non_uniform_indexing_native.into();
             self
         }
         pub fn robust_buffer_access_update_after_bind(
             mut self,
-            robust_buffer_access_update_after_bind: Bool32,
+            robust_buffer_access_update_after_bind: bool,
         ) -> Self {
-            self.robust_buffer_access_update_after_bind = robust_buffer_access_update_after_bind;
+            self.robust_buffer_access_update_after_bind =
+                robust_buffer_access_update_after_bind.into();
             self
         }
-        pub fn quad_divergent_implicit_lod(mut self, quad_divergent_implicit_lod: Bool32) -> Self {
-            self.quad_divergent_implicit_lod = quad_divergent_implicit_lod;
+        pub fn quad_divergent_implicit_lod(mut self, quad_divergent_implicit_lod: bool) -> Self {
+            self.quad_divergent_implicit_lod = quad_divergent_implicit_lod.into();
             self
         }
         pub fn max_per_stage_descriptor_update_after_bind_samplers(
@@ -1456,8 +1459,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceTimelineSemaphoreFeatures<'a> {
-        pub fn timeline_semaphore(mut self, timeline_semaphore: Bool32) -> Self {
-            self.timeline_semaphore = timeline_semaphore;
+        pub fn timeline_semaphore(mut self, timeline_semaphore: bool) -> Self {
+            self.timeline_semaphore = timeline_semaphore.into();
             self
         }
     }
@@ -1676,19 +1679,20 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDevice8BitStorageFeatures<'a> {
-        pub fn storage_buffer8_bit_access(mut self, storage_buffer8_bit_access: Bool32) -> Self {
-            self.storage_buffer8_bit_access = storage_buffer8_bit_access;
+        pub fn storage_buffer8_bit_access(mut self, storage_buffer8_bit_access: bool) -> Self {
+            self.storage_buffer8_bit_access = storage_buffer8_bit_access.into();
             self
         }
         pub fn uniform_and_storage_buffer8_bit_access(
             mut self,
-            uniform_and_storage_buffer8_bit_access: Bool32,
+            uniform_and_storage_buffer8_bit_access: bool,
         ) -> Self {
-            self.uniform_and_storage_buffer8_bit_access = uniform_and_storage_buffer8_bit_access;
+            self.uniform_and_storage_buffer8_bit_access =
+                uniform_and_storage_buffer8_bit_access.into();
             self
         }
-        pub fn storage_push_constant8(mut self, storage_push_constant8: Bool32) -> Self {
-            self.storage_push_constant8 = storage_push_constant8;
+        pub fn storage_push_constant8(mut self, storage_push_constant8: bool) -> Self {
+            self.storage_push_constant8 = storage_push_constant8.into();
             self
         }
     }
@@ -1724,23 +1728,23 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceVulkanMemoryModelFeatures<'a> {
-        pub fn vulkan_memory_model(mut self, vulkan_memory_model: Bool32) -> Self {
-            self.vulkan_memory_model = vulkan_memory_model;
+        pub fn vulkan_memory_model(mut self, vulkan_memory_model: bool) -> Self {
+            self.vulkan_memory_model = vulkan_memory_model.into();
             self
         }
         pub fn vulkan_memory_model_device_scope(
             mut self,
-            vulkan_memory_model_device_scope: Bool32,
+            vulkan_memory_model_device_scope: bool,
         ) -> Self {
-            self.vulkan_memory_model_device_scope = vulkan_memory_model_device_scope;
+            self.vulkan_memory_model_device_scope = vulkan_memory_model_device_scope.into();
             self
         }
         pub fn vulkan_memory_model_availability_visibility_chains(
             mut self,
-            vulkan_memory_model_availability_visibility_chains: Bool32,
+            vulkan_memory_model_availability_visibility_chains: bool,
         ) -> Self {
             self.vulkan_memory_model_availability_visibility_chains =
-                vulkan_memory_model_availability_visibility_chains;
+                vulkan_memory_model_availability_visibility_chains.into();
             self
         }
     }
@@ -1774,12 +1778,12 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceShaderAtomicInt64Features<'a> {
-        pub fn shader_buffer_int64_atomics(mut self, shader_buffer_int64_atomics: Bool32) -> Self {
-            self.shader_buffer_int64_atomics = shader_buffer_int64_atomics;
+        pub fn shader_buffer_int64_atomics(mut self, shader_buffer_int64_atomics: bool) -> Self {
+            self.shader_buffer_int64_atomics = shader_buffer_int64_atomics.into();
             self
         }
-        pub fn shader_shared_int64_atomics(mut self, shader_shared_int64_atomics: Bool32) -> Self {
-            self.shader_shared_int64_atomics = shader_shared_int64_atomics;
+        pub fn shader_shared_int64_atomics(mut self, shader_shared_int64_atomics: bool) -> Self {
+            self.shader_shared_int64_atomics = shader_shared_int64_atomics.into();
             self
         }
     }
@@ -1830,12 +1834,12 @@ pub(super) mod defs {
             self.supported_stencil_resolve_modes = supported_stencil_resolve_modes;
             self
         }
-        pub fn independent_resolve_none(mut self, independent_resolve_none: Bool32) -> Self {
-            self.independent_resolve_none = independent_resolve_none;
+        pub fn independent_resolve_none(mut self, independent_resolve_none: bool) -> Self {
+            self.independent_resolve_none = independent_resolve_none.into();
             self
         }
-        pub fn independent_resolve(mut self, independent_resolve: Bool32) -> Self {
-            self.independent_resolve = independent_resolve;
+        pub fn independent_resolve(mut self, independent_resolve: bool) -> Self {
+            self.independent_resolve = independent_resolve.into();
             self
         }
     }
@@ -1940,8 +1944,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceScalarBlockLayoutFeatures<'a> {
-        pub fn scalar_block_layout(mut self, scalar_block_layout: Bool32) -> Self {
-            self.scalar_block_layout = scalar_block_layout;
+        pub fn scalar_block_layout(mut self, scalar_block_layout: bool) -> Self {
+            self.scalar_block_layout = scalar_block_layout.into();
             self
         }
     }
@@ -1978,9 +1982,9 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceUniformBufferStandardLayoutFeatures<'a> {
         pub fn uniform_buffer_standard_layout(
             mut self,
-            uniform_buffer_standard_layout: Bool32,
+            uniform_buffer_standard_layout: bool,
         ) -> Self {
-            self.uniform_buffer_standard_layout = uniform_buffer_standard_layout;
+            self.uniform_buffer_standard_layout = uniform_buffer_standard_layout.into();
             self
         }
     }
@@ -2016,22 +2020,22 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceBufferDeviceAddressFeatures<'a> {
-        pub fn buffer_device_address(mut self, buffer_device_address: Bool32) -> Self {
-            self.buffer_device_address = buffer_device_address;
+        pub fn buffer_device_address(mut self, buffer_device_address: bool) -> Self {
+            self.buffer_device_address = buffer_device_address.into();
             self
         }
         pub fn buffer_device_address_capture_replay(
             mut self,
-            buffer_device_address_capture_replay: Bool32,
+            buffer_device_address_capture_replay: bool,
         ) -> Self {
-            self.buffer_device_address_capture_replay = buffer_device_address_capture_replay;
+            self.buffer_device_address_capture_replay = buffer_device_address_capture_replay.into();
             self
         }
         pub fn buffer_device_address_multi_device(
             mut self,
-            buffer_device_address_multi_device: Bool32,
+            buffer_device_address_multi_device: bool,
         ) -> Self {
-            self.buffer_device_address_multi_device = buffer_device_address_multi_device;
+            self.buffer_device_address_multi_device = buffer_device_address_multi_device.into();
             self
         }
     }
@@ -2119,8 +2123,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceImagelessFramebufferFeatures<'a> {
-        pub fn imageless_framebuffer(mut self, imageless_framebuffer: Bool32) -> Self {
-            self.imageless_framebuffer = imageless_framebuffer;
+        pub fn imageless_framebuffer(mut self, imageless_framebuffer: bool) -> Self {
+            self.imageless_framebuffer = imageless_framebuffer.into();
             self
         }
     }
@@ -2282,9 +2286,9 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceSeparateDepthStencilLayoutsFeatures<'a> {
         pub fn separate_depth_stencil_layouts(
             mut self,
-            separate_depth_stencil_layouts: Bool32,
+            separate_depth_stencil_layouts: bool,
         ) -> Self {
-            self.separate_depth_stencil_layouts = separate_depth_stencil_layouts;
+            self.separate_depth_stencil_layouts = separate_depth_stencil_layouts.into();
             self
         }
     }
@@ -2453,61 +2457,62 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceVulkan11Features<'a> {
-        pub fn storage_buffer16_bit_access(mut self, storage_buffer16_bit_access: Bool32) -> Self {
-            self.storage_buffer16_bit_access = storage_buffer16_bit_access;
+        pub fn storage_buffer16_bit_access(mut self, storage_buffer16_bit_access: bool) -> Self {
+            self.storage_buffer16_bit_access = storage_buffer16_bit_access.into();
             self
         }
         pub fn uniform_and_storage_buffer16_bit_access(
             mut self,
-            uniform_and_storage_buffer16_bit_access: Bool32,
+            uniform_and_storage_buffer16_bit_access: bool,
         ) -> Self {
-            self.uniform_and_storage_buffer16_bit_access = uniform_and_storage_buffer16_bit_access;
+            self.uniform_and_storage_buffer16_bit_access =
+                uniform_and_storage_buffer16_bit_access.into();
             self
         }
-        pub fn storage_push_constant16(mut self, storage_push_constant16: Bool32) -> Self {
-            self.storage_push_constant16 = storage_push_constant16;
+        pub fn storage_push_constant16(mut self, storage_push_constant16: bool) -> Self {
+            self.storage_push_constant16 = storage_push_constant16.into();
             self
         }
-        pub fn storage_input_output16(mut self, storage_input_output16: Bool32) -> Self {
-            self.storage_input_output16 = storage_input_output16;
+        pub fn storage_input_output16(mut self, storage_input_output16: bool) -> Self {
+            self.storage_input_output16 = storage_input_output16.into();
             self
         }
-        pub fn multiview(mut self, multiview: Bool32) -> Self {
-            self.multiview = multiview;
+        pub fn multiview(mut self, multiview: bool) -> Self {
+            self.multiview = multiview.into();
             self
         }
-        pub fn multiview_geometry_shader(mut self, multiview_geometry_shader: Bool32) -> Self {
-            self.multiview_geometry_shader = multiview_geometry_shader;
+        pub fn multiview_geometry_shader(mut self, multiview_geometry_shader: bool) -> Self {
+            self.multiview_geometry_shader = multiview_geometry_shader.into();
             self
         }
         pub fn multiview_tessellation_shader(
             mut self,
-            multiview_tessellation_shader: Bool32,
+            multiview_tessellation_shader: bool,
         ) -> Self {
-            self.multiview_tessellation_shader = multiview_tessellation_shader;
+            self.multiview_tessellation_shader = multiview_tessellation_shader.into();
             self
         }
         pub fn variable_pointers_storage_buffer(
             mut self,
-            variable_pointers_storage_buffer: Bool32,
+            variable_pointers_storage_buffer: bool,
         ) -> Self {
-            self.variable_pointers_storage_buffer = variable_pointers_storage_buffer;
+            self.variable_pointers_storage_buffer = variable_pointers_storage_buffer.into();
             self
         }
-        pub fn variable_pointers(mut self, variable_pointers: Bool32) -> Self {
-            self.variable_pointers = variable_pointers;
+        pub fn variable_pointers(mut self, variable_pointers: bool) -> Self {
+            self.variable_pointers = variable_pointers.into();
             self
         }
-        pub fn protected_memory(mut self, protected_memory: Bool32) -> Self {
-            self.protected_memory = protected_memory;
+        pub fn protected_memory(mut self, protected_memory: bool) -> Self {
+            self.protected_memory = protected_memory.into();
             self
         }
-        pub fn sampler_ycbcr_conversion(mut self, sampler_ycbcr_conversion: Bool32) -> Self {
-            self.sampler_ycbcr_conversion = sampler_ycbcr_conversion;
+        pub fn sampler_ycbcr_conversion(mut self, sampler_ycbcr_conversion: bool) -> Self {
+            self.sampler_ycbcr_conversion = sampler_ycbcr_conversion.into();
             self
         }
-        pub fn shader_draw_parameters(mut self, shader_draw_parameters: Bool32) -> Self {
-            self.shader_draw_parameters = shader_draw_parameters;
+        pub fn shader_draw_parameters(mut self, shader_draw_parameters: bool) -> Self {
+            self.shader_draw_parameters = shader_draw_parameters.into();
             self
         }
     }
@@ -2578,8 +2583,8 @@ pub(super) mod defs {
             self.device_node_mask = device_node_mask;
             self
         }
-        pub fn device_luid_valid(mut self, device_luid_valid: Bool32) -> Self {
-            self.device_luid_valid = device_luid_valid;
+        pub fn device_luid_valid(mut self, device_luid_valid: bool) -> Self {
+            self.device_luid_valid = device_luid_valid.into();
             self
         }
         pub fn subgroup_size(mut self, subgroup_size: u32) -> Self {
@@ -2602,9 +2607,10 @@ pub(super) mod defs {
         }
         pub fn subgroup_quad_operations_in_all_stages(
             mut self,
-            subgroup_quad_operations_in_all_stages: Bool32,
+            subgroup_quad_operations_in_all_stages: bool,
         ) -> Self {
-            self.subgroup_quad_operations_in_all_stages = subgroup_quad_operations_in_all_stages;
+            self.subgroup_quad_operations_in_all_stages =
+                subgroup_quad_operations_in_all_stages.into();
             self
         }
         pub fn point_clipping_behavior(
@@ -2622,8 +2628,8 @@ pub(super) mod defs {
             self.max_multiview_instance_index = max_multiview_instance_index;
             self
         }
-        pub fn protected_no_fault(mut self, protected_no_fault: Bool32) -> Self {
-            self.protected_no_fault = protected_no_fault;
+        pub fn protected_no_fault(mut self, protected_no_fault: bool) -> Self {
+            self.protected_no_fault = protected_no_fault.into();
             self
         }
         pub fn max_per_set_descriptors(mut self, max_per_set_descriptors: u32) -> Self {
@@ -2754,301 +2760,296 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceVulkan12Features<'a> {
-        pub fn sampler_mirror_clamp_to_edge(
-            mut self,
-            sampler_mirror_clamp_to_edge: Bool32,
-        ) -> Self {
-            self.sampler_mirror_clamp_to_edge = sampler_mirror_clamp_to_edge;
+        pub fn sampler_mirror_clamp_to_edge(mut self, sampler_mirror_clamp_to_edge: bool) -> Self {
+            self.sampler_mirror_clamp_to_edge = sampler_mirror_clamp_to_edge.into();
             self
         }
-        pub fn draw_indirect_count(mut self, draw_indirect_count: Bool32) -> Self {
-            self.draw_indirect_count = draw_indirect_count;
+        pub fn draw_indirect_count(mut self, draw_indirect_count: bool) -> Self {
+            self.draw_indirect_count = draw_indirect_count.into();
             self
         }
-        pub fn storage_buffer8_bit_access(mut self, storage_buffer8_bit_access: Bool32) -> Self {
-            self.storage_buffer8_bit_access = storage_buffer8_bit_access;
+        pub fn storage_buffer8_bit_access(mut self, storage_buffer8_bit_access: bool) -> Self {
+            self.storage_buffer8_bit_access = storage_buffer8_bit_access.into();
             self
         }
         pub fn uniform_and_storage_buffer8_bit_access(
             mut self,
-            uniform_and_storage_buffer8_bit_access: Bool32,
+            uniform_and_storage_buffer8_bit_access: bool,
         ) -> Self {
-            self.uniform_and_storage_buffer8_bit_access = uniform_and_storage_buffer8_bit_access;
+            self.uniform_and_storage_buffer8_bit_access =
+                uniform_and_storage_buffer8_bit_access.into();
             self
         }
-        pub fn storage_push_constant8(mut self, storage_push_constant8: Bool32) -> Self {
-            self.storage_push_constant8 = storage_push_constant8;
+        pub fn storage_push_constant8(mut self, storage_push_constant8: bool) -> Self {
+            self.storage_push_constant8 = storage_push_constant8.into();
             self
         }
-        pub fn shader_buffer_int64_atomics(mut self, shader_buffer_int64_atomics: Bool32) -> Self {
-            self.shader_buffer_int64_atomics = shader_buffer_int64_atomics;
+        pub fn shader_buffer_int64_atomics(mut self, shader_buffer_int64_atomics: bool) -> Self {
+            self.shader_buffer_int64_atomics = shader_buffer_int64_atomics.into();
             self
         }
-        pub fn shader_shared_int64_atomics(mut self, shader_shared_int64_atomics: Bool32) -> Self {
-            self.shader_shared_int64_atomics = shader_shared_int64_atomics;
+        pub fn shader_shared_int64_atomics(mut self, shader_shared_int64_atomics: bool) -> Self {
+            self.shader_shared_int64_atomics = shader_shared_int64_atomics.into();
             self
         }
-        pub fn shader_float16(mut self, shader_float16: Bool32) -> Self {
-            self.shader_float16 = shader_float16;
+        pub fn shader_float16(mut self, shader_float16: bool) -> Self {
+            self.shader_float16 = shader_float16.into();
             self
         }
-        pub fn shader_int8(mut self, shader_int8: Bool32) -> Self {
-            self.shader_int8 = shader_int8;
+        pub fn shader_int8(mut self, shader_int8: bool) -> Self {
+            self.shader_int8 = shader_int8.into();
             self
         }
-        pub fn descriptor_indexing(mut self, descriptor_indexing: Bool32) -> Self {
-            self.descriptor_indexing = descriptor_indexing;
+        pub fn descriptor_indexing(mut self, descriptor_indexing: bool) -> Self {
+            self.descriptor_indexing = descriptor_indexing.into();
             self
         }
         pub fn shader_input_attachment_array_dynamic_indexing(
             mut self,
-            shader_input_attachment_array_dynamic_indexing: Bool32,
+            shader_input_attachment_array_dynamic_indexing: bool,
         ) -> Self {
             self.shader_input_attachment_array_dynamic_indexing =
-                shader_input_attachment_array_dynamic_indexing;
+                shader_input_attachment_array_dynamic_indexing.into();
             self
         }
         pub fn shader_uniform_texel_buffer_array_dynamic_indexing(
             mut self,
-            shader_uniform_texel_buffer_array_dynamic_indexing: Bool32,
+            shader_uniform_texel_buffer_array_dynamic_indexing: bool,
         ) -> Self {
             self.shader_uniform_texel_buffer_array_dynamic_indexing =
-                shader_uniform_texel_buffer_array_dynamic_indexing;
+                shader_uniform_texel_buffer_array_dynamic_indexing.into();
             self
         }
         pub fn shader_storage_texel_buffer_array_dynamic_indexing(
             mut self,
-            shader_storage_texel_buffer_array_dynamic_indexing: Bool32,
+            shader_storage_texel_buffer_array_dynamic_indexing: bool,
         ) -> Self {
             self.shader_storage_texel_buffer_array_dynamic_indexing =
-                shader_storage_texel_buffer_array_dynamic_indexing;
+                shader_storage_texel_buffer_array_dynamic_indexing.into();
             self
         }
         pub fn shader_uniform_buffer_array_non_uniform_indexing(
             mut self,
-            shader_uniform_buffer_array_non_uniform_indexing: Bool32,
+            shader_uniform_buffer_array_non_uniform_indexing: bool,
         ) -> Self {
             self.shader_uniform_buffer_array_non_uniform_indexing =
-                shader_uniform_buffer_array_non_uniform_indexing;
+                shader_uniform_buffer_array_non_uniform_indexing.into();
             self
         }
         pub fn shader_sampled_image_array_non_uniform_indexing(
             mut self,
-            shader_sampled_image_array_non_uniform_indexing: Bool32,
+            shader_sampled_image_array_non_uniform_indexing: bool,
         ) -> Self {
             self.shader_sampled_image_array_non_uniform_indexing =
-                shader_sampled_image_array_non_uniform_indexing;
+                shader_sampled_image_array_non_uniform_indexing.into();
             self
         }
         pub fn shader_storage_buffer_array_non_uniform_indexing(
             mut self,
-            shader_storage_buffer_array_non_uniform_indexing: Bool32,
+            shader_storage_buffer_array_non_uniform_indexing: bool,
         ) -> Self {
             self.shader_storage_buffer_array_non_uniform_indexing =
-                shader_storage_buffer_array_non_uniform_indexing;
+                shader_storage_buffer_array_non_uniform_indexing.into();
             self
         }
         pub fn shader_storage_image_array_non_uniform_indexing(
             mut self,
-            shader_storage_image_array_non_uniform_indexing: Bool32,
+            shader_storage_image_array_non_uniform_indexing: bool,
         ) -> Self {
             self.shader_storage_image_array_non_uniform_indexing =
-                shader_storage_image_array_non_uniform_indexing;
+                shader_storage_image_array_non_uniform_indexing.into();
             self
         }
         pub fn shader_input_attachment_array_non_uniform_indexing(
             mut self,
-            shader_input_attachment_array_non_uniform_indexing: Bool32,
+            shader_input_attachment_array_non_uniform_indexing: bool,
         ) -> Self {
             self.shader_input_attachment_array_non_uniform_indexing =
-                shader_input_attachment_array_non_uniform_indexing;
+                shader_input_attachment_array_non_uniform_indexing.into();
             self
         }
         pub fn shader_uniform_texel_buffer_array_non_uniform_indexing(
             mut self,
-            shader_uniform_texel_buffer_array_non_uniform_indexing: Bool32,
+            shader_uniform_texel_buffer_array_non_uniform_indexing: bool,
         ) -> Self {
             self.shader_uniform_texel_buffer_array_non_uniform_indexing =
-                shader_uniform_texel_buffer_array_non_uniform_indexing;
+                shader_uniform_texel_buffer_array_non_uniform_indexing.into();
             self
         }
         pub fn shader_storage_texel_buffer_array_non_uniform_indexing(
             mut self,
-            shader_storage_texel_buffer_array_non_uniform_indexing: Bool32,
+            shader_storage_texel_buffer_array_non_uniform_indexing: bool,
         ) -> Self {
             self.shader_storage_texel_buffer_array_non_uniform_indexing =
-                shader_storage_texel_buffer_array_non_uniform_indexing;
+                shader_storage_texel_buffer_array_non_uniform_indexing.into();
             self
         }
         pub fn descriptor_binding_uniform_buffer_update_after_bind(
             mut self,
-            descriptor_binding_uniform_buffer_update_after_bind: Bool32,
+            descriptor_binding_uniform_buffer_update_after_bind: bool,
         ) -> Self {
             self.descriptor_binding_uniform_buffer_update_after_bind =
-                descriptor_binding_uniform_buffer_update_after_bind;
+                descriptor_binding_uniform_buffer_update_after_bind.into();
             self
         }
         pub fn descriptor_binding_sampled_image_update_after_bind(
             mut self,
-            descriptor_binding_sampled_image_update_after_bind: Bool32,
+            descriptor_binding_sampled_image_update_after_bind: bool,
         ) -> Self {
             self.descriptor_binding_sampled_image_update_after_bind =
-                descriptor_binding_sampled_image_update_after_bind;
+                descriptor_binding_sampled_image_update_after_bind.into();
             self
         }
         pub fn descriptor_binding_storage_image_update_after_bind(
             mut self,
-            descriptor_binding_storage_image_update_after_bind: Bool32,
+            descriptor_binding_storage_image_update_after_bind: bool,
         ) -> Self {
             self.descriptor_binding_storage_image_update_after_bind =
-                descriptor_binding_storage_image_update_after_bind;
+                descriptor_binding_storage_image_update_after_bind.into();
             self
         }
         pub fn descriptor_binding_storage_buffer_update_after_bind(
             mut self,
-            descriptor_binding_storage_buffer_update_after_bind: Bool32,
+            descriptor_binding_storage_buffer_update_after_bind: bool,
         ) -> Self {
             self.descriptor_binding_storage_buffer_update_after_bind =
-                descriptor_binding_storage_buffer_update_after_bind;
+                descriptor_binding_storage_buffer_update_after_bind.into();
             self
         }
         pub fn descriptor_binding_uniform_texel_buffer_update_after_bind(
             mut self,
-            descriptor_binding_uniform_texel_buffer_update_after_bind: Bool32,
+            descriptor_binding_uniform_texel_buffer_update_after_bind: bool,
         ) -> Self {
             self.descriptor_binding_uniform_texel_buffer_update_after_bind =
-                descriptor_binding_uniform_texel_buffer_update_after_bind;
+                descriptor_binding_uniform_texel_buffer_update_after_bind.into();
             self
         }
         pub fn descriptor_binding_storage_texel_buffer_update_after_bind(
             mut self,
-            descriptor_binding_storage_texel_buffer_update_after_bind: Bool32,
+            descriptor_binding_storage_texel_buffer_update_after_bind: bool,
         ) -> Self {
             self.descriptor_binding_storage_texel_buffer_update_after_bind =
-                descriptor_binding_storage_texel_buffer_update_after_bind;
+                descriptor_binding_storage_texel_buffer_update_after_bind.into();
             self
         }
         pub fn descriptor_binding_update_unused_while_pending(
             mut self,
-            descriptor_binding_update_unused_while_pending: Bool32,
+            descriptor_binding_update_unused_while_pending: bool,
         ) -> Self {
             self.descriptor_binding_update_unused_while_pending =
-                descriptor_binding_update_unused_while_pending;
+                descriptor_binding_update_unused_while_pending.into();
             self
         }
         pub fn descriptor_binding_partially_bound(
             mut self,
-            descriptor_binding_partially_bound: Bool32,
+            descriptor_binding_partially_bound: bool,
         ) -> Self {
-            self.descriptor_binding_partially_bound = descriptor_binding_partially_bound;
+            self.descriptor_binding_partially_bound = descriptor_binding_partially_bound.into();
             self
         }
         pub fn descriptor_binding_variable_descriptor_count(
             mut self,
-            descriptor_binding_variable_descriptor_count: Bool32,
+            descriptor_binding_variable_descriptor_count: bool,
         ) -> Self {
             self.descriptor_binding_variable_descriptor_count =
-                descriptor_binding_variable_descriptor_count;
+                descriptor_binding_variable_descriptor_count.into();
             self
         }
-        pub fn runtime_descriptor_array(mut self, runtime_descriptor_array: Bool32) -> Self {
-            self.runtime_descriptor_array = runtime_descriptor_array;
+        pub fn runtime_descriptor_array(mut self, runtime_descriptor_array: bool) -> Self {
+            self.runtime_descriptor_array = runtime_descriptor_array.into();
             self
         }
-        pub fn sampler_filter_minmax(mut self, sampler_filter_minmax: Bool32) -> Self {
-            self.sampler_filter_minmax = sampler_filter_minmax;
+        pub fn sampler_filter_minmax(mut self, sampler_filter_minmax: bool) -> Self {
+            self.sampler_filter_minmax = sampler_filter_minmax.into();
             self
         }
-        pub fn scalar_block_layout(mut self, scalar_block_layout: Bool32) -> Self {
-            self.scalar_block_layout = scalar_block_layout;
+        pub fn scalar_block_layout(mut self, scalar_block_layout: bool) -> Self {
+            self.scalar_block_layout = scalar_block_layout.into();
             self
         }
-        pub fn imageless_framebuffer(mut self, imageless_framebuffer: Bool32) -> Self {
-            self.imageless_framebuffer = imageless_framebuffer;
+        pub fn imageless_framebuffer(mut self, imageless_framebuffer: bool) -> Self {
+            self.imageless_framebuffer = imageless_framebuffer.into();
             self
         }
         pub fn uniform_buffer_standard_layout(
             mut self,
-            uniform_buffer_standard_layout: Bool32,
+            uniform_buffer_standard_layout: bool,
         ) -> Self {
-            self.uniform_buffer_standard_layout = uniform_buffer_standard_layout;
+            self.uniform_buffer_standard_layout = uniform_buffer_standard_layout.into();
             self
         }
         pub fn shader_subgroup_extended_types(
             mut self,
-            shader_subgroup_extended_types: Bool32,
+            shader_subgroup_extended_types: bool,
         ) -> Self {
-            self.shader_subgroup_extended_types = shader_subgroup_extended_types;
+            self.shader_subgroup_extended_types = shader_subgroup_extended_types.into();
             self
         }
         pub fn separate_depth_stencil_layouts(
             mut self,
-            separate_depth_stencil_layouts: Bool32,
+            separate_depth_stencil_layouts: bool,
         ) -> Self {
-            self.separate_depth_stencil_layouts = separate_depth_stencil_layouts;
+            self.separate_depth_stencil_layouts = separate_depth_stencil_layouts.into();
             self
         }
-        pub fn host_query_reset(mut self, host_query_reset: Bool32) -> Self {
-            self.host_query_reset = host_query_reset;
+        pub fn host_query_reset(mut self, host_query_reset: bool) -> Self {
+            self.host_query_reset = host_query_reset.into();
             self
         }
-        pub fn timeline_semaphore(mut self, timeline_semaphore: Bool32) -> Self {
-            self.timeline_semaphore = timeline_semaphore;
+        pub fn timeline_semaphore(mut self, timeline_semaphore: bool) -> Self {
+            self.timeline_semaphore = timeline_semaphore.into();
             self
         }
-        pub fn buffer_device_address(mut self, buffer_device_address: Bool32) -> Self {
-            self.buffer_device_address = buffer_device_address;
+        pub fn buffer_device_address(mut self, buffer_device_address: bool) -> Self {
+            self.buffer_device_address = buffer_device_address.into();
             self
         }
         pub fn buffer_device_address_capture_replay(
             mut self,
-            buffer_device_address_capture_replay: Bool32,
+            buffer_device_address_capture_replay: bool,
         ) -> Self {
-            self.buffer_device_address_capture_replay = buffer_device_address_capture_replay;
+            self.buffer_device_address_capture_replay = buffer_device_address_capture_replay.into();
             self
         }
         pub fn buffer_device_address_multi_device(
             mut self,
-            buffer_device_address_multi_device: Bool32,
+            buffer_device_address_multi_device: bool,
         ) -> Self {
-            self.buffer_device_address_multi_device = buffer_device_address_multi_device;
+            self.buffer_device_address_multi_device = buffer_device_address_multi_device.into();
             self
         }
-        pub fn vulkan_memory_model(mut self, vulkan_memory_model: Bool32) -> Self {
-            self.vulkan_memory_model = vulkan_memory_model;
+        pub fn vulkan_memory_model(mut self, vulkan_memory_model: bool) -> Self {
+            self.vulkan_memory_model = vulkan_memory_model.into();
             self
         }
         pub fn vulkan_memory_model_device_scope(
             mut self,
-            vulkan_memory_model_device_scope: Bool32,
+            vulkan_memory_model_device_scope: bool,
         ) -> Self {
-            self.vulkan_memory_model_device_scope = vulkan_memory_model_device_scope;
+            self.vulkan_memory_model_device_scope = vulkan_memory_model_device_scope.into();
             self
         }
         pub fn vulkan_memory_model_availability_visibility_chains(
             mut self,
-            vulkan_memory_model_availability_visibility_chains: Bool32,
+            vulkan_memory_model_availability_visibility_chains: bool,
         ) -> Self {
             self.vulkan_memory_model_availability_visibility_chains =
-                vulkan_memory_model_availability_visibility_chains;
+                vulkan_memory_model_availability_visibility_chains.into();
             self
         }
-        pub fn shader_output_viewport_index(
-            mut self,
-            shader_output_viewport_index: Bool32,
-        ) -> Self {
-            self.shader_output_viewport_index = shader_output_viewport_index;
+        pub fn shader_output_viewport_index(mut self, shader_output_viewport_index: bool) -> Self {
+            self.shader_output_viewport_index = shader_output_viewport_index.into();
             self
         }
-        pub fn shader_output_layer(mut self, shader_output_layer: Bool32) -> Self {
-            self.shader_output_layer = shader_output_layer;
+        pub fn shader_output_layer(mut self, shader_output_layer: bool) -> Self {
+            self.shader_output_layer = shader_output_layer.into();
             self
         }
         pub fn subgroup_broadcast_dynamic_id(
             mut self,
-            subgroup_broadcast_dynamic_id: Bool32,
+            subgroup_broadcast_dynamic_id: bool,
         ) -> Self {
-            self.subgroup_broadcast_dynamic_id = subgroup_broadcast_dynamic_id;
+            self.subgroup_broadcast_dynamic_id = subgroup_broadcast_dynamic_id.into();
             self
         }
     }
@@ -3201,110 +3202,110 @@ pub(super) mod defs {
         }
         pub fn shader_signed_zero_inf_nan_preserve_float16(
             mut self,
-            shader_signed_zero_inf_nan_preserve_float16: Bool32,
+            shader_signed_zero_inf_nan_preserve_float16: bool,
         ) -> Self {
             self.shader_signed_zero_inf_nan_preserve_float16 =
-                shader_signed_zero_inf_nan_preserve_float16;
+                shader_signed_zero_inf_nan_preserve_float16.into();
             self
         }
         pub fn shader_signed_zero_inf_nan_preserve_float32(
             mut self,
-            shader_signed_zero_inf_nan_preserve_float32: Bool32,
+            shader_signed_zero_inf_nan_preserve_float32: bool,
         ) -> Self {
             self.shader_signed_zero_inf_nan_preserve_float32 =
-                shader_signed_zero_inf_nan_preserve_float32;
+                shader_signed_zero_inf_nan_preserve_float32.into();
             self
         }
         pub fn shader_signed_zero_inf_nan_preserve_float64(
             mut self,
-            shader_signed_zero_inf_nan_preserve_float64: Bool32,
+            shader_signed_zero_inf_nan_preserve_float64: bool,
         ) -> Self {
             self.shader_signed_zero_inf_nan_preserve_float64 =
-                shader_signed_zero_inf_nan_preserve_float64;
+                shader_signed_zero_inf_nan_preserve_float64.into();
             self
         }
         pub fn shader_denorm_preserve_float16(
             mut self,
-            shader_denorm_preserve_float16: Bool32,
+            shader_denorm_preserve_float16: bool,
         ) -> Self {
-            self.shader_denorm_preserve_float16 = shader_denorm_preserve_float16;
+            self.shader_denorm_preserve_float16 = shader_denorm_preserve_float16.into();
             self
         }
         pub fn shader_denorm_preserve_float32(
             mut self,
-            shader_denorm_preserve_float32: Bool32,
+            shader_denorm_preserve_float32: bool,
         ) -> Self {
-            self.shader_denorm_preserve_float32 = shader_denorm_preserve_float32;
+            self.shader_denorm_preserve_float32 = shader_denorm_preserve_float32.into();
             self
         }
         pub fn shader_denorm_preserve_float64(
             mut self,
-            shader_denorm_preserve_float64: Bool32,
+            shader_denorm_preserve_float64: bool,
         ) -> Self {
-            self.shader_denorm_preserve_float64 = shader_denorm_preserve_float64;
+            self.shader_denorm_preserve_float64 = shader_denorm_preserve_float64.into();
             self
         }
         pub fn shader_denorm_flush_to_zero_float16(
             mut self,
-            shader_denorm_flush_to_zero_float16: Bool32,
+            shader_denorm_flush_to_zero_float16: bool,
         ) -> Self {
-            self.shader_denorm_flush_to_zero_float16 = shader_denorm_flush_to_zero_float16;
+            self.shader_denorm_flush_to_zero_float16 = shader_denorm_flush_to_zero_float16.into();
             self
         }
         pub fn shader_denorm_flush_to_zero_float32(
             mut self,
-            shader_denorm_flush_to_zero_float32: Bool32,
+            shader_denorm_flush_to_zero_float32: bool,
         ) -> Self {
-            self.shader_denorm_flush_to_zero_float32 = shader_denorm_flush_to_zero_float32;
+            self.shader_denorm_flush_to_zero_float32 = shader_denorm_flush_to_zero_float32.into();
             self
         }
         pub fn shader_denorm_flush_to_zero_float64(
             mut self,
-            shader_denorm_flush_to_zero_float64: Bool32,
+            shader_denorm_flush_to_zero_float64: bool,
         ) -> Self {
-            self.shader_denorm_flush_to_zero_float64 = shader_denorm_flush_to_zero_float64;
+            self.shader_denorm_flush_to_zero_float64 = shader_denorm_flush_to_zero_float64.into();
             self
         }
         pub fn shader_rounding_mode_rte_float16(
             mut self,
-            shader_rounding_mode_rte_float16: Bool32,
+            shader_rounding_mode_rte_float16: bool,
         ) -> Self {
-            self.shader_rounding_mode_rte_float16 = shader_rounding_mode_rte_float16;
+            self.shader_rounding_mode_rte_float16 = shader_rounding_mode_rte_float16.into();
             self
         }
         pub fn shader_rounding_mode_rte_float32(
             mut self,
-            shader_rounding_mode_rte_float32: Bool32,
+            shader_rounding_mode_rte_float32: bool,
         ) -> Self {
-            self.shader_rounding_mode_rte_float32 = shader_rounding_mode_rte_float32;
+            self.shader_rounding_mode_rte_float32 = shader_rounding_mode_rte_float32.into();
             self
         }
         pub fn shader_rounding_mode_rte_float64(
             mut self,
-            shader_rounding_mode_rte_float64: Bool32,
+            shader_rounding_mode_rte_float64: bool,
         ) -> Self {
-            self.shader_rounding_mode_rte_float64 = shader_rounding_mode_rte_float64;
+            self.shader_rounding_mode_rte_float64 = shader_rounding_mode_rte_float64.into();
             self
         }
         pub fn shader_rounding_mode_rtz_float16(
             mut self,
-            shader_rounding_mode_rtz_float16: Bool32,
+            shader_rounding_mode_rtz_float16: bool,
         ) -> Self {
-            self.shader_rounding_mode_rtz_float16 = shader_rounding_mode_rtz_float16;
+            self.shader_rounding_mode_rtz_float16 = shader_rounding_mode_rtz_float16.into();
             self
         }
         pub fn shader_rounding_mode_rtz_float32(
             mut self,
-            shader_rounding_mode_rtz_float32: Bool32,
+            shader_rounding_mode_rtz_float32: bool,
         ) -> Self {
-            self.shader_rounding_mode_rtz_float32 = shader_rounding_mode_rtz_float32;
+            self.shader_rounding_mode_rtz_float32 = shader_rounding_mode_rtz_float32.into();
             self
         }
         pub fn shader_rounding_mode_rtz_float64(
             mut self,
-            shader_rounding_mode_rtz_float64: Bool32,
+            shader_rounding_mode_rtz_float64: bool,
         ) -> Self {
-            self.shader_rounding_mode_rtz_float64 = shader_rounding_mode_rtz_float64;
+            self.shader_rounding_mode_rtz_float64 = shader_rounding_mode_rtz_float64.into();
             self
         }
         pub fn max_update_after_bind_descriptors_in_all_pools(
@@ -3317,53 +3318,54 @@ pub(super) mod defs {
         }
         pub fn shader_uniform_buffer_array_non_uniform_indexing_native(
             mut self,
-            shader_uniform_buffer_array_non_uniform_indexing_native: Bool32,
+            shader_uniform_buffer_array_non_uniform_indexing_native: bool,
         ) -> Self {
             self.shader_uniform_buffer_array_non_uniform_indexing_native =
-                shader_uniform_buffer_array_non_uniform_indexing_native;
+                shader_uniform_buffer_array_non_uniform_indexing_native.into();
             self
         }
         pub fn shader_sampled_image_array_non_uniform_indexing_native(
             mut self,
-            shader_sampled_image_array_non_uniform_indexing_native: Bool32,
+            shader_sampled_image_array_non_uniform_indexing_native: bool,
         ) -> Self {
             self.shader_sampled_image_array_non_uniform_indexing_native =
-                shader_sampled_image_array_non_uniform_indexing_native;
+                shader_sampled_image_array_non_uniform_indexing_native.into();
             self
         }
         pub fn shader_storage_buffer_array_non_uniform_indexing_native(
             mut self,
-            shader_storage_buffer_array_non_uniform_indexing_native: Bool32,
+            shader_storage_buffer_array_non_uniform_indexing_native: bool,
         ) -> Self {
             self.shader_storage_buffer_array_non_uniform_indexing_native =
-                shader_storage_buffer_array_non_uniform_indexing_native;
+                shader_storage_buffer_array_non_uniform_indexing_native.into();
             self
         }
         pub fn shader_storage_image_array_non_uniform_indexing_native(
             mut self,
-            shader_storage_image_array_non_uniform_indexing_native: Bool32,
+            shader_storage_image_array_non_uniform_indexing_native: bool,
         ) -> Self {
             self.shader_storage_image_array_non_uniform_indexing_native =
-                shader_storage_image_array_non_uniform_indexing_native;
+                shader_storage_image_array_non_uniform_indexing_native.into();
             self
         }
         pub fn shader_input_attachment_array_non_uniform_indexing_native(
             mut self,
-            shader_input_attachment_array_non_uniform_indexing_native: Bool32,
+            shader_input_attachment_array_non_uniform_indexing_native: bool,
         ) -> Self {
             self.shader_input_attachment_array_non_uniform_indexing_native =
-                shader_input_attachment_array_non_uniform_indexing_native;
+                shader_input_attachment_array_non_uniform_indexing_native.into();
             self
         }
         pub fn robust_buffer_access_update_after_bind(
             mut self,
-            robust_buffer_access_update_after_bind: Bool32,
+            robust_buffer_access_update_after_bind: bool,
         ) -> Self {
-            self.robust_buffer_access_update_after_bind = robust_buffer_access_update_after_bind;
+            self.robust_buffer_access_update_after_bind =
+                robust_buffer_access_update_after_bind.into();
             self
         }
-        pub fn quad_divergent_implicit_lod(mut self, quad_divergent_implicit_lod: Bool32) -> Self {
-            self.quad_divergent_implicit_lod = quad_divergent_implicit_lod;
+        pub fn quad_divergent_implicit_lod(mut self, quad_divergent_implicit_lod: bool) -> Self {
+            self.quad_divergent_implicit_lod = quad_divergent_implicit_lod.into();
             self
         }
         pub fn max_per_stage_descriptor_update_after_bind_samplers(
@@ -3500,26 +3502,28 @@ pub(super) mod defs {
             self.supported_stencil_resolve_modes = supported_stencil_resolve_modes;
             self
         }
-        pub fn independent_resolve_none(mut self, independent_resolve_none: Bool32) -> Self {
-            self.independent_resolve_none = independent_resolve_none;
+        pub fn independent_resolve_none(mut self, independent_resolve_none: bool) -> Self {
+            self.independent_resolve_none = independent_resolve_none.into();
             self
         }
-        pub fn independent_resolve(mut self, independent_resolve: Bool32) -> Self {
-            self.independent_resolve = independent_resolve;
+        pub fn independent_resolve(mut self, independent_resolve: bool) -> Self {
+            self.independent_resolve = independent_resolve.into();
             self
         }
         pub fn filter_minmax_single_component_formats(
             mut self,
-            filter_minmax_single_component_formats: Bool32,
+            filter_minmax_single_component_formats: bool,
         ) -> Self {
-            self.filter_minmax_single_component_formats = filter_minmax_single_component_formats;
+            self.filter_minmax_single_component_formats =
+                filter_minmax_single_component_formats.into();
             self
         }
         pub fn filter_minmax_image_component_mapping(
             mut self,
-            filter_minmax_image_component_mapping: Bool32,
+            filter_minmax_image_component_mapping: bool,
         ) -> Self {
-            self.filter_minmax_image_component_mapping = filter_minmax_image_component_mapping;
+            self.filter_minmax_image_component_mapping =
+                filter_minmax_image_component_mapping.into();
             self
         }
         pub fn max_timeline_semaphore_value_difference(

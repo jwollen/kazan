@@ -38,12 +38,12 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceTransformFeedbackFeaturesEXT<'a> {
-        pub fn transform_feedback(mut self, transform_feedback: Bool32) -> Self {
-            self.transform_feedback = transform_feedback;
+        pub fn transform_feedback(mut self, transform_feedback: bool) -> Self {
+            self.transform_feedback = transform_feedback.into();
             self
         }
-        pub fn geometry_streams(mut self, geometry_streams: Bool32) -> Self {
-            self.geometry_streams = geometry_streams;
+        pub fn geometry_streams(mut self, geometry_streams: bool) -> Self {
+            self.geometry_streams = geometry_streams.into();
             self
         }
     }
@@ -135,28 +135,28 @@ pub(super) mod defs {
                 max_transform_feedback_buffer_data_stride;
             self
         }
-        pub fn transform_feedback_queries(mut self, transform_feedback_queries: Bool32) -> Self {
-            self.transform_feedback_queries = transform_feedback_queries;
+        pub fn transform_feedback_queries(mut self, transform_feedback_queries: bool) -> Self {
+            self.transform_feedback_queries = transform_feedback_queries.into();
             self
         }
         pub fn transform_feedback_streams_lines_triangles(
             mut self,
-            transform_feedback_streams_lines_triangles: Bool32,
+            transform_feedback_streams_lines_triangles: bool,
         ) -> Self {
             self.transform_feedback_streams_lines_triangles =
-                transform_feedback_streams_lines_triangles;
+                transform_feedback_streams_lines_triangles.into();
             self
         }
         pub fn transform_feedback_rasterization_stream_select(
             mut self,
-            transform_feedback_rasterization_stream_select: Bool32,
+            transform_feedback_rasterization_stream_select: bool,
         ) -> Self {
             self.transform_feedback_rasterization_stream_select =
-                transform_feedback_rasterization_stream_select;
+                transform_feedback_rasterization_stream_select.into();
             self
         }
-        pub fn transform_feedback_draw(mut self, transform_feedback_draw: Bool32) -> Self {
-            self.transform_feedback_draw = transform_feedback_draw;
+        pub fn transform_feedback_draw(mut self, transform_feedback_draw: bool) -> Self {
+            self.transform_feedback_draw = transform_feedback_draw.into();
             self
         }
     }

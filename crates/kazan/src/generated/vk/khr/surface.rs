@@ -270,7 +270,7 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         queue_family_index: u32,
         surface: SurfaceKHR,
-    ) -> crate::Result<Bool32> {
+    ) -> crate::Result<bool> {
         unsafe {
             let mut supported = core::mem::MaybeUninit::uninit();
             let result = (self.get_physical_device_surface_support_khr)(
@@ -281,7 +281,7 @@ impl InstanceFn {
             );
 
             match result {
-                VkResult::SUCCESS => Ok(supported.assume_init()),
+                VkResult::SUCCESS => Ok(supported.assume_init() != 0),
                 err => Err(err),
             }
         }

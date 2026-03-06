@@ -59,8 +59,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> DisplayModeStereoPropertiesNV<'a> {
-        pub fn hdmi3_d_supported(mut self, hdmi3_d_supported: Bool32) -> Self {
-            self.hdmi3_d_supported = hdmi3_d_supported;
+        pub fn hdmi3_d_supported(mut self, hdmi3_d_supported: bool) -> Self {
+            self.hdmi3_d_supported = hdmi3_d_supported.into();
             self
         }
     }

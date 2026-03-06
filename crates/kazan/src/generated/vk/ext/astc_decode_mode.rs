@@ -61,8 +61,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceASTCDecodeFeaturesEXT<'a> {
-        pub fn decode_mode_shared_exponent(mut self, decode_mode_shared_exponent: Bool32) -> Self {
-            self.decode_mode_shared_exponent = decode_mode_shared_exponent;
+        pub fn decode_mode_shared_exponent(mut self, decode_mode_shared_exponent: bool) -> Self {
+            self.decode_mode_shared_exponent = decode_mode_shared_exponent.into();
             self
         }
     }

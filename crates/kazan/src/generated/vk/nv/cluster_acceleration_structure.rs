@@ -41,9 +41,9 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceClusterAccelerationStructureFeaturesNV<'a> {
         pub fn cluster_acceleration_structure(
             mut self,
-            cluster_acceleration_structure: Bool32,
+            cluster_acceleration_structure: bool,
         ) -> Self {
-            self.cluster_acceleration_structure = cluster_acceleration_structure;
+            self.cluster_acceleration_structure = cluster_acceleration_structure.into();
             self
         }
     }
@@ -180,9 +180,9 @@ pub(super) mod defs {
     impl<'a> RayTracingPipelineClusterAccelerationStructureCreateInfoNV<'a> {
         pub fn allow_cluster_acceleration_structure(
             mut self,
-            allow_cluster_acceleration_structure: Bool32,
+            allow_cluster_acceleration_structure: bool,
         ) -> Self {
-            self.allow_cluster_acceleration_structure = allow_cluster_acceleration_structure;
+            self.allow_cluster_acceleration_structure = allow_cluster_acceleration_structure.into();
             self
         }
     }
@@ -657,8 +657,8 @@ pub(super) mod defs {
             self.ty = ty;
             self
         }
-        pub fn no_move_overlap(mut self, no_move_overlap: Bool32) -> Self {
-            self.no_move_overlap = no_move_overlap;
+        pub fn no_move_overlap(mut self, no_move_overlap: bool) -> Self {
+            self.no_move_overlap = no_move_overlap.into();
             self
         }
         pub fn max_moved_bytes(mut self, max_moved_bytes: DeviceSize) -> Self {

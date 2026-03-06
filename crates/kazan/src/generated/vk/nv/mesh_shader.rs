@@ -35,12 +35,12 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceMeshShaderFeaturesNV<'a> {
-        pub fn task_shader(mut self, task_shader: Bool32) -> Self {
-            self.task_shader = task_shader;
+        pub fn task_shader(mut self, task_shader: bool) -> Self {
+            self.task_shader = task_shader.into();
             self
         }
-        pub fn mesh_shader(mut self, mesh_shader: Bool32) -> Self {
-            self.mesh_shader = mesh_shader;
+        pub fn mesh_shader(mut self, mesh_shader: bool) -> Self {
+            self.mesh_shader = mesh_shader.into();
             self
         }
     }

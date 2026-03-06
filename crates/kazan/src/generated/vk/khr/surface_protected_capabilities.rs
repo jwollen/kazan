@@ -31,8 +31,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> SurfaceProtectedCapabilitiesKHR<'a> {
-        pub fn supports_protected(mut self, supports_protected: Bool32) -> Self {
-            self.supports_protected = supports_protected;
+        pub fn supports_protected(mut self, supports_protected: bool) -> Self {
+            self.supports_protected = supports_protected.into();
             self
         }
     }

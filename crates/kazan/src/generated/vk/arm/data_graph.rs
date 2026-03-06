@@ -47,33 +47,27 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceDataGraphFeaturesARM<'a> {
-        pub fn data_graph(mut self, data_graph: Bool32) -> Self {
-            self.data_graph = data_graph;
+        pub fn data_graph(mut self, data_graph: bool) -> Self {
+            self.data_graph = data_graph.into();
             self
         }
-        pub fn data_graph_update_after_bind(
-            mut self,
-            data_graph_update_after_bind: Bool32,
-        ) -> Self {
-            self.data_graph_update_after_bind = data_graph_update_after_bind;
+        pub fn data_graph_update_after_bind(mut self, data_graph_update_after_bind: bool) -> Self {
+            self.data_graph_update_after_bind = data_graph_update_after_bind.into();
             self
         }
         pub fn data_graph_specialization_constants(
             mut self,
-            data_graph_specialization_constants: Bool32,
+            data_graph_specialization_constants: bool,
         ) -> Self {
-            self.data_graph_specialization_constants = data_graph_specialization_constants;
+            self.data_graph_specialization_constants = data_graph_specialization_constants.into();
             self
         }
-        pub fn data_graph_descriptor_buffer(
-            mut self,
-            data_graph_descriptor_buffer: Bool32,
-        ) -> Self {
-            self.data_graph_descriptor_buffer = data_graph_descriptor_buffer;
+        pub fn data_graph_descriptor_buffer(mut self, data_graph_descriptor_buffer: bool) -> Self {
+            self.data_graph_descriptor_buffer = data_graph_descriptor_buffer.into();
             self
         }
-        pub fn data_graph_shader_module(mut self, data_graph_shader_module: Bool32) -> Self {
-            self.data_graph_shader_module = data_graph_shader_module;
+        pub fn data_graph_shader_module(mut self, data_graph_shader_module: bool) -> Self {
+            self.data_graph_shader_module = data_graph_shader_module.into();
             self
         }
     }
@@ -585,8 +579,8 @@ pub(super) mod defs {
             self.property = property;
             self
         }
-        pub fn is_text(mut self, is_text: Bool32) -> Self {
-            self.is_text = is_text;
+        pub fn is_text(mut self, is_text: bool) -> Self {
+            self.is_text = is_text.into();
             self
         }
         pub fn data(mut self, data: &'a mut [u8]) -> Self {
@@ -668,8 +662,8 @@ pub(super) mod defs {
             self.ty = ty;
             self
         }
-        pub fn is_foreign(mut self, is_foreign: Bool32) -> Self {
-            self.is_foreign = is_foreign;
+        pub fn is_foreign(mut self, is_foreign: bool) -> Self {
+            self.is_foreign = is_foreign.into();
             self
         }
     }

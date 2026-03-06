@@ -39,8 +39,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceSwapchainMaintenance1FeaturesKHR<'a> {
-        pub fn swapchain_maintenance1(mut self, swapchain_maintenance1: Bool32) -> Self {
-            self.swapchain_maintenance1 = swapchain_maintenance1;
+        pub fn swapchain_maintenance1(mut self, swapchain_maintenance1: bool) -> Self {
+            self.swapchain_maintenance1 = swapchain_maintenance1.into();
             self
         }
     }

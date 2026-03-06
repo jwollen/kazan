@@ -36,8 +36,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceCornerSampledImageFeaturesNV<'a> {
-        pub fn corner_sampled_image(mut self, corner_sampled_image: Bool32) -> Self {
-            self.corner_sampled_image = corner_sampled_image;
+        pub fn corner_sampled_image(mut self, corner_sampled_image: bool) -> Self {
+            self.corner_sampled_image = corner_sampled_image.into();
             self
         }
     }

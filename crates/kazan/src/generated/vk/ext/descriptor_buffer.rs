@@ -42,29 +42,30 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceDescriptorBufferFeaturesEXT<'a> {
-        pub fn descriptor_buffer(mut self, descriptor_buffer: Bool32) -> Self {
-            self.descriptor_buffer = descriptor_buffer;
+        pub fn descriptor_buffer(mut self, descriptor_buffer: bool) -> Self {
+            self.descriptor_buffer = descriptor_buffer.into();
             self
         }
         pub fn descriptor_buffer_capture_replay(
             mut self,
-            descriptor_buffer_capture_replay: Bool32,
+            descriptor_buffer_capture_replay: bool,
         ) -> Self {
-            self.descriptor_buffer_capture_replay = descriptor_buffer_capture_replay;
+            self.descriptor_buffer_capture_replay = descriptor_buffer_capture_replay.into();
             self
         }
         pub fn descriptor_buffer_image_layout_ignored(
             mut self,
-            descriptor_buffer_image_layout_ignored: Bool32,
+            descriptor_buffer_image_layout_ignored: bool,
         ) -> Self {
-            self.descriptor_buffer_image_layout_ignored = descriptor_buffer_image_layout_ignored;
+            self.descriptor_buffer_image_layout_ignored =
+                descriptor_buffer_image_layout_ignored.into();
             self
         }
         pub fn descriptor_buffer_push_descriptors(
             mut self,
-            descriptor_buffer_push_descriptors: Bool32,
+            descriptor_buffer_push_descriptors: bool,
         ) -> Self {
-            self.descriptor_buffer_push_descriptors = descriptor_buffer_push_descriptors;
+            self.descriptor_buffer_push_descriptors = descriptor_buffer_push_descriptors.into();
             self
         }
     }
@@ -161,22 +162,22 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceDescriptorBufferPropertiesEXT<'a> {
         pub fn combined_image_sampler_descriptor_single_array(
             mut self,
-            combined_image_sampler_descriptor_single_array: Bool32,
+            combined_image_sampler_descriptor_single_array: bool,
         ) -> Self {
             self.combined_image_sampler_descriptor_single_array =
-                combined_image_sampler_descriptor_single_array;
+                combined_image_sampler_descriptor_single_array.into();
             self
         }
-        pub fn bufferless_push_descriptors(mut self, bufferless_push_descriptors: Bool32) -> Self {
-            self.bufferless_push_descriptors = bufferless_push_descriptors;
+        pub fn bufferless_push_descriptors(mut self, bufferless_push_descriptors: bool) -> Self {
+            self.bufferless_push_descriptors = bufferless_push_descriptors.into();
             self
         }
         pub fn allow_sampler_image_view_post_submit_creation(
             mut self,
-            allow_sampler_image_view_post_submit_creation: Bool32,
+            allow_sampler_image_view_post_submit_creation: bool,
         ) -> Self {
             self.allow_sampler_image_view_post_submit_creation =
-                allow_sampler_image_view_post_submit_creation;
+                allow_sampler_image_view_post_submit_creation.into();
             self
         }
         pub fn descriptor_buffer_offset_alignment(

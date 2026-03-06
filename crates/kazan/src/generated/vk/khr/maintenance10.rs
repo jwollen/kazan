@@ -39,24 +39,24 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceMaintenance10PropertiesKHR<'a> {
-        pub fn rgba4_opaque_black_swizzled(mut self, rgba4_opaque_black_swizzled: Bool32) -> Self {
-            self.rgba4_opaque_black_swizzled = rgba4_opaque_black_swizzled;
+        pub fn rgba4_opaque_black_swizzled(mut self, rgba4_opaque_black_swizzled: bool) -> Self {
+            self.rgba4_opaque_black_swizzled = rgba4_opaque_black_swizzled.into();
             self
         }
         pub fn resolve_srgb_format_applies_transfer_function(
             mut self,
-            resolve_srgb_format_applies_transfer_function: Bool32,
+            resolve_srgb_format_applies_transfer_function: bool,
         ) -> Self {
             self.resolve_srgb_format_applies_transfer_function =
-                resolve_srgb_format_applies_transfer_function;
+                resolve_srgb_format_applies_transfer_function.into();
             self
         }
         pub fn resolve_srgb_format_supports_transfer_function_control(
             mut self,
-            resolve_srgb_format_supports_transfer_function_control: Bool32,
+            resolve_srgb_format_supports_transfer_function_control: bool,
         ) -> Self {
             self.resolve_srgb_format_supports_transfer_function_control =
-                resolve_srgb_format_supports_transfer_function_control;
+                resolve_srgb_format_supports_transfer_function_control.into();
             self
         }
     }
@@ -88,8 +88,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceMaintenance10FeaturesKHR<'a> {
-        pub fn maintenance10(mut self, maintenance10: Bool32) -> Self {
-            self.maintenance10 = maintenance10;
+        pub fn maintenance10(mut self, maintenance10: bool) -> Self {
+            self.maintenance10 = maintenance10.into();
             self
         }
     }

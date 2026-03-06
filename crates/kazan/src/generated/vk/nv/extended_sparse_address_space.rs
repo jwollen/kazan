@@ -41,9 +41,9 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceExtendedSparseAddressSpaceFeaturesNV<'a> {
         pub fn extended_sparse_address_space(
             mut self,
-            extended_sparse_address_space: Bool32,
+            extended_sparse_address_space: bool,
         ) -> Self {
-            self.extended_sparse_address_space = extended_sparse_address_space;
+            self.extended_sparse_address_space = extended_sparse_address_space.into();
             self
         }
     }

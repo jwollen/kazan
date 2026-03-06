@@ -41,9 +41,9 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceShaderAtomicFloat16VectorFeaturesNV<'a> {
         pub fn shader_float16_vector_atomics(
             mut self,
-            shader_float16_vector_atomics: Bool32,
+            shader_float16_vector_atomics: bool,
         ) -> Self {
-            self.shader_float16_vector_atomics = shader_float16_vector_atomics;
+            self.shader_float16_vector_atomics = shader_float16_vector_atomics.into();
             self
         }
     }

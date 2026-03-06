@@ -87,37 +87,39 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceAccelerationStructureFeaturesKHR<'a> {
-        pub fn acceleration_structure(mut self, acceleration_structure: Bool32) -> Self {
-            self.acceleration_structure = acceleration_structure;
+        pub fn acceleration_structure(mut self, acceleration_structure: bool) -> Self {
+            self.acceleration_structure = acceleration_structure.into();
             self
         }
         pub fn acceleration_structure_capture_replay(
             mut self,
-            acceleration_structure_capture_replay: Bool32,
+            acceleration_structure_capture_replay: bool,
         ) -> Self {
-            self.acceleration_structure_capture_replay = acceleration_structure_capture_replay;
+            self.acceleration_structure_capture_replay =
+                acceleration_structure_capture_replay.into();
             self
         }
         pub fn acceleration_structure_indirect_build(
             mut self,
-            acceleration_structure_indirect_build: Bool32,
+            acceleration_structure_indirect_build: bool,
         ) -> Self {
-            self.acceleration_structure_indirect_build = acceleration_structure_indirect_build;
+            self.acceleration_structure_indirect_build =
+                acceleration_structure_indirect_build.into();
             self
         }
         pub fn acceleration_structure_host_commands(
             mut self,
-            acceleration_structure_host_commands: Bool32,
+            acceleration_structure_host_commands: bool,
         ) -> Self {
-            self.acceleration_structure_host_commands = acceleration_structure_host_commands;
+            self.acceleration_structure_host_commands = acceleration_structure_host_commands.into();
             self
         }
         pub fn descriptor_binding_acceleration_structure_update_after_bind(
             mut self,
-            descriptor_binding_acceleration_structure_update_after_bind: Bool32,
+            descriptor_binding_acceleration_structure_update_after_bind: bool,
         ) -> Self {
             self.descriptor_binding_acceleration_structure_update_after_bind =
-                descriptor_binding_acceleration_structure_update_after_bind;
+                descriptor_binding_acceleration_structure_update_after_bind.into();
             self
         }
     }
@@ -339,8 +341,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> AccelerationStructureGeometryInstancesDataKHR<'a> {
-        pub fn array_of_pointers(mut self, array_of_pointers: Bool32) -> Self {
-            self.array_of_pointers = array_of_pointers;
+        pub fn array_of_pointers(mut self, array_of_pointers: bool) -> Self {
+            self.array_of_pointers = array_of_pointers.into();
             self
         }
         pub fn data(mut self, data: DeviceOrHostAddressConstKHR<'a>) -> Self {

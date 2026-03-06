@@ -36,8 +36,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceMemoryPriorityFeaturesEXT<'a> {
-        pub fn memory_priority(mut self, memory_priority: Bool32) -> Self {
-            self.memory_priority = memory_priority;
+        pub fn memory_priority(mut self, memory_priority: bool) -> Self {
+            self.memory_priority = memory_priority.into();
             self
         }
     }

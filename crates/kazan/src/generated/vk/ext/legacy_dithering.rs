@@ -36,8 +36,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceLegacyDitheringFeaturesEXT<'a> {
-        pub fn legacy_dithering(mut self, legacy_dithering: Bool32) -> Self {
-            self.legacy_dithering = legacy_dithering;
+        pub fn legacy_dithering(mut self, legacy_dithering: bool) -> Self {
+            self.legacy_dithering = legacy_dithering.into();
             self
         }
     }

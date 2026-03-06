@@ -324,8 +324,8 @@ pub(super) mod defs {
             self.build_scratch_size = build_scratch_size;
             self
         }
-        pub fn discardable(mut self, discardable: Bool32) -> Self {
-            self.discardable = discardable;
+        pub fn discardable(mut self, discardable: bool) -> Self {
+            self.discardable = discardable.into();
             self
         }
     }
@@ -403,16 +403,16 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceOpacityMicromapFeaturesEXT<'a> {
-        pub fn micromap(mut self, micromap: Bool32) -> Self {
-            self.micromap = micromap;
+        pub fn micromap(mut self, micromap: bool) -> Self {
+            self.micromap = micromap.into();
             self
         }
-        pub fn micromap_capture_replay(mut self, micromap_capture_replay: Bool32) -> Self {
-            self.micromap_capture_replay = micromap_capture_replay;
+        pub fn micromap_capture_replay(mut self, micromap_capture_replay: bool) -> Self {
+            self.micromap_capture_replay = micromap_capture_replay.into();
             self
         }
-        pub fn micromap_host_commands(mut self, micromap_host_commands: Bool32) -> Self {
-            self.micromap_host_commands = micromap_host_commands;
+        pub fn micromap_host_commands(mut self, micromap_host_commands: bool) -> Self {
+            self.micromap_host_commands = micromap_host_commands.into();
             self
         }
     }

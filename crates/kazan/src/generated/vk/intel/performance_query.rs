@@ -183,8 +183,8 @@ pub(super) mod defs {
             self.ty = ty;
             self
         }
-        pub fn enable(mut self, enable: Bool32) -> Self {
-            self.enable = enable;
+        pub fn enable(mut self, enable: bool) -> Self {
+            self.enable = enable.into();
             self
         }
         pub fn parameter(mut self, parameter: u64) -> Self {

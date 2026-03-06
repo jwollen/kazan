@@ -51,15 +51,15 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT<'a> {
-        pub fn device_generated_commands(mut self, device_generated_commands: Bool32) -> Self {
-            self.device_generated_commands = device_generated_commands;
+        pub fn device_generated_commands(mut self, device_generated_commands: bool) -> Self {
+            self.device_generated_commands = device_generated_commands.into();
             self
         }
         pub fn dynamic_generated_pipeline_layout(
             mut self,
-            dynamic_generated_pipeline_layout: Bool32,
+            dynamic_generated_pipeline_layout: bool,
         ) -> Self {
-            self.dynamic_generated_pipeline_layout = dynamic_generated_pipeline_layout;
+            self.dynamic_generated_pipeline_layout = dynamic_generated_pipeline_layout.into();
             self
         }
     }
@@ -181,18 +181,18 @@ pub(super) mod defs {
         }
         pub fn device_generated_commands_transform_feedback(
             mut self,
-            device_generated_commands_transform_feedback: Bool32,
+            device_generated_commands_transform_feedback: bool,
         ) -> Self {
             self.device_generated_commands_transform_feedback =
-                device_generated_commands_transform_feedback;
+                device_generated_commands_transform_feedback.into();
             self
         }
         pub fn device_generated_commands_multi_draw_indirect_count(
             mut self,
-            device_generated_commands_multi_draw_indirect_count: Bool32,
+            device_generated_commands_multi_draw_indirect_count: bool,
         ) -> Self {
             self.device_generated_commands_multi_draw_indirect_count =
-                device_generated_commands_multi_draw_indirect_count;
+                device_generated_commands_multi_draw_indirect_count.into();
             self
         }
     }
@@ -1092,13 +1092,13 @@ impl DeviceFn {
     pub unsafe fn cmd_execute_generated_commands_ext(
         &self,
         command_buffer: CommandBuffer,
-        is_preprocessed: Bool32,
+        is_preprocessed: bool,
         generated_commands_info: &GeneratedCommandsInfoEXT<'_>,
     ) {
         unsafe {
             (self.cmd_execute_generated_commands_ext)(
                 command_buffer,
-                is_preprocessed,
+                is_preprocessed.into(),
                 generated_commands_info,
             )
         }

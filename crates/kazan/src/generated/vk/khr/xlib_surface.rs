@@ -116,14 +116,14 @@ impl InstanceFn {
         queue_family_index: u32,
         dpy: *mut Display,
         visual_id: VisualID,
-    ) -> Bool32 {
+    ) -> bool {
         unsafe {
             (self.get_physical_device_xlib_presentation_support_khr)(
                 physical_device,
                 queue_family_index,
                 dpy,
                 visual_id,
-            )
+            ) != 0
         }
     }
 }

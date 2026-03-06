@@ -36,8 +36,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceRenderPassStripedFeaturesARM<'a> {
-        pub fn render_pass_striped(mut self, render_pass_striped: Bool32) -> Self {
-            self.render_pass_striped = render_pass_striped;
+        pub fn render_pass_striped(mut self, render_pass_striped: bool) -> Self {
+            self.render_pass_striped = render_pass_striped.into();
             self
         }
     }

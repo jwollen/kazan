@@ -41,8 +41,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT<'a> {
-        pub fn fragment_density_map_offset(mut self, fragment_density_map_offset: Bool32) -> Self {
-            self.fragment_density_map_offset = fragment_density_map_offset;
+        pub fn fragment_density_map_offset(mut self, fragment_density_map_offset: bool) -> Self {
+            self.fragment_density_map_offset = fragment_density_map_offset.into();
             self
         }
     }

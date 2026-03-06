@@ -39,8 +39,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE<'a> {
-        pub fn video_encode_rgb_conversion(mut self, video_encode_rgb_conversion: Bool32) -> Self {
-            self.video_encode_rgb_conversion = video_encode_rgb_conversion;
+        pub fn video_encode_rgb_conversion(mut self, video_encode_rgb_conversion: bool) -> Self {
+            self.video_encode_rgb_conversion = video_encode_rgb_conversion.into();
             self
         }
     }
@@ -126,9 +126,9 @@ pub(super) mod defs {
     impl<'a> VideoEncodeProfileRgbConversionInfoVALVE<'a> {
         pub fn perform_encode_rgb_conversion(
             mut self,
-            perform_encode_rgb_conversion: Bool32,
+            perform_encode_rgb_conversion: bool,
         ) -> Self {
-            self.perform_encode_rgb_conversion = perform_encode_rgb_conversion;
+            self.perform_encode_rgb_conversion = perform_encode_rgb_conversion.into();
             self
         }
     }

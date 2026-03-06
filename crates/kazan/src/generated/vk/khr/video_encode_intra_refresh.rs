@@ -64,17 +64,18 @@ pub(super) mod defs {
         }
         pub fn partition_independent_intra_refresh_regions(
             mut self,
-            partition_independent_intra_refresh_regions: Bool32,
+            partition_independent_intra_refresh_regions: bool,
         ) -> Self {
             self.partition_independent_intra_refresh_regions =
-                partition_independent_intra_refresh_regions;
+                partition_independent_intra_refresh_regions.into();
             self
         }
         pub fn non_rectangular_intra_refresh_regions(
             mut self,
-            non_rectangular_intra_refresh_regions: Bool32,
+            non_rectangular_intra_refresh_regions: bool,
         ) -> Self {
-            self.non_rectangular_intra_refresh_regions = non_rectangular_intra_refresh_regions;
+            self.non_rectangular_intra_refresh_regions =
+                non_rectangular_intra_refresh_regions.into();
             self
         }
     }
@@ -206,8 +207,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR<'a> {
-        pub fn video_encode_intra_refresh(mut self, video_encode_intra_refresh: Bool32) -> Self {
-            self.video_encode_intra_refresh = video_encode_intra_refresh;
+        pub fn video_encode_intra_refresh(mut self, video_encode_intra_refresh: bool) -> Self {
+            self.video_encode_intra_refresh = video_encode_intra_refresh.into();
             self
         }
     }

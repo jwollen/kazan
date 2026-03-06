@@ -35,12 +35,12 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDevice4444FormatsFeaturesEXT<'a> {
-        pub fn format_a4r4g4b4(mut self, format_a4r4g4b4: Bool32) -> Self {
-            self.format_a4r4g4b4 = format_a4r4g4b4;
+        pub fn format_a4r4g4b4(mut self, format_a4r4g4b4: bool) -> Self {
+            self.format_a4r4g4b4 = format_a4r4g4b4.into();
             self
         }
-        pub fn format_a4b4g4r4(mut self, format_a4b4g4r4: Bool32) -> Self {
-            self.format_a4b4g4r4 = format_a4b4g4r4;
+        pub fn format_a4b4g4r4(mut self, format_a4b4g4r4: bool) -> Self {
+            self.format_a4b4g4r4 = format_a4b4g4r4.into();
             self
         }
     }

@@ -72,8 +72,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> QueueFamilyQueryResultStatusPropertiesKHR<'a> {
-        pub fn query_result_status_support(mut self, query_result_status_support: Bool32) -> Self {
-            self.query_result_status_support = query_result_status_support;
+        pub fn query_result_status_support(mut self, query_result_status_support: bool) -> Self {
+            self.query_result_status_support = query_result_status_support.into();
             self
         }
     }

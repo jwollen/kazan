@@ -213,12 +213,12 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV<'a> {
-        pub fn spheres(mut self, spheres: Bool32) -> Self {
-            self.spheres = spheres;
+        pub fn spheres(mut self, spheres: bool) -> Self {
+            self.spheres = spheres.into();
             self
         }
-        pub fn linear_swept_spheres(mut self, linear_swept_spheres: Bool32) -> Self {
-            self.linear_swept_spheres = linear_swept_spheres;
+        pub fn linear_swept_spheres(mut self, linear_swept_spheres: bool) -> Self {
+            self.linear_swept_spheres = linear_swept_spheres.into();
             self
         }
     }

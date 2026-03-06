@@ -39,8 +39,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceShaderUntypedPointersFeaturesKHR<'a> {
-        pub fn shader_untyped_pointers(mut self, shader_untyped_pointers: Bool32) -> Self {
-            self.shader_untyped_pointers = shader_untyped_pointers;
+        pub fn shader_untyped_pointers(mut self, shader_untyped_pointers: bool) -> Self {
+            self.shader_untyped_pointers = shader_untyped_pointers.into();
             self
         }
     }

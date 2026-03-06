@@ -37,8 +37,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceExternalMemoryRDMAFeaturesNV<'a> {
-        pub fn external_memory_rdma(mut self, external_memory_rdma: Bool32) -> Self {
-            self.external_memory_rdma = external_memory_rdma;
+        pub fn external_memory_rdma(mut self, external_memory_rdma: bool) -> Self {
+            self.external_memory_rdma = external_memory_rdma.into();
             self
         }
     }

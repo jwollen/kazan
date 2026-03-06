@@ -64,8 +64,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceHdrVividFeaturesHUAWEI<'a> {
-        pub fn hdr_vivid(mut self, hdr_vivid: Bool32) -> Self {
-            self.hdr_vivid = hdr_vivid;
+        pub fn hdr_vivid(mut self, hdr_vivid: bool) -> Self {
+            self.hdr_vivid = hdr_vivid.into();
             self
         }
     }

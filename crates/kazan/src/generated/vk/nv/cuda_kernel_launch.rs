@@ -188,8 +188,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceCudaKernelLaunchFeaturesNV<'a> {
-        pub fn cuda_kernel_launch_features(mut self, cuda_kernel_launch_features: Bool32) -> Self {
-            self.cuda_kernel_launch_features = cuda_kernel_launch_features;
+        pub fn cuda_kernel_launch_features(mut self, cuda_kernel_launch_features: bool) -> Self {
+            self.cuda_kernel_launch_features = cuda_kernel_launch_features.into();
             self
         }
     }

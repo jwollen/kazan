@@ -43,9 +43,9 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceImageCompressionControlSwapchainFeaturesEXT<'a> {
         pub fn image_compression_control_swapchain(
             mut self,
-            image_compression_control_swapchain: Bool32,
+            image_compression_control_swapchain: bool,
         ) -> Self {
-            self.image_compression_control_swapchain = image_compression_control_swapchain;
+            self.image_compression_control_swapchain = image_compression_control_swapchain.into();
             self
         }
     }

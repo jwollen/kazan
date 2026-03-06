@@ -92,8 +92,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDevicePrivateDataFeatures<'a> {
-        pub fn private_data(mut self, private_data: Bool32) -> Self {
-            self.private_data = private_data;
+        pub fn private_data(mut self, private_data: bool) -> Self {
+            self.private_data = private_data.into();
             self
         }
     }
@@ -187,16 +187,16 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceInlineUniformBlockFeatures<'a> {
-        pub fn inline_uniform_block(mut self, inline_uniform_block: Bool32) -> Self {
-            self.inline_uniform_block = inline_uniform_block;
+        pub fn inline_uniform_block(mut self, inline_uniform_block: bool) -> Self {
+            self.inline_uniform_block = inline_uniform_block.into();
             self
         }
         pub fn descriptor_binding_inline_uniform_block_update_after_bind(
             mut self,
-            descriptor_binding_inline_uniform_block_update_after_bind: Bool32,
+            descriptor_binding_inline_uniform_block_update_after_bind: bool,
         ) -> Self {
             self.descriptor_binding_inline_uniform_block_update_after_bind =
-                descriptor_binding_inline_uniform_block_update_after_bind;
+                descriptor_binding_inline_uniform_block_update_after_bind.into();
             self
         }
     }
@@ -364,8 +364,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceMaintenance4Features<'a> {
-        pub fn maintenance4(mut self, maintenance4: Bool32) -> Self {
-            self.maintenance4 = maintenance4;
+        pub fn maintenance4(mut self, maintenance4: bool) -> Self {
+            self.maintenance4 = maintenance4.into();
             self
         }
     }
@@ -432,11 +432,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceTextureCompressionASTCHDRFeatures<'a> {
-        pub fn texture_compression_astc_hdr(
-            mut self,
-            texture_compression_astc_hdr: Bool32,
-        ) -> Self {
-            self.texture_compression_astc_hdr = texture_compression_astc_hdr;
+        pub fn texture_compression_astc_hdr(mut self, texture_compression_astc_hdr: bool) -> Self {
+            self.texture_compression_astc_hdr = texture_compression_astc_hdr.into();
             self
         }
     }
@@ -551,9 +548,9 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceShaderDemoteToHelperInvocationFeatures<'a> {
         pub fn shader_demote_to_helper_invocation(
             mut self,
-            shader_demote_to_helper_invocation: Bool32,
+            shader_demote_to_helper_invocation: bool,
         ) -> Self {
-            self.shader_demote_to_helper_invocation = shader_demote_to_helper_invocation;
+            self.shader_demote_to_helper_invocation = shader_demote_to_helper_invocation.into();
             self
         }
     }
@@ -600,10 +597,10 @@ pub(super) mod defs {
         }
         pub fn storage_texel_buffer_offset_single_texel_alignment(
             mut self,
-            storage_texel_buffer_offset_single_texel_alignment: Bool32,
+            storage_texel_buffer_offset_single_texel_alignment: bool,
         ) -> Self {
             self.storage_texel_buffer_offset_single_texel_alignment =
-                storage_texel_buffer_offset_single_texel_alignment;
+                storage_texel_buffer_offset_single_texel_alignment.into();
             self
         }
         pub fn uniform_texel_buffer_offset_alignment_bytes(
@@ -616,10 +613,10 @@ pub(super) mod defs {
         }
         pub fn uniform_texel_buffer_offset_single_texel_alignment(
             mut self,
-            uniform_texel_buffer_offset_single_texel_alignment: Bool32,
+            uniform_texel_buffer_offset_single_texel_alignment: bool,
         ) -> Self {
             self.uniform_texel_buffer_offset_single_texel_alignment =
-                uniform_texel_buffer_offset_single_texel_alignment;
+                uniform_texel_buffer_offset_single_texel_alignment.into();
             self
         }
     }
@@ -653,12 +650,12 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceSubgroupSizeControlFeatures<'a> {
-        pub fn subgroup_size_control(mut self, subgroup_size_control: Bool32) -> Self {
-            self.subgroup_size_control = subgroup_size_control;
+        pub fn subgroup_size_control(mut self, subgroup_size_control: bool) -> Self {
+            self.subgroup_size_control = subgroup_size_control.into();
             self
         }
-        pub fn compute_full_subgroups(mut self, compute_full_subgroups: Bool32) -> Self {
-            self.compute_full_subgroups = compute_full_subgroups;
+        pub fn compute_full_subgroups(mut self, compute_full_subgroups: bool) -> Self {
+            self.compute_full_subgroups = compute_full_subgroups.into();
             self
         }
     }
@@ -787,9 +784,9 @@ pub(super) mod defs {
     impl<'a> PhysicalDevicePipelineCreationCacheControlFeatures<'a> {
         pub fn pipeline_creation_cache_control(
             mut self,
-            pipeline_creation_cache_control: Bool32,
+            pipeline_creation_cache_control: bool,
         ) -> Self {
-            self.pipeline_creation_cache_control = pipeline_creation_cache_control;
+            self.pipeline_creation_cache_control = pipeline_creation_cache_control.into();
             self
         }
     }
@@ -845,80 +842,78 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceVulkan13Features<'a> {
-        pub fn robust_image_access(mut self, robust_image_access: Bool32) -> Self {
-            self.robust_image_access = robust_image_access;
+        pub fn robust_image_access(mut self, robust_image_access: bool) -> Self {
+            self.robust_image_access = robust_image_access.into();
             self
         }
-        pub fn inline_uniform_block(mut self, inline_uniform_block: Bool32) -> Self {
-            self.inline_uniform_block = inline_uniform_block;
+        pub fn inline_uniform_block(mut self, inline_uniform_block: bool) -> Self {
+            self.inline_uniform_block = inline_uniform_block.into();
             self
         }
         pub fn descriptor_binding_inline_uniform_block_update_after_bind(
             mut self,
-            descriptor_binding_inline_uniform_block_update_after_bind: Bool32,
+            descriptor_binding_inline_uniform_block_update_after_bind: bool,
         ) -> Self {
             self.descriptor_binding_inline_uniform_block_update_after_bind =
-                descriptor_binding_inline_uniform_block_update_after_bind;
+                descriptor_binding_inline_uniform_block_update_after_bind.into();
             self
         }
         pub fn pipeline_creation_cache_control(
             mut self,
-            pipeline_creation_cache_control: Bool32,
+            pipeline_creation_cache_control: bool,
         ) -> Self {
-            self.pipeline_creation_cache_control = pipeline_creation_cache_control;
+            self.pipeline_creation_cache_control = pipeline_creation_cache_control.into();
             self
         }
-        pub fn private_data(mut self, private_data: Bool32) -> Self {
-            self.private_data = private_data;
+        pub fn private_data(mut self, private_data: bool) -> Self {
+            self.private_data = private_data.into();
             self
         }
         pub fn shader_demote_to_helper_invocation(
             mut self,
-            shader_demote_to_helper_invocation: Bool32,
+            shader_demote_to_helper_invocation: bool,
         ) -> Self {
-            self.shader_demote_to_helper_invocation = shader_demote_to_helper_invocation;
+            self.shader_demote_to_helper_invocation = shader_demote_to_helper_invocation.into();
             self
         }
-        pub fn shader_terminate_invocation(mut self, shader_terminate_invocation: Bool32) -> Self {
-            self.shader_terminate_invocation = shader_terminate_invocation;
+        pub fn shader_terminate_invocation(mut self, shader_terminate_invocation: bool) -> Self {
+            self.shader_terminate_invocation = shader_terminate_invocation.into();
             self
         }
-        pub fn subgroup_size_control(mut self, subgroup_size_control: Bool32) -> Self {
-            self.subgroup_size_control = subgroup_size_control;
+        pub fn subgroup_size_control(mut self, subgroup_size_control: bool) -> Self {
+            self.subgroup_size_control = subgroup_size_control.into();
             self
         }
-        pub fn compute_full_subgroups(mut self, compute_full_subgroups: Bool32) -> Self {
-            self.compute_full_subgroups = compute_full_subgroups;
+        pub fn compute_full_subgroups(mut self, compute_full_subgroups: bool) -> Self {
+            self.compute_full_subgroups = compute_full_subgroups.into();
             self
         }
-        pub fn synchronization2(mut self, synchronization2: Bool32) -> Self {
-            self.synchronization2 = synchronization2;
+        pub fn synchronization2(mut self, synchronization2: bool) -> Self {
+            self.synchronization2 = synchronization2.into();
             self
         }
-        pub fn texture_compression_astc_hdr(
-            mut self,
-            texture_compression_astc_hdr: Bool32,
-        ) -> Self {
-            self.texture_compression_astc_hdr = texture_compression_astc_hdr;
+        pub fn texture_compression_astc_hdr(mut self, texture_compression_astc_hdr: bool) -> Self {
+            self.texture_compression_astc_hdr = texture_compression_astc_hdr.into();
             self
         }
         pub fn shader_zero_initialize_workgroup_memory(
             mut self,
-            shader_zero_initialize_workgroup_memory: Bool32,
+            shader_zero_initialize_workgroup_memory: bool,
         ) -> Self {
-            self.shader_zero_initialize_workgroup_memory = shader_zero_initialize_workgroup_memory;
+            self.shader_zero_initialize_workgroup_memory =
+                shader_zero_initialize_workgroup_memory.into();
             self
         }
-        pub fn dynamic_rendering(mut self, dynamic_rendering: Bool32) -> Self {
-            self.dynamic_rendering = dynamic_rendering;
+        pub fn dynamic_rendering(mut self, dynamic_rendering: bool) -> Self {
+            self.dynamic_rendering = dynamic_rendering.into();
             self
         }
-        pub fn shader_integer_dot_product(mut self, shader_integer_dot_product: Bool32) -> Self {
-            self.shader_integer_dot_product = shader_integer_dot_product;
+        pub fn shader_integer_dot_product(mut self, shader_integer_dot_product: bool) -> Self {
+            self.shader_integer_dot_product = shader_integer_dot_product.into();
             self
         }
-        pub fn maintenance4(mut self, maintenance4: Bool32) -> Self {
-            self.maintenance4 = maintenance4;
+        pub fn maintenance4(mut self, maintenance4: bool) -> Self {
+            self.maintenance4 = maintenance4.into();
             self
         }
     }
@@ -1099,241 +1094,246 @@ _marker: PhantomData
         }
         pub fn integer_dot_product8_bit_unsigned_accelerated(
             mut self,
-            integer_dot_product8_bit_unsigned_accelerated: Bool32,
+            integer_dot_product8_bit_unsigned_accelerated: bool,
         ) -> Self {
             self.integer_dot_product8_bit_unsigned_accelerated =
-                integer_dot_product8_bit_unsigned_accelerated;
+                integer_dot_product8_bit_unsigned_accelerated.into();
             self
         }
         pub fn integer_dot_product8_bit_signed_accelerated(
             mut self,
-            integer_dot_product8_bit_signed_accelerated: Bool32,
+            integer_dot_product8_bit_signed_accelerated: bool,
         ) -> Self {
             self.integer_dot_product8_bit_signed_accelerated =
-                integer_dot_product8_bit_signed_accelerated;
+                integer_dot_product8_bit_signed_accelerated.into();
             self
         }
         pub fn integer_dot_product8_bit_mixed_signedness_accelerated(
             mut self,
-            integer_dot_product8_bit_mixed_signedness_accelerated: Bool32,
+            integer_dot_product8_bit_mixed_signedness_accelerated: bool,
         ) -> Self {
             self.integer_dot_product8_bit_mixed_signedness_accelerated =
-                integer_dot_product8_bit_mixed_signedness_accelerated;
+                integer_dot_product8_bit_mixed_signedness_accelerated.into();
             self
         }
         pub fn integer_dot_product4x8_bit_packed_unsigned_accelerated(
             mut self,
-            integer_dot_product4x8_bit_packed_unsigned_accelerated: Bool32,
+            integer_dot_product4x8_bit_packed_unsigned_accelerated: bool,
         ) -> Self {
             self.integer_dot_product4x8_bit_packed_unsigned_accelerated =
-                integer_dot_product4x8_bit_packed_unsigned_accelerated;
+                integer_dot_product4x8_bit_packed_unsigned_accelerated.into();
             self
         }
         pub fn integer_dot_product4x8_bit_packed_signed_accelerated(
             mut self,
-            integer_dot_product4x8_bit_packed_signed_accelerated: Bool32,
+            integer_dot_product4x8_bit_packed_signed_accelerated: bool,
         ) -> Self {
             self.integer_dot_product4x8_bit_packed_signed_accelerated =
-                integer_dot_product4x8_bit_packed_signed_accelerated;
+                integer_dot_product4x8_bit_packed_signed_accelerated.into();
             self
         }
         pub fn integer_dot_product4x8_bit_packed_mixed_signedness_accelerated(
             mut self,
-            integer_dot_product4x8_bit_packed_mixed_signedness_accelerated: Bool32,
+            integer_dot_product4x8_bit_packed_mixed_signedness_accelerated: bool,
         ) -> Self {
             self.integer_dot_product4x8_bit_packed_mixed_signedness_accelerated =
-                integer_dot_product4x8_bit_packed_mixed_signedness_accelerated;
+                integer_dot_product4x8_bit_packed_mixed_signedness_accelerated.into();
             self
         }
         pub fn integer_dot_product16_bit_unsigned_accelerated(
             mut self,
-            integer_dot_product16_bit_unsigned_accelerated: Bool32,
+            integer_dot_product16_bit_unsigned_accelerated: bool,
         ) -> Self {
             self.integer_dot_product16_bit_unsigned_accelerated =
-                integer_dot_product16_bit_unsigned_accelerated;
+                integer_dot_product16_bit_unsigned_accelerated.into();
             self
         }
         pub fn integer_dot_product16_bit_signed_accelerated(
             mut self,
-            integer_dot_product16_bit_signed_accelerated: Bool32,
+            integer_dot_product16_bit_signed_accelerated: bool,
         ) -> Self {
             self.integer_dot_product16_bit_signed_accelerated =
-                integer_dot_product16_bit_signed_accelerated;
+                integer_dot_product16_bit_signed_accelerated.into();
             self
         }
         pub fn integer_dot_product16_bit_mixed_signedness_accelerated(
             mut self,
-            integer_dot_product16_bit_mixed_signedness_accelerated: Bool32,
+            integer_dot_product16_bit_mixed_signedness_accelerated: bool,
         ) -> Self {
             self.integer_dot_product16_bit_mixed_signedness_accelerated =
-                integer_dot_product16_bit_mixed_signedness_accelerated;
+                integer_dot_product16_bit_mixed_signedness_accelerated.into();
             self
         }
         pub fn integer_dot_product32_bit_unsigned_accelerated(
             mut self,
-            integer_dot_product32_bit_unsigned_accelerated: Bool32,
+            integer_dot_product32_bit_unsigned_accelerated: bool,
         ) -> Self {
             self.integer_dot_product32_bit_unsigned_accelerated =
-                integer_dot_product32_bit_unsigned_accelerated;
+                integer_dot_product32_bit_unsigned_accelerated.into();
             self
         }
         pub fn integer_dot_product32_bit_signed_accelerated(
             mut self,
-            integer_dot_product32_bit_signed_accelerated: Bool32,
+            integer_dot_product32_bit_signed_accelerated: bool,
         ) -> Self {
             self.integer_dot_product32_bit_signed_accelerated =
-                integer_dot_product32_bit_signed_accelerated;
+                integer_dot_product32_bit_signed_accelerated.into();
             self
         }
         pub fn integer_dot_product32_bit_mixed_signedness_accelerated(
             mut self,
-            integer_dot_product32_bit_mixed_signedness_accelerated: Bool32,
+            integer_dot_product32_bit_mixed_signedness_accelerated: bool,
         ) -> Self {
             self.integer_dot_product32_bit_mixed_signedness_accelerated =
-                integer_dot_product32_bit_mixed_signedness_accelerated;
+                integer_dot_product32_bit_mixed_signedness_accelerated.into();
             self
         }
         pub fn integer_dot_product64_bit_unsigned_accelerated(
             mut self,
-            integer_dot_product64_bit_unsigned_accelerated: Bool32,
+            integer_dot_product64_bit_unsigned_accelerated: bool,
         ) -> Self {
             self.integer_dot_product64_bit_unsigned_accelerated =
-                integer_dot_product64_bit_unsigned_accelerated;
+                integer_dot_product64_bit_unsigned_accelerated.into();
             self
         }
         pub fn integer_dot_product64_bit_signed_accelerated(
             mut self,
-            integer_dot_product64_bit_signed_accelerated: Bool32,
+            integer_dot_product64_bit_signed_accelerated: bool,
         ) -> Self {
             self.integer_dot_product64_bit_signed_accelerated =
-                integer_dot_product64_bit_signed_accelerated;
+                integer_dot_product64_bit_signed_accelerated.into();
             self
         }
         pub fn integer_dot_product64_bit_mixed_signedness_accelerated(
             mut self,
-            integer_dot_product64_bit_mixed_signedness_accelerated: Bool32,
+            integer_dot_product64_bit_mixed_signedness_accelerated: bool,
         ) -> Self {
             self.integer_dot_product64_bit_mixed_signedness_accelerated =
-                integer_dot_product64_bit_mixed_signedness_accelerated;
+                integer_dot_product64_bit_mixed_signedness_accelerated.into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated =
-                integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated;
+                integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated.into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating8_bit_signed_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating8_bit_signed_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating8_bit_signed_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating8_bit_signed_accelerated =
-                integer_dot_product_accumulating_saturating8_bit_signed_accelerated;
+                integer_dot_product_accumulating_saturating8_bit_signed_accelerated.into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated =
-                integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated;
+                integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated
+                    .into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated =
-                integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated;
+                integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated
+                    .into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated =
-                integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated;
+                integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated.into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated: bool,
         ) -> Self {
-            self.integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated = integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated;
+            self.integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated = integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated.into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated =
-                integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated;
+                integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated.into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating16_bit_signed_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating16_bit_signed_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating16_bit_signed_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating16_bit_signed_accelerated =
-                integer_dot_product_accumulating_saturating16_bit_signed_accelerated;
+                integer_dot_product_accumulating_saturating16_bit_signed_accelerated.into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated =
-                integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated;
+                integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated
+                    .into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated =
-                integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated;
+                integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated.into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating32_bit_signed_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating32_bit_signed_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating32_bit_signed_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating32_bit_signed_accelerated =
-                integer_dot_product_accumulating_saturating32_bit_signed_accelerated;
+                integer_dot_product_accumulating_saturating32_bit_signed_accelerated.into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated =
-                integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated;
+                integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated
+                    .into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated =
-                integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated;
+                integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated.into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating64_bit_signed_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating64_bit_signed_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating64_bit_signed_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating64_bit_signed_accelerated =
-                integer_dot_product_accumulating_saturating64_bit_signed_accelerated;
+                integer_dot_product_accumulating_saturating64_bit_signed_accelerated.into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated =
-                integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated;
+                integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated
+                    .into();
             self
         }
         pub fn storage_texel_buffer_offset_alignment_bytes(
@@ -1346,10 +1346,10 @@ _marker: PhantomData
         }
         pub fn storage_texel_buffer_offset_single_texel_alignment(
             mut self,
-            storage_texel_buffer_offset_single_texel_alignment: Bool32,
+            storage_texel_buffer_offset_single_texel_alignment: bool,
         ) -> Self {
             self.storage_texel_buffer_offset_single_texel_alignment =
-                storage_texel_buffer_offset_single_texel_alignment;
+                storage_texel_buffer_offset_single_texel_alignment.into();
             self
         }
         pub fn uniform_texel_buffer_offset_alignment_bytes(
@@ -1362,10 +1362,10 @@ _marker: PhantomData
         }
         pub fn uniform_texel_buffer_offset_single_texel_alignment(
             mut self,
-            uniform_texel_buffer_offset_single_texel_alignment: Bool32,
+            uniform_texel_buffer_offset_single_texel_alignment: bool,
         ) -> Self {
             self.uniform_texel_buffer_offset_single_texel_alignment =
-                uniform_texel_buffer_offset_single_texel_alignment;
+                uniform_texel_buffer_offset_single_texel_alignment.into();
             self
         }
         pub fn max_buffer_size(mut self, max_buffer_size: DeviceSize) -> Self {
@@ -1441,9 +1441,10 @@ _marker: PhantomData
     impl<'a> PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures<'a> {
         pub fn shader_zero_initialize_workgroup_memory(
             mut self,
-            shader_zero_initialize_workgroup_memory: Bool32,
+            shader_zero_initialize_workgroup_memory: bool,
         ) -> Self {
-            self.shader_zero_initialize_workgroup_memory = shader_zero_initialize_workgroup_memory;
+            self.shader_zero_initialize_workgroup_memory =
+                shader_zero_initialize_workgroup_memory.into();
             self
         }
     }
@@ -1472,8 +1473,8 @@ _marker: PhantomData
         }
     }
     impl<'a> PhysicalDeviceImageRobustnessFeatures<'a> {
-        pub fn robust_image_access(mut self, robust_image_access: Bool32) -> Self {
-            self.robust_image_access = robust_image_access;
+        pub fn robust_image_access(mut self, robust_image_access: bool) -> Self {
+            self.robust_image_access = robust_image_access.into();
             self
         }
     }
@@ -2057,8 +2058,8 @@ _marker: PhantomData
         }
     }
     impl<'a> PhysicalDeviceShaderTerminateInvocationFeatures<'a> {
-        pub fn shader_terminate_invocation(mut self, shader_terminate_invocation: Bool32) -> Self {
-            self.shader_terminate_invocation = shader_terminate_invocation;
+        pub fn shader_terminate_invocation(mut self, shader_terminate_invocation: bool) -> Self {
+            self.shader_terminate_invocation = shader_terminate_invocation.into();
             self
         }
     }
@@ -2493,8 +2494,8 @@ _marker: PhantomData
         }
     }
     impl<'a> PhysicalDeviceSynchronization2Features<'a> {
-        pub fn synchronization2(mut self, synchronization2: Bool32) -> Self {
-            self.synchronization2 = synchronization2;
+        pub fn synchronization2(mut self, synchronization2: bool) -> Self {
+            self.synchronization2 = synchronization2.into();
             self
         }
     }
@@ -2529,8 +2530,8 @@ _marker: PhantomData
         }
     }
     impl<'a> PhysicalDeviceShaderIntegerDotProductFeatures<'a> {
-        pub fn shader_integer_dot_product(mut self, shader_integer_dot_product: Bool32) -> Self {
-            self.shader_integer_dot_product = shader_integer_dot_product;
+        pub fn shader_integer_dot_product(mut self, shader_integer_dot_product: bool) -> Self {
+            self.shader_integer_dot_product = shader_integer_dot_product.into();
             self
         }
     }
@@ -2623,241 +2624,246 @@ _marker: PhantomData
     impl<'a> PhysicalDeviceShaderIntegerDotProductProperties<'a> {
         pub fn integer_dot_product8_bit_unsigned_accelerated(
             mut self,
-            integer_dot_product8_bit_unsigned_accelerated: Bool32,
+            integer_dot_product8_bit_unsigned_accelerated: bool,
         ) -> Self {
             self.integer_dot_product8_bit_unsigned_accelerated =
-                integer_dot_product8_bit_unsigned_accelerated;
+                integer_dot_product8_bit_unsigned_accelerated.into();
             self
         }
         pub fn integer_dot_product8_bit_signed_accelerated(
             mut self,
-            integer_dot_product8_bit_signed_accelerated: Bool32,
+            integer_dot_product8_bit_signed_accelerated: bool,
         ) -> Self {
             self.integer_dot_product8_bit_signed_accelerated =
-                integer_dot_product8_bit_signed_accelerated;
+                integer_dot_product8_bit_signed_accelerated.into();
             self
         }
         pub fn integer_dot_product8_bit_mixed_signedness_accelerated(
             mut self,
-            integer_dot_product8_bit_mixed_signedness_accelerated: Bool32,
+            integer_dot_product8_bit_mixed_signedness_accelerated: bool,
         ) -> Self {
             self.integer_dot_product8_bit_mixed_signedness_accelerated =
-                integer_dot_product8_bit_mixed_signedness_accelerated;
+                integer_dot_product8_bit_mixed_signedness_accelerated.into();
             self
         }
         pub fn integer_dot_product4x8_bit_packed_unsigned_accelerated(
             mut self,
-            integer_dot_product4x8_bit_packed_unsigned_accelerated: Bool32,
+            integer_dot_product4x8_bit_packed_unsigned_accelerated: bool,
         ) -> Self {
             self.integer_dot_product4x8_bit_packed_unsigned_accelerated =
-                integer_dot_product4x8_bit_packed_unsigned_accelerated;
+                integer_dot_product4x8_bit_packed_unsigned_accelerated.into();
             self
         }
         pub fn integer_dot_product4x8_bit_packed_signed_accelerated(
             mut self,
-            integer_dot_product4x8_bit_packed_signed_accelerated: Bool32,
+            integer_dot_product4x8_bit_packed_signed_accelerated: bool,
         ) -> Self {
             self.integer_dot_product4x8_bit_packed_signed_accelerated =
-                integer_dot_product4x8_bit_packed_signed_accelerated;
+                integer_dot_product4x8_bit_packed_signed_accelerated.into();
             self
         }
         pub fn integer_dot_product4x8_bit_packed_mixed_signedness_accelerated(
             mut self,
-            integer_dot_product4x8_bit_packed_mixed_signedness_accelerated: Bool32,
+            integer_dot_product4x8_bit_packed_mixed_signedness_accelerated: bool,
         ) -> Self {
             self.integer_dot_product4x8_bit_packed_mixed_signedness_accelerated =
-                integer_dot_product4x8_bit_packed_mixed_signedness_accelerated;
+                integer_dot_product4x8_bit_packed_mixed_signedness_accelerated.into();
             self
         }
         pub fn integer_dot_product16_bit_unsigned_accelerated(
             mut self,
-            integer_dot_product16_bit_unsigned_accelerated: Bool32,
+            integer_dot_product16_bit_unsigned_accelerated: bool,
         ) -> Self {
             self.integer_dot_product16_bit_unsigned_accelerated =
-                integer_dot_product16_bit_unsigned_accelerated;
+                integer_dot_product16_bit_unsigned_accelerated.into();
             self
         }
         pub fn integer_dot_product16_bit_signed_accelerated(
             mut self,
-            integer_dot_product16_bit_signed_accelerated: Bool32,
+            integer_dot_product16_bit_signed_accelerated: bool,
         ) -> Self {
             self.integer_dot_product16_bit_signed_accelerated =
-                integer_dot_product16_bit_signed_accelerated;
+                integer_dot_product16_bit_signed_accelerated.into();
             self
         }
         pub fn integer_dot_product16_bit_mixed_signedness_accelerated(
             mut self,
-            integer_dot_product16_bit_mixed_signedness_accelerated: Bool32,
+            integer_dot_product16_bit_mixed_signedness_accelerated: bool,
         ) -> Self {
             self.integer_dot_product16_bit_mixed_signedness_accelerated =
-                integer_dot_product16_bit_mixed_signedness_accelerated;
+                integer_dot_product16_bit_mixed_signedness_accelerated.into();
             self
         }
         pub fn integer_dot_product32_bit_unsigned_accelerated(
             mut self,
-            integer_dot_product32_bit_unsigned_accelerated: Bool32,
+            integer_dot_product32_bit_unsigned_accelerated: bool,
         ) -> Self {
             self.integer_dot_product32_bit_unsigned_accelerated =
-                integer_dot_product32_bit_unsigned_accelerated;
+                integer_dot_product32_bit_unsigned_accelerated.into();
             self
         }
         pub fn integer_dot_product32_bit_signed_accelerated(
             mut self,
-            integer_dot_product32_bit_signed_accelerated: Bool32,
+            integer_dot_product32_bit_signed_accelerated: bool,
         ) -> Self {
             self.integer_dot_product32_bit_signed_accelerated =
-                integer_dot_product32_bit_signed_accelerated;
+                integer_dot_product32_bit_signed_accelerated.into();
             self
         }
         pub fn integer_dot_product32_bit_mixed_signedness_accelerated(
             mut self,
-            integer_dot_product32_bit_mixed_signedness_accelerated: Bool32,
+            integer_dot_product32_bit_mixed_signedness_accelerated: bool,
         ) -> Self {
             self.integer_dot_product32_bit_mixed_signedness_accelerated =
-                integer_dot_product32_bit_mixed_signedness_accelerated;
+                integer_dot_product32_bit_mixed_signedness_accelerated.into();
             self
         }
         pub fn integer_dot_product64_bit_unsigned_accelerated(
             mut self,
-            integer_dot_product64_bit_unsigned_accelerated: Bool32,
+            integer_dot_product64_bit_unsigned_accelerated: bool,
         ) -> Self {
             self.integer_dot_product64_bit_unsigned_accelerated =
-                integer_dot_product64_bit_unsigned_accelerated;
+                integer_dot_product64_bit_unsigned_accelerated.into();
             self
         }
         pub fn integer_dot_product64_bit_signed_accelerated(
             mut self,
-            integer_dot_product64_bit_signed_accelerated: Bool32,
+            integer_dot_product64_bit_signed_accelerated: bool,
         ) -> Self {
             self.integer_dot_product64_bit_signed_accelerated =
-                integer_dot_product64_bit_signed_accelerated;
+                integer_dot_product64_bit_signed_accelerated.into();
             self
         }
         pub fn integer_dot_product64_bit_mixed_signedness_accelerated(
             mut self,
-            integer_dot_product64_bit_mixed_signedness_accelerated: Bool32,
+            integer_dot_product64_bit_mixed_signedness_accelerated: bool,
         ) -> Self {
             self.integer_dot_product64_bit_mixed_signedness_accelerated =
-                integer_dot_product64_bit_mixed_signedness_accelerated;
+                integer_dot_product64_bit_mixed_signedness_accelerated.into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated =
-                integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated;
+                integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated.into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating8_bit_signed_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating8_bit_signed_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating8_bit_signed_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating8_bit_signed_accelerated =
-                integer_dot_product_accumulating_saturating8_bit_signed_accelerated;
+                integer_dot_product_accumulating_saturating8_bit_signed_accelerated.into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated =
-                integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated;
+                integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated
+                    .into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated =
-                integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated;
+                integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated
+                    .into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated =
-                integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated;
+                integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated.into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated: bool,
         ) -> Self {
-            self.integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated = integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated;
+            self.integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated = integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated.into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated =
-                integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated;
+                integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated.into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating16_bit_signed_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating16_bit_signed_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating16_bit_signed_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating16_bit_signed_accelerated =
-                integer_dot_product_accumulating_saturating16_bit_signed_accelerated;
+                integer_dot_product_accumulating_saturating16_bit_signed_accelerated.into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated =
-                integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated;
+                integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated
+                    .into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated =
-                integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated;
+                integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated.into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating32_bit_signed_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating32_bit_signed_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating32_bit_signed_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating32_bit_signed_accelerated =
-                integer_dot_product_accumulating_saturating32_bit_signed_accelerated;
+                integer_dot_product_accumulating_saturating32_bit_signed_accelerated.into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated =
-                integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated;
+                integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated
+                    .into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated =
-                integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated;
+                integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated.into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating64_bit_signed_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating64_bit_signed_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating64_bit_signed_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating64_bit_signed_accelerated =
-                integer_dot_product_accumulating_saturating64_bit_signed_accelerated;
+                integer_dot_product_accumulating_saturating64_bit_signed_accelerated.into();
             self
         }
         pub fn integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated(
             mut self,
-            integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated: Bool32,
+            integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated: bool,
         ) -> Self {
             self.integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated =
-                integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated;
+                integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated
+                    .into();
             self
         }
     }
@@ -3128,8 +3134,8 @@ _marker: PhantomData
         }
     }
     impl<'a> PhysicalDeviceDynamicRenderingFeatures<'a> {
-        pub fn dynamic_rendering(mut self, dynamic_rendering: Bool32) -> Self {
-            self.dynamic_rendering = dynamic_rendering;
+        pub fn dynamic_rendering(mut self, dynamic_rendering: bool) -> Self {
+            self.dynamic_rendering = dynamic_rendering.into();
             self
         }
     }
@@ -4572,16 +4578,16 @@ impl DeviceFn {
     pub unsafe fn cmd_set_depth_test_enable(
         &self,
         command_buffer: CommandBuffer,
-        depth_test_enable: Bool32,
+        depth_test_enable: bool,
     ) {
-        unsafe { (self.cmd_set_depth_test_enable)(command_buffer, depth_test_enable) }
+        unsafe { (self.cmd_set_depth_test_enable)(command_buffer, depth_test_enable.into()) }
     }
     pub unsafe fn cmd_set_depth_write_enable(
         &self,
         command_buffer: CommandBuffer,
-        depth_write_enable: Bool32,
+        depth_write_enable: bool,
     ) {
-        unsafe { (self.cmd_set_depth_write_enable)(command_buffer, depth_write_enable) }
+        unsafe { (self.cmd_set_depth_write_enable)(command_buffer, depth_write_enable.into()) }
     }
     pub unsafe fn cmd_set_depth_compare_op(
         &self,
@@ -4593,16 +4599,18 @@ impl DeviceFn {
     pub unsafe fn cmd_set_depth_bounds_test_enable(
         &self,
         command_buffer: CommandBuffer,
-        depth_bounds_test_enable: Bool32,
+        depth_bounds_test_enable: bool,
     ) {
-        unsafe { (self.cmd_set_depth_bounds_test_enable)(command_buffer, depth_bounds_test_enable) }
+        unsafe {
+            (self.cmd_set_depth_bounds_test_enable)(command_buffer, depth_bounds_test_enable.into())
+        }
     }
     pub unsafe fn cmd_set_stencil_test_enable(
         &self,
         command_buffer: CommandBuffer,
-        stencil_test_enable: Bool32,
+        stencil_test_enable: bool,
     ) {
-        unsafe { (self.cmd_set_stencil_test_enable)(command_buffer, stencil_test_enable) }
+        unsafe { (self.cmd_set_stencil_test_enable)(command_buffer, stencil_test_enable.into()) }
     }
     pub unsafe fn cmd_set_stencil_op(
         &self,
@@ -4627,24 +4635,29 @@ impl DeviceFn {
     pub unsafe fn cmd_set_rasterizer_discard_enable(
         &self,
         command_buffer: CommandBuffer,
-        rasterizer_discard_enable: Bool32,
+        rasterizer_discard_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_rasterizer_discard_enable)(command_buffer, rasterizer_discard_enable)
+            (self.cmd_set_rasterizer_discard_enable)(
+                command_buffer,
+                rasterizer_discard_enable.into(),
+            )
         }
     }
     pub unsafe fn cmd_set_depth_bias_enable(
         &self,
         command_buffer: CommandBuffer,
-        depth_bias_enable: Bool32,
+        depth_bias_enable: bool,
     ) {
-        unsafe { (self.cmd_set_depth_bias_enable)(command_buffer, depth_bias_enable) }
+        unsafe { (self.cmd_set_depth_bias_enable)(command_buffer, depth_bias_enable.into()) }
     }
     pub unsafe fn cmd_set_primitive_restart_enable(
         &self,
         command_buffer: CommandBuffer,
-        primitive_restart_enable: Bool32,
+        primitive_restart_enable: bool,
     ) {
-        unsafe { (self.cmd_set_primitive_restart_enable)(command_buffer, primitive_restart_enable) }
+        unsafe {
+            (self.cmd_set_primitive_restart_enable)(command_buffer, primitive_restart_enable.into())
+        }
     }
 }

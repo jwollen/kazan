@@ -210,8 +210,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PipelineSampleLocationsStateCreateInfoEXT<'a> {
-        pub fn sample_locations_enable(mut self, sample_locations_enable: Bool32) -> Self {
-            self.sample_locations_enable = sample_locations_enable;
+        pub fn sample_locations_enable(mut self, sample_locations_enable: bool) -> Self {
+            self.sample_locations_enable = sample_locations_enable.into();
             self
         }
         pub fn sample_locations_info(
@@ -285,8 +285,8 @@ pub(super) mod defs {
             self.sample_location_sub_pixel_bits = sample_location_sub_pixel_bits;
             self
         }
-        pub fn variable_sample_locations(mut self, variable_sample_locations: Bool32) -> Self {
-            self.variable_sample_locations = variable_sample_locations;
+        pub fn variable_sample_locations(mut self, variable_sample_locations: bool) -> Self {
+            self.variable_sample_locations = variable_sample_locations.into();
             self
         }
     }

@@ -217,8 +217,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'a> {
-        pub fn screen_buffer_import(mut self, screen_buffer_import: Bool32) -> Self {
-            self.screen_buffer_import = screen_buffer_import;
+        pub fn screen_buffer_import(mut self, screen_buffer_import: bool) -> Self {
+            self.screen_buffer_import = screen_buffer_import.into();
             self
         }
     }

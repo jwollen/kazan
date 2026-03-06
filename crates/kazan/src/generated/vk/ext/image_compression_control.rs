@@ -81,8 +81,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceImageCompressionControlFeaturesEXT<'a> {
-        pub fn image_compression_control(mut self, image_compression_control: Bool32) -> Self {
-            self.image_compression_control = image_compression_control;
+        pub fn image_compression_control(mut self, image_compression_control: bool) -> Self {
+            self.image_compression_control = image_compression_control.into();
             self
         }
     }

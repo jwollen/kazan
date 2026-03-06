@@ -60,12 +60,12 @@ pub(super) mod defs {
             self.supported_transforms = supported_transforms;
             self
         }
-        pub fn plane_reorder_possible(mut self, plane_reorder_possible: Bool32) -> Self {
-            self.plane_reorder_possible = plane_reorder_possible;
+        pub fn plane_reorder_possible(mut self, plane_reorder_possible: bool) -> Self {
+            self.plane_reorder_possible = plane_reorder_possible.into();
             self
         }
-        pub fn persistent_content(mut self, persistent_content: Bool32) -> Self {
-            self.persistent_content = persistent_content;
+        pub fn persistent_content(mut self, persistent_content: bool) -> Self {
+            self.persistent_content = persistent_content.into();
             self
         }
     }

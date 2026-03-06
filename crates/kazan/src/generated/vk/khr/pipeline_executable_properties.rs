@@ -39,8 +39,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDevicePipelineExecutablePropertiesFeaturesKHR<'a> {
-        pub fn pipeline_executable_info(mut self, pipeline_executable_info: Bool32) -> Self {
-            self.pipeline_executable_info = pipeline_executable_info;
+        pub fn pipeline_executable_info(mut self, pipeline_executable_info: bool) -> Self {
+            self.pipeline_executable_info = pipeline_executable_info.into();
             self
         }
     }
@@ -209,8 +209,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PipelineExecutableInternalRepresentationKHR<'a> {
-        pub fn is_text(mut self, is_text: Bool32) -> Self {
-            self.is_text = is_text;
+        pub fn is_text(mut self, is_text: bool) -> Self {
+            self.is_text = is_text.into();
             self
         }
         pub fn data(mut self, data: &'a mut [u8]) -> Self {

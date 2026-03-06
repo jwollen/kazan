@@ -91,9 +91,9 @@ pub(super) mod defs {
         }
         pub fn expect_dyadic_temporal_layer_pattern(
             mut self,
-            expect_dyadic_temporal_layer_pattern: Bool32,
+            expect_dyadic_temporal_layer_pattern: bool,
         ) -> Self {
-            self.expect_dyadic_temporal_layer_pattern = expect_dyadic_temporal_layer_pattern;
+            self.expect_dyadic_temporal_layer_pattern = expect_dyadic_temporal_layer_pattern.into();
             self
         }
         pub fn min_qp(mut self, min_qp: i32) -> Self {
@@ -104,18 +104,15 @@ pub(super) mod defs {
             self.max_qp = max_qp;
             self
         }
-        pub fn prefers_gop_remaining_frames(
-            mut self,
-            prefers_gop_remaining_frames: Bool32,
-        ) -> Self {
-            self.prefers_gop_remaining_frames = prefers_gop_remaining_frames;
+        pub fn prefers_gop_remaining_frames(mut self, prefers_gop_remaining_frames: bool) -> Self {
+            self.prefers_gop_remaining_frames = prefers_gop_remaining_frames.into();
             self
         }
         pub fn requires_gop_remaining_frames(
             mut self,
-            requires_gop_remaining_frames: Bool32,
+            requires_gop_remaining_frames: bool,
         ) -> Self {
-            self.requires_gop_remaining_frames = requires_gop_remaining_frames;
+            self.requires_gop_remaining_frames = requires_gop_remaining_frames.into();
             self
         }
         pub fn std_syntax_flags(mut self, std_syntax_flags: VideoEncodeH264StdFlagsKHR) -> Self {
@@ -218,9 +215,10 @@ pub(super) mod defs {
         }
         pub fn preferred_std_entropy_coding_mode_flag(
             mut self,
-            preferred_std_entropy_coding_mode_flag: Bool32,
+            preferred_std_entropy_coding_mode_flag: bool,
         ) -> Self {
-            self.preferred_std_entropy_coding_mode_flag = preferred_std_entropy_coding_mode_flag;
+            self.preferred_std_entropy_coding_mode_flag =
+                preferred_std_entropy_coding_mode_flag.into();
             self
         }
     }
@@ -250,8 +248,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> VideoEncodeH264SessionCreateInfoKHR<'a> {
-        pub fn use_max_level_idc(mut self, use_max_level_idc: Bool32) -> Self {
-            self.use_max_level_idc = use_max_level_idc;
+        pub fn use_max_level_idc(mut self, use_max_level_idc: bool) -> Self {
+            self.use_max_level_idc = use_max_level_idc.into();
             self
         }
         pub fn max_level_idc(mut self, max_level_idc: StdVideoH264LevelIdc) -> Self {
@@ -383,12 +381,12 @@ pub(super) mod defs {
         }
     }
     impl<'a> VideoEncodeH264SessionParametersGetInfoKHR<'a> {
-        pub fn write_std_sps(mut self, write_std_sps: Bool32) -> Self {
-            self.write_std_sps = write_std_sps;
+        pub fn write_std_sps(mut self, write_std_sps: bool) -> Self {
+            self.write_std_sps = write_std_sps.into();
             self
         }
-        pub fn write_std_pps(mut self, write_std_pps: Bool32) -> Self {
-            self.write_std_pps = write_std_pps;
+        pub fn write_std_pps(mut self, write_std_pps: bool) -> Self {
+            self.write_std_pps = write_std_pps.into();
             self
         }
         pub fn std_sps_id(mut self, std_sps_id: u32) -> Self {
@@ -429,12 +427,12 @@ pub(super) mod defs {
         }
     }
     impl<'a> VideoEncodeH264SessionParametersFeedbackInfoKHR<'a> {
-        pub fn has_std_sps_overrides(mut self, has_std_sps_overrides: Bool32) -> Self {
-            self.has_std_sps_overrides = has_std_sps_overrides;
+        pub fn has_std_sps_overrides(mut self, has_std_sps_overrides: bool) -> Self {
+            self.has_std_sps_overrides = has_std_sps_overrides.into();
             self
         }
-        pub fn has_std_pps_overrides(mut self, has_std_pps_overrides: Bool32) -> Self {
-            self.has_std_pps_overrides = has_std_pps_overrides;
+        pub fn has_std_pps_overrides(mut self, has_std_pps_overrides: bool) -> Self {
+            self.has_std_pps_overrides = has_std_pps_overrides.into();
             self
         }
     }
@@ -513,8 +511,8 @@ pub(super) mod defs {
             self.p_std_picture_info = std_picture_info;
             self
         }
-        pub fn generate_prefix_nalu(mut self, generate_prefix_nalu: Bool32) -> Self {
-            self.generate_prefix_nalu = generate_prefix_nalu;
+        pub fn generate_prefix_nalu(mut self, generate_prefix_nalu: bool) -> Self {
+            self.generate_prefix_nalu = generate_prefix_nalu.into();
             self
         }
     }
@@ -712,8 +710,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> VideoEncodeH264GopRemainingFrameInfoKHR<'a> {
-        pub fn use_gop_remaining_frames(mut self, use_gop_remaining_frames: Bool32) -> Self {
-            self.use_gop_remaining_frames = use_gop_remaining_frames;
+        pub fn use_gop_remaining_frames(mut self, use_gop_remaining_frames: bool) -> Self {
+            self.use_gop_remaining_frames = use_gop_remaining_frames.into();
             self
         }
         pub fn gop_remaining_i(mut self, gop_remaining_i: u32) -> Self {
@@ -766,24 +764,24 @@ pub(super) mod defs {
         }
     }
     impl<'a> VideoEncodeH264RateControlLayerInfoKHR<'a> {
-        pub fn use_min_qp(mut self, use_min_qp: Bool32) -> Self {
-            self.use_min_qp = use_min_qp;
+        pub fn use_min_qp(mut self, use_min_qp: bool) -> Self {
+            self.use_min_qp = use_min_qp.into();
             self
         }
         pub fn min_qp(mut self, min_qp: VideoEncodeH264QpKHR) -> Self {
             self.min_qp = min_qp;
             self
         }
-        pub fn use_max_qp(mut self, use_max_qp: Bool32) -> Self {
-            self.use_max_qp = use_max_qp;
+        pub fn use_max_qp(mut self, use_max_qp: bool) -> Self {
+            self.use_max_qp = use_max_qp.into();
             self
         }
         pub fn max_qp(mut self, max_qp: VideoEncodeH264QpKHR) -> Self {
             self.max_qp = max_qp;
             self
         }
-        pub fn use_max_frame_size(mut self, use_max_frame_size: Bool32) -> Self {
-            self.use_max_frame_size = use_max_frame_size;
+        pub fn use_max_frame_size(mut self, use_max_frame_size: bool) -> Self {
+            self.use_max_frame_size = use_max_frame_size.into();
             self
         }
         pub fn max_frame_size(mut self, max_frame_size: VideoEncodeH264FrameSizeKHR) -> Self {

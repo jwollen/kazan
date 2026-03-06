@@ -34,9 +34,9 @@ pub(super) mod defs {
     impl<'a> TextureLODGatherFormatPropertiesAMD<'a> {
         pub fn supports_texture_gather_lod_bias_amd(
             mut self,
-            supports_texture_gather_lod_bias_amd: Bool32,
+            supports_texture_gather_lod_bias_amd: bool,
         ) -> Self {
-            self.supports_texture_gather_lod_bias_amd = supports_texture_gather_lod_bias_amd;
+            self.supports_texture_gather_lod_bias_amd = supports_texture_gather_lod_bias_amd.into();
             self
         }
     }

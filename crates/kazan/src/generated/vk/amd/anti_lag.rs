@@ -32,8 +32,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceAntiLagFeaturesAMD<'a> {
-        pub fn anti_lag(mut self, anti_lag: Bool32) -> Self {
-            self.anti_lag = anti_lag;
+        pub fn anti_lag(mut self, anti_lag: bool) -> Self {
+            self.anti_lag = anti_lag.into();
             self
         }
     }

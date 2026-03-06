@@ -224,15 +224,15 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'a> {
-        pub fn indirect_memory_copy(mut self, indirect_memory_copy: Bool32) -> Self {
-            self.indirect_memory_copy = indirect_memory_copy;
+        pub fn indirect_memory_copy(mut self, indirect_memory_copy: bool) -> Self {
+            self.indirect_memory_copy = indirect_memory_copy.into();
             self
         }
         pub fn indirect_memory_to_image_copy(
             mut self,
-            indirect_memory_to_image_copy: Bool32,
+            indirect_memory_to_image_copy: bool,
         ) -> Self {
-            self.indirect_memory_to_image_copy = indirect_memory_to_image_copy;
+            self.indirect_memory_to_image_copy = indirect_memory_to_image_copy.into();
             self
         }
     }

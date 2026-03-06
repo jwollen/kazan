@@ -34,12 +34,12 @@ pub(super) mod defs {
         }
     }
     impl<'a> LatencySleepModeInfoNV<'a> {
-        pub fn low_latency_mode(mut self, low_latency_mode: Bool32) -> Self {
-            self.low_latency_mode = low_latency_mode;
+        pub fn low_latency_mode(mut self, low_latency_mode: bool) -> Self {
+            self.low_latency_mode = low_latency_mode.into();
             self
         }
-        pub fn low_latency_boost(mut self, low_latency_boost: Bool32) -> Self {
-            self.low_latency_boost = low_latency_boost;
+        pub fn low_latency_boost(mut self, low_latency_boost: bool) -> Self {
+            self.low_latency_boost = low_latency_boost.into();
             self
         }
         pub fn minimum_interval_us(mut self, minimum_interval_us: u32) -> Self {
@@ -327,8 +327,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> SwapchainLatencyCreateInfoNV<'a> {
-        pub fn latency_mode_enable(mut self, latency_mode_enable: Bool32) -> Self {
-            self.latency_mode_enable = latency_mode_enable;
+        pub fn latency_mode_enable(mut self, latency_mode_enable: bool) -> Self {
+            self.latency_mode_enable = latency_mode_enable.into();
             self
         }
     }

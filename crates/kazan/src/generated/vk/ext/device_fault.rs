@@ -34,12 +34,12 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceFaultFeaturesEXT<'a> {
-        pub fn device_fault(mut self, device_fault: Bool32) -> Self {
-            self.device_fault = device_fault;
+        pub fn device_fault(mut self, device_fault: bool) -> Self {
+            self.device_fault = device_fault.into();
             self
         }
-        pub fn device_fault_vendor_binary(mut self, device_fault_vendor_binary: Bool32) -> Self {
-            self.device_fault_vendor_binary = device_fault_vendor_binary;
+        pub fn device_fault_vendor_binary(mut self, device_fault_vendor_binary: bool) -> Self {
+            self.device_fault_vendor_binary = device_fault_vendor_binary.into();
             self
         }
     }

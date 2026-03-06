@@ -41,12 +41,12 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceShaderImageAtomicInt64FeaturesEXT<'a> {
-        pub fn shader_image_int64_atomics(mut self, shader_image_int64_atomics: Bool32) -> Self {
-            self.shader_image_int64_atomics = shader_image_int64_atomics;
+        pub fn shader_image_int64_atomics(mut self, shader_image_int64_atomics: bool) -> Self {
+            self.shader_image_int64_atomics = shader_image_int64_atomics.into();
             self
         }
-        pub fn sparse_image_int64_atomics(mut self, sparse_image_int64_atomics: Bool32) -> Self {
-            self.sparse_image_int64_atomics = sparse_image_int64_atomics;
+        pub fn sparse_image_int64_atomics(mut self, sparse_image_int64_atomics: bool) -> Self {
+            self.sparse_image_int64_atomics = sparse_image_int64_atomics.into();
             self
         }
     }

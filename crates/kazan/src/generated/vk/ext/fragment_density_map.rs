@@ -40,23 +40,20 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceFragmentDensityMapFeaturesEXT<'a> {
-        pub fn fragment_density_map(mut self, fragment_density_map: Bool32) -> Self {
-            self.fragment_density_map = fragment_density_map;
+        pub fn fragment_density_map(mut self, fragment_density_map: bool) -> Self {
+            self.fragment_density_map = fragment_density_map.into();
             self
         }
-        pub fn fragment_density_map_dynamic(
-            mut self,
-            fragment_density_map_dynamic: Bool32,
-        ) -> Self {
-            self.fragment_density_map_dynamic = fragment_density_map_dynamic;
+        pub fn fragment_density_map_dynamic(mut self, fragment_density_map_dynamic: bool) -> Self {
+            self.fragment_density_map_dynamic = fragment_density_map_dynamic.into();
             self
         }
         pub fn fragment_density_map_non_subsampled_images(
             mut self,
-            fragment_density_map_non_subsampled_images: Bool32,
+            fragment_density_map_non_subsampled_images: bool,
         ) -> Self {
             self.fragment_density_map_non_subsampled_images =
-                fragment_density_map_non_subsampled_images;
+                fragment_density_map_non_subsampled_images.into();
             self
         }
     }
@@ -105,11 +102,8 @@ pub(super) mod defs {
             self.max_fragment_density_texel_size = max_fragment_density_texel_size;
             self
         }
-        pub fn fragment_density_invocations(
-            mut self,
-            fragment_density_invocations: Bool32,
-        ) -> Self {
-            self.fragment_density_invocations = fragment_density_invocations;
+        pub fn fragment_density_invocations(mut self, fragment_density_invocations: bool) -> Self {
+            self.fragment_density_invocations = fragment_density_invocations.into();
             self
         }
     }

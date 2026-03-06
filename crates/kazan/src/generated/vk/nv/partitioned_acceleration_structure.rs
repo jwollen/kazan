@@ -44,9 +44,9 @@ pub(super) mod defs {
     impl<'a> PhysicalDevicePartitionedAccelerationStructureFeaturesNV<'a> {
         pub fn partitioned_acceleration_structure(
             mut self,
-            partitioned_acceleration_structure: Bool32,
+            partitioned_acceleration_structure: bool,
         ) -> Self {
-            self.partitioned_acceleration_structure = partitioned_acceleration_structure;
+            self.partitioned_acceleration_structure = partitioned_acceleration_structure.into();
             self
         }
     }
@@ -132,11 +132,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PartitionedAccelerationStructureFlagsNV<'a> {
-        pub fn enable_partition_translation(
-            mut self,
-            enable_partition_translation: Bool32,
-        ) -> Self {
-            self.enable_partition_translation = enable_partition_translation;
+        pub fn enable_partition_translation(mut self, enable_partition_translation: bool) -> Self {
+            self.enable_partition_translation = enable_partition_translation.into();
             self
         }
     }

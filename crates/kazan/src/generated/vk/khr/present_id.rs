@@ -33,8 +33,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDevicePresentIdFeaturesKHR<'a> {
-        pub fn present_id(mut self, present_id: Bool32) -> Self {
-            self.present_id = present_id;
+        pub fn present_id(mut self, present_id: bool) -> Self {
+            self.present_id = present_id.into();
             self
         }
     }

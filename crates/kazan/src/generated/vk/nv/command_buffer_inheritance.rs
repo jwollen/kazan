@@ -39,8 +39,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceCommandBufferInheritanceFeaturesNV<'a> {
-        pub fn command_buffer_inheritance(mut self, command_buffer_inheritance: Bool32) -> Self {
-            self.command_buffer_inheritance = command_buffer_inheritance;
+        pub fn command_buffer_inheritance(mut self, command_buffer_inheritance: bool) -> Self {
+            self.command_buffer_inheritance = command_buffer_inheritance.into();
             self
         }
     }

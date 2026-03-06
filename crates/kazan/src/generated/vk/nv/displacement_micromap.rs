@@ -36,8 +36,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceDisplacementMicromapFeaturesNV<'a> {
-        pub fn displacement_micromap(mut self, displacement_micromap: Bool32) -> Self {
-            self.displacement_micromap = displacement_micromap;
+        pub fn displacement_micromap(mut self, displacement_micromap: bool) -> Self {
+            self.displacement_micromap = displacement_micromap.into();
             self
         }
     }

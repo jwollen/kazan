@@ -39,8 +39,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceExternalFormatResolveFeaturesANDROID<'a> {
-        pub fn external_format_resolve(mut self, external_format_resolve: Bool32) -> Self {
-            self.external_format_resolve = external_format_resolve;
+        pub fn external_format_resolve(mut self, external_format_resolve: bool) -> Self {
+            self.external_format_resolve = external_format_resolve.into();
             self
         }
     }
@@ -77,10 +77,10 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceExternalFormatResolvePropertiesANDROID<'a> {
         pub fn null_color_attachment_with_external_format_resolve(
             mut self,
-            null_color_attachment_with_external_format_resolve: Bool32,
+            null_color_attachment_with_external_format_resolve: bool,
         ) -> Self {
             self.null_color_attachment_with_external_format_resolve =
-                null_color_attachment_with_external_format_resolve;
+                null_color_attachment_with_external_format_resolve.into();
             self
         }
         pub fn external_format_resolve_chroma_offset_x(

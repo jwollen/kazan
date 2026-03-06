@@ -70,8 +70,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDevicePresentMeteringFeaturesNV<'a> {
-        pub fn present_metering(mut self, present_metering: Bool32) -> Self {
-            self.present_metering = present_metering;
+        pub fn present_metering(mut self, present_metering: bool) -> Self {
+            self.present_metering = present_metering.into();
             self
         }
     }

@@ -111,6 +111,10 @@ fn base_name<'a>(ty: &'a CType<'a>) -> Option<&'a str> {
     }
 }
 
+pub fn is_bool32(ty: &CType) -> bool {
+    matches!(ty, CType::Base(b) if b.name == "VkBool32")
+}
+
 pub fn is_opaque_type(name: &str) -> bool {
     matches!(
         name,

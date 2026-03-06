@@ -34,8 +34,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> ExternalMemoryAcquireUnmodifiedEXT<'a> {
-        pub fn acquire_unmodified_memory(mut self, acquire_unmodified_memory: Bool32) -> Self {
-            self.acquire_unmodified_memory = acquire_unmodified_memory;
+        pub fn acquire_unmodified_memory(mut self, acquire_unmodified_memory: bool) -> Self {
+            self.acquire_unmodified_memory = acquire_unmodified_memory.into();
             self
         }
     }

@@ -36,8 +36,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceDepthClampControlFeaturesEXT<'a> {
-        pub fn depth_clamp_control(mut self, depth_clamp_control: Bool32) -> Self {
-            self.depth_clamp_control = depth_clamp_control;
+        pub fn depth_clamp_control(mut self, depth_clamp_control: bool) -> Self {
+            self.depth_clamp_control = depth_clamp_control.into();
             self
         }
     }

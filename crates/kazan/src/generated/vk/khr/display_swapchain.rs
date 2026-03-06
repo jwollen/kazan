@@ -43,8 +43,8 @@ pub(super) mod defs {
             self.dst_rect = dst_rect;
             self
         }
-        pub fn persistent(mut self, persistent: Bool32) -> Self {
-            self.persistent = persistent;
+        pub fn persistent(mut self, persistent: bool) -> Self {
+            self.persistent = persistent.into();
             self
         }
     }

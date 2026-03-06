@@ -101,247 +101,248 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceExtendedDynamicState3FeaturesEXT<'a> {
         pub fn extended_dynamic_state3_tessellation_domain_origin(
             mut self,
-            extended_dynamic_state3_tessellation_domain_origin: Bool32,
+            extended_dynamic_state3_tessellation_domain_origin: bool,
         ) -> Self {
             self.extended_dynamic_state3_tessellation_domain_origin =
-                extended_dynamic_state3_tessellation_domain_origin;
+                extended_dynamic_state3_tessellation_domain_origin.into();
             self
         }
         pub fn extended_dynamic_state3_depth_clamp_enable(
             mut self,
-            extended_dynamic_state3_depth_clamp_enable: Bool32,
+            extended_dynamic_state3_depth_clamp_enable: bool,
         ) -> Self {
             self.extended_dynamic_state3_depth_clamp_enable =
-                extended_dynamic_state3_depth_clamp_enable;
+                extended_dynamic_state3_depth_clamp_enable.into();
             self
         }
         pub fn extended_dynamic_state3_polygon_mode(
             mut self,
-            extended_dynamic_state3_polygon_mode: Bool32,
+            extended_dynamic_state3_polygon_mode: bool,
         ) -> Self {
-            self.extended_dynamic_state3_polygon_mode = extended_dynamic_state3_polygon_mode;
+            self.extended_dynamic_state3_polygon_mode = extended_dynamic_state3_polygon_mode.into();
             self
         }
         pub fn extended_dynamic_state3_rasterization_samples(
             mut self,
-            extended_dynamic_state3_rasterization_samples: Bool32,
+            extended_dynamic_state3_rasterization_samples: bool,
         ) -> Self {
             self.extended_dynamic_state3_rasterization_samples =
-                extended_dynamic_state3_rasterization_samples;
+                extended_dynamic_state3_rasterization_samples.into();
             self
         }
         pub fn extended_dynamic_state3_sample_mask(
             mut self,
-            extended_dynamic_state3_sample_mask: Bool32,
+            extended_dynamic_state3_sample_mask: bool,
         ) -> Self {
-            self.extended_dynamic_state3_sample_mask = extended_dynamic_state3_sample_mask;
+            self.extended_dynamic_state3_sample_mask = extended_dynamic_state3_sample_mask.into();
             self
         }
         pub fn extended_dynamic_state3_alpha_to_coverage_enable(
             mut self,
-            extended_dynamic_state3_alpha_to_coverage_enable: Bool32,
+            extended_dynamic_state3_alpha_to_coverage_enable: bool,
         ) -> Self {
             self.extended_dynamic_state3_alpha_to_coverage_enable =
-                extended_dynamic_state3_alpha_to_coverage_enable;
+                extended_dynamic_state3_alpha_to_coverage_enable.into();
             self
         }
         pub fn extended_dynamic_state3_alpha_to_one_enable(
             mut self,
-            extended_dynamic_state3_alpha_to_one_enable: Bool32,
+            extended_dynamic_state3_alpha_to_one_enable: bool,
         ) -> Self {
             self.extended_dynamic_state3_alpha_to_one_enable =
-                extended_dynamic_state3_alpha_to_one_enable;
+                extended_dynamic_state3_alpha_to_one_enable.into();
             self
         }
         pub fn extended_dynamic_state3_logic_op_enable(
             mut self,
-            extended_dynamic_state3_logic_op_enable: Bool32,
+            extended_dynamic_state3_logic_op_enable: bool,
         ) -> Self {
-            self.extended_dynamic_state3_logic_op_enable = extended_dynamic_state3_logic_op_enable;
+            self.extended_dynamic_state3_logic_op_enable =
+                extended_dynamic_state3_logic_op_enable.into();
             self
         }
         pub fn extended_dynamic_state3_color_blend_enable(
             mut self,
-            extended_dynamic_state3_color_blend_enable: Bool32,
+            extended_dynamic_state3_color_blend_enable: bool,
         ) -> Self {
             self.extended_dynamic_state3_color_blend_enable =
-                extended_dynamic_state3_color_blend_enable;
+                extended_dynamic_state3_color_blend_enable.into();
             self
         }
         pub fn extended_dynamic_state3_color_blend_equation(
             mut self,
-            extended_dynamic_state3_color_blend_equation: Bool32,
+            extended_dynamic_state3_color_blend_equation: bool,
         ) -> Self {
             self.extended_dynamic_state3_color_blend_equation =
-                extended_dynamic_state3_color_blend_equation;
+                extended_dynamic_state3_color_blend_equation.into();
             self
         }
         pub fn extended_dynamic_state3_color_write_mask(
             mut self,
-            extended_dynamic_state3_color_write_mask: Bool32,
+            extended_dynamic_state3_color_write_mask: bool,
         ) -> Self {
             self.extended_dynamic_state3_color_write_mask =
-                extended_dynamic_state3_color_write_mask;
+                extended_dynamic_state3_color_write_mask.into();
             self
         }
         pub fn extended_dynamic_state3_rasterization_stream(
             mut self,
-            extended_dynamic_state3_rasterization_stream: Bool32,
+            extended_dynamic_state3_rasterization_stream: bool,
         ) -> Self {
             self.extended_dynamic_state3_rasterization_stream =
-                extended_dynamic_state3_rasterization_stream;
+                extended_dynamic_state3_rasterization_stream.into();
             self
         }
         pub fn extended_dynamic_state3_conservative_rasterization_mode(
             mut self,
-            extended_dynamic_state3_conservative_rasterization_mode: Bool32,
+            extended_dynamic_state3_conservative_rasterization_mode: bool,
         ) -> Self {
             self.extended_dynamic_state3_conservative_rasterization_mode =
-                extended_dynamic_state3_conservative_rasterization_mode;
+                extended_dynamic_state3_conservative_rasterization_mode.into();
             self
         }
         pub fn extended_dynamic_state3_extra_primitive_overestimation_size(
             mut self,
-            extended_dynamic_state3_extra_primitive_overestimation_size: Bool32,
+            extended_dynamic_state3_extra_primitive_overestimation_size: bool,
         ) -> Self {
             self.extended_dynamic_state3_extra_primitive_overestimation_size =
-                extended_dynamic_state3_extra_primitive_overestimation_size;
+                extended_dynamic_state3_extra_primitive_overestimation_size.into();
             self
         }
         pub fn extended_dynamic_state3_depth_clip_enable(
             mut self,
-            extended_dynamic_state3_depth_clip_enable: Bool32,
+            extended_dynamic_state3_depth_clip_enable: bool,
         ) -> Self {
             self.extended_dynamic_state3_depth_clip_enable =
-                extended_dynamic_state3_depth_clip_enable;
+                extended_dynamic_state3_depth_clip_enable.into();
             self
         }
         pub fn extended_dynamic_state3_sample_locations_enable(
             mut self,
-            extended_dynamic_state3_sample_locations_enable: Bool32,
+            extended_dynamic_state3_sample_locations_enable: bool,
         ) -> Self {
             self.extended_dynamic_state3_sample_locations_enable =
-                extended_dynamic_state3_sample_locations_enable;
+                extended_dynamic_state3_sample_locations_enable.into();
             self
         }
         pub fn extended_dynamic_state3_color_blend_advanced(
             mut self,
-            extended_dynamic_state3_color_blend_advanced: Bool32,
+            extended_dynamic_state3_color_blend_advanced: bool,
         ) -> Self {
             self.extended_dynamic_state3_color_blend_advanced =
-                extended_dynamic_state3_color_blend_advanced;
+                extended_dynamic_state3_color_blend_advanced.into();
             self
         }
         pub fn extended_dynamic_state3_provoking_vertex_mode(
             mut self,
-            extended_dynamic_state3_provoking_vertex_mode: Bool32,
+            extended_dynamic_state3_provoking_vertex_mode: bool,
         ) -> Self {
             self.extended_dynamic_state3_provoking_vertex_mode =
-                extended_dynamic_state3_provoking_vertex_mode;
+                extended_dynamic_state3_provoking_vertex_mode.into();
             self
         }
         pub fn extended_dynamic_state3_line_rasterization_mode(
             mut self,
-            extended_dynamic_state3_line_rasterization_mode: Bool32,
+            extended_dynamic_state3_line_rasterization_mode: bool,
         ) -> Self {
             self.extended_dynamic_state3_line_rasterization_mode =
-                extended_dynamic_state3_line_rasterization_mode;
+                extended_dynamic_state3_line_rasterization_mode.into();
             self
         }
         pub fn extended_dynamic_state3_line_stipple_enable(
             mut self,
-            extended_dynamic_state3_line_stipple_enable: Bool32,
+            extended_dynamic_state3_line_stipple_enable: bool,
         ) -> Self {
             self.extended_dynamic_state3_line_stipple_enable =
-                extended_dynamic_state3_line_stipple_enable;
+                extended_dynamic_state3_line_stipple_enable.into();
             self
         }
         pub fn extended_dynamic_state3_depth_clip_negative_one_to_one(
             mut self,
-            extended_dynamic_state3_depth_clip_negative_one_to_one: Bool32,
+            extended_dynamic_state3_depth_clip_negative_one_to_one: bool,
         ) -> Self {
             self.extended_dynamic_state3_depth_clip_negative_one_to_one =
-                extended_dynamic_state3_depth_clip_negative_one_to_one;
+                extended_dynamic_state3_depth_clip_negative_one_to_one.into();
             self
         }
         pub fn extended_dynamic_state3_viewport_w_scaling_enable(
             mut self,
-            extended_dynamic_state3_viewport_w_scaling_enable: Bool32,
+            extended_dynamic_state3_viewport_w_scaling_enable: bool,
         ) -> Self {
             self.extended_dynamic_state3_viewport_w_scaling_enable =
-                extended_dynamic_state3_viewport_w_scaling_enable;
+                extended_dynamic_state3_viewport_w_scaling_enable.into();
             self
         }
         pub fn extended_dynamic_state3_viewport_swizzle(
             mut self,
-            extended_dynamic_state3_viewport_swizzle: Bool32,
+            extended_dynamic_state3_viewport_swizzle: bool,
         ) -> Self {
             self.extended_dynamic_state3_viewport_swizzle =
-                extended_dynamic_state3_viewport_swizzle;
+                extended_dynamic_state3_viewport_swizzle.into();
             self
         }
         pub fn extended_dynamic_state3_coverage_to_color_enable(
             mut self,
-            extended_dynamic_state3_coverage_to_color_enable: Bool32,
+            extended_dynamic_state3_coverage_to_color_enable: bool,
         ) -> Self {
             self.extended_dynamic_state3_coverage_to_color_enable =
-                extended_dynamic_state3_coverage_to_color_enable;
+                extended_dynamic_state3_coverage_to_color_enable.into();
             self
         }
         pub fn extended_dynamic_state3_coverage_to_color_location(
             mut self,
-            extended_dynamic_state3_coverage_to_color_location: Bool32,
+            extended_dynamic_state3_coverage_to_color_location: bool,
         ) -> Self {
             self.extended_dynamic_state3_coverage_to_color_location =
-                extended_dynamic_state3_coverage_to_color_location;
+                extended_dynamic_state3_coverage_to_color_location.into();
             self
         }
         pub fn extended_dynamic_state3_coverage_modulation_mode(
             mut self,
-            extended_dynamic_state3_coverage_modulation_mode: Bool32,
+            extended_dynamic_state3_coverage_modulation_mode: bool,
         ) -> Self {
             self.extended_dynamic_state3_coverage_modulation_mode =
-                extended_dynamic_state3_coverage_modulation_mode;
+                extended_dynamic_state3_coverage_modulation_mode.into();
             self
         }
         pub fn extended_dynamic_state3_coverage_modulation_table_enable(
             mut self,
-            extended_dynamic_state3_coverage_modulation_table_enable: Bool32,
+            extended_dynamic_state3_coverage_modulation_table_enable: bool,
         ) -> Self {
             self.extended_dynamic_state3_coverage_modulation_table_enable =
-                extended_dynamic_state3_coverage_modulation_table_enable;
+                extended_dynamic_state3_coverage_modulation_table_enable.into();
             self
         }
         pub fn extended_dynamic_state3_coverage_modulation_table(
             mut self,
-            extended_dynamic_state3_coverage_modulation_table: Bool32,
+            extended_dynamic_state3_coverage_modulation_table: bool,
         ) -> Self {
             self.extended_dynamic_state3_coverage_modulation_table =
-                extended_dynamic_state3_coverage_modulation_table;
+                extended_dynamic_state3_coverage_modulation_table.into();
             self
         }
         pub fn extended_dynamic_state3_coverage_reduction_mode(
             mut self,
-            extended_dynamic_state3_coverage_reduction_mode: Bool32,
+            extended_dynamic_state3_coverage_reduction_mode: bool,
         ) -> Self {
             self.extended_dynamic_state3_coverage_reduction_mode =
-                extended_dynamic_state3_coverage_reduction_mode;
+                extended_dynamic_state3_coverage_reduction_mode.into();
             self
         }
         pub fn extended_dynamic_state3_representative_fragment_test_enable(
             mut self,
-            extended_dynamic_state3_representative_fragment_test_enable: Bool32,
+            extended_dynamic_state3_representative_fragment_test_enable: bool,
         ) -> Self {
             self.extended_dynamic_state3_representative_fragment_test_enable =
-                extended_dynamic_state3_representative_fragment_test_enable;
+                extended_dynamic_state3_representative_fragment_test_enable.into();
             self
         }
         pub fn extended_dynamic_state3_shading_rate_image_enable(
             mut self,
-            extended_dynamic_state3_shading_rate_image_enable: Bool32,
+            extended_dynamic_state3_shading_rate_image_enable: bool,
         ) -> Self {
             self.extended_dynamic_state3_shading_rate_image_enable =
-                extended_dynamic_state3_shading_rate_image_enable;
+                extended_dynamic_state3_shading_rate_image_enable.into();
             self
         }
     }
@@ -374,9 +375,10 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceExtendedDynamicState3PropertiesEXT<'a> {
         pub fn dynamic_primitive_topology_unrestricted(
             mut self,
-            dynamic_primitive_topology_unrestricted: Bool32,
+            dynamic_primitive_topology_unrestricted: bool,
         ) -> Self {
-            self.dynamic_primitive_topology_unrestricted = dynamic_primitive_topology_unrestricted;
+            self.dynamic_primitive_topology_unrestricted =
+                dynamic_primitive_topology_unrestricted.into();
             self
         }
     }
@@ -430,20 +432,20 @@ pub(super) mod defs {
             self.advanced_blend_op = advanced_blend_op;
             self
         }
-        pub fn src_premultiplied(mut self, src_premultiplied: Bool32) -> Self {
-            self.src_premultiplied = src_premultiplied;
+        pub fn src_premultiplied(mut self, src_premultiplied: bool) -> Self {
+            self.src_premultiplied = src_premultiplied.into();
             self
         }
-        pub fn dst_premultiplied(mut self, dst_premultiplied: Bool32) -> Self {
-            self.dst_premultiplied = dst_premultiplied;
+        pub fn dst_premultiplied(mut self, dst_premultiplied: bool) -> Self {
+            self.dst_premultiplied = dst_premultiplied.into();
             self
         }
         pub fn blend_overlap(mut self, blend_overlap: BlendOverlapEXT) -> Self {
             self.blend_overlap = blend_overlap;
             self
         }
-        pub fn clamp_results(mut self, clamp_results: Bool32) -> Self {
-            self.clamp_results = clamp_results;
+        pub fn clamp_results(mut self, clamp_results: bool) -> Self {
+            self.clamp_results = clamp_results.into();
             self
         }
     }
@@ -692,9 +694,9 @@ impl DeviceFn {
     pub unsafe fn cmd_set_depth_clamp_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        depth_clamp_enable: Bool32,
+        depth_clamp_enable: bool,
     ) {
-        unsafe { (self.cmd_set_depth_clamp_enable_ext)(command_buffer, depth_clamp_enable) }
+        unsafe { (self.cmd_set_depth_clamp_enable_ext)(command_buffer, depth_clamp_enable.into()) }
     }
     pub unsafe fn cmd_set_polygon_mode_ext(
         &self,
@@ -721,25 +723,30 @@ impl DeviceFn {
     pub unsafe fn cmd_set_alpha_to_coverage_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        alpha_to_coverage_enable: Bool32,
+        alpha_to_coverage_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_alpha_to_coverage_enable_ext)(command_buffer, alpha_to_coverage_enable)
+            (self.cmd_set_alpha_to_coverage_enable_ext)(
+                command_buffer,
+                alpha_to_coverage_enable.into(),
+            )
         }
     }
     pub unsafe fn cmd_set_alpha_to_one_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        alpha_to_one_enable: Bool32,
+        alpha_to_one_enable: bool,
     ) {
-        unsafe { (self.cmd_set_alpha_to_one_enable_ext)(command_buffer, alpha_to_one_enable) }
+        unsafe {
+            (self.cmd_set_alpha_to_one_enable_ext)(command_buffer, alpha_to_one_enable.into())
+        }
     }
     pub unsafe fn cmd_set_logic_op_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        logic_op_enable: Bool32,
+        logic_op_enable: bool,
     ) {
-        unsafe { (self.cmd_set_logic_op_enable_ext)(command_buffer, logic_op_enable) }
+        unsafe { (self.cmd_set_logic_op_enable_ext)(command_buffer, logic_op_enable.into()) }
     }
     pub unsafe fn cmd_set_color_blend_enable_ext(
         &self,
@@ -830,19 +837,21 @@ impl DeviceFn {
     pub unsafe fn cmd_set_depth_clip_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        depth_clip_enable: Bool32,
+        depth_clip_enable: bool,
     ) {
-        unsafe { (self.cmd_set_depth_clip_enable_ext.unwrap())(command_buffer, depth_clip_enable) }
+        unsafe {
+            (self.cmd_set_depth_clip_enable_ext.unwrap())(command_buffer, depth_clip_enable.into())
+        }
     }
     pub unsafe fn cmd_set_sample_locations_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        sample_locations_enable: Bool32,
+        sample_locations_enable: bool,
     ) {
         unsafe {
             (self.cmd_set_sample_locations_enable_ext.unwrap())(
                 command_buffer,
-                sample_locations_enable,
+                sample_locations_enable.into(),
             )
         }
     }
@@ -885,33 +894,36 @@ impl DeviceFn {
     pub unsafe fn cmd_set_line_stipple_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        stippled_line_enable: Bool32,
+        stippled_line_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_line_stipple_enable_ext.unwrap())(command_buffer, stippled_line_enable)
+            (self.cmd_set_line_stipple_enable_ext.unwrap())(
+                command_buffer,
+                stippled_line_enable.into(),
+            )
         }
     }
     pub unsafe fn cmd_set_depth_clip_negative_one_to_one_ext(
         &self,
         command_buffer: CommandBuffer,
-        negative_one_to_one: Bool32,
+        negative_one_to_one: bool,
     ) {
         unsafe {
             (self.cmd_set_depth_clip_negative_one_to_one_ext.unwrap())(
                 command_buffer,
-                negative_one_to_one,
+                negative_one_to_one.into(),
             )
         }
     }
     pub unsafe fn cmd_set_viewport_w_scaling_enable_nv(
         &self,
         command_buffer: CommandBuffer,
-        viewport_w_scaling_enable: Bool32,
+        viewport_w_scaling_enable: bool,
     ) {
         unsafe {
             (self.cmd_set_viewport_w_scaling_enable_nv.unwrap())(
                 command_buffer,
-                viewport_w_scaling_enable,
+                viewport_w_scaling_enable.into(),
             )
         }
     }
@@ -933,12 +945,12 @@ impl DeviceFn {
     pub unsafe fn cmd_set_coverage_to_color_enable_nv(
         &self,
         command_buffer: CommandBuffer,
-        coverage_to_color_enable: Bool32,
+        coverage_to_color_enable: bool,
     ) {
         unsafe {
             (self.cmd_set_coverage_to_color_enable_nv.unwrap())(
                 command_buffer,
-                coverage_to_color_enable,
+                coverage_to_color_enable.into(),
             )
         }
     }
@@ -969,12 +981,12 @@ impl DeviceFn {
     pub unsafe fn cmd_set_coverage_modulation_table_enable_nv(
         &self,
         command_buffer: CommandBuffer,
-        coverage_modulation_table_enable: Bool32,
+        coverage_modulation_table_enable: bool,
     ) {
         unsafe {
             (self.cmd_set_coverage_modulation_table_enable_nv.unwrap())(
                 command_buffer,
-                coverage_modulation_table_enable,
+                coverage_modulation_table_enable.into(),
             )
         }
     }
@@ -994,24 +1006,24 @@ impl DeviceFn {
     pub unsafe fn cmd_set_shading_rate_image_enable_nv(
         &self,
         command_buffer: CommandBuffer,
-        shading_rate_image_enable: Bool32,
+        shading_rate_image_enable: bool,
     ) {
         unsafe {
             (self.cmd_set_shading_rate_image_enable_nv.unwrap())(
                 command_buffer,
-                shading_rate_image_enable,
+                shading_rate_image_enable.into(),
             )
         }
     }
     pub unsafe fn cmd_set_representative_fragment_test_enable_nv(
         &self,
         command_buffer: CommandBuffer,
-        representative_fragment_test_enable: Bool32,
+        representative_fragment_test_enable: bool,
     ) {
         unsafe {
             (self.cmd_set_representative_fragment_test_enable_nv.unwrap())(
                 command_buffer,
-                representative_fragment_test_enable,
+                representative_fragment_test_enable.into(),
             )
         }
     }

@@ -36,8 +36,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceDeviceMemoryReportFeaturesEXT<'a> {
-        pub fn device_memory_report(mut self, device_memory_report: Bool32) -> Self {
-            self.device_memory_report = device_memory_report;
+        pub fn device_memory_report(mut self, device_memory_report: bool) -> Self {
+            self.device_memory_report = device_memory_report.into();
             self
         }
     }

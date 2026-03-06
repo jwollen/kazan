@@ -36,8 +36,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceShaderObjectFeaturesEXT<'a> {
-        pub fn shader_object(mut self, shader_object: Bool32) -> Self {
-            self.shader_object = shader_object;
+        pub fn shader_object(mut self, shader_object: bool) -> Self {
+            self.shader_object = shader_object.into();
             self
         }
     }
@@ -623,16 +623,16 @@ impl DeviceFn {
     pub unsafe fn cmd_set_depth_test_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        depth_test_enable: Bool32,
+        depth_test_enable: bool,
     ) {
-        unsafe { (self.cmd_set_depth_test_enable_ext)(command_buffer, depth_test_enable) }
+        unsafe { (self.cmd_set_depth_test_enable_ext)(command_buffer, depth_test_enable.into()) }
     }
     pub unsafe fn cmd_set_depth_write_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        depth_write_enable: Bool32,
+        depth_write_enable: bool,
     ) {
-        unsafe { (self.cmd_set_depth_write_enable_ext)(command_buffer, depth_write_enable) }
+        unsafe { (self.cmd_set_depth_write_enable_ext)(command_buffer, depth_write_enable.into()) }
     }
     pub unsafe fn cmd_set_depth_compare_op_ext(
         &self,
@@ -644,18 +644,23 @@ impl DeviceFn {
     pub unsafe fn cmd_set_depth_bounds_test_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        depth_bounds_test_enable: Bool32,
+        depth_bounds_test_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_depth_bounds_test_enable_ext)(command_buffer, depth_bounds_test_enable)
+            (self.cmd_set_depth_bounds_test_enable_ext)(
+                command_buffer,
+                depth_bounds_test_enable.into(),
+            )
         }
     }
     pub unsafe fn cmd_set_stencil_test_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        stencil_test_enable: Bool32,
+        stencil_test_enable: bool,
     ) {
-        unsafe { (self.cmd_set_stencil_test_enable_ext)(command_buffer, stencil_test_enable) }
+        unsafe {
+            (self.cmd_set_stencil_test_enable_ext)(command_buffer, stencil_test_enable.into())
+        }
     }
     pub unsafe fn cmd_set_stencil_op_ext(
         &self,
@@ -703,18 +708,21 @@ impl DeviceFn {
     pub unsafe fn cmd_set_rasterizer_discard_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        rasterizer_discard_enable: Bool32,
+        rasterizer_discard_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_rasterizer_discard_enable_ext)(command_buffer, rasterizer_discard_enable)
+            (self.cmd_set_rasterizer_discard_enable_ext)(
+                command_buffer,
+                rasterizer_discard_enable.into(),
+            )
         }
     }
     pub unsafe fn cmd_set_depth_bias_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        depth_bias_enable: Bool32,
+        depth_bias_enable: bool,
     ) {
-        unsafe { (self.cmd_set_depth_bias_enable_ext)(command_buffer, depth_bias_enable) }
+        unsafe { (self.cmd_set_depth_bias_enable_ext)(command_buffer, depth_bias_enable.into()) }
     }
     pub unsafe fn cmd_set_logic_op_ext(&self, command_buffer: CommandBuffer, logic_op: LogicOp) {
         unsafe { (self.cmd_set_logic_op_ext)(command_buffer, logic_op) }
@@ -722,10 +730,13 @@ impl DeviceFn {
     pub unsafe fn cmd_set_primitive_restart_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        primitive_restart_enable: Bool32,
+        primitive_restart_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_primitive_restart_enable_ext)(command_buffer, primitive_restart_enable)
+            (self.cmd_set_primitive_restart_enable_ext)(
+                command_buffer,
+                primitive_restart_enable.into(),
+            )
         }
     }
     pub unsafe fn cmd_set_tessellation_domain_origin_ext(
@@ -738,9 +749,9 @@ impl DeviceFn {
     pub unsafe fn cmd_set_depth_clamp_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        depth_clamp_enable: Bool32,
+        depth_clamp_enable: bool,
     ) {
-        unsafe { (self.cmd_set_depth_clamp_enable_ext)(command_buffer, depth_clamp_enable) }
+        unsafe { (self.cmd_set_depth_clamp_enable_ext)(command_buffer, depth_clamp_enable.into()) }
     }
     pub unsafe fn cmd_set_polygon_mode_ext(
         &self,
@@ -767,25 +778,30 @@ impl DeviceFn {
     pub unsafe fn cmd_set_alpha_to_coverage_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        alpha_to_coverage_enable: Bool32,
+        alpha_to_coverage_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_alpha_to_coverage_enable_ext)(command_buffer, alpha_to_coverage_enable)
+            (self.cmd_set_alpha_to_coverage_enable_ext)(
+                command_buffer,
+                alpha_to_coverage_enable.into(),
+            )
         }
     }
     pub unsafe fn cmd_set_alpha_to_one_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        alpha_to_one_enable: Bool32,
+        alpha_to_one_enable: bool,
     ) {
-        unsafe { (self.cmd_set_alpha_to_one_enable_ext)(command_buffer, alpha_to_one_enable) }
+        unsafe {
+            (self.cmd_set_alpha_to_one_enable_ext)(command_buffer, alpha_to_one_enable.into())
+        }
     }
     pub unsafe fn cmd_set_logic_op_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        logic_op_enable: Bool32,
+        logic_op_enable: bool,
     ) {
-        unsafe { (self.cmd_set_logic_op_enable_ext)(command_buffer, logic_op_enable) }
+        unsafe { (self.cmd_set_logic_op_enable_ext)(command_buffer, logic_op_enable.into()) }
     }
     pub unsafe fn cmd_set_color_blend_enable_ext(
         &self,
@@ -867,19 +883,21 @@ impl DeviceFn {
     pub unsafe fn cmd_set_depth_clip_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        depth_clip_enable: Bool32,
+        depth_clip_enable: bool,
     ) {
-        unsafe { (self.cmd_set_depth_clip_enable_ext.unwrap())(command_buffer, depth_clip_enable) }
+        unsafe {
+            (self.cmd_set_depth_clip_enable_ext.unwrap())(command_buffer, depth_clip_enable.into())
+        }
     }
     pub unsafe fn cmd_set_sample_locations_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        sample_locations_enable: Bool32,
+        sample_locations_enable: bool,
     ) {
         unsafe {
             (self.cmd_set_sample_locations_enable_ext.unwrap())(
                 command_buffer,
-                sample_locations_enable,
+                sample_locations_enable.into(),
             )
         }
     }
@@ -922,33 +940,36 @@ impl DeviceFn {
     pub unsafe fn cmd_set_line_stipple_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        stippled_line_enable: Bool32,
+        stippled_line_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_line_stipple_enable_ext.unwrap())(command_buffer, stippled_line_enable)
+            (self.cmd_set_line_stipple_enable_ext.unwrap())(
+                command_buffer,
+                stippled_line_enable.into(),
+            )
         }
     }
     pub unsafe fn cmd_set_depth_clip_negative_one_to_one_ext(
         &self,
         command_buffer: CommandBuffer,
-        negative_one_to_one: Bool32,
+        negative_one_to_one: bool,
     ) {
         unsafe {
             (self.cmd_set_depth_clip_negative_one_to_one_ext.unwrap())(
                 command_buffer,
-                negative_one_to_one,
+                negative_one_to_one.into(),
             )
         }
     }
     pub unsafe fn cmd_set_viewport_w_scaling_enable_nv(
         &self,
         command_buffer: CommandBuffer,
-        viewport_w_scaling_enable: Bool32,
+        viewport_w_scaling_enable: bool,
     ) {
         unsafe {
             (self.cmd_set_viewport_w_scaling_enable_nv.unwrap())(
                 command_buffer,
-                viewport_w_scaling_enable,
+                viewport_w_scaling_enable.into(),
             )
         }
     }
@@ -970,12 +991,12 @@ impl DeviceFn {
     pub unsafe fn cmd_set_coverage_to_color_enable_nv(
         &self,
         command_buffer: CommandBuffer,
-        coverage_to_color_enable: Bool32,
+        coverage_to_color_enable: bool,
     ) {
         unsafe {
             (self.cmd_set_coverage_to_color_enable_nv.unwrap())(
                 command_buffer,
-                coverage_to_color_enable,
+                coverage_to_color_enable.into(),
             )
         }
     }
@@ -1006,12 +1027,12 @@ impl DeviceFn {
     pub unsafe fn cmd_set_coverage_modulation_table_enable_nv(
         &self,
         command_buffer: CommandBuffer,
-        coverage_modulation_table_enable: Bool32,
+        coverage_modulation_table_enable: bool,
     ) {
         unsafe {
             (self.cmd_set_coverage_modulation_table_enable_nv.unwrap())(
                 command_buffer,
-                coverage_modulation_table_enable,
+                coverage_modulation_table_enable.into(),
             )
         }
     }
@@ -1031,24 +1052,24 @@ impl DeviceFn {
     pub unsafe fn cmd_set_shading_rate_image_enable_nv(
         &self,
         command_buffer: CommandBuffer,
-        shading_rate_image_enable: Bool32,
+        shading_rate_image_enable: bool,
     ) {
         unsafe {
             (self.cmd_set_shading_rate_image_enable_nv.unwrap())(
                 command_buffer,
-                shading_rate_image_enable,
+                shading_rate_image_enable.into(),
             )
         }
     }
     pub unsafe fn cmd_set_representative_fragment_test_enable_nv(
         &self,
         command_buffer: CommandBuffer,
-        representative_fragment_test_enable: Bool32,
+        representative_fragment_test_enable: bool,
     ) {
         unsafe {
             (self.cmd_set_representative_fragment_test_enable_nv.unwrap())(
                 command_buffer,
-                representative_fragment_test_enable,
+                representative_fragment_test_enable.into(),
             )
         }
     }

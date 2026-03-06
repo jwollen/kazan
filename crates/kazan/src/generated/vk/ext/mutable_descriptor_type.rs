@@ -39,8 +39,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceMutableDescriptorTypeFeaturesEXT<'a> {
-        pub fn mutable_descriptor_type(mut self, mutable_descriptor_type: Bool32) -> Self {
-            self.mutable_descriptor_type = mutable_descriptor_type;
+        pub fn mutable_descriptor_type(mut self, mutable_descriptor_type: bool) -> Self {
+            self.mutable_descriptor_type = mutable_descriptor_type.into();
             self
         }
     }

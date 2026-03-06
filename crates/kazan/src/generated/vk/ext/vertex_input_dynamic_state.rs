@@ -39,8 +39,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'a> {
-        pub fn vertex_input_dynamic_state(mut self, vertex_input_dynamic_state: Bool32) -> Self {
-            self.vertex_input_dynamic_state = vertex_input_dynamic_state;
+        pub fn vertex_input_dynamic_state(mut self, vertex_input_dynamic_state: bool) -> Self {
+            self.vertex_input_dynamic_state = vertex_input_dynamic_state.into();
             self
         }
     }

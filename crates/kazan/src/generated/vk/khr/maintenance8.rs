@@ -33,8 +33,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceMaintenance8FeaturesKHR<'a> {
-        pub fn maintenance8(mut self, maintenance8: Bool32) -> Self {
-            self.maintenance8 = maintenance8;
+        pub fn maintenance8(mut self, maintenance8: bool) -> Self {
+            self.maintenance8 = maintenance8.into();
             self
         }
     }

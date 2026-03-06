@@ -114,13 +114,13 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         queue_family_index: u32,
         display: *mut wl_display,
-    ) -> Bool32 {
+    ) -> bool {
         unsafe {
             (self.get_physical_device_wayland_presentation_support_khr)(
                 physical_device,
                 queue_family_index,
                 display,
-            )
+            ) != 0
         }
     }
 }

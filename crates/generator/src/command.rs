@@ -86,6 +86,8 @@ enum ArgEmitKind {
     },
     /// Enumeration buffer param: `{name} as _`
     TransmuteForEnumeration,
+    /// Bool param: `{name}.into()` (bool → Bool32)
+    BoolInto,
 }
 
 impl<'a> LengthKind<'a> {
@@ -421,9 +423,14 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
                 let CType::Ptr { pointee, .. } = &param.c_decl.ty else {
                     unreachable!()
                 };
+                let ty = if ctype_rust::is_bool32(&pointee) {
+                    "bool".to_string()
+                } else {
+                    ctype_to_rust_type(analysis, &pointee, None)
+                };
                 WrapperParamInfo {
                     name: normalize_param_name(param.c_decl.name),
-                    ty: ctype_to_rust_type(analysis, &pointee, None),
+                    ty,
                     param_index,
                     param,
                     is_enumeration_array: false,
@@ -433,8 +440,13 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
 
         WrapperReturnKind::OutputParams(params)
     } else if has_regular_return {
+        let ret_ty = command.return_type.as_ref().unwrap();
         WrapperReturnKind::CommandReturnValue {
-            ty: ctype_to_rust_type(analysis, command.return_type.as_ref().unwrap(), None),
+            ty: if ctype_rust::is_bool32(ret_ty) {
+                "bool".to_string()
+            } else {
+                ctype_to_rust_type(analysis, ret_ty, None)
+            },
         }
     } else {
         WrapperReturnKind::None
@@ -616,7 +628,12 @@ pub fn convert_param_type(
                 s
             }
         }
-        _ => ctype_to_rust_type(analysis, ty, lifetime_param),
+        _ => {
+            if ctype_rust::is_bool32(ty) {
+                return "bool".to_string();
+            }
+            ctype_to_rust_type(analysis, ty, lifetime_param)
+        }
     }
 }
 
@@ -861,6 +878,10 @@ fn arg_emit_kind(
         };
     }
 
+    if ctype_rust::is_bool32(ty) {
+        return ArgEmitKind::BoolInto;
+    }
+
     ArgEmitKind::Direct
 }
 
@@ -900,6 +921,9 @@ fn emit_arg(file: &mut impl std::io::Write, param_name: &str, kind: ArgEmitKind)
         ArgEmitKind::TransmuteForEnumeration => {
             writeln!(file, "{} as _,", param_name).unwrap();
         }
+        ArgEmitKind::BoolInto => {
+            writeln!(file, "{}.into(),", param_name).unwrap();
+        }
     }
 }
 
@@ -934,16 +958,34 @@ fn write_fn_body(
         let kind = arg_emit_kind(param_index, param, wrapper, analysis);
         emit_arg(file, &param.name, kind);
     }
-    writeln!(file, ")").unwrap();
+    if matches!(&wrapper.wrapper_return, WrapperReturnKind::CommandReturnValue { ty } if ty == "bool") {
+        writeln!(file, ") != 0").unwrap();
+    } else {
+        writeln!(file, ")").unwrap();
+    }
 
     let return_value = match &wrapper.wrapper_return {
         WrapperReturnKind::OutputParams(params) => Some(match params.as_slice() {
-            [param] => format!("{}.assume_init()", param.name),
+            [param] => {
+                let init = format!("{}.assume_init()", param.name);
+                if param.ty == "bool" {
+                    format!("{} != 0", init)
+                } else {
+                    init
+                }
+            }
             params => format!(
                 "({})",
                 params
                     .iter()
-                    .map(|param| format!("{}.assume_init()", param.name))
+                    .map(|param| {
+                        let init = format!("{}.assume_init()", param.name);
+                        if param.ty == "bool" {
+                            format!("{} != 0", init)
+                        } else {
+                            init
+                        }
+                    })
                     .join(", ")
             ),
         }),

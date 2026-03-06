@@ -36,8 +36,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceDiagnosticsConfigFeaturesNV<'a> {
-        pub fn diagnostics_config(mut self, diagnostics_config: Bool32) -> Self {
-            self.diagnostics_config = diagnostics_config;
+        pub fn diagnostics_config(mut self, diagnostics_config: bool) -> Self {
+            self.diagnostics_config = diagnostics_config.into();
             self
         }
     }

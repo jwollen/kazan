@@ -44,8 +44,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'a> {
-        pub fn device_generated_commands(mut self, device_generated_commands: Bool32) -> Self {
-            self.device_generated_commands = device_generated_commands;
+        pub fn device_generated_commands(mut self, device_generated_commands: bool) -> Self {
+            self.device_generated_commands = device_generated_commands.into();
             self
         }
     }
@@ -390,8 +390,8 @@ pub(super) mod defs {
             self.vertex_binding_unit = vertex_binding_unit;
             self
         }
-        pub fn vertex_dynamic_stride(mut self, vertex_dynamic_stride: Bool32) -> Self {
-            self.vertex_dynamic_stride = vertex_dynamic_stride;
+        pub fn vertex_dynamic_stride(mut self, vertex_dynamic_stride: bool) -> Self {
+            self.vertex_dynamic_stride = vertex_dynamic_stride.into();
             self
         }
         pub fn pushconstant_pipeline_layout(
@@ -797,13 +797,13 @@ impl DeviceFn {
     pub unsafe fn cmd_execute_generated_commands_nv(
         &self,
         command_buffer: CommandBuffer,
-        is_preprocessed: Bool32,
+        is_preprocessed: bool,
         generated_commands_info: &GeneratedCommandsInfoNV<'_>,
     ) {
         unsafe {
             (self.cmd_execute_generated_commands_nv)(
                 command_buffer,
-                is_preprocessed,
+                is_preprocessed.into(),
                 generated_commands_info,
             )
         }

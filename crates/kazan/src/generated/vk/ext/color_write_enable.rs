@@ -36,8 +36,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceColorWriteEnableFeaturesEXT<'a> {
-        pub fn color_write_enable(mut self, color_write_enable: Bool32) -> Self {
-            self.color_write_enable = color_write_enable;
+        pub fn color_write_enable(mut self, color_write_enable: bool) -> Self {
+            self.color_write_enable = color_write_enable.into();
             self
         }
     }

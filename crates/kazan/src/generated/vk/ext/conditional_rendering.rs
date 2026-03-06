@@ -74,11 +74,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> CommandBufferInheritanceConditionalRenderingInfoEXT<'a> {
-        pub fn conditional_rendering_enable(
-            mut self,
-            conditional_rendering_enable: Bool32,
-        ) -> Self {
-            self.conditional_rendering_enable = conditional_rendering_enable;
+        pub fn conditional_rendering_enable(mut self, conditional_rendering_enable: bool) -> Self {
+            self.conditional_rendering_enable = conditional_rendering_enable.into();
             self
         }
     }
@@ -115,15 +112,15 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceConditionalRenderingFeaturesEXT<'a> {
-        pub fn conditional_rendering(mut self, conditional_rendering: Bool32) -> Self {
-            self.conditional_rendering = conditional_rendering;
+        pub fn conditional_rendering(mut self, conditional_rendering: bool) -> Self {
+            self.conditional_rendering = conditional_rendering.into();
             self
         }
         pub fn inherited_conditional_rendering(
             mut self,
-            inherited_conditional_rendering: Bool32,
+            inherited_conditional_rendering: bool,
         ) -> Self {
-            self.inherited_conditional_rendering = inherited_conditional_rendering;
+            self.inherited_conditional_rendering = inherited_conditional_rendering.into();
             self
         }
     }

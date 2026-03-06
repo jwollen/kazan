@@ -66,8 +66,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PipelineViewportShadingRateImageStateCreateInfoNV<'a> {
-        pub fn shading_rate_image_enable(mut self, shading_rate_image_enable: Bool32) -> Self {
-            self.shading_rate_image_enable = shading_rate_image_enable;
+        pub fn shading_rate_image_enable(mut self, shading_rate_image_enable: bool) -> Self {
+            self.shading_rate_image_enable = shading_rate_image_enable.into();
             self
         }
         pub fn shading_rate_palettes(
@@ -109,15 +109,15 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceShadingRateImageFeaturesNV<'a> {
-        pub fn shading_rate_image(mut self, shading_rate_image: Bool32) -> Self {
-            self.shading_rate_image = shading_rate_image;
+        pub fn shading_rate_image(mut self, shading_rate_image: bool) -> Self {
+            self.shading_rate_image = shading_rate_image.into();
             self
         }
         pub fn shading_rate_coarse_sample_order(
             mut self,
-            shading_rate_coarse_sample_order: Bool32,
+            shading_rate_coarse_sample_order: bool,
         ) -> Self {
-            self.shading_rate_coarse_sample_order = shading_rate_coarse_sample_order;
+            self.shading_rate_coarse_sample_order = shading_rate_coarse_sample_order.into();
             self
         }
     }

@@ -40,8 +40,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'a> {
-        pub fn shader_module_identifier(mut self, shader_module_identifier: Bool32) -> Self {
-            self.shader_module_identifier = shader_module_identifier;
+        pub fn shader_module_identifier(mut self, shader_module_identifier: bool) -> Self {
+            self.shader_module_identifier = shader_module_identifier.into();
             self
         }
     }

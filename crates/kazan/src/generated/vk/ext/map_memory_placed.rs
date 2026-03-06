@@ -40,16 +40,16 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceMapMemoryPlacedFeaturesEXT<'a> {
-        pub fn memory_map_placed(mut self, memory_map_placed: Bool32) -> Self {
-            self.memory_map_placed = memory_map_placed;
+        pub fn memory_map_placed(mut self, memory_map_placed: bool) -> Self {
+            self.memory_map_placed = memory_map_placed.into();
             self
         }
-        pub fn memory_map_range_placed(mut self, memory_map_range_placed: Bool32) -> Self {
-            self.memory_map_range_placed = memory_map_range_placed;
+        pub fn memory_map_range_placed(mut self, memory_map_range_placed: bool) -> Self {
+            self.memory_map_range_placed = memory_map_range_placed.into();
             self
         }
-        pub fn memory_unmap_reserve(mut self, memory_unmap_reserve: Bool32) -> Self {
-            self.memory_unmap_reserve = memory_unmap_reserve;
+        pub fn memory_unmap_reserve(mut self, memory_unmap_reserve: bool) -> Self {
+            self.memory_unmap_reserve = memory_unmap_reserve.into();
             self
         }
     }

@@ -37,9 +37,9 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX<'a> {
         pub fn per_view_position_all_components(
             mut self,
-            per_view_position_all_components: Bool32,
+            per_view_position_all_components: bool,
         ) -> Self {
-            self.per_view_position_all_components = per_view_position_all_components;
+            self.per_view_position_all_components = per_view_position_all_components.into();
             self
         }
     }
@@ -73,15 +73,15 @@ pub(super) mod defs {
         }
     }
     impl<'a> MultiviewPerViewAttributesInfoNVX<'a> {
-        pub fn per_view_attributes(mut self, per_view_attributes: Bool32) -> Self {
-            self.per_view_attributes = per_view_attributes;
+        pub fn per_view_attributes(mut self, per_view_attributes: bool) -> Self {
+            self.per_view_attributes = per_view_attributes.into();
             self
         }
         pub fn per_view_attributes_position_x_only(
             mut self,
-            per_view_attributes_position_x_only: Bool32,
+            per_view_attributes_position_x_only: bool,
         ) -> Self {
-            self.per_view_attributes_position_x_only = per_view_attributes_position_x_only;
+            self.per_view_attributes_position_x_only = per_view_attributes_position_x_only.into();
             self
         }
     }

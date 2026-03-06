@@ -39,11 +39,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDevicePageableDeviceLocalMemoryFeaturesEXT<'a> {
-        pub fn pageable_device_local_memory(
-            mut self,
-            pageable_device_local_memory: Bool32,
-        ) -> Self {
-            self.pageable_device_local_memory = pageable_device_local_memory;
+        pub fn pageable_device_local_memory(mut self, pageable_device_local_memory: bool) -> Self {
+            self.pageable_device_local_memory = pageable_device_local_memory.into();
             self
         }
     }

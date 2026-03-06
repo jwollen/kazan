@@ -40,8 +40,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceCopyMemoryIndirectFeaturesNV<'a> {
-        pub fn indirect_copy(mut self, indirect_copy: Bool32) -> Self {
-            self.indirect_copy = indirect_copy;
+        pub fn indirect_copy(mut self, indirect_copy: bool) -> Self {
+            self.indirect_copy = indirect_copy.into();
             self
         }
     }

@@ -130,8 +130,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceMaintenance5Features<'a> {
-        pub fn maintenance5(mut self, maintenance5: Bool32) -> Self {
-            self.maintenance5 = maintenance5;
+        pub fn maintenance5(mut self, maintenance5: bool) -> Self {
+            self.maintenance5 = maintenance5.into();
             self
         }
     }
@@ -174,44 +174,45 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceMaintenance5Properties<'a> {
         pub fn early_fragment_multisample_coverage_after_sample_counting(
             mut self,
-            early_fragment_multisample_coverage_after_sample_counting: Bool32,
+            early_fragment_multisample_coverage_after_sample_counting: bool,
         ) -> Self {
             self.early_fragment_multisample_coverage_after_sample_counting =
-                early_fragment_multisample_coverage_after_sample_counting;
+                early_fragment_multisample_coverage_after_sample_counting.into();
             self
         }
         pub fn early_fragment_sample_mask_test_before_sample_counting(
             mut self,
-            early_fragment_sample_mask_test_before_sample_counting: Bool32,
+            early_fragment_sample_mask_test_before_sample_counting: bool,
         ) -> Self {
             self.early_fragment_sample_mask_test_before_sample_counting =
-                early_fragment_sample_mask_test_before_sample_counting;
+                early_fragment_sample_mask_test_before_sample_counting.into();
             self
         }
         pub fn depth_stencil_swizzle_one_support(
             mut self,
-            depth_stencil_swizzle_one_support: Bool32,
+            depth_stencil_swizzle_one_support: bool,
         ) -> Self {
-            self.depth_stencil_swizzle_one_support = depth_stencil_swizzle_one_support;
+            self.depth_stencil_swizzle_one_support = depth_stencil_swizzle_one_support.into();
             self
         }
-        pub fn polygon_mode_point_size(mut self, polygon_mode_point_size: Bool32) -> Self {
-            self.polygon_mode_point_size = polygon_mode_point_size;
+        pub fn polygon_mode_point_size(mut self, polygon_mode_point_size: bool) -> Self {
+            self.polygon_mode_point_size = polygon_mode_point_size.into();
             self
         }
         pub fn non_strict_single_pixel_wide_lines_use_parallelogram(
             mut self,
-            non_strict_single_pixel_wide_lines_use_parallelogram: Bool32,
+            non_strict_single_pixel_wide_lines_use_parallelogram: bool,
         ) -> Self {
             self.non_strict_single_pixel_wide_lines_use_parallelogram =
-                non_strict_single_pixel_wide_lines_use_parallelogram;
+                non_strict_single_pixel_wide_lines_use_parallelogram.into();
             self
         }
         pub fn non_strict_wide_lines_use_parallelogram(
             mut self,
-            non_strict_wide_lines_use_parallelogram: Bool32,
+            non_strict_wide_lines_use_parallelogram: bool,
         ) -> Self {
-            self.non_strict_wide_lines_use_parallelogram = non_strict_wide_lines_use_parallelogram;
+            self.non_strict_wide_lines_use_parallelogram =
+                non_strict_wide_lines_use_parallelogram.into();
             self
         }
     }
@@ -239,8 +240,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceMaintenance6Features<'a> {
-        pub fn maintenance6(mut self, maintenance6: Bool32) -> Self {
-            self.maintenance6 = maintenance6;
+        pub fn maintenance6(mut self, maintenance6: bool) -> Self {
+            self.maintenance6 = maintenance6.into();
             self
         }
     }
@@ -277,10 +278,10 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceMaintenance6Properties<'a> {
         pub fn block_texel_view_compatible_multiple_layers(
             mut self,
-            block_texel_view_compatible_multiple_layers: Bool32,
+            block_texel_view_compatible_multiple_layers: bool,
         ) -> Self {
             self.block_texel_view_compatible_multiple_layers =
-                block_texel_view_compatible_multiple_layers;
+                block_texel_view_compatible_multiple_layers.into();
             self
         }
         pub fn max_combined_image_sampler_descriptor_count(
@@ -293,10 +294,10 @@ pub(super) mod defs {
         }
         pub fn fragment_shading_rate_clamp_combiner_inputs(
             mut self,
-            fragment_shading_rate_clamp_combiner_inputs: Bool32,
+            fragment_shading_rate_clamp_combiner_inputs: bool,
         ) -> Self {
             self.fragment_shading_rate_clamp_combiner_inputs =
-                fragment_shading_rate_clamp_combiner_inputs;
+                fragment_shading_rate_clamp_combiner_inputs.into();
             self
         }
     }
@@ -405,8 +406,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceGlobalPriorityQueryFeatures<'a> {
-        pub fn global_priority_query(mut self, global_priority_query: Bool32) -> Self {
-            self.global_priority_query = global_priority_query;
+        pub fn global_priority_query(mut self, global_priority_query: bool) -> Self {
+            self.global_priority_query = global_priority_query.into();
             self
         }
     }
@@ -531,9 +532,9 @@ pub(super) mod defs {
         }
         pub fn supports_non_zero_first_instance(
             mut self,
-            supports_non_zero_first_instance: Bool32,
+            supports_non_zero_first_instance: bool,
         ) -> Self {
-            self.supports_non_zero_first_instance = supports_non_zero_first_instance;
+            self.supports_non_zero_first_instance = supports_non_zero_first_instance.into();
             self
         }
     }
@@ -569,17 +570,18 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceVertexAttributeDivisorFeatures<'a> {
         pub fn vertex_attribute_instance_rate_divisor(
             mut self,
-            vertex_attribute_instance_rate_divisor: Bool32,
+            vertex_attribute_instance_rate_divisor: bool,
         ) -> Self {
-            self.vertex_attribute_instance_rate_divisor = vertex_attribute_instance_rate_divisor;
+            self.vertex_attribute_instance_rate_divisor =
+                vertex_attribute_instance_rate_divisor.into();
             self
         }
         pub fn vertex_attribute_instance_rate_zero_divisor(
             mut self,
-            vertex_attribute_instance_rate_zero_divisor: Bool32,
+            vertex_attribute_instance_rate_zero_divisor: bool,
         ) -> Self {
             self.vertex_attribute_instance_rate_zero_divisor =
-                vertex_attribute_instance_rate_zero_divisor;
+                vertex_attribute_instance_rate_zero_divisor.into();
             self
         }
     }
@@ -608,8 +610,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceIndexTypeUint8Features<'a> {
-        pub fn index_type_uint8(mut self, index_type_uint8: Bool32) -> Self {
-            self.index_type_uint8 = index_type_uint8;
+        pub fn index_type_uint8(mut self, index_type_uint8: bool) -> Self {
+            self.index_type_uint8 = index_type_uint8.into();
             self
         }
     }
@@ -651,28 +653,28 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceLineRasterizationFeatures<'a> {
-        pub fn rectangular_lines(mut self, rectangular_lines: Bool32) -> Self {
-            self.rectangular_lines = rectangular_lines;
+        pub fn rectangular_lines(mut self, rectangular_lines: bool) -> Self {
+            self.rectangular_lines = rectangular_lines.into();
             self
         }
-        pub fn bresenham_lines(mut self, bresenham_lines: Bool32) -> Self {
-            self.bresenham_lines = bresenham_lines;
+        pub fn bresenham_lines(mut self, bresenham_lines: bool) -> Self {
+            self.bresenham_lines = bresenham_lines.into();
             self
         }
-        pub fn smooth_lines(mut self, smooth_lines: Bool32) -> Self {
-            self.smooth_lines = smooth_lines;
+        pub fn smooth_lines(mut self, smooth_lines: bool) -> Self {
+            self.smooth_lines = smooth_lines.into();
             self
         }
-        pub fn stippled_rectangular_lines(mut self, stippled_rectangular_lines: Bool32) -> Self {
-            self.stippled_rectangular_lines = stippled_rectangular_lines;
+        pub fn stippled_rectangular_lines(mut self, stippled_rectangular_lines: bool) -> Self {
+            self.stippled_rectangular_lines = stippled_rectangular_lines.into();
             self
         }
-        pub fn stippled_bresenham_lines(mut self, stippled_bresenham_lines: Bool32) -> Self {
-            self.stippled_bresenham_lines = stippled_bresenham_lines;
+        pub fn stippled_bresenham_lines(mut self, stippled_bresenham_lines: bool) -> Self {
+            self.stippled_bresenham_lines = stippled_bresenham_lines.into();
             self
         }
-        pub fn stippled_smooth_lines(mut self, stippled_smooth_lines: Bool32) -> Self {
-            self.stippled_smooth_lines = stippled_smooth_lines;
+        pub fn stippled_smooth_lines(mut self, stippled_smooth_lines: bool) -> Self {
+            self.stippled_smooth_lines = stippled_smooth_lines.into();
             self
         }
     }
@@ -748,8 +750,8 @@ pub(super) mod defs {
             self.line_rasterization_mode = line_rasterization_mode;
             self
         }
-        pub fn stippled_line_enable(mut self, stippled_line_enable: Bool32) -> Self {
-            self.stippled_line_enable = stippled_line_enable;
+        pub fn stippled_line_enable(mut self, stippled_line_enable: bool) -> Self {
+            self.stippled_line_enable = stippled_line_enable.into();
             self
         }
         pub fn line_stipple_factor(mut self, line_stipple_factor: u32) -> Self {
@@ -825,101 +827,99 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceVulkan14Features<'a> {
-        pub fn global_priority_query(mut self, global_priority_query: Bool32) -> Self {
-            self.global_priority_query = global_priority_query;
+        pub fn global_priority_query(mut self, global_priority_query: bool) -> Self {
+            self.global_priority_query = global_priority_query.into();
             self
         }
-        pub fn shader_subgroup_rotate(mut self, shader_subgroup_rotate: Bool32) -> Self {
-            self.shader_subgroup_rotate = shader_subgroup_rotate;
+        pub fn shader_subgroup_rotate(mut self, shader_subgroup_rotate: bool) -> Self {
+            self.shader_subgroup_rotate = shader_subgroup_rotate.into();
             self
         }
         pub fn shader_subgroup_rotate_clustered(
             mut self,
-            shader_subgroup_rotate_clustered: Bool32,
+            shader_subgroup_rotate_clustered: bool,
         ) -> Self {
-            self.shader_subgroup_rotate_clustered = shader_subgroup_rotate_clustered;
+            self.shader_subgroup_rotate_clustered = shader_subgroup_rotate_clustered.into();
             self
         }
-        pub fn shader_float_controls2(mut self, shader_float_controls2: Bool32) -> Self {
-            self.shader_float_controls2 = shader_float_controls2;
+        pub fn shader_float_controls2(mut self, shader_float_controls2: bool) -> Self {
+            self.shader_float_controls2 = shader_float_controls2.into();
             self
         }
-        pub fn shader_expect_assume(mut self, shader_expect_assume: Bool32) -> Self {
-            self.shader_expect_assume = shader_expect_assume;
+        pub fn shader_expect_assume(mut self, shader_expect_assume: bool) -> Self {
+            self.shader_expect_assume = shader_expect_assume.into();
             self
         }
-        pub fn rectangular_lines(mut self, rectangular_lines: Bool32) -> Self {
-            self.rectangular_lines = rectangular_lines;
+        pub fn rectangular_lines(mut self, rectangular_lines: bool) -> Self {
+            self.rectangular_lines = rectangular_lines.into();
             self
         }
-        pub fn bresenham_lines(mut self, bresenham_lines: Bool32) -> Self {
-            self.bresenham_lines = bresenham_lines;
+        pub fn bresenham_lines(mut self, bresenham_lines: bool) -> Self {
+            self.bresenham_lines = bresenham_lines.into();
             self
         }
-        pub fn smooth_lines(mut self, smooth_lines: Bool32) -> Self {
-            self.smooth_lines = smooth_lines;
+        pub fn smooth_lines(mut self, smooth_lines: bool) -> Self {
+            self.smooth_lines = smooth_lines.into();
             self
         }
-        pub fn stippled_rectangular_lines(mut self, stippled_rectangular_lines: Bool32) -> Self {
-            self.stippled_rectangular_lines = stippled_rectangular_lines;
+        pub fn stippled_rectangular_lines(mut self, stippled_rectangular_lines: bool) -> Self {
+            self.stippled_rectangular_lines = stippled_rectangular_lines.into();
             self
         }
-        pub fn stippled_bresenham_lines(mut self, stippled_bresenham_lines: Bool32) -> Self {
-            self.stippled_bresenham_lines = stippled_bresenham_lines;
+        pub fn stippled_bresenham_lines(mut self, stippled_bresenham_lines: bool) -> Self {
+            self.stippled_bresenham_lines = stippled_bresenham_lines.into();
             self
         }
-        pub fn stippled_smooth_lines(mut self, stippled_smooth_lines: Bool32) -> Self {
-            self.stippled_smooth_lines = stippled_smooth_lines;
+        pub fn stippled_smooth_lines(mut self, stippled_smooth_lines: bool) -> Self {
+            self.stippled_smooth_lines = stippled_smooth_lines.into();
             self
         }
         pub fn vertex_attribute_instance_rate_divisor(
             mut self,
-            vertex_attribute_instance_rate_divisor: Bool32,
+            vertex_attribute_instance_rate_divisor: bool,
         ) -> Self {
-            self.vertex_attribute_instance_rate_divisor = vertex_attribute_instance_rate_divisor;
+            self.vertex_attribute_instance_rate_divisor =
+                vertex_attribute_instance_rate_divisor.into();
             self
         }
         pub fn vertex_attribute_instance_rate_zero_divisor(
             mut self,
-            vertex_attribute_instance_rate_zero_divisor: Bool32,
+            vertex_attribute_instance_rate_zero_divisor: bool,
         ) -> Self {
             self.vertex_attribute_instance_rate_zero_divisor =
-                vertex_attribute_instance_rate_zero_divisor;
+                vertex_attribute_instance_rate_zero_divisor.into();
             self
         }
-        pub fn index_type_uint8(mut self, index_type_uint8: Bool32) -> Self {
-            self.index_type_uint8 = index_type_uint8;
+        pub fn index_type_uint8(mut self, index_type_uint8: bool) -> Self {
+            self.index_type_uint8 = index_type_uint8.into();
             self
         }
-        pub fn dynamic_rendering_local_read(
-            mut self,
-            dynamic_rendering_local_read: Bool32,
-        ) -> Self {
-            self.dynamic_rendering_local_read = dynamic_rendering_local_read;
+        pub fn dynamic_rendering_local_read(mut self, dynamic_rendering_local_read: bool) -> Self {
+            self.dynamic_rendering_local_read = dynamic_rendering_local_read.into();
             self
         }
-        pub fn maintenance5(mut self, maintenance5: Bool32) -> Self {
-            self.maintenance5 = maintenance5;
+        pub fn maintenance5(mut self, maintenance5: bool) -> Self {
+            self.maintenance5 = maintenance5.into();
             self
         }
-        pub fn maintenance6(mut self, maintenance6: Bool32) -> Self {
-            self.maintenance6 = maintenance6;
+        pub fn maintenance6(mut self, maintenance6: bool) -> Self {
+            self.maintenance6 = maintenance6.into();
             self
         }
-        pub fn pipeline_protected_access(mut self, pipeline_protected_access: Bool32) -> Self {
-            self.pipeline_protected_access = pipeline_protected_access;
+        pub fn pipeline_protected_access(mut self, pipeline_protected_access: bool) -> Self {
+            self.pipeline_protected_access = pipeline_protected_access.into();
             self
         }
-        pub fn pipeline_robustness(mut self, pipeline_robustness: Bool32) -> Self {
-            self.pipeline_robustness = pipeline_robustness;
+        pub fn pipeline_robustness(mut self, pipeline_robustness: bool) -> Self {
+            self.pipeline_robustness = pipeline_robustness.into();
             self
         }
-        pub fn host_image_copy(mut self, host_image_copy: Bool32) -> Self {
-            self.host_image_copy = host_image_copy;
+        pub fn host_image_copy(mut self, host_image_copy: bool) -> Self {
+            self.host_image_copy = host_image_copy.into();
             self
         }
-        pub fn push_descriptor(mut self, push_descriptor: Bool32) -> Self {
-            self.push_descriptor = push_descriptor;
+        pub fn push_descriptor(mut self, push_descriptor: bool) -> Self {
+            self.push_descriptor = push_descriptor.into();
             self
         }
     }
@@ -1004,9 +1004,9 @@ pub(super) mod defs {
         }
         pub fn supports_non_zero_first_instance(
             mut self,
-            supports_non_zero_first_instance: Bool32,
+            supports_non_zero_first_instance: bool,
         ) -> Self {
-            self.supports_non_zero_first_instance = supports_non_zero_first_instance;
+            self.supports_non_zero_first_instance = supports_non_zero_first_instance.into();
             self
         }
         pub fn max_push_descriptors(mut self, max_push_descriptors: u32) -> Self {
@@ -1015,68 +1015,69 @@ pub(super) mod defs {
         }
         pub fn dynamic_rendering_local_read_depth_stencil_attachments(
             mut self,
-            dynamic_rendering_local_read_depth_stencil_attachments: Bool32,
+            dynamic_rendering_local_read_depth_stencil_attachments: bool,
         ) -> Self {
             self.dynamic_rendering_local_read_depth_stencil_attachments =
-                dynamic_rendering_local_read_depth_stencil_attachments;
+                dynamic_rendering_local_read_depth_stencil_attachments.into();
             self
         }
         pub fn dynamic_rendering_local_read_multisampled_attachments(
             mut self,
-            dynamic_rendering_local_read_multisampled_attachments: Bool32,
+            dynamic_rendering_local_read_multisampled_attachments: bool,
         ) -> Self {
             self.dynamic_rendering_local_read_multisampled_attachments =
-                dynamic_rendering_local_read_multisampled_attachments;
+                dynamic_rendering_local_read_multisampled_attachments.into();
             self
         }
         pub fn early_fragment_multisample_coverage_after_sample_counting(
             mut self,
-            early_fragment_multisample_coverage_after_sample_counting: Bool32,
+            early_fragment_multisample_coverage_after_sample_counting: bool,
         ) -> Self {
             self.early_fragment_multisample_coverage_after_sample_counting =
-                early_fragment_multisample_coverage_after_sample_counting;
+                early_fragment_multisample_coverage_after_sample_counting.into();
             self
         }
         pub fn early_fragment_sample_mask_test_before_sample_counting(
             mut self,
-            early_fragment_sample_mask_test_before_sample_counting: Bool32,
+            early_fragment_sample_mask_test_before_sample_counting: bool,
         ) -> Self {
             self.early_fragment_sample_mask_test_before_sample_counting =
-                early_fragment_sample_mask_test_before_sample_counting;
+                early_fragment_sample_mask_test_before_sample_counting.into();
             self
         }
         pub fn depth_stencil_swizzle_one_support(
             mut self,
-            depth_stencil_swizzle_one_support: Bool32,
+            depth_stencil_swizzle_one_support: bool,
         ) -> Self {
-            self.depth_stencil_swizzle_one_support = depth_stencil_swizzle_one_support;
+            self.depth_stencil_swizzle_one_support = depth_stencil_swizzle_one_support.into();
             self
         }
-        pub fn polygon_mode_point_size(mut self, polygon_mode_point_size: Bool32) -> Self {
-            self.polygon_mode_point_size = polygon_mode_point_size;
+        pub fn polygon_mode_point_size(mut self, polygon_mode_point_size: bool) -> Self {
+            self.polygon_mode_point_size = polygon_mode_point_size.into();
             self
         }
         pub fn non_strict_single_pixel_wide_lines_use_parallelogram(
             mut self,
-            non_strict_single_pixel_wide_lines_use_parallelogram: Bool32,
+            non_strict_single_pixel_wide_lines_use_parallelogram: bool,
         ) -> Self {
             self.non_strict_single_pixel_wide_lines_use_parallelogram =
-                non_strict_single_pixel_wide_lines_use_parallelogram;
+                non_strict_single_pixel_wide_lines_use_parallelogram.into();
             self
         }
         pub fn non_strict_wide_lines_use_parallelogram(
             mut self,
-            non_strict_wide_lines_use_parallelogram: Bool32,
+            non_strict_wide_lines_use_parallelogram: bool,
         ) -> Self {
-            self.non_strict_wide_lines_use_parallelogram = non_strict_wide_lines_use_parallelogram;
+            self.non_strict_wide_lines_use_parallelogram =
+                non_strict_wide_lines_use_parallelogram.into();
             self
         }
         pub fn block_texel_view_compatible_multiple_layers(
             mut self,
-            block_texel_view_compatible_multiple_layers: Bool32,
+            block_texel_view_compatible_multiple_layers: bool,
         ) -> Self {
             self.block_texel_view_compatible_multiple_layers =
-                block_texel_view_compatible_multiple_layers;
+                block_texel_view_compatible_multiple_layers.into();
             self
         }
         pub fn max_combined_image_sampler_descriptor_count(
@@ -1089,10 +1090,10 @@ pub(super) mod defs {
         }
         pub fn fragment_shading_rate_clamp_combiner_inputs(
             mut self,
-            fragment_shading_rate_clamp_combiner_inputs: Bool32,
+            fragment_shading_rate_clamp_combiner_inputs: bool,
         ) -> Self {
             self.fragment_shading_rate_clamp_combiner_inputs =
-                fragment_shading_rate_clamp_combiner_inputs;
+                fragment_shading_rate_clamp_combiner_inputs.into();
             self
         }
         pub fn default_robustness_storage_buffers(
@@ -1142,9 +1143,9 @@ pub(super) mod defs {
         }
         pub fn identical_memory_type_requirements(
             mut self,
-            identical_memory_type_requirements: Bool32,
+            identical_memory_type_requirements: bool,
         ) -> Self {
-            self.identical_memory_type_requirements = identical_memory_type_requirements;
+            self.identical_memory_type_requirements = identical_memory_type_requirements.into();
             self
         }
     }
@@ -1173,8 +1174,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceHostImageCopyFeatures<'a> {
-        pub fn host_image_copy(mut self, host_image_copy: Bool32) -> Self {
-            self.host_image_copy = host_image_copy;
+        pub fn host_image_copy(mut self, host_image_copy: bool) -> Self {
+            self.host_image_copy = host_image_copy.into();
             self
         }
     }
@@ -1234,9 +1235,9 @@ pub(super) mod defs {
         }
         pub fn identical_memory_type_requirements(
             mut self,
-            identical_memory_type_requirements: Bool32,
+            identical_memory_type_requirements: bool,
         ) -> Self {
-            self.identical_memory_type_requirements = identical_memory_type_requirements;
+            self.identical_memory_type_requirements = identical_memory_type_requirements.into();
             self
         }
     }
@@ -1609,12 +1610,12 @@ pub(super) mod defs {
         }
     }
     impl<'a> HostImageCopyDevicePerformanceQuery<'a> {
-        pub fn optimal_device_access(mut self, optimal_device_access: Bool32) -> Self {
-            self.optimal_device_access = optimal_device_access;
+        pub fn optimal_device_access(mut self, optimal_device_access: bool) -> Self {
+            self.optimal_device_access = optimal_device_access.into();
             self
         }
-        pub fn identical_memory_layout(mut self, identical_memory_layout: Bool32) -> Self {
-            self.identical_memory_layout = identical_memory_layout;
+        pub fn identical_memory_layout(mut self, identical_memory_layout: bool) -> Self {
+            self.identical_memory_layout = identical_memory_layout.into();
             self
         }
     }
@@ -1649,8 +1650,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDevicePipelineProtectedAccessFeatures<'a> {
-        pub fn pipeline_protected_access(mut self, pipeline_protected_access: Bool32) -> Self {
-            self.pipeline_protected_access = pipeline_protected_access;
+        pub fn pipeline_protected_access(mut self, pipeline_protected_access: bool) -> Self {
+            self.pipeline_protected_access = pipeline_protected_access.into();
             self
         }
     }
@@ -1736,8 +1737,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDevicePipelineRobustnessFeatures<'a> {
-        pub fn pipeline_robustness(mut self, pipeline_robustness: Bool32) -> Self {
-            self.pipeline_robustness = pipeline_robustness;
+        pub fn pipeline_robustness(mut self, pipeline_robustness: bool) -> Self {
+            self.pipeline_robustness = pipeline_robustness.into();
             self
         }
     }
@@ -2232,15 +2233,15 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceShaderSubgroupRotateFeatures<'a> {
-        pub fn shader_subgroup_rotate(mut self, shader_subgroup_rotate: Bool32) -> Self {
-            self.shader_subgroup_rotate = shader_subgroup_rotate;
+        pub fn shader_subgroup_rotate(mut self, shader_subgroup_rotate: bool) -> Self {
+            self.shader_subgroup_rotate = shader_subgroup_rotate.into();
             self
         }
         pub fn shader_subgroup_rotate_clustered(
             mut self,
-            shader_subgroup_rotate_clustered: Bool32,
+            shader_subgroup_rotate_clustered: bool,
         ) -> Self {
-            self.shader_subgroup_rotate_clustered = shader_subgroup_rotate_clustered;
+            self.shader_subgroup_rotate_clustered = shader_subgroup_rotate_clustered.into();
             self
         }
     }
@@ -2272,8 +2273,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceShaderExpectAssumeFeatures<'a> {
-        pub fn shader_expect_assume(mut self, shader_expect_assume: Bool32) -> Self {
-            self.shader_expect_assume = shader_expect_assume;
+        pub fn shader_expect_assume(mut self, shader_expect_assume: bool) -> Self {
+            self.shader_expect_assume = shader_expect_assume.into();
             self
         }
     }
@@ -2305,8 +2306,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceShaderFloatControls2Features<'a> {
-        pub fn shader_float_controls2(mut self, shader_float_controls2: Bool32) -> Self {
-            self.shader_float_controls2 = shader_float_controls2;
+        pub fn shader_float_controls2(mut self, shader_float_controls2: bool) -> Self {
+            self.shader_float_controls2 = shader_float_controls2.into();
             self
         }
     }
@@ -2341,11 +2342,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceDynamicRenderingLocalReadFeatures<'a> {
-        pub fn dynamic_rendering_local_read(
-            mut self,
-            dynamic_rendering_local_read: Bool32,
-        ) -> Self {
-            self.dynamic_rendering_local_read = dynamic_rendering_local_read;
+        pub fn dynamic_rendering_local_read(mut self, dynamic_rendering_local_read: bool) -> Self {
+            self.dynamic_rendering_local_read = dynamic_rendering_local_read.into();
             self
         }
     }

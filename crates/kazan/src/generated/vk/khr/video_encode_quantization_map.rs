@@ -366,9 +366,9 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR<'a> {
         pub fn video_encode_quantization_map(
             mut self,
-            video_encode_quantization_map: Bool32,
+            video_encode_quantization_map: bool,
         ) -> Self {
-            self.video_encode_quantization_map = video_encode_quantization_map;
+            self.video_encode_quantization_map = video_encode_quantization_map.into();
             self
         }
     }

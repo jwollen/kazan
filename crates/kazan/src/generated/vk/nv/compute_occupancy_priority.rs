@@ -76,8 +76,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceComputeOccupancyPriorityFeaturesNV<'a> {
-        pub fn compute_occupancy_priority(mut self, compute_occupancy_priority: Bool32) -> Self {
-            self.compute_occupancy_priority = compute_occupancy_priority;
+        pub fn compute_occupancy_priority(mut self, compute_occupancy_priority: bool) -> Self {
+            self.compute_occupancy_priority = compute_occupancy_priority.into();
             self
         }
     }

@@ -41,8 +41,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceTexelBufferAlignmentFeaturesEXT<'a> {
-        pub fn texel_buffer_alignment(mut self, texel_buffer_alignment: Bool32) -> Self {
-            self.texel_buffer_alignment = texel_buffer_alignment;
+        pub fn texel_buffer_alignment(mut self, texel_buffer_alignment: bool) -> Self {
+            self.texel_buffer_alignment = texel_buffer_alignment.into();
             self
         }
     }

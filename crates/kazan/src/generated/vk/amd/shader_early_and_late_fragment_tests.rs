@@ -43,9 +43,9 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'a> {
         pub fn shader_early_and_late_fragment_tests(
             mut self,
-            shader_early_and_late_fragment_tests: Bool32,
+            shader_early_and_late_fragment_tests: bool,
         ) -> Self {
-            self.shader_early_and_late_fragment_tests = shader_early_and_late_fragment_tests;
+            self.shader_early_and_late_fragment_tests = shader_early_and_late_fragment_tests.into();
             self
         }
     }

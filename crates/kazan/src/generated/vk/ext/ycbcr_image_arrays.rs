@@ -36,8 +36,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceYcbcrImageArraysFeaturesEXT<'a> {
-        pub fn ycbcr_image_arrays(mut self, ycbcr_image_arrays: Bool32) -> Self {
-            self.ycbcr_image_arrays = ycbcr_image_arrays;
+        pub fn ycbcr_image_arrays(mut self, ycbcr_image_arrays: bool) -> Self {
+            self.ycbcr_image_arrays = ycbcr_image_arrays.into();
             self
         }
     }

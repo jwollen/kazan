@@ -57,9 +57,9 @@ pub(super) mod defs {
         }
         pub fn coverage_modulation_table_enable(
             mut self,
-            coverage_modulation_table_enable: Bool32,
+            coverage_modulation_table_enable: bool,
         ) -> Self {
-            self.coverage_modulation_table_enable = coverage_modulation_table_enable;
+            self.coverage_modulation_table_enable = coverage_modulation_table_enable.into();
             self
         }
         pub fn coverage_modulation_table(mut self, coverage_modulation_table: &'a [f32]) -> Self {

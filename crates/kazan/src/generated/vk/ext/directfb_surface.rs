@@ -114,13 +114,13 @@ impl InstanceFn {
         physical_device: PhysicalDevice,
         queue_family_index: u32,
         dfb: *mut IDirectFB,
-    ) -> Bool32 {
+    ) -> bool {
         unsafe {
             (self.get_physical_device_direct_fb_presentation_support_ext)(
                 physical_device,
                 queue_family_index,
                 dfb,
-            )
+            ) != 0
         }
     }
 }

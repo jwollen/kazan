@@ -127,12 +127,12 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceShaderEnqueueFeaturesAMDX<'a> {
-        pub fn shader_enqueue(mut self, shader_enqueue: Bool32) -> Self {
-            self.shader_enqueue = shader_enqueue;
+        pub fn shader_enqueue(mut self, shader_enqueue: bool) -> Self {
+            self.shader_enqueue = shader_enqueue.into();
             self
         }
-        pub fn shader_mesh_enqueue(mut self, shader_mesh_enqueue: Bool32) -> Self {
-            self.shader_mesh_enqueue = shader_mesh_enqueue;
+        pub fn shader_mesh_enqueue(mut self, shader_mesh_enqueue: bool) -> Self {
+            self.shader_mesh_enqueue = shader_mesh_enqueue.into();
             self
         }
     }

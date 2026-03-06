@@ -33,8 +33,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDevicePresentWaitFeaturesKHR<'a> {
-        pub fn present_wait(mut self, present_wait: Bool32) -> Self {
-            self.present_wait = present_wait;
+        pub fn present_wait(mut self, present_wait: bool) -> Self {
+            self.present_wait = present_wait.into();
             self
         }
     }

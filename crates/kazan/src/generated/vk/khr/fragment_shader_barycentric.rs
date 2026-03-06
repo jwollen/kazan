@@ -39,8 +39,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceFragmentShaderBarycentricFeaturesKHR<'a> {
-        pub fn fragment_shader_barycentric(mut self, fragment_shader_barycentric: Bool32) -> Self {
-            self.fragment_shader_barycentric = fragment_shader_barycentric;
+        pub fn fragment_shader_barycentric(mut self, fragment_shader_barycentric: bool) -> Self {
+            self.fragment_shader_barycentric = fragment_shader_barycentric.into();
             self
         }
     }
@@ -73,10 +73,10 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceFragmentShaderBarycentricPropertiesKHR<'a> {
         pub fn tri_strip_vertex_order_independent_of_provoking_vertex(
             mut self,
-            tri_strip_vertex_order_independent_of_provoking_vertex: Bool32,
+            tri_strip_vertex_order_independent_of_provoking_vertex: bool,
         ) -> Self {
             self.tri_strip_vertex_order_independent_of_provoking_vertex =
-                tri_strip_vertex_order_independent_of_provoking_vertex;
+                tri_strip_vertex_order_independent_of_provoking_vertex.into();
             self
         }
     }

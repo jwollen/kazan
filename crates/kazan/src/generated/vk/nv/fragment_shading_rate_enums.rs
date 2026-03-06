@@ -43,22 +43,22 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'a> {
-        pub fn fragment_shading_rate_enums(mut self, fragment_shading_rate_enums: Bool32) -> Self {
-            self.fragment_shading_rate_enums = fragment_shading_rate_enums;
+        pub fn fragment_shading_rate_enums(mut self, fragment_shading_rate_enums: bool) -> Self {
+            self.fragment_shading_rate_enums = fragment_shading_rate_enums.into();
             self
         }
         pub fn supersample_fragment_shading_rates(
             mut self,
-            supersample_fragment_shading_rates: Bool32,
+            supersample_fragment_shading_rates: bool,
         ) -> Self {
-            self.supersample_fragment_shading_rates = supersample_fragment_shading_rates;
+            self.supersample_fragment_shading_rates = supersample_fragment_shading_rates.into();
             self
         }
         pub fn no_invocation_fragment_shading_rates(
             mut self,
-            no_invocation_fragment_shading_rates: Bool32,
+            no_invocation_fragment_shading_rates: bool,
         ) -> Self {
-            self.no_invocation_fragment_shading_rates = no_invocation_fragment_shading_rates;
+            self.no_invocation_fragment_shading_rates = no_invocation_fragment_shading_rates.into();
             self
         }
     }

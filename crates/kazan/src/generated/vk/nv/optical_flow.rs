@@ -34,8 +34,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceOpticalFlowFeaturesNV<'a> {
-        pub fn optical_flow(mut self, optical_flow: Bool32) -> Self {
-            self.optical_flow = optical_flow;
+        pub fn optical_flow(mut self, optical_flow: bool) -> Self {
+            self.optical_flow = optical_flow.into();
             self
         }
     }
@@ -100,23 +100,20 @@ pub(super) mod defs {
             self.supported_hint_grid_sizes = supported_hint_grid_sizes;
             self
         }
-        pub fn hint_supported(mut self, hint_supported: Bool32) -> Self {
-            self.hint_supported = hint_supported;
+        pub fn hint_supported(mut self, hint_supported: bool) -> Self {
+            self.hint_supported = hint_supported.into();
             self
         }
-        pub fn cost_supported(mut self, cost_supported: Bool32) -> Self {
-            self.cost_supported = cost_supported;
+        pub fn cost_supported(mut self, cost_supported: bool) -> Self {
+            self.cost_supported = cost_supported.into();
             self
         }
-        pub fn bidirectional_flow_supported(
-            mut self,
-            bidirectional_flow_supported: Bool32,
-        ) -> Self {
-            self.bidirectional_flow_supported = bidirectional_flow_supported;
+        pub fn bidirectional_flow_supported(mut self, bidirectional_flow_supported: bool) -> Self {
+            self.bidirectional_flow_supported = bidirectional_flow_supported.into();
             self
         }
-        pub fn global_flow_supported(mut self, global_flow_supported: Bool32) -> Self {
-            self.global_flow_supported = global_flow_supported;
+        pub fn global_flow_supported(mut self, global_flow_supported: bool) -> Self {
+            self.global_flow_supported = global_flow_supported.into();
             self
         }
         pub fn min_width(mut self, min_width: u32) -> Self {

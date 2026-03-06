@@ -38,16 +38,16 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceProvokingVertexFeaturesEXT<'a> {
-        pub fn provoking_vertex_last(mut self, provoking_vertex_last: Bool32) -> Self {
-            self.provoking_vertex_last = provoking_vertex_last;
+        pub fn provoking_vertex_last(mut self, provoking_vertex_last: bool) -> Self {
+            self.provoking_vertex_last = provoking_vertex_last.into();
             self
         }
         pub fn transform_feedback_preserves_provoking_vertex(
             mut self,
-            transform_feedback_preserves_provoking_vertex: Bool32,
+            transform_feedback_preserves_provoking_vertex: bool,
         ) -> Self {
             self.transform_feedback_preserves_provoking_vertex =
-                transform_feedback_preserves_provoking_vertex;
+                transform_feedback_preserves_provoking_vertex.into();
             self
         }
     }
@@ -82,17 +82,17 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceProvokingVertexPropertiesEXT<'a> {
         pub fn provoking_vertex_mode_per_pipeline(
             mut self,
-            provoking_vertex_mode_per_pipeline: Bool32,
+            provoking_vertex_mode_per_pipeline: bool,
         ) -> Self {
-            self.provoking_vertex_mode_per_pipeline = provoking_vertex_mode_per_pipeline;
+            self.provoking_vertex_mode_per_pipeline = provoking_vertex_mode_per_pipeline.into();
             self
         }
         pub fn transform_feedback_preserves_triangle_fan_provoking_vertex(
             mut self,
-            transform_feedback_preserves_triangle_fan_provoking_vertex: Bool32,
+            transform_feedback_preserves_triangle_fan_provoking_vertex: bool,
         ) -> Self {
             self.transform_feedback_preserves_triangle_fan_provoking_vertex =
-                transform_feedback_preserves_triangle_fan_provoking_vertex;
+                transform_feedback_preserves_triangle_fan_provoking_vertex.into();
             self
         }
     }

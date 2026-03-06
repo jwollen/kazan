@@ -74,11 +74,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE<'a> {
-        pub fn fragment_density_map_layered(
-            mut self,
-            fragment_density_map_layered: Bool32,
-        ) -> Self {
-            self.fragment_density_map_layered = fragment_density_map_layered;
+        pub fn fragment_density_map_layered(mut self, fragment_density_map_layered: bool) -> Self {
+            self.fragment_density_map_layered = fragment_density_map_layered.into();
             self
         }
     }

@@ -56,8 +56,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceCustomResolveFeaturesEXT<'a> {
-        pub fn custom_resolve(mut self, custom_resolve: Bool32) -> Self {
-            self.custom_resolve = custom_resolve;
+        pub fn custom_resolve(mut self, custom_resolve: bool) -> Self {
+            self.custom_resolve = custom_resolve.into();
             self
         }
     }
@@ -94,8 +94,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> CustomResolveCreateInfoEXT<'a> {
-        pub fn custom_resolve(mut self, custom_resolve: Bool32) -> Self {
-            self.custom_resolve = custom_resolve;
+        pub fn custom_resolve(mut self, custom_resolve: bool) -> Self {
+            self.custom_resolve = custom_resolve.into();
             self
         }
         pub fn color_attachment_formats(mut self, color_attachment_formats: &'a [Format]) -> Self {

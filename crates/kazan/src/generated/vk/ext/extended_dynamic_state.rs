@@ -51,8 +51,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceExtendedDynamicStateFeaturesEXT<'a> {
-        pub fn extended_dynamic_state(mut self, extended_dynamic_state: Bool32) -> Self {
-            self.extended_dynamic_state = extended_dynamic_state;
+        pub fn extended_dynamic_state(mut self, extended_dynamic_state: bool) -> Self {
+            self.extended_dynamic_state = extended_dynamic_state.into();
             self
         }
     }
@@ -189,16 +189,16 @@ impl DeviceFn {
     pub unsafe fn cmd_set_depth_test_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        depth_test_enable: Bool32,
+        depth_test_enable: bool,
     ) {
-        unsafe { (self.cmd_set_depth_test_enable_ext)(command_buffer, depth_test_enable) }
+        unsafe { (self.cmd_set_depth_test_enable_ext)(command_buffer, depth_test_enable.into()) }
     }
     pub unsafe fn cmd_set_depth_write_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        depth_write_enable: Bool32,
+        depth_write_enable: bool,
     ) {
-        unsafe { (self.cmd_set_depth_write_enable_ext)(command_buffer, depth_write_enable) }
+        unsafe { (self.cmd_set_depth_write_enable_ext)(command_buffer, depth_write_enable.into()) }
     }
     pub unsafe fn cmd_set_depth_compare_op_ext(
         &self,
@@ -210,18 +210,23 @@ impl DeviceFn {
     pub unsafe fn cmd_set_depth_bounds_test_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        depth_bounds_test_enable: Bool32,
+        depth_bounds_test_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_depth_bounds_test_enable_ext)(command_buffer, depth_bounds_test_enable)
+            (self.cmd_set_depth_bounds_test_enable_ext)(
+                command_buffer,
+                depth_bounds_test_enable.into(),
+            )
         }
     }
     pub unsafe fn cmd_set_stencil_test_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        stencil_test_enable: Bool32,
+        stencil_test_enable: bool,
     ) {
-        unsafe { (self.cmd_set_stencil_test_enable_ext)(command_buffer, stencil_test_enable) }
+        unsafe {
+            (self.cmd_set_stencil_test_enable_ext)(command_buffer, stencil_test_enable.into())
+        }
     }
     pub unsafe fn cmd_set_stencil_op_ext(
         &self,

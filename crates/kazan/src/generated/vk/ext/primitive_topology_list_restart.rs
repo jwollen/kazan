@@ -43,16 +43,17 @@ pub(super) mod defs {
     impl<'a> PhysicalDevicePrimitiveTopologyListRestartFeaturesEXT<'a> {
         pub fn primitive_topology_list_restart(
             mut self,
-            primitive_topology_list_restart: Bool32,
+            primitive_topology_list_restart: bool,
         ) -> Self {
-            self.primitive_topology_list_restart = primitive_topology_list_restart;
+            self.primitive_topology_list_restart = primitive_topology_list_restart.into();
             self
         }
         pub fn primitive_topology_patch_list_restart(
             mut self,
-            primitive_topology_patch_list_restart: Bool32,
+            primitive_topology_patch_list_restart: bool,
         ) -> Self {
-            self.primitive_topology_patch_list_restart = primitive_topology_patch_list_restart;
+            self.primitive_topology_patch_list_restart =
+                primitive_topology_patch_list_restart.into();
             self
         }
     }

@@ -87,22 +87,23 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV<'a> {
-        pub fn device_generated_compute(mut self, device_generated_compute: Bool32) -> Self {
-            self.device_generated_compute = device_generated_compute;
+        pub fn device_generated_compute(mut self, device_generated_compute: bool) -> Self {
+            self.device_generated_compute = device_generated_compute.into();
             self
         }
         pub fn device_generated_compute_pipelines(
             mut self,
-            device_generated_compute_pipelines: Bool32,
+            device_generated_compute_pipelines: bool,
         ) -> Self {
-            self.device_generated_compute_pipelines = device_generated_compute_pipelines;
+            self.device_generated_compute_pipelines = device_generated_compute_pipelines.into();
             self
         }
         pub fn device_generated_compute_capture_replay(
             mut self,
-            device_generated_compute_capture_replay: Bool32,
+            device_generated_compute_capture_replay: bool,
         ) -> Self {
-            self.device_generated_compute_capture_replay = device_generated_compute_capture_replay;
+            self.device_generated_compute_capture_replay =
+                device_generated_compute_capture_replay.into();
             self
         }
     }

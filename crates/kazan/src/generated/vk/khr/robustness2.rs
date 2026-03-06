@@ -37,16 +37,16 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceRobustness2FeaturesKHR<'a> {
-        pub fn robust_buffer_access2(mut self, robust_buffer_access2: Bool32) -> Self {
-            self.robust_buffer_access2 = robust_buffer_access2;
+        pub fn robust_buffer_access2(mut self, robust_buffer_access2: bool) -> Self {
+            self.robust_buffer_access2 = robust_buffer_access2.into();
             self
         }
-        pub fn robust_image_access2(mut self, robust_image_access2: Bool32) -> Self {
-            self.robust_image_access2 = robust_image_access2;
+        pub fn robust_image_access2(mut self, robust_image_access2: bool) -> Self {
+            self.robust_image_access2 = robust_image_access2.into();
             self
         }
-        pub fn null_descriptor(mut self, null_descriptor: Bool32) -> Self {
-            self.null_descriptor = null_descriptor;
+        pub fn null_descriptor(mut self, null_descriptor: bool) -> Self {
+            self.null_descriptor = null_descriptor.into();
             self
         }
     }

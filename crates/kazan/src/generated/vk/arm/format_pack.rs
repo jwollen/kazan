@@ -33,8 +33,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceFormatPackFeaturesARM<'a> {
-        pub fn format_pack(mut self, format_pack: Bool32) -> Self {
-            self.format_pack = format_pack;
+        pub fn format_pack(mut self, format_pack: bool) -> Self {
+            self.format_pack = format_pack.into();
             self
         }
     }

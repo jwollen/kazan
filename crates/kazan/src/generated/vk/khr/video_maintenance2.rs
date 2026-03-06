@@ -36,8 +36,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceVideoMaintenance2FeaturesKHR<'a> {
-        pub fn video_maintenance2(mut self, video_maintenance2: Bool32) -> Self {
-            self.video_maintenance2 = video_maintenance2;
+        pub fn video_maintenance2(mut self, video_maintenance2: bool) -> Self {
+            self.video_maintenance2 = video_maintenance2.into();
             self
         }
     }

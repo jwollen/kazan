@@ -38,12 +38,12 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceCooperativeVectorFeaturesNV<'a> {
-        pub fn cooperative_vector(mut self, cooperative_vector: Bool32) -> Self {
-            self.cooperative_vector = cooperative_vector;
+        pub fn cooperative_vector(mut self, cooperative_vector: bool) -> Self {
+            self.cooperative_vector = cooperative_vector.into();
             self
         }
-        pub fn cooperative_vector_training(mut self, cooperative_vector_training: Bool32) -> Self {
-            self.cooperative_vector_training = cooperative_vector_training;
+        pub fn cooperative_vector_training(mut self, cooperative_vector_training: bool) -> Self {
+            self.cooperative_vector_training = cooperative_vector_training.into();
             self
         }
     }
@@ -99,8 +99,8 @@ pub(super) mod defs {
             self.result_type = result_type;
             self
         }
-        pub fn transpose(mut self, transpose: Bool32) -> Self {
-            self.transpose = transpose;
+        pub fn transpose(mut self, transpose: bool) -> Self {
+            self.transpose = transpose.into();
             self
         }
     }
@@ -146,18 +146,18 @@ pub(super) mod defs {
         }
         pub fn cooperative_vector_training_float16_accumulation(
             mut self,
-            cooperative_vector_training_float16_accumulation: Bool32,
+            cooperative_vector_training_float16_accumulation: bool,
         ) -> Self {
             self.cooperative_vector_training_float16_accumulation =
-                cooperative_vector_training_float16_accumulation;
+                cooperative_vector_training_float16_accumulation.into();
             self
         }
         pub fn cooperative_vector_training_float32_accumulation(
             mut self,
-            cooperative_vector_training_float32_accumulation: Bool32,
+            cooperative_vector_training_float32_accumulation: bool,
         ) -> Self {
             self.cooperative_vector_training_float32_accumulation =
-                cooperative_vector_training_float32_accumulation;
+                cooperative_vector_training_float32_accumulation.into();
             self
         }
         pub fn max_cooperative_vector_components(

@@ -202,39 +202,39 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceRayTracingPipelineFeaturesKHR<'a> {
-        pub fn ray_tracing_pipeline(mut self, ray_tracing_pipeline: Bool32) -> Self {
-            self.ray_tracing_pipeline = ray_tracing_pipeline;
+        pub fn ray_tracing_pipeline(mut self, ray_tracing_pipeline: bool) -> Self {
+            self.ray_tracing_pipeline = ray_tracing_pipeline.into();
             self
         }
         pub fn ray_tracing_pipeline_shader_group_handle_capture_replay(
             mut self,
-            ray_tracing_pipeline_shader_group_handle_capture_replay: Bool32,
+            ray_tracing_pipeline_shader_group_handle_capture_replay: bool,
         ) -> Self {
             self.ray_tracing_pipeline_shader_group_handle_capture_replay =
-                ray_tracing_pipeline_shader_group_handle_capture_replay;
+                ray_tracing_pipeline_shader_group_handle_capture_replay.into();
             self
         }
         pub fn ray_tracing_pipeline_shader_group_handle_capture_replay_mixed(
             mut self,
-            ray_tracing_pipeline_shader_group_handle_capture_replay_mixed: Bool32,
+            ray_tracing_pipeline_shader_group_handle_capture_replay_mixed: bool,
         ) -> Self {
             self.ray_tracing_pipeline_shader_group_handle_capture_replay_mixed =
-                ray_tracing_pipeline_shader_group_handle_capture_replay_mixed;
+                ray_tracing_pipeline_shader_group_handle_capture_replay_mixed.into();
             self
         }
         pub fn ray_tracing_pipeline_trace_rays_indirect(
             mut self,
-            ray_tracing_pipeline_trace_rays_indirect: Bool32,
+            ray_tracing_pipeline_trace_rays_indirect: bool,
         ) -> Self {
             self.ray_tracing_pipeline_trace_rays_indirect =
-                ray_tracing_pipeline_trace_rays_indirect;
+                ray_tracing_pipeline_trace_rays_indirect.into();
             self
         }
         pub fn ray_traversal_primitive_culling(
             mut self,
-            ray_traversal_primitive_culling: Bool32,
+            ray_traversal_primitive_culling: bool,
         ) -> Self {
-            self.ray_traversal_primitive_culling = ray_traversal_primitive_culling;
+            self.ray_traversal_primitive_culling = ray_traversal_primitive_culling.into();
             self
         }
     }

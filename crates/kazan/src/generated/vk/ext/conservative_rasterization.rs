@@ -70,43 +70,43 @@ pub(super) mod defs {
                 extra_primitive_overestimation_size_granularity;
             self
         }
-        pub fn primitive_underestimation(mut self, primitive_underestimation: Bool32) -> Self {
-            self.primitive_underestimation = primitive_underestimation;
+        pub fn primitive_underestimation(mut self, primitive_underestimation: bool) -> Self {
+            self.primitive_underestimation = primitive_underestimation.into();
             self
         }
         pub fn conservative_point_and_line_rasterization(
             mut self,
-            conservative_point_and_line_rasterization: Bool32,
+            conservative_point_and_line_rasterization: bool,
         ) -> Self {
             self.conservative_point_and_line_rasterization =
-                conservative_point_and_line_rasterization;
+                conservative_point_and_line_rasterization.into();
             self
         }
         pub fn degenerate_triangles_rasterized(
             mut self,
-            degenerate_triangles_rasterized: Bool32,
+            degenerate_triangles_rasterized: bool,
         ) -> Self {
-            self.degenerate_triangles_rasterized = degenerate_triangles_rasterized;
+            self.degenerate_triangles_rasterized = degenerate_triangles_rasterized.into();
             self
         }
-        pub fn degenerate_lines_rasterized(mut self, degenerate_lines_rasterized: Bool32) -> Self {
-            self.degenerate_lines_rasterized = degenerate_lines_rasterized;
+        pub fn degenerate_lines_rasterized(mut self, degenerate_lines_rasterized: bool) -> Self {
+            self.degenerate_lines_rasterized = degenerate_lines_rasterized.into();
             self
         }
         pub fn fully_covered_fragment_shader_input_variable(
             mut self,
-            fully_covered_fragment_shader_input_variable: Bool32,
+            fully_covered_fragment_shader_input_variable: bool,
         ) -> Self {
             self.fully_covered_fragment_shader_input_variable =
-                fully_covered_fragment_shader_input_variable;
+                fully_covered_fragment_shader_input_variable.into();
             self
         }
         pub fn conservative_rasterization_post_depth_coverage(
             mut self,
-            conservative_rasterization_post_depth_coverage: Bool32,
+            conservative_rasterization_post_depth_coverage: bool,
         ) -> Self {
             self.conservative_rasterization_post_depth_coverage =
-                conservative_rasterization_post_depth_coverage;
+                conservative_rasterization_post_depth_coverage.into();
             self
         }
     }

@@ -363,6 +363,8 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
                     _ => {
                         if member.ty.starts_with("PFN_") {
                             writeln!(file, "self.{} = Some({});", member.name, param.name).unwrap();
+                        } else if ctype_rust::is_bool32(&member.member.c_decl.ty) {
+                            writeln!(file, "self.{} = {}.into();", member.name, param.name).unwrap();
                         } else {
                             writeln!(file, "self.{} = {};", member.name, param.name).unwrap();
                         }
@@ -551,7 +553,15 @@ pub fn convert_setter_param_type(
                         rest_optional,
                         lifetime_param,
                     );
-                    let element_ty = if element_ty == "c_void" { "u8".to_string() } else { element_ty };
+                    // Bool conversion must not apply to array elements since
+                    // bool and Bool32 (u32) differ in memory layout.
+                    let element_ty = if element_ty == "bool" {
+                        "Bool32".to_string()
+                    } else if element_ty == "c_void" {
+                        "u8".to_string()
+                    } else {
+                        element_ty
+                    };
                     if is_const {
                         format!("&'a [{}]", element_ty)
                     } else {
@@ -603,6 +613,11 @@ pub fn convert_setter_param_type(
                 }
             }
         }
-        _ => ctype_to_rust_type(analysis, ty, lifetime_param),
+        _ => {
+            if ctype_rust::is_bool32(ty) {
+                return "bool".to_string();
+            }
+            ctype_to_rust_type(analysis, ty, lifetime_param)
+        }
     }
 }

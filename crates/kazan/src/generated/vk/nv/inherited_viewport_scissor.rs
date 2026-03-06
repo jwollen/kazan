@@ -41,9 +41,9 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceInheritedViewportScissorFeaturesNV<'a> {
         pub fn inherited_viewport_scissor2_d(
             mut self,
-            inherited_viewport_scissor2_d: Bool32,
+            inherited_viewport_scissor2_d: bool,
         ) -> Self {
-            self.inherited_viewport_scissor2_d = inherited_viewport_scissor2_d;
+            self.inherited_viewport_scissor2_d = inherited_viewport_scissor2_d.into();
             self
         }
     }
@@ -78,8 +78,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> CommandBufferInheritanceViewportScissorInfoNV<'a> {
-        pub fn viewport_scissor2_d(mut self, viewport_scissor2_d: Bool32) -> Self {
-            self.viewport_scissor2_d = viewport_scissor2_d;
+        pub fn viewport_scissor2_d(mut self, viewport_scissor2_d: bool) -> Self {
+            self.viewport_scissor2_d = viewport_scissor2_d.into();
             self
         }
         pub fn viewport_depth_count(mut self, viewport_depth_count: u32) -> Self {

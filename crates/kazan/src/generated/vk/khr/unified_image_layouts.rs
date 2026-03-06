@@ -38,12 +38,12 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceUnifiedImageLayoutsFeaturesKHR<'a> {
-        pub fn unified_image_layouts(mut self, unified_image_layouts: Bool32) -> Self {
-            self.unified_image_layouts = unified_image_layouts;
+        pub fn unified_image_layouts(mut self, unified_image_layouts: bool) -> Self {
+            self.unified_image_layouts = unified_image_layouts.into();
             self
         }
-        pub fn unified_image_layouts_video(mut self, unified_image_layouts_video: Bool32) -> Self {
-            self.unified_image_layouts_video = unified_image_layouts_video;
+        pub fn unified_image_layouts_video(mut self, unified_image_layouts_video: bool) -> Self {
+            self.unified_image_layouts_video = unified_image_layouts_video.into();
             self
         }
     }
@@ -70,8 +70,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> AttachmentFeedbackLoopInfoEXT<'a> {
-        pub fn feedback_loop_enable(mut self, feedback_loop_enable: Bool32) -> Self {
-            self.feedback_loop_enable = feedback_loop_enable;
+        pub fn feedback_loop_enable(mut self, feedback_loop_enable: bool) -> Self {
+            self.feedback_loop_enable = feedback_loop_enable.into();
             self
         }
     }

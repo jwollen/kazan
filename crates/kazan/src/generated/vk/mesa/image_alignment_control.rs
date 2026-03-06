@@ -39,8 +39,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceImageAlignmentControlFeaturesMESA<'a> {
-        pub fn image_alignment_control(mut self, image_alignment_control: Bool32) -> Self {
-            self.image_alignment_control = image_alignment_control;
+        pub fn image_alignment_control(mut self, image_alignment_control: bool) -> Self {
+            self.image_alignment_control = image_alignment_control.into();
             self
         }
     }

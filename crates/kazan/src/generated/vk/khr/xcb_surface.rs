@@ -116,14 +116,14 @@ impl InstanceFn {
         queue_family_index: u32,
         connection: *mut xcb_connection_t,
         visual_id: xcb_visualid_t,
-    ) -> Bool32 {
+    ) -> bool {
         unsafe {
             (self.get_physical_device_xcb_presentation_support_khr)(
                 physical_device,
                 queue_family_index,
                 connection,
                 visual_id,
-            )
+            ) != 0
         }
     }
 }

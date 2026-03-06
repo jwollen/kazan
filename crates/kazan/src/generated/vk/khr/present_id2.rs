@@ -33,8 +33,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDevicePresentId2FeaturesKHR<'a> {
-        pub fn present_id2(mut self, present_id2: Bool32) -> Self {
-            self.present_id2 = present_id2;
+        pub fn present_id2(mut self, present_id2: bool) -> Self {
+            self.present_id2 = present_id2.into();
             self
         }
     }
@@ -92,8 +92,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> SurfaceCapabilitiesPresentId2KHR<'a> {
-        pub fn present_id2_supported(mut self, present_id2_supported: Bool32) -> Self {
-            self.present_id2_supported = present_id2_supported;
+        pub fn present_id2_supported(mut self, present_id2_supported: bool) -> Self {
+            self.present_id2_supported = present_id2_supported.into();
             self
         }
     }

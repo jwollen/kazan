@@ -43,9 +43,9 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT<'a> {
         pub fn dynamic_rendering_unused_attachments(
             mut self,
-            dynamic_rendering_unused_attachments: Bool32,
+            dynamic_rendering_unused_attachments: bool,
         ) -> Self {
-            self.dynamic_rendering_unused_attachments = dynamic_rendering_unused_attachments;
+            self.dynamic_rendering_unused_attachments = dynamic_rendering_unused_attachments.into();
             self
         }
     }

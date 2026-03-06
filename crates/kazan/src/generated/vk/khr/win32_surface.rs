@@ -112,12 +112,12 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         queue_family_index: u32,
-    ) -> Bool32 {
+    ) -> bool {
         unsafe {
             (self.get_physical_device_win32_presentation_support_khr)(
                 physical_device,
                 queue_family_index,
-            )
+            ) != 0
         }
     }
 }

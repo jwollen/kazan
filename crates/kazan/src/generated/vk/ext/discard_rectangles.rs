@@ -172,10 +172,13 @@ impl DeviceFn {
     pub unsafe fn cmd_set_discard_rectangle_enable_ext(
         &self,
         command_buffer: CommandBuffer,
-        discard_rectangle_enable: Bool32,
+        discard_rectangle_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_discard_rectangle_enable_ext)(command_buffer, discard_rectangle_enable)
+            (self.cmd_set_discard_rectangle_enable_ext)(
+                command_buffer,
+                discard_rectangle_enable.into(),
+            )
         }
     }
     pub unsafe fn cmd_set_discard_rectangle_mode_ext(

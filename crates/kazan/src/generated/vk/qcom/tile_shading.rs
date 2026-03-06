@@ -59,84 +59,84 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceTileShadingFeaturesQCOM<'a> {
-        pub fn tile_shading(mut self, tile_shading: Bool32) -> Self {
-            self.tile_shading = tile_shading;
+        pub fn tile_shading(mut self, tile_shading: bool) -> Self {
+            self.tile_shading = tile_shading.into();
             self
         }
-        pub fn tile_shading_fragment_stage(mut self, tile_shading_fragment_stage: Bool32) -> Self {
-            self.tile_shading_fragment_stage = tile_shading_fragment_stage;
+        pub fn tile_shading_fragment_stage(mut self, tile_shading_fragment_stage: bool) -> Self {
+            self.tile_shading_fragment_stage = tile_shading_fragment_stage.into();
             self
         }
         pub fn tile_shading_color_attachments(
             mut self,
-            tile_shading_color_attachments: Bool32,
+            tile_shading_color_attachments: bool,
         ) -> Self {
-            self.tile_shading_color_attachments = tile_shading_color_attachments;
+            self.tile_shading_color_attachments = tile_shading_color_attachments.into();
             self
         }
         pub fn tile_shading_depth_attachments(
             mut self,
-            tile_shading_depth_attachments: Bool32,
+            tile_shading_depth_attachments: bool,
         ) -> Self {
-            self.tile_shading_depth_attachments = tile_shading_depth_attachments;
+            self.tile_shading_depth_attachments = tile_shading_depth_attachments.into();
             self
         }
         pub fn tile_shading_stencil_attachments(
             mut self,
-            tile_shading_stencil_attachments: Bool32,
+            tile_shading_stencil_attachments: bool,
         ) -> Self {
-            self.tile_shading_stencil_attachments = tile_shading_stencil_attachments;
+            self.tile_shading_stencil_attachments = tile_shading_stencil_attachments.into();
             self
         }
         pub fn tile_shading_input_attachments(
             mut self,
-            tile_shading_input_attachments: Bool32,
+            tile_shading_input_attachments: bool,
         ) -> Self {
-            self.tile_shading_input_attachments = tile_shading_input_attachments;
+            self.tile_shading_input_attachments = tile_shading_input_attachments.into();
             self
         }
         pub fn tile_shading_sampled_attachments(
             mut self,
-            tile_shading_sampled_attachments: Bool32,
+            tile_shading_sampled_attachments: bool,
         ) -> Self {
-            self.tile_shading_sampled_attachments = tile_shading_sampled_attachments;
+            self.tile_shading_sampled_attachments = tile_shading_sampled_attachments.into();
             self
         }
-        pub fn tile_shading_per_tile_draw(mut self, tile_shading_per_tile_draw: Bool32) -> Self {
-            self.tile_shading_per_tile_draw = tile_shading_per_tile_draw;
+        pub fn tile_shading_per_tile_draw(mut self, tile_shading_per_tile_draw: bool) -> Self {
+            self.tile_shading_per_tile_draw = tile_shading_per_tile_draw.into();
             self
         }
         pub fn tile_shading_per_tile_dispatch(
             mut self,
-            tile_shading_per_tile_dispatch: Bool32,
+            tile_shading_per_tile_dispatch: bool,
         ) -> Self {
-            self.tile_shading_per_tile_dispatch = tile_shading_per_tile_dispatch;
+            self.tile_shading_per_tile_dispatch = tile_shading_per_tile_dispatch.into();
             self
         }
-        pub fn tile_shading_dispatch_tile(mut self, tile_shading_dispatch_tile: Bool32) -> Self {
-            self.tile_shading_dispatch_tile = tile_shading_dispatch_tile;
+        pub fn tile_shading_dispatch_tile(mut self, tile_shading_dispatch_tile: bool) -> Self {
+            self.tile_shading_dispatch_tile = tile_shading_dispatch_tile.into();
             self
         }
-        pub fn tile_shading_apron(mut self, tile_shading_apron: Bool32) -> Self {
-            self.tile_shading_apron = tile_shading_apron;
+        pub fn tile_shading_apron(mut self, tile_shading_apron: bool) -> Self {
+            self.tile_shading_apron = tile_shading_apron.into();
             self
         }
         pub fn tile_shading_anisotropic_apron(
             mut self,
-            tile_shading_anisotropic_apron: Bool32,
+            tile_shading_anisotropic_apron: bool,
         ) -> Self {
-            self.tile_shading_anisotropic_apron = tile_shading_anisotropic_apron;
+            self.tile_shading_anisotropic_apron = tile_shading_anisotropic_apron.into();
             self
         }
-        pub fn tile_shading_atomic_ops(mut self, tile_shading_atomic_ops: Bool32) -> Self {
-            self.tile_shading_atomic_ops = tile_shading_atomic_ops;
+        pub fn tile_shading_atomic_ops(mut self, tile_shading_atomic_ops: bool) -> Self {
+            self.tile_shading_atomic_ops = tile_shading_atomic_ops.into();
             self
         }
         pub fn tile_shading_image_processing(
             mut self,
-            tile_shading_image_processing: Bool32,
+            tile_shading_image_processing: bool,
         ) -> Self {
-            self.tile_shading_image_processing = tile_shading_image_processing;
+            self.tile_shading_image_processing = tile_shading_image_processing.into();
             self
         }
     }
@@ -177,8 +177,8 @@ pub(super) mod defs {
             self.max_apron_size = max_apron_size;
             self
         }
-        pub fn prefer_non_coherent(mut self, prefer_non_coherent: Bool32) -> Self {
-            self.prefer_non_coherent = prefer_non_coherent;
+        pub fn prefer_non_coherent(mut self, prefer_non_coherent: bool) -> Self {
+            self.prefer_non_coherent = prefer_non_coherent.into();
             self
         }
         pub fn tile_granularity(mut self, tile_granularity: Extent2D) -> Self {

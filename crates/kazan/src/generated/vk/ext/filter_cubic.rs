@@ -69,12 +69,12 @@ pub(super) mod defs {
         }
     }
     impl<'a> FilterCubicImageViewImageFormatPropertiesEXT<'a> {
-        pub fn filter_cubic(mut self, filter_cubic: Bool32) -> Self {
-            self.filter_cubic = filter_cubic;
+        pub fn filter_cubic(mut self, filter_cubic: bool) -> Self {
+            self.filter_cubic = filter_cubic.into();
             self
         }
-        pub fn filter_cubic_minmax(mut self, filter_cubic_minmax: Bool32) -> Self {
-            self.filter_cubic_minmax = filter_cubic_minmax;
+        pub fn filter_cubic_minmax(mut self, filter_cubic_minmax: bool) -> Self {
+            self.filter_cubic_minmax = filter_cubic_minmax.into();
             self
         }
     }

@@ -40,16 +40,16 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDevicePresentTimingFeaturesEXT<'a> {
-        pub fn present_timing(mut self, present_timing: Bool32) -> Self {
-            self.present_timing = present_timing;
+        pub fn present_timing(mut self, present_timing: bool) -> Self {
+            self.present_timing = present_timing.into();
             self
         }
-        pub fn present_at_absolute_time(mut self, present_at_absolute_time: Bool32) -> Self {
-            self.present_at_absolute_time = present_at_absolute_time;
+        pub fn present_at_absolute_time(mut self, present_at_absolute_time: bool) -> Self {
+            self.present_at_absolute_time = present_at_absolute_time.into();
             self
         }
-        pub fn present_at_relative_time(mut self, present_at_relative_time: Bool32) -> Self {
-            self.present_at_relative_time = present_at_relative_time;
+        pub fn present_at_relative_time(mut self, present_at_relative_time: bool) -> Self {
+            self.present_at_relative_time = present_at_relative_time.into();
             self
         }
     }
@@ -83,22 +83,22 @@ pub(super) mod defs {
         }
     }
     impl<'a> PresentTimingSurfaceCapabilitiesEXT<'a> {
-        pub fn present_timing_supported(mut self, present_timing_supported: Bool32) -> Self {
-            self.present_timing_supported = present_timing_supported;
+        pub fn present_timing_supported(mut self, present_timing_supported: bool) -> Self {
+            self.present_timing_supported = present_timing_supported.into();
             self
         }
         pub fn present_at_absolute_time_supported(
             mut self,
-            present_at_absolute_time_supported: Bool32,
+            present_at_absolute_time_supported: bool,
         ) -> Self {
-            self.present_at_absolute_time_supported = present_at_absolute_time_supported;
+            self.present_at_absolute_time_supported = present_at_absolute_time_supported.into();
             self
         }
         pub fn present_at_relative_time_supported(
             mut self,
-            present_at_relative_time_supported: Bool32,
+            present_at_relative_time_supported: bool,
         ) -> Self {
-            self.present_at_relative_time_supported = present_at_relative_time_supported;
+            self.present_at_relative_time_supported = present_at_relative_time_supported.into();
             self
         }
         pub fn present_stage_queries(
@@ -329,8 +329,8 @@ pub(super) mod defs {
             self.time_domain_id = time_domain_id;
             self
         }
-        pub fn report_complete(mut self, report_complete: Bool32) -> Self {
-            self.report_complete = report_complete;
+        pub fn report_complete(mut self, report_complete: bool) -> Self {
+            self.report_complete = report_complete.into();
             self
         }
     }

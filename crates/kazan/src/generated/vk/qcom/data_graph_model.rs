@@ -117,8 +117,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceDataGraphModelFeaturesQCOM<'a> {
-        pub fn data_graph_model(mut self, data_graph_model: Bool32) -> Self {
-            self.data_graph_model = data_graph_model;
+        pub fn data_graph_model(mut self, data_graph_model: bool) -> Self {
+            self.data_graph_model = data_graph_model.into();
             self
         }
     }

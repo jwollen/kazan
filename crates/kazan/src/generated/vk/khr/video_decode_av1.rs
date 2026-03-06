@@ -39,8 +39,8 @@ pub(super) mod defs {
             self.std_profile = std_profile;
             self
         }
-        pub fn film_grain_support(mut self, film_grain_support: Bool32) -> Self {
-            self.film_grain_support = film_grain_support;
+        pub fn film_grain_support(mut self, film_grain_support: bool) -> Self {
+            self.film_grain_support = film_grain_support.into();
             self
         }
     }

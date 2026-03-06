@@ -313,8 +313,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDevicePipelineBinaryFeaturesKHR<'a> {
-        pub fn pipeline_binaries(mut self, pipeline_binaries: Bool32) -> Self {
-            self.pipeline_binaries = pipeline_binaries;
+        pub fn pipeline_binaries(mut self, pipeline_binaries: bool) -> Self {
+            self.pipeline_binaries = pipeline_binaries.into();
             self
         }
     }
@@ -342,8 +342,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> DevicePipelineBinaryInternalCacheControlKHR<'a> {
-        pub fn disable_internal_cache(mut self, disable_internal_cache: Bool32) -> Self {
-            self.disable_internal_cache = disable_internal_cache;
+        pub fn disable_internal_cache(mut self, disable_internal_cache: bool) -> Self {
+            self.disable_internal_cache = disable_internal_cache.into();
             self
         }
     }
@@ -384,38 +384,40 @@ pub(super) mod defs {
     impl<'a> PhysicalDevicePipelineBinaryPropertiesKHR<'a> {
         pub fn pipeline_binary_internal_cache(
             mut self,
-            pipeline_binary_internal_cache: Bool32,
+            pipeline_binary_internal_cache: bool,
         ) -> Self {
-            self.pipeline_binary_internal_cache = pipeline_binary_internal_cache;
+            self.pipeline_binary_internal_cache = pipeline_binary_internal_cache.into();
             self
         }
         pub fn pipeline_binary_internal_cache_control(
             mut self,
-            pipeline_binary_internal_cache_control: Bool32,
+            pipeline_binary_internal_cache_control: bool,
         ) -> Self {
-            self.pipeline_binary_internal_cache_control = pipeline_binary_internal_cache_control;
+            self.pipeline_binary_internal_cache_control =
+                pipeline_binary_internal_cache_control.into();
             self
         }
         pub fn pipeline_binary_prefers_internal_cache(
             mut self,
-            pipeline_binary_prefers_internal_cache: Bool32,
+            pipeline_binary_prefers_internal_cache: bool,
         ) -> Self {
-            self.pipeline_binary_prefers_internal_cache = pipeline_binary_prefers_internal_cache;
+            self.pipeline_binary_prefers_internal_cache =
+                pipeline_binary_prefers_internal_cache.into();
             self
         }
         pub fn pipeline_binary_precompiled_internal_cache(
             mut self,
-            pipeline_binary_precompiled_internal_cache: Bool32,
+            pipeline_binary_precompiled_internal_cache: bool,
         ) -> Self {
             self.pipeline_binary_precompiled_internal_cache =
-                pipeline_binary_precompiled_internal_cache;
+                pipeline_binary_precompiled_internal_cache.into();
             self
         }
         pub fn pipeline_binary_compressed_data(
             mut self,
-            pipeline_binary_compressed_data: Bool32,
+            pipeline_binary_compressed_data: bool,
         ) -> Self {
-            self.pipeline_binary_compressed_data = pipeline_binary_compressed_data;
+            self.pipeline_binary_compressed_data = pipeline_binary_compressed_data.into();
             self
         }
     }

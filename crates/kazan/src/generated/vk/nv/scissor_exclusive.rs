@@ -36,8 +36,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceExclusiveScissorFeaturesNV<'a> {
-        pub fn exclusive_scissor(mut self, exclusive_scissor: Bool32) -> Self {
-            self.exclusive_scissor = exclusive_scissor;
+        pub fn exclusive_scissor(mut self, exclusive_scissor: bool) -> Self {
+            self.exclusive_scissor = exclusive_scissor.into();
             self
         }
     }

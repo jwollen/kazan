@@ -71,8 +71,8 @@ pub(super) mod defs {
         }
     }
     impl<'a> PhysicalDeviceImageSlicedViewOf3DFeaturesEXT<'a> {
-        pub fn image_sliced_view_of3_d(mut self, image_sliced_view_of3_d: Bool32) -> Self {
-            self.image_sliced_view_of3_d = image_sliced_view_of3_d;
+        pub fn image_sliced_view_of3_d(mut self, image_sliced_view_of3_d: bool) -> Self {
+            self.image_sliced_view_of3_d = image_sliced_view_of3_d.into();
             self
         }
     }

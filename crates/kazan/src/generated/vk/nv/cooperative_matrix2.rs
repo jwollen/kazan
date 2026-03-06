@@ -50,52 +50,53 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceCooperativeMatrix2FeaturesNV<'a> {
         pub fn cooperative_matrix_workgroup_scope(
             mut self,
-            cooperative_matrix_workgroup_scope: Bool32,
+            cooperative_matrix_workgroup_scope: bool,
         ) -> Self {
-            self.cooperative_matrix_workgroup_scope = cooperative_matrix_workgroup_scope;
+            self.cooperative_matrix_workgroup_scope = cooperative_matrix_workgroup_scope.into();
             self
         }
         pub fn cooperative_matrix_flexible_dimensions(
             mut self,
-            cooperative_matrix_flexible_dimensions: Bool32,
+            cooperative_matrix_flexible_dimensions: bool,
         ) -> Self {
-            self.cooperative_matrix_flexible_dimensions = cooperative_matrix_flexible_dimensions;
+            self.cooperative_matrix_flexible_dimensions =
+                cooperative_matrix_flexible_dimensions.into();
             self
         }
         pub fn cooperative_matrix_reductions(
             mut self,
-            cooperative_matrix_reductions: Bool32,
+            cooperative_matrix_reductions: bool,
         ) -> Self {
-            self.cooperative_matrix_reductions = cooperative_matrix_reductions;
+            self.cooperative_matrix_reductions = cooperative_matrix_reductions.into();
             self
         }
         pub fn cooperative_matrix_conversions(
             mut self,
-            cooperative_matrix_conversions: Bool32,
+            cooperative_matrix_conversions: bool,
         ) -> Self {
-            self.cooperative_matrix_conversions = cooperative_matrix_conversions;
+            self.cooperative_matrix_conversions = cooperative_matrix_conversions.into();
             self
         }
         pub fn cooperative_matrix_per_element_operations(
             mut self,
-            cooperative_matrix_per_element_operations: Bool32,
+            cooperative_matrix_per_element_operations: bool,
         ) -> Self {
             self.cooperative_matrix_per_element_operations =
-                cooperative_matrix_per_element_operations;
+                cooperative_matrix_per_element_operations.into();
             self
         }
         pub fn cooperative_matrix_tensor_addressing(
             mut self,
-            cooperative_matrix_tensor_addressing: Bool32,
+            cooperative_matrix_tensor_addressing: bool,
         ) -> Self {
-            self.cooperative_matrix_tensor_addressing = cooperative_matrix_tensor_addressing;
+            self.cooperative_matrix_tensor_addressing = cooperative_matrix_tensor_addressing.into();
             self
         }
         pub fn cooperative_matrix_block_loads(
             mut self,
-            cooperative_matrix_block_loads: Bool32,
+            cooperative_matrix_block_loads: bool,
         ) -> Self {
-            self.cooperative_matrix_block_loads = cooperative_matrix_block_loads;
+            self.cooperative_matrix_block_loads = cooperative_matrix_block_loads.into();
             self
         }
     }
@@ -224,8 +225,8 @@ pub(super) mod defs {
             self.result_type = result_type;
             self
         }
-        pub fn saturating_accumulation(mut self, saturating_accumulation: Bool32) -> Self {
-            self.saturating_accumulation = saturating_accumulation;
+        pub fn saturating_accumulation(mut self, saturating_accumulation: bool) -> Self {
+            self.saturating_accumulation = saturating_accumulation.into();
             self
         }
         pub fn scope(mut self, scope: ScopeKHR) -> Self {

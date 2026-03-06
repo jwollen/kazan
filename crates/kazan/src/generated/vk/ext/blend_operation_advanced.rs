@@ -41,9 +41,9 @@ pub(super) mod defs {
     impl<'a> PhysicalDeviceBlendOperationAdvancedFeaturesEXT<'a> {
         pub fn advanced_blend_coherent_operations(
             mut self,
-            advanced_blend_coherent_operations: Bool32,
+            advanced_blend_coherent_operations: bool,
         ) -> Self {
-            self.advanced_blend_coherent_operations = advanced_blend_coherent_operations;
+            self.advanced_blend_coherent_operations = advanced_blend_coherent_operations.into();
             self
         }
     }
@@ -93,39 +93,39 @@ pub(super) mod defs {
         }
         pub fn advanced_blend_independent_blend(
             mut self,
-            advanced_blend_independent_blend: Bool32,
+            advanced_blend_independent_blend: bool,
         ) -> Self {
-            self.advanced_blend_independent_blend = advanced_blend_independent_blend;
+            self.advanced_blend_independent_blend = advanced_blend_independent_blend.into();
             self
         }
         pub fn advanced_blend_non_premultiplied_src_color(
             mut self,
-            advanced_blend_non_premultiplied_src_color: Bool32,
+            advanced_blend_non_premultiplied_src_color: bool,
         ) -> Self {
             self.advanced_blend_non_premultiplied_src_color =
-                advanced_blend_non_premultiplied_src_color;
+                advanced_blend_non_premultiplied_src_color.into();
             self
         }
         pub fn advanced_blend_non_premultiplied_dst_color(
             mut self,
-            advanced_blend_non_premultiplied_dst_color: Bool32,
+            advanced_blend_non_premultiplied_dst_color: bool,
         ) -> Self {
             self.advanced_blend_non_premultiplied_dst_color =
-                advanced_blend_non_premultiplied_dst_color;
+                advanced_blend_non_premultiplied_dst_color.into();
             self
         }
         pub fn advanced_blend_correlated_overlap(
             mut self,
-            advanced_blend_correlated_overlap: Bool32,
+            advanced_blend_correlated_overlap: bool,
         ) -> Self {
-            self.advanced_blend_correlated_overlap = advanced_blend_correlated_overlap;
+            self.advanced_blend_correlated_overlap = advanced_blend_correlated_overlap.into();
             self
         }
         pub fn advanced_blend_all_operations(
             mut self,
-            advanced_blend_all_operations: Bool32,
+            advanced_blend_all_operations: bool,
         ) -> Self {
-            self.advanced_blend_all_operations = advanced_blend_all_operations;
+            self.advanced_blend_all_operations = advanced_blend_all_operations.into();
             self
         }
     }
@@ -160,12 +160,12 @@ pub(super) mod defs {
         }
     }
     impl<'a> PipelineColorBlendAdvancedStateCreateInfoEXT<'a> {
-        pub fn src_premultiplied(mut self, src_premultiplied: Bool32) -> Self {
-            self.src_premultiplied = src_premultiplied;
+        pub fn src_premultiplied(mut self, src_premultiplied: bool) -> Self {
+            self.src_premultiplied = src_premultiplied.into();
             self
         }
-        pub fn dst_premultiplied(mut self, dst_premultiplied: Bool32) -> Self {
-            self.dst_premultiplied = dst_premultiplied;
+        pub fn dst_premultiplied(mut self, dst_premultiplied: bool) -> Self {
+            self.dst_premultiplied = dst_premultiplied.into();
             self
         }
         pub fn blend_overlap(mut self, blend_overlap: BlendOverlapEXT) -> Self {
