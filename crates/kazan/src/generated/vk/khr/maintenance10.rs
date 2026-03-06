@@ -194,6 +194,25 @@ pub(super) mod defs {
         pub const RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR: Self =
             Self(RenderingAttachmentFlagBitsKHR::RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR.0);
     }
+    impl fmt::Debug for RenderingAttachmentFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    RenderingAttachmentFlagsKHR::INPUT_ATTACHMENT_FEEDBACK_KHR.0,
+                    "INPUT_ATTACHMENT_FEEDBACK_KHR",
+                ),
+                (
+                    RenderingAttachmentFlagsKHR::RESOLVE_SKIP_TRANSFER_FUNCTION_KHR.0,
+                    "RESOLVE_SKIP_TRANSFER_FUNCTION_KHR",
+                ),
+                (
+                    RenderingAttachmentFlagsKHR::RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR.0,
+                    "RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct RenderingAttachmentFlagBitsKHR(u32);
@@ -213,6 +232,21 @@ pub(super) mod defs {
             Self(ResolveImageFlagBitsKHR::SKIP_TRANSFER_FUNCTION_KHR.0);
         pub const ENABLE_TRANSFER_FUNCTION_KHR: Self =
             Self(ResolveImageFlagBitsKHR::ENABLE_TRANSFER_FUNCTION_KHR.0);
+    }
+    impl fmt::Debug for ResolveImageFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    ResolveImageFlagsKHR::SKIP_TRANSFER_FUNCTION_KHR.0,
+                    "SKIP_TRANSFER_FUNCTION_KHR",
+                ),
+                (
+                    ResolveImageFlagsKHR::ENABLE_TRANSFER_FUNCTION_KHR.0,
+                    "ENABLE_TRANSFER_FUNCTION_KHR",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]

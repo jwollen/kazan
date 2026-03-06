@@ -123,6 +123,15 @@ pub(super) mod defs {
         pub const INTERNAL_OBJECT_EXT: Self =
             Self(DeviceAddressBindingFlagBitsEXT::INTERNAL_OBJECT_EXT.0);
     }
+    impl fmt::Debug for DeviceAddressBindingFlagsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[(
+                DeviceAddressBindingFlagsEXT::INTERNAL_OBJECT_EXT.0,
+                "INTERNAL_OBJECT_EXT",
+            )];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DeviceAddressBindingFlagBitsEXT(u32);

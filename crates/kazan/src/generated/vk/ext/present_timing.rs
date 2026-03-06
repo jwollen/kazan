@@ -480,6 +480,29 @@ pub(super) mod defs {
         pub const IMAGE_FIRST_PIXEL_VISIBLE_EXT: Self =
             Self(PresentStageFlagBitsEXT::IMAGE_FIRST_PIXEL_VISIBLE_EXT.0);
     }
+    impl fmt::Debug for PresentStageFlagsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    PresentStageFlagsEXT::QUEUE_OPERATIONS_END_EXT.0,
+                    "QUEUE_OPERATIONS_END_EXT",
+                ),
+                (
+                    PresentStageFlagsEXT::REQUEST_DEQUEUED_EXT.0,
+                    "REQUEST_DEQUEUED_EXT",
+                ),
+                (
+                    PresentStageFlagsEXT::IMAGE_FIRST_PIXEL_OUT_EXT.0,
+                    "IMAGE_FIRST_PIXEL_OUT_EXT",
+                ),
+                (
+                    PresentStageFlagsEXT::IMAGE_FIRST_PIXEL_VISIBLE_EXT.0,
+                    "IMAGE_FIRST_PIXEL_VISIBLE_EXT",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PresentStageFlagBitsEXT(u32);
@@ -499,6 +522,21 @@ pub(super) mod defs {
         pub const ALLOW_OUT_OF_ORDER_RESULTS_EXT: Self =
             Self(PastPresentationTimingFlagBitsEXT::ALLOW_OUT_OF_ORDER_RESULTS_EXT.0);
     }
+    impl fmt::Debug for PastPresentationTimingFlagsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    PastPresentationTimingFlagsEXT::ALLOW_PARTIAL_RESULTS_EXT.0,
+                    "ALLOW_PARTIAL_RESULTS_EXT",
+                ),
+                (
+                    PastPresentationTimingFlagsEXT::ALLOW_OUT_OF_ORDER_RESULTS_EXT.0,
+                    "ALLOW_OUT_OF_ORDER_RESULTS_EXT",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PastPresentationTimingFlagBitsEXT(u32);
@@ -515,6 +553,21 @@ pub(super) mod defs {
             Self(PresentTimingInfoFlagBitsEXT::PRESENT_AT_RELATIVE_TIME_EXT.0);
         pub const PRESENT_AT_NEAREST_REFRESH_CYCLE_EXT: Self =
             Self(PresentTimingInfoFlagBitsEXT::PRESENT_AT_NEAREST_REFRESH_CYCLE_EXT.0);
+    }
+    impl fmt::Debug for PresentTimingInfoFlagsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    PresentTimingInfoFlagsEXT::PRESENT_AT_RELATIVE_TIME_EXT.0,
+                    "PRESENT_AT_RELATIVE_TIME_EXT",
+                ),
+                (
+                    PresentTimingInfoFlagsEXT::PRESENT_AT_NEAREST_REFRESH_CYCLE_EXT.0,
+                    "PRESENT_AT_NEAREST_REFRESH_CYCLE_EXT",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]

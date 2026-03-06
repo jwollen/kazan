@@ -81,6 +81,12 @@ pub(super) mod defs {
     impl AccessFlags3KHR {
         pub const NONE: Self = Self(0);
     }
+    impl fmt::Debug for AccessFlags3KHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags64, &str)] = &[];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct AccessFlagBits3KHR(u64);

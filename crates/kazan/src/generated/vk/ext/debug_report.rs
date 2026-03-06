@@ -170,6 +170,21 @@ pub(super) mod defs {
         pub const ERROR_EXT: Self = Self(DebugReportFlagBitsEXT::ERROR_EXT.0);
         pub const DEBUG_EXT: Self = Self(DebugReportFlagBitsEXT::DEBUG_EXT.0);
     }
+    impl fmt::Debug for DebugReportFlagsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (DebugReportFlagsEXT::INFORMATION_EXT.0, "INFORMATION_EXT"),
+                (DebugReportFlagsEXT::WARNING_EXT.0, "WARNING_EXT"),
+                (
+                    DebugReportFlagsEXT::PERFORMANCE_WARNING_EXT.0,
+                    "PERFORMANCE_WARNING_EXT",
+                ),
+                (DebugReportFlagsEXT::ERROR_EXT.0, "ERROR_EXT"),
+                (DebugReportFlagsEXT::DEBUG_EXT.0, "DEBUG_EXT"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DebugReportFlagBitsEXT(u32);

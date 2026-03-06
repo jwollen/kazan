@@ -281,6 +281,20 @@ pub(super) mod defs {
         pub const PER_PIXEL_PREMULTIPLIED_KHR: Self =
             Self(DisplayPlaneAlphaFlagBitsKHR::PER_PIXEL_PREMULTIPLIED_KHR.0);
     }
+    impl fmt::Debug for DisplayPlaneAlphaFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (DisplayPlaneAlphaFlagsKHR::OPAQUE_KHR.0, "OPAQUE_KHR"),
+                (DisplayPlaneAlphaFlagsKHR::GLOBAL_KHR.0, "GLOBAL_KHR"),
+                (DisplayPlaneAlphaFlagsKHR::PER_PIXEL_KHR.0, "PER_PIXEL_KHR"),
+                (
+                    DisplayPlaneAlphaFlagsKHR::PER_PIXEL_PREMULTIPLIED_KHR.0,
+                    "PER_PIXEL_PREMULTIPLIED_KHR",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DisplayPlaneAlphaFlagBitsKHR(u32);
@@ -309,6 +323,34 @@ pub(super) mod defs {
             Self(SurfaceTransformFlagBitsKHR::HORIZONTAL_MIRROR_ROTATE_270_KHR.0);
         pub const INHERIT_KHR: Self = Self(SurfaceTransformFlagBitsKHR::INHERIT_KHR.0);
     }
+    impl fmt::Debug for SurfaceTransformFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (SurfaceTransformFlagsKHR::IDENTITY_KHR.0, "IDENTITY_KHR"),
+                (SurfaceTransformFlagsKHR::ROTATE_90_KHR.0, "ROTATE_90_KHR"),
+                (SurfaceTransformFlagsKHR::ROTATE_180_KHR.0, "ROTATE_180_KHR"),
+                (SurfaceTransformFlagsKHR::ROTATE_270_KHR.0, "ROTATE_270_KHR"),
+                (
+                    SurfaceTransformFlagsKHR::HORIZONTAL_MIRROR_KHR.0,
+                    "HORIZONTAL_MIRROR_KHR",
+                ),
+                (
+                    SurfaceTransformFlagsKHR::HORIZONTAL_MIRROR_ROTATE_90_KHR.0,
+                    "HORIZONTAL_MIRROR_ROTATE_90_KHR",
+                ),
+                (
+                    SurfaceTransformFlagsKHR::HORIZONTAL_MIRROR_ROTATE_180_KHR.0,
+                    "HORIZONTAL_MIRROR_ROTATE_180_KHR",
+                ),
+                (
+                    SurfaceTransformFlagsKHR::HORIZONTAL_MIRROR_ROTATE_270_KHR.0,
+                    "HORIZONTAL_MIRROR_ROTATE_270_KHR",
+                ),
+                (SurfaceTransformFlagsKHR::INHERIT_KHR.0, "INHERIT_KHR"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SurfaceTransformFlagBitsKHR(u32);
@@ -327,10 +369,20 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DisplayModeCreateFlagsKHR(Flags);
     vk_bitflags_wrapped!(DisplayModeCreateFlagsKHR, Flags);
+    impl fmt::Debug for DisplayModeCreateFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            debug_flags(f, &[], self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DisplaySurfaceCreateFlagsKHR(Flags);
     vk_bitflags_wrapped!(DisplaySurfaceCreateFlagsKHR, Flags);
+    impl fmt::Debug for DisplaySurfaceCreateFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            debug_flags(f, &[], self.0)
+        }
+    }
     pub type PFN_vkGetPhysicalDeviceDisplayPropertiesKHR = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
         p_property_count: *mut u32,

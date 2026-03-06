@@ -83,4 +83,9 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineRasterizationDepthClipStateCreateFlagsEXT(Flags);
     vk_bitflags_wrapped!(PipelineRasterizationDepthClipStateCreateFlagsEXT, Flags);
+    impl fmt::Debug for PipelineRasterizationDepthClipStateCreateFlagsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            debug_flags(f, &[], self.0)
+        }
+    }
 }

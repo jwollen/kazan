@@ -150,6 +150,19 @@ pub(super) mod defs {
         pub const STREAMING_KHR: Self = Self(VideoDecodeUsageFlagBitsKHR::STREAMING_KHR.0);
         pub const DEFAULT: Self = Self(0);
     }
+    impl fmt::Debug for VideoDecodeUsageFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    VideoDecodeUsageFlagsKHR::TRANSCODING_KHR.0,
+                    "TRANSCODING_KHR",
+                ),
+                (VideoDecodeUsageFlagsKHR::OFFLINE_KHR.0, "OFFLINE_KHR"),
+                (VideoDecodeUsageFlagsKHR::STREAMING_KHR.0, "STREAMING_KHR"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoDecodeUsageFlagBitsKHR(u32);
@@ -168,6 +181,21 @@ pub(super) mod defs {
         pub const DPB_AND_OUTPUT_DISTINCT_KHR: Self =
             Self(VideoDecodeCapabilityFlagBitsKHR::DPB_AND_OUTPUT_DISTINCT_KHR.0);
     }
+    impl fmt::Debug for VideoDecodeCapabilityFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    VideoDecodeCapabilityFlagsKHR::DPB_AND_OUTPUT_COINCIDE_KHR.0,
+                    "DPB_AND_OUTPUT_COINCIDE_KHR",
+                ),
+                (
+                    VideoDecodeCapabilityFlagsKHR::DPB_AND_OUTPUT_DISTINCT_KHR.0,
+                    "DPB_AND_OUTPUT_DISTINCT_KHR",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoDecodeCapabilityFlagBitsKHR(u32);
@@ -179,6 +207,11 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoDecodeFlagsKHR(Flags);
     vk_bitflags_wrapped!(VideoDecodeFlagsKHR, Flags);
+    impl fmt::Debug for VideoDecodeFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            debug_flags(f, &[], self.0)
+        }
+    }
     pub type PFN_vkCmdDecodeVideoKHR = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_decode_info: *const VideoDecodeInfoKHR<'_>,

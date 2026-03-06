@@ -51,6 +51,11 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct Win32SurfaceCreateFlagsKHR(Flags);
     vk_bitflags_wrapped!(Win32SurfaceCreateFlagsKHR, Flags);
+    impl fmt::Debug for Win32SurfaceCreateFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            debug_flags(f, &[], self.0)
+        }
+    }
     pub type PFN_vkCreateWin32SurfaceKHR = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const Win32SurfaceCreateInfoKHR<'_>,

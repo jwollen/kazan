@@ -117,6 +117,15 @@ pub(super) mod defs {
         pub const SHADER_CORE_COUNT_ARM: Self =
             Self(PhysicalDeviceSchedulingControlsFlagBitsARM::SHADER_CORE_COUNT_ARM.0);
     }
+    impl fmt::Debug for PhysicalDeviceSchedulingControlsFlagsARM {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags64, &str)] = &[(
+                PhysicalDeviceSchedulingControlsFlagsARM::SHADER_CORE_COUNT_ARM.0,
+                "SHADER_CORE_COUNT_ARM",
+            )];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PhysicalDeviceSchedulingControlsFlagBitsARM(u64);

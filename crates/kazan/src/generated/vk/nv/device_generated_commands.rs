@@ -687,6 +687,25 @@ pub(super) mod defs {
         pub const UNORDERED_SEQUENCES_NV: Self =
             Self(IndirectCommandsLayoutUsageFlagBitsNV::UNORDERED_SEQUENCES_NV.0);
     }
+    impl fmt::Debug for IndirectCommandsLayoutUsageFlagsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    IndirectCommandsLayoutUsageFlagsNV::EXPLICIT_PREPROCESS_NV.0,
+                    "EXPLICIT_PREPROCESS_NV",
+                ),
+                (
+                    IndirectCommandsLayoutUsageFlagsNV::INDEXED_SEQUENCES_NV.0,
+                    "INDEXED_SEQUENCES_NV",
+                ),
+                (
+                    IndirectCommandsLayoutUsageFlagsNV::UNORDERED_SEQUENCES_NV.0,
+                    "UNORDERED_SEQUENCES_NV",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct IndirectCommandsLayoutUsageFlagBitsNV(u32);
@@ -701,6 +720,15 @@ pub(super) mod defs {
     vk_bitflags_wrapped!(IndirectStateFlagsNV, Flags);
     impl IndirectStateFlagsNV {
         pub const FLAG_FRONTFACE_NV: Self = Self(IndirectStateFlagBitsNV::FLAG_FRONTFACE_NV.0);
+    }
+    impl fmt::Debug for IndirectStateFlagsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[(
+                IndirectStateFlagsNV::FLAG_FRONTFACE_NV.0,
+                "FLAG_FRONTFACE_NV",
+            )];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]

@@ -300,6 +300,18 @@ pub(super) mod defs {
         pub const PER_TILE_EXECUTION_QCOM: Self =
             Self(TileShadingRenderPassFlagBitsQCOM::PER_TILE_EXECUTION_QCOM.0);
     }
+    impl fmt::Debug for TileShadingRenderPassFlagsQCOM {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (TileShadingRenderPassFlagsQCOM::ENABLE_QCOM.0, "ENABLE_QCOM"),
+                (
+                    TileShadingRenderPassFlagsQCOM::PER_TILE_EXECUTION_QCOM.0,
+                    "PER_TILE_EXECUTION_QCOM",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct TileShadingRenderPassFlagBitsQCOM(u32);

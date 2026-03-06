@@ -45,6 +45,11 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct MacOSSurfaceCreateFlagsMVK(Flags);
     vk_bitflags_wrapped!(MacOSSurfaceCreateFlagsMVK, Flags);
+    impl fmt::Debug for MacOSSurfaceCreateFlagsMVK {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            debug_flags(f, &[], self.0)
+        }
+    }
     pub type PFN_vkCreateMacOSSurfaceMVK = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const MacOSSurfaceCreateInfoMVK<'_>,

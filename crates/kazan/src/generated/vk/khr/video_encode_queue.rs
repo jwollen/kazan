@@ -554,6 +554,25 @@ pub(super) mod defs {
         pub const WITH_EMPHASIS_MAP_KHR: Self =
             Self(VideoEncodeFlagBitsKHR::WITH_EMPHASIS_MAP_KHR.0);
     }
+    impl fmt::Debug for VideoEncodeFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    VideoEncodeFlagsKHR::INTRA_REFRESH_KHR.0,
+                    "INTRA_REFRESH_KHR",
+                ),
+                (
+                    VideoEncodeFlagsKHR::WITH_QUANTIZATION_DELTA_MAP_KHR.0,
+                    "WITH_QUANTIZATION_DELTA_MAP_KHR",
+                ),
+                (
+                    VideoEncodeFlagsKHR::WITH_EMPHASIS_MAP_KHR.0,
+                    "WITH_EMPHASIS_MAP_KHR",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeFlagBitsKHR(u32);
@@ -575,6 +594,23 @@ pub(super) mod defs {
         pub const CONFERENCING_KHR: Self = Self(VideoEncodeUsageFlagBitsKHR::CONFERENCING_KHR.0);
         pub const DEFAULT: Self = Self(0);
     }
+    impl fmt::Debug for VideoEncodeUsageFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    VideoEncodeUsageFlagsKHR::TRANSCODING_KHR.0,
+                    "TRANSCODING_KHR",
+                ),
+                (VideoEncodeUsageFlagsKHR::STREAMING_KHR.0, "STREAMING_KHR"),
+                (VideoEncodeUsageFlagsKHR::RECORDING_KHR.0, "RECORDING_KHR"),
+                (
+                    VideoEncodeUsageFlagsKHR::CONFERENCING_KHR.0,
+                    "CONFERENCING_KHR",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeUsageFlagBitsKHR(u32);
@@ -593,6 +629,16 @@ pub(super) mod defs {
         pub const DESKTOP_KHR: Self = Self(VideoEncodeContentFlagBitsKHR::DESKTOP_KHR.0);
         pub const RENDERED_KHR: Self = Self(VideoEncodeContentFlagBitsKHR::RENDERED_KHR.0);
         pub const DEFAULT: Self = Self(0);
+    }
+    impl fmt::Debug for VideoEncodeContentFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (VideoEncodeContentFlagsKHR::CAMERA_KHR.0, "CAMERA_KHR"),
+                (VideoEncodeContentFlagsKHR::DESKTOP_KHR.0, "DESKTOP_KHR"),
+                (VideoEncodeContentFlagsKHR::RENDERED_KHR.0, "RENDERED_KHR"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -617,6 +663,29 @@ pub(super) mod defs {
         pub const EMPHASIS_MAP_KHR: Self =
             Self(VideoEncodeCapabilityFlagBitsKHR::EMPHASIS_MAP_KHR.0);
     }
+    impl fmt::Debug for VideoEncodeCapabilityFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    VideoEncodeCapabilityFlagsKHR::PRECEDING_EXTERNALLY_ENCODED_BYTES_KHR.0,
+                    "PRECEDING_EXTERNALLY_ENCODED_BYTES_KHR",
+                ),
+                (
+                    VideoEncodeCapabilityFlagsKHR::INSUFFICIENTSTREAM_BUFFER_RANGE_DETECTION_KHR.0,
+                    "INSUFFICIENTSTREAM_BUFFER_RANGE_DETECTION_KHR",
+                ),
+                (
+                    VideoEncodeCapabilityFlagsKHR::QUANTIZATION_DELTA_MAP_KHR.0,
+                    "QUANTIZATION_DELTA_MAP_KHR",
+                ),
+                (
+                    VideoEncodeCapabilityFlagsKHR::EMPHASIS_MAP_KHR.0,
+                    "EMPHASIS_MAP_KHR",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeCapabilityFlagBitsKHR(u32);
@@ -639,6 +708,25 @@ pub(super) mod defs {
         pub const BITSTREAM_HAS_OVERRIDES_KHR: Self =
             Self(VideoEncodeFeedbackFlagBitsKHR::BITSTREAM_HAS_OVERRIDES_KHR.0);
     }
+    impl fmt::Debug for VideoEncodeFeedbackFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    VideoEncodeFeedbackFlagsKHR::BITSTREAM_BUFFER_OFFSET_KHR.0,
+                    "BITSTREAM_BUFFER_OFFSET_KHR",
+                ),
+                (
+                    VideoEncodeFeedbackFlagsKHR::BITSTREAM_BYTES_WRITTEN_KHR.0,
+                    "BITSTREAM_BYTES_WRITTEN_KHR",
+                ),
+                (
+                    VideoEncodeFeedbackFlagsKHR::BITSTREAM_HAS_OVERRIDES_KHR.0,
+                    "BITSTREAM_HAS_OVERRIDES_KHR",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeFeedbackFlagBitsKHR(u32);
@@ -651,6 +739,11 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRateControlFlagsKHR(Flags);
     vk_bitflags_wrapped!(VideoEncodeRateControlFlagsKHR, Flags);
+    impl fmt::Debug for VideoEncodeRateControlFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            debug_flags(f, &[], self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRateControlModeFlagsKHR(Flags);
@@ -660,6 +753,19 @@ pub(super) mod defs {
         pub const CBR_KHR: Self = Self(VideoEncodeRateControlModeFlagBitsKHR::CBR_KHR.0);
         pub const VBR_KHR: Self = Self(VideoEncodeRateControlModeFlagBitsKHR::VBR_KHR.0);
         pub const DEFAULT: Self = Self(0);
+    }
+    impl fmt::Debug for VideoEncodeRateControlModeFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    VideoEncodeRateControlModeFlagsKHR::DISABLED_KHR.0,
+                    "DISABLED_KHR",
+                ),
+                (VideoEncodeRateControlModeFlagsKHR::CBR_KHR.0, "CBR_KHR"),
+                (VideoEncodeRateControlModeFlagsKHR::VBR_KHR.0, "VBR_KHR"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]

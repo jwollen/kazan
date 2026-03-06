@@ -159,6 +159,15 @@ pub(super) mod defs {
             Self(MemoryDecompressionMethodFlagBitsEXT::GDEFLATE_1_0_EXT.0);
         pub const GDEFLATE_1_0_NV: Self = Self::GDEFLATE_1_0_EXT;
     }
+    impl fmt::Debug for MemoryDecompressionMethodFlagsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags64, &str)] = &[(
+                MemoryDecompressionMethodFlagsEXT::GDEFLATE_1_0_EXT.0,
+                "GDEFLATE_1_0_EXT",
+            )];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MemoryDecompressionMethodFlagBitsEXT(u64);

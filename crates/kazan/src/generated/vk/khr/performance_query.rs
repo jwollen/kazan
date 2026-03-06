@@ -382,6 +382,21 @@ pub(super) mod defs {
         pub const CONCURRENTLY_IMPACTED_KHR: Self =
             Self(PerformanceCounterDescriptionFlagBitsKHR::CONCURRENTLY_IMPACTED_KHR.0);
     }
+    impl fmt::Debug for PerformanceCounterDescriptionFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    PerformanceCounterDescriptionFlagsKHR::PERFORMANCE_IMPACTING_KHR.0,
+                    "PERFORMANCE_IMPACTING_KHR",
+                ),
+                (
+                    PerformanceCounterDescriptionFlagsKHR::CONCURRENTLY_IMPACTED_KHR.0,
+                    "CONCURRENTLY_IMPACTED_KHR",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PerformanceCounterDescriptionFlagBitsKHR(u32);
@@ -394,6 +409,12 @@ pub(super) mod defs {
     pub struct AcquireProfilingLockFlagsKHR(Flags);
     vk_bitflags_wrapped!(AcquireProfilingLockFlagsKHR, Flags);
     impl AcquireProfilingLockFlagsKHR {}
+    impl fmt::Debug for AcquireProfilingLockFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct AcquireProfilingLockFlagBitsKHR(u32);

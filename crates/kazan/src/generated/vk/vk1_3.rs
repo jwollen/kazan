@@ -3208,6 +3208,11 @@ _marker: PhantomData
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PrivateDataSlotCreateFlags(Flags);
     vk_bitflags_wrapped!(PrivateDataSlotCreateFlags, Flags);
+    impl fmt::Debug for PrivateDataSlotCreateFlags {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            debug_flags(f, &[], self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineCreationFeedbackFlags(Flags);
@@ -3222,6 +3227,22 @@ _marker: PhantomData
         pub const VALID_EXT: Self = Self::VALID;
         pub const APPLICATION_PIPELINE_CACHE_HIT_EXT: Self = Self::APPLICATION_PIPELINE_CACHE_HIT;
         pub const BASE_PIPELINE_ACCELERATION_EXT: Self = Self::BASE_PIPELINE_ACCELERATION;
+    }
+    impl fmt::Debug for PipelineCreationFeedbackFlags {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (PipelineCreationFeedbackFlags::VALID.0, "VALID"),
+                (
+                    PipelineCreationFeedbackFlags::APPLICATION_PIPELINE_CACHE_HIT.0,
+                    "APPLICATION_PIPELINE_CACHE_HIT",
+                ),
+                (
+                    PipelineCreationFeedbackFlags::BASE_PIPELINE_ACCELERATION.0,
+                    "BASE_PIPELINE_ACCELERATION",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -3350,6 +3371,159 @@ _marker: PhantomData
             Self(AccessFlagBits2::SHADER_TILE_ATTACHMENT_READ_QCOM.0);
         pub const SHADER_TILE_ATTACHMENT_WRITE_QCOM: Self =
             Self(AccessFlagBits2::SHADER_TILE_ATTACHMENT_WRITE_QCOM.0);
+    }
+    impl fmt::Debug for AccessFlags2 {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags64, &str)] = &[
+                (
+                    AccessFlags2::INDIRECT_COMMAND_READ.0,
+                    "INDIRECT_COMMAND_READ",
+                ),
+                (AccessFlags2::INDEX_READ.0, "INDEX_READ"),
+                (
+                    AccessFlags2::VERTEX_ATTRIBUTE_READ.0,
+                    "VERTEX_ATTRIBUTE_READ",
+                ),
+                (AccessFlags2::UNIFORM_READ.0, "UNIFORM_READ"),
+                (
+                    AccessFlags2::INPUT_ATTACHMENT_READ.0,
+                    "INPUT_ATTACHMENT_READ",
+                ),
+                (AccessFlags2::SHADER_READ.0, "SHADER_READ"),
+                (AccessFlags2::SHADER_WRITE.0, "SHADER_WRITE"),
+                (
+                    AccessFlags2::COLOR_ATTACHMENT_READ.0,
+                    "COLOR_ATTACHMENT_READ",
+                ),
+                (
+                    AccessFlags2::COLOR_ATTACHMENT_WRITE.0,
+                    "COLOR_ATTACHMENT_WRITE",
+                ),
+                (
+                    AccessFlags2::DEPTH_STENCIL_ATTACHMENT_READ.0,
+                    "DEPTH_STENCIL_ATTACHMENT_READ",
+                ),
+                (
+                    AccessFlags2::DEPTH_STENCIL_ATTACHMENT_WRITE.0,
+                    "DEPTH_STENCIL_ATTACHMENT_WRITE",
+                ),
+                (AccessFlags2::TRANSFER_READ.0, "TRANSFER_READ"),
+                (AccessFlags2::TRANSFER_WRITE.0, "TRANSFER_WRITE"),
+                (AccessFlags2::HOST_READ.0, "HOST_READ"),
+                (AccessFlags2::HOST_WRITE.0, "HOST_WRITE"),
+                (AccessFlags2::MEMORY_READ.0, "MEMORY_READ"),
+                (AccessFlags2::MEMORY_WRITE.0, "MEMORY_WRITE"),
+                (AccessFlags2::SHADER_SAMPLED_READ.0, "SHADER_SAMPLED_READ"),
+                (AccessFlags2::SHADER_STORAGE_READ.0, "SHADER_STORAGE_READ"),
+                (AccessFlags2::SHADER_STORAGE_WRITE.0, "SHADER_STORAGE_WRITE"),
+                (AccessFlags2::DATA_GRAPH_READ_ARM.0, "DATA_GRAPH_READ_ARM"),
+                (AccessFlags2::DATA_GRAPH_WRITE_ARM.0, "DATA_GRAPH_WRITE_ARM"),
+                (
+                    AccessFlags2::DESCRIPTOR_BUFFER_READ_EXT.0,
+                    "DESCRIPTOR_BUFFER_READ_EXT",
+                ),
+                (
+                    AccessFlags2::SAMPLER_HEAP_READ_EXT.0,
+                    "SAMPLER_HEAP_READ_EXT",
+                ),
+                (
+                    AccessFlags2::RESOURCE_HEAP_READ_EXT.0,
+                    "RESOURCE_HEAP_READ_EXT",
+                ),
+                (
+                    AccessFlags2::MEMORY_DECOMPRESSION_READ_EXT.0,
+                    "MEMORY_DECOMPRESSION_READ_EXT",
+                ),
+                (
+                    AccessFlags2::MEMORY_DECOMPRESSION_WRITE_EXT.0,
+                    "MEMORY_DECOMPRESSION_WRITE_EXT",
+                ),
+                (AccessFlags2::MICROMAP_READ_EXT.0, "MICROMAP_READ_EXT"),
+                (AccessFlags2::MICROMAP_WRITE_EXT.0, "MICROMAP_WRITE_EXT"),
+                (
+                    AccessFlags2::INVOCATION_MASK_READ_HUAWEI.0,
+                    "INVOCATION_MASK_READ_HUAWEI",
+                ),
+                (
+                    AccessFlags2::SHADER_BINDING_TABLE_READ_KHR.0,
+                    "SHADER_BINDING_TABLE_READ_KHR",
+                ),
+                (
+                    AccessFlags2::COMMAND_PREPROCESS_READ_EXT.0,
+                    "COMMAND_PREPROCESS_READ_EXT",
+                ),
+                (
+                    AccessFlags2::COMMAND_PREPROCESS_WRITE_EXT.0,
+                    "COMMAND_PREPROCESS_WRITE_EXT",
+                ),
+                (
+                    AccessFlags2::COLOR_ATTACHMENT_READ_NONCOHERENT_EXT.0,
+                    "COLOR_ATTACHMENT_READ_NONCOHERENT_EXT",
+                ),
+                (
+                    AccessFlags2::CONDITIONAL_RENDERING_READ_EXT.0,
+                    "CONDITIONAL_RENDERING_READ_EXT",
+                ),
+                (
+                    AccessFlags2::ACCELERATION_STRUCTURE_READ_KHR.0,
+                    "ACCELERATION_STRUCTURE_READ_KHR",
+                ),
+                (
+                    AccessFlags2::ACCELERATION_STRUCTURE_WRITE_KHR.0,
+                    "ACCELERATION_STRUCTURE_WRITE_KHR",
+                ),
+                (
+                    AccessFlags2::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR.0,
+                    "FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR",
+                ),
+                (
+                    AccessFlags2::FRAGMENT_DENSITY_MAP_READ_EXT.0,
+                    "FRAGMENT_DENSITY_MAP_READ_EXT",
+                ),
+                (
+                    AccessFlags2::TRANSFORM_FEEDBACK_WRITE_EXT.0,
+                    "TRANSFORM_FEEDBACK_WRITE_EXT",
+                ),
+                (
+                    AccessFlags2::TRANSFORM_FEEDBACK_COUNTER_READ_EXT.0,
+                    "TRANSFORM_FEEDBACK_COUNTER_READ_EXT",
+                ),
+                (
+                    AccessFlags2::TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT.0,
+                    "TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT",
+                ),
+                (
+                    AccessFlags2::VIDEO_DECODE_READ_KHR.0,
+                    "VIDEO_DECODE_READ_KHR",
+                ),
+                (
+                    AccessFlags2::VIDEO_DECODE_WRITE_KHR.0,
+                    "VIDEO_DECODE_WRITE_KHR",
+                ),
+                (
+                    AccessFlags2::VIDEO_ENCODE_READ_KHR.0,
+                    "VIDEO_ENCODE_READ_KHR",
+                ),
+                (
+                    AccessFlags2::VIDEO_ENCODE_WRITE_KHR.0,
+                    "VIDEO_ENCODE_WRITE_KHR",
+                ),
+                (AccessFlags2::OPTICAL_FLOW_READ_NV.0, "OPTICAL_FLOW_READ_NV"),
+                (
+                    AccessFlags2::OPTICAL_FLOW_WRITE_NV.0,
+                    "OPTICAL_FLOW_WRITE_NV",
+                ),
+                (
+                    AccessFlags2::SHADER_TILE_ATTACHMENT_READ_QCOM.0,
+                    "SHADER_TILE_ATTACHMENT_READ_QCOM",
+                ),
+                (
+                    AccessFlags2::SHADER_TILE_ATTACHMENT_WRITE_QCOM.0,
+                    "SHADER_TILE_ATTACHMENT_WRITE_QCOM",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -3560,6 +3734,124 @@ _marker: PhantomData
             Self(PipelineStageFlagBits2::CONVERT_COOPERATIVE_VECTOR_MATRIX_NV.0);
         // VK_NV_optical_flow
         pub const OPTICAL_FLOW_NV: Self = Self(PipelineStageFlagBits2::OPTICAL_FLOW_NV.0);
+    }
+    impl fmt::Debug for PipelineStageFlags2 {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags64, &str)] = &[
+                (PipelineStageFlags2::TOP_OF_PIPE.0, "TOP_OF_PIPE"),
+                (PipelineStageFlags2::DRAW_INDIRECT.0, "DRAW_INDIRECT"),
+                (PipelineStageFlags2::VERTEX_INPUT.0, "VERTEX_INPUT"),
+                (PipelineStageFlags2::VERTEX_SHADER.0, "VERTEX_SHADER"),
+                (
+                    PipelineStageFlags2::TESSELLATION_CONTROL_SHADER.0,
+                    "TESSELLATION_CONTROL_SHADER",
+                ),
+                (
+                    PipelineStageFlags2::TESSELLATION_EVALUATION_SHADER.0,
+                    "TESSELLATION_EVALUATION_SHADER",
+                ),
+                (PipelineStageFlags2::GEOMETRY_SHADER.0, "GEOMETRY_SHADER"),
+                (PipelineStageFlags2::FRAGMENT_SHADER.0, "FRAGMENT_SHADER"),
+                (
+                    PipelineStageFlags2::EARLY_FRAGMENT_TESTS.0,
+                    "EARLY_FRAGMENT_TESTS",
+                ),
+                (
+                    PipelineStageFlags2::LATE_FRAGMENT_TESTS.0,
+                    "LATE_FRAGMENT_TESTS",
+                ),
+                (
+                    PipelineStageFlags2::COLOR_ATTACHMENT_OUTPUT.0,
+                    "COLOR_ATTACHMENT_OUTPUT",
+                ),
+                (PipelineStageFlags2::COMPUTE_SHADER.0, "COMPUTE_SHADER"),
+                (PipelineStageFlags2::ALL_TRANSFER.0, "ALL_TRANSFER"),
+                (PipelineStageFlags2::BOTTOM_OF_PIPE.0, "BOTTOM_OF_PIPE"),
+                (PipelineStageFlags2::HOST.0, "HOST"),
+                (PipelineStageFlags2::ALL_GRAPHICS.0, "ALL_GRAPHICS"),
+                (PipelineStageFlags2::ALL_COMMANDS.0, "ALL_COMMANDS"),
+                (PipelineStageFlags2::COPY.0, "COPY"),
+                (PipelineStageFlags2::RESOLVE.0, "RESOLVE"),
+                (PipelineStageFlags2::BLIT.0, "BLIT"),
+                (PipelineStageFlags2::CLEAR.0, "CLEAR"),
+                (PipelineStageFlags2::INDEX_INPUT.0, "INDEX_INPUT"),
+                (
+                    PipelineStageFlags2::VERTEX_ATTRIBUTE_INPUT.0,
+                    "VERTEX_ATTRIBUTE_INPUT",
+                ),
+                (
+                    PipelineStageFlags2::PRE_RASTERIZATION_SHADERS.0,
+                    "PRE_RASTERIZATION_SHADERS",
+                ),
+                (PipelineStageFlags2::DATA_GRAPH_ARM.0, "DATA_GRAPH_ARM"),
+                (
+                    PipelineStageFlags2::MEMORY_DECOMPRESSION_EXT.0,
+                    "MEMORY_DECOMPRESSION_EXT",
+                ),
+                (
+                    PipelineStageFlags2::MICROMAP_BUILD_EXT.0,
+                    "MICROMAP_BUILD_EXT",
+                ),
+                (
+                    PipelineStageFlags2::CLUSTER_CULLING_SHADER_HUAWEI.0,
+                    "CLUSTER_CULLING_SHADER_HUAWEI",
+                ),
+                (
+                    PipelineStageFlags2::INVOCATION_MASK_HUAWEI.0,
+                    "INVOCATION_MASK_HUAWEI",
+                ),
+                (
+                    PipelineStageFlags2::SUBPASS_SHADER_HUAWEI.0,
+                    "SUBPASS_SHADER_HUAWEI",
+                ),
+                (
+                    PipelineStageFlags2::COPY_INDIRECT_KHR.0,
+                    "COPY_INDIRECT_KHR",
+                ),
+                (
+                    PipelineStageFlags2::ACCELERATION_STRUCTURE_COPY_KHR.0,
+                    "ACCELERATION_STRUCTURE_COPY_KHR",
+                ),
+                (
+                    PipelineStageFlags2::COMMAND_PREPROCESS_EXT.0,
+                    "COMMAND_PREPROCESS_EXT",
+                ),
+                (
+                    PipelineStageFlags2::CONDITIONAL_RENDERING_EXT.0,
+                    "CONDITIONAL_RENDERING_EXT",
+                ),
+                (PipelineStageFlags2::TASK_SHADER_EXT.0, "TASK_SHADER_EXT"),
+                (PipelineStageFlags2::MESH_SHADER_EXT.0, "MESH_SHADER_EXT"),
+                (
+                    PipelineStageFlags2::RAY_TRACING_SHADER_KHR.0,
+                    "RAY_TRACING_SHADER_KHR",
+                ),
+                (
+                    PipelineStageFlags2::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0,
+                    "FRAGMENT_SHADING_RATE_ATTACHMENT_KHR",
+                ),
+                (
+                    PipelineStageFlags2::FRAGMENT_DENSITY_PROCESS_EXT.0,
+                    "FRAGMENT_DENSITY_PROCESS_EXT",
+                ),
+                (
+                    PipelineStageFlags2::TRANSFORM_FEEDBACK_EXT.0,
+                    "TRANSFORM_FEEDBACK_EXT",
+                ),
+                (
+                    PipelineStageFlags2::ACCELERATION_STRUCTURE_BUILD_KHR.0,
+                    "ACCELERATION_STRUCTURE_BUILD_KHR",
+                ),
+                (PipelineStageFlags2::VIDEO_DECODE_KHR.0, "VIDEO_DECODE_KHR"),
+                (PipelineStageFlags2::VIDEO_ENCODE_KHR.0, "VIDEO_ENCODE_KHR"),
+                (
+                    PipelineStageFlags2::CONVERT_COOPERATIVE_VECTOR_MATRIX_NV.0,
+                    "CONVERT_COOPERATIVE_VECTOR_MATRIX_NV",
+                ),
+                (PipelineStageFlags2::OPTICAL_FLOW_NV.0, "OPTICAL_FLOW_NV"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -3802,6 +4094,67 @@ _marker: PhantomData
         // VK_VERSION_1_4
         pub const HOST_IMAGE_TRANSFER: Self = Self(FormatFeatureFlagBits2::HOST_IMAGE_TRANSFER.0);
     }
+    impl fmt::Debug for FormatFeatureFlags2 {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags64, &str)] = &[
+(FormatFeatureFlags2::SAMPLED_IMAGE.0, "SAMPLED_IMAGE"),
+(FormatFeatureFlags2::STORAGE_IMAGE.0, "STORAGE_IMAGE"),
+(FormatFeatureFlags2::STORAGE_IMAGE_ATOMIC.0, "STORAGE_IMAGE_ATOMIC"),
+(FormatFeatureFlags2::UNIFORM_TEXEL_BUFFER.0, "UNIFORM_TEXEL_BUFFER"),
+(FormatFeatureFlags2::STORAGE_TEXEL_BUFFER.0, "STORAGE_TEXEL_BUFFER"),
+(FormatFeatureFlags2::STORAGE_TEXEL_BUFFER_ATOMIC.0, "STORAGE_TEXEL_BUFFER_ATOMIC"),
+(FormatFeatureFlags2::VERTEX_BUFFER.0, "VERTEX_BUFFER"),
+(FormatFeatureFlags2::COLOR_ATTACHMENT.0, "COLOR_ATTACHMENT"),
+(FormatFeatureFlags2::COLOR_ATTACHMENT_BLEND.0, "COLOR_ATTACHMENT_BLEND"),
+(FormatFeatureFlags2::DEPTH_STENCIL_ATTACHMENT.0, "DEPTH_STENCIL_ATTACHMENT"),
+(FormatFeatureFlags2::BLIT_SRC.0, "BLIT_SRC"),
+(FormatFeatureFlags2::BLIT_DST.0, "BLIT_DST"),
+(FormatFeatureFlags2::SAMPLED_IMAGE_FILTER_LINEAR.0, "SAMPLED_IMAGE_FILTER_LINEAR"),
+(FormatFeatureFlags2::TRANSFER_SRC.0, "TRANSFER_SRC"),
+(FormatFeatureFlags2::TRANSFER_DST.0, "TRANSFER_DST"),
+(FormatFeatureFlags2::SAMPLED_IMAGE_FILTER_MINMAX.0, "SAMPLED_IMAGE_FILTER_MINMAX"),
+(FormatFeatureFlags2::MIDPOINT_CHROMA_SAMPLES.0, "MIDPOINT_CHROMA_SAMPLES"),
+(FormatFeatureFlags2::SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER.0, "SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER"),
+(FormatFeatureFlags2::SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER.0, "SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER"),
+(FormatFeatureFlags2::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT.0, "SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT"),
+(FormatFeatureFlags2::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE.0, "SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE"),
+(FormatFeatureFlags2::DISJOINT.0, "DISJOINT"),
+(FormatFeatureFlags2::COSITED_CHROMA_SAMPLES.0, "COSITED_CHROMA_SAMPLES"),
+(FormatFeatureFlags2::STORAGE_READ_WITHOUT_FORMAT.0, "STORAGE_READ_WITHOUT_FORMAT"),
+(FormatFeatureFlags2::STORAGE_WRITE_WITHOUT_FORMAT.0, "STORAGE_WRITE_WITHOUT_FORMAT"),
+(FormatFeatureFlags2::SAMPLED_IMAGE_DEPTH_COMPARISON.0, "SAMPLED_IMAGE_DEPTH_COMPARISON"),
+(FormatFeatureFlags2::TENSOR_DATA_GRAPH_ARM.0, "TENSOR_DATA_GRAPH_ARM"),
+(FormatFeatureFlags2::TENSOR_SHADER_ARM.0, "TENSOR_SHADER_ARM"),
+(FormatFeatureFlags2::TENSOR_IMAGE_ALIASING_ARM.0, "TENSOR_IMAGE_ALIASING_ARM"),
+(FormatFeatureFlags2::FRAGMENT_DENSITY_MAP_EXT.0, "FRAGMENT_DENSITY_MAP_EXT"),
+(FormatFeatureFlags2::ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR.0, "ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR"),
+(FormatFeatureFlags2::COPY_IMAGE_INDIRECT_DST_KHR.0, "COPY_IMAGE_INDIRECT_DST_KHR"),
+(FormatFeatureFlags2::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0, "FRAGMENT_SHADING_RATE_ATTACHMENT_KHR"),
+(FormatFeatureFlags2::DEPTH_COPY_ON_COMPUTE_QUEUE_KHR.0, "DEPTH_COPY_ON_COMPUTE_QUEUE_KHR"),
+(FormatFeatureFlags2::DEPTH_COPY_ON_TRANSFER_QUEUE_KHR.0, "DEPTH_COPY_ON_TRANSFER_QUEUE_KHR"),
+(FormatFeatureFlags2::STENCIL_COPY_ON_COMPUTE_QUEUE_KHR.0, "STENCIL_COPY_ON_COMPUTE_QUEUE_KHR"),
+(FormatFeatureFlags2::STENCIL_COPY_ON_TRANSFER_QUEUE_KHR.0, "STENCIL_COPY_ON_TRANSFER_QUEUE_KHR"),
+(FormatFeatureFlags2::VIDEO_DECODE_OUTPUT_KHR.0, "VIDEO_DECODE_OUTPUT_KHR"),
+(FormatFeatureFlags2::VIDEO_DECODE_DPB_KHR.0, "VIDEO_DECODE_DPB_KHR"),
+(FormatFeatureFlags2::VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR.0, "VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR"),
+(FormatFeatureFlags2::VIDEO_ENCODE_EMPHASIS_MAP_KHR.0, "VIDEO_ENCODE_EMPHASIS_MAP_KHR"),
+(FormatFeatureFlags2::VIDEO_ENCODE_INPUT_KHR.0, "VIDEO_ENCODE_INPUT_KHR"),
+(FormatFeatureFlags2::VIDEO_ENCODE_DPB_KHR.0, "VIDEO_ENCODE_DPB_KHR"),
+(FormatFeatureFlags2::LINEAR_COLOR_ATTACHMENT_NV.0, "LINEAR_COLOR_ATTACHMENT_NV"),
+(FormatFeatureFlags2::OPTICAL_FLOW_IMAGE_NV.0, "OPTICAL_FLOW_IMAGE_NV"),
+(FormatFeatureFlags2::OPTICAL_FLOW_VECTOR_NV.0, "OPTICAL_FLOW_VECTOR_NV"),
+(FormatFeatureFlags2::OPTICAL_FLOW_COST_NV.0, "OPTICAL_FLOW_COST_NV"),
+(FormatFeatureFlags2::ACCELERATION_STRUCTURE_RADIUS_BUFFER_NV.0, "ACCELERATION_STRUCTURE_RADIUS_BUFFER_NV"),
+(FormatFeatureFlags2::WEIGHT_IMAGE_QCOM.0, "WEIGHT_IMAGE_QCOM"),
+(FormatFeatureFlags2::WEIGHT_SAMPLED_IMAGE_QCOM.0, "WEIGHT_SAMPLED_IMAGE_QCOM"),
+(FormatFeatureFlags2::BLOCK_MATCHING_QCOM.0, "BLOCK_MATCHING_QCOM"),
+(FormatFeatureFlags2::BOX_FILTER_SAMPLED_QCOM.0, "BOX_FILTER_SAMPLED_QCOM"),
+(FormatFeatureFlags2::SAMPLED_IMAGE_FILTER_CUBIC.0, "SAMPLED_IMAGE_FILTER_CUBIC"),
+(FormatFeatureFlags2::HOST_IMAGE_TRANSFER.0, "HOST_IMAGE_TRANSFER"),
+];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct FormatFeatureFlagBits2(u64);
@@ -3945,6 +4298,34 @@ _marker: PhantomData
         pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self =
             Self(RenderingFlagBits::PER_LAYER_FRAGMENT_DENSITY_VALVE.0);
     }
+    impl fmt::Debug for RenderingFlags {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    RenderingFlags::CONTENTS_SECONDARY_COMMAND_BUFFERS.0,
+                    "CONTENTS_SECONDARY_COMMAND_BUFFERS",
+                ),
+                (RenderingFlags::SUSPENDING.0, "SUSPENDING"),
+                (RenderingFlags::RESUMING.0, "RESUMING"),
+                (RenderingFlags::FRAGMENT_REGION_EXT.0, "FRAGMENT_REGION_EXT"),
+                (RenderingFlags::CUSTOM_RESOLVE_EXT.0, "CUSTOM_RESOLVE_EXT"),
+                (
+                    RenderingFlags::ENABLE_LEGACY_DITHERING_EXT.0,
+                    "ENABLE_LEGACY_DITHERING_EXT",
+                ),
+                (
+                    RenderingFlags::LOCAL_READ_CONCURRENT_ACCESS_CONTROL_KHR.0,
+                    "LOCAL_READ_CONCURRENT_ACCESS_CONTROL_KHR",
+                ),
+                (RenderingFlags::CONTENTS_INLINE_KHR.0, "CONTENTS_INLINE_KHR"),
+                (
+                    RenderingFlags::PER_LAYER_FRAGMENT_DENSITY_VALVE.0,
+                    "PER_LAYER_FRAGMENT_DENSITY_VALVE",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct RenderingFlagBits(u32);
@@ -3990,6 +4371,26 @@ _marker: PhantomData
         pub const ADDITIONAL_FEATURES_EXT: Self = Self::ADDITIONAL_FEATURES;
         pub const MODIFYING_FEATURES_EXT: Self = Self::MODIFYING_FEATURES;
     }
+    impl fmt::Debug for ToolPurposeFlags {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (ToolPurposeFlags::VALIDATION.0, "VALIDATION"),
+                (ToolPurposeFlags::PROFILING.0, "PROFILING"),
+                (ToolPurposeFlags::TRACING.0, "TRACING"),
+                (
+                    ToolPurposeFlags::ADDITIONAL_FEATURES.0,
+                    "ADDITIONAL_FEATURES",
+                ),
+                (ToolPurposeFlags::MODIFYING_FEATURES.0, "MODIFYING_FEATURES"),
+                (
+                    ToolPurposeFlags::DEBUG_REPORTING_EXT.0,
+                    "DEBUG_REPORTING_EXT",
+                ),
+                (ToolPurposeFlags::DEBUG_MARKERS_EXT.0, "DEBUG_MARKERS_EXT"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ToolPurposeFlagBits(u32);
@@ -4016,6 +4417,12 @@ _marker: PhantomData
         pub const PROTECTED: Self = Self(SubmitFlagBits::PROTECTED.0);
         // VK_KHR_synchronization2
         pub const PROTECTED_KHR: Self = Self::PROTECTED;
+    }
+    impl fmt::Debug for SubmitFlags {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[(SubmitFlags::PROTECTED.0, "PROTECTED")];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]

@@ -215,6 +215,47 @@ pub(super) mod defs {
         pub const FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT: Self =
             Self(ShaderCreateFlagBitsEXT::FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT.0);
     }
+    impl fmt::Debug for ShaderCreateFlagsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (ShaderCreateFlagsEXT::LINK_STAGE_EXT.0, "LINK_STAGE_EXT"),
+                (
+                    ShaderCreateFlagsEXT::DESCRIPTOR_HEAP_EXT.0,
+                    "DESCRIPTOR_HEAP_EXT",
+                ),
+                (
+                    ShaderCreateFlagsEXT::INDIRECT_BINDABLE_EXT.0,
+                    "INDIRECT_BINDABLE_EXT",
+                ),
+                (ShaderCreateFlagsEXT::_64_INDEXING_EXT.0, "_64_INDEXING_EXT"),
+                (
+                    ShaderCreateFlagsEXT::ALLOW_VARYING_SUBGROUP_SIZE_EXT.0,
+                    "ALLOW_VARYING_SUBGROUP_SIZE_EXT",
+                ),
+                (
+                    ShaderCreateFlagsEXT::REQUIRE_FULL_SUBGROUPS_EXT.0,
+                    "REQUIRE_FULL_SUBGROUPS_EXT",
+                ),
+                (
+                    ShaderCreateFlagsEXT::NO_TASK_SHADER_EXT.0,
+                    "NO_TASK_SHADER_EXT",
+                ),
+                (
+                    ShaderCreateFlagsEXT::DISPATCH_BASE_EXT.0,
+                    "DISPATCH_BASE_EXT",
+                ),
+                (
+                    ShaderCreateFlagsEXT::FRAGMENT_SHADING_RATE_ATTACHMENT_EXT.0,
+                    "FRAGMENT_SHADING_RATE_ATTACHMENT_EXT",
+                ),
+                (
+                    ShaderCreateFlagsEXT::FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT.0,
+                    "FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ShaderCreateFlagBitsEXT(u32);

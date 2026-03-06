@@ -115,6 +115,37 @@ pub trait Handle: Sized {
 
 pub use loading::MissingEntryPointError;
 
+/// Helper for Debug-formatting bitflag types. Prints known flags by name,
+/// separated by `|`, and appends any remaining unknown bits as hex.
+pub fn debug_flags<F: Into<u64> + Copy>(
+    f: &mut fmt::Formatter<'_>,
+    known: &[(F, &str)],
+    value: F,
+) -> fmt::Result {
+    let mut first = true;
+    let mut remaining: u64 = value.into();
+    for &(bit, name) in known {
+        let bit: u64 = bit.into();
+        if bit != 0 && remaining & bit == bit {
+            if !first {
+                f.write_str(" | ")?;
+            }
+            f.write_str(name)?;
+            first = false;
+            remaining &= !bit;
+        }
+    }
+    if remaining != 0 {
+        if !first {
+            f.write_str(" | ")?;
+        }
+        write!(f, "{:#x}", remaining)?;
+    } else if first {
+        f.write_str("(empty)")?;
+    }
+    Ok(())
+}
+
 pub type Result<T> = core::result::Result<T, vk::Result>;
 
 #[cfg(feature = "std")]

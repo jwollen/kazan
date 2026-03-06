@@ -253,6 +253,21 @@ pub(super) mod defs {
             Self(VideoDecodeH264PictureLayoutFlagBitsKHR::INTERLACED_SEPARATE_PLANES_KHR.0);
         pub const PROGRESSIVE: Self = Self(0);
     }
+    impl fmt::Debug for VideoDecodeH264PictureLayoutFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    VideoDecodeH264PictureLayoutFlagsKHR::INTERLACED_INTERLEAVED_LINES_KHR.0,
+                    "INTERLACED_INTERLEAVED_LINES_KHR",
+                ),
+                (
+                    VideoDecodeH264PictureLayoutFlagsKHR::INTERLACED_SEPARATE_PLANES_KHR.0,
+                    "INTERLACED_SEPARATE_PLANES_KHR",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoDecodeH264PictureLayoutFlagBitsKHR(u32);

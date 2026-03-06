@@ -140,6 +140,22 @@ pub(super) mod defs {
         pub const DISABLED_EXT: Self = Self(ImageCompressionFlagBitsEXT::DISABLED_EXT.0);
         pub const DEFAULT: Self = Self(0);
     }
+    impl fmt::Debug for ImageCompressionFlagsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    ImageCompressionFlagsEXT::FIXED_RATE_DEFAULT_EXT.0,
+                    "FIXED_RATE_DEFAULT_EXT",
+                ),
+                (
+                    ImageCompressionFlagsEXT::FIXED_RATE_EXPLICIT_EXT.0,
+                    "FIXED_RATE_EXPLICIT_EXT",
+                ),
+                (ImageCompressionFlagsEXT::DISABLED_EXT.0, "DISABLED_EXT"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ImageCompressionFlagBitsEXT(u32);
@@ -178,6 +194,82 @@ pub(super) mod defs {
         pub const _23BPC_EXT: Self = Self(ImageCompressionFixedRateFlagBitsEXT::_23BPC_EXT.0);
         pub const _24BPC_EXT: Self = Self(ImageCompressionFixedRateFlagBitsEXT::_24BPC_EXT.0);
         pub const NONE: Self = Self(0);
+    }
+    impl fmt::Debug for ImageCompressionFixedRateFlagsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (ImageCompressionFixedRateFlagsEXT::_1BPC_EXT.0, "_1BPC_EXT"),
+                (ImageCompressionFixedRateFlagsEXT::_2BPC_EXT.0, "_2BPC_EXT"),
+                (ImageCompressionFixedRateFlagsEXT::_3BPC_EXT.0, "_3BPC_EXT"),
+                (ImageCompressionFixedRateFlagsEXT::_4BPC_EXT.0, "_4BPC_EXT"),
+                (ImageCompressionFixedRateFlagsEXT::_5BPC_EXT.0, "_5BPC_EXT"),
+                (ImageCompressionFixedRateFlagsEXT::_6BPC_EXT.0, "_6BPC_EXT"),
+                (ImageCompressionFixedRateFlagsEXT::_7BPC_EXT.0, "_7BPC_EXT"),
+                (ImageCompressionFixedRateFlagsEXT::_8BPC_EXT.0, "_8BPC_EXT"),
+                (ImageCompressionFixedRateFlagsEXT::_9BPC_EXT.0, "_9BPC_EXT"),
+                (
+                    ImageCompressionFixedRateFlagsEXT::_10BPC_EXT.0,
+                    "_10BPC_EXT",
+                ),
+                (
+                    ImageCompressionFixedRateFlagsEXT::_11BPC_EXT.0,
+                    "_11BPC_EXT",
+                ),
+                (
+                    ImageCompressionFixedRateFlagsEXT::_12BPC_EXT.0,
+                    "_12BPC_EXT",
+                ),
+                (
+                    ImageCompressionFixedRateFlagsEXT::_13BPC_EXT.0,
+                    "_13BPC_EXT",
+                ),
+                (
+                    ImageCompressionFixedRateFlagsEXT::_14BPC_EXT.0,
+                    "_14BPC_EXT",
+                ),
+                (
+                    ImageCompressionFixedRateFlagsEXT::_15BPC_EXT.0,
+                    "_15BPC_EXT",
+                ),
+                (
+                    ImageCompressionFixedRateFlagsEXT::_16BPC_EXT.0,
+                    "_16BPC_EXT",
+                ),
+                (
+                    ImageCompressionFixedRateFlagsEXT::_17BPC_EXT.0,
+                    "_17BPC_EXT",
+                ),
+                (
+                    ImageCompressionFixedRateFlagsEXT::_18BPC_EXT.0,
+                    "_18BPC_EXT",
+                ),
+                (
+                    ImageCompressionFixedRateFlagsEXT::_19BPC_EXT.0,
+                    "_19BPC_EXT",
+                ),
+                (
+                    ImageCompressionFixedRateFlagsEXT::_20BPC_EXT.0,
+                    "_20BPC_EXT",
+                ),
+                (
+                    ImageCompressionFixedRateFlagsEXT::_21BPC_EXT.0,
+                    "_21BPC_EXT",
+                ),
+                (
+                    ImageCompressionFixedRateFlagsEXT::_22BPC_EXT.0,
+                    "_22BPC_EXT",
+                ),
+                (
+                    ImageCompressionFixedRateFlagsEXT::_23BPC_EXT.0,
+                    "_23BPC_EXT",
+                ),
+                (
+                    ImageCompressionFixedRateFlagsEXT::_24BPC_EXT.0,
+                    "_24BPC_EXT",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]

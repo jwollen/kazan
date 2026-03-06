@@ -968,6 +968,15 @@ pub(super) mod defs {
         pub const PROTECTED_ARM: Self =
             Self(DataGraphPipelineSessionCreateFlagBitsARM::PROTECTED_ARM.0);
     }
+    impl fmt::Debug for DataGraphPipelineSessionCreateFlagsARM {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags64, &str)] = &[(
+                DataGraphPipelineSessionCreateFlagsARM::PROTECTED_ARM.0,
+                "PROTECTED_ARM",
+            )];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DataGraphPipelineSessionCreateFlagBitsARM(u64);
@@ -979,6 +988,12 @@ pub(super) mod defs {
     pub struct DataGraphPipelineDispatchFlagsARM(Flags64);
     vk_bitflags_wrapped!(DataGraphPipelineDispatchFlagsARM, Flags64);
     impl DataGraphPipelineDispatchFlagsARM {}
+    impl fmt::Debug for DataGraphPipelineDispatchFlagsARM {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags64, &str)] = &[];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DataGraphPipelineDispatchFlagBitsARM(u64);

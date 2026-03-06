@@ -204,6 +204,33 @@ pub(super) mod defs {
         pub const YCBCR_2020_VALVE: Self =
             Self(VideoEncodeRgbModelConversionFlagBitsVALVE::YCBCR_2020_VALVE.0);
     }
+    impl fmt::Debug for VideoEncodeRgbModelConversionFlagsVALVE {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    VideoEncodeRgbModelConversionFlagsVALVE::RGB_IDENTITY_VALVE.0,
+                    "RGB_IDENTITY_VALVE",
+                ),
+                (
+                    VideoEncodeRgbModelConversionFlagsVALVE::YCBCR_IDENTITY_VALVE.0,
+                    "YCBCR_IDENTITY_VALVE",
+                ),
+                (
+                    VideoEncodeRgbModelConversionFlagsVALVE::YCBCR_709_VALVE.0,
+                    "YCBCR_709_VALVE",
+                ),
+                (
+                    VideoEncodeRgbModelConversionFlagsVALVE::YCBCR_601_VALVE.0,
+                    "YCBCR_601_VALVE",
+                ),
+                (
+                    VideoEncodeRgbModelConversionFlagsVALVE::YCBCR_2020_VALVE.0,
+                    "YCBCR_2020_VALVE",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRgbModelConversionFlagBitsVALVE(u32);
@@ -224,6 +251,21 @@ pub(super) mod defs {
         pub const NARROW_RANGE_VALVE: Self =
             Self(VideoEncodeRgbRangeCompressionFlagBitsVALVE::NARROW_RANGE_VALVE.0);
     }
+    impl fmt::Debug for VideoEncodeRgbRangeCompressionFlagsVALVE {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    VideoEncodeRgbRangeCompressionFlagsVALVE::FULL_RANGE_VALVE.0,
+                    "FULL_RANGE_VALVE",
+                ),
+                (
+                    VideoEncodeRgbRangeCompressionFlagsVALVE::NARROW_RANGE_VALVE.0,
+                    "NARROW_RANGE_VALVE",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRgbRangeCompressionFlagBitsVALVE(u32);
@@ -240,6 +282,21 @@ pub(super) mod defs {
             Self(VideoEncodeRgbChromaOffsetFlagBitsVALVE::COSITED_EVEN_VALVE.0);
         pub const MIDPOINT_VALVE: Self =
             Self(VideoEncodeRgbChromaOffsetFlagBitsVALVE::MIDPOINT_VALVE.0);
+    }
+    impl fmt::Debug for VideoEncodeRgbChromaOffsetFlagsVALVE {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    VideoEncodeRgbChromaOffsetFlagsVALVE::COSITED_EVEN_VALVE.0,
+                    "COSITED_EVEN_VALVE",
+                ),
+                (
+                    VideoEncodeRgbChromaOffsetFlagsVALVE::MIDPOINT_VALVE.0,
+                    "MIDPOINT_VALVE",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]

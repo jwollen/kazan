@@ -136,6 +136,29 @@ pub(super) mod defs {
         pub const FRAGMENT_OUTPUT_INTERFACE_EXT: Self =
             Self(GraphicsPipelineLibraryFlagBitsEXT::FRAGMENT_OUTPUT_INTERFACE_EXT.0);
     }
+    impl fmt::Debug for GraphicsPipelineLibraryFlagsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    GraphicsPipelineLibraryFlagsEXT::VERTEX_INPUT_INTERFACE_EXT.0,
+                    "VERTEX_INPUT_INTERFACE_EXT",
+                ),
+                (
+                    GraphicsPipelineLibraryFlagsEXT::PRE_RASTERIZATION_SHADERS_EXT.0,
+                    "PRE_RASTERIZATION_SHADERS_EXT",
+                ),
+                (
+                    GraphicsPipelineLibraryFlagsEXT::FRAGMENT_SHADER_EXT.0,
+                    "FRAGMENT_SHADER_EXT",
+                ),
+                (
+                    GraphicsPipelineLibraryFlagsEXT::FRAGMENT_OUTPUT_INTERFACE_EXT.0,
+                    "FRAGMENT_OUTPUT_INTERFACE_EXT",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct GraphicsPipelineLibraryFlagBitsEXT(u32);

@@ -84,6 +84,29 @@ pub(super) mod defs {
         pub const ENABLE_SHADER_ERROR_REPORTING_NV: Self =
             Self(DeviceDiagnosticsConfigFlagBitsNV::ENABLE_SHADER_ERROR_REPORTING_NV.0);
     }
+    impl fmt::Debug for DeviceDiagnosticsConfigFlagsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    DeviceDiagnosticsConfigFlagsNV::ENABLE_SHADER_DEBUG_INFO_NV.0,
+                    "ENABLE_SHADER_DEBUG_INFO_NV",
+                ),
+                (
+                    DeviceDiagnosticsConfigFlagsNV::ENABLE_RESOURCE_TRACKING_NV.0,
+                    "ENABLE_RESOURCE_TRACKING_NV",
+                ),
+                (
+                    DeviceDiagnosticsConfigFlagsNV::ENABLE_AUTOMATIC_CHECKPOINTS_NV.0,
+                    "ENABLE_AUTOMATIC_CHECKPOINTS_NV",
+                ),
+                (
+                    DeviceDiagnosticsConfigFlagsNV::ENABLE_SHADER_ERROR_REPORTING_NV.0,
+                    "ENABLE_SHADER_ERROR_REPORTING_NV",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DeviceDiagnosticsConfigFlagBitsNV(u32);

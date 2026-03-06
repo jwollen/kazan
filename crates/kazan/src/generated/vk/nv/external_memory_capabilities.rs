@@ -59,6 +59,29 @@ pub(super) mod defs {
         pub const D3D11_IMAGE_KMT_NV: Self =
             Self(ExternalMemoryHandleTypeFlagBitsNV::D3D11_IMAGE_KMT_NV.0);
     }
+    impl fmt::Debug for ExternalMemoryHandleTypeFlagsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    ExternalMemoryHandleTypeFlagsNV::OPAQUE_WIN32_NV.0,
+                    "OPAQUE_WIN32_NV",
+                ),
+                (
+                    ExternalMemoryHandleTypeFlagsNV::OPAQUE_WIN32_KMT_NV.0,
+                    "OPAQUE_WIN32_KMT_NV",
+                ),
+                (
+                    ExternalMemoryHandleTypeFlagsNV::D3D11_IMAGE_NV.0,
+                    "D3D11_IMAGE_NV",
+                ),
+                (
+                    ExternalMemoryHandleTypeFlagsNV::D3D11_IMAGE_KMT_NV.0,
+                    "D3D11_IMAGE_KMT_NV",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExternalMemoryHandleTypeFlagBitsNV(u32);
@@ -77,6 +100,25 @@ pub(super) mod defs {
             Self(ExternalMemoryFeatureFlagBitsNV::DEDICATED_ONLY_NV.0);
         pub const EXPORTABLE_NV: Self = Self(ExternalMemoryFeatureFlagBitsNV::EXPORTABLE_NV.0);
         pub const IMPORTABLE_NV: Self = Self(ExternalMemoryFeatureFlagBitsNV::IMPORTABLE_NV.0);
+    }
+    impl fmt::Debug for ExternalMemoryFeatureFlagsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    ExternalMemoryFeatureFlagsNV::DEDICATED_ONLY_NV.0,
+                    "DEDICATED_ONLY_NV",
+                ),
+                (
+                    ExternalMemoryFeatureFlagsNV::EXPORTABLE_NV.0,
+                    "EXPORTABLE_NV",
+                ),
+                (
+                    ExternalMemoryFeatureFlagsNV::IMPORTABLE_NV.0,
+                    "IMPORTABLE_NV",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]

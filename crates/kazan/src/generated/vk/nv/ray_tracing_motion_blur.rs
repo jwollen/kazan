@@ -384,8 +384,18 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AccelerationStructureMotionInfoFlagsNV(Flags);
     vk_bitflags_wrapped!(AccelerationStructureMotionInfoFlagsNV, Flags);
+    impl fmt::Debug for AccelerationStructureMotionInfoFlagsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            debug_flags(f, &[], self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AccelerationStructureMotionInstanceFlagsNV(Flags);
     vk_bitflags_wrapped!(AccelerationStructureMotionInstanceFlagsNV, Flags);
+    impl fmt::Debug for AccelerationStructureMotionInstanceFlagsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            debug_flags(f, &[], self.0)
+        }
+    }
 }

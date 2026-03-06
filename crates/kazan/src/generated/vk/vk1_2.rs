@@ -3717,6 +3717,12 @@ pub(super) mod defs {
         // VK_KHR_timeline_semaphore
         pub const ANY_KHR: Self = Self::ANY;
     }
+    impl fmt::Debug for SemaphoreWaitFlags {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[(SemaphoreWaitFlags::ANY.0, "ANY")];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SemaphoreWaitFlagBits(u32);
@@ -3741,6 +3747,26 @@ pub(super) mod defs {
         pub const UPDATE_UNUSED_WHILE_PENDING_EXT: Self = Self::UPDATE_UNUSED_WHILE_PENDING;
         pub const PARTIALLY_BOUND_EXT: Self = Self::PARTIALLY_BOUND;
         pub const VARIABLE_DESCRIPTOR_COUNT_EXT: Self = Self::VARIABLE_DESCRIPTOR_COUNT;
+    }
+    impl fmt::Debug for DescriptorBindingFlags {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    DescriptorBindingFlags::UPDATE_AFTER_BIND.0,
+                    "UPDATE_AFTER_BIND",
+                ),
+                (
+                    DescriptorBindingFlags::UPDATE_UNUSED_WHILE_PENDING.0,
+                    "UPDATE_UNUSED_WHILE_PENDING",
+                ),
+                (DescriptorBindingFlags::PARTIALLY_BOUND.0, "PARTIALLY_BOUND"),
+                (
+                    DescriptorBindingFlags::VARIABLE_DESCRIPTOR_COUNT.0,
+                    "VARIABLE_DESCRIPTOR_COUNT",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -3777,6 +3803,22 @@ pub(super) mod defs {
         pub const AVERAGE_KHR: Self = Self::AVERAGE;
         pub const MIN_KHR: Self = Self::MIN;
         pub const MAX_KHR: Self = Self::MAX;
+    }
+    impl fmt::Debug for ResolveModeFlags {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (ResolveModeFlags::SAMPLE_ZERO.0, "SAMPLE_ZERO"),
+                (ResolveModeFlags::AVERAGE.0, "AVERAGE"),
+                (ResolveModeFlags::MIN.0, "MIN"),
+                (ResolveModeFlags::MAX.0, "MAX"),
+                (
+                    ResolveModeFlags::EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID.0,
+                    "EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID",
+                ),
+                (ResolveModeFlags::CUSTOM_EXT.0, "CUSTOM_EXT"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]

@@ -185,6 +185,23 @@ pub(super) mod defs {
             Self(CompositeAlphaFlagBitsKHR::POST_MULTIPLIED_KHR.0);
         pub const INHERIT_KHR: Self = Self(CompositeAlphaFlagBitsKHR::INHERIT_KHR.0);
     }
+    impl fmt::Debug for CompositeAlphaFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (CompositeAlphaFlagsKHR::OPAQUE_KHR.0, "OPAQUE_KHR"),
+                (
+                    CompositeAlphaFlagsKHR::PRE_MULTIPLIED_KHR.0,
+                    "PRE_MULTIPLIED_KHR",
+                ),
+                (
+                    CompositeAlphaFlagsKHR::POST_MULTIPLIED_KHR.0,
+                    "POST_MULTIPLIED_KHR",
+                ),
+                (CompositeAlphaFlagsKHR::INHERIT_KHR.0, "INHERIT_KHR"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct CompositeAlphaFlagBitsKHR(u32);

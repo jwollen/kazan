@@ -118,6 +118,13 @@ pub(super) mod defs {
     impl FrameBoundaryFlagsEXT {
         pub const FRAME_END_EXT: Self = Self(FrameBoundaryFlagBitsEXT::FRAME_END_EXT.0);
     }
+    impl fmt::Debug for FrameBoundaryFlagsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] =
+                &[(FrameBoundaryFlagsEXT::FRAME_END_EXT.0, "FRAME_END_EXT")];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct FrameBoundaryFlagBitsEXT(u32);

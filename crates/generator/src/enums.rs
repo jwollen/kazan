@@ -262,7 +262,18 @@ pub fn write_bitmask(
     )
     .unwrap();
 
-    let Some(bitmask) = bitmask else { return };
+    let Some(bitmask) = bitmask else {
+        // No bits defined — Debug just prints the raw value
+        writeln!(
+            file,
+            "impl fmt::Debug for {name} {{
+            fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {{
+                debug_flags(f, &[], self.0)
+            }} }}"
+        )
+        .unwrap();
+        return;
+    };
 
     let bitmask_name = normalize_ty_name(bitmask.name);
     let vp = {
@@ -384,6 +395,44 @@ pub fn write_bitmask(
         }
 
         writeln!(file, "}}").unwrap();
+    }
+
+    // Debug impl for Flags type
+    {
+        // Collect only single-bit constants (not composites, not zero)
+        let mut debug_bits: Vec<(String, u8)> = Vec::new();
+        let mut visited_bits = HashSet::new();
+
+        for (bit_name, bitpos) in &base_bits {
+            if visited_bits.insert(*bitpos) {
+                debug_bits.push((bit_name.clone(), *bitpos));
+            }
+        }
+        for md in &module_data {
+            for (bit_name, bitpos) in &md.bits {
+                if visited_bits.insert(*bitpos) {
+                    debug_bits.push((bit_name.clone(), *bitpos));
+                }
+            }
+        }
+
+        writeln!(
+            file,
+            "impl fmt::Debug for {name} {{
+            fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {{
+                const KNOWN: &[({base_type}, &str)] = &["
+        )
+        .unwrap();
+        for (bit_name, _) in &debug_bits {
+            writeln!(file, "({name}::{bit_name}.0, \"{bit_name}\"),").unwrap();
+        }
+        writeln!(
+            file,
+            "];
+            debug_flags(f, KNOWN, self.0)
+            }} }}"
+        )
+        .unwrap();
     }
 
     // === FlagBits ===

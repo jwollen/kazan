@@ -131,6 +131,13 @@ pub(super) mod defs {
     impl ConditionalRenderingFlagsEXT {
         pub const INVERTED_EXT: Self = Self(ConditionalRenderingFlagBitsEXT::INVERTED_EXT.0);
     }
+    impl fmt::Debug for ConditionalRenderingFlagsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] =
+                &[(ConditionalRenderingFlagsEXT::INVERTED_EXT.0, "INVERTED_EXT")];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ConditionalRenderingFlagBitsEXT(u32);

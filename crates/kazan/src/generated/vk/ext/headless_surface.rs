@@ -39,6 +39,11 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct HeadlessSurfaceCreateFlagsEXT(Flags);
     vk_bitflags_wrapped!(HeadlessSurfaceCreateFlagsEXT, Flags);
+    impl fmt::Debug for HeadlessSurfaceCreateFlagsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            debug_flags(f, &[], self.0)
+        }
+    }
     pub type PFN_vkCreateHeadlessSurfaceEXT = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const HeadlessSurfaceCreateInfoEXT<'_>,

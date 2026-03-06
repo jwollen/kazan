@@ -411,6 +411,38 @@ pub(super) mod defs {
         // VK_KHR_swapchain_mutable_format
         pub const MUTABLE_FORMAT_KHR: Self = Self(SwapchainCreateFlagBitsKHR::MUTABLE_FORMAT_KHR.0);
     }
+    impl fmt::Debug for SwapchainCreateFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    SwapchainCreateFlagsKHR::PRESENT_TIMING_EXT.0,
+                    "PRESENT_TIMING_EXT",
+                ),
+                (
+                    SwapchainCreateFlagsKHR::SPLIT_INSTANCE_BIND_REGIONS_KHR.0,
+                    "SPLIT_INSTANCE_BIND_REGIONS_KHR",
+                ),
+                (
+                    SwapchainCreateFlagsKHR::PRESENT_ID_2_KHR.0,
+                    "PRESENT_ID_2_KHR",
+                ),
+                (
+                    SwapchainCreateFlagsKHR::PRESENT_WAIT_2_KHR.0,
+                    "PRESENT_WAIT_2_KHR",
+                ),
+                (SwapchainCreateFlagsKHR::PROTECTED_KHR.0, "PROTECTED_KHR"),
+                (
+                    SwapchainCreateFlagsKHR::DEFERRED_MEMORY_ALLOCATION_KHR.0,
+                    "DEFERRED_MEMORY_ALLOCATION_KHR",
+                ),
+                (
+                    SwapchainCreateFlagsKHR::MUTABLE_FORMAT_KHR.0,
+                    "MUTABLE_FORMAT_KHR",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SwapchainCreateFlagBitsKHR(u32);
@@ -442,6 +474,20 @@ pub(super) mod defs {
         pub const SUM_KHR: Self = Self(DeviceGroupPresentModeFlagBitsKHR::SUM_KHR.0);
         pub const LOCAL_MULTI_DEVICE_KHR: Self =
             Self(DeviceGroupPresentModeFlagBitsKHR::LOCAL_MULTI_DEVICE_KHR.0);
+    }
+    impl fmt::Debug for DeviceGroupPresentModeFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (DeviceGroupPresentModeFlagsKHR::LOCAL_KHR.0, "LOCAL_KHR"),
+                (DeviceGroupPresentModeFlagsKHR::REMOTE_KHR.0, "REMOTE_KHR"),
+                (DeviceGroupPresentModeFlagsKHR::SUM_KHR.0, "SUM_KHR"),
+                (
+                    DeviceGroupPresentModeFlagsKHR::LOCAL_MULTI_DEVICE_KHR.0,
+                    "LOCAL_MULTI_DEVICE_KHR",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]

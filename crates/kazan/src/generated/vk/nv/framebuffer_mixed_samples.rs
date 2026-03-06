@@ -98,4 +98,9 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineCoverageModulationStateCreateFlagsNV(Flags);
     vk_bitflags_wrapped!(PipelineCoverageModulationStateCreateFlagsNV, Flags);
+    impl fmt::Debug for PipelineCoverageModulationStateCreateFlagsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            debug_flags(f, &[], self.0)
+        }
+    }
 }

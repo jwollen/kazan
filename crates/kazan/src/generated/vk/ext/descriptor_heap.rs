@@ -1268,6 +1268,47 @@ pub(super) mod defs {
             Self(SpirvResourceTypeFlagBitsEXT::ACCELERATION_STRUCTURE_EXT.0);
         pub const TENSOR_ARM: Self = Self(SpirvResourceTypeFlagBitsEXT::TENSOR_ARM.0);
     }
+    impl fmt::Debug for SpirvResourceTypeFlagsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (SpirvResourceTypeFlagsEXT::SAMPLER_EXT.0, "SAMPLER_EXT"),
+                (
+                    SpirvResourceTypeFlagsEXT::SAMPLED_IMAGE_EXT.0,
+                    "SAMPLED_IMAGE_EXT",
+                ),
+                (
+                    SpirvResourceTypeFlagsEXT::READ_ONLY_IMAGE_EXT.0,
+                    "READ_ONLY_IMAGE_EXT",
+                ),
+                (
+                    SpirvResourceTypeFlagsEXT::READ_WRITE_IMAGE_EXT.0,
+                    "READ_WRITE_IMAGE_EXT",
+                ),
+                (
+                    SpirvResourceTypeFlagsEXT::COMBINED_SAMPLED_IMAGE_EXT.0,
+                    "COMBINED_SAMPLED_IMAGE_EXT",
+                ),
+                (
+                    SpirvResourceTypeFlagsEXT::UNIFORM_BUFFER_EXT.0,
+                    "UNIFORM_BUFFER_EXT",
+                ),
+                (
+                    SpirvResourceTypeFlagsEXT::READ_ONLY_STORAGE_BUFFER_EXT.0,
+                    "READ_ONLY_STORAGE_BUFFER_EXT",
+                ),
+                (
+                    SpirvResourceTypeFlagsEXT::READ_WRITE_STORAGE_BUFFER_EXT.0,
+                    "READ_WRITE_STORAGE_BUFFER_EXT",
+                ),
+                (
+                    SpirvResourceTypeFlagsEXT::ACCELERATION_STRUCTURE_EXT.0,
+                    "ACCELERATION_STRUCTURE_EXT",
+                ),
+                (SpirvResourceTypeFlagsEXT::TENSOR_ARM.0, "TENSOR_ARM"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SpirvResourceTypeFlagBitsEXT(u32);

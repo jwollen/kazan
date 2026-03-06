@@ -111,6 +111,12 @@ pub(super) mod defs {
     impl SurfaceCounterFlagsEXT {
         pub const VBLANK_EXT: Self = Self(SurfaceCounterFlagBitsEXT::VBLANK_EXT.0);
     }
+    impl fmt::Debug for SurfaceCounterFlagsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[(SurfaceCounterFlagsEXT::VBLANK_EXT.0, "VBLANK_EXT")];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SurfaceCounterFlagBitsEXT(u32);

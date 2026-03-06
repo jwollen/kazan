@@ -2611,6 +2611,24 @@ pub(super) mod defs {
         pub const ROTATE: Self = Self(SubgroupFeatureFlagBits::ROTATE.0);
         pub const ROTATE_CLUSTERED: Self = Self(SubgroupFeatureFlagBits::ROTATE_CLUSTERED.0);
     }
+    impl fmt::Debug for SubgroupFeatureFlags {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (SubgroupFeatureFlags::BASIC.0, "BASIC"),
+                (SubgroupFeatureFlags::VOTE.0, "VOTE"),
+                (SubgroupFeatureFlags::ARITHMETIC.0, "ARITHMETIC"),
+                (SubgroupFeatureFlags::BALLOT.0, "BALLOT"),
+                (SubgroupFeatureFlags::SHUFFLE.0, "SHUFFLE"),
+                (SubgroupFeatureFlags::SHUFFLE_RELATIVE.0, "SHUFFLE_RELATIVE"),
+                (SubgroupFeatureFlags::CLUSTERED.0, "CLUSTERED"),
+                (SubgroupFeatureFlags::QUAD.0, "QUAD"),
+                (SubgroupFeatureFlags::PARTITIONED_EXT.0, "PARTITIONED_EXT"),
+                (SubgroupFeatureFlags::ROTATE.0, "ROTATE"),
+                (SubgroupFeatureFlags::ROTATE_CLUSTERED.0, "ROTATE_CLUSTERED"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SubgroupFeatureFlagBits(u32);
@@ -2638,6 +2656,11 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DescriptorUpdateTemplateCreateFlags(Flags);
     vk_bitflags_wrapped!(DescriptorUpdateTemplateCreateFlags, Flags);
+    impl fmt::Debug for DescriptorUpdateTemplateCreateFlags {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            debug_flags(f, &[], self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PeerMemoryFeatureFlags(Flags);
@@ -2652,6 +2675,17 @@ pub(super) mod defs {
         pub const COPY_DST_KHR: Self = Self::COPY_DST;
         pub const GENERIC_SRC_KHR: Self = Self::GENERIC_SRC;
         pub const GENERIC_DST_KHR: Self = Self::GENERIC_DST;
+    }
+    impl fmt::Debug for PeerMemoryFeatureFlags {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (PeerMemoryFeatureFlags::COPY_SRC.0, "COPY_SRC"),
+                (PeerMemoryFeatureFlags::COPY_DST.0, "COPY_DST"),
+                (PeerMemoryFeatureFlags::GENERIC_SRC.0, "GENERIC_SRC"),
+                (PeerMemoryFeatureFlags::GENERIC_DST.0, "GENERIC_DST"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -2685,6 +2719,23 @@ pub(super) mod defs {
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY: Self =
             Self(MemoryAllocateFlagBits::DEVICE_ADDRESS_CAPTURE_REPLAY.0);
     }
+    impl fmt::Debug for MemoryAllocateFlags {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (MemoryAllocateFlags::DEVICE_MASK.0, "DEVICE_MASK"),
+                (
+                    MemoryAllocateFlags::ZERO_INITIALIZE_EXT.0,
+                    "ZERO_INITIALIZE_EXT",
+                ),
+                (MemoryAllocateFlags::DEVICE_ADDRESS.0, "DEVICE_ADDRESS"),
+                (
+                    MemoryAllocateFlags::DEVICE_ADDRESS_CAPTURE_REPLAY.0,
+                    "DEVICE_ADDRESS_CAPTURE_REPLAY",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MemoryAllocateFlagBits(u32);
@@ -2705,6 +2756,11 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct CommandPoolTrimFlags(Flags);
     vk_bitflags_wrapped!(CommandPoolTrimFlags, Flags);
+    impl fmt::Debug for CommandPoolTrimFlags {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            debug_flags(f, &[], self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ExternalMemoryHandleTypeFlags(Flags);
@@ -2752,6 +2808,73 @@ pub(super) mod defs {
         // VK_QNX_external_memory_screen_buffer
         pub const SCREEN_BUFFER_QNX: Self =
             Self(ExternalMemoryHandleTypeFlagBits::SCREEN_BUFFER_QNX.0);
+    }
+    impl fmt::Debug for ExternalMemoryHandleTypeFlags {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (ExternalMemoryHandleTypeFlags::OPAQUE_FD.0, "OPAQUE_FD"),
+                (
+                    ExternalMemoryHandleTypeFlags::OPAQUE_WIN32.0,
+                    "OPAQUE_WIN32",
+                ),
+                (
+                    ExternalMemoryHandleTypeFlags::OPAQUE_WIN32_KMT.0,
+                    "OPAQUE_WIN32_KMT",
+                ),
+                (
+                    ExternalMemoryHandleTypeFlags::D3D11_TEXTURE.0,
+                    "D3D11_TEXTURE",
+                ),
+                (
+                    ExternalMemoryHandleTypeFlags::D3D11_TEXTURE_KMT.0,
+                    "D3D11_TEXTURE_KMT",
+                ),
+                (ExternalMemoryHandleTypeFlags::D3D12_HEAP.0, "D3D12_HEAP"),
+                (
+                    ExternalMemoryHandleTypeFlags::D3D12_RESOURCE.0,
+                    "D3D12_RESOURCE",
+                ),
+                (
+                    ExternalMemoryHandleTypeFlags::ANDROID_HARDWARE_BUFFER_ANDROID.0,
+                    "ANDROID_HARDWARE_BUFFER_ANDROID",
+                ),
+                (ExternalMemoryHandleTypeFlags::DMA_BUF_EXT.0, "DMA_BUF_EXT"),
+                (
+                    ExternalMemoryHandleTypeFlags::HOST_ALLOCATION_EXT.0,
+                    "HOST_ALLOCATION_EXT",
+                ),
+                (
+                    ExternalMemoryHandleTypeFlags::HOST_MAPPED_FOREIGN_MEMORY_EXT.0,
+                    "HOST_MAPPED_FOREIGN_MEMORY_EXT",
+                ),
+                (
+                    ExternalMemoryHandleTypeFlags::MTLBUFFER_EXT.0,
+                    "MTLBUFFER_EXT",
+                ),
+                (
+                    ExternalMemoryHandleTypeFlags::MTLTEXTURE_EXT.0,
+                    "MTLTEXTURE_EXT",
+                ),
+                (ExternalMemoryHandleTypeFlags::MTLHEAP_EXT.0, "MTLHEAP_EXT"),
+                (
+                    ExternalMemoryHandleTypeFlags::ZIRCON_VMO_FUCHSIA.0,
+                    "ZIRCON_VMO_FUCHSIA",
+                ),
+                (
+                    ExternalMemoryHandleTypeFlags::RDMA_ADDRESS_NV.0,
+                    "RDMA_ADDRESS_NV",
+                ),
+                (
+                    ExternalMemoryHandleTypeFlags::OH_NATIVE_BUFFER_OHOS.0,
+                    "OH_NATIVE_BUFFER_OHOS",
+                ),
+                (
+                    ExternalMemoryHandleTypeFlags::SCREEN_BUFFER_QNX.0,
+                    "SCREEN_BUFFER_QNX",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -2805,6 +2928,19 @@ pub(super) mod defs {
         pub const EXPORTABLE_KHR: Self = Self::EXPORTABLE;
         pub const IMPORTABLE_KHR: Self = Self::IMPORTABLE;
     }
+    impl fmt::Debug for ExternalMemoryFeatureFlags {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    ExternalMemoryFeatureFlags::DEDICATED_ONLY.0,
+                    "DEDICATED_ONLY",
+                ),
+                (ExternalMemoryFeatureFlags::EXPORTABLE.0, "EXPORTABLE"),
+                (ExternalMemoryFeatureFlags::IMPORTABLE.0, "IMPORTABLE"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExternalMemoryFeatureFlagBits(u32);
@@ -2839,6 +2975,31 @@ pub(super) mod defs {
         pub const D3D12_FENCE_KHR: Self = Self::D3D12_FENCE;
         pub const SYNC_FD_KHR: Self = Self::SYNC_FD;
     }
+    impl fmt::Debug for ExternalSemaphoreHandleTypeFlags {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (ExternalSemaphoreHandleTypeFlags::OPAQUE_FD.0, "OPAQUE_FD"),
+                (
+                    ExternalSemaphoreHandleTypeFlags::OPAQUE_WIN32.0,
+                    "OPAQUE_WIN32",
+                ),
+                (
+                    ExternalSemaphoreHandleTypeFlags::OPAQUE_WIN32_KMT.0,
+                    "OPAQUE_WIN32_KMT",
+                ),
+                (
+                    ExternalSemaphoreHandleTypeFlags::D3D12_FENCE.0,
+                    "D3D12_FENCE",
+                ),
+                (ExternalSemaphoreHandleTypeFlags::SYNC_FD.0, "SYNC_FD"),
+                (
+                    ExternalSemaphoreHandleTypeFlags::ZIRCON_EVENT_FUCHSIA.0,
+                    "ZIRCON_EVENT_FUCHSIA",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExternalSemaphoreHandleTypeFlagBits(u32);
@@ -2868,6 +3029,15 @@ pub(super) mod defs {
         pub const EXPORTABLE_KHR: Self = Self::EXPORTABLE;
         pub const IMPORTABLE_KHR: Self = Self::IMPORTABLE;
     }
+    impl fmt::Debug for ExternalSemaphoreFeatureFlags {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (ExternalSemaphoreFeatureFlags::EXPORTABLE.0, "EXPORTABLE"),
+                (ExternalSemaphoreFeatureFlags::IMPORTABLE.0, "IMPORTABLE"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExternalSemaphoreFeatureFlagBits(u32);
@@ -2886,6 +3056,12 @@ pub(super) mod defs {
         pub const TEMPORARY: Self = Self(SemaphoreImportFlagBits::TEMPORARY.0);
         // VK_KHR_external_semaphore
         pub const TEMPORARY_KHR: Self = Self::TEMPORARY;
+    }
+    impl fmt::Debug for SemaphoreImportFlags {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[(SemaphoreImportFlags::TEMPORARY.0, "TEMPORARY")];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -2910,6 +3086,20 @@ pub(super) mod defs {
         pub const OPAQUE_WIN32_KHR: Self = Self::OPAQUE_WIN32;
         pub const OPAQUE_WIN32_KMT_KHR: Self = Self::OPAQUE_WIN32_KMT;
         pub const SYNC_FD_KHR: Self = Self::SYNC_FD;
+    }
+    impl fmt::Debug for ExternalFenceHandleTypeFlags {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (ExternalFenceHandleTypeFlags::OPAQUE_FD.0, "OPAQUE_FD"),
+                (ExternalFenceHandleTypeFlags::OPAQUE_WIN32.0, "OPAQUE_WIN32"),
+                (
+                    ExternalFenceHandleTypeFlags::OPAQUE_WIN32_KMT.0,
+                    "OPAQUE_WIN32_KMT",
+                ),
+                (ExternalFenceHandleTypeFlags::SYNC_FD.0, "SYNC_FD"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -2936,6 +3126,15 @@ pub(super) mod defs {
         pub const EXPORTABLE_KHR: Self = Self::EXPORTABLE;
         pub const IMPORTABLE_KHR: Self = Self::IMPORTABLE;
     }
+    impl fmt::Debug for ExternalFenceFeatureFlags {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (ExternalFenceFeatureFlags::EXPORTABLE.0, "EXPORTABLE"),
+                (ExternalFenceFeatureFlags::IMPORTABLE.0, "IMPORTABLE"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExternalFenceFeatureFlagBits(u32);
@@ -2954,6 +3153,12 @@ pub(super) mod defs {
         pub const TEMPORARY: Self = Self(FenceImportFlagBits::TEMPORARY.0);
         // VK_KHR_external_fence
         pub const TEMPORARY_KHR: Self = Self::TEMPORARY;
+    }
+    impl fmt::Debug for FenceImportFlags {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[(FenceImportFlags::TEMPORARY.0, "TEMPORARY")];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]

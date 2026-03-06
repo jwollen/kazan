@@ -142,6 +142,19 @@ pub(super) mod defs {
         pub const ASPECT_RATIO_STRETCH_EXT: Self = Self::ASPECT_RATIO_STRETCH_KHR;
         pub const STRETCH_EXT: Self = Self::STRETCH_KHR;
     }
+    impl fmt::Debug for PresentScalingFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (PresentScalingFlagsKHR::ONE_TO_ONE_KHR.0, "ONE_TO_ONE_KHR"),
+                (
+                    PresentScalingFlagsKHR::ASPECT_RATIO_STRETCH_KHR.0,
+                    "ASPECT_RATIO_STRETCH_KHR",
+                ),
+                (PresentScalingFlagsKHR::STRETCH_KHR.0, "STRETCH_KHR"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PresentScalingFlagBitsKHR(u32);
@@ -161,6 +174,16 @@ pub(super) mod defs {
         pub const MIN_EXT: Self = Self::MIN_KHR;
         pub const MAX_EXT: Self = Self::MAX_KHR;
         pub const CENTERED_EXT: Self = Self::CENTERED_KHR;
+    }
+    impl fmt::Debug for PresentGravityFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (PresentGravityFlagsKHR::MIN_KHR.0, "MIN_KHR"),
+                (PresentGravityFlagsKHR::MAX_KHR.0, "MAX_KHR"),
+                (PresentGravityFlagsKHR::CENTERED_KHR.0, "CENTERED_KHR"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]

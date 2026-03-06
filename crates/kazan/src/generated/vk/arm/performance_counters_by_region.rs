@@ -229,6 +229,11 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PerformanceCounterDescriptionFlagsARM(Flags);
     vk_bitflags_wrapped!(PerformanceCounterDescriptionFlagsARM, Flags);
+    impl fmt::Debug for PerformanceCounterDescriptionFlagsARM {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            debug_flags(f, &[], self.0)
+        }
+    }
     pub type PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM =
         unsafe extern "system" fn(
             physical_device: PhysicalDevice,

@@ -482,6 +482,11 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageFormatConstraintsFlagsFUCHSIA(Flags);
     vk_bitflags_wrapped!(ImageFormatConstraintsFlagsFUCHSIA, Flags);
+    impl fmt::Debug for ImageFormatConstraintsFlagsFUCHSIA {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            debug_flags(f, &[], self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageConstraintsInfoFlagsFUCHSIA(Flags);
@@ -497,6 +502,33 @@ pub(super) mod defs {
             Self(ImageConstraintsInfoFlagBitsFUCHSIA::CPU_WRITE_OFTEN_FUCHSIA.0);
         pub const PROTECTED_OPTIONAL_FUCHSIA: Self =
             Self(ImageConstraintsInfoFlagBitsFUCHSIA::PROTECTED_OPTIONAL_FUCHSIA.0);
+    }
+    impl fmt::Debug for ImageConstraintsInfoFlagsFUCHSIA {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    ImageConstraintsInfoFlagsFUCHSIA::CPU_READ_RARELY_FUCHSIA.0,
+                    "CPU_READ_RARELY_FUCHSIA",
+                ),
+                (
+                    ImageConstraintsInfoFlagsFUCHSIA::CPU_READ_OFTEN_FUCHSIA.0,
+                    "CPU_READ_OFTEN_FUCHSIA",
+                ),
+                (
+                    ImageConstraintsInfoFlagsFUCHSIA::CPU_WRITE_RARELY_FUCHSIA.0,
+                    "CPU_WRITE_RARELY_FUCHSIA",
+                ),
+                (
+                    ImageConstraintsInfoFlagsFUCHSIA::CPU_WRITE_OFTEN_FUCHSIA.0,
+                    "CPU_WRITE_OFTEN_FUCHSIA",
+                ),
+                (
+                    ImageConstraintsInfoFlagsFUCHSIA::PROTECTED_OPTIONAL_FUCHSIA.0,
+                    "PROTECTED_OPTIONAL_FUCHSIA",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]

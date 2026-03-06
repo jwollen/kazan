@@ -56,4 +56,9 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineCoverageToColorStateCreateFlagsNV(Flags);
     vk_bitflags_wrapped!(PipelineCoverageToColorStateCreateFlagsNV, Flags);
+    impl fmt::Debug for PipelineCoverageToColorStateCreateFlagsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            debug_flags(f, &[], self.0)
+        }
+    }
 }

@@ -202,6 +202,11 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineRasterizationStateStreamCreateFlagsEXT(Flags);
     vk_bitflags_wrapped!(PipelineRasterizationStateStreamCreateFlagsEXT, Flags);
+    impl fmt::Debug for PipelineRasterizationStateStreamCreateFlagsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            debug_flags(f, &[], self.0)
+        }
+    }
     pub type PFN_vkCmdBindTransformFeedbackBuffersEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         first_binding: u32,

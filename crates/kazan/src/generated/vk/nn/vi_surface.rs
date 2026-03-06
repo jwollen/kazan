@@ -45,6 +45,11 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ViSurfaceCreateFlagsNN(Flags);
     vk_bitflags_wrapped!(ViSurfaceCreateFlagsNN, Flags);
+    impl fmt::Debug for ViSurfaceCreateFlagsNN {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            debug_flags(f, &[], self.0)
+        }
+    }
     pub type PFN_vkCreateViSurfaceNN = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const ViSurfaceCreateInfoNN<'_>,

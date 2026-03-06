@@ -1089,6 +1089,18 @@ pub(super) mod defs {
         pub const NO_DUPLICATE_ANY_HIT_INVOCATION_NV: Self =
             Self::NO_DUPLICATE_ANY_HIT_INVOCATION_KHR;
     }
+    impl fmt::Debug for GeometryFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (GeometryFlagsKHR::OPAQUE_KHR.0, "OPAQUE_KHR"),
+                (
+                    GeometryFlagsKHR::NO_DUPLICATE_ANY_HIT_INVOCATION_KHR.0,
+                    "NO_DUPLICATE_ANY_HIT_INVOCATION_KHR",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct GeometryFlagBitsKHR(u32);
@@ -1124,6 +1136,37 @@ pub(super) mod defs {
             Self::TRIANGLE_FRONT_COUNTERCLOCKWISE_KHR;
         pub const FORCE_OPAQUE_NV: Self = Self::FORCE_OPAQUE_KHR;
         pub const FORCE_NO_OPAQUE_NV: Self = Self::FORCE_NO_OPAQUE_KHR;
+    }
+    impl fmt::Debug for GeometryInstanceFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    GeometryInstanceFlagsKHR::TRIANGLE_FACING_CULL_DISABLE_KHR.0,
+                    "TRIANGLE_FACING_CULL_DISABLE_KHR",
+                ),
+                (
+                    GeometryInstanceFlagsKHR::TRIANGLE_FLIP_FACING_KHR.0,
+                    "TRIANGLE_FLIP_FACING_KHR",
+                ),
+                (
+                    GeometryInstanceFlagsKHR::FORCE_OPAQUE_KHR.0,
+                    "FORCE_OPAQUE_KHR",
+                ),
+                (
+                    GeometryInstanceFlagsKHR::FORCE_NO_OPAQUE_KHR.0,
+                    "FORCE_NO_OPAQUE_KHR",
+                ),
+                (
+                    GeometryInstanceFlagsKHR::FORCE_OPACITY_MICROMAP_2_STATE_EXT.0,
+                    "FORCE_OPACITY_MICROMAP_2_STATE_EXT",
+                ),
+                (
+                    GeometryInstanceFlagsKHR::DISABLE_OPACITY_MICROMAPS_EXT.0,
+                    "DISABLE_OPACITY_MICROMAPS_EXT",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -1181,6 +1224,58 @@ pub(super) mod defs {
         // VK_NV_ray_tracing_motion_blur
         pub const MOTION_NV: Self = Self(BuildAccelerationStructureFlagBitsKHR::MOTION_NV.0);
     }
+    impl fmt::Debug for BuildAccelerationStructureFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    BuildAccelerationStructureFlagsKHR::ALLOW_UPDATE_KHR.0,
+                    "ALLOW_UPDATE_KHR",
+                ),
+                (
+                    BuildAccelerationStructureFlagsKHR::ALLOW_COMPACTION_KHR.0,
+                    "ALLOW_COMPACTION_KHR",
+                ),
+                (
+                    BuildAccelerationStructureFlagsKHR::PREFER_FAST_TRACE_KHR.0,
+                    "PREFER_FAST_TRACE_KHR",
+                ),
+                (
+                    BuildAccelerationStructureFlagsKHR::PREFER_FAST_BUILD_KHR.0,
+                    "PREFER_FAST_BUILD_KHR",
+                ),
+                (
+                    BuildAccelerationStructureFlagsKHR::LOW_MEMORY_KHR.0,
+                    "LOW_MEMORY_KHR",
+                ),
+                (
+                    BuildAccelerationStructureFlagsKHR::ALLOW_OPACITY_MICROMAP_UPDATE_EXT.0,
+                    "ALLOW_OPACITY_MICROMAP_UPDATE_EXT",
+                ),
+                (
+                    BuildAccelerationStructureFlagsKHR::ALLOW_DISABLE_OPACITY_MICROMAPS_EXT.0,
+                    "ALLOW_DISABLE_OPACITY_MICROMAPS_EXT",
+                ),
+                (
+                    BuildAccelerationStructureFlagsKHR::ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT.0,
+                    "ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT",
+                ),
+                (
+                    BuildAccelerationStructureFlagsKHR::ALLOW_DATA_ACCESS_KHR.0,
+                    "ALLOW_DATA_ACCESS_KHR",
+                ),
+                (
+                    BuildAccelerationStructureFlagsKHR::ALLOW_CLUSTER_OPACITY_MICROMAPS_NV.0,
+                    "ALLOW_CLUSTER_OPACITY_MICROMAPS_NV",
+                ),
+                (
+                    BuildAccelerationStructureFlagsKHR::ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV.0,
+                    "ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV",
+                ),
+                (BuildAccelerationStructureFlagsKHR::MOTION_NV.0, "MOTION_NV"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct BuildAccelerationStructureFlagBitsKHR(u32);
@@ -1221,6 +1316,25 @@ pub(super) mod defs {
             Self(AccelerationStructureCreateFlagBitsKHR::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT.0);
         // VK_NV_ray_tracing_motion_blur
         pub const MOTION_NV: Self = Self(AccelerationStructureCreateFlagBitsKHR::MOTION_NV.0);
+    }
+    impl fmt::Debug for AccelerationStructureCreateFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    AccelerationStructureCreateFlagsKHR::DEVICE_ADDRESS_CAPTURE_REPLAY_KHR.0,
+                    "DEVICE_ADDRESS_CAPTURE_REPLAY_KHR",
+                ),
+                (
+                    AccelerationStructureCreateFlagsKHR::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT.0,
+                    "DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT",
+                ),
+                (
+                    AccelerationStructureCreateFlagsKHR::MOTION_NV.0,
+                    "MOTION_NV",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]

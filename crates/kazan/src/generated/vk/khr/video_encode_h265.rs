@@ -859,6 +859,61 @@ pub(super) mod defs {
         pub const CU_QP_DIFF_WRAPAROUND_KHR: Self =
             Self(VideoEncodeH265CapabilityFlagBitsKHR::CU_QP_DIFF_WRAPAROUND_KHR.0);
     }
+    impl fmt::Debug for VideoEncodeH265CapabilityFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    VideoEncodeH265CapabilityFlagsKHR::HRD_COMPLIANCE_KHR.0,
+                    "HRD_COMPLIANCE_KHR",
+                ),
+                (
+                    VideoEncodeH265CapabilityFlagsKHR::PREDICTION_WEIGHT_TABLE_GENERATED_KHR.0,
+                    "PREDICTION_WEIGHT_TABLE_GENERATED_KHR",
+                ),
+                (
+                    VideoEncodeH265CapabilityFlagsKHR::ROW_UNALIGNED_SLICE_SEGMENT_KHR.0,
+                    "ROW_UNALIGNED_SLICE_SEGMENT_KHR",
+                ),
+                (
+                    VideoEncodeH265CapabilityFlagsKHR::DIFFERENT_SLICE_SEGMENT_TYPE_KHR.0,
+                    "DIFFERENT_SLICE_SEGMENT_TYPE_KHR",
+                ),
+                (
+                    VideoEncodeH265CapabilityFlagsKHR::B_FRAME_IN_L0_LIST_KHR.0,
+                    "B_FRAME_IN_L0_LIST_KHR",
+                ),
+                (
+                    VideoEncodeH265CapabilityFlagsKHR::B_FRAME_IN_L1_LIST_KHR.0,
+                    "B_FRAME_IN_L1_LIST_KHR",
+                ),
+                (
+                    VideoEncodeH265CapabilityFlagsKHR::PER_PICTURE_TYPE_MIN_MAX_QP_KHR.0,
+                    "PER_PICTURE_TYPE_MIN_MAX_QP_KHR",
+                ),
+                (
+                    VideoEncodeH265CapabilityFlagsKHR::PER_SLICE_SEGMENT_CONSTANT_QP_KHR.0,
+                    "PER_SLICE_SEGMENT_CONSTANT_QP_KHR",
+                ),
+                (
+                    VideoEncodeH265CapabilityFlagsKHR::MULTIPLE_TILES_PER_SLICE_SEGMENT_KHR.0,
+                    "MULTIPLE_TILES_PER_SLICE_SEGMENT_KHR",
+                ),
+                (
+                    VideoEncodeH265CapabilityFlagsKHR::MULTIPLE_SLICE_SEGMENTS_PER_TILE_KHR.0,
+                    "MULTIPLE_SLICE_SEGMENTS_PER_TILE_KHR",
+                ),
+                (
+                    VideoEncodeH265CapabilityFlagsKHR::B_PICTURE_INTRA_REFRESH_KHR.0,
+                    "B_PICTURE_INTRA_REFRESH_KHR",
+                ),
+                (
+                    VideoEncodeH265CapabilityFlagsKHR::CU_QP_DIFF_WRAPAROUND_KHR.0,
+                    "CU_QP_DIFF_WRAPAROUND_KHR",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeH265CapabilityFlagBitsKHR(u32);
@@ -926,6 +981,97 @@ pub(super) mod defs {
         pub const DIFFERENT_SLICE_QP_DELTA_KHR: Self =
             Self(VideoEncodeH265StdFlagBitsKHR::DIFFERENT_SLICE_QP_DELTA_KHR.0);
     }
+    impl fmt::Debug for VideoEncodeH265StdFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    VideoEncodeH265StdFlagsKHR::SEPARATE_COLOR_PLANE_FLAG_SET_KHR.0,
+                    "SEPARATE_COLOR_PLANE_FLAG_SET_KHR",
+                ),
+                (
+                    VideoEncodeH265StdFlagsKHR::SAMPLE_ADAPTIVE_OFFSET_ENABLED_FLAG_SET_KHR.0,
+                    "SAMPLE_ADAPTIVE_OFFSET_ENABLED_FLAG_SET_KHR",
+                ),
+                (
+                    VideoEncodeH265StdFlagsKHR::SCALING_LIST_DATA_PRESENT_FLAG_SET_KHR.0,
+                    "SCALING_LIST_DATA_PRESENT_FLAG_SET_KHR",
+                ),
+                (
+                    VideoEncodeH265StdFlagsKHR::PCM_ENABLED_FLAG_SET_KHR.0,
+                    "PCM_ENABLED_FLAG_SET_KHR",
+                ),
+                (
+                    VideoEncodeH265StdFlagsKHR::SPS_TEMPORAL_MVP_ENABLED_FLAG_SET_KHR.0,
+                    "SPS_TEMPORAL_MVP_ENABLED_FLAG_SET_KHR",
+                ),
+                (
+                    VideoEncodeH265StdFlagsKHR::INIT_QP_MINUS26_KHR.0,
+                    "INIT_QP_MINUS26_KHR",
+                ),
+                (
+                    VideoEncodeH265StdFlagsKHR::WEIGHTED_PRED_FLAG_SET_KHR.0,
+                    "WEIGHTED_PRED_FLAG_SET_KHR",
+                ),
+                (
+                    VideoEncodeH265StdFlagsKHR::WEIGHTED_BIPRED_FLAG_SET_KHR.0,
+                    "WEIGHTED_BIPRED_FLAG_SET_KHR",
+                ),
+                (
+                    VideoEncodeH265StdFlagsKHR::LOG2_PARALLEL_MERGE_LEVEL_MINUS2_KHR.0,
+                    "LOG2_PARALLEL_MERGE_LEVEL_MINUS2_KHR",
+                ),
+                (
+                    VideoEncodeH265StdFlagsKHR::SIGN_DATA_HIDING_ENABLED_FLAG_SET_KHR.0,
+                    "SIGN_DATA_HIDING_ENABLED_FLAG_SET_KHR",
+                ),
+                (
+                    VideoEncodeH265StdFlagsKHR::TRANSFORM_SKIP_ENABLED_FLAG_SET_KHR.0,
+                    "TRANSFORM_SKIP_ENABLED_FLAG_SET_KHR",
+                ),
+                (
+                    VideoEncodeH265StdFlagsKHR::TRANSFORM_SKIP_ENABLED_FLAG_UNSET_KHR.0,
+                    "TRANSFORM_SKIP_ENABLED_FLAG_UNSET_KHR",
+                ),
+                (
+                    VideoEncodeH265StdFlagsKHR::PPS_SLICE_CHROMA_QP_OFFSETS_PRESENT_FLAG_SET_KHR.0,
+                    "PPS_SLICE_CHROMA_QP_OFFSETS_PRESENT_FLAG_SET_KHR",
+                ),
+                (
+                    VideoEncodeH265StdFlagsKHR::TRANSQUANT_BYPASS_ENABLED_FLAG_SET_KHR.0,
+                    "TRANSQUANT_BYPASS_ENABLED_FLAG_SET_KHR",
+                ),
+                (
+                    VideoEncodeH265StdFlagsKHR::CONSTRAINED_INTRA_PRED_FLAG_SET_KHR.0,
+                    "CONSTRAINED_INTRA_PRED_FLAG_SET_KHR",
+                ),
+                (
+                    VideoEncodeH265StdFlagsKHR::ENTROPY_CODING_SYNC_ENABLED_FLAG_SET_KHR.0,
+                    "ENTROPY_CODING_SYNC_ENABLED_FLAG_SET_KHR",
+                ),
+                (
+                    VideoEncodeH265StdFlagsKHR::DEBLOCKING_FILTER_OVERRIDE_ENABLED_FLAG_SET_KHR.0,
+                    "DEBLOCKING_FILTER_OVERRIDE_ENABLED_FLAG_SET_KHR",
+                ),
+                (
+                    VideoEncodeH265StdFlagsKHR::DEPENDENT_SLICE_SEGMENTS_ENABLED_FLAG_SET_KHR.0,
+                    "DEPENDENT_SLICE_SEGMENTS_ENABLED_FLAG_SET_KHR",
+                ),
+                (
+                    VideoEncodeH265StdFlagsKHR::DEPENDENT_SLICE_SEGMENT_FLAG_SET_KHR.0,
+                    "DEPENDENT_SLICE_SEGMENT_FLAG_SET_KHR",
+                ),
+                (
+                    VideoEncodeH265StdFlagsKHR::SLICE_QP_DELTA_KHR.0,
+                    "SLICE_QP_DELTA_KHR",
+                ),
+                (
+                    VideoEncodeH265StdFlagsKHR::DIFFERENT_SLICE_QP_DELTA_KHR.0,
+                    "DIFFERENT_SLICE_QP_DELTA_KHR",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeH265StdFlagBitsKHR(u32);
@@ -968,6 +1114,33 @@ pub(super) mod defs {
         pub const TEMPORAL_SUB_LAYER_PATTERN_DYADIC_KHR: Self =
             Self(VideoEncodeH265RateControlFlagBitsKHR::TEMPORAL_SUB_LAYER_PATTERN_DYADIC_KHR.0);
     }
+    impl fmt::Debug for VideoEncodeH265RateControlFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    VideoEncodeH265RateControlFlagsKHR::ATTEMPT_HRD_COMPLIANCE_KHR.0,
+                    "ATTEMPT_HRD_COMPLIANCE_KHR",
+                ),
+                (
+                    VideoEncodeH265RateControlFlagsKHR::REGULAR_GOP_KHR.0,
+                    "REGULAR_GOP_KHR",
+                ),
+                (
+                    VideoEncodeH265RateControlFlagsKHR::REFERENCE_PATTERN_FLAT_KHR.0,
+                    "REFERENCE_PATTERN_FLAT_KHR",
+                ),
+                (
+                    VideoEncodeH265RateControlFlagsKHR::REFERENCE_PATTERN_DYADIC_KHR.0,
+                    "REFERENCE_PATTERN_DYADIC_KHR",
+                ),
+                (
+                    VideoEncodeH265RateControlFlagsKHR::TEMPORAL_SUB_LAYER_PATTERN_DYADIC_KHR.0,
+                    "TEMPORAL_SUB_LAYER_PATTERN_DYADIC_KHR",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeH265RateControlFlagBitsKHR(u32);
@@ -987,6 +1160,16 @@ pub(super) mod defs {
         pub const _32_KHR: Self = Self(VideoEncodeH265CtbSizeFlagBitsKHR::_32_KHR.0);
         pub const _64_KHR: Self = Self(VideoEncodeH265CtbSizeFlagBitsKHR::_64_KHR.0);
     }
+    impl fmt::Debug for VideoEncodeH265CtbSizeFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (VideoEncodeH265CtbSizeFlagsKHR::_16_KHR.0, "_16_KHR"),
+                (VideoEncodeH265CtbSizeFlagsKHR::_32_KHR.0, "_32_KHR"),
+                (VideoEncodeH265CtbSizeFlagsKHR::_64_KHR.0, "_64_KHR"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeH265CtbSizeFlagBitsKHR(u32);
@@ -1004,6 +1187,29 @@ pub(super) mod defs {
         pub const _8_KHR: Self = Self(VideoEncodeH265TransformBlockSizeFlagBitsKHR::_8_KHR.0);
         pub const _16_KHR: Self = Self(VideoEncodeH265TransformBlockSizeFlagBitsKHR::_16_KHR.0);
         pub const _32_KHR: Self = Self(VideoEncodeH265TransformBlockSizeFlagBitsKHR::_32_KHR.0);
+    }
+    impl fmt::Debug for VideoEncodeH265TransformBlockSizeFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    VideoEncodeH265TransformBlockSizeFlagsKHR::_4_KHR.0,
+                    "_4_KHR",
+                ),
+                (
+                    VideoEncodeH265TransformBlockSizeFlagsKHR::_8_KHR.0,
+                    "_8_KHR",
+                ),
+                (
+                    VideoEncodeH265TransformBlockSizeFlagsKHR::_16_KHR.0,
+                    "_16_KHR",
+                ),
+                (
+                    VideoEncodeH265TransformBlockSizeFlagsKHR::_32_KHR.0,
+                    "_32_KHR",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]

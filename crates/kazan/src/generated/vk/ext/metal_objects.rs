@@ -430,6 +430,37 @@ pub(super) mod defs {
         pub const METAL_SHARED_EVENT_EXT: Self =
             Self(ExportMetalObjectTypeFlagBitsEXT::METAL_SHARED_EVENT_EXT.0);
     }
+    impl fmt::Debug for ExportMetalObjectTypeFlagsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    ExportMetalObjectTypeFlagsEXT::METAL_DEVICE_EXT.0,
+                    "METAL_DEVICE_EXT",
+                ),
+                (
+                    ExportMetalObjectTypeFlagsEXT::METAL_COMMAND_QUEUE_EXT.0,
+                    "METAL_COMMAND_QUEUE_EXT",
+                ),
+                (
+                    ExportMetalObjectTypeFlagsEXT::METAL_BUFFER_EXT.0,
+                    "METAL_BUFFER_EXT",
+                ),
+                (
+                    ExportMetalObjectTypeFlagsEXT::METAL_TEXTURE_EXT.0,
+                    "METAL_TEXTURE_EXT",
+                ),
+                (
+                    ExportMetalObjectTypeFlagsEXT::METAL_IOSURFACE_EXT.0,
+                    "METAL_IOSURFACE_EXT",
+                ),
+                (
+                    ExportMetalObjectTypeFlagsEXT::METAL_SHARED_EVENT_EXT.0,
+                    "METAL_SHARED_EVENT_EXT",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExportMetalObjectTypeFlagBitsEXT(u32);

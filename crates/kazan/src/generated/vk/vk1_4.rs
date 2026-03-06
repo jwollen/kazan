@@ -2573,6 +2573,12 @@ pub(super) mod defs {
         // VK_EXT_map_memory_placed
         pub const RESERVE_EXT: Self = Self(MemoryUnmapFlagBits::RESERVE_EXT.0);
     }
+    impl fmt::Debug for MemoryUnmapFlags {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[(MemoryUnmapFlags::RESERVE_EXT.0, "RESERVE_EXT")];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MemoryUnmapFlagBits(u32);
@@ -2679,6 +2685,155 @@ pub(super) mod defs {
         // VK_VALVE_fragment_density_map_layered
         pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self =
             Self(PipelineCreateFlagBits2::PER_LAYER_FRAGMENT_DENSITY_VALVE.0);
+    }
+    impl fmt::Debug for PipelineCreateFlags2 {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags64, &str)] = &[
+                (
+                    PipelineCreateFlags2::DISABLE_OPTIMIZATION.0,
+                    "DISABLE_OPTIMIZATION",
+                ),
+                (
+                    PipelineCreateFlags2::ALLOW_DERIVATIVES.0,
+                    "ALLOW_DERIVATIVES",
+                ),
+                (PipelineCreateFlags2::DERIVATIVE.0, "DERIVATIVE"),
+                (
+                    PipelineCreateFlags2::VIEW_INDEX_FROM_DEVICE_INDEX.0,
+                    "VIEW_INDEX_FROM_DEVICE_INDEX",
+                ),
+                (PipelineCreateFlags2::DISPATCH_BASE.0, "DISPATCH_BASE"),
+                (
+                    PipelineCreateFlags2::FAIL_ON_PIPELINE_COMPILE_REQUIRED.0,
+                    "FAIL_ON_PIPELINE_COMPILE_REQUIRED",
+                ),
+                (
+                    PipelineCreateFlags2::EARLY_RETURN_ON_FAILURE.0,
+                    "EARLY_RETURN_ON_FAILURE",
+                ),
+                (
+                    PipelineCreateFlags2::NO_PROTECTED_ACCESS.0,
+                    "NO_PROTECTED_ACCESS",
+                ),
+                (
+                    PipelineCreateFlags2::PROTECTED_ACCESS_ONLY.0,
+                    "PROTECTED_ACCESS_ONLY",
+                ),
+                (
+                    PipelineCreateFlags2::EXECUTION_GRAPH_AMDX.0,
+                    "EXECUTION_GRAPH_AMDX",
+                ),
+                (
+                    PipelineCreateFlags2::DISALLOW_OPACITY_MICROMAP_ARM.0,
+                    "DISALLOW_OPACITY_MICROMAP_ARM",
+                ),
+                (
+                    PipelineCreateFlags2::DESCRIPTOR_HEAP_EXT.0,
+                    "DESCRIPTOR_HEAP_EXT",
+                ),
+                (
+                    PipelineCreateFlags2::INDIRECT_BINDABLE_EXT.0,
+                    "INDIRECT_BINDABLE_EXT",
+                ),
+                (
+                    PipelineCreateFlags2::ENABLE_LEGACY_DITHERING_EXT.0,
+                    "ENABLE_LEGACY_DITHERING_EXT",
+                ),
+                (PipelineCreateFlags2::_64_INDEXING_EXT.0, "_64_INDEXING_EXT"),
+                (PipelineCreateFlags2::DEFER_COMPILE_NV.0, "DEFER_COMPILE_NV"),
+                (
+                    PipelineCreateFlags2::CAPTURE_STATISTICS_KHR.0,
+                    "CAPTURE_STATISTICS_KHR",
+                ),
+                (
+                    PipelineCreateFlags2::CAPTURE_INTERNAL_REPRESENTATIONS_KHR.0,
+                    "CAPTURE_INTERNAL_REPRESENTATIONS_KHR",
+                ),
+                (
+                    PipelineCreateFlags2::LINK_TIME_OPTIMIZATION_EXT.0,
+                    "LINK_TIME_OPTIMIZATION_EXT",
+                ),
+                (PipelineCreateFlags2::LIBRARY_KHR.0, "LIBRARY_KHR"),
+                (
+                    PipelineCreateFlags2::RAY_TRACING_SKIP_TRIANGLES_KHR.0,
+                    "RAY_TRACING_SKIP_TRIANGLES_KHR",
+                ),
+                (
+                    PipelineCreateFlags2::RAY_TRACING_SKIP_AABBS_KHR.0,
+                    "RAY_TRACING_SKIP_AABBS_KHR",
+                ),
+                (
+                    PipelineCreateFlags2::RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_KHR.0,
+                    "RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_KHR",
+                ),
+                (
+                    PipelineCreateFlags2::RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_KHR.0,
+                    "RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_KHR",
+                ),
+                (
+                    PipelineCreateFlags2::RAY_TRACING_NO_NULL_MISS_SHADERS_KHR.0,
+                    "RAY_TRACING_NO_NULL_MISS_SHADERS_KHR",
+                ),
+                (
+                    PipelineCreateFlags2::RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR.0,
+                    "RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR",
+                ),
+                (
+                    PipelineCreateFlags2::INDIRECT_BINDABLE_NV.0,
+                    "INDIRECT_BINDABLE_NV",
+                ),
+                (
+                    PipelineCreateFlags2::RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR.0,
+                    "RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR",
+                ),
+                (
+                    PipelineCreateFlags2::RAY_TRACING_ALLOW_MOTION_NV.0,
+                    "RAY_TRACING_ALLOW_MOTION_NV",
+                ),
+                (
+                    PipelineCreateFlags2::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0,
+                    "RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR",
+                ),
+                (
+                    PipelineCreateFlags2::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT.0,
+                    "RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT",
+                ),
+                (
+                    PipelineCreateFlags2::RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT.0,
+                    "RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT",
+                ),
+                (
+                    PipelineCreateFlags2::RAY_TRACING_OPACITY_MICROMAP_EXT.0,
+                    "RAY_TRACING_OPACITY_MICROMAP_EXT",
+                ),
+                (
+                    PipelineCreateFlags2::COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT.0,
+                    "COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT",
+                ),
+                (
+                    PipelineCreateFlags2::DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT.0,
+                    "DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT",
+                ),
+                (
+                    PipelineCreateFlags2::RAY_TRACING_DISPLACEMENT_MICROMAP_NV.0,
+                    "RAY_TRACING_DISPLACEMENT_MICROMAP_NV",
+                ),
+                (
+                    PipelineCreateFlags2::DESCRIPTOR_BUFFER_EXT.0,
+                    "DESCRIPTOR_BUFFER_EXT",
+                ),
+                (PipelineCreateFlags2::CAPTURE_DATA_KHR.0, "CAPTURE_DATA_KHR"),
+                (
+                    PipelineCreateFlags2::RAY_TRACING_ALLOW_SPHERES_AND_LINEAR_SWEPT_SPHERES_NV.0,
+                    "RAY_TRACING_ALLOW_SPHERES_AND_LINEAR_SWEPT_SPHERES_NV",
+                ),
+                (
+                    PipelineCreateFlags2::PER_LAYER_FRAGMENT_DENSITY_VALVE.0,
+                    "PER_LAYER_FRAGMENT_DENSITY_VALVE",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -2820,6 +2975,117 @@ pub(super) mod defs {
         // VK_VERSION_1_4
         pub const SHADER_DEVICE_ADDRESS: Self = Self(BufferUsageFlagBits2::SHADER_DEVICE_ADDRESS.0);
     }
+    impl fmt::Debug for BufferUsageFlags2 {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags64, &str)] = &[
+                (BufferUsageFlags2::TRANSFER_SRC.0, "TRANSFER_SRC"),
+                (BufferUsageFlags2::TRANSFER_DST.0, "TRANSFER_DST"),
+                (
+                    BufferUsageFlags2::UNIFORM_TEXEL_BUFFER.0,
+                    "UNIFORM_TEXEL_BUFFER",
+                ),
+                (
+                    BufferUsageFlags2::STORAGE_TEXEL_BUFFER.0,
+                    "STORAGE_TEXEL_BUFFER",
+                ),
+                (BufferUsageFlags2::UNIFORM_BUFFER.0, "UNIFORM_BUFFER"),
+                (BufferUsageFlags2::STORAGE_BUFFER.0, "STORAGE_BUFFER"),
+                (BufferUsageFlags2::INDEX_BUFFER.0, "INDEX_BUFFER"),
+                (BufferUsageFlags2::VERTEX_BUFFER.0, "VERTEX_BUFFER"),
+                (BufferUsageFlags2::INDIRECT_BUFFER.0, "INDIRECT_BUFFER"),
+                (
+                    BufferUsageFlags2::COMPRESSED_DATA_DGF1_AMDX.0,
+                    "COMPRESSED_DATA_DGF1_AMDX",
+                ),
+                (
+                    BufferUsageFlags2::EXECUTION_GRAPH_SCRATCH_AMDX.0,
+                    "EXECUTION_GRAPH_SCRATCH_AMDX",
+                ),
+                (
+                    BufferUsageFlags2::DATA_GRAPH_FOREIGN_DESCRIPTOR_ARM.0,
+                    "DATA_GRAPH_FOREIGN_DESCRIPTOR_ARM",
+                ),
+                (
+                    BufferUsageFlags2::DESCRIPTOR_HEAP_EXT.0,
+                    "DESCRIPTOR_HEAP_EXT",
+                ),
+                (
+                    BufferUsageFlags2::PREPROCESS_BUFFER_EXT.0,
+                    "PREPROCESS_BUFFER_EXT",
+                ),
+                (
+                    BufferUsageFlags2::MEMORY_DECOMPRESSION_EXT.0,
+                    "MEMORY_DECOMPRESSION_EXT",
+                ),
+                (
+                    BufferUsageFlags2::CONDITIONAL_RENDERING_EXT.0,
+                    "CONDITIONAL_RENDERING_EXT",
+                ),
+                (
+                    BufferUsageFlags2::SHADER_BINDING_TABLE_KHR.0,
+                    "SHADER_BINDING_TABLE_KHR",
+                ),
+                (
+                    BufferUsageFlags2::TRANSFORM_FEEDBACK_BUFFER_EXT.0,
+                    "TRANSFORM_FEEDBACK_BUFFER_EXT",
+                ),
+                (
+                    BufferUsageFlags2::TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT.0,
+                    "TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT",
+                ),
+                (
+                    BufferUsageFlags2::VIDEO_DECODE_SRC_KHR.0,
+                    "VIDEO_DECODE_SRC_KHR",
+                ),
+                (
+                    BufferUsageFlags2::VIDEO_DECODE_DST_KHR.0,
+                    "VIDEO_DECODE_DST_KHR",
+                ),
+                (
+                    BufferUsageFlags2::VIDEO_ENCODE_DST_KHR.0,
+                    "VIDEO_ENCODE_DST_KHR",
+                ),
+                (
+                    BufferUsageFlags2::VIDEO_ENCODE_SRC_KHR.0,
+                    "VIDEO_ENCODE_SRC_KHR",
+                ),
+                (
+                    BufferUsageFlags2::ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR.0,
+                    "ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR",
+                ),
+                (
+                    BufferUsageFlags2::ACCELERATION_STRUCTURE_STORAGE_KHR.0,
+                    "ACCELERATION_STRUCTURE_STORAGE_KHR",
+                ),
+                (
+                    BufferUsageFlags2::SAMPLER_DESCRIPTOR_BUFFER_EXT.0,
+                    "SAMPLER_DESCRIPTOR_BUFFER_EXT",
+                ),
+                (
+                    BufferUsageFlags2::RESOURCE_DESCRIPTOR_BUFFER_EXT.0,
+                    "RESOURCE_DESCRIPTOR_BUFFER_EXT",
+                ),
+                (
+                    BufferUsageFlags2::MICROMAP_BUILD_INPUT_READ_ONLY_EXT.0,
+                    "MICROMAP_BUILD_INPUT_READ_ONLY_EXT",
+                ),
+                (
+                    BufferUsageFlags2::MICROMAP_STORAGE_EXT.0,
+                    "MICROMAP_STORAGE_EXT",
+                ),
+                (
+                    BufferUsageFlags2::PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT.0,
+                    "PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT",
+                ),
+                (BufferUsageFlags2::TILE_MEMORY_QCOM.0, "TILE_MEMORY_QCOM"),
+                (
+                    BufferUsageFlags2::SHADER_DEVICE_ADDRESS.0,
+                    "SHADER_DEVICE_ADDRESS",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct BufferUsageFlagBits2(u64);
@@ -2885,6 +3151,12 @@ pub(super) mod defs {
         pub const MEMCPY: Self = Self(HostImageCopyFlagBits::MEMCPY.0);
         // VK_EXT_host_image_copy
         pub const MEMCPY_EXT: Self = Self::MEMCPY;
+    }
+    impl fmt::Debug for HostImageCopyFlags {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[(HostImageCopyFlags::MEMCPY.0, "MEMCPY")];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]

@@ -944,6 +944,21 @@ pub(super) mod defs {
         pub const UNORDERED_SEQUENCES_EXT: Self =
             Self(IndirectCommandsLayoutUsageFlagBitsEXT::UNORDERED_SEQUENCES_EXT.0);
     }
+    impl fmt::Debug for IndirectCommandsLayoutUsageFlagsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    IndirectCommandsLayoutUsageFlagsEXT::EXPLICIT_PREPROCESS_EXT.0,
+                    "EXPLICIT_PREPROCESS_EXT",
+                ),
+                (
+                    IndirectCommandsLayoutUsageFlagsEXT::UNORDERED_SEQUENCES_EXT.0,
+                    "UNORDERED_SEQUENCES_EXT",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct IndirectCommandsLayoutUsageFlagBitsEXT(u32);
@@ -960,6 +975,21 @@ pub(super) mod defs {
             Self(IndirectCommandsInputModeFlagBitsEXT::VULKAN_INDEX_BUFFER_EXT.0);
         pub const DXGI_INDEX_BUFFER_EXT: Self =
             Self(IndirectCommandsInputModeFlagBitsEXT::DXGI_INDEX_BUFFER_EXT.0);
+    }
+    impl fmt::Debug for IndirectCommandsInputModeFlagsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    IndirectCommandsInputModeFlagsEXT::VULKAN_INDEX_BUFFER_EXT.0,
+                    "VULKAN_INDEX_BUFFER_EXT",
+                ),
+                (
+                    IndirectCommandsInputModeFlagsEXT::DXGI_INDEX_BUFFER_EXT.0,
+                    "DXGI_INDEX_BUFFER_EXT",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]

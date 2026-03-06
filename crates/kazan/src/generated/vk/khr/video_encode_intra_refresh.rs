@@ -227,6 +227,29 @@ pub(super) mod defs {
             Self(VideoEncodeIntraRefreshModeFlagBitsKHR::BLOCK_COLUMN_BASED_KHR.0);
         pub const NONE: Self = Self(0);
     }
+    impl fmt::Debug for VideoEncodeIntraRefreshModeFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    VideoEncodeIntraRefreshModeFlagsKHR::PER_PICTURE_PARTITION_KHR.0,
+                    "PER_PICTURE_PARTITION_KHR",
+                ),
+                (
+                    VideoEncodeIntraRefreshModeFlagsKHR::BLOCK_BASED_KHR.0,
+                    "BLOCK_BASED_KHR",
+                ),
+                (
+                    VideoEncodeIntraRefreshModeFlagsKHR::BLOCK_ROW_BASED_KHR.0,
+                    "BLOCK_ROW_BASED_KHR",
+                ),
+                (
+                    VideoEncodeIntraRefreshModeFlagsKHR::BLOCK_COLUMN_BASED_KHR.0,
+                    "BLOCK_COLUMN_BASED_KHR",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeIntraRefreshModeFlagBitsKHR(u32);

@@ -277,6 +277,16 @@ pub(super) mod defs {
         pub const SPARSE_KHR: Self = Self(AddressCopyFlagBitsKHR::SPARSE_KHR.0);
         pub const PROTECTED_KHR: Self = Self(AddressCopyFlagBitsKHR::PROTECTED_KHR.0);
     }
+    impl fmt::Debug for AddressCopyFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (AddressCopyFlagsKHR::DEVICE_LOCAL_KHR.0, "DEVICE_LOCAL_KHR"),
+                (AddressCopyFlagsKHR::SPARSE_KHR.0, "SPARSE_KHR"),
+                (AddressCopyFlagsKHR::PROTECTED_KHR.0, "PROTECTED_KHR"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct AddressCopyFlagBitsKHR(u32);

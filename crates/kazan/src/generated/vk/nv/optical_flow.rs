@@ -423,6 +423,17 @@ pub(super) mod defs {
         pub const _8X8_NV: Self = Self(OpticalFlowGridSizeFlagBitsNV::_8X8_NV.0);
         pub const UNKNOWN: Self = Self(0);
     }
+    impl fmt::Debug for OpticalFlowGridSizeFlagsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (OpticalFlowGridSizeFlagsNV::_1X1_NV.0, "_1X1_NV"),
+                (OpticalFlowGridSizeFlagsNV::_2X2_NV.0, "_2X2_NV"),
+                (OpticalFlowGridSizeFlagsNV::_4X4_NV.0, "_4X4_NV"),
+                (OpticalFlowGridSizeFlagsNV::_8X8_NV.0, "_8X8_NV"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct OpticalFlowGridSizeFlagBitsNV(u32);
@@ -443,6 +454,18 @@ pub(super) mod defs {
         pub const COST_NV: Self = Self(OpticalFlowUsageFlagBitsNV::COST_NV.0);
         pub const GLOBAL_FLOW_NV: Self = Self(OpticalFlowUsageFlagBitsNV::GLOBAL_FLOW_NV.0);
         pub const UNKNOWN: Self = Self(0);
+    }
+    impl fmt::Debug for OpticalFlowUsageFlagsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (OpticalFlowUsageFlagsNV::INPUT_NV.0, "INPUT_NV"),
+                (OpticalFlowUsageFlagsNV::OUTPUT_NV.0, "OUTPUT_NV"),
+                (OpticalFlowUsageFlagsNV::HINT_NV.0, "HINT_NV"),
+                (OpticalFlowUsageFlagsNV::COST_NV.0, "COST_NV"),
+                (OpticalFlowUsageFlagsNV::GLOBAL_FLOW_NV.0, "GLOBAL_FLOW_NV"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
@@ -468,6 +491,33 @@ pub(super) mod defs {
         pub const BOTH_DIRECTIONS_NV: Self =
             Self(OpticalFlowSessionCreateFlagBitsNV::BOTH_DIRECTIONS_NV.0);
     }
+    impl fmt::Debug for OpticalFlowSessionCreateFlagsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    OpticalFlowSessionCreateFlagsNV::ENABLE_HINT_NV.0,
+                    "ENABLE_HINT_NV",
+                ),
+                (
+                    OpticalFlowSessionCreateFlagsNV::ENABLE_COST_NV.0,
+                    "ENABLE_COST_NV",
+                ),
+                (
+                    OpticalFlowSessionCreateFlagsNV::ENABLE_GLOBAL_FLOW_NV.0,
+                    "ENABLE_GLOBAL_FLOW_NV",
+                ),
+                (
+                    OpticalFlowSessionCreateFlagsNV::ALLOW_REGIONS_NV.0,
+                    "ALLOW_REGIONS_NV",
+                ),
+                (
+                    OpticalFlowSessionCreateFlagsNV::BOTH_DIRECTIONS_NV.0,
+                    "BOTH_DIRECTIONS_NV",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct OpticalFlowSessionCreateFlagBitsNV(u32);
@@ -485,6 +535,15 @@ pub(super) mod defs {
     impl OpticalFlowExecuteFlagsNV {
         pub const DISABLE_TEMPORAL_HINTS_NV: Self =
             Self(OpticalFlowExecuteFlagBitsNV::DISABLE_TEMPORAL_HINTS_NV.0);
+    }
+    impl fmt::Debug for OpticalFlowExecuteFlagsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[(
+                OpticalFlowExecuteFlagsNV::DISABLE_TEMPORAL_HINTS_NV.0,
+                "DISABLE_TEMPORAL_HINTS_NV",
+            )];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]

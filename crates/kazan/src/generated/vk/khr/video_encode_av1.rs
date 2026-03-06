@@ -908,6 +908,37 @@ pub(super) mod defs {
         pub const COMPOUND_PREDICTION_INTRA_REFRESH_KHR: Self =
             Self(VideoEncodeAV1CapabilityFlagBitsKHR::COMPOUND_PREDICTION_INTRA_REFRESH_KHR.0);
     }
+    impl fmt::Debug for VideoEncodeAV1CapabilityFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    VideoEncodeAV1CapabilityFlagsKHR::PER_RATE_CONTROL_GROUP_MIN_MAX_Q_INDEX_KHR.0,
+                    "PER_RATE_CONTROL_GROUP_MIN_MAX_Q_INDEX_KHR",
+                ),
+                (
+                    VideoEncodeAV1CapabilityFlagsKHR::GENERATE_OBU_EXTENSION_HEADER_KHR.0,
+                    "GENERATE_OBU_EXTENSION_HEADER_KHR",
+                ),
+                (
+                    VideoEncodeAV1CapabilityFlagsKHR::PRIMARY_REFERENCE_CDF_ONLY_KHR.0,
+                    "PRIMARY_REFERENCE_CDF_ONLY_KHR",
+                ),
+                (
+                    VideoEncodeAV1CapabilityFlagsKHR::FRAME_SIZE_OVERRIDE_KHR.0,
+                    "FRAME_SIZE_OVERRIDE_KHR",
+                ),
+                (
+                    VideoEncodeAV1CapabilityFlagsKHR::MOTION_VECTOR_SCALING_KHR.0,
+                    "MOTION_VECTOR_SCALING_KHR",
+                ),
+                (
+                    VideoEncodeAV1CapabilityFlagsKHR::COMPOUND_PREDICTION_INTRA_REFRESH_KHR.0,
+                    "COMPOUND_PREDICTION_INTRA_REFRESH_KHR",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeAV1CapabilityFlagBitsKHR(u32);
@@ -933,6 +964,26 @@ pub(super) mod defs {
             Self(VideoEncodeAV1StdFlagBitsKHR::PRIMARY_REF_FRAME_KHR.0);
         pub const DELTA_Q_KHR: Self = Self(VideoEncodeAV1StdFlagBitsKHR::DELTA_Q_KHR.0);
     }
+    impl fmt::Debug for VideoEncodeAV1StdFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    VideoEncodeAV1StdFlagsKHR::UNIFORM_TILE_SPACING_FLAG_SET_KHR.0,
+                    "UNIFORM_TILE_SPACING_FLAG_SET_KHR",
+                ),
+                (
+                    VideoEncodeAV1StdFlagsKHR::SKIP_MODE_PRESENT_UNSET_KHR.0,
+                    "SKIP_MODE_PRESENT_UNSET_KHR",
+                ),
+                (
+                    VideoEncodeAV1StdFlagsKHR::PRIMARY_REF_FRAME_KHR.0,
+                    "PRIMARY_REF_FRAME_KHR",
+                ),
+                (VideoEncodeAV1StdFlagsKHR::DELTA_Q_KHR.0, "DELTA_Q_KHR"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeAV1StdFlagBitsKHR(u32);
@@ -956,6 +1007,29 @@ pub(super) mod defs {
         pub const REFERENCE_PATTERN_DYADIC_KHR: Self =
             Self(VideoEncodeAV1RateControlFlagBitsKHR::REFERENCE_PATTERN_DYADIC_KHR.0);
     }
+    impl fmt::Debug for VideoEncodeAV1RateControlFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    VideoEncodeAV1RateControlFlagsKHR::REGULAR_GOP_KHR.0,
+                    "REGULAR_GOP_KHR",
+                ),
+                (
+                    VideoEncodeAV1RateControlFlagsKHR::TEMPORAL_LAYER_PATTERN_DYADIC_KHR.0,
+                    "TEMPORAL_LAYER_PATTERN_DYADIC_KHR",
+                ),
+                (
+                    VideoEncodeAV1RateControlFlagsKHR::REFERENCE_PATTERN_FLAT_KHR.0,
+                    "REFERENCE_PATTERN_FLAT_KHR",
+                ),
+                (
+                    VideoEncodeAV1RateControlFlagsKHR::REFERENCE_PATTERN_DYADIC_KHR.0,
+                    "REFERENCE_PATTERN_DYADIC_KHR",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeAV1RateControlFlagBitsKHR(u32);
@@ -972,6 +1046,15 @@ pub(super) mod defs {
     impl VideoEncodeAV1SuperblockSizeFlagsKHR {
         pub const _64_KHR: Self = Self(VideoEncodeAV1SuperblockSizeFlagBitsKHR::_64_KHR.0);
         pub const _128_KHR: Self = Self(VideoEncodeAV1SuperblockSizeFlagBitsKHR::_128_KHR.0);
+    }
+    impl fmt::Debug for VideoEncodeAV1SuperblockSizeFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (VideoEncodeAV1SuperblockSizeFlagsKHR::_64_KHR.0, "_64_KHR"),
+                (VideoEncodeAV1SuperblockSizeFlagsKHR::_128_KHR.0, "_128_KHR"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
     }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]

@@ -273,6 +273,23 @@ pub(super) mod defs {
         pub const WARNING_EXT: Self = Self(DebugUtilsMessageSeverityFlagBitsEXT::WARNING_EXT.0);
         pub const ERROR_EXT: Self = Self(DebugUtilsMessageSeverityFlagBitsEXT::ERROR_EXT.0);
     }
+    impl fmt::Debug for DebugUtilsMessageSeverityFlagsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    DebugUtilsMessageSeverityFlagsEXT::VERBOSE_EXT.0,
+                    "VERBOSE_EXT",
+                ),
+                (DebugUtilsMessageSeverityFlagsEXT::INFO_EXT.0, "INFO_EXT"),
+                (
+                    DebugUtilsMessageSeverityFlagsEXT::WARNING_EXT.0,
+                    "WARNING_EXT",
+                ),
+                (DebugUtilsMessageSeverityFlagsEXT::ERROR_EXT.0, "ERROR_EXT"),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DebugUtilsMessageSeverityFlagBitsEXT(u32);
@@ -294,6 +311,26 @@ pub(super) mod defs {
         pub const DEVICE_ADDRESS_BINDING_EXT: Self =
             Self(DebugUtilsMessageTypeFlagBitsEXT::DEVICE_ADDRESS_BINDING_EXT.0);
     }
+    impl fmt::Debug for DebugUtilsMessageTypeFlagsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            const KNOWN: &[(Flags, &str)] = &[
+                (DebugUtilsMessageTypeFlagsEXT::GENERAL_EXT.0, "GENERAL_EXT"),
+                (
+                    DebugUtilsMessageTypeFlagsEXT::VALIDATION_EXT.0,
+                    "VALIDATION_EXT",
+                ),
+                (
+                    DebugUtilsMessageTypeFlagsEXT::PERFORMANCE_EXT.0,
+                    "PERFORMANCE_EXT",
+                ),
+                (
+                    DebugUtilsMessageTypeFlagsEXT::DEVICE_ADDRESS_BINDING_EXT.0,
+                    "DEVICE_ADDRESS_BINDING_EXT",
+                ),
+            ];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DebugUtilsMessageTypeFlagBitsEXT(u32);
@@ -308,10 +345,20 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DebugUtilsMessengerCreateFlagsEXT(Flags);
     vk_bitflags_wrapped!(DebugUtilsMessengerCreateFlagsEXT, Flags);
+    impl fmt::Debug for DebugUtilsMessengerCreateFlagsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            debug_flags(f, &[], self.0)
+        }
+    }
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DebugUtilsMessengerCallbackDataFlagsEXT(Flags);
     vk_bitflags_wrapped!(DebugUtilsMessengerCallbackDataFlagsEXT, Flags);
+    impl fmt::Debug for DebugUtilsMessengerCallbackDataFlagsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            debug_flags(f, &[], self.0)
+        }
+    }
     pub type PFN_vkDebugUtilsMessengerCallbackEXT = unsafe extern "system" fn(
         message_severity: DebugUtilsMessageSeverityFlagBitsEXT,
         message_types: DebugUtilsMessageTypeFlagsEXT,

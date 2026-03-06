@@ -51,6 +51,11 @@ pub(super) mod defs {
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct XlibSurfaceCreateFlagsKHR(Flags);
     vk_bitflags_wrapped!(XlibSurfaceCreateFlagsKHR, Flags);
+    impl fmt::Debug for XlibSurfaceCreateFlagsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            debug_flags(f, &[], self.0)
+        }
+    }
     pub type PFN_vkCreateXlibSurfaceKHR = unsafe extern "system" fn(
         instance: Instance,
         p_create_info: *const XlibSurfaceCreateInfoKHR<'_>,
