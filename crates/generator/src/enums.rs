@@ -10,16 +10,36 @@ use regex::Regex;
 
 use crate::{analysis::Analysis, ctype_to_rust_type_str, module::Module, normalize_ty_name, xml};
 
+pub struct ContribVariant {
+    pub name: &'static str,
+    pub value: i32,
+    pub comment: Option<&'static str>,
+}
+
+pub struct ContribValue {
+    pub name: &'static str,
+    pub value: &'static str,
+    pub comment: Option<&'static str>,
+}
+
+pub struct ContribAlias {
+    pub name: &'static str,
+    pub alias: &'static str,
+}
+
+pub struct ContribBitpos {
+    pub name: &'static str,
+    pub bitpos: u8,
+    pub comment: Option<&'static str>,
+}
+
 /// Contributions from a single version/extension to an enum or bitmask type.
 #[derive(Default)]
 pub struct ModuleEnumContributions {
-    /// (name, value, comment)
-    pub variants: Vec<(&'static str, i32, Option<&'static str>)>,
-    /// (name, value, comment)
-    pub values: Vec<(&'static str, &'static str, Option<&'static str>)>,
-    pub aliases: Vec<(&'static str, &'static str)>,
-    /// (name, bitpos, comment)
-    pub bitpositions: Vec<(&'static str, u8, Option<&'static str>)>,
+    pub variants: Vec<ContribVariant>,
+    pub values: Vec<ContribValue>,
+    pub aliases: Vec<ContribAlias>,
+    pub bitpositions: Vec<ContribBitpos>,
 }
 
 /// Enum extension data grouped by enum type name, then by module name.
@@ -58,24 +78,39 @@ impl ReqEnumData {
                     let value = if variant.negative { -value } else { value };
                     data.contributions(variant.extends, &module_name)
                         .variants
-                        .push((variant.name, value, variant.comment));
+                        .push(ContribVariant {
+                            name: variant.name,
+                            value,
+                            comment: variant.comment,
+                        });
                 }
                 for bitpos in &req.bitpositions {
                     data.contributions(bitpos.extends, &module_name)
                         .bitpositions
-                        .push((bitpos.name, bitpos.bitpos, bitpos.comment));
+                        .push(ContribBitpos {
+                            name: bitpos.name,
+                            bitpos: bitpos.bitpos,
+                            comment: bitpos.comment,
+                        });
                 }
                 for alias in &req.enum_aliases {
                     if let Some(extends) = alias.extends {
                         data.contributions(extends, &module_name)
                             .aliases
-                            .push((alias.name, alias.alias));
+                            .push(ContribAlias {
+                                name: alias.name,
+                                alias: alias.alias,
+                            });
                     }
                 }
                 for value in &req.enum_values {
                     data.contributions(value.extends, &module_name)
                         .values
-                        .push((value.name, value.value, value.comment));
+                        .push(ContribValue {
+                            name: value.name,
+                            value: value.value,
+                            comment: value.comment,
+                        });
                 }
             }
         }
@@ -138,12 +173,10 @@ fn separate_trailing_number(name: &str) -> Cow<'_, str> {
 }
 
 fn is_useful_comment(comment: &str) -> bool {
-    !matches!(
-        comment,
-        "Optional" | "Required"
-    ) && !comment.starts_with("Not promoted to")
-      && !comment.starts_with("Note that this defines what was previously")
-      && !comment.starts_with("No need to add")
+    !matches!(comment, "Optional" | "Required")
+        && !comment.starts_with("Not promoted to")
+        && !comment.starts_with("Note that this defines what was previously")
+        && !comment.starts_with("No need to add")
 }
 
 fn write_doc_comment(file: &mut impl Write, comment: Option<&str>) {
@@ -212,27 +245,35 @@ pub fn write_enum(file: &mut impl Write, analysis: &Analysis, ty: &xml::Enum) {
         for (module_name, contributions) in modules {
             let mut entries = Vec::new();
 
-            for (vname, value, comment) in &contributions.variants {
-                let vname = normalize_variant_name(vname, &value_prefix);
+            for v in &contributions.variants {
+                let vname = normalize_variant_name(v.name, &value_prefix);
                 if visited.insert(vname.clone()) {
-                    entries.push(format!("{}pub const {}: Self = Self({});",
-                        format_doc_comment(*comment), vname, value));
+                    entries.push(format!(
+                        "{}pub const {}: Self = Self({});",
+                        format_doc_comment(v.comment),
+                        vname,
+                        v.value
+                    ));
                     debug_variants.push(vname);
                 }
             }
-            for (vname, value, comment) in &contributions.values {
-                let vname = normalize_variant_name(vname, &value_prefix);
+            for v in &contributions.values {
+                let vname = normalize_variant_name(v.name, &value_prefix);
                 if visited.insert(vname.clone()) {
-                    entries.push(format!("{}pub const {}: Self = Self({});",
-                        format_doc_comment(*comment), vname, value));
+                    entries.push(format!(
+                        "{}pub const {}: Self = Self({});",
+                        format_doc_comment(v.comment),
+                        vname,
+                        v.value
+                    ));
                     debug_variants.push(vname);
                 }
             }
-            for (aname, alias) in &contributions.aliases {
-                let aname = normalize_variant_name(aname, &value_prefix);
+            for a in &contributions.aliases {
+                let aname = normalize_variant_name(a.name, &value_prefix);
                 if visited.insert(aname.clone()) {
-                    let alias = normalize_variant_name(alias, &value_prefix);
-                    entries.push(format!("pub const {}: Self = Self::{};", aname, alias));
+                    let target = normalize_variant_name(a.alias, &value_prefix);
+                    entries.push(format!("pub const {}: Self = Self::{};", aname, target));
                 }
             }
 
@@ -308,23 +349,44 @@ pub fn write_bitmask(
         separate_trailing_number(&prefix).to_string()
     };
 
+    struct NormalizedBit {
+        name: String,
+        bitpos: u8,
+        comment: Option<&'static str>,
+    }
+
+    struct NormalizedAlias {
+        name: String,
+        target: String,
+    }
+
+    struct NormalizedValue {
+        name: String,
+        value: String,
+        comment: Option<&'static str>,
+    }
+
     // Pre-compute normalized base bits (shared between Flags and FlagBits)
-    let base_bits: Vec<(String, u8, Option<&str>)> = {
+    let base_bits: Vec<NormalizedBit> = {
         let mut bits: Vec<_> = bitmask
             .bits
             .iter()
-            .map(|bit| (normalize_bit_name(bit.name, Some(vp.as_str())), bit.bitpos, bit.comment))
+            .map(|bit| NormalizedBit {
+                name: normalize_bit_name(bit.name, Some(vp.as_str())),
+                bitpos: bit.bitpos,
+                comment: bit.comment,
+            })
             .collect();
-        bits.sort_by_key(|(_, bp, _)| *bp);
+        bits.sort_by_key(|b| b.bitpos);
         bits
     };
 
     // Pre-compute normalized module data (shared between Flags and FlagBits)
     struct ModuleBitData {
         name: String,
-        bits: Vec<(String, u8, Option<&'static str>)>,
-        aliases: Vec<(String, String)>,
-        values: Vec<(String, String, Option<&'static str>)>,
+        bits: Vec<NormalizedBit>,
+        aliases: Vec<NormalizedAlias>,
+        values: Vec<NormalizedValue>,
     }
 
     let modules = req.get(bitmask.name);
@@ -334,27 +396,34 @@ pub fn write_bitmask(
         .map(|(name, c)| ModuleBitData {
             name: name.clone(),
             bits: {
-                let mut bits: Vec<_> = c.bitpositions
+                let mut bits: Vec<_> = c
+                    .bitpositions
                     .iter()
-                    .map(|(n, bp, comment)| (normalize_bit_name(n, Some(vp.as_str())), *bp, *comment))
+                    .map(|bp| NormalizedBit {
+                        name: normalize_bit_name(bp.name, Some(vp.as_str())),
+                        bitpos: bp.bitpos,
+                        comment: bp.comment,
+                    })
                     .collect();
-                bits.sort_by_key(|(_, bp, _)| *bp);
+                bits.sort_by_key(|b| b.bitpos);
                 bits
             },
             aliases: c
                 .aliases
                 .iter()
-                .map(|(n, a)| {
-                    (
-                        normalize_bit_name(n, Some(vp.as_str())),
-                        normalize_bit_name(a, Some(vp.as_str())),
-                    )
+                .map(|a| NormalizedAlias {
+                    name: normalize_bit_name(a.name, Some(vp.as_str())),
+                    target: normalize_bit_name(a.alias, Some(vp.as_str())),
                 })
                 .collect(),
             values: c
                 .values
                 .iter()
-                .map(|(n, v, comment)| (normalize_bit_name(n, Some(vp.as_str())), v.to_string(), *comment))
+                .map(|v| NormalizedValue {
+                    name: normalize_bit_name(v.name, Some(vp.as_str())),
+                    value: v.value.to_string(),
+                    comment: v.comment,
+                })
                 .collect(),
         })
         .collect();
@@ -362,11 +431,11 @@ pub fn write_bitmask(
     // All bit names for alias target validation in FlagBits
     let all_bit_names: HashSet<_> = base_bits
         .iter()
-        .map(|(n, _, _)| n.clone())
+        .map(|b| b.name.clone())
         .chain(
             module_data
                 .iter()
-                .flat_map(|md| md.bits.iter().map(|(n, _, _)| n.clone())),
+                .flat_map(|md| md.bits.iter().map(|b| b.name.clone())),
         )
         .collect();
 
@@ -375,13 +444,13 @@ pub fn write_bitmask(
         let mut visited = HashSet::new();
         writeln!(file, "impl {name} {{").unwrap();
 
-        for (bit_name, _, comment) in &base_bits {
-            if visited.insert(bit_name.clone()) {
-                write_doc_comment(file, *comment);
+        for b in &base_bits {
+            if visited.insert(b.name.clone()) {
+                write_doc_comment(file, b.comment);
                 writeln!(
                     file,
                     "pub const {}: Self = Self({}::{}.0);",
-                    bit_name, bitmask_name, bit_name
+                    b.name, bitmask_name, b.name
                 )
                 .unwrap();
             }
@@ -407,20 +476,29 @@ pub fn write_bitmask(
 
         for md in &module_data {
             let mut entries = Vec::new();
-            for (bit_name, _, comment) in &md.bits {
-                if visited.insert(bit_name.clone()) {
-                    entries.push(format!("{}pub const {}: Self = Self({}::{}.0);",
-                        format_doc_comment(*comment), bit_name, bitmask_name, bit_name));
+            for b in &md.bits {
+                if visited.insert(b.name.clone()) {
+                    entries.push(format!(
+                        "{}pub const {}: Self = Self({}::{}.0);",
+                        format_doc_comment(b.comment),
+                        b.name,
+                        bitmask_name,
+                        b.name
+                    ));
                 }
             }
-            for (aname, alias) in &md.aliases {
-                if visited.insert(aname.clone()) {
-                    entries.push(format!("pub const {}: Self = Self::{};", aname, alias));
+            for a in &md.aliases {
+                if visited.insert(a.name.clone()) {
+                    entries.push(format!("pub const {}: Self = Self::{};", a.name, a.target));
                 }
             }
-            for (vname, value, comment) in &md.values {
-                entries.push(format!("{}pub const {}: Self = Self({});",
-                    format_doc_comment(*comment), vname, value));
+            for v in &md.values {
+                entries.push(format!(
+                    "{}pub const {}: Self = Self({});",
+                    format_doc_comment(v.comment),
+                    v.name,
+                    v.value
+                ));
             }
             write_module_group(file, &md.name, &entries);
         }
@@ -434,15 +512,15 @@ pub fn write_bitmask(
         let mut debug_bits: Vec<(String, u8)> = Vec::new();
         let mut visited_bits = HashSet::new();
 
-        for (bit_name, bitpos, _) in &base_bits {
-            if visited_bits.insert(*bitpos) {
-                debug_bits.push((bit_name.clone(), *bitpos));
+        for b in &base_bits {
+            if visited_bits.insert(b.bitpos) {
+                debug_bits.push((b.name.clone(), b.bitpos));
             }
         }
         for md in &module_data {
-            for (bit_name, bitpos, _) in &md.bits {
-                if visited_bits.insert(*bitpos) {
-                    debug_bits.push((bit_name.clone(), *bitpos));
+            for b in &md.bits {
+                if visited_bits.insert(b.bitpos) {
+                    debug_bits.push((b.name.clone(), b.bitpos));
                 }
             }
         }
@@ -482,13 +560,13 @@ pub fn write_bitmask(
         let mut visited = HashSet::new();
         writeln!(file, "impl {} {{", bitmask_name).unwrap();
 
-        for (bit_name, bitpos, comment) in &base_bits {
-            if visited.insert(bit_name.clone()) {
-                write_doc_comment(file, *comment);
+        for b in &base_bits {
+            if visited.insert(b.name.clone()) {
+                write_doc_comment(file, b.comment);
                 writeln!(
                     file,
                     "pub const {}: Self = Self(1 << {});",
-                    bit_name, bitpos
+                    b.name, b.bitpos
                 )
                 .unwrap();
             }
@@ -496,18 +574,22 @@ pub fn write_bitmask(
 
         for md in &module_data {
             let mut entries = Vec::new();
-            for (bit_name, bitpos, comment) in &md.bits {
-                if visited.insert(bit_name.clone()) {
-                    entries.push(format!("{}pub const {}: Self = Self(1 << {});",
-                        format_doc_comment(*comment), bit_name, bitpos));
+            for b in &md.bits {
+                if visited.insert(b.name.clone()) {
+                    entries.push(format!(
+                        "{}pub const {}: Self = Self(1 << {});",
+                        format_doc_comment(b.comment),
+                        b.name,
+                        b.bitpos
+                    ));
                 }
             }
-            for (aname, alias) in &md.aliases {
-                if !all_bit_names.contains(alias.as_str()) {
+            for a in &md.aliases {
+                if !all_bit_names.contains(a.target.as_str()) {
                     continue;
                 }
-                if visited.insert(aname.clone()) {
-                    entries.push(format!("pub const {}: Self = Self::{};", aname, alias));
+                if visited.insert(a.name.clone()) {
+                    entries.push(format!("pub const {}: Self = Self::{};", a.name, a.target));
                 }
             }
             write_module_group(file, &md.name, &entries);
