@@ -449,7 +449,7 @@ fn generate_enum_types(
         .filter(|ty| new_items.contains(ty.name));
 
     for ty in enums {
-        write_enum(file, analysis.req_enum_data(), ty);
+        write_enum(file, analysis, ty);
     }
 }
 

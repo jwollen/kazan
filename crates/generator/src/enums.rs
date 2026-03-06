@@ -81,56 +81,11 @@ impl ReqEnumData {
     }
 }
 
-fn strip_vendor_suffix(name: &str) -> &str {
-    let vendors = [
-        "AMD",
-        "AMDX",
-        "ANDROID",
-        "ARM",
-        "BRCM",
-        "CHROMIUM",
-        "EXT",
-        "FB",
-        "FSL",
-        "FUCHSIA",
-        "GGP",
-        "GOOGLE",
-        "HUAWEI",
-        "IMG",
-        "INTEL",
-        "JUICE",
-        "KDAB",
-        "KHR",
-        "KHX",
-        "LUNARG",
-        "MESA",
-        "MSFT",
-        "MVK",
-        "NN",
-        "NV",
-        "NVX",
-        "NXP",
-        "NZXT",
-        "OHOS",
-        "QCOM",
-        "QNX",
-        "RASTERGRID",
-        "RENDERDOC",
-        "SAMSUNG",
-        "SEC",
-        "TIZEN",
-        "VALVE",
-        "VIV",
-        "VSI",
-        "VK",
-        "VN",
-        "VNN",
-        "WEIXIN",
-        "XR",
-    ];
-    let vendor = vendors
+fn strip_vendor_suffix<'a>(name: &'a str, tags: &[&str]) -> &'a str {
+    let vendor = tags
         .iter()
-        .find(|&&vendor| name.ends_with(vendor))
+        .filter(|&&tag| name.ends_with(tag))
+        .max_by_key(|tag| tag.len())
         .copied();
     if let Some(vendor) = vendor {
         let name = name.strip_suffix(vendor).unwrap();
@@ -195,11 +150,13 @@ fn write_module_group(file: &mut impl Write, module_name: &str, entries: &[Strin
     }
 }
 
-pub fn write_enum(file: &mut impl Write, req: &ReqEnumData, ty: &xml::Enum) {
+pub fn write_enum(file: &mut impl Write, analysis: &Analysis, ty: &xml::Enum) {
+    let tags = &analysis.registry().tags;
+    let req = analysis.req_enum_data();
     let value_prefix = if ty.name == "VkResult" {
         "VK".to_string()
     } else {
-        let prefix = strip_vendor_suffix(ty.name).to_shouty_snake_case();
+        let prefix = strip_vendor_suffix(ty.name, tags).to_shouty_snake_case();
         separate_trailing_number(&prefix).to_string()
     };
 
@@ -288,7 +245,7 @@ pub fn write_enum(file: &mut impl Write, req: &ReqEnumData, ty: &xml::Enum) {
 /// Writes a bitmask type (bitflags + optional FlagBits struct) to `file`.
 pub fn write_bitmask(
     file: &mut impl Write,
-    _analysis: &Analysis,
+    analysis: &Analysis,
     ty: &xml::BitMaskType,
     bitmask: Option<&xml::BitMask>,
     req: &ReqEnumData,
@@ -309,7 +266,8 @@ pub fn write_bitmask(
 
     let bitmask_name = normalize_ty_name(bitmask.name);
     let vp = {
-        let prefix = strip_vendor_suffix(bitmask.name)
+        let tags = &analysis.registry().tags;
+        let prefix = strip_vendor_suffix(bitmask.name, tags)
             .replace("FlagBits", "")
             .to_shouty_snake_case();
         separate_trailing_number(&prefix).to_string()
@@ -400,7 +358,7 @@ pub fn write_bitmask(
                 .unwrap()
                 .strip_prefix('_')
                 .unwrap();
-            let vname = strip_vendor_suffix(vname);
+            let vname = strip_vendor_suffix(vname, &analysis.registry().tags);
             writeln!(file, "pub const {}: Self = Self({});", vname, value.value).unwrap();
         }
 
