@@ -5655,14 +5655,23 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ImageLayout(i32);
     impl ImageLayout {
+        /// Implicit layout an image is when its contents are undefined due to various reasons (e.g. right after creation)
         pub const UNDEFINED: Self = Self(0);
+        /// General layout when image can be used for any kind of access
         pub const GENERAL: Self = Self(1);
+        /// Optimal layout when image is only used for color attachment read/write
         pub const COLOR_ATTACHMENT_OPTIMAL: Self = Self(2);
+        /// Optimal layout when image is only used for depth/stencil attachment read/write
         pub const DEPTH_STENCIL_ATTACHMENT_OPTIMAL: Self = Self(3);
+        /// Optimal layout when image is used for read only depth/stencil attachment and shader access
         pub const DEPTH_STENCIL_READ_ONLY_OPTIMAL: Self = Self(4);
+        /// Optimal layout when image is used for read only shader access
         pub const SHADER_READ_ONLY_OPTIMAL: Self = Self(5);
+        /// Optimal layout when image is used only as source of transfer operations
         pub const TRANSFER_SRC_OPTIMAL: Self = Self(6);
+        /// Optimal layout when image is used only as destination of transfer operations
         pub const TRANSFER_DST_OPTIMAL: Self = Self(7);
+        /// Initial layout used when the data is populated by the CPU
         pub const PREINITIALIZED: Self = Self(8);
         // VK_ARM_tensors
         pub const TENSOR_ALIASING_ARM: Self = Self(1000460000);
@@ -6334,7 +6343,9 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SamplerMipmapMode(i32);
     impl SamplerMipmapMode {
+        /// Choose nearest mip level
         pub const NEAREST: Self = Self(0);
+        /// Linear filter between mip levels
         pub const LINEAR: Self = Self(1);
     }
     impl fmt::Debug for SamplerMipmapMode {
@@ -7619,7 +7630,9 @@ pub(super) mod defs {
         pub const BUFFER_MEMORY_BARRIER: Self = Self(44);
         pub const IMAGE_MEMORY_BARRIER: Self = Self(45);
         pub const MEMORY_BARRIER: Self = Self(46);
+        /// Reserved for internal use by the loader, layers, and ICDs
         pub const LOADER_INSTANCE_CREATE_INFO: Self = Self(47);
+        /// Reserved for internal use by the loader, layers, and ICDs
         pub const LOADER_DEVICE_CREATE_INFO: Self = Self(48);
         // VK_AMDX_dense_geometry_format
         pub const PHYSICAL_DEVICE_DENSE_GEOMETRY_FORMAT_FEATURES_AMDX: Self = Self(1000478000);
@@ -12481,24 +12494,43 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct Result(i32);
     impl Result {
+        /// Command completed successfully
         pub const SUCCESS: Self = Self(0);
+        /// A fence or query has not yet completed
         pub const NOT_READY: Self = Self(1);
+        /// A wait operation has not completed in the specified time
         pub const TIMEOUT: Self = Self(2);
+        /// An event is signaled
         pub const EVENT_SET: Self = Self(3);
+        /// An event is unsignaled
         pub const EVENT_RESET: Self = Self(4);
+        /// A return array was too small for the result
         pub const INCOMPLETE: Self = Self(5);
+        /// A host memory allocation has failed
         pub const ERROR_OUT_OF_HOST_MEMORY: Self = Self(-1);
+        /// A device memory allocation has failed
         pub const ERROR_OUT_OF_DEVICE_MEMORY: Self = Self(-2);
+        /// Initialization of an object has failed
         pub const ERROR_INITIALIZATION_FAILED: Self = Self(-3);
+        /// The logical device has been lost. See <<devsandqueues-lost-device>>
         pub const ERROR_DEVICE_LOST: Self = Self(-4);
+        /// Mapping of a memory object has failed
         pub const ERROR_MEMORY_MAP_FAILED: Self = Self(-5);
+        /// Layer specified does not exist
         pub const ERROR_LAYER_NOT_PRESENT: Self = Self(-6);
+        /// Extension specified does not exist
         pub const ERROR_EXTENSION_NOT_PRESENT: Self = Self(-7);
+        /// Requested feature is not available on this device
         pub const ERROR_FEATURE_NOT_PRESENT: Self = Self(-8);
+        /// Unable to find a Vulkan driver
         pub const ERROR_INCOMPATIBLE_DRIVER: Self = Self(-9);
+        /// Too many objects of the type have already been created
         pub const ERROR_TOO_MANY_OBJECTS: Self = Self(-10);
+        /// Requested format is not supported on this device
         pub const ERROR_FORMAT_NOT_SUPPORTED: Self = Self(-11);
+        /// A requested pool allocation has failed due to fragmentation of the pool's memory
         pub const ERROR_FRAGMENTED_POOL: Self = Self(-12);
+        /// An unknown error has occurred, due to an implementation or application bug
         pub const ERROR_UNKNOWN: Self = Self(-13);
         // VK_EXT_buffer_device_address
         pub const ERROR_INVALID_DEVICE_ADDRESS_EXT: Self =
@@ -12921,6 +12953,7 @@ pub(super) mod defs {
         // VK_EXT_validation_cache
         pub const VALIDATION_CACHE_EXT: Self = Self(1000160000);
         // VK_FUCHSIA_buffer_collection
+        /// VkBufferCollectionFUCHSIA
         pub const BUFFER_COLLECTION_FUCHSIA: Self = Self(1000366000);
         // VK_INTEL_performance_query
         pub const PERFORMANCE_CONFIGURATION_INTEL: Self = Self(1000210000);
@@ -12942,7 +12975,9 @@ pub(super) mod defs {
         // VK_KHR_swapchain
         pub const SWAPCHAIN_KHR: Self = Self(1000001000);
         // VK_KHR_video_queue
+        /// VkVideoSessionKHR
         pub const VIDEO_SESSION_KHR: Self = Self(1000023000);
+        /// VkVideoSessionParametersKHR
         pub const VIDEO_SESSION_PARAMETERS_KHR: Self = Self(1000023001);
         // VK_NVX_binary_import
         pub const CU_MODULE_NVX: Self = Self(1000029000);
@@ -13039,13 +13074,21 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VendorId(i32);
     impl VendorId {
+        /// Khronos vendor ID
         pub const KHRONOS: Self = Self(0x10000);
+        /// Vivante vendor ID
         pub const VIV: Self = Self(0x10001);
+        /// VeriSilicon vendor ID
         pub const VSI: Self = Self(0x10002);
+        /// Kazan Software Renderer
         pub const KAZAN: Self = Self(0x10003);
+        /// Codeplay Software Ltd. vendor ID
         pub const CODEPLAY: Self = Self(0x10004);
+        /// Mesa vendor ID
         pub const MESA: Self = Self(0x10005);
+        /// PoCL vendor ID
         pub const POCL: Self = Self(0x10006);
+        /// Mobileye vendor ID
         pub const MOBILEYE: Self = Self(0x10007);
     }
     impl fmt::Debug for VendorId {
@@ -13613,6 +13656,7 @@ pub(super) mod defs {
         pub const INTERNALLY_SYNCHRONIZED_KHR: Self =
             Self(DeviceQueueCreateFlagBits::INTERNALLY_SYNCHRONIZED_KHR.0);
         // VK_VERSION_1_1
+        /// Queue is a protected-capable device queue
         pub const PROTECTED: Self = Self(DeviceQueueCreateFlagBits::PROTECTED.0);
     }
     impl fmt::Debug for DeviceQueueCreateFlags {
@@ -13635,6 +13679,7 @@ pub(super) mod defs {
         // VK_KHR_internally_synchronized_queues
         pub const INTERNALLY_SYNCHRONIZED_KHR: Self = Self(1 << 2);
         // VK_VERSION_1_1
+        /// Queue is a protected-capable device queue
         pub const PROTECTED: Self = Self(1 << 0);
     }
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFlags.html>
@@ -13643,9 +13688,13 @@ pub(super) mod defs {
     pub struct QueueFlags(Flags);
     vk_bitflags_wrapped!(QueueFlags, Flags);
     impl QueueFlags {
+        /// Queue supports graphics operations
         pub const GRAPHICS: Self = Self(QueueFlagBits::GRAPHICS.0);
+        /// Queue supports compute operations
         pub const COMPUTE: Self = Self(QueueFlagBits::COMPUTE.0);
+        /// Queue supports transfer operations
         pub const TRANSFER: Self = Self(QueueFlagBits::TRANSFER.0);
+        /// Queue supports sparse resource memory management operations
         pub const SPARSE_BINDING: Self = Self(QueueFlagBits::SPARSE_BINDING.0);
         // VK_ARM_data_graph
         pub const DATA_GRAPH_ARM: Self = Self(QueueFlagBits::DATA_GRAPH_ARM.0);
@@ -13656,6 +13705,7 @@ pub(super) mod defs {
         // VK_NV_optical_flow
         pub const OPTICAL_FLOW_NV: Self = Self(QueueFlagBits::OPTICAL_FLOW_NV.0);
         // VK_VERSION_1_1
+        /// Queues may support protected operations
         pub const PROTECTED: Self = Self(QueueFlagBits::PROTECTED.0);
     }
     impl fmt::Debug for QueueFlags {
@@ -13679,9 +13729,13 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct QueueFlagBits(u32);
     impl QueueFlagBits {
+        /// Queue supports graphics operations
         pub const GRAPHICS: Self = Self(1 << 0);
+        /// Queue supports compute operations
         pub const COMPUTE: Self = Self(1 << 1);
+        /// Queue supports transfer operations
         pub const TRANSFER: Self = Self(1 << 2);
+        /// Queue supports sparse resource memory management operations
         pub const SPARSE_BINDING: Self = Self(1 << 3);
         // VK_ARM_data_graph
         pub const DATA_GRAPH_ARM: Self = Self(1 << 10);
@@ -13692,6 +13746,7 @@ pub(super) mod defs {
         // VK_NV_optical_flow
         pub const OPTICAL_FLOW_NV: Self = Self(1 << 8);
         // VK_VERSION_1_1
+        /// Queues may support protected operations
         pub const PROTECTED: Self = Self(1 << 4);
     }
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryPropertyFlags.html>
@@ -13700,10 +13755,15 @@ pub(super) mod defs {
     pub struct MemoryPropertyFlags(Flags);
     vk_bitflags_wrapped!(MemoryPropertyFlags, Flags);
     impl MemoryPropertyFlags {
+        /// If otherwise stated, then allocate memory on device
         pub const DEVICE_LOCAL: Self = Self(MemoryPropertyFlagBits::DEVICE_LOCAL.0);
+        /// Memory is mappable by host
         pub const HOST_VISIBLE: Self = Self(MemoryPropertyFlagBits::HOST_VISIBLE.0);
+        /// Memory will have i/o coherency. If not set, application may need to use vkFlushMappedMemoryRanges and vkInvalidateMappedMemoryRanges to flush/invalidate host cache
         pub const HOST_COHERENT: Self = Self(MemoryPropertyFlagBits::HOST_COHERENT.0);
+        /// Memory will be cached by the host
         pub const HOST_CACHED: Self = Self(MemoryPropertyFlagBits::HOST_CACHED.0);
+        /// Memory may be allocated by the driver when it is required
         pub const LAZILY_ALLOCATED: Self = Self(MemoryPropertyFlagBits::LAZILY_ALLOCATED.0);
         // VK_AMD_device_coherent_memory
         pub const DEVICE_COHERENT_AMD: Self = Self(MemoryPropertyFlagBits::DEVICE_COHERENT_AMD.0);
@@ -13711,6 +13771,7 @@ pub(super) mod defs {
         // VK_NV_external_memory_rdma
         pub const RDMA_CAPABLE_NV: Self = Self(MemoryPropertyFlagBits::RDMA_CAPABLE_NV.0);
         // VK_VERSION_1_1
+        /// Memory is protected
         pub const PROTECTED: Self = Self(MemoryPropertyFlagBits::PROTECTED.0);
     }
     impl fmt::Debug for MemoryPropertyFlags {
@@ -13740,10 +13801,15 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MemoryPropertyFlagBits(u32);
     impl MemoryPropertyFlagBits {
+        /// If otherwise stated, then allocate memory on device
         pub const DEVICE_LOCAL: Self = Self(1 << 0);
+        /// Memory is mappable by host
         pub const HOST_VISIBLE: Self = Self(1 << 1);
+        /// Memory will have i/o coherency. If not set, application may need to use vkFlushMappedMemoryRanges and vkInvalidateMappedMemoryRanges to flush/invalidate host cache
         pub const HOST_COHERENT: Self = Self(1 << 2);
+        /// Memory will be cached by the host
         pub const HOST_CACHED: Self = Self(1 << 3);
+        /// Memory may be allocated by the driver when it is required
         pub const LAZILY_ALLOCATED: Self = Self(1 << 4);
         // VK_AMD_device_coherent_memory
         pub const DEVICE_COHERENT_AMD: Self = Self(1 << 6);
@@ -13751,6 +13817,7 @@ pub(super) mod defs {
         // VK_NV_external_memory_rdma
         pub const RDMA_CAPABLE_NV: Self = Self(1 << 8);
         // VK_VERSION_1_1
+        /// Memory is protected
         pub const PROTECTED: Self = Self(1 << 5);
     }
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryHeapFlags.html>
@@ -13759,12 +13826,14 @@ pub(super) mod defs {
     pub struct MemoryHeapFlags(Flags);
     vk_bitflags_wrapped!(MemoryHeapFlags, Flags);
     impl MemoryHeapFlags {
+        /// If set, heap represents device memory
         pub const DEVICE_LOCAL: Self = Self(MemoryHeapFlagBits::DEVICE_LOCAL.0);
         // VK_KHR_device_group_creation
         pub const MULTI_INSTANCE_KHR: Self = Self::MULTI_INSTANCE;
         // VK_QCOM_tile_memory_heap
         pub const TILE_MEMORY_QCOM: Self = Self(MemoryHeapFlagBits::TILE_MEMORY_QCOM.0);
         // VK_VERSION_1_1
+        /// If set, heap allocations allocate multiple instances by default
         pub const MULTI_INSTANCE: Self = Self(MemoryHeapFlagBits::MULTI_INSTANCE.0);
     }
     impl fmt::Debug for MemoryHeapFlags {
@@ -13782,12 +13851,14 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MemoryHeapFlagBits(u32);
     impl MemoryHeapFlagBits {
+        /// If set, heap represents device memory
         pub const DEVICE_LOCAL: Self = Self(1 << 0);
         // VK_KHR_device_group_creation
         pub const MULTI_INSTANCE_KHR: Self = Self::MULTI_INSTANCE;
         // VK_QCOM_tile_memory_heap
         pub const TILE_MEMORY_QCOM: Self = Self(1 << 3);
         // VK_VERSION_1_1
+        /// If set, heap allocations allocate multiple instances by default
         pub const MULTI_INSTANCE: Self = Self(1 << 1);
     }
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccessFlags.html>
@@ -13796,29 +13867,47 @@ pub(super) mod defs {
     pub struct AccessFlags(Flags);
     vk_bitflags_wrapped!(AccessFlags, Flags);
     impl AccessFlags {
+        /// Controls coherency of indirect command reads
         pub const INDIRECT_COMMAND_READ: Self = Self(AccessFlagBits::INDIRECT_COMMAND_READ.0);
+        /// Controls coherency of index reads
         pub const INDEX_READ: Self = Self(AccessFlagBits::INDEX_READ.0);
+        /// Controls coherency of vertex attribute reads
         pub const VERTEX_ATTRIBUTE_READ: Self = Self(AccessFlagBits::VERTEX_ATTRIBUTE_READ.0);
+        /// Controls coherency of uniform buffer reads
         pub const UNIFORM_READ: Self = Self(AccessFlagBits::UNIFORM_READ.0);
+        /// Controls coherency of input attachment reads
         pub const INPUT_ATTACHMENT_READ: Self = Self(AccessFlagBits::INPUT_ATTACHMENT_READ.0);
+        /// Controls coherency of shader reads
         pub const SHADER_READ: Self = Self(AccessFlagBits::SHADER_READ.0);
+        /// Controls coherency of shader writes
         pub const SHADER_WRITE: Self = Self(AccessFlagBits::SHADER_WRITE.0);
+        /// Controls coherency of color attachment reads
         pub const COLOR_ATTACHMENT_READ: Self = Self(AccessFlagBits::COLOR_ATTACHMENT_READ.0);
+        /// Controls coherency of color attachment writes
         pub const COLOR_ATTACHMENT_WRITE: Self = Self(AccessFlagBits::COLOR_ATTACHMENT_WRITE.0);
+        /// Controls coherency of depth/stencil attachment reads
         pub const DEPTH_STENCIL_ATTACHMENT_READ: Self =
             Self(AccessFlagBits::DEPTH_STENCIL_ATTACHMENT_READ.0);
+        /// Controls coherency of depth/stencil attachment writes
         pub const DEPTH_STENCIL_ATTACHMENT_WRITE: Self =
             Self(AccessFlagBits::DEPTH_STENCIL_ATTACHMENT_WRITE.0);
+        /// Controls coherency of transfer reads
         pub const TRANSFER_READ: Self = Self(AccessFlagBits::TRANSFER_READ.0);
+        /// Controls coherency of transfer writes
         pub const TRANSFER_WRITE: Self = Self(AccessFlagBits::TRANSFER_WRITE.0);
+        /// Controls coherency of host reads
         pub const HOST_READ: Self = Self(AccessFlagBits::HOST_READ.0);
+        /// Controls coherency of host writes
         pub const HOST_WRITE: Self = Self(AccessFlagBits::HOST_WRITE.0);
+        /// Controls coherency of memory reads
         pub const MEMORY_READ: Self = Self(AccessFlagBits::MEMORY_READ.0);
+        /// Controls coherency of memory writes
         pub const MEMORY_WRITE: Self = Self(AccessFlagBits::MEMORY_WRITE.0);
         // VK_EXT_blend_operation_advanced
         pub const COLOR_ATTACHMENT_READ_NONCOHERENT_EXT: Self =
             Self(AccessFlagBits::COLOR_ATTACHMENT_READ_NONCOHERENT_EXT.0);
         // VK_EXT_conditional_rendering
+        /// read access flag for reading conditional rendering predicate
         pub const CONDITIONAL_RENDERING_READ_EXT: Self =
             Self(AccessFlagBits::CONDITIONAL_RENDERING_READ_EXT.0);
         // VK_EXT_device_generated_commands
@@ -13952,26 +14041,44 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct AccessFlagBits(u32);
     impl AccessFlagBits {
+        /// Controls coherency of indirect command reads
         pub const INDIRECT_COMMAND_READ: Self = Self(1 << 0);
+        /// Controls coherency of index reads
         pub const INDEX_READ: Self = Self(1 << 1);
+        /// Controls coherency of vertex attribute reads
         pub const VERTEX_ATTRIBUTE_READ: Self = Self(1 << 2);
+        /// Controls coherency of uniform buffer reads
         pub const UNIFORM_READ: Self = Self(1 << 3);
+        /// Controls coherency of input attachment reads
         pub const INPUT_ATTACHMENT_READ: Self = Self(1 << 4);
+        /// Controls coherency of shader reads
         pub const SHADER_READ: Self = Self(1 << 5);
+        /// Controls coherency of shader writes
         pub const SHADER_WRITE: Self = Self(1 << 6);
+        /// Controls coherency of color attachment reads
         pub const COLOR_ATTACHMENT_READ: Self = Self(1 << 7);
+        /// Controls coherency of color attachment writes
         pub const COLOR_ATTACHMENT_WRITE: Self = Self(1 << 8);
+        /// Controls coherency of depth/stencil attachment reads
         pub const DEPTH_STENCIL_ATTACHMENT_READ: Self = Self(1 << 9);
+        /// Controls coherency of depth/stencil attachment writes
         pub const DEPTH_STENCIL_ATTACHMENT_WRITE: Self = Self(1 << 10);
+        /// Controls coherency of transfer reads
         pub const TRANSFER_READ: Self = Self(1 << 11);
+        /// Controls coherency of transfer writes
         pub const TRANSFER_WRITE: Self = Self(1 << 12);
+        /// Controls coherency of host reads
         pub const HOST_READ: Self = Self(1 << 13);
+        /// Controls coherency of host writes
         pub const HOST_WRITE: Self = Self(1 << 14);
+        /// Controls coherency of memory reads
         pub const MEMORY_READ: Self = Self(1 << 15);
+        /// Controls coherency of memory writes
         pub const MEMORY_WRITE: Self = Self(1 << 16);
         // VK_EXT_blend_operation_advanced
         pub const COLOR_ATTACHMENT_READ_NONCOHERENT_EXT: Self = Self(1 << 19);
         // VK_EXT_conditional_rendering
+        /// read access flag for reading conditional rendering predicate
         pub const CONDITIONAL_RENDERING_READ_EXT: Self = Self(1 << 20);
         // VK_EXT_device_generated_commands
         pub const COMMAND_PREPROCESS_READ_EXT: Self = Self(1 << 17);
@@ -14003,14 +14110,23 @@ pub(super) mod defs {
     pub struct BufferUsageFlags(Flags);
     vk_bitflags_wrapped!(BufferUsageFlags, Flags);
     impl BufferUsageFlags {
+        /// Can be used as a source of transfer operations
         pub const TRANSFER_SRC: Self = Self(BufferUsageFlagBits::TRANSFER_SRC.0);
+        /// Can be used as a destination of transfer operations
         pub const TRANSFER_DST: Self = Self(BufferUsageFlagBits::TRANSFER_DST.0);
+        /// Can be used as TBO
         pub const UNIFORM_TEXEL_BUFFER: Self = Self(BufferUsageFlagBits::UNIFORM_TEXEL_BUFFER.0);
+        /// Can be used as IBO
         pub const STORAGE_TEXEL_BUFFER: Self = Self(BufferUsageFlagBits::STORAGE_TEXEL_BUFFER.0);
+        /// Can be used as UBO
         pub const UNIFORM_BUFFER: Self = Self(BufferUsageFlagBits::UNIFORM_BUFFER.0);
+        /// Can be used as SSBO
         pub const STORAGE_BUFFER: Self = Self(BufferUsageFlagBits::STORAGE_BUFFER.0);
+        /// Can be used as source of fixed-function index fetch (index buffer)
         pub const INDEX_BUFFER: Self = Self(BufferUsageFlagBits::INDEX_BUFFER.0);
+        /// Can be used as source of fixed-function vertex fetch (VBO)
         pub const VERTEX_BUFFER: Self = Self(BufferUsageFlagBits::VERTEX_BUFFER.0);
+        /// Can be the source of indirect parameters (e.g. indirect buffer, parameter buffer)
         pub const INDIRECT_BUFFER: Self = Self(BufferUsageFlagBits::INDIRECT_BUFFER.0);
         // VK_AMDX_shader_enqueue
         pub const EXECUTION_GRAPH_SCRATCH_AMDX: Self =
@@ -14018,6 +14134,7 @@ pub(super) mod defs {
         // VK_EXT_buffer_device_address
         pub const SHADER_DEVICE_ADDRESS_EXT: Self = Self::SHADER_DEVICE_ADDRESS;
         // VK_EXT_conditional_rendering
+        /// Specifies the buffer can be used as predicate in conditional rendering
         pub const CONDITIONAL_RENDERING_EXT: Self =
             Self(BufferUsageFlagBits::CONDITIONAL_RENDERING_EXT.0);
         // VK_EXT_descriptor_buffer
@@ -14161,20 +14278,30 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct BufferUsageFlagBits(u32);
     impl BufferUsageFlagBits {
+        /// Can be used as a source of transfer operations
         pub const TRANSFER_SRC: Self = Self(1 << 0);
+        /// Can be used as a destination of transfer operations
         pub const TRANSFER_DST: Self = Self(1 << 1);
+        /// Can be used as TBO
         pub const UNIFORM_TEXEL_BUFFER: Self = Self(1 << 2);
+        /// Can be used as IBO
         pub const STORAGE_TEXEL_BUFFER: Self = Self(1 << 3);
+        /// Can be used as UBO
         pub const UNIFORM_BUFFER: Self = Self(1 << 4);
+        /// Can be used as SSBO
         pub const STORAGE_BUFFER: Self = Self(1 << 5);
+        /// Can be used as source of fixed-function index fetch (index buffer)
         pub const INDEX_BUFFER: Self = Self(1 << 6);
+        /// Can be used as source of fixed-function vertex fetch (VBO)
         pub const VERTEX_BUFFER: Self = Self(1 << 7);
+        /// Can be the source of indirect parameters (e.g. indirect buffer, parameter buffer)
         pub const INDIRECT_BUFFER: Self = Self(1 << 8);
         // VK_AMDX_shader_enqueue
         pub const EXECUTION_GRAPH_SCRATCH_AMDX: Self = Self(1 << 25);
         // VK_EXT_buffer_device_address
         pub const SHADER_DEVICE_ADDRESS_EXT: Self = Self::SHADER_DEVICE_ADDRESS;
         // VK_EXT_conditional_rendering
+        /// Specifies the buffer can be used as predicate in conditional rendering
         pub const CONDITIONAL_RENDERING_EXT: Self = Self(1 << 9);
         // VK_EXT_descriptor_buffer
         pub const SAMPLER_DESCRIPTOR_BUFFER_EXT: Self = Self(1 << 21);
@@ -14214,8 +14341,11 @@ pub(super) mod defs {
     pub struct BufferCreateFlags(Flags);
     vk_bitflags_wrapped!(BufferCreateFlags, Flags);
     impl BufferCreateFlags {
+        /// Buffer should support sparse backing
         pub const SPARSE_BINDING: Self = Self(BufferCreateFlagBits::SPARSE_BINDING.0);
+        /// Buffer should support sparse backing with partial residency
         pub const SPARSE_RESIDENCY: Self = Self(BufferCreateFlagBits::SPARSE_RESIDENCY.0);
+        /// Buffer should support constant data access to physical memory ranges mapped into multiple locations of sparse buffers
         pub const SPARSE_ALIASED: Self = Self(BufferCreateFlagBits::SPARSE_ALIASED.0);
         // VK_EXT_buffer_device_address
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY_EXT: Self = Self::DEVICE_ADDRESS_CAPTURE_REPLAY;
@@ -14228,6 +14358,7 @@ pub(super) mod defs {
         pub const VIDEO_PROFILE_INDEPENDENT_KHR: Self =
             Self(BufferCreateFlagBits::VIDEO_PROFILE_INDEPENDENT_KHR.0);
         // VK_VERSION_1_1
+        /// Buffer requires protected memory
         pub const PROTECTED: Self = Self(BufferCreateFlagBits::PROTECTED.0);
         // VK_VERSION_1_2
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY: Self =
@@ -14261,8 +14392,11 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct BufferCreateFlagBits(u32);
     impl BufferCreateFlagBits {
+        /// Buffer should support sparse backing
         pub const SPARSE_BINDING: Self = Self(1 << 0);
+        /// Buffer should support sparse backing with partial residency
         pub const SPARSE_RESIDENCY: Self = Self(1 << 1);
+        /// Buffer should support constant data access to physical memory ranges mapped into multiple locations of sparse buffers
         pub const SPARSE_ALIASED: Self = Self(1 << 2);
         // VK_EXT_buffer_device_address
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY_EXT: Self = Self::DEVICE_ADDRESS_CAPTURE_REPLAY;
@@ -14273,6 +14407,7 @@ pub(super) mod defs {
         // VK_KHR_video_maintenance1
         pub const VIDEO_PROFILE_INDEPENDENT_KHR: Self = Self(1 << 6);
         // VK_VERSION_1_1
+        /// Buffer requires protected memory
         pub const PROTECTED: Self = Self(1 << 3);
         // VK_VERSION_1_2
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY: Self = Self(1 << 4);
@@ -14396,14 +14531,22 @@ pub(super) mod defs {
     pub struct ImageUsageFlags(Flags);
     vk_bitflags_wrapped!(ImageUsageFlags, Flags);
     impl ImageUsageFlags {
+        /// Can be used as a source of transfer operations
         pub const TRANSFER_SRC: Self = Self(ImageUsageFlagBits::TRANSFER_SRC.0);
+        /// Can be used as a destination of transfer operations
         pub const TRANSFER_DST: Self = Self(ImageUsageFlagBits::TRANSFER_DST.0);
+        /// Can be sampled from (SAMPLED_IMAGE and COMBINED_IMAGE_SAMPLER descriptor types)
         pub const SAMPLED: Self = Self(ImageUsageFlagBits::SAMPLED.0);
+        /// Can be used as storage image (STORAGE_IMAGE descriptor type)
         pub const STORAGE: Self = Self(ImageUsageFlagBits::STORAGE.0);
+        /// Can be used as framebuffer color attachment
         pub const COLOR_ATTACHMENT: Self = Self(ImageUsageFlagBits::COLOR_ATTACHMENT.0);
+        /// Can be used as framebuffer depth/stencil attachment
         pub const DEPTH_STENCIL_ATTACHMENT: Self =
             Self(ImageUsageFlagBits::DEPTH_STENCIL_ATTACHMENT.0);
+        /// Image data not needed outside of rendering
         pub const TRANSIENT_ATTACHMENT: Self = Self(ImageUsageFlagBits::TRANSIENT_ATTACHMENT.0);
+        /// Can be used as framebuffer input attachment
         pub const INPUT_ATTACHMENT: Self = Self(ImageUsageFlagBits::INPUT_ATTACHMENT.0);
         // VK_ARM_tensors
         pub const TENSOR_ALIASING_ARM: Self = Self(ImageUsageFlagBits::TENSOR_ALIASING_ARM.0);
@@ -14529,13 +14672,21 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ImageUsageFlagBits(u32);
     impl ImageUsageFlagBits {
+        /// Can be used as a source of transfer operations
         pub const TRANSFER_SRC: Self = Self(1 << 0);
+        /// Can be used as a destination of transfer operations
         pub const TRANSFER_DST: Self = Self(1 << 1);
+        /// Can be sampled from (SAMPLED_IMAGE and COMBINED_IMAGE_SAMPLER descriptor types)
         pub const SAMPLED: Self = Self(1 << 2);
+        /// Can be used as storage image (STORAGE_IMAGE descriptor type)
         pub const STORAGE: Self = Self(1 << 3);
+        /// Can be used as framebuffer color attachment
         pub const COLOR_ATTACHMENT: Self = Self(1 << 4);
+        /// Can be used as framebuffer depth/stencil attachment
         pub const DEPTH_STENCIL_ATTACHMENT: Self = Self(1 << 5);
+        /// Image data not needed outside of rendering
         pub const TRANSIENT_ATTACHMENT: Self = Self(1 << 6);
+        /// Can be used as framebuffer input attachment
         pub const INPUT_ATTACHMENT: Self = Self(1 << 7);
         // VK_ARM_tensors
         pub const TENSOR_ALIASING_ARM: Self = Self(1 << 23);
@@ -14576,10 +14727,15 @@ pub(super) mod defs {
     pub struct ImageCreateFlags(Flags);
     vk_bitflags_wrapped!(ImageCreateFlags, Flags);
     impl ImageCreateFlags {
+        /// Image should support sparse backing
         pub const SPARSE_BINDING: Self = Self(ImageCreateFlagBits::SPARSE_BINDING.0);
+        /// Image should support sparse backing with partial residency
         pub const SPARSE_RESIDENCY: Self = Self(ImageCreateFlagBits::SPARSE_RESIDENCY.0);
+        /// Image should support constant data access to physical memory ranges mapped into multiple locations of sparse images
         pub const SPARSE_ALIASED: Self = Self(ImageCreateFlagBits::SPARSE_ALIASED.0);
+        /// Allows image views to have different format than the base image
         pub const MUTABLE_FORMAT: Self = Self(ImageCreateFlagBits::MUTABLE_FORMAT.0);
+        /// Allows creating image views with cube type from the created image
         pub const CUBE_COMPATIBLE: Self = Self(ImageCreateFlagBits::CUBE_COMPATIBLE.0);
         // VK_EXT_descriptor_buffer
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self =
@@ -14593,6 +14749,7 @@ pub(super) mod defs {
         pub const FRAGMENT_DENSITY_MAP_OFFSET_EXT: Self =
             Self(ImageCreateFlagBits::FRAGMENT_DENSITY_MAP_OFFSET_EXT.0);
         // VK_EXT_image_2d_view_of_3d
+        /// Image is created with a layout where individual slices are capable of being used as 2D images
         pub const _2D_VIEW_COMPATIBLE_EXT: Self =
             Self(ImageCreateFlagBits::_2D_VIEW_COMPATIBLE_EXT.0);
         // VK_EXT_multisampled_render_to_single_sampled
@@ -14620,7 +14777,9 @@ pub(super) mod defs {
         // VK_QCOM_fragment_density_map_offset
         pub const FRAGMENT_DENSITY_MAP_OFFSET_QCOM: Self = Self::FRAGMENT_DENSITY_MAP_OFFSET_EXT;
         // VK_VERSION_1_1
+        /// The 3D image can be viewed as a 2D or 2D array image
         pub const _2D_ARRAY_COMPATIBLE: Self = Self(ImageCreateFlagBits::_2D_ARRAY_COMPATIBLE.0);
+        /// Allows using VkBindImageMemoryDeviceGroupInfo::pSplitInstanceBindRegions when binding memory to the image
         pub const SPLIT_INSTANCE_BIND_REGIONS: Self =
             Self(ImageCreateFlagBits::SPLIT_INSTANCE_BIND_REGIONS.0);
         pub const BLOCK_TEXEL_VIEW_COMPATIBLE: Self =
@@ -14628,6 +14787,7 @@ pub(super) mod defs {
         pub const EXTENDED_USAGE: Self = Self(ImageCreateFlagBits::EXTENDED_USAGE.0);
         pub const DISJOINT: Self = Self(ImageCreateFlagBits::DISJOINT.0);
         pub const ALIAS: Self = Self(ImageCreateFlagBits::ALIAS.0);
+        /// Image requires protected memory
         pub const PROTECTED: Self = Self(ImageCreateFlagBits::PROTECTED.0);
     }
     impl fmt::Debug for ImageCreateFlags {
@@ -14689,10 +14849,15 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ImageCreateFlagBits(u32);
     impl ImageCreateFlagBits {
+        /// Image should support sparse backing
         pub const SPARSE_BINDING: Self = Self(1 << 0);
+        /// Image should support sparse backing with partial residency
         pub const SPARSE_RESIDENCY: Self = Self(1 << 1);
+        /// Image should support constant data access to physical memory ranges mapped into multiple locations of sparse images
         pub const SPARSE_ALIASED: Self = Self(1 << 2);
+        /// Allows image views to have different format than the base image
         pub const MUTABLE_FORMAT: Self = Self(1 << 3);
+        /// Allows creating image views with cube type from the created image
         pub const CUBE_COMPATIBLE: Self = Self(1 << 4);
         // VK_EXT_descriptor_buffer
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self =
@@ -14704,6 +14869,7 @@ pub(super) mod defs {
         // VK_EXT_fragment_density_map_offset
         pub const FRAGMENT_DENSITY_MAP_OFFSET_EXT: Self = Self(1 << 15);
         // VK_EXT_image_2d_view_of_3d
+        /// Image is created with a layout where individual slices are capable of being used as 2D images
         pub const _2D_VIEW_COMPATIBLE_EXT: Self = Self(1 << 17);
         // VK_EXT_multisampled_render_to_single_sampled
         pub const MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_EXT: Self = Self(1 << 18);
@@ -14727,12 +14893,15 @@ pub(super) mod defs {
         // VK_QCOM_fragment_density_map_offset
         pub const FRAGMENT_DENSITY_MAP_OFFSET_QCOM: Self = Self::FRAGMENT_DENSITY_MAP_OFFSET_EXT;
         // VK_VERSION_1_1
+        /// The 3D image can be viewed as a 2D or 2D array image
         pub const _2D_ARRAY_COMPATIBLE: Self = Self(1 << 5);
+        /// Allows using VkBindImageMemoryDeviceGroupInfo::pSplitInstanceBindRegions when binding memory to the image
         pub const SPLIT_INSTANCE_BIND_REGIONS: Self = Self(1 << 6);
         pub const BLOCK_TEXEL_VIEW_COMPATIBLE: Self = Self(1 << 7);
         pub const EXTENDED_USAGE: Self = Self(1 << 8);
         pub const DISJOINT: Self = Self(1 << 9);
         pub const ALIAS: Self = Self(1 << 10);
+        /// Image requires protected memory
         pub const PROTECTED: Self = Self(1 << 11);
     }
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageViewCreateFlags.html>
@@ -15128,21 +15297,34 @@ pub(super) mod defs {
     pub struct FormatFeatureFlags(Flags);
     vk_bitflags_wrapped!(FormatFeatureFlags, Flags);
     impl FormatFeatureFlags {
+        /// Format can be used for sampled images (SAMPLED_IMAGE and COMBINED_IMAGE_SAMPLER descriptor types)
         pub const SAMPLED_IMAGE: Self = Self(FormatFeatureFlagBits::SAMPLED_IMAGE.0);
+        /// Format can be used for storage images (STORAGE_IMAGE descriptor type)
         pub const STORAGE_IMAGE: Self = Self(FormatFeatureFlagBits::STORAGE_IMAGE.0);
+        /// Format supports atomic operations in case it is used for storage images
         pub const STORAGE_IMAGE_ATOMIC: Self = Self(FormatFeatureFlagBits::STORAGE_IMAGE_ATOMIC.0);
+        /// Format can be used for uniform texel buffers (TBOs)
         pub const UNIFORM_TEXEL_BUFFER: Self = Self(FormatFeatureFlagBits::UNIFORM_TEXEL_BUFFER.0);
+        /// Format can be used for storage texel buffers (IBOs)
         pub const STORAGE_TEXEL_BUFFER: Self = Self(FormatFeatureFlagBits::STORAGE_TEXEL_BUFFER.0);
+        /// Format supports atomic operations in case it is used for storage texel buffers
         pub const STORAGE_TEXEL_BUFFER_ATOMIC: Self =
             Self(FormatFeatureFlagBits::STORAGE_TEXEL_BUFFER_ATOMIC.0);
+        /// Format can be used for vertex buffers (VBOs)
         pub const VERTEX_BUFFER: Self = Self(FormatFeatureFlagBits::VERTEX_BUFFER.0);
+        /// Format can be used for color attachment images
         pub const COLOR_ATTACHMENT: Self = Self(FormatFeatureFlagBits::COLOR_ATTACHMENT.0);
+        /// Format supports blending in case it is used for color attachment images
         pub const COLOR_ATTACHMENT_BLEND: Self =
             Self(FormatFeatureFlagBits::COLOR_ATTACHMENT_BLEND.0);
+        /// Format can be used for depth/stencil attachment images
         pub const DEPTH_STENCIL_ATTACHMENT: Self =
             Self(FormatFeatureFlagBits::DEPTH_STENCIL_ATTACHMENT.0);
+        /// Format can be used as the source image of blits with vkCmdBlitImage
         pub const BLIT_SRC: Self = Self(FormatFeatureFlagBits::BLIT_SRC.0);
+        /// Format can be used as the destination image of blits with vkCmdBlitImage
         pub const BLIT_DST: Self = Self(FormatFeatureFlagBits::BLIT_DST.0);
+        /// Format can be filtered with VK_FILTER_LINEAR when being sampled
         pub const SAMPLED_IMAGE_FILTER_LINEAR: Self =
             Self(FormatFeatureFlagBits::SAMPLED_IMAGE_FILTER_LINEAR.0);
         // VK_EXT_filter_cubic
@@ -15185,12 +15367,17 @@ pub(super) mod defs {
             Self(FormatFeatureFlagBits::VIDEO_ENCODE_INPUT_KHR.0);
         pub const VIDEO_ENCODE_DPB_KHR: Self = Self(FormatFeatureFlagBits::VIDEO_ENCODE_DPB_KHR.0);
         // VK_VERSION_1_1
+        /// Format can be used as the source image of image transfer commands
         pub const TRANSFER_SRC: Self = Self(FormatFeatureFlagBits::TRANSFER_SRC.0);
+        /// Format can be used as the destination image of image transfer commands
         pub const TRANSFER_DST: Self = Self(FormatFeatureFlagBits::TRANSFER_DST.0);
+        /// Format can have midpoint rather than cosited chroma samples
         pub const MIDPOINT_CHROMA_SAMPLES: Self =
             Self(FormatFeatureFlagBits::MIDPOINT_CHROMA_SAMPLES.0);
+        /// Format can be used with linear filtering whilst color conversion is enabled
         pub const SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER: Self =
             Self(FormatFeatureFlagBits::SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER.0);
+        /// Format can have different chroma, min and mag filters
         pub const SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER: Self = Self(
             FormatFeatureFlagBits::SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER.0,
         );
@@ -15198,10 +15385,13 @@ pub(super) mod defs {
             FormatFeatureFlagBits::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT.0,
         );
         pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE: Self = Self(FormatFeatureFlagBits::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE.0);
+        /// Format supports disjoint planes
         pub const DISJOINT: Self = Self(FormatFeatureFlagBits::DISJOINT.0);
+        /// Format can have cosited rather than midpoint chroma samples
         pub const COSITED_CHROMA_SAMPLES: Self =
             Self(FormatFeatureFlagBits::COSITED_CHROMA_SAMPLES.0);
         // VK_VERSION_1_2
+        /// Format can be used with min/max reduction filtering
         pub const SAMPLED_IMAGE_FILTER_MINMAX: Self =
             Self(FormatFeatureFlagBits::SAMPLED_IMAGE_FILTER_MINMAX.0);
     }
@@ -15248,18 +15438,31 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct FormatFeatureFlagBits(u32);
     impl FormatFeatureFlagBits {
+        /// Format can be used for sampled images (SAMPLED_IMAGE and COMBINED_IMAGE_SAMPLER descriptor types)
         pub const SAMPLED_IMAGE: Self = Self(1 << 0);
+        /// Format can be used for storage images (STORAGE_IMAGE descriptor type)
         pub const STORAGE_IMAGE: Self = Self(1 << 1);
+        /// Format supports atomic operations in case it is used for storage images
         pub const STORAGE_IMAGE_ATOMIC: Self = Self(1 << 2);
+        /// Format can be used for uniform texel buffers (TBOs)
         pub const UNIFORM_TEXEL_BUFFER: Self = Self(1 << 3);
+        /// Format can be used for storage texel buffers (IBOs)
         pub const STORAGE_TEXEL_BUFFER: Self = Self(1 << 4);
+        /// Format supports atomic operations in case it is used for storage texel buffers
         pub const STORAGE_TEXEL_BUFFER_ATOMIC: Self = Self(1 << 5);
+        /// Format can be used for vertex buffers (VBOs)
         pub const VERTEX_BUFFER: Self = Self(1 << 6);
+        /// Format can be used for color attachment images
         pub const COLOR_ATTACHMENT: Self = Self(1 << 7);
+        /// Format supports blending in case it is used for color attachment images
         pub const COLOR_ATTACHMENT_BLEND: Self = Self(1 << 8);
+        /// Format can be used for depth/stencil attachment images
         pub const DEPTH_STENCIL_ATTACHMENT: Self = Self(1 << 9);
+        /// Format can be used as the source image of blits with vkCmdBlitImage
         pub const BLIT_SRC: Self = Self(1 << 10);
+        /// Format can be used as the destination image of blits with vkCmdBlitImage
         pub const BLIT_DST: Self = Self(1 << 11);
+        /// Format can be filtered with VK_FILTER_LINEAR when being sampled
         pub const SAMPLED_IMAGE_FILTER_LINEAR: Self = Self(1 << 12);
         // VK_EXT_filter_cubic
         pub const SAMPLED_IMAGE_FILTER_CUBIC_EXT: Self = Self(1 << 13);
@@ -15295,19 +15498,27 @@ pub(super) mod defs {
         pub const VIDEO_ENCODE_INPUT_KHR: Self = Self(1 << 27);
         pub const VIDEO_ENCODE_DPB_KHR: Self = Self(1 << 28);
         // VK_VERSION_1_1
+        /// Format can be used as the source image of image transfer commands
         pub const TRANSFER_SRC: Self = Self(1 << 14);
+        /// Format can be used as the destination image of image transfer commands
         pub const TRANSFER_DST: Self = Self(1 << 15);
+        /// Format can have midpoint rather than cosited chroma samples
         pub const MIDPOINT_CHROMA_SAMPLES: Self = Self(1 << 17);
+        /// Format can be used with linear filtering whilst color conversion is enabled
         pub const SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER: Self = Self(1 << 18);
+        /// Format can have different chroma, min and mag filters
         pub const SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER: Self =
             Self(1 << 19);
         pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT: Self =
             Self(1 << 20);
         pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE: Self =
             Self(1 << 21);
+        /// Format supports disjoint planes
         pub const DISJOINT: Self = Self(1 << 22);
+        /// Format can have cosited rather than midpoint chroma samples
         pub const COSITED_CHROMA_SAMPLES: Self = Self(1 << 23);
         // VK_VERSION_1_2
+        /// Format can be used with min/max reduction filtering
         pub const SAMPLED_IMAGE_FILTER_MINMAX: Self = Self(1 << 16);
     }
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryControlFlags.html>
@@ -15316,6 +15527,7 @@ pub(super) mod defs {
     pub struct QueryControlFlags(Flags);
     vk_bitflags_wrapped!(QueryControlFlags, Flags);
     impl QueryControlFlags {
+        /// Require precise results to be collected by the query
         pub const PRECISE: Self = Self(QueryControlFlagBits::PRECISE.0);
     }
     impl fmt::Debug for QueryControlFlags {
@@ -15329,6 +15541,7 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct QueryControlFlagBits(u32);
     impl QueryControlFlagBits {
+        /// Require precise results to be collected by the query
         pub const PRECISE: Self = Self(1 << 0);
     }
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryResultFlags.html>
@@ -15337,9 +15550,13 @@ pub(super) mod defs {
     pub struct QueryResultFlags(Flags);
     vk_bitflags_wrapped!(QueryResultFlags, Flags);
     impl QueryResultFlags {
+        /// Results of the queries are written to the destination buffer as 64-bit values
         pub const _64: Self = Self(QueryResultFlagBits::_64.0);
+        /// Results of the queries are waited on before proceeding with the result copy
         pub const WAIT: Self = Self(QueryResultFlagBits::WAIT.0);
+        /// Besides the results of the query, the availability of the results is also written
         pub const WITH_AVAILABILITY: Self = Self(QueryResultFlagBits::WITH_AVAILABILITY.0);
+        /// Copy the partial results of the query even if the final results are not available
         pub const PARTIAL: Self = Self(QueryResultFlagBits::PARTIAL.0);
         // VK_KHR_video_queue
         pub const WITH_STATUS_KHR: Self = Self(QueryResultFlagBits::WITH_STATUS_KHR.0);
@@ -15361,9 +15578,13 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct QueryResultFlagBits(u32);
     impl QueryResultFlagBits {
+        /// Results of the queries are written to the destination buffer as 64-bit values
         pub const _64: Self = Self(1 << 0);
+        /// Results of the queries are waited on before proceeding with the result copy
         pub const WAIT: Self = Self(1 << 1);
+        /// Besides the results of the query, the availability of the results is also written
         pub const WITH_AVAILABILITY: Self = Self(1 << 2);
+        /// Copy the partial results of the query even if the final results are not available
         pub const PARTIAL: Self = Self(1 << 3);
         // VK_KHR_video_queue
         pub const WITH_STATUS_KHR: Self = Self(1 << 4);
@@ -15411,10 +15632,13 @@ pub(super) mod defs {
     pub struct CommandPoolCreateFlags(Flags);
     vk_bitflags_wrapped!(CommandPoolCreateFlags, Flags);
     impl CommandPoolCreateFlags {
+        /// Command buffers have a short lifetime
         pub const TRANSIENT: Self = Self(CommandPoolCreateFlagBits::TRANSIENT.0);
+        /// Command buffers may release their memory individually
         pub const RESET_COMMAND_BUFFER: Self =
             Self(CommandPoolCreateFlagBits::RESET_COMMAND_BUFFER.0);
         // VK_VERSION_1_1
+        /// Command buffers allocated from pool are protected command buffers
         pub const PROTECTED: Self = Self(CommandPoolCreateFlagBits::PROTECTED.0);
     }
     impl fmt::Debug for CommandPoolCreateFlags {
@@ -15435,9 +15659,12 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct CommandPoolCreateFlagBits(u32);
     impl CommandPoolCreateFlagBits {
+        /// Command buffers have a short lifetime
         pub const TRANSIENT: Self = Self(1 << 0);
+        /// Command buffers may release their memory individually
         pub const RESET_COMMAND_BUFFER: Self = Self(1 << 1);
         // VK_VERSION_1_1
+        /// Command buffers allocated from pool are protected command buffers
         pub const PROTECTED: Self = Self(1 << 2);
     }
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandPoolResetFlags.html>
@@ -15446,6 +15673,7 @@ pub(super) mod defs {
     pub struct CommandPoolResetFlags(Flags);
     vk_bitflags_wrapped!(CommandPoolResetFlags, Flags);
     impl CommandPoolResetFlags {
+        /// Release resources owned by the pool
         pub const RELEASE_RESOURCES: Self = Self(CommandPoolResetFlagBits::RELEASE_RESOURCES.0);
     }
     impl fmt::Debug for CommandPoolResetFlags {
@@ -15462,6 +15690,7 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct CommandPoolResetFlagBits(u32);
     impl CommandPoolResetFlagBits {
+        /// Release resources owned by the pool
         pub const RELEASE_RESOURCES: Self = Self(1 << 0);
     }
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferResetFlags.html>
@@ -15470,6 +15699,7 @@ pub(super) mod defs {
     pub struct CommandBufferResetFlags(Flags);
     vk_bitflags_wrapped!(CommandBufferResetFlags, Flags);
     impl CommandBufferResetFlags {
+        /// Release resources owned by the buffer
         pub const RELEASE_RESOURCES: Self = Self(CommandBufferResetFlagBits::RELEASE_RESOURCES.0);
     }
     impl fmt::Debug for CommandBufferResetFlags {
@@ -15486,6 +15716,7 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct CommandBufferResetFlagBits(u32);
     impl CommandBufferResetFlagBits {
+        /// Release resources owned by the buffer
         pub const RELEASE_RESOURCES: Self = Self(1 << 0);
     }
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferUsageFlags.html>
@@ -15497,6 +15728,7 @@ pub(super) mod defs {
         pub const ONE_TIME_SUBMIT: Self = Self(CommandBufferUsageFlagBits::ONE_TIME_SUBMIT.0);
         pub const RENDER_PASS_CONTINUE: Self =
             Self(CommandBufferUsageFlagBits::RENDER_PASS_CONTINUE.0);
+        /// Command buffer may be submitted/executed more than once simultaneously
         pub const SIMULTANEOUS_USE: Self = Self(CommandBufferUsageFlagBits::SIMULTANEOUS_USE.0);
     }
     impl fmt::Debug for CommandBufferUsageFlags {
@@ -15525,6 +15757,7 @@ pub(super) mod defs {
     impl CommandBufferUsageFlagBits {
         pub const ONE_TIME_SUBMIT: Self = Self(1 << 0);
         pub const RENDER_PASS_CONTINUE: Self = Self(1 << 1);
+        /// Command buffer may be submitted/executed more than once simultaneously
         pub const SIMULTANEOUS_USE: Self = Self(1 << 2);
     }
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPipelineStatisticFlags.html>
@@ -15747,6 +15980,7 @@ pub(super) mod defs {
     pub struct SparseMemoryBindFlags(Flags);
     vk_bitflags_wrapped!(SparseMemoryBindFlags, Flags);
     impl SparseMemoryBindFlags {
+        /// Operation binds resource metadata to memory
         pub const METADATA: Self = Self(SparseMemoryBindFlagBits::METADATA.0);
     }
     impl fmt::Debug for SparseMemoryBindFlags {
@@ -15760,6 +15994,7 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SparseMemoryBindFlagBits(u32);
     impl SparseMemoryBindFlagBits {
+        /// Operation binds resource metadata to memory
         pub const METADATA: Self = Self(1 << 0);
     }
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageFormatFlags.html>
@@ -15768,8 +16003,11 @@ pub(super) mod defs {
     pub struct SparseImageFormatFlags(Flags);
     vk_bitflags_wrapped!(SparseImageFormatFlags, Flags);
     impl SparseImageFormatFlags {
+        /// Image uses a single mip tail region for all array layers
         pub const SINGLE_MIPTAIL: Self = Self(SparseImageFormatFlagBits::SINGLE_MIPTAIL.0);
+        /// Image requires mip level dimensions to be an integer multiple of the sparse image block dimensions for non-tail mip levels.
         pub const ALIGNED_MIP_SIZE: Self = Self(SparseImageFormatFlagBits::ALIGNED_MIP_SIZE.0);
+        /// Image uses a non-standard sparse image block dimensions
         pub const NONSTANDARD_BLOCK_SIZE: Self =
             Self(SparseImageFormatFlagBits::NONSTANDARD_BLOCK_SIZE.0);
     }
@@ -15794,8 +16032,11 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SparseImageFormatFlagBits(u32);
     impl SparseImageFormatFlagBits {
+        /// Image uses a single mip tail region for all array layers
         pub const SINGLE_MIPTAIL: Self = Self(1 << 0);
+        /// Image requires mip level dimensions to be an integer multiple of the sparse image block dimensions for non-tail mip levels.
         pub const ALIGNED_MIP_SIZE: Self = Self(1 << 1);
+        /// Image uses a non-standard sparse image block dimensions
         pub const NONSTANDARD_BLOCK_SIZE: Self = Self(1 << 2);
     }
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassDescriptionFlags.html>
@@ -15916,27 +16157,45 @@ pub(super) mod defs {
     pub struct PipelineStageFlags(Flags);
     vk_bitflags_wrapped!(PipelineStageFlags, Flags);
     impl PipelineStageFlags {
+        /// Before subsequent commands are processed
         pub const TOP_OF_PIPE: Self = Self(PipelineStageFlagBits::TOP_OF_PIPE.0);
+        /// Draw/DispatchIndirect command fetch
         pub const DRAW_INDIRECT: Self = Self(PipelineStageFlagBits::DRAW_INDIRECT.0);
+        /// Vertex/index fetch
         pub const VERTEX_INPUT: Self = Self(PipelineStageFlagBits::VERTEX_INPUT.0);
+        /// Vertex shading
         pub const VERTEX_SHADER: Self = Self(PipelineStageFlagBits::VERTEX_SHADER.0);
+        /// Tessellation control shading
         pub const TESSELLATION_CONTROL_SHADER: Self =
             Self(PipelineStageFlagBits::TESSELLATION_CONTROL_SHADER.0);
+        /// Tessellation evaluation shading
         pub const TESSELLATION_EVALUATION_SHADER: Self =
             Self(PipelineStageFlagBits::TESSELLATION_EVALUATION_SHADER.0);
+        /// Geometry shading
         pub const GEOMETRY_SHADER: Self = Self(PipelineStageFlagBits::GEOMETRY_SHADER.0);
+        /// Fragment shading
         pub const FRAGMENT_SHADER: Self = Self(PipelineStageFlagBits::FRAGMENT_SHADER.0);
+        /// Early fragment (depth and stencil) tests
         pub const EARLY_FRAGMENT_TESTS: Self = Self(PipelineStageFlagBits::EARLY_FRAGMENT_TESTS.0);
+        /// Late fragment (depth and stencil) tests
         pub const LATE_FRAGMENT_TESTS: Self = Self(PipelineStageFlagBits::LATE_FRAGMENT_TESTS.0);
+        /// Color attachment writes
         pub const COLOR_ATTACHMENT_OUTPUT: Self =
             Self(PipelineStageFlagBits::COLOR_ATTACHMENT_OUTPUT.0);
+        /// Compute shading
         pub const COMPUTE_SHADER: Self = Self(PipelineStageFlagBits::COMPUTE_SHADER.0);
+        /// Transfer/copy operations
         pub const TRANSFER: Self = Self(PipelineStageFlagBits::TRANSFER.0);
+        /// After previous commands have completed
         pub const BOTTOM_OF_PIPE: Self = Self(PipelineStageFlagBits::BOTTOM_OF_PIPE.0);
+        /// Indicates host (CPU) is a source/sink of the dependency
         pub const HOST: Self = Self(PipelineStageFlagBits::HOST.0);
+        /// All stages of the graphics pipeline
         pub const ALL_GRAPHICS: Self = Self(PipelineStageFlagBits::ALL_GRAPHICS.0);
+        /// All stages supported on the queue
         pub const ALL_COMMANDS: Self = Self(PipelineStageFlagBits::ALL_COMMANDS.0);
         // VK_EXT_conditional_rendering
+        /// A pipeline stage for conditional rendering predicate fetch
         pub const CONDITIONAL_RENDERING_EXT: Self =
             Self(PipelineStageFlagBits::CONDITIONAL_RENDERING_EXT.0);
         // VK_EXT_device_generated_commands
@@ -16049,24 +16308,42 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineStageFlagBits(u32);
     impl PipelineStageFlagBits {
+        /// Before subsequent commands are processed
         pub const TOP_OF_PIPE: Self = Self(1 << 0);
+        /// Draw/DispatchIndirect command fetch
         pub const DRAW_INDIRECT: Self = Self(1 << 1);
+        /// Vertex/index fetch
         pub const VERTEX_INPUT: Self = Self(1 << 2);
+        /// Vertex shading
         pub const VERTEX_SHADER: Self = Self(1 << 3);
+        /// Tessellation control shading
         pub const TESSELLATION_CONTROL_SHADER: Self = Self(1 << 4);
+        /// Tessellation evaluation shading
         pub const TESSELLATION_EVALUATION_SHADER: Self = Self(1 << 5);
+        /// Geometry shading
         pub const GEOMETRY_SHADER: Self = Self(1 << 6);
+        /// Fragment shading
         pub const FRAGMENT_SHADER: Self = Self(1 << 7);
+        /// Early fragment (depth and stencil) tests
         pub const EARLY_FRAGMENT_TESTS: Self = Self(1 << 8);
+        /// Late fragment (depth and stencil) tests
         pub const LATE_FRAGMENT_TESTS: Self = Self(1 << 9);
+        /// Color attachment writes
         pub const COLOR_ATTACHMENT_OUTPUT: Self = Self(1 << 10);
+        /// Compute shading
         pub const COMPUTE_SHADER: Self = Self(1 << 11);
+        /// Transfer/copy operations
         pub const TRANSFER: Self = Self(1 << 12);
+        /// After previous commands have completed
         pub const BOTTOM_OF_PIPE: Self = Self(1 << 13);
+        /// Indicates host (CPU) is a source/sink of the dependency
         pub const HOST: Self = Self(1 << 14);
+        /// All stages of the graphics pipeline
         pub const ALL_GRAPHICS: Self = Self(1 << 15);
+        /// All stages supported on the queue
         pub const ALL_COMMANDS: Self = Self(1 << 16);
         // VK_EXT_conditional_rendering
+        /// A pipeline stage for conditional rendering predicate fetch
         pub const CONDITIONAL_RENDERING_EXT: Self = Self(1 << 18);
         // VK_EXT_device_generated_commands
         pub const COMMAND_PREPROCESS_EXT: Self = Self(1 << 17);
@@ -16100,12 +16377,19 @@ pub(super) mod defs {
     pub struct SampleCountFlags(Flags);
     vk_bitflags_wrapped!(SampleCountFlags, Flags);
     impl SampleCountFlags {
+        /// Sample count 1 supported
         pub const _1: Self = Self(SampleCountFlagBits::_1.0);
+        /// Sample count 2 supported
         pub const _2: Self = Self(SampleCountFlagBits::_2.0);
+        /// Sample count 4 supported
         pub const _4: Self = Self(SampleCountFlagBits::_4.0);
+        /// Sample count 8 supported
         pub const _8: Self = Self(SampleCountFlagBits::_8.0);
+        /// Sample count 16 supported
         pub const _16: Self = Self(SampleCountFlagBits::_16.0);
+        /// Sample count 32 supported
         pub const _32: Self = Self(SampleCountFlagBits::_32.0);
+        /// Sample count 64 supported
         pub const _64: Self = Self(SampleCountFlagBits::_64.0);
     }
     impl fmt::Debug for SampleCountFlags {
@@ -16127,12 +16411,19 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SampleCountFlagBits(u32);
     impl SampleCountFlagBits {
+        /// Sample count 1 supported
         pub const _1: Self = Self(1 << 0);
+        /// Sample count 2 supported
         pub const _2: Self = Self(1 << 1);
+        /// Sample count 4 supported
         pub const _4: Self = Self(1 << 2);
+        /// Sample count 8 supported
         pub const _8: Self = Self(1 << 3);
+        /// Sample count 16 supported
         pub const _16: Self = Self(1 << 4);
+        /// Sample count 32 supported
         pub const _32: Self = Self(1 << 5);
+        /// Sample count 64 supported
         pub const _64: Self = Self(1 << 6);
     }
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentDescriptionFlags.html>
@@ -16141,6 +16432,7 @@ pub(super) mod defs {
     pub struct AttachmentDescriptionFlags(Flags);
     vk_bitflags_wrapped!(AttachmentDescriptionFlags, Flags);
     impl AttachmentDescriptionFlags {
+        /// The attachment may alias physical memory of another attachment in the same render pass
         pub const MAY_ALIAS: Self = Self(AttachmentDescriptionFlagBits::MAY_ALIAS.0);
         // VK_KHR_maintenance10
         pub const RESOLVE_SKIP_TRANSFER_FUNCTION_KHR: Self =
@@ -16169,6 +16461,7 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct AttachmentDescriptionFlagBits(u32);
     impl AttachmentDescriptionFlagBits {
+        /// The attachment may alias physical memory of another attachment in the same render pass
         pub const MAY_ALIAS: Self = Self(1 << 0);
         // VK_KHR_maintenance10
         pub const RESOLVE_SKIP_TRANSFER_FUNCTION_KHR: Self = Self(1 << 1);
@@ -16180,9 +16473,12 @@ pub(super) mod defs {
     pub struct StencilFaceFlags(Flags);
     vk_bitflags_wrapped!(StencilFaceFlags, Flags);
     impl StencilFaceFlags {
+        /// Front face
         pub const FRONT: Self = Self(StencilFaceFlagBits::FRONT.0);
+        /// Back face
         pub const BACK: Self = Self(StencilFaceFlagBits::BACK.0);
         pub const STENCIL_FRONT_AND_BACK: Self = Self::FRONT_AND_BACK;
+        /// Front and back faces
         pub const FRONT_AND_BACK: Self = Self(0x00000003);
     }
     impl fmt::Debug for StencilFaceFlags {
@@ -16199,7 +16495,9 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct StencilFaceFlagBits(u32);
     impl StencilFaceFlagBits {
+        /// Front face
         pub const FRONT: Self = Self(1 << 0);
+        /// Back face
         pub const BACK: Self = Self(1 << 1);
     }
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCullModeFlags.html>
@@ -16236,6 +16534,7 @@ pub(super) mod defs {
     pub struct DescriptorPoolCreateFlags(Flags);
     vk_bitflags_wrapped!(DescriptorPoolCreateFlags, Flags);
     impl DescriptorPoolCreateFlags {
+        /// Descriptor sets may be freed individually
         pub const FREE_DESCRIPTOR_SET: Self =
             Self(DescriptorPoolCreateFlagBits::FREE_DESCRIPTOR_SET.0);
         // VK_EXT_descriptor_indexing
@@ -16281,6 +16580,7 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DescriptorPoolCreateFlagBits(u32);
     impl DescriptorPoolCreateFlagBits {
+        /// Descriptor sets may be freed individually
         pub const FREE_DESCRIPTOR_SET: Self = Self(1 << 0);
         // VK_EXT_descriptor_indexing
         pub const UPDATE_AFTER_BIND_EXT: Self = Self::UPDATE_AFTER_BIND;
@@ -16310,8 +16610,10 @@ pub(super) mod defs {
     pub struct DependencyFlags(Flags);
     vk_bitflags_wrapped!(DependencyFlags, Flags);
     impl DependencyFlags {
+        /// Dependency is per pixel region
         pub const BY_REGION: Self = Self(DependencyFlagBits::BY_REGION.0);
         // VK_EXT_attachment_feedback_loop_layout
+        /// Dependency may be a feedback loop
         pub const FEEDBACK_LOOP_EXT: Self = Self(DependencyFlagBits::FEEDBACK_LOOP_EXT.0);
         // VK_KHR_device_group
         pub const DEVICE_GROUP_KHR: Self = Self::DEVICE_GROUP;
@@ -16324,6 +16626,7 @@ pub(super) mod defs {
         pub const VIEW_LOCAL_KHR: Self = Self::VIEW_LOCAL;
         // VK_VERSION_1_1
         pub const VIEW_LOCAL: Self = Self(DependencyFlagBits::VIEW_LOCAL.0);
+        /// Dependency is across devices
         pub const DEVICE_GROUP: Self = Self(DependencyFlagBits::DEVICE_GROUP.0);
     }
     impl fmt::Debug for DependencyFlags {
@@ -16350,8 +16653,10 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DependencyFlagBits(u32);
     impl DependencyFlagBits {
+        /// Dependency is per pixel region
         pub const BY_REGION: Self = Self(1 << 0);
         // VK_EXT_attachment_feedback_loop_layout
+        /// Dependency may be a feedback loop
         pub const FEEDBACK_LOOP_EXT: Self = Self(1 << 3);
         // VK_KHR_device_group
         pub const DEVICE_GROUP_KHR: Self = Self::DEVICE_GROUP;
@@ -16363,6 +16668,7 @@ pub(super) mod defs {
         pub const VIEW_LOCAL_KHR: Self = Self::VIEW_LOCAL;
         // VK_VERSION_1_1
         pub const VIEW_LOCAL: Self = Self(1 << 1);
+        /// Dependency is across devices
         pub const DEVICE_GROUP: Self = Self(1 << 2);
     }
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/PFN_vkInternalAllocationNotification.html>

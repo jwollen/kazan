@@ -819,6 +819,7 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StdVideoH264ProfileIdc(i32);
     impl StdVideoH264ProfileIdc {
+        /// Only constrained baseline is supported
         pub const BASELINE: Self = Self(66);
         pub const MAIN: Self = Self(77);
         pub const HIGH: Self = Self(100);

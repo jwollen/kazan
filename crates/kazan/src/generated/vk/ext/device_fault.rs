@@ -265,6 +265,7 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DeviceFaultAddressTypeEXT(i32);
     impl DeviceFaultAddressTypeEXT {
+        /// Currently unused
         pub const NONE_EXT: Self = Self(0);
         pub const READ_INVALID_EXT: Self = Self(1);
         pub const WRITE_INVALID_EXT: Self = Self(2);

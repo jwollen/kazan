@@ -2512,6 +2512,7 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DescriptorUpdateTemplateType(i32);
     impl DescriptorUpdateTemplateType {
+        /// Create descriptor update template for descriptor set updates
         pub const DESCRIPTOR_SET: Self = Self(0);
         // VK_KHR_descriptor_update_template
         pub const DESCRIPTOR_SET_KHR: Self = Self::DESCRIPTOR_SET;
@@ -2589,9 +2590,13 @@ pub(super) mod defs {
     pub struct SamplerYcbcrModelConversion(i32);
     impl SamplerYcbcrModelConversion {
         pub const RGB_IDENTITY: Self = Self(0);
+        /// just range expansion
         pub const YCBCR_IDENTITY: Self = Self(1);
+        /// aka HD YUV
         pub const YCBCR_709: Self = Self(2);
+        /// aka SD YUV
         pub const YCBCR_601: Self = Self(3);
+        /// aka UHD YUV
         pub const YCBCR_2020: Self = Self(4);
         // VK_KHR_sampler_ycbcr_conversion
         pub const RGB_IDENTITY_KHR: Self = Self::RGB_IDENTITY;
@@ -2622,7 +2627,9 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SamplerYcbcrRange(i32);
     impl SamplerYcbcrRange {
+        /// Luma 0..1 maps to 0..255, chroma -0.5..0.5 to 1..255 (clamped)
         pub const ITU_FULL: Self = Self(0);
+        /// Luma 0..1 maps to 16..235, chroma -0.5..0.5 to 16..240
         pub const ITU_NARROW: Self = Self(1);
         // VK_KHR_sampler_ycbcr_conversion
         pub const ITU_FULL_KHR: Self = Self::ITU_FULL;
@@ -2673,13 +2680,21 @@ pub(super) mod defs {
     pub struct SubgroupFeatureFlags(Flags);
     vk_bitflags_wrapped!(SubgroupFeatureFlags, Flags);
     impl SubgroupFeatureFlags {
+        /// Basic subgroup operations
         pub const BASIC: Self = Self(SubgroupFeatureFlagBits::BASIC.0);
+        /// Vote subgroup operations
         pub const VOTE: Self = Self(SubgroupFeatureFlagBits::VOTE.0);
+        /// Arithmetic subgroup operations
         pub const ARITHMETIC: Self = Self(SubgroupFeatureFlagBits::ARITHMETIC.0);
+        /// Ballot subgroup operations
         pub const BALLOT: Self = Self(SubgroupFeatureFlagBits::BALLOT.0);
+        /// Shuffle subgroup operations
         pub const SHUFFLE: Self = Self(SubgroupFeatureFlagBits::SHUFFLE.0);
+        /// Shuffle relative subgroup operations
         pub const SHUFFLE_RELATIVE: Self = Self(SubgroupFeatureFlagBits::SHUFFLE_RELATIVE.0);
+        /// Clustered subgroup operations
         pub const CLUSTERED: Self = Self(SubgroupFeatureFlagBits::CLUSTERED.0);
+        /// Quad subgroup operations
         pub const QUAD: Self = Self(SubgroupFeatureFlagBits::QUAD.0);
         // VK_EXT_shader_subgroup_partitioned
         pub const PARTITIONED_EXT: Self = Self(SubgroupFeatureFlagBits::PARTITIONED_EXT.0);
@@ -2715,13 +2730,21 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SubgroupFeatureFlagBits(u32);
     impl SubgroupFeatureFlagBits {
+        /// Basic subgroup operations
         pub const BASIC: Self = Self(1 << 0);
+        /// Vote subgroup operations
         pub const VOTE: Self = Self(1 << 1);
+        /// Arithmetic subgroup operations
         pub const ARITHMETIC: Self = Self(1 << 2);
+        /// Ballot subgroup operations
         pub const BALLOT: Self = Self(1 << 3);
+        /// Shuffle subgroup operations
         pub const SHUFFLE: Self = Self(1 << 4);
+        /// Shuffle relative subgroup operations
         pub const SHUFFLE_RELATIVE: Self = Self(1 << 5);
+        /// Clustered subgroup operations
         pub const CLUSTERED: Self = Self(1 << 6);
+        /// Quad subgroup operations
         pub const QUAD: Self = Self(1 << 7);
         // VK_EXT_shader_subgroup_partitioned
         pub const PARTITIONED_EXT: Self = Self(1 << 8);
@@ -2750,9 +2773,13 @@ pub(super) mod defs {
     pub struct PeerMemoryFeatureFlags(Flags);
     vk_bitflags_wrapped!(PeerMemoryFeatureFlags, Flags);
     impl PeerMemoryFeatureFlags {
+        /// Can read with vkCmdCopy commands
         pub const COPY_SRC: Self = Self(PeerMemoryFeatureFlagBits::COPY_SRC.0);
+        /// Can write with vkCmdCopy commands
         pub const COPY_DST: Self = Self(PeerMemoryFeatureFlagBits::COPY_DST.0);
+        /// Can read with any access type/command
         pub const GENERIC_SRC: Self = Self(PeerMemoryFeatureFlagBits::GENERIC_SRC.0);
+        /// Can write with and access type/command
         pub const GENERIC_DST: Self = Self(PeerMemoryFeatureFlagBits::GENERIC_DST.0);
         // VK_KHR_device_group
         pub const COPY_SRC_KHR: Self = Self::COPY_SRC;
@@ -2776,9 +2803,13 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PeerMemoryFeatureFlagBits(u32);
     impl PeerMemoryFeatureFlagBits {
+        /// Can read with vkCmdCopy commands
         pub const COPY_SRC: Self = Self(1 << 0);
+        /// Can write with vkCmdCopy commands
         pub const COPY_DST: Self = Self(1 << 1);
+        /// Can read with any access type/command
         pub const GENERIC_SRC: Self = Self(1 << 2);
+        /// Can write with and access type/command
         pub const GENERIC_DST: Self = Self(1 << 3);
         // VK_KHR_device_group
         pub const COPY_SRC_KHR: Self = Self::COPY_SRC;
@@ -2792,6 +2823,7 @@ pub(super) mod defs {
     pub struct MemoryAllocateFlags(Flags);
     vk_bitflags_wrapped!(MemoryAllocateFlags, Flags);
     impl MemoryAllocateFlags {
+        /// Force allocation on specific devices
         pub const DEVICE_MASK: Self = Self(MemoryAllocateFlagBits::DEVICE_MASK.0);
         // VK_EXT_zero_initialize_device_memory
         pub const ZERO_INITIALIZE_EXT: Self = Self(MemoryAllocateFlagBits::ZERO_INITIALIZE_EXT.0);
@@ -2827,6 +2859,7 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MemoryAllocateFlagBits(u32);
     impl MemoryAllocateFlagBits {
+        /// Force allocation on specific devices
         pub const DEVICE_MASK: Self = Self(1 << 0);
         // VK_EXT_zero_initialize_device_memory
         pub const ZERO_INITIALIZE_EXT: Self = Self(1 << 3);

@@ -3653,33 +3653,61 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DriverId(i32);
     impl DriverId {
+        /// Advanced Micro Devices, Inc.
         pub const AMD_PROPRIETARY: Self = Self(1);
+        /// Advanced Micro Devices, Inc.
         pub const AMD_OPEN_SOURCE: Self = Self(2);
+        /// Mesa open source project
         pub const MESA_RADV: Self = Self(3);
+        /// NVIDIA Corporation
         pub const NVIDIA_PROPRIETARY: Self = Self(4);
+        /// Intel Corporation
         pub const INTEL_PROPRIETARY_WINDOWS: Self = Self(5);
+        /// Intel Corporation
         pub const INTEL_OPEN_SOURCE_MESA: Self = Self(6);
+        /// Imagination Technologies
         pub const IMAGINATION_PROPRIETARY: Self = Self(7);
+        /// Qualcomm Technologies, Inc.
         pub const QUALCOMM_PROPRIETARY: Self = Self(8);
+        /// Arm Limited
         pub const ARM_PROPRIETARY: Self = Self(9);
+        /// Google LLC
         pub const GOOGLE_SWIFTSHADER: Self = Self(10);
+        /// Google LLC
         pub const GGP_PROPRIETARY: Self = Self(11);
+        /// Broadcom Inc.
         pub const BROADCOM_PROPRIETARY: Self = Self(12);
+        /// Mesa
         pub const MESA_LLVMPIPE: Self = Self(13);
+        /// MoltenVK
         pub const MOLTENVK: Self = Self(14);
+        /// Core Avionics & Industrial Inc.
         pub const COREAVI_PROPRIETARY: Self = Self(15);
+        /// Juice Technologies, Inc.
         pub const JUICE_PROPRIETARY: Self = Self(16);
+        /// Verisilicon, Inc.
         pub const VERISILICON_PROPRIETARY: Self = Self(17);
+        /// Mesa open source project
         pub const MESA_TURNIP: Self = Self(18);
+        /// Mesa open source project
         pub const MESA_V3DV: Self = Self(19);
+        /// Mesa open source project
         pub const MESA_PANVK: Self = Self(20);
+        /// Samsung Electronics Co., Ltd.
         pub const SAMSUNG_PROPRIETARY: Self = Self(21);
+        /// Mesa open source project
         pub const MESA_VENUS: Self = Self(22);
+        /// Mesa open source project
         pub const MESA_DOZEN: Self = Self(23);
+        /// Mesa open source project
         pub const MESA_NVK: Self = Self(24);
+        /// Imagination Technologies
         pub const IMAGINATION_OPEN_SOURCE_MESA: Self = Self(25);
+        /// Mesa open source project
         pub const MESA_HONEYKRISP: Self = Self(26);
+        /// Vulkan SC Emulation on Vulkan
         pub const VULKAN_SC_EMULATION_ON_VULKAN: Self = Self(27);
+        /// Mesa open source project
         pub const MESA_KOSMICKRISP: Self = Self(28);
         // VK_KHR_driver_properties
         pub const AMD_PROPRIETARY_KHR: Self = Self::AMD_PROPRIETARY;

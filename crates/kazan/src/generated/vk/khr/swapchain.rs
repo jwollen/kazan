@@ -410,13 +410,17 @@ pub(super) mod defs {
         // VK_EXT_swapchain_maintenance1
         pub const DEFERRED_MEMORY_ALLOCATION_EXT: Self = Self::DEFERRED_MEMORY_ALLOCATION_KHR;
         // VK_KHR_device_group
+        /// Allow images with VK_IMAGE_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT
         pub const SPLIT_INSTANCE_BIND_REGIONS_KHR: Self =
             Self(SwapchainCreateFlagBitsKHR::SPLIT_INSTANCE_BIND_REGIONS_KHR.0);
         // VK_KHR_present_id2
+        /// Allow use of VK_KHR_present_id2 with this swapchain
         pub const PRESENT_ID_2_KHR: Self = Self(SwapchainCreateFlagBitsKHR::PRESENT_ID_2_KHR.0);
         // VK_KHR_present_wait2
+        /// Allow use of VK_KHR_present_wait2 with this swapchain
         pub const PRESENT_WAIT_2_KHR: Self = Self(SwapchainCreateFlagBitsKHR::PRESENT_WAIT_2_KHR.0);
         // VK_KHR_swapchain
+        /// Swapchain is protected
         pub const PROTECTED_KHR: Self = Self(SwapchainCreateFlagBitsKHR::PROTECTED_KHR.0);
         // VK_KHR_swapchain_maintenance1
         pub const DEFERRED_MEMORY_ALLOCATION_KHR: Self =
@@ -466,12 +470,16 @@ pub(super) mod defs {
         // VK_EXT_swapchain_maintenance1
         pub const DEFERRED_MEMORY_ALLOCATION_EXT: Self = Self::DEFERRED_MEMORY_ALLOCATION_KHR;
         // VK_KHR_device_group
+        /// Allow images with VK_IMAGE_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT
         pub const SPLIT_INSTANCE_BIND_REGIONS_KHR: Self = Self(1 << 0);
         // VK_KHR_present_id2
+        /// Allow use of VK_KHR_present_id2 with this swapchain
         pub const PRESENT_ID_2_KHR: Self = Self(1 << 6);
         // VK_KHR_present_wait2
+        /// Allow use of VK_KHR_present_wait2 with this swapchain
         pub const PRESENT_WAIT_2_KHR: Self = Self(1 << 7);
         // VK_KHR_swapchain
+        /// Swapchain is protected
         pub const PROTECTED_KHR: Self = Self(1 << 1);
         // VK_KHR_swapchain_maintenance1
         pub const DEFERRED_MEMORY_ALLOCATION_KHR: Self = Self(1 << 3);
@@ -484,9 +492,13 @@ pub(super) mod defs {
     pub struct DeviceGroupPresentModeFlagsKHR(Flags);
     vk_bitflags_wrapped!(DeviceGroupPresentModeFlagsKHR, Flags);
     impl DeviceGroupPresentModeFlagsKHR {
+        /// Present from local memory
         pub const LOCAL_KHR: Self = Self(DeviceGroupPresentModeFlagBitsKHR::LOCAL_KHR.0);
+        /// Present from remote memory
         pub const REMOTE_KHR: Self = Self(DeviceGroupPresentModeFlagBitsKHR::REMOTE_KHR.0);
+        /// Present sum of local and/or remote memory
         pub const SUM_KHR: Self = Self(DeviceGroupPresentModeFlagBitsKHR::SUM_KHR.0);
+        /// Each physical device presents from local memory
         pub const LOCAL_MULTI_DEVICE_KHR: Self =
             Self(DeviceGroupPresentModeFlagBitsKHR::LOCAL_MULTI_DEVICE_KHR.0);
     }
@@ -509,9 +521,13 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DeviceGroupPresentModeFlagBitsKHR(u32);
     impl DeviceGroupPresentModeFlagBitsKHR {
+        /// Present from local memory
         pub const LOCAL_KHR: Self = Self(1 << 0);
+        /// Present from remote memory
         pub const REMOTE_KHR: Self = Self(1 << 1);
+        /// Present sum of local and/or remote memory
         pub const SUM_KHR: Self = Self(1 << 2);
+        /// Each physical device presents from local memory
         pub const LOCAL_MULTI_DEVICE_KHR: Self = Self(1 << 3);
     }
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSwapchainKHR.html>

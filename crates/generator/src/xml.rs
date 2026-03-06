@@ -544,6 +544,7 @@ impl Constant {
 pub struct EnumValue {
     pub value: &'static str,
     pub name: &'static str,
+    pub comment: Option<&'static str>,
 }
 
 impl EnumValue {
@@ -551,6 +552,7 @@ impl EnumValue {
         EnumValue {
             value: attribute(node, "value").unwrap(),
             name: attribute(node, "name").unwrap(),
+            comment: attribute(node, "comment"),
         }
     }
 }
@@ -590,6 +592,7 @@ impl Enum {
 pub struct BitMaskBit {
     pub bitpos: u8,
     pub name: &'static str,
+    pub comment: Option<&'static str>,
 }
 
 impl BitMaskBit {
@@ -597,6 +600,7 @@ impl BitMaskBit {
         BitMaskBit {
             bitpos: attribute(node, "bitpos").unwrap().parse().unwrap(),
             name: attribute(node, "name").unwrap(),
+            comment: attribute(node, "comment"),
         }
     }
 }
@@ -716,6 +720,7 @@ pub struct RequireEnumVariant {
     pub extnumber: Option<u32>,
     pub negative: bool,
     pub extends: &'static str,
+    pub comment: Option<&'static str>,
 }
 
 impl RequireEnumVariant {
@@ -732,6 +737,7 @@ impl RequireEnumVariant {
             extends: attribute(node, "extends").unwrap(),
             extnumber: attribute(node, "extnumber").map(|value| value.parse().unwrap()),
             negative,
+            comment: attribute(node, "comment"),
         }
     }
 }
@@ -741,6 +747,7 @@ pub struct RequireEnumValue {
     pub name: &'static str,
     pub value: &'static str,
     pub extends: &'static str,
+    pub comment: Option<&'static str>,
 }
 
 impl RequireEnumValue {
@@ -749,6 +756,7 @@ impl RequireEnumValue {
             name: attribute(node, "name").unwrap(),
             value: attribute(node, "value").unwrap(),
             extends: attribute(node, "extends").unwrap(),
+            comment: attribute(node, "comment"),
         }
     }
 }
@@ -758,6 +766,7 @@ pub struct RequireBitPos {
     pub name: &'static str,
     pub bitpos: u8,
     pub extends: &'static str,
+    pub comment: Option<&'static str>,
 }
 
 impl RequireBitPos {
@@ -766,6 +775,7 @@ impl RequireBitPos {
             name: attribute(node, "name").unwrap(),
             bitpos: attribute(node, "bitpos").unwrap().parse().unwrap(),
             extends: attribute(node, "extends").unwrap(),
+            comment: attribute(node, "comment"),
         }
     }
 }

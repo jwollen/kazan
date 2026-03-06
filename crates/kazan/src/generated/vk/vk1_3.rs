@@ -3375,6 +3375,7 @@ _marker: PhantomData
             Self(AccessFlagBits2::COMMAND_PREPROCESS_WRITE_EXT.0);
         pub const COLOR_ATTACHMENT_READ_NONCOHERENT_EXT: Self =
             Self(AccessFlagBits2::COLOR_ATTACHMENT_READ_NONCOHERENT_EXT.0);
+        /// read access flag for reading conditional rendering predicate
         pub const CONDITIONAL_RENDERING_READ_EXT: Self =
             Self(AccessFlagBits2::CONDITIONAL_RENDERING_READ_EXT.0);
         pub const ACCELERATION_STRUCTURE_READ_KHR: Self =
@@ -3633,6 +3634,7 @@ _marker: PhantomData
         pub const COMMAND_PREPROCESS_READ_EXT: Self = Self(1 << 17);
         pub const COMMAND_PREPROCESS_WRITE_EXT: Self = Self(1 << 18);
         pub const COLOR_ATTACHMENT_READ_NONCOHERENT_EXT: Self = Self(1 << 19);
+        /// read access flag for reading conditional rendering predicate
         pub const CONDITIONAL_RENDERING_READ_EXT: Self = Self(1 << 20);
         pub const ACCELERATION_STRUCTURE_READ_KHR: Self = Self(1 << 21);
         pub const ACCELERATION_STRUCTURE_WRITE_KHR: Self = Self(1 << 22);
@@ -3742,6 +3744,7 @@ _marker: PhantomData
         // VK_KHR_synchronization2
         pub const COMMAND_PREPROCESS_EXT: Self =
             Self(PipelineStageFlagBits2::COMMAND_PREPROCESS_EXT.0);
+        /// A pipeline stage for conditional rendering predicate fetch
         pub const CONDITIONAL_RENDERING_EXT: Self =
             Self(PipelineStageFlagBits2::CONDITIONAL_RENDERING_EXT.0);
         pub const TASK_SHADER_EXT: Self = Self(PipelineStageFlagBits2::TASK_SHADER_EXT.0);
@@ -3964,6 +3967,7 @@ _marker: PhantomData
         pub const ACCELERATION_STRUCTURE_COPY_KHR: Self = Self(1 << 28);
         // VK_KHR_synchronization2
         pub const COMMAND_PREPROCESS_EXT: Self = Self(1 << 17);
+        /// A pipeline stage for conditional rendering predicate fetch
         pub const CONDITIONAL_RENDERING_EXT: Self = Self(1 << 18);
         pub const TASK_SHADER_EXT: Self = Self(1 << 19);
         pub const MESH_SHADER_EXT: Self = Self(1 << 20);
@@ -4135,6 +4139,7 @@ _marker: PhantomData
             Self(FormatFeatureFlagBits2::VIDEO_ENCODE_INPUT_KHR.0);
         pub const VIDEO_ENCODE_DPB_KHR: Self = Self(FormatFeatureFlagBits2::VIDEO_ENCODE_DPB_KHR.0);
         // VK_NV_linear_color_attachment
+        /// Format support linear image as render target, it cannot be mixed with non linear attachment
         pub const LINEAR_COLOR_ATTACHMENT_NV: Self =
             Self(FormatFeatureFlagBits2::LINEAR_COLOR_ATTACHMENT_NV.0);
         // VK_NV_optical_flow
@@ -4154,6 +4159,7 @@ _marker: PhantomData
         pub const BOX_FILTER_SAMPLED_QCOM: Self =
             Self(FormatFeatureFlagBits2::BOX_FILTER_SAMPLED_QCOM.0);
         // VK_VERSION_1_3
+        /// This is an interaction with EXT_filter_cubic, though not tagged that way
         pub const SAMPLED_IMAGE_FILTER_CUBIC: Self =
             Self(FormatFeatureFlagBits2::SAMPLED_IMAGE_FILTER_CUBIC.0);
         // VK_VERSION_1_4
@@ -4316,6 +4322,7 @@ _marker: PhantomData
         pub const VIDEO_ENCODE_INPUT_KHR: Self = Self(1 << 27);
         pub const VIDEO_ENCODE_DPB_KHR: Self = Self(1 << 28);
         // VK_NV_linear_color_attachment
+        /// Format support linear image as render target, it cannot be mixed with non linear attachment
         pub const LINEAR_COLOR_ATTACHMENT_NV: Self = Self(1 << 38);
         // VK_NV_optical_flow
         pub const OPTICAL_FLOW_IMAGE_NV: Self = Self(1 << 40);
@@ -4329,6 +4336,7 @@ _marker: PhantomData
         pub const BLOCK_MATCHING_QCOM: Self = Self(1 << 36);
         pub const BOX_FILTER_SAMPLED_QCOM: Self = Self(1 << 37);
         // VK_VERSION_1_3
+        /// This is an interaction with EXT_filter_cubic, though not tagged that way
         pub const SAMPLED_IMAGE_FILTER_CUBIC: Self = Self(1 << 13);
         // VK_VERSION_1_4
         pub const HOST_IMAGE_TRANSFER: Self = Self(1 << 46);
@@ -4360,6 +4368,7 @@ _marker: PhantomData
         pub const LOCAL_READ_CONCURRENT_ACCESS_CONTROL_KHR: Self =
             Self(RenderingFlagBits::LOCAL_READ_CONCURRENT_ACCESS_CONTROL_KHR.0);
         // VK_KHR_maintenance7
+        /// Promoted from extension 452
         pub const CONTENTS_INLINE_KHR: Self = Self(RenderingFlagBits::CONTENTS_INLINE_KHR.0);
         // VK_VALVE_fragment_density_map_layered
         pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self =
@@ -4416,6 +4425,7 @@ _marker: PhantomData
         // VK_KHR_maintenance10
         pub const LOCAL_READ_CONCURRENT_ACCESS_CONTROL_KHR: Self = Self(1 << 8);
         // VK_KHR_maintenance7
+        /// Promoted from extension 452
         pub const CONTENTS_INLINE_KHR: Self = Self(1 << 4);
         // VK_VALVE_fragment_density_map_layered
         pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self = Self(1 << 5);

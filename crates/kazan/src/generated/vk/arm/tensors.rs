@@ -1147,9 +1147,13 @@ pub(super) mod defs {
     pub struct TensorUsageFlagsARM(Flags64);
     vk_bitflags_wrapped!(TensorUsageFlagsARM, Flags64);
     impl TensorUsageFlagsARM {
+        /// Tensor written/read through shader descriptor
         pub const SHADER_ARM: Self = Self(TensorUsageFlagBitsARM::SHADER_ARM.0);
+        /// Tensor can be src of a transfer operation
         pub const TRANSFER_SRC_ARM: Self = Self(TensorUsageFlagBitsARM::TRANSFER_SRC_ARM.0);
+        /// Tensor can be dst of a transfer operation
         pub const TRANSFER_DST_ARM: Self = Self(TensorUsageFlagBitsARM::TRANSFER_DST_ARM.0);
+        /// Tensor can be aliased with an image
         pub const IMAGE_ALIASING_ARM: Self = Self(TensorUsageFlagBitsARM::IMAGE_ALIASING_ARM.0);
         // VK_ARM_data_graph
         pub const DATA_GRAPH_ARM: Self = Self(TensorUsageFlagBitsARM::DATA_GRAPH_ARM.0);
@@ -1174,9 +1178,13 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct TensorUsageFlagBitsARM(u64);
     impl TensorUsageFlagBitsARM {
+        /// Tensor written/read through shader descriptor
         pub const SHADER_ARM: Self = Self(1 << 1);
+        /// Tensor can be src of a transfer operation
         pub const TRANSFER_SRC_ARM: Self = Self(1 << 2);
+        /// Tensor can be dst of a transfer operation
         pub const TRANSFER_DST_ARM: Self = Self(1 << 3);
+        /// Tensor can be aliased with an image
         pub const IMAGE_ALIASING_ARM: Self = Self(1 << 4);
         // VK_ARM_data_graph
         pub const DATA_GRAPH_ARM: Self = Self(1 << 5);
