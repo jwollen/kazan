@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkLatencySleepModeInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct LatencySleepModeInfoNV<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -74,6 +75,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkLatencySleepInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct LatencySleepInfoNV<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -125,6 +127,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSetLatencyMarkerInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SetLatencyMarkerInfoNV<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -176,6 +179,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGetLatencyMarkerInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct GetLatencyMarkerInfoNV<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -223,6 +227,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkLatencyTimingsFrameReportNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct LatencyTimingsFrameReportNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -379,6 +384,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOutOfBandQueueTypeInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct OutOfBandQueueTypeInfoNV<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -422,6 +428,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkLatencySubmissionPresentIdNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct LatencySubmissionPresentIdNV<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -468,6 +475,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSwapchainLatencyCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SwapchainLatencyCreateInfoNV<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -513,6 +521,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkLatencySurfaceCapabilitiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct LatencySurfaceCapabilitiesNV<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

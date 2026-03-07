@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265CapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoEncodeH265CapabilitiesKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -211,6 +212,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265QualityLevelPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoEncodeH265QualityLevelPropertiesKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -343,6 +345,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265SessionCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoEncodeH265SessionCreateInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -397,6 +400,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265SessionParametersAddInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoEncodeH265SessionParametersAddInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -474,6 +478,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265SessionParametersCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoEncodeH265SessionParametersCreateInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -550,6 +555,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265SessionParametersGetInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoEncodeH265SessionParametersGetInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -639,6 +645,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265SessionParametersFeedbackInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoEncodeH265SessionParametersFeedbackInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -704,6 +711,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265PictureInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoEncodeH265PictureInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -774,6 +782,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265NaluSliceSegmentInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoEncodeH265NaluSliceSegmentInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -832,6 +841,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265RateControlInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoEncodeH265RateControlInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -912,6 +922,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct VideoEncodeH265QpKHR {
         pub qp_i: i32,
         pub qp_p: i32,
@@ -939,6 +950,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct VideoEncodeH265FrameSizeKHR {
         pub frame_i_size: u32,
         pub frame_p_size: u32,
@@ -965,6 +977,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265GopRemainingFrameInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoEncodeH265GopRemainingFrameInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1038,6 +1051,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265RateControlLayerInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoEncodeH265RateControlLayerInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1127,6 +1141,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265ProfileInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoEncodeH265ProfileInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1173,6 +1188,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265DpbSlotInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoEncodeH265DpbSlotInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

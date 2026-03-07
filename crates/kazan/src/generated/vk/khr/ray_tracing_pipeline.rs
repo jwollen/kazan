@@ -17,6 +17,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRayTracingShaderGroupCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct RayTracingShaderGroupCreateInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -107,6 +108,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRayTracingPipelineCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct RayTracingPipelineCreateInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -242,6 +244,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingPipelineFeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceRayTracingPipelineFeaturesKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -351,6 +354,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingPipelinePropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceRayTracingPipelinePropertiesKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -478,6 +482,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StridedDeviceAddressRegionKHR {
         pub device_address: DeviceAddress,
         pub stride: DeviceSize,
@@ -505,6 +510,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct TraceRaysIndirectCommandKHR {
         pub width: u32,
         pub height: u32,
@@ -531,6 +537,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRayTracingPipelineInterfaceCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct RayTracingPipelineInterfaceCreateInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

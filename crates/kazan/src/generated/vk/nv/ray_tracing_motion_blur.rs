@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingMotionBlurFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceRayTracingMotionBlurFeaturesNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -80,6 +81,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureGeometryMotionTrianglesDataNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct AccelerationStructureGeometryMotionTrianglesDataNV<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -129,6 +131,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureMotionInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct AccelerationStructureMotionInfoNV<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -186,6 +189,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct SRTDataNV {
         pub sx: f32,
         pub a: f32,
@@ -291,6 +295,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct AccelerationStructureSRTMotionInstanceNV {
         pub transform_t0: SRTDataNV,
         pub transform_t1: SRTDataNV,
@@ -349,6 +354,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct AccelerationStructureMatrixMotionInstanceNV {
         pub transform_t0: TransformMatrixKHR,
         pub transform_t1: TransformMatrixKHR,
@@ -421,6 +427,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct AccelerationStructureMotionInstanceNV {
         pub ty: AccelerationStructureMotionInstanceTypeNV,
         pub flags: AccelerationStructureMotionInstanceFlagsNV,

@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeH265ProfileInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoDecodeH265ProfileInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -61,6 +62,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeH265CapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoDecodeH265CapabilitiesKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -106,6 +108,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeH265SessionParametersAddInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoDecodeH265SessionParametersAddInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -183,6 +186,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeH265SessionParametersCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoDecodeH265SessionParametersCreateInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -259,6 +263,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeH265PictureInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoDecodeH265PictureInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -319,6 +324,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeH265DpbSlotInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoDecodeH265DpbSlotInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

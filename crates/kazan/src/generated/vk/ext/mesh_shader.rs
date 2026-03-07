@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMeshShaderFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceMeshShaderFeaturesEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -101,6 +102,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMeshShaderPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceMeshShaderPropertiesEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -479,6 +481,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct DrawMeshTasksIndirectCommandEXT {
         pub group_count_x: u32,
         pub group_count_y: u32,

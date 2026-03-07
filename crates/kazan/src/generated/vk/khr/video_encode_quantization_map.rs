@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeQuantizationMapCapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoEncodeQuantizationMapCapabilitiesKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -70,6 +71,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264QuantizationMapCapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoEncodeH264QuantizationMapCapabilitiesKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -127,6 +129,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265QuantizationMapCapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoEncodeH265QuantizationMapCapabilitiesKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -184,6 +187,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeAV1QuantizationMapCapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoEncodeAV1QuantizationMapCapabilitiesKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -241,6 +245,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoFormatQuantizationMapPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoFormatQuantizationMapPropertiesKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -296,6 +301,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoFormatH265QuantizationMapPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoFormatH265QuantizationMapPropertiesKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -348,6 +354,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoFormatAV1QuantizationMapPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoFormatAV1QuantizationMapPropertiesKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -403,6 +410,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeQuantizationMapInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoEncodeQuantizationMapInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -456,6 +464,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeQuantizationMapSessionParametersCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoEncodeQuantizationMapSessionParametersCreateInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -513,6 +522,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

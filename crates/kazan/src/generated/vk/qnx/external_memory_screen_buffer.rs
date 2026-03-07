@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportScreenBufferInfoQNX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ImportScreenBufferInfoQNX<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -60,6 +61,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkScreenBufferPropertiesQNX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ScreenBufferPropertiesQNX<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -111,6 +113,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkScreenBufferFormatPropertiesQNX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ScreenBufferFormatPropertiesQNX<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -235,6 +238,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalFormatQNX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ExternalFormatQNX<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -281,6 +285,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalMemoryScreenBufferFeaturesQNX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

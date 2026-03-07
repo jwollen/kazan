@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -71,6 +72,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVertexInputBindingDescription2EXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VertexInputBindingDescription2EXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -138,6 +140,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVertexInputAttributeDescription2EXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VertexInputAttributeDescription2EXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSurfaceInfo2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceSurfaceInfo2KHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -58,6 +59,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceCapabilities2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SurfaceCapabilities2KHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -104,6 +106,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceFormat2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SurfaceFormat2KHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

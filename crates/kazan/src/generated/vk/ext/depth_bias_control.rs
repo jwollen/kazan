@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDepthBiasInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DepthBiasInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -77,6 +78,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDepthBiasRepresentationInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DepthBiasRepresentationInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -137,6 +139,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDepthBiasControlFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceDepthBiasControlFeaturesEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

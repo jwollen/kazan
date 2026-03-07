@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentRegionsKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PresentRegionsKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -64,6 +65,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentRegionKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PresentRegionKHR<'a> {
         pub rectangle_count: u32,
         pub p_rectangles: *const RectLayerKHR,
@@ -102,6 +104,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct RectLayerKHR {
         pub offset: Offset2D,
         pub extent: Extent2D,

@@ -24,6 +24,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBinaryCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PipelineBinaryCreateInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -89,6 +90,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBinaryHandlesInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PipelineBinaryHandlesInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -136,6 +138,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBinaryDataKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PipelineBinaryDataKHR<'a> {
         pub data_size: usize,
         pub p_data: *mut c_void,
@@ -173,6 +176,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBinaryKeysAndDataKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PipelineBinaryKeysAndDataKHR<'a> {
         pub binary_count: u32,
         pub p_pipeline_binary_keys: *const PipelineBinaryKeyKHR<'a>,
@@ -225,6 +229,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBinaryKeyKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PipelineBinaryKeyKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -276,6 +281,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBinaryInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PipelineBinaryInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -327,6 +333,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkReleaseCapturedPipelineDataInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ReleaseCapturedPipelineDataInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -371,6 +378,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBinaryDataInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PipelineBinaryDataInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -414,6 +422,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PipelineCreateInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -449,6 +458,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePipelineBinaryFeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDevicePipelineBinaryFeaturesKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -499,6 +509,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDevicePipelineBinaryInternalCacheControlKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DevicePipelineBinaryInternalCacheControlKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -545,6 +556,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePipelineBinaryPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDevicePipelineBinaryPropertiesKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

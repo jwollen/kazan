@@ -16,6 +16,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct ExternalImageFormatPropertiesNV {
         pub image_format_properties: ImageFormatProperties,
         pub external_memory_features: ExternalMemoryFeatureFlagsNV,

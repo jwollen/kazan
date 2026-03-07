@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassTransformBeginInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct RenderPassTransformBeginInfoQCOM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -60,6 +61,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferInheritanceRenderPassTransformInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct CommandBufferInheritanceRenderPassTransformInfoQCOM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

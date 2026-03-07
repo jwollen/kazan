@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentWait2InfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PresentWait2InfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -66,6 +67,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePresentWait2FeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDevicePresentWait2FeaturesKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -113,6 +115,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceCapabilitiesPresentWait2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SurfaceCapabilitiesPresentWait2KHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

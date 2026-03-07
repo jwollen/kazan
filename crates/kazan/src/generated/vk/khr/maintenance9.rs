@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance9FeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceMaintenance9FeaturesKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -62,6 +63,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance9PropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceMaintenance9PropertiesKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -128,6 +130,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyOwnershipTransferPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct QueueFamilyOwnershipTransferPropertiesKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

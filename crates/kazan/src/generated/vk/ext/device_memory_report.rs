@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDeviceMemoryReportFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceDeviceMemoryReportFeaturesEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -65,6 +66,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceDeviceMemoryReportCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DeviceDeviceMemoryReportCreateInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -133,6 +135,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceMemoryReportCallbackDataEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DeviceMemoryReportCallbackDataEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

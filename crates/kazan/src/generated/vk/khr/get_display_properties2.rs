@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayProperties2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DisplayProperties2KHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -58,6 +59,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPlaneProperties2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DisplayPlaneProperties2KHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -104,6 +106,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayModeProperties2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DisplayModeProperties2KHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -150,6 +153,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPlaneInfo2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DisplayPlaneInfo2KHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -201,6 +205,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPlaneCapabilities2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DisplayPlaneCapabilities2KHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

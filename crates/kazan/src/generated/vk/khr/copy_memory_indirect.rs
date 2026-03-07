@@ -16,6 +16,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StridedDeviceAddressRangeKHR {
         pub address: DeviceAddress,
         pub size: DeviceSize,
@@ -43,6 +44,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct CopyMemoryIndirectCommandKHR {
         pub src_address: DeviceAddress,
         pub dst_address: DeviceAddress,
@@ -69,6 +71,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyMemoryIndirectInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct CopyMemoryIndirectInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -140,6 +143,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct CopyMemoryToImageIndirectCommandKHR {
         pub src_address: DeviceAddress,
         pub buffer_row_length: u32,
@@ -184,6 +188,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyMemoryToImageIndirectInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct CopyMemoryToImageIndirectInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -269,6 +274,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -333,6 +339,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShadingRatePaletteNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ShadingRatePaletteNV<'a> {
         pub shading_rate_palette_entry_count: u32,
         pub p_shading_rate_palette_entries: *const ShadingRatePaletteEntryNV,
@@ -62,6 +63,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineViewportShadingRateImageStateCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PipelineViewportShadingRateImageStateCreateInfoNV<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -126,6 +128,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShadingRateImageFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceShadingRateImageFeaturesNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -190,6 +193,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShadingRateImagePropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceShadingRateImagePropertiesNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -262,6 +266,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct CoarseSampleLocationNV {
         pub pixel_x: u32,
         pub pixel_y: u32,
@@ -288,6 +293,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCoarseSampleOrderCustomNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct CoarseSampleOrderCustomNV<'a> {
         pub shading_rate: ShadingRatePaletteEntryNV,
         pub sample_count: u32,
@@ -341,6 +347,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineViewportCoarseSampleOrderStateCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PipelineViewportCoarseSampleOrderStateCreateInfoNV<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

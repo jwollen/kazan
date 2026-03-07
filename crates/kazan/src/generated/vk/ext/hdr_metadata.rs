@@ -16,6 +16,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct XYColorEXT {
         pub x: f32,
         pub y: f32,
@@ -36,6 +37,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkHdrMetadataEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct HdrMetadataEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

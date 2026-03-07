@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportFenceWin32HandleInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ImportFenceWin32HandleInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -90,6 +91,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportFenceWin32HandleInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ExportFenceWin32HandleInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -151,6 +153,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFenceGetWin32HandleInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct FenceGetWin32HandleInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

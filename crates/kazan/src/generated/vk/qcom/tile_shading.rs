@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTileShadingFeaturesQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceTileShadingFeaturesQCOM<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -223,6 +224,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTileShadingPropertiesQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceTileShadingPropertiesQCOM<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -296,6 +298,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassTileShadingCreateInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct RenderPassTileShadingCreateInfoQCOM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -356,6 +359,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerTileBeginInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PerTileBeginInfoQCOM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -391,6 +395,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerTileEndInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PerTileEndInfoQCOM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -426,6 +431,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDispatchTileInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DispatchTileInfoQCOM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

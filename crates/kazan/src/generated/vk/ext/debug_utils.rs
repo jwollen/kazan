@@ -21,6 +21,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugUtilsObjectNameInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DebugUtilsObjectNameInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -84,6 +85,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugUtilsObjectTagInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DebugUtilsObjectTagInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -155,6 +157,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugUtilsLabelEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DebugUtilsLabelEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -206,6 +209,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugUtilsMessengerCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DebugUtilsMessengerCreateInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -292,6 +296,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugUtilsMessengerCallbackDataEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DebugUtilsMessengerCallbackDataEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

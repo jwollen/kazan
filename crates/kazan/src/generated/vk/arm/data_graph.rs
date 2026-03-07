@@ -23,6 +23,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDataGraphFeaturesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceDataGraphFeaturesARM<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -114,6 +115,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -181,6 +183,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineConstantARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DataGraphPipelineConstantARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -232,6 +235,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineResourceInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DataGraphPipelineResourceInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -291,6 +295,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineCompilerControlCreateInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DataGraphPipelineCompilerControlCreateInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -342,6 +347,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineCreateInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DataGraphPipelineCreateInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -408,6 +414,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineShaderModuleCreateInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DataGraphPipelineShaderModuleCreateInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -488,6 +495,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionCreateInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DataGraphPipelineSessionCreateInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -540,6 +548,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionBindPointRequirementsInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DataGraphPipelineSessionBindPointRequirementsInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -584,6 +593,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionBindPointRequirementARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DataGraphPipelineSessionBindPointRequirementARM<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -647,6 +657,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionMemoryRequirementsInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DataGraphPipelineSessionMemoryRequirementsInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -707,6 +718,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindDataGraphPipelineSessionMemoryInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct BindDataGraphPipelineSessionMemoryInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -783,6 +795,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DataGraphPipelineInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -826,6 +839,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelinePropertyQueryResultARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DataGraphPipelinePropertyQueryResultARM<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -890,6 +904,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineIdentifierCreateInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DataGraphPipelineIdentifierCreateInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -943,6 +958,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineDispatchInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DataGraphPipelineDispatchInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -987,6 +1003,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct PhysicalDeviceDataGraphProcessingEngineARM {
         pub ty: PhysicalDeviceDataGraphProcessingEngineTypeARM,
         pub is_foreign: Bool32,
@@ -1007,6 +1024,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDataGraphOperationSupportARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceDataGraphOperationSupportARM {
         pub operation_type: PhysicalDeviceDataGraphOperationTypeARM,
         pub name: [c_char; MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM as usize],
@@ -1060,6 +1078,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyDataGraphPropertiesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct QueueFamilyDataGraphPropertiesARM<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -1111,6 +1130,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1168,6 +1188,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyDataGraphProcessingEnginePropertiesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct QueueFamilyDataGraphProcessingEnginePropertiesARM<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -1232,6 +1253,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphProcessingEngineCreateInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DataGraphProcessingEngineCreateInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

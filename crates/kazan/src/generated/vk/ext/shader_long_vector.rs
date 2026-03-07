@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderLongVectorFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceShaderLongVectorFeaturesEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -65,6 +66,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderLongVectorPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceShaderLongVectorPropertiesEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

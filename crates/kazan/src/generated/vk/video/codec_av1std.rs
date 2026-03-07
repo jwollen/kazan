@@ -38,6 +38,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoAV1ColorConfigFlags {
         pub mono_chrome: u32,
         pub color_range: u32,
@@ -80,6 +81,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoAV1ColorConfig {
         pub flags: StdVideoAV1ColorConfigFlags,
         pub bit_depth: u8,
@@ -152,6 +154,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoAV1TimingInfoFlags {
         pub equal_picture_interval: u32,
         pub reserved: u32,
@@ -173,6 +176,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoAV1TimingInfo {
         pub flags: StdVideoAV1TimingInfoFlags,
         pub num_units_in_display_tick: u32,
@@ -206,6 +210,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoAV1SequenceHeaderFlags {
         pub still_picture: u32,
         pub reduced_still_picture_header: u32,
@@ -337,6 +342,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1SequenceHeader.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct StdVideoAV1SequenceHeader<'a> {
         pub flags: StdVideoAV1SequenceHeaderFlags,
         pub seq_profile: StdVideoAV1Profile,
@@ -490,6 +496,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoAV1LoopFilterFlags {
         pub loop_filter_delta_enabled: u32,
         pub loop_filter_delta_update: u32,
@@ -517,6 +524,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct StdVideoAV1LoopFilter {
         pub flags: StdVideoAV1LoopFilterFlags,
         pub loop_filter_level: [u8; STD_VIDEO_AV1_MAX_LOOP_FILTER_STRENGTHS as usize],
@@ -591,6 +599,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoAV1QuantizationFlags {
         pub using_qmatrix: u32,
         pub diff_uv_delta: u32,
@@ -618,6 +627,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoAV1Quantization {
         pub flags: StdVideoAV1QuantizationFlags,
         pub base_q_idx: u8,
@@ -687,6 +697,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct StdVideoAV1Segmentation {
         pub feature_enabled: [u8; STD_VIDEO_AV1_MAX_SEGMENTS as usize],
         pub feature_data:
@@ -725,6 +736,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoAV1TileInfoFlags {
         pub uniform_tile_spacing_flag: u32,
         pub reserved: u32,
@@ -745,6 +757,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1TileInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct StdVideoAV1TileInfo<'a> {
         pub flags: StdVideoAV1TileInfoFlags,
         pub tile_cols: u8,
@@ -845,6 +858,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct StdVideoAV1CDEF {
         pub cdef_damping_minus_3: u8,
         pub cdef_bits: u8,
@@ -915,6 +929,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct StdVideoAV1LoopRestoration {
         pub frame_restoration_type:
             [StdVideoAV1FrameRestorationType; STD_VIDEO_AV1_MAX_NUM_PLANES as usize],
@@ -953,6 +968,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct StdVideoAV1GlobalMotion {
         pub gm_type: [u8; STD_VIDEO_AV1_NUM_REF_FRAMES as usize],
         pub gm_params: [[i32; STD_VIDEO_AV1_GLOBAL_MOTION_PARAMS as usize];
@@ -988,6 +1004,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoAV1FilmGrainFlags {
         pub chroma_scaling_from_luma: u32,
         pub overlap_flag: u32,
@@ -1027,6 +1044,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct StdVideoAV1FilmGrain {
         pub flags: StdVideoAV1FilmGrainFlags,
         pub grain_scaling_minus_8: u8,

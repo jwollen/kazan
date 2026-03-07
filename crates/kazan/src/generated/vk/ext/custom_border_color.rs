@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerCustomBorderColorCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SamplerCustomBorderColorCreateInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -69,6 +70,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCustomBorderColorPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceCustomBorderColorPropertiesEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -124,6 +126,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCustomBorderColorFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceCustomBorderColorFeaturesEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

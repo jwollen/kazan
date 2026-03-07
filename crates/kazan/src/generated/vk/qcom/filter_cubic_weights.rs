@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCubicWeightsFeaturesQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceCubicWeightsFeaturesQCOM<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -65,6 +66,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerCubicWeightsCreateInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SamplerCubicWeightsCreateInfoQCOM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -110,6 +112,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBlitImageCubicWeightsInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct BlitImageCubicWeightsInfoQCOM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

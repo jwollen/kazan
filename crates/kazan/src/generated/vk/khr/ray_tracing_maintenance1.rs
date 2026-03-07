@@ -16,6 +16,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct TraceRaysIndirectCommand2KHR {
         pub raygen_shader_record_address: DeviceAddress,
         pub raygen_shader_record_size: DeviceSize,
@@ -138,6 +139,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

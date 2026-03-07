@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkConditionalRenderingBeginInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ConditionalRenderingBeginInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -74,6 +75,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferInheritanceConditionalRenderingInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct CommandBufferInheritanceConditionalRenderingInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -126,6 +128,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceConditionalRenderingFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceConditionalRenderingFeaturesEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

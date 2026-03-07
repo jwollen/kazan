@@ -17,6 +17,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeAV1ProfileInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoDecodeAV1ProfileInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -71,6 +72,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeAV1CapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoDecodeAV1CapabilitiesKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -116,6 +118,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeAV1SessionParametersCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoDecodeAV1SessionParametersCreateInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -168,6 +171,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeAV1PictureInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoDecodeAV1PictureInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -259,6 +263,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeAV1DpbSlotInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoDecodeAV1DpbSlotInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

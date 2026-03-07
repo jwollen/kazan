@@ -26,6 +26,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCuModuleCreateInfoNVX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct CuModuleCreateInfoNVX<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -73,6 +74,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCuModuleTexturingModeCreateInfoNVX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct CuModuleTexturingModeCreateInfoNVX<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -119,6 +121,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCuFunctionCreateInfoNVX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct CuFunctionCreateInfoNVX<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -170,6 +173,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCuLaunchInfoNVX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct CuLaunchInfoNVX<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

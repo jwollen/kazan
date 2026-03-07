@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageViewSampleWeightCreateInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ImageViewSampleWeightCreateInfoQCOM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -77,6 +78,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceImageProcessingFeaturesQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceImageProcessingFeaturesQCOM<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -143,6 +145,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceImageProcessingPropertiesQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceImageProcessingPropertiesQCOM<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

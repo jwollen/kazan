@@ -17,6 +17,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportAndroidHardwareBufferInfoANDROID.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ImportAndroidHardwareBufferInfoANDROID<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -63,6 +64,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAndroidHardwareBufferUsageANDROID.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct AndroidHardwareBufferUsageANDROID<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -111,6 +113,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAndroidHardwareBufferPropertiesANDROID.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct AndroidHardwareBufferPropertiesANDROID<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -163,6 +166,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryGetAndroidHardwareBufferInfoANDROID.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct MemoryGetAndroidHardwareBufferInfoANDROID<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -207,6 +211,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAndroidHardwareBufferFormatPropertiesANDROID.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct AndroidHardwareBufferFormatPropertiesANDROID<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -327,6 +332,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalFormatANDROID.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ExternalFormatANDROID<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -376,6 +382,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAndroidHardwareBufferFormatProperties2ANDROID.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct AndroidHardwareBufferFormatProperties2ANDROID<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

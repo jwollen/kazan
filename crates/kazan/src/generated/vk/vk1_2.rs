@@ -17,6 +17,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct ConformanceVersion {
         pub major: u8,
         pub minor: u8,
@@ -49,6 +50,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDriverProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceDriverProperties<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -130,6 +132,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceShaderSubgroupExtendedTypesFeatures<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -189,6 +192,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSamplerFilterMinmaxProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceSamplerFilterMinmaxProperties<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -260,6 +264,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerReductionModeCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SamplerReductionModeCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -305,6 +310,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageFormatListCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ImageFormatListCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -356,6 +362,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderFloat16Int8Features.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceShaderFloat16Int8Features<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -414,6 +421,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFloatControlsProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceFloatControlsProperties<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -696,6 +704,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceHostQueryResetFeatures.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceHostQueryResetFeatures<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -743,6 +752,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorIndexingFeatures.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceDescriptorIndexingFeatures<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -1077,6 +1087,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorIndexingProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceDescriptorIndexingProperties<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -1459,6 +1470,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetLayoutBindingFlagsCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DescriptorSetLayoutBindingFlagsCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1512,6 +1524,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetVariableDescriptorCountAllocateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DescriptorSetVariableDescriptorCountAllocateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1565,6 +1578,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetVariableDescriptorCountLayoutSupport.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DescriptorSetVariableDescriptorCountLayoutSupport<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -1617,6 +1631,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentDescription2.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct AttachmentDescription2<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1724,6 +1739,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentReference2.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct AttachmentReference2<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1783,6 +1799,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassDescription2.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SubpassDescription2<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1910,6 +1927,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassDependency2.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SubpassDependency2<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -2009,6 +2027,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassCreateInfo2.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct RenderPassCreateInfo2<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -2103,6 +2122,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassBeginInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SubpassBeginInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -2146,6 +2166,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassEndInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SubpassEndInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -2181,6 +2202,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTimelineSemaphoreFeatures.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceTimelineSemaphoreFeatures<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -2231,6 +2253,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTimelineSemaphoreProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceTimelineSemaphoreProperties<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -2286,6 +2309,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreTypeCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SemaphoreTypeCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -2340,6 +2364,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTimelineSemaphoreSubmitInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct TimelineSemaphoreSubmitInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -2408,6 +2433,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreWaitInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SemaphoreWaitInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -2472,6 +2498,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreSignalInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SemaphoreSignalInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -2523,6 +2550,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevice8BitStorageFeatures.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDevice8BitStorageFeatures<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -2595,6 +2623,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkanMemoryModelFeatures.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceVulkanMemoryModelFeatures<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -2674,6 +2703,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderAtomicInt64Features.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceShaderAtomicInt64Features<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -2738,6 +2768,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDepthStencilResolveProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceDepthStencilResolveProperties<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -2823,6 +2854,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassDescriptionDepthStencilResolve.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SubpassDescriptionDepthStencilResolve<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -2891,6 +2923,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageStencilUsageCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ImageStencilUsageCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -2937,6 +2970,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceScalarBlockLayoutFeatures.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceScalarBlockLayoutFeatures<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -2987,6 +3021,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceUniformBufferStandardLayoutFeatures.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceUniformBufferStandardLayoutFeatures<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -3046,6 +3081,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceBufferDeviceAddressFeatures.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceBufferDeviceAddressFeatures<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -3124,6 +3160,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferDeviceAddressInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct BufferDeviceAddressInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -3167,6 +3204,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferOpaqueCaptureAddressCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct BufferOpaqueCaptureAddressCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -3213,6 +3251,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceImagelessFramebufferFeatures.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceImagelessFramebufferFeatures<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -3263,6 +3302,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFramebufferAttachmentsCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct FramebufferAttachmentsCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -3318,6 +3358,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFramebufferAttachmentImageInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct FramebufferAttachmentImageInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -3405,6 +3446,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassAttachmentBeginInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct RenderPassAttachmentBeginInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -3454,6 +3496,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceSeparateDepthStencilLayoutsFeatures<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -3513,6 +3556,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentReferenceStencilLayout.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct AttachmentReferenceStencilLayout<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -3558,6 +3602,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentDescriptionStencilLayout.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct AttachmentDescriptionStencilLayout<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -3611,6 +3656,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryOpaqueCaptureAddressAllocateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct MemoryOpaqueCaptureAddressAllocateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -3657,6 +3703,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceMemoryOpaqueCaptureAddressInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DeviceMemoryOpaqueCaptureAddressInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -3701,6 +3748,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan11Features.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceVulkan11Features<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -3857,6 +3905,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan11Properties.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceVulkan11Properties<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -4042,6 +4091,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan12Features.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceVulkan12Features<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -4659,6 +4709,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan12Properties.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceVulkan12Properties<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

@@ -26,6 +26,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCudaModuleCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct CudaModuleCreateInfoNV<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -73,6 +74,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCudaFunctionCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct CudaFunctionCreateInfoNV<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -124,6 +126,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCudaLaunchInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct CudaLaunchInfoNV<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -247,6 +250,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCudaKernelLaunchFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceCudaKernelLaunchFeaturesNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -300,6 +304,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCudaKernelLaunchPropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceCudaKernelLaunchPropertiesNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

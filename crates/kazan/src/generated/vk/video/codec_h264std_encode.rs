@@ -16,6 +16,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoEncodeH264WeightTableFlags {
         pub luma_weight_l0_flag: u32,
         pub chroma_weight_l0_flag: u32,
@@ -49,6 +50,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct StdVideoEncodeH264WeightTable {
         pub flags: StdVideoEncodeH264WeightTableFlags,
         pub luma_log2_weight_denom: u8,
@@ -174,6 +176,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoEncodeH264SliceHeaderFlags {
         pub direct_spatial_mv_pred_flag: u32,
         pub num_ref_idx_active_override_flag: u32,
@@ -204,6 +207,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoEncodeH264PictureInfoFlags {
         pub idr_pic_flag: u32,
         pub is_reference: u32,
@@ -252,6 +256,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoEncodeH264ReferenceInfoFlags {
         pub used_for_long_term_reference: u32,
         pub reserved: u32,
@@ -273,6 +278,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoEncodeH264ReferenceListsInfoFlags {
         pub ref_pic_list_modification_flag_l0: u32,
         pub ref_pic_list_modification_flag_l1: u32,
@@ -306,6 +312,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoEncodeH264RefListModEntry {
         pub modification_of_pic_nums_idc: StdVideoH264ModificationOfPicNumsIdc,
         pub abs_diff_pic_num_minus1: u16,
@@ -336,6 +343,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoEncodeH264RefPicMarkingEntry {
         pub memory_management_control_operation: StdVideoH264MemMgmtControlOp,
         pub difference_of_pic_nums_minus1: u16,
@@ -377,6 +385,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264ReferenceListsInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct StdVideoEncodeH264ReferenceListsInfo<'a> {
         pub flags: StdVideoEncodeH264ReferenceListsInfoFlags,
         pub num_ref_idx_l0_active_minus1: u8,
@@ -516,6 +525,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264PictureInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct StdVideoEncodeH264PictureInfo<'a> {
         pub flags: StdVideoEncodeH264PictureInfoFlags,
         pub seq_parameter_set_id: u8,
@@ -625,6 +635,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoEncodeH264ReferenceInfo {
         pub flags: StdVideoEncodeH264ReferenceInfoFlags,
         pub primary_pic_type: StdVideoH264PictureType,
@@ -675,6 +686,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264SliceHeader.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct StdVideoEncodeH264SliceHeader<'a> {
         pub flags: StdVideoEncodeH264SliceHeaderFlags,
         pub first_mb_in_slice: u32,

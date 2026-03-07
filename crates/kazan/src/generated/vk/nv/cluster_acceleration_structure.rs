@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceClusterAccelerationStructureFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceClusterAccelerationStructureFeaturesNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -74,6 +75,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceClusterAccelerationStructurePropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceClusterAccelerationStructurePropertiesNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -207,6 +209,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StridedDeviceAddressNV {
         pub start_address: DeviceAddress,
         pub stride_in_bytes: DeviceSize,
@@ -227,6 +230,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRayTracingPipelineClusterAccelerationStructureCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct RayTracingPipelineClusterAccelerationStructureCreateInfoNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -285,6 +289,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct ClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV {
         pub geometry_index: u32,
         pub reserved: u32,
@@ -312,6 +317,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct ClusterAccelerationStructureMoveObjectsInfoNV {
         pub src_acceleration_structure: DeviceAddress,
     }
@@ -330,6 +336,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct ClusterAccelerationStructureBuildClustersBottomLevelInfoNV {
         pub cluster_references_count: u32,
         pub cluster_references_stride: u32,
@@ -357,6 +364,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct ClusterAccelerationStructureGetTemplateIndicesInfoNV {
         pub cluster_template_address: DeviceAddress,
     }
@@ -372,6 +380,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct ClusterAccelerationStructureBuildTriangleClusterInfoNV {
         pub cluster_id: u32,
         pub cluster_flags: ClusterAccelerationStructureClusterFlagsNV,
@@ -502,6 +511,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct ClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV {
         pub cluster_id: u32,
         pub cluster_flags: ClusterAccelerationStructureClusterFlagsNV,
@@ -641,6 +651,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct ClusterAccelerationStructureInstantiateClusterInfoNV {
         pub cluster_id_offset: u32,
         pub geometry_index_offset: u32,
@@ -679,6 +690,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureClustersBottomLevelInputNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ClusterAccelerationStructureClustersBottomLevelInputNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -738,6 +750,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureTriangleClusterInputNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ClusterAccelerationStructureTriangleClusterInputNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -853,6 +866,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureMoveObjectsInputNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ClusterAccelerationStructureMoveObjectsInputNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -913,6 +927,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureInputInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ClusterAccelerationStructureInputInfoNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -995,6 +1010,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureCommandsInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ClusterAccelerationStructureCommandsInfoNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

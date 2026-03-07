@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePresentTimingFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDevicePresentTimingFeaturesEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -81,6 +82,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentTimingSurfaceCapabilitiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PresentTimingSurfaceCapabilitiesEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -166,6 +168,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSwapchainTimingPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SwapchainTimingPropertiesEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -217,6 +220,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSwapchainTimeDomainPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SwapchainTimeDomainPropertiesEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -274,6 +278,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct PresentStageTimeEXT {
         pub stage: PresentStageFlagsEXT,
         pub time: u64,
@@ -294,6 +299,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPastPresentationTimingInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PastPresentationTimingInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -345,6 +351,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPastPresentationTimingPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PastPresentationTimingPropertiesEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -412,6 +419,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPastPresentationTimingEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PastPresentationTimingEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -499,6 +507,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentTimingsInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PresentTimingsInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -548,6 +557,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentTimingInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PresentTimingInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -632,6 +642,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSwapchainCalibratedTimestampInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SwapchainCalibratedTimestampInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

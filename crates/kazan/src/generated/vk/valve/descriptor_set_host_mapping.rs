@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceDescriptorSetHostMappingFeaturesVALVE<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -71,6 +72,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetBindingReferenceVALVE.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DescriptorSetBindingReferenceVALVE<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -122,6 +124,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetLayoutHostMappingInfoVALVE.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DescriptorSetLayoutHostMappingInfoVALVE<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

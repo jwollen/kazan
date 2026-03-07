@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkLayerSettingsCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct LayerSettingsCreateInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -64,6 +65,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkLayerSettingEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct LayerSettingEXT<'a> {
         pub p_layer_name: *const c_char,
         pub p_setting_name: *const c_char,

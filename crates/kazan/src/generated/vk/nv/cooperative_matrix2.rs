@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCooperativeMatrix2FeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceCooperativeMatrix2FeaturesNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -157,6 +158,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCooperativeMatrix2PropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceCooperativeMatrix2PropertiesNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -243,6 +245,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCooperativeMatrixFlexibleDimensionsPropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct CooperativeMatrixFlexibleDimensionsPropertiesNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

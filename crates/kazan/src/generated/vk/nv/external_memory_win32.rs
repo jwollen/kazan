@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportMemoryWin32HandleInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ImportMemoryWin32HandleInfoNV<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -68,6 +69,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMemoryWin32HandleInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ExportMemoryWin32HandleInfoNV<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

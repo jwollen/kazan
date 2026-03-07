@@ -21,6 +21,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportMemoryBufferCollectionFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ImportMemoryBufferCollectionFUCHSIA<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -75,6 +76,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCollectionImageCreateInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct BufferCollectionImageCreateInfoFUCHSIA<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -129,6 +131,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCollectionBufferCreateInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct BufferCollectionBufferCreateInfoFUCHSIA<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -183,6 +186,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCollectionCreateInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct BufferCollectionCreateInfoFUCHSIA<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -226,6 +230,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCollectionPropertiesFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct BufferCollectionPropertiesFUCHSIA<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -367,6 +372,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferConstraintsInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct BufferConstraintsInfoFUCHSIA<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -435,6 +441,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSysmemColorSpaceFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SysmemColorSpaceFUCHSIA<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -478,6 +485,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageFormatConstraintsInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ImageFormatConstraintsInfoFUCHSIA<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -560,6 +568,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageConstraintsInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ImageConstraintsInfoFUCHSIA<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -632,6 +641,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCollectionConstraintsInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct BufferCollectionConstraintsInfoFUCHSIA<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

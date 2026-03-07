@@ -17,6 +17,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePartitionedAccelerationStructureFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDevicePartitionedAccelerationStructureFeaturesNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -78,6 +79,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePartitionedAccelerationStructurePropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDevicePartitionedAccelerationStructurePropertiesNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -130,6 +132,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct BuildPartitionedAccelerationStructureIndirectCommandNV {
         pub op_type: PartitionedAccelerationStructureOpTypeNV,
         pub arg_count: u32,
@@ -156,6 +159,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureFlagsNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PartitionedAccelerationStructureFlagsNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -209,6 +213,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PartitionedAccelerationStructureWriteInstanceDataNV {
         pub transform: TransformMatrixKHR,
         pub explicit_aabb: [f32; 6],
@@ -295,6 +300,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct PartitionedAccelerationStructureUpdateInstanceDataNV {
         pub instance_index: u32,
         pub instance_contribution_to_hit_group_index: u32,
@@ -326,6 +332,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PartitionedAccelerationStructureWritePartitionTranslationDataNV {
         pub partition_index: u32,
         pub partition_translation: [f32; 3],
@@ -355,6 +362,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkWriteDescriptorSetPartitionedAccelerationStructureNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct WriteDescriptorSetPartitionedAccelerationStructureNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -414,6 +422,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureInstancesInputNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PartitionedAccelerationStructureInstancesInputNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -502,6 +511,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBuildPartitionedAccelerationStructureInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct BuildPartitionedAccelerationStructureInfoNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

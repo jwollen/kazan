@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkHostAddressRangeEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct HostAddressRangeEXT<'a> {
         pub address: *mut c_void,
         pub size: usize,
@@ -52,6 +53,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkHostAddressRangeConstEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct HostAddressRangeConstEXT<'a> {
         pub address: *const c_void,
         pub size: usize,
@@ -90,6 +92,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct DeviceAddressRangeEXT {
         pub address: DeviceAddress,
         pub size: DeviceSize,
@@ -110,6 +113,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTexelBufferDescriptorInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct TexelBufferDescriptorInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -161,6 +165,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageDescriptorInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ImageDescriptorInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -212,6 +217,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkResourceDescriptorInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ResourceDescriptorInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -263,6 +269,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindHeapInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct BindHeapInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -322,6 +329,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPushDataInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PushDataInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -373,6 +381,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorMappingSourceConstantOffsetEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DescriptorMappingSourceConstantOffsetEXT<'a> {
         pub heap_offset: u32,
         pub heap_array_stride: u32,
@@ -438,6 +447,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorMappingSourcePushIndexEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DescriptorMappingSourcePushIndexEXT<'a> {
         pub heap_offset: u32,
         pub push_offset: u32,
@@ -549,6 +559,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorMappingSourceIndirectIndexEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DescriptorMappingSourceIndirectIndexEXT<'a> {
         pub heap_offset: u32,
         pub push_offset: u32,
@@ -676,6 +687,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorMappingSourceIndirectIndexArrayEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DescriptorMappingSourceIndirectIndexArrayEXT<'a> {
         pub heap_offset: u32,
         pub push_offset: u32,
@@ -788,6 +800,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct DescriptorMappingSourceHeapDataEXT {
         pub heap_offset: u32,
         pub push_offset: u32,
@@ -808,6 +821,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorMappingSourceShaderRecordIndexEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DescriptorMappingSourceShaderRecordIndexEXT<'a> {
         pub heap_offset: u32,
         pub shader_record_offset: u32,
@@ -923,6 +937,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct DescriptorMappingSourceIndirectAddressEXT {
         pub push_offset: u32,
         pub address_offset: u32,
@@ -943,6 +958,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetAndBindingMappingEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DescriptorSetAndBindingMappingEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1026,6 +1042,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderDescriptorSetAndBindingMappingInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ShaderDescriptorSetAndBindingMappingInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1083,6 +1100,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerCustomBorderColorIndexCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SamplerCustomBorderColorIndexCreateInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1129,6 +1147,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpaqueCaptureDataCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct OpaqueCaptureDataCreateInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1175,6 +1194,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutPushDataTokenNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct IndirectCommandsLayoutPushDataTokenNV<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1232,6 +1252,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubsampledImageFormatPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SubsampledImageFormatPropertiesEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1283,6 +1304,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorHeapFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceDescriptorHeapFeaturesEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -1347,6 +1369,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorHeapPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceDescriptorHeapPropertiesEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -1598,6 +1621,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferInheritanceDescriptorHeapInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct CommandBufferInheritanceDescriptorHeapInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1661,6 +1685,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorHeapTensorPropertiesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceDescriptorHeapTensorPropertiesARM<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

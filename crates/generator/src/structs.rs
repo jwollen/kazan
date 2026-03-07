@@ -299,6 +299,7 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
     writeln!(
         file,
         "#[derive({derives_str})]
+        #[must_use]
         pub struct {}{} {{",
         normalize_ty_name(ty.name),
         lifetime_spec

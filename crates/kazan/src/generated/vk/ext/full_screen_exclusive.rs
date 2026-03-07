@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceFullScreenExclusiveInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SurfaceFullScreenExclusiveInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -67,6 +68,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceFullScreenExclusiveWin32InfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SurfaceFullScreenExclusiveWin32InfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -117,6 +119,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceCapabilitiesFullScreenExclusiveEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SurfaceCapabilitiesFullScreenExclusiveEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

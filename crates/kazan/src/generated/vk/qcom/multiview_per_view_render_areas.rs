@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -74,6 +75,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

@@ -17,6 +17,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkNativeBufferUsageOHOS.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct NativeBufferUsageOHOS<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -62,6 +63,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkNativeBufferPropertiesOHOS.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct NativeBufferPropertiesOHOS<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -113,6 +115,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkNativeBufferFormatPropertiesOHOS.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct NativeBufferFormatPropertiesOHOS<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -229,6 +232,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportNativeBufferInfoOHOS.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ImportNativeBufferInfoOHOS<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -274,6 +278,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryGetNativeBufferInfoOHOS.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct MemoryGetNativeBufferInfoOHOS<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -317,6 +322,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalFormatOHOS.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ExternalFormatOHOS<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

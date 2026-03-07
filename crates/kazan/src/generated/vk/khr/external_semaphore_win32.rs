@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportSemaphoreWin32HandleInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ImportSemaphoreWin32HandleInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -90,6 +91,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportSemaphoreWin32HandleInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ExportSemaphoreWin32HandleInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -151,6 +153,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkD3D12FenceSubmitInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct D3D12FenceSubmitInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -218,6 +221,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreGetWin32HandleInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SemaphoreGetWin32HandleInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

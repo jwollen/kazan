@@ -16,6 +16,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct ViewportSwizzleNV {
         pub x: ViewportCoordinateSwizzleNV,
         pub y: ViewportCoordinateSwizzleNV,
@@ -48,6 +49,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineViewportSwizzleStateCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PipelineViewportSwizzleStateCreateInfoNV<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

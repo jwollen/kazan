@@ -16,6 +16,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoDecodeVP9PictureInfoFlags {
         pub error_resilient_mode: u32,
         pub intra_only: u32,
@@ -78,6 +79,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeVP9PictureInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct StdVideoDecodeVP9PictureInfo<'a> {
         pub flags: StdVideoDecodeVP9PictureInfoFlags,
         pub profile: StdVideoVP9Profile,

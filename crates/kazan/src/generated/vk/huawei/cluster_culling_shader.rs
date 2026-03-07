@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceClusterCullingShaderPropertiesHUAWEI<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -94,6 +95,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -161,6 +163,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

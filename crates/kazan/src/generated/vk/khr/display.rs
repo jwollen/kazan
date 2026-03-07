@@ -26,6 +26,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DisplayPropertiesKHR<'a> {
         pub display: DisplayKHR,
         pub display_name: *const c_char,
@@ -111,6 +112,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct DisplayPlanePropertiesKHR {
         pub current_display: DisplayKHR,
         pub current_stack_index: u32,
@@ -132,6 +134,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct DisplayModeParametersKHR {
         pub visible_region: Extent2D,
         pub refresh_rate: u32,
@@ -153,6 +156,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct DisplayModePropertiesKHR {
         pub display_mode: DisplayModeKHR,
         pub parameters: DisplayModeParametersKHR,
@@ -173,6 +177,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayModeCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DisplayModeCreateInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -225,6 +230,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct DisplayPlaneCapabilitiesKHR {
         pub supported_alpha: DisplayPlaneAlphaFlagsKHR,
         pub min_src_position: Offset2D,
@@ -287,6 +293,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplaySurfaceCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DisplaySurfaceCreateInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

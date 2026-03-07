@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyCheckpointPropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct QueueFamilyCheckpointPropertiesNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -66,6 +67,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCheckpointDataNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct CheckpointDataNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -117,6 +119,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyCheckpointProperties2NV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct QueueFamilyCheckpointProperties2NV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -169,6 +172,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCheckpointData2NV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct CheckpointData2NV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

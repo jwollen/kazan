@@ -21,6 +21,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalComputeQueueDeviceCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ExternalComputeQueueDeviceCreateInfoNV<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -67,6 +68,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalComputeQueueCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ExternalComputeQueueCreateInfoNV<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -110,6 +112,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalComputeQueueDataParamsNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ExternalComputeQueueDataParamsNV<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -153,6 +156,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalComputeQueuePropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceExternalComputeQueuePropertiesNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

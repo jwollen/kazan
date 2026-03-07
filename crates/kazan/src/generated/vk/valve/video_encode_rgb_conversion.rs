@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -71,6 +72,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeRgbConversionCapabilitiesVALVE.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoEncodeRgbConversionCapabilitiesVALVE<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -150,6 +152,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeProfileRgbConversionInfoVALVE.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoEncodeProfileRgbConversionInfoVALVE<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -202,6 +205,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeSessionRgbConversionCreateInfoVALVE.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct VideoEncodeSessionRgbConversionCreateInfoVALVE<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

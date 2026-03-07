@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureGeometryLinearSweptSpheresDataNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct AccelerationStructureGeometryLinearSweptSpheresDataNV<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -144,6 +145,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureGeometrySpheresDataNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct AccelerationStructureGeometrySpheresDataNV<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -257,6 +259,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

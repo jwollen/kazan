@@ -161,6 +161,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBaseOutStructure.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct BaseOutStructure<'a> {
         pub s_type: StructureType,
         pub p_next: *mut BaseOutStructure<'a>,
@@ -182,6 +183,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBaseInStructure.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct BaseInStructure<'a> {
         pub s_type: StructureType,
         pub p_next: *const BaseInStructure<'a>,
@@ -204,6 +206,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct Offset2D {
         pub x: i32,
         pub y: i32,
@@ -225,6 +228,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct Offset3D {
         pub x: i32,
         pub y: i32,
@@ -252,6 +256,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct Extent2D {
         pub width: u32,
         pub height: u32,
@@ -273,6 +278,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct Extent3D {
         pub width: u32,
         pub height: u32,
@@ -300,6 +306,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct Viewport {
         pub x: f32,
         pub y: f32,
@@ -345,6 +352,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct Rect2D {
         pub offset: Offset2D,
         pub extent: Extent2D,
@@ -366,6 +374,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct ClearRect {
         pub rect: Rect2D,
         pub base_array_layer: u32,
@@ -393,6 +402,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct ComponentMapping {
         pub r: ComponentSwizzle,
         pub g: ComponentSwizzle,
@@ -425,6 +435,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceProperties {
         pub api_version: u32,
         pub driver_version: u32,
@@ -532,6 +543,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExtensionProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ExtensionProperties {
         pub extension_name: [c_char; MAX_EXTENSION_NAME_SIZE as usize],
         pub spec_version: u32,
@@ -577,6 +589,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkLayerProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct LayerProperties {
         pub layer_name: [c_char; MAX_EXTENSION_NAME_SIZE as usize],
         pub spec_version: u32,
@@ -641,6 +654,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkApplicationInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ApplicationInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -718,6 +732,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAllocationCallbacks.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct AllocationCallbacks<'a> {
         pub p_user_data: *mut c_void,
         pub pfn_allocation: Option<PFN_vkAllocationFunction>,
@@ -809,6 +824,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceQueueCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DeviceQueueCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -872,6 +888,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DeviceCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -968,6 +985,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkInstanceCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct InstanceCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1050,6 +1068,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct QueueFamilyProperties {
         pub queue_flags: QueueFlags,
         pub queue_count: u32,
@@ -1086,6 +1105,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceMemoryProperties {
         pub memory_type_count: u32,
         pub memory_types: [MemoryType; MAX_MEMORY_TYPES as usize],
@@ -1121,6 +1141,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryAllocateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct MemoryAllocateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1173,6 +1194,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct MemoryRequirements {
         pub size: DeviceSize,
         pub alignment: DeviceSize,
@@ -1200,6 +1222,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct SparseImageFormatProperties {
         pub aspect_mask: ImageAspectFlags,
         pub image_granularity: Extent3D,
@@ -1227,6 +1250,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct SparseImageMemoryRequirements {
         pub format_properties: SparseImageFormatProperties,
         pub image_mip_tail_first_lod: u32,
@@ -1266,6 +1290,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct MemoryType {
         pub property_flags: MemoryPropertyFlags,
         pub heap_index: u32,
@@ -1287,6 +1312,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct MemoryHeap {
         pub size: DeviceSize,
         pub flags: MemoryHeapFlags,
@@ -1307,6 +1333,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMappedMemoryRange.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct MappedMemoryRange<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1367,6 +1394,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct FormatProperties {
         pub linear_tiling_features: FormatFeatureFlags,
         pub optimal_tiling_features: FormatFeatureFlags,
@@ -1400,6 +1428,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct ImageFormatProperties {
         pub max_extent: Extent3D,
         pub max_mip_levels: u32,
@@ -1439,6 +1468,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct DescriptorBufferInfo {
         pub buffer: Buffer,
         pub offset: DeviceSize,
@@ -1466,6 +1496,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct DescriptorImageInfo {
         pub sampler: Sampler,
         pub image_view: ImageView,
@@ -1492,6 +1523,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkWriteDescriptorSet.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct WriteDescriptorSet<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1589,6 +1621,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyDescriptorSet.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct CopyDescriptorSet<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1680,6 +1713,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct BufferCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1759,6 +1793,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferViewCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct BufferViewCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1835,6 +1870,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct ImageSubresource {
         pub aspect_mask: ImageAspectFlags,
         pub mip_level: u32,
@@ -1862,6 +1898,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct ImageSubresourceLayers {
         pub aspect_mask: ImageAspectFlags,
         pub mip_level: u32,
@@ -1895,6 +1932,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct ImageSubresourceRange {
         pub aspect_mask: ImageAspectFlags,
         pub base_mip_level: u32,
@@ -1933,6 +1971,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryBarrier.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct MemoryBarrier<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1984,6 +2023,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferMemoryBarrier.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct BufferMemoryBarrier<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -2075,6 +2115,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageMemoryBarrier.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ImageMemoryBarrier<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -2174,6 +2215,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ImageCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -2310,6 +2352,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct SubresourceLayout {
         pub offset: DeviceSize,
         pub size: DeviceSize,
@@ -2348,6 +2391,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageViewCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ImageViewCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -2432,6 +2476,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct BufferCopy {
         pub src_offset: DeviceSize,
         pub dst_offset: DeviceSize,
@@ -2459,6 +2504,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct SparseMemoryBind {
         pub resource_offset: DeviceSize,
         pub size: DeviceSize,
@@ -2498,6 +2544,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct SparseImageMemoryBind {
         pub subresource: ImageSubresource,
         pub offset: Offset3D,
@@ -2542,6 +2589,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseBufferMemoryBindInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SparseBufferMemoryBindInfo<'a> {
         pub buffer: Buffer,
         pub bind_count: u32,
@@ -2587,6 +2635,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageOpaqueMemoryBindInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SparseImageOpaqueMemoryBindInfo<'a> {
         pub image: Image,
         pub bind_count: u32,
@@ -2632,6 +2681,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageMemoryBindInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SparseImageMemoryBindInfo<'a> {
         pub image: Image,
         pub bind_count: u32,
@@ -2677,6 +2727,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindSparseInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct BindSparseInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -2776,6 +2827,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct ImageCopy {
         pub src_subresource: ImageSubresourceLayers,
         pub src_offset: Offset3D,
@@ -2815,6 +2867,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ImageBlit {
         pub src_subresource: ImageSubresourceLayers,
         pub src_offsets: [Offset3D; 2],
@@ -2859,6 +2912,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct BufferImageCopy {
         pub buffer_offset: DeviceSize,
         pub buffer_row_length: u32,
@@ -2904,6 +2958,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct ImageResolve {
         pub src_subresource: ImageSubresourceLayers,
         pub src_offset: Offset3D,
@@ -2942,6 +2997,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderModuleCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ShaderModuleCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -2999,6 +3055,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetLayoutBinding.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DescriptorSetLayoutBinding<'a> {
         pub binding: u32,
         pub descriptor_type: DescriptorType,
@@ -3060,6 +3117,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetLayoutCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DescriptorSetLayoutCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -3116,6 +3174,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct DescriptorPoolSize {
         pub ty: DescriptorType,
         pub descriptor_count: u32,
@@ -3136,6 +3195,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorPoolCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DescriptorPoolCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -3199,6 +3259,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetAllocateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DescriptorSetAllocateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -3255,6 +3316,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct SpecializationMapEntry {
         pub constant_id: u32,
         pub offset: u32,
@@ -3281,6 +3343,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSpecializationInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SpecializationInfo<'a> {
         pub map_entry_count: u32,
         pub p_map_entries: *const SpecializationMapEntry,
@@ -3330,6 +3393,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineShaderStageCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PipelineShaderStageCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -3408,6 +3472,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkComputePipelineCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ComputePipelineCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -3484,6 +3549,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct VertexInputBindingDescription {
         pub binding: u32,
         pub stride: u32,
@@ -3511,6 +3577,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct VertexInputAttributeDescription {
         pub location: u32,
         pub binding: u32,
@@ -3543,6 +3610,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineVertexInputStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PipelineVertexInputStateCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -3631,6 +3699,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineInputAssemblyStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PipelineInputAssemblyStateCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -3691,6 +3760,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineTessellationStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PipelineTessellationStateCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -3743,6 +3813,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineViewportStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PipelineViewportStateCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -3810,6 +3881,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineRasterizationStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PipelineRasterizationStateCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -3937,6 +4009,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineMultisampleStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PipelineMultisampleStateCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -4024,6 +4097,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct PipelineColorBlendAttachmentState {
         pub blend_enable: Bool32,
         pub src_color_blend_factor: BlendFactor,
@@ -4080,6 +4154,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineColorBlendStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PipelineColorBlendStateCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -4159,6 +4234,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineDynamicStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PipelineDynamicStateCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -4215,6 +4291,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StencilOpState {
         pub fail_op: StencilOp,
         pub pass_op: StencilOp,
@@ -4265,6 +4342,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineDepthStencilStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PipelineDepthStencilStateCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -4381,6 +4459,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGraphicsPipelineCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct GraphicsPipelineCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -4575,6 +4654,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCacheCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PipelineCacheCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -4631,6 +4711,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PipelineCacheHeaderVersionOne {
         pub header_size: u32,
         pub header_version: PipelineCacheHeaderVersion,
@@ -4685,6 +4766,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct PushConstantRange {
         pub stage_flags: ShaderStageFlags,
         pub offset: u32,
@@ -4711,6 +4793,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineLayoutCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PipelineLayoutCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -4792,6 +4875,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SamplerCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -4955,6 +5039,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandPoolCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct CommandPoolCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -5006,6 +5091,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferAllocateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct CommandBufferAllocateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -5065,6 +5151,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferInheritanceInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct CommandBufferInheritanceInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -5151,6 +5238,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferBeginInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct CommandBufferBeginInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -5205,6 +5293,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassBeginInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct RenderPassBeginInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -5277,6 +5366,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct ClearDepthStencilValue {
         pub depth: f32,
         pub stencil: u32,
@@ -5298,6 +5388,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ClearAttachment {
         pub aspect_mask: ImageAspectFlags,
         pub color_attachment: u32,
@@ -5335,6 +5426,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct AttachmentDescription {
         pub flags: AttachmentDescriptionFlags,
         pub format: Format,
@@ -5398,6 +5490,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct AttachmentReference {
         pub attachment: u32,
         pub layout: ImageLayout,
@@ -5418,6 +5511,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassDescription.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SubpassDescription<'a> {
         pub flags: SubpassDescriptionFlags,
         pub pipeline_bind_point: PipelineBindPoint,
@@ -5522,6 +5616,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct SubpassDependency {
         pub src_subpass: u32,
         pub dst_subpass: u32,
@@ -5572,6 +5667,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct RenderPassCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -5651,6 +5747,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkEventCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct EventCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -5694,6 +5791,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFenceCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct FenceCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -5738,6 +5836,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct PhysicalDeviceFeatures {
         pub robust_buffer_access: Bool32,
         pub full_draw_index_uint32: Bool32,
@@ -6115,6 +6214,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct PhysicalDeviceSparseProperties {
         pub residency_standard2_d_block_shape: Bool32,
         pub residency_standard2_d_multisample_block_shape: Bool32,
@@ -6167,6 +6267,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceLimits {
         pub max_image_dimension1_d: u32,
         pub max_image_dimension2_d: u32,
@@ -7083,6 +7184,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SemaphoreCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -7126,6 +7228,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPoolCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct QueryPoolCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -7196,6 +7299,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFramebufferCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct FramebufferCreateInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -7284,6 +7388,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct DrawIndirectCommand {
         pub vertex_count: u32,
         pub instance_count: u32,
@@ -7317,6 +7422,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct DrawIndexedIndirectCommand {
         pub index_count: u32,
         pub instance_count: u32,
@@ -7356,6 +7462,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct DispatchIndirectCommand {
         pub x: u32,
         pub y: u32,
@@ -7382,6 +7489,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubmitInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SubmitInfo<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

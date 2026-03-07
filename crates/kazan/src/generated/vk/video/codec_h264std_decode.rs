@@ -18,6 +18,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoDecodeH264PictureInfoFlags {
         pub field_pic_flag: u32,
         pub is_intra: u32,
@@ -63,6 +64,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct StdVideoDecodeH264PictureInfo {
         pub flags: StdVideoDecodeH264PictureInfoFlags,
         pub seq_parameter_set_id: u8,
@@ -138,6 +140,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoDecodeH264ReferenceInfoFlags {
         pub top_field_flag: u32,
         pub bottom_field_flag: u32,
@@ -171,6 +174,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct StdVideoDecodeH264ReferenceInfo {
         pub flags: StdVideoDecodeH264ReferenceInfoFlags,
         pub frame_num: u16,

@@ -21,6 +21,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceOpticalFlowFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceOpticalFlowFeaturesNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -68,6 +69,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceOpticalFlowPropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceOpticalFlowPropertiesNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -212,6 +214,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowImageFormatInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct OpticalFlowImageFormatInfoNV<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -258,6 +261,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowImageFormatPropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct OpticalFlowImageFormatPropertiesNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -302,6 +306,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowSessionCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct OpticalFlowSessionCreateInfoNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -412,6 +417,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowSessionCreatePrivateDataInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct OpticalFlowSessionCreatePrivateDataInfoNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -477,6 +483,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowExecuteInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct OpticalFlowExecuteInfoNV<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

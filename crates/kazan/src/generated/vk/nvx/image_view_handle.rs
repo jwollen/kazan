@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageViewHandleInfoNVX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ImageViewHandleInfoNVX<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -74,6 +75,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageViewAddressPropertiesNVX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ImageViewAddressPropertiesNVX<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

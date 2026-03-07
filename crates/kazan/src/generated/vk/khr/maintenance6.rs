@@ -34,6 +34,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSetDescriptorBufferOffsetsInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SetDescriptorBufferOffsetsInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -114,6 +115,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindDescriptorBufferEmbeddedSamplersInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct BindDescriptorBufferEmbeddedSamplersInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPowerInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DisplayPowerInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -58,6 +59,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceEventInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DeviceEventInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -101,6 +103,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayEventInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DisplayEventInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -144,6 +147,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSwapchainCounterCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SwapchainCounterCreateInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

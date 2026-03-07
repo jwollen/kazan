@@ -25,6 +25,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoH264SpsVuiFlags {
         pub aspect_ratio_info_present_flag: u32,
         pub overscan_info_present_flag: u32,
@@ -121,6 +122,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct StdVideoH264HrdParameters {
         pub cpb_cnt_minus1: u8,
         pub bit_rate_scale: u8,
@@ -231,6 +233,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH264SequenceParameterSetVui.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct StdVideoH264SequenceParameterSetVui<'a> {
         pub flags: StdVideoH264SpsVuiFlags,
         pub aspect_ratio_idc: StdVideoH264AspectRatioIdc,
@@ -397,6 +400,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoH264SpsFlags {
         pub constraint_set0_flag: u32,
         pub constraint_set1_flag: u32,
@@ -514,6 +518,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct StdVideoH264ScalingLists {
         pub scaling_list_present_mask: u16,
         pub use_default_scaling_matrix_mask: u16,
@@ -570,6 +575,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH264SequenceParameterSet.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct StdVideoH264SequenceParameterSet<'a> {
         pub flags: StdVideoH264SpsFlags,
         pub profile_idc: StdVideoH264ProfileIdc,
@@ -820,6 +826,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoH264PpsFlags {
         pub transform_8x8_mode_flag: u32,
         pub redundant_pic_cnt_present_flag: u32,
@@ -889,6 +896,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH264PictureParameterSet.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct StdVideoH264PictureParameterSet<'a> {
         pub flags: StdVideoH264PpsFlags,
         pub seq_parameter_set_id: u8,

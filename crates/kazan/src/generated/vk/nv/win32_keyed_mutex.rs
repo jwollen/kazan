@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkWin32KeyedMutexAcquireReleaseInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct Win32KeyedMutexAcquireReleaseInfoNV<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

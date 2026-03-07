@@ -26,6 +26,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDeviceGeneratedCommandsFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -93,6 +94,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceDeviceGeneratedCommandsPropertiesEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -301,6 +303,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGeneratedCommandsPipelineInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct GeneratedCommandsPipelineInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -350,6 +353,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGeneratedCommandsShaderInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct GeneratedCommandsShaderInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -403,6 +407,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGeneratedCommandsMemoryRequirementsInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct GeneratedCommandsMemoryRequirementsInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -477,6 +482,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectExecutionSetPipelineInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct IndirectExecutionSetPipelineInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -529,6 +535,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectExecutionSetShaderLayoutInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct IndirectExecutionSetShaderLayoutInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -577,6 +584,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectExecutionSetShaderInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct IndirectExecutionSetShaderInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -659,6 +667,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectExecutionSetCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct IndirectExecutionSetCreateInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -710,6 +719,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGeneratedCommandsInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct GeneratedCommandsInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -831,6 +841,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkWriteIndirectExecutionSetPipelineEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct WriteIndirectExecutionSetPipelineEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -883,6 +894,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkWriteIndirectExecutionSetShaderEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct WriteIndirectExecutionSetShaderEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -935,6 +947,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct IndirectCommandsLayoutCreateInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1015,6 +1028,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutTokenEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct IndirectCommandsLayoutTokenEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1075,6 +1089,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct DrawIndirectCountIndirectCommandEXT {
         pub buffer_address: DeviceAddress,
         pub stride: u32,
@@ -1102,6 +1117,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct IndirectCommandsVertexBufferTokenEXT {
         pub vertex_binding_unit: u32,
     }
@@ -1117,6 +1133,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct BindVertexBufferIndirectCommandEXT {
         pub buffer_address: DeviceAddress,
         pub size: u32,
@@ -1144,6 +1161,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct IndirectCommandsIndexBufferTokenEXT {
         pub mode: IndirectCommandsInputModeFlagBitsEXT,
     }
@@ -1159,6 +1177,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct BindIndexBufferIndirectCommandEXT {
         pub buffer_address: DeviceAddress,
         pub size: u32,
@@ -1186,6 +1205,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct IndirectCommandsPushConstantTokenEXT {
         pub update_range: PushConstantRange,
     }
@@ -1201,6 +1221,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct IndirectCommandsExecutionSetTokenEXT {
         pub ty: IndirectExecutionSetInfoTypeEXT,
         pub shader_stages: ShaderStageFlags,

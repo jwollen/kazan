@@ -17,6 +17,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderEnqueuePropertiesAMDX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceShaderEnqueuePropertiesAMDX<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -152,6 +153,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderEnqueueFeaturesAMDX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceShaderEnqueueFeaturesAMDX<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -210,6 +212,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExecutionGraphPipelineCreateInfoAMDX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ExecutionGraphPipelineCreateInfoAMDX<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -298,6 +301,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineShaderStageNodeCreateInfoAMDX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PipelineShaderStageNodeCreateInfoAMDX<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -355,6 +359,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExecutionGraphPipelineScratchSizeAMDX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ExecutionGraphPipelineScratchSizeAMDX<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -415,6 +420,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDispatchGraphInfoAMDX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DispatchGraphInfoAMDX<'a> {
         pub node_index: u32,
         pub payload_count: u32,
@@ -472,6 +478,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDispatchGraphCountInfoAMDX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DispatchGraphCountInfoAMDX<'a> {
         pub count: u32,
         pub infos: DeviceOrHostAddressConstAMDX<'a>,

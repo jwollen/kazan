@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportSemaphoreFdInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ImportSemaphoreFdInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -82,6 +83,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreGetFdInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SemaphoreGetFdInfoKHR<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

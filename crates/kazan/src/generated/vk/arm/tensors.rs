@@ -26,6 +26,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorDescriptionARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct TensorDescriptionARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -109,6 +110,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorCreateInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct TensorCreateInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -180,6 +182,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorViewCreateInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct TensorViewCreateInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -239,6 +242,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorMemoryRequirementsInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct TensorMemoryRequirementsInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -282,6 +286,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindTensorMemoryInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct BindTensorMemoryInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -341,6 +346,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkWriteDescriptorSetTensorARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct WriteDescriptorSetTensorARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -390,6 +396,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorFormatPropertiesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct TensorFormatPropertiesARM<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -455,6 +462,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTensorPropertiesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceTensorPropertiesARM<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -654,6 +662,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorMemoryBarrierARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct TensorMemoryBarrierARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -747,6 +756,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorDependencyInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct TensorDependencyInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -806,6 +816,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTensorFeaturesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceTensorFeaturesARM<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -913,6 +924,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceTensorMemoryRequirementsARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DeviceTensorMemoryRequirementsARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -956,6 +968,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyTensorInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct CopyTensorInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1019,6 +1032,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorCopyARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct TensorCopyARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1084,6 +1098,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryDedicatedAllocateInfoTensorARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct MemoryDedicatedAllocateInfoTensorARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1130,6 +1145,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorBufferTensorPropertiesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceDescriptorBufferTensorPropertiesARM<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -1209,6 +1225,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorBufferTensorFeaturesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceDescriptorBufferTensorFeaturesARM<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -1268,6 +1285,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorCaptureDescriptorDataInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct TensorCaptureDescriptorDataInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1312,6 +1330,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorViewCaptureDescriptorDataInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct TensorViewCaptureDescriptorDataInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1356,6 +1375,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorGetTensorInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct DescriptorGetTensorInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1401,6 +1421,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFrameBoundaryTensorsARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct FrameBoundaryTensorsARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1453,6 +1474,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalTensorInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceExternalTensorInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1513,6 +1535,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalTensorPropertiesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ExternalTensorPropertiesARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -1562,6 +1585,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalMemoryTensorCreateInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ExternalMemoryTensorCreateInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

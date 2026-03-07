@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportSemaphoreZirconHandleInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ImportSemaphoreZirconHandleInfoFUCHSIA<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -83,6 +84,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreGetZirconHandleInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct SemaphoreGetZirconHandleInfoFUCHSIA<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

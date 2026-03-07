@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePerformanceCountersByRegionFeaturesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDevicePerformanceCountersByRegionFeaturesARM<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -74,6 +75,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePerformanceCountersByRegionPropertiesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDevicePerformanceCountersByRegionPropertiesARM<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -167,6 +169,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PerformanceCounterARM<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -210,6 +213,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterDescriptionARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PerformanceCounterDescriptionARM<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -264,6 +268,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassPerformanceCountersByRegionBeginInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct RenderPassPerformanceCountersByRegionBeginInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentFrameTokenGGP.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PresentFrameTokenGGP<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

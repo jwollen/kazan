@@ -16,6 +16,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct ShaderResourceUsageAMD {
         pub num_used_vgprs: u32,
         pub num_used_sgprs: u32,
@@ -55,6 +56,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ShaderStatisticsInfoAMD {
         pub shader_stage_mask: ShaderStageFlags,
         pub resource_usage: ShaderResourceUsageAMD,

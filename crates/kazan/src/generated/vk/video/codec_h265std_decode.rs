@@ -18,6 +18,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoDecodeH265PictureInfoFlags {
         pub irap_pic_flag: u32,
         pub idr_pic_flag: u32,
@@ -54,6 +55,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct StdVideoDecodeH265PictureInfo {
         pub flags: StdVideoDecodeH265PictureInfoFlags,
         pub sps_video_parameter_set_id: u8,
@@ -159,6 +161,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoDecodeH265ReferenceInfoFlags {
         pub used_for_long_term_reference: u32,
         pub unused_for_reference: u32,
@@ -180,6 +183,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct StdVideoDecodeH265ReferenceInfo {
         pub flags: StdVideoDecodeH265ReferenceInfoFlags,
         pub pic_order_cnt_val: i32,

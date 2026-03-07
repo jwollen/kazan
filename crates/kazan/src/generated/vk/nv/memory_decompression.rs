@@ -25,6 +25,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct DecompressMemoryRegionNV {
         pub src_address: DeviceAddress,
         pub dst_address: DeviceAddress,

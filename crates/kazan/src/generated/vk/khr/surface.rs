@@ -22,6 +22,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct SurfaceCapabilitiesKHR {
         pub min_image_count: u32,
         pub max_image_count: u32,
@@ -97,6 +98,7 @@ pub(super) mod defs {
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
     #[derive(Copy, Clone, Default)]
+    #[must_use]
     pub struct SurfaceFormatKHR {
         pub format: Format,
         pub color_space: ColorSpaceKHR,

@@ -24,6 +24,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceValueINTEL.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PerformanceValueINTEL<'a> {
         pub ty: PerformanceValueTypeINTEL,
         pub data: PerformanceValueDataINTEL<'a>,
@@ -65,6 +66,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkInitializePerformanceApiInfoINTEL.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct InitializePerformanceApiInfoINTEL<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -108,6 +110,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPoolPerformanceQueryCreateInfoINTEL.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct QueryPoolPerformanceQueryCreateInfoINTEL<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -160,6 +163,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceMarkerInfoINTEL.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PerformanceMarkerInfoINTEL<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -203,6 +207,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceStreamMarkerInfoINTEL.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PerformanceStreamMarkerInfoINTEL<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -246,6 +251,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceOverrideInfoINTEL.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PerformanceOverrideInfoINTEL<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -305,6 +311,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceConfigurationAcquireInfoINTEL.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PerformanceConfigurationAcquireInfoINTEL<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,

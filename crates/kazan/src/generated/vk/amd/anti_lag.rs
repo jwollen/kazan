@@ -15,6 +15,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceAntiLagFeaturesAMD.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct PhysicalDeviceAntiLagFeaturesAMD<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
@@ -61,6 +62,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAntiLagDataAMD.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct AntiLagDataAMD<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -123,6 +125,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAntiLagPresentationInfoAMD.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct AntiLagPresentationInfoAMD<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,

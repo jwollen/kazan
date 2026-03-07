@@ -22,6 +22,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalObjectCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ExportMetalObjectCreateInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -76,6 +77,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalObjectsInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ExportMetalObjectsInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -111,6 +113,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalDeviceInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ExportMetalDeviceInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -156,6 +159,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalCommandQueueInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ExportMetalCommandQueueInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -209,6 +213,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalBufferInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ExportMetalBufferInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -262,6 +267,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportMetalBufferInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ImportMetalBufferInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -307,6 +313,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalTextureInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ExportMetalTextureInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -384,6 +391,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportMetalTextureInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ImportMetalTextureInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -437,6 +445,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalIOSurfaceInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ExportMetalIOSurfaceInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -490,6 +499,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportMetalIOSurfaceInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ImportMetalIOSurfaceInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -535,6 +545,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalSharedEventInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ExportMetalSharedEventInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
@@ -596,6 +607,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportMetalSharedEventInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
+    #[must_use]
     pub struct ImportMetalSharedEventInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
