@@ -950,13 +950,29 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBuildMicromapFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct BuildMicromapFlagBitsEXT(u32);
 
     impl BuildMicromapFlagBitsEXT {
         pub const PREFER_FAST_TRACE_EXT: Self = Self(1 << 0);
         pub const PREFER_FAST_BUILD_EXT: Self = Self(1 << 1);
         pub const ALLOW_COMPACTION_EXT: Self = Self(1 << 2);
+    }
+
+    impl fmt::Debug for BuildMicromapFlagBitsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::PREFER_FAST_TRACE_EXT => Some("PREFER_FAST_TRACE_EXT"),
+                Self::PREFER_FAST_BUILD_EXT => Some("PREFER_FAST_BUILD_EXT"),
+                Self::ALLOW_COMPACTION_EXT => Some("ALLOW_COMPACTION_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMicromapCreateFlagsEXT.html>
@@ -982,11 +998,27 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMicromapCreateFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MicromapCreateFlagBitsEXT(u32);
 
     impl MicromapCreateFlagBitsEXT {
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY_EXT: Self = Self(1 << 0);
+    }
+
+    impl fmt::Debug for MicromapCreateFlagBitsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DEVICE_ADDRESS_CAPTURE_REPLAY_EXT => {
+                    Some("DEVICE_ADDRESS_CAPTURE_REPLAY_EXT")
+                }
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateMicromapEXT.html>

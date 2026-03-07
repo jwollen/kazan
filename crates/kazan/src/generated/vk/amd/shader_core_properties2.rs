@@ -86,8 +86,21 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderCorePropertiesFlagBitsAMD.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ShaderCorePropertiesFlagBitsAMD(u32);
 
     impl ShaderCorePropertiesFlagBitsAMD {}
+
+    impl fmt::Debug for ShaderCorePropertiesFlagBitsAMD {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
 }

@@ -769,7 +769,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageConstraintsInfoFlagBitsFUCHSIA.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ImageConstraintsInfoFlagBitsFUCHSIA(u32);
 
     impl ImageConstraintsInfoFlagBitsFUCHSIA {
@@ -778,6 +778,24 @@ pub(super) mod defs {
         pub const CPU_WRITE_RARELY_FUCHSIA: Self = Self(1 << 2);
         pub const CPU_WRITE_OFTEN_FUCHSIA: Self = Self(1 << 3);
         pub const PROTECTED_OPTIONAL_FUCHSIA: Self = Self(1 << 4);
+    }
+
+    impl fmt::Debug for ImageConstraintsInfoFlagBitsFUCHSIA {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::CPU_READ_RARELY_FUCHSIA => Some("CPU_READ_RARELY_FUCHSIA"),
+                Self::CPU_READ_OFTEN_FUCHSIA => Some("CPU_READ_OFTEN_FUCHSIA"),
+                Self::CPU_WRITE_RARELY_FUCHSIA => Some("CPU_WRITE_RARELY_FUCHSIA"),
+                Self::CPU_WRITE_OFTEN_FUCHSIA => Some("CPU_WRITE_OFTEN_FUCHSIA"),
+                Self::PROTECTED_OPTIONAL_FUCHSIA => Some("PROTECTED_OPTIONAL_FUCHSIA"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateBufferCollectionFUCHSIA.html>

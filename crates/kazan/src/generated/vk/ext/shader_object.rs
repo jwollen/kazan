@@ -346,7 +346,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderCreateFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ShaderCreateFlagBitsEXT(u32);
 
     impl ShaderCreateFlagBitsEXT {
@@ -367,6 +367,33 @@ pub(super) mod defs {
         pub const DISPATCH_BASE_EXT: Self = Self(1 << 4);
         pub const FRAGMENT_SHADING_RATE_ATTACHMENT_EXT: Self = Self(1 << 5);
         pub const FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT: Self = Self(1 << 6);
+    }
+
+    impl fmt::Debug for ShaderCreateFlagBitsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::LINK_STAGE_EXT => Some("LINK_STAGE_EXT"),
+                Self::DESCRIPTOR_HEAP_EXT => Some("DESCRIPTOR_HEAP_EXT"),
+                Self::INDIRECT_BINDABLE_EXT => Some("INDIRECT_BINDABLE_EXT"),
+                Self::_64_INDEXING_EXT => Some("_64_INDEXING_EXT"),
+                Self::ALLOW_VARYING_SUBGROUP_SIZE_EXT => Some("ALLOW_VARYING_SUBGROUP_SIZE_EXT"),
+                Self::REQUIRE_FULL_SUBGROUPS_EXT => Some("REQUIRE_FULL_SUBGROUPS_EXT"),
+                Self::NO_TASK_SHADER_EXT => Some("NO_TASK_SHADER_EXT"),
+                Self::DISPATCH_BASE_EXT => Some("DISPATCH_BASE_EXT"),
+                Self::FRAGMENT_SHADING_RATE_ATTACHMENT_EXT => {
+                    Some("FRAGMENT_SHADING_RATE_ATTACHMENT_EXT")
+                }
+                Self::FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT => {
+                    Some("FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT")
+                }
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateShadersEXT.html>

@@ -321,7 +321,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeRgbModelConversionFlagBitsVALVE.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRgbModelConversionFlagBitsVALVE(u32);
 
     impl VideoEncodeRgbModelConversionFlagBitsVALVE {
@@ -330,6 +330,24 @@ pub(super) mod defs {
         pub const YCBCR_709_VALVE: Self = Self(1 << 2);
         pub const YCBCR_601_VALVE: Self = Self(1 << 3);
         pub const YCBCR_2020_VALVE: Self = Self(1 << 4);
+    }
+
+    impl fmt::Debug for VideoEncodeRgbModelConversionFlagBitsVALVE {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::RGB_IDENTITY_VALVE => Some("RGB_IDENTITY_VALVE"),
+                Self::YCBCR_IDENTITY_VALVE => Some("YCBCR_IDENTITY_VALVE"),
+                Self::YCBCR_709_VALVE => Some("YCBCR_709_VALVE"),
+                Self::YCBCR_601_VALVE => Some("YCBCR_601_VALVE"),
+                Self::YCBCR_2020_VALVE => Some("YCBCR_2020_VALVE"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeRgbRangeCompressionFlagsVALVE.html>
@@ -363,12 +381,27 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeRgbRangeCompressionFlagBitsVALVE.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRgbRangeCompressionFlagBitsVALVE(u32);
 
     impl VideoEncodeRgbRangeCompressionFlagBitsVALVE {
         pub const FULL_RANGE_VALVE: Self = Self(1 << 0);
         pub const NARROW_RANGE_VALVE: Self = Self(1 << 1);
+    }
+
+    impl fmt::Debug for VideoEncodeRgbRangeCompressionFlagBitsVALVE {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::FULL_RANGE_VALVE => Some("FULL_RANGE_VALVE"),
+                Self::NARROW_RANGE_VALVE => Some("NARROW_RANGE_VALVE"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeRgbChromaOffsetFlagsVALVE.html>
@@ -402,11 +435,26 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeRgbChromaOffsetFlagBitsVALVE.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRgbChromaOffsetFlagBitsVALVE(u32);
 
     impl VideoEncodeRgbChromaOffsetFlagBitsVALVE {
         pub const COSITED_EVEN_VALVE: Self = Self(1 << 0);
         pub const MIDPOINT_VALVE: Self = Self(1 << 1);
+    }
+
+    impl fmt::Debug for VideoEncodeRgbChromaOffsetFlagBitsVALVE {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::COSITED_EVEN_VALVE => Some("COSITED_EVEN_VALVE"),
+                Self::MIDPOINT_VALVE => Some("MIDPOINT_VALVE"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 }

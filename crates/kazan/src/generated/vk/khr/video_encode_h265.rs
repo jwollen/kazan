@@ -1294,7 +1294,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265CapabilityFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeH265CapabilityFlagBitsKHR(u32);
 
     impl VideoEncodeH265CapabilityFlagBitsKHR {
@@ -1313,6 +1313,39 @@ pub(super) mod defs {
 
         // VK_KHR_video_encode_quantization_map
         pub const CU_QP_DIFF_WRAPAROUND_KHR: Self = Self(1 << 10);
+    }
+
+    impl fmt::Debug for VideoEncodeH265CapabilityFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::HRD_COMPLIANCE_KHR => Some("HRD_COMPLIANCE_KHR"),
+                Self::PREDICTION_WEIGHT_TABLE_GENERATED_KHR => {
+                    Some("PREDICTION_WEIGHT_TABLE_GENERATED_KHR")
+                }
+                Self::ROW_UNALIGNED_SLICE_SEGMENT_KHR => Some("ROW_UNALIGNED_SLICE_SEGMENT_KHR"),
+                Self::DIFFERENT_SLICE_SEGMENT_TYPE_KHR => Some("DIFFERENT_SLICE_SEGMENT_TYPE_KHR"),
+                Self::B_FRAME_IN_L0_LIST_KHR => Some("B_FRAME_IN_L0_LIST_KHR"),
+                Self::B_FRAME_IN_L1_LIST_KHR => Some("B_FRAME_IN_L1_LIST_KHR"),
+                Self::PER_PICTURE_TYPE_MIN_MAX_QP_KHR => Some("PER_PICTURE_TYPE_MIN_MAX_QP_KHR"),
+                Self::PER_SLICE_SEGMENT_CONSTANT_QP_KHR => {
+                    Some("PER_SLICE_SEGMENT_CONSTANT_QP_KHR")
+                }
+                Self::MULTIPLE_TILES_PER_SLICE_SEGMENT_KHR => {
+                    Some("MULTIPLE_TILES_PER_SLICE_SEGMENT_KHR")
+                }
+                Self::MULTIPLE_SLICE_SEGMENTS_PER_TILE_KHR => {
+                    Some("MULTIPLE_SLICE_SEGMENTS_PER_TILE_KHR")
+                }
+                Self::B_PICTURE_INTRA_REFRESH_KHR => Some("B_PICTURE_INTRA_REFRESH_KHR"),
+                Self::CU_QP_DIFF_WRAPAROUND_KHR => Some("CU_QP_DIFF_WRAPAROUND_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265StdFlagsKHR.html>
@@ -1460,7 +1493,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265StdFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeH265StdFlagBitsKHR(u32);
 
     impl VideoEncodeH265StdFlagBitsKHR {
@@ -1485,6 +1518,70 @@ pub(super) mod defs {
         pub const DEPENDENT_SLICE_SEGMENT_FLAG_SET_KHR: Self = Self(1 << 18);
         pub const SLICE_QP_DELTA_KHR: Self = Self(1 << 19);
         pub const DIFFERENT_SLICE_QP_DELTA_KHR: Self = Self(1 << 20);
+    }
+
+    impl fmt::Debug for VideoEncodeH265StdFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::SEPARATE_COLOR_PLANE_FLAG_SET_KHR => {
+                    Some("SEPARATE_COLOR_PLANE_FLAG_SET_KHR")
+                }
+                Self::SAMPLE_ADAPTIVE_OFFSET_ENABLED_FLAG_SET_KHR => {
+                    Some("SAMPLE_ADAPTIVE_OFFSET_ENABLED_FLAG_SET_KHR")
+                }
+                Self::SCALING_LIST_DATA_PRESENT_FLAG_SET_KHR => {
+                    Some("SCALING_LIST_DATA_PRESENT_FLAG_SET_KHR")
+                }
+                Self::PCM_ENABLED_FLAG_SET_KHR => Some("PCM_ENABLED_FLAG_SET_KHR"),
+                Self::SPS_TEMPORAL_MVP_ENABLED_FLAG_SET_KHR => {
+                    Some("SPS_TEMPORAL_MVP_ENABLED_FLAG_SET_KHR")
+                }
+                Self::INIT_QP_MINUS26_KHR => Some("INIT_QP_MINUS26_KHR"),
+                Self::WEIGHTED_PRED_FLAG_SET_KHR => Some("WEIGHTED_PRED_FLAG_SET_KHR"),
+                Self::WEIGHTED_BIPRED_FLAG_SET_KHR => Some("WEIGHTED_BIPRED_FLAG_SET_KHR"),
+                Self::LOG2_PARALLEL_MERGE_LEVEL_MINUS2_KHR => {
+                    Some("LOG2_PARALLEL_MERGE_LEVEL_MINUS2_KHR")
+                }
+                Self::SIGN_DATA_HIDING_ENABLED_FLAG_SET_KHR => {
+                    Some("SIGN_DATA_HIDING_ENABLED_FLAG_SET_KHR")
+                }
+                Self::TRANSFORM_SKIP_ENABLED_FLAG_SET_KHR => {
+                    Some("TRANSFORM_SKIP_ENABLED_FLAG_SET_KHR")
+                }
+                Self::TRANSFORM_SKIP_ENABLED_FLAG_UNSET_KHR => {
+                    Some("TRANSFORM_SKIP_ENABLED_FLAG_UNSET_KHR")
+                }
+                Self::PPS_SLICE_CHROMA_QP_OFFSETS_PRESENT_FLAG_SET_KHR => {
+                    Some("PPS_SLICE_CHROMA_QP_OFFSETS_PRESENT_FLAG_SET_KHR")
+                }
+                Self::TRANSQUANT_BYPASS_ENABLED_FLAG_SET_KHR => {
+                    Some("TRANSQUANT_BYPASS_ENABLED_FLAG_SET_KHR")
+                }
+                Self::CONSTRAINED_INTRA_PRED_FLAG_SET_KHR => {
+                    Some("CONSTRAINED_INTRA_PRED_FLAG_SET_KHR")
+                }
+                Self::ENTROPY_CODING_SYNC_ENABLED_FLAG_SET_KHR => {
+                    Some("ENTROPY_CODING_SYNC_ENABLED_FLAG_SET_KHR")
+                }
+                Self::DEBLOCKING_FILTER_OVERRIDE_ENABLED_FLAG_SET_KHR => {
+                    Some("DEBLOCKING_FILTER_OVERRIDE_ENABLED_FLAG_SET_KHR")
+                }
+                Self::DEPENDENT_SLICE_SEGMENTS_ENABLED_FLAG_SET_KHR => {
+                    Some("DEPENDENT_SLICE_SEGMENTS_ENABLED_FLAG_SET_KHR")
+                }
+                Self::DEPENDENT_SLICE_SEGMENT_FLAG_SET_KHR => {
+                    Some("DEPENDENT_SLICE_SEGMENT_FLAG_SET_KHR")
+                }
+                Self::SLICE_QP_DELTA_KHR => Some("SLICE_QP_DELTA_KHR"),
+                Self::DIFFERENT_SLICE_QP_DELTA_KHR => Some("DIFFERENT_SLICE_QP_DELTA_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265RateControlFlagsKHR.html>
@@ -1536,7 +1633,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265RateControlFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeH265RateControlFlagBitsKHR(u32);
 
     impl VideoEncodeH265RateControlFlagBitsKHR {
@@ -1545,6 +1642,26 @@ pub(super) mod defs {
         pub const REFERENCE_PATTERN_FLAT_KHR: Self = Self(1 << 2);
         pub const REFERENCE_PATTERN_DYADIC_KHR: Self = Self(1 << 3);
         pub const TEMPORAL_SUB_LAYER_PATTERN_DYADIC_KHR: Self = Self(1 << 4);
+    }
+
+    impl fmt::Debug for VideoEncodeH265RateControlFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::ATTEMPT_HRD_COMPLIANCE_KHR => Some("ATTEMPT_HRD_COMPLIANCE_KHR"),
+                Self::REGULAR_GOP_KHR => Some("REGULAR_GOP_KHR"),
+                Self::REFERENCE_PATTERN_FLAT_KHR => Some("REFERENCE_PATTERN_FLAT_KHR"),
+                Self::REFERENCE_PATTERN_DYADIC_KHR => Some("REFERENCE_PATTERN_DYADIC_KHR"),
+                Self::TEMPORAL_SUB_LAYER_PATTERN_DYADIC_KHR => {
+                    Some("TEMPORAL_SUB_LAYER_PATTERN_DYADIC_KHR")
+                }
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265CtbSizeFlagsKHR.html>
@@ -1572,13 +1689,29 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265CtbSizeFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeH265CtbSizeFlagBitsKHR(u32);
 
     impl VideoEncodeH265CtbSizeFlagBitsKHR {
         pub const _16_KHR: Self = Self(1 << 0);
         pub const _32_KHR: Self = Self(1 << 1);
         pub const _64_KHR: Self = Self(1 << 2);
+    }
+
+    impl fmt::Debug for VideoEncodeH265CtbSizeFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::_16_KHR => Some("_16_KHR"),
+                Self::_32_KHR => Some("_32_KHR"),
+                Self::_64_KHR => Some("_64_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265TransformBlockSizeFlagsKHR.html>
@@ -1620,7 +1753,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265TransformBlockSizeFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeH265TransformBlockSizeFlagBitsKHR(u32);
 
     impl VideoEncodeH265TransformBlockSizeFlagBitsKHR {
@@ -1628,5 +1761,22 @@ pub(super) mod defs {
         pub const _8_KHR: Self = Self(1 << 1);
         pub const _16_KHR: Self = Self(1 << 2);
         pub const _32_KHR: Self = Self(1 << 3);
+    }
+
+    impl fmt::Debug for VideoEncodeH265TransformBlockSizeFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::_4_KHR => Some("_4_KHR"),
+                Self::_8_KHR => Some("_8_KHR"),
+                Self::_16_KHR => Some("_16_KHR"),
+                Self::_32_KHR => Some("_32_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 }

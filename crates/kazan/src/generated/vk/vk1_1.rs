@@ -3922,7 +3922,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubgroupFeatureFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SubgroupFeatureFlagBits(u32);
 
     impl SubgroupFeatureFlagBits {
@@ -3955,6 +3955,30 @@ pub(super) mod defs {
         // VK_VERSION_1_4
         pub const ROTATE: Self = Self(1 << 9);
         pub const ROTATE_CLUSTERED: Self = Self(1 << 10);
+    }
+
+    impl fmt::Debug for SubgroupFeatureFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::BASIC => Some("BASIC"),
+                Self::VOTE => Some("VOTE"),
+                Self::ARITHMETIC => Some("ARITHMETIC"),
+                Self::BALLOT => Some("BALLOT"),
+                Self::SHUFFLE => Some("SHUFFLE"),
+                Self::SHUFFLE_RELATIVE => Some("SHUFFLE_RELATIVE"),
+                Self::CLUSTERED => Some("CLUSTERED"),
+                Self::QUAD => Some("QUAD"),
+                Self::PARTITIONED_EXT => Some("PARTITIONED_EXT"),
+                Self::ROTATE => Some("ROTATE"),
+                Self::ROTATE_CLUSTERED => Some("ROTATE_CLUSTERED"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorUpdateTemplateCreateFlags.html>
@@ -4005,7 +4029,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPeerMemoryFeatureFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PeerMemoryFeatureFlagBits(u32);
 
     impl PeerMemoryFeatureFlagBits {
@@ -4022,6 +4046,23 @@ pub(super) mod defs {
         pub const COPY_DST_KHR: Self = Self::COPY_DST;
         pub const GENERIC_SRC_KHR: Self = Self::GENERIC_SRC;
         pub const GENERIC_DST_KHR: Self = Self::GENERIC_DST;
+    }
+
+    impl fmt::Debug for PeerMemoryFeatureFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::COPY_SRC => Some("COPY_SRC"),
+                Self::COPY_DST => Some("COPY_DST"),
+                Self::GENERIC_SRC => Some("GENERIC_SRC"),
+                Self::GENERIC_DST => Some("GENERIC_DST"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryAllocateFlags.html>
@@ -4069,7 +4110,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryAllocateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MemoryAllocateFlagBits(u32);
 
     impl MemoryAllocateFlagBits {
@@ -4088,6 +4129,23 @@ pub(super) mod defs {
         // VK_VERSION_1_2
         pub const DEVICE_ADDRESS: Self = Self(1 << 1);
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY: Self = Self(1 << 2);
+    }
+
+    impl fmt::Debug for MemoryAllocateFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DEVICE_MASK => Some("DEVICE_MASK"),
+                Self::ZERO_INITIALIZE_EXT => Some("ZERO_INITIALIZE_EXT"),
+                Self::DEVICE_ADDRESS => Some("DEVICE_ADDRESS"),
+                Self::DEVICE_ADDRESS_CAPTURE_REPLAY => Some("DEVICE_ADDRESS_CAPTURE_REPLAY"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandPoolTrimFlags.html>
@@ -4231,7 +4289,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalMemoryHandleTypeFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExternalMemoryHandleTypeFlagBits(u32);
 
     impl ExternalMemoryHandleTypeFlagBits {
@@ -4279,6 +4337,37 @@ pub(super) mod defs {
         pub const SCREEN_BUFFER_QNX: Self = Self(1 << 14);
     }
 
+    impl fmt::Debug for ExternalMemoryHandleTypeFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::OPAQUE_FD => Some("OPAQUE_FD"),
+                Self::OPAQUE_WIN32 => Some("OPAQUE_WIN32"),
+                Self::OPAQUE_WIN32_KMT => Some("OPAQUE_WIN32_KMT"),
+                Self::D3D11_TEXTURE => Some("D3D11_TEXTURE"),
+                Self::D3D11_TEXTURE_KMT => Some("D3D11_TEXTURE_KMT"),
+                Self::D3D12_HEAP => Some("D3D12_HEAP"),
+                Self::D3D12_RESOURCE => Some("D3D12_RESOURCE"),
+                Self::ANDROID_HARDWARE_BUFFER_ANDROID => Some("ANDROID_HARDWARE_BUFFER_ANDROID"),
+                Self::DMA_BUF_EXT => Some("DMA_BUF_EXT"),
+                Self::HOST_ALLOCATION_EXT => Some("HOST_ALLOCATION_EXT"),
+                Self::HOST_MAPPED_FOREIGN_MEMORY_EXT => Some("HOST_MAPPED_FOREIGN_MEMORY_EXT"),
+                Self::MTLBUFFER_EXT => Some("MTLBUFFER_EXT"),
+                Self::MTLTEXTURE_EXT => Some("MTLTEXTURE_EXT"),
+                Self::MTLHEAP_EXT => Some("MTLHEAP_EXT"),
+                Self::ZIRCON_VMO_FUCHSIA => Some("ZIRCON_VMO_FUCHSIA"),
+                Self::RDMA_ADDRESS_NV => Some("RDMA_ADDRESS_NV"),
+                Self::OH_NATIVE_BUFFER_OHOS => Some("OH_NATIVE_BUFFER_OHOS"),
+                Self::SCREEN_BUFFER_QNX => Some("SCREEN_BUFFER_QNX"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalMemoryFeatureFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -4311,7 +4400,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalMemoryFeatureFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExternalMemoryFeatureFlagBits(u32);
 
     impl ExternalMemoryFeatureFlagBits {
@@ -4322,6 +4411,22 @@ pub(super) mod defs {
         pub const DEDICATED_ONLY_KHR: Self = Self::DEDICATED_ONLY;
         pub const EXPORTABLE_KHR: Self = Self::EXPORTABLE;
         pub const IMPORTABLE_KHR: Self = Self::IMPORTABLE;
+    }
+
+    impl fmt::Debug for ExternalMemoryFeatureFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DEDICATED_ONLY => Some("DEDICATED_ONLY"),
+                Self::EXPORTABLE => Some("EXPORTABLE"),
+                Self::IMPORTABLE => Some("IMPORTABLE"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalSemaphoreHandleTypeFlags.html>
@@ -4378,7 +4483,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalSemaphoreHandleTypeFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExternalSemaphoreHandleTypeFlagBits(u32);
 
     impl ExternalSemaphoreHandleTypeFlagBits {
@@ -4396,6 +4501,25 @@ pub(super) mod defs {
         pub const OPAQUE_WIN32_KMT_KHR: Self = Self::OPAQUE_WIN32_KMT;
         pub const D3D12_FENCE_KHR: Self = Self::D3D12_FENCE;
         pub const SYNC_FD_KHR: Self = Self::SYNC_FD;
+    }
+
+    impl fmt::Debug for ExternalSemaphoreHandleTypeFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::OPAQUE_FD => Some("OPAQUE_FD"),
+                Self::OPAQUE_WIN32 => Some("OPAQUE_WIN32"),
+                Self::OPAQUE_WIN32_KMT => Some("OPAQUE_WIN32_KMT"),
+                Self::D3D12_FENCE => Some("D3D12_FENCE"),
+                Self::SYNC_FD => Some("SYNC_FD"),
+                Self::ZIRCON_EVENT_FUCHSIA => Some("ZIRCON_EVENT_FUCHSIA"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalSemaphoreFeatureFlags.html>
@@ -4424,7 +4548,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalSemaphoreFeatureFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExternalSemaphoreFeatureFlagBits(u32);
 
     impl ExternalSemaphoreFeatureFlagBits {
@@ -4433,6 +4557,21 @@ pub(super) mod defs {
         // VK_KHR_external_semaphore_capabilities
         pub const EXPORTABLE_KHR: Self = Self::EXPORTABLE;
         pub const IMPORTABLE_KHR: Self = Self::IMPORTABLE;
+    }
+
+    impl fmt::Debug for ExternalSemaphoreFeatureFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::EXPORTABLE => Some("EXPORTABLE"),
+                Self::IMPORTABLE => Some("IMPORTABLE"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreImportFlags.html>
@@ -4456,13 +4595,27 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreImportFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SemaphoreImportFlagBits(u32);
 
     impl SemaphoreImportFlagBits {
         pub const TEMPORARY: Self = Self(1 << 0);
         // VK_KHR_external_semaphore
         pub const TEMPORARY_KHR: Self = Self::TEMPORARY;
+    }
+
+    impl fmt::Debug for SemaphoreImportFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::TEMPORARY => Some("TEMPORARY"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalFenceHandleTypeFlags.html>
@@ -4501,7 +4654,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalFenceHandleTypeFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExternalFenceHandleTypeFlagBits(u32);
 
     impl ExternalFenceHandleTypeFlagBits {
@@ -4514,6 +4667,23 @@ pub(super) mod defs {
         pub const OPAQUE_WIN32_KHR: Self = Self::OPAQUE_WIN32;
         pub const OPAQUE_WIN32_KMT_KHR: Self = Self::OPAQUE_WIN32_KMT;
         pub const SYNC_FD_KHR: Self = Self::SYNC_FD;
+    }
+
+    impl fmt::Debug for ExternalFenceHandleTypeFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::OPAQUE_FD => Some("OPAQUE_FD"),
+                Self::OPAQUE_WIN32 => Some("OPAQUE_WIN32"),
+                Self::OPAQUE_WIN32_KMT => Some("OPAQUE_WIN32_KMT"),
+                Self::SYNC_FD => Some("SYNC_FD"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalFenceFeatureFlags.html>
@@ -4542,7 +4712,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalFenceFeatureFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExternalFenceFeatureFlagBits(u32);
 
     impl ExternalFenceFeatureFlagBits {
@@ -4551,6 +4721,21 @@ pub(super) mod defs {
         // VK_KHR_external_fence_capabilities
         pub const EXPORTABLE_KHR: Self = Self::EXPORTABLE;
         pub const IMPORTABLE_KHR: Self = Self::IMPORTABLE;
+    }
+
+    impl fmt::Debug for ExternalFenceFeatureFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::EXPORTABLE => Some("EXPORTABLE"),
+                Self::IMPORTABLE => Some("IMPORTABLE"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFenceImportFlags.html>
@@ -4574,13 +4759,27 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFenceImportFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct FenceImportFlagBits(u32);
 
     impl FenceImportFlagBits {
         pub const TEMPORARY: Self = Self(1 << 0);
         // VK_KHR_external_fence
         pub const TEMPORARY_KHR: Self = Self::TEMPORARY;
+    }
+
+    impl fmt::Debug for FenceImportFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::TEMPORARY => Some("TEMPORARY"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumerateInstanceVersion.html>

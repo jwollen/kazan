@@ -5571,13 +5571,27 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreWaitFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SemaphoreWaitFlagBits(u32);
 
     impl SemaphoreWaitFlagBits {
         pub const ANY: Self = Self(1 << 0);
         // VK_KHR_timeline_semaphore
         pub const ANY_KHR: Self = Self::ANY;
+    }
+
+    impl fmt::Debug for SemaphoreWaitFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::ANY => Some("ANY"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorBindingFlags.html>
@@ -5623,7 +5637,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorBindingFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DescriptorBindingFlagBits(u32);
 
     impl DescriptorBindingFlagBits {
@@ -5636,6 +5650,23 @@ pub(super) mod defs {
         pub const UPDATE_UNUSED_WHILE_PENDING_EXT: Self = Self::UPDATE_UNUSED_WHILE_PENDING;
         pub const PARTIALLY_BOUND_EXT: Self = Self::PARTIALLY_BOUND;
         pub const VARIABLE_DESCRIPTOR_COUNT_EXT: Self = Self::VARIABLE_DESCRIPTOR_COUNT;
+    }
+
+    impl fmt::Debug for DescriptorBindingFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::UPDATE_AFTER_BIND => Some("UPDATE_AFTER_BIND"),
+                Self::UPDATE_UNUSED_WHILE_PENDING => Some("UPDATE_UNUSED_WHILE_PENDING"),
+                Self::PARTIALLY_BOUND => Some("PARTIALLY_BOUND"),
+                Self::VARIABLE_DESCRIPTOR_COUNT => Some("VARIABLE_DESCRIPTOR_COUNT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkResolveModeFlags.html>
@@ -5684,7 +5715,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkResolveModeFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ResolveModeFlagBits(u32);
 
     impl ResolveModeFlagBits {
@@ -5703,6 +5734,27 @@ pub(super) mod defs {
         pub const AVERAGE_KHR: Self = Self::AVERAGE;
         pub const MIN_KHR: Self = Self::MIN;
         pub const MAX_KHR: Self = Self::MAX;
+    }
+
+    impl fmt::Debug for ResolveModeFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::SAMPLE_ZERO => Some("SAMPLE_ZERO"),
+                Self::AVERAGE => Some("AVERAGE"),
+                Self::MIN => Some("MIN"),
+                Self::MAX => Some("MAX"),
+                Self::EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID => {
+                    Some("EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID")
+                }
+                Self::CUSTOM_EXT => Some("CUSTOM_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkResetQueryPool.html>

@@ -616,7 +616,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowGridSizeFlagBitsNV.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct OpticalFlowGridSizeFlagBitsNV(u32);
 
     impl OpticalFlowGridSizeFlagBitsNV {
@@ -624,6 +624,23 @@ pub(super) mod defs {
         pub const _2X2_NV: Self = Self(1 << 1);
         pub const _4X4_NV: Self = Self(1 << 2);
         pub const _8X8_NV: Self = Self(1 << 3);
+    }
+
+    impl fmt::Debug for OpticalFlowGridSizeFlagBitsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::_1X1_NV => Some("_1X1_NV"),
+                Self::_2X2_NV => Some("_2X2_NV"),
+                Self::_4X4_NV => Some("_4X4_NV"),
+                Self::_8X8_NV => Some("_8X8_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowUsageFlagsNV.html>
@@ -656,7 +673,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowUsageFlagBitsNV.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct OpticalFlowUsageFlagBitsNV(u32);
 
     impl OpticalFlowUsageFlagBitsNV {
@@ -665,6 +682,24 @@ pub(super) mod defs {
         pub const HINT_NV: Self = Self(1 << 2);
         pub const COST_NV: Self = Self(1 << 3);
         pub const GLOBAL_FLOW_NV: Self = Self(1 << 4);
+    }
+
+    impl fmt::Debug for OpticalFlowUsageFlagBitsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::INPUT_NV => Some("INPUT_NV"),
+                Self::OUTPUT_NV => Some("OUTPUT_NV"),
+                Self::HINT_NV => Some("HINT_NV"),
+                Self::COST_NV => Some("COST_NV"),
+                Self::GLOBAL_FLOW_NV => Some("GLOBAL_FLOW_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowSessionCreateFlagsNV.html>
@@ -714,7 +749,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowSessionCreateFlagBitsNV.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct OpticalFlowSessionCreateFlagBitsNV(u32);
 
     impl OpticalFlowSessionCreateFlagBitsNV {
@@ -723,6 +758,24 @@ pub(super) mod defs {
         pub const ENABLE_GLOBAL_FLOW_NV: Self = Self(1 << 2);
         pub const ALLOW_REGIONS_NV: Self = Self(1 << 3);
         pub const BOTH_DIRECTIONS_NV: Self = Self(1 << 4);
+    }
+
+    impl fmt::Debug for OpticalFlowSessionCreateFlagBitsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::ENABLE_HINT_NV => Some("ENABLE_HINT_NV"),
+                Self::ENABLE_COST_NV => Some("ENABLE_COST_NV"),
+                Self::ENABLE_GLOBAL_FLOW_NV => Some("ENABLE_GLOBAL_FLOW_NV"),
+                Self::ALLOW_REGIONS_NV => Some("ALLOW_REGIONS_NV"),
+                Self::BOTH_DIRECTIONS_NV => Some("BOTH_DIRECTIONS_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowExecuteFlagsNV.html>
@@ -748,11 +801,25 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowExecuteFlagBitsNV.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct OpticalFlowExecuteFlagBitsNV(u32);
 
     impl OpticalFlowExecuteFlagBitsNV {
         pub const DISABLE_TEMPORAL_HINTS_NV: Self = Self(1 << 0);
+    }
+
+    impl fmt::Debug for OpticalFlowExecuteFlagBitsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DISABLE_TEMPORAL_HINTS_NV => Some("DISABLE_TEMPORAL_HINTS_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceOpticalFlowImageFormatsNV.html>

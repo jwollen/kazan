@@ -182,10 +182,24 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSchedulingControlsFlagBitsARM.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PhysicalDeviceSchedulingControlsFlagBitsARM(u64);
 
     impl PhysicalDeviceSchedulingControlsFlagBitsARM {
         pub const SHADER_CORE_COUNT_ARM: Self = Self(1 << 0);
+    }
+
+    impl fmt::Debug for PhysicalDeviceSchedulingControlsFlagBitsARM {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::SHADER_CORE_COUNT_ARM => Some("SHADER_CORE_COUNT_ARM"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 }

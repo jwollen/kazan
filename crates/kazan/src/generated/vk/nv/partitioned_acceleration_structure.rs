@@ -646,7 +646,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureInstanceFlagBitsNV.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PartitionedAccelerationStructureInstanceFlagBitsNV(u32);
 
     impl PartitionedAccelerationStructureInstanceFlagBitsNV {
@@ -655,6 +655,28 @@ pub(super) mod defs {
         pub const FLAG_FORCE_OPAQUE_NV: Self = Self(1 << 2);
         pub const FLAG_FORCE_NO_OPAQUE_NV: Self = Self(1 << 3);
         pub const FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV: Self = Self(1 << 4);
+    }
+
+    impl fmt::Debug for PartitionedAccelerationStructureInstanceFlagBitsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::FLAG_TRIANGLE_FACING_CULL_DISABLE_NV => {
+                    Some("FLAG_TRIANGLE_FACING_CULL_DISABLE_NV")
+                }
+                Self::FLAG_TRIANGLE_FLIP_FACING_NV => Some("FLAG_TRIANGLE_FLIP_FACING_NV"),
+                Self::FLAG_FORCE_OPAQUE_NV => Some("FLAG_FORCE_OPAQUE_NV"),
+                Self::FLAG_FORCE_NO_OPAQUE_NV => Some("FLAG_FORCE_NO_OPAQUE_NV"),
+                Self::FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV => {
+                    Some("FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV")
+                }
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPartitionedAccelerationStructuresBuildSizesNV.html>

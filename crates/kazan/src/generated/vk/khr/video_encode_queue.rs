@@ -824,7 +824,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeFlagBitsKHR(u32);
 
     impl VideoEncodeFlagBitsKHR {
@@ -834,6 +834,22 @@ pub(super) mod defs {
         // VK_KHR_video_encode_quantization_map
         pub const WITH_QUANTIZATION_DELTA_MAP_KHR: Self = Self(1 << 0);
         pub const WITH_EMPHASIS_MAP_KHR: Self = Self(1 << 1);
+    }
+
+    impl fmt::Debug for VideoEncodeFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::INTRA_REFRESH_KHR => Some("INTRA_REFRESH_KHR"),
+                Self::WITH_QUANTIZATION_DELTA_MAP_KHR => Some("WITH_QUANTIZATION_DELTA_MAP_KHR"),
+                Self::WITH_EMPHASIS_MAP_KHR => Some("WITH_EMPHASIS_MAP_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeUsageFlagsKHR.html>
@@ -870,7 +886,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeUsageFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeUsageFlagBitsKHR(u32);
 
     impl VideoEncodeUsageFlagBitsKHR {
@@ -878,6 +894,23 @@ pub(super) mod defs {
         pub const STREAMING_KHR: Self = Self(1 << 1);
         pub const RECORDING_KHR: Self = Self(1 << 2);
         pub const CONFERENCING_KHR: Self = Self(1 << 3);
+    }
+
+    impl fmt::Debug for VideoEncodeUsageFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::TRANSCODING_KHR => Some("TRANSCODING_KHR"),
+                Self::STREAMING_KHR => Some("STREAMING_KHR"),
+                Self::RECORDING_KHR => Some("RECORDING_KHR"),
+                Self::CONFERENCING_KHR => Some("CONFERENCING_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeContentFlagsKHR.html>
@@ -906,13 +939,29 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeContentFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeContentFlagBitsKHR(u32);
 
     impl VideoEncodeContentFlagBitsKHR {
         pub const CAMERA_KHR: Self = Self(1 << 0);
         pub const DESKTOP_KHR: Self = Self(1 << 1);
         pub const RENDERED_KHR: Self = Self(1 << 2);
+    }
+
+    impl fmt::Debug for VideoEncodeContentFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::CAMERA_KHR => Some("CAMERA_KHR"),
+                Self::DESKTOP_KHR => Some("DESKTOP_KHR"),
+                Self::RENDERED_KHR => Some("RENDERED_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeCapabilityFlagsKHR.html>
@@ -959,7 +1008,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeCapabilityFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeCapabilityFlagBitsKHR(u32);
 
     impl VideoEncodeCapabilityFlagBitsKHR {
@@ -968,6 +1017,27 @@ pub(super) mod defs {
         // VK_KHR_video_encode_quantization_map
         pub const QUANTIZATION_DELTA_MAP_KHR: Self = Self(1 << 2);
         pub const EMPHASIS_MAP_KHR: Self = Self(1 << 3);
+    }
+
+    impl fmt::Debug for VideoEncodeCapabilityFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::PRECEDING_EXTERNALLY_ENCODED_BYTES_KHR => {
+                    Some("PRECEDING_EXTERNALLY_ENCODED_BYTES_KHR")
+                }
+                Self::INSUFFICIENTSTREAM_BUFFER_RANGE_DETECTION_KHR => {
+                    Some("INSUFFICIENTSTREAM_BUFFER_RANGE_DETECTION_KHR")
+                }
+                Self::QUANTIZATION_DELTA_MAP_KHR => Some("QUANTIZATION_DELTA_MAP_KHR"),
+                Self::EMPHASIS_MAP_KHR => Some("EMPHASIS_MAP_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeFeedbackFlagsKHR.html>
@@ -1007,13 +1077,29 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeFeedbackFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeFeedbackFlagBitsKHR(u32);
 
     impl VideoEncodeFeedbackFlagBitsKHR {
         pub const BITSTREAM_BUFFER_OFFSET_KHR: Self = Self(1 << 0);
         pub const BITSTREAM_BYTES_WRITTEN_KHR: Self = Self(1 << 1);
         pub const BITSTREAM_HAS_OVERRIDES_KHR: Self = Self(1 << 2);
+    }
+
+    impl fmt::Debug for VideoEncodeFeedbackFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::BITSTREAM_BUFFER_OFFSET_KHR => Some("BITSTREAM_BUFFER_OFFSET_KHR"),
+                Self::BITSTREAM_BYTES_WRITTEN_KHR => Some("BITSTREAM_BYTES_WRITTEN_KHR"),
+                Self::BITSTREAM_HAS_OVERRIDES_KHR => Some("BITSTREAM_HAS_OVERRIDES_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeRateControlFlagsKHR.html>
@@ -1057,13 +1143,29 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeRateControlModeFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRateControlModeFlagBitsKHR(u32);
 
     impl VideoEncodeRateControlModeFlagBitsKHR {
         pub const DISABLED_KHR: Self = Self(1 << 0);
         pub const CBR_KHR: Self = Self(1 << 1);
         pub const VBR_KHR: Self = Self(1 << 2);
+    }
+
+    impl fmt::Debug for VideoEncodeRateControlModeFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DISABLED_KHR => Some("DISABLED_KHR"),
+                Self::CBR_KHR => Some("CBR_KHR"),
+                Self::VBR_KHR => Some("VBR_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR.html>

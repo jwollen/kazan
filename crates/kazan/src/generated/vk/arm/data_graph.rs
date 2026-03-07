@@ -1410,11 +1410,25 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionCreateFlagBitsARM.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DataGraphPipelineSessionCreateFlagBitsARM(u64);
 
     impl DataGraphPipelineSessionCreateFlagBitsARM {
         pub const PROTECTED_ARM: Self = Self(1 << 0);
+    }
+
+    impl fmt::Debug for DataGraphPipelineSessionCreateFlagBitsARM {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::PROTECTED_ARM => Some("PROTECTED_ARM"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineDispatchFlagsARM.html>
@@ -1434,10 +1448,23 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineDispatchFlagBitsARM.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DataGraphPipelineDispatchFlagBitsARM(u64);
 
     impl DataGraphPipelineDispatchFlagBitsARM {}
+
+    impl fmt::Debug for DataGraphPipelineDispatchFlagBitsARM {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDataGraphPipelinesARM.html>
     pub type PFN_vkCreateDataGraphPipelinesARM = unsafe extern "system" fn(

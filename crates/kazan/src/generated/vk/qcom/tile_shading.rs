@@ -477,12 +477,27 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTileShadingRenderPassFlagBitsQCOM.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct TileShadingRenderPassFlagBitsQCOM(u32);
 
     impl TileShadingRenderPassFlagBitsQCOM {
         pub const ENABLE_QCOM: Self = Self(1 << 0);
         pub const PER_TILE_EXECUTION_QCOM: Self = Self(1 << 1);
+    }
+
+    impl fmt::Debug for TileShadingRenderPassFlagBitsQCOM {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::ENABLE_QCOM => Some("ENABLE_QCOM"),
+                Self::PER_TILE_EXECUTION_QCOM => Some("PER_TILE_EXECUTION_QCOM"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatchTileQCOM.html>

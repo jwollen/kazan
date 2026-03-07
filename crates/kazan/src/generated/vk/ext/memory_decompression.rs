@@ -237,11 +237,25 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryDecompressionMethodFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MemoryDecompressionMethodFlagBitsEXT(u64);
 
     impl MemoryDecompressionMethodFlagBitsEXT {
         pub const GDEFLATE_1_0_EXT: Self = Self(1 << 0);
+    }
+
+    impl fmt::Debug for MemoryDecompressionMethodFlagBitsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::GDEFLATE_1_0_EXT => Some("GDEFLATE_1_0_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDecompressMemoryEXT.html>

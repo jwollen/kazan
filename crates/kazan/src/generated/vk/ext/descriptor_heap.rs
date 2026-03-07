@@ -1881,7 +1881,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSpirvResourceTypeFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SpirvResourceTypeFlagBitsEXT(u32);
 
     impl SpirvResourceTypeFlagBitsEXT {
@@ -1896,6 +1896,29 @@ pub(super) mod defs {
         // VK_EXT_descriptor_heap
         pub const ACCELERATION_STRUCTURE_EXT: Self = Self(1 << 8);
         pub const TENSOR_ARM: Self = Self(1 << 9);
+    }
+
+    impl fmt::Debug for SpirvResourceTypeFlagBitsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::SAMPLER_EXT => Some("SAMPLER_EXT"),
+                Self::SAMPLED_IMAGE_EXT => Some("SAMPLED_IMAGE_EXT"),
+                Self::READ_ONLY_IMAGE_EXT => Some("READ_ONLY_IMAGE_EXT"),
+                Self::READ_WRITE_IMAGE_EXT => Some("READ_WRITE_IMAGE_EXT"),
+                Self::COMBINED_SAMPLED_IMAGE_EXT => Some("COMBINED_SAMPLED_IMAGE_EXT"),
+                Self::UNIFORM_BUFFER_EXT => Some("UNIFORM_BUFFER_EXT"),
+                Self::READ_ONLY_STORAGE_BUFFER_EXT => Some("READ_ONLY_STORAGE_BUFFER_EXT"),
+                Self::READ_WRITE_STORAGE_BUFFER_EXT => Some("READ_WRITE_STORAGE_BUFFER_EXT"),
+                Self::ACCELERATION_STRUCTURE_EXT => Some("ACCELERATION_STRUCTURE_EXT"),
+                Self::TENSOR_ARM => Some("TENSOR_ARM"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWriteSamplerDescriptorsEXT.html>

@@ -96,7 +96,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalMemoryHandleTypeFlagBitsNV.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExternalMemoryHandleTypeFlagBitsNV(u32);
 
     impl ExternalMemoryHandleTypeFlagBitsNV {
@@ -104,6 +104,23 @@ pub(super) mod defs {
         pub const OPAQUE_WIN32_KMT_NV: Self = Self(1 << 1);
         pub const D3D11_IMAGE_NV: Self = Self(1 << 2);
         pub const D3D11_IMAGE_KMT_NV: Self = Self(1 << 3);
+    }
+
+    impl fmt::Debug for ExternalMemoryHandleTypeFlagBitsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::OPAQUE_WIN32_NV => Some("OPAQUE_WIN32_NV"),
+                Self::OPAQUE_WIN32_KMT_NV => Some("OPAQUE_WIN32_KMT_NV"),
+                Self::D3D11_IMAGE_NV => Some("D3D11_IMAGE_NV"),
+                Self::D3D11_IMAGE_KMT_NV => Some("D3D11_IMAGE_KMT_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalMemoryFeatureFlagsNV.html>
@@ -141,13 +158,29 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalMemoryFeatureFlagBitsNV.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExternalMemoryFeatureFlagBitsNV(u32);
 
     impl ExternalMemoryFeatureFlagBitsNV {
         pub const DEDICATED_ONLY_NV: Self = Self(1 << 0);
         pub const EXPORTABLE_NV: Self = Self(1 << 1);
         pub const IMPORTABLE_NV: Self = Self(1 << 2);
+    }
+
+    impl fmt::Debug for ExternalMemoryFeatureFlagBitsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DEDICATED_ONLY_NV => Some("DEDICATED_ONLY_NV"),
+                Self::EXPORTABLE_NV => Some("EXPORTABLE_NV"),
+                Self::IMPORTABLE_NV => Some("IMPORTABLE_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceExternalImageFormatPropertiesNV.html>

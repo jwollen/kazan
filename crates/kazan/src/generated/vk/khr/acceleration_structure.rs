@@ -1543,7 +1543,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGeometryFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct GeometryFlagBitsKHR(u32);
 
     impl GeometryFlagBitsKHR {
@@ -1553,6 +1553,23 @@ pub(super) mod defs {
         pub const OPAQUE_NV: Self = Self::OPAQUE_KHR;
         pub const NO_DUPLICATE_ANY_HIT_INVOCATION_NV: Self =
             Self::NO_DUPLICATE_ANY_HIT_INVOCATION_KHR;
+    }
+
+    impl fmt::Debug for GeometryFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::OPAQUE_KHR => Some("OPAQUE_KHR"),
+                Self::NO_DUPLICATE_ANY_HIT_INVOCATION_KHR => {
+                    Some("NO_DUPLICATE_ANY_HIT_INVOCATION_KHR")
+                }
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGeometryInstanceFlagsKHR.html>
@@ -1618,7 +1635,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGeometryInstanceFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct GeometryInstanceFlagBitsKHR(u32);
 
     impl GeometryInstanceFlagBitsKHR {
@@ -1634,6 +1651,27 @@ pub(super) mod defs {
         pub const TRIANGLE_CULL_DISABLE_NV: Self = Self::TRIANGLE_FACING_CULL_DISABLE_KHR;
         pub const FORCE_OPAQUE_NV: Self = Self::FORCE_OPAQUE_KHR;
         pub const FORCE_NO_OPAQUE_NV: Self = Self::FORCE_NO_OPAQUE_KHR;
+    }
+
+    impl fmt::Debug for GeometryInstanceFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::TRIANGLE_FACING_CULL_DISABLE_KHR => Some("TRIANGLE_FACING_CULL_DISABLE_KHR"),
+                Self::TRIANGLE_FLIP_FACING_KHR => Some("TRIANGLE_FLIP_FACING_KHR"),
+                Self::FORCE_OPAQUE_KHR => Some("FORCE_OPAQUE_KHR"),
+                Self::FORCE_NO_OPAQUE_KHR => Some("FORCE_NO_OPAQUE_KHR"),
+                Self::FORCE_OPACITY_MICROMAP_2_STATE_EXT => {
+                    Some("FORCE_OPACITY_MICROMAP_2_STATE_EXT")
+                }
+                Self::DISABLE_OPACITY_MICROMAPS_EXT => Some("DISABLE_OPACITY_MICROMAPS_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBuildAccelerationStructureFlagsKHR.html>
@@ -1739,7 +1777,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBuildAccelerationStructureFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct BuildAccelerationStructureFlagBitsKHR(u32);
 
     impl BuildAccelerationStructureFlagBitsKHR {
@@ -1771,6 +1809,41 @@ pub(super) mod defs {
 
         // VK_NV_ray_tracing_motion_blur
         pub const MOTION_NV: Self = Self(1 << 5);
+    }
+
+    impl fmt::Debug for BuildAccelerationStructureFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::ALLOW_UPDATE_KHR => Some("ALLOW_UPDATE_KHR"),
+                Self::ALLOW_COMPACTION_KHR => Some("ALLOW_COMPACTION_KHR"),
+                Self::PREFER_FAST_TRACE_KHR => Some("PREFER_FAST_TRACE_KHR"),
+                Self::PREFER_FAST_BUILD_KHR => Some("PREFER_FAST_BUILD_KHR"),
+                Self::LOW_MEMORY_KHR => Some("LOW_MEMORY_KHR"),
+                Self::ALLOW_OPACITY_MICROMAP_UPDATE_EXT => {
+                    Some("ALLOW_OPACITY_MICROMAP_UPDATE_EXT")
+                }
+                Self::ALLOW_DISABLE_OPACITY_MICROMAPS_EXT => {
+                    Some("ALLOW_DISABLE_OPACITY_MICROMAPS_EXT")
+                }
+                Self::ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT => {
+                    Some("ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT")
+                }
+                Self::ALLOW_DATA_ACCESS_KHR => Some("ALLOW_DATA_ACCESS_KHR"),
+                Self::ALLOW_CLUSTER_OPACITY_MICROMAPS_NV => {
+                    Some("ALLOW_CLUSTER_OPACITY_MICROMAPS_NV")
+                }
+                Self::ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV => {
+                    Some("ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV")
+                }
+                Self::MOTION_NV => Some("MOTION_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureCreateFlagsKHR.html>
@@ -1812,7 +1885,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureCreateFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct AccelerationStructureCreateFlagBitsKHR(u32);
 
     impl AccelerationStructureCreateFlagBitsKHR {
@@ -1822,6 +1895,26 @@ pub(super) mod defs {
 
         // VK_NV_ray_tracing_motion_blur
         pub const MOTION_NV: Self = Self(1 << 2);
+    }
+
+    impl fmt::Debug for AccelerationStructureCreateFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DEVICE_ADDRESS_CAPTURE_REPLAY_KHR => {
+                    Some("DEVICE_ADDRESS_CAPTURE_REPLAY_KHR")
+                }
+                Self::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT => {
+                    Some("DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT")
+                }
+                Self::MOTION_NV => Some("MOTION_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyAccelerationStructureKHR.html>

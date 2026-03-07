@@ -15489,7 +15489,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFramebufferCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct FramebufferCreateFlagBits(u32);
 
     impl FramebufferCreateFlagBits {
@@ -15498,6 +15498,20 @@ pub(super) mod defs {
 
         // VK_VERSION_1_2
         pub const IMAGELESS: Self = Self(1 << 0);
+    }
+
+    impl fmt::Debug for FramebufferCreateFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::IMAGELESS => Some("IMAGELESS"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPoolCreateFlags.html>
@@ -15520,12 +15534,26 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPoolCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct QueryPoolCreateFlagBits(u32);
 
     impl QueryPoolCreateFlagBits {
         // VK_KHR_maintenance9
         pub const RESET_KHR: Self = Self(1 << 0);
+    }
+
+    impl fmt::Debug for QueryPoolCreateFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::RESET_KHR => Some("RESET_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassCreateFlags.html>
@@ -15558,7 +15586,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct RenderPassCreateFlagBits(u32);
 
     impl RenderPassCreateFlagBits {
@@ -15567,6 +15595,21 @@ pub(super) mod defs {
 
         // VK_VALVE_fragment_density_map_layered
         pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self = Self(1 << 2);
+    }
+
+    impl fmt::Debug for RenderPassCreateFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::TRANSFORM_QCOM => Some("TRANSFORM_QCOM"),
+                Self::PER_LAYER_FRAGMENT_DENSITY_VALVE => Some("PER_LAYER_FRAGMENT_DENSITY_VALVE"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerCreateFlags.html>
@@ -15621,7 +15664,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SamplerCreateFlagBits(u32);
 
     impl SamplerCreateFlagBits {
@@ -15637,6 +15680,28 @@ pub(super) mod defs {
 
         // VK_QCOM_image_processing
         pub const IMAGE_PROCESSING_QCOM: Self = Self(1 << 4);
+    }
+
+    impl fmt::Debug for SamplerCreateFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT => {
+                    Some("DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT")
+                }
+                Self::SUBSAMPLED_EXT => Some("SUBSAMPLED_EXT"),
+                Self::SUBSAMPLED_COARSE_RECONSTRUCTION_EXT => {
+                    Some("SUBSAMPLED_COARSE_RECONSTRUCTION_EXT")
+                }
+                Self::NON_SEAMLESS_CUBE_MAP_EXT => Some("NON_SEAMLESS_CUBE_MAP_EXT"),
+                Self::IMAGE_PROCESSING_QCOM => Some("IMAGE_PROCESSING_QCOM"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineLayoutCreateFlags.html>
@@ -15663,12 +15728,26 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineLayoutCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineLayoutCreateFlagBits(u32);
 
     impl PipelineLayoutCreateFlagBits {
         // VK_EXT_graphics_pipeline_library
         pub const INDEPENDENT_SETS_EXT: Self = Self(1 << 1);
+    }
+
+    impl fmt::Debug for PipelineLayoutCreateFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::INDEPENDENT_SETS_EXT => Some("INDEPENDENT_SETS_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCacheCreateFlags.html>
@@ -15708,7 +15787,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCacheCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineCacheCreateFlagBits(u32);
 
     impl PipelineCacheCreateFlagBits {
@@ -15720,6 +15799,23 @@ pub(super) mod defs {
 
         // VK_VERSION_1_3
         pub const EXTERNALLY_SYNCHRONIZED: Self = Self(1 << 0);
+    }
+
+    impl fmt::Debug for PipelineCacheCreateFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::INTERNALLY_SYNCHRONIZED_MERGE_KHR => {
+                    Some("INTERNALLY_SYNCHRONIZED_MERGE_KHR")
+                }
+                Self::EXTERNALLY_SYNCHRONIZED => Some("EXTERNALLY_SYNCHRONIZED"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineDepthStencilStateCreateFlags.html>
@@ -15752,7 +15848,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineDepthStencilStateCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineDepthStencilStateCreateFlagBits(u32);
 
     impl PipelineDepthStencilStateCreateFlagBits {
@@ -15765,6 +15861,25 @@ pub(super) mod defs {
         // VK_EXT_rasterization_order_attachment_access
         pub const RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT: Self = Self(1 << 0);
         pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT: Self = Self(1 << 1);
+    }
+
+    impl fmt::Debug for PipelineDepthStencilStateCreateFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT => {
+                    Some("RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT")
+                }
+                Self::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT => {
+                    Some("RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT")
+                }
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineDynamicStateCreateFlags.html>
@@ -15808,7 +15923,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineColorBlendStateCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineColorBlendStateCreateFlagBits(u32);
 
     impl PipelineColorBlendStateCreateFlagBits {
@@ -15818,6 +15933,22 @@ pub(super) mod defs {
 
         // VK_EXT_rasterization_order_attachment_access
         pub const RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT: Self = Self(1 << 0);
+    }
+
+    impl fmt::Debug for PipelineColorBlendStateCreateFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT => {
+                    Some("RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT")
+                }
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineMultisampleStateCreateFlags.html>
@@ -15928,7 +16059,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineShaderStageCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineShaderStageCreateFlagBits(u32);
 
     impl PipelineShaderStageCreateFlagBits {
@@ -15939,6 +16070,21 @@ pub(super) mod defs {
         // VK_VERSION_1_3
         pub const ALLOW_VARYING_SUBGROUP_SIZE: Self = Self(1 << 0);
         pub const REQUIRE_FULL_SUBGROUPS: Self = Self(1 << 1);
+    }
+
+    impl fmt::Debug for PipelineShaderStageCreateFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::ALLOW_VARYING_SUBGROUP_SIZE => Some("ALLOW_VARYING_SUBGROUP_SIZE"),
+                Self::REQUIRE_FULL_SUBGROUPS => Some("REQUIRE_FULL_SUBGROUPS"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetLayoutCreateFlags.html>
@@ -16021,7 +16167,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetLayoutCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DescriptorSetLayoutCreateFlagBits(u32);
 
     impl DescriptorSetLayoutCreateFlagBits {
@@ -16052,6 +16198,26 @@ pub(super) mod defs {
 
         // VK_VERSION_1_4
         pub const PUSH_DESCRIPTOR: Self = Self(1 << 0);
+    }
+
+    impl fmt::Debug for DescriptorSetLayoutCreateFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DESCRIPTOR_BUFFER_EXT => Some("DESCRIPTOR_BUFFER_EXT"),
+                Self::EMBEDDED_IMMUTABLE_SAMPLERS_EXT => Some("EMBEDDED_IMMUTABLE_SAMPLERS_EXT"),
+                Self::HOST_ONLY_POOL_EXT => Some("HOST_ONLY_POOL_EXT"),
+                Self::INDIRECT_BINDABLE_NV => Some("INDIRECT_BINDABLE_NV"),
+                Self::PER_STAGE_NV => Some("PER_STAGE_NV"),
+                Self::UPDATE_AFTER_BIND_POOL => Some("UPDATE_AFTER_BIND_POOL"),
+                Self::PUSH_DESCRIPTOR => Some("PUSH_DESCRIPTOR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferViewCreateFlags.html>
@@ -16090,12 +16256,26 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkInstanceCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct InstanceCreateFlagBits(u32);
 
     impl InstanceCreateFlagBits {
         // VK_KHR_portability_enumeration
         pub const ENUMERATE_PORTABILITY_KHR: Self = Self(1 << 0);
+    }
+
+    impl fmt::Debug for InstanceCreateFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::ENUMERATE_PORTABILITY_KHR => Some("ENUMERATE_PORTABILITY_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceCreateFlags.html>
@@ -16141,7 +16321,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceQueueCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DeviceQueueCreateFlagBits(u32);
 
     impl DeviceQueueCreateFlagBits {
@@ -16151,6 +16331,21 @@ pub(super) mod defs {
         // VK_VERSION_1_1
         /// Queue is a protected-capable device queue
         pub const PROTECTED: Self = Self(1 << 0);
+    }
+
+    impl fmt::Debug for DeviceQueueCreateFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::INTERNALLY_SYNCHRONIZED_KHR => Some("INTERNALLY_SYNCHRONIZED_KHR"),
+                Self::PROTECTED => Some("PROTECTED"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFlags.html>
@@ -16204,7 +16399,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct QueueFlagBits(u32);
 
     impl QueueFlagBits {
@@ -16231,6 +16426,28 @@ pub(super) mod defs {
         // VK_VERSION_1_1
         /// Queues may support protected operations
         pub const PROTECTED: Self = Self(1 << 4);
+    }
+
+    impl fmt::Debug for QueueFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::GRAPHICS => Some("GRAPHICS"),
+                Self::COMPUTE => Some("COMPUTE"),
+                Self::TRANSFER => Some("TRANSFER"),
+                Self::SPARSE_BINDING => Some("SPARSE_BINDING"),
+                Self::DATA_GRAPH_ARM => Some("DATA_GRAPH_ARM"),
+                Self::VIDEO_DECODE_KHR => Some("VIDEO_DECODE_KHR"),
+                Self::VIDEO_ENCODE_KHR => Some("VIDEO_ENCODE_KHR"),
+                Self::OPTICAL_FLOW_NV => Some("OPTICAL_FLOW_NV"),
+                Self::PROTECTED => Some("PROTECTED"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryPropertyFlags.html>
@@ -16287,7 +16504,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryPropertyFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MemoryPropertyFlagBits(u32);
 
     impl MemoryPropertyFlagBits {
@@ -16311,6 +16528,28 @@ pub(super) mod defs {
         // VK_VERSION_1_1
         /// Memory is protected
         pub const PROTECTED: Self = Self(1 << 5);
+    }
+
+    impl fmt::Debug for MemoryPropertyFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DEVICE_LOCAL => Some("DEVICE_LOCAL"),
+                Self::HOST_VISIBLE => Some("HOST_VISIBLE"),
+                Self::HOST_COHERENT => Some("HOST_COHERENT"),
+                Self::HOST_CACHED => Some("HOST_CACHED"),
+                Self::LAZILY_ALLOCATED => Some("LAZILY_ALLOCATED"),
+                Self::DEVICE_COHERENT_AMD => Some("DEVICE_COHERENT_AMD"),
+                Self::DEVICE_UNCACHED_AMD => Some("DEVICE_UNCACHED_AMD"),
+                Self::RDMA_CAPABLE_NV => Some("RDMA_CAPABLE_NV"),
+                Self::PROTECTED => Some("PROTECTED"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryHeapFlags.html>
@@ -16346,7 +16585,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryHeapFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MemoryHeapFlagBits(u32);
 
     impl MemoryHeapFlagBits {
@@ -16361,6 +16600,22 @@ pub(super) mod defs {
         // VK_VERSION_1_1
         /// If set, heap allocations allocate multiple instances by default
         pub const MULTI_INSTANCE: Self = Self(1 << 1);
+    }
+
+    impl fmt::Debug for MemoryHeapFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DEVICE_LOCAL => Some("DEVICE_LOCAL"),
+                Self::TILE_MEMORY_QCOM => Some("TILE_MEMORY_QCOM"),
+                Self::MULTI_INSTANCE => Some("MULTI_INSTANCE"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccessFlags.html>
@@ -16554,7 +16809,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccessFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct AccessFlagBits(u32);
 
     impl AccessFlagBits {
@@ -16629,6 +16884,55 @@ pub(super) mod defs {
         // VK_NV_shading_rate_image
         pub const SHADING_RATE_IMAGE_READ_NV: Self =
             Self::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR;
+    }
+
+    impl fmt::Debug for AccessFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::INDIRECT_COMMAND_READ => Some("INDIRECT_COMMAND_READ"),
+                Self::INDEX_READ => Some("INDEX_READ"),
+                Self::VERTEX_ATTRIBUTE_READ => Some("VERTEX_ATTRIBUTE_READ"),
+                Self::UNIFORM_READ => Some("UNIFORM_READ"),
+                Self::INPUT_ATTACHMENT_READ => Some("INPUT_ATTACHMENT_READ"),
+                Self::SHADER_READ => Some("SHADER_READ"),
+                Self::SHADER_WRITE => Some("SHADER_WRITE"),
+                Self::COLOR_ATTACHMENT_READ => Some("COLOR_ATTACHMENT_READ"),
+                Self::COLOR_ATTACHMENT_WRITE => Some("COLOR_ATTACHMENT_WRITE"),
+                Self::DEPTH_STENCIL_ATTACHMENT_READ => Some("DEPTH_STENCIL_ATTACHMENT_READ"),
+                Self::DEPTH_STENCIL_ATTACHMENT_WRITE => Some("DEPTH_STENCIL_ATTACHMENT_WRITE"),
+                Self::TRANSFER_READ => Some("TRANSFER_READ"),
+                Self::TRANSFER_WRITE => Some("TRANSFER_WRITE"),
+                Self::HOST_READ => Some("HOST_READ"),
+                Self::HOST_WRITE => Some("HOST_WRITE"),
+                Self::MEMORY_READ => Some("MEMORY_READ"),
+                Self::MEMORY_WRITE => Some("MEMORY_WRITE"),
+                Self::COLOR_ATTACHMENT_READ_NONCOHERENT_EXT => {
+                    Some("COLOR_ATTACHMENT_READ_NONCOHERENT_EXT")
+                }
+                Self::CONDITIONAL_RENDERING_READ_EXT => Some("CONDITIONAL_RENDERING_READ_EXT"),
+                Self::COMMAND_PREPROCESS_READ_EXT => Some("COMMAND_PREPROCESS_READ_EXT"),
+                Self::COMMAND_PREPROCESS_WRITE_EXT => Some("COMMAND_PREPROCESS_WRITE_EXT"),
+                Self::FRAGMENT_DENSITY_MAP_READ_EXT => Some("FRAGMENT_DENSITY_MAP_READ_EXT"),
+                Self::TRANSFORM_FEEDBACK_WRITE_EXT => Some("TRANSFORM_FEEDBACK_WRITE_EXT"),
+                Self::TRANSFORM_FEEDBACK_COUNTER_READ_EXT => {
+                    Some("TRANSFORM_FEEDBACK_COUNTER_READ_EXT")
+                }
+                Self::TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT => {
+                    Some("TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT")
+                }
+                Self::ACCELERATION_STRUCTURE_READ_KHR => Some("ACCELERATION_STRUCTURE_READ_KHR"),
+                Self::ACCELERATION_STRUCTURE_WRITE_KHR => Some("ACCELERATION_STRUCTURE_WRITE_KHR"),
+                Self::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR => {
+                    Some("FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR")
+                }
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferUsageFlags.html>
@@ -16819,7 +17123,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferUsageFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct BufferUsageFlagBits(u32);
 
     impl BufferUsageFlagBits {
@@ -16895,6 +17199,57 @@ pub(super) mod defs {
         pub const SHADER_DEVICE_ADDRESS: Self = Self(1 << 17);
     }
 
+    impl fmt::Debug for BufferUsageFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::TRANSFER_SRC => Some("TRANSFER_SRC"),
+                Self::TRANSFER_DST => Some("TRANSFER_DST"),
+                Self::UNIFORM_TEXEL_BUFFER => Some("UNIFORM_TEXEL_BUFFER"),
+                Self::STORAGE_TEXEL_BUFFER => Some("STORAGE_TEXEL_BUFFER"),
+                Self::UNIFORM_BUFFER => Some("UNIFORM_BUFFER"),
+                Self::STORAGE_BUFFER => Some("STORAGE_BUFFER"),
+                Self::INDEX_BUFFER => Some("INDEX_BUFFER"),
+                Self::VERTEX_BUFFER => Some("VERTEX_BUFFER"),
+                Self::INDIRECT_BUFFER => Some("INDIRECT_BUFFER"),
+                Self::EXECUTION_GRAPH_SCRATCH_AMDX => Some("EXECUTION_GRAPH_SCRATCH_AMDX"),
+                Self::CONDITIONAL_RENDERING_EXT => Some("CONDITIONAL_RENDERING_EXT"),
+                Self::SAMPLER_DESCRIPTOR_BUFFER_EXT => Some("SAMPLER_DESCRIPTOR_BUFFER_EXT"),
+                Self::RESOURCE_DESCRIPTOR_BUFFER_EXT => Some("RESOURCE_DESCRIPTOR_BUFFER_EXT"),
+                Self::PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT => {
+                    Some("PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT")
+                }
+                Self::DESCRIPTOR_HEAP_EXT => Some("DESCRIPTOR_HEAP_EXT"),
+                Self::MICROMAP_BUILD_INPUT_READ_ONLY_EXT => {
+                    Some("MICROMAP_BUILD_INPUT_READ_ONLY_EXT")
+                }
+                Self::MICROMAP_STORAGE_EXT => Some("MICROMAP_STORAGE_EXT"),
+                Self::TRANSFORM_FEEDBACK_BUFFER_EXT => Some("TRANSFORM_FEEDBACK_BUFFER_EXT"),
+                Self::TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT => {
+                    Some("TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT")
+                }
+                Self::ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR => {
+                    Some("ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR")
+                }
+                Self::ACCELERATION_STRUCTURE_STORAGE_KHR => {
+                    Some("ACCELERATION_STRUCTURE_STORAGE_KHR")
+                }
+                Self::SHADER_BINDING_TABLE_KHR => Some("SHADER_BINDING_TABLE_KHR"),
+                Self::VIDEO_DECODE_SRC_KHR => Some("VIDEO_DECODE_SRC_KHR"),
+                Self::VIDEO_DECODE_DST_KHR => Some("VIDEO_DECODE_DST_KHR"),
+                Self::VIDEO_ENCODE_DST_KHR => Some("VIDEO_ENCODE_DST_KHR"),
+                Self::VIDEO_ENCODE_SRC_KHR => Some("VIDEO_ENCODE_SRC_KHR"),
+                Self::TILE_MEMORY_QCOM => Some("TILE_MEMORY_QCOM"),
+                Self::SHADER_DEVICE_ADDRESS => Some("SHADER_DEVICE_ADDRESS"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -16957,7 +17312,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct BufferCreateFlagBits(u32);
 
     impl BufferCreateFlagBits {
@@ -16985,6 +17340,28 @@ pub(super) mod defs {
 
         // VK_VERSION_1_2
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY: Self = Self(1 << 4);
+    }
+
+    impl fmt::Debug for BufferCreateFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::SPARSE_BINDING => Some("SPARSE_BINDING"),
+                Self::SPARSE_RESIDENCY => Some("SPARSE_RESIDENCY"),
+                Self::SPARSE_ALIASED => Some("SPARSE_ALIASED"),
+                Self::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT => {
+                    Some("DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT")
+                }
+                Self::VIDEO_PROFILE_INDEPENDENT_KHR => Some("VIDEO_PROFILE_INDEPENDENT_KHR"),
+                Self::PROTECTED => Some("PROTECTED"),
+                Self::DEVICE_ADDRESS_CAPTURE_REPLAY => Some("DEVICE_ADDRESS_CAPTURE_REPLAY"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderStageFlags.html>
@@ -17074,7 +17451,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderStageFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ShaderStageFlagBits(u32);
 
     impl ShaderStageFlagBits {
@@ -17113,6 +17490,35 @@ pub(super) mod defs {
         pub const MISS_NV: Self = Self::MISS_KHR;
         pub const INTERSECTION_NV: Self = Self::INTERSECTION_KHR;
         pub const CALLABLE_NV: Self = Self::CALLABLE_KHR;
+    }
+
+    impl fmt::Debug for ShaderStageFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::VERTEX => Some("VERTEX"),
+                Self::TESSELLATION_CONTROL => Some("TESSELLATION_CONTROL"),
+                Self::TESSELLATION_EVALUATION => Some("TESSELLATION_EVALUATION"),
+                Self::GEOMETRY => Some("GEOMETRY"),
+                Self::FRAGMENT => Some("FRAGMENT"),
+                Self::COMPUTE => Some("COMPUTE"),
+                Self::TASK_EXT => Some("TASK_EXT"),
+                Self::MESH_EXT => Some("MESH_EXT"),
+                Self::CLUSTER_CULLING_HUAWEI => Some("CLUSTER_CULLING_HUAWEI"),
+                Self::SUBPASS_SHADING_HUAWEI => Some("SUBPASS_SHADING_HUAWEI"),
+                Self::RAYGEN_KHR => Some("RAYGEN_KHR"),
+                Self::ANY_HIT_KHR => Some("ANY_HIT_KHR"),
+                Self::CLOSEST_HIT_KHR => Some("CLOSEST_HIT_KHR"),
+                Self::MISS_KHR => Some("MISS_KHR"),
+                Self::INTERSECTION_KHR => Some("INTERSECTION_KHR"),
+                Self::CALLABLE_KHR => Some("CALLABLE_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageUsageFlags.html>
@@ -17274,7 +17680,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageUsageFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ImageUsageFlagBits(u32);
 
     impl ImageUsageFlagBits {
@@ -17338,6 +17744,48 @@ pub(super) mod defs {
 
         // VK_VERSION_1_4
         pub const HOST_TRANSFER: Self = Self(1 << 22);
+    }
+
+    impl fmt::Debug for ImageUsageFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::TRANSFER_SRC => Some("TRANSFER_SRC"),
+                Self::TRANSFER_DST => Some("TRANSFER_DST"),
+                Self::SAMPLED => Some("SAMPLED"),
+                Self::STORAGE => Some("STORAGE"),
+                Self::COLOR_ATTACHMENT => Some("COLOR_ATTACHMENT"),
+                Self::DEPTH_STENCIL_ATTACHMENT => Some("DEPTH_STENCIL_ATTACHMENT"),
+                Self::TRANSIENT_ATTACHMENT => Some("TRANSIENT_ATTACHMENT"),
+                Self::INPUT_ATTACHMENT => Some("INPUT_ATTACHMENT"),
+                Self::TENSOR_ALIASING_ARM => Some("TENSOR_ALIASING_ARM"),
+                Self::ATTACHMENT_FEEDBACK_LOOP_EXT => Some("ATTACHMENT_FEEDBACK_LOOP_EXT"),
+                Self::FRAGMENT_DENSITY_MAP_EXT => Some("FRAGMENT_DENSITY_MAP_EXT"),
+                Self::INVOCATION_MASK_HUAWEI => Some("INVOCATION_MASK_HUAWEI"),
+                Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR => {
+                    Some("FRAGMENT_SHADING_RATE_ATTACHMENT_KHR")
+                }
+                Self::VIDEO_DECODE_DST_KHR => Some("VIDEO_DECODE_DST_KHR"),
+                Self::VIDEO_DECODE_SRC_KHR => Some("VIDEO_DECODE_SRC_KHR"),
+                Self::VIDEO_DECODE_DPB_KHR => Some("VIDEO_DECODE_DPB_KHR"),
+                Self::VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR => {
+                    Some("VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR")
+                }
+                Self::VIDEO_ENCODE_EMPHASIS_MAP_KHR => Some("VIDEO_ENCODE_EMPHASIS_MAP_KHR"),
+                Self::VIDEO_ENCODE_DST_KHR => Some("VIDEO_ENCODE_DST_KHR"),
+                Self::VIDEO_ENCODE_SRC_KHR => Some("VIDEO_ENCODE_SRC_KHR"),
+                Self::VIDEO_ENCODE_DPB_KHR => Some("VIDEO_ENCODE_DPB_KHR"),
+                Self::SAMPLE_WEIGHT_QCOM => Some("SAMPLE_WEIGHT_QCOM"),
+                Self::SAMPLE_BLOCK_MATCH_QCOM => Some("SAMPLE_BLOCK_MATCH_QCOM"),
+                Self::TILE_MEMORY_QCOM => Some("TILE_MEMORY_QCOM"),
+                Self::HOST_TRANSFER => Some("HOST_TRANSFER"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCreateFlags.html>
@@ -17483,7 +17931,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ImageCreateFlagBits(u32);
 
     impl ImageCreateFlagBits {
@@ -17558,6 +18006,45 @@ pub(super) mod defs {
         pub const PROTECTED: Self = Self(1 << 11);
     }
 
+    impl fmt::Debug for ImageCreateFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::SPARSE_BINDING => Some("SPARSE_BINDING"),
+                Self::SPARSE_RESIDENCY => Some("SPARSE_RESIDENCY"),
+                Self::SPARSE_ALIASED => Some("SPARSE_ALIASED"),
+                Self::MUTABLE_FORMAT => Some("MUTABLE_FORMAT"),
+                Self::CUBE_COMPATIBLE => Some("CUBE_COMPATIBLE"),
+                Self::DESCRIPTOR_HEAP_CAPTURE_REPLAY_EXT => {
+                    Some("DESCRIPTOR_HEAP_CAPTURE_REPLAY_EXT")
+                }
+                Self::SUBSAMPLED_EXT => Some("SUBSAMPLED_EXT"),
+                Self::FRAGMENT_DENSITY_MAP_OFFSET_EXT => Some("FRAGMENT_DENSITY_MAP_OFFSET_EXT"),
+                Self::_2D_VIEW_COMPATIBLE_EXT => Some("_2D_VIEW_COMPATIBLE_EXT"),
+                Self::MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_EXT => {
+                    Some("MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_EXT")
+                }
+                Self::SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_EXT => {
+                    Some("SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_EXT")
+                }
+                Self::VIDEO_PROFILE_INDEPENDENT_KHR => Some("VIDEO_PROFILE_INDEPENDENT_KHR"),
+                Self::CORNER_SAMPLED_NV => Some("CORNER_SAMPLED_NV"),
+                Self::_2D_ARRAY_COMPATIBLE => Some("_2D_ARRAY_COMPATIBLE"),
+                Self::SPLIT_INSTANCE_BIND_REGIONS => Some("SPLIT_INSTANCE_BIND_REGIONS"),
+                Self::BLOCK_TEXEL_VIEW_COMPATIBLE => Some("BLOCK_TEXEL_VIEW_COMPATIBLE"),
+                Self::EXTENDED_USAGE => Some("EXTENDED_USAGE"),
+                Self::DISJOINT => Some("DISJOINT"),
+                Self::ALIAS => Some("ALIAS"),
+                Self::PROTECTED => Some("PROTECTED"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageViewCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -17600,7 +18087,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageViewCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ImageViewCreateFlagBits(u32);
 
     impl ImageViewCreateFlagBits {
@@ -17612,6 +18099,26 @@ pub(super) mod defs {
 
         // VK_EXT_fragment_density_map2
         pub const FRAGMENT_DENSITY_MAP_DEFERRED_EXT: Self = Self(1 << 1);
+    }
+
+    impl fmt::Debug for ImageViewCreateFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT => {
+                    Some("DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT")
+                }
+                Self::FRAGMENT_DENSITY_MAP_DYNAMIC_EXT => Some("FRAGMENT_DENSITY_MAP_DYNAMIC_EXT"),
+                Self::FRAGMENT_DENSITY_MAP_DEFERRED_EXT => {
+                    Some("FRAGMENT_DENSITY_MAP_DEFERRED_EXT")
+                }
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCreateFlags.html>
@@ -17847,7 +18354,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineCreateFlagBits(u32);
 
     impl PipelineCreateFlagBits {
@@ -17932,6 +18439,76 @@ pub(super) mod defs {
         pub const PROTECTED_ACCESS_ONLY: Self = Self(1 << 30);
     }
 
+    impl fmt::Debug for PipelineCreateFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DISABLE_OPTIMIZATION => Some("DISABLE_OPTIMIZATION"),
+                Self::ALLOW_DERIVATIVES => Some("ALLOW_DERIVATIVES"),
+                Self::DERIVATIVE => Some("DERIVATIVE"),
+                Self::COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT => {
+                    Some("COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT")
+                }
+                Self::DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT => {
+                    Some("DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT")
+                }
+                Self::DESCRIPTOR_BUFFER_EXT => Some("DESCRIPTOR_BUFFER_EXT"),
+                Self::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT => {
+                    Some("RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT")
+                }
+                Self::LINK_TIME_OPTIMIZATION_EXT => Some("LINK_TIME_OPTIMIZATION_EXT"),
+                Self::RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT => {
+                    Some("RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT")
+                }
+                Self::RAY_TRACING_OPACITY_MICROMAP_EXT => Some("RAY_TRACING_OPACITY_MICROMAP_EXT"),
+                Self::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR => {
+                    Some("RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR")
+                }
+                Self::CAPTURE_STATISTICS_KHR => Some("CAPTURE_STATISTICS_KHR"),
+                Self::CAPTURE_INTERNAL_REPRESENTATIONS_KHR => {
+                    Some("CAPTURE_INTERNAL_REPRESENTATIONS_KHR")
+                }
+                Self::LIBRARY_KHR => Some("LIBRARY_KHR"),
+                Self::RAY_TRACING_SKIP_TRIANGLES_KHR => Some("RAY_TRACING_SKIP_TRIANGLES_KHR"),
+                Self::RAY_TRACING_SKIP_AABBS_KHR => Some("RAY_TRACING_SKIP_AABBS_KHR"),
+                Self::RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_KHR => {
+                    Some("RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_KHR")
+                }
+                Self::RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_KHR => {
+                    Some("RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_KHR")
+                }
+                Self::RAY_TRACING_NO_NULL_MISS_SHADERS_KHR => {
+                    Some("RAY_TRACING_NO_NULL_MISS_SHADERS_KHR")
+                }
+                Self::RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR => {
+                    Some("RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR")
+                }
+                Self::RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR => {
+                    Some("RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR")
+                }
+                Self::INDIRECT_BINDABLE_NV => Some("INDIRECT_BINDABLE_NV"),
+                Self::RAY_TRACING_DISPLACEMENT_MICROMAP_NV => {
+                    Some("RAY_TRACING_DISPLACEMENT_MICROMAP_NV")
+                }
+                Self::DEFER_COMPILE_NV => Some("DEFER_COMPILE_NV"),
+                Self::RAY_TRACING_ALLOW_MOTION_NV => Some("RAY_TRACING_ALLOW_MOTION_NV"),
+                Self::VIEW_INDEX_FROM_DEVICE_INDEX => Some("VIEW_INDEX_FROM_DEVICE_INDEX"),
+                Self::DISPATCH_BASE => Some("DISPATCH_BASE"),
+                Self::FAIL_ON_PIPELINE_COMPILE_REQUIRED => {
+                    Some("FAIL_ON_PIPELINE_COMPILE_REQUIRED")
+                }
+                Self::EARLY_RETURN_ON_FAILURE => Some("EARLY_RETURN_ON_FAILURE"),
+                Self::NO_PROTECTED_ACCESS => Some("NO_PROTECTED_ACCESS"),
+                Self::PROTECTED_ACCESS_ONLY => Some("PROTECTED_ACCESS_ONLY"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkColorComponentFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -17959,7 +18536,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkColorComponentFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ColorComponentFlagBits(u32);
 
     impl ColorComponentFlagBits {
@@ -17967,6 +18544,23 @@ pub(super) mod defs {
         pub const G: Self = Self(1 << 1);
         pub const B: Self = Self(1 << 2);
         pub const A: Self = Self(1 << 3);
+    }
+
+    impl fmt::Debug for ColorComponentFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::R => Some("R"),
+                Self::G => Some("G"),
+                Self::B => Some("B"),
+                Self::A => Some("A"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFenceCreateFlags.html>
@@ -17988,11 +18582,25 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFenceCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct FenceCreateFlagBits(u32);
 
     impl FenceCreateFlagBits {
         pub const SIGNALED: Self = Self(1 << 0);
+    }
+
+    impl fmt::Debug for FenceCreateFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::SIGNALED => Some("SIGNALED"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreCreateFlags.html>
@@ -18165,7 +18773,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFormatFeatureFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct FormatFeatureFlagBits(u32);
 
     impl FormatFeatureFlagBits {
@@ -18264,6 +18872,62 @@ pub(super) mod defs {
         pub const SAMPLED_IMAGE_FILTER_MINMAX: Self = Self(1 << 16);
     }
 
+    impl fmt::Debug for FormatFeatureFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::SAMPLED_IMAGE => Some("SAMPLED_IMAGE"),
+                Self::STORAGE_IMAGE => Some("STORAGE_IMAGE"),
+                Self::STORAGE_IMAGE_ATOMIC => Some("STORAGE_IMAGE_ATOMIC"),
+                Self::UNIFORM_TEXEL_BUFFER => Some("UNIFORM_TEXEL_BUFFER"),
+                Self::STORAGE_TEXEL_BUFFER => Some("STORAGE_TEXEL_BUFFER"),
+                Self::STORAGE_TEXEL_BUFFER_ATOMIC => Some("STORAGE_TEXEL_BUFFER_ATOMIC"),
+                Self::VERTEX_BUFFER => Some("VERTEX_BUFFER"),
+                Self::COLOR_ATTACHMENT => Some("COLOR_ATTACHMENT"),
+                Self::COLOR_ATTACHMENT_BLEND => Some("COLOR_ATTACHMENT_BLEND"),
+                Self::DEPTH_STENCIL_ATTACHMENT => Some("DEPTH_STENCIL_ATTACHMENT"),
+                Self::BLIT_SRC => Some("BLIT_SRC"),
+                Self::BLIT_DST => Some("BLIT_DST"),
+                Self::SAMPLED_IMAGE_FILTER_LINEAR => Some("SAMPLED_IMAGE_FILTER_LINEAR"),
+                Self::SAMPLED_IMAGE_FILTER_CUBIC_EXT => Some("SAMPLED_IMAGE_FILTER_CUBIC_EXT"),
+                Self::FRAGMENT_DENSITY_MAP_EXT => Some("FRAGMENT_DENSITY_MAP_EXT"),
+                Self::ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR => {
+                    Some("ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR")
+                }
+                Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR => {
+                    Some("FRAGMENT_SHADING_RATE_ATTACHMENT_KHR")
+                }
+                Self::VIDEO_DECODE_OUTPUT_KHR => Some("VIDEO_DECODE_OUTPUT_KHR"),
+                Self::VIDEO_DECODE_DPB_KHR => Some("VIDEO_DECODE_DPB_KHR"),
+                Self::VIDEO_ENCODE_INPUT_KHR => Some("VIDEO_ENCODE_INPUT_KHR"),
+                Self::VIDEO_ENCODE_DPB_KHR => Some("VIDEO_ENCODE_DPB_KHR"),
+                Self::TRANSFER_SRC => Some("TRANSFER_SRC"),
+                Self::TRANSFER_DST => Some("TRANSFER_DST"),
+                Self::MIDPOINT_CHROMA_SAMPLES => Some("MIDPOINT_CHROMA_SAMPLES"),
+                Self::SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER => {
+                    Some("SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER")
+                }
+                Self::SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER => {
+                    Some("SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER")
+                }
+                Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT => {
+                    Some("SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT")
+                }
+                Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE => {
+                    Some("SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE")
+                }
+                Self::DISJOINT => Some("DISJOINT"),
+                Self::COSITED_CHROMA_SAMPLES => Some("COSITED_CHROMA_SAMPLES"),
+                Self::SAMPLED_IMAGE_FILTER_MINMAX => Some("SAMPLED_IMAGE_FILTER_MINMAX"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryControlFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -18284,12 +18948,26 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryControlFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct QueryControlFlagBits(u32);
 
     impl QueryControlFlagBits {
         /// Require precise results to be collected by the query
         pub const PRECISE: Self = Self(1 << 0);
+    }
+
+    impl fmt::Debug for QueryControlFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::PRECISE => Some("PRECISE"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryResultFlags.html>
@@ -18326,7 +19004,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryResultFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct QueryResultFlagBits(u32);
 
     impl QueryResultFlagBits {
@@ -18340,6 +19018,24 @@ pub(super) mod defs {
         pub const PARTIAL: Self = Self(1 << 3);
         // VK_KHR_video_queue
         pub const WITH_STATUS_KHR: Self = Self(1 << 4);
+    }
+
+    impl fmt::Debug for QueryResultFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::_64 => Some("_64"),
+                Self::WAIT => Some("WAIT"),
+                Self::WITH_AVAILABILITY => Some("WITH_AVAILABILITY"),
+                Self::PARTIAL => Some("PARTIAL"),
+                Self::WITH_STATUS_KHR => Some("WITH_STATUS_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderModuleCreateFlags.html>
@@ -18377,7 +19073,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkEventCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct EventCreateFlagBits(u32);
 
     impl EventCreateFlagBits {
@@ -18386,6 +19082,20 @@ pub(super) mod defs {
 
         // VK_VERSION_1_3
         pub const DEVICE_ONLY: Self = Self(1 << 0);
+    }
+
+    impl fmt::Debug for EventCreateFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DEVICE_ONLY => Some("DEVICE_ONLY"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandPoolCreateFlags.html>
@@ -18421,7 +19131,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandPoolCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct CommandPoolCreateFlagBits(u32);
 
     impl CommandPoolCreateFlagBits {
@@ -18432,6 +19142,22 @@ pub(super) mod defs {
         // VK_VERSION_1_1
         /// Command buffers allocated from pool are protected command buffers
         pub const PROTECTED: Self = Self(1 << 2);
+    }
+
+    impl fmt::Debug for CommandPoolCreateFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::TRANSIENT => Some("TRANSIENT"),
+                Self::RESET_COMMAND_BUFFER => Some("RESET_COMMAND_BUFFER"),
+                Self::PROTECTED => Some("PROTECTED"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandPoolResetFlags.html>
@@ -18457,12 +19183,26 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandPoolResetFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct CommandPoolResetFlagBits(u32);
 
     impl CommandPoolResetFlagBits {
         /// Release resources owned by the pool
         pub const RELEASE_RESOURCES: Self = Self(1 << 0);
+    }
+
+    impl fmt::Debug for CommandPoolResetFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::RELEASE_RESOURCES => Some("RELEASE_RESOURCES"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferResetFlags.html>
@@ -18488,12 +19228,26 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferResetFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct CommandBufferResetFlagBits(u32);
 
     impl CommandBufferResetFlagBits {
         /// Release resources owned by the buffer
         pub const RELEASE_RESOURCES: Self = Self(1 << 0);
+    }
+
+    impl fmt::Debug for CommandBufferResetFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::RELEASE_RESOURCES => Some("RELEASE_RESOURCES"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferUsageFlags.html>
@@ -18532,7 +19286,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferUsageFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct CommandBufferUsageFlagBits(u32);
 
     impl CommandBufferUsageFlagBits {
@@ -18540,6 +19294,22 @@ pub(super) mod defs {
         pub const RENDER_PASS_CONTINUE: Self = Self(1 << 1);
         /// Command buffer may be submitted/executed more than once simultaneously
         pub const SIMULTANEOUS_USE: Self = Self(1 << 2);
+    }
+
+    impl fmt::Debug for CommandBufferUsageFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::ONE_TIME_SUBMIT => Some("ONE_TIME_SUBMIT"),
+                Self::RENDER_PASS_CONTINUE => Some("RENDER_PASS_CONTINUE"),
+                Self::SIMULTANEOUS_USE => Some("SIMULTANEOUS_USE"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPipelineStatisticFlags.html>
@@ -18648,7 +19418,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPipelineStatisticFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct QueryPipelineStatisticFlagBits(u32);
 
     impl QueryPipelineStatisticFlagBits {
@@ -18671,6 +19441,39 @@ pub(super) mod defs {
         pub const CLUSTER_CULLING_SHADER_INVOCATIONS_HUAWEI: Self = Self(1 << 13);
     }
 
+    impl fmt::Debug for QueryPipelineStatisticFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::INPUT_ASSEMBLY_VERTICES => Some("INPUT_ASSEMBLY_VERTICES"),
+                Self::INPUT_ASSEMBLY_PRIMITIVES => Some("INPUT_ASSEMBLY_PRIMITIVES"),
+                Self::VERTEX_SHADER_INVOCATIONS => Some("VERTEX_SHADER_INVOCATIONS"),
+                Self::GEOMETRY_SHADER_INVOCATIONS => Some("GEOMETRY_SHADER_INVOCATIONS"),
+                Self::GEOMETRY_SHADER_PRIMITIVES => Some("GEOMETRY_SHADER_PRIMITIVES"),
+                Self::CLIPPING_INVOCATIONS => Some("CLIPPING_INVOCATIONS"),
+                Self::CLIPPING_PRIMITIVES => Some("CLIPPING_PRIMITIVES"),
+                Self::FRAGMENT_SHADER_INVOCATIONS => Some("FRAGMENT_SHADER_INVOCATIONS"),
+                Self::TESSELLATION_CONTROL_SHADER_PATCHES => {
+                    Some("TESSELLATION_CONTROL_SHADER_PATCHES")
+                }
+                Self::TESSELLATION_EVALUATION_SHADER_INVOCATIONS => {
+                    Some("TESSELLATION_EVALUATION_SHADER_INVOCATIONS")
+                }
+                Self::COMPUTE_SHADER_INVOCATIONS => Some("COMPUTE_SHADER_INVOCATIONS"),
+                Self::TASK_SHADER_INVOCATIONS_EXT => Some("TASK_SHADER_INVOCATIONS_EXT"),
+                Self::MESH_SHADER_INVOCATIONS_EXT => Some("MESH_SHADER_INVOCATIONS_EXT"),
+                Self::CLUSTER_CULLING_SHADER_INVOCATIONS_HUAWEI => {
+                    Some("CLUSTER_CULLING_SHADER_INVOCATIONS_HUAWEI")
+                }
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryMapFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -18691,12 +19494,26 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryMapFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MemoryMapFlagBits(u32);
 
     impl MemoryMapFlagBits {
         // VK_EXT_map_memory_placed
         pub const PLACED_EXT: Self = Self(1 << 0);
+    }
+
+    impl fmt::Debug for MemoryMapFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::PLACED_EXT => Some("PLACED_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageAspectFlags.html>
@@ -18754,7 +19571,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageAspectFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ImageAspectFlagBits(u32);
 
     impl ImageAspectFlagBits {
@@ -18779,6 +19596,30 @@ pub(super) mod defs {
         pub const PLANE_2: Self = Self(1 << 6);
     }
 
+    impl fmt::Debug for ImageAspectFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::COLOR => Some("COLOR"),
+                Self::DEPTH => Some("DEPTH"),
+                Self::STENCIL => Some("STENCIL"),
+                Self::METADATA => Some("METADATA"),
+                Self::MEMORY_PLANE_0_EXT => Some("MEMORY_PLANE_0_EXT"),
+                Self::MEMORY_PLANE_1_EXT => Some("MEMORY_PLANE_1_EXT"),
+                Self::MEMORY_PLANE_2_EXT => Some("MEMORY_PLANE_2_EXT"),
+                Self::MEMORY_PLANE_3_EXT => Some("MEMORY_PLANE_3_EXT"),
+                Self::PLANE_0 => Some("PLANE_0"),
+                Self::PLANE_1 => Some("PLANE_1"),
+                Self::PLANE_2 => Some("PLANE_2"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseMemoryBindFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -18799,12 +19640,26 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseMemoryBindFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SparseMemoryBindFlagBits(u32);
 
     impl SparseMemoryBindFlagBits {
         /// Operation binds resource metadata to memory
         pub const METADATA: Self = Self(1 << 0);
+    }
+
+    impl fmt::Debug for SparseMemoryBindFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::METADATA => Some("METADATA"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageFormatFlags.html>
@@ -18842,7 +19697,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageFormatFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SparseImageFormatFlagBits(u32);
 
     impl SparseImageFormatFlagBits {
@@ -18852,6 +19707,22 @@ pub(super) mod defs {
         pub const ALIGNED_MIP_SIZE: Self = Self(1 << 1);
         /// Image uses a non-standard sparse image block dimensions
         pub const NONSTANDARD_BLOCK_SIZE: Self = Self(1 << 2);
+    }
+
+    impl fmt::Debug for SparseImageFormatFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::SINGLE_MIPTAIL => Some("SINGLE_MIPTAIL"),
+                Self::ALIGNED_MIP_SIZE => Some("ALIGNED_MIP_SIZE"),
+                Self::NONSTANDARD_BLOCK_SIZE => Some("NONSTANDARD_BLOCK_SIZE"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassDescriptionFlags.html>
@@ -18947,7 +19818,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassDescriptionFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SubpassDescriptionFlagBits(u32);
 
     impl SubpassDescriptionFlagBits {
@@ -18981,6 +19852,34 @@ pub(super) mod defs {
 
         // VK_QCOM_tile_shading
         pub const TILE_SHADING_APRON_QCOM: Self = Self(1 << 8);
+    }
+
+    impl fmt::Debug for SubpassDescriptionFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::FRAGMENT_REGION_EXT => Some("FRAGMENT_REGION_EXT"),
+                Self::CUSTOM_RESOLVE_EXT => Some("CUSTOM_RESOLVE_EXT"),
+                Self::ENABLE_LEGACY_DITHERING_EXT => Some("ENABLE_LEGACY_DITHERING_EXT"),
+                Self::RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_EXT => {
+                    Some("RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_EXT")
+                }
+                Self::RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT => {
+                    Some("RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT")
+                }
+                Self::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT => {
+                    Some("RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT")
+                }
+                Self::PER_VIEW_ATTRIBUTES_NVX => Some("PER_VIEW_ATTRIBUTES_NVX"),
+                Self::PER_VIEW_POSITION_X_ONLY_NVX => Some("PER_VIEW_POSITION_X_ONLY_NVX"),
+                Self::TILE_SHADING_APRON_QCOM => Some("TILE_SHADING_APRON_QCOM"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineStageFlags.html>
@@ -19153,7 +20052,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineStageFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineStageFlagBits(u32);
 
     impl PipelineStageFlagBits {
@@ -19232,6 +20131,47 @@ pub(super) mod defs {
         pub const SHADING_RATE_IMAGE_NV: Self = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
     }
 
+    impl fmt::Debug for PipelineStageFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::TOP_OF_PIPE => Some("TOP_OF_PIPE"),
+                Self::DRAW_INDIRECT => Some("DRAW_INDIRECT"),
+                Self::VERTEX_INPUT => Some("VERTEX_INPUT"),
+                Self::VERTEX_SHADER => Some("VERTEX_SHADER"),
+                Self::TESSELLATION_CONTROL_SHADER => Some("TESSELLATION_CONTROL_SHADER"),
+                Self::TESSELLATION_EVALUATION_SHADER => Some("TESSELLATION_EVALUATION_SHADER"),
+                Self::GEOMETRY_SHADER => Some("GEOMETRY_SHADER"),
+                Self::FRAGMENT_SHADER => Some("FRAGMENT_SHADER"),
+                Self::EARLY_FRAGMENT_TESTS => Some("EARLY_FRAGMENT_TESTS"),
+                Self::LATE_FRAGMENT_TESTS => Some("LATE_FRAGMENT_TESTS"),
+                Self::COLOR_ATTACHMENT_OUTPUT => Some("COLOR_ATTACHMENT_OUTPUT"),
+                Self::COMPUTE_SHADER => Some("COMPUTE_SHADER"),
+                Self::TRANSFER => Some("TRANSFER"),
+                Self::BOTTOM_OF_PIPE => Some("BOTTOM_OF_PIPE"),
+                Self::HOST => Some("HOST"),
+                Self::ALL_GRAPHICS => Some("ALL_GRAPHICS"),
+                Self::ALL_COMMANDS => Some("ALL_COMMANDS"),
+                Self::CONDITIONAL_RENDERING_EXT => Some("CONDITIONAL_RENDERING_EXT"),
+                Self::COMMAND_PREPROCESS_EXT => Some("COMMAND_PREPROCESS_EXT"),
+                Self::FRAGMENT_DENSITY_PROCESS_EXT => Some("FRAGMENT_DENSITY_PROCESS_EXT"),
+                Self::TASK_SHADER_EXT => Some("TASK_SHADER_EXT"),
+                Self::MESH_SHADER_EXT => Some("MESH_SHADER_EXT"),
+                Self::TRANSFORM_FEEDBACK_EXT => Some("TRANSFORM_FEEDBACK_EXT"),
+                Self::ACCELERATION_STRUCTURE_BUILD_KHR => Some("ACCELERATION_STRUCTURE_BUILD_KHR"),
+                Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR => {
+                    Some("FRAGMENT_SHADING_RATE_ATTACHMENT_KHR")
+                }
+                Self::RAY_TRACING_SHADER_KHR => Some("RAY_TRACING_SHADER_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSampleCountFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -19272,7 +20212,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSampleCountFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SampleCountFlagBits(u32);
 
     impl SampleCountFlagBits {
@@ -19290,6 +20230,26 @@ pub(super) mod defs {
         pub const _32: Self = Self(1 << 5);
         /// Sample count 64 supported
         pub const _64: Self = Self(1 << 6);
+    }
+
+    impl fmt::Debug for SampleCountFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::_1 => Some("_1"),
+                Self::_2 => Some("_2"),
+                Self::_4 => Some("_4"),
+                Self::_8 => Some("_8"),
+                Self::_16 => Some("_16"),
+                Self::_32 => Some("_32"),
+                Self::_64 => Some("_64"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentDescriptionFlags.html>
@@ -19327,7 +20287,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentDescriptionFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct AttachmentDescriptionFlagBits(u32);
 
     impl AttachmentDescriptionFlagBits {
@@ -19336,6 +20296,26 @@ pub(super) mod defs {
         // VK_KHR_maintenance10
         pub const RESOLVE_SKIP_TRANSFER_FUNCTION_KHR: Self = Self(1 << 1);
         pub const RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR: Self = Self(1 << 2);
+    }
+
+    impl fmt::Debug for AttachmentDescriptionFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::MAY_ALIAS => Some("MAY_ALIAS"),
+                Self::RESOLVE_SKIP_TRANSFER_FUNCTION_KHR => {
+                    Some("RESOLVE_SKIP_TRANSFER_FUNCTION_KHR")
+                }
+                Self::RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR => {
+                    Some("RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR")
+                }
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkStencilFaceFlags.html>
@@ -19366,7 +20346,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkStencilFaceFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct StencilFaceFlagBits(u32);
 
     impl StencilFaceFlagBits {
@@ -19374,6 +20354,21 @@ pub(super) mod defs {
         pub const FRONT: Self = Self(1 << 0);
         /// Back face
         pub const BACK: Self = Self(1 << 1);
+    }
+
+    impl fmt::Debug for StencilFaceFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::FRONT => Some("FRONT"),
+                Self::BACK => Some("BACK"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCullModeFlags.html>
@@ -19401,12 +20396,27 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCullModeFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct CullModeFlagBits(u32);
 
     impl CullModeFlagBits {
         pub const FRONT: Self = Self(1 << 0);
         pub const BACK: Self = Self(1 << 1);
+    }
+
+    impl fmt::Debug for CullModeFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::FRONT => Some("FRONT"),
+                Self::BACK => Some("BACK"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorPoolCreateFlags.html>
@@ -19465,7 +20475,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorPoolCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DescriptorPoolCreateFlagBits(u32);
 
     impl DescriptorPoolCreateFlagBits {
@@ -19486,6 +20496,24 @@ pub(super) mod defs {
 
         // VK_VERSION_1_2
         pub const UPDATE_AFTER_BIND: Self = Self(1 << 1);
+    }
+
+    impl fmt::Debug for DescriptorPoolCreateFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::FREE_DESCRIPTOR_SET => Some("FREE_DESCRIPTOR_SET"),
+                Self::HOST_ONLY_EXT => Some("HOST_ONLY_EXT"),
+                Self::ALLOW_OVERALLOCATION_SETS_NV => Some("ALLOW_OVERALLOCATION_SETS_NV"),
+                Self::ALLOW_OVERALLOCATION_POOLS_NV => Some("ALLOW_OVERALLOCATION_POOLS_NV"),
+                Self::UPDATE_AFTER_BIND => Some("UPDATE_AFTER_BIND"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorPoolResetFlags.html>
@@ -19554,7 +20582,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDependencyFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DependencyFlagBits(u32);
 
     impl DependencyFlagBits {
@@ -19580,6 +20608,27 @@ pub(super) mod defs {
         pub const VIEW_LOCAL: Self = Self(1 << 1);
         /// Dependency is across devices
         pub const DEVICE_GROUP: Self = Self(1 << 2);
+    }
+
+    impl fmt::Debug for DependencyFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::BY_REGION => Some("BY_REGION"),
+                Self::FEEDBACK_LOOP_EXT => Some("FEEDBACK_LOOP_EXT"),
+                Self::QUEUE_FAMILY_OWNERSHIP_TRANSFER_USE_ALL_STAGES_KHR => {
+                    Some("QUEUE_FAMILY_OWNERSHIP_TRANSFER_USE_ALL_STAGES_KHR")
+                }
+                Self::ASYMMETRIC_EVENT_KHR => Some("ASYMMETRIC_EVENT_KHR"),
+                Self::VIEW_LOCAL => Some("VIEW_LOCAL"),
+                Self::DEVICE_GROUP => Some("DEVICE_GROUP"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/PFN_vkInternalAllocationNotification.html>

@@ -231,13 +231,29 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeUsageFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoDecodeUsageFlagBitsKHR(u32);
 
     impl VideoDecodeUsageFlagBitsKHR {
         pub const TRANSCODING_KHR: Self = Self(1 << 0);
         pub const OFFLINE_KHR: Self = Self(1 << 1);
         pub const STREAMING_KHR: Self = Self(1 << 2);
+    }
+
+    impl fmt::Debug for VideoDecodeUsageFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::TRANSCODING_KHR => Some("TRANSCODING_KHR"),
+                Self::OFFLINE_KHR => Some("OFFLINE_KHR"),
+                Self::STREAMING_KHR => Some("STREAMING_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeCapabilityFlagsKHR.html>
@@ -271,12 +287,27 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeCapabilityFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoDecodeCapabilityFlagBitsKHR(u32);
 
     impl VideoDecodeCapabilityFlagBitsKHR {
         pub const DPB_AND_OUTPUT_COINCIDE_KHR: Self = Self(1 << 0);
         pub const DPB_AND_OUTPUT_DISTINCT_KHR: Self = Self(1 << 1);
+    }
+
+    impl fmt::Debug for VideoDecodeCapabilityFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DPB_AND_OUTPUT_COINCIDE_KHR => Some("DPB_AND_OUTPUT_COINCIDE_KHR"),
+                Self::DPB_AND_OUTPUT_DISTINCT_KHR => Some("DPB_AND_OUTPUT_DISTINCT_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeFlagsKHR.html>

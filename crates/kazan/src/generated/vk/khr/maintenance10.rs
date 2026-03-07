@@ -316,7 +316,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderingAttachmentFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct RenderingAttachmentFlagBitsKHR(u32);
 
     impl RenderingAttachmentFlagBitsKHR {
@@ -324,6 +324,26 @@ pub(super) mod defs {
         pub const INPUT_ATTACHMENT_FEEDBACK_KHR: Self = Self(1 << 0);
         pub const RESOLVE_SKIP_TRANSFER_FUNCTION_KHR: Self = Self(1 << 1);
         pub const RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR: Self = Self(1 << 2);
+    }
+
+    impl fmt::Debug for RenderingAttachmentFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::INPUT_ATTACHMENT_FEEDBACK_KHR => Some("INPUT_ATTACHMENT_FEEDBACK_KHR"),
+                Self::RESOLVE_SKIP_TRANSFER_FUNCTION_KHR => {
+                    Some("RESOLVE_SKIP_TRANSFER_FUNCTION_KHR")
+                }
+                Self::RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR => {
+                    Some("RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR")
+                }
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkResolveImageFlagsKHR.html>
@@ -358,13 +378,28 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkResolveImageFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ResolveImageFlagBitsKHR(u32);
 
     impl ResolveImageFlagBitsKHR {
         // VK_KHR_maintenance10
         pub const SKIP_TRANSFER_FUNCTION_KHR: Self = Self(1 << 0);
         pub const ENABLE_TRANSFER_FUNCTION_KHR: Self = Self(1 << 1);
+    }
+
+    impl fmt::Debug for ResolveImageFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::SKIP_TRANSFER_FUNCTION_KHR => Some("SKIP_TRANSFER_FUNCTION_KHR"),
+                Self::ENABLE_TRANSFER_FUNCTION_KHR => Some("ENABLE_TRANSFER_FUNCTION_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndRendering2KHR.html>

@@ -395,13 +395,29 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAddressCopyFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct AddressCopyFlagBitsKHR(u32);
 
     impl AddressCopyFlagBitsKHR {
         pub const DEVICE_LOCAL_KHR: Self = Self(1 << 0);
         pub const SPARSE_KHR: Self = Self(1 << 1);
         pub const PROTECTED_KHR: Self = Self(1 << 2);
+    }
+
+    impl fmt::Debug for AddressCopyFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DEVICE_LOCAL_KHR => Some("DEVICE_LOCAL_KHR"),
+                Self::SPARSE_KHR => Some("SPARSE_KHR"),
+                Self::PROTECTED_KHR => Some("PROTECTED_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryIndirectKHR.html>

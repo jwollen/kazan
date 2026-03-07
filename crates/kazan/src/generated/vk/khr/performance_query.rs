@@ -563,12 +563,27 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterDescriptionFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PerformanceCounterDescriptionFlagBitsKHR(u32);
 
     impl PerformanceCounterDescriptionFlagBitsKHR {
         pub const PERFORMANCE_IMPACTING_KHR: Self = Self(1 << 0);
         pub const CONCURRENTLY_IMPACTED_KHR: Self = Self(1 << 1);
+    }
+
+    impl fmt::Debug for PerformanceCounterDescriptionFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::PERFORMANCE_IMPACTING_KHR => Some("PERFORMANCE_IMPACTING_KHR"),
+                Self::CONCURRENTLY_IMPACTED_KHR => Some("CONCURRENTLY_IMPACTED_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAcquireProfilingLockFlagsKHR.html>
@@ -588,10 +603,23 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAcquireProfilingLockFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct AcquireProfilingLockFlagBitsKHR(u32);
 
     impl AcquireProfilingLockFlagBitsKHR {}
+
+    impl fmt::Debug for AcquireProfilingLockFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR.html>
     pub type PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR =

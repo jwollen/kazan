@@ -178,10 +178,24 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFrameBoundaryFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct FrameBoundaryFlagBitsEXT(u32);
 
     impl FrameBoundaryFlagBitsEXT {
         pub const FRAME_END_EXT: Self = Self(1 << 0);
+    }
+
+    impl fmt::Debug for FrameBoundaryFlagBitsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::FRAME_END_EXT => Some("FRAME_END_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 }

@@ -369,7 +369,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeIntraRefreshModeFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeIntraRefreshModeFlagBitsKHR(u32);
 
     impl VideoEncodeIntraRefreshModeFlagBitsKHR {
@@ -377,5 +377,22 @@ pub(super) mod defs {
         pub const BLOCK_BASED_KHR: Self = Self(1 << 1);
         pub const BLOCK_ROW_BASED_KHR: Self = Self(1 << 2);
         pub const BLOCK_COLUMN_BASED_KHR: Self = Self(1 << 3);
+    }
+
+    impl fmt::Debug for VideoEncodeIntraRefreshModeFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::PER_PICTURE_PARTITION_KHR => Some("PER_PICTURE_PARTITION_KHR"),
+                Self::BLOCK_BASED_KHR => Some("BLOCK_BASED_KHR"),
+                Self::BLOCK_ROW_BASED_KHR => Some("BLOCK_ROW_BASED_KHR"),
+                Self::BLOCK_COLUMN_BASED_KHR => Some("BLOCK_COLUMN_BASED_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 }

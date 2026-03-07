@@ -229,7 +229,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugReportFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DebugReportFlagBitsEXT(u32);
 
     impl DebugReportFlagBitsEXT {
@@ -238,6 +238,24 @@ pub(super) mod defs {
         pub const PERFORMANCE_WARNING_EXT: Self = Self(1 << 2);
         pub const ERROR_EXT: Self = Self(1 << 3);
         pub const DEBUG_EXT: Self = Self(1 << 4);
+    }
+
+    impl fmt::Debug for DebugReportFlagBitsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::INFORMATION_EXT => Some("INFORMATION_EXT"),
+                Self::WARNING_EXT => Some("WARNING_EXT"),
+                Self::PERFORMANCE_WARNING_EXT => Some("PERFORMANCE_WARNING_EXT"),
+                Self::ERROR_EXT => Some("ERROR_EXT"),
+                Self::DEBUG_EXT => Some("DEBUG_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/PFN_vkDebugReportCallbackEXT.html>

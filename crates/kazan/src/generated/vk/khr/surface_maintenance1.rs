@@ -226,13 +226,29 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentScalingFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PresentScalingFlagBitsKHR(u32);
 
     impl PresentScalingFlagBitsKHR {
         pub const ONE_TO_ONE_KHR: Self = Self(1 << 0);
         pub const ASPECT_RATIO_STRETCH_KHR: Self = Self(1 << 1);
         pub const STRETCH_KHR: Self = Self(1 << 2);
+    }
+
+    impl fmt::Debug for PresentScalingFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::ONE_TO_ONE_KHR => Some("ONE_TO_ONE_KHR"),
+                Self::ASPECT_RATIO_STRETCH_KHR => Some("ASPECT_RATIO_STRETCH_KHR"),
+                Self::STRETCH_KHR => Some("STRETCH_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentGravityFlagsKHR.html>
@@ -263,12 +279,28 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentGravityFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PresentGravityFlagBitsKHR(u32);
 
     impl PresentGravityFlagBitsKHR {
         pub const MIN_KHR: Self = Self(1 << 0);
         pub const MAX_KHR: Self = Self(1 << 1);
         pub const CENTERED_KHR: Self = Self(1 << 2);
+    }
+
+    impl fmt::Debug for PresentGravityFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::MIN_KHR => Some("MIN_KHR"),
+                Self::MAX_KHR => Some("MAX_KHR"),
+                Self::CENTERED_KHR => Some("CENTERED_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 }

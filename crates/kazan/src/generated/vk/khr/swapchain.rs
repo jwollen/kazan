@@ -643,7 +643,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSwapchainCreateFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SwapchainCreateFlagBitsKHR(u32);
 
     impl SwapchainCreateFlagBitsKHR {
@@ -674,6 +674,26 @@ pub(super) mod defs {
 
         // VK_KHR_swapchain_mutable_format
         pub const MUTABLE_FORMAT_KHR: Self = Self(1 << 2);
+    }
+
+    impl fmt::Debug for SwapchainCreateFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::PRESENT_TIMING_EXT => Some("PRESENT_TIMING_EXT"),
+                Self::SPLIT_INSTANCE_BIND_REGIONS_KHR => Some("SPLIT_INSTANCE_BIND_REGIONS_KHR"),
+                Self::PRESENT_ID_2_KHR => Some("PRESENT_ID_2_KHR"),
+                Self::PRESENT_WAIT_2_KHR => Some("PRESENT_WAIT_2_KHR"),
+                Self::PROTECTED_KHR => Some("PROTECTED_KHR"),
+                Self::DEFERRED_MEMORY_ALLOCATION_KHR => Some("DEFERRED_MEMORY_ALLOCATION_KHR"),
+                Self::MUTABLE_FORMAT_KHR => Some("MUTABLE_FORMAT_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceGroupPresentModeFlagsKHR.html>
@@ -711,7 +731,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceGroupPresentModeFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DeviceGroupPresentModeFlagBitsKHR(u32);
 
     impl DeviceGroupPresentModeFlagBitsKHR {
@@ -723,6 +743,23 @@ pub(super) mod defs {
         pub const SUM_KHR: Self = Self(1 << 2);
         /// Each physical device presents from local memory
         pub const LOCAL_MULTI_DEVICE_KHR: Self = Self(1 << 3);
+    }
+
+    impl fmt::Debug for DeviceGroupPresentModeFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::LOCAL_KHR => Some("LOCAL_KHR"),
+                Self::REMOTE_KHR => Some("REMOTE_KHR"),
+                Self::SUM_KHR => Some("SUM_KHR"),
+                Self::LOCAL_MULTI_DEVICE_KHR => Some("LOCAL_MULTI_DEVICE_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSwapchainKHR.html>

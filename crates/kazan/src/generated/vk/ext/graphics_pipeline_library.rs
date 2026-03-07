@@ -223,7 +223,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGraphicsPipelineLibraryFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct GraphicsPipelineLibraryFlagBitsEXT(u32);
 
     impl GraphicsPipelineLibraryFlagBitsEXT {
@@ -231,5 +231,22 @@ pub(super) mod defs {
         pub const PRE_RASTERIZATION_SHADERS_EXT: Self = Self(1 << 1);
         pub const FRAGMENT_SHADER_EXT: Self = Self(1 << 2);
         pub const FRAGMENT_OUTPUT_INTERFACE_EXT: Self = Self(1 << 3);
+    }
+
+    impl fmt::Debug for GraphicsPipelineLibraryFlagBitsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::VERTEX_INPUT_INTERFACE_EXT => Some("VERTEX_INPUT_INTERFACE_EXT"),
+                Self::PRE_RASTERIZATION_SHADERS_EXT => Some("PRE_RASTERIZATION_SHADERS_EXT"),
+                Self::FRAGMENT_SHADER_EXT => Some("FRAGMENT_SHADER_EXT"),
+                Self::FRAGMENT_OUTPUT_INTERFACE_EXT => Some("FRAGMENT_OUTPUT_INTERFACE_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 }

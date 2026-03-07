@@ -1357,12 +1357,27 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutUsageFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct IndirectCommandsLayoutUsageFlagBitsEXT(u32);
 
     impl IndirectCommandsLayoutUsageFlagBitsEXT {
         pub const EXPLICIT_PREPROCESS_EXT: Self = Self(1 << 0);
         pub const UNORDERED_SEQUENCES_EXT: Self = Self(1 << 1);
+    }
+
+    impl fmt::Debug for IndirectCommandsLayoutUsageFlagBitsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::EXPLICIT_PREPROCESS_EXT => Some("EXPLICIT_PREPROCESS_EXT"),
+                Self::UNORDERED_SEQUENCES_EXT => Some("UNORDERED_SEQUENCES_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsInputModeFlagsEXT.html>
@@ -1396,12 +1411,27 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsInputModeFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct IndirectCommandsInputModeFlagBitsEXT(u32);
 
     impl IndirectCommandsInputModeFlagBitsEXT {
         pub const VULKAN_INDEX_BUFFER_EXT: Self = Self(1 << 0);
         pub const DXGI_INDEX_BUFFER_EXT: Self = Self(1 << 1);
+    }
+
+    impl fmt::Debug for IndirectCommandsInputModeFlagBitsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::VULKAN_INDEX_BUFFER_EXT => Some("VULKAN_INDEX_BUFFER_EXT"),
+                Self::DXGI_INDEX_BUFFER_EXT => Some("DXGI_INDEX_BUFFER_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdExecuteGeneratedCommandsEXT.html>

@@ -147,7 +147,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceDiagnosticsConfigFlagBitsNV.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DeviceDiagnosticsConfigFlagBitsNV(u32);
 
     impl DeviceDiagnosticsConfigFlagBitsNV {
@@ -155,5 +155,22 @@ pub(super) mod defs {
         pub const ENABLE_RESOURCE_TRACKING_NV: Self = Self(1 << 1);
         pub const ENABLE_AUTOMATIC_CHECKPOINTS_NV: Self = Self(1 << 2);
         pub const ENABLE_SHADER_ERROR_REPORTING_NV: Self = Self(1 << 3);
+    }
+
+    impl fmt::Debug for DeviceDiagnosticsConfigFlagBitsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::ENABLE_SHADER_DEBUG_INFO_NV => Some("ENABLE_SHADER_DEBUG_INFO_NV"),
+                Self::ENABLE_RESOURCE_TRACKING_NV => Some("ENABLE_RESOURCE_TRACKING_NV"),
+                Self::ENABLE_AUTOMATIC_CHECKPOINTS_NV => Some("ENABLE_AUTOMATIC_CHECKPOINTS_NV"),
+                Self::ENABLE_SHADER_ERROR_REPORTING_NV => Some("ENABLE_SHADER_ERROR_REPORTING_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 }

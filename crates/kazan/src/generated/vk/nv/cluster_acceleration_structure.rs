@@ -1232,13 +1232,31 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureGeometryFlagBitsNV.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ClusterAccelerationStructureGeometryFlagBitsNV(u32);
 
     impl ClusterAccelerationStructureGeometryFlagBitsNV {
         pub const CULL_DISABLE_NV: Self = Self(1 << 0);
         pub const NO_DUPLICATE_ANYHIT_INVOCATION_NV: Self = Self(1 << 1);
         pub const OPAQUE_NV: Self = Self(1 << 2);
+    }
+
+    impl fmt::Debug for ClusterAccelerationStructureGeometryFlagBitsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::CULL_DISABLE_NV => Some("CULL_DISABLE_NV"),
+                Self::NO_DUPLICATE_ANYHIT_INVOCATION_NV => {
+                    Some("NO_DUPLICATE_ANYHIT_INVOCATION_NV")
+                }
+                Self::OPAQUE_NV => Some("OPAQUE_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureClusterFlagsNV.html>
@@ -1265,11 +1283,27 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureClusterFlagBitsNV.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ClusterAccelerationStructureClusterFlagBitsNV(u32);
 
     impl ClusterAccelerationStructureClusterFlagBitsNV {
         pub const ALLOW_DISABLE_OPACITY_MICROMAPS_NV: Self = Self(1 << 0);
+    }
+
+    impl fmt::Debug for ClusterAccelerationStructureClusterFlagBitsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::ALLOW_DISABLE_OPACITY_MICROMAPS_NV => {
+                    Some("ALLOW_DISABLE_OPACITY_MICROMAPS_NV")
+                }
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureAddressResolutionFlagsNV.html>
@@ -1315,7 +1349,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureAddressResolutionFlagBitsNV.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ClusterAccelerationStructureAddressResolutionFlagBitsNV(u32);
 
     impl ClusterAccelerationStructureAddressResolutionFlagBitsNV {
@@ -1325,6 +1359,25 @@ pub(super) mod defs {
         pub const INDIRECTED_DST_SIZES_ARRAY_NV: Self = Self(1 << 3);
         pub const INDIRECTED_SRC_INFOS_ARRAY_NV: Self = Self(1 << 4);
         pub const INDIRECTED_SRC_INFOS_COUNT_NV: Self = Self(1 << 5);
+    }
+
+    impl fmt::Debug for ClusterAccelerationStructureAddressResolutionFlagBitsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::INDIRECTED_DST_IMPLICIT_DATA_NV => Some("INDIRECTED_DST_IMPLICIT_DATA_NV"),
+                Self::INDIRECTED_SCRATCH_DATA_NV => Some("INDIRECTED_SCRATCH_DATA_NV"),
+                Self::INDIRECTED_DST_ADDRESS_ARRAY_NV => Some("INDIRECTED_DST_ADDRESS_ARRAY_NV"),
+                Self::INDIRECTED_DST_SIZES_ARRAY_NV => Some("INDIRECTED_DST_SIZES_ARRAY_NV"),
+                Self::INDIRECTED_SRC_INFOS_ARRAY_NV => Some("INDIRECTED_SRC_INFOS_ARRAY_NV"),
+                Self::INDIRECTED_SRC_INFOS_COUNT_NV => Some("INDIRECTED_SRC_INFOS_COUNT_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureIndexFormatFlagsNV.html>
@@ -1364,13 +1417,29 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureIndexFormatFlagBitsNV.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ClusterAccelerationStructureIndexFormatFlagBitsNV(u32);
 
     impl ClusterAccelerationStructureIndexFormatFlagBitsNV {
         pub const _8BIT_NV: Self = Self(1 << 0);
         pub const _16BIT_NV: Self = Self(1 << 1);
         pub const _32BIT_NV: Self = Self(1 << 2);
+    }
+
+    impl fmt::Debug for ClusterAccelerationStructureIndexFormatFlagBitsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::_8BIT_NV => Some("_8BIT_NV"),
+                Self::_16BIT_NV => Some("_16BIT_NV"),
+                Self::_32BIT_NV => Some("_32BIT_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetClusterAccelerationStructureBuildSizesNV.html>

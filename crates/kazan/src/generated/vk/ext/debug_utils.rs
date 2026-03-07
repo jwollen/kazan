@@ -421,7 +421,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugUtilsMessageSeverityFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DebugUtilsMessageSeverityFlagBitsEXT(u32);
 
     impl DebugUtilsMessageSeverityFlagBitsEXT {
@@ -429,6 +429,23 @@ pub(super) mod defs {
         pub const INFO_EXT: Self = Self(1 << 4);
         pub const WARNING_EXT: Self = Self(1 << 8);
         pub const ERROR_EXT: Self = Self(1 << 12);
+    }
+
+    impl fmt::Debug for DebugUtilsMessageSeverityFlagBitsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::VERBOSE_EXT => Some("VERBOSE_EXT"),
+                Self::INFO_EXT => Some("INFO_EXT"),
+                Self::WARNING_EXT => Some("WARNING_EXT"),
+                Self::ERROR_EXT => Some("ERROR_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugUtilsMessageTypeFlagsEXT.html>
@@ -469,7 +486,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugUtilsMessageTypeFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DebugUtilsMessageTypeFlagBitsEXT(u32);
 
     impl DebugUtilsMessageTypeFlagBitsEXT {
@@ -478,6 +495,23 @@ pub(super) mod defs {
         pub const PERFORMANCE_EXT: Self = Self(1 << 2);
         // VK_EXT_device_address_binding_report
         pub const DEVICE_ADDRESS_BINDING_EXT: Self = Self(1 << 3);
+    }
+
+    impl fmt::Debug for DebugUtilsMessageTypeFlagBitsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::GENERAL_EXT => Some("GENERAL_EXT"),
+                Self::VALIDATION_EXT => Some("VALIDATION_EXT"),
+                Self::PERFORMANCE_EXT => Some("PERFORMANCE_EXT"),
+                Self::DEVICE_ADDRESS_BINDING_EXT => Some("DEVICE_ADDRESS_BINDING_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugUtilsMessengerCreateFlagsEXT.html>

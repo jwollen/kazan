@@ -724,7 +724,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentStageFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PresentStageFlagBitsEXT(u32);
 
     impl PresentStageFlagBitsEXT {
@@ -732,6 +732,23 @@ pub(super) mod defs {
         pub const REQUEST_DEQUEUED_EXT: Self = Self(1 << 1);
         pub const IMAGE_FIRST_PIXEL_OUT_EXT: Self = Self(1 << 2);
         pub const IMAGE_FIRST_PIXEL_VISIBLE_EXT: Self = Self(1 << 3);
+    }
+
+    impl fmt::Debug for PresentStageFlagBitsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::QUEUE_OPERATIONS_END_EXT => Some("QUEUE_OPERATIONS_END_EXT"),
+                Self::REQUEST_DEQUEUED_EXT => Some("REQUEST_DEQUEUED_EXT"),
+                Self::IMAGE_FIRST_PIXEL_OUT_EXT => Some("IMAGE_FIRST_PIXEL_OUT_EXT"),
+                Self::IMAGE_FIRST_PIXEL_VISIBLE_EXT => Some("IMAGE_FIRST_PIXEL_VISIBLE_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPastPresentationTimingFlagsEXT.html>
@@ -765,12 +782,27 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPastPresentationTimingFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PastPresentationTimingFlagBitsEXT(u32);
 
     impl PastPresentationTimingFlagBitsEXT {
         pub const ALLOW_PARTIAL_RESULTS_EXT: Self = Self(1 << 0);
         pub const ALLOW_OUT_OF_ORDER_RESULTS_EXT: Self = Self(1 << 1);
+    }
+
+    impl fmt::Debug for PastPresentationTimingFlagBitsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::ALLOW_PARTIAL_RESULTS_EXT => Some("ALLOW_PARTIAL_RESULTS_EXT"),
+                Self::ALLOW_OUT_OF_ORDER_RESULTS_EXT => Some("ALLOW_OUT_OF_ORDER_RESULTS_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentTimingInfoFlagsEXT.html>
@@ -804,12 +836,29 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentTimingInfoFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PresentTimingInfoFlagBitsEXT(u32);
 
     impl PresentTimingInfoFlagBitsEXT {
         pub const PRESENT_AT_RELATIVE_TIME_EXT: Self = Self(1 << 0);
         pub const PRESENT_AT_NEAREST_REFRESH_CYCLE_EXT: Self = Self(1 << 1);
+    }
+
+    impl fmt::Debug for PresentTimingInfoFlagBitsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::PRESENT_AT_RELATIVE_TIME_EXT => Some("PRESENT_AT_RELATIVE_TIME_EXT"),
+                Self::PRESENT_AT_NEAREST_REFRESH_CYCLE_EXT => {
+                    Some("PRESENT_AT_NEAREST_REFRESH_CYCLE_EXT")
+                }
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetSwapchainPresentTimingQueueSizeEXT.html>

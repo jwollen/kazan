@@ -680,7 +680,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalObjectTypeFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExportMetalObjectTypeFlagBitsEXT(u32);
 
     impl ExportMetalObjectTypeFlagBitsEXT {
@@ -690,6 +690,25 @@ pub(super) mod defs {
         pub const METAL_TEXTURE_EXT: Self = Self(1 << 3);
         pub const METAL_IOSURFACE_EXT: Self = Self(1 << 4);
         pub const METAL_SHARED_EVENT_EXT: Self = Self(1 << 5);
+    }
+
+    impl fmt::Debug for ExportMetalObjectTypeFlagBitsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::METAL_DEVICE_EXT => Some("METAL_DEVICE_EXT"),
+                Self::METAL_COMMAND_QUEUE_EXT => Some("METAL_COMMAND_QUEUE_EXT"),
+                Self::METAL_BUFFER_EXT => Some("METAL_BUFFER_EXT"),
+                Self::METAL_TEXTURE_EXT => Some("METAL_TEXTURE_EXT"),
+                Self::METAL_IOSURFACE_EXT => Some("METAL_IOSURFACE_EXT"),
+                Self::METAL_SHARED_EVENT_EXT => Some("METAL_SHARED_EVENT_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkExportMetalObjectsEXT.html>

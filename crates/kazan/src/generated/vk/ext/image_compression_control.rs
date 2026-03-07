@@ -223,13 +223,29 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCompressionFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ImageCompressionFlagBitsEXT(u32);
 
     impl ImageCompressionFlagBitsEXT {
         pub const FIXED_RATE_DEFAULT_EXT: Self = Self(1 << 0);
         pub const FIXED_RATE_EXPLICIT_EXT: Self = Self(1 << 1);
         pub const DISABLED_EXT: Self = Self(1 << 2);
+    }
+
+    impl fmt::Debug for ImageCompressionFlagBitsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::FIXED_RATE_DEFAULT_EXT => Some("FIXED_RATE_DEFAULT_EXT"),
+                Self::FIXED_RATE_EXPLICIT_EXT => Some("FIXED_RATE_EXPLICIT_EXT"),
+                Self::DISABLED_EXT => Some("DISABLED_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCompressionFixedRateFlagsEXT.html>
@@ -345,7 +361,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCompressionFixedRateFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ImageCompressionFixedRateFlagBitsEXT(u32);
 
     impl ImageCompressionFixedRateFlagBitsEXT {
@@ -373,6 +389,43 @@ pub(super) mod defs {
         pub const _22BPC_EXT: Self = Self(1 << 21);
         pub const _23BPC_EXT: Self = Self(1 << 22);
         pub const _24BPC_EXT: Self = Self(1 << 23);
+    }
+
+    impl fmt::Debug for ImageCompressionFixedRateFlagBitsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::_1BPC_EXT => Some("_1BPC_EXT"),
+                Self::_2BPC_EXT => Some("_2BPC_EXT"),
+                Self::_3BPC_EXT => Some("_3BPC_EXT"),
+                Self::_4BPC_EXT => Some("_4BPC_EXT"),
+                Self::_5BPC_EXT => Some("_5BPC_EXT"),
+                Self::_6BPC_EXT => Some("_6BPC_EXT"),
+                Self::_7BPC_EXT => Some("_7BPC_EXT"),
+                Self::_8BPC_EXT => Some("_8BPC_EXT"),
+                Self::_9BPC_EXT => Some("_9BPC_EXT"),
+                Self::_10BPC_EXT => Some("_10BPC_EXT"),
+                Self::_11BPC_EXT => Some("_11BPC_EXT"),
+                Self::_12BPC_EXT => Some("_12BPC_EXT"),
+                Self::_13BPC_EXT => Some("_13BPC_EXT"),
+                Self::_14BPC_EXT => Some("_14BPC_EXT"),
+                Self::_15BPC_EXT => Some("_15BPC_EXT"),
+                Self::_16BPC_EXT => Some("_16BPC_EXT"),
+                Self::_17BPC_EXT => Some("_17BPC_EXT"),
+                Self::_18BPC_EXT => Some("_18BPC_EXT"),
+                Self::_19BPC_EXT => Some("_19BPC_EXT"),
+                Self::_20BPC_EXT => Some("_20BPC_EXT"),
+                Self::_21BPC_EXT => Some("_21BPC_EXT"),
+                Self::_22BPC_EXT => Some("_22BPC_EXT"),
+                Self::_23BPC_EXT => Some("_23BPC_EXT"),
+                Self::_24BPC_EXT => Some("_24BPC_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 }
 

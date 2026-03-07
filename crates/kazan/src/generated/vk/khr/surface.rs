@@ -242,7 +242,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCompositeAlphaFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct CompositeAlphaFlagBitsKHR(u32);
 
     impl CompositeAlphaFlagBitsKHR {
@@ -250,6 +250,23 @@ pub(super) mod defs {
         pub const PRE_MULTIPLIED_KHR: Self = Self(1 << 1);
         pub const POST_MULTIPLIED_KHR: Self = Self(1 << 2);
         pub const INHERIT_KHR: Self = Self(1 << 3);
+    }
+
+    impl fmt::Debug for CompositeAlphaFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::OPAQUE_KHR => Some("OPAQUE_KHR"),
+                Self::PRE_MULTIPLIED_KHR => Some("PRE_MULTIPLIED_KHR"),
+                Self::POST_MULTIPLIED_KHR => Some("POST_MULTIPLIED_KHR"),
+                Self::INHERIT_KHR => Some("INHERIT_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroySurfaceKHR.html>

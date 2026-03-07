@@ -182,10 +182,24 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceAddressBindingFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DeviceAddressBindingFlagBitsEXT(u32);
 
     impl DeviceAddressBindingFlagBitsEXT {
         pub const INTERNAL_OBJECT_EXT: Self = Self(1 << 0);
+    }
+
+    impl fmt::Debug for DeviceAddressBindingFlagBitsEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::INTERNAL_OBJECT_EXT => Some("INTERNAL_OBJECT_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 }

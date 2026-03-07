@@ -1234,7 +1234,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264CapabilityFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeH264CapabilityFlagBitsKHR(u32);
 
     impl VideoEncodeH264CapabilityFlagBitsKHR {
@@ -1252,6 +1252,32 @@ pub(super) mod defs {
 
         // VK_KHR_video_encode_quantization_map
         pub const MB_QP_DIFF_WRAPAROUND_KHR: Self = Self(1 << 9);
+    }
+
+    impl fmt::Debug for VideoEncodeH264CapabilityFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::HRD_COMPLIANCE_KHR => Some("HRD_COMPLIANCE_KHR"),
+                Self::PREDICTION_WEIGHT_TABLE_GENERATED_KHR => {
+                    Some("PREDICTION_WEIGHT_TABLE_GENERATED_KHR")
+                }
+                Self::ROW_UNALIGNED_SLICE_KHR => Some("ROW_UNALIGNED_SLICE_KHR"),
+                Self::DIFFERENT_SLICE_TYPE_KHR => Some("DIFFERENT_SLICE_TYPE_KHR"),
+                Self::B_FRAME_IN_L0_LIST_KHR => Some("B_FRAME_IN_L0_LIST_KHR"),
+                Self::B_FRAME_IN_L1_LIST_KHR => Some("B_FRAME_IN_L1_LIST_KHR"),
+                Self::PER_PICTURE_TYPE_MIN_MAX_QP_KHR => Some("PER_PICTURE_TYPE_MIN_MAX_QP_KHR"),
+                Self::PER_SLICE_CONSTANT_QP_KHR => Some("PER_SLICE_CONSTANT_QP_KHR"),
+                Self::GENERATE_PREFIX_NALU_KHR => Some("GENERATE_PREFIX_NALU_KHR"),
+                Self::B_PICTURE_INTRA_REFRESH_KHR => Some("B_PICTURE_INTRA_REFRESH_KHR"),
+                Self::MB_QP_DIFF_WRAPAROUND_KHR => Some("MB_QP_DIFF_WRAPAROUND_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264StdFlagsKHR.html>
@@ -1393,7 +1419,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264StdFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeH264StdFlagBitsKHR(u32);
 
     impl VideoEncodeH264StdFlagBitsKHR {
@@ -1417,6 +1443,55 @@ pub(super) mod defs {
         pub const DEBLOCKING_FILTER_PARTIAL_KHR: Self = Self(1 << 17);
         pub const SLICE_QP_DELTA_KHR: Self = Self(1 << 19);
         pub const DIFFERENT_SLICE_QP_DELTA_KHR: Self = Self(1 << 20);
+    }
+
+    impl fmt::Debug for VideoEncodeH264StdFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::SEPARATE_COLOR_PLANE_FLAG_SET_KHR => {
+                    Some("SEPARATE_COLOR_PLANE_FLAG_SET_KHR")
+                }
+                Self::QPPRIME_Y_ZERO_TRANSFORM_BYPASS_FLAG_SET_KHR => {
+                    Some("QPPRIME_Y_ZERO_TRANSFORM_BYPASS_FLAG_SET_KHR")
+                }
+                Self::SCALING_MATRIX_PRESENT_FLAG_SET_KHR => {
+                    Some("SCALING_MATRIX_PRESENT_FLAG_SET_KHR")
+                }
+                Self::CHROMA_QP_INDEX_OFFSET_KHR => Some("CHROMA_QP_INDEX_OFFSET_KHR"),
+                Self::SECOND_CHROMA_QP_INDEX_OFFSET_KHR => {
+                    Some("SECOND_CHROMA_QP_INDEX_OFFSET_KHR")
+                }
+                Self::PIC_INIT_QP_MINUS26_KHR => Some("PIC_INIT_QP_MINUS26_KHR"),
+                Self::WEIGHTED_PRED_FLAG_SET_KHR => Some("WEIGHTED_PRED_FLAG_SET_KHR"),
+                Self::WEIGHTED_BIPRED_IDC_EXPLICIT_KHR => Some("WEIGHTED_BIPRED_IDC_EXPLICIT_KHR"),
+                Self::WEIGHTED_BIPRED_IDC_IMPLICIT_KHR => Some("WEIGHTED_BIPRED_IDC_IMPLICIT_KHR"),
+                Self::TRANSFORM_8X8_MODE_FLAG_SET_KHR => Some("TRANSFORM_8X8_MODE_FLAG_SET_KHR"),
+                Self::DIRECT_SPATIAL_MV_PRED_FLAG_UNSET_KHR => {
+                    Some("DIRECT_SPATIAL_MV_PRED_FLAG_UNSET_KHR")
+                }
+                Self::ENTROPY_CODING_MODE_FLAG_UNSET_KHR => {
+                    Some("ENTROPY_CODING_MODE_FLAG_UNSET_KHR")
+                }
+                Self::ENTROPY_CODING_MODE_FLAG_SET_KHR => Some("ENTROPY_CODING_MODE_FLAG_SET_KHR"),
+                Self::DIRECT_8X8_INFERENCE_FLAG_UNSET_KHR => {
+                    Some("DIRECT_8X8_INFERENCE_FLAG_UNSET_KHR")
+                }
+                Self::CONSTRAINED_INTRA_PRED_FLAG_SET_KHR => {
+                    Some("CONSTRAINED_INTRA_PRED_FLAG_SET_KHR")
+                }
+                Self::DEBLOCKING_FILTER_DISABLED_KHR => Some("DEBLOCKING_FILTER_DISABLED_KHR"),
+                Self::DEBLOCKING_FILTER_ENABLED_KHR => Some("DEBLOCKING_FILTER_ENABLED_KHR"),
+                Self::DEBLOCKING_FILTER_PARTIAL_KHR => Some("DEBLOCKING_FILTER_PARTIAL_KHR"),
+                Self::SLICE_QP_DELTA_KHR => Some("SLICE_QP_DELTA_KHR"),
+                Self::DIFFERENT_SLICE_QP_DELTA_KHR => Some("DIFFERENT_SLICE_QP_DELTA_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264RateControlFlagsKHR.html>
@@ -1468,7 +1543,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264RateControlFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoEncodeH264RateControlFlagBitsKHR(u32);
 
     impl VideoEncodeH264RateControlFlagBitsKHR {
@@ -1477,5 +1552,25 @@ pub(super) mod defs {
         pub const REFERENCE_PATTERN_FLAT_KHR: Self = Self(1 << 2);
         pub const REFERENCE_PATTERN_DYADIC_KHR: Self = Self(1 << 3);
         pub const TEMPORAL_LAYER_PATTERN_DYADIC_KHR: Self = Self(1 << 4);
+    }
+
+    impl fmt::Debug for VideoEncodeH264RateControlFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::ATTEMPT_HRD_COMPLIANCE_KHR => Some("ATTEMPT_HRD_COMPLIANCE_KHR"),
+                Self::REGULAR_GOP_KHR => Some("REGULAR_GOP_KHR"),
+                Self::REFERENCE_PATTERN_FLAT_KHR => Some("REFERENCE_PATTERN_FLAT_KHR"),
+                Self::REFERENCE_PATTERN_DYADIC_KHR => Some("REFERENCE_PATTERN_DYADIC_KHR"),
+                Self::TEMPORAL_LAYER_PATTERN_DYADIC_KHR => {
+                    Some("TEMPORAL_LAYER_PATTERN_DYADIC_KHR")
+                }
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 }

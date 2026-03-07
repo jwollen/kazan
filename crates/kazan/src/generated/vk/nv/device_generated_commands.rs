@@ -982,13 +982,29 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutUsageFlagBitsNV.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct IndirectCommandsLayoutUsageFlagBitsNV(u32);
 
     impl IndirectCommandsLayoutUsageFlagBitsNV {
         pub const EXPLICIT_PREPROCESS_NV: Self = Self(1 << 0);
         pub const INDEXED_SEQUENCES_NV: Self = Self(1 << 1);
         pub const UNORDERED_SEQUENCES_NV: Self = Self(1 << 2);
+    }
+
+    impl fmt::Debug for IndirectCommandsLayoutUsageFlagBitsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::EXPLICIT_PREPROCESS_NV => Some("EXPLICIT_PREPROCESS_NV"),
+                Self::INDEXED_SEQUENCES_NV => Some("INDEXED_SEQUENCES_NV"),
+                Self::UNORDERED_SEQUENCES_NV => Some("UNORDERED_SEQUENCES_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectStateFlagsNV.html>
@@ -1013,11 +1029,25 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectStateFlagBitsNV.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct IndirectStateFlagBitsNV(u32);
 
     impl IndirectStateFlagBitsNV {
         pub const FLAG_FRONTFACE_NV: Self = Self(1 << 0);
+    }
+
+    impl fmt::Debug for IndirectStateFlagBitsNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::FLAG_FRONTFACE_NV => Some("FLAG_FRONTFACE_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdExecuteGeneratedCommandsNV.html>

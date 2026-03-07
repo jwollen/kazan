@@ -387,11 +387,26 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeH264PictureLayoutFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct VideoDecodeH264PictureLayoutFlagBitsKHR(u32);
 
     impl VideoDecodeH264PictureLayoutFlagBitsKHR {
         pub const INTERLACED_INTERLEAVED_LINES_KHR: Self = Self(1 << 0);
         pub const INTERLACED_SEPARATE_PLANES_KHR: Self = Self(1 << 1);
+    }
+
+    impl fmt::Debug for VideoDecodeH264PictureLayoutFlagBitsKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::INTERLACED_INTERLEAVED_LINES_KHR => Some("INTERLACED_INTERLEAVED_LINES_KHR"),
+                Self::INTERLACED_SEPARATE_PLANES_KHR => Some("INTERLACED_SEPARATE_PLANES_KHR"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 }

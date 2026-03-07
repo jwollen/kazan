@@ -1644,7 +1644,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorCreateFlagBitsARM.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct TensorCreateFlagBitsARM(u64);
 
     impl TensorCreateFlagBitsARM {
@@ -1655,6 +1655,27 @@ pub(super) mod defs {
 
         // VK_EXT_descriptor_heap
         pub const DESCRIPTOR_HEAP_CAPTURE_REPLAY_ARM: Self = Self(1 << 3);
+    }
+
+    impl fmt::Debug for TensorCreateFlagBitsARM {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::MUTABLE_FORMAT_ARM => Some("MUTABLE_FORMAT_ARM"),
+                Self::PROTECTED_ARM => Some("PROTECTED_ARM"),
+                Self::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM => {
+                    Some("DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM")
+                }
+                Self::DESCRIPTOR_HEAP_CAPTURE_REPLAY_ARM => {
+                    Some("DESCRIPTOR_HEAP_CAPTURE_REPLAY_ARM")
+                }
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorUsageFlagsARM.html>
@@ -1694,7 +1715,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorUsageFlagBitsARM.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct TensorUsageFlagBitsARM(u64);
 
     impl TensorUsageFlagBitsARM {
@@ -1708,6 +1729,24 @@ pub(super) mod defs {
         pub const IMAGE_ALIASING_ARM: Self = Self(1 << 4);
         // VK_ARM_data_graph
         pub const DATA_GRAPH_ARM: Self = Self(1 << 5);
+    }
+
+    impl fmt::Debug for TensorUsageFlagBitsARM {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::SHADER_ARM => Some("SHADER_ARM"),
+                Self::TRANSFER_SRC_ARM => Some("TRANSFER_SRC_ARM"),
+                Self::TRANSFER_DST_ARM => Some("TRANSFER_DST_ARM"),
+                Self::IMAGE_ALIASING_ARM => Some("IMAGE_ALIASING_ARM"),
+                Self::DATA_GRAPH_ARM => Some("DATA_GRAPH_ARM"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorViewCreateFlagsARM.html>
@@ -1734,12 +1773,28 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorViewCreateFlagBitsARM.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct TensorViewCreateFlagBitsARM(u64);
 
     impl TensorViewCreateFlagBitsARM {
         // VK_ARM_tensors
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM: Self = Self(1 << 0);
+    }
+
+    impl fmt::Debug for TensorViewCreateFlagBitsARM {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM => {
+                    Some("DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM")
+                }
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateTensorARM.html>

@@ -4589,7 +4589,7 @@ _marker: PhantomData
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCreationFeedbackFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineCreationFeedbackFlagBits(u32);
 
     impl PipelineCreationFeedbackFlagBits {
@@ -4600,6 +4600,22 @@ _marker: PhantomData
         pub const VALID_EXT: Self = Self::VALID;
         pub const APPLICATION_PIPELINE_CACHE_HIT_EXT: Self = Self::APPLICATION_PIPELINE_CACHE_HIT;
         pub const BASE_PIPELINE_ACCELERATION_EXT: Self = Self::BASE_PIPELINE_ACCELERATION;
+    }
+
+    impl fmt::Debug for PipelineCreationFeedbackFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::VALID => Some("VALID"),
+                Self::APPLICATION_PIPELINE_CACHE_HIT => Some("APPLICATION_PIPELINE_CACHE_HIT"),
+                Self::BASE_PIPELINE_ACCELERATION => Some("BASE_PIPELINE_ACCELERATION"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccessFlags2.html>
@@ -4889,7 +4905,7 @@ _marker: PhantomData
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccessFlagBits2.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct AccessFlagBits2(u64);
 
     impl AccessFlagBits2 {
@@ -4993,6 +5009,79 @@ _marker: PhantomData
         // VK_QCOM_tile_shading
         pub const SHADER_TILE_ATTACHMENT_READ_QCOM: Self = Self(1 << 51);
         pub const SHADER_TILE_ATTACHMENT_WRITE_QCOM: Self = Self(1 << 52);
+    }
+
+    impl fmt::Debug for AccessFlagBits2 {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::INDIRECT_COMMAND_READ => Some("INDIRECT_COMMAND_READ"),
+                Self::INDEX_READ => Some("INDEX_READ"),
+                Self::VERTEX_ATTRIBUTE_READ => Some("VERTEX_ATTRIBUTE_READ"),
+                Self::UNIFORM_READ => Some("UNIFORM_READ"),
+                Self::INPUT_ATTACHMENT_READ => Some("INPUT_ATTACHMENT_READ"),
+                Self::SHADER_READ => Some("SHADER_READ"),
+                Self::SHADER_WRITE => Some("SHADER_WRITE"),
+                Self::COLOR_ATTACHMENT_READ => Some("COLOR_ATTACHMENT_READ"),
+                Self::COLOR_ATTACHMENT_WRITE => Some("COLOR_ATTACHMENT_WRITE"),
+                Self::DEPTH_STENCIL_ATTACHMENT_READ => Some("DEPTH_STENCIL_ATTACHMENT_READ"),
+                Self::DEPTH_STENCIL_ATTACHMENT_WRITE => Some("DEPTH_STENCIL_ATTACHMENT_WRITE"),
+                Self::TRANSFER_READ => Some("TRANSFER_READ"),
+                Self::TRANSFER_WRITE => Some("TRANSFER_WRITE"),
+                Self::HOST_READ => Some("HOST_READ"),
+                Self::HOST_WRITE => Some("HOST_WRITE"),
+                Self::MEMORY_READ => Some("MEMORY_READ"),
+                Self::MEMORY_WRITE => Some("MEMORY_WRITE"),
+                Self::SHADER_SAMPLED_READ => Some("SHADER_SAMPLED_READ"),
+                Self::SHADER_STORAGE_READ => Some("SHADER_STORAGE_READ"),
+                Self::SHADER_STORAGE_WRITE => Some("SHADER_STORAGE_WRITE"),
+                Self::DATA_GRAPH_READ_ARM => Some("DATA_GRAPH_READ_ARM"),
+                Self::DATA_GRAPH_WRITE_ARM => Some("DATA_GRAPH_WRITE_ARM"),
+                Self::DESCRIPTOR_BUFFER_READ_EXT => Some("DESCRIPTOR_BUFFER_READ_EXT"),
+                Self::SAMPLER_HEAP_READ_EXT => Some("SAMPLER_HEAP_READ_EXT"),
+                Self::RESOURCE_HEAP_READ_EXT => Some("RESOURCE_HEAP_READ_EXT"),
+                Self::MEMORY_DECOMPRESSION_READ_EXT => Some("MEMORY_DECOMPRESSION_READ_EXT"),
+                Self::MEMORY_DECOMPRESSION_WRITE_EXT => Some("MEMORY_DECOMPRESSION_WRITE_EXT"),
+                Self::MICROMAP_READ_EXT => Some("MICROMAP_READ_EXT"),
+                Self::MICROMAP_WRITE_EXT => Some("MICROMAP_WRITE_EXT"),
+                Self::INVOCATION_MASK_READ_HUAWEI => Some("INVOCATION_MASK_READ_HUAWEI"),
+                Self::SHADER_BINDING_TABLE_READ_KHR => Some("SHADER_BINDING_TABLE_READ_KHR"),
+                Self::COMMAND_PREPROCESS_READ_EXT => Some("COMMAND_PREPROCESS_READ_EXT"),
+                Self::COMMAND_PREPROCESS_WRITE_EXT => Some("COMMAND_PREPROCESS_WRITE_EXT"),
+                Self::COLOR_ATTACHMENT_READ_NONCOHERENT_EXT => {
+                    Some("COLOR_ATTACHMENT_READ_NONCOHERENT_EXT")
+                }
+                Self::CONDITIONAL_RENDERING_READ_EXT => Some("CONDITIONAL_RENDERING_READ_EXT"),
+                Self::ACCELERATION_STRUCTURE_READ_KHR => Some("ACCELERATION_STRUCTURE_READ_KHR"),
+                Self::ACCELERATION_STRUCTURE_WRITE_KHR => Some("ACCELERATION_STRUCTURE_WRITE_KHR"),
+                Self::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR => {
+                    Some("FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR")
+                }
+                Self::FRAGMENT_DENSITY_MAP_READ_EXT => Some("FRAGMENT_DENSITY_MAP_READ_EXT"),
+                Self::TRANSFORM_FEEDBACK_WRITE_EXT => Some("TRANSFORM_FEEDBACK_WRITE_EXT"),
+                Self::TRANSFORM_FEEDBACK_COUNTER_READ_EXT => {
+                    Some("TRANSFORM_FEEDBACK_COUNTER_READ_EXT")
+                }
+                Self::TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT => {
+                    Some("TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT")
+                }
+                Self::VIDEO_DECODE_READ_KHR => Some("VIDEO_DECODE_READ_KHR"),
+                Self::VIDEO_DECODE_WRITE_KHR => Some("VIDEO_DECODE_WRITE_KHR"),
+                Self::VIDEO_ENCODE_READ_KHR => Some("VIDEO_ENCODE_READ_KHR"),
+                Self::VIDEO_ENCODE_WRITE_KHR => Some("VIDEO_ENCODE_WRITE_KHR"),
+                Self::OPTICAL_FLOW_READ_NV => Some("OPTICAL_FLOW_READ_NV"),
+                Self::OPTICAL_FLOW_WRITE_NV => Some("OPTICAL_FLOW_WRITE_NV"),
+                Self::SHADER_TILE_ATTACHMENT_READ_QCOM => Some("SHADER_TILE_ATTACHMENT_READ_QCOM"),
+                Self::SHADER_TILE_ATTACHMENT_WRITE_QCOM => {
+                    Some("SHADER_TILE_ATTACHMENT_WRITE_QCOM")
+                }
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineStageFlags2.html>
@@ -5249,7 +5338,7 @@ _marker: PhantomData
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineStageFlagBits2.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineStageFlagBits2(u64);
 
     impl PipelineStageFlagBits2 {
@@ -5356,6 +5445,68 @@ _marker: PhantomData
 
         // VK_NV_optical_flow
         pub const OPTICAL_FLOW_NV: Self = Self(1 << 29);
+    }
+
+    impl fmt::Debug for PipelineStageFlagBits2 {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::TOP_OF_PIPE => Some("TOP_OF_PIPE"),
+                Self::DRAW_INDIRECT => Some("DRAW_INDIRECT"),
+                Self::VERTEX_INPUT => Some("VERTEX_INPUT"),
+                Self::VERTEX_SHADER => Some("VERTEX_SHADER"),
+                Self::TESSELLATION_CONTROL_SHADER => Some("TESSELLATION_CONTROL_SHADER"),
+                Self::TESSELLATION_EVALUATION_SHADER => Some("TESSELLATION_EVALUATION_SHADER"),
+                Self::GEOMETRY_SHADER => Some("GEOMETRY_SHADER"),
+                Self::FRAGMENT_SHADER => Some("FRAGMENT_SHADER"),
+                Self::EARLY_FRAGMENT_TESTS => Some("EARLY_FRAGMENT_TESTS"),
+                Self::LATE_FRAGMENT_TESTS => Some("LATE_FRAGMENT_TESTS"),
+                Self::COLOR_ATTACHMENT_OUTPUT => Some("COLOR_ATTACHMENT_OUTPUT"),
+                Self::COMPUTE_SHADER => Some("COMPUTE_SHADER"),
+                Self::ALL_TRANSFER => Some("ALL_TRANSFER"),
+                Self::BOTTOM_OF_PIPE => Some("BOTTOM_OF_PIPE"),
+                Self::HOST => Some("HOST"),
+                Self::ALL_GRAPHICS => Some("ALL_GRAPHICS"),
+                Self::ALL_COMMANDS => Some("ALL_COMMANDS"),
+                Self::COPY => Some("COPY"),
+                Self::RESOLVE => Some("RESOLVE"),
+                Self::BLIT => Some("BLIT"),
+                Self::CLEAR => Some("CLEAR"),
+                Self::INDEX_INPUT => Some("INDEX_INPUT"),
+                Self::VERTEX_ATTRIBUTE_INPUT => Some("VERTEX_ATTRIBUTE_INPUT"),
+                Self::PRE_RASTERIZATION_SHADERS => Some("PRE_RASTERIZATION_SHADERS"),
+                Self::DATA_GRAPH_ARM => Some("DATA_GRAPH_ARM"),
+                Self::MEMORY_DECOMPRESSION_EXT => Some("MEMORY_DECOMPRESSION_EXT"),
+                Self::MICROMAP_BUILD_EXT => Some("MICROMAP_BUILD_EXT"),
+                Self::CLUSTER_CULLING_SHADER_HUAWEI => Some("CLUSTER_CULLING_SHADER_HUAWEI"),
+                Self::INVOCATION_MASK_HUAWEI => Some("INVOCATION_MASK_HUAWEI"),
+                Self::SUBPASS_SHADER_HUAWEI => Some("SUBPASS_SHADER_HUAWEI"),
+                Self::COPY_INDIRECT_KHR => Some("COPY_INDIRECT_KHR"),
+                Self::ACCELERATION_STRUCTURE_COPY_KHR => Some("ACCELERATION_STRUCTURE_COPY_KHR"),
+                Self::COMMAND_PREPROCESS_EXT => Some("COMMAND_PREPROCESS_EXT"),
+                Self::CONDITIONAL_RENDERING_EXT => Some("CONDITIONAL_RENDERING_EXT"),
+                Self::TASK_SHADER_EXT => Some("TASK_SHADER_EXT"),
+                Self::MESH_SHADER_EXT => Some("MESH_SHADER_EXT"),
+                Self::RAY_TRACING_SHADER_KHR => Some("RAY_TRACING_SHADER_KHR"),
+                Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR => {
+                    Some("FRAGMENT_SHADING_RATE_ATTACHMENT_KHR")
+                }
+                Self::FRAGMENT_DENSITY_PROCESS_EXT => Some("FRAGMENT_DENSITY_PROCESS_EXT"),
+                Self::TRANSFORM_FEEDBACK_EXT => Some("TRANSFORM_FEEDBACK_EXT"),
+                Self::ACCELERATION_STRUCTURE_BUILD_KHR => Some("ACCELERATION_STRUCTURE_BUILD_KHR"),
+                Self::VIDEO_DECODE_KHR => Some("VIDEO_DECODE_KHR"),
+                Self::VIDEO_ENCODE_KHR => Some("VIDEO_ENCODE_KHR"),
+                Self::CONVERT_COOPERATIVE_VECTOR_MATRIX_NV => {
+                    Some("CONVERT_COOPERATIVE_VECTOR_MATRIX_NV")
+                }
+                Self::OPTICAL_FLOW_NV => Some("OPTICAL_FLOW_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFormatFeatureFlags2.html>
@@ -5590,7 +5741,7 @@ _marker: PhantomData
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFormatFeatureFlagBits2.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct FormatFeatureFlagBits2(u64);
 
     impl FormatFeatureFlagBits2 {
@@ -5722,6 +5873,93 @@ _marker: PhantomData
         pub const HOST_IMAGE_TRANSFER: Self = Self(1 << 46);
     }
 
+    impl fmt::Debug for FormatFeatureFlagBits2 {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::SAMPLED_IMAGE => Some("SAMPLED_IMAGE"),
+                Self::STORAGE_IMAGE => Some("STORAGE_IMAGE"),
+                Self::STORAGE_IMAGE_ATOMIC => Some("STORAGE_IMAGE_ATOMIC"),
+                Self::UNIFORM_TEXEL_BUFFER => Some("UNIFORM_TEXEL_BUFFER"),
+                Self::STORAGE_TEXEL_BUFFER => Some("STORAGE_TEXEL_BUFFER"),
+                Self::STORAGE_TEXEL_BUFFER_ATOMIC => Some("STORAGE_TEXEL_BUFFER_ATOMIC"),
+                Self::VERTEX_BUFFER => Some("VERTEX_BUFFER"),
+                Self::COLOR_ATTACHMENT => Some("COLOR_ATTACHMENT"),
+                Self::COLOR_ATTACHMENT_BLEND => Some("COLOR_ATTACHMENT_BLEND"),
+                Self::DEPTH_STENCIL_ATTACHMENT => Some("DEPTH_STENCIL_ATTACHMENT"),
+                Self::BLIT_SRC => Some("BLIT_SRC"),
+                Self::BLIT_DST => Some("BLIT_DST"),
+                Self::SAMPLED_IMAGE_FILTER_LINEAR => Some("SAMPLED_IMAGE_FILTER_LINEAR"),
+                Self::TRANSFER_SRC => Some("TRANSFER_SRC"),
+                Self::TRANSFER_DST => Some("TRANSFER_DST"),
+                Self::SAMPLED_IMAGE_FILTER_MINMAX => Some("SAMPLED_IMAGE_FILTER_MINMAX"),
+                Self::MIDPOINT_CHROMA_SAMPLES => Some("MIDPOINT_CHROMA_SAMPLES"),
+                Self::SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER => {
+                    Some("SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER")
+                }
+                Self::SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER => {
+                    Some("SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER")
+                }
+                Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT => {
+                    Some("SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT")
+                }
+                Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE => {
+                    Some("SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE")
+                }
+                Self::DISJOINT => Some("DISJOINT"),
+                Self::COSITED_CHROMA_SAMPLES => Some("COSITED_CHROMA_SAMPLES"),
+                Self::STORAGE_READ_WITHOUT_FORMAT => Some("STORAGE_READ_WITHOUT_FORMAT"),
+                Self::STORAGE_WRITE_WITHOUT_FORMAT => Some("STORAGE_WRITE_WITHOUT_FORMAT"),
+                Self::SAMPLED_IMAGE_DEPTH_COMPARISON => Some("SAMPLED_IMAGE_DEPTH_COMPARISON"),
+                Self::TENSOR_DATA_GRAPH_ARM => Some("TENSOR_DATA_GRAPH_ARM"),
+                Self::TENSOR_SHADER_ARM => Some("TENSOR_SHADER_ARM"),
+                Self::TENSOR_IMAGE_ALIASING_ARM => Some("TENSOR_IMAGE_ALIASING_ARM"),
+                Self::FRAGMENT_DENSITY_MAP_EXT => Some("FRAGMENT_DENSITY_MAP_EXT"),
+                Self::ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR => {
+                    Some("ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR")
+                }
+                Self::COPY_IMAGE_INDIRECT_DST_KHR => Some("COPY_IMAGE_INDIRECT_DST_KHR"),
+                Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR => {
+                    Some("FRAGMENT_SHADING_RATE_ATTACHMENT_KHR")
+                }
+                Self::DEPTH_COPY_ON_COMPUTE_QUEUE_KHR => Some("DEPTH_COPY_ON_COMPUTE_QUEUE_KHR"),
+                Self::DEPTH_COPY_ON_TRANSFER_QUEUE_KHR => Some("DEPTH_COPY_ON_TRANSFER_QUEUE_KHR"),
+                Self::STENCIL_COPY_ON_COMPUTE_QUEUE_KHR => {
+                    Some("STENCIL_COPY_ON_COMPUTE_QUEUE_KHR")
+                }
+                Self::STENCIL_COPY_ON_TRANSFER_QUEUE_KHR => {
+                    Some("STENCIL_COPY_ON_TRANSFER_QUEUE_KHR")
+                }
+                Self::VIDEO_DECODE_OUTPUT_KHR => Some("VIDEO_DECODE_OUTPUT_KHR"),
+                Self::VIDEO_DECODE_DPB_KHR => Some("VIDEO_DECODE_DPB_KHR"),
+                Self::VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR => {
+                    Some("VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR")
+                }
+                Self::VIDEO_ENCODE_EMPHASIS_MAP_KHR => Some("VIDEO_ENCODE_EMPHASIS_MAP_KHR"),
+                Self::VIDEO_ENCODE_INPUT_KHR => Some("VIDEO_ENCODE_INPUT_KHR"),
+                Self::VIDEO_ENCODE_DPB_KHR => Some("VIDEO_ENCODE_DPB_KHR"),
+                Self::LINEAR_COLOR_ATTACHMENT_NV => Some("LINEAR_COLOR_ATTACHMENT_NV"),
+                Self::OPTICAL_FLOW_IMAGE_NV => Some("OPTICAL_FLOW_IMAGE_NV"),
+                Self::OPTICAL_FLOW_VECTOR_NV => Some("OPTICAL_FLOW_VECTOR_NV"),
+                Self::OPTICAL_FLOW_COST_NV => Some("OPTICAL_FLOW_COST_NV"),
+                Self::ACCELERATION_STRUCTURE_RADIUS_BUFFER_NV => {
+                    Some("ACCELERATION_STRUCTURE_RADIUS_BUFFER_NV")
+                }
+                Self::WEIGHT_IMAGE_QCOM => Some("WEIGHT_IMAGE_QCOM"),
+                Self::WEIGHT_SAMPLED_IMAGE_QCOM => Some("WEIGHT_SAMPLED_IMAGE_QCOM"),
+                Self::BLOCK_MATCHING_QCOM => Some("BLOCK_MATCHING_QCOM"),
+                Self::BOX_FILTER_SAMPLED_QCOM => Some("BOX_FILTER_SAMPLED_QCOM"),
+                Self::SAMPLED_IMAGE_FILTER_CUBIC => Some("SAMPLED_IMAGE_FILTER_CUBIC"),
+                Self::HOST_IMAGE_TRANSFER => Some("HOST_IMAGE_TRANSFER"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
+    }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderingFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -5794,7 +6032,7 @@ _marker: PhantomData
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderingFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct RenderingFlagBits(u32);
 
     impl RenderingFlagBits {
@@ -5826,6 +6064,32 @@ _marker: PhantomData
 
         // VK_VALVE_fragment_density_map_layered
         pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self = Self(1 << 5);
+    }
+
+    impl fmt::Debug for RenderingFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::CONTENTS_SECONDARY_COMMAND_BUFFERS => {
+                    Some("CONTENTS_SECONDARY_COMMAND_BUFFERS")
+                }
+                Self::SUSPENDING => Some("SUSPENDING"),
+                Self::RESUMING => Some("RESUMING"),
+                Self::FRAGMENT_REGION_EXT => Some("FRAGMENT_REGION_EXT"),
+                Self::CUSTOM_RESOLVE_EXT => Some("CUSTOM_RESOLVE_EXT"),
+                Self::ENABLE_LEGACY_DITHERING_EXT => Some("ENABLE_LEGACY_DITHERING_EXT"),
+                Self::LOCAL_READ_CONCURRENT_ACCESS_CONTROL_KHR => {
+                    Some("LOCAL_READ_CONCURRENT_ACCESS_CONTROL_KHR")
+                }
+                Self::CONTENTS_INLINE_KHR => Some("CONTENTS_INLINE_KHR"),
+                Self::PER_LAYER_FRAGMENT_DENSITY_VALVE => Some("PER_LAYER_FRAGMENT_DENSITY_VALVE"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkToolPurposeFlags.html>
@@ -5873,7 +6137,7 @@ _marker: PhantomData
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkToolPurposeFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ToolPurposeFlagBits(u32);
 
     impl ToolPurposeFlagBits {
@@ -5890,6 +6154,26 @@ _marker: PhantomData
         pub const TRACING_EXT: Self = Self::TRACING;
         pub const ADDITIONAL_FEATURES_EXT: Self = Self::ADDITIONAL_FEATURES;
         pub const MODIFYING_FEATURES_EXT: Self = Self::MODIFYING_FEATURES;
+    }
+
+    impl fmt::Debug for ToolPurposeFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::VALIDATION => Some("VALIDATION"),
+                Self::PROFILING => Some("PROFILING"),
+                Self::TRACING => Some("TRACING"),
+                Self::ADDITIONAL_FEATURES => Some("ADDITIONAL_FEATURES"),
+                Self::MODIFYING_FEATURES => Some("MODIFYING_FEATURES"),
+                Self::DEBUG_REPORTING_EXT => Some("DEBUG_REPORTING_EXT"),
+                Self::DEBUG_MARKERS_EXT => Some("DEBUG_MARKERS_EXT"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubmitFlags.html>
@@ -5913,13 +6197,27 @@ _marker: PhantomData
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubmitFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SubmitFlagBits(u32);
 
     impl SubmitFlagBits {
         pub const PROTECTED: Self = Self(1 << 0);
         // VK_KHR_synchronization2
         pub const PROTECTED_KHR: Self = Self::PROTECTED;
+    }
+
+    impl fmt::Debug for SubmitFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::PROTECTED => Some("PROTECTED"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceBufferMemoryRequirements.html>

@@ -553,7 +553,7 @@ pub fn write_bitmask(
     writeln!(
         file,
         "#[repr(transparent)]
-        #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
+        #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
         pub struct {}(u{});\n",
         bitmask_name,
         bitmask.bitwidth.unwrap_or(32),
@@ -600,5 +600,44 @@ pub fn write_bitmask(
         }
 
         writeln!(file, "}}\n").unwrap();
+
+        // Debug impl for FlagBits
+        let mut debug_variants = Vec::new();
+        let mut debug_visited = HashSet::new();
+
+        for b in &base_bits {
+            if debug_visited.insert(b.name.clone()) {
+                debug_variants.push(b.name.clone());
+            }
+        }
+        for md in &module_data {
+            for b in &md.bits {
+                if debug_visited.insert(b.name.clone()) {
+                    debug_variants.push(b.name.clone());
+                }
+            }
+        }
+
+        writeln!(
+            file,
+            "impl fmt::Debug for {bitmask_name} {{
+            fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {{"
+        )
+        .unwrap();
+        writeln!(file, "let name = match *self {{").unwrap();
+        for vname in &debug_variants {
+            writeln!(file, "Self::{vname} => Some(\"{vname}\"),").unwrap();
+        }
+        writeln!(
+            file,
+            "_ => None
+            }};
+            if let Some(name) = name {{
+                f.write_str(name)
+            }} else {{
+                self.0.fmt(f)
+            }} }} }}\n"
+        )
+        .unwrap();
     }
 }
