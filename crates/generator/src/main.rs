@@ -96,74 +96,71 @@ fn generate(analysis: &analysis::Analysis) {
             name: module_name,
         } = module.name();
 
-        let is_extension = false; //matches!(module, Module::Extension(_));
-        if !new_items.is_empty() || required_commands.clone().next().is_some() || is_extension {
-            vendor_modules
-                .entry(vendor.clone())
-                .or_insert_with(Vec::new)
-                .push(module_name.clone());
+        vendor_modules
+            .entry(vendor.clone())
+            .or_insert_with(Vec::new)
+            .push(module_name.clone());
 
-            let vendor_path = match vendor {
-                Some(ref vendor) => format!("{}/{}", output_dir, vendor),
-                None => output_dir.to_string(),
-            };
+        let vendor_path = match vendor {
+            Some(ref vendor) => format!("{}/{}", output_dir, vendor),
+            None => output_dir.to_string(),
+        };
 
-            fs::create_dir_all(&vendor_path).unwrap();
-            let mut file = File::create(format!("{}/{}.rs", &vendor_path, module_name)).unwrap();
+        fs::create_dir_all(&vendor_path).unwrap();
+        let mut file = File::create(format!("{}/{}.rs", &vendor_path, module_name)).unwrap();
 
+        writeln!(
+            file,
+            "#![allow(unused_imports)]
+            use core::ffi::{{c_char, c_int, c_void, CStr}};
+            use core::mem::transmute;
+            use crate::{{*, vk::*, vk::Result as VkResult}};
+            "
+        )
+        .unwrap();
+
+        if let Module::Extension(extension) = module {
+            writeln!(file, "pub const EXTENSION_NAME: &CStr = c\"{}\";\n", extension.name).unwrap();
+        }
+
+        writeln!(file, "pub(super) mod defs {{").unwrap();
+
+        if !new_items.is_empty() {
             writeln!(
                 file,
-                "#![allow(unused_imports)]
+                "#![allow(non_camel_case_types, unused_imports)]
                 use core::ffi::{{c_char, c_int, c_void, CStr}};
-                use core::mem::transmute;
-                use crate::{{*, vk::*, vk::Result as VkResult}};
+                use core::fmt;
+                use core::marker::PhantomData;
+                use crate::{{*, vk::*}};
                 "
             )
             .unwrap();
 
-            if let Module::Extension(extension) = module {
-                //writeln!(file, "pub const EXTENSION_NAME: &CStr = c\"{}\";", extension.name).unwrap();
-            }
+            generate_api_constants(&mut file, analysis, &new_items, required_api_constants);
 
-            writeln!(file, "pub(super) mod defs {{").unwrap();
+            generate_basetypes(&mut file, analysis, &new_items);
 
-            if !new_items.is_empty() {
-                writeln!(
-                    file,
-                    "#![allow(non_camel_case_types, unused_imports)]
-                    use core::ffi::{{c_char, c_int, c_void, CStr}};
-                    use core::fmt;
-                    use core::marker::PhantomData;
-                    use crate::{{*, vk::*}};
-                    "
-                )
-                .unwrap();
+            generate_handles(&mut file, analysis, &new_items);
 
-                generate_api_constants(&mut file, analysis, &new_items, required_api_constants);
+            generate_type_aliases(&mut file, analysis, &new_items);
 
-                generate_basetypes(&mut file, analysis, &new_items);
+            generate_structs(&mut file, analysis, &new_items);
 
-                generate_handles(&mut file, analysis, &new_items);
+            generate_unions(&mut file, analysis, &new_items);
 
-                generate_type_aliases(&mut file, analysis, &new_items);
+            generate_enum_types(&mut file, analysis, &new_items);
 
-                generate_structs(&mut file, analysis, &new_items);
+            generate_bitmask_types(&mut file, analysis, &new_items);
 
-                generate_unions(&mut file, analysis, &new_items);
+            generate_funcpointers(&mut file, analysis, &new_items);
 
-                generate_enum_types(&mut file, analysis, &new_items);
+            generate_functions(&mut file, analysis, new_commands.clone());
+        }
+        writeln!(file, "}}\n").unwrap();
 
-                generate_bitmask_types(&mut file, analysis, &new_items);
-
-                generate_funcpointers(&mut file, analysis, &new_items);
-
-                generate_functions(&mut file, analysis, new_commands.clone());
-            }
-            writeln!(file, "}}\n").unwrap();
-
-            if required_commands.clone().next().is_some() {
-                generate_commands(&mut file, analysis, &requires);
-            }
+        if required_commands.clone().next().is_some() {
+            generate_commands(&mut file, analysis, &requires);
         }
     }
 
