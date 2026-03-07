@@ -1,14 +1,12 @@
 #![warn(unused_qualifications)]
 
+use kazan::util::Align;
+use kazan::vk;
+use kazan_examples::*;
 use std::default::Default;
 use std::error::Error;
 use std::io::Cursor;
 use std::mem;
-use std::mem::{align_of, size_of, size_of_val}; // TODO: Remove when bumping MSRV to 1.80
-
-use ash::util::*;
-use ash::vk;
-use kazan_examples::*;
 
 #[derive(Clone, Debug, Copy)]
 struct Vertex {
@@ -22,7 +20,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         let renderpass_attachments = [
             vk::AttachmentDescription {
                 format: base.surface_format.format,
-                samples: vk::SampleCountFlags::TYPE_1,
+                samples: vk::SampleCountFlagBits::_1,
                 load_op: vk::AttachmentLoadOp::CLEAR,
                 store_op: vk::AttachmentStoreOp::STORE,
                 final_layout: vk::ImageLayout::PRESENT_SRC_KHR,
@@ -30,7 +28,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             },
             vk::AttachmentDescription {
                 format: vk::Format::D16_UNORM,
-                samples: vk::SampleCountFlags::TYPE_1,
+                samples: vk::SampleCountFlagBits::_1,
                 load_op: vk::AttachmentLoadOp::CLEAR,
                 initial_layout: vk::ImageLayout::DEPTH_STENCIL_ATTACHMENT_OPTIMAL,
                 final_layout: vk::ImageLayout::DEPTH_STENCIL_ATTACHMENT_OPTIMAL,
@@ -55,7 +53,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         }];
 
         let subpass = vk::SubpassDescription::default()
-            .color_attachments(&color_attachment_refs)
+            .color_attachments(&color_attachment_refs, None)
             .depth_stencil_attachment(&depth_attachment_ref)
             .pipeline_bind_point(vk::PipelineBindPoint::GRAPHICS);
 
@@ -65,8 +63,8 @@ fn main() -> Result<(), Box<dyn Error>> {
             .dependencies(&dependencies);
 
         let renderpass = base
-            .device
-            .create_render_pass(&renderpass_create_info, None)
+            .device_fn
+            .create_render_pass(base.device, &renderpass_create_info, None)
             .unwrap();
 
         let framebuffers: Vec<vk::Framebuffer> = base
@@ -81,8 +79,8 @@ fn main() -> Result<(), Box<dyn Error>> {
                     .height(base.surface_resolution.height)
                     .layers(1);
 
-                base.device
-                    .create_framebuffer(&frame_buffer_create_info, None)
+                base.device_fn
+                    .create_framebuffer(base.device, &frame_buffer_create_info, None)
                     .unwrap()
             })
             .collect();
@@ -93,8 +91,13 @@ fn main() -> Result<(), Box<dyn Error>> {
             .usage(vk::BufferUsageFlags::INDEX_BUFFER)
             .sharing_mode(vk::SharingMode::EXCLUSIVE);
 
-        let index_buffer = base.device.create_buffer(&index_buffer_info, None).unwrap();
-        let index_buffer_memory_req = base.device.get_buffer_memory_requirements(index_buffer);
+        let index_buffer = base
+            .device_fn
+            .create_buffer(base.device, &index_buffer_info, None)
+            .unwrap();
+        let index_buffer_memory_req = base
+            .device_fn
+            .get_buffer_memory_requirements(base.device, index_buffer);
         let index_buffer_memory_index = find_memorytype_index(
             &index_buffer_memory_req,
             &base.device_memory_properties,
@@ -108,12 +111,13 @@ fn main() -> Result<(), Box<dyn Error>> {
             ..Default::default()
         };
         let index_buffer_memory = base
-            .device
-            .allocate_memory(&index_allocate_info, None)
+            .device_fn
+            .allocate_memory(base.device, &index_allocate_info, None)
             .unwrap();
         let index_ptr = base
-            .device
+            .device_fn
             .map_memory(
+                base.device,
                 index_buffer_memory,
                 0,
                 index_buffer_memory_req.size,
@@ -126,9 +130,10 @@ fn main() -> Result<(), Box<dyn Error>> {
             index_buffer_memory_req.size,
         );
         index_slice.copy_from_slice(&index_buffer_data);
-        base.device.unmap_memory(index_buffer_memory);
-        base.device
-            .bind_buffer_memory(index_buffer, index_buffer_memory, 0)
+        base.device_fn
+            .unmap_memory(base.device, index_buffer_memory);
+        base.device_fn
+            .bind_buffer_memory(base.device, index_buffer, index_buffer_memory, 0)
             .unwrap();
 
         let vertex_input_buffer_info = vk::BufferCreateInfo {
@@ -139,13 +144,13 @@ fn main() -> Result<(), Box<dyn Error>> {
         };
 
         let vertex_input_buffer = base
-            .device
-            .create_buffer(&vertex_input_buffer_info, None)
+            .device_fn
+            .create_buffer(base.device, &vertex_input_buffer_info, None)
             .unwrap();
 
         let vertex_input_buffer_memory_req = base
-            .device
-            .get_buffer_memory_requirements(vertex_input_buffer);
+            .device_fn
+            .get_buffer_memory_requirements(base.device, vertex_input_buffer);
 
         let vertex_input_buffer_memory_index = find_memorytype_index(
             &vertex_input_buffer_memory_req,
@@ -161,8 +166,8 @@ fn main() -> Result<(), Box<dyn Error>> {
         };
 
         let vertex_input_buffer_memory = base
-            .device
-            .allocate_memory(&vertex_buffer_allocate_info, None)
+            .device_fn
+            .allocate_memory(base.device, &vertex_buffer_allocate_info, None)
             .unwrap();
 
         let vertices = [
@@ -181,8 +186,9 @@ fn main() -> Result<(), Box<dyn Error>> {
         ];
 
         let vert_ptr = base
-            .device
+            .device_fn
             .map_memory(
+                base.device,
                 vertex_input_buffer_memory,
                 0,
                 vertex_input_buffer_memory_req.size,
@@ -196,10 +202,17 @@ fn main() -> Result<(), Box<dyn Error>> {
             vertex_input_buffer_memory_req.size,
         );
         vert_align.copy_from_slice(&vertices);
-        base.device.unmap_memory(vertex_input_buffer_memory);
-        base.device
-            .bind_buffer_memory(vertex_input_buffer, vertex_input_buffer_memory, 0)
+        base.device_fn
+            .unmap_memory(base.device, vertex_input_buffer_memory);
+        base.device_fn
+            .bind_buffer_memory(
+                base.device,
+                vertex_input_buffer,
+                vertex_input_buffer_memory,
+                0,
+            )
             .unwrap();
+
         let mut vertex_spv_file =
             Cursor::new(&include_bytes!("../../shader/triangle/vert.spv")[..]);
         let mut frag_spv_file = Cursor::new(&include_bytes!("../../shader/triangle/frag.spv")[..]);
@@ -213,20 +226,20 @@ fn main() -> Result<(), Box<dyn Error>> {
         let frag_shader_info = vk::ShaderModuleCreateInfo::default().code(&frag_code);
 
         let vertex_shader_module = base
-            .device
-            .create_shader_module(&vertex_shader_info, None)
+            .device_fn
+            .create_shader_module(base.device, &vertex_shader_info, None)
             .expect("Vertex shader module error");
 
         let fragment_shader_module = base
-            .device
-            .create_shader_module(&frag_shader_info, None)
+            .device_fn
+            .create_shader_module(base.device, &frag_shader_info, None)
             .expect("Fragment shader module error");
 
         let layout_create_info = vk::PipelineLayoutCreateInfo::default();
 
         let pipeline_layout = base
-            .device
-            .create_pipeline_layout(&layout_create_info, None)
+            .device_fn
+            .create_pipeline_layout(base.device, &layout_create_info, None)
             .unwrap();
 
         let shader_entry_name = c"main";
@@ -234,14 +247,14 @@ fn main() -> Result<(), Box<dyn Error>> {
             vk::PipelineShaderStageCreateInfo {
                 module: vertex_shader_module,
                 p_name: shader_entry_name.as_ptr(),
-                stage: vk::ShaderStageFlags::VERTEX,
+                stage: vk::ShaderStageFlagBits::VERTEX,
                 ..Default::default()
             },
             vk::PipelineShaderStageCreateInfo {
                 s_type: vk::StructureType::PIPELINE_SHADER_STAGE_CREATE_INFO,
                 module: fragment_shader_module,
                 p_name: shader_entry_name.as_ptr(),
-                stage: vk::ShaderStageFlags::FRAGMENT,
+                stage: vk::ShaderStageFlagBits::FRAGMENT,
                 ..Default::default()
             },
         ];
@@ -280,7 +293,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             min_depth: 0.0,
             max_depth: 1.0,
         }];
-        let scissors = [base.surface_resolution.into()];
+        let scissors = [vk::Rect2D::from(base.surface_resolution)];
         let viewport_state_info = vk::PipelineViewportStateCreateInfo::default()
             .scissors(&scissors)
             .viewports(&viewports);
@@ -292,7 +305,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             ..Default::default()
         };
         let multisample_state_info = vk::PipelineMultisampleStateCreateInfo {
-            rasterization_samples: vk::SampleCountFlags::TYPE_1,
+            rasterization_samples: vk::SampleCountFlagBits::_1,
             ..Default::default()
         };
         let noop_stencil_state = vk::StencilOpState {
@@ -319,7 +332,10 @@ fn main() -> Result<(), Box<dyn Error>> {
             src_alpha_blend_factor: vk::BlendFactor::ZERO,
             dst_alpha_blend_factor: vk::BlendFactor::ZERO,
             alpha_blend_op: vk::BlendOp::ADD,
-            color_write_mask: vk::ColorComponentFlags::RGBA,
+            color_write_mask: vk::ColorComponentFlags::R
+                | vk::ColorComponentFlags::G
+                | vk::ColorComponentFlags::B
+                | vk::ColorComponentFlags::A,
         }];
         let color_blend_state = vk::PipelineColorBlendStateCreateInfo::default()
             .logic_op(vk::LogicOp::CLEAR)
@@ -342,9 +358,15 @@ fn main() -> Result<(), Box<dyn Error>> {
             .layout(pipeline_layout)
             .render_pass(renderpass);
 
-        let graphics_pipelines = base
-            .device
-            .create_graphics_pipelines(vk::PipelineCache::null(), &[graphic_pipeline_info], None)
+        let mut graphics_pipelines = [vk::Pipeline::null()];
+        base.device_fn
+            .create_graphics_pipelines(
+                base.device,
+                vk::PipelineCache::null(),
+                &[graphic_pipeline_info],
+                None,
+                &mut graphics_pipelines,
+            )
             .expect("Unable to create graphics pipeline");
 
         let graphic_pipeline = graphics_pipelines[0];
@@ -357,8 +379,9 @@ fn main() -> Result<(), Box<dyn Error>> {
             let draw_command_buffer = base.draw_command_buffers[frame_index % MAX_FRAME_LATENCY];
 
             let (present_index, _) = base
-                .swapchain_loader
-                .acquire_next_image(
+                .swapchain_fn
+                .acquire_next_image_khr(
+                    base.device,
                     base.swapchain,
                     u64::MAX,
                     present_complete_semaphore,
@@ -389,39 +412,40 @@ fn main() -> Result<(), Box<dyn Error>> {
                 .clear_values(&clear_values);
 
             record_submit_commandbuffer(
-                &base.device,
+                &base.device_fn,
+                base.device,
                 draw_command_buffer,
                 draw_commands_reuse_fence,
                 base.present_queue,
                 &[vk::PipelineStageFlags::COLOR_ATTACHMENT_OUTPUT],
                 &[present_complete_semaphore],
                 &[rendering_complete_semaphore],
-                |device, draw_command_buffer| {
-                    device.cmd_begin_render_pass(
+                |device_fn, draw_command_buffer| {
+                    device_fn.cmd_begin_render_pass(
                         draw_command_buffer,
                         &render_pass_begin_info,
                         vk::SubpassContents::INLINE,
                     );
-                    device.cmd_bind_pipeline(
+                    device_fn.cmd_bind_pipeline(
                         draw_command_buffer,
                         vk::PipelineBindPoint::GRAPHICS,
                         graphic_pipeline,
                     );
-                    device.cmd_set_viewport(draw_command_buffer, 0, &viewports);
-                    device.cmd_set_scissor(draw_command_buffer, 0, &scissors);
-                    device.cmd_bind_vertex_buffers(
+                    device_fn.cmd_set_viewport(draw_command_buffer, 0, &viewports);
+                    device_fn.cmd_set_scissor(draw_command_buffer, 0, &scissors);
+                    device_fn.cmd_bind_vertex_buffers(
                         draw_command_buffer,
                         0,
                         &[vertex_input_buffer],
                         &[0],
                     );
-                    device.cmd_bind_index_buffer(
+                    device_fn.cmd_bind_index_buffer(
                         draw_command_buffer,
                         index_buffer,
                         0,
                         vk::IndexType::UINT32,
                     );
-                    device.cmd_draw_indexed(
+                    device_fn.cmd_draw_indexed(
                         draw_command_buffer,
                         index_buffer_data.len() as u32,
                         1,
@@ -429,9 +453,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                         0,
                         1,
                     );
-                    // Or draw without the index buffer
-                    // device.cmd_draw(draw_command_buffer, 3, 1, 0, 0);
-                    device.cmd_end_render_pass(draw_command_buffer);
+                    device_fn.cmd_end_render_pass(draw_command_buffer);
                 },
             );
             let wait_semaphores = [rendering_complete_semaphore];
@@ -439,31 +461,37 @@ fn main() -> Result<(), Box<dyn Error>> {
             let image_indices = [present_index];
             let present_info = vk::PresentInfoKHR::default()
                 .wait_semaphores(&wait_semaphores)
-                .swapchains(&swapchains)
-                .image_indices(&image_indices);
+                .swapchains(&swapchains, &image_indices, None);
 
-            base.swapchain_loader
-                .queue_present(base.present_queue, &present_info)
+            base.swapchain_fn
+                .queue_present_khr(base.present_queue, &present_info)
                 .unwrap();
         });
 
-        base.device.device_wait_idle().unwrap();
+        base.device_fn.device_wait_idle(base.device).unwrap();
         for pipeline in graphics_pipelines {
-            base.device.destroy_pipeline(pipeline, None);
+            base.device_fn.destroy_pipeline(base.device, pipeline, None);
         }
-        base.device.destroy_pipeline_layout(pipeline_layout, None);
-        base.device
-            .destroy_shader_module(vertex_shader_module, None);
-        base.device
-            .destroy_shader_module(fragment_shader_module, None);
-        base.device.free_memory(index_buffer_memory, None);
-        base.device.destroy_buffer(index_buffer, None);
-        base.device.free_memory(vertex_input_buffer_memory, None);
-        base.device.destroy_buffer(vertex_input_buffer, None);
+        base.device_fn
+            .destroy_pipeline_layout(base.device, pipeline_layout, None);
+        base.device_fn
+            .destroy_shader_module(base.device, vertex_shader_module, None);
+        base.device_fn
+            .destroy_shader_module(base.device, fragment_shader_module, None);
+        base.device_fn
+            .free_memory(base.device, index_buffer_memory, None);
+        base.device_fn
+            .destroy_buffer(base.device, index_buffer, None);
+        base.device_fn
+            .free_memory(base.device, vertex_input_buffer_memory, None);
+        base.device_fn
+            .destroy_buffer(base.device, vertex_input_buffer, None);
         for framebuffer in framebuffers {
-            base.device.destroy_framebuffer(framebuffer, None);
+            base.device_fn
+                .destroy_framebuffer(base.device, framebuffer, None);
         }
-        base.device.destroy_render_pass(renderpass, None);
+        base.device_fn
+            .destroy_render_pass(base.device, renderpass, None);
     }
 
     Ok(())

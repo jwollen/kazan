@@ -8,14 +8,20 @@
 )]
 
 use std::{
-    borrow::Cow, cell::RefCell, default::Default, error::Error, ffi, ops::Drop, os::raw::c_char,
+    borrow::Cow, cell::RefCell, default::Default, error::Error, ffi, mem, ops::Drop,
+    os::raw::c_char,
 };
 
-use ash::{
-    ext::debug_utils,
-    khr::{surface, swapchain},
-    vk, Device, Entry, Instance,
+use kazan::{
+    Entry, make_api_version,
+    vk::{
+        self,
+        ext::debug_utils,
+        khr::{surface, swapchain},
+        vk1_0,
+    },
 };
+pub use kazan::{copy_to_mapped, read_spv};
 use winit::{
     event::{ElementState, Event, KeyEvent, WindowEvent},
     event_loop::{ControlFlow, EventLoop},
@@ -41,8 +47,9 @@ macro_rules! offset_of {
 }
 
 #[allow(clippy::too_many_arguments)]
-pub fn record_submit_commandbuffer<F: FnOnce(&Device, vk::CommandBuffer)>(
-    device: &Device,
+pub fn record_submit_commandbuffer<F: FnOnce(&vk1_0::DeviceFn, vk::CommandBuffer)>(
+    device_fn: &vk1_0::DeviceFn,
+    device: vk::Device,
     command_buffer: vk::CommandBuffer,
     command_buffer_reuse_fence: vk::Fence,
     submit_queue: vk::Queue,
@@ -52,7 +59,7 @@ pub fn record_submit_commandbuffer<F: FnOnce(&Device, vk::CommandBuffer)>(
     f: F,
 ) {
     unsafe {
-        device
+        device_fn
             .reset_command_buffer(
                 command_buffer,
                 vk::CommandBufferResetFlags::RELEASE_RESOURCES,
@@ -62,30 +69,29 @@ pub fn record_submit_commandbuffer<F: FnOnce(&Device, vk::CommandBuffer)>(
         let command_buffer_begin_info = vk::CommandBufferBeginInfo::default()
             .flags(vk::CommandBufferUsageFlags::ONE_TIME_SUBMIT);
 
-        device
+        device_fn
             .begin_command_buffer(command_buffer, &command_buffer_begin_info)
             .expect("Begin commandbuffer");
-        f(device, command_buffer);
-        device
+        f(device_fn, command_buffer);
+        device_fn
             .end_command_buffer(command_buffer)
             .expect("End commandbuffer");
 
         let command_buffers = vec![command_buffer];
 
         let submit_info = vk::SubmitInfo::default()
-            .wait_semaphores(wait_semaphores)
-            .wait_dst_stage_mask(wait_mask)
+            .wait_semaphores(wait_semaphores, wait_mask)
             .command_buffers(&command_buffers)
             .signal_semaphores(signal_semaphores);
 
-        device
+        device_fn
             .queue_submit(submit_queue, &[submit_info], command_buffer_reuse_fence)
             .expect("queue submit failed.");
     }
 }
 
 unsafe extern "system" fn vulkan_debug_callback(
-    message_severity: vk::DebugUtilsMessageSeverityFlagsEXT,
+    message_severity: vk::DebugUtilsMessageSeverityFlagBitsEXT,
     message_type: vk::DebugUtilsMessageTypeFlagsEXT,
     p_callback_data: *const vk::DebugUtilsMessengerCallbackDataEXT<'_>,
     _user_data: *mut std::os::raw::c_void,
@@ -129,11 +135,13 @@ pub fn find_memorytype_index(
 
 pub struct ExampleBase {
     pub entry: Entry,
-    pub instance: Instance,
-    pub device: Device,
-    pub surface_loader: surface::Instance,
-    pub swapchain_loader: swapchain::Device,
-    pub debug_utils_loader: debug_utils::Instance,
+    pub instance: vk::Instance,
+    pub instance_fn: vk1_0::InstanceFn,
+    pub device: vk::Device,
+    pub device_fn: vk1_0::DeviceFn,
+    pub surface_fn: surface::InstanceFn,
+    pub swapchain_fn: swapchain::DeviceFn,
+    pub debug_utils_fn: debug_utils::InstanceFn,
     pub window: winit::window::Window,
     pub event_loop: RefCell<EventLoop<()>>,
     pub frame_index: RefCell<usize>,
@@ -195,13 +203,20 @@ impl ExampleBase {
                     let draw_commands_reuse_fence =
                         self.draw_commands_reuse_fences[*frame_index % MAX_FRAME_LATENCY];
                     unsafe {
-                        self.device
-                            .wait_for_fences(&[draw_commands_reuse_fence], true, u64::MAX)
+                        self.device_fn.wait_for_fences(
+                            self.device,
+                            &[draw_commands_reuse_fence],
+                            true,
+                            u64::MAX,
+                        )
                     }
                     .expect("Wait for fence failed.");
 
-                    unsafe { self.device.reset_fences(&[draw_commands_reuse_fence]) }
-                        .expect("Reset fences failed.");
+                    unsafe {
+                        self.device_fn
+                            .reset_fences(self.device, &[draw_commands_reuse_fence])
+                    }
+                    .expect("Reset fences failed.");
 
                     f(*frame_index);
                     *frame_index += 1;
@@ -222,7 +237,15 @@ impl ExampleBase {
                 ))
                 .build(&event_loop)
                 .unwrap();
-            let entry = Entry::linked();
+            let entry = Entry::linked()?;
+
+            let load_instance = |instance: vk::Instance| {
+                let get_proc = entry.static_fn.get_instance_proc_addr;
+                move |name: &ffi::CStr| -> Option<vk::PFN_vkVoidFunction> {
+                    unsafe { mem::transmute(get_proc(instance, name.as_ptr())) }
+                }
+            };
+
             let app_name = c"VulkanTriangle";
 
             let layer_names = [c"VK_LAYER_KHRONOS_validation"];
@@ -231,17 +254,17 @@ impl ExampleBase {
                 .map(|raw_name| raw_name.as_ptr())
                 .collect();
 
-            let mut extension_names =
-                ash_window::enumerate_required_extensions(event_loop.display_handle()?.as_raw())
-                    .unwrap()
-                    .to_vec();
-            extension_names.push(debug_utils::NAME.as_ptr());
+            let display_handle = window.display_handle()?.as_raw();
+            let mut extension_names: Vec<*const c_char> =
+                kazan::window::enumerate_required_extensions(display_handle)?.to_vec();
+            extension_names.push(debug_utils::EXTENSION_NAME.as_ptr());
 
             #[cfg(any(target_os = "macos", target_os = "ios"))]
             {
-                extension_names.push(ash::khr::portability_enumeration::NAME.as_ptr());
+                extension_names.push(vk::khr::portability_enumeration::EXTENSION_NAME.as_ptr());
                 // Enabling this extension is a requirement when using `VK_KHR_portability_subset`
-                extension_names.push(ash::khr::get_physical_device_properties2::NAME.as_ptr());
+                extension_names
+                    .push(vk::khr::get_physical_device_properties2::EXTENSION_NAME.as_ptr());
             }
 
             let appinfo = vk::ApplicationInfo::default()
@@ -249,7 +272,7 @@ impl ExampleBase {
                 .application_version(0)
                 .engine_name(app_name)
                 .engine_version(0)
-                .api_version(vk::make_api_version(0, 1, 0, 0));
+                .api_version(make_api_version(0, 1, 0, 0));
 
             let create_flags = if cfg!(any(target_os = "macos", target_os = "ios")) {
                 vk::InstanceCreateFlags::ENUMERATE_PORTABILITY_KHR
@@ -263,54 +286,63 @@ impl ExampleBase {
                 .enabled_extension_names(&extension_names)
                 .flags(create_flags);
 
-            let instance: Instance = entry
+            let instance = entry
+                .vk1_0
                 .create_instance(&create_info, None)
                 .expect("Instance creation error");
 
+            let instance_fn = vk1_0::InstanceFn::load(load_instance(instance)).unwrap();
+
             let debug_info = vk::DebugUtilsMessengerCreateInfoEXT::default()
                 .message_severity(
-                    vk::DebugUtilsMessageSeverityFlagsEXT::ERROR
-                        | vk::DebugUtilsMessageSeverityFlagsEXT::WARNING
-                        | vk::DebugUtilsMessageSeverityFlagsEXT::INFO,
+                    vk::DebugUtilsMessageSeverityFlagsEXT::ERROR_EXT
+                        | vk::DebugUtilsMessageSeverityFlagsEXT::WARNING_EXT
+                        | vk::DebugUtilsMessageSeverityFlagsEXT::INFO_EXT,
                 )
                 .message_type(
-                    vk::DebugUtilsMessageTypeFlagsEXT::GENERAL
-                        | vk::DebugUtilsMessageTypeFlagsEXT::VALIDATION
-                        | vk::DebugUtilsMessageTypeFlagsEXT::PERFORMANCE,
+                    vk::DebugUtilsMessageTypeFlagsEXT::GENERAL_EXT
+                        | vk::DebugUtilsMessageTypeFlagsEXT::VALIDATION_EXT
+                        | vk::DebugUtilsMessageTypeFlagsEXT::PERFORMANCE_EXT,
                 )
-                .pfn_user_callback(Some(vulkan_debug_callback));
+                .pfn_user_callback(vulkan_debug_callback);
 
-            let debug_utils_loader = debug_utils::Instance::load(&entry, &instance);
-            let debug_call_back = debug_utils_loader
-                .create_debug_utils_messenger(&debug_info, None)
+            let debug_utils_fn = debug_utils::InstanceFn::load(load_instance(instance)).unwrap();
+            let debug_call_back = debug_utils_fn
+                .create_debug_utils_messenger_ext(instance, &debug_info, None)
                 .unwrap();
 
-            let surface_factory = ash_window::SurfaceFactory::new(
-                &entry,
-                &instance,
-                event_loop.display_handle()?.as_raw(),
-            )
-            .unwrap();
-            let surface = surface_factory
-                .create_surface(window.window_handle()?.as_raw(), None)
-                .unwrap();
-            let surface_loader = surface::Instance::load(&entry, &instance);
+            // Create surface
+            let surface_fn = surface::InstanceFn::load(load_instance(instance)).unwrap();
 
-            let pdevices = instance
-                .enumerate_physical_devices()
+            let window_handle = window.window_handle()?.as_raw();
+            let surface = kazan::window::create_surface(
+                load_instance(instance),
+                instance,
+                display_handle,
+                window_handle,
+                None,
+            )?;
+
+            let mut pdevices = Vec::new();
+            instance_fn
+                .enumerate_physical_devices(instance, &mut pdevices)
                 .expect("Physical device error");
             let (pdevice, queue_family_index) = pdevices
                 .iter()
                 .find_map(|pdevice| {
-                    instance
-                        .get_physical_device_queue_family_properties(*pdevice)
+                    let mut queue_family_props = Vec::new();
+                    instance_fn.get_physical_device_queue_family_properties(
+                        *pdevice,
+                        &mut queue_family_props,
+                    );
+                    queue_family_props
                         .iter()
                         .enumerate()
                         .find_map(|(index, info)| {
                             let supports_graphic_and_surface =
                                 info.queue_flags.contains(vk::QueueFlags::GRAPHICS)
-                                    && surface_loader
-                                        .get_physical_device_surface_support(
+                                    && surface_fn
+                                        .get_physical_device_surface_support_khr(
                                             *pdevice,
                                             index as u32,
                                             surface,
@@ -326,9 +358,9 @@ impl ExampleBase {
                 .expect("Couldn't find suitable device.");
             let queue_family_index = queue_family_index as u32;
             let device_extension_names_raw = [
-                swapchain::NAME.as_ptr(),
+                swapchain::EXTENSION_NAME.as_ptr(),
                 #[cfg(any(target_os = "macos", target_os = "ios"))]
-                ash::khr::portability_subset::NAME.as_ptr(),
+                vk::khr::portability_subset::EXTENSION_NAME.as_ptr(),
             ];
             let features = vk::PhysicalDeviceFeatures {
                 shader_clip_distance: 1,
@@ -345,18 +377,22 @@ impl ExampleBase {
                 .enabled_extension_names(&device_extension_names_raw)
                 .enabled_features(&features);
 
-            let device: Device = instance
+            let device = instance_fn
                 .create_device(pdevice, &device_create_info, None)
                 .unwrap();
 
-            let present_queue = device.get_device_queue(queue_family_index, 0);
+            let device_fn = vk1_0::DeviceFn::load(load_instance(instance)).unwrap();
 
-            let surface_format = surface_loader
-                .get_physical_device_surface_formats(pdevice, surface)
-                .unwrap()[0];
+            let present_queue = device_fn.get_device_queue(device, queue_family_index, 0);
 
-            let surface_capabilities = surface_loader
-                .get_physical_device_surface_capabilities(pdevice, surface)
+            let mut surface_formats = Vec::new();
+            surface_fn
+                .get_physical_device_surface_formats_khr(pdevice, surface, &mut surface_formats)
+                .unwrap();
+            let surface_format = surface_formats[0];
+
+            let surface_capabilities = surface_fn
+                .get_physical_device_surface_capabilities_khr(pdevice, surface)
                 .unwrap();
             let mut desired_image_count = surface_capabilities.min_image_count + 1;
             if surface_capabilities.max_image_count > 0
@@ -373,21 +409,22 @@ impl ExampleBase {
             };
             let pre_transform = if surface_capabilities
                 .supported_transforms
-                .contains(vk::SurfaceTransformFlagsKHR::IDENTITY)
+                .contains(vk::SurfaceTransformFlagsKHR::IDENTITY_KHR)
             {
-                vk::SurfaceTransformFlagsKHR::IDENTITY
+                vk::SurfaceTransformFlagBitsKHR::IDENTITY_KHR
             } else {
                 surface_capabilities.current_transform
             };
-            let present_modes = surface_loader
-                .get_physical_device_surface_present_modes(pdevice, surface)
+            let mut present_modes = Vec::new();
+            surface_fn
+                .get_physical_device_surface_present_modes_khr(pdevice, surface, &mut present_modes)
                 .unwrap();
             let present_mode = present_modes
                 .iter()
                 .cloned()
-                .find(|&mode| mode == vk::PresentModeKHR::MAILBOX)
-                .unwrap_or(vk::PresentModeKHR::FIFO);
-            let swapchain_loader = swapchain::Device::load(&instance, &device);
+                .find(|&mode| mode == vk::PresentModeKHR::MAILBOX_KHR)
+                .unwrap_or(vk::PresentModeKHR::FIFO_KHR);
+            let swapchain_fn = swapchain::DeviceFn::load(load_instance(instance)).unwrap();
 
             let swapchain_create_info = vk::SwapchainCreateInfoKHR::default()
                 .surface(surface)
@@ -398,28 +435,35 @@ impl ExampleBase {
                 .image_usage(vk::ImageUsageFlags::COLOR_ATTACHMENT)
                 .image_sharing_mode(vk::SharingMode::EXCLUSIVE)
                 .pre_transform(pre_transform)
-                .composite_alpha(vk::CompositeAlphaFlagsKHR::OPAQUE)
+                .composite_alpha(vk::CompositeAlphaFlagBitsKHR::OPAQUE_KHR)
                 .present_mode(present_mode)
                 .clipped(true)
                 .image_array_layers(1);
 
-            let swapchain = swapchain_loader
-                .create_swapchain(&swapchain_create_info, None)
+            let swapchain = swapchain_fn
+                .create_swapchain_khr(device, &swapchain_create_info, None)
                 .unwrap();
 
             let pool_create_info = vk::CommandPoolCreateInfo::default()
                 .flags(vk::CommandPoolCreateFlags::RESET_COMMAND_BUFFER)
                 .queue_family_index(queue_family_index);
 
-            let pool = device.create_command_pool(&pool_create_info, None).unwrap();
+            let pool = device_fn
+                .create_command_pool(device, &pool_create_info, None)
+                .unwrap();
 
             let command_buffer_allocate_info = vk::CommandBufferAllocateInfo::default()
                 .command_buffer_count(2 + MAX_FRAME_LATENCY as u32)
                 .command_pool(pool)
                 .level(vk::CommandBufferLevel::PRIMARY);
 
-            let command_buffers = device
-                .allocate_command_buffers(&command_buffer_allocate_info)
+            let mut command_buffers = vec![vk::CommandBuffer::null(); 2 + MAX_FRAME_LATENCY];
+            device_fn
+                .allocate_command_buffers(
+                    device,
+                    &command_buffer_allocate_info,
+                    &mut command_buffers,
+                )
                 .unwrap();
             let setup_command_buffer = command_buffers[0];
             let app_setup_command_buffer = command_buffers[1];
@@ -427,12 +471,15 @@ impl ExampleBase {
                 .try_into()
                 .unwrap();
 
-            let present_images = swapchain_loader.get_swapchain_images(swapchain).unwrap();
+            let mut present_images = Vec::new();
+            swapchain_fn
+                .get_swapchain_images_khr(device, swapchain, &mut present_images)
+                .unwrap();
             let present_image_views: Vec<vk::ImageView> = present_images
                 .iter()
                 .map(|&image| {
                     let create_view_info = vk::ImageViewCreateInfo::default()
-                        .view_type(vk::ImageViewType::TYPE_2D)
+                        .view_type(vk::ImageViewType::_2D)
                         .format(surface_format.format)
                         .components(vk::ComponentMapping {
                             r: vk::ComponentSwizzle::R,
@@ -448,23 +495,29 @@ impl ExampleBase {
                             layer_count: 1,
                         })
                         .image(image);
-                    device.create_image_view(&create_view_info, None).unwrap()
+                    device_fn
+                        .create_image_view(device, &create_view_info, None)
+                        .unwrap()
                 })
                 .collect();
-            let device_memory_properties = instance.get_physical_device_memory_properties(pdevice);
+            let device_memory_properties =
+                instance_fn.get_physical_device_memory_properties(pdevice);
             let depth_image_create_info = vk::ImageCreateInfo::default()
-                .image_type(vk::ImageType::TYPE_2D)
+                .image_type(vk::ImageType::_2D)
                 .format(vk::Format::D16_UNORM)
                 .extent(surface_resolution.into())
                 .mip_levels(1)
                 .array_layers(1)
-                .samples(vk::SampleCountFlags::TYPE_1)
+                .samples(vk::SampleCountFlagBits::_1)
                 .tiling(vk::ImageTiling::OPTIMAL)
                 .usage(vk::ImageUsageFlags::DEPTH_STENCIL_ATTACHMENT)
                 .sharing_mode(vk::SharingMode::EXCLUSIVE);
 
-            let depth_image = device.create_image(&depth_image_create_info, None).unwrap();
-            let depth_image_memory_req = device.get_image_memory_requirements(depth_image);
+            let depth_image = device_fn
+                .create_image(device, &depth_image_create_info, None)
+                .unwrap();
+            let depth_image_memory_req =
+                device_fn.get_image_memory_requirements(device, depth_image);
             let depth_image_memory_index = find_memorytype_index(
                 &depth_image_memory_req,
                 &device_memory_properties,
@@ -476,23 +529,24 @@ impl ExampleBase {
                 .allocation_size(depth_image_memory_req.size)
                 .memory_type_index(depth_image_memory_index);
 
-            let depth_image_memory = device
-                .allocate_memory(&depth_image_allocate_info, None)
+            let depth_image_memory = device_fn
+                .allocate_memory(device, &depth_image_allocate_info, None)
                 .unwrap();
 
-            device
-                .bind_image_memory(depth_image, depth_image_memory, 0)
+            device_fn
+                .bind_image_memory(device, depth_image, depth_image_memory, 0)
                 .expect("Unable to bind depth image memory");
 
             record_submit_commandbuffer(
-                &device,
+                &device_fn,
+                device,
                 setup_command_buffer,
                 vk::Fence::null(),
                 present_queue,
                 &[],
                 &[],
                 &[],
-                |device, setup_command_buffer| {
+                |device_fn, setup_command_buffer| {
                     let layout_transition_barriers = vk::ImageMemoryBarrier::default()
                         .image(depth_image)
                         .dst_access_mask(
@@ -508,7 +562,7 @@ impl ExampleBase {
                                 .level_count(1),
                         );
 
-                    device.cmd_pipeline_barrier(
+                    device_fn.cmd_pipeline_barrier(
                         setup_command_buffer,
                         vk::PipelineStageFlags::BOTTOM_OF_PIPE,
                         vk::PipelineStageFlags::LATE_FRAGMENT_TESTS,
@@ -529,23 +583,23 @@ impl ExampleBase {
                 )
                 .image(depth_image)
                 .format(depth_image_create_info.format)
-                .view_type(vk::ImageViewType::TYPE_2D);
+                .view_type(vk::ImageViewType::_2D);
 
-            let depth_image_view = device
-                .create_image_view(&depth_image_view_info, None)
+            let depth_image_view = device_fn
+                .create_image_view(device, &depth_image_view_info, None)
                 .unwrap();
 
             let semaphore_create_info = vk::SemaphoreCreateInfo::default();
 
             let present_complete_semaphores = std::array::from_fn(|_| {
-                device
-                    .create_semaphore(&semaphore_create_info, None)
+                device_fn
+                    .create_semaphore(device, &semaphore_create_info, None)
                     .unwrap()
             });
             let rendering_complete_semaphores = (0..present_images.len())
                 .map(|_| {
-                    device
-                        .create_semaphore(&semaphore_create_info, None)
+                    device_fn
+                        .create_semaphore(device, &semaphore_create_info, None)
                         .unwrap()
                 })
                 .collect();
@@ -554,8 +608,8 @@ impl ExampleBase {
                 vk::FenceCreateInfo::default().flags(vk::FenceCreateFlags::SIGNALED);
 
             let draw_commands_reuse_fences = std::array::from_fn(|_| {
-                device
-                    .create_fence(&fence_create_info, None)
+                device_fn
+                    .create_fence(device, &fence_create_info, None)
                     .expect("Create fence failed.")
             });
 
@@ -564,16 +618,19 @@ impl ExampleBase {
                 frame_index: RefCell::new(0),
                 entry,
                 instance,
+                instance_fn,
                 device,
+                device_fn,
                 queue_family_index,
                 pdevice,
                 device_memory_properties,
                 window,
-                surface_loader,
+                surface_fn,
+                swapchain_fn,
+                debug_utils_fn,
                 surface_format,
                 present_queue,
                 surface_resolution,
-                swapchain_loader,
                 swapchain,
                 present_images,
                 present_image_views,
@@ -588,7 +645,6 @@ impl ExampleBase {
                 draw_commands_reuse_fences,
                 surface,
                 debug_call_back,
-                debug_utils_loader,
                 depth_image_memory,
             })
         }
@@ -598,30 +654,41 @@ impl ExampleBase {
 impl Drop for ExampleBase {
     fn drop(&mut self) {
         unsafe {
-            self.device.device_wait_idle().unwrap();
+            self.device_fn.device_wait_idle(self.device).unwrap();
             for &semaphore in &self.present_complete_semaphores {
-                self.device.destroy_semaphore(semaphore, None);
+                self.device_fn
+                    .destroy_semaphore(self.device, semaphore, None);
             }
             for &semaphore in &self.rendering_complete_semaphores {
-                self.device.destroy_semaphore(semaphore, None);
+                self.device_fn
+                    .destroy_semaphore(self.device, semaphore, None);
             }
             for &fence in &self.draw_commands_reuse_fences {
-                self.device.destroy_fence(fence, None);
+                self.device_fn.destroy_fence(self.device, fence, None);
             }
-            self.device.free_memory(self.depth_image_memory, None);
-            self.device.destroy_image_view(self.depth_image_view, None);
-            self.device.destroy_image(self.depth_image, None);
+            self.device_fn
+                .free_memory(self.device, self.depth_image_memory, None);
+            self.device_fn
+                .destroy_image_view(self.device, self.depth_image_view, None);
+            self.device_fn
+                .destroy_image(self.device, self.depth_image, None);
             for &image_view in &self.present_image_views {
-                self.device.destroy_image_view(image_view, None);
+                self.device_fn
+                    .destroy_image_view(self.device, image_view, None);
             }
-            self.device.destroy_command_pool(self.pool, None);
-            self.swapchain_loader
-                .destroy_swapchain(self.swapchain, None);
-            self.device.destroy_device(None);
-            self.surface_loader.destroy_surface(self.surface, None);
-            self.debug_utils_loader
-                .destroy_debug_utils_messenger(self.debug_call_back, None);
-            self.instance.destroy_instance(None);
+            self.device_fn
+                .destroy_command_pool(self.device, self.pool, None);
+            self.swapchain_fn
+                .destroy_swapchain_khr(self.device, self.swapchain, None);
+            self.device_fn.destroy_device(self.device, None);
+            self.surface_fn
+                .destroy_surface_khr(self.instance, self.surface, None);
+            self.debug_utils_fn.destroy_debug_utils_messenger_ext(
+                self.instance,
+                self.debug_call_back,
+                None,
+            );
+            self.instance_fn.destroy_instance(self.instance, None);
         }
     }
 }

@@ -13,5 +13,4 @@ winit = { version = "0.29", features = ["rwh_06"] }
 # equivalent development packages should be present, so we can link
 # directly and benefit from the infallible `Entry` constructor.
 # Provisional features are required to access VK_KHR_portability_subset for MoltenVK
-kazan = { path = "../kazan", default-features = false, features = ["linked", "debug", "std", "provisional"] }
-#kazan-window = { path = "../kazan-window" }
+kazan = { path = "../kazan", default-features = false, features = ["linked", "debug", "std", "window"] }

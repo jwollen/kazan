@@ -4,11 +4,9 @@ use std::default::Default;
 use std::error::Error;
 use std::io::Cursor;
 use std::mem;
-use std::mem::{align_of, size_of, size_of_val}; // TODO: Remove when bumping MSRV to 1.80
-use std::os::raw::c_void;
 
-use ash::util::*;
-use ash::vk;
+use kazan::util::Align;
+use kazan::vk;
 use kazan_examples::*;
 
 #[derive(Clone, Debug, Copy)]
@@ -32,7 +30,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         let renderpass_attachments = [
             vk::AttachmentDescription {
                 format: base.surface_format.format,
-                samples: vk::SampleCountFlags::TYPE_1,
+                samples: vk::SampleCountFlagBits::_1,
                 load_op: vk::AttachmentLoadOp::CLEAR,
                 store_op: vk::AttachmentStoreOp::STORE,
                 final_layout: vk::ImageLayout::PRESENT_SRC_KHR,
@@ -40,7 +38,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             },
             vk::AttachmentDescription {
                 format: vk::Format::D16_UNORM,
-                samples: vk::SampleCountFlags::TYPE_1,
+                samples: vk::SampleCountFlagBits::_1,
                 load_op: vk::AttachmentLoadOp::CLEAR,
                 initial_layout: vk::ImageLayout::DEPTH_STENCIL_ATTACHMENT_OPTIMAL,
                 final_layout: vk::ImageLayout::DEPTH_STENCIL_ATTACHMENT_OPTIMAL,
@@ -65,7 +63,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         }];
 
         let subpass = vk::SubpassDescription::default()
-            .color_attachments(&color_attachment_refs)
+            .color_attachments(&color_attachment_refs, None)
             .depth_stencil_attachment(&depth_attachment_ref)
             .pipeline_bind_point(vk::PipelineBindPoint::GRAPHICS);
 
@@ -75,8 +73,8 @@ fn main() -> Result<(), Box<dyn Error>> {
             .dependencies(&dependencies);
 
         let renderpass = base
-            .device
-            .create_render_pass(&renderpass_create_info, None)
+            .device_fn
+            .create_render_pass(base.device, &renderpass_create_info, None)
             .unwrap();
 
         let framebuffers: Vec<vk::Framebuffer> = base
@@ -91,8 +89,8 @@ fn main() -> Result<(), Box<dyn Error>> {
                     .height(base.surface_resolution.height)
                     .layers(1);
 
-                base.device
-                    .create_framebuffer(&frame_buffer_create_info, None)
+                base.device_fn
+                    .create_framebuffer(base.device, &frame_buffer_create_info, None)
                     .unwrap()
             })
             .collect();
@@ -103,8 +101,13 @@ fn main() -> Result<(), Box<dyn Error>> {
             sharing_mode: vk::SharingMode::EXCLUSIVE,
             ..Default::default()
         };
-        let index_buffer = base.device.create_buffer(&index_buffer_info, None).unwrap();
-        let index_buffer_memory_req = base.device.get_buffer_memory_requirements(index_buffer);
+        let index_buffer = base
+            .device_fn
+            .create_buffer(base.device, &index_buffer_info, None)
+            .unwrap();
+        let index_buffer_memory_req = base
+            .device_fn
+            .get_buffer_memory_requirements(base.device, index_buffer);
         let index_buffer_memory_index = find_memorytype_index(
             &index_buffer_memory_req,
             &base.device_memory_properties,
@@ -117,12 +120,13 @@ fn main() -> Result<(), Box<dyn Error>> {
             ..Default::default()
         };
         let index_buffer_memory = base
-            .device
-            .allocate_memory(&index_allocate_info, None)
+            .device_fn
+            .allocate_memory(base.device, &index_allocate_info, None)
             .unwrap();
-        let index_ptr: *mut c_void = base
-            .device
+        let index_ptr = base
+            .device_fn
             .map_memory(
+                base.device,
                 index_buffer_memory,
                 0,
                 index_buffer_memory_req.size,
@@ -135,9 +139,10 @@ fn main() -> Result<(), Box<dyn Error>> {
             index_buffer_memory_req.size,
         );
         index_slice.copy_from_slice(&index_buffer_data);
-        base.device.unmap_memory(index_buffer_memory);
-        base.device
-            .bind_buffer_memory(index_buffer, index_buffer_memory, 0)
+        base.device_fn
+            .unmap_memory(base.device, index_buffer_memory);
+        base.device_fn
+            .bind_buffer_memory(base.device, index_buffer, index_buffer_memory, 0)
             .unwrap();
 
         let vertices = [
@@ -165,12 +170,12 @@ fn main() -> Result<(), Box<dyn Error>> {
             ..Default::default()
         };
         let vertex_input_buffer = base
-            .device
-            .create_buffer(&vertex_input_buffer_info, None)
+            .device_fn
+            .create_buffer(base.device, &vertex_input_buffer_info, None)
             .unwrap();
         let vertex_input_buffer_memory_req = base
-            .device
-            .get_buffer_memory_requirements(vertex_input_buffer);
+            .device_fn
+            .get_buffer_memory_requirements(base.device, vertex_input_buffer);
         let vertex_input_buffer_memory_index = find_memorytype_index(
             &vertex_input_buffer_memory_req,
             &base.device_memory_properties,
@@ -184,13 +189,14 @@ fn main() -> Result<(), Box<dyn Error>> {
             ..Default::default()
         };
         let vertex_input_buffer_memory = base
-            .device
-            .allocate_memory(&vertex_buffer_allocate_info, None)
+            .device_fn
+            .allocate_memory(base.device, &vertex_buffer_allocate_info, None)
             .unwrap();
 
         let vert_ptr = base
-            .device
+            .device_fn
             .map_memory(
+                base.device,
                 vertex_input_buffer_memory,
                 0,
                 vertex_input_buffer_memory_req.size,
@@ -203,9 +209,15 @@ fn main() -> Result<(), Box<dyn Error>> {
             vertex_input_buffer_memory_req.size,
         );
         slice.copy_from_slice(&vertices);
-        base.device.unmap_memory(vertex_input_buffer_memory);
-        base.device
-            .bind_buffer_memory(vertex_input_buffer, vertex_input_buffer_memory, 0)
+        base.device_fn
+            .unmap_memory(base.device, vertex_input_buffer_memory);
+        base.device_fn
+            .bind_buffer_memory(
+                base.device,
+                vertex_input_buffer,
+                vertex_input_buffer_memory,
+                0,
+            )
             .unwrap();
 
         let uniform_color_buffer_data = Vector3 {
@@ -221,12 +233,12 @@ fn main() -> Result<(), Box<dyn Error>> {
             ..Default::default()
         };
         let uniform_color_buffer = base
-            .device
-            .create_buffer(&uniform_color_buffer_info, None)
+            .device_fn
+            .create_buffer(base.device, &uniform_color_buffer_info, None)
             .unwrap();
         let uniform_color_buffer_memory_req = base
-            .device
-            .get_buffer_memory_requirements(uniform_color_buffer);
+            .device_fn
+            .get_buffer_memory_requirements(base.device, uniform_color_buffer);
         let uniform_color_buffer_memory_index = find_memorytype_index(
             &uniform_color_buffer_memory_req,
             &base.device_memory_properties,
@@ -240,12 +252,13 @@ fn main() -> Result<(), Box<dyn Error>> {
             ..Default::default()
         };
         let uniform_color_buffer_memory = base
-            .device
-            .allocate_memory(&uniform_color_buffer_allocate_info, None)
+            .device_fn
+            .allocate_memory(base.device, &uniform_color_buffer_allocate_info, None)
             .unwrap();
         let uniform_ptr = base
-            .device
+            .device_fn
             .map_memory(
+                base.device,
                 uniform_color_buffer_memory,
                 0,
                 uniform_color_buffer_memory_req.size,
@@ -258,9 +271,15 @@ fn main() -> Result<(), Box<dyn Error>> {
             uniform_color_buffer_memory_req.size,
         );
         uniform_aligned_slice.copy_from_slice(&[uniform_color_buffer_data]);
-        base.device.unmap_memory(uniform_color_buffer_memory);
-        base.device
-            .bind_buffer_memory(uniform_color_buffer, uniform_color_buffer_memory, 0)
+        base.device_fn
+            .unmap_memory(base.device, uniform_color_buffer_memory);
+        base.device_fn
+            .bind_buffer_memory(
+                base.device,
+                uniform_color_buffer,
+                uniform_color_buffer_memory,
+                0,
+            )
             .unwrap();
 
         let image = image::load_from_memory(include_bytes!("../../assets/rust.png"))
@@ -275,8 +294,13 @@ fn main() -> Result<(), Box<dyn Error>> {
             sharing_mode: vk::SharingMode::EXCLUSIVE,
             ..Default::default()
         };
-        let image_buffer = base.device.create_buffer(&image_buffer_info, None).unwrap();
-        let image_buffer_memory_req = base.device.get_buffer_memory_requirements(image_buffer);
+        let image_buffer = base
+            .device_fn
+            .create_buffer(base.device, &image_buffer_info, None)
+            .unwrap();
+        let image_buffer_memory_req = base
+            .device_fn
+            .get_buffer_memory_requirements(base.device, image_buffer);
         let image_buffer_memory_index = find_memorytype_index(
             &image_buffer_memory_req,
             &base.device_memory_properties,
@@ -290,12 +314,13 @@ fn main() -> Result<(), Box<dyn Error>> {
             ..Default::default()
         };
         let image_buffer_memory = base
-            .device
-            .allocate_memory(&image_buffer_allocate_info, None)
+            .device_fn
+            .allocate_memory(base.device, &image_buffer_allocate_info, None)
             .unwrap();
         let image_ptr = base
-            .device
+            .device_fn
             .map_memory(
+                base.device,
                 image_buffer_memory,
                 0,
                 image_buffer_memory_req.size,
@@ -308,28 +333,31 @@ fn main() -> Result<(), Box<dyn Error>> {
             image_buffer_memory_req.size,
         );
         image_slice.copy_from_slice(&image_data);
-        base.device.unmap_memory(image_buffer_memory);
-        base.device
-            .bind_buffer_memory(image_buffer, image_buffer_memory, 0)
+        base.device_fn
+            .unmap_memory(base.device, image_buffer_memory);
+        base.device_fn
+            .bind_buffer_memory(base.device, image_buffer, image_buffer_memory, 0)
             .unwrap();
 
         let texture_create_info = vk::ImageCreateInfo {
-            image_type: vk::ImageType::TYPE_2D,
+            image_type: vk::ImageType::_2D,
             format: vk::Format::R8G8B8A8_UNORM,
             extent: image_extent.into(),
             mip_levels: 1,
             array_layers: 1,
-            samples: vk::SampleCountFlags::TYPE_1,
+            samples: vk::SampleCountFlagBits::_1,
             tiling: vk::ImageTiling::OPTIMAL,
             usage: vk::ImageUsageFlags::TRANSFER_DST | vk::ImageUsageFlags::SAMPLED,
             sharing_mode: vk::SharingMode::EXCLUSIVE,
             ..Default::default()
         };
         let texture_image = base
-            .device
-            .create_image(&texture_create_info, None)
+            .device_fn
+            .create_image(base.device, &texture_create_info, None)
             .unwrap();
-        let texture_memory_req = base.device.get_image_memory_requirements(texture_image);
+        let texture_memory_req = base
+            .device_fn
+            .get_image_memory_requirements(base.device, texture_image);
         let texture_memory_index = find_memorytype_index(
             &texture_memory_req,
             &base.device_memory_properties,
@@ -343,22 +371,23 @@ fn main() -> Result<(), Box<dyn Error>> {
             ..Default::default()
         };
         let texture_memory = base
-            .device
-            .allocate_memory(&texture_allocate_info, None)
+            .device_fn
+            .allocate_memory(base.device, &texture_allocate_info, None)
             .unwrap();
-        base.device
-            .bind_image_memory(texture_image, texture_memory, 0)
+        base.device_fn
+            .bind_image_memory(base.device, texture_image, texture_memory, 0)
             .expect("Unable to bind depth image memory");
 
         record_submit_commandbuffer(
-            &base.device,
+            &base.device_fn,
+            base.device,
             base.app_setup_command_buffer,
             vk::Fence::null(),
             base.present_queue,
             &[],
             &[],
             &[],
-            |device, texture_command_buffer| {
+            |device_fn, texture_command_buffer| {
                 let texture_barrier = vk::ImageMemoryBarrier {
                     dst_access_mask: vk::AccessFlags::TRANSFER_WRITE,
                     new_layout: vk::ImageLayout::TRANSFER_DST_OPTIMAL,
@@ -371,7 +400,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                     },
                     ..Default::default()
                 };
-                device.cmd_pipeline_barrier(
+                device_fn.cmd_pipeline_barrier(
                     texture_command_buffer,
                     vk::PipelineStageFlags::BOTTOM_OF_PIPE,
                     vk::PipelineStageFlags::TRANSFER,
@@ -388,7 +417,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                     )
                     .image_extent(image_extent.into());
 
-                device.cmd_copy_buffer_to_image(
+                device_fn.cmd_copy_buffer_to_image(
                     texture_command_buffer,
                     image_buffer,
                     texture_image,
@@ -409,7 +438,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                     },
                     ..Default::default()
                 };
-                device.cmd_pipeline_barrier(
+                device_fn.cmd_pipeline_barrier(
                     texture_command_buffer,
                     vk::PipelineStageFlags::TRANSFER,
                     vk::PipelineStageFlags::FRAGMENT_SHADER,
@@ -434,10 +463,13 @@ fn main() -> Result<(), Box<dyn Error>> {
             ..Default::default()
         };
 
-        let sampler = base.device.create_sampler(&sampler_info, None).unwrap();
+        let sampler = base
+            .device_fn
+            .create_sampler(base.device, &sampler_info, None)
+            .unwrap();
 
         let tex_image_view_info = vk::ImageViewCreateInfo {
-            view_type: vk::ImageViewType::TYPE_2D,
+            view_type: vk::ImageViewType::_2D,
             format: texture_create_info.format,
             components: vk::ComponentMapping {
                 r: vk::ComponentSwizzle::R,
@@ -455,8 +487,8 @@ fn main() -> Result<(), Box<dyn Error>> {
             ..Default::default()
         };
         let tex_image_view = base
-            .device
-            .create_image_view(&tex_image_view_info, None)
+            .device_fn
+            .create_image_view(base.device, &tex_image_view_info, None)
             .unwrap();
         let descriptor_sizes = [
             vk::DescriptorPoolSize {
@@ -473,8 +505,8 @@ fn main() -> Result<(), Box<dyn Error>> {
             .max_sets(1);
 
         let descriptor_pool = base
-            .device
-            .create_descriptor_pool(&descriptor_pool_info, None)
+            .device_fn
+            .create_descriptor_pool(base.device, &descriptor_pool_info, None)
             .unwrap();
         let desc_layout_bindings = [
             vk::DescriptorSetLayoutBinding {
@@ -495,16 +527,16 @@ fn main() -> Result<(), Box<dyn Error>> {
             vk::DescriptorSetLayoutCreateInfo::default().bindings(&desc_layout_bindings);
 
         let desc_set_layouts = [base
-            .device
-            .create_descriptor_set_layout(&descriptor_info, None)
+            .device_fn
+            .create_descriptor_set_layout(base.device, &descriptor_info, None)
             .unwrap()];
 
         let desc_alloc_info = vk::DescriptorSetAllocateInfo::default()
             .descriptor_pool(descriptor_pool)
             .set_layouts(&desc_set_layouts);
-        let descriptor_sets = base
-            .device
-            .allocate_descriptor_sets(&desc_alloc_info)
+        let mut descriptor_sets = [vk::DescriptorSet::null()];
+        base.device_fn
+            .allocate_descriptor_sets(base.device, &desc_alloc_info, &mut descriptor_sets)
             .unwrap();
 
         let uniform_color_buffer_descriptor = vk::DescriptorBufferInfo {
@@ -536,7 +568,8 @@ fn main() -> Result<(), Box<dyn Error>> {
                 ..Default::default()
             },
         ];
-        base.device.update_descriptor_sets(&write_desc_sets, &[]);
+        base.device_fn
+            .update_descriptor_sets(base.device, &write_desc_sets, &[]);
 
         let mut vertex_spv_file = Cursor::new(&include_bytes!("../../shader/texture/vert.spv")[..]);
         let mut frag_spv_file = Cursor::new(&include_bytes!("../../shader/texture/frag.spv")[..]);
@@ -550,21 +583,21 @@ fn main() -> Result<(), Box<dyn Error>> {
         let frag_shader_info = vk::ShaderModuleCreateInfo::default().code(&frag_code);
 
         let vertex_shader_module = base
-            .device
-            .create_shader_module(&vertex_shader_info, None)
+            .device_fn
+            .create_shader_module(base.device, &vertex_shader_info, None)
             .expect("Vertex shader module error");
 
         let fragment_shader_module = base
-            .device
-            .create_shader_module(&frag_shader_info, None)
+            .device_fn
+            .create_shader_module(base.device, &frag_shader_info, None)
             .expect("Fragment shader module error");
 
         let layout_create_info =
             vk::PipelineLayoutCreateInfo::default().set_layouts(&desc_set_layouts);
 
         let pipeline_layout = base
-            .device
-            .create_pipeline_layout(&layout_create_info, None)
+            .device_fn
+            .create_pipeline_layout(base.device, &layout_create_info, None)
             .unwrap();
 
         let shader_entry_name = c"main";
@@ -572,13 +605,13 @@ fn main() -> Result<(), Box<dyn Error>> {
             vk::PipelineShaderStageCreateInfo {
                 module: vertex_shader_module,
                 p_name: shader_entry_name.as_ptr(),
-                stage: vk::ShaderStageFlags::VERTEX,
+                stage: vk::ShaderStageFlagBits::VERTEX,
                 ..Default::default()
             },
             vk::PipelineShaderStageCreateInfo {
                 module: fragment_shader_module,
                 p_name: shader_entry_name.as_ptr(),
-                stage: vk::ShaderStageFlags::FRAGMENT,
+                stage: vk::ShaderStageFlagBits::FRAGMENT,
                 ..Default::default()
             },
         ];
@@ -617,7 +650,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             min_depth: 0.0,
             max_depth: 1.0,
         }];
-        let scissors = [base.surface_resolution.into()];
+        let scissors = [vk::Rect2D::from(base.surface_resolution)];
         let viewport_state_info = vk::PipelineViewportStateCreateInfo::default()
             .scissors(&scissors)
             .viewports(&viewports);
@@ -630,7 +663,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         };
 
         let multisample_state_info = vk::PipelineMultisampleStateCreateInfo::default()
-            .rasterization_samples(vk::SampleCountFlags::TYPE_1);
+            .rasterization_samples(vk::SampleCountFlagBits::_1);
 
         let noop_stencil_state = vk::StencilOpState {
             fail_op: vk::StencilOp::KEEP,
@@ -657,7 +690,10 @@ fn main() -> Result<(), Box<dyn Error>> {
             src_alpha_blend_factor: vk::BlendFactor::ZERO,
             dst_alpha_blend_factor: vk::BlendFactor::ZERO,
             alpha_blend_op: vk::BlendOp::ADD,
-            color_write_mask: vk::ColorComponentFlags::RGBA,
+            color_write_mask: vk::ColorComponentFlags::R
+                | vk::ColorComponentFlags::G
+                | vk::ColorComponentFlags::B
+                | vk::ColorComponentFlags::A,
         }];
         let color_blend_state = vk::PipelineColorBlendStateCreateInfo::default()
             .logic_op(vk::LogicOp::CLEAR)
@@ -680,9 +716,15 @@ fn main() -> Result<(), Box<dyn Error>> {
             .layout(pipeline_layout)
             .render_pass(renderpass);
 
-        let graphics_pipelines = base
-            .device
-            .create_graphics_pipelines(vk::PipelineCache::null(), &[graphic_pipeline_infos], None)
+        let mut graphics_pipelines = [vk::Pipeline::null()];
+        base.device_fn
+            .create_graphics_pipelines(
+                base.device,
+                vk::PipelineCache::null(),
+                &[graphic_pipeline_infos],
+                None,
+                &mut graphics_pipelines,
+            )
             .unwrap();
 
         let graphic_pipeline = graphics_pipelines[0];
@@ -695,8 +737,9 @@ fn main() -> Result<(), Box<dyn Error>> {
             let draw_command_buffer = base.draw_command_buffers[frame_index % MAX_FRAME_LATENCY];
 
             let (present_index, _) = base
-                .swapchain_loader
-                .acquire_next_image(
+                .swapchain_fn
+                .acquire_next_image_khr(
+                    base.device,
                     base.swapchain,
                     u64::MAX,
                     present_complete_semaphore,
@@ -727,20 +770,21 @@ fn main() -> Result<(), Box<dyn Error>> {
                 .clear_values(&clear_values);
 
             record_submit_commandbuffer(
-                &base.device,
+                &base.device_fn,
+                base.device,
                 draw_command_buffer,
                 draw_commands_reuse_fence,
                 base.present_queue,
                 &[vk::PipelineStageFlags::BOTTOM_OF_PIPE],
                 &[present_complete_semaphore],
                 &[rendering_complete_semaphore],
-                |device, draw_command_buffer| {
-                    device.cmd_begin_render_pass(
+                |device_fn, draw_command_buffer| {
+                    device_fn.cmd_begin_render_pass(
                         draw_command_buffer,
                         &render_pass_begin_info,
                         vk::SubpassContents::INLINE,
                     );
-                    device.cmd_bind_descriptor_sets(
+                    device_fn.cmd_bind_descriptor_sets(
                         draw_command_buffer,
                         vk::PipelineBindPoint::GRAPHICS,
                         pipeline_layout,
@@ -748,26 +792,26 @@ fn main() -> Result<(), Box<dyn Error>> {
                         &descriptor_sets[..],
                         &[],
                     );
-                    device.cmd_bind_pipeline(
+                    device_fn.cmd_bind_pipeline(
                         draw_command_buffer,
                         vk::PipelineBindPoint::GRAPHICS,
                         graphic_pipeline,
                     );
-                    device.cmd_set_viewport(draw_command_buffer, 0, &viewports);
-                    device.cmd_set_scissor(draw_command_buffer, 0, &scissors);
-                    device.cmd_bind_vertex_buffers(
+                    device_fn.cmd_set_viewport(draw_command_buffer, 0, &viewports);
+                    device_fn.cmd_set_scissor(draw_command_buffer, 0, &scissors);
+                    device_fn.cmd_bind_vertex_buffers(
                         draw_command_buffer,
                         0,
                         &[vertex_input_buffer],
                         &[0],
                     );
-                    device.cmd_bind_index_buffer(
+                    device_fn.cmd_bind_index_buffer(
                         draw_command_buffer,
                         index_buffer,
                         0,
                         vk::IndexType::UINT32,
                     );
-                    device.cmd_draw_indexed(
+                    device_fn.cmd_draw_indexed(
                         draw_command_buffer,
                         index_buffer_data.len() as u32,
                         1,
@@ -776,8 +820,8 @@ fn main() -> Result<(), Box<dyn Error>> {
                         1,
                     );
                     // Or draw without the index buffer
-                    // device.cmd_draw(draw_command_buffer, 3, 1, 0, 0);
-                    device.cmd_end_render_pass(draw_command_buffer);
+                    // device_fn.cmd_end_render_pass(draw_command_buffer, 3, 1, 0, 0);
+                    device_fn.cmd_end_render_pass(draw_command_buffer);
                 },
             );
             let present_info = vk::PresentInfoKHR {
@@ -788,41 +832,56 @@ fn main() -> Result<(), Box<dyn Error>> {
                 p_image_indices: &present_index,
                 ..Default::default()
             };
-            base.swapchain_loader
-                .queue_present(base.present_queue, &present_info)
+            base.swapchain_fn
+                .queue_present_khr(base.present_queue, &present_info)
                 .unwrap();
         });
-        base.device.device_wait_idle().unwrap();
+        base.device_fn.device_wait_idle(base.device).unwrap();
 
         for pipeline in graphics_pipelines {
-            base.device.destroy_pipeline(pipeline, None);
+            base.device_fn.destroy_pipeline(base.device, pipeline, None);
         }
-        base.device.destroy_pipeline_layout(pipeline_layout, None);
-        base.device
-            .destroy_shader_module(vertex_shader_module, None);
-        base.device
-            .destroy_shader_module(fragment_shader_module, None);
-        base.device.free_memory(image_buffer_memory, None);
-        base.device.destroy_buffer(image_buffer, None);
-        base.device.free_memory(texture_memory, None);
-        base.device.destroy_image_view(tex_image_view, None);
-        base.device.destroy_image(texture_image, None);
-        base.device.free_memory(index_buffer_memory, None);
-        base.device.destroy_buffer(index_buffer, None);
-        base.device.free_memory(uniform_color_buffer_memory, None);
-        base.device.destroy_buffer(uniform_color_buffer, None);
-        base.device.free_memory(vertex_input_buffer_memory, None);
-        base.device.destroy_buffer(vertex_input_buffer, None);
+        base.device_fn
+            .destroy_pipeline_layout(base.device, pipeline_layout, None);
+        base.device_fn
+            .destroy_shader_module(base.device, vertex_shader_module, None);
+        base.device_fn
+            .destroy_shader_module(base.device, fragment_shader_module, None);
+        base.device_fn
+            .free_memory(base.device, image_buffer_memory, None);
+        base.device_fn
+            .destroy_buffer(base.device, image_buffer, None);
+        base.device_fn
+            .free_memory(base.device, texture_memory, None);
+        base.device_fn
+            .destroy_image_view(base.device, tex_image_view, None);
+        base.device_fn
+            .destroy_image(base.device, texture_image, None);
+        base.device_fn
+            .free_memory(base.device, index_buffer_memory, None);
+        base.device_fn
+            .destroy_buffer(base.device, index_buffer, None);
+        base.device_fn
+            .free_memory(base.device, uniform_color_buffer_memory, None);
+        base.device_fn
+            .destroy_buffer(base.device, uniform_color_buffer, None);
+        base.device_fn
+            .free_memory(base.device, vertex_input_buffer_memory, None);
+        base.device_fn
+            .destroy_buffer(base.device, vertex_input_buffer, None);
         for &descriptor_set_layout in desc_set_layouts.iter() {
-            base.device
-                .destroy_descriptor_set_layout(descriptor_set_layout, None);
+            base.device_fn
+                .destroy_descriptor_set_layout(base.device, descriptor_set_layout, None);
         }
-        base.device.destroy_descriptor_pool(descriptor_pool, None);
-        base.device.destroy_sampler(sampler, None);
+        base.device_fn
+            .destroy_descriptor_pool(base.device, descriptor_pool, None);
+        base.device_fn.destroy_sampler(base.device, sampler, None);
         for framebuffer in framebuffers {
-            base.device.destroy_framebuffer(framebuffer, None);
+            base.device_fn
+                .destroy_framebuffer(base.device, framebuffer, None);
         }
-        base.device.destroy_render_pass(renderpass, None);
+        base.device_fn
+            .destroy_render_pass(base.device, renderpass, None);
 
         Ok(())
     }
