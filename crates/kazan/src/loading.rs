@@ -14,9 +14,9 @@ pub type LoadFn = fn(&CStr) -> Option<crate::vk::PFN_vkVoidFunction>;
 pub struct Entry {
     #[cfg(feature = "loaded")]
     _lib_guard: Option<Library>,
-    static_fn: StaticFn,
-    vk1_0: crate::vk::vk1_0::EntryFn,
-    vk1_1: Option<crate::vk::vk1_1::EntryFn>,
+    pub static_fn: StaticFn,
+    pub vk1_0: crate::vk::vk1_0::EntryFn,
+    pub vk1_1: Option<crate::vk::vk1_1::EntryFn>,
 }
 
 impl Entry {
