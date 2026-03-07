@@ -60,6 +60,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceImageAlignmentControlFeaturesMESA<'a> {
+        #[inline]
         pub fn image_alignment_control(mut self, image_alignment_control: bool) -> Self {
             self.image_alignment_control = image_alignment_control.into();
             self
@@ -113,6 +114,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceImageAlignmentControlPropertiesMESA<'a> {
+        #[inline]
         pub fn supported_image_alignment_mask(
             mut self,
             supported_image_alignment_mask: u32,
@@ -166,6 +168,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageAlignmentControlCreateInfoMESA<'a> {
+        #[inline]
         pub fn maximum_requested_alignment(mut self, maximum_requested_alignment: u32) -> Self {
             self.maximum_requested_alignment = maximum_requested_alignment;
             self

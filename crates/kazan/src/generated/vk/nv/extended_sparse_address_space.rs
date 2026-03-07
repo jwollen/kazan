@@ -63,6 +63,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceExtendedSparseAddressSpaceFeaturesNV<'a> {
+        #[inline]
         pub fn extended_sparse_address_space(
             mut self,
             extended_sparse_address_space: bool,
@@ -131,6 +132,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceExtendedSparseAddressSpacePropertiesNV<'a> {
+        #[inline]
         pub fn extended_sparse_address_space_size(
             mut self,
             extended_sparse_address_space_size: DeviceSize,
@@ -139,6 +141,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_sparse_image_usage_flags(
             mut self,
             extended_sparse_image_usage_flags: ImageUsageFlags,
@@ -147,6 +150,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_sparse_buffer_usage_flags(
             mut self,
             extended_sparse_buffer_usage_flags: BufferUsageFlags,

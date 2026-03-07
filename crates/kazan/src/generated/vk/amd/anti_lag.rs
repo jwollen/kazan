@@ -53,6 +53,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceAntiLagFeaturesAMD<'a> {
+        #[inline]
         pub fn anti_lag(mut self, anti_lag: bool) -> Self {
             self.anti_lag = anti_lag.into();
             self
@@ -103,16 +104,19 @@ pub(super) mod defs {
     }
 
     impl<'a> AntiLagDataAMD<'a> {
+        #[inline]
         pub fn mode(mut self, mode: AntiLagModeAMD) -> Self {
             self.mode = mode;
             self
         }
 
+        #[inline]
         pub fn max_fps(mut self, max_fps: u32) -> Self {
             self.max_fps = max_fps;
             self
         }
 
+        #[inline]
         pub fn presentation_info(
             mut self,
             presentation_info: &'a AntiLagPresentationInfoAMD<'a>,
@@ -163,11 +167,13 @@ pub(super) mod defs {
     }
 
     impl<'a> AntiLagPresentationInfoAMD<'a> {
+        #[inline]
         pub fn stage(mut self, stage: AntiLagStageAMD) -> Self {
             self.stage = stage;
             self
         }
 
+        #[inline]
         pub fn frame_index(mut self, frame_index: u64) -> Self {
             self.frame_index = frame_index;
             self
@@ -251,6 +257,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAntiLagUpdateAMD.html>
+    #[inline]
     pub unsafe fn anti_lag_update_amd(&self, device: Device, data: &AntiLagDataAMD<'_>) {
         unsafe { (self.anti_lag_update_amd)(device, data) }
     }

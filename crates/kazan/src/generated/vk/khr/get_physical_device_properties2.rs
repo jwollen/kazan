@@ -92,6 +92,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFeatures2KHR.html>
+    #[inline]
     pub unsafe fn get_physical_device_features2_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -101,6 +102,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceProperties2KHR.html>
+    #[inline]
     pub unsafe fn get_physical_device_properties2_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -110,6 +112,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFormatProperties2KHR.html>
+    #[inline]
     pub unsafe fn get_physical_device_format_properties2_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -126,6 +129,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceImageFormatProperties2KHR.html>
+    #[inline]
     pub unsafe fn get_physical_device_image_format_properties2_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -147,6 +151,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceQueueFamilyProperties2KHR.html>
+    #[inline]
     pub unsafe fn get_physical_device_queue_family_properties2_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
@@ -171,6 +176,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceMemoryProperties2KHR.html>
+    #[inline]
     pub unsafe fn get_physical_device_memory_properties2_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -182,6 +188,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSparseImageFormatProperties2KHR.html>
+    #[inline]
     pub unsafe fn get_physical_device_sparse_image_format_properties2_khr<'a>(
         &self,
         physical_device: PhysicalDevice,

@@ -60,6 +60,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceLegacyVertexAttributesFeaturesEXT<'a> {
+        #[inline]
         pub fn legacy_vertex_attributes(mut self, legacy_vertex_attributes: bool) -> Self {
             self.legacy_vertex_attributes = legacy_vertex_attributes.into();
             self
@@ -113,6 +114,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceLegacyVertexAttributesPropertiesEXT<'a> {
+        #[inline]
         pub fn native_unaligned_performance(mut self, native_unaligned_performance: bool) -> Self {
             self.native_unaligned_performance = native_unaligned_performance.into();
             self

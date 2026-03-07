@@ -37,6 +37,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkResetQueryPoolEXT.html>
+    #[inline]
     pub unsafe fn reset_query_pool_ext(
         &self,
         device: Device,

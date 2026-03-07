@@ -57,6 +57,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDepthClipEnableFeaturesEXT<'a> {
+        #[inline]
         pub fn depth_clip_enable(mut self, depth_clip_enable: bool) -> Self {
             self.depth_clip_enable = depth_clip_enable.into();
             self
@@ -110,11 +111,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineRasterizationDepthClipStateCreateInfoEXT<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PipelineRasterizationDepthClipStateCreateFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn depth_clip_enable(mut self, depth_clip_enable: bool) -> Self {
             self.depth_clip_enable = depth_clip_enable.into();
             self

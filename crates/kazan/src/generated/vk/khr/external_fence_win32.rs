@@ -62,26 +62,31 @@ pub(super) mod defs {
     }
 
     impl<'a> ImportFenceWin32HandleInfoKHR<'a> {
+        #[inline]
         pub fn fence(mut self, fence: Fence) -> Self {
             self.fence = fence;
             self
         }
 
+        #[inline]
         pub fn flags(mut self, flags: FenceImportFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn handle_type(mut self, handle_type: ExternalFenceHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
 
+        #[inline]
         pub fn handle(mut self, handle: HANDLE) -> Self {
             self.handle = handle;
             self
         }
 
+        #[inline]
         pub fn name(mut self, name: LPCWSTR) -> Self {
             self.name = name;
             self
@@ -134,16 +139,19 @@ pub(super) mod defs {
     }
 
     impl<'a> ExportFenceWin32HandleInfoKHR<'a> {
+        #[inline]
         pub fn attributes(mut self, attributes: *const SECURITY_ATTRIBUTES) -> Self {
             self.p_attributes = attributes;
             self
         }
 
+        #[inline]
         pub fn dw_access(mut self, dw_access: DWORD) -> Self {
             self.dw_access = dw_access;
             self
         }
 
+        #[inline]
         pub fn name(mut self, name: LPCWSTR) -> Self {
             self.name = name;
             self
@@ -191,11 +199,13 @@ pub(super) mod defs {
     }
 
     impl<'a> FenceGetWin32HandleInfoKHR<'a> {
+        #[inline]
         pub fn fence(mut self, fence: Fence) -> Self {
             self.fence = fence;
             self
         }
 
+        #[inline]
         pub fn handle_type(mut self, handle_type: ExternalFenceHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
@@ -239,6 +249,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportFenceWin32HandleKHR.html>
+    #[inline]
     pub unsafe fn import_fence_win32_handle_khr(
         &self,
         device: Device,
@@ -256,6 +267,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetFenceWin32HandleKHR.html>
+    #[inline]
     pub unsafe fn get_fence_win32_handle_khr(
         &self,
         device: Device,

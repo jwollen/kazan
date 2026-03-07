@@ -63,6 +63,7 @@ pub(super) mod defs {
     }
 
     impl<'a> QueueFamilyVideoPropertiesKHR<'a> {
+        #[inline]
         pub fn video_codec_operations(
             mut self,
             video_codec_operations: VideoCodecOperationFlagsKHR,
@@ -119,6 +120,7 @@ pub(super) mod defs {
     }
 
     impl<'a> QueueFamilyQueryResultStatusPropertiesKHR<'a> {
+        #[inline]
         pub fn query_result_status_support(mut self, query_result_status_support: bool) -> Self {
             self.query_result_status_support = query_result_status_support.into();
             self
@@ -171,6 +173,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoProfileListInfoKHR<'a> {
+        #[inline]
         pub fn profiles(mut self, profiles: &'a [VideoProfileInfoKHR<'a>]) -> Self {
             self.profile_count = profiles.len().try_into().unwrap();
             self.p_profiles = profiles.as_ptr();
@@ -216,6 +219,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceVideoFormatInfoKHR<'a> {
+        #[inline]
         pub fn image_usage(mut self, image_usage: ImageUsageFlags) -> Self {
             self.image_usage = image_usage;
             self
@@ -275,31 +279,37 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoFormatPropertiesKHR<'a> {
+        #[inline]
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
 
+        #[inline]
         pub fn component_mapping(mut self, component_mapping: ComponentMapping) -> Self {
             self.component_mapping = component_mapping;
             self
         }
 
+        #[inline]
         pub fn image_create_flags(mut self, image_create_flags: ImageCreateFlags) -> Self {
             self.image_create_flags = image_create_flags;
             self
         }
 
+        #[inline]
         pub fn image_type(mut self, image_type: ImageType) -> Self {
             self.image_type = image_type;
             self
         }
 
+        #[inline]
         pub fn image_tiling(mut self, image_tiling: ImageTiling) -> Self {
             self.image_tiling = image_tiling;
             self
         }
 
+        #[inline]
         pub fn image_usage_flags(mut self, image_usage_flags: ImageUsageFlags) -> Self {
             self.image_usage_flags = image_usage_flags;
             self
@@ -355,6 +365,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoProfileInfoKHR<'a> {
+        #[inline]
         pub fn video_codec_operation(
             mut self,
             video_codec_operation: VideoCodecOperationFlagBitsKHR,
@@ -363,6 +374,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn chroma_subsampling(
             mut self,
             chroma_subsampling: VideoChromaSubsamplingFlagsKHR,
@@ -371,11 +383,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn luma_bit_depth(mut self, luma_bit_depth: VideoComponentBitDepthFlagsKHR) -> Self {
             self.luma_bit_depth = luma_bit_depth;
             self
         }
 
+        #[inline]
         pub fn chroma_bit_depth(
             mut self,
             chroma_bit_depth: VideoComponentBitDepthFlagsKHR,
@@ -459,11 +473,13 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoCapabilitiesKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: VideoCapabilityFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn min_bitstream_buffer_offset_alignment(
             mut self,
             min_bitstream_buffer_offset_alignment: DeviceSize,
@@ -472,6 +488,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn min_bitstream_buffer_size_alignment(
             mut self,
             min_bitstream_buffer_size_alignment: DeviceSize,
@@ -480,31 +497,37 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn picture_access_granularity(mut self, picture_access_granularity: Extent2D) -> Self {
             self.picture_access_granularity = picture_access_granularity;
             self
         }
 
+        #[inline]
         pub fn min_coded_extent(mut self, min_coded_extent: Extent2D) -> Self {
             self.min_coded_extent = min_coded_extent;
             self
         }
 
+        #[inline]
         pub fn max_coded_extent(mut self, max_coded_extent: Extent2D) -> Self {
             self.max_coded_extent = max_coded_extent;
             self
         }
 
+        #[inline]
         pub fn max_dpb_slots(mut self, max_dpb_slots: u32) -> Self {
             self.max_dpb_slots = max_dpb_slots;
             self
         }
 
+        #[inline]
         pub fn max_active_reference_pictures(mut self, max_active_reference_pictures: u32) -> Self {
             self.max_active_reference_pictures = max_active_reference_pictures;
             self
         }
 
+        #[inline]
         pub fn std_header_version(mut self, std_header_version: ExtensionProperties) -> Self {
             self.std_header_version = std_header_version;
             self
@@ -552,11 +575,13 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoSessionMemoryRequirementsKHR<'a> {
+        #[inline]
         pub fn memory_bind_index(mut self, memory_bind_index: u32) -> Self {
             self.memory_bind_index = memory_bind_index;
             self
         }
 
+        #[inline]
         pub fn memory_requirements(mut self, memory_requirements: MemoryRequirements) -> Self {
             self.memory_requirements = memory_requirements;
             self
@@ -610,21 +635,25 @@ pub(super) mod defs {
     }
 
     impl<'a> BindVideoSessionMemoryInfoKHR<'a> {
+        #[inline]
         pub fn memory_bind_index(mut self, memory_bind_index: u32) -> Self {
             self.memory_bind_index = memory_bind_index;
             self
         }
 
+        #[inline]
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
         }
 
+        #[inline]
         pub fn memory_offset(mut self, memory_offset: DeviceSize) -> Self {
             self.memory_offset = memory_offset;
             self
         }
 
+        #[inline]
         pub fn memory_size(mut self, memory_size: DeviceSize) -> Self {
             self.memory_size = memory_size;
             self
@@ -678,21 +707,25 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoPictureResourceInfoKHR<'a> {
+        #[inline]
         pub fn coded_offset(mut self, coded_offset: Offset2D) -> Self {
             self.coded_offset = coded_offset;
             self
         }
 
+        #[inline]
         pub fn coded_extent(mut self, coded_extent: Extent2D) -> Self {
             self.coded_extent = coded_extent;
             self
         }
 
+        #[inline]
         pub fn base_array_layer(mut self, base_array_layer: u32) -> Self {
             self.base_array_layer = base_array_layer;
             self
         }
 
+        #[inline]
         pub fn image_view_binding(mut self, image_view_binding: ImageView) -> Self {
             self.image_view_binding = image_view_binding;
             self
@@ -740,11 +773,13 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoReferenceSlotInfoKHR<'a> {
+        #[inline]
         pub fn slot_index(mut self, slot_index: i32) -> Self {
             self.slot_index = slot_index;
             self
         }
 
+        #[inline]
         pub fn picture_resource(
             mut self,
             picture_resource: &'a VideoPictureResourceInfoKHR<'a>,
@@ -819,46 +854,55 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoSessionCreateInfoKHR<'a> {
+        #[inline]
         pub fn queue_family_index(mut self, queue_family_index: u32) -> Self {
             self.queue_family_index = queue_family_index;
             self
         }
 
+        #[inline]
         pub fn flags(mut self, flags: VideoSessionCreateFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn video_profile(mut self, video_profile: &'a VideoProfileInfoKHR<'a>) -> Self {
             self.p_video_profile = video_profile;
             self
         }
 
+        #[inline]
         pub fn picture_format(mut self, picture_format: Format) -> Self {
             self.picture_format = picture_format;
             self
         }
 
+        #[inline]
         pub fn max_coded_extent(mut self, max_coded_extent: Extent2D) -> Self {
             self.max_coded_extent = max_coded_extent;
             self
         }
 
+        #[inline]
         pub fn reference_picture_format(mut self, reference_picture_format: Format) -> Self {
             self.reference_picture_format = reference_picture_format;
             self
         }
 
+        #[inline]
         pub fn max_dpb_slots(mut self, max_dpb_slots: u32) -> Self {
             self.max_dpb_slots = max_dpb_slots;
             self
         }
 
+        #[inline]
         pub fn max_active_reference_pictures(mut self, max_active_reference_pictures: u32) -> Self {
             self.max_active_reference_pictures = max_active_reference_pictures;
             self
         }
 
+        #[inline]
         pub fn std_header_version(mut self, std_header_version: &'a ExtensionProperties) -> Self {
             self.p_std_header_version = std_header_version;
             self
@@ -913,11 +957,13 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoSessionParametersCreateInfoKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: VideoSessionParametersCreateFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn video_session_parameters_template(
             mut self,
             video_session_parameters_template: VideoSessionParametersKHR,
@@ -926,6 +972,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn video_session(mut self, video_session: VideoSessionKHR) -> Self {
             self.video_session = video_session;
             self
@@ -971,6 +1018,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoSessionParametersUpdateInfoKHR<'a> {
+        #[inline]
         pub fn update_sequence_count(mut self, update_sequence_count: u32) -> Self {
             self.update_sequence_count = update_sequence_count;
             self
@@ -1027,16 +1075,19 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoBeginCodingInfoKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: VideoBeginCodingFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn video_session(mut self, video_session: VideoSessionKHR) -> Self {
             self.video_session = video_session;
             self
         }
 
+        #[inline]
         pub fn video_session_parameters(
             mut self,
             video_session_parameters: VideoSessionParametersKHR,
@@ -1045,6 +1096,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn reference_slots(
             mut self,
             reference_slots: &'a [VideoReferenceSlotInfoKHR<'a>],
@@ -1093,6 +1145,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEndCodingInfoKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: VideoEndCodingFlagsKHR) -> Self {
             self.flags = flags;
             self
@@ -1137,6 +1190,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoCodingControlInfoKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: VideoCodingControlFlagsKHR) -> Self {
             self.flags = flags;
             self
@@ -1792,6 +1846,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceVideoCapabilitiesKHR.html>
+    #[inline]
     pub unsafe fn get_physical_device_video_capabilities_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -1813,6 +1868,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceVideoFormatPropertiesKHR.html>
+    #[inline]
     pub unsafe fn get_physical_device_video_format_properties_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
@@ -1903,6 +1959,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateVideoSessionKHR.html>
+    #[inline]
     pub unsafe fn create_video_session_khr(
         &self,
         device: Device,
@@ -1926,6 +1983,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyVideoSessionKHR.html>
+    #[inline]
     pub unsafe fn destroy_video_session_khr(
         &self,
         device: Device,
@@ -1936,6 +1994,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetVideoSessionMemoryRequirementsKHR.html>
+    #[inline]
     pub unsafe fn get_video_session_memory_requirements_khr<'a>(
         &self,
         device: Device,
@@ -1969,6 +2028,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindVideoSessionMemoryKHR.html>
+    #[inline]
     pub unsafe fn bind_video_session_memory_khr(
         &self,
         device: Device,
@@ -1991,6 +2051,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateVideoSessionParametersKHR.html>
+    #[inline]
     pub unsafe fn create_video_session_parameters_khr(
         &self,
         device: Device,
@@ -2014,6 +2075,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUpdateVideoSessionParametersKHR.html>
+    #[inline]
     pub unsafe fn update_video_session_parameters_khr(
         &self,
         device: Device,
@@ -2035,6 +2097,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyVideoSessionParametersKHR.html>
+    #[inline]
     pub unsafe fn destroy_video_session_parameters_khr(
         &self,
         device: Device,
@@ -2051,6 +2114,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginVideoCodingKHR.html>
+    #[inline]
     pub unsafe fn cmd_begin_video_coding_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -2060,6 +2124,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndVideoCodingKHR.html>
+    #[inline]
     pub unsafe fn cmd_end_video_coding_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -2069,6 +2134,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdControlVideoCodingKHR.html>
+    #[inline]
     pub unsafe fn cmd_control_video_coding_khr(
         &self,
         command_buffer: CommandBuffer,

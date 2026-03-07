@@ -52,6 +52,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SurfacePresentModeKHR<'a> {
+        #[inline]
         pub fn present_mode(mut self, present_mode: PresentModeKHR) -> Self {
             self.present_mode = present_mode;
             self
@@ -117,6 +118,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SurfacePresentScalingCapabilitiesKHR<'a> {
+        #[inline]
         pub fn supported_present_scaling(
             mut self,
             supported_present_scaling: PresentScalingFlagsKHR,
@@ -125,6 +127,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn supported_present_gravity_x(
             mut self,
             supported_present_gravity_x: PresentGravityFlagsKHR,
@@ -133,6 +136,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn supported_present_gravity_y(
             mut self,
             supported_present_gravity_y: PresentGravityFlagsKHR,
@@ -141,11 +145,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn min_scaled_image_extent(mut self, min_scaled_image_extent: Extent2D) -> Self {
             self.min_scaled_image_extent = min_scaled_image_extent;
             self
         }
 
+        #[inline]
         pub fn max_scaled_image_extent(mut self, max_scaled_image_extent: Extent2D) -> Self {
             self.max_scaled_image_extent = max_scaled_image_extent;
             self
@@ -195,6 +201,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SurfacePresentModeCompatibilityKHR<'a> {
+        #[inline]
         pub fn present_modes(mut self, present_modes: &'a mut [PresentModeKHR]) -> Self {
             self.present_mode_count = present_modes.len().try_into().unwrap();
             self.p_present_modes = present_modes.as_mut_ptr();

@@ -60,11 +60,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceTransformFeedbackFeaturesEXT<'a> {
+        #[inline]
         pub fn transform_feedback(mut self, transform_feedback: bool) -> Self {
             self.transform_feedback = transform_feedback.into();
             self
         }
 
+        #[inline]
         pub fn geometry_streams(mut self, geometry_streams: bool) -> Self {
             self.geometry_streams = geometry_streams.into();
             self
@@ -169,6 +171,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceTransformFeedbackPropertiesEXT<'a> {
+        #[inline]
         pub fn max_transform_feedback_streams(
             mut self,
             max_transform_feedback_streams: u32,
@@ -177,6 +180,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_transform_feedback_buffers(
             mut self,
             max_transform_feedback_buffers: u32,
@@ -185,6 +189,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_transform_feedback_buffer_size(
             mut self,
             max_transform_feedback_buffer_size: DeviceSize,
@@ -193,6 +198,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_transform_feedback_stream_data_size(
             mut self,
             max_transform_feedback_stream_data_size: u32,
@@ -201,6 +207,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_transform_feedback_buffer_data_size(
             mut self,
             max_transform_feedback_buffer_data_size: u32,
@@ -209,6 +216,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_transform_feedback_buffer_data_stride(
             mut self,
             max_transform_feedback_buffer_data_stride: u32,
@@ -218,11 +226,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn transform_feedback_queries(mut self, transform_feedback_queries: bool) -> Self {
             self.transform_feedback_queries = transform_feedback_queries.into();
             self
         }
 
+        #[inline]
         pub fn transform_feedback_streams_lines_triangles(
             mut self,
             transform_feedback_streams_lines_triangles: bool,
@@ -232,6 +242,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn transform_feedback_rasterization_stream_select(
             mut self,
             transform_feedback_rasterization_stream_select: bool,
@@ -241,6 +252,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn transform_feedback_draw(mut self, transform_feedback_draw: bool) -> Self {
             self.transform_feedback_draw = transform_feedback_draw.into();
             self
@@ -294,11 +306,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineRasterizationStateStreamCreateInfoEXT<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PipelineRasterizationStateStreamCreateFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn rasterization_stream(mut self, rasterization_stream: u32) -> Self {
             self.rasterization_stream = rasterization_stream;
             self
@@ -409,6 +423,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindTransformFeedbackBuffersEXT.html>
+    #[inline]
     pub unsafe fn cmd_bind_transform_feedback_buffers_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -430,6 +445,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginTransformFeedbackEXT.html>
+    #[inline]
     pub unsafe fn cmd_begin_transform_feedback_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -449,6 +465,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndTransformFeedbackEXT.html>
+    #[inline]
     pub unsafe fn cmd_end_transform_feedback_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -468,6 +485,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginQueryIndexedEXT.html>
+    #[inline]
     pub unsafe fn cmd_begin_query_indexed_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -482,6 +500,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndQueryIndexedEXT.html>
+    #[inline]
     pub unsafe fn cmd_end_query_indexed_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -493,6 +512,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawIndirectByteCountEXT.html>
+    #[inline]
     pub unsafe fn cmd_draw_indirect_byte_count_ext(
         &self,
         command_buffer: CommandBuffer,

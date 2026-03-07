@@ -63,6 +63,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceInternallySynchronizedQueuesFeaturesKHR<'a> {
+        #[inline]
         pub fn internally_synchronized_queues(
             mut self,
             internally_synchronized_queues: bool,

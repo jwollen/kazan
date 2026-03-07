@@ -63,6 +63,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'a> {
+        #[inline]
         pub fn multiview_per_view_render_areas(
             mut self,
             multiview_per_view_render_areas: bool,
@@ -126,6 +127,7 @@ pub(super) mod defs {
     }
 
     impl<'a> MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'a> {
+        #[inline]
         pub fn per_view_render_areas(mut self, per_view_render_areas: &'a [Rect2D]) -> Self {
             self.per_view_render_area_count = per_view_render_areas.len().try_into().unwrap();
             self.p_per_view_render_areas = per_view_render_areas.as_ptr();

@@ -54,11 +54,13 @@ pub(super) mod defs {
     }
 
     impl<'a> StreamDescriptorSurfaceCreateInfoGGP<'a> {
+        #[inline]
         pub fn flags(mut self, flags: StreamDescriptorSurfaceCreateFlagsGGP) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn stream_descriptor(mut self, stream_descriptor: GgpStreamDescriptor) -> Self {
             self.stream_descriptor = stream_descriptor;
             self
@@ -106,6 +108,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateStreamDescriptorSurfaceGGP.html>
+    #[inline]
     pub unsafe fn create_stream_descriptor_surface_ggp(
         &self,
         instance: Instance,

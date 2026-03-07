@@ -52,6 +52,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteBufferMarkerAMD.html>
+    #[inline]
     pub unsafe fn cmd_write_buffer_marker_amd(
         &self,
         command_buffer: CommandBuffer,
@@ -72,6 +73,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteBufferMarker2AMD.html>
+    #[inline]
     pub unsafe fn cmd_write_buffer_marker2_amd(
         &self,
         command_buffer: CommandBuffer,

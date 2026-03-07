@@ -83,16 +83,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDataGraphFeaturesARM<'a> {
+        #[inline]
         pub fn data_graph(mut self, data_graph: bool) -> Self {
             self.data_graph = data_graph.into();
             self
         }
 
+        #[inline]
         pub fn data_graph_update_after_bind(mut self, data_graph_update_after_bind: bool) -> Self {
             self.data_graph_update_after_bind = data_graph_update_after_bind.into();
             self
         }
 
+        #[inline]
         pub fn data_graph_specialization_constants(
             mut self,
             data_graph_specialization_constants: bool,
@@ -101,11 +104,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn data_graph_descriptor_buffer(mut self, data_graph_descriptor_buffer: bool) -> Self {
             self.data_graph_descriptor_buffer = data_graph_descriptor_buffer.into();
             self
         }
 
+        #[inline]
         pub fn data_graph_shader_module(mut self, data_graph_shader_module: bool) -> Self {
             self.data_graph_shader_module = data_graph_shader_module.into();
             self
@@ -164,16 +169,19 @@ pub(super) mod defs {
     }
 
     impl<'a> DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM<'a> {
+        #[inline]
         pub fn dimension(mut self, dimension: u32) -> Self {
             self.dimension = dimension;
             self
         }
 
+        #[inline]
         pub fn zero_count(mut self, zero_count: u32) -> Self {
             self.zero_count = zero_count;
             self
         }
 
+        #[inline]
         pub fn group_size(mut self, group_size: u32) -> Self {
             self.group_size = group_size;
             self
@@ -221,11 +229,13 @@ pub(super) mod defs {
     }
 
     impl<'a> DataGraphPipelineConstantARM<'a> {
+        #[inline]
         pub fn id(mut self, id: u32) -> Self {
             self.id = id;
             self
         }
 
+        #[inline]
         pub fn constant_data(mut self, constant_data: *const c_void) -> Self {
             self.p_constant_data = constant_data;
             self
@@ -276,16 +286,19 @@ pub(super) mod defs {
     }
 
     impl<'a> DataGraphPipelineResourceInfoARM<'a> {
+        #[inline]
         pub fn descriptor_set(mut self, descriptor_set: u32) -> Self {
             self.descriptor_set = descriptor_set;
             self
         }
 
+        #[inline]
         pub fn binding(mut self, binding: u32) -> Self {
             self.binding = binding;
             self
         }
 
+        #[inline]
         pub fn array_element(mut self, array_element: u32) -> Self {
             self.array_element = array_element;
             self
@@ -338,6 +351,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DataGraphPipelineCompilerControlCreateInfoARM<'a> {
+        #[inline]
         pub fn vendor_options(mut self, vendor_options: &'a CStr) -> Self {
             self.p_vendor_options = vendor_options.as_ptr();
             self
@@ -391,16 +405,19 @@ pub(super) mod defs {
     }
 
     impl<'a> DataGraphPipelineCreateInfoARM<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PipelineCreateFlags2KHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn layout(mut self, layout: PipelineLayout) -> Self {
             self.layout = layout;
             self
         }
 
+        #[inline]
         pub fn resource_infos(
             mut self,
             resource_infos: &'a [DataGraphPipelineResourceInfoARM<'a>],
@@ -467,16 +484,19 @@ pub(super) mod defs {
     }
 
     impl<'a> DataGraphPipelineShaderModuleCreateInfoARM<'a> {
+        #[inline]
         pub fn module(mut self, module: ShaderModule) -> Self {
             self.module = module;
             self
         }
 
+        #[inline]
         pub fn name(mut self, name: &'a CStr) -> Self {
             self.p_name = name.as_ptr();
             self
         }
 
+        #[inline]
         pub fn specialization_info(
             mut self,
             specialization_info: &'a SpecializationInfo<'a>,
@@ -485,6 +505,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn constants(mut self, constants: &'a [DataGraphPipelineConstantARM<'a>]) -> Self {
             self.constant_count = constants.len().try_into().unwrap();
             self.p_constants = constants.as_ptr();
@@ -534,11 +555,13 @@ pub(super) mod defs {
     }
 
     impl<'a> DataGraphPipelineSessionCreateInfoARM<'a> {
+        #[inline]
         pub fn flags(mut self, flags: DataGraphPipelineSessionCreateFlagsARM) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn data_graph_pipeline(mut self, data_graph_pipeline: Pipeline) -> Self {
             self.data_graph_pipeline = data_graph_pipeline;
             self
@@ -584,6 +607,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DataGraphPipelineSessionBindPointRequirementsInfoARM<'a> {
+        #[inline]
         pub fn session(mut self, session: DataGraphPipelineSessionARM) -> Self {
             self.session = session;
             self
@@ -635,11 +659,13 @@ pub(super) mod defs {
     }
 
     impl<'a> DataGraphPipelineSessionBindPointRequirementARM<'a> {
+        #[inline]
         pub fn bind_point(mut self, bind_point: DataGraphPipelineSessionBindPointARM) -> Self {
             self.bind_point = bind_point;
             self
         }
 
+        #[inline]
         pub fn bind_point_type(
             mut self,
             bind_point_type: DataGraphPipelineSessionBindPointTypeARM,
@@ -648,6 +674,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn num_objects(mut self, num_objects: u32) -> Self {
             self.num_objects = num_objects;
             self
@@ -699,16 +726,19 @@ pub(super) mod defs {
     }
 
     impl<'a> DataGraphPipelineSessionMemoryRequirementsInfoARM<'a> {
+        #[inline]
         pub fn session(mut self, session: DataGraphPipelineSessionARM) -> Self {
             self.session = session;
             self
         }
 
+        #[inline]
         pub fn bind_point(mut self, bind_point: DataGraphPipelineSessionBindPointARM) -> Self {
             self.bind_point = bind_point;
             self
         }
 
+        #[inline]
         pub fn object_index(mut self, object_index: u32) -> Self {
             self.object_index = object_index;
             self
@@ -766,26 +796,31 @@ pub(super) mod defs {
     }
 
     impl<'a> BindDataGraphPipelineSessionMemoryInfoARM<'a> {
+        #[inline]
         pub fn session(mut self, session: DataGraphPipelineSessionARM) -> Self {
             self.session = session;
             self
         }
 
+        #[inline]
         pub fn bind_point(mut self, bind_point: DataGraphPipelineSessionBindPointARM) -> Self {
             self.bind_point = bind_point;
             self
         }
 
+        #[inline]
         pub fn object_index(mut self, object_index: u32) -> Self {
             self.object_index = object_index;
             self
         }
 
+        #[inline]
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
         }
 
+        #[inline]
         pub fn memory_offset(mut self, memory_offset: DeviceSize) -> Self {
             self.memory_offset = memory_offset;
             self
@@ -830,6 +865,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DataGraphPipelineInfoARM<'a> {
+        #[inline]
         pub fn data_graph_pipeline(mut self, data_graph_pipeline: Pipeline) -> Self {
             self.data_graph_pipeline = data_graph_pipeline;
             self
@@ -884,16 +920,19 @@ pub(super) mod defs {
     }
 
     impl<'a> DataGraphPipelinePropertyQueryResultARM<'a> {
+        #[inline]
         pub fn property(mut self, property: DataGraphPipelinePropertyARM) -> Self {
             self.property = property;
             self
         }
 
+        #[inline]
         pub fn is_text(mut self, is_text: bool) -> Self {
             self.is_text = is_text.into();
             self
         }
 
+        #[inline]
         pub fn data(mut self, data: &'a mut [u8]) -> Self {
             self.data_size = data.len().try_into().unwrap();
             self.p_data = data.as_mut_ptr() as _;
@@ -948,6 +987,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DataGraphPipelineIdentifierCreateInfoARM<'a> {
+        #[inline]
         pub fn identifier(mut self, identifier: &'a [u8]) -> Self {
             self.identifier_size = identifier.len().try_into().unwrap();
             self.p_identifier = identifier.as_ptr();
@@ -993,6 +1033,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DataGraphPipelineDispatchInfoARM<'a> {
+        #[inline]
         pub fn flags(mut self, flags: DataGraphPipelineDispatchFlagsARM) -> Self {
             self.flags = flags;
             self
@@ -1010,11 +1051,13 @@ pub(super) mod defs {
     }
 
     impl PhysicalDeviceDataGraphProcessingEngineARM {
+        #[inline]
         pub fn ty(mut self, ty: PhysicalDeviceDataGraphProcessingEngineTypeARM) -> Self {
             self.ty = ty;
             self
         }
 
+        #[inline]
         pub fn is_foreign(mut self, is_foreign: bool) -> Self {
             self.is_foreign = is_foreign.into();
             self
@@ -1053,6 +1096,7 @@ pub(super) mod defs {
     }
 
     impl PhysicalDeviceDataGraphOperationSupportARM {
+        #[inline]
         pub fn operation_type(
             mut self,
             operation_type: PhysicalDeviceDataGraphOperationTypeARM,
@@ -1061,6 +1105,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn name(
             mut self,
             name: &CStr,
@@ -1069,6 +1114,7 @@ pub(super) mod defs {
             Ok(self)
         }
 
+        #[inline]
         pub fn version(mut self, version: u32) -> Self {
             self.version = version;
             self
@@ -1116,11 +1162,13 @@ pub(super) mod defs {
     }
 
     impl<'a> QueueFamilyDataGraphPropertiesARM<'a> {
+        #[inline]
         pub fn engine(mut self, engine: PhysicalDeviceDataGraphProcessingEngineARM) -> Self {
             self.engine = engine;
             self
         }
 
+        #[inline]
         pub fn operation(mut self, operation: PhysicalDeviceDataGraphOperationSupportARM) -> Self {
             self.operation = operation;
             self
@@ -1171,11 +1219,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM<'a> {
+        #[inline]
         pub fn queue_family_index(mut self, queue_family_index: u32) -> Self {
             self.queue_family_index = queue_family_index;
             self
         }
 
+        #[inline]
         pub fn engine_type(
             mut self,
             engine_type: PhysicalDeviceDataGraphProcessingEngineTypeARM,
@@ -1233,6 +1283,7 @@ pub(super) mod defs {
     }
 
     impl<'a> QueueFamilyDataGraphProcessingEnginePropertiesARM<'a> {
+        #[inline]
         pub fn foreign_semaphore_handle_types(
             mut self,
             foreign_semaphore_handle_types: ExternalSemaphoreHandleTypeFlags,
@@ -1241,6 +1292,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn foreign_memory_handle_types(
             mut self,
             foreign_memory_handle_types: ExternalMemoryHandleTypeFlags,
@@ -1302,6 +1354,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DataGraphProcessingEngineCreateInfoARM<'a> {
+        #[inline]
         pub fn processing_engines(
             mut self,
             processing_engines: &'a mut [PhysicalDeviceDataGraphProcessingEngineARM],
@@ -1632,6 +1685,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM.html>
+    #[inline]
     pub unsafe fn get_physical_device_queue_family_data_graph_properties_arm<'a>(
         &self,
         physical_device: PhysicalDevice,
@@ -1673,6 +1727,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM.html>
+    #[inline]
     pub unsafe fn get_physical_device_queue_family_data_graph_processing_engine_properties_arm(
         &self,
         physical_device: PhysicalDevice,
@@ -1748,6 +1803,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDataGraphPipelinesARM.html>
+    #[inline]
     pub unsafe fn create_data_graph_pipelines_arm(
         &self,
         device: Device,
@@ -1776,6 +1832,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDataGraphPipelineSessionARM.html>
+    #[inline]
     pub unsafe fn create_data_graph_pipeline_session_arm(
         &self,
         device: Device,
@@ -1799,6 +1856,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDataGraphPipelineSessionBindPointRequirementsARM.html>
+    #[inline]
     pub unsafe fn get_data_graph_pipeline_session_bind_point_requirements_arm<'a>(
         &self,
         device: Device,
@@ -1834,6 +1892,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDataGraphPipelineSessionMemoryRequirementsARM.html>
+    #[inline]
     pub unsafe fn get_data_graph_pipeline_session_memory_requirements_arm(
         &self,
         device: Device,
@@ -1850,6 +1909,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindDataGraphPipelineSessionMemoryARM.html>
+    #[inline]
     pub unsafe fn bind_data_graph_pipeline_session_memory_arm(
         &self,
         device: Device,
@@ -1870,6 +1930,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDataGraphPipelineSessionARM.html>
+    #[inline]
     pub unsafe fn destroy_data_graph_pipeline_session_arm(
         &self,
         device: Device,
@@ -1882,6 +1943,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatchDataGraphARM.html>
+    #[inline]
     pub unsafe fn cmd_dispatch_data_graph_arm(
         &self,
         command_buffer: CommandBuffer,
@@ -1892,6 +1954,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDataGraphPipelineAvailablePropertiesARM.html>
+    #[inline]
     pub unsafe fn get_data_graph_pipeline_available_properties_arm<'a>(
         &self,
         device: Device,
@@ -1925,6 +1988,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDataGraphPipelinePropertiesARM.html>
+    #[inline]
     pub unsafe fn get_data_graph_pipeline_properties_arm(
         &self,
         device: Device,

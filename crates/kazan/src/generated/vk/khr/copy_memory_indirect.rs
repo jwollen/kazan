@@ -24,16 +24,19 @@ pub(super) mod defs {
     }
 
     impl StridedDeviceAddressRangeKHR {
+        #[inline]
         pub fn address(mut self, address: DeviceAddress) -> Self {
             self.address = address;
             self
         }
 
+        #[inline]
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
         }
 
+        #[inline]
         pub fn stride(mut self, stride: DeviceSize) -> Self {
             self.stride = stride;
             self
@@ -52,16 +55,19 @@ pub(super) mod defs {
     }
 
     impl CopyMemoryIndirectCommandKHR {
+        #[inline]
         pub fn src_address(mut self, src_address: DeviceAddress) -> Self {
             self.src_address = src_address;
             self
         }
 
+        #[inline]
         pub fn dst_address(mut self, dst_address: DeviceAddress) -> Self {
             self.dst_address = dst_address;
             self
         }
 
+        #[inline]
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
@@ -115,21 +121,25 @@ pub(super) mod defs {
     }
 
     impl<'a> CopyMemoryIndirectInfoKHR<'a> {
+        #[inline]
         pub fn src_copy_flags(mut self, src_copy_flags: AddressCopyFlagsKHR) -> Self {
             self.src_copy_flags = src_copy_flags;
             self
         }
 
+        #[inline]
         pub fn dst_copy_flags(mut self, dst_copy_flags: AddressCopyFlagsKHR) -> Self {
             self.dst_copy_flags = dst_copy_flags;
             self
         }
 
+        #[inline]
         pub fn copy_count(mut self, copy_count: u32) -> Self {
             self.copy_count = copy_count;
             self
         }
 
+        #[inline]
         pub fn copy_address_range(
             mut self,
             copy_address_range: StridedDeviceAddressRangeKHR,
@@ -154,31 +164,37 @@ pub(super) mod defs {
     }
 
     impl CopyMemoryToImageIndirectCommandKHR {
+        #[inline]
         pub fn src_address(mut self, src_address: DeviceAddress) -> Self {
             self.src_address = src_address;
             self
         }
 
+        #[inline]
         pub fn buffer_row_length(mut self, buffer_row_length: u32) -> Self {
             self.buffer_row_length = buffer_row_length;
             self
         }
 
+        #[inline]
         pub fn buffer_image_height(mut self, buffer_image_height: u32) -> Self {
             self.buffer_image_height = buffer_image_height;
             self
         }
 
+        #[inline]
         pub fn image_subresource(mut self, image_subresource: ImageSubresourceLayers) -> Self {
             self.image_subresource = image_subresource;
             self
         }
 
+        #[inline]
         pub fn image_offset(mut self, image_offset: Offset3D) -> Self {
             self.image_offset = image_offset;
             self
         }
 
+        #[inline]
         pub fn image_extent(mut self, image_extent: Extent3D) -> Self {
             self.image_extent = image_extent;
             self
@@ -238,11 +254,13 @@ pub(super) mod defs {
     }
 
     impl<'a> CopyMemoryToImageIndirectInfoKHR<'a> {
+        #[inline]
         pub fn src_copy_flags(mut self, src_copy_flags: AddressCopyFlagsKHR) -> Self {
             self.src_copy_flags = src_copy_flags;
             self
         }
 
+        #[inline]
         pub fn image_subresources(
             mut self,
             image_subresources: &'a [ImageSubresourceLayers],
@@ -252,6 +270,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn copy_address_range(
             mut self,
             copy_address_range: StridedDeviceAddressRangeKHR,
@@ -260,11 +279,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn dst_image(mut self, dst_image: Image) -> Self {
             self.dst_image = dst_image;
             self
         }
 
+        #[inline]
         pub fn dst_image_layout(mut self, dst_image_layout: ImageLayout) -> Self {
             self.dst_image_layout = dst_image_layout;
             self
@@ -322,11 +343,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'a> {
+        #[inline]
         pub fn indirect_memory_copy(mut self, indirect_memory_copy: bool) -> Self {
             self.indirect_memory_copy = indirect_memory_copy.into();
             self
         }
 
+        #[inline]
         pub fn indirect_memory_to_image_copy(
             mut self,
             indirect_memory_to_image_copy: bool,
@@ -380,6 +403,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'a> {
+        #[inline]
         pub fn supported_queues(mut self, supported_queues: QueueFlags) -> Self {
             self.supported_queues = supported_queues;
             self
@@ -472,6 +496,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryIndirectKHR.html>
+    #[inline]
     pub unsafe fn cmd_copy_memory_indirect_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -481,6 +506,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryToImageIndirectKHR.html>
+    #[inline]
     pub unsafe fn cmd_copy_memory_to_image_indirect_khr(
         &self,
         command_buffer: CommandBuffer,

@@ -43,6 +43,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCalibrateableTimeDomainsEXT.html>
+    #[inline]
     pub unsafe fn get_physical_device_calibrateable_time_domains_ext(
         &self,
         physical_device: PhysicalDevice,
@@ -94,6 +95,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetCalibratedTimestampsEXT.html>
+    #[inline]
     pub unsafe fn get_calibrated_timestamps_ext(
         &self,
         device: Device,

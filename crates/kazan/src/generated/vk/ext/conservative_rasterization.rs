@@ -104,11 +104,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceConservativeRasterizationPropertiesEXT<'a> {
+        #[inline]
         pub fn primitive_overestimation_size(mut self, primitive_overestimation_size: f32) -> Self {
             self.primitive_overestimation_size = primitive_overestimation_size;
             self
         }
 
+        #[inline]
         pub fn max_extra_primitive_overestimation_size(
             mut self,
             max_extra_primitive_overestimation_size: f32,
@@ -117,6 +119,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extra_primitive_overestimation_size_granularity(
             mut self,
             extra_primitive_overestimation_size_granularity: f32,
@@ -126,11 +129,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn primitive_underestimation(mut self, primitive_underestimation: bool) -> Self {
             self.primitive_underestimation = primitive_underestimation.into();
             self
         }
 
+        #[inline]
         pub fn conservative_point_and_line_rasterization(
             mut self,
             conservative_point_and_line_rasterization: bool,
@@ -140,6 +145,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn degenerate_triangles_rasterized(
             mut self,
             degenerate_triangles_rasterized: bool,
@@ -148,11 +154,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn degenerate_lines_rasterized(mut self, degenerate_lines_rasterized: bool) -> Self {
             self.degenerate_lines_rasterized = degenerate_lines_rasterized.into();
             self
         }
 
+        #[inline]
         pub fn fully_covered_fragment_shader_input_variable(
             mut self,
             fully_covered_fragment_shader_input_variable: bool,
@@ -162,6 +170,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn conservative_rasterization_post_depth_coverage(
             mut self,
             conservative_rasterization_post_depth_coverage: bool,
@@ -228,6 +237,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineRasterizationConservativeStateCreateInfoEXT<'a> {
+        #[inline]
         pub fn flags(
             mut self,
             flags: PipelineRasterizationConservativeStateCreateFlagsEXT,
@@ -236,6 +246,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn conservative_rasterization_mode(
             mut self,
             conservative_rasterization_mode: ConservativeRasterizationModeEXT,
@@ -244,6 +255,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extra_primitive_overestimation_size(
             mut self,
             extra_primitive_overestimation_size: f32,

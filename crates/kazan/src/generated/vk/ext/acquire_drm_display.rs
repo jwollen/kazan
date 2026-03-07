@@ -51,6 +51,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireDrmDisplayEXT.html>
+    #[inline]
     pub unsafe fn acquire_drm_display_ext(
         &self,
         physical_device: PhysicalDevice,
@@ -68,6 +69,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDrmDisplayEXT.html>
+    #[inline]
     pub unsafe fn get_drm_display_ext(
         &self,
         physical_device: PhysicalDevice,

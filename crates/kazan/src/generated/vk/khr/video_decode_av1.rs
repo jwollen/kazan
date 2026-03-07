@@ -58,11 +58,13 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoDecodeAV1ProfileInfoKHR<'a> {
+        #[inline]
         pub fn std_profile(mut self, std_profile: StdVideoAV1Profile) -> Self {
             self.std_profile = std_profile;
             self
         }
 
+        #[inline]
         pub fn film_grain_support(mut self, film_grain_support: bool) -> Self {
             self.film_grain_support = film_grain_support.into();
             self
@@ -109,6 +111,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoDecodeAV1CapabilitiesKHR<'a> {
+        #[inline]
         pub fn max_level(mut self, max_level: StdVideoAV1Level) -> Self {
             self.max_level = max_level;
             self
@@ -159,6 +162,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoDecodeAV1SessionParametersCreateInfoKHR<'a> {
+        #[inline]
         pub fn std_sequence_header(
             mut self,
             std_sequence_header: &'a StdVideoAV1SequenceHeader<'a>,
@@ -226,6 +230,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoDecodeAV1PictureInfoKHR<'a> {
+        #[inline]
         pub fn std_picture_info(
             mut self,
             std_picture_info: &'a StdVideoDecodeAV1PictureInfo<'a>,
@@ -234,6 +239,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn reference_name_slot_indices(
             mut self,
             reference_name_slot_indices: [i32; MAX_VIDEO_AV1_REFERENCES_PER_FRAME_KHR as usize],
@@ -242,17 +248,20 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn frame_header_offset(mut self, frame_header_offset: u32) -> Self {
             self.frame_header_offset = frame_header_offset;
             self
         }
 
+        #[inline]
         pub fn tile_offsets(mut self, tile_offsets: &'a [u32]) -> Self {
             self.tile_count = tile_offsets.len().try_into().unwrap();
             self.p_tile_offsets = tile_offsets.as_ptr();
             self
         }
 
+        #[inline]
         pub fn tile_sizes(mut self, tile_sizes: &'a [u32]) -> Self {
             self.tile_count = tile_sizes.len().try_into().unwrap();
             self.p_tile_sizes = tile_sizes.as_ptr();
@@ -300,6 +309,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoDecodeAV1DpbSlotInfoKHR<'a> {
+        #[inline]
         pub fn std_reference_info(
             mut self,
             std_reference_info: &'a StdVideoDecodeAV1ReferenceInfo,

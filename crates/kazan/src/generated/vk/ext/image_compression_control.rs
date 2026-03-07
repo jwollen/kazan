@@ -63,11 +63,13 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageCompressionControlEXT<'a> {
+        #[inline]
         pub fn flags(mut self, flags: ImageCompressionFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn fixed_rate_flags(
             mut self,
             fixed_rate_flags: &'a mut [ImageCompressionFixedRateFlagsEXT],
@@ -126,6 +128,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceImageCompressionControlFeaturesEXT<'a> {
+        #[inline]
         pub fn image_compression_control(mut self, image_compression_control: bool) -> Self {
             self.image_compression_control = image_compression_control.into();
             self
@@ -180,6 +183,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageCompressionPropertiesEXT<'a> {
+        #[inline]
         pub fn image_compression_flags(
             mut self,
             image_compression_flags: ImageCompressionFlagsEXT,
@@ -188,6 +192,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn image_compression_fixed_rate_flags(
             mut self,
             image_compression_fixed_rate_flags: ImageCompressionFixedRateFlagsEXT,
@@ -457,6 +462,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageSubresourceLayout2EXT.html>
+    #[inline]
     pub unsafe fn get_image_subresource_layout2_ext(
         &self,
         device: Device,

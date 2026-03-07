@@ -55,6 +55,7 @@ pub(super) mod defs {
     }
 
     impl<'a> BufferUsageFlags2CreateInfo<'a> {
+        #[inline]
         pub fn usage(mut self, usage: BufferUsageFlags2) -> Self {
             self.usage = usage;
             self
@@ -107,6 +108,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineCreateFlags2CreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PipelineCreateFlags2) -> Self {
             self.flags = flags;
             self
@@ -157,6 +159,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePushDescriptorProperties<'a> {
+        #[inline]
         pub fn max_push_descriptors(mut self, max_push_descriptors: u32) -> Self {
             self.max_push_descriptors = max_push_descriptors;
             self
@@ -204,6 +207,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMaintenance5Features<'a> {
+        #[inline]
         pub fn maintenance5(mut self, maintenance5: bool) -> Self {
             self.maintenance5 = maintenance5.into();
             self
@@ -284,6 +288,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMaintenance5Properties<'a> {
+        #[inline]
         pub fn early_fragment_multisample_coverage_after_sample_counting(
             mut self,
             early_fragment_multisample_coverage_after_sample_counting: bool,
@@ -293,6 +298,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn early_fragment_sample_mask_test_before_sample_counting(
             mut self,
             early_fragment_sample_mask_test_before_sample_counting: bool,
@@ -302,6 +308,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn depth_stencil_swizzle_one_support(
             mut self,
             depth_stencil_swizzle_one_support: bool,
@@ -310,11 +317,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn polygon_mode_point_size(mut self, polygon_mode_point_size: bool) -> Self {
             self.polygon_mode_point_size = polygon_mode_point_size.into();
             self
         }
 
+        #[inline]
         pub fn non_strict_single_pixel_wide_lines_use_parallelogram(
             mut self,
             non_strict_single_pixel_wide_lines_use_parallelogram: bool,
@@ -324,6 +333,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn non_strict_wide_lines_use_parallelogram(
             mut self,
             non_strict_wide_lines_use_parallelogram: bool,
@@ -375,6 +385,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMaintenance6Features<'a> {
+        #[inline]
         pub fn maintenance6(mut self, maintenance6: bool) -> Self {
             self.maintenance6 = maintenance6.into();
             self
@@ -440,6 +451,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMaintenance6Properties<'a> {
+        #[inline]
         pub fn block_texel_view_compatible_multiple_layers(
             mut self,
             block_texel_view_compatible_multiple_layers: bool,
@@ -449,6 +461,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_combined_image_sampler_descriptor_count(
             mut self,
             max_combined_image_sampler_descriptor_count: u32,
@@ -458,6 +471,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn fragment_shading_rate_clamp_combiner_inputs(
             mut self,
             fragment_shading_rate_clamp_combiner_inputs: bool,
@@ -521,22 +535,26 @@ pub(super) mod defs {
     }
 
     impl<'a> RenderingAreaInfo<'a> {
+        #[inline]
         pub fn view_mask(mut self, view_mask: u32) -> Self {
             self.view_mask = view_mask;
             self
         }
 
+        #[inline]
         pub fn color_attachment_formats(mut self, color_attachment_formats: &'a [Format]) -> Self {
             self.color_attachment_count = color_attachment_formats.len().try_into().unwrap();
             self.p_color_attachment_formats = color_attachment_formats.as_ptr();
             self
         }
 
+        #[inline]
         pub fn depth_attachment_format(mut self, depth_attachment_format: Format) -> Self {
             self.depth_attachment_format = depth_attachment_format;
             self
         }
 
+        #[inline]
         pub fn stencil_attachment_format(mut self, stencil_attachment_format: Format) -> Self {
             self.stencil_attachment_format = stencil_attachment_format;
             self
@@ -584,6 +602,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DeviceQueueGlobalPriorityCreateInfo<'a> {
+        #[inline]
         pub fn global_priority(mut self, global_priority: QueueGlobalPriority) -> Self {
             self.global_priority = global_priority;
             self
@@ -635,6 +654,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceGlobalPriorityQueryFeatures<'a> {
+        #[inline]
         pub fn global_priority_query(mut self, global_priority_query: bool) -> Self {
             self.global_priority_query = global_priority_query.into();
             self
@@ -685,6 +705,7 @@ pub(super) mod defs {
     }
 
     impl<'a> QueueFamilyGlobalPriorityProperties<'a> {
+        #[inline]
         pub fn priorities(mut self, priorities: &[QueueGlobalPriority]) -> Self {
             self.priority_count = priorities.len().try_into().unwrap();
             self.priorities[..priorities.len()].copy_from_slice(priorities);
@@ -703,11 +724,13 @@ pub(super) mod defs {
     }
 
     impl VertexInputBindingDivisorDescription {
+        #[inline]
         pub fn binding(mut self, binding: u32) -> Self {
             self.binding = binding;
             self
         }
 
+        #[inline]
         pub fn divisor(mut self, divisor: u32) -> Self {
             self.divisor = divisor;
             self
@@ -764,6 +787,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineVertexInputDivisorStateCreateInfo<'a> {
+        #[inline]
         pub fn vertex_binding_divisors(
             mut self,
             vertex_binding_divisors: &'a [VertexInputBindingDivisorDescription],
@@ -824,11 +848,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceVertexAttributeDivisorProperties<'a> {
+        #[inline]
         pub fn max_vertex_attrib_divisor(mut self, max_vertex_attrib_divisor: u32) -> Self {
             self.max_vertex_attrib_divisor = max_vertex_attrib_divisor;
             self
         }
 
+        #[inline]
         pub fn supports_non_zero_first_instance(
             mut self,
             supports_non_zero_first_instance: bool,
@@ -892,6 +918,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceVertexAttributeDivisorFeatures<'a> {
+        #[inline]
         pub fn vertex_attribute_instance_rate_divisor(
             mut self,
             vertex_attribute_instance_rate_divisor: bool,
@@ -901,6 +928,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn vertex_attribute_instance_rate_zero_divisor(
             mut self,
             vertex_attribute_instance_rate_zero_divisor: bool,
@@ -953,6 +981,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceIndexTypeUint8Features<'a> {
+        #[inline]
         pub fn index_type_uint8(mut self, index_type_uint8: bool) -> Self {
             self.index_type_uint8 = index_type_uint8.into();
             self
@@ -1022,31 +1051,37 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceLineRasterizationFeatures<'a> {
+        #[inline]
         pub fn rectangular_lines(mut self, rectangular_lines: bool) -> Self {
             self.rectangular_lines = rectangular_lines.into();
             self
         }
 
+        #[inline]
         pub fn bresenham_lines(mut self, bresenham_lines: bool) -> Self {
             self.bresenham_lines = bresenham_lines.into();
             self
         }
 
+        #[inline]
         pub fn smooth_lines(mut self, smooth_lines: bool) -> Self {
             self.smooth_lines = smooth_lines.into();
             self
         }
 
+        #[inline]
         pub fn stippled_rectangular_lines(mut self, stippled_rectangular_lines: bool) -> Self {
             self.stippled_rectangular_lines = stippled_rectangular_lines.into();
             self
         }
 
+        #[inline]
         pub fn stippled_bresenham_lines(mut self, stippled_bresenham_lines: bool) -> Self {
             self.stippled_bresenham_lines = stippled_bresenham_lines.into();
             self
         }
 
+        #[inline]
         pub fn stippled_smooth_lines(mut self, stippled_smooth_lines: bool) -> Self {
             self.stippled_smooth_lines = stippled_smooth_lines.into();
             self
@@ -1100,6 +1135,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceLineRasterizationProperties<'a> {
+        #[inline]
         pub fn line_sub_pixel_precision_bits(mut self, line_sub_pixel_precision_bits: u32) -> Self {
             self.line_sub_pixel_precision_bits = line_sub_pixel_precision_bits;
             self
@@ -1159,6 +1195,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineRasterizationLineStateCreateInfo<'a> {
+        #[inline]
         pub fn line_rasterization_mode(
             mut self,
             line_rasterization_mode: LineRasterizationMode,
@@ -1167,16 +1204,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn stippled_line_enable(mut self, stippled_line_enable: bool) -> Self {
             self.stippled_line_enable = stippled_line_enable.into();
             self
         }
 
+        #[inline]
         pub fn line_stipple_factor(mut self, line_stipple_factor: u32) -> Self {
             self.line_stipple_factor = line_stipple_factor;
             self
         }
 
+        #[inline]
         pub fn line_stipple_pattern(mut self, line_stipple_pattern: u16) -> Self {
             self.line_stipple_pattern = line_stipple_pattern;
             self
@@ -1299,16 +1339,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceVulkan14Features<'a> {
+        #[inline]
         pub fn global_priority_query(mut self, global_priority_query: bool) -> Self {
             self.global_priority_query = global_priority_query.into();
             self
         }
 
+        #[inline]
         pub fn shader_subgroup_rotate(mut self, shader_subgroup_rotate: bool) -> Self {
             self.shader_subgroup_rotate = shader_subgroup_rotate.into();
             self
         }
 
+        #[inline]
         pub fn shader_subgroup_rotate_clustered(
             mut self,
             shader_subgroup_rotate_clustered: bool,
@@ -1317,46 +1360,55 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_float_controls2(mut self, shader_float_controls2: bool) -> Self {
             self.shader_float_controls2 = shader_float_controls2.into();
             self
         }
 
+        #[inline]
         pub fn shader_expect_assume(mut self, shader_expect_assume: bool) -> Self {
             self.shader_expect_assume = shader_expect_assume.into();
             self
         }
 
+        #[inline]
         pub fn rectangular_lines(mut self, rectangular_lines: bool) -> Self {
             self.rectangular_lines = rectangular_lines.into();
             self
         }
 
+        #[inline]
         pub fn bresenham_lines(mut self, bresenham_lines: bool) -> Self {
             self.bresenham_lines = bresenham_lines.into();
             self
         }
 
+        #[inline]
         pub fn smooth_lines(mut self, smooth_lines: bool) -> Self {
             self.smooth_lines = smooth_lines.into();
             self
         }
 
+        #[inline]
         pub fn stippled_rectangular_lines(mut self, stippled_rectangular_lines: bool) -> Self {
             self.stippled_rectangular_lines = stippled_rectangular_lines.into();
             self
         }
 
+        #[inline]
         pub fn stippled_bresenham_lines(mut self, stippled_bresenham_lines: bool) -> Self {
             self.stippled_bresenham_lines = stippled_bresenham_lines.into();
             self
         }
 
+        #[inline]
         pub fn stippled_smooth_lines(mut self, stippled_smooth_lines: bool) -> Self {
             self.stippled_smooth_lines = stippled_smooth_lines.into();
             self
         }
 
+        #[inline]
         pub fn vertex_attribute_instance_rate_divisor(
             mut self,
             vertex_attribute_instance_rate_divisor: bool,
@@ -1366,6 +1418,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn vertex_attribute_instance_rate_zero_divisor(
             mut self,
             vertex_attribute_instance_rate_zero_divisor: bool,
@@ -1375,41 +1428,49 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn index_type_uint8(mut self, index_type_uint8: bool) -> Self {
             self.index_type_uint8 = index_type_uint8.into();
             self
         }
 
+        #[inline]
         pub fn dynamic_rendering_local_read(mut self, dynamic_rendering_local_read: bool) -> Self {
             self.dynamic_rendering_local_read = dynamic_rendering_local_read.into();
             self
         }
 
+        #[inline]
         pub fn maintenance5(mut self, maintenance5: bool) -> Self {
             self.maintenance5 = maintenance5.into();
             self
         }
 
+        #[inline]
         pub fn maintenance6(mut self, maintenance6: bool) -> Self {
             self.maintenance6 = maintenance6.into();
             self
         }
 
+        #[inline]
         pub fn pipeline_protected_access(mut self, pipeline_protected_access: bool) -> Self {
             self.pipeline_protected_access = pipeline_protected_access.into();
             self
         }
 
+        #[inline]
         pub fn pipeline_robustness(mut self, pipeline_robustness: bool) -> Self {
             self.pipeline_robustness = pipeline_robustness.into();
             self
         }
 
+        #[inline]
         pub fn host_image_copy(mut self, host_image_copy: bool) -> Self {
             self.host_image_copy = host_image_copy.into();
             self
         }
 
+        #[inline]
         pub fn push_descriptor(mut self, push_descriptor: bool) -> Self {
             self.push_descriptor = push_descriptor.into();
             self
@@ -1579,16 +1640,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceVulkan14Properties<'a> {
+        #[inline]
         pub fn line_sub_pixel_precision_bits(mut self, line_sub_pixel_precision_bits: u32) -> Self {
             self.line_sub_pixel_precision_bits = line_sub_pixel_precision_bits;
             self
         }
 
+        #[inline]
         pub fn max_vertex_attrib_divisor(mut self, max_vertex_attrib_divisor: u32) -> Self {
             self.max_vertex_attrib_divisor = max_vertex_attrib_divisor;
             self
         }
 
+        #[inline]
         pub fn supports_non_zero_first_instance(
             mut self,
             supports_non_zero_first_instance: bool,
@@ -1597,11 +1661,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_push_descriptors(mut self, max_push_descriptors: u32) -> Self {
             self.max_push_descriptors = max_push_descriptors;
             self
         }
 
+        #[inline]
         pub fn dynamic_rendering_local_read_depth_stencil_attachments(
             mut self,
             dynamic_rendering_local_read_depth_stencil_attachments: bool,
@@ -1611,6 +1677,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn dynamic_rendering_local_read_multisampled_attachments(
             mut self,
             dynamic_rendering_local_read_multisampled_attachments: bool,
@@ -1620,6 +1687,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn early_fragment_multisample_coverage_after_sample_counting(
             mut self,
             early_fragment_multisample_coverage_after_sample_counting: bool,
@@ -1629,6 +1697,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn early_fragment_sample_mask_test_before_sample_counting(
             mut self,
             early_fragment_sample_mask_test_before_sample_counting: bool,
@@ -1638,6 +1707,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn depth_stencil_swizzle_one_support(
             mut self,
             depth_stencil_swizzle_one_support: bool,
@@ -1646,11 +1716,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn polygon_mode_point_size(mut self, polygon_mode_point_size: bool) -> Self {
             self.polygon_mode_point_size = polygon_mode_point_size.into();
             self
         }
 
+        #[inline]
         pub fn non_strict_single_pixel_wide_lines_use_parallelogram(
             mut self,
             non_strict_single_pixel_wide_lines_use_parallelogram: bool,
@@ -1660,6 +1732,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn non_strict_wide_lines_use_parallelogram(
             mut self,
             non_strict_wide_lines_use_parallelogram: bool,
@@ -1669,6 +1742,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn block_texel_view_compatible_multiple_layers(
             mut self,
             block_texel_view_compatible_multiple_layers: bool,
@@ -1678,6 +1752,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_combined_image_sampler_descriptor_count(
             mut self,
             max_combined_image_sampler_descriptor_count: u32,
@@ -1687,6 +1762,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn fragment_shading_rate_clamp_combiner_inputs(
             mut self,
             fragment_shading_rate_clamp_combiner_inputs: bool,
@@ -1696,6 +1772,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn default_robustness_storage_buffers(
             mut self,
             default_robustness_storage_buffers: PipelineRobustnessBufferBehavior,
@@ -1704,6 +1781,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn default_robustness_uniform_buffers(
             mut self,
             default_robustness_uniform_buffers: PipelineRobustnessBufferBehavior,
@@ -1712,6 +1790,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn default_robustness_vertex_inputs(
             mut self,
             default_robustness_vertex_inputs: PipelineRobustnessBufferBehavior,
@@ -1720,6 +1799,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn default_robustness_images(
             mut self,
             default_robustness_images: PipelineRobustnessImageBehavior,
@@ -1728,18 +1808,21 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn copy_src_layouts(mut self, copy_src_layouts: &'a mut [ImageLayout]) -> Self {
             self.copy_src_layout_count = copy_src_layouts.len().try_into().unwrap();
             self.p_copy_src_layouts = copy_src_layouts.as_mut_ptr();
             self
         }
 
+        #[inline]
         pub fn copy_dst_layouts(mut self, copy_dst_layouts: &'a mut [ImageLayout]) -> Self {
             self.copy_dst_layout_count = copy_dst_layouts.len().try_into().unwrap();
             self.p_copy_dst_layouts = copy_dst_layouts.as_mut_ptr();
             self
         }
 
+        #[inline]
         pub fn optimal_tiling_layout_uuid(
             mut self,
             optimal_tiling_layout_uuid: [u8; UUID_SIZE as usize],
@@ -1748,6 +1831,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn identical_memory_type_requirements(
             mut self,
             identical_memory_type_requirements: bool,
@@ -1799,6 +1883,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceHostImageCopyFeatures<'a> {
+        #[inline]
         pub fn host_image_copy(mut self, host_image_copy: bool) -> Self {
             self.host_image_copy = host_image_copy.into();
             self
@@ -1870,18 +1955,21 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceHostImageCopyProperties<'a> {
+        #[inline]
         pub fn copy_src_layouts(mut self, copy_src_layouts: &'a mut [ImageLayout]) -> Self {
             self.copy_src_layout_count = copy_src_layouts.len().try_into().unwrap();
             self.p_copy_src_layouts = copy_src_layouts.as_mut_ptr();
             self
         }
 
+        #[inline]
         pub fn copy_dst_layouts(mut self, copy_dst_layouts: &'a mut [ImageLayout]) -> Self {
             self.copy_dst_layout_count = copy_dst_layouts.len().try_into().unwrap();
             self.p_copy_dst_layouts = copy_dst_layouts.as_mut_ptr();
             self
         }
 
+        #[inline]
         pub fn optimal_tiling_layout_uuid(
             mut self,
             optimal_tiling_layout_uuid: [u8; UUID_SIZE as usize],
@@ -1890,6 +1978,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn identical_memory_type_requirements(
             mut self,
             identical_memory_type_requirements: bool,
@@ -1952,31 +2041,37 @@ pub(super) mod defs {
     }
 
     impl<'a> MemoryToImageCopy<'a> {
+        #[inline]
         pub fn host_pointer(mut self, host_pointer: *const c_void) -> Self {
             self.p_host_pointer = host_pointer;
             self
         }
 
+        #[inline]
         pub fn memory_row_length(mut self, memory_row_length: u32) -> Self {
             self.memory_row_length = memory_row_length;
             self
         }
 
+        #[inline]
         pub fn memory_image_height(mut self, memory_image_height: u32) -> Self {
             self.memory_image_height = memory_image_height;
             self
         }
 
+        #[inline]
         pub fn image_subresource(mut self, image_subresource: ImageSubresourceLayers) -> Self {
             self.image_subresource = image_subresource;
             self
         }
 
+        #[inline]
         pub fn image_offset(mut self, image_offset: Offset3D) -> Self {
             self.image_offset = image_offset;
             self
         }
 
+        #[inline]
         pub fn image_extent(mut self, image_extent: Extent3D) -> Self {
             self.image_extent = image_extent;
             self
@@ -2036,31 +2131,37 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageToMemoryCopy<'a> {
+        #[inline]
         pub fn host_pointer(mut self, host_pointer: *mut c_void) -> Self {
             self.p_host_pointer = host_pointer;
             self
         }
 
+        #[inline]
         pub fn memory_row_length(mut self, memory_row_length: u32) -> Self {
             self.memory_row_length = memory_row_length;
             self
         }
 
+        #[inline]
         pub fn memory_image_height(mut self, memory_image_height: u32) -> Self {
             self.memory_image_height = memory_image_height;
             self
         }
 
+        #[inline]
         pub fn image_subresource(mut self, image_subresource: ImageSubresourceLayers) -> Self {
             self.image_subresource = image_subresource;
             self
         }
 
+        #[inline]
         pub fn image_offset(mut self, image_offset: Offset3D) -> Self {
             self.image_offset = image_offset;
             self
         }
 
+        #[inline]
         pub fn image_extent(mut self, image_extent: Extent3D) -> Self {
             self.image_extent = image_extent;
             self
@@ -2117,21 +2218,25 @@ pub(super) mod defs {
     }
 
     impl<'a> CopyMemoryToImageInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: HostImageCopyFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn dst_image(mut self, dst_image: Image) -> Self {
             self.dst_image = dst_image;
             self
         }
 
+        #[inline]
         pub fn dst_image_layout(mut self, dst_image_layout: ImageLayout) -> Self {
             self.dst_image_layout = dst_image_layout;
             self
         }
 
+        #[inline]
         pub fn regions(mut self, regions: &'a [MemoryToImageCopy<'a>]) -> Self {
             self.region_count = regions.len().try_into().unwrap();
             self.p_regions = regions.as_ptr();
@@ -2189,21 +2294,25 @@ pub(super) mod defs {
     }
 
     impl<'a> CopyImageToMemoryInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: HostImageCopyFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn src_image(mut self, src_image: Image) -> Self {
             self.src_image = src_image;
             self
         }
 
+        #[inline]
         pub fn src_image_layout(mut self, src_image_layout: ImageLayout) -> Self {
             self.src_image_layout = src_image_layout;
             self
         }
 
+        #[inline]
         pub fn regions(mut self, regions: &'a [ImageToMemoryCopy<'a>]) -> Self {
             self.region_count = regions.len().try_into().unwrap();
             self.p_regions = regions.as_ptr();
@@ -2267,31 +2376,37 @@ pub(super) mod defs {
     }
 
     impl<'a> CopyImageToImageInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: HostImageCopyFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn src_image(mut self, src_image: Image) -> Self {
             self.src_image = src_image;
             self
         }
 
+        #[inline]
         pub fn src_image_layout(mut self, src_image_layout: ImageLayout) -> Self {
             self.src_image_layout = src_image_layout;
             self
         }
 
+        #[inline]
         pub fn dst_image(mut self, dst_image: Image) -> Self {
             self.dst_image = dst_image;
             self
         }
 
+        #[inline]
         pub fn dst_image_layout(mut self, dst_image_layout: ImageLayout) -> Self {
             self.dst_image_layout = dst_image_layout;
             self
         }
 
+        #[inline]
         pub fn regions(mut self, regions: &'a [ImageCopy2<'a>]) -> Self {
             self.region_count = regions.len().try_into().unwrap();
             self.p_regions = regions.as_ptr();
@@ -2346,21 +2461,25 @@ pub(super) mod defs {
     }
 
     impl<'a> HostImageLayoutTransitionInfo<'a> {
+        #[inline]
         pub fn image(mut self, image: Image) -> Self {
             self.image = image;
             self
         }
 
+        #[inline]
         pub fn old_layout(mut self, old_layout: ImageLayout) -> Self {
             self.old_layout = old_layout;
             self
         }
 
+        #[inline]
         pub fn new_layout(mut self, new_layout: ImageLayout) -> Self {
             self.new_layout = new_layout;
             self
         }
 
+        #[inline]
         pub fn subresource_range(mut self, subresource_range: ImageSubresourceRange) -> Self {
             self.subresource_range = subresource_range;
             self
@@ -2407,6 +2526,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SubresourceHostMemcpySize<'a> {
+        #[inline]
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
@@ -2457,11 +2577,13 @@ pub(super) mod defs {
     }
 
     impl<'a> HostImageCopyDevicePerformanceQuery<'a> {
+        #[inline]
         pub fn optimal_device_access(mut self, optimal_device_access: bool) -> Self {
             self.optimal_device_access = optimal_device_access.into();
             self
         }
 
+        #[inline]
         pub fn identical_memory_layout(mut self, identical_memory_layout: bool) -> Self {
             self.identical_memory_layout = identical_memory_layout.into();
             self
@@ -2516,6 +2638,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePipelineProtectedAccessFeatures<'a> {
+        #[inline]
         pub fn pipeline_protected_access(mut self, pipeline_protected_access: bool) -> Self {
             self.pipeline_protected_access = pipeline_protected_access.into();
             self
@@ -2560,6 +2683,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageSubresource2<'a> {
+        #[inline]
         pub fn image_subresource(mut self, image_subresource: ImageSubresource) -> Self {
             self.image_subresource = image_subresource;
             self
@@ -2604,6 +2728,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SubresourceLayout2<'a> {
+        #[inline]
         pub fn subresource_layout(mut self, subresource_layout: SubresourceLayout) -> Self {
             self.subresource_layout = subresource_layout;
             self
@@ -2655,6 +2780,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePipelineRobustnessFeatures<'a> {
+        #[inline]
         pub fn pipeline_robustness(mut self, pipeline_robustness: bool) -> Self {
             self.pipeline_robustness = pipeline_robustness.into();
             self
@@ -2713,6 +2839,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineRobustnessCreateInfo<'a> {
+        #[inline]
         pub fn storage_buffers(
             mut self,
             storage_buffers: PipelineRobustnessBufferBehavior,
@@ -2721,6 +2848,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn uniform_buffers(
             mut self,
             uniform_buffers: PipelineRobustnessBufferBehavior,
@@ -2729,11 +2857,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn vertex_inputs(mut self, vertex_inputs: PipelineRobustnessBufferBehavior) -> Self {
             self.vertex_inputs = vertex_inputs;
             self
         }
 
+        #[inline]
         pub fn images(mut self, images: PipelineRobustnessImageBehavior) -> Self {
             self.images = images;
             self
@@ -2802,6 +2932,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePipelineRobustnessProperties<'a> {
+        #[inline]
         pub fn default_robustness_storage_buffers(
             mut self,
             default_robustness_storage_buffers: PipelineRobustnessBufferBehavior,
@@ -2810,6 +2941,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn default_robustness_uniform_buffers(
             mut self,
             default_robustness_uniform_buffers: PipelineRobustnessBufferBehavior,
@@ -2818,6 +2950,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn default_robustness_vertex_inputs(
             mut self,
             default_robustness_vertex_inputs: PipelineRobustnessBufferBehavior,
@@ -2826,6 +2959,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn default_robustness_images(
             mut self,
             default_robustness_images: PipelineRobustnessImageBehavior,
@@ -2876,11 +3010,13 @@ pub(super) mod defs {
     }
 
     impl<'a> DeviceImageSubresourceInfo<'a> {
+        #[inline]
         pub fn create_info(mut self, create_info: &'a ImageCreateInfo<'a>) -> Self {
             self.p_create_info = create_info;
             self
         }
 
+        #[inline]
         pub fn subresource(mut self, subresource: &'a ImageSubresource2<'a>) -> Self {
             self.p_subresource = subresource;
             self
@@ -2934,21 +3070,25 @@ pub(super) mod defs {
     }
 
     impl<'a> MemoryMapInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: MemoryMapFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
         }
 
+        #[inline]
         pub fn offset(mut self, offset: DeviceSize) -> Self {
             self.offset = offset;
             self
         }
 
+        #[inline]
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
@@ -2996,11 +3136,13 @@ pub(super) mod defs {
     }
 
     impl<'a> MemoryUnmapInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: MemoryUnmapFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
@@ -3048,6 +3190,7 @@ pub(super) mod defs {
     }
 
     impl<'a> BindMemoryStatus<'a> {
+        #[inline]
         pub fn result(mut self, result: &'a mut vk::Result) -> Self {
             self.p_result = result;
             self
@@ -3110,27 +3253,32 @@ pub(super) mod defs {
     }
 
     impl<'a> BindDescriptorSetsInfo<'a> {
+        #[inline]
         pub fn stage_flags(mut self, stage_flags: ShaderStageFlags) -> Self {
             self.stage_flags = stage_flags;
             self
         }
 
+        #[inline]
         pub fn layout(mut self, layout: PipelineLayout) -> Self {
             self.layout = layout;
             self
         }
 
+        #[inline]
         pub fn first_set(mut self, first_set: u32) -> Self {
             self.first_set = first_set;
             self
         }
 
+        #[inline]
         pub fn descriptor_sets(mut self, descriptor_sets: &'a [DescriptorSet]) -> Self {
             self.descriptor_set_count = descriptor_sets.len().try_into().unwrap();
             self.p_descriptor_sets = descriptor_sets.as_ptr();
             self
         }
 
+        #[inline]
         pub fn dynamic_offsets(mut self, dynamic_offsets: &'a [u32]) -> Self {
             self.dynamic_offset_count = dynamic_offsets.len().try_into().unwrap();
             self.p_dynamic_offsets = dynamic_offsets.as_ptr();
@@ -3188,21 +3336,25 @@ pub(super) mod defs {
     }
 
     impl<'a> PushConstantsInfo<'a> {
+        #[inline]
         pub fn layout(mut self, layout: PipelineLayout) -> Self {
             self.layout = layout;
             self
         }
 
+        #[inline]
         pub fn stage_flags(mut self, stage_flags: ShaderStageFlags) -> Self {
             self.stage_flags = stage_flags;
             self
         }
 
+        #[inline]
         pub fn offset(mut self, offset: u32) -> Self {
             self.offset = offset;
             self
         }
 
+        #[inline]
         pub fn values(mut self, values: &'a [u8]) -> Self {
             self.size = values.len().try_into().unwrap();
             self.p_values = values.as_ptr() as _;
@@ -3260,21 +3412,25 @@ pub(super) mod defs {
     }
 
     impl<'a> PushDescriptorSetInfo<'a> {
+        #[inline]
         pub fn stage_flags(mut self, stage_flags: ShaderStageFlags) -> Self {
             self.stage_flags = stage_flags;
             self
         }
 
+        #[inline]
         pub fn layout(mut self, layout: PipelineLayout) -> Self {
             self.layout = layout;
             self
         }
 
+        #[inline]
         pub fn set(mut self, set: u32) -> Self {
             self.set = set;
             self
         }
 
+        #[inline]
         pub fn descriptor_writes(
             mut self,
             descriptor_writes: &'a [WriteDescriptorSet<'a>],
@@ -3335,6 +3491,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PushDescriptorSetWithTemplateInfo<'a> {
+        #[inline]
         pub fn descriptor_update_template(
             mut self,
             descriptor_update_template: DescriptorUpdateTemplate,
@@ -3343,16 +3500,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn layout(mut self, layout: PipelineLayout) -> Self {
             self.layout = layout;
             self
         }
 
+        #[inline]
         pub fn set(mut self, set: u32) -> Self {
             self.set = set;
             self
         }
 
+        #[inline]
         pub fn data(mut self, data: *const c_void) -> Self {
             self.p_data = data;
             self
@@ -3410,11 +3570,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderSubgroupRotateFeatures<'a> {
+        #[inline]
         pub fn shader_subgroup_rotate(mut self, shader_subgroup_rotate: bool) -> Self {
             self.shader_subgroup_rotate = shader_subgroup_rotate.into();
             self
         }
 
+        #[inline]
         pub fn shader_subgroup_rotate_clustered(
             mut self,
             shader_subgroup_rotate_clustered: bool,
@@ -3469,6 +3631,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderExpectAssumeFeatures<'a> {
+        #[inline]
         pub fn shader_expect_assume(mut self, shader_expect_assume: bool) -> Self {
             self.shader_expect_assume = shader_expect_assume.into();
             self
@@ -3520,6 +3683,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderFloatControls2Features<'a> {
+        #[inline]
         pub fn shader_float_controls2(mut self, shader_float_controls2: bool) -> Self {
             self.shader_float_controls2 = shader_float_controls2.into();
             self
@@ -3577,6 +3741,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDynamicRenderingLocalReadFeatures<'a> {
+        #[inline]
         pub fn dynamic_rendering_local_read(mut self, dynamic_rendering_local_read: bool) -> Self {
             self.dynamic_rendering_local_read = dynamic_rendering_local_read.into();
             self
@@ -3630,6 +3795,7 @@ pub(super) mod defs {
     }
 
     impl<'a> RenderingAttachmentLocationInfo<'a> {
+        #[inline]
         pub fn color_attachment_locations(mut self, color_attachment_locations: &'a [u32]) -> Self {
             self.color_attachment_count = color_attachment_locations.len().try_into().unwrap();
             self.p_color_attachment_locations = color_attachment_locations.as_ptr();
@@ -3699,6 +3865,7 @@ pub(super) mod defs {
     }
 
     impl<'a> RenderingInputAttachmentIndexInfo<'a> {
+        #[inline]
         pub fn color_attachment_input_indices(
             mut self,
             color_attachment_input_indices: &'a [u32],
@@ -3708,6 +3875,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn depth_input_attachment_index(
             mut self,
             depth_input_attachment_index: &'a u32,
@@ -3716,6 +3884,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn stencil_input_attachment_index(
             mut self,
             stencil_input_attachment_index: &'a u32,
@@ -4907,6 +5076,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkMapMemory2.html>
+    #[inline]
     pub unsafe fn map_memory2(
         &self,
         device: Device,
@@ -4924,6 +5094,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUnmapMemory2.html>
+    #[inline]
     pub unsafe fn unmap_memory2(
         &self,
         device: Device,
@@ -4940,6 +5111,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceImageSubresourceLayout.html>
+    #[inline]
     pub unsafe fn get_device_image_subresource_layout(
         &self,
         device: Device,
@@ -4950,6 +5122,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageSubresourceLayout2.html>
+    #[inline]
     pub unsafe fn get_image_subresource_layout2(
         &self,
         device: Device,
@@ -4961,6 +5134,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMemoryToImage.html>
+    #[inline]
     pub unsafe fn copy_memory_to_image(
         &self,
         device: Device,
@@ -4977,6 +5151,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyImageToMemory.html>
+    #[inline]
     pub unsafe fn copy_image_to_memory(
         &self,
         device: Device,
@@ -4993,6 +5168,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyImageToImage.html>
+    #[inline]
     pub unsafe fn copy_image_to_image(
         &self,
         device: Device,
@@ -5009,6 +5185,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkTransitionImageLayout.html>
+    #[inline]
     pub unsafe fn transition_image_layout(
         &self,
         device: Device,
@@ -5029,6 +5206,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushDescriptorSet.html>
+    #[inline]
     pub unsafe fn cmd_push_descriptor_set(
         &self,
         command_buffer: CommandBuffer,
@@ -5050,6 +5228,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushDescriptorSetWithTemplate.html>
+    #[inline]
     pub unsafe fn cmd_push_descriptor_set_with_template(
         &self,
         command_buffer: CommandBuffer,
@@ -5070,6 +5249,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindDescriptorSets2.html>
+    #[inline]
     pub unsafe fn cmd_bind_descriptor_sets2(
         &self,
         command_buffer: CommandBuffer,
@@ -5079,6 +5259,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushConstants2.html>
+    #[inline]
     pub unsafe fn cmd_push_constants2(
         &self,
         command_buffer: CommandBuffer,
@@ -5088,6 +5269,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushDescriptorSet2.html>
+    #[inline]
     pub unsafe fn cmd_push_descriptor_set2(
         &self,
         command_buffer: CommandBuffer,
@@ -5097,6 +5279,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushDescriptorSetWithTemplate2.html>
+    #[inline]
     pub unsafe fn cmd_push_descriptor_set_with_template2(
         &self,
         command_buffer: CommandBuffer,
@@ -5111,6 +5294,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLineStipple.html>
+    #[inline]
     pub unsafe fn cmd_set_line_stipple(
         &self,
         command_buffer: CommandBuffer,
@@ -5123,6 +5307,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindIndexBuffer2.html>
+    #[inline]
     pub unsafe fn cmd_bind_index_buffer2(
         &self,
         command_buffer: CommandBuffer,
@@ -5135,6 +5320,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRenderingAreaGranularity.html>
+    #[inline]
     pub unsafe fn get_rendering_area_granularity(
         &self,
         device: Device,
@@ -5152,6 +5338,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRenderingAttachmentLocations.html>
+    #[inline]
     pub unsafe fn cmd_set_rendering_attachment_locations(
         &self,
         command_buffer: CommandBuffer,
@@ -5161,6 +5348,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRenderingInputAttachmentIndices.html>
+    #[inline]
     pub unsafe fn cmd_set_rendering_input_attachment_indices(
         &self,
         command_buffer: CommandBuffer,

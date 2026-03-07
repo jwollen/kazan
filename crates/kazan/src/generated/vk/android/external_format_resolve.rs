@@ -60,6 +60,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceExternalFormatResolveFeaturesANDROID<'a> {
+        #[inline]
         pub fn external_format_resolve(mut self, external_format_resolve: bool) -> Self {
             self.external_format_resolve = external_format_resolve.into();
             self
@@ -125,6 +126,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceExternalFormatResolvePropertiesANDROID<'a> {
+        #[inline]
         pub fn null_color_attachment_with_external_format_resolve(
             mut self,
             null_color_attachment_with_external_format_resolve: bool,
@@ -134,6 +136,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn external_format_resolve_chroma_offset_x(
             mut self,
             external_format_resolve_chroma_offset_x: ChromaLocation,
@@ -142,6 +145,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn external_format_resolve_chroma_offset_y(
             mut self,
             external_format_resolve_chroma_offset_y: ChromaLocation,
@@ -195,6 +199,7 @@ pub(super) mod defs {
     }
 
     impl<'a> AndroidHardwareBufferFormatResolvePropertiesANDROID<'a> {
+        #[inline]
         pub fn color_attachment_format(mut self, color_attachment_format: Format) -> Self {
             self.color_attachment_format = color_attachment_format;
             self

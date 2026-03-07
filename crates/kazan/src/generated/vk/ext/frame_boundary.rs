@@ -79,33 +79,39 @@ pub(super) mod defs {
     }
 
     impl<'a> FrameBoundaryEXT<'a> {
+        #[inline]
         pub fn flags(mut self, flags: FrameBoundaryFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn frame_id(mut self, frame_id: u64) -> Self {
             self.frame_id = frame_id;
             self
         }
 
+        #[inline]
         pub fn images(mut self, images: &'a [Image]) -> Self {
             self.image_count = images.len().try_into().unwrap();
             self.p_images = images.as_ptr();
             self
         }
 
+        #[inline]
         pub fn buffers(mut self, buffers: &'a [Buffer]) -> Self {
             self.buffer_count = buffers.len().try_into().unwrap();
             self.p_buffers = buffers.as_ptr();
             self
         }
 
+        #[inline]
         pub fn tag_name(mut self, tag_name: u64) -> Self {
             self.tag_name = tag_name;
             self
         }
 
+        #[inline]
         pub fn tag(mut self, tag: &'a [u8]) -> Self {
             self.tag_size = tag.len().try_into().unwrap();
             self.p_tag = tag.as_ptr() as _;
@@ -158,6 +164,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceFrameBoundaryFeaturesEXT<'a> {
+        #[inline]
         pub fn frame_boundary(mut self, frame_boundary: bool) -> Self {
             self.frame_boundary = frame_boundary.into();
             self

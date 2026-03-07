@@ -56,6 +56,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SurfaceFullScreenExclusiveInfoEXT<'a> {
+        #[inline]
         pub fn full_screen_exclusive(
             mut self,
             full_screen_exclusive: FullScreenExclusiveEXT,
@@ -110,6 +111,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SurfaceFullScreenExclusiveWin32InfoEXT<'a> {
+        #[inline]
         pub fn hmonitor(mut self, hmonitor: HMONITOR) -> Self {
             self.hmonitor = hmonitor;
             self
@@ -163,6 +165,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SurfaceCapabilitiesFullScreenExclusiveEXT<'a> {
+        #[inline]
         pub fn full_screen_exclusive_supported(
             mut self,
             full_screen_exclusive_supported: bool,
@@ -245,6 +248,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfacePresentModes2EXT.html>
+    #[inline]
     pub unsafe fn get_physical_device_surface_present_modes2_ext<'a>(
         &self,
         physical_device: PhysicalDevice,
@@ -307,6 +311,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireFullScreenExclusiveModeEXT.html>
+    #[inline]
     pub unsafe fn acquire_full_screen_exclusive_mode_ext(
         &self,
         device: Device,
@@ -323,6 +328,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleaseFullScreenExclusiveModeEXT.html>
+    #[inline]
     pub unsafe fn release_full_screen_exclusive_mode_ext(
         &self,
         device: Device,
@@ -339,6 +345,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceGroupSurfacePresentModes2EXT.html>
+    #[inline]
     pub unsafe fn get_device_group_surface_present_modes2_ext(
         &self,
         device: Device,

@@ -65,21 +65,25 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePCIBusInfoPropertiesEXT<'a> {
+        #[inline]
         pub fn pci_domain(mut self, pci_domain: u32) -> Self {
             self.pci_domain = pci_domain;
             self
         }
 
+        #[inline]
         pub fn pci_bus(mut self, pci_bus: u32) -> Self {
             self.pci_bus = pci_bus;
             self
         }
 
+        #[inline]
         pub fn pci_device(mut self, pci_device: u32) -> Self {
             self.pci_device = pci_device;
             self
         }
 
+        #[inline]
         pub fn pci_function(mut self, pci_function: u32) -> Self {
             self.pci_function = pci_function;
             self

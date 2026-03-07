@@ -75,11 +75,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT<'a> {
+        #[inline]
         pub fn primitives_generated_query(mut self, primitives_generated_query: bool) -> Self {
             self.primitives_generated_query = primitives_generated_query.into();
             self
         }
 
+        #[inline]
         pub fn primitives_generated_query_with_rasterizer_discard(
             mut self,
             primitives_generated_query_with_rasterizer_discard: bool,
@@ -89,6 +91,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn primitives_generated_query_with_non_zero_streams(
             mut self,
             primitives_generated_query_with_non_zero_streams: bool,

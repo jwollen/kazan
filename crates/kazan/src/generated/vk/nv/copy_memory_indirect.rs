@@ -65,6 +65,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceCopyMemoryIndirectFeaturesNV<'a> {
+        #[inline]
         pub fn indirect_copy(mut self, indirect_copy: bool) -> Self {
             self.indirect_copy = indirect_copy.into();
             self
@@ -114,6 +115,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryIndirectNV.html>
+    #[inline]
     pub unsafe fn cmd_copy_memory_indirect_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -132,6 +134,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryToImageIndirectNV.html>
+    #[inline]
     pub unsafe fn cmd_copy_memory_to_image_indirect_nv(
         &self,
         command_buffer: CommandBuffer,

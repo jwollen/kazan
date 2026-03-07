@@ -52,6 +52,7 @@ pub(super) mod defs {
     }
 
     impl<'a> RenderPassTransformBeginInfoQCOM<'a> {
+        #[inline]
         pub fn transform(mut self, transform: SurfaceTransformFlagBitsKHR) -> Self {
             self.transform = transform;
             self
@@ -105,11 +106,13 @@ pub(super) mod defs {
     }
 
     impl<'a> CommandBufferInheritanceRenderPassTransformInfoQCOM<'a> {
+        #[inline]
         pub fn transform(mut self, transform: SurfaceTransformFlagBitsKHR) -> Self {
             self.transform = transform;
             self
         }
 
+        #[inline]
         pub fn render_area(mut self, render_area: Rect2D) -> Self {
             self.render_area = render_area;
             self

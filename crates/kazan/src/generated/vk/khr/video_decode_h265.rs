@@ -53,6 +53,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoDecodeH265ProfileInfoKHR<'a> {
+        #[inline]
         pub fn std_profile_idc(mut self, std_profile_idc: StdVideoH265ProfileIdc) -> Self {
             self.std_profile_idc = std_profile_idc;
             self
@@ -99,6 +100,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoDecodeH265CapabilitiesKHR<'a> {
+        #[inline]
         pub fn max_level_idc(mut self, max_level_idc: StdVideoH265LevelIdc) -> Self {
             self.max_level_idc = max_level_idc;
             self
@@ -164,18 +166,21 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoDecodeH265SessionParametersAddInfoKHR<'a> {
+        #[inline]
         pub fn std_vp_ss(mut self, std_vp_ss: &'a [StdVideoH265VideoParameterSet<'a>]) -> Self {
             self.std_vps_count = std_vp_ss.len().try_into().unwrap();
             self.p_std_vp_ss = std_vp_ss.as_ptr();
             self
         }
 
+        #[inline]
         pub fn std_sp_ss(mut self, std_sp_ss: &'a [StdVideoH265SequenceParameterSet<'a>]) -> Self {
             self.std_sps_count = std_sp_ss.len().try_into().unwrap();
             self.p_std_sp_ss = std_sp_ss.as_ptr();
             self
         }
 
+        #[inline]
         pub fn std_pp_ss(mut self, std_pp_ss: &'a [StdVideoH265PictureParameterSet<'a>]) -> Self {
             self.std_pps_count = std_pp_ss.len().try_into().unwrap();
             self.p_std_pp_ss = std_pp_ss.as_ptr();
@@ -236,21 +241,25 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoDecodeH265SessionParametersCreateInfoKHR<'a> {
+        #[inline]
         pub fn max_std_vps_count(mut self, max_std_vps_count: u32) -> Self {
             self.max_std_vps_count = max_std_vps_count;
             self
         }
 
+        #[inline]
         pub fn max_std_sps_count(mut self, max_std_sps_count: u32) -> Self {
             self.max_std_sps_count = max_std_sps_count;
             self
         }
 
+        #[inline]
         pub fn max_std_pps_count(mut self, max_std_pps_count: u32) -> Self {
             self.max_std_pps_count = max_std_pps_count;
             self
         }
 
+        #[inline]
         pub fn parameters_add_info(
             mut self,
             parameters_add_info: &'a VideoDecodeH265SessionParametersAddInfoKHR<'a>,
@@ -306,6 +315,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoDecodeH265PictureInfoKHR<'a> {
+        #[inline]
         pub fn std_picture_info(
             mut self,
             std_picture_info: &'a StdVideoDecodeH265PictureInfo,
@@ -314,6 +324,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn slice_segment_offsets(mut self, slice_segment_offsets: &'a [u32]) -> Self {
             self.slice_segment_count = slice_segment_offsets.len().try_into().unwrap();
             self.p_slice_segment_offsets = slice_segment_offsets.as_ptr();
@@ -361,6 +372,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoDecodeH265DpbSlotInfoKHR<'a> {
+        #[inline]
         pub fn std_reference_info(
             mut self,
             std_reference_info: &'a StdVideoDecodeH265ReferenceInfo,

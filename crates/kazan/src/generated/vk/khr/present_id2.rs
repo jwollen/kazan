@@ -54,6 +54,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePresentId2FeaturesKHR<'a> {
+        #[inline]
         pub fn present_id2(mut self, present_id2: bool) -> Self {
             self.present_id2 = present_id2.into();
             self
@@ -103,6 +104,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PresentId2KHR<'a> {
+        #[inline]
         pub fn present_ids(mut self, present_ids: &'a [u64]) -> Self {
             self.swapchain_count = present_ids.len().try_into().unwrap();
             self.p_present_ids = present_ids.as_ptr();
@@ -150,6 +152,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SurfaceCapabilitiesPresentId2KHR<'a> {
+        #[inline]
         pub fn present_id2_supported(mut self, present_id2_supported: bool) -> Self {
             self.present_id2_supported = present_id2_supported.into();
             self

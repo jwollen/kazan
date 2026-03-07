@@ -55,11 +55,13 @@ pub(super) mod defs {
     }
 
     impl<'a> ImportMemoryWin32HandleInfoNV<'a> {
+        #[inline]
         pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagsNV) -> Self {
             self.handle_type = handle_type;
             self
         }
 
+        #[inline]
         pub fn handle(mut self, handle: HANDLE) -> Self {
             self.handle = handle;
             self
@@ -109,11 +111,13 @@ pub(super) mod defs {
     }
 
     impl<'a> ExportMemoryWin32HandleInfoNV<'a> {
+        #[inline]
         pub fn attributes(mut self, attributes: *const SECURITY_ATTRIBUTES) -> Self {
             self.p_attributes = attributes;
             self
         }
 
+        #[inline]
         pub fn dw_access(mut self, dw_access: DWORD) -> Self {
             self.dw_access = dw_access;
             self
@@ -149,6 +153,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryWin32HandleNV.html>
+    #[inline]
     pub unsafe fn get_memory_win32_handle_nv(
         &self,
         device: Device,

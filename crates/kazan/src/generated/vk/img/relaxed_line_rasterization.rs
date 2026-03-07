@@ -63,6 +63,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceRelaxedLineRasterizationFeaturesIMG<'a> {
+        #[inline]
         pub fn relaxed_line_rasterization(mut self, relaxed_line_rasterization: bool) -> Self {
             self.relaxed_line_rasterization = relaxed_line_rasterization.into();
             self

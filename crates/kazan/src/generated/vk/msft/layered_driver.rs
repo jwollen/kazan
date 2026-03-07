@@ -56,6 +56,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceLayeredDriverPropertiesMSFT<'a> {
+        #[inline]
         pub fn underlying_api(mut self, underlying_api: LayeredDriverUnderlyingApiMSFT) -> Self {
             self.underlying_api = underlying_api;
             self

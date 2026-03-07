@@ -62,16 +62,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderCorePropertiesARM<'a> {
+        #[inline]
         pub fn pixel_rate(mut self, pixel_rate: u32) -> Self {
             self.pixel_rate = pixel_rate;
             self
         }
 
+        #[inline]
         pub fn texel_rate(mut self, texel_rate: u32) -> Self {
             self.texel_rate = texel_rate;
             self
         }
 
+        #[inline]
         pub fn fma_rate(mut self, fma_rate: u32) -> Self {
             self.fma_rate = fma_rate;
             self

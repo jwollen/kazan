@@ -63,11 +63,13 @@ pub(super) mod defs {
     }
 
     impl<'a> ValidationCacheCreateInfoEXT<'a> {
+        #[inline]
         pub fn flags(mut self, flags: ValidationCacheCreateFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn initial_data(mut self, initial_data: &'a [u8]) -> Self {
             self.initial_data_size = initial_data.len().try_into().unwrap();
             self.p_initial_data = initial_data.as_ptr() as _;
@@ -123,6 +125,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ShaderModuleValidationCacheCreateInfoEXT<'a> {
+        #[inline]
         pub fn validation_cache(mut self, validation_cache: ValidationCacheEXT) -> Self {
             self.validation_cache = validation_cache;
             self
@@ -225,6 +228,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateValidationCacheEXT.html>
+    #[inline]
     pub unsafe fn create_validation_cache_ext(
         &self,
         device: Device,
@@ -248,6 +252,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyValidationCacheEXT.html>
+    #[inline]
     pub unsafe fn destroy_validation_cache_ext(
         &self,
         device: Device,
@@ -260,6 +265,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkMergeValidationCachesEXT.html>
+    #[inline]
     pub unsafe fn merge_validation_caches_ext(
         &self,
         device: Device,
@@ -282,6 +288,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetValidationCacheDataEXT.html>
+    #[inline]
     pub unsafe fn get_validation_cache_data_ext(
         &self,
         device: Device,

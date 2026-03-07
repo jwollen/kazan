@@ -54,6 +54,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePresentWaitFeaturesKHR<'a> {
+        #[inline]
         pub fn present_wait(mut self, present_wait: bool) -> Self {
             self.present_wait = present_wait.into();
             self
@@ -89,6 +90,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWaitForPresentKHR.html>
+    #[inline]
     pub unsafe fn wait_for_present_khr(
         &self,
         device: Device,

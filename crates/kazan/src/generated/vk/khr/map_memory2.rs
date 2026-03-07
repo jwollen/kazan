@@ -44,6 +44,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkMapMemory2KHR.html>
+    #[inline]
     pub unsafe fn map_memory2_khr(
         &self,
         device: Device,
@@ -61,6 +62,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUnmapMemory2KHR.html>
+    #[inline]
     pub unsafe fn unmap_memory2_khr(
         &self,
         device: Device,

@@ -69,6 +69,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceComputeShaderDerivativesFeaturesKHR<'a> {
+        #[inline]
         pub fn compute_derivative_group_quads(
             mut self,
             compute_derivative_group_quads: bool,
@@ -77,6 +78,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn compute_derivative_group_linear(
             mut self,
             compute_derivative_group_linear: bool,
@@ -133,6 +135,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceComputeShaderDerivativesPropertiesKHR<'a> {
+        #[inline]
         pub fn mesh_and_task_shader_derivatives(
             mut self,
             mesh_and_task_shader_derivatives: bool,

@@ -52,6 +52,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ImportScreenBufferInfoQNX<'a> {
+        #[inline]
         pub fn buffer(mut self, buffer: *mut _screen_buffer) -> Self {
             self.buffer = buffer;
             self
@@ -99,11 +100,13 @@ pub(super) mod defs {
     }
 
     impl<'a> ScreenBufferPropertiesQNX<'a> {
+        #[inline]
         pub fn allocation_size(mut self, allocation_size: DeviceSize) -> Self {
             self.allocation_size = allocation_size;
             self
         }
 
+        #[inline]
         pub fn memory_type_bits(mut self, memory_type_bits: u32) -> Self {
             self.memory_type_bits = memory_type_bits;
             self
@@ -177,26 +180,31 @@ pub(super) mod defs {
     }
 
     impl<'a> ScreenBufferFormatPropertiesQNX<'a> {
+        #[inline]
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
 
+        #[inline]
         pub fn external_format(mut self, external_format: u64) -> Self {
             self.external_format = external_format;
             self
         }
 
+        #[inline]
         pub fn screen_usage(mut self, screen_usage: u64) -> Self {
             self.screen_usage = screen_usage;
             self
         }
 
+        #[inline]
         pub fn format_features(mut self, format_features: FormatFeatureFlags) -> Self {
             self.format_features = format_features;
             self
         }
 
+        #[inline]
         pub fn sampler_ycbcr_conversion_components(
             mut self,
             sampler_ycbcr_conversion_components: ComponentMapping,
@@ -205,6 +213,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn suggested_ycbcr_model(
             mut self,
             suggested_ycbcr_model: SamplerYcbcrModelConversion,
@@ -213,11 +222,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn suggested_ycbcr_range(mut self, suggested_ycbcr_range: SamplerYcbcrRange) -> Self {
             self.suggested_ycbcr_range = suggested_ycbcr_range;
             self
         }
 
+        #[inline]
         pub fn suggested_x_chroma_offset(
             mut self,
             suggested_x_chroma_offset: ChromaLocation,
@@ -226,6 +237,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn suggested_y_chroma_offset(
             mut self,
             suggested_y_chroma_offset: ChromaLocation,
@@ -276,6 +288,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ExternalFormatQNX<'a> {
+        #[inline]
         pub fn external_format(mut self, external_format: u64) -> Self {
             self.external_format = external_format;
             self
@@ -330,6 +343,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'a> {
+        #[inline]
         pub fn screen_buffer_import(mut self, screen_buffer_import: bool) -> Self {
             self.screen_buffer_import = screen_buffer_import.into();
             self
@@ -364,6 +378,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetScreenBufferPropertiesQNX.html>
+    #[inline]
     pub unsafe fn get_screen_buffer_properties_qnx(
         &self,
         device: Device,

@@ -65,16 +65,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineCoverageToColorStateCreateInfoNV<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PipelineCoverageToColorStateCreateFlagsNV) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn coverage_to_color_enable(mut self, coverage_to_color_enable: bool) -> Self {
             self.coverage_to_color_enable = coverage_to_color_enable.into();
             self
         }
 
+        #[inline]
         pub fn coverage_to_color_location(mut self, coverage_to_color_location: u32) -> Self {
             self.coverage_to_color_location = coverage_to_color_location;
             self

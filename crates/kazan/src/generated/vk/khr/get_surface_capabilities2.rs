@@ -50,6 +50,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceSurfaceInfo2KHR<'a> {
+        #[inline]
         pub fn surface(mut self, surface: SurfaceKHR) -> Self {
             self.surface = surface;
             self
@@ -94,6 +95,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SurfaceCapabilities2KHR<'a> {
+        #[inline]
         pub fn surface_capabilities(
             mut self,
             surface_capabilities: SurfaceCapabilitiesKHR,
@@ -141,6 +143,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SurfaceFormat2KHR<'a> {
+        #[inline]
         pub fn surface_format(mut self, surface_format: SurfaceFormatKHR) -> Self {
             self.surface_format = surface_format;
             self
@@ -189,6 +192,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceCapabilities2KHR.html>
+    #[inline]
     pub unsafe fn get_physical_device_surface_capabilities2_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -210,6 +214,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceFormats2KHR.html>
+    #[inline]
     pub unsafe fn get_physical_device_surface_formats2_khr<'a>(
         &self,
         physical_device: PhysicalDevice,

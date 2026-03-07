@@ -54,6 +54,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginRenderingKHR.html>
+    #[inline]
     pub unsafe fn cmd_begin_rendering_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -63,6 +64,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndRenderingKHR.html>
+    #[inline]
     pub unsafe fn cmd_end_rendering_khr(&self, command_buffer: CommandBuffer) {
         unsafe { (self.cmd_end_rendering_khr)(command_buffer) }
     }

@@ -82,6 +82,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyBuffer2KHR.html>
+    #[inline]
     pub unsafe fn cmd_copy_buffer2_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -91,6 +92,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyImage2KHR.html>
+    #[inline]
     pub unsafe fn cmd_copy_image2_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -100,6 +102,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyBufferToImage2KHR.html>
+    #[inline]
     pub unsafe fn cmd_copy_buffer_to_image2_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -109,6 +112,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyImageToBuffer2KHR.html>
+    #[inline]
     pub unsafe fn cmd_copy_image_to_buffer2_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -118,6 +122,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBlitImage2KHR.html>
+    #[inline]
     pub unsafe fn cmd_blit_image2_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -127,6 +132,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdResolveImage2KHR.html>
+    #[inline]
     pub unsafe fn cmd_resolve_image2_khr(
         &self,
         command_buffer: CommandBuffer,

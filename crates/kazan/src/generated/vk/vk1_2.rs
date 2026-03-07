@@ -26,21 +26,25 @@ pub(super) mod defs {
     }
 
     impl ConformanceVersion {
+        #[inline]
         pub fn major(mut self, major: u8) -> Self {
             self.major = major;
             self
         }
 
+        #[inline]
         pub fn minor(mut self, minor: u8) -> Self {
             self.minor = minor;
             self
         }
 
+        #[inline]
         pub fn subminor(mut self, subminor: u8) -> Self {
             self.subminor = subminor;
             self
         }
 
+        #[inline]
         pub fn patch(mut self, patch: u8) -> Self {
             self.patch = patch;
             self
@@ -102,11 +106,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDriverProperties<'a> {
+        #[inline]
         pub fn driver_id(mut self, driver_id: DriverId) -> Self {
             self.driver_id = driver_id;
             self
         }
 
+        #[inline]
         pub fn driver_name(
             mut self,
             driver_name: &CStr,
@@ -115,6 +121,7 @@ pub(super) mod defs {
             Ok(self)
         }
 
+        #[inline]
         pub fn driver_info(
             mut self,
             driver_info: &CStr,
@@ -123,6 +130,7 @@ pub(super) mod defs {
             Ok(self)
         }
 
+        #[inline]
         pub fn conformance_version(mut self, conformance_version: ConformanceVersion) -> Self {
             self.conformance_version = conformance_version;
             self
@@ -180,6 +188,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderSubgroupExtendedTypesFeatures<'a> {
+        #[inline]
         pub fn shader_subgroup_extended_types(
             mut self,
             shader_subgroup_extended_types: bool,
@@ -242,6 +251,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceSamplerFilterMinmaxProperties<'a> {
+        #[inline]
         pub fn filter_minmax_single_component_formats(
             mut self,
             filter_minmax_single_component_formats: bool,
@@ -251,6 +261,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn filter_minmax_image_component_mapping(
             mut self,
             filter_minmax_image_component_mapping: bool,
@@ -301,6 +312,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SamplerReductionModeCreateInfo<'a> {
+        #[inline]
         pub fn reduction_mode(mut self, reduction_mode: SamplerReductionMode) -> Self {
             self.reduction_mode = reduction_mode;
             self
@@ -352,6 +364,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageFormatListCreateInfo<'a> {
+        #[inline]
         pub fn view_formats(mut self, view_formats: &'a [Format]) -> Self {
             self.view_format_count = view_formats.len().try_into().unwrap();
             self.p_view_formats = view_formats.as_ptr();
@@ -407,11 +420,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderFloat16Int8Features<'a> {
+        #[inline]
         pub fn shader_float16(mut self, shader_float16: bool) -> Self {
             self.shader_float16 = shader_float16.into();
             self
         }
 
+        #[inline]
         pub fn shader_int8(mut self, shader_int8: bool) -> Self {
             self.shader_int8 = shader_int8.into();
             self
@@ -561,6 +576,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceFloatControlsProperties<'a> {
+        #[inline]
         pub fn denorm_behavior_independence(
             mut self,
             denorm_behavior_independence: ShaderFloatControlsIndependence,
@@ -569,6 +585,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn rounding_mode_independence(
             mut self,
             rounding_mode_independence: ShaderFloatControlsIndependence,
@@ -577,6 +594,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_signed_zero_inf_nan_preserve_float16(
             mut self,
             shader_signed_zero_inf_nan_preserve_float16: bool,
@@ -586,6 +604,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_signed_zero_inf_nan_preserve_float32(
             mut self,
             shader_signed_zero_inf_nan_preserve_float32: bool,
@@ -595,6 +614,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_signed_zero_inf_nan_preserve_float64(
             mut self,
             shader_signed_zero_inf_nan_preserve_float64: bool,
@@ -604,6 +624,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_denorm_preserve_float16(
             mut self,
             shader_denorm_preserve_float16: bool,
@@ -612,6 +633,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_denorm_preserve_float32(
             mut self,
             shader_denorm_preserve_float32: bool,
@@ -620,6 +642,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_denorm_preserve_float64(
             mut self,
             shader_denorm_preserve_float64: bool,
@@ -628,6 +651,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_denorm_flush_to_zero_float16(
             mut self,
             shader_denorm_flush_to_zero_float16: bool,
@@ -636,6 +660,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_denorm_flush_to_zero_float32(
             mut self,
             shader_denorm_flush_to_zero_float32: bool,
@@ -644,6 +669,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_denorm_flush_to_zero_float64(
             mut self,
             shader_denorm_flush_to_zero_float64: bool,
@@ -652,6 +678,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_rounding_mode_rte_float16(
             mut self,
             shader_rounding_mode_rte_float16: bool,
@@ -660,6 +687,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_rounding_mode_rte_float32(
             mut self,
             shader_rounding_mode_rte_float32: bool,
@@ -668,6 +696,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_rounding_mode_rte_float64(
             mut self,
             shader_rounding_mode_rte_float64: bool,
@@ -676,6 +705,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_rounding_mode_rtz_float16(
             mut self,
             shader_rounding_mode_rtz_float16: bool,
@@ -684,6 +714,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_rounding_mode_rtz_float32(
             mut self,
             shader_rounding_mode_rtz_float32: bool,
@@ -692,6 +723,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_rounding_mode_rtz_float64(
             mut self,
             shader_rounding_mode_rtz_float64: bool,
@@ -743,6 +775,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceHostQueryResetFeatures<'a> {
+        #[inline]
         pub fn host_query_reset(mut self, host_query_reset: bool) -> Self {
             self.host_query_reset = host_query_reset.into();
             self
@@ -908,6 +941,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDescriptorIndexingFeatures<'a> {
+        #[inline]
         pub fn shader_input_attachment_array_dynamic_indexing(
             mut self,
             shader_input_attachment_array_dynamic_indexing: bool,
@@ -917,6 +951,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_uniform_texel_buffer_array_dynamic_indexing(
             mut self,
             shader_uniform_texel_buffer_array_dynamic_indexing: bool,
@@ -926,6 +961,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_storage_texel_buffer_array_dynamic_indexing(
             mut self,
             shader_storage_texel_buffer_array_dynamic_indexing: bool,
@@ -935,6 +971,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_uniform_buffer_array_non_uniform_indexing(
             mut self,
             shader_uniform_buffer_array_non_uniform_indexing: bool,
@@ -944,6 +981,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_sampled_image_array_non_uniform_indexing(
             mut self,
             shader_sampled_image_array_non_uniform_indexing: bool,
@@ -953,6 +991,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_storage_buffer_array_non_uniform_indexing(
             mut self,
             shader_storage_buffer_array_non_uniform_indexing: bool,
@@ -962,6 +1001,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_storage_image_array_non_uniform_indexing(
             mut self,
             shader_storage_image_array_non_uniform_indexing: bool,
@@ -971,6 +1011,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_input_attachment_array_non_uniform_indexing(
             mut self,
             shader_input_attachment_array_non_uniform_indexing: bool,
@@ -980,6 +1021,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_uniform_texel_buffer_array_non_uniform_indexing(
             mut self,
             shader_uniform_texel_buffer_array_non_uniform_indexing: bool,
@@ -989,6 +1031,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_storage_texel_buffer_array_non_uniform_indexing(
             mut self,
             shader_storage_texel_buffer_array_non_uniform_indexing: bool,
@@ -998,6 +1041,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn descriptor_binding_uniform_buffer_update_after_bind(
             mut self,
             descriptor_binding_uniform_buffer_update_after_bind: bool,
@@ -1007,6 +1051,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn descriptor_binding_sampled_image_update_after_bind(
             mut self,
             descriptor_binding_sampled_image_update_after_bind: bool,
@@ -1016,6 +1061,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn descriptor_binding_storage_image_update_after_bind(
             mut self,
             descriptor_binding_storage_image_update_after_bind: bool,
@@ -1025,6 +1071,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn descriptor_binding_storage_buffer_update_after_bind(
             mut self,
             descriptor_binding_storage_buffer_update_after_bind: bool,
@@ -1034,6 +1081,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn descriptor_binding_uniform_texel_buffer_update_after_bind(
             mut self,
             descriptor_binding_uniform_texel_buffer_update_after_bind: bool,
@@ -1043,6 +1091,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn descriptor_binding_storage_texel_buffer_update_after_bind(
             mut self,
             descriptor_binding_storage_texel_buffer_update_after_bind: bool,
@@ -1052,6 +1101,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn descriptor_binding_update_unused_while_pending(
             mut self,
             descriptor_binding_update_unused_while_pending: bool,
@@ -1061,6 +1111,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn descriptor_binding_partially_bound(
             mut self,
             descriptor_binding_partially_bound: bool,
@@ -1069,6 +1120,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn descriptor_binding_variable_descriptor_count(
             mut self,
             descriptor_binding_variable_descriptor_count: bool,
@@ -1078,6 +1130,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn runtime_descriptor_array(mut self, runtime_descriptor_array: bool) -> Self {
             self.runtime_descriptor_array = runtime_descriptor_array.into();
             self
@@ -1263,6 +1316,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDescriptorIndexingProperties<'a> {
+        #[inline]
         pub fn max_update_after_bind_descriptors_in_all_pools(
             mut self,
             max_update_after_bind_descriptors_in_all_pools: u32,
@@ -1272,6 +1326,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_uniform_buffer_array_non_uniform_indexing_native(
             mut self,
             shader_uniform_buffer_array_non_uniform_indexing_native: bool,
@@ -1281,6 +1336,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_sampled_image_array_non_uniform_indexing_native(
             mut self,
             shader_sampled_image_array_non_uniform_indexing_native: bool,
@@ -1290,6 +1346,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_storage_buffer_array_non_uniform_indexing_native(
             mut self,
             shader_storage_buffer_array_non_uniform_indexing_native: bool,
@@ -1299,6 +1356,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_storage_image_array_non_uniform_indexing_native(
             mut self,
             shader_storage_image_array_non_uniform_indexing_native: bool,
@@ -1308,6 +1366,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_input_attachment_array_non_uniform_indexing_native(
             mut self,
             shader_input_attachment_array_non_uniform_indexing_native: bool,
@@ -1317,6 +1376,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn robust_buffer_access_update_after_bind(
             mut self,
             robust_buffer_access_update_after_bind: bool,
@@ -1326,11 +1386,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn quad_divergent_implicit_lod(mut self, quad_divergent_implicit_lod: bool) -> Self {
             self.quad_divergent_implicit_lod = quad_divergent_implicit_lod.into();
             self
         }
 
+        #[inline]
         pub fn max_per_stage_descriptor_update_after_bind_samplers(
             mut self,
             max_per_stage_descriptor_update_after_bind_samplers: u32,
@@ -1340,6 +1402,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_per_stage_descriptor_update_after_bind_uniform_buffers(
             mut self,
             max_per_stage_descriptor_update_after_bind_uniform_buffers: u32,
@@ -1349,6 +1412,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_per_stage_descriptor_update_after_bind_storage_buffers(
             mut self,
             max_per_stage_descriptor_update_after_bind_storage_buffers: u32,
@@ -1358,6 +1422,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_per_stage_descriptor_update_after_bind_sampled_images(
             mut self,
             max_per_stage_descriptor_update_after_bind_sampled_images: u32,
@@ -1367,6 +1432,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_per_stage_descriptor_update_after_bind_storage_images(
             mut self,
             max_per_stage_descriptor_update_after_bind_storage_images: u32,
@@ -1376,6 +1442,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_per_stage_descriptor_update_after_bind_input_attachments(
             mut self,
             max_per_stage_descriptor_update_after_bind_input_attachments: u32,
@@ -1385,6 +1452,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_per_stage_update_after_bind_resources(
             mut self,
             max_per_stage_update_after_bind_resources: u32,
@@ -1394,6 +1462,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_update_after_bind_samplers(
             mut self,
             max_descriptor_set_update_after_bind_samplers: u32,
@@ -1403,6 +1472,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_update_after_bind_uniform_buffers(
             mut self,
             max_descriptor_set_update_after_bind_uniform_buffers: u32,
@@ -1412,6 +1482,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_update_after_bind_uniform_buffers_dynamic(
             mut self,
             max_descriptor_set_update_after_bind_uniform_buffers_dynamic: u32,
@@ -1421,6 +1492,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_update_after_bind_storage_buffers(
             mut self,
             max_descriptor_set_update_after_bind_storage_buffers: u32,
@@ -1430,6 +1502,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_update_after_bind_storage_buffers_dynamic(
             mut self,
             max_descriptor_set_update_after_bind_storage_buffers_dynamic: u32,
@@ -1439,6 +1512,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_update_after_bind_sampled_images(
             mut self,
             max_descriptor_set_update_after_bind_sampled_images: u32,
@@ -1448,6 +1522,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_update_after_bind_storage_images(
             mut self,
             max_descriptor_set_update_after_bind_storage_images: u32,
@@ -1457,6 +1532,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_update_after_bind_input_attachments(
             mut self,
             max_descriptor_set_update_after_bind_input_attachments: u32,
@@ -1514,6 +1590,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DescriptorSetLayoutBindingFlagsCreateInfo<'a> {
+        #[inline]
         pub fn binding_flags(mut self, binding_flags: &'a [DescriptorBindingFlags]) -> Self {
             self.binding_count = binding_flags.len().try_into().unwrap();
             self.p_binding_flags = binding_flags.as_ptr();
@@ -1568,6 +1645,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DescriptorSetVariableDescriptorCountAllocateInfo<'a> {
+        #[inline]
         pub fn descriptor_counts(mut self, descriptor_counts: &'a [u32]) -> Self {
             self.descriptor_set_count = descriptor_counts.len().try_into().unwrap();
             self.p_descriptor_counts = descriptor_counts.as_ptr();
@@ -1622,6 +1700,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DescriptorSetVariableDescriptorCountLayoutSupport<'a> {
+        #[inline]
         pub fn max_variable_descriptor_count(mut self, max_variable_descriptor_count: u32) -> Self {
             self.max_variable_descriptor_count = max_variable_descriptor_count;
             self
@@ -1690,46 +1769,55 @@ pub(super) mod defs {
     }
 
     impl<'a> AttachmentDescription2<'a> {
+        #[inline]
         pub fn flags(mut self, flags: AttachmentDescriptionFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
 
+        #[inline]
         pub fn samples(mut self, samples: SampleCountFlagBits) -> Self {
             self.samples = samples;
             self
         }
 
+        #[inline]
         pub fn load_op(mut self, load_op: AttachmentLoadOp) -> Self {
             self.load_op = load_op;
             self
         }
 
+        #[inline]
         pub fn store_op(mut self, store_op: AttachmentStoreOp) -> Self {
             self.store_op = store_op;
             self
         }
 
+        #[inline]
         pub fn stencil_load_op(mut self, stencil_load_op: AttachmentLoadOp) -> Self {
             self.stencil_load_op = stencil_load_op;
             self
         }
 
+        #[inline]
         pub fn stencil_store_op(mut self, stencil_store_op: AttachmentStoreOp) -> Self {
             self.stencil_store_op = stencil_store_op;
             self
         }
 
+        #[inline]
         pub fn initial_layout(mut self, initial_layout: ImageLayout) -> Self {
             self.initial_layout = initial_layout;
             self
         }
 
+        #[inline]
         pub fn final_layout(mut self, final_layout: ImageLayout) -> Self {
             self.final_layout = final_layout;
             self
@@ -1780,16 +1868,19 @@ pub(super) mod defs {
     }
 
     impl<'a> AttachmentReference2<'a> {
+        #[inline]
         pub fn attachment(mut self, attachment: u32) -> Self {
             self.attachment = attachment;
             self
         }
 
+        #[inline]
         pub fn layout(mut self, layout: ImageLayout) -> Self {
             self.layout = layout;
             self
         }
 
+        #[inline]
         pub fn aspect_mask(mut self, aspect_mask: ImageAspectFlags) -> Self {
             self.aspect_mask = aspect_mask;
             self
@@ -1867,21 +1958,25 @@ pub(super) mod defs {
     }
 
     impl<'a> SubpassDescription2<'a> {
+        #[inline]
         pub fn flags(mut self, flags: SubpassDescriptionFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn pipeline_bind_point(mut self, pipeline_bind_point: PipelineBindPoint) -> Self {
             self.pipeline_bind_point = pipeline_bind_point;
             self
         }
 
+        #[inline]
         pub fn view_mask(mut self, view_mask: u32) -> Self {
             self.view_mask = view_mask;
             self
         }
 
+        #[inline]
         pub fn input_attachments(
             mut self,
             input_attachments: &'a [AttachmentReference2<'a>],
@@ -1891,6 +1986,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn color_attachments(
             mut self,
             color_attachments: &'a [AttachmentReference2<'a>],
@@ -1900,6 +1996,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn resolve_attachments(
             mut self,
             resolve_attachments: &'a [AttachmentReference2<'a>],
@@ -1909,6 +2006,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn depth_stencil_attachment(
             mut self,
             depth_stencil_attachment: &'a AttachmentReference2<'a>,
@@ -1917,6 +2015,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn preserve_attachments(mut self, preserve_attachments: &'a [u32]) -> Self {
             self.preserve_attachment_count = preserve_attachments.len().try_into().unwrap();
             self.p_preserve_attachments = preserve_attachments.as_ptr();
@@ -1983,41 +2082,49 @@ pub(super) mod defs {
     }
 
     impl<'a> SubpassDependency2<'a> {
+        #[inline]
         pub fn src_subpass(mut self, src_subpass: u32) -> Self {
             self.src_subpass = src_subpass;
             self
         }
 
+        #[inline]
         pub fn dst_subpass(mut self, dst_subpass: u32) -> Self {
             self.dst_subpass = dst_subpass;
             self
         }
 
+        #[inline]
         pub fn src_stage_mask(mut self, src_stage_mask: PipelineStageFlags) -> Self {
             self.src_stage_mask = src_stage_mask;
             self
         }
 
+        #[inline]
         pub fn dst_stage_mask(mut self, dst_stage_mask: PipelineStageFlags) -> Self {
             self.dst_stage_mask = dst_stage_mask;
             self
         }
 
+        #[inline]
         pub fn src_access_mask(mut self, src_access_mask: AccessFlags) -> Self {
             self.src_access_mask = src_access_mask;
             self
         }
 
+        #[inline]
         pub fn dst_access_mask(mut self, dst_access_mask: AccessFlags) -> Self {
             self.dst_access_mask = dst_access_mask;
             self
         }
 
+        #[inline]
         pub fn dependency_flags(mut self, dependency_flags: DependencyFlags) -> Self {
             self.dependency_flags = dependency_flags;
             self
         }
 
+        #[inline]
         pub fn view_offset(mut self, view_offset: i32) -> Self {
             self.view_offset = view_offset;
             self
@@ -2089,29 +2196,34 @@ pub(super) mod defs {
     }
 
     impl<'a> RenderPassCreateInfo2<'a> {
+        #[inline]
         pub fn flags(mut self, flags: RenderPassCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn attachments(mut self, attachments: &'a [AttachmentDescription2<'a>]) -> Self {
             self.attachment_count = attachments.len().try_into().unwrap();
             self.p_attachments = attachments.as_ptr();
             self
         }
 
+        #[inline]
         pub fn subpasses(mut self, subpasses: &'a [SubpassDescription2<'a>]) -> Self {
             self.subpass_count = subpasses.len().try_into().unwrap();
             self.p_subpasses = subpasses.as_ptr();
             self
         }
 
+        #[inline]
         pub fn dependencies(mut self, dependencies: &'a [SubpassDependency2<'a>]) -> Self {
             self.dependency_count = dependencies.len().try_into().unwrap();
             self.p_dependencies = dependencies.as_ptr();
             self
         }
 
+        #[inline]
         pub fn correlated_view_masks(mut self, correlated_view_masks: &'a [u32]) -> Self {
             self.correlated_view_mask_count = correlated_view_masks.len().try_into().unwrap();
             self.p_correlated_view_masks = correlated_view_masks.as_ptr();
@@ -2157,6 +2269,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SubpassBeginInfo<'a> {
+        #[inline]
         pub fn contents(mut self, contents: SubpassContents) -> Self {
             self.contents = contents;
             self
@@ -2244,6 +2357,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceTimelineSemaphoreFeatures<'a> {
+        #[inline]
         pub fn timeline_semaphore(mut self, timeline_semaphore: bool) -> Self {
             self.timeline_semaphore = timeline_semaphore.into();
             self
@@ -2297,6 +2411,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceTimelineSemaphoreProperties<'a> {
+        #[inline]
         pub fn max_timeline_semaphore_value_difference(
             mut self,
             max_timeline_semaphore_value_difference: u64,
@@ -2350,11 +2465,13 @@ pub(super) mod defs {
     }
 
     impl<'a> SemaphoreTypeCreateInfo<'a> {
+        #[inline]
         pub fn semaphore_type(mut self, semaphore_type: SemaphoreType) -> Self {
             self.semaphore_type = semaphore_type;
             self
         }
 
+        #[inline]
         pub fn initial_value(mut self, initial_value: u64) -> Self {
             self.initial_value = initial_value;
             self
@@ -2417,12 +2534,14 @@ pub(super) mod defs {
     }
 
     impl<'a> TimelineSemaphoreSubmitInfo<'a> {
+        #[inline]
         pub fn wait_semaphore_values(mut self, wait_semaphore_values: &'a [u64]) -> Self {
             self.wait_semaphore_value_count = wait_semaphore_values.len().try_into().unwrap();
             self.p_wait_semaphore_values = wait_semaphore_values.as_ptr();
             self
         }
 
+        #[inline]
         pub fn signal_semaphore_values(mut self, signal_semaphore_values: &'a [u64]) -> Self {
             self.signal_semaphore_value_count = signal_semaphore_values.len().try_into().unwrap();
             self.p_signal_semaphore_values = signal_semaphore_values.as_ptr();
@@ -2477,17 +2596,20 @@ pub(super) mod defs {
     }
 
     impl<'a> SemaphoreWaitInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: SemaphoreWaitFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn semaphores(mut self, semaphores: &'a [Semaphore]) -> Self {
             self.semaphore_count = semaphores.len().try_into().unwrap();
             self.p_semaphores = semaphores.as_ptr();
             self
         }
 
+        #[inline]
         pub fn values(mut self, values: &'a [u64]) -> Self {
             self.semaphore_count = values.len().try_into().unwrap();
             self.p_values = values.as_ptr();
@@ -2536,11 +2658,13 @@ pub(super) mod defs {
     }
 
     impl<'a> SemaphoreSignalInfo<'a> {
+        #[inline]
         pub fn semaphore(mut self, semaphore: Semaphore) -> Self {
             self.semaphore = semaphore;
             self
         }
 
+        #[inline]
         pub fn value(mut self, value: u64) -> Self {
             self.value = value;
             self
@@ -2600,11 +2724,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevice8BitStorageFeatures<'a> {
+        #[inline]
         pub fn storage_buffer8_bit_access(mut self, storage_buffer8_bit_access: bool) -> Self {
             self.storage_buffer8_bit_access = storage_buffer8_bit_access.into();
             self
         }
 
+        #[inline]
         pub fn uniform_and_storage_buffer8_bit_access(
             mut self,
             uniform_and_storage_buffer8_bit_access: bool,
@@ -2614,6 +2740,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn storage_push_constant8(mut self, storage_push_constant8: bool) -> Self {
             self.storage_push_constant8 = storage_push_constant8.into();
             self
@@ -2677,11 +2804,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceVulkanMemoryModelFeatures<'a> {
+        #[inline]
         pub fn vulkan_memory_model(mut self, vulkan_memory_model: bool) -> Self {
             self.vulkan_memory_model = vulkan_memory_model.into();
             self
         }
 
+        #[inline]
         pub fn vulkan_memory_model_device_scope(
             mut self,
             vulkan_memory_model_device_scope: bool,
@@ -2690,6 +2819,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn vulkan_memory_model_availability_visibility_chains(
             mut self,
             vulkan_memory_model_availability_visibility_chains: bool,
@@ -2754,11 +2884,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderAtomicInt64Features<'a> {
+        #[inline]
         pub fn shader_buffer_int64_atomics(mut self, shader_buffer_int64_atomics: bool) -> Self {
             self.shader_buffer_int64_atomics = shader_buffer_int64_atomics.into();
             self
         }
 
+        #[inline]
         pub fn shader_shared_int64_atomics(mut self, shader_shared_int64_atomics: bool) -> Self {
             self.shader_shared_int64_atomics = shader_shared_int64_atomics.into();
             self
@@ -2824,6 +2956,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDepthStencilResolveProperties<'a> {
+        #[inline]
         pub fn supported_depth_resolve_modes(
             mut self,
             supported_depth_resolve_modes: ResolveModeFlags,
@@ -2832,6 +2965,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn supported_stencil_resolve_modes(
             mut self,
             supported_stencil_resolve_modes: ResolveModeFlags,
@@ -2840,11 +2974,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn independent_resolve_none(mut self, independent_resolve_none: bool) -> Self {
             self.independent_resolve_none = independent_resolve_none.into();
             self
         }
 
+        #[inline]
         pub fn independent_resolve(mut self, independent_resolve: bool) -> Self {
             self.independent_resolve = independent_resolve.into();
             self
@@ -2901,16 +3037,19 @@ pub(super) mod defs {
     }
 
     impl<'a> SubpassDescriptionDepthStencilResolve<'a> {
+        #[inline]
         pub fn depth_resolve_mode(mut self, depth_resolve_mode: ResolveModeFlagBits) -> Self {
             self.depth_resolve_mode = depth_resolve_mode;
             self
         }
 
+        #[inline]
         pub fn stencil_resolve_mode(mut self, stencil_resolve_mode: ResolveModeFlagBits) -> Self {
             self.stencil_resolve_mode = stencil_resolve_mode;
             self
         }
 
+        #[inline]
         pub fn depth_stencil_resolve_attachment(
             mut self,
             depth_stencil_resolve_attachment: &'a AttachmentReference2<'a>,
@@ -2961,6 +3100,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageStencilUsageCreateInfo<'a> {
+        #[inline]
         pub fn stencil_usage(mut self, stencil_usage: ImageUsageFlags) -> Self {
             self.stencil_usage = stencil_usage;
             self
@@ -3012,6 +3152,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceScalarBlockLayoutFeatures<'a> {
+        #[inline]
         pub fn scalar_block_layout(mut self, scalar_block_layout: bool) -> Self {
             self.scalar_block_layout = scalar_block_layout.into();
             self
@@ -3069,6 +3210,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceUniformBufferStandardLayoutFeatures<'a> {
+        #[inline]
         pub fn uniform_buffer_standard_layout(
             mut self,
             uniform_buffer_standard_layout: bool,
@@ -3135,11 +3277,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceBufferDeviceAddressFeatures<'a> {
+        #[inline]
         pub fn buffer_device_address(mut self, buffer_device_address: bool) -> Self {
             self.buffer_device_address = buffer_device_address.into();
             self
         }
 
+        #[inline]
         pub fn buffer_device_address_capture_replay(
             mut self,
             buffer_device_address_capture_replay: bool,
@@ -3148,6 +3292,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn buffer_device_address_multi_device(
             mut self,
             buffer_device_address_multi_device: bool,
@@ -3195,6 +3340,7 @@ pub(super) mod defs {
     }
 
     impl<'a> BufferDeviceAddressInfo<'a> {
+        #[inline]
         pub fn buffer(mut self, buffer: Buffer) -> Self {
             self.buffer = buffer;
             self
@@ -3242,6 +3388,7 @@ pub(super) mod defs {
     }
 
     impl<'a> BufferOpaqueCaptureAddressCreateInfo<'a> {
+        #[inline]
         pub fn opaque_capture_address(mut self, opaque_capture_address: u64) -> Self {
             self.opaque_capture_address = opaque_capture_address;
             self
@@ -3293,6 +3440,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceImagelessFramebufferFeatures<'a> {
+        #[inline]
         pub fn imageless_framebuffer(mut self, imageless_framebuffer: bool) -> Self {
             self.imageless_framebuffer = imageless_framebuffer.into();
             self
@@ -3345,6 +3493,7 @@ pub(super) mod defs {
     }
 
     impl<'a> FramebufferAttachmentsCreateInfo<'a> {
+        #[inline]
         pub fn attachment_image_infos(
             mut self,
             attachment_image_infos: &'a [FramebufferAttachmentImageInfo<'a>],
@@ -3411,31 +3560,37 @@ pub(super) mod defs {
     }
 
     impl<'a> FramebufferAttachmentImageInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: ImageCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn usage(mut self, usage: ImageUsageFlags) -> Self {
             self.usage = usage;
             self
         }
 
+        #[inline]
         pub fn width(mut self, width: u32) -> Self {
             self.width = width;
             self
         }
 
+        #[inline]
         pub fn height(mut self, height: u32) -> Self {
             self.height = height;
             self
         }
 
+        #[inline]
         pub fn layer_count(mut self, layer_count: u32) -> Self {
             self.layer_count = layer_count;
             self
         }
 
+        #[inline]
         pub fn view_formats(mut self, view_formats: &'a [Format]) -> Self {
             self.view_format_count = view_formats.len().try_into().unwrap();
             self.p_view_formats = view_formats.as_ptr();
@@ -3486,6 +3641,7 @@ pub(super) mod defs {
     }
 
     impl<'a> RenderPassAttachmentBeginInfo<'a> {
+        #[inline]
         pub fn attachments(mut self, attachments: &'a [ImageView]) -> Self {
             self.attachment_count = attachments.len().try_into().unwrap();
             self.p_attachments = attachments.as_ptr();
@@ -3544,6 +3700,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceSeparateDepthStencilLayoutsFeatures<'a> {
+        #[inline]
         pub fn separate_depth_stencil_layouts(
             mut self,
             separate_depth_stencil_layouts: bool,
@@ -3593,6 +3750,7 @@ pub(super) mod defs {
     }
 
     impl<'a> AttachmentReferenceStencilLayout<'a> {
+        #[inline]
         pub fn stencil_layout(mut self, stencil_layout: ImageLayout) -> Self {
             self.stencil_layout = stencil_layout;
             self
@@ -3642,11 +3800,13 @@ pub(super) mod defs {
     }
 
     impl<'a> AttachmentDescriptionStencilLayout<'a> {
+        #[inline]
         pub fn stencil_initial_layout(mut self, stencil_initial_layout: ImageLayout) -> Self {
             self.stencil_initial_layout = stencil_initial_layout;
             self
         }
 
+        #[inline]
         pub fn stencil_final_layout(mut self, stencil_final_layout: ImageLayout) -> Self {
             self.stencil_final_layout = stencil_final_layout;
             self
@@ -3694,6 +3854,7 @@ pub(super) mod defs {
     }
 
     impl<'a> MemoryOpaqueCaptureAddressAllocateInfo<'a> {
+        #[inline]
         pub fn opaque_capture_address(mut self, opaque_capture_address: u64) -> Self {
             self.opaque_capture_address = opaque_capture_address;
             self
@@ -3739,6 +3900,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DeviceMemoryOpaqueCaptureAddressInfo<'a> {
+        #[inline]
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
@@ -3831,11 +3993,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceVulkan11Features<'a> {
+        #[inline]
         pub fn storage_buffer16_bit_access(mut self, storage_buffer16_bit_access: bool) -> Self {
             self.storage_buffer16_bit_access = storage_buffer16_bit_access.into();
             self
         }
 
+        #[inline]
         pub fn uniform_and_storage_buffer16_bit_access(
             mut self,
             uniform_and_storage_buffer16_bit_access: bool,
@@ -3845,26 +4009,31 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn storage_push_constant16(mut self, storage_push_constant16: bool) -> Self {
             self.storage_push_constant16 = storage_push_constant16.into();
             self
         }
 
+        #[inline]
         pub fn storage_input_output16(mut self, storage_input_output16: bool) -> Self {
             self.storage_input_output16 = storage_input_output16.into();
             self
         }
 
+        #[inline]
         pub fn multiview(mut self, multiview: bool) -> Self {
             self.multiview = multiview.into();
             self
         }
 
+        #[inline]
         pub fn multiview_geometry_shader(mut self, multiview_geometry_shader: bool) -> Self {
             self.multiview_geometry_shader = multiview_geometry_shader.into();
             self
         }
 
+        #[inline]
         pub fn multiview_tessellation_shader(
             mut self,
             multiview_tessellation_shader: bool,
@@ -3873,6 +4042,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn variable_pointers_storage_buffer(
             mut self,
             variable_pointers_storage_buffer: bool,
@@ -3881,21 +4051,25 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn variable_pointers(mut self, variable_pointers: bool) -> Self {
             self.variable_pointers = variable_pointers.into();
             self
         }
 
+        #[inline]
         pub fn protected_memory(mut self, protected_memory: bool) -> Self {
             self.protected_memory = protected_memory.into();
             self
         }
 
+        #[inline]
         pub fn sampler_ycbcr_conversion(mut self, sampler_ycbcr_conversion: bool) -> Self {
             self.sampler_ycbcr_conversion = sampler_ycbcr_conversion.into();
             self
         }
 
+        #[inline]
         pub fn shader_draw_parameters(mut self, shader_draw_parameters: bool) -> Self {
             self.shader_draw_parameters = shader_draw_parameters.into();
             self
@@ -3996,36 +4170,43 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceVulkan11Properties<'a> {
+        #[inline]
         pub fn device_uuid(mut self, device_uuid: [u8; UUID_SIZE as usize]) -> Self {
             self.device_uuid = device_uuid;
             self
         }
 
+        #[inline]
         pub fn driver_uuid(mut self, driver_uuid: [u8; UUID_SIZE as usize]) -> Self {
             self.driver_uuid = driver_uuid;
             self
         }
 
+        #[inline]
         pub fn device_luid(mut self, device_luid: [u8; LUID_SIZE as usize]) -> Self {
             self.device_luid = device_luid;
             self
         }
 
+        #[inline]
         pub fn device_node_mask(mut self, device_node_mask: u32) -> Self {
             self.device_node_mask = device_node_mask;
             self
         }
 
+        #[inline]
         pub fn device_luid_valid(mut self, device_luid_valid: bool) -> Self {
             self.device_luid_valid = device_luid_valid.into();
             self
         }
 
+        #[inline]
         pub fn subgroup_size(mut self, subgroup_size: u32) -> Self {
             self.subgroup_size = subgroup_size;
             self
         }
 
+        #[inline]
         pub fn subgroup_supported_stages(
             mut self,
             subgroup_supported_stages: ShaderStageFlags,
@@ -4034,6 +4215,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn subgroup_supported_operations(
             mut self,
             subgroup_supported_operations: SubgroupFeatureFlags,
@@ -4042,6 +4224,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn subgroup_quad_operations_in_all_stages(
             mut self,
             subgroup_quad_operations_in_all_stages: bool,
@@ -4051,6 +4234,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn point_clipping_behavior(
             mut self,
             point_clipping_behavior: PointClippingBehavior,
@@ -4059,26 +4243,31 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_multiview_view_count(mut self, max_multiview_view_count: u32) -> Self {
             self.max_multiview_view_count = max_multiview_view_count;
             self
         }
 
+        #[inline]
         pub fn max_multiview_instance_index(mut self, max_multiview_instance_index: u32) -> Self {
             self.max_multiview_instance_index = max_multiview_instance_index;
             self
         }
 
+        #[inline]
         pub fn protected_no_fault(mut self, protected_no_fault: bool) -> Self {
             self.protected_no_fault = protected_no_fault.into();
             self
         }
 
+        #[inline]
         pub fn max_per_set_descriptors(mut self, max_per_set_descriptors: u32) -> Self {
             self.max_per_set_descriptors = max_per_set_descriptors;
             self
         }
 
+        #[inline]
         pub fn max_memory_allocation_size(
             mut self,
             max_memory_allocation_size: DeviceSize,
@@ -4366,21 +4555,25 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceVulkan12Features<'a> {
+        #[inline]
         pub fn sampler_mirror_clamp_to_edge(mut self, sampler_mirror_clamp_to_edge: bool) -> Self {
             self.sampler_mirror_clamp_to_edge = sampler_mirror_clamp_to_edge.into();
             self
         }
 
+        #[inline]
         pub fn draw_indirect_count(mut self, draw_indirect_count: bool) -> Self {
             self.draw_indirect_count = draw_indirect_count.into();
             self
         }
 
+        #[inline]
         pub fn storage_buffer8_bit_access(mut self, storage_buffer8_bit_access: bool) -> Self {
             self.storage_buffer8_bit_access = storage_buffer8_bit_access.into();
             self
         }
 
+        #[inline]
         pub fn uniform_and_storage_buffer8_bit_access(
             mut self,
             uniform_and_storage_buffer8_bit_access: bool,
@@ -4390,36 +4583,43 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn storage_push_constant8(mut self, storage_push_constant8: bool) -> Self {
             self.storage_push_constant8 = storage_push_constant8.into();
             self
         }
 
+        #[inline]
         pub fn shader_buffer_int64_atomics(mut self, shader_buffer_int64_atomics: bool) -> Self {
             self.shader_buffer_int64_atomics = shader_buffer_int64_atomics.into();
             self
         }
 
+        #[inline]
         pub fn shader_shared_int64_atomics(mut self, shader_shared_int64_atomics: bool) -> Self {
             self.shader_shared_int64_atomics = shader_shared_int64_atomics.into();
             self
         }
 
+        #[inline]
         pub fn shader_float16(mut self, shader_float16: bool) -> Self {
             self.shader_float16 = shader_float16.into();
             self
         }
 
+        #[inline]
         pub fn shader_int8(mut self, shader_int8: bool) -> Self {
             self.shader_int8 = shader_int8.into();
             self
         }
 
+        #[inline]
         pub fn descriptor_indexing(mut self, descriptor_indexing: bool) -> Self {
             self.descriptor_indexing = descriptor_indexing.into();
             self
         }
 
+        #[inline]
         pub fn shader_input_attachment_array_dynamic_indexing(
             mut self,
             shader_input_attachment_array_dynamic_indexing: bool,
@@ -4429,6 +4629,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_uniform_texel_buffer_array_dynamic_indexing(
             mut self,
             shader_uniform_texel_buffer_array_dynamic_indexing: bool,
@@ -4438,6 +4639,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_storage_texel_buffer_array_dynamic_indexing(
             mut self,
             shader_storage_texel_buffer_array_dynamic_indexing: bool,
@@ -4447,6 +4649,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_uniform_buffer_array_non_uniform_indexing(
             mut self,
             shader_uniform_buffer_array_non_uniform_indexing: bool,
@@ -4456,6 +4659,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_sampled_image_array_non_uniform_indexing(
             mut self,
             shader_sampled_image_array_non_uniform_indexing: bool,
@@ -4465,6 +4669,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_storage_buffer_array_non_uniform_indexing(
             mut self,
             shader_storage_buffer_array_non_uniform_indexing: bool,
@@ -4474,6 +4679,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_storage_image_array_non_uniform_indexing(
             mut self,
             shader_storage_image_array_non_uniform_indexing: bool,
@@ -4483,6 +4689,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_input_attachment_array_non_uniform_indexing(
             mut self,
             shader_input_attachment_array_non_uniform_indexing: bool,
@@ -4492,6 +4699,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_uniform_texel_buffer_array_non_uniform_indexing(
             mut self,
             shader_uniform_texel_buffer_array_non_uniform_indexing: bool,
@@ -4501,6 +4709,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_storage_texel_buffer_array_non_uniform_indexing(
             mut self,
             shader_storage_texel_buffer_array_non_uniform_indexing: bool,
@@ -4510,6 +4719,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn descriptor_binding_uniform_buffer_update_after_bind(
             mut self,
             descriptor_binding_uniform_buffer_update_after_bind: bool,
@@ -4519,6 +4729,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn descriptor_binding_sampled_image_update_after_bind(
             mut self,
             descriptor_binding_sampled_image_update_after_bind: bool,
@@ -4528,6 +4739,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn descriptor_binding_storage_image_update_after_bind(
             mut self,
             descriptor_binding_storage_image_update_after_bind: bool,
@@ -4537,6 +4749,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn descriptor_binding_storage_buffer_update_after_bind(
             mut self,
             descriptor_binding_storage_buffer_update_after_bind: bool,
@@ -4546,6 +4759,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn descriptor_binding_uniform_texel_buffer_update_after_bind(
             mut self,
             descriptor_binding_uniform_texel_buffer_update_after_bind: bool,
@@ -4555,6 +4769,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn descriptor_binding_storage_texel_buffer_update_after_bind(
             mut self,
             descriptor_binding_storage_texel_buffer_update_after_bind: bool,
@@ -4564,6 +4779,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn descriptor_binding_update_unused_while_pending(
             mut self,
             descriptor_binding_update_unused_while_pending: bool,
@@ -4573,6 +4789,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn descriptor_binding_partially_bound(
             mut self,
             descriptor_binding_partially_bound: bool,
@@ -4581,6 +4798,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn descriptor_binding_variable_descriptor_count(
             mut self,
             descriptor_binding_variable_descriptor_count: bool,
@@ -4590,26 +4808,31 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn runtime_descriptor_array(mut self, runtime_descriptor_array: bool) -> Self {
             self.runtime_descriptor_array = runtime_descriptor_array.into();
             self
         }
 
+        #[inline]
         pub fn sampler_filter_minmax(mut self, sampler_filter_minmax: bool) -> Self {
             self.sampler_filter_minmax = sampler_filter_minmax.into();
             self
         }
 
+        #[inline]
         pub fn scalar_block_layout(mut self, scalar_block_layout: bool) -> Self {
             self.scalar_block_layout = scalar_block_layout.into();
             self
         }
 
+        #[inline]
         pub fn imageless_framebuffer(mut self, imageless_framebuffer: bool) -> Self {
             self.imageless_framebuffer = imageless_framebuffer.into();
             self
         }
 
+        #[inline]
         pub fn uniform_buffer_standard_layout(
             mut self,
             uniform_buffer_standard_layout: bool,
@@ -4618,6 +4841,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_subgroup_extended_types(
             mut self,
             shader_subgroup_extended_types: bool,
@@ -4626,6 +4850,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn separate_depth_stencil_layouts(
             mut self,
             separate_depth_stencil_layouts: bool,
@@ -4634,21 +4859,25 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn host_query_reset(mut self, host_query_reset: bool) -> Self {
             self.host_query_reset = host_query_reset.into();
             self
         }
 
+        #[inline]
         pub fn timeline_semaphore(mut self, timeline_semaphore: bool) -> Self {
             self.timeline_semaphore = timeline_semaphore.into();
             self
         }
 
+        #[inline]
         pub fn buffer_device_address(mut self, buffer_device_address: bool) -> Self {
             self.buffer_device_address = buffer_device_address.into();
             self
         }
 
+        #[inline]
         pub fn buffer_device_address_capture_replay(
             mut self,
             buffer_device_address_capture_replay: bool,
@@ -4657,6 +4886,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn buffer_device_address_multi_device(
             mut self,
             buffer_device_address_multi_device: bool,
@@ -4665,11 +4895,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn vulkan_memory_model(mut self, vulkan_memory_model: bool) -> Self {
             self.vulkan_memory_model = vulkan_memory_model.into();
             self
         }
 
+        #[inline]
         pub fn vulkan_memory_model_device_scope(
             mut self,
             vulkan_memory_model_device_scope: bool,
@@ -4678,6 +4910,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn vulkan_memory_model_availability_visibility_chains(
             mut self,
             vulkan_memory_model_availability_visibility_chains: bool,
@@ -4687,16 +4920,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_output_viewport_index(mut self, shader_output_viewport_index: bool) -> Self {
             self.shader_output_viewport_index = shader_output_viewport_index.into();
             self
         }
 
+        #[inline]
         pub fn shader_output_layer(mut self, shader_output_layer: bool) -> Self {
             self.shader_output_layer = shader_output_layer.into();
             self
         }
 
+        #[inline]
         pub fn subgroup_broadcast_dynamic_id(
             mut self,
             subgroup_broadcast_dynamic_id: bool,
@@ -5043,11 +5279,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceVulkan12Properties<'a> {
+        #[inline]
         pub fn driver_id(mut self, driver_id: DriverId) -> Self {
             self.driver_id = driver_id;
             self
         }
 
+        #[inline]
         pub fn driver_name(
             mut self,
             driver_name: &CStr,
@@ -5056,6 +5294,7 @@ pub(super) mod defs {
             Ok(self)
         }
 
+        #[inline]
         pub fn driver_info(
             mut self,
             driver_info: &CStr,
@@ -5064,11 +5303,13 @@ pub(super) mod defs {
             Ok(self)
         }
 
+        #[inline]
         pub fn conformance_version(mut self, conformance_version: ConformanceVersion) -> Self {
             self.conformance_version = conformance_version;
             self
         }
 
+        #[inline]
         pub fn denorm_behavior_independence(
             mut self,
             denorm_behavior_independence: ShaderFloatControlsIndependence,
@@ -5077,6 +5318,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn rounding_mode_independence(
             mut self,
             rounding_mode_independence: ShaderFloatControlsIndependence,
@@ -5085,6 +5327,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_signed_zero_inf_nan_preserve_float16(
             mut self,
             shader_signed_zero_inf_nan_preserve_float16: bool,
@@ -5094,6 +5337,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_signed_zero_inf_nan_preserve_float32(
             mut self,
             shader_signed_zero_inf_nan_preserve_float32: bool,
@@ -5103,6 +5347,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_signed_zero_inf_nan_preserve_float64(
             mut self,
             shader_signed_zero_inf_nan_preserve_float64: bool,
@@ -5112,6 +5357,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_denorm_preserve_float16(
             mut self,
             shader_denorm_preserve_float16: bool,
@@ -5120,6 +5366,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_denorm_preserve_float32(
             mut self,
             shader_denorm_preserve_float32: bool,
@@ -5128,6 +5375,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_denorm_preserve_float64(
             mut self,
             shader_denorm_preserve_float64: bool,
@@ -5136,6 +5384,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_denorm_flush_to_zero_float16(
             mut self,
             shader_denorm_flush_to_zero_float16: bool,
@@ -5144,6 +5393,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_denorm_flush_to_zero_float32(
             mut self,
             shader_denorm_flush_to_zero_float32: bool,
@@ -5152,6 +5402,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_denorm_flush_to_zero_float64(
             mut self,
             shader_denorm_flush_to_zero_float64: bool,
@@ -5160,6 +5411,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_rounding_mode_rte_float16(
             mut self,
             shader_rounding_mode_rte_float16: bool,
@@ -5168,6 +5420,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_rounding_mode_rte_float32(
             mut self,
             shader_rounding_mode_rte_float32: bool,
@@ -5176,6 +5429,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_rounding_mode_rte_float64(
             mut self,
             shader_rounding_mode_rte_float64: bool,
@@ -5184,6 +5438,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_rounding_mode_rtz_float16(
             mut self,
             shader_rounding_mode_rtz_float16: bool,
@@ -5192,6 +5447,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_rounding_mode_rtz_float32(
             mut self,
             shader_rounding_mode_rtz_float32: bool,
@@ -5200,6 +5456,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_rounding_mode_rtz_float64(
             mut self,
             shader_rounding_mode_rtz_float64: bool,
@@ -5208,6 +5465,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_update_after_bind_descriptors_in_all_pools(
             mut self,
             max_update_after_bind_descriptors_in_all_pools: u32,
@@ -5217,6 +5475,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_uniform_buffer_array_non_uniform_indexing_native(
             mut self,
             shader_uniform_buffer_array_non_uniform_indexing_native: bool,
@@ -5226,6 +5485,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_sampled_image_array_non_uniform_indexing_native(
             mut self,
             shader_sampled_image_array_non_uniform_indexing_native: bool,
@@ -5235,6 +5495,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_storage_buffer_array_non_uniform_indexing_native(
             mut self,
             shader_storage_buffer_array_non_uniform_indexing_native: bool,
@@ -5244,6 +5505,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_storage_image_array_non_uniform_indexing_native(
             mut self,
             shader_storage_image_array_non_uniform_indexing_native: bool,
@@ -5253,6 +5515,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_input_attachment_array_non_uniform_indexing_native(
             mut self,
             shader_input_attachment_array_non_uniform_indexing_native: bool,
@@ -5262,6 +5525,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn robust_buffer_access_update_after_bind(
             mut self,
             robust_buffer_access_update_after_bind: bool,
@@ -5271,11 +5535,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn quad_divergent_implicit_lod(mut self, quad_divergent_implicit_lod: bool) -> Self {
             self.quad_divergent_implicit_lod = quad_divergent_implicit_lod.into();
             self
         }
 
+        #[inline]
         pub fn max_per_stage_descriptor_update_after_bind_samplers(
             mut self,
             max_per_stage_descriptor_update_after_bind_samplers: u32,
@@ -5285,6 +5551,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_per_stage_descriptor_update_after_bind_uniform_buffers(
             mut self,
             max_per_stage_descriptor_update_after_bind_uniform_buffers: u32,
@@ -5294,6 +5561,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_per_stage_descriptor_update_after_bind_storage_buffers(
             mut self,
             max_per_stage_descriptor_update_after_bind_storage_buffers: u32,
@@ -5303,6 +5571,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_per_stage_descriptor_update_after_bind_sampled_images(
             mut self,
             max_per_stage_descriptor_update_after_bind_sampled_images: u32,
@@ -5312,6 +5581,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_per_stage_descriptor_update_after_bind_storage_images(
             mut self,
             max_per_stage_descriptor_update_after_bind_storage_images: u32,
@@ -5321,6 +5591,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_per_stage_descriptor_update_after_bind_input_attachments(
             mut self,
             max_per_stage_descriptor_update_after_bind_input_attachments: u32,
@@ -5330,6 +5601,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_per_stage_update_after_bind_resources(
             mut self,
             max_per_stage_update_after_bind_resources: u32,
@@ -5339,6 +5611,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_update_after_bind_samplers(
             mut self,
             max_descriptor_set_update_after_bind_samplers: u32,
@@ -5348,6 +5621,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_update_after_bind_uniform_buffers(
             mut self,
             max_descriptor_set_update_after_bind_uniform_buffers: u32,
@@ -5357,6 +5631,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_update_after_bind_uniform_buffers_dynamic(
             mut self,
             max_descriptor_set_update_after_bind_uniform_buffers_dynamic: u32,
@@ -5366,6 +5641,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_update_after_bind_storage_buffers(
             mut self,
             max_descriptor_set_update_after_bind_storage_buffers: u32,
@@ -5375,6 +5651,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_update_after_bind_storage_buffers_dynamic(
             mut self,
             max_descriptor_set_update_after_bind_storage_buffers_dynamic: u32,
@@ -5384,6 +5661,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_update_after_bind_sampled_images(
             mut self,
             max_descriptor_set_update_after_bind_sampled_images: u32,
@@ -5393,6 +5671,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_update_after_bind_storage_images(
             mut self,
             max_descriptor_set_update_after_bind_storage_images: u32,
@@ -5402,6 +5681,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_update_after_bind_input_attachments(
             mut self,
             max_descriptor_set_update_after_bind_input_attachments: u32,
@@ -5411,6 +5691,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn supported_depth_resolve_modes(
             mut self,
             supported_depth_resolve_modes: ResolveModeFlags,
@@ -5419,6 +5700,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn supported_stencil_resolve_modes(
             mut self,
             supported_stencil_resolve_modes: ResolveModeFlags,
@@ -5427,16 +5709,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn independent_resolve_none(mut self, independent_resolve_none: bool) -> Self {
             self.independent_resolve_none = independent_resolve_none.into();
             self
         }
 
+        #[inline]
         pub fn independent_resolve(mut self, independent_resolve: bool) -> Self {
             self.independent_resolve = independent_resolve.into();
             self
         }
 
+        #[inline]
         pub fn filter_minmax_single_component_formats(
             mut self,
             filter_minmax_single_component_formats: bool,
@@ -5446,6 +5731,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn filter_minmax_image_component_mapping(
             mut self,
             filter_minmax_image_component_mapping: bool,
@@ -5455,6 +5741,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_timeline_semaphore_value_difference(
             mut self,
             max_timeline_semaphore_value_difference: u64,
@@ -5463,6 +5750,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn framebuffer_integer_color_sample_counts(
             mut self,
             framebuffer_integer_color_sample_counts: SampleCountFlags,
@@ -6044,6 +6332,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkResetQueryPool.html>
+    #[inline]
     pub unsafe fn reset_query_pool(
         &self,
         device: Device,
@@ -6055,6 +6344,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSemaphoreCounterValue.html>
+    #[inline]
     pub unsafe fn get_semaphore_counter_value(
         &self,
         device: Device,
@@ -6072,6 +6362,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWaitSemaphores.html>
+    #[inline]
     pub unsafe fn wait_semaphores(
         &self,
         device: Device,
@@ -6089,6 +6380,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSignalSemaphore.html>
+    #[inline]
     pub unsafe fn signal_semaphore(
         &self,
         device: Device,
@@ -6105,6 +6397,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferDeviceAddress.html>
+    #[inline]
     pub unsafe fn get_buffer_device_address(
         &self,
         device: Device,
@@ -6114,6 +6407,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferOpaqueCaptureAddress.html>
+    #[inline]
     pub unsafe fn get_buffer_opaque_capture_address(
         &self,
         device: Device,
@@ -6123,6 +6417,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceMemoryOpaqueCaptureAddress.html>
+    #[inline]
     pub unsafe fn get_device_memory_opaque_capture_address(
         &self,
         device: Device,
@@ -6132,6 +6427,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawIndirectCount.html>
+    #[inline]
     pub unsafe fn cmd_draw_indirect_count(
         &self,
         command_buffer: CommandBuffer,
@@ -6156,6 +6452,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawIndexedIndirectCount.html>
+    #[inline]
     pub unsafe fn cmd_draw_indexed_indirect_count(
         &self,
         command_buffer: CommandBuffer,
@@ -6180,6 +6477,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateRenderPass2.html>
+    #[inline]
     pub unsafe fn create_render_pass2(
         &self,
         device: Device,
@@ -6203,6 +6501,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginRenderPass2.html>
+    #[inline]
     pub unsafe fn cmd_begin_render_pass2(
         &self,
         command_buffer: CommandBuffer,
@@ -6215,6 +6514,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdNextSubpass2.html>
+    #[inline]
     pub unsafe fn cmd_next_subpass2(
         &self,
         command_buffer: CommandBuffer,
@@ -6225,6 +6525,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndRenderPass2.html>
+    #[inline]
     pub unsafe fn cmd_end_render_pass2(
         &self,
         command_buffer: CommandBuffer,

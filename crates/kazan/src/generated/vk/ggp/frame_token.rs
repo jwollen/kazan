@@ -52,6 +52,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PresentFrameTokenGGP<'a> {
+        #[inline]
         pub fn frame_token(mut self, frame_token: GgpFrameToken) -> Self {
             self.frame_token = frame_token;
             self

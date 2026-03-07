@@ -63,11 +63,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceCooperativeMatrixFeaturesKHR<'a> {
+        #[inline]
         pub fn cooperative_matrix(mut self, cooperative_matrix: bool) -> Self {
             self.cooperative_matrix = cooperative_matrix.into();
             self
         }
 
+        #[inline]
         pub fn cooperative_matrix_robust_buffer_access(
             mut self,
             cooperative_matrix_robust_buffer_access: bool,
@@ -140,46 +142,55 @@ pub(super) mod defs {
     }
 
     impl<'a> CooperativeMatrixPropertiesKHR<'a> {
+        #[inline]
         pub fn m_size(mut self, m_size: u32) -> Self {
             self.m_size = m_size;
             self
         }
 
+        #[inline]
         pub fn n_size(mut self, n_size: u32) -> Self {
             self.n_size = n_size;
             self
         }
 
+        #[inline]
         pub fn k_size(mut self, k_size: u32) -> Self {
             self.k_size = k_size;
             self
         }
 
+        #[inline]
         pub fn a_type(mut self, a_type: ComponentTypeKHR) -> Self {
             self.a_type = a_type;
             self
         }
 
+        #[inline]
         pub fn b_type(mut self, b_type: ComponentTypeKHR) -> Self {
             self.b_type = b_type;
             self
         }
 
+        #[inline]
         pub fn c_type(mut self, c_type: ComponentTypeKHR) -> Self {
             self.c_type = c_type;
             self
         }
 
+        #[inline]
         pub fn result_type(mut self, result_type: ComponentTypeKHR) -> Self {
             self.result_type = result_type;
             self
         }
 
+        #[inline]
         pub fn saturating_accumulation(mut self, saturating_accumulation: bool) -> Self {
             self.saturating_accumulation = saturating_accumulation.into();
             self
         }
 
+        #[inline]
         pub fn scope(mut self, scope: ScopeKHR) -> Self {
             self.scope = scope;
             self
@@ -233,6 +244,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceCooperativeMatrixPropertiesKHR<'a> {
+        #[inline]
         pub fn cooperative_matrix_supported_stages(
             mut self,
             cooperative_matrix_supported_stages: ShaderStageFlags,
@@ -380,6 +392,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR.html>
+    #[inline]
     pub unsafe fn get_physical_device_cooperative_matrix_properties_khr<'a>(
         &self,
         physical_device: PhysicalDevice,

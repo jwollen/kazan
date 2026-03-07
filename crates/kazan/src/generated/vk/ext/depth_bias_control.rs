@@ -59,16 +59,19 @@ pub(super) mod defs {
     }
 
     impl<'a> DepthBiasInfoEXT<'a> {
+        #[inline]
         pub fn depth_bias_constant_factor(mut self, depth_bias_constant_factor: f32) -> Self {
             self.depth_bias_constant_factor = depth_bias_constant_factor;
             self
         }
 
+        #[inline]
         pub fn depth_bias_clamp(mut self, depth_bias_clamp: f32) -> Self {
             self.depth_bias_clamp = depth_bias_clamp;
             self
         }
 
+        #[inline]
         pub fn depth_bias_slope_factor(mut self, depth_bias_slope_factor: f32) -> Self {
             self.depth_bias_slope_factor = depth_bias_slope_factor;
             self
@@ -122,6 +125,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DepthBiasRepresentationInfoEXT<'a> {
+        #[inline]
         pub fn depth_bias_representation(
             mut self,
             depth_bias_representation: DepthBiasRepresentationEXT,
@@ -130,6 +134,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn depth_bias_exact(mut self, depth_bias_exact: bool) -> Self {
             self.depth_bias_exact = depth_bias_exact.into();
             self
@@ -193,11 +198,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDepthBiasControlFeaturesEXT<'a> {
+        #[inline]
         pub fn depth_bias_control(mut self, depth_bias_control: bool) -> Self {
             self.depth_bias_control = depth_bias_control.into();
             self
         }
 
+        #[inline]
         pub fn least_representable_value_force_unorm_representation(
             mut self,
             least_representable_value_force_unorm_representation: bool,
@@ -207,11 +214,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn float_representation(mut self, float_representation: bool) -> Self {
             self.float_representation = float_representation.into();
             self
         }
 
+        #[inline]
         pub fn depth_bias_exact(mut self, depth_bias_exact: bool) -> Self {
             self.depth_bias_exact = depth_bias_exact.into();
             self
@@ -276,6 +285,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthBias2EXT.html>
+    #[inline]
     pub unsafe fn cmd_set_depth_bias2_ext(
         &self,
         command_buffer: CommandBuffer,

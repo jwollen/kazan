@@ -59,6 +59,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferDeviceAddressKHR.html>
+    #[inline]
     pub unsafe fn get_buffer_device_address_khr(
         &self,
         device: Device,
@@ -68,6 +69,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferOpaqueCaptureAddressKHR.html>
+    #[inline]
     pub unsafe fn get_buffer_opaque_capture_address_khr(
         &self,
         device: Device,
@@ -77,6 +79,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceMemoryOpaqueCaptureAddressKHR.html>
+    #[inline]
     pub unsafe fn get_device_memory_opaque_capture_address_khr(
         &self,
         device: Device,

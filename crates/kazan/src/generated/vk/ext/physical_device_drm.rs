@@ -67,31 +67,37 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDrmPropertiesEXT<'a> {
+        #[inline]
         pub fn has_primary(mut self, has_primary: bool) -> Self {
             self.has_primary = has_primary.into();
             self
         }
 
+        #[inline]
         pub fn has_render(mut self, has_render: bool) -> Self {
             self.has_render = has_render.into();
             self
         }
 
+        #[inline]
         pub fn primary_major(mut self, primary_major: i64) -> Self {
             self.primary_major = primary_major;
             self
         }
 
+        #[inline]
         pub fn primary_minor(mut self, primary_minor: i64) -> Self {
             self.primary_minor = primary_minor;
             self
         }
 
+        #[inline]
         pub fn render_major(mut self, render_major: i64) -> Self {
             self.render_major = render_major;
             self
         }
 
+        #[inline]
         pub fn render_minor(mut self, render_minor: i64) -> Self {
             self.render_minor = render_minor;
             self

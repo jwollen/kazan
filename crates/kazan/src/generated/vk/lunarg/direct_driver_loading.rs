@@ -56,11 +56,13 @@ pub(super) mod defs {
     }
 
     impl<'a> DirectDriverLoadingInfoLUNARG<'a> {
+        #[inline]
         pub fn flags(mut self, flags: DirectDriverLoadingFlagsLUNARG) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn pfn_get_instance_proc_addr(
             mut self,
             pfn_get_instance_proc_addr: PFN_vkGetInstanceProcAddrLUNARG,
@@ -116,11 +118,13 @@ pub(super) mod defs {
     }
 
     impl<'a> DirectDriverLoadingListLUNARG<'a> {
+        #[inline]
         pub fn mode(mut self, mode: DirectDriverLoadingModeLUNARG) -> Self {
             self.mode = mode;
             self
         }
 
+        #[inline]
         pub fn drivers(mut self, drivers: &'a [DirectDriverLoadingInfoLUNARG<'a>]) -> Self {
             self.driver_count = drivers.len().try_into().unwrap();
             self.p_drivers = drivers.as_ptr();

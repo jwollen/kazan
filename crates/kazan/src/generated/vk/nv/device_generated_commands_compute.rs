@@ -62,16 +62,19 @@ pub(super) mod defs {
     }
 
     impl<'a> ComputePipelineIndirectBufferInfoNV<'a> {
+        #[inline]
         pub fn device_address(mut self, device_address: DeviceAddress) -> Self {
             self.device_address = device_address;
             self
         }
 
+        #[inline]
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
         }
 
+        #[inline]
         pub fn pipeline_device_address_capture_replay(
             mut self,
             pipeline_device_address_capture_replay: DeviceAddress,
@@ -141,11 +144,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV<'a> {
+        #[inline]
         pub fn device_generated_compute(mut self, device_generated_compute: bool) -> Self {
             self.device_generated_compute = device_generated_compute.into();
             self
         }
 
+        #[inline]
         pub fn device_generated_compute_pipelines(
             mut self,
             device_generated_compute_pipelines: bool,
@@ -154,6 +159,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn device_generated_compute_capture_replay(
             mut self,
             device_generated_compute_capture_replay: bool,
@@ -206,11 +212,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineIndirectDeviceAddressInfoNV<'a> {
+        #[inline]
         pub fn pipeline_bind_point(mut self, pipeline_bind_point: PipelineBindPoint) -> Self {
             self.pipeline_bind_point = pipeline_bind_point;
             self
         }
 
+        #[inline]
         pub fn pipeline(mut self, pipeline: Pipeline) -> Self {
             self.pipeline = pipeline;
             self
@@ -227,6 +235,7 @@ pub(super) mod defs {
     }
 
     impl BindPipelineIndirectCommandNV {
+        #[inline]
         pub fn pipeline_address(mut self, pipeline_address: DeviceAddress) -> Self {
             self.pipeline_address = pipeline_address;
             self
@@ -282,6 +291,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineIndirectMemoryRequirementsNV.html>
+    #[inline]
     pub unsafe fn get_pipeline_indirect_memory_requirements_nv(
         &self,
         device: Device,
@@ -298,6 +308,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdUpdatePipelineIndirectBufferNV.html>
+    #[inline]
     pub unsafe fn cmd_update_pipeline_indirect_buffer_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -314,6 +325,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineIndirectDeviceAddressNV.html>
+    #[inline]
     pub unsafe fn get_pipeline_indirect_device_address_nv(
         &self,
         device: Device,

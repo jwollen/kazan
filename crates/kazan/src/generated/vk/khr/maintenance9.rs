@@ -54,6 +54,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMaintenance9FeaturesKHR<'a> {
+        #[inline]
         pub fn maintenance9(mut self, maintenance9: bool) -> Self {
             self.maintenance9 = maintenance9.into();
             self
@@ -113,11 +114,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMaintenance9PropertiesKHR<'a> {
+        #[inline]
         pub fn image2_d_view_of3_d_sparse(mut self, image2_d_view_of3_d_sparse: bool) -> Self {
             self.image2_d_view_of3_d_sparse = image2_d_view_of3_d_sparse.into();
             self
         }
 
+        #[inline]
         pub fn default_vertex_attribute_value(
             mut self,
             default_vertex_attribute_value: DefaultVertexAttributeValueKHR,
@@ -174,6 +177,7 @@ pub(super) mod defs {
     }
 
     impl<'a> QueueFamilyOwnershipTransferPropertiesKHR<'a> {
+        #[inline]
         pub fn optimal_image_transfer_to_queue_families(
             mut self,
             optimal_image_transfer_to_queue_families: u32,

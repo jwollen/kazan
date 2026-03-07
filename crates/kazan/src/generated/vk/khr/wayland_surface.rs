@@ -56,16 +56,19 @@ pub(super) mod defs {
     }
 
     impl<'a> WaylandSurfaceCreateInfoKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: WaylandSurfaceCreateFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn display(mut self, display: *mut wl_display) -> Self {
             self.display = display;
             self
         }
 
+        #[inline]
         pub fn surface(mut self, surface: *mut wl_surface) -> Self {
             self.surface = surface;
             self
@@ -126,6 +129,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateWaylandSurfaceKHR.html>
+    #[inline]
     pub unsafe fn create_wayland_surface_khr(
         &self,
         instance: Instance,
@@ -149,6 +153,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceWaylandPresentationSupportKHR.html>
+    #[inline]
     pub unsafe fn get_physical_device_wayland_presentation_support_khr(
         &self,
         physical_device: PhysicalDevice,

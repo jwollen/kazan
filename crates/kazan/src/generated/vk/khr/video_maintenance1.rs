@@ -57,6 +57,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceVideoMaintenance1FeaturesKHR<'a> {
+        #[inline]
         pub fn video_maintenance1(mut self, video_maintenance1: bool) -> Self {
             self.video_maintenance1 = video_maintenance1.into();
             self
@@ -110,16 +111,19 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoInlineQueryInfoKHR<'a> {
+        #[inline]
         pub fn query_pool(mut self, query_pool: QueryPool) -> Self {
             self.query_pool = query_pool;
             self
         }
 
+        #[inline]
         pub fn first_query(mut self, first_query: u32) -> Self {
             self.first_query = first_query;
             self
         }
 
+        #[inline]
         pub fn query_count(mut self, query_count: u32) -> Self {
             self.query_count = query_count;
             self

@@ -63,6 +63,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDescriptorPoolOverallocationFeaturesNV<'a> {
+        #[inline]
         pub fn descriptor_pool_overallocation(
             mut self,
             descriptor_pool_overallocation: bool,

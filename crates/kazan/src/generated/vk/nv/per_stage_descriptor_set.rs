@@ -63,11 +63,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePerStageDescriptorSetFeaturesNV<'a> {
+        #[inline]
         pub fn per_stage_descriptor_set(mut self, per_stage_descriptor_set: bool) -> Self {
             self.per_stage_descriptor_set = per_stage_descriptor_set.into();
             self
         }
 
+        #[inline]
         pub fn dynamic_pipeline_layout(mut self, dynamic_pipeline_layout: bool) -> Self {
             self.dynamic_pipeline_layout = dynamic_pipeline_layout.into();
             self

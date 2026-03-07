@@ -63,6 +63,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePageableDeviceLocalMemoryFeaturesEXT<'a> {
+        #[inline]
         pub fn pageable_device_local_memory(mut self, pageable_device_local_memory: bool) -> Self {
             self.pageable_device_local_memory = pageable_device_local_memory.into();
             self
@@ -94,6 +95,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetDeviceMemoryPriorityEXT.html>
+    #[inline]
     pub unsafe fn set_device_memory_priority_ext(
         &self,
         device: Device,

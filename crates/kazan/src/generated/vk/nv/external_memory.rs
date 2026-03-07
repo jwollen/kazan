@@ -52,6 +52,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ExternalMemoryImageCreateInfoNV<'a> {
+        #[inline]
         pub fn handle_types(mut self, handle_types: ExternalMemoryHandleTypeFlagsNV) -> Self {
             self.handle_types = handle_types;
             self
@@ -98,6 +99,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ExportMemoryAllocateInfoNV<'a> {
+        #[inline]
         pub fn handle_types(mut self, handle_types: ExternalMemoryHandleTypeFlagsNV) -> Self {
             self.handle_types = handle_types;
             self

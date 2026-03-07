@@ -63,6 +63,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceVertexAttributeRobustnessFeaturesEXT<'a> {
+        #[inline]
         pub fn vertex_attribute_robustness(mut self, vertex_attribute_robustness: bool) -> Self {
             self.vertex_attribute_robustness = vertex_attribute_robustness.into();
             self

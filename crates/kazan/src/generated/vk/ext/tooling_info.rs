@@ -39,6 +39,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceToolPropertiesEXT.html>
+    #[inline]
     pub unsafe fn get_physical_device_tool_properties_ext<'a>(
         &self,
         physical_device: PhysicalDevice,

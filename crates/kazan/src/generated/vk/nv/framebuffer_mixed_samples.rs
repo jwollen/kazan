@@ -80,11 +80,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineCoverageModulationStateCreateInfoNV<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PipelineCoverageModulationStateCreateFlagsNV) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn coverage_modulation_mode(
             mut self,
             coverage_modulation_mode: CoverageModulationModeNV,
@@ -93,6 +95,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn coverage_modulation_table_enable(
             mut self,
             coverage_modulation_table_enable: bool,
@@ -101,6 +104,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn coverage_modulation_table(mut self, coverage_modulation_table: &'a [f32]) -> Self {
             self.coverage_modulation_table_count =
                 coverage_modulation_table.len().try_into().unwrap();

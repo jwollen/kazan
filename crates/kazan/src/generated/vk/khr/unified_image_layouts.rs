@@ -63,11 +63,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceUnifiedImageLayoutsFeaturesKHR<'a> {
+        #[inline]
         pub fn unified_image_layouts(mut self, unified_image_layouts: bool) -> Self {
             self.unified_image_layouts = unified_image_layouts.into();
             self
         }
 
+        #[inline]
         pub fn unified_image_layouts_video(mut self, unified_image_layouts_video: bool) -> Self {
             self.unified_image_layouts_video = unified_image_layouts_video.into();
             self
@@ -114,6 +116,7 @@ pub(super) mod defs {
     }
 
     impl<'a> AttachmentFeedbackLoopInfoEXT<'a> {
+        #[inline]
         pub fn feedback_loop_enable(mut self, feedback_loop_enable: bool) -> Self {
             self.feedback_loop_enable = feedback_loop_enable.into();
             self

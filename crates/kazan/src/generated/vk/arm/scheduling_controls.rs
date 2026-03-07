@@ -57,6 +57,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DeviceQueueShaderCoreControlCreateInfoARM<'a> {
+        #[inline]
         pub fn shader_core_count(mut self, shader_core_count: u32) -> Self {
             self.shader_core_count = shader_core_count;
             self
@@ -108,6 +109,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceSchedulingControlsFeaturesARM<'a> {
+        #[inline]
         pub fn scheduling_controls(mut self, scheduling_controls: bool) -> Self {
             self.scheduling_controls = scheduling_controls.into();
             self
@@ -158,6 +160,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceSchedulingControlsPropertiesARM<'a> {
+        #[inline]
         pub fn scheduling_controls_flags(
             mut self,
             scheduling_controls_flags: PhysicalDeviceSchedulingControlsFlagsARM,

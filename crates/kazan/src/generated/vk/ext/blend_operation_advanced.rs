@@ -63,6 +63,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceBlendOperationAdvancedFeaturesEXT<'a> {
+        #[inline]
         pub fn advanced_blend_coherent_operations(
             mut self,
             advanced_blend_coherent_operations: bool,
@@ -149,6 +150,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceBlendOperationAdvancedPropertiesEXT<'a> {
+        #[inline]
         pub fn advanced_blend_max_color_attachments(
             mut self,
             advanced_blend_max_color_attachments: u32,
@@ -157,6 +159,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn advanced_blend_independent_blend(
             mut self,
             advanced_blend_independent_blend: bool,
@@ -165,6 +168,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn advanced_blend_non_premultiplied_src_color(
             mut self,
             advanced_blend_non_premultiplied_src_color: bool,
@@ -174,6 +178,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn advanced_blend_non_premultiplied_dst_color(
             mut self,
             advanced_blend_non_premultiplied_dst_color: bool,
@@ -183,6 +188,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn advanced_blend_correlated_overlap(
             mut self,
             advanced_blend_correlated_overlap: bool,
@@ -191,6 +197,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn advanced_blend_all_operations(
             mut self,
             advanced_blend_all_operations: bool,
@@ -250,16 +257,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineColorBlendAdvancedStateCreateInfoEXT<'a> {
+        #[inline]
         pub fn src_premultiplied(mut self, src_premultiplied: bool) -> Self {
             self.src_premultiplied = src_premultiplied.into();
             self
         }
 
+        #[inline]
         pub fn dst_premultiplied(mut self, dst_premultiplied: bool) -> Self {
             self.dst_premultiplied = dst_premultiplied.into();
             self
         }
 
+        #[inline]
         pub fn blend_overlap(mut self, blend_overlap: BlendOverlapEXT) -> Self {
             self.blend_overlap = blend_overlap;
             self

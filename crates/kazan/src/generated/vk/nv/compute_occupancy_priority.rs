@@ -58,11 +58,13 @@ pub(super) mod defs {
     }
 
     impl<'a> ComputeOccupancyPriorityParametersNV<'a> {
+        #[inline]
         pub fn occupancy_priority(mut self, occupancy_priority: f32) -> Self {
             self.occupancy_priority = occupancy_priority;
             self
         }
 
+        #[inline]
         pub fn occupancy_throttling(mut self, occupancy_throttling: f32) -> Self {
             self.occupancy_throttling = occupancy_throttling;
             self
@@ -120,6 +122,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceComputeOccupancyPriorityFeaturesNV<'a> {
+        #[inline]
         pub fn compute_occupancy_priority(mut self, compute_occupancy_priority: bool) -> Self {
             self.compute_occupancy_priority = compute_occupancy_priority.into();
             self
@@ -153,6 +156,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetComputeOccupancyPriorityNV.html>
+    #[inline]
     pub unsafe fn cmd_set_compute_occupancy_priority_nv(
         &self,
         command_buffer: CommandBuffer,

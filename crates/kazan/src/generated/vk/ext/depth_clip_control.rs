@@ -57,6 +57,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDepthClipControlFeaturesEXT<'a> {
+        #[inline]
         pub fn depth_clip_control(mut self, depth_clip_control: bool) -> Self {
             self.depth_clip_control = depth_clip_control.into();
             self
@@ -107,6 +108,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineViewportDepthClipControlCreateInfoEXT<'a> {
+        #[inline]
         pub fn negative_one_to_one(mut self, negative_one_to_one: bool) -> Self {
             self.negative_one_to_one = negative_one_to_one.into();
             self

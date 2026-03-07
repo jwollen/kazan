@@ -69,26 +69,31 @@ pub(super) mod defs {
     }
 
     impl<'a> DisplayPropertiesKHR<'a> {
+        #[inline]
         pub fn display(mut self, display: DisplayKHR) -> Self {
             self.display = display;
             self
         }
 
+        #[inline]
         pub fn display_name(mut self, display_name: &'a CStr) -> Self {
             self.display_name = display_name.as_ptr();
             self
         }
 
+        #[inline]
         pub fn physical_dimensions(mut self, physical_dimensions: Extent2D) -> Self {
             self.physical_dimensions = physical_dimensions;
             self
         }
 
+        #[inline]
         pub fn physical_resolution(mut self, physical_resolution: Extent2D) -> Self {
             self.physical_resolution = physical_resolution;
             self
         }
 
+        #[inline]
         pub fn supported_transforms(
             mut self,
             supported_transforms: SurfaceTransformFlagsKHR,
@@ -97,11 +102,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn plane_reorder_possible(mut self, plane_reorder_possible: bool) -> Self {
             self.plane_reorder_possible = plane_reorder_possible.into();
             self
         }
 
+        #[inline]
         pub fn persistent_content(mut self, persistent_content: bool) -> Self {
             self.persistent_content = persistent_content.into();
             self
@@ -119,11 +126,13 @@ pub(super) mod defs {
     }
 
     impl DisplayPlanePropertiesKHR {
+        #[inline]
         pub fn current_display(mut self, current_display: DisplayKHR) -> Self {
             self.current_display = current_display;
             self
         }
 
+        #[inline]
         pub fn current_stack_index(mut self, current_stack_index: u32) -> Self {
             self.current_stack_index = current_stack_index;
             self
@@ -141,11 +150,13 @@ pub(super) mod defs {
     }
 
     impl DisplayModeParametersKHR {
+        #[inline]
         pub fn visible_region(mut self, visible_region: Extent2D) -> Self {
             self.visible_region = visible_region;
             self
         }
 
+        #[inline]
         pub fn refresh_rate(mut self, refresh_rate: u32) -> Self {
             self.refresh_rate = refresh_rate;
             self
@@ -163,11 +174,13 @@ pub(super) mod defs {
     }
 
     impl DisplayModePropertiesKHR {
+        #[inline]
         pub fn display_mode(mut self, display_mode: DisplayModeKHR) -> Self {
             self.display_mode = display_mode;
             self
         }
 
+        #[inline]
         pub fn parameters(mut self, parameters: DisplayModeParametersKHR) -> Self {
             self.parameters = parameters;
             self
@@ -215,11 +228,13 @@ pub(super) mod defs {
     }
 
     impl<'a> DisplayModeCreateInfoKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: DisplayModeCreateFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn parameters(mut self, parameters: DisplayModeParametersKHR) -> Self {
             self.parameters = parameters;
             self
@@ -244,46 +259,55 @@ pub(super) mod defs {
     }
 
     impl DisplayPlaneCapabilitiesKHR {
+        #[inline]
         pub fn supported_alpha(mut self, supported_alpha: DisplayPlaneAlphaFlagsKHR) -> Self {
             self.supported_alpha = supported_alpha;
             self
         }
 
+        #[inline]
         pub fn min_src_position(mut self, min_src_position: Offset2D) -> Self {
             self.min_src_position = min_src_position;
             self
         }
 
+        #[inline]
         pub fn max_src_position(mut self, max_src_position: Offset2D) -> Self {
             self.max_src_position = max_src_position;
             self
         }
 
+        #[inline]
         pub fn min_src_extent(mut self, min_src_extent: Extent2D) -> Self {
             self.min_src_extent = min_src_extent;
             self
         }
 
+        #[inline]
         pub fn max_src_extent(mut self, max_src_extent: Extent2D) -> Self {
             self.max_src_extent = max_src_extent;
             self
         }
 
+        #[inline]
         pub fn min_dst_position(mut self, min_dst_position: Offset2D) -> Self {
             self.min_dst_position = min_dst_position;
             self
         }
 
+        #[inline]
         pub fn max_dst_position(mut self, max_dst_position: Offset2D) -> Self {
             self.max_dst_position = max_dst_position;
             self
         }
 
+        #[inline]
         pub fn min_dst_extent(mut self, min_dst_extent: Extent2D) -> Self {
             self.min_dst_extent = min_dst_extent;
             self
         }
 
+        #[inline]
         pub fn max_dst_extent(mut self, max_dst_extent: Extent2D) -> Self {
             self.max_dst_extent = max_dst_extent;
             self
@@ -349,41 +373,49 @@ pub(super) mod defs {
     }
 
     impl<'a> DisplaySurfaceCreateInfoKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: DisplaySurfaceCreateFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn display_mode(mut self, display_mode: DisplayModeKHR) -> Self {
             self.display_mode = display_mode;
             self
         }
 
+        #[inline]
         pub fn plane_index(mut self, plane_index: u32) -> Self {
             self.plane_index = plane_index;
             self
         }
 
+        #[inline]
         pub fn plane_stack_index(mut self, plane_stack_index: u32) -> Self {
             self.plane_stack_index = plane_stack_index;
             self
         }
 
+        #[inline]
         pub fn transform(mut self, transform: SurfaceTransformFlagBitsKHR) -> Self {
             self.transform = transform;
             self
         }
 
+        #[inline]
         pub fn global_alpha(mut self, global_alpha: f32) -> Self {
             self.global_alpha = global_alpha;
             self
         }
 
+        #[inline]
         pub fn alpha_mode(mut self, alpha_mode: DisplayPlaneAlphaFlagBitsKHR) -> Self {
             self.alpha_mode = alpha_mode;
             self
         }
 
+        #[inline]
         pub fn image_extent(mut self, image_extent: Extent2D) -> Self {
             self.image_extent = image_extent;
             self
@@ -662,6 +694,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDisplayPropertiesKHR.html>
+    #[inline]
     pub unsafe fn get_physical_device_display_properties_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
@@ -693,6 +726,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDisplayPlanePropertiesKHR.html>
+    #[inline]
     pub unsafe fn get_physical_device_display_plane_properties_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -724,6 +758,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDisplayPlaneSupportedDisplaysKHR.html>
+    #[inline]
     pub unsafe fn get_display_plane_supported_displays_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -757,6 +792,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDisplayModePropertiesKHR.html>
+    #[inline]
     pub unsafe fn get_display_mode_properties_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -790,6 +826,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDisplayModeKHR.html>
+    #[inline]
     pub unsafe fn create_display_mode_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -815,6 +852,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDisplayPlaneCapabilitiesKHR.html>
+    #[inline]
     pub unsafe fn get_display_plane_capabilities_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -838,6 +876,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDisplayPlaneSurfaceKHR.html>
+    #[inline]
     pub unsafe fn create_display_plane_surface_khr(
         &self,
         instance: Instance,

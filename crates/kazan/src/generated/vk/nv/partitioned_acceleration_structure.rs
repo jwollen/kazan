@@ -67,6 +67,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePartitionedAccelerationStructureFeaturesNV<'a> {
+        #[inline]
         pub fn partitioned_acceleration_structure(
             mut self,
             partitioned_acceleration_structure: bool,
@@ -122,6 +123,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePartitionedAccelerationStructurePropertiesNV<'a> {
+        #[inline]
         pub fn max_partition_count(mut self, max_partition_count: u32) -> Self {
             self.max_partition_count = max_partition_count;
             self
@@ -140,16 +142,19 @@ pub(super) mod defs {
     }
 
     impl BuildPartitionedAccelerationStructureIndirectCommandNV {
+        #[inline]
         pub fn op_type(mut self, op_type: PartitionedAccelerationStructureOpTypeNV) -> Self {
             self.op_type = op_type;
             self
         }
 
+        #[inline]
         pub fn arg_count(mut self, arg_count: u32) -> Self {
             self.arg_count = arg_count;
             self
         }
 
+        #[inline]
         pub fn arg_data(mut self, arg_data: StridedDeviceAddressNV) -> Self {
             self.arg_data = arg_data;
             self
@@ -203,6 +208,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PartitionedAccelerationStructureFlagsNV<'a> {
+        #[inline]
         pub fn enable_partition_translation(mut self, enable_partition_translation: bool) -> Self {
             self.enable_partition_translation = enable_partition_translation.into();
             self
@@ -243,26 +249,31 @@ pub(super) mod defs {
     }
 
     impl PartitionedAccelerationStructureWriteInstanceDataNV {
+        #[inline]
         pub fn transform(mut self, transform: TransformMatrixKHR) -> Self {
             self.transform = transform;
             self
         }
 
+        #[inline]
         pub fn explicit_aabb(mut self, explicit_aabb: [f32; 6]) -> Self {
             self.explicit_aabb = explicit_aabb;
             self
         }
 
+        #[inline]
         pub fn instance_id(mut self, instance_id: u32) -> Self {
             self.instance_id = instance_id;
             self
         }
 
+        #[inline]
         pub fn instance_mask(mut self, instance_mask: u32) -> Self {
             self.instance_mask = instance_mask;
             self
         }
 
+        #[inline]
         pub fn instance_contribution_to_hit_group_index(
             mut self,
             instance_contribution_to_hit_group_index: u32,
@@ -272,6 +283,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn instance_flags(
             mut self,
             instance_flags: PartitionedAccelerationStructureInstanceFlagsNV,
@@ -280,16 +292,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn instance_index(mut self, instance_index: u32) -> Self {
             self.instance_index = instance_index;
             self
         }
 
+        #[inline]
         pub fn partition_index(mut self, partition_index: u32) -> Self {
             self.partition_index = partition_index;
             self
         }
 
+        #[inline]
         pub fn acceleration_structure(mut self, acceleration_structure: DeviceAddress) -> Self {
             self.acceleration_structure = acceleration_structure;
             self
@@ -308,11 +323,13 @@ pub(super) mod defs {
     }
 
     impl PartitionedAccelerationStructureUpdateInstanceDataNV {
+        #[inline]
         pub fn instance_index(mut self, instance_index: u32) -> Self {
             self.instance_index = instance_index;
             self
         }
 
+        #[inline]
         pub fn instance_contribution_to_hit_group_index(
             mut self,
             instance_contribution_to_hit_group_index: u32,
@@ -322,6 +339,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn acceleration_structure(mut self, acceleration_structure: DeviceAddress) -> Self {
             self.acceleration_structure = acceleration_structure;
             self
@@ -348,11 +366,13 @@ pub(super) mod defs {
     }
 
     impl PartitionedAccelerationStructureWritePartitionTranslationDataNV {
+        #[inline]
         pub fn partition_index(mut self, partition_index: u32) -> Self {
             self.partition_index = partition_index;
             self
         }
 
+        #[inline]
         pub fn partition_translation(mut self, partition_translation: [f32; 3]) -> Self {
             self.partition_translation = partition_translation;
             self
@@ -409,6 +429,7 @@ pub(super) mod defs {
     }
 
     impl<'a> WriteDescriptorSetPartitionedAccelerationStructureNV<'a> {
+        #[inline]
         pub fn acceleration_structures(
             mut self,
             acceleration_structures: &'a [DeviceAddress],
@@ -476,16 +497,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PartitionedAccelerationStructureInstancesInputNV<'a> {
+        #[inline]
         pub fn flags(mut self, flags: BuildAccelerationStructureFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn instance_count(mut self, instance_count: u32) -> Self {
             self.instance_count = instance_count;
             self
         }
 
+        #[inline]
         pub fn max_instance_per_partition_count(
             mut self,
             max_instance_per_partition_count: u32,
@@ -494,11 +518,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn partition_count(mut self, partition_count: u32) -> Self {
             self.partition_count = partition_count;
             self
         }
 
+        #[inline]
         pub fn max_instance_in_global_partition_count(
             mut self,
             max_instance_in_global_partition_count: u32,
@@ -568,6 +594,7 @@ pub(super) mod defs {
     }
 
     impl<'a> BuildPartitionedAccelerationStructureInfoNV<'a> {
+        #[inline]
         pub fn input(
             mut self,
             input: PartitionedAccelerationStructureInstancesInputNV<'a>,
@@ -576,6 +603,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn src_acceleration_structure_data(
             mut self,
             src_acceleration_structure_data: DeviceAddress,
@@ -584,6 +612,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn dst_acceleration_structure_data(
             mut self,
             dst_acceleration_structure_data: DeviceAddress,
@@ -592,16 +621,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn scratch_data(mut self, scratch_data: DeviceAddress) -> Self {
             self.scratch_data = scratch_data;
             self
         }
 
+        #[inline]
         pub fn src_infos(mut self, src_infos: DeviceAddress) -> Self {
             self.src_infos = src_infos;
             self
         }
 
+        #[inline]
         pub fn src_infos_count(mut self, src_infos_count: DeviceAddress) -> Self {
             self.src_infos_count = src_infos_count;
             self
@@ -742,6 +774,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPartitionedAccelerationStructuresBuildSizesNV.html>
+    #[inline]
     pub unsafe fn get_partitioned_acceleration_structures_build_sizes_nv(
         &self,
         device: Device,
@@ -754,6 +787,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBuildPartitionedAccelerationStructuresNV.html>
+    #[inline]
     pub unsafe fn cmd_build_partitioned_acceleration_structures_nv(
         &self,
         command_buffer: CommandBuffer,

@@ -77,11 +77,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT<'a> {
+        #[inline]
         pub fn device_generated_commands(mut self, device_generated_commands: bool) -> Self {
             self.device_generated_commands = device_generated_commands.into();
             self
         }
 
+        #[inline]
         pub fn dynamic_generated_pipeline_layout(
             mut self,
             dynamic_generated_pipeline_layout: bool,
@@ -204,11 +206,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDeviceGeneratedCommandsPropertiesEXT<'a> {
+        #[inline]
         pub fn max_indirect_pipeline_count(mut self, max_indirect_pipeline_count: u32) -> Self {
             self.max_indirect_pipeline_count = max_indirect_pipeline_count;
             self
         }
 
+        #[inline]
         pub fn max_indirect_shader_object_count(
             mut self,
             max_indirect_shader_object_count: u32,
@@ -217,11 +221,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_indirect_sequence_count(mut self, max_indirect_sequence_count: u32) -> Self {
             self.max_indirect_sequence_count = max_indirect_sequence_count;
             self
         }
 
+        #[inline]
         pub fn max_indirect_commands_token_count(
             mut self,
             max_indirect_commands_token_count: u32,
@@ -230,6 +236,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_indirect_commands_token_offset(
             mut self,
             max_indirect_commands_token_offset: u32,
@@ -238,6 +245,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_indirect_commands_indirect_stride(
             mut self,
             max_indirect_commands_indirect_stride: u32,
@@ -246,6 +254,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn supported_indirect_commands_input_modes(
             mut self,
             supported_indirect_commands_input_modes: IndirectCommandsInputModeFlagsEXT,
@@ -254,6 +263,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn supported_indirect_commands_shader_stages(
             mut self,
             supported_indirect_commands_shader_stages: ShaderStageFlags,
@@ -263,6 +273,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn supported_indirect_commands_shader_stages_pipeline_binding(
             mut self,
             supported_indirect_commands_shader_stages_pipeline_binding: ShaderStageFlags,
@@ -272,6 +283,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn supported_indirect_commands_shader_stages_shader_binding(
             mut self,
             supported_indirect_commands_shader_stages_shader_binding: ShaderStageFlags,
@@ -281,6 +293,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn device_generated_commands_transform_feedback(
             mut self,
             device_generated_commands_transform_feedback: bool,
@@ -290,6 +303,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn device_generated_commands_multi_draw_indirect_count(
             mut self,
             device_generated_commands_multi_draw_indirect_count: bool,
@@ -344,6 +358,7 @@ pub(super) mod defs {
     }
 
     impl<'a> GeneratedCommandsPipelineInfoEXT<'a> {
+        #[inline]
         pub fn pipeline(mut self, pipeline: Pipeline) -> Self {
             self.pipeline = pipeline;
             self
@@ -397,6 +412,7 @@ pub(super) mod defs {
     }
 
     impl<'a> GeneratedCommandsShaderInfoEXT<'a> {
+        #[inline]
         pub fn shaders(mut self, shaders: &'a [ShaderEXT]) -> Self {
             self.shader_count = shaders.len().try_into().unwrap();
             self.p_shaders = shaders.as_ptr();
@@ -452,6 +468,7 @@ pub(super) mod defs {
     }
 
     impl<'a> GeneratedCommandsMemoryRequirementsInfoEXT<'a> {
+        #[inline]
         pub fn indirect_execution_set(
             mut self,
             indirect_execution_set: IndirectExecutionSetEXT,
@@ -460,6 +477,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn indirect_commands_layout(
             mut self,
             indirect_commands_layout: IndirectCommandsLayoutEXT,
@@ -468,11 +486,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_sequence_count(mut self, max_sequence_count: u32) -> Self {
             self.max_sequence_count = max_sequence_count;
             self
         }
 
+        #[inline]
         pub fn max_draw_count(mut self, max_draw_count: u32) -> Self {
             self.max_draw_count = max_draw_count;
             self
@@ -521,11 +541,13 @@ pub(super) mod defs {
     }
 
     impl<'a> IndirectExecutionSetPipelineInfoEXT<'a> {
+        #[inline]
         pub fn initial_pipeline(mut self, initial_pipeline: Pipeline) -> Self {
             self.initial_pipeline = initial_pipeline;
             self
         }
 
+        #[inline]
         pub fn max_pipeline_count(mut self, max_pipeline_count: u32) -> Self {
             self.max_pipeline_count = max_pipeline_count;
             self
@@ -574,6 +596,7 @@ pub(super) mod defs {
     }
 
     impl<'a> IndirectExecutionSetShaderLayoutInfoEXT<'a> {
+        #[inline]
         pub fn set_layouts(mut self, set_layouts: &'a [DescriptorSetLayout]) -> Self {
             self.set_layout_count = set_layouts.len().try_into().unwrap();
             self.p_set_layouts = set_layouts.as_ptr();
@@ -634,12 +657,14 @@ pub(super) mod defs {
     }
 
     impl<'a> IndirectExecutionSetShaderInfoEXT<'a> {
+        #[inline]
         pub fn initial_shaders(mut self, initial_shaders: &'a [ShaderEXT]) -> Self {
             self.shader_count = initial_shaders.len().try_into().unwrap();
             self.p_initial_shaders = initial_shaders.as_ptr();
             self
         }
 
+        #[inline]
         pub fn set_layout_infos(
             mut self,
             set_layout_infos: &'a [IndirectExecutionSetShaderLayoutInfoEXT<'a>],
@@ -649,11 +674,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_shader_count(mut self, max_shader_count: u32) -> Self {
             self.max_shader_count = max_shader_count;
             self
         }
 
+        #[inline]
         pub fn push_constant_ranges(
             mut self,
             push_constant_ranges: &'a [PushConstantRange],
@@ -705,11 +732,13 @@ pub(super) mod defs {
     }
 
     impl<'a> IndirectExecutionSetCreateInfoEXT<'a> {
+        #[inline]
         pub fn ty(mut self, ty: IndirectExecutionSetInfoTypeEXT) -> Self {
             self.ty = ty;
             self
         }
 
+        #[inline]
         pub fn info(mut self, info: IndirectExecutionSetInfoEXT<'a>) -> Self {
             self.info = info;
             self
@@ -781,11 +810,13 @@ pub(super) mod defs {
     }
 
     impl<'a> GeneratedCommandsInfoEXT<'a> {
+        #[inline]
         pub fn shader_stages(mut self, shader_stages: ShaderStageFlags) -> Self {
             self.shader_stages = shader_stages;
             self
         }
 
+        #[inline]
         pub fn indirect_execution_set(
             mut self,
             indirect_execution_set: IndirectExecutionSetEXT,
@@ -794,6 +825,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn indirect_commands_layout(
             mut self,
             indirect_commands_layout: IndirectCommandsLayoutEXT,
@@ -802,36 +834,43 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn indirect_address(mut self, indirect_address: DeviceAddress) -> Self {
             self.indirect_address = indirect_address;
             self
         }
 
+        #[inline]
         pub fn indirect_address_size(mut self, indirect_address_size: DeviceSize) -> Self {
             self.indirect_address_size = indirect_address_size;
             self
         }
 
+        #[inline]
         pub fn preprocess_address(mut self, preprocess_address: DeviceAddress) -> Self {
             self.preprocess_address = preprocess_address;
             self
         }
 
+        #[inline]
         pub fn preprocess_size(mut self, preprocess_size: DeviceSize) -> Self {
             self.preprocess_size = preprocess_size;
             self
         }
 
+        #[inline]
         pub fn max_sequence_count(mut self, max_sequence_count: u32) -> Self {
             self.max_sequence_count = max_sequence_count;
             self
         }
 
+        #[inline]
         pub fn sequence_count_address(mut self, sequence_count_address: DeviceAddress) -> Self {
             self.sequence_count_address = sequence_count_address;
             self
         }
 
+        #[inline]
         pub fn max_draw_count(mut self, max_draw_count: u32) -> Self {
             self.max_draw_count = max_draw_count;
             self
@@ -880,11 +919,13 @@ pub(super) mod defs {
     }
 
     impl<'a> WriteIndirectExecutionSetPipelineEXT<'a> {
+        #[inline]
         pub fn index(mut self, index: u32) -> Self {
             self.index = index;
             self
         }
 
+        #[inline]
         pub fn pipeline(mut self, pipeline: Pipeline) -> Self {
             self.pipeline = pipeline;
             self
@@ -933,11 +974,13 @@ pub(super) mod defs {
     }
 
     impl<'a> WriteIndirectExecutionSetShaderEXT<'a> {
+        #[inline]
         pub fn index(mut self, index: u32) -> Self {
             self.index = index;
             self
         }
 
+        #[inline]
         pub fn shader(mut self, shader: ShaderEXT) -> Self {
             self.shader = shader;
             self
@@ -998,26 +1041,31 @@ pub(super) mod defs {
     }
 
     impl<'a> IndirectCommandsLayoutCreateInfoEXT<'a> {
+        #[inline]
         pub fn flags(mut self, flags: IndirectCommandsLayoutUsageFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn shader_stages(mut self, shader_stages: ShaderStageFlags) -> Self {
             self.shader_stages = shader_stages;
             self
         }
 
+        #[inline]
         pub fn indirect_stride(mut self, indirect_stride: u32) -> Self {
             self.indirect_stride = indirect_stride;
             self
         }
 
+        #[inline]
         pub fn pipeline_layout(mut self, pipeline_layout: PipelineLayout) -> Self {
             self.pipeline_layout = pipeline_layout;
             self
         }
 
+        #[inline]
         pub fn tokens(mut self, tokens: &'a [IndirectCommandsLayoutTokenEXT<'a>]) -> Self {
             self.token_count = tokens.len().try_into().unwrap();
             self.p_tokens = tokens.as_ptr();
@@ -1069,16 +1117,19 @@ pub(super) mod defs {
     }
 
     impl<'a> IndirectCommandsLayoutTokenEXT<'a> {
+        #[inline]
         pub fn ty(mut self, ty: IndirectCommandsTokenTypeEXT) -> Self {
             self.ty = ty;
             self
         }
 
+        #[inline]
         pub fn data(mut self, data: IndirectCommandsTokenDataEXT<'a>) -> Self {
             self.data = data;
             self
         }
 
+        #[inline]
         pub fn offset(mut self, offset: u32) -> Self {
             self.offset = offset;
             self
@@ -1097,16 +1148,19 @@ pub(super) mod defs {
     }
 
     impl DrawIndirectCountIndirectCommandEXT {
+        #[inline]
         pub fn buffer_address(mut self, buffer_address: DeviceAddress) -> Self {
             self.buffer_address = buffer_address;
             self
         }
 
+        #[inline]
         pub fn stride(mut self, stride: u32) -> Self {
             self.stride = stride;
             self
         }
 
+        #[inline]
         pub fn command_count(mut self, command_count: u32) -> Self {
             self.command_count = command_count;
             self
@@ -1123,6 +1177,7 @@ pub(super) mod defs {
     }
 
     impl IndirectCommandsVertexBufferTokenEXT {
+        #[inline]
         pub fn vertex_binding_unit(mut self, vertex_binding_unit: u32) -> Self {
             self.vertex_binding_unit = vertex_binding_unit;
             self
@@ -1141,16 +1196,19 @@ pub(super) mod defs {
     }
 
     impl BindVertexBufferIndirectCommandEXT {
+        #[inline]
         pub fn buffer_address(mut self, buffer_address: DeviceAddress) -> Self {
             self.buffer_address = buffer_address;
             self
         }
 
+        #[inline]
         pub fn size(mut self, size: u32) -> Self {
             self.size = size;
             self
         }
 
+        #[inline]
         pub fn stride(mut self, stride: u32) -> Self {
             self.stride = stride;
             self
@@ -1167,6 +1225,7 @@ pub(super) mod defs {
     }
 
     impl IndirectCommandsIndexBufferTokenEXT {
+        #[inline]
         pub fn mode(mut self, mode: IndirectCommandsInputModeFlagBitsEXT) -> Self {
             self.mode = mode;
             self
@@ -1185,16 +1244,19 @@ pub(super) mod defs {
     }
 
     impl BindIndexBufferIndirectCommandEXT {
+        #[inline]
         pub fn buffer_address(mut self, buffer_address: DeviceAddress) -> Self {
             self.buffer_address = buffer_address;
             self
         }
 
+        #[inline]
         pub fn size(mut self, size: u32) -> Self {
             self.size = size;
             self
         }
 
+        #[inline]
         pub fn index_type(mut self, index_type: IndexType) -> Self {
             self.index_type = index_type;
             self
@@ -1211,6 +1273,7 @@ pub(super) mod defs {
     }
 
     impl IndirectCommandsPushConstantTokenEXT {
+        #[inline]
         pub fn update_range(mut self, update_range: PushConstantRange) -> Self {
             self.update_range = update_range;
             self
@@ -1228,11 +1291,13 @@ pub(super) mod defs {
     }
 
     impl IndirectCommandsExecutionSetTokenEXT {
+        #[inline]
         pub fn ty(mut self, ty: IndirectExecutionSetInfoTypeEXT) -> Self {
             self.ty = ty;
             self
         }
 
+        #[inline]
         pub fn shader_stages(mut self, shader_stages: ShaderStageFlags) -> Self {
             self.shader_stages = shader_stages;
             self
@@ -1594,6 +1659,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetGeneratedCommandsMemoryRequirementsEXT.html>
+    #[inline]
     pub unsafe fn get_generated_commands_memory_requirements_ext(
         &self,
         device: Device,
@@ -1606,6 +1672,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPreprocessGeneratedCommandsEXT.html>
+    #[inline]
     pub unsafe fn cmd_preprocess_generated_commands_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1622,6 +1689,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdExecuteGeneratedCommandsEXT.html>
+    #[inline]
     pub unsafe fn cmd_execute_generated_commands_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1638,6 +1706,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateIndirectCommandsLayoutEXT.html>
+    #[inline]
     pub unsafe fn create_indirect_commands_layout_ext(
         &self,
         device: Device,
@@ -1661,6 +1730,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyIndirectCommandsLayoutEXT.html>
+    #[inline]
     pub unsafe fn destroy_indirect_commands_layout_ext(
         &self,
         device: Device,
@@ -1677,6 +1747,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateIndirectExecutionSetEXT.html>
+    #[inline]
     pub unsafe fn create_indirect_execution_set_ext(
         &self,
         device: Device,
@@ -1700,6 +1771,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyIndirectExecutionSetEXT.html>
+    #[inline]
     pub unsafe fn destroy_indirect_execution_set_ext(
         &self,
         device: Device,
@@ -1716,6 +1788,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUpdateIndirectExecutionSetPipelineEXT.html>
+    #[inline]
     pub unsafe fn update_indirect_execution_set_pipeline_ext(
         &self,
         device: Device,
@@ -1733,6 +1806,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUpdateIndirectExecutionSetShaderEXT.html>
+    #[inline]
     pub unsafe fn update_indirect_execution_set_shader_ext(
         &self,
         device: Device,

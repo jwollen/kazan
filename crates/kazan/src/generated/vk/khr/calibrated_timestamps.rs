@@ -50,6 +50,7 @@ pub(super) mod defs {
     }
 
     impl<'a> CalibratedTimestampInfoKHR<'a> {
+        #[inline]
         pub fn time_domain(mut self, time_domain: TimeDomainKHR) -> Self {
             self.time_domain = time_domain;
             self
@@ -135,6 +136,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCalibrateableTimeDomainsKHR.html>
+    #[inline]
     pub unsafe fn get_physical_device_calibrateable_time_domains_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -186,6 +188,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetCalibratedTimestampsKHR.html>
+    #[inline]
     pub unsafe fn get_calibrated_timestamps_khr(
         &self,
         device: Device,

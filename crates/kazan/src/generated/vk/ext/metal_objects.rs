@@ -65,6 +65,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ExportMetalObjectCreateInfoEXT<'a> {
+        #[inline]
         pub fn export_object_type(
             mut self,
             export_object_type: ExportMetalObjectTypeFlagBitsEXT,
@@ -150,6 +151,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ExportMetalDeviceInfoEXT<'a> {
+        #[inline]
         pub fn mtl_device(mut self, mtl_device: MTLDevice_id) -> Self {
             self.mtl_device = mtl_device;
             self
@@ -199,11 +201,13 @@ pub(super) mod defs {
     }
 
     impl<'a> ExportMetalCommandQueueInfoEXT<'a> {
+        #[inline]
         pub fn queue(mut self, queue: Queue) -> Self {
             self.queue = queue;
             self
         }
 
+        #[inline]
         pub fn mtl_command_queue(mut self, mtl_command_queue: MTLCommandQueue_id) -> Self {
             self.mtl_command_queue = mtl_command_queue;
             self
@@ -253,11 +257,13 @@ pub(super) mod defs {
     }
 
     impl<'a> ExportMetalBufferInfoEXT<'a> {
+        #[inline]
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
         }
 
+        #[inline]
         pub fn mtl_buffer(mut self, mtl_buffer: MTLBuffer_id) -> Self {
             self.mtl_buffer = mtl_buffer;
             self
@@ -304,6 +310,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ImportMetalBufferInfoEXT<'a> {
+        #[inline]
         pub fn mtl_buffer(mut self, mtl_buffer: MTLBuffer_id) -> Self {
             self.mtl_buffer = mtl_buffer;
             self
@@ -362,26 +369,31 @@ pub(super) mod defs {
     }
 
     impl<'a> ExportMetalTextureInfoEXT<'a> {
+        #[inline]
         pub fn image(mut self, image: Image) -> Self {
             self.image = image;
             self
         }
 
+        #[inline]
         pub fn image_view(mut self, image_view: ImageView) -> Self {
             self.image_view = image_view;
             self
         }
 
+        #[inline]
         pub fn buffer_view(mut self, buffer_view: BufferView) -> Self {
             self.buffer_view = buffer_view;
             self
         }
 
+        #[inline]
         pub fn plane(mut self, plane: ImageAspectFlagBits) -> Self {
             self.plane = plane;
             self
         }
 
+        #[inline]
         pub fn mtl_texture(mut self, mtl_texture: MTLTexture_id) -> Self {
             self.mtl_texture = mtl_texture;
             self
@@ -431,11 +443,13 @@ pub(super) mod defs {
     }
 
     impl<'a> ImportMetalTextureInfoEXT<'a> {
+        #[inline]
         pub fn plane(mut self, plane: ImageAspectFlagBits) -> Self {
             self.plane = plane;
             self
         }
 
+        #[inline]
         pub fn mtl_texture(mut self, mtl_texture: MTLTexture_id) -> Self {
             self.mtl_texture = mtl_texture;
             self
@@ -485,11 +499,13 @@ pub(super) mod defs {
     }
 
     impl<'a> ExportMetalIOSurfaceInfoEXT<'a> {
+        #[inline]
         pub fn image(mut self, image: Image) -> Self {
             self.image = image;
             self
         }
 
+        #[inline]
         pub fn io_surface(mut self, io_surface: IOSurfaceRef) -> Self {
             self.io_surface = io_surface;
             self
@@ -536,6 +552,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ImportMetalIOSurfaceInfoEXT<'a> {
+        #[inline]
         pub fn io_surface(mut self, io_surface: IOSurfaceRef) -> Self {
             self.io_surface = io_surface;
             self
@@ -588,16 +605,19 @@ pub(super) mod defs {
     }
 
     impl<'a> ExportMetalSharedEventInfoEXT<'a> {
+        #[inline]
         pub fn semaphore(mut self, semaphore: Semaphore) -> Self {
             self.semaphore = semaphore;
             self
         }
 
+        #[inline]
         pub fn event(mut self, event: Event) -> Self {
             self.event = event;
             self
         }
 
+        #[inline]
         pub fn mtl_shared_event(mut self, mtl_shared_event: MTLSharedEvent_id) -> Self {
             self.mtl_shared_event = mtl_shared_event;
             self
@@ -645,6 +665,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ImportMetalSharedEventInfoEXT<'a> {
+        #[inline]
         pub fn mtl_shared_event(mut self, mtl_shared_event: MTLSharedEvent_id) -> Self {
             self.mtl_shared_event = mtl_shared_event;
             self
@@ -764,6 +785,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkExportMetalObjectsEXT.html>
+    #[inline]
     pub unsafe fn export_metal_objects_ext(
         &self,
         device: Device,

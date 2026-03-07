@@ -83,36 +83,43 @@ pub(super) mod defs {
     }
 
     impl<'a> SurfaceCapabilities2EXT<'a> {
+        #[inline]
         pub fn min_image_count(mut self, min_image_count: u32) -> Self {
             self.min_image_count = min_image_count;
             self
         }
 
+        #[inline]
         pub fn max_image_count(mut self, max_image_count: u32) -> Self {
             self.max_image_count = max_image_count;
             self
         }
 
+        #[inline]
         pub fn current_extent(mut self, current_extent: Extent2D) -> Self {
             self.current_extent = current_extent;
             self
         }
 
+        #[inline]
         pub fn min_image_extent(mut self, min_image_extent: Extent2D) -> Self {
             self.min_image_extent = min_image_extent;
             self
         }
 
+        #[inline]
         pub fn max_image_extent(mut self, max_image_extent: Extent2D) -> Self {
             self.max_image_extent = max_image_extent;
             self
         }
 
+        #[inline]
         pub fn max_image_array_layers(mut self, max_image_array_layers: u32) -> Self {
             self.max_image_array_layers = max_image_array_layers;
             self
         }
 
+        #[inline]
         pub fn supported_transforms(
             mut self,
             supported_transforms: SurfaceTransformFlagsKHR,
@@ -121,11 +128,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn current_transform(mut self, current_transform: SurfaceTransformFlagBitsKHR) -> Self {
             self.current_transform = current_transform;
             self
         }
 
+        #[inline]
         pub fn supported_composite_alpha(
             mut self,
             supported_composite_alpha: CompositeAlphaFlagsKHR,
@@ -134,11 +143,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn supported_usage_flags(mut self, supported_usage_flags: ImageUsageFlags) -> Self {
             self.supported_usage_flags = supported_usage_flags;
             self
         }
 
+        #[inline]
         pub fn supported_surface_counters(
             mut self,
             supported_surface_counters: SurfaceCounterFlagsEXT,
@@ -218,6 +229,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceCapabilities2EXT.html>
+    #[inline]
     pub unsafe fn get_physical_device_surface_capabilities2_ext(
         &self,
         physical_device: PhysicalDevice,

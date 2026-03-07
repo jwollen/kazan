@@ -59,11 +59,13 @@ pub(super) mod defs {
     }
 
     impl<'a> SamplerBorderColorComponentMappingCreateInfoEXT<'a> {
+        #[inline]
         pub fn components(mut self, components: ComponentMapping) -> Self {
             self.components = components;
             self
         }
 
+        #[inline]
         pub fn srgb(mut self, srgb: bool) -> Self {
             self.srgb = srgb.into();
             self
@@ -121,11 +123,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceBorderColorSwizzleFeaturesEXT<'a> {
+        #[inline]
         pub fn border_color_swizzle(mut self, border_color_swizzle: bool) -> Self {
             self.border_color_swizzle = border_color_swizzle.into();
             self
         }
 
+        #[inline]
         pub fn border_color_swizzle_from_image(
             mut self,
             border_color_swizzle_from_image: bool,

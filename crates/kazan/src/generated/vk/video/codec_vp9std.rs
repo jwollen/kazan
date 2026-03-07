@@ -32,11 +32,13 @@ pub(super) mod defs {
     }
 
     impl StdVideoVP9ColorConfigFlags {
+        #[inline]
         pub fn color_range(mut self, color_range: u32) -> Self {
             self.color_range = color_range;
             self
         }
 
+        #[inline]
         pub fn reserved(mut self, reserved: u32) -> Self {
             self.reserved = reserved;
             self
@@ -58,31 +60,37 @@ pub(super) mod defs {
     }
 
     impl StdVideoVP9ColorConfig {
+        #[inline]
         pub fn flags(mut self, flags: StdVideoVP9ColorConfigFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn bit_depth(mut self, bit_depth: u8) -> Self {
             self.bit_depth = bit_depth;
             self
         }
 
+        #[inline]
         pub fn subsampling_x(mut self, subsampling_x: u8) -> Self {
             self.subsampling_x = subsampling_x;
             self
         }
 
+        #[inline]
         pub fn subsampling_y(mut self, subsampling_y: u8) -> Self {
             self.subsampling_y = subsampling_y;
             self
         }
 
+        #[inline]
         pub fn reserved1(mut self, reserved1: u8) -> Self {
             self.reserved1 = reserved1;
             self
         }
 
+        #[inline]
         pub fn color_space(mut self, color_space: StdVideoVP9ColorSpace) -> Self {
             self.color_space = color_space;
             self
@@ -101,16 +109,19 @@ pub(super) mod defs {
     }
 
     impl StdVideoVP9LoopFilterFlags {
+        #[inline]
         pub fn loop_filter_delta_enabled(mut self, loop_filter_delta_enabled: u32) -> Self {
             self.loop_filter_delta_enabled = loop_filter_delta_enabled;
             self
         }
 
+        #[inline]
         pub fn loop_filter_delta_update(mut self, loop_filter_delta_update: u32) -> Self {
             self.loop_filter_delta_update = loop_filter_delta_update;
             self
         }
 
+        #[inline]
         pub fn reserved(mut self, reserved: u32) -> Self {
             self.reserved = reserved;
             self
@@ -147,26 +158,31 @@ pub(super) mod defs {
     }
 
     impl StdVideoVP9LoopFilter {
+        #[inline]
         pub fn flags(mut self, flags: StdVideoVP9LoopFilterFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn loop_filter_level(mut self, loop_filter_level: u8) -> Self {
             self.loop_filter_level = loop_filter_level;
             self
         }
 
+        #[inline]
         pub fn loop_filter_sharpness(mut self, loop_filter_sharpness: u8) -> Self {
             self.loop_filter_sharpness = loop_filter_sharpness;
             self
         }
 
+        #[inline]
         pub fn update_ref_delta(mut self, update_ref_delta: u8) -> Self {
             self.update_ref_delta = update_ref_delta;
             self
         }
 
+        #[inline]
         pub fn loop_filter_ref_deltas(
             mut self,
             loop_filter_ref_deltas: [i8; STD_VIDEO_VP9_MAX_REF_FRAMES as usize],
@@ -175,11 +191,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn update_mode_delta(mut self, update_mode_delta: u8) -> Self {
             self.update_mode_delta = update_mode_delta;
             self
         }
 
+        #[inline]
         pub fn loop_filter_mode_deltas(
             mut self,
             loop_filter_mode_deltas: [i8; STD_VIDEO_VP9_LOOP_FILTER_ADJUSTMENTS as usize],
@@ -203,21 +221,25 @@ pub(super) mod defs {
     }
 
     impl StdVideoVP9SegmentationFlags {
+        #[inline]
         pub fn segmentation_update_map(mut self, segmentation_update_map: u32) -> Self {
             self.segmentation_update_map = segmentation_update_map;
             self
         }
 
+        #[inline]
         pub fn segmentation_temporal_update(mut self, segmentation_temporal_update: u32) -> Self {
             self.segmentation_temporal_update = segmentation_temporal_update;
             self
         }
 
+        #[inline]
         pub fn segmentation_update_data(mut self, segmentation_update_data: u32) -> Self {
             self.segmentation_update_data = segmentation_update_data;
             self
         }
 
+        #[inline]
         pub fn segmentation_abs_or_delta_update(
             mut self,
             segmentation_abs_or_delta_update: u32,
@@ -226,6 +248,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn reserved(mut self, reserved: u32) -> Self {
             self.reserved = reserved;
             self
@@ -259,11 +282,13 @@ pub(super) mod defs {
     }
 
     impl StdVideoVP9Segmentation {
+        #[inline]
         pub fn flags(mut self, flags: StdVideoVP9SegmentationFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn segmentation_tree_probs(
             mut self,
             segmentation_tree_probs: [u8; STD_VIDEO_VP9_MAX_SEGMENTATION_TREE_PROBS as usize],
@@ -272,6 +297,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn segmentation_pred_prob(
             mut self,
             segmentation_pred_prob: [u8; STD_VIDEO_VP9_MAX_SEGMENTATION_PRED_PROB as usize],
@@ -280,6 +306,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn feature_enabled(
             mut self,
             feature_enabled: [u8; STD_VIDEO_VP9_MAX_SEGMENTS as usize],
@@ -288,6 +315,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn feature_data(
             mut self,
             feature_data: [[i16; STD_VIDEO_VP9_SEG_LVL_MAX as usize];

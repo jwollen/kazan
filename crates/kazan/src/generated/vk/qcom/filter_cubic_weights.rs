@@ -57,6 +57,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceCubicWeightsFeaturesQCOM<'a> {
+        #[inline]
         pub fn selectable_cubic_weights(mut self, selectable_cubic_weights: bool) -> Self {
             self.selectable_cubic_weights = selectable_cubic_weights.into();
             self
@@ -103,6 +104,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SamplerCubicWeightsCreateInfoQCOM<'a> {
+        #[inline]
         pub fn cubic_weights(mut self, cubic_weights: CubicFilterWeightsQCOM) -> Self {
             self.cubic_weights = cubic_weights;
             self
@@ -149,6 +151,7 @@ pub(super) mod defs {
     }
 
     impl<'a> BlitImageCubicWeightsInfoQCOM<'a> {
+        #[inline]
         pub fn cubic_weights(mut self, cubic_weights: CubicFilterWeightsQCOM) -> Self {
             self.cubic_weights = cubic_weights;
             self

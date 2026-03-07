@@ -55,11 +55,13 @@ pub(super) mod defs {
     }
 
     impl<'a> ImportMemoryHostPointerInfoEXT<'a> {
+        #[inline]
         pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
 
+        #[inline]
         pub fn host_pointer(mut self, host_pointer: *mut c_void) -> Self {
             self.p_host_pointer = host_pointer;
             self
@@ -104,6 +106,7 @@ pub(super) mod defs {
     }
 
     impl<'a> MemoryHostPointerPropertiesEXT<'a> {
+        #[inline]
         pub fn memory_type_bits(mut self, memory_type_bits: u32) -> Self {
             self.memory_type_bits = memory_type_bits;
             self
@@ -157,6 +160,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceExternalMemoryHostPropertiesEXT<'a> {
+        #[inline]
         pub fn min_imported_host_pointer_alignment(
             mut self,
             min_imported_host_pointer_alignment: DeviceSize,
@@ -195,6 +199,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryHostPointerPropertiesEXT.html>
+    #[inline]
     pub unsafe fn get_memory_host_pointer_properties_ext(
         &self,
         device: Device,

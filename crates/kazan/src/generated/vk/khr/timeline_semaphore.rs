@@ -63,6 +63,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSemaphoreCounterValueKHR.html>
+    #[inline]
     pub unsafe fn get_semaphore_counter_value_khr(
         &self,
         device: Device,
@@ -81,6 +82,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWaitSemaphoresKHR.html>
+    #[inline]
     pub unsafe fn wait_semaphores_khr(
         &self,
         device: Device,
@@ -98,6 +100,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSignalSemaphoreKHR.html>
+    #[inline]
     pub unsafe fn signal_semaphore_khr(
         &self,
         device: Device,

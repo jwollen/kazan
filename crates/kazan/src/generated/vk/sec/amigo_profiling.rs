@@ -57,6 +57,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceAmigoProfilingFeaturesSEC<'a> {
+        #[inline]
         pub fn amigo_profiling(mut self, amigo_profiling: bool) -> Self {
             self.amigo_profiling = amigo_profiling.into();
             self
@@ -106,11 +107,13 @@ pub(super) mod defs {
     }
 
     impl<'a> AmigoProfilingSubmitInfoSEC<'a> {
+        #[inline]
         pub fn first_draw_timestamp(mut self, first_draw_timestamp: u64) -> Self {
             self.first_draw_timestamp = first_draw_timestamp;
             self
         }
 
+        #[inline]
         pub fn swap_buffer_timestamp(mut self, swap_buffer_timestamp: u64) -> Self {
             self.swap_buffer_timestamp = swap_buffer_timestamp;
             self

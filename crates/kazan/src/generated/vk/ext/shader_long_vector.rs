@@ -57,6 +57,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderLongVectorFeaturesEXT<'a> {
+        #[inline]
         pub fn long_vector(mut self, long_vector: bool) -> Self {
             self.long_vector = long_vector.into();
             self
@@ -107,6 +108,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderLongVectorPropertiesEXT<'a> {
+        #[inline]
         pub fn max_vector_components(mut self, max_vector_components: u32) -> Self {
             self.max_vector_components = max_vector_components;
             self

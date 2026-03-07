@@ -37,6 +37,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkTrimCommandPoolKHR.html>
+    #[inline]
     pub unsafe fn trim_command_pool_khr(
         &self,
         device: Device,

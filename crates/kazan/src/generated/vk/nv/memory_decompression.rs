@@ -35,26 +35,31 @@ pub(super) mod defs {
     }
 
     impl DecompressMemoryRegionNV {
+        #[inline]
         pub fn src_address(mut self, src_address: DeviceAddress) -> Self {
             self.src_address = src_address;
             self
         }
 
+        #[inline]
         pub fn dst_address(mut self, dst_address: DeviceAddress) -> Self {
             self.dst_address = dst_address;
             self
         }
 
+        #[inline]
         pub fn compressed_size(mut self, compressed_size: DeviceSize) -> Self {
             self.compressed_size = compressed_size;
             self
         }
 
+        #[inline]
         pub fn decompressed_size(mut self, decompressed_size: DeviceSize) -> Self {
             self.decompressed_size = decompressed_size;
             self
         }
 
+        #[inline]
         pub fn decompression_method(
             mut self,
             decompression_method: MemoryDecompressionMethodFlagsNV,
@@ -103,6 +108,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDecompressMemoryNV.html>
+    #[inline]
     pub unsafe fn cmd_decompress_memory_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -118,6 +124,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDecompressMemoryIndirectCountNV.html>
+    #[inline]
     pub unsafe fn cmd_decompress_memory_indirect_count_nv(
         &self,
         command_buffer: CommandBuffer,

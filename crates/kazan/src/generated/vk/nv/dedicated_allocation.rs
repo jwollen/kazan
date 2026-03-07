@@ -53,6 +53,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DedicatedAllocationImageCreateInfoNV<'a> {
+        #[inline]
         pub fn dedicated_allocation(mut self, dedicated_allocation: bool) -> Self {
             self.dedicated_allocation = dedicated_allocation.into();
             self
@@ -100,6 +101,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DedicatedAllocationBufferCreateInfoNV<'a> {
+        #[inline]
         pub fn dedicated_allocation(mut self, dedicated_allocation: bool) -> Self {
             self.dedicated_allocation = dedicated_allocation.into();
             self
@@ -150,11 +152,13 @@ pub(super) mod defs {
     }
 
     impl<'a> DedicatedAllocationMemoryAllocateInfoNV<'a> {
+        #[inline]
         pub fn image(mut self, image: Image) -> Self {
             self.image = image;
             self
         }
 
+        #[inline]
         pub fn buffer(mut self, buffer: Buffer) -> Self {
             self.buffer = buffer;
             self

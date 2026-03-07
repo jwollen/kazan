@@ -57,6 +57,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceExclusiveScissorFeaturesNV<'a> {
+        #[inline]
         pub fn exclusive_scissor(mut self, exclusive_scissor: bool) -> Self {
             self.exclusive_scissor = exclusive_scissor.into();
             self
@@ -110,6 +111,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineViewportExclusiveScissorStateCreateInfoNV<'a> {
+        #[inline]
         pub fn exclusive_scissors(mut self, exclusive_scissors: &'a [Rect2D]) -> Self {
             self.exclusive_scissor_count = exclusive_scissors.len().try_into().unwrap();
             self.p_exclusive_scissors = exclusive_scissors.as_ptr();
@@ -157,6 +159,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetExclusiveScissorEnableNV.html>
+    #[inline]
     pub unsafe fn cmd_set_exclusive_scissor_enable_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -174,6 +177,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetExclusiveScissorNV.html>
+    #[inline]
     pub unsafe fn cmd_set_exclusive_scissor_nv(
         &self,
         command_buffer: CommandBuffer,

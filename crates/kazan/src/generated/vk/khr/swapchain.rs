@@ -101,77 +101,92 @@ pub(super) mod defs {
     }
 
     impl<'a> SwapchainCreateInfoKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: SwapchainCreateFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn surface(mut self, surface: SurfaceKHR) -> Self {
             self.surface = surface;
             self
         }
 
+        #[inline]
         pub fn min_image_count(mut self, min_image_count: u32) -> Self {
             self.min_image_count = min_image_count;
             self
         }
 
+        #[inline]
         pub fn image_format(mut self, image_format: Format) -> Self {
             self.image_format = image_format;
             self
         }
 
+        #[inline]
         pub fn image_color_space(mut self, image_color_space: ColorSpaceKHR) -> Self {
             self.image_color_space = image_color_space;
             self
         }
 
+        #[inline]
         pub fn image_extent(mut self, image_extent: Extent2D) -> Self {
             self.image_extent = image_extent;
             self
         }
 
+        #[inline]
         pub fn image_array_layers(mut self, image_array_layers: u32) -> Self {
             self.image_array_layers = image_array_layers;
             self
         }
 
+        #[inline]
         pub fn image_usage(mut self, image_usage: ImageUsageFlags) -> Self {
             self.image_usage = image_usage;
             self
         }
 
+        #[inline]
         pub fn image_sharing_mode(mut self, image_sharing_mode: SharingMode) -> Self {
             self.image_sharing_mode = image_sharing_mode;
             self
         }
 
+        #[inline]
         pub fn queue_family_indices(mut self, queue_family_indices: &'a [u32]) -> Self {
             self.queue_family_index_count = queue_family_indices.len().try_into().unwrap();
             self.p_queue_family_indices = queue_family_indices.as_ptr();
             self
         }
 
+        #[inline]
         pub fn pre_transform(mut self, pre_transform: SurfaceTransformFlagBitsKHR) -> Self {
             self.pre_transform = pre_transform;
             self
         }
 
+        #[inline]
         pub fn composite_alpha(mut self, composite_alpha: CompositeAlphaFlagBitsKHR) -> Self {
             self.composite_alpha = composite_alpha;
             self
         }
 
+        #[inline]
         pub fn present_mode(mut self, present_mode: PresentModeKHR) -> Self {
             self.present_mode = present_mode;
             self
         }
 
+        #[inline]
         pub fn clipped(mut self, clipped: bool) -> Self {
             self.clipped = clipped.into();
             self
         }
 
+        #[inline]
         pub fn old_swapchain(mut self, old_swapchain: SwapchainKHR) -> Self {
             self.old_swapchain = old_swapchain;
             self
@@ -231,24 +246,28 @@ pub(super) mod defs {
     }
 
     impl<'a> PresentInfoKHR<'a> {
+        #[inline]
         pub fn wait_semaphores(mut self, wait_semaphores: &'a [Semaphore]) -> Self {
             self.wait_semaphore_count = wait_semaphores.len().try_into().unwrap();
             self.p_wait_semaphores = wait_semaphores.as_ptr();
             self
         }
 
+        #[inline]
         pub fn swapchains(mut self, swapchains: &'a [SwapchainKHR]) -> Self {
             self.swapchain_count = swapchains.len().try_into().unwrap();
             self.p_swapchains = swapchains.as_ptr();
             self
         }
 
+        #[inline]
         pub fn image_indices(mut self, image_indices: &'a [u32]) -> Self {
             self.swapchain_count = image_indices.len().try_into().unwrap();
             self.p_image_indices = image_indices.as_ptr();
             self
         }
 
+        #[inline]
         pub fn results(mut self, results: &'a mut [vk::Result]) -> Self {
             self.swapchain_count = results.len().try_into().unwrap();
             self.p_results = results.as_mut_ptr();
@@ -297,11 +316,13 @@ pub(super) mod defs {
     }
 
     impl<'a> DeviceGroupPresentCapabilitiesKHR<'a> {
+        #[inline]
         pub fn present_mask(mut self, present_mask: [u32; MAX_DEVICE_GROUP_SIZE as usize]) -> Self {
             self.present_mask = present_mask;
             self
         }
 
+        #[inline]
         pub fn modes(mut self, modes: DeviceGroupPresentModeFlagsKHR) -> Self {
             self.modes = modes;
             self
@@ -348,6 +369,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageSwapchainCreateInfoKHR<'a> {
+        #[inline]
         pub fn swapchain(mut self, swapchain: SwapchainKHR) -> Self {
             self.swapchain = swapchain;
             self
@@ -397,11 +419,13 @@ pub(super) mod defs {
     }
 
     impl<'a> BindImageMemorySwapchainInfoKHR<'a> {
+        #[inline]
         pub fn swapchain(mut self, swapchain: SwapchainKHR) -> Self {
             self.swapchain = swapchain;
             self
         }
 
+        #[inline]
         pub fn image_index(mut self, image_index: u32) -> Self {
             self.image_index = image_index;
             self
@@ -458,26 +482,31 @@ pub(super) mod defs {
     }
 
     impl<'a> AcquireNextImageInfoKHR<'a> {
+        #[inline]
         pub fn swapchain(mut self, swapchain: SwapchainKHR) -> Self {
             self.swapchain = swapchain;
             self
         }
 
+        #[inline]
         pub fn timeout(mut self, timeout: u64) -> Self {
             self.timeout = timeout;
             self
         }
 
+        #[inline]
         pub fn semaphore(mut self, semaphore: Semaphore) -> Self {
             self.semaphore = semaphore;
             self
         }
 
+        #[inline]
         pub fn fence(mut self, fence: Fence) -> Self {
             self.fence = fence;
             self
         }
 
+        #[inline]
         pub fn device_mask(mut self, device_mask: u32) -> Self {
             self.device_mask = device_mask;
             self
@@ -530,12 +559,14 @@ pub(super) mod defs {
     }
 
     impl<'a> DeviceGroupPresentInfoKHR<'a> {
+        #[inline]
         pub fn device_masks(mut self, device_masks: &'a [u32]) -> Self {
             self.swapchain_count = device_masks.len().try_into().unwrap();
             self.p_device_masks = device_masks.as_ptr();
             self
         }
 
+        #[inline]
         pub fn mode(mut self, mode: DeviceGroupPresentModeFlagBitsKHR) -> Self {
             self.mode = mode;
             self
@@ -582,6 +613,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DeviceGroupSwapchainCreateInfoKHR<'a> {
+        #[inline]
         pub fn modes(mut self, modes: DeviceGroupPresentModeFlagsKHR) -> Self {
             self.modes = modes;
             self
@@ -863,6 +895,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDevicePresentRectanglesKHR.html>
+    #[inline]
     pub unsafe fn get_physical_device_present_rectangles_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -942,6 +975,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSwapchainKHR.html>
+    #[inline]
     pub unsafe fn create_swapchain_khr(
         &self,
         device: Device,
@@ -965,6 +999,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroySwapchainKHR.html>
+    #[inline]
     pub unsafe fn destroy_swapchain_khr(
         &self,
         device: Device,
@@ -975,6 +1010,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSwapchainImagesKHR.html>
+    #[inline]
     pub unsafe fn get_swapchain_images_khr(
         &self,
         device: Device,
@@ -1008,6 +1044,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireNextImageKHR.html>
+    #[inline]
     pub unsafe fn acquire_next_image_khr(
         &self,
         device: Device,
@@ -1036,6 +1073,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueuePresentKHR.html>
+    #[inline]
     pub unsafe fn queue_present_khr(
         &self,
         queue: Queue,
@@ -1052,6 +1090,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceGroupPresentCapabilitiesKHR.html>
+    #[inline]
     pub unsafe fn get_device_group_present_capabilities_khr(
         &self,
         device: Device,
@@ -1071,6 +1110,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceGroupSurfacePresentModesKHR.html>
+    #[inline]
     pub unsafe fn get_device_group_surface_present_modes_khr(
         &self,
         device: Device,
@@ -1092,6 +1132,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireNextImage2KHR.html>
+    #[inline]
     pub unsafe fn acquire_next_image2_khr(
         &self,
         device: Device,

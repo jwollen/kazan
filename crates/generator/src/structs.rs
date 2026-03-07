@@ -384,7 +384,10 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
     )
     .unwrap();
     for setter in &info.setters {
-        writeln!(file, "pub fn {}(mut self,", setter.name).unwrap();
+        writeln!(file,
+            "#[inline]
+            pub fn {}(mut self,",
+            setter.name).unwrap();
 
         match &setter.kind {
             SetterKind::Value(param) => {

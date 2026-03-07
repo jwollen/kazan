@@ -54,6 +54,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceFormatPackFeaturesARM<'a> {
+        #[inline]
         pub fn format_pack(mut self, format_pack: bool) -> Self {
             self.format_pack = format_pack.into();
             self

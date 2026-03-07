@@ -81,6 +81,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR<'a> {
+        #[inline]
         pub fn workgroup_memory_explicit_layout(
             mut self,
             workgroup_memory_explicit_layout: bool,
@@ -89,6 +90,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn workgroup_memory_explicit_layout_scalar_block_layout(
             mut self,
             workgroup_memory_explicit_layout_scalar_block_layout: bool,
@@ -98,6 +100,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn workgroup_memory_explicit_layout8_bit_access(
             mut self,
             workgroup_memory_explicit_layout8_bit_access: bool,
@@ -107,6 +110,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn workgroup_memory_explicit_layout16_bit_access(
             mut self,
             workgroup_memory_explicit_layout16_bit_access: bool,

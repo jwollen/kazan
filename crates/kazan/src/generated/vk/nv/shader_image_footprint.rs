@@ -57,6 +57,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderImageFootprintFeaturesNV<'a> {
+        #[inline]
         pub fn image_footprint(mut self, image_footprint: bool) -> Self {
             self.image_footprint = image_footprint.into();
             self

@@ -62,16 +62,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderCoreBuiltinsPropertiesARM<'a> {
+        #[inline]
         pub fn shader_core_mask(mut self, shader_core_mask: u64) -> Self {
             self.shader_core_mask = shader_core_mask;
             self
         }
 
+        #[inline]
         pub fn shader_core_count(mut self, shader_core_count: u32) -> Self {
             self.shader_core_count = shader_core_count;
             self
         }
 
+        #[inline]
         pub fn shader_warps_per_core(mut self, shader_warps_per_core: u32) -> Self {
             self.shader_warps_per_core = shader_warps_per_core;
             self
@@ -123,6 +126,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderCoreBuiltinsFeaturesARM<'a> {
+        #[inline]
         pub fn shader_core_builtins(mut self, shader_core_builtins: bool) -> Self {
             self.shader_core_builtins = shader_core_builtins.into();
             self

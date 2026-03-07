@@ -59,11 +59,13 @@ pub(super) mod defs {
     }
 
     impl<'a> SubpassShadingPipelineCreateInfoHUAWEI<'a> {
+        #[inline]
         pub fn render_pass(mut self, render_pass: RenderPass) -> Self {
             self.render_pass = render_pass;
             self
         }
 
+        #[inline]
         pub fn subpass(mut self, subpass: u32) -> Self {
             self.subpass = subpass;
             self
@@ -117,6 +119,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceSubpassShadingPropertiesHUAWEI<'a> {
+        #[inline]
         pub fn max_subpass_shading_workgroup_size_aspect_ratio(
             mut self,
             max_subpass_shading_workgroup_size_aspect_ratio: u32,
@@ -172,6 +175,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceSubpassShadingFeaturesHUAWEI<'a> {
+        #[inline]
         pub fn subpass_shading(mut self, subpass_shading: bool) -> Self {
             self.subpass_shading = subpass_shading.into();
             self
@@ -216,6 +220,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI.html>
+    #[inline]
     pub unsafe fn get_device_subpass_shading_max_workgroup_size_huawei(
         &self,
         device: Device,
@@ -237,6 +242,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSubpassShadingHUAWEI.html>
+    #[inline]
     pub unsafe fn cmd_subpass_shading_huawei(&self, command_buffer: CommandBuffer) {
         unsafe { (self.cmd_subpass_shading_huawei)(command_buffer) }
     }

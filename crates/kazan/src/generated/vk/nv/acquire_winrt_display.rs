@@ -49,6 +49,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireWinrtDisplayNV.html>
+    #[inline]
     pub unsafe fn acquire_winrt_display_nv(
         &self,
         physical_device: PhysicalDevice,
@@ -65,6 +66,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetWinrtDisplayNV.html>
+    #[inline]
     pub unsafe fn get_winrt_display_nv(
         &self,
         physical_device: PhysicalDevice,

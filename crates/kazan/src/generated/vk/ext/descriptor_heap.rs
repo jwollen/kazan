@@ -43,6 +43,7 @@ pub(super) mod defs {
     }
 
     impl<'a> HostAddressRangeEXT<'a> {
+        #[inline]
         pub fn address(mut self, address: &'a mut [u8]) -> Self {
             self.size = address.len().try_into().unwrap();
             self.address = address.as_mut_ptr() as _;
@@ -81,6 +82,7 @@ pub(super) mod defs {
     }
 
     impl<'a> HostAddressRangeConstEXT<'a> {
+        #[inline]
         pub fn address(mut self, address: &'a [u8]) -> Self {
             self.size = address.len().try_into().unwrap();
             self.address = address.as_ptr() as _;
@@ -99,11 +101,13 @@ pub(super) mod defs {
     }
 
     impl DeviceAddressRangeEXT {
+        #[inline]
         pub fn address(mut self, address: DeviceAddress) -> Self {
             self.address = address;
             self
         }
 
+        #[inline]
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
@@ -151,11 +155,13 @@ pub(super) mod defs {
     }
 
     impl<'a> TexelBufferDescriptorInfoEXT<'a> {
+        #[inline]
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
 
+        #[inline]
         pub fn address_range(mut self, address_range: DeviceAddressRangeEXT) -> Self {
             self.address_range = address_range;
             self
@@ -203,11 +209,13 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageDescriptorInfoEXT<'a> {
+        #[inline]
         pub fn view(mut self, view: &'a ImageViewCreateInfo<'a>) -> Self {
             self.p_view = view;
             self
         }
 
+        #[inline]
         pub fn layout(mut self, layout: ImageLayout) -> Self {
             self.layout = layout;
             self
@@ -255,11 +263,13 @@ pub(super) mod defs {
     }
 
     impl<'a> ResourceDescriptorInfoEXT<'a> {
+        #[inline]
         pub fn ty(mut self, ty: DescriptorType) -> Self {
             self.ty = ty;
             self
         }
 
+        #[inline]
         pub fn data(mut self, data: ResourceDescriptorDataEXT<'a>) -> Self {
             self.data = data;
             self
@@ -310,16 +320,19 @@ pub(super) mod defs {
     }
 
     impl<'a> BindHeapInfoEXT<'a> {
+        #[inline]
         pub fn heap_range(mut self, heap_range: DeviceAddressRangeEXT) -> Self {
             self.heap_range = heap_range;
             self
         }
 
+        #[inline]
         pub fn reserved_range_offset(mut self, reserved_range_offset: DeviceSize) -> Self {
             self.reserved_range_offset = reserved_range_offset;
             self
         }
 
+        #[inline]
         pub fn reserved_range_size(mut self, reserved_range_size: DeviceSize) -> Self {
             self.reserved_range_size = reserved_range_size;
             self
@@ -367,11 +380,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PushDataInfoEXT<'a> {
+        #[inline]
         pub fn offset(mut self, offset: u32) -> Self {
             self.offset = offset;
             self
         }
 
+        #[inline]
         pub fn data(mut self, data: HostAddressRangeConstEXT<'a>) -> Self {
             self.data = data;
             self
@@ -418,26 +433,31 @@ pub(super) mod defs {
     }
 
     impl<'a> DescriptorMappingSourceConstantOffsetEXT<'a> {
+        #[inline]
         pub fn heap_offset(mut self, heap_offset: u32) -> Self {
             self.heap_offset = heap_offset;
             self
         }
 
+        #[inline]
         pub fn heap_array_stride(mut self, heap_array_stride: u32) -> Self {
             self.heap_array_stride = heap_array_stride;
             self
         }
 
+        #[inline]
         pub fn embedded_sampler(mut self, embedded_sampler: &'a SamplerCreateInfo<'a>) -> Self {
             self.p_embedded_sampler = embedded_sampler;
             self
         }
 
+        #[inline]
         pub fn sampler_heap_offset(mut self, sampler_heap_offset: u32) -> Self {
             self.sampler_heap_offset = sampler_heap_offset;
             self
         }
 
+        #[inline]
         pub fn sampler_heap_array_stride(mut self, sampler_heap_array_stride: u32) -> Self {
             self.sampler_heap_array_stride = sampler_heap_array_stride;
             self
@@ -502,31 +522,37 @@ pub(super) mod defs {
     }
 
     impl<'a> DescriptorMappingSourcePushIndexEXT<'a> {
+        #[inline]
         pub fn heap_offset(mut self, heap_offset: u32) -> Self {
             self.heap_offset = heap_offset;
             self
         }
 
+        #[inline]
         pub fn push_offset(mut self, push_offset: u32) -> Self {
             self.push_offset = push_offset;
             self
         }
 
+        #[inline]
         pub fn heap_index_stride(mut self, heap_index_stride: u32) -> Self {
             self.heap_index_stride = heap_index_stride;
             self
         }
 
+        #[inline]
         pub fn heap_array_stride(mut self, heap_array_stride: u32) -> Self {
             self.heap_array_stride = heap_array_stride;
             self
         }
 
+        #[inline]
         pub fn embedded_sampler(mut self, embedded_sampler: &'a SamplerCreateInfo<'a>) -> Self {
             self.p_embedded_sampler = embedded_sampler;
             self
         }
 
+        #[inline]
         pub fn use_combined_image_sampler_index(
             mut self,
             use_combined_image_sampler_index: bool,
@@ -535,21 +561,25 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn sampler_heap_offset(mut self, sampler_heap_offset: u32) -> Self {
             self.sampler_heap_offset = sampler_heap_offset;
             self
         }
 
+        #[inline]
         pub fn sampler_push_offset(mut self, sampler_push_offset: u32) -> Self {
             self.sampler_push_offset = sampler_push_offset;
             self
         }
 
+        #[inline]
         pub fn sampler_heap_index_stride(mut self, sampler_heap_index_stride: u32) -> Self {
             self.sampler_heap_index_stride = sampler_heap_index_stride;
             self
         }
 
+        #[inline]
         pub fn sampler_heap_array_stride(mut self, sampler_heap_array_stride: u32) -> Self {
             self.sampler_heap_array_stride = sampler_heap_array_stride;
             self
@@ -620,36 +650,43 @@ pub(super) mod defs {
     }
 
     impl<'a> DescriptorMappingSourceIndirectIndexEXT<'a> {
+        #[inline]
         pub fn heap_offset(mut self, heap_offset: u32) -> Self {
             self.heap_offset = heap_offset;
             self
         }
 
+        #[inline]
         pub fn push_offset(mut self, push_offset: u32) -> Self {
             self.push_offset = push_offset;
             self
         }
 
+        #[inline]
         pub fn address_offset(mut self, address_offset: u32) -> Self {
             self.address_offset = address_offset;
             self
         }
 
+        #[inline]
         pub fn heap_index_stride(mut self, heap_index_stride: u32) -> Self {
             self.heap_index_stride = heap_index_stride;
             self
         }
 
+        #[inline]
         pub fn heap_array_stride(mut self, heap_array_stride: u32) -> Self {
             self.heap_array_stride = heap_array_stride;
             self
         }
 
+        #[inline]
         pub fn embedded_sampler(mut self, embedded_sampler: &'a SamplerCreateInfo<'a>) -> Self {
             self.p_embedded_sampler = embedded_sampler;
             self
         }
 
+        #[inline]
         pub fn use_combined_image_sampler_index(
             mut self,
             use_combined_image_sampler_index: bool,
@@ -658,26 +695,31 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn sampler_heap_offset(mut self, sampler_heap_offset: u32) -> Self {
             self.sampler_heap_offset = sampler_heap_offset;
             self
         }
 
+        #[inline]
         pub fn sampler_push_offset(mut self, sampler_push_offset: u32) -> Self {
             self.sampler_push_offset = sampler_push_offset;
             self
         }
 
+        #[inline]
         pub fn sampler_address_offset(mut self, sampler_address_offset: u32) -> Self {
             self.sampler_address_offset = sampler_address_offset;
             self
         }
 
+        #[inline]
         pub fn sampler_heap_index_stride(mut self, sampler_heap_index_stride: u32) -> Self {
             self.sampler_heap_index_stride = sampler_heap_index_stride;
             self
         }
 
+        #[inline]
         pub fn sampler_heap_array_stride(mut self, sampler_heap_array_stride: u32) -> Self {
             self.sampler_heap_array_stride = sampler_heap_array_stride;
             self
@@ -742,31 +784,37 @@ pub(super) mod defs {
     }
 
     impl<'a> DescriptorMappingSourceIndirectIndexArrayEXT<'a> {
+        #[inline]
         pub fn heap_offset(mut self, heap_offset: u32) -> Self {
             self.heap_offset = heap_offset;
             self
         }
 
+        #[inline]
         pub fn push_offset(mut self, push_offset: u32) -> Self {
             self.push_offset = push_offset;
             self
         }
 
+        #[inline]
         pub fn address_offset(mut self, address_offset: u32) -> Self {
             self.address_offset = address_offset;
             self
         }
 
+        #[inline]
         pub fn heap_index_stride(mut self, heap_index_stride: u32) -> Self {
             self.heap_index_stride = heap_index_stride;
             self
         }
 
+        #[inline]
         pub fn embedded_sampler(mut self, embedded_sampler: &'a SamplerCreateInfo<'a>) -> Self {
             self.p_embedded_sampler = embedded_sampler;
             self
         }
 
+        #[inline]
         pub fn use_combined_image_sampler_index(
             mut self,
             use_combined_image_sampler_index: bool,
@@ -775,21 +823,25 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn sampler_heap_offset(mut self, sampler_heap_offset: u32) -> Self {
             self.sampler_heap_offset = sampler_heap_offset;
             self
         }
 
+        #[inline]
         pub fn sampler_push_offset(mut self, sampler_push_offset: u32) -> Self {
             self.sampler_push_offset = sampler_push_offset;
             self
         }
 
+        #[inline]
         pub fn sampler_address_offset(mut self, sampler_address_offset: u32) -> Self {
             self.sampler_address_offset = sampler_address_offset;
             self
         }
 
+        #[inline]
         pub fn sampler_heap_index_stride(mut self, sampler_heap_index_stride: u32) -> Self {
             self.sampler_heap_index_stride = sampler_heap_index_stride;
             self
@@ -807,11 +859,13 @@ pub(super) mod defs {
     }
 
     impl DescriptorMappingSourceHeapDataEXT {
+        #[inline]
         pub fn heap_offset(mut self, heap_offset: u32) -> Self {
             self.heap_offset = heap_offset;
             self
         }
 
+        #[inline]
         pub fn push_offset(mut self, push_offset: u32) -> Self {
             self.push_offset = push_offset;
             self
@@ -879,31 +933,37 @@ pub(super) mod defs {
     }
 
     impl<'a> DescriptorMappingSourceShaderRecordIndexEXT<'a> {
+        #[inline]
         pub fn heap_offset(mut self, heap_offset: u32) -> Self {
             self.heap_offset = heap_offset;
             self
         }
 
+        #[inline]
         pub fn shader_record_offset(mut self, shader_record_offset: u32) -> Self {
             self.shader_record_offset = shader_record_offset;
             self
         }
 
+        #[inline]
         pub fn heap_index_stride(mut self, heap_index_stride: u32) -> Self {
             self.heap_index_stride = heap_index_stride;
             self
         }
 
+        #[inline]
         pub fn heap_array_stride(mut self, heap_array_stride: u32) -> Self {
             self.heap_array_stride = heap_array_stride;
             self
         }
 
+        #[inline]
         pub fn embedded_sampler(mut self, embedded_sampler: &'a SamplerCreateInfo<'a>) -> Self {
             self.p_embedded_sampler = embedded_sampler;
             self
         }
 
+        #[inline]
         pub fn use_combined_image_sampler_index(
             mut self,
             use_combined_image_sampler_index: bool,
@@ -912,21 +972,25 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn sampler_heap_offset(mut self, sampler_heap_offset: u32) -> Self {
             self.sampler_heap_offset = sampler_heap_offset;
             self
         }
 
+        #[inline]
         pub fn sampler_shader_record_offset(mut self, sampler_shader_record_offset: u32) -> Self {
             self.sampler_shader_record_offset = sampler_shader_record_offset;
             self
         }
 
+        #[inline]
         pub fn sampler_heap_index_stride(mut self, sampler_heap_index_stride: u32) -> Self {
             self.sampler_heap_index_stride = sampler_heap_index_stride;
             self
         }
 
+        #[inline]
         pub fn sampler_heap_array_stride(mut self, sampler_heap_array_stride: u32) -> Self {
             self.sampler_heap_array_stride = sampler_heap_array_stride;
             self
@@ -944,11 +1008,13 @@ pub(super) mod defs {
     }
 
     impl DescriptorMappingSourceIndirectAddressEXT {
+        #[inline]
         pub fn push_offset(mut self, push_offset: u32) -> Self {
             self.push_offset = push_offset;
             self
         }
 
+        #[inline]
         pub fn address_offset(mut self, address_offset: u32) -> Self {
             self.address_offset = address_offset;
             self
@@ -1008,31 +1074,37 @@ pub(super) mod defs {
     }
 
     impl<'a> DescriptorSetAndBindingMappingEXT<'a> {
+        #[inline]
         pub fn descriptor_set(mut self, descriptor_set: u32) -> Self {
             self.descriptor_set = descriptor_set;
             self
         }
 
+        #[inline]
         pub fn first_binding(mut self, first_binding: u32) -> Self {
             self.first_binding = first_binding;
             self
         }
 
+        #[inline]
         pub fn binding_count(mut self, binding_count: u32) -> Self {
             self.binding_count = binding_count;
             self
         }
 
+        #[inline]
         pub fn resource_mask(mut self, resource_mask: SpirvResourceTypeFlagsEXT) -> Self {
             self.resource_mask = resource_mask;
             self
         }
 
+        #[inline]
         pub fn source(mut self, source: DescriptorMappingSourceEXT) -> Self {
             self.source = source;
             self
         }
 
+        #[inline]
         pub fn source_data(mut self, source_data: DescriptorMappingSourceDataEXT<'a>) -> Self {
             self.source_data = source_data;
             self
@@ -1090,6 +1162,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ShaderDescriptorSetAndBindingMappingInfoEXT<'a> {
+        #[inline]
         pub fn mappings(mut self, mappings: &'a [DescriptorSetAndBindingMappingEXT<'a>]) -> Self {
             self.mapping_count = mappings.len().try_into().unwrap();
             self.p_mappings = mappings.as_ptr();
@@ -1138,6 +1211,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SamplerCustomBorderColorIndexCreateInfoEXT<'a> {
+        #[inline]
         pub fn index(mut self, index: u32) -> Self {
             self.index = index;
             self
@@ -1185,6 +1259,7 @@ pub(super) mod defs {
     }
 
     impl<'a> OpaqueCaptureDataCreateInfoEXT<'a> {
+        #[inline]
         pub fn data(mut self, data: &'a HostAddressRangeConstEXT<'a>) -> Self {
             self.p_data = data;
             self
@@ -1238,11 +1313,13 @@ pub(super) mod defs {
     }
 
     impl<'a> IndirectCommandsLayoutPushDataTokenNV<'a> {
+        #[inline]
         pub fn push_data_offset(mut self, push_data_offset: u32) -> Self {
             self.push_data_offset = push_data_offset;
             self
         }
 
+        #[inline]
         pub fn push_data_size(mut self, push_data_size: u32) -> Self {
             self.push_data_size = push_data_size;
             self
@@ -1292,6 +1369,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SubsampledImageFormatPropertiesEXT<'a> {
+        #[inline]
         pub fn subsampled_image_descriptor_count(
             mut self,
             subsampled_image_descriptor_count: u32,
@@ -1352,11 +1430,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDescriptorHeapFeaturesEXT<'a> {
+        #[inline]
         pub fn descriptor_heap(mut self, descriptor_heap: bool) -> Self {
             self.descriptor_heap = descriptor_heap.into();
             self
         }
 
+        #[inline]
         pub fn descriptor_heap_capture_replay(
             mut self,
             descriptor_heap_capture_replay: bool,
@@ -1494,26 +1574,31 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDescriptorHeapPropertiesEXT<'a> {
+        #[inline]
         pub fn sampler_heap_alignment(mut self, sampler_heap_alignment: DeviceSize) -> Self {
             self.sampler_heap_alignment = sampler_heap_alignment;
             self
         }
 
+        #[inline]
         pub fn resource_heap_alignment(mut self, resource_heap_alignment: DeviceSize) -> Self {
             self.resource_heap_alignment = resource_heap_alignment;
             self
         }
 
+        #[inline]
         pub fn max_sampler_heap_size(mut self, max_sampler_heap_size: DeviceSize) -> Self {
             self.max_sampler_heap_size = max_sampler_heap_size;
             self
         }
 
+        #[inline]
         pub fn max_resource_heap_size(mut self, max_resource_heap_size: DeviceSize) -> Self {
             self.max_resource_heap_size = max_resource_heap_size;
             self
         }
 
+        #[inline]
         pub fn min_sampler_heap_reserved_range(
             mut self,
             min_sampler_heap_reserved_range: DeviceSize,
@@ -1522,6 +1607,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn min_sampler_heap_reserved_range_with_embedded(
             mut self,
             min_sampler_heap_reserved_range_with_embedded: DeviceSize,
@@ -1531,6 +1617,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn min_resource_heap_reserved_range(
             mut self,
             min_resource_heap_reserved_range: DeviceSize,
@@ -1539,21 +1626,25 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn sampler_descriptor_size(mut self, sampler_descriptor_size: DeviceSize) -> Self {
             self.sampler_descriptor_size = sampler_descriptor_size;
             self
         }
 
+        #[inline]
         pub fn image_descriptor_size(mut self, image_descriptor_size: DeviceSize) -> Self {
             self.image_descriptor_size = image_descriptor_size;
             self
         }
 
+        #[inline]
         pub fn buffer_descriptor_size(mut self, buffer_descriptor_size: DeviceSize) -> Self {
             self.buffer_descriptor_size = buffer_descriptor_size;
             self
         }
 
+        #[inline]
         pub fn sampler_descriptor_alignment(
             mut self,
             sampler_descriptor_alignment: DeviceSize,
@@ -1562,6 +1653,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn image_descriptor_alignment(
             mut self,
             image_descriptor_alignment: DeviceSize,
@@ -1570,6 +1662,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn buffer_descriptor_alignment(
             mut self,
             buffer_descriptor_alignment: DeviceSize,
@@ -1578,11 +1671,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_push_data_size(mut self, max_push_data_size: DeviceSize) -> Self {
             self.max_push_data_size = max_push_data_size;
             self
         }
 
+        #[inline]
         pub fn image_capture_replay_opaque_data_size(
             mut self,
             image_capture_replay_opaque_data_size: usize,
@@ -1591,6 +1686,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_heap_embedded_samplers(
             mut self,
             max_descriptor_heap_embedded_samplers: u32,
@@ -1599,6 +1695,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn sampler_ycbcr_conversion_count(
             mut self,
             sampler_ycbcr_conversion_count: u32,
@@ -1607,11 +1704,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn sparse_descriptor_heaps(mut self, sparse_descriptor_heaps: bool) -> Self {
             self.sparse_descriptor_heaps = sparse_descriptor_heaps.into();
             self
         }
 
+        #[inline]
         pub fn protected_descriptor_heaps(mut self, protected_descriptor_heaps: bool) -> Self {
             self.protected_descriptor_heaps = protected_descriptor_heaps.into();
             self
@@ -1665,6 +1764,7 @@ pub(super) mod defs {
     }
 
     impl<'a> CommandBufferInheritanceDescriptorHeapInfoEXT<'a> {
+        #[inline]
         pub fn sampler_heap_bind_info(
             mut self,
             sampler_heap_bind_info: &'a BindHeapInfoEXT<'a>,
@@ -1673,6 +1773,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn resource_heap_bind_info(
             mut self,
             resource_heap_bind_info: &'a BindHeapInfoEXT<'a>,
@@ -1738,11 +1839,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDescriptorHeapTensorPropertiesARM<'a> {
+        #[inline]
         pub fn tensor_descriptor_size(mut self, tensor_descriptor_size: DeviceSize) -> Self {
             self.tensor_descriptor_size = tensor_descriptor_size;
             self
         }
 
+        #[inline]
         pub fn tensor_descriptor_alignment(
             mut self,
             tensor_descriptor_alignment: DeviceSize,
@@ -1751,6 +1854,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn tensor_capture_replay_opaque_data_size(
             mut self,
             tensor_capture_replay_opaque_data_size: usize,
@@ -2056,6 +2160,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDescriptorSizeEXT.html>
+    #[inline]
     pub unsafe fn get_physical_device_descriptor_size_ext(
         &self,
         physical_device: PhysicalDevice,
@@ -2117,6 +2222,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWriteSamplerDescriptorsEXT.html>
+    #[inline]
     pub unsafe fn write_sampler_descriptors_ext(
         &self,
         device: Device,
@@ -2139,6 +2245,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWriteResourceDescriptorsEXT.html>
+    #[inline]
     pub unsafe fn write_resource_descriptors_ext(
         &self,
         device: Device,
@@ -2161,6 +2268,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindSamplerHeapEXT.html>
+    #[inline]
     pub unsafe fn cmd_bind_sampler_heap_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -2170,6 +2278,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindResourceHeapEXT.html>
+    #[inline]
     pub unsafe fn cmd_bind_resource_heap_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -2179,6 +2288,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushDataEXT.html>
+    #[inline]
     pub unsafe fn cmd_push_data_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -2188,6 +2298,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageOpaqueCaptureDataEXT.html>
+    #[inline]
     pub unsafe fn get_image_opaque_capture_data_ext(
         &self,
         device: Device,
@@ -2210,6 +2321,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkRegisterCustomBorderColorEXT.html>
+    #[inline]
     pub unsafe fn register_custom_border_color_ext(
         &self,
         device: Device,
@@ -2233,11 +2345,13 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUnregisterCustomBorderColorEXT.html>
+    #[inline]
     pub unsafe fn unregister_custom_border_color_ext(&self, device: Device, index: u32) {
         unsafe { (self.unregister_custom_border_color_ext.unwrap())(device, index) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetTensorOpaqueCaptureDataARM.html>
+    #[inline]
     pub unsafe fn get_tensor_opaque_capture_data_arm(
         &self,
         device: Device,

@@ -59,6 +59,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDescriptorUpdateTemplateKHR.html>
+    #[inline]
     pub unsafe fn create_descriptor_update_template_khr(
         &self,
         device: Device,
@@ -82,6 +83,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDescriptorUpdateTemplateKHR.html>
+    #[inline]
     pub unsafe fn destroy_descriptor_update_template_khr(
         &self,
         device: Device,
@@ -98,6 +100,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUpdateDescriptorSetWithTemplateKHR.html>
+    #[inline]
     pub unsafe fn update_descriptor_set_with_template_khr(
         &self,
         device: Device,
@@ -116,6 +119,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushDescriptorSetWithTemplateKHR.html>
+    #[inline]
     pub unsafe fn cmd_push_descriptor_set_with_template_khr(
         &self,
         command_buffer: CommandBuffer,

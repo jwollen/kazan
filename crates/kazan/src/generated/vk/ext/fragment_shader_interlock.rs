@@ -75,6 +75,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceFragmentShaderInterlockFeaturesEXT<'a> {
+        #[inline]
         pub fn fragment_shader_sample_interlock(
             mut self,
             fragment_shader_sample_interlock: bool,
@@ -83,6 +84,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn fragment_shader_pixel_interlock(
             mut self,
             fragment_shader_pixel_interlock: bool,
@@ -91,6 +93,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn fragment_shader_shading_rate_interlock(
             mut self,
             fragment_shader_shading_rate_interlock: bool,

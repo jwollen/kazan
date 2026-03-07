@@ -64,6 +64,7 @@ pub(super) mod defs {
     }
 
     impl<'a> CuModuleCreateInfoNVX<'a> {
+        #[inline]
         pub fn data(mut self, data: &'a [u8]) -> Self {
             self.data_size = data.len().try_into().unwrap();
             self.p_data = data.as_ptr() as _;
@@ -112,6 +113,7 @@ pub(super) mod defs {
     }
 
     impl<'a> CuModuleTexturingModeCreateInfoNVX<'a> {
+        #[inline]
         pub fn use64bit_texturing(mut self, use64bit_texturing: bool) -> Self {
             self.use64bit_texturing = use64bit_texturing.into();
             self
@@ -159,11 +161,13 @@ pub(super) mod defs {
     }
 
     impl<'a> CuFunctionCreateInfoNVX<'a> {
+        #[inline]
         pub fn module(mut self, module: CuModuleNVX) -> Self {
             self.module = module;
             self
         }
 
+        #[inline]
         pub fn name(mut self, name: &'a CStr) -> Self {
             self.p_name = name.as_ptr();
             self
@@ -241,52 +245,62 @@ pub(super) mod defs {
     }
 
     impl<'a> CuLaunchInfoNVX<'a> {
+        #[inline]
         pub fn function(mut self, function: CuFunctionNVX) -> Self {
             self.function = function;
             self
         }
 
+        #[inline]
         pub fn grid_dim_x(mut self, grid_dim_x: u32) -> Self {
             self.grid_dim_x = grid_dim_x;
             self
         }
 
+        #[inline]
         pub fn grid_dim_y(mut self, grid_dim_y: u32) -> Self {
             self.grid_dim_y = grid_dim_y;
             self
         }
 
+        #[inline]
         pub fn grid_dim_z(mut self, grid_dim_z: u32) -> Self {
             self.grid_dim_z = grid_dim_z;
             self
         }
 
+        #[inline]
         pub fn block_dim_x(mut self, block_dim_x: u32) -> Self {
             self.block_dim_x = block_dim_x;
             self
         }
 
+        #[inline]
         pub fn block_dim_y(mut self, block_dim_y: u32) -> Self {
             self.block_dim_y = block_dim_y;
             self
         }
 
+        #[inline]
         pub fn block_dim_z(mut self, block_dim_z: u32) -> Self {
             self.block_dim_z = block_dim_z;
             self
         }
 
+        #[inline]
         pub fn shared_mem_bytes(mut self, shared_mem_bytes: u32) -> Self {
             self.shared_mem_bytes = shared_mem_bytes;
             self
         }
 
+        #[inline]
         pub fn params(mut self, params: &'a [u8]) -> Self {
             self.param_count = params.len().try_into().unwrap();
             self.p_params = params.as_ptr() as _;
             self
         }
 
+        #[inline]
         pub fn extras(mut self, extras: &'a [u8]) -> Self {
             self.extra_count = extras.len().try_into().unwrap();
             self.p_extras = extras.as_ptr() as _;
@@ -363,6 +377,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateCuModuleNVX.html>
+    #[inline]
     pub unsafe fn create_cu_module_nvx(
         &self,
         device: Device,
@@ -386,6 +401,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateCuFunctionNVX.html>
+    #[inline]
     pub unsafe fn create_cu_function_nvx(
         &self,
         device: Device,
@@ -409,6 +425,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyCuModuleNVX.html>
+    #[inline]
     pub unsafe fn destroy_cu_module_nvx(
         &self,
         device: Device,
@@ -419,6 +436,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyCuFunctionNVX.html>
+    #[inline]
     pub unsafe fn destroy_cu_function_nvx(
         &self,
         device: Device,
@@ -429,6 +447,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCuLaunchKernelNVX.html>
+    #[inline]
     pub unsafe fn cmd_cu_launch_kernel_nvx(
         &self,
         command_buffer: CommandBuffer,

@@ -56,16 +56,19 @@ pub(super) mod defs {
     }
 
     impl<'a> XlibSurfaceCreateInfoKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: XlibSurfaceCreateFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn dpy(mut self, dpy: *mut Display) -> Self {
             self.dpy = dpy;
             self
         }
 
+        #[inline]
         pub fn window(mut self, window: Window) -> Self {
             self.window = window;
             self
@@ -127,6 +130,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateXlibSurfaceKHR.html>
+    #[inline]
     pub unsafe fn create_xlib_surface_khr(
         &self,
         instance: Instance,
@@ -150,6 +154,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceXlibPresentationSupportKHR.html>
+    #[inline]
     pub unsafe fn get_physical_device_xlib_presentation_support_khr(
         &self,
         physical_device: PhysicalDevice,

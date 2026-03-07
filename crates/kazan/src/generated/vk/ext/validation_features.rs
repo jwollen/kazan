@@ -75,6 +75,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ValidationFeaturesEXT<'a> {
+        #[inline]
         pub fn enabled_validation_features(
             mut self,
             enabled_validation_features: &'a [ValidationFeatureEnableEXT],
@@ -85,6 +86,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn disabled_validation_features(
             mut self,
             disabled_validation_features: &'a [ValidationFeatureDisableEXT],

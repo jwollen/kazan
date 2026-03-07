@@ -25,21 +25,25 @@ pub(super) mod defs {
     }
 
     impl ViewportSwizzleNV {
+        #[inline]
         pub fn x(mut self, x: ViewportCoordinateSwizzleNV) -> Self {
             self.x = x;
             self
         }
 
+        #[inline]
         pub fn y(mut self, y: ViewportCoordinateSwizzleNV) -> Self {
             self.y = y;
             self
         }
 
+        #[inline]
         pub fn z(mut self, z: ViewportCoordinateSwizzleNV) -> Self {
             self.z = z;
             self
         }
 
+        #[inline]
         pub fn w(mut self, w: ViewportCoordinateSwizzleNV) -> Self {
             self.w = w;
             self
@@ -96,11 +100,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineViewportSwizzleStateCreateInfoNV<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PipelineViewportSwizzleStateCreateFlagsNV) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn viewport_swizzles(mut self, viewport_swizzles: &'a [ViewportSwizzleNV]) -> Self {
             self.viewport_count = viewport_swizzles.len().try_into().unwrap();
             self.p_viewport_swizzles = viewport_swizzles.as_ptr();

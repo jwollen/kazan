@@ -59,6 +59,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceVideoDecodeVP9FeaturesKHR<'a> {
+        #[inline]
         pub fn video_decode_vp9(mut self, video_decode_vp9: bool) -> Self {
             self.video_decode_vp9 = video_decode_vp9.into();
             self
@@ -106,6 +107,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoDecodeVP9ProfileInfoKHR<'a> {
+        #[inline]
         pub fn std_profile(mut self, std_profile: StdVideoVP9Profile) -> Self {
             self.std_profile = std_profile;
             self
@@ -152,6 +154,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoDecodeVP9CapabilitiesKHR<'a> {
+        #[inline]
         pub fn max_level(mut self, max_level: StdVideoVP9Level) -> Self {
             self.max_level = max_level;
             self
@@ -216,6 +219,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoDecodeVP9PictureInfoKHR<'a> {
+        #[inline]
         pub fn std_picture_info(
             mut self,
             std_picture_info: &'a StdVideoDecodeVP9PictureInfo<'a>,
@@ -224,6 +228,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn reference_name_slot_indices(
             mut self,
             reference_name_slot_indices: [i32; MAX_VIDEO_VP9_REFERENCES_PER_FRAME_KHR as usize],
@@ -232,16 +237,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn uncompressed_header_offset(mut self, uncompressed_header_offset: u32) -> Self {
             self.uncompressed_header_offset = uncompressed_header_offset;
             self
         }
 
+        #[inline]
         pub fn compressed_header_offset(mut self, compressed_header_offset: u32) -> Self {
             self.compressed_header_offset = compressed_header_offset;
             self
         }
 
+        #[inline]
         pub fn tiles_offset(mut self, tiles_offset: u32) -> Self {
             self.tiles_offset = tiles_offset;
             self

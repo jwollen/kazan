@@ -91,26 +91,31 @@ pub(super) mod defs {
     }
 
     impl<'a> RayTracingShaderGroupCreateInfoNV<'a> {
+        #[inline]
         pub fn ty(mut self, ty: RayTracingShaderGroupTypeKHR) -> Self {
             self.ty = ty;
             self
         }
 
+        #[inline]
         pub fn general_shader(mut self, general_shader: u32) -> Self {
             self.general_shader = general_shader;
             self
         }
 
+        #[inline]
         pub fn closest_hit_shader(mut self, closest_hit_shader: u32) -> Self {
             self.closest_hit_shader = closest_hit_shader;
             self
         }
 
+        #[inline]
         pub fn any_hit_shader(mut self, any_hit_shader: u32) -> Self {
             self.any_hit_shader = any_hit_shader;
             self
         }
 
+        #[inline]
         pub fn intersection_shader(mut self, intersection_shader: u32) -> Self {
             self.intersection_shader = intersection_shader;
             self
@@ -179,38 +184,45 @@ pub(super) mod defs {
     }
 
     impl<'a> RayTracingPipelineCreateInfoNV<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PipelineCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn stages(mut self, stages: &'a [PipelineShaderStageCreateInfo<'a>]) -> Self {
             self.stage_count = stages.len().try_into().unwrap();
             self.p_stages = stages.as_ptr();
             self
         }
 
+        #[inline]
         pub fn groups(mut self, groups: &'a [RayTracingShaderGroupCreateInfoNV<'a>]) -> Self {
             self.group_count = groups.len().try_into().unwrap();
             self.p_groups = groups.as_ptr();
             self
         }
 
+        #[inline]
         pub fn max_recursion_depth(mut self, max_recursion_depth: u32) -> Self {
             self.max_recursion_depth = max_recursion_depth;
             self
         }
 
+        #[inline]
         pub fn layout(mut self, layout: PipelineLayout) -> Self {
             self.layout = layout;
             self
         }
 
+        #[inline]
         pub fn base_pipeline_handle(mut self, base_pipeline_handle: Pipeline) -> Self {
             self.base_pipeline_handle = base_pipeline_handle;
             self
         }
 
+        #[inline]
         pub fn base_pipeline_index(mut self, base_pipeline_index: i32) -> Self {
             self.base_pipeline_index = base_pipeline_index;
             self
@@ -285,56 +297,67 @@ pub(super) mod defs {
     }
 
     impl<'a> GeometryTrianglesNV<'a> {
+        #[inline]
         pub fn vertex_data(mut self, vertex_data: Buffer) -> Self {
             self.vertex_data = vertex_data;
             self
         }
 
+        #[inline]
         pub fn vertex_offset(mut self, vertex_offset: DeviceSize) -> Self {
             self.vertex_offset = vertex_offset;
             self
         }
 
+        #[inline]
         pub fn vertex_count(mut self, vertex_count: u32) -> Self {
             self.vertex_count = vertex_count;
             self
         }
 
+        #[inline]
         pub fn vertex_stride(mut self, vertex_stride: DeviceSize) -> Self {
             self.vertex_stride = vertex_stride;
             self
         }
 
+        #[inline]
         pub fn vertex_format(mut self, vertex_format: Format) -> Self {
             self.vertex_format = vertex_format;
             self
         }
 
+        #[inline]
         pub fn index_data(mut self, index_data: Buffer) -> Self {
             self.index_data = index_data;
             self
         }
 
+        #[inline]
         pub fn index_offset(mut self, index_offset: DeviceSize) -> Self {
             self.index_offset = index_offset;
             self
         }
 
+        #[inline]
         pub fn index_count(mut self, index_count: u32) -> Self {
             self.index_count = index_count;
             self
         }
 
+        #[inline]
         pub fn index_type(mut self, index_type: IndexType) -> Self {
             self.index_type = index_type;
             self
         }
 
+        #[inline]
         pub fn transform_data(mut self, transform_data: Buffer) -> Self {
             self.transform_data = transform_data;
             self
         }
 
+        #[inline]
         pub fn transform_offset(mut self, transform_offset: DeviceSize) -> Self {
             self.transform_offset = transform_offset;
             self
@@ -388,21 +411,25 @@ pub(super) mod defs {
     }
 
     impl<'a> GeometryAABBNV<'a> {
+        #[inline]
         pub fn aabb_data(mut self, aabb_data: Buffer) -> Self {
             self.aabb_data = aabb_data;
             self
         }
 
+        #[inline]
         pub fn num_aab_bs(mut self, num_aab_bs: u32) -> Self {
             self.num_aab_bs = num_aab_bs;
             self
         }
 
+        #[inline]
         pub fn stride(mut self, stride: u32) -> Self {
             self.stride = stride;
             self
         }
 
+        #[inline]
         pub fn offset(mut self, offset: DeviceSize) -> Self {
             self.offset = offset;
             self
@@ -440,11 +467,13 @@ pub(super) mod defs {
     }
 
     impl<'a> GeometryDataNV<'a> {
+        #[inline]
         pub fn triangles(mut self, triangles: GeometryTrianglesNV<'a>) -> Self {
             self.triangles = triangles;
             self
         }
 
+        #[inline]
         pub fn aabbs(mut self, aabbs: GeometryAABBNV<'a>) -> Self {
             self.aabbs = aabbs;
             self
@@ -495,16 +524,19 @@ pub(super) mod defs {
     }
 
     impl<'a> GeometryNV<'a> {
+        #[inline]
         pub fn geometry_type(mut self, geometry_type: GeometryTypeKHR) -> Self {
             self.geometry_type = geometry_type;
             self
         }
 
+        #[inline]
         pub fn geometry(mut self, geometry: GeometryDataNV<'a>) -> Self {
             self.geometry = geometry;
             self
         }
 
+        #[inline]
         pub fn flags(mut self, flags: GeometryFlagsKHR) -> Self {
             self.flags = flags;
             self
@@ -561,21 +593,25 @@ pub(super) mod defs {
     }
 
     impl<'a> AccelerationStructureInfoNV<'a> {
+        #[inline]
         pub fn ty(mut self, ty: AccelerationStructureTypeNV) -> Self {
             self.ty = ty;
             self
         }
 
+        #[inline]
         pub fn flags(mut self, flags: BuildAccelerationStructureFlagsNV) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn instance_count(mut self, instance_count: u32) -> Self {
             self.instance_count = instance_count;
             self
         }
 
+        #[inline]
         pub fn geometries(mut self, geometries: &'a [GeometryNV<'a>]) -> Self {
             self.geometry_count = geometries.len().try_into().unwrap();
             self.p_geometries = geometries.as_ptr();
@@ -624,11 +660,13 @@ pub(super) mod defs {
     }
 
     impl<'a> AccelerationStructureCreateInfoNV<'a> {
+        #[inline]
         pub fn compacted_size(mut self, compacted_size: DeviceSize) -> Self {
             self.compacted_size = compacted_size;
             self
         }
 
+        #[inline]
         pub fn info(mut self, info: AccelerationStructureInfoNV<'a>) -> Self {
             self.info = info;
             self
@@ -686,6 +724,7 @@ pub(super) mod defs {
     }
 
     impl<'a> BindAccelerationStructureMemoryInfoNV<'a> {
+        #[inline]
         pub fn acceleration_structure(
             mut self,
             acceleration_structure: AccelerationStructureNV,
@@ -694,16 +733,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
         }
 
+        #[inline]
         pub fn memory_offset(mut self, memory_offset: DeviceSize) -> Self {
             self.memory_offset = memory_offset;
             self
         }
 
+        #[inline]
         pub fn device_indices(mut self, device_indices: &'a [u32]) -> Self {
             self.device_index_count = device_indices.len().try_into().unwrap();
             self.p_device_indices = device_indices.as_ptr();
@@ -758,6 +800,7 @@ pub(super) mod defs {
     }
 
     impl<'a> WriteDescriptorSetAccelerationStructureNV<'a> {
+        #[inline]
         pub fn acceleration_structures(
             mut self,
             acceleration_structures: &'a [AccelerationStructureNV],
@@ -810,11 +853,13 @@ pub(super) mod defs {
     }
 
     impl<'a> AccelerationStructureMemoryRequirementsInfoNV<'a> {
+        #[inline]
         pub fn ty(mut self, ty: AccelerationStructureMemoryRequirementsTypeNV) -> Self {
             self.ty = ty;
             self
         }
 
+        #[inline]
         pub fn acceleration_structure(
             mut self,
             acceleration_structure: AccelerationStructureNV,
@@ -895,41 +940,49 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceRayTracingPropertiesNV<'a> {
+        #[inline]
         pub fn shader_group_handle_size(mut self, shader_group_handle_size: u32) -> Self {
             self.shader_group_handle_size = shader_group_handle_size;
             self
         }
 
+        #[inline]
         pub fn max_recursion_depth(mut self, max_recursion_depth: u32) -> Self {
             self.max_recursion_depth = max_recursion_depth;
             self
         }
 
+        #[inline]
         pub fn max_shader_group_stride(mut self, max_shader_group_stride: u32) -> Self {
             self.max_shader_group_stride = max_shader_group_stride;
             self
         }
 
+        #[inline]
         pub fn shader_group_base_alignment(mut self, shader_group_base_alignment: u32) -> Self {
             self.shader_group_base_alignment = shader_group_base_alignment;
             self
         }
 
+        #[inline]
         pub fn max_geometry_count(mut self, max_geometry_count: u64) -> Self {
             self.max_geometry_count = max_geometry_count;
             self
         }
 
+        #[inline]
         pub fn max_instance_count(mut self, max_instance_count: u64) -> Self {
             self.max_instance_count = max_instance_count;
             self
         }
 
+        #[inline]
         pub fn max_triangle_count(mut self, max_triangle_count: u64) -> Self {
             self.max_triangle_count = max_triangle_count;
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_acceleration_structures(
             mut self,
             max_descriptor_set_acceleration_structures: u32,
@@ -1127,6 +1180,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateAccelerationStructureNV.html>
+    #[inline]
     pub unsafe fn create_acceleration_structure_nv(
         &self,
         device: Device,
@@ -1150,6 +1204,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyAccelerationStructureNV.html>
+    #[inline]
     pub unsafe fn destroy_acceleration_structure_nv(
         &self,
         device: Device,
@@ -1166,6 +1221,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAccelerationStructureMemoryRequirementsNV.html>
+    #[inline]
     pub unsafe fn get_acceleration_structure_memory_requirements_nv(
         &self,
         device: Device,
@@ -1182,6 +1238,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindAccelerationStructureMemoryNV.html>
+    #[inline]
     pub unsafe fn bind_acceleration_structure_memory_nv(
         &self,
         device: Device,
@@ -1202,6 +1259,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBuildAccelerationStructureNV.html>
+    #[inline]
     pub unsafe fn cmd_build_acceleration_structure_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -1230,6 +1288,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyAccelerationStructureNV.html>
+    #[inline]
     pub unsafe fn cmd_copy_acceleration_structure_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -1241,6 +1300,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdTraceRaysNV.html>
+    #[inline]
     pub unsafe fn cmd_trace_rays_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -1281,6 +1341,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateRayTracingPipelinesNV.html>
+    #[inline]
     pub unsafe fn create_ray_tracing_pipelines_nv(
         &self,
         device: Device,
@@ -1307,6 +1368,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRayTracingShaderGroupHandlesNV.html>
+    #[inline]
     pub unsafe fn get_ray_tracing_shader_group_handles_nv(
         &self,
         device: Device,
@@ -1333,6 +1395,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAccelerationStructureHandleNV.html>
+    #[inline]
     pub unsafe fn get_acceleration_structure_handle_nv(
         &self,
         device: Device,
@@ -1355,6 +1418,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteAccelerationStructuresPropertiesNV.html>
+    #[inline]
     pub unsafe fn cmd_write_acceleration_structures_properties_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -1376,6 +1440,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCompileDeferredNV.html>
+    #[inline]
     pub unsafe fn compile_deferred_nv(
         &self,
         device: Device,

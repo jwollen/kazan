@@ -59,6 +59,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE<'a> {
+        #[inline]
         pub fn max_fragment_density_map_layers(
             mut self,
             max_fragment_density_map_layers: u32,
@@ -119,6 +120,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE<'a> {
+        #[inline]
         pub fn fragment_density_map_layered(mut self, fragment_density_map_layered: bool) -> Self {
             self.fragment_density_map_layered = fragment_density_map_layered.into();
             self
@@ -172,6 +174,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineFragmentDensityMapLayeredCreateInfoVALVE<'a> {
+        #[inline]
         pub fn max_fragment_density_map_layers(
             mut self,
             max_fragment_density_map_layers: u32,

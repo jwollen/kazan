@@ -57,6 +57,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceVideoMaintenance2FeaturesKHR<'a> {
+        #[inline]
         pub fn video_maintenance2(mut self, video_maintenance2: bool) -> Self {
             self.video_maintenance2 = video_maintenance2.into();
             self
@@ -110,11 +111,13 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoDecodeH264InlineSessionParametersInfoKHR<'a> {
+        #[inline]
         pub fn std_sps(mut self, std_sps: &'a StdVideoH264SequenceParameterSet<'a>) -> Self {
             self.p_std_sps = std_sps;
             self
         }
 
+        #[inline]
         pub fn std_pps(mut self, std_pps: &'a StdVideoH264PictureParameterSet<'a>) -> Self {
             self.p_std_pps = std_pps;
             self
@@ -171,16 +174,19 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoDecodeH265InlineSessionParametersInfoKHR<'a> {
+        #[inline]
         pub fn std_vps(mut self, std_vps: &'a StdVideoH265VideoParameterSet<'a>) -> Self {
             self.p_std_vps = std_vps;
             self
         }
 
+        #[inline]
         pub fn std_sps(mut self, std_sps: &'a StdVideoH265SequenceParameterSet<'a>) -> Self {
             self.p_std_sps = std_sps;
             self
         }
 
+        #[inline]
         pub fn std_pps(mut self, std_pps: &'a StdVideoH265PictureParameterSet<'a>) -> Self {
             self.p_std_pps = std_pps;
             self
@@ -231,6 +237,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoDecodeAV1InlineSessionParametersInfoKHR<'a> {
+        #[inline]
         pub fn std_sequence_header(
             mut self,
             std_sequence_header: &'a StdVideoAV1SequenceHeader<'a>,

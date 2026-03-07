@@ -60,6 +60,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceRGBA10X6FormatsFeaturesEXT<'a> {
+        #[inline]
         pub fn format_rgba10x6_without_y_cb_cr_sampler(
             mut self,
             format_rgba10x6_without_y_cb_cr_sampler: bool,

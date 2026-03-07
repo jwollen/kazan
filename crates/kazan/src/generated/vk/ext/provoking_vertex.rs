@@ -63,11 +63,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceProvokingVertexFeaturesEXT<'a> {
+        #[inline]
         pub fn provoking_vertex_last(mut self, provoking_vertex_last: bool) -> Self {
             self.provoking_vertex_last = provoking_vertex_last.into();
             self
         }
 
+        #[inline]
         pub fn transform_feedback_preserves_provoking_vertex(
             mut self,
             transform_feedback_preserves_provoking_vertex: bool,
@@ -131,6 +133,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceProvokingVertexPropertiesEXT<'a> {
+        #[inline]
         pub fn provoking_vertex_mode_per_pipeline(
             mut self,
             provoking_vertex_mode_per_pipeline: bool,
@@ -139,6 +142,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn transform_feedback_preserves_triangle_fan_provoking_vertex(
             mut self,
             transform_feedback_preserves_triangle_fan_provoking_vertex: bool,
@@ -193,6 +197,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineRasterizationProvokingVertexStateCreateInfoEXT<'a> {
+        #[inline]
         pub fn provoking_vertex_mode(
             mut self,
             provoking_vertex_mode: ProvokingVertexModeEXT,

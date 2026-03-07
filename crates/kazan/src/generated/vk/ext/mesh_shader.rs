@@ -69,21 +69,25 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMeshShaderFeaturesEXT<'a> {
+        #[inline]
         pub fn task_shader(mut self, task_shader: bool) -> Self {
             self.task_shader = task_shader.into();
             self
         }
 
+        #[inline]
         pub fn mesh_shader(mut self, mesh_shader: bool) -> Self {
             self.mesh_shader = mesh_shader.into();
             self
         }
 
+        #[inline]
         pub fn multiview_mesh_shader(mut self, multiview_mesh_shader: bool) -> Self {
             self.multiview_mesh_shader = multiview_mesh_shader.into();
             self
         }
 
+        #[inline]
         pub fn primitive_fragment_shading_rate_mesh_shader(
             mut self,
             primitive_fragment_shading_rate_mesh_shader: bool,
@@ -93,6 +97,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn mesh_shader_queries(mut self, mesh_shader_queries: bool) -> Self {
             self.mesh_shader_queries = mesh_shader_queries.into();
             self
@@ -287,6 +292,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMeshShaderPropertiesEXT<'a> {
+        #[inline]
         pub fn max_task_work_group_total_count(
             mut self,
             max_task_work_group_total_count: u32,
@@ -295,11 +301,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_task_work_group_count(mut self, max_task_work_group_count: [u32; 3]) -> Self {
             self.max_task_work_group_count = max_task_work_group_count;
             self
         }
 
+        #[inline]
         pub fn max_task_work_group_invocations(
             mut self,
             max_task_work_group_invocations: u32,
@@ -308,21 +316,25 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_task_work_group_size(mut self, max_task_work_group_size: [u32; 3]) -> Self {
             self.max_task_work_group_size = max_task_work_group_size;
             self
         }
 
+        #[inline]
         pub fn max_task_payload_size(mut self, max_task_payload_size: u32) -> Self {
             self.max_task_payload_size = max_task_payload_size;
             self
         }
 
+        #[inline]
         pub fn max_task_shared_memory_size(mut self, max_task_shared_memory_size: u32) -> Self {
             self.max_task_shared_memory_size = max_task_shared_memory_size;
             self
         }
 
+        #[inline]
         pub fn max_task_payload_and_shared_memory_size(
             mut self,
             max_task_payload_and_shared_memory_size: u32,
@@ -331,6 +343,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_mesh_work_group_total_count(
             mut self,
             max_mesh_work_group_total_count: u32,
@@ -339,11 +352,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_mesh_work_group_count(mut self, max_mesh_work_group_count: [u32; 3]) -> Self {
             self.max_mesh_work_group_count = max_mesh_work_group_count;
             self
         }
 
+        #[inline]
         pub fn max_mesh_work_group_invocations(
             mut self,
             max_mesh_work_group_invocations: u32,
@@ -352,16 +367,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_mesh_work_group_size(mut self, max_mesh_work_group_size: [u32; 3]) -> Self {
             self.max_mesh_work_group_size = max_mesh_work_group_size;
             self
         }
 
+        #[inline]
         pub fn max_mesh_shared_memory_size(mut self, max_mesh_shared_memory_size: u32) -> Self {
             self.max_mesh_shared_memory_size = max_mesh_shared_memory_size;
             self
         }
 
+        #[inline]
         pub fn max_mesh_payload_and_shared_memory_size(
             mut self,
             max_mesh_payload_and_shared_memory_size: u32,
@@ -370,11 +388,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_mesh_output_memory_size(mut self, max_mesh_output_memory_size: u32) -> Self {
             self.max_mesh_output_memory_size = max_mesh_output_memory_size;
             self
         }
 
+        #[inline]
         pub fn max_mesh_payload_and_output_memory_size(
             mut self,
             max_mesh_payload_and_output_memory_size: u32,
@@ -383,31 +403,37 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_mesh_output_components(mut self, max_mesh_output_components: u32) -> Self {
             self.max_mesh_output_components = max_mesh_output_components;
             self
         }
 
+        #[inline]
         pub fn max_mesh_output_vertices(mut self, max_mesh_output_vertices: u32) -> Self {
             self.max_mesh_output_vertices = max_mesh_output_vertices;
             self
         }
 
+        #[inline]
         pub fn max_mesh_output_primitives(mut self, max_mesh_output_primitives: u32) -> Self {
             self.max_mesh_output_primitives = max_mesh_output_primitives;
             self
         }
 
+        #[inline]
         pub fn max_mesh_output_layers(mut self, max_mesh_output_layers: u32) -> Self {
             self.max_mesh_output_layers = max_mesh_output_layers;
             self
         }
 
+        #[inline]
         pub fn max_mesh_multiview_view_count(mut self, max_mesh_multiview_view_count: u32) -> Self {
             self.max_mesh_multiview_view_count = max_mesh_multiview_view_count;
             self
         }
 
+        #[inline]
         pub fn mesh_output_per_vertex_granularity(
             mut self,
             mesh_output_per_vertex_granularity: u32,
@@ -416,6 +442,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn mesh_output_per_primitive_granularity(
             mut self,
             mesh_output_per_primitive_granularity: u32,
@@ -424,6 +451,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_preferred_task_work_group_invocations(
             mut self,
             max_preferred_task_work_group_invocations: u32,
@@ -433,6 +461,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_preferred_mesh_work_group_invocations(
             mut self,
             max_preferred_mesh_work_group_invocations: u32,
@@ -442,6 +471,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn prefers_local_invocation_vertex_output(
             mut self,
             prefers_local_invocation_vertex_output: bool,
@@ -451,6 +481,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn prefers_local_invocation_primitive_output(
             mut self,
             prefers_local_invocation_primitive_output: bool,
@@ -460,6 +491,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn prefers_compact_vertex_output(
             mut self,
             prefers_compact_vertex_output: bool,
@@ -468,6 +500,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn prefers_compact_primitive_output(
             mut self,
             prefers_compact_primitive_output: bool,
@@ -489,16 +522,19 @@ pub(super) mod defs {
     }
 
     impl DrawMeshTasksIndirectCommandEXT {
+        #[inline]
         pub fn group_count_x(mut self, group_count_x: u32) -> Self {
             self.group_count_x = group_count_x;
             self
         }
 
+        #[inline]
         pub fn group_count_y(mut self, group_count_y: u32) -> Self {
             self.group_count_y = group_count_y;
             self
         }
 
+        #[inline]
         pub fn group_count_z(mut self, group_count_z: u32) -> Self {
             self.group_count_z = group_count_z;
             self
@@ -560,6 +596,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawMeshTasksEXT.html>
+    #[inline]
     pub unsafe fn cmd_draw_mesh_tasks_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -578,6 +615,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawMeshTasksIndirectEXT.html>
+    #[inline]
     pub unsafe fn cmd_draw_mesh_tasks_indirect_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -598,6 +636,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawMeshTasksIndirectCountEXT.html>
+    #[inline]
     pub unsafe fn cmd_draw_mesh_tasks_indirect_count_ext(
         &self,
         command_buffer: CommandBuffer,

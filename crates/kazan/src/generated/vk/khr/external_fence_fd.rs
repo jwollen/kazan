@@ -59,21 +59,25 @@ pub(super) mod defs {
     }
 
     impl<'a> ImportFenceFdInfoKHR<'a> {
+        #[inline]
         pub fn fence(mut self, fence: Fence) -> Self {
             self.fence = fence;
             self
         }
 
+        #[inline]
         pub fn flags(mut self, flags: FenceImportFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn handle_type(mut self, handle_type: ExternalFenceHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
 
+        #[inline]
         pub fn fd(mut self, fd: c_int) -> Self {
             self.fd = fd;
             self
@@ -121,11 +125,13 @@ pub(super) mod defs {
     }
 
     impl<'a> FenceGetFdInfoKHR<'a> {
+        #[inline]
         pub fn fence(mut self, fence: Fence) -> Self {
             self.fence = fence;
             self
         }
 
+        #[inline]
         pub fn handle_type(mut self, handle_type: ExternalFenceHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
@@ -169,6 +175,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportFenceFdKHR.html>
+    #[inline]
     pub unsafe fn import_fence_fd_khr(
         &self,
         device: Device,
@@ -185,6 +192,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetFenceFdKHR.html>
+    #[inline]
     pub unsafe fn get_fence_fd_khr(
         &self,
         device: Device,

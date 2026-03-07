@@ -66,6 +66,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePerformanceQueryFeaturesKHR<'a> {
+        #[inline]
         pub fn performance_counter_query_pools(
             mut self,
             performance_counter_query_pools: bool,
@@ -74,6 +75,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn performance_counter_multiple_query_pools(
             mut self,
             performance_counter_multiple_query_pools: bool,
@@ -131,6 +133,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePerformanceQueryPropertiesKHR<'a> {
+        #[inline]
         pub fn allow_command_buffer_query_copies(
             mut self,
             allow_command_buffer_query_copies: bool,
@@ -187,21 +190,25 @@ pub(super) mod defs {
     }
 
     impl<'a> PerformanceCounterKHR<'a> {
+        #[inline]
         pub fn unit(mut self, unit: PerformanceCounterUnitKHR) -> Self {
             self.unit = unit;
             self
         }
 
+        #[inline]
         pub fn scope(mut self, scope: PerformanceCounterScopeKHR) -> Self {
             self.scope = scope;
             self
         }
 
+        #[inline]
         pub fn storage(mut self, storage: PerformanceCounterStorageKHR) -> Self {
             self.storage = storage;
             self
         }
 
+        #[inline]
         pub fn uuid(mut self, uuid: [u8; UUID_SIZE as usize]) -> Self {
             self.uuid = uuid;
             self
@@ -258,11 +265,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PerformanceCounterDescriptionKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PerformanceCounterDescriptionFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn name(
             mut self,
             name: &CStr,
@@ -271,6 +280,7 @@ pub(super) mod defs {
             Ok(self)
         }
 
+        #[inline]
         pub fn category(
             mut self,
             category: &CStr,
@@ -279,6 +289,7 @@ pub(super) mod defs {
             Ok(self)
         }
 
+        #[inline]
         pub fn description(
             mut self,
             description: &CStr,
@@ -334,11 +345,13 @@ pub(super) mod defs {
     }
 
     impl<'a> QueryPoolPerformanceCreateInfoKHR<'a> {
+        #[inline]
         pub fn queue_family_index(mut self, queue_family_index: u32) -> Self {
             self.queue_family_index = queue_family_index;
             self
         }
 
+        #[inline]
         pub fn counter_indices(mut self, counter_indices: &'a [u32]) -> Self {
             self.counter_index_count = counter_indices.len().try_into().unwrap();
             self.p_counter_indices = counter_indices.as_ptr();
@@ -387,11 +400,13 @@ pub(super) mod defs {
     }
 
     impl<'a> AcquireProfilingLockInfoKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: AcquireProfilingLockFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn timeout(mut self, timeout: u64) -> Self {
             self.timeout = timeout;
             self
@@ -439,6 +454,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PerformanceQuerySubmitInfoKHR<'a> {
+        #[inline]
         pub fn counter_pass_index(mut self, counter_pass_index: u32) -> Self {
             self.counter_pass_index = counter_pass_index;
             self
@@ -715,6 +731,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR.html>
+    #[inline]
     pub unsafe fn enumerate_physical_device_queue_family_performance_query_counters_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
@@ -758,6 +775,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR.html>
+    #[inline]
     pub unsafe fn get_physical_device_queue_family_performance_query_passes_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -799,6 +817,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireProfilingLockKHR.html>
+    #[inline]
     pub unsafe fn acquire_profiling_lock_khr(
         &self,
         device: Device,
@@ -815,6 +834,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleaseProfilingLockKHR.html>
+    #[inline]
     pub unsafe fn release_profiling_lock_khr(&self, device: Device) {
         unsafe { (self.release_profiling_lock_khr)(device) }
     }

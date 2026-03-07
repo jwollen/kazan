@@ -65,6 +65,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV<'a> {
+        #[inline]
         pub fn dedicated_allocation_image_aliasing(
             mut self,
             dedicated_allocation_image_aliasing: bool,

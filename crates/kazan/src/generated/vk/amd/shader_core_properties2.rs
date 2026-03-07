@@ -59,6 +59,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderCoreProperties2AMD<'a> {
+        #[inline]
         pub fn shader_core_features(
             mut self,
             shader_core_features: ShaderCorePropertiesFlagsAMD,
@@ -67,6 +68,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn active_compute_unit_count(mut self, active_compute_unit_count: u32) -> Self {
             self.active_compute_unit_count = active_compute_unit_count;
             self

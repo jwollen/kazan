@@ -63,6 +63,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceRepresentativeFragmentTestFeaturesNV<'a> {
+        #[inline]
         pub fn representative_fragment_test(mut self, representative_fragment_test: bool) -> Self {
             self.representative_fragment_test = representative_fragment_test.into();
             self
@@ -116,6 +117,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineRepresentativeFragmentTestStateCreateInfoNV<'a> {
+        #[inline]
         pub fn representative_fragment_test_enable(
             mut self,
             representative_fragment_test_enable: bool,

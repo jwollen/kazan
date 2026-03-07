@@ -86,56 +86,67 @@ pub(super) mod defs {
     }
 
     impl<'a> AccelerationStructureGeometryLinearSweptSpheresDataNV<'a> {
+        #[inline]
         pub fn vertex_format(mut self, vertex_format: Format) -> Self {
             self.vertex_format = vertex_format;
             self
         }
 
+        #[inline]
         pub fn vertex_data(mut self, vertex_data: DeviceOrHostAddressConstKHR<'a>) -> Self {
             self.vertex_data = vertex_data;
             self
         }
 
+        #[inline]
         pub fn vertex_stride(mut self, vertex_stride: DeviceSize) -> Self {
             self.vertex_stride = vertex_stride;
             self
         }
 
+        #[inline]
         pub fn radius_format(mut self, radius_format: Format) -> Self {
             self.radius_format = radius_format;
             self
         }
 
+        #[inline]
         pub fn radius_data(mut self, radius_data: DeviceOrHostAddressConstKHR<'a>) -> Self {
             self.radius_data = radius_data;
             self
         }
 
+        #[inline]
         pub fn radius_stride(mut self, radius_stride: DeviceSize) -> Self {
             self.radius_stride = radius_stride;
             self
         }
 
+        #[inline]
         pub fn index_type(mut self, index_type: IndexType) -> Self {
             self.index_type = index_type;
             self
         }
 
+        #[inline]
         pub fn index_data(mut self, index_data: DeviceOrHostAddressConstKHR<'a>) -> Self {
             self.index_data = index_data;
             self
         }
 
+        #[inline]
         pub fn index_stride(mut self, index_stride: DeviceSize) -> Self {
             self.index_stride = index_stride;
             self
         }
 
+        #[inline]
         pub fn indexing_mode(mut self, indexing_mode: RayTracingLssIndexingModeNV) -> Self {
             self.indexing_mode = indexing_mode;
             self
         }
 
+        #[inline]
         pub fn end_caps_mode(mut self, end_caps_mode: RayTracingLssPrimitiveEndCapsModeNV) -> Self {
             self.end_caps_mode = end_caps_mode;
             self
@@ -210,46 +221,55 @@ pub(super) mod defs {
     }
 
     impl<'a> AccelerationStructureGeometrySpheresDataNV<'a> {
+        #[inline]
         pub fn vertex_format(mut self, vertex_format: Format) -> Self {
             self.vertex_format = vertex_format;
             self
         }
 
+        #[inline]
         pub fn vertex_data(mut self, vertex_data: DeviceOrHostAddressConstKHR<'a>) -> Self {
             self.vertex_data = vertex_data;
             self
         }
 
+        #[inline]
         pub fn vertex_stride(mut self, vertex_stride: DeviceSize) -> Self {
             self.vertex_stride = vertex_stride;
             self
         }
 
+        #[inline]
         pub fn radius_format(mut self, radius_format: Format) -> Self {
             self.radius_format = radius_format;
             self
         }
 
+        #[inline]
         pub fn radius_data(mut self, radius_data: DeviceOrHostAddressConstKHR<'a>) -> Self {
             self.radius_data = radius_data;
             self
         }
 
+        #[inline]
         pub fn radius_stride(mut self, radius_stride: DeviceSize) -> Self {
             self.radius_stride = radius_stride;
             self
         }
 
+        #[inline]
         pub fn index_type(mut self, index_type: IndexType) -> Self {
             self.index_type = index_type;
             self
         }
 
+        #[inline]
         pub fn index_data(mut self, index_data: DeviceOrHostAddressConstKHR<'a>) -> Self {
             self.index_data = index_data;
             self
         }
 
+        #[inline]
         pub fn index_stride(mut self, index_stride: DeviceSize) -> Self {
             self.index_stride = index_stride;
             self
@@ -307,11 +327,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV<'a> {
+        #[inline]
         pub fn spheres(mut self, spheres: bool) -> Self {
             self.spheres = spheres.into();
             self
         }
 
+        #[inline]
         pub fn linear_swept_spheres(mut self, linear_swept_spheres: bool) -> Self {
             self.linear_swept_spheres = linear_swept_spheres.into();
             self

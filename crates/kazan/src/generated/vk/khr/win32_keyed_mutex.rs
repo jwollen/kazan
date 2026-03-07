@@ -72,30 +72,35 @@ pub(super) mod defs {
     }
 
     impl<'a> Win32KeyedMutexAcquireReleaseInfoKHR<'a> {
+        #[inline]
         pub fn acquire_syncs(mut self, acquire_syncs: &'a [DeviceMemory]) -> Self {
             self.acquire_count = acquire_syncs.len().try_into().unwrap();
             self.p_acquire_syncs = acquire_syncs.as_ptr();
             self
         }
 
+        #[inline]
         pub fn acquire_keys(mut self, acquire_keys: &'a [u64]) -> Self {
             self.acquire_count = acquire_keys.len().try_into().unwrap();
             self.p_acquire_keys = acquire_keys.as_ptr();
             self
         }
 
+        #[inline]
         pub fn acquire_timeouts(mut self, acquire_timeouts: &'a [u32]) -> Self {
             self.acquire_count = acquire_timeouts.len().try_into().unwrap();
             self.p_acquire_timeouts = acquire_timeouts.as_ptr();
             self
         }
 
+        #[inline]
         pub fn release_syncs(mut self, release_syncs: &'a [DeviceMemory]) -> Self {
             self.release_count = release_syncs.len().try_into().unwrap();
             self.p_release_syncs = release_syncs.as_ptr();
             self
         }
 
+        #[inline]
         pub fn release_keys(mut self, release_keys: &'a [u64]) -> Self {
             self.release_count = release_keys.len().try_into().unwrap();
             self.p_release_keys = release_keys.as_ptr();

@@ -56,16 +56,19 @@ pub(super) mod defs {
     }
 
     impl<'a> DebugMarkerObjectNameInfoEXT<'a> {
+        #[inline]
         pub fn object_type(mut self, object_type: DebugReportObjectTypeEXT) -> Self {
             self.object_type = object_type;
             self
         }
 
+        #[inline]
         pub fn object(mut self, object: u64) -> Self {
             self.object = object;
             self
         }
 
+        #[inline]
         pub fn object_name(mut self, object_name: &'a CStr) -> Self {
             self.p_object_name = object_name.as_ptr();
             self
@@ -122,21 +125,25 @@ pub(super) mod defs {
     }
 
     impl<'a> DebugMarkerObjectTagInfoEXT<'a> {
+        #[inline]
         pub fn object_type(mut self, object_type: DebugReportObjectTypeEXT) -> Self {
             self.object_type = object_type;
             self
         }
 
+        #[inline]
         pub fn object(mut self, object: u64) -> Self {
             self.object = object;
             self
         }
 
+        #[inline]
         pub fn tag_name(mut self, tag_name: u64) -> Self {
             self.tag_name = tag_name;
             self
         }
 
+        #[inline]
         pub fn tag(mut self, tag: &'a [u8]) -> Self {
             self.tag_size = tag.len().try_into().unwrap();
             self.p_tag = tag.as_ptr() as _;
@@ -185,11 +192,13 @@ pub(super) mod defs {
     }
 
     impl<'a> DebugMarkerMarkerInfoEXT<'a> {
+        #[inline]
         pub fn marker_name(mut self, marker_name: &'a CStr) -> Self {
             self.p_marker_name = marker_name.as_ptr();
             self
         }
 
+        #[inline]
         pub fn color(mut self, color: [f32; 4]) -> Self {
             self.color = color;
             self
@@ -256,6 +265,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDebugMarkerSetObjectTagEXT.html>
+    #[inline]
     pub unsafe fn debug_marker_set_object_tag_ext(
         &self,
         device: Device,
@@ -272,6 +282,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDebugMarkerSetObjectNameEXT.html>
+    #[inline]
     pub unsafe fn debug_marker_set_object_name_ext(
         &self,
         device: Device,
@@ -288,6 +299,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDebugMarkerBeginEXT.html>
+    #[inline]
     pub unsafe fn cmd_debug_marker_begin_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -297,11 +309,13 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDebugMarkerEndEXT.html>
+    #[inline]
     pub unsafe fn cmd_debug_marker_end_ext(&self, command_buffer: CommandBuffer) {
         unsafe { (self.cmd_debug_marker_end_ext)(command_buffer) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDebugMarkerInsertEXT.html>
+    #[inline]
     pub unsafe fn cmd_debug_marker_insert_ext(
         &self,
         command_buffer: CommandBuffer,

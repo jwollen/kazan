@@ -65,6 +65,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineBinaryCreateInfoKHR<'a> {
+        #[inline]
         pub fn keys_and_data_info(
             mut self,
             keys_and_data_info: &'a PipelineBinaryKeysAndDataKHR<'a>,
@@ -73,11 +74,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn pipeline(mut self, pipeline: Pipeline) -> Self {
             self.pipeline = pipeline;
             self
         }
 
+        #[inline]
         pub fn pipeline_create_info(
             mut self,
             pipeline_create_info: &'a PipelineCreateInfoKHR<'a>,
@@ -128,6 +131,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineBinaryHandlesInfoKHR<'a> {
+        #[inline]
         pub fn pipeline_binaries(mut self, pipeline_binaries: &'a mut [PipelineBinaryKHR]) -> Self {
             self.pipeline_binary_count = pipeline_binaries.len().try_into().unwrap();
             self.p_pipeline_binaries = pipeline_binaries.as_mut_ptr();
@@ -166,6 +170,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineBinaryDataKHR<'a> {
+        #[inline]
         pub fn data(mut self, data: &'a mut [u8]) -> Self {
             self.data_size = data.len().try_into().unwrap();
             self.p_data = data.as_mut_ptr() as _;
@@ -207,6 +212,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineBinaryKeysAndDataKHR<'a> {
+        #[inline]
         pub fn pipeline_binary_keys(
             mut self,
             pipeline_binary_keys: &'a [PipelineBinaryKeyKHR<'a>],
@@ -216,6 +222,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn pipeline_binary_data(
             mut self,
             pipeline_binary_data: &'a [PipelineBinaryDataKHR<'a>],
@@ -267,11 +274,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineBinaryKeyKHR<'a> {
+        #[inline]
         pub fn key_size(mut self, key_size: u32) -> Self {
             self.key_size = key_size;
             self
         }
 
+        #[inline]
         pub fn key(mut self, key: [u8; MAX_PIPELINE_BINARY_KEY_SIZE_KHR as usize]) -> Self {
             self.key = key;
             self
@@ -323,6 +332,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineBinaryInfoKHR<'a> {
+        #[inline]
         pub fn pipeline_binaries(mut self, pipeline_binaries: &'a [PipelineBinaryKHR]) -> Self {
             self.binary_count = pipeline_binaries.len().try_into().unwrap();
             self.p_pipeline_binaries = pipeline_binaries.as_ptr();
@@ -369,6 +379,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ReleaseCapturedPipelineDataInfoKHR<'a> {
+        #[inline]
         pub fn pipeline(mut self, pipeline: Pipeline) -> Self {
             self.pipeline = pipeline;
             self
@@ -413,6 +424,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineBinaryDataInfoKHR<'a> {
+        #[inline]
         pub fn pipeline_binary(mut self, pipeline_binary: PipelineBinaryKHR) -> Self {
             self.pipeline_binary = pipeline_binary;
             self
@@ -500,6 +512,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePipelineBinaryFeaturesKHR<'a> {
+        #[inline]
         pub fn pipeline_binaries(mut self, pipeline_binaries: bool) -> Self {
             self.pipeline_binaries = pipeline_binaries.into();
             self
@@ -547,6 +560,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DevicePipelineBinaryInternalCacheControlKHR<'a> {
+        #[inline]
         pub fn disable_internal_cache(mut self, disable_internal_cache: bool) -> Self {
             self.disable_internal_cache = disable_internal_cache.into();
             self
@@ -624,6 +638,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePipelineBinaryPropertiesKHR<'a> {
+        #[inline]
         pub fn pipeline_binary_internal_cache(
             mut self,
             pipeline_binary_internal_cache: bool,
@@ -632,6 +647,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn pipeline_binary_internal_cache_control(
             mut self,
             pipeline_binary_internal_cache_control: bool,
@@ -641,6 +657,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn pipeline_binary_prefers_internal_cache(
             mut self,
             pipeline_binary_prefers_internal_cache: bool,
@@ -650,6 +667,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn pipeline_binary_precompiled_internal_cache(
             mut self,
             pipeline_binary_precompiled_internal_cache: bool,
@@ -659,6 +677,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn pipeline_binary_compressed_data(
             mut self,
             pipeline_binary_compressed_data: bool,
@@ -739,6 +758,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreatePipelineBinariesKHR.html>
+    #[inline]
     pub unsafe fn create_pipeline_binaries_khr(
         &self,
         device: Device,
@@ -762,6 +782,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyPipelineBinaryKHR.html>
+    #[inline]
     pub unsafe fn destroy_pipeline_binary_khr(
         &self,
         device: Device,
@@ -774,6 +795,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineKeyKHR.html>
+    #[inline]
     pub unsafe fn get_pipeline_key_khr(
         &self,
         device: Device,
@@ -795,6 +817,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineBinaryDataKHR.html>
+    #[inline]
     pub unsafe fn get_pipeline_binary_data_khr<'a>(
         &self,
         device: Device,
@@ -835,6 +858,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleaseCapturedPipelineDataKHR.html>
+    #[inline]
     pub unsafe fn release_captured_pipeline_data_khr(
         &self,
         device: Device,

@@ -23,11 +23,13 @@ pub(super) mod defs {
     }
 
     impl ViewportWScalingNV {
+        #[inline]
         pub fn xcoeff(mut self, xcoeff: f32) -> Self {
             self.xcoeff = xcoeff;
             self
         }
 
+        #[inline]
         pub fn ycoeff(mut self, ycoeff: f32) -> Self {
             self.ycoeff = ycoeff;
             self
@@ -84,11 +86,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineViewportWScalingStateCreateInfoNV<'a> {
+        #[inline]
         pub fn viewport_w_scaling_enable(mut self, viewport_w_scaling_enable: bool) -> Self {
             self.viewport_w_scaling_enable = viewport_w_scaling_enable.into();
             self
         }
 
+        #[inline]
         pub fn viewport_w_scalings(
             mut self,
             viewport_w_scalings: &'a [ViewportWScalingNV],
@@ -128,6 +132,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewportWScalingNV.html>
+    #[inline]
     pub unsafe fn cmd_set_viewport_w_scaling_nv(
         &self,
         command_buffer: CommandBuffer,

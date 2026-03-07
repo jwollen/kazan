@@ -57,11 +57,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderClockFeaturesKHR<'a> {
+        #[inline]
         pub fn shader_subgroup_clock(mut self, shader_subgroup_clock: bool) -> Self {
             self.shader_subgroup_clock = shader_subgroup_clock.into();
             self
         }
 
+        #[inline]
         pub fn shader_device_clock(mut self, shader_device_clock: bool) -> Self {
             self.shader_device_clock = shader_device_clock.into();
             self

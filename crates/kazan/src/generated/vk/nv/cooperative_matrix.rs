@@ -68,11 +68,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceCooperativeMatrixFeaturesNV<'a> {
+        #[inline]
         pub fn cooperative_matrix(mut self, cooperative_matrix: bool) -> Self {
             self.cooperative_matrix = cooperative_matrix.into();
             self
         }
 
+        #[inline]
         pub fn cooperative_matrix_robust_buffer_access(
             mut self,
             cooperative_matrix_robust_buffer_access: bool,
@@ -130,6 +132,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceCooperativeMatrixPropertiesNV<'a> {
+        #[inline]
         pub fn cooperative_matrix_supported_stages(
             mut self,
             cooperative_matrix_supported_stages: ShaderStageFlags,
@@ -198,41 +201,49 @@ pub(super) mod defs {
     }
 
     impl<'a> CooperativeMatrixPropertiesNV<'a> {
+        #[inline]
         pub fn m_size(mut self, m_size: u32) -> Self {
             self.m_size = m_size;
             self
         }
 
+        #[inline]
         pub fn n_size(mut self, n_size: u32) -> Self {
             self.n_size = n_size;
             self
         }
 
+        #[inline]
         pub fn k_size(mut self, k_size: u32) -> Self {
             self.k_size = k_size;
             self
         }
 
+        #[inline]
         pub fn a_type(mut self, a_type: ComponentTypeNV) -> Self {
             self.a_type = a_type;
             self
         }
 
+        #[inline]
         pub fn b_type(mut self, b_type: ComponentTypeNV) -> Self {
             self.b_type = b_type;
             self
         }
 
+        #[inline]
         pub fn c_type(mut self, c_type: ComponentTypeNV) -> Self {
             self.c_type = c_type;
             self
         }
 
+        #[inline]
         pub fn d_type(mut self, d_type: ComponentTypeNV) -> Self {
             self.d_type = d_type;
             self
         }
 
+        #[inline]
         pub fn scope(mut self, scope: ScopeNV) -> Self {
             self.scope = scope;
             self
@@ -270,6 +281,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCooperativeMatrixPropertiesNV.html>
+    #[inline]
     pub unsafe fn get_physical_device_cooperative_matrix_properties_nv<'a>(
         &self,
         physical_device: PhysicalDevice,

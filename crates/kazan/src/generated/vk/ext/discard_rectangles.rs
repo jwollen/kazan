@@ -56,6 +56,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDiscardRectanglePropertiesEXT<'a> {
+        #[inline]
         pub fn max_discard_rectangles(mut self, max_discard_rectangles: u32) -> Self {
             self.max_discard_rectangles = max_discard_rectangles;
             self
@@ -115,11 +116,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineDiscardRectangleStateCreateInfoEXT<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PipelineDiscardRectangleStateCreateFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn discard_rectangle_mode(
             mut self,
             discard_rectangle_mode: DiscardRectangleModeEXT,
@@ -128,6 +131,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn discard_rectangles(mut self, discard_rectangles: &'a [Rect2D]) -> Self {
             self.discard_rectangle_count = discard_rectangles.len().try_into().unwrap();
             self.p_discard_rectangles = discard_rectangles.as_ptr();
@@ -217,6 +221,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDiscardRectangleEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_discard_rectangle_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -234,6 +239,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDiscardRectangleEnableEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_discard_rectangle_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -248,6 +254,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDiscardRectangleModeEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_discard_rectangle_mode_ext(
         &self,
         command_buffer: CommandBuffer,

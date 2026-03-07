@@ -40,6 +40,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawIndirectCountAMD.html>
+    #[inline]
     pub unsafe fn cmd_draw_indirect_count_amd(
         &self,
         command_buffer: CommandBuffer,
@@ -64,6 +65,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawIndexedIndirectCountAMD.html>
+    #[inline]
     pub unsafe fn cmd_draw_indexed_indirect_count_amd(
         &self,
         command_buffer: CommandBuffer,

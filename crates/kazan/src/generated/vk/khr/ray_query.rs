@@ -53,6 +53,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceRayQueryFeaturesKHR<'a> {
+        #[inline]
         pub fn ray_query(mut self, ray_query: bool) -> Self {
             self.ray_query = ray_query.into();
             self

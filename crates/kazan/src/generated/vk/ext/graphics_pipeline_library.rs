@@ -60,6 +60,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'a> {
+        #[inline]
         pub fn graphics_pipeline_library(mut self, graphics_pipeline_library: bool) -> Self {
             self.graphics_pipeline_library = graphics_pipeline_library.into();
             self
@@ -119,6 +120,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'a> {
+        #[inline]
         pub fn graphics_pipeline_library_fast_linking(
             mut self,
             graphics_pipeline_library_fast_linking: bool,
@@ -128,6 +130,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn graphics_pipeline_library_independent_interpolation_decoration(
             mut self,
             graphics_pipeline_library_independent_interpolation_decoration: bool,
@@ -182,6 +185,7 @@ pub(super) mod defs {
     }
 
     impl<'a> GraphicsPipelineLibraryCreateInfoEXT<'a> {
+        #[inline]
         pub fn flags(mut self, flags: GraphicsPipelineLibraryFlagsEXT) -> Self {
             self.flags = flags;
             self

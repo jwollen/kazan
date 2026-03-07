@@ -53,11 +53,13 @@ pub(super) mod defs {
     }
 
     impl<'a> ImagePipeSurfaceCreateInfoFUCHSIA<'a> {
+        #[inline]
         pub fn flags(mut self, flags: ImagePipeSurfaceCreateFlagsFUCHSIA) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn image_pipe_handle(mut self, image_pipe_handle: zx_handle_t) -> Self {
             self.image_pipe_handle = image_pipe_handle;
             self
@@ -105,6 +107,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateImagePipeSurfaceFUCHSIA.html>
+    #[inline]
     pub unsafe fn create_image_pipe_surface_fuchsia(
         &self,
         instance: Instance,

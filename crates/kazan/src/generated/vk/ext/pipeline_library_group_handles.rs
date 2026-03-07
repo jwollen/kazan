@@ -63,6 +63,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT<'a> {
+        #[inline]
         pub fn pipeline_library_group_handles(
             mut self,
             pipeline_library_group_handles: bool,

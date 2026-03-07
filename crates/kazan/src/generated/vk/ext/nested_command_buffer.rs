@@ -69,11 +69,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceNestedCommandBufferFeaturesEXT<'a> {
+        #[inline]
         pub fn nested_command_buffer(mut self, nested_command_buffer: bool) -> Self {
             self.nested_command_buffer = nested_command_buffer.into();
             self
         }
 
+        #[inline]
         pub fn nested_command_buffer_rendering(
             mut self,
             nested_command_buffer_rendering: bool,
@@ -82,6 +84,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn nested_command_buffer_simultaneous_use(
             mut self,
             nested_command_buffer_simultaneous_use: bool,
@@ -139,6 +142,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceNestedCommandBufferPropertiesEXT<'a> {
+        #[inline]
         pub fn max_command_buffer_nesting_level(
             mut self,
             max_command_buffer_nesting_level: u32,

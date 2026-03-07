@@ -56,16 +56,19 @@ pub(super) mod defs {
     }
 
     impl<'a> LatencySleepModeInfoNV<'a> {
+        #[inline]
         pub fn low_latency_mode(mut self, low_latency_mode: bool) -> Self {
             self.low_latency_mode = low_latency_mode.into();
             self
         }
 
+        #[inline]
         pub fn low_latency_boost(mut self, low_latency_boost: bool) -> Self {
             self.low_latency_boost = low_latency_boost.into();
             self
         }
 
+        #[inline]
         pub fn minimum_interval_us(mut self, minimum_interval_us: u32) -> Self {
             self.minimum_interval_us = minimum_interval_us;
             self
@@ -113,11 +116,13 @@ pub(super) mod defs {
     }
 
     impl<'a> LatencySleepInfoNV<'a> {
+        #[inline]
         pub fn signal_semaphore(mut self, signal_semaphore: Semaphore) -> Self {
             self.signal_semaphore = signal_semaphore;
             self
         }
 
+        #[inline]
         pub fn value(mut self, value: u64) -> Self {
             self.value = value;
             self
@@ -165,11 +170,13 @@ pub(super) mod defs {
     }
 
     impl<'a> SetLatencyMarkerInfoNV<'a> {
+        #[inline]
         pub fn present_id(mut self, present_id: u64) -> Self {
             self.present_id = present_id;
             self
         }
 
+        #[inline]
         pub fn marker(mut self, marker: LatencyMarkerNV) -> Self {
             self.marker = marker;
             self
@@ -217,6 +224,7 @@ pub(super) mod defs {
     }
 
     impl<'a> GetLatencyMarkerInfoNV<'a> {
+        #[inline]
         pub fn timings(mut self, timings: &'a mut [LatencyTimingsFrameReportNV<'a>]) -> Self {
             self.timing_count = timings.len().try_into().unwrap();
             self.p_timings = timings.as_mut_ptr();
@@ -310,71 +318,85 @@ pub(super) mod defs {
     }
 
     impl<'a> LatencyTimingsFrameReportNV<'a> {
+        #[inline]
         pub fn present_id(mut self, present_id: u64) -> Self {
             self.present_id = present_id;
             self
         }
 
+        #[inline]
         pub fn input_sample_time_us(mut self, input_sample_time_us: u64) -> Self {
             self.input_sample_time_us = input_sample_time_us;
             self
         }
 
+        #[inline]
         pub fn sim_start_time_us(mut self, sim_start_time_us: u64) -> Self {
             self.sim_start_time_us = sim_start_time_us;
             self
         }
 
+        #[inline]
         pub fn sim_end_time_us(mut self, sim_end_time_us: u64) -> Self {
             self.sim_end_time_us = sim_end_time_us;
             self
         }
 
+        #[inline]
         pub fn render_submit_start_time_us(mut self, render_submit_start_time_us: u64) -> Self {
             self.render_submit_start_time_us = render_submit_start_time_us;
             self
         }
 
+        #[inline]
         pub fn render_submit_end_time_us(mut self, render_submit_end_time_us: u64) -> Self {
             self.render_submit_end_time_us = render_submit_end_time_us;
             self
         }
 
+        #[inline]
         pub fn present_start_time_us(mut self, present_start_time_us: u64) -> Self {
             self.present_start_time_us = present_start_time_us;
             self
         }
 
+        #[inline]
         pub fn present_end_time_us(mut self, present_end_time_us: u64) -> Self {
             self.present_end_time_us = present_end_time_us;
             self
         }
 
+        #[inline]
         pub fn driver_start_time_us(mut self, driver_start_time_us: u64) -> Self {
             self.driver_start_time_us = driver_start_time_us;
             self
         }
 
+        #[inline]
         pub fn driver_end_time_us(mut self, driver_end_time_us: u64) -> Self {
             self.driver_end_time_us = driver_end_time_us;
             self
         }
 
+        #[inline]
         pub fn os_render_queue_start_time_us(mut self, os_render_queue_start_time_us: u64) -> Self {
             self.os_render_queue_start_time_us = os_render_queue_start_time_us;
             self
         }
 
+        #[inline]
         pub fn os_render_queue_end_time_us(mut self, os_render_queue_end_time_us: u64) -> Self {
             self.os_render_queue_end_time_us = os_render_queue_end_time_us;
             self
         }
 
+        #[inline]
         pub fn gpu_render_start_time_us(mut self, gpu_render_start_time_us: u64) -> Self {
             self.gpu_render_start_time_us = gpu_render_start_time_us;
             self
         }
 
+        #[inline]
         pub fn gpu_render_end_time_us(mut self, gpu_render_end_time_us: u64) -> Self {
             self.gpu_render_end_time_us = gpu_render_end_time_us;
             self
@@ -419,6 +441,7 @@ pub(super) mod defs {
     }
 
     impl<'a> OutOfBandQueueTypeInfoNV<'a> {
+        #[inline]
         pub fn queue_type(mut self, queue_type: OutOfBandQueueTypeNV) -> Self {
             self.queue_type = queue_type;
             self
@@ -466,6 +489,7 @@ pub(super) mod defs {
     }
 
     impl<'a> LatencySubmissionPresentIdNV<'a> {
+        #[inline]
         pub fn present_id(mut self, present_id: u64) -> Self {
             self.present_id = present_id;
             self
@@ -512,6 +536,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SwapchainLatencyCreateInfoNV<'a> {
+        #[inline]
         pub fn latency_mode_enable(mut self, latency_mode_enable: bool) -> Self {
             self.latency_mode_enable = latency_mode_enable.into();
             self
@@ -561,6 +586,7 @@ pub(super) mod defs {
     }
 
     impl<'a> LatencySurfaceCapabilitiesNV<'a> {
+        #[inline]
         pub fn present_modes(mut self, present_modes: &'a mut [PresentModeKHR]) -> Self {
             self.present_mode_count = present_modes.len().try_into().unwrap();
             self.p_present_modes = present_modes.as_mut_ptr();
@@ -707,6 +733,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetLatencySleepModeNV.html>
+    #[inline]
     pub unsafe fn set_latency_sleep_mode_nv(
         &self,
         device: Device,
@@ -724,6 +751,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkLatencySleepNV.html>
+    #[inline]
     pub unsafe fn latency_sleep_nv(
         &self,
         device: Device,
@@ -741,6 +769,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetLatencyMarkerNV.html>
+    #[inline]
     pub unsafe fn set_latency_marker_nv(
         &self,
         device: Device,
@@ -751,6 +780,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetLatencyTimingsNV.html>
+    #[inline]
     pub unsafe fn get_latency_timings_nv(
         &self,
         device: Device,
@@ -761,6 +791,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueNotifyOutOfBandNV.html>
+    #[inline]
     pub unsafe fn queue_notify_out_of_band_nv(
         &self,
         queue: Queue,

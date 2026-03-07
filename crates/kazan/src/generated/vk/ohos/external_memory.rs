@@ -54,6 +54,7 @@ pub(super) mod defs {
     }
 
     impl<'a> NativeBufferUsageOHOS<'a> {
+        #[inline]
         pub fn ohos_native_buffer_usage(mut self, ohos_native_buffer_usage: u64) -> Self {
             self.ohos_native_buffer_usage = ohos_native_buffer_usage;
             self
@@ -101,11 +102,13 @@ pub(super) mod defs {
     }
 
     impl<'a> NativeBufferPropertiesOHOS<'a> {
+        #[inline]
         pub fn allocation_size(mut self, allocation_size: DeviceSize) -> Self {
             self.allocation_size = allocation_size;
             self
         }
 
+        #[inline]
         pub fn memory_type_bits(mut self, memory_type_bits: u32) -> Self {
             self.memory_type_bits = memory_type_bits;
             self
@@ -176,21 +179,25 @@ pub(super) mod defs {
     }
 
     impl<'a> NativeBufferFormatPropertiesOHOS<'a> {
+        #[inline]
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
 
+        #[inline]
         pub fn external_format(mut self, external_format: u64) -> Self {
             self.external_format = external_format;
             self
         }
 
+        #[inline]
         pub fn format_features(mut self, format_features: FormatFeatureFlags) -> Self {
             self.format_features = format_features;
             self
         }
 
+        #[inline]
         pub fn sampler_ycbcr_conversion_components(
             mut self,
             sampler_ycbcr_conversion_components: ComponentMapping,
@@ -199,6 +206,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn suggested_ycbcr_model(
             mut self,
             suggested_ycbcr_model: SamplerYcbcrModelConversion,
@@ -207,11 +215,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn suggested_ycbcr_range(mut self, suggested_ycbcr_range: SamplerYcbcrRange) -> Self {
             self.suggested_ycbcr_range = suggested_ycbcr_range;
             self
         }
 
+        #[inline]
         pub fn suggested_x_chroma_offset(
             mut self,
             suggested_x_chroma_offset: ChromaLocation,
@@ -220,6 +230,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn suggested_y_chroma_offset(
             mut self,
             suggested_y_chroma_offset: ChromaLocation,
@@ -269,6 +280,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ImportNativeBufferInfoOHOS<'a> {
+        #[inline]
         pub fn buffer(mut self, buffer: &'a mut OH_NativeBuffer) -> Self {
             self.buffer = buffer;
             self
@@ -313,6 +325,7 @@ pub(super) mod defs {
     }
 
     impl<'a> MemoryGetNativeBufferInfoOHOS<'a> {
+        #[inline]
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
@@ -363,6 +376,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ExternalFormatOHOS<'a> {
+        #[inline]
         pub fn external_format(mut self, external_format: u64) -> Self {
             self.external_format = external_format;
             self
@@ -407,6 +421,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetNativeBufferPropertiesOHOS.html>
+    #[inline]
     pub unsafe fn get_native_buffer_properties_ohos(
         &self,
         device: Device,
@@ -424,6 +439,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryNativeBufferOHOS.html>
+    #[inline]
     pub unsafe fn get_memory_native_buffer_ohos(
         &self,
         device: Device,

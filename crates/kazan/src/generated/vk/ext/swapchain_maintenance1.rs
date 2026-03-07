@@ -48,6 +48,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleaseSwapchainImagesEXT.html>
+    #[inline]
     pub unsafe fn release_swapchain_images_ext(
         &self,
         device: Device,

@@ -23,11 +23,13 @@ pub(super) mod defs {
     }
 
     impl SampleLocationEXT {
+        #[inline]
         pub fn x(mut self, x: f32) -> Self {
             self.x = x;
             self
         }
 
+        #[inline]
         pub fn y(mut self, y: f32) -> Self {
             self.y = y;
             self
@@ -87,6 +89,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SampleLocationsInfoEXT<'a> {
+        #[inline]
         pub fn sample_locations_per_pixel(
             mut self,
             sample_locations_per_pixel: SampleCountFlagBits,
@@ -95,11 +98,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn sample_location_grid_size(mut self, sample_location_grid_size: Extent2D) -> Self {
             self.sample_location_grid_size = sample_location_grid_size;
             self
         }
 
+        #[inline]
         pub fn sample_locations(mut self, sample_locations: &'a [SampleLocationEXT]) -> Self {
             self.sample_locations_count = sample_locations.len().try_into().unwrap();
             self.p_sample_locations = sample_locations.as_ptr();
@@ -138,11 +143,13 @@ pub(super) mod defs {
     }
 
     impl<'a> AttachmentSampleLocationsEXT<'a> {
+        #[inline]
         pub fn attachment_index(mut self, attachment_index: u32) -> Self {
             self.attachment_index = attachment_index;
             self
         }
 
+        #[inline]
         pub fn sample_locations_info(
             mut self,
             sample_locations_info: SampleLocationsInfoEXT<'a>,
@@ -183,11 +190,13 @@ pub(super) mod defs {
     }
 
     impl<'a> SubpassSampleLocationsEXT<'a> {
+        #[inline]
         pub fn subpass_index(mut self, subpass_index: u32) -> Self {
             self.subpass_index = subpass_index;
             self
         }
 
+        #[inline]
         pub fn sample_locations_info(
             mut self,
             sample_locations_info: SampleLocationsInfoEXT<'a>,
@@ -259,6 +268,7 @@ pub(super) mod defs {
     }
 
     impl<'a> RenderPassSampleLocationsBeginInfoEXT<'a> {
+        #[inline]
         pub fn attachment_initial_sample_locations(
             mut self,
             attachment_initial_sample_locations: &'a [AttachmentSampleLocationsEXT<'a>],
@@ -272,6 +282,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn post_subpass_sample_locations(
             mut self,
             post_subpass_sample_locations: &'a [SubpassSampleLocationsEXT<'a>],
@@ -330,11 +341,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineSampleLocationsStateCreateInfoEXT<'a> {
+        #[inline]
         pub fn sample_locations_enable(mut self, sample_locations_enable: bool) -> Self {
             self.sample_locations_enable = sample_locations_enable.into();
             self
         }
 
+        #[inline]
         pub fn sample_locations_info(
             mut self,
             sample_locations_info: SampleLocationsInfoEXT<'a>,
@@ -412,6 +425,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceSampleLocationsPropertiesEXT<'a> {
+        #[inline]
         pub fn sample_location_sample_counts(
             mut self,
             sample_location_sample_counts: SampleCountFlags,
@@ -420,6 +434,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_sample_location_grid_size(
             mut self,
             max_sample_location_grid_size: Extent2D,
@@ -428,6 +443,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn sample_location_coordinate_range(
             mut self,
             sample_location_coordinate_range: [f32; 2],
@@ -436,6 +452,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn sample_location_sub_pixel_bits(
             mut self,
             sample_location_sub_pixel_bits: u32,
@@ -444,6 +461,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn variable_sample_locations(mut self, variable_sample_locations: bool) -> Self {
             self.variable_sample_locations = variable_sample_locations.into();
             self
@@ -491,6 +509,7 @@ pub(super) mod defs {
     }
 
     impl<'a> MultisamplePropertiesEXT<'a> {
+        #[inline]
         pub fn max_sample_location_grid_size(
             mut self,
             max_sample_location_grid_size: Extent2D,
@@ -534,6 +553,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceMultisamplePropertiesEXT.html>
+    #[inline]
     pub unsafe fn get_physical_device_multisample_properties_ext(
         &self,
         physical_device: PhysicalDevice,
@@ -570,6 +590,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetSampleLocationsEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_sample_locations_ext(
         &self,
         command_buffer: CommandBuffer,

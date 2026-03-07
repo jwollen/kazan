@@ -35,6 +35,7 @@ pub(super) mod defs {
     }
 
     impl TraceRaysIndirectCommand2KHR {
+        #[inline]
         pub fn raygen_shader_record_address(
             mut self,
             raygen_shader_record_address: DeviceAddress,
@@ -43,11 +44,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn raygen_shader_record_size(mut self, raygen_shader_record_size: DeviceSize) -> Self {
             self.raygen_shader_record_size = raygen_shader_record_size;
             self
         }
 
+        #[inline]
         pub fn miss_shader_binding_table_address(
             mut self,
             miss_shader_binding_table_address: DeviceAddress,
@@ -56,6 +59,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn miss_shader_binding_table_size(
             mut self,
             miss_shader_binding_table_size: DeviceSize,
@@ -64,6 +68,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn miss_shader_binding_table_stride(
             mut self,
             miss_shader_binding_table_stride: DeviceSize,
@@ -72,6 +77,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn hit_shader_binding_table_address(
             mut self,
             hit_shader_binding_table_address: DeviceAddress,
@@ -80,6 +86,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn hit_shader_binding_table_size(
             mut self,
             hit_shader_binding_table_size: DeviceSize,
@@ -88,6 +95,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn hit_shader_binding_table_stride(
             mut self,
             hit_shader_binding_table_stride: DeviceSize,
@@ -96,6 +104,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn callable_shader_binding_table_address(
             mut self,
             callable_shader_binding_table_address: DeviceAddress,
@@ -104,6 +113,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn callable_shader_binding_table_size(
             mut self,
             callable_shader_binding_table_size: DeviceSize,
@@ -112,6 +122,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn callable_shader_binding_table_stride(
             mut self,
             callable_shader_binding_table_stride: DeviceSize,
@@ -120,16 +131,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn width(mut self, width: u32) -> Self {
             self.width = width;
             self
         }
 
+        #[inline]
         pub fn height(mut self, height: u32) -> Self {
             self.height = height;
             self
         }
 
+        #[inline]
         pub fn depth(mut self, depth: u32) -> Self {
             self.depth = depth;
             self
@@ -190,11 +204,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'a> {
+        #[inline]
         pub fn ray_tracing_maintenance1(mut self, ray_tracing_maintenance1: bool) -> Self {
             self.ray_tracing_maintenance1 = ray_tracing_maintenance1.into();
             self
         }
 
+        #[inline]
         pub fn ray_tracing_pipeline_trace_rays_indirect2(
             mut self,
             ray_tracing_pipeline_trace_rays_indirect2: bool,
@@ -230,6 +246,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdTraceRaysIndirect2KHR.html>
+    #[inline]
     pub unsafe fn cmd_trace_rays_indirect2_khr(
         &self,
         command_buffer: CommandBuffer,

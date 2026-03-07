@@ -57,6 +57,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceColorWriteEnableFeaturesEXT<'a> {
+        #[inline]
         pub fn color_write_enable(mut self, color_write_enable: bool) -> Self {
             self.color_write_enable = color_write_enable.into();
             self
@@ -109,6 +110,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineColorWriteCreateInfoEXT<'a> {
+        #[inline]
         pub fn color_write_enables(mut self, color_write_enables: &'a [Bool32]) -> Self {
             self.attachment_count = color_write_enables.len().try_into().unwrap();
             self.p_color_write_enables = color_write_enables.as_ptr();
@@ -144,6 +146,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorWriteEnableEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_color_write_enable_ext(
         &self,
         command_buffer: CommandBuffer,

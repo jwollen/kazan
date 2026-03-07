@@ -65,6 +65,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceVertexAttributeDivisorPropertiesEXT<'a> {
+        #[inline]
         pub fn max_vertex_attrib_divisor(mut self, max_vertex_attrib_divisor: u32) -> Self {
             self.max_vertex_attrib_divisor = max_vertex_attrib_divisor;
             self

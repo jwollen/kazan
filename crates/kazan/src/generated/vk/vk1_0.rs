@@ -213,11 +213,13 @@ pub(super) mod defs {
     }
 
     impl Offset2D {
+        #[inline]
         pub fn x(mut self, x: i32) -> Self {
             self.x = x;
             self
         }
 
+        #[inline]
         pub fn y(mut self, y: i32) -> Self {
             self.y = y;
             self
@@ -236,16 +238,19 @@ pub(super) mod defs {
     }
 
     impl Offset3D {
+        #[inline]
         pub fn x(mut self, x: i32) -> Self {
             self.x = x;
             self
         }
 
+        #[inline]
         pub fn y(mut self, y: i32) -> Self {
             self.y = y;
             self
         }
 
+        #[inline]
         pub fn z(mut self, z: i32) -> Self {
             self.z = z;
             self
@@ -263,11 +268,13 @@ pub(super) mod defs {
     }
 
     impl Extent2D {
+        #[inline]
         pub fn width(mut self, width: u32) -> Self {
             self.width = width;
             self
         }
 
+        #[inline]
         pub fn height(mut self, height: u32) -> Self {
             self.height = height;
             self
@@ -286,16 +293,19 @@ pub(super) mod defs {
     }
 
     impl Extent3D {
+        #[inline]
         pub fn width(mut self, width: u32) -> Self {
             self.width = width;
             self
         }
 
+        #[inline]
         pub fn height(mut self, height: u32) -> Self {
             self.height = height;
             self
         }
 
+        #[inline]
         pub fn depth(mut self, depth: u32) -> Self {
             self.depth = depth;
             self
@@ -317,31 +327,37 @@ pub(super) mod defs {
     }
 
     impl Viewport {
+        #[inline]
         pub fn x(mut self, x: f32) -> Self {
             self.x = x;
             self
         }
 
+        #[inline]
         pub fn y(mut self, y: f32) -> Self {
             self.y = y;
             self
         }
 
+        #[inline]
         pub fn width(mut self, width: f32) -> Self {
             self.width = width;
             self
         }
 
+        #[inline]
         pub fn height(mut self, height: f32) -> Self {
             self.height = height;
             self
         }
 
+        #[inline]
         pub fn min_depth(mut self, min_depth: f32) -> Self {
             self.min_depth = min_depth;
             self
         }
 
+        #[inline]
         pub fn max_depth(mut self, max_depth: f32) -> Self {
             self.max_depth = max_depth;
             self
@@ -359,11 +375,13 @@ pub(super) mod defs {
     }
 
     impl Rect2D {
+        #[inline]
         pub fn offset(mut self, offset: Offset2D) -> Self {
             self.offset = offset;
             self
         }
 
+        #[inline]
         pub fn extent(mut self, extent: Extent2D) -> Self {
             self.extent = extent;
             self
@@ -382,16 +400,19 @@ pub(super) mod defs {
     }
 
     impl ClearRect {
+        #[inline]
         pub fn rect(mut self, rect: Rect2D) -> Self {
             self.rect = rect;
             self
         }
 
+        #[inline]
         pub fn base_array_layer(mut self, base_array_layer: u32) -> Self {
             self.base_array_layer = base_array_layer;
             self
         }
 
+        #[inline]
         pub fn layer_count(mut self, layer_count: u32) -> Self {
             self.layer_count = layer_count;
             self
@@ -411,21 +432,25 @@ pub(super) mod defs {
     }
 
     impl ComponentMapping {
+        #[inline]
         pub fn r(mut self, r: ComponentSwizzle) -> Self {
             self.r = r;
             self
         }
 
+        #[inline]
         pub fn g(mut self, g: ComponentSwizzle) -> Self {
             self.g = g;
             self
         }
 
+        #[inline]
         pub fn b(mut self, b: ComponentSwizzle) -> Self {
             self.b = b;
             self
         }
 
+        #[inline]
         pub fn a(mut self, a: ComponentSwizzle) -> Self {
             self.a = a;
             self
@@ -485,31 +510,37 @@ pub(super) mod defs {
     }
 
     impl PhysicalDeviceProperties {
+        #[inline]
         pub fn api_version(mut self, api_version: u32) -> Self {
             self.api_version = api_version;
             self
         }
 
+        #[inline]
         pub fn driver_version(mut self, driver_version: u32) -> Self {
             self.driver_version = driver_version;
             self
         }
 
+        #[inline]
         pub fn vendor_id(mut self, vendor_id: u32) -> Self {
             self.vendor_id = vendor_id;
             self
         }
 
+        #[inline]
         pub fn device_id(mut self, device_id: u32) -> Self {
             self.device_id = device_id;
             self
         }
 
+        #[inline]
         pub fn device_type(mut self, device_type: PhysicalDeviceType) -> Self {
             self.device_type = device_type;
             self
         }
 
+        #[inline]
         pub fn device_name(
             mut self,
             device_name: &CStr,
@@ -518,6 +549,7 @@ pub(super) mod defs {
             Ok(self)
         }
 
+        #[inline]
         pub fn pipeline_cache_uuid(
             mut self,
             pipeline_cache_uuid: [u8; UUID_SIZE as usize],
@@ -526,11 +558,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn limits(mut self, limits: PhysicalDeviceLimits) -> Self {
             self.limits = limits;
             self
         }
 
+        #[inline]
         pub fn sparse_properties(
             mut self,
             sparse_properties: PhysicalDeviceSparseProperties,
@@ -572,6 +606,7 @@ pub(super) mod defs {
     }
 
     impl ExtensionProperties {
+        #[inline]
         pub fn extension_name(
             mut self,
             extension_name: &CStr,
@@ -580,6 +615,7 @@ pub(super) mod defs {
             Ok(self)
         }
 
+        #[inline]
         pub fn spec_version(mut self, spec_version: u32) -> Self {
             self.spec_version = spec_version;
             self
@@ -624,6 +660,7 @@ pub(super) mod defs {
     }
 
     impl LayerProperties {
+        #[inline]
         pub fn layer_name(
             mut self,
             layer_name: &CStr,
@@ -632,16 +669,19 @@ pub(super) mod defs {
             Ok(self)
         }
 
+        #[inline]
         pub fn spec_version(mut self, spec_version: u32) -> Self {
             self.spec_version = spec_version;
             self
         }
 
+        #[inline]
         pub fn implementation_version(mut self, implementation_version: u32) -> Self {
             self.implementation_version = implementation_version;
             self
         }
 
+        #[inline]
         pub fn description(
             mut self,
             description: &CStr,
@@ -703,26 +743,31 @@ pub(super) mod defs {
     }
 
     impl<'a> ApplicationInfo<'a> {
+        #[inline]
         pub fn application_name(mut self, application_name: &'a CStr) -> Self {
             self.p_application_name = application_name.as_ptr();
             self
         }
 
+        #[inline]
         pub fn application_version(mut self, application_version: u32) -> Self {
             self.application_version = application_version;
             self
         }
 
+        #[inline]
         pub fn engine_name(mut self, engine_name: &'a CStr) -> Self {
             self.p_engine_name = engine_name.as_ptr();
             self
         }
 
+        #[inline]
         pub fn engine_version(mut self, engine_version: u32) -> Self {
             self.engine_version = engine_version;
             self
         }
 
+        #[inline]
         pub fn api_version(mut self, api_version: u32) -> Self {
             self.api_version = api_version;
             self
@@ -784,26 +829,31 @@ pub(super) mod defs {
     }
 
     impl<'a> AllocationCallbacks<'a> {
+        #[inline]
         pub fn user_data(mut self, user_data: *mut c_void) -> Self {
             self.p_user_data = user_data;
             self
         }
 
+        #[inline]
         pub fn pfn_allocation(mut self, pfn_allocation: PFN_vkAllocationFunction) -> Self {
             self.pfn_allocation = Some(pfn_allocation);
             self
         }
 
+        #[inline]
         pub fn pfn_reallocation(mut self, pfn_reallocation: PFN_vkReallocationFunction) -> Self {
             self.pfn_reallocation = Some(pfn_reallocation);
             self
         }
 
+        #[inline]
         pub fn pfn_free(mut self, pfn_free: PFN_vkFreeFunction) -> Self {
             self.pfn_free = Some(pfn_free);
             self
         }
 
+        #[inline]
         pub fn pfn_internal_allocation(
             mut self,
             pfn_internal_allocation: PFN_vkInternalAllocationNotification,
@@ -812,6 +862,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn pfn_internal_free(
             mut self,
             pfn_internal_free: PFN_vkInternalFreeNotification,
@@ -868,16 +919,19 @@ pub(super) mod defs {
     }
 
     impl<'a> DeviceQueueCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: DeviceQueueCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn queue_family_index(mut self, queue_family_index: u32) -> Self {
             self.queue_family_index = queue_family_index;
             self
         }
 
+        #[inline]
         pub fn queue_priorities(mut self, queue_priorities: &'a [f32]) -> Self {
             self.queue_count = queue_priorities.len().try_into().unwrap();
             self.p_queue_priorities = queue_priorities.as_ptr();
@@ -947,11 +1001,13 @@ pub(super) mod defs {
     }
 
     impl<'a> DeviceCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: DeviceCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn queue_create_infos(
             mut self,
             queue_create_infos: &'a [DeviceQueueCreateInfo<'a>],
@@ -961,12 +1017,14 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn enabled_layer_names(mut self, enabled_layer_names: &'a [*const c_char]) -> Self {
             self.enabled_layer_count = enabled_layer_names.len().try_into().unwrap();
             self.pp_enabled_layer_names = enabled_layer_names.as_ptr() as _;
             self
         }
 
+        #[inline]
         pub fn enabled_extension_names(
             mut self,
             enabled_extension_names: &'a [*const c_char],
@@ -976,6 +1034,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn enabled_features(mut self, enabled_features: &'a PhysicalDeviceFeatures) -> Self {
             self.p_enabled_features = enabled_features;
             self
@@ -1038,22 +1097,26 @@ pub(super) mod defs {
     }
 
     impl<'a> InstanceCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: InstanceCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn application_info(mut self, application_info: &'a ApplicationInfo<'a>) -> Self {
             self.p_application_info = application_info;
             self
         }
 
+        #[inline]
         pub fn enabled_layer_names(mut self, enabled_layer_names: &'a [*const c_char]) -> Self {
             self.enabled_layer_count = enabled_layer_names.len().try_into().unwrap();
             self.pp_enabled_layer_names = enabled_layer_names.as_ptr() as _;
             self
         }
 
+        #[inline]
         pub fn enabled_extension_names(
             mut self,
             enabled_extension_names: &'a [*const c_char],
@@ -1077,21 +1140,25 @@ pub(super) mod defs {
     }
 
     impl QueueFamilyProperties {
+        #[inline]
         pub fn queue_flags(mut self, queue_flags: QueueFlags) -> Self {
             self.queue_flags = queue_flags;
             self
         }
 
+        #[inline]
         pub fn queue_count(mut self, queue_count: u32) -> Self {
             self.queue_count = queue_count;
             self
         }
 
+        #[inline]
         pub fn timestamp_valid_bits(mut self, timestamp_valid_bits: u32) -> Self {
             self.timestamp_valid_bits = timestamp_valid_bits;
             self
         }
 
+        #[inline]
         pub fn min_image_transfer_granularity(
             mut self,
             min_image_transfer_granularity: Extent3D,
@@ -1125,12 +1192,14 @@ pub(super) mod defs {
     }
 
     impl PhysicalDeviceMemoryProperties {
+        #[inline]
         pub fn memory_types(mut self, memory_types: &[MemoryType]) -> Self {
             self.memory_type_count = memory_types.len().try_into().unwrap();
             self.memory_types[..memory_types.len()].copy_from_slice(memory_types);
             self
         }
 
+        #[inline]
         pub fn memory_heaps(mut self, memory_heaps: &[MemoryHeap]) -> Self {
             self.memory_heap_count = memory_heaps.len().try_into().unwrap();
             self.memory_heaps[..memory_heaps.len()].copy_from_slice(memory_heaps);
@@ -1179,11 +1248,13 @@ pub(super) mod defs {
     }
 
     impl<'a> MemoryAllocateInfo<'a> {
+        #[inline]
         pub fn allocation_size(mut self, allocation_size: DeviceSize) -> Self {
             self.allocation_size = allocation_size;
             self
         }
 
+        #[inline]
         pub fn memory_type_index(mut self, memory_type_index: u32) -> Self {
             self.memory_type_index = memory_type_index;
             self
@@ -1202,16 +1273,19 @@ pub(super) mod defs {
     }
 
     impl MemoryRequirements {
+        #[inline]
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
         }
 
+        #[inline]
         pub fn alignment(mut self, alignment: DeviceSize) -> Self {
             self.alignment = alignment;
             self
         }
 
+        #[inline]
         pub fn memory_type_bits(mut self, memory_type_bits: u32) -> Self {
             self.memory_type_bits = memory_type_bits;
             self
@@ -1230,16 +1304,19 @@ pub(super) mod defs {
     }
 
     impl SparseImageFormatProperties {
+        #[inline]
         pub fn aspect_mask(mut self, aspect_mask: ImageAspectFlags) -> Self {
             self.aspect_mask = aspect_mask;
             self
         }
 
+        #[inline]
         pub fn image_granularity(mut self, image_granularity: Extent3D) -> Self {
             self.image_granularity = image_granularity;
             self
         }
 
+        #[inline]
         pub fn flags(mut self, flags: SparseImageFormatFlags) -> Self {
             self.flags = flags;
             self
@@ -1260,26 +1337,31 @@ pub(super) mod defs {
     }
 
     impl SparseImageMemoryRequirements {
+        #[inline]
         pub fn format_properties(mut self, format_properties: SparseImageFormatProperties) -> Self {
             self.format_properties = format_properties;
             self
         }
 
+        #[inline]
         pub fn image_mip_tail_first_lod(mut self, image_mip_tail_first_lod: u32) -> Self {
             self.image_mip_tail_first_lod = image_mip_tail_first_lod;
             self
         }
 
+        #[inline]
         pub fn image_mip_tail_size(mut self, image_mip_tail_size: DeviceSize) -> Self {
             self.image_mip_tail_size = image_mip_tail_size;
             self
         }
 
+        #[inline]
         pub fn image_mip_tail_offset(mut self, image_mip_tail_offset: DeviceSize) -> Self {
             self.image_mip_tail_offset = image_mip_tail_offset;
             self
         }
 
+        #[inline]
         pub fn image_mip_tail_stride(mut self, image_mip_tail_stride: DeviceSize) -> Self {
             self.image_mip_tail_stride = image_mip_tail_stride;
             self
@@ -1297,11 +1379,13 @@ pub(super) mod defs {
     }
 
     impl MemoryType {
+        #[inline]
         pub fn property_flags(mut self, property_flags: MemoryPropertyFlags) -> Self {
             self.property_flags = property_flags;
             self
         }
 
+        #[inline]
         pub fn heap_index(mut self, heap_index: u32) -> Self {
             self.heap_index = heap_index;
             self
@@ -1319,11 +1403,13 @@ pub(super) mod defs {
     }
 
     impl MemoryHeap {
+        #[inline]
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
         }
 
+        #[inline]
         pub fn flags(mut self, flags: MemoryHeapFlags) -> Self {
             self.flags = flags;
             self
@@ -1374,16 +1460,19 @@ pub(super) mod defs {
     }
 
     impl<'a> MappedMemoryRange<'a> {
+        #[inline]
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
         }
 
+        #[inline]
         pub fn offset(mut self, offset: DeviceSize) -> Self {
             self.offset = offset;
             self
         }
 
+        #[inline]
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
@@ -1402,6 +1491,7 @@ pub(super) mod defs {
     }
 
     impl FormatProperties {
+        #[inline]
         pub fn linear_tiling_features(
             mut self,
             linear_tiling_features: FormatFeatureFlags,
@@ -1410,6 +1500,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn optimal_tiling_features(
             mut self,
             optimal_tiling_features: FormatFeatureFlags,
@@ -1418,6 +1509,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn buffer_features(mut self, buffer_features: FormatFeatureFlags) -> Self {
             self.buffer_features = buffer_features;
             self
@@ -1438,26 +1530,31 @@ pub(super) mod defs {
     }
 
     impl ImageFormatProperties {
+        #[inline]
         pub fn max_extent(mut self, max_extent: Extent3D) -> Self {
             self.max_extent = max_extent;
             self
         }
 
+        #[inline]
         pub fn max_mip_levels(mut self, max_mip_levels: u32) -> Self {
             self.max_mip_levels = max_mip_levels;
             self
         }
 
+        #[inline]
         pub fn max_array_layers(mut self, max_array_layers: u32) -> Self {
             self.max_array_layers = max_array_layers;
             self
         }
 
+        #[inline]
         pub fn sample_counts(mut self, sample_counts: SampleCountFlags) -> Self {
             self.sample_counts = sample_counts;
             self
         }
 
+        #[inline]
         pub fn max_resource_size(mut self, max_resource_size: DeviceSize) -> Self {
             self.max_resource_size = max_resource_size;
             self
@@ -1476,16 +1573,19 @@ pub(super) mod defs {
     }
 
     impl DescriptorBufferInfo {
+        #[inline]
         pub fn buffer(mut self, buffer: Buffer) -> Self {
             self.buffer = buffer;
             self
         }
 
+        #[inline]
         pub fn offset(mut self, offset: DeviceSize) -> Self {
             self.offset = offset;
             self
         }
 
+        #[inline]
         pub fn range(mut self, range: DeviceSize) -> Self {
             self.range = range;
             self
@@ -1504,16 +1604,19 @@ pub(super) mod defs {
     }
 
     impl DescriptorImageInfo {
+        #[inline]
         pub fn sampler(mut self, sampler: Sampler) -> Self {
             self.sampler = sampler;
             self
         }
 
+        #[inline]
         pub fn image_view(mut self, image_view: ImageView) -> Self {
             self.image_view = image_view;
             self
         }
 
+        #[inline]
         pub fn image_layout(mut self, image_layout: ImageLayout) -> Self {
             self.image_layout = image_layout;
             self
@@ -1579,39 +1682,46 @@ pub(super) mod defs {
     }
 
     impl<'a> WriteDescriptorSet<'a> {
+        #[inline]
         pub fn dst_set(mut self, dst_set: DescriptorSet) -> Self {
             self.dst_set = dst_set;
             self
         }
 
+        #[inline]
         pub fn dst_binding(mut self, dst_binding: u32) -> Self {
             self.dst_binding = dst_binding;
             self
         }
 
+        #[inline]
         pub fn dst_array_element(mut self, dst_array_element: u32) -> Self {
             self.dst_array_element = dst_array_element;
             self
         }
 
+        #[inline]
         pub fn image_info(mut self, image_info: &'a [DescriptorImageInfo]) -> Self {
             self.descriptor_count = image_info.len().try_into().unwrap();
             self.p_image_info = image_info.as_ptr();
             self
         }
 
+        #[inline]
         pub fn buffer_info(mut self, buffer_info: &'a [DescriptorBufferInfo]) -> Self {
             self.descriptor_count = buffer_info.len().try_into().unwrap();
             self.p_buffer_info = buffer_info.as_ptr();
             self
         }
 
+        #[inline]
         pub fn texel_buffer_view(mut self, texel_buffer_view: &'a [BufferView]) -> Self {
             self.descriptor_count = texel_buffer_view.len().try_into().unwrap();
             self.p_texel_buffer_view = texel_buffer_view.as_ptr();
             self
         }
 
+        #[inline]
         pub fn descriptor_type(mut self, descriptor_type: DescriptorType) -> Self {
             self.descriptor_type = descriptor_type;
             self
@@ -1674,36 +1784,43 @@ pub(super) mod defs {
     }
 
     impl<'a> CopyDescriptorSet<'a> {
+        #[inline]
         pub fn src_set(mut self, src_set: DescriptorSet) -> Self {
             self.src_set = src_set;
             self
         }
 
+        #[inline]
         pub fn src_binding(mut self, src_binding: u32) -> Self {
             self.src_binding = src_binding;
             self
         }
 
+        #[inline]
         pub fn src_array_element(mut self, src_array_element: u32) -> Self {
             self.src_array_element = src_array_element;
             self
         }
 
+        #[inline]
         pub fn dst_set(mut self, dst_set: DescriptorSet) -> Self {
             self.dst_set = dst_set;
             self
         }
 
+        #[inline]
         pub fn dst_binding(mut self, dst_binding: u32) -> Self {
             self.dst_binding = dst_binding;
             self
         }
 
+        #[inline]
         pub fn dst_array_element(mut self, dst_array_element: u32) -> Self {
             self.dst_array_element = dst_array_element;
             self
         }
 
+        #[inline]
         pub fn descriptor_count(mut self, descriptor_count: u32) -> Self {
             self.descriptor_count = descriptor_count;
             self
@@ -1763,26 +1880,31 @@ pub(super) mod defs {
     }
 
     impl<'a> BufferCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: BufferCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
         }
 
+        #[inline]
         pub fn usage(mut self, usage: BufferUsageFlags) -> Self {
             self.usage = usage;
             self
         }
 
+        #[inline]
         pub fn sharing_mode(mut self, sharing_mode: SharingMode) -> Self {
             self.sharing_mode = sharing_mode;
             self
         }
 
+        #[inline]
         pub fn queue_family_indices(mut self, queue_family_indices: &'a [u32]) -> Self {
             self.queue_family_index_count = queue_family_indices.len().try_into().unwrap();
             self.p_queue_family_indices = queue_family_indices.as_ptr();
@@ -1840,26 +1962,31 @@ pub(super) mod defs {
     }
 
     impl<'a> BufferViewCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: BufferViewCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn buffer(mut self, buffer: Buffer) -> Self {
             self.buffer = buffer;
             self
         }
 
+        #[inline]
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
 
+        #[inline]
         pub fn offset(mut self, offset: DeviceSize) -> Self {
             self.offset = offset;
             self
         }
 
+        #[inline]
         pub fn range(mut self, range: DeviceSize) -> Self {
             self.range = range;
             self
@@ -1878,16 +2005,19 @@ pub(super) mod defs {
     }
 
     impl ImageSubresource {
+        #[inline]
         pub fn aspect_mask(mut self, aspect_mask: ImageAspectFlags) -> Self {
             self.aspect_mask = aspect_mask;
             self
         }
 
+        #[inline]
         pub fn mip_level(mut self, mip_level: u32) -> Self {
             self.mip_level = mip_level;
             self
         }
 
+        #[inline]
         pub fn array_layer(mut self, array_layer: u32) -> Self {
             self.array_layer = array_layer;
             self
@@ -1907,21 +2037,25 @@ pub(super) mod defs {
     }
 
     impl ImageSubresourceLayers {
+        #[inline]
         pub fn aspect_mask(mut self, aspect_mask: ImageAspectFlags) -> Self {
             self.aspect_mask = aspect_mask;
             self
         }
 
+        #[inline]
         pub fn mip_level(mut self, mip_level: u32) -> Self {
             self.mip_level = mip_level;
             self
         }
 
+        #[inline]
         pub fn base_array_layer(mut self, base_array_layer: u32) -> Self {
             self.base_array_layer = base_array_layer;
             self
         }
 
+        #[inline]
         pub fn layer_count(mut self, layer_count: u32) -> Self {
             self.layer_count = layer_count;
             self
@@ -1942,26 +2076,31 @@ pub(super) mod defs {
     }
 
     impl ImageSubresourceRange {
+        #[inline]
         pub fn aspect_mask(mut self, aspect_mask: ImageAspectFlags) -> Self {
             self.aspect_mask = aspect_mask;
             self
         }
 
+        #[inline]
         pub fn base_mip_level(mut self, base_mip_level: u32) -> Self {
             self.base_mip_level = base_mip_level;
             self
         }
 
+        #[inline]
         pub fn level_count(mut self, level_count: u32) -> Self {
             self.level_count = level_count;
             self
         }
 
+        #[inline]
         pub fn base_array_layer(mut self, base_array_layer: u32) -> Self {
             self.base_array_layer = base_array_layer;
             self
         }
 
+        #[inline]
         pub fn layer_count(mut self, layer_count: u32) -> Self {
             self.layer_count = layer_count;
             self
@@ -2009,11 +2148,13 @@ pub(super) mod defs {
     }
 
     impl<'a> MemoryBarrier<'a> {
+        #[inline]
         pub fn src_access_mask(mut self, src_access_mask: AccessFlags) -> Self {
             self.src_access_mask = src_access_mask;
             self
         }
 
+        #[inline]
         pub fn dst_access_mask(mut self, dst_access_mask: AccessFlags) -> Self {
             self.dst_access_mask = dst_access_mask;
             self
@@ -2076,36 +2217,43 @@ pub(super) mod defs {
     }
 
     impl<'a> BufferMemoryBarrier<'a> {
+        #[inline]
         pub fn src_access_mask(mut self, src_access_mask: AccessFlags) -> Self {
             self.src_access_mask = src_access_mask;
             self
         }
 
+        #[inline]
         pub fn dst_access_mask(mut self, dst_access_mask: AccessFlags) -> Self {
             self.dst_access_mask = dst_access_mask;
             self
         }
 
+        #[inline]
         pub fn src_queue_family_index(mut self, src_queue_family_index: u32) -> Self {
             self.src_queue_family_index = src_queue_family_index;
             self
         }
 
+        #[inline]
         pub fn dst_queue_family_index(mut self, dst_queue_family_index: u32) -> Self {
             self.dst_queue_family_index = dst_queue_family_index;
             self
         }
 
+        #[inline]
         pub fn buffer(mut self, buffer: Buffer) -> Self {
             self.buffer = buffer;
             self
         }
 
+        #[inline]
         pub fn offset(mut self, offset: DeviceSize) -> Self {
             self.offset = offset;
             self
         }
 
+        #[inline]
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
@@ -2171,41 +2319,49 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageMemoryBarrier<'a> {
+        #[inline]
         pub fn src_access_mask(mut self, src_access_mask: AccessFlags) -> Self {
             self.src_access_mask = src_access_mask;
             self
         }
 
+        #[inline]
         pub fn dst_access_mask(mut self, dst_access_mask: AccessFlags) -> Self {
             self.dst_access_mask = dst_access_mask;
             self
         }
 
+        #[inline]
         pub fn old_layout(mut self, old_layout: ImageLayout) -> Self {
             self.old_layout = old_layout;
             self
         }
 
+        #[inline]
         pub fn new_layout(mut self, new_layout: ImageLayout) -> Self {
             self.new_layout = new_layout;
             self
         }
 
+        #[inline]
         pub fn src_queue_family_index(mut self, src_queue_family_index: u32) -> Self {
             self.src_queue_family_index = src_queue_family_index;
             self
         }
 
+        #[inline]
         pub fn dst_queue_family_index(mut self, dst_queue_family_index: u32) -> Self {
             self.dst_queue_family_index = dst_queue_family_index;
             self
         }
 
+        #[inline]
         pub fn image(mut self, image: Image) -> Self {
             self.image = image;
             self
         }
 
+        #[inline]
         pub fn subresource_range(mut self, subresource_range: ImageSubresourceRange) -> Self {
             self.subresource_range = subresource_range;
             self
@@ -2286,62 +2442,74 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: ImageCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn image_type(mut self, image_type: ImageType) -> Self {
             self.image_type = image_type;
             self
         }
 
+        #[inline]
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
 
+        #[inline]
         pub fn extent(mut self, extent: Extent3D) -> Self {
             self.extent = extent;
             self
         }
 
+        #[inline]
         pub fn mip_levels(mut self, mip_levels: u32) -> Self {
             self.mip_levels = mip_levels;
             self
         }
 
+        #[inline]
         pub fn array_layers(mut self, array_layers: u32) -> Self {
             self.array_layers = array_layers;
             self
         }
 
+        #[inline]
         pub fn samples(mut self, samples: SampleCountFlagBits) -> Self {
             self.samples = samples;
             self
         }
 
+        #[inline]
         pub fn tiling(mut self, tiling: ImageTiling) -> Self {
             self.tiling = tiling;
             self
         }
 
+        #[inline]
         pub fn usage(mut self, usage: ImageUsageFlags) -> Self {
             self.usage = usage;
             self
         }
 
+        #[inline]
         pub fn sharing_mode(mut self, sharing_mode: SharingMode) -> Self {
             self.sharing_mode = sharing_mode;
             self
         }
 
+        #[inline]
         pub fn queue_family_indices(mut self, queue_family_indices: &'a [u32]) -> Self {
             self.queue_family_index_count = queue_family_indices.len().try_into().unwrap();
             self.p_queue_family_indices = queue_family_indices.as_ptr();
             self
         }
 
+        #[inline]
         pub fn initial_layout(mut self, initial_layout: ImageLayout) -> Self {
             self.initial_layout = initial_layout;
             self
@@ -2362,26 +2530,31 @@ pub(super) mod defs {
     }
 
     impl SubresourceLayout {
+        #[inline]
         pub fn offset(mut self, offset: DeviceSize) -> Self {
             self.offset = offset;
             self
         }
 
+        #[inline]
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
         }
 
+        #[inline]
         pub fn row_pitch(mut self, row_pitch: DeviceSize) -> Self {
             self.row_pitch = row_pitch;
             self
         }
 
+        #[inline]
         pub fn array_pitch(mut self, array_pitch: DeviceSize) -> Self {
             self.array_pitch = array_pitch;
             self
         }
 
+        #[inline]
         pub fn depth_pitch(mut self, depth_pitch: DeviceSize) -> Self {
             self.depth_pitch = depth_pitch;
             self
@@ -2441,31 +2614,37 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageViewCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: ImageViewCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn image(mut self, image: Image) -> Self {
             self.image = image;
             self
         }
 
+        #[inline]
         pub fn view_type(mut self, view_type: ImageViewType) -> Self {
             self.view_type = view_type;
             self
         }
 
+        #[inline]
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
 
+        #[inline]
         pub fn components(mut self, components: ComponentMapping) -> Self {
             self.components = components;
             self
         }
 
+        #[inline]
         pub fn subresource_range(mut self, subresource_range: ImageSubresourceRange) -> Self {
             self.subresource_range = subresource_range;
             self
@@ -2484,16 +2663,19 @@ pub(super) mod defs {
     }
 
     impl BufferCopy {
+        #[inline]
         pub fn src_offset(mut self, src_offset: DeviceSize) -> Self {
             self.src_offset = src_offset;
             self
         }
 
+        #[inline]
         pub fn dst_offset(mut self, dst_offset: DeviceSize) -> Self {
             self.dst_offset = dst_offset;
             self
         }
 
+        #[inline]
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
@@ -2514,26 +2696,31 @@ pub(super) mod defs {
     }
 
     impl SparseMemoryBind {
+        #[inline]
         pub fn resource_offset(mut self, resource_offset: DeviceSize) -> Self {
             self.resource_offset = resource_offset;
             self
         }
 
+        #[inline]
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
         }
 
+        #[inline]
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
         }
 
+        #[inline]
         pub fn memory_offset(mut self, memory_offset: DeviceSize) -> Self {
             self.memory_offset = memory_offset;
             self
         }
 
+        #[inline]
         pub fn flags(mut self, flags: SparseMemoryBindFlags) -> Self {
             self.flags = flags;
             self
@@ -2555,31 +2742,37 @@ pub(super) mod defs {
     }
 
     impl SparseImageMemoryBind {
+        #[inline]
         pub fn subresource(mut self, subresource: ImageSubresource) -> Self {
             self.subresource = subresource;
             self
         }
 
+        #[inline]
         pub fn offset(mut self, offset: Offset3D) -> Self {
             self.offset = offset;
             self
         }
 
+        #[inline]
         pub fn extent(mut self, extent: Extent3D) -> Self {
             self.extent = extent;
             self
         }
 
+        #[inline]
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
         }
 
+        #[inline]
         pub fn memory_offset(mut self, memory_offset: DeviceSize) -> Self {
             self.memory_offset = memory_offset;
             self
         }
 
+        #[inline]
         pub fn flags(mut self, flags: SparseMemoryBindFlags) -> Self {
             self.flags = flags;
             self
@@ -2620,11 +2813,13 @@ pub(super) mod defs {
     }
 
     impl<'a> SparseBufferMemoryBindInfo<'a> {
+        #[inline]
         pub fn buffer(mut self, buffer: Buffer) -> Self {
             self.buffer = buffer;
             self
         }
 
+        #[inline]
         pub fn binds(mut self, binds: &'a [SparseMemoryBind]) -> Self {
             self.bind_count = binds.len().try_into().unwrap();
             self.p_binds = binds.as_ptr();
@@ -2666,11 +2861,13 @@ pub(super) mod defs {
     }
 
     impl<'a> SparseImageOpaqueMemoryBindInfo<'a> {
+        #[inline]
         pub fn image(mut self, image: Image) -> Self {
             self.image = image;
             self
         }
 
+        #[inline]
         pub fn binds(mut self, binds: &'a [SparseMemoryBind]) -> Self {
             self.bind_count = binds.len().try_into().unwrap();
             self.p_binds = binds.as_ptr();
@@ -2712,11 +2909,13 @@ pub(super) mod defs {
     }
 
     impl<'a> SparseImageMemoryBindInfo<'a> {
+        #[inline]
         pub fn image(mut self, image: Image) -> Self {
             self.image = image;
             self
         }
 
+        #[inline]
         pub fn binds(mut self, binds: &'a [SparseImageMemoryBind]) -> Self {
             self.bind_count = binds.len().try_into().unwrap();
             self.p_binds = binds.as_ptr();
@@ -2789,18 +2988,21 @@ pub(super) mod defs {
     }
 
     impl<'a> BindSparseInfo<'a> {
+        #[inline]
         pub fn wait_semaphores(mut self, wait_semaphores: &'a [Semaphore]) -> Self {
             self.wait_semaphore_count = wait_semaphores.len().try_into().unwrap();
             self.p_wait_semaphores = wait_semaphores.as_ptr();
             self
         }
 
+        #[inline]
         pub fn buffer_binds(mut self, buffer_binds: &'a [SparseBufferMemoryBindInfo<'a>]) -> Self {
             self.buffer_bind_count = buffer_binds.len().try_into().unwrap();
             self.p_buffer_binds = buffer_binds.as_ptr();
             self
         }
 
+        #[inline]
         pub fn image_opaque_binds(
             mut self,
             image_opaque_binds: &'a [SparseImageOpaqueMemoryBindInfo<'a>],
@@ -2810,12 +3012,14 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn image_binds(mut self, image_binds: &'a [SparseImageMemoryBindInfo<'a>]) -> Self {
             self.image_bind_count = image_binds.len().try_into().unwrap();
             self.p_image_binds = image_binds.as_ptr();
             self
         }
 
+        #[inline]
         pub fn signal_semaphores(mut self, signal_semaphores: &'a [Semaphore]) -> Self {
             self.signal_semaphore_count = signal_semaphores.len().try_into().unwrap();
             self.p_signal_semaphores = signal_semaphores.as_ptr();
@@ -2837,26 +3041,31 @@ pub(super) mod defs {
     }
 
     impl ImageCopy {
+        #[inline]
         pub fn src_subresource(mut self, src_subresource: ImageSubresourceLayers) -> Self {
             self.src_subresource = src_subresource;
             self
         }
 
+        #[inline]
         pub fn src_offset(mut self, src_offset: Offset3D) -> Self {
             self.src_offset = src_offset;
             self
         }
 
+        #[inline]
         pub fn dst_subresource(mut self, dst_subresource: ImageSubresourceLayers) -> Self {
             self.dst_subresource = dst_subresource;
             self
         }
 
+        #[inline]
         pub fn dst_offset(mut self, dst_offset: Offset3D) -> Self {
             self.dst_offset = dst_offset;
             self
         }
 
+        #[inline]
         pub fn extent(mut self, extent: Extent3D) -> Self {
             self.extent = extent;
             self
@@ -2887,21 +3096,25 @@ pub(super) mod defs {
     }
 
     impl ImageBlit {
+        #[inline]
         pub fn src_subresource(mut self, src_subresource: ImageSubresourceLayers) -> Self {
             self.src_subresource = src_subresource;
             self
         }
 
+        #[inline]
         pub fn src_offsets(mut self, src_offsets: [Offset3D; 2]) -> Self {
             self.src_offsets = src_offsets;
             self
         }
 
+        #[inline]
         pub fn dst_subresource(mut self, dst_subresource: ImageSubresourceLayers) -> Self {
             self.dst_subresource = dst_subresource;
             self
         }
 
+        #[inline]
         pub fn dst_offsets(mut self, dst_offsets: [Offset3D; 2]) -> Self {
             self.dst_offsets = dst_offsets;
             self
@@ -2923,31 +3136,37 @@ pub(super) mod defs {
     }
 
     impl BufferImageCopy {
+        #[inline]
         pub fn buffer_offset(mut self, buffer_offset: DeviceSize) -> Self {
             self.buffer_offset = buffer_offset;
             self
         }
 
+        #[inline]
         pub fn buffer_row_length(mut self, buffer_row_length: u32) -> Self {
             self.buffer_row_length = buffer_row_length;
             self
         }
 
+        #[inline]
         pub fn buffer_image_height(mut self, buffer_image_height: u32) -> Self {
             self.buffer_image_height = buffer_image_height;
             self
         }
 
+        #[inline]
         pub fn image_subresource(mut self, image_subresource: ImageSubresourceLayers) -> Self {
             self.image_subresource = image_subresource;
             self
         }
 
+        #[inline]
         pub fn image_offset(mut self, image_offset: Offset3D) -> Self {
             self.image_offset = image_offset;
             self
         }
 
+        #[inline]
         pub fn image_extent(mut self, image_extent: Extent3D) -> Self {
             self.image_extent = image_extent;
             self
@@ -2968,26 +3187,31 @@ pub(super) mod defs {
     }
 
     impl ImageResolve {
+        #[inline]
         pub fn src_subresource(mut self, src_subresource: ImageSubresourceLayers) -> Self {
             self.src_subresource = src_subresource;
             self
         }
 
+        #[inline]
         pub fn src_offset(mut self, src_offset: Offset3D) -> Self {
             self.src_offset = src_offset;
             self
         }
 
+        #[inline]
         pub fn dst_subresource(mut self, dst_subresource: ImageSubresourceLayers) -> Self {
             self.dst_subresource = dst_subresource;
             self
         }
 
+        #[inline]
         pub fn dst_offset(mut self, dst_offset: Offset3D) -> Self {
             self.dst_offset = dst_offset;
             self
         }
 
+        #[inline]
         pub fn extent(mut self, extent: Extent3D) -> Self {
             self.extent = extent;
             self
@@ -3041,11 +3265,13 @@ pub(super) mod defs {
     }
 
     impl<'a> ShaderModuleCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: ShaderModuleCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn code_size(mut self, code_size: usize) -> Self {
             self.code_size = code_size;
             self
@@ -3092,22 +3318,26 @@ pub(super) mod defs {
     }
 
     impl<'a> DescriptorSetLayoutBinding<'a> {
+        #[inline]
         pub fn binding(mut self, binding: u32) -> Self {
             self.binding = binding;
             self
         }
 
+        #[inline]
         pub fn descriptor_type(mut self, descriptor_type: DescriptorType) -> Self {
             self.descriptor_type = descriptor_type;
             self
         }
 
+        #[inline]
         pub fn immutable_samplers(mut self, immutable_samplers: &'a [Sampler]) -> Self {
             self.descriptor_count = immutable_samplers.len().try_into().unwrap();
             self.p_immutable_samplers = immutable_samplers.as_ptr();
             self
         }
 
+        #[inline]
         pub fn stage_flags(mut self, stage_flags: ShaderStageFlags) -> Self {
             self.stage_flags = stage_flags;
             self
@@ -3158,11 +3388,13 @@ pub(super) mod defs {
     }
 
     impl<'a> DescriptorSetLayoutCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: DescriptorSetLayoutCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn bindings(mut self, bindings: &'a [DescriptorSetLayoutBinding<'a>]) -> Self {
             self.binding_count = bindings.len().try_into().unwrap();
             self.p_bindings = bindings.as_ptr();
@@ -3181,11 +3413,13 @@ pub(super) mod defs {
     }
 
     impl DescriptorPoolSize {
+        #[inline]
         pub fn ty(mut self, ty: DescriptorType) -> Self {
             self.ty = ty;
             self
         }
 
+        #[inline]
         pub fn descriptor_count(mut self, descriptor_count: u32) -> Self {
             self.descriptor_count = descriptor_count;
             self
@@ -3239,16 +3473,19 @@ pub(super) mod defs {
     }
 
     impl<'a> DescriptorPoolCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: DescriptorPoolCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn max_sets(mut self, max_sets: u32) -> Self {
             self.max_sets = max_sets;
             self
         }
 
+        #[inline]
         pub fn pool_sizes(mut self, pool_sizes: &'a [DescriptorPoolSize]) -> Self {
             self.pool_size_count = pool_sizes.len().try_into().unwrap();
             self.p_pool_sizes = pool_sizes.as_ptr();
@@ -3300,11 +3537,13 @@ pub(super) mod defs {
     }
 
     impl<'a> DescriptorSetAllocateInfo<'a> {
+        #[inline]
         pub fn descriptor_pool(mut self, descriptor_pool: DescriptorPool) -> Self {
             self.descriptor_pool = descriptor_pool;
             self
         }
 
+        #[inline]
         pub fn set_layouts(mut self, set_layouts: &'a [DescriptorSetLayout]) -> Self {
             self.descriptor_set_count = set_layouts.len().try_into().unwrap();
             self.p_set_layouts = set_layouts.as_ptr();
@@ -3324,16 +3563,19 @@ pub(super) mod defs {
     }
 
     impl SpecializationMapEntry {
+        #[inline]
         pub fn constant_id(mut self, constant_id: u32) -> Self {
             self.constant_id = constant_id;
             self
         }
 
+        #[inline]
         pub fn offset(mut self, offset: u32) -> Self {
             self.offset = offset;
             self
         }
 
+        #[inline]
         pub fn size(mut self, size: usize) -> Self {
             self.size = size;
             self
@@ -3377,12 +3619,14 @@ pub(super) mod defs {
     }
 
     impl<'a> SpecializationInfo<'a> {
+        #[inline]
         pub fn map_entries(mut self, map_entries: &'a [SpecializationMapEntry]) -> Self {
             self.map_entry_count = map_entries.len().try_into().unwrap();
             self.p_map_entries = map_entries.as_ptr();
             self
         }
 
+        #[inline]
         pub fn data(mut self, data: &'a [u8]) -> Self {
             self.data_size = data.len().try_into().unwrap();
             self.p_data = data.as_ptr() as _;
@@ -3440,26 +3684,31 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineShaderStageCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PipelineShaderStageCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn stage(mut self, stage: ShaderStageFlagBits) -> Self {
             self.stage = stage;
             self
         }
 
+        #[inline]
         pub fn module(mut self, module: ShaderModule) -> Self {
             self.module = module;
             self
         }
 
+        #[inline]
         pub fn name(mut self, name: &'a CStr) -> Self {
             self.p_name = name.as_ptr();
             self
         }
 
+        #[inline]
         pub fn specialization_info(
             mut self,
             specialization_info: &'a SpecializationInfo<'a>,
@@ -3519,26 +3768,31 @@ pub(super) mod defs {
     }
 
     impl<'a> ComputePipelineCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PipelineCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn stage(mut self, stage: PipelineShaderStageCreateInfo<'a>) -> Self {
             self.stage = stage;
             self
         }
 
+        #[inline]
         pub fn layout(mut self, layout: PipelineLayout) -> Self {
             self.layout = layout;
             self
         }
 
+        #[inline]
         pub fn base_pipeline_handle(mut self, base_pipeline_handle: Pipeline) -> Self {
             self.base_pipeline_handle = base_pipeline_handle;
             self
         }
 
+        #[inline]
         pub fn base_pipeline_index(mut self, base_pipeline_index: i32) -> Self {
             self.base_pipeline_index = base_pipeline_index;
             self
@@ -3557,16 +3811,19 @@ pub(super) mod defs {
     }
 
     impl VertexInputBindingDescription {
+        #[inline]
         pub fn binding(mut self, binding: u32) -> Self {
             self.binding = binding;
             self
         }
 
+        #[inline]
         pub fn stride(mut self, stride: u32) -> Self {
             self.stride = stride;
             self
         }
 
+        #[inline]
         pub fn input_rate(mut self, input_rate: VertexInputRate) -> Self {
             self.input_rate = input_rate;
             self
@@ -3586,21 +3843,25 @@ pub(super) mod defs {
     }
 
     impl VertexInputAttributeDescription {
+        #[inline]
         pub fn location(mut self, location: u32) -> Self {
             self.location = location;
             self
         }
 
+        #[inline]
         pub fn binding(mut self, binding: u32) -> Self {
             self.binding = binding;
             self
         }
 
+        #[inline]
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
 
+        #[inline]
         pub fn offset(mut self, offset: u32) -> Self {
             self.offset = offset;
             self
@@ -3670,11 +3931,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineVertexInputStateCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PipelineVertexInputStateCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn vertex_binding_descriptions(
             mut self,
             vertex_binding_descriptions: &'a [VertexInputBindingDescription],
@@ -3685,6 +3948,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn vertex_attribute_descriptions(
             mut self,
             vertex_attribute_descriptions: &'a [VertexInputAttributeDescription],
@@ -3741,16 +4005,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineInputAssemblyStateCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PipelineInputAssemblyStateCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn topology(mut self, topology: PrimitiveTopology) -> Self {
             self.topology = topology;
             self
         }
 
+        #[inline]
         pub fn primitive_restart_enable(mut self, primitive_restart_enable: bool) -> Self {
             self.primitive_restart_enable = primitive_restart_enable.into();
             self
@@ -3799,11 +4066,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineTessellationStateCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PipelineTessellationStateCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn patch_control_points(mut self, patch_control_points: u32) -> Self {
             self.patch_control_points = patch_control_points;
             self
@@ -3860,17 +4129,20 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineViewportStateCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PipelineViewportStateCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn viewports(mut self, viewports: &'a [Viewport]) -> Self {
             self.viewport_count = viewports.len().try_into().unwrap();
             self.p_viewports = viewports.as_ptr();
             self
         }
 
+        #[inline]
         pub fn scissors(mut self, scissors: &'a [Rect2D]) -> Self {
             self.scissor_count = scissors.len().try_into().unwrap();
             self.p_scissors = scissors.as_ptr();
@@ -3950,56 +4222,67 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineRasterizationStateCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PipelineRasterizationStateCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn depth_clamp_enable(mut self, depth_clamp_enable: bool) -> Self {
             self.depth_clamp_enable = depth_clamp_enable.into();
             self
         }
 
+        #[inline]
         pub fn rasterizer_discard_enable(mut self, rasterizer_discard_enable: bool) -> Self {
             self.rasterizer_discard_enable = rasterizer_discard_enable.into();
             self
         }
 
+        #[inline]
         pub fn polygon_mode(mut self, polygon_mode: PolygonMode) -> Self {
             self.polygon_mode = polygon_mode;
             self
         }
 
+        #[inline]
         pub fn cull_mode(mut self, cull_mode: CullModeFlags) -> Self {
             self.cull_mode = cull_mode;
             self
         }
 
+        #[inline]
         pub fn front_face(mut self, front_face: FrontFace) -> Self {
             self.front_face = front_face;
             self
         }
 
+        #[inline]
         pub fn depth_bias_enable(mut self, depth_bias_enable: bool) -> Self {
             self.depth_bias_enable = depth_bias_enable.into();
             self
         }
 
+        #[inline]
         pub fn depth_bias_constant_factor(mut self, depth_bias_constant_factor: f32) -> Self {
             self.depth_bias_constant_factor = depth_bias_constant_factor;
             self
         }
 
+        #[inline]
         pub fn depth_bias_clamp(mut self, depth_bias_clamp: f32) -> Self {
             self.depth_bias_clamp = depth_bias_clamp;
             self
         }
 
+        #[inline]
         pub fn depth_bias_slope_factor(mut self, depth_bias_slope_factor: f32) -> Self {
             self.depth_bias_slope_factor = depth_bias_slope_factor;
             self
         }
 
+        #[inline]
         pub fn line_width(mut self, line_width: f32) -> Self {
             self.line_width = line_width;
             self
@@ -4062,31 +4345,37 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineMultisampleStateCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PipelineMultisampleStateCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn rasterization_samples(mut self, rasterization_samples: SampleCountFlagBits) -> Self {
             self.rasterization_samples = rasterization_samples;
             self
         }
 
+        #[inline]
         pub fn sample_shading_enable(mut self, sample_shading_enable: bool) -> Self {
             self.sample_shading_enable = sample_shading_enable.into();
             self
         }
 
+        #[inline]
         pub fn min_sample_shading(mut self, min_sample_shading: f32) -> Self {
             self.min_sample_shading = min_sample_shading;
             self
         }
 
+        #[inline]
         pub fn alpha_to_coverage_enable(mut self, alpha_to_coverage_enable: bool) -> Self {
             self.alpha_to_coverage_enable = alpha_to_coverage_enable.into();
             self
         }
 
+        #[inline]
         pub fn alpha_to_one_enable(mut self, alpha_to_one_enable: bool) -> Self {
             self.alpha_to_one_enable = alpha_to_one_enable.into();
             self
@@ -4110,41 +4399,49 @@ pub(super) mod defs {
     }
 
     impl PipelineColorBlendAttachmentState {
+        #[inline]
         pub fn blend_enable(mut self, blend_enable: bool) -> Self {
             self.blend_enable = blend_enable.into();
             self
         }
 
+        #[inline]
         pub fn src_color_blend_factor(mut self, src_color_blend_factor: BlendFactor) -> Self {
             self.src_color_blend_factor = src_color_blend_factor;
             self
         }
 
+        #[inline]
         pub fn dst_color_blend_factor(mut self, dst_color_blend_factor: BlendFactor) -> Self {
             self.dst_color_blend_factor = dst_color_blend_factor;
             self
         }
 
+        #[inline]
         pub fn color_blend_op(mut self, color_blend_op: BlendOp) -> Self {
             self.color_blend_op = color_blend_op;
             self
         }
 
+        #[inline]
         pub fn src_alpha_blend_factor(mut self, src_alpha_blend_factor: BlendFactor) -> Self {
             self.src_alpha_blend_factor = src_alpha_blend_factor;
             self
         }
 
+        #[inline]
         pub fn dst_alpha_blend_factor(mut self, dst_alpha_blend_factor: BlendFactor) -> Self {
             self.dst_alpha_blend_factor = dst_alpha_blend_factor;
             self
         }
 
+        #[inline]
         pub fn alpha_blend_op(mut self, alpha_blend_op: BlendOp) -> Self {
             self.alpha_blend_op = alpha_blend_op;
             self
         }
 
+        #[inline]
         pub fn color_write_mask(mut self, color_write_mask: ColorComponentFlags) -> Self {
             self.color_write_mask = color_write_mask;
             self
@@ -4204,27 +4501,32 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineColorBlendStateCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PipelineColorBlendStateCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn logic_op_enable(mut self, logic_op_enable: bool) -> Self {
             self.logic_op_enable = logic_op_enable.into();
             self
         }
 
+        #[inline]
         pub fn logic_op(mut self, logic_op: LogicOp) -> Self {
             self.logic_op = logic_op;
             self
         }
 
+        #[inline]
         pub fn attachments(mut self, attachments: &'a [PipelineColorBlendAttachmentState]) -> Self {
             self.attachment_count = attachments.len().try_into().unwrap();
             self.p_attachments = attachments.as_ptr();
             self
         }
 
+        #[inline]
         pub fn blend_constants(mut self, blend_constants: [f32; 4]) -> Self {
             self.blend_constants = blend_constants;
             self
@@ -4275,11 +4577,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineDynamicStateCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PipelineDynamicStateCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn dynamic_states(mut self, dynamic_states: &'a [DynamicState]) -> Self {
             self.dynamic_state_count = dynamic_states.len().try_into().unwrap();
             self.p_dynamic_states = dynamic_states.as_ptr();
@@ -4303,36 +4607,43 @@ pub(super) mod defs {
     }
 
     impl StencilOpState {
+        #[inline]
         pub fn fail_op(mut self, fail_op: StencilOp) -> Self {
             self.fail_op = fail_op;
             self
         }
 
+        #[inline]
         pub fn pass_op(mut self, pass_op: StencilOp) -> Self {
             self.pass_op = pass_op;
             self
         }
 
+        #[inline]
         pub fn depth_fail_op(mut self, depth_fail_op: StencilOp) -> Self {
             self.depth_fail_op = depth_fail_op;
             self
         }
 
+        #[inline]
         pub fn compare_op(mut self, compare_op: CompareOp) -> Self {
             self.compare_op = compare_op;
             self
         }
 
+        #[inline]
         pub fn compare_mask(mut self, compare_mask: u32) -> Self {
             self.compare_mask = compare_mask;
             self
         }
 
+        #[inline]
         pub fn write_mask(mut self, write_mask: u32) -> Self {
             self.write_mask = write_mask;
             self
         }
 
+        #[inline]
         pub fn reference(mut self, reference: u32) -> Self {
             self.reference = reference;
             self
@@ -4405,51 +4716,61 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineDepthStencilStateCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PipelineDepthStencilStateCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn depth_test_enable(mut self, depth_test_enable: bool) -> Self {
             self.depth_test_enable = depth_test_enable.into();
             self
         }
 
+        #[inline]
         pub fn depth_write_enable(mut self, depth_write_enable: bool) -> Self {
             self.depth_write_enable = depth_write_enable.into();
             self
         }
 
+        #[inline]
         pub fn depth_compare_op(mut self, depth_compare_op: CompareOp) -> Self {
             self.depth_compare_op = depth_compare_op;
             self
         }
 
+        #[inline]
         pub fn depth_bounds_test_enable(mut self, depth_bounds_test_enable: bool) -> Self {
             self.depth_bounds_test_enable = depth_bounds_test_enable.into();
             self
         }
 
+        #[inline]
         pub fn stencil_test_enable(mut self, stencil_test_enable: bool) -> Self {
             self.stencil_test_enable = stencil_test_enable.into();
             self
         }
 
+        #[inline]
         pub fn front(mut self, front: StencilOpState) -> Self {
             self.front = front;
             self
         }
 
+        #[inline]
         pub fn back(mut self, back: StencilOpState) -> Self {
             self.back = back;
             self
         }
 
+        #[inline]
         pub fn min_depth_bounds(mut self, min_depth_bounds: f32) -> Self {
             self.min_depth_bounds = min_depth_bounds;
             self
         }
 
+        #[inline]
         pub fn max_depth_bounds(mut self, max_depth_bounds: f32) -> Self {
             self.max_depth_bounds = max_depth_bounds;
             self
@@ -4542,17 +4863,20 @@ pub(super) mod defs {
     }
 
     impl<'a> GraphicsPipelineCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PipelineCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn stages(mut self, stages: &'a [PipelineShaderStageCreateInfo<'a>]) -> Self {
             self.stage_count = stages.len().try_into().unwrap();
             self.p_stages = stages.as_ptr();
             self
         }
 
+        #[inline]
         pub fn vertex_input_state(
             mut self,
             vertex_input_state: &'a PipelineVertexInputStateCreateInfo<'a>,
@@ -4561,6 +4885,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn input_assembly_state(
             mut self,
             input_assembly_state: &'a PipelineInputAssemblyStateCreateInfo<'a>,
@@ -4569,6 +4894,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn tessellation_state(
             mut self,
             tessellation_state: &'a PipelineTessellationStateCreateInfo<'a>,
@@ -4577,6 +4903,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn viewport_state(
             mut self,
             viewport_state: &'a PipelineViewportStateCreateInfo<'a>,
@@ -4585,6 +4912,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn rasterization_state(
             mut self,
             rasterization_state: &'a PipelineRasterizationStateCreateInfo<'a>,
@@ -4593,6 +4921,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn multisample_state(
             mut self,
             multisample_state: &'a PipelineMultisampleStateCreateInfo<'a>,
@@ -4601,6 +4930,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn depth_stencil_state(
             mut self,
             depth_stencil_state: &'a PipelineDepthStencilStateCreateInfo<'a>,
@@ -4609,6 +4939,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn color_blend_state(
             mut self,
             color_blend_state: &'a PipelineColorBlendStateCreateInfo<'a>,
@@ -4617,6 +4948,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn dynamic_state(
             mut self,
             dynamic_state: &'a PipelineDynamicStateCreateInfo<'a>,
@@ -4625,26 +4957,31 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn layout(mut self, layout: PipelineLayout) -> Self {
             self.layout = layout;
             self
         }
 
+        #[inline]
         pub fn render_pass(mut self, render_pass: RenderPass) -> Self {
             self.render_pass = render_pass;
             self
         }
 
+        #[inline]
         pub fn subpass(mut self, subpass: u32) -> Self {
             self.subpass = subpass;
             self
         }
 
+        #[inline]
         pub fn base_pipeline_handle(mut self, base_pipeline_handle: Pipeline) -> Self {
             self.base_pipeline_handle = base_pipeline_handle;
             self
         }
 
+        #[inline]
         pub fn base_pipeline_index(mut self, base_pipeline_index: i32) -> Self {
             self.base_pipeline_index = base_pipeline_index;
             self
@@ -4695,11 +5032,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineCacheCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PipelineCacheCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn initial_data(mut self, initial_data: &'a [u8]) -> Self {
             self.initial_data_size = initial_data.len().try_into().unwrap();
             self.p_initial_data = initial_data.as_ptr() as _;
@@ -4733,26 +5072,31 @@ pub(super) mod defs {
     }
 
     impl PipelineCacheHeaderVersionOne {
+        #[inline]
         pub fn header_size(mut self, header_size: u32) -> Self {
             self.header_size = header_size;
             self
         }
 
+        #[inline]
         pub fn header_version(mut self, header_version: PipelineCacheHeaderVersion) -> Self {
             self.header_version = header_version;
             self
         }
 
+        #[inline]
         pub fn vendor_id(mut self, vendor_id: u32) -> Self {
             self.vendor_id = vendor_id;
             self
         }
 
+        #[inline]
         pub fn device_id(mut self, device_id: u32) -> Self {
             self.device_id = device_id;
             self
         }
 
+        #[inline]
         pub fn pipeline_cache_uuid(
             mut self,
             pipeline_cache_uuid: [u8; UUID_SIZE as usize],
@@ -4774,16 +5118,19 @@ pub(super) mod defs {
     }
 
     impl PushConstantRange {
+        #[inline]
         pub fn stage_flags(mut self, stage_flags: ShaderStageFlags) -> Self {
             self.stage_flags = stage_flags;
             self
         }
 
+        #[inline]
         pub fn offset(mut self, offset: u32) -> Self {
             self.offset = offset;
             self
         }
 
+        #[inline]
         pub fn size(mut self, size: u32) -> Self {
             self.size = size;
             self
@@ -4851,17 +5198,20 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineLayoutCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PipelineLayoutCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn set_layouts(mut self, set_layouts: &'a [DescriptorSetLayout]) -> Self {
             self.set_layout_count = set_layouts.len().try_into().unwrap();
             self.p_set_layouts = set_layouts.as_ptr();
             self
         }
 
+        #[inline]
         pub fn push_constant_ranges(
             mut self,
             push_constant_ranges: &'a [PushConstantRange],
@@ -4955,81 +5305,97 @@ pub(super) mod defs {
     }
 
     impl<'a> SamplerCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: SamplerCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn mag_filter(mut self, mag_filter: Filter) -> Self {
             self.mag_filter = mag_filter;
             self
         }
 
+        #[inline]
         pub fn min_filter(mut self, min_filter: Filter) -> Self {
             self.min_filter = min_filter;
             self
         }
 
+        #[inline]
         pub fn mipmap_mode(mut self, mipmap_mode: SamplerMipmapMode) -> Self {
             self.mipmap_mode = mipmap_mode;
             self
         }
 
+        #[inline]
         pub fn address_mode_u(mut self, address_mode_u: SamplerAddressMode) -> Self {
             self.address_mode_u = address_mode_u;
             self
         }
 
+        #[inline]
         pub fn address_mode_v(mut self, address_mode_v: SamplerAddressMode) -> Self {
             self.address_mode_v = address_mode_v;
             self
         }
 
+        #[inline]
         pub fn address_mode_w(mut self, address_mode_w: SamplerAddressMode) -> Self {
             self.address_mode_w = address_mode_w;
             self
         }
 
+        #[inline]
         pub fn mip_lod_bias(mut self, mip_lod_bias: f32) -> Self {
             self.mip_lod_bias = mip_lod_bias;
             self
         }
 
+        #[inline]
         pub fn anisotropy_enable(mut self, anisotropy_enable: bool) -> Self {
             self.anisotropy_enable = anisotropy_enable.into();
             self
         }
 
+        #[inline]
         pub fn max_anisotropy(mut self, max_anisotropy: f32) -> Self {
             self.max_anisotropy = max_anisotropy;
             self
         }
 
+        #[inline]
         pub fn compare_enable(mut self, compare_enable: bool) -> Self {
             self.compare_enable = compare_enable.into();
             self
         }
 
+        #[inline]
         pub fn compare_op(mut self, compare_op: CompareOp) -> Self {
             self.compare_op = compare_op;
             self
         }
 
+        #[inline]
         pub fn min_lod(mut self, min_lod: f32) -> Self {
             self.min_lod = min_lod;
             self
         }
 
+        #[inline]
         pub fn max_lod(mut self, max_lod: f32) -> Self {
             self.max_lod = max_lod;
             self
         }
 
+        #[inline]
         pub fn border_color(mut self, border_color: BorderColor) -> Self {
             self.border_color = border_color;
             self
         }
 
+        #[inline]
         pub fn unnormalized_coordinates(mut self, unnormalized_coordinates: bool) -> Self {
             self.unnormalized_coordinates = unnormalized_coordinates.into();
             self
@@ -5077,11 +5443,13 @@ pub(super) mod defs {
     }
 
     impl<'a> CommandPoolCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: CommandPoolCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn queue_family_index(mut self, queue_family_index: u32) -> Self {
             self.queue_family_index = queue_family_index;
             self
@@ -5132,16 +5500,19 @@ pub(super) mod defs {
     }
 
     impl<'a> CommandBufferAllocateInfo<'a> {
+        #[inline]
         pub fn command_pool(mut self, command_pool: CommandPool) -> Self {
             self.command_pool = command_pool;
             self
         }
 
+        #[inline]
         pub fn level(mut self, level: CommandBufferLevel) -> Self {
             self.level = level;
             self
         }
 
+        #[inline]
         pub fn command_buffer_count(mut self, command_buffer_count: u32) -> Self {
             self.command_buffer_count = command_buffer_count;
             self
@@ -5201,31 +5572,37 @@ pub(super) mod defs {
     }
 
     impl<'a> CommandBufferInheritanceInfo<'a> {
+        #[inline]
         pub fn render_pass(mut self, render_pass: RenderPass) -> Self {
             self.render_pass = render_pass;
             self
         }
 
+        #[inline]
         pub fn subpass(mut self, subpass: u32) -> Self {
             self.subpass = subpass;
             self
         }
 
+        #[inline]
         pub fn framebuffer(mut self, framebuffer: Framebuffer) -> Self {
             self.framebuffer = framebuffer;
             self
         }
 
+        #[inline]
         pub fn occlusion_query_enable(mut self, occlusion_query_enable: bool) -> Self {
             self.occlusion_query_enable = occlusion_query_enable.into();
             self
         }
 
+        #[inline]
         pub fn query_flags(mut self, query_flags: QueryControlFlags) -> Self {
             self.query_flags = query_flags;
             self
         }
 
+        #[inline]
         pub fn pipeline_statistics(
             mut self,
             pipeline_statistics: QueryPipelineStatisticFlags,
@@ -5276,11 +5653,13 @@ pub(super) mod defs {
     }
 
     impl<'a> CommandBufferBeginInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: CommandBufferUsageFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn inheritance_info(
             mut self,
             inheritance_info: &'a CommandBufferInheritanceInfo<'a>,
@@ -5340,21 +5719,25 @@ pub(super) mod defs {
     }
 
     impl<'a> RenderPassBeginInfo<'a> {
+        #[inline]
         pub fn render_pass(mut self, render_pass: RenderPass) -> Self {
             self.render_pass = render_pass;
             self
         }
 
+        #[inline]
         pub fn framebuffer(mut self, framebuffer: Framebuffer) -> Self {
             self.framebuffer = framebuffer;
             self
         }
 
+        #[inline]
         pub fn render_area(mut self, render_area: Rect2D) -> Self {
             self.render_area = render_area;
             self
         }
 
+        #[inline]
         pub fn clear_values(mut self, clear_values: &'a [ClearValue]) -> Self {
             self.clear_value_count = clear_values.len().try_into().unwrap();
             self.p_clear_values = clear_values.as_ptr();
@@ -5373,11 +5756,13 @@ pub(super) mod defs {
     }
 
     impl ClearDepthStencilValue {
+        #[inline]
         pub fn depth(mut self, depth: f32) -> Self {
             self.depth = depth;
             self
         }
 
+        #[inline]
         pub fn stencil(mut self, stencil: u32) -> Self {
             self.stencil = stencil;
             self
@@ -5406,16 +5791,19 @@ pub(super) mod defs {
     }
 
     impl ClearAttachment {
+        #[inline]
         pub fn aspect_mask(mut self, aspect_mask: ImageAspectFlags) -> Self {
             self.aspect_mask = aspect_mask;
             self
         }
 
+        #[inline]
         pub fn color_attachment(mut self, color_attachment: u32) -> Self {
             self.color_attachment = color_attachment;
             self
         }
 
+        #[inline]
         pub fn clear_value(mut self, clear_value: ClearValue) -> Self {
             self.clear_value = clear_value;
             self
@@ -5440,46 +5828,55 @@ pub(super) mod defs {
     }
 
     impl AttachmentDescription {
+        #[inline]
         pub fn flags(mut self, flags: AttachmentDescriptionFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
 
+        #[inline]
         pub fn samples(mut self, samples: SampleCountFlagBits) -> Self {
             self.samples = samples;
             self
         }
 
+        #[inline]
         pub fn load_op(mut self, load_op: AttachmentLoadOp) -> Self {
             self.load_op = load_op;
             self
         }
 
+        #[inline]
         pub fn store_op(mut self, store_op: AttachmentStoreOp) -> Self {
             self.store_op = store_op;
             self
         }
 
+        #[inline]
         pub fn stencil_load_op(mut self, stencil_load_op: AttachmentLoadOp) -> Self {
             self.stencil_load_op = stencil_load_op;
             self
         }
 
+        #[inline]
         pub fn stencil_store_op(mut self, stencil_store_op: AttachmentStoreOp) -> Self {
             self.stencil_store_op = stencil_store_op;
             self
         }
 
+        #[inline]
         pub fn initial_layout(mut self, initial_layout: ImageLayout) -> Self {
             self.initial_layout = initial_layout;
             self
         }
 
+        #[inline]
         pub fn final_layout(mut self, final_layout: ImageLayout) -> Self {
             self.final_layout = final_layout;
             self
@@ -5497,11 +5894,13 @@ pub(super) mod defs {
     }
 
     impl AttachmentReference {
+        #[inline]
         pub fn attachment(mut self, attachment: u32) -> Self {
             self.attachment = attachment;
             self
         }
 
+        #[inline]
         pub fn layout(mut self, layout: ImageLayout) -> Self {
             self.layout = layout;
             self
@@ -5566,28 +5965,33 @@ pub(super) mod defs {
     }
 
     impl<'a> SubpassDescription<'a> {
+        #[inline]
         pub fn flags(mut self, flags: SubpassDescriptionFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn pipeline_bind_point(mut self, pipeline_bind_point: PipelineBindPoint) -> Self {
             self.pipeline_bind_point = pipeline_bind_point;
             self
         }
 
+        #[inline]
         pub fn input_attachments(mut self, input_attachments: &'a [AttachmentReference]) -> Self {
             self.input_attachment_count = input_attachments.len().try_into().unwrap();
             self.p_input_attachments = input_attachments.as_ptr();
             self
         }
 
+        #[inline]
         pub fn color_attachments(mut self, color_attachments: &'a [AttachmentReference]) -> Self {
             self.color_attachment_count = color_attachments.len().try_into().unwrap();
             self.p_color_attachments = color_attachments.as_ptr();
             self
         }
 
+        #[inline]
         pub fn resolve_attachments(
             mut self,
             resolve_attachments: &'a [AttachmentReference],
@@ -5597,6 +6001,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn depth_stencil_attachment(
             mut self,
             depth_stencil_attachment: &'a AttachmentReference,
@@ -5605,6 +6010,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn preserve_attachments(mut self, preserve_attachments: &'a [u32]) -> Self {
             self.preserve_attachment_count = preserve_attachments.len().try_into().unwrap();
             self.p_preserve_attachments = preserve_attachments.as_ptr();
@@ -5628,36 +6034,43 @@ pub(super) mod defs {
     }
 
     impl SubpassDependency {
+        #[inline]
         pub fn src_subpass(mut self, src_subpass: u32) -> Self {
             self.src_subpass = src_subpass;
             self
         }
 
+        #[inline]
         pub fn dst_subpass(mut self, dst_subpass: u32) -> Self {
             self.dst_subpass = dst_subpass;
             self
         }
 
+        #[inline]
         pub fn src_stage_mask(mut self, src_stage_mask: PipelineStageFlags) -> Self {
             self.src_stage_mask = src_stage_mask;
             self
         }
 
+        #[inline]
         pub fn dst_stage_mask(mut self, dst_stage_mask: PipelineStageFlags) -> Self {
             self.dst_stage_mask = dst_stage_mask;
             self
         }
 
+        #[inline]
         pub fn src_access_mask(mut self, src_access_mask: AccessFlags) -> Self {
             self.src_access_mask = src_access_mask;
             self
         }
 
+        #[inline]
         pub fn dst_access_mask(mut self, dst_access_mask: AccessFlags) -> Self {
             self.dst_access_mask = dst_access_mask;
             self
         }
 
+        #[inline]
         pub fn dependency_flags(mut self, dependency_flags: DependencyFlags) -> Self {
             self.dependency_flags = dependency_flags;
             self
@@ -5720,23 +6133,27 @@ pub(super) mod defs {
     }
 
     impl<'a> RenderPassCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: RenderPassCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn attachments(mut self, attachments: &'a [AttachmentDescription]) -> Self {
             self.attachment_count = attachments.len().try_into().unwrap();
             self.p_attachments = attachments.as_ptr();
             self
         }
 
+        #[inline]
         pub fn subpasses(mut self, subpasses: &'a [SubpassDescription<'a>]) -> Self {
             self.subpass_count = subpasses.len().try_into().unwrap();
             self.p_subpasses = subpasses.as_ptr();
             self
         }
 
+        #[inline]
         pub fn dependencies(mut self, dependencies: &'a [SubpassDependency]) -> Self {
             self.dependency_count = dependencies.len().try_into().unwrap();
             self.p_dependencies = dependencies.as_ptr();
@@ -5782,6 +6199,7 @@ pub(super) mod defs {
     }
 
     impl<'a> EventCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: EventCreateFlags) -> Self {
             self.flags = flags;
             self
@@ -5826,6 +6244,7 @@ pub(super) mod defs {
     }
 
     impl<'a> FenceCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: FenceCreateFlags) -> Self {
             self.flags = flags;
             self
@@ -5896,131 +6315,157 @@ pub(super) mod defs {
     }
 
     impl PhysicalDeviceFeatures {
+        #[inline]
         pub fn robust_buffer_access(mut self, robust_buffer_access: bool) -> Self {
             self.robust_buffer_access = robust_buffer_access.into();
             self
         }
 
+        #[inline]
         pub fn full_draw_index_uint32(mut self, full_draw_index_uint32: bool) -> Self {
             self.full_draw_index_uint32 = full_draw_index_uint32.into();
             self
         }
 
+        #[inline]
         pub fn image_cube_array(mut self, image_cube_array: bool) -> Self {
             self.image_cube_array = image_cube_array.into();
             self
         }
 
+        #[inline]
         pub fn independent_blend(mut self, independent_blend: bool) -> Self {
             self.independent_blend = independent_blend.into();
             self
         }
 
+        #[inline]
         pub fn geometry_shader(mut self, geometry_shader: bool) -> Self {
             self.geometry_shader = geometry_shader.into();
             self
         }
 
+        #[inline]
         pub fn tessellation_shader(mut self, tessellation_shader: bool) -> Self {
             self.tessellation_shader = tessellation_shader.into();
             self
         }
 
+        #[inline]
         pub fn sample_rate_shading(mut self, sample_rate_shading: bool) -> Self {
             self.sample_rate_shading = sample_rate_shading.into();
             self
         }
 
+        #[inline]
         pub fn dual_src_blend(mut self, dual_src_blend: bool) -> Self {
             self.dual_src_blend = dual_src_blend.into();
             self
         }
 
+        #[inline]
         pub fn logic_op(mut self, logic_op: bool) -> Self {
             self.logic_op = logic_op.into();
             self
         }
 
+        #[inline]
         pub fn multi_draw_indirect(mut self, multi_draw_indirect: bool) -> Self {
             self.multi_draw_indirect = multi_draw_indirect.into();
             self
         }
 
+        #[inline]
         pub fn draw_indirect_first_instance(mut self, draw_indirect_first_instance: bool) -> Self {
             self.draw_indirect_first_instance = draw_indirect_first_instance.into();
             self
         }
 
+        #[inline]
         pub fn depth_clamp(mut self, depth_clamp: bool) -> Self {
             self.depth_clamp = depth_clamp.into();
             self
         }
 
+        #[inline]
         pub fn depth_bias_clamp(mut self, depth_bias_clamp: bool) -> Self {
             self.depth_bias_clamp = depth_bias_clamp.into();
             self
         }
 
+        #[inline]
         pub fn fill_mode_non_solid(mut self, fill_mode_non_solid: bool) -> Self {
             self.fill_mode_non_solid = fill_mode_non_solid.into();
             self
         }
 
+        #[inline]
         pub fn depth_bounds(mut self, depth_bounds: bool) -> Self {
             self.depth_bounds = depth_bounds.into();
             self
         }
 
+        #[inline]
         pub fn wide_lines(mut self, wide_lines: bool) -> Self {
             self.wide_lines = wide_lines.into();
             self
         }
 
+        #[inline]
         pub fn large_points(mut self, large_points: bool) -> Self {
             self.large_points = large_points.into();
             self
         }
 
+        #[inline]
         pub fn alpha_to_one(mut self, alpha_to_one: bool) -> Self {
             self.alpha_to_one = alpha_to_one.into();
             self
         }
 
+        #[inline]
         pub fn multi_viewport(mut self, multi_viewport: bool) -> Self {
             self.multi_viewport = multi_viewport.into();
             self
         }
 
+        #[inline]
         pub fn sampler_anisotropy(mut self, sampler_anisotropy: bool) -> Self {
             self.sampler_anisotropy = sampler_anisotropy.into();
             self
         }
 
+        #[inline]
         pub fn texture_compression_etc2(mut self, texture_compression_etc2: bool) -> Self {
             self.texture_compression_etc2 = texture_compression_etc2.into();
             self
         }
 
+        #[inline]
         pub fn texture_compression_astc_ldr(mut self, texture_compression_astc_ldr: bool) -> Self {
             self.texture_compression_astc_ldr = texture_compression_astc_ldr.into();
             self
         }
 
+        #[inline]
         pub fn texture_compression_bc(mut self, texture_compression_bc: bool) -> Self {
             self.texture_compression_bc = texture_compression_bc.into();
             self
         }
 
+        #[inline]
         pub fn occlusion_query_precise(mut self, occlusion_query_precise: bool) -> Self {
             self.occlusion_query_precise = occlusion_query_precise.into();
             self
         }
 
+        #[inline]
         pub fn pipeline_statistics_query(mut self, pipeline_statistics_query: bool) -> Self {
             self.pipeline_statistics_query = pipeline_statistics_query.into();
             self
         }
 
+        #[inline]
         pub fn vertex_pipeline_stores_and_atomics(
             mut self,
             vertex_pipeline_stores_and_atomics: bool,
@@ -6029,11 +6474,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn fragment_stores_and_atomics(mut self, fragment_stores_and_atomics: bool) -> Self {
             self.fragment_stores_and_atomics = fragment_stores_and_atomics.into();
             self
         }
 
+        #[inline]
         pub fn shader_tessellation_and_geometry_point_size(
             mut self,
             shader_tessellation_and_geometry_point_size: bool,
@@ -6043,11 +6490,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_image_gather_extended(mut self, shader_image_gather_extended: bool) -> Self {
             self.shader_image_gather_extended = shader_image_gather_extended.into();
             self
         }
 
+        #[inline]
         pub fn shader_storage_image_extended_formats(
             mut self,
             shader_storage_image_extended_formats: bool,
@@ -6057,6 +6506,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_storage_image_multisample(
             mut self,
             shader_storage_image_multisample: bool,
@@ -6065,6 +6515,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_storage_image_read_without_format(
             mut self,
             shader_storage_image_read_without_format: bool,
@@ -6074,6 +6525,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_storage_image_write_without_format(
             mut self,
             shader_storage_image_write_without_format: bool,
@@ -6083,6 +6535,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_uniform_buffer_array_dynamic_indexing(
             mut self,
             shader_uniform_buffer_array_dynamic_indexing: bool,
@@ -6092,6 +6545,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_sampled_image_array_dynamic_indexing(
             mut self,
             shader_sampled_image_array_dynamic_indexing: bool,
@@ -6101,6 +6555,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_storage_buffer_array_dynamic_indexing(
             mut self,
             shader_storage_buffer_array_dynamic_indexing: bool,
@@ -6110,6 +6565,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_storage_image_array_dynamic_indexing(
             mut self,
             shader_storage_image_array_dynamic_indexing: bool,
@@ -6119,91 +6575,109 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_clip_distance(mut self, shader_clip_distance: bool) -> Self {
             self.shader_clip_distance = shader_clip_distance.into();
             self
         }
 
+        #[inline]
         pub fn shader_cull_distance(mut self, shader_cull_distance: bool) -> Self {
             self.shader_cull_distance = shader_cull_distance.into();
             self
         }
 
+        #[inline]
         pub fn shader_float64(mut self, shader_float64: bool) -> Self {
             self.shader_float64 = shader_float64.into();
             self
         }
 
+        #[inline]
         pub fn shader_int64(mut self, shader_int64: bool) -> Self {
             self.shader_int64 = shader_int64.into();
             self
         }
 
+        #[inline]
         pub fn shader_int16(mut self, shader_int16: bool) -> Self {
             self.shader_int16 = shader_int16.into();
             self
         }
 
+        #[inline]
         pub fn shader_resource_residency(mut self, shader_resource_residency: bool) -> Self {
             self.shader_resource_residency = shader_resource_residency.into();
             self
         }
 
+        #[inline]
         pub fn shader_resource_min_lod(mut self, shader_resource_min_lod: bool) -> Self {
             self.shader_resource_min_lod = shader_resource_min_lod.into();
             self
         }
 
+        #[inline]
         pub fn sparse_binding(mut self, sparse_binding: bool) -> Self {
             self.sparse_binding = sparse_binding.into();
             self
         }
 
+        #[inline]
         pub fn sparse_residency_buffer(mut self, sparse_residency_buffer: bool) -> Self {
             self.sparse_residency_buffer = sparse_residency_buffer.into();
             self
         }
 
+        #[inline]
         pub fn sparse_residency_image2_d(mut self, sparse_residency_image2_d: bool) -> Self {
             self.sparse_residency_image2_d = sparse_residency_image2_d.into();
             self
         }
 
+        #[inline]
         pub fn sparse_residency_image3_d(mut self, sparse_residency_image3_d: bool) -> Self {
             self.sparse_residency_image3_d = sparse_residency_image3_d.into();
             self
         }
 
+        #[inline]
         pub fn sparse_residency2_samples(mut self, sparse_residency2_samples: bool) -> Self {
             self.sparse_residency2_samples = sparse_residency2_samples.into();
             self
         }
 
+        #[inline]
         pub fn sparse_residency4_samples(mut self, sparse_residency4_samples: bool) -> Self {
             self.sparse_residency4_samples = sparse_residency4_samples.into();
             self
         }
 
+        #[inline]
         pub fn sparse_residency8_samples(mut self, sparse_residency8_samples: bool) -> Self {
             self.sparse_residency8_samples = sparse_residency8_samples.into();
             self
         }
 
+        #[inline]
         pub fn sparse_residency16_samples(mut self, sparse_residency16_samples: bool) -> Self {
             self.sparse_residency16_samples = sparse_residency16_samples.into();
             self
         }
 
+        #[inline]
         pub fn sparse_residency_aliased(mut self, sparse_residency_aliased: bool) -> Self {
             self.sparse_residency_aliased = sparse_residency_aliased.into();
             self
         }
 
+        #[inline]
         pub fn variable_multisample_rate(mut self, variable_multisample_rate: bool) -> Self {
             self.variable_multisample_rate = variable_multisample_rate.into();
             self
         }
 
+        #[inline]
         pub fn inherited_queries(mut self, inherited_queries: bool) -> Self {
             self.inherited_queries = inherited_queries.into();
             self
@@ -6224,6 +6698,7 @@ pub(super) mod defs {
     }
 
     impl PhysicalDeviceSparseProperties {
+        #[inline]
         pub fn residency_standard2_d_block_shape(
             mut self,
             residency_standard2_d_block_shape: bool,
@@ -6232,6 +6707,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn residency_standard2_d_multisample_block_shape(
             mut self,
             residency_standard2_d_multisample_block_shape: bool,
@@ -6241,6 +6717,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn residency_standard3_d_block_shape(
             mut self,
             residency_standard3_d_block_shape: bool,
@@ -6249,11 +6726,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn residency_aligned_mip_size(mut self, residency_aligned_mip_size: bool) -> Self {
             self.residency_aligned_mip_size = residency_aligned_mip_size.into();
             self
         }
 
+        #[inline]
         pub fn residency_non_resident_strict(
             mut self,
             residency_non_resident_strict: bool,
@@ -6491,76 +6970,91 @@ pub(super) mod defs {
     }
 
     impl PhysicalDeviceLimits {
+        #[inline]
         pub fn max_image_dimension1_d(mut self, max_image_dimension1_d: u32) -> Self {
             self.max_image_dimension1_d = max_image_dimension1_d;
             self
         }
 
+        #[inline]
         pub fn max_image_dimension2_d(mut self, max_image_dimension2_d: u32) -> Self {
             self.max_image_dimension2_d = max_image_dimension2_d;
             self
         }
 
+        #[inline]
         pub fn max_image_dimension3_d(mut self, max_image_dimension3_d: u32) -> Self {
             self.max_image_dimension3_d = max_image_dimension3_d;
             self
         }
 
+        #[inline]
         pub fn max_image_dimension_cube(mut self, max_image_dimension_cube: u32) -> Self {
             self.max_image_dimension_cube = max_image_dimension_cube;
             self
         }
 
+        #[inline]
         pub fn max_image_array_layers(mut self, max_image_array_layers: u32) -> Self {
             self.max_image_array_layers = max_image_array_layers;
             self
         }
 
+        #[inline]
         pub fn max_texel_buffer_elements(mut self, max_texel_buffer_elements: u32) -> Self {
             self.max_texel_buffer_elements = max_texel_buffer_elements;
             self
         }
 
+        #[inline]
         pub fn max_uniform_buffer_range(mut self, max_uniform_buffer_range: u32) -> Self {
             self.max_uniform_buffer_range = max_uniform_buffer_range;
             self
         }
 
+        #[inline]
         pub fn max_storage_buffer_range(mut self, max_storage_buffer_range: u32) -> Self {
             self.max_storage_buffer_range = max_storage_buffer_range;
             self
         }
 
+        #[inline]
         pub fn max_push_constants_size(mut self, max_push_constants_size: u32) -> Self {
             self.max_push_constants_size = max_push_constants_size;
             self
         }
 
+        #[inline]
         pub fn max_memory_allocation_count(mut self, max_memory_allocation_count: u32) -> Self {
             self.max_memory_allocation_count = max_memory_allocation_count;
             self
         }
 
+        #[inline]
         pub fn max_sampler_allocation_count(mut self, max_sampler_allocation_count: u32) -> Self {
             self.max_sampler_allocation_count = max_sampler_allocation_count;
             self
         }
 
+        #[inline]
         pub fn buffer_image_granularity(mut self, buffer_image_granularity: DeviceSize) -> Self {
             self.buffer_image_granularity = buffer_image_granularity;
             self
         }
 
+        #[inline]
         pub fn sparse_address_space_size(mut self, sparse_address_space_size: DeviceSize) -> Self {
             self.sparse_address_space_size = sparse_address_space_size;
             self
         }
 
+        #[inline]
         pub fn max_bound_descriptor_sets(mut self, max_bound_descriptor_sets: u32) -> Self {
             self.max_bound_descriptor_sets = max_bound_descriptor_sets;
             self
         }
 
+        #[inline]
         pub fn max_per_stage_descriptor_samplers(
             mut self,
             max_per_stage_descriptor_samplers: u32,
@@ -6569,6 +7063,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_per_stage_descriptor_uniform_buffers(
             mut self,
             max_per_stage_descriptor_uniform_buffers: u32,
@@ -6578,6 +7073,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_per_stage_descriptor_storage_buffers(
             mut self,
             max_per_stage_descriptor_storage_buffers: u32,
@@ -6587,6 +7083,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_per_stage_descriptor_sampled_images(
             mut self,
             max_per_stage_descriptor_sampled_images: u32,
@@ -6595,6 +7092,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_per_stage_descriptor_storage_images(
             mut self,
             max_per_stage_descriptor_storage_images: u32,
@@ -6603,6 +7101,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_per_stage_descriptor_input_attachments(
             mut self,
             max_per_stage_descriptor_input_attachments: u32,
@@ -6612,16 +7111,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_per_stage_resources(mut self, max_per_stage_resources: u32) -> Self {
             self.max_per_stage_resources = max_per_stage_resources;
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_samplers(mut self, max_descriptor_set_samplers: u32) -> Self {
             self.max_descriptor_set_samplers = max_descriptor_set_samplers;
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_uniform_buffers(
             mut self,
             max_descriptor_set_uniform_buffers: u32,
@@ -6630,6 +7132,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_uniform_buffers_dynamic(
             mut self,
             max_descriptor_set_uniform_buffers_dynamic: u32,
@@ -6639,6 +7142,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_storage_buffers(
             mut self,
             max_descriptor_set_storage_buffers: u32,
@@ -6647,6 +7151,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_storage_buffers_dynamic(
             mut self,
             max_descriptor_set_storage_buffers_dynamic: u32,
@@ -6656,6 +7161,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_sampled_images(
             mut self,
             max_descriptor_set_sampled_images: u32,
@@ -6664,6 +7170,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_storage_images(
             mut self,
             max_descriptor_set_storage_images: u32,
@@ -6672,6 +7179,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_input_attachments(
             mut self,
             max_descriptor_set_input_attachments: u32,
@@ -6680,16 +7188,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_vertex_input_attributes(mut self, max_vertex_input_attributes: u32) -> Self {
             self.max_vertex_input_attributes = max_vertex_input_attributes;
             self
         }
 
+        #[inline]
         pub fn max_vertex_input_bindings(mut self, max_vertex_input_bindings: u32) -> Self {
             self.max_vertex_input_bindings = max_vertex_input_bindings;
             self
         }
 
+        #[inline]
         pub fn max_vertex_input_attribute_offset(
             mut self,
             max_vertex_input_attribute_offset: u32,
@@ -6698,6 +7209,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_vertex_input_binding_stride(
             mut self,
             max_vertex_input_binding_stride: u32,
@@ -6706,11 +7218,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_vertex_output_components(mut self, max_vertex_output_components: u32) -> Self {
             self.max_vertex_output_components = max_vertex_output_components;
             self
         }
 
+        #[inline]
         pub fn max_tessellation_generation_level(
             mut self,
             max_tessellation_generation_level: u32,
@@ -6719,11 +7233,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_tessellation_patch_size(mut self, max_tessellation_patch_size: u32) -> Self {
             self.max_tessellation_patch_size = max_tessellation_patch_size;
             self
         }
 
+        #[inline]
         pub fn max_tessellation_control_per_vertex_input_components(
             mut self,
             max_tessellation_control_per_vertex_input_components: u32,
@@ -6733,6 +7249,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_tessellation_control_per_vertex_output_components(
             mut self,
             max_tessellation_control_per_vertex_output_components: u32,
@@ -6742,6 +7259,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_tessellation_control_per_patch_output_components(
             mut self,
             max_tessellation_control_per_patch_output_components: u32,
@@ -6751,6 +7269,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_tessellation_control_total_output_components(
             mut self,
             max_tessellation_control_total_output_components: u32,
@@ -6760,6 +7279,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_tessellation_evaluation_input_components(
             mut self,
             max_tessellation_evaluation_input_components: u32,
@@ -6769,6 +7289,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_tessellation_evaluation_output_components(
             mut self,
             max_tessellation_evaluation_output_components: u32,
@@ -6778,6 +7299,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_geometry_shader_invocations(
             mut self,
             max_geometry_shader_invocations: u32,
@@ -6786,11 +7308,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_geometry_input_components(mut self, max_geometry_input_components: u32) -> Self {
             self.max_geometry_input_components = max_geometry_input_components;
             self
         }
 
+        #[inline]
         pub fn max_geometry_output_components(
             mut self,
             max_geometry_output_components: u32,
@@ -6799,11 +7323,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_geometry_output_vertices(mut self, max_geometry_output_vertices: u32) -> Self {
             self.max_geometry_output_vertices = max_geometry_output_vertices;
             self
         }
 
+        #[inline]
         pub fn max_geometry_total_output_components(
             mut self,
             max_geometry_total_output_components: u32,
@@ -6812,11 +7338,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_fragment_input_components(mut self, max_fragment_input_components: u32) -> Self {
             self.max_fragment_input_components = max_fragment_input_components;
             self
         }
 
+        #[inline]
         pub fn max_fragment_output_attachments(
             mut self,
             max_fragment_output_attachments: u32,
@@ -6825,6 +7353,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_fragment_dual_src_attachments(
             mut self,
             max_fragment_dual_src_attachments: u32,
@@ -6833,6 +7362,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_fragment_combined_output_resources(
             mut self,
             max_fragment_combined_output_resources: u32,
@@ -6841,6 +7371,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_compute_shared_memory_size(
             mut self,
             max_compute_shared_memory_size: u32,
@@ -6849,6 +7380,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_compute_work_group_count(
             mut self,
             max_compute_work_group_count: [u32; 3],
@@ -6857,6 +7389,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_compute_work_group_invocations(
             mut self,
             max_compute_work_group_invocations: u32,
@@ -6865,6 +7398,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_compute_work_group_size(
             mut self,
             max_compute_work_group_size: [u32; 3],
@@ -6873,66 +7407,79 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn sub_pixel_precision_bits(mut self, sub_pixel_precision_bits: u32) -> Self {
             self.sub_pixel_precision_bits = sub_pixel_precision_bits;
             self
         }
 
+        #[inline]
         pub fn sub_texel_precision_bits(mut self, sub_texel_precision_bits: u32) -> Self {
             self.sub_texel_precision_bits = sub_texel_precision_bits;
             self
         }
 
+        #[inline]
         pub fn mipmap_precision_bits(mut self, mipmap_precision_bits: u32) -> Self {
             self.mipmap_precision_bits = mipmap_precision_bits;
             self
         }
 
+        #[inline]
         pub fn max_draw_indexed_index_value(mut self, max_draw_indexed_index_value: u32) -> Self {
             self.max_draw_indexed_index_value = max_draw_indexed_index_value;
             self
         }
 
+        #[inline]
         pub fn max_draw_indirect_count(mut self, max_draw_indirect_count: u32) -> Self {
             self.max_draw_indirect_count = max_draw_indirect_count;
             self
         }
 
+        #[inline]
         pub fn max_sampler_lod_bias(mut self, max_sampler_lod_bias: f32) -> Self {
             self.max_sampler_lod_bias = max_sampler_lod_bias;
             self
         }
 
+        #[inline]
         pub fn max_sampler_anisotropy(mut self, max_sampler_anisotropy: f32) -> Self {
             self.max_sampler_anisotropy = max_sampler_anisotropy;
             self
         }
 
+        #[inline]
         pub fn max_viewports(mut self, max_viewports: u32) -> Self {
             self.max_viewports = max_viewports;
             self
         }
 
+        #[inline]
         pub fn max_viewport_dimensions(mut self, max_viewport_dimensions: [u32; 2]) -> Self {
             self.max_viewport_dimensions = max_viewport_dimensions;
             self
         }
 
+        #[inline]
         pub fn viewport_bounds_range(mut self, viewport_bounds_range: [f32; 2]) -> Self {
             self.viewport_bounds_range = viewport_bounds_range;
             self
         }
 
+        #[inline]
         pub fn viewport_sub_pixel_bits(mut self, viewport_sub_pixel_bits: u32) -> Self {
             self.viewport_sub_pixel_bits = viewport_sub_pixel_bits;
             self
         }
 
+        #[inline]
         pub fn min_memory_map_alignment(mut self, min_memory_map_alignment: usize) -> Self {
             self.min_memory_map_alignment = min_memory_map_alignment;
             self
         }
 
+        #[inline]
         pub fn min_texel_buffer_offset_alignment(
             mut self,
             min_texel_buffer_offset_alignment: DeviceSize,
@@ -6941,6 +7488,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn min_uniform_buffer_offset_alignment(
             mut self,
             min_uniform_buffer_offset_alignment: DeviceSize,
@@ -6949,6 +7497,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn min_storage_buffer_offset_alignment(
             mut self,
             min_storage_buffer_offset_alignment: DeviceSize,
@@ -6957,36 +7506,43 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn min_texel_offset(mut self, min_texel_offset: i32) -> Self {
             self.min_texel_offset = min_texel_offset;
             self
         }
 
+        #[inline]
         pub fn max_texel_offset(mut self, max_texel_offset: u32) -> Self {
             self.max_texel_offset = max_texel_offset;
             self
         }
 
+        #[inline]
         pub fn min_texel_gather_offset(mut self, min_texel_gather_offset: i32) -> Self {
             self.min_texel_gather_offset = min_texel_gather_offset;
             self
         }
 
+        #[inline]
         pub fn max_texel_gather_offset(mut self, max_texel_gather_offset: u32) -> Self {
             self.max_texel_gather_offset = max_texel_gather_offset;
             self
         }
 
+        #[inline]
         pub fn min_interpolation_offset(mut self, min_interpolation_offset: f32) -> Self {
             self.min_interpolation_offset = min_interpolation_offset;
             self
         }
 
+        #[inline]
         pub fn max_interpolation_offset(mut self, max_interpolation_offset: f32) -> Self {
             self.max_interpolation_offset = max_interpolation_offset;
             self
         }
 
+        #[inline]
         pub fn sub_pixel_interpolation_offset_bits(
             mut self,
             sub_pixel_interpolation_offset_bits: u32,
@@ -6995,21 +7551,25 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_framebuffer_width(mut self, max_framebuffer_width: u32) -> Self {
             self.max_framebuffer_width = max_framebuffer_width;
             self
         }
 
+        #[inline]
         pub fn max_framebuffer_height(mut self, max_framebuffer_height: u32) -> Self {
             self.max_framebuffer_height = max_framebuffer_height;
             self
         }
 
+        #[inline]
         pub fn max_framebuffer_layers(mut self, max_framebuffer_layers: u32) -> Self {
             self.max_framebuffer_layers = max_framebuffer_layers;
             self
         }
 
+        #[inline]
         pub fn framebuffer_color_sample_counts(
             mut self,
             framebuffer_color_sample_counts: SampleCountFlags,
@@ -7018,6 +7578,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn framebuffer_depth_sample_counts(
             mut self,
             framebuffer_depth_sample_counts: SampleCountFlags,
@@ -7026,6 +7587,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn framebuffer_stencil_sample_counts(
             mut self,
             framebuffer_stencil_sample_counts: SampleCountFlags,
@@ -7034,6 +7596,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn framebuffer_no_attachments_sample_counts(
             mut self,
             framebuffer_no_attachments_sample_counts: SampleCountFlags,
@@ -7043,11 +7606,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_color_attachments(mut self, max_color_attachments: u32) -> Self {
             self.max_color_attachments = max_color_attachments;
             self
         }
 
+        #[inline]
         pub fn sampled_image_color_sample_counts(
             mut self,
             sampled_image_color_sample_counts: SampleCountFlags,
@@ -7056,6 +7621,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn sampled_image_integer_sample_counts(
             mut self,
             sampled_image_integer_sample_counts: SampleCountFlags,
@@ -7064,6 +7630,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn sampled_image_depth_sample_counts(
             mut self,
             sampled_image_depth_sample_counts: SampleCountFlags,
@@ -7072,6 +7639,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn sampled_image_stencil_sample_counts(
             mut self,
             sampled_image_stencil_sample_counts: SampleCountFlags,
@@ -7080,6 +7648,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn storage_image_sample_counts(
             mut self,
             storage_image_sample_counts: SampleCountFlags,
@@ -7088,11 +7657,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_sample_mask_words(mut self, max_sample_mask_words: u32) -> Self {
             self.max_sample_mask_words = max_sample_mask_words;
             self
         }
 
+        #[inline]
         pub fn timestamp_compute_and_graphics(
             mut self,
             timestamp_compute_and_graphics: bool,
@@ -7101,21 +7672,25 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn timestamp_period(mut self, timestamp_period: f32) -> Self {
             self.timestamp_period = timestamp_period;
             self
         }
 
+        #[inline]
         pub fn max_clip_distances(mut self, max_clip_distances: u32) -> Self {
             self.max_clip_distances = max_clip_distances;
             self
         }
 
+        #[inline]
         pub fn max_cull_distances(mut self, max_cull_distances: u32) -> Self {
             self.max_cull_distances = max_cull_distances;
             self
         }
 
+        #[inline]
         pub fn max_combined_clip_and_cull_distances(
             mut self,
             max_combined_clip_and_cull_distances: u32,
@@ -7124,41 +7699,49 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn discrete_queue_priorities(mut self, discrete_queue_priorities: u32) -> Self {
             self.discrete_queue_priorities = discrete_queue_priorities;
             self
         }
 
+        #[inline]
         pub fn point_size_range(mut self, point_size_range: [f32; 2]) -> Self {
             self.point_size_range = point_size_range;
             self
         }
 
+        #[inline]
         pub fn line_width_range(mut self, line_width_range: [f32; 2]) -> Self {
             self.line_width_range = line_width_range;
             self
         }
 
+        #[inline]
         pub fn point_size_granularity(mut self, point_size_granularity: f32) -> Self {
             self.point_size_granularity = point_size_granularity;
             self
         }
 
+        #[inline]
         pub fn line_width_granularity(mut self, line_width_granularity: f32) -> Self {
             self.line_width_granularity = line_width_granularity;
             self
         }
 
+        #[inline]
         pub fn strict_lines(mut self, strict_lines: bool) -> Self {
             self.strict_lines = strict_lines.into();
             self
         }
 
+        #[inline]
         pub fn standard_sample_locations(mut self, standard_sample_locations: bool) -> Self {
             self.standard_sample_locations = standard_sample_locations.into();
             self
         }
 
+        #[inline]
         pub fn optimal_buffer_copy_offset_alignment(
             mut self,
             optimal_buffer_copy_offset_alignment: DeviceSize,
@@ -7167,6 +7750,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn optimal_buffer_copy_row_pitch_alignment(
             mut self,
             optimal_buffer_copy_row_pitch_alignment: DeviceSize,
@@ -7175,6 +7759,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn non_coherent_atom_size(mut self, non_coherent_atom_size: DeviceSize) -> Self {
             self.non_coherent_atom_size = non_coherent_atom_size;
             self
@@ -7219,6 +7804,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SemaphoreCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: SemaphoreCreateFlags) -> Self {
             self.flags = flags;
             self
@@ -7272,21 +7858,25 @@ pub(super) mod defs {
     }
 
     impl<'a> QueryPoolCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: QueryPoolCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn query_type(mut self, query_type: QueryType) -> Self {
             self.query_type = query_type;
             self
         }
 
+        #[inline]
         pub fn query_count(mut self, query_count: u32) -> Self {
             self.query_count = query_count;
             self
         }
 
+        #[inline]
         pub fn pipeline_statistics(
             mut self,
             pipeline_statistics: QueryPipelineStatisticFlags,
@@ -7352,32 +7942,38 @@ pub(super) mod defs {
     }
 
     impl<'a> FramebufferCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: FramebufferCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn render_pass(mut self, render_pass: RenderPass) -> Self {
             self.render_pass = render_pass;
             self
         }
 
+        #[inline]
         pub fn attachments(mut self, attachments: &'a [ImageView]) -> Self {
             self.attachment_count = attachments.len().try_into().unwrap();
             self.p_attachments = attachments.as_ptr();
             self
         }
 
+        #[inline]
         pub fn width(mut self, width: u32) -> Self {
             self.width = width;
             self
         }
 
+        #[inline]
         pub fn height(mut self, height: u32) -> Self {
             self.height = height;
             self
         }
 
+        #[inline]
         pub fn layers(mut self, layers: u32) -> Self {
             self.layers = layers;
             self
@@ -7397,21 +7993,25 @@ pub(super) mod defs {
     }
 
     impl DrawIndirectCommand {
+        #[inline]
         pub fn vertex_count(mut self, vertex_count: u32) -> Self {
             self.vertex_count = vertex_count;
             self
         }
 
+        #[inline]
         pub fn instance_count(mut self, instance_count: u32) -> Self {
             self.instance_count = instance_count;
             self
         }
 
+        #[inline]
         pub fn first_vertex(mut self, first_vertex: u32) -> Self {
             self.first_vertex = first_vertex;
             self
         }
 
+        #[inline]
         pub fn first_instance(mut self, first_instance: u32) -> Self {
             self.first_instance = first_instance;
             self
@@ -7432,26 +8032,31 @@ pub(super) mod defs {
     }
 
     impl DrawIndexedIndirectCommand {
+        #[inline]
         pub fn index_count(mut self, index_count: u32) -> Self {
             self.index_count = index_count;
             self
         }
 
+        #[inline]
         pub fn instance_count(mut self, instance_count: u32) -> Self {
             self.instance_count = instance_count;
             self
         }
 
+        #[inline]
         pub fn first_index(mut self, first_index: u32) -> Self {
             self.first_index = first_index;
             self
         }
 
+        #[inline]
         pub fn vertex_offset(mut self, vertex_offset: i32) -> Self {
             self.vertex_offset = vertex_offset;
             self
         }
 
+        #[inline]
         pub fn first_instance(mut self, first_instance: u32) -> Self {
             self.first_instance = first_instance;
             self
@@ -7470,16 +8075,19 @@ pub(super) mod defs {
     }
 
     impl DispatchIndirectCommand {
+        #[inline]
         pub fn x(mut self, x: u32) -> Self {
             self.x = x;
             self
         }
 
+        #[inline]
         pub fn y(mut self, y: u32) -> Self {
             self.y = y;
             self
         }
 
+        #[inline]
         pub fn z(mut self, z: u32) -> Self {
             self.z = z;
             self
@@ -7542,12 +8150,14 @@ pub(super) mod defs {
     }
 
     impl<'a> SubmitInfo<'a> {
+        #[inline]
         pub fn wait_semaphores(mut self, wait_semaphores: &'a [Semaphore]) -> Self {
             self.wait_semaphore_count = wait_semaphores.len().try_into().unwrap();
             self.p_wait_semaphores = wait_semaphores.as_ptr();
             self
         }
 
+        #[inline]
         pub fn wait_dst_stage_mask(
             mut self,
             wait_dst_stage_mask: &'a [PipelineStageFlags],
@@ -7557,12 +8167,14 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn command_buffers(mut self, command_buffers: &'a [CommandBuffer]) -> Self {
             self.command_buffer_count = command_buffers.len().try_into().unwrap();
             self.p_command_buffers = command_buffers.as_ptr();
             self
         }
 
+        #[inline]
         pub fn signal_semaphores(mut self, signal_semaphores: &'a [Semaphore]) -> Self {
             self.signal_semaphore_count = signal_semaphores.len().try_into().unwrap();
             self.p_signal_semaphores = signal_semaphores.as_ptr();
@@ -21842,6 +22454,7 @@ impl EntryFn {
 
 impl EntryFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateInstance.html>
+    #[inline]
     pub unsafe fn create_instance(
         &self,
         create_info: &InstanceCreateInfo<'_>,
@@ -21860,6 +22473,7 @@ impl EntryFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumerateInstanceExtensionProperties.html>
+    #[inline]
     pub unsafe fn enumerate_instance_extension_properties(
         &self,
         layer_name: Option<&CStr>,
@@ -21891,6 +22505,7 @@ impl EntryFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumerateInstanceLayerProperties.html>
+    #[inline]
     pub unsafe fn enumerate_instance_layer_properties(
         &self,
         mut properties: impl ExtendUninit<LayerProperties>,
@@ -21988,6 +22603,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyInstance.html>
+    #[inline]
     pub unsafe fn destroy_instance(
         &self,
         instance: Instance,
@@ -21997,6 +22613,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumeratePhysicalDevices.html>
+    #[inline]
     pub unsafe fn enumerate_physical_devices(
         &self,
         instance: Instance,
@@ -22028,6 +22645,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFeatures.html>
+    #[inline]
     pub unsafe fn get_physical_device_features(
         &self,
         physical_device: PhysicalDevice,
@@ -22040,6 +22658,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFormatProperties.html>
+    #[inline]
     pub unsafe fn get_physical_device_format_properties(
         &self,
         physical_device: PhysicalDevice,
@@ -22057,6 +22676,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceImageFormatProperties.html>
+    #[inline]
     pub unsafe fn get_physical_device_image_format_properties(
         &self,
         physical_device: PhysicalDevice,
@@ -22086,6 +22706,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceProperties.html>
+    #[inline]
     pub unsafe fn get_physical_device_properties(
         &self,
         physical_device: PhysicalDevice,
@@ -22098,6 +22719,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceQueueFamilyProperties.html>
+    #[inline]
     pub unsafe fn get_physical_device_queue_family_properties(
         &self,
         physical_device: PhysicalDevice,
@@ -22122,6 +22744,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceMemoryProperties.html>
+    #[inline]
     pub unsafe fn get_physical_device_memory_properties(
         &self,
         physical_device: PhysicalDevice,
@@ -22137,6 +22760,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetInstanceProcAddr.html>
+    #[inline]
     pub unsafe fn get_instance_proc_addr(
         &self,
         instance: Instance,
@@ -22146,6 +22770,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDevice.html>
+    #[inline]
     pub unsafe fn create_device(
         &self,
         physical_device: PhysicalDevice,
@@ -22169,6 +22794,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumerateDeviceExtensionProperties.html>
+    #[inline]
     pub unsafe fn enumerate_device_extension_properties(
         &self,
         physical_device: PhysicalDevice,
@@ -22202,6 +22828,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumerateDeviceLayerProperties.html>
+    #[inline]
     pub unsafe fn enumerate_device_layer_properties(
         &self,
         physical_device: PhysicalDevice,
@@ -22233,6 +22860,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSparseImageFormatProperties.html>
+    #[inline]
     pub unsafe fn get_physical_device_sparse_image_format_properties(
         &self,
         physical_device: PhysicalDevice,
@@ -22705,11 +23333,13 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceProcAddr.html>
+    #[inline]
     pub unsafe fn get_device_proc_addr(&self, device: Device, name: &CStr) -> PFN_vkVoidFunction {
         unsafe { (self.get_device_proc_addr)(device, name.as_ptr() as _) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDevice.html>
+    #[inline]
     pub unsafe fn destroy_device(
         &self,
         device: Device,
@@ -22719,6 +23349,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceQueue.html>
+    #[inline]
     pub unsafe fn get_device_queue(
         &self,
         device: Device,
@@ -22733,6 +23364,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueSubmit.html>
+    #[inline]
     pub unsafe fn queue_submit(
         &self,
         queue: Queue,
@@ -22755,6 +23387,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueWaitIdle.html>
+    #[inline]
     pub unsafe fn queue_wait_idle(&self, queue: Queue) -> crate::Result<()> {
         unsafe {
             let result = (self.queue_wait_idle)(queue);
@@ -22767,6 +23400,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDeviceWaitIdle.html>
+    #[inline]
     pub unsafe fn device_wait_idle(&self, device: Device) -> crate::Result<()> {
         unsafe {
             let result = (self.device_wait_idle)(device);
@@ -22779,6 +23413,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAllocateMemory.html>
+    #[inline]
     pub unsafe fn allocate_memory(
         &self,
         device: Device,
@@ -22802,6 +23437,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkFreeMemory.html>
+    #[inline]
     pub unsafe fn free_memory(
         &self,
         device: Device,
@@ -22812,6 +23448,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkMapMemory.html>
+    #[inline]
     pub unsafe fn map_memory(
         &self,
         device: Device,
@@ -22832,11 +23469,13 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUnmapMemory.html>
+    #[inline]
     pub unsafe fn unmap_memory(&self, device: Device, memory: DeviceMemory) {
         unsafe { (self.unmap_memory)(device, memory) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkFlushMappedMemoryRanges.html>
+    #[inline]
     pub unsafe fn flush_mapped_memory_ranges(
         &self,
         device: Device,
@@ -22857,6 +23496,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkInvalidateMappedMemoryRanges.html>
+    #[inline]
     pub unsafe fn invalidate_mapped_memory_ranges(
         &self,
         device: Device,
@@ -22877,6 +23517,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceMemoryCommitment.html>
+    #[inline]
     pub unsafe fn get_device_memory_commitment(
         &self,
         device: Device,
@@ -22894,6 +23535,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindBufferMemory.html>
+    #[inline]
     pub unsafe fn bind_buffer_memory(
         &self,
         device: Device,
@@ -22912,6 +23554,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindImageMemory.html>
+    #[inline]
     pub unsafe fn bind_image_memory(
         &self,
         device: Device,
@@ -22930,6 +23573,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferMemoryRequirements.html>
+    #[inline]
     pub unsafe fn get_buffer_memory_requirements(
         &self,
         device: Device,
@@ -22943,6 +23587,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageMemoryRequirements.html>
+    #[inline]
     pub unsafe fn get_image_memory_requirements(
         &self,
         device: Device,
@@ -22956,6 +23601,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageSparseMemoryRequirements.html>
+    #[inline]
     pub unsafe fn get_image_sparse_memory_requirements(
         &self,
         device: Device,
@@ -22985,6 +23631,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueBindSparse.html>
+    #[inline]
     pub unsafe fn queue_bind_sparse(
         &self,
         queue: Queue,
@@ -23007,6 +23654,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateFence.html>
+    #[inline]
     pub unsafe fn create_fence(
         &self,
         device: Device,
@@ -23030,6 +23678,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyFence.html>
+    #[inline]
     pub unsafe fn destroy_fence(
         &self,
         device: Device,
@@ -23040,6 +23689,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkResetFences.html>
+    #[inline]
     pub unsafe fn reset_fences(&self, device: Device, fences: &[Fence]) -> crate::Result<()> {
         unsafe {
             let result = (self.reset_fences)(
@@ -23056,6 +23706,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetFenceStatus.html>
+    #[inline]
     pub unsafe fn get_fence_status(&self, device: Device, fence: Fence) -> crate::Result<()> {
         unsafe {
             let result = (self.get_fence_status)(device, fence);
@@ -23068,6 +23719,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWaitForFences.html>
+    #[inline]
     pub unsafe fn wait_for_fences(
         &self,
         device: Device,
@@ -23092,6 +23744,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSemaphore.html>
+    #[inline]
     pub unsafe fn create_semaphore(
         &self,
         device: Device,
@@ -23115,6 +23768,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroySemaphore.html>
+    #[inline]
     pub unsafe fn destroy_semaphore(
         &self,
         device: Device,
@@ -23125,6 +23779,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateQueryPool.html>
+    #[inline]
     pub unsafe fn create_query_pool(
         &self,
         device: Device,
@@ -23148,6 +23803,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyQueryPool.html>
+    #[inline]
     pub unsafe fn destroy_query_pool(
         &self,
         device: Device,
@@ -23158,6 +23814,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetQueryPoolResults.html>
+    #[inline]
     pub unsafe fn get_query_pool_results(
         &self,
         device: Device,
@@ -23188,6 +23845,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateBuffer.html>
+    #[inline]
     pub unsafe fn create_buffer(
         &self,
         device: Device,
@@ -23211,6 +23869,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyBuffer.html>
+    #[inline]
     pub unsafe fn destroy_buffer(
         &self,
         device: Device,
@@ -23221,6 +23880,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateImage.html>
+    #[inline]
     pub unsafe fn create_image(
         &self,
         device: Device,
@@ -23244,6 +23904,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyImage.html>
+    #[inline]
     pub unsafe fn destroy_image(
         &self,
         device: Device,
@@ -23254,6 +23915,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageSubresourceLayout.html>
+    #[inline]
     pub unsafe fn get_image_subresource_layout(
         &self,
         device: Device,
@@ -23268,6 +23930,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateImageView.html>
+    #[inline]
     pub unsafe fn create_image_view(
         &self,
         device: Device,
@@ -23291,6 +23954,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyImageView.html>
+    #[inline]
     pub unsafe fn destroy_image_view(
         &self,
         device: Device,
@@ -23301,6 +23965,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateCommandPool.html>
+    #[inline]
     pub unsafe fn create_command_pool(
         &self,
         device: Device,
@@ -23324,6 +23989,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyCommandPool.html>
+    #[inline]
     pub unsafe fn destroy_command_pool(
         &self,
         device: Device,
@@ -23334,6 +24000,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkResetCommandPool.html>
+    #[inline]
     pub unsafe fn reset_command_pool(
         &self,
         device: Device,
@@ -23351,6 +24018,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAllocateCommandBuffers.html>
+    #[inline]
     pub unsafe fn allocate_command_buffers(
         &self,
         device: Device,
@@ -23372,6 +24040,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkFreeCommandBuffers.html>
+    #[inline]
     pub unsafe fn free_command_buffers(
         &self,
         device: Device,
@@ -23389,6 +24058,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBeginCommandBuffer.html>
+    #[inline]
     pub unsafe fn begin_command_buffer(
         &self,
         command_buffer: CommandBuffer,
@@ -23405,6 +24075,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEndCommandBuffer.html>
+    #[inline]
     pub unsafe fn end_command_buffer(&self, command_buffer: CommandBuffer) -> crate::Result<()> {
         unsafe {
             let result = (self.end_command_buffer)(command_buffer);
@@ -23417,6 +24088,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkResetCommandBuffer.html>
+    #[inline]
     pub unsafe fn reset_command_buffer(
         &self,
         command_buffer: CommandBuffer,
@@ -23433,6 +24105,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyBuffer.html>
+    #[inline]
     pub unsafe fn cmd_copy_buffer(
         &self,
         command_buffer: CommandBuffer,
@@ -23452,6 +24125,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyImage.html>
+    #[inline]
     pub unsafe fn cmd_copy_image(
         &self,
         command_buffer: CommandBuffer,
@@ -23475,6 +24149,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyBufferToImage.html>
+    #[inline]
     pub unsafe fn cmd_copy_buffer_to_image(
         &self,
         command_buffer: CommandBuffer,
@@ -23496,6 +24171,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyImageToBuffer.html>
+    #[inline]
     pub unsafe fn cmd_copy_image_to_buffer(
         &self,
         command_buffer: CommandBuffer,
@@ -23517,6 +24193,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdUpdateBuffer.html>
+    #[inline]
     pub unsafe fn cmd_update_buffer(
         &self,
         command_buffer: CommandBuffer,
@@ -23536,6 +24213,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdFillBuffer.html>
+    #[inline]
     pub unsafe fn cmd_fill_buffer(
         &self,
         command_buffer: CommandBuffer,
@@ -23548,6 +24226,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPipelineBarrier.html>
+    #[inline]
     pub unsafe fn cmd_pipeline_barrier(
         &self,
         command_buffer: CommandBuffer,
@@ -23575,6 +24254,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginQuery.html>
+    #[inline]
     pub unsafe fn cmd_begin_query(
         &self,
         command_buffer: CommandBuffer,
@@ -23586,6 +24266,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndQuery.html>
+    #[inline]
     pub unsafe fn cmd_end_query(
         &self,
         command_buffer: CommandBuffer,
@@ -23596,6 +24277,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdResetQueryPool.html>
+    #[inline]
     pub unsafe fn cmd_reset_query_pool(
         &self,
         command_buffer: CommandBuffer,
@@ -23607,6 +24289,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteTimestamp.html>
+    #[inline]
     pub unsafe fn cmd_write_timestamp(
         &self,
         command_buffer: CommandBuffer,
@@ -23618,6 +24301,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyQueryPoolResults.html>
+    #[inline]
     pub unsafe fn cmd_copy_query_pool_results(
         &self,
         command_buffer: CommandBuffer,
@@ -23644,6 +24328,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdExecuteCommands.html>
+    #[inline]
     pub unsafe fn cmd_execute_commands(
         &self,
         command_buffer: CommandBuffer,
@@ -23659,6 +24344,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateEvent.html>
+    #[inline]
     pub unsafe fn create_event(
         &self,
         device: Device,
@@ -23682,6 +24368,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyEvent.html>
+    #[inline]
     pub unsafe fn destroy_event(
         &self,
         device: Device,
@@ -23692,6 +24379,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetEventStatus.html>
+    #[inline]
     pub unsafe fn get_event_status(&self, device: Device, event: Event) -> crate::Result<()> {
         unsafe {
             let result = (self.get_event_status)(device, event);
@@ -23704,6 +24392,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetEvent.html>
+    #[inline]
     pub unsafe fn set_event(&self, device: Device, event: Event) -> crate::Result<()> {
         unsafe {
             let result = (self.set_event)(device, event);
@@ -23716,6 +24405,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkResetEvent.html>
+    #[inline]
     pub unsafe fn reset_event(&self, device: Device, event: Event) -> crate::Result<()> {
         unsafe {
             let result = (self.reset_event)(device, event);
@@ -23728,6 +24418,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateBufferView.html>
+    #[inline]
     pub unsafe fn create_buffer_view(
         &self,
         device: Device,
@@ -23751,6 +24442,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyBufferView.html>
+    #[inline]
     pub unsafe fn destroy_buffer_view(
         &self,
         device: Device,
@@ -23761,6 +24453,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateShaderModule.html>
+    #[inline]
     pub unsafe fn create_shader_module(
         &self,
         device: Device,
@@ -23784,6 +24477,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyShaderModule.html>
+    #[inline]
     pub unsafe fn destroy_shader_module(
         &self,
         device: Device,
@@ -23794,6 +24488,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreatePipelineCache.html>
+    #[inline]
     pub unsafe fn create_pipeline_cache(
         &self,
         device: Device,
@@ -23817,6 +24512,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyPipelineCache.html>
+    #[inline]
     pub unsafe fn destroy_pipeline_cache(
         &self,
         device: Device,
@@ -23827,6 +24523,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineCacheData.html>
+    #[inline]
     pub unsafe fn get_pipeline_cache_data(
         &self,
         device: Device,
@@ -23856,6 +24553,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkMergePipelineCaches.html>
+    #[inline]
     pub unsafe fn merge_pipeline_caches(
         &self,
         device: Device,
@@ -23878,6 +24576,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateComputePipelines.html>
+    #[inline]
     pub unsafe fn create_compute_pipelines(
         &self,
         device: Device,
@@ -23904,6 +24603,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyPipeline.html>
+    #[inline]
     pub unsafe fn destroy_pipeline(
         &self,
         device: Device,
@@ -23914,6 +24614,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreatePipelineLayout.html>
+    #[inline]
     pub unsafe fn create_pipeline_layout(
         &self,
         device: Device,
@@ -23937,6 +24638,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyPipelineLayout.html>
+    #[inline]
     pub unsafe fn destroy_pipeline_layout(
         &self,
         device: Device,
@@ -23947,6 +24649,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSampler.html>
+    #[inline]
     pub unsafe fn create_sampler(
         &self,
         device: Device,
@@ -23970,6 +24673,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroySampler.html>
+    #[inline]
     pub unsafe fn destroy_sampler(
         &self,
         device: Device,
@@ -23980,6 +24684,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDescriptorSetLayout.html>
+    #[inline]
     pub unsafe fn create_descriptor_set_layout(
         &self,
         device: Device,
@@ -24003,6 +24708,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDescriptorSetLayout.html>
+    #[inline]
     pub unsafe fn destroy_descriptor_set_layout(
         &self,
         device: Device,
@@ -24019,6 +24725,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDescriptorPool.html>
+    #[inline]
     pub unsafe fn create_descriptor_pool(
         &self,
         device: Device,
@@ -24042,6 +24749,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDescriptorPool.html>
+    #[inline]
     pub unsafe fn destroy_descriptor_pool(
         &self,
         device: Device,
@@ -24052,6 +24760,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkResetDescriptorPool.html>
+    #[inline]
     pub unsafe fn reset_descriptor_pool(
         &self,
         device: Device,
@@ -24069,6 +24778,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAllocateDescriptorSets.html>
+    #[inline]
     pub unsafe fn allocate_descriptor_sets(
         &self,
         device: Device,
@@ -24090,6 +24800,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkFreeDescriptorSets.html>
+    #[inline]
     pub unsafe fn free_descriptor_sets(
         &self,
         device: Device,
@@ -24112,6 +24823,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUpdateDescriptorSets.html>
+    #[inline]
     pub unsafe fn update_descriptor_sets(
         &self,
         device: Device,
@@ -24130,6 +24842,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindPipeline.html>
+    #[inline]
     pub unsafe fn cmd_bind_pipeline(
         &self,
         command_buffer: CommandBuffer,
@@ -24140,6 +24853,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindDescriptorSets.html>
+    #[inline]
     pub unsafe fn cmd_bind_descriptor_sets(
         &self,
         command_buffer: CommandBuffer,
@@ -24164,6 +24878,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdClearColorImage.html>
+    #[inline]
     pub unsafe fn cmd_clear_color_image(
         &self,
         command_buffer: CommandBuffer,
@@ -24185,6 +24900,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatch.html>
+    #[inline]
     pub unsafe fn cmd_dispatch(
         &self,
         command_buffer: CommandBuffer,
@@ -24196,6 +24912,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatchIndirect.html>
+    #[inline]
     pub unsafe fn cmd_dispatch_indirect(
         &self,
         command_buffer: CommandBuffer,
@@ -24206,6 +24923,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetEvent.html>
+    #[inline]
     pub unsafe fn cmd_set_event(
         &self,
         command_buffer: CommandBuffer,
@@ -24216,6 +24934,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdResetEvent.html>
+    #[inline]
     pub unsafe fn cmd_reset_event(
         &self,
         command_buffer: CommandBuffer,
@@ -24226,6 +24945,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWaitEvents.html>
+    #[inline]
     pub unsafe fn cmd_wait_events(
         &self,
         command_buffer: CommandBuffer,
@@ -24254,6 +24974,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushConstants.html>
+    #[inline]
     pub unsafe fn cmd_push_constants(
         &self,
         command_buffer: CommandBuffer,
@@ -24275,6 +24996,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateGraphicsPipelines.html>
+    #[inline]
     pub unsafe fn create_graphics_pipelines(
         &self,
         device: Device,
@@ -24301,6 +25023,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateFramebuffer.html>
+    #[inline]
     pub unsafe fn create_framebuffer(
         &self,
         device: Device,
@@ -24324,6 +25047,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyFramebuffer.html>
+    #[inline]
     pub unsafe fn destroy_framebuffer(
         &self,
         device: Device,
@@ -24334,6 +25058,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateRenderPass.html>
+    #[inline]
     pub unsafe fn create_render_pass(
         &self,
         device: Device,
@@ -24357,6 +25082,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyRenderPass.html>
+    #[inline]
     pub unsafe fn destroy_render_pass(
         &self,
         device: Device,
@@ -24367,6 +25093,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRenderAreaGranularity.html>
+    #[inline]
     pub unsafe fn get_render_area_granularity(
         &self,
         device: Device,
@@ -24380,6 +25107,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewport.html>
+    #[inline]
     pub unsafe fn cmd_set_viewport(
         &self,
         command_buffer: CommandBuffer,
@@ -24397,6 +25125,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetScissor.html>
+    #[inline]
     pub unsafe fn cmd_set_scissor(
         &self,
         command_buffer: CommandBuffer,
@@ -24414,11 +25143,13 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLineWidth.html>
+    #[inline]
     pub unsafe fn cmd_set_line_width(&self, command_buffer: CommandBuffer, line_width: f32) {
         unsafe { (self.cmd_set_line_width)(command_buffer, line_width) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthBias.html>
+    #[inline]
     pub unsafe fn cmd_set_depth_bias(
         &self,
         command_buffer: CommandBuffer,
@@ -24437,6 +25168,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetBlendConstants.html>
+    #[inline]
     pub unsafe fn cmd_set_blend_constants(
         &self,
         command_buffer: CommandBuffer,
@@ -24446,6 +25178,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthBounds.html>
+    #[inline]
     pub unsafe fn cmd_set_depth_bounds(
         &self,
         command_buffer: CommandBuffer,
@@ -24456,6 +25189,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetStencilCompareMask.html>
+    #[inline]
     pub unsafe fn cmd_set_stencil_compare_mask(
         &self,
         command_buffer: CommandBuffer,
@@ -24466,6 +25200,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetStencilWriteMask.html>
+    #[inline]
     pub unsafe fn cmd_set_stencil_write_mask(
         &self,
         command_buffer: CommandBuffer,
@@ -24476,6 +25211,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetStencilReference.html>
+    #[inline]
     pub unsafe fn cmd_set_stencil_reference(
         &self,
         command_buffer: CommandBuffer,
@@ -24486,6 +25222,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindIndexBuffer.html>
+    #[inline]
     pub unsafe fn cmd_bind_index_buffer(
         &self,
         command_buffer: CommandBuffer,
@@ -24497,6 +25234,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindVertexBuffers.html>
+    #[inline]
     pub unsafe fn cmd_bind_vertex_buffers(
         &self,
         command_buffer: CommandBuffer,
@@ -24516,6 +25254,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDraw.html>
+    #[inline]
     pub unsafe fn cmd_draw(
         &self,
         command_buffer: CommandBuffer,
@@ -24536,6 +25275,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawIndexed.html>
+    #[inline]
     pub unsafe fn cmd_draw_indexed(
         &self,
         command_buffer: CommandBuffer,
@@ -24558,6 +25298,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawIndirect.html>
+    #[inline]
     pub unsafe fn cmd_draw_indirect(
         &self,
         command_buffer: CommandBuffer,
@@ -24570,6 +25311,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawIndexedIndirect.html>
+    #[inline]
     pub unsafe fn cmd_draw_indexed_indirect(
         &self,
         command_buffer: CommandBuffer,
@@ -24584,6 +25326,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBlitImage.html>
+    #[inline]
     pub unsafe fn cmd_blit_image(
         &self,
         command_buffer: CommandBuffer,
@@ -24609,6 +25352,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdClearDepthStencilImage.html>
+    #[inline]
     pub unsafe fn cmd_clear_depth_stencil_image(
         &self,
         command_buffer: CommandBuffer,
@@ -24630,6 +25374,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdClearAttachments.html>
+    #[inline]
     pub unsafe fn cmd_clear_attachments(
         &self,
         command_buffer: CommandBuffer,
@@ -24648,6 +25393,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdResolveImage.html>
+    #[inline]
     pub unsafe fn cmd_resolve_image(
         &self,
         command_buffer: CommandBuffer,
@@ -24671,6 +25417,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginRenderPass.html>
+    #[inline]
     pub unsafe fn cmd_begin_render_pass(
         &self,
         command_buffer: CommandBuffer,
@@ -24681,6 +25428,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdNextSubpass.html>
+    #[inline]
     pub unsafe fn cmd_next_subpass(
         &self,
         command_buffer: CommandBuffer,
@@ -24690,6 +25438,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndRenderPass.html>
+    #[inline]
     pub unsafe fn cmd_end_render_pass(&self, command_buffer: CommandBuffer) {
         unsafe { (self.cmd_end_render_pass)(command_buffer) }
     }

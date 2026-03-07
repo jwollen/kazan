@@ -54,6 +54,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMaintenance8FeaturesKHR<'a> {
+        #[inline]
         pub fn maintenance8(mut self, maintenance8: bool) -> Self {
             self.maintenance8 = maintenance8.into();
             self
@@ -105,11 +106,13 @@ pub(super) mod defs {
     }
 
     impl<'a> MemoryBarrierAccessFlags3KHR<'a> {
+        #[inline]
         pub fn src_access_mask3(mut self, src_access_mask3: AccessFlags3KHR) -> Self {
             self.src_access_mask3 = src_access_mask3;
             self
         }
 
+        #[inline]
         pub fn dst_access_mask3(mut self, dst_access_mask3: AccessFlags3KHR) -> Self {
             self.dst_access_mask3 = dst_access_mask3;
             self

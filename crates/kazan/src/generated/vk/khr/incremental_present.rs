@@ -55,6 +55,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PresentRegionsKHR<'a> {
+        #[inline]
         pub fn regions(mut self, regions: &'a [PresentRegionKHR<'a>]) -> Self {
             self.swapchain_count = regions.len().try_into().unwrap();
             self.p_regions = regions.as_ptr();
@@ -93,6 +94,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PresentRegionKHR<'a> {
+        #[inline]
         pub fn rectangles(mut self, rectangles: &'a [RectLayerKHR]) -> Self {
             self.rectangle_count = rectangles.len().try_into().unwrap();
             self.p_rectangles = rectangles.as_ptr();
@@ -112,16 +114,19 @@ pub(super) mod defs {
     }
 
     impl RectLayerKHR {
+        #[inline]
         pub fn offset(mut self, offset: Offset2D) -> Self {
             self.offset = offset;
             self
         }
 
+        #[inline]
         pub fn extent(mut self, extent: Extent2D) -> Self {
             self.extent = extent;
             self
         }
 
+        #[inline]
         pub fn layer(mut self, layer: u32) -> Self {
             self.layer = layer;
             self

@@ -62,6 +62,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'a> {
+        #[inline]
         pub fn shader_module_identifier(mut self, shader_module_identifier: bool) -> Self {
             self.shader_module_identifier = shader_module_identifier.into();
             self
@@ -115,6 +116,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderModuleIdentifierPropertiesEXT<'a> {
+        #[inline]
         pub fn shader_module_identifier_algorithm_uuid(
             mut self,
             shader_module_identifier_algorithm_uuid: [u8; UUID_SIZE as usize],
@@ -171,6 +173,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineShaderStageModuleIdentifierCreateInfoEXT<'a> {
+        #[inline]
         pub fn identifier(mut self, identifier: &'a [u8]) -> Self {
             self.identifier_size = identifier.len().try_into().unwrap();
             self.p_identifier = identifier.as_ptr();
@@ -219,6 +222,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ShaderModuleIdentifierEXT<'a> {
+        #[inline]
         pub fn identifier(mut self, identifier: &[u8]) -> Self {
             self.identifier_size = identifier.len().try_into().unwrap();
             self.identifier[..identifier.len()].copy_from_slice(identifier);
@@ -265,6 +269,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetShaderModuleIdentifierEXT.html>
+    #[inline]
     pub unsafe fn get_shader_module_identifier_ext(
         &self,
         device: Device,
@@ -275,6 +280,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetShaderModuleCreateInfoIdentifierEXT.html>
+    #[inline]
     pub unsafe fn get_shader_module_create_info_identifier_ext(
         &self,
         device: Device,

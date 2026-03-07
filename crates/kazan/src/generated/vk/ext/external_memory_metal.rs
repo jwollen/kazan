@@ -55,11 +55,13 @@ pub(super) mod defs {
     }
 
     impl<'a> ImportMemoryMetalHandleInfoEXT<'a> {
+        #[inline]
         pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
 
+        #[inline]
         pub fn handle(mut self, handle: *mut c_void) -> Self {
             self.handle = handle;
             self
@@ -104,6 +106,7 @@ pub(super) mod defs {
     }
 
     impl<'a> MemoryMetalHandlePropertiesEXT<'a> {
+        #[inline]
         pub fn memory_type_bits(mut self, memory_type_bits: u32) -> Self {
             self.memory_type_bits = memory_type_bits;
             self
@@ -151,11 +154,13 @@ pub(super) mod defs {
     }
 
     impl<'a> MemoryGetMetalHandleInfoEXT<'a> {
+        #[inline]
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
         }
 
+        #[inline]
         pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
@@ -201,6 +206,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryMetalHandleEXT.html>
+    #[inline]
     pub unsafe fn get_memory_metal_handle_ext(
         &self,
         device: Device,
@@ -222,6 +228,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryMetalHandlePropertiesEXT.html>
+    #[inline]
     pub unsafe fn get_memory_metal_handle_properties_ext(
         &self,
         device: Device,

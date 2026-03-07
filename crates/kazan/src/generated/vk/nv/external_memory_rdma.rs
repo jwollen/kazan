@@ -59,6 +59,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceExternalMemoryRDMAFeaturesNV<'a> {
+        #[inline]
         pub fn external_memory_rdma(mut self, external_memory_rdma: bool) -> Self {
             self.external_memory_rdma = external_memory_rdma.into();
             self
@@ -106,11 +107,13 @@ pub(super) mod defs {
     }
 
     impl<'a> MemoryGetRemoteAddressInfoNV<'a> {
+        #[inline]
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
         }
 
+        #[inline]
         pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
@@ -145,6 +148,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryRemoteAddressNV.html>
+    #[inline]
     pub unsafe fn get_memory_remote_address_nv(
         &self,
         device: Device,

@@ -22,6 +22,7 @@ pub(super) mod defs {
     }
 
     impl RefreshCycleDurationGOOGLE {
+        #[inline]
         pub fn refresh_duration(mut self, refresh_duration: u64) -> Self {
             self.refresh_duration = refresh_duration;
             self
@@ -42,26 +43,31 @@ pub(super) mod defs {
     }
 
     impl PastPresentationTimingGOOGLE {
+        #[inline]
         pub fn present_id(mut self, present_id: u32) -> Self {
             self.present_id = present_id;
             self
         }
 
+        #[inline]
         pub fn desired_present_time(mut self, desired_present_time: u64) -> Self {
             self.desired_present_time = desired_present_time;
             self
         }
 
+        #[inline]
         pub fn actual_present_time(mut self, actual_present_time: u64) -> Self {
             self.actual_present_time = actual_present_time;
             self
         }
 
+        #[inline]
         pub fn earliest_present_time(mut self, earliest_present_time: u64) -> Self {
             self.earliest_present_time = earliest_present_time;
             self
         }
 
+        #[inline]
         pub fn present_margin(mut self, present_margin: u64) -> Self {
             self.present_margin = present_margin;
             self
@@ -111,6 +117,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PresentTimesInfoGOOGLE<'a> {
+        #[inline]
         pub fn times(mut self, times: &'a [PresentTimeGOOGLE]) -> Self {
             self.swapchain_count = times.len().try_into().unwrap();
             self.p_times = times.as_ptr();
@@ -129,11 +136,13 @@ pub(super) mod defs {
     }
 
     impl PresentTimeGOOGLE {
+        #[inline]
         pub fn present_id(mut self, present_id: u32) -> Self {
             self.present_id = present_id;
             self
         }
 
+        #[inline]
         pub fn desired_present_time(mut self, desired_present_time: u64) -> Self {
             self.desired_present_time = desired_present_time;
             self
@@ -179,6 +188,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRefreshCycleDurationGOOGLE.html>
+    #[inline]
     pub unsafe fn get_refresh_cycle_duration_google(
         &self,
         device: Device,
@@ -200,6 +210,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPastPresentationTimingGOOGLE.html>
+    #[inline]
     pub unsafe fn get_past_presentation_timing_google(
         &self,
         device: Device,

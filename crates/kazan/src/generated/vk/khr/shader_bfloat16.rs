@@ -69,16 +69,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderBfloat16FeaturesKHR<'a> {
+        #[inline]
         pub fn shader_b_float16_type(mut self, shader_b_float16_type: bool) -> Self {
             self.shader_b_float16_type = shader_b_float16_type.into();
             self
         }
 
+        #[inline]
         pub fn shader_b_float16_dot_product(mut self, shader_b_float16_dot_product: bool) -> Self {
             self.shader_b_float16_dot_product = shader_b_float16_dot_product.into();
             self
         }
 
+        #[inline]
         pub fn shader_b_float16_cooperative_matrix(
             mut self,
             shader_b_float16_cooperative_matrix: bool,

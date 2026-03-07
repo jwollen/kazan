@@ -57,6 +57,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceImageProcessing2FeaturesQCOM<'a> {
+        #[inline]
         pub fn texture_block_match2(mut self, texture_block_match2: bool) -> Self {
             self.texture_block_match2 = texture_block_match2.into();
             self
@@ -107,6 +108,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceImageProcessing2PropertiesQCOM<'a> {
+        #[inline]
         pub fn max_block_match_window(mut self, max_block_match_window: Extent2D) -> Self {
             self.max_block_match_window = max_block_match_window;
             self
@@ -157,11 +159,13 @@ pub(super) mod defs {
     }
 
     impl<'a> SamplerBlockMatchWindowCreateInfoQCOM<'a> {
+        #[inline]
         pub fn window_extent(mut self, window_extent: Extent2D) -> Self {
             self.window_extent = window_extent;
             self
         }
 
+        #[inline]
         pub fn window_compare_mode(
             mut self,
             window_compare_mode: BlockMatchWindowCompareModeQCOM,

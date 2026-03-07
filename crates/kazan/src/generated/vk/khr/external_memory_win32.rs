@@ -58,16 +58,19 @@ pub(super) mod defs {
     }
 
     impl<'a> ImportMemoryWin32HandleInfoKHR<'a> {
+        #[inline]
         pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
 
+        #[inline]
         pub fn handle(mut self, handle: HANDLE) -> Self {
             self.handle = handle;
             self
         }
 
+        #[inline]
         pub fn name(mut self, name: LPCWSTR) -> Self {
             self.name = name;
             self
@@ -120,16 +123,19 @@ pub(super) mod defs {
     }
 
     impl<'a> ExportMemoryWin32HandleInfoKHR<'a> {
+        #[inline]
         pub fn attributes(mut self, attributes: *const SECURITY_ATTRIBUTES) -> Self {
             self.p_attributes = attributes;
             self
         }
 
+        #[inline]
         pub fn dw_access(mut self, dw_access: DWORD) -> Self {
             self.dw_access = dw_access;
             self
         }
 
+        #[inline]
         pub fn name(mut self, name: LPCWSTR) -> Self {
             self.name = name;
             self
@@ -174,6 +180,7 @@ pub(super) mod defs {
     }
 
     impl<'a> MemoryWin32HandlePropertiesKHR<'a> {
+        #[inline]
         pub fn memory_type_bits(mut self, memory_type_bits: u32) -> Self {
             self.memory_type_bits = memory_type_bits;
             self
@@ -221,11 +228,13 @@ pub(super) mod defs {
     }
 
     impl<'a> MemoryGetWin32HandleInfoKHR<'a> {
+        #[inline]
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
         }
 
+        #[inline]
         pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
@@ -271,6 +280,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryWin32HandleKHR.html>
+    #[inline]
     pub unsafe fn get_memory_win32_handle_khr(
         &self,
         device: Device,
@@ -292,6 +302,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryWin32HandlePropertiesKHR.html>
+    #[inline]
     pub unsafe fn get_memory_win32_handle_properties_khr(
         &self,
         device: Device,

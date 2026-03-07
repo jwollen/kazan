@@ -63,6 +63,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePresentModeFifoLatestReadyFeaturesKHR<'a> {
+        #[inline]
         pub fn present_mode_fifo_latest_ready(
             mut self,
             present_mode_fifo_latest_ready: bool,

@@ -59,11 +59,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMemoryBudgetPropertiesEXT<'a> {
+        #[inline]
         pub fn heap_budget(mut self, heap_budget: [DeviceSize; MAX_MEMORY_HEAPS as usize]) -> Self {
             self.heap_budget = heap_budget;
             self
         }
 
+        #[inline]
         pub fn heap_usage(mut self, heap_usage: [DeviceSize; MAX_MEMORY_HEAPS as usize]) -> Self {
             self.heap_usage = heap_usage;
             self

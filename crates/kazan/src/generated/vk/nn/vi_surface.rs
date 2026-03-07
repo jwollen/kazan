@@ -53,11 +53,13 @@ pub(super) mod defs {
     }
 
     impl<'a> ViSurfaceCreateInfoNN<'a> {
+        #[inline]
         pub fn flags(mut self, flags: ViSurfaceCreateFlagsNN) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn window(mut self, window: *mut c_void) -> Self {
             self.window = window;
             self
@@ -105,6 +107,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateViSurfaceNN.html>
+    #[inline]
     pub unsafe fn create_vi_surface_nn(
         &self,
         instance: Instance,

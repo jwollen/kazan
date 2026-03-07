@@ -51,6 +51,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeSessionParametersGetInfoKHR<'a> {
+        #[inline]
         pub fn video_session_parameters(
             mut self,
             video_session_parameters: VideoSessionParametersKHR,
@@ -99,6 +100,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeSessionParametersFeedbackInfoKHR<'a> {
+        #[inline]
         pub fn has_overrides(mut self, has_overrides: bool) -> Self {
             self.has_overrides = has_overrides.into();
             self
@@ -152,11 +154,13 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeUsageInfoKHR<'a> {
+        #[inline]
         pub fn video_usage_hints(mut self, video_usage_hints: VideoEncodeUsageFlagsKHR) -> Self {
             self.video_usage_hints = video_usage_hints;
             self
         }
 
+        #[inline]
         pub fn video_content_hints(
             mut self,
             video_content_hints: VideoEncodeContentFlagsKHR,
@@ -165,6 +169,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn tuning_mode(mut self, tuning_mode: VideoEncodeTuningModeKHR) -> Self {
             self.tuning_mode = tuning_mode;
             self
@@ -236,26 +241,31 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeInfoKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: VideoEncodeFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn dst_buffer(mut self, dst_buffer: Buffer) -> Self {
             self.dst_buffer = dst_buffer;
             self
         }
 
+        #[inline]
         pub fn dst_buffer_offset(mut self, dst_buffer_offset: DeviceSize) -> Self {
             self.dst_buffer_offset = dst_buffer_offset;
             self
         }
 
+        #[inline]
         pub fn dst_buffer_range(mut self, dst_buffer_range: DeviceSize) -> Self {
             self.dst_buffer_range = dst_buffer_range;
             self
         }
 
+        #[inline]
         pub fn src_picture_resource(
             mut self,
             src_picture_resource: VideoPictureResourceInfoKHR<'a>,
@@ -264,6 +274,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn setup_reference_slot(
             mut self,
             setup_reference_slot: &'a VideoReferenceSlotInfoKHR<'a>,
@@ -272,6 +283,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn reference_slots(
             mut self,
             reference_slots: &'a [VideoReferenceSlotInfoKHR<'a>],
@@ -281,6 +293,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn preceding_externally_encoded_bytes(
             mut self,
             preceding_externally_encoded_bytes: u32,
@@ -331,6 +344,7 @@ pub(super) mod defs {
     }
 
     impl<'a> QueryPoolVideoEncodeFeedbackCreateInfoKHR<'a> {
+        #[inline]
         pub fn encode_feedback_flags(
             mut self,
             encode_feedback_flags: VideoEncodeFeedbackFlagsKHR,
@@ -384,6 +398,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeQualityLevelInfoKHR<'a> {
+        #[inline]
         pub fn quality_level(mut self, quality_level: u32) -> Self {
             self.quality_level = quality_level;
             self
@@ -432,11 +447,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceVideoEncodeQualityLevelInfoKHR<'a> {
+        #[inline]
         pub fn video_profile(mut self, video_profile: &'a VideoProfileInfoKHR<'a>) -> Self {
             self.p_video_profile = video_profile;
             self
         }
 
+        #[inline]
         pub fn quality_level(mut self, quality_level: u32) -> Self {
             self.quality_level = quality_level;
             self
@@ -491,6 +508,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeQualityLevelPropertiesKHR<'a> {
+        #[inline]
         pub fn preferred_rate_control_mode(
             mut self,
             preferred_rate_control_mode: VideoEncodeRateControlModeFlagBitsKHR,
@@ -499,6 +517,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn preferred_rate_control_layer_count(
             mut self,
             preferred_rate_control_layer_count: u32,
@@ -567,11 +586,13 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeRateControlInfoKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: VideoEncodeRateControlFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn rate_control_mode(
             mut self,
             rate_control_mode: VideoEncodeRateControlModeFlagBitsKHR,
@@ -580,17 +601,20 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn layers(mut self, layers: &'a [VideoEncodeRateControlLayerInfoKHR<'a>]) -> Self {
             self.layer_count = layers.len().try_into().unwrap();
             self.p_layers = layers.as_ptr();
             self
         }
 
+        #[inline]
         pub fn virtual_buffer_size_in_ms(mut self, virtual_buffer_size_in_ms: u32) -> Self {
             self.virtual_buffer_size_in_ms = virtual_buffer_size_in_ms;
             self
         }
 
+        #[inline]
         pub fn initial_virtual_buffer_size_in_ms(
             mut self,
             initial_virtual_buffer_size_in_ms: u32,
@@ -648,21 +672,25 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeRateControlLayerInfoKHR<'a> {
+        #[inline]
         pub fn average_bitrate(mut self, average_bitrate: u64) -> Self {
             self.average_bitrate = average_bitrate;
             self
         }
 
+        #[inline]
         pub fn max_bitrate(mut self, max_bitrate: u64) -> Self {
             self.max_bitrate = max_bitrate;
             self
         }
 
+        #[inline]
         pub fn frame_rate_numerator(mut self, frame_rate_numerator: u32) -> Self {
             self.frame_rate_numerator = frame_rate_numerator;
             self
         }
 
+        #[inline]
         pub fn frame_rate_denominator(mut self, frame_rate_denominator: u32) -> Self {
             self.frame_rate_denominator = frame_rate_denominator;
             self
@@ -733,11 +761,13 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeCapabilitiesKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: VideoEncodeCapabilityFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn rate_control_modes(
             mut self,
             rate_control_modes: VideoEncodeRateControlModeFlagsKHR,
@@ -746,21 +776,25 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_rate_control_layers(mut self, max_rate_control_layers: u32) -> Self {
             self.max_rate_control_layers = max_rate_control_layers;
             self
         }
 
+        #[inline]
         pub fn max_bitrate(mut self, max_bitrate: u64) -> Self {
             self.max_bitrate = max_bitrate;
             self
         }
 
+        #[inline]
         pub fn max_quality_levels(mut self, max_quality_levels: u32) -> Self {
             self.max_quality_levels = max_quality_levels;
             self
         }
 
+        #[inline]
         pub fn encode_input_picture_granularity(
             mut self,
             encode_input_picture_granularity: Extent2D,
@@ -769,6 +803,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn supported_encode_feedback_flags(
             mut self,
             supported_encode_feedback_flags: VideoEncodeFeedbackFlagsKHR,
@@ -1237,6 +1272,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR.html>
+    #[inline]
     pub unsafe fn get_physical_device_video_encode_quality_level_properties_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -1282,6 +1318,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetEncodedVideoSessionParametersKHR.html>
+    #[inline]
     pub unsafe fn get_encoded_video_session_parameters_khr<'a>(
         &self,
         device: Device,
@@ -1321,6 +1358,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEncodeVideoKHR.html>
+    #[inline]
     pub unsafe fn cmd_encode_video_khr(
         &self,
         command_buffer: CommandBuffer,

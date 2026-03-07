@@ -60,6 +60,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePipelineExecutablePropertiesFeaturesKHR<'a> {
+        #[inline]
         pub fn pipeline_executable_info(mut self, pipeline_executable_info: bool) -> Self {
             self.pipeline_executable_info = pipeline_executable_info.into();
             self
@@ -104,6 +105,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineInfoKHR<'a> {
+        #[inline]
         pub fn pipeline(mut self, pipeline: Pipeline) -> Self {
             self.pipeline = pipeline;
             self
@@ -160,11 +162,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineExecutablePropertiesKHR<'a> {
+        #[inline]
         pub fn stages(mut self, stages: ShaderStageFlags) -> Self {
             self.stages = stages;
             self
         }
 
+        #[inline]
         pub fn name(
             mut self,
             name: &CStr,
@@ -173,6 +177,7 @@ pub(super) mod defs {
             Ok(self)
         }
 
+        #[inline]
         pub fn description(
             mut self,
             description: &CStr,
@@ -181,6 +186,7 @@ pub(super) mod defs {
             Ok(self)
         }
 
+        #[inline]
         pub fn subgroup_size(mut self, subgroup_size: u32) -> Self {
             self.subgroup_size = subgroup_size;
             self
@@ -228,11 +234,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineExecutableInfoKHR<'a> {
+        #[inline]
         pub fn pipeline(mut self, pipeline: Pipeline) -> Self {
             self.pipeline = pipeline;
             self
         }
 
+        #[inline]
         pub fn executable_index(mut self, executable_index: u32) -> Self {
             self.executable_index = executable_index;
             self
@@ -289,6 +297,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineExecutableStatisticKHR<'a> {
+        #[inline]
         pub fn name(
             mut self,
             name: &CStr,
@@ -297,6 +306,7 @@ pub(super) mod defs {
             Ok(self)
         }
 
+        #[inline]
         pub fn description(
             mut self,
             description: &CStr,
@@ -305,11 +315,13 @@ pub(super) mod defs {
             Ok(self)
         }
 
+        #[inline]
         pub fn format(mut self, format: PipelineExecutableStatisticFormatKHR) -> Self {
             self.format = format;
             self
         }
 
+        #[inline]
         pub fn value(mut self, value: PipelineExecutableStatisticValueKHR) -> Self {
             self.value = value;
             self
@@ -370,6 +382,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineExecutableInternalRepresentationKHR<'a> {
+        #[inline]
         pub fn name(
             mut self,
             name: &CStr,
@@ -378,6 +391,7 @@ pub(super) mod defs {
             Ok(self)
         }
 
+        #[inline]
         pub fn description(
             mut self,
             description: &CStr,
@@ -386,11 +400,13 @@ pub(super) mod defs {
             Ok(self)
         }
 
+        #[inline]
         pub fn is_text(mut self, is_text: bool) -> Self {
             self.is_text = is_text.into();
             self
         }
 
+        #[inline]
         pub fn data(mut self, data: &'a mut [u8]) -> Self {
             self.data_size = data.len().try_into().unwrap();
             self.p_data = data.as_mut_ptr() as _;
@@ -507,6 +523,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineExecutablePropertiesKHR.html>
+    #[inline]
     pub unsafe fn get_pipeline_executable_properties_khr<'a>(
         &self,
         device: Device,
@@ -540,6 +557,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineExecutableStatisticsKHR.html>
+    #[inline]
     pub unsafe fn get_pipeline_executable_statistics_khr<'a>(
         &self,
         device: Device,
@@ -573,6 +591,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineExecutableInternalRepresentationsKHR.html>
+    #[inline]
     pub unsafe fn get_pipeline_executable_internal_representations_khr<'a>(
         &self,
         device: Device,

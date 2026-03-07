@@ -56,6 +56,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageMemoryRequirements2KHR.html>
+    #[inline]
     pub unsafe fn get_image_memory_requirements2_khr(
         &self,
         device: Device,
@@ -66,6 +67,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferMemoryRequirements2KHR.html>
+    #[inline]
     pub unsafe fn get_buffer_memory_requirements2_khr(
         &self,
         device: Device,
@@ -76,6 +78,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageSparseMemoryRequirements2KHR.html>
+    #[inline]
     pub unsafe fn get_image_sparse_memory_requirements2_khr<'a>(
         &self,
         device: Device,

@@ -60,6 +60,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceOpticalFlowFeaturesNV<'a> {
+        #[inline]
         pub fn optical_flow(mut self, optical_flow: bool) -> Self {
             self.optical_flow = optical_flow.into();
             self
@@ -149,6 +150,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceOpticalFlowPropertiesNV<'a> {
+        #[inline]
         pub fn supported_output_grid_sizes(
             mut self,
             supported_output_grid_sizes: OpticalFlowGridSizeFlagsNV,
@@ -157,6 +159,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn supported_hint_grid_sizes(
             mut self,
             supported_hint_grid_sizes: OpticalFlowGridSizeFlagsNV,
@@ -165,46 +168,55 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn hint_supported(mut self, hint_supported: bool) -> Self {
             self.hint_supported = hint_supported.into();
             self
         }
 
+        #[inline]
         pub fn cost_supported(mut self, cost_supported: bool) -> Self {
             self.cost_supported = cost_supported.into();
             self
         }
 
+        #[inline]
         pub fn bidirectional_flow_supported(mut self, bidirectional_flow_supported: bool) -> Self {
             self.bidirectional_flow_supported = bidirectional_flow_supported.into();
             self
         }
 
+        #[inline]
         pub fn global_flow_supported(mut self, global_flow_supported: bool) -> Self {
             self.global_flow_supported = global_flow_supported.into();
             self
         }
 
+        #[inline]
         pub fn min_width(mut self, min_width: u32) -> Self {
             self.min_width = min_width;
             self
         }
 
+        #[inline]
         pub fn min_height(mut self, min_height: u32) -> Self {
             self.min_height = min_height;
             self
         }
 
+        #[inline]
         pub fn max_width(mut self, max_width: u32) -> Self {
             self.max_width = max_width;
             self
         }
 
+        #[inline]
         pub fn max_height(mut self, max_height: u32) -> Self {
             self.max_height = max_height;
             self
         }
 
+        #[inline]
         pub fn max_num_regions_of_interest(mut self, max_num_regions_of_interest: u32) -> Self {
             self.max_num_regions_of_interest = max_num_regions_of_interest;
             self
@@ -252,6 +264,7 @@ pub(super) mod defs {
     }
 
     impl<'a> OpticalFlowImageFormatInfoNV<'a> {
+        #[inline]
         pub fn usage(mut self, usage: OpticalFlowUsageFlagsNV) -> Self {
             self.usage = usage;
             self
@@ -297,6 +310,7 @@ pub(super) mod defs {
     }
 
     impl<'a> OpticalFlowImageFormatPropertiesNV<'a> {
+        #[inline]
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
@@ -365,41 +379,49 @@ pub(super) mod defs {
     }
 
     impl<'a> OpticalFlowSessionCreateInfoNV<'a> {
+        #[inline]
         pub fn width(mut self, width: u32) -> Self {
             self.width = width;
             self
         }
 
+        #[inline]
         pub fn height(mut self, height: u32) -> Self {
             self.height = height;
             self
         }
 
+        #[inline]
         pub fn image_format(mut self, image_format: Format) -> Self {
             self.image_format = image_format;
             self
         }
 
+        #[inline]
         pub fn flow_vector_format(mut self, flow_vector_format: Format) -> Self {
             self.flow_vector_format = flow_vector_format;
             self
         }
 
+        #[inline]
         pub fn cost_format(mut self, cost_format: Format) -> Self {
             self.cost_format = cost_format;
             self
         }
 
+        #[inline]
         pub fn output_grid_size(mut self, output_grid_size: OpticalFlowGridSizeFlagsNV) -> Self {
             self.output_grid_size = output_grid_size;
             self
         }
 
+        #[inline]
         pub fn hint_grid_size(mut self, hint_grid_size: OpticalFlowGridSizeFlagsNV) -> Self {
             self.hint_grid_size = hint_grid_size;
             self
         }
 
+        #[inline]
         pub fn performance_level(
             mut self,
             performance_level: OpticalFlowPerformanceLevelNV,
@@ -408,6 +430,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn flags(mut self, flags: OpticalFlowSessionCreateFlagsNV) -> Self {
             self.flags = flags;
             self
@@ -464,16 +487,19 @@ pub(super) mod defs {
     }
 
     impl<'a> OpticalFlowSessionCreatePrivateDataInfoNV<'a> {
+        #[inline]
         pub fn id(mut self, id: u32) -> Self {
             self.id = id;
             self
         }
 
+        #[inline]
         pub fn size(mut self, size: u32) -> Self {
             self.size = size;
             self
         }
 
+        #[inline]
         pub fn private_data(mut self, private_data: *const c_void) -> Self {
             self.p_private_data = private_data;
             self
@@ -524,11 +550,13 @@ pub(super) mod defs {
     }
 
     impl<'a> OpticalFlowExecuteInfoNV<'a> {
+        #[inline]
         pub fn flags(mut self, flags: OpticalFlowExecuteFlagsNV) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn regions(mut self, regions: &'a [Rect2D]) -> Self {
             self.region_count = regions.len().try_into().unwrap();
             self.p_regions = regions.as_ptr();
@@ -897,6 +925,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceOpticalFlowImageFormatsNV.html>
+    #[inline]
     pub unsafe fn get_physical_device_optical_flow_image_formats_nv<'a>(
         &self,
         physical_device: PhysicalDevice,
@@ -962,6 +991,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateOpticalFlowSessionNV.html>
+    #[inline]
     pub unsafe fn create_optical_flow_session_nv(
         &self,
         device: Device,
@@ -985,6 +1015,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyOpticalFlowSessionNV.html>
+    #[inline]
     pub unsafe fn destroy_optical_flow_session_nv(
         &self,
         device: Device,
@@ -995,6 +1026,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindOpticalFlowSessionImageNV.html>
+    #[inline]
     pub unsafe fn bind_optical_flow_session_image_nv(
         &self,
         device: Device,
@@ -1020,6 +1052,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdOpticalFlowExecuteNV.html>
+    #[inline]
     pub unsafe fn cmd_optical_flow_execute_nv(
         &self,
         command_buffer: CommandBuffer,

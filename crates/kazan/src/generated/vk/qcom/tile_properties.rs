@@ -57,6 +57,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceTilePropertiesFeaturesQCOM<'a> {
+        #[inline]
         pub fn tile_properties(mut self, tile_properties: bool) -> Self {
             self.tile_properties = tile_properties.into();
             self
@@ -107,16 +108,19 @@ pub(super) mod defs {
     }
 
     impl<'a> TilePropertiesQCOM<'a> {
+        #[inline]
         pub fn tile_size(mut self, tile_size: Extent3D) -> Self {
             self.tile_size = tile_size;
             self
         }
 
+        #[inline]
         pub fn apron_size(mut self, apron_size: Extent2D) -> Self {
             self.apron_size = apron_size;
             self
         }
 
+        #[inline]
         pub fn origin(mut self, origin: Offset2D) -> Self {
             self.origin = origin;
             self
@@ -164,6 +168,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetFramebufferTilePropertiesQCOM.html>
+    #[inline]
     pub unsafe fn get_framebuffer_tile_properties_qcom<'a>(
         &self,
         device: Device,
@@ -197,6 +202,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDynamicRenderingTilePropertiesQCOM.html>
+    #[inline]
     pub unsafe fn get_dynamic_rendering_tile_properties_qcom(
         &self,
         device: Device,

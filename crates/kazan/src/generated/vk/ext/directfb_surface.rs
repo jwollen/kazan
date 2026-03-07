@@ -56,16 +56,19 @@ pub(super) mod defs {
     }
 
     impl<'a> DirectFBSurfaceCreateInfoEXT<'a> {
+        #[inline]
         pub fn flags(mut self, flags: DirectFBSurfaceCreateFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn dfb(mut self, dfb: *mut IDirectFB) -> Self {
             self.dfb = dfb;
             self
         }
 
+        #[inline]
         pub fn surface(mut self, surface: *mut IDirectFBSurface) -> Self {
             self.surface = surface;
             self
@@ -126,6 +129,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDirectFBSurfaceEXT.html>
+    #[inline]
     pub unsafe fn create_direct_fb_surface_ext(
         &self,
         instance: Instance,
@@ -149,6 +153,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDirectFBPresentationSupportEXT.html>
+    #[inline]
     pub unsafe fn get_physical_device_direct_fb_presentation_support_ext(
         &self,
         physical_device: PhysicalDevice,

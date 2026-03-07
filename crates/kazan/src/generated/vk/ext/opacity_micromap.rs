@@ -86,53 +86,63 @@ pub(super) mod defs {
     }
 
     impl<'a> MicromapBuildInfoEXT<'a> {
+        #[inline]
         pub fn ty(mut self, ty: MicromapTypeEXT) -> Self {
             self.ty = ty;
             self
         }
 
+        #[inline]
         pub fn flags(mut self, flags: BuildMicromapFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn mode(mut self, mode: BuildMicromapModeEXT) -> Self {
             self.mode = mode;
             self
         }
 
+        #[inline]
         pub fn dst_micromap(mut self, dst_micromap: MicromapEXT) -> Self {
             self.dst_micromap = dst_micromap;
             self
         }
 
+        #[inline]
         pub fn usage_counts(mut self, usage_counts: &'a [MicromapUsageEXT]) -> Self {
             self.usage_counts_count = usage_counts.len().try_into().unwrap();
             self.p_usage_counts = usage_counts.as_ptr();
             self
         }
 
+        #[inline]
         pub fn usage_counts_ptrs(mut self, usage_counts_ptrs: &'a [&'a MicromapUsageEXT]) -> Self {
             self.usage_counts_count = usage_counts_ptrs.len().try_into().unwrap();
             self.pp_usage_counts = usage_counts_ptrs.as_ptr() as _;
             self
         }
 
+        #[inline]
         pub fn data(mut self, data: DeviceOrHostAddressConstKHR<'a>) -> Self {
             self.data = data;
             self
         }
 
+        #[inline]
         pub fn scratch_data(mut self, scratch_data: DeviceOrHostAddressKHR<'a>) -> Self {
             self.scratch_data = scratch_data;
             self
         }
 
+        #[inline]
         pub fn triangle_array(mut self, triangle_array: DeviceOrHostAddressConstKHR<'a>) -> Self {
             self.triangle_array = triangle_array;
             self
         }
 
+        #[inline]
         pub fn triangle_array_stride(mut self, triangle_array_stride: DeviceSize) -> Self {
             self.triangle_array_stride = triangle_array_stride;
             self
@@ -192,31 +202,37 @@ pub(super) mod defs {
     }
 
     impl<'a> MicromapCreateInfoEXT<'a> {
+        #[inline]
         pub fn create_flags(mut self, create_flags: MicromapCreateFlagsEXT) -> Self {
             self.create_flags = create_flags;
             self
         }
 
+        #[inline]
         pub fn buffer(mut self, buffer: Buffer) -> Self {
             self.buffer = buffer;
             self
         }
 
+        #[inline]
         pub fn offset(mut self, offset: DeviceSize) -> Self {
             self.offset = offset;
             self
         }
 
+        #[inline]
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
         }
 
+        #[inline]
         pub fn ty(mut self, ty: MicromapTypeEXT) -> Self {
             self.ty = ty;
             self
         }
 
+        #[inline]
         pub fn device_address(mut self, device_address: DeviceAddress) -> Self {
             self.device_address = device_address;
             self
@@ -306,16 +322,19 @@ pub(super) mod defs {
     }
 
     impl<'a> CopyMicromapInfoEXT<'a> {
+        #[inline]
         pub fn src(mut self, src: MicromapEXT) -> Self {
             self.src = src;
             self
         }
 
+        #[inline]
         pub fn dst(mut self, dst: MicromapEXT) -> Self {
             self.dst = dst;
             self
         }
 
+        #[inline]
         pub fn mode(mut self, mode: CopyMicromapModeEXT) -> Self {
             self.mode = mode;
             self
@@ -366,16 +385,19 @@ pub(super) mod defs {
     }
 
     impl<'a> CopyMicromapToMemoryInfoEXT<'a> {
+        #[inline]
         pub fn src(mut self, src: MicromapEXT) -> Self {
             self.src = src;
             self
         }
 
+        #[inline]
         pub fn dst(mut self, dst: DeviceOrHostAddressKHR<'a>) -> Self {
             self.dst = dst;
             self
         }
 
+        #[inline]
         pub fn mode(mut self, mode: CopyMicromapModeEXT) -> Self {
             self.mode = mode;
             self
@@ -426,16 +448,19 @@ pub(super) mod defs {
     }
 
     impl<'a> CopyMemoryToMicromapInfoEXT<'a> {
+        #[inline]
         pub fn src(mut self, src: DeviceOrHostAddressConstKHR<'a>) -> Self {
             self.src = src;
             self
         }
 
+        #[inline]
         pub fn dst(mut self, dst: MicromapEXT) -> Self {
             self.dst = dst;
             self
         }
 
+        #[inline]
         pub fn mode(mut self, mode: CopyMicromapModeEXT) -> Self {
             self.mode = mode;
             self
@@ -486,16 +511,19 @@ pub(super) mod defs {
     }
 
     impl<'a> MicromapBuildSizesInfoEXT<'a> {
+        #[inline]
         pub fn micromap_size(mut self, micromap_size: DeviceSize) -> Self {
             self.micromap_size = micromap_size;
             self
         }
 
+        #[inline]
         pub fn build_scratch_size(mut self, build_scratch_size: DeviceSize) -> Self {
             self.build_scratch_size = build_scratch_size;
             self
         }
 
+        #[inline]
         pub fn discardable(mut self, discardable: bool) -> Self {
             self.discardable = discardable.into();
             self
@@ -514,16 +542,19 @@ pub(super) mod defs {
     }
 
     impl MicromapUsageEXT {
+        #[inline]
         pub fn count(mut self, count: u32) -> Self {
             self.count = count;
             self
         }
 
+        #[inline]
         pub fn subdivision_level(mut self, subdivision_level: u32) -> Self {
             self.subdivision_level = subdivision_level;
             self
         }
 
+        #[inline]
         pub fn format(mut self, format: u32) -> Self {
             self.format = format;
             self
@@ -542,16 +573,19 @@ pub(super) mod defs {
     }
 
     impl MicromapTriangleEXT {
+        #[inline]
         pub fn data_offset(mut self, data_offset: u32) -> Self {
             self.data_offset = data_offset;
             self
         }
 
+        #[inline]
         pub fn subdivision_level(mut self, subdivision_level: u16) -> Self {
             self.subdivision_level = subdivision_level;
             self
         }
 
+        #[inline]
         pub fn format(mut self, format: u16) -> Self {
             self.format = format;
             self
@@ -609,16 +643,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceOpacityMicromapFeaturesEXT<'a> {
+        #[inline]
         pub fn micromap(mut self, micromap: bool) -> Self {
             self.micromap = micromap.into();
             self
         }
 
+        #[inline]
         pub fn micromap_capture_replay(mut self, micromap_capture_replay: bool) -> Self {
             self.micromap_capture_replay = micromap_capture_replay.into();
             self
         }
 
+        #[inline]
         pub fn micromap_host_commands(mut self, micromap_host_commands: bool) -> Self {
             self.micromap_host_commands = micromap_host_commands.into();
             self
@@ -678,6 +715,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceOpacityMicromapPropertiesEXT<'a> {
+        #[inline]
         pub fn max_opacity2_state_subdivision_level(
             mut self,
             max_opacity2_state_subdivision_level: u32,
@@ -686,6 +724,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_opacity4_state_subdivision_level(
             mut self,
             max_opacity4_state_subdivision_level: u32,
@@ -764,38 +803,45 @@ pub(super) mod defs {
     }
 
     impl<'a> AccelerationStructureTrianglesOpacityMicromapEXT<'a> {
+        #[inline]
         pub fn index_type(mut self, index_type: IndexType) -> Self {
             self.index_type = index_type;
             self
         }
 
+        #[inline]
         pub fn index_buffer(mut self, index_buffer: DeviceOrHostAddressConstKHR<'a>) -> Self {
             self.index_buffer = index_buffer;
             self
         }
 
+        #[inline]
         pub fn index_stride(mut self, index_stride: DeviceSize) -> Self {
             self.index_stride = index_stride;
             self
         }
 
+        #[inline]
         pub fn base_triangle(mut self, base_triangle: u32) -> Self {
             self.base_triangle = base_triangle;
             self
         }
 
+        #[inline]
         pub fn usage_counts(mut self, usage_counts: &'a [MicromapUsageEXT]) -> Self {
             self.usage_counts_count = usage_counts.len().try_into().unwrap();
             self.p_usage_counts = usage_counts.as_ptr();
             self
         }
 
+        #[inline]
         pub fn usage_counts_ptrs(mut self, usage_counts_ptrs: &'a [&'a MicromapUsageEXT]) -> Self {
             self.usage_counts_count = usage_counts_ptrs.len().try_into().unwrap();
             self.pp_usage_counts = usage_counts_ptrs.as_ptr() as _;
             self
         }
 
+        #[inline]
         pub fn micromap(mut self, micromap: MicromapEXT) -> Self {
             self.micromap = micromap;
             self
@@ -1212,6 +1258,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateMicromapEXT.html>
+    #[inline]
     pub unsafe fn create_micromap_ext(
         &self,
         device: Device,
@@ -1235,6 +1282,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyMicromapEXT.html>
+    #[inline]
     pub unsafe fn destroy_micromap_ext(
         &self,
         device: Device,
@@ -1245,6 +1293,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBuildMicromapsEXT.html>
+    #[inline]
     pub unsafe fn cmd_build_micromaps_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1260,6 +1309,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBuildMicromapsEXT.html>
+    #[inline]
     pub unsafe fn build_micromaps_ext(
         &self,
         device: Device,
@@ -1282,6 +1332,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMicromapEXT.html>
+    #[inline]
     pub unsafe fn copy_micromap_ext(
         &self,
         device: Device,
@@ -1299,6 +1350,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMicromapToMemoryEXT.html>
+    #[inline]
     pub unsafe fn copy_micromap_to_memory_ext(
         &self,
         device: Device,
@@ -1316,6 +1368,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMemoryToMicromapEXT.html>
+    #[inline]
     pub unsafe fn copy_memory_to_micromap_ext(
         &self,
         device: Device,
@@ -1333,6 +1386,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWriteMicromapsPropertiesEXT.html>
+    #[inline]
     pub unsafe fn write_micromaps_properties_ext(
         &self,
         device: Device,
@@ -1360,6 +1414,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMicromapEXT.html>
+    #[inline]
     pub unsafe fn cmd_copy_micromap_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1369,6 +1424,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMicromapToMemoryEXT.html>
+    #[inline]
     pub unsafe fn cmd_copy_micromap_to_memory_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1378,6 +1434,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryToMicromapEXT.html>
+    #[inline]
     pub unsafe fn cmd_copy_memory_to_micromap_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1387,6 +1444,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteMicromapsPropertiesEXT.html>
+    #[inline]
     pub unsafe fn cmd_write_micromaps_properties_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1408,6 +1466,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceMicromapCompatibilityEXT.html>
+    #[inline]
     pub unsafe fn get_device_micromap_compatibility_ext(
         &self,
         device: Device,
@@ -1425,6 +1484,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMicromapBuildSizesEXT.html>
+    #[inline]
     pub unsafe fn get_micromap_build_sizes_ext(
         &self,
         device: Device,

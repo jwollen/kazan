@@ -53,6 +53,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelinePropertiesIdentifierEXT<'a> {
+        #[inline]
         pub fn pipeline_identifier(
             mut self,
             pipeline_identifier: [u8; UUID_SIZE as usize],
@@ -110,6 +111,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePipelinePropertiesFeaturesEXT<'a> {
+        #[inline]
         pub fn pipeline_properties_identifier(
             mut self,
             pipeline_properties_identifier: bool,
@@ -147,6 +149,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelinePropertiesEXT.html>
+    #[inline]
     pub unsafe fn get_pipeline_properties_ext(
         &self,
         device: Device,

@@ -53,6 +53,7 @@ pub(super) mod defs {
     }
 
     impl<'a> RenderPassCreationControlEXT<'a> {
+        #[inline]
         pub fn disallow_merging(mut self, disallow_merging: bool) -> Self {
             self.disallow_merging = disallow_merging.into();
             self
@@ -69,6 +70,7 @@ pub(super) mod defs {
     }
 
     impl RenderPassCreationFeedbackInfoEXT {
+        #[inline]
         pub fn post_merge_subpass_count(mut self, post_merge_subpass_count: u32) -> Self {
             self.post_merge_subpass_count = post_merge_subpass_count;
             self
@@ -116,6 +118,7 @@ pub(super) mod defs {
     }
 
     impl<'a> RenderPassCreationFeedbackCreateInfoEXT<'a> {
+        #[inline]
         pub fn render_pass_feedback(
             mut self,
             render_pass_feedback: &'a mut RenderPassCreationFeedbackInfoEXT,
@@ -160,11 +163,13 @@ pub(super) mod defs {
     }
 
     impl RenderPassSubpassFeedbackInfoEXT {
+        #[inline]
         pub fn subpass_merge_status(mut self, subpass_merge_status: SubpassMergeStatusEXT) -> Self {
             self.subpass_merge_status = subpass_merge_status;
             self
         }
 
+        #[inline]
         pub fn description(
             mut self,
             description: &CStr,
@@ -173,6 +178,7 @@ pub(super) mod defs {
             Ok(self)
         }
 
+        #[inline]
         pub fn post_merge_index(mut self, post_merge_index: u32) -> Self {
             self.post_merge_index = post_merge_index;
             self
@@ -220,6 +226,7 @@ pub(super) mod defs {
     }
 
     impl<'a> RenderPassSubpassFeedbackCreateInfoEXT<'a> {
+        #[inline]
         pub fn subpass_feedback(
             mut self,
             subpass_feedback: &'a mut RenderPassSubpassFeedbackInfoEXT,
@@ -277,6 +284,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'a> {
+        #[inline]
         pub fn subpass_merge_feedback(mut self, subpass_merge_feedback: bool) -> Self {
             self.subpass_merge_feedback = subpass_merge_feedback.into();
             self

@@ -52,6 +52,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoDecodeCapabilitiesKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: VideoDecodeCapabilityFlagsKHR) -> Self {
             self.flags = flags;
             self
@@ -99,6 +100,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoDecodeUsageInfoKHR<'a> {
+        #[inline]
         pub fn video_usage_hints(mut self, video_usage_hints: VideoDecodeUsageFlagsKHR) -> Self {
             self.video_usage_hints = video_usage_hints;
             self
@@ -164,26 +166,31 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoDecodeInfoKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: VideoDecodeFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn src_buffer(mut self, src_buffer: Buffer) -> Self {
             self.src_buffer = src_buffer;
             self
         }
 
+        #[inline]
         pub fn src_buffer_offset(mut self, src_buffer_offset: DeviceSize) -> Self {
             self.src_buffer_offset = src_buffer_offset;
             self
         }
 
+        #[inline]
         pub fn src_buffer_range(mut self, src_buffer_range: DeviceSize) -> Self {
             self.src_buffer_range = src_buffer_range;
             self
         }
 
+        #[inline]
         pub fn dst_picture_resource(
             mut self,
             dst_picture_resource: VideoPictureResourceInfoKHR<'a>,
@@ -192,6 +199,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn setup_reference_slot(
             mut self,
             setup_reference_slot: &'a VideoReferenceSlotInfoKHR<'a>,
@@ -200,6 +208,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn reference_slots(
             mut self,
             reference_slots: &'a [VideoReferenceSlotInfoKHR<'a>],
@@ -357,6 +366,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDecodeVideoKHR.html>
+    #[inline]
     pub unsafe fn cmd_decode_video_khr(
         &self,
         command_buffer: CommandBuffer,

@@ -60,6 +60,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMutableDescriptorTypeFeaturesEXT<'a> {
+        #[inline]
         pub fn mutable_descriptor_type(mut self, mutable_descriptor_type: bool) -> Self {
             self.mutable_descriptor_type = mutable_descriptor_type.into();
             self
@@ -97,6 +98,7 @@ pub(super) mod defs {
     }
 
     impl<'a> MutableDescriptorTypeListEXT<'a> {
+        #[inline]
         pub fn descriptor_types(mut self, descriptor_types: &'a [DescriptorType]) -> Self {
             self.descriptor_type_count = descriptor_types.len().try_into().unwrap();
             self.p_descriptor_types = descriptor_types.as_ptr();
@@ -158,6 +160,7 @@ pub(super) mod defs {
     }
 
     impl<'a> MutableDescriptorTypeCreateInfoEXT<'a> {
+        #[inline]
         pub fn mutable_descriptor_type_lists(
             mut self,
             mutable_descriptor_type_lists: &'a [MutableDescriptorTypeListEXT<'a>],

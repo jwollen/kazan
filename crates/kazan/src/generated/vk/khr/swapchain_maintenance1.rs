@@ -60,6 +60,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceSwapchainMaintenance1FeaturesKHR<'a> {
+        #[inline]
         pub fn swapchain_maintenance1(mut self, swapchain_maintenance1: bool) -> Self {
             self.swapchain_maintenance1 = swapchain_maintenance1.into();
             self
@@ -109,6 +110,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SwapchainPresentFenceInfoKHR<'a> {
+        #[inline]
         pub fn fences(mut self, fences: &'a [Fence]) -> Self {
             self.swapchain_count = fences.len().try_into().unwrap();
             self.p_fences = fences.as_ptr();
@@ -160,6 +162,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SwapchainPresentModesCreateInfoKHR<'a> {
+        #[inline]
         pub fn present_modes(mut self, present_modes: &'a [PresentModeKHR]) -> Self {
             self.present_mode_count = present_modes.len().try_into().unwrap();
             self.p_present_modes = present_modes.as_ptr();
@@ -210,6 +213,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SwapchainPresentModeInfoKHR<'a> {
+        #[inline]
         pub fn present_modes(mut self, present_modes: &'a [PresentModeKHR]) -> Self {
             self.swapchain_count = present_modes.len().try_into().unwrap();
             self.p_present_modes = present_modes.as_ptr();
@@ -264,16 +268,19 @@ pub(super) mod defs {
     }
 
     impl<'a> SwapchainPresentScalingCreateInfoKHR<'a> {
+        #[inline]
         pub fn scaling_behavior(mut self, scaling_behavior: PresentScalingFlagsKHR) -> Self {
             self.scaling_behavior = scaling_behavior;
             self
         }
 
+        #[inline]
         pub fn present_gravity_x(mut self, present_gravity_x: PresentGravityFlagsKHR) -> Self {
             self.present_gravity_x = present_gravity_x;
             self
         }
 
+        #[inline]
         pub fn present_gravity_y(mut self, present_gravity_y: PresentGravityFlagsKHR) -> Self {
             self.present_gravity_y = present_gravity_y;
             self
@@ -324,11 +331,13 @@ pub(super) mod defs {
     }
 
     impl<'a> ReleaseSwapchainImagesInfoKHR<'a> {
+        #[inline]
         pub fn swapchain(mut self, swapchain: SwapchainKHR) -> Self {
             self.swapchain = swapchain;
             self
         }
 
+        #[inline]
         pub fn image_indices(mut self, image_indices: &'a [u32]) -> Self {
             self.image_index_count = image_indices.len().try_into().unwrap();
             self.p_image_indices = image_indices.as_ptr();
@@ -363,6 +372,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleaseSwapchainImagesKHR.html>
+    #[inline]
     pub unsafe fn release_swapchain_images_khr(
         &self,
         device: Device,

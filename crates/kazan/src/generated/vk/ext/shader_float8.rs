@@ -60,11 +60,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderFloat8FeaturesEXT<'a> {
+        #[inline]
         pub fn shader_float8(mut self, shader_float8: bool) -> Self {
             self.shader_float8 = shader_float8.into();
             self
         }
 
+        #[inline]
         pub fn shader_float8_cooperative_matrix(
             mut self,
             shader_float8_cooperative_matrix: bool,

@@ -62,26 +62,31 @@ pub(super) mod defs {
     }
 
     impl<'a> ImportSemaphoreWin32HandleInfoKHR<'a> {
+        #[inline]
         pub fn semaphore(mut self, semaphore: Semaphore) -> Self {
             self.semaphore = semaphore;
             self
         }
 
+        #[inline]
         pub fn flags(mut self, flags: SemaphoreImportFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn handle_type(mut self, handle_type: ExternalSemaphoreHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
 
+        #[inline]
         pub fn handle(mut self, handle: HANDLE) -> Self {
             self.handle = handle;
             self
         }
 
+        #[inline]
         pub fn name(mut self, name: LPCWSTR) -> Self {
             self.name = name;
             self
@@ -134,16 +139,19 @@ pub(super) mod defs {
     }
 
     impl<'a> ExportSemaphoreWin32HandleInfoKHR<'a> {
+        #[inline]
         pub fn attributes(mut self, attributes: *const SECURITY_ATTRIBUTES) -> Self {
             self.p_attributes = attributes;
             self
         }
 
+        #[inline]
         pub fn dw_access(mut self, dw_access: DWORD) -> Self {
             self.dw_access = dw_access;
             self
         }
 
+        #[inline]
         pub fn name(mut self, name: LPCWSTR) -> Self {
             self.name = name;
             self
@@ -205,12 +213,14 @@ pub(super) mod defs {
     }
 
     impl<'a> D3D12FenceSubmitInfoKHR<'a> {
+        #[inline]
         pub fn wait_semaphore_values(mut self, wait_semaphore_values: &'a [u64]) -> Self {
             self.wait_semaphore_values_count = wait_semaphore_values.len().try_into().unwrap();
             self.p_wait_semaphore_values = wait_semaphore_values.as_ptr();
             self
         }
 
+        #[inline]
         pub fn signal_semaphore_values(mut self, signal_semaphore_values: &'a [u64]) -> Self {
             self.signal_semaphore_values_count = signal_semaphore_values.len().try_into().unwrap();
             self.p_signal_semaphore_values = signal_semaphore_values.as_ptr();
@@ -259,11 +269,13 @@ pub(super) mod defs {
     }
 
     impl<'a> SemaphoreGetWin32HandleInfoKHR<'a> {
+        #[inline]
         pub fn semaphore(mut self, semaphore: Semaphore) -> Self {
             self.semaphore = semaphore;
             self
         }
 
+        #[inline]
         pub fn handle_type(mut self, handle_type: ExternalSemaphoreHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
@@ -307,6 +319,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportSemaphoreWin32HandleKHR.html>
+    #[inline]
     pub unsafe fn import_semaphore_win32_handle_khr(
         &self,
         device: Device,
@@ -326,6 +339,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSemaphoreWin32HandleKHR.html>
+    #[inline]
     pub unsafe fn get_semaphore_win32_handle_khr(
         &self,
         device: Device,

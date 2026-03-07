@@ -46,6 +46,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLineStippleKHR.html>
+    #[inline]
     pub unsafe fn cmd_set_line_stipple_khr(
         &self,
         command_buffer: CommandBuffer,

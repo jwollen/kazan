@@ -55,6 +55,7 @@ pub(super) mod defs {
     }
 
     impl<'a> LayerSettingsCreateInfoEXT<'a> {
+        #[inline]
         pub fn settings(mut self, settings: &'a [LayerSettingEXT<'a>]) -> Self {
             self.setting_count = settings.len().try_into().unwrap();
             self.p_settings = settings.as_ptr();
@@ -102,21 +103,25 @@ pub(super) mod defs {
     }
 
     impl<'a> LayerSettingEXT<'a> {
+        #[inline]
         pub fn layer_name(mut self, layer_name: &'a CStr) -> Self {
             self.p_layer_name = layer_name.as_ptr();
             self
         }
 
+        #[inline]
         pub fn setting_name(mut self, setting_name: &'a CStr) -> Self {
             self.p_setting_name = setting_name.as_ptr();
             self
         }
 
+        #[inline]
         pub fn ty(mut self, ty: LayerSettingTypeEXT) -> Self {
             self.ty = ty;
             self
         }
 
+        #[inline]
         pub fn values(mut self, values: &'a [u8]) -> Self {
             self.value_count = values.len().try_into().unwrap();
             self.p_values = values.as_ptr() as _;

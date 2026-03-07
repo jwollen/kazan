@@ -67,6 +67,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT<'a> {
+        #[inline]
         pub fn fragment_density_map_offset(mut self, fragment_density_map_offset: bool) -> Self {
             self.fragment_density_map_offset = fragment_density_map_offset.into();
             self
@@ -120,6 +121,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT<'a> {
+        #[inline]
         pub fn fragment_density_offset_granularity(
             mut self,
             fragment_density_offset_granularity: Extent2D,
@@ -183,6 +185,7 @@ pub(super) mod defs {
     }
 
     impl<'a> RenderPassFragmentDensityMapOffsetEndInfoEXT<'a> {
+        #[inline]
         pub fn fragment_density_offsets(
             mut self,
             fragment_density_offsets: &'a [Offset2D],
@@ -214,6 +217,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndRendering2EXT.html>
+    #[inline]
     pub unsafe fn cmd_end_rendering2_ext(
         &self,
         command_buffer: CommandBuffer,

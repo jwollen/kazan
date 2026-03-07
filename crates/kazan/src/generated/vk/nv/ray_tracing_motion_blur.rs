@@ -63,11 +63,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceRayTracingMotionBlurFeaturesNV<'a> {
+        #[inline]
         pub fn ray_tracing_motion_blur(mut self, ray_tracing_motion_blur: bool) -> Self {
             self.ray_tracing_motion_blur = ray_tracing_motion_blur.into();
             self
         }
 
+        #[inline]
         pub fn ray_tracing_motion_blur_pipeline_trace_rays_indirect(
             mut self,
             ray_tracing_motion_blur_pipeline_trace_rays_indirect: bool,
@@ -122,6 +124,7 @@ pub(super) mod defs {
     }
 
     impl<'a> AccelerationStructureGeometryMotionTrianglesDataNV<'a> {
+        #[inline]
         pub fn vertex_data(mut self, vertex_data: DeviceOrHostAddressConstKHR<'a>) -> Self {
             self.vertex_data = vertex_data;
             self
@@ -174,11 +177,13 @@ pub(super) mod defs {
     }
 
     impl<'a> AccelerationStructureMotionInfoNV<'a> {
+        #[inline]
         pub fn max_instances(mut self, max_instances: u32) -> Self {
             self.max_instances = max_instances;
             self
         }
 
+        #[inline]
         pub fn flags(mut self, flags: AccelerationStructureMotionInfoFlagsNV) -> Self {
             self.flags = flags;
             self
@@ -210,81 +215,97 @@ pub(super) mod defs {
     }
 
     impl SRTDataNV {
+        #[inline]
         pub fn sx(mut self, sx: f32) -> Self {
             self.sx = sx;
             self
         }
 
+        #[inline]
         pub fn a(mut self, a: f32) -> Self {
             self.a = a;
             self
         }
 
+        #[inline]
         pub fn b(mut self, b: f32) -> Self {
             self.b = b;
             self
         }
 
+        #[inline]
         pub fn pvx(mut self, pvx: f32) -> Self {
             self.pvx = pvx;
             self
         }
 
+        #[inline]
         pub fn sy(mut self, sy: f32) -> Self {
             self.sy = sy;
             self
         }
 
+        #[inline]
         pub fn c(mut self, c: f32) -> Self {
             self.c = c;
             self
         }
 
+        #[inline]
         pub fn pvy(mut self, pvy: f32) -> Self {
             self.pvy = pvy;
             self
         }
 
+        #[inline]
         pub fn sz(mut self, sz: f32) -> Self {
             self.sz = sz;
             self
         }
 
+        #[inline]
         pub fn pvz(mut self, pvz: f32) -> Self {
             self.pvz = pvz;
             self
         }
 
+        #[inline]
         pub fn qx(mut self, qx: f32) -> Self {
             self.qx = qx;
             self
         }
 
+        #[inline]
         pub fn qy(mut self, qy: f32) -> Self {
             self.qy = qy;
             self
         }
 
+        #[inline]
         pub fn qz(mut self, qz: f32) -> Self {
             self.qz = qz;
             self
         }
 
+        #[inline]
         pub fn qw(mut self, qw: f32) -> Self {
             self.qw = qw;
             self
         }
 
+        #[inline]
         pub fn tx(mut self, tx: f32) -> Self {
             self.tx = tx;
             self
         }
 
+        #[inline]
         pub fn ty(mut self, ty: f32) -> Self {
             self.ty = ty;
             self
         }
 
+        #[inline]
         pub fn tz(mut self, tz: f32) -> Self {
             self.tz = tz;
             self
@@ -307,26 +328,31 @@ pub(super) mod defs {
     }
 
     impl AccelerationStructureSRTMotionInstanceNV {
+        #[inline]
         pub fn transform_t0(mut self, transform_t0: SRTDataNV) -> Self {
             self.transform_t0 = transform_t0;
             self
         }
 
+        #[inline]
         pub fn transform_t1(mut self, transform_t1: SRTDataNV) -> Self {
             self.transform_t1 = transform_t1;
             self
         }
 
+        #[inline]
         pub fn instance_custom_index(mut self, instance_custom_index: u32) -> Self {
             self.instance_custom_index = instance_custom_index;
             self
         }
 
+        #[inline]
         pub fn mask(mut self, mask: u32) -> Self {
             self.mask = mask;
             self
         }
 
+        #[inline]
         pub fn instance_shader_binding_table_record_offset(
             mut self,
             instance_shader_binding_table_record_offset: u32,
@@ -336,11 +362,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn flags(mut self, flags: GeometryInstanceFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn acceleration_structure_reference(
             mut self,
             acceleration_structure_reference: u64,
@@ -380,26 +408,31 @@ pub(super) mod defs {
     }
 
     impl AccelerationStructureMatrixMotionInstanceNV {
+        #[inline]
         pub fn transform_t0(mut self, transform_t0: TransformMatrixKHR) -> Self {
             self.transform_t0 = transform_t0;
             self
         }
 
+        #[inline]
         pub fn transform_t1(mut self, transform_t1: TransformMatrixKHR) -> Self {
             self.transform_t1 = transform_t1;
             self
         }
 
+        #[inline]
         pub fn instance_custom_index(mut self, instance_custom_index: u32) -> Self {
             self.instance_custom_index = instance_custom_index;
             self
         }
 
+        #[inline]
         pub fn mask(mut self, mask: u32) -> Self {
             self.mask = mask;
             self
         }
 
+        #[inline]
         pub fn instance_shader_binding_table_record_offset(
             mut self,
             instance_shader_binding_table_record_offset: u32,
@@ -409,11 +442,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn flags(mut self, flags: GeometryInstanceFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn acceleration_structure_reference(
             mut self,
             acceleration_structure_reference: u64,
@@ -445,16 +480,19 @@ pub(super) mod defs {
     }
 
     impl AccelerationStructureMotionInstanceNV {
+        #[inline]
         pub fn ty(mut self, ty: AccelerationStructureMotionInstanceTypeNV) -> Self {
             self.ty = ty;
             self
         }
 
+        #[inline]
         pub fn flags(mut self, flags: AccelerationStructureMotionInstanceFlagsNV) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn data(mut self, data: AccelerationStructureMotionInstanceDataNV) -> Self {
             self.data = data;
             self

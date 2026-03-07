@@ -63,6 +63,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceClusterAccelerationStructureFeaturesNV<'a> {
+        #[inline]
         pub fn cluster_acceleration_structure(
             mut self,
             cluster_acceleration_structure: bool,
@@ -152,16 +153,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceClusterAccelerationStructurePropertiesNV<'a> {
+        #[inline]
         pub fn max_vertices_per_cluster(mut self, max_vertices_per_cluster: u32) -> Self {
             self.max_vertices_per_cluster = max_vertices_per_cluster;
             self
         }
 
+        #[inline]
         pub fn max_triangles_per_cluster(mut self, max_triangles_per_cluster: u32) -> Self {
             self.max_triangles_per_cluster = max_triangles_per_cluster;
             self
         }
 
+        #[inline]
         pub fn cluster_scratch_byte_alignment(
             mut self,
             cluster_scratch_byte_alignment: u32,
@@ -170,11 +174,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn cluster_byte_alignment(mut self, cluster_byte_alignment: u32) -> Self {
             self.cluster_byte_alignment = cluster_byte_alignment;
             self
         }
 
+        #[inline]
         pub fn cluster_template_byte_alignment(
             mut self,
             cluster_template_byte_alignment: u32,
@@ -183,6 +189,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn cluster_bottom_level_byte_alignment(
             mut self,
             cluster_bottom_level_byte_alignment: u32,
@@ -191,6 +198,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn cluster_template_bounds_byte_alignment(
             mut self,
             cluster_template_bounds_byte_alignment: u32,
@@ -199,6 +207,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_cluster_geometry_index(mut self, max_cluster_geometry_index: u32) -> Self {
             self.max_cluster_geometry_index = max_cluster_geometry_index;
             self
@@ -216,11 +225,13 @@ pub(super) mod defs {
     }
 
     impl StridedDeviceAddressNV {
+        #[inline]
         pub fn start_address(mut self, start_address: DeviceAddress) -> Self {
             self.start_address = start_address;
             self
         }
 
+        #[inline]
         pub fn stride_in_bytes(mut self, stride_in_bytes: DeviceSize) -> Self {
             self.stride_in_bytes = stride_in_bytes;
             self
@@ -276,6 +287,7 @@ pub(super) mod defs {
     }
 
     impl<'a> RayTracingPipelineClusterAccelerationStructureCreateInfoNV<'a> {
+        #[inline]
         pub fn allow_cluster_acceleration_structure(
             mut self,
             allow_cluster_acceleration_structure: bool,
@@ -297,16 +309,19 @@ pub(super) mod defs {
     }
 
     impl ClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV {
+        #[inline]
         pub fn geometry_index(mut self, geometry_index: u32) -> Self {
             self.geometry_index = geometry_index;
             self
         }
 
+        #[inline]
         pub fn reserved(mut self, reserved: u32) -> Self {
             self.reserved = reserved;
             self
         }
 
+        #[inline]
         pub fn geometry_flags(mut self, geometry_flags: u32) -> Self {
             self.geometry_flags = geometry_flags;
             self
@@ -323,6 +338,7 @@ pub(super) mod defs {
     }
 
     impl ClusterAccelerationStructureMoveObjectsInfoNV {
+        #[inline]
         pub fn src_acceleration_structure(
             mut self,
             src_acceleration_structure: DeviceAddress,
@@ -344,16 +360,19 @@ pub(super) mod defs {
     }
 
     impl ClusterAccelerationStructureBuildClustersBottomLevelInfoNV {
+        #[inline]
         pub fn cluster_references_count(mut self, cluster_references_count: u32) -> Self {
             self.cluster_references_count = cluster_references_count;
             self
         }
 
+        #[inline]
         pub fn cluster_references_stride(mut self, cluster_references_stride: u32) -> Self {
             self.cluster_references_stride = cluster_references_stride;
             self
         }
 
+        #[inline]
         pub fn cluster_references(mut self, cluster_references: DeviceAddress) -> Self {
             self.cluster_references = cluster_references;
             self
@@ -370,6 +389,7 @@ pub(super) mod defs {
     }
 
     impl ClusterAccelerationStructureGetTemplateIndicesInfoNV {
+        #[inline]
         pub fn cluster_template_address(mut self, cluster_template_address: DeviceAddress) -> Self {
             self.cluster_template_address = cluster_template_address;
             self
@@ -403,11 +423,13 @@ pub(super) mod defs {
     }
 
     impl ClusterAccelerationStructureBuildTriangleClusterInfoNV {
+        #[inline]
         pub fn cluster_id(mut self, cluster_id: u32) -> Self {
             self.cluster_id = cluster_id;
             self
         }
 
+        #[inline]
         pub fn cluster_flags(
             mut self,
             cluster_flags: ClusterAccelerationStructureClusterFlagsNV,
@@ -416,31 +438,37 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn triangle_count(mut self, triangle_count: u32) -> Self {
             self.triangle_count = triangle_count;
             self
         }
 
+        #[inline]
         pub fn vertex_count(mut self, vertex_count: u32) -> Self {
             self.vertex_count = vertex_count;
             self
         }
 
+        #[inline]
         pub fn position_truncate_bit_count(mut self, position_truncate_bit_count: u32) -> Self {
             self.position_truncate_bit_count = position_truncate_bit_count;
             self
         }
 
+        #[inline]
         pub fn index_type(mut self, index_type: u32) -> Self {
             self.index_type = index_type;
             self
         }
 
+        #[inline]
         pub fn opacity_micromap_index_type(mut self, opacity_micromap_index_type: u32) -> Self {
             self.opacity_micromap_index_type = opacity_micromap_index_type;
             self
         }
 
+        #[inline]
         pub fn base_geometry_index_and_geometry_flags(
             mut self,
             base_geometry_index_and_geometry_flags: ClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV,
@@ -449,16 +477,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn index_buffer_stride(mut self, index_buffer_stride: u16) -> Self {
             self.index_buffer_stride = index_buffer_stride;
             self
         }
 
+        #[inline]
         pub fn vertex_buffer_stride(mut self, vertex_buffer_stride: u16) -> Self {
             self.vertex_buffer_stride = vertex_buffer_stride;
             self
         }
 
+        #[inline]
         pub fn geometry_index_and_flags_buffer_stride(
             mut self,
             geometry_index_and_flags_buffer_stride: u16,
@@ -467,6 +498,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn opacity_micromap_index_buffer_stride(
             mut self,
             opacity_micromap_index_buffer_stride: u16,
@@ -475,16 +507,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn index_buffer(mut self, index_buffer: DeviceAddress) -> Self {
             self.index_buffer = index_buffer;
             self
         }
 
+        #[inline]
         pub fn vertex_buffer(mut self, vertex_buffer: DeviceAddress) -> Self {
             self.vertex_buffer = vertex_buffer;
             self
         }
 
+        #[inline]
         pub fn geometry_index_and_flags_buffer(
             mut self,
             geometry_index_and_flags_buffer: DeviceAddress,
@@ -493,11 +528,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn opacity_micromap_array(mut self, opacity_micromap_array: DeviceAddress) -> Self {
             self.opacity_micromap_array = opacity_micromap_array;
             self
         }
 
+        #[inline]
         pub fn opacity_micromap_index_buffer(
             mut self,
             opacity_micromap_index_buffer: DeviceAddress,
@@ -535,11 +572,13 @@ pub(super) mod defs {
     }
 
     impl ClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV {
+        #[inline]
         pub fn cluster_id(mut self, cluster_id: u32) -> Self {
             self.cluster_id = cluster_id;
             self
         }
 
+        #[inline]
         pub fn cluster_flags(
             mut self,
             cluster_flags: ClusterAccelerationStructureClusterFlagsNV,
@@ -548,31 +587,37 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn triangle_count(mut self, triangle_count: u32) -> Self {
             self.triangle_count = triangle_count;
             self
         }
 
+        #[inline]
         pub fn vertex_count(mut self, vertex_count: u32) -> Self {
             self.vertex_count = vertex_count;
             self
         }
 
+        #[inline]
         pub fn position_truncate_bit_count(mut self, position_truncate_bit_count: u32) -> Self {
             self.position_truncate_bit_count = position_truncate_bit_count;
             self
         }
 
+        #[inline]
         pub fn index_type(mut self, index_type: u32) -> Self {
             self.index_type = index_type;
             self
         }
 
+        #[inline]
         pub fn opacity_micromap_index_type(mut self, opacity_micromap_index_type: u32) -> Self {
             self.opacity_micromap_index_type = opacity_micromap_index_type;
             self
         }
 
+        #[inline]
         pub fn base_geometry_index_and_geometry_flags(
             mut self,
             base_geometry_index_and_geometry_flags: ClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV,
@@ -581,16 +626,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn index_buffer_stride(mut self, index_buffer_stride: u16) -> Self {
             self.index_buffer_stride = index_buffer_stride;
             self
         }
 
+        #[inline]
         pub fn vertex_buffer_stride(mut self, vertex_buffer_stride: u16) -> Self {
             self.vertex_buffer_stride = vertex_buffer_stride;
             self
         }
 
+        #[inline]
         pub fn geometry_index_and_flags_buffer_stride(
             mut self,
             geometry_index_and_flags_buffer_stride: u16,
@@ -599,6 +647,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn opacity_micromap_index_buffer_stride(
             mut self,
             opacity_micromap_index_buffer_stride: u16,
@@ -607,16 +656,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn index_buffer(mut self, index_buffer: DeviceAddress) -> Self {
             self.index_buffer = index_buffer;
             self
         }
 
+        #[inline]
         pub fn vertex_buffer(mut self, vertex_buffer: DeviceAddress) -> Self {
             self.vertex_buffer = vertex_buffer;
             self
         }
 
+        #[inline]
         pub fn geometry_index_and_flags_buffer(
             mut self,
             geometry_index_and_flags_buffer: DeviceAddress,
@@ -625,11 +677,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn opacity_micromap_array(mut self, opacity_micromap_array: DeviceAddress) -> Self {
             self.opacity_micromap_array = opacity_micromap_array;
             self
         }
 
+        #[inline]
         pub fn opacity_micromap_index_buffer(
             mut self,
             opacity_micromap_index_buffer: DeviceAddress,
@@ -638,6 +692,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn instantiation_bounding_box_limit(
             mut self,
             instantiation_bounding_box_limit: DeviceAddress,
@@ -661,26 +716,31 @@ pub(super) mod defs {
     }
 
     impl ClusterAccelerationStructureInstantiateClusterInfoNV {
+        #[inline]
         pub fn cluster_id_offset(mut self, cluster_id_offset: u32) -> Self {
             self.cluster_id_offset = cluster_id_offset;
             self
         }
 
+        #[inline]
         pub fn geometry_index_offset(mut self, geometry_index_offset: u32) -> Self {
             self.geometry_index_offset = geometry_index_offset;
             self
         }
 
+        #[inline]
         pub fn reserved(mut self, reserved: u32) -> Self {
             self.reserved = reserved;
             self
         }
 
+        #[inline]
         pub fn cluster_template_address(mut self, cluster_template_address: DeviceAddress) -> Self {
             self.cluster_template_address = cluster_template_address;
             self
         }
 
+        #[inline]
         pub fn vertex_buffer(mut self, vertex_buffer: StridedDeviceAddressNV) -> Self {
             self.vertex_buffer = vertex_buffer;
             self
@@ -732,11 +792,13 @@ pub(super) mod defs {
     }
 
     impl<'a> ClusterAccelerationStructureClustersBottomLevelInputNV<'a> {
+        #[inline]
         pub fn max_total_cluster_count(mut self, max_total_cluster_count: u32) -> Self {
             self.max_total_cluster_count = max_total_cluster_count;
             self
         }
 
+        #[inline]
         pub fn max_cluster_count_per_acceleration_structure(
             mut self,
             max_cluster_count_per_acceleration_structure: u32,
@@ -816,16 +878,19 @@ pub(super) mod defs {
     }
 
     impl<'a> ClusterAccelerationStructureTriangleClusterInputNV<'a> {
+        #[inline]
         pub fn vertex_format(mut self, vertex_format: Format) -> Self {
             self.vertex_format = vertex_format;
             self
         }
 
+        #[inline]
         pub fn max_geometry_index_value(mut self, max_geometry_index_value: u32) -> Self {
             self.max_geometry_index_value = max_geometry_index_value;
             self
         }
 
+        #[inline]
         pub fn max_cluster_unique_geometry_count(
             mut self,
             max_cluster_unique_geometry_count: u32,
@@ -834,26 +899,31 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_cluster_triangle_count(mut self, max_cluster_triangle_count: u32) -> Self {
             self.max_cluster_triangle_count = max_cluster_triangle_count;
             self
         }
 
+        #[inline]
         pub fn max_cluster_vertex_count(mut self, max_cluster_vertex_count: u32) -> Self {
             self.max_cluster_vertex_count = max_cluster_vertex_count;
             self
         }
 
+        #[inline]
         pub fn max_total_triangle_count(mut self, max_total_triangle_count: u32) -> Self {
             self.max_total_triangle_count = max_total_triangle_count;
             self
         }
 
+        #[inline]
         pub fn max_total_vertex_count(mut self, max_total_vertex_count: u32) -> Self {
             self.max_total_vertex_count = max_total_vertex_count;
             self
         }
 
+        #[inline]
         pub fn min_position_truncate_bit_count(
             mut self,
             min_position_truncate_bit_count: u32,
@@ -908,16 +978,19 @@ pub(super) mod defs {
     }
 
     impl<'a> ClusterAccelerationStructureMoveObjectsInputNV<'a> {
+        #[inline]
         pub fn ty(mut self, ty: ClusterAccelerationStructureTypeNV) -> Self {
             self.ty = ty;
             self
         }
 
+        #[inline]
         pub fn no_move_overlap(mut self, no_move_overlap: bool) -> Self {
             self.no_move_overlap = no_move_overlap.into();
             self
         }
 
+        #[inline]
         pub fn max_moved_bytes(mut self, max_moved_bytes: DeviceSize) -> Self {
             self.max_moved_bytes = max_moved_bytes;
             self
@@ -978,6 +1051,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ClusterAccelerationStructureInputInfoNV<'a> {
+        #[inline]
         pub fn max_acceleration_structure_count(
             mut self,
             max_acceleration_structure_count: u32,
@@ -986,21 +1060,25 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn flags(mut self, flags: BuildAccelerationStructureFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn op_type(mut self, op_type: ClusterAccelerationStructureOpTypeNV) -> Self {
             self.op_type = op_type;
             self
         }
 
+        #[inline]
         pub fn op_mode(mut self, op_mode: ClusterAccelerationStructureOpModeNV) -> Self {
             self.op_mode = op_mode;
             self
         }
 
+        #[inline]
         pub fn op_input(mut self, op_input: ClusterAccelerationStructureOpInputNV<'a>) -> Self {
             self.op_input = op_input;
             self
@@ -1067,21 +1145,25 @@ pub(super) mod defs {
     }
 
     impl<'a> ClusterAccelerationStructureCommandsInfoNV<'a> {
+        #[inline]
         pub fn input(mut self, input: ClusterAccelerationStructureInputInfoNV<'a>) -> Self {
             self.input = input;
             self
         }
 
+        #[inline]
         pub fn dst_implicit_data(mut self, dst_implicit_data: DeviceAddress) -> Self {
             self.dst_implicit_data = dst_implicit_data;
             self
         }
 
+        #[inline]
         pub fn scratch_data(mut self, scratch_data: DeviceAddress) -> Self {
             self.scratch_data = scratch_data;
             self
         }
 
+        #[inline]
         pub fn dst_addresses_array(
             mut self,
             dst_addresses_array: StridedDeviceAddressRegionKHR,
@@ -1090,21 +1172,25 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn dst_sizes_array(mut self, dst_sizes_array: StridedDeviceAddressRegionKHR) -> Self {
             self.dst_sizes_array = dst_sizes_array;
             self
         }
 
+        #[inline]
         pub fn src_infos_array(mut self, src_infos_array: StridedDeviceAddressRegionKHR) -> Self {
             self.src_infos_array = src_infos_array;
             self
         }
 
+        #[inline]
         pub fn src_infos_count(mut self, src_infos_count: DeviceAddress) -> Self {
             self.src_infos_count = src_infos_count;
             self
         }
 
+        #[inline]
         pub fn address_resolution_flags(
             mut self,
             address_resolution_flags: ClusterAccelerationStructureAddressResolutionFlagsNV,
@@ -1518,6 +1604,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetClusterAccelerationStructureBuildSizesNV.html>
+    #[inline]
     pub unsafe fn get_cluster_acceleration_structure_build_sizes_nv(
         &self,
         device: Device,
@@ -1528,6 +1615,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBuildClusterAccelerationStructureIndirectNV.html>
+    #[inline]
     pub unsafe fn cmd_build_cluster_acceleration_structure_indirect_nv(
         &self,
         command_buffer: CommandBuffer,

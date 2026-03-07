@@ -126,6 +126,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderAtomicFloatFeaturesEXT<'a> {
+        #[inline]
         pub fn shader_buffer_float32_atomics(
             mut self,
             shader_buffer_float32_atomics: bool,
@@ -134,6 +135,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_buffer_float32_atomic_add(
             mut self,
             shader_buffer_float32_atomic_add: bool,
@@ -142,6 +144,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_buffer_float64_atomics(
             mut self,
             shader_buffer_float64_atomics: bool,
@@ -150,6 +153,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_buffer_float64_atomic_add(
             mut self,
             shader_buffer_float64_atomic_add: bool,
@@ -158,6 +162,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_shared_float32_atomics(
             mut self,
             shader_shared_float32_atomics: bool,
@@ -166,6 +171,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_shared_float32_atomic_add(
             mut self,
             shader_shared_float32_atomic_add: bool,
@@ -174,6 +180,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_shared_float64_atomics(
             mut self,
             shader_shared_float64_atomics: bool,
@@ -182,6 +189,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_shared_float64_atomic_add(
             mut self,
             shader_shared_float64_atomic_add: bool,
@@ -190,11 +198,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_image_float32_atomics(mut self, shader_image_float32_atomics: bool) -> Self {
             self.shader_image_float32_atomics = shader_image_float32_atomics.into();
             self
         }
 
+        #[inline]
         pub fn shader_image_float32_atomic_add(
             mut self,
             shader_image_float32_atomic_add: bool,
@@ -203,11 +213,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn sparse_image_float32_atomics(mut self, sparse_image_float32_atomics: bool) -> Self {
             self.sparse_image_float32_atomics = sparse_image_float32_atomics.into();
             self
         }
 
+        #[inline]
         pub fn sparse_image_float32_atomic_add(
             mut self,
             sparse_image_float32_atomic_add: bool,

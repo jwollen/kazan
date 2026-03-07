@@ -56,6 +56,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceImageViewImageFormatInfoEXT<'a> {
+        #[inline]
         pub fn image_view_type(mut self, image_view_type: ImageViewType) -> Self {
             self.image_view_type = image_view_type;
             self
@@ -109,11 +110,13 @@ pub(super) mod defs {
     }
 
     impl<'a> FilterCubicImageViewImageFormatPropertiesEXT<'a> {
+        #[inline]
         pub fn filter_cubic(mut self, filter_cubic: bool) -> Self {
             self.filter_cubic = filter_cubic.into();
             self
         }
 
+        #[inline]
         pub fn filter_cubic_minmax(mut self, filter_cubic_minmax: bool) -> Self {
             self.filter_cubic_minmax = filter_cubic_minmax.into();
             self

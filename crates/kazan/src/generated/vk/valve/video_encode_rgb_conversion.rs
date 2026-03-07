@@ -63,6 +63,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE<'a> {
+        #[inline]
         pub fn video_encode_rgb_conversion(mut self, video_encode_rgb_conversion: bool) -> Self {
             self.video_encode_rgb_conversion = video_encode_rgb_conversion.into();
             self
@@ -122,16 +123,19 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeRgbConversionCapabilitiesVALVE<'a> {
+        #[inline]
         pub fn rgb_models(mut self, rgb_models: VideoEncodeRgbModelConversionFlagsVALVE) -> Self {
             self.rgb_models = rgb_models;
             self
         }
 
+        #[inline]
         pub fn rgb_ranges(mut self, rgb_ranges: VideoEncodeRgbRangeCompressionFlagsVALVE) -> Self {
             self.rgb_ranges = rgb_ranges;
             self
         }
 
+        #[inline]
         pub fn x_chroma_offsets(
             mut self,
             x_chroma_offsets: VideoEncodeRgbChromaOffsetFlagsVALVE,
@@ -140,6 +144,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn y_chroma_offsets(
             mut self,
             y_chroma_offsets: VideoEncodeRgbChromaOffsetFlagsVALVE,
@@ -193,6 +198,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeProfileRgbConversionInfoVALVE<'a> {
+        #[inline]
         pub fn perform_encode_rgb_conversion(
             mut self,
             perform_encode_rgb_conversion: bool,
@@ -255,16 +261,19 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeSessionRgbConversionCreateInfoVALVE<'a> {
+        #[inline]
         pub fn rgb_model(mut self, rgb_model: VideoEncodeRgbModelConversionFlagBitsVALVE) -> Self {
             self.rgb_model = rgb_model;
             self
         }
 
+        #[inline]
         pub fn rgb_range(mut self, rgb_range: VideoEncodeRgbRangeCompressionFlagBitsVALVE) -> Self {
             self.rgb_range = rgb_range;
             self
         }
 
+        #[inline]
         pub fn x_chroma_offset(
             mut self,
             x_chroma_offset: VideoEncodeRgbChromaOffsetFlagBitsVALVE,
@@ -273,6 +282,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn y_chroma_offset(
             mut self,
             y_chroma_offset: VideoEncodeRgbChromaOffsetFlagBitsVALVE,

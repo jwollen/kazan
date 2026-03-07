@@ -57,6 +57,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderQuadControlFeaturesKHR<'a> {
+        #[inline]
         pub fn shader_quad_control(mut self, shader_quad_control: bool) -> Self {
             self.shader_quad_control = shader_quad_control.into();
             self

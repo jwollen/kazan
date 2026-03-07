@@ -52,11 +52,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PerformanceValueINTEL<'a> {
+        #[inline]
         pub fn ty(mut self, ty: PerformanceValueTypeINTEL) -> Self {
             self.ty = ty;
             self
         }
 
+        #[inline]
         pub fn data(mut self, data: PerformanceValueDataINTEL<'a>) -> Self {
             self.data = data;
             self
@@ -101,6 +103,7 @@ pub(super) mod defs {
     }
 
     impl<'a> InitializePerformanceApiInfoINTEL<'a> {
+        #[inline]
         pub fn user_data(mut self, user_data: *mut c_void) -> Self {
             self.p_user_data = user_data;
             self
@@ -151,6 +154,7 @@ pub(super) mod defs {
     }
 
     impl<'a> QueryPoolPerformanceQueryCreateInfoINTEL<'a> {
+        #[inline]
         pub fn performance_counters_sampling(
             mut self,
             performance_counters_sampling: QueryPoolSamplingModeINTEL,
@@ -198,6 +202,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PerformanceMarkerInfoINTEL<'a> {
+        #[inline]
         pub fn marker(mut self, marker: u64) -> Self {
             self.marker = marker;
             self
@@ -242,6 +247,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PerformanceStreamMarkerInfoINTEL<'a> {
+        #[inline]
         pub fn marker(mut self, marker: u32) -> Self {
             self.marker = marker;
             self
@@ -292,16 +298,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PerformanceOverrideInfoINTEL<'a> {
+        #[inline]
         pub fn ty(mut self, ty: PerformanceOverrideTypeINTEL) -> Self {
             self.ty = ty;
             self
         }
 
+        #[inline]
         pub fn enable(mut self, enable: bool) -> Self {
             self.enable = enable.into();
             self
         }
 
+        #[inline]
         pub fn parameter(mut self, parameter: u64) -> Self {
             self.parameter = parameter;
             self
@@ -347,6 +356,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PerformanceConfigurationAcquireInfoINTEL<'a> {
+        #[inline]
         pub fn ty(mut self, ty: PerformanceConfigurationTypeINTEL) -> Self {
             self.ty = ty;
             self
@@ -612,6 +622,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkInitializePerformanceApiINTEL.html>
+    #[inline]
     pub unsafe fn initialize_performance_api_intel(
         &self,
         device: Device,
@@ -628,11 +639,13 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUninitializePerformanceApiINTEL.html>
+    #[inline]
     pub unsafe fn uninitialize_performance_api_intel(&self, device: Device) {
         unsafe { (self.uninitialize_performance_api_intel)(device) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPerformanceMarkerINTEL.html>
+    #[inline]
     pub unsafe fn cmd_set_performance_marker_intel(
         &self,
         command_buffer: CommandBuffer,
@@ -649,6 +662,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPerformanceStreamMarkerINTEL.html>
+    #[inline]
     pub unsafe fn cmd_set_performance_stream_marker_intel(
         &self,
         command_buffer: CommandBuffer,
@@ -666,6 +680,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPerformanceOverrideINTEL.html>
+    #[inline]
     pub unsafe fn cmd_set_performance_override_intel(
         &self,
         command_buffer: CommandBuffer,
@@ -682,6 +697,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquirePerformanceConfigurationINTEL.html>
+    #[inline]
     pub unsafe fn acquire_performance_configuration_intel(
         &self,
         device: Device,
@@ -703,6 +719,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleasePerformanceConfigurationINTEL.html>
+    #[inline]
     pub unsafe fn release_performance_configuration_intel(
         &self,
         device: Device,
@@ -719,6 +736,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueSetPerformanceConfigurationINTEL.html>
+    #[inline]
     pub unsafe fn queue_set_performance_configuration_intel(
         &self,
         queue: Queue,
@@ -735,6 +753,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPerformanceParameterINTEL.html>
+    #[inline]
     pub unsafe fn get_performance_parameter_intel(
         &self,
         device: Device,

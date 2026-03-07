@@ -60,6 +60,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreatePrivateDataSlotEXT.html>
+    #[inline]
     pub unsafe fn create_private_data_slot_ext(
         &self,
         device: Device,
@@ -83,6 +84,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyPrivateDataSlotEXT.html>
+    #[inline]
     pub unsafe fn destroy_private_data_slot_ext(
         &self,
         device: Device,
@@ -95,6 +97,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetPrivateDataEXT.html>
+    #[inline]
     pub unsafe fn set_private_data_ext(
         &self,
         device: Device,
@@ -120,6 +123,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPrivateDataEXT.html>
+    #[inline]
     pub unsafe fn get_private_data_ext(
         &self,
         device: Device,

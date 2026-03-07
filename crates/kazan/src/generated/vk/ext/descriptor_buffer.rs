@@ -75,11 +75,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDescriptorBufferFeaturesEXT<'a> {
+        #[inline]
         pub fn descriptor_buffer(mut self, descriptor_buffer: bool) -> Self {
             self.descriptor_buffer = descriptor_buffer.into();
             self
         }
 
+        #[inline]
         pub fn descriptor_buffer_capture_replay(
             mut self,
             descriptor_buffer_capture_replay: bool,
@@ -88,6 +90,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn descriptor_buffer_image_layout_ignored(
             mut self,
             descriptor_buffer_image_layout_ignored: bool,
@@ -97,6 +100,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn descriptor_buffer_push_descriptors(
             mut self,
             descriptor_buffer_push_descriptors: bool,
@@ -342,6 +346,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDescriptorBufferPropertiesEXT<'a> {
+        #[inline]
         pub fn combined_image_sampler_descriptor_single_array(
             mut self,
             combined_image_sampler_descriptor_single_array: bool,
@@ -351,11 +356,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn bufferless_push_descriptors(mut self, bufferless_push_descriptors: bool) -> Self {
             self.bufferless_push_descriptors = bufferless_push_descriptors.into();
             self
         }
 
+        #[inline]
         pub fn allow_sampler_image_view_post_submit_creation(
             mut self,
             allow_sampler_image_view_post_submit_creation: bool,
@@ -365,6 +372,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn descriptor_buffer_offset_alignment(
             mut self,
             descriptor_buffer_offset_alignment: DeviceSize,
@@ -373,6 +381,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_buffer_bindings(
             mut self,
             max_descriptor_buffer_bindings: u32,
@@ -381,6 +390,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_resource_descriptor_buffer_bindings(
             mut self,
             max_resource_descriptor_buffer_bindings: u32,
@@ -389,6 +399,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_sampler_descriptor_buffer_bindings(
             mut self,
             max_sampler_descriptor_buffer_bindings: u32,
@@ -397,6 +408,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_embedded_immutable_sampler_bindings(
             mut self,
             max_embedded_immutable_sampler_bindings: u32,
@@ -405,6 +417,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_embedded_immutable_samplers(
             mut self,
             max_embedded_immutable_samplers: u32,
@@ -413,6 +426,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn buffer_capture_replay_descriptor_data_size(
             mut self,
             buffer_capture_replay_descriptor_data_size: usize,
@@ -422,6 +436,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn image_capture_replay_descriptor_data_size(
             mut self,
             image_capture_replay_descriptor_data_size: usize,
@@ -431,6 +446,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn image_view_capture_replay_descriptor_data_size(
             mut self,
             image_view_capture_replay_descriptor_data_size: usize,
@@ -440,6 +456,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn sampler_capture_replay_descriptor_data_size(
             mut self,
             sampler_capture_replay_descriptor_data_size: usize,
@@ -449,6 +466,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn acceleration_structure_capture_replay_descriptor_data_size(
             mut self,
             acceleration_structure_capture_replay_descriptor_data_size: usize,
@@ -458,11 +476,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn sampler_descriptor_size(mut self, sampler_descriptor_size: usize) -> Self {
             self.sampler_descriptor_size = sampler_descriptor_size;
             self
         }
 
+        #[inline]
         pub fn combined_image_sampler_descriptor_size(
             mut self,
             combined_image_sampler_descriptor_size: usize,
@@ -471,6 +491,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn sampled_image_descriptor_size(
             mut self,
             sampled_image_descriptor_size: usize,
@@ -479,6 +500,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn storage_image_descriptor_size(
             mut self,
             storage_image_descriptor_size: usize,
@@ -487,6 +509,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn uniform_texel_buffer_descriptor_size(
             mut self,
             uniform_texel_buffer_descriptor_size: usize,
@@ -495,6 +518,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn robust_uniform_texel_buffer_descriptor_size(
             mut self,
             robust_uniform_texel_buffer_descriptor_size: usize,
@@ -504,6 +528,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn storage_texel_buffer_descriptor_size(
             mut self,
             storage_texel_buffer_descriptor_size: usize,
@@ -512,6 +537,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn robust_storage_texel_buffer_descriptor_size(
             mut self,
             robust_storage_texel_buffer_descriptor_size: usize,
@@ -521,6 +547,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn uniform_buffer_descriptor_size(
             mut self,
             uniform_buffer_descriptor_size: usize,
@@ -529,6 +556,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn robust_uniform_buffer_descriptor_size(
             mut self,
             robust_uniform_buffer_descriptor_size: usize,
@@ -537,6 +565,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn storage_buffer_descriptor_size(
             mut self,
             storage_buffer_descriptor_size: usize,
@@ -545,6 +574,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn robust_storage_buffer_descriptor_size(
             mut self,
             robust_storage_buffer_descriptor_size: usize,
@@ -553,6 +583,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn input_attachment_descriptor_size(
             mut self,
             input_attachment_descriptor_size: usize,
@@ -561,6 +592,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn acceleration_structure_descriptor_size(
             mut self,
             acceleration_structure_descriptor_size: usize,
@@ -569,6 +601,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_sampler_descriptor_buffer_range(
             mut self,
             max_sampler_descriptor_buffer_range: DeviceSize,
@@ -577,6 +610,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_resource_descriptor_buffer_range(
             mut self,
             max_resource_descriptor_buffer_range: DeviceSize,
@@ -585,6 +619,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn sampler_descriptor_buffer_address_space_size(
             mut self,
             sampler_descriptor_buffer_address_space_size: DeviceSize,
@@ -594,6 +629,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn resource_descriptor_buffer_address_space_size(
             mut self,
             resource_descriptor_buffer_address_space_size: DeviceSize,
@@ -603,6 +639,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn descriptor_buffer_address_space_size(
             mut self,
             descriptor_buffer_address_space_size: DeviceSize,
@@ -659,6 +696,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a> {
+        #[inline]
         pub fn combined_image_sampler_density_map_descriptor_size(
             mut self,
             combined_image_sampler_density_map_descriptor_size: usize,
@@ -713,16 +751,19 @@ pub(super) mod defs {
     }
 
     impl<'a> DescriptorAddressInfoEXT<'a> {
+        #[inline]
         pub fn address(mut self, address: DeviceAddress) -> Self {
             self.address = address;
             self
         }
 
+        #[inline]
         pub fn range(mut self, range: DeviceSize) -> Self {
             self.range = range;
             self
         }
 
+        #[inline]
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
@@ -770,11 +811,13 @@ pub(super) mod defs {
     }
 
     impl<'a> DescriptorBufferBindingInfoEXT<'a> {
+        #[inline]
         pub fn address(mut self, address: DeviceAddress) -> Self {
             self.address = address;
             self
         }
 
+        #[inline]
         pub fn usage(mut self, usage: BufferUsageFlags) -> Self {
             self.usage = usage;
             self
@@ -825,6 +868,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DescriptorBufferBindingPushDescriptorBufferHandleEXT<'a> {
+        #[inline]
         pub fn buffer(mut self, buffer: Buffer) -> Self {
             self.buffer = buffer;
             self
@@ -872,11 +916,13 @@ pub(super) mod defs {
     }
 
     impl<'a> DescriptorGetInfoEXT<'a> {
+        #[inline]
         pub fn ty(mut self, ty: DescriptorType) -> Self {
             self.ty = ty;
             self
         }
 
+        #[inline]
         pub fn data(mut self, data: DescriptorDataEXT<'a>) -> Self {
             self.data = data;
             self
@@ -922,6 +968,7 @@ pub(super) mod defs {
     }
 
     impl<'a> BufferCaptureDescriptorDataInfoEXT<'a> {
+        #[inline]
         pub fn buffer(mut self, buffer: Buffer) -> Self {
             self.buffer = buffer;
             self
@@ -966,6 +1013,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageCaptureDescriptorDataInfoEXT<'a> {
+        #[inline]
         pub fn image(mut self, image: Image) -> Self {
             self.image = image;
             self
@@ -1011,6 +1059,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageViewCaptureDescriptorDataInfoEXT<'a> {
+        #[inline]
         pub fn image_view(mut self, image_view: ImageView) -> Self {
             self.image_view = image_view;
             self
@@ -1056,6 +1105,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SamplerCaptureDescriptorDataInfoEXT<'a> {
+        #[inline]
         pub fn sampler(mut self, sampler: Sampler) -> Self {
             self.sampler = sampler;
             self
@@ -1104,6 +1154,7 @@ pub(super) mod defs {
     }
 
     impl<'a> AccelerationStructureCaptureDescriptorDataInfoEXT<'a> {
+        #[inline]
         pub fn acceleration_structure(
             mut self,
             acceleration_structure: AccelerationStructureKHR,
@@ -1112,6 +1163,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn acceleration_structure_nv(
             mut self,
             acceleration_structure_nv: AccelerationStructureNV,
@@ -1181,6 +1233,7 @@ pub(super) mod defs {
     }
 
     impl<'a> OpaqueCaptureDescriptorDataCreateInfoEXT<'a> {
+        #[inline]
         pub fn opaque_capture_descriptor_data(
             mut self,
             opaque_capture_descriptor_data: *const c_void,
@@ -1369,6 +1422,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDescriptorSetLayoutSizeEXT.html>
+    #[inline]
     pub unsafe fn get_descriptor_set_layout_size_ext(
         &self,
         device: Device,
@@ -1386,6 +1440,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDescriptorSetLayoutBindingOffsetEXT.html>
+    #[inline]
     pub unsafe fn get_descriptor_set_layout_binding_offset_ext(
         &self,
         device: Device,
@@ -1405,6 +1460,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDescriptorEXT.html>
+    #[inline]
     pub unsafe fn get_descriptor_ext(
         &self,
         device: Device,
@@ -1422,6 +1478,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindDescriptorBuffersEXT.html>
+    #[inline]
     pub unsafe fn cmd_bind_descriptor_buffers_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1437,6 +1494,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDescriptorBufferOffsetsEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_descriptor_buffer_offsets_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1460,6 +1518,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindDescriptorBufferEmbeddedSamplersEXT.html>
+    #[inline]
     pub unsafe fn cmd_bind_descriptor_buffer_embedded_samplers_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1478,6 +1537,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferOpaqueCaptureDescriptorDataEXT.html>
+    #[inline]
     pub unsafe fn get_buffer_opaque_capture_descriptor_data_ext(
         &self,
         device: Device,
@@ -1495,6 +1555,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageOpaqueCaptureDescriptorDataEXT.html>
+    #[inline]
     pub unsafe fn get_image_opaque_capture_descriptor_data_ext(
         &self,
         device: Device,
@@ -1512,6 +1573,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageViewOpaqueCaptureDescriptorDataEXT.html>
+    #[inline]
     pub unsafe fn get_image_view_opaque_capture_descriptor_data_ext(
         &self,
         device: Device,
@@ -1530,6 +1592,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSamplerOpaqueCaptureDescriptorDataEXT.html>
+    #[inline]
     pub unsafe fn get_sampler_opaque_capture_descriptor_data_ext(
         &self,
         device: Device,
@@ -1547,6 +1610,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT.html>
+    #[inline]
     pub unsafe fn get_acceleration_structure_opaque_capture_descriptor_data_ext(
         &self,
         device: Device,

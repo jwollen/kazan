@@ -154,36 +154,43 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeAV1CapabilitiesKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: VideoEncodeAV1CapabilityFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn max_level(mut self, max_level: StdVideoAV1Level) -> Self {
             self.max_level = max_level;
             self
         }
 
+        #[inline]
         pub fn coded_picture_alignment(mut self, coded_picture_alignment: Extent2D) -> Self {
             self.coded_picture_alignment = coded_picture_alignment;
             self
         }
 
+        #[inline]
         pub fn max_tiles(mut self, max_tiles: Extent2D) -> Self {
             self.max_tiles = max_tiles;
             self
         }
 
+        #[inline]
         pub fn min_tile_size(mut self, min_tile_size: Extent2D) -> Self {
             self.min_tile_size = min_tile_size;
             self
         }
 
+        #[inline]
         pub fn max_tile_size(mut self, max_tile_size: Extent2D) -> Self {
             self.max_tile_size = max_tile_size;
             self
         }
 
+        #[inline]
         pub fn superblock_sizes(
             mut self,
             superblock_sizes: VideoEncodeAV1SuperblockSizeFlagsKHR,
@@ -192,16 +199,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_single_reference_count(mut self, max_single_reference_count: u32) -> Self {
             self.max_single_reference_count = max_single_reference_count;
             self
         }
 
+        #[inline]
         pub fn single_reference_name_mask(mut self, single_reference_name_mask: u32) -> Self {
             self.single_reference_name_mask = single_reference_name_mask;
             self
         }
 
+        #[inline]
         pub fn max_unidirectional_compound_reference_count(
             mut self,
             max_unidirectional_compound_reference_count: u32,
@@ -211,6 +221,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_unidirectional_compound_group1_reference_count(
             mut self,
             max_unidirectional_compound_group1_reference_count: u32,
@@ -220,6 +231,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn unidirectional_compound_reference_name_mask(
             mut self,
             unidirectional_compound_reference_name_mask: u32,
@@ -229,6 +241,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_bidirectional_compound_reference_count(
             mut self,
             max_bidirectional_compound_reference_count: u32,
@@ -238,6 +251,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_bidirectional_compound_group1_reference_count(
             mut self,
             max_bidirectional_compound_group1_reference_count: u32,
@@ -247,6 +261,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_bidirectional_compound_group2_reference_count(
             mut self,
             max_bidirectional_compound_group2_reference_count: u32,
@@ -256,6 +271,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn bidirectional_compound_reference_name_mask(
             mut self,
             bidirectional_compound_reference_name_mask: u32,
@@ -265,36 +281,43 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_temporal_layer_count(mut self, max_temporal_layer_count: u32) -> Self {
             self.max_temporal_layer_count = max_temporal_layer_count;
             self
         }
 
+        #[inline]
         pub fn max_spatial_layer_count(mut self, max_spatial_layer_count: u32) -> Self {
             self.max_spatial_layer_count = max_spatial_layer_count;
             self
         }
 
+        #[inline]
         pub fn max_operating_points(mut self, max_operating_points: u32) -> Self {
             self.max_operating_points = max_operating_points;
             self
         }
 
+        #[inline]
         pub fn min_q_index(mut self, min_q_index: u32) -> Self {
             self.min_q_index = min_q_index;
             self
         }
 
+        #[inline]
         pub fn max_q_index(mut self, max_q_index: u32) -> Self {
             self.max_q_index = max_q_index;
             self
         }
 
+        #[inline]
         pub fn prefers_gop_remaining_frames(mut self, prefers_gop_remaining_frames: bool) -> Self {
             self.prefers_gop_remaining_frames = prefers_gop_remaining_frames.into();
             self
         }
 
+        #[inline]
         pub fn requires_gop_remaining_frames(
             mut self,
             requires_gop_remaining_frames: bool,
@@ -303,6 +326,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn std_syntax_flags(mut self, std_syntax_flags: VideoEncodeAV1StdFlagsKHR) -> Self {
             self.std_syntax_flags = std_syntax_flags;
             self
@@ -437,6 +461,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeAV1QualityLevelPropertiesKHR<'a> {
+        #[inline]
         pub fn preferred_rate_control_flags(
             mut self,
             preferred_rate_control_flags: VideoEncodeAV1RateControlFlagsKHR,
@@ -445,16 +470,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn preferred_gop_frame_count(mut self, preferred_gop_frame_count: u32) -> Self {
             self.preferred_gop_frame_count = preferred_gop_frame_count;
             self
         }
 
+        #[inline]
         pub fn preferred_key_frame_period(mut self, preferred_key_frame_period: u32) -> Self {
             self.preferred_key_frame_period = preferred_key_frame_period;
             self
         }
 
+        #[inline]
         pub fn preferred_consecutive_bipredictive_frame_count(
             mut self,
             preferred_consecutive_bipredictive_frame_count: u32,
@@ -464,6 +492,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn preferred_temporal_layer_count(
             mut self,
             preferred_temporal_layer_count: u32,
@@ -472,6 +501,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn preferred_constant_q_index(
             mut self,
             preferred_constant_q_index: VideoEncodeAV1QIndexKHR,
@@ -480,6 +510,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn preferred_max_single_reference_count(
             mut self,
             preferred_max_single_reference_count: u32,
@@ -488,6 +519,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn preferred_single_reference_name_mask(
             mut self,
             preferred_single_reference_name_mask: u32,
@@ -496,6 +528,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn preferred_max_unidirectional_compound_reference_count(
             mut self,
             preferred_max_unidirectional_compound_reference_count: u32,
@@ -505,6 +538,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn preferred_max_unidirectional_compound_group1_reference_count(
             mut self,
             preferred_max_unidirectional_compound_group1_reference_count: u32,
@@ -514,6 +548,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn preferred_unidirectional_compound_reference_name_mask(
             mut self,
             preferred_unidirectional_compound_reference_name_mask: u32,
@@ -523,6 +558,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn preferred_max_bidirectional_compound_reference_count(
             mut self,
             preferred_max_bidirectional_compound_reference_count: u32,
@@ -532,6 +568,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn preferred_max_bidirectional_compound_group1_reference_count(
             mut self,
             preferred_max_bidirectional_compound_group1_reference_count: u32,
@@ -541,6 +578,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn preferred_max_bidirectional_compound_group2_reference_count(
             mut self,
             preferred_max_bidirectional_compound_group2_reference_count: u32,
@@ -550,6 +588,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn preferred_bidirectional_compound_reference_name_mask(
             mut self,
             preferred_bidirectional_compound_reference_name_mask: u32,
@@ -605,6 +644,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceVideoEncodeAV1FeaturesKHR<'a> {
+        #[inline]
         pub fn video_encode_av1(mut self, video_encode_av1: bool) -> Self {
             self.video_encode_av1 = video_encode_av1.into();
             self
@@ -655,11 +695,13 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeAV1SessionCreateInfoKHR<'a> {
+        #[inline]
         pub fn use_max_level(mut self, use_max_level: bool) -> Self {
             self.use_max_level = use_max_level.into();
             self
         }
 
+        #[inline]
         pub fn max_level(mut self, max_level: StdVideoAV1Level) -> Self {
             self.max_level = max_level;
             self
@@ -719,6 +761,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeAV1SessionParametersCreateInfoKHR<'a> {
+        #[inline]
         pub fn std_sequence_header(
             mut self,
             std_sequence_header: &'a StdVideoAV1SequenceHeader<'a>,
@@ -727,6 +770,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn std_decoder_model_info(
             mut self,
             std_decoder_model_info: &'a StdVideoEncodeAV1DecoderModelInfo,
@@ -735,6 +779,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn std_operating_points(
             mut self,
             std_operating_points: &'a [StdVideoEncodeAV1OperatingPointInfo],
@@ -785,6 +830,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeAV1DpbSlotInfoKHR<'a> {
+        #[inline]
         pub fn std_reference_info(
             mut self,
             std_reference_info: &'a StdVideoEncodeAV1ReferenceInfo<'a>,
@@ -861,11 +907,13 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeAV1PictureInfoKHR<'a> {
+        #[inline]
         pub fn prediction_mode(mut self, prediction_mode: VideoEncodeAV1PredictionModeKHR) -> Self {
             self.prediction_mode = prediction_mode;
             self
         }
 
+        #[inline]
         pub fn rate_control_group(
             mut self,
             rate_control_group: VideoEncodeAV1RateControlGroupKHR,
@@ -874,11 +922,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn constant_q_index(mut self, constant_q_index: u32) -> Self {
             self.constant_q_index = constant_q_index;
             self
         }
 
+        #[inline]
         pub fn std_picture_info(
             mut self,
             std_picture_info: &'a StdVideoEncodeAV1PictureInfo<'a>,
@@ -887,6 +937,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn reference_name_slot_indices(
             mut self,
             reference_name_slot_indices: [i32; MAX_VIDEO_AV1_REFERENCES_PER_FRAME_KHR as usize],
@@ -895,11 +946,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn primary_reference_cdf_only(mut self, primary_reference_cdf_only: bool) -> Self {
             self.primary_reference_cdf_only = primary_reference_cdf_only.into();
             self
         }
 
+        #[inline]
         pub fn generate_obu_extension_header(
             mut self,
             generate_obu_extension_header: bool,
@@ -950,6 +1003,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeAV1ProfileInfoKHR<'a> {
+        #[inline]
         pub fn std_profile(mut self, std_profile: StdVideoAV1Profile) -> Self {
             self.std_profile = std_profile;
             self
@@ -1012,21 +1066,25 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeAV1RateControlInfoKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: VideoEncodeAV1RateControlFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn gop_frame_count(mut self, gop_frame_count: u32) -> Self {
             self.gop_frame_count = gop_frame_count;
             self
         }
 
+        #[inline]
         pub fn key_frame_period(mut self, key_frame_period: u32) -> Self {
             self.key_frame_period = key_frame_period;
             self
         }
 
+        #[inline]
         pub fn consecutive_bipredictive_frame_count(
             mut self,
             consecutive_bipredictive_frame_count: u32,
@@ -1035,6 +1093,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn temporal_layer_count(mut self, temporal_layer_count: u32) -> Self {
             self.temporal_layer_count = temporal_layer_count;
             self
@@ -1053,16 +1112,19 @@ pub(super) mod defs {
     }
 
     impl VideoEncodeAV1QIndexKHR {
+        #[inline]
         pub fn intra_q_index(mut self, intra_q_index: u32) -> Self {
             self.intra_q_index = intra_q_index;
             self
         }
 
+        #[inline]
         pub fn predictive_q_index(mut self, predictive_q_index: u32) -> Self {
             self.predictive_q_index = predictive_q_index;
             self
         }
 
+        #[inline]
         pub fn bipredictive_q_index(mut self, bipredictive_q_index: u32) -> Self {
             self.bipredictive_q_index = bipredictive_q_index;
             self
@@ -1081,16 +1143,19 @@ pub(super) mod defs {
     }
 
     impl VideoEncodeAV1FrameSizeKHR {
+        #[inline]
         pub fn intra_frame_size(mut self, intra_frame_size: u32) -> Self {
             self.intra_frame_size = intra_frame_size;
             self
         }
 
+        #[inline]
         pub fn predictive_frame_size(mut self, predictive_frame_size: u32) -> Self {
             self.predictive_frame_size = predictive_frame_size;
             self
         }
 
+        #[inline]
         pub fn bipredictive_frame_size(mut self, bipredictive_frame_size: u32) -> Self {
             self.bipredictive_frame_size = bipredictive_frame_size;
             self
@@ -1153,21 +1218,25 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeAV1GopRemainingFrameInfoKHR<'a> {
+        #[inline]
         pub fn use_gop_remaining_frames(mut self, use_gop_remaining_frames: bool) -> Self {
             self.use_gop_remaining_frames = use_gop_remaining_frames.into();
             self
         }
 
+        #[inline]
         pub fn gop_remaining_intra(mut self, gop_remaining_intra: u32) -> Self {
             self.gop_remaining_intra = gop_remaining_intra;
             self
         }
 
+        #[inline]
         pub fn gop_remaining_predictive(mut self, gop_remaining_predictive: u32) -> Self {
             self.gop_remaining_predictive = gop_remaining_predictive;
             self
         }
 
+        #[inline]
         pub fn gop_remaining_bipredictive(mut self, gop_remaining_bipredictive: u32) -> Self {
             self.gop_remaining_bipredictive = gop_remaining_bipredictive;
             self
@@ -1233,31 +1302,37 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeAV1RateControlLayerInfoKHR<'a> {
+        #[inline]
         pub fn use_min_q_index(mut self, use_min_q_index: bool) -> Self {
             self.use_min_q_index = use_min_q_index.into();
             self
         }
 
+        #[inline]
         pub fn min_q_index(mut self, min_q_index: VideoEncodeAV1QIndexKHR) -> Self {
             self.min_q_index = min_q_index;
             self
         }
 
+        #[inline]
         pub fn use_max_q_index(mut self, use_max_q_index: bool) -> Self {
             self.use_max_q_index = use_max_q_index.into();
             self
         }
 
+        #[inline]
         pub fn max_q_index(mut self, max_q_index: VideoEncodeAV1QIndexKHR) -> Self {
             self.max_q_index = max_q_index;
             self
         }
 
+        #[inline]
         pub fn use_max_frame_size(mut self, use_max_frame_size: bool) -> Self {
             self.use_max_frame_size = use_max_frame_size.into();
             self
         }
 
+        #[inline]
         pub fn max_frame_size(mut self, max_frame_size: VideoEncodeAV1FrameSizeKHR) -> Self {
             self.max_frame_size = max_frame_size;
             self

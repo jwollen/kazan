@@ -63,6 +63,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePipelineCacheIncrementalModeFeaturesSEC<'a> {
+        #[inline]
         pub fn pipeline_cache_incremental_mode(
             mut self,
             pipeline_cache_incremental_mode: bool,

@@ -65,6 +65,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT<'a> {
+        #[inline]
         pub fn attachment_feedback_loop_dynamic_state(
             mut self,
             attachment_feedback_loop_dynamic_state: bool,
@@ -101,6 +102,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetAttachmentFeedbackLoopEnableEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_attachment_feedback_loop_enable_ext(
         &self,
         command_buffer: CommandBuffer,

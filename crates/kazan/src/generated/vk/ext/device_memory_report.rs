@@ -57,6 +57,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDeviceMemoryReportFeaturesEXT<'a> {
+        #[inline]
         pub fn device_memory_report(mut self, device_memory_report: bool) -> Self {
             self.device_memory_report = device_memory_report.into();
             self
@@ -113,11 +114,13 @@ pub(super) mod defs {
     }
 
     impl<'a> DeviceDeviceMemoryReportCreateInfoEXT<'a> {
+        #[inline]
         pub fn flags(mut self, flags: DeviceMemoryReportFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn pfn_user_callback(
             mut self,
             pfn_user_callback: PFN_vkDeviceMemoryReportCallbackEXT,
@@ -126,6 +129,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn user_data(mut self, user_data: *mut c_void) -> Self {
             self.p_user_data = user_data;
             self
@@ -188,36 +192,43 @@ pub(super) mod defs {
     }
 
     impl<'a> DeviceMemoryReportCallbackDataEXT<'a> {
+        #[inline]
         pub fn flags(mut self, flags: DeviceMemoryReportFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn ty(mut self, ty: DeviceMemoryReportEventTypeEXT) -> Self {
             self.ty = ty;
             self
         }
 
+        #[inline]
         pub fn memory_object_id(mut self, memory_object_id: u64) -> Self {
             self.memory_object_id = memory_object_id;
             self
         }
 
+        #[inline]
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
         }
 
+        #[inline]
         pub fn object_type(mut self, object_type: ObjectType) -> Self {
             self.object_type = object_type;
             self
         }
 
+        #[inline]
         pub fn object_handle(mut self, object_handle: u64) -> Self {
             self.object_handle = object_handle;
             self
         }
 
+        #[inline]
         pub fn heap_index(mut self, heap_index: u32) -> Self {
             self.heap_index = heap_index;
             self

@@ -55,6 +55,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PushConstantBankInfoNV<'a> {
+        #[inline]
         pub fn bank(mut self, bank: u32) -> Self {
             self.bank = bank;
             self
@@ -106,6 +107,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePushConstantBankFeaturesNV<'a> {
+        #[inline]
         pub fn push_constant_bank(mut self, push_constant_bank: bool) -> Self {
             self.push_constant_bank = push_constant_bank.into();
             self
@@ -177,6 +179,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePushConstantBankPropertiesNV<'a> {
+        #[inline]
         pub fn max_graphics_push_constant_banks(
             mut self,
             max_graphics_push_constant_banks: u32,
@@ -185,6 +188,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_compute_push_constant_banks(
             mut self,
             max_compute_push_constant_banks: u32,
@@ -193,11 +197,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_graphics_push_data_banks(mut self, max_graphics_push_data_banks: u32) -> Self {
             self.max_graphics_push_data_banks = max_graphics_push_data_banks;
             self
         }
 
+        #[inline]
         pub fn max_compute_push_data_banks(mut self, max_compute_push_data_banks: u32) -> Self {
             self.max_compute_push_data_banks = max_compute_push_data_banks;
             self

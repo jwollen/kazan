@@ -71,6 +71,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceFeatures2<'a> {
+        #[inline]
         pub fn features(mut self, features: PhysicalDeviceFeatures) -> Self {
             self.features = features;
             self
@@ -115,6 +116,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceProperties2<'a> {
+        #[inline]
         pub fn properties(mut self, properties: PhysicalDeviceProperties) -> Self {
             self.properties = properties;
             self
@@ -159,6 +161,7 @@ pub(super) mod defs {
     }
 
     impl<'a> FormatProperties2<'a> {
+        #[inline]
         pub fn format_properties(mut self, format_properties: FormatProperties) -> Self {
             self.format_properties = format_properties;
             self
@@ -203,6 +206,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageFormatProperties2<'a> {
+        #[inline]
         pub fn image_format_properties(
             mut self,
             image_format_properties: ImageFormatProperties,
@@ -262,26 +266,31 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceImageFormatInfo2<'a> {
+        #[inline]
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
 
+        #[inline]
         pub fn ty(mut self, ty: ImageType) -> Self {
             self.ty = ty;
             self
         }
 
+        #[inline]
         pub fn tiling(mut self, tiling: ImageTiling) -> Self {
             self.tiling = tiling;
             self
         }
 
+        #[inline]
         pub fn usage(mut self, usage: ImageUsageFlags) -> Self {
             self.usage = usage;
             self
         }
 
+        #[inline]
         pub fn flags(mut self, flags: ImageCreateFlags) -> Self {
             self.flags = flags;
             self
@@ -326,6 +335,7 @@ pub(super) mod defs {
     }
 
     impl<'a> QueueFamilyProperties2<'a> {
+        #[inline]
         pub fn queue_family_properties(
             mut self,
             queue_family_properties: QueueFamilyProperties,
@@ -373,6 +383,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMemoryProperties2<'a> {
+        #[inline]
         pub fn memory_properties(
             mut self,
             memory_properties: PhysicalDeviceMemoryProperties,
@@ -420,6 +431,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SparseImageFormatProperties2<'a> {
+        #[inline]
         pub fn properties(mut self, properties: SparseImageFormatProperties) -> Self {
             self.properties = properties;
             self
@@ -477,26 +489,31 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceSparseImageFormatInfo2<'a> {
+        #[inline]
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
 
+        #[inline]
         pub fn ty(mut self, ty: ImageType) -> Self {
             self.ty = ty;
             self
         }
 
+        #[inline]
         pub fn samples(mut self, samples: SampleCountFlagBits) -> Self {
             self.samples = samples;
             self
         }
 
+        #[inline]
         pub fn usage(mut self, usage: ImageUsageFlags) -> Self {
             self.usage = usage;
             self
         }
 
+        #[inline]
         pub fn tiling(mut self, tiling: ImageTiling) -> Self {
             self.tiling = tiling;
             self
@@ -554,6 +571,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceVariablePointersFeatures<'a> {
+        #[inline]
         pub fn variable_pointers_storage_buffer(
             mut self,
             variable_pointers_storage_buffer: bool,
@@ -562,6 +580,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn variable_pointers(mut self, variable_pointers: bool) -> Self {
             self.variable_pointers = variable_pointers.into();
             self
@@ -580,6 +599,7 @@ pub(super) mod defs {
     }
 
     impl ExternalMemoryProperties {
+        #[inline]
         pub fn external_memory_features(
             mut self,
             external_memory_features: ExternalMemoryFeatureFlags,
@@ -588,6 +608,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn export_from_imported_handle_types(
             mut self,
             export_from_imported_handle_types: ExternalMemoryHandleTypeFlags,
@@ -596,6 +617,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn compatible_handle_types(
             mut self,
             compatible_handle_types: ExternalMemoryHandleTypeFlags,
@@ -649,6 +671,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceExternalImageFormatInfo<'a> {
+        #[inline]
         pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
@@ -698,6 +721,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ExternalImageFormatProperties<'a> {
+        #[inline]
         pub fn external_memory_properties(
             mut self,
             external_memory_properties: ExternalMemoryProperties,
@@ -751,16 +775,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceExternalBufferInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: BufferCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn usage(mut self, usage: BufferUsageFlags) -> Self {
             self.usage = usage;
             self
         }
 
+        #[inline]
         pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
@@ -808,6 +835,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ExternalBufferProperties<'a> {
+        #[inline]
         pub fn external_memory_properties(
             mut self,
             external_memory_properties: ExternalMemoryProperties,
@@ -869,26 +897,31 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceIDProperties<'a> {
+        #[inline]
         pub fn device_uuid(mut self, device_uuid: [u8; UUID_SIZE as usize]) -> Self {
             self.device_uuid = device_uuid;
             self
         }
 
+        #[inline]
         pub fn driver_uuid(mut self, driver_uuid: [u8; UUID_SIZE as usize]) -> Self {
             self.driver_uuid = driver_uuid;
             self
         }
 
+        #[inline]
         pub fn device_luid(mut self, device_luid: [u8; LUID_SIZE as usize]) -> Self {
             self.device_luid = device_luid;
             self
         }
 
+        #[inline]
         pub fn device_node_mask(mut self, device_node_mask: u32) -> Self {
             self.device_node_mask = device_node_mask;
             self
         }
 
+        #[inline]
         pub fn device_luid_valid(mut self, device_luid_valid: bool) -> Self {
             self.device_luid_valid = device_luid_valid.into();
             self
@@ -935,6 +968,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ExternalMemoryImageCreateInfo<'a> {
+        #[inline]
         pub fn handle_types(mut self, handle_types: ExternalMemoryHandleTypeFlags) -> Self {
             self.handle_types = handle_types;
             self
@@ -981,6 +1015,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ExternalMemoryBufferCreateInfo<'a> {
+        #[inline]
         pub fn handle_types(mut self, handle_types: ExternalMemoryHandleTypeFlags) -> Self {
             self.handle_types = handle_types;
             self
@@ -1027,6 +1062,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ExportMemoryAllocateInfo<'a> {
+        #[inline]
         pub fn handle_types(mut self, handle_types: ExternalMemoryHandleTypeFlags) -> Self {
             self.handle_types = handle_types;
             self
@@ -1072,6 +1108,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceExternalSemaphoreInfo<'a> {
+        #[inline]
         pub fn handle_type(mut self, handle_type: ExternalSemaphoreHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
@@ -1128,6 +1165,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ExternalSemaphoreProperties<'a> {
+        #[inline]
         pub fn export_from_imported_handle_types(
             mut self,
             export_from_imported_handle_types: ExternalSemaphoreHandleTypeFlags,
@@ -1136,6 +1174,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn compatible_handle_types(
             mut self,
             compatible_handle_types: ExternalSemaphoreHandleTypeFlags,
@@ -1144,6 +1183,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn external_semaphore_features(
             mut self,
             external_semaphore_features: ExternalSemaphoreFeatureFlags,
@@ -1193,6 +1233,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ExportSemaphoreCreateInfo<'a> {
+        #[inline]
         pub fn handle_types(mut self, handle_types: ExternalSemaphoreHandleTypeFlags) -> Self {
             self.handle_types = handle_types;
             self
@@ -1237,6 +1278,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceExternalFenceInfo<'a> {
+        #[inline]
         pub fn handle_type(mut self, handle_type: ExternalFenceHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
@@ -1290,6 +1332,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ExternalFenceProperties<'a> {
+        #[inline]
         pub fn export_from_imported_handle_types(
             mut self,
             export_from_imported_handle_types: ExternalFenceHandleTypeFlags,
@@ -1298,6 +1341,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn compatible_handle_types(
             mut self,
             compatible_handle_types: ExternalFenceHandleTypeFlags,
@@ -1306,6 +1350,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn external_fence_features(
             mut self,
             external_fence_features: ExternalFenceFeatureFlags,
@@ -1355,6 +1400,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ExportFenceCreateInfo<'a> {
+        #[inline]
         pub fn handle_types(mut self, handle_types: ExternalFenceHandleTypeFlags) -> Self {
             self.handle_types = handle_types;
             self
@@ -1411,16 +1457,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMultiviewFeatures<'a> {
+        #[inline]
         pub fn multiview(mut self, multiview: bool) -> Self {
             self.multiview = multiview.into();
             self
         }
 
+        #[inline]
         pub fn multiview_geometry_shader(mut self, multiview_geometry_shader: bool) -> Self {
             self.multiview_geometry_shader = multiview_geometry_shader.into();
             self
         }
 
+        #[inline]
         pub fn multiview_tessellation_shader(
             mut self,
             multiview_tessellation_shader: bool,
@@ -1476,11 +1525,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMultiviewProperties<'a> {
+        #[inline]
         pub fn max_multiview_view_count(mut self, max_multiview_view_count: u32) -> Self {
             self.max_multiview_view_count = max_multiview_view_count;
             self
         }
 
+        #[inline]
         pub fn max_multiview_instance_index(mut self, max_multiview_instance_index: u32) -> Self {
             self.max_multiview_instance_index = max_multiview_instance_index;
             self
@@ -1542,18 +1593,21 @@ pub(super) mod defs {
     }
 
     impl<'a> RenderPassMultiviewCreateInfo<'a> {
+        #[inline]
         pub fn view_masks(mut self, view_masks: &'a [u32]) -> Self {
             self.subpass_count = view_masks.len().try_into().unwrap();
             self.p_view_masks = view_masks.as_ptr();
             self
         }
 
+        #[inline]
         pub fn view_offsets(mut self, view_offsets: &'a [i32]) -> Self {
             self.dependency_count = view_offsets.len().try_into().unwrap();
             self.p_view_offsets = view_offsets.as_ptr();
             self
         }
 
+        #[inline]
         pub fn correlation_masks(mut self, correlation_masks: &'a [u32]) -> Self {
             self.correlation_mask_count = correlation_masks.len().try_into().unwrap();
             self.p_correlation_masks = correlation_masks.as_ptr();
@@ -1605,12 +1659,14 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceGroupProperties<'a> {
+        #[inline]
         pub fn physical_devices(mut self, physical_devices: &[PhysicalDevice]) -> Self {
             self.physical_device_count = physical_devices.len().try_into().unwrap();
             self.physical_devices[..physical_devices.len()].copy_from_slice(physical_devices);
             self
         }
 
+        #[inline]
         pub fn subset_allocation(mut self, subset_allocation: bool) -> Self {
             self.subset_allocation = subset_allocation.into();
             self
@@ -1660,11 +1716,13 @@ pub(super) mod defs {
     }
 
     impl<'a> MemoryAllocateFlagsInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: MemoryAllocateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn device_mask(mut self, device_mask: u32) -> Self {
             self.device_mask = device_mask;
             self
@@ -1715,16 +1773,19 @@ pub(super) mod defs {
     }
 
     impl<'a> BindBufferMemoryInfo<'a> {
+        #[inline]
         pub fn buffer(mut self, buffer: Buffer) -> Self {
             self.buffer = buffer;
             self
         }
 
+        #[inline]
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
         }
 
+        #[inline]
         pub fn memory_offset(mut self, memory_offset: DeviceSize) -> Self {
             self.memory_offset = memory_offset;
             self
@@ -1774,6 +1835,7 @@ pub(super) mod defs {
     }
 
     impl<'a> BindBufferMemoryDeviceGroupInfo<'a> {
+        #[inline]
         pub fn device_indices(mut self, device_indices: &'a [u32]) -> Self {
             self.device_index_count = device_indices.len().try_into().unwrap();
             self.p_device_indices = device_indices.as_ptr();
@@ -1825,16 +1887,19 @@ pub(super) mod defs {
     }
 
     impl<'a> BindImageMemoryInfo<'a> {
+        #[inline]
         pub fn image(mut self, image: Image) -> Self {
             self.image = image;
             self
         }
 
+        #[inline]
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
         }
 
+        #[inline]
         pub fn memory_offset(mut self, memory_offset: DeviceSize) -> Self {
             self.memory_offset = memory_offset;
             self
@@ -1896,12 +1961,14 @@ pub(super) mod defs {
     }
 
     impl<'a> BindImageMemoryDeviceGroupInfo<'a> {
+        #[inline]
         pub fn device_indices(mut self, device_indices: &'a [u32]) -> Self {
             self.device_index_count = device_indices.len().try_into().unwrap();
             self.p_device_indices = device_indices.as_ptr();
             self
         }
 
+        #[inline]
         pub fn split_instance_bind_regions(
             mut self,
             split_instance_bind_regions: &'a [Rect2D],
@@ -1960,11 +2027,13 @@ pub(super) mod defs {
     }
 
     impl<'a> DeviceGroupRenderPassBeginInfo<'a> {
+        #[inline]
         pub fn device_mask(mut self, device_mask: u32) -> Self {
             self.device_mask = device_mask;
             self
         }
 
+        #[inline]
         pub fn device_render_areas(mut self, device_render_areas: &'a [Rect2D]) -> Self {
             self.device_render_area_count = device_render_areas.len().try_into().unwrap();
             self.p_device_render_areas = device_render_areas.as_ptr();
@@ -2012,6 +2081,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DeviceGroupCommandBufferBeginInfo<'a> {
+        #[inline]
         pub fn device_mask(mut self, device_mask: u32) -> Self {
             self.device_mask = device_mask;
             self
@@ -2082,6 +2152,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DeviceGroupSubmitInfo<'a> {
+        #[inline]
         pub fn wait_semaphore_device_indices(
             mut self,
             wait_semaphore_device_indices: &'a [u32],
@@ -2091,6 +2162,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn command_buffer_device_masks(
             mut self,
             command_buffer_device_masks: &'a [u32],
@@ -2100,6 +2172,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn signal_semaphore_device_indices(
             mut self,
             signal_semaphore_device_indices: &'a [u32],
@@ -2153,11 +2226,13 @@ pub(super) mod defs {
     }
 
     impl<'a> DeviceGroupBindSparseInfo<'a> {
+        #[inline]
         pub fn resource_device_index(mut self, resource_device_index: u32) -> Self {
             self.resource_device_index = resource_device_index;
             self
         }
 
+        #[inline]
         pub fn memory_device_index(mut self, memory_device_index: u32) -> Self {
             self.memory_device_index = memory_device_index;
             self
@@ -2207,6 +2282,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DeviceGroupDeviceCreateInfo<'a> {
+        #[inline]
         pub fn physical_devices(mut self, physical_devices: &'a [PhysicalDevice]) -> Self {
             self.physical_device_count = physical_devices.len().try_into().unwrap();
             self.p_physical_devices = physical_devices.as_ptr();
@@ -2229,31 +2305,37 @@ pub(super) mod defs {
     }
 
     impl DescriptorUpdateTemplateEntry {
+        #[inline]
         pub fn dst_binding(mut self, dst_binding: u32) -> Self {
             self.dst_binding = dst_binding;
             self
         }
 
+        #[inline]
         pub fn dst_array_element(mut self, dst_array_element: u32) -> Self {
             self.dst_array_element = dst_array_element;
             self
         }
 
+        #[inline]
         pub fn descriptor_count(mut self, descriptor_count: u32) -> Self {
             self.descriptor_count = descriptor_count;
             self
         }
 
+        #[inline]
         pub fn descriptor_type(mut self, descriptor_type: DescriptorType) -> Self {
             self.descriptor_type = descriptor_type;
             self
         }
 
+        #[inline]
         pub fn offset(mut self, offset: usize) -> Self {
             self.offset = offset;
             self
         }
 
+        #[inline]
         pub fn stride(mut self, stride: usize) -> Self {
             self.stride = stride;
             self
@@ -2325,11 +2407,13 @@ pub(super) mod defs {
     }
 
     impl<'a> DescriptorUpdateTemplateCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: DescriptorUpdateTemplateCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn descriptor_update_entries(
             mut self,
             descriptor_update_entries: &'a [DescriptorUpdateTemplateEntry],
@@ -2340,26 +2424,31 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn template_type(mut self, template_type: DescriptorUpdateTemplateType) -> Self {
             self.template_type = template_type;
             self
         }
 
+        #[inline]
         pub fn descriptor_set_layout(mut self, descriptor_set_layout: DescriptorSetLayout) -> Self {
             self.descriptor_set_layout = descriptor_set_layout;
             self
         }
 
+        #[inline]
         pub fn pipeline_bind_point(mut self, pipeline_bind_point: PipelineBindPoint) -> Self {
             self.pipeline_bind_point = pipeline_bind_point;
             self
         }
 
+        #[inline]
         pub fn pipeline_layout(mut self, pipeline_layout: PipelineLayout) -> Self {
             self.pipeline_layout = pipeline_layout;
             self
         }
 
+        #[inline]
         pub fn set(mut self, set: u32) -> Self {
             self.set = set;
             self
@@ -2378,16 +2467,19 @@ pub(super) mod defs {
     }
 
     impl InputAttachmentAspectReference {
+        #[inline]
         pub fn subpass(mut self, subpass: u32) -> Self {
             self.subpass = subpass;
             self
         }
 
+        #[inline]
         pub fn input_attachment_index(mut self, input_attachment_index: u32) -> Self {
             self.input_attachment_index = input_attachment_index;
             self
         }
 
+        #[inline]
         pub fn aspect_mask(mut self, aspect_mask: ImageAspectFlags) -> Self {
             self.aspect_mask = aspect_mask;
             self
@@ -2441,6 +2533,7 @@ pub(super) mod defs {
     }
 
     impl<'a> RenderPassInputAttachmentAspectCreateInfo<'a> {
+        #[inline]
         pub fn aspect_references(
             mut self,
             aspect_references: &'a [InputAttachmentAspectReference],
@@ -2507,11 +2600,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevice16BitStorageFeatures<'a> {
+        #[inline]
         pub fn storage_buffer16_bit_access(mut self, storage_buffer16_bit_access: bool) -> Self {
             self.storage_buffer16_bit_access = storage_buffer16_bit_access.into();
             self
         }
 
+        #[inline]
         pub fn uniform_and_storage_buffer16_bit_access(
             mut self,
             uniform_and_storage_buffer16_bit_access: bool,
@@ -2521,11 +2616,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn storage_push_constant16(mut self, storage_push_constant16: bool) -> Self {
             self.storage_push_constant16 = storage_push_constant16.into();
             self
         }
 
+        #[inline]
         pub fn storage_input_output16(mut self, storage_input_output16: bool) -> Self {
             self.storage_input_output16 = storage_input_output16.into();
             self
@@ -2584,21 +2681,25 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceSubgroupProperties<'a> {
+        #[inline]
         pub fn subgroup_size(mut self, subgroup_size: u32) -> Self {
             self.subgroup_size = subgroup_size;
             self
         }
 
+        #[inline]
         pub fn supported_stages(mut self, supported_stages: ShaderStageFlags) -> Self {
             self.supported_stages = supported_stages;
             self
         }
 
+        #[inline]
         pub fn supported_operations(mut self, supported_operations: SubgroupFeatureFlags) -> Self {
             self.supported_operations = supported_operations;
             self
         }
 
+        #[inline]
         pub fn quad_operations_in_all_stages(
             mut self,
             quad_operations_in_all_stages: bool,
@@ -2646,6 +2747,7 @@ pub(super) mod defs {
     }
 
     impl<'a> BufferMemoryRequirementsInfo2<'a> {
+        #[inline]
         pub fn buffer(mut self, buffer: Buffer) -> Self {
             self.buffer = buffer;
             self
@@ -2690,6 +2792,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageMemoryRequirementsInfo2<'a> {
+        #[inline]
         pub fn image(mut self, image: Image) -> Self {
             self.image = image;
             self
@@ -2735,6 +2838,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageSparseMemoryRequirementsInfo2<'a> {
+        #[inline]
         pub fn image(mut self, image: Image) -> Self {
             self.image = image;
             self
@@ -2779,6 +2883,7 @@ pub(super) mod defs {
     }
 
     impl<'a> MemoryRequirements2<'a> {
+        #[inline]
         pub fn memory_requirements(mut self, memory_requirements: MemoryRequirements) -> Self {
             self.memory_requirements = memory_requirements;
             self
@@ -2823,6 +2928,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SparseImageMemoryRequirements2<'a> {
+        #[inline]
         pub fn memory_requirements(
             mut self,
             memory_requirements: SparseImageMemoryRequirements,
@@ -2876,6 +2982,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePointClippingProperties<'a> {
+        #[inline]
         pub fn point_clipping_behavior(
             mut self,
             point_clipping_behavior: PointClippingBehavior,
@@ -2934,11 +3041,13 @@ pub(super) mod defs {
     }
 
     impl<'a> MemoryDedicatedRequirements<'a> {
+        #[inline]
         pub fn prefers_dedicated_allocation(mut self, prefers_dedicated_allocation: bool) -> Self {
             self.prefers_dedicated_allocation = prefers_dedicated_allocation.into();
             self
         }
 
+        #[inline]
         pub fn requires_dedicated_allocation(
             mut self,
             requires_dedicated_allocation: bool,
@@ -2991,11 +3100,13 @@ pub(super) mod defs {
     }
 
     impl<'a> MemoryDedicatedAllocateInfo<'a> {
+        #[inline]
         pub fn image(mut self, image: Image) -> Self {
             self.image = image;
             self
         }
 
+        #[inline]
         pub fn buffer(mut self, buffer: Buffer) -> Self {
             self.buffer = buffer;
             self
@@ -3042,6 +3153,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageViewUsageCreateInfo<'a> {
+        #[inline]
         pub fn usage(mut self, usage: ImageUsageFlags) -> Self {
             self.usage = usage;
             self
@@ -3092,6 +3204,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineTessellationDomainOriginStateCreateInfo<'a> {
+        #[inline]
         pub fn domain_origin(mut self, domain_origin: TessellationDomainOrigin) -> Self {
             self.domain_origin = domain_origin;
             self
@@ -3139,6 +3252,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SamplerYcbcrConversionInfo<'a> {
+        #[inline]
         pub fn conversion(mut self, conversion: SamplerYcbcrConversion) -> Self {
             self.conversion = conversion;
             self
@@ -3207,41 +3321,49 @@ pub(super) mod defs {
     }
 
     impl<'a> SamplerYcbcrConversionCreateInfo<'a> {
+        #[inline]
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
 
+        #[inline]
         pub fn ycbcr_model(mut self, ycbcr_model: SamplerYcbcrModelConversion) -> Self {
             self.ycbcr_model = ycbcr_model;
             self
         }
 
+        #[inline]
         pub fn ycbcr_range(mut self, ycbcr_range: SamplerYcbcrRange) -> Self {
             self.ycbcr_range = ycbcr_range;
             self
         }
 
+        #[inline]
         pub fn components(mut self, components: ComponentMapping) -> Self {
             self.components = components;
             self
         }
 
+        #[inline]
         pub fn x_chroma_offset(mut self, x_chroma_offset: ChromaLocation) -> Self {
             self.x_chroma_offset = x_chroma_offset;
             self
         }
 
+        #[inline]
         pub fn y_chroma_offset(mut self, y_chroma_offset: ChromaLocation) -> Self {
             self.y_chroma_offset = y_chroma_offset;
             self
         }
 
+        #[inline]
         pub fn chroma_filter(mut self, chroma_filter: Filter) -> Self {
             self.chroma_filter = chroma_filter;
             self
         }
 
+        #[inline]
         pub fn force_explicit_reconstruction(
             mut self,
             force_explicit_reconstruction: bool,
@@ -3291,6 +3413,7 @@ pub(super) mod defs {
     }
 
     impl<'a> BindImagePlaneMemoryInfo<'a> {
+        #[inline]
         pub fn plane_aspect(mut self, plane_aspect: ImageAspectFlagBits) -> Self {
             self.plane_aspect = plane_aspect;
             self
@@ -3337,6 +3460,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ImagePlaneMemoryRequirementsInfo<'a> {
+        #[inline]
         pub fn plane_aspect(mut self, plane_aspect: ImageAspectFlagBits) -> Self {
             self.plane_aspect = plane_aspect;
             self
@@ -3388,6 +3512,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceSamplerYcbcrConversionFeatures<'a> {
+        #[inline]
         pub fn sampler_ycbcr_conversion(mut self, sampler_ycbcr_conversion: bool) -> Self {
             self.sampler_ycbcr_conversion = sampler_ycbcr_conversion.into();
             self
@@ -3441,6 +3566,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SamplerYcbcrConversionImageFormatProperties<'a> {
+        #[inline]
         pub fn combined_image_sampler_descriptor_count(
             mut self,
             combined_image_sampler_descriptor_count: u32,
@@ -3490,6 +3616,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ProtectedSubmitInfo<'a> {
+        #[inline]
         pub fn protected_submit(mut self, protected_submit: bool) -> Self {
             self.protected_submit = protected_submit.into();
             self
@@ -3538,6 +3665,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceProtectedMemoryFeatures<'a> {
+        #[inline]
         pub fn protected_memory(mut self, protected_memory: bool) -> Self {
             self.protected_memory = protected_memory.into();
             self
@@ -3588,6 +3716,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceProtectedMemoryProperties<'a> {
+        #[inline]
         pub fn protected_no_fault(mut self, protected_no_fault: bool) -> Self {
             self.protected_no_fault = protected_no_fault.into();
             self
@@ -3638,16 +3767,19 @@ pub(super) mod defs {
     }
 
     impl<'a> DeviceQueueInfo2<'a> {
+        #[inline]
         pub fn flags(mut self, flags: DeviceQueueCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn queue_family_index(mut self, queue_family_index: u32) -> Self {
             self.queue_family_index = queue_family_index;
             self
         }
 
+        #[inline]
         pub fn queue_index(mut self, queue_index: u32) -> Self {
             self.queue_index = queue_index;
             self
@@ -3704,11 +3836,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMaintenance3Properties<'a> {
+        #[inline]
         pub fn max_per_set_descriptors(mut self, max_per_set_descriptors: u32) -> Self {
             self.max_per_set_descriptors = max_per_set_descriptors;
             self
         }
 
+        #[inline]
         pub fn max_memory_allocation_size(
             mut self,
             max_memory_allocation_size: DeviceSize,
@@ -3756,6 +3890,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DescriptorSetLayoutSupport<'a> {
+        #[inline]
         pub fn supported(mut self, supported: bool) -> Self {
             self.supported = supported.into();
             self
@@ -3807,6 +3942,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderDrawParametersFeatures<'a> {
+        #[inline]
         pub fn shader_draw_parameters(mut self, shader_draw_parameters: bool) -> Self {
             self.shader_draw_parameters = shader_draw_parameters.into();
             self
@@ -5111,6 +5247,7 @@ impl EntryFn {
 
 impl EntryFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumerateInstanceVersion.html>
+    #[inline]
     pub unsafe fn enumerate_instance_version(&self) -> crate::Result<u32> {
         unsafe {
             let mut api_version = core::mem::MaybeUninit::uninit();
@@ -5192,6 +5329,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumeratePhysicalDeviceGroups.html>
+    #[inline]
     pub unsafe fn enumerate_physical_device_groups<'a>(
         &self,
         instance: Instance,
@@ -5230,6 +5368,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFeatures2.html>
+    #[inline]
     pub unsafe fn get_physical_device_features2(
         &self,
         physical_device: PhysicalDevice,
@@ -5239,6 +5378,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceProperties2.html>
+    #[inline]
     pub unsafe fn get_physical_device_properties2(
         &self,
         physical_device: PhysicalDevice,
@@ -5248,6 +5388,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFormatProperties2.html>
+    #[inline]
     pub unsafe fn get_physical_device_format_properties2(
         &self,
         physical_device: PhysicalDevice,
@@ -5264,6 +5405,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceImageFormatProperties2.html>
+    #[inline]
     pub unsafe fn get_physical_device_image_format_properties2(
         &self,
         physical_device: PhysicalDevice,
@@ -5285,6 +5427,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceQueueFamilyProperties2.html>
+    #[inline]
     pub unsafe fn get_physical_device_queue_family_properties2<'a>(
         &self,
         physical_device: PhysicalDevice,
@@ -5309,6 +5452,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceMemoryProperties2.html>
+    #[inline]
     pub unsafe fn get_physical_device_memory_properties2(
         &self,
         physical_device: PhysicalDevice,
@@ -5318,6 +5462,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSparseImageFormatProperties2.html>
+    #[inline]
     pub unsafe fn get_physical_device_sparse_image_format_properties2<'a>(
         &self,
         physical_device: PhysicalDevice,
@@ -5344,6 +5489,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceExternalBufferProperties.html>
+    #[inline]
     pub unsafe fn get_physical_device_external_buffer_properties(
         &self,
         physical_device: PhysicalDevice,
@@ -5360,6 +5506,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceExternalFenceProperties.html>
+    #[inline]
     pub unsafe fn get_physical_device_external_fence_properties(
         &self,
         physical_device: PhysicalDevice,
@@ -5376,6 +5523,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceExternalSemaphoreProperties.html>
+    #[inline]
     pub unsafe fn get_physical_device_external_semaphore_properties(
         &self,
         physical_device: PhysicalDevice,
@@ -5472,6 +5620,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindBufferMemory2.html>
+    #[inline]
     pub unsafe fn bind_buffer_memory2(
         &self,
         device: Device,
@@ -5492,6 +5641,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindImageMemory2.html>
+    #[inline]
     pub unsafe fn bind_image_memory2(
         &self,
         device: Device,
@@ -5512,6 +5662,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceGroupPeerMemoryFeatures.html>
+    #[inline]
     pub unsafe fn get_device_group_peer_memory_features(
         &self,
         device: Device,
@@ -5533,11 +5684,13 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDeviceMask.html>
+    #[inline]
     pub unsafe fn cmd_set_device_mask(&self, command_buffer: CommandBuffer, device_mask: u32) {
         unsafe { (self.cmd_set_device_mask)(command_buffer, device_mask) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageMemoryRequirements2.html>
+    #[inline]
     pub unsafe fn get_image_memory_requirements2(
         &self,
         device: Device,
@@ -5548,6 +5701,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferMemoryRequirements2.html>
+    #[inline]
     pub unsafe fn get_buffer_memory_requirements2(
         &self,
         device: Device,
@@ -5558,6 +5712,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageSparseMemoryRequirements2.html>
+    #[inline]
     pub unsafe fn get_image_sparse_memory_requirements2<'a>(
         &self,
         device: Device,
@@ -5587,6 +5742,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkTrimCommandPool.html>
+    #[inline]
     pub unsafe fn trim_command_pool(
         &self,
         device: Device,
@@ -5597,6 +5753,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceQueue2.html>
+    #[inline]
     pub unsafe fn get_device_queue2(
         &self,
         device: Device,
@@ -5610,6 +5767,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatchBase.html>
+    #[inline]
     pub unsafe fn cmd_dispatch_base(
         &self,
         command_buffer: CommandBuffer,
@@ -5634,6 +5792,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDescriptorUpdateTemplate.html>
+    #[inline]
     pub unsafe fn create_descriptor_update_template(
         &self,
         device: Device,
@@ -5657,6 +5816,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDescriptorUpdateTemplate.html>
+    #[inline]
     pub unsafe fn destroy_descriptor_update_template(
         &self,
         device: Device,
@@ -5673,6 +5833,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUpdateDescriptorSetWithTemplate.html>
+    #[inline]
     pub unsafe fn update_descriptor_set_with_template(
         &self,
         device: Device,
@@ -5691,6 +5852,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDescriptorSetLayoutSupport.html>
+    #[inline]
     pub unsafe fn get_descriptor_set_layout_support(
         &self,
         device: Device,
@@ -5701,6 +5863,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSamplerYcbcrConversion.html>
+    #[inline]
     pub unsafe fn create_sampler_ycbcr_conversion(
         &self,
         device: Device,
@@ -5724,6 +5887,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroySamplerYcbcrConversion.html>
+    #[inline]
     pub unsafe fn destroy_sampler_ycbcr_conversion(
         &self,
         device: Device,

@@ -62,6 +62,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSamplerYcbcrConversionKHR.html>
+    #[inline]
     pub unsafe fn create_sampler_ycbcr_conversion_khr(
         &self,
         device: Device,
@@ -85,6 +86,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroySamplerYcbcrConversionKHR.html>
+    #[inline]
     pub unsafe fn destroy_sampler_ycbcr_conversion_khr(
         &self,
         device: Device,

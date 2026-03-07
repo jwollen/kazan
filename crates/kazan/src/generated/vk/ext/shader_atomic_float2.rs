@@ -126,6 +126,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderAtomicFloat2FeaturesEXT<'a> {
+        #[inline]
         pub fn shader_buffer_float16_atomics(
             mut self,
             shader_buffer_float16_atomics: bool,
@@ -134,6 +135,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_buffer_float16_atomic_add(
             mut self,
             shader_buffer_float16_atomic_add: bool,
@@ -142,6 +144,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_buffer_float16_atomic_min_max(
             mut self,
             shader_buffer_float16_atomic_min_max: bool,
@@ -150,6 +153,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_buffer_float32_atomic_min_max(
             mut self,
             shader_buffer_float32_atomic_min_max: bool,
@@ -158,6 +162,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_buffer_float64_atomic_min_max(
             mut self,
             shader_buffer_float64_atomic_min_max: bool,
@@ -166,6 +171,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_shared_float16_atomics(
             mut self,
             shader_shared_float16_atomics: bool,
@@ -174,6 +180,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_shared_float16_atomic_add(
             mut self,
             shader_shared_float16_atomic_add: bool,
@@ -182,6 +189,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_shared_float16_atomic_min_max(
             mut self,
             shader_shared_float16_atomic_min_max: bool,
@@ -190,6 +198,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_shared_float32_atomic_min_max(
             mut self,
             shader_shared_float32_atomic_min_max: bool,
@@ -198,6 +207,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_shared_float64_atomic_min_max(
             mut self,
             shader_shared_float64_atomic_min_max: bool,
@@ -206,6 +216,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_image_float32_atomic_min_max(
             mut self,
             shader_image_float32_atomic_min_max: bool,
@@ -214,6 +225,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn sparse_image_float32_atomic_min_max(
             mut self,
             sparse_image_float32_atomic_min_max: bool,

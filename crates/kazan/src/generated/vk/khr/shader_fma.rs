@@ -60,16 +60,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderFmaFeaturesKHR<'a> {
+        #[inline]
         pub fn shader_fma_float16(mut self, shader_fma_float16: bool) -> Self {
             self.shader_fma_float16 = shader_fma_float16.into();
             self
         }
 
+        #[inline]
         pub fn shader_fma_float32(mut self, shader_fma_float32: bool) -> Self {
             self.shader_fma_float32 = shader_fma_float32.into();
             self
         }
 
+        #[inline]
         pub fn shader_fma_float64(mut self, shader_fma_float64: bool) -> Self {
             self.shader_fma_float64 = shader_fma_float64.into();
             self

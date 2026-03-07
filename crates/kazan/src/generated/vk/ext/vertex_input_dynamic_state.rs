@@ -63,6 +63,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'a> {
+        #[inline]
         pub fn vertex_input_dynamic_state(mut self, vertex_input_dynamic_state: bool) -> Self {
             self.vertex_input_dynamic_state = vertex_input_dynamic_state.into();
             self
@@ -116,21 +117,25 @@ pub(super) mod defs {
     }
 
     impl<'a> VertexInputBindingDescription2EXT<'a> {
+        #[inline]
         pub fn binding(mut self, binding: u32) -> Self {
             self.binding = binding;
             self
         }
 
+        #[inline]
         pub fn stride(mut self, stride: u32) -> Self {
             self.stride = stride;
             self
         }
 
+        #[inline]
         pub fn input_rate(mut self, input_rate: VertexInputRate) -> Self {
             self.input_rate = input_rate;
             self
         }
 
+        #[inline]
         pub fn divisor(mut self, divisor: u32) -> Self {
             self.divisor = divisor;
             self
@@ -185,21 +190,25 @@ pub(super) mod defs {
     }
 
     impl<'a> VertexInputAttributeDescription2EXT<'a> {
+        #[inline]
         pub fn location(mut self, location: u32) -> Self {
             self.location = location;
             self
         }
 
+        #[inline]
         pub fn binding(mut self, binding: u32) -> Self {
             self.binding = binding;
             self
         }
 
+        #[inline]
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
 
+        #[inline]
         pub fn offset(mut self, offset: u32) -> Self {
             self.offset = offset;
             self
@@ -236,6 +245,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetVertexInputEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_vertex_input_ext(
         &self,
         command_buffer: CommandBuffer,

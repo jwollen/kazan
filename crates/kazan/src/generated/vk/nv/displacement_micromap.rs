@@ -57,6 +57,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDisplacementMicromapFeaturesNV<'a> {
+        #[inline]
         pub fn displacement_micromap(mut self, displacement_micromap: bool) -> Self {
             self.displacement_micromap = displacement_micromap.into();
             self
@@ -110,6 +111,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDisplacementMicromapPropertiesNV<'a> {
+        #[inline]
         pub fn max_displacement_micromap_subdivision_level(
             mut self,
             max_displacement_micromap_subdivision_level: u32,
@@ -233,6 +235,7 @@ pub(super) mod defs {
     }
 
     impl<'a> AccelerationStructureTrianglesDisplacementMicromapNV<'a> {
+        #[inline]
         pub fn displacement_bias_and_scale_format(
             mut self,
             displacement_bias_and_scale_format: Format,
@@ -241,11 +244,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn displacement_vector_format(mut self, displacement_vector_format: Format) -> Self {
             self.displacement_vector_format = displacement_vector_format;
             self
         }
 
+        #[inline]
         pub fn displacement_bias_and_scale_buffer(
             mut self,
             displacement_bias_and_scale_buffer: DeviceOrHostAddressConstKHR<'a>,
@@ -254,6 +259,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn displacement_bias_and_scale_stride(
             mut self,
             displacement_bias_and_scale_stride: DeviceSize,
@@ -262,6 +268,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn displacement_vector_buffer(
             mut self,
             displacement_vector_buffer: DeviceOrHostAddressConstKHR<'a>,
@@ -270,6 +277,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn displacement_vector_stride(
             mut self,
             displacement_vector_stride: DeviceSize,
@@ -278,6 +286,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn displaced_micromap_primitive_flags(
             mut self,
             displaced_micromap_primitive_flags: DeviceOrHostAddressConstKHR<'a>,
@@ -286,6 +295,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn displaced_micromap_primitive_flags_stride(
             mut self,
             displaced_micromap_primitive_flags_stride: DeviceSize,
@@ -295,38 +305,45 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn index_type(mut self, index_type: IndexType) -> Self {
             self.index_type = index_type;
             self
         }
 
+        #[inline]
         pub fn index_buffer(mut self, index_buffer: DeviceOrHostAddressConstKHR<'a>) -> Self {
             self.index_buffer = index_buffer;
             self
         }
 
+        #[inline]
         pub fn index_stride(mut self, index_stride: DeviceSize) -> Self {
             self.index_stride = index_stride;
             self
         }
 
+        #[inline]
         pub fn base_triangle(mut self, base_triangle: u32) -> Self {
             self.base_triangle = base_triangle;
             self
         }
 
+        #[inline]
         pub fn usage_counts(mut self, usage_counts: &'a [MicromapUsageEXT]) -> Self {
             self.usage_counts_count = usage_counts.len().try_into().unwrap();
             self.p_usage_counts = usage_counts.as_ptr();
             self
         }
 
+        #[inline]
         pub fn usage_counts_ptrs(mut self, usage_counts_ptrs: &'a [&'a MicromapUsageEXT]) -> Self {
             self.usage_counts_count = usage_counts_ptrs.len().try_into().unwrap();
             self.pp_usage_counts = usage_counts_ptrs.as_ptr() as _;
             self
         }
 
+        #[inline]
         pub fn micromap(mut self, micromap: MicromapEXT) -> Self {
             self.micromap = micromap;
             self

@@ -50,6 +50,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DisplayPowerInfoEXT<'a> {
+        #[inline]
         pub fn power_state(mut self, power_state: DisplayPowerStateEXT) -> Self {
             self.power_state = power_state;
             self
@@ -94,6 +95,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DeviceEventInfoEXT<'a> {
+        #[inline]
         pub fn device_event(mut self, device_event: DeviceEventTypeEXT) -> Self {
             self.device_event = device_event;
             self
@@ -138,6 +140,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DisplayEventInfoEXT<'a> {
+        #[inline]
         pub fn display_event(mut self, display_event: DisplayEventTypeEXT) -> Self {
             self.display_event = display_event;
             self
@@ -184,6 +187,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SwapchainCounterCreateInfoEXT<'a> {
+        #[inline]
         pub fn surface_counters(mut self, surface_counters: SurfaceCounterFlagsEXT) -> Self {
             self.surface_counters = surface_counters;
             self
@@ -325,6 +329,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDisplayPowerControlEXT.html>
+    #[inline]
     pub unsafe fn display_power_control_ext(
         &self,
         device: Device,
@@ -342,6 +347,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkRegisterDeviceEventEXT.html>
+    #[inline]
     pub unsafe fn register_device_event_ext(
         &self,
         device: Device,
@@ -365,6 +371,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkRegisterDisplayEventEXT.html>
+    #[inline]
     pub unsafe fn register_display_event_ext(
         &self,
         device: Device,
@@ -390,6 +397,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSwapchainCounterEXT.html>
+    #[inline]
     pub unsafe fn get_swapchain_counter_ext(
         &self,
         device: Device,

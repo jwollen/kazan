@@ -23,11 +23,13 @@ pub(super) mod defs {
     }
 
     impl XYColorEXT {
+        #[inline]
         pub fn x(mut self, x: f32) -> Self {
             self.x = x;
             self
         }
 
+        #[inline]
         pub fn y(mut self, y: f32) -> Self {
             self.y = y;
             self
@@ -96,41 +98,49 @@ pub(super) mod defs {
     }
 
     impl<'a> HdrMetadataEXT<'a> {
+        #[inline]
         pub fn display_primary_red(mut self, display_primary_red: XYColorEXT) -> Self {
             self.display_primary_red = display_primary_red;
             self
         }
 
+        #[inline]
         pub fn display_primary_green(mut self, display_primary_green: XYColorEXT) -> Self {
             self.display_primary_green = display_primary_green;
             self
         }
 
+        #[inline]
         pub fn display_primary_blue(mut self, display_primary_blue: XYColorEXT) -> Self {
             self.display_primary_blue = display_primary_blue;
             self
         }
 
+        #[inline]
         pub fn white_point(mut self, white_point: XYColorEXT) -> Self {
             self.white_point = white_point;
             self
         }
 
+        #[inline]
         pub fn max_luminance(mut self, max_luminance: f32) -> Self {
             self.max_luminance = max_luminance;
             self
         }
 
+        #[inline]
         pub fn min_luminance(mut self, min_luminance: f32) -> Self {
             self.min_luminance = min_luminance;
             self
         }
 
+        #[inline]
         pub fn max_content_light_level(mut self, max_content_light_level: f32) -> Self {
             self.max_content_light_level = max_content_light_level;
             self
         }
 
+        #[inline]
         pub fn max_frame_average_light_level(mut self, max_frame_average_light_level: f32) -> Self {
             self.max_frame_average_light_level = max_frame_average_light_level;
             self
@@ -166,6 +176,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetHdrMetadataEXT.html>
+    #[inline]
     pub unsafe fn set_hdr_metadata_ext(
         &self,
         device: Device,

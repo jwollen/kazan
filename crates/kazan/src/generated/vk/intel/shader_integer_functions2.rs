@@ -60,6 +60,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderIntegerFunctions2FeaturesINTEL<'a> {
+        #[inline]
         pub fn shader_integer_functions2(mut self, shader_integer_functions2: bool) -> Self {
             self.shader_integer_functions2 = shader_integer_functions2.into();
             self

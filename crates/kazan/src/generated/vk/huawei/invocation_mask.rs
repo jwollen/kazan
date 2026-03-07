@@ -57,6 +57,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceInvocationMaskFeaturesHUAWEI<'a> {
+        #[inline]
         pub fn invocation_mask(mut self, invocation_mask: bool) -> Self {
             self.invocation_mask = invocation_mask.into();
             self
@@ -91,6 +92,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindInvocationMaskHUAWEI.html>
+    #[inline]
     pub unsafe fn cmd_bind_invocation_mask_huawei(
         &self,
         command_buffer: CommandBuffer,

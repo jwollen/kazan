@@ -65,6 +65,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT<'a> {
+        #[inline]
         pub fn shader_uniform_buffer_unsized_array(
             mut self,
             shader_uniform_buffer_unsized_array: bool,

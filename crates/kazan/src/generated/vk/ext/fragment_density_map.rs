@@ -69,16 +69,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceFragmentDensityMapFeaturesEXT<'a> {
+        #[inline]
         pub fn fragment_density_map(mut self, fragment_density_map: bool) -> Self {
             self.fragment_density_map = fragment_density_map.into();
             self
         }
 
+        #[inline]
         pub fn fragment_density_map_dynamic(mut self, fragment_density_map_dynamic: bool) -> Self {
             self.fragment_density_map_dynamic = fragment_density_map_dynamic.into();
             self
         }
 
+        #[inline]
         pub fn fragment_density_map_non_subsampled_images(
             mut self,
             fragment_density_map_non_subsampled_images: bool,
@@ -148,6 +151,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceFragmentDensityMapPropertiesEXT<'a> {
+        #[inline]
         pub fn min_fragment_density_texel_size(
             mut self,
             min_fragment_density_texel_size: Extent2D,
@@ -156,6 +160,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_fragment_density_texel_size(
             mut self,
             max_fragment_density_texel_size: Extent2D,
@@ -164,6 +169,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn fragment_density_invocations(mut self, fragment_density_invocations: bool) -> Self {
             self.fragment_density_invocations = fragment_density_invocations.into();
             self
@@ -221,6 +227,7 @@ pub(super) mod defs {
     }
 
     impl<'a> RenderPassFragmentDensityMapCreateInfoEXT<'a> {
+        #[inline]
         pub fn fragment_density_map_attachment(
             mut self,
             fragment_density_map_attachment: AttachmentReference,
@@ -274,11 +281,13 @@ pub(super) mod defs {
     }
 
     impl<'a> RenderingFragmentDensityMapAttachmentInfoEXT<'a> {
+        #[inline]
         pub fn image_view(mut self, image_view: ImageView) -> Self {
             self.image_view = image_view;
             self
         }
 
+        #[inline]
         pub fn image_layout(mut self, image_layout: ImageLayout) -> Self {
             self.image_layout = image_layout;
             self

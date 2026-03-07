@@ -52,6 +52,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DisplaySurfaceStereoCreateInfoNV<'a> {
+        #[inline]
         pub fn stereo_type(mut self, stereo_type: DisplaySurfaceStereoTypeNV) -> Self {
             self.stereo_type = stereo_type;
             self
@@ -98,6 +99,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DisplayModeStereoPropertiesNV<'a> {
+        #[inline]
         pub fn hdmi3_d_supported(mut self, hdmi3_d_supported: bool) -> Self {
             self.hdmi3_d_supported = hdmi3_d_supported.into();
             self

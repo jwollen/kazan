@@ -59,16 +59,19 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageViewSampleWeightCreateInfoQCOM<'a> {
+        #[inline]
         pub fn filter_center(mut self, filter_center: Offset2D) -> Self {
             self.filter_center = filter_center;
             self
         }
 
+        #[inline]
         pub fn filter_size(mut self, filter_size: Extent2D) -> Self {
             self.filter_size = filter_size;
             self
         }
 
+        #[inline]
         pub fn num_phases(mut self, num_phases: u32) -> Self {
             self.num_phases = num_phases;
             self
@@ -126,16 +129,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceImageProcessingFeaturesQCOM<'a> {
+        #[inline]
         pub fn texture_sample_weighted(mut self, texture_sample_weighted: bool) -> Self {
             self.texture_sample_weighted = texture_sample_weighted.into();
             self
         }
 
+        #[inline]
         pub fn texture_box_filter(mut self, texture_box_filter: bool) -> Self {
             self.texture_box_filter = texture_box_filter.into();
             self
         }
 
+        #[inline]
         pub fn texture_block_match(mut self, texture_block_match: bool) -> Self {
             self.texture_block_match = texture_block_match.into();
             self
@@ -198,11 +204,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceImageProcessingPropertiesQCOM<'a> {
+        #[inline]
         pub fn max_weight_filter_phases(mut self, max_weight_filter_phases: u32) -> Self {
             self.max_weight_filter_phases = max_weight_filter_phases;
             self
         }
 
+        #[inline]
         pub fn max_weight_filter_dimension(
             mut self,
             max_weight_filter_dimension: Extent2D,
@@ -211,11 +219,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_block_match_region(mut self, max_block_match_region: Extent2D) -> Self {
             self.max_block_match_region = max_block_match_region;
             self
         }
 
+        #[inline]
         pub fn max_box_filter_block_size(mut self, max_box_filter_block_size: Extent2D) -> Self {
             self.max_box_filter_block_size = max_box_filter_block_size;
             self

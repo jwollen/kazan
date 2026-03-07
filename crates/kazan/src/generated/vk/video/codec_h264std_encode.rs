@@ -25,21 +25,25 @@ pub(super) mod defs {
     }
 
     impl StdVideoEncodeH264WeightTableFlags {
+        #[inline]
         pub fn luma_weight_l0_flag(mut self, luma_weight_l0_flag: u32) -> Self {
             self.luma_weight_l0_flag = luma_weight_l0_flag;
             self
         }
 
+        #[inline]
         pub fn chroma_weight_l0_flag(mut self, chroma_weight_l0_flag: u32) -> Self {
             self.chroma_weight_l0_flag = chroma_weight_l0_flag;
             self
         }
 
+        #[inline]
         pub fn luma_weight_l1_flag(mut self, luma_weight_l1_flag: u32) -> Self {
             self.luma_weight_l1_flag = luma_weight_l1_flag;
             self
         }
 
+        #[inline]
         pub fn chroma_weight_l1_flag(mut self, chroma_weight_l1_flag: u32) -> Self {
             self.chroma_weight_l1_flag = chroma_weight_l1_flag;
             self
@@ -88,21 +92,25 @@ pub(super) mod defs {
     }
 
     impl StdVideoEncodeH264WeightTable {
+        #[inline]
         pub fn flags(mut self, flags: StdVideoEncodeH264WeightTableFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn luma_log2_weight_denom(mut self, luma_log2_weight_denom: u8) -> Self {
             self.luma_log2_weight_denom = luma_log2_weight_denom;
             self
         }
 
+        #[inline]
         pub fn chroma_log2_weight_denom(mut self, chroma_log2_weight_denom: u8) -> Self {
             self.chroma_log2_weight_denom = chroma_log2_weight_denom;
             self
         }
 
+        #[inline]
         pub fn luma_weight_l0(
             mut self,
             luma_weight_l0: [i8; STD_VIDEO_H264_MAX_NUM_LIST_REF as usize],
@@ -111,6 +119,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn luma_offset_l0(
             mut self,
             luma_offset_l0: [i8; STD_VIDEO_H264_MAX_NUM_LIST_REF as usize],
@@ -119,6 +128,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn chroma_weight_l0(
             mut self,
             chroma_weight_l0: [[i8; STD_VIDEO_H264_MAX_CHROMA_PLANES as usize];
@@ -128,6 +138,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn chroma_offset_l0(
             mut self,
             chroma_offset_l0: [[i8; STD_VIDEO_H264_MAX_CHROMA_PLANES as usize];
@@ -137,6 +148,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn luma_weight_l1(
             mut self,
             luma_weight_l1: [i8; STD_VIDEO_H264_MAX_NUM_LIST_REF as usize],
@@ -145,6 +157,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn luma_offset_l1(
             mut self,
             luma_offset_l1: [i8; STD_VIDEO_H264_MAX_NUM_LIST_REF as usize],
@@ -153,6 +166,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn chroma_weight_l1(
             mut self,
             chroma_weight_l1: [[i8; STD_VIDEO_H264_MAX_CHROMA_PLANES as usize];
@@ -162,6 +176,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn chroma_offset_l1(
             mut self,
             chroma_offset_l1: [[i8; STD_VIDEO_H264_MAX_CHROMA_PLANES as usize];
@@ -184,11 +199,13 @@ pub(super) mod defs {
     }
 
     impl StdVideoEncodeH264SliceHeaderFlags {
+        #[inline]
         pub fn direct_spatial_mv_pred_flag(mut self, direct_spatial_mv_pred_flag: u32) -> Self {
             self.direct_spatial_mv_pred_flag = direct_spatial_mv_pred_flag;
             self
         }
 
+        #[inline]
         pub fn num_ref_idx_active_override_flag(
             mut self,
             num_ref_idx_active_override_flag: u32,
@@ -197,6 +214,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn reserved(mut self, reserved: u32) -> Self {
             self.reserved = reserved;
             self
@@ -218,26 +236,31 @@ pub(super) mod defs {
     }
 
     impl StdVideoEncodeH264PictureInfoFlags {
+        #[inline]
         pub fn idr_pic_flag(mut self, idr_pic_flag: u32) -> Self {
             self.idr_pic_flag = idr_pic_flag;
             self
         }
 
+        #[inline]
         pub fn is_reference(mut self, is_reference: u32) -> Self {
             self.is_reference = is_reference;
             self
         }
 
+        #[inline]
         pub fn no_output_of_prior_pics_flag(mut self, no_output_of_prior_pics_flag: u32) -> Self {
             self.no_output_of_prior_pics_flag = no_output_of_prior_pics_flag;
             self
         }
 
+        #[inline]
         pub fn long_term_reference_flag(mut self, long_term_reference_flag: u32) -> Self {
             self.long_term_reference_flag = long_term_reference_flag;
             self
         }
 
+        #[inline]
         pub fn adaptive_ref_pic_marking_mode_flag(
             mut self,
             adaptive_ref_pic_marking_mode_flag: u32,
@@ -246,6 +269,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn reserved(mut self, reserved: u32) -> Self {
             self.reserved = reserved;
             self
@@ -263,11 +287,13 @@ pub(super) mod defs {
     }
 
     impl StdVideoEncodeH264ReferenceInfoFlags {
+        #[inline]
         pub fn used_for_long_term_reference(mut self, used_for_long_term_reference: u32) -> Self {
             self.used_for_long_term_reference = used_for_long_term_reference;
             self
         }
 
+        #[inline]
         pub fn reserved(mut self, reserved: u32) -> Self {
             self.reserved = reserved;
             self
@@ -286,6 +312,7 @@ pub(super) mod defs {
     }
 
     impl StdVideoEncodeH264ReferenceListsInfoFlags {
+        #[inline]
         pub fn ref_pic_list_modification_flag_l0(
             mut self,
             ref_pic_list_modification_flag_l0: u32,
@@ -294,6 +321,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn ref_pic_list_modification_flag_l1(
             mut self,
             ref_pic_list_modification_flag_l1: u32,
@@ -302,6 +330,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn reserved(mut self, reserved: u32) -> Self {
             self.reserved = reserved;
             self
@@ -320,6 +349,7 @@ pub(super) mod defs {
     }
 
     impl StdVideoEncodeH264RefListModEntry {
+        #[inline]
         pub fn modification_of_pic_nums_idc(
             mut self,
             modification_of_pic_nums_idc: StdVideoH264ModificationOfPicNumsIdc,
@@ -328,11 +358,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn abs_diff_pic_num_minus1(mut self, abs_diff_pic_num_minus1: u16) -> Self {
             self.abs_diff_pic_num_minus1 = abs_diff_pic_num_minus1;
             self
         }
 
+        #[inline]
         pub fn long_term_pic_num(mut self, long_term_pic_num: u16) -> Self {
             self.long_term_pic_num = long_term_pic_num;
             self
@@ -353,6 +385,7 @@ pub(super) mod defs {
     }
 
     impl StdVideoEncodeH264RefPicMarkingEntry {
+        #[inline]
         pub fn memory_management_control_operation(
             mut self,
             memory_management_control_operation: StdVideoH264MemMgmtControlOp,
@@ -361,21 +394,25 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn difference_of_pic_nums_minus1(mut self, difference_of_pic_nums_minus1: u16) -> Self {
             self.difference_of_pic_nums_minus1 = difference_of_pic_nums_minus1;
             self
         }
 
+        #[inline]
         pub fn long_term_pic_num(mut self, long_term_pic_num: u16) -> Self {
             self.long_term_pic_num = long_term_pic_num;
             self
         }
 
+        #[inline]
         pub fn long_term_frame_idx(mut self, long_term_frame_idx: u16) -> Self {
             self.long_term_frame_idx = long_term_frame_idx;
             self
         }
 
+        #[inline]
         pub fn max_long_term_frame_idx_plus1(mut self, max_long_term_frame_idx_plus1: u16) -> Self {
             self.max_long_term_frame_idx_plus1 = max_long_term_frame_idx_plus1;
             self
@@ -458,21 +495,25 @@ pub(super) mod defs {
     }
 
     impl<'a> StdVideoEncodeH264ReferenceListsInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: StdVideoEncodeH264ReferenceListsInfoFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn num_ref_idx_l0_active_minus1(mut self, num_ref_idx_l0_active_minus1: u8) -> Self {
             self.num_ref_idx_l0_active_minus1 = num_ref_idx_l0_active_minus1;
             self
         }
 
+        #[inline]
         pub fn num_ref_idx_l1_active_minus1(mut self, num_ref_idx_l1_active_minus1: u8) -> Self {
             self.num_ref_idx_l1_active_minus1 = num_ref_idx_l1_active_minus1;
             self
         }
 
+        #[inline]
         pub fn ref_pic_list0(
             mut self,
             ref_pic_list0: [u8; STD_VIDEO_H264_MAX_NUM_LIST_REF as usize],
@@ -481,6 +522,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn ref_pic_list1(
             mut self,
             ref_pic_list1: [u8; STD_VIDEO_H264_MAX_NUM_LIST_REF as usize],
@@ -489,6 +531,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn ref_list0_mod_operations(
             mut self,
             ref_list0_mod_operations: &'a [StdVideoEncodeH264RefListModEntry],
@@ -498,6 +541,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn ref_list1_mod_operations(
             mut self,
             ref_list1_mod_operations: &'a [StdVideoEncodeH264RefListModEntry],
@@ -507,6 +551,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn ref_pic_marking_operations(
             mut self,
             ref_pic_marking_operations: &'a [StdVideoEncodeH264RefPicMarkingEntry],
@@ -516,6 +561,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn reserved1(mut self, reserved1: [u8; 7]) -> Self {
             self.reserved1 = reserved1;
             self
@@ -577,51 +623,61 @@ pub(super) mod defs {
     }
 
     impl<'a> StdVideoEncodeH264PictureInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: StdVideoEncodeH264PictureInfoFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn seq_parameter_set_id(mut self, seq_parameter_set_id: u8) -> Self {
             self.seq_parameter_set_id = seq_parameter_set_id;
             self
         }
 
+        #[inline]
         pub fn pic_parameter_set_id(mut self, pic_parameter_set_id: u8) -> Self {
             self.pic_parameter_set_id = pic_parameter_set_id;
             self
         }
 
+        #[inline]
         pub fn idr_pic_id(mut self, idr_pic_id: u16) -> Self {
             self.idr_pic_id = idr_pic_id;
             self
         }
 
+        #[inline]
         pub fn primary_pic_type(mut self, primary_pic_type: StdVideoH264PictureType) -> Self {
             self.primary_pic_type = primary_pic_type;
             self
         }
 
+        #[inline]
         pub fn frame_num(mut self, frame_num: u32) -> Self {
             self.frame_num = frame_num;
             self
         }
 
+        #[inline]
         pub fn pic_order_cnt(mut self, pic_order_cnt: i32) -> Self {
             self.pic_order_cnt = pic_order_cnt;
             self
         }
 
+        #[inline]
         pub fn temporal_id(mut self, temporal_id: u8) -> Self {
             self.temporal_id = temporal_id;
             self
         }
 
+        #[inline]
         pub fn reserved1(mut self, reserved1: [u8; 3]) -> Self {
             self.reserved1 = reserved1;
             self
         }
 
+        #[inline]
         pub fn ref_lists(
             mut self,
             ref_lists: &'a StdVideoEncodeH264ReferenceListsInfo<'a>,
@@ -647,36 +703,43 @@ pub(super) mod defs {
     }
 
     impl StdVideoEncodeH264ReferenceInfo {
+        #[inline]
         pub fn flags(mut self, flags: StdVideoEncodeH264ReferenceInfoFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn primary_pic_type(mut self, primary_pic_type: StdVideoH264PictureType) -> Self {
             self.primary_pic_type = primary_pic_type;
             self
         }
 
+        #[inline]
         pub fn frame_num(mut self, frame_num: u32) -> Self {
             self.frame_num = frame_num;
             self
         }
 
+        #[inline]
         pub fn pic_order_cnt(mut self, pic_order_cnt: i32) -> Self {
             self.pic_order_cnt = pic_order_cnt;
             self
         }
 
+        #[inline]
         pub fn long_term_pic_num(mut self, long_term_pic_num: u16) -> Self {
             self.long_term_pic_num = long_term_pic_num;
             self
         }
 
+        #[inline]
         pub fn long_term_frame_idx(mut self, long_term_frame_idx: u16) -> Self {
             self.long_term_frame_idx = long_term_frame_idx;
             self
         }
 
+        #[inline]
         pub fn temporal_id(mut self, temporal_id: u8) -> Self {
             self.temporal_id = temporal_id;
             self
@@ -744,46 +807,55 @@ pub(super) mod defs {
     }
 
     impl<'a> StdVideoEncodeH264SliceHeader<'a> {
+        #[inline]
         pub fn flags(mut self, flags: StdVideoEncodeH264SliceHeaderFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn first_mb_in_slice(mut self, first_mb_in_slice: u32) -> Self {
             self.first_mb_in_slice = first_mb_in_slice;
             self
         }
 
+        #[inline]
         pub fn slice_type(mut self, slice_type: StdVideoH264SliceType) -> Self {
             self.slice_type = slice_type;
             self
         }
 
+        #[inline]
         pub fn slice_alpha_c0_offset_div2(mut self, slice_alpha_c0_offset_div2: i8) -> Self {
             self.slice_alpha_c0_offset_div2 = slice_alpha_c0_offset_div2;
             self
         }
 
+        #[inline]
         pub fn slice_beta_offset_div2(mut self, slice_beta_offset_div2: i8) -> Self {
             self.slice_beta_offset_div2 = slice_beta_offset_div2;
             self
         }
 
+        #[inline]
         pub fn slice_qp_delta(mut self, slice_qp_delta: i8) -> Self {
             self.slice_qp_delta = slice_qp_delta;
             self
         }
 
+        #[inline]
         pub fn reserved1(mut self, reserved1: u8) -> Self {
             self.reserved1 = reserved1;
             self
         }
 
+        #[inline]
         pub fn cabac_init_idc(mut self, cabac_init_idc: StdVideoH264CabacInitIdc) -> Self {
             self.cabac_init_idc = cabac_init_idc;
             self
         }
 
+        #[inline]
         pub fn disable_deblocking_filter_idc(
             mut self,
             disable_deblocking_filter_idc: StdVideoH264DisableDeblockingFilterIdc,
@@ -792,6 +864,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn weight_table(mut self, weight_table: &'a StdVideoEncodeH264WeightTable) -> Self {
             self.p_weight_table = weight_table;
             self

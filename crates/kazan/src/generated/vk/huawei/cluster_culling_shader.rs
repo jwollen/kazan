@@ -68,21 +68,25 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceClusterCullingShaderPropertiesHUAWEI<'a> {
+        #[inline]
         pub fn max_work_group_count(mut self, max_work_group_count: [u32; 3]) -> Self {
             self.max_work_group_count = max_work_group_count;
             self
         }
 
+        #[inline]
         pub fn max_work_group_size(mut self, max_work_group_size: [u32; 3]) -> Self {
             self.max_work_group_size = max_work_group_size;
             self
         }
 
+        #[inline]
         pub fn max_output_cluster_count(mut self, max_output_cluster_count: u32) -> Self {
             self.max_output_cluster_count = max_output_cluster_count;
             self
         }
 
+        #[inline]
         pub fn indirect_buffer_offset_alignment(
             mut self,
             indirect_buffer_offset_alignment: DeviceSize,
@@ -146,11 +150,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'a> {
+        #[inline]
         pub fn clusterculling_shader(mut self, clusterculling_shader: bool) -> Self {
             self.clusterculling_shader = clusterculling_shader.into();
             self
         }
 
+        #[inline]
         pub fn multiview_cluster_culling_shader(
             mut self,
             multiview_cluster_culling_shader: bool,
@@ -204,6 +210,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI<'a> {
+        #[inline]
         pub fn cluster_shading_rate(mut self, cluster_shading_rate: bool) -> Self {
             self.cluster_shading_rate = cluster_shading_rate.into();
             self
@@ -249,6 +256,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawClusterHUAWEI.html>
+    #[inline]
     pub unsafe fn cmd_draw_cluster_huawei(
         &self,
         command_buffer: CommandBuffer,
@@ -267,6 +275,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawClusterIndirectHUAWEI.html>
+    #[inline]
     pub unsafe fn cmd_draw_cluster_indirect_huawei(
         &self,
         command_buffer: CommandBuffer,

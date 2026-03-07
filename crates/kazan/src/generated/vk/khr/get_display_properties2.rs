@@ -50,6 +50,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DisplayProperties2KHR<'a> {
+        #[inline]
         pub fn display_properties(mut self, display_properties: DisplayPropertiesKHR<'a>) -> Self {
             self.display_properties = display_properties;
             self
@@ -94,6 +95,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DisplayPlaneProperties2KHR<'a> {
+        #[inline]
         pub fn display_plane_properties(
             mut self,
             display_plane_properties: DisplayPlanePropertiesKHR,
@@ -141,6 +143,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DisplayModeProperties2KHR<'a> {
+        #[inline]
         pub fn display_mode_properties(
             mut self,
             display_mode_properties: DisplayModePropertiesKHR,
@@ -191,11 +194,13 @@ pub(super) mod defs {
     }
 
     impl<'a> DisplayPlaneInfo2KHR<'a> {
+        #[inline]
         pub fn mode(mut self, mode: DisplayModeKHR) -> Self {
             self.mode = mode;
             self
         }
 
+        #[inline]
         pub fn plane_index(mut self, plane_index: u32) -> Self {
             self.plane_index = plane_index;
             self
@@ -240,6 +245,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DisplayPlaneCapabilities2KHR<'a> {
+        #[inline]
         pub fn capabilities(mut self, capabilities: DisplayPlaneCapabilitiesKHR) -> Self {
             self.capabilities = capabilities;
             self
@@ -310,6 +316,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDisplayProperties2KHR.html>
+    #[inline]
     pub unsafe fn get_physical_device_display_properties2_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
@@ -341,6 +348,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDisplayPlaneProperties2KHR.html>
+    #[inline]
     pub unsafe fn get_physical_device_display_plane_properties2_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
@@ -372,6 +380,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDisplayModeProperties2KHR.html>
+    #[inline]
     pub unsafe fn get_display_mode_properties2_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
@@ -405,6 +414,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDisplayPlaneCapabilities2KHR.html>
+    #[inline]
     pub unsafe fn get_display_plane_capabilities2_khr(
         &self,
         physical_device: PhysicalDevice,

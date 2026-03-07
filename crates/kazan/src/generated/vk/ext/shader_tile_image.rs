@@ -72,6 +72,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderTileImageFeaturesEXT<'a> {
+        #[inline]
         pub fn shader_tile_image_color_read_access(
             mut self,
             shader_tile_image_color_read_access: bool,
@@ -80,6 +81,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_tile_image_depth_read_access(
             mut self,
             shader_tile_image_depth_read_access: bool,
@@ -88,6 +90,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_tile_image_stencil_read_access(
             mut self,
             shader_tile_image_stencil_read_access: bool,
@@ -157,6 +160,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderTileImagePropertiesEXT<'a> {
+        #[inline]
         pub fn shader_tile_image_coherent_read_accelerated(
             mut self,
             shader_tile_image_coherent_read_accelerated: bool,
@@ -166,6 +170,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_tile_image_read_sample_from_pixel_rate_invocation(
             mut self,
             shader_tile_image_read_sample_from_pixel_rate_invocation: bool,
@@ -175,6 +180,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_tile_image_read_from_helper_invocation(
             mut self,
             shader_tile_image_read_from_helper_invocation: bool,

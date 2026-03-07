@@ -39,6 +39,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDescriptorSetLayoutSupportKHR.html>
+    #[inline]
     pub unsafe fn get_descriptor_set_layout_support_khr(
         &self,
         device: Device,

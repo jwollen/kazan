@@ -56,16 +56,19 @@ pub(super) mod defs {
     }
 
     impl<'a> ConditionalRenderingBeginInfoEXT<'a> {
+        #[inline]
         pub fn buffer(mut self, buffer: Buffer) -> Self {
             self.buffer = buffer;
             self
         }
 
+        #[inline]
         pub fn offset(mut self, offset: DeviceSize) -> Self {
             self.offset = offset;
             self
         }
 
+        #[inline]
         pub fn flags(mut self, flags: ConditionalRenderingFlagsEXT) -> Self {
             self.flags = flags;
             self
@@ -119,6 +122,7 @@ pub(super) mod defs {
     }
 
     impl<'a> CommandBufferInheritanceConditionalRenderingInfoEXT<'a> {
+        #[inline]
         pub fn conditional_rendering_enable(mut self, conditional_rendering_enable: bool) -> Self {
             self.conditional_rendering_enable = conditional_rendering_enable.into();
             self
@@ -179,11 +183,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceConditionalRenderingFeaturesEXT<'a> {
+        #[inline]
         pub fn conditional_rendering(mut self, conditional_rendering: bool) -> Self {
             self.conditional_rendering = conditional_rendering.into();
             self
         }
 
+        #[inline]
         pub fn inherited_conditional_rendering(
             mut self,
             inherited_conditional_rendering: bool,
@@ -268,6 +274,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginConditionalRenderingEXT.html>
+    #[inline]
     pub unsafe fn cmd_begin_conditional_rendering_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -279,6 +286,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndConditionalRenderingEXT.html>
+    #[inline]
     pub unsafe fn cmd_end_conditional_rendering_ext(&self, command_buffer: CommandBuffer) {
         unsafe { (self.cmd_end_conditional_rendering_ext)(command_buffer) }
     }

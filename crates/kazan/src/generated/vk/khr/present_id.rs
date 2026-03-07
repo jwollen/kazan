@@ -54,6 +54,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePresentIdFeaturesKHR<'a> {
+        #[inline]
         pub fn present_id(mut self, present_id: bool) -> Self {
             self.present_id = present_id.into();
             self
@@ -103,6 +104,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PresentIdKHR<'a> {
+        #[inline]
         pub fn present_ids(mut self, present_ids: &'a [u64]) -> Self {
             self.swapchain_count = present_ids.len().try_into().unwrap();
             self.p_present_ids = present_ids.as_ptr();

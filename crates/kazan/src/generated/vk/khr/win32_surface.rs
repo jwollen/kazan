@@ -56,16 +56,19 @@ pub(super) mod defs {
     }
 
     impl<'a> Win32SurfaceCreateInfoKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: Win32SurfaceCreateFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn hinstance(mut self, hinstance: HINSTANCE) -> Self {
             self.hinstance = hinstance;
             self
         }
 
+        #[inline]
         pub fn hwnd(mut self, hwnd: HWND) -> Self {
             self.hwnd = hwnd;
             self
@@ -125,6 +128,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateWin32SurfaceKHR.html>
+    #[inline]
     pub unsafe fn create_win32_surface_khr(
         &self,
         instance: Instance,
@@ -148,6 +152,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceWin32PresentationSupportKHR.html>
+    #[inline]
     pub unsafe fn get_physical_device_win32_presentation_support_khr(
         &self,
         physical_device: PhysicalDevice,

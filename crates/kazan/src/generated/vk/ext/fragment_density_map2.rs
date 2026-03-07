@@ -60,6 +60,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceFragmentDensityMap2FeaturesEXT<'a> {
+        #[inline]
         pub fn fragment_density_map_deferred(
             mut self,
             fragment_density_map_deferred: bool,
@@ -131,11 +132,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceFragmentDensityMap2PropertiesEXT<'a> {
+        #[inline]
         pub fn subsampled_loads(mut self, subsampled_loads: bool) -> Self {
             self.subsampled_loads = subsampled_loads.into();
             self
         }
 
+        #[inline]
         pub fn subsampled_coarse_reconstruction_early_access(
             mut self,
             subsampled_coarse_reconstruction_early_access: bool,
@@ -145,11 +148,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_subsampled_array_layers(mut self, max_subsampled_array_layers: u32) -> Self {
             self.max_subsampled_array_layers = max_subsampled_array_layers;
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_subsampled_samplers(
             mut self,
             max_descriptor_set_subsampled_samplers: u32,

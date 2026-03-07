@@ -64,6 +64,7 @@ pub(super) mod defs {
     }
 
     impl<'a> CudaModuleCreateInfoNV<'a> {
+        #[inline]
         pub fn data(mut self, data: &'a [u8]) -> Self {
             self.data_size = data.len().try_into().unwrap();
             self.p_data = data.as_ptr() as _;
@@ -112,11 +113,13 @@ pub(super) mod defs {
     }
 
     impl<'a> CudaFunctionCreateInfoNV<'a> {
+        #[inline]
         pub fn module(mut self, module: CudaModuleNV) -> Self {
             self.module = module;
             self
         }
 
+        #[inline]
         pub fn name(mut self, name: &'a CStr) -> Self {
             self.p_name = name.as_ptr();
             self
@@ -194,52 +197,62 @@ pub(super) mod defs {
     }
 
     impl<'a> CudaLaunchInfoNV<'a> {
+        #[inline]
         pub fn function(mut self, function: CudaFunctionNV) -> Self {
             self.function = function;
             self
         }
 
+        #[inline]
         pub fn grid_dim_x(mut self, grid_dim_x: u32) -> Self {
             self.grid_dim_x = grid_dim_x;
             self
         }
 
+        #[inline]
         pub fn grid_dim_y(mut self, grid_dim_y: u32) -> Self {
             self.grid_dim_y = grid_dim_y;
             self
         }
 
+        #[inline]
         pub fn grid_dim_z(mut self, grid_dim_z: u32) -> Self {
             self.grid_dim_z = grid_dim_z;
             self
         }
 
+        #[inline]
         pub fn block_dim_x(mut self, block_dim_x: u32) -> Self {
             self.block_dim_x = block_dim_x;
             self
         }
 
+        #[inline]
         pub fn block_dim_y(mut self, block_dim_y: u32) -> Self {
             self.block_dim_y = block_dim_y;
             self
         }
 
+        #[inline]
         pub fn block_dim_z(mut self, block_dim_z: u32) -> Self {
             self.block_dim_z = block_dim_z;
             self
         }
 
+        #[inline]
         pub fn shared_mem_bytes(mut self, shared_mem_bytes: u32) -> Self {
             self.shared_mem_bytes = shared_mem_bytes;
             self
         }
 
+        #[inline]
         pub fn params(mut self, params: &'a [u8]) -> Self {
             self.param_count = params.len().try_into().unwrap();
             self.p_params = params.as_ptr() as _;
             self
         }
 
+        #[inline]
         pub fn extras(mut self, extras: &'a [u8]) -> Self {
             self.extra_count = extras.len().try_into().unwrap();
             self.p_extras = extras.as_ptr() as _;
@@ -295,6 +308,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceCudaKernelLaunchFeaturesNV<'a> {
+        #[inline]
         pub fn cuda_kernel_launch_features(mut self, cuda_kernel_launch_features: bool) -> Self {
             self.cuda_kernel_launch_features = cuda_kernel_launch_features.into();
             self
@@ -348,11 +362,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceCudaKernelLaunchPropertiesNV<'a> {
+        #[inline]
         pub fn compute_capability_minor(mut self, compute_capability_minor: u32) -> Self {
             self.compute_capability_minor = compute_capability_minor;
             self
         }
 
+        #[inline]
         pub fn compute_capability_major(mut self, compute_capability_major: u32) -> Self {
             self.compute_capability_major = compute_capability_major;
             self
@@ -439,6 +455,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateCudaModuleNV.html>
+    #[inline]
     pub unsafe fn create_cuda_module_nv(
         &self,
         device: Device,
@@ -462,6 +479,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetCudaModuleCacheNV.html>
+    #[inline]
     pub unsafe fn get_cuda_module_cache_nv(
         &self,
         device: Device,
@@ -491,6 +509,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateCudaFunctionNV.html>
+    #[inline]
     pub unsafe fn create_cuda_function_nv(
         &self,
         device: Device,
@@ -514,6 +533,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyCudaModuleNV.html>
+    #[inline]
     pub unsafe fn destroy_cuda_module_nv(
         &self,
         device: Device,
@@ -524,6 +544,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyCudaFunctionNV.html>
+    #[inline]
     pub unsafe fn destroy_cuda_function_nv(
         &self,
         device: Device,
@@ -534,6 +555,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCudaLaunchKernelNV.html>
+    #[inline]
     pub unsafe fn cmd_cuda_launch_kernel_nv(
         &self,
         command_buffer: CommandBuffer,

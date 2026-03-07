@@ -57,6 +57,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShader64BitIndexingFeaturesEXT<'a> {
+        #[inline]
         pub fn shader64_bit_indexing(mut self, shader64_bit_indexing: bool) -> Self {
             self.shader64_bit_indexing = shader64_bit_indexing.into();
             self

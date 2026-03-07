@@ -59,6 +59,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DrmFormatModifierPropertiesListEXT<'a> {
+        #[inline]
         pub fn drm_format_modifier_properties(
             mut self,
             drm_format_modifier_properties: &'a mut [DrmFormatModifierPropertiesEXT],
@@ -82,11 +83,13 @@ pub(super) mod defs {
     }
 
     impl DrmFormatModifierPropertiesEXT {
+        #[inline]
         pub fn drm_format_modifier(mut self, drm_format_modifier: u64) -> Self {
             self.drm_format_modifier = drm_format_modifier;
             self
         }
 
+        #[inline]
         pub fn drm_format_modifier_plane_count(
             mut self,
             drm_format_modifier_plane_count: u32,
@@ -95,6 +98,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn drm_format_modifier_tiling_features(
             mut self,
             drm_format_modifier_tiling_features: FormatFeatureFlags,
@@ -157,16 +161,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceImageDrmFormatModifierInfoEXT<'a> {
+        #[inline]
         pub fn drm_format_modifier(mut self, drm_format_modifier: u64) -> Self {
             self.drm_format_modifier = drm_format_modifier;
             self
         }
 
+        #[inline]
         pub fn sharing_mode(mut self, sharing_mode: SharingMode) -> Self {
             self.sharing_mode = sharing_mode;
             self
         }
 
+        #[inline]
         pub fn queue_family_indices(mut self, queue_family_indices: &'a [u32]) -> Self {
             self.queue_family_index_count = queue_family_indices.len().try_into().unwrap();
             self.p_queue_family_indices = queue_family_indices.as_ptr();
@@ -218,6 +225,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageDrmFormatModifierListCreateInfoEXT<'a> {
+        #[inline]
         pub fn drm_format_modifiers(mut self, drm_format_modifiers: &'a [u64]) -> Self {
             self.drm_format_modifier_count = drm_format_modifiers.len().try_into().unwrap();
             self.p_drm_format_modifiers = drm_format_modifiers.as_ptr();
@@ -275,11 +283,13 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageDrmFormatModifierExplicitCreateInfoEXT<'a> {
+        #[inline]
         pub fn drm_format_modifier(mut self, drm_format_modifier: u64) -> Self {
             self.drm_format_modifier = drm_format_modifier;
             self
         }
 
+        #[inline]
         pub fn plane_layouts(mut self, plane_layouts: &'a [SubresourceLayout]) -> Self {
             self.drm_format_modifier_plane_count = plane_layouts.len().try_into().unwrap();
             self.p_plane_layouts = plane_layouts.as_ptr();
@@ -326,6 +336,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageDrmFormatModifierPropertiesEXT<'a> {
+        #[inline]
         pub fn drm_format_modifier(mut self, drm_format_modifier: u64) -> Self {
             self.drm_format_modifier = drm_format_modifier;
             self
@@ -379,6 +390,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DrmFormatModifierPropertiesList2EXT<'a> {
+        #[inline]
         pub fn drm_format_modifier_properties(
             mut self,
             drm_format_modifier_properties: &'a mut [DrmFormatModifierProperties2EXT],
@@ -402,11 +414,13 @@ pub(super) mod defs {
     }
 
     impl DrmFormatModifierProperties2EXT {
+        #[inline]
         pub fn drm_format_modifier(mut self, drm_format_modifier: u64) -> Self {
             self.drm_format_modifier = drm_format_modifier;
             self
         }
 
+        #[inline]
         pub fn drm_format_modifier_plane_count(
             mut self,
             drm_format_modifier_plane_count: u32,
@@ -415,6 +429,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn drm_format_modifier_tiling_features(
             mut self,
             drm_format_modifier_tiling_features: FormatFeatureFlags2,
@@ -454,6 +469,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageDrmFormatModifierPropertiesEXT.html>
+    #[inline]
     pub unsafe fn get_image_drm_format_modifier_properties_ext(
         &self,
         device: Device,

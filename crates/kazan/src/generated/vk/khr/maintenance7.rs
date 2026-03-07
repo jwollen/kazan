@@ -54,6 +54,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMaintenance7FeaturesKHR<'a> {
+        #[inline]
         pub fn maintenance7(mut self, maintenance7: bool) -> Self {
             self.maintenance7 = maintenance7.into();
             self
@@ -151,6 +152,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMaintenance7PropertiesKHR<'a> {
+        #[inline]
         pub fn robust_fragment_shading_rate_attachment_access(
             mut self,
             robust_fragment_shading_rate_attachment_access: bool,
@@ -160,6 +162,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn separate_depth_stencil_attachment_access(
             mut self,
             separate_depth_stencil_attachment_access: bool,
@@ -169,6 +172,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_total_uniform_buffers_dynamic(
             mut self,
             max_descriptor_set_total_uniform_buffers_dynamic: u32,
@@ -178,6 +182,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_total_storage_buffers_dynamic(
             mut self,
             max_descriptor_set_total_storage_buffers_dynamic: u32,
@@ -187,6 +192,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_total_buffers_dynamic(
             mut self,
             max_descriptor_set_total_buffers_dynamic: u32,
@@ -196,6 +202,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_update_after_bind_total_uniform_buffers_dynamic(
             mut self,
             max_descriptor_set_update_after_bind_total_uniform_buffers_dynamic: u32,
@@ -205,6 +212,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_update_after_bind_total_storage_buffers_dynamic(
             mut self,
             max_descriptor_set_update_after_bind_total_storage_buffers_dynamic: u32,
@@ -214,6 +222,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_update_after_bind_total_buffers_dynamic(
             mut self,
             max_descriptor_set_update_after_bind_total_buffers_dynamic: u32,
@@ -271,6 +280,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceLayeredApiPropertiesListKHR<'a> {
+        #[inline]
         pub fn layered_apis(
             mut self,
             layered_apis: &'a mut [PhysicalDeviceLayeredApiPropertiesKHR<'a>],
@@ -332,21 +342,25 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceLayeredApiPropertiesKHR<'a> {
+        #[inline]
         pub fn vendor_id(mut self, vendor_id: u32) -> Self {
             self.vendor_id = vendor_id;
             self
         }
 
+        #[inline]
         pub fn device_id(mut self, device_id: u32) -> Self {
             self.device_id = device_id;
             self
         }
 
+        #[inline]
         pub fn layered_api(mut self, layered_api: PhysicalDeviceLayeredApiKHR) -> Self {
             self.layered_api = layered_api;
             self
         }
 
+        #[inline]
         pub fn device_name(
             mut self,
             device_name: [c_char; MAX_PHYSICAL_DEVICE_NAME_SIZE as usize],
@@ -400,6 +414,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceLayeredApiVulkanPropertiesKHR<'a> {
+        #[inline]
         pub fn properties(mut self, properties: PhysicalDeviceProperties2<'a>) -> Self {
             self.properties = properties;
             self

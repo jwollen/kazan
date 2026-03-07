@@ -53,6 +53,7 @@ pub(super) mod defs {
     }
 
     impl<'a> CopyCommandTransformInfoQCOM<'a> {
+        #[inline]
         pub fn transform(mut self, transform: SurfaceTransformFlagBitsKHR) -> Self {
             self.transform = transform;
             self

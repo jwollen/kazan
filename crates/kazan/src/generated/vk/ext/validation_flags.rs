@@ -61,6 +61,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ValidationFlagsEXT<'a> {
+        #[inline]
         pub fn disabled_validation_checks(
             mut self,
             disabled_validation_checks: &'a [ValidationCheckEXT],

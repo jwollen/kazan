@@ -60,6 +60,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceAddressBindingReportFeaturesEXT<'a> {
+        #[inline]
         pub fn report_address_binding(mut self, report_address_binding: bool) -> Self {
             self.report_address_binding = report_address_binding.into();
             self
@@ -119,21 +120,25 @@ pub(super) mod defs {
     }
 
     impl<'a> DeviceAddressBindingCallbackDataEXT<'a> {
+        #[inline]
         pub fn flags(mut self, flags: DeviceAddressBindingFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn base_address(mut self, base_address: DeviceAddress) -> Self {
             self.base_address = base_address;
             self
         }
 
+        #[inline]
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
         }
 
+        #[inline]
         pub fn binding_type(mut self, binding_type: DeviceAddressBindingTypeEXT) -> Self {
             self.binding_type = binding_type;
             self

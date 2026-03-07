@@ -57,6 +57,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDiagnosticsConfigFeaturesNV<'a> {
+        #[inline]
         pub fn diagnostics_config(mut self, diagnostics_config: bool) -> Self {
             self.diagnostics_config = diagnostics_config.into();
             self
@@ -104,6 +105,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DeviceDiagnosticsConfigCreateInfoNV<'a> {
+        #[inline]
         pub fn flags(mut self, flags: DeviceDiagnosticsConfigFlagsNV) -> Self {
             self.flags = flags;
             self

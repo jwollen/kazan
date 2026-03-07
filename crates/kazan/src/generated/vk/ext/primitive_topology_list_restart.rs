@@ -69,6 +69,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePrimitiveTopologyListRestartFeaturesEXT<'a> {
+        #[inline]
         pub fn primitive_topology_list_restart(
             mut self,
             primitive_topology_list_restart: bool,
@@ -77,6 +78,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn primitive_topology_patch_list_restart(
             mut self,
             primitive_topology_patch_list_restart: bool,

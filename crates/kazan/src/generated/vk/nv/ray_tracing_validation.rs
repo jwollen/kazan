@@ -57,6 +57,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceRayTracingValidationFeaturesNV<'a> {
+        #[inline]
         pub fn ray_tracing_validation(mut self, ray_tracing_validation: bool) -> Self {
             self.ray_tracing_validation = ray_tracing_validation.into();
             self

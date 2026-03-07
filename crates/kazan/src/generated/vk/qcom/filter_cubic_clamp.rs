@@ -54,6 +54,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceCubicClampFeaturesQCOM<'a> {
+        #[inline]
         pub fn cubic_range_clamp(mut self, cubic_range_clamp: bool) -> Self {
             self.cubic_range_clamp = cubic_range_clamp.into();
             self

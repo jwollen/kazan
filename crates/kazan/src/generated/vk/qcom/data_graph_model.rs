@@ -40,26 +40,31 @@ pub(super) mod defs {
     }
 
     impl PipelineCacheHeaderVersionDataGraphQCOM {
+        #[inline]
         pub fn header_size(mut self, header_size: u32) -> Self {
             self.header_size = header_size;
             self
         }
 
+        #[inline]
         pub fn header_version(mut self, header_version: PipelineCacheHeaderVersion) -> Self {
             self.header_version = header_version;
             self
         }
 
+        #[inline]
         pub fn cache_type(mut self, cache_type: DataGraphModelCacheTypeQCOM) -> Self {
             self.cache_type = cache_type;
             self
         }
 
+        #[inline]
         pub fn cache_version(mut self, cache_version: u32) -> Self {
             self.cache_version = cache_version;
             self
         }
 
+        #[inline]
         pub fn toolchain_version(
             mut self,
             toolchain_version: [u32; DATA_GRAPH_MODEL_TOOLCHAIN_VERSION_LENGTH_QCOM as usize],
@@ -113,6 +118,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DataGraphPipelineBuiltinModelCreateInfoQCOM<'a> {
+        #[inline]
         pub fn operation(
             mut self,
             operation: &'a PhysicalDeviceDataGraphOperationSupportARM,
@@ -167,6 +173,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDataGraphModelFeaturesQCOM<'a> {
+        #[inline]
         pub fn data_graph_model(mut self, data_graph_model: bool) -> Self {
             self.data_graph_model = data_graph_model.into();
             self

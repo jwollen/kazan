@@ -57,11 +57,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMeshShaderFeaturesNV<'a> {
+        #[inline]
         pub fn task_shader(mut self, task_shader: bool) -> Self {
             self.task_shader = task_shader.into();
             self
         }
 
+        #[inline]
         pub fn mesh_shader(mut self, mesh_shader: bool) -> Self {
             self.mesh_shader = mesh_shader.into();
             self
@@ -172,11 +174,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMeshShaderPropertiesNV<'a> {
+        #[inline]
         pub fn max_draw_mesh_tasks_count(mut self, max_draw_mesh_tasks_count: u32) -> Self {
             self.max_draw_mesh_tasks_count = max_draw_mesh_tasks_count;
             self
         }
 
+        #[inline]
         pub fn max_task_work_group_invocations(
             mut self,
             max_task_work_group_invocations: u32,
@@ -185,21 +189,25 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_task_work_group_size(mut self, max_task_work_group_size: [u32; 3]) -> Self {
             self.max_task_work_group_size = max_task_work_group_size;
             self
         }
 
+        #[inline]
         pub fn max_task_total_memory_size(mut self, max_task_total_memory_size: u32) -> Self {
             self.max_task_total_memory_size = max_task_total_memory_size;
             self
         }
 
+        #[inline]
         pub fn max_task_output_count(mut self, max_task_output_count: u32) -> Self {
             self.max_task_output_count = max_task_output_count;
             self
         }
 
+        #[inline]
         pub fn max_mesh_work_group_invocations(
             mut self,
             max_mesh_work_group_invocations: u32,
@@ -208,31 +216,37 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_mesh_work_group_size(mut self, max_mesh_work_group_size: [u32; 3]) -> Self {
             self.max_mesh_work_group_size = max_mesh_work_group_size;
             self
         }
 
+        #[inline]
         pub fn max_mesh_total_memory_size(mut self, max_mesh_total_memory_size: u32) -> Self {
             self.max_mesh_total_memory_size = max_mesh_total_memory_size;
             self
         }
 
+        #[inline]
         pub fn max_mesh_output_vertices(mut self, max_mesh_output_vertices: u32) -> Self {
             self.max_mesh_output_vertices = max_mesh_output_vertices;
             self
         }
 
+        #[inline]
         pub fn max_mesh_output_primitives(mut self, max_mesh_output_primitives: u32) -> Self {
             self.max_mesh_output_primitives = max_mesh_output_primitives;
             self
         }
 
+        #[inline]
         pub fn max_mesh_multiview_view_count(mut self, max_mesh_multiview_view_count: u32) -> Self {
             self.max_mesh_multiview_view_count = max_mesh_multiview_view_count;
             self
         }
 
+        #[inline]
         pub fn mesh_output_per_vertex_granularity(
             mut self,
             mesh_output_per_vertex_granularity: u32,
@@ -241,6 +255,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn mesh_output_per_primitive_granularity(
             mut self,
             mesh_output_per_primitive_granularity: u32,
@@ -261,11 +276,13 @@ pub(super) mod defs {
     }
 
     impl DrawMeshTasksIndirectCommandNV {
+        #[inline]
         pub fn task_count(mut self, task_count: u32) -> Self {
             self.task_count = task_count;
             self
         }
 
+        #[inline]
         pub fn first_task(mut self, first_task: u32) -> Self {
             self.first_task = first_task;
             self
@@ -323,6 +340,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawMeshTasksNV.html>
+    #[inline]
     pub unsafe fn cmd_draw_mesh_tasks_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -333,6 +351,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawMeshTasksIndirectNV.html>
+    #[inline]
     pub unsafe fn cmd_draw_mesh_tasks_indirect_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -353,6 +372,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawMeshTasksIndirectCountNV.html>
+    #[inline]
     pub unsafe fn cmd_draw_mesh_tasks_indirect_count_nv(
         &self,
         command_buffer: CommandBuffer,

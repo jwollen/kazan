@@ -70,6 +70,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindIndexBuffer2KHR.html>
+    #[inline]
     pub unsafe fn cmd_bind_index_buffer2_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -84,6 +85,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRenderingAreaGranularityKHR.html>
+    #[inline]
     pub unsafe fn get_rendering_area_granularity_khr(
         &self,
         device: Device,
@@ -101,6 +103,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceImageSubresourceLayoutKHR.html>
+    #[inline]
     pub unsafe fn get_device_image_subresource_layout_khr(
         &self,
         device: Device,
@@ -111,6 +114,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageSubresourceLayout2KHR.html>
+    #[inline]
     pub unsafe fn get_image_subresource_layout2_khr(
         &self,
         device: Device,

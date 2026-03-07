@@ -65,6 +65,7 @@ pub(super) mod defs {
     }
 
     impl<'a> WriteDescriptorSetAccelerationStructureKHR<'a> {
+        #[inline]
         pub fn acceleration_structures(
             mut self,
             acceleration_structures: &'a [AccelerationStructureKHR],
@@ -147,11 +148,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceAccelerationStructureFeaturesKHR<'a> {
+        #[inline]
         pub fn acceleration_structure(mut self, acceleration_structure: bool) -> Self {
             self.acceleration_structure = acceleration_structure.into();
             self
         }
 
+        #[inline]
         pub fn acceleration_structure_capture_replay(
             mut self,
             acceleration_structure_capture_replay: bool,
@@ -161,6 +164,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn acceleration_structure_indirect_build(
             mut self,
             acceleration_structure_indirect_build: bool,
@@ -170,6 +174,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn acceleration_structure_host_commands(
             mut self,
             acceleration_structure_host_commands: bool,
@@ -178,6 +183,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn descriptor_binding_acceleration_structure_update_after_bind(
             mut self,
             descriptor_binding_acceleration_structure_update_after_bind: bool,
@@ -269,21 +275,25 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceAccelerationStructurePropertiesKHR<'a> {
+        #[inline]
         pub fn max_geometry_count(mut self, max_geometry_count: u64) -> Self {
             self.max_geometry_count = max_geometry_count;
             self
         }
 
+        #[inline]
         pub fn max_instance_count(mut self, max_instance_count: u64) -> Self {
             self.max_instance_count = max_instance_count;
             self
         }
 
+        #[inline]
         pub fn max_primitive_count(mut self, max_primitive_count: u64) -> Self {
             self.max_primitive_count = max_primitive_count;
             self
         }
 
+        #[inline]
         pub fn max_per_stage_descriptor_acceleration_structures(
             mut self,
             max_per_stage_descriptor_acceleration_structures: u32,
@@ -293,6 +303,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_per_stage_descriptor_update_after_bind_acceleration_structures(
             mut self,
             max_per_stage_descriptor_update_after_bind_acceleration_structures: u32,
@@ -302,6 +313,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_acceleration_structures(
             mut self,
             max_descriptor_set_acceleration_structures: u32,
@@ -311,6 +323,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_update_after_bind_acceleration_structures(
             mut self,
             max_descriptor_set_update_after_bind_acceleration_structures: u32,
@@ -320,6 +333,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn min_acceleration_structure_scratch_offset_alignment(
             mut self,
             min_acceleration_structure_scratch_offset_alignment: u32,
@@ -387,36 +401,43 @@ pub(super) mod defs {
     }
 
     impl<'a> AccelerationStructureGeometryTrianglesDataKHR<'a> {
+        #[inline]
         pub fn vertex_format(mut self, vertex_format: Format) -> Self {
             self.vertex_format = vertex_format;
             self
         }
 
+        #[inline]
         pub fn vertex_data(mut self, vertex_data: DeviceOrHostAddressConstKHR<'a>) -> Self {
             self.vertex_data = vertex_data;
             self
         }
 
+        #[inline]
         pub fn vertex_stride(mut self, vertex_stride: DeviceSize) -> Self {
             self.vertex_stride = vertex_stride;
             self
         }
 
+        #[inline]
         pub fn max_vertex(mut self, max_vertex: u32) -> Self {
             self.max_vertex = max_vertex;
             self
         }
 
+        #[inline]
         pub fn index_type(mut self, index_type: IndexType) -> Self {
             self.index_type = index_type;
             self
         }
 
+        #[inline]
         pub fn index_data(mut self, index_data: DeviceOrHostAddressConstKHR<'a>) -> Self {
             self.index_data = index_data;
             self
         }
 
+        #[inline]
         pub fn transform_data(mut self, transform_data: DeviceOrHostAddressConstKHR<'a>) -> Self {
             self.transform_data = transform_data;
             self
@@ -465,11 +486,13 @@ pub(super) mod defs {
     }
 
     impl<'a> AccelerationStructureGeometryAabbsDataKHR<'a> {
+        #[inline]
         pub fn data(mut self, data: DeviceOrHostAddressConstKHR<'a>) -> Self {
             self.data = data;
             self
         }
 
+        #[inline]
         pub fn stride(mut self, stride: DeviceSize) -> Self {
             self.stride = stride;
             self
@@ -518,11 +541,13 @@ pub(super) mod defs {
     }
 
     impl<'a> AccelerationStructureGeometryInstancesDataKHR<'a> {
+        #[inline]
         pub fn array_of_pointers(mut self, array_of_pointers: bool) -> Self {
             self.array_of_pointers = array_of_pointers.into();
             self
         }
 
+        #[inline]
         pub fn data(mut self, data: DeviceOrHostAddressConstKHR<'a>) -> Self {
             self.data = data;
             self
@@ -573,16 +598,19 @@ pub(super) mod defs {
     }
 
     impl<'a> AccelerationStructureGeometryKHR<'a> {
+        #[inline]
         pub fn geometry_type(mut self, geometry_type: GeometryTypeKHR) -> Self {
             self.geometry_type = geometry_type;
             self
         }
 
+        #[inline]
         pub fn geometry(mut self, geometry: AccelerationStructureGeometryDataKHR<'a>) -> Self {
             self.geometry = geometry;
             self
         }
 
+        #[inline]
         pub fn flags(mut self, flags: GeometryFlagsKHR) -> Self {
             self.flags = flags;
             self
@@ -658,21 +686,25 @@ pub(super) mod defs {
     }
 
     impl<'a> AccelerationStructureBuildGeometryInfoKHR<'a> {
+        #[inline]
         pub fn ty(mut self, ty: AccelerationStructureTypeKHR) -> Self {
             self.ty = ty;
             self
         }
 
+        #[inline]
         pub fn flags(mut self, flags: BuildAccelerationStructureFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn mode(mut self, mode: BuildAccelerationStructureModeKHR) -> Self {
             self.mode = mode;
             self
         }
 
+        #[inline]
         pub fn src_acceleration_structure(
             mut self,
             src_acceleration_structure: AccelerationStructureKHR,
@@ -681,6 +713,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn dst_acceleration_structure(
             mut self,
             dst_acceleration_structure: AccelerationStructureKHR,
@@ -689,6 +722,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn geometries(
             mut self,
             geometries: &'a [AccelerationStructureGeometryKHR<'a>],
@@ -698,6 +732,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn geometries_ptrs(
             mut self,
             geometries_ptrs: &'a [&'a AccelerationStructureGeometryKHR<'a>],
@@ -707,6 +742,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn scratch_data(mut self, scratch_data: DeviceOrHostAddressKHR<'a>) -> Self {
             self.scratch_data = scratch_data;
             self
@@ -726,21 +762,25 @@ pub(super) mod defs {
     }
 
     impl AccelerationStructureBuildRangeInfoKHR {
+        #[inline]
         pub fn primitive_count(mut self, primitive_count: u32) -> Self {
             self.primitive_count = primitive_count;
             self
         }
 
+        #[inline]
         pub fn primitive_offset(mut self, primitive_offset: u32) -> Self {
             self.primitive_offset = primitive_offset;
             self
         }
 
+        #[inline]
         pub fn first_vertex(mut self, first_vertex: u32) -> Self {
             self.first_vertex = first_vertex;
             self
         }
 
+        #[inline]
         pub fn transform_offset(mut self, transform_offset: u32) -> Self {
             self.transform_offset = transform_offset;
             self
@@ -800,31 +840,37 @@ pub(super) mod defs {
     }
 
     impl<'a> AccelerationStructureCreateInfoKHR<'a> {
+        #[inline]
         pub fn create_flags(mut self, create_flags: AccelerationStructureCreateFlagsKHR) -> Self {
             self.create_flags = create_flags;
             self
         }
 
+        #[inline]
         pub fn buffer(mut self, buffer: Buffer) -> Self {
             self.buffer = buffer;
             self
         }
 
+        #[inline]
         pub fn offset(mut self, offset: DeviceSize) -> Self {
             self.offset = offset;
             self
         }
 
+        #[inline]
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
         }
 
+        #[inline]
         pub fn ty(mut self, ty: AccelerationStructureTypeKHR) -> Self {
             self.ty = ty;
             self
         }
 
+        #[inline]
         pub fn device_address(mut self, device_address: DeviceAddress) -> Self {
             self.device_address = device_address;
             self
@@ -846,31 +892,37 @@ pub(super) mod defs {
     }
 
     impl AabbPositionsKHR {
+        #[inline]
         pub fn min_x(mut self, min_x: f32) -> Self {
             self.min_x = min_x;
             self
         }
 
+        #[inline]
         pub fn min_y(mut self, min_y: f32) -> Self {
             self.min_y = min_y;
             self
         }
 
+        #[inline]
         pub fn min_z(mut self, min_z: f32) -> Self {
             self.min_z = min_z;
             self
         }
 
+        #[inline]
         pub fn max_x(mut self, max_x: f32) -> Self {
             self.max_x = max_x;
             self
         }
 
+        #[inline]
         pub fn max_y(mut self, max_y: f32) -> Self {
             self.max_y = max_y;
             self
         }
 
+        #[inline]
         pub fn max_z(mut self, max_z: f32) -> Self {
             self.max_z = max_z;
             self
@@ -895,6 +947,7 @@ pub(super) mod defs {
     }
 
     impl TransformMatrixKHR {
+        #[inline]
         pub fn matrix(mut self, matrix: [[f32; 4]; 3]) -> Self {
             self.matrix = matrix;
             self
@@ -929,21 +982,25 @@ pub(super) mod defs {
     }
 
     impl AccelerationStructureInstanceKHR {
+        #[inline]
         pub fn transform(mut self, transform: TransformMatrixKHR) -> Self {
             self.transform = transform;
             self
         }
 
+        #[inline]
         pub fn instance_custom_index(mut self, instance_custom_index: u32) -> Self {
             self.instance_custom_index = instance_custom_index;
             self
         }
 
+        #[inline]
         pub fn mask(mut self, mask: u32) -> Self {
             self.mask = mask;
             self
         }
 
+        #[inline]
         pub fn instance_shader_binding_table_record_offset(
             mut self,
             instance_shader_binding_table_record_offset: u32,
@@ -953,11 +1010,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn flags(mut self, flags: GeometryInstanceFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn acceleration_structure_reference(
             mut self,
             acceleration_structure_reference: u64,
@@ -1006,6 +1065,7 @@ pub(super) mod defs {
     }
 
     impl<'a> AccelerationStructureDeviceAddressInfoKHR<'a> {
+        #[inline]
         pub fn acceleration_structure(
             mut self,
             acceleration_structure: AccelerationStructureKHR,
@@ -1099,16 +1159,19 @@ pub(super) mod defs {
     }
 
     impl<'a> CopyAccelerationStructureInfoKHR<'a> {
+        #[inline]
         pub fn src(mut self, src: AccelerationStructureKHR) -> Self {
             self.src = src;
             self
         }
 
+        #[inline]
         pub fn dst(mut self, dst: AccelerationStructureKHR) -> Self {
             self.dst = dst;
             self
         }
 
+        #[inline]
         pub fn mode(mut self, mode: CopyAccelerationStructureModeKHR) -> Self {
             self.mode = mode;
             self
@@ -1160,16 +1223,19 @@ pub(super) mod defs {
     }
 
     impl<'a> CopyAccelerationStructureToMemoryInfoKHR<'a> {
+        #[inline]
         pub fn src(mut self, src: AccelerationStructureKHR) -> Self {
             self.src = src;
             self
         }
 
+        #[inline]
         pub fn dst(mut self, dst: DeviceOrHostAddressKHR<'a>) -> Self {
             self.dst = dst;
             self
         }
 
+        #[inline]
         pub fn mode(mut self, mode: CopyAccelerationStructureModeKHR) -> Self {
             self.mode = mode;
             self
@@ -1221,16 +1287,19 @@ pub(super) mod defs {
     }
 
     impl<'a> CopyMemoryToAccelerationStructureInfoKHR<'a> {
+        #[inline]
         pub fn src(mut self, src: DeviceOrHostAddressConstKHR<'a>) -> Self {
             self.src = src;
             self
         }
 
+        #[inline]
         pub fn dst(mut self, dst: AccelerationStructureKHR) -> Self {
             self.dst = dst;
             self
         }
 
+        #[inline]
         pub fn mode(mut self, mode: CopyAccelerationStructureModeKHR) -> Self {
             self.mode = mode;
             self
@@ -1285,6 +1354,7 @@ pub(super) mod defs {
     }
 
     impl<'a> AccelerationStructureBuildSizesInfoKHR<'a> {
+        #[inline]
         pub fn acceleration_structure_size(
             mut self,
             acceleration_structure_size: DeviceSize,
@@ -1293,11 +1363,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn update_scratch_size(mut self, update_scratch_size: DeviceSize) -> Self {
             self.update_scratch_size = update_scratch_size;
             self
         }
 
+        #[inline]
         pub fn build_scratch_size(mut self, build_scratch_size: DeviceSize) -> Self {
             self.build_scratch_size = build_scratch_size;
             self
@@ -2166,6 +2238,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateAccelerationStructureKHR.html>
+    #[inline]
     pub unsafe fn create_acceleration_structure_khr(
         &self,
         device: Device,
@@ -2189,6 +2262,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyAccelerationStructureKHR.html>
+    #[inline]
     pub unsafe fn destroy_acceleration_structure_khr(
         &self,
         device: Device,
@@ -2205,6 +2279,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBuildAccelerationStructuresKHR.html>
+    #[inline]
     pub unsafe fn cmd_build_acceleration_structures_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -2222,6 +2297,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBuildAccelerationStructuresIndirectKHR.html>
+    #[inline]
     pub unsafe fn cmd_build_acceleration_structures_indirect_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -2243,6 +2319,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBuildAccelerationStructuresKHR.html>
+    #[inline]
     pub unsafe fn build_acceleration_structures_khr(
         &self,
         device: Device,
@@ -2267,6 +2344,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyAccelerationStructureKHR.html>
+    #[inline]
     pub unsafe fn copy_acceleration_structure_khr(
         &self,
         device: Device,
@@ -2284,6 +2362,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyAccelerationStructureToMemoryKHR.html>
+    #[inline]
     pub unsafe fn copy_acceleration_structure_to_memory_khr(
         &self,
         device: Device,
@@ -2302,6 +2381,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMemoryToAccelerationStructureKHR.html>
+    #[inline]
     pub unsafe fn copy_memory_to_acceleration_structure_khr(
         &self,
         device: Device,
@@ -2320,6 +2400,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWriteAccelerationStructuresPropertiesKHR.html>
+    #[inline]
     pub unsafe fn write_acceleration_structures_properties_khr(
         &self,
         device: Device,
@@ -2347,6 +2428,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyAccelerationStructureKHR.html>
+    #[inline]
     pub unsafe fn cmd_copy_acceleration_structure_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -2356,6 +2438,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyAccelerationStructureToMemoryKHR.html>
+    #[inline]
     pub unsafe fn cmd_copy_acceleration_structure_to_memory_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -2365,6 +2448,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryToAccelerationStructureKHR.html>
+    #[inline]
     pub unsafe fn cmd_copy_memory_to_acceleration_structure_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -2374,6 +2458,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAccelerationStructureDeviceAddressKHR.html>
+    #[inline]
     pub unsafe fn get_acceleration_structure_device_address_khr(
         &self,
         device: Device,
@@ -2383,6 +2468,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteAccelerationStructuresPropertiesKHR.html>
+    #[inline]
     pub unsafe fn cmd_write_acceleration_structures_properties_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -2404,6 +2490,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceAccelerationStructureCompatibilityKHR.html>
+    #[inline]
     pub unsafe fn get_device_acceleration_structure_compatibility_khr(
         &self,
         device: Device,
@@ -2421,6 +2508,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAccelerationStructureBuildSizesKHR.html>
+    #[inline]
     pub unsafe fn get_acceleration_structure_build_sizes_khr(
         &self,
         device: Device,

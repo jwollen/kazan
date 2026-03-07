@@ -60,6 +60,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceLinearColorAttachmentFeaturesNV<'a> {
+        #[inline]
         pub fn linear_color_attachment(mut self, linear_color_attachment: bool) -> Self {
             self.linear_color_attachment = linear_color_attachment.into();
             self

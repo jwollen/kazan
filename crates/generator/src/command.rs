@@ -648,7 +648,8 @@ pub fn write_command_wrapper(
     crate::write_doc_link(file, info.alias);
     writeln!(
         file,
-        "pub unsafe fn {}{}(&self,",
+        "#[inline]
+        pub unsafe fn {}{}(&self,",
         wrapper.name, lifetime_param
     )
     .unwrap();

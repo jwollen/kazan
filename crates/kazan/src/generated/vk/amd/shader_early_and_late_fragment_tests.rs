@@ -65,6 +65,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'a> {
+        #[inline]
         pub fn shader_early_and_late_fragment_tests(
             mut self,
             shader_early_and_late_fragment_tests: bool,

@@ -57,6 +57,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMemoryDecompressionFeaturesEXT<'a> {
+        #[inline]
         pub fn memory_decompression(mut self, memory_decompression: bool) -> Self {
             self.memory_decompression = memory_decompression.into();
             self
@@ -113,6 +114,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMemoryDecompressionPropertiesEXT<'a> {
+        #[inline]
         pub fn decompression_methods(
             mut self,
             decompression_methods: MemoryDecompressionMethodFlagsEXT,
@@ -121,6 +123,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_decompression_indirect_count(
             mut self,
             max_decompression_indirect_count: u64,
@@ -143,21 +146,25 @@ pub(super) mod defs {
     }
 
     impl DecompressMemoryRegionEXT {
+        #[inline]
         pub fn src_address(mut self, src_address: DeviceAddress) -> Self {
             self.src_address = src_address;
             self
         }
 
+        #[inline]
         pub fn dst_address(mut self, dst_address: DeviceAddress) -> Self {
             self.dst_address = dst_address;
             self
         }
 
+        #[inline]
         pub fn compressed_size(mut self, compressed_size: DeviceSize) -> Self {
             self.compressed_size = compressed_size;
             self
         }
 
+        #[inline]
         pub fn decompressed_size(mut self, decompressed_size: DeviceSize) -> Self {
             self.decompressed_size = decompressed_size;
             self
@@ -208,6 +215,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DecompressMemoryInfoEXT<'a> {
+        #[inline]
         pub fn decompression_method(
             mut self,
             decompression_method: MemoryDecompressionMethodFlagsEXT,
@@ -216,6 +224,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn regions(mut self, regions: &'a [DecompressMemoryRegionEXT]) -> Self {
             self.region_count = regions.len().try_into().unwrap();
             self.p_regions = regions.as_ptr();
@@ -308,6 +317,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDecompressMemoryEXT.html>
+    #[inline]
     pub unsafe fn cmd_decompress_memory_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -317,6 +327,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDecompressMemoryIndirectCountEXT.html>
+    #[inline]
     pub unsafe fn cmd_decompress_memory_indirect_count_ext(
         &self,
         command_buffer: CommandBuffer,

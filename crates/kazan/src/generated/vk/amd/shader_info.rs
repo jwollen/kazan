@@ -26,26 +26,31 @@ pub(super) mod defs {
     }
 
     impl ShaderResourceUsageAMD {
+        #[inline]
         pub fn num_used_vgprs(mut self, num_used_vgprs: u32) -> Self {
             self.num_used_vgprs = num_used_vgprs;
             self
         }
 
+        #[inline]
         pub fn num_used_sgprs(mut self, num_used_sgprs: u32) -> Self {
             self.num_used_sgprs = num_used_sgprs;
             self
         }
 
+        #[inline]
         pub fn lds_size_per_local_work_group(mut self, lds_size_per_local_work_group: u32) -> Self {
             self.lds_size_per_local_work_group = lds_size_per_local_work_group;
             self
         }
 
+        #[inline]
         pub fn lds_usage_size_in_bytes(mut self, lds_usage_size_in_bytes: usize) -> Self {
             self.lds_usage_size_in_bytes = lds_usage_size_in_bytes;
             self
         }
 
+        #[inline]
         pub fn scratch_mem_usage_in_bytes(mut self, scratch_mem_usage_in_bytes: usize) -> Self {
             self.scratch_mem_usage_in_bytes = scratch_mem_usage_in_bytes;
             self
@@ -82,36 +87,43 @@ pub(super) mod defs {
     }
 
     impl ShaderStatisticsInfoAMD {
+        #[inline]
         pub fn shader_stage_mask(mut self, shader_stage_mask: ShaderStageFlags) -> Self {
             self.shader_stage_mask = shader_stage_mask;
             self
         }
 
+        #[inline]
         pub fn resource_usage(mut self, resource_usage: ShaderResourceUsageAMD) -> Self {
             self.resource_usage = resource_usage;
             self
         }
 
+        #[inline]
         pub fn num_physical_vgprs(mut self, num_physical_vgprs: u32) -> Self {
             self.num_physical_vgprs = num_physical_vgprs;
             self
         }
 
+        #[inline]
         pub fn num_physical_sgprs(mut self, num_physical_sgprs: u32) -> Self {
             self.num_physical_sgprs = num_physical_sgprs;
             self
         }
 
+        #[inline]
         pub fn num_available_vgprs(mut self, num_available_vgprs: u32) -> Self {
             self.num_available_vgprs = num_available_vgprs;
             self
         }
 
+        #[inline]
         pub fn num_available_sgprs(mut self, num_available_sgprs: u32) -> Self {
             self.num_available_sgprs = num_available_sgprs;
             self
         }
 
+        #[inline]
         pub fn compute_work_group_size(mut self, compute_work_group_size: [u32; 3]) -> Self {
             self.compute_work_group_size = compute_work_group_size;
             self
@@ -176,6 +188,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetShaderInfoAMD.html>
+    #[inline]
     pub unsafe fn get_shader_info_amd(
         &self,
         device: Device,

@@ -93,6 +93,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceCustomResolveFeaturesEXT<'a> {
+        #[inline]
         pub fn custom_resolve(mut self, custom_resolve: bool) -> Self {
             self.custom_resolve = custom_resolve.into();
             self
@@ -156,22 +157,26 @@ pub(super) mod defs {
     }
 
     impl<'a> CustomResolveCreateInfoEXT<'a> {
+        #[inline]
         pub fn custom_resolve(mut self, custom_resolve: bool) -> Self {
             self.custom_resolve = custom_resolve.into();
             self
         }
 
+        #[inline]
         pub fn color_attachment_formats(mut self, color_attachment_formats: &'a [Format]) -> Self {
             self.color_attachment_count = color_attachment_formats.len().try_into().unwrap();
             self.p_color_attachment_formats = color_attachment_formats.as_ptr();
             self
         }
 
+        #[inline]
         pub fn depth_attachment_format(mut self, depth_attachment_format: Format) -> Self {
             self.depth_attachment_format = depth_attachment_format;
             self
         }
 
+        #[inline]
         pub fn stencil_attachment_format(mut self, stencil_attachment_format: Format) -> Self {
             self.stencil_attachment_format = stencil_attachment_format;
             self
@@ -203,6 +208,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginCustomResolveEXT.html>
+    #[inline]
     pub unsafe fn cmd_begin_custom_resolve_ext(
         &self,
         command_buffer: CommandBuffer,

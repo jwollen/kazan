@@ -25,6 +25,7 @@ pub(super) mod defs {
     }
 
     impl ExternalImageFormatPropertiesNV {
+        #[inline]
         pub fn image_format_properties(
             mut self,
             image_format_properties: ImageFormatProperties,
@@ -33,6 +34,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn external_memory_features(
             mut self,
             external_memory_features: ExternalMemoryFeatureFlagsNV,
@@ -41,6 +43,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn export_from_imported_handle_types(
             mut self,
             export_from_imported_handle_types: ExternalMemoryHandleTypeFlagsNV,
@@ -49,6 +52,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn compatible_handle_types(
             mut self,
             compatible_handle_types: ExternalMemoryHandleTypeFlagsNV,
@@ -223,6 +227,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceExternalImageFormatPropertiesNV.html>
+    #[inline]
     pub unsafe fn get_physical_device_external_image_format_properties_nv(
         &self,
         physical_device: PhysicalDevice,

@@ -55,11 +55,13 @@ pub(super) mod defs {
     }
 
     impl<'a> SetPresentConfigNV<'a> {
+        #[inline]
         pub fn num_frames_per_batch(mut self, num_frames_per_batch: u32) -> Self {
             self.num_frames_per_batch = num_frames_per_batch;
             self
         }
 
+        #[inline]
         pub fn present_config_feedback(mut self, present_config_feedback: u32) -> Self {
             self.present_config_feedback = present_config_feedback;
             self
@@ -111,6 +113,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePresentMeteringFeaturesNV<'a> {
+        #[inline]
         pub fn present_metering(mut self, present_metering: bool) -> Self {
             self.present_metering = present_metering.into();
             self

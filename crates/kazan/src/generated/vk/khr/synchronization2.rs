@@ -83,6 +83,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetEvent2KHR.html>
+    #[inline]
     pub unsafe fn cmd_set_event2_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -93,6 +94,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdResetEvent2KHR.html>
+    #[inline]
     pub unsafe fn cmd_reset_event2_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -103,6 +105,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWaitEvents2KHR.html>
+    #[inline]
     pub unsafe fn cmd_wait_events2_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -120,6 +123,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPipelineBarrier2KHR.html>
+    #[inline]
     pub unsafe fn cmd_pipeline_barrier2_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -129,6 +133,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteTimestamp2KHR.html>
+    #[inline]
     pub unsafe fn cmd_write_timestamp2_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -140,6 +145,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueSubmit2KHR.html>
+    #[inline]
     pub unsafe fn queue_submit2_khr(
         &self,
         queue: Queue,

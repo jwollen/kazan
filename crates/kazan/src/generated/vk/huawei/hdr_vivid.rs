@@ -55,6 +55,7 @@ pub(super) mod defs {
     }
 
     impl<'a> HdrVividDynamicMetadataHUAWEI<'a> {
+        #[inline]
         pub fn dynamic_metadata(mut self, dynamic_metadata: &'a [u8]) -> Self {
             self.dynamic_metadata_size = dynamic_metadata.len().try_into().unwrap();
             self.p_dynamic_metadata = dynamic_metadata.as_ptr() as _;
@@ -104,6 +105,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceHdrVividFeaturesHUAWEI<'a> {
+        #[inline]
         pub fn hdr_vivid(mut self, hdr_vivid: bool) -> Self {
             self.hdr_vivid = hdr_vivid.into();
             self

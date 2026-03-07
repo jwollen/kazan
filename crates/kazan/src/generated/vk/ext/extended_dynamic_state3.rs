@@ -243,6 +243,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceExtendedDynamicState3FeaturesEXT<'a> {
+        #[inline]
         pub fn extended_dynamic_state3_tessellation_domain_origin(
             mut self,
             extended_dynamic_state3_tessellation_domain_origin: bool,
@@ -252,6 +253,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_depth_clamp_enable(
             mut self,
             extended_dynamic_state3_depth_clamp_enable: bool,
@@ -261,6 +263,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_polygon_mode(
             mut self,
             extended_dynamic_state3_polygon_mode: bool,
@@ -269,6 +272,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_rasterization_samples(
             mut self,
             extended_dynamic_state3_rasterization_samples: bool,
@@ -278,6 +282,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_sample_mask(
             mut self,
             extended_dynamic_state3_sample_mask: bool,
@@ -286,6 +291,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_alpha_to_coverage_enable(
             mut self,
             extended_dynamic_state3_alpha_to_coverage_enable: bool,
@@ -295,6 +301,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_alpha_to_one_enable(
             mut self,
             extended_dynamic_state3_alpha_to_one_enable: bool,
@@ -304,6 +311,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_logic_op_enable(
             mut self,
             extended_dynamic_state3_logic_op_enable: bool,
@@ -313,6 +321,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_color_blend_enable(
             mut self,
             extended_dynamic_state3_color_blend_enable: bool,
@@ -322,6 +331,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_color_blend_equation(
             mut self,
             extended_dynamic_state3_color_blend_equation: bool,
@@ -331,6 +341,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_color_write_mask(
             mut self,
             extended_dynamic_state3_color_write_mask: bool,
@@ -340,6 +351,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_rasterization_stream(
             mut self,
             extended_dynamic_state3_rasterization_stream: bool,
@@ -349,6 +361,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_conservative_rasterization_mode(
             mut self,
             extended_dynamic_state3_conservative_rasterization_mode: bool,
@@ -358,6 +371,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_extra_primitive_overestimation_size(
             mut self,
             extended_dynamic_state3_extra_primitive_overestimation_size: bool,
@@ -367,6 +381,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_depth_clip_enable(
             mut self,
             extended_dynamic_state3_depth_clip_enable: bool,
@@ -376,6 +391,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_sample_locations_enable(
             mut self,
             extended_dynamic_state3_sample_locations_enable: bool,
@@ -385,6 +401,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_color_blend_advanced(
             mut self,
             extended_dynamic_state3_color_blend_advanced: bool,
@@ -394,6 +411,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_provoking_vertex_mode(
             mut self,
             extended_dynamic_state3_provoking_vertex_mode: bool,
@@ -403,6 +421,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_line_rasterization_mode(
             mut self,
             extended_dynamic_state3_line_rasterization_mode: bool,
@@ -412,6 +431,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_line_stipple_enable(
             mut self,
             extended_dynamic_state3_line_stipple_enable: bool,
@@ -421,6 +441,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_depth_clip_negative_one_to_one(
             mut self,
             extended_dynamic_state3_depth_clip_negative_one_to_one: bool,
@@ -430,6 +451,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_viewport_w_scaling_enable(
             mut self,
             extended_dynamic_state3_viewport_w_scaling_enable: bool,
@@ -439,6 +461,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_viewport_swizzle(
             mut self,
             extended_dynamic_state3_viewport_swizzle: bool,
@@ -448,6 +471,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_coverage_to_color_enable(
             mut self,
             extended_dynamic_state3_coverage_to_color_enable: bool,
@@ -457,6 +481,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_coverage_to_color_location(
             mut self,
             extended_dynamic_state3_coverage_to_color_location: bool,
@@ -466,6 +491,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_coverage_modulation_mode(
             mut self,
             extended_dynamic_state3_coverage_modulation_mode: bool,
@@ -475,6 +501,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_coverage_modulation_table_enable(
             mut self,
             extended_dynamic_state3_coverage_modulation_table_enable: bool,
@@ -484,6 +511,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_coverage_modulation_table(
             mut self,
             extended_dynamic_state3_coverage_modulation_table: bool,
@@ -493,6 +521,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_coverage_reduction_mode(
             mut self,
             extended_dynamic_state3_coverage_reduction_mode: bool,
@@ -502,6 +531,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_representative_fragment_test_enable(
             mut self,
             extended_dynamic_state3_representative_fragment_test_enable: bool,
@@ -511,6 +541,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state3_shading_rate_image_enable(
             mut self,
             extended_dynamic_state3_shading_rate_image_enable: bool,
@@ -568,6 +599,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceExtendedDynamicState3PropertiesEXT<'a> {
+        #[inline]
         pub fn dynamic_primitive_topology_unrestricted(
             mut self,
             dynamic_primitive_topology_unrestricted: bool,
@@ -593,31 +625,37 @@ pub(super) mod defs {
     }
 
     impl ColorBlendEquationEXT {
+        #[inline]
         pub fn src_color_blend_factor(mut self, src_color_blend_factor: BlendFactor) -> Self {
             self.src_color_blend_factor = src_color_blend_factor;
             self
         }
 
+        #[inline]
         pub fn dst_color_blend_factor(mut self, dst_color_blend_factor: BlendFactor) -> Self {
             self.dst_color_blend_factor = dst_color_blend_factor;
             self
         }
 
+        #[inline]
         pub fn color_blend_op(mut self, color_blend_op: BlendOp) -> Self {
             self.color_blend_op = color_blend_op;
             self
         }
 
+        #[inline]
         pub fn src_alpha_blend_factor(mut self, src_alpha_blend_factor: BlendFactor) -> Self {
             self.src_alpha_blend_factor = src_alpha_blend_factor;
             self
         }
 
+        #[inline]
         pub fn dst_alpha_blend_factor(mut self, dst_alpha_blend_factor: BlendFactor) -> Self {
             self.dst_alpha_blend_factor = dst_alpha_blend_factor;
             self
         }
 
+        #[inline]
         pub fn alpha_blend_op(mut self, alpha_blend_op: BlendOp) -> Self {
             self.alpha_blend_op = alpha_blend_op;
             self
@@ -638,26 +676,31 @@ pub(super) mod defs {
     }
 
     impl ColorBlendAdvancedEXT {
+        #[inline]
         pub fn advanced_blend_op(mut self, advanced_blend_op: BlendOp) -> Self {
             self.advanced_blend_op = advanced_blend_op;
             self
         }
 
+        #[inline]
         pub fn src_premultiplied(mut self, src_premultiplied: bool) -> Self {
             self.src_premultiplied = src_premultiplied.into();
             self
         }
 
+        #[inline]
         pub fn dst_premultiplied(mut self, dst_premultiplied: bool) -> Self {
             self.dst_premultiplied = dst_premultiplied.into();
             self
         }
 
+        #[inline]
         pub fn blend_overlap(mut self, blend_overlap: BlendOverlapEXT) -> Self {
             self.blend_overlap = blend_overlap;
             self
         }
 
+        #[inline]
         pub fn clamp_results(mut self, clamp_results: bool) -> Self {
             self.clamp_results = clamp_results.into();
             self
@@ -941,6 +984,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthClampEnableEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_depth_clamp_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -950,6 +994,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPolygonModeEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_polygon_mode_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -959,6 +1004,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRasterizationSamplesEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_rasterization_samples_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -968,6 +1014,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetSampleMaskEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_sample_mask_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -978,6 +1025,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetAlphaToCoverageEnableEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_alpha_to_coverage_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -992,6 +1040,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetAlphaToOneEnableEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_alpha_to_one_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1003,6 +1052,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLogicOpEnableEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_logic_op_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1012,6 +1062,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorBlendEnableEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_color_blend_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1029,6 +1080,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorBlendEquationEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_color_blend_equation_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1046,6 +1098,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorWriteMaskEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_color_write_mask_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1063,6 +1116,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetTessellationDomainOriginEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_tessellation_domain_origin_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1074,6 +1128,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRasterizationStreamEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_rasterization_stream_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1085,6 +1140,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetConservativeRasterizationModeEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_conservative_rasterization_mode_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1099,6 +1155,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetExtraPrimitiveOverestimationSizeEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_extra_primitive_overestimation_size_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1112,6 +1169,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthClipEnableEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_depth_clip_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1123,6 +1181,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetSampleLocationsEnableEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_sample_locations_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1137,6 +1196,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorBlendAdvancedEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_color_blend_advanced_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1154,6 +1214,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetProvokingVertexModeEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_provoking_vertex_mode_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1165,6 +1226,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLineRasterizationModeEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_line_rasterization_mode_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1179,6 +1241,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLineStippleEnableEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_line_stipple_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1193,6 +1256,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthClipNegativeOneToOneEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_depth_clip_negative_one_to_one_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -1207,6 +1271,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewportWScalingEnableNV.html>
+    #[inline]
     pub unsafe fn cmd_set_viewport_w_scaling_enable_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -1221,6 +1286,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewportSwizzleNV.html>
+    #[inline]
     pub unsafe fn cmd_set_viewport_swizzle_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -1238,6 +1304,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageToColorEnableNV.html>
+    #[inline]
     pub unsafe fn cmd_set_coverage_to_color_enable_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -1252,6 +1319,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageToColorLocationNV.html>
+    #[inline]
     pub unsafe fn cmd_set_coverage_to_color_location_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -1266,6 +1334,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageModulationModeNV.html>
+    #[inline]
     pub unsafe fn cmd_set_coverage_modulation_mode_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -1280,6 +1349,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageModulationTableEnableNV.html>
+    #[inline]
     pub unsafe fn cmd_set_coverage_modulation_table_enable_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -1294,6 +1364,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageModulationTableNV.html>
+    #[inline]
     pub unsafe fn cmd_set_coverage_modulation_table_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -1309,6 +1380,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetShadingRateImageEnableNV.html>
+    #[inline]
     pub unsafe fn cmd_set_shading_rate_image_enable_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -1323,6 +1395,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRepresentativeFragmentTestEnableNV.html>
+    #[inline]
     pub unsafe fn cmd_set_representative_fragment_test_enable_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -1337,6 +1410,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageReductionModeNV.html>
+    #[inline]
     pub unsafe fn cmd_set_coverage_reduction_mode_nv(
         &self,
         command_buffer: CommandBuffer,

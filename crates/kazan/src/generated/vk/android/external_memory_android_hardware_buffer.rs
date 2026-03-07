@@ -55,6 +55,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ImportAndroidHardwareBufferInfoANDROID<'a> {
+        #[inline]
         pub fn buffer(mut self, buffer: *mut AHardwareBuffer) -> Self {
             self.buffer = buffer;
             self
@@ -104,6 +105,7 @@ pub(super) mod defs {
     }
 
     impl<'a> AndroidHardwareBufferUsageANDROID<'a> {
+        #[inline]
         pub fn android_hardware_buffer_usage(mut self, android_hardware_buffer_usage: u64) -> Self {
             self.android_hardware_buffer_usage = android_hardware_buffer_usage;
             self
@@ -152,11 +154,13 @@ pub(super) mod defs {
     }
 
     impl<'a> AndroidHardwareBufferPropertiesANDROID<'a> {
+        #[inline]
         pub fn allocation_size(mut self, allocation_size: DeviceSize) -> Self {
             self.allocation_size = allocation_size;
             self
         }
 
+        #[inline]
         pub fn memory_type_bits(mut self, memory_type_bits: u32) -> Self {
             self.memory_type_bits = memory_type_bits;
             self
@@ -202,6 +206,7 @@ pub(super) mod defs {
     }
 
     impl<'a> MemoryGetAndroidHardwareBufferInfoANDROID<'a> {
+        #[inline]
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
@@ -276,21 +281,25 @@ pub(super) mod defs {
     }
 
     impl<'a> AndroidHardwareBufferFormatPropertiesANDROID<'a> {
+        #[inline]
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
 
+        #[inline]
         pub fn external_format(mut self, external_format: u64) -> Self {
             self.external_format = external_format;
             self
         }
 
+        #[inline]
         pub fn format_features(mut self, format_features: FormatFeatureFlags) -> Self {
             self.format_features = format_features;
             self
         }
 
+        #[inline]
         pub fn sampler_ycbcr_conversion_components(
             mut self,
             sampler_ycbcr_conversion_components: ComponentMapping,
@@ -299,6 +308,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn suggested_ycbcr_model(
             mut self,
             suggested_ycbcr_model: SamplerYcbcrModelConversion,
@@ -307,11 +317,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn suggested_ycbcr_range(mut self, suggested_ycbcr_range: SamplerYcbcrRange) -> Self {
             self.suggested_ycbcr_range = suggested_ycbcr_range;
             self
         }
 
+        #[inline]
         pub fn suggested_x_chroma_offset(
             mut self,
             suggested_x_chroma_offset: ChromaLocation,
@@ -320,6 +332,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn suggested_y_chroma_offset(
             mut self,
             suggested_y_chroma_offset: ChromaLocation,
@@ -373,6 +386,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ExternalFormatANDROID<'a> {
+        #[inline]
         pub fn external_format(mut self, external_format: u64) -> Self {
             self.external_format = external_format;
             self
@@ -447,21 +461,25 @@ pub(super) mod defs {
     }
 
     impl<'a> AndroidHardwareBufferFormatProperties2ANDROID<'a> {
+        #[inline]
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
 
+        #[inline]
         pub fn external_format(mut self, external_format: u64) -> Self {
             self.external_format = external_format;
             self
         }
 
+        #[inline]
         pub fn format_features(mut self, format_features: FormatFeatureFlags2) -> Self {
             self.format_features = format_features;
             self
         }
 
+        #[inline]
         pub fn sampler_ycbcr_conversion_components(
             mut self,
             sampler_ycbcr_conversion_components: ComponentMapping,
@@ -470,6 +488,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn suggested_ycbcr_model(
             mut self,
             suggested_ycbcr_model: SamplerYcbcrModelConversion,
@@ -478,11 +497,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn suggested_ycbcr_range(mut self, suggested_ycbcr_range: SamplerYcbcrRange) -> Self {
             self.suggested_ycbcr_range = suggested_ycbcr_range;
             self
         }
 
+        #[inline]
         pub fn suggested_x_chroma_offset(
             mut self,
             suggested_x_chroma_offset: ChromaLocation,
@@ -491,6 +512,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn suggested_y_chroma_offset(
             mut self,
             suggested_y_chroma_offset: ChromaLocation,
@@ -542,6 +564,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAndroidHardwareBufferPropertiesANDROID.html>
+    #[inline]
     pub unsafe fn get_android_hardware_buffer_properties_android(
         &self,
         device: Device,
@@ -560,6 +583,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryAndroidHardwareBufferANDROID.html>
+    #[inline]
     pub unsafe fn get_memory_android_hardware_buffer_android(
         &self,
         device: Device,

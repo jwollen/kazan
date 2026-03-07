@@ -126,16 +126,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceTileShadingFeaturesQCOM<'a> {
+        #[inline]
         pub fn tile_shading(mut self, tile_shading: bool) -> Self {
             self.tile_shading = tile_shading.into();
             self
         }
 
+        #[inline]
         pub fn tile_shading_fragment_stage(mut self, tile_shading_fragment_stage: bool) -> Self {
             self.tile_shading_fragment_stage = tile_shading_fragment_stage.into();
             self
         }
 
+        #[inline]
         pub fn tile_shading_color_attachments(
             mut self,
             tile_shading_color_attachments: bool,
@@ -144,6 +147,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn tile_shading_depth_attachments(
             mut self,
             tile_shading_depth_attachments: bool,
@@ -152,6 +156,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn tile_shading_stencil_attachments(
             mut self,
             tile_shading_stencil_attachments: bool,
@@ -160,6 +165,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn tile_shading_input_attachments(
             mut self,
             tile_shading_input_attachments: bool,
@@ -168,6 +174,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn tile_shading_sampled_attachments(
             mut self,
             tile_shading_sampled_attachments: bool,
@@ -176,11 +183,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn tile_shading_per_tile_draw(mut self, tile_shading_per_tile_draw: bool) -> Self {
             self.tile_shading_per_tile_draw = tile_shading_per_tile_draw.into();
             self
         }
 
+        #[inline]
         pub fn tile_shading_per_tile_dispatch(
             mut self,
             tile_shading_per_tile_dispatch: bool,
@@ -189,16 +198,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn tile_shading_dispatch_tile(mut self, tile_shading_dispatch_tile: bool) -> Self {
             self.tile_shading_dispatch_tile = tile_shading_dispatch_tile.into();
             self
         }
 
+        #[inline]
         pub fn tile_shading_apron(mut self, tile_shading_apron: bool) -> Self {
             self.tile_shading_apron = tile_shading_apron.into();
             self
         }
 
+        #[inline]
         pub fn tile_shading_anisotropic_apron(
             mut self,
             tile_shading_anisotropic_apron: bool,
@@ -207,11 +219,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn tile_shading_atomic_ops(mut self, tile_shading_atomic_ops: bool) -> Self {
             self.tile_shading_atomic_ops = tile_shading_atomic_ops.into();
             self
         }
 
+        #[inline]
         pub fn tile_shading_image_processing(
             mut self,
             tile_shading_image_processing: bool,
@@ -274,21 +288,25 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceTileShadingPropertiesQCOM<'a> {
+        #[inline]
         pub fn max_apron_size(mut self, max_apron_size: u32) -> Self {
             self.max_apron_size = max_apron_size;
             self
         }
 
+        #[inline]
         pub fn prefer_non_coherent(mut self, prefer_non_coherent: bool) -> Self {
             self.prefer_non_coherent = prefer_non_coherent.into();
             self
         }
 
+        #[inline]
         pub fn tile_granularity(mut self, tile_granularity: Extent2D) -> Self {
             self.tile_granularity = tile_granularity;
             self
         }
 
+        #[inline]
         pub fn max_tile_shading_rate(mut self, max_tile_shading_rate: Extent2D) -> Self {
             self.max_tile_shading_rate = max_tile_shading_rate;
             self
@@ -345,11 +363,13 @@ pub(super) mod defs {
     }
 
     impl<'a> RenderPassTileShadingCreateInfoQCOM<'a> {
+        #[inline]
         pub fn flags(mut self, flags: TileShadingRenderPassFlagsQCOM) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn tile_apron_size(mut self, tile_apron_size: Extent2D) -> Self {
             self.tile_apron_size = tile_apron_size;
             self
@@ -559,6 +579,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatchTileQCOM.html>
+    #[inline]
     pub unsafe fn cmd_dispatch_tile_qcom(
         &self,
         command_buffer: CommandBuffer,
@@ -568,6 +589,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginPerTileExecutionQCOM.html>
+    #[inline]
     pub unsafe fn cmd_begin_per_tile_execution_qcom(
         &self,
         command_buffer: CommandBuffer,
@@ -577,6 +599,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndPerTileExecutionQCOM.html>
+    #[inline]
     pub unsafe fn cmd_end_per_tile_execution_qcom(
         &self,
         command_buffer: CommandBuffer,

@@ -65,6 +65,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<'a> {
+        #[inline]
         pub fn multisampled_render_to_single_sampled(
             mut self,
             multisampled_render_to_single_sampled: bool,
@@ -115,6 +116,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SubpassResolvePerformanceQueryEXT<'a> {
+        #[inline]
         pub fn optimal(mut self, optimal: bool) -> Self {
             self.optimal = optimal.into();
             self
@@ -169,6 +171,7 @@ pub(super) mod defs {
     }
 
     impl<'a> MultisampledRenderToSingleSampledInfoEXT<'a> {
+        #[inline]
         pub fn multisampled_render_to_single_sampled_enable(
             mut self,
             multisampled_render_to_single_sampled_enable: bool,
@@ -178,6 +181,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn rasterization_samples(mut self, rasterization_samples: SampleCountFlagBits) -> Self {
             self.rasterization_samples = rasterization_samples;
             self

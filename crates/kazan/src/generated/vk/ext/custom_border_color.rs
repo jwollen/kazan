@@ -56,11 +56,13 @@ pub(super) mod defs {
     }
 
     impl<'a> SamplerCustomBorderColorCreateInfoEXT<'a> {
+        #[inline]
         pub fn custom_border_color(mut self, custom_border_color: ClearColorValue) -> Self {
             self.custom_border_color = custom_border_color;
             self
         }
 
+        #[inline]
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
@@ -114,6 +116,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceCustomBorderColorPropertiesEXT<'a> {
+        #[inline]
         pub fn max_custom_border_color_samplers(
             mut self,
             max_custom_border_color_samplers: u32,
@@ -174,11 +177,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceCustomBorderColorFeaturesEXT<'a> {
+        #[inline]
         pub fn custom_border_colors(mut self, custom_border_colors: bool) -> Self {
             self.custom_border_colors = custom_border_colors.into();
             self
         }
 
+        #[inline]
         pub fn custom_border_color_without_format(
             mut self,
             custom_border_color_without_format: bool,

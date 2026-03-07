@@ -55,6 +55,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDevicePresentRectanglesKHR.html>
+    #[inline]
     pub unsafe fn get_physical_device_present_rectangles_khr(
         &self,
         physical_device: PhysicalDevice,
@@ -126,6 +127,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceGroupPeerMemoryFeaturesKHR.html>
+    #[inline]
     pub unsafe fn get_device_group_peer_memory_features_khr(
         &self,
         device: Device,
@@ -147,11 +149,13 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDeviceMaskKHR.html>
+    #[inline]
     pub unsafe fn cmd_set_device_mask_khr(&self, command_buffer: CommandBuffer, device_mask: u32) {
         unsafe { (self.cmd_set_device_mask_khr)(command_buffer, device_mask) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatchBaseKHR.html>
+    #[inline]
     pub unsafe fn cmd_dispatch_base_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -176,6 +180,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceGroupPresentCapabilitiesKHR.html>
+    #[inline]
     pub unsafe fn get_device_group_present_capabilities_khr(
         &self,
         device: Device,
@@ -195,6 +200,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceGroupSurfacePresentModesKHR.html>
+    #[inline]
     pub unsafe fn get_device_group_surface_present_modes_khr(
         &self,
         device: Device,
@@ -216,6 +222,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireNextImage2KHR.html>
+    #[inline]
     pub unsafe fn acquire_next_image2_khr(
         &self,
         device: Device,

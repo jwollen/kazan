@@ -75,11 +75,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'a> {
+        #[inline]
         pub fn fragment_shading_rate_enums(mut self, fragment_shading_rate_enums: bool) -> Self {
             self.fragment_shading_rate_enums = fragment_shading_rate_enums.into();
             self
         }
 
+        #[inline]
         pub fn supersample_fragment_shading_rates(
             mut self,
             supersample_fragment_shading_rates: bool,
@@ -88,6 +90,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn no_invocation_fragment_shading_rates(
             mut self,
             no_invocation_fragment_shading_rates: bool,
@@ -144,6 +147,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceFragmentShadingRateEnumsPropertiesNV<'a> {
+        #[inline]
         pub fn max_fragment_shading_rate_invocation_count(
             mut self,
             max_fragment_shading_rate_invocation_count: SampleCountFlagBits,
@@ -204,16 +208,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineFragmentShadingRateEnumStateCreateInfoNV<'a> {
+        #[inline]
         pub fn shading_rate_type(mut self, shading_rate_type: FragmentShadingRateTypeNV) -> Self {
             self.shading_rate_type = shading_rate_type;
             self
         }
 
+        #[inline]
         pub fn shading_rate(mut self, shading_rate: FragmentShadingRateNV) -> Self {
             self.shading_rate = shading_rate;
             self
         }
 
+        #[inline]
         pub fn combiner_ops(mut self, combiner_ops: [FragmentShadingRateCombinerOpKHR; 2]) -> Self {
             self.combiner_ops = combiner_ops;
             self
@@ -318,6 +325,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetFragmentShadingRateEnumNV.html>
+    #[inline]
     pub unsafe fn cmd_set_fragment_shading_rate_enum_nv(
         &self,
         command_buffer: CommandBuffer,

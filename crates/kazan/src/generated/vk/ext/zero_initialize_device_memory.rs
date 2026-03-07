@@ -63,6 +63,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceZeroInitializeDeviceMemoryFeaturesEXT<'a> {
+        #[inline]
         pub fn zero_initialize_device_memory(
             mut self,
             zero_initialize_device_memory: bool,

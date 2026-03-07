@@ -42,6 +42,7 @@ pub(super) mod defs {
     }
 
     impl StdVideoH264SpsVuiFlags {
+        #[inline]
         pub fn aspect_ratio_info_present_flag(
             mut self,
             aspect_ratio_info_present_flag: u32,
@@ -50,16 +51,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn overscan_info_present_flag(mut self, overscan_info_present_flag: u32) -> Self {
             self.overscan_info_present_flag = overscan_info_present_flag;
             self
         }
 
+        #[inline]
         pub fn overscan_appropriate_flag(mut self, overscan_appropriate_flag: u32) -> Self {
             self.overscan_appropriate_flag = overscan_appropriate_flag;
             self
         }
 
+        #[inline]
         pub fn video_signal_type_present_flag(
             mut self,
             video_signal_type_present_flag: u32,
@@ -68,11 +72,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn video_full_range_flag(mut self, video_full_range_flag: u32) -> Self {
             self.video_full_range_flag = video_full_range_flag;
             self
         }
 
+        #[inline]
         pub fn color_description_present_flag(
             mut self,
             color_description_present_flag: u32,
@@ -81,26 +87,31 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn chroma_loc_info_present_flag(mut self, chroma_loc_info_present_flag: u32) -> Self {
             self.chroma_loc_info_present_flag = chroma_loc_info_present_flag;
             self
         }
 
+        #[inline]
         pub fn timing_info_present_flag(mut self, timing_info_present_flag: u32) -> Self {
             self.timing_info_present_flag = timing_info_present_flag;
             self
         }
 
+        #[inline]
         pub fn fixed_frame_rate_flag(mut self, fixed_frame_rate_flag: u32) -> Self {
             self.fixed_frame_rate_flag = fixed_frame_rate_flag;
             self
         }
 
+        #[inline]
         pub fn bitstream_restriction_flag(mut self, bitstream_restriction_flag: u32) -> Self {
             self.bitstream_restriction_flag = bitstream_restriction_flag;
             self
         }
 
+        #[inline]
         pub fn nal_hrd_parameters_present_flag(
             mut self,
             nal_hrd_parameters_present_flag: u32,
@@ -109,6 +120,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn vcl_hrd_parameters_present_flag(
             mut self,
             vcl_hrd_parameters_present_flag: u32,
@@ -156,26 +168,31 @@ pub(super) mod defs {
     }
 
     impl StdVideoH264HrdParameters {
+        #[inline]
         pub fn cpb_cnt_minus1(mut self, cpb_cnt_minus1: u8) -> Self {
             self.cpb_cnt_minus1 = cpb_cnt_minus1;
             self
         }
 
+        #[inline]
         pub fn bit_rate_scale(mut self, bit_rate_scale: u8) -> Self {
             self.bit_rate_scale = bit_rate_scale;
             self
         }
 
+        #[inline]
         pub fn cpb_size_scale(mut self, cpb_size_scale: u8) -> Self {
             self.cpb_size_scale = cpb_size_scale;
             self
         }
 
+        #[inline]
         pub fn reserved1(mut self, reserved1: u8) -> Self {
             self.reserved1 = reserved1;
             self
         }
 
+        #[inline]
         pub fn bit_rate_value_minus1(
             mut self,
             bit_rate_value_minus1: [u32; STD_VIDEO_H264_CPB_CNT_LIST_SIZE as usize],
@@ -184,6 +201,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn cpb_size_value_minus1(
             mut self,
             cpb_size_value_minus1: [u32; STD_VIDEO_H264_CPB_CNT_LIST_SIZE as usize],
@@ -192,6 +210,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn cbr_flag(
             mut self,
             cbr_flag: [u8; STD_VIDEO_H264_CPB_CNT_LIST_SIZE as usize],
@@ -200,6 +219,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn initial_cpb_removal_delay_length_minus1(
             mut self,
             initial_cpb_removal_delay_length_minus1: u32,
@@ -208,6 +228,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn cpb_removal_delay_length_minus1(
             mut self,
             cpb_removal_delay_length_minus1: u32,
@@ -216,6 +237,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn dpb_output_delay_length_minus1(
             mut self,
             dpb_output_delay_length_minus1: u32,
@@ -224,6 +246,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn time_offset_length(mut self, time_offset_length: u32) -> Self {
             self.time_offset_length = time_offset_length;
             self
@@ -309,66 +332,79 @@ pub(super) mod defs {
     }
 
     impl<'a> StdVideoH264SequenceParameterSetVui<'a> {
+        #[inline]
         pub fn flags(mut self, flags: StdVideoH264SpsVuiFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn aspect_ratio_idc(mut self, aspect_ratio_idc: StdVideoH264AspectRatioIdc) -> Self {
             self.aspect_ratio_idc = aspect_ratio_idc;
             self
         }
 
+        #[inline]
         pub fn sar_width(mut self, sar_width: u16) -> Self {
             self.sar_width = sar_width;
             self
         }
 
+        #[inline]
         pub fn sar_height(mut self, sar_height: u16) -> Self {
             self.sar_height = sar_height;
             self
         }
 
+        #[inline]
         pub fn video_format(mut self, video_format: u8) -> Self {
             self.video_format = video_format;
             self
         }
 
+        #[inline]
         pub fn colour_primaries(mut self, colour_primaries: u8) -> Self {
             self.colour_primaries = colour_primaries;
             self
         }
 
+        #[inline]
         pub fn transfer_characteristics(mut self, transfer_characteristics: u8) -> Self {
             self.transfer_characteristics = transfer_characteristics;
             self
         }
 
+        #[inline]
         pub fn matrix_coefficients(mut self, matrix_coefficients: u8) -> Self {
             self.matrix_coefficients = matrix_coefficients;
             self
         }
 
+        #[inline]
         pub fn num_units_in_tick(mut self, num_units_in_tick: u32) -> Self {
             self.num_units_in_tick = num_units_in_tick;
             self
         }
 
+        #[inline]
         pub fn time_scale(mut self, time_scale: u32) -> Self {
             self.time_scale = time_scale;
             self
         }
 
+        #[inline]
         pub fn max_num_reorder_frames(mut self, max_num_reorder_frames: u8) -> Self {
             self.max_num_reorder_frames = max_num_reorder_frames;
             self
         }
 
+        #[inline]
         pub fn max_dec_frame_buffering(mut self, max_dec_frame_buffering: u8) -> Self {
             self.max_dec_frame_buffering = max_dec_frame_buffering;
             self
         }
 
+        #[inline]
         pub fn chroma_sample_loc_type_top_field(
             mut self,
             chroma_sample_loc_type_top_field: u8,
@@ -377,6 +413,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn chroma_sample_loc_type_bottom_field(
             mut self,
             chroma_sample_loc_type_bottom_field: u8,
@@ -385,11 +422,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn reserved1(mut self, reserved1: u32) -> Self {
             self.reserved1 = reserved1;
             self
         }
 
+        #[inline]
         pub fn hrd_parameters(mut self, hrd_parameters: &'a StdVideoH264HrdParameters) -> Self {
             self.p_hrd_parameters = hrd_parameters;
             self
@@ -421,51 +460,61 @@ pub(super) mod defs {
     }
 
     impl StdVideoH264SpsFlags {
+        #[inline]
         pub fn constraint_set0_flag(mut self, constraint_set0_flag: u32) -> Self {
             self.constraint_set0_flag = constraint_set0_flag;
             self
         }
 
+        #[inline]
         pub fn constraint_set1_flag(mut self, constraint_set1_flag: u32) -> Self {
             self.constraint_set1_flag = constraint_set1_flag;
             self
         }
 
+        #[inline]
         pub fn constraint_set2_flag(mut self, constraint_set2_flag: u32) -> Self {
             self.constraint_set2_flag = constraint_set2_flag;
             self
         }
 
+        #[inline]
         pub fn constraint_set3_flag(mut self, constraint_set3_flag: u32) -> Self {
             self.constraint_set3_flag = constraint_set3_flag;
             self
         }
 
+        #[inline]
         pub fn constraint_set4_flag(mut self, constraint_set4_flag: u32) -> Self {
             self.constraint_set4_flag = constraint_set4_flag;
             self
         }
 
+        #[inline]
         pub fn constraint_set5_flag(mut self, constraint_set5_flag: u32) -> Self {
             self.constraint_set5_flag = constraint_set5_flag;
             self
         }
 
+        #[inline]
         pub fn direct_8x8_inference_flag(mut self, direct_8x8_inference_flag: u32) -> Self {
             self.direct_8x8_inference_flag = direct_8x8_inference_flag;
             self
         }
 
+        #[inline]
         pub fn mb_adaptive_frame_field_flag(mut self, mb_adaptive_frame_field_flag: u32) -> Self {
             self.mb_adaptive_frame_field_flag = mb_adaptive_frame_field_flag;
             self
         }
 
+        #[inline]
         pub fn frame_mbs_only_flag(mut self, frame_mbs_only_flag: u32) -> Self {
             self.frame_mbs_only_flag = frame_mbs_only_flag;
             self
         }
 
+        #[inline]
         pub fn delta_pic_order_always_zero_flag(
             mut self,
             delta_pic_order_always_zero_flag: u32,
@@ -474,11 +523,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn separate_colour_plane_flag(mut self, separate_colour_plane_flag: u32) -> Self {
             self.separate_colour_plane_flag = separate_colour_plane_flag;
             self
         }
 
+        #[inline]
         pub fn gaps_in_frame_num_value_allowed_flag(
             mut self,
             gaps_in_frame_num_value_allowed_flag: u32,
@@ -487,6 +538,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn qpprime_y_zero_transform_bypass_flag(
             mut self,
             qpprime_y_zero_transform_bypass_flag: u32,
@@ -495,11 +547,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn frame_cropping_flag(mut self, frame_cropping_flag: u32) -> Self {
             self.frame_cropping_flag = frame_cropping_flag;
             self
         }
 
+        #[inline]
         pub fn seq_scaling_matrix_present_flag(
             mut self,
             seq_scaling_matrix_present_flag: u32,
@@ -508,6 +562,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn vui_parameters_present_flag(mut self, vui_parameters_present_flag: u32) -> Self {
             self.vui_parameters_present_flag = vui_parameters_present_flag;
             self
@@ -540,11 +595,13 @@ pub(super) mod defs {
     }
 
     impl StdVideoH264ScalingLists {
+        #[inline]
         pub fn scaling_list_present_mask(mut self, scaling_list_present_mask: u16) -> Self {
             self.scaling_list_present_mask = scaling_list_present_mask;
             self
         }
 
+        #[inline]
         pub fn use_default_scaling_matrix_mask(
             mut self,
             use_default_scaling_matrix_mask: u16,
@@ -553,6 +610,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn scaling_list4x4(
             mut self,
             scaling_list4x4: [[u8; STD_VIDEO_H264_SCALING_LIST_4X4_NUM_ELEMENTS as usize];
@@ -562,6 +620,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn scaling_list8x8(
             mut self,
             scaling_list8x8: [[u8; STD_VIDEO_H264_SCALING_LIST_8X8_NUM_ELEMENTS as usize];
@@ -687,56 +746,67 @@ pub(super) mod defs {
     }
 
     impl<'a> StdVideoH264SequenceParameterSet<'a> {
+        #[inline]
         pub fn flags(mut self, flags: StdVideoH264SpsFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn profile_idc(mut self, profile_idc: StdVideoH264ProfileIdc) -> Self {
             self.profile_idc = profile_idc;
             self
         }
 
+        #[inline]
         pub fn level_idc(mut self, level_idc: StdVideoH264LevelIdc) -> Self {
             self.level_idc = level_idc;
             self
         }
 
+        #[inline]
         pub fn chroma_format_idc(mut self, chroma_format_idc: StdVideoH264ChromaFormatIdc) -> Self {
             self.chroma_format_idc = chroma_format_idc;
             self
         }
 
+        #[inline]
         pub fn seq_parameter_set_id(mut self, seq_parameter_set_id: u8) -> Self {
             self.seq_parameter_set_id = seq_parameter_set_id;
             self
         }
 
+        #[inline]
         pub fn bit_depth_luma_minus8(mut self, bit_depth_luma_minus8: u8) -> Self {
             self.bit_depth_luma_minus8 = bit_depth_luma_minus8;
             self
         }
 
+        #[inline]
         pub fn bit_depth_chroma_minus8(mut self, bit_depth_chroma_minus8: u8) -> Self {
             self.bit_depth_chroma_minus8 = bit_depth_chroma_minus8;
             self
         }
 
+        #[inline]
         pub fn log2_max_frame_num_minus4(mut self, log2_max_frame_num_minus4: u8) -> Self {
             self.log2_max_frame_num_minus4 = log2_max_frame_num_minus4;
             self
         }
 
+        #[inline]
         pub fn pic_order_cnt_type(mut self, pic_order_cnt_type: StdVideoH264PocType) -> Self {
             self.pic_order_cnt_type = pic_order_cnt_type;
             self
         }
 
+        #[inline]
         pub fn offset_for_non_ref_pic(mut self, offset_for_non_ref_pic: i32) -> Self {
             self.offset_for_non_ref_pic = offset_for_non_ref_pic;
             self
         }
 
+        #[inline]
         pub fn offset_for_top_to_bottom_field(
             mut self,
             offset_for_top_to_bottom_field: i32,
@@ -745,6 +815,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn log2_max_pic_order_cnt_lsb_minus4(
             mut self,
             log2_max_pic_order_cnt_lsb_minus4: u8,
@@ -753,6 +824,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn offset_for_ref_frame(mut self, offset_for_ref_frame: &'a [i32]) -> Self {
             self.num_ref_frames_in_pic_order_cnt_cycle =
                 offset_for_ref_frame.len().try_into().unwrap();
@@ -760,21 +832,25 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_num_ref_frames(mut self, max_num_ref_frames: u8) -> Self {
             self.max_num_ref_frames = max_num_ref_frames;
             self
         }
 
+        #[inline]
         pub fn reserved1(mut self, reserved1: u8) -> Self {
             self.reserved1 = reserved1;
             self
         }
 
+        #[inline]
         pub fn pic_width_in_mbs_minus1(mut self, pic_width_in_mbs_minus1: u32) -> Self {
             self.pic_width_in_mbs_minus1 = pic_width_in_mbs_minus1;
             self
         }
 
+        #[inline]
         pub fn pic_height_in_map_units_minus1(
             mut self,
             pic_height_in_map_units_minus1: u32,
@@ -783,36 +859,43 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn frame_crop_left_offset(mut self, frame_crop_left_offset: u32) -> Self {
             self.frame_crop_left_offset = frame_crop_left_offset;
             self
         }
 
+        #[inline]
         pub fn frame_crop_right_offset(mut self, frame_crop_right_offset: u32) -> Self {
             self.frame_crop_right_offset = frame_crop_right_offset;
             self
         }
 
+        #[inline]
         pub fn frame_crop_top_offset(mut self, frame_crop_top_offset: u32) -> Self {
             self.frame_crop_top_offset = frame_crop_top_offset;
             self
         }
 
+        #[inline]
         pub fn frame_crop_bottom_offset(mut self, frame_crop_bottom_offset: u32) -> Self {
             self.frame_crop_bottom_offset = frame_crop_bottom_offset;
             self
         }
 
+        #[inline]
         pub fn reserved2(mut self, reserved2: u32) -> Self {
             self.reserved2 = reserved2;
             self
         }
 
+        #[inline]
         pub fn scaling_lists(mut self, scaling_lists: &'a StdVideoH264ScalingLists) -> Self {
             self.p_scaling_lists = scaling_lists;
             self
         }
 
+        #[inline]
         pub fn sequence_parameter_set_vui(
             mut self,
             sequence_parameter_set_vui: &'a StdVideoH264SequenceParameterSetVui<'a>,
@@ -839,11 +922,13 @@ pub(super) mod defs {
     }
 
     impl StdVideoH264PpsFlags {
+        #[inline]
         pub fn transform_8x8_mode_flag(mut self, transform_8x8_mode_flag: u32) -> Self {
             self.transform_8x8_mode_flag = transform_8x8_mode_flag;
             self
         }
 
+        #[inline]
         pub fn redundant_pic_cnt_present_flag(
             mut self,
             redundant_pic_cnt_present_flag: u32,
@@ -852,11 +937,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn constrained_intra_pred_flag(mut self, constrained_intra_pred_flag: u32) -> Self {
             self.constrained_intra_pred_flag = constrained_intra_pred_flag;
             self
         }
 
+        #[inline]
         pub fn deblocking_filter_control_present_flag(
             mut self,
             deblocking_filter_control_present_flag: u32,
@@ -865,11 +952,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn weighted_pred_flag(mut self, weighted_pred_flag: u32) -> Self {
             self.weighted_pred_flag = weighted_pred_flag;
             self
         }
 
+        #[inline]
         pub fn bottom_field_pic_order_in_frame_present_flag(
             mut self,
             bottom_field_pic_order_in_frame_present_flag: u32,
@@ -879,11 +968,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn entropy_coding_mode_flag(mut self, entropy_coding_mode_flag: u32) -> Self {
             self.entropy_coding_mode_flag = entropy_coding_mode_flag;
             self
         }
 
+        #[inline]
         pub fn pic_scaling_matrix_present_flag(
             mut self,
             pic_scaling_matrix_present_flag: u32,
@@ -960,21 +1051,25 @@ pub(super) mod defs {
     }
 
     impl<'a> StdVideoH264PictureParameterSet<'a> {
+        #[inline]
         pub fn flags(mut self, flags: StdVideoH264PpsFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn seq_parameter_set_id(mut self, seq_parameter_set_id: u8) -> Self {
             self.seq_parameter_set_id = seq_parameter_set_id;
             self
         }
 
+        #[inline]
         pub fn pic_parameter_set_id(mut self, pic_parameter_set_id: u8) -> Self {
             self.pic_parameter_set_id = pic_parameter_set_id;
             self
         }
 
+        #[inline]
         pub fn num_ref_idx_l0_default_active_minus1(
             mut self,
             num_ref_idx_l0_default_active_minus1: u8,
@@ -983,6 +1078,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn num_ref_idx_l1_default_active_minus1(
             mut self,
             num_ref_idx_l1_default_active_minus1: u8,
@@ -991,6 +1087,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn weighted_bipred_idc(
             mut self,
             weighted_bipred_idc: StdVideoH264WeightedBipredIdc,
@@ -999,26 +1096,31 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn pic_init_qp_minus26(mut self, pic_init_qp_minus26: i8) -> Self {
             self.pic_init_qp_minus26 = pic_init_qp_minus26;
             self
         }
 
+        #[inline]
         pub fn pic_init_qs_minus26(mut self, pic_init_qs_minus26: i8) -> Self {
             self.pic_init_qs_minus26 = pic_init_qs_minus26;
             self
         }
 
+        #[inline]
         pub fn chroma_qp_index_offset(mut self, chroma_qp_index_offset: i8) -> Self {
             self.chroma_qp_index_offset = chroma_qp_index_offset;
             self
         }
 
+        #[inline]
         pub fn second_chroma_qp_index_offset(mut self, second_chroma_qp_index_offset: i8) -> Self {
             self.second_chroma_qp_index_offset = second_chroma_qp_index_offset;
             self
         }
 
+        #[inline]
         pub fn scaling_lists(mut self, scaling_lists: &'a StdVideoH264ScalingLists) -> Self {
             self.p_scaling_lists = scaling_lists;
             self

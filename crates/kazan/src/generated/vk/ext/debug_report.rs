@@ -64,16 +64,19 @@ pub(super) mod defs {
     }
 
     impl<'a> DebugReportCallbackCreateInfoEXT<'a> {
+        #[inline]
         pub fn flags(mut self, flags: DebugReportFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn pfn_callback(mut self, pfn_callback: PFN_vkDebugReportCallbackEXT) -> Self {
             self.pfn_callback = Some(pfn_callback);
             self
         }
 
+        #[inline]
         pub fn user_data(mut self, user_data: *mut c_void) -> Self {
             self.p_user_data = user_data;
             self
@@ -328,6 +331,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDebugReportCallbackEXT.html>
+    #[inline]
     pub unsafe fn create_debug_report_callback_ext(
         &self,
         instance: Instance,
@@ -351,6 +355,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDebugReportCallbackEXT.html>
+    #[inline]
     pub unsafe fn destroy_debug_report_callback_ext(
         &self,
         instance: Instance,
@@ -363,6 +368,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDebugReportMessageEXT.html>
+    #[inline]
     pub unsafe fn debug_report_message_ext(
         &self,
         instance: Instance,

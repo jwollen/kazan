@@ -77,6 +77,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeIntraRefreshCapabilitiesKHR<'a> {
+        #[inline]
         pub fn intra_refresh_modes(
             mut self,
             intra_refresh_modes: VideoEncodeIntraRefreshModeFlagsKHR,
@@ -85,6 +86,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_intra_refresh_cycle_duration(
             mut self,
             max_intra_refresh_cycle_duration: u32,
@@ -93,6 +95,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_intra_refresh_active_reference_pictures(
             mut self,
             max_intra_refresh_active_reference_pictures: u32,
@@ -102,6 +105,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn partition_independent_intra_refresh_regions(
             mut self,
             partition_independent_intra_refresh_regions: bool,
@@ -111,6 +115,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn non_rectangular_intra_refresh_regions(
             mut self,
             non_rectangular_intra_refresh_regions: bool,
@@ -165,6 +170,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeSessionIntraRefreshCreateInfoKHR<'a> {
+        #[inline]
         pub fn intra_refresh_mode(
             mut self,
             intra_refresh_mode: VideoEncodeIntraRefreshModeFlagBitsKHR,
@@ -220,11 +226,13 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeIntraRefreshInfoKHR<'a> {
+        #[inline]
         pub fn intra_refresh_cycle_duration(mut self, intra_refresh_cycle_duration: u32) -> Self {
             self.intra_refresh_cycle_duration = intra_refresh_cycle_duration;
             self
         }
 
+        #[inline]
         pub fn intra_refresh_index(mut self, intra_refresh_index: u32) -> Self {
             self.intra_refresh_index = intra_refresh_index;
             self
@@ -274,6 +282,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoReferenceIntraRefreshInfoKHR<'a> {
+        #[inline]
         pub fn dirty_intra_refresh_regions(mut self, dirty_intra_refresh_regions: u32) -> Self {
             self.dirty_intra_refresh_regions = dirty_intra_refresh_regions;
             self
@@ -331,6 +340,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR<'a> {
+        #[inline]
         pub fn video_encode_intra_refresh(mut self, video_encode_intra_refresh: bool) -> Self {
             self.video_encode_intra_refresh = video_encode_intra_refresh.into();
             self

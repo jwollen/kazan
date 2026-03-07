@@ -52,6 +52,7 @@ pub(super) mod defs {
     }
 
     impl<'a> TileMemoryBindInfoQCOM<'a> {
+        #[inline]
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
@@ -103,6 +104,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceTileMemoryHeapFeaturesQCOM<'a> {
+        #[inline]
         pub fn tile_memory_heap(mut self, tile_memory_heap: bool) -> Self {
             self.tile_memory_heap = tile_memory_heap.into();
             self
@@ -156,11 +158,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceTileMemoryHeapPropertiesQCOM<'a> {
+        #[inline]
         pub fn queue_submit_boundary(mut self, queue_submit_boundary: bool) -> Self {
             self.queue_submit_boundary = queue_submit_boundary.into();
             self
         }
 
+        #[inline]
         pub fn tile_buffer_transfers(mut self, tile_buffer_transfers: bool) -> Self {
             self.tile_buffer_transfers = tile_buffer_transfers.into();
             self
@@ -209,6 +213,7 @@ pub(super) mod defs {
     }
 
     impl<'a> TileMemorySizeInfoQCOM<'a> {
+        #[inline]
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
@@ -258,11 +263,13 @@ pub(super) mod defs {
     }
 
     impl<'a> TileMemoryRequirementsQCOM<'a> {
+        #[inline]
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
         }
 
+        #[inline]
         pub fn alignment(mut self, alignment: DeviceSize) -> Self {
             self.alignment = alignment;
             self
@@ -296,6 +303,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindTileMemoryQCOM.html>
+    #[inline]
     pub unsafe fn cmd_bind_tile_memory_qcom(
         &self,
         command_buffer: CommandBuffer,

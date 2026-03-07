@@ -52,6 +52,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SurfaceProtectedCapabilitiesKHR<'a> {
+        #[inline]
         pub fn supports_protected(mut self, supports_protected: bool) -> Self {
             self.supports_protected = supports_protected.into();
             self

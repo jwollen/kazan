@@ -56,6 +56,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineRasterizationStateRasterizationOrderAMD<'a> {
+        #[inline]
         pub fn rasterization_order(mut self, rasterization_order: RasterizationOrderAMD) -> Self {
             self.rasterization_order = rasterization_order;
             self

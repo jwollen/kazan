@@ -60,6 +60,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceCoverageReductionModeFeaturesNV<'a> {
+        #[inline]
         pub fn coverage_reduction_mode(mut self, coverage_reduction_mode: bool) -> Self {
             self.coverage_reduction_mode = coverage_reduction_mode.into();
             self
@@ -113,11 +114,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineCoverageReductionStateCreateInfoNV<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PipelineCoverageReductionStateCreateFlagsNV) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn coverage_reduction_mode(
             mut self,
             coverage_reduction_mode: CoverageReductionModeNV,
@@ -175,6 +178,7 @@ pub(super) mod defs {
     }
 
     impl<'a> FramebufferMixedSamplesCombinationNV<'a> {
+        #[inline]
         pub fn coverage_reduction_mode(
             mut self,
             coverage_reduction_mode: CoverageReductionModeNV,
@@ -183,16 +187,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn rasterization_samples(mut self, rasterization_samples: SampleCountFlagBits) -> Self {
             self.rasterization_samples = rasterization_samples;
             self
         }
 
+        #[inline]
         pub fn depth_stencil_samples(mut self, depth_stencil_samples: SampleCountFlags) -> Self {
             self.depth_stencil_samples = depth_stencil_samples;
             self
         }
 
+        #[inline]
         pub fn color_samples(mut self, color_samples: SampleCountFlags) -> Self {
             self.color_samples = color_samples;
             self
@@ -267,6 +274,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV.html>
+    #[inline]
     pub unsafe fn get_physical_device_supported_framebuffer_mixed_samples_combinations_nv<'a>(
         &self,
         physical_device: PhysicalDevice,

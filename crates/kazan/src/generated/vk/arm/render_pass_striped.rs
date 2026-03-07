@@ -57,6 +57,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceRenderPassStripedFeaturesARM<'a> {
+        #[inline]
         pub fn render_pass_striped(mut self, render_pass_striped: bool) -> Self {
             self.render_pass_striped = render_pass_striped.into();
             self
@@ -113,6 +114,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceRenderPassStripedPropertiesARM<'a> {
+        #[inline]
         pub fn render_pass_stripe_granularity(
             mut self,
             render_pass_stripe_granularity: Extent2D,
@@ -121,6 +123,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_render_pass_stripes(mut self, max_render_pass_stripes: u32) -> Self {
             self.max_render_pass_stripes = max_render_pass_stripes;
             self
@@ -165,6 +168,7 @@ pub(super) mod defs {
     }
 
     impl<'a> RenderPassStripeInfoARM<'a> {
+        #[inline]
         pub fn stripe_area(mut self, stripe_area: Rect2D) -> Self {
             self.stripe_area = stripe_area;
             self
@@ -215,6 +219,7 @@ pub(super) mod defs {
     }
 
     impl<'a> RenderPassStripeBeginInfoARM<'a> {
+        #[inline]
         pub fn stripe_infos(mut self, stripe_infos: &'a [RenderPassStripeInfoARM<'a>]) -> Self {
             self.stripe_info_count = stripe_infos.len().try_into().unwrap();
             self.p_stripe_infos = stripe_infos.as_ptr();
@@ -268,6 +273,7 @@ pub(super) mod defs {
     }
 
     impl<'a> RenderPassStripeSubmitInfoARM<'a> {
+        #[inline]
         pub fn stripe_semaphore_infos(
             mut self,
             stripe_semaphore_infos: &'a [SemaphoreSubmitInfo<'a>],

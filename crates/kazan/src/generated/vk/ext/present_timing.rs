@@ -63,16 +63,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePresentTimingFeaturesEXT<'a> {
+        #[inline]
         pub fn present_timing(mut self, present_timing: bool) -> Self {
             self.present_timing = present_timing.into();
             self
         }
 
+        #[inline]
         pub fn present_at_absolute_time(mut self, present_at_absolute_time: bool) -> Self {
             self.present_at_absolute_time = present_at_absolute_time.into();
             self
         }
 
+        #[inline]
         pub fn present_at_relative_time(mut self, present_at_relative_time: bool) -> Self {
             self.present_at_relative_time = present_at_relative_time.into();
             self
@@ -135,11 +138,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PresentTimingSurfaceCapabilitiesEXT<'a> {
+        #[inline]
         pub fn present_timing_supported(mut self, present_timing_supported: bool) -> Self {
             self.present_timing_supported = present_timing_supported.into();
             self
         }
 
+        #[inline]
         pub fn present_at_absolute_time_supported(
             mut self,
             present_at_absolute_time_supported: bool,
@@ -148,6 +153,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn present_at_relative_time_supported(
             mut self,
             present_at_relative_time_supported: bool,
@@ -156,6 +162,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn present_stage_queries(
             mut self,
             present_stage_queries: PresentStageFlagsEXT,
@@ -206,11 +213,13 @@ pub(super) mod defs {
     }
 
     impl<'a> SwapchainTimingPropertiesEXT<'a> {
+        #[inline]
         pub fn refresh_duration(mut self, refresh_duration: u64) -> Self {
             self.refresh_duration = refresh_duration;
             self
         }
 
+        #[inline]
         pub fn refresh_interval(mut self, refresh_interval: u64) -> Self {
             self.refresh_interval = refresh_interval;
             self
@@ -261,12 +270,14 @@ pub(super) mod defs {
     }
 
     impl<'a> SwapchainTimeDomainPropertiesEXT<'a> {
+        #[inline]
         pub fn time_domains(mut self, time_domains: &'a mut [TimeDomainKHR]) -> Self {
             self.time_domain_count = time_domains.len().try_into().unwrap();
             self.p_time_domains = time_domains.as_mut_ptr();
             self
         }
 
+        #[inline]
         pub fn time_domain_ids(mut self, time_domain_ids: &'a mut [u64]) -> Self {
             self.time_domain_count = time_domain_ids.len().try_into().unwrap();
             self.p_time_domain_ids = time_domain_ids.as_mut_ptr();
@@ -285,11 +296,13 @@ pub(super) mod defs {
     }
 
     impl PresentStageTimeEXT {
+        #[inline]
         pub fn stage(mut self, stage: PresentStageFlagsEXT) -> Self {
             self.stage = stage;
             self
         }
 
+        #[inline]
         pub fn time(mut self, time: u64) -> Self {
             self.time = time;
             self
@@ -337,11 +350,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PastPresentationTimingInfoEXT<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PastPresentationTimingFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn swapchain(mut self, swapchain: SwapchainKHR) -> Self {
             self.swapchain = swapchain;
             self
@@ -396,16 +411,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PastPresentationTimingPropertiesEXT<'a> {
+        #[inline]
         pub fn timing_properties_counter(mut self, timing_properties_counter: u64) -> Self {
             self.timing_properties_counter = timing_properties_counter;
             self
         }
 
+        #[inline]
         pub fn time_domains_counter(mut self, time_domains_counter: u64) -> Self {
             self.time_domains_counter = time_domains_counter;
             self
         }
 
+        #[inline]
         pub fn presentation_timings(
             mut self,
             presentation_timings: &'a mut [PastPresentationTimingEXT<'a>],
@@ -472,32 +490,38 @@ pub(super) mod defs {
     }
 
     impl<'a> PastPresentationTimingEXT<'a> {
+        #[inline]
         pub fn present_id(mut self, present_id: u64) -> Self {
             self.present_id = present_id;
             self
         }
 
+        #[inline]
         pub fn target_time(mut self, target_time: u64) -> Self {
             self.target_time = target_time;
             self
         }
 
+        #[inline]
         pub fn present_stages(mut self, present_stages: &'a mut [PresentStageTimeEXT]) -> Self {
             self.present_stage_count = present_stages.len().try_into().unwrap();
             self.p_present_stages = present_stages.as_mut_ptr();
             self
         }
 
+        #[inline]
         pub fn time_domain(mut self, time_domain: TimeDomainKHR) -> Self {
             self.time_domain = time_domain;
             self
         }
 
+        #[inline]
         pub fn time_domain_id(mut self, time_domain_id: u64) -> Self {
             self.time_domain_id = time_domain_id;
             self
         }
 
+        #[inline]
         pub fn report_complete(mut self, report_complete: bool) -> Self {
             self.report_complete = report_complete.into();
             self
@@ -547,6 +571,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PresentTimingsInfoEXT<'a> {
+        #[inline]
         pub fn timing_infos(mut self, timing_infos: &'a [PresentTimingInfoEXT<'a>]) -> Self {
             self.swapchain_count = timing_infos.len().try_into().unwrap();
             self.p_timing_infos = timing_infos.as_ptr();
@@ -607,21 +632,25 @@ pub(super) mod defs {
     }
 
     impl<'a> PresentTimingInfoEXT<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PresentTimingInfoFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn target_time(mut self, target_time: u64) -> Self {
             self.target_time = target_time;
             self
         }
 
+        #[inline]
         pub fn time_domain_id(mut self, time_domain_id: u64) -> Self {
             self.time_domain_id = time_domain_id;
             self
         }
 
+        #[inline]
         pub fn present_stage_queries(
             mut self,
             present_stage_queries: PresentStageFlagsEXT,
@@ -630,6 +659,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn target_time_domain_present_stage(
             mut self,
             target_time_domain_present_stage: PresentStageFlagsEXT,
@@ -689,16 +719,19 @@ pub(super) mod defs {
     }
 
     impl<'a> SwapchainCalibratedTimestampInfoEXT<'a> {
+        #[inline]
         pub fn swapchain(mut self, swapchain: SwapchainKHR) -> Self {
             self.swapchain = swapchain;
             self
         }
 
+        #[inline]
         pub fn present_stage(mut self, present_stage: PresentStageFlagsEXT) -> Self {
             self.present_stage = present_stage;
             self
         }
 
+        #[inline]
         pub fn time_domain_id(mut self, time_domain_id: u64) -> Self {
             self.time_domain_id = time_domain_id;
             self
@@ -944,6 +977,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetSwapchainPresentTimingQueueSizeEXT.html>
+    #[inline]
     pub unsafe fn set_swapchain_present_timing_queue_size_ext(
         &self,
         device: Device,
@@ -962,6 +996,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSwapchainTimingPropertiesEXT.html>
+    #[inline]
     pub unsafe fn get_swapchain_timing_properties_ext(
         &self,
         device: Device,
@@ -985,6 +1020,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSwapchainTimeDomainPropertiesEXT.html>
+    #[inline]
     pub unsafe fn get_swapchain_time_domain_properties_ext(
         &self,
         device: Device,
@@ -1008,6 +1044,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPastPresentationTimingEXT.html>
+    #[inline]
     pub unsafe fn get_past_presentation_timing_ext(
         &self,
         device: Device,

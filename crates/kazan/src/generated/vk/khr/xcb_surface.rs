@@ -56,16 +56,19 @@ pub(super) mod defs {
     }
 
     impl<'a> XcbSurfaceCreateInfoKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: XcbSurfaceCreateFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn connection(mut self, connection: *mut xcb_connection_t) -> Self {
             self.connection = connection;
             self
         }
 
+        #[inline]
         pub fn window(mut self, window: xcb_window_t) -> Self {
             self.window = window;
             self
@@ -127,6 +130,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateXcbSurfaceKHR.html>
+    #[inline]
     pub unsafe fn create_xcb_surface_khr(
         &self,
         instance: Instance,
@@ -150,6 +154,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceXcbPresentationSupportKHR.html>
+    #[inline]
     pub unsafe fn get_physical_device_xcb_presentation_support_khr(
         &self,
         physical_device: PhysicalDevice,

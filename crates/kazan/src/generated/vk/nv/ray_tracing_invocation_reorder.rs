@@ -66,6 +66,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceRayTracingInvocationReorderFeaturesNV<'a> {
+        #[inline]
         pub fn ray_tracing_invocation_reorder(
             mut self,
             ray_tracing_invocation_reorder: bool,
@@ -122,6 +123,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceRayTracingInvocationReorderPropertiesNV<'a> {
+        #[inline]
         pub fn ray_tracing_invocation_reorder_reordering_hint(
             mut self,
             ray_tracing_invocation_reorder_reordering_hint: RayTracingInvocationReorderModeEXT,

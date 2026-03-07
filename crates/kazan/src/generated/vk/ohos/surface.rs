@@ -55,11 +55,13 @@ pub(super) mod defs {
     }
 
     impl<'a> SurfaceCreateInfoOHOS<'a> {
+        #[inline]
         pub fn flags(mut self, flags: SurfaceCreateFlagsOHOS) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn window(mut self, window: &'a mut OHNativeWindow) -> Self {
             self.window = window;
             self
@@ -107,6 +109,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSurfaceOHOS.html>
+    #[inline]
     pub unsafe fn create_surface_ohos(
         &self,
         instance: Instance,

@@ -55,11 +55,13 @@ pub(super) mod defs {
     }
 
     impl<'a> AndroidSurfaceCreateInfoKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: AndroidSurfaceCreateFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn window(mut self, window: *mut ANativeWindow) -> Self {
             self.window = window;
             self
@@ -107,6 +109,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateAndroidSurfaceKHR.html>
+    #[inline]
     pub unsafe fn create_android_surface_khr(
         &self,
         instance: Instance,

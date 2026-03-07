@@ -52,6 +52,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageViewASTCDecodeModeEXT<'a> {
+        #[inline]
         pub fn decode_mode(mut self, decode_mode: Format) -> Self {
             self.decode_mode = decode_mode;
             self
@@ -103,6 +104,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceASTCDecodeFeaturesEXT<'a> {
+        #[inline]
         pub fn decode_mode_shared_exponent(mut self, decode_mode_shared_exponent: bool) -> Self {
             self.decode_mode_shared_exponent = decode_mode_shared_exponent.into();
             self

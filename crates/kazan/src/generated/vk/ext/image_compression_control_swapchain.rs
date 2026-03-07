@@ -65,6 +65,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceImageCompressionControlSwapchainFeaturesEXT<'a> {
+        #[inline]
         pub fn image_compression_control_swapchain(
             mut self,
             image_compression_control_swapchain: bool,

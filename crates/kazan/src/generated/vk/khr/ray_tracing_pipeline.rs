@@ -71,31 +71,37 @@ pub(super) mod defs {
     }
 
     impl<'a> RayTracingShaderGroupCreateInfoKHR<'a> {
+        #[inline]
         pub fn ty(mut self, ty: RayTracingShaderGroupTypeKHR) -> Self {
             self.ty = ty;
             self
         }
 
+        #[inline]
         pub fn general_shader(mut self, general_shader: u32) -> Self {
             self.general_shader = general_shader;
             self
         }
 
+        #[inline]
         pub fn closest_hit_shader(mut self, closest_hit_shader: u32) -> Self {
             self.closest_hit_shader = closest_hit_shader;
             self
         }
 
+        #[inline]
         pub fn any_hit_shader(mut self, any_hit_shader: u32) -> Self {
             self.any_hit_shader = any_hit_shader;
             self
         }
 
+        #[inline]
         pub fn intersection_shader(mut self, intersection_shader: u32) -> Self {
             self.intersection_shader = intersection_shader;
             self
         }
 
+        #[inline]
         pub fn shader_group_capture_replay_handle(
             mut self,
             shader_group_capture_replay_handle: *const c_void,
@@ -179,23 +185,27 @@ pub(super) mod defs {
     }
 
     impl<'a> RayTracingPipelineCreateInfoKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PipelineCreateFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn stages(mut self, stages: &'a [PipelineShaderStageCreateInfo<'a>]) -> Self {
             self.stage_count = stages.len().try_into().unwrap();
             self.p_stages = stages.as_ptr();
             self
         }
 
+        #[inline]
         pub fn groups(mut self, groups: &'a [RayTracingShaderGroupCreateInfoKHR<'a>]) -> Self {
             self.group_count = groups.len().try_into().unwrap();
             self.p_groups = groups.as_ptr();
             self
         }
 
+        #[inline]
         pub fn max_pipeline_ray_recursion_depth(
             mut self,
             max_pipeline_ray_recursion_depth: u32,
@@ -204,11 +214,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn library_info(mut self, library_info: &'a PipelineLibraryCreateInfoKHR<'a>) -> Self {
             self.p_library_info = library_info;
             self
         }
 
+        #[inline]
         pub fn library_interface(
             mut self,
             library_interface: &'a RayTracingPipelineInterfaceCreateInfoKHR<'a>,
@@ -217,6 +229,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn dynamic_state(
             mut self,
             dynamic_state: &'a PipelineDynamicStateCreateInfo<'a>,
@@ -225,16 +238,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn layout(mut self, layout: PipelineLayout) -> Self {
             self.layout = layout;
             self
         }
 
+        #[inline]
         pub fn base_pipeline_handle(mut self, base_pipeline_handle: Pipeline) -> Self {
             self.base_pipeline_handle = base_pipeline_handle;
             self
         }
 
+        #[inline]
         pub fn base_pipeline_index(mut self, base_pipeline_index: i32) -> Self {
             self.base_pipeline_index = base_pipeline_index;
             self
@@ -310,11 +326,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceRayTracingPipelineFeaturesKHR<'a> {
+        #[inline]
         pub fn ray_tracing_pipeline(mut self, ray_tracing_pipeline: bool) -> Self {
             self.ray_tracing_pipeline = ray_tracing_pipeline.into();
             self
         }
 
+        #[inline]
         pub fn ray_tracing_pipeline_shader_group_handle_capture_replay(
             mut self,
             ray_tracing_pipeline_shader_group_handle_capture_replay: bool,
@@ -324,6 +342,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn ray_tracing_pipeline_shader_group_handle_capture_replay_mixed(
             mut self,
             ray_tracing_pipeline_shader_group_handle_capture_replay_mixed: bool,
@@ -333,6 +352,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn ray_tracing_pipeline_trace_rays_indirect(
             mut self,
             ray_tracing_pipeline_trace_rays_indirect: bool,
@@ -342,6 +362,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn ray_traversal_primitive_culling(
             mut self,
             ray_traversal_primitive_culling: bool,
@@ -431,26 +452,31 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceRayTracingPipelinePropertiesKHR<'a> {
+        #[inline]
         pub fn shader_group_handle_size(mut self, shader_group_handle_size: u32) -> Self {
             self.shader_group_handle_size = shader_group_handle_size;
             self
         }
 
+        #[inline]
         pub fn max_ray_recursion_depth(mut self, max_ray_recursion_depth: u32) -> Self {
             self.max_ray_recursion_depth = max_ray_recursion_depth;
             self
         }
 
+        #[inline]
         pub fn max_shader_group_stride(mut self, max_shader_group_stride: u32) -> Self {
             self.max_shader_group_stride = max_shader_group_stride;
             self
         }
 
+        #[inline]
         pub fn shader_group_base_alignment(mut self, shader_group_base_alignment: u32) -> Self {
             self.shader_group_base_alignment = shader_group_base_alignment;
             self
         }
 
+        #[inline]
         pub fn shader_group_handle_capture_replay_size(
             mut self,
             shader_group_handle_capture_replay_size: u32,
@@ -459,6 +485,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_ray_dispatch_invocation_count(
             mut self,
             max_ray_dispatch_invocation_count: u32,
@@ -467,11 +494,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_group_handle_alignment(mut self, shader_group_handle_alignment: u32) -> Self {
             self.shader_group_handle_alignment = shader_group_handle_alignment;
             self
         }
 
+        #[inline]
         pub fn max_ray_hit_attribute_size(mut self, max_ray_hit_attribute_size: u32) -> Self {
             self.max_ray_hit_attribute_size = max_ray_hit_attribute_size;
             self
@@ -490,16 +519,19 @@ pub(super) mod defs {
     }
 
     impl StridedDeviceAddressRegionKHR {
+        #[inline]
         pub fn device_address(mut self, device_address: DeviceAddress) -> Self {
             self.device_address = device_address;
             self
         }
 
+        #[inline]
         pub fn stride(mut self, stride: DeviceSize) -> Self {
             self.stride = stride;
             self
         }
 
+        #[inline]
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
@@ -518,16 +550,19 @@ pub(super) mod defs {
     }
 
     impl TraceRaysIndirectCommandKHR {
+        #[inline]
         pub fn width(mut self, width: u32) -> Self {
             self.width = width;
             self
         }
 
+        #[inline]
         pub fn height(mut self, height: u32) -> Self {
             self.height = height;
             self
         }
 
+        #[inline]
         pub fn depth(mut self, depth: u32) -> Self {
             self.depth = depth;
             self
@@ -582,11 +617,13 @@ pub(super) mod defs {
     }
 
     impl<'a> RayTracingPipelineInterfaceCreateInfoKHR<'a> {
+        #[inline]
         pub fn max_pipeline_ray_payload_size(mut self, max_pipeline_ray_payload_size: u32) -> Self {
             self.max_pipeline_ray_payload_size = max_pipeline_ray_payload_size;
             self
         }
 
+        #[inline]
         pub fn max_pipeline_ray_hit_attribute_size(
             mut self,
             max_pipeline_ray_hit_attribute_size: u32,
@@ -767,6 +804,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdTraceRaysKHR.html>
+    #[inline]
     pub unsafe fn cmd_trace_rays_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -793,6 +831,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateRayTracingPipelinesKHR.html>
+    #[inline]
     pub unsafe fn create_ray_tracing_pipelines_khr(
         &self,
         device: Device,
@@ -821,6 +860,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRayTracingShaderGroupHandlesKHR.html>
+    #[inline]
     pub unsafe fn get_ray_tracing_shader_group_handles_khr(
         &self,
         device: Device,
@@ -847,6 +887,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRayTracingCaptureReplayShaderGroupHandlesKHR.html>
+    #[inline]
     pub unsafe fn get_ray_tracing_capture_replay_shader_group_handles_khr(
         &self,
         device: Device,
@@ -873,6 +914,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdTraceRaysIndirectKHR.html>
+    #[inline]
     pub unsafe fn cmd_trace_rays_indirect_khr(
         &self,
         command_buffer: CommandBuffer,
@@ -895,6 +937,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRayTracingShaderGroupStackSizeKHR.html>
+    #[inline]
     pub unsafe fn get_ray_tracing_shader_group_stack_size_khr(
         &self,
         device: Device,
@@ -913,6 +956,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRayTracingPipelineStackSizeKHR.html>
+    #[inline]
     pub unsafe fn cmd_set_ray_tracing_pipeline_stack_size_khr(
         &self,
         command_buffer: CommandBuffer,

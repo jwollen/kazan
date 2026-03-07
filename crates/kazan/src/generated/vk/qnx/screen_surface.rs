@@ -56,16 +56,19 @@ pub(super) mod defs {
     }
 
     impl<'a> ScreenSurfaceCreateInfoQNX<'a> {
+        #[inline]
         pub fn flags(mut self, flags: ScreenSurfaceCreateFlagsQNX) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn context(mut self, context: *mut _screen_context) -> Self {
             self.context = context;
             self
         }
 
+        #[inline]
         pub fn window(mut self, window: *mut _screen_window) -> Self {
             self.window = window;
             self
@@ -126,6 +129,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateScreenSurfaceQNX.html>
+    #[inline]
     pub unsafe fn create_screen_surface_qnx(
         &self,
         instance: Instance,
@@ -149,6 +153,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceScreenPresentationSupportQNX.html>
+    #[inline]
     pub unsafe fn get_physical_device_screen_presentation_support_qnx(
         &self,
         physical_device: PhysicalDevice,

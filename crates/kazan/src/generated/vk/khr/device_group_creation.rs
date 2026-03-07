@@ -39,6 +39,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumeratePhysicalDeviceGroupsKHR.html>
+    #[inline]
     pub unsafe fn enumerate_physical_device_groups_khr<'a>(
         &self,
         instance: Instance,

@@ -59,6 +59,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeQuantizationMapCapabilitiesKHR<'a> {
+        #[inline]
         pub fn max_quantization_map_extent(
             mut self,
             max_quantization_map_extent: Extent2D,
@@ -115,11 +116,13 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeH264QuantizationMapCapabilitiesKHR<'a> {
+        #[inline]
         pub fn min_qp_delta(mut self, min_qp_delta: i32) -> Self {
             self.min_qp_delta = min_qp_delta;
             self
         }
 
+        #[inline]
         pub fn max_qp_delta(mut self, max_qp_delta: i32) -> Self {
             self.max_qp_delta = max_qp_delta;
             self
@@ -173,11 +176,13 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeH265QuantizationMapCapabilitiesKHR<'a> {
+        #[inline]
         pub fn min_qp_delta(mut self, min_qp_delta: i32) -> Self {
             self.min_qp_delta = min_qp_delta;
             self
         }
 
+        #[inline]
         pub fn max_qp_delta(mut self, max_qp_delta: i32) -> Self {
             self.max_qp_delta = max_qp_delta;
             self
@@ -231,11 +236,13 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeAV1QuantizationMapCapabilitiesKHR<'a> {
+        #[inline]
         pub fn min_q_index_delta(mut self, min_q_index_delta: i32) -> Self {
             self.min_q_index_delta = min_q_index_delta;
             self
         }
 
+        #[inline]
         pub fn max_q_index_delta(mut self, max_q_index_delta: i32) -> Self {
             self.max_q_index_delta = max_q_index_delta;
             self
@@ -289,6 +296,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoFormatQuantizationMapPropertiesKHR<'a> {
+        #[inline]
         pub fn quantization_map_texel_size(
             mut self,
             quantization_map_texel_size: Extent2D,
@@ -342,6 +350,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoFormatH265QuantizationMapPropertiesKHR<'a> {
+        #[inline]
         pub fn compatible_ctb_sizes(
             mut self,
             compatible_ctb_sizes: VideoEncodeH265CtbSizeFlagsKHR,
@@ -398,6 +407,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoFormatAV1QuantizationMapPropertiesKHR<'a> {
+        #[inline]
         pub fn compatible_superblock_sizes(
             mut self,
             compatible_superblock_sizes: VideoEncodeAV1SuperblockSizeFlagsKHR,
@@ -450,11 +460,13 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeQuantizationMapInfoKHR<'a> {
+        #[inline]
         pub fn quantization_map(mut self, quantization_map: ImageView) -> Self {
             self.quantization_map = quantization_map;
             self
         }
 
+        #[inline]
         pub fn quantization_map_extent(mut self, quantization_map_extent: Extent2D) -> Self {
             self.quantization_map_extent = quantization_map_extent;
             self
@@ -510,6 +522,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeQuantizationMapSessionParametersCreateInfoKHR<'a> {
+        #[inline]
         pub fn quantization_map_texel_size(
             mut self,
             quantization_map_texel_size: Extent2D,
@@ -570,6 +583,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR<'a> {
+        #[inline]
         pub fn video_encode_quantization_map(
             mut self,
             video_encode_quantization_map: bool,

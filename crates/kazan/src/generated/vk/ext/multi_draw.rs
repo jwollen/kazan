@@ -23,11 +23,13 @@ pub(super) mod defs {
     }
 
     impl MultiDrawInfoEXT {
+        #[inline]
         pub fn first_vertex(mut self, first_vertex: u32) -> Self {
             self.first_vertex = first_vertex;
             self
         }
 
+        #[inline]
         pub fn vertex_count(mut self, vertex_count: u32) -> Self {
             self.vertex_count = vertex_count;
             self
@@ -46,16 +48,19 @@ pub(super) mod defs {
     }
 
     impl MultiDrawIndexedInfoEXT {
+        #[inline]
         pub fn first_index(mut self, first_index: u32) -> Self {
             self.first_index = first_index;
             self
         }
 
+        #[inline]
         pub fn index_count(mut self, index_count: u32) -> Self {
             self.index_count = index_count;
             self
         }
 
+        #[inline]
         pub fn vertex_offset(mut self, vertex_offset: i32) -> Self {
             self.vertex_offset = vertex_offset;
             self
@@ -106,6 +111,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMultiDrawPropertiesEXT<'a> {
+        #[inline]
         pub fn max_multi_draw_count(mut self, max_multi_draw_count: u32) -> Self {
             self.max_multi_draw_count = max_multi_draw_count;
             self
@@ -154,6 +160,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMultiDrawFeaturesEXT<'a> {
+        #[inline]
         pub fn multi_draw(mut self, multi_draw: bool) -> Self {
             self.multi_draw = multi_draw.into();
             self
@@ -205,6 +212,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawMultiEXT.html>
+    #[inline]
     pub unsafe fn cmd_draw_multi_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -226,6 +234,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawMultiIndexedEXT.html>
+    #[inline]
     pub unsafe fn cmd_draw_multi_indexed_ext(
         &self,
         command_buffer: CommandBuffer,

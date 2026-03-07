@@ -63,6 +63,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDenseGeometryFormatFeaturesAMDX<'a> {
+        #[inline]
         pub fn dense_geometry_format(mut self, dense_geometry_format: bool) -> Self {
             self.dense_geometry_format = dense_geometry_format.into();
             self
@@ -133,36 +134,43 @@ pub(super) mod defs {
     }
 
     impl<'a> AccelerationStructureDenseGeometryFormatTrianglesDataAMDX<'a> {
+        #[inline]
         pub fn compressed_data(mut self, compressed_data: DeviceOrHostAddressConstKHR<'a>) -> Self {
             self.compressed_data = compressed_data;
             self
         }
 
+        #[inline]
         pub fn data_size(mut self, data_size: DeviceSize) -> Self {
             self.data_size = data_size;
             self
         }
 
+        #[inline]
         pub fn num_triangles(mut self, num_triangles: u32) -> Self {
             self.num_triangles = num_triangles;
             self
         }
 
+        #[inline]
         pub fn num_vertices(mut self, num_vertices: u32) -> Self {
             self.num_vertices = num_vertices;
             self
         }
 
+        #[inline]
         pub fn max_primitive_index(mut self, max_primitive_index: u32) -> Self {
             self.max_primitive_index = max_primitive_index;
             self
         }
 
+        #[inline]
         pub fn max_geometry_index(mut self, max_geometry_index: u32) -> Self {
             self.max_geometry_index = max_geometry_index;
             self
         }
 
+        #[inline]
         pub fn format(mut self, format: CompressedTriangleFormatAMDX) -> Self {
             self.format = format;
             self

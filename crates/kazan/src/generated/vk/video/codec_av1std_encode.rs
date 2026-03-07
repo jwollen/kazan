@@ -23,11 +23,13 @@ pub(super) mod defs {
     }
 
     impl StdVideoEncodeAV1ExtensionHeader {
+        #[inline]
         pub fn temporal_id(mut self, temporal_id: u8) -> Self {
             self.temporal_id = temporal_id;
             self
         }
 
+        #[inline]
         pub fn spatial_id(mut self, spatial_id: u8) -> Self {
             self.spatial_id = spatial_id;
             self
@@ -48,11 +50,13 @@ pub(super) mod defs {
     }
 
     impl StdVideoEncodeAV1DecoderModelInfo {
+        #[inline]
         pub fn buffer_delay_length_minus_1(mut self, buffer_delay_length_minus_1: u8) -> Self {
             self.buffer_delay_length_minus_1 = buffer_delay_length_minus_1;
             self
         }
 
+        #[inline]
         pub fn buffer_removal_time_length_minus_1(
             mut self,
             buffer_removal_time_length_minus_1: u8,
@@ -61,6 +65,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn frame_presentation_time_length_minus_1(
             mut self,
             frame_presentation_time_length_minus_1: u8,
@@ -69,11 +74,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn reserved1(mut self, reserved1: u8) -> Self {
             self.reserved1 = reserved1;
             self
         }
 
+        #[inline]
         pub fn num_units_in_decoding_tick(mut self, num_units_in_decoding_tick: u32) -> Self {
             self.num_units_in_decoding_tick = num_units_in_decoding_tick;
             self
@@ -93,6 +100,7 @@ pub(super) mod defs {
     }
 
     impl StdVideoEncodeAV1OperatingPointInfoFlags {
+        #[inline]
         pub fn decoder_model_present_for_this_op(
             mut self,
             decoder_model_present_for_this_op: u32,
@@ -101,11 +109,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn low_delay_mode_flag(mut self, low_delay_mode_flag: u32) -> Self {
             self.low_delay_mode_flag = low_delay_mode_flag;
             self
         }
 
+        #[inline]
         pub fn initial_display_delay_present_for_this_op(
             mut self,
             initial_display_delay_present_for_this_op: u32,
@@ -115,6 +125,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn reserved(mut self, reserved: u32) -> Self {
             self.reserved = reserved;
             self
@@ -137,36 +148,43 @@ pub(super) mod defs {
     }
 
     impl StdVideoEncodeAV1OperatingPointInfo {
+        #[inline]
         pub fn flags(mut self, flags: StdVideoEncodeAV1OperatingPointInfoFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn operating_point_idc(mut self, operating_point_idc: u16) -> Self {
             self.operating_point_idc = operating_point_idc;
             self
         }
 
+        #[inline]
         pub fn seq_level_idx(mut self, seq_level_idx: u8) -> Self {
             self.seq_level_idx = seq_level_idx;
             self
         }
 
+        #[inline]
         pub fn seq_tier(mut self, seq_tier: u8) -> Self {
             self.seq_tier = seq_tier;
             self
         }
 
+        #[inline]
         pub fn decoder_buffer_delay(mut self, decoder_buffer_delay: u32) -> Self {
             self.decoder_buffer_delay = decoder_buffer_delay;
             self
         }
 
+        #[inline]
         pub fn encoder_buffer_delay(mut self, encoder_buffer_delay: u32) -> Self {
             self.encoder_buffer_delay = encoder_buffer_delay;
             self
         }
 
+        #[inline]
         pub fn initial_display_delay_minus_1(mut self, initial_display_delay_minus_1: u8) -> Self {
             self.initial_display_delay_minus_1 = initial_display_delay_minus_1;
             self
@@ -212,21 +230,25 @@ pub(super) mod defs {
     }
 
     impl StdVideoEncodeAV1PictureInfoFlags {
+        #[inline]
         pub fn error_resilient_mode(mut self, error_resilient_mode: u32) -> Self {
             self.error_resilient_mode = error_resilient_mode;
             self
         }
 
+        #[inline]
         pub fn disable_cdf_update(mut self, disable_cdf_update: u32) -> Self {
             self.disable_cdf_update = disable_cdf_update;
             self
         }
 
+        #[inline]
         pub fn use_superres(mut self, use_superres: u32) -> Self {
             self.use_superres = use_superres;
             self
         }
 
+        #[inline]
         pub fn render_and_frame_size_different(
             mut self,
             render_and_frame_size_different: u32,
@@ -235,26 +257,31 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn allow_screen_content_tools(mut self, allow_screen_content_tools: u32) -> Self {
             self.allow_screen_content_tools = allow_screen_content_tools;
             self
         }
 
+        #[inline]
         pub fn is_filter_switchable(mut self, is_filter_switchable: u32) -> Self {
             self.is_filter_switchable = is_filter_switchable;
             self
         }
 
+        #[inline]
         pub fn force_integer_mv(mut self, force_integer_mv: u32) -> Self {
             self.force_integer_mv = force_integer_mv;
             self
         }
 
+        #[inline]
         pub fn frame_size_override_flag(mut self, frame_size_override_flag: u32) -> Self {
             self.frame_size_override_flag = frame_size_override_flag;
             self
         }
 
+        #[inline]
         pub fn buffer_removal_time_present_flag(
             mut self,
             buffer_removal_time_present_flag: u32,
@@ -263,106 +290,127 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn allow_intrabc(mut self, allow_intrabc: u32) -> Self {
             self.allow_intrabc = allow_intrabc;
             self
         }
 
+        #[inline]
         pub fn frame_refs_short_signaling(mut self, frame_refs_short_signaling: u32) -> Self {
             self.frame_refs_short_signaling = frame_refs_short_signaling;
             self
         }
 
+        #[inline]
         pub fn allow_high_precision_mv(mut self, allow_high_precision_mv: u32) -> Self {
             self.allow_high_precision_mv = allow_high_precision_mv;
             self
         }
 
+        #[inline]
         pub fn is_motion_mode_switchable(mut self, is_motion_mode_switchable: u32) -> Self {
             self.is_motion_mode_switchable = is_motion_mode_switchable;
             self
         }
 
+        #[inline]
         pub fn use_ref_frame_mvs(mut self, use_ref_frame_mvs: u32) -> Self {
             self.use_ref_frame_mvs = use_ref_frame_mvs;
             self
         }
 
+        #[inline]
         pub fn disable_frame_end_update_cdf(mut self, disable_frame_end_update_cdf: u32) -> Self {
             self.disable_frame_end_update_cdf = disable_frame_end_update_cdf;
             self
         }
 
+        #[inline]
         pub fn allow_warped_motion(mut self, allow_warped_motion: u32) -> Self {
             self.allow_warped_motion = allow_warped_motion;
             self
         }
 
+        #[inline]
         pub fn reduced_tx_set(mut self, reduced_tx_set: u32) -> Self {
             self.reduced_tx_set = reduced_tx_set;
             self
         }
 
+        #[inline]
         pub fn skip_mode_present(mut self, skip_mode_present: u32) -> Self {
             self.skip_mode_present = skip_mode_present;
             self
         }
 
+        #[inline]
         pub fn delta_q_present(mut self, delta_q_present: u32) -> Self {
             self.delta_q_present = delta_q_present;
             self
         }
 
+        #[inline]
         pub fn delta_lf_present(mut self, delta_lf_present: u32) -> Self {
             self.delta_lf_present = delta_lf_present;
             self
         }
 
+        #[inline]
         pub fn delta_lf_multi(mut self, delta_lf_multi: u32) -> Self {
             self.delta_lf_multi = delta_lf_multi;
             self
         }
 
+        #[inline]
         pub fn segmentation_enabled(mut self, segmentation_enabled: u32) -> Self {
             self.segmentation_enabled = segmentation_enabled;
             self
         }
 
+        #[inline]
         pub fn segmentation_update_map(mut self, segmentation_update_map: u32) -> Self {
             self.segmentation_update_map = segmentation_update_map;
             self
         }
 
+        #[inline]
         pub fn segmentation_temporal_update(mut self, segmentation_temporal_update: u32) -> Self {
             self.segmentation_temporal_update = segmentation_temporal_update;
             self
         }
 
+        #[inline]
         pub fn segmentation_update_data(mut self, segmentation_update_data: u32) -> Self {
             self.segmentation_update_data = segmentation_update_data;
             self
         }
 
+        #[inline]
         pub fn uses_lr(mut self, uses_lr: u32) -> Self {
             self.uses_lr = uses_lr;
             self
         }
 
+        #[inline]
         pub fn uses_chroma_lr(mut self, uses_chroma_lr: u32) -> Self {
             self.uses_chroma_lr = uses_chroma_lr;
             self
         }
 
+        #[inline]
         pub fn show_frame(mut self, show_frame: u32) -> Self {
             self.show_frame = show_frame;
             self
         }
 
+        #[inline]
         pub fn showable_frame(mut self, showable_frame: u32) -> Self {
             self.showable_frame = showable_frame;
             self
         }
 
+        #[inline]
         pub fn reserved(mut self, reserved: u32) -> Self {
             self.reserved = reserved;
             self
@@ -475,56 +523,67 @@ pub(super) mod defs {
     }
 
     impl<'a> StdVideoEncodeAV1PictureInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: StdVideoEncodeAV1PictureInfoFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn frame_type(mut self, frame_type: StdVideoAV1FrameType) -> Self {
             self.frame_type = frame_type;
             self
         }
 
+        #[inline]
         pub fn frame_presentation_time(mut self, frame_presentation_time: u32) -> Self {
             self.frame_presentation_time = frame_presentation_time;
             self
         }
 
+        #[inline]
         pub fn current_frame_id(mut self, current_frame_id: u32) -> Self {
             self.current_frame_id = current_frame_id;
             self
         }
 
+        #[inline]
         pub fn order_hint(mut self, order_hint: u8) -> Self {
             self.order_hint = order_hint;
             self
         }
 
+        #[inline]
         pub fn primary_ref_frame(mut self, primary_ref_frame: u8) -> Self {
             self.primary_ref_frame = primary_ref_frame;
             self
         }
 
+        #[inline]
         pub fn refresh_frame_flags(mut self, refresh_frame_flags: u8) -> Self {
             self.refresh_frame_flags = refresh_frame_flags;
             self
         }
 
+        #[inline]
         pub fn coded_denom(mut self, coded_denom: u8) -> Self {
             self.coded_denom = coded_denom;
             self
         }
 
+        #[inline]
         pub fn render_width_minus_1(mut self, render_width_minus_1: u16) -> Self {
             self.render_width_minus_1 = render_width_minus_1;
             self
         }
 
+        #[inline]
         pub fn render_height_minus_1(mut self, render_height_minus_1: u16) -> Self {
             self.render_height_minus_1 = render_height_minus_1;
             self
         }
 
+        #[inline]
         pub fn interpolation_filter(
             mut self,
             interpolation_filter: StdVideoAV1InterpolationFilter,
@@ -533,21 +592,25 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn tx_mode(mut self, tx_mode: StdVideoAV1TxMode) -> Self {
             self.tx_mode = tx_mode;
             self
         }
 
+        #[inline]
         pub fn delta_q_res(mut self, delta_q_res: u8) -> Self {
             self.delta_q_res = delta_q_res;
             self
         }
 
+        #[inline]
         pub fn delta_lf_res(mut self, delta_lf_res: u8) -> Self {
             self.delta_lf_res = delta_lf_res;
             self
         }
 
+        #[inline]
         pub fn ref_order_hint(
             mut self,
             ref_order_hint: [u8; STD_VIDEO_AV1_NUM_REF_FRAMES as usize],
@@ -556,6 +619,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn ref_frame_idx(
             mut self,
             ref_frame_idx: [i8; STD_VIDEO_AV1_REFS_PER_FRAME as usize],
@@ -564,11 +628,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn reserved1(mut self, reserved1: [u8; 3]) -> Self {
             self.reserved1 = reserved1;
             self
         }
 
+        #[inline]
         pub fn delta_frame_id_minus_1(
             mut self,
             delta_frame_id_minus_1: [u32; STD_VIDEO_AV1_REFS_PER_FRAME as usize],
@@ -577,31 +643,37 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn tile_info(mut self, tile_info: &'a StdVideoAV1TileInfo<'a>) -> Self {
             self.p_tile_info = tile_info;
             self
         }
 
+        #[inline]
         pub fn quantization(mut self, quantization: &'a StdVideoAV1Quantization) -> Self {
             self.p_quantization = quantization;
             self
         }
 
+        #[inline]
         pub fn segmentation(mut self, segmentation: &'a StdVideoAV1Segmentation) -> Self {
             self.p_segmentation = segmentation;
             self
         }
 
+        #[inline]
         pub fn loop_filter(mut self, loop_filter: &'a StdVideoAV1LoopFilter) -> Self {
             self.p_loop_filter = loop_filter;
             self
         }
 
+        #[inline]
         pub fn cdef(mut self, cdef: &'a StdVideoAV1CDEF) -> Self {
             self.p_cdef = cdef;
             self
         }
 
+        #[inline]
         pub fn loop_restoration(
             mut self,
             loop_restoration: &'a StdVideoAV1LoopRestoration,
@@ -610,11 +682,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn global_motion(mut self, global_motion: &'a StdVideoAV1GlobalMotion) -> Self {
             self.p_global_motion = global_motion;
             self
         }
 
+        #[inline]
         pub fn extension_header(
             mut self,
             extension_header: &'a StdVideoEncodeAV1ExtensionHeader,
@@ -623,6 +697,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn buffer_removal_times(mut self, buffer_removal_times: &'a u32) -> Self {
             self.p_buffer_removal_times = buffer_removal_times;
             self
@@ -641,16 +716,19 @@ pub(super) mod defs {
     }
 
     impl StdVideoEncodeAV1ReferenceInfoFlags {
+        #[inline]
         pub fn disable_frame_end_update_cdf(mut self, disable_frame_end_update_cdf: u32) -> Self {
             self.disable_frame_end_update_cdf = disable_frame_end_update_cdf;
             self
         }
 
+        #[inline]
         pub fn segmentation_enabled(mut self, segmentation_enabled: u32) -> Self {
             self.segmentation_enabled = segmentation_enabled;
             self
         }
 
+        #[inline]
         pub fn reserved(mut self, reserved: u32) -> Self {
             self.reserved = reserved;
             self
@@ -700,31 +778,37 @@ pub(super) mod defs {
     }
 
     impl<'a> StdVideoEncodeAV1ReferenceInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: StdVideoEncodeAV1ReferenceInfoFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn ref_frame_id(mut self, ref_frame_id: u32) -> Self {
             self.ref_frame_id = ref_frame_id;
             self
         }
 
+        #[inline]
         pub fn frame_type(mut self, frame_type: StdVideoAV1FrameType) -> Self {
             self.frame_type = frame_type;
             self
         }
 
+        #[inline]
         pub fn order_hint(mut self, order_hint: u8) -> Self {
             self.order_hint = order_hint;
             self
         }
 
+        #[inline]
         pub fn reserved1(mut self, reserved1: [u8; 3]) -> Self {
             self.reserved1 = reserved1;
             self
         }
 
+        #[inline]
         pub fn extension_header(
             mut self,
             extension_header: &'a StdVideoEncodeAV1ExtensionHeader,

@@ -57,6 +57,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceImageViewMinLodFeaturesEXT<'a> {
+        #[inline]
         pub fn min_lod(mut self, min_lod: bool) -> Self {
             self.min_lod = min_lod.into();
             self
@@ -103,6 +104,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageViewMinLodCreateInfoEXT<'a> {
+        #[inline]
         pub fn min_lod(mut self, min_lod: f32) -> Self {
             self.min_lod = min_lod;
             self

@@ -63,6 +63,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT<'a> {
+        #[inline]
         pub fn attachment_feedback_loop_layout(
             mut self,
             attachment_feedback_loop_layout: bool,

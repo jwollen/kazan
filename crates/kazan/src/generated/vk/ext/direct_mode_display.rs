@@ -39,6 +39,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleaseDisplayEXT.html>
+    #[inline]
     pub unsafe fn release_display_ext(
         &self,
         physical_device: PhysicalDevice,

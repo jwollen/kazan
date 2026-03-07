@@ -59,11 +59,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderSMBuiltinsPropertiesNV<'a> {
+        #[inline]
         pub fn shader_sm_count(mut self, shader_sm_count: u32) -> Self {
             self.shader_sm_count = shader_sm_count;
             self
         }
 
+        #[inline]
         pub fn shader_warps_per_sm(mut self, shader_warps_per_sm: u32) -> Self {
             self.shader_warps_per_sm = shader_warps_per_sm;
             self
@@ -115,6 +117,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderSMBuiltinsFeaturesNV<'a> {
+        #[inline]
         pub fn shader_sm_builtins(mut self, shader_sm_builtins: bool) -> Self {
             self.shader_sm_builtins = shader_sm_builtins.into();
             self

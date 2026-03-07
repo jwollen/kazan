@@ -63,6 +63,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDescriptorSetHostMappingFeaturesVALVE<'a> {
+        #[inline]
         pub fn descriptor_set_host_mapping(mut self, descriptor_set_host_mapping: bool) -> Self {
             self.descriptor_set_host_mapping = descriptor_set_host_mapping.into();
             self
@@ -110,11 +111,13 @@ pub(super) mod defs {
     }
 
     impl<'a> DescriptorSetBindingReferenceVALVE<'a> {
+        #[inline]
         pub fn descriptor_set_layout(mut self, descriptor_set_layout: DescriptorSetLayout) -> Self {
             self.descriptor_set_layout = descriptor_set_layout;
             self
         }
 
+        #[inline]
         pub fn binding(mut self, binding: u32) -> Self {
             self.binding = binding;
             self
@@ -163,11 +166,13 @@ pub(super) mod defs {
     }
 
     impl<'a> DescriptorSetLayoutHostMappingInfoVALVE<'a> {
+        #[inline]
         pub fn descriptor_offset(mut self, descriptor_offset: usize) -> Self {
             self.descriptor_offset = descriptor_offset;
             self
         }
 
+        #[inline]
         pub fn descriptor_size(mut self, descriptor_size: u32) -> Self {
             self.descriptor_size = descriptor_size;
             self
@@ -214,6 +219,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDescriptorSetLayoutHostMappingInfoVALVE.html>
+    #[inline]
     pub unsafe fn get_descriptor_set_layout_host_mapping_info_valve(
         &self,
         device: Device,
@@ -230,6 +236,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDescriptorSetHostMappingVALVE.html>
+    #[inline]
     pub unsafe fn get_descriptor_set_host_mapping_valve(
         &self,
         device: Device,

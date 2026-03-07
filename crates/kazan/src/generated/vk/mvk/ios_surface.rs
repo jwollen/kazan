@@ -53,11 +53,13 @@ pub(super) mod defs {
     }
 
     impl<'a> IOSSurfaceCreateInfoMVK<'a> {
+        #[inline]
         pub fn flags(mut self, flags: IOSSurfaceCreateFlagsMVK) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn view(mut self, view: *const c_void) -> Self {
             self.p_view = view;
             self
@@ -105,6 +107,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateIOSSurfaceMVK.html>
+    #[inline]
     pub unsafe fn create_ios_surface_mvk(
         &self,
         instance: Instance,

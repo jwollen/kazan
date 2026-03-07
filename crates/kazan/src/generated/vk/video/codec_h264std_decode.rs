@@ -29,31 +29,37 @@ pub(super) mod defs {
     }
 
     impl StdVideoDecodeH264PictureInfoFlags {
+        #[inline]
         pub fn field_pic_flag(mut self, field_pic_flag: u32) -> Self {
             self.field_pic_flag = field_pic_flag;
             self
         }
 
+        #[inline]
         pub fn is_intra(mut self, is_intra: u32) -> Self {
             self.is_intra = is_intra;
             self
         }
 
+        #[inline]
         pub fn idr_pic_flag(mut self, idr_pic_flag: u32) -> Self {
             self.idr_pic_flag = idr_pic_flag;
             self
         }
 
+        #[inline]
         pub fn bottom_field_flag(mut self, bottom_field_flag: u32) -> Self {
             self.bottom_field_flag = bottom_field_flag;
             self
         }
 
+        #[inline]
         pub fn is_reference(mut self, is_reference: u32) -> Self {
             self.is_reference = is_reference;
             self
         }
 
+        #[inline]
         pub fn complementary_field_pair(mut self, complementary_field_pair: u32) -> Self {
             self.complementary_field_pair = complementary_field_pair;
             self
@@ -92,41 +98,49 @@ pub(super) mod defs {
     }
 
     impl StdVideoDecodeH264PictureInfo {
+        #[inline]
         pub fn flags(mut self, flags: StdVideoDecodeH264PictureInfoFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn seq_parameter_set_id(mut self, seq_parameter_set_id: u8) -> Self {
             self.seq_parameter_set_id = seq_parameter_set_id;
             self
         }
 
+        #[inline]
         pub fn pic_parameter_set_id(mut self, pic_parameter_set_id: u8) -> Self {
             self.pic_parameter_set_id = pic_parameter_set_id;
             self
         }
 
+        #[inline]
         pub fn reserved1(mut self, reserved1: u8) -> Self {
             self.reserved1 = reserved1;
             self
         }
 
+        #[inline]
         pub fn reserved2(mut self, reserved2: u8) -> Self {
             self.reserved2 = reserved2;
             self
         }
 
+        #[inline]
         pub fn frame_num(mut self, frame_num: u16) -> Self {
             self.frame_num = frame_num;
             self
         }
 
+        #[inline]
         pub fn idr_pic_id(mut self, idr_pic_id: u16) -> Self {
             self.idr_pic_id = idr_pic_id;
             self
         }
 
+        #[inline]
         pub fn pic_order_cnt(
             mut self,
             pic_order_cnt: [i32; STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE as usize],
@@ -149,21 +163,25 @@ pub(super) mod defs {
     }
 
     impl StdVideoDecodeH264ReferenceInfoFlags {
+        #[inline]
         pub fn top_field_flag(mut self, top_field_flag: u32) -> Self {
             self.top_field_flag = top_field_flag;
             self
         }
 
+        #[inline]
         pub fn bottom_field_flag(mut self, bottom_field_flag: u32) -> Self {
             self.bottom_field_flag = bottom_field_flag;
             self
         }
 
+        #[inline]
         pub fn used_for_long_term_reference(mut self, used_for_long_term_reference: u32) -> Self {
             self.used_for_long_term_reference = used_for_long_term_reference;
             self
         }
 
+        #[inline]
         pub fn is_non_existing(mut self, is_non_existing: u32) -> Self {
             self.is_non_existing = is_non_existing;
             self
@@ -194,21 +212,25 @@ pub(super) mod defs {
     }
 
     impl StdVideoDecodeH264ReferenceInfo {
+        #[inline]
         pub fn flags(mut self, flags: StdVideoDecodeH264ReferenceInfoFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn frame_num(mut self, frame_num: u16) -> Self {
             self.frame_num = frame_num;
             self
         }
 
+        #[inline]
         pub fn reserved(mut self, reserved: u16) -> Self {
             self.reserved = reserved;
             self
         }
 
+        #[inline]
         pub fn pic_order_cnt(
             mut self,
             pic_order_cnt: [i32; STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE as usize],

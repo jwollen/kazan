@@ -55,6 +55,7 @@ pub(super) mod defs {
     }
 
     impl<'a> QueueFamilyCheckpointPropertiesNV<'a> {
+        #[inline]
         pub fn checkpoint_execution_stage_mask(
             mut self,
             checkpoint_execution_stage_mask: PipelineStageFlags,
@@ -105,11 +106,13 @@ pub(super) mod defs {
     }
 
     impl<'a> CheckpointDataNV<'a> {
+        #[inline]
         pub fn stage(mut self, stage: PipelineStageFlagBits) -> Self {
             self.stage = stage;
             self
         }
 
+        #[inline]
         pub fn checkpoint_marker(mut self, checkpoint_marker: *mut c_void) -> Self {
             self.p_checkpoint_marker = checkpoint_marker;
             self
@@ -160,6 +163,7 @@ pub(super) mod defs {
     }
 
     impl<'a> QueueFamilyCheckpointProperties2NV<'a> {
+        #[inline]
         pub fn checkpoint_execution_stage_mask(
             mut self,
             checkpoint_execution_stage_mask: PipelineStageFlags2,
@@ -210,11 +214,13 @@ pub(super) mod defs {
     }
 
     impl<'a> CheckpointData2NV<'a> {
+        #[inline]
         pub fn stage(mut self, stage: PipelineStageFlags2) -> Self {
             self.stage = stage;
             self
         }
 
+        #[inline]
         pub fn checkpoint_marker(mut self, checkpoint_marker: *mut c_void) -> Self {
             self.p_checkpoint_marker = checkpoint_marker;
             self
@@ -266,6 +272,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCheckpointNV.html>
+    #[inline]
     pub unsafe fn cmd_set_checkpoint_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -275,6 +282,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetQueueCheckpointDataNV.html>
+    #[inline]
     pub unsafe fn get_queue_checkpoint_data_nv<'a>(
         &self,
         queue: Queue,
@@ -299,6 +307,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetQueueCheckpointData2NV.html>
+    #[inline]
     pub unsafe fn get_queue_checkpoint_data2_nv<'a>(
         &self,
         queue: Queue,

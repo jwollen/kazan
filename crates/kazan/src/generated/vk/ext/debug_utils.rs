@@ -66,16 +66,19 @@ pub(super) mod defs {
     }
 
     impl<'a> DebugUtilsObjectNameInfoEXT<'a> {
+        #[inline]
         pub fn object_type(mut self, object_type: ObjectType) -> Self {
             self.object_type = object_type;
             self
         }
 
+        #[inline]
         pub fn object_handle(mut self, object_handle: u64) -> Self {
             self.object_handle = object_handle;
             self
         }
 
+        #[inline]
         pub fn object_name(mut self, object_name: &'a CStr) -> Self {
             self.p_object_name = object_name.as_ptr();
             self
@@ -132,21 +135,25 @@ pub(super) mod defs {
     }
 
     impl<'a> DebugUtilsObjectTagInfoEXT<'a> {
+        #[inline]
         pub fn object_type(mut self, object_type: ObjectType) -> Self {
             self.object_type = object_type;
             self
         }
 
+        #[inline]
         pub fn object_handle(mut self, object_handle: u64) -> Self {
             self.object_handle = object_handle;
             self
         }
 
+        #[inline]
         pub fn tag_name(mut self, tag_name: u64) -> Self {
             self.tag_name = tag_name;
             self
         }
 
+        #[inline]
         pub fn tag(mut self, tag: &'a [u8]) -> Self {
             self.tag_size = tag.len().try_into().unwrap();
             self.p_tag = tag.as_ptr() as _;
@@ -195,11 +202,13 @@ pub(super) mod defs {
     }
 
     impl<'a> DebugUtilsLabelEXT<'a> {
+        #[inline]
         pub fn label_name(mut self, label_name: &'a CStr) -> Self {
             self.p_label_name = label_name.as_ptr();
             self
         }
 
+        #[inline]
         pub fn color(mut self, color: [f32; 4]) -> Self {
             self.color = color;
             self
@@ -261,11 +270,13 @@ pub(super) mod defs {
     }
 
     impl<'a> DebugUtilsMessengerCreateInfoEXT<'a> {
+        #[inline]
         pub fn flags(mut self, flags: DebugUtilsMessengerCreateFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn message_severity(
             mut self,
             message_severity: DebugUtilsMessageSeverityFlagsEXT,
@@ -274,11 +285,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn message_type(mut self, message_type: DebugUtilsMessageTypeFlagsEXT) -> Self {
             self.message_type = message_type;
             self
         }
 
+        #[inline]
         pub fn pfn_user_callback(
             mut self,
             pfn_user_callback: PFN_vkDebugUtilsMessengerCallbackEXT,
@@ -287,6 +300,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn user_data(mut self, user_data: *mut c_void) -> Self {
             self.p_user_data = user_data;
             self
@@ -361,38 +375,45 @@ pub(super) mod defs {
     }
 
     impl<'a> DebugUtilsMessengerCallbackDataEXT<'a> {
+        #[inline]
         pub fn flags(mut self, flags: DebugUtilsMessengerCallbackDataFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn message_id_name(mut self, message_id_name: &'a CStr) -> Self {
             self.p_message_id_name = message_id_name.as_ptr();
             self
         }
 
+        #[inline]
         pub fn message_id_number(mut self, message_id_number: i32) -> Self {
             self.message_id_number = message_id_number;
             self
         }
 
+        #[inline]
         pub fn message(mut self, message: &'a CStr) -> Self {
             self.p_message = message.as_ptr();
             self
         }
 
+        #[inline]
         pub fn queue_labels(mut self, queue_labels: &'a [DebugUtilsLabelEXT<'a>]) -> Self {
             self.queue_label_count = queue_labels.len().try_into().unwrap();
             self.p_queue_labels = queue_labels.as_ptr();
             self
         }
 
+        #[inline]
         pub fn cmd_buf_labels(mut self, cmd_buf_labels: &'a [DebugUtilsLabelEXT<'a>]) -> Self {
             self.cmd_buf_label_count = cmd_buf_labels.len().try_into().unwrap();
             self.p_cmd_buf_labels = cmd_buf_labels.as_ptr();
             self
         }
 
+        #[inline]
         pub fn objects(mut self, objects: &'a [DebugUtilsObjectNameInfoEXT<'a>]) -> Self {
             self.object_count = objects.len().try_into().unwrap();
             self.p_objects = objects.as_ptr();
@@ -639,6 +660,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDebugUtilsMessengerEXT.html>
+    #[inline]
     pub unsafe fn create_debug_utils_messenger_ext(
         &self,
         instance: Instance,
@@ -662,6 +684,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDebugUtilsMessengerEXT.html>
+    #[inline]
     pub unsafe fn destroy_debug_utils_messenger_ext(
         &self,
         instance: Instance,
@@ -674,6 +697,7 @@ impl InstanceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSubmitDebugUtilsMessageEXT.html>
+    #[inline]
     pub unsafe fn submit_debug_utils_message_ext(
         &self,
         instance: Instance,
@@ -740,6 +764,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetDebugUtilsObjectNameEXT.html>
+    #[inline]
     pub unsafe fn set_debug_utils_object_name_ext(
         &self,
         device: Device,
@@ -756,6 +781,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetDebugUtilsObjectTagEXT.html>
+    #[inline]
     pub unsafe fn set_debug_utils_object_tag_ext(
         &self,
         device: Device,
@@ -772,6 +798,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueBeginDebugUtilsLabelEXT.html>
+    #[inline]
     pub unsafe fn queue_begin_debug_utils_label_ext(
         &self,
         queue: Queue,
@@ -781,11 +808,13 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueEndDebugUtilsLabelEXT.html>
+    #[inline]
     pub unsafe fn queue_end_debug_utils_label_ext(&self, queue: Queue) {
         unsafe { (self.queue_end_debug_utils_label_ext)(queue) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueInsertDebugUtilsLabelEXT.html>
+    #[inline]
     pub unsafe fn queue_insert_debug_utils_label_ext(
         &self,
         queue: Queue,
@@ -795,6 +824,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginDebugUtilsLabelEXT.html>
+    #[inline]
     pub unsafe fn cmd_begin_debug_utils_label_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -804,11 +834,13 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndDebugUtilsLabelEXT.html>
+    #[inline]
     pub unsafe fn cmd_end_debug_utils_label_ext(&self, command_buffer: CommandBuffer) {
         unsafe { (self.cmd_end_debug_utils_label_ext)(command_buffer) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdInsertDebugUtilsLabelEXT.html>
+    #[inline]
     pub unsafe fn cmd_insert_debug_utils_label_ext(
         &self,
         command_buffer: CommandBuffer,

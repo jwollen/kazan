@@ -65,6 +65,7 @@ pub(super) mod defs {
     }
 
     impl<'a> AttachmentSampleCountInfoAMD<'a> {
+        #[inline]
         pub fn color_attachment_samples(
             mut self,
             color_attachment_samples: &'a [SampleCountFlagBits],
@@ -74,6 +75,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn depth_stencil_attachment_samples(
             mut self,
             depth_stencil_attachment_samples: SampleCountFlagBits,

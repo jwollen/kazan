@@ -57,6 +57,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePresentBarrierFeaturesNV<'a> {
+        #[inline]
         pub fn present_barrier(mut self, present_barrier: bool) -> Self {
             self.present_barrier = present_barrier.into();
             self
@@ -104,6 +105,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SurfaceCapabilitiesPresentBarrierNV<'a> {
+        #[inline]
         pub fn present_barrier_supported(mut self, present_barrier_supported: bool) -> Self {
             self.present_barrier_supported = present_barrier_supported.into();
             self
@@ -151,6 +153,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SwapchainPresentBarrierCreateInfoNV<'a> {
+        #[inline]
         pub fn present_barrier_enable(mut self, present_barrier_enable: bool) -> Self {
             self.present_barrier_enable = present_barrier_enable.into();
             self

@@ -63,6 +63,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceRayTracingInvocationReorderFeaturesEXT<'a> {
+        #[inline]
         pub fn ray_tracing_invocation_reorder(
             mut self,
             ray_tracing_invocation_reorder: bool,
@@ -125,6 +126,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceRayTracingInvocationReorderPropertiesEXT<'a> {
+        #[inline]
         pub fn ray_tracing_invocation_reorder_reordering_hint(
             mut self,
             ray_tracing_invocation_reorder_reordering_hint: RayTracingInvocationReorderModeEXT,
@@ -134,6 +136,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_shader_binding_table_record_index(
             mut self,
             max_shader_binding_table_record_index: u32,

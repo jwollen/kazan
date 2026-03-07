@@ -62,11 +62,13 @@ pub(super) mod defs {
     }
 
     impl<'a> ImportMemoryBufferCollectionFUCHSIA<'a> {
+        #[inline]
         pub fn collection(mut self, collection: BufferCollectionFUCHSIA) -> Self {
             self.collection = collection;
             self
         }
 
+        #[inline]
         pub fn index(mut self, index: u32) -> Self {
             self.index = index;
             self
@@ -117,11 +119,13 @@ pub(super) mod defs {
     }
 
     impl<'a> BufferCollectionImageCreateInfoFUCHSIA<'a> {
+        #[inline]
         pub fn collection(mut self, collection: BufferCollectionFUCHSIA) -> Self {
             self.collection = collection;
             self
         }
 
+        #[inline]
         pub fn index(mut self, index: u32) -> Self {
             self.index = index;
             self
@@ -172,11 +176,13 @@ pub(super) mod defs {
     }
 
     impl<'a> BufferCollectionBufferCreateInfoFUCHSIA<'a> {
+        #[inline]
         pub fn collection(mut self, collection: BufferCollectionFUCHSIA) -> Self {
             self.collection = collection;
             self
         }
 
+        #[inline]
         pub fn index(mut self, index: u32) -> Self {
             self.index = index;
             self
@@ -221,6 +227,7 @@ pub(super) mod defs {
     }
 
     impl<'a> BufferCollectionCreateInfoFUCHSIA<'a> {
+        #[inline]
         pub fn collection_token(mut self, collection_token: zx_handle_t) -> Self {
             self.collection_token = collection_token;
             self
@@ -298,31 +305,37 @@ pub(super) mod defs {
     }
 
     impl<'a> BufferCollectionPropertiesFUCHSIA<'a> {
+        #[inline]
         pub fn memory_type_bits(mut self, memory_type_bits: u32) -> Self {
             self.memory_type_bits = memory_type_bits;
             self
         }
 
+        #[inline]
         pub fn buffer_count(mut self, buffer_count: u32) -> Self {
             self.buffer_count = buffer_count;
             self
         }
 
+        #[inline]
         pub fn create_info_index(mut self, create_info_index: u32) -> Self {
             self.create_info_index = create_info_index;
             self
         }
 
+        #[inline]
         pub fn sysmem_pixel_format(mut self, sysmem_pixel_format: u64) -> Self {
             self.sysmem_pixel_format = sysmem_pixel_format;
             self
         }
 
+        #[inline]
         pub fn format_features(mut self, format_features: FormatFeatureFlags) -> Self {
             self.format_features = format_features;
             self
         }
 
+        #[inline]
         pub fn sysmem_color_space_index(
             mut self,
             sysmem_color_space_index: SysmemColorSpaceFUCHSIA<'a>,
@@ -331,6 +344,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn sampler_ycbcr_conversion_components(
             mut self,
             sampler_ycbcr_conversion_components: ComponentMapping,
@@ -339,6 +353,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn suggested_ycbcr_model(
             mut self,
             suggested_ycbcr_model: SamplerYcbcrModelConversion,
@@ -347,11 +362,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn suggested_ycbcr_range(mut self, suggested_ycbcr_range: SamplerYcbcrRange) -> Self {
             self.suggested_ycbcr_range = suggested_ycbcr_range;
             self
         }
 
+        #[inline]
         pub fn suggested_x_chroma_offset(
             mut self,
             suggested_x_chroma_offset: ChromaLocation,
@@ -360,6 +377,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn suggested_y_chroma_offset(
             mut self,
             suggested_y_chroma_offset: ChromaLocation,
@@ -416,11 +434,13 @@ pub(super) mod defs {
     }
 
     impl<'a> BufferConstraintsInfoFUCHSIA<'a> {
+        #[inline]
         pub fn create_info(mut self, create_info: BufferCreateInfo<'a>) -> Self {
             self.create_info = create_info;
             self
         }
 
+        #[inline]
         pub fn required_format_features(
             mut self,
             required_format_features: FormatFeatureFlags,
@@ -429,6 +449,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn buffer_collection_constraints(
             mut self,
             buffer_collection_constraints: BufferCollectionConstraintsInfoFUCHSIA<'a>,
@@ -476,6 +497,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SysmemColorSpaceFUCHSIA<'a> {
+        #[inline]
         pub fn color_space(mut self, color_space: u32) -> Self {
             self.color_space = color_space;
             self
@@ -535,11 +557,13 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageFormatConstraintsInfoFUCHSIA<'a> {
+        #[inline]
         pub fn image_create_info(mut self, image_create_info: ImageCreateInfo<'a>) -> Self {
             self.image_create_info = image_create_info;
             self
         }
 
+        #[inline]
         pub fn required_format_features(
             mut self,
             required_format_features: FormatFeatureFlags,
@@ -548,16 +572,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn flags(mut self, flags: ImageFormatConstraintsFlagsFUCHSIA) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn sysmem_pixel_format(mut self, sysmem_pixel_format: u64) -> Self {
             self.sysmem_pixel_format = sysmem_pixel_format;
             self
         }
 
+        #[inline]
         pub fn color_spaces(mut self, color_spaces: &'a [SysmemColorSpaceFUCHSIA<'a>]) -> Self {
             self.color_space_count = color_spaces.len().try_into().unwrap();
             self.p_color_spaces = color_spaces.as_ptr();
@@ -615,6 +642,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageConstraintsInfoFUCHSIA<'a> {
+        #[inline]
         pub fn format_constraints(
             mut self,
             format_constraints: &'a [ImageFormatConstraintsInfoFUCHSIA<'a>],
@@ -624,6 +652,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn buffer_collection_constraints(
             mut self,
             buffer_collection_constraints: BufferCollectionConstraintsInfoFUCHSIA<'a>,
@@ -632,6 +661,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn flags(mut self, flags: ImageConstraintsInfoFlagsFUCHSIA) -> Self {
             self.flags = flags;
             self
@@ -698,21 +728,25 @@ pub(super) mod defs {
     }
 
     impl<'a> BufferCollectionConstraintsInfoFUCHSIA<'a> {
+        #[inline]
         pub fn min_buffer_count(mut self, min_buffer_count: u32) -> Self {
             self.min_buffer_count = min_buffer_count;
             self
         }
 
+        #[inline]
         pub fn max_buffer_count(mut self, max_buffer_count: u32) -> Self {
             self.max_buffer_count = max_buffer_count;
             self
         }
 
+        #[inline]
         pub fn min_buffer_count_for_camping(mut self, min_buffer_count_for_camping: u32) -> Self {
             self.min_buffer_count_for_camping = min_buffer_count_for_camping;
             self
         }
 
+        #[inline]
         pub fn min_buffer_count_for_dedicated_slack(
             mut self,
             min_buffer_count_for_dedicated_slack: u32,
@@ -721,6 +755,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn min_buffer_count_for_shared_slack(
             mut self,
             min_buffer_count_for_shared_slack: u32,
@@ -897,6 +932,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateBufferCollectionFUCHSIA.html>
+    #[inline]
     pub unsafe fn create_buffer_collection_fuchsia(
         &self,
         device: Device,
@@ -920,6 +956,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetBufferCollectionImageConstraintsFUCHSIA.html>
+    #[inline]
     pub unsafe fn set_buffer_collection_image_constraints_fuchsia(
         &self,
         device: Device,
@@ -941,6 +978,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetBufferCollectionBufferConstraintsFUCHSIA.html>
+    #[inline]
     pub unsafe fn set_buffer_collection_buffer_constraints_fuchsia(
         &self,
         device: Device,
@@ -962,6 +1000,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyBufferCollectionFUCHSIA.html>
+    #[inline]
     pub unsafe fn destroy_buffer_collection_fuchsia(
         &self,
         device: Device,
@@ -974,6 +1013,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferCollectionPropertiesFUCHSIA.html>
+    #[inline]
     pub unsafe fn get_buffer_collection_properties_fuchsia(
         &self,
         device: Device,

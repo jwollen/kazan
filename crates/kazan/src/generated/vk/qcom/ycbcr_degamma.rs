@@ -57,6 +57,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceYcbcrDegammaFeaturesQCOM<'a> {
+        #[inline]
         pub fn ycbcr_degamma(mut self, ycbcr_degamma: bool) -> Self {
             self.ycbcr_degamma = ycbcr_degamma.into();
             self
@@ -110,11 +111,13 @@ pub(super) mod defs {
     }
 
     impl<'a> SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM<'a> {
+        #[inline]
         pub fn enable_y_degamma(mut self, enable_y_degamma: bool) -> Self {
             self.enable_y_degamma = enable_y_degamma.into();
             self
         }
 
+        #[inline]
         pub fn enable_cb_cr_degamma(mut self, enable_cb_cr_degamma: bool) -> Self {
             self.enable_cb_cr_degamma = enable_cb_cr_degamma.into();
             self

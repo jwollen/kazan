@@ -65,6 +65,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT<'a> {
+        #[inline]
         pub fn dynamic_rendering_unused_attachments(
             mut self,
             dynamic_rendering_unused_attachments: bool,

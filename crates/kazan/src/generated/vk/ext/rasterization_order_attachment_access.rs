@@ -77,6 +77,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT<'a> {
+        #[inline]
         pub fn rasterization_order_color_attachment_access(
             mut self,
             rasterization_order_color_attachment_access: bool,
@@ -86,6 +87,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn rasterization_order_depth_attachment_access(
             mut self,
             rasterization_order_depth_attachment_access: bool,
@@ -95,6 +97,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn rasterization_order_stencil_attachment_access(
             mut self,
             rasterization_order_stencil_attachment_access: bool,

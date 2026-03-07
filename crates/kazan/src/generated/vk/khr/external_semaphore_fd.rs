@@ -59,21 +59,25 @@ pub(super) mod defs {
     }
 
     impl<'a> ImportSemaphoreFdInfoKHR<'a> {
+        #[inline]
         pub fn semaphore(mut self, semaphore: Semaphore) -> Self {
             self.semaphore = semaphore;
             self
         }
 
+        #[inline]
         pub fn flags(mut self, flags: SemaphoreImportFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn handle_type(mut self, handle_type: ExternalSemaphoreHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
 
+        #[inline]
         pub fn fd(mut self, fd: c_int) -> Self {
             self.fd = fd;
             self
@@ -121,11 +125,13 @@ pub(super) mod defs {
     }
 
     impl<'a> SemaphoreGetFdInfoKHR<'a> {
+        #[inline]
         pub fn semaphore(mut self, semaphore: Semaphore) -> Self {
             self.semaphore = semaphore;
             self
         }
 
+        #[inline]
         pub fn handle_type(mut self, handle_type: ExternalSemaphoreHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
@@ -169,6 +175,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportSemaphoreFdKHR.html>
+    #[inline]
     pub unsafe fn import_semaphore_fd_khr(
         &self,
         device: Device,
@@ -185,6 +192,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSemaphoreFdKHR.html>
+    #[inline]
     pub unsafe fn get_semaphore_fd_khr(
         &self,
         device: Device,

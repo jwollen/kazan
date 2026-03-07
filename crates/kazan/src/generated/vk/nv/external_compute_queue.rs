@@ -59,6 +59,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ExternalComputeQueueDeviceCreateInfoNV<'a> {
+        #[inline]
         pub fn reserved_external_queues(mut self, reserved_external_queues: u32) -> Self {
             self.reserved_external_queues = reserved_external_queues;
             self
@@ -103,6 +104,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ExternalComputeQueueCreateInfoNV<'a> {
+        #[inline]
         pub fn preferred_queue(mut self, preferred_queue: Queue) -> Self {
             self.preferred_queue = preferred_queue;
             self
@@ -147,6 +149,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ExternalComputeQueueDataParamsNV<'a> {
+        #[inline]
         pub fn device_index(mut self, device_index: u32) -> Self {
             self.device_index = device_index;
             self
@@ -200,11 +203,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceExternalComputeQueuePropertiesNV<'a> {
+        #[inline]
         pub fn external_data_size(mut self, external_data_size: u32) -> Self {
             self.external_data_size = external_data_size;
             self
         }
 
+        #[inline]
         pub fn max_external_queues(mut self, max_external_queues: u32) -> Self {
             self.max_external_queues = max_external_queues;
             self
@@ -260,6 +265,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateExternalComputeQueueNV.html>
+    #[inline]
     pub unsafe fn create_external_compute_queue_nv(
         &self,
         device: Device,
@@ -283,6 +289,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyExternalComputeQueueNV.html>
+    #[inline]
     pub unsafe fn destroy_external_compute_queue_nv(
         &self,
         device: Device,
@@ -295,6 +302,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetExternalComputeQueueDataNV.html>
+    #[inline]
     pub unsafe fn get_external_compute_queue_data_nv(
         &self,
         external_queue: ExternalComputeQueueNV,

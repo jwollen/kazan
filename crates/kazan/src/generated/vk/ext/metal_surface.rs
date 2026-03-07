@@ -55,11 +55,13 @@ pub(super) mod defs {
     }
 
     impl<'a> MetalSurfaceCreateInfoEXT<'a> {
+        #[inline]
         pub fn flags(mut self, flags: MetalSurfaceCreateFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn layer(mut self, layer: *const CAMetalLayer) -> Self {
             self.p_layer = layer;
             self
@@ -107,6 +109,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateMetalSurfaceEXT.html>
+    #[inline]
     pub unsafe fn create_metal_surface_ext(
         &self,
         instance: Instance,

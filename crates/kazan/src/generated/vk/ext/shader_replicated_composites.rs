@@ -63,6 +63,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderReplicatedCompositesFeaturesEXT<'a> {
+        #[inline]
         pub fn shader_replicated_composites(mut self, shader_replicated_composites: bool) -> Self {
             self.shader_replicated_composites = shader_replicated_composites.into();
             self

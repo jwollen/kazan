@@ -55,6 +55,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineLibraryCreateInfoKHR<'a> {
+        #[inline]
         pub fn libraries(mut self, libraries: &'a [Pipeline]) -> Self {
             self.library_count = libraries.len().try_into().unwrap();
             self.p_libraries = libraries.as_ptr();

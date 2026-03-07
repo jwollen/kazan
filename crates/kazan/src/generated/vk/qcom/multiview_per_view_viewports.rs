@@ -63,6 +63,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM<'a> {
+        #[inline]
         pub fn multiview_per_view_viewports(mut self, multiview_per_view_viewports: bool) -> Self {
             self.multiview_per_view_viewports = multiview_per_view_viewports.into();
             self

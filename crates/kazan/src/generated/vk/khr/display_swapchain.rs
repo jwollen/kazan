@@ -58,16 +58,19 @@ pub(super) mod defs {
     }
 
     impl<'a> DisplayPresentInfoKHR<'a> {
+        #[inline]
         pub fn src_rect(mut self, src_rect: Rect2D) -> Self {
             self.src_rect = src_rect;
             self
         }
 
+        #[inline]
         pub fn dst_rect(mut self, dst_rect: Rect2D) -> Self {
             self.dst_rect = dst_rect;
             self
         }
 
+        #[inline]
         pub fn persistent(mut self, persistent: bool) -> Self {
             self.persistent = persistent.into();
             self
@@ -104,6 +107,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSharedSwapchainsKHR.html>
+    #[inline]
     pub unsafe fn create_shared_swapchains_khr(
         &self,
         device: Device,

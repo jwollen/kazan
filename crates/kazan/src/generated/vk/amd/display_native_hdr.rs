@@ -56,6 +56,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DisplayNativeHdrSurfaceCapabilitiesAMD<'a> {
+        #[inline]
         pub fn local_dimming_support(mut self, local_dimming_support: bool) -> Self {
             self.local_dimming_support = local_dimming_support.into();
             self
@@ -103,6 +104,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SwapchainDisplayNativeHdrCreateInfoAMD<'a> {
+        #[inline]
         pub fn local_dimming_enable(mut self, local_dimming_enable: bool) -> Self {
             self.local_dimming_enable = local_dimming_enable.into();
             self
@@ -137,6 +139,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetLocalDimmingAMD.html>
+    #[inline]
     pub unsafe fn set_local_dimming_amd(
         &self,
         device: Device,

@@ -63,6 +63,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceRayTracingPositionFetchFeaturesKHR<'a> {
+        #[inline]
         pub fn ray_tracing_position_fetch(mut self, ray_tracing_position_fetch: bool) -> Self {
             self.ray_tracing_position_fetch = ray_tracing_position_fetch.into();
             self

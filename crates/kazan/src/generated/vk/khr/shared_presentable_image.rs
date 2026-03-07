@@ -56,6 +56,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SharedPresentSurfaceCapabilitiesKHR<'a> {
+        #[inline]
         pub fn shared_present_supported_usage_flags(
             mut self,
             shared_present_supported_usage_flags: ImageUsageFlags,
@@ -90,6 +91,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSwapchainStatusKHR.html>
+    #[inline]
     pub unsafe fn get_swapchain_status_khr(
         &self,
         device: Device,

@@ -44,6 +44,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindBufferMemory2KHR.html>
+    #[inline]
     pub unsafe fn bind_buffer_memory2_khr(
         &self,
         device: Device,
@@ -64,6 +65,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindImageMemory2KHR.html>
+    #[inline]
     pub unsafe fn bind_image_memory2_khr(
         &self,
         device: Device,

@@ -65,6 +65,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'a> {
+        #[inline]
         pub fn shader_relaxed_extended_instruction(
             mut self,
             shader_relaxed_extended_instruction: bool,

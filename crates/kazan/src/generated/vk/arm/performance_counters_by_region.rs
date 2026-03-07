@@ -63,6 +63,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePerformanceCountersByRegionFeaturesARM<'a> {
+        #[inline]
         pub fn performance_counters_by_region(
             mut self,
             performance_counters_by_region: bool,
@@ -134,6 +135,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePerformanceCountersByRegionPropertiesARM<'a> {
+        #[inline]
         pub fn max_per_region_performance_counters(
             mut self,
             max_per_region_performance_counters: u32,
@@ -142,6 +144,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn performance_counter_region_size(
             mut self,
             performance_counter_region_size: Extent2D,
@@ -150,16 +153,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn row_stride_alignment(mut self, row_stride_alignment: u32) -> Self {
             self.row_stride_alignment = row_stride_alignment;
             self
         }
 
+        #[inline]
         pub fn region_alignment(mut self, region_alignment: u32) -> Self {
             self.region_alignment = region_alignment;
             self
         }
 
+        #[inline]
         pub fn identity_transform_order(mut self, identity_transform_order: bool) -> Self {
             self.identity_transform_order = identity_transform_order.into();
             self
@@ -204,6 +210,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PerformanceCounterARM<'a> {
+        #[inline]
         pub fn counter_id(mut self, counter_id: u32) -> Self {
             self.counter_id = counter_id;
             self
@@ -251,11 +258,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PerformanceCounterDescriptionARM<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PerformanceCounterDescriptionFlagsARM) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn name(
             mut self,
             name: &CStr,
@@ -325,26 +334,31 @@ pub(super) mod defs {
     }
 
     impl<'a> RenderPassPerformanceCountersByRegionBeginInfoARM<'a> {
+        #[inline]
         pub fn counter_address_count(mut self, counter_address_count: u32) -> Self {
             self.counter_address_count = counter_address_count;
             self
         }
 
+        #[inline]
         pub fn counter_addresses(mut self, counter_addresses: &'a DeviceAddress) -> Self {
             self.p_counter_addresses = counter_addresses;
             self
         }
 
+        #[inline]
         pub fn serialize_regions(mut self, serialize_regions: bool) -> Self {
             self.serialize_regions = serialize_regions.into();
             self
         }
 
+        #[inline]
         pub fn counter_index_count(mut self, counter_index_count: u32) -> Self {
             self.counter_index_count = counter_index_count;
             self
         }
 
+        #[inline]
         pub fn counter_indices(mut self, counter_indices: &'a mut u32) -> Self {
             self.p_counter_indices = counter_indices;
             self
@@ -397,6 +411,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM.html>
+    #[inline]
     pub unsafe fn enumerate_physical_device_queue_family_performance_counters_by_region_arm<'a>(
         &self,
         physical_device: PhysicalDevice,

@@ -57,6 +57,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceDepthClampControlFeaturesEXT<'a> {
+        #[inline]
         pub fn depth_clamp_control(mut self, depth_clamp_control: bool) -> Self {
             self.depth_clamp_control = depth_clamp_control.into();
             self
@@ -110,11 +111,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineViewportDepthClampControlCreateInfoEXT<'a> {
+        #[inline]
         pub fn depth_clamp_mode(mut self, depth_clamp_mode: DepthClampModeEXT) -> Self {
             self.depth_clamp_mode = depth_clamp_mode;
             self
         }
 
+        #[inline]
         pub fn depth_clamp_range(mut self, depth_clamp_range: &'a DepthClampRangeEXT) -> Self {
             self.p_depth_clamp_range = depth_clamp_range;
             self
@@ -132,11 +135,13 @@ pub(super) mod defs {
     }
 
     impl DepthClampRangeEXT {
+        #[inline]
         pub fn min_depth_clamp(mut self, min_depth_clamp: f32) -> Self {
             self.min_depth_clamp = min_depth_clamp;
             self
         }
 
+        #[inline]
         pub fn max_depth_clamp(mut self, max_depth_clamp: f32) -> Self {
             self.max_depth_clamp = max_depth_clamp;
             self
@@ -189,6 +194,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthClampRangeEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_depth_clamp_range_ext(
         &self,
         command_buffer: CommandBuffer,

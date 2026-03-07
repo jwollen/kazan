@@ -63,16 +63,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMapMemoryPlacedFeaturesEXT<'a> {
+        #[inline]
         pub fn memory_map_placed(mut self, memory_map_placed: bool) -> Self {
             self.memory_map_placed = memory_map_placed.into();
             self
         }
 
+        #[inline]
         pub fn memory_map_range_placed(mut self, memory_map_range_placed: bool) -> Self {
             self.memory_map_range_placed = memory_map_range_placed.into();
             self
         }
 
+        #[inline]
         pub fn memory_unmap_reserve(mut self, memory_unmap_reserve: bool) -> Self {
             self.memory_unmap_reserve = memory_unmap_reserve.into();
             self
@@ -126,6 +129,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMapMemoryPlacedPropertiesEXT<'a> {
+        #[inline]
         pub fn min_placed_memory_map_alignment(
             mut self,
             min_placed_memory_map_alignment: DeviceSize,
@@ -175,6 +179,7 @@ pub(super) mod defs {
     }
 
     impl<'a> MemoryMapPlacedInfoEXT<'a> {
+        #[inline]
         pub fn placed_address(mut self, placed_address: *mut c_void) -> Self {
             self.p_placed_address = placed_address;
             self

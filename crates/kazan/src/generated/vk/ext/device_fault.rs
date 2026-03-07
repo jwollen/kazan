@@ -59,11 +59,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceFaultFeaturesEXT<'a> {
+        #[inline]
         pub fn device_fault(mut self, device_fault: bool) -> Self {
             self.device_fault = device_fault.into();
             self
         }
 
+        #[inline]
         pub fn device_fault_vendor_binary(mut self, device_fault_vendor_binary: bool) -> Self {
             self.device_fault_vendor_binary = device_fault_vendor_binary.into();
             self
@@ -82,16 +84,19 @@ pub(super) mod defs {
     }
 
     impl DeviceFaultAddressInfoEXT {
+        #[inline]
         pub fn address_type(mut self, address_type: DeviceFaultAddressTypeEXT) -> Self {
             self.address_type = address_type;
             self
         }
 
+        #[inline]
         pub fn reported_address(mut self, reported_address: DeviceAddress) -> Self {
             self.reported_address = reported_address;
             self
         }
 
+        #[inline]
         pub fn address_precision(mut self, address_precision: DeviceSize) -> Self {
             self.address_precision = address_precision;
             self
@@ -133,6 +138,7 @@ pub(super) mod defs {
     }
 
     impl DeviceFaultVendorInfoEXT {
+        #[inline]
         pub fn description(
             mut self,
             description: &CStr,
@@ -141,11 +147,13 @@ pub(super) mod defs {
             Ok(self)
         }
 
+        #[inline]
         pub fn vendor_fault_code(mut self, vendor_fault_code: u64) -> Self {
             self.vendor_fault_code = vendor_fault_code;
             self
         }
 
+        #[inline]
         pub fn vendor_fault_data(mut self, vendor_fault_data: u64) -> Self {
             self.vendor_fault_data = vendor_fault_data;
             self
@@ -196,16 +204,19 @@ pub(super) mod defs {
     }
 
     impl<'a> DeviceFaultCountsEXT<'a> {
+        #[inline]
         pub fn address_info_count(mut self, address_info_count: u32) -> Self {
             self.address_info_count = address_info_count;
             self
         }
 
+        #[inline]
         pub fn vendor_info_count(mut self, vendor_info_count: u32) -> Self {
             self.vendor_info_count = vendor_info_count;
             self
         }
 
+        #[inline]
         pub fn vendor_binary_size(mut self, vendor_binary_size: DeviceSize) -> Self {
             self.vendor_binary_size = vendor_binary_size;
             self
@@ -262,6 +273,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DeviceFaultInfoEXT<'a> {
+        #[inline]
         pub fn description(
             mut self,
             description: &CStr,
@@ -270,16 +282,19 @@ pub(super) mod defs {
             Ok(self)
         }
 
+        #[inline]
         pub fn address_infos(mut self, address_infos: &'a mut DeviceFaultAddressInfoEXT) -> Self {
             self.p_address_infos = address_infos;
             self
         }
 
+        #[inline]
         pub fn vendor_infos(mut self, vendor_infos: &'a mut DeviceFaultVendorInfoEXT) -> Self {
             self.p_vendor_infos = vendor_infos;
             self
         }
 
+        #[inline]
         pub fn vendor_binary_data(mut self, vendor_binary_data: *mut c_void) -> Self {
             self.p_vendor_binary_data = vendor_binary_data;
             self
@@ -324,11 +339,13 @@ pub(super) mod defs {
     }
 
     impl DeviceFaultVendorBinaryHeaderVersionOneEXT {
+        #[inline]
         pub fn header_size(mut self, header_size: u32) -> Self {
             self.header_size = header_size;
             self
         }
 
+        #[inline]
         pub fn header_version(
             mut self,
             header_version: DeviceFaultVendorBinaryHeaderVersionEXT,
@@ -337,21 +354,25 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn vendor_id(mut self, vendor_id: u32) -> Self {
             self.vendor_id = vendor_id;
             self
         }
 
+        #[inline]
         pub fn device_id(mut self, device_id: u32) -> Self {
             self.device_id = device_id;
             self
         }
 
+        #[inline]
         pub fn driver_version(mut self, driver_version: u32) -> Self {
             self.driver_version = driver_version;
             self
         }
 
+        #[inline]
         pub fn pipeline_cache_uuid(
             mut self,
             pipeline_cache_uuid: [u8; UUID_SIZE as usize],
@@ -360,26 +381,31 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn application_name_offset(mut self, application_name_offset: u32) -> Self {
             self.application_name_offset = application_name_offset;
             self
         }
 
+        #[inline]
         pub fn application_version(mut self, application_version: u32) -> Self {
             self.application_version = application_version;
             self
         }
 
+        #[inline]
         pub fn engine_name_offset(mut self, engine_name_offset: u32) -> Self {
             self.engine_name_offset = engine_name_offset;
             self
         }
 
+        #[inline]
         pub fn engine_version(mut self, engine_version: u32) -> Self {
             self.engine_version = engine_version;
             self
         }
 
+        #[inline]
         pub fn api_version(mut self, api_version: u32) -> Self {
             self.api_version = api_version;
             self
@@ -473,6 +499,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceFaultInfoEXT.html>
+    #[inline]
     pub unsafe fn get_device_fault_info_ext(
         &self,
         device: Device,

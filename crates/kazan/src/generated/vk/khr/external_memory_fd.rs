@@ -55,11 +55,13 @@ pub(super) mod defs {
     }
 
     impl<'a> ImportMemoryFdInfoKHR<'a> {
+        #[inline]
         pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
 
+        #[inline]
         pub fn fd(mut self, fd: c_int) -> Self {
             self.fd = fd;
             self
@@ -104,6 +106,7 @@ pub(super) mod defs {
     }
 
     impl<'a> MemoryFdPropertiesKHR<'a> {
+        #[inline]
         pub fn memory_type_bits(mut self, memory_type_bits: u32) -> Self {
             self.memory_type_bits = memory_type_bits;
             self
@@ -151,11 +154,13 @@ pub(super) mod defs {
     }
 
     impl<'a> MemoryGetFdInfoKHR<'a> {
+        #[inline]
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
         }
 
+        #[inline]
         pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
@@ -201,6 +206,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryFdKHR.html>
+    #[inline]
     pub unsafe fn get_memory_fd_khr(
         &self,
         device: Device,
@@ -218,6 +224,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryFdPropertiesKHR.html>
+    #[inline]
     pub unsafe fn get_memory_fd_properties_khr(
         &self,
         device: Device,

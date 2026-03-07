@@ -53,11 +53,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PresentWait2InfoKHR<'a> {
+        #[inline]
         pub fn present_id(mut self, present_id: u64) -> Self {
             self.present_id = present_id;
             self
         }
 
+        #[inline]
         pub fn timeout(mut self, timeout: u64) -> Self {
             self.timeout = timeout;
             self
@@ -106,6 +108,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePresentWait2FeaturesKHR<'a> {
+        #[inline]
         pub fn present_wait2(mut self, present_wait2: bool) -> Self {
             self.present_wait2 = present_wait2.into();
             self
@@ -153,6 +156,7 @@ pub(super) mod defs {
     }
 
     impl<'a> SurfaceCapabilitiesPresentWait2KHR<'a> {
+        #[inline]
         pub fn present_wait2_supported(mut self, present_wait2_supported: bool) -> Self {
             self.present_wait2_supported = present_wait2_supported.into();
             self
@@ -187,6 +191,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWaitForPresent2KHR.html>
+    #[inline]
     pub unsafe fn wait_for_present2_khr(
         &self,
         device: Device,

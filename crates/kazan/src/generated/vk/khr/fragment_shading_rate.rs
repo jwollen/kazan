@@ -62,6 +62,7 @@ pub(super) mod defs {
     }
 
     impl<'a> FragmentShadingRateAttachmentInfoKHR<'a> {
+        #[inline]
         pub fn fragment_shading_rate_attachment(
             mut self,
             fragment_shading_rate_attachment: &'a AttachmentReference2<'a>,
@@ -70,6 +71,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shading_rate_attachment_texel_size(
             mut self,
             shading_rate_attachment_texel_size: Extent2D,
@@ -126,11 +128,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineFragmentShadingRateStateCreateInfoKHR<'a> {
+        #[inline]
         pub fn fragment_size(mut self, fragment_size: Extent2D) -> Self {
             self.fragment_size = fragment_size;
             self
         }
 
+        #[inline]
         pub fn combiner_ops(mut self, combiner_ops: [FragmentShadingRateCombinerOpKHR; 2]) -> Self {
             self.combiner_ops = combiner_ops;
             self
@@ -197,6 +201,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceFragmentShadingRateFeaturesKHR<'a> {
+        #[inline]
         pub fn pipeline_fragment_shading_rate(
             mut self,
             pipeline_fragment_shading_rate: bool,
@@ -205,6 +210,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn primitive_fragment_shading_rate(
             mut self,
             primitive_fragment_shading_rate: bool,
@@ -213,6 +219,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn attachment_fragment_shading_rate(
             mut self,
             attachment_fragment_shading_rate: bool,
@@ -362,6 +369,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceFragmentShadingRatePropertiesKHR<'a> {
+        #[inline]
         pub fn min_fragment_shading_rate_attachment_texel_size(
             mut self,
             min_fragment_shading_rate_attachment_texel_size: Extent2D,
@@ -371,6 +379,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_fragment_shading_rate_attachment_texel_size(
             mut self,
             max_fragment_shading_rate_attachment_texel_size: Extent2D,
@@ -380,6 +389,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_fragment_shading_rate_attachment_texel_size_aspect_ratio(
             mut self,
             max_fragment_shading_rate_attachment_texel_size_aspect_ratio: u32,
@@ -389,6 +399,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn primitive_fragment_shading_rate_with_multiple_viewports(
             mut self,
             primitive_fragment_shading_rate_with_multiple_viewports: bool,
@@ -398,6 +409,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn layered_shading_rate_attachments(
             mut self,
             layered_shading_rate_attachments: bool,
@@ -406,6 +418,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn fragment_shading_rate_non_trivial_combiner_ops(
             mut self,
             fragment_shading_rate_non_trivial_combiner_ops: bool,
@@ -415,11 +428,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_fragment_size(mut self, max_fragment_size: Extent2D) -> Self {
             self.max_fragment_size = max_fragment_size;
             self
         }
 
+        #[inline]
         pub fn max_fragment_size_aspect_ratio(
             mut self,
             max_fragment_size_aspect_ratio: u32,
@@ -428,6 +443,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_fragment_shading_rate_coverage_samples(
             mut self,
             max_fragment_shading_rate_coverage_samples: u32,
@@ -437,6 +453,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_fragment_shading_rate_rasterization_samples(
             mut self,
             max_fragment_shading_rate_rasterization_samples: SampleCountFlagBits,
@@ -446,6 +463,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn fragment_shading_rate_with_shader_depth_stencil_writes(
             mut self,
             fragment_shading_rate_with_shader_depth_stencil_writes: bool,
@@ -455,6 +473,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn fragment_shading_rate_with_sample_mask(
             mut self,
             fragment_shading_rate_with_sample_mask: bool,
@@ -464,6 +483,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn fragment_shading_rate_with_shader_sample_mask(
             mut self,
             fragment_shading_rate_with_shader_sample_mask: bool,
@@ -473,6 +493,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn fragment_shading_rate_with_conservative_rasterization(
             mut self,
             fragment_shading_rate_with_conservative_rasterization: bool,
@@ -482,6 +503,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn fragment_shading_rate_with_fragment_shader_interlock(
             mut self,
             fragment_shading_rate_with_fragment_shader_interlock: bool,
@@ -491,6 +513,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn fragment_shading_rate_with_custom_sample_locations(
             mut self,
             fragment_shading_rate_with_custom_sample_locations: bool,
@@ -500,6 +523,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn fragment_shading_rate_strict_multiply_combiner(
             mut self,
             fragment_shading_rate_strict_multiply_combiner: bool,
@@ -552,11 +576,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceFragmentShadingRateKHR<'a> {
+        #[inline]
         pub fn sample_counts(mut self, sample_counts: SampleCountFlags) -> Self {
             self.sample_counts = sample_counts;
             self
         }
 
+        #[inline]
         pub fn fragment_size(mut self, fragment_size: Extent2D) -> Self {
             self.fragment_size = fragment_size;
             self
@@ -613,16 +639,19 @@ pub(super) mod defs {
     }
 
     impl<'a> RenderingFragmentShadingRateAttachmentInfoKHR<'a> {
+        #[inline]
         pub fn image_view(mut self, image_view: ImageView) -> Self {
             self.image_view = image_view;
             self
         }
 
+        #[inline]
         pub fn image_layout(mut self, image_layout: ImageLayout) -> Self {
             self.image_layout = image_layout;
             self
         }
 
+        #[inline]
         pub fn shading_rate_attachment_texel_size(
             mut self,
             shading_rate_attachment_texel_size: Extent2D,
@@ -699,6 +728,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFragmentShadingRatesKHR.html>
+    #[inline]
     pub unsafe fn get_physical_device_fragment_shading_rates_khr<'a>(
         &self,
         physical_device: PhysicalDevice,
@@ -750,6 +780,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetFragmentShadingRateKHR.html>
+    #[inline]
     pub unsafe fn cmd_set_fragment_shading_rate_khr(
         &self,
         command_buffer: CommandBuffer,

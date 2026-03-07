@@ -112,31 +112,37 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeH265CapabilitiesKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: VideoEncodeH265CapabilityFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn max_level_idc(mut self, max_level_idc: StdVideoH265LevelIdc) -> Self {
             self.max_level_idc = max_level_idc;
             self
         }
 
+        #[inline]
         pub fn max_slice_segment_count(mut self, max_slice_segment_count: u32) -> Self {
             self.max_slice_segment_count = max_slice_segment_count;
             self
         }
 
+        #[inline]
         pub fn max_tiles(mut self, max_tiles: Extent2D) -> Self {
             self.max_tiles = max_tiles;
             self
         }
 
+        #[inline]
         pub fn ctb_sizes(mut self, ctb_sizes: VideoEncodeH265CtbSizeFlagsKHR) -> Self {
             self.ctb_sizes = ctb_sizes;
             self
         }
 
+        #[inline]
         pub fn transform_block_sizes(
             mut self,
             transform_block_sizes: VideoEncodeH265TransformBlockSizeFlagsKHR,
@@ -145,6 +151,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_p_picture_l0_reference_count(
             mut self,
             max_p_picture_l0_reference_count: u32,
@@ -153,6 +160,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_b_picture_l0_reference_count(
             mut self,
             max_b_picture_l0_reference_count: u32,
@@ -161,16 +169,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_l1_reference_count(mut self, max_l1_reference_count: u32) -> Self {
             self.max_l1_reference_count = max_l1_reference_count;
             self
         }
 
+        #[inline]
         pub fn max_sub_layer_count(mut self, max_sub_layer_count: u32) -> Self {
             self.max_sub_layer_count = max_sub_layer_count;
             self
         }
 
+        #[inline]
         pub fn expect_dyadic_temporal_sub_layer_pattern(
             mut self,
             expect_dyadic_temporal_sub_layer_pattern: bool,
@@ -180,21 +191,25 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn min_qp(mut self, min_qp: i32) -> Self {
             self.min_qp = min_qp;
             self
         }
 
+        #[inline]
         pub fn max_qp(mut self, max_qp: i32) -> Self {
             self.max_qp = max_qp;
             self
         }
 
+        #[inline]
         pub fn prefers_gop_remaining_frames(mut self, prefers_gop_remaining_frames: bool) -> Self {
             self.prefers_gop_remaining_frames = prefers_gop_remaining_frames.into();
             self
         }
 
+        #[inline]
         pub fn requires_gop_remaining_frames(
             mut self,
             requires_gop_remaining_frames: bool,
@@ -203,6 +218,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn std_syntax_flags(mut self, std_syntax_flags: VideoEncodeH265StdFlagsKHR) -> Self {
             self.std_syntax_flags = std_syntax_flags;
             self
@@ -286,6 +302,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeH265QualityLevelPropertiesKHR<'a> {
+        #[inline]
         pub fn preferred_rate_control_flags(
             mut self,
             preferred_rate_control_flags: VideoEncodeH265RateControlFlagsKHR,
@@ -294,16 +311,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn preferred_gop_frame_count(mut self, preferred_gop_frame_count: u32) -> Self {
             self.preferred_gop_frame_count = preferred_gop_frame_count;
             self
         }
 
+        #[inline]
         pub fn preferred_idr_period(mut self, preferred_idr_period: u32) -> Self {
             self.preferred_idr_period = preferred_idr_period;
             self
         }
 
+        #[inline]
         pub fn preferred_consecutive_b_frame_count(
             mut self,
             preferred_consecutive_b_frame_count: u32,
@@ -312,11 +332,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn preferred_sub_layer_count(mut self, preferred_sub_layer_count: u32) -> Self {
             self.preferred_sub_layer_count = preferred_sub_layer_count;
             self
         }
 
+        #[inline]
         pub fn preferred_constant_qp(
             mut self,
             preferred_constant_qp: VideoEncodeH265QpKHR,
@@ -325,6 +347,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn preferred_max_l0_reference_count(
             mut self,
             preferred_max_l0_reference_count: u32,
@@ -333,6 +356,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn preferred_max_l1_reference_count(
             mut self,
             preferred_max_l1_reference_count: u32,
@@ -386,11 +410,13 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeH265SessionCreateInfoKHR<'a> {
+        #[inline]
         pub fn use_max_level_idc(mut self, use_max_level_idc: bool) -> Self {
             self.use_max_level_idc = use_max_level_idc.into();
             self
         }
 
+        #[inline]
         pub fn max_level_idc(mut self, max_level_idc: StdVideoH265LevelIdc) -> Self {
             self.max_level_idc = max_level_idc;
             self
@@ -456,18 +482,21 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeH265SessionParametersAddInfoKHR<'a> {
+        #[inline]
         pub fn std_vp_ss(mut self, std_vp_ss: &'a [StdVideoH265VideoParameterSet<'a>]) -> Self {
             self.std_vps_count = std_vp_ss.len().try_into().unwrap();
             self.p_std_vp_ss = std_vp_ss.as_ptr();
             self
         }
 
+        #[inline]
         pub fn std_sp_ss(mut self, std_sp_ss: &'a [StdVideoH265SequenceParameterSet<'a>]) -> Self {
             self.std_sps_count = std_sp_ss.len().try_into().unwrap();
             self.p_std_sp_ss = std_sp_ss.as_ptr();
             self
         }
 
+        #[inline]
         pub fn std_pp_ss(mut self, std_pp_ss: &'a [StdVideoH265PictureParameterSet<'a>]) -> Self {
             self.std_pps_count = std_pp_ss.len().try_into().unwrap();
             self.p_std_pp_ss = std_pp_ss.as_ptr();
@@ -528,21 +557,25 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeH265SessionParametersCreateInfoKHR<'a> {
+        #[inline]
         pub fn max_std_vps_count(mut self, max_std_vps_count: u32) -> Self {
             self.max_std_vps_count = max_std_vps_count;
             self
         }
 
+        #[inline]
         pub fn max_std_sps_count(mut self, max_std_sps_count: u32) -> Self {
             self.max_std_sps_count = max_std_sps_count;
             self
         }
 
+        #[inline]
         pub fn max_std_pps_count(mut self, max_std_pps_count: u32) -> Self {
             self.max_std_pps_count = max_std_pps_count;
             self
         }
 
+        #[inline]
         pub fn parameters_add_info(
             mut self,
             parameters_add_info: &'a VideoEncodeH265SessionParametersAddInfoKHR<'a>,
@@ -611,31 +644,37 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeH265SessionParametersGetInfoKHR<'a> {
+        #[inline]
         pub fn write_std_vps(mut self, write_std_vps: bool) -> Self {
             self.write_std_vps = write_std_vps.into();
             self
         }
 
+        #[inline]
         pub fn write_std_sps(mut self, write_std_sps: bool) -> Self {
             self.write_std_sps = write_std_sps.into();
             self
         }
 
+        #[inline]
         pub fn write_std_pps(mut self, write_std_pps: bool) -> Self {
             self.write_std_pps = write_std_pps.into();
             self
         }
 
+        #[inline]
         pub fn std_vps_id(mut self, std_vps_id: u32) -> Self {
             self.std_vps_id = std_vps_id;
             self
         }
 
+        #[inline]
         pub fn std_sps_id(mut self, std_sps_id: u32) -> Self {
             self.std_sps_id = std_sps_id;
             self
         }
 
+        #[inline]
         pub fn std_pps_id(mut self, std_pps_id: u32) -> Self {
             self.std_pps_id = std_pps_id;
             self
@@ -692,16 +731,19 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeH265SessionParametersFeedbackInfoKHR<'a> {
+        #[inline]
         pub fn has_std_vps_overrides(mut self, has_std_vps_overrides: bool) -> Self {
             self.has_std_vps_overrides = has_std_vps_overrides.into();
             self
         }
 
+        #[inline]
         pub fn has_std_sps_overrides(mut self, has_std_sps_overrides: bool) -> Self {
             self.has_std_sps_overrides = has_std_sps_overrides.into();
             self
         }
 
+        #[inline]
         pub fn has_std_pps_overrides(mut self, has_std_pps_overrides: bool) -> Self {
             self.has_std_pps_overrides = has_std_pps_overrides.into();
             self
@@ -760,6 +802,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeH265PictureInfoKHR<'a> {
+        #[inline]
         pub fn nalu_slice_segment_entries(
             mut self,
             nalu_slice_segment_entries: &'a [VideoEncodeH265NaluSliceSegmentInfoKHR<'a>],
@@ -770,6 +813,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn std_picture_info(
             mut self,
             std_picture_info: &'a StdVideoEncodeH265PictureInfo<'a>,
@@ -824,11 +868,13 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeH265NaluSliceSegmentInfoKHR<'a> {
+        #[inline]
         pub fn constant_qp(mut self, constant_qp: i32) -> Self {
             self.constant_qp = constant_qp;
             self
         }
 
+        #[inline]
         pub fn std_slice_segment_header(
             mut self,
             std_slice_segment_header: &'a StdVideoEncodeH265SliceSegmentHeader<'a>,
@@ -892,26 +938,31 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeH265RateControlInfoKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: VideoEncodeH265RateControlFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn gop_frame_count(mut self, gop_frame_count: u32) -> Self {
             self.gop_frame_count = gop_frame_count;
             self
         }
 
+        #[inline]
         pub fn idr_period(mut self, idr_period: u32) -> Self {
             self.idr_period = idr_period;
             self
         }
 
+        #[inline]
         pub fn consecutive_b_frame_count(mut self, consecutive_b_frame_count: u32) -> Self {
             self.consecutive_b_frame_count = consecutive_b_frame_count;
             self
         }
 
+        #[inline]
         pub fn sub_layer_count(mut self, sub_layer_count: u32) -> Self {
             self.sub_layer_count = sub_layer_count;
             self
@@ -930,16 +981,19 @@ pub(super) mod defs {
     }
 
     impl VideoEncodeH265QpKHR {
+        #[inline]
         pub fn qp_i(mut self, qp_i: i32) -> Self {
             self.qp_i = qp_i;
             self
         }
 
+        #[inline]
         pub fn qp_p(mut self, qp_p: i32) -> Self {
             self.qp_p = qp_p;
             self
         }
 
+        #[inline]
         pub fn qp_b(mut self, qp_b: i32) -> Self {
             self.qp_b = qp_b;
             self
@@ -958,16 +1012,19 @@ pub(super) mod defs {
     }
 
     impl VideoEncodeH265FrameSizeKHR {
+        #[inline]
         pub fn frame_i_size(mut self, frame_i_size: u32) -> Self {
             self.frame_i_size = frame_i_size;
             self
         }
 
+        #[inline]
         pub fn frame_p_size(mut self, frame_p_size: u32) -> Self {
             self.frame_p_size = frame_p_size;
             self
         }
 
+        #[inline]
         pub fn frame_b_size(mut self, frame_b_size: u32) -> Self {
             self.frame_b_size = frame_b_size;
             self
@@ -1027,21 +1084,25 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeH265GopRemainingFrameInfoKHR<'a> {
+        #[inline]
         pub fn use_gop_remaining_frames(mut self, use_gop_remaining_frames: bool) -> Self {
             self.use_gop_remaining_frames = use_gop_remaining_frames.into();
             self
         }
 
+        #[inline]
         pub fn gop_remaining_i(mut self, gop_remaining_i: u32) -> Self {
             self.gop_remaining_i = gop_remaining_i;
             self
         }
 
+        #[inline]
         pub fn gop_remaining_p(mut self, gop_remaining_p: u32) -> Self {
             self.gop_remaining_p = gop_remaining_p;
             self
         }
 
+        #[inline]
         pub fn gop_remaining_b(mut self, gop_remaining_b: u32) -> Self {
             self.gop_remaining_b = gop_remaining_b;
             self
@@ -1107,31 +1168,37 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeH265RateControlLayerInfoKHR<'a> {
+        #[inline]
         pub fn use_min_qp(mut self, use_min_qp: bool) -> Self {
             self.use_min_qp = use_min_qp.into();
             self
         }
 
+        #[inline]
         pub fn min_qp(mut self, min_qp: VideoEncodeH265QpKHR) -> Self {
             self.min_qp = min_qp;
             self
         }
 
+        #[inline]
         pub fn use_max_qp(mut self, use_max_qp: bool) -> Self {
             self.use_max_qp = use_max_qp.into();
             self
         }
 
+        #[inline]
         pub fn max_qp(mut self, max_qp: VideoEncodeH265QpKHR) -> Self {
             self.max_qp = max_qp;
             self
         }
 
+        #[inline]
         pub fn use_max_frame_size(mut self, use_max_frame_size: bool) -> Self {
             self.use_max_frame_size = use_max_frame_size.into();
             self
         }
 
+        #[inline]
         pub fn max_frame_size(mut self, max_frame_size: VideoEncodeH265FrameSizeKHR) -> Self {
             self.max_frame_size = max_frame_size;
             self
@@ -1179,6 +1246,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeH265ProfileInfoKHR<'a> {
+        #[inline]
         pub fn std_profile_idc(mut self, std_profile_idc: StdVideoH265ProfileIdc) -> Self {
             self.std_profile_idc = std_profile_idc;
             self
@@ -1225,6 +1293,7 @@ pub(super) mod defs {
     }
 
     impl<'a> VideoEncodeH265DpbSlotInfoKHR<'a> {
+        #[inline]
         pub fn std_reference_info(
             mut self,
             std_reference_info: &'a StdVideoEncodeH265ReferenceInfo,

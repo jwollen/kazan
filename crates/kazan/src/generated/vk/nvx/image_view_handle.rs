@@ -56,16 +56,19 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageViewHandleInfoNVX<'a> {
+        #[inline]
         pub fn image_view(mut self, image_view: ImageView) -> Self {
             self.image_view = image_view;
             self
         }
 
+        #[inline]
         pub fn descriptor_type(mut self, descriptor_type: DescriptorType) -> Self {
             self.descriptor_type = descriptor_type;
             self
         }
 
+        #[inline]
         pub fn sampler(mut self, sampler: Sampler) -> Self {
             self.sampler = sampler;
             self
@@ -113,11 +116,13 @@ pub(super) mod defs {
     }
 
     impl<'a> ImageViewAddressPropertiesNVX<'a> {
+        #[inline]
         pub fn device_address(mut self, device_address: DeviceAddress) -> Self {
             self.device_address = device_address;
             self
         }
 
+        #[inline]
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
@@ -174,6 +179,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageViewHandleNVX.html>
+    #[inline]
     pub unsafe fn get_image_view_handle_nvx(
         &self,
         device: Device,
@@ -183,6 +189,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageViewHandle64NVX.html>
+    #[inline]
     pub unsafe fn get_image_view_handle64_nvx(
         &self,
         device: Device,
@@ -192,6 +199,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageViewAddressNVX.html>
+    #[inline]
     pub unsafe fn get_image_view_address_nvx(
         &self,
         device: Device,
@@ -209,6 +217,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceCombinedImageSamplerIndexNVX.html>
+    #[inline]
     pub unsafe fn get_device_combined_image_sampler_index_nvx(
         &self,
         device: Device,

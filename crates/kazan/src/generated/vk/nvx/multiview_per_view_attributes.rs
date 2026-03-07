@@ -59,6 +59,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX<'a> {
+        #[inline]
         pub fn per_view_position_all_components(
             mut self,
             per_view_position_all_components: bool,
@@ -119,11 +120,13 @@ pub(super) mod defs {
     }
 
     impl<'a> MultiviewPerViewAttributesInfoNVX<'a> {
+        #[inline]
         pub fn per_view_attributes(mut self, per_view_attributes: bool) -> Self {
             self.per_view_attributes = per_view_attributes.into();
             self
         }
 
+        #[inline]
         pub fn per_view_attributes_position_x_only(
             mut self,
             per_view_attributes_position_x_only: bool,

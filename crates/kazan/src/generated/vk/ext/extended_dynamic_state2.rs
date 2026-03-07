@@ -76,11 +76,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceExtendedDynamicState2FeaturesEXT<'a> {
+        #[inline]
         pub fn extended_dynamic_state2(mut self, extended_dynamic_state2: bool) -> Self {
             self.extended_dynamic_state2 = extended_dynamic_state2.into();
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state2_logic_op(
             mut self,
             extended_dynamic_state2_logic_op: bool,
@@ -89,6 +91,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn extended_dynamic_state2_patch_control_points(
             mut self,
             extended_dynamic_state2_patch_control_points: bool,
@@ -143,6 +146,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPatchControlPointsEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_patch_control_points_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -152,6 +156,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRasterizerDiscardEnableEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_rasterizer_discard_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -166,6 +171,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthBiasEnableEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_depth_bias_enable_ext(
         &self,
         command_buffer: CommandBuffer,
@@ -175,11 +181,13 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLogicOpEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_logic_op_ext(&self, command_buffer: CommandBuffer, logic_op: LogicOp) {
         unsafe { (self.cmd_set_logic_op_ext)(command_buffer, logic_op) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPrimitiveRestartEnableEXT.html>
+    #[inline]
     pub unsafe fn cmd_set_primitive_restart_enable_ext(
         &self,
         command_buffer: CommandBuffer,

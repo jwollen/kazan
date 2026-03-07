@@ -64,6 +64,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineCompilerControlCreateInfoAMD<'a> {
+        #[inline]
         pub fn compiler_control_flags(
             mut self,
             compiler_control_flags: PipelineCompilerControlFlagsAMD,

@@ -53,6 +53,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DeviceMemoryOverallocationCreateInfoAMD<'a> {
+        #[inline]
         pub fn overallocation_behavior(
             mut self,
             overallocation_behavior: MemoryOverallocationBehaviorAMD,

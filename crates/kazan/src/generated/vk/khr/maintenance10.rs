@@ -71,11 +71,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMaintenance10PropertiesKHR<'a> {
+        #[inline]
         pub fn rgba4_opaque_black_swizzled(mut self, rgba4_opaque_black_swizzled: bool) -> Self {
             self.rgba4_opaque_black_swizzled = rgba4_opaque_black_swizzled.into();
             self
         }
 
+        #[inline]
         pub fn resolve_srgb_format_applies_transfer_function(
             mut self,
             resolve_srgb_format_applies_transfer_function: bool,
@@ -85,6 +87,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn resolve_srgb_format_supports_transfer_function_control(
             mut self,
             resolve_srgb_format_supports_transfer_function_control: bool,
@@ -140,6 +143,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMaintenance10FeaturesKHR<'a> {
+        #[inline]
         pub fn maintenance10(mut self, maintenance10: bool) -> Self {
             self.maintenance10 = maintenance10.into();
             self
@@ -222,6 +226,7 @@ pub(super) mod defs {
     }
 
     impl<'a> RenderingAttachmentFlagsInfoKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: RenderingAttachmentFlagsKHR) -> Self {
             self.flags = flags;
             self
@@ -274,16 +279,19 @@ pub(super) mod defs {
     }
 
     impl<'a> ResolveImageModeInfoKHR<'a> {
+        #[inline]
         pub fn flags(mut self, flags: ResolveImageFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn resolve_mode(mut self, resolve_mode: ResolveModeFlagBits) -> Self {
             self.resolve_mode = resolve_mode;
             self
         }
 
+        #[inline]
         pub fn stencil_resolve_mode(mut self, stencil_resolve_mode: ResolveModeFlagBits) -> Self {
             self.stencil_resolve_mode = stencil_resolve_mode;
             self
@@ -441,6 +449,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndRendering2KHR.html>
+    #[inline]
     pub unsafe fn cmd_end_rendering2_khr(
         &self,
         command_buffer: CommandBuffer,

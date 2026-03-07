@@ -96,6 +96,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceCooperativeMatrix2FeaturesNV<'a> {
+        #[inline]
         pub fn cooperative_matrix_workgroup_scope(
             mut self,
             cooperative_matrix_workgroup_scope: bool,
@@ -104,6 +105,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn cooperative_matrix_flexible_dimensions(
             mut self,
             cooperative_matrix_flexible_dimensions: bool,
@@ -113,6 +115,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn cooperative_matrix_reductions(
             mut self,
             cooperative_matrix_reductions: bool,
@@ -121,6 +124,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn cooperative_matrix_conversions(
             mut self,
             cooperative_matrix_conversions: bool,
@@ -129,6 +133,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn cooperative_matrix_per_element_operations(
             mut self,
             cooperative_matrix_per_element_operations: bool,
@@ -138,6 +143,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn cooperative_matrix_tensor_addressing(
             mut self,
             cooperative_matrix_tensor_addressing: bool,
@@ -146,6 +152,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn cooperative_matrix_block_loads(
             mut self,
             cooperative_matrix_block_loads: bool,
@@ -214,6 +221,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceCooperativeMatrix2PropertiesNV<'a> {
+        #[inline]
         pub fn cooperative_matrix_workgroup_scope_max_workgroup_size(
             mut self,
             cooperative_matrix_workgroup_scope_max_workgroup_size: u32,
@@ -223,6 +231,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn cooperative_matrix_flexible_dimensions_max_dimension(
             mut self,
             cooperative_matrix_flexible_dimensions_max_dimension: u32,
@@ -232,6 +241,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn cooperative_matrix_workgroup_scope_reserved_shared_memory(
             mut self,
             cooperative_matrix_workgroup_scope_reserved_shared_memory: u32,
@@ -308,51 +318,61 @@ pub(super) mod defs {
     }
 
     impl<'a> CooperativeMatrixFlexibleDimensionsPropertiesNV<'a> {
+        #[inline]
         pub fn m_granularity(mut self, m_granularity: u32) -> Self {
             self.m_granularity = m_granularity;
             self
         }
 
+        #[inline]
         pub fn n_granularity(mut self, n_granularity: u32) -> Self {
             self.n_granularity = n_granularity;
             self
         }
 
+        #[inline]
         pub fn k_granularity(mut self, k_granularity: u32) -> Self {
             self.k_granularity = k_granularity;
             self
         }
 
+        #[inline]
         pub fn a_type(mut self, a_type: ComponentTypeKHR) -> Self {
             self.a_type = a_type;
             self
         }
 
+        #[inline]
         pub fn b_type(mut self, b_type: ComponentTypeKHR) -> Self {
             self.b_type = b_type;
             self
         }
 
+        #[inline]
         pub fn c_type(mut self, c_type: ComponentTypeKHR) -> Self {
             self.c_type = c_type;
             self
         }
 
+        #[inline]
         pub fn result_type(mut self, result_type: ComponentTypeKHR) -> Self {
             self.result_type = result_type;
             self
         }
 
+        #[inline]
         pub fn saturating_accumulation(mut self, saturating_accumulation: bool) -> Self {
             self.saturating_accumulation = saturating_accumulation.into();
             self
         }
 
+        #[inline]
         pub fn scope(mut self, scope: ScopeKHR) -> Self {
             self.scope = scope;
             self
         }
 
+        #[inline]
         pub fn workgroup_invocations(mut self, workgroup_invocations: u32) -> Self {
             self.workgroup_invocations = workgroup_invocations;
             self
@@ -390,6 +410,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV.html>
+    #[inline]
     pub unsafe fn get_physical_device_cooperative_matrix_flexible_dimensions_properties_nv<'a>(
         &self,
         physical_device: PhysicalDevice,

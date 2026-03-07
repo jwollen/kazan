@@ -76,11 +76,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceBufferDeviceAddressFeaturesEXT<'a> {
+        #[inline]
         pub fn buffer_device_address(mut self, buffer_device_address: bool) -> Self {
             self.buffer_device_address = buffer_device_address.into();
             self
         }
 
+        #[inline]
         pub fn buffer_device_address_capture_replay(
             mut self,
             buffer_device_address_capture_replay: bool,
@@ -89,6 +91,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn buffer_device_address_multi_device(
             mut self,
             buffer_device_address_multi_device: bool,
@@ -138,6 +141,7 @@ pub(super) mod defs {
     }
 
     impl<'a> BufferDeviceAddressCreateInfoEXT<'a> {
+        #[inline]
         pub fn device_address(mut self, device_address: DeviceAddress) -> Self {
             self.device_address = device_address;
             self
@@ -165,6 +169,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferDeviceAddressEXT.html>
+    #[inline]
     pub unsafe fn get_buffer_device_address_ext(
         &self,
         device: Device,

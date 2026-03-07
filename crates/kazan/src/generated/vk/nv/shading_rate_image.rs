@@ -49,6 +49,7 @@ pub(super) mod defs {
     }
 
     impl<'a> ShadingRatePaletteNV<'a> {
+        #[inline]
         pub fn shading_rate_palette_entries(
             mut self,
             shading_rate_palette_entries: &'a [ShadingRatePaletteEntryNV],
@@ -110,11 +111,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineViewportShadingRateImageStateCreateInfoNV<'a> {
+        #[inline]
         pub fn shading_rate_image_enable(mut self, shading_rate_image_enable: bool) -> Self {
             self.shading_rate_image_enable = shading_rate_image_enable.into();
             self
         }
 
+        #[inline]
         pub fn shading_rate_palettes(
             mut self,
             shading_rate_palettes: &'a [ShadingRatePaletteNV<'a>],
@@ -176,11 +179,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShadingRateImageFeaturesNV<'a> {
+        #[inline]
         pub fn shading_rate_image(mut self, shading_rate_image: bool) -> Self {
             self.shading_rate_image = shading_rate_image.into();
             self
         }
 
+        #[inline]
         pub fn shading_rate_coarse_sample_order(
             mut self,
             shading_rate_coarse_sample_order: bool,
@@ -243,16 +248,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShadingRateImagePropertiesNV<'a> {
+        #[inline]
         pub fn shading_rate_texel_size(mut self, shading_rate_texel_size: Extent2D) -> Self {
             self.shading_rate_texel_size = shading_rate_texel_size;
             self
         }
 
+        #[inline]
         pub fn shading_rate_palette_size(mut self, shading_rate_palette_size: u32) -> Self {
             self.shading_rate_palette_size = shading_rate_palette_size;
             self
         }
 
+        #[inline]
         pub fn shading_rate_max_coarse_samples(
             mut self,
             shading_rate_max_coarse_samples: u32,
@@ -274,16 +282,19 @@ pub(super) mod defs {
     }
 
     impl CoarseSampleLocationNV {
+        #[inline]
         pub fn pixel_x(mut self, pixel_x: u32) -> Self {
             self.pixel_x = pixel_x;
             self
         }
 
+        #[inline]
         pub fn pixel_y(mut self, pixel_y: u32) -> Self {
             self.pixel_y = pixel_y;
             self
         }
 
+        #[inline]
         pub fn sample(mut self, sample: u32) -> Self {
             self.sample = sample;
             self
@@ -327,16 +338,19 @@ pub(super) mod defs {
     }
 
     impl<'a> CoarseSampleOrderCustomNV<'a> {
+        #[inline]
         pub fn shading_rate(mut self, shading_rate: ShadingRatePaletteEntryNV) -> Self {
             self.shading_rate = shading_rate;
             self
         }
 
+        #[inline]
         pub fn sample_count(mut self, sample_count: u32) -> Self {
             self.sample_count = sample_count;
             self
         }
 
+        #[inline]
         pub fn sample_locations(mut self, sample_locations: &'a [CoarseSampleLocationNV]) -> Self {
             self.sample_location_count = sample_locations.len().try_into().unwrap();
             self.p_sample_locations = sample_locations.as_ptr();
@@ -394,11 +408,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineViewportCoarseSampleOrderStateCreateInfoNV<'a> {
+        #[inline]
         pub fn sample_order_type(mut self, sample_order_type: CoarseSampleOrderTypeNV) -> Self {
             self.sample_order_type = sample_order_type;
             self
         }
 
+        #[inline]
         pub fn custom_sample_orders(
             mut self,
             custom_sample_orders: &'a [CoarseSampleOrderCustomNV<'a>],
@@ -533,6 +549,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindShadingRateImageNV.html>
+    #[inline]
     pub unsafe fn cmd_bind_shading_rate_image_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -543,6 +560,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewportShadingRatePaletteNV.html>
+    #[inline]
     pub unsafe fn cmd_set_viewport_shading_rate_palette_nv(
         &self,
         command_buffer: CommandBuffer,
@@ -560,6 +578,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoarseSampleOrderNV.html>
+    #[inline]
     pub unsafe fn cmd_set_coarse_sample_order_nv(
         &self,
         command_buffer: CommandBuffer,

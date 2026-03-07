@@ -61,6 +61,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DevicePrivateDataCreateInfo<'a> {
+        #[inline]
         pub fn private_data_slot_request_count(
             mut self,
             private_data_slot_request_count: u32,
@@ -108,6 +109,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PrivateDataSlotCreateInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: PrivateDataSlotCreateFlags) -> Self {
             self.flags = flags;
             self
@@ -155,6 +157,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePrivateDataFeatures<'a> {
+        #[inline]
         pub fn private_data(mut self, private_data: bool) -> Self {
             self.private_data = private_data.into();
             self
@@ -199,6 +202,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DeviceBufferMemoryRequirements<'a> {
+        #[inline]
         pub fn create_info(mut self, create_info: &'a BufferCreateInfo<'a>) -> Self {
             self.p_create_info = create_info;
             self
@@ -246,11 +250,13 @@ pub(super) mod defs {
     }
 
     impl<'a> DeviceImageMemoryRequirements<'a> {
+        #[inline]
         pub fn create_info(mut self, create_info: &'a ImageCreateInfo<'a>) -> Self {
             self.p_create_info = create_info;
             self
         }
 
+        #[inline]
         pub fn plane_aspect(mut self, plane_aspect: ImageAspectFlagBits) -> Self {
             self.plane_aspect = plane_aspect;
             self
@@ -308,11 +314,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceInlineUniformBlockFeatures<'a> {
+        #[inline]
         pub fn inline_uniform_block(mut self, inline_uniform_block: bool) -> Self {
             self.inline_uniform_block = inline_uniform_block.into();
             self
         }
 
+        #[inline]
         pub fn descriptor_binding_inline_uniform_block_update_after_bind(
             mut self,
             descriptor_binding_inline_uniform_block_update_after_bind: bool,
@@ -395,11 +403,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceInlineUniformBlockProperties<'a> {
+        #[inline]
         pub fn max_inline_uniform_block_size(mut self, max_inline_uniform_block_size: u32) -> Self {
             self.max_inline_uniform_block_size = max_inline_uniform_block_size;
             self
         }
 
+        #[inline]
         pub fn max_per_stage_descriptor_inline_uniform_blocks(
             mut self,
             max_per_stage_descriptor_inline_uniform_blocks: u32,
@@ -409,6 +419,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_per_stage_descriptor_update_after_bind_inline_uniform_blocks(
             mut self,
             max_per_stage_descriptor_update_after_bind_inline_uniform_blocks: u32,
@@ -418,6 +429,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_inline_uniform_blocks(
             mut self,
             max_descriptor_set_inline_uniform_blocks: u32,
@@ -427,6 +439,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_update_after_bind_inline_uniform_blocks(
             mut self,
             max_descriptor_set_update_after_bind_inline_uniform_blocks: u32,
@@ -481,6 +494,7 @@ pub(super) mod defs {
     }
 
     impl<'a> WriteDescriptorSetInlineUniformBlock<'a> {
+        #[inline]
         pub fn data(mut self, data: &'a [u8]) -> Self {
             self.data_size = data.len().try_into().unwrap();
             self.p_data = data.as_ptr() as _;
@@ -535,6 +549,7 @@ pub(super) mod defs {
     }
 
     impl<'a> DescriptorPoolInlineUniformBlockCreateInfo<'a> {
+        #[inline]
         pub fn max_inline_uniform_block_bindings(
             mut self,
             max_inline_uniform_block_bindings: u32,
@@ -585,6 +600,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMaintenance4Features<'a> {
+        #[inline]
         pub fn maintenance4(mut self, maintenance4: bool) -> Self {
             self.maintenance4 = maintenance4.into();
             self
@@ -635,6 +651,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceMaintenance4Properties<'a> {
+        #[inline]
         pub fn max_buffer_size(mut self, max_buffer_size: DeviceSize) -> Self {
             self.max_buffer_size = max_buffer_size;
             self
@@ -692,6 +709,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceTextureCompressionASTCHDRFeatures<'a> {
+        #[inline]
         pub fn texture_compression_astc_hdr(mut self, texture_compression_astc_hdr: bool) -> Self {
             self.texture_compression_astc_hdr = texture_compression_astc_hdr.into();
             self
@@ -709,11 +727,13 @@ pub(super) mod defs {
     }
 
     impl PipelineCreationFeedback {
+        #[inline]
         pub fn flags(mut self, flags: PipelineCreationFeedbackFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn duration(mut self, duration: u64) -> Self {
             self.duration = duration;
             self
@@ -792,6 +812,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineCreationFeedbackCreateInfo<'a> {
+        #[inline]
         pub fn pipeline_creation_feedback(
             mut self,
             pipeline_creation_feedback: &'a mut PipelineCreationFeedback,
@@ -800,6 +821,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn pipeline_stage_creation_feedbacks(
             mut self,
             pipeline_stage_creation_feedbacks: &'a mut [PipelineCreationFeedback],
@@ -863,6 +885,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderDemoteToHelperInvocationFeatures<'a> {
+        #[inline]
         pub fn shader_demote_to_helper_invocation(
             mut self,
             shader_demote_to_helper_invocation: bool,
@@ -937,6 +960,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceTexelBufferAlignmentProperties<'a> {
+        #[inline]
         pub fn storage_texel_buffer_offset_alignment_bytes(
             mut self,
             storage_texel_buffer_offset_alignment_bytes: DeviceSize,
@@ -946,6 +970,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn storage_texel_buffer_offset_single_texel_alignment(
             mut self,
             storage_texel_buffer_offset_single_texel_alignment: bool,
@@ -955,6 +980,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn uniform_texel_buffer_offset_alignment_bytes(
             mut self,
             uniform_texel_buffer_offset_alignment_bytes: DeviceSize,
@@ -964,6 +990,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn uniform_texel_buffer_offset_single_texel_alignment(
             mut self,
             uniform_texel_buffer_offset_single_texel_alignment: bool,
@@ -1022,11 +1049,13 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceSubgroupSizeControlFeatures<'a> {
+        #[inline]
         pub fn subgroup_size_control(mut self, subgroup_size_control: bool) -> Self {
             self.subgroup_size_control = subgroup_size_control.into();
             self
         }
 
+        #[inline]
         pub fn compute_full_subgroups(mut self, compute_full_subgroups: bool) -> Self {
             self.compute_full_subgroups = compute_full_subgroups.into();
             self
@@ -1092,16 +1121,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceSubgroupSizeControlProperties<'a> {
+        #[inline]
         pub fn min_subgroup_size(mut self, min_subgroup_size: u32) -> Self {
             self.min_subgroup_size = min_subgroup_size;
             self
         }
 
+        #[inline]
         pub fn max_subgroup_size(mut self, max_subgroup_size: u32) -> Self {
             self.max_subgroup_size = max_subgroup_size;
             self
         }
 
+        #[inline]
         pub fn max_compute_workgroup_subgroups(
             mut self,
             max_compute_workgroup_subgroups: u32,
@@ -1110,6 +1142,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn required_subgroup_size_stages(
             mut self,
             required_subgroup_size_stages: ShaderStageFlags,
@@ -1167,6 +1200,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineShaderStageRequiredSubgroupSizeCreateInfo<'a> {
+        #[inline]
         pub fn required_subgroup_size(mut self, required_subgroup_size: u32) -> Self {
             self.required_subgroup_size = required_subgroup_size;
             self
@@ -1224,6 +1258,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDevicePipelineCreationCacheControlFeatures<'a> {
+        #[inline]
         pub fn pipeline_creation_cache_control(
             mut self,
             pipeline_creation_cache_control: bool,
@@ -1337,16 +1372,19 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceVulkan13Features<'a> {
+        #[inline]
         pub fn robust_image_access(mut self, robust_image_access: bool) -> Self {
             self.robust_image_access = robust_image_access.into();
             self
         }
 
+        #[inline]
         pub fn inline_uniform_block(mut self, inline_uniform_block: bool) -> Self {
             self.inline_uniform_block = inline_uniform_block.into();
             self
         }
 
+        #[inline]
         pub fn descriptor_binding_inline_uniform_block_update_after_bind(
             mut self,
             descriptor_binding_inline_uniform_block_update_after_bind: bool,
@@ -1356,6 +1394,7 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn pipeline_creation_cache_control(
             mut self,
             pipeline_creation_cache_control: bool,
@@ -1364,11 +1403,13 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn private_data(mut self, private_data: bool) -> Self {
             self.private_data = private_data.into();
             self
         }
 
+        #[inline]
         pub fn shader_demote_to_helper_invocation(
             mut self,
             shader_demote_to_helper_invocation: bool,
@@ -1377,31 +1418,37 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn shader_terminate_invocation(mut self, shader_terminate_invocation: bool) -> Self {
             self.shader_terminate_invocation = shader_terminate_invocation.into();
             self
         }
 
+        #[inline]
         pub fn subgroup_size_control(mut self, subgroup_size_control: bool) -> Self {
             self.subgroup_size_control = subgroup_size_control.into();
             self
         }
 
+        #[inline]
         pub fn compute_full_subgroups(mut self, compute_full_subgroups: bool) -> Self {
             self.compute_full_subgroups = compute_full_subgroups.into();
             self
         }
 
+        #[inline]
         pub fn synchronization2(mut self, synchronization2: bool) -> Self {
             self.synchronization2 = synchronization2.into();
             self
         }
 
+        #[inline]
         pub fn texture_compression_astc_hdr(mut self, texture_compression_astc_hdr: bool) -> Self {
             self.texture_compression_astc_hdr = texture_compression_astc_hdr.into();
             self
         }
 
+        #[inline]
         pub fn shader_zero_initialize_workgroup_memory(
             mut self,
             shader_zero_initialize_workgroup_memory: bool,
@@ -1411,16 +1458,19 @@ pub(super) mod defs {
             self
         }
 
+        #[inline]
         pub fn dynamic_rendering(mut self, dynamic_rendering: bool) -> Self {
             self.dynamic_rendering = dynamic_rendering.into();
             self
         }
 
+        #[inline]
         pub fn shader_integer_dot_product(mut self, shader_integer_dot_product: bool) -> Self {
             self.shader_integer_dot_product = shader_integer_dot_product.into();
             self
         }
 
+        #[inline]
         pub fn maintenance4(mut self, maintenance4: bool) -> Self {
             self.maintenance4 = maintenance4.into();
             self
@@ -1601,16 +1651,19 @@ _marker: PhantomData
     }
 
     impl<'a> PhysicalDeviceVulkan13Properties<'a> {
+        #[inline]
         pub fn min_subgroup_size(mut self, min_subgroup_size: u32) -> Self {
             self.min_subgroup_size = min_subgroup_size;
             self
         }
 
+        #[inline]
         pub fn max_subgroup_size(mut self, max_subgroup_size: u32) -> Self {
             self.max_subgroup_size = max_subgroup_size;
             self
         }
 
+        #[inline]
         pub fn max_compute_workgroup_subgroups(
             mut self,
             max_compute_workgroup_subgroups: u32,
@@ -1619,6 +1672,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn required_subgroup_size_stages(
             mut self,
             required_subgroup_size_stages: ShaderStageFlags,
@@ -1627,11 +1681,13 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn max_inline_uniform_block_size(mut self, max_inline_uniform_block_size: u32) -> Self {
             self.max_inline_uniform_block_size = max_inline_uniform_block_size;
             self
         }
 
+        #[inline]
         pub fn max_per_stage_descriptor_inline_uniform_blocks(
             mut self,
             max_per_stage_descriptor_inline_uniform_blocks: u32,
@@ -1641,6 +1697,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn max_per_stage_descriptor_update_after_bind_inline_uniform_blocks(
             mut self,
             max_per_stage_descriptor_update_after_bind_inline_uniform_blocks: u32,
@@ -1650,6 +1707,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_inline_uniform_blocks(
             mut self,
             max_descriptor_set_inline_uniform_blocks: u32,
@@ -1659,6 +1717,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn max_descriptor_set_update_after_bind_inline_uniform_blocks(
             mut self,
             max_descriptor_set_update_after_bind_inline_uniform_blocks: u32,
@@ -1668,11 +1727,13 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn max_inline_uniform_total_size(mut self, max_inline_uniform_total_size: u32) -> Self {
             self.max_inline_uniform_total_size = max_inline_uniform_total_size;
             self
         }
 
+        #[inline]
         pub fn integer_dot_product8_bit_unsigned_accelerated(
             mut self,
             integer_dot_product8_bit_unsigned_accelerated: bool,
@@ -1682,6 +1743,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product8_bit_signed_accelerated(
             mut self,
             integer_dot_product8_bit_signed_accelerated: bool,
@@ -1691,6 +1753,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product8_bit_mixed_signedness_accelerated(
             mut self,
             integer_dot_product8_bit_mixed_signedness_accelerated: bool,
@@ -1700,6 +1763,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product4x8_bit_packed_unsigned_accelerated(
             mut self,
             integer_dot_product4x8_bit_packed_unsigned_accelerated: bool,
@@ -1709,6 +1773,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product4x8_bit_packed_signed_accelerated(
             mut self,
             integer_dot_product4x8_bit_packed_signed_accelerated: bool,
@@ -1718,6 +1783,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product4x8_bit_packed_mixed_signedness_accelerated(
             mut self,
             integer_dot_product4x8_bit_packed_mixed_signedness_accelerated: bool,
@@ -1727,6 +1793,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product16_bit_unsigned_accelerated(
             mut self,
             integer_dot_product16_bit_unsigned_accelerated: bool,
@@ -1736,6 +1803,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product16_bit_signed_accelerated(
             mut self,
             integer_dot_product16_bit_signed_accelerated: bool,
@@ -1745,6 +1813,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product16_bit_mixed_signedness_accelerated(
             mut self,
             integer_dot_product16_bit_mixed_signedness_accelerated: bool,
@@ -1754,6 +1823,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product32_bit_unsigned_accelerated(
             mut self,
             integer_dot_product32_bit_unsigned_accelerated: bool,
@@ -1763,6 +1833,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product32_bit_signed_accelerated(
             mut self,
             integer_dot_product32_bit_signed_accelerated: bool,
@@ -1772,6 +1843,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product32_bit_mixed_signedness_accelerated(
             mut self,
             integer_dot_product32_bit_mixed_signedness_accelerated: bool,
@@ -1781,6 +1853,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product64_bit_unsigned_accelerated(
             mut self,
             integer_dot_product64_bit_unsigned_accelerated: bool,
@@ -1790,6 +1863,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product64_bit_signed_accelerated(
             mut self,
             integer_dot_product64_bit_signed_accelerated: bool,
@@ -1799,6 +1873,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product64_bit_mixed_signedness_accelerated(
             mut self,
             integer_dot_product64_bit_mixed_signedness_accelerated: bool,
@@ -1808,6 +1883,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated: bool,
@@ -1817,6 +1893,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating8_bit_signed_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating8_bit_signed_accelerated: bool,
@@ -1826,6 +1903,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated: bool,
@@ -1836,6 +1914,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated: bool,
@@ -1846,6 +1925,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated: bool,
@@ -1855,6 +1935,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated: bool,
@@ -1863,6 +1944,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated: bool,
@@ -1872,6 +1954,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating16_bit_signed_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating16_bit_signed_accelerated: bool,
@@ -1881,6 +1964,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated: bool,
@@ -1891,6 +1975,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated: bool,
@@ -1900,6 +1985,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating32_bit_signed_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating32_bit_signed_accelerated: bool,
@@ -1909,6 +1995,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated: bool,
@@ -1919,6 +2006,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated: bool,
@@ -1928,6 +2016,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating64_bit_signed_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating64_bit_signed_accelerated: bool,
@@ -1937,6 +2026,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated: bool,
@@ -1947,6 +2037,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn storage_texel_buffer_offset_alignment_bytes(
             mut self,
             storage_texel_buffer_offset_alignment_bytes: DeviceSize,
@@ -1956,6 +2047,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn storage_texel_buffer_offset_single_texel_alignment(
             mut self,
             storage_texel_buffer_offset_single_texel_alignment: bool,
@@ -1965,6 +2057,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn uniform_texel_buffer_offset_alignment_bytes(
             mut self,
             uniform_texel_buffer_offset_alignment_bytes: DeviceSize,
@@ -1974,6 +2067,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn uniform_texel_buffer_offset_single_texel_alignment(
             mut self,
             uniform_texel_buffer_offset_single_texel_alignment: bool,
@@ -1983,6 +2077,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn max_buffer_size(mut self, max_buffer_size: DeviceSize) -> Self {
             self.max_buffer_size = max_buffer_size;
             self
@@ -2042,6 +2137,7 @@ _marker: PhantomData
     }
 
     impl<'a> PhysicalDeviceToolProperties<'a> {
+        #[inline]
         pub fn name(
             mut self,
             name: &CStr,
@@ -2050,6 +2146,7 @@ _marker: PhantomData
             Ok(self)
         }
 
+        #[inline]
         pub fn version(
             mut self,
             version: &CStr,
@@ -2058,11 +2155,13 @@ _marker: PhantomData
             Ok(self)
         }
 
+        #[inline]
         pub fn purposes(mut self, purposes: ToolPurposeFlags) -> Self {
             self.purposes = purposes;
             self
         }
 
+        #[inline]
         pub fn description(
             mut self,
             description: &CStr,
@@ -2071,6 +2170,7 @@ _marker: PhantomData
             Ok(self)
         }
 
+        #[inline]
         pub fn layer(
             mut self,
             layer: &CStr,
@@ -2131,6 +2231,7 @@ _marker: PhantomData
     }
 
     impl<'a> PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures<'a> {
+        #[inline]
         pub fn shader_zero_initialize_workgroup_memory(
             mut self,
             shader_zero_initialize_workgroup_memory: bool,
@@ -2183,6 +2284,7 @@ _marker: PhantomData
     }
 
     impl<'a> PhysicalDeviceImageRobustnessFeatures<'a> {
+        #[inline]
         pub fn robust_image_access(mut self, robust_image_access: bool) -> Self {
             self.robust_image_access = robust_image_access.into();
             self
@@ -2233,16 +2335,19 @@ _marker: PhantomData
     }
 
     impl<'a> BufferCopy2<'a> {
+        #[inline]
         pub fn src_offset(mut self, src_offset: DeviceSize) -> Self {
             self.src_offset = src_offset;
             self
         }
 
+        #[inline]
         pub fn dst_offset(mut self, dst_offset: DeviceSize) -> Self {
             self.dst_offset = dst_offset;
             self
         }
 
+        #[inline]
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
@@ -2299,26 +2404,31 @@ _marker: PhantomData
     }
 
     impl<'a> ImageCopy2<'a> {
+        #[inline]
         pub fn src_subresource(mut self, src_subresource: ImageSubresourceLayers) -> Self {
             self.src_subresource = src_subresource;
             self
         }
 
+        #[inline]
         pub fn src_offset(mut self, src_offset: Offset3D) -> Self {
             self.src_offset = src_offset;
             self
         }
 
+        #[inline]
         pub fn dst_subresource(mut self, dst_subresource: ImageSubresourceLayers) -> Self {
             self.dst_subresource = dst_subresource;
             self
         }
 
+        #[inline]
         pub fn dst_offset(mut self, dst_offset: Offset3D) -> Self {
             self.dst_offset = dst_offset;
             self
         }
 
+        #[inline]
         pub fn extent(mut self, extent: Extent3D) -> Self {
             self.extent = extent;
             self
@@ -2372,21 +2482,25 @@ _marker: PhantomData
     }
 
     impl<'a> ImageBlit2<'a> {
+        #[inline]
         pub fn src_subresource(mut self, src_subresource: ImageSubresourceLayers) -> Self {
             self.src_subresource = src_subresource;
             self
         }
 
+        #[inline]
         pub fn src_offsets(mut self, src_offsets: [Offset3D; 2]) -> Self {
             self.src_offsets = src_offsets;
             self
         }
 
+        #[inline]
         pub fn dst_subresource(mut self, dst_subresource: ImageSubresourceLayers) -> Self {
             self.dst_subresource = dst_subresource;
             self
         }
 
+        #[inline]
         pub fn dst_offsets(mut self, dst_offsets: [Offset3D; 2]) -> Self {
             self.dst_offsets = dst_offsets;
             self
@@ -2446,31 +2560,37 @@ _marker: PhantomData
     }
 
     impl<'a> BufferImageCopy2<'a> {
+        #[inline]
         pub fn buffer_offset(mut self, buffer_offset: DeviceSize) -> Self {
             self.buffer_offset = buffer_offset;
             self
         }
 
+        #[inline]
         pub fn buffer_row_length(mut self, buffer_row_length: u32) -> Self {
             self.buffer_row_length = buffer_row_length;
             self
         }
 
+        #[inline]
         pub fn buffer_image_height(mut self, buffer_image_height: u32) -> Self {
             self.buffer_image_height = buffer_image_height;
             self
         }
 
+        #[inline]
         pub fn image_subresource(mut self, image_subresource: ImageSubresourceLayers) -> Self {
             self.image_subresource = image_subresource;
             self
         }
 
+        #[inline]
         pub fn image_offset(mut self, image_offset: Offset3D) -> Self {
             self.image_offset = image_offset;
             self
         }
 
+        #[inline]
         pub fn image_extent(mut self, image_extent: Extent3D) -> Self {
             self.image_extent = image_extent;
             self
@@ -2527,26 +2647,31 @@ _marker: PhantomData
     }
 
     impl<'a> ImageResolve2<'a> {
+        #[inline]
         pub fn src_subresource(mut self, src_subresource: ImageSubresourceLayers) -> Self {
             self.src_subresource = src_subresource;
             self
         }
 
+        #[inline]
         pub fn src_offset(mut self, src_offset: Offset3D) -> Self {
             self.src_offset = src_offset;
             self
         }
 
+        #[inline]
         pub fn dst_subresource(mut self, dst_subresource: ImageSubresourceLayers) -> Self {
             self.dst_subresource = dst_subresource;
             self
         }
 
+        #[inline]
         pub fn dst_offset(mut self, dst_offset: Offset3D) -> Self {
             self.dst_offset = dst_offset;
             self
         }
 
+        #[inline]
         pub fn extent(mut self, extent: Extent3D) -> Self {
             self.extent = extent;
             self
@@ -2600,16 +2725,19 @@ _marker: PhantomData
     }
 
     impl<'a> CopyBufferInfo2<'a> {
+        #[inline]
         pub fn src_buffer(mut self, src_buffer: Buffer) -> Self {
             self.src_buffer = src_buffer;
             self
         }
 
+        #[inline]
         pub fn dst_buffer(mut self, dst_buffer: Buffer) -> Self {
             self.dst_buffer = dst_buffer;
             self
         }
 
+        #[inline]
         pub fn regions(mut self, regions: &'a [BufferCopy2<'a>]) -> Self {
             self.region_count = regions.len().try_into().unwrap();
             self.p_regions = regions.as_ptr();
@@ -2670,26 +2798,31 @@ _marker: PhantomData
     }
 
     impl<'a> CopyImageInfo2<'a> {
+        #[inline]
         pub fn src_image(mut self, src_image: Image) -> Self {
             self.src_image = src_image;
             self
         }
 
+        #[inline]
         pub fn src_image_layout(mut self, src_image_layout: ImageLayout) -> Self {
             self.src_image_layout = src_image_layout;
             self
         }
 
+        #[inline]
         pub fn dst_image(mut self, dst_image: Image) -> Self {
             self.dst_image = dst_image;
             self
         }
 
+        #[inline]
         pub fn dst_image_layout(mut self, dst_image_layout: ImageLayout) -> Self {
             self.dst_image_layout = dst_image_layout;
             self
         }
 
+        #[inline]
         pub fn regions(mut self, regions: &'a [ImageCopy2<'a>]) -> Self {
             self.region_count = regions.len().try_into().unwrap();
             self.p_regions = regions.as_ptr();
@@ -2753,32 +2886,38 @@ _marker: PhantomData
     }
 
     impl<'a> BlitImageInfo2<'a> {
+        #[inline]
         pub fn src_image(mut self, src_image: Image) -> Self {
             self.src_image = src_image;
             self
         }
 
+        #[inline]
         pub fn src_image_layout(mut self, src_image_layout: ImageLayout) -> Self {
             self.src_image_layout = src_image_layout;
             self
         }
 
+        #[inline]
         pub fn dst_image(mut self, dst_image: Image) -> Self {
             self.dst_image = dst_image;
             self
         }
 
+        #[inline]
         pub fn dst_image_layout(mut self, dst_image_layout: ImageLayout) -> Self {
             self.dst_image_layout = dst_image_layout;
             self
         }
 
+        #[inline]
         pub fn regions(mut self, regions: &'a [ImageBlit2<'a>]) -> Self {
             self.region_count = regions.len().try_into().unwrap();
             self.p_regions = regions.as_ptr();
             self
         }
 
+        #[inline]
         pub fn filter(mut self, filter: Filter) -> Self {
             self.filter = filter;
             self
@@ -2835,21 +2974,25 @@ _marker: PhantomData
     }
 
     impl<'a> CopyBufferToImageInfo2<'a> {
+        #[inline]
         pub fn src_buffer(mut self, src_buffer: Buffer) -> Self {
             self.src_buffer = src_buffer;
             self
         }
 
+        #[inline]
         pub fn dst_image(mut self, dst_image: Image) -> Self {
             self.dst_image = dst_image;
             self
         }
 
+        #[inline]
         pub fn dst_image_layout(mut self, dst_image_layout: ImageLayout) -> Self {
             self.dst_image_layout = dst_image_layout;
             self
         }
 
+        #[inline]
         pub fn regions(mut self, regions: &'a [BufferImageCopy2<'a>]) -> Self {
             self.region_count = regions.len().try_into().unwrap();
             self.p_regions = regions.as_ptr();
@@ -2907,21 +3050,25 @@ _marker: PhantomData
     }
 
     impl<'a> CopyImageToBufferInfo2<'a> {
+        #[inline]
         pub fn src_image(mut self, src_image: Image) -> Self {
             self.src_image = src_image;
             self
         }
 
+        #[inline]
         pub fn src_image_layout(mut self, src_image_layout: ImageLayout) -> Self {
             self.src_image_layout = src_image_layout;
             self
         }
 
+        #[inline]
         pub fn dst_buffer(mut self, dst_buffer: Buffer) -> Self {
             self.dst_buffer = dst_buffer;
             self
         }
 
+        #[inline]
         pub fn regions(mut self, regions: &'a [BufferImageCopy2<'a>]) -> Self {
             self.region_count = regions.len().try_into().unwrap();
             self.p_regions = regions.as_ptr();
@@ -2982,26 +3129,31 @@ _marker: PhantomData
     }
 
     impl<'a> ResolveImageInfo2<'a> {
+        #[inline]
         pub fn src_image(mut self, src_image: Image) -> Self {
             self.src_image = src_image;
             self
         }
 
+        #[inline]
         pub fn src_image_layout(mut self, src_image_layout: ImageLayout) -> Self {
             self.src_image_layout = src_image_layout;
             self
         }
 
+        #[inline]
         pub fn dst_image(mut self, dst_image: Image) -> Self {
             self.dst_image = dst_image;
             self
         }
 
+        #[inline]
         pub fn dst_image_layout(mut self, dst_image_layout: ImageLayout) -> Self {
             self.dst_image_layout = dst_image_layout;
             self
         }
 
+        #[inline]
         pub fn regions(mut self, regions: &'a [ImageResolve2<'a>]) -> Self {
             self.region_count = regions.len().try_into().unwrap();
             self.p_regions = regions.as_ptr();
@@ -3060,6 +3212,7 @@ _marker: PhantomData
     }
 
     impl<'a> PhysicalDeviceShaderTerminateInvocationFeatures<'a> {
+        #[inline]
         pub fn shader_terminate_invocation(mut self, shader_terminate_invocation: bool) -> Self {
             self.shader_terminate_invocation = shader_terminate_invocation.into();
             self
@@ -3115,21 +3268,25 @@ _marker: PhantomData
     }
 
     impl<'a> MemoryBarrier2<'a> {
+        #[inline]
         pub fn src_stage_mask(mut self, src_stage_mask: PipelineStageFlags2) -> Self {
             self.src_stage_mask = src_stage_mask;
             self
         }
 
+        #[inline]
         pub fn src_access_mask(mut self, src_access_mask: AccessFlags2) -> Self {
             self.src_access_mask = src_access_mask;
             self
         }
 
+        #[inline]
         pub fn dst_stage_mask(mut self, dst_stage_mask: PipelineStageFlags2) -> Self {
             self.dst_stage_mask = dst_stage_mask;
             self
         }
 
+        #[inline]
         pub fn dst_access_mask(mut self, dst_access_mask: AccessFlags2) -> Self {
             self.dst_access_mask = dst_access_mask;
             self
@@ -3201,51 +3358,61 @@ _marker: PhantomData
     }
 
     impl<'a> ImageMemoryBarrier2<'a> {
+        #[inline]
         pub fn src_stage_mask(mut self, src_stage_mask: PipelineStageFlags2) -> Self {
             self.src_stage_mask = src_stage_mask;
             self
         }
 
+        #[inline]
         pub fn src_access_mask(mut self, src_access_mask: AccessFlags2) -> Self {
             self.src_access_mask = src_access_mask;
             self
         }
 
+        #[inline]
         pub fn dst_stage_mask(mut self, dst_stage_mask: PipelineStageFlags2) -> Self {
             self.dst_stage_mask = dst_stage_mask;
             self
         }
 
+        #[inline]
         pub fn dst_access_mask(mut self, dst_access_mask: AccessFlags2) -> Self {
             self.dst_access_mask = dst_access_mask;
             self
         }
 
+        #[inline]
         pub fn old_layout(mut self, old_layout: ImageLayout) -> Self {
             self.old_layout = old_layout;
             self
         }
 
+        #[inline]
         pub fn new_layout(mut self, new_layout: ImageLayout) -> Self {
             self.new_layout = new_layout;
             self
         }
 
+        #[inline]
         pub fn src_queue_family_index(mut self, src_queue_family_index: u32) -> Self {
             self.src_queue_family_index = src_queue_family_index;
             self
         }
 
+        #[inline]
         pub fn dst_queue_family_index(mut self, dst_queue_family_index: u32) -> Self {
             self.dst_queue_family_index = dst_queue_family_index;
             self
         }
 
+        #[inline]
         pub fn image(mut self, image: Image) -> Self {
             self.image = image;
             self
         }
 
+        #[inline]
         pub fn subresource_range(mut self, subresource_range: ImageSubresourceRange) -> Self {
             self.subresource_range = subresource_range;
             self
@@ -3314,46 +3481,55 @@ _marker: PhantomData
     }
 
     impl<'a> BufferMemoryBarrier2<'a> {
+        #[inline]
         pub fn src_stage_mask(mut self, src_stage_mask: PipelineStageFlags2) -> Self {
             self.src_stage_mask = src_stage_mask;
             self
         }
 
+        #[inline]
         pub fn src_access_mask(mut self, src_access_mask: AccessFlags2) -> Self {
             self.src_access_mask = src_access_mask;
             self
         }
 
+        #[inline]
         pub fn dst_stage_mask(mut self, dst_stage_mask: PipelineStageFlags2) -> Self {
             self.dst_stage_mask = dst_stage_mask;
             self
         }
 
+        #[inline]
         pub fn dst_access_mask(mut self, dst_access_mask: AccessFlags2) -> Self {
             self.dst_access_mask = dst_access_mask;
             self
         }
 
+        #[inline]
         pub fn src_queue_family_index(mut self, src_queue_family_index: u32) -> Self {
             self.src_queue_family_index = src_queue_family_index;
             self
         }
 
+        #[inline]
         pub fn dst_queue_family_index(mut self, dst_queue_family_index: u32) -> Self {
             self.dst_queue_family_index = dst_queue_family_index;
             self
         }
 
+        #[inline]
         pub fn buffer(mut self, buffer: Buffer) -> Self {
             self.buffer = buffer;
             self
         }
 
+        #[inline]
         pub fn offset(mut self, offset: DeviceSize) -> Self {
             self.offset = offset;
             self
         }
 
+        #[inline]
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
@@ -3422,17 +3598,20 @@ _marker: PhantomData
     }
 
     impl<'a> DependencyInfo<'a> {
+        #[inline]
         pub fn dependency_flags(mut self, dependency_flags: DependencyFlags) -> Self {
             self.dependency_flags = dependency_flags;
             self
         }
 
+        #[inline]
         pub fn memory_barriers(mut self, memory_barriers: &'a [MemoryBarrier2<'a>]) -> Self {
             self.memory_barrier_count = memory_barriers.len().try_into().unwrap();
             self.p_memory_barriers = memory_barriers.as_ptr();
             self
         }
 
+        #[inline]
         pub fn buffer_memory_barriers(
             mut self,
             buffer_memory_barriers: &'a [BufferMemoryBarrier2<'a>],
@@ -3442,6 +3621,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn image_memory_barriers(
             mut self,
             image_memory_barriers: &'a [ImageMemoryBarrier2<'a>],
@@ -3499,21 +3679,25 @@ _marker: PhantomData
     }
 
     impl<'a> SemaphoreSubmitInfo<'a> {
+        #[inline]
         pub fn semaphore(mut self, semaphore: Semaphore) -> Self {
             self.semaphore = semaphore;
             self
         }
 
+        #[inline]
         pub fn value(mut self, value: u64) -> Self {
             self.value = value;
             self
         }
 
+        #[inline]
         pub fn stage_mask(mut self, stage_mask: PipelineStageFlags2) -> Self {
             self.stage_mask = stage_mask;
             self
         }
 
+        #[inline]
         pub fn device_index(mut self, device_index: u32) -> Self {
             self.device_index = device_index;
             self
@@ -3561,11 +3745,13 @@ _marker: PhantomData
     }
 
     impl<'a> CommandBufferSubmitInfo<'a> {
+        #[inline]
         pub fn command_buffer(mut self, command_buffer: CommandBuffer) -> Self {
             self.command_buffer = command_buffer;
             self
         }
 
+        #[inline]
         pub fn device_mask(mut self, device_mask: u32) -> Self {
             self.device_mask = device_mask;
             self
@@ -3631,11 +3817,13 @@ _marker: PhantomData
     }
 
     impl<'a> SubmitInfo2<'a> {
+        #[inline]
         pub fn flags(mut self, flags: SubmitFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn wait_semaphore_infos(
             mut self,
             wait_semaphore_infos: &'a [SemaphoreSubmitInfo<'a>],
@@ -3645,6 +3833,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn command_buffer_infos(
             mut self,
             command_buffer_infos: &'a [CommandBufferSubmitInfo<'a>],
@@ -3654,6 +3843,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn signal_semaphore_infos(
             mut self,
             signal_semaphore_infos: &'a [SemaphoreSubmitInfo<'a>],
@@ -3709,6 +3899,7 @@ _marker: PhantomData
     }
 
     impl<'a> PhysicalDeviceSynchronization2Features<'a> {
+        #[inline]
         pub fn synchronization2(mut self, synchronization2: bool) -> Self {
             self.synchronization2 = synchronization2.into();
             self
@@ -3766,6 +3957,7 @@ _marker: PhantomData
     }
 
     impl<'a> PhysicalDeviceShaderIntegerDotProductFeatures<'a> {
+        #[inline]
         pub fn shader_integer_dot_product(mut self, shader_integer_dot_product: bool) -> Self {
             self.shader_integer_dot_product = shader_integer_dot_product.into();
             self
@@ -3905,6 +4097,7 @@ _marker: PhantomData
     }
 
     impl<'a> PhysicalDeviceShaderIntegerDotProductProperties<'a> {
+        #[inline]
         pub fn integer_dot_product8_bit_unsigned_accelerated(
             mut self,
             integer_dot_product8_bit_unsigned_accelerated: bool,
@@ -3914,6 +4107,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product8_bit_signed_accelerated(
             mut self,
             integer_dot_product8_bit_signed_accelerated: bool,
@@ -3923,6 +4117,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product8_bit_mixed_signedness_accelerated(
             mut self,
             integer_dot_product8_bit_mixed_signedness_accelerated: bool,
@@ -3932,6 +4127,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product4x8_bit_packed_unsigned_accelerated(
             mut self,
             integer_dot_product4x8_bit_packed_unsigned_accelerated: bool,
@@ -3941,6 +4137,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product4x8_bit_packed_signed_accelerated(
             mut self,
             integer_dot_product4x8_bit_packed_signed_accelerated: bool,
@@ -3950,6 +4147,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product4x8_bit_packed_mixed_signedness_accelerated(
             mut self,
             integer_dot_product4x8_bit_packed_mixed_signedness_accelerated: bool,
@@ -3959,6 +4157,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product16_bit_unsigned_accelerated(
             mut self,
             integer_dot_product16_bit_unsigned_accelerated: bool,
@@ -3968,6 +4167,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product16_bit_signed_accelerated(
             mut self,
             integer_dot_product16_bit_signed_accelerated: bool,
@@ -3977,6 +4177,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product16_bit_mixed_signedness_accelerated(
             mut self,
             integer_dot_product16_bit_mixed_signedness_accelerated: bool,
@@ -3986,6 +4187,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product32_bit_unsigned_accelerated(
             mut self,
             integer_dot_product32_bit_unsigned_accelerated: bool,
@@ -3995,6 +4197,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product32_bit_signed_accelerated(
             mut self,
             integer_dot_product32_bit_signed_accelerated: bool,
@@ -4004,6 +4207,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product32_bit_mixed_signedness_accelerated(
             mut self,
             integer_dot_product32_bit_mixed_signedness_accelerated: bool,
@@ -4013,6 +4217,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product64_bit_unsigned_accelerated(
             mut self,
             integer_dot_product64_bit_unsigned_accelerated: bool,
@@ -4022,6 +4227,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product64_bit_signed_accelerated(
             mut self,
             integer_dot_product64_bit_signed_accelerated: bool,
@@ -4031,6 +4237,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product64_bit_mixed_signedness_accelerated(
             mut self,
             integer_dot_product64_bit_mixed_signedness_accelerated: bool,
@@ -4040,6 +4247,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated: bool,
@@ -4049,6 +4257,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating8_bit_signed_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating8_bit_signed_accelerated: bool,
@@ -4058,6 +4267,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated: bool,
@@ -4068,6 +4278,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated: bool,
@@ -4078,6 +4289,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated: bool,
@@ -4087,6 +4299,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated: bool,
@@ -4095,6 +4308,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated: bool,
@@ -4104,6 +4318,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating16_bit_signed_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating16_bit_signed_accelerated: bool,
@@ -4113,6 +4328,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated: bool,
@@ -4123,6 +4339,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated: bool,
@@ -4132,6 +4349,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating32_bit_signed_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating32_bit_signed_accelerated: bool,
@@ -4141,6 +4359,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated: bool,
@@ -4151,6 +4370,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated: bool,
@@ -4160,6 +4380,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating64_bit_signed_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating64_bit_signed_accelerated: bool,
@@ -4169,6 +4390,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated(
             mut self,
             integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated: bool,
@@ -4226,6 +4448,7 @@ _marker: PhantomData
     }
 
     impl<'a> FormatProperties3<'a> {
+        #[inline]
         pub fn linear_tiling_features(
             mut self,
             linear_tiling_features: FormatFeatureFlags2,
@@ -4234,6 +4457,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn optimal_tiling_features(
             mut self,
             optimal_tiling_features: FormatFeatureFlags2,
@@ -4242,6 +4466,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn buffer_features(mut self, buffer_features: FormatFeatureFlags2) -> Self {
             self.buffer_features = buffer_features;
             self
@@ -4303,22 +4528,26 @@ _marker: PhantomData
     }
 
     impl<'a> PipelineRenderingCreateInfo<'a> {
+        #[inline]
         pub fn view_mask(mut self, view_mask: u32) -> Self {
             self.view_mask = view_mask;
             self
         }
 
+        #[inline]
         pub fn color_attachment_formats(mut self, color_attachment_formats: &'a [Format]) -> Self {
             self.color_attachment_count = color_attachment_formats.len().try_into().unwrap();
             self.p_color_attachment_formats = color_attachment_formats.as_ptr();
             self
         }
 
+        #[inline]
         pub fn depth_attachment_format(mut self, depth_attachment_format: Format) -> Self {
             self.depth_attachment_format = depth_attachment_format;
             self
         }
 
+        #[inline]
         pub fn stencil_attachment_format(mut self, stencil_attachment_format: Format) -> Self {
             self.stencil_attachment_format = stencil_attachment_format;
             self
@@ -4384,26 +4613,31 @@ _marker: PhantomData
     }
 
     impl<'a> RenderingInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: RenderingFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn render_area(mut self, render_area: Rect2D) -> Self {
             self.render_area = render_area;
             self
         }
 
+        #[inline]
         pub fn layer_count(mut self, layer_count: u32) -> Self {
             self.layer_count = layer_count;
             self
         }
 
+        #[inline]
         pub fn view_mask(mut self, view_mask: u32) -> Self {
             self.view_mask = view_mask;
             self
         }
 
+        #[inline]
         pub fn color_attachments(
             mut self,
             color_attachments: &'a [RenderingAttachmentInfo<'a>],
@@ -4413,6 +4647,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn depth_attachment(
             mut self,
             depth_attachment: &'a RenderingAttachmentInfo<'a>,
@@ -4421,6 +4656,7 @@ _marker: PhantomData
             self
         }
 
+        #[inline]
         pub fn stencil_attachment(
             mut self,
             stencil_attachment: &'a RenderingAttachmentInfo<'a>,
@@ -4489,41 +4725,49 @@ _marker: PhantomData
     }
 
     impl<'a> RenderingAttachmentInfo<'a> {
+        #[inline]
         pub fn image_view(mut self, image_view: ImageView) -> Self {
             self.image_view = image_view;
             self
         }
 
+        #[inline]
         pub fn image_layout(mut self, image_layout: ImageLayout) -> Self {
             self.image_layout = image_layout;
             self
         }
 
+        #[inline]
         pub fn resolve_mode(mut self, resolve_mode: ResolveModeFlagBits) -> Self {
             self.resolve_mode = resolve_mode;
             self
         }
 
+        #[inline]
         pub fn resolve_image_view(mut self, resolve_image_view: ImageView) -> Self {
             self.resolve_image_view = resolve_image_view;
             self
         }
 
+        #[inline]
         pub fn resolve_image_layout(mut self, resolve_image_layout: ImageLayout) -> Self {
             self.resolve_image_layout = resolve_image_layout;
             self
         }
 
+        #[inline]
         pub fn load_op(mut self, load_op: AttachmentLoadOp) -> Self {
             self.load_op = load_op;
             self
         }
 
+        #[inline]
         pub fn store_op(mut self, store_op: AttachmentStoreOp) -> Self {
             self.store_op = store_op;
             self
         }
 
+        #[inline]
         pub fn clear_value(mut self, clear_value: ClearValue) -> Self {
             self.clear_value = clear_value;
             self
@@ -4575,6 +4819,7 @@ _marker: PhantomData
     }
 
     impl<'a> PhysicalDeviceDynamicRenderingFeatures<'a> {
+        #[inline]
         pub fn dynamic_rendering(mut self, dynamic_rendering: bool) -> Self {
             self.dynamic_rendering = dynamic_rendering.into();
             self
@@ -4646,32 +4891,38 @@ _marker: PhantomData
     }
 
     impl<'a> CommandBufferInheritanceRenderingInfo<'a> {
+        #[inline]
         pub fn flags(mut self, flags: RenderingFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn view_mask(mut self, view_mask: u32) -> Self {
             self.view_mask = view_mask;
             self
         }
 
+        #[inline]
         pub fn color_attachment_formats(mut self, color_attachment_formats: &'a [Format]) -> Self {
             self.color_attachment_count = color_attachment_formats.len().try_into().unwrap();
             self.p_color_attachment_formats = color_attachment_formats.as_ptr();
             self
         }
 
+        #[inline]
         pub fn depth_attachment_format(mut self, depth_attachment_format: Format) -> Self {
             self.depth_attachment_format = depth_attachment_format;
             self
         }
 
+        #[inline]
         pub fn stencil_attachment_format(mut self, stencil_attachment_format: Format) -> Self {
             self.stencil_attachment_format = stencil_attachment_format;
             self
         }
 
+        #[inline]
         pub fn rasterization_samples(mut self, rasterization_samples: SampleCountFlagBits) -> Self {
             self.rasterization_samples = rasterization_samples;
             self
@@ -6575,6 +6826,7 @@ impl InstanceFn {
 
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceToolProperties.html>
+    #[inline]
     pub unsafe fn get_physical_device_tool_properties<'a>(
         &self,
         physical_device: PhysicalDevice,
@@ -6759,6 +7011,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreatePrivateDataSlot.html>
+    #[inline]
     pub unsafe fn create_private_data_slot(
         &self,
         device: Device,
@@ -6782,6 +7035,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyPrivateDataSlot.html>
+    #[inline]
     pub unsafe fn destroy_private_data_slot(
         &self,
         device: Device,
@@ -6794,6 +7048,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetPrivateData.html>
+    #[inline]
     pub unsafe fn set_private_data(
         &self,
         device: Device,
@@ -6819,6 +7074,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPrivateData.html>
+    #[inline]
     pub unsafe fn get_private_data(
         &self,
         device: Device,
@@ -6840,6 +7096,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPipelineBarrier2.html>
+    #[inline]
     pub unsafe fn cmd_pipeline_barrier2(
         &self,
         command_buffer: CommandBuffer,
@@ -6849,6 +7106,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteTimestamp2.html>
+    #[inline]
     pub unsafe fn cmd_write_timestamp2(
         &self,
         command_buffer: CommandBuffer,
@@ -6860,6 +7118,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueSubmit2.html>
+    #[inline]
     pub unsafe fn queue_submit2(
         &self,
         queue: Queue,
@@ -6882,6 +7141,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyBuffer2.html>
+    #[inline]
     pub unsafe fn cmd_copy_buffer2(
         &self,
         command_buffer: CommandBuffer,
@@ -6891,6 +7151,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyImage2.html>
+    #[inline]
     pub unsafe fn cmd_copy_image2(
         &self,
         command_buffer: CommandBuffer,
@@ -6900,6 +7161,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyBufferToImage2.html>
+    #[inline]
     pub unsafe fn cmd_copy_buffer_to_image2(
         &self,
         command_buffer: CommandBuffer,
@@ -6909,6 +7171,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyImageToBuffer2.html>
+    #[inline]
     pub unsafe fn cmd_copy_image_to_buffer2(
         &self,
         command_buffer: CommandBuffer,
@@ -6918,6 +7181,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceBufferMemoryRequirements.html>
+    #[inline]
     pub unsafe fn get_device_buffer_memory_requirements(
         &self,
         device: Device,
@@ -6928,6 +7192,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceImageMemoryRequirements.html>
+    #[inline]
     pub unsafe fn get_device_image_memory_requirements(
         &self,
         device: Device,
@@ -6938,6 +7203,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceImageSparseMemoryRequirements.html>
+    #[inline]
     pub unsafe fn get_device_image_sparse_memory_requirements<'a>(
         &self,
         device: Device,
@@ -6967,6 +7233,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetEvent2.html>
+    #[inline]
     pub unsafe fn cmd_set_event2(
         &self,
         command_buffer: CommandBuffer,
@@ -6977,6 +7244,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdResetEvent2.html>
+    #[inline]
     pub unsafe fn cmd_reset_event2(
         &self,
         command_buffer: CommandBuffer,
@@ -6987,6 +7255,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWaitEvents2.html>
+    #[inline]
     pub unsafe fn cmd_wait_events2(
         &self,
         command_buffer: CommandBuffer,
@@ -7004,6 +7273,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBlitImage2.html>
+    #[inline]
     pub unsafe fn cmd_blit_image2(
         &self,
         command_buffer: CommandBuffer,
@@ -7013,6 +7283,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdResolveImage2.html>
+    #[inline]
     pub unsafe fn cmd_resolve_image2(
         &self,
         command_buffer: CommandBuffer,
@@ -7022,6 +7293,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginRendering.html>
+    #[inline]
     pub unsafe fn cmd_begin_rendering(
         &self,
         command_buffer: CommandBuffer,
@@ -7031,11 +7303,13 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndRendering.html>
+    #[inline]
     pub unsafe fn cmd_end_rendering(&self, command_buffer: CommandBuffer) {
         unsafe { (self.cmd_end_rendering)(command_buffer) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCullMode.html>
+    #[inline]
     pub unsafe fn cmd_set_cull_mode(
         &self,
         command_buffer: CommandBuffer,
@@ -7045,11 +7319,13 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetFrontFace.html>
+    #[inline]
     pub unsafe fn cmd_set_front_face(&self, command_buffer: CommandBuffer, front_face: FrontFace) {
         unsafe { (self.cmd_set_front_face)(command_buffer, front_face) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPrimitiveTopology.html>
+    #[inline]
     pub unsafe fn cmd_set_primitive_topology(
         &self,
         command_buffer: CommandBuffer,
@@ -7059,6 +7335,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewportWithCount.html>
+    #[inline]
     pub unsafe fn cmd_set_viewport_with_count(
         &self,
         command_buffer: CommandBuffer,
@@ -7074,6 +7351,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetScissorWithCount.html>
+    #[inline]
     pub unsafe fn cmd_set_scissor_with_count(
         &self,
         command_buffer: CommandBuffer,
@@ -7089,6 +7367,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindVertexBuffers2.html>
+    #[inline]
     pub unsafe fn cmd_bind_vertex_buffers2(
         &self,
         command_buffer: CommandBuffer,
@@ -7112,6 +7391,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthTestEnable.html>
+    #[inline]
     pub unsafe fn cmd_set_depth_test_enable(
         &self,
         command_buffer: CommandBuffer,
@@ -7121,6 +7401,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthWriteEnable.html>
+    #[inline]
     pub unsafe fn cmd_set_depth_write_enable(
         &self,
         command_buffer: CommandBuffer,
@@ -7130,6 +7411,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthCompareOp.html>
+    #[inline]
     pub unsafe fn cmd_set_depth_compare_op(
         &self,
         command_buffer: CommandBuffer,
@@ -7139,6 +7421,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthBoundsTestEnable.html>
+    #[inline]
     pub unsafe fn cmd_set_depth_bounds_test_enable(
         &self,
         command_buffer: CommandBuffer,
@@ -7150,6 +7433,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetStencilTestEnable.html>
+    #[inline]
     pub unsafe fn cmd_set_stencil_test_enable(
         &self,
         command_buffer: CommandBuffer,
@@ -7159,6 +7443,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetStencilOp.html>
+    #[inline]
     pub unsafe fn cmd_set_stencil_op(
         &self,
         command_buffer: CommandBuffer,
@@ -7181,6 +7466,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRasterizerDiscardEnable.html>
+    #[inline]
     pub unsafe fn cmd_set_rasterizer_discard_enable(
         &self,
         command_buffer: CommandBuffer,
@@ -7195,6 +7481,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthBiasEnable.html>
+    #[inline]
     pub unsafe fn cmd_set_depth_bias_enable(
         &self,
         command_buffer: CommandBuffer,
@@ -7204,6 +7491,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPrimitiveRestartEnable.html>
+    #[inline]
     pub unsafe fn cmd_set_primitive_restart_enable(
         &self,
         command_buffer: CommandBuffer,

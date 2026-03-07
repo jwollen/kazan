@@ -65,6 +65,7 @@ pub(super) mod defs {
     }
 
     impl<'a> PhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR<'a> {
+        #[inline]
         pub fn shader_subgroup_uniform_control_flow(
             mut self,
             shader_subgroup_uniform_control_flow: bool,

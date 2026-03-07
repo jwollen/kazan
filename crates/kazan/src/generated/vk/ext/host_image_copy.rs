@@ -82,6 +82,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMemoryToImageEXT.html>
+    #[inline]
     pub unsafe fn copy_memory_to_image_ext(
         &self,
         device: Device,
@@ -98,6 +99,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyImageToMemoryEXT.html>
+    #[inline]
     pub unsafe fn copy_image_to_memory_ext(
         &self,
         device: Device,
@@ -114,6 +116,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyImageToImageEXT.html>
+    #[inline]
     pub unsafe fn copy_image_to_image_ext(
         &self,
         device: Device,
@@ -130,6 +133,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkTransitionImageLayoutEXT.html>
+    #[inline]
     pub unsafe fn transition_image_layout_ext(
         &self,
         device: Device,
@@ -150,6 +154,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageSubresourceLayout2EXT.html>
+    #[inline]
     pub unsafe fn get_image_subresource_layout2_ext(
         &self,
         device: Device,

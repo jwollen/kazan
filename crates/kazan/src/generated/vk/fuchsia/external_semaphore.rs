@@ -60,21 +60,25 @@ pub(super) mod defs {
     }
 
     impl<'a> ImportSemaphoreZirconHandleInfoFUCHSIA<'a> {
+        #[inline]
         pub fn semaphore(mut self, semaphore: Semaphore) -> Self {
             self.semaphore = semaphore;
             self
         }
 
+        #[inline]
         pub fn flags(mut self, flags: SemaphoreImportFlags) -> Self {
             self.flags = flags;
             self
         }
 
+        #[inline]
         pub fn handle_type(mut self, handle_type: ExternalSemaphoreHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
 
+        #[inline]
         pub fn zircon_handle(mut self, zircon_handle: zx_handle_t) -> Self {
             self.zircon_handle = zircon_handle;
             self
@@ -123,11 +127,13 @@ pub(super) mod defs {
     }
 
     impl<'a> SemaphoreGetZirconHandleInfoFUCHSIA<'a> {
+        #[inline]
         pub fn semaphore(mut self, semaphore: Semaphore) -> Self {
             self.semaphore = semaphore;
             self
         }
 
+        #[inline]
         pub fn handle_type(mut self, handle_type: ExternalSemaphoreHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
@@ -172,6 +178,7 @@ impl DeviceFn {
 
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportSemaphoreZirconHandleFUCHSIA.html>
+    #[inline]
     pub unsafe fn import_semaphore_zircon_handle_fuchsia(
         &self,
         device: Device,
@@ -191,6 +198,7 @@ impl DeviceFn {
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSemaphoreZirconHandleFUCHSIA.html>
+    #[inline]
     pub unsafe fn get_semaphore_zircon_handle_fuchsia(
         &self,
         device: Device,
