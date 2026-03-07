@@ -34,6 +34,11 @@ fn main() {
     generate(&analysis);
 }
 
+struct ModuleEntry {
+    name: String,
+    provisional: bool,
+}
+
 fn generate(analysis: &analysis::Analysis) {
     let registry = analysis.registry();
 
@@ -41,153 +46,14 @@ fn generate(analysis: &analysis::Analysis) {
 
     let _ = fs::remove_dir_all(output_dir);
 
-    struct ModuleEntry {
-        name: String,
-        provisional: bool,
-    }
-
     let mut vendor_modules: BTreeMap<Option<String>, Vec<ModuleEntry>> = BTreeMap::new();
 
     // Build ownership map: for each item, determine which module should define it.
     // Prefer the module whose vendor tag matches the item's vendor suffix.
     let modules: Vec<_> = Module::from_registry(registry).collect();
-    let item_owner = compute_item_owners(registry, &modules);
 
     for (module_index, module) in modules.iter().enumerate() {
-        let requires: Vec<_> = module.requires();
-
-        let required_types = requires.iter().map(|r| &r.types).flatten();
-
-        let required_commands = requires.iter().map(|r| &r.commands).flatten();
-
-        let required_api_constants =
-            requires
-                .iter()
-                .map(|r| &r.constants)
-                .flatten()
-                .filter_map(|constant| {
-                    let global_api_constant = registry
-                        .constants
-                        .iter()
-                        .find(|api_constant| api_constant.name == constant.name);
-
-                    if let Some(global_api_constant) = global_api_constant {
-                        Some(global_api_constant.clone())
-                    } else if let (Some(ty), Some(value)) = (constant.ty, constant.value) {
-                        Some(Constant {
-                            name: constant.name,
-                            ty,
-                            value,
-                        })
-                    } else {
-                        None
-                    }
-                });
-
-        let new_items = required_types
-            .map(|ty| ty.name)
-            .chain(required_commands.clone().map(|cmd| cmd.name))
-            .chain(required_api_constants.clone().map(|constant| constant.name))
-            .filter(|name| item_owner.get(name) == Some(&module_index))
-            .collect::<HashSet<_>>();
-
-        let new_commands = registry
-            .commands
-            .iter()
-            .filter(|cmd| new_items.contains(cmd.name));
-
-        let ModuleName {
-            vendor,
-            name: module_name,
-        } = module.name();
-
-        let provisional = matches!(module, Module::Extension(ext) if ext.provisional);
-        vendor_modules
-            .entry(vendor.clone())
-            .or_insert_with(Vec::new)
-            .push(ModuleEntry { name: module_name.clone(), provisional });
-
-        let vendor_path = match vendor {
-            Some(ref vendor) => format!("{}/{}", output_dir, vendor),
-            None => output_dir.to_string(),
-        };
-
-        fs::create_dir_all(&vendor_path).unwrap();
-        let mut file = File::create(format!("{}/{}.rs", &vendor_path, module_name)).unwrap();
-
-        if provisional {
-            writeln!(file, "#![cfg(feature = \"provisional\")]").unwrap();
-        }
-
-        if let Module::Extension(extension) = module {
-            writeln!(
-                file,
-                "//! <https://registry.khronos.org/vulkan/specs/latest/man/html/{}.html>",
-                extension.name
-            )
-            .unwrap();
-        }
-
-        writeln!(
-            file,
-            "#![allow(unused_imports)]
-            use core::ffi::{{c_char, c_int, c_void, CStr}};
-            use core::mem::transmute;
-            use core::ptr;
-            use crate::{{*, vk::*, vk::Result as VkResult}};
-            "
-        )
-        .unwrap();
-
-        if let Module::Extension(extension) = module {
-            writeln!(
-                file,
-                "pub const EXTENSION_NAME: &CStr = c\"{}\";\n",
-                extension.name
-            )
-            .unwrap();
-        }
-
-        writeln!(file, "pub(super) mod defs {{").unwrap();
-
-        if !new_items.is_empty() {
-            writeln!(
-                file,
-                "#![allow(non_camel_case_types, unused_imports)]
-                use core::ffi::{{c_char, c_int, c_void, CStr}};
-                use core::fmt;
-                use core::marker::PhantomData;
-                use core::ptr;
-                use crate::{{*, vk::*}};
-                "
-            )
-            .unwrap();
-
-            generate_api_constants(&mut file, analysis, &new_items, required_api_constants);
-
-            generate_basetypes(&mut file, analysis, &new_items);
-
-            generate_handles(&mut file, analysis, &new_items);
-
-            generate_type_aliases(&mut file, analysis, &new_items);
-
-            generate_structs(&mut file, analysis, &new_items);
-
-            generate_unions(&mut file, analysis, &new_items);
-
-            generate_enum_types(&mut file, analysis, &new_items);
-
-            generate_bitmask_types(&mut file, analysis, &new_items);
-
-            generate_funcpointers(&mut file, analysis, &new_items);
-
-            generate_functions(&mut file, analysis, new_commands.clone());
-        }
-        writeln!(file, "}}\n").unwrap();
-
-        if required_commands.clone().next().is_some() {
-            generate_commands(&mut file, analysis, &requires);
-        }
+        generate_module(analysis, output_dir, &mut vendor_modules, module_index, module);
     }
 
     fs::create_dir_all(output_dir).unwrap();
@@ -228,68 +94,146 @@ fn generate(analysis: &analysis::Analysis) {
         .unwrap();
 }
 
-/// For each item (type, command, constant) required by any module, determines which
-/// module should own its definition. If the item has a vendor suffix that matches
-/// a specific module's vendor tag, that module is preferred. Otherwise, the first
-/// module that requires the item wins.
-fn compute_item_owners(
-    registry: &xml::Registry,
-    modules: &[Module],
-) -> HashMap<&'static str, usize> {
-    // Collect all items required by each module, along with the module index.
-    let mut first_requirer: HashMap<&'static str, usize> = HashMap::new();
-    let mut vendor_requirer: HashMap<&'static str, usize> = HashMap::new();
+fn generate_module(analysis: &Analysis, output_dir: &str, vendor_modules: &mut BTreeMap<Option<String>, Vec<ModuleEntry>>, module_index: usize, module: &Module<'_>) {
+    let registry = analysis.registry();
 
-    for (index, module) in modules.iter().enumerate() {
-        let module_vendor = match module {
-            Module::Extension(ext) => registry.extension_vendor(ext.name),
-            Module::Version(_) => None,
-        };
+    let requires: Vec<_> = module.requires();
+    let required_types = requires.iter().map(|r| &r.types).flatten();
+    let required_commands = requires.iter().map(|r| &r.commands).flatten();
 
-        for require in module.requires() {
-            let item_names = require
-                .types
-                .iter()
-                .map(|t| t.name)
-                .chain(require.commands.iter().map(|c| c.name))
-                .chain(require.constants.iter().filter_map(|c| {
-                    // Only include constants that actually resolve to a definition
-                    let exists_global = registry
-                        .constants
-                        .iter()
-                        .any(|api_constant| api_constant.name == c.name);
-                    let has_inline_def = c.ty.is_some() && c.value.is_some();
-                    if exists_global || has_inline_def {
-                        Some(c.name)
-                    } else {
-                        None
-                    }
-                }));
+    let required_api_constants =
+        requires
+            .iter()
+            .map(|r| &r.constants)
+            .flatten()
+            .filter_map(|constant| {
+                let global_api_constant = registry
+                    .constants
+                    .iter()
+                    .find(|api_constant| api_constant.name == constant.name);
 
-            for name in item_names {
-                first_requirer.entry(name).or_insert(index);
-
-                if let Some(item_vendor) = registry.vendor_suffix(name) {
-                    if module_vendor == Some(item_vendor) {
-                        vendor_requirer.entry(name).or_insert(index);
-                    }
+                if let Some(global_api_constant) = global_api_constant {
+                    Some(global_api_constant.clone())
+                } else if let (Some(ty), Some(value)) = (constant.ty, constant.value) {
+                    Some(Constant {
+                        name: constant.name,
+                        ty,
+                        value,
+                    })
+                } else {
+                    None
                 }
-            }
-        }
+            });
+
+    let new_items = required_types
+        .map(|ty| ty.name)
+        .chain(required_commands.clone().map(|cmd| cmd.name))
+        .chain(required_api_constants.clone().map(|constant| constant.name))
+        .filter(|name| analysis.item_owner(name) == Some(&module_index))
+        .collect::<HashSet<_>>();
+
+    let new_commands = registry
+        .commands
+        .iter()
+        .filter(|cmd| new_items.contains(cmd.name));
+
+    let ModuleName {
+        vendor,
+        name: module_name,
+    } = module.name();
+
+    let provisional = matches!(module, Module::Extension(ext) if ext.provisional);
+    vendor_modules
+        .entry(vendor.clone())
+        .or_insert_with(Vec::new)
+        .push(ModuleEntry { name: module_name.clone(), provisional });
+
+    let vendor_path = match vendor {
+        Some(ref vendor) => format!("{}/{}", output_dir, vendor),
+        None => output_dir.to_string(),
+    };
+
+    fs::create_dir_all(&vendor_path).unwrap();
+    let mut file = File::create(format!("{}/{}.rs", &vendor_path, module_name)).unwrap();
+
+    if provisional {
+        writeln!(file, "#![cfg(feature = \"provisional\")]").unwrap();
     }
 
-    // For each item, prefer the vendor-matched module; fall back to first requirer.
-    let mut owners = HashMap::new();
-    for (name, first) in &first_requirer {
-        let owner = vendor_requirer.get(name).unwrap_or(first);
-        owners.insert(*name, *owner);
+    if let Module::Extension(extension) = module {
+        writeln!(
+            file,
+            "//! <https://registry.khronos.org/vulkan/specs/latest/man/html/{}.html>",
+            extension.name
+        )
+        .unwrap();
     }
-    owners
+
+    writeln!(
+        file,
+        "#![allow(unused_imports)]
+            use core::ffi::{{c_char, c_int, c_void, CStr}};
+            use core::mem::transmute;
+            use core::ptr;
+            use crate::{{*, vk::*, vk::Result as VkResult}};
+            "
+    )
+    .unwrap();
+
+    if let Module::Extension(extension) = module {
+        writeln!(
+            file,
+            "pub const EXTENSION_NAME: &CStr = c\"{}\";\n",
+            extension.name
+        )
+        .unwrap();
+    }
+
+    writeln!(file, "pub(super) mod defs {{").unwrap();
+
+    if !new_items.is_empty() {
+        writeln!(
+            file,
+            "#![allow(non_camel_case_types, unused_imports)]
+                use core::ffi::{{c_char, c_int, c_void, CStr}};
+                use core::fmt;
+                use core::marker::PhantomData;
+                use core::ptr;
+                use crate::{{*, vk::*}};
+                "
+        )
+        .unwrap();
+
+        generate_api_constants(&mut file, analysis, &new_items, required_api_constants);
+
+        generate_basetypes(&mut file, analysis, &new_items);
+
+        generate_handles(&mut file, analysis, &new_items);
+
+        generate_type_aliases(&mut file, analysis, &new_items);
+
+        generate_structs(&mut file, analysis, &new_items);
+
+        generate_unions(&mut file, analysis, &new_items);
+
+        generate_enum_types(&mut file, analysis, &new_items);
+
+        generate_bitmask_types(&mut file, analysis, &new_items);
+
+        generate_funcpointers(&mut file, analysis, &new_items);
+
+        generate_functions(&mut file, analysis, new_commands.clone());
+    }
+    writeln!(file, "}}\n").unwrap();
+
+    if required_commands.clone().next().is_some() {
+        generate_commands(&mut file, analysis, &requires);
+    }
 }
 
 fn generate_api_constants<'a>(
     file: &mut impl std::io::Write,
-    analysis: &Analysis,
+    _analysis: &Analysis,
     new_items: &HashSet<&str>,
     required_api_constants: impl Iterator<Item = xml::Constant>,
 ) {

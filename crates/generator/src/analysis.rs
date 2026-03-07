@@ -1,15 +1,12 @@
 use std::{
-    collections::{BTreeMap, HashSet},
+    collections::{BTreeMap, HashMap, HashSet},
     fs,
     path::Path,
 };
 use tracing::{debug, error_span};
 
 use crate::{
-    cdecl::CType,
-    enums::ReqEnumData,
-    handle::{HandleCommandTypes, collect_handle_command_types},
-    xml,
+    cdecl::CType, enums::ReqEnumData, handle::{HandleCommandTypes, collect_handle_command_types}, module::Module, xml
 };
 
 /// Holds the analysis results for easy querying.
@@ -20,6 +17,7 @@ pub struct Analysis {
     type_infos: BTreeMap<&'static str, TypeInfo>,
     handle_command_types: HandleCommandTypes,
     req_enum_data: ReqEnumData,
+    item_owner: HashMap<&'static str, usize>,
     provisional_types: HashSet<&'static str>,
     provisional_extensions: HashSet<&'static str>,
 }
@@ -52,6 +50,7 @@ impl Analysis {
         let type_infos = compute_type_infos(&registry, &custom_types, &type_refs);
         let handle_command_types = collect_handle_command_types(&registry);
         let req_enum_data = ReqEnumData::from_registry(&registry);
+        let item_owner = compute_item_owners(&registry);
 
         let provisional_extensions: HashSet<&'static str> = registry
             .extensions
@@ -76,6 +75,7 @@ impl Analysis {
             type_infos,
             handle_command_types,
             req_enum_data,
+            item_owner,
             provisional_types,
             provisional_extensions,
         }
@@ -108,6 +108,11 @@ impl Analysis {
 
     pub fn req_enum_data(&self) -> &ReqEnumData {
         &self.req_enum_data
+    }
+
+    /// Returns the index of the module that owns the named item.
+    pub fn item_owner(&self, name: &str) -> Option<&usize> {
+        self.item_owner.get(name)
     }
 
     /// Returns true if the named C type belongs to a provisional extension.
@@ -608,4 +613,62 @@ fn custom_types() -> CustomTypes {
     ]
     .into_iter()
     .collect()
+}
+
+// For each item (type, command, constant) required by any module, determines which
+/// module should own its definition. If the item has a vendor suffix that matches
+/// a specific module's vendor tag, that module is preferred. Otherwise, the first
+/// module that requires the item wins.
+fn compute_item_owners(
+    registry: &xml::Registry,
+) -> HashMap<&'static str, usize> {
+    // Collect all items required by each module, along with the module index.
+    let mut first_requirer: HashMap<&'static str, usize> = HashMap::new();
+    let mut vendor_requirer: HashMap<&'static str, usize> = HashMap::new();
+
+    for (index, module) in Module::from_registry(registry).enumerate() {
+        let module_vendor = match module {
+            Module::Extension(ext) => registry.extension_vendor(ext.name),
+            Module::Version(_) => None,
+        };
+
+        for require in module.requires() {
+            let item_names = require
+                .types
+                .iter()
+                .map(|t| t.name)
+                .chain(require.commands.iter().map(|c| c.name))
+                .chain(require.constants.iter().filter_map(|c| {
+                    // Only include constants that actually resolve to a definition
+                    let exists_global = registry
+                        .constants
+                        .iter()
+                        .any(|api_constant| api_constant.name == c.name);
+                    let has_inline_def = c.ty.is_some() && c.value.is_some();
+                    if exists_global || has_inline_def {
+                        Some(c.name)
+                    } else {
+                        None
+                    }
+                }));
+
+            for name in item_names {
+                first_requirer.entry(name).or_insert(index);
+
+                if let Some(item_vendor) = registry.vendor_suffix(name) {
+                    if module_vendor == Some(item_vendor) {
+                        vendor_requirer.entry(name).or_insert(index);
+                    }
+                }
+            }
+        }
+    }
+
+    // For each item, prefer the vendor-matched module; fall back to first requirer.
+    let mut owners = HashMap::new();
+    for (name, first) in &first_requirer {
+        let owner = vendor_requirer.get(name).unwrap_or(first);
+        owners.insert(*name, *owner);
+    }
+    owners
 }
